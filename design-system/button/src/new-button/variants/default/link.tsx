@@ -97,6 +97,9 @@ const styles = cssMap({
 	buttonIconAfter: {
 		paddingInlineEnd: token('space.100'),
 	},
+	fullWidth: {
+		width: '100%',
+	},
 });
 
 const defaultStyles = cssMap({
@@ -426,6 +429,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 		onPointerUpCapture,
 		onTouchEndCapture,
 		onTouchStartCapture,
+		shouldFitContainer,
 		spacing,
 		testId,
 		...unsafeRest
@@ -498,6 +502,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 				spacing === 'compact' && styles.spacingCompact,
 				hasIconBefore && styles.buttonIconBefore,
 				hasIconAfter && styles.buttonIconAfter,
+				shouldFitContainer && styles.fullWidth,
 			)}
 		>
 			{iconBefore && (

@@ -6,15 +6,20 @@ import { getConfig, getPostInteractionRate } from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
 import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
+import { withProfiling } from '../self-measurements';
 
-function getParentStack(labelStack: LabelStack | null | undefined) {
+const getParentStack = withProfiling(function getParentStack(
+	labelStack: LabelStack | null | undefined,
+) {
 	if (!labelStack || labelStack.length <= 1) {
 		return null;
 	}
 	return labelStack.slice(0, labelStack.length - 1);
-}
+});
 
-function getSegmentId(labelStack: LabelStack | null | undefined) {
+const getSegmentId = withProfiling(function getSegmentId(
+	labelStack: LabelStack | null | undefined,
+) {
 	if (!labelStack) {
 		return null;
 	}
@@ -27,17 +32,19 @@ function getSegmentId(labelStack: LabelStack | null | undefined) {
 		return null;
 	}
 	return getSegmentId(parentStack);
-}
+});
 
-function getParentSegmentId(labelStack: LabelStack) {
+const getParentSegmentId = withProfiling(function getParentSegmentId(labelStack: LabelStack) {
 	return getSegmentId(getParentStack(labelStack));
-}
+});
 
 /**
  * Whenever a render happen, all parent segment have timing reported
  * This method tries to reduce that noise
  */
-function removeCascadingParentTimingReport(reactProfilerTimings: ReactProfilerTiming[]) {
+const removeCascadingParentTimingReport = withProfiling(function removeCascadingParentTimingReport(
+	reactProfilerTimings: ReactProfilerTiming[],
+) {
 	const timingIndex = new Map<string, ReactProfilerTiming[]>();
 	reactProfilerTimings.forEach((timing) => {
 		const segmentId = getSegmentId(timing.labelStack);
@@ -69,9 +76,9 @@ function removeCascadingParentTimingReport(reactProfilerTimings: ReactProfilerTi
 	});
 
 	return [...timingIndex.values()].flatMap((v) => v);
-}
+});
 
-function transformReactProfilerTimings(
+const transformReactProfilerTimings = withProfiling(function transformReactProfilerTimings(
 	reactProfilerTimings: ReactProfilerTiming[] | null | undefined,
 ) {
 	const filtered = removeCascadingParentTimingReport(reactProfilerTimings ?? []);
@@ -115,9 +122,9 @@ function transformReactProfilerTimings(
 	);
 
 	return [...reactProfilerTimingsMap.values()];
-}
+});
 
-export default function createPostInteractionLogPayload({
+const createPostInteractionLogPayload = withProfiling(function createPostInteractionLogPayload({
 	lastInteractionFinish,
 	reactProfilerTimings,
 	lastInteractionFinishVCResult,
@@ -242,4 +249,6 @@ export default function createPostInteractionLogPayload({
 			},
 		},
 	};
-}
+});
+
+export default createPostInteractionLogPayload;

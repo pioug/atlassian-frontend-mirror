@@ -46,6 +46,7 @@ import {
 	tryComplete,
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
+import { withProfiling } from '../self-measurements';
 import generateId from '../short-id';
 
 import scheduleOnPaint from './schedule-on-paint';
@@ -62,6 +63,7 @@ const AsyncSegmentHighlight = lazy(() =>
 
 const noopIdMap = new Map<string, string>();
 
+// KARL TODO: finish self profiling
 /** A portion of the page we apply measurement to */
 export default function UFOSegment({ name: segmentName, children, mode = 'single' }: Props) {
 	const parentContext = useContext(UFOInteractionContext) as EnhancedUFOInteractionContextType;
@@ -107,11 +109,12 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 	const interactionId = useContext(UFOInteractionIDContext);
 
 	const interactionContext = useMemo<EnhancedUFOInteractionContextType>(() => {
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		if (!fg('platform-ufo-add-segment-use-effect')) {
 			addSegment(labelStack);
 		}
 		let lastCompleteEndTime = 0;
-		function complete(endTime: number = performance.now()) {
+		const complete = withProfiling(function complete(endTime: number = performance.now()) {
 			if (interactionId.current) {
 				if (parentContext) {
 					parentContext.complete();
@@ -125,9 +128,9 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 						cancelAnimationFrame?.(tryCompleteHandle);
 					}
 
-					scheduleCallback(NormalPriority, () => {
+					const onComplete = withProfiling(function onComplete() {
 						if (capturedInteractionId === interactionId.current) {
-							const isPageVisible = document?.visibilityState === 'visible';
+							const isPageVisible = globalThis?.document?.visibilityState === 'visible';
 							const canDoRAF = typeof requestAnimationFrame !== 'undefined';
 
 							if (isPageVisible && canDoRAF) {
@@ -143,9 +146,11 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 							}
 						}
 					});
+
+					scheduleCallback(NormalPriority, onComplete);
 				}
 			}
-		}
+		});
 
 		function _internalHold(
 			this: EnhancedUFOInteractionContextType,

@@ -35,6 +35,7 @@ import {
 } from '../feature-flags-accessed';
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
+import { withProfiling } from '../self-measurements';
 import { getVCObserver } from '../vc';
 
 import { interactions } from './common/constants';
@@ -74,54 +75,64 @@ interface SegmentObserver {
 }
 const segmentObservers: SegmentObserver[] = [];
 
-export function getActiveInteraction() {
+export const getActiveInteraction = withProfiling(function getActiveInteraction() {
 	const interactionId = getInteractionId();
 	if (!interactionId.current) {
 		return;
 	}
 	return interactions.get(interactionId.current);
-}
+});
 
-function isPerformanceTracingEnabled() {
+const isPerformanceTracingEnabled = withProfiling(function isPerformanceTracingEnabled() {
 	return (
 		getConfig()?.enableAdditionalPerformanceMarks ||
 		window.__REACT_UFO_ENABLE_PERF_TRACING ||
 		process.env.NODE_ENV !== 'production'
 	);
-}
+});
 
-function labelStackToString(labelStack: LabelStack | null | undefined, name?: string) {
+const labelStackToString = withProfiling(function labelStackToString(
+	labelStack: LabelStack | null | undefined,
+	name?: string,
+) {
 	const stack = [...(labelStack ?? [])];
 	if (name) {
 		stack.push({ name });
 	}
 	return stack.map((l) => l.name)?.join('/');
-}
-function labelStackToIdString(labelStack: LabelStack | null | undefined) {
+});
+
+const labelStackToIdString = withProfiling(function labelStackToIdString(
+	labelStack: LabelStack | null | undefined,
+) {
 	return labelStack
 		?.map((l) => ('segmentId' in l ? `${l.name}:${l.segmentId}` : `${l.name}`))
 		?.join('/');
-}
-function addSegmentObserver(observer: SegmentObserver) {
+});
+
+const addSegmentObserver = withProfiling(function addSegmentObserver(observer: SegmentObserver) {
 	segmentObservers.push(observer);
 
 	for (const segmentInfo of segmentCache.values()) {
 		observer.onAdd(segmentInfo);
 	}
-}
-function removeSegmentObserver(observer: SegmentObserver) {
+});
+
+const removeSegmentObserver = withProfiling(function removeSegmentObserver(
+	observer: SegmentObserver,
+) {
 	const index = segmentObservers.findIndex((obs) => obs === observer);
 
 	if (index !== -1) {
 		segmentObservers.splice(index, 1);
 	}
-}
+});
 
-export function remove(interactionId: string) {
+export const remove = withProfiling(function remove(interactionId: string) {
 	interactions.delete(interactionId);
-}
+});
 
-export function updatePageLoadInteractionName(
+export const updatePageLoadInteractionName = withProfiling(function updatePageLoadInteractionName(
 	ufoName: string,
 	routeName: string | null | undefined = ufoName,
 ) {
@@ -131,27 +142,38 @@ export function updatePageLoadInteractionName(
 	}
 	interaction.ufoName = ufoName;
 	interaction.routeName = routeName;
-}
+});
 
-export function addMetadata(interactionId: string, data: Record<string, unknown>) {
+export const addMetadata = withProfiling(function addMetadata(
+	interactionId: string,
+	data: Record<string, unknown>,
+) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		Object.keys(data).forEach((key) => {
 			interaction.metaData[key] = data[key];
 		});
 	}
-}
+});
 
-export function addCustomData(interactionId: string, labelStack: LabelStack, data: CustomData) {
+export const addCustomData = withProfiling(function addCustomData(
+	interactionId: string,
+	labelStack: LabelStack,
+	data: CustomData,
+) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		Object.keys(data).forEach((i) => {
 			interaction.customData.push({ labelStack, data: { [i]: data[i] } });
 		});
 	}
-}
+});
 
-export function addCustomTiming(interactionId: string, labelStack: LabelStack, data: CustomTiming) {
+export const addCustomTiming = withProfiling(function addCustomTiming(
+	interactionId: string,
+	labelStack: LabelStack,
+	data: CustomTiming,
+) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		interaction.customTimings.push({ labelStack, data });
@@ -170,9 +192,9 @@ export function addCustomTiming(interactionId: string, labelStack: LabelStack, d
 			}
 		}
 	}
-}
+});
 
-export function addMark(
+export const addMark = withProfiling(function addMark(
 	interactionId: string,
 	type: MarkType,
 	name: string,
@@ -188,9 +210,9 @@ export function addMark(
 			startTime: time,
 		});
 	}
-}
+});
 
-export function addMarkToAll(
+export const addMarkToAll = withProfiling(function addMarkToAll(
 	type: MarkType,
 	name: string,
 	labelStack: LabelStack | null,
@@ -204,9 +226,9 @@ export function addMarkToAll(
 			startTime: time,
 		});
 	}
-}
+});
 
-export function addSpan(
+export const addSpan = withProfiling(function addSpan(
 	interactionId: string,
 	type: SpanType,
 	name: string,
@@ -230,9 +252,9 @@ export function addSpan(
 			}
 		}
 	}
-}
+});
 
-export function addSpanToAll(
+export const addSpanToAll = withProfiling(function addSpanToAll(
 	type: SpanType,
 	name: string,
 	labelStack: LabelStack | null,
@@ -254,14 +276,19 @@ export function addSpanToAll(
 			// do nothing
 		}
 	}
-}
+});
 
-export function addPreload(moduleId: string, timestamp: number) {
+export const addPreload = withProfiling(function addPreload(moduleId: string, timestamp: number) {
 	addMarkToAll('bundle_preload', moduleId, null, timestamp);
-}
-export function addLoad(identifier: string, start: number, end: number) {
+});
+
+export const addLoad = withProfiling(function addLoad(
+	identifier: string,
+	start: number,
+	end: number,
+) {
 	addSpanToAll('bundle_load', identifier, null, start, end - start);
-}
+});
 
 const moduleLoadingRequests: Record<
 	string,
@@ -271,7 +298,7 @@ const moduleLoadingRequests: Record<
 	}
 > = {};
 
-export function extractModuleName(input: string): string {
+export const extractModuleName = withProfiling(function extractModuleName(input: string): string {
 	let result = input ?? '';
 
 	result = result.replace(/^\.\/src\/packages\//, '');
@@ -279,23 +306,28 @@ export function extractModuleName(input: string): string {
 	result = result.replace(/(\/src)?\/(index|main)\.(tsx|ts|js|jsx)$/, '');
 
 	return result;
-}
+});
 
-function addHoldCriterion(id: string, labelStack: LabelStack, name: string, startTime: number) {
+const addHoldCriterion = withProfiling(function addHoldCriterion(
+	id: string,
+	labelStack: LabelStack,
+	name: string,
+	startTime: number,
+) {
 	if (!window.__CRITERION__?.addUFOHold) {
 		return;
 	}
 	window.__CRITERION__.addUFOHold(id, labelStackToString(labelStack), name, startTime);
-}
+});
 
-function removeHoldCriterion(id: string) {
+const removeHoldCriterion = withProfiling(function removeHoldCriterion(id: string) {
 	if (!window.__CRITERION__?.removeUFOHold) {
 		return;
 	}
 	window.__CRITERION__.removeUFOHold(id);
-}
+});
 
-export function addHold(
+export const addHold = withProfiling(function addHold(
 	interactionId: string,
 	labelStack: LabelStack,
 	name: string,
@@ -345,9 +377,9 @@ export function addHold(
 		};
 	}
 	return () => {};
-}
+});
 
-export function addHoldByID(
+export const addHoldByID = withProfiling(function addHoldByID(
 	interactionId: string,
 	labelStack: LabelStack,
 	name: string,
@@ -361,9 +393,12 @@ export function addHoldByID(
 		addHoldCriterion(id, labelStack, name, start);
 	}
 	return () => {};
-}
+});
 
-export function removeHoldByID(interactionId: string, id: string) {
+export const removeHoldByID = withProfiling(function removeHoldByID(
+	interactionId: string,
+	id: string,
+) {
 	const interaction = interactions.get(interactionId);
 
 	if (interaction != null) {
@@ -376,21 +411,23 @@ export function removeHoldByID(interactionId: string, id: string) {
 			removeHoldCriterion(id);
 		}
 	}
-}
+});
 
-export function getCurrentInteractionType(interactionId: string) {
+export const getCurrentInteractionType = withProfiling(function getCurrentInteractionType(
+	interactionId: string,
+) {
 	const interaction = interactions.get(interactionId);
 	if (interaction) {
 		return interaction.type;
 	}
 	return null;
-}
+});
 
 export const ModuleLoadingProfiler = {
-	onPreload(moduleId: string, _priority?: number) {
+	onPreload: withProfiling(function onPreload(moduleId: string, _priority?: number) {
 		addPreload(extractModuleName(moduleId), performance.now());
-	},
-	onLoadStart(info: LoadProfilerEventInfo): void {
+	}),
+	onLoadStart: withProfiling(function onLoadStart(info: LoadProfilerEventInfo): void {
 		const timeoutId = setTimeout(() => {
 			delete moduleLoadingRequests[info.identifier];
 		}, 30000);
@@ -399,30 +436,35 @@ export const ModuleLoadingProfiler = {
 			timeoutId,
 		};
 		moduleLoadingRequests[info.identifier] = request;
-	},
-	onLoadComplete(info: LoadProfilerEventInfo): void {
+	}),
+	onLoadComplete: withProfiling(function onLoadComplete(info: LoadProfilerEventInfo): void {
 		const request = moduleLoadingRequests[info.identifier];
 		if (request) {
 			clearTimeout(request.timeoutId);
 			delete moduleLoadingRequests[info.identifier];
 			addLoad(extractModuleName(info.identifier), request.start, performance.now());
 		}
-	},
-	placeholderFallBackMounted(id: string, moduleId: string): void {
+	}),
+	placeholderFallBackMounted: withProfiling(function placeholderFallBackMounted(
+		id: string,
+		moduleId: string,
+	): void {
 		const interactionId = getInteractionId();
 		const currentInteractionId = interactionId.current;
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addHoldByID(currentInteractionId!, [], moduleId, id);
-	},
-	placeholderFallBackUnmounted(id: string): void {
+	}),
+	placeholderFallBackUnmounted: withProfiling(function placeholderFallBackUnmounted(
+		id: string,
+	): void {
 		const interactionId = getInteractionId();
 		const currentInteractionId = interactionId.current;
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		removeHoldByID(currentInteractionId!, id);
-	},
+	}),
 };
 
-export function addError(
+export const addError = withProfiling(function addError(
 	interactionId: string,
 	name: string,
 	labelStack: LabelStack | null,
@@ -442,9 +484,9 @@ export function addError(
 			forcedError,
 		});
 	}
-}
+});
 
-export function addErrorToAll(
+export const addErrorToAll = withProfiling(function addErrorToAll(
 	name: string,
 	labelStack: LabelStack | null,
 	errorType: string,
@@ -460,9 +502,9 @@ export function addErrorToAll(
 			errorStack,
 		});
 	});
-}
+});
 
-export const addProfilerTimings = (
+export const addProfilerTimings = withProfiling(function addProfilerTimings(
 	interactionId: string,
 	labelStack: LabelStack,
 	type: 'mount' | 'update' | 'nested-update',
@@ -470,7 +512,7 @@ export const addProfilerTimings = (
 	baseDuration: number,
 	startTime: number,
 	commitTime: number,
-) => {
+) {
 	if (isPerformanceTracingEnabled()) {
 		try {
 			// for Firefox 102 and older
@@ -502,25 +544,27 @@ export const addProfilerTimings = (
 			commitTime,
 		);
 	}
-};
+});
 
-const pushToQueue = (id: string, data: InteractionMetrics) => {
+const pushToQueue = withProfiling(function pushToQueue(id: string, data: InteractionMetrics) {
 	interactionQueue.push({ id, data });
-};
+});
 
 let handleInteraction = pushToQueue;
 
-function callCleanUpCallbacks(interaction: InteractionMetrics) {
+const callCleanUpCallbacks = withProfiling(function callCleanUpCallbacks(
+	interaction: InteractionMetrics,
+) {
 	interaction.cleanupCallbacks.reverse().forEach((cleanUpCallback) => {
 		cleanUpCallback();
 	});
-}
+});
 
-const finishInteraction = (
+const finishInteraction = withProfiling(function finishInteraction(
 	id: string,
 	data: InteractionMetrics,
 	endTime: number = performance.now(),
-) => {
+) {
 	data.end = endTime;
 	try {
 		// for Firefox 102 and older
@@ -593,9 +637,11 @@ const finishInteraction = (
 	} catch (error) {
 		// do nothing
 	}
-};
+});
 
-export const sinkInteractionHandler = (sinkFn: (id: string, data: InteractionMetrics) => void) => {
+export const sinkInteractionHandler = withProfiling(function sinkInteractionHandler(
+	sinkFn: (id: string, data: InteractionMetrics) => void,
+) {
 	if (handleInteraction === pushToQueue) {
 		handleInteraction = sinkFn;
 		interactionQueue.forEach((interaction) => {
@@ -603,18 +649,21 @@ export const sinkInteractionHandler = (sinkFn: (id: string, data: InteractionMet
 		});
 		interactionQueue.length = 0;
 	}
-};
+});
 
-export const sinkPostInteractionLogHandler = (
+export const sinkPostInteractionLogHandler = withProfiling(function sinkPostInteractionLogHandler(
 	sinkFn: (output: PostInteractionLogOutput) => void | Promise<void>,
-) => {
+) {
 	postInteractionLog.sinkHandler(sinkFn);
-};
+});
 
 // a flag to prevent multiple submitting
 let activeSubmitted = false;
 
-export function tryComplete(interactionId: string, endTime?: number) {
+export const tryComplete = withProfiling(function tryComplete(
+	interactionId: string,
+	endTime?: number,
+) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
@@ -658,15 +707,20 @@ export function tryComplete(interactionId: string, endTime?: number) {
 			}
 		}
 	}
-}
+});
 
-function callCancelCallbacks(interaction: InteractionMetrics) {
+const callCancelCallbacks = withProfiling(function callCancelCallbacks(
+	interaction: InteractionMetrics,
+) {
 	interaction.cancelCallbacks.reverse().forEach((cancelCallback) => {
 		cancelCallback();
 	});
-}
+});
 
-export function abort(interactionId: string, abortReason: AbortReasonType) {
+export const abort = withProfiling(function abort(
+	interactionId: string,
+	abortReason: AbortReasonType,
+) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		callCancelCallbacks(interaction);
@@ -677,9 +731,12 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 			remove(interactionId);
 		}
 	}
-}
+});
 
-export function abortByNewInteraction(interactionId: string, interactionName: string) {
+export const abortByNewInteraction = withProfiling(function abortByNewInteraction(
+	interactionId: string,
+	interactionName: string,
+) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
 		callCancelCallbacks(interaction);
@@ -691,9 +748,12 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			remove(interactionId);
 		}
 	}
-}
+});
 
-export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?: string) {
+export const abortAll = withProfiling(function abortAll(
+	abortReason: AbortReasonType,
+	abortedByInteractionName?: string,
+) {
 	interactions.forEach((interaction, interactionId) => {
 		const noMoreHolds = interaction.holdActive.size === 0;
 		if (!noMoreHolds) {
@@ -710,15 +770,18 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			remove(interactionId);
 		}
 	});
-}
+});
 
-export function addOnCancelCallback(id: string, cancelCallback: () => void) {
+export const addOnCancelCallback = withProfiling(function addOnCancelCallback(
+	id: string,
+	cancelCallback: () => void,
+) {
 	const interaction = interactions.get(id);
 
 	interaction?.cancelCallbacks.push(cancelCallback);
-}
+});
 
-export function addNewInteraction(
+export const addNewInteraction = withProfiling(function addNewInteraction(
 	interactionId: string,
 	ufoName: string,
 	type: InteractionType,
@@ -829,9 +892,9 @@ export function addNewInteraction(
 			experimentalVC.start({ startTime });
 		}
 	}
-}
+});
 
-export function addBrowserMetricEvent(event: BM3Event) {
+export const addBrowserMetricEvent = withProfiling(function addBrowserMetricEvent(event: BM3Event) {
 	const interaction = getActiveInteraction();
 	if (interaction) {
 		interaction.legacyMetrics = interaction.legacyMetrics || [];
@@ -845,9 +908,9 @@ export function addBrowserMetricEvent(event: BM3Event) {
 			removeHoldByID(interaction.id, interaction.ufoName);
 		}
 	}
-}
+});
 
-export function addApdexToAll(apdex: ApdexType) {
+export const addApdexToAll = withProfiling(function addApdexToAll(apdex: ApdexType) {
 	interactions.forEach((interaction, key) => {
 		interaction.apdex.push(apdex);
 		try {
@@ -864,9 +927,9 @@ export function addApdexToAll(apdex: ApdexType) {
 			removeHoldByID(key, interaction.ufoName);
 		}
 	});
-}
+});
 
-export function addApdex(
+export const addApdex = withProfiling(function addApdex(
 	interactionId: string,
 	apdexInfo: {
 		key: string;
@@ -892,9 +955,9 @@ export function addApdex(
 			removeHoldByID(interactionId, interaction.ufoName);
 		}
 	}
-}
+});
 
-export function addRequestInfo(
+export const addRequestInfo = withProfiling(function addRequestInfo(
 	interactionId: string,
 	labelStack: LabelStack,
 	requestInfo: RequestInfo,
@@ -906,13 +969,13 @@ export function addRequestInfo(
 			...requestInfo,
 		});
 	}
-}
+});
 
-function isSegmentLabel(obj: any): obj is SegmentLabel {
+const isSegmentLabel = withProfiling(function isSegmentLabel(obj: any): obj is SegmentLabel {
 	return obj && typeof obj.name === 'string' && typeof obj.segmentId === 'string';
-}
+});
 
-function getSegmentCacheKey(labelStack: LabelStack) {
+const getSegmentCacheKey = withProfiling(function getSegmentCacheKey(labelStack: LabelStack) {
 	return labelStack
 		.map((l) => {
 			if (isSegmentLabel(l)) {
@@ -921,9 +984,9 @@ function getSegmentCacheKey(labelStack: LabelStack) {
 			return l.name;
 		})
 		.join('|');
-}
+});
 
-export function addSegment(labelStack: LabelStack) {
+export const addSegment = withProfiling(function addSegment(labelStack: LabelStack) {
 	const key = getSegmentCacheKey(labelStack);
 	const existingSegment = segmentCache.get(key);
 	if (!existingSegment) {
@@ -933,9 +996,9 @@ export function addSegment(labelStack: LabelStack) {
 			observer.onAdd(segmentInfo);
 		});
 	}
-}
+});
 
-export function removeSegment(labelStack: LabelStack) {
+export const removeSegment = withProfiling(function removeSegment(labelStack: LabelStack) {
 	const key = getSegmentCacheKey(labelStack);
 	const segmentInfo = segmentCache.get(key);
 
@@ -946,9 +1009,9 @@ export function removeSegment(labelStack: LabelStack) {
 			observer.onRemove(segmentInfo);
 		});
 	}
-}
+});
 
-export function addRedirect(
+export const addRedirect = withProfiling(function addRedirect(
 	interactionId: string,
 	fromUfoName: string,
 	nextUfoName: string,
@@ -974,7 +1037,7 @@ export function addRedirect(
 			}
 		}
 	}
-}
+});
 
 declare global {
 	interface Window {
@@ -994,7 +1057,7 @@ export const interactionSpans: Span[] = [];
 
 const defaultLabelStack = [{ name: 'custom' }];
 
-export function addCustomSpans(
+export const addCustomSpans = withProfiling(function addCustomSpans(
 	name: string,
 	start: number,
 	end: number = performance.now(),
@@ -1011,4 +1074,4 @@ export function addCustomSpans(
 	};
 
 	interactionSpans.push(customSpan);
-}
+});

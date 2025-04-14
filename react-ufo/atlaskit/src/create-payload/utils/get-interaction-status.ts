@@ -1,4 +1,5 @@
 import type { InteractionMetrics } from '../../common';
+import { withProfiling } from '../../self-measurements';
 
 /**
  * Determines the interaction status based on abort reason and BM3 TTI presence.
@@ -22,11 +23,15 @@ import type { InteractionMetrics } from '../../common';
  * const result = getInteractionStatus(interaction);
  * // Returns: { originalInteractionStatus: 'SUCCEEDED', overrideStatus: 'SUCCEEDED' }
  */
-export default function getInteractionStatus(interaction: InteractionMetrics) {
+const getInteractionStatus = withProfiling(function getInteractionStatus(
+	interaction: InteractionMetrics,
+) {
 	const originalInteractionStatus = interaction.abortReason ? 'ABORTED' : 'SUCCEEDED';
 
 	const hasBm3TTI = interaction.apdex.length > 0;
 	const overrideStatus = hasBm3TTI ? 'SUCCEEDED' : originalInteractionStatus;
 
 	return { originalInteractionStatus, overrideStatus } as const;
-}
+});
+
+export default getInteractionStatus;

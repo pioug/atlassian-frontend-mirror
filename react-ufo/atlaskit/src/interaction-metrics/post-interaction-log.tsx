@@ -6,6 +6,7 @@ import {
 import type { VCResult } from '../common/vc/types';
 import { getConfig } from '../config';
 import type { LabelStack } from '../interaction-context';
+import { withProfiling } from '../self-measurements';
 import type { VCObserverOptions } from '../vc/types';
 import { VCObserver } from '../vc/vc-observer';
 
@@ -37,6 +38,20 @@ export default class PostInteractionLog {
 	} | null = null;
 
 	lastInteractionFinishVCResult?: VCResult;
+
+	constructor() {
+		this.initializeVCObserver = withProfiling(this.initializeVCObserver.bind(this));
+		this.startVCObserver = withProfiling(this.startVCObserver.bind(this));
+		this.setVCObserverSSRConfig = withProfiling(this.setVCObserverSSRConfig.bind(this));
+		this.setLastInteractionFinishVCResult = withProfiling(
+			this.setLastInteractionFinishVCResult.bind(this),
+		);
+		this.reset = withProfiling(this.reset.bind(this));
+		this.hasData = withProfiling(this.hasData.bind(this));
+		this.sendPostInteractionLog = withProfiling(this.sendPostInteractionLog.bind(this));
+		this.onInteractionComplete = withProfiling(this.onInteractionComplete.bind(this));
+		this.addProfilerTimings = withProfiling(this.addProfilerTimings.bind(this));
+	}
 
 	initializeVCObserver(options: VCObserverOptions) {
 		if (this.vcObserver === null) {

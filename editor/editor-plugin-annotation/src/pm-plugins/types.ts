@@ -4,7 +4,12 @@ import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import type { AnnotationInfo, InlineCommentAnnotationProvider, TargetType } from '../types';
+import type {
+	AnnotationInfo,
+	AnnotationProviders,
+	InlineCommentAnnotationProvider,
+	TargetType,
+} from '../types';
 
 export enum ACTIONS {
 	UPDATE_INLINE_COMMENT_STATE,
@@ -23,6 +28,7 @@ export interface InlineCommentPluginOptions {
 	provider: InlineCommentAnnotationProvider;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	featureFlagsPluginState?: FeatureFlags;
+	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
 }
 export interface InlineCommentMouseData {
 	isSelecting: boolean;
@@ -106,4 +112,6 @@ export type InlineCommentPluginState = {
 
 	// If the user is viewing a media comment from the toolbar
 	isOpeningMediaCommentFromToolbar?: boolean;
+
+	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
 };

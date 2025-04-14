@@ -2,22 +2,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { decisionList, taskItem, taskList } from '@atlaskit/adf-schema';
+import { decisionList, taskList } from '@atlaskit/adf-schema';
 import { css, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
-import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { DOMOutputSpec, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { token } from '@atlaskit/tokens';
 
+import { taskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
-import { getCurrentIndentLevel, getTaskItemIndex, isInsideTask } from './pm-plugins/helpers';
+import {
+	closeRequestEditPopupAt,
+	getCurrentIndentLevel,
+	getTaskItemIndex,
+	isInsideTask,
+} from './pm-plugins/helpers';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import inputRulePlugin from './pm-plugins/input-rules';
@@ -32,109 +38,13 @@ import { createPlugin } from './pm-plugins/main';
 import { stateKey as taskPluginKey } from './pm-plugins/plugin-key';
 import type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 import type { TaskDecisionListType } from './types';
+import { RequestToEditPopup } from './ui/Task/RequestToEditPopup';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 
 const taskDecisionToolbarGroupStyles = css({
 	display: 'flex',
 });
-
-type HTMLInputElementAttrs = { type: 'checkbox'; checked?: 'true'; id: string; name: string };
-
-// @nodeSpecException:toDOM patch
-export const taskItemSpecWithFixedToDOM = () => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return taskItem;
-	}
-
-	return {
-		...taskItem,
-		toDOM: (node: PMNode): DOMOutputSpec => {
-			const checked = node.attrs.state === 'DONE';
-			const inputAttrs: HTMLInputElementAttrs = {
-				name: node.attrs.localId,
-				id: node.attrs.localId,
-				type: 'checkbox',
-			};
-			if (checked) {
-				inputAttrs.checked = 'true';
-			}
-
-			const dataAttrs = {
-				'data-task-local-id': node.attrs.localId,
-				'data-task-state': node.attrs.state,
-			};
-
-			return [
-				'div',
-				{
-					class: TaskDecisionSharedCssClassName.TASK_CONTAINER,
-					...dataAttrs,
-					style: convertToInlineCss({
-						listStyleType: 'none',
-						lineHeight: '24px',
-						minWidth: '48px',
-						position: 'relative',
-					}),
-				},
-				[
-					'div',
-					{
-						style: convertToInlineCss({
-							display: 'flex',
-						}),
-					},
-					[
-						'span',
-						{
-							contenteditable: 'false',
-							style: convertToInlineCss({
-								width: '24px',
-								height: '24px',
-								lineHeight: '24px',
-								display: 'grid',
-								placeContent: 'center center',
-							}),
-						},
-						[
-							'input',
-							{
-								...inputAttrs,
-								'data-input-type': 'lazy-task-item',
-								style: convertToInlineCss({
-									width: '13px',
-									height: '13px',
-									margin: '1px 0 0 0',
-									padding: 0,
-									accentColor: token('color.background.selected.bold'),
-								}),
-							},
-						],
-					],
-					[
-						'div',
-						{
-							'data-component': 'content',
-						},
-						[
-							'div',
-							{
-								class: TaskDecisionSharedCssClassName.TASK_ITEM,
-								style: convertToInlineCss({
-									display: 'block',
-									fontSize: '16px',
-									fontFamily: token('font.body'),
-									color: token('color.text'),
-								}),
-							},
-							0,
-						],
-					],
-				],
-			];
-		},
-	};
-};
 
 const addItem =
 	(insert: (node: PMNode) => Transaction, listType: TaskDecisionListType, schema: Schema) =>
@@ -149,6 +59,64 @@ const addItem =
 			),
 		);
 	};
+
+function ContentComponent({
+	editorView,
+	dispatchAnalyticsEvent,
+	popupsMountPoint,
+	popupsBoundariesElement,
+	popupsScrollableElement,
+	dependencyApi,
+}: Pick<
+	UiComponentFactoryParams,
+	| 'editorView'
+	| 'dispatchAnalyticsEvent'
+	| 'popupsMountPoint'
+	| 'popupsBoundariesElement'
+	| 'popupsScrollableElement'
+> & {
+	dependencyApi?: ExtractInjectionAPI<typeof tasksAndDecisionsPlugin>;
+}): JSX.Element | null {
+	const domAtPos = editorView.domAtPos.bind(editorView);
+	const openRequestToEditPopupAt = useSharedPluginStateSelector(
+		dependencyApi,
+		'taskDecision.openRequestToEditPopupAt',
+	);
+
+	const hasEditPermission = useSharedPluginStateSelector(
+		dependencyApi,
+		'taskDecision.hasEditPermission',
+	);
+
+	if (editorExperiment('platform_editor_vanilla_dom', false, { exposure: true })) {
+		return null;
+	}
+
+	if (hasEditPermission || !openRequestToEditPopupAt) {
+		return null;
+	}
+
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
+	const element = findDomRefAtPos(openRequestToEditPopupAt, domAtPos) as HTMLElement;
+
+	const handleOnClose = () => {
+		closeRequestEditPopupAt(editorView);
+		editorView.focus();
+	};
+
+	return (
+		<RequestToEditPopup
+			key={openRequestToEditPopupAt}
+			api={dependencyApi}
+			editorView={editorView}
+			mountTo={popupsMountPoint}
+			boundariesElement={popupsBoundariesElement}
+			scrollableElement={popupsScrollableElement}
+			element={element}
+			onClose={handleOnClose}
+		/>
+	);
+}
 
 export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 	config: {
@@ -184,7 +152,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					name: 'taskList',
 					node: taskList,
 				},
-				{ name: 'taskItem', node: taskItemSpecWithFixedToDOM() },
+				{ name: 'taskItem', node: taskItemNodeSpec() },
 			];
 		},
 
@@ -209,6 +177,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 				requestToEditContent: pluginState?.requestToEditContent,
 				hasRequestedEditPermission: pluginState?.hasRequestedEditPermission,
 				taskDecisionProvider: pluginState?.taskDecisionProvider,
+				openRequestToEditPopupAt: pluginState?.openRequestToEditPopupAt,
 			};
 		},
 
@@ -289,6 +258,25 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 						editorAPI={api}
 					/>
 				</div>
+			);
+		},
+
+		contentComponent({
+			editorView,
+			dispatchAnalyticsEvent,
+			popupsMountPoint,
+			popupsBoundariesElement,
+			popupsScrollableElement,
+		}) {
+			return (
+				<ContentComponent
+					dependencyApi={api}
+					editorView={editorView}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					popupsMountPoint={popupsMountPoint}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsScrollableElement={popupsScrollableElement}
+				/>
 			);
 		},
 

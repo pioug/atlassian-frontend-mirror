@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 23.0.4
+
+### Patch Changes
+
+- [#139619](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139619)
+  [`fdd33e36655ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdd33e36655ab) -
+  Fixed a regression where Link Buttons with `shouldFitContainer` were not expanding to fill the
+  full width of their container.
+
 ## 23.0.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.5.1
+
+### Patch Changes
+
+- [#140758](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140758)
+  [`02525232cc778`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02525232cc778) -
+  [ux] ED-27140 suppress toolbars when inline commenting
+- Updated dependencies
+
 ## 2.5.0
 
 ### Minor Changes

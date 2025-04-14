@@ -7,8 +7,9 @@ import { getDoNotAbortActivePressInteraction, getInteractionRate } from '../conf
 import { DefaultInteractionID } from '../interaction-id-context';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
+import { withProfiling } from '../self-measurements';
 
-function mapToInteractionType(eventType: string) {
+const mapToInteractionType = withProfiling(function mapToInteractionType(eventType: string) {
 	if (eventType === 'click' || eventType === 'dblclick' || eventType === 'mousedown') {
 		return 'press';
 	}
@@ -16,9 +17,12 @@ function mapToInteractionType(eventType: string) {
 		return 'hover';
 	}
 	return undefined;
-}
+});
 
-export default function traceUFOInteraction(name: string, event: UIEvent): void {
+const traceUFOInteraction = withProfiling(function traceUFOInteraction(
+	name: string,
+	event: UIEvent,
+): void {
 	if (!event || !event.isTrusted) {
 		return;
 	}
@@ -44,4 +48,6 @@ export default function traceUFOInteraction(name: string, event: UIEvent): void 
 		DefaultInteractionID.current = newId;
 		addNewInteraction(newId, name, 'press', startTimestamp, rate, [], UFORouteName.current);
 	}
-}
+});
+
+export default traceUFOInteraction;

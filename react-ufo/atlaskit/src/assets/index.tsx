@@ -1,5 +1,6 @@
 import type { AssetsConfig, AssetsData, AssetsReporter } from '../common';
 import type { ResourceEntry } from '../resource-timing/common/types';
+import { withProfiling } from '../self-measurements';
 
 import {
 	calculateTransferType,
@@ -19,6 +20,10 @@ export class CHRSummary {
 
 	sizeTotal = 0;
 
+	constructor() {
+		this.add = withProfiling(this.add.bind(this));
+	}
+
 	add(asset: ResourceEntry) {
 		const encodedSize = asset.encodedSize || 0;
 		const type = calculateTransferType(
@@ -36,7 +41,7 @@ export class CHRSummary {
 		this.sizeTotal += encodedSize;
 	}
 
-	static makePayload(summary: CHRSummary): AssetsReporter {
+	static makePayload = withProfiling(function makePayload(summary: CHRSummary): AssetsReporter {
 		const { size, bundlesCount, sizeTotal } = summary;
 		const cachedSize = size[MEMORY_KEY] + size[DISK_KEY];
 		const sizeRatio = round(cachedSize / summary.sizeTotal);
@@ -45,7 +50,7 @@ export class CHRSummary {
 			chr: sizeRatio,
 			count: bundlesCount,
 		};
-	}
+	});
 }
 
 export class CHRReporter {
@@ -53,6 +58,10 @@ export class CHRReporter {
 	allAtlassian = new CHRSummary();
 	preloaded = new CHRSummary();
 	defaultAllowedTypes = ['js'];
+
+	constructor() {
+		this.get = withProfiling(this.get.bind(this));
+	}
 
 	get(
 		resourceTimings: ResourceEntry[] | null,

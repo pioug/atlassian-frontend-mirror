@@ -223,6 +223,22 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
 			return {
 				update(view: EditorView, _prevState: EditorState) {
+					if (fg('confluence_comments_select_comment_experience')) {
+						const { selectedAnnotations } = getPluginState(view.state) || {};
+						const { selectedAnnotations: prevSelectedAnnotations } =
+							getPluginState(_prevState) || {};
+
+						// If the new state has a selected annotation, and it's different from the previous one
+						// then we mark the select annotation experience as complete
+						if (
+							selectedAnnotations &&
+							selectedAnnotations.length !== 0 &&
+							selectedAnnotations[0].id !== prevSelectedAnnotations?.[0]?.id
+						) {
+							options.selectCommentExperience?.selectAnnotation.complete(selectedAnnotations[0].id);
+						}
+					}
+
 					const { dirtyAnnotations } = getPluginState(view.state) || {};
 					if (!dirtyAnnotations) {
 						return;

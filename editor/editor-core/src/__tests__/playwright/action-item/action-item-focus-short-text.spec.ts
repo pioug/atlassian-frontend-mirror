@@ -5,92 +5,97 @@ import { doc, taskItem, taskList } from '@atlaskit/editor-test-helpers/doc-build
 
 import { simpleActionListWithShortText } from './__fixtures__/base-adfs';
 
-test.describe('when pressing arrow key to focus checkbox at the simple action list with short text', () => {
-	test.use({
-		editorProps: {
-			appearance: 'full-page',
-		},
-		adf: simpleActionListWithShortText,
-		editorMountOptions: {
-			withTitleFocusHandler: true,
-		},
-	});
+[true, false].forEach((useVanillaDomExperiment) => {
+	test.describe(`when pressing arrow key to focus checkbox at the simple action list with short text, (${useVanillaDomExperiment ? 'with' : 'without'} Vanilla DOM experiment)`, () => {
+		test.use({
+			editorProps: {
+				appearance: 'full-page',
+			},
+			adf: simpleActionListWithShortText,
+			editorMountOptions: {
+				withTitleFocusHandler: true,
+			},
+			editorExperiments: {
+				platform_editor_vanilla_dom: useVanillaDomExperiment,
+			},
+		});
 
-	test('should check second input when press combine ArrowLeft,ArrowRight and pressing Space', async ({
-		editor,
-	}) => {
-		const nodes = EditorNodeContainerModel.from(editor);
-		const actionList = EditorActionListModel.from(nodes.actionList);
-		const actionItem = await actionList.actionItem(1);
+		test('should check second input when press combine ArrowLeft,ArrowRight and pressing Space', async ({
+			editor,
+		}) => {
+			const nodes = EditorNodeContainerModel.from(editor);
+			const actionList = EditorActionListModel.from(nodes.actionList);
+			const actionItem = await actionList.actionItem(1);
 
-		await editor.keyboard.press('ArrowLeft');
-		await editor.keyboard.press('ArrowRight');
-		await editor.keyboard.press('ArrowRight');
-		await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowLeft');
+			await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowRight');
 
-		await actionItem.toggleState();
+			await actionItem.toggleState();
 
-		await expect(editor).toMatchDocument(
-			doc(
-				taskList({})(
-					taskItem({ state: 'TODO' })('T1'),
-					taskItem({ state: 'DONE' })('T2'),
-					taskItem({ state: 'DONE' })('T3'),
+			await expect(editor).toMatchDocument(
+				doc(
+					taskList({})(
+						taskItem({ state: 'TODO' })('T1'),
+						taskItem({ state: 'DONE' })('T2'),
+						taskItem({ state: 'DONE' })('T3'),
+					),
 				),
-			),
-		);
-	});
+			);
+		});
 
-	test('should check first input when press combine ArrowLeft,ArrowRight and pressing Space', async ({
-		editor,
-	}) => {
-		const nodes = EditorNodeContainerModel.from(editor);
-		const actionList = EditorActionListModel.from(nodes.actionList);
-		const actionItem = await actionList.actionItem(0);
+		test('should check first input when press combine ArrowLeft,ArrowRight and pressing Space', async ({
+			editor,
+		}) => {
+			const nodes = EditorNodeContainerModel.from(editor);
+			const actionList = EditorActionListModel.from(nodes.actionList);
+			const actionItem = await actionList.actionItem(0);
 
-		await editor.keyboard.press('ArrowLeft');
-		await editor.keyboard.press('ArrowRight');
-		await editor.keyboard.press('ArrowRight');
-		await editor.keyboard.press('ArrowRight');
-		await editor.keyboard.press('ArrowUp');
+			await editor.keyboard.press('ArrowLeft');
+			await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowUp');
 
-		await actionItem.toggleState();
+			await actionItem.toggleState();
 
-		await expect(editor).toMatchDocument(
-			doc(
-				taskList({})(
-					taskItem({ state: 'DONE' })('T1'),
-					taskItem({ state: 'TODO' })('T2'),
-					taskItem({ state: 'DONE' })('T3'),
+			await expect(editor).toMatchDocument(
+				doc(
+					taskList({})(
+						taskItem({ state: 'DONE' })('T1'),
+						taskItem({ state: 'TODO' })('T2'),
+						taskItem({ state: 'DONE' })('T3'),
+					),
 				),
-			),
-		);
-	});
+			);
+		});
 
-	test('should uncheck last input when press combine ArrowLeft,ArrowRight,ArrowDown and pressing Space', async ({
-		editor,
-	}) => {
-		const nodes = EditorNodeContainerModel.from(editor);
-		const actionList = EditorActionListModel.from(nodes.actionList);
-		const actionItem = await actionList.actionItem(2);
+		test('should uncheck last input when press combine ArrowLeft,ArrowRight,ArrowDown and pressing Space', async ({
+			editor,
+		}) => {
+			const nodes = EditorNodeContainerModel.from(editor);
+			const actionList = EditorActionListModel.from(nodes.actionList);
+			const actionItem = await actionList.actionItem(2);
 
-		await editor.keyboard.press('ArrowLeft');
-		await editor.keyboard.press('ArrowRight');
-		await editor.keyboard.press('ArrowRight');
-		await editor.keyboard.press('ArrowDown');
-		await editor.keyboard.press('ArrowDown');
-		await editor.keyboard.press('ArrowLeft');
+			await editor.keyboard.press('ArrowLeft');
+			await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowRight');
+			await editor.keyboard.press('ArrowDown');
+			await editor.keyboard.press('ArrowDown');
+			await editor.keyboard.press('ArrowLeft');
 
-		await actionItem.toggleState();
+			await actionItem.toggleState();
 
-		await expect(editor).toMatchDocument(
-			doc(
-				taskList({})(
-					taskItem({ state: 'TODO' })('T1'),
-					taskItem({ state: 'TODO' })('T2'),
-					taskItem({ state: 'TODO' })('T3'),
+			await expect(editor).toMatchDocument(
+				doc(
+					taskList({})(
+						taskItem({ state: 'TODO' })('T1'),
+						taskItem({ state: 'TODO' })('T2'),
+						taskItem({ state: 'TODO' })('T3'),
+					),
 				),
-			),
-		);
+			);
+		});
 	});
 });

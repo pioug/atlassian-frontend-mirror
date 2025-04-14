@@ -14,23 +14,6 @@ describe('isNonVisualStyleMutation', () => {
 		mockFg.mockReturnValue(true);
 	});
 
-	it('should return false when the feature flag is disabled', () => {
-		// Mock feature flag to be disabled
-		mockFg.mockReturnValue(false);
-
-		const mutation = {
-			type: 'attributes',
-			target: document.createElement('div'),
-			attributeName: 'class',
-		};
-
-		// Set data-vc-nvs attribute to true
-		(mutation.target as HTMLElement).setAttribute('data-vc-nvs', 'true');
-
-		expect(isNonVisualStyleMutation(mutation)).toBe(false);
-		expect(mockFg).toHaveBeenCalledWith('platform_ufo_non_visual_style_mutation');
-	});
-
 	it('should return false when target is not an HTMLElement', () => {
 		const mutation = {
 			type: 'attributes',

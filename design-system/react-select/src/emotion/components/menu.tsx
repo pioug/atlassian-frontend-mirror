@@ -15,6 +15,7 @@ import {
 	useState,
 } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { jsx } from '@emotion/react';
 import { autoUpdate } from '@floating-ui/dom';
 import { createPortal } from 'react-dom';

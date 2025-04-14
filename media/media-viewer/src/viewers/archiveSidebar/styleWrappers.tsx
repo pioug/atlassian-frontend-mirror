@@ -1,140 +1,36 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ReactNode, type MouseEvent, type Key } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css, keyframes } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
-import { ArchiveSideBarWidth } from './styles';
-import { DN500 } from '@atlaskit/theme/colors';
+import React, { type ReactNode, type MouseEvent, type Key } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
+import {
+	ArchiveItemViewerWrapper as CompiledArchiveItemViewerWrapper,
+	ArchiveSideBar as CompiledArchiveSideBar,
+	ArchiveSidebarFolderWrapper as CompiledArchiveSidebarFolderWrapper,
+	ArchiveDownloadButtonWrapper as CompiledArchiveDownloadButtonWrapper,
+	DisabledArchiveDownloadButtonWrapper as CompiledDisabledArchiveDownloadButtonWrapper,
+	SidebarItemWrapper as CompiledSidebarItemWrapper,
+	ArchiveSidebarFileEntryWrapper as CompiledArchiveSidebarFileEntryWrapper,
+	ArchiveLayout as CompiledArchiveLayout,
+	ArchiveViewerWrapper as CompiledArchiveViewerWrapper,
+	Separator as CompiledSeparator,
+	SidebarHeaderWrapper as CompiledSidebarHeaderWrapper,
+	SidebarHeaderIcon as CompiledSidebarHeaderIcon,
+	SidebarHeaderEntry as CompiledSidebarHeaderEntry,
+} from './styleWrappers-compiled';
+import {
+	ArchiveItemViewerWrapper as EmotionArchiveItemViewerWrapper,
+	ArchiveSideBar as EmotionArchiveSideBar,
+	ArchiveSidebarFolderWrapper as EmotionArchiveSidebarFolderWrapper,
+	ArchiveDownloadButtonWrapper as EmotionArchiveDownloadButtonWrapper,
+	DisabledArchiveDownloadButtonWrapper as EmotionDisabledArchiveDownloadButtonWrapper,
+	SidebarItemWrapper as EmotionSidebarItemWrapper,
+	ArchiveSidebarFileEntryWrapper as EmotionArchiveSidebarFileEntryWrapper,
+	ArchiveLayout as EmotionArchiveLayout,
+	ArchiveViewerWrapper as EmotionArchiveViewerWrapper,
+	Separator as EmotionSeparator,
+	SidebarHeaderWrapper as EmotionSidebarHeaderWrapper,
+	SidebarHeaderIcon as EmotionSidebarHeaderIcon,
+	SidebarHeaderEntry as EmotionSidebarHeaderEntry,
+} from './styleWrappers-emotion';
 import { TouchScrollable } from 'react-scrolllock';
-
-const archiveItemViewerWrapperStyles = css({
-	width: '100%',
-	display: 'flex',
-	justifyContent: 'center',
-});
-
-const archiveSideBarStyles = css({
-	padding: `22px ${token('space.250', '20px')} ${token(
-		'space.250',
-		'20px',
-	)} ${token('space.250', '20px')}`,
-	backgroundColor: token('elevation.surface', '#101214'),
-	position: 'absolute',
-	left: 0,
-	top: 0,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: `${ArchiveSideBarWidth}px`,
-	bottom: 0,
-	boxSizing: 'border-box',
-	overflowY: 'scroll',
-});
-
-const slideDown = keyframes({
-	'0%': {
-		opacity: 0,
-		transform: 'translateY(-100%)',
-	},
-	'100%': {
-		transform: 'translateY(0)',
-		opacity: 1,
-	},
-});
-
-const archiveDownloadButtonWrapperStyles = css({
-	padding: `${token('space.100', '8px')} 7px 5px ${token('space.100', '8px')}`,
-	border: 'none',
-	borderRadius: '3px',
-	backgroundColor: 'transparent',
-	color: token('color.icon', '#9FADBC'),
-	'&:hover': {
-		cursor: 'pointer',
-		backgroundColor: token('color.background.neutral.subtle.hovered', '#A1BDD914'),
-	},
-	'&:active': {
-		cursor: 'pointer',
-		backgroundColor: token('color.background.neutral.subtle.pressed', '#A6C5E229'),
-	},
-});
-
-const disabledArchiveDownloadButtonWrapperStyles = css({
-	padding: `${token('space.100', '8px')} 7px 5px ${token('space.100', '8px')}`,
-	border: 'none',
-	borderRadius: '3px',
-	backgroundColor: 'transparent',
-	color: token('color.icon', '#9FADBC'),
-	cursor: 'not-allowed',
-});
-
-const archiveSidebarFolderWrapperStyles = css({
-	transform: 'translateY(-100%)',
-	transition: 'all 1s',
-	opacity: 0,
-	animation: `${slideDown} 0.3s forwards`,
-});
-
-const sidebarItemWrapperStyles = css({
-	width: '85%',
-});
-
-const archiveSidebarFileEntryWrapperStyles = css({
-	paddingBottom: token('space.075', '5px'),
-	display: 'flex',
-	alignItems: 'center',
-	cursor: 'pointer',
-	transition: 'background-color 0.3s',
-});
-
-const archiveLayoutStyles = css({
-	display: 'flex',
-	width: '100%',
-	height: '100%',
-});
-
-const archiveViewerWrapperStyles = css({
-	position: 'absolute',
-	top: 0,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	left: `${ArchiveSideBarWidth}px`,
-	right: 0,
-	bottom: 0,
-	alignItems: 'center',
-	display: 'flex',
-});
-
-const separatorStyles = css({
-	borderRadius: '1px',
-	height: '2px',
-	margin: `${token('space.200', '19px')} 0`,
-	backgroundColor: token('color.border', '#A6C5E229'),
-
-	flexShrink: 0,
-});
-
-const sidebarHeaderWrapperStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	flexShrink: 0,
-});
-
-const sidebarHeaderIconStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	marginRight: token('space.100', '10px'),
-	flexShrink: 0,
-});
-
-const sidebarHeaderEntryStyles = css({
-	flex: '1 1 auto',
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 1.14286,
-	color: token('color.text', DN500),
-});
 
 type Children = {
 	children?: ReactNode;
@@ -143,87 +39,92 @@ type OnClick = {
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
 };
 
-export const ArchiveItemViewerWrapper = ({ children }: Children) => {
-	return <div css={archiveItemViewerWrapperStyles}>{children}</div>;
-};
-
-export const ArchiveSideBar = ({ children }: Children) => {
-	return (
-		<TouchScrollable>
-			<div css={archiveSideBarStyles}>{children}</div>
-		</TouchScrollable>
+export const ArchiveItemViewerWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledArchiveItemViewerWrapper {...props} />
+	) : (
+		<EmotionArchiveItemViewerWrapper {...props} />
 	);
-};
 
-export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {
-	return (
-		<div css={archiveSidebarFolderWrapperStyles} data-testid="archive-sidebar-folder-wrapper">
-			{children}
-		</div>
+export const ArchiveSideBar = (props: Children) => (
+	<TouchScrollable>
+		{fg('platform_media_compiled') ? (
+			<CompiledArchiveSideBar {...props} />
+		) : (
+			<EmotionArchiveSideBar {...props} />
+		)}
+	</TouchScrollable>
+);
+
+export const ArchiveSidebarFolderWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledArchiveSidebarFolderWrapper {...props} />
+	) : (
+		<EmotionArchiveSidebarFolderWrapper {...props} />
 	);
-};
 
-export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick) => {
-	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-		<div
-			css={archiveDownloadButtonWrapperStyles}
-			onClick={onClick}
-			data-testid="media-archiveDownloadButton"
-		>
-			{children}
-		</div>
+export const ArchiveDownloadButtonWrapper = (props: Children & OnClick) =>
+	fg('platform_media_compiled') ? (
+		<CompiledArchiveDownloadButtonWrapper {...props} />
+	) : (
+		<EmotionArchiveDownloadButtonWrapper {...props} />
 	);
-};
 
-export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children) => {
-	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-		<div
-			css={disabledArchiveDownloadButtonWrapperStyles}
-			data-testid="media-disabledArchiveDownloadButton"
-		>
-			{children}
-		</div>
+export const DisabledArchiveDownloadButtonWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledDisabledArchiveDownloadButtonWrapper {...props} />
+	) : (
+		<EmotionDisabledArchiveDownloadButtonWrapper {...props} />
 	);
-};
 
-export const SidebarItemWrapper = ({ children }: Children) => {
-	return <div css={sidebarItemWrapperStyles}>{children}</div>;
-};
-
-export const ArchiveSidebarFileEntryWrapper = ({ children, index }: { index: Key } & Children) => {
-	return (
-		<div css={archiveSidebarFileEntryWrapperStyles} key={index}>
-			{children}
-		</div>
+export const SidebarItemWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledSidebarItemWrapper {...props} />
+	) : (
+		<EmotionSidebarItemWrapper {...props} />
 	);
-};
 
-export const ArchiveLayout = ({ children }: Children) => {
-	return (
-		<div css={archiveLayoutStyles} data-testid="archive-layout">
-			{children}
-		</div>
+export const ArchiveSidebarFileEntryWrapper = (props: { index: Key } & Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledArchiveSidebarFileEntryWrapper {...props} />
+	) : (
+		<EmotionArchiveSidebarFileEntryWrapper {...props} />
 	);
-};
 
-export const ArchiveViewerWrapper = ({ children }: Children) => {
-	return <div css={archiveViewerWrapperStyles}>{children}</div>;
-};
+export const ArchiveLayout = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledArchiveLayout {...props} />
+	) : (
+		<EmotionArchiveLayout {...props} />
+	);
 
-export const Separator = () => {
-	return <div css={separatorStyles} />;
-};
+export const ArchiveViewerWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledArchiveViewerWrapper {...props} />
+	) : (
+		<EmotionArchiveViewerWrapper {...props} />
+	);
 
-export const SidebarHeaderWrapper = ({ children }: Children) => {
-	return <span css={sidebarHeaderWrapperStyles}>{children}</span>;
-};
+export const Separator = () =>
+	fg('platform_media_compiled') ? <CompiledSeparator /> : <EmotionSeparator />;
 
-export const SidebarHeaderIcon = ({ children }: Children) => {
-	return <div css={sidebarHeaderIconStyles}>{children}</div>;
-};
+export const SidebarHeaderWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledSidebarHeaderWrapper {...props} />
+	) : (
+		<EmotionSidebarHeaderWrapper {...props} />
+	);
 
-export const SidebarHeaderEntry = ({ children }: Children) => {
-	return <div css={sidebarHeaderEntryStyles}>{children}</div>;
-};
+export const SidebarHeaderIcon = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledSidebarHeaderIcon {...props} />
+	) : (
+		<EmotionSidebarHeaderIcon {...props} />
+	);
+
+export const SidebarHeaderEntry = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledSidebarHeaderEntry {...props} />
+	) : (
+		<EmotionSidebarHeaderEntry {...props} />
+	);

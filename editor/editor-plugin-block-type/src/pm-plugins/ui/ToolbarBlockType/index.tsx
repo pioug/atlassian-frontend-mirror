@@ -17,6 +17,7 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import TextIcon from '@atlaskit/icon/core/text';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -142,6 +143,11 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			.filter((blockType) => blockType.name === currentBlockType.name)
 			.map((blockType) => blockType.title);
 
+		const defaultIcon = fg('platform_editor_controls_patch_4') ? <TextIcon label="" /> : <Text />;
+		const currentIcon = fg('platform_editor_controls_patch_4')
+			? currentBlockType?.icon
+			: currentBlockType?.LEGACY_icon;
+
 		if (!this.props.isDisabled && !blockTypesDisabled) {
 			const items = this.createItems();
 
@@ -157,7 +163,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					formatMessage={formatMessage}
 					aria-expanded={active}
 					blockTypeName={currentBlockType.name}
-					blockTypeIcon={currentBlockType?.icon || <Text />}
+					blockTypeIcon={currentIcon || defaultIcon}
 				/>
 			);
 
@@ -265,6 +271,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			const tagName = blockType.tagName || 'p';
 			const Tag = tagName as keyof React.ReactHTML;
 			const keyMap = findKeymapByDescription(blockType.title.defaultMessage as string);
+			const icon = fg('platform_editor_controls_patch_4') ? blockType?.icon : blockType.LEGACY_icon;
 
 			const item: MenuItem = {
 				content: (
@@ -276,9 +283,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 				value: blockType,
 				'aria-label': tooltip(keyMap, formatMessage(blockType.title)),
 				key: `${blockType.name}-${index}`,
-				elemBefore: editorExperiment('platform_editor_controls', 'variant1')
-					? blockType?.icon
-					: undefined,
+				elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? icon : undefined,
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={[keyboardShortcut, isActive && keyboardShortcutSelect]}>{tooltip(keyMap)}</div>

@@ -4,6 +4,7 @@
  */
 import { type FocusEventHandler, type FunctionComponent } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 import __noop from '@atlaskit/ds-lib/noop';

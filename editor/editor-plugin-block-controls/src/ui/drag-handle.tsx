@@ -27,6 +27,7 @@ import {
 	TooltipContentWithMultipleShortcuts,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
+import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -133,7 +134,10 @@ const dragHandleButtonStyles = css({
 
 const dragHandleButtonStylesOld = css({
 	position: 'absolute',
-	padding: `${token('space.025', '2px')} 0`,
+	paddingTop: `${token('space.025', '2px')}`,
+	paddingBottom: `${token('space.025', '2px')}`,
+	paddingLeft: '0',
+	paddingRight: '0',
 	boxSizing: 'border-box',
 	display: 'flex',
 	flexDirection: 'column',
@@ -179,14 +183,32 @@ const dragHandleButtonStylesOld = css({
 const dragHandleContainerStyles = xcss({
 	position: 'absolute',
 	boxSizing: 'border-box',
-	zIndex: 'card',
 });
 
-const tooltipContainerStyles = xcss({
+const tooltipContainerStyles = css({
 	top: '8px',
 	bottom: '-8px',
 	position: 'sticky',
 	zIndex: 'card',
+});
+
+const tooltipContainerStylesStickyHeader = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+});
+
+// We need this to work around adjacent breakout marks wrapping the controls widget decorations
+const tooltipContainerStylesStickyHeaderWithMarksFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
 });
 
 const dragHandleMultiLineSelectionFixFirefox = css({
@@ -953,7 +975,13 @@ export const DragHandle = ({
 			as="span"
 			testId="block-ctrl-drag-handle-container"
 		>
-			<Box xcss={[tooltipContainerStyles]} as="span">
+			<span
+				css={[
+					tooltipContainerStyles,
+					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
+					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
+				]}
+			>
 				<Tooltip
 					content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
 					ignoreTooltipPointerEvents={true}
@@ -964,7 +992,7 @@ export const DragHandle = ({
 				>
 					{renderButton()}
 				</Tooltip>
-			</Box>
+			</span>
 		</Box>
 	);
 
@@ -976,9 +1004,15 @@ export const DragHandle = ({
 			as="span"
 			testId="block-ctrl-drag-handle-container"
 		>
-			<Box xcss={[tooltipContainerStyles]} as="span">
+			<span
+				css={[
+					tooltipContainerStyles,
+					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
+					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
+				]}
+			>
 				{renderButton()}
-			</Box>
+			</span>
 		</Box>
 	);
 

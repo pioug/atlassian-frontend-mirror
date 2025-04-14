@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugins
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [#134613](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134613)
+  [`be20cc186939b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be20cc186939b) -
+  ED-26247 Remove feature flag platform_media_extended_resize_experience and replace it with a new
+  media prop which defaults to false allowPixelResizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.115
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.114
 
 ### Patch Changes

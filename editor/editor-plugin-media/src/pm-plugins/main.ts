@@ -476,6 +476,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					editorAnalyticsAPI,
 					this.onNodeInserted,
 					insertMediaVia,
+					this.mediaOptions && this.mediaOptions.allowPixelResizing,
 				);
 				break;
 			case 'group':

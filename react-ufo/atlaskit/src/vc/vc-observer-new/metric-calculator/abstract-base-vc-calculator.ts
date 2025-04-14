@@ -1,3 +1,4 @@
+import { withProfiling } from '../../../self-measurements';
 import type { VCObserverEntry } from '../types';
 
 import calculateTTVCPercentiles from './percentile-calc';
@@ -9,6 +10,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	private revisionNo: string;
 	constructor(revisionNo: string) {
 		this.revisionNo = revisionNo;
+		this.calculate = withProfiling(this.calculate.bind(this), ['vc']);
 	}
 	protected abstract isEntryIncluded(entry: VCObserverEntry): boolean;
 

@@ -14,6 +14,7 @@ import {
 	sinkInteractionHandler,
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
+import { withProfiling } from '../self-measurements';
 import { getVCObserver } from '../vc';
 
 import scheduleIdleCallback from './schedule-idle-callback';
@@ -38,14 +39,17 @@ interface WindowWithUfoDevToolExtension extends Window {
 	__ufo_devtool_onUfoPayload?: (payload: UFOPayload) => void;
 }
 
-function sinkInteraction(
+const sinkInteraction = withProfiling(function sinkInteraction(
 	instance: GenericAnalyticWebClientInstance,
 	payloadPackage: {
 		createPayloads: (interactionId: string, interaction: InteractionMetrics) => Promise<any[]>;
 	},
 ) {
-	sinkInteractionHandler((interactionId: string, interaction: InteractionMetrics) => {
-		scheduleIdleCallback(() => {
+	const sinkFn = withProfiling(function sinkFn(
+		interactionId: string,
+		interaction: InteractionMetrics,
+	) {
+		const onIdle = withProfiling(function onIdle() {
 			payloadPackage
 				.createPayloads(interactionId, interaction)
 				.then((payloads) => {
@@ -64,43 +68,57 @@ function sinkInteraction(
 					throw error;
 				});
 		});
-	});
-}
 
-function sinkExperimentalInteractionMetrics(
-	instance: GenericAnalyticWebClientInstance,
-	payloadPackage: {
-		createExperimentalMetricsPayload: (
+		scheduleIdleCallback(onIdle);
+	});
+
+	sinkInteractionHandler(sinkFn);
+});
+
+const sinkExperimentalInteractionMetrics = withProfiling(
+	function sinkExperimentalInteractionMetrics(
+		instance: GenericAnalyticWebClientInstance,
+		payloadPackage: {
+			createExperimentalMetricsPayload: (
+				interactionId: string,
+				interaction: InteractionMetrics,
+			) => Promise<any>;
+		},
+	) {
+		const experimentalMetricsSinkFn = withProfiling(function experimentalMetricsSinkFn(
 			interactionId: string,
 			interaction: InteractionMetrics,
-		) => Promise<any>;
-	},
-) {
-	sinkExperimentalHandler((interactionId: string, interaction: InteractionMetrics) => {
-		scheduleIdleCallback(() => {
-			const payloadPromise = payloadPackage.createExperimentalMetricsPayload(
-				interactionId,
-				interaction,
-			);
+		) {
+			const experimentalMetricsOnIdle = withProfiling(function experimentalMetricsOnIdle() {
+				const payloadPromise = payloadPackage.createExperimentalMetricsPayload(
+					interactionId,
+					interaction,
+				);
 
-			payloadPromise.then((payload) => {
-				if (payload) {
-					if (fg('enable_ufo_devtools_api_for_extra_events')) {
-						// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
-						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-							.__ufo_devtool_onUfoPayload;
+				payloadPromise.then((payload) => {
+					if (payload) {
+						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+						if (fg('enable_ufo_devtools_api_for_extra_events')) {
+							// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
+							const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+								.__ufo_devtool_onUfoPayload;
 
-						if (typeof devToolObserver === 'function') {
-							devToolObserver?.(payload);
+							if (typeof devToolObserver === 'function') {
+								devToolObserver?.(payload);
+							}
 						}
-					}
 
-					instance.sendOperationalEvent(payload);
-				}
+						instance.sendOperationalEvent(payload);
+					}
+				});
 			});
+
+			scheduleIdleCallback(experimentalMetricsOnIdle);
 		});
-	});
-}
+
+		sinkExperimentalHandler(experimentalMetricsSinkFn);
+	},
+);
 
 function sinkPostInteractionLog(
 	instance: GenericAnalyticWebClientInstance,
@@ -111,6 +129,7 @@ function sinkPostInteractionLog(
 			const payload = createPostInteractionLogPayload(logOutput);
 			if (payload) {
 				// NOTE: This API is used by the UFO DevTool Chrome Extension and also by Criterion
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				if (fg('enable_ufo_devtools_api_for_extra_events')) {
 					const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
 						.__ufo_devtool_onUfoPayload;
@@ -126,12 +145,12 @@ function sinkPostInteractionLog(
 	});
 }
 
-export const init = (
+export const init = withProfiling(function init(
 	analyticsWebClientAsync:
 		| Promise<GenericAnalyticWebClientPromise>
 		| Promise<GenericAnalyticWebClientInstance>,
 	config: Config,
-) => {
+) {
 	if (initialized) {
 		return;
 	}
@@ -190,4 +209,4 @@ export const init = (
 			}
 		}
 	});
-};
+});

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.1.13
+
+### Patch Changes
+
+- [#140066](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140066)
+  [`6f2d7504278cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f2d7504278cc) -
+  [ux] Update Test styles icons.
+- Updated dependencies
+
 ## 5.1.12
 
 ### Patch Changes

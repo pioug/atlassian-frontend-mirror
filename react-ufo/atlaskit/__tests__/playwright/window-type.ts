@@ -1,24 +1,4 @@
-import { MultiHeatmapPayload } from '@atlaskit/react-ufo/common';
-
-import { createPayloads } from '../../src/create-payload';
-import { VCObserver } from '../../src/vc/vc-observer';
-
-type ExtractPromise<T> = T extends Promise<infer U> ? U : never;
-
-export type ReactUFOPayload = {
-	attributes: {
-		properties: ExtractPromise<
-			ReturnType<typeof createPayloads>
-		>[number]['attributes']['properties'] & {
-			'ufo:vc:dom': Record<(typeof VCObserver.VCParts)[number], string[]>;
-			'ufo:vc:updates': Array<{ time: number; vc: number; elements: string[] }>;
-			'ufo:vc:updates:next': Array<{ time: number; vc: number; elements: string[] }>;
-			'ufo:speedIndex'?: number;
-			'ufo:next:speedIndex'?: number;
-			'ufo:vc:rev'?: MultiHeatmapPayload;
-		};
-	};
-};
+import { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema';
 
 export type WindowWithReactUFOTestGlobals = typeof window & {
 	__websiteReactUfoShadowMode: Array<ReactUFOPayload>;

@@ -9,6 +9,7 @@ export const TaskDecisionSharedCssClassName = {
 	DECISION_CONTAINER: 'decisionItemView-content-wrap',
 	TASK_CONTAINER: 'taskItemView-content-wrap',
 	TASK_ITEM: 'task-item',
+	TASK_CHECKBOX_CONTAINER: 'task-item-checkbox-wrap',
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

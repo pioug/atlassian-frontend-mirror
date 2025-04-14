@@ -462,9 +462,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 						mediaElement={currentMediaElement()}
 						mediaHeight={height}
 						mediaWidth={width}
-						extendedResizeOffset={
-							fg('platform_editor_media_extended_resize_experience') && !isInsideTable
-						}
+						extendedResizeOffset={mediaOptions.allowPixelResizing && !isInsideTable}
 					>
 						{({ visible }: { visible: boolean }) => (
 							<>
@@ -528,7 +526,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		return (
 			<Fragment>
 				{canResize ? (
-					fg('platform_editor_media_extended_resize_experience') ? (
+					mediaOptions.allowPixelResizing ? (
 						<ResizableMediaSingleNext
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/jsx-props-no-spreading
@@ -686,7 +684,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 			this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode;
 		this.updateDomRefContentEditable(domRef, initialViewMode);
 
-		if (fg('platform_editor_media_extended_resize_experience')) {
+		if (this.reactComponentProps.mediaOptions?.allowPixelResizing) {
 			domRef.classList.add('media-extended-resize-experience');
 		}
 

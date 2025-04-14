@@ -79,7 +79,7 @@ export class AudioViewer extends BaseViewer<string, Props, State> {
 		}
 	};
 
-	private saveAudioElement = (audioElement?: HTMLElement) => {
+	private saveAudioElement = (audioElement?: HTMLElement | null) => {
 		if (!audioElement) {
 			return;
 		}

@@ -16,6 +16,8 @@ export {
 	tableResizeHandleWidth,
 	tableCellPadding,
 	tableMarginTopWithControl,
+	tableControlsSpacing,
+	tablePadding,
 } from './shared/table';
 
 export {

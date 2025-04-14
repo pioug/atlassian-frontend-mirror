@@ -79,11 +79,7 @@ test.describe('ReactUFO: Revisions - Full Horizontal Pixel Page', () => {
 test.describe('ReactUFO: Scaled (with margin error)- Full Horizontal Pixel Page', () => {
 	test.use({
 		examplePage: 'full-horizontal-pixel-page',
-		featureFlags: [
-			'platform_ufo_vc_observer_new',
-			'platform_ufo_vc_ttai_on_paint',
-			'platform_ufo_multiheatmap_killswitch',
-		],
+		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
 	});
 
 	for (const viewport of viewports) {

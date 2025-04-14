@@ -1,5 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { withProfiling } from '../../../../self-measurements';
+
 export type CreateMutationObserverProps = {
 	onAttributeMutation: (props: { target: HTMLElement; attributeName: string }) => void;
 
@@ -10,27 +12,32 @@ export type CreateMutationObserverProps = {
 	}) => void;
 };
 
-export default function createMutationObserver({
-	onAttributeMutation,
-	onChildListMutation,
-	onMutationFinished,
-}: CreateMutationObserverProps) {
-	if (!window || typeof window.IntersectionObserver !== 'function') {
-		return null;
-	}
+const createMutationObserver = withProfiling(
+	function createMutationObserver(props: CreateMutationObserverProps) {
+		if (!window || typeof window.IntersectionObserver !== 'function') {
+			return null;
+		}
 
-	const observer = new MutationObserver((mutations) => {
-		const addedNodes: Array<HTMLElement> = [];
-		const removedNodes: Array<HTMLElement> = [];
-		const targets: Array<HTMLElement> = [];
+		const onAttributeMutation = withProfiling(props.onAttributeMutation, ['vc']);
+		const onChildListMutation = withProfiling(props.onChildListMutation, ['vc']);
+		const onMutationFinished =
+			typeof props.onMutationFinished === 'function'
+				? withProfiling(props.onMutationFinished, ['vc'])
+				: undefined;
 
-		for (const mut of mutations) {
-			if (!(mut.target instanceof HTMLElement)) {
-				continue;
-			}
-			if (mut.type === 'attributes') {
-				if (fg('platform_ufo_vc_ignore_same_value_mutation')) {
-					/*
+		const mutationObserverCallback: MutationCallback = withProfiling(
+			function mutationObserverCallback(mutations) {
+				const addedNodes: Array<HTMLElement> = [];
+				const removedNodes: Array<HTMLElement> = [];
+				const targets: Array<HTMLElement> = [];
+
+				for (const mut of mutations) {
+					if (!(mut.target instanceof HTMLElement)) {
+						continue;
+					}
+					if (mut.type === 'attributes') {
+						if (fg('platform_ufo_vc_ignore_same_value_mutation')) {
+							/*
 						"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
 						I think it might have been something along the lines that for consistency every setAttribute call should create a record.
 						Conceptually there is after all a mutation: there is an old value replaced with a new one,
@@ -38,49 +45,56 @@ export default function createMutationObserver({
 						And Custom elements should work the same way as MutationObserver."
 						https://github.com/whatwg/dom/issues/520#issuecomment-336574796
 					*/
-					const oldValue = mut.oldValue ?? undefined;
-					const newValue = mut.attributeName
-						? mut.target.getAttribute(mut.attributeName)
-						: undefined;
-					if (oldValue !== newValue) {
-						onAttributeMutation({
-							target: mut.target,
-							attributeName: mut.attributeName ?? 'unknown',
+							const oldValue = mut.oldValue ?? undefined;
+							const newValue = mut.attributeName
+								? mut.target.getAttribute(mut.attributeName)
+								: undefined;
+							if (oldValue !== newValue) {
+								onAttributeMutation({
+									target: mut.target,
+									attributeName: mut.attributeName ?? 'unknown',
+								});
+							}
+						} else {
+							onAttributeMutation({
+								target: mut.target,
+								attributeName: mut.attributeName ?? 'unknown',
+							});
+						}
+						continue;
+					} else if (mut.type === 'childList') {
+						(mut.addedNodes ?? []).forEach((node: Node) => {
+							if (node instanceof HTMLElement) {
+								addedNodes.push(node);
+							}
+						});
+
+						(mut.removedNodes ?? []).forEach((node: Node) => {
+							if (node instanceof HTMLElement) {
+								removedNodes.push(node);
+							}
 						});
 					}
-				} else {
-					onAttributeMutation({
-						target: mut.target,
-						attributeName: mut.attributeName ?? 'unknown',
-					});
+
+					targets.push(mut.target);
 				}
-				continue;
-			} else if (mut.type === 'childList') {
-				(mut.addedNodes ?? []).forEach((node: Node) => {
-					if (node instanceof HTMLElement) {
-						addedNodes.push(node);
-					}
+
+				onChildListMutation({
+					addedNodes,
+					removedNodes,
 				});
 
-				(mut.removedNodes ?? []).forEach((node: Node) => {
-					if (node instanceof HTMLElement) {
-						removedNodes.push(node);
-					}
+				onMutationFinished?.({
+					targets,
 				});
-			}
+			},
+		);
 
-			targets.push(mut.target);
-		}
+		const observer = new MutationObserver(mutationObserverCallback);
 
-		onChildListMutation({
-			addedNodes,
-			removedNodes,
-		});
+		return observer;
+	},
+	['vc'],
+);
 
-		onMutationFinished?.({
-			targets,
-		});
-	});
-
-	return observer;
-}
+export default createMutationObserver;

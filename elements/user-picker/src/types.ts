@@ -177,6 +177,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	openMenuOnClick?: boolean;
 	/** Positioning strategy for the popper element */
 	strategy?: 'fixed' | 'absolute';
+	/** Override default behavior and show the clear indicator. */
+	showClearIndicator?: boolean;
 };
 
 export type PopupUserPickerProps = UserPickerProps & {

@@ -152,6 +152,14 @@ export interface AnnotationProviders {
 		};
 	};
 
+	// This is a limited version of the comment experience setup
+	// in Confluence, and used to track the success of comment selection.
+	selectCommentExperience?: {
+		selectAnnotation: {
+			complete: (annotationId: string) => void;
+		};
+	};
+
 	annotationManager?: AnnotationManager;
 }
 

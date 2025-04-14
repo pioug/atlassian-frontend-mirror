@@ -12,7 +12,6 @@ import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { openPixelEditor } from '../../pm-plugins/pixel-resizing/commands';
 import { Props, PixelEntry } from '../../pm-plugins/pixel-resizing/ui';
@@ -72,14 +71,15 @@ export const getResizeDropdownOption = (
 		return [];
 	}
 
-	const { allowResizing, allowResizingInTables, allowAdvancedToolBarOptions } = mediaOptions;
+	const { allowResizing, allowResizingInTables, allowAdvancedToolBarOptions, allowPixelResizing } =
+		mediaOptions;
 
 	const isWithinTable = hasParentNodeOfType(state.schema.nodes.table)(state.selection);
 	if (
 		allowAdvancedToolBarOptions &&
 		allowResizing &&
 		(!isWithinTable || allowResizingInTables === true) &&
-		fg('platform_editor_media_extended_resize_experience')
+		allowPixelResizing
 	) {
 		return [
 			{

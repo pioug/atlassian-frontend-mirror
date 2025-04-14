@@ -1,7 +1,7 @@
 import type { TypeAheadAvailableNodes } from '../../type-ahead';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { OperationalAEP, UIAEP } from './utils';
+import type { OperationalAEP, TrackAEP, UIAEP } from './utils';
 
 type TypeAheadRenderedAEP = OperationalAEP<
 	ACTION.RENDERED,
@@ -29,6 +29,20 @@ type TypeAheadAEP<ActionSubjectID, Attributes> = UIAEP<
 	ACTION_SUBJECT.TYPEAHEAD,
 	ActionSubjectID,
 	Attributes,
+	undefined
+>;
+
+type TypeAheadClosedAttributes = {
+	inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE | null;
+	closeAction: ACTION.INSERTED | ACTION.CANCELLED | ACTION.VIEW_MORE | null;
+	hasQuery: boolean;
+};
+
+type TypeaheadQuickInsertClosedAEP = TrackAEP<
+	ACTION.CLOSED,
+	ACTION_SUBJECT.TYPEAHEAD,
+	ACTION_SUBJECT_ID.TYPEAHEAD_QUICK_INSERT,
+	TypeAheadClosedAttributes,
 	undefined
 >;
 
@@ -103,6 +117,7 @@ export type TypeAheadPayload =
 	| TypeAheadMentionAEP
 	| TypeAheadQuickInsertAEP
 	| TypeAheadRenderedAEP
-	| TypeAheadItemViewedAEP;
+	| TypeAheadItemViewedAEP
+	| TypeaheadQuickInsertClosedAEP;
 
 export type EventInput = 'keyboard' | 'mouse' | 'floatingToolBar';

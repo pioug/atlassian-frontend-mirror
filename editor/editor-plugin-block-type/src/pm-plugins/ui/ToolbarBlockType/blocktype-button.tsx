@@ -15,6 +15,7 @@ import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import TextIcon from '@atlaskit/icon/core/text';
 import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -68,6 +69,13 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 			/>
 		);
 
+	const chevronIconSpacing =
+		props.isSmall &&
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_4')
+			? 'spacious'
+			: 'none';
+
 	return (
 		<ToolbarButton
 			spacing={props.isReducedSpacing ? 'none' : 'default'}
@@ -94,7 +102,12 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={expandIconContainerStyle}
 							>
-								<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+								<ChevronDownIcon
+									spacing={chevronIconSpacing}
+									label=""
+									color="currentColor"
+									LEGACY_margin="0 0 0 -8px"
+								/>
 							</span>
 						</React.Fragment>
 					}

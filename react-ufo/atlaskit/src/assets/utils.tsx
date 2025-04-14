@@ -1,4 +1,5 @@
 import type { ResourceEntry } from '../resource-timing/common/types';
+import { withProfiling } from '../self-measurements';
 
 /* Borrowed from https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/performance/browser-metrics/src/plugins/timings/resource.ts */
 export const cacheableTypes = ['script', 'link', 'other'];
@@ -9,12 +10,12 @@ export const DISK_KEY = 'disk';
 
 export const NETWORK_KEY = 'net';
 
-export const calculateTransferType = (
+export const calculateTransferType = withProfiling(function calculateTransferType(
 	name: string,
 	type: string,
 	duration: number,
 	size: number | undefined,
-) => {
+) {
 	if (!cacheableTypes.includes(type) && !(type === 'other' && name.includes('.js'))) {
 		return null;
 	}
@@ -30,9 +31,12 @@ export const calculateTransferType = (
 	}
 
 	return NETWORK_KEY;
-};
+});
 
-export const getTypeOfRequest = ({ name, initiatorType: type }: ResourceEntry) => {
+export const getTypeOfRequest = withProfiling(function getTypeOfRequest({
+	name,
+	initiatorType: type,
+}: ResourceEntry) {
 	let category = 'other';
 	const urlWithoutQuery = name.split('?')[0];
 
@@ -67,9 +71,11 @@ export const getTypeOfRequest = ({ name, initiatorType: type }: ResourceEntry) =
 			break;
 	}
 	return category;
-};
+});
 
-export const checkIfTimingsAvailable = (entry: ResourceEntry) => {
+export const checkIfTimingsAvailable = withProfiling(function checkIfTimingsAvailable(
+	entry: ResourceEntry,
+) {
 	if (
 		entry.decodedSize === 0 &&
 		entry.encodedSize === 0 &&
@@ -80,11 +86,11 @@ export const checkIfTimingsAvailable = (entry: ResourceEntry) => {
 	}
 
 	return true;
-};
+});
 
-export const round = (n: number) => {
+export const round = withProfiling(function round(n: number) {
 	if (isNaN(n)) {
 		return 0;
 	}
 	return Math.round(n * 10000) / 10000;
-};
+});

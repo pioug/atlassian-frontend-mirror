@@ -37,6 +37,7 @@ export interface BlockType {
 	tagName?: string;
 	level?: HeadingLevelsAndNormalText;
 	icon?: ReactElement;
+	LEGACY_icon?: ReactElement;
 }
 
 export interface BlockTypeNode {

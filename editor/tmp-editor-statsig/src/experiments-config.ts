@@ -208,6 +208,15 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'variant1']),
 		defaultValue: 'control' as 'control' | 'variant1',
 	},
+	// Added 2025-04-14
+	platform_editor_controls_shadow: {
+		productKeys: {
+			confluence: 'platform_editor_controls_shadow',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'variant1']),
+		defaultValue: 'control' as 'control' | 'variant1',
+	},
 	// Added 2025-02-18
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_non_bodied_macros/setup
 	platform_editor_nested_non_bodied_macros: {

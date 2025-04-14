@@ -1,3 +1,5 @@
+import { withProfiling } from '../self-measurements';
+
 export type ReportedTiming = { startTime: number; duration: number };
 
 export type ReportedTimings = {
@@ -13,7 +15,7 @@ type TimingsFromPerformanceMark = {
 };
 const timings: TimingsFromPerformanceMark[] = [];
 
-export function addTimingFromPerformanceMark(
+export const addTimingFromPerformanceMark = withProfiling(function addTimingFromPerformanceMark(
 	name: string,
 	startMark: string,
 	stopMark: string,
@@ -27,9 +29,9 @@ export function addTimingFromPerformanceMark(
 		cleanStart,
 		cleanStop,
 	});
-}
+});
 
-export function getTimings(): ReportedTimings {
+export const getTimings = withProfiling(function getTimings(): ReportedTimings {
 	const reportedTimingsObj: ReportedTimings = {};
 	timings.forEach(({ name, startMark, stopMark, cleanStart, cleanStop }) => {
 		const startEntryList = performance.getEntriesByName(startMark);
@@ -56,4 +58,4 @@ export function getTimings(): ReportedTimings {
 		}
 	});
 	return reportedTimingsObj;
-}
+});

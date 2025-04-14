@@ -1,14 +1,15 @@
 import { getConfig as getConfigUFO } from '../../../config';
+import { withProfiling } from '../../../self-measurements';
 import type { ResourceTimingsConfig } from '../types';
 
 const defaultAllowedParams = ['operationName', 'operation', 'q'];
 
-const getAllowedParams = () => {
+const getAllowedParams = withProfiling(function getAllowedParams() {
 	const config = getConfigUFO();
 	return config?.allowedResourcesParams || defaultAllowedParams;
-};
+});
 
-const handleQueryParams = (urlString: string): string => {
+const handleQueryParams = withProfiling(function handleQueryParams(urlString: string): string {
 	try {
 		if (typeof urlString !== 'string') {
 			return urlString;
@@ -25,7 +26,7 @@ const handleQueryParams = (urlString: string): string => {
 	} catch (e) {
 		return urlString;
 	}
-};
+});
 
 let config: ResourceTimingsConfig = {
 	mapResources: (url: string) => url,
@@ -34,7 +35,9 @@ let config: ResourceTimingsConfig = {
 	},
 };
 
-export function configure(resourceTimingConfig: ResourceTimingsConfig) {
+export const configure = withProfiling(function configure(
+	resourceTimingConfig: ResourceTimingsConfig,
+) {
 	const newConfig = {
 		mapResources: resourceTimingConfig.mapResources,
 		sanitiseEndpoints: (url: string) => {
@@ -46,6 +49,8 @@ export function configure(resourceTimingConfig: ResourceTimingsConfig) {
 		},
 	};
 	config = newConfig;
-}
+});
 
-export const getConfig = () => config;
+export const getConfig = withProfiling(function getConfig() {
+	return config;
+});

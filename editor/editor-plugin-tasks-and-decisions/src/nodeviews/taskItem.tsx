@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 
 import { css as cssUnbounded } from '@compiled/react';
-import { useIntl } from 'react-intl-next';
+import { IntlShape, useIntl } from 'react-intl-next';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -485,6 +485,7 @@ export function taskItemNodeViewFactory(
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
+	intl?: IntlShape,
 	placeholder?: string,
 ) {
 	return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {

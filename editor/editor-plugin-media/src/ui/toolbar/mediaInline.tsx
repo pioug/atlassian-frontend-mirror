@@ -318,7 +318,11 @@ const getMediaInlineImageToolbar = (
 						LEGACY_fallbackIcon={IconEmbed}
 					/>
 				),
-				onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
+				onClick: changeMediaInlineToMediaSingle(
+					editorAnalyticsAPI,
+					widthPluginState,
+					options?.allowPixelResizing,
+				),
 			},
 			{ type: 'separator' },
 			{

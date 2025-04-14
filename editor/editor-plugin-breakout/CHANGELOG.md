@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.1.7
+
+### Patch Changes
+
+- [#137211](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137211)
+  [`d00cb55d6fa4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d00cb55d6fa4b) -
+  [ux] ED27118 Increase pull page editor gutter to allow more space for new floating insert button -
+  https://hello.atlassian.net/wiki/spaces/EDITOR/pages/5120694962/Editor+DACI+New+insert+button+and+full-width+screens+2.0
+- Updated dependencies
+
 ## 2.1.6
 
 ### Patch Changes

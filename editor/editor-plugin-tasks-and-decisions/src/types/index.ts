@@ -99,6 +99,7 @@ export type TaskDecisionPluginState = {
 	hasRequestedEditPermission?: boolean;
 	requestToEditContent?: () => void;
 	taskDecisionProvider: TaskDecisionProvider | undefined;
+	openRequestToEditPopupAt?: number | null;
 };
 
 export type TaskAndDecisionsSharedState = Pick<
@@ -108,6 +109,7 @@ export type TaskAndDecisionsSharedState = Pick<
 	| 'requestToEditContent'
 	| 'taskDecisionProvider'
 	| 'hasRequestedEditPermission'
+	| 'openRequestToEditPopupAt'
 > & {
 	// derived state
 	isInsideTask: boolean;

@@ -11,7 +11,11 @@ import { createSelectionClickHandler, GapCursorSelection } from '@atlaskit/edito
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getStepRange } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -19,12 +23,13 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
 import { DecisionItemVanilla } from '../nodeviews/DecisionItemVanilla';
-import { lazyTaskView } from '../nodeviews/task-lazy-node-view';
+import { taskView } from '../nodeviews/task-node-view';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import type { TaskDecisionPluginState } from '../types';
 
-import { focusTaskDecision, setProvider } from './actions';
+import { focusTaskDecision, setProvider, openRequestEditPopup } from './actions';
 import {
+	focusCheckbox,
 	focusCheckboxAndUpdateSelection,
 	getTaskItemDataAtPos,
 	getTaskItemDataToFocus,
@@ -69,11 +74,12 @@ export function createPlugin(
 	return new SafePlugin<TaskDecisionPluginState>({
 		props: {
 			nodeViews: {
-				taskItem: lazyTaskView(
+				taskItem: taskView(
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,
 					api,
+					getIntl(),
 					taskPlaceholder,
 				),
 				decisionItem: ((node, view, getPos, decorations, innerDecorations) => {
@@ -110,7 +116,7 @@ export function createPlugin(
 				return false;
 			},
 			handleClickOn: createSelectionClickHandler(
-				['decisionItem'],
+				['decisionItem', 'taskItem'],
 				(target) =>
 					target.hasAttribute('data-decision-wrapper') ||
 					target.getAttribute('aria-label') === 'Decision',
@@ -122,7 +128,7 @@ export function createPlugin(
 				change: taskItemOnChange,
 			},
 			handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
-				const { state, dispatch } = view;
+				const { state } = view;
 				const { selection, schema } = state;
 				const { $from, $to } = selection;
 				const parentOffset = $from.parentOffset;
@@ -187,18 +193,12 @@ export function createPlugin(
 						}
 					}
 				}
-
 				// If left arrow key is pressed and cursor is at first position in task-item
 				//  then focus checkbox and DON'T proceed with default keyboard handler
 				if (event.key === 'ArrowLeft' && parentOffset === 0) {
 					// here we are not using focusCheckboxAndUpdateSelection() method
 					// because it is working incorretly when we are placing is inside the nested items
-					dispatch(
-						state.tr.setMeta(stateKey, {
-							action: ACTIONS.FOCUS_BY_LOCALID,
-							data: currentTaskItemData?.localId,
-						}),
-					);
+					focusCheckbox(view, currentTaskItemData);
 					return true;
 				}
 
@@ -263,6 +263,13 @@ export function createPlugin(
 					case ACTIONS.SET_PROVIDER:
 						newPluginState = setProvider(newPluginState, {
 							action: ACTIONS.SET_PROVIDER,
+							data,
+						});
+						break;
+
+					case ACTIONS.OPEN_REQUEST_TO_EDIT_POPUP:
+						newPluginState = openRequestEditPopup(newPluginState, {
+							action: ACTIONS.OPEN_REQUEST_TO_EDIT_POPUP,
 							data,
 						});
 						break;
@@ -338,6 +345,27 @@ export function createPlugin(
 				return tr.setMeta('addToHistory', false);
 			}
 			return;
+		},
+		view: () => {
+			return {
+				update: (view: EditorView, prevState: EditorState) => {
+					const pluginState = stateKey.getState(view.state);
+					const prevPluginState = stateKey.getState(prevState);
+					if (pluginState.focusedTaskItemLocalId === prevPluginState.focusedTaskItemLocalId) {
+						return;
+					}
+					const taskItem = getTaskItemDataAtPos(view);
+					if (!taskItem) {
+						return;
+					}
+					if (pluginState.focusedTaskItemLocalId === taskItem.localId) {
+						const taskElement = view.nodeDOM(taskItem.pos);
+						if (taskElement instanceof HTMLElement) {
+							taskElement?.querySelector('input')?.focus();
+						}
+					}
+				},
+			};
 		},
 	});
 }

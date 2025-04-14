@@ -43,9 +43,10 @@ export type {
 	LastInteractionFinishInfo,
 } from './common/types';
 
-export type { MultiHeatmapPayload } from './vc/types';
+export type { RevisionPayload, RevisionPayloadVCDetails } from './vc/types';
 
 /**
+ * @private
  * @deprecated Prefer import from @atlaskit/react-ufo/interaction-context
  */
 export type { Label, SegmentLabel, LabelStack } from '../interaction-context';

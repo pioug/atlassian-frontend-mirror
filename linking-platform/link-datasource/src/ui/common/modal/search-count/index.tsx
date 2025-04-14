@@ -38,9 +38,18 @@ const ItemCountWrapper = ({
 			target="_blank"
 			testId="item-count-url"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={{ color: token('color.text.accent.gray', N800), textDecoration: !url ? 'none' : '' }}
+			style={{
+				color: fg('platform-linking-visual-refresh-sllv')
+					? token('color.text.subtlest')
+					: token('color.text.accent.gray', N800),
+				textDecoration: !url ? 'none' : '',
+			}}
 		>
-			<Heading size="xxsmall">{children}</Heading>
+			{fg('platform-linking-visual-refresh-sllv') ? (
+				children
+			) : (
+				<Heading size="xxsmall">{children}</Heading>
+			)}
 		</LinkUrl>
 	</Flex>
 );

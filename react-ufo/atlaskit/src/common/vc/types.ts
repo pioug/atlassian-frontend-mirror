@@ -52,10 +52,21 @@ export type VCIgnoreReason =
 	| '';
 
 export type ComponentsLogEntry = {
+	type?: string;
 	targetName: string;
 	__debug__element: WeakRef<Element> | null;
-	intersectionRect: DOMRectReadOnly;
+	intersectionRect: {
+		width: number;
+		height: number;
+		top: number;
+		bottom: number;
+		left: number;
+		right: number;
+	};
 	ignoreReason?: VCIgnoreReason;
+	attributeName?: string | null;
+	oldValue?: string | null;
+	newValue?: string | null;
 };
 
 export type VCIgnoredElement = Pick<ComponentsLogEntry, 'targetName' | 'ignoreReason'>;
@@ -73,7 +84,7 @@ export type VCResult = {
 		| {
 				[key: string]: boolean | number | string[] | null | VCEntryType[];
 		  }
-		| MultiHeatmapPayload;
+		| RevisionPayload;
 };
 
 export type MetricsDevToolsTypes = {
@@ -116,16 +127,19 @@ declare global {
 	}
 }
 
-type MultiHeatmapRevisionPayload = {
+export type RevisionPayloadVCDetails = Record<
+	string,
+	{
+		t: number;
+		e: string[];
+	}
+>;
+
+export type RevisionPayloadEntry = {
 	'metric:vc90': number | null;
 	revision: string;
 	clean: boolean;
-	vcDetails?: {
-		[key: string]: {
-			t: number;
-			e: string[];
-		};
-	};
+	vcDetails?: RevisionPayloadVCDetails;
 };
 
-export type MultiHeatmapPayload = MultiHeatmapRevisionPayload[];
+export type RevisionPayload = RevisionPayloadEntry[];

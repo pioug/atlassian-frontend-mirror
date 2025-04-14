@@ -4,10 +4,7 @@
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: fy25.02 - style mutation', () => {
-	const featureFlagsSetups = [
-		['platform_ufo_fix_v2_reported_vc90'],
-		['platform_ufo_fix_v2_reported_vc90', 'platform_ufo_vc_observer_new'],
-	];
+	const featureFlagsSetups = [[], ['platform_ufo_vc_observer_new']];
 	for (const featureFlags of featureFlagsSetups) {
 		test.describe(`with feature flags: ${featureFlags.length > 0 ? featureFlags.join(', ') : 'no feature flags'}`, () => {
 			// TODO remove fixme when https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134206/overview merged

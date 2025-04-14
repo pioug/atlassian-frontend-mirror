@@ -339,7 +339,7 @@ export default function AllCombinationsExample() {
 													</tr>
 													{appearances.map((appearance) => (
 														<Fragment key={appearance}>
-															{showLegacyButton && (
+															{appearance !== 'discovery' && showLegacyButton && (
 																<ExampleRow
 																	showLegacyButton={showLegacyButton}
 																	appearance={appearance}

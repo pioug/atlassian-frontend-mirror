@@ -9,6 +9,9 @@ export type Callback = (
 	node: HTMLElement,
 	type: ObservedMutationType,
 	ignoreReason?: VCIgnoreReason,
+	attributeName?: string | null,
+	oldValue?: string | null,
+	newValue?: string | null,
 ) => void;
 export type MutationRecordWithTimestamp = MutationRecord & {
 	timestamp?: number;

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { type CSSObject } from '@emotion/react';
 
 import { type SelectProps } from './select';

@@ -93,8 +93,8 @@ export type CustomErrorComponent = React.ComponentType<
 		testId: string;
 		editorTheme: EditorTheme;
 		editorId: string;
-		errorMessages?: React.ReactElement[]; // TODO mark as non-optional with the feature gate cleanup of gravityai-2553-fix-jql-debugger-flicker
-		validationId?: string; // TODO mark as non-optional with the feature gate cleanup of gravityai-2553-fix-jql-debugger-flicker
+		errorMessages: React.ReactElement[];
+		validationId: string;
 	}>
 >;
 

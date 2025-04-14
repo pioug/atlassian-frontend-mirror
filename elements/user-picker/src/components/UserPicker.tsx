@@ -66,6 +66,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 			closeMenuOnScroll,
 			loadUserSource,
 			required = false,
+			showClearIndicator = false,
 		} = this.props;
 		const width = this.props.width as string | number;
 
@@ -109,7 +110,11 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 								// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
 								fg('platform-component-visual-refresh') && fg('visual-refresh-user-picker'),
 							)}
-							components={getComponents(isMulti, anchor)}
+							components={getComponents(
+								isMulti,
+								anchor,
+								showClearIndicator && fg('user-picker-show-clear-indicator'),
+							)}
 							pickerProps={pickerProps}
 						/>
 					</ExusUserSourceProvider>

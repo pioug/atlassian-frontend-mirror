@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';

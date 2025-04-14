@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.8.9",
+	"version": "3.9.1",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -110,10 +110,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_media_extended_resize_experience": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_element_drag_and_drop_ed_23873": {
 			"type": "boolean"
 		},

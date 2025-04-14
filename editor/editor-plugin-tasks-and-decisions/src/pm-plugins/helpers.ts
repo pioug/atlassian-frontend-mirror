@@ -274,16 +274,32 @@ export function getTaskItemDataToFocus(view: EditorView, direction: 'next' | 'pr
 	const indexOfTaskItemToFocus =
 		direction === 'next' ? currentTaskItemIndex + 1 : currentTaskItemIndex - 1;
 	const taskItemToFocus = allTaskItems[indexOfTaskItemToFocus];
+
 	return {
 		pos: taskItemToFocus.pos,
 		localId: taskItemToFocus.node.attrs.localId,
 	};
 }
 
+export function focusCheckbox(view: EditorView, taskItemData?: TaskItemData) {
+	const { state, dispatch } = view;
+	const { tr } = state;
+
+	if (taskItemData) {
+		tr.setMeta(stateKey, {
+			action: ACTIONS.FOCUS_BY_LOCALID,
+			data: taskItemData.localId,
+		});
+		dispatch(tr);
+	}
+}
+
 export function focusCheckboxAndUpdateSelection(view: EditorView, taskItemData: TaskItemData) {
 	const { pos, localId } = taskItemData;
 	const { state, dispatch } = view;
-	const { doc, tr } = state;
+	const { doc } = state;
+
+	const tr = state.tr;
 	tr.setSelection(new TextSelection(doc.resolve(pos + 1)));
 	tr.setMeta(stateKey, {
 		action: ACTIONS.FOCUS_BY_LOCALID,
@@ -297,10 +313,33 @@ export function removeCheckboxFocus(view: EditorView) {
 	const { tr } = state;
 
 	view.focus();
-
 	dispatch(
 		tr.setMeta(stateKey, {
 			action: ACTIONS.FOCUS_BY_LOCALID,
+		}),
+	);
+}
+
+export function openRequestEditPopupAt(view: EditorView, pos: number) {
+	const { state, dispatch } = view;
+	const { tr } = state;
+
+	dispatch(
+		tr.setMeta(stateKey, {
+			action: ACTIONS.OPEN_REQUEST_TO_EDIT_POPUP,
+			data: pos,
+		}),
+	);
+}
+
+export function closeRequestEditPopupAt(view: EditorView) {
+	const { state, dispatch } = view;
+	const { tr } = state;
+
+	dispatch(
+		tr.setMeta(stateKey, {
+			action: ACTIONS.OPEN_REQUEST_TO_EDIT_POPUP,
+			data: null,
 		}),
 	);
 }

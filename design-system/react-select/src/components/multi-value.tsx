@@ -4,6 +4,7 @@
  */
 import { type ComponentType, type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';

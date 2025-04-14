@@ -26,6 +26,7 @@ snapshotInformational(VRIssueLikeTableStatusLoading, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTableStatus, {
@@ -47,6 +48,7 @@ snapshotInformational(VRIssueLikeTableStatus, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTableStatus, {
@@ -70,4 +72,5 @@ snapshotInformational(VRIssueLikeTableStatus, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });

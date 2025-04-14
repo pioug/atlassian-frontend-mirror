@@ -4,13 +4,14 @@
  */
 import { Fragment, useEffect, useState } from 'react';
 
-import { jsx, styled } from '@compiled/react';
+import { cssMap, jsx, styled } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import RefreshIcon from '@atlaskit/icon/core/migration/refresh';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { N0, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -19,6 +20,7 @@ import TableSearchCount, { AssetsItemCount } from '../common/modal/search-count'
 
 import { footerMessages } from './messages';
 import { PoweredByJSMAssets } from './powered-by-jsm-assets';
+import { ProviderLink } from './provider-link';
 import { SyncInfo } from './sync-info';
 
 export type TableFooterProps = {
@@ -28,6 +30,26 @@ export type TableFooterProps = {
 	isLoading: boolean;
 	url?: string;
 };
+
+const styles = cssMap({
+	footer: {
+		color: token('color.text.subtlest'),
+		font: token('font.body.small'),
+		paddingTop: token('space.300'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.300'),
+		paddingLeft: token('space.200'),
+		boxSizing: 'border-box',
+		borderRadius: 'inherit',
+		borderTopLeftRadius: 0,
+		borderTopRightRadius: 0,
+		backgroundColor: token('elevation.surface.raised'),
+		borderTop: `1px solid ${token('color.border')}`,
+	},
+	separator: {
+		color: token('color.border'),
+	},
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const FooterWrapper = styled.div({
@@ -84,6 +106,64 @@ export const TableFooter = ({
 			setLastSyncTime(new Date());
 		}
 	}, [isLoading]);
+
+	if (fg('platform-linking-visual-refresh-sllv')) {
+		return onRefresh || showItemCount ? (
+			<div data-testid="table-footer" css={styles.footer}>
+				<Inline alignBlock="center" alignInline="end" grow="hug" spread="space-between">
+					<Box>
+						<ProviderLink datasourceId={datasourceId} />
+					</Box>
+					<Inline
+						alignBlock="center"
+						space="space.100"
+						separator={<div css={styles.separator}>•</div>}
+					>
+						{onRefresh && (
+							<Inline alignBlock="center" space="space.050">
+								<IconButton
+									appearance="subtle"
+									icon={(iconProps) => (
+										<RefreshIcon {...iconProps} color={token('color.text.subtlest')} />
+									)}
+									isDisabled={isLoading}
+									label={intl.formatMessage(footerMessages.refreshLabel)}
+									onClick={onRefresh}
+									spacing="compact"
+									testId="refresh-button"
+								/>
+								<Box testId="sync-text">
+									{isLoading ? (
+										<FormattedMessage {...footerMessages.loadingText} />
+									) : (
+										<SyncInfo lastSyncTime={lastSyncTime} />
+									)}
+								</Box>
+							</Inline>
+						)}
+						{showItemCount && (
+							<Flex>
+								{datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID ? (
+									<AssetsItemCount
+										searchCount={itemCount as number}
+										url={url}
+										testId="item-count"
+									/>
+								) : (
+									<TableSearchCount
+										searchCount={itemCount as number}
+										url={url}
+										prefixTextType="item"
+										testId="item-count"
+									/>
+								)}
+							</Flex>
+						)}
+					</Inline>
+				</Inline>
+			</div>
+		) : null;
+	}
 
 	// If only one of the two is passed in, still show the other one (Note: We keep the div encapsulating the one not shown to
 	// ensure correct positioning since 'justify-content: space-between' is used).

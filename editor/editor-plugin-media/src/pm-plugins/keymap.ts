@@ -26,7 +26,6 @@ import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import {
@@ -79,7 +78,7 @@ function keymapPlugin(
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
-	if (fg('platform_editor_media_extended_resize_experience')) {
+	if (options?.allowPixelResizing) {
 		bindKeymapWithCommand(
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

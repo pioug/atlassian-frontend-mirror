@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "5.1.12",
+	"version": "5.1.13",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,6 +49,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
@@ -119,6 +120,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_comments_toolbar_responsiveness": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_4": {
 			"type": "boolean"
 		}
 	}

@@ -6,8 +6,9 @@ import { getActiveTrace, setInteractionActiveTrace } from '../experience-trace-i
 import { DefaultInteractionID } from '../interaction-id-context';
 import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
+import { withProfiling } from '../self-measurements';
 
-export default function traceUFOPress(name: string, timestamp?: number): void {
+const traceUFOPress = withProfiling(function traceUFOPress(name: string, timestamp?: number): void {
 	const rate = getInteractionRate(name, 'press');
 	const pressInteractionsList = getDoNotAbortActivePressInteraction();
 	if (pressInteractionsList?.includes(name)) {
@@ -35,4 +36,6 @@ export default function traceUFOPress(name: string, timestamp?: number): void {
 			getActiveTrace(),
 		);
 	}
-}
+});
+
+export default traceUFOPress;

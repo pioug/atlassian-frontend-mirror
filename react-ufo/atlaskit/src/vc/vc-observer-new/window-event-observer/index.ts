@@ -1,5 +1,7 @@
 import { bind, type UnbindFn } from 'bind-event-listener';
 
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../self-measurements';
+
 export type ObservedWindowEvent = 'wheel' | 'scroll' | 'keydown' | 'resize';
 
 export type OnEventCallback = (args: {
@@ -16,7 +18,12 @@ export default class WindowEventObserver {
 	private onEvent: OnEventCallback;
 
 	constructor(opts: WindowEventObserverOptions) {
-		this.onEvent = opts.onEvent;
+		const operationTimer = markProfilingStart('WindowEventObserver constructor');
+		this.onEvent = withProfiling(opts.onEvent, ['vc']);
+		this.bindEvent = withProfiling(this.bindEvent.bind(this), ['vc']);
+		this.start = withProfiling(this.start.bind(this), ['vc']);
+		this.stop = withProfiling(this.stop.bind(this), ['vc']);
+		markProfilingEnd(operationTimer);
 	}
 
 	private bindEvent(type: ObservedWindowEvent) {

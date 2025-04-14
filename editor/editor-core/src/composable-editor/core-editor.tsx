@@ -19,6 +19,7 @@ import type { Transformer } from '@atlaskit/editor-common/types';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import EditorActions from '../actions';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
@@ -176,6 +177,11 @@ export function CoreEditor(props: EditorNextProps & WithAppearanceComponent) {
 			componentName: 'editorCore',
 			appearance: getAnalyticsAppearance(props.appearance),
 			editorSessionId: editorSessionId.current,
+			...(editorExperiment('platform_editor_controls_shadow', 'variant1', {
+				exposure: true,
+			})
+				? { tmpControlsShadow: true }
+				: {}),
 		};
 	}, [props.appearance]);
 	const memodEditorFeatureFlags = useMemoEditorFeatureFlags(props.featureFlags);

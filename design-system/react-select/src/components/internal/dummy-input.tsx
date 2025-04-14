@@ -4,6 +4,7 @@
  */
 import { type Ref } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 import { removeProps } from '../../utils';

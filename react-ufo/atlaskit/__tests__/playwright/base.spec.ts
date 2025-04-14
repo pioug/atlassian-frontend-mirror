@@ -39,7 +39,7 @@ const viewports = [
 test.describe('TTVC: basic page (10 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error', 'ufo_payload_use_idle_callback'],
+		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_disable_ttvc_v1'],
 	});
 
 	for (const viewport of viewports) {
@@ -48,7 +48,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 				viewport,
 			});
 
-			test(`section nine should exist inside the ufo:vc:dom['90']`, async ({
+			test(`section nine should exist inside the ufo:vc:rev`, async ({
 				page,
 				waitForReactUFOPayload,
 				getSectionDOMAddedAt,
@@ -90,7 +90,11 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 				const reactUFOPayload = await waitForReactUFOPayload();
 				expect(reactUFOPayload).toBeDefined();
 
-				const vc90Result = reactUFOPayload!.attributes.properties['metric:vc90'];
+				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
+				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
+
+				expect(ttvcV2Revision).toBeTruthy();
+				const vc90Result = ttvcV2Revision!['metric:vc90'];
 				expect(vc90Result).toBeDefined();
 				expect(vc90Result).toMatchTimeInSeconds(sectionNineVisibleAt);
 			});
@@ -101,7 +105,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 test.describe('TTVC: basic page (3 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-three-sections',
-		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error', 'ufo_payload_use_idle_callback'],
+		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_disable_ttvc_v1'],
 	});
 
 	for (const viewport of viewports) {
@@ -110,7 +114,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 				viewport,
 			});
 
-			test("section three should exist inside the ufo:vc:dom['90']", async ({
+			test('section three should exist inside the ufo:vc:rev', async ({
 				page,
 				waitForReactUFOPayload,
 				getSectionDOMAddedAt,
@@ -152,7 +156,11 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 				const reactUFOPayload = await waitForReactUFOPayload();
 				expect(reactUFOPayload).toBeDefined();
 
-				const vc90Result = reactUFOPayload!.attributes.properties['metric:vc90'];
+				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
+				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
+
+				expect(ttvcV2Revision).toBeTruthy();
+				const vc90Result = ttvcV2Revision!['metric:vc90'];
 				expect(vc90Result).toBeDefined();
 				expect(vc90Result).toMatchTimeInSeconds(sectionThreeVisibleAt);
 			});
@@ -163,7 +171,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 test.describe('TTVC: basic page (100 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-any-number-sections', // hardcoded to 100 in the code
-		featureFlags: ['platform_ufo_fix_vc_observer_rounding_error', 'ufo_payload_use_idle_callback'],
+		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_disable_ttvc_v1'],
 	});
 
 	for (const viewport of viewports) {
@@ -185,25 +193,28 @@ test.describe('TTVC: basic page (100 congruent sections)', () => {
 				const reactUFOPayload = await waitForReactUFOPayload();
 				expect(reactUFOPayload).toBeDefined();
 
-				const ufoVCDom = reactUFOPayload!.attributes.properties['ufo:vc:dom'];
-				expect(ufoVCDom['25']).toHaveLength(1);
-				expect(ufoVCDom['25']).toStrictEqual(['div[testid=section25]']);
-				expect(ufoVCDom['50']).toHaveLength(1);
-				expect(ufoVCDom['50']).toStrictEqual(['div[testid=section50]']);
-				expect(ufoVCDom['75']).toHaveLength(1);
-				expect(ufoVCDom['75']).toStrictEqual(['div[testid=section75]']);
-				expect(ufoVCDom['80']).toHaveLength(1);
-				expect(ufoVCDom['80']).toStrictEqual(['div[testid=section80]']);
-				expect(ufoVCDom['85']).toHaveLength(1);
-				expect(ufoVCDom['85']).toStrictEqual(['div[testid=section85]']);
-				expect(ufoVCDom['90']).toHaveLength(1);
-				expect(ufoVCDom['90']).toStrictEqual(['div[testid=section90]']);
-				expect(ufoVCDom['95']).toHaveLength(1);
-				expect(ufoVCDom['95']).toStrictEqual(['div[testid=section95]']);
-				expect(ufoVCDom['98']).toHaveLength(1);
-				expect(ufoVCDom['98']).toStrictEqual(['div[testid=section98]']);
-				expect(ufoVCDom['99']).toHaveLength(1);
-				expect(ufoVCDom['99']).toStrictEqual(['div[testid=section99]']);
+				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
+				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
+
+				expect(ttvcV2Revision).toBeTruthy();
+				expect(ttvcV2Revision!.vcDetails?.['25'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['25'].e).toStrictEqual(['div[testid=section25]']);
+				expect(ttvcV2Revision!.vcDetails?.['50'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['50'].e).toStrictEqual(['div[testid=section50]']);
+				expect(ttvcV2Revision!.vcDetails?.['75'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['75'].e).toStrictEqual(['div[testid=section75]']);
+				expect(ttvcV2Revision!.vcDetails?.['80'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['80'].e).toStrictEqual(['div[testid=section80]']);
+				expect(ttvcV2Revision!.vcDetails?.['85'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['85'].e).toStrictEqual(['div[testid=section85]']);
+				expect(ttvcV2Revision!.vcDetails?.['90'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['90'].e).toStrictEqual(['div[testid=section90]']);
+				expect(ttvcV2Revision!.vcDetails?.['95'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['95'].e).toStrictEqual(['div[testid=section95]']);
+				expect(ttvcV2Revision!.vcDetails?.['98'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['98'].e).toStrictEqual(['div[testid=section98]']);
+				expect(ttvcV2Revision!.vcDetails?.['99'].e).toHaveLength(1);
+				expect(ttvcV2Revision!.vcDetails?.['99'].e).toStrictEqual(['div[testid=section99]']);
 			});
 
 			test('VC90 should matches when the section 90 was visible', async ({
@@ -223,7 +234,11 @@ test.describe('TTVC: basic page (100 congruent sections)', () => {
 				const reactUFOPayload = await waitForReactUFOPayload();
 				expect(reactUFOPayload).toBeDefined();
 
-				const vc90Result = reactUFOPayload!.attributes.properties['metric:vc90'];
+				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
+				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
+
+				expect(ttvcV2Revision).toBeTruthy();
+				const vc90Result = ttvcV2Revision!['metric:vc90'];
 				expect(vc90Result).toBeDefined();
 				expect(vc90Result).toMatchTimeInSeconds(sectionNinetyRenderTime);
 			});

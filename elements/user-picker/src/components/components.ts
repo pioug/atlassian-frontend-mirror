@@ -9,29 +9,30 @@ import { SingleValueContainer } from './SingleValueContainer';
 import { PopupInput } from './PopupInput';
 import { PopupControl } from './PopupControl';
 import { Menu } from './Menu';
-
 /**
  * Memoize getComponents to avoid rerenders.
  */
-export const getComponents = memoizeOne((multi?: boolean, anchor?: React.ComponentType<any>) => {
-	if (anchor) {
-		return {
-			Control: anchor,
-			Option,
-		};
-	} else {
-		return {
-			MultiValue,
-			DropdownIndicator: null,
-			SingleValue,
-			ClearIndicator: multi ? null : ClearIndicator,
-			Option,
-			ValueContainer: multi ? MultiValueContainer : SingleValueContainer,
-			Input,
-			Menu,
-		};
-	}
-});
+export const getComponents = memoizeOne(
+	(multi?: boolean, anchor?: React.ComponentType<any>, showClearIndicator?: boolean) => {
+		if (anchor) {
+			return {
+				Control: anchor,
+				Option,
+			};
+		} else {
+			return {
+				MultiValue,
+				DropdownIndicator: null,
+				SingleValue,
+				ClearIndicator: showClearIndicator || !multi ? ClearIndicator : null,
+				Option,
+				ValueContainer: multi ? MultiValueContainer : SingleValueContainer,
+				Input,
+				Menu,
+			};
+		}
+	},
+);
 
 export const getPopupComponents = memoizeOne((hasPopupTitle: boolean) => {
 	const baseProps = {

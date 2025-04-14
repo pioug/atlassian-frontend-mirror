@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-editor",
-	"version": "5.1.2",
+	"version": "5.2.0",
 	"description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -140,9 +140,6 @@
 			"type": "boolean"
 		},
 		"jql_editor_a11y": {
-			"type": "boolean"
-		},
-		"gravityai-2553-fix-jql-debugger-flicker": {
 			"type": "boolean"
 		}
 	}

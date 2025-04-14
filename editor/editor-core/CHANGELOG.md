@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 205.3.1
+
+### Patch Changes
+
+- [#137211](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137211)
+  [`d00cb55d6fa4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d00cb55d6fa4b) -
+  [ux] ED27118 Increase pull page editor gutter to allow more space for new floating insert button -
+  https://hello.atlassian.net/wiki/spaces/EDITOR/pages/5120694962/Editor+DACI+New+insert+button+and+full-width+screens+2.0
+- Updated dependencies
+
+## 205.3.0
+
+### Minor Changes
+
+- [#134613](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134613)
+  [`be20cc186939b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be20cc186939b) -
+  ED-26247 Remove feature flag platform_media_extended_resize_experience and replace it with a new
+  media prop which defaults to false allowPixelResizing
+
+### Patch Changes
+
+- [#140758](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140758)
+  [`02525232cc778`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02525232cc778) -
+  [ux] ED-27140 suppress toolbars when inline commenting
+- Updated dependencies
+
 ## 205.2.4
 
 ### Patch Changes

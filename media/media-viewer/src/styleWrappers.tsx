@@ -1,416 +1,92 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
-import { type CSSProperties, forwardRef, type MouseEvent, type ReactNode, useMemo } from 'react';
+import React, { type CSSProperties, forwardRef, type MouseEvent, type ReactNode } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type MediaType } from '@atlaskit/media-client';
-import { blanketColor, overlayZindex } from './styles';
-import { ellipsis, hideControlsClassName } from '@atlaskit/media-ui';
-import { TouchScrollable } from 'react-scrolllock';
-import { useMergeRefs } from 'use-callback-ref';
-import { headerAndSidebarBackgroundColor } from './viewers/modalSpinner';
-import { ArchiveSideBarWidth } from './viewers/archiveSidebar/styles';
-import { token } from '@atlaskit/tokens';
-import { borderRadius } from '@atlaskit/theme/constants';
-import { Box, xcss } from '@atlaskit/primitives';
+import {
+	Blanket as CompiledBlanket,
+	HeaderWrapper as CompiledHeaderWrapper,
+	ListWrapper as CompiledListWrapper,
+	ArrowsWrapper as CompiledArrowsWrapper,
+	CloseButtonWrapper as CompiledCloseButtonWrapper,
+	ContentWrapper as CompiledContentWrapper,
+	ZoomWrapper as CompiledZoomWrapper,
+	ZoomCenterControls as CompiledZoomCenterControls,
+	ZoomRightControls as CompiledZoomRightControls,
+	ZoomLevelIndicator as CompiledZoomLevelIndicator,
+	HDIconGroupWrapper as CompiledHDIconGroupWrapper,
+	ErrorMessageWrapper as CompiledErrorMessageWrapper,
+	ErrorImage as CompiledErrorImage,
+	Video as CompiledVideo,
+	PDFWrapper as CompiledPDFWrapper,
+	Arrow as CompiledArrow,
+	LeftWrapper as CompiledLeftWrapper,
+	RightWrapper as CompiledRightWrapper,
+	Header as CompiledHeader,
+	LeftHeader as CompiledLeftHeader,
+	ImageWrapper as CompiledImageWrapper,
+	BaselineExtend as CompiledBaselineExtend,
+	Img as CompiledImg,
+	MedatadataTextWrapper as CompiledMedatadataTextWrapper,
+	MetadataWrapper as CompiledMetadataWrapper,
+	MetadataFileName as CompiledMetadataFileName,
+	MetadataSubText as CompiledMetadataSubText,
+	MetadataIconWrapper as CompiledMetadataIconWrapper,
+	RightHeader as CompiledRightHeader,
+	CustomAudioPlayerWrapper as CompiledCustomAudioPlayerWrapper,
+	AudioPlayer as CompiledAudioPlayer,
+	Audio as CompiledAudio,
+	AudioCover as CompiledAudioCover,
+	DefaultCoverWrapper as CompiledDefaultCoverWrapper,
+	DownloadButtonWrapper as CompiledDownloadButtonWrapper,
+	CustomVideoPlayerWrapper as CompiledCustomVideoPlayerWrapper,
+	SidebarWrapper as CompiledSidebarWrapper,
+	SpinnerWrapper as CompiledSpinnerWrapper,
+	FormattedMessageWrapper as CompiledFormattedMessageWrapper,
+} from './styleWrappers-compiled';
 
-const SIDEBAR_WIDTH = 416;
-
-const blanketStyles = css({
-	position: 'fixed',
-	top: 0,
-	left: 0,
-	bottom: 0,
-	right: 0,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: blanketColor,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: overlayZindex,
-	display: 'flex',
-});
-
-const headerWrapperStyles = ({ isArchiveSideBarVisible }: HeaderWrapperProps) =>
-	css({
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		width: '100%',
-		height: '98px',
-		opacity: 0.85,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		background: `linear-gradient( to bottom, ${headerAndSidebarBackgroundColor}, rgba(14, 22, 36, 0) ) no-repeat`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		backgroundPosition: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px 0` : '0',
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		color: '#c7d1db',
-		fontWeight: token('font.weight.medium'),
-		padding: token('space.300', '24px'),
-		boxSizing: 'border-box',
-		pointerEvents: 'none',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		zIndex: overlayZindex + 1,
-	});
-
-const listWrapperStyles = css({
-	width: '100%',
-	height: '100%',
-	position: 'relative',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-});
-
-const closeButtonWrapperStyles = css({
-	position: 'absolute',
-	top: token('space.300', '24px'),
-	right: token('space.250', '20px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: overlayZindex + 2,
-});
-
-const contentWrapperStyles = ({ isSidebarVisible }: { isSidebarVisible?: boolean }) =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: isSidebarVisible ? `calc(100% - ${SIDEBAR_WIDTH}px)` : '100%',
-	});
-
-const zoomWrapperStyles = css({
-	width: '100%',
-	position: 'absolute',
-	bottom: '0px',
-	height: '98px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundImage: `linear-gradient( to top, ${headerAndSidebarBackgroundColor}, rgba(14, 22, 36, 0) )`,
-	opacity: 0.85,
-	pointerEvents: 'none',
-	boxSizing: 'border-box',
-	display: 'flex',
-	alignItems: 'flex-end',
-	padding: `${token('space.100', '10px')} ${token('space.300', '24px')}`,
-});
-
-const zoomCenterControlsStyles = css({
-	width: '100%',
-	display: 'flex',
-	justifyContent: 'center',
-	gap: token('space.100', '10px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> *': {
-		pointerEvents: 'all',
-	},
-});
-
-const zoomRightControlsStyles = css({
-	position: 'absolute',
-	right: token('space.300', '24px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	color: '#c7d1db',
-	pointerEvents: 'all',
-	display: 'flex',
-	justifyContent: 'right',
-	gap: token('space.100', '10px'),
-});
-
-const zoomLevelIndicatorStyles = css({
-	height: '32px',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: '32px',
-	verticalAlign: 'middle',
-});
-
-const hdIconGroupWrapperStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-	gap: token('space.100', '10px'),
-	position: 'relative',
-	width: '24px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> *': {
-		position: 'absolute',
-	},
-});
-
-const errorMessageWrapperStyles = css({
-	textAlign: 'center',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	color: '#c7d1db',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	p: {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '100%',
-	},
-});
-
-const errorImageStyles = css({
-	marginBottom: token('space.100', '10px'),
-	userSelect: 'none',
-});
-
-const videoStyles = css({
-	width: '100vw',
-	height: '100vh',
-});
-
-const pdfWrapperStyles = css({
-	overflow: 'auto',
-	position: 'absolute',
-	top: 0,
-	left: 0,
-	bottom: 0,
-	right: 0,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`.${hideControlsClassName}`]: {
-		position: 'fixed',
-	},
-});
-
-const arrowStyles = css({
-	cursor: 'pointer',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	svg: {
-		filter:
-			'drop-shadow(0px 1px 1px rgb(9 30 66 / 25%)) drop-shadow(0px 0px 1px rgb(9 30 66 / 31%))',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&& button': {
-		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			svg: {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				color: '#b6c2cf',
-			},
-		},
-		'&:active': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			svg: {
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-				color: '#c7d1db',
-			},
-		},
-	},
-});
-
-const arrowWrapperStyles = css({
-	position: 'absolute',
-	top: '50%',
-	transform: 'translateY(-50%)',
-	padding: token('space.250', '20px'),
-});
-
-const arrowsWrapperStyles = css({
-	display: 'flex',
-	position: 'absolute',
-	top: '50%',
-	transform: 'translateY(-50%)',
-	left: 0,
-	width: '100%',
-});
-
-const leftWrapperStyles = ({ isArchiveSideBarVisible }: LeftWrapperProps) =>
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	css(arrowWrapperStyles, {
-		textAlign: 'left',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		left: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0',
-	});
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const rightWrapperStyles = css(arrowWrapperStyles, {
-	textAlign: 'right',
-	right: 0,
-});
-
-const headerStyles = ({ isArchiveSideBarVisible }: HeaderProps) =>
-	css({
-		display: 'flex',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		paddingLeft: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0',
-	});
-
-const leftHeaderStyles = css({
-	flex: 1,
-	overflow: 'hidden',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> *': {
-		pointerEvents: 'all',
-	},
-});
-
-const imageWrapperStyles = css({
-	width: '100vw',
-	height: '100vh',
-	overflow: 'auto',
-	textAlign: 'center',
-	verticalAlign: 'middle',
-	whiteSpace: 'nowrap',
-});
-
-const baselineExtendStyles = css({
-	height: '100%',
-	display: 'inline-block',
-	verticalAlign: 'middle',
-});
-
-type ImgStylesProps = {
-	cursor: string;
-	shouldPixelate: boolean;
-};
-
-const imgStyles = ({ cursor, shouldPixelate }: ImgStylesProps) =>
-	css(
-		{
-			display: 'inline-block',
-			verticalAlign: 'middle',
-			position: 'relative',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			cursor: cursor,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		shouldPixelate
-			? `/* Prevent images from being smoothed when scaled up */
-    image-rendering: optimizeSpeed; /* Legal fallback */
-    image-rendering: -moz-crisp-edges; /* Firefox        */
-    image-rendering: -o-crisp-edges; /* Opera          */
-    image-rendering: -webkit-optimize-contrast; /* Safari         */
-    image-rendering: optimize-contrast; /* CSS3 Proposed  */
-    image-rendering: crisp-edges; /* CSS4 Proposed  */
-    image-rendering: pixelated; /* CSS4 Proposed  */
-    -ms-interpolation-mode: nearest-neighbor; /* IE8+           */`
-			: ``,
-	);
-
-const medatadataTextWrapperStyles = css({
-	overflow: 'hidden',
-});
-
-const metadataWrapperStyles = css({
-	display: 'flex',
-});
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const metadataFileNameStyles = css(ellipsis());
-
-const metadataSubTextStyles = css(
-	{
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		color: '#c7d1db',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	ellipsis(),
-);
-
-const metadataIconWrapperStyles = xcss({
-	paddingTop: 'space.050',
-	paddingRight: 'space.150',
-});
-
+import {
+	Blanket as EmotionBlanket,
+	HeaderWrapper as EmotionHeaderWrapper,
+	ListWrapper as EmotionListWrapper,
+	ArrowsWrapper as EmotionArrowsWrapper,
+	CloseButtonWrapper as EmotionCloseButtonWrapper,
+	ContentWrapper as EmotionContentWrapper,
+	ZoomWrapper as EmotionZoomWrapper,
+	ZoomCenterControls as EmotionZoomCenterControls,
+	ZoomRightControls as EmotionZoomRightControls,
+	ZoomLevelIndicator as EmotionZoomLevelIndicator,
+	HDIconGroupWrapper as EmotionHDIconGroupWrapper,
+	ErrorMessageWrapper as EmotionErrorMessageWrapper,
+	ErrorImage as EmotionErrorImage,
+	Video as EmotionVideo,
+	PDFWrapper as EmotionPDFWrapper,
+	Arrow as EmotionArrow,
+	LeftWrapper as EmotionLeftWrapper,
+	RightWrapper as EmotionRightWrapper,
+	Header as EmotionHeader,
+	LeftHeader as EmotionLeftHeader,
+	ImageWrapper as EmotionImageWrapper,
+	BaselineExtend as EmotionBaselineExtend,
+	Img as EmotionImg,
+	MedatadataTextWrapper as EmotionMedatadataTextWrapper,
+	MetadataWrapper as EmotionMetadataWrapper,
+	MetadataFileName as EmotionMetadataFileName,
+	MetadataSubText as EmotionMetadataSubText,
+	MetadataIconWrapper as EmotionMetadataIconWrapper,
+	RightHeader as EmotionRightHeader,
+	CustomAudioPlayerWrapper as EmotionCustomAudioPlayerWrapper,
+	AudioPlayer as EmotionAudioPlayer,
+	Audio as EmotionAudio,
+	AudioCover as EmotionAudioCover,
+	DefaultCoverWrapper as EmotionDefaultCoverWrapper,
+	DownloadButtonWrapper as EmotionDownloadButtonWrapper,
+	CustomVideoPlayerWrapper as EmotionCustomVideoPlayerWrapper,
+	SidebarWrapper as EmotionSidebarWrapper,
+	SpinnerWrapper as EmotionSpinnerWrapper,
+	FormattedMessageWrapper as EmotionFormattedMessageWrapper,
+} from './styleWrappers-emotion';
 export interface IconWrapperProps {
 	type: MediaType;
 }
-
-const rightHeaderStyles = css({
-	textAlign: 'right',
-	marginRight: token('space.500', '40px'),
-	minWidth: '200px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> *': {
-		pointerEvents: 'all',
-	},
-});
-
-const customAudioPlayerWrapperStyles = css({
-	position: 'absolute',
-	bottom: 0,
-	left: 0,
-	width: '100%',
-});
-
-const audioPlayerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: blanketColor,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: borderRadius(),
-	alignItems: 'center',
-	justifyContent: 'center',
-	width: '400px',
-	height: '400px',
-	overflow: 'hidden',
-	display: 'flex',
-	flexDirection: 'column',
-	position: 'relative',
-});
-
-const audioStyles = css({
-	width: '100%',
-	position: 'absolute',
-	bottom: 0,
-	left: 0,
-});
-
-const audioCoverStyles = css({
-	width: '100%',
-	height: '100%',
-	objectFit: 'scale-down',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	backgroundColor: '#000',
-});
-
-const defaultCoverWrapperStyles = css({
-	width: '100%',
-	height: '100%',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	color: token('color.text', '#9FADBC'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> *': {
-		transform: 'scale(2)',
-	},
-});
-
-const downloadButtonWrapperStyles = css({
-	marginTop: token('space.300', '28px'),
-	textAlign: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	button: {
-		'&:hover, &:active': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			color: '#161a1d !important',
-		},
-	},
-});
-
-const customVideoPlayerWrapperStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	video: {
-		flex: 1,
-		width: '100vw',
-		height: '100vh',
-		maxHeight: '100vh',
-	},
-});
-
-const sidebarWrapperStyles = css({
-	top: 0,
-	right: 0,
-	width: `${SIDEBAR_WIDTH}px`,
-	height: '100vh',
-	overflow: 'hidden auto',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	backgroundColor: token('elevation.surface', headerAndSidebarBackgroundColor),
-	color: token('color.text', '#c7d1db'),
-});
-
-const spinnerWrapperStyles = css({
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-	height: '100%',
-});
-
-const formattedMessageWrapperStyles = css({});
 
 type Children = {
 	children: ReactNode;
@@ -425,110 +101,111 @@ type DataTestID = {
 
 type BlanketProps = DataTestID & Children & ClassName;
 // We are keeping this data-testid since JIRA is still using it in their codebase to perform checks. Before removing this, we need to ensure this 'media-viewer-popup' test id is not being used anywhere else in other codebases
-export const Blanket = ({ 'data-testid': datatestId, className, children }: BlanketProps) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<div css={blanketStyles} data-testid={datatestId} className={className}>
-		{children}
-	</div>
-);
+export const Blanket = (props: BlanketProps) =>
+	fg('platform_media_compiled') ? <CompiledBlanket {...props} /> : <EmotionBlanket {...props} />;
 
 type HeaderWrapperProps = {
 	isArchiveSideBarVisible: boolean;
 };
 
-export const HeaderWrapper = ({
-	className,
-	children,
-	isArchiveSideBarVisible,
-}: ClassName & Children & HeaderWrapperProps) => {
-	return (
-		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={headerWrapperStyles({ isArchiveSideBarVisible })}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={className}
-		>
-			{children}
-		</div>
+export const HeaderWrapper = (props: ClassName & Children & HeaderWrapperProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledHeaderWrapper {...props} />
+	) : (
+		<EmotionHeaderWrapper {...props} />
 	);
-};
 
 HeaderWrapper.displayName = 'HeaderWrapper';
 
-export const ListWrapper = ({ children }: Children) => (
-	<div css={listWrapperStyles}>{children}</div>
-);
+export const ListWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledListWrapper {...props} />
+	) : (
+		<EmotionListWrapper {...props} />
+	);
+
 ListWrapper.displayName = 'ListWrapper';
 
-export const ArrowsWrapper = ({ children }: Children) => (
-	<div id="media-viewer-navigation" css={arrowsWrapperStyles}>
-		{children}
-	</div>
-);
+export const ArrowsWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledArrowsWrapper {...props} />
+	) : (
+		<EmotionArrowsWrapper {...props} />
+	);
 
-export const CloseButtonWrapper = ({ className, children }: ClassName & Children) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<div css={closeButtonWrapperStyles} className={className}>
-		{children}
-	</div>
-);
+export const CloseButtonWrapper = (props: ClassName & Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledCloseButtonWrapper {...props} />
+	) : (
+		<EmotionCloseButtonWrapper {...props} />
+	);
 
 type ContentWrapperProps = {
 	isSidebarVisible: boolean | undefined;
 } & Children;
 
-export const ContentWrapper = ({ isSidebarVisible, children }: ContentWrapperProps) => (
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-	<div css={contentWrapperStyles({ isSidebarVisible })}>{children}</div>
-);
+export const ContentWrapper = (props: ContentWrapperProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledContentWrapper {...props} />
+	) : (
+		<EmotionContentWrapper {...props} />
+	);
 
-export const ZoomWrapper = ({ className, children }: ClassName & Children) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<div css={zoomWrapperStyles} className={className}>
-		{children}
-	</div>
-);
+export const ZoomWrapper = (props: ClassName & Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledZoomWrapper {...props} />
+	) : (
+		<EmotionZoomWrapper {...props} />
+	);
 
-export const ZoomCenterControls = ({ children }: Children) => (
-	<div css={zoomCenterControlsStyles}>{children}</div>
-);
+export const ZoomCenterControls = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledZoomCenterControls {...props} />
+	) : (
+		<EmotionZoomCenterControls {...props} />
+	);
 
-export const ZoomRightControls = ({ children }: Children) => (
-	<div css={zoomRightControlsStyles}>{children}</div>
-);
+export const ZoomRightControls = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledZoomRightControls {...props} />
+	) : (
+		<EmotionZoomRightControls {...props} />
+	);
 
-export const ZoomLevelIndicator = ({ children }: Children) => (
-	<span css={zoomLevelIndicatorStyles} data-testid="zoom-level-indicator">
-		{children}
-	</span>
-);
+export const ZoomLevelIndicator = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledZoomLevelIndicator {...props} data-testid="zoom-level-indicator" />
+	) : (
+		<EmotionZoomLevelIndicator {...props} data-testid="zoom-level-indicator" />
+	);
 
-export const HDIconGroupWrapper = ({ className, children }: ClassName & Children) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<div css={hdIconGroupWrapperStyles} className={className}>
-		{children}
-	</div>
-);
+export const HDIconGroupWrapper = (props: ClassName & Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledHDIconGroupWrapper {...props} />
+	) : (
+		<EmotionHDIconGroupWrapper {...props} />
+	);
 
 type ErrorMessageWrapperProps = DataTestID & Children;
 
-export const ErrorMessageWrapper = ({
-	'data-testid': datatestId,
-	children,
-}: ErrorMessageWrapperProps) => (
-	<div css={errorMessageWrapperStyles} data-testid={datatestId}>
-		{children}
-	</div>
-);
+export const ErrorMessageWrapper = (props: ErrorMessageWrapperProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledErrorMessageWrapper {...props} />
+	) : (
+		<EmotionErrorMessageWrapper {...props} />
+	);
 
 type ErrorImageProps = {
 	alt: string | undefined;
 	src: string;
 };
 
-export const ErrorImage = ({ src, alt }: ErrorImageProps) => (
-	<img css={errorImageStyles} alt={alt} src={src} />
-);
+export const ErrorImage = (props: ErrorImageProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledErrorImage {...props} />
+	) : (
+		<EmotionErrorImage {...props} />
+	);
 
 type VideoProps = {
 	controls: boolean;
@@ -536,69 +213,53 @@ type VideoProps = {
 	autoPlay: boolean;
 };
 
-export const Video = ({ autoPlay, controls, src }: VideoProps) => (
-	// eslint-disable-next-line jsx-a11y/media-has-caption
-	<video css={videoStyles} autoPlay={autoPlay} controls={controls} src={src} />
-);
-
-const PDFWrapperBody = forwardRef<
-	HTMLDivElement,
-	{ innerRef: React.Ref<HTMLDivElement> } & PDFWrapperProps
->(({ innerRef, 'data-testid': datatestId, children }, ref) => {
-	const bodyRef = useMergeRefs([ref, innerRef]);
-	return (
-		<div css={pdfWrapperStyles} ref={bodyRef} data-testid={datatestId}>
-			{children}
-		</div>
-	);
-});
+export const Video = (props: VideoProps) =>
+	fg('platform_media_compiled') ? <CompiledVideo {...props} /> : <EmotionVideo {...props} />;
 
 type PDFWrapperProps = DataTestID & Children;
-export const PDFWrapper = forwardRef<HTMLDivElement, PDFWrapperProps>((props, ref) => {
-	return (
-		<TouchScrollable>
-			<PDFWrapperBody innerRef={ref} {...props} />
-		</TouchScrollable>
-	);
-});
-
-export const Arrow = ({ className, children }: ClassName & Children) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-	<span css={arrowStyles} className={className}>
-		{children}
-	</span>
+export const PDFWrapper = forwardRef<HTMLDivElement, PDFWrapperProps>((props, ref) =>
+	fg('platform_media_compiled') ? (
+		<CompiledPDFWrapper ref={ref} {...props} />
+	) : (
+		<EmotionPDFWrapper ref={ref} {...props} />
+	),
 );
+
+export const Arrow = (props: ClassName & Children) =>
+	fg('platform_media_compiled') ? <CompiledArrow {...props} /> : <EmotionArrow {...props} />;
 
 export type LeftWrapperProps = {
 	isArchiveSideBarVisible: boolean;
 };
 
-export const LeftWrapper = ({ children, isArchiveSideBarVisible }: Children & LeftWrapperProps) => (
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-	<div css={leftWrapperStyles({ isArchiveSideBarVisible })}>{children}</div>
-);
+export const LeftWrapper = (props: Children & LeftWrapperProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledLeftWrapper {...props} />
+	) : (
+		<EmotionLeftWrapper {...props} />
+	);
 
-export const RightWrapper = ({ children }: Children) => (
-	<div css={rightWrapperStyles}>{children}</div>
-);
+export const RightWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledRightWrapper {...props} />
+	) : (
+		<EmotionRightWrapper {...props} />
+	);
 
 // header.tsx
 export type HeaderProps = {
 	isArchiveSideBarVisible: boolean;
 };
 
-export const Header = ({
-	children,
-	isArchiveSideBarVisible,
-	className,
-}: Children & HeaderProps & ClassName) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-	<div css={headerStyles({ isArchiveSideBarVisible })} className={className}>
-		{children}
-	</div>
-);
+export const Header = (props: Children & HeaderProps & ClassName) =>
+	fg('platform_media_compiled') ? <CompiledHeader {...props} /> : <EmotionHeader {...props} />;
 
-export const LeftHeader = ({ children }: Children) => <div css={leftHeaderStyles}>{children}</div>;
+export const LeftHeader = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledLeftHeader {...props} />
+	) : (
+		<EmotionLeftHeader {...props} />
+	);
 
 export type ImageWrapperProps = {
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
@@ -606,34 +267,17 @@ export type ImageWrapperProps = {
 } & Children &
 	DataTestID;
 
-export const ImageWrapper = forwardRef(
-	(
-		{
-			children,
-			'data-testid': datatestId,
-			onClick,
-			style,
-			className,
-		}: ImageWrapperProps & ClassName,
-		ref,
-	) => (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-		<div
-			data-testid={datatestId}
-			onClick={onClick}
-			ref={ref as React.RefObject<HTMLDivElement>}
-			css={imageWrapperStyles}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={style}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={className}
-		>
-			{children}
-		</div>
-	),
+export const ImageWrapper = forwardRef<HTMLDivElement, ImageWrapperProps & ClassName>(
+	(props, ref) =>
+		fg('platform_media_compiled') ? (
+			<CompiledImageWrapper ref={ref} {...props} />
+		) : (
+			<EmotionImageWrapper ref={ref} {...props} />
+		),
 );
 
-export const BaselineExtend = () => <div css={baselineExtendStyles} />;
+export const BaselineExtend = () =>
+	fg('platform_media_compiled') ? <CompiledBaselineExtend /> : <EmotionBaselineExtend />;
 
 export type ImgProps = {
 	canDrag: boolean;
@@ -647,95 +291,74 @@ export type ImgProps = {
 } & DataTestID &
 	ClassName;
 
-export const Img = ({
-	canDrag,
-	isDragging,
-	shouldPixelate,
-	'data-testid': datatestId,
-	src,
-	style,
-	onLoad,
-	onError,
-	onMouseDown,
-	className,
-}: ImgProps) => {
-	const cursor = useMemo(() => {
-		if (canDrag && isDragging) {
-			return 'grabbing';
-		} else if (canDrag) {
-			return 'grab';
-		} else {
-			return 'auto';
-		}
-	}, [canDrag, isDragging]);
-	return (
-		// eslint-disable-next-line jsx-a11y/alt-text, jsx-a11y/no-noninteractive-element-interactions
-		<img
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={className}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={imgStyles({ cursor, shouldPixelate })}
-			data-testid={datatestId}
-			src={src}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={style}
-			onLoad={onLoad}
-			onError={onError}
-			onMouseDown={onMouseDown}
-		/>
+export const Img = (props: ImgProps) =>
+	fg('platform_media_compiled') ? <CompiledImg {...props} /> : <EmotionImg {...props} />;
+
+export const MedatadataTextWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledMedatadataTextWrapper {...props} />
+	) : (
+		<EmotionMedatadataTextWrapper {...props} />
 	);
-};
 
-export const MedatadataTextWrapper = ({ children }: Children) => (
-	<div css={medatadataTextWrapperStyles}>{children}</div>
-);
-
-export const MetadataWrapper = ({ children }: Children) => (
-	<div css={metadataWrapperStyles}>{children}</div>
-);
+export const MetadataWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledMetadataWrapper {...props} />
+	) : (
+		<EmotionMetadataWrapper {...props} />
+	);
 
 type MetadataFileNameProps = DataTestID & Children;
 
-export const MetadataFileName = ({
-	'data-testid': datatestId,
-	children,
-}: MetadataFileNameProps) => (
-	<div css={metadataFileNameStyles} data-testid={datatestId}>
-		{children}
-	</div>
-);
+export const MetadataFileName = (props: MetadataFileNameProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledMetadataFileName {...props} />
+	) : (
+		<EmotionMetadataFileName {...props} />
+	);
 
 type MetadataSubTextProps = DataTestID & Children;
 
-export const MetadataSubText = ({ 'data-testid': datatestId, children }: MetadataSubTextProps) => (
-	<div css={metadataSubTextStyles} data-testid={datatestId}>
-		{children}
-	</div>
-);
+export const MetadataSubText = (props: MetadataSubTextProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledMetadataSubText {...props} />
+	) : (
+		<EmotionMetadataSubText {...props} />
+	);
 
-export const MetadataIconWrapper = ({ children }: Children) => (
-	<Box xcss={metadataIconWrapperStyles}>{children}</Box>
-);
+export const MetadataIconWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledMetadataIconWrapper {...props} />
+	) : (
+		<EmotionMetadataIconWrapper {...props} />
+	);
 
 export interface IconWrapperProps {
 	type: MediaType;
 }
 
-export const RightHeader = ({ children }: Children) => (
-	<div css={rightHeaderStyles}>{children}</div>
-);
+export const RightHeader = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledRightHeader {...props} />
+	) : (
+		<EmotionRightHeader {...props} />
+	);
 
-export const CustomAudioPlayerWrapper = ({ children }: Children) => (
-	<div css={customAudioPlayerWrapperStyles}>{children}</div>
-);
+export const CustomAudioPlayerWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledCustomAudioPlayerWrapper {...props} />
+	) : (
+		<EmotionCustomAudioPlayerWrapper {...props} />
+	);
 
 type AudioPlayerProps = DataTestID & Children;
 
-export const AudioPlayer = ({ 'data-testid': datatestId, children }: AudioPlayerProps) => (
-	<div css={audioPlayerStyles} data-testid={datatestId}>
-		{children}
-	</div>
-);
+export const AudioPlayer = (props: AudioPlayerProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledAudioPlayer {...props} />
+	) : (
+		<EmotionAudioPlayer {...props} />
+	);
 
 AudioPlayer.displayName = 'AudioPlayer';
 
@@ -746,58 +369,68 @@ type AudioProps = {
 	preload: string;
 };
 
-export const Audio = forwardRef(({ autoPlay, controls, src, preload }: AudioProps, ref) => (
-	// eslint-disable-next-line jsx-a11y/media-has-caption
-	<audio
-		css={audioStyles}
-		ref={ref as React.RefObject<HTMLAudioElement>}
-		autoPlay={autoPlay}
-		controls={controls}
-		src={src}
-		preload={preload}
-	/>
-));
+export const Audio = forwardRef<HTMLAudioElement, AudioProps>((props, ref) =>
+	fg('platform_media_compiled') ? (
+		<CompiledAudio ref={ref} {...props} />
+	) : (
+		<EmotionAudio ref={ref} {...props} />
+	),
+);
 
 type AudioCoverProps = {
 	alt: string | undefined;
 	src: string;
 };
 
-export const AudioCover = ({ src, alt }: AudioCoverProps) => (
-	<img css={audioCoverStyles} alt={alt} src={src} />
-);
+export const AudioCover = (props: AudioCoverProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledAudioCover {...props} />
+	) : (
+		<EmotionAudioCover {...props} />
+	);
 
-export const DefaultCoverWrapper = ({ children }: Children) => (
-	<div css={defaultCoverWrapperStyles}>{children}</div>
-);
+export const DefaultCoverWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledDefaultCoverWrapper {...props} />
+	) : (
+		<EmotionDefaultCoverWrapper {...props} />
+	);
 
-export const DownloadButtonWrapper = ({ children }: Children) => (
-	<div css={downloadButtonWrapperStyles}>{children}</div>
-);
+export const DownloadButtonWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledDownloadButtonWrapper {...props} />
+	) : (
+		<EmotionDownloadButtonWrapper {...props} />
+	);
 
 type CustomVideoPlayerWrapperProps = DataTestID & Children;
 
-export const CustomVideoPlayerWrapper = ({
-	'data-testid': datatestId,
-	children,
-}: CustomVideoPlayerWrapperProps) => (
-	<div css={customVideoPlayerWrapperStyles} data-testid={datatestId}>
-		{children}
-	</div>
-);
+export const CustomVideoPlayerWrapper = (props: CustomVideoPlayerWrapperProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledCustomVideoPlayerWrapper {...props} />
+	) : (
+		<EmotionCustomVideoPlayerWrapper {...props} />
+	);
 
 type SidebarWrapperProps = DataTestID & Children;
 
-export const SidebarWrapper = ({ 'data-testid': datatestId, children }: SidebarWrapperProps) => (
-	<div css={sidebarWrapperStyles} data-testid={datatestId}>
-		{children}
-	</div>
-);
+export const SidebarWrapper = (props: SidebarWrapperProps) =>
+	fg('platform_media_compiled') ? (
+		<CompiledSidebarWrapper {...props} />
+	) : (
+		<EmotionSidebarWrapper {...props} />
+	);
 
-export const SpinnerWrapper = ({ children }: Children) => (
-	<div css={spinnerWrapperStyles}>{children}</div>
-);
+export const SpinnerWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledSpinnerWrapper {...props} />
+	) : (
+		<EmotionSpinnerWrapper {...props} />
+	);
 
-export const FormattedMessageWrapper = ({ children }: Children) => (
-	<span css={formattedMessageWrapperStyles}>{children}</span>
-);
+export const FormattedMessageWrapper = (props: Children) =>
+	fg('platform_media_compiled') ? (
+		<CompiledFormattedMessageWrapper {...props} />
+	) : (
+		<EmotionFormattedMessageWrapper {...props} />
+	);

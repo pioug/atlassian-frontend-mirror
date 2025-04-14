@@ -5,7 +5,7 @@ import { snapshotInformational } from '@af/visual-regression';
 
 import BasicFiltersVR from '../../examples/vr/basic-filters-vr';
 import {
-	WithIssueModalWithParameters,
+	WithIssueModalWithParametersInformational as WithIssueModalWithParameters,
 	JiraModalNoSuspense as WithModal,
 } from '../../examples/with-issues-modal';
 import { type BasicFilterFieldType } from '../../src/ui/jira-issues-modal/basic-filters/types';
@@ -33,6 +33,9 @@ const selectOption = async (
 	closeAfterSelect: boolean = true,
 ) => {
 	await page.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
+	await page
+		.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+		.waitFor({ state: 'visible' });
 	let optionType: string;
 
 	if (filter === 'project' || filter === 'type') {
@@ -63,6 +66,7 @@ snapshotInformational(BasicFiltersVR, {
 		await page.getByText('ProjectTypeStatusAssignee');
 	},
 	description: 'default state for all filters',
+	waitForHold: true,
 });
 
 snapshotInformational(WithModal, {
@@ -90,6 +94,7 @@ snapshotInformational(WithIssueModalWithParameters, {
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
+	waitForHold: true,
 });
 
 filters.forEach((filter) => {
@@ -98,7 +103,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			const firstOption = page.locator('#react-select-2-option-0');
 			await firstOption.waitFor({ state: 'visible' });
 		},
@@ -107,6 +114,7 @@ filters.forEach((filter) => {
 			'platform-component-visual-refresh': [true, false],
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -120,6 +128,7 @@ filters.forEach((filter) => {
 			'platform-component-visual-refresh': [true, false],
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -132,6 +141,7 @@ filters.forEach((filter) => {
 		featureFlags: {
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -139,7 +149,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `my ${filter}`);
 
 			// This is necessary for assignee to avoid flakiness when snapshot is taken before search has time to process and reload results
@@ -150,6 +162,7 @@ filters.forEach((filter) => {
 			'platform-component-visual-refresh': [true, false],
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -157,7 +170,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `loading-message`);
 
 			await page
@@ -172,6 +187,7 @@ filters.forEach((filter) => {
 		featureFlags: {
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -179,7 +195,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `empty-message`);
 
 			await page
@@ -193,6 +211,7 @@ filters.forEach((filter) => {
 			'bandicoots-update-sllv-icons': true,
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -200,7 +219,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `empty-message`);
 
 			await page
@@ -221,7 +242,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `error-message`);
 
 			await page
@@ -235,6 +258,7 @@ filters.forEach((filter) => {
 			'bandicoots-update-sllv-icons': true,
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -242,7 +266,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `error-message`);
 
 			await page
@@ -256,6 +282,7 @@ filters.forEach((filter) => {
 			'bandicoots-update-sllv-icons': false,
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 
 	snapshotInformational(BasicFiltersVR, {
@@ -263,6 +290,9 @@ filters.forEach((filter) => {
 
 		prepare: async (page: Page, component: Locator) => {
 			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
 			await page.keyboard.press('Tab');
 		},
 		description: `${filter} open and focus show more button`,
@@ -270,5 +300,6 @@ filters.forEach((filter) => {
 			'platform-component-visual-refresh': [true, false],
 			'platform-linking-visual-refresh-sllv': [true, false],
 		},
+		waitForHold: true,
 	});
 });

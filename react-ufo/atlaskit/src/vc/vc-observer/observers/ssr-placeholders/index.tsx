@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../../self-measurements';
 
 const ANCESTOR_LOOKUP_LIMIT = 10;
 
@@ -15,9 +15,10 @@ export class SSRPlaceholderHandlers {
 	private getSizeCallbacks = new Map<string, (resolve: Rect) => void>();
 	private reactValidateCallbacks = new Map<string, (resolve: boolean) => void>();
 	private intersectionObserver: IntersectionObserver | undefined;
-	private EQUALITY_THRESHOLD = fg('platform_ufo_ssr_placeholder_round_rect_size_check') ? 1 : 0.1;
+	private EQUALITY_THRESHOLD = 1;
 
 	constructor() {
+		const operationTimer = markProfilingStart('SSRPlaceholderHandlers constructor');
 		if (typeof IntersectionObserver === 'function') {
 			// Only instantiate the IntersectionObserver if it's supported
 			this.intersectionObserver = new IntersectionObserver((entries) =>
@@ -58,6 +59,31 @@ export class SSRPlaceholderHandlers {
 				delete window.__SSR_PLACEHOLDERS_DIMENSIONS__;
 			}
 		}
+
+		this.clear = withProfiling(this.clear.bind(this), ['vc']);
+		this.isPlaceholder = withProfiling(this.isPlaceholder.bind(this), ['vc']);
+		this.isPlaceholderReplacement = withProfiling(this.isPlaceholderReplacement.bind(this), ['vc']);
+		this.isPlaceholderIgnored = withProfiling(this.isPlaceholderIgnored.bind(this), ['vc']);
+		this.findNearestPlaceholderContainerIfIgnored = withProfiling(
+			this.findNearestPlaceholderContainerIfIgnored.bind(this),
+			['vc'],
+		);
+		this.checkIfExistedAndSizeMatching = withProfiling(
+			this.checkIfExistedAndSizeMatching.bind(this),
+			['vc'],
+		);
+		this.getSize = withProfiling(this.getSize.bind(this), ['vc']);
+		this.validateReactComponentMatchToPlaceholder = withProfiling(
+			this.validateReactComponentMatchToPlaceholder.bind(this),
+			['vc'],
+		);
+		this.hasSameSizePosition = withProfiling(this.hasSameSizePosition.bind(this), ['vc']);
+		this.isDummyRect = withProfiling(this.isDummyRect.bind(this), ['vc']);
+		this.intersectionObserverCallback = withProfiling(
+			this.intersectionObserverCallback.bind(this),
+			['vc'],
+		);
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	clear() {

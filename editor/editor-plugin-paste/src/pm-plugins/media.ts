@@ -11,7 +11,6 @@ import type { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getRandomHex } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PastePlugin } from '../pastePluginType';
 
@@ -20,7 +19,11 @@ import type { PastePlugin } from '../pastePluginType';
  *
  * TODO: ED-26959 - this func is only used in handlePaste, so layout update won't work for drop event
  */
-export function transformSliceForMedia(slice: Slice, schema: Schema) {
+export function transformSliceForMedia(
+	slice: Slice,
+	schema: Schema,
+	api?: ExtractInjectionAPI<PastePlugin>,
+) {
 	const { mediaSingle, layoutSection, table, bulletList, orderedList, expand, nestedExpand } =
 		schema.nodes;
 
@@ -32,7 +35,8 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
 			)
 		) {
 			newSlice = mapSlice(newSlice, (node) => {
-				const extendedOrLegacyAttrs = fg('platform_editor_media_extended_resize_experience')
+				const mediaState = api?.media?.sharedState.currentState();
+				const extendedOrLegacyAttrs = mediaState?.mediaOptions?.allowPixelResizing
 					? {
 							layout: node.attrs.layout,
 							widthType: node.attrs.widthType,
@@ -100,7 +104,8 @@ export const transformSliceToMediaSingleWithNewExperience = (
 		// The duplication is in the following file:
 		// packages/editor/editor-plugin-ai/src/prebuilt/content-transformers/markdown-to-pm/markdown-transformer.ts
 		if (node.type === mediaSingle) {
-			return fg('platform_editor_media_extended_resize_experience')
+			const mediaState = api?.media?.sharedState.currentState();
+			return mediaState?.mediaOptions?.allowPixelResizing
 				? mediaSingle.createChecked(
 						{
 							width: node.attrs.width || DEFAULT_IMAGE_WIDTH,

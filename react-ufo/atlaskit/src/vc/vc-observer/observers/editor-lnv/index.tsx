@@ -1,3 +1,5 @@
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../../self-measurements';
+
 type HandlerResult = {
 	shouldIgnore: boolean;
 };
@@ -28,11 +30,35 @@ export class EditorLnvHandler {
 	>();
 
 	constructor() {
+		const operationTimer = markProfilingStart('EditorLnvHandler constructor');
 		this.intersectionObserver = new IntersectionObserver((entries) =>
 			entries
 				.filter((entry) => entry.intersectionRatio > 0)
 				.forEach(this.intersectionObserverCallback),
 		);
+		this.shouldHandleAddedNode = withProfiling(this.shouldHandleAddedNode.bind(this), ['vc']);
+		this.handleAddedNode = withProfiling(this.handleAddedNode.bind(this), ['vc']);
+		this.clear = withProfiling(this.clear.bind(this), ['vc']);
+		this.handleAddedPlaceholderNode = withProfiling(this.handleAddedPlaceholderNode.bind(this), [
+			'vc',
+		]);
+		this.handleAddedReplaceNode = withProfiling(this.handleAddedReplaceNode.bind(this), ['vc']);
+		this.isExistingPlaceholder = withProfiling(this.isExistingPlaceholder.bind(this), ['vc']);
+		this.registerPlaceholder = withProfiling(this.registerPlaceholder.bind(this), ['vc']);
+		this.getSize = withProfiling(this.getSize.bind(this), ['vc']);
+		this.isAddedPlaceholderMatchingSize = withProfiling(
+			this.isAddedPlaceholderMatchingSize.bind(this),
+			['vc'],
+		);
+		this.isAddedReplaceMatchingSize = withProfiling(this.isAddedReplaceMatchingSize.bind(this), [
+			'vc',
+		]);
+		this.areRectsSameSize = withProfiling(this.areRectsSameSize.bind(this), ['vc']);
+		this.intersectionObserverCallback = withProfiling(
+			this.intersectionObserverCallback.bind(this),
+			['vc'],
+		);
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	shouldHandleAddedNode(el: HTMLElement) {

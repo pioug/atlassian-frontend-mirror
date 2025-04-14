@@ -314,6 +314,7 @@ const generateMediaSingleFloatingToolbar = (
 		allowMediaInlineImages,
 		allowImagePreview,
 		isViewOnly,
+		allowPixelResizing,
 	} = options;
 
 	let toolbarButtons: FloatingToolbarItem<Command>[] = [];
@@ -352,7 +353,7 @@ const generateMediaSingleFloatingToolbar = (
 		let isChangingLayoutDisabled = false;
 		const selectedNode = getSelectedMediaSingle(state);
 
-		if (fg('platform_editor_media_extended_resize_experience')) {
+		if (allowPixelResizing) {
 			const contentWidth = widthPlugin?.sharedState.currentState()?.lineLength;
 			const selectedNodeMaxWidth = pluginState.currentMaxWidth || contentWidth;
 
@@ -376,6 +377,7 @@ const generateMediaSingleFloatingToolbar = (
 			true,
 			true,
 			isChangingLayoutDisabled,
+			allowPixelResizing,
 		);
 
 		const addLayoutDropdownToToolbar = () => {
@@ -555,11 +557,7 @@ const generateMediaSingleFloatingToolbar = (
 		// Pixel Entry Toolbar Support
 		const { selection } = state;
 		const isWithinTable = hasParentNodeOfType([state.schema.nodes.table])(selection);
-		if (
-			allowResizing &&
-			(!isWithinTable || allowResizingInTables === true) &&
-			fg('platform_editor_media_extended_resize_experience')
-		) {
+		if (allowResizing && (!isWithinTable || allowResizingInTables === true) && allowPixelResizing) {
 			const selectedMediaSingleNode = getSelectedMediaSingle(state);
 
 			const sizeInput = {
@@ -864,6 +862,7 @@ export const floatingToolbar = (
 		isViewOnly,
 		allowResizingInTables,
 		allowAdvancedToolBarOptions,
+		allowPixelResizing,
 	} = options;
 
 	let { allowMediaInline } = options;
@@ -933,8 +932,8 @@ export const floatingToolbar = (
 		allowAdvancedToolBarOptions &&
 		allowResizing &&
 		(!isWithinTable || allowResizingInTables === true) &&
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_media_extended_resize_experience')
+		allowPixelResizing &&
+		editorExperiment('platform_editor_controls', 'variant1')
 	) {
 		const mediaPixelResizingPluginState = getMediaPixelResizingPluginState(state);
 		if (mediaPixelResizingPluginState?.isPixelEditorOpen) {
@@ -1084,7 +1083,7 @@ export const floatingToolbar = (
 		mediaAssistiveMessage: assistiveMessage,
 	};
 
-	if (allowResizing && fg('platform_editor_media_extended_resize_experience')) {
+	if (allowResizing && allowPixelResizing) {
 		return {
 			...toolbarConfig,
 			width: mediaPluginState.isResizing ? undefined : getMaxToolbarWidth(),

@@ -4,6 +4,7 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
@@ -11,7 +12,11 @@ import { setInlineCommentDraftState, showInlineCommentForBlockNode } from './edi
 import { annotationWithToDOMFix } from './nodeviews/annotationMark';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
-import { buildToolbar } from './pm-plugins/toolbar';
+import {
+	buildSuppressedToolbar,
+	buildToolbar,
+	shouldSuppressFloatingToolbar,
+} from './pm-plugins/toolbar';
 import {
 	getPluginState,
 	hasAnyUnResolvedAnnotationInPage,
@@ -67,6 +72,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 							provider: annotationProviders.inlineComment,
 							editorAnalyticsAPI: api?.analytics?.actions,
 							featureFlagsPluginState: featureFlags,
+							selectCommentExperience: annotationProviders.selectCommentExperience,
 						});
 					}
 
@@ -85,6 +91,19 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 		],
 
 		pluginsOptions: {
+			floatingToolbar(state) {
+				if (!fg('platform_editor_fix_toolbar_comment_jump')) {
+					return;
+				}
+
+				const pluginState = getPluginState(state);
+				const bookmark = pluginState?.bookmark;
+
+				if (shouldSuppressFloatingToolbar({ state, bookmark })) {
+					return buildSuppressedToolbar(state);
+				}
+			},
+
 			selectionToolbar(state, intl): SelectionToolbarGroup | undefined {
 				if (!annotationProviders) {
 					return;

@@ -72,7 +72,6 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 				width: getDimensionsWithDefault(dimensions).width || '100%',
 				height: getDimensionsWithDefault(dimensions).height || 'auto',
 			}}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[
 				inlinePlayerWrapperStyles,
 				selected && hideNativeBrowserTextSelectionStyles,

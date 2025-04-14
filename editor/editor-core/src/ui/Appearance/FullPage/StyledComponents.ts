@@ -245,15 +245,10 @@ const editorContentArea = css(
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const editorContentGutterStyle = () => {
-	const padding = fg('platform_editor_core_increase_full_page_guttering')
-		? // there is no space token for 52px
-			`0 52px`
-		: `0 ${token('space.400', '32px')}`;
-
 	return css({
 		boxSizing: 'border-box',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		padding: padding,
+		padding: `0 ${akEditorGutterPaddingDynamic()}px`,
 	});
 };
 

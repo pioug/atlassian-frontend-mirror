@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
+import { VCObserver } from '../../src/vc/vc-observer';
+
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
@@ -49,15 +51,15 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 						expect(fy25_02_rev).toBeDefined();
 						expect(fy25_02_rev!.clean).toEqual(true);
 
-						for (const checkpoint of ['25', '50', '75', '80', '85', '90', '95', '98', '99']) {
+						for (const checkpoint of VCObserver.VCParts) {
 							await test.step(`checking fy25_02_rev vc ${checkpoint} details`, () => {
 								expect(fy25_02_rev!.vcDetails![checkpoint].t).toMatchTimeInSeconds(mainDivAddedAt);
-								expect(fy25_02_rev!.vcDetails![checkpoint].e).not.toContain([
+								expect(fy25_02_rev!.vcDetails![checkpoint].e).not.toContain(
 									'div[testid=media-style-mutation-div]',
-								]);
-								expect(fy25_02_rev!.vcDetails![checkpoint].e).not.toContain([
+								);
+								expect(fy25_02_rev!.vcDetails![checkpoint].e).not.toContain(
 									'div[testid=media-dom-addition-div]',
-								]);
+								);
 							});
 						}
 
@@ -78,15 +80,15 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 							await test.step(`checking revision ${revisionName}`, async () => {
 								expect(vc90Result).toMatchTimeInSeconds(mainDivVisibleAt);
 
-								for (const checkpoint of ['25', '50', '75', '80', '85', '90', '95', '98', '99']) {
+								for (const checkpoint of VCObserver.VCParts) {
 									await test.step(`checking revision ${revisionName} vc ${checkpoint} details`, () => {
 										expect(rev!.vcDetails![checkpoint].t).toMatchTimeInSeconds(mainDivVisibleAt);
-										expect(rev!.vcDetails![checkpoint].e).not.toContain([
+										expect(rev!.vcDetails![checkpoint].e).not.toContain(
 											'div[testid=media-style-mutation-div]',
-										]);
-										expect(rev!.vcDetails![checkpoint].e).not.toContain([
+										);
+										expect(rev!.vcDetails![checkpoint].e).not.toContain(
 											'div[testid=media-dom-addition-div]',
-										]);
+										);
 									});
 								}
 							});

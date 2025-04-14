@@ -3,6 +3,7 @@ import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 export enum ACTIONS {
 	SET_PROVIDER,
 	FOCUS_BY_LOCALID,
+	OPEN_REQUEST_TO_EDIT_POPUP,
 }
 
 export type TaskItemData = {
@@ -22,9 +23,15 @@ export type TaskDecisionFocusByLocalIdAction = {
 	data: string;
 };
 
+export type TaskDecisionOpenRequestToEdit = {
+	action: ACTIONS.OPEN_REQUEST_TO_EDIT_POPUP;
+	data: number | null;
+};
+
 export type TaskDecisionPluginAction =
 	| TaskDecisionSetProviderAction
-	| TaskDecisionFocusByLocalIdAction;
+	| TaskDecisionFocusByLocalIdAction
+	| TaskDecisionOpenRequestToEdit;
 
 // commands
 

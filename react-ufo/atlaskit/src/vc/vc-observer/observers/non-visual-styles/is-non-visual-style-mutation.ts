@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { withProfiling } from '../../../../self-measurements';
 
 /**
  * Checks if a mutation record represents a non-visual style change
@@ -10,31 +10,30 @@ import { fg } from '@atlaskit/platform-feature-flags';
  * - The changed attribute is either 'class' or 'style'
  */
 
-export default function isNonVisualStyleMutation({
-	target,
-	attributeName,
-}: {
-	type: string;
-	target?: Node | null;
-	attributeName?: string | null;
-}) {
-	const isNonVisualStyleMutationEnabled = fg('platform_ufo_non_visual_style_mutation');
+const isNonVisualStyleMutation = withProfiling(
+	function isNonVisualStyleMutation({
+		target,
+		attributeName,
+	}: {
+		type: string;
+		target?: Node | null;
+		attributeName?: string | null;
+	}) {
+		if (!(target instanceof Element)) {
+			return false;
+		}
 
-	if (!isNonVisualStyleMutationEnabled) {
-		return false;
-	}
+		if (attributeName !== 'class' && attributeName !== 'style') {
+			return false;
+		}
 
-	if (!(target instanceof Element)) {
-		return false;
-	}
+		if (target.getAttribute('data-vc-nvs') !== 'true') {
+			return false;
+		}
 
-	if (attributeName !== 'class' && attributeName !== 'style') {
-		return false;
-	}
+		return true;
+	},
+	['vc'],
+);
 
-	if (target.getAttribute('data-vc-nvs') !== 'true') {
-		return false;
-	}
-
-	return true;
-}
+export default isNonVisualStyleMutation;

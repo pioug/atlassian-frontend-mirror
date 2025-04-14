@@ -165,6 +165,7 @@ export type InsertMediaAsMediaSingle = (
 	node: PMNode,
 	inputMethod: InputMethodInsertMedia,
 	insertMediaVia?: InsertMediaVia,
+	allowPixelResizing?: boolean,
 ) => boolean;
 
 export const insertMediaAsMediaSingle = (
@@ -173,6 +174,7 @@ export const insertMediaAsMediaSingle = (
 	inputMethod: InputMethodInsertMedia,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	insertMediaVia?: InsertMediaVia,
+	allowPixelResizing?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaSingle, media } = state.schema.nodes;
@@ -189,10 +191,9 @@ export const insertMediaAsMediaSingle = (
 		return false;
 	}
 
-	const resizeExperience = fg('platform_editor_media_extended_resize_experience');
 	const insertMediaPopup = fg('platform_editor_add_media_from_url_rollout');
 	const mediaSingleAttrs =
-		resizeExperience && insertMediaPopup
+		allowPixelResizing && insertMediaPopup
 			? {
 					widthType: 'pixel',
 					width: getMediaSingleInitialWidth(node.attrs.width ?? DEFAULT_IMAGE_WIDTH),
@@ -232,6 +233,7 @@ export const insertMediaSingleNode = (
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 	onNodeInserted?: (id: string, selectionPosition: number) => void,
 	insertMediaVia?: InsertMediaVia,
+	allowPixelResizing?: boolean,
 ): boolean => {
 	if (collection === undefined) {
 		return false;
@@ -257,6 +259,7 @@ export const insertMediaSingleNode = (
 			? MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH
 			: MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
 		alignLeftOnInsert,
+		allowPixelResizing,
 	)(mediaState as MediaSingleState);
 
 	let fileExtension: string | undefined;
@@ -307,6 +310,7 @@ export const changeFromMediaInlineToMediaSingleNode = (
 	fromNode: PMNode,
 	widthPluginState?: WidthPluginState | undefined,
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+	allowPixelResizing?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaInline } = state.schema.nodes;
@@ -328,6 +332,7 @@ export const changeFromMediaInlineToMediaSingleNode = (
 		state.schema,
 		contentWidth,
 		MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+		allowPixelResizing,
 	)(fromNode);
 
 	const fileExtension = getFileExtension(fromNode.attrs.__fileName);
@@ -379,6 +384,7 @@ const createMediaSingleNode =
 		maxWidth?: number,
 		minWidth?: number,
 		alignLeftOnInsert?: boolean,
+		allowPixelResizing?: boolean,
 	) =>
 	(mediaState: MediaSingleState) => {
 		const { id, dimensions, contextId, scaleFactor = 1, fileName } = mediaState;
@@ -401,7 +407,7 @@ const createMediaSingleNode =
 
 		const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
 
-		const extendedMediaSingleAttrs = fg('platform_editor_media_extended_resize_experience')
+		const extendedMediaSingleAttrs = allowPixelResizing
 			? {
 					...mediaSingleAttrs,
 					width: getMediaSingleInitialWidth(scaledWidth, maxWidth, minWidth),
@@ -415,7 +421,8 @@ const createMediaSingleNode =
 	};
 
 const replaceWithMediaSingleNode =
-	(schema: Schema, maxWidth?: number, minWidth?: number) => (mediaNode: PMNode) => {
+	(schema: Schema, maxWidth?: number, minWidth?: number, allowPixelResizing?: boolean) =>
+	(mediaNode: PMNode) => {
 		const { width } = mediaNode.attrs;
 		const { media, mediaSingle } = schema.nodes;
 		const copiedMediaNode = media.create(
@@ -427,7 +434,7 @@ const replaceWithMediaSingleNode =
 			mediaNode.marks,
 		);
 
-		const extendedMediaSingleAttrs = fg('platform_editor_media_extended_resize_experience')
+		const extendedMediaSingleAttrs = allowPixelResizing
 			? {
 					width: getMediaSingleInitialWidth(width, maxWidth, minWidth),
 					widthType: 'pixel',

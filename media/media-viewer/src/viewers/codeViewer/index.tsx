@@ -1,4 +1,4 @@
-import React, { type ComponentClass } from 'react';
+import React, { type ComponentType } from 'react';
 import {
 	type MediaClient,
 	type FileState,
@@ -19,7 +19,7 @@ import { type MediaTraceContext } from '@atlaskit/media-common';
 const moduleLoader = () =>
 	import(/* webpackChunkName: "@atlaskit-internal_media-code-viewer" */ './codeViewerRenderer');
 
-const componentLoader: () => Promise<ComponentClass<RendererProps>> = () =>
+const componentLoader: () => Promise<ComponentType<RendererProps>> = () =>
 	moduleLoader().then((module) => module.CodeViewRenderer);
 
 export type Props = {
@@ -33,7 +33,7 @@ export type Props = {
 };
 
 export class CodeViewer extends BaseViewer<string, Props> {
-	static CodeViewerComponent: ComponentClass<RendererProps>;
+	static CodeViewerComponent: ComponentType<RendererProps>;
 
 	protected get initialState() {
 		return {

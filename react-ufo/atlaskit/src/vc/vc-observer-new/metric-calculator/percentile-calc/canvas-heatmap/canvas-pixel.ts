@@ -1,3 +1,8 @@
+import {
+	markProfilingEnd,
+	markProfilingStart,
+	withProfiling,
+} from '../../../../../self-measurements';
 import taskYield from '../../utils/task-yield';
 
 type RGBColor = `rgb(${number}, ${number}, ${number})`; // 24-bit color value
@@ -40,6 +45,8 @@ export class ViewportCanvas {
 	 * @throws {Error} If canvas context cannot be obtained
 	 */
 	constructor(viewport: Viewport, scaleFactor: number = 1) {
+		const operationTimer = markProfilingStart('ViewportCanvas constructor');
+
 		this.scaleFactor = scaleFactor;
 		this.colorCounter = 1;
 		this.colorTimeMap = new Map();
@@ -72,6 +79,13 @@ export class ViewportCanvas {
 		this.ctx = ctx;
 		this.ctx.globalCompositeOperation = 'source-over';
 		this.clear();
+
+		this.getScaledDimensions = withProfiling(this.getScaledDimensions.bind(this), ['vc']);
+		this.clear = withProfiling(this.clear.bind(this), ['vc']);
+		this.generateColor = withProfiling(this.generateColor.bind(this), ['vc']);
+		this.drawRect = withProfiling(this.drawRect.bind(this), ['vc']);
+		this.getPixelCounts = withProfiling(this.getPixelCounts.bind(this), ['vc']);
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	public getScaledDimensions() {
@@ -185,23 +199,26 @@ export class ViewportCanvas {
  * @param number - The input number to be split into RGB components.
  * @returns The RGB color string in the format "rgb(r, g, b)".
  */
-export function getRGBComponents(n: number): RGBColor {
-	// Ensure the input is within the valid range for a 24-bit color
-	if (n < 0 || n > 0xffffff) {
-		throw new Error('Input number must be between 0 and 16777215 (inclusive).');
-	}
+export const getRGBComponents = withProfiling(
+	function getRGBComponents(n: number): RGBColor {
+		// Ensure the input is within the valid range for a 24-bit color
+		if (n < 0 || n > 0xffffff) {
+			throw new Error('Input number must be between 0 and 16777215 (inclusive).');
+		}
 
-	// Extract blue component (bits 0-7)
-	const blue = n & 0xff;
+		// Extract blue component (bits 0-7)
+		const blue = n & 0xff;
 
-	// Extract green component (bits 8-15)
-	const green = (n >> 8) & 0xff;
+		// Extract green component (bits 8-15)
+		const green = (n >> 8) & 0xff;
 
-	// Extract red component (bits 16-23)
-	const red = (n >> 16) & 0xff;
+		// Extract red component (bits 16-23)
+		const red = (n >> 16) & 0xff;
 
-	return `rgb(${red}, ${green}, ${blue})`;
-}
+		return `rgb(${red}, ${green}, ${blue})`;
+	},
+	['vc'],
+);
 
 /**
  * Calculates the number of pixels drawn for each color in the image data.
@@ -210,31 +227,34 @@ export function getRGBComponents(n: number): RGBColor {
  * @param arraySize - The amount of timestamps that were drawn in the viewport
  * @returns A Map containing color to pixel count mappings.
  */
-export async function calculateDrawnPixelsRaw(
-	imageData: ImageData,
-	scaleFactor: number,
-	arraySize: number,
-): Promise<Uint32Array> {
-	const data = imageData.data;
-	const arr = new Uint32Array(arraySize);
+export const calculateDrawnPixelsRaw = withProfiling(
+	async function calculateDrawnPixelsRaw(
+		imageData: ImageData,
+		scaleFactor: number,
+		arraySize: number,
+	): Promise<Uint32Array> {
+		const data = imageData.data;
+		const arr = new Uint32Array(arraySize);
 
-	for (let i = 0; i < data.length; i += 4) {
-		// Check alpha
-		if (data[i + 3] !== 0) {
-			// Combine RGB components into a single 24-bit color value:
-			// (data[i] << 16)   - Shift red component left 16 bits   (bits 16-23)
-			// (data[i + 1] << 8) - Shift green component left 8 bits (bits 8-15)
-			// data[i + 2]       - Blue component stays as is         (bits 0-7)
-			// The | operator combines all bits together
-			const color = (data[i] << 16) | (data[i + 1] << 8) | data[i + 2];
-			const colorIndex = color - 1;
-			arr[colorIndex] = (arr[colorIndex] || 0) + 1;
+		for (let i = 0; i < data.length; i += 4) {
+			// Check alpha
+			if (data[i + 3] !== 0) {
+				// Combine RGB components into a single 24-bit color value:
+				// (data[i] << 16)   - Shift red component left 16 bits   (bits 16-23)
+				// (data[i + 1] << 8) - Shift green component left 8 bits (bits 8-15)
+				// data[i + 2]       - Blue component stays as is         (bits 0-7)
+				// The | operator combines all bits together
+				const color = (data[i] << 16) | (data[i + 1] << 8) | data[i + 2];
+				const colorIndex = color - 1;
+				arr[colorIndex] = (arr[colorIndex] || 0) + 1;
+			}
+
+			if (i % 10000 === 0) {
+				await taskYield();
+			}
 		}
 
-		if (i % 10000 === 0) {
-			await taskYield();
-		}
-	}
-
-	return arr;
-}
+		return arr;
+	},
+	['vc'],
+);

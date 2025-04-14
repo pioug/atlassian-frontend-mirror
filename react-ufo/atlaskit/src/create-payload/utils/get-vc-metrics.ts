@@ -1,16 +1,17 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InteractionMetrics } from '../../common';
-import type { MultiHeatmapPayload, VCResult } from '../../common/vc/types';
+import type { RevisionPayload, VCResult } from '../../common/vc/types';
 import { getConfig } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
+import { withProfiling } from '../../self-measurements';
 import { getVCObserver } from '../../vc';
 
 import getInteractionStatus from './get-interaction-status';
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
 import getSSRDoneTimeValue from './get-ssr-done-time-value';
 
-export default async function getVCMetrics(
+const getVCMetrics = withProfiling(async function getVCMetrics(
 	interaction: InteractionMetrics,
 ): Promise<VCResult & { 'metric:vc90'?: number | null }> {
 	const config = getConfig();
@@ -57,7 +58,7 @@ export default async function getVCMetrics(
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
 	if (fg('platform_ufo_disable_ttvc_v1')) {
-		const ttvcV2Revision = (result?.['ufo:vc:rev'] as MultiHeatmapPayload)?.find(
+		const ttvcV2Revision = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
 			({ revision }) => revision === 'fy25.02',
 		);
 		if (!ttvcV2Revision?.clean) {
@@ -89,4 +90,6 @@ export default async function getVCMetrics(
 			'metric:vc90': VC['90'],
 		};
 	}
-}
+});
+
+export default getVCMetrics;

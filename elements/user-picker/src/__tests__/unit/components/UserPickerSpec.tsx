@@ -136,13 +136,13 @@ describe('UserPicker', () => {
 
 		it('should call getComponents with false if single picker', () => {
 			shallowUserPicker({ isMulti: false });
-			expect(getComponents).toHaveBeenCalledWith(false, undefined);
+			expect(getComponents).toHaveBeenCalledWith(false, undefined, false);
 			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined, false);
 		});
 
 		it('should call getComponents with true if multi picker', () => {
 			shallowUserPicker({ isMulti: true });
-			expect(getComponents).toHaveBeenCalledWith(true, undefined);
+			expect(getComponents).toHaveBeenCalledWith(true, undefined, false);
 			expect(getStylesMock).toHaveBeenCalledWith(350, true, false, undefined, undefined, false);
 		});
 	});

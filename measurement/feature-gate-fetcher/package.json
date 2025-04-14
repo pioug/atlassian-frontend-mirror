@@ -35,8 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/feature-gate-js-client": "workspace:^",
-		"@babel/runtime": "^7.0.0",
-		"statsig-js-lite": "^1.6.0"
+		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
 		"jest-fetch-mock": "^3.0.3",

@@ -1,3 +1,5 @@
+import { withProfiling } from '../self-measurements';
+
 import type { FeatureFlagValue } from './common/types';
 import { redactValue } from './common/utils';
 
@@ -17,10 +19,10 @@ export const currentFeatureFlagsAccessed: Map<string, FeatureFlagValue> = new Ma
 /**
  * Used for tracking accessed feature flags in "@atlassian/jira-feature-flagging".
  * */
-export const addFeatureFlagAccessed = (
+export const addFeatureFlagAccessed = withProfiling(function addFeatureFlagAccessed(
 	featureFlagName: string,
 	featureFlagValue: FeatureFlagValue,
-) => {
+) {
 	try {
 		// Inform Criterion about FF being accessed
 		if (
@@ -36,4 +38,4 @@ export const addFeatureFlagAccessed = (
 	const value = redactValue(featureFlagValue);
 	allFeatureFlagsAccessed.set(featureFlagName, value);
 	currentFeatureFlagsAccessed.set(featureFlagName, value);
-};
+});

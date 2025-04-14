@@ -1,10 +1,18 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
 import React, { useCallback, useEffect, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 import { type IntlShape } from 'react-intl-next';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages as messages } from '@atlaskit/editor-common/messages';
+import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -123,11 +131,30 @@ const disabledContainerStyles = xcss({
 	cursor: 'not-allowed',
 });
 
-const tooltipContainerStyles = xcss({
+const tooltipContainerStyles = css({
 	top: '8px',
 	bottom: '-8px',
 	position: 'sticky',
 	zIndex: 'card',
+});
+
+const tooltipContainerStylesStickyHeader = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
+});
+
+// We need this to work around adjacent breakout marks wrapping the controls widget decorations
+const tooltipContainerStylesStickyHeaderWithMarksFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-quick-insert-container]):has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			top: tableControlsSpacing,
+		},
 });
 
 // TODO: ED-26959 - Share prop types between DragHandle - generic enough to create a type for block control decoration
@@ -408,7 +435,16 @@ export const TypeAheadControl = ({
 			]}
 		>
 			{fg('platform_editor_controls_sticky_controls') ? (
-				<Box xcss={[tooltipContainerStyles]}>{tooltipPressable()}</Box>
+				<span
+					css={[
+						tooltipContainerStyles,
+						fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
+						fg('platform_editor_controls_patch_4') &&
+							tooltipContainerStylesStickyHeaderWithMarksFix,
+					]}
+				>
+					{tooltipPressable()}
+				</span>
 			) : (
 				tooltipPressable()
 			)}

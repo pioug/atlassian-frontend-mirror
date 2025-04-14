@@ -1,8 +1,13 @@
+import { withProfiling } from '../../../../self-measurements';
 import type { PerformanceEntryBuffer } from '../utils/buffer';
 
 const MAX_ACCEPTABLE_TASK_DURATION = 50;
-export const getTBT = (start: number, stop: number, buffer: PerformanceEntryBuffer) =>
-	buffer
+export const getTBT = withProfiling(function getTBT(
+	start: number,
+	stop: number,
+	buffer: PerformanceEntryBuffer,
+) {
+	return buffer
 		.getAll()
 		.filter(
 			(entry) =>
@@ -27,3 +32,4 @@ export const getTBT = (start: number, stop: number, buffer: PerformanceEntryBuff
 			},
 			{ total: 0, observed: 0 },
 		);
+});

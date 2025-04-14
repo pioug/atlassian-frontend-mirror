@@ -1,5 +1,7 @@
 import { bind } from 'bind-event-listener';
 
+import { withProfiling } from '../self-measurements';
+
 let shouldInitilizeGlobalErrorHandler = true;
 
 type GlobalError = {
@@ -13,13 +15,13 @@ type GlobalError = {
 let globalCount = 0;
 const errors: GlobalError[] = [];
 
-let push = (
+let push = withProfiling(function push(
 	name: string,
 	labelStack: null,
 	errorType: string,
 	errorMessage: string,
 	errorStack?: string,
-) => {
+) {
 	errors.push({
 		name,
 		labelStack,
@@ -27,9 +29,9 @@ let push = (
 		errorMessage,
 		errorStack,
 	});
-};
+});
 
-export const sinkErrorHandler = (
+export const sinkErrorHandler = withProfiling(function sinkErrorHandler(
 	sinkFunc: (
 		name: string,
 		labelStack: null,
@@ -37,17 +39,19 @@ export const sinkErrorHandler = (
 		errorMessage: string,
 		errorStack?: string,
 	) => void,
-) => {
-	push = sinkFunc;
+) {
+	push = withProfiling(sinkFunc);
 	errors.forEach((e) => {
 		sinkFunc(e.name, e.labelStack, e.errorType, e.errorMessage, e.errorStack);
 	});
 	errors.length = 0;
-};
+});
 
-export const getGlobalErrorCount = () => globalCount;
+export const getGlobalErrorCount = withProfiling(function getGlobalErrorCount() {
+	return globalCount;
+});
 
-const handleError = (e: ErrorEvent) => {
+const handleError = withProfiling(function handleError(e: ErrorEvent) {
 	globalCount++;
 	if (e.error?.UFOhasCaught === undefined) {
 		try {
@@ -67,9 +71,11 @@ const handleError = (e: ErrorEvent) => {
 			// eslint-disable-next-line no-empty
 		} catch (e) {}
 	}
-};
+});
 
-const handlePromiseRejection = (e: PromiseRejectionEvent) => {
+const handlePromiseRejection = withProfiling(function handlePromiseRejection(
+	e: PromiseRejectionEvent,
+) {
 	globalCount++;
 	if (e.reason instanceof Error) {
 		push('GlobalErrorHandler', null, e.reason.name, e.reason.message, e.reason.stack);
@@ -80,9 +86,9 @@ const handlePromiseRejection = (e: PromiseRejectionEvent) => {
 			// eslint-disable-next-line no-empty
 		} catch (e) {}
 	}
-};
+});
 
-const setupUFOGlobalErrorHandler = () => {
+const setupUFOGlobalErrorHandler = withProfiling(function setupUFOGlobalErrorHandler() {
 	if (shouldInitilizeGlobalErrorHandler) {
 		bind(window, {
 			type: 'error',
@@ -95,6 +101,6 @@ const setupUFOGlobalErrorHandler = () => {
 		});
 		shouldInitilizeGlobalErrorHandler = false;
 	}
-};
+});
 
 export default setupUFOGlobalErrorHandler;

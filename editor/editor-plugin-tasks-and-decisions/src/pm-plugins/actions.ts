@@ -1,6 +1,10 @@
 import type { TaskDecisionPluginState } from '../types';
 
-import type { TaskDecisionFocusByLocalIdAction, TaskDecisionSetProviderAction } from './types';
+import type {
+	TaskDecisionFocusByLocalIdAction,
+	TaskDecisionSetProviderAction,
+	TaskDecisionOpenRequestToEdit,
+} from './types';
 
 export const focusTaskDecision = (
 	state: TaskDecisionPluginState,
@@ -19,5 +23,15 @@ export const setProvider = (
 	return {
 		...state,
 		taskDecisionProvider: action.data,
+	};
+};
+
+export const openRequestEditPopup = (
+	state: TaskDecisionPluginState,
+	action: TaskDecisionOpenRequestToEdit,
+): TaskDecisionPluginState => {
+	return {
+		...state,
+		openRequestToEditPopupAt: action.data,
 	};
 };

@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 // Assistive text to describe visual elements. Hidden for sighted users.

@@ -399,7 +399,7 @@ export function createPlugin(
 				}
 
 				// transform slices based on destination
-				slice = transformSliceForMedia(slice, schema)(state.selection);
+				slice = transformSliceForMedia(slice, schema, pluginInjectionApi)(state.selection);
 
 				let markdownSlice: Slice | undefined;
 				if (isPlainText) {

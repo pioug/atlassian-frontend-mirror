@@ -3,6 +3,7 @@ import { useContext, useMemo } from 'react';
 import UFOInteractionContext from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { addCustomData, type CustomData } from '../interaction-metrics';
+import { withProfiling } from '../self-measurements';
 
 import type { UFOCustomDataProps } from './types';
 
@@ -20,7 +21,7 @@ export default function UFOCustomData({ data }: UFOCustomDataProps) {
 	return null;
 }
 
-export function addUFOCustomData(data: CustomData) {
+export const addUFOCustomData = withProfiling(function addUFOCustomData(data: CustomData) {
 	const interactionId = getInteractionId();
 	const currentInteractionId = interactionId.current;
 	if (!currentInteractionId) {
@@ -28,4 +29,4 @@ export function addUFOCustomData(data: CustomData) {
 	}
 
 	addCustomData(currentInteractionId, [], data);
-}
+});

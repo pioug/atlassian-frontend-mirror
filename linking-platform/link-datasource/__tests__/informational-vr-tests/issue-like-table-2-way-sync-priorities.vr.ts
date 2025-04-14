@@ -32,6 +32,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTablePrioritiesLoading, {
@@ -52,6 +53,7 @@ snapshotInformational(VRIssueLikeTablePrioritiesLoading, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTablePriorities, {
@@ -74,6 +76,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTablePriorities, {
@@ -96,4 +99,5 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });

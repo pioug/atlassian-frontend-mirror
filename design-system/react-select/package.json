@@ -64,6 +64,9 @@
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {
+		"custom-interactive-elements-not-keyboard-focusable": {
+			"type": "boolean"
+		},
 		"design_system_select-a11y-improvement": {
 			"type": "boolean"
 		},

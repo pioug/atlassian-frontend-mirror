@@ -13,6 +13,7 @@ import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs
 import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
@@ -23,6 +24,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+import { InputMethodType } from '../pm-plugins/analytics';
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
@@ -32,6 +34,7 @@ import type { TypeAheadHandler } from '../types';
 import { ListRow } from './ListRow';
 import { TypeAheadListItem } from './TypeAheadListItem';
 import { ViewMore } from './ViewMore';
+
 const LIST_ITEM_ESTIMATED_HEIGHT = 64;
 const LIST_WIDTH = 320;
 
@@ -44,7 +47,7 @@ type TypeAheadListProps = {
 	items: Array<TypeAheadItem>;
 	selectedIndex: number;
 	editorView: EditorView;
-	onItemClick: (mode: SelectItemMode, index: number) => void;
+	onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
 	fitHeight: number;
 	decorationElement: HTMLElement;
 	triggerHandler?: TypeAheadHandler;
@@ -276,7 +279,7 @@ const TypeAheadListComponent = React.memo(
 						// TODO: DTR-1401 - why is this calling item click when hitting tab? fix this in DTR-1401
 						case 'Tab':
 							//Tab key quick inserts the selected item.
-							onItemClick(SelectItemMode.TAB, selectedIndex);
+							onItemClick(SelectItemMode.TAB, selectedIndex, INPUT_METHOD.KEYBOARD);
 							event.preventDefault();
 							break;
 
@@ -286,6 +289,7 @@ const TypeAheadListComponent = React.memo(
 								onItemClick(
 									event.shiftKey ? SelectItemMode.SHIFT_ENTER : SelectItemMode.ENTER,
 									selectedIndex,
+									INPUT_METHOD.KEYBOARD,
 								);
 								event.preventDefault();
 							}
@@ -344,7 +348,9 @@ const TypeAheadListComponent = React.memo(
 									itemsLength={itemsLength}
 									itemIndex={index}
 									selectedIndex={selectedIndex}
-									onItemClick={actions.onItemClick}
+									onItemClick={(mode: SelectItemMode, index: number) => {
+										actions.onItemClick(mode, index, INPUT_METHOD.MOUSE);
+									}}
 									ariaLabel={
 										getTypeAheadListAriaLabels(triggerHandler?.trigger, intl, currentItem)
 											.listItemAriaLabel
@@ -372,7 +378,9 @@ const TypeAheadListComponent = React.memo(
 									itemsLength={itemsLength}
 									itemIndex={index}
 									selectedIndex={selectedIndex}
-									onItemClick={actions.onItemClick}
+									onItemClick={(mode: SelectItemMode, index: number) => {
+										actions.onItemClick(mode, index, INPUT_METHOD.MOUSE);
+									}}
 									ariaLabel={
 										getTypeAheadListAriaLabels(triggerHandler?.trigger, intl, currentItem)
 											.listItemAriaLabel

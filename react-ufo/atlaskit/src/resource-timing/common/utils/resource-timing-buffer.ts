@@ -1,4 +1,5 @@
 import { roundEpsilon } from '../../../round-number';
+import { withProfiling } from '../../../self-measurements';
 import type { ResourceEntry } from '../types';
 
 const getPerformanceObject = () => (window ?? {}).performance;
@@ -8,7 +9,9 @@ export const resourceTimingBuffer = {
 	timings: [] as ResourceEntry[],
 	maxSize: 1000,
 	observer: null as PerformanceObserver | null,
-	transformResource: (entry: PerformanceResourceTiming): ResourceEntry => {
+	transformResource: withProfiling(function transformResource(
+		entry: PerformanceResourceTiming,
+	): ResourceEntry {
 		const duration = roundEpsilon(entry.duration);
 
 		// prioritising atl-edge
@@ -39,8 +42,8 @@ export const resourceTimingBuffer = {
 			encodedSize: roundEpsilon(entry.encodedBodySize),
 			decodedSize: roundEpsilon(entry.decodedBodySize),
 		};
-	},
-	start: () => {
+	}),
+	start: withProfiling(function start() {
 		const performance = getPerformanceObject();
 		const PerformanceObserver = getPerformanceObserverObject();
 
@@ -58,15 +61,15 @@ export const resourceTimingBuffer = {
 		}
 		resourceTimingBuffer.observer = new PerformanceObserver(resourceTimingBuffer.addTimings);
 		resourceTimingBuffer.observer.observe({ entryTypes: ['resource'] });
-	},
-	stop: () => {
+	}),
+	stop: withProfiling(function stop() {
 		if (resourceTimingBuffer.observer) {
 			resourceTimingBuffer.observer.disconnect();
 			resourceTimingBuffer.observer = null;
 		}
 		resourceTimingBuffer.timings = [];
-	},
-	addTimings: (list: PerformanceObserverEntryList) => {
+	}),
+	addTimings: withProfiling(function addTimings(list: PerformanceObserverEntryList) {
 		const entries = list
 			.getEntries()
 			.map((entry: PerformanceEntry) =>
@@ -78,19 +81,21 @@ export const resourceTimingBuffer = {
 			resourceTimingBuffer.timings.splice(0, fieldsToRemove);
 		}
 		resourceTimingBuffer.timings.push(...entries);
-	},
+	}),
 };
 
-const isValidTiming = (
+const isValidTiming = withProfiling(function isValidTiming(
 	timing: PerformanceResourceTiming | ResourceEntry,
 	startTime: number,
 	endTime: number,
-) => timing.startTime >= startTime && timing.startTime + timing.duration <= endTime;
+) {
+	return timing.startTime >= startTime && timing.startTime + timing.duration <= endTime;
+});
 
-export const filterResourceTimings = (
+export const filterResourceTimings = withProfiling(function filterResourceTimings(
 	startTime: number,
 	endTime: number,
-): ResourceEntry[] | null => {
+): ResourceEntry[] | null {
 	const performance = getPerformanceObject();
 	const PerformanceObserver = getPerformanceObserverObject();
 	if (!PerformanceObserver || !resourceTimingBuffer.observer) {
@@ -101,4 +106,4 @@ export const filterResourceTimings = (
 		return null;
 	}
 	return resourceTimingBuffer.timings.filter((timing) => isValidTiming(timing, startTime, endTime));
-};
+});

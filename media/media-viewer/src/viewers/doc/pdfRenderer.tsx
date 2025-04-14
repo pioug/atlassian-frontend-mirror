@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { type FileState } from '@atlaskit/media-client';
-import { token } from '@atlaskit/tokens';
 import { PDFViewer, EventBus, PDFLinkService, NullL10n } from 'pdfjs-dist/legacy/web/pdf_viewer';
 import {
 	getDocument,
@@ -11,8 +10,6 @@ import {
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { cmap } from './cmaps';
 import type { PDFDocumentProxy } from 'pdfjs-dist/legacy/build/pdf';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, Global } from '@emotion/react';
 import { ZoomControls } from '../../zoomControls';
 import { PDFWrapper } from '../../styleWrappers';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
@@ -28,77 +25,9 @@ import { PDFPasswordInput } from './pdfPasswordInput';
 import { fireAnalytics } from '../../analytics';
 import { createPdfPasswordInputScreenEvent } from '../../analytics/events/screen/pdfPasswordInput';
 import { createPasswordPdfScreenEvent } from '../../analytics/events/screen/passwordPdf';
+import { PDFRendererWrapper } from './pdfRendererWrapper';
 
 export const pdfViewerClassName = 'pdfViewer';
-
-// Styles are partially copied from https://github.com/mozilla/pdfjs-dist/blob/v2.9.359/web/pdf_viewer.css
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-const globalStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	[`.${pdfViewerClassName}`]: {
-		marginTop: token('space.800', '64px'),
-		marginBottom: token('space.800', '64px'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.page': {
-			margin: `1px auto ${token('space.negative.100', '-8px')} auto`,
-			border: '9px solid transparent',
-			position: 'relative',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.canvasWrapper': {
-			overflow: 'hidden',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.textLayer': {
-			position: 'absolute',
-			left: 0,
-			top: 0,
-			right: 0,
-			bottom: 0,
-			overflow: 'hidden',
-			opacity: 0.2,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: 1,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.textLayer span, .textLayer br': {
-			color: 'transparent',
-			position: 'absolute',
-			whiteSpace: 'pre',
-			cursor: 'text',
-			transformOrigin: '0% 0%',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'.textLayer ::-moz-selection': {
-			background: 'rgba(0, 0, 255, 1)',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.textLayer ::selection': {
-			background: 'rgba(0, 0, 255, 1)',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.annotationLayer section': {
-			position: 'absolute',
-			textAlign: 'initial',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.annotationLayer .linkAnnotation > a, .annotationLayer .buttonWidgetAnnotation.pushButton > a':
-			{
-				position: 'absolute',
-				top: 0,
-				left: 0,
-				width: '100%',
-				height: '100%',
-			},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.annotationLayer .linkAnnotation > a:hover, .annotationLayer .buttonWidgetAnnotation.pushButton > a:hover':
-			{
-				opacity: 0.2,
-				background: 'rgba(255, 255, 0, 1)',
-				boxShadow: '0 2px 10px rgba(255, 255, 0, 1)',
-			},
-	},
-});
 
 export type Props = {
 	item: FileState;
@@ -263,8 +192,7 @@ const PDFRendererBase = ({
 				<Spinner />
 			),
 		successful: () => (
-			<>
-				<Global styles={globalStyles} />
+			<PDFRendererWrapper>
 				<PDFWrapper data-testid="media-viewer-pdf-content" ref={savePdfElement}>
 					{
 						// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -276,7 +204,7 @@ const PDFRendererBase = ({
 					}
 					<ZoomControls zoomLevel={zoomLevel} onChange={handleZoom} />
 				</PDFWrapper>
-			</>
+			</PDFRendererWrapper>
 		),
 		failed: (error) => {
 			return (

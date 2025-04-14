@@ -134,5 +134,5 @@ export const WithIssueModalWithParameters = (props: Props) => (
 
 export const WithIssueModalWithParametersInformational = withWaitForItem(
 	WithIssueModalWithParameters,
-	() => document.body.querySelector('[data-testid="jol-basic-filter-container"]'),
+	() => document.body.querySelector('[data-testid="jira-datasource-table"]') !== null,
 );

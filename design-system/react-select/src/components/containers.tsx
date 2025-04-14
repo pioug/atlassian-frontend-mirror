@@ -4,6 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { jsx } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';

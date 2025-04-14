@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.2.0
+
+### Minor Changes
+
+- [#140363](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140363)
+  [`46ddb88edd38f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ddb88edd38f) -
+  Cleanup FG gravityai-2553-fix-jql-debugger-flicker [GRAVITYAI-2751]
+
 ## 5.1.2
 
 ### Patch Changes

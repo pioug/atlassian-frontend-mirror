@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
 import { updateQuery } from '../pm-plugins/commands/update-query';
 import type { CloseSelectionOptions } from '../pm-plugins/constants';
 import { itemIsDisabled } from '../pm-plugins/item-is-disabled';
@@ -97,12 +100,23 @@ export const WrapperTypeAhead = React.memo(
 				text: string;
 				forceFocusOnEditor: boolean;
 			}) => {
+				if (
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_4')
+				) {
+					fireTypeAheadClosedAnalyticsEvent(
+						api,
+						ACTION.CANCELLED,
+						!!queryRef.current,
+						INPUT_METHOD.KEYBOARD,
+					);
+				}
 				setClosed(true);
 
 				const fullquery = addPrefixTrigger ? `${triggerHandler.trigger}${text}` : text;
 				onTextInsert({ forceFocusOnEditor, setSelectionAt, text: fullquery });
 			},
-			[triggerHandler, onTextInsert],
+			[api, triggerHandler.trigger, onTextInsert],
 		);
 
 		const insertSelectedItem = useCallback(
@@ -122,6 +136,18 @@ export const WrapperTypeAhead = React.memo(
 				if (safeSelectedIndex === -1) {
 					return;
 				}
+				if (
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_4')
+				) {
+					fireTypeAheadClosedAnalyticsEvent(
+						api,
+						ACTION.INSERTED,
+						!!queryRef.current,
+						INPUT_METHOD.KEYBOARD,
+					);
+				}
+
 				setClosed(true);
 				queueMicrotask(() => {
 					onItemInsert({

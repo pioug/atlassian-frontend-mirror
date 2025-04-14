@@ -2,6 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getConfig as getConfigUFO } from '../config';
 import { roundEpsilon } from '../round-number';
+import { withProfiling } from '../self-measurements';
 
 import type { ResourceEntry, ResourceTiming, ResourceTimings } from './common/types';
 import { getConfig } from './common/utils/config';
@@ -13,25 +14,26 @@ const CACHE_NETWORK = 'network';
 const CACHE_MEMORY = 'memory';
 const CACHE_DISK = 'disk';
 
-const isCacheableType = (url: string, type: string) => {
+const isCacheableType = withProfiling(function isCacheableType(url: string, type: string) {
 	if (alwaysCacheableTypes.includes(type)) {
 		return true;
 	}
 
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (type === 'other' && url.includes('.js') && fg('ufo_support_other_resource_type_js')) {
 		return true;
 	}
 
 	return false;
-};
+});
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const calculateTransferType = (
+const calculateTransferType = withProfiling(function calculateTransferType(
 	name: string,
 	type: string,
 	duration: number,
 	size: number | void,
-) => {
+) {
 	if (!isCacheableType(name, type)) {
 		return CACHE_NETWORK;
 	}
@@ -47,24 +49,32 @@ const calculateTransferType = (
 	}
 
 	return CACHE_NETWORK;
-};
+});
 
-const getWindowObject = () => (typeof window !== 'undefined' && !!window ? window : undefined);
+const getWindowObject = withProfiling(function getWindowObject() {
+	return typeof window !== 'undefined' && !!window ? window : undefined;
+});
 
-const hasAccessToResourceSize = (
+const hasAccessToResourceSize = withProfiling(function hasAccessToResourceSize(
 	url: string,
 	type: string,
 	entry: ResourceEntry,
 	hasTimingHeaders: (url: string, entry: ResourceEntry) => boolean,
-) =>
-	!isCacheableType(url, type) ||
-	url.includes('localhost') ||
-	(!!getWindowObject() && url.includes(window.location.hostname)) ||
-	hasTimingHeaders(url, entry);
+) {
+	return (
+		!isCacheableType(url, type) ||
+		url.includes('localhost') ||
+		(!!getWindowObject() && url.includes(window.location.hostname)) ||
+		hasTimingHeaders(url, entry)
+	);
+});
 
-const getReportedInitiatorTypes = (xhrEnabled: boolean) => {
+const getReportedInitiatorTypes = withProfiling(function getReportedInitiatorTypes(
+	xhrEnabled: boolean,
+) {
 	const ufoConfig = getConfigUFO();
 	if (!ufoConfig?.allowedResources) {
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		if (fg('ufo_support_other_resource_type_js')) {
 			if (xhrEnabled) {
 				return ['script', 'link', 'fetch', 'other', 'xmlhttprequest'];
@@ -78,22 +88,28 @@ const getReportedInitiatorTypes = (xhrEnabled: boolean) => {
 		}
 	}
 	return ufoConfig.allowedResources;
-};
+});
 
-const evaluateAccessToResourceTimings = (url: string, entry: ResourceEntry) =>
-	!(entry.responseStart === 0 && entry.startTime > entry.responseStart);
+const evaluateAccessToResourceTimings = withProfiling(function evaluateAccessToResourceTimings(
+	url: string,
+	entry: ResourceEntry,
+) {
+	return !(entry.responseStart === 0 && entry.startTime > entry.responseStart);
+});
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const getSizeObject = (size?: number | void) => (size !== undefined ? { size } : null);
+const getSizeObject = withProfiling(function getSizeObject(size?: number | void) {
+	return size !== undefined ? { size } : null;
+});
 
-const getNetworkData = (
+const getNetworkData = withProfiling(function getNetworkData(
 	item: ResourceEntry,
 	eventStart: number,
 	hasTimingHeaders: (
 		url: string,
 		entry: ResourceEntry,
 	) => boolean = evaluateAccessToResourceTimings,
-) => {
+) {
 	const {
 		name,
 		duration,
@@ -108,6 +124,7 @@ const getNetworkData = (
 	} = item;
 
 	const ttfb = roundEpsilon(responseStart - eventStart);
+	const requestStartRelative = roundEpsilon(requestStart - eventStart);
 
 	if (!hasAccessToResourceSize(name, initiatorType, item, hasTimingHeaders)) {
 		return {};
@@ -131,12 +148,15 @@ const getNetworkData = (
 		ttfb,
 		serverTime,
 		networkTime,
-		requestStart,
+		requestStart: fg('ufo_return_relative_request_start') ? requestStartRelative : requestStart,
 		...getSizeObject(transferSize),
 	};
-};
+});
 
-export const getResourceTimings = (interactionStart: number, interactionEnd: number) => {
+export const getResourceTimings = withProfiling(function getResourceTimings(
+	interactionStart: number,
+	interactionEnd: number,
+) {
 	const resourceTiming: ResourceTimings = {};
 	if (interactionStart === null) {
 		return resourceTiming;
@@ -172,6 +192,7 @@ export const getResourceTimings = (interactionStart: number, interactionEnd: num
 		if (
 			initiatorType === 'other' &&
 			!name.includes('.js') &&
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			fg('ufo_support_other_resource_type_js')
 		) {
 			return;
@@ -201,4 +222,4 @@ export const getResourceTimings = (interactionStart: number, interactionEnd: num
 	});
 
 	return resourceTiming;
-};
+});

@@ -1,3 +1,4 @@
+import { withProfiling } from '../../../../self-measurements';
 import type { VCObserverEntryType } from '../../types';
 import type { MutationData } from '../types';
 
@@ -18,11 +19,14 @@ export interface VCIntersectionObserver {
 	watchAndTag: (target: Element, tagOrCallback: ObserveArg_TagOrCallback) => void;
 }
 
-function isValidEntry(entry: IntersectionObserverEntry) {
-	return (
-		entry.isIntersecting && entry.intersectionRect.width > 0 && entry.intersectionRect.height > 0
-	);
-}
+const isValidEntry = withProfiling(
+	function isValidEntry(entry: IntersectionObserverEntry) {
+		return (
+			entry.isIntersecting && entry.intersectionRect.width > 0 && entry.intersectionRect.height > 0
+		);
+	},
+	['vc'],
+);
 
 export type IntersectionObserverArgs = {
 	onEntry: (entry: {
@@ -45,66 +49,83 @@ export function createIntersectionObserver(
 		return null;
 	}
 
+	const onEntry = withProfiling(args.onEntry, ['vc']);
+	const onObserved =
+		typeof args.onObserved === 'function' ? withProfiling(args.onObserved, ['vc']) : undefined;
+
 	const callbacksPerElement = new WeakMap<Element, ObserveArg_TagOrCallback>();
 
-	const observer = new IntersectionObserver((entries) => {
-		const validEntries: Array<WeakRef<HTMLElement>> = [];
-		const startTime = performance.now();
+	const intersectionObserverCallback: IntersectionObserverCallback = withProfiling(
+		function intersectionObserverCallback(entries) {
+			const validEntries: Array<WeakRef<HTMLElement>> = [];
+			const startTime = performance.now();
 
-		entries.forEach((entry) => {
-			if (!(entry.target instanceof HTMLElement) || !isValidEntry(entry)) {
-				return;
-			}
+			entries.forEach((entry) => {
+				if (!(entry.target instanceof HTMLElement) || !isValidEntry(entry)) {
+					return;
+				}
 
-			let mutationTag: VCObserverEntryType | undefined | null = null;
-			let mutationData: MutationData | undefined | null = null;
-			const tagOrCallback = callbacksPerElement.get(entry.target);
-			if (typeof tagOrCallback === 'function') {
-				const tagOrCallbackResult = tagOrCallback({
+				let mutationTag: VCObserverEntryType | undefined | null = null;
+				let mutationData: MutationData | undefined | null = null;
+				const tagOrCallback = callbacksPerElement.get(entry.target);
+				if (typeof tagOrCallback === 'function') {
+					const tagOrCallbackResult = tagOrCallback({
+						target: entry.target,
+						rect: entry.intersectionRect,
+					});
+					if (!tagOrCallbackResult) {
+						mutationTag = 'unknown';
+					} else if (typeof tagOrCallbackResult === 'string') {
+						mutationTag = tagOrCallbackResult;
+					} else {
+						mutationTag = tagOrCallbackResult.type;
+						mutationData = tagOrCallbackResult.mutationData;
+					}
+				} else if (typeof tagOrCallback === 'string') {
+					mutationTag = tagOrCallback;
+				}
+
+				onEntry({
 					target: entry.target,
 					rect: entry.intersectionRect,
+					time: entry.time,
+					type: mutationTag ?? 'unknown',
+					mutationData,
 				});
-				if (!tagOrCallbackResult) {
-					mutationTag = 'unknown';
-				} else if (typeof tagOrCallbackResult === 'string') {
-					mutationTag = tagOrCallbackResult;
-				} else {
-					mutationTag = tagOrCallbackResult.type;
-					mutationData = tagOrCallbackResult.mutationData;
-				}
-			} else if (typeof tagOrCallback === 'string') {
-				mutationTag = tagOrCallback;
-			}
+				validEntries.push(new WeakRef(entry.target));
 
-			args.onEntry({
-				target: entry.target,
-				rect: entry.intersectionRect,
-				time: entry.time,
-				type: mutationTag ?? 'unknown',
-				mutationData,
+				callbacksPerElement.delete(entry.target);
+				observer.unobserve(entry.target);
 			});
-			validEntries.push(new WeakRef(entry.target));
 
-			callbacksPerElement.delete(entry.target);
-			observer.unobserve(entry.target);
-		});
+			onObserved?.({
+				time: startTime,
+				elements: validEntries,
+			});
+		},
+	);
 
-		args.onObserved?.({
-			time: startTime,
-			elements: validEntries,
-		});
-	});
+	const observer = new IntersectionObserver(intersectionObserverCallback);
 
 	return {
-		disconnect: () => {
-			observer.disconnect();
-		},
-		unobserve: (target: Element) => {
-			observer.unobserve(target);
-		},
-		watchAndTag: (target: Element, tagOrCallback: ObserveArg_TagOrCallback) => {
-			callbacksPerElement.set(target, tagOrCallback);
-			observer.observe(target);
-		},
+		disconnect: withProfiling(
+			function disconnect() {
+				observer.disconnect();
+			},
+			['vc'],
+		),
+		unobserve: withProfiling(
+			function unobserve(target: Element) {
+				observer.unobserve(target);
+			},
+			['vc'],
+		),
+		watchAndTag: withProfiling(
+			function watchAndTag(target: Element, tagOrCallback: ObserveArg_TagOrCallback) {
+				callbacksPerElement.set(target, tagOrCallback);
+				observer.observe(target);
+			},
+			['vc'],
+		),
 	};
 }

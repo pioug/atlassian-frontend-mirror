@@ -135,6 +135,12 @@ function ComposableEditorPage() {
 			},
 			allowTemplatePlaceholders: true,
 		},
+
+		initialPluginConfiguration: {
+			tasksAndDecisionsPlugin: {
+				hasEditPermission: false,
+			},
+		},
 	});
 
 	// Memoise the preset otherwise we will re-render the editor too often

@@ -1,3 +1,5 @@
+import { withProfiling } from '../../../self-measurements';
+
 type CacheHitRatio = {
 	cacheHitRatio?: number;
 	preloadCacheHitRatio?: number;
@@ -10,7 +12,11 @@ const CACHE_NETWORK = 'network';
 const CACHE_MEMORY = 'memory';
 const CACHE_DISK = 'disk';
 
-const calculateTransferType = (type: string, duration: number, size: number | undefined) => {
+const calculateTransferType = withProfiling(function calculateTransferType(
+	type: string,
+	duration: number,
+	size: number | undefined,
+) {
 	if (!cacheableTypes.includes(type)) {
 		return CACHE_NETWORK;
 	}
@@ -26,9 +32,13 @@ const calculateTransferType = (type: string, duration: number, size: number | un
 	}
 
 	return CACHE_NETWORK;
-};
+});
 
-export const getCacheHitRatio = ({ start }: { start: number }): CacheHitRatio => {
+export const getCacheHitRatio = withProfiling(function getCacheHitRatio({
+	start,
+}: {
+	start: number;
+}): CacheHitRatio {
 	let fromCache = 0;
 	let preloadFromCache = 0;
 	let total = 0;
@@ -73,4 +83,4 @@ export const getCacheHitRatio = ({ start }: { start: number }): CacheHitRatio =>
 	} catch (e: unknown) {
 		return {};
 	}
-};
+});

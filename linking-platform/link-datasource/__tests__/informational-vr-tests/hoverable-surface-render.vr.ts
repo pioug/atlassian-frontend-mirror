@@ -2,8 +2,8 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import EmptyState from '../../examples/vr/empty-state-vr';
-import JiraIssuesTable from '../../examples/vr/jira-issues-table-vr';
+import { VREmptyStateHoverable } from '../../examples/vr/empty-state-vr';
+import { VRJiraIssueTableHoverable } from '../../examples/vr/jira-issues-table-vr';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
 
@@ -21,7 +21,7 @@ const options: OptionsType = {
 
 const hoverableContainerSelector = '[data-testid="examples-hoverable-container"]';
 
-snapshotInformational(JiraIssuesTable, {
+snapshotInformational(VRJiraIssueTableHoverable, {
 	...options,
 	prepare: async (page: Page) => {
 		await page.hover(hoverableContainerSelector);
@@ -37,9 +37,10 @@ snapshotInformational(JiraIssuesTable, {
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
+	waitForHold: true,
 });
 
-snapshotInformational(EmptyState, {
+snapshotInformational(VREmptyStateHoverable, {
 	...options,
 	prepare: async (page: Page) => {
 		await page.hover(hoverableContainerSelector);
@@ -55,4 +56,5 @@ snapshotInformational(EmptyState, {
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
+	waitForHold: true,
 });

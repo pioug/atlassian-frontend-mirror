@@ -1,4 +1,5 @@
 import { roundEpsilon } from '../round-number';
+import { withProfiling } from '../self-measurements';
 
 type MappedPerformanceMark = { type: 'start' | 'end'; name: string };
 
@@ -12,13 +13,19 @@ type ReportedTimings = {
 
 let config: BundleEvalTimingsConfig | null = null;
 
-export function configure(bundleEvalTimingConfiguration: BundleEvalTimingsConfig) {
+export const configure = withProfiling(function configure(
+	bundleEvalTimingConfiguration: BundleEvalTimingsConfig,
+) {
 	config = bundleEvalTimingConfiguration;
-}
+});
 
-const getPerformanceObject = () => (window ?? {}).performance;
+const getPerformanceObject = withProfiling(function getPerformanceObject() {
+	return (window ?? {}).performance;
+});
 
-export function getBundleEvalTimings(interactionStartTime: number): ReportedTimings {
+export const getBundleEvalTimings = withProfiling(function getBundleEvalTimings(
+	interactionStartTime: number,
+): ReportedTimings {
 	if (config == null) {
 		return {};
 	}
@@ -56,4 +63,4 @@ export function getBundleEvalTimings(interactionStartTime: number): ReportedTimi
 	}
 
 	return timings;
-}
+});

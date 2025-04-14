@@ -8,14 +8,19 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
 	ExtractInjectionAPI,
-	TypeAheadItem,
 	TypeAheadHandler,
+	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -26,6 +31,11 @@ import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
+import {
+	CloseActionType,
+	fireTypeAheadClosedAnalyticsEvent,
+	InputMethodType,
+} from '../pm-plugins/analytics';
 import { closeTypeAhead } from '../pm-plugins/commands/close-type-ahead';
 import {
 	CloseSelectionOptions,
@@ -136,6 +146,14 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 				: DEFAULT_TYPEAHEAD_MENU_HEIGHT,
 		[moreElementsInQuickInsertViewEnabled],
 	);
+
+	const activityStateRef = useRef<{
+		inputMethod: InputMethodType | null;
+		closeAction: CloseActionType | null;
+	}>({
+		inputMethod: null,
+		closeAction: null,
+	});
 
 	const startTime = useMemo(
 		() => performance.now(),
@@ -385,6 +403,17 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const onViewMoreClick = useCallback(() => {
 		close(editorView);
 
+		if (
+			openElementBrowserModal &&
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_4')
+		) {
+			activityStateRef.current = {
+				inputMethod: INPUT_METHOD.MOUSE,
+				closeAction: ACTION.VIEW_MORE,
+			};
+		}
+
 		// TODO: ED-26959 - when clean up, remove config in quick insert plugin
 		// platform/packages/editor/editor-plugin-quick-insert/src/quickInsertPlugin.tsx (typeAhead.openElementBrowserModal)
 		openElementBrowserModal?.();
@@ -402,6 +431,28 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			offset={OFFSET}
 			ariaLabel={null}
 			preventOverflow={true}
+			onUnmount={() => {
+				if (
+					selectedIndex > -1 &&
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_4')
+				) {
+					// if selectedIndex is -1, it means that the user has not selected any item
+					// will be handled by WrapperTypeAhead
+					fireTypeAheadClosedAnalyticsEvent(
+						api,
+						activityStateRef.current.closeAction,
+						!isEmptyQuery,
+						activityStateRef.current.inputMethod,
+					);
+
+					// reset activity state
+					activityStateRef.current = {
+						inputMethod: null,
+						closeAction: null,
+					};
+				}
+			}}
 		>
 			<div
 				css={[
@@ -423,7 +474,19 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 						<TypeAheadList
 							items={items}
 							selectedIndex={selectedIndex}
-							onItemClick={onItemInsert}
+							onItemClick={(mode: SelectItemMode, index: number, inputMethod) => {
+								if (
+									editorExperiment('platform_editor_controls', 'variant1') &&
+									fg('platform_editor_controls_patch_4')
+								) {
+									activityStateRef.current = {
+										inputMethod: inputMethod || null,
+										closeAction: ACTION.INSERTED,
+									};
+								}
+
+								onItemInsert(mode, index);
+							}}
 							fitHeight={fitHeightWithViewMore}
 							editorView={editorView}
 							decorationElement={anchorElement}

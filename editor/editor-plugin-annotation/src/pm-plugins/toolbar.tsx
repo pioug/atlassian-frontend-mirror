@@ -11,7 +11,7 @@ import {
 	INPUT_METHOD,
 	MODE,
 } from '@atlaskit/editor-common/analytics';
-import { addInlineComment, ToolTipContent } from '@atlaskit/editor-common/keymaps';
+import { ToolTipContent, addInlineComment } from '@atlaskit/editor-common/keymaps';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import { annotationMessages } from '@atlaskit/editor-common/messages';
 import type {
@@ -26,7 +26,7 @@ import {
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { SelectionBookmark, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -46,6 +46,55 @@ interface BuildToolbarOptions {
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	createCommentExperience?: AnnotationProviders['createCommentExperience'];
 }
+
+export const getValidNodes = (state: EditorState): NodeType[] => {
+	const { schema } = state;
+	const { annotation } = schema.marks;
+	return Object.keys(schema.nodes).reduce<NodeType[]>((acc, current) => {
+		const type = schema.nodes[current];
+		if (type.allowsMarkType(annotation)) {
+			acc.push(type);
+		}
+		return acc;
+	}, []);
+};
+
+type ShouldSuppressFloatingToolbarOptions = {
+	state: EditorState;
+	bookmark?: SelectionBookmark;
+};
+
+/**
+ * Should suppress toolbars when the user is creating an inline comment
+ * This only applies when the selection range exactly matches the bookmark range
+ * which should be the case immediately after the comment button is clicked
+ * if the user creates a different selection range, the floating toolbar should still be shown
+ */
+export const shouldSuppressFloatingToolbar = ({
+	state,
+	bookmark,
+}: ShouldSuppressFloatingToolbarOptions) => {
+	if (!bookmark) {
+		return false;
+	}
+
+	const { tr } = state;
+
+	const resolvedBookmark = bookmark.resolve(tr.doc);
+	const isSelectionMatchingBookmark =
+		resolvedBookmark.to === tr.selection.to && resolvedBookmark.from === tr.selection.from;
+
+	return isSelectionMatchingBookmark;
+};
+
+export const buildSuppressedToolbar = (state: EditorState) => {
+	return {
+		items: [],
+		nodeType: getValidNodes(state),
+		title: 'Annotation suppressed toolbar',
+		__suppressAllToolbars: true,
+	};
+};
 
 export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => ({
 	state,
@@ -176,7 +225,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 
 		return {
 			title: toolbarTitle,
-			nodeType: validNodes,
+			nodeType: fg('platform_editor_fix_toolbar_comment_jump') ? getValidNodes(state) : validNodes,
 			items: [createComment],
 			onPositionCalculated,
 			pluginName: 'annotation',

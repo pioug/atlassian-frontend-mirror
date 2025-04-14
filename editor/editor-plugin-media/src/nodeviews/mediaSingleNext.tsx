@@ -613,9 +613,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 					mediaElement={currentMediaElement()}
 					mediaHeight={height}
 					mediaWidth={width}
-					extendedResizeOffset={
-						fg('platform_editor_media_extended_resize_experience') && !isInsideTable
-					}
+					extendedResizeOffset={mediaOptions.allowPixelResizing && !isInsideTable}
 				>
 					{({ visible }: { visible: boolean }) => (
 						<>
@@ -681,7 +679,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 	return (
 		<Fragment>
 			{canResize ? (
-				fg('platform_editor_media_extended_resize_experience') ? (
+				mediaOptions.allowPixelResizing ? (
 					<ResizableMediaSingleNext
 						view={view}
 						getPos={getPos}

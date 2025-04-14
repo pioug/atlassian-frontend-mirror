@@ -12,6 +12,7 @@ import type {
 	VCRawDataType,
 	VCResult,
 } from '../../common/vc/types';
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../self-measurements';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
@@ -32,6 +33,9 @@ type onUpdateArgs = {
 	element: HTMLElement;
 	type: ObservedMutationType;
 	ignoreReason?: VCIgnoreReason;
+	attributeName?: string | null;
+	oldValue?: string | null;
+	newValue?: string | null;
 };
 
 const abortReason: AbortReasonEnum = {
@@ -43,17 +47,20 @@ const abortReason: AbortReasonEnum = {
 
 const UNUSED_SECTOR = 0;
 
-function filterComponentsLog(log: ComponentsLogType) {
-	return Object.fromEntries(
-		Object.entries(log).map(([timestamp, entries]) => [
-			Number(timestamp),
-			entries.map((entry) => {
-				const { __debug__element, ...rest } = entry;
-				return rest;
-			}),
-		]),
-	);
-}
+const filterComponentsLog = withProfiling(
+	function filterComponentsLog(log: ComponentsLogType) {
+		return Object.fromEntries(
+			Object.entries(log).map(([timestamp, entries]) => [
+				Number(timestamp),
+				entries.map((entry) => {
+					const { __debug__element, ...rest } = entry;
+					return rest;
+				}),
+			]),
+		);
+	},
+	['vc'],
+);
 
 export class VCObserver implements VCObserverInterface {
 	/* abort logic */
@@ -110,6 +117,7 @@ export class VCObserver implements VCObserverInterface {
 	isPostInteraction?: boolean;
 
 	constructor(options: VCObserverOptions) {
+		const operationTimer = markProfilingStart('VCObserver constructor');
 		this.arraySize = options.heatmapSize || 200;
 		this.devToolsEnabled = options.devToolsEnabled || false;
 		this.oldDomUpdatesEnabled = options.oldDomUpdates || false;
@@ -132,6 +140,31 @@ export class VCObserver implements VCObserverInterface {
 			devToolsEnabled: this.devToolsEnabled,
 		});
 		this.isPostInteraction = options.isPostInteraction || false;
+
+		this.start = withProfiling(this.start.bind(this), ['vc']);
+		this.stop = withProfiling(this.stop.bind(this), ['vc']);
+		this.getAbortReasonInfo = withProfiling(this.getAbortReasonInfo.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.getVCRawData = withProfiling(this.getVCRawData.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.getIgnoredElements = withProfiling(this.getIgnoredElements.bind(this), ['vc']);
+		this.getVCResult = withProfiling(this.getVCResult.bind(this), ['vc']);
+		this.setSSRElement = withProfiling(this.setSSRElement.bind(this), ['vc']);
+		this.setReactRootRenderStart = withProfiling(this.setReactRootRenderStart.bind(this), ['vc']);
+		this.setReactRootRenderStop = withProfiling(this.setReactRootRenderStop.bind(this), ['vc']);
+		this.handleUpdate = withProfiling(this.handleUpdate.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.legacyHandleUpdate = withProfiling(this.legacyHandleUpdate.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.onViewportChangeDetected = withProfiling(this.onViewportChangeDetected.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.setAbortReason = withProfiling(this.setAbortReason.bind(this), ['vc']);
+		this.resetState = withProfiling(this.resetState.bind(this), ['vc']);
+		this.setViewportSize = withProfiling(this.setViewportSize.bind(this), ['vc']);
+		this.mapPixelsToHeatmap = withProfiling(this.mapPixelsToHeatmap.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.getElementRatio = withProfiling(this.getElementRatio.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.applyChangesToHeatMap = withProfiling(this.applyChangesToHeatMap.bind(this), ['vc']);
+		this.abortReasonCallback = withProfiling(this.abortReasonCallback.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.attachAbortListeners = withProfiling(this.attachAbortListeners.bind(this), ['vc']); // TODO: confirm correct value of `this`
+		this.detachAbortListeners = withProfiling(this.detachAbortListeners.bind(this), ['vc']);
+		this.measureStart = withProfiling(this.measureStart.bind(this), ['vc']);
+		this.measureStop = withProfiling(this.measureStop.bind(this), ['vc']);
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	start({ startTime }: { startTime: number }) {
@@ -436,131 +469,134 @@ export class VCObserver implements VCObserverInterface {
 		};
 	};
 
-	static calculateVC({
-		heatmap,
-		ssr = UNUSED_SECTOR,
-		componentsLog,
-		viewport,
-	}: {
-		heatmap: number[][];
-		ssr?: number;
-		componentsLog: ComponentsLogType;
-		viewport: { w: number; h: number };
-	}) {
-		const lastUpdate: { [key: string]: number } = {};
-		let totalPainted = 0;
+	static calculateVC = withProfiling(
+		function calculateVC({
+			heatmap,
+			ssr = UNUSED_SECTOR,
+			componentsLog,
+			viewport,
+		}: {
+			heatmap: number[][];
+			ssr?: number;
+			componentsLog: ComponentsLogType;
+			viewport: { w: number; h: number };
+		}) {
+			const lastUpdate: { [key: string]: number } = {};
+			let totalPainted = 0;
 
-		if (ssr !== UNUSED_SECTOR) {
-			const element = {
-				__debug__element: new WeakRef<HTMLElement>(window.document?.body),
-				intersectionRect: {
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0,
-					x: 0,
-					y: 0,
-					width: viewport.w,
-					height: viewport.h,
-					toJSON() {
-						return {};
+			if (ssr !== UNUSED_SECTOR) {
+				const element = {
+					__debug__element: new WeakRef<HTMLElement>(window.document?.body),
+					intersectionRect: {
+						top: 0,
+						left: 0,
+						right: 0,
+						bottom: 0,
+						x: 0,
+						y: 0,
+						width: viewport.w,
+						height: viewport.h,
+						toJSON() {
+							return {};
+						},
 					},
-				},
-				targetName: 'SSR',
-			};
-			if (!componentsLog[ssr]) {
-				componentsLog[ssr] = [];
-			}
-			componentsLog[ssr].push(element);
-		}
-
-		heatmap.forEach((line) => {
-			line.forEach((entry) => {
-				const rounded = Math.floor(entry === UNUSED_SECTOR && ssr !== UNUSED_SECTOR ? ssr : entry);
-				totalPainted += rounded !== UNUSED_SECTOR ? 1 : 0;
-				if (rounded !== UNUSED_SECTOR) {
-					lastUpdate[rounded] = lastUpdate[rounded] ? lastUpdate[rounded] + 1 : 1;
+					targetName: 'SSR',
+				};
+				if (!componentsLog[ssr]) {
+					componentsLog[ssr] = [];
 				}
+				componentsLog[ssr].push(element);
+			}
+
+			heatmap.forEach((line) => {
+				line.forEach((entry) => {
+					const rounded = Math.floor(
+						entry === UNUSED_SECTOR && ssr !== UNUSED_SECTOR ? ssr : entry,
+					);
+					totalPainted += rounded !== UNUSED_SECTOR ? 1 : 0;
+					if (rounded !== UNUSED_SECTOR) {
+						lastUpdate[rounded] = lastUpdate[rounded] ? lastUpdate[rounded] + 1 : 1;
+					}
+				});
 			});
-		});
 
-		const entries: number[][] = Object.entries(lastUpdate)
-			.map((a) => [parseInt(a[0], 10), a[1]])
-			.sort((a, b) => (a[0] > b[0] ? 1 : -1));
+			const entries: number[][] = Object.entries(lastUpdate)
+				.map((a) => [parseInt(a[0], 10), a[1]])
+				.sort((a, b) => (a[0] > b[0] ? 1 : -1));
 
-		const VC: { [key: string]: number | null } = VCObserver.makeVCReturnObj<number>();
-		const VCBox: { [key: string]: string[] | null } = VCObserver.makeVCReturnObj<string[]>();
+			const VC: { [key: string]: number | null } = VCObserver.makeVCReturnObj<number>();
+			const VCBox: { [key: string]: string[] | null } = VCObserver.makeVCReturnObj<string[]>();
 
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
 
-		const isFilterIgnoredItemsEnabled = fg('platform_ufo_vc_filter_ignored_items');
+			const isFilterIgnoredItemsEnabled = fg('platform_ufo_vc_filter_ignored_items');
 
-		entries.reduce((acc = 0, v) => {
-			const currRatio = v[1] / totalPainted;
-			let VCRatio = currRatio + acc;
+			entries.reduce((acc = 0, v) => {
+				const currRatio = v[1] / totalPainted;
+				let VCRatio = currRatio + acc;
 
-			if (fg('platform_ufo_fix_vc_observer_rounding_error')) {
 				const preciseCurrRatio = Math.round(100 * (v[1] / totalPainted));
 				const preciseAccRatio = Math.round(acc * 100);
 				VCRatio = (preciseCurrRatio + preciseAccRatio) / 100;
-			}
 
-			const time = v[0];
-			VCObserver.VCParts.forEach((key) => {
-				const value = parseInt(key, 10);
-				if ((VC[key] === null || VC[key] === undefined) && VCRatio >= value / 100) {
-					VC[key] = time;
-					VCBox[key] = isFilterIgnoredItemsEnabled
+				const time = v[0];
+				VCObserver.VCParts.forEach((key) => {
+					const value = parseInt(key, 10);
+					if ((VC[key] === null || VC[key] === undefined) && VCRatio >= value / 100) {
+						VC[key] = time;
+						VCBox[key] = isFilterIgnoredItemsEnabled
+							? [
+									...new Set(
+										componentsLog[time]?.filter((v) => !v.ignoreReason).map((v) => v.targetName),
+									),
+								]
+							: [...new Set(componentsLog[time]?.map((v) => v.targetName))];
+					}
+				});
+				return VCRatio;
+			}, 0);
+
+			const VCEntries = entries.reduce(
+				(
+					acc: { abs: number[][]; rel: VCEntryType[]; speedIndex: number },
+					[timestamp, entryPainted],
+					i,
+				) => {
+					const currentlyPainted = entryPainted + (acc.abs[i - 1]?.[1] || 0);
+					const currentlyPaintedRatio = Math.round((currentlyPainted / totalPainted) * 1000) / 10;
+					const logEntry = isFilterIgnoredItemsEnabled
 						? [
 								...new Set(
-									componentsLog[time]?.filter((v) => !v.ignoreReason).map((v) => v.targetName),
+									componentsLog[timestamp]?.filter((v) => !v.ignoreReason).map((v) => v.targetName),
 								),
 							]
-						: [...new Set(componentsLog[time]?.map((v) => v.targetName))];
-				}
-			});
-			return VCRatio;
-		}, 0);
+						: [...new Set(componentsLog[timestamp]?.map((v) => v.targetName))];
 
-		const VCEntries = entries.reduce(
-			(
-				acc: { abs: number[][]; rel: VCEntryType[]; speedIndex: number },
-				[timestamp, entryPainted],
-				i,
-			) => {
-				const currentlyPainted = entryPainted + (acc.abs[i - 1]?.[1] || 0);
-				const currentlyPaintedRatio = Math.round((currentlyPainted / totalPainted) * 1000) / 10;
-				const logEntry = isFilterIgnoredItemsEnabled
-					? [
-							...new Set(
-								componentsLog[timestamp]?.filter((v) => !v.ignoreReason).map((v) => v.targetName),
-							),
-						]
-					: [...new Set(componentsLog[timestamp]?.map((v) => v.targetName))];
+					const ratioDelta = (currentlyPaintedRatio - (acc.rel[i - 1]?.vc ?? 0)) / 100;
 
-				const ratioDelta = (currentlyPaintedRatio - (acc.rel[i - 1]?.vc ?? 0)) / 100;
+					if (isCalcSpeedIndexEnabled) {
+						const speedIndex = timestamp * ratioDelta;
+						acc.speedIndex += speedIndex;
+					}
 
-				if (isCalcSpeedIndexEnabled) {
-					const speedIndex = timestamp * ratioDelta;
-					acc.speedIndex += speedIndex;
-				}
+					acc.abs.push([timestamp, currentlyPainted]);
+					acc.rel.push({
+						time: timestamp,
+						vc: currentlyPaintedRatio,
+						elements: logEntry,
+					});
+					return acc;
+				},
+				{ abs: [], rel: [], speedIndex: 0 },
+			);
 
-				acc.abs.push([timestamp, currentlyPainted]);
-				acc.rel.push({
-					time: timestamp,
-					vc: currentlyPaintedRatio,
-					elements: logEntry,
-				});
-				return acc;
-			},
-			{ abs: [], rel: [], speedIndex: 0 },
-		);
+			VCEntries.speedIndex = Math.round(VCEntries.speedIndex);
 
-		VCEntries.speedIndex = Math.round(VCEntries.speedIndex);
-
-		return { VC, VCBox, VCEntries, totalPainted };
-	}
+			return { VC, VCBox, VCEntries, totalPainted };
+		},
+		['vc'],
+	);
 
 	setSSRElement(element: HTMLElement) {
 		this.observers.setReactRootElement(element);
@@ -581,10 +617,23 @@ export class VCObserver implements VCObserverInterface {
 		element: HTMLElement,
 		type: ObservedMutationType,
 		ignoreReason?: VCIgnoreReason,
+		attributeName?: string | null,
+		oldValue?: string | null,
+		newValue?: string | null,
 	) => {
 		this.measureStart();
 
-		this.legacyHandleUpdate(rawTime, intersectionRect, targetName, element, type, ignoreReason);
+		this.legacyHandleUpdate(
+			rawTime,
+			intersectionRect,
+			targetName,
+			element,
+			type,
+			ignoreReason,
+			attributeName,
+			oldValue,
+			newValue,
+		);
 
 		if (!fg('platform_ufo_vc_observer_new')) {
 			this.onViewportChangeDetected({
@@ -594,6 +643,9 @@ export class VCObserver implements VCObserverInterface {
 				element,
 				type,
 				ignoreReason,
+				attributeName,
+				oldValue,
+				newValue,
 			});
 		}
 
@@ -607,6 +659,9 @@ export class VCObserver implements VCObserverInterface {
 		element: HTMLElement,
 		type: ObservedMutationType,
 		ignoreReason?: VCIgnoreReason,
+		attributeName?: string | null,
+		oldValue?: string | null,
+		newValue?: string | null,
 	) => {
 		if (this.abortReason.reason === null || this.abortReason.blocking === false) {
 			const time = Math.round(rawTime - this.startTime);
@@ -637,9 +692,13 @@ export class VCObserver implements VCObserverInterface {
 
 			this.componentsLog[time].push({
 				__debug__element: this.devToolsEnabled ? new WeakRef<HTMLElement>(element) : null,
+				type,
 				intersectionRect,
 				targetName,
 				ignoreReason,
+				attributeName,
+				oldValue,
+				newValue,
 			});
 		}
 	};
@@ -651,6 +710,9 @@ export class VCObserver implements VCObserverInterface {
 		timestamp,
 		targetName,
 		intersectionRect,
+		attributeName,
+		oldValue,
+		newValue,
 	}: onUpdateArgs) => {
 		if (this.multiHeatmap === null) {
 			return;
@@ -677,6 +739,9 @@ export class VCObserver implements VCObserverInterface {
 			onError: (error) => {
 				this.setAbortReason(abortReason.error, error.time, error.error);
 			},
+			attributeName,
+			oldValue,
+			newValue,
 		});
 	};
 
@@ -786,13 +851,16 @@ export class VCObserver implements VCObserverInterface {
 		}
 	}
 
-	static makeVCReturnObj<T>() {
-		const vc: { [key: string]: null | T } = {};
-		VCObserver.VCParts.forEach((v) => {
-			vc[v] = null;
-		});
-		return vc;
-	}
+	static makeVCReturnObj = withProfiling(
+		function makeVCReturnObj<T>() {
+			const vc: { [key: string]: null | T } = {};
+			VCObserver.VCParts.forEach((v) => {
+				vc[v] = null;
+			});
+			return vc;
+		},
+		['vc'],
+	);
 
 	private abortReasonCallback = (key: string, time: number) => {
 		switch (key) {

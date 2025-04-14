@@ -1,3 +1,5 @@
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../self-measurements';
+
 import EntriesTimeline from './entries-timeline';
 import getElementName, { type SelectorConfig } from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
@@ -26,6 +28,7 @@ export default class VCObserverNew {
 	private entriesTimeline: EntriesTimeline;
 
 	constructor(config: VCObserverNewConfig) {
+		const operationTimer = markProfilingStart('VCObserverNew constructor');
 		this.entriesTimeline = new EntriesTimeline();
 
 		this.selectorConfig = config.selectorConfig ?? DEFAULT_SELECTOR_CONFIG;
@@ -65,6 +68,12 @@ export default class VCObserverNew {
 				});
 			},
 		});
+
+		this.start = withProfiling(this.start.bind(this), ['vc']);
+		this.stop = withProfiling(this.stop.bind(this), ['vc']);
+		this.getVCResult = withProfiling(this.getVCResult.bind(this), ['vc']);
+		this.getElementName = withProfiling(this.getElementName.bind(this), ['vc']);
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	start({ startTime }: { startTime: DOMHighResTimeStamp }) {

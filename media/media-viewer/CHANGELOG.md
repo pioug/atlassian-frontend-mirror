@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.0.7
+
+### Patch Changes
+
+- [#138209](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138209)
+  [`9d3e02824cbc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d3e02824cbc9) -
+  Added compiled styles to media viewer behind feature flag
+
 ## 52.0.6
 
 ### Patch Changes

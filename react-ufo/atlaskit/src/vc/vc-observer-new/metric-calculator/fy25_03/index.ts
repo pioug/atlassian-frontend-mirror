@@ -1,3 +1,4 @@
+import { withProfiling } from '../../../../self-measurements';
 import type {
 	VCObserverEntry,
 	VCObserverEntryType,
@@ -30,7 +31,10 @@ export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
 export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	constructor() {
 		super(REVISION_NO);
+		this.isEntryIncluded = withProfiling(this.isEntryIncluded.bind(this), ['vc']);
+		this.isVCClean = withProfiling(this.isVCClean.bind(this), ['vc']);
 	}
+
 	protected isEntryIncluded(entry: VCObserverEntry): boolean {
 		if (!CONSIDERED_ENTRY_TYPE.includes(entry.type)) {
 			return false;

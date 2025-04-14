@@ -7,7 +7,9 @@ import {
 	type Page,
 } from '@af/integration-testing';
 
-import { ReactUFOPayload, WindowWithReactUFOTestGlobals } from './window-type';
+import { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema';
+
+import { WindowWithReactUFOTestGlobals } from './window-type';
 
 const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	if (!params) {

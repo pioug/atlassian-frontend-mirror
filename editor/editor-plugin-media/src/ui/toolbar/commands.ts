@@ -171,6 +171,7 @@ export const changeMediaInlineToMediaSingle =
 	(
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 		widthPluginState: WidthPluginState | undefined,
+		allowPixelResizing?: boolean,
 	): Command =>
 	(state, dispatch, view) => {
 		const { mediaInline } = state.schema.nodes;
@@ -189,6 +190,7 @@ export const changeMediaInlineToMediaSingle =
 				selectedNode,
 				widthPluginState,
 				editorAnalyticsAPI,
+				allowPixelResizing,
 			);
 		}
 		return true;

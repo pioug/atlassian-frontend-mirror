@@ -1,8 +1,11 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InteractionType } from '../interaction-metrics';
+import { withProfiling } from '../self-measurements';
 
-export const getReactUFOVersion = (interactionType: InteractionType) => {
+export const getReactUFOVersion = withProfiling(function getReactUFOVersion(
+	interactionType: InteractionType,
+) {
 	if (interactionType !== 'page_load' && interactionType !== 'transition') {
 		return '1.0.1';
 	}
@@ -13,4 +16,4 @@ export const getReactUFOVersion = (interactionType: InteractionType) => {
 	}
 
 	return '2.0.0';
-};
+});

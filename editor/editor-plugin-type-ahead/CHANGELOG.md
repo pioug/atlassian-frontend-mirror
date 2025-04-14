@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.4.0
+
+### Minor Changes
+
+- [#139256](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139256)
+  [`0fea9bc4da71a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fea9bc4da71a) -
+  ED-27447 add typeahead close analytics event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.4
 
 ### Patch Changes

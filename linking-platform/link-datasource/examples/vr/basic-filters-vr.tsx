@@ -70,6 +70,5 @@ const Component = () => {
 
 export default withWaitForItem(Component, () => {
 	const buttons = document.body.querySelectorAll('button');
-	const item = buttons[3];
-	return item;
+	return buttons.length >= 4;
 });

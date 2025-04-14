@@ -32,6 +32,7 @@ snapshotInformational(VRIssueLikeTableUser, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTableUserLoading, {
@@ -52,6 +53,7 @@ snapshotInformational(VRIssueLikeTableUserLoading, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTableUser, {
@@ -74,6 +76,7 @@ snapshotInformational(VRIssueLikeTableUser, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });
 
 snapshotInformational(VRIssueLikeTableUser, {
@@ -97,4 +100,5 @@ snapshotInformational(VRIssueLikeTableUser, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	waitForHold: true,
 });

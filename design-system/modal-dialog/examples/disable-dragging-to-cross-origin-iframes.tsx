@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 // Using Global for helpful debugging in an example.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled
 import { Global } from '@emotion/react';
 import { bindAll } from 'bind-event-listener';
 import invariant from 'tiny-invariant';

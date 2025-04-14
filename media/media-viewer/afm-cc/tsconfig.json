@@ -30,6 +30,9 @@
             "path": "../../../design-system/form/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/heading/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {

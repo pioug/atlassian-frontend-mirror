@@ -19,11 +19,13 @@ import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import {
+	CodeBlockSharedCssClassName,
+	MediaSharedClassNames,
+	SmartCardSharedCssClassName,
 	annotationSharedStyles,
 	backgroundColorStyles,
 	blockMarksSharedStyles,
 	codeBlockInListSafariFix,
-	CodeBlockSharedCssClassName,
 	codeMarkSharedStyles,
 	dateSharedStyle,
 	embedCardStyles,
@@ -33,12 +35,10 @@ import {
 	indentationSharedStyles,
 	linkSharedStyle,
 	listsSharedStyles,
-	MediaSharedClassNames,
 	paragraphSharedStyles,
 	resizerStyles,
 	ruleSharedStyles,
 	shadowSharedStyle,
-	SmartCardSharedCssClassName,
 	smartCardSharedStyles,
 	smartCardStyles,
 	tasksAndDecisionsStyles,
@@ -52,6 +52,7 @@ import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles'
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
 import {
+	SelectionStyle,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 	akEditorDefaultLayoutWidth,
@@ -59,13 +60,13 @@ import {
 	akEditorDeleteBorder,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
 	akEditorSelectedBorderColor,
 	akEditorSelectedBorderSize,
 	akEditorSelectedNodeClassName,
 	blockNodesVerticalMargin,
 	editorFontSize,
 	getSelectionStyles,
-	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -84,9 +85,10 @@ import { panelStyles } from './panel';
 import { statusStyles, vanillaStatusStyles } from './status';
 import {
 	taskDecisionStyles,
-	vanillaTaskDecisionIconWithoutVisualRefresh,
-	vanillaTaskDecisionIconWithVisualRefresh,
-	vanillaTaskDecisionStyles,
+	vanillaTaskDecisionIconWithoutVisualRefresh as vanillaDecisionIconWithoutVisualRefresh,
+	vanillaTaskDecisionIconWithVisualRefresh as vanillaDecisionIconWithVisualRefresh,
+	vanillaTaskDecisionStyles as vanillaDecisionStyles,
+	vanillaTaskItemStyles,
 } from './tasks-and-decisions';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
@@ -387,7 +389,7 @@ const akEditorBreakpointForSmallDevice = `1266px`;
 const contentStyles = (props: ContentStylesProps) => css`
 	--ak-editor--default-gutter-padding: ${akEditorGutterPadding}px;
 	/* 52 is from akEditorGutterPaddingDynamic via editor-shared-styles */
-	--ak-editor--large-gutter-padding: 52px;
+	--ak-editor--large-gutter-padding: ${akEditorGutterPaddingDynamic()}px;
 	--ak-editor--default-layout-width: ${akEditorDefaultLayoutWidth}px;
 	--ak-editor--full-width-layout-width: ${akEditorFullWidthLayoutWidth}px;
 	/* calculate editor line length, 100cqw is the editor container width */
@@ -530,14 +532,16 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${textHighlightStyle}
   ${taskDecisionStyles}
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	vanillaTaskDecisionStyles}
+	vanillaTaskItemStyles}
+  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+	vanillaDecisionStyles}
   // Switch between the two icons based on the visual refresh feature gate
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	fg('platform-visual-refresh-icons') &&
-	vanillaTaskDecisionIconWithVisualRefresh}
+	vanillaDecisionIconWithVisualRefresh}
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	!fg('platform-visual-refresh-icons') &&
-	vanillaTaskDecisionIconWithoutVisualRefresh}
+	vanillaDecisionIconWithoutVisualRefresh}
   ${statusStyles}
   ${editorExperiment('platform_editor_vanilla_dom', true) ? vanillaStatusStyles : null}
   ${annotationSharedStyles()}

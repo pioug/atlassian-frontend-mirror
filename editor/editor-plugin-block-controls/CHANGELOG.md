@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.9.1
+
+### Patch Changes
+
+- [#139810](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139810)
+  [`571a576ee18ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/571a576ee18ef) -
+  Adjust controls to line up with sticky headers
+- Updated dependencies
+
+## 3.9.0
+
+### Minor Changes
+
+- [#134613](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134613)
+  [`be20cc186939b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be20cc186939b) -
+  ED-26247 Remove feature flag platform_media_extended_resize_experience and replace it with a new
+  media prop which defaults to false allowPixelResizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.8.10
+
+### Patch Changes
+
+- [#140242](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140242)
+  [`cc6e520975373`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc6e520975373) -
+  [ED-27504] Fix table insert row button being hard to click
+- Updated dependencies
+
 ## 3.8.9
 
 ### Patch Changes

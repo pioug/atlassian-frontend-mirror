@@ -2,6 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type VCIgnoreReason } from '../../../common/vc/types';
 import { shouldHandleEditorLnv } from '../../../config';
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../self-measurements';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
 import { EditorLnvHandler } from './editor-lnv';
@@ -33,6 +34,9 @@ type ObservedMutationMapValue = {
 	mutation: MutationRecordWithTimestamp;
 	ignoreReason?: VCIgnoreReason;
 	type: ObservedMutationType;
+	attributeName?: string | null;
+	oldValue?: string | null;
+	newValue?: string | null;
 };
 
 export type SelectorConfig = {
@@ -47,27 +51,33 @@ type ConstructorOptions = {
 	selectorConfig: SelectorConfig;
 };
 
-function isElementVisible(target: Element): boolean {
-	if (!target || typeof target.checkVisibility !== 'function') {
-		return true;
-	}
+const isElementVisible = withProfiling(
+	function isElementVisible(target: Element): boolean {
+		if (!target || typeof target.checkVisibility !== 'function') {
+			return true;
+		}
 
-	const isVisible = target.checkVisibility({
-		contentVisibilityAuto: true,
-		opacityProperty: true,
-		visibilityProperty: true,
-	} as CheckVisibilityOptions);
+		const isVisible = target.checkVisibility({
+			contentVisibilityAuto: true,
+			opacityProperty: true,
+			visibilityProperty: true,
+		} as CheckVisibilityOptions);
 
-	return isVisible;
-}
+		return isVisible;
+	},
+	['vc'],
+);
 
-function isInsideEditorContainer(target: Element): boolean {
-	if (!target || typeof target.closest !== 'function') {
-		return false;
-	}
+const isInsideEditorContainer = withProfiling(
+	function isInsideEditorContainer(target: Element): boolean {
+		if (!target || typeof target.closest !== 'function') {
+			return false;
+		}
 
-	return Boolean(target.closest('.ProseMirror'));
-}
+		return Boolean(target.closest('.ProseMirror'));
+	},
+	['vc'],
+);
 
 export class Observers implements BrowserObservers {
 	private intersectionObserver: IntersectionObserver | null;
@@ -103,6 +113,7 @@ export class Observers implements BrowserObservers {
 	};
 
 	constructor(opts: ConstructorOptions) {
+		const operationTimer = markProfilingStart('Observers constructor');
 		this.selectorConfig = {
 			...this.selectorConfig,
 			...opts.selectorConfig,
@@ -111,6 +122,21 @@ export class Observers implements BrowserObservers {
 		this.mutationObserver = this.getMutationObserver();
 		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers();
 		this.editorLnvHandler = new EditorLnvHandler();
+		this.isBrowserSupported = withProfiling(this.isBrowserSupported.bind(this), ['vc']);
+		this.observe = withProfiling(this.observe.bind(this), ['vc']);
+		this.disconnect = withProfiling(this.disconnect.bind(this), ['vc']);
+		this.subscribeResults = withProfiling(this.subscribeResults.bind(this), ['vc']);
+		this.getTotalTime = withProfiling(this.getTotalTime.bind(this), ['vc']);
+		this.setReactRootElement = withProfiling(this.setReactRootElement.bind(this), ['vc']);
+		this.setReactRootRenderStart = withProfiling(this.setReactRootRenderStart.bind(this), ['vc']);
+		this.setReactRootRenderStop = withProfiling(this.setReactRootRenderStop.bind(this), ['vc']);
+		this.observeElement = withProfiling(this.observeElement.bind(this), ['vc']);
+		this.getMutationObserver = withProfiling(this.getMutationObserver.bind(this), ['vc']);
+		this.getElementName = withProfiling(this.getElementName.bind(this), ['vc']);
+		this.getIntersectionObserver = withProfiling(this.getIntersectionObserver.bind(this), ['vc']);
+		this.measureStart = withProfiling(this.measureStart.bind(this), ['vc']);
+		this.measureStop = withProfiling(this.measureStop.bind(this), ['vc']);
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	isBrowserSupported() {
@@ -174,155 +200,186 @@ export class Observers implements BrowserObservers {
 		mutation: MutationRecordWithTimestamp,
 		type: ObservedMutationType,
 		ignoreReason: VCIgnoreReason,
+		attributeName?: string | null,
+		oldValue: string | null = null,
+		newValue: string | null = null,
 	) => {
 		this.intersectionObserver?.observe(node);
-		this.observedMutations.set(node, { mutation, ignoreReason, type });
+		if (fg('platform_ufo_log_attr_mutation_values')) {
+			this.observedMutations.set(node, {
+				mutation,
+				ignoreReason,
+				type,
+				attributeName,
+				oldValue,
+				newValue,
+			});
+		} else {
+			this.observedMutations.set(node, {
+				mutation,
+				ignoreReason,
+				type,
+			});
+		}
 	};
 
 	private getMutationObserver() {
+		if (!this.isBrowserSupported()) {
+			return null;
+		}
+
 		const shouldHandleEditorLnvLocal = shouldHandleEditorLnv();
-		return this.isBrowserSupported()
-			? new MutationObserver((mutations) => {
-					this.measureStart();
 
-					mutations.forEach((mutation: MutationRecordWithTimestamp) => {
-						// patching element if timestamp not automatically added
-						// eslint-disable-next-line no-param-reassign
-						mutation.timestamp =
-							mutation.timestamp === undefined ? performance.now() : mutation.timestamp;
+		return new MutationObserver((mutations) => {
+			const operationTimer = markProfilingStart('mutationObserverCallback');
+			this.measureStart();
 
-						let ignoreReason: VCIgnoreReason = '';
+			mutations.forEach((mutation: MutationRecordWithTimestamp) => {
+				// patching element if timestamp not automatically added
+				// eslint-disable-next-line no-param-reassign
+				mutation.timestamp =
+					mutation.timestamp === undefined ? performance.now() : mutation.timestamp;
 
-						if (
-							this.ssr.state === state.waitingForFirstRender &&
-							mutation.timestamp > this.ssr.renderStart &&
-							mutation.target === this.ssr.reactRootElement
-						) {
-							this.ssr.state = state.ignoring;
-							if (this.ssr.renderStop === -1) {
-								// arbitrary 500ms DOM update window
-								this.ssr.renderStop = mutation.timestamp + 500;
-							}
-							ignoreReason = 'ssr-hydration';
+				let ignoreReason: VCIgnoreReason = '';
+
+				if (
+					this.ssr.state === state.waitingForFirstRender &&
+					mutation.timestamp > this.ssr.renderStart &&
+					mutation.target === this.ssr.reactRootElement
+				) {
+					this.ssr.state = state.ignoring;
+					if (this.ssr.renderStop === -1) {
+						// arbitrary 500ms DOM update window
+						this.ssr.renderStop = mutation.timestamp + 500;
+					}
+					ignoreReason = 'ssr-hydration';
+				}
+
+				if (
+					this.ssr.state === state.ignoring &&
+					mutation.timestamp > this.ssr.renderStart &&
+					mutation.target === this.ssr.reactRootElement
+				) {
+					if (mutation.timestamp <= this.ssr.renderStop) {
+						ignoreReason = 'ssr-hydration';
+					} else {
+						this.ssr.state = state.normal;
+					}
+				}
+
+				if (mutation.type === 'childList') {
+					mutation.addedNodes.forEach((node) => {
+						if (isContainedWithinMediaWrapper(node)) {
+							ignoreReason = 'image';
 						}
 
 						if (
-							this.ssr.state === state.ignoring &&
-							mutation.timestamp > this.ssr.renderStart &&
-							mutation.target === this.ssr.reactRootElement
+							node instanceof HTMLElement
+							/* && !node instanceof HTMLStyleElement && !node instanceof HTMLScriptElement && !node instanceof HTMLLinkElement */
 						) {
-							if (mutation.timestamp <= this.ssr.renderStop) {
-								ignoreReason = 'ssr-hydration';
-							} else {
-								this.ssr.state = state.normal;
+							if (
+								this.ssrPlaceholderHandler.isPlaceholder(node) ||
+								this.ssrPlaceholderHandler.isPlaceholderIgnored(node)
+							) {
+								this.ssrPlaceholderHandler.checkIfExistedAndSizeMatching(node).then((result) => {
+									if (result === false) {
+										this.observeElement(node, mutation, 'html', ignoreReason);
+									}
+								});
+								return;
 							}
+
+							if (
+								this.ssrPlaceholderHandler.isPlaceholderReplacement(node) ||
+								this.ssrPlaceholderHandler.isPlaceholderIgnored(node)
+							) {
+								this.ssrPlaceholderHandler
+									.validateReactComponentMatchToPlaceholder(node)
+									.then((result) => {
+										if (result === false) {
+											this.observeElement(node, mutation, 'html', ignoreReason);
+										}
+									});
+								return;
+							}
+
+							if (shouldHandleEditorLnvLocal) {
+								if (this.editorLnvHandler.shouldHandleAddedNode(node)) {
+									this.editorLnvHandler.handleAddedNode(node).then(({ shouldIgnore }) => {
+										this.observeElement(
+											node,
+											mutation,
+											'html',
+											shouldIgnore ? 'editor-lazy-node-view' : ignoreReason,
+										);
+									});
+									return;
+								}
+							}
+							this.observeElement(node, mutation, 'html', ignoreReason);
 						}
-
-						if (mutation.type === 'childList') {
-							mutation.addedNodes.forEach((node) => {
-								if (isContainedWithinMediaWrapper(node)) {
-									ignoreReason = 'image';
-								}
-
-								if (
-									node instanceof HTMLElement
-									/* && !node instanceof HTMLStyleElement && !node instanceof HTMLScriptElement && !node instanceof HTMLLinkElement */
-								) {
-									if (
-										this.ssrPlaceholderHandler.isPlaceholder(node) ||
-										this.ssrPlaceholderHandler.isPlaceholderIgnored(node)
-									) {
-										this.ssrPlaceholderHandler
-											.checkIfExistedAndSizeMatching(node)
-											.then((result) => {
-												if (result === false) {
-													this.observeElement(node, mutation, 'html', ignoreReason);
-												}
-											});
-										return;
-									}
-
-									if (
-										this.ssrPlaceholderHandler.isPlaceholderReplacement(node) ||
-										this.ssrPlaceholderHandler.isPlaceholderIgnored(node)
-									) {
-										this.ssrPlaceholderHandler
-											.validateReactComponentMatchToPlaceholder(node)
-											.then((result) => {
-												if (result === false) {
-													this.observeElement(node, mutation, 'html', ignoreReason);
-												}
-											});
-										return;
-									}
-
-									if (shouldHandleEditorLnvLocal) {
-										if (this.editorLnvHandler.shouldHandleAddedNode(node)) {
-											this.editorLnvHandler.handleAddedNode(node).then(({ shouldIgnore }) => {
-												this.observeElement(
-													node,
-													mutation,
-													'html',
-													shouldIgnore ? 'editor-lazy-node-view' : ignoreReason,
-												);
-											});
-											return;
-										}
-									}
-									this.observeElement(node, mutation, 'html', ignoreReason);
-								}
-								if (node instanceof Text && node.parentElement != null) {
-									this.observeElement(node.parentElement, mutation, 'text', ignoreReason);
-								}
-							});
-							mutation.removedNodes.forEach((node) => {
-								if (node instanceof Element) {
-									this.elementsInView.delete(node);
-									this.intersectionObserver?.unobserve(node);
-								}
-							});
-						} else if (mutation.type === 'attributes') {
-							if (mutation.target instanceof HTMLElement) {
-								if (fg('platform_ufo_vc_ignore_same_value_mutation')) {
-									/*
-											"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
-											I think it might have been something along the lines that for consistency every setAttribute call should create a record.
-											Conceptually there is after all a mutation: there is an old value replaced with a new one,
-											and whether or not they are the same doesn't really matter.
-											And Custom elements should work the same way as MutationObserver."
-											https://github.com/whatwg/dom/issues/520#issuecomment-336574796
-										*/
-									const oldValue = mutation.oldValue ?? undefined;
-									const newValue = mutation.attributeName
-										? mutation.target.getAttribute(mutation.attributeName)
-										: undefined;
-									if (oldValue !== newValue) {
-										if (isNonVisualStyleMutation(mutation)) {
-											ignoreReason = 'non-visual-style';
-										}
-										if (fg('platform_ufo_vc_fix_ignore_image_mutation')) {
-											if (isContainedWithinMediaWrapper(mutation.target)) {
-												ignoreReason = 'image';
-											}
-										}
-										this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
-									}
-								} else {
-									if (isNonVisualStyleMutation(mutation)) {
-										ignoreReason = 'non-visual-style';
-									}
-									if (fg('platform_ufo_vc_fix_ignore_image_mutation')) {
-										if (isContainedWithinMediaWrapper(mutation.target)) {
-											ignoreReason = 'image';
-										}
-									}
-									this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
-								}
-							}
+						if (node instanceof Text && node.parentElement != null) {
+							this.observeElement(node.parentElement, mutation, 'text', ignoreReason);
 						}
 					});
-				})
-			: null;
+					mutation.removedNodes.forEach((node) => {
+						if (node instanceof Element) {
+							this.elementsInView.delete(node);
+							this.intersectionObserver?.unobserve(node);
+						}
+					});
+				} else if (mutation.type === 'attributes') {
+					if (mutation.target instanceof HTMLElement) {
+						const attributeName = mutation.attributeName;
+						if (fg('platform_ufo_vc_ignore_same_value_mutation')) {
+							/*
+								"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
+								I think it might have been something along the lines that for consistency every setAttribute call should create a record.
+								Conceptually there is after all a mutation: there is an old value replaced with a new one,
+								and whether or not they are the same doesn't really matter.
+								And Custom elements should work the same way as MutationObserver."
+								https://github.com/whatwg/dom/issues/520#issuecomment-336574796
+							*/
+							const oldValue = mutation.oldValue ?? undefined;
+							const newValue = attributeName
+								? mutation.target.getAttribute(attributeName)
+								: undefined;
+							if (oldValue !== newValue) {
+								if (isNonVisualStyleMutation(mutation)) {
+									ignoreReason = 'non-visual-style';
+								}
+								if (fg('platform_ufo_vc_fix_ignore_image_mutation')) {
+									if (isContainedWithinMediaWrapper(mutation.target)) {
+										ignoreReason = 'image';
+									}
+								}
+								this.observeElement(
+									mutation.target,
+									mutation,
+									'attr',
+									ignoreReason,
+									attributeName,
+									oldValue,
+									newValue,
+								);
+							}
+						} else {
+							if (isNonVisualStyleMutation(mutation)) {
+								ignoreReason = 'non-visual-style';
+							}
+							if (fg('platform_ufo_vc_fix_ignore_image_mutation')) {
+								if (isContainedWithinMediaWrapper(mutation.target)) {
+									ignoreReason = 'image';
+								}
+							}
+							this.observeElement(mutation.target, mutation, 'attr', ignoreReason, attributeName);
+						}
+					}
+				}
+			});
+
+			markProfilingEnd(operationTimer, { tags: ['vc'] });
+		});
 	}
 
 	private getElementName(element: HTMLElement) {
@@ -359,58 +416,65 @@ export class Observers implements BrowserObservers {
 	}
 
 	private getIntersectionObserver() {
-		return this.isBrowserSupported()
-			? new IntersectionObserver((entries) => {
-					this.measureStart();
-					entries.forEach(({ isIntersecting, intersectionRect: ir, target }) => {
-						const data = this.observedMutations.get(target);
-						this.observedMutations.delete(target);
+		if (!this.isBrowserSupported()) {
+			return null;
+		}
 
-						if (isIntersecting && ir.width > 0 && ir.height > 0) {
-							if (!(target instanceof HTMLElement)) {
-								return;
-							}
+		return new IntersectionObserver((entries) => {
+			const operationTimer = markProfilingStart('intersectionObserverCallback');
+			this.measureStart();
+			entries.forEach(({ isIntersecting, intersectionRect: ir, target }) => {
+				const data = this.observedMutations.get(target);
+				this.observedMutations.delete(target);
 
-							if (!data?.mutation) {
-								// ignore intersection report without recent mutation
-								return;
-							}
+				if (isIntersecting && ir.width > 0 && ir.height > 0) {
+					if (!(target instanceof HTMLElement)) {
+						return;
+					}
 
-							if (!isElementVisible(target)) {
-								data.ignoreReason = 'not-visible';
-							}
+					if (!data?.mutation) {
+						// ignore intersection report without recent mutation
+						return;
+					}
 
-							if (fg('platform_editor_ed-25937_ignore_mutations_for_ttvc')) {
-								if (isInsideEditorContainer(target)) {
-									data.ignoreReason = 'editor-container-mutation';
-								}
-							}
+					if (!isElementVisible(target)) {
+						data.ignoreReason = 'not-visible';
+					}
 
-							this.callbacks.forEach((callback) => {
-								let elementName;
-								try {
-									elementName = this.getElementName(target);
-								} catch (e) {
-									elementName = 'error';
-								}
-								callback(
-									data.mutation.timestamp || performance.now(),
-									ir,
-									elementName,
-									target,
-									data.type,
-									data.ignoreReason,
-								);
-							});
-
-							this.elementsInView.add(target);
-						} else {
-							this.elementsInView.delete(target);
+					if (fg('platform_editor_ed-25937_ignore_mutations_for_ttvc')) {
+						if (isInsideEditorContainer(target)) {
+							data.ignoreReason = 'editor-container-mutation';
 						}
+					}
+
+					this.callbacks.forEach((callback) => {
+						let elementName;
+						try {
+							elementName = this.getElementName(target);
+						} catch (e) {
+							elementName = 'error';
+						}
+						callback(
+							data.mutation.timestamp || performance.now(),
+							ir,
+							elementName,
+							target,
+							data.type,
+							data.ignoreReason,
+							data.attributeName,
+							data.oldValue,
+							data.newValue,
+						);
 					});
-					this.measureStop();
-				})
-			: null;
+
+					this.elementsInView.add(target);
+				} else {
+					this.elementsInView.delete(target);
+				}
+			});
+			this.measureStop();
+			markProfilingEnd(operationTimer, { tags: ['vc'] });
+		});
 	}
 
 	private measureStart() {

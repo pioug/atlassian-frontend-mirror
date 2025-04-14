@@ -1,3 +1,8 @@
+import {
+	markProfilingEnd,
+	markProfilingStart,
+	withProfiling,
+} from '../../../../../self-measurements';
 import type { VCObserverEntry } from '../../../types';
 import type { RevisionPayloadVCDetails } from '../../types';
 import isViewportEntryData from '../../utils/is-viewport-entry-data';
@@ -15,29 +20,39 @@ import type {
 
 const MAX_HEATMAP_SIZE = 1000;
 
-function createEmptyHeatmapEntry(): HeatmapEntry {
-	return {
-		head: null,
-		previousEntries: [],
-	};
-}
-function createEmptyMap(heatmapWidth: number, heatmapHeight: number) {
-	return Array.from({ length: heatmapHeight }).map(() =>
-		Array.from({ length: heatmapWidth }).map(createEmptyHeatmapEntry),
-	);
-}
+const createEmptyHeatmapEntry = withProfiling(
+	function createEmptyHeatmapEntry(): HeatmapEntry {
+		return {
+			head: null,
+			previousEntries: [],
+		};
+	},
+	['vc'],
+);
 
-function isRectInside(
-	a: HeatmapRect | null | undefined,
-	b: HeatmapRect | null | undefined,
-): boolean {
-	if (!a || !b) {
-		return false;
-	}
+const createEmptyMap = withProfiling(
+	function createEmptyMap(heatmapWidth: number, heatmapHeight: number) {
+		return Array.from({ length: heatmapHeight }).map(() =>
+			Array.from({ length: heatmapWidth }).map(createEmptyHeatmapEntry),
+		);
+	},
+	['vc'],
+);
 
-	// Check if all corners of rectangle a are within the bounds of rectangle b
-	return a.left >= b.left && a.right <= b.right && a.top >= b.top && a.bottom <= b.bottom;
-}
+const isRectInside = withProfiling(
+	function isRectInside(
+		a: HeatmapRect | null | undefined,
+		b: HeatmapRect | null | undefined,
+	): boolean {
+		if (!a || !b) {
+			return false;
+		}
+
+		// Check if all corners of rectangle a are within the bounds of rectangle b
+		return a.left >= b.left && a.right <= b.right && a.top >= b.top && a.bottom <= b.bottom;
+	},
+	['vc'],
+);
 
 class Heatmap {
 	private viewport: Viewport;
@@ -62,6 +77,8 @@ class Heatmap {
 	private map: Array<Array<HeatmapEntry>>;
 
 	constructor({ viewport, heatmapSize }: HeatmapOptions) {
+		const operationTimer = markProfilingStart('Heatmap constructor');
+
 		// TODO timeOrigin? do we need? for SSR??
 		this.viewport = viewport;
 
@@ -94,6 +111,15 @@ class Heatmap {
 		this.heatmapAreaSize = this.width * this.height;
 
 		this.map = createEmptyMap(this.width, this.height);
+
+		this.getHeatmap = withProfiling(this.getHeatmap.bind(this), ['vc']);
+		this.getCell = withProfiling(this.getCell.bind(this), ['vc']);
+		this.mapDOMRectToHeatmap = withProfiling(this.mapDOMRectToHeatmap.bind(this), ['vc']);
+		this.getRatio = withProfiling(this.getRatio.bind(this), ['vc']);
+		this.applyEntriesToHeatmap = withProfiling(this.applyEntriesToHeatmap.bind(this), ['vc']);
+		this.getVCPercentMetrics = withProfiling(this.getVCPercentMetrics.bind(this), ['vc']);
+
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	getHeatmap() {
@@ -294,24 +320,29 @@ class Heatmap {
 	}
 }
 
-export default async function calculateTTVCPercentiles({
-	orderedEntries,
-	viewport,
-	percentiles,
-	startTime,
-}: {
-	orderedEntries: ReadonlyArray<VCObserverEntry>;
-	viewport: Viewport;
-	percentiles: number[];
-	startTime: DOMHighResTimeStamp;
-}): Promise<RevisionPayloadVCDetails> {
-	const heatmap = new Heatmap({
+const calculateTTVCPercentiles = withProfiling(
+	async function calculateTTVCPercentiles({
+		orderedEntries,
 		viewport,
-		heatmapSize: 200,
-	});
+		percentiles,
+		startTime,
+	}: {
+		orderedEntries: ReadonlyArray<VCObserverEntry>;
+		viewport: Viewport;
+		percentiles: number[];
+		startTime: DOMHighResTimeStamp;
+	}): Promise<RevisionPayloadVCDetails> {
+		const heatmap = new Heatmap({
+			viewport,
+			heatmapSize: 200,
+		});
 
-	await heatmap.applyEntriesToHeatmap(orderedEntries);
+		await heatmap.applyEntriesToHeatmap(orderedEntries);
 
-	const vcDetails = await heatmap.getVCPercentMetrics(percentiles, startTime);
-	return vcDetails;
-}
+		const vcDetails = await heatmap.getVCPercentMetrics(percentiles, startTime);
+		return vcDetails;
+	},
+	['vc'],
+);
+
+export default calculateTTVCPercentiles;

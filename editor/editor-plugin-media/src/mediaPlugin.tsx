@@ -137,7 +137,14 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 		actions: {
 			insertMediaAsMediaSingle: (view, node, inputMethod, insertMediaVia) =>
-				insertMediaAsMediaSingle(view, node, inputMethod, api?.analytics?.actions, insertMediaVia),
+				insertMediaAsMediaSingle(
+					view,
+					node,
+					inputMethod,
+					api?.analytics?.actions,
+					insertMediaVia,
+					options?.allowPixelResizing,
+				),
 			setProvider: (provider) => {
 				// Prevent someone trying to set the exact same provider twice for performance reasons
 				if (previousMediaProvider === provider) {
@@ -161,6 +168,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			const {
 				allowMediaGroup = true,
 				allowMediaSingle = false,
+				allowPixelResizing = false,
 				allowCaptions,
 				allowMediaInlineImages,
 				featureFlags: mediaFeatureFlags,
@@ -170,15 +178,10 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				? allowMediaInlineImages
 				: getMediaFeatureFlag('mediaInline', mediaFeatureFlags);
 
-			const mediaSingleOption = fg('platform_editor_media_extended_resize_experience')
-				? {
-						withCaption: allowCaptions,
-						withExtendedWidthTypes: true,
-					}
-				: {
-						withCaption: allowCaptions,
-						withExtendedWidthTypes: false,
-					};
+			const mediaSingleOption = {
+				withCaption: allowCaptions,
+				withExtendedWidthTypes: allowPixelResizing,
+			};
 
 			return [
 				{ name: 'mediaGroup', node: mediaGroupSpecWithFixedToDOM() },
@@ -313,7 +316,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				options.allowAdvancedToolBarOptions &&
 				options.allowResizing &&
 				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_media_extended_resize_experience')
+				options.allowPixelResizing
 			) {
 				pmPlugins.push({
 					name: 'mediaPixelResizing',
@@ -422,6 +425,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						fullWidthEnabled: options && options.fullWidthEnabled,
 						allowMediaInlineImages: options && options.allowMediaInlineImages,
 						isViewOnly: api?.editorViewMode?.sharedState.currentState()?.mode === 'view',
+						allowPixelResizing: options?.allowPixelResizing,
 					},
 					api,
 				),

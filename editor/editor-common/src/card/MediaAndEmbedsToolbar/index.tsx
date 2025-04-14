@@ -23,7 +23,6 @@ import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import EditorAlignImageRight from '@atlaskit/icon/glyph/editor/align-image-right';
 import WrapLeftIcon from '@atlaskit/icon/glyph/editor/media-wrap-left';
 import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorAnalyticsAPI } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
@@ -150,6 +149,7 @@ const makeAlign = (
 	nodeType: NodeType,
 	widthPluginDependencyApi: WidthPluginDependencyApi,
 	analyticsApi: EditorAnalyticsAPI | undefined,
+	allowPixelResizing?: boolean,
 ): Command => {
 	return (state, dispatch) => {
 		const { node } = state.selection as NodeSelection;
@@ -168,7 +168,7 @@ const makeAlign = (
 
 		const nodeWidth = getNodeWidth(node, state.schema);
 
-		const newAttrs = fg('platform_editor_media_extended_resize_experience')
+		const newAttrs = allowPixelResizing
 			? // with extended experience, change alignment does not change media single width
 				{ ...node.attrs, layout }
 			: alignAttributes(
@@ -224,11 +224,8 @@ const makeAlign = (
 	};
 };
 
-const getToolbarLayout = (layout: MediaSingleLayout) => {
-	if (
-		nonWrappedLayouts.includes(layout) &&
-		fg('platform_editor_media_extended_resize_experience')
-	) {
+const getToolbarLayout = (layout: MediaSingleLayout, allowPixelResizing?: boolean) => {
+	if (nonWrappedLayouts.includes(layout) && allowPixelResizing) {
 		return 'center';
 	}
 	return layout;
@@ -244,6 +241,7 @@ const mapIconsToToolbarItem = (
 	widthPluginDependencyApi: WidthPluginDependencyApi,
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	isChangingLayoutDisabled?: boolean,
+	allowPixelResizing?: boolean,
 ) =>
 	icons.map<FloatingToolbarItem<Command>>((toolbarItem) => {
 		const { id, value } = toolbarItem;
@@ -252,8 +250,14 @@ const mapIconsToToolbarItem = (
 			type: 'button',
 			icon: toolbarItem.icon,
 			title: intl.formatMessage(layoutToMessages[value]),
-			selected: getToolbarLayout(layout) === value,
-			onClick: makeAlign(value, nodeType, widthPluginDependencyApi, analyticsApi),
+			selected: getToolbarLayout(layout, allowPixelResizing) === value,
+			onClick: makeAlign(
+				value,
+				nodeType,
+				widthPluginDependencyApi,
+				analyticsApi,
+				allowPixelResizing,
+			),
 			...(isChangingLayoutDisabled && { disabled: value !== 'center' }),
 		};
 	});
@@ -286,6 +290,7 @@ const buildLayoutButtons = (
 	allowWrapping = true,
 	allowAlignment = true,
 	isChangingLayoutDisabled?: boolean,
+	allowPixelResizing?: boolean,
 ) => {
 	const { selection } = state;
 
@@ -309,6 +314,7 @@ const buildLayoutButtons = (
 				widthPluginDependencyApi,
 				analyticsApi,
 				isChangingLayoutDisabled,
+				allowPixelResizing,
 			)
 		: [];
 	const wrappingToolbarItems = allowWrapping
@@ -320,6 +326,7 @@ const buildLayoutButtons = (
 				widthPluginDependencyApi,
 				analyticsApi,
 				isChangingLayoutDisabled,
+				allowPixelResizing,
 			)
 		: [];
 	const breakOutToolbarItems = !allowResizing
@@ -330,6 +337,7 @@ const buildLayoutButtons = (
 				nodeType,
 				widthPluginDependencyApi,
 				analyticsApi,
+				allowPixelResizing,
 			)
 		: [];
 

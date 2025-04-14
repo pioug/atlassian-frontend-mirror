@@ -4,6 +4,7 @@
  */
 import { Fragment, type MouseEvent, type ReactElement, type RefCallback } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
 import useScrollCapture from './use-scroll-capture';

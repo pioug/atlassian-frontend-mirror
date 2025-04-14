@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useEditorThemeContext } from '../../../../hooks/use-editor-theme';
 import { type ExternalMessage } from '../../../../state/types';
 
@@ -17,38 +15,20 @@ export const MessageContainer = ({ children }: { children: React.ReactNode }) =>
 };
 
 export const FormatMessages = ({ messages }: { messages: ExternalMessage[] }) => {
-	if (fg('gravityai-2553-fix-jql-debugger-flicker')) {
-		const messageNodes = extractMessageNodes(messages);
+	const messageNodes = extractMessageNodes(messages);
 
-		if (messageNodes.length === 0) {
-			return null;
-		}
-
-		if (messageNodes.length === 1) {
-			return <span>{messageNodes[0]}</span>;
-		}
-
-		return (
-			<MessageList>
-				{messageNodes.map((m, i) => (
-					<li key={i}>{m}</li>
-				))}
-			</MessageList>
-		);
-	}
-
-	if (messages.length === 0) {
+	if (messageNodes.length === 0) {
 		return null;
 	}
 
-	if (messages.length === 1) {
-		return <span>{messages[0].message}</span>;
+	if (messageNodes.length === 1) {
+		return <span>{messageNodes[0]}</span>;
 	}
 
 	return (
 		<MessageList>
-			{messages.slice(0, MAX_MESSAGES).map((m, i) => (
-				<li key={i}>{m.message}</li>
+			{messageNodes.map((m, i) => (
+				<li key={i}>{m}</li>
 			))}
 		</MessageList>
 	);

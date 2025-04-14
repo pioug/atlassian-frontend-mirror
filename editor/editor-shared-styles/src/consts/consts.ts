@@ -64,7 +64,11 @@ export const akEditorTableNumberColumnWidth = 42;
 export const akEditorBreakoutPadding = 96;
 export const akEditorGutterPadding = 32;
 export const akEditorGutterPaddingDynamic = () =>
-	fg('platform_editor_core_increase_full_page_guttering') ? 52 : 32;
+	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+	fg('platform_editor_controls_increase_full_page_gutter') &&
+	editorExperiment('platform_editor_controls', 'variant1')
+		? 72
+		: 52;
 export const akEditorMobileBreakoutPoint = 720;
 export const akEditorTableCellMinWidth = 48;
 export const akEditorTableLegacyCellMinWidth = 128;

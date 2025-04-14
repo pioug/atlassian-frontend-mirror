@@ -1,6 +1,13 @@
 import React from 'react';
 
 import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
+import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
+import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
+import TextHeadingOneIcon from '@atlaskit/icon-lab/core/text-heading-one';
+import TextHeadingSixIcon from '@atlaskit/icon-lab/core/text-heading-six';
+import TextHeadingThreeIcon from '@atlaskit/icon-lab/core/text-heading-three';
+import TextHeadingTwoIcon from '@atlaskit/icon-lab/core/text-heading-two';
+import TextIcon from '@atlaskit/icon/core/text';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockType } from './types';
@@ -11,7 +18,8 @@ export const NORMAL_TEXT: BlockType = {
 	title: messages.normal,
 	nodeName: 'paragraph',
 	tagName: 'p',
-	icon: <Text />,
+	icon: <TextIcon label="" />,
+	LEGACY_icon: <Text />,
 };
 export const HEADING_1: BlockType = {
 	name: 'heading1',
@@ -19,7 +27,8 @@ export const HEADING_1: BlockType = {
 	nodeName: 'heading',
 	tagName: 'h1',
 	level: 1,
-	icon: <H1 />,
+	icon: <TextHeadingOneIcon label="" />,
+	LEGACY_icon: <H1 />,
 };
 export const HEADING_2: BlockType = {
 	name: 'heading2',
@@ -27,7 +36,8 @@ export const HEADING_2: BlockType = {
 	nodeName: 'heading',
 	tagName: 'h2',
 	level: 2,
-	icon: <H2 />,
+	icon: <TextHeadingTwoIcon label="" />,
+	LEGACY_icon: <H2 />,
 };
 export const HEADING_3: BlockType = {
 	name: 'heading3',
@@ -35,7 +45,8 @@ export const HEADING_3: BlockType = {
 	nodeName: 'heading',
 	tagName: 'h3',
 	level: 3,
-	icon: <H3 />,
+	icon: <TextHeadingThreeIcon label="" />,
+	LEGACY_icon: <H3 />,
 };
 export const HEADING_4: BlockType = {
 	name: 'heading4',
@@ -43,7 +54,8 @@ export const HEADING_4: BlockType = {
 	nodeName: 'heading',
 	tagName: 'h4',
 	level: 4,
-	icon: <H4 />,
+	icon: <TextHeadingFourIcon label="" />,
+	LEGACY_icon: <H4 />,
 };
 export const HEADING_5: BlockType = {
 	name: 'heading5',
@@ -51,7 +63,8 @@ export const HEADING_5: BlockType = {
 	nodeName: 'heading',
 	tagName: 'h5',
 	level: 5,
-	icon: <H5 />,
+	icon: <TextHeadingFiveIcon label="" />,
+	LEGACY_icon: <H5 />,
 };
 export const HEADING_6: BlockType = {
 	name: 'heading6',
@@ -59,7 +72,8 @@ export const HEADING_6: BlockType = {
 	nodeName: 'heading',
 	tagName: 'h6',
 	level: 6,
-	icon: <H6 />,
+	icon: <TextHeadingSixIcon label="" />,
+	LEGACY_icon: <H6 />,
 };
 export const BLOCK_QUOTE: BlockType = {
 	name: 'blockquote',

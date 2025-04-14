@@ -1,3 +1,4 @@
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../self-measurements';
 import type { VCObserverEntry } from '../types';
 
 export default class EntriesTimeline {
@@ -5,7 +6,13 @@ export default class EntriesTimeline {
 
 	private sortedEntriesCache = new Map<string, WeakRef<VCObserverEntry[]>>();
 	constructor() {
+		const operationTimer = markProfilingStart('EntriesTimeline constructor');
 		this.unorderedEntries = [];
+		this.push = withProfiling(this.push.bind(this), ['vc']);
+		this.getCacheKey = withProfiling(this.getCacheKey.bind(this), ['vc']);
+		this.getOrderedEntries = withProfiling(this.getOrderedEntries.bind(this), ['vc']);
+		this.clear = withProfiling(this.clear.bind(this), ['vc']);
+		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	push(entry: VCObserverEntry) {

@@ -1,11 +1,11 @@
 import { bind } from 'bind-event-listener';
 
+import type { PageVisibility } from '../common/react-ufo-payload-schema';
+
 export type HiddenTimingItem = {
 	time: number;
 	hidden: boolean;
 };
-
-export type PageVisibility = 'hidden' | 'mixed' | 'visible';
 
 const timings: Array<HiddenTimingItem> = [];
 let wasHiddenFlag: boolean;

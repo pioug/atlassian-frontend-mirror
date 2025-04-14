@@ -1,5 +1,27 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.5.1
+
+### Patch Changes
+
+- [#140795](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140795)
+  [`e1887df1f2005`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1887df1f2005) -
+  FF cleanup - platform_ufo_ssr_placeholder_round_rect_size_check
+- [#141104](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141104)
+  [`186bbb54cfa80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/186bbb54cfa80) -
+  ff clean up
+- [#141125](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141125)
+  [`489dcb094d563`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/489dcb094d563) -
+  FF cleanup - platform_ufo_fix_vc_observer_rounding_error
+
+## 3.5.0
+
+### Minor Changes
+
+- [#137917](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137917)
+  [`fc0581899e9ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc0581899e9ff) -
+  add self profiling to internal functions
+
 ## 3.4.14
 
 ### Patch Changes

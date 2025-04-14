@@ -1,11 +1,12 @@
 import type {
 	ComponentsLogType,
-	MultiHeatmapPayload,
+	RevisionPayload,
 	VCEntryType,
 	VCIgnoreReason,
 	VCRatioType,
 } from '../../../common/vc/types';
 import { getPageVisibilityState } from '../../../hidden-timing';
+import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../self-measurements';
 import type { ObservedMutationType } from '../observers/types';
 import type {
 	FilterComponentsLogType,
@@ -59,6 +60,9 @@ export type HandleUpdateArgs = {
 	targetName: string;
 	ignoreReason?: VCIgnoreReason;
 	onError: (error: ApplyChangesError) => void;
+	attributeName?: string | null;
+	oldValue?: string | null;
+	newValue?: string | null;
 };
 
 const UNUSED_SECTOR = 0;
@@ -78,6 +82,7 @@ export class MultiRevisionHeatmap {
 	componentsLogs: PerRevision<ComponentsLogType>;
 
 	constructor({ viewport, revisions, arraySize, devToolsEnabled }: HeatmapAttrs) {
+		const operationTimer = markProfilingStart('MultiRevisionHeatmap constructor');
 		this.viewport = viewport;
 		this.revisions = revisions;
 		if (arraySize) {
@@ -94,6 +99,17 @@ export class MultiRevisionHeatmap {
 			this.componentsLogs[i] = {};
 			this.vcRatios[i] = {};
 		});
+
+		this.handleUpdate = withProfiling(this.handleUpdate.bind(this), ['vc']);
+		this.getData = withProfiling(this.getData.bind(this), ['vc']);
+		this.getPayloadShapedData = withProfiling(this.getPayloadShapedData.bind(this), ['vc']);
+		this.processData = withProfiling(this.processData.bind(this), ['vc']);
+		this.mapPixelsToHeatmap = withProfiling(this.mapPixelsToHeatmap.bind(this), ['vc']);
+		this.getElementRatio = withProfiling(this.getElementRatio.bind(this), ['vc']);
+		this.applyChangesToHeatMap = withProfiling(this.applyChangesToHeatMap.bind(this), ['vc']);
+		this.getIndex = withProfiling(this.getIndex.bind(this), ['vc']);
+		this.getCleanHeatmap = withProfiling(this.getCleanHeatmap.bind(this), ['vc']);
+		markProfilingEnd(operationTimer);
 	}
 
 	handleUpdate({
@@ -105,6 +121,9 @@ export class MultiRevisionHeatmap {
 		targetName,
 		ignoreReason,
 		onError,
+		attributeName,
+		oldValue,
+		newValue,
 	}: HandleUpdateArgs) {
 		const mappedValues = this.mapPixelsToHeatmap(
 			intersectionRect.left,
@@ -134,6 +153,9 @@ export class MultiRevisionHeatmap {
 				intersectionRect,
 				targetName,
 				ignoreReason,
+				attributeName,
+				oldValue,
+				newValue,
 			});
 		});
 	}
@@ -144,7 +166,7 @@ export class MultiRevisionHeatmap {
 		};
 	}
 
-	getPayloadShapedData(args: ProcessDataArgs): MultiHeatmapPayload {
+	getPayloadShapedData(args: ProcessDataArgs): RevisionPayload {
 		const pageVisibilityUpToTTAI = getPageVisibilityState(args.interactionStart, args.ttai);
 
 		const result = this.processData(args);
@@ -320,11 +342,14 @@ export class MultiRevisionHeatmap {
 		return new Int32Array(this.arraySize.w * this.arraySize.h);
 	}
 
-	static makeVCReturnObj<T>(VCParts: number[]) {
-		const vc: { [key: string]: null | T } = {};
-		VCParts.forEach((v) => {
-			vc[v] = null;
-		});
-		return vc;
-	}
+	static makeVCReturnObj = withProfiling(
+		function makeVCReturnObj<T>(VCParts: number[]) {
+			const vc: { [key: string]: null | T } = {};
+			VCParts.forEach((v) => {
+				vc[v] = null;
+			});
+			return vc;
+		},
+		['vc'],
+	);
 }

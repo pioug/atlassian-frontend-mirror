@@ -2,7 +2,6 @@ import { mediaSingleSpec } from '@atlaskit/adf-schema';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema/schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N20, N50 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -237,67 +236,66 @@ export const prepareWrapperContentDOM = ({
 	];
 };
 
-export const toDOM = (node: PMNode): DOMOutputSpec => {
-	const mediaSingleAttrs = node.attrs;
-	const isPixelWidth = mediaSingleAttrs?.widthType === 'pixel';
-	const layout: MediaSingleLayout = mediaSingleAttrs?.layout ?? 'center';
-	const childNode = node.firstChild;
-	const isExternalMedia = childNode?.attrs.type === 'external';
+export const getToDom =
+	(allowPixelResizing: boolean) =>
+	(node: PMNode): DOMOutputSpec => {
+		const mediaSingleAttrs = node.attrs;
+		const isPixelWidth = mediaSingleAttrs?.widthType === 'pixel';
+		const layout: MediaSingleLayout = mediaSingleAttrs?.layout ?? 'center';
+		const childNode = node.firstChild;
+		const isExternalMedia = childNode?.attrs.type === 'external';
 
-	const childMediaWidth = childNode?.attrs.width || DEFAULT_IMAGE_WIDTH;
-	const childMediaHeight = childNode?.attrs.height || DEFAULT_IMAGE_HEIGHT;
+		const childMediaWidth = childNode?.attrs.width || DEFAULT_IMAGE_WIDTH;
+		const childMediaHeight = childNode?.attrs.height || DEFAULT_IMAGE_HEIGHT;
 
-	const dataAttrs = getAttrsFromNodeMediaSingle(
-		fg('platform_editor_media_extended_resize_experience'),
-		node,
-	);
+		const dataAttrs = getAttrsFromNodeMediaSingle(true, node);
 
-	const content = prepareWrapperContentDOM({
-		layout,
-		dataAttrs,
-		childMediaWidth,
-		childMediaHeight,
-		mediaSingleDimensionWidth: mediaSingleAttrs.width,
-		isPixelWidth,
-		isExtendedResizeExperience: fg('platform_editor_media_extended_resize_experience'),
-	});
-
-	const isMediaWrapped = WRAPPED_LAYOUTS.includes(layout);
-	const proportionCalc = mediaProportionalWidthCSSCalc({
-		isPixelWidth,
-		isMediaWrapped,
-		mediaSingleDimensionWidth: mediaSingleAttrs?.width,
-		isExtendedResizeExperience: fg('platform_editor_media_extended_resize_experience'),
-	});
-	const contentWrapperWidth = mediaContentWrapperWidthCSSCalc({
-		isMediaWrapped,
-		isExternalMedia,
-		isPixelWidth,
-		childMediaWidth,
-		mediaSingleDimensionWidth: mediaSingleAttrs?.width,
-	});
-
-	return [
-		'div',
-		{
-			class: 'mediaSingleView-content-wrap',
+		const content = prepareWrapperContentDOM({
 			layout,
-			style: convertToInlineCss({
-				'--ak-editor-media-single--proportion': proportionCalc,
-				'--ak-editor-media-card-display': 'block',
-				'--ak-editor-media-single--gutter-size': GUTTER_SIZE,
-				'--ak-editor-media-margin-right': '0',
-				'--ak-editor-media-card-background-color': token('color.background.neutral', N20),
-				marginTop: isMediaWrapped ? HALF_GUTTER_SIZE : token('space.300', '24px'),
-				marginBottom: isMediaWrapped ? HALF_GUTTER_SIZE : token('space.300', '24px'),
-				marginRight: isMediaWrapped ? (layout === 'wrap-right' ? 'auto' : HALF_GUTTER_SIZE) : 0,
-				marginLeft: isMediaWrapped ? (layout === 'wrap-left' ? 'auto' : HALF_GUTTER_SIZE) : 0,
-				width: contentWrapperWidth,
-			}),
-		},
-		content,
-	];
-};
+			dataAttrs,
+			childMediaWidth,
+			childMediaHeight,
+			mediaSingleDimensionWidth: mediaSingleAttrs.width,
+			isPixelWidth,
+			isExtendedResizeExperience: allowPixelResizing,
+		});
+
+		const isMediaWrapped = WRAPPED_LAYOUTS.includes(layout);
+		const proportionCalc = mediaProportionalWidthCSSCalc({
+			isPixelWidth,
+			isMediaWrapped,
+			mediaSingleDimensionWidth: mediaSingleAttrs?.width,
+			isExtendedResizeExperience: allowPixelResizing,
+		});
+		const contentWrapperWidth = mediaContentWrapperWidthCSSCalc({
+			isMediaWrapped,
+			isExternalMedia,
+			isPixelWidth,
+			childMediaWidth,
+			mediaSingleDimensionWidth: mediaSingleAttrs?.width,
+		});
+
+		return [
+			'div',
+			{
+				class: 'mediaSingleView-content-wrap',
+				layout,
+				style: convertToInlineCss({
+					'--ak-editor-media-single--proportion': proportionCalc,
+					'--ak-editor-media-card-display': 'block',
+					'--ak-editor-media-single--gutter-size': GUTTER_SIZE,
+					'--ak-editor-media-margin-right': '0',
+					'--ak-editor-media-card-background-color': token('color.background.neutral', N20),
+					marginTop: isMediaWrapped ? HALF_GUTTER_SIZE : token('space.300', '24px'),
+					marginBottom: isMediaWrapped ? HALF_GUTTER_SIZE : token('space.300', '24px'),
+					marginRight: isMediaWrapped ? (layout === 'wrap-right' ? 'auto' : HALF_GUTTER_SIZE) : 0,
+					marginLeft: isMediaWrapped ? (layout === 'wrap-left' ? 'auto' : HALF_GUTTER_SIZE) : 0,
+					width: contentWrapperWidth,
+				}),
+			},
+			content,
+		];
+	};
 
 // @nodeSpecException:toDOM patch
 export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
@@ -308,6 +306,8 @@ export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return mediaSingleNode;
 	}
+
+	const toDOM = getToDom(mediaSingleOption.withExtendedWidthTypes);
 
 	return {
 		...mediaSingleNode,

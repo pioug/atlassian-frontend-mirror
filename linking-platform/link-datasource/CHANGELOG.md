@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.2.0
+
+### Minor Changes
+
+- [#133731](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/133731)
+  [`10bd29b685adb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10bd29b685adb) -
+  [ux] EDM-11648 SLLV Footer design refresh
+
 ## 4.1.15
 
 ### Patch Changes

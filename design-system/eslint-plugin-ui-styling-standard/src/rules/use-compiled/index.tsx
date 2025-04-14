@@ -65,12 +65,13 @@ export const rule: Rule.RuleModule = createLintRule({
 		type: 'problem',
 		fixable: 'code',
 		docs: {
-			description: 'Ensures usage of `@compiled/react` instead of other CSS-in-JS libraries',
+			description:
+				'Ensures usage of `@compiled/react` or `@atlaskit/css` instead of other CSS-in-JS libraries',
 			recommended: true,
 			severity: 'error',
 		},
 		messages: {
-			'use-compiled': `Use '@compiled/react' instead of '{{importSource}}'`,
+			'use-compiled': `Use '@atlaskit/css' or '@compiled/react' instead of '{{importSource}}'`,
 		},
 		schema,
 	},

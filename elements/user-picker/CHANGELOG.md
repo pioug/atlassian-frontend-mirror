@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.0.9
+
+### Patch Changes
+
+- [#137751](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137751)
+  [`bffaf88f6c035`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bffaf88f6c035) -
+  Add support for a clear indicator
+
 ## 11.0.8
 
 ### Patch Changes

@@ -77,6 +77,7 @@ export interface MediaPluginOptions {
 	// Allows consumer products to choose if they want referential copies to occur at a context or editor level.
 	// default is context
 	mediaShallowCopyScope?: MediaCopyScope;
+	allowPixelResizing?: boolean;
 }
 
 /**
@@ -162,6 +163,7 @@ export type MediaFloatingToolbarOptions = {
 	fullWidthEnabled?: boolean;
 	allowCommentsOnMedia?: boolean;
 	isViewOnly?: boolean;
+	allowPixelResizing?: boolean;
 };
 
 export type MediaDecorationSpec = {

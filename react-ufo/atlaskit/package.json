@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "3.4.14",
+	"version": "3.5.1",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -177,9 +177,6 @@
 		"platform_ufo_canvas_heatmap_full_precision": {
 			"type": "boolean"
 		},
-		"platform_ufo_fix_vc_observer_rounding_error": {
-			"type": "boolean"
-		},
 		"platform_editor_ed-25937_ignore_mutations_for_ttvc": {
 			"type": "boolean"
 		},
@@ -201,6 +198,9 @@
 		"ufo_support_other_resource_type_js": {
 			"type": "boolean"
 		},
+		"ufo_return_relative_request_start": {
+			"type": "boolean"
+		},
 		"platform_ufo_vc_observer_new": {
 			"type": "boolean"
 		},
@@ -208,9 +208,6 @@
 			"type": "boolean"
 		},
 		"enable_ufo_devtools_api_for_extra_events": {
-			"type": "boolean"
-		},
-		"platform_ufo_multiheatmap_killswitch": {
 			"type": "boolean"
 		},
 		"platform_ufo_no_vc_on_aborted": {
@@ -222,22 +219,22 @@
 		"ufo_payload_use_idle_callback": {
 			"type": "boolean"
 		},
-		"platform_ufo_ssr_placeholder_round_rect_size_check": {
-			"type": "boolean"
-		},
 		"platform_ufo_vc_ignore_same_value_mutation": {
 			"type": "boolean"
 		},
 		"platform_ufo_disable_ttvc_v1": {
 			"type": "boolean"
 		},
-		"platform_ufo_non_visual_style_mutation": {
-			"type": "boolean"
-		},
 		"platform_ufo_vc_filter_ignored_items": {
 			"type": "boolean"
 		},
 		"platform_ufo_vc_fix_ignore_image_mutation": {
+			"type": "boolean"
+		},
+		"platform_ufo_log_attr_mutation_values": {
+			"type": "boolean"
+		},
+		"platform_ufo_self_timings": {
 			"type": "boolean"
 		}
 	}

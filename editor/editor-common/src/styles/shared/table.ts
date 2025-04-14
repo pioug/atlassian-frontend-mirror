@@ -35,6 +35,8 @@ export const tableNewColumnMinWidth = 140;
 export const tableCellBorderWidth = 1;
 export const tableCellPadding = 8;
 export const tableResizeHandleWidth = 6;
+export const tablePadding = 8;
+export const tableControlsSpacing = tableMarginTop + tablePadding - tableCellBorderWidth;
 
 export const TableSharedCssClassName = {
 	TABLE_CONTAINER: `${tablePrefixSelector}-container`,

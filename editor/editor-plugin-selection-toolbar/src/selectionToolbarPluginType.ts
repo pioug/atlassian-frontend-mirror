@@ -4,6 +4,7 @@ import type {
 	UserPreferencesProvider,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
@@ -27,6 +28,7 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<PrimaryToolbarPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<BlockControlsPlugin>,
 		];
 		actions?: {
 			suppressToolbar?: () => boolean;

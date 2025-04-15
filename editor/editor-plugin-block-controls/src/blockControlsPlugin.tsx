@@ -94,6 +94,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				tr.setMeta(key, { ...currMeta, toggleMenu: { anchorName: options?.anchorName } });
 				return tr;
 			},
+
 		setNodeDragged:
 			(getPos: () => number | undefined, anchorName: string, nodeType: string) =>
 			({ tr }: { tr: Transaction }) => {
@@ -167,6 +168,12 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				});
 				return tr;
 			},
+		setSelectedViaDragHandle:
+			(isSelectedViaDragHandle?: boolean) =>
+			({ tr }: { tr: Transaction }) => {
+				const currMeta = tr.getMeta(key);
+				return tr.setMeta(key, { ...currMeta, isSelectedViaDragHandle });
+			},
 	},
 
 	getSharedState(editorState: EditorState | undefined) {
@@ -184,6 +191,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			isShiftDown: key.getState(editorState)?.isShiftDown ?? undefined,
 			lastDragCancelled: key.getState(editorState)?.lastDragCancelled ?? false,
 			isEditing: interactionTrackingPluginKey.getState(editorState)?.isEditing,
+			isSelectedViaDragHandle: key.getState(editorState)?.isSelectedViaDragHandle ?? false,
 		};
 	},
 

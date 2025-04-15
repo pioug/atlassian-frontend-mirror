@@ -46,7 +46,11 @@ export type BoxProps<T extends CustomElementType> = Omit<
 
 type BaseBoxProps<T extends CustomElementType> = {
 	/**
-	 * The DOM element to render as the Box. Defaults to `div`.
+	 * The DOM element to render as the Box.
+	 * - This cannot be any SVG-related element such as `'svg'`, `'animate', `'circle'`, and many more
+	 * - This cannot be a `'a'` (use the `Anchor` primitive instead)
+	 * - This cannot be a `'button'` (use the `Anchor` primitive instead)
+	 * @default 'div'
 	 */
 	as?: T;
 	/**

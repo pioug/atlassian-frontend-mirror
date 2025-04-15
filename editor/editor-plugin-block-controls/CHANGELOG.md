@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.10.0
+
+### Minor Changes
+
+- [#139189](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139189)
+  [`33e0a9b6291ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33e0a9b6291ae) -
+  [ux] When table is selected via drag handle, we show Table floating controls toolbar. If the table
+  selected via other means, we show the Text Formatting toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.9.2
+
+### Patch Changes
+
+- [#139175](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139175)
+  [`6274734c42470`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6274734c42470) -
+  Allow drag handle to display for empty lines when platform_editor_controls is enabled
+
 ## 3.9.1
 
 ### Patch Changes

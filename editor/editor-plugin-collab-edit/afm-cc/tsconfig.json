@@ -46,6 +46,9 @@
         },
         {
             "path": "../../prosemirror-collab/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
         }
     ]
 }

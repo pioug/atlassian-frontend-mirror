@@ -17,6 +17,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type LayoutPlugin } from '../layoutPluginType';
+import { selectIntoLayout } from '../pm-plugins/utils';
 import { type LayoutPluginOptions } from '../types';
 
 type LayoutSectionViewProps = {
@@ -102,6 +103,17 @@ const LayoutBreakoutResizer = ({
 		[pluginInjectionApi, view],
 	);
 
+	// we want to hide the floating toolbar for other nodes.
+	// e.g. info panel inside the current layout section
+	const selectIntoCurrentLayout = useCallback(() => {
+		const pos = getPos();
+		if (pos === undefined) {
+			return;
+		}
+		// put the selection into the first column of the layout
+		selectIntoLayout(view, pos, 0);
+	}, [getPos, view]);
+
 	return (
 		<BreakoutResizer
 			getRef={forwardRef}
@@ -118,6 +130,9 @@ const LayoutBreakoutResizer = ({
 				editorExperiment('single_column_layouts', true) ? displayGuidelines : undefined
 			}
 			displayGapCursor={displayGapCursor}
+			onResizeStart={() => {
+				selectIntoCurrentLayout();
+			}}
 		/>
 	);
 };

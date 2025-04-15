@@ -136,6 +136,14 @@ export type FlexibleUiOptions = {
 	hideBackground?: boolean;
 
 	/**
+	 * Remove TitleBlock requirement and child component restriction.
+	 * When `true`, Card with any children will be rendered as flexible card.
+	 * Card will no longer remove child components that are not flexible card blocks.
+	 * TitleBlock is no longer required.
+	 */
+	removeBlockRestriction?: boolean;
+
+	/**
 	 * Determines the default padding and sizing of the underlying blocks and
 	 * elements within Flexible UI.
 	 */

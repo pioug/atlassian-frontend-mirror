@@ -343,6 +343,7 @@ export default {
   'fabric.editor.datasourceTitle': '编辑搜索查询',
   'fabric.editor.date': '日期',
   'fabric.editor.date.description': '使用日历添加日期',
+  'fabric.editor.datePickerOpenedAlert': '日期编辑器弹出窗口已打开，按 Tab 键可访问弹出窗口',
   'fabric.editor.decision': '决定',
   'fabric.editor.decision.description': '捕获决策，以便轻松跟踪',
   'fabric.editor.decisionPlaceholder': '添加决定...',

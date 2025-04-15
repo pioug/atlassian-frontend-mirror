@@ -396,6 +396,8 @@ export default {
   'fabric.editor.datasourceTitle': 'Изменить поисковый запрос',
   'fabric.editor.date': 'Дата',
   'fabric.editor.date.description': 'Добавление даты из календаря',
+  'fabric.editor.datePickerOpenedAlert':
+    'Открылось всплывающее окно реактора даты. Для перехода к всплывающему окну нажмите клавишу табуляции',
   'fabric.editor.decision': 'Решение',
   'fabric.editor.decision.description': 'Записывайте решения для удобного отслеживания',
   'fabric.editor.decisionPlaceholder': 'Добавить решение…',

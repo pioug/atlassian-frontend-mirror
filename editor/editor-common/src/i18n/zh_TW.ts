@@ -342,6 +342,7 @@ export default {
   'fabric.editor.datasourceTitle': '編輯搜尋查詢',
   'fabric.editor.date': '日期',
   'fabric.editor.date.description': '使用日曆新增日期',
+  'fabric.editor.datePickerOpenedAlert': '日期編輯器快顯視窗已開啟，按 Tab 即可前往快顯視窗',
   'fabric.editor.decision': '決定',
   'fabric.editor.decision.description': '擷取決定以便追蹤',
   'fabric.editor.decisionPlaceholder': '新增決定…',

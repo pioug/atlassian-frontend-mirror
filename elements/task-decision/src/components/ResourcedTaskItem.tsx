@@ -1,4 +1,4 @@
-import React, { type RefObject } from 'react';
+import React, { type Ref } from 'react';
 import { PureComponent } from 'react';
 import TaskItem from './TaskItem';
 import {
@@ -27,7 +27,7 @@ export interface Props {
 	appearance?: Appearance;
 	disabled?: boolean;
 	dataAttributes?: { [key: string]: string | number };
-	inputRef?: RefObject<HTMLInputElement>;
+	inputRef?: Ref<HTMLInputElement>;
 	disableOnChange?: boolean;
 }
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { act } from '@testing-library/react';
 import TableRow from '../../../../react/nodes/tableRow';
 
 describe('Renderer - React/Nodes/TableRow', () => {
@@ -144,4 +146,144 @@ describe('Renderer - React/Nodes/TableRow', () => {
 			});
 		});
 	});
+
+	ffTest.on(
+		'platform_editor_table_column_group_width_check',
+		'colGroupWidths optimized tests',
+		() => {
+			const FakeCell = () => (
+				<td>
+					<p>1</p>
+				</td>
+			);
+
+			it('should pass colGroupWidths to children when colGroupWidths has length with fg on', () => {
+				const colGroupWidths = ['100px', '200px', '300px'];
+				const wrapper = mount(
+					<TableRow>
+						<FakeCell />
+						<FakeCell />
+						<FakeCell />
+					</TableRow>,
+					{ attachTo: document.createElement('tbody') },
+				);
+
+				act(() => {
+					wrapper.setState({ colGroupWidths });
+				});
+
+				wrapper.find(FakeCell).forEach((node, index) => {
+					expect(node.props()).toEqual({ colGroupWidth: colGroupWidths[index] });
+				});
+			});
+
+			it('should not pass colGroupWidths to children when colGroupWidths is empty with fg on', () => {
+				const wrapper = mount(
+					<TableRow>
+						<FakeCell />
+						<FakeCell />
+						<FakeCell />
+					</TableRow>,
+					{ attachTo: document.createElement('tbody') },
+				);
+
+				act(() => {
+					wrapper.setState({ colGroupWidths: [] });
+				});
+
+				wrapper.find(FakeCell).forEach((node) => {
+					expect(node.props()).toEqual({});
+				});
+			});
+
+			it('should not pass colGroupWidths to children when colGroupWidths is undefined with fg on', () => {
+				const wrapper = mount(
+					<TableRow>
+						<FakeCell />
+						<FakeCell />
+						<FakeCell />
+					</TableRow>,
+					{ attachTo: document.createElement('tbody') },
+				);
+
+				act(() => {
+					wrapper.setState({ colGroupWidths: undefined });
+				});
+
+				wrapper.find(FakeCell).forEach((node) => {
+					expect(node.props()).toEqual({});
+				});
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform_editor_table_column_group_width_check',
+		'colGroupWidths unoptimized tests',
+		() => {
+			const FakeCell = () => (
+				<td>
+					<p>1</p>
+				</td>
+			);
+
+			it('should pass colGroupWidths to children when colGroupWidths has length with fg off', () => {
+				const colGroupWidths = ['100px', '200px', '300px'];
+				const wrapper = mount(
+					<TableRow>
+						<FakeCell />
+						<FakeCell />
+						<FakeCell />
+					</TableRow>,
+					{ attachTo: document.createElement('tbody') },
+				);
+
+				act(() => {
+					wrapper.setState({ colGroupWidths });
+				});
+
+				wrapper.find(FakeCell).forEach((node, index) => {
+					expect(node.props()).toEqual({ colGroupWidth: colGroupWidths[index] });
+				});
+			});
+
+			it('should pass undefined colGroupWidths to children when colGroupWidths is empty with fg off', () => {
+				const wrapper = mount(
+					<TableRow>
+						<FakeCell />
+						<FakeCell />
+						<FakeCell />
+					</TableRow>,
+					{ attachTo: document.createElement('tbody') },
+				);
+
+				act(() => {
+					wrapper.setState({ colGroupWidths: [] });
+				});
+
+				wrapper.find(FakeCell).forEach((node) => {
+					expect(node.props()).toEqual({ colGroupWidth: undefined });
+				});
+			});
+
+			it('should not pass colGroupWidths to children when colGroupWidths is undefined with fg off', () => {
+				const wrapper = mount(
+					<TableRow>
+						<FakeCell />
+						<FakeCell />
+						<FakeCell />
+					</TableRow>,
+					{ attachTo: document.createElement('tbody') },
+				);
+
+				act(() => {
+					wrapper.setState({ colGroupWidths: undefined });
+				});
+
+				wrapper.find(FakeCell).forEach((node) => {
+					expect(node.props()).toEqual({});
+				});
+			});
+		},
+	);
 });

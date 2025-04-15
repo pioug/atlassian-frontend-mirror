@@ -371,6 +371,8 @@ export default {
   'fabric.editor.datasourceTitle': 'Rediger søgning',
   'fabric.editor.date': 'Dato',
   'fabric.editor.date.description': 'Tilføj en dato med en kalender',
+  'fabric.editor.datePickerOpenedAlert':
+    'Pop op-vinduet til datoredigering er åbnet. Tryk på Tabulatorknappen for at få adgang til pop op-vinduet',
   'fabric.editor.decision': 'Beslutning',
   'fabric.editor.decision.description': 'Registrér beslutninger, så de er lette at finde igen',
   'fabric.editor.decisionPlaceholder': 'Tilføj en beslutning ...',

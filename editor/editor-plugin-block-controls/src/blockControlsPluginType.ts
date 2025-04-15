@@ -58,6 +58,7 @@ export interface PluginState {
 	multiSelectDnD?: MultiSelectDnD;
 	isShiftDown?: boolean;
 	lastDragCancelled: boolean;
+	isSelectedViaDragHandle?: boolean;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
@@ -72,6 +73,7 @@ export type BlockControlsSharedState =
 			multiSelectDnD?: MultiSelectDnD;
 			isShiftDown?: boolean;
 			isEditing?: boolean;
+			isSelectedViaDragHandle?: boolean;
 	  }
 	| undefined;
 
@@ -132,6 +134,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 				nodeType: string,
 			) => EditorCommand;
 			setMultiSelectPositions: (anchor?: number, head?: number) => EditorCommand;
+			setSelectedViaDragHandle: (isSelectedViaDragHandle?: boolean) => EditorCommand;
 		};
 	}
 >;

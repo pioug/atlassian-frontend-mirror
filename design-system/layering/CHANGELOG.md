@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 2.1.1
+
+### Patch Changes
+
+- [#141383](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141383)
+  [`5b44229081f06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b44229081f06) -
+  Extract type of NotifyOpenLayerObserverProps
+
 ## 2.1.0
 
 ### Minor Changes

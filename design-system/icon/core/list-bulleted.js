@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ab638983bc02863ddd58167a8aaa3871>>
+ * @codegen <<SignedSource::c464a7d95484e897372db9f1fff872cb>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ListBulletedIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 2.75a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0m14 .75H5V2h10zM1 8a1.25 1.25 0 1 1 2.5 0A1.25 1.25 0 0 1 1 8m14 .75H5v-1.5h10zm-14 4.5a1.25 1.25 0 1 1 2.5 0 1.25 1.25 0 0 1-2.5 0M15 14H5v-1.5h10z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M.5 4.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0m0 7.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0M16 5H6V3.5h10zm0 7.5H6V11h10z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ListBulletedIcon.displayName = 'ListBulletedIcon';

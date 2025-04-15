@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.4.1
+
+### Patch Changes
+
+- [#139189](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139189)
+  [`33e0a9b6291ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33e0a9b6291ae) -
+  [ux] When table is selected via drag handle, we show Table floating controls toolbar. If the table
+  selected via other means, we show the Text Formatting toolbar.
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

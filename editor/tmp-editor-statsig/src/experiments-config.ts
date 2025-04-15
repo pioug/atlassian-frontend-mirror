@@ -282,6 +282,16 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'variant1']),
 		defaultValue: 'control' as 'control' | 'variant1',
 	},
+	// Added 2025-04-14
+	// https://switcheroo.atlassian.com/ui/gates/b159b45a-86d9-4f4b-b482-f9aca5b615d6/key/platform_editor_offline_editing_web
+	platform_editor_offline_editing_web: {
+		productKeys: {
+			confluence: 'platform_editor_offline_editing_web',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 	// Added 2025-03-26
 	platform_editor_markdown_next_media_plugin_exp: {
 		productKeys: {

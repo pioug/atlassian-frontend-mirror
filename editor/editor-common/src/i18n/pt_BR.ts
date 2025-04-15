@@ -376,6 +376,7 @@ export default {
   'fabric.editor.datasourceTitle': 'Editar consulta de pesquisa',
   'fabric.editor.date': 'Data',
   'fabric.editor.date.description': 'Adicionar data usando um calendário',
+  'fabric.editor.datePickerOpenedAlert': 'O pop-up do editor de data foi aberto, pressione Tab para acessar',
   'fabric.editor.decision': 'Decisão',
   'fabric.editor.decision.description': 'Registre decisões para facilitar o acompanhamento',
   'fabric.editor.decisionPlaceholder': 'Adicionar uma decisão...',

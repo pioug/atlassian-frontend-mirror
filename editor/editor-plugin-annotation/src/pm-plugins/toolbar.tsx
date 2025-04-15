@@ -193,15 +193,13 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 					});
 				}
 
-				if (fg('confluence_comments_create_comment_experience')) {
-					createCommentExperience?.start({
-						attributes: {
-							pageClass: 'editor',
-							commentType: 'inline',
-						},
-					});
-					createCommentExperience?.initExperience.start();
-				}
+				createCommentExperience?.start({
+					attributes: {
+						pageClass: 'editor',
+						commentType: 'inline',
+					},
+				});
+				createCommentExperience?.initExperience.start();
 
 				return setInlineCommentDraftState(editorAnalyticsAPI)(true)(state, dispatch);
 			},

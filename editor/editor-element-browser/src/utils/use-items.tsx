@@ -61,7 +61,7 @@ export const CategoriesStructure: CategoryData[] = [
 		],
 		defautltItems: [
 			'Create database',
-			'Filter by label (Content by label)',
+			'Filter by label',
 			'Chart',
 			'Create Jira issue',
 			'Content Report Table',

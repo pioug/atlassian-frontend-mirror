@@ -4,6 +4,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
 import uuid from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { failUfoExperience, startUfoExperience } from '../../state/analytics';
 import { importWithRetry } from '../../utils';
@@ -65,7 +67,10 @@ export function CardWithURLRenderer(props: CardProps) {
 		truncateInline,
 	} = props;
 
-	const isFlexibleUi = isFlexibleUiCard(children);
+	const isFlexibleUi = isFlexibleUiCard(
+		children,
+		fg('platform-linking-flexible-card-openness') ? ui : undefined,
+	);
 
 	const analyticsContext = useSmartLinkAnalyticsContext({
 		display: isFlexibleUi ? 'flexible' : appearance,

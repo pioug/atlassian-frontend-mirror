@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.5.3
+
+### Patch Changes
+
+- [#141178](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141178)
+  [`c85827a02e305`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c85827a02e305) -
+  clean up fg platform_ufo_vc_filter_ignored_items
+
+## 3.5.2
+
+### Patch Changes
+
+- [#140777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140777)
+  [`8fa57c7e71b24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fa57c7e71b24) -
+  Filtering out assets with NaN values reported as file size
+
 ## 3.5.1
 
 ### Patch Changes

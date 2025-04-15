@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.24.0
+
+### Minor Changes
+
+- [#140948](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140948)
+  [`0242fc0ffc4fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0242fc0ffc4fa) -
+  [ux] fixed alignment issue on container card
+
 ## 0.23.7
 
 ### Patch Changes

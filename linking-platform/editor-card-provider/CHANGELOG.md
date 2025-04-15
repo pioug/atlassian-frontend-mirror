@@ -1,5 +1,14 @@
 # @atlaskit/editor-card-provider
 
+## 4.2.4
+
+### Patch Changes
+
+- [#141229](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141229)
+  [`9740656964ab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9740656964ab1) -
+  Implement nounData embed preview extractors behind ff: smart_links_noun_support
+- Updated dependencies
+
 ## 4.2.3
 
 ### Patch Changes

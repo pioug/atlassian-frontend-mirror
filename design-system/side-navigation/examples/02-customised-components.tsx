@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import NestIcon from '@atlaskit/icon/glyph/editor/number-list';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
-import { G100, G200, G400 } from '@atlaskit/theme/colors';
+import { G400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -53,6 +53,21 @@ const containerStyles = css({
 	whiteSpace: 'nowrap',
 });
 
+const customNestingItemStyles = css({
+	// Need to increase specificity here until @atlaskit/menu has been migrated to @compiled/react
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&&': {
+		color: token('color.text.success'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.green.subtle'),
+			color: token('color.text.success'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.green.bolder'),
+		},
+	},
+});
+
 const CustomComponent = forwardRef((props: CustomItemComponentProps, ref) => {
 	const { children, ...rest } = props;
 	return (
@@ -73,17 +88,7 @@ const CustomisedExample = () => {
 		<NestingItem
 			id="1-1"
 			title={<div css={containerStyles}>Custom Title Component</div>}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={() => ({
-				color: G400,
-				'&:hover': {
-					color: G400,
-					backgroundColor: G100,
-				},
-				'&:active': {
-					backgroundColor: G200,
-				},
-			})}
+			css={customNestingItemStyles}
 			iconBefore={<NestIcon label="" />}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{
@@ -99,19 +104,9 @@ const CustomisedExample = () => {
 	const topLayer = (
 		<NestingItem
 			id="1"
-			title="Styled using cssFn"
+			title="Styled using className"
 			iconBefore={<NestIcon label="" />}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={() => ({
-				color: G400,
-				'&:hover': {
-					color: G400,
-					backgroundColor: G100,
-				},
-				'&:active': {
-					backgroundColor: G200,
-				},
-			})}
+			css={customNestingItemStyles}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{
 				GoBackItem: {

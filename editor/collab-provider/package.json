@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "10.14.0",
+	"version": "10.14.1",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,6 +48,7 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-collab": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0",
@@ -78,12 +79,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.live-pages-expand-divergence": {
-			"type": "boolean"
-		},
-		"platform_editor_merge_unconfirmed_steps": {
-			"type": "boolean"
-		},
-		"platform_editor_offline_conflict_resolution": {
 			"type": "boolean"
 		},
 		"platform_collab_provider_tracingheaders": {

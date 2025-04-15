@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::538b11cdd48f55fe86ca1c6696f4d2aa>>
+ * @codegen <<SignedSource::6b68800d7d06800eba3fb9092d4d7d19>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextBoldItalicUnderlineStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.125 1.75a1 1 0 0 0-.976.783L4.323 6.25H1v1.5h14v-1.5h-2.93a3.25 3.25 0 0 0-3-4.5zm.247 4.5.555-2.5H9.07a1.25 1.25 0 1 1 0 2.5z" clip-rule="evenodd"/><path fill="currentcolor" d="M12.29 9.25h-2.05a1.5 1.5 0 0 1-1.41 2H5.35l.4-2H3.71l-.56 2.8a1 1 0 0 0 .98 1.2h4.7a3.5 3.5 0 0 0 3.47-4M0 16.75h16v-1.5H0z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M6.13 1a1 1 0 0 0-.98.78l-.6 2.72h.27zm0 0h2.94a3.25 3.25 0 0 1 3.24 3.5h-2.02A1.25 1.25 0 0 0 9.07 3H6.93L6.6 4.5H4.82zm6.2 8h-2q0 .14-.03.29a1.5 1.5 0 0 1-1.47 1.21H5.35l.3-1.5H3.61l-.46 2.3a1 1 0 0 0 .98 1.2h4.7a3.5 3.5 0 0 0 3.5-3.5M16 16H0v-1.5h16zM15 6H1v1.5h14z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextBoldItalicUnderlineStrikethroughIcon.displayName = 'TextBoldItalicUnderlineStrikethroughIcon';

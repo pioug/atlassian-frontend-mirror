@@ -355,6 +355,8 @@ export default {
   'fabric.editor.datasourceTitle': 'Sửa truy vấn tìm kiếm',
   'fabric.editor.date': 'Ngày',
   'fabric.editor.date.description': 'Thêm ngày bằng cách sử dụng lịch',
+  'fabric.editor.datePickerOpenedAlert':
+    'Cửa sổ bật lên của trình chỉnh sửa ngày đã mở, hãy nhấn Tab để truy cập cửa sổ bật lên',
   'fabric.editor.decision': 'Quyết định',
   'fabric.editor.decision.description': 'Thu thập các quyết định để dễ dàng theo dõi',
   'fabric.editor.decisionPlaceholder': 'Thêm quyết định…',

@@ -342,6 +342,7 @@ export default {
   'fabric.editor.datasourceTitle': 'แก้ไขคำถามการค้นหา',
   'fabric.editor.date': 'วันที่',
   'fabric.editor.date.description': 'เพิ่มวันที่โดยใช้ปฏิทิน',
+  'fabric.editor.datePickerOpenedAlert': 'เปิดป๊อบอัพแก้ไขวันที่ แล้วกดที่ "แท็บ" เพื่อเข้าถึงป๊อบอัพ',
   'fabric.editor.decision': 'การตัดสินใจ',
   'fabric.editor.decision.description': 'สร้างกรอบการตัดสินใจเพื่อให้คุณติดตามได้ง่าย',
   'fabric.editor.decisionPlaceholder': 'เพิ่มการตัดสินใจ…',

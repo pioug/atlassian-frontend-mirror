@@ -2,7 +2,13 @@ import React, { useContext, useMemo } from 'react';
 import { createStore, type Reducer } from 'redux';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardStore, getUrl } from '@atlaskit/linking-common';
-import { extractPreview, type LinkPreview, type CardPlatform } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
+import {
+	extractPreview,
+	type LinkPreview,
+	type CardPlatform,
+	extractSmartLinkEmbed,
+} from '@atlaskit/link-extractors';
 import { cardReducer } from './reducers';
 import { SmartCardContext } from './state/context';
 import { type CardProviderProps } from './state/context/types';
@@ -44,8 +50,11 @@ export function SmartCardProvider({
 
 		const getPreview = (url: string, platform?: CardPlatform): LinkPreview | undefined => {
 			const cardState = getUrl(store, url);
+
 			return cardState.details
-				? extractPreview(cardState.details.data as JsonLd.Data.BaseData, platform)
+				? fg('smart_links_noun_support')
+					? extractSmartLinkEmbed(cardState.details)
+					: extractPreview(cardState.details.data as JsonLd.Data.BaseData, platform)
 				: undefined;
 		};
 

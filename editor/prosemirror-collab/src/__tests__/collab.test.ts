@@ -10,7 +10,6 @@ import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	collab,
@@ -31,7 +30,7 @@ class DummyServer {
 
 	constructor(doc?: Node, n = 2) {
 		for (let i = 0; i < n; i++) {
-			let plugin = collab();
+			const plugin = collab();
 			this.plugins.push(plugin);
 			this.states.push(
 				EditorState.create({
@@ -44,7 +43,7 @@ class DummyServer {
 	}
 
 	sync(n: number, opts: { mapSelectionBackward?: boolean } = {}) {
-		let state = this.states[n],
+		const state = this.states[n],
 			version = this.plugins[n].getState(state).version;
 		if (version !== this.steps.length) {
 			this.states[n] = state.apply(
@@ -54,7 +53,7 @@ class DummyServer {
 	}
 
 	send(n: number) {
-		let sendable = sendableSteps(this.states[n]);
+		const sendable = sendableSteps(this.states[n]);
 		if (sendable && sendable.version === this.steps.length) {
 			this.steps = this.steps.concat(sendable.steps);
 			for (let i = 0; i < sendable.steps.length; i++) {
@@ -118,7 +117,7 @@ function sel(near: number) {
 
 describe('collab', () => {
 	it('converges for simple changes', () => {
-		let s = new DummyServer();
+		const s = new DummyServer();
 		s.type(0, 'hi');
 		s.type(1, 'ok', 3);
 		s.type(0, '!', 5);
@@ -127,7 +126,7 @@ describe('collab', () => {
 	});
 
 	it('converges for multiple local changes', () => {
-		let s = new DummyServer();
+		const s = new DummyServer();
 		s.type(0, 'hi');
 		s.delay(0, () => {
 			s.type(0, 'A');
@@ -139,7 +138,7 @@ describe('collab', () => {
 	});
 
 	it('converges with three peers', () => {
-		let s = new DummyServer(undefined, 3);
+		const s = new DummyServer(undefined, 3);
 		s.type(0, 'A');
 		s.type(1, 'U');
 		s.type(2, 'X');
@@ -150,7 +149,7 @@ describe('collab', () => {
 	});
 
 	it('converges with three peers with multiple steps', () => {
-		let s = new DummyServer(undefined, 3);
+		const s = new DummyServer(undefined, 3);
 		s.type(0, 'A');
 		s.delay(1, () => {
 			s.type(1, 'U');
@@ -163,7 +162,7 @@ describe('collab', () => {
 	});
 
 	it('supports undo', () => {
-		let s = new DummyServer();
+		const s = new DummyServer();
 		s.type(0, 'A');
 		s.type(1, 'B');
 		s.type(0, 'C');
@@ -175,7 +174,7 @@ describe('collab', () => {
 	});
 
 	it('supports redo', () => {
-		let s = new DummyServer();
+		const s = new DummyServer();
 		s.type(0, 'A');
 		s.type(1, 'B');
 		s.type(0, 'C');
@@ -187,7 +186,7 @@ describe('collab', () => {
 	});
 
 	it('supports deep undo', () => {
-		let s = new DummyServer(doc(p('hello'), p('bye'))(schema));
+		const s = new DummyServer(doc(p('hello'), p('bye'))(schema));
 		s.update(0, sel(6));
 		s.update(1, sel(11));
 		s.type(0, '!');
@@ -217,7 +216,7 @@ describe('collab', () => {
 	});
 
 	it('support undo with clashing events', () => {
-		let s = new DummyServer(doc(p('hello'))(schema));
+		const s = new DummyServer(doc(p('hello'))(schema));
 		s.update(0, sel(6));
 		s.type(0, 'A');
 		s.delay(0, () => {
@@ -234,7 +233,7 @@ describe('collab', () => {
 	});
 
 	it('handles conflicting steps', () => {
-		let s = new DummyServer(doc(p('abcde'))(schema));
+		const s = new DummyServer(doc(p('abcde'))(schema));
 		s.delay(0, () => {
 			s.update(0, (s) => s.tr.delete(3, 4));
 			s.type(0, 'x');
@@ -246,7 +245,7 @@ describe('collab', () => {
 	});
 
 	it('can undo simultaneous typing', () => {
-		let s = new DummyServer(doc(p('A'), p('B'))(schema));
+		const s = new DummyServer(doc(p('A'), p('B'))(schema));
 		s.update(0, sel(2));
 		s.update(1, sel(5));
 		s.delay(0, () => {
@@ -314,46 +313,40 @@ describe('collab', () => {
 			});
 		});
 
-		ffTest.on(
-			'platform_editor_collab_text_selection_override',
-			'preserves range selection with mapSelectionBackward',
-			() => {
-				it('when another user updates the document', () => {
-					const s = new DummyServer(doc(panel()(p('')), p('hello'))(schema));
+		it('preserves range selection with mapSelectionBackward when another user updates the document', () => {
+			const s = new DummyServer(doc(panel()(p('')), p('hello'))(schema));
 
-					// User 0 sets a range selection to pos 0
-					s.update(0, (state) => {
-						const $anchor = state.doc.resolve(10);
-						const $head = state.doc.resolve(0);
-						const selection = new TextSelection($anchor, $head);
-						return state.tr.setSelection(selection);
-					});
+			// User 0 sets a range selection to pos 0
+			s.update(0, (state) => {
+				const $anchor = state.doc.resolve(10);
+				const $head = state.doc.resolve(0);
+				const selection = new TextSelection($anchor, $head);
+				return state.tr.setSelection(selection);
+			});
 
-					// Verify User 0's initial selection
-					expect(s.states[0].selection).toBeInstanceOf(TextSelection);
-					expect(s.states[0].selection.from).toBe(0);
-					expect(s.states[0].selection.to).toBe(10);
-					expect(s.states[0].selection.$from.pos).toBe(0);
-					expect(s.states[0].selection.$to.pos).toBe(10);
+			// Verify User 0's initial selection
+			expect(s.states[0].selection).toBeInstanceOf(TextSelection);
+			expect(s.states[0].selection.from).toBe(0);
+			expect(s.states[0].selection.to).toBe(10);
+			expect(s.states[0].selection.$from.pos).toBe(0);
+			expect(s.states[0].selection.$to.pos).toBe(10);
 
-					// User 1 makes a single document change
-					s.update(
-						1,
-						(state) => {
-							const tr = state.tr;
-							tr.insertText(' ', 11);
-							return tr;
-						},
-						{ mapSelectionBackward: true },
-					);
+			// User 1 makes a single document change
+			s.update(
+				1,
+				(state) => {
+					const tr = state.tr;
+					tr.insertText(' ', 11);
+					return tr;
+				},
+				{ mapSelectionBackward: true },
+			);
 
-					const user0State = s.states[0];
-					expect(user0State.selection.from).toBe(0);
-					expect(user0State.selection.to).toBe(10);
-					expect(user0State.selection.$from.pos).toBe(0);
-					expect(user0State.selection.$to.pos).toBe(10);
-				});
-			},
-		);
+			const user0State = s.states[0];
+			expect(user0State.selection.from).toBe(0);
+			expect(user0State.selection.to).toBe(10);
+			expect(user0State.selection.$from.pos).toBe(0);
+			expect(user0State.selection.$to.pos).toBe(10);
+		});
 	});
 });

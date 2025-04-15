@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8e7be616b8d6a1a67d5ec530f9dff6db>>
+ * @codegen <<SignedSource::a03db518592dd1f81c21f51aa111feb9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SummarizeIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M7.5 3.5a1 1 0 0 1 1-1V1A2.5 2.5 0 0 0 6 3.5v2.625c0 .76.616 1.375 1.375 1.375h1.25C9.385 7.5 10 6.884 10 6.125v-1.25c0-.76-.616-1.375-1.375-1.375zm0 1.5h1v1h-1zm-5-1.5a1 1 0 0 1 1-1V1A2.5 2.5 0 0 0 1 3.5v2.625c0 .76.616 1.375 1.375 1.375h1.25C4.385 7.5 5 6.884 5 6.125v-1.25C5 4.115 4.384 3.5 3.625 3.5zm0 1.5h1v1h-1zM15 2h-3.5v1.5H15zm0 3.5h-3.5V7H15zM15 9H1v1.5h14zm0 3.5H1V14h14z" clip-rule="evenodd"/><path fill="currentcolor" d="M8.5 5h-1v1h1zm-5 0h-1v1h1z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 1h14v1.5H1zm0 4.166h14v1.5H1zm10.796 4.328a.75.75 0 0 1 1.41 0l.615 1.687 1.686.615a.75.75 0 0 1 0 1.41l-1.686.615-.615 1.686a.75.75 0 0 1-1.41 0l-.615-1.686-1.687-.615a.75.75 0 0 1 0-1.41l1.687-.615zM1 9.333h7v1.5H1zm0 4.166h5v1.5H1z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SummarizeIcon.displayName = 'SummarizeIcon';

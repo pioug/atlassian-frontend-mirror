@@ -7,8 +7,8 @@ import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 
 import { catchupv2 } from '../../document/catchupv2';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import * as getConflictChanges from '../../document/getConflictChanges';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 replaceRaf();
 
@@ -39,6 +39,7 @@ jest.mock('../../channel', () => {
 			sendMetadata: () => jest.fn(),
 			fetchReconcile: () => jest.fn(),
 			disconnect: jest.fn(),
+			getConnected: () => true,
 		};
 	}
 	return {
@@ -342,153 +343,159 @@ describe('reconnection analytics', () => {
 		provider.destroy();
 	});
 
-	ffTest.on('platform_editor_offline_conflict_resolution', '', () => {
-		const editorState: any = {
-			config: {
-				pluginsByKey: {
-					collab$: {
+	eeTest
+		.describe('platform_editor_offline_editing_web', 'With experiment enabled')
+		.variant(true, () => {
+			const editorState: any = {
+				config: {
+					pluginsByKey: {
+						collab$: {
+							spec: {
+								config: {
+									clientID: clientId,
+								},
+							},
+						},
+					},
+				},
+				plugins: [
+					{
+						key: 'collab$',
 						spec: {
 							config: {
 								clientID: clientId,
 							},
 						},
 					},
-				},
-			},
-			plugins: [
-				{
-					key: 'collab$',
+				],
+				collab$: {
+					unconfirmed: [{ step: { type: 'fakeStep' } }],
 					spec: {
 						config: {
 							clientID: clientId,
 						},
 					},
 				},
-			],
-			collab$: {
-				unconfirmed: [{ step: { type: 'fakeStep' } }],
-				spec: {
-					config: {
-						clientID: clientId,
-					},
+				collab: {
+					steps: [{ type: 'fakeStep' }],
+					origins: [],
+					version: 0,
 				},
-			},
-			collab: {
-				steps: [{ type: 'fakeStep' }],
-				origins: [],
-				version: 0,
-			},
-			doc: Node.fromJSON(defaultSchema, {
-				type: 'doc',
-				content: [
-					{
-						type: 'paragraph',
-						content: [
-							{ type: 'text', text: 'Hello, World!' },
-							{
-								// Add a node that looks different in ADF
-								type: 'text',
-								marks: [
-									{
-										type: 'typeAheadQuery',
-										attrs: {
-											trigger: '/',
+				doc: Node.fromJSON(defaultSchema, {
+					type: 'doc',
+					content: [
+						{
+							type: 'paragraph',
+							content: [
+								{ type: 'text', text: 'Hello, World!' },
+								{
+									// Add a node that looks different in ADF
+									type: 'text',
+									marks: [
+										{
+											type: 'typeAheadQuery',
+											attrs: {
+												trigger: '/',
+											},
 										},
-									},
-								],
-								text: '/',
-							},
-						],
-					},
-				],
-			}),
-		};
-
-		it('should notify editor of potential conflict after being disconnected', () => {
-			const fakeAnalyticsWebClient = {
-				sendOperationalEvent: jest.fn(),
-				sendScreenEvent: jest.fn(),
-				sendTrackEvent: jest.fn(),
-				sendUIEvent: jest.fn(),
+									],
+									text: '/',
+								},
+							],
+						},
+					],
+				}),
 			};
-			const remoteSteps = [{ step: 'remoteStep' }, { step: 'remoteStep' }, { step: 'remoteStep' }];
-			// @ts-expect-error
-			jest.spyOn(getConflictChanges, 'getConflictChanges').mockImplementation(() => ({
-				inserted: [{ from: 1, to: 2 }],
-				deleted: [],
-			}));
-			// @ts-expect-error
-			jest.spyOn(ProseMirrorStep, 'fromJSON').mockImplementation(() => remoteSteps);
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfig,
-				analyticsClient: fakeAnalyticsWebClient,
-			});
-			// @ts-expect-error
-			const emitterCallback = jest.spyOn(provider.documentService as any, 'providerEmitCallback');
-			(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
-				onCatchupComplete(remoteSteps);
-				return Promise.resolve();
-			});
-			provider.initialize(() => editorState);
 
-			jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
-			channel.emit('disconnect', {
-				reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+			it('should notify editor of potential conflict after being disconnected', () => {
+				const fakeAnalyticsWebClient = {
+					sendOperationalEvent: jest.fn(),
+					sendScreenEvent: jest.fn(),
+					sendTrackEvent: jest.fn(),
+					sendUIEvent: jest.fn(),
+				};
+				const remoteSteps = [
+					{ step: 'remoteStep' },
+					{ step: 'remoteStep' },
+					{ step: 'remoteStep' },
+				];
+				// @ts-expect-error
+				jest.spyOn(getConflictChanges, 'getConflictChanges').mockImplementation(() => ({
+					inserted: [{ from: 1, to: 2 }],
+					deleted: [],
+				}));
+				// @ts-expect-error
+				jest.spyOn(ProseMirrorStep, 'fromJSON').mockImplementation(() => remoteSteps);
+				const provider = createSocketIOCollabProvider({
+					...testProviderConfig,
+					analyticsClient: fakeAnalyticsWebClient,
+				});
+				// @ts-expect-error
+				const emitterCallback = jest.spyOn(provider.documentService as any, 'providerEmitCallback');
+				(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
+					onCatchupComplete(remoteSteps);
+					return Promise.resolve();
+				});
+				provider.initialize(() => editorState);
+
+				jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+				channel.emit('disconnect', {
+					reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+				});
+
+				channel.emit('connected', {
+					sid: 'pweq3Q7NOPY4y88QAGyr',
+					initialized: true,
+				});
+
+				(requestAnimationFrame as any).step();
+
+				expect(emitterCallback).toHaveBeenCalledWith('data:conflict', {
+					offlineDoc: expect.any(Object),
+					inserted: expect.any(Array),
+					deleted: expect.any(Array),
+				});
+
+				provider.destroy();
 			});
 
-			channel.emit('connected', {
-				sid: 'pweq3Q7NOPY4y88QAGyr',
-				initialized: true,
+			it('should not notify after being disconnected if there are no remote steps', () => {
+				const fakeAnalyticsWebClient = {
+					sendOperationalEvent: jest.fn(),
+					sendScreenEvent: jest.fn(),
+					sendTrackEvent: jest.fn(),
+					sendUIEvent: jest.fn(),
+				};
+				const provider = createSocketIOCollabProvider({
+					...testProviderConfig,
+					analyticsClient: fakeAnalyticsWebClient,
+				});
+				// @ts-expect-error
+				const emitterCallback = jest.spyOn(provider.documentService as any, 'providerEmitCallback');
+				(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
+					onCatchupComplete([]);
+					return Promise.resolve();
+				});
+				provider.initialize(() => editorState);
+
+				jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+				channel.emit('disconnect', {
+					reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+				});
+
+				channel.emit('connected', {
+					sid: 'pweq3Q7NOPY4y88QAGyr',
+					initialized: true,
+				});
+
+				(requestAnimationFrame as any).step();
+
+				expect(emitterCallback).not.toHaveBeenCalledWith('data:conflict', {
+					offlineDoc: expect.any(Object),
+				});
+
+				provider.destroy();
+				emitterCallback.mockClear();
 			});
-
-			(requestAnimationFrame as any).step();
-
-			expect(emitterCallback).toHaveBeenCalledWith('data:conflict', {
-				offlineDoc: expect.any(Object),
-				inserted: expect.any(Array),
-				deleted: expect.any(Array),
-			});
-
-			provider.destroy();
 		});
-
-		it('should not notify after being disconnected if there are no remote steps', () => {
-			const fakeAnalyticsWebClient = {
-				sendOperationalEvent: jest.fn(),
-				sendScreenEvent: jest.fn(),
-				sendTrackEvent: jest.fn(),
-				sendUIEvent: jest.fn(),
-			};
-			const provider = createSocketIOCollabProvider({
-				...testProviderConfig,
-				analyticsClient: fakeAnalyticsWebClient,
-			});
-			// @ts-expect-error
-			const emitterCallback = jest.spyOn(provider.documentService as any, 'providerEmitCallback');
-			(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
-				onCatchupComplete([]);
-				return Promise.resolve();
-			});
-			provider.initialize(() => editorState);
-
-			jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
-			channel.emit('disconnect', {
-				reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
-			});
-
-			channel.emit('connected', {
-				sid: 'pweq3Q7NOPY4y88QAGyr',
-				initialized: true,
-			});
-
-			(requestAnimationFrame as any).step();
-
-			expect(emitterCallback).not.toHaveBeenCalledWith('data:conflict', {
-				offlineDoc: expect.any(Object),
-			});
-
-			provider.destroy();
-			emitterCallback.mockClear();
-		});
-	});
 });

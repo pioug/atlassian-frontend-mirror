@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::93d278064e4d5eb115b864c87c6ab16a>>
+ * @codegen <<SignedSource::1f3899bca2ecac8c863452b45498aaa3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DataNumberIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M12.84 10.2q-.2-.19-.2-.53v-.06h-1.49v.06q0 .6.28 1.06.28.45.79.69.52.24 1.21.23t1.21-.23q.52-.24.79-.69a1.95 1.95 0 0 0 .28-1.05v-.56q0-.92-.62-1.46a2.1 2.1 0 0 0-.95-.46l1.3-1.15V4.78h-3.98v1.27h2.36l-1.24 1.1v1.27h.85c.26 0 .46.07.59.19.14.12.21.29.21.53v.55c0 .24-.07.41-.2.53q-.195.18-.6.18-.39 0-.6-.18m-6.99 1.34v-1.38l2.14-2.06q.37-.36.55-.66t.18-.64c0-.26-.07-.44-.2-.58q-.19-.2-.54-.2-.39 0-.6.23-.21.21-.21.62v.06h-1.5v-.06q0-.67.28-1.16.29-.5.82-.77t1.23-.27q.66 0 1.15.25.5.25.77.69.28.45.28 1.05 0 .66-.33 1.27T8.83 9.21l-1.08 1h2.52v1.36zm-3.7-1.31H.46v1.31h4.51v-1.31H3.63V4.78H2.05L.44 5.9v1.57l1.7-1.26z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M.75 4h2a.75.75 0 0 1 .75.75V12H2V5.5H.75zM5 4h3.13c.76 0 1.38.62 1.38 1.38v2c0 .76-.62 1.38-1.37 1.38H6.5v1.75h3V12H5.75a.75.75 0 0 1-.75-.75V8.63c0-.76.62-1.37 1.38-1.37H8V5.5H5zm6 0h3.13c.76 0 1.38.62 1.38 1.38v5.25c0 .76-.62 1.38-1.37 1.38H11v-1.5h3V8.75h-3v-1.5h3V5.5h-3z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DataNumberIcon.displayName = 'DataNumberIcon';

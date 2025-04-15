@@ -27,6 +27,7 @@ import {
 	getPositionAfterTopParentNodeOfType,
 } from '@atlaskit/editor-common/nesting';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
+import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command, EditorPlugin, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
@@ -679,7 +680,13 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 										widthToWidest[resizingTableLocalId] && (
 											<FloatingToolbarLabel
 												target={resizingTableRef}
-												content={<FullWidthDisplay />}
+												content={
+													editorExperiment('single_column_layouts', true) ? (
+														<ResizerBreakoutModeLabel layout="full-width" />
+													) : (
+														<FullWidthDisplay />
+													)
+												}
 												alignX={'center'}
 												alignY={'bottom'}
 												stick={true}

@@ -12,6 +12,8 @@ import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
 
+import { Box, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
@@ -41,6 +43,17 @@ import type {
 	ResizerAppearance,
 	Snap,
 } from './types';
+
+const resizerLabelStyles = xcss({
+	position: 'absolute',
+	bottom: token('space.negative.400', '-32px'),
+	width: '100%',
+	overflow: 'visible',
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	height: token('space.0', '0px'),
+});
 
 export type ResizerProps = {
 	// sets class name for the resizable component on top of default styles
@@ -118,6 +131,12 @@ export type ResizerProps = {
 	 * Access to the inner most element which wraps passed children
 	 */
 	childrenDOMRef?: (ref: HTMLElement | null) => void;
+
+	/**
+	 * Children of the component, this is going to be display below the resizer
+	 * useful for displaying a label such as size or layout
+	 */
+	labelComponent?: React.ReactNode;
 };
 
 type forwardRefType = {
@@ -173,6 +192,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		handleTooltipContent,
 		needExtendedResizeZone = true,
 		childrenDOMRef,
+		labelComponent,
 		...otherProps
 	} = props;
 
@@ -388,6 +408,9 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			<span className={resizerZoneClassName} ref={(ref) => childrenDOMRef && childrenDOMRef(ref)}>
 				{children}
 			</span>
+			{labelComponent && editorExperiment('single_column_layouts', true) && (
+				<Box xcss={resizerLabelStyles}>{labelComponent}</Box>
+			)}
 		</Resizable>
 	);
 };

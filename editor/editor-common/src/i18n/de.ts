@@ -811,6 +811,7 @@ export default {
   'fabric.editor.toolbarLabel': 'Editor',
   'fabric.editor.toolbarMediaTitle': 'Bild, Video oder Datei hinzufügen',
   'fabric.editor.toolbarPositionFixedAtTop': 'Oben fixiert',
+  'fabric.editor.toolbarPositionInline': 'Auf gleicher Höhe wie der Text',
   'fabric.editor.tooltip.blockPanel': 'ein Panel',
   'fabric.editor.tooltip.bulletList': 'eine Liste',
   'fabric.editor.tooltip.decisionList': 'eine Entscheidungsliste',

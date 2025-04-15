@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx, keyframes } from '@compiled/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N20A } from '@atlaskit/theme/colors';
 import { defaultEmojiHeight } from '../../util/constants';
@@ -88,7 +89,10 @@ const EmojiPlaceholder = (props: Props) => {
 			aria-label={shortName}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={placeholder}
-			css={[placeholderContainer, loading && placeholderContainerAnimated]}
+			css={[
+				placeholderContainer,
+				loading && !fg('cc_complexit_fe_remove_emoji_animation') && placeholderContainerAnimated,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			title={showTooltip ? shortName : ''}

@@ -333,29 +333,25 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 					});
 				};
 
-				if (fg('platform_editor_react18_stickyheaders_fix')) {
-					if (sentinelsInDom()) {
-						// great - DOM ready, observe as normal
-						observeStickySentinels();
-					} else {
-						// concurrent loading issue - here TableRow is too eager trying to
-						// observe sentinels before they are in the DOM, use MutationObserver
-						// to wait for sentinels to be added to the parent Table node DOM
-						// then attach the IntersectionObserver
-						const tableContainerObserver = new MutationObserver(() => {
-							if (sentinelsInDom()) {
-								observeStickySentinels();
-								tableContainerObserver.disconnect();
-							}
-						});
-
-						const mutatingNode = tableContainer;
-						if (mutatingNode) {
-							tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
-						}
-					}
-				} else {
+				if (sentinelsInDom()) {
+					// great - DOM ready, observe as normal
 					observeStickySentinels();
+				} else {
+					// concurrent loading issue - here TableRow is too eager trying to
+					// observe sentinels before they are in the DOM, use MutationObserver
+					// to wait for sentinels to be added to the parent Table node DOM
+					// then attach the IntersectionObserver
+					const tableContainerObserver = new MutationObserver(() => {
+						if (sentinelsInDom()) {
+							observeStickySentinels();
+							tableContainerObserver.disconnect();
+						}
+					});
+
+					const mutatingNode = tableContainer;
+					if (mutatingNode) {
+						tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
+					}
 				}
 			}
 		});

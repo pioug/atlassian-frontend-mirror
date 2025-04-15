@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.3.0
+
+### Minor Changes
+
+- [#140906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140906)
+  [`339ce976410b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/339ce976410b9) -
+  [ux] EDM-11648 Updating header styles for design refresh phase 2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

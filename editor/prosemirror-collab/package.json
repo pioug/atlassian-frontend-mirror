@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/prosemirror-collab",
-	"version": "0.16.0",
+	"version": "0.16.2",
 	"description": "Collaborative editing for ProseMirror - Atlassian Fork",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"uuid": "^3.1.0"
 	},
@@ -55,14 +55,6 @@
 			"styling": [
 				"emotion"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_merge_unconfirmed_steps": {
-			"type": "boolean"
-		},
-		"platform_editor_collab_text_selection_override": {
-			"type": "boolean"
 		}
 	}
 }

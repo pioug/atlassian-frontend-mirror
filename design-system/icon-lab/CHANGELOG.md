@@ -1,5 +1,42 @@
 # @atlaskit/icon-lab
 
+## 4.8.0
+
+### Minor Changes
+
+- [#138291](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138291)
+  [`12b2a21a4da5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12b2a21a4da5a) -
+  This release updates and deprecates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `cloud-offline`
+  - `colour-none`
+  - `cursor-strikethrough`
+  - `incognito`
+  - `page-live-doc`
+  - `text-bold-italic-strikethrough`
+  - `text-bold-italic-underline-strikethrough`
+  - `text-bold-strikethrough`
+  - `text-bold-underline-strikethrough`
+  - `text-italic-strikethrough`
+  - `text-italic-underline-strikethrough`
+  - `text-paragraph`
+  - `text-underline-strikethrough`
+
+  ### Deprecated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `recur`
+  - `speedometer`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.7.0
 
 ### Minor Changes

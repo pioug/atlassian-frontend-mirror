@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import type { GuidelineConfig } from '../guideline';
-import type { EditorContainerWidth } from '../types';
+import type { BreakoutMode, EditorContainerWidth } from '../types';
 
 import type { Snap } from './types';
 
@@ -58,7 +58,7 @@ export function useBreakoutGuidelines(
 		} as Snap;
 	}, [isResizing, wide, fullWidth, lineLength]);
 
-	const [currentLayout, setCurrentLayout] = useState<'wide' | 'full-width' | 'center' | null>(null);
+	const [currentLayout, setCurrentLayout] = useState<BreakoutMode | null>(null);
 
 	const guidelines = useMemo(() => {
 		const guidelines: GuidelineConfig[] = [];

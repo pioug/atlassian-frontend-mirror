@@ -365,6 +365,8 @@ export default {
   'fabric.editor.datasourceTitle': '検索クエリを編集',
   'fabric.editor.date': '日付',
   'fabric.editor.date.description': 'カレンダーを使用して日付を追加',
+  'fabric.editor.datePickerOpenedAlert':
+    '日付エディターのポップアップが開きました。Tab キーを押してポップアップにアクセスしてください',
   'fabric.editor.decision': '決定事項',
   'fabric.editor.decision.description': '決定事項をキャプチャして簡単に追跡',
   'fabric.editor.decisionPlaceholder': '決定事項を追加…',

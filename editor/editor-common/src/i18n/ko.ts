@@ -357,6 +357,7 @@ export default {
   'fabric.editor.datasourceTitle': '검색 쿼리 편집',
   'fabric.editor.date': '날짜',
   'fabric.editor.date.description': '캘린더로 날짜 추가',
+  'fabric.editor.datePickerOpenedAlert': '날짜 편집기 팝업이 열렸습니다. Tab 키를 눌러 팝업에 액세스하세요',
   'fabric.editor.decision': '결정',
   'fabric.editor.decision.description': '결정을 추적하기 쉽도록 캡처',
   'fabric.editor.decisionPlaceholder': '결정 추가...',

@@ -3,6 +3,7 @@ import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/ty
 export interface CodeBlockPluginOptions extends LongPressSelectionPluginOptions {
 	allowCopyToClipboard?: boolean;
 	allowCompositionInputOverride?: boolean;
+	overrideLanguageName?: (name: string) => string;
 }
 
 /**

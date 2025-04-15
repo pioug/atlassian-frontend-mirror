@@ -5,11 +5,13 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkSize, SmartLinkStatus, SmartLinkTheme } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { TitleBlock } from '../../blocks';
+import { SnippetBlock, TitleBlock } from '../../blocks';
 import Container from '../index';
 
 describe('Container', () => {
@@ -196,6 +198,84 @@ describe('Container', () => {
 			const container = await screen.findByTestId(testId);
 
 			expect(container).not.toHaveStyleDeclaration('padding', padding);
+		});
+	});
+
+	describe('removeBlockRestriction', () => {
+		const text = 'Hello World';
+
+		ffTest.both('platform-linking-flexible-card-openness', 'with fg', () => {
+			it('does not render non block element by default', async () => {
+				render(
+					<Container testId={testId}>
+						<TitleBlock />
+						<div>{text}</div>
+					</Container>,
+				);
+
+				expect(screen.queryByText(text)).not.toBeInTheDocument();
+			});
+
+			it('does not render non block element when false', async () => {
+				render(
+					<Container removeBlockRestriction={false} testId={testId}>
+						<TitleBlock />
+						<div>{text}</div>
+					</Container>,
+				);
+
+				expect(await screen.findByTestId(testId)).toBeInTheDocument();
+				expect(screen.queryByText(text)).not.toBeInTheDocument();
+			});
+		});
+
+		ffTest.on('platform-linking-flexible-card-openness', 'with fg', () => {
+			it('render non block element when true', async () => {
+				render(
+					<Container removeBlockRestriction={true} testId={testId}>
+						<TitleBlock />
+						<div>{text}</div>
+					</Container>,
+				);
+
+				expect(await screen.findByTestId(testId)).toBeInTheDocument();
+				expect(await screen.findByText(text)).toBeInTheDocument();
+			});
+
+			it('render children without TitleBlock when true', async () => {
+				render(
+					<Container removeBlockRestriction={true} testId={testId}>
+						<div>{text}</div>
+					</Container>,
+				);
+
+				expect(await screen.findByText(text)).toBeInTheDocument();
+			});
+		});
+
+		ffTest.off('platform-linking-flexible-card-openness', 'with fg', () => {
+			it('does not render non block element when true', async () => {
+				render(
+					<Container removeBlockRestriction={true} testId={testId}>
+						<TitleBlock />
+						<div>{text}</div>
+					</Container>,
+				);
+
+				expect(await screen.findByTestId(testId)).toBeInTheDocument();
+				expect(screen.queryByText(text)).not.toBeInTheDocument();
+			});
+
+			it('does not render children without TitleBlock when true', () => {
+				render(
+					<Container removeBlockRestriction={true} testId={testId}>
+						<SnippetBlock />
+						<div>{text}</div>
+					</Container>,
+				);
+
+				expect(screen.queryByText(text)).not.toBeInTheDocument();
+			});
 		});
 	});
 

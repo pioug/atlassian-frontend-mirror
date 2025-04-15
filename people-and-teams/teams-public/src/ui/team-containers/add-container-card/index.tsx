@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/utility/add';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -90,7 +91,10 @@ export const AddContainerCard = ({
 					<Text maxLines={1} weight="medium" color="color.text">
 						{title}
 					</Text>
-					<Flex gap="space.050">
+					<Flex
+						gap="space.050"
+						{...(fg('enable_card_alignment_fix') ? { alignItems: 'center' } : {})}
+					>
 						{icon}
 						<Text size="small" color="color.text.subtle">
 							{description}

@@ -366,6 +366,8 @@ export default {
   'fabric.editor.datasourceTitle': 'Rediger søkespørring',
   'fabric.editor.date': 'Dato',
   'fabric.editor.date.description': 'Legg til en dato med en kalender',
+  'fabric.editor.datePickerOpenedAlert':
+    'Pop-up for å redigere dato er åpnet, trykk på Tab for å gå til pop-up-vinduet',
   'fabric.editor.decision': 'Beslutning',
   'fabric.editor.decision.description': 'Registrer beslutninger slik at det er lett å spore dem',
   'fabric.editor.decisionPlaceholder': 'Legg til en beslutning …',

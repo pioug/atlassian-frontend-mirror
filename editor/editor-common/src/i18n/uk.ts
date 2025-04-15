@@ -374,6 +374,7 @@ export default {
   'fabric.editor.datasourceTitle': 'Редагувати пошуковий запит',
   'fabric.editor.date': 'Дата',
   'fabric.editor.date.description': 'Вставити дату через календар',
+  'fabric.editor.datePickerOpenedAlert': 'Відкрито спливне вікно редактора дат. Натисніть Tab, щоб викликати його.',
   'fabric.editor.decision': 'Рішення',
   'fabric.editor.decision.description': 'Зафіксувати рішення, щоб його було легко знайти',
   'fabric.editor.decisionPlaceholder': 'Додати рішення...',

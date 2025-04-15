@@ -226,7 +226,7 @@ const getItemData = (
 					tempKey,
 				};
 			case 'Create database':
-			case 'Filter by label (Content by label)':
+			case 'Filter by label':
 			case 'Chart':
 			case 'Create Jira issue':
 			case 'Content Report Table':
@@ -256,7 +256,7 @@ const getItemData = (
 				};
 
 			case 'Anchor link':
-			case 'Child pages (Children Display)':
+			case 'Child pages':
 			case 'Page Index':
 				return {
 					...item,

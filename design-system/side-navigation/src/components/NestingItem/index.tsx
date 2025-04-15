@@ -9,7 +9,6 @@ import { cssMap, jsx } from '@compiled/react';
 import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right--arrow-right-circle';
 import {
 	type ButtonItemProps,
-	type CSSFn,
 	type CustomItemComponentProps,
 	type Overrides,
 } from '@atlaskit/menu';
@@ -18,7 +17,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { overrideStyleFunction } from '../../common/styles';
 import { ButtonItem, CustomItem, NavigationContent } from '../index';
 import { ROOT_ID } from '../NestableNavigationContent';
 import {
@@ -28,11 +26,23 @@ import {
 } from '../NestableNavigationContent/context';
 import { useChildIdsEffect } from '../utils/hooks';
 
-import { nestingItemStyle } from './styles';
-
 const styles = cssMap({
 	iconContainer: {
 		display: 'inline',
+	},
+	nestingItem: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:hover [data-custom-icon], &:active [data-custom-icon], &:focus [data-custom-icon], & [data-right-arrow]':
+			{ display: 'none' },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-custom-icon], &:hover [data-right-arrow], &:active [data-right-arrow], &:focus [data-right-arrow]':
+			{ display: 'inherit' },
+	},
+	nestingItemDisabled: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-elem-after]': { opacity: 0 },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-right-arrow]': { display: 'none' },
 	},
 });
 
@@ -92,11 +102,9 @@ export interface NestingItemProps<TCustomComponentProps = CustomItemComponentPro
 	testId?: string;
 
 	/**
-	 * A function that can be used to override the styles of the component.
-	 * It receives the current styles and state and expects a styles object.
+	 * Not recommended for general use as it enables unsafe style overrides.
 	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	cssFn?: CSSFn;
+	className?: string;
 
 	/**
 	 * Element to render before the item text.
@@ -146,8 +154,19 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 	props: NestingItemProps<TCustomComponentProps> &
 		Omit<TCustomComponentProps, keyof CustomItemComponentProps>,
 ) => {
-	const { children, iconAfter, title, onClick, cssFn, isSelected, id, component, testId, ...rest } =
-		props;
+	const {
+		children,
+		iconAfter,
+		title,
+		onClick,
+		className,
+		isDisabled,
+		isSelected,
+		id,
+		component,
+		testId,
+		...rest
+	} = props;
 	const {
 		currentStackId,
 		onNest,
@@ -161,8 +180,6 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 		isDefaultFocusControl,
 		focusGoBackButton,
 	} = useNestedContext();
-
-	const mergedStyles = overrideStyleFunction(nestingItemStyle, cssFn);
 
 	const [isInteracted, setIsInteracted] = useState(false);
 	const parentItemRef = useRef<HTMLButtonElement | null>(null);
@@ -307,10 +324,10 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 		),
 		onClick: onClickHandler,
 		isSelected: isSelected,
+		isDisabled: isDisabled,
 		testId: testId && `${testId}--item`,
 		...rest,
 		children: title,
-		cssFn: mergedStyles,
 	};
 
 	if (component) {
@@ -318,13 +335,24 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
 			<CustomItem<CustomItemComponentProps>
 				ref={isForwardRefCheck(component) ? parentItemRef : null}
 				{...componentProps}
+				css={[styles.nestingItem, isDisabled && styles.nestingItemDisabled]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
 				//@ts-expect-error TODO Fix legit TypeScript 3.9.6 improved inference error
 				component={component}
 			/>
 		);
 	}
 
-	return <ButtonItem ref={activeParentRef} {...componentProps} />;
+	return (
+		<ButtonItem
+			ref={activeParentRef}
+			{...componentProps}
+			css={[styles.nestingItem, isDisabled && styles.nestingItemDisabled]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+		/>
+	);
 };
 
 export default NestingItem;

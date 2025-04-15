@@ -30,16 +30,20 @@ import {
 	provideVisualFeedbackForCopyButton,
 	removeVisualFeedbackForCopyButton,
 } from './codeBlockCopySelectionPlugin';
-import { createLanguageList, DEFAULT_LANGUAGES, getLanguageIdentifier } from './language-list';
+import {
+	createLanguageList,
+	DEFAULT_LANGUAGES,
+	getLanguageIdentifier,
+	Language,
+} from './language-list';
 import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
-
-const languageList = createLanguageList(DEFAULT_LANGUAGES);
 
 export const getToolbarConfig =
 	(
 		allowCopyToClipboard: boolean = false,
 		api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
+		overrideLanguageName: ((name: Language['name']) => string) | undefined = undefined,
 	): FloatingToolbarHandler =>
 	(state, { formatMessage }) => {
 		const { hoverDecoration } = api?.decorations?.actions ?? {};
@@ -60,6 +64,18 @@ export const getToolbarConfig =
 		}
 		const isWrapped = isCodeBlockWordWrapEnabled(node);
 		const language = node?.attrs?.language;
+
+		const languageList = createLanguageList(
+			overrideLanguageName
+				? DEFAULT_LANGUAGES.map(
+						(language) =>
+							({
+								...language,
+								name: overrideLanguageName(language.name),
+							}) as Language,
+					)
+				: DEFAULT_LANGUAGES,
+		);
 
 		const options = languageList.map((lang) => ({
 			label: lang.name,

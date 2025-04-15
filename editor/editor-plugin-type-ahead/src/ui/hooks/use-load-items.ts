@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { updateListError } from '../../pm-plugins/commands/update-list-error';
 import { updateListItem } from '../../pm-plugins/commands/update-list-items';
@@ -50,7 +50,7 @@ export const useLoadItems = (
 				});
 			})
 			.catch((e) => {
-				if (fg('platform_editor_offline_editing_ga')) {
+				if (editorExperiment('platform_editor_offline_editing_web', true)) {
 					if (e) {
 						if (componentIsMounted.current) {
 							setItems(EMPTY_LIST_ITEM);

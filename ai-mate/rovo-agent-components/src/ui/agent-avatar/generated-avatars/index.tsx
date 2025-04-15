@@ -148,10 +148,10 @@ type Color = {
 	secondary: string;
 };
 
-const yellowColor = { primary: '#FCA700', secondary: '#FFC716' };
-const purpleColor = { primary: '#BF63F3', secondary: '#D8A0F7' };
-const greenColor = { primary: '#82B536', secondary: '#B3DF72' };
-const blueColor = { primary: '#357DE8', secondary: '#669DF1' };
+export const yellowColor = { primary: '#FCA700', secondary: '#FFC716' };
+export const purpleColor = { primary: '#BF63F3', secondary: '#D8A0F7' };
+export const greenColor = { primary: '#82B536', secondary: '#B3DF72' };
+export const blueColor = { primary: '#357DE8', secondary: '#669DF1' };
 
 const colorList: Color[] = [yellowColor, purpleColor, greenColor, blueColor];
 
@@ -191,6 +191,66 @@ type GeneratedAvatarProps = {
 const outOfTheBoxAgentAvatar: {
 	[key: string]: { getRender: (size: SizeType) => React.ReactNode; color: Color };
 } = {
+	autodev_template_unit_test_creator: {
+		getRender: (size: SizeType) => (
+			<AutoFixAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
+	autodev_template_migration_config_changer_agent: {
+		getRender: (size: SizeType) => (
+			<OpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
+	autodev_template_vulnerable_dependency_updater_agent: {
+		getRender: (size: SizeType) => (
+			<MarketingMessageMaestroAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
+	autodev_template_code_standardizer_agent: {
+		getRender: (size: SizeType) => (
+			<MyUserManualAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
+	autodev_template_code_observer_agent: {
+		getRender: (size: SizeType) => (
+			<ResearchScoutAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
+	autodev_template_code_accessibility_checker_agent: {
+		getRender: (size: SizeType) => (
+			<HireWriterAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
 	autodev_code_documentation_writer_agent: {
 		getRender: (size: SizeType) => (
 			<SocialMediaScribeAvatar

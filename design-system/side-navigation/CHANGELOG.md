@@ -1,5 +1,14 @@
 # @atlaskit/side-navigation
 
+## 8.0.0
+
+### Major Changes
+
+- [#138235](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138235)
+  [`98d3b1420253a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98d3b1420253a) -
+  Removes the deprecated `cssFn` prop from `NestingItem` and adds the `className` prop. This allows
+  `NestingItem` style overrides that are compatible with Compiled CSS-in-JS.
+
 ## 7.0.1
 
 ### Patch Changes

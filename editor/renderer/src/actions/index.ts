@@ -111,11 +111,9 @@ export default class RendererActions
 			return false;
 		}
 
-		if (fg('forbid_comments_on_empty_newlines')) {
-			const currentSelection = TextSelection.create(this.doc, from, to);
-			if (isEmptyTextSelection(currentSelection, this.schema)) {
-				return false;
-			}
+		const currentSelection = TextSelection.create(this.doc, from, to);
+		if (isEmptyTextSelection(currentSelection, this.schema)) {
+			return false;
 		}
 
 		return canApplyAnnotationOnRange({ from, to }, this.doc, this.schema);

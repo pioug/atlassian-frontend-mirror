@@ -4,7 +4,8 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
 import Image from '@atlaskit/image';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 
 import ConfluenceIcon from '../assets/ConfluenceIcon.svg';
 import JiraIcon from '../assets/JiraIcon.svg';
@@ -95,13 +96,13 @@ const getJiraContainerProperties = (containerTypeProperties?: {
 	name?: string;
 }): ContainerProperties => {
 	const { subType, name } = containerTypeProperties || {};
-
+	const Comp = fg('enable_card_alignment_fix') ? Flex : Box;
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
 		icon: (
-			<Box xcss={styles.iconWrapper}>
+			<Comp xcss={styles.iconWrapper}>
 				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
-			</Box>
+			</Comp>
 		),
 		title: <FormattedMessage {...messages.addJiraProjectTitle} />,
 		containerTypeText: <FormattedMessage {...messages.projectContainerText} />,
@@ -128,14 +129,15 @@ export const getContainerProperties = (
 		name?: string;
 	},
 ): ContainerProperties => {
+	const Comp = fg('enable_card_alignment_fix') ? Flex : Box;
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
 				icon: (
-					<Box xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+					<Comp xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
-					</Box>
+					</Comp>
 				),
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,

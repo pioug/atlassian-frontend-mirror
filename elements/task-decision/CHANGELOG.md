@@ -1,5 +1,14 @@
 # @atlaskit/task-decision
 
+## 19.1.4
+
+### Patch Changes
+
+- [#139777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139777)
+  [`cfdfe0077993d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfdfe0077993d) -
+  Fix bug where a refs were passed incorrectly, preventing task item focus from being set
+- Updated dependencies
+
 ## 19.1.3
 
 ### Patch Changes

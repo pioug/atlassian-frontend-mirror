@@ -5,6 +5,7 @@ import { defineMessages } from 'react-intl-next';
 
 export { alignmentMessages } from './alignment';
 export { annotationMessages } from './annotation';
+export { messages as breakoutMessages } from './breakout';
 export { messages as blockTypeMessages } from './block-type';
 export { codeBidiWarningMessages } from './codeBidiWarning';
 export { linkMessages } from './link';

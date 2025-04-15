@@ -18,7 +18,8 @@ import {
 	getStatus,
 } from '@atlaskit/linking-common';
 
-import { extractPreview } from '@atlaskit/link-extractors';
+import { extractPreview, extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type CardProvider,
@@ -199,6 +200,15 @@ export class EditorCardProvider implements CardProvider {
 	private async canBeResolvedAsEmbed(url: string) {
 		try {
 			const details = await this.cardClient.fetchData(url);
+			// Noun entities supported
+			if (fg('smart_links_noun_support')) {
+				if (!details) {
+					return false;
+				}
+				const embed = extractSmartLinkEmbed(details);
+				return !!embed;
+			}
+
 			const data = (details && details.data) as JsonLd.Data.BaseData;
 			if (!data) {
 				return false;

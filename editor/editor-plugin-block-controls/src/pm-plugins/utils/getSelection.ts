@@ -10,6 +10,7 @@ import {
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const getInlineNodePos = (
 	tr: Transaction,
@@ -59,7 +60,7 @@ const isNodeWithMediaOrExtension = (tr: Transaction, start: number, nodeSize: nu
 	return hasMediaOrExtension;
 };
 
-export const getSelection = (tr: Transaction, start: number) => {
+const oldGetSelection = (tr: Transaction, start: number) => {
 	const node = tr.doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 	const nodeSize = node ? node.nodeSize : 1;
@@ -99,13 +100,77 @@ export const getSelection = (tr: Transaction, start: number) => {
 	}
 };
 
+const newGetSelection = (tr: Transaction, start: number) => {
+	const node = tr.doc.nodeAt(start);
+	const isNodeSelection = node && NodeSelection.isSelectable(node);
+	const nodeSize = node ? node.nodeSize : 1;
+	const nodeName = node?.type.name;
+
+	// this is a fix for empty paragraph selection - put first to avoid any extra work
+	if (nodeName === 'paragraph' && tr.selection.empty && node?.childCount === 0) {
+		return false;
+	}
+
+	const isBlockQuoteWithMedia = nodeName === 'blockquote' && isNodeWithMedia(tr, start, nodeSize);
+
+	const isBlockQuoteWithMediaOrExtension =
+		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
+
+	const isListWithMediaOrExtension =
+		(nodeName === 'bulletList' && isNodeWithMediaOrExtension(tr, start, nodeSize)) ||
+		(nodeName === 'orderedList' && isNodeWithMediaOrExtension(tr, start, nodeSize));
+
+	if (
+		(isNodeSelection && nodeName !== 'blockquote') ||
+		(isListWithMediaOrExtension && fg('platform_editor_non_macros_copy_and_paste_fix')) ||
+		(fg('platform_editor_non_macros_copy_and_paste_fix')
+			? isBlockQuoteWithMediaOrExtension
+			: isBlockQuoteWithMedia) ||
+		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
+		['decisionList', 'layoutColumn'].includes(nodeName || '') ||
+		(nodeName === 'mediaGroup' && typeof node?.childCount === 'number' && node?.childCount > 1)
+	) {
+		return new NodeSelection(tr.doc.resolve(start));
+	}
+
+	// if mediaGroup only has a single child, we want to select the child
+	if (nodeName === 'mediaGroup') {
+		const $mediaStartPos = tr.doc.resolve(start + 1);
+		return new NodeSelection($mediaStartPos);
+	}
+
+	if (nodeName === 'taskList' && fg('platform_editor_elements_dnd_multi_select_patch_1')) {
+		return TextSelection.create(tr.doc, start, start + nodeSize);
+	}
+
+	const { inlineNodePos, inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
+	return new TextSelection(tr.doc.resolve(inlineNodePos), tr.doc.resolve(inlineNodeEndPos));
+};
+
+export const getSelection = (tr: Transaction, start: number) => {
+	if (
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_widget_visibility')
+	) {
+		return newGetSelection(tr, start);
+	}
+
+	return oldGetSelection(tr, start);
+};
+
 export const selectNode = (tr: Transaction, start: number, nodeType: string): Transaction => {
 	// For table, we need to do cell selection instead of node selection
 	if (nodeType === 'table') {
 		tr = selectTableClosestToPos(tr, tr.doc.resolve(start + 1));
-	} else {
-		tr.setSelection(getSelection(tr, start));
+		return tr;
 	}
+
+	const selection = getSelection(tr, start);
+
+	if (selection) {
+		tr.setSelection(selection);
+	}
+
 	return tr;
 };
 
@@ -119,10 +184,24 @@ export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Tr
 	// blockQuote is selectable, but we want to set cursor at the inline end Pos instead of the gap cursor as this causes jittering post drop
 	if ((isNodeSelection && node.type.name !== 'blockquote') || node?.type.name === 'decisionList') {
 		selection = new GapCursorSelection(tr.doc.resolve(start + node.nodeSize), Side.RIGHT);
-	} else {
-		const { inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
-		selection = new TextSelection(tr.doc.resolve(inlineNodeEndPos));
+		tr.setSelection(selection);
+		return tr;
 	}
+
+	// this is a fix for empty paragraph selection - can safely use start position as the paragraph is empty
+	if (
+		node?.type.name === 'paragraph' &&
+		node?.childCount === 0 &&
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_widget_visibility')
+	) {
+		const selection = new TextSelection(tr.doc.resolve(start));
+		tr.setSelection(selection);
+		return tr;
+	}
+
+	const { inlineNodeEndPos } = getInlineNodePos(tr, start, nodeSize);
+	selection = new TextSelection(tr.doc.resolve(inlineNodeEndPos));
 
 	tr.setSelection(selection);
 	return tr;

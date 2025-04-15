@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 2.1.1
+
+### Patch Changes
+
+- [#141229](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141229)
+  [`9740656964ab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9740656964ab1) -
+  Implement nounData embed preview extractors behind ff: smart_links_noun_support
+
 ## 2.1.0
 
 ### Minor Changes

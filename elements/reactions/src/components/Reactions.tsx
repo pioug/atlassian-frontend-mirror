@@ -547,6 +547,11 @@ export const Reactions = React.memo(
 								/>
 							))
 						))}
+					{/* Don't render the picker if:
+					   1. Component is view only, thus disabling adding reactions
+					   2. Summary view is being rendered and the picker is shown inside the summary view tray
+					   via allowSelectFromSummaryView, preventing us needing to render it again outside the tray
+					*/}
 					{isViewOnly ||
 					(!onlyRenderPicker && shouldShowSummaryView && allowSelectFromSummaryView) ? null : (
 						<ReactionPicker

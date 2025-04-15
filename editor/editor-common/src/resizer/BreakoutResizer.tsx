@@ -21,6 +21,7 @@ import { type EditorContainerWidth, type getPosHandlerNode } from '../types';
 import { browser } from '../utils/browser';
 
 import Resizer from './Resizer';
+import { ResizerBreakoutModeLabel } from './ResizerBreakoutModeLabel';
 import { type HandleResize, type HandleResizeStart } from './types';
 import { SNAP_GAP, useBreakoutGuidelines } from './useBreakoutGuidelines';
 
@@ -98,6 +99,20 @@ type ResizerNextHandler = React.ElementRef<typeof Resizer>;
 
 const RESIZE_STEP_VALUE = 10;
 
+type BreakoutResizerProps = {
+	editorView: EditorView;
+	nodeType: BreakoutSupportedNodes;
+	getPos: getPosHandlerNode;
+	getRef?: (ref: HTMLElement | null) => void;
+	disabled?: boolean;
+	getEditorWidth: () => EditorContainerWidth | undefined;
+	parentRef?: HTMLElement;
+	editorAnalyticsApi?: EditorAnalyticsAPI;
+	displayGuidelines?: (guidelines: GuidelineConfig[]) => void;
+	displayGapCursor: (toggle: boolean) => boolean;
+	onResizeStart?: () => void;
+};
+
 /**
  * BreakoutResizer is a common component used to resize nodes that support the 'Breakout' mark, so it requires
  * correct ADF support.
@@ -115,18 +130,8 @@ const BreakoutResizer = ({
 	displayGuidelines,
 	editorAnalyticsApi,
 	displayGapCursor,
-}: {
-	editorView: EditorView;
-	nodeType: BreakoutSupportedNodes;
-	getPos: getPosHandlerNode;
-	getRef?: (ref: HTMLElement | null) => void;
-	disabled?: boolean;
-	getEditorWidth: () => EditorContainerWidth | undefined;
-	parentRef?: HTMLElement;
-	editorAnalyticsApi?: EditorAnalyticsAPI;
-	displayGuidelines?: (guidelines: GuidelineConfig[]) => void;
-	displayGapCursor: (toggle: boolean) => boolean;
-}) => {
+	onResizeStart,
+}: BreakoutResizerProps) => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
 		minWidth: undefined,
 		maxWidth: undefined,
@@ -165,6 +170,7 @@ const BreakoutResizer = ({
 	}, [editorView.state.doc, editorView.state.selection, getPos]);
 
 	const handleResizeStart = useCallback<HandleResizeStart>(() => {
+		onResizeStart?.();
 		let newMinWidth;
 		let newMaxWidth;
 		const widthState = getEditorWidth();
@@ -184,7 +190,7 @@ const BreakoutResizer = ({
 		}
 		setResizingState({ isResizing: true, minWidth: newMinWidth, maxWidth: newMaxWidth });
 		dispatch(state.tr.setMeta('is-resizer-resizing', true));
-	}, [getEditorWidth, editorView, displayGapCursor]);
+	}, [onResizeStart, getEditorWidth, editorView, displayGapCursor]);
 
 	const handleResize = useCallback<HandleResize>(
 		(originalState, delta) => {
@@ -401,6 +407,13 @@ const BreakoutResizer = ({
 			handleHighlight="full-height"
 			handlePositioning="adjacent"
 			handleAlignmentMethod="sticky"
+			labelComponent={
+				currentLayout &&
+				editorExperiment('single_column_layouts', true) &&
+				['full-width', 'wide'].includes(currentLayout || '') && (
+					<ResizerBreakoutModeLabel layout={currentLayout} />
+				)
+			}
 		/>
 	);
 };

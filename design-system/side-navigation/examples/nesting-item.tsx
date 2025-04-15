@@ -23,6 +23,16 @@ const styles = cssMap({
 		overflow: 'hidden',
 		height: '340px',
 	},
+	customItem: {
+		// Need to increase specificity here until @atlaskit/menu has been migrated to @compiled/react
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&&': {
+			color: 'red',
+			'&:hover': {
+				color: 'blue',
+			},
+		},
+	},
 });
 
 const CustomNestingItem = forwardRef(
@@ -100,13 +110,7 @@ const BasicExample = () => {
 						href="/custom-link"
 						iconBefore={<SettingsIcon label="" />}
 						title="Settings"
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-						cssFn={() => ({
-							color: 'red',
-							'&:hover': {
-								color: 'blue',
-							},
-						})}
+						css={styles.customItem}
 						description="I have a custom item"
 						component={CustomNestingItem}
 					>

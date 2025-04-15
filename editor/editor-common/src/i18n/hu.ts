@@ -377,6 +377,8 @@ export default {
   'fabric.editor.datasourceTitle': 'Keresési lekérdezés szerkesztése',
   'fabric.editor.date': 'Dátum',
   'fabric.editor.date.description': 'Dátum hozzáadása naptár használatával',
+  'fabric.editor.datePickerOpenedAlert':
+    'Megnyílt a dátumszerkesztő előugró ablak, amelyet a Tab billentyűvel érhetsz el',
   'fabric.editor.decision': 'Döntés',
   'fabric.editor.decision.description': 'Döntések rögzítése az egyszerű nyomon követés érdekében',
   'fabric.editor.decisionPlaceholder': 'Döntés hozzáadása...',

@@ -10,6 +10,7 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP, DRAG_HANDLE_WIDTH } from './consts';
@@ -272,7 +273,10 @@ export const GlobalStylesWrapper = () => {
 				globalStyles(),
 				globalDnDStyle,
 				extendedHoverZone(),
-				withInlineNodeStyle,
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_widget_visibility')
+					? undefined
+					: withInlineNodeStyle,
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
 				legacyBreakoutWideLayoutStyle,

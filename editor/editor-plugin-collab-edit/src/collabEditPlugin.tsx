@@ -8,8 +8,8 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CollabEditPlugin } from './collabEditPluginType';
 import { addSynchronyErrorAnalytics } from './pm-plugins/analytics';
@@ -190,7 +190,10 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 								plugin: () =>
 									collab({
 										clientID: userId,
-										transformUnconfirmed: fg('platform_editor_merge_unconfirmed_steps')
+										transformUnconfirmed: editorExperiment(
+											'platform_editor_offline_editing_web',
+											true,
+										)
 											? (steps) => mergeUnconfirmedSteps(steps, api)
 											: undefined,
 									}) as SafePlugin,
@@ -245,7 +248,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				plugin: createLastOrganicChangePlugin,
 			});
 
-			if (fg('platform_editor_offline_conflict_resolution')) {
+			if (editorExperiment('platform_editor_offline_editing_web', true)) {
 				plugins.push({
 					name: 'trackLastRemoteConflictPlugin',
 					plugin: createTrackReconnectionConflictPlugin,

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0511013eceaa261129e778523a8c4be5>>
+ * @codegen <<SignedSource::65c8d1a07eaaa11c9e06986fa8b5d169>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CursorStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M3.125 7.687 1.326 3.109C.887 1.99 1.991.887 3.11 1.326l4.578 1.799L6.53 4.282 2.827 2.827 4.282 6.53z"/><path fill="currentcolor" fill-rule="evenodd" d="m3.723 9.21.002.004L.47 12.47l1.06 1.06 2.793-2.793 1.325 3.374c.476 1.21 2.212 1.145 2.594-.099L9.6 9.6l4.412-1.358c1.244-.382 1.31-2.118.099-2.594l-3.373-1.325L13.53 1.53 12.47.47 9.214 3.725l-.004-.002L8.053 4.88l.004.002-3.175 3.175-.002-.004zm1.757.37 1.434 3.65 1.272-4.134c.134-.436.474-.776.91-.91l4.134-1.272L9.58 5.48z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="m12.53 1.53-11 11-1.06-1.06 11-11zM1.33 3.11l1.52 3.86 1.16-1.16-1.17-2.99 2.99 1.17 1.16-1.16-3.86-1.52c-1.14-.42-2.24.68-1.8 1.8m4.32 11-1.01-2.57 1.16-1.16 1.12 2.85L8.19 9.1c.13-.44.47-.78.91-.91l4.13-1.27-2.84-1.12 1.16-1.16 2.57 1.01c1.21.48 1.15 2.21-.1 2.59L9.6 9.6l-1.36 4.41c-.38 1.24-2.12 1.31-2.59.1"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CursorStrikethroughIcon.displayName = 'CursorStrikethroughIcon';

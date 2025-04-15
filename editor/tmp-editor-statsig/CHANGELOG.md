@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.8.0
+
+### Minor Changes
+
+- [#140813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140813)
+  [`c4756a5c1a4ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4756a5c1a4ae) -
+  Migrating offline editing feature gates to a new experiment "platform_editor_offline_editing_web"
+
+## 4.7.0
+
+### Minor Changes
+
+- [#140996](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140996)
+  [`f24f59a665aaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f24f59a665aaf) -
+  Added a temporary experiment to aid editor controls experiment set up
+
 ## 4.6.3
 
 ### Patch Changes

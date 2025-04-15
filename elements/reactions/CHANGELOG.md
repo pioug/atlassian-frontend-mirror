@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 31.0.1
+
+### Patch Changes
+
+- [#141388](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141388)
+  [`daff9675d1417`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daff9675d1417) -
+  Adding a comment to reactions component to explain previous functionality for development
+
 ## 31.0.0
 
 ### Major Changes

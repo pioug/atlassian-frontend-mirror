@@ -673,25 +673,63 @@ export function ReactEditorView(props: EditorViewProps) {
 
 	const [editorView, setEditorView] = useState<EditorView | undefined>(undefined);
 
+	const originalScrollToRestore = React.useRef(
+		isFullPage(props.editorProps.appearance) &&
+			fg('platform_editor_reduce_scroll_jump_on_editor_start')
+			? document.querySelector('[data-editor-scroll-container]')?.scrollTop
+			: undefined,
+	);
+
+	const mitigateScrollJump =
+		// The feature gate here is being used to avoid potential bugs with the scroll restoration code
+		// moving it to the end of the expression negates the point of the feature gate
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		isFullPage(props.editorProps.appearance) &&
+		fg('platform_editor_reduce_scroll_jump_on_editor_start') &&
+		originalScrollToRestore.current &&
+		originalScrollToRestore.current !== 0;
+
 	useLayoutEffect(() => {
 		if (
 			shouldFocus &&
 			editorView?.props.editable?.(editorView.state) &&
 			fg('platform_editor_react_18_autofocus_fix')
 		) {
-			const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
-			if (liveDocWithContent && fg('platform_editor_no_cursor_on_live_doc_init')) {
-				focusElementOutsideEditor();
+			if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
+				if (!mitigateScrollJump) {
+					const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
+					if (liveDocWithContent && fg('platform_editor_no_cursor_on_live_doc_init')) {
+						focusElementOutsideEditor();
+					} else {
+						focusTimeoutId.current = handleEditorFocus(editorView);
+					}
+				}
 			} else {
-				focusTimeoutId.current = handleEditorFocus(editorView);
+				const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
+				if (liveDocWithContent && fg('platform_editor_no_cursor_on_live_doc_init')) {
+					focusElementOutsideEditor();
+				} else {
+					focusTimeoutId.current = handleEditorFocus(editorView);
+				}
 			}
 		}
-	}, [editorView, shouldFocus, __livePage]);
+	}, [editorView, shouldFocus, __livePage, mitigateScrollJump]);
 
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
 			if (!viewRef.current && node) {
 				const view = createEditorView(node);
+
+				if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
+					if (mitigateScrollJump) {
+						const scrollElement = document.querySelector('[data-editor-scroll-container]');
+
+						scrollElement?.scrollTo({
+							top: originalScrollToRestore.current,
+							behavior: 'instant',
+						});
+					}
+				}
 
 				onEditorCreated({
 					view,
@@ -718,17 +756,36 @@ export function ReactEditorView(props: EditorViewProps) {
 						setEditorView(view);
 					});
 				} else {
-					const isLivePageWithContent =
-						__livePage &&
-						!isEmptyDocument(view.state.doc) &&
-						fg('platform_editor_no_cursor_on_live_doc_init');
-					if (
-						!isLivePageWithContent &&
-						shouldFocus &&
-						view.props.editable &&
-						view.props.editable(view.state)
-					) {
-						focusTimeoutId.current = handleEditorFocus(view);
+					if (shouldFocus && view.props.editable && view.props.editable(view.state)) {
+						if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
+							if (!mitigateScrollJump) {
+								const isLivePageWithContent =
+									__livePage &&
+									!isEmptyDocument(view.state.doc) &&
+									fg('platform_editor_no_cursor_on_live_doc_init');
+								if (
+									!isLivePageWithContent &&
+									shouldFocus &&
+									view.props.editable &&
+									view.props.editable(view.state)
+								) {
+									focusTimeoutId.current = handleEditorFocus(view);
+								}
+							}
+						} else {
+							const isLivePageWithContent =
+								__livePage &&
+								!isEmptyDocument(view.state.doc) &&
+								fg('platform_editor_no_cursor_on_live_doc_init');
+							if (
+								!isLivePageWithContent &&
+								shouldFocus &&
+								view.props.editable &&
+								view.props.editable(view.state)
+							) {
+								focusTimeoutId.current = handleEditorFocus(view);
+							}
+						}
 					}
 
 					// Force React to re-render so consumers get a reference to the editor view
@@ -770,6 +827,7 @@ export function ReactEditorView(props: EditorViewProps) {
 			__livePage,
 			onEditorDestroyed,
 			handleAnalyticsEvent,
+			mitigateScrollJump,
 		],
 	);
 

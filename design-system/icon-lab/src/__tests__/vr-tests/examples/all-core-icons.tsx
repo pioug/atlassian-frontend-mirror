@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::35c7f112427ce9af782f8e52ddc292b8>>
+ * @codegen <<SignedSource::ce874b320ed63a83ed4913bc75803f5e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -93,6 +93,7 @@ import PanelIcon from '../../../../core/panel';
 import PartyPopperIcon from '../../../../core/party-popper';
 import PencilIcon from '../../../../core/pencil';
 import PersonVoiceoverIcon from '../../../../core/person-voiceover';
+import PinStrikethroughIcon from '../../../../core/pin-strikethrough';
 import PlusCircleIcon from '../../../../core/plus-circle';
 import PowerIcon from '../../../../core/power';
 import QrCodeIcon from '../../../../core/qr-code';
@@ -213,7 +214,7 @@ const Icons = [
 	CoinsIcon,
 	TicketIcon,
 	WrenchIcon,
-	SpeedometerIcon,
+	SpeedometerRightIcon,
 	FieldTextIcon,
 	LozengeIcon,
 	VulnerabilityIcon,
@@ -301,7 +302,7 @@ const Icons = [
 	ImageCropIcon,
 	SortOptionsIcon,
 	WorkItemAddIcon,
-	RecurIcon,
+	RepeatIcon,
 	VideoHdIcon,
 	DistributeSpacingVerticalIcon,
 	DistributeSpacingHorizontalIcon,
@@ -381,9 +382,10 @@ const Icons = [
 	TextHeadingFourIcon,
 	TextHeadingFiveIcon,
 	TextHeadingSixIcon,
-	SpeedometerRightIcon,
+	RecurIcon,
+	SpeedometerIcon,
 	TabIcon,
-	RepeatIcon,
+	PinStrikethroughIcon,
 ];
 
 const groupSize = 20;

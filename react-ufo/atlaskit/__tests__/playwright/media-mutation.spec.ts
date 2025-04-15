@@ -7,12 +7,8 @@ import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 	const featureFlagsSetups = [
-		['platform_ufo_vc_fix_ignore_image_mutation', 'platform_ufo_vc_filter_ignored_items'],
-		[
-			'platform_ufo_vc_fix_ignore_image_mutation',
-			'platform_ufo_vc_filter_ignored_items',
-			'platform_ufo_vc_observer_new',
-		],
+		['platform_ufo_vc_fix_ignore_image_mutation'],
+		['platform_ufo_vc_fix_ignore_image_mutation', 'platform_ufo_vc_observer_new'],
 	];
 	for (const featureFlags of featureFlagsSetups) {
 		test.describe(`with feature flags: ${featureFlags.length > 0 ? featureFlags.join(', ') : 'no feature flags'}`, () => {

@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { AssetsConfig, AssetsData, AssetsReporter } from '../common';
 import type { ResourceEntry } from '../resource-timing/common/types';
 import { withProfiling } from '../self-measurements';
@@ -78,8 +80,12 @@ export class CHRReporter {
 					return;
 				}
 
-				if (entry.encodedSize === entry.decodedSize) {
-					// incorrectly reported size
+				const hasNanValues = fg('platform_ufo_assets_check_for_nan')
+					? entry.encodedSize === undefined || entry.encodedSize === null
+					: false;
+
+				if (entry.encodedSize === entry.decodedSize || hasNanValues) {
+					// incorrectly reported or lack of size
 					return;
 				}
 

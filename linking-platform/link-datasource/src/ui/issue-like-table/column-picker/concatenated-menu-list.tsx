@@ -5,7 +5,13 @@
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { components, type MenuListComponentProps, type OptionType } from '@atlaskit/select';
+import {
+	CheckboxOption,
+	components,
+	type MenuListComponentProps,
+	type OptionProps,
+	type OptionType,
+} from '@atlaskit/select';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -18,6 +24,27 @@ const messageStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.body.small', fontFallback.body.small),
 	fontWeight: token('font.weight.regular', '400'),
+});
+
+const listItemStylesSelected = css({
+	backgroundColor: token('color.background.selected'),
+	'&:hover': {
+		backgroundColor: token('color.background.selected.hovered'),
+	},
+	'&:active': {
+		backgroundColor: token('color.background.selected.pressed'),
+	},
+	boxShadow: 'none',
+});
+
+const listItemStyles = css({
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
+	'&:active': {
+		backgroundColor: token('color.background.neutral.pressed'),
+	},
+	boxShadow: 'none',
 });
 
 export const ConcatenatedMenuList = ({
@@ -48,5 +75,13 @@ export const ConcatenatedMenuList = ({
 			{children.slice(0, SELECT_ITEMS_MAXIMUM_THRESHOLD)}
 			{maximumLimitReachedMessage}
 		</components.MenuList>
+	);
+};
+
+export const MenuItem = ({ children, ...props }: OptionProps<OptionType, true>) => {
+	return (
+		<CheckboxOption css={[props.isSelected ? listItemStylesSelected : listItemStyles]} {...props}>
+			{children}
+		</CheckboxOption>
 	);
 };

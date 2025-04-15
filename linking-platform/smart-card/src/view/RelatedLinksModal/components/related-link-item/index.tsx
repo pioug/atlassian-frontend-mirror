@@ -39,20 +39,18 @@ const hoverStyle = css({
 });
 
 const baseStyle = css({
-	marginInline: token('space.negative.200'),
-	paddingInline: token('space.200'),
-	borderLeft: '2px solid transparent',
+	marginInline: token('space.negative.300'),
+	paddingInline: token('space.300'),
 });
 
 const selectedStyle = css({
 	backgroundColor: token('color.background.selected'),
-	borderLeft: `2px solid ${token('color.border.selected')}`,
+	boxShadow: `inset 2px 0 0 0 ${token('color.border.selected')}`,
 	'&:hover': {
 		backgroundColor: token('color.background.selected.hovered'),
 	},
 	'&:active': {
 		backgroundColor: token('color.background.selected.pressed'),
-		outline: 'none',
 	},
 });
 

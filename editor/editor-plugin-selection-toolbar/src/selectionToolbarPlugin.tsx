@@ -285,6 +285,15 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					// do not show the toolbar.
 					return;
 				}
+
+				if (isCellSelection && isEditorControlsEnabled && fg('platform_editor_controls_patch_5')) {
+					const isSelectedViaDragHandle =
+						api?.blockControls?.sharedState.currentState()?.isSelectedViaDragHandle;
+					if (isSelectedViaDragHandle) {
+						return;
+					}
+				}
+
 				// Resolve the selectionToolbarHandlers to a list of SelectionToolbarGroups
 				// and filter out any handlers which returned undefined
 				const resolved = __selectionToolbarHandlers

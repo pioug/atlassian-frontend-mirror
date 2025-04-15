@@ -4,7 +4,7 @@ import { TypeAheadAvailableNodes, typeAheadListMessages } from '@atlaskit/editor
 import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler } from '../types';
@@ -86,7 +86,7 @@ export const skipForwardToSafeItem = ({
 	}
 
 	// We got to the end of the list ^, now try from the start
-	if (fg('platform_editor_offline_editing_ga')) {
+	if (editorExperiment('platform_editor_offline_editing_web', true)) {
 		for (let idx = 0; idx < nextIndex; idx++) {
 			if (!itemIsDisabled(idx)) {
 				return idx;
@@ -117,7 +117,7 @@ export const skipBackwardToSafeItem = ({
 	}
 
 	// We got to the start of the list ^, now try from the end
-	if (fg('platform_editor_offline_editing_ga')) {
+	if (editorExperiment('platform_editor_offline_editing_web', true)) {
 		for (let idx = listSize; idx > nextIndex; idx--) {
 			if (!itemIsDisabled(idx)) {
 				return idx;

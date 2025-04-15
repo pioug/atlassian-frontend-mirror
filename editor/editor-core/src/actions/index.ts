@@ -21,6 +21,7 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
@@ -125,14 +126,18 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	}
 	//#endregion
 
-	focus(): boolean {
+	focus({ scrollIntoView }: { scrollIntoView: boolean } = { scrollIntoView: true }): boolean {
 		if (!this.editorView || this.editorView.hasFocus()) {
 			return false;
 		}
-
 		this.editorView.focus();
-
-		this.editorView.dispatch(this.editorView.state.tr.scrollIntoView());
+		if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
+			if (scrollIntoView ?? true) {
+				this.editorView.dispatch(this.editorView.state.tr.scrollIntoView());
+			}
+		} else {
+			this.editorView.dispatch(this.editorView.state.tr.scrollIntoView());
+		}
 
 		return true;
 	}

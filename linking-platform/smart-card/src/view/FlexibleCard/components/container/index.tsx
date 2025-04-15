@@ -66,6 +66,7 @@ const renderChildren = (
 	status?: SmartLinkStatus,
 	retry?: RetryOptions,
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
+	removeBlockRestriction?: boolean,
 ): React.ReactNode => {
 	return React.Children.map(children, (child) => {
 		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
@@ -99,6 +100,12 @@ const renderChildren = (
 
 			// @ts-expect-error
 			return React.cloneElement(child, { size, status });
+		}
+
+		if (fg('platform-linking-flexible-card-openness')) {
+			if (removeBlockRestriction) {
+				return child;
+			}
 		}
 	});
 };
@@ -429,6 +436,7 @@ const Container = ({
 	showHoverPreview = false,
 	hoverPreviewOptions,
 	actionOptions,
+	removeBlockRestriction = false,
 	size = SmartLinkSize.Medium,
 	status,
 	testId = 'smart-links-container',
@@ -473,7 +481,7 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
-			{renderChildren(children, size, theme, status, retry, onClick)}
+			{renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
 		</div>
 	) : (
 		<div
@@ -491,7 +499,7 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
-			{renderChildren(children, size, theme, status, retry, onClick)}
+			{renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
 		</div>
 	);
 

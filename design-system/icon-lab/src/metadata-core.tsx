@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::2ff15dccd79cac17aeed3438db1b76ac>>
+ * @codegen <<SignedSource::2f9fbb2d46d4b891b4d432fc10fa866b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1441,6 +1441,26 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#feedback-loom-vizrefresh',
 	},
+	'pin-strikethrough': {
+		keywords: [
+			'pin-strikethrough',
+			'pinstrikethrough',
+			'icon',
+			'icon-lab',
+			'core',
+			'push pin',
+			'thumbtack',
+			'tack',
+			'unpin',
+		],
+		componentName: 'PinStrikethroughIcon',
+		package: '@atlaskit/icon-lab/core/pin-strikethrough',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Unpinning comments in Jira',
+		team: 'Jira',
+		status: 'published',
+	},
 	'plus-circle': {
 		keywords: ['plus-circle', 'pluscircle', 'icon', 'icon-lab', 'core', 'add'],
 		componentName: 'PlusCircleIcon',
@@ -1518,9 +1538,11 @@ const metadata: Record<string, metadata> = {
 		componentName: 'RecurIcon',
 		package: '@atlaskit/icon-lab/core/recur',
 		type: 'core',
+		replacement: { name: 'repeat', type: 'core', location: '@atlaskit/icon-lab' },
 		categorization: 'single-purpose',
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
 		team: 'Pandora',
+		status: 'deprecated',
 		slackChannel: '#horizon-pandora-eng',
 	},
 	repeat: {
@@ -1847,7 +1869,7 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:
-			'Reserved for use for Jira Projects for now. This will replace the Jira rocket. Context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
+			'Reserved for use for Jira Projects for now. This will replace the Jira rocket.   More context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
 		team: 'Jira',
 		status: 'published',
 		slackChannel: '#jira-design-system-figma-libraries',
@@ -1857,9 +1879,11 @@ const metadata: Record<string, metadata> = {
 		componentName: 'SpeedometerIcon',
 		package: '@atlaskit/icon-lab/core/speedometer',
 		type: 'core',
+		replacement: { name: 'speedometer-right', type: 'core', location: '@atlaskit/icon-lab' },
 		categorization: 'multi-purpose',
 		usage: 'Known uses: video is set to a faster playback speed',
 		team: 'Loom',
+		status: 'deprecated',
 	},
 	'speedometer-left': {
 		keywords: [

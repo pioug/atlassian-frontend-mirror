@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 205.4.0
+
+### Minor Changes
+
+- [#141575](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141575)
+  [`53faa261e39a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53faa261e39a6) -
+  Adds support for overriding language names in the code block language list.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 205.3.2
+
+### Patch Changes
+
+- [#140996](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140996)
+  [`f24f59a665aaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f24f59a665aaf) -
+  Added a temporary experiment to aid editor controls experiment set up
+- Updated dependencies
+
 ## 205.3.1
 
 ### Patch Changes

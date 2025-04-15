@@ -330,6 +330,14 @@ type PickerMediaInsertCancelledAEP = UIAEP<
 	undefined
 >;
 
+type DockedPrimaryToolbarRenderedAEP = UIAEP<
+	ACTION.RENDERED,
+	ACTION_SUBJECT.TOOLBAR,
+	ACTION_SUBJECT_ID.DOCKED_PRIMARY_TOOLBAR,
+	undefined,
+	undefined
+>;
+
 type HelpQuickInsertAEP = UIAEP<
 	ACTION.HELP_OPENED,
 	ACTION_SUBJECT.HELP,
@@ -554,4 +562,5 @@ export type GeneralEventPayload<T = void> =
 	| CodeBlockWordWrapToggleAEP
 	| RequestToEditAEP
 	| SingleColumLayoutDetectedAEP
-	| CopyLinkToAnchorButtonAEP;
+	| CopyLinkToAnchorButtonAEP
+	| DockedPrimaryToolbarRenderedAEP;

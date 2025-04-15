@@ -59,7 +59,7 @@ function ProfileCardContent({
 	agentActions?: AgentActionsType;
 	addFlag?: (flag: Flag) => void;
 }) {
-	if (isAgent && fg('enable_agent_profile_card')) {
+	if (isAgent) {
 		return (
 			<AgentProfileCardResourced
 				accountId={userId}

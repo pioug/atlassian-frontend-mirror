@@ -93,9 +93,12 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 
 		pluginsOptions: {
 			floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
-				const { pos, allowBreakout, addSidebarLayouts, allowSingleColumnLayout } =
+				const { pos, allowBreakout, addSidebarLayouts, allowSingleColumnLayout, isResizing } =
 					pluginKey.getState(state) as LayoutState;
-				if (pos !== null) {
+
+				const shouldHideToolbar = isResizing && editorExperiment('single_column_layouts', true);
+
+				if (pos !== null && !shouldHideToolbar) {
 					return buildToolbar(
 						state,
 						intl,

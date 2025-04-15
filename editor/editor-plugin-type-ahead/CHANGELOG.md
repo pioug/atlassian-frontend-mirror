@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.4.1
+
+### Patch Changes
+
+- [#140813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140813)
+  [`c4756a5c1a4ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4756a5c1a4ae) -
+  Migrating offline editing feature gates to a new experiment "platform_editor_offline_editing_web"
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

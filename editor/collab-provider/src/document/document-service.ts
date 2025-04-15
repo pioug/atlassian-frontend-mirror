@@ -1,6 +1,5 @@
 import throttle from 'lodash/throttle';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	ResolvedEditorState,
 	SyncUpErrorFunction,
@@ -15,6 +14,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
 	Catchupv2Response,
@@ -263,7 +263,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param data remote steps payload
 	 */
 	private notifyReconnectionConflict(steps: StepsPayload['steps']) {
-		if (!fg('platform_editor_offline_conflict_resolution')) {
+		if (editorExperiment('platform_editor_offline_editing_web', false)) {
 			return;
 		}
 		const state = this.getState?.();
@@ -930,7 +930,7 @@ export class DocumentService implements DocumentServiceInterface {
 		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
 
 		// Don't send any steps before we're ready.
-		if (fg('platform_editor_merge_unconfirmed_steps')) {
+		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			if (!unconfirmedStepsData || !this.getConnected()) {
 				return;
 			}
@@ -977,7 +977,7 @@ export class DocumentService implements DocumentServiceInterface {
 		// If we are going to commit unconfirmed steps
 		// we need to lock them to ensure they don't get
 		// mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
-		if (fg('platform_editor_merge_unconfirmed_steps')) {
+		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			unconfirmedStepsData.origins.forEach((origin) => {
 				if (origin instanceof Transaction) {
 					return origin.setMeta('mergeIsLocked', true);

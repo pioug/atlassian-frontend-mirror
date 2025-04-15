@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 36.6.0
+
+### Minor Changes
+
+- [#140127](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140127)
+  [`e9f7366cbb98c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9f7366cbb98c) -
+  [ux] EDM-11840 adding dark mode icon for no results
+- [#140782](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140782)
+  [`eb84538374919`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb84538374919) -
+  Export flexible card metadata elements and add removeBlockRestriction prop to remove TitleBlock
+  and flexible card block restriction (behind feature gate)
+
 ## 36.5.0
 
 ### Minor Changes

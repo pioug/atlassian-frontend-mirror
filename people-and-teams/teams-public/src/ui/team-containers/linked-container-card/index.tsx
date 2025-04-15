@@ -8,6 +8,7 @@ import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/utility/cross';
 import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -152,7 +153,10 @@ export const LinkedContainerCard = ({
 					<Text maxLines={1} weight="medium" color="color.text">
 						{title}
 					</Text>
-					<Flex gap="space.050">
+					<Flex
+						gap="space.050"
+						{...(fg('enable_card_alignment_fix') ? { alignItems: 'center' } : {})}
+					>
 						{icon}
 						<Inline space="space.050">
 							<Text size="small" color="color.text.subtle">

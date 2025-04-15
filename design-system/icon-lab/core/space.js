@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d1b4d4bea1a405b5c062dc3e547eb252>>
+ * @codegen <<SignedSource::4ac9290784d2a58aa5091acba5eeec04>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Space".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Reserved for use for Jira Projects for now. This will replace the Jira rocket. Context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.
+ * Usage guidance: Reserved for use for Jira Projects for now. This will replace the Jira rocket. 
+
+More context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

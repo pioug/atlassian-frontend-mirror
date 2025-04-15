@@ -801,6 +801,16 @@ const metadata: IconMetadata = {
 		usage: 'Known uses: voiceover within Loom Variables',
 		slackChannel: '#feedback-loom-vizrefresh',
 	},
+	'pin-strikethrough': {
+		keywords: ['push pin', 'thumbtack', 'tack', 'unpin'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Jira',
+		type: 'core',
+		status: 'published',
+		id: '42715:8474',
+		usage: 'Known uses: Unpinning comments in Jira',
+	},
 	'plus-circle': {
 		keywords: ['add'],
 		categorization: 'multi-purpose',
@@ -859,9 +869,15 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Pandora',
 		type: 'core',
+		status: 'deprecated',
 		id: '42266:50489',
 		usage: 'Reserved for setting objects to recur (eg Work items, Forms)',
 		slackChannel: '#horizon-pandora-eng',
+		replacement: {
+			name: 'repeat',
+			type: 'core',
+			location: '@atlaskit/icon-lab',
+		},
 	},
 	repeat: {
 		keywords: ['recur', 'recurring', 'repeat', 'repeating'],
@@ -1054,7 +1070,7 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '40759:3075',
 		usage:
-			'Reserved for use for Jira Projects for now. This will replace the Jira rocket. Context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
+			'Reserved for use for Jira Projects for now. This will replace the Jira rocket. \n\nMore context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
 		slackChannel: '#jira-design-system-figma-libraries',
 	},
 	speedometer: {
@@ -1063,8 +1079,14 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon-lab',
 		team: 'Loom',
 		type: 'core',
+		status: 'deprecated',
 		id: '42266:53267',
 		usage: 'Known uses: video is set to a faster playback speed',
+		replacement: {
+			name: 'speedometer-right',
+			type: 'core',
+			location: '@atlaskit/icon-lab',
+		},
 	},
 	'speedometer-left': {
 		keywords: ['speed', 'performance', 'dial', 'slow'],

@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 114.9.0
+
+### Minor Changes
+
+- [#139372](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139372)
+  [`0a065cf818a4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a065cf818a4d) -
+  Optimize tableRow.addColGroupWidth so it does not clone children when colGroupWidths array is
+  empty
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.8.0
+
+### Minor Changes
+
+- [#139497](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139497)
+  [`cac027cee3848`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cac027cee3848) -
+  Clean up the forbid_comments_on_empty_newlines feature gate
+
 ## 114.7.9
 
 ### Patch Changes

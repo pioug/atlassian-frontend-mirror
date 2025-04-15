@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6576e0a99745db83c3d7454efc70aa4b>>
+ * @codegen <<SignedSource::5b607e143a45535915991770149fdca5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const TextUnderlineStrikethroughIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M3.53 8.5a4.5 4.5 0 0 0 8.95 0h-1.51a3 3 0 0 1-5.92 0zM15 7V5.5h-2.5V1H11v4.5H5V1H3.5v4.5H1V7zM0 16v-1.5h16V16z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M3.5 4.5H5V1H3.5zM5.17 9a3 3 0 0 0 5.66 0h1.56a4.5 4.5 0 0 1-8.78 0zm7.33-4.5H11V1h1.5zM0 16v-1.5h16V16zM15 6H1v1.5h14z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextUnderlineStrikethroughIcon.displayName = 'TextUnderlineStrikethroughIcon';

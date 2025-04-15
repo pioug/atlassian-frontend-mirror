@@ -3,11 +3,17 @@
  * @jsx jsx
  * @jsxFrag
  */
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { css, jsx } from '@atlaskit/css';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { addLink, getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 import messages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -18,6 +24,7 @@ import {
 	type MenuItem,
 } from '@atlaskit/editor-common/ui-menu';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
@@ -57,6 +64,18 @@ export function PrimaryToolbarComponent({
 
 	const onMenuItemActivated = useCallback(({ item }: { item: MenuItem }) => {
 		item?.onClick?.();
+	}, []);
+
+	useEffect(() => {
+		if (fg('platform_editor_controls_patch_4')) {
+			api?.analytics?.actions.fireAnalyticsEvent({
+				action: ACTION.RENDERED,
+				actionSubject: ACTION_SUBJECT.TOOLBAR,
+				actionSubjectId: ACTION_SUBJECT_ID.DOCKED_PRIMARY_TOOLBAR,
+				eventType: EVENT_TYPE.UI,
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

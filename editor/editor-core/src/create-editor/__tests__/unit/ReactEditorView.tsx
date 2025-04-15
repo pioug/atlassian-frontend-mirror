@@ -172,6 +172,35 @@ describe('@atlaskit/editor-core', () => {
 		});
 	});
 
+	ffTest.on('platform_editor_reduce_scroll_jump_on_editor_start', '', () => {
+		it('When the editor has already been scrolled, ReactEditorView persists the scroll on load', async () => {
+			const mockElement = { scrollTop: 9001, scrollTo: jest.fn() };
+			const querySelectorSpy = jest.spyOn(document, 'querySelector');
+			// @ts-expect-error	mock implementation
+			querySelectorSpy.mockImplementation(() => mockElement);
+
+			renderWithIntl(
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
+			);
+
+			expect(mockElement.scrollTo).toHaveBeenCalledWith({ behavior: 'instant', top: 9001 });
+		});
+		it('When the editor has not already been scrolled, ReactEditorView does not attempt to scroll on load', async () => {
+			const mockElement = { scrollTop: 0, scrollTo: jest.fn() };
+			const querySelectorSpy = jest.spyOn(document, 'querySelector');
+			// @ts-expect-error	mock implementation
+			querySelectorSpy.mockImplementation(() => mockElement);
+
+			renderWithIntl(
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				<ReactEditorView {...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }} />,
+			);
+
+			expect(mockElement.scrollTo).not.toHaveBeenCalled();
+		});
+	});
+
 	describe('sanitize private content', () => {
 		const document = doc(p('hello', mention({ id: '1', text: '@cheese' })(), '{endPos}'))(
 			defaultSchema,

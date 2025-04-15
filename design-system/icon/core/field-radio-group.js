@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2ac01acc0cd87b580a4a3d37e85abea3>>
+ * @codegen <<SignedSource::6fe490522ceb563a0953495df893662d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FieldRadioGroupIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M.5 4.5a2.75 2.75 0 1 1 5.5 0 2.75 2.75 0 0 1-5.5 0m2.75-1.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5m11.75 2H8v-1.5h7zM.5 11.5a2.75 2.75 0 1 1 5.5 0 2.75 2.75 0 0 1-5.5 0m2.75-1.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5m11.75 2H8v-1.5h7z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M.5 4.5a2.75 2.75 0 1 1 5.5 0 2.75 2.75 0 0 1-5.5 0m2.75-1.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5m11.75 2H8v-1.5h7zM.5 11.5a2.75 2.75 0 1 1 5.5 0 2.75 2.75 0 0 1-5.5 0m2.75-1.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5m11.75 2H8v-1.5h7z" clip-rule="evenodd"/><path fill="currentcolor" fill-rule="evenodd" d="M.5 4.5a2.75 2.75 0 1 1 5.5 0 2.75 2.75 0 0 1-5.5 0m2.75-1.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5m12.75 2H8v-1.5h8zM.5 11.5a2.75 2.75 0 1 1 5.5 0 2.75 2.75 0 0 1-5.5 0m2.75-1.25a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5m12.75 2H8v-1.5h8z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FieldRadioGroupIcon.displayName = 'FieldRadioGroupIcon';

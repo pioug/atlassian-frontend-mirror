@@ -105,9 +105,6 @@
 		"use_comments_data_annotation_updater": {
 			"type": "boolean"
 		},
-		"confluence_comments_create_comment_experience": {
-			"type": "boolean"
-		},
 		"platform_editor_listen_for_annotation_clicks": {
 			"type": "boolean"
 		},

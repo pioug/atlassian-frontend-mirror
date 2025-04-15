@@ -116,7 +116,11 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 					},
 				},
 			],
-			floatingToolbar: getToolbarConfig(options?.allowCopyToClipboard, api),
+			floatingToolbar: getToolbarConfig(
+				options?.allowCopyToClipboard,
+				api,
+				options?.overrideLanguageName,
+			),
 		},
 	};
 };

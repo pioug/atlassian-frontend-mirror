@@ -8,5 +8,6 @@ export type LayoutState = {
 	addSidebarLayouts: boolean;
 	selectedLayout: PresetLayout | undefined;
 	allowSingleColumnLayout: boolean;
+	isResizing: boolean;
 };
 export type Change = { from: number; to: number; slice: Slice };

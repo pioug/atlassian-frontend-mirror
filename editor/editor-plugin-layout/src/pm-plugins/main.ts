@@ -79,6 +79,7 @@ const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState)
 		addSidebarLayouts,
 		selectedLayout,
 		allowSingleColumnLayout,
+		isResizing: false,
 	};
 };
 
@@ -131,13 +132,17 @@ export default (options: LayoutPluginOptions) =>
 		state: {
 			init: (_, state): LayoutState => getInitialPluginState(options, state),
 
-			apply: (tr, pluginState, _oldState, newState) => {
+			apply: (tr, pluginState, oldState, newState) => {
+				const isResizing = editorExperiment('single_column_layouts', true)
+					? tr.getMeta('is-resizer-resizing') ?? pluginKey.getState(oldState)?.isResizing
+					: false;
 				if (tr.docChanged || tr.selectionSet) {
 					const maybeLayoutSection = getMaybeLayoutSection(newState);
 
 					const newPluginState = {
 						...pluginState,
 						pos: maybeLayoutSection ? maybeLayoutSection.pos : null,
+						isResizing,
 						selectedLayout: getSelectedLayout(
 							maybeLayoutSection && maybeLayoutSection.node,
 							// Ignored via go/ees005
@@ -147,7 +152,10 @@ export default (options: LayoutPluginOptions) =>
 					};
 					return newPluginState;
 				}
-				return pluginState;
+				return {
+					...pluginState,
+					isResizing,
+				};
 			},
 		},
 		props: {

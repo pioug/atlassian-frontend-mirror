@@ -4,9 +4,12 @@ import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
+import CustomizeIcon from '@atlaskit/icon/core/customize';
 import BoardIcon from '@atlaskit/icon/core/migration/board';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronDownIconOld from '@atlaskit/icon/utility/migration/chevron-down';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import {
 	CheckboxOption,
@@ -20,7 +23,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
 
-import { ConcatenatedMenuList } from './concatenated-menu-list';
+import { ConcatenatedMenuList, MenuItem } from './concatenated-menu-list';
 import { columnPickerMessages } from './messages';
 import { type ColumnPickerProps } from './types';
 
@@ -121,11 +124,13 @@ export const ColumnPicker = ({
 		}
 	}, [allOptions, experienceId]);
 
+	const MenuOption = fg('platform-linking-visual-refresh-sllv') ? MenuItem : CheckboxOption;
+
 	return (
 		<PopupSelect
 			classNamePrefix={'column-picker-popup'}
 			testId={'column-picker-popup'}
-			components={{ Option: CheckboxOption, MenuList: ConcatenatedMenuList }}
+			components={{ Option: MenuOption, MenuList: ConcatenatedMenuList }}
 			filterOption={createFilter({ ignoreAccents: false })}
 			options={allOptions}
 			value={selectedOptions}
@@ -150,18 +155,26 @@ export const ColumnPicker = ({
 							{...triggerProps}
 							isSelected={isOpen}
 							spacing="compact"
-							appearance="subtle"
+							appearance={fg('platform-linking-visual-refresh-sllv') ? 'default' : 'subtle'}
 							testId="column-picker-trigger-button"
 							iconBefore={() => (
 								<Box as="span" xcss={styles.chevronIconStyles}>
-									<BoardIcon
-										color="currentColor"
-										label="board"
-										LEGACY_size="medium"
-										spacing="spacious"
-										LEGACY_margin="0 0 0 4px"
-									/>
-									<ChevronDownIcon color="currentColor" label="down" LEGACY_size="medium" />
+									{fg('platform-linking-visual-refresh-sllv') ? (
+										<CustomizeIcon label="customize" />
+									) : (
+										<BoardIcon
+											color="currentColor"
+											label="board"
+											LEGACY_size="medium"
+											spacing="spacious"
+											LEGACY_margin="0 0 0 4px"
+										/>
+									)}
+									{fg('platform-linking-visual-refresh-sllv') ? (
+										<ChevronDownIcon label="down" />
+									) : (
+										<ChevronDownIconOld color="currentColor" label="down" LEGACY_size="medium" />
+									)}
 								</Box>
 							)}
 						>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "4.2.3",
+	"version": "4.2.4",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,6 +42,7 @@
 		"@atlaskit/link-client-extension": "workspace:^",
 		"@atlaskit/link-extractors": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
+		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"dataloader": "^2.1.0"
@@ -51,6 +52,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {
@@ -64,6 +66,9 @@
 			"type": "boolean"
 		},
 		"plan_smart_link_base_url": {
+			"type": "boolean"
+		},
+		"smart_links_noun_support": {
 			"type": "boolean"
 		}
 	}

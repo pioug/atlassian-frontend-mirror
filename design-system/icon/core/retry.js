@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::34150578bc9ce6805d69153dc5cf8a40>>
+ * @codegen <<SignedSource::2b87cc7d74b53f2f9074ecfc04ea4b65>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RetryIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6.75 2.75a5.25 5.25 0 0 0 0 10.5v1.5A6.75 6.75 0 1 1 13.5 8v1.19l1.345-1.345 1.06 1.06-2.625 2.625a.75.75 0 0 1-1.06 0L9.595 8.905l1.06-1.06L12 9.189V8c0-2.9-2.35-5.25-5.25-5.25" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M1 8a7 7 0 0 1 12.5-4.33V1H15v5a.75.75 0 0 1-.75.75H9.5v-1.5h3.264a5.5 5.5 0 1 0 .665 3.63l1.482.24A7.002 7.002 0 0 1 1 8" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 RetryIcon.displayName = 'RetryIcon';

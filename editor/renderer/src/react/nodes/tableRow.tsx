@@ -2,6 +2,7 @@ import React from 'react';
 
 import { compose } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { RendererCssClassName } from '../../consts';
 
@@ -32,8 +33,8 @@ export default class TableRow extends React.Component<Props, State> {
 	addSortableColumn = (childrenArray: React.ReactNode[]): React.ReactNode[] => {
 		const { allowColumnSorting, index: rowIndex } = this.props;
 
-		if (allowColumnSorting) {
-			const isHeaderRow = !rowIndex;
+		const isHeaderRow = !rowIndex;
+		if (allowColumnSorting && (!fg('cc_complexit_fe_improve_table_sorting') || isHeaderRow)) {
 			childrenArray = childrenArray.map((child, index) => {
 				if (React.isValidElement(child)) {
 					const { tableOrderStatus } = this.props;
@@ -56,7 +57,11 @@ export default class TableRow extends React.Component<Props, State> {
 	};
 
 	addColGroupWidth = (childrenArray: React.ReactNode[]): React.ReactNode[] => {
-		if (this.state.colGroupWidths) {
+		if (
+			fg('platform_editor_table_column_group_width_check')
+				? this.state.colGroupWidths?.length
+				: this.state.colGroupWidths
+		) {
 			childrenArray = childrenArray.map((child, index) => {
 				if (React.isValidElement(child)) {
 					return React.cloneElement(child, {

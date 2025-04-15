@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-code-block
 
+## 4.4.0
+
+### Minor Changes
+
+- [#141575](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141575)
+  [`4639ea2b9bab0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4639ea2b9bab0) -
+  Adds support for overriding language names in the code block language list.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

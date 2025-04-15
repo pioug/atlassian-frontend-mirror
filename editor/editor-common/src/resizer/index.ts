@@ -16,3 +16,4 @@ export type {
 } from './types';
 export { BreakoutResizer, ignoreResizerMutations } from './BreakoutResizer';
 export { useBreakoutGuidelines } from './useBreakoutGuidelines';
+export { ResizerBreakoutModeLabel } from './ResizerBreakoutModeLabel';

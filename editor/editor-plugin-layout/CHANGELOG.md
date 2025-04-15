@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.5.0
+
+### Minor Changes
+
+- [#137973](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137973)
+  [`5cc195689bfb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cc195689bfb2) -
+  ED-27400 add resize layout to single column layout
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.4
 
 ### Patch Changes

@@ -1,5 +1,43 @@
 # @atlaskit/icon
 
+## 25.6.0
+
+### Minor Changes
+
+- [#138291](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138291)
+  [`12b2a21a4da5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12b2a21a4da5a) -
+  This release updates and deprecates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `api`
+  - `data-number`
+  - `data-string`
+  - `emoji-remove`
+  - `eye-open-strikethrough`
+  - `field-checkbox-group`
+  - `field-radio-group`
+  - `list-bulleted`
+  - `list-checklist`
+  - `list-numbered`
+  - `notification-muted`
+  - `pin-filled`
+  - `pin`
+  - `retry`
+  - `shield-strikethrough`
+  - `summarize`
+  - `tag`
+  - `text-heading`
+  - `text-strikethrough`
+  - `text`
+  - `video-skip-backward-fifteen`
+  - `video-skip-backward-ten`
+  - `video-skip-forward-fifteen`
+  - `video-skip-forward-ten`
+  - `video`
+
 ## 25.5.0
 
 ### Minor Changes

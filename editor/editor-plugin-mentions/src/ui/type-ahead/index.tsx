@@ -19,6 +19,7 @@ import type { MentionDescription, MentionProvider } from '@atlaskit/mention/reso
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { TeamMember } from '@atlaskit/mention/team-resource';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MentionsPlugin } from '../../mentionsPluginType';
 import { getMentionPluginState } from '../../pm-plugins/utils';
@@ -336,7 +337,7 @@ export const createTypeAheadConfig = ({
 				subscriptionKeys.add(key);
 
 				mentionProvider.subscribe(key, mentionsSubscribeCallback, () => {
-					if (fg('platform_editor_offline_editing_ga')) {
+					if (editorExperiment('platform_editor_offline_editing_web', true)) {
 						mentionProvider.unsubscribe(key);
 						subscriptionKeys.delete(key);
 						reject('FETCH_ERROR');

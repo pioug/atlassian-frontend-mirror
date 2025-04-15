@@ -1,5 +1,22 @@
 # @atlaskit/prosemirror-collab
 
+## 0.16.2
+
+### Patch Changes
+
+- [#140813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140813)
+  [`c4756a5c1a4ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4756a5c1a4ae) -
+  Migrating offline editing feature gates to a new experiment "platform_editor_offline_editing_web"
+- Updated dependencies
+
+## 0.16.1
+
+### Patch Changes
+
+- [#140816](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140816)
+  [`09580d6d7c275`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09580d6d7c275) -
+  EDITOR-608 Clean up platform_editor_collab_text_selection_override
+
 ## 0.16.0
 
 ### Minor Changes

@@ -205,6 +205,7 @@ const initialState: PluginState = {
 	isPMDragging: false,
 	multiSelectDnD: undefined,
 	lastDragCancelled: false,
+	isSelectedViaDragHandle: false,
 };
 
 export interface FlagType {
@@ -248,6 +249,7 @@ export const apply = (
 		isPMDragging,
 		isShiftDown,
 		lastDragCancelled,
+		isSelectedViaDragHandle,
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
@@ -548,6 +550,13 @@ export const apply = (
 		isMenuOpenNew = !isMenuOpen;
 	}
 
+	const isSelectedViaDragHandleNew: boolean =
+		meta?.isSelectedViaDragHandle !== undefined &&
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_5')
+			? meta?.isSelectedViaDragHandle
+			: isSelectedViaDragHandle;
+
 	return {
 		decorations,
 		activeNode: newActiveNode,
@@ -565,6 +574,7 @@ export const apply = (
 		multiSelectDnD,
 		isShiftDown: meta?.isShiftDown ?? isShiftDown,
 		lastDragCancelled: meta?.lastDragCancelled ?? lastDragCancelled,
+		isSelectedViaDragHandle: isSelectedViaDragHandleNew,
 	};
 };
 
@@ -755,6 +765,34 @@ export const createPlugin = (
 						}
 
 						if (
+							(event.key === 'Enter' || event.key === ' ') &&
+							event.target instanceof HTMLElement &&
+							editorExperiment('platform_editor_controls', 'variant1') &&
+							fg('platform_editor_controls_patch_5')
+						) {
+							const isDragHandle =
+								event.target.closest('[data-editor-block-ctrl-drag-handle="true"]') !== null;
+							api?.core.actions.execute(
+								api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
+							);
+						}
+
+						if (
+							(event.key === 'ArrowLeft' ||
+								event.key === 'ArrowRight' ||
+								event.key === 'ArrowDown' ||
+								event.key === 'ArrowUp') &&
+							editorExperiment('platform_editor_controls', 'variant1') &&
+							fg('platform_editor_controls_patch_5')
+						) {
+							if (api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle) {
+								api?.core.actions.execute(
+									api?.blockControls.commands.setSelectedViaDragHandle(false),
+								);
+							}
+						}
+
+						if (
 							!event.repeat &&
 							event.shiftKey &&
 							fg('platform_editor_elements_dnd_shift_click_select')
@@ -763,6 +801,7 @@ export const createPlugin = (
 								view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: true }),
 							);
 						}
+
 						return false;
 					} else {
 						// Command + Shift + ArrowUp to select was broken with the plugin enabled so this manually sets the selection
@@ -784,8 +823,35 @@ export const createPlugin = (
 								return true;
 							}
 						}
+
+						if (
+							(event.key === 'Enter' || event.key === ' ') &&
+							event.target instanceof HTMLElement &&
+							editorExperiment('platform_editor_controls', 'variant1') &&
+							fg('platform_editor_controls_patch_5')
+						) {
+							const isDragHandle =
+								event.target.closest('[data-editor-block-ctrl-drag-handle="true"]') !== null;
+							api?.core.actions.execute(
+								api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
+							);
+						}
+
+						if (
+							(event.key === 'ArrowLeft' ||
+								event.key === 'ArrowRight' ||
+								event.key === 'ArrowDown' ||
+								event.key === 'ArrowUp') &&
+							editorExperiment('platform_editor_controls', 'variant1') &&
+							fg('platform_editor_controls_patch_5')
+						) {
+							if (api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle) {
+								api?.core.actions.execute(
+									api?.blockControls.commands.setSelectedViaDragHandle(false),
+								);
+							}
+						}
 					}
-					return false;
 				},
 				keyup(view: EditorView, event: KeyboardEvent) {
 					if (!event.repeat && event.key === 'Shift') {

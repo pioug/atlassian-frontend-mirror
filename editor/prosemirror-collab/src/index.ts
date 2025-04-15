@@ -6,7 +6,7 @@ import type {
 	Step as ProseMirrorStep,
 	Transform as ProseMirrorTransform,
 } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 class Rebaseable {
 	constructor(
@@ -121,7 +121,7 @@ export function collab(config: CollabConfig = {}): Plugin {
 			apply(tr, collab) {
 				const newState = tr.getMeta(collabKey);
 				if (newState) {
-					if (fg('platform_editor_merge_unconfirmed_steps')) {
+					if (editorExperiment('platform_editor_offline_editing_web', true)) {
 						return new CollabState(newState.version, transformUnconfirmed(newState.unconfirmed));
 					} else {
 						return newState;
@@ -274,16 +274,10 @@ export function receiveTransaction(
 	const newCollabState = new CollabState(version, unconfirmed);
 	if (options && options.mapSelectionBackward && state.selection instanceof TextSelection) {
 		tr.setSelection(
-			fg('platform_editor_collab_text_selection_override')
-				? new TextSelection(
-						tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
-						tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
-					)
-				: TextSelection.between(
-						tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
-						tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
-						-1,
-					),
+			new TextSelection(
+				tr.doc.resolve(tr.mapping.map(state.selection.anchor, -1)),
+				tr.doc.resolve(tr.mapping.map(state.selection.head, -1)),
+			),
 		);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.1
+
+### Patch Changes
+
+- [#139777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139777)
+  [`cfdfe0077993d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfdfe0077993d) -
+  Fix bug where a refs were passed incorrectly, preventing task item focus from being set
+- Updated dependencies
+
 ## 5.1.0
 
 ### Minor Changes

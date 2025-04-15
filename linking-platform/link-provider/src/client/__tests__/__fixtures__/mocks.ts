@@ -1,6 +1,7 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import CardClient from '../..';
 import { type ErrorResponseBody } from '../../types/responses';
+import { SmartLinkResponse } from '@atlaskit/linking-types';
 
 export const mockContext = {
 	'@vocab': 'https://www.w3.org/ns/activitystreams#',
@@ -8,44 +9,72 @@ export const mockContext = {
 	schema: 'http://schema.org/',
 } as const;
 
+const jsonLdResponse = {
+	meta: {
+		visibility: 'public',
+		access: 'granted',
+		auth: [],
+		definitionId: 'd1',
+		key: 'object-provider',
+	},
+	data: {
+		'@context': {
+			'@vocab': 'https://www.w3.org/ns/activitystreams#',
+			atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+			schema: 'http://schema.org/',
+		},
+		'@type': 'Object',
+		name: 'I love cheese',
+		summary: 'Here is your serving of cheese: 🧀',
+		'schema:potentialAction': {
+			'@id': 'comment',
+			'@type': 'CommentAction',
+			identifier: 'object-provider',
+			name: 'Comment',
+		},
+		preview: {
+			href: 'https://www.ilovecheese.com',
+		},
+		url: 'https://some.url',
+	},
+};
+
+const nounDataResponse = {
+	nounData: {
+		schemaVersion: '2.0',
+		id: 'frl3oZ39Cd6jr7WvWZUQPw',
+		updateSequenceNumber: 1736456473,
+		displayName: 'Rovo admin – GA',
+		url: 'https://www.figma.com/design/frl3oZ39Cd6jr7WvWZUQPw/Rovo-GA-in-Admin-Hub',
+		lastUpdatedAt: '2025-01-08T22:26:52.501Z',
+		thumbnail: {
+			externalUrl:
+				'https://s3-alpha.figma.com/thumbnails/67c42edb-8cf1-49b7-8866-452b8dc2bc19?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWCXHUIFXET%2F20250109%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250109T000000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7e0174016982e5a3fa9c74725f28ca4ab19b7f39ae700553a0aaf0386c07494c',
+		},
+		'atlassian:design': {
+			liveEmbedUrl:
+				'https://www.figma.com/embed?embed_host=astra&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2Ffrl3oZ39Cd6jr7WvWZUQPw%2FRovo-GA-in-Admin-Hub',
+			status: 'UNKNOWN',
+			type: 'FILE',
+			inspectUrl: 'https://www.figma.com/design/frl3oZ39Cd6jr7WvWZUQPw/Rovo-GA-in-Admin-Hub?m=dev',
+			iconUrl: 'https://static.figma.com/app/icon/1/favicon.ico',
+		},
+	},
+};
+
 export const mocks = {
 	success: {
 		meta: {
-			visibility: 'public',
-			access: 'granted',
-			auth: [],
-			definitionId: 'd1',
-			key: 'object-provider',
+			...jsonLdResponse.meta,
 		},
 		data: {
-			'@context': {
-				'@vocab': 'https://www.w3.org/ns/activitystreams#',
-				atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-				schema: 'http://schema.org/',
-			},
-			'@type': 'Object',
-			name: 'I love cheese',
-			summary: 'Here is your serving of cheese: 🧀',
-			'schema:potentialAction': {
-				'@id': 'comment',
-				'@type': 'CommentAction',
-				identifier: 'object-provider',
-				name: 'Comment',
-			},
-			preview: {
-				href: 'https://www.ilovecheese.com',
-			},
-			url: 'https://some.url',
+			...jsonLdResponse.data,
 			'atlassian:ari': 'ari:cloud:confluence:test:page:1234',
 		},
 	} as JsonLd.Response,
 	searchSuccess: {
 		meta: {
-			visibility: 'public',
-			access: 'granted',
-			auth: [],
-			definitionId: 'd1',
-			key: 'object-provider',
+			...jsonLdResponse.meta,
 		},
 		data: {
 			'@context': {
@@ -54,30 +83,13 @@ export const mocks = {
 				schema: 'http://schema.org/',
 			},
 			'@type': 'Collection',
-			items: [
-				{
-					'@context': {
-						'@vocab': 'https://www.w3.org/ns/activitystreams#',
-						atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-						schema: 'http://schema.org/',
-					},
-					'@type': 'Object',
-					name: 'I love cheese',
-					summary: 'Here is your serving of cheese: 🧀',
-					'schema:potentialAction': {
-						'@id': 'comment',
-						'@type': 'CommentAction',
-						identifier: 'object-provider',
-						name: 'Comment',
-					},
-					preview: {
-						href: 'https://www.ilovecheese.com',
-					},
-					url: 'https://some.url',
-				},
-			],
+			items: [{ ...jsonLdResponse.data }],
 		},
 	} as JsonLd.Response,
+	nounDataSuccess: {
+		...jsonLdResponse,
+		...nounDataResponse,
+	} as SmartLinkResponse,
 	notFound: {
 		meta: {
 			visibility: 'not_found',

@@ -1,6 +1,8 @@
 import React, { Fragment, useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button';
+import NewButton from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
@@ -35,6 +37,7 @@ function TestContentResize() {
 	const [isAdaptiveHeight, setIsAdaptiveHeight] = useState(false);
 	const plugins = useRef([new Plugin()]);
 
+	const ButtonComponent = fg('platform-link-picker-remove-legacy-button') ? NewButton : Button;
 	return (
 		<Fragment>
 			<PageHeader>
@@ -92,7 +95,7 @@ function TestContentResize() {
 				)}
 				placement="right-start"
 				trigger={({ ref, ...triggerProps }) => (
-					<Button
+					<ButtonComponent
 						{...triggerProps}
 						testId="trigger"
 						ref={ref}
@@ -103,7 +106,7 @@ function TestContentResize() {
 						style={{ position: 'fixed', bottom: 350 }}
 					>
 						Toggle
-					</Button>
+					</ButtonComponent>
 				)}
 			/>
 		</Fragment>

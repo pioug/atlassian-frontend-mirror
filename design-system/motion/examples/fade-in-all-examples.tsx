@@ -1,5 +1,4 @@
 /* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
-/* eslint-disable @atlaskit/ui-styling-standard/no-important-styles */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**

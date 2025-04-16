@@ -88,10 +88,8 @@ const Positioner = (props: PositionerProps) => {
 
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					'--modal-dialog-translate-y': `calc(${stackIndex}px * ${token('space.100')})`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					transitionDuration: `${durations.medium}ms`,

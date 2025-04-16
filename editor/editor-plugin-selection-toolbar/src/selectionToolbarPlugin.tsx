@@ -28,11 +28,12 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { setToolbarDocking, toggleToolbar } from './pm-plugins/commands';
+import { setToolbarDocking, toggleToolbar, updateToolbarDocking } from './pm-plugins/commands';
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
 import type { ToolbarDocking } from './types';
 import { getOverflowFloatingToolbarConfig } from './ui/overflow-toolbar-config';
+import { PageVisibilityWatcher } from './ui/PageVisibilityWatcher';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 type SelectionToolbarPluginState = {
@@ -41,7 +42,7 @@ type SelectionToolbarPluginState = {
 	toolbarDocking: ToolbarDocking;
 };
 
-const getInitialToolbarDocking = (
+const getToolbarDocking = (
 	contextualFormattingEnabled: boolean | undefined,
 	userPreferencesProvider: UserPreferencesProvider | undefined,
 ): ToolbarDocking => {
@@ -102,6 +103,20 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					) ?? false
 				);
 			},
+			refreshToolbarDocking: () => {
+				if (userPreferencesProvider) {
+					const userToolbarDockingPref = getToolbarDocking(
+						contextualFormattingEnabled,
+						userPreferencesProvider,
+					);
+					return (
+						api?.core.actions.execute(
+							updateToolbarDocking({ toolbarDocking: userToolbarDockingPref }),
+						) ?? false
+					);
+				}
+				return false;
+			},
 		},
 
 		getSharedState(editorState) {
@@ -128,7 +143,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 									return {
 										selectionStable: false,
 										hide: false,
-										toolbarDocking: getInitialToolbarDocking(
+										toolbarDocking: getToolbarDocking(
 											contextualFormattingEnabled,
 											userPreferencesProvider,
 										),
@@ -156,7 +171,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 											toolbarDockingPreference !== previousToolbarDocking
 										) {
 											previousToolbarDocking = toolbarDockingPreference;
-											const userToolbarDockingPref = getInitialToolbarDocking(
+											const userToolbarDockingPref = getToolbarDocking(
 												contextualFormattingEnabled,
 												userPreferencesProvider,
 											);
@@ -220,7 +235,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 									if (toolbarDockingPreference !== undefined) {
 										isPreferenceInitialized = true;
 
-										const userToolbarDockingPref = getInitialToolbarDocking(
+										const userToolbarDockingPref = getToolbarDocking(
 											contextualFormattingEnabled,
 											userPreferencesProvider,
 										);
@@ -372,6 +387,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				};
 			},
 		},
+
+		contentComponent:
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_user_preferences_provider_update')
+				? () => (
+						<PageVisibilityWatcher api={api} userPreferencesProvider={userPreferencesProvider} />
+					)
+				: undefined,
 
 		primaryToolbarComponent:
 			!api?.primaryToolbar &&

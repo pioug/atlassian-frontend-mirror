@@ -31,7 +31,7 @@ const Row = ({ row, head, testId, isFixedSize, isHighlighted }: RowProps) => {
 						data-testid={cellTestId || (testId && `${testId}--cell-${cellIndex}`)}
 						{...restCellProps}
 						isFixedSize={isFixedSize}
-						key={cellIndex} // eslint-disable-line react/no-array-index-key
+						key={cellIndex}
 						shouldTruncate={shouldTruncate}
 						width={width}
 					>

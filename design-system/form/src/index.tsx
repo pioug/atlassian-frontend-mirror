@@ -14,6 +14,5 @@ export type { LabelProps, LegendProps } from './label';
 export { HelperMessage, ErrorMessage, MessageWrapper, ValidMessage } from './messages';
 export { default as Fieldset } from './fieldset';
 export { default as RequiredAsterisk } from './required-asterisk';
-// eslint-disable-next-line import/no-unresolved
 export type { OnSubmitHandler, FormApi } from './types';
 export { useFormState } from './use-form-state';

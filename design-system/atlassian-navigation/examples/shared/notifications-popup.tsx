@@ -18,9 +18,7 @@ const wrapperStyles = css({
 	display: 'flex',
 	width: 540,
 	height: 'calc(100vh - 200px)',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	paddingBlockStart: 18,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	paddingInlineStart: 18,
 });
 

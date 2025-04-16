@@ -176,7 +176,6 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 							} else {
 								(ref as React.MutableRefObject<HTMLElement>).current = node;
 							}
-							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						}}
 						hasNodeResolver={!fg('platform_design_system_team_portal_logic_r18_fix')}
 					>

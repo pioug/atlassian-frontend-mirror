@@ -1,11 +1,9 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React, { forwardRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, keyframes } from '@compiled/react';
 
 import { AtlassianIcon } from '@atlaskit/logo';

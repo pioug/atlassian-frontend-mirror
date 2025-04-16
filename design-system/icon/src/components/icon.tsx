@@ -125,15 +125,12 @@ export const Icon = memo(function Icon(props: IconProps) {
 			role={label ? 'img' : undefined}
 			aria-label={label ? label : undefined}
 			aria-hidden={label ? undefined : true}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
 					'--icon-primary-color': primaryColor,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					'--icon-secondary-color': secondaryColor || getBackground(),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					margin: UNSAFE_margin,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				} as CSSProperties
 			}
 			{...glyphProps}

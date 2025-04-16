@@ -4,6 +4,8 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 import Button from '@atlaskit/button';
+import NewButton from '@atlaskit/button/new';
+import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { GenericErrorSVG } from '../../../../common/generic-error-svg';
@@ -45,6 +47,7 @@ type LinkSearchErrorProps = {
 export const LinkSearchError = ({ onRetry }: LinkSearchErrorProps) => {
 	const intl = useIntl();
 
+	const ButtonComponent = fg('platform-link-picker-remove-legacy-button') ? NewButton : Button;
 	return (
 		<EmptyState
 			testId={testIds.searchError}
@@ -53,25 +56,34 @@ export const LinkSearchError = ({ onRetry }: LinkSearchErrorProps) => {
 				<FormattedMessage
 					{...messages.searchErrorDescription}
 					values={{
-						a: (label: React.ReactNode[]) => (
-							<Button
-								appearance="link"
-								spacing="none"
-								href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								{label}
-							</Button>
-						),
+						a: (label: React.ReactNode[]) =>
+							fg('platform-link-picker-remove-legacy-button') ? (
+								<Link
+									href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{label}
+								</Link>
+							) : (
+								<Button
+									appearance="link"
+									spacing="none"
+									href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{label}
+								</Button>
+							),
 					}}
 				/>
 			}
 			action={
 				onRetry && fg('platform-linking-visual-refresh-link-picker') ? (
-					<Button appearance="primary" onClick={onRetry}>
+					<ButtonComponent appearance="primary" onClick={onRetry}>
 						<FormattedMessage {...messages.searchErrorAction} />
-					</Button>
+					</ButtonComponent>
 				) : null
 			}
 			renderImage={

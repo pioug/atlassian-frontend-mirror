@@ -18,7 +18,6 @@ const spacingScale = {
 
 const stackLayoutStyles = css({
 	display: 'grid',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	gap: `var(--size-spacing)`,
 	gridAutoFlow: 'column',
 });
@@ -58,7 +57,6 @@ const StackLayout = ({
 				direction === 'VERTICAL' && gridAutoFlowStyles,
 			]}
 			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ ['--size-spacing']: `${spacingScale[size]}px` } as React.CSSProperties}
 		>
 			{children}

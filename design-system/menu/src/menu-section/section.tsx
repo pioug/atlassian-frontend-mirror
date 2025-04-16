@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -185,10 +184,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
 				css={[
 					sectionStyles,
 					isScrollable ? scrollableStyles : unscrollableStyles,
-					hasSeparator
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							thinSeparatorStyles
-						: noSeparatorStyles,
+					hasSeparator ? thinSeparatorStyles : noSeparatorStyles,
 				]}
 				aria-label={title}
 				aria-labelledby={titleId}

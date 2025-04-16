@@ -1,5 +1,18 @@
 # @atlaskit/icon-object
 
+## 7.1.0
+
+### Minor Changes
+
+- [#140619](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140619)
+  [`2bec7ec581881`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bec7ec581881) -
+  This release updates icons in `@atlaskit/icon-object`.
+
+  Updated: **`@atlaskit/icon-object`**
+
+  - PageLiveDoc16Icon
+  - PageLiveDoc24Icon
+
 ## 7.0.2
 
 ### Patch Changes

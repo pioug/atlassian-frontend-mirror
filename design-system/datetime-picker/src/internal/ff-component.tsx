@@ -54,7 +54,6 @@ export function componentWithCondition<A extends {}, B extends {}>(
 ) {
 	const ComponentWithCondition = forwardRef<
 		ComponentRef<typeof ComponentTrue | typeof ComponentFalse>,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		any
 	>((props, ref) =>
 		condition() ? <ComponentTrue {...props} ref={ref} /> : <ComponentFalse {...props} ref={ref} />,
@@ -63,7 +62,6 @@ export function componentWithCondition<A extends {}, B extends {}>(
 		ComponentWithCondition.displayName = `ComponentWithCondition[${condition.name}]`;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	return ComponentWithCondition as FC<
 		PropsWithoutRef<A> & PropsWithoutRef<B> & GetRefAttributes<PropsWithRef<A>, PropsWithRef<B>>
 	>;

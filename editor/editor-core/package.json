@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.4.0",
+	"version": "205.4.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -200,6 +200,10 @@
 		"platform_editor_prevent_toolbar_width_reflow": {
 			"type": "boolean"
 		},
+		"platform_editor_disable_unnecessary_expand_renders": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
 		"platform-editor-single-player-expand": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -241,9 +245,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_responsive_fixes": {
-			"type": "boolean"
-		},
-		"platform_editor_ssr_fix_block_controls": {
 			"type": "boolean"
 		},
 		"platform_editor_react18_mention_with_provider_fix": {
@@ -568,9 +569,8 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_patch_3": {
-			"type": "boolean",
-			"referenceOnly": true
+		"platform_editor_quick_insert_placeholder": {
+			"type": "boolean"
 		},
 		"platform_editor_numbered_column_misalignment": {
 			"type": "boolean",

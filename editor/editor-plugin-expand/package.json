@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-expand",
-	"version": "3.2.5",
+	"version": "3.2.6",
 	"description": "Expand plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -113,6 +113,9 @@
 			"type": "boolean"
 		},
 		"platform-editor-single-player-expand": {
+			"type": "boolean"
+		},
+		"platform_editor_disable_unnecessary_expand_renders": {
 			"type": "boolean"
 		},
 		"platform_editor_nest_nested_expand_in_expand_jira": {

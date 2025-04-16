@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 4.1.0
+
+### Minor Changes
+
+- [#142168](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142168)
+  [`92095a01848e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92095a01848e7) -
+  The bounded style overrides prop (xcss) now supports logical longhand properties for padding.
+
 ## 4.0.0
 
 ### Major Changes

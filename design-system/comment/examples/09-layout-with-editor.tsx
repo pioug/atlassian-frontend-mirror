@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { CommentLayout } from '@atlaskit/comment';
-import { Editor } from '@atlaskit/editor-core'; // eslint-disable-line import/extensions
+import { Editor } from '@atlaskit/editor-core';
 
 import avatarImg from './images/avatar_400x400.jpg';
 

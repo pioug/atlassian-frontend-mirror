@@ -90,9 +90,7 @@ describe('CommentAction with analytics', () => {
 
 	it('should mount without errors', () => {
 		render(<CommentAction>Reply</CommentAction>);
-		/* eslint-disable no-console */
 		expect(console.warn).not.toHaveBeenCalled();
 		expect(console.error).not.toHaveBeenCalled();
-		/* eslint-enable no-console */
 	});
 });

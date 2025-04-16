@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {未找到结果} other {找到 {count,number} 个结果}}',
   'fabric.linkPicker.linkAriaLabel': '在字段中输入或粘贴链接',
+  'fabric.linkPicker.linkHelperTextAriaLabel': '链接显示助手文本',
+  'fabric.linkPicker.linkHelperTextLabel': '为此链接提供标题或描述',
   'fabric.linkPicker.linkInvalid': '请输入有效的 URL。',
   'fabric.linkPicker.linkLabel': '链接',
   'fabric.linkPicker.linkPlaceholder': '粘贴链接',
@@ -25,6 +27,7 @@ export default {
   'fabric.linkPicker.listTitle.results': '结果',
   'fabric.linkPicker.search.error.description': '如果此问题依然存在，请刷新页面或联系 <a>Atlassian 支持团队</a>。',
   'fabric.linkPicker.search.error.heading': '加载数据时出现问题。',
+  'fabric.linkPicker.search.error.retry': '刷新',
   'fabric.linkPicker.search.linkAriaLabel': '在字段中输入内容时，下方会显示建议内容',
   'fabric.linkPicker.search.linkLabel': '搜索或粘贴链接',
   'fabric.linkPicker.search.linkPlaceholder': '查找最近的链接或粘贴新链接',

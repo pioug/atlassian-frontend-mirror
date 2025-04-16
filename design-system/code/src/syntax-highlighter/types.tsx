@@ -84,7 +84,6 @@ export interface SyntaxHighlighterProps {
 	 *
 	 * @default true
 	 */
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarnings?: CodeBidiWarningConfig['codeBidiWarnings'];
 	/**
 	 * `codeBidiWarningLabel` is set via a prop on @atlaskit/code/CodeBlock.
@@ -102,7 +101,6 @@ export interface SyntaxHighlighterProps {
 	 * where the tooltip could end up being cut off or otherwise not work as expected.
 	 * @default true
 	 */
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarningTooltipEnabled?: CodeBidiWarningConfig['codeBidiWarningTooltipEnabled'];
 	/**
 	 * Code to render; equivalent of `text` prop on @atlaskit/code/CodeBlock.
@@ -120,7 +118,6 @@ export interface CodeBidiWarningConfig {
 	 * When set to `false`, disables code decorating with bidi warnings.
 	 * @default true
 	 */
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarnings?: boolean;
 	/**
 	 * `codeBidiWarningLabel` is set via a prop on @atlaskit/code/CodeBlock.
@@ -138,7 +135,6 @@ export interface CodeBidiWarningConfig {
 	 * where the tooltip could end up being cut off or otherwise not work as expected.
 	 * @default true
 	 */
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	codeBidiWarningTooltipEnabled?: boolean;
 }
 

@@ -1,18 +1,25 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ReactNode } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { jsx } from '@emotion/react';
+/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
+import React, { type ReactNode } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { media } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
+import {
+	containerCSS as compiledCSS,
+	IndicatorsContainer as CompiledIndicatorsContainer,
+	indicatorsContainerCSS as compiledIndicatorsContainerCSS,
+	SelectContainer as CompiledSelectContainer,
+	ValueContainer as CompiledValueContainer,
+	valueContainerCSS as compiledValueContainerCSS,
+} from '../compiled/components/containers';
+import {
+	containerCSS as emotionCSS,
+	IndicatorsContainer as EmotionIndicatorsContainer,
+	indicatorsContainerCSS as emotionIndicatorsContainerCSS,
+	SelectContainer as EmotionSelectContainer,
+	ValueContainer as EmotionValueContainer,
+	valueContainerCSS as emotionValueContainerCSS,
+} from '../emotion/components/containers';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
 
 // ==============================
 // Root Container
@@ -37,40 +44,19 @@ export interface ContainerProps<
 	 */
 	innerProps: {};
 }
-export const containerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	isDisabled,
-	isRtl,
-}: ContainerProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'container',
-	direction: isRtl ? 'rtl' : undefined,
-	position: 'relative',
-	font: fg('platform_design_system_team_safari_input_fix')
-		? token('font.body.large')
-		: token('font.body'),
-	pointerEvents: 'all',
-	cursor: isDisabled ? 'not-allowed' : undefined,
-	[`${media.above.xs}`]: {
-		font: fg('platform_design_system_team_safari_input_fix') ? token('font.body') : undefined,
-	},
-});
+export const containerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: ContainerProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel => (fg('compiled-react-select') ? compiledCSS() : emotionCSS(props));
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SelectContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ContainerProps<Option, IsMulti, Group>,
-) => {
-	const { children, innerProps, isDisabled, isRtl } = props;
-	return (
-		<div
-			{...getStyleProps(props, 'container', {
-				'--is-disabled': isDisabled,
-				'--is-rtl': isRtl,
-			})}
-			{...innerProps}
-		>
-			{children}
-		</div>
+) =>
+	fg('compiled-react-select') ? (
+		<CompiledSelectContainer {...props} />
+	) : (
+		<EmotionSelectContainer {...props} />
 	);
-};
 
 // ==============================
 // Value Container
@@ -95,48 +81,20 @@ export interface ValueContainerProps<
 	 */
 	isCompact?: boolean;
 }
-export const valueContainerCSS = <
-	Option,
-	IsMulti extends boolean,
-	Group extends GroupBase<Option>,
->({
-	isMulti,
-	hasValue,
-	isCompact,
-	selectProps: { controlShouldRenderValue },
-}: ValueContainerProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	alignItems: 'center',
-	display: isMulti && hasValue && controlShouldRenderValue ? 'flex' : 'grid',
-	flex: 1,
-	flexWrap: 'wrap',
-	WebkitOverflowScrolling: 'touch',
-	position: 'relative',
-	overflow: 'hidden',
-	padding: `${isCompact ? 0 : token('space.025')} ${token('space.075')}`,
-});
+export const valueContainerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: ValueContainerProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledValueContainerCSS() : emotionValueContainerCSS(props);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ValueContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ValueContainerProps<Option, IsMulti, Group>,
-) => {
-	const { children, innerProps, isMulti, hasValue } = props;
-
-	const styles = getStyleProps(props, 'valueContainer', {
-		'value-container': true,
-		'value-container--is-multi': isMulti,
-		'value-container--has-value': hasValue,
-	});
-	return (
-		<div
-			css={styles.css}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={styles.className || 'value-container'}
-			{...innerProps}
-		>
-			{children}
-		</div>
+) =>
+	fg('compiled-react-select') ? (
+		<CompiledValueContainer {...props} />
+	) : (
+		<EmotionValueContainer {...props} />
 	);
-};
 
 // ==============================
 // Indicator Container
@@ -158,13 +116,8 @@ export interface IndicatorsContainerProps<
 	innerProps?: {};
 }
 
-export const indicatorsContainerCSS = (): CSSObjectWithLabel => ({
-	alignItems: 'center',
-	alignSelf: 'stretch',
-	display: 'flex',
-	flexShrink: 0,
-	paddingRight: token('space.050'),
-});
+export const indicatorsContainerCSS = (): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledIndicatorsContainerCSS() : emotionIndicatorsContainerCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IndicatorsContainer = <
@@ -173,17 +126,9 @@ export const IndicatorsContainer = <
 	Group extends GroupBase<Option>,
 >(
 	props: IndicatorsContainerProps<Option, IsMulti, Group>,
-) => {
-	const { children, innerProps } = props;
-
-	return (
-		<div
-			{...getStyleProps(props, 'indicatorsContainer', {
-				indicators: true,
-			})}
-			{...innerProps}
-		>
-			{children}
-		</div>
+) =>
+	fg('compiled-react-select') ? (
+		<CompiledIndicatorsContainer {...props} />
+	) : (
+		<EmotionIndicatorsContainer {...props} />
 	);
-};

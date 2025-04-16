@@ -455,7 +455,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 
 	let clearIndicator = Icon;
 
-	// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (fg('platform-visual-refresh-icons')) {
 		clearIndicator = (props: DropdownIndicatorProps<OptionType>) => (
 			<Box xcss={styles.dropdownIndicatorStyles}>
@@ -639,13 +639,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 						label={!inputLabelId ? fullopenCalendarLabel : openCalendarLabel}
 						aria-labelledby={inputLabelId ? `${inputLabelId} ${openCalendarLabelId}` : undefined}
 						id={openCalendarLabelId}
-						icon={(iconProps) => (
-							<CalendarIcon
-								{...iconProps}
-								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-								color={token('color.icon')}
-							/>
-						)}
+						icon={(iconProps) => <CalendarIcon {...iconProps} color={token('color.icon')} />}
 						onClick={onCalendarButtonClick}
 						onKeyDown={onCalendarButtonKeyDown}
 						ref={calendarButtonRef}

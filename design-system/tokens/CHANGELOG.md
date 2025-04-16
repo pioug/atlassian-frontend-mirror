@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 4.8.0
+
+### Minor Changes
+
+- [#139915](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139915)
+  [`bb8ff89963687`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb8ff89963687) -
+  Add lightBrandRefresh and darkBrandRefresh to @atlaskit/tokens/tokens-raw
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.7.0
 
 ### Minor Changes

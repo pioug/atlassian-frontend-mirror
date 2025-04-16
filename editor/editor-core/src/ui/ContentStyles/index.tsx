@@ -373,10 +373,6 @@ const firstBlockNodeStylesNew = css`
  * fix layout issue of first block node
  */
 export const fixBlockControlStylesSSR = () => {
-	if (!fg('platform_editor_ssr_fix_block_controls')) {
-		return null;
-	}
-
 	if (fg('platform_editor_element_dnd_nested_fix_patch_6')) {
 		return firstBlockNodeStylesNew;
 	}
@@ -495,7 +491,8 @@ const contentStyles = (props: ContentStylesProps) => css`
 	${placeholderTextStyles}
 	${placeholderStyles}
 	${editorExperiment('platform_editor_controls', 'variant1') ? placeholderOverflowStyles : null}
-	${editorExperiment('platform_editor_controls', 'variant1') && fg('platform_editor_controls_patch_3')
+	${editorExperiment('platform_editor_controls', 'variant1') &&
+	fg('platform_editor_quick_insert_placeholder')
 		? placeholderWrapStyles
 		: null}
 

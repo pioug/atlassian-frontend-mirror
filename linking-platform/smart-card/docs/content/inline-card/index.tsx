@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives';
+import { Card } from '@atlaskit/smart-card';
 
 import CardViewExample from '../../../examples/card-view';
 import InlineExample from '../../../examples/content/inline-card';
@@ -22,6 +23,6 @@ ${(
 
 ${state_description}
 
-${(<CardViewExample appearance="inline" showHoverPreview={true} />)}
+${(<CardViewExample appearance="inline" showHoverPreview={true} CardComponent={Card} />)}
 
 `;

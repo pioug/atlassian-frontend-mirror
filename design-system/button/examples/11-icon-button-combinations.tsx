@@ -10,7 +10,7 @@ import { Box, Stack } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { type IconSize } from '../src/new-button/variants/types';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { iconButtonVariants } from '../src/utils/variants';
+import { iconButtonShapes, iconButtonVariants } from '../src/utils/variants';
 
 const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
 
@@ -40,6 +40,9 @@ export default function IconButtonExample() {
 										<th>Disabled + Selected</th>
 										{iconSizes.map((size) => (
 											<th>{capitalize(size)} icon size</th>
+										))}
+										{iconButtonShapes.map((shape) => (
+											<th>{shape} shape</th>
 										))}
 									</tr>
 								</thead>
@@ -111,6 +114,11 @@ export default function IconButtonExample() {
 															appearance={appearance}
 															icon={(iconProps) => <StarFilledIcon {...iconProps} size={size} />}
 														/>
+													</td>
+												))}
+												{iconButtonShapes.map((shape) => (
+													<td>
+														<Component appearance={appearance} shape={shape} />
 													</td>
 												))}
 											</tr>

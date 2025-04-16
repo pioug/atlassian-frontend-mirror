@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {Keine Ergebnisse gefunden} one {{count,number} Ergebnis gefunden} other {{count,number} Ergebnisse gefunden}}',
   'fabric.linkPicker.linkAriaLabel': 'Geben Sie einen Link in das Feld ein oder kopieren Sie einen hinein',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Hilfstext zur Linkanzeige',
+  'fabric.linkPicker.linkHelperTextLabel': 'Geben Sie diesem Link einen Titel oder eine Beschreibung',
   'fabric.linkPicker.linkInvalid': 'Geben Sie eine gültige URL ein.',
   'fabric.linkPicker.linkLabel': 'Verknüpfung',
   'fabric.linkPicker.linkPlaceholder': 'Link einfügen',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Laden Sie die Seite erneut oder wenden Sie sich an den <a>Atlassian Support</a>, falls das Problem weiterhin besteht.',
   'fabric.linkPicker.search.error.heading': 'Beim Laden dieser Daten ist ein Problem aufgetreten.',
+  'fabric.linkPicker.search.error.retry': 'Neu laden',
   'fabric.linkPicker.search.linkAriaLabel': 'Während Ihrer Eingabe in das Feld werden unten Vorschläge angezeigt',
   'fabric.linkPicker.search.linkLabel': 'Link suchen oder einfügen',
   'fabric.linkPicker.search.linkPlaceholder': 'Aktuelle Links finden oder neuen Link einfügen',

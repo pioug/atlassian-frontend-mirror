@@ -80,7 +80,6 @@ const Header: FC<HeaderProps> = ({
 									<LockFilledIcon color="currentColor" label="" />
 								</Box>
 							) : (
-								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 								<LegacyLockFilledIcon size="small" label="" />
 							)}
 							{restrictedTo}

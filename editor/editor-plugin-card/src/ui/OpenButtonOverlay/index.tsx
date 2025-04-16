@@ -64,6 +64,8 @@ const linkStyles = xcss({
 	},
 });
 
+const linkStylesFix = xcss({ whiteSpace: 'nowrap' });
+
 const MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY = 45;
 const ICON_WIDTH = 16;
 const DEFAULT_OPEN_TEXT_WIDTH = 28; // Default open text width in English
@@ -72,6 +74,7 @@ const OpenButtonOverlay = ({
 	children,
 	isVisible = false,
 	url,
+	editorAppearance,
 	...props
 }: React.PropsWithChildren<OpenButtonOverlayProps>) => {
 	// TODO: ED-26961 - add translation
@@ -152,7 +155,18 @@ const OpenButtonOverlay = ({
 			)}
 
 			{isHovered && (
-				<Anchor ref={openButtonRef} xcss={linkStyles} href={url} target="_blank">
+				<Anchor
+					ref={openButtonRef}
+					xcss={[linkStyles, fg('platform_editor_controls_patch_5') && linkStylesFix]}
+					href={url}
+					target="_blank"
+					style={{
+						paddingBlock:
+							editorAppearance === 'comment' && fg('platform_editor_controls_patch_6')
+								? '1px'
+								: token('space.025'),
+					}}
+				>
 					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
 						<LinkExternalIcon label="" />
 					</Box>

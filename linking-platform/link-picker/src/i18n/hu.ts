@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {nincs találat} one {{count,number} találat} other {{count,number} találat}}',
   'fabric.linkPicker.linkAriaLabel': 'Írj vagy illessz be egy linket a mezőbe',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Link megjelenítési súgószövege',
+  'fabric.linkPicker.linkHelperTextLabel': 'Adj címet vagy leírás a linknek',
   'fabric.linkPicker.linkInvalid': 'Adj meg egy érvényes URL-címet.',
   'fabric.linkPicker.linkLabel': 'Link',
   'fabric.linkPicker.linkPlaceholder': 'Link beillesztése',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Frissítsd az oldalt, vagy vedd fel a kapcsolatot az <a>Atlassian Támogatással</a>, ha ez a későbbiekben is megtörténik.',
   'fabric.linkPicker.search.error.heading': 'Probléma merült fel az adatok betöltése során.',
+  'fabric.linkPicker.search.error.retry': 'Frissítés',
   'fabric.linkPicker.search.linkAriaLabel': 'A rendszer a beírt szövegnek megfelelően jeleníti meg lent a javaslatokat',
   'fabric.linkPicker.search.linkLabel': 'Link keresése vagy beillesztése',
   'fabric.linkPicker.search.linkPlaceholder': 'Legutóbbi linkek keresése vagy új link beillesztése',

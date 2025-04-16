@@ -64,7 +64,6 @@ export const Profile = forwardRef<HTMLElement, ProfileProps>(
 					tooltip={tooltip}
 					isTooltipAnnouncementDisabled
 					// These are mostly explicit, leaving it in just in case
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 					{...rest}
 				/>
 			</div>
@@ -73,5 +72,5 @@ export const Profile = forwardRef<HTMLElement, ProfileProps>(
 );
 
 // This exists only to extract props.
-// eslint-disable-next-line @repo/internal/react/use-noop, import/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (props: ProfileProps) => {};

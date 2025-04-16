@@ -50,7 +50,6 @@ class RegularStatelessExample extends React.Component<{}, StatelessState> {
 	}
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
 	return (
 		<>

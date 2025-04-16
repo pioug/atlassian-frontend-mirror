@@ -53,7 +53,6 @@ const styles = cssMap({
 			outlineStyle: 'solid',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineOffset: 2,
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineWidth: 2,
 		},
 		'@media screen and (forced-colors: active)': {

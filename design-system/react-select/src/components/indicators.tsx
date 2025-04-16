@@ -1,38 +1,25 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
+/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
+import React, { type ReactNode } from 'react';
 
-import { type ReactNode } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { jsx } from '@emotion/react';
-
-import DownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import CrossIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
-import { Inline, Pressable, xcss } from '@atlaskit/primitives';
-import Spinner from '@atlaskit/spinner';
-import { token } from '@atlaskit/tokens';
-
+import {
+	ClearIndicator as CompiledClearIndicator,
+	clearIndicatorCSS as compiledClearIndicatorCSS,
+	DropdownIndicator as CompiledDropdownIndicator,
+	dropdownIndicatorCSS as compiledDropdownIndicatorCSS,
+	LoadingIndicator as CompiledLoadingIndicator,
+	loadingIndicatorCSS as compiledLoadingIndicatorCSS,
+} from '../compiled/components/indicators';
+import {
+	ClearIndicator as EmotionClearIndicator,
+	clearIndicatorCSS as emotionClearIndicatorCSS,
+	DropdownIndicator as EmotionDropdownIndicator,
+	dropdownIndicatorCSS as emotionDropdownIndicatorCSS,
+	LoadingIndicator as EmotionLoadingIndicator,
+	loadingIndicatorCSS as emotionLoadingIndicatorCSS,
+} from '../emotion/components/indicators';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
-
-// ==============================
-// Dropdown & Clear Icons
-// ==============================
-
-const iconContainerStyles = xcss({
-	all: 'unset',
-	outline: 'revert',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	padding: 'space.025',
-});
-
-const dropdownWrapperStyles = xcss({
-	padding: 'space.075',
-});
 
 // ==============================
 // Dropdown & Clear Buttons
@@ -66,47 +53,20 @@ export const dropdownIndicatorCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
->({
-	isCompact,
-	isDisabled,
-}: DropdownIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'indicatorContainer',
-	display: 'flex',
-	transition: 'color 150ms',
-	color: isDisabled ? token('color.text.disabled') : token('color.text.subtle'),
-	padding: `${isCompact ? 0 : token('space.075')} ${token('space.025')}`,
-	':hover': {
-		color: token('color.text.subtle'),
-	},
-});
+>(
+	props: DropdownIndicatorProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledDropdownIndicatorCSS() : emotionDropdownIndicatorCSS(props);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: DropdownIndicatorProps<Option, IsMulti, Group>,
-) => {
-	const { innerProps, children } = props;
-	return (
-		<div
-			{...getStyleProps(props, 'dropdownIndicator', {
-				indicator: true,
-				'dropdown-indicator': true,
-			})}
-			{...innerProps}
-		>
-			{children ? (
-				children
-			) : (
-				<Inline as="span" xcss={dropdownWrapperStyles}>
-					<DownIcon
-						color="currentColor"
-						label="open"
-						LEGACY_margin={token('space.negative.075', '-0.375rem')}
-					/>
-				</Inline>
-			)}
-		</div>
+) =>
+	fg('compiled-react-select') ? (
+		<CompiledDropdownIndicator {...props} />
+	) : (
+		<EmotionDropdownIndicator {...props} />
 	);
-};
 
 export interface ClearIndicatorProps<
 	Option = unknown,
@@ -135,48 +95,20 @@ export interface ClearIndicatorProps<
 	isCompact?: boolean;
 }
 
-export const clearIndicatorCSS = <
-	Option,
-	IsMulti extends boolean,
-	Group extends GroupBase<Option>,
->({
-	isCompact,
-}: ClearIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'indicatorContainer',
-	display: 'flex',
-	transition: 'color 150ms',
-	color: token('color.text.subtlest'),
-	padding: `${isCompact ? 0 : token('space.075')} ${token('space.025')}`,
-	':hover': {
-		color: token('color.text.subtle'),
-	},
-});
+export const clearIndicatorCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: ClearIndicatorProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledClearIndicatorCSS() : emotionClearIndicatorCSS(props);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ClearIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ClearIndicatorProps<Option, IsMulti, Group>,
-) => {
-	const { innerProps, clearControlLabel = 'clear' } = props;
-	return (
-		<div
-			{...getStyleProps(props, 'clearIndicator', {
-				indicator: true,
-				'clear-indicator': true,
-			})}
-			{...innerProps}
-		>
-			{/* The Clear button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field */}
-			<Pressable xcss={iconContainerStyles} tabIndex={-1} aria-label={clearControlLabel}>
-				<CrossIcon
-					label=""
-					color="currentColor"
-					LEGACY_size="small"
-					LEGACY_margin={token('space.negative.025', '-0.125rem')}
-				/>
-			</Pressable>
-		</div>
+) =>
+	fg('compiled-react-select') ? (
+		<CompiledClearIndicator {...props} />
+	) : (
+		<EmotionClearIndicator {...props} />
 	);
-};
 
 // ==============================
 // Loading
@@ -186,12 +118,10 @@ export const loadingIndicatorCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
->({
-	isCompact,
-}: LoadingIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'loadingIndicator',
-	padding: `${isCompact ? 0 : token('space.075')} ${token('space.100')}`,
-});
+>(
+	props: LoadingIndicatorProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledLoadingIndicatorCSS() : emotionLoadingIndicatorCSS(props);
 
 export interface LoadingIndicatorProps<
 	Option = unknown,
@@ -218,21 +148,11 @@ export interface LoadingIndicatorProps<
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const LoadingIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	innerProps,
-	isRtl,
-	size = 4,
-	...restProps
-}: LoadingIndicatorProps<Option, IsMulti, Group>) => {
-	return (
-		<div
-			{...getStyleProps({ ...restProps, innerProps, isRtl, size }, 'loadingIndicator', {
-				indicator: true,
-				'loading-indicator': true,
-			})}
-			{...innerProps}
-		>
-			<Spinner size="small" />
-		</div>
+export const LoadingIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: LoadingIndicatorProps<Option, IsMulti, Group>,
+) =>
+	fg('compiled-react-select') ? (
+		<CompiledLoadingIndicator {...props} />
+	) : (
+		<EmotionLoadingIndicator {...props} />
 	);
-};

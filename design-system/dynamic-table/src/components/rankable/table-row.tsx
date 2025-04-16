@@ -1,7 +1,6 @@
 import React from 'react';
 
 // Allowing existing usage of non Pragmatic drag and drop solution
-// eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 
 import withDimensions, {

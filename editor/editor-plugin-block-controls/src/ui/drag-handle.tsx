@@ -55,6 +55,7 @@ import {
 	getNodeHeight,
 	getTopPosition,
 	shouldBeSticky,
+	shouldMaskNodeControls,
 } from '../pm-plugins/utils/drag-handle-positions';
 import { isHandleCorrelatedToSelection, selectNode } from '../pm-plugins/utils/getSelection';
 import {
@@ -72,6 +73,7 @@ import {
 	dragHandleGap,
 	nodeMargins,
 	spacingBetweenNodesForPreview,
+	STICKY_CONTROLS_TOP_MARGIN,
 	topPositionAdjustment,
 } from './consts';
 import type { DragPreviewContent } from './drag-preview';
@@ -83,6 +85,20 @@ const iconWrapperStyles = xcss({
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
+});
+
+const extendedIconWrapperStyles = css({
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	background: token('elevation.surface'),
+	marginBottom: token('space.negative.100', '-8px'),
+	paddingBottom: token('space.100', '8px'),
+	marginTop: token('space.negative.100', '-8px'),
+	paddingTop: token('space.100', '8px'),
+	marginRight: token('space.negative.100', '-8px'),
+	paddingRight: token('space.100', '8px'),
+	borderRadius: '6px',
 });
 
 // update color to match quick insert button for new editor controls
@@ -186,10 +202,20 @@ const dragHandleContainerStyles = xcss({
 });
 
 const tooltipContainerStyles = css({
-	top: '8px',
-	bottom: '-8px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	bottom: `-${STICKY_CONTROLS_TOP_MARGIN}px`,
 	position: 'sticky',
-	zIndex: 'card',
+	zIndex: 100, // card = 100
+});
+
+const tooltipContainerStylesWithNodeControls = css({
+	top: '0',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	bottom: `-${STICKY_CONTROLS_TOP_MARGIN}px`,
+	position: 'sticky',
+	zIndex: 100, // card = 100
 });
 
 const tooltipContainerStylesStickyHeader = css({
@@ -197,7 +223,7 @@ const tooltipContainerStylesStickyHeader = css({
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
+			top: tableControlsSpacing - STICKY_CONTROLS_TOP_MARGIN,
 		},
 });
 
@@ -207,7 +233,7 @@ const tooltipContainerStylesStickyHeaderWithMarksFix = css({
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
+			top: tableControlsSpacing - STICKY_CONTROLS_TOP_MARGIN,
 		},
 });
 
@@ -680,9 +706,11 @@ export const DragHandle = ({
 		const isSticky = shouldBeSticky(nodeType);
 
 		if (supportsAnchor) {
-			const bottom = fg('platform_editor_controls_sticky_controls')
-				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
-				: {};
+			const bottom =
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_sticky_controls')
+					? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
+					: {};
 
 			return {
 				left: isEdgeCase
@@ -700,15 +728,17 @@ export const DragHandle = ({
 			};
 		}
 
-		const height = fg('platform_editor_controls_sticky_controls')
-			? getControlHeightCSSValue(
-					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
-					isSticky,
-					isTopLevelNode,
-					`${DRAG_HANDLE_HEIGHT}`,
-					isLayoutColumn,
-				)
-			: {};
+		const height =
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_sticky_controls')
+				? getControlHeightCSSValue(
+						getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
+						isSticky,
+						isTopLevelNode,
+						`${DRAG_HANDLE_HEIGHT}`,
+						isLayoutColumn,
+					)
+				: {};
 		return {
 			left: isEdgeCase
 				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
@@ -924,6 +954,7 @@ export const DragHandle = ({
 		<button
 			type="button"
 			css={[
+				editorExperiment('platform_editor_controls', 'variant1') &&
 				fg('platform_editor_controls_sticky_controls')
 					? dragHandleButtonStyles
 					: dragHandleButtonStylesOld,
@@ -940,7 +971,14 @@ export const DragHandle = ({
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={(!fg('platform_editor_controls_sticky_controls') && positionStyles) || {}}
+			style={
+				(!(
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_sticky_controls')
+				) &&
+					positionStyles) ||
+				{}
+			}
 			onClick={handleOnClick}
 			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}
@@ -950,9 +988,7 @@ export const DragHandle = ({
 			data-editor-block-ctrl-drag-handle
 			data-testid="block-ctrl-drag-handle"
 		>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */}
 			<Box
-				as="span"
 				xcss={iconWrapperStyles}
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 				onDragStart={handleIconDragStart}
@@ -977,7 +1013,9 @@ export const DragHandle = ({
 		>
 			<span
 				css={[
-					tooltipContainerStyles,
+					shouldMaskNodeControls(nodeType, isTopLevelNode)
+						? tooltipContainerStylesWithNodeControls
+						: tooltipContainerStyles,
 					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
 					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
 				]}
@@ -990,7 +1028,14 @@ export const DragHandle = ({
 						api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 					}}
 				>
-					{renderButton()}
+					<span
+						css={
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							shouldMaskNodeControls(nodeType, isTopLevelNode) && extendedIconWrapperStyles
+						}
+					>
+						{renderButton()}
+					</span>
 				</Tooltip>
 			</span>
 		</Box>
@@ -1006,12 +1051,21 @@ export const DragHandle = ({
 		>
 			<span
 				css={[
-					tooltipContainerStyles,
+					shouldMaskNodeControls(nodeType, isTopLevelNode)
+						? tooltipContainerStylesWithNodeControls
+						: tooltipContainerStyles,
 					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
 					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
 				]}
 			>
-				{renderButton()}
+				<span
+					css={
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						shouldMaskNodeControls(nodeType, isTopLevelNode) && extendedIconWrapperStyles
+					}
+				>
+					{renderButton()}
+				</span>
 			</span>
 		</Box>
 	);
@@ -1032,7 +1086,10 @@ export const DragHandle = ({
 	const stickyRender = isTooltip ? stickyWithTooltip() : stickyWithoutTooltip();
 	const render = isTooltip ? buttonWithTooltip() : renderButton();
 
-	return fg('platform_editor_controls_sticky_controls') ? stickyRender : render;
+	return editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_sticky_controls')
+		? stickyRender
+		: render;
 };
 
 export const DragHandleWithVisibility = ({

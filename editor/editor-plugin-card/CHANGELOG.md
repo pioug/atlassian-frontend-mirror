@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.13
+
+### Patch Changes
+
+- [#141796](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141796)
+  [`79a03eeb47e72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79a03eeb47e72) -
+  [ux] Fix truncate issue for open button text when hover on smart link
+- Updated dependencies
+
 ## 5.4.12
 
 ### Patch Changes

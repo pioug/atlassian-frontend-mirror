@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.7.0
+
+### Minor Changes
+
+- [#141670](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141670)
+  [`0e2aed24db654`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e2aed24db654) -
+  Feature gate cleanup for 'rovo_chat_add_template_tab_to_modal'
+
 ## 2.6.0
 
 ### Minor Changes

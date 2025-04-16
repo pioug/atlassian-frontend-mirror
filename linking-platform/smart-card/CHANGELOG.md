@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 36.8.0
+
+### Minor Changes
+
+- [#141807](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141807)
+  [`ac860bdbc6dbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac860bdbc6dbf) -
+  Export flexible card action components
+
+### Patch Changes
+
+- [#138263](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138263)
+  [`7405f54a903d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7405f54a903d2) -
+  Traduki update
+- Updated dependencies
+
+## 36.7.0
+
+### Minor Changes
+
+- [#141340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141340)
+  [`da3c94037c989`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da3c94037c989) -
+  [ux] ADD ownedBy support for dragonfruit-object-provider smart-link resolver under
+  `expandable_smart_links_for_scorecards_v2` feature-gate
+
 ## 36.6.0
 
 ### Minor Changes

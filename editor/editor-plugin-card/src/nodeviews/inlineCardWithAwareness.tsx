@@ -38,6 +38,7 @@ export const InlineCardWithAwareness = memo(
 		const [isHovered, setIsHovered] = useState(false);
 		const [isInserted, setIsInserted] = useState(false);
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
+		const editorAppearance = pluginInjectionApi?.card.sharedState.currentState()?.editorAppearance;
 
 		const onResolve = useCallback((tr: Transaction, title?: string): void => {
 			if (fg('platform_editor_fix_card_plugin_state')) {
@@ -77,7 +78,11 @@ export const InlineCardWithAwareness = memo(
 
 		const innerCardWithOpenButtonOverlay = useMemo(
 			() => (
-				<OpenButtonOverlay isVisible={isResolvedViewRendered} url={node.attrs.url}>
+				<OpenButtonOverlay
+					isVisible={isResolvedViewRendered}
+					url={node.attrs.url}
+					editorAppearance={editorAppearance}
+				>
 					<InlineCard
 						node={node}
 						view={view}
@@ -95,6 +100,7 @@ export const InlineCardWithAwareness = memo(
 			[
 				isResolvedViewRendered,
 				node,
+				editorAppearance,
 				view,
 				getPos,
 				useAlternativePreloader,
@@ -136,11 +142,17 @@ export const InlineCardWithAwareness = memo(
 			],
 		);
 
-		const innerCard =
-			editorViewModeState?.mode === 'edit' &&
-			editorExperiment('platform_editor_controls', 'variant1')
-				? innerCardWithOpenButtonOverlay
-				: innerCardOriginal;
+		const shouldShowOpenButtonOverlay = useMemo(() => {
+			return (
+				(editorViewModeState?.mode === 'edit' ||
+					(editorAppearance === 'comment' && fg('platform_editor_controls_patch_6'))) &&
+				editorExperiment('platform_editor_controls', 'variant1')
+			);
+		}, [editorViewModeState?.mode, editorAppearance]);
+
+		const innerCard = shouldShowOpenButtonOverlay
+			? innerCardWithOpenButtonOverlay
+			: innerCardOriginal;
 
 		return isOverlayEnabled || isPulseEnabled ? (
 			<AwarenessWrapper

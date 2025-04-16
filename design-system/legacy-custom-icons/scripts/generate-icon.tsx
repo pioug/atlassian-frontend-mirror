@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { resolve } from 'path';
 
 import { prompt } from 'enquirer';

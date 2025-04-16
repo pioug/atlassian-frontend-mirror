@@ -5,7 +5,6 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
@@ -77,7 +76,6 @@ const randRemove = <T extends Array<TItem>, TItem>(arr: T) => {
 
 const retryContainerStyles = css({
 	textAlign: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		marginInlineEnd: token('space.050', '4px'),
 	},

@@ -41,8 +41,6 @@ const styles = cssMap({
  */
 const Code = memo(
 	forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-
 		const {
 			children,
 			codeBidiWarnings = true,

@@ -188,7 +188,6 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
 			</Tag>
 			{siteTitle && (
 				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={
 						{
 							borderRight: theme.mode.productHome.borderRight,

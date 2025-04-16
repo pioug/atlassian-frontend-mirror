@@ -5,7 +5,6 @@
  */
 import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
@@ -20,7 +19,6 @@ type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
 export const Container = forwardRef<HTMLDivElement, ContainerProps>((props, ref) => {
 	const { children, testId, ...rest } = props;
 	return (
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		<div css={containerStyles} {...rest} data-testid={testId} ref={ref}>
 			{children}
 		</div>
@@ -49,7 +47,6 @@ export const SpinnerBackdrop: FC<SpinnerBackdropProps> = ({ children, testId }) 
 
 const spinnerContainerStyles = css({
 	position: 'relative',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	insetBlockStart: 0,
 });
 

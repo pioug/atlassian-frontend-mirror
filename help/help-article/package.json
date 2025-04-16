@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-article",
-	"version": "5.0.3",
+	"version": "6.0.1",
 	"description": "A cross-product help-article component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 		}
 	},
 	"sideEffects": [
-		"*.compiled.css"
+		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
@@ -45,7 +45,7 @@
 		"@atlaskit/renderer": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/styled": "^11.0.0",
+		"@compiled/react": "^0.18.3",
 		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
@@ -68,6 +68,9 @@
 			"design-tokens": [
 				"color",
 				"spacing"
+			],
+			"styling": [
+				"compiled"
 			]
 		}
 	}

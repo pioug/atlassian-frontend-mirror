@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 
 const getNodeValue = (node: Rule.Node): string | null => {

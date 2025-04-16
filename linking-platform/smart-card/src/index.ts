@@ -81,6 +81,13 @@ export {
 	ViewCountElement,
 	VoteCountElement,
 } from './view/FlexibleCard/external';
+export {
+	CopyLinkAction,
+	CustomAction,
+	DownloadAction,
+	FollowAction,
+	PreviewAction,
+} from './view/FlexibleCard/external';
 export type {
 	ActionItem,
 	ElementItem,

@@ -11,18 +11,14 @@ describe('Status Component', () => {
 			() => {
 				renderWithIntl(<Status text="In Progress" color={'blue'} localId={'123'} />);
 
-				// The status will not be a presentation element, and will have additional hidden text
-				// for screen readers
-				expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
-				expect(screen.queryByText('status:')).toBeInTheDocument();
+				// The status text will be emphasized
+				expect(screen.queryByRole('emphasis')).toBeInTheDocument();
 			},
 			() => {
 				renderWithIntl(<Status text="In Progress" color={'blue'} localId={'123'} />);
 
-				// The status will be a presentation element, without additional hidden text
-				expect(screen.queryByRole('group')).not.toBeInTheDocument();
-				expect(screen.queryByRole('presentation')).toBeInTheDocument();
-				expect(screen.queryByText('status')).not.toBeInTheDocument();
+				// The status text will not be emphasized
+				expect(screen.queryByRole('emphasis')).not.toBeInTheDocument();
 			},
 		);
 	});

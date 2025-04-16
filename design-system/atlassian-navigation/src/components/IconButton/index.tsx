@@ -66,7 +66,6 @@ export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
 				theme={theme || getIconButtonTheme(themeFromContext)}
 				// These are all explicit, leaving it in just in case
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			/>
 		);

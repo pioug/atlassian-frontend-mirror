@@ -8,13 +8,10 @@ import {
 import { Transition } from 'react-transition-group';
 import ArrowleftIcon from '@atlaskit/icon/core/migration/arrow-left';
 import Button from '@atlaskit/button/standard-button';
-import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../messages';
-
-import { TRANSITION_DURATION_MS, type TransitionStatus } from '../constants';
-
-import { BackButtonContainer } from './styled';
+import { type TransitionStatus } from '../constants';
+import { BackButtonContainer, TRANSITION_DURATION_MS } from './styled';
 
 interface Props {
 	// Function executed when the user press the "Back" button.
@@ -25,17 +22,6 @@ interface Props {
 	// Defines if the back button is visible
 	isVisible?: boolean;
 }
-
-// Animation
-const defaultStyle = {
-	transition: `left ${TRANSITION_DURATION_MS}ms, opacity ${TRANSITION_DURATION_MS}ms`,
-	left: token('space.300', '24px'),
-	opacity: 0,
-};
-const transitionStyles: { [id: string]: React.CSSProperties } = {
-	entered: { left: token('space.100', '8px'), opacity: 1 },
-	exited: { left: token('space.100', '8px'), opacity: 0 },
-};
 
 export const BackButton: React.FC<Props & WrappedComponentProps> = ({
 	onClick,
@@ -56,14 +42,7 @@ export const BackButton: React.FC<Props & WrappedComponentProps> = ({
 	return (
 		<Transition in={isVisible} timeout={TRANSITION_DURATION_MS} mountOnEnter unmountOnExit>
 			{(state: TransitionStatus) => (
-				<BackButtonContainer
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...defaultStyle,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...transitionStyles[state],
-					}}
-				>
+				<BackButtonContainer transitionState={state}>
 					<Button
 						onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
 							if (state === 'entered') {

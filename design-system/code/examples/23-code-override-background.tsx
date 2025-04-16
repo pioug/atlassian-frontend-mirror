@@ -10,7 +10,6 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const backgroundColorOverride = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'--ds--code--bg-color': token('color.background.warning.bold'),
 	'--ds--code--line-number-bg-color': token('color.background.danger.bold'),
 });

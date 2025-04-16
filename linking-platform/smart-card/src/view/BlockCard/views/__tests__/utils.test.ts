@@ -8,6 +8,8 @@ import { getSimulatedBetterMetadata } from '../utils';
 import {
 	mockBaseResponse,
 	mockBBFileResponse,
+	mockCompassResponse,
+	mockCompassResponseWithOwnedBy,
 	mockConfluenceResponse,
 	mockConfluenceResponseWithOwnedBy,
 	mockJiraResponse,
@@ -130,6 +132,47 @@ describe('getSimulatedBetterMetadata', () => {
 				...baseTopMetadata,
 			]);
 		});
+	});
+
+	describe('for Compass objects', () => {
+		it('should return metadata elements for top primary with Author Group & bottom primary when no ownedBy is present', () => {
+			const metadata = getSimulatedBetterMetadata(mockCompassResponse as JsonLd.Response);
+			expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
+			expect(metadata.topMetadata).toEqual(defaultTopMetadata);
+			expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
+		});
+
+		ffTest.off(
+			'expandable_smart_links_for_scorecards_v2',
+			'with compass scorecard-v2 disabled',
+			() => {
+				it('should return default metadata', () => {
+					const metadata = getSimulatedBetterMetadata(
+						mockCompassResponseWithOwnedBy as JsonLd.Response,
+					);
+					expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
+					expect(metadata.topMetadata).toEqual(defaultTopMetadata);
+					expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
+				});
+			},
+		);
+
+		ffTest.on(
+			'expandable_smart_links_for_scorecards_v2',
+			'with compass scorecard-v2 enabled',
+			() => {
+				it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {
+					const metadata = getSimulatedBetterMetadata(
+						mockCompassResponseWithOwnedBy as JsonLd.Response,
+					);
+					expect(metadata.topMetadata).toEqual([
+						{ name: ElementName.OwnedByGroup },
+						{ name: ElementName.OwnedBy },
+						...baseTopMetadata,
+					]);
+				});
+			},
+		);
 	});
 
 	describe('for Bitbucket objects', () => {

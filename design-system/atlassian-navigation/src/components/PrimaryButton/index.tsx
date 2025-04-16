@@ -75,7 +75,6 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 
 		const button = (
 			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={
 					{
 						[VAR_BUTTON_SELECTED_COLOR]: themeFromContext.mode.primaryButton.selected.color,
@@ -98,7 +97,6 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
 					theme={theme || getPrimaryButtonTheme(themeFromContext)}
 					// These are all explicit, leaving it in just in case
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 					{...rest}
 				>
 					{children}

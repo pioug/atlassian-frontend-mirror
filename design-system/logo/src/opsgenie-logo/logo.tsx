@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 
 import { useThemeObserver } from '@atlaskit/tokens';
@@ -23,7 +22,6 @@ const svg = ({ appearance, iconColor, textColor }: LogoProps, colorMode: string 
     </svg>`;
 };
 
-// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /**
  * __Opsgenie logo__
  *

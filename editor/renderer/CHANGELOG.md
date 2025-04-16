@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 114.9.1
+
+### Patch Changes
+
+- [#141018](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141018)
+  [`1d2bde2b40c75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d2bde2b40c75) -
+  [ux] [A11Y-20936] Removed "Status: " text from statuses to prevent unintended text while copying.
+  Made status nodes have an "Emphasis" role so that accessibility tools will emphasize the text
+- Updated dependencies
+
 ## 114.9.0
 
 ### Minor Changes

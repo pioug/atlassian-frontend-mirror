@@ -1,6 +1,4 @@
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { AST_NODE_TYPES } from '@typescript-eslint/typescript-estree/dist/ts-estree';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
 import esquery from 'esquery';

@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {inga resultat hittades} one {{count,number} resultat hittades} other {{count,number} resultat hittades}}',
   'fabric.linkPicker.linkAriaLabel': 'Skriv eller klistra in en länk i fältet',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Visningstext för länk',
+  'fabric.linkPicker.linkHelperTextLabel': 'Ge länken en titel eller beskrivning',
   'fabric.linkPicker.linkInvalid': 'Ange en giltig webbadress.',
   'fabric.linkPicker.linkLabel': 'Länk',
   'fabric.linkPicker.linkPlaceholder': 'Klistra in en länk',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Uppdatera sidan eller kontakta <a>Atlassians support</a> om problemet kvarstår.',
   'fabric.linkPicker.search.error.heading': 'Vi kan inte läsa in data.',
+  'fabric.linkPicker.search.error.retry': 'Uppdatera',
   'fabric.linkPicker.search.linkAriaLabel': 'Förslag visas nedan när du skriver i fältet',
   'fabric.linkPicker.search.linkLabel': 'Sök eller klistra in en länk',
   'fabric.linkPicker.search.linkPlaceholder': 'Hitta senaste länkar eller klistra in en ny länk',

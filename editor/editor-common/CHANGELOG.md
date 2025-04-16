@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 103.8.0
+
+### Minor Changes
+
+- [#141267](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141267)
+  [`105e8bc4d7bd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/105e8bc4d7bd5) -
+  ED-27501 apply user preference across tabs without a refresh
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 103.7.0
 
 ### Minor Changes

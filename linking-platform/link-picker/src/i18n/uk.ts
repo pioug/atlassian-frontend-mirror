@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {нічого не знайдено} one {{count,number} результат} few {{count,number} результати} many {{count,number} результатів} other {{count,number} результату}}',
   'fabric.linkPicker.linkAriaLabel': 'Введіть або вставте посилання в поле',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Допоміжний відображуваний текст посилання',
+  'fabric.linkPicker.linkHelperTextLabel': 'Додайте назву або опис цього посилання',
   'fabric.linkPicker.linkInvalid': 'Укажіть дійсну URL-адресу.',
   'fabric.linkPicker.linkLabel': 'Посилання',
   'fabric.linkPicker.linkPlaceholder': 'Вставте посилання',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Якщо помилка виникатиме знову, оновіть сторінку або зверніться до <a>служби підтримки Atlassian</a>.',
   'fabric.linkPicker.search.error.heading': 'Не вдається завантажити дані.',
+  'fabric.linkPicker.search.error.retry': 'Оновити',
   'fabric.linkPicker.search.linkAriaLabel': 'Коли ви набиратимете в полі текст, нижче з’явиться список варіантів',
   'fabric.linkPicker.search.linkLabel': 'Пошук або вставка посилання',
   'fabric.linkPicker.search.linkPlaceholder': 'Знайдіть останні посилання або вставте нове',

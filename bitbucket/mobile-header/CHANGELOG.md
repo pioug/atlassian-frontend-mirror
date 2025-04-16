@@ -1,5 +1,14 @@
 # @atlaskit/mobile-header
 
+## 7.0.10
+
+### Patch Changes
+
+- [#142103](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142103)
+  [`73c6494e97b4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73c6494e97b4e) -
+  [ux] Fixes the transparency and alignment issues. Adds an example with content
+- Updated dependencies
+
 ## 7.0.9
 
 ### Patch Changes

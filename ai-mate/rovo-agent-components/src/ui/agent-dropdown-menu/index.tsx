@@ -11,7 +11,6 @@ import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -239,7 +238,7 @@ export const AgentDropdownMenu = ({
 				)}
 				{!isForgeAgent && (
 					<DropdownItem onClick={onDuplicateAgent}>
-						{isAutodevTemplateAgent && fg('rovo_chat_add_template_tab_to_modal')
+						{isAutodevTemplateAgent
 							? formatMessage(messages.useTemplateButton)
 							: formatMessage(messages.duplicateAgent)}
 					</DropdownItem>

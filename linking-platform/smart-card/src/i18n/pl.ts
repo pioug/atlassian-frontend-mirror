@@ -144,14 +144,23 @@ export default {
   'fabric.linking.related': 'Powiązane',
   'fabric.linking.related_links_found_in': 'Znaleziono w',
   'fabric.linking.related_links_includes_links_to': 'Obejmuje łącza do',
+  'fabric.linking.related_links_includes_links_to_v2': 'Obejmuje łącza do',
+  'fabric.linking.related_links_modal_error_description':
+    'Sprawdź połączenie internetowe lub odśwież stronę, aby spróbować ponownie.',
   'fabric.linking.related_links_modal_error_header': 'Coś poszło nie tak',
   'fabric.linking.related_links_modal_error_message':
     'Podczas ładowania ostatnio używanych łączy wystąpił problem. Sprawdź połączenie lub odśwież stronę, aby spróbować ponownie.',
+  'fabric.linking.related_links_modal_error_title': 'Wystąpił problem podczas ładowania powiązanych łączy',
   'fabric.linking.related_links_modal_title': 'Ostatnio używane łącza',
+  'fabric.linking.related_links_modal_title_v2': 'Powiązane łącza',
+  'fabric.linking.related_links_modal_unavailable_description':
+    'Stale sprawdzamy i dodajemy powiązane łącza do zaktualizowanych stron lub innych typów treści.',
   'fabric.linking.related_links_modal_unavailable_header': 'Brak ostatnio używanych łączy',
   'fabric.linking.related_links_modal_unavailable_message':
     'Nie znaleziono żadnych łączy do wyświetlenia tutaj. Stale sprawdzamy i dodajemy najnowsze łącza do zaktualizowanych stron lub innych typów treści.',
+  'fabric.linking.related_links_modal_unavailable_title': 'Nie znaleziono żadnych powiązanych łączy',
   'fabric.linking.related_links_not_found': 'Nie znaleziono żadnych łączy do wyświetlenia tutaj.',
+  'fabric.linking.related_links_view_related_links': 'Wyświetl powiązane łącza',
   'fabric.linking.related_links_view_related_urls': 'Wyświetl ostatnio używane łącza',
   'fabric.linking.request_access': 'Poproś o dostęp',
   'fabric.linking.request_access_description':

@@ -40,7 +40,6 @@ const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({ children }) =>
 				paddingTop: token('space.300', '24px'),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				width: 64,
-				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 				border: `3px dashed ${token('color.background.accent.teal.subtle')}`,
 			}}
 		>

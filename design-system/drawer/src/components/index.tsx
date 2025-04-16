@@ -50,7 +50,6 @@ const Drawer = ({
 	scrollContentLabel,
 	onCloseComplete,
 	onOpenComplete,
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	overrides,
 	zIndex = 'unset',
 	label,

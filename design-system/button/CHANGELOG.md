@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 23.0.5
+
+### Patch Changes
+
+- [#141813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141813)
+  [`4bf38a93b38f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bf38a93b38f3) -
+  Fix styling not being applied for LinkIconButtons with shape 'circle'.
+- Updated dependencies
+
 ## 23.0.4
 
 ### Patch Changes

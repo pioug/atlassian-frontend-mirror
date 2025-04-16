@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.10.0
+
+### Minor Changes
+
+- [#141495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141495)
+  [`b336d6ee33b41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b336d6ee33b41) -
+  [EDFITOR-306] Cleaned up old inline suggestion experiment, prepping for experiment v2
+
+## 4.9.0
+
+### Minor Changes
+
+- [#141582](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141582)
+  [`60370566f23be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60370566f23be) -
+  [ux] EDITOR-604 Introduce alternative confidence score for nudges. Allow to configure various
+  cutoff values.
+
 ## 4.8.0
 
 ### Minor Changes

@@ -65,17 +65,14 @@ const styles = cssMap({
 	},
 	disabled: {
 		cursor: 'not-allowed',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		backgroundColor: token('color.background.disabled'),
 		color: token('color.text.disabled'),
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			// @ts-expect-error
 			backgroundColor: token('color.background.disabled'),
 			color: token('color.text.disabled'),
 		},
 		'&:active': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			// @ts-expect-error
 			backgroundColor: token('color.background.disabled'),
 			// @ts-expect-error
@@ -100,32 +97,28 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.0'),
 		paddingInlineStart: token('space.0'),
 	},
+	circle: {
+		borderRadius: token('border.radius.circle'),
+	},
 });
 
 const defaultStyles = cssMap({
 	root: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		backgroundColor: token('color.background.neutral', 'rgba(9, 30, 66, 0.04)'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
 		color: token('color.text', '#42526E'),
 		'&:visited': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered', '#091e4214'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 		'&:active': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.neutral.pressed'),
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 		'&:focus': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 	},
@@ -236,27 +229,21 @@ const subtleStyles = cssMap({
 
 const selectedStyles = cssMap({
 	root: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		backgroundColor: token('color.background.selected', '#253858'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		color: token('color.text.selected', '#F4F5F7'),
 		'&:visited': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 		'&:hover': {
 			backgroundColor: token('color.background.selected.hovered'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected'),
 		},
 		'&:active': {
 			backgroundColor: token('color.background.selected.pressed'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			// @ts-expect-error
 			color: token('color.text.selected'),
 		},
 		'&:focus': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 	},
@@ -284,17 +271,14 @@ const selectedStyles = cssMap({
 	// TODO: Remove me once we kill color fallbacks
 	discovery: {
 		backgroundColor: token('color.background.selected', '#403294'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.selected', '#F4F5F7'),
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
 			backgroundColor: token('color.background.selected', '#403294'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
 			backgroundColor: token('color.background.selected', '#403294'),
@@ -361,7 +345,6 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 			>
 				{(triggerProps) => (
 					<Anchor
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 						{...saferRest}
 						aria-labelledby={ariaLabelledBy}
 						testId={testId}
@@ -422,6 +405,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 							isDisabled && styles.disabled,
 							spacing === 'compact' && styles.spacingCompact,
 							styles.iconButton,
+							shape === 'circle' && styles.circle,
 						)}
 						onMouseDownCapture={onMouseDownCapture}
 						onMouseUpCapture={onMouseUpCapture}
@@ -480,6 +464,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 				isDisabled && styles.disabled,
 				styles.iconButton,
 				spacing === 'compact' && styles.spacingCompact,
+				shape === 'circle' && styles.circle,
 			)}
 			onClick={onClick}
 			onMouseDownCapture={onMouseDownCapture}

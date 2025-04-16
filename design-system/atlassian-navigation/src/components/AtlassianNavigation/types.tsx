@@ -69,7 +69,7 @@ export interface AtlassianNavigationProps {
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	theme?: NavigationTheme;
 
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-disable jsdoc/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -84,7 +84,7 @@ export interface AtlassianNavigationProps {
     - Overflow menu button - `{testId}-overflow-menu-trigger`
    */
 	testId?: string;
-	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-enable jsdoc/require-asterisk-prefix */
 
 	/**
 	 * Whether nav is rendered on the server.
@@ -125,7 +125,7 @@ export interface NavigationSkeletonProps {
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	theme?: NavigationTheme;
 
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-disable jsdoc/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -140,5 +140,4 @@ export interface NavigationSkeletonProps {
     - Overflow menu button - `{testId}-overflow-menu-trigger`
    */
 	testId?: string;
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 }

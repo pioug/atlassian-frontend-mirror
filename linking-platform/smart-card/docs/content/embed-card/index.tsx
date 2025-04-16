@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives';
+import { Card } from '@atlaskit/smart-card';
 
 import CardViewExample from '../../../examples/card-view';
 import EmbedCardExample from '../../../examples/content/embed-card';
@@ -28,5 +29,5 @@ ${embedExplained}
 
 ${state_description}
 
-${(<CardViewExample appearance="embed" frameStyle="show" url={ResolvedClientEmbedUrl} />)}
+${(<CardViewExample appearance="embed" frameStyle="show" url={ResolvedClientEmbedUrl} CardComponent={Card} />)}
 `;

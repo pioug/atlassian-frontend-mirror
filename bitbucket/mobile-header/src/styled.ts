@@ -3,7 +3,6 @@ import { css, keyframes } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import { N100A, N20 } from '@atlaskit/theme/colors';
 import { layers as akLayers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -65,11 +64,11 @@ export const MobilePageHeaderContent = styled.div<{
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 }>((props) => ({
 	alignItems: 'center',
-	backgroundColor: token('color.background.neutral', N20),
+	backgroundColor: token('color.background.accent.gray.subtlest'),
 	boxSizing: 'border-box',
 	display: 'flex',
 	height: `${mobileHeaderHeight}px`,
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 	position: 'fixed',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	top: `${props.topOffset}px`,
@@ -102,7 +101,7 @@ const opacityOut = keyframes({
 export const FakeBlanket = styled.div<{
 	isOpen: boolean;
 }>`
-	background: ${token('color.blanket', N100A)};
+	background: ${token('color.blanket')};
 	bottom: 0;
 	left: 0;
 	position: fixed;
@@ -116,6 +115,8 @@ export const FakeBlanket = styled.div<{
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const PageHeading = styled.h1({
 	flexGrow: 1,
-	marginLeft: token('space.100', '8px'),
+	margin: 0,
+	marginLeft: token('space.100'),
 	font: token('font.heading.small'),
+	alignSelf: 'center',
 });

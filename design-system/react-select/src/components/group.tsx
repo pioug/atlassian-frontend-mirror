@@ -1,14 +1,21 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ComponentType, type ReactNode } from 'react';
+/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
+import React, { type ComponentType, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { jsx } from '@emotion/react';
+import { type XCSSProp } from '@compiled/react';
 
-import { token } from '@atlaskit/tokens';
+import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import Compiled, {
+	groupCSS as compiledGroupCSS,
+	GroupHeading as CompiledGroupHeading,
+	groupHeadingCSS as compiledGroupHeadingCSS,
+} from '../compiled/components/group';
+import Emotion, {
+	groupCSS as emotionGroupCSS,
+	GroupHeading as EmotionGroupHeading,
+	groupHeadingCSS as emotionGroupHeadingCSS,
+} from '../emotion/components/group';
 import { type SelectProps } from '../select';
 import {
 	type CommonProps,
@@ -19,7 +26,6 @@ import {
 	type GroupBase,
 	type Options,
 } from '../types';
-import { cleanCommonProps, getStyleProps } from '../utils';
 
 interface ForwardedHeadingProps<Option, Group extends GroupBase<Option>> {
 	id: string;
@@ -60,44 +66,13 @@ export interface GroupProps<
 	options: Options<Option>;
 }
 
-export const groupCSS = <
-	Option,
-	IsMulti extends boolean,
-	Group extends GroupBase<Option>,
->({}: GroupProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	paddingBottom: token('space.100'),
-	paddingTop: token('space.100'),
-});
+export const groupCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: GroupProps<Option, IsMulti, Group>,
+) => (fg('compiled-react-select') ? compiledGroupCSS() : emotionGroupCSS(props));
 
 const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupProps<Option, IsMulti, Group>,
-) => {
-	const {
-		children,
-		cx,
-		getStyles,
-		getClassNames,
-		Heading,
-		headingProps,
-		innerProps,
-		label,
-		selectProps,
-	} = props;
-	return (
-		<div {...getStyleProps(props, 'group', { group: true })} {...innerProps}>
-			<Heading
-				{...headingProps}
-				selectProps={selectProps}
-				getStyles={getStyles}
-				getClassNames={getClassNames}
-				cx={cx}
-			>
-				{label}
-			</Heading>
-			<div>{children}</div>
-		</div>
-	);
-};
+) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
 
 interface GroupHeadingPropsDefinedProps<
 	Option,
@@ -109,6 +84,7 @@ interface GroupHeadingPropsDefinedProps<
 	getStyles: GetStyles<Option, IsMulti, Group>;
 	getClassNames: CommonProps<Option, IsMulti, Group>['getClassNames'];
 	cx: CX;
+	xcss?: XCSSProp<XCSSAllProperties, XCSSAllPseudos> | undefined;
 }
 
 export type GroupHeadingProps<
@@ -117,32 +93,20 @@ export type GroupHeadingProps<
 	Group extends GroupBase<Option> = GroupBase<Option>,
 > = GroupHeadingPropsDefinedProps<Option, IsMulti, Group> & JSX.IntrinsicElements['div'];
 
-export const groupHeadingCSS = <
-	Option,
-	IsMulti extends boolean,
-	Group extends GroupBase<Option>,
->({}: GroupHeadingProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'group',
-	cursor: 'default',
-	display: 'block',
-	marginBottom: '0.25em',
-	paddingLeft: token('space.150'),
-	paddingRight: token('space.150'),
-	font: token('font.body.small'),
-	color: token('color.text.subtle'),
-	fontWeight: token('font.weight.bold'),
-	textTransform: 'none',
-});
+export const groupHeadingCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: GroupHeadingProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledGroupHeadingCSS() : emotionGroupHeadingCSS(props);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const GroupHeading = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupHeadingProps<Option, IsMulti, Group>,
-) => {
-	const { data, ...innerProps } = cleanCommonProps(props);
-	return (
-		<div {...getStyleProps(props, 'groupHeading', { 'group-heading': true })} {...innerProps} />
+) =>
+	fg('compiled-react-select') ? (
+		<CompiledGroupHeading {...props} />
+	) : (
+		<EmotionGroupHeading {...props} />
 	);
-};
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Group;

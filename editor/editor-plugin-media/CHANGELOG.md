@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 2.6.0
+
+### Minor Changes
+
+- [#123268](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123268)
+  [`f47a830143188`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f47a830143188) -
+  Allow for passing in a resolved media provider to enable SSR'ing media in the editor
+
+### Patch Changes
+
+- [#140448](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140448)
+  [`1bbf6b1e2ade5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bbf6b1e2ade5) -
+  [HOT-116646] Fix inline media check
+- Updated dependencies
+
 ## 2.5.0
 
 ### Minor Changes

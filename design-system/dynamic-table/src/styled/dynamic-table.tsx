@@ -5,7 +5,6 @@
  */
 import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
 import { B100, B50, B75, N10, N40 } from '@atlaskit/theme/colors';

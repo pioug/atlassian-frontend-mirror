@@ -11,6 +11,9 @@ import LinkIconButton, { type LinkIconButtonProps } from '../new-button/variants
 import { buttonAppearances, iconButtonAppearances, linkButtonAppearances } from './appearances';
 import { buttonSpacing, iconButtonSpacing } from './spacing';
 
+type IconButtonShape = 'default' | 'circle';
+export const iconButtonShapes: IconButtonShape[] = ['default', 'circle'];
+
 type DefaultButtonVariant = {
 	name: 'Button';
 	Component: typeof Button;
@@ -31,6 +34,7 @@ type IconButtonVariant = {
 	elementType: typeof HTMLButtonElement;
 	appearances: typeof iconButtonAppearances;
 	spacing: typeof iconButtonSpacing;
+	shape: typeof iconButtonShapes;
 };
 type LinkIconButtonVariant = {
 	name: 'LinkIconButton';
@@ -38,6 +42,7 @@ type LinkIconButtonVariant = {
 	elementType: typeof HTMLAnchorElement;
 	appearances: typeof iconButtonAppearances;
 	spacing: typeof iconButtonSpacing;
+	shape: typeof iconButtonShapes;
 };
 
 type DefaultButtonVariants = DefaultButtonVariant | LinkButtonVariant;
@@ -119,6 +124,7 @@ const variants: Variant[] = [
 		elementType: HTMLButtonElement,
 		appearances: iconButtonAppearances,
 		spacing: iconButtonSpacing,
+		shape: iconButtonShapes,
 	},
 	{
 		name: 'LinkIconButton',
@@ -126,6 +132,7 @@ const variants: Variant[] = [
 		elementType: HTMLAnchorElement,
 		appearances: iconButtonAppearances,
 		spacing: iconButtonSpacing,
+		shape: iconButtonShapes,
 	},
 ];
 

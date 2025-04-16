@@ -38,7 +38,9 @@ export const getMediaNodeInsertionType = (
 
 	if (fg('platform_editor_remove_media_inline_feature_flag')) {
 		if (mediaOptions?.allowMediaInlineImages) {
-			return 'inline';
+			if (canInsertInlineNode && !isVideo(fileMimeType)) {
+				return 'inline';
+			}
 		}
 	} else {
 		if (

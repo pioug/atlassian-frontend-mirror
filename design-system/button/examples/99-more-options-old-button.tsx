@@ -324,7 +324,6 @@ const appearances: Appearance[] = [
 	'warning',
 ];
 
-/* eslint-disable react/no-multi-comp */
 export default function Example() {
 	const [appearance, setAppearance] = useState<Appearance>('default');
 

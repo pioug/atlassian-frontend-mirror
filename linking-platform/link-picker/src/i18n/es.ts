@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {no hay resultados} one {{count,number} resultado encontrado} other {{count,number} resultado encontrado}}',
   'fabric.linkPicker.linkAriaLabel': 'Escribe o pega un enlace en el campo',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Enlace de texto auxiliar que se muestra',
+  'fabric.linkPicker.linkHelperTextLabel': 'Ponle un título o una descripción a este enlace',
   'fabric.linkPicker.linkInvalid': 'Introduce una URL válida.',
   'fabric.linkPicker.linkLabel': 'Enlace',
   'fabric.linkPicker.linkPlaceholder': 'Pegar un enlace',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Actualiza la página o ponte en contacto con el <a>soporte de Atlassian</a> si sigue ocurriendo.',
   'fabric.linkPicker.search.error.heading': 'Tenemos problemas para cargar los datos.',
+  'fabric.linkPicker.search.error.retry': 'Actualizar',
   'fabric.linkPicker.search.linkAriaLabel': 'Las sugerencias aparecerán abajo a medida que escribas en el campo',
   'fabric.linkPicker.search.linkLabel': 'Busca o pega un enlace',
   'fabric.linkPicker.search.linkPlaceholder': 'Busca enlaces recientes o pega un nuevo enlace',

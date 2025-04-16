@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.2.0",
+	"version": "3.2.1",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -60,6 +60,9 @@
 		"platform_support_live_doc_icons_in_link_picker": {
 			"type": "boolean"
 		},
+		"platform-link-picker-remove-legacy-button": {
+			"type": "boolean"
+		},
 		"jsc_inline_editing_field_refactor": {
 			"type": "boolean"
 		}
@@ -77,6 +80,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/intl-messages-provider": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/onboarding": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",

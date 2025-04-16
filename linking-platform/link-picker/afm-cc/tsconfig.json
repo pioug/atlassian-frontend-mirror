@@ -45,6 +45,9 @@
             "path": "../../../helpers/intl-messages-provider/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/link/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../linking-common/afm-cc/tsconfig.json"
         },
         {

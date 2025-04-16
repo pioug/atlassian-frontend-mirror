@@ -11,7 +11,6 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import Portal from '@atlaskit/portal';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';

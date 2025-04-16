@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Image from '@atlaskit/image';
 
 import ExampleImage from '../../examples/images/Celebration.png';

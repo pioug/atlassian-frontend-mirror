@@ -2,7 +2,11 @@
 // Entry file in package.json
 
 import type { MediaADFAttrs, MediaInlineAttributes } from '@atlaskit/adf-schema';
-import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
+import type {
+	MediaProvider,
+	ProviderFactory,
+	Providers,
+} from '@atlaskit/editor-common/provider-factory';
 import type { HandlePositioning } from '@atlaskit/editor-common/resizer';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { EditorAppearance, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
@@ -33,6 +37,7 @@ export type MediaCopyScope = 'editor' | 'context';
 
 export interface MediaPluginOptions {
 	provider?: Providers['mediaProvider'];
+	syncProvider?: MediaProvider;
 	/**
 	 * @experimental
 	 * Still under development. Use with caution.

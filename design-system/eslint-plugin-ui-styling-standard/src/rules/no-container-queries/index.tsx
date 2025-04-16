@@ -1,5 +1,3 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
-
 import estraverse from 'estraverse';
 import type { JSONSchema4 } from 'json-schema';
 

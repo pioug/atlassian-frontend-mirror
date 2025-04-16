@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { B200, B400, N0, N100, N400, N600, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

@@ -20,6 +20,14 @@ export const toggleToolbar =
 		return tr;
 	};
 
+export const updateToolbarDocking =
+	({ toolbarDocking }: { toolbarDocking: ToolbarDocking }): EditorCommand =>
+	({ tr }) => {
+		tr.setMeta(selectionToolbarPluginKey, { toolbarDocking });
+
+		return tr;
+	};
+
 export const setToolbarDocking =
 	({
 		toolbarDocking,

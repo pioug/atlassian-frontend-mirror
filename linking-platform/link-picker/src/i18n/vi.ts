@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {không tìm thấy kết quả} other {Đã tìm thấy {count,number} kết quả}}',
   'fabric.linkPicker.linkAriaLabel': 'Nhập hoặc dán liên kết vào trường',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Văn bản hỗ trợ hiển thị liên kết',
+  'fabric.linkPicker.linkHelperTextLabel': 'Cung cấp tiêu đề hoặc mô tả cho liên kết này',
   'fabric.linkPicker.linkInvalid': 'Nhập URL hợp lệ.',
   'fabric.linkPicker.linkLabel': 'Liên kết',
   'fabric.linkPicker.linkPlaceholder': 'Dán liên kết',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Làm mới trang hoặc liên hệ với <a>Bộ phận hỗ trợ Atlassian</a> nếu sự cố vẫn tiếp diễn.',
   'fabric.linkPicker.search.error.heading': 'Chúng tôi gặp vấn đề khi tải dữ liệu.',
+  'fabric.linkPicker.search.error.retry': 'Làm mới',
   'fabric.linkPicker.search.linkAriaLabel': 'Các đề xuất sẽ xuất hiện bên dưới khi bạn nhập thông tin vào trường',
   'fabric.linkPicker.search.linkLabel': 'Tìm kiếm hoặc dán liên kết',
   'fabric.linkPicker.search.linkPlaceholder': 'Tìm các liên kết gần đây hoặc dán một liên kết mới',

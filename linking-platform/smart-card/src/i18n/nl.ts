@@ -145,15 +145,25 @@ export default {
   'fabric.linking.read_time': '{context} min. leestijd',
   'fabric.linking.related': 'Gerelateerd',
   'fabric.linking.related_links_found_in': 'Gevonden in',
+  'fabric.linking.related_links_found_in_v2': 'Gevonden in',
   'fabric.linking.related_links_includes_links_to': 'Inclusief links naar',
+  'fabric.linking.related_links_includes_links_to_v2': 'Inclusief links naar',
+  'fabric.linking.related_links_modal_error_description':
+    'Controleer je verbinding of vernieuw de pagina om het opnieuw te proberen',
   'fabric.linking.related_links_modal_error_header': 'Er is iets misgegaan',
   'fabric.linking.related_links_modal_error_message':
     'Er is iets misgegaan bij het laden van recente links. Controleer je verbinding of vernieuw om het opnieuw te proberen.',
+  'fabric.linking.related_links_modal_error_title': 'Er zijn wat problemen met het laden van gerelateerde links',
   'fabric.linking.related_links_modal_title': 'Recente links',
+  'fabric.linking.related_links_modal_title_v2': 'Gerelateerde links',
+  'fabric.linking.related_links_modal_unavailable_description':
+    "We beoordelen links voortdurend en voegen regelmatig gerelateerde links toe voor bijgewerkte pagina's of andere inhoudstypen",
   'fabric.linking.related_links_modal_unavailable_header': 'Geen recente links',
   'fabric.linking.related_links_modal_unavailable_message':
     "We konden geen links vinden om hier weer te geven. We beoordelen links voortdurend en voegen regelmatig recente links toe voor bijgewerkte pagina's of andere inhoudstypes.",
+  'fabric.linking.related_links_modal_unavailable_title': 'Er zijn geen gerelateerde links gevonden',
   'fabric.linking.related_links_not_found': 'We konden geen links vinden om hier weer te geven.',
+  'fabric.linking.related_links_view_related_links': 'Gerelateerde links weergeven',
   'fabric.linking.related_links_view_related_urls': 'Recente links bekijken',
   'fabric.linking.request_access': 'Toegang aanvragen',
   'fabric.linking.request_access_description':

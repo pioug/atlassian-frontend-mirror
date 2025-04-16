@@ -29,7 +29,6 @@ const FocusReturnToTableRowExample = () => {
 
 	return (
 		<>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<h4 style={paddingStyle}>
 				Test that focus returns to the row after closing the drawer. Press ENTER while focused on a
 				row to open the drawer. Since :focus-visible is used, the focus ring should only appear when

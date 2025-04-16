@@ -145,15 +145,25 @@ export default {
   'fabric.linking.read_time': 'Kan læses på {context} min.',
   'fabric.linking.related': 'Relateret',
   'fabric.linking.related_links_found_in': 'Fundet i',
+  'fabric.linking.related_links_found_in_v2': 'Fundet i',
   'fabric.linking.related_links_includes_links_to': 'Omfatter links til',
+  'fabric.linking.related_links_includes_links_to_v2': 'Omfatter links til',
+  'fabric.linking.related_links_modal_error_description':
+    'Kontrollér din forbindelse, eller opdater siden for at prøve igen',
   'fabric.linking.related_links_modal_error_header': 'Noget gik galt',
   'fabric.linking.related_links_modal_error_message':
     'Vi løb ind i et problem, da vi forsøgte at indlæse nylige links. Kontrollér din forbindelse, eller genindlæs siden for at prøve igen.',
+  'fabric.linking.related_links_modal_error_title': 'Vi har problemer med at indlæse relaterede links',
   'fabric.linking.related_links_modal_title': 'Seneste links',
+  'fabric.linking.related_links_modal_title_v2': 'Relaterede links',
+  'fabric.linking.related_links_modal_unavailable_description':
+    'Vi gennemgår løbende og tilføjer relaterede links til opdaterede sider eller andre indholdstyper',
   'fabric.linking.related_links_modal_unavailable_header': 'Ingen nylige links',
   'fabric.linking.related_links_modal_unavailable_message':
     'Vi fandt ikke nogen links at vise her. Vi gennemgår løbende og tilføjer nylige links til opdaterede sider eller andre indholdstyper.',
+  'fabric.linking.related_links_modal_unavailable_title': 'Vi kunne ikke finde nogen relaterede links',
   'fabric.linking.related_links_not_found': 'Vi fandt ikke nogen links.',
+  'fabric.linking.related_links_view_related_links': 'Se relaterede links',
   'fabric.linking.related_links_view_related_urls': 'Vis nylige links',
   'fabric.linking.request_access': 'Anmod om adgang',
   'fabric.linking.request_access_description':

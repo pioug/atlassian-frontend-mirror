@@ -144,15 +144,25 @@ export default {
   'fabric.linking.read_time': '{context} dk. okuma süresi',
   'fabric.linking.related': 'İlgili',
   'fabric.linking.related_links_found_in': 'Bulunduğu Yer',
+  'fabric.linking.related_links_found_in_v2': 'Bulunduğu yer',
   'fabric.linking.related_links_includes_links_to': 'Şunlara Bağlantı İçerir',
+  'fabric.linking.related_links_includes_links_to_v2': 'Şunlara bağlantı içerir',
+  'fabric.linking.related_links_modal_error_description':
+    'Bağlantınızı kontrol edin veya tekrar denemek için sayfayı yenileyin',
   'fabric.linking.related_links_modal_error_header': 'Bir hata oluştu',
   'fabric.linking.related_links_modal_error_message':
     'En son bağlantılar yüklenmeye çalışılırken bir sorunla karşılaştık. Bağlantınızı kontrol edin veya yeniden denemek için yenileyin.',
+  'fabric.linking.related_links_modal_error_title': 'İlgili bağlantıları yüklerken sorun yaşandı',
   'fabric.linking.related_links_modal_title': 'En son bağlantılar',
+  'fabric.linking.related_links_modal_title_v2': 'İlgili bağlantılar',
+  'fabric.linking.related_links_modal_unavailable_description':
+    'Güncellenen sayfalar veya diğer içerik türleri için ilgili bağlantıları sürekli olarak ekliyor ve bunları inceliyoruz',
   'fabric.linking.related_links_modal_unavailable_header': 'En son bağlantı yok',
   'fabric.linking.related_links_modal_unavailable_message':
     'Burada gösterecek herhangi bir bağlantı bulunamadı. Güncellenen sayfalar veya diğer içerik türleri için en son bağlantıları sürekli olarak ekliyor ve bunları inceliyoruz.',
+  'fabric.linking.related_links_modal_unavailable_title': 'İlgili herhangi bir bağlantı bulunamadı',
   'fabric.linking.related_links_not_found': 'Burada gösterecek herhangi bir bağlantı bulunamadı.',
+  'fabric.linking.related_links_view_related_links': 'İlgili bağlantıları görüntüleyin',
   'fabric.linking.related_links_view_related_urls': 'En son bağlantıları görüntüle',
   'fabric.linking.request_access': 'Erişim talep edin',
   'fabric.linking.request_access_description':

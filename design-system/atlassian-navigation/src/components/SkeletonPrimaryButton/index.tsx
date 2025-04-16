@@ -55,7 +55,6 @@ const isHighlightedStyles = css({
 const isHighlightedAndDropdownButtonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 		insetInlineEnd: -10,
 	},
 });
@@ -126,7 +125,6 @@ export const SkeletonPrimaryButton = ({
 
 	return (
 		<div role="listitem" css={buttonWrapperStyles}>
-			{/*eslint-disable-next-line @atlaskit/design-system/no-html-button*/}
 			<button
 				type="button"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

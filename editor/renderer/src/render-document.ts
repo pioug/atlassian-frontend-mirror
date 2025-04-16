@@ -141,16 +141,61 @@ const _validation = (
 };
 
 const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
-	const [newDoc, newSchema, newADFStage, newUseSpecValidator, skipValidation] = newArgs;
-	const [oldDoc, oldSchema, oldADFStage, oldUseSpecValidator, oldSkipValidation] = lastArgs;
+	let result: boolean = false;
 
-	// we're ignoring changes to dispatchAnalyticsEvent in this check
-	const result =
-		areDocsEqual(newDoc, oldDoc) &&
-		newSchema === oldSchema &&
-		newADFStage === oldADFStage &&
-		newUseSpecValidator === oldUseSpecValidator &&
-		skipValidation === oldSkipValidation;
+	if (fg('cc_complexit_fe_memoValidation_redundant_calls')) {
+		type ValidationArgsType = [
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			doc: any,
+			schema: Schema,
+			stage: ADFStage,
+			useSpecValidator: boolean,
+			DispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
+			skipValidation?: boolean | undefined,
+		];
+
+		const [
+			newDoc,
+			newSchema,
+			newADFStage,
+			newUseSpecValidator,
+			,
+			// ignoring dispatchAnalyticsEvent
+			newSkipValidation,
+		]: ValidationArgsType = newArgs;
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const [
+			oldDoc,
+			oldSchema,
+			oldADFStage,
+			oldUseSpecValidator,
+			,
+			// ignoring dispatchAnalyticsEvent
+			oldSkipValidation,
+		]: ValidationArgsType = lastArgs;
+
+		result =
+			areDocsEqual(newDoc, oldDoc) &&
+			newSchema === oldSchema &&
+			newADFStage === oldADFStage &&
+			newUseSpecValidator === oldUseSpecValidator &&
+			newSkipValidation === oldSkipValidation;
+	} else {
+		// This path has a bug and it will wrongfully assign dispatchAnalyticsEvent to skipValidation/oldSkipValidation
+		// instead of ignoring it as it does not skip it when unpacking the array.
+		// This results the fucntion returning false when it should return true
+		// and causing extra re-renders. see https://hello.jira.atlassian.cloud/browse/COMPLEXIT-161.
+
+		const [newDoc, newSchema, newADFStage, newUseSpecValidator, skipValidation] = newArgs;
+		const [oldDoc, oldSchema, oldADFStage, oldUseSpecValidator, oldSkipValidation] = lastArgs;
+		result =
+			areDocsEqual(newDoc, oldDoc) &&
+			newSchema === oldSchema &&
+			newADFStage === oldADFStage &&
+			newUseSpecValidator === oldUseSpecValidator &&
+			skipValidation === oldSkipValidation;
+	}
 
 	return result;
 });

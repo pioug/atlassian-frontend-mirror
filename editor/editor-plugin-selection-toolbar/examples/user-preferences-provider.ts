@@ -10,6 +10,14 @@ export class LocalUserPreferencesProvider implements UserPreferencesProvider {
 		return storedPreferences ? JSON.parse(storedPreferences) : DEFAULT_USER_PREFERENCES;
 	}
 
+	public loadPreferences(): Promise<UserPreferences> {
+		const storedPreferences = localStorage.getItem(this.storageKey);
+		if (storedPreferences) {
+			return Promise.resolve(JSON.parse(storedPreferences));
+		}
+		return Promise.resolve(DEFAULT_USER_PREFERENCES);
+	}
+
 	private savePreferences(preferences: UserPreferences) {
 		localStorage.setItem(this.storageKey, JSON.stringify(preferences));
 	}

@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {ไม่พบผลลัพธ์} other {พบผลลัพธ์ {count,number} รายการ}}',
   'fabric.linkPicker.linkAriaLabel': 'พิมพ์หรือวางลิงก์ในช่อง',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'ข้อความตัวช่วยแสดงลิงก์',
+  'fabric.linkPicker.linkHelperTextLabel': 'ป้อนชื่อหรือคำอธิบายของลิงก์นี้',
   'fabric.linkPicker.linkInvalid': 'ป้อน URL ที่ถูกต้อง',
   'fabric.linkPicker.linkLabel': 'ลิงก์',
   'fabric.linkPicker.linkPlaceholder': 'วางลิงก์',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'รีเฟรชหน้าข้อมูล หรือติดต่อฝ่าย <a>สนับสนุน Atlassian</a> หากยังคงมีปัญหานี้เกิดขึ้น',
   'fabric.linkPicker.search.error.heading': 'เรากำลังมีปัญหาในการโหลดข้อมูล',
+  'fabric.linkPicker.search.error.retry': 'รีเฟรช',
   'fabric.linkPicker.search.linkAriaLabel': 'ข้อเสนอแนะจะปรากฏด้านล่างเมื่อคุณพิมพ์ลงในช่อง',
   'fabric.linkPicker.search.linkLabel': 'ค้นหาหรือวางลิงก์',
   'fabric.linkPicker.search.linkPlaceholder': 'ค้นหาลิงก์ล่าสุดหรือวางลิงก์ใหม่',

@@ -28,7 +28,6 @@ const iconStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 'inherit',
 	fontStyle: 'inherit',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontWeight: 'inherit',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	letterSpacing: 'inherit',

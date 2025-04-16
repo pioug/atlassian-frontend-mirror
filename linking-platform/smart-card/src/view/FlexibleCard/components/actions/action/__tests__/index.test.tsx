@@ -10,8 +10,11 @@ import userEvent from '@testing-library/user-event';
 
 import TestIcon from '@atlaskit/icon/core/migration/dashboard--activity';
 import { token } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { SmartLinkSize } from '../../../../../../constants';
+import { FlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
+import { type InternalFlexibleUiOptions } from '../../../../types';
 import Action from '../index';
 import type { ActionProps } from '../types';
 
@@ -38,75 +41,135 @@ describe('Action', () => {
 	});
 
 	describe('as button', () => {
-		it('renders action with some text', async () => {
-			const text = 'spaghetti';
-			render(<Action onClick={() => {}} content={text} testId={testId} />);
+		const setup = (props?: Partial<ActionProps>, ui?: InternalFlexibleUiOptions) =>
+			render(<Action onClick={() => {}} testId={testId} {...props} />, {
+				wrapper: ({ children }) => (
+					<FlexibleUiOptionContext.Provider value={ui}>{children}</FlexibleUiOptionContext.Provider>
+				),
+			});
 
-			const element = await screen.findByTestId(testId);
+		const runTest = (ui?: InternalFlexibleUiOptions) => {
+			it('renders action with some text', async () => {
+				const text = 'spaghetti';
+				setup({ content: text }, ui);
 
-			expect(element).toBeTruthy();
-			expect(element).toHaveTextContent('spaghetti');
-		});
+				const element = await screen.findByTestId(testId);
 
-		it('calls onClick when button is clicked', async () => {
-			const text = 'spaghetti';
-			const mockOnClick = jest.fn();
-			render(<Action onClick={mockOnClick} content={text} testId={testId} />);
+				expect(element).toBeTruthy();
+				expect(element).toHaveTextContent('spaghetti');
+			});
 
-			const element = await screen.findByTestId(testId);
+			it('calls onClick when button is clicked', async () => {
+				const text = 'spaghetti';
+				const mockOnClick = jest.fn();
+				setup({ onClick: mockOnClick, content: text }, ui);
 
-			expect(element).toBeTruthy();
-			expect(element).toHaveTextContent('spaghetti');
+				const element = await screen.findByTestId(testId);
 
-			await user.click(element);
-			expect(mockOnClick).toHaveBeenCalled();
-		});
+				expect(element).toBeTruthy();
+				expect(element).toHaveTextContent('spaghetti');
 
-		describe('size', () => {
-			it.each([
-				[SmartLinkSize.XLarge, '1.5rem'],
-				[SmartLinkSize.Large, '1.5rem'],
-				[SmartLinkSize.Medium, '1rem'],
-				[SmartLinkSize.Small, '1rem'],
-			])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
-				const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
-				render(<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />);
+				await user.click(element);
+				expect(mockOnClick).toHaveBeenCalled();
+			});
 
-				const element = await screen.findByTestId(`${testId}-icon`);
+			it('renders with override css', async () => {
+				const overrideCss = css({
+					fontStyle: 'italic',
+				});
+				const testId = 'css';
+				render(
+					<FlexibleUiOptionContext.Provider value={ui}>
+						<Action content="spaghetti" onClick={() => {}} css={overrideCss} testId={testId} />
+					</FlexibleUiOptionContext.Provider>,
+				);
+				const action = await screen.findByTestId(`${testId}-button-wrapper`);
+				expect(action).toHaveStyle('font-style: italic');
+			});
 
-				expect(element).toHaveStyle(`height: ${expectedSize}`);
-				expect(element).toHaveStyle(`width: ${expectedSize}`);
+			it('does not call onClick on loading', async () => {
+				const onClick = jest.fn();
+				setup({ isLoading: true, onClick }, ui);
+				const element = await screen.findByTestId(testId);
+				await user.click(element);
+
+				expect(onClick).not.toHaveBeenCalled();
+			});
+
+			it('does not call onClick when button is disabled', async () => {
+				const onClick = jest.fn();
+				setup({ isDisabled: true, onClick }, ui);
+				const element = await screen.findByTestId(testId);
+				await user.click(element);
+
+				expect(onClick).not.toHaveBeenCalled();
+			});
+
+			describe('with tooltip', () => {
+				const tooltipMessage = 'This is tooltip';
+
+				it('renders content as tooltip message by default', async () => {
+					setup({ content: 'spaghetti', onClick: () => {} }, ui);
+
+					const element = await screen.findByRole('button');
+					await user.hover(element);
+					const tooltip = await screen.findByRole('tooltip');
+					expect(tooltip).toHaveTextContent('spaghetti');
+				});
+
+				it('renders tooltip message', async () => {
+					setup({ onClick: () => {}, content: 'spaghetti', tooltipMessage }, ui);
+
+					const element = await screen.findByRole('button');
+					await user.hover(element);
+					const tooltip = await screen.findByRole('tooltip');
+					expect(tooltip).toHaveTextContent(tooltipMessage);
+				});
+
+				it('hides tooltip when hideTooltip is set to true', async () => {
+					setup({ onClick: () => {}, content: 'spaghetti', hideTooltip: true, tooltipMessage }, ui);
+					const element = await screen.findByRole('button');
+					await user.hover(element);
+					const tooltip = screen.queryByRole('tooltip');
+					expect(tooltip).toBeNull();
+				});
+			});
+		};
+
+		ffTest.both('platform-linking-visual-refresh-v1', 'with fg', () => {
+			describe.each([true, false])('with ui.hideLegacyButton %s', (hideLegacyButton: boolean) => {
+				runTest({ hideLegacyButton });
 			});
 		});
 
-		it('renders with override css', async () => {
-			const overrideCss = css({
-				fontStyle: 'italic',
+		ffTest.on('platform-linking-visual-refresh-v1', 'with fg', () => {
+			ffTest.both('platform-linking-flexible-card-openness', 'with fg', () => {
+				describe.each([true, false])(
+					'with ui.removeBlockRestriction %s',
+					(removeBlockRestriction: boolean) => {
+						runTest({ removeBlockRestriction });
+					},
+				);
 			});
-			const testId = 'css';
-			await render(
-				<Action content="spaghetti" onClick={() => {}} css={overrideCss} testId={testId} />,
-			);
-			const action = await screen.findByTestId(`${testId}-button-wrapper`);
-			expect(action).toHaveStyle('font-style: italic');
 		});
 
-		it('does not call onClick on loading', async () => {
-			const onClick = jest.fn();
-			render(<Action isLoading={true} onClick={onClick} testId={testId} />);
-			const element = await screen.findByTestId(testId);
-			await user.click(element);
+		ffTest.off('platform-linking-visual-refresh-v1', 'with fg', () => {
+			describe('size', () => {
+				it.each([
+					[SmartLinkSize.XLarge, '1.5rem'],
+					[SmartLinkSize.Large, '1.5rem'],
+					[SmartLinkSize.Medium, '1rem'],
+					[SmartLinkSize.Small, '1rem'],
+				])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
+					const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
+					render(<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />);
 
-			expect(onClick).not.toHaveBeenCalled();
-		});
+					const element = await screen.findByTestId(`${testId}-icon`);
 
-		it('does not call onClick when button is disabled', async () => {
-			const onClick = jest.fn();
-			render(<Action isDisabled={true} onClick={onClick} testId={testId} />);
-			const element = await screen.findByTestId(testId);
-			await user.click(element);
-
-			expect(onClick).not.toHaveBeenCalled();
+					expect(element).toHaveStyle(`height: ${expectedSize}`);
+					expect(element).toHaveStyle(`width: ${expectedSize}`);
+				});
+			});
 		});
 	});
 

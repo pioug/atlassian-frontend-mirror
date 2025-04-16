@@ -49,7 +49,6 @@ const dialogStyles = cssMap({
 		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
 		pointerEvents: 'auto',
 
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
 		'@media (min-width: 30rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&&': {
@@ -86,7 +85,7 @@ const dialogStyles = cssMap({
 		 * This is to support scrolling if the modal's children are wrapped in
 		 * a form.
 		 */
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'& > form:only-child': {
 			display: 'inherit',
 			maxHeight: 'inherit',
@@ -207,7 +206,6 @@ const ModalDialog = (
 								{...bottomFadeInProps}
 								aria-label={label}
 								ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 								style={
 									{
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

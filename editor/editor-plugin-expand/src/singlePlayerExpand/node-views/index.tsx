@@ -23,6 +23,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
@@ -543,7 +544,9 @@ export class ExpandNodeView implements NodeView {
 			}
 
 			this.node = node;
-			this.updateExpandToggleIcon(this.node);
+			if (!fg('platform_editor_disable_unnecessary_expand_renders')) {
+				this.updateExpandToggleIcon(this.node);
+			}
 			return true;
 		}
 		return false;

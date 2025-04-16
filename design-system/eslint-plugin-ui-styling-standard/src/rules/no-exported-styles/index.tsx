@@ -1,4 +1,3 @@
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { JSONSchema4 } from 'json-schema';
 
 import { createNoExportedRule } from '@atlaskit/eslint-utils/create-no-exported-rule';

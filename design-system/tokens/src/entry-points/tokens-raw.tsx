@@ -1,6 +1,8 @@
 export { default as light } from '../artifacts/tokens-raw/atlassian-light';
+export { default as lightBrandRefresh } from '../artifacts/tokens-raw/atlassian-light-brand-refresh';
 export { default as legacyLightTokens } from '../artifacts/tokens-raw/atlassian-legacy-light';
 export { default as dark } from '../artifacts/tokens-raw/atlassian-dark';
+export { default as darkBrandRefresh } from '../artifacts/tokens-raw/atlassian-dark-brand-refresh';
 export { default as spacing } from '../artifacts/tokens-raw/atlassian-spacing';
 export { default as typography } from '../artifacts/tokens-raw/atlassian-typography-modernized';
 export { default as typographyRefreshed } from '../artifacts/tokens-raw/atlassian-typography-refreshed';

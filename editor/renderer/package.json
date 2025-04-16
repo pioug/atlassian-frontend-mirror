@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.9.0",
+	"version": "114.9.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -211,6 +211,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_column_group_width_check": {
+			"type": "boolean"
+		},
+		"cc_complexit_fe_memoValidation_redundant_calls": {
 			"type": "boolean"
 		}
 	},

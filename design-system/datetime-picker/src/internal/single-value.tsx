@@ -30,7 +30,6 @@ export const makeSingleValue =
 			<components.SingleValue
 				// We have to have this because `getClassNames` is missing. Can't define
 				// it in here, for some reason.
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
 				className={className}

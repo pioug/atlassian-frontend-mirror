@@ -1,5 +1,18 @@
 # @atlaskit/link-picker
 
+## 3.2.1
+
+### Patch Changes
+
+- [#138263](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138263)
+  [`7405f54a903d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7405f54a903d2) -
+  Traduki update
+- [#137314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137314)
+  [`7329a31b8a3a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7329a31b8a3a9) -
+  [ux] Behind ff `platform-link-picker-remove-legacy-button`: replaces legacy button component with
+  either the new Button component or the Link component
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

@@ -144,15 +144,24 @@ export default {
   'fabric.linking.read_time': '{context} phút đọc',
   'fabric.linking.related': 'Có liên quan',
   'fabric.linking.related_links_found_in': 'Tìm thấy trong',
+  'fabric.linking.related_links_found_in_v2': 'Tìm thấy trong',
   'fabric.linking.related_links_includes_links_to': 'Bao gồm liên kết trong',
+  'fabric.linking.related_links_includes_links_to_v2': 'Bao gồm các liên kết tới',
+  'fabric.linking.related_links_modal_error_description': 'Hãy kiểm tra kết nối của bạn hoặc làm mới trang rồi thử lại',
   'fabric.linking.related_links_modal_error_header': 'Có lỗi xảy ra',
   'fabric.linking.related_links_modal_error_message':
     'Chúng tôi đã gặp sự cố khi cố tải các liên kết gần đây. Hãy kiểm tra kết nối của bạn hoặc làm mới để thử lại.',
+  'fabric.linking.related_links_modal_error_title': 'Chúng tôi đang gặp sự cố khi tải liên kết liên quan',
   'fabric.linking.related_links_modal_title': 'Liên kết gần đây',
+  'fabric.linking.related_links_modal_title_v2': 'Liên kết liên quan',
+  'fabric.linking.related_links_modal_unavailable_description':
+    'Chúng tôi liên tục xem xét và thêm các liên kết liên quan cho các trang cập nhật hoặc các loại nội dung khác',
   'fabric.linking.related_links_modal_unavailable_header': 'Không có liên kết gần đây',
   'fabric.linking.related_links_modal_unavailable_message':
     'Chúng tôi không tìm được liên kết nào để hiển thị ở đây. Chúng tôi liên tục xem xét và thêm các liên kết gần đây cho các trang cập nhật hoặc các loại nội dung khác.',
+  'fabric.linking.related_links_modal_unavailable_title': 'Chúng tôi không tìm thấy liên kết liên quan nào',
   'fabric.linking.related_links_not_found': 'Chúng tôi không tìm được liên kết nào để hiển thị ở đây.',
+  'fabric.linking.related_links_view_related_links': 'Xem liên kết liên quan',
   'fabric.linking.related_links_view_related_urls': 'Xem các liên kết gần đây',
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_description':

@@ -9,6 +9,13 @@
 import React from 'react';
 
 import {
+	CopyLinkAction as CopyLinkActionComponent,
+	CustomAction as CustomActionComponent,
+	DownloadAction as DownloadActionComponent,
+	FollowAction as FollowActionComponent,
+	PreviewAction as PreviewActionComponent,
+} from './components/actions';
+import {
 	AssignedTo,
 	AssignedToGroup,
 	AttachmentCount,
@@ -45,7 +52,7 @@ import {
 	VoteCount,
 } from './components/elements';
 import { type LinkProps } from './components/elements/link/types';
-import type { TextProps } from './components/elements/text/types';
+import { type TextProps } from './components/elements/text/types';
 
 // ---- EXPORTED METADATA COMPONENT ---- //
 export const AssignedToElement = () => <AssignedTo />;
@@ -96,3 +103,42 @@ export const TitleElement = (props: TitleElementProps) => (
 );
 export const ViewCountElement = () => <ViewCount />;
 export const VoteCountElement = () => <VoteCount />;
+
+// ---- EXPORTED ACTION COMPONENTS ---- //
+type BaseActionProps = { appearance?: 'default' | 'subtle' };
+export const toActionProps = (props?: BaseActionProps) => ({
+	appearance: props?.appearance ?? 'default',
+	icon: undefined,
+});
+
+export type CopyLinkActionProps = BaseActionProps;
+export const CopyLinkAction = (props: CopyLinkActionProps) => (
+	<CopyLinkActionComponent {...toActionProps(props)} />
+);
+
+export type CustomActionProps = BaseActionProps & {
+	children: React.ReactNode;
+	onClick: () => void;
+};
+export const CustomAction = (props: CustomActionProps) => (
+	<CustomActionComponent
+		{...toActionProps(props)}
+		content={props?.children}
+		onClick={props?.onClick}
+	/>
+);
+
+export type DownloadActionProps = BaseActionProps;
+export const DownloadAction = (props: DownloadActionProps) => (
+	<DownloadActionComponent {...toActionProps(props)} />
+);
+
+export type FollowActionProps = BaseActionProps;
+export const FollowAction = (props: FollowActionProps) => (
+	<FollowActionComponent {...toActionProps(props)} />
+);
+
+export type PreviewActionProps = BaseActionProps;
+export const PreviewAction = (props: PreviewActionProps) => (
+	<PreviewActionComponent {...toActionProps(props)} />
+);

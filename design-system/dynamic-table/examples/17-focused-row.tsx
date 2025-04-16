@@ -28,7 +28,6 @@ const FocusRowExample = () => {
 
 	return (
 		<>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<h4 style={paddingStyle}>Click on any row to focus on it</h4>
 			<DynamicTableStateless head={head} rows={rowsWithTabIndex} rowsPerPage={40} page={1} />
 		</>

@@ -1,5 +1,3 @@
-/* eslint-disable @atlaskit/design-system/no-nested-styles */
-
 import React, { useState } from 'react';
 
 import { type GridProps } from '@atlaskit/grid';
@@ -12,7 +10,6 @@ import {
 	TopNavigation,
 } from '@atlaskit/page-layout';
 import { Box, xcss } from '@atlaskit/primitives';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { media, UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
 import Stack from '@atlaskit/primitives/stack';
 

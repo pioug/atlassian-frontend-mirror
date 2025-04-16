@@ -33,7 +33,6 @@ const MyRouterLinkComponent = forwardRef(
 				data-test-link-type="advanced"
 				data-custom-attribute={href.customProp}
 				href={href.to}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>
 				{label}

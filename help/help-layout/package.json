@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-layout",
-	"version": "5.0.5",
+	"version": "6.0.0",
 	"description": "Layout for the atlaskit/help component.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 		}
 	},
 	"sideEffects": [
-		"*.compiled.css"
+		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
@@ -39,8 +39,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1",
-		"@emotion/styled": "^11.0.0",
+		"@compiled/react": "^0.18.3",
 		"react-transition-group": "^4.4.1"
 	},
 	"peerDependencies": {
@@ -68,6 +67,9 @@
 			"design-tokens": [
 				"color",
 				"spacing"
+			],
+			"styling": [
+				"compiled"
 			]
 		}
 	},

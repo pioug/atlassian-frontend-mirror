@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,6 +45,7 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.3",
 		"@emotion/react": "^11.7.1",
 		"@floating-ui/dom": "^1.0.1",
 		"memoize-one": "^6.0.0",
@@ -84,6 +85,9 @@
 		},
 		"platform_dst_layer_observer_select": {
 			"type": "boolean"
+		},
+		"compiled-react-select": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {
@@ -103,7 +107,8 @@
 			"deprecation": "no-deprecated-imports",
 			"styling": [
 				"static",
-				"emotion"
+				"emotion",
+				"compiled"
 			]
 		}
 	},

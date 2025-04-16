@@ -22,7 +22,9 @@ import type {
 } from '@atlaskit/media-card';
 import { Card, CardLoading } from '@atlaskit/media-card';
 import type { Identifier } from '@atlaskit/media-client';
+import type { SSR } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
@@ -265,6 +267,11 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			authProvider: () => ({}) as any,
 		};
 
+		let ssr: SSR | undefined;
+		if (fg('platform_editor_ssr_media')) {
+			ssr = process.env.REACT_SSR ? 'server' : 'client';
+		}
+
 		return (
 			<MediaCardWrapper
 				dimensions={originalDimensions}
@@ -296,6 +303,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						contextId={contextId}
 						alt={alt}
 						videoControlsWrapperRef={this.videoControlsWrapperRef}
+						ssr={ssr}
 					/>
 				</AnalyticsContext>
 			</MediaCardWrapper>

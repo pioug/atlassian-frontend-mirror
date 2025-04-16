@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { SourceCode } from 'eslint';
 import type { ImportDeclaration } from 'eslint-codemod-utils';
 

@@ -158,7 +158,6 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 			{...htmlAttributes}
 			target={target}
 			ref={ref}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			xcss={cx(
 				appearance === 'default' && styles.defaultAppearance,
 				appearance === 'subtle' && styles.subtleAppearance,

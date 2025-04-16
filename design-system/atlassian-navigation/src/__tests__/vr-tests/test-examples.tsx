@@ -128,7 +128,6 @@ const SkeletonButtonsExample = () => (
 );
 
 const ThemedSkeletonButtonsExample = () => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 	<AtlassianNavigation
 		label="site"
 		renderProductHome={DefaultCustomProductHome}
@@ -164,7 +163,6 @@ const ThemingNavigationSkeletonExample = () => (
 	</>
 );
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export {
 	NavExample,
 	ThemingExample,

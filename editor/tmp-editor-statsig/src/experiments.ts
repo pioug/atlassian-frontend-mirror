@@ -91,8 +91,16 @@ type Unstable_EditorExperimentParams = {
 	live_pages_graceful_edit: {
 		params: 'view-mode-intent-to-edit' | 'delay' | 'intent-mode' | 'toolbar-entry';
 	};
-	platform_editor_ai_proactive_ai_nudge_score: {
-		params: 'score';
+	platform_editor_ai_proactive_ai_nudge_parameters: {
+		params:
+			| 'min_final_confidence'
+			| 'min_length_percentage_difference'
+			| 'max_length_percentage_difference'
+			| 'min_input_readability_score'
+			| 'min_output_readability_score'
+			| 'max_readability_score_delta'
+			| 'min_readability_score_delta'
+			| 'min_alternative_confidence';
 	};
 };
 

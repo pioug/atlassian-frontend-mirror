@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -116,4 +117,14 @@ export const getControlHeightCSSValue = (
 		!isTopLevelNode
 		? { height: 'unset' }
 		: { height: `${nodeHeight || fallbackPxHeight}px` };
+};
+
+export const shouldMaskNodeControls = (nodeType: string, isTopLevelNode: boolean): boolean => {
+	return (
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		isTopLevelNode &&
+		['table'].includes(nodeType) &&
+		fg('platform_editor_controls_sticky_controls') &&
+		editorExperiment('platform_editor_controls', 'variant1')
+	);
 };

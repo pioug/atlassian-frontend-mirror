@@ -833,7 +833,7 @@ export const ResizableMediaSingleNextFunctional = (props: ResizableMediaSingleNe
 	const lastSnappedGuidelineKeysRef = useRef<string[]>([]);
 	const [snaps, setSnaps] = useState<Snap>({});
 	const [isResizing, setIsResizing] = useState<boolean>(false);
-	const [isVideoFile, setIsVideoFile] = useState<boolean>(true);
+	const [isVideoFile, setIsVideoFile] = useState<boolean>(!fg('platform_editor_ssr_media'));
 
 	const nodePosition = useMemo(() => {
 		if (typeof getPos !== 'function') {

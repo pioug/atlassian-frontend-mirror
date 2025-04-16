@@ -34,7 +34,6 @@ export function Button({
 	xcss?: XCSSProp<'color' | 'backgroundColor', '&:hover' | '&:active'>;
 }) {
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		<button type="button" css={buttonStyles.container} className={xcss}>
 			{children}
 		</button>

@@ -1193,7 +1193,6 @@ export const getSerializedStylesMap = (
 	tokenMap: TokenMap,
 ): SerializedStylesMap => {
 	return Object.keys(tokenMap).reduce((emotionSpacingMap, token) => {
-		// eslint-disable-next-line @repo/internal/styles/no-exported-styles
 		emotionSpacingMap[token as PropsToken] = css({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			[cssProperty]: tokenMap[token as PropsToken],

@@ -70,7 +70,6 @@ export const Notifications = forwardRef((props: NotificationsProps, ref: Ref<any
 				tooltip={tooltip}
 				isTooltipAnnouncementDisabled
 				// These are all explicit, leaving it in just in case
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			/>
 		</BadgeContainer>

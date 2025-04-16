@@ -42,6 +42,14 @@ export default function IconButtonExample() {
 				icon={(iconProps) => <StarFilledIcon {...iconProps} size="small" />}
 				testId="deprecation"
 			/>
+			<IconButton label="circle" icon={StarFilledIcon} shape="circle" testId="circle" />
+			<LinkIconButton
+				href="https://atlassian.design"
+				label="circle icon link"
+				icon={StarFilledIcon}
+				shape="circle"
+				testId="circle link"
+			/>
 			<LinkIconButton
 				icon={StarFilledIcon}
 				label="Link icon button"

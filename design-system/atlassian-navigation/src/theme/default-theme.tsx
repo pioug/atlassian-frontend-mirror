@@ -70,7 +70,6 @@ const defaultTheme: { mode: Mode } = {
 			color: token('color.text', N700),
 			borderRight: `1px solid ${token('color.border', hexToRGBA(N200, 0.3))}`,
 			// TODO: replace with token after brand refresh
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 			iconColor: '#357DE8',
 			textColor: token('color.text', N700),
 		},

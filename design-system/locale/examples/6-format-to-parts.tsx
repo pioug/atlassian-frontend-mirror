@@ -12,9 +12,7 @@ import TextField from '@atlaskit/textfield';
 
 import { createLocalizationProvider } from '../src';
 import LocaleSelect, { type Locale } from '../src/LocaleSelect';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
-// eslint-disable-next-line @atlaskit/design-system/use-primitives, @atlaskit/ui-styling-standard/no-styled -- Keeping this around as an example of `styled-components` object syntax; no reason for it to exist otherwise. 'no-styled' to be migrated as part of go/ui-styling-standard
 const wrapperStyles = xcss({ marginInlineStart: 'space.250' });
 
 const options = {

@@ -10,6 +10,12 @@ Object.defineProperty(exports, "dark", {
     return _atlassianDark.default;
   }
 });
+Object.defineProperty(exports, "darkBrandRefresh", {
+  enumerable: true,
+  get: function get() {
+    return _atlassianDarkBrandRefresh.default;
+  }
+});
 Object.defineProperty(exports, "legacyLightTokens", {
   enumerable: true,
   get: function get() {
@@ -20,6 +26,12 @@ Object.defineProperty(exports, "light", {
   enumerable: true,
   get: function get() {
     return _atlassianLight.default;
+  }
+});
+Object.defineProperty(exports, "lightBrandRefresh", {
+  enumerable: true,
+  get: function get() {
+    return _atlassianLightBrandRefresh.default;
   }
 });
 Object.defineProperty(exports, "shape", {
@@ -53,8 +65,10 @@ Object.defineProperty(exports, "typographyRefreshed", {
   }
 });
 var _atlassianLight = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-light"));
+var _atlassianLightBrandRefresh = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-light-brand-refresh"));
 var _atlassianLegacyLight = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-legacy-light"));
 var _atlassianDark = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-dark"));
+var _atlassianDarkBrandRefresh = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-dark-brand-refresh"));
 var _atlassianSpacing = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-spacing"));
 var _atlassianTypographyModernized = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-modernized"));
 var _atlassianTypographyRefreshed = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-refreshed"));

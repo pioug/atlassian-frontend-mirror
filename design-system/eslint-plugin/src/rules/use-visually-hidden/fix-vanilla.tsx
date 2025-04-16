@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule, SourceCode } from 'eslint';
 
 import { getImportedNodeBySource } from '../utils/get-import-node-by-source';

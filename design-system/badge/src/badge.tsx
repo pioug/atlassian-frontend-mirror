@@ -83,7 +83,6 @@ const badgeValueWithNegativeNumberSupported = (
 	max?: number | false,
 ) => {
 	// Use this flag for allowing negative values(numbers) in badge component when custom number field is used
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
 	if (fg('platform_ken_2029_negative_numbers_badge')) {
 		return typeof children === 'number' && typeof max === 'number'
 			? formatValueWithNegativeSupport(children, max)

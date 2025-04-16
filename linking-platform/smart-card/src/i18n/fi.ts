@@ -145,15 +145,25 @@ export default {
   'fabric.linking.read_time': 'Lukuaika: {context}',
   'fabric.linking.related': 'Liittyvät',
   'fabric.linking.related_links_found_in': 'Löydetty kohteesta',
+  'fabric.linking.related_links_found_in_v2': 'Löydetty kohteesta',
   'fabric.linking.related_links_includes_links_to': 'Sisältää linkit kohteeseen',
+  'fabric.linking.related_links_includes_links_to_v2': 'Sisältää linkit kohteeseen',
+  'fabric.linking.related_links_modal_error_description':
+    'Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen',
   'fabric.linking.related_links_modal_error_header': 'Jokin meni vikaan',
   'fabric.linking.related_links_modal_error_message':
     'Viimeaikaisten linkkien latauksen aikana ilmeni ongelma. Tarkista yhteys tai päivitä sivu ja yritä uudelleen.',
+  'fabric.linking.related_links_modal_error_title': 'Liittyvien linkkien lataamisessa on ongelmia',
   'fabric.linking.related_links_modal_title': 'Viimeaikaiset linkit',
+  'fabric.linking.related_links_modal_title_v2': 'Liittyvät linkit',
+  'fabric.linking.related_links_modal_unavailable_description':
+    'Päivitettyjen sivujen tai muiden sisältötyyppien liittyviä linkkejä tarkistetaan ja lisätään jatkuvasti.',
   'fabric.linking.related_links_modal_unavailable_header': 'Ei viimeaikaisia linkkejä',
   'fabric.linking.related_links_modal_unavailable_message':
     'Täältä ei löytynyt näytettäviä linkkejä. Päivitettyjen sivujen tai muiden sisältötyyppien viimeaikaisia linkkejä tarkistetaan ja lisätään jatkuvasti.',
+  'fabric.linking.related_links_modal_unavailable_title': 'Emme löytäneet liittyviä linkkejä',
   'fabric.linking.related_links_not_found': 'Täältä ei löytynyt näytettäviä linkkejä.',
+  'fabric.linking.related_links_view_related_links': 'Näytä liittyvät linkit',
   'fabric.linking.related_links_view_related_urls': 'Näytä viimeisimmät linkit',
   'fabric.linking.request_access': 'Pyydä pääsyä',
   'fabric.linking.request_access_description':

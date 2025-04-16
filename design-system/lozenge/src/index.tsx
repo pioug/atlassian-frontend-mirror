@@ -18,7 +18,6 @@ export type { LozengeProps } from './Lozenge';
  * - [Usage](https://atlassian.design/components/lozenge/usage)
  */
 const Lozenge: typeof EmotionLozenge = React.memo((props) =>
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	fg('platform_dst_lozenge_fg') ? <CompiledLozenge {...props} /> : <EmotionLozenge {...props} />,
 );
 

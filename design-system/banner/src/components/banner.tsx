@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -23,7 +22,7 @@ const textStyles = cssMap({
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'a, a:visited, a:hover, a:focus, a:active': {
 			color: 'currentColor',
 			textDecoration: 'underline',
@@ -125,11 +124,9 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
 						</Box>
 					) : null}
 					<span
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={
 							{
 								[CSS_VAR_TEXT_COLOR]: tokenTextColors[appearanceType],
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							} as CSSProperties
 						}
 						css={textStyles.root}

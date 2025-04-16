@@ -227,15 +227,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
-	// Added 2025-02-24
-	editor_ai_inline_suggestion_date: {
-		productKeys: {
-			confluence: 'editor_ai_inline_suggestion_date',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
 	// Added 28-02-2025
 	platform_editor_insertion: {
 		productKeys: {
@@ -274,9 +265,9 @@ export const editorExperimentsConfig = {
 		defaultValue: 'control' as 'control' | 'test',
 	},
 	// Added 2025-03-28
-	platform_editor_ai_proactive_ai_nudge_score: {
+	platform_editor_ai_proactive_ai_nudge_parameters: {
 		productKeys: {
-			confluence: 'platform_editor_ai_proactive_ai_nudge_score',
+			confluence: 'platform_editor_ai_proactive_ai_nudge_parameters',
 		},
 		param: 'cohort',
 		typeGuard: oneOf(['control', 'variant1']),
@@ -300,5 +291,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
+	},
+	// Added 2025-04-14
+	editor_ai_inline_suggestion_date_v2: {
+		productKeys: {
+			confluence: 'editor_ai_inline_suggestion_date_v2',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'test']),
+		defaultValue: 'control' as 'control' | 'test',
 	},
 } satisfies Record<string, ExperimentConfigValue>;

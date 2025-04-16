@@ -123,7 +123,20 @@ interface BaseProps {
 	 */
 	appearance?: 'default' | 'UNSAFE_modal-below-sm';
 
-	xcss?: StrictXCSSProp<'padding' | 'paddingInline' | 'paddingBlock' | 'width', never>;
+	/**
+	 * Bounded style overrides.
+	 */
+	xcss?: StrictXCSSProp<
+		| 'padding'
+		| 'paddingInline'
+		| 'paddingBlock'
+		| 'paddingInlineStart'
+		| 'paddingInlineEnd'
+		| 'paddingBlockStart'
+		| 'paddingBlockEnd'
+		| 'width',
+		never
+	>;
 
 	/**
 	 * Use this to either show or hide the popup.

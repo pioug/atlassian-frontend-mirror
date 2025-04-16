@@ -52,7 +52,6 @@ export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButt
 				theme={theme}
 				tooltip={tooltip}
 				// These are mostly explicit, leaving it in just in case
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			/>
 		);

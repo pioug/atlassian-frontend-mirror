@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // TODO: DSP-1392 this file will be removed, don't import anything from this file elsewhere.
 import {
 	B400,

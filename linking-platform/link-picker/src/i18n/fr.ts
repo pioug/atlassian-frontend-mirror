@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {aucun résultat} one {{count,number} résultat trouvé} other {{count,number} résultats trouvés}}',
   'fabric.linkPicker.linkAriaLabel': 'Saisir ou coller un lien dans le champ',
+  'fabric.linkPicker.linkHelperTextAriaLabel': "Texte d'aide d'affichage du lien",
+  'fabric.linkPicker.linkHelperTextLabel': 'Ajoutez un titre ou une description à ce lien',
   'fabric.linkPicker.linkInvalid': 'Saisissez une URL valide.',
   'fabric.linkPicker.linkLabel': 'Lien',
   'fabric.linkPicker.linkPlaceholder': 'Collez un lien',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Actualisez la page ou contactez le <a>support Atlassian</a> si le problème se reproduit.',
   'fabric.linkPicker.search.error.heading': 'Nous ne parvenons pas à charger les données.',
+  'fabric.linkPicker.search.error.retry': 'Actualiser',
   'fabric.linkPicker.search.linkAriaLabel':
     'Les suggestions apparaîtront au fur et à mesure que vous saisissez du texte dans le champ',
   'fabric.linkPicker.search.linkLabel': 'Rechercher ou coller un lien',

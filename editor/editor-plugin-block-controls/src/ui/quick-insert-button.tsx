@@ -402,7 +402,7 @@ export const TypeAheadControl = ({
 				type="button"
 				aria-label={formatMessage(messages.insert)}
 				xcss={[
-					fg('platform_editor_controls_sticky_controls') ? buttonStyles : stickyButtonStyles,
+					fg('platform_editor_controls_sticky_controls') ? stickyButtonStyles : buttonStyles,
 					isTypeAheadOpen && !fg('platform_editor_controls_widget_visibility')
 						? disabledStyles
 						: undefined,

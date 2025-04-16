@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.10.1
+
+### Patch Changes
+
+- [#140783](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140783)
+  [`a2d4bdd4841c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2d4bdd4841c5) -
+  [ux] Extend drag handle background with gradient to obscure adjacent node controls for contrast
+- Updated dependencies
+
 ## 3.10.0
 
 ### Minor Changes

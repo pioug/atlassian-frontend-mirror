@@ -28,6 +28,7 @@ export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
  *  so we allow for some leniency to capture them all. e.g. Table is depth 3.
  */
 export const DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH = 3;
+export const STICKY_CONTROLS_TOP_MARGIN = 8;
 
 export const QUICK_INSERT_HEIGHT = 24;
 export const QUICK_INSERT_WIDTH = 24;

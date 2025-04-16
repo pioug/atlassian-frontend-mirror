@@ -31,7 +31,6 @@ export function hasStyleRule(selector: string, expected: CSSObject): boolean {
 	);
 
 	if (!matchSelector.length) {
-		// eslint-disable-next-line no-console
 		console.warn('Could not find any style rules matching selector:', selector);
 		return false;
 	}

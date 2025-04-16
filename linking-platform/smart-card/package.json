@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "36.6.0",
+	"version": "36.8.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -191,6 +191,9 @@
 			"showOnWebsiteForTransitiveDependencies": true
 		},
 		"smart_links_for_plans_platform": {
+			"type": "boolean"
+		},
+		"expandable_smart_links_for_scorecards_v2": {
 			"type": "boolean"
 		},
 		"platform_bandicoots-smartlink-unresolved-error-key": {

@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {geen resultaten gevonden} one {{count,number} resultaat gevonden} other {{count,number} resultaten gevonden}}',
   'fabric.linkPicker.linkAriaLabel': 'Typ of plak een link in het veld',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Hulptekst van de linkweergave',
+  'fabric.linkPicker.linkHelperTextLabel': 'Geef deze link een titel of omschrijving',
   'fabric.linkPicker.linkInvalid': 'Voer een geldige URL in.',
   'fabric.linkPicker.linkLabel': 'Link',
   'fabric.linkPicker.linkPlaceholder': 'Link plakken',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.',
   'fabric.linkPicker.search.error.heading': 'Er zijn wat problemen met het laden van de gegevens.',
+  'fabric.linkPicker.search.error.retry': 'Vernieuwen',
   'fabric.linkPicker.search.linkAriaLabel': 'Suggesties verschijnen hieronder zodra je in het veld typt',
   'fabric.linkPicker.search.linkLabel': 'Zoeken of een link plakken',
   'fabric.linkPicker.search.linkPlaceholder': 'Zoek recente links of plak een nieuwe link',

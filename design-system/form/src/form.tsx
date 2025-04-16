@@ -116,10 +116,8 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 								? defaultValue(initialValues[name])
 								: defaultValue;
 
-						/* eslint-disable no-param-reassign */
 						set(initialValues, name, value);
 						set(values, name, value);
-						/* eslint-enable */
 					}
 				},
 			},

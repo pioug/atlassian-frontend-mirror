@@ -65,7 +65,6 @@ export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) =
 			testId={testId}
 			tooltip={tooltip}
 			// These are all explicit, leaving it in just in case
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
 		/>
 	);
@@ -119,12 +118,11 @@ export const AppSwitcherNav4 = forwardRef((props: AppSwitcherProps, ref: Ref<any
 			testId={testId}
 			tooltip={tooltip}
 			// These are all explicit, leaving it in just in case
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
 		/>
 	);
 });
 
 // exists only to extract props
-// eslint-disable-next-line @repo/internal/react/use-noop, import/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (props: AppSwitcherProps) => {};

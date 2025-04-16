@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 79.1.0
+
+### Minor Changes
+
+- [#123268](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/123268)
+  [`f47a830143188`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f47a830143188) -
+  Allow for passing in a resolved media provider to enable SSR'ing media in the editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.0.13
 
 ### Patch Changes

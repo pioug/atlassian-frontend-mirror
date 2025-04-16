@@ -3,6 +3,12 @@ export type UserPreferences = {
 };
 export interface UserPreferencesProvider {
 	/**
+	 * This method fetches the latest user preferences
+	 * @returns a promise that resolves with the user preferences, or rejects if error occurs
+	 */
+	loadPreferences(): Promise<UserPreferences>;
+
+	/**
 	 * This method updates a user preference
 	 * @param key
 	 * @param value

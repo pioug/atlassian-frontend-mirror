@@ -340,9 +340,7 @@ describe('InlineDialogWithAnalytics', () => {
 	it('should mount without errors', () => {
 		render(<InlineDialog children={''} content={''} />);
 
-		/* eslint-disable no-console */
 		expect(console.warn).not.toHaveBeenCalled();
 		expect(console.error).not.toHaveBeenCalled();
-		/* eslint-enable no-console */
 	});
 });

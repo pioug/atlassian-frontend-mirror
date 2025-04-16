@@ -83,7 +83,6 @@ describe('<ModalFooter />', () => {
 		}
 
 		// Restore writing to stderr.
-		/* eslint-disable-next-line no-console */
 		console.error = err;
 	});
 });

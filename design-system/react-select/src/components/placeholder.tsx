@@ -1,16 +1,15 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ReactNode } from 'react';
+/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
+import React, { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { jsx } from '@emotion/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { token } from '@atlaskit/tokens';
-
+import Compiled, {
+	placeholderCSS as compiledPlaceholderCSS,
+} from '../compiled/components/placeholder';
+import Emotion, {
+	placeholderCSS as emotionPlaceholderCSS,
+} from '../emotion/components/placeholder';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
 
 export interface PlaceholderProps<
 	Option = unknown,
@@ -29,30 +28,14 @@ export interface PlaceholderProps<
 	isFocused: boolean;
 }
 
-export const placeholderCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	isDisabled,
-}: PlaceholderProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'placeholder',
-	gridArea: '1 / 1 / 2 / 3',
-	margin: `0 ${token('space.025')}`,
-	color: isDisabled ? token('color.text.disabled') : token('color.text.subtlest'),
-});
+export const placeholderCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: PlaceholderProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledPlaceholderCSS() : emotionPlaceholderCSS(props);
 
 const Placeholder = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: PlaceholderProps<Option, IsMulti, Group>,
-) => {
-	const { children, innerProps } = props;
-	return (
-		<div
-			{...getStyleProps(props, 'placeholder', {
-				placeholder: true,
-			})}
-			{...innerProps}
-		>
-			{children}
-		</div>
-	);
-};
+) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Placeholder;

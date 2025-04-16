@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 3.2.6
+
+### Patch Changes
+
+- [#141513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141513)
+  [`15ae5c8a85a20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15ae5c8a85a20) -
+  Do not re-render on every transaction in single player expand.
+- Updated dependencies
+
 ## 3.2.5
 
 ### Patch Changes

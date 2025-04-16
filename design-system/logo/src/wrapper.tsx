@@ -20,14 +20,14 @@ const styles = cssMapUnbound({
 		lineHeight: 1,
 		userSelect: 'none',
 		whiteSpace: 'normal',
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> svg': {
 			height: '100%',
 			fill: 'inherit',
 		},
 	},
 	stop: {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& stop': {
 			stopColor: 'currentColor',
 		},
@@ -63,7 +63,6 @@ const Wrapper = ({
 		<span
 			css={[styles.root, shouldApplyStopColor && styles.stop, size && styles[size]]}
 			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
 					[CSS_VAR_COLOR]: iconColor,

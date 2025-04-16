@@ -19,7 +19,6 @@ import SyntaxHighlighter from './syntax-highlighter';
 const getCodeBlockStyles = cssMap({
 	root: {
 		// Prevents empty code blocks from vertically collapsing
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'code > span:only-child:empty::before, code > span:only-child > span:only-child:empty::before':
 			{
 				content: '" "',
@@ -27,7 +26,6 @@ const getCodeBlockStyles = cssMap({
 		// we need to use last-of-type because when Code is SSR'd
 		// 2 <code> elements are created and we don't want this style
 		// applied to the first one
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'& code:last-of-type': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			paddingRight: `${token('space.100')} !important`,
@@ -36,16 +34,13 @@ const getCodeBlockStyles = cssMap({
 			wordBreak: 'break-word',
 		},
 
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'& code:first-of-type': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			paddingRight: `0px !important`,
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'[data-ds--code--row--highlight]:last-child': {
 			borderBottom: '1px dashed transparent',
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'[data-ds--code--row--highlight] + [data-ds--code--row]:not([data-ds--code--row--highlight]), [data-ds--code--row]:not([data-ds--code--row--highlight]) + [data-ds--code--row--highlight]':
 			{
 				borderTop: '1px dashed transparent',
@@ -68,7 +63,6 @@ const getCodeBlockStyles = cssMap({
 		},
 		'& [data-ds--code--row--highlight]': {
 			backgroundColor: token('color.background.neutral'),
-			// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 			'&::before, &::after': {
 				clipPath: 'inset(100%)',
 				clip: 'rect(1px, 1px, 1px, 1px)',
@@ -206,7 +200,6 @@ const getCodeBlockStyles = cssMap({
 				color: token('color.text.accent.blue'),
 			},
 			// this specifically stops prism css cascading.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:not([class=token],[data-ds--code--row--highlight],[data-ds--code--row])': {
 				all: 'unset',
 			},
@@ -216,7 +209,6 @@ const getCodeBlockStyles = cssMap({
 		fontFamily: token('font.family.code'),
 	},
 	showLineNumbers: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'& code:first-of-type': {
 			backgroundImage: `linear-gradient(to right, var(--ds--code--line-number-bg-color,${token('color.background.neutral')}), var(--ds--code--line-number-bg-color,${token('color.background.neutral')})
 			var(--ads-code-line-number-width), transparent var(--ads-code-line-number-width), transparent)`,
@@ -239,13 +231,11 @@ const getCodeBlockStyles = cssMap({
 		},
 	},
 	shouldWrapLongLines: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'& code:last-of-type': {
 			flexShrink: 1,
 		},
 	},
 	dontWrapLongLines: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'& code:last-of-type': {
 			flexShrink: 1,
 		},

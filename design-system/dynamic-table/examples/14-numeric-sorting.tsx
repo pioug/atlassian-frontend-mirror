@@ -4,7 +4,6 @@ import DynamicTable from '@atlaskit/dynamic-table';
 
 import { caption, head, rows } from './content/sample-data-numerical';
 
-// eslint-disable-next-line import/no-anonymous-default-export
 const NumericSortingExample = () => (
 	<DynamicTable
 		caption={caption}

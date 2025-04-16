@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 
 // Need to intersect type RuleListener with a generic function to allow use of Parameters<...> to be used

@@ -177,7 +177,6 @@ describe('LoadingContainerAdvanced', () => {
 		it('should set styles to the target and revert them on loading mode change', () => {
 			let target: HTMLTableSectionElement | null = null;
 
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-empty-styled-expression -- Ignored via go/DSP-18766
 			const { rerender } = render(
 				<LoadingContainerAdvanced targetRef={() => target}>
 					<div>

@@ -53,7 +53,6 @@ const MyRouterLinkComponent = forwardRef(
 				data-test-link-type="advanced"
 				data-custom-attribute={href.customProp}
 				href={href.to}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>
 				{label}
@@ -106,7 +105,6 @@ describe('<LinkItem />', () => {
 			<LinkItem href="http://www.atlassian.com" css={hackStyles} testId="link">
 				Atlassian
 			</LinkItem>,
-			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 		);
 
 		const link = screen.getByTestId('link');
@@ -738,7 +736,6 @@ describe('<LinkItem />', () => {
 					<LinkItem href="http://www.atlassian.com" css={hackStyles} testId="link">
 						Atlassian
 					</LinkItem>,
-					/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 				);
 
 				const link = screen.getByTestId('link');

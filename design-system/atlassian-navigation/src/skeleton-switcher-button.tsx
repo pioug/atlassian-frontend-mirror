@@ -73,7 +73,6 @@ export const SkeletonSwitcherButton = ({ label = '', testId }: SkeletonSwitcherB
 	const theme = useTheme();
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={theme.mode.iconButton.default as React.CSSProperties}

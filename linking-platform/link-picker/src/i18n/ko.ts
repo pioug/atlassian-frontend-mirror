@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {결과를 찾을 수 없습니다} other {{count,number}개의 결과를 찾았습니다}}',
   'fabric.linkPicker.linkAriaLabel': '필드에 링크를 입력하거나 붙여넣으세요',
+  'fabric.linkPicker.linkHelperTextAriaLabel': '링크 표시 도우미 텍스트',
+  'fabric.linkPicker.linkHelperTextLabel': '이 링크에 제목 또는 설명을 입력하세요',
   'fabric.linkPicker.linkInvalid': '유효한 URL을 입력하세요.',
   'fabric.linkPicker.linkLabel': '링크',
   'fabric.linkPicker.linkPlaceholder': '링크를 붙여넣으세요',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     '페이지를 새로 고치거나 문제가 계속 발생하는 경우 <a>Atlassian 고객 지원팀</a>에 문의하세요.',
   'fabric.linkPicker.search.error.heading': '데이터를 로드하는 동안 문제가 발생했습니다.',
+  'fabric.linkPicker.search.error.retry': '새로 고침',
   'fabric.linkPicker.search.linkAriaLabel': '필드에 입력할 때 제안 사항이 아래에 표시됩니다',
   'fabric.linkPicker.search.linkLabel': '링크를 검색하거나 붙여넣으세요',
   'fabric.linkPicker.search.linkPlaceholder': '최근 링크를 찾거나 새 링크를 붙여넣으세요',

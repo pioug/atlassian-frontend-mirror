@@ -54,7 +54,6 @@ function ThemeModeSwitcher({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					borderRadius: '5px',
 				}}
-				/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 			>
 				<GlobalTheme.Provider value={getMode}>
 					<ButtonTheme.Provider value={(current, props) => current({ ...props, mode })}>

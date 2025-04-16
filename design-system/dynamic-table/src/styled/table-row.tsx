@@ -19,11 +19,7 @@ export type ITableRowProps = {
 const rowStyles = css({
 	backgroundColor: token('color.background.neutral.subtle', 'transparent'),
 	'&:focus-visible': {
-		outline: `2px solid ${token(
-			'color.border.focused',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			'var(--local-dynamic-table-hover-bg)',
-		)}`,
+		outline: `2px solid ${token('color.border.focused', 'var(--local-dynamic-table-hover-bg)')}`,
 		outlineOffset: `-2px`,
 	},
 });
@@ -32,21 +28,15 @@ const rowBackgroundStyles = css({
 	'&:hover': {
 		backgroundColor: token(
 			'color.background.neutral.subtle.hovered',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			'var(--local-dynamic-table-hover-bg)',
 		),
 	},
 });
 const rowHighlightedBackgroundStyles = css({
-	backgroundColor: token(
-		'color.background.selected',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		'var(--local-dynamic-table-highlighted-bg)',
-	),
+	backgroundColor: token('color.background.selected', 'var(--local-dynamic-table-highlighted-bg)'),
 	'&:hover': {
 		backgroundColor: token(
 			'color.background.selected.hovered',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			'var(--local-dynamic-table-hover-highlighted-bg)',
 		),
 	},

@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {ingen resultater fundet} one {Der blev fundet {count,number} resultat} other {Der blev fundet {count,number} resultater}}',
   'fabric.linkPicker.linkAriaLabel': 'Skriv eller indsæt et link i feltet',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Hjælpetekst til linkvisning',
+  'fabric.linkPicker.linkHelperTextLabel': 'Giv dette link en titel eller beskrivelse',
   'fabric.linkPicker.linkInvalid': 'Indtast en gyldig URL-adresse.',
   'fabric.linkPicker.linkLabel': 'Link',
   'fabric.linkPicker.linkPlaceholder': 'Indsæt et link',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Opdater siden, eller kontakt <a>Atlassian-support</a>, hvis det bliver ved med at ske.',
   'fabric.linkPicker.search.error.heading': 'Vi har problemer med at indlæse data.',
+  'fabric.linkPicker.search.error.retry': 'Opdater',
   'fabric.linkPicker.search.linkAriaLabel': 'Der vises forslag nedenfor, når du skriver i feltet',
   'fabric.linkPicker.search.linkLabel': 'Søg efter eller indsæt et link',
   'fabric.linkPicker.search.linkPlaceholder': 'Find de seneste links, eller indsæt et nyt link',

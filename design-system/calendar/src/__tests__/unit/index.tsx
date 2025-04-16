@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
-// eslint-disable-next-line no-restricted-imports
 import userEvent from '@testing-library/user-event';
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';

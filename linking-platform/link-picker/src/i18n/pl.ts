@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {Nie znaleziono wyników} one {Znaleziono {count,number} wynik} few {Znaleziono {count,number} wyniki} many {Znaleziono {count,number} wyników} other {Znaleziono {count,number} wyniku}}',
   'fabric.linkPicker.linkAriaLabel': 'Wpisz lub wklej łącze w polu',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Tekst pomocy dotyczący wyświetlania łącza',
+  'fabric.linkPicker.linkHelperTextLabel': 'Nadaj temu łączu tytuł lub opis',
   'fabric.linkPicker.linkInvalid': 'Wprowadź prawidłowy adres URL.',
   'fabric.linkPicker.linkLabel': 'Łącze',
   'fabric.linkPicker.linkPlaceholder': 'Wklej łącze',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Odśwież stronę lub skontaktuj się z <a>działem wsparcia Atlassian</a>, jeśli sytuacja będzie się powtarzać.',
   'fabric.linkPicker.search.error.heading': 'Wystąpił problem podczas ładowania danych.',
+  'fabric.linkPicker.search.error.retry': 'Odśwież',
   'fabric.linkPicker.search.linkAriaLabel': 'Sugestie będą pojawiały się poniżej w miarę wpisywania tekstu w polu',
   'fabric.linkPicker.search.linkLabel': 'Wyszukaj lub wklej łącze',
   'fabric.linkPicker.search.linkPlaceholder': 'Znajdź ostatnie łącza lub wklej nowe łącze',

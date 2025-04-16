@@ -164,36 +164,40 @@ const ActionButtonRefreshNew = forwardRef(
 			const iconAfterFn = (() => iconAfter || null) as IconProp;
 			if (isLinkButton) {
 				return (
-					<LinkButton
+					<Tooltip content={tooltipMessage} hideTooltipOnClick={true} testId={`${testId}-tooltip`}>
+						<LinkButton
+							appearance={ButtonAppearanceMap[appearance]}
+							aria-label={ariaLabel}
+							iconAfter={iconAfterFn}
+							iconBefore={iconBeforeFn}
+							isDisabled={isDisabled}
+							href={href}
+							onClick={onButtonClick(onClick)}
+							spacing={spacing}
+							testId={testId}
+						>
+							{content}
+						</LinkButton>
+					</Tooltip>
+				);
+			}
+
+			return (
+				<Tooltip content={tooltipMessage} hideTooltipOnClick={true} testId={`${testId}-tooltip`}>
+					<Button
 						appearance={ButtonAppearanceMap[appearance]}
 						aria-label={ariaLabel}
 						iconAfter={iconAfterFn}
 						iconBefore={iconBeforeFn}
 						isDisabled={isDisabled}
-						href={href}
+						isLoading={isLoading}
 						onClick={onButtonClick(onClick)}
 						spacing={spacing}
 						testId={testId}
 					>
 						{content}
-					</LinkButton>
-				);
-			}
-
-			return (
-				<Button
-					appearance={ButtonAppearanceMap[appearance]}
-					aria-label={ariaLabel}
-					iconAfter={iconAfterFn}
-					iconBefore={iconBeforeFn}
-					isDisabled={isDisabled}
-					isLoading={isLoading}
-					onClick={onButtonClick(onClick)}
-					spacing={spacing}
-					testId={testId}
-				>
-					{content}
-				</Button>
+					</Button>
+				</Tooltip>
 			);
 		}, [
 			appearance,
@@ -284,7 +288,10 @@ const ActionButtonNew = ({
 
 const ActionButtonHideLegacyButton = (props: ActionButtonProps): JSX.Element => {
 	const ui = useFlexibleUiOptionContext();
-	if (ui?.hideLegacyButton) {
+	if (
+		ui?.hideLegacyButton ||
+		(ui?.removeBlockRestriction && fg('platform-linking-flexible-card-openness'))
+	) {
 		return <ActionButtonRefreshNewWithOverrideCss {...props} />;
 	}
 	return <ActionButtonNew {...props} />;

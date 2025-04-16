@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/use-noop */
 import type { Rule } from 'eslint';
 import { isNodeOfType, type PrivateIdentifier, type Property } from 'eslint-codemod-utils';
 import j from 'jscodeshift';

@@ -1,5 +1,3 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
-
 import type { JSONSchema4 } from 'json-schema';
 
 import { getScope } from '@atlaskit/eslint-utils/context-compat';

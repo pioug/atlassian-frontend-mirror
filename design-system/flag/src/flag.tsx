@@ -217,7 +217,7 @@ const Flag: FC<FlagProps> = (props) => {
 								? iconWrapperStyles
 								: oldIconWrapperStyles,
 						]}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
 						data-testid={testId && `${testId}-icon-container`}
 					>

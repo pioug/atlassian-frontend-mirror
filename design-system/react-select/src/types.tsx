@@ -1,5 +1,8 @@
+import { type XCSSProp } from '@compiled/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { type CSSObject } from '@emotion/react';
+
+import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 
 import { type SelectProps } from './select';
 import { type StylesProps } from './styles';
@@ -99,6 +102,7 @@ export interface CommonPropsAndClassName<
 	Group extends GroupBase<Option>,
 > extends CommonProps<Option, IsMulti, Group> {
 	className?: string | undefined;
+	xcss?: XCSSProp<XCSSAllProperties, XCSSAllPseudos> | undefined;
 }
 
 export interface ActionMetaBase<Option> {

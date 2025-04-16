@@ -40,7 +40,6 @@ const DropdownMenuItemGroup = forwardRef<HTMLElement, SectionProps>(
 				titleId={title ? titleId : undefined}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 				overrides={overrides}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>
 				{title && <GroupTitle id={titleId} title={title} />}

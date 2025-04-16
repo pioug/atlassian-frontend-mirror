@@ -5,7 +5,6 @@
  */
 import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -178,7 +177,6 @@ const ascendingStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > button': {
 			'&::before': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderBlockEnd: `3px solid Highlight`,
 			},
 		},
@@ -196,7 +194,6 @@ const descendingStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > button': {
 			'&::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderBlockStart: `3px solid Highlight`,
 			},
 		},
@@ -247,15 +244,11 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={mergedStyles}
 				css={[
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					cellStyles,
 					isVisuallyRefreshed ? headCellBaseStyles : headCellBaseStylesOld,
 					!isVisuallyRefreshed && onClick && onClickStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					truncationWidthStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					isFixedSize && shouldTruncate && fixedSizeTruncateStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					isFixedSize && overflowTruncateStyles,
 					!isVisuallyRefreshed && isSortable && baseStyles,
 					!isVisuallyRefreshed && isASC && ascendingStyles,

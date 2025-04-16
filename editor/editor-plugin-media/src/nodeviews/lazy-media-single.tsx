@@ -6,6 +6,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
@@ -21,7 +22,10 @@ export const lazyMediaSingleView = (
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	options: MediaOptions = {},
 ): NodeViewConstructor => {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
+	if (
+		fg('platform_editor_ssr_media') ||
+		editorExperiment('platform_editor_exp_lazy_node_views', false)
+	) {
 		return ReactMediaSingleNode(
 			portalProviderAPI,
 			eventDispatcher,

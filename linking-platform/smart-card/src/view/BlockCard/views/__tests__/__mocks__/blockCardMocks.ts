@@ -83,6 +83,29 @@ export const mockConfluenceResponseWithOwnedBy = {
 	},
 };
 
+export const mockCompassResponse = {
+	...mockBaseResponse,
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'dragonfruit-object-provider',
+	},
+};
+
+export const mockCompassResponseWithOwnedBy = {
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'dragonfruit-object-provider',
+	},
+	data: {
+		...mockBaseResponse.data,
+		'atlassian:ownedBy': {
+			'@type': 'Person',
+			icon: 'avatar_url',
+			name: 'Atnes Ness',
+		},
+	},
+};
+
 export const mockJiraResponse = {
 	meta: {
 		...mockBaseResponse.meta,

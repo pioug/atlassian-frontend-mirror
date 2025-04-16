@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {nebyly nalezeny žádné výsledky} one {{count,number} nalezený výsledek} few {{count,number} nalezené výsledky} many {{count,number} nalezeného výsledku} other {{count,number} nalezených výsledků}}',
   'fabric.linkPicker.linkAriaLabel': 'Zadejte nebo vložte odkaz do pole.',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Text nápovědy k zobrazení pro odkaz',
+  'fabric.linkPicker.linkHelperTextLabel': 'Dejte tomuto odkazu název nebo popis.',
   'fabric.linkPicker.linkInvalid': 'Zadejte platnou adresu URL.',
   'fabric.linkPicker.linkLabel': 'Odkaz',
   'fabric.linkPicker.linkPlaceholder': 'Vložte odkaz.',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Obnovte stránku nebo, pokud problém přetrvává, kontaktujte <a>podporu Atlassian</a>.',
   'fabric.linkPicker.search.error.heading': 'Při načítání dat se vyskytly problémy.',
+  'fabric.linkPicker.search.error.retry': 'Obnovit',
   'fabric.linkPicker.search.linkAriaLabel': 'Níže se objeví návrhy na základě vámi napsaného textu v poli.',
   'fabric.linkPicker.search.linkLabel': 'Vyhledejte nebo vložte odkaz.',
   'fabric.linkPicker.search.linkPlaceholder': 'Vyhledejte nedávné odkazy nebo vložte nový.',

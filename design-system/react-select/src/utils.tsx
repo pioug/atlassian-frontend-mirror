@@ -90,6 +90,7 @@ export const cleanCommonProps = <
 		className, // not listed in commonProps documentation, needs to be removed to allow Emotion to generate classNames
 		clearValue,
 		cx,
+		xcss,
 		getStyles,
 		getClassNames,
 		getValue,

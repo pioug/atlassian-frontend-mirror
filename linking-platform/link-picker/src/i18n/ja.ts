@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {検索結果がありませんでした。} other {{count,number} 件の検索結果が見つかりました。}}',
   'fabric.linkPicker.linkAriaLabel': 'フィールドにリンクを入力または貼り付け',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'リンク表示のヘルパー テキスト',
+  'fabric.linkPicker.linkHelperTextLabel': 'このリンクにタイトルを付けるか説明を追加してください',
   'fabric.linkPicker.linkInvalid': '有効な URL をご入力ください。',
   'fabric.linkPicker.linkLabel': 'リンク',
   'fabric.linkPicker.linkPlaceholder': 'リンクを貼り付け',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'ページを更新してください。問題が解決しない場合は<a>アトラシアン サポート</a>にお問い合わせください。',
   'fabric.linkPicker.search.error.heading': 'データの読み込み中に問題が発生しました。',
+  'fabric.linkPicker.search.error.retry': '更新',
   'fabric.linkPicker.search.linkAriaLabel': 'フィールドに入力すると、以下に候補が表示されます。',
   'fabric.linkPicker.search.linkLabel': 'リンクを検索または貼り付け',
   'fabric.linkPicker.search.linkPlaceholder': '最近のリンクを検索または新しいリンクを貼り付け',

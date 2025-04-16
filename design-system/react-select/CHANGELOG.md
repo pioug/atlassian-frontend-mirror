@@ -1,5 +1,19 @@
 # @atlaskit/react-select
 
+## 2.4.0
+
+### Minor Changes
+
+- [#141922](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141922)
+  [`a48b38cffa7e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48b38cffa7e6) -
+  Create a compiled select and use feature flag to toggle it
+
+### Patch Changes
+
+- [#141922](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141922)
+  [`a48b38cffa7e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a48b38cffa7e6) -
+  Migrate emotion components to compiled components under compiled folder
+
 ## 2.3.0
 
 ### Minor Changes

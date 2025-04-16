@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {沒有找到任何結果} other {找到 {count,number} 個結果}}',
   'fabric.linkPicker.linkAriaLabel': '在欄位中輸入或貼上連結',
+  'fabric.linkPicker.linkHelperTextAriaLabel': '連結顯示輔助工具文字',
+  'fabric.linkPicker.linkHelperTextLabel': '為此連結提供標題或描述',
   'fabric.linkPicker.linkInvalid': '請輸入有效的 URL。',
   'fabric.linkPicker.linkLabel': '連結',
   'fabric.linkPicker.linkPlaceholder': '貼上連結',
@@ -25,6 +27,7 @@ export default {
   'fabric.linkPicker.listTitle.results': '結果',
   'fabric.linkPicker.search.error.description': '請重新整理頁面，如果持續發生錯誤，請連絡 <a>Atlassian 支援人員</a>。',
   'fabric.linkPicker.search.error.heading': '我們在載入資料時遇到問題。',
+  'fabric.linkPicker.search.error.retry': '重新整理',
   'fabric.linkPicker.search.linkAriaLabel': '當您在欄位中輸入內容時，建議會顯示在下方',
   'fabric.linkPicker.search.linkLabel': '搜尋或貼上連結',
   'fabric.linkPicker.search.linkPlaceholder': '尋找最近的連結或貼上新連結',

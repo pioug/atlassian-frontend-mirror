@@ -53,7 +53,6 @@ describe('<ButtonItem />', () => {
 			<ButtonItem css={hackStyles} testId="link">
 				Hello world
 			</ButtonItem>,
-			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 		);
 
 		expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');
@@ -218,7 +217,6 @@ describe('<ButtonItem />', () => {
 					<ButtonItem css={hackStyles} testId="link">
 						Hello world
 					</ButtonItem>,
-					/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 				);
 
 				expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');

@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 205.4.1
+
+### Patch Changes
+
+- [#142098](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142098)
+  [`e84b542ba2d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e84b542ba2d44) -
+  [ED-27614] Put quick insert placeholder behind a separate
+  FGplatform_editor_quick_insert_placeholder
+- Updated dependencies
+
 ## 205.4.0
 
 ### Minor Changes

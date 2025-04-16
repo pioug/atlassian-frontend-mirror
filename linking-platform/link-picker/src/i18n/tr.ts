@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {sonuç bulunamadı} one {{count,number} sonuç bulundu} other {{count,number} sonuç bulundu}}',
   'fabric.linkPicker.linkAriaLabel': 'Alana bir bağlantı yazın ya da yapıştırın',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Bağlantı göster yardım metni',
+  'fabric.linkPicker.linkHelperTextLabel': 'Bu bağlantıya bir başlık ya da açıklama verin',
   'fabric.linkPicker.linkInvalid': 'Geçerli bir URL girin.',
   'fabric.linkPicker.linkLabel': 'Bağlantı',
   'fabric.linkPicker.linkPlaceholder': 'Bağlantı yapıştırın',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Sayfayı yenileyin veya sorun devam ederse <a>Atlassian Destek</a> ekibiyle iletişime geçin.',
   'fabric.linkPicker.search.error.heading': 'Veri yüklenirken bir sorunla karşılaşıldı.',
+  'fabric.linkPicker.search.error.retry': 'Yenile',
   'fabric.linkPicker.search.linkAriaLabel': 'Alana yazmaya başladığınızda öneriler aşağıda görünecek',
   'fabric.linkPicker.search.linkLabel': 'Bir bağlantı arayın ya da yapıştırın',
   'fabric.linkPicker.search.linkPlaceholder': 'Son kullanılan bağlantıları bulun veya yeni bir bağlantı yapıştırın',

@@ -17,7 +17,7 @@ import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-html-anchor -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-html-anchor -- To migrate as part of go/ui-styling-standard
 const IconExplorerLink = styled.a({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&, &:hover, &:active, &:focus': {
@@ -122,7 +122,6 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	return (
 		<div>
 			<Tooltip content={componentName}>
-				{/* eslint-disable-next-line styled-components-a11y/click-events-have-key-events, styled-components-a11y/no-static-element-interactions, styled-components-a11y/anchor-is-valid */}
 				<IconExplorerLink onClick={openModal}>
 					<Icon label={componentName} size="medium" />
 				</IconExplorerLink>

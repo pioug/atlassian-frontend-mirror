@@ -133,18 +133,15 @@ const styles = cssMap({
 	},
 	disabled: {
 		cursor: 'not-allowed',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
 		color: token('color.text.disabled'),
 		'&:hover': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
 			color: token('color.text.disabled'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.disabled', 'rgba(9, 30, 66, 0.04)'),
 			// @ts-expect-error
 			color: token('color.text.disabled'),
@@ -211,25 +208,19 @@ const styles = cssMap({
 
 const defaultStyles = cssMap({
 	root: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		backgroundColor: token('color.background.neutral', 'rgba(9, 30, 66, 0.04)'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
 		color: token('color.text', '#42526E'),
 		'&:visited': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 		'&:focus': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 	},
@@ -257,14 +248,11 @@ const defaultStyles = cssMap({
 	interactive: {
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered', '#091e4214'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 		'&:active': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.neutral.pressed', '#B3D4FF'),
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text', '#42526E'),
 		},
 	},
@@ -466,25 +454,19 @@ const subtleStyles = cssMap({
 
 const selectedStyles = cssMap({
 	root: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		backgroundColor: token('color.background.selected', '#253858'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		color: token('color.text.selected', '#F4F5F7'),
 		'&:visited': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 		'&:focus': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 	},
@@ -518,77 +500,58 @@ const selectedStyles = cssMap({
 	},
 	interactive: {
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			backgroundColor: token('color.background.selected.hovered', '#253858'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 		'&:active': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			backgroundColor: token('color.background.selected.pressed', '#253858'),
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 			color: token('color.text.selected', '#F4F5F7'),
 		},
 	},
 	// TODO: Remove me once we kill color fallbacks
 	warning: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		backgroundColor: token('color.background.selected', '#FF991F'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.selected', '#172B4D'),
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.selected', '#FF991F'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.selected', '#FF991F'),
 		},
 	},
 	// TODO: Remove me once we kill color fallbacks
 	danger: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		backgroundColor: token('color.background.selected', '#BF2600'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.selected', '#F4F5F7'),
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.selected', '#BF2600'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('color.background.selected', '#BF2600'),
 		},
 	},
 	// TODO: Remove me once we kill color fallbacks
 	discovery: {
 		backgroundColor: token('color.background.selected', '#403294'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.selected', '#F4F5F7'),
 		'&:hover': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
 			backgroundColor: token('color.background.selected', '#403294'),
 		},
 		'&:active': {
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: token('color.text.selected', '#F4F5F7'),
 			// @ts-expect-error
 			backgroundColor: token('color.background.selected', '#403294'),
@@ -657,7 +620,6 @@ const ButtonBase = React.forwardRef(
 		const localRef = useRef<HTMLButtonElement | null>(null);
 		const splitButtonContext = useSplitButtonContext();
 		const loadingLabelId = useId();
-
 		const isSplitButton = Boolean(splitButtonContext);
 		const isNavigationSplitButton = splitButtonContext?.isNavigationSplitButton || false;
 		const isDefaultAppearanceSplitButton = splitButtonContext?.appearance === 'default';

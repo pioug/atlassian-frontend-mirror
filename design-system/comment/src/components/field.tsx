@@ -45,7 +45,6 @@ const anchorStyles = cssMap({
 
 const noAuthorStyles = cssMap({
 	root: {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontWeight: 'inherit',
 	},
 });

@@ -1,6 +1,5 @@
 import React, { type ReactElement } from 'react';
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
@@ -65,7 +64,6 @@ export const flagIconGlyph: Record<AppearanceTypes, ReactElement> = {
 	),
 };
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const flagTextColor: Record<AppearanceTypes, HeadingColor> = {
 	error: 'color.text.inverse',
 	info: 'color.text.inverse',

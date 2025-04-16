@@ -144,15 +144,25 @@ export default {
   'fabric.linking.read_time': '{context} minuti di lettura',
   'fabric.linking.related': 'Correlate',
   'fabric.linking.related_links_found_in': 'Trovato in',
+  'fabric.linking.related_links_found_in_v2': 'Trovate in',
   'fabric.linking.related_links_includes_links_to': 'Include i link a',
+  'fabric.linking.related_links_includes_links_to_v2': 'Include link a',
+  'fabric.linking.related_links_modal_error_description':
+    'Controlla la connessione oppure aggiorna la pagina per riprovare',
   'fabric.linking.related_links_modal_error_header': 'Si è verificato un problema',
   'fabric.linking.related_links_modal_error_message':
     'Si è verificato un problema durante il tentativo di caricare i link recenti. Verifica la connessione o aggiorna per riprovare.',
+  'fabric.linking.related_links_modal_error_title': 'Stiamo riscontrando problemi nel caricamento dei link correlati',
   'fabric.linking.related_links_modal_title': 'Link recenti',
+  'fabric.linking.related_links_modal_title_v2': 'Link correlati',
+  'fabric.linking.related_links_modal_unavailable_description':
+    'Esaminiamo e aggiungiamo continuamente i link correlati per le pagine o altri tipi di contenuti aggiornati',
   'fabric.linking.related_links_modal_unavailable_header': 'Nessun link recente',
   'fabric.linking.related_links_modal_unavailable_message':
     'Non sono stati trovati link da mostrare qui. Esaminiamo e aggiungiamo continuamente i link recenti per le pagine aggiornate o altri tipi di contenuti.',
+  'fabric.linking.related_links_modal_unavailable_title': 'Non è stato possibile trovare link correlati',
   'fabric.linking.related_links_not_found': 'Non sono stati trovati link da mostrare qui.',
+  'fabric.linking.related_links_view_related_links': 'Visualizza link correlati',
   'fabric.linking.related_links_view_related_urls': 'Visualizza link recenti',
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_description':

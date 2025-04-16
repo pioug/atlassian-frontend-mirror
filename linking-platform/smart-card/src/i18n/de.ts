@@ -149,14 +149,23 @@ export default {
   'fabric.linking.related': 'Zugehörig',
   'fabric.linking.related_links_found_in': 'Gefunden in',
   'fabric.linking.related_links_includes_links_to': 'Beinhaltet Links zu',
+  'fabric.linking.related_links_includes_links_to_v2': 'Beinhaltet Links zu',
+  'fabric.linking.related_links_modal_error_description':
+    'Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite, um es erneut zu versuchen.',
   'fabric.linking.related_links_modal_error_header': 'Etwas ist schiefgelaufen',
   'fabric.linking.related_links_modal_error_message':
     'Beim Laden der zuletzt aufgerufenen Links ist ein Problem aufgetreten. Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite, um es erneut zu versuchen.',
+  'fabric.linking.related_links_modal_error_title': 'Beim Laden der zugehörigen Links ist ein Problem aufgetreten',
   'fabric.linking.related_links_modal_title': 'Zuletzt aufgerufene Links',
+  'fabric.linking.related_links_modal_title_v2': 'Zugehörige Links',
+  'fabric.linking.related_links_modal_unavailable_description':
+    'Wir überprüfen fortlaufend zugehörige Links für aktualisierte Seiten oder andere Inhaltstypen und fügen sie hinzu.',
   'fabric.linking.related_links_modal_unavailable_header': 'Keine zuletzt aufgerufenen Links',
   'fabric.linking.related_links_modal_unavailable_message':
     'Es wurden keine Links zum Anzeigen gefunden. Die zuletzt aufgerufenen Links werden fortlaufend auf aktualisierte Seiten oder andere Inhaltstypen geprüft und ggf. hinzugefügt.',
+  'fabric.linking.related_links_modal_unavailable_title': 'Es konnten keine zugehörigen Links gefunden werden',
   'fabric.linking.related_links_not_found': 'Es wurden keine Links zum Anzeigen gefunden.',
+  'fabric.linking.related_links_view_related_links': 'Zugehörige Links anzeigen',
   'fabric.linking.related_links_view_related_urls': 'Letzte Links anzeigen',
   'fabric.linking.request_access': 'Zugriff anfordern',
   'fabric.linking.request_access_description':

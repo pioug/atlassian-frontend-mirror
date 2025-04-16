@@ -196,7 +196,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			'Editor: unable to init media plugin - media or mediaGroup/mediaSingle node absent in schema',
 		);
 
-		if (mediaOptions?.provider) {
+		if (mediaOptions?.syncProvider) {
+			this.setMediaProvider(mediaOptions?.syncProvider);
+		} else if (mediaOptions?.provider) {
 			this.setMediaProvider(mediaOptions?.provider);
 		}
 
@@ -242,9 +244,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		);
 	}
 
-	private previousMediaProvider: Promise<MediaProvider> | undefined;
+	private previousMediaProvider: Promise<MediaProvider> | MediaProvider | undefined;
 
-	async setMediaProvider(mediaProvider?: Promise<MediaProvider>) {
+	async setMediaProvider(mediaProvider?: Promise<MediaProvider> | MediaProvider) {
 		// Prevent someone trying to set the exact same provider twice for performance reasons
 		if (this.previousMediaProvider === mediaProvider) {
 			return;
@@ -269,7 +271,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
 		// TODO disable (not destroy!) pickers until mediaProvider is resolved
 		try {
-			this.mediaProvider = await mediaProvider;
+			if (mediaProvider instanceof Promise) {
+				this.mediaProvider = await mediaProvider;
+			} else {
+				this.mediaProvider = mediaProvider;
+			}
 
 			// Ignored via go/ees007
 			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format

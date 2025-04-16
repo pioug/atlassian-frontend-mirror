@@ -56,7 +56,6 @@ const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>((props, re
 		...props
 	}: CustomItemComponentProps) => {
 		return (
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			<button
 				type="button"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

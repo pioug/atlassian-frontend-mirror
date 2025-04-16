@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule, Scope } from 'eslint';
 import {
 	type CallExpression,

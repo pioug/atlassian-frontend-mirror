@@ -15,6 +15,8 @@ export default {
   'fabric.linkPicker.hyperlink.searchLinkResults':
     '{count, plural, =0 {Ничего не найдено} one {Найден {count,number} результат} few {Найдено {count,number} результата} many {Найдено {count,number} результатов} other {Найдено {count,number} результата}}',
   'fabric.linkPicker.linkAriaLabel': 'Введите или вставьте ссылку в поле',
+  'fabric.linkPicker.linkHelperTextAriaLabel': 'Отображаемый вспомогательный текст ссылки',
+  'fabric.linkPicker.linkHelperTextLabel': 'Дайте ссылке название или описание',
   'fabric.linkPicker.linkInvalid': 'Укажите действительный URL-адрес.',
   'fabric.linkPicker.linkLabel': 'Ссылка',
   'fabric.linkPicker.linkPlaceholder': 'Вставьте ссылку',
@@ -26,6 +28,7 @@ export default {
   'fabric.linkPicker.search.error.description':
     'Обновите страницу или обратитесь в <a>поддержку Atlassian</a>, если проблема возникнет снова.',
   'fabric.linkPicker.search.error.heading': 'При загрузке данных произошла ошибка.',
+  'fabric.linkPicker.search.error.retry': 'Обновить',
   'fabric.linkPicker.search.linkAriaLabel': 'Предложения будут появляться по мере ввода текста в поле',
   'fabric.linkPicker.search.linkLabel': 'Найдите или вставьте ссылку',
   'fabric.linkPicker.search.linkPlaceholder': 'Выполните поиск недавних ссылок или вставьте новую',

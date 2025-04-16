@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-	expandWithNestedExpand,
-	nestedExpand,
-	nestedExpandWithoutNonBodiedMacros,
-} from '@atlaskit/adf-schema';
+import { expandWithNestedExpand, nestedExpand } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -16,7 +12,6 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../types';
 
@@ -34,10 +29,6 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 		api?.featureFlags?.sharedState.currentState()?.nestedExpandInExpandEx ||
 		fg('platform_editor_nest_nested_expand_in_expand_jira');
 
-	const nestedExpandNode = editorExperiment('platform_editor_nested_non_bodied_macros', 'test')
-		? nestedExpand
-		: nestedExpandWithoutNonBodiedMacros;
-
 	return {
 		name: 'expand',
 
@@ -47,7 +38,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 					name: 'expand',
 					node: expandWithNestedExpand,
 				},
-				{ name: 'nestedExpand', node: nestedExpandNode },
+				{ name: 'nestedExpand', node: nestedExpand },
 			];
 		},
 

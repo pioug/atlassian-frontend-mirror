@@ -1,4 +1,3 @@
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { Expression, SpreadElement } from 'estree';
 import type { JSONSchema4 } from 'json-schema';
 

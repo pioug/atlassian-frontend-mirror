@@ -79,7 +79,6 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 			 * applies since we're creating a new stacking context. */
 			<Manager>
 				<Reference>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					{({ ref }) => <div ref={ref} data-layer-child css={styles.root} style={divStyles} />}
 				</Reference>
 				<Popper>

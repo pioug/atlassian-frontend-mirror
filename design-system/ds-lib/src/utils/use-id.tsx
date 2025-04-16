@@ -31,11 +31,9 @@ const react18UseId: (() => string) | undefined = React.useId ?? undefined;
  */
 export function useId(): string {
 	if (react18UseId && fg('platform-dst-react-18-use-id')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
 		return react18UseId();
 	}
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	return `uid${react16UseId()}`;
 }
 
@@ -166,11 +164,9 @@ export const IdProvider = forwardRef<string, IdProviderProps>(
  */
 export function useIdSeed(): SeedGenerator {
 	if (react18UseId && fg('platform-dst-react-18-use-id')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const uid = react18UseId();
 		return (id: any) => `${uid}-${id.toString()}`;
 	}
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
 	return react16UseIdSeed();
 }

@@ -1,16 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ReactNode, type RefCallback } from 'react';
+/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
+import React, { type ReactNode, type RefCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { jsx } from '@emotion/react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { token } from '@atlaskit/tokens';
-
+import CompiledOption, { optionCSS as compiledOptionCSS } from '../compiled/components/option';
+import EmotionOption, { optionCSS as emotionOptionCSS } from '../emotion/components/option';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
-import { getStyleProps } from '../utils';
 
 export interface OptionProps<
 	Option = unknown,
@@ -57,82 +52,14 @@ export interface OptionProps<
 	isSelected: boolean;
 }
 
-export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	isDisabled,
-	isFocused,
-	isSelected,
-}: OptionProps<Option, IsMulti, Group>): CSSObjectWithLabel => {
-	let color: string = token('color.text');
-	if (isDisabled) {
-		color = token('color.text.disabled');
-	} else if (isSelected) {
-		color = token('color.text.selected');
-	}
-
-	let boxShadow;
-	let backgroundColor;
-	if (isDisabled) {
-		backgroundColor = undefined;
-	} else if (isSelected && isFocused) {
-		backgroundColor = token('color.background.selected.hovered');
-	} else if (isSelected) {
-		backgroundColor = token('color.background.selected');
-	} else if (isFocused) {
-		backgroundColor = token('color.background.neutral.subtle.hovered');
-	}
-	if (!isDisabled && (isFocused || isSelected)) {
-		boxShadow = `inset 2px 0px 0px ${token('color.border.selected')}`;
-	}
-
-	const cursor = isDisabled ? 'not-allowed' : 'default';
-
-	return {
-		label: 'option',
-		display: 'block',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: 'inherit',
-		width: '100%',
-		userSelect: 'none',
-		WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-		padding: `${token('space.075')} ${token('space.150')}`,
-		backgroundColor,
-		color,
-		cursor,
-		boxShadow,
-		':active': {
-			backgroundColor: !isDisabled
-				? isSelected
-					? token('color.background.selected.pressed')
-					: token('color.background.neutral.subtle.pressed')
-				: undefined,
-		},
-		'@media screen and (-ms-high-contrast: active)': {
-			borderLeft: !isDisabled && (isFocused || isSelected) ? '2px solid transparent' : '',
-		},
-	};
-};
+export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: OptionProps<Option, IsMulti, Group>,
+): CSSObjectWithLabel =>
+	fg('compiled-react-select') ? compiledOptionCSS() : emotionOptionCSS(props);
 
 const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: OptionProps<Option, IsMulti, Group>,
-) => {
-	const { children, isDisabled, isFocused, isSelected, innerRef, innerProps } = props;
-
-	return (
-		<div
-			{...getStyleProps(props, 'option', {
-				option: true,
-				'option--is-disabled': isDisabled,
-				'option--is-focused': isFocused,
-				'option--is-selected': isSelected,
-			})}
-			ref={innerRef}
-			{...innerProps}
-			tabIndex={-1}
-		>
-			{children}
-		</div>
-	);
-};
+) => (fg('compiled-react-select') ? <CompiledOption {...props} /> : <EmotionOption {...props} />);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Option;

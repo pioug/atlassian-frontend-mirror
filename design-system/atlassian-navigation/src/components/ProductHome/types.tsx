@@ -41,7 +41,7 @@ export interface ProductHomeProps {
 	 */
 	siteTitle?: string;
 
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-disable jsdoc/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -55,7 +55,7 @@ export interface ProductHomeProps {
     - Site title - `{testId}-site-title`
    */
 	testId?: string;
-	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-enable jsdoc/require-asterisk-prefix */
 
 	// We _could_ have a `label` prop to align with other, newer components.
 	// But `aria-label` is already being used in products,
@@ -114,7 +114,7 @@ export interface CustomProductHomeProps {
 	 */
 	siteTitle?: string;
 
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-disable jsdoc/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -128,5 +128,5 @@ export interface CustomProductHomeProps {
     - Site title - `{testId}-site-title`
    */
 	testId?: string;
-	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-enable jsdoc/require-asterisk-prefix */
 }

@@ -29,11 +29,9 @@ const pressableStyles = xcss({
 	width: 'size.600',
 	paddingInline: 'space.050',
 	backgroundColor: 'color.background.neutral.subtle',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':hover': {
 		backgroundColor: 'color.background.neutral.subtle.hovered',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':active': {
 		backgroundColor: 'color.background.neutral.subtle.pressed',
 	},

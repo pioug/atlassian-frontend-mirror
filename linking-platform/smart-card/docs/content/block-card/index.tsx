@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box } from '@atlaskit/primitives';
+import { Card } from '@atlaskit/smart-card';
 
 import CardViewExample from '../../../examples/card-view';
 import ExampleBlockCard from '../../../examples/content/block-card';
@@ -24,6 +25,6 @@ ${(
 
 ${state_description}
 
-${(<CardViewExample appearance="block" frameStyle="show" />)}
+${(<CardViewExample appearance="block" frameStyle="show" CardComponent={Card} />)}
 
 `;

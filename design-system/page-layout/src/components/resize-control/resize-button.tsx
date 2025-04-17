@@ -29,7 +29,7 @@ const increaseHitAreaStyles = css({
 });
 
 const mobileStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles -- Ignored via go/DSP-18766
 	[UNSAFE_media.below.sm]: {
 		opacity: 1,
 	},
@@ -43,7 +43,6 @@ const resizeIconButtonStyles = css({
 	backgroundColor: token('elevation.surface.overlay', N0),
 	border: 0,
 	borderRadius: token('border.radius.circle', '50%'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- TODO: https://product-fabric.atlassian.net/browse/DSP-3392; this boxShadow needs further investigation, along with the hover and active background colors.
 	boxShadow: `0 0 0 1px ${N30A}, 0 2px 4px 1px ${N30A}`,
 	color: token('color.text.subtle', N200),
 	cursor: 'pointer',

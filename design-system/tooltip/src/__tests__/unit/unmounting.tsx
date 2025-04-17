@@ -32,7 +32,6 @@ describe('Unmounting tooltip', () => {
 		});
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		// eslint-disable-next-line no-console
 		expect(console.error).not.toHaveBeenCalled();
 		(global.console.error as jest.Mock).mockRestore();
 	});
@@ -57,7 +56,6 @@ describe('Unmounting tooltip', () => {
 		unmount();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		// eslint-disable-next-line no-console
 		expect(console.error).not.toHaveBeenCalled();
 		(global.console.error as jest.Mock).mockRestore();
 	});
@@ -82,7 +80,6 @@ describe('Unmounting tooltip', () => {
 		unmount();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		// eslint-disable-next-line no-console
 		expect(console.error).not.toHaveBeenCalled();
 		(global.console.error as jest.Mock).mockRestore();
 	});
@@ -114,7 +111,6 @@ describe('Unmounting tooltip', () => {
 		unmount();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		// eslint-disable-next-line no-console
 		expect(console.error).not.toHaveBeenCalled();
 		(global.console.error as jest.Mock).mockRestore();
 	});
@@ -147,7 +143,6 @@ describe('Unmounting tooltip', () => {
 		unmount();
 
 		expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
-		// eslint-disable-next-line no-console
 		expect(console.error).not.toHaveBeenCalled();
 		(global.console.error as jest.Mock).mockRestore();
 	});

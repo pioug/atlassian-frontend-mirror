@@ -2,4 +2,4 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { mediaPlugin } from '@atlaskit/editor-plugin-media';
-export type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+export type { MediaPlugin, MediaPluginOptions } from '@atlaskit/editor-plugin-media';

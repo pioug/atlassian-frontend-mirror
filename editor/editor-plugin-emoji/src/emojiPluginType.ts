@@ -13,6 +13,7 @@ import type {
 } from '@atlaskit/editor-plugin-annotation';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -82,6 +83,7 @@ export type EmojiPluginDependencies = [
 	OptionalPlugin<AnnotationPluginType>,
 	OptionalPlugin<EditorViewModePluginType>,
 	OptionalPlugin<BasePlugin>,
+	OptionalPlugin<MetricsPlugin>,
 ];
 
 export type EmojiPlugin = NextEditorPlugin<

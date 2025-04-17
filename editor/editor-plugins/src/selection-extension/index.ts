@@ -5,4 +5,5 @@ export { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-exte
 export type {
 	SelectionExtensionPlugin,
 	SelectionExtensionComponentProps,
+	SelectionExtensionPluginOptions,
 } from '@atlaskit/editor-plugin-selection-extension';

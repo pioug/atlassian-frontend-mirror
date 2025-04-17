@@ -1,5 +1,18 @@
 # @atlaskit/reactions
 
+## 31.1.0
+
+### Minor Changes
+
+- [#142643](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142643)
+  [`ec49a2c4909a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec49a2c4909a4) -
+  [ux] Updates the emoji picker positioning when opened from the summary view reaction picker
+  trigger
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.1
 
 ### Patch Changes

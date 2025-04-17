@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 17.0.1
+
+### Patch Changes
+
+- [#142578](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142578)
+  [`a1e85a3a1ca96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1e85a3a1ca96) -
+  Add componenets API support in selectProps
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

@@ -1,4 +1,7 @@
-import { LanguageSupport } from '@codemirror/language';
+import { LanguageSupport, syntaxHighlighting } from '@codemirror/language';
+import type { Extension } from '@codemirror/state';
+
+import { languageStyling } from '../../ui/syntaxHighlightingTheme';
 
 import { mapLanguageToCodeMirror } from './languageMap';
 
@@ -9,7 +12,11 @@ import { mapLanguageToCodeMirror } from './languageMap';
 export class LanguageLoader {
 	private languageName: string = '';
 
-	constructor(private updateLanguageCompartment: (value: LanguageSupport | []) => void) {}
+	constructor(
+		private updateLanguageCompartment: (
+			value: LanguageSupport | [LanguageSupport, Extension] | [],
+		) => void,
+	) {}
 
 	updateLanguage(languageName: string) {
 		if (languageName === this.languageName) {
@@ -31,7 +38,12 @@ export class LanguageLoader {
 			.load()
 			.then((lang) => {
 				if (lang) {
-					this.updateLanguageCompartment(lang);
+					const styling = languageStyling(lang.language);
+					if (styling) {
+						this.updateLanguageCompartment([lang, syntaxHighlighting(styling)]);
+					} else {
+						this.updateLanguageCompartment(lang);
+					}
 					this.languageName = languageName;
 				} else {
 					configureEmpty();

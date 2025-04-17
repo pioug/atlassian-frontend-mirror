@@ -7,6 +7,7 @@ export {
 } from '@atlaskit/editor-plugin-editor-viewmode';
 export type {
 	EditorViewModePluginConfig,
+	EditorViewModePluginOptions,
 	EditorViewModePluginState,
 	EditorViewModePlugin,
 	ViewMode,

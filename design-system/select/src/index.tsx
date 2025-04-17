@@ -1,4 +1,9 @@
-export { components, createFilter, mergeStyles } from '@atlaskit/react-select';
+export {
+	components,
+	createFilter,
+	mergeStyles,
+	type CSSObjectWithLabel,
+} from '@atlaskit/react-select';
 export { useAsync } from '@atlaskit/react-select/async';
 export { useCreatable } from '@atlaskit/react-select/creatable';
 
@@ -47,6 +52,7 @@ export type {
 	IndicatorsContainerProps,
 	LoadingIndicatorProps,
 	// we have found usages of the types below in AF and other repos
+	MultiValueGenericProps,
 	MultiValueProps,
 	MultiValueRemoveProps,
 	ReactSelectProps,

@@ -91,7 +91,6 @@ const multiValueLabelStyles = cssMap({
 		overflow: 'hidden',
 		whiteSpace: 'nowrap',
 		borderRadius: token('border.radius.050', '2px'),
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		font: token('font.body.UNSAFE_small'),
 		paddingTop: token('space.025', '2px'),
 		paddingRight: token('space.025', '2px'),
@@ -106,7 +105,6 @@ const multiValueLabelStyles = cssMap({
 		textOverflow: 'ellipsis',
 	},
 	refresh: {
-		// eslint-disable-next-line @compiled/shorthand-property-sorting
 		font: token('font.body'),
 		paddingTop: 0,
 		paddingBottom: 0,
@@ -287,7 +285,6 @@ const renderIcon = () => {
 	}
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		<LegacySelectClearIcon
 			label=""
 			primaryColor="transparent"

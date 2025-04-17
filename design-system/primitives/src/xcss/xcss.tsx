@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css as cssEmotion } from '@emotion/react';
 import type {
@@ -7,7 +6,6 @@ import type {
 	CSSPropertiesWithMultiValues,
 	SerializedStyles,
 } from '@emotion/serialize';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type * as CSS from 'csstype';
 
 import type { StrictXCSSProp, XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';

@@ -2,4 +2,8 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { codeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
-export type { CodeBlockPlugin, CodeBlockOptions } from '@atlaskit/editor-plugin-code-block';
+export type {
+	CodeBlockPlugin,
+	CodeBlockOptions,
+	CodeBlockPluginOptions,
+} from '@atlaskit/editor-plugin-code-block';

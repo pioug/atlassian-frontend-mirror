@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.0
+
+### Minor Changes
+
+- [#137929](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137929)
+  [`fafc821856dba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fafc821856dba) -
+  Introduced INP metrics collector behind feature flag
+
 ## 2.0.4
 
 ### Patch Changes

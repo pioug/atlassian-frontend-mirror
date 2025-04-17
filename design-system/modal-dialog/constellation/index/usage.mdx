@@ -2,92 +2,188 @@
 order: 2
 ---
 
+import bottomRightDo from '../images/Do-Align-buttons-bottom-right.png';
+import bottomRightDont from '../images/Dont-Align-buttons-bottom-right.png';
+import focusDo from '../images/Do-Keep-content-simple-and-focused.png';
+import focusDont from '../images/Dont-Keep-content-simple-and-focused.png';
+import nestingDo from '../images/Do-Nesting.png';
+import nestingDont from '../images/Dont-Nesting.png';
+
 ## Usage
 
-Use modal dialogs to present a short-term task the user needs to perform. This can include critical
-or warning information where a response is required, however they’re also intended to support
-efficient task completion without losing the context of the underlying page. Users won't be able to
-interact with the page until the dialog is closed.
+Use a modal dialog to present an immediate task a user needs to perform. This can include critical
+or warning information where a response is required or an action to support task completion, without
+losing the context of the underlying page.
 
-In some cases, modals contain information that requires additional help and support. You can add
-elements like filters or hint text to the modal dialog, but be mindful of dialog real estate.
+Users can’t interact with the page until the dialog is closed.
 
-Although highly versatile, modal dialogs aren't fit for all purposes. Modal dialogs are invasive and
-should be used sparingly. Letting people access and view their own content is important for a good
-experience.
+In some cases, you can add support information to a dialog modal, such as filters or hint text, but
+remember to keep the content concise and direct as space is limited.
+
+Although highly versatile, modal dialogs aren't fit for all purposes. They can be invasive and
+should be used sparingly.
 
 ## Anatomy
 
-![The modal is made up of three parts, a header and body text, both are left-aligned, and a footer with two right-aligned buttons: a primary action button, and a button to close the dialog.](../images/modal-dialog-anatomy.png)
+![The modal is made up of four parts, a header, body text, both left-aligned, a close button in the header, right-aligned, and a footer with two right-aligned buttons: a button to close the dialog and a primary action button.](../images/modal-dialog-anatomy.png)
 
-- **Header:** Contains the modal title.
-- **Body:** Provides an overview of the modal's purpose and, optionally, controls to complete a
-  task.
-- **Footer:** Contains a primary action and the ability to cancel and close the dialog.
+1. **Header:** Contains the modal title.
+2. **Button** Closes the modal dialog from the header.
+3. **Body:** Provides an overview of the modal dialog's purpose and any controls that might be
+   needed to complete a task.
+4. **Footer:** Contains a primary action and the ability to cancel or close the dialog.
 
 ## Accessibility
 
-### Indicate severity
+### Indicating severity
 
 Don't rely on color alone to indicate severity. Provide an accessible `label` for the warning and
 error icons.
 
 ### Labeling modals
 
-Modals must have a title or label so that users can understand what the modal is for. There are
-three ways you can ensure you have an accessible name for your modal:
+Modals must have a title so all users can understand what the modal is for.
 
-1. Use the modal title component (see the
-   [modal header example](/components/modal-dialog/examples#modal-header))
-2. Add the `titleId` from the `useModal` hook to an element within your modal (see the
-   [custom header example](/components/modal-dialog/examples#custom-modal-header))
-3. Use the `label` prop (this should almost never be used as there is no visual title available for
-   sighted users).
+There are 3 ways to make sure your modal has an accessible title:
+
+1. Use the modal title component (view the
+   [modal header example](/components/modal-dialog/examples#modal-header)).
+2. Add the `titleId` from the `useModal` hook to an element within your modal (view the
+   [custom header example](/components/modal-dialog/examples#custom-modal-header)).
+3. Use the `label` prop – though this should be avoided as it means there's no visual title
+   available for sighted users.
 
 ### Dismissing modals
 
-Users can't interact with the rest of the page until the modal is closed. To cater for both mouse
-and keyboard interactions we've included numerous ways to dismiss a modal dialog:
+Until a modal is closed, users can't interact with the rest of the page.
 
-- Click **Cancel** in the footer
-- Click **X** in the header (if included)
-- Press `Esc` on a keyboard
-- Click anywhere on the blanket
+To help both mouse and keyboard users perform this action, the dialog can be closed by:
+
+- Selecting **close** in the header
+- Pressing `Esc` on a keyboard
+- Selecting anywhere outside the modal (in the blanket)
+- Selecting **Cancel** or **Close** in the footer (optional)
+
+Always add a close button in the header. The control in the footer to cancel or close the modal is
+optional.
+
+### Setting focus
+
+Focus order should follow a logical and predictable sequence for keyboard and screen reader users.
+
+Focus should move as follows:
+
+1. **Container**: Once open, focus should immediately move to the container (modal window).
+2. **Close button** in header.
+3. **Main content**: For form fields or other interactive elements, focus should move to the first
+   focusable element. If the content is text and not actionable, focus should move to the text.
+4. **Secondary button**, if using.
+5. **Primary button**.
+6. **On close**: When the modal is closed, focus should return to the element that triggered the
+   modal.
 
 ## Best practices
 
 - Limit the number of interactions in a modal dialog. Simplify by removing unnecessary elements or
-  content that does not support the task.
+  content that doesn't support the task.
 - Avoid multiple steps that require navigation within the modal dialog.
-- Avoid complex decision making that requires additional sources of information unavailable in the
-  modal.
-- This modal dialog is responsive. When adding contents, respect the dimensions set by modal dialog
-  to maintain responsiveness.
-- It's best to support multiple methods for dismissal, however the use of both Cancel and X is not
-  required on desktop.
+- Provide all the information a user needs to complete the task within the modal. Avoid complex
+  decision-making that requires additional information not available in the modal.
+- Modal dialogs are responsive. When adding content, respect the dimensions set by modal dialog to
+  maintain responsiveness.
+- Support multiple methods for dismissal. A ‘close’ button is required in the header, but decide
+  whether a ‘cancel’ or 'close’ button is needed in the footer.
+
+### Button alignment
+
+When adding buttons to the footer, place them on the right.
+
+<DoDont
+	type="do"
+	image={{
+		url: bottomRightDo,
+		alt: 'Two buttons in a group are correctly placed in the bottom-right corner of the modal. The first is a secondary subtle button without a border and says cancel. The second is a primary button, blue in color, and says duplicate.',
+	}}
+>
+	Align buttons on the right in the footer. <br /> <br /> If you have more than 1 button, place the
+	primary button to the right of the secondary button.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: bottomRightDont,
+		alt: 'Two buttons in a group are incorrectly placed in the bottom-left corner of the modal. The first is a primary button, blue in color, and says duplicate. The second is a secondary subtle button without a border and says cancel.',
+	}}
+>
+	Don’t place buttons to the left or middle of the footer. This can confuse users and disrupt the
+	expected flow of actions. <br/> <br/> Don't put primary buttons to the left of secondary or tertiary buttons.
+
+</DoDont>
+
+### Simple and focused experiences
+
+Avoid complex experiences and scrolling behavior as they reduce the usability of the experience.
+
+<DoDont
+	type="do"
+	image={{
+		url: focusDo,
+		alt: 'A simple share permissions modal with a form field labeled details, a permissions section to decide who can access or edit the page, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue share button.',
+	}}
+>
+	Keep headings and body content concise and clear. Focus on a single task or message.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: focusDont,
+		alt: 'A complex share permissions modal with 3 tabs titled permissions, admin, and public, a general access section with 3 calls to action titled open, can edit, and copy link, additional content that is partially hidden, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue share button.',
+	}}
+>
+	Don’t use a modal dialog for complex interactions or large tables. <br /> <br /> Avoid horizontal
+	scrolling and minimize vertical scrolling whenever possible.
+</DoDont>
+
+### Nesting
+
+<DoDont
+	type="do"
+	image={{
+		url: nestingDo,
+		alt: 'A single modal with 3 lines of body copy explaining how to duplicate a page and two buttons located at the bottom right of the footer: a secondary subtle cancel button and a primary blue confirm button.',
+	}}
+>
+	Modal dialogs should appear above a blanket that covers the main page content. Use one at a time.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: nestingDont,
+		alt: 'A second modal titled select location opens on top of another modal, hiding the content of the first modal. It contains a form field labeled space, a dropdown selection, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue confirm button. The same buttons can be seen in the modal underneath, so it is not clear which one to select.',
+	}}
+>
+	Don’t use dialogs to trigger other dialogs, as this is inaccessible and confusing. <br /> <br />{' '}
+	Instead, make sure links or buttons open in a new tab or dismiss the modal.
+</DoDont>
 
 ## Content guidelines
 
-- Modal dialog body copy should contain only valuable and relevant information.
-- Label elements with action verbs that indicate what happens when the element is selected. For
-  example, label a select menu with Choose a user instead of Users.
+- Body copy for a modal dialog should contain only valuable and relevant information.
+- In label elements, use action verbs that indicate what happens when the element is selected. For
+  example, label a select menu with 'Choose a user' instead of 'Users.
 - The main action (a [primary button](/components/button/examples#primary)) should reflect the modal
-  title. For example, a modal with the title "Fork &lt;repository name&gt;" has a button labeled
-  "Fork repository". The title "Select a template" has a button labeled "Select".
-
-## Data Center products
-
-For all new features, we recommend using Atlassian Design System and other
-[Atlaskit components](https://atlaskit.atlassian.com/).
-
-For existing code, you can continue to use
-[Atlassian User Interface (AUI)](https://aui.atlassian.com/). Primary buttons are left adjusted in
-[AUI modal dialogs](https://docs.atlassian.com/aui/latest/docs/dialog2.html).
+  title.
+  - For example, a modal with the title 'Fork &lt;repository name&gt;' should have a button labeled
+    'Fork repository'.
+  - The title 'Select a template' should have a button labeled 'Select'.
 
 ## Related
 
 - Use [popups](/components/popup/) for smaller amounts of information along with controls.
-- To onboard or update people about new functionality, use the
-  [benefits modal](/patterns/benefits-modal) or [spotlight](/patterns/spotlight) patterns.
+- To onboard or update people about new functionality, use custom modal dialog or
+  [spotlight](/patterns/spotlight) pattern.
 - To alert people about important information, or an action that's required to complete a task, use
   [inline messages](/components/inline-message).

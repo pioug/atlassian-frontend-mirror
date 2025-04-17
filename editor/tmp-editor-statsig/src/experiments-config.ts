@@ -70,16 +70,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-09-18
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nest_nested_expand_in_expand/setup
-	'nested-expand-in-expand': {
-		productKeys: {
-			confluence: 'platform_editor_nest_nested_expand_in_expand',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-10-01
 	comment_on_bodied_extensions: {
 		productKeys: {
@@ -300,5 +290,23 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
+	},
+	// Added 2025-04-17
+	platform_editor_tables_drag_and_drop: {
+		productKeys: {
+			confluence: 'platform_editor_tables_drag_and_drop',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2025-04-17
+	platform_editor_tables_table_selector: {
+		productKeys: {
+			confluence: 'platform_editor_tables_table_selector',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
 	},
 } satisfies Record<string, ExperimentConfigValue>;

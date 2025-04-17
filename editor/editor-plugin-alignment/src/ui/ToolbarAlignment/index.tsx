@@ -8,10 +8,12 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { css, jsx } from '@atlaskit/css';
+import { alignCenter, alignLeft, alignRight, tooltip } from '@atlaskit/editor-common/keymaps';
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import {
+	Shortcut,
 	ToolbarDropdownTriggerWrapper,
 	ToolbarDropdownWrapper,
 	ToolbarExpandIcon,
@@ -20,8 +22,14 @@ import {
 import {
 	ArrowKeyNavigationType,
 	DropdownContainer as Dropdown,
+	DropdownMenuWithKeyboardNavigation as DropdownMenu,
 	ToolbarButton,
+	type MenuItem,
 } from '@atlaskit/editor-common/ui-menu';
+import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
+import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
+import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -89,7 +97,8 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 			toolbarType === ToolbarType.PRIMARY &&
 			toolbarSize &&
 			toolbarSize > ToolbarSize.XL &&
-			editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+			editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
+			!fg('platform_editor_controls_patch_6')
 		) {
 			return (
 				<Alignment
@@ -99,33 +108,55 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 			);
 		}
 
+		const items = [
+			{
+				key: 'alignmentLeft',
+				content: intl.formatMessage(messages.alignLeft),
+				value: { name: 'start' },
+				isActive: pluginState?.align === 'start',
+				elemAfter: <Shortcut>{tooltip(alignLeft)}</Shortcut>,
+				elemBefore: <AlignTextLeftIcon label="" />,
+			},
+			{
+				key: 'alignmentCenter',
+				content: intl.formatMessage(messages.alignCenter),
+				value: { name: 'center' },
+				isActive: pluginState?.align === 'center',
+				elemAfter: <Shortcut>{tooltip(alignCenter)}</Shortcut>,
+				elemBefore: <AlignTextCenterIcon label="" />,
+			},
+			{
+				key: 'alignmentRight',
+				content: intl.formatMessage(messages.alignRight),
+				value: { name: 'end' },
+				isActive: pluginState?.align === 'end',
+				elemAfter: <Shortcut>{tooltip(alignRight)}</Shortcut>,
+				elemBefore: <AlignTextRightIcon label="" />,
+			},
+		];
+
 		return (
 			<ToolbarDropdownWrapper>
-				<Dropdown
-					mountTo={popupsMountPoint}
-					boundariesElement={popupsBoundariesElement}
-					scrollableElement={popupsScrollableElement}
-					isOpen={isOpen}
-					handleClickOutside={(event: MouseEvent) => {
-						if (event instanceof MouseEvent) {
-							this.hide({ isOpen: false, event });
-						}
-					}}
-					handleEscapeKeydown={this.hideOnEscape}
-					arrowKeyNavigationProviderOptions={{
-						type: ArrowKeyNavigationType.MENU,
-					}}
-					fitWidth={112}
-					fitHeight={80}
-					closeOnTab={true}
-					trigger={
+				{editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_patch_6') ? (
+					<DropdownMenu
+						arrowKeyNavigationProviderOptions={{
+							type: ArrowKeyNavigationType.MENU,
+						}}
+						items={[{ items }]}
+						isOpen={isOpen}
+						onItemActivated={this.handleOnItemActivated}
+						onOpenChange={(attrs: OpenChangedEvent) => this.setState({ isOpen: attrs?.isOpen })}
+						mountTo={popupsMountPoint}
+						boundariesElement={popupsBoundariesElement}
+						scrollableElement={popupsScrollableElement}
+						fitWidth={200}
+					>
 						<ToolbarButton
 							spacing={isReducedSpacing ? reducedSpacing : 'default'}
 							disabled={disabled}
 							selected={isOpen}
 							title={title}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
-							className="align-btn"
 							aria-label={title}
 							aria-expanded={isOpen}
 							aria-haspopup
@@ -137,15 +168,55 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 									<ToolbarExpandIcon />
 								</ToolbarDropdownTriggerWrapper>
 							}
-							ref={this.toolbarItemRef}
 						/>
-					}
-				>
-					<Alignment
-						onClick={(align) => this.changeAlignment(align, false)}
-						selectedAlignment={alignment}
-					/>
-				</Dropdown>
+					</DropdownMenu>
+				) : (
+					<Dropdown
+						mountTo={popupsMountPoint}
+						boundariesElement={popupsBoundariesElement}
+						scrollableElement={popupsScrollableElement}
+						isOpen={isOpen}
+						handleClickOutside={(event: MouseEvent) => {
+							if (event instanceof MouseEvent) {
+								this.hide({ isOpen: false, event });
+							}
+						}}
+						handleEscapeKeydown={this.hideOnEscape}
+						arrowKeyNavigationProviderOptions={{
+							type: ArrowKeyNavigationType.MENU,
+						}}
+						fitWidth={112}
+						fitHeight={80}
+						closeOnTab={true}
+						trigger={
+							<ToolbarButton
+								spacing={isReducedSpacing ? reducedSpacing : 'default'}
+								disabled={disabled}
+								selected={isOpen}
+								title={title}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
+								className="align-btn"
+								aria-label={title}
+								aria-expanded={isOpen}
+								aria-haspopup
+								onClick={this.toggleOpen}
+								onKeyDown={this.toggleOpenByKeyboard}
+								iconBefore={
+									<ToolbarDropdownTriggerWrapper>
+										<IconMap alignment={alignment} />
+										<ToolbarExpandIcon />
+									</ToolbarDropdownTriggerWrapper>
+								}
+								ref={this.toolbarItemRef}
+							/>
+						}
+					>
+						<Alignment
+							onClick={(align) => this.changeAlignment(align, false)}
+							selectedAlignment={alignment}
+						/>
+					</Dropdown>
+				)}
 				{!api?.primaryToolbar && <ToolbarSeparator />}
 			</ToolbarDropdownWrapper>
 		);
@@ -185,6 +256,14 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 			this.setState({ isOpen: !this.state.isOpen });
 		}
 	};
+
+	private handleOnItemActivated = ({
+		item,
+		shouldCloseMenu = true,
+	}: {
+		item: MenuItem;
+		shouldCloseMenu: boolean;
+	}) => this.changeAlignment(item.value.name as AlignmentState, shouldCloseMenu);
 
 	private hide = (attrs?: OpenChangedEvent) => {
 		if (this.state.isOpen) {

@@ -116,7 +116,6 @@ const Clone = (props: CloneProps) => {
 			style={style}
 		>
 			<div
-				// eslint-disable-next-line react/no-danger
 				dangerouslySetInnerHTML={{ __html: contentHTML }}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={{ height: '100%', pointerEvents: 'none' }}

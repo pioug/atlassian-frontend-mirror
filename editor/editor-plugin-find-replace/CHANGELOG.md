@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.2.0
+
+### Minor Changes
+
+- [#141241](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141241)
+  [`d2a481db48c8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2a481db48c8b) -
+  [ux] [A11Y-9990] Refactor Replace component to fix tab ordering
+
 ## 2.1.0
 
 ### Minor Changes

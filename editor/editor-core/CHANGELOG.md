@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 205.5.0
+
+### Minor Changes
+
+- [#137929](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137929)
+  [`fafc821856dba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fafc821856dba) -
+  Introduced INP metrics collector behind feature flag
+
+### Patch Changes
+
+- [#140231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140231)
+  [`c00bd6c36816f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c00bd6c36816f) -
+  Editor annotation plugin will now hook into the annotation manager and disable standard behaviour
+  when the FG platform_editor_comments_api_manager is enabled.
+- Updated dependencies
+
 ## 205.4.1
 
 ### Patch Changes

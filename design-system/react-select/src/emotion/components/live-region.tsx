@@ -36,7 +36,6 @@ interface LiveRegionProps<Option, IsMulti extends boolean, Group extends GroupBa
 	isAppleDevice: boolean;
 }
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
 const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: LiveRegionProps<Option, IsMulti, Group>,
 ) => {

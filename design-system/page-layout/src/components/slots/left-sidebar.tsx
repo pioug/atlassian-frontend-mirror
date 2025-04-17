@@ -392,7 +392,6 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 				/>
 			)}
 			{/* These are strictly mouse events for mouse optimzation of features not relevant to keyboard users. */}
-			{/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
 			<LeftSidebarOuter
 				ref={leftSideBarRef}
 				testId={testId}

@@ -10,7 +10,6 @@ describe('Range', () => {
 	const createRange = (props: RangeProps = {}) => (
 		<label htmlFor="age">
 			Age
-			{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
 			<Range id="age" {...props} />
 		</label>
 	);

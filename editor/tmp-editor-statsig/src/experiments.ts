@@ -62,7 +62,7 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 
 	if (!_product) {
 		// This will be hit in the case of a product not having setup the editor experiment tooling
-		return experimentConfig.defaultValue === expectedExperimentValue;
+		return experimentConfig?.defaultValue === expectedExperimentValue;
 	}
 
 	// Typescript is complaining here about accessing the productKeys property

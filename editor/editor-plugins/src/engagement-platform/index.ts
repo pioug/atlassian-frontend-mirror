@@ -5,6 +5,7 @@ export { engagementPlatformPlugin } from '@atlaskit/editor-plugin-engagement-pla
 export type {
 	EngagementPlatformPlugin,
 	EngagementPlatformPluginConfig,
+	EngagementPlatformPluginOptions,
 	EpComponents,
 	EpHooks,
 	CoordinationClient,

@@ -13,6 +13,7 @@ import {
 	akEditorMediaResizeHandlerPaddingWide,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import { getMediaSinglePixelWidth } from '../../media-single/utils';
@@ -136,7 +137,8 @@ export default function MediaSingle({
 				isExtendedResizeExperienceOn: isPixelWidth,
 				isInsideOfInlineExtension,
 			})}
-			data-layout={layout}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...(fg('platform_fix_media_image_resizing') ? {} : { 'data-layout': layout })}
 			data-width={mediaSingleWidth}
 			data-width-type={size?.widthType || 'percentage'}
 			data-node-type={nodeType}

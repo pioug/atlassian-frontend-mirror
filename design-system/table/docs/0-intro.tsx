@@ -1,4 +1,3 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
 import React from 'react';
 
 import { AtlassianInternalWarning, DevPreviewWarning, Example, md } from '@atlaskit/docs';

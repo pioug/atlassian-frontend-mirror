@@ -1,4 +1,4 @@
-import { HighlightStyle } from '@codemirror/language';
+import { HighlightStyle, Language } from '@codemirror/language';
 import { tags } from '@lezer/highlight';
 
 import { token } from '@atlaskit/tokens';
@@ -55,3 +55,32 @@ export const highlightStyle = HighlightStyle.define([
 	{ tag: tags.comment, color: token('color.text.subtlest'), fontStyle: 'italic' },
 	{ tag: tags.invalid, color: token('color.text') },
 ]);
+
+/**
+ * Prismjs (renderer) and codemirror (editor) tokenise slightly differently,
+ * Occasionally we may want to override tokens for certain languages to
+ * get closer to renderer.
+ *
+ * Note the way that codemirror works - these styles get added on top of the styling above
+ * (and override existing tags).
+ *
+ * @param language Codemirror language to scope the changes to a specific language
+ * @returns Highlight style which can be used with the syntax highlighting extension
+ */
+export const languageStyling = (language: Language): HighlightStyle | undefined => {
+	switch (language.name) {
+		case 'yaml':
+			return HighlightStyle.define(
+				[
+					{
+						tag: tags.definition(tags.propertyName),
+						color: token('color.text.accent.green'),
+						fontWeight: token('font.weight.bold'),
+					},
+				],
+				{
+					scope: language,
+				},
+			);
+	}
+};

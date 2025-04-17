@@ -18,7 +18,6 @@ const itemStyles = css({
 	boxSizing: 'border-box',
 	width: '80%',
 	height: '2rem',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	margin: '2rem auto',
 	backgroundColor: token('color.background.accent.orange.subtler'),
 	borderRadius: token('border.radius', '3px'),

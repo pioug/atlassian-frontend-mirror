@@ -41,7 +41,6 @@ interface HighlightProps {
 const highlightStyles = css({
 	display: 'inline-flex',
 	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	padding: '1em 2em',
 	position: 'relative',
 	alignItems: 'space-between',
@@ -67,7 +66,6 @@ export const Highlight = forwardRef<
 	<div
 		{...props}
 		css={highlightStyles}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={
 			{
 				backgroundColor: props.bg ?? token('elevation.surface.raised'),

@@ -25,8 +25,12 @@ import { uploadPlaceholder, errorIcon } from './images';
 import { fileSizeMb } from '../util';
 import { ERROR, MAX_SIZE_MB, ACCEPT } from '../avatar-picker-dialog';
 import { Viewport } from '../viewport';
-import { Slider } from './slider';
-import { CONTAINER_SIZE, CONTAINER_PADDING } from '../avatar-picker-dialog/layout-const';
+import Slider from './slider';
+import {
+	CONTAINER_SIZE,
+	CONTAINER_PADDING,
+	IMAGE_MOVE_UNIT,
+} from '../avatar-picker-dialog/layout-const';
 import { DragZone } from './dragZone';
 import { exportCroppedImage } from './exportCroppedImage';
 
@@ -187,6 +191,27 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 			isDragging: true,
 			dragStartPoint: new Vector2(x, y),
 		});
+	};
+
+	moveImage = (key: string) => {
+		const { viewport } = this.state;
+		switch (key) {
+			case 'ArrowLeft':
+				viewport.dragMove(viewport.itemBounds.x + IMAGE_MOVE_UNIT, viewport.itemBounds.y);
+				break;
+			case 'ArrowRight':
+				viewport.dragMove(viewport.itemBounds.x - IMAGE_MOVE_UNIT, viewport.itemBounds.y);
+				break;
+			case 'ArrowUp':
+				viewport.dragMove(viewport.itemBounds.x, viewport.itemBounds.y + IMAGE_MOVE_UNIT);
+				break;
+			case 'ArrowDown':
+				viewport.dragMove(viewport.itemBounds.x, viewport.itemBounds.y - IMAGE_MOVE_UNIT);
+				break;
+			default:
+				return;
+		}
+		this.setState({ viewport });
 	};
 
 	onMouseMove = (e: MouseEvent) => {
@@ -452,7 +477,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 	renderImageCropper(dataURI: string) {
 		const { scale, isDragging, imageOrientation, viewport } = this.state;
 		const { onImageError } = this.props;
-		const { onDragStarted, onImageLoaded, onRemoveImage } = this;
+		const { onDragStarted, onImageLoaded, onRemoveImage, moveImage } = this;
 		const { itemBounds } = viewport;
 
 		return (
@@ -471,6 +496,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 					onImageLoaded={onImageLoaded}
 					onRemoveImage={onRemoveImage}
 					onImageError={onImageError}
+					moveImage={moveImage}
 				/>
 				<div css={sliderContainerStyles}>
 					<Slider value={scale} onChange={this.onScaleChange} />

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.4.0
+
+### Minor Changes
+
+- [#139089](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139089)
+  [`69dcdc0c4a543`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69dcdc0c4a543) -
+  ED-26588 Start activity session and persist active session when type ahead and element broswer is
+  open
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

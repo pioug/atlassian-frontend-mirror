@@ -22,6 +22,7 @@ import type { Command, TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { closeTypeAhead } from './pm-plugins/commands/close-type-ahead';
 import { insertTypeAheadItem } from './pm-plugins/commands/insert-type-ahead-item';
@@ -316,8 +317,17 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 			}
 
 			if (newTriggerHandler?.onOpen && isANewHandler) {
+				if (fg('platform_editor_ease_of_use_metrics')) {
+					api?.metrics?.commands.handleIntentToStartEdit({
+						shouldStartTimer: false,
+						shouldPersistActiveSession: true,
+					});
+				}
 				newTriggerHandler.onOpen(newEditorState);
 			}
+
+			const oldIsOpen = isTypeAheadOpen(oldEditorState);
+			const newIsOpen = isTypeAheadOpen(newEditorState);
 
 			if (newTriggerHandler && isANewHandler) {
 				// if the typeahead opens another typeahead via the quickInsert we do NOT want to fire this analytic event (mentions and emojis) as it is already being fired from editor-plugin-analytics
@@ -338,6 +348,8 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 						eventType: EVENT_TYPE.UI,
 					});
 				}
+			} else if (oldIsOpen && !newIsOpen && fg('platform_editor_ease_of_use_metrics')) {
+				api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());
 			}
 		},
 	};

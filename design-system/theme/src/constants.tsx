@@ -66,7 +66,6 @@ export const layers: { [P in keyof Layers]: () => Layers[P] } = {
 	tooltip: () => 9999,
 };
 
-// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
  * Please use `@atlaskit/visually-hidden`

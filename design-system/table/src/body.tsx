@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/no-clone-element */
 /**
  * @jsxRuntime classic
  * @jsx jsx

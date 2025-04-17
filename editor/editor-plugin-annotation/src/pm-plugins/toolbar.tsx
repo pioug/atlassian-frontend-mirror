@@ -45,6 +45,7 @@ interface BuildToolbarOptions {
 	_supportedNodes?: string[];
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	createCommentExperience?: AnnotationProviders['createCommentExperience'];
+	annotationManager?: AnnotationProviders['annotationManager'];
 }
 
 export const getValidNodes = (state: EditorState): NodeType[] => {
@@ -103,6 +104,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 	_supportedNodes,
 	api,
 	createCommentExperience,
+	annotationManager,
 }: BuildToolbarOptions) =>
 	| {
 			title: string;
@@ -119,6 +121,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 		_supportedNodes = [],
 		api,
 		createCommentExperience,
+		annotationManager,
 	}: BuildToolbarOptions) => {
 		const { schema } = state;
 		const selectionValid = isSelectionValid(state);
@@ -193,15 +196,49 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 					});
 				}
 
-				createCommentExperience?.start({
-					attributes: {
-						pageClass: 'editor',
-						commentType: 'inline',
-					},
-				});
-				createCommentExperience?.initExperience.start();
+				if (fg('platform_editor_comments_api_manager')) {
+					if (!annotationManager) {
+						// TODO: EDITOR-188 - If we've reached here and the manager is not initialized, we should
+						// dispatch an analytics event to indicate that the user has clicked the button but
+						// the action was not completed.
+						return false;
+					}
 
-				return setInlineCommentDraftState(editorAnalyticsAPI)(true)(state, dispatch);
+					annotationManager
+						.checkPreemptiveGate()
+						.then((canStartDraft) => {
+							if (canStartDraft) {
+								createCommentExperience?.start({
+									attributes: {
+										pageClass: 'editor',
+										commentType: 'inline',
+									},
+								});
+								createCommentExperience?.initExperience.start();
+
+								const { success } = annotationManager.startDraft();
+								if (!success) {
+									// TODO: EDITOR-188 - Report start draft attempt failed.
+								}
+							} else {
+								// TODO: EDITOR-188 - Dispatch analytics event
+							}
+						})
+						.catch(() => {
+							// TODO: EDITOR-188 - Handle preemptive gate check error and dispatch analytics event
+						});
+					return true;
+				} else {
+					createCommentExperience?.start({
+						attributes: {
+							pageClass: 'editor',
+							commentType: 'inline',
+						},
+					});
+					createCommentExperience?.initExperience.start();
+
+					return setInlineCommentDraftState(editorAnalyticsAPI)(true)(state, dispatch);
+				}
 			},
 			supportsViewMode: true, // TODO: MODES-3950 - Clean up this floating toolbar view mode logic,
 		};

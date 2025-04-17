@@ -33,6 +33,12 @@ const dragOverlayStyles = cssMap({
 const maskPositionStyle = cssMap({
 	root: {
 		position: 'absolute',
+		'&:focus-visible': {
+			outlineOffset: token('space.025'),
+			outlineWidth: token('border.width.outline'),
+			outlineColor: token('color.border.focused'),
+			outlineStyle: 'solid',
+		},
 	},
 });
 
@@ -43,6 +49,16 @@ const maskStyles = {
 	right: `${CONTAINER_PADDING}px`,
 	opacity: token('opacity.disabled'),
 	boxShadow: `0 0 0 100px ${token('elevation.surface.overlay', 'rgba(255, 255, 255)')}`,
+};
+
+const offscreenStyles = {
+	clip: 'rect(1px, 1px, 1px, 1px)',
+	clipPath: 'inset(50%)',
+	height: '1px',
+	width: '1px',
+	margin: '-1px',
+	overflow: 'hidden',
+	padding: 0,
 };
 
 const rectMaskStyles = cssMap({
@@ -86,6 +102,7 @@ export interface ImageCropperProp {
 	onImageLoaded: (image: HTMLImageElement) => void;
 	onRemoveImage: () => void;
 	onImageError: (errorMessage: string) => void;
+	moveImage?: (key: string) => void;
 }
 
 export class ImageCropper extends Component<ImageCropperProp & WrappedComponentProps, {}> {
@@ -95,6 +112,7 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 		onDragStarted: () => {},
 		onImageSize: () => {},
 	};
+	state: { liveMsg: string } = { liveMsg: '' };
 
 	componentDidMount() {
 		const {
@@ -108,6 +126,33 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 			onImageError(formatMessage(ERROR.URL));
 		}
 	}
+
+	onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		const {
+			intl: { formatMessage },
+		} = this.props;
+		let msg = '';
+		switch (e.key) {
+			case 'ArrowLeft':
+				msg = formatMessage(messages.image_cropper_image_moved, { from: 'left', to: 'right' });
+				break;
+			case 'ArrowRight':
+				msg = formatMessage(messages.image_cropper_image_moved, { from: 'right', to: 'left' });
+				break;
+			case 'ArrowUp':
+				msg = formatMessage(messages.image_cropper_image_moved, { from: 'top', to: 'bottom' });
+				break;
+			case 'ArrowDown':
+				msg = formatMessage(messages.image_cropper_image_moved, { from: 'bottom', to: 'top' });
+				break;
+			default:
+				return;
+		}
+		this.props.moveImage && this.props.moveImage(e.key);
+		this.setState({
+			liveMsg: msg,
+		});
+	};
 
 	onDragStarted = (e: React.MouseEvent<{}>) => {
 		if (this.props.onDragStarted) {
@@ -174,13 +219,39 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 					/>
 				</Box>
 				{isCircularMask ? (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					<Box xcss={cx(circularMaskStyles.root, maskPositionStyle.root)} style={maskStyles} />
+					<Box
+						testId="image-cropper-mask"
+						xcss={cx(circularMaskStyles.root, maskPositionStyle.root)}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={maskStyles}
+						tabIndex={0}
+						onKeyDown={this.onKeyDown}
+						aria-label={formatMessage(messages.image_cropper_arrow_keys_label)}
+					/>
 				) : (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					<Box xcss={cx(rectMaskStyles.root, maskPositionStyle.root)} style={maskStyles} />
+					<Box
+						testId="image-cropper-mask"
+						xcss={cx(rectMaskStyles.root, maskPositionStyle.root)}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={maskStyles}
+						tabIndex={0}
+						onKeyDown={this.onKeyDown}
+						aria-label={formatMessage(messages.image_cropper_arrow_keys_label)}
+					/>
 				)}
 				<Box id="drag-overlay" xcss={dragOverlayStyles.root} onMouseDown={this.onDragStarted} />
+
+				<div
+					id="image-cropper-image-movements-log"
+					aria-live="assertive"
+					role="log"
+					aria-atomic="true"
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ ...offscreenStyles, position: 'absolute' }}
+				>
+					{this.state.liveMsg}
+				</div>
+
 				<Box id="remove-image-container" xcss={removeImageContainerStyles.root}>
 					<IconButton
 						id="remove-image-button"

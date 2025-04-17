@@ -38,6 +38,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { PastePluginActionTypes } from '../editor-actions/actions';
 import { splitParagraphs, upgradeTextToLists } from '../editor-commands/commands';
@@ -669,17 +670,7 @@ export function createPlugin(
 						slice = sliceCopy;
 					}
 
-					const isNestingExpandsSupported =
-						pluginInjectionApi?.featureFlags?.sharedState.currentState()?.nestedExpandInExpandEx ||
-						fg('platform_editor_nest_nested_expand_in_expand_jira');
-
-					if (
-						handleExpandWithAnalytics(editorAnalyticsAPI, isNestingExpandsSupported)(
-							view,
-							event,
-							slice,
-						)(state, dispatch)
-					) {
+					if (handleExpandWithAnalytics(editorAnalyticsAPI)(view, event, slice)(state, dispatch)) {
 						return true;
 					}
 
@@ -762,7 +753,9 @@ export function createPlugin(
 					slice = new Slice(slice.content, 0, 0);
 				}
 
-				slice = transformSingleColumnLayout(slice, schema);
+				if (!editorExperiment('single_column_layouts', true)) {
+					slice = transformSingleColumnLayout(slice, schema);
+				}
 
 				if (fg('platform_editor_macroid_reset_for_ext_on_paste')) {
 					slice = transformSliceToRemoveMacroId(slice, schema);

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';

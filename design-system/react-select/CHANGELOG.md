@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.4.1
+
+### Patch Changes
+
+- [#141760](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141760)
+  [`2df2e25329cb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2df2e25329cb8) -
+  [ux] Resolved issue where group `Heading` component would render even when no labels were provided
+
 ## 2.4.0
 
 ### Minor Changes

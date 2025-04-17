@@ -201,14 +201,16 @@ const createPostInteractionLogPayload = withProfiling(function createPostInterac
 	}
 
 	const lateMutations = postInteractionFinishVCUpdates
-		.filter((entry) => entry.time > lastInteractionFinish.end)
-		.flatMap(({ time, elements }) =>
-			Array.from(new Set(elements)).map((element) => ({
-				time,
-				element,
-				viewportHeatmapPercentage: postInteractionFinishVCRatios[element],
-			})),
-		);
+		? postInteractionFinishVCUpdates
+				.filter((entry) => entry.time > lastInteractionFinish.end)
+				.flatMap(({ time, elements }) =>
+					Array.from(new Set(elements)).map((element) => ({
+						time,
+						element,
+						viewportHeatmapPercentage: postInteractionFinishVCRatios[element],
+					})),
+				)
+		: [];
 
 	return {
 		actionSubject: 'experience',

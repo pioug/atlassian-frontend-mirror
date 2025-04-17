@@ -153,6 +153,10 @@ export type MessageKey =
 	| 'abuse_modal_body'
 	| 'abuse_modal_title'
 	| 'abuse_modal_submit'
+	| 'image_cropper_arrow_keys_label'
+	| 'image_cropper_image_moved'
+	| 'image_cropper_zoom_out'
+	| 'image_cropper_zoom_in'
 	| RequestAccessMessageKey;
 
 type Messages = {
@@ -940,5 +944,27 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.abuse_modal_submit',
 		defaultMessage: 'Proceed with download',
 		description: 'Abuse Modal Submit button caption',
+	},
+	image_cropper_arrow_keys_label: {
+		id: 'media.media-avatar-picker.image-cropper.arrow-keys.label',
+		defaultMessage:
+			'Draggable Image, Ensure your screen reader is not in browse mode. use arrow keys to move & crop the image',
+		description: 'Inform about the image crop functionality using arrow keys',
+	},
+	image_cropper_image_moved: {
+		id: 'media.media-avatar-picker.image-cropper.arrow-keys.action',
+		defaultMessage:
+			'You have moved the image from {from} to {to}, use arrow keys to move & crop the image',
+		description: 'Inform about the image movement when the arrow keys are pressed',
+	},
+	image_cropper_zoom_out: {
+		id: 'fabric.media.zoom_out',
+		defaultMessage: 'to 0% zoom',
+		description: 'Label for the zoom out button in image cropper slider',
+	},
+	image_cropper_zoom_in: {
+		id: 'fabric.media.zoom_in',
+		defaultMessage: 'to 100% zoom',
+		description: 'Label for the zoom in button in image cropper slider',
 	},
 });

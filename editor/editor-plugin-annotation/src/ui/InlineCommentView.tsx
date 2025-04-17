@@ -23,6 +23,7 @@ import {
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import {
@@ -139,19 +140,23 @@ export function InlineCommentView({
 					dom={dom}
 					textSelection={textSelection}
 					onCreate={(id) => {
-						createAnnotation(editorAnalyticsAPI, editorAPI)(
-							id,
-							AnnotationTypes.INLINE_COMMENT,
-							inlineCommentProvider.supportedBlockNodes,
-						)(editorView.state, editorView.dispatch);
-						!editorView.hasFocus() && editorView.focus();
+						if (!fg('platform_editor_comments_api_manager')) {
+							createAnnotation(editorAnalyticsAPI, editorAPI)(
+								id,
+								AnnotationTypes.INLINE_COMMENT,
+								inlineCommentProvider.supportedBlockNodes,
+							)(editorView.state, editorView.dispatch);
+							!editorView.hasFocus() && editorView.focus();
+						}
 					}}
 					onClose={() => {
-						setInlineCommentDraftState(editorAnalyticsAPI)(false)(
-							editorView.state,
-							editorView.dispatch,
-						);
-						!editorView.hasFocus() && editorView.focus();
+						if (!fg('platform_editor_comments_api_manager')) {
+							setInlineCommentDraftState(editorAnalyticsAPI)(false)(
+								editorView.state,
+								editorView.dispatch,
+							);
+							!editorView.hasFocus() && editorView.focus();
+						}
 					}}
 					inlineNodeTypes={inlineNodeTypes}
 					isOpeningMediaCommentFromToolbar={isOpeningMediaCommentFromToolbar}

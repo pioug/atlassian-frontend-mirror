@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { avatarGroupPlugin } from '@atlaskit/editor-plugin-avatar-group';
-export type { AvatarGroupPlugin } from '@atlaskit/editor-plugin-avatar-group';
+export type {
+	AvatarGroupPlugin,
+	AvatarGroupPluginOptions,
+} from '@atlaskit/editor-plugin-avatar-group';

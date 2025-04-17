@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.3.1
+
+### Patch Changes
+
+- [#141028](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141028)
+  [`f8e53e5484efd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8e53e5484efd) -
+  [ux] Update error views on datasource table to have links to confluence and jira
+
 ## 4.3.0
 
 ### Minor Changes

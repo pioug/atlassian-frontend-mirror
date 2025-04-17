@@ -1,5 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-
 // Reds
 export const R50 = '#FFEBE6';
 export const R75 = '#FFBDAD';

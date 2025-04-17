@@ -135,6 +135,7 @@ const tooltipContainerStyles = css({
 	top: '8px',
 	bottom: '-8px',
 	position: 'sticky',
+	display: 'block',
 	zIndex: 'card',
 });
 

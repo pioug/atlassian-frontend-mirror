@@ -7,4 +7,5 @@ export type {
 	TextColorInputMethod,
 	TextColorPluginState,
 	TextColorPluginConfig,
+	TextColorPluginOptions,
 } from '@atlaskit/editor-plugin-text-color';

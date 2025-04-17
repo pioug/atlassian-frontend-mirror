@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 3.2.1
+
+### Patch Changes
+
+- [#139698](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139698)
+  [`cf8ea53ed0264`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf8ea53ed0264) -
+  Clean-up nested expand feature gate
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

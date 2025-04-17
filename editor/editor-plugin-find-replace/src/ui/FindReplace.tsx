@@ -10,11 +10,13 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import type { DispatchAnalyticsEvent, TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MatchCaseProps } from '../types';
 
 import Find from './Find';
 import Replace from './Replace';
+import ReplaceNext from './ReplaceNext';
 import { ruleStyles, wrapperPaddingStyles, wrapperStyles } from './ui-styles';
 
 export type FindReplaceProps = {
@@ -71,7 +73,14 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		window.removeEventListener('keydown', this.handleTabNavigation);
 	}
 
+	/**
+	 * Delete this function on cleanup of
+	 * editor_a11y_refactor_find_replace_style
+	 */
 	handleTabNavigation = (event: KeyboardEvent) => {
+		if (fg('editor_a11y_refactor_find_replace_style')) {
+			return;
+		}
 		if (event.key === 'Tab') {
 			event.preventDefault();
 			const modalFindReplace = this.modalRef.current as HTMLDivElement | null;
@@ -168,22 +177,43 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 				/>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<hr role="presentation" css={ruleStyles} id="replace-hr-element" />
-				<Replace
-					canReplace={count.total > 0}
-					replaceText={replaceText}
-					onReplace={onReplace}
-					onReplaceAll={onReplaceAll}
-					onReplaceTextfieldRefSet={this.setReplaceTextfieldRef}
-					onArrowUp={this.setFocusToFind}
-					onCancel={onCancel}
-					count={count}
-					onFindPrev={onFindPrev}
-					onFindNext={onFindNext}
-					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-					findTyped={this.state.findTyped}
-					setFindTyped={this.setFindTyped}
-					focusToolbarButton={focusToolbarButton}
-				/>
+				{/* Delete the Replace element and rename ReplaceNext to Replace
+						on cleanup of editor_a11y_refactor_find_replace_style */}
+				{fg('editor_a11y_refactor_find_replace_style') ? (
+					<ReplaceNext
+						canReplace={count.total > 0}
+						replaceText={replaceText}
+						onReplace={onReplace}
+						onReplaceAll={onReplaceAll}
+						onReplaceTextfieldRefSet={this.setReplaceTextfieldRef}
+						onArrowUp={this.setFocusToFind}
+						onCancel={onCancel}
+						count={count}
+						onFindPrev={onFindPrev}
+						onFindNext={onFindNext}
+						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+						findTyped={this.state.findTyped}
+						setFindTyped={this.setFindTyped}
+						focusToolbarButton={focusToolbarButton}
+					/>
+				) : (
+					<Replace
+						canReplace={count.total > 0}
+						replaceText={replaceText}
+						onReplace={onReplace}
+						onReplaceAll={onReplaceAll}
+						onReplaceTextfieldRefSet={this.setReplaceTextfieldRef}
+						onArrowUp={this.setFocusToFind}
+						onCancel={onCancel}
+						count={count}
+						onFindPrev={onFindPrev}
+						onFindNext={onFindNext}
+						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+						findTyped={this.state.findTyped}
+						setFindTyped={this.setFindTyped}
+						focusToolbarButton={focusToolbarButton}
+					/>
+				)}
 			</div>
 		);
 	}

@@ -8,6 +8,7 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { closest } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { PopupMountPointReference, TypeAheadHandler, TypeAheadPluginState } from '../types';
@@ -97,6 +98,9 @@ export function createPlugin({
 			if (insertItemCallback) {
 				const tr = insertItemCallback(newState);
 				if (tr) {
+					if (fg('platform_editor_ease_of_use_metrics')) {
+						api?.metrics?.commands.startActiveSessionTimer()({ tr });
+					}
 					return tr;
 				}
 			}

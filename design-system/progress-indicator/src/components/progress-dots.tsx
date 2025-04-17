@@ -128,11 +128,9 @@ const ProgressDots: FC<ProgressDotsProps> = ({
 		<Box
 			style={
 				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					[varDotsSize]: `${sizes[size]}px`,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					[varDotsMargin]: gap,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				} as CSSProperties
 			}
 			role={onSelect && 'tablist'}

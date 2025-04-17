@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-color
 
+## 2.3.0
+
+### Minor Changes
+
+- [#142357](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142357)
+  [`fccbc24b53f87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fccbc24b53f87) -
+  [https://product-fabric.atlassian.net/browse/ED-27522](ED-27522) - adopt the `fullPagePreset`
+  function from @atlassian/confluence-presets package for creating an editor preset for Confluence
+
 ## 2.2.0
 
 ### Minor Changes

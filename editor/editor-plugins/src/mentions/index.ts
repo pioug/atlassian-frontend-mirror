@@ -6,5 +6,6 @@ export type {
 	MentionsPlugin,
 	MentionPluginConfig,
 	MentionPluginOptions,
+	MentionsPluginOptions,
 	MentionSharedState,
 } from '@atlaskit/editor-plugin-mentions';

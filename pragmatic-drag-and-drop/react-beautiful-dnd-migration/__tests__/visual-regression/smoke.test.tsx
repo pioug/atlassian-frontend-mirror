@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { ElementHandle, Page } from 'puppeteer';
 import invariant from 'tiny-invariant';
 

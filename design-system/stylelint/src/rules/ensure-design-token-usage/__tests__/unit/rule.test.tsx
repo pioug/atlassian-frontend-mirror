@@ -252,7 +252,6 @@ testRule({
 			description: 'should accept spacing token values',
 		},
 		{
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			code: `gap: ${token('space.025')};`,
 			description: 'should accept spacing token values via calls to token()',
 		},
@@ -335,7 +334,6 @@ testRule({
 			description: 'should accept typography token values with number values as fallbacks',
 		},
 		{
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			code: `font: ${token('font.body')};`,
 			description: 'should accept spacing token values via calls to token()',
 		},

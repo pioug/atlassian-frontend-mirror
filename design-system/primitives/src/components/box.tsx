@@ -150,7 +150,6 @@ export const Box = forwardRef(
 				ref={ref}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={resolvedStyles.static}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...safeHtmlAttributes}
 				css={[
 					baseStyles,
@@ -172,7 +171,6 @@ export const Box = forwardRef(
 					paddingInlineStart && paddingStylesMap.paddingInlineStart[paddingInlineStart],
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingInlineEnd && paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					resolvedStyles.emotion,
 				]}
 				data-testid={testId}

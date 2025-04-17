@@ -5,4 +5,5 @@ export { quickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 export type {
 	QuickInsertPlugin,
 	QuickInsertSharedState,
+	QuickInsertPluginOptions,
 } from '@atlaskit/editor-plugin-quick-insert';

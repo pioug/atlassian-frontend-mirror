@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-alignment
 
+## 3.1.10
+
+### Patch Changes
+
+- [#142312](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142312)
+  [`21eed5379866d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21eed5379866d) -
+  [ux] Update the look of alignment options dropdown.
+- Updated dependencies
+
 ## 3.1.9
 
 ### Patch Changes

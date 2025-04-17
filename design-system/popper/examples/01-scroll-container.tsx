@@ -10,7 +10,7 @@ import Button from '@atlaskit/button/new';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Popup = styled.div({
 	background: 'white',
 	borderColor: 'red',

@@ -25,7 +25,6 @@ const TabPanel = ({ children, testId }: TabPanelProps) => {
 	}: TabPanelAttributesType = useTabPanel();
 	return (
 		<FocusRing isInset>
-			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<div
 				data-testid={testId}
 				role={role}

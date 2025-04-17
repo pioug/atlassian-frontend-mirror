@@ -209,6 +209,9 @@ export const factoryDecorations = ({
 			nodeViewPortalProviderAPI.remove(spec.key);
 		});
 
+		if (fg('platform_editor_ease_of_use_metrics')) {
+			api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());
+		}
 		return true;
 	};
 

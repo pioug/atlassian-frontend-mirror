@@ -13,24 +13,18 @@ type DotsAppearance = 'default' | 'help' | 'inverted' | 'primary';
 
 const commonStyles: any = cssMap({
 	common: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `var(--ds-dots-size)`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `var(--ds-dots-size)`,
 		position: 'relative',
 		borderRadius: token('border.radius.circle'),
 
 		'&::before': {
 			display: 'block',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			width: `calc(var(--ds-dots-size) + var(--ds-dots-margin))`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height: `calc(var(--ds-dots-size) + var(--ds-dots-margin))`,
 			position: 'absolute',
 			content: '""',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			insetBlockStart: `calc(-1 * var(--ds-dots-margin) / 2)`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			insetInlineStart: `calc(-1 * var(--ds-dots-margin) / 2)`,
 		},
 	},

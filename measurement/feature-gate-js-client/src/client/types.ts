@@ -20,6 +20,7 @@ export type Identifiers = {
 	loomWorkspaceId?: string;
 	marketplaceAnonymousId?: string;
 	marketplacePartnerId?: string;
+	miscellaneousId?: string;
 	msTeamsTenantId?: string;
 	productIntegrationsVendorId?: string;
 	randomizationId?: string;

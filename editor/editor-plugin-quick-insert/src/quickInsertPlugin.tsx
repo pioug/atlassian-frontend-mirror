@@ -20,6 +20,7 @@ import type {
 	QuickInsertPluginStateKeys,
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createInsertItem, openElementBrowserModal } from './pm-plugins/commands';
@@ -71,6 +72,12 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		openElementBrowserModal: options?.enableElementBrowser
 			? () => {
 					api?.core.actions.execute(({ tr }) => {
+						if (fg('platform_editor_ease_of_use_metrics')) {
+							api?.metrics?.commands.handleIntentToStartEdit({
+								shouldStartTimer: false,
+								shouldPersistActiveSession: true,
+							})({ tr });
+						}
 						openElementBrowserModal({ tr });
 						return tr;
 					});
@@ -158,7 +165,15 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		},
 
 		commands: {
-			openElementBrowserModal,
+			openElementBrowserModal: ({ tr }) => {
+				if (fg('platform_editor_ease_of_use_metrics')) {
+					api?.metrics?.commands.handleIntentToStartEdit({
+						shouldStartTimer: false,
+						shouldPersistActiveSession: true,
+					})({ tr });
+				}
+				return openElementBrowserModal({ tr });
+			},
 			addQuickInsertItem:
 				(item: QuickInsertHandler): EditorCommand =>
 				({ tr }) => {

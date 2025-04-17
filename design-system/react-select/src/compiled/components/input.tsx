@@ -120,7 +120,6 @@ const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={builtinCX({ input: true }, inputClassName)}
 				ref={innerRef}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				css={[nativeInnputStyles, isHidden && hidden]}
 				disabled={isDisabled}
 				data-testid={dataId}

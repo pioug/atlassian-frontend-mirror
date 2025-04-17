@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import * as colors from './colors';
 import { type colorPaletteType } from './types';
 

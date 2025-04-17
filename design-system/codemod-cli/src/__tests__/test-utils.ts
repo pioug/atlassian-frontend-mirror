@@ -63,7 +63,6 @@ export function createCheck(transformer: Transformer) {
 	};
 }
 
-/* eslint-disable no-console */
 export async function withMockedConsoleWarn(fn: any) {
 	const originalWarn = console.warn;
 	const warn = jest.fn();
@@ -73,4 +72,3 @@ export async function withMockedConsoleWarn(fn: any) {
 
 	console.warn = originalWarn;
 }
-/* eslint-enable no-console */

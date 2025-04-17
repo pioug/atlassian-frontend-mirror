@@ -14,7 +14,6 @@ const Example = () => {
 			<Text>SectionMessage expands to fill the space available to it.</Text>
 			<Label htmlFor="resize-message">Resize message</Label>
 			<Range id="resize-message" min={100} max={800} onChange={setWidth} step={1} value={width} />
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<Box style={{ maxWidth: `${width}px` }}>
 				<SectionMessage
 					title="The Modern Prometheus"

@@ -1,8 +1,15 @@
-import React, { createContext, type ElementType, PureComponent, type ReactNode } from 'react';
+import React, {
+	createContext,
+	type ElementType,
+	PureComponent,
+	type ReactNode,
+	startTransition,
+} from 'react';
 
 import memoizeOne from 'memoize-one';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 
 import Blanket from '../styled/blanket';
@@ -115,14 +122,31 @@ export default class SpotlightManager extends PureComponent<
 		targets: {},
 	};
 
-	getTargetRef = (name: string) => (element: HTMLElement | null | undefined) => {
-		this.setState((state) => ({
-			targets: {
-				...state.targets,
-				[name]: element || undefined,
-			},
-		}));
-	};
+	/*
+	 * When enabling React Streaming in Confluence, a
+	 * "This Suspense boundary received an update before it finished hydrating. This caused the boundary to switch to client rendering"
+	 * error happens.
+	 * This is to fix this error by wrapping the state update in startTransition as suggested by React: https://react.dev/errors/421?invariant=421
+	 */
+	getTargetRef = fg('platform_fix_component_state_update_for_suspense')
+		? (name: string) => (element: HTMLElement | null | undefined) => {
+				startTransition(() => {
+					this.setState((state) => ({
+						targets: {
+							...state.targets,
+							[name]: element || undefined,
+						},
+					}));
+				});
+			}
+		: (name: string) => (element: HTMLElement | null | undefined) => {
+				this.setState((state) => ({
+					targets: {
+						...state.targets,
+						[name]: element || undefined,
+					},
+				}));
+			};
 
 	spotlightOpen = () => {
 		this.setState((state) => ({ spotlightCount: state.spotlightCount + 1 }));

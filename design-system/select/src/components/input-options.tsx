@@ -118,7 +118,6 @@ const baseOptionStyles = css({
 	whiteSpace: 'nowrap',
 });
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
 const ControlOption = <Option, IsMulti extends boolean = false>(
 	props: OptionProps<Option, IsMulti>,
 ) => {
@@ -168,7 +167,6 @@ const ControlOption = <Option, IsMulti extends boolean = false>(
 					// Here we are adding a border to the Checkbox and Radio SVG icons
 					// This is an a11y fix for Select only for now but it may be rolled
 					// into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 					isSelected || isActive || isDisabled ? iconStyles.inherit : iconStyles.default,
 				]}
 			>
@@ -235,7 +233,6 @@ export const CheckboxOption = <OptionT extends OptionType>(
  */
 export const RadioOption = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons, @repo/internal/react/no-unsafe-spread-props
 	<ControlOption
 		Icon={
 			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix, @atlaskit/platform/no-preconditioning

@@ -78,9 +78,7 @@ export function useElementObserver(
 function callWhenIdle(callback: () => void, opts: { timeout?: number } = {}): Disposer {
 	const { timeout = 100 } = opts;
 
-	// eslint-disable-next-line compat/compat
 	if (typeof window.requestIdleCallback === 'function') {
-		// eslint-disable-next-line compat/compat
 		const idleHandle = window.requestIdleCallback(callback, { timeout });
 		return () => cancelIdleCallback(idleHandle);
 	}

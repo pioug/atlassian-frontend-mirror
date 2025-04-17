@@ -43,7 +43,7 @@ where possible.
 ### Danger
 
 Use danger modals to alert people when something potentially destructive or irreversible will happen
-if they continue. Explain the problem and provide a next step or an alternative.
+if they continue. Explain the problem and provide a next step or an alChternative.
 
 <Example Component={ModalDanger} packageName="@atlaskit/modal-dialog" />
 
@@ -61,8 +61,10 @@ specify modal width.
 
 ## Focus management
 
-Focus moves to the first interactive element, often the close button at the top, inside the modal
-dialog when rendered. Pass the `autoFocus` prop an element `ref` to focus on a specific element.
+Once open, focus immediately moves to the container (modal window) when rendered so a user is aware
+they are inside a modal. [View focus order.](/components/modal-dialog/usage#setting-focus)
+
+Pass the `autoFocus` prop an element `ref` to focus on a specific element.
 
 <Example Component={FocusSpecificElement} packageName="@atlaskit/modal-dialog" />
 
@@ -99,15 +101,19 @@ opening whatsoever when being interacted with.
 
 ## Modal header
 
-Modal header accepts any valid React element as children, so you can use modal title in conjunction
-with other elements like an exit button in the top right.
+You can use modal title with the `hasCloseButton` prop or the `CloseButton` export to add a close
+button in the header.
 
 <Example Component={ModalHeader} packageName="@atlaskit/modal-dialog" />
 
 ### Custom modal header
 
-For very custom use cases, you can achieve the same thing without the modal header or title. To make
-sure the modal is accessible, call `useModal` and set `titleId` as the `id` on the heading.
+For very custom use cases, you can achieve the same thing without the modal header.
+
+A title is required, however, so use either a `titleId` if there's a visible title or a `label` if
+there isn’t a title.
+
+To make sure the modal is accessible, call `useModal` and set `titleId` as the `id` on the heading.
 
 <Example Component={ModalCustomHeader} packageName="@atlaskit/modal-dialog" />
 

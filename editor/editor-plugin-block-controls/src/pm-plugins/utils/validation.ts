@@ -175,16 +175,6 @@ export function canMoveNodeToIndex(
 		}
 	}
 
-	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
-	if (editorExperiment('nested-expand-in-expand', false)) {
-		if (
-			destParentNodeType === expand &&
-			(activeNodeType === expand || activeNodeType === nestedExpand)
-		) {
-			return false;
-		}
-	}
-
 	// NOTE: this will block drop targets from showing for dragging a table into another table
 	// unless nested tables are supported and the nesting depth does not exceed 1
 	if (

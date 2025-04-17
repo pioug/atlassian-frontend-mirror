@@ -149,7 +149,6 @@ const overflowStyles = css({
 const shadowStyles = css({
 	width: '10px',
 	position: 'absolute',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	boxShadow: token('elevation.shadow.overflow'),
 	insetBlockEnd: '-10px',
 	insetBlockStart: '-10px',

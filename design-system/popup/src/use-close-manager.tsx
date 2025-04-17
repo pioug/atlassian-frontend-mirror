@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import React, { useEffect } from 'react';
 
 import { bind, bindAll } from 'bind-event-listener';

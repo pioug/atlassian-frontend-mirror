@@ -11,7 +11,6 @@ import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
 
 const spacerStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	margin: '250px',
 });
 

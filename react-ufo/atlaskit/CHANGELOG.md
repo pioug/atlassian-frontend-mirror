@@ -1,5 +1,24 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.6.1
+
+### Patch Changes
+
+- [#142398](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142398)
+  [`0f2c78fab5f90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f2c78fab5f90) -
+  FF cleanup - platform_editor_ed-25937_ignore_mutations_for_ttvc
+- [#142273](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142273)
+  [`21456ac374d24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21456ac374d24) -
+  AFO-3610 cleanup ff platform_ufo_vc_ignore_same_value_mutation
+
+## 3.6.0
+
+### Minor Changes
+
+- [#142786](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142786)
+  [`056a68c075470`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/056a68c075470) -
+  Added check before applying filter to postInteractionFinshVCUpdates
+
 ## 3.5.3
 
 ### Patch Changes

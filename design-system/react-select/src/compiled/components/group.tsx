@@ -84,7 +84,6 @@ const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 	} = props;
 	const { css, className } = getStyleProps(props, 'group', { group: true });
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-classname-prop
 		<div
 			css={styles.root}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -93,15 +92,17 @@ const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, innerProps?.className)}
 		>
-			<Heading
-				{...headingProps}
-				selectProps={selectProps}
-				getStyles={getStyles}
-				getClassNames={getClassNames}
-				cx={builtinCX}
-			>
-				{label}
-			</Heading>
+			{label && (
+				<Heading
+					{...headingProps}
+					selectProps={selectProps}
+					getStyles={getStyles}
+					getClassNames={getClassNames}
+					cx={builtinCX}
+				>
+					{label}
+				</Heading>
+			)}
 			<div>{children}</div>
 		</div>
 	);

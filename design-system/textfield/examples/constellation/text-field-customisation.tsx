@@ -24,7 +24,7 @@ export default function TextFieldCustomizationExample() {
 	return (
 		<Textfield
 			aria-label="customized text field"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 			css={bigFontStyles}
 		/>
 	);

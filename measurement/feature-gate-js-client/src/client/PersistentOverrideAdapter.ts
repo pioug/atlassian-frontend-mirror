@@ -123,7 +123,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		return this.mergeOverrides(this._overrides);
 	}
 
-	private applyOverrides(overrides: Partial<LocalOverrides>) {
+	protected applyOverrides(overrides: Partial<LocalOverrides>) {
 		const newOverrides = { ...makeEmptyStore(), ...overrides };
 
 		this._djb2Map.clear();

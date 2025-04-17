@@ -45,24 +45,20 @@ describe('getTokenValue', () => {
 	describe('on non-production environment', () => {
 		it('should trim the value down to remove leading/trailing spaces', () => {
 			setup();
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('color.text');
 			expect(result).toEqual('#ff0000');
 		});
 
 		it('should return the correct value for the current theme', () => {
 			setup();
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			expect(getTokenValue('color.text')).toEqual('#ff0000');
 			expect(getTokenValue('color.text', '#000')).toEqual('#ff0000');
 
 			document.documentElement.setAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			expect(getTokenValue('color.text')).toEqual('#00ff00');
 			expect(getTokenValue('color.text', '#000')).toEqual('#00ff00');
 
 			document.documentElement.setAttribute(COLOR_MODE_ATTRIBUTE, 'dark');
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			expect(getTokenValue('color.text')).toEqual('#0000ff');
 			expect(getTokenValue('color.text', '#000')).toEqual('#0000ff');
 		});
@@ -70,7 +66,6 @@ describe('getTokenValue', () => {
 		it('should log error and return an empty value for non-existing token without fallback', () => {
 			setup();
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist');
 
 			expect(result).toEqual('');
@@ -105,7 +100,6 @@ describe('getTokenValue', () => {
 		it('should log error and use fallback for non-existing token with fallback', () => {
 			setup();
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist', '#000');
 
 			expect(result).toEqual('#000');
@@ -129,7 +123,6 @@ describe('getTokenValue', () => {
 
 		it('should trim the value down to remove leading/trailing spaces', () => {
 			setup();
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('color.text');
 			expect(result).toEqual('#ff0000');
 		});
@@ -137,7 +130,6 @@ describe('getTokenValue', () => {
 		it('should return an empty value for non-existing token without fallback', () => {
 			setup();
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist');
 			expect(result).toEqual('');
 		});
@@ -145,7 +137,6 @@ describe('getTokenValue', () => {
 		it('should return the fallback value for non-existing token with fallback', () => {
 			setup();
 			// @ts-expect-error
-			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 			const result = getTokenValue('this-token-does-not-exist', '#000');
 			expect(result).toEqual('#000');
 		});

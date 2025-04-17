@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.3
+
+### Patch Changes
+
+- [#142712](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142712)
+  [`6eb10c572bdad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6eb10c572bdad) -
+  [ux] Improve syntax highlighting for yaml.
+- Updated dependencies
+
 ## 2.2.2
 
 ### Patch Changes

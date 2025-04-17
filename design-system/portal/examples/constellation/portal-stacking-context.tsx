@@ -40,7 +40,6 @@ const bottomSquareStyles = css({
 
 const topSquarePositionStyles = css({
 	insetBlockStart: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	insetInlineStart: '256px',
 });
 

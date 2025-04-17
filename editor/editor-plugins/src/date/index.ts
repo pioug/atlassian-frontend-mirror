@@ -6,6 +6,7 @@ export type {
 	DatePlugin,
 	DatePluginSharedState,
 	DatePluginConfig,
+	DatePluginOptions,
 	DateType,
 	InsertDate,
 } from '@atlaskit/editor-plugin-date';

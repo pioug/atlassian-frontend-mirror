@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { withProfiling } from '../../../../self-measurements';
 
 export type CreateMutationObserverProps = {
@@ -36,31 +34,25 @@ const createMutationObserver = withProfiling(
 						continue;
 					}
 					if (mut.type === 'attributes') {
-						if (fg('platform_ufo_vc_ignore_same_value_mutation')) {
-							/*
-						"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
-						I think it might have been something along the lines that for consistency every setAttribute call should create a record.
-						Conceptually there is after all a mutation: there is an old value replaced with a new one,
-						and whether or not they are the same doesn't really matter.
-						And Custom elements should work the same way as MutationObserver."
-						https://github.com/whatwg/dom/issues/520#issuecomment-336574796
-					*/
-							const oldValue = mut.oldValue ?? undefined;
-							const newValue = mut.attributeName
-								? mut.target.getAttribute(mut.attributeName)
-								: undefined;
-							if (oldValue !== newValue) {
-								onAttributeMutation({
-									target: mut.target,
-									attributeName: mut.attributeName ?? 'unknown',
-								});
-							}
-						} else {
+						/*
+							"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
+							I think it might have been something along the lines that for consistency every setAttribute call should create a record.
+							Conceptually there is after all a mutation: there is an old value replaced with a new one,
+							and whether or not they are the same doesn't really matter.
+							And Custom elements should work the same way as MutationObserver."
+							https://github.com/whatwg/dom/issues/520#issuecomment-336574796
+						*/
+						const oldValue = mut.oldValue ?? undefined;
+						const newValue = mut.attributeName
+							? mut.target.getAttribute(mut.attributeName)
+							: undefined;
+						if (oldValue !== newValue) {
 							onAttributeMutation({
 								target: mut.target,
 								attributeName: mut.attributeName ?? 'unknown',
 							});
 						}
+
 						continue;
 					} else if (mut.type === 'childList') {
 						(mut.addedNodes ?? []).forEach((node: Node) => {

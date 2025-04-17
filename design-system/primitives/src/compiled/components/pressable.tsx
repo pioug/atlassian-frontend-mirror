@@ -132,9 +132,7 @@ const Pressable = forwardRef(
 				as="button"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- TODO: Properly type this and allow pass-through if we can determine the type
 				style={style}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...safeHtmlAttributes}
-				// eslint-disable-next-line react/button-has-type
 				type={type}
 				onClick={onClick}
 				disabled={isDisabled}

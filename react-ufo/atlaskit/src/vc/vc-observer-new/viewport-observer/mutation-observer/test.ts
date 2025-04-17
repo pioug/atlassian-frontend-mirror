@@ -83,90 +83,53 @@ describe('createMutationObserver', () => {
 			}),
 		);
 	});
-	describe('when platform_ufo_vc_ignore_same_value_mutation flag is enabled', () => {
-		beforeEach(() => {
-			mockedFg.set('platform_ufo_vc_ignore_same_value_mutation', true);
+
+	it('should not call onAttributeMutation when attribute value has not changed', () => {
+		createMutationObserver({
+			onAttributeMutation,
+			onChildListMutation,
+			onMutationFinished,
 		});
 
-		it('should not call onAttributeMutation when attribute value has not changed', () => {
-			createMutationObserver({
-				onAttributeMutation,
-				onChildListMutation,
-				onMutationFinished,
-			});
+		const target = document.createElement('div');
+		target.setAttribute('data-testid', 'test');
 
-			const target = document.createElement('div');
-			target.setAttribute('data-testid', 'test');
-
-			const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
-			callback([
-				{
-					type: 'attributes',
-					target,
-					attributeName: 'data-testid',
-					oldValue: 'test',
-				},
-			]);
-
-			expect(onAttributeMutation).not.toHaveBeenCalled();
-		});
-
-		it('should call onAttributeMutation when attribute value has changed', () => {
-			createMutationObserver({
-				onAttributeMutation,
-				onChildListMutation,
-				onMutationFinished,
-			});
-
-			const target = document.createElement('div');
-			target.setAttribute('data-testid', 'new-value');
-
-			const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
-			callback([
-				{
-					type: 'attributes',
-					target,
-					attributeName: 'data-testid',
-					oldValue: 'old-value',
-				},
-			]);
-
-			expect(onAttributeMutation).toHaveBeenCalledWith({
+		const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
+		callback([
+			{
+				type: 'attributes',
 				target,
 				attributeName: 'data-testid',
-			});
-		});
+				oldValue: 'test',
+			},
+		]);
+
+		expect(onAttributeMutation).not.toHaveBeenCalled();
 	});
 
-	describe('when platform_ufo_vc_ignore_same_value_mutation flag is disabled', () => {
-		beforeEach(() => {
-			mockedFg.set('platform_ufo_vc_ignore_same_value_mutation', false);
+	it('should call onAttributeMutation when attribute value has changed', () => {
+		createMutationObserver({
+			onAttributeMutation,
+			onChildListMutation,
+			onMutationFinished,
 		});
 
-		it('should call onAttributeMutation regardless of attribute value change', () => {
-			createMutationObserver({
-				onAttributeMutation,
-				onChildListMutation,
-				onMutationFinished,
-			});
+		const target = document.createElement('div');
+		target.setAttribute('data-testid', 'new-value');
 
-			const target = document.createElement('div');
-			target.setAttribute('data-testid', 'test');
-
-			const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
-			callback([
-				{
-					type: 'attributes',
-					target,
-					attributeName: 'data-testid',
-					oldValue: 'test',
-				},
-			]);
-
-			expect(onAttributeMutation).toHaveBeenCalledWith({
+		const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
+		callback([
+			{
+				type: 'attributes',
 				target,
 				attributeName: 'data-testid',
-			});
+				oldValue: 'old-value',
+			},
+		]);
+
+		expect(onAttributeMutation).toHaveBeenCalledWith({
+			target,
+			attributeName: 'data-testid',
 		});
 	});
 });

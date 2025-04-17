@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/right-side-panel",
-	"version": "2.0.2",
+	"version": "3.0.0",
 	"description": "A cross-product right-side-panel component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 		}
 	},
 	"sideEffects": [
-		"*.compiled.css"
+		"**/*.compiled.css"
 	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
@@ -41,7 +41,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/styled": "^11.0.0",
+		"@compiled/react": "^0.18.3",
 		"exenv": "^1.2.2",
 		"react-transition-group": "^4.4.1"
 	},
@@ -72,6 +72,9 @@
 			"design-tokens": [
 				"color",
 				"spacing"
+			],
+			"styling": [
+				"compiled"
 			]
 		}
 	}

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.10.3
+
+### Patch Changes
+
+- [#139698](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139698)
+  [`cf8ea53ed0264`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf8ea53ed0264) -
+  Clean-up nested expand feature gate
+- [#142866](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142866)
+  [`b2ff4351e7e00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2ff4351e7e00) -
+  Fix missing destroy callback for quick insert
+- Updated dependencies
+
+## 3.10.2
+
+### Patch Changes
+
+- [#142214](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142214)
+  [`9643cb1c29edb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9643cb1c29edb) -
+  [ux] Improve and seperate sticky control masking into own gate
+
 ## 3.10.1
 
 ### Patch Changes

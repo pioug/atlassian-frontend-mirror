@@ -1,5 +1,13 @@
 # @atlaskit/editor-json-transformer
 
+## 8.24.2
+
+### Patch Changes
+
+- [#139698](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139698)
+  [`cf8ea53ed0264`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf8ea53ed0264) -
+  Clean-up nested expand feature gate
+
 ## 8.24.1
 
 ### Patch Changes

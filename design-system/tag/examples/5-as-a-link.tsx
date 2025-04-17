@@ -11,7 +11,7 @@ const A = styled.a({
 });
 
 const StyledExample = (props: HTMLAttributes<HTMLAnchorElement>) => {
-	// eslint-disable-next-line styled-components-a11y/anchor-has-content, @repo/internal/react/no-unsafe-spread-props
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	return <A {...props} target="_blank" />;
 };
 

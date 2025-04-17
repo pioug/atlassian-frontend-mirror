@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.2.0
+
+### Minor Changes
+
+- [#138850](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138850)
+  [`6fe99d638a4ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fe99d638a4ca) -
+  Prevent media image resizing issue in confluence SSR
+
 ## 79.1.0
 
 ### Minor Changes

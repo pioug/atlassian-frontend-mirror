@@ -6,7 +6,6 @@
 
 import { Fragment } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, styled } from '@compiled/react';
 
 import { Manager, type Placement, Popper, Reference } from '@atlaskit/popper';
@@ -20,7 +19,7 @@ const REF_HEIGHT = 40;
 const POPUP_HEIGHT = 40;
 const SPACING = 35;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Popup = styled.div({
 	background: 'white',
 	borderColor: 'red',
@@ -45,7 +44,6 @@ const ReferenceBox = styled.div({
 	paddingRight: token('space.100', '8px'),
 	paddingBottom: token('space.100', '8px'),
 	paddingLeft: token('space.100', '8px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: '3px',
 	color: 'white',
 	textAlign: 'center',
@@ -57,7 +55,6 @@ const ReferenceBox = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBoundaries = styled.div({
 	background: 'lightblue',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: '3px',
 	paddingTop: token('space.100', '8px'),
 	paddingRight: token('space.100', '8px'),
@@ -180,7 +177,6 @@ const contentWrapperStyles = css({
 });
 
 export default () => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={scrollContainerStyles}>
 		<Test />
 		{/* eslint-disable-next-line @atlaskit/design-system/use-primitives */}

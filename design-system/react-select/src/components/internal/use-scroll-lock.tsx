@@ -32,7 +32,6 @@ function preventInertiaScroll(this: HTMLElement) {
 // `ontouchstart` check works on most browsers
 // `maxTouchPoints` works on IE10/11 and Surface
 function isTouchDevice() {
-	// eslint-disable-next-line compat/compat
 	return 'ontouchstart' in window || navigator.maxTouchPoints;
 }
 

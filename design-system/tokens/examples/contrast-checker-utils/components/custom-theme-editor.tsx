@@ -76,7 +76,6 @@ const CustomThemeEditor = ({
 				<Button
 					iconBefore={AddIcon}
 					onClick={() => {
-						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 						theme.push({ name: 'color.text', value: '#ffffff' });
 						onChange(theme);
 					}}
@@ -172,16 +171,11 @@ const TokenSelect = ({
 						<input
 							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								border: `2px solid ${token('color.border')}`,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								backgroundColor: token('color.background.input', 'white'),
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								borderRadius: token('border.radius.100', '3px'),
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								height: token('space.400', '32px'),
 								'&:hover': {
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									backgroundColor: token('color.background.input.hovered', 'N20'),
 								},
 							}}

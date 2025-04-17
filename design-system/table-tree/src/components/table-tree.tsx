@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { type ElementType, type ReactNode, useCallback, useMemo, useState } from 'react';
 
 import Cell from './cell';
@@ -36,7 +35,7 @@ export interface TableTreeProps<Item> {
 	 * The header text of the columns of the table.
 	 */
 	headers?: string[];
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-disable jsdoc/require-asterisk-prefix */
 	/**
     Use this to set whether a row with children should expand when clicked anywhere within the row. If `false` or unset, a row with children will only expand when the chevron is clicked.
 

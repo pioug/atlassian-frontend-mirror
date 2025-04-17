@@ -14,6 +14,7 @@ import {
 	akEditorFullPageMaxWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
@@ -274,8 +275,16 @@ export const MediaSingleDimensionHelper = ({
 		css({
 			minWidth: '100%',
 		})}
+		${isExtendedResizeExperienceOn && fg('platform_fix_media_image_resizing')
+			? css({
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+					'@container view-page-content (min-width: 1px)': {
+						maxWidth: '100cqw',
+					},
+				})
+			: ''}
+		/* If container doesn't exists, it will fallback to this */
 		max-width: ${calculatedMaxWidth};
-
 		${isExtendedResizeExperienceOn &&
 		`&[class*='is-resizing'] {
     .new-file-experience-wrapper {

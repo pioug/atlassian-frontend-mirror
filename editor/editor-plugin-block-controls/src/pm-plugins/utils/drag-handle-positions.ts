@@ -125,6 +125,7 @@ export const shouldMaskNodeControls = (nodeType: string, isTopLevelNode: boolean
 		isTopLevelNode &&
 		['table'].includes(nodeType) &&
 		fg('platform_editor_controls_sticky_controls') &&
+		fg('platform_editor_controls_sticky_mask') &&
 		editorExperiment('platform_editor_controls', 'variant1')
 	);
 };

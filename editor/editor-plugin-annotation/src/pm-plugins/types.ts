@@ -1,9 +1,11 @@
 import type { EditorAnalyticsAPI, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
+import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import type { AnnotationPluginInjectionAPI } from '../annotationPluginType';
 import type {
 	AnnotationInfo,
 	AnnotationProviders,
@@ -29,6 +31,8 @@ export interface InlineCommentPluginOptions {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	featureFlagsPluginState?: FeatureFlags;
 	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
+	annotationManager?: AnnotationManager;
+	api?: AnnotationPluginInjectionAPI;
 }
 export interface InlineCommentMouseData {
 	isSelecting: boolean;

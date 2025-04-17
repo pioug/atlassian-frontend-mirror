@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { N10, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

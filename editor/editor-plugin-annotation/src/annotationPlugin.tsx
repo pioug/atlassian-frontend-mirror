@@ -73,6 +73,8 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 							editorAnalyticsAPI: api?.analytics?.actions,
 							featureFlagsPluginState: featureFlags,
 							selectCommentExperience: annotationProviders.selectCommentExperience,
+							annotationManager: annotationProviders.annotationManager,
+							api,
 						});
 					}
 
@@ -124,6 +126,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 						isToolbarAbove,
 						api,
 						createCommentExperience: annotationProviders.createCommentExperience,
+						annotationManager: annotationProviders.annotationManager,
 					});
 
 					if (!toolbarConfig) {

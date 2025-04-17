@@ -11,7 +11,9 @@ import {
 	type DatasourceDataResponseItem,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
@@ -74,6 +76,28 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
 
 		return Promise.reject();
 	},
+}));
+
+const testRefreshButtonLabel = 'Test refresh button';
+jest.mock('../common/error-state/loading-error', () => ({
+	...jest.requireActual('../common/error-state/loading-error'),
+	LoadingError: jest.fn(({ onRefresh, url }) => (
+		<div>
+			<div>Unable to load items</div>
+			<button onClick={onRefresh}>{testRefreshButtonLabel}</button>
+			<div>URL is: {url}</div>
+		</div>
+	)),
+}));
+
+jest.mock('../common/error-state/no-results', () => ({
+	...jest.requireActual('../common/error-state/no-results'),
+	NoResults: jest.fn(({ onRefresh }) => (
+		<div>
+			<div>No results found</div>
+			{onRefresh && <button onClick={onRefresh}>{testRefreshButtonLabel}</button>}
+		</div>
+	)),
 }));
 
 const onAnalyticFireEvent = jest.fn();
@@ -486,36 +510,55 @@ describe('DatasourceTableView', () => {
 	);
 
 	describe('when results are not returned', () => {
-		it('should show no results if no responseItems are returned', () => {
-			const { mockReset, getByRole, getByText } = setup({
-				responseItems: [],
+		ffTest.both('platform-linking-visual-refresh-sllv', '', () => {
+			// TODO Delete this test when cleaning platform-linking-visual-refresh-sllv
+			it('should show no results if no responseItems are returned', () => {
+				const { mockReset, getByRole, getByText, queryByRole } = setup({
+					responseItems: [],
+				});
+
+				expect(getByText('No results found')).toBeInTheDocument();
+
+				if (!fg('platform-linking-visual-refresh-sllv')) {
+					getByRole('button', { name: testRefreshButtonLabel }).click();
+					expect(mockReset).toHaveBeenCalledTimes(1);
+					expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
+				} else {
+					expect(queryByRole('button', { name: testRefreshButtonLabel })).not.toBeInTheDocument();
+				}
 			});
-
-			expect(getByText('No results found')).toBeInTheDocument();
-
-			getByRole('button', { name: 'Refresh' }).click();
-			expect(mockReset).toHaveBeenCalledTimes(1);
-			expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
 		});
 	});
 
 	describe('when an error on /data request occurs', () => {
-		it('should show an error message on request failure', () => {
-			const { getByRole, getByText, mockReset } = setup({
-				status: 'rejected',
+		ffTest.both('platform-linking-visual-refresh-sllv', '', () => {
+			it('should show an error message on request failure', () => {
+				const url = 'https://www.atlassian.com/test-url';
+				const { getByRole, getByText, mockReset } = setup(
+					{
+						status: 'rejected',
+					},
+					{ url },
+				);
+
+				if (fg('platform-linking-visual-refresh-sllv')) {
+					expect(getByText(`URL is: ${url}`)).toBeInTheDocument();
+				} else {
+					expect(getByText(`URL is:`)).toBeInTheDocument();
+				}
+
+				expect(getByText('Unable to load items')).toBeInTheDocument();
+
+				getByRole('button', { name: testRefreshButtonLabel }).click();
+				expect(mockReset).toHaveBeenCalledTimes(1);
+				expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
 			});
-
-			expect(getByText('Unable to load items')).toBeInTheDocument();
-
-			getByRole('button', { name: 'Refresh' }).click();
-			expect(mockReset).toHaveBeenCalledTimes(1);
-			expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
 		});
 
 		it('should show an no results message on 403 response', () => {
-			const { getByTestId } = setup({ status: 'forbidden' });
+			const { getByText } = setup({ status: 'forbidden' });
 
-			expect(getByTestId('datasource-modal--no-results')).toBeInTheDocument();
+			expect(getByText('No results found')).toBeInTheDocument();
 		});
 	});
 
@@ -643,25 +686,6 @@ describe('Analytics: DatasourceTableView', () => {
 		jest.clearAllMocks();
 	});
 
-	it('should fire "ui.emptyResult.shown.datasource" when datasource results are empty', () => {
-		setup({
-			responseItems: [],
-		});
-
-		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'shown',
-					actionSubject: 'emptyResult',
-					actionSubjectId: 'datasource',
-					attributes: {},
-					eventType: 'ui',
-				},
-			},
-			EVENT_CHANNEL,
-		);
-	});
-
 	it('should fire "ui.error.shown" with reason as "access" when the user unauthorised', () => {
 		setup({
 			status: 'unauthorized',
@@ -674,26 +698,6 @@ describe('Analytics: DatasourceTableView', () => {
 					actionSubject: 'error',
 					attributes: {
 						reason: 'access',
-					},
-					eventType: 'ui',
-				},
-			},
-			EVENT_CHANNEL,
-		);
-	});
-
-	it('should fire "ui.error.shown" with reason as "network" when the user request failed', () => {
-		setup({
-			status: 'rejected',
-		});
-
-		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'shown',
-					actionSubject: 'error',
-					attributes: {
-						reason: 'network',
 					},
 					eventType: 'ui',
 				},

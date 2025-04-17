@@ -5,7 +5,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -29,6 +29,10 @@ interface Props extends Omit<ButtonComponentProps, 'onClickBeforeInit'> {
 	onClick: (event: React.MouseEvent<HTMLElement>) => void;
 	hideTooltip?: boolean;
 }
+
+const iconMinWidthStyle = css({
+	minWidth: 24,
+});
 
 const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedComponentProps>(
 	(
@@ -72,11 +76,13 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 				disabled={disabled}
 				title={label}
 				iconBefore={
-					<VideoIcon
-						label={label}
-						color={disabled ? token('color.icon.disabled') : token('color.icon.subtle')}
-						spacing="spacious"
-					/>
+					<span css={iconMinWidthStyle}>
+						<VideoIcon
+							label={label}
+							color={disabled ? token('color.icon.disabled') : token('color.icon.subtle')}
+							spacing="spacious"
+						/>
+					</span>
 				}
 				selected={selected}
 				onBlur={onBlur}

@@ -78,11 +78,11 @@ const removeButtonStylesOld = cssMap({
 		border: 'none',
 		// Once legacy theming is dropped, this can be changed to 'border.radius'
 		// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: 'var(--ds-br)' as 'var(--ds-border-radius)',
 		// Once legacy theming is dropped, this can be changed to 'inherit'
 		// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: 'var(--ds-rb)' as 'var(--ds-text)',
 		cursor: 'pointer',
 		pointerEvents: 'auto',
@@ -94,7 +94,7 @@ const removeButtonStylesOld = cssMap({
 		'&:hover': {
 			// Once legacy theming is dropped, this can be changed to 'color.text.default'
 			// NOTE: We are using `as var(--ds-…)` to hack this into our `@atlaskit/css` interface.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			color: 'var(--ds-rbh)' as 'var(--ds-text)',
 		},
 	},

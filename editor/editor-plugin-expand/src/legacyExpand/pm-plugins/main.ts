@@ -14,7 +14,6 @@ import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-com
 import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
 import { setExpandRef } from '../commands';
@@ -163,17 +162,6 @@ export function handleExpandDrag(view: EditorView, event: DragEvent, slice: Slic
 	const isNodeBeingDroppedInsideNestedExpand =
 		dropLocationNodeType === state.schema.nodes.nestedExpand ||
 		dropLocationParentNodeType === state.schema.nodes.nestedExpand;
-
-	if (editorExperiment('nested-expand-in-expand', false)) {
-		if (
-			(sliceContainsExpand || sliceContainsNestedExpand) &&
-			(dropLocationNodeType === state.schema.nodes.expand ||
-				dropLocationParentNodeType === state.schema.nodes.expand)
-		) {
-			event.preventDefault();
-			return true;
-		}
-	}
 
 	let updatedSlice: Slice | null = slice;
 

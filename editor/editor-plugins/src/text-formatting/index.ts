@@ -4,5 +4,6 @@
 export { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 export type {
 	TextFormattingPlugin,
+	TextFormattingPluginOptions,
 	ToggleMarkEditorCommand,
 } from '@atlaskit/editor-plugin-text-formatting';

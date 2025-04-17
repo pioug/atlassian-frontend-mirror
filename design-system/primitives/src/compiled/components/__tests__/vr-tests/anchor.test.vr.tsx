@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { snapshot } from '@af/visual-regression';
 
 import AnchorDefault from '../../../../../examples/44-anchor-default-compiled';

@@ -177,7 +177,6 @@ export interface MultiValueGenericProps<
 	selectProps: SelectProps<Option, IsMulti, Group>;
 }
 
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
 const MultiValueGeneric = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	children,
 	innerProps,
@@ -229,7 +228,6 @@ const renderIcon = () => {
 	}
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 		<LegacySelectClearIcon
 			label=""
 			primaryColor="transparent"

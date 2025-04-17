@@ -300,10 +300,9 @@ const inputStyle = css({
 	border: 0,
 	color: 'inherit',
 	cursor: 'inherit',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 	font: token('font.body'),
 	outline: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([data-compact])': {
 		paddingBlockEnd: token('space.100'),
 		paddingBlockStart: token('space.100'),
@@ -454,7 +453,6 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
 				{...spreadProps}
 				aria-invalid={isInvalid ? isInvalid : undefined}
 				// TODO: When removing legacy theming fix this.
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				css={[
 					inputStyle,
 					isMonospaced && inputMonospacedStyle,

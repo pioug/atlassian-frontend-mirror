@@ -12,7 +12,6 @@ describe('TextArea', () => {
 	const createTextArea = (props: TextAreaProps = {}) => (
 		<label htmlFor="name">
 			Name
-			{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
 			<TextArea testId={testId} {...props} />
 		</label>
 	);

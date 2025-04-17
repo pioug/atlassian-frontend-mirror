@@ -1,4 +1,9 @@
-import type { Command, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	ExtractInjectionAPI,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -51,3 +56,5 @@ export type AnnotationPlugin = NextEditorPlugin<
 		};
 	}
 >;
+
+export type AnnotationPluginInjectionAPI = ExtractInjectionAPI<AnnotationPlugin> | undefined;

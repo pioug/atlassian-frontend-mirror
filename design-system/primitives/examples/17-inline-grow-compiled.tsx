@@ -48,7 +48,6 @@ export default () => (
 
 		<Stack space="space.100">
 			width=100% enables truncation
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<Box xcss={styles.truncateContainer} backgroundColor="color.background.neutral">
 				<Inline grow="fill">
 					<Stack space="space.100" grow="fill">

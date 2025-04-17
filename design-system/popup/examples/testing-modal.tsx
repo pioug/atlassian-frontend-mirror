@@ -36,7 +36,6 @@ const ModalDialog = () => {
 			<Button>Button 2</Button>
 			<Button onClick={() => setShowModal(true)}>Show modal</Button>
 			{showModal && (
-				// eslint-disable-next-line @atlaskit/design-system/use-modal-dialog-close-button
 				<Modal
 					onClose={() => {
 						setShowModal(false);

@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 /**
  * @jsxRuntime classic
  * @jsx jsx

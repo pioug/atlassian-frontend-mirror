@@ -25,7 +25,6 @@ const defaultStringify = <Option,>(option: FilterOptionOption<Option>) =>
 export const createFilter =
 	<Option,>(config?: Config<Option>) =>
 	(option: FilterOptionOption<Option>, rawInput: string): boolean => {
-		// eslint-disable-next-line no-underscore-dangle
 		if ((option.data as { __isNew__?: unknown }).__isNew__) {
 			return true;
 		}

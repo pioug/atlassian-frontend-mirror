@@ -78,7 +78,7 @@ const basicStyles = css({
 	'&[data-checked]:hover': {
 		backgroundColor: token('color.background.success.bold.hovered', G500),
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([data-checked]):hover': {
 		backgroundColor: token('color.background.neutral.bold.hovered', N400),
 	},

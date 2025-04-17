@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.5.0
+
+### Minor Changes
+
+- [#141971](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141971)
+  [`c16899828af3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c16899828af3d) -
+  Add new rule for `shouldRenderToParent` prop usage in popup and dropdown menu components.
+
 ## 13.4.1
 
 ### Patch Changes

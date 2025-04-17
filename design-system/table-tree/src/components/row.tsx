@@ -48,7 +48,7 @@ export interface RowProps<Item> {
 	 * ID for the row item.
 	 */
 	itemId?: string;
-	/* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/* eslint-disable jsdoc/require-asterisk-prefix */
 	/**
     The data used to render the row and descendants. Pass down from `children` render prop.
 

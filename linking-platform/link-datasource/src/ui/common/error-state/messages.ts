@@ -44,6 +44,20 @@ export const loadingErrorMessages = defineMessages({
 			'Instructions to let the user know how to resolve the network error that occurred or to try again at a different time',
 		defaultMessage: 'Check your connection and refresh, or try again later.',
 	},
+	checkConnectionConfluence: {
+		id: 'linkDataSource.jira-issues.checkConnection.confluence',
+		description:
+			'Instructions to let the user know how to resolve the network error that occurred or to try again at a different time',
+		defaultMessage:
+			'Check your connection and refresh, or <a>open this search in Confluence</a> to review.',
+	},
+	checkConnectionJira: {
+		id: 'linkDataSource.jira-issues.checkConnection.jira',
+		description:
+			'Instructions to let the user know how to resolve the network error that occurred or to try again at a different time',
+		defaultMessage:
+			'Check your connection and refresh, or <a>open this search in Jira</a> to review. ',
+	},
 	//delete and remove duplicate from title above
 	checkConnection: {
 		id: 'linkDataSource.jira-issues.checkConnection',
@@ -79,8 +93,8 @@ export const loadingErrorMessages = defineMessages({
 			'Error state message letting the user know we were unable the load the requested list of items',
 		defaultMessage: 'Unable to load items',
 	},
-	//delete and remove duplicate from title above
-	unableToLoadItems: {
+	// TODO Delete when cleaning platform-linking-visual-refresh-sllv
+	unableToLoadItemsOld: {
 		id: 'linkDataSource.jira-issues.unableToLoadItems',
 		description:
 			'Error state message letting the user know we were unable the load the requested list of items',
@@ -98,6 +112,12 @@ export const loadingErrorMessages = defineMessages({
 		description:
 			'Error state message letting the user know we were unable the load the requested list of results',
 		defaultMessage: 'Unable to load results',
+	},
+	unableToLoadResultsVisualRefreshSllv: {
+		id: 'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv',
+		description:
+			'Error state message letting the user know we were unable the load the requested list of results',
+		defaultMessage: 'We ran into an issue trying to fetch results',
 	},
 	// delete once EDM-9407 is merged
 	noAccessToJiraSitesTitle: {

@@ -153,13 +153,7 @@ const ProgressTracker = ({
 	};
 
 	return (
-		<ul
-			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={listInlineStyles}
-			css={containerStyles}
-			aria-label={label}
-		>
+		<ul data-testid={testId} style={listInlineStyles} css={containerStyles} aria-label={label}>
 			{progressItems}
 		</ul>
 	);

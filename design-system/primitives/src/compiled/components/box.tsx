@@ -818,7 +818,6 @@ const Box = forwardRef(
 				// @ts-ignore -- Expression produces a union type that is too complex to represent. We may be able to narrow the type here but unsure.
 				ref={ref}
 				className={xcss}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...safeHtmlAttributes}
 				css={[
 					baseStyles,

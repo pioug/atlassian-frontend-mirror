@@ -4,6 +4,7 @@
 export { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 export type {
 	PrimaryToolbarPlugin,
+	PrimaryToolbarPluginOptions,
 	PrimaryToolbarPluginState,
 	ToolbarElementNames,
 } from '@atlaskit/editor-plugin-primary-toolbar';

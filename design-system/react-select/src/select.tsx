@@ -1005,7 +1005,6 @@ export default class Select<
 
 		if (isFocused && isDisabled && !prevProps.isDisabled) {
 			// ensure select state gets blurred in case Select is programmatically disabled while focused
-			// eslint-disable-next-line react/no-did-update-set-state
 			this.setState({ isFocused: false }, this.onMenuClose);
 		} else if (
 			!isFocused &&
@@ -1014,7 +1013,6 @@ export default class Select<
 			this.inputRef === document.activeElement
 		) {
 			// ensure select state gets focused in case Select is programatically re-enabled while focused (Firefox)
-			// eslint-disable-next-line react/no-did-update-set-state
 			this.setState({ isFocused: true });
 		}
 

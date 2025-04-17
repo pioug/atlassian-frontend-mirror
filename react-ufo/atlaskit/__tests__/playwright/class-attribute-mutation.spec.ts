@@ -7,13 +7,8 @@ import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: class attribute mutation', () => {
 	const featureFlagsSetups = [
+		['platform_ufo_vc_ttai_on_paint', 'platform_ufo_log_attr_mutation_values'],
 		[
-			'platform_ufo_vc_ignore_same_value_mutation',
-			'platform_ufo_vc_ttai_on_paint',
-			'platform_ufo_log_attr_mutation_values',
-		],
-		[
-			'platform_ufo_vc_ignore_same_value_mutation',
 			'platform_ufo_vc_ttai_on_paint',
 			'platform_ufo_log_attr_mutation_values',
 			'platform_ufo_vc_observer_new',

@@ -32,12 +32,7 @@ const Example = () => (
 			<SectionMessage
 				appearance="error"
 				actions={[
-					<SectionMessageAction
-						// eslint-disable-next-line @repo/internal/react/use-noop
-						onClick={() => noop}
-					>
-						Outtake
-					</SectionMessageAction>,
+					<SectionMessageAction onClick={() => noop}>Outtake</SectionMessageAction>,
 					<SectionMessageAction onClick={() => noop}>Moana</SectionMessageAction>,
 				]}
 			>

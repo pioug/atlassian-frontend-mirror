@@ -65,6 +65,22 @@ describe('Image navigator', () => {
 			);
 
 			expect(await screen.findByTestId('image-cropper')).toBeInTheDocument();
+			const imageCropperMask = await screen.findByTestId('image-cropper-mask');
+			expect(imageCropperMask).toHaveAttribute(
+				'aria-label',
+				'Draggable Image, Ensure your screen reader is not in browse mode. use arrow keys to move & crop the image',
+			);
+
+			imageCropperMask.focus();
+
+			fireEvent.keyDown(imageCropperMask, {
+				key: 'ArrowUp',
+			});
+			const element = screen.getByText(
+				'You have moved the image from top to bottom, use arrow keys to move & crop the image',
+			);
+
+			expect(element).toBeInTheDocument();
 		});
 
 		it('should have slider', async () => {

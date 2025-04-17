@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::66749852497ab0f2dc3214dd47aaf598>>
+ * @codegen <<SignedSource::f169e765038e90ec6531f19333f70cfb>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -49,6 +49,7 @@ import useOnboardingSpotlightLabel from './use-onboarding-spotlight-label';
 import usePopupLabel from './use-popup-label';
 import usePrimitives from './use-primitives';
 import usePrimitivesText from './use-primitives-text';
+import useShouldRenderToParent from './use-should-render-to-parent';
 import useTagGroupLabel from './use-tag-group-label';
 import useTokensSpace from './use-tokens-space';
 import useTokensTypography from './use-tokens-typography';
@@ -101,6 +102,7 @@ export const rules = {
 	'use-popup-label': usePopupLabel,
 	'use-primitives': usePrimitives,
 	'use-primitives-text': usePrimitivesText,
+	'use-should-render-to-parent': useShouldRenderToParent,
 	'use-tag-group-label': useTagGroupLabel,
 	'use-tokens-space': useTokensSpace,
 	'use-tokens-typography': useTokensTypography,

@@ -108,7 +108,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			this.showProfilecard(0);
 
 			if (!this.state.visible) {
-				this.fireAnalytics(cardTriggered('team', 'click'));
+				this.fireAnalytics(cardTriggered('team', 'click', this.props.teamId));
 			}
 		}
 	};
@@ -121,7 +121,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		if (!this.state.visible) {
 			this.openedByHover = true;
 
-			this.fireAnalytics(cardTriggered('team', 'hover'));
+			this.fireAnalytics(cardTriggered('team', 'hover', this.props.teamId));
 		}
 
 		this.showProfilecard(DELAY_MS_SHOW);
@@ -143,7 +143,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 			this.setState({ isTriggeredByKeyboard: true });
 			this.showProfilecard(0);
 			if (!this.state.visible) {
-				this.fireAnalytics(cardTriggered('team', 'click'));
+				this.fireAnalytics(cardTriggered('team', 'click', this.props.teamId));
 			}
 		}
 	};

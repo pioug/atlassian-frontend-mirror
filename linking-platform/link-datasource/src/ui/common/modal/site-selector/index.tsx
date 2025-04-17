@@ -4,7 +4,7 @@
  */
 import { useMemo } from 'react';
 
-import { css, cssMap, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { Box } from '@atlaskit/primitives/compiled';
@@ -31,12 +31,6 @@ export interface SiteSelectorProps {
 	selectedSite?: Site;
 	testId: string;
 }
-
-const selectStyles = css({
-	font: token('font.body'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: 11,
-});
 
 export const SiteSelector = (props: SiteSelectorProps) => {
 	const { availableSites, onSiteSelection, selectedSite, label, testId } = props;
@@ -71,13 +65,18 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 			{availableSites && availableSites.length > 1 && (
 				<span data-testid={`${testId}--trigger`}>
 					<Select
-						css={selectStyles}
 						classNamePrefix={testId}
 						isLoading={!availableSites}
 						onChange={onChange}
 						options={availableSitesOptions}
 						placeholder={formatMessage(siteSelectorMessages.chooseSite)}
 						styles={{
+							container: (css) => ({
+								...css,
+								font: token('font.body'),
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+								zIndex: 11,
+							}),
 							// prevents the popup menu with available sites from being too narrow
 							// if the selected site is much shorter than the other options
 							menu: ({ width, ...css }) => ({

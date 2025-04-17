@@ -11,3 +11,5 @@ export const CONTAINER_INNER_SIZE = 8 * 25;
 export const CONTAINER_PADDING = (CONTAINER_SIZE - CONTAINER_INNER_SIZE) / 2;
 
 export const CONTAINER_RECT = new Rectangle(CONTAINER_SIZE, CONTAINER_SIZE);
+
+export const IMAGE_MOVE_UNIT = 5;

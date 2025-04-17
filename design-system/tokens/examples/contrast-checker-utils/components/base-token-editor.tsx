@@ -201,7 +201,6 @@ const PaletteBlock = ({
 	const EditIconWithColorOverrides = () => <EditIcon primaryColor={textColor} label="edit" />;
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/use-primitives
 		<div
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{

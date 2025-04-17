@@ -22,10 +22,8 @@ const CustomTab = ({ label }: { label: string }) => {
 describe('@atlaskit/tabs', () => {
 	describe('tab', () => {
 		it('should error without a context provider', () => {
-			/* eslint-disable no-console */
 			const err = console.error;
 			console.error = jest.fn();
-			/* eslint-enable no-console */
 
 			let errorMessage = '';
 			try {
@@ -37,7 +35,6 @@ describe('@atlaskit/tabs', () => {
 			expect(errorMessage).toBe('@atlaskit/tabs: A Tab must have a TabList parent.');
 
 			// Restore writing to stderr.
-			// eslint-disable-next-line no-console
 			console.error = err;
 		});
 

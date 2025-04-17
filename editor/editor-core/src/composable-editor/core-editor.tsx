@@ -30,6 +30,7 @@ import measurements from '../utils/performance/measure-enum';
 import { name, version } from '../version-wrapper';
 
 import { EditorUFOBridge, EditorPerformanceMetrics } from './core-performance-metrics';
+import { EditorINPMetrics } from './editor-inp-metrics';
 import { EditorInternal } from './editor-internal';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 // Ignored via go/ees005
@@ -142,6 +143,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 			{isFullPageApperance && fg('platform_editor_fe--performance_metrics') ? (
 				<EditorPerformanceMetrics />
 			) : null}
+			{isFullPageApperance && fg('platform_editor_fe--inp-metrics') ? <EditorINPMetrics /> : null}
 			<EditorInternal
 				props={props}
 				handleAnalyticsEvent={handleAnalyticsEvent}

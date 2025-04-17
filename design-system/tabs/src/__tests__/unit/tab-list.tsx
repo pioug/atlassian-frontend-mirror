@@ -42,10 +42,8 @@ describe('@atlaskit/tabs', () => {
 		});
 
 		it('should throw an error if context not provided', () => {
-			/* eslint-disable no-console */
 			const err = console.error;
 			console.error = jest.fn();
-			/* eslint-enable no-console */
 
 			let errorMessage = '';
 			try {
@@ -57,7 +55,6 @@ describe('@atlaskit/tabs', () => {
 			expect(errorMessage).toBe('@atlaskit/tabs: A TabList must have a Tabs parent.');
 
 			// Restore writing to stderr.
-			// eslint-disable-next-line no-console
 			console.error = err;
 		});
 

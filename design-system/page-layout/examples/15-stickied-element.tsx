@@ -19,7 +19,6 @@ import { ScrollableContent, SlotLabel } from './common';
 
 const topNavigationWrapperStyles = css({
 	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	padding: '1rem',
 	backgroundColor: token('color.background.neutral.subtle'),
 	borderBlockEnd: `1px solid ${token('color.border')}`,

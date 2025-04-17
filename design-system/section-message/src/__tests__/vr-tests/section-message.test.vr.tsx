@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Device, snapshot } from '@af/visual-regression';
 
 import Basic from '../../../examples/00-basic-example';

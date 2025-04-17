@@ -12,10 +12,10 @@ export default () => (
 				text="Log tag remove analytics"
 				removeButtonLabel="Remove"
 				onBeforeRemoveAction={() => {
-					console.log('Before removal'); // eslint-disable-line no-console
+					console.log('Before removal');
 					return true;
 				}}
-				onAfterRemoveAction={(e) => console.log('After removal', e)} // eslint-disable-line no-console
+				onAfterRemoveAction={(e) => console.log('After removal', e)}
 			/>
 		</AnalyticsListener>
 	</div>

@@ -1,5 +1,13 @@
 # @atlaskit/help-article
 
+## 6.0.2
+
+### Patch Changes
+
+- [#142746](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142746)
+  [`2fdbd6f2e517d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fdbd6f2e517d) -
+  Migrated `@atlaskit/primitives` to `@atlaskit/primitives/compiled`
+
 ## 6.0.1
 
 ### Patch Changes

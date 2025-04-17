@@ -1,5 +1,21 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.2.0
+
+### Minor Changes
+
+- [#142841](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142841)
+  [`59cf198f1ca01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59cf198f1ca01) -
+  Adding a new Identifier miscellaneousId
+
+## 5.1.0
+
+### Minor Changes
+
+- [#139287](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139287)
+  [`d9d4876bb733d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9d4876bb733d) -
+  This change contains an update to enbale override adapter for local non browser environments
+
 ## 5.0.0
 
 ### Major Changes

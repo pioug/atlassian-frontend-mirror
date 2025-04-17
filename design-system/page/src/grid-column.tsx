@@ -57,7 +57,7 @@ const singleColumnWidth = `(${availableWidth} / var(${varColumnsNum}))`;
 const gridColumnStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minWidth: `calc(${singleColumnWidth} - var(${varGridSpacing}))`,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	margin: `0 calc(var(${varGridSpacing}) / 2)`,
 	flexGrow: 1,
 	flexShrink: 0,
@@ -116,7 +116,6 @@ const GridColumn = ({ medium = defaultMedium, children, testId }: GridColumnProp
 		<GridColumnContext.Provider value={contextValue}>
 			<div
 				css={[gridColumnStyles, gridColumnWidthStyles[variant]]}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={
 					{
 						/**

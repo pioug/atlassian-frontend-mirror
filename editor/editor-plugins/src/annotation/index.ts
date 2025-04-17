@@ -4,6 +4,7 @@
 export { annotationPlugin } from '@atlaskit/editor-plugin-annotation';
 export type {
 	AnnotationPlugin,
+	AnnotationPluginOptions,
 	AnnotationProviders,
 	InlineCommentAnnotationProvider,
 	AnnotationInfo,

@@ -43,9 +43,6 @@ describe('JSONTransformer - Nested content', () => {
 				doc: document,
 				editorProps: {
 					allowExpand: true,
-					featureFlags: {
-						'nested-expand-in-expand-ex': true,
-					},
 				},
 			});
 

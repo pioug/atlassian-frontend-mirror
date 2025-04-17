@@ -117,7 +117,7 @@ describe('TeamProfileCardTrigger', () => {
 
 			expect(fireAnalyticsEvent).toHaveBeenCalledWith(
 				expect.any(Function),
-				flexiTime(cardTriggered('team', 'click')),
+				flexiTime(cardTriggered('team', 'click', defaultProps.teamId)),
 			);
 
 			expect(getByTestId('team-profilecard')).toBeDefined();
@@ -183,7 +183,7 @@ describe('TeamProfileCardTrigger', () => {
 
 			expect(fireAnalyticsEvent).toHaveBeenCalledWith(
 				expect.any(Function),
-				flexiTime(cardTriggered('team', 'hover')),
+				flexiTime(cardTriggered('team', 'hover', defaultProps.teamId)),
 			);
 
 			expect(getByTestId('team-profilecard')).toBeDefined();

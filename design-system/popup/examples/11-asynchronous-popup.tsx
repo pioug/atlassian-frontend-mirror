@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /**
  * @jsxRuntime classic
  * @jsx jsx

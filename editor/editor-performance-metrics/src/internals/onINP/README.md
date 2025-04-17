@@ -1,0 +1,1 @@
+The content of folder is adapted to isolate onINP in https://github.com/GoogleChrome/web-vitals/blob/main/src/onINP.ts

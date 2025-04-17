@@ -63,6 +63,17 @@ export const WrapperTypeAhead = React.memo(
 		const editorViewRef = useRef(editorView);
 		const items = useLoadItems(triggerHandler, editorView, query, showViewMore);
 
+		useEffect(() => {
+			if (!closed && fg('platform_editor_ease_of_use_metrics')) {
+				api?.core.actions.execute(
+					api?.metrics?.commands.handleIntentToStartEdit({
+						shouldStartTimer: false,
+						shouldPersistActiveSession: true,
+					}),
+				);
+			}
+		}, [closed, api]);
+
 		useLayoutEffect(() => {
 			queryRef.current = query;
 		}, [query]);

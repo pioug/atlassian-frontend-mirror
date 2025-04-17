@@ -55,6 +55,7 @@ export const initialPluginState: MetricsState = {
 	activeSessionTime: 0,
 	totalActionCount: 0,
 	contentSizeChanged: 0,
+	shouldPersistActiveSession: undefined,
 	timeOfLastTextInput: undefined,
 	initialContent: undefined,
 	actionTypeCount: {
@@ -113,7 +114,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				const now = performance.now();
 				// If there is no intentToStartEditTime and there are no doc changes, return the plugin state
 				if (!intentToStartEditTime && !hasDocChanges && !tr.storedMarksSet) {
-					return pluginState;
+					return { ...pluginState, shouldPersistActiveSession };
 				}
 
 				// Set intentToStartEditTime if it is not set and there are doc changes or marks are set
@@ -124,11 +125,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				// Start active session timer if intentToStartEditTime is defined, shouldStartTimer is true and shouldPersistActiveSession is false
 				// shouldPersistActiveSession is true when dragging block controls and when insert menu is open as user is interacting with the editor without making doc changes
 				// Timer should start when menu closes or dragging stops
-				if (
-					intentToStartEditTime &&
-					meta?.shouldStartTimer &&
-					!pluginState.shouldPersistActiveSession
-				) {
+				if (intentToStartEditTime && meta?.shouldStartTimer && !shouldPersistActiveSession) {
 					timer.startTimer();
 				}
 
@@ -136,7 +133,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					timer.startTimer();
 
 					if (shouldSkipTr(tr)) {
-						return pluginState;
+						return { ...pluginState, shouldPersistActiveSession };
 					}
 
 					const newPluginState = getNewPluginState({

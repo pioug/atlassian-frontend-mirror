@@ -12,6 +12,7 @@ import type {
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
 import { type ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
+import { type MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
 export type QuickInsertSharedState = CommonQuickInsertSharedState & {
@@ -24,7 +25,11 @@ export type QuickInsertPlugin = NextEditorPlugin<
 	'quickInsert',
 	{
 		pluginConfiguration: QuickInsertPluginOptions | undefined;
-		dependencies: [TypeAheadPlugin, OptionalPlugin<ConnectivityPlugin>];
+		dependencies: [
+			TypeAheadPlugin,
+			OptionalPlugin<ConnectivityPlugin>,
+			OptionalPlugin<MetricsPlugin>,
+		];
 		sharedState: QuickInsertSharedState | null;
 		actions: {
 			openTypeAhead: (

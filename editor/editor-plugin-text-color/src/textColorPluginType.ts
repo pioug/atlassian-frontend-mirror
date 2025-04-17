@@ -6,7 +6,7 @@ import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugin-selection-t
 import type { TextColorPluginConfig, TextColorPluginState } from './pm-plugins/main';
 import type { TextColorInputMethod } from './types';
 
-type Config = TextColorPluginConfig | boolean;
+export type TextColorPluginOptions = TextColorPluginConfig | boolean;
 
 export type Dependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
@@ -17,7 +17,7 @@ export type Dependencies = [
 export type TextColorPlugin = NextEditorPlugin<
 	'textColor',
 	{
-		pluginConfiguration: Config | undefined;
+		pluginConfiguration: TextColorPluginOptions | undefined;
 		dependencies: Dependencies;
 		actions: {
 			changeColor: (color: string, inputMethod?: TextColorInputMethod) => Command;

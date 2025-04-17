@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -14,6 +14,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { type EmojiId, EmojiPicker } from '@atlaskit/emoji';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type EmojiPlugin } from '../emojiPluginType';
 
@@ -64,6 +65,24 @@ export const InlineEmojiPopup = ({
 		useSharedPluginState(api, ['emoji'])?.emojiState ?? {};
 	const intl = useIntl();
 
+	const handleOnClose = useCallback(() => {
+		if (fg('platform_editor_ease_of_use_metrics')) {
+			api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());
+		}
+		onClose();
+	}, [onClose, api]);
+
+	useEffect(() => {
+		if (isOpen && fg('platform_editor_ease_of_use_metrics')) {
+			api?.core.actions.execute(
+				api?.metrics?.commands.handleIntentToStartEdit({
+					shouldStartTimer: false,
+					shouldPersistActiveSession: true,
+				}),
+			);
+		}
+	}, [isOpen, api]);
+
 	const focusEditor = useCallback(() => {
 		// use requestAnimationFrame to run this async after the call
 		requestAnimationFrame(() => editorView.focus());
@@ -72,9 +91,9 @@ export const InlineEmojiPopup = ({
 	const handleSelection = useCallback(
 		(emojiId: EmojiId) => {
 			api.core.actions.execute(api.emoji.commands.insertEmoji(emojiId, INPUT_METHOD.PICKER));
-			onClose();
+			handleOnClose();
 		},
-		[api.core.actions, api.emoji.commands, onClose],
+		[api.core.actions, api.emoji.commands, handleOnClose],
 	);
 
 	if (!isOpen || !emojiProvider) {
@@ -97,8 +116,8 @@ export const InlineEmojiPopup = ({
 			onUnmount={focusEditor}
 			focusTrap
 			preventOverflow
-			handleClickOutside={onClose}
-			handleEscapeKeydown={onClose}
+			handleClickOutside={handleOnClose}
+			handleEscapeKeydown={handleOnClose}
 			captureClick
 		>
 			<OutsideClickTargetRefContext.Consumer>

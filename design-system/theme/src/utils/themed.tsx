@@ -1,5 +1,3 @@
-/* eslint-disable prefer-rest-params */
-
 import type { DefaultValue, ThemedValue, ThemeModes, ThemeProps } from '../types';
 
 import getTheme from './get-theme';

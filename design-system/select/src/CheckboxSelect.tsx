@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 
-import Select from './Select';
-import { type SelectProps, type OptionType, type SelectComponentsConfig } from './types';
 import { CheckboxOption } from './components/input-options';
+import Select from './Select';
+import { type OptionType, type SelectComponentsConfig, type SelectProps } from './types';
 
 const CheckboxSelectInternal = <OptionT extends OptionType>({
 	components,
@@ -33,4 +33,5 @@ const CheckboxSelect = React.memo(
 	// Reference: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/37087#issuecomment-656596623
 ) as typeof CheckboxSelectInternal;
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default CheckboxSelect;

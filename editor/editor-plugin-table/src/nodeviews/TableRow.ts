@@ -39,7 +39,7 @@ interface SentinelData {
 // limit scroll event calls
 const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
 
-// timeout for resetting the scroll class - if it’s too long then users won’t be able to click on the header cells,
+// timeout for resetting the scroll class - if it's too long then users won't be able to click on the header cells,
 // if too short it would trigger too many dom updates.
 const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 
@@ -86,6 +86,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 	private isSticky: boolean;
 	private intersectionObserver?: IntersectionObserver;
 	private resizeObserver?: ResizeObserver;
+	private tableContainerObserver?: MutationObserver;
 	private sentinels: {
 		top?: HTMLElement | null;
 		bottom?: HTMLElement | null;
@@ -156,6 +157,10 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			}
 
 			this.emitOff(true);
+		}
+
+		if (this.tableContainerObserver) {
+			this.tableContainerObserver.disconnect();
 		}
 	}
 
@@ -289,32 +294,36 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 
 		window.requestAnimationFrame(() => {
+			const getTableContainer = () =>
+				getTree(this.dom)?.wrapper.closest(`.${TableCssClassName.NODEVIEW_WRAPPER}`);
+
 			// we expect tree to be defined after animation frame
-			const tableContainer = getTree(this.dom)?.wrapper.closest(
-				`.${TableCssClassName.NODEVIEW_WRAPPER}`,
-			);
+			let tableContainer = getTableContainer();
+
 			if (tableContainer) {
 				const getSentinelTop = () =>
+					tableContainer &&
 					// Ignored via go/ees005
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					tableContainer
+					(tableContainer
 						.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_TOP)
-						.item(0) as HTMLElement;
+						.item(0) as HTMLElement);
 				const getSentinelBottom = () => {
 					// Multiple bottom sentinels may be found if there are nested tables.
 					// We need to make sure we get the last one which will belong to the parent table.
-					const bottomSentinels = tableContainer.getElementsByClassName(
-						ClassName.TABLE_STICKY_SENTINEL_BOTTOM,
-					);
+					const bottomSentinels =
+						tableContainer &&
+						tableContainer.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM);
 					// Ignored via go/ees005
 					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					return fg('platform_editor_nested_tables_bottom_sentinel')
 						? // eslint-disable-next-line @atlaskit/editor/no-as-casting
-							(bottomSentinels.item(bottomSentinels.length - 1) as HTMLElement)
-						: // eslint-disable-next-line @atlaskit/editor/no-as-casting
-							(tableContainer
-								.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
-								.item(0) as HTMLElement);
+							bottomSentinels && (bottomSentinels.item(bottomSentinels.length - 1) as HTMLElement)
+						: tableContainer &&
+								// eslint-disable-next-line @atlaskit/editor/no-as-casting
+								(tableContainer
+									.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
+									.item(0) as HTMLElement);
 				};
 
 				const sentinelsInDom = () => getSentinelTop() !== null && getSentinelBottom() !== null;
@@ -333,24 +342,57 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 					});
 				};
 
-				if (sentinelsInDom()) {
-					// great - DOM ready, observe as normal
-					observeStickySentinels();
-				} else {
-					// concurrent loading issue - here TableRow is too eager trying to
-					// observe sentinels before they are in the DOM, use MutationObserver
-					// to wait for sentinels to be added to the parent Table node DOM
-					// then attach the IntersectionObserver
-					const tableContainerObserver = new MutationObserver(() => {
-						if (sentinelsInDom()) {
-							observeStickySentinels();
-							tableContainerObserver.disconnect();
-						}
-					});
+				if (fg('platform_editor_table_initial_load_fix')) {
+					const isInitialProsemirrorToDomRender = tableContainer.hasAttribute(
+						'data-prosemirror-initial-toDOM-render',
+					);
 
-					const mutatingNode = tableContainer;
-					if (mutatingNode) {
-						tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
+					// Sentinels may be in the DOM but they're part of the prosemirror placeholder structure which is replaced with the fully rendered React node.
+					if (sentinelsInDom() && !isInitialProsemirrorToDomRender) {
+						// great - DOM ready, observe as normal
+						observeStickySentinels();
+					} else {
+						// concurrent loading issue - here TableRow is too eager trying to
+						// observe sentinels before they are in the DOM, use MutationObserver
+						// to wait for sentinels to be added to the parent Table node DOM
+						// then attach the IntersectionObserver
+						this.tableContainerObserver = new MutationObserver(() => {
+							// Check if the tableContainer is still connected to the DOM. It can become disconnected when the placholder
+							// prosemirror node is replaced with the fully rendered React node (see _handleTableRef).
+							if (!tableContainer || !tableContainer.isConnected) {
+								tableContainer = getTableContainer();
+							}
+							if (sentinelsInDom()) {
+								observeStickySentinels();
+								this.tableContainerObserver?.disconnect();
+							}
+						});
+
+						const mutatingNode = tableContainer;
+						if (mutatingNode && this.tableContainerObserver) {
+							this.tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
+						}
+					}
+				} else {
+					if (sentinelsInDom()) {
+						// great - DOM ready, observe as normal
+						observeStickySentinels();
+					} else {
+						// concurrent loading issue - here TableRow is too eager trying to
+						// observe sentinels before they are in the DOM, use MutationObserver
+						// to wait for sentinels to be added to the parent Table node DOM
+						// then attach the IntersectionObserver
+						const tableContainerObserver = new MutationObserver(() => {
+							if (sentinelsInDom()) {
+								observeStickySentinels();
+								tableContainerObserver.disconnect();
+							}
+						});
+
+						const mutatingNode = tableContainer;
+						if (mutatingNode) {
+							tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
+						}
 					}
 				}
 			}

@@ -6,6 +6,8 @@ import { jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
 import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';
@@ -60,7 +62,12 @@ export default function ToolbarListsIndentation(props: Props) {
 
 	const inputMethod = toolbarType ? getInputMethod(toolbarType) : INPUT_METHOD.TOOLBAR;
 
-	if (isSmall || toolbarType === ToolbarType.FLOATING) {
+	if (
+		isSmall ||
+		toolbarType === ToolbarType.FLOATING ||
+		(editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_6'))
+	) {
 		const areAllOptionsDisabled = [
 			bulletListDisabled,
 			orderedListDisabled,

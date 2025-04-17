@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -49,10 +48,10 @@ const sortingMessages = {
 };
 
 const overrideStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	margin: '0 -2px !important',
 	gap: token('space.050', '4px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	paddingInline: `2px !important`,
 });
 

@@ -1,5 +1,26 @@
 # @atlaskit/icon-lab
 
+## 4.9.0
+
+### Minor Changes
+
+- [#141669](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141669)
+  [`9834d79a5cece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9834d79a5cece) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `layout-three-columns-sidebars-left`
+  - `layout-three-columns-sidebars-right`
+  - `studio`
+  - `telescope`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.8.0
 
 ### Minor Changes

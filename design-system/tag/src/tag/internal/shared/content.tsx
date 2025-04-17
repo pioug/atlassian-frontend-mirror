@@ -75,13 +75,11 @@ const linkStyles = css({
 });
 
 const hasAfterStylesOld = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: '160px',
 	paddingInlineEnd: token('space.200', '16px'),
 });
 
 const hasAfterStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: '160px',
 });
 

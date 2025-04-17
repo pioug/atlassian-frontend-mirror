@@ -21,7 +21,6 @@ import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -30,12 +29,11 @@ import { isNestedInExpand } from '../utils';
 export const createExpandNode = (
 	state: EditorState,
 	setExpandedState: boolean = true,
-	isNestingExpandsSupported?: boolean,
 ): PMNode | null => {
 	const { expand, nestedExpand } = state.schema.nodes;
 
 	const isSelectionInTable = !!findTable(state.selection);
-	const isSelectionInExpand = isNestingExpandsSupported && isNestedInExpand(state);
+	const isSelectionInExpand = isNestedInExpand(state);
 
 	const expandType = isSelectionInTable || isSelectionInExpand ? nestedExpand : expand;
 
@@ -49,10 +47,10 @@ export const createExpandNode = (
 };
 
 export const insertExpandWithInputMethod =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, isNestingExpandsSupported?: boolean) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
-		const expandNode = createExpandNode(state, false, isNestingExpandsSupported);
+		const expandNode = createExpandNode(state, false);
 
 		if (!expandNode) {
 			return false;
@@ -95,15 +93,12 @@ export const insertExpandWithInputMethod =
 	};
 
 export const insertExpand =
-	(
-		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-		isNestingExpandsSupported?: boolean,
-	): Command =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
 	(state, dispatch) => {
-		return insertExpandWithInputMethod(
-			editorAnalyticsAPI,
-			isNestingExpandsSupported,
-		)(INPUT_METHOD.INSERT_MENU)(state, dispatch);
+		return insertExpandWithInputMethod(editorAnalyticsAPI)(INPUT_METHOD.INSERT_MENU)(
+			state,
+			dispatch,
+		);
 	};
 
 export const deleteExpand =
@@ -140,13 +135,11 @@ export const deleteExpandAtPos =
 			tr.delete(expandNodePos, expandNodePos + expandNode.nodeSize);
 			editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
 
-			if (editorExperiment('nested-expand-in-expand', true)) {
-				if (expandNode.type === state.schema.nodes.nestedExpand) {
-					const resolvedPos = tr.doc.resolve(expandNodePos + 1);
+			if (expandNode.type === state.schema.nodes.nestedExpand) {
+				const resolvedPos = tr.doc.resolve(expandNodePos + 1);
 
-					if (resolvedPos) {
-						tr.setSelection(Selection.near(resolvedPos, -1));
-					}
+				if (resolvedPos) {
+					tr.setSelection(Selection.near(resolvedPos, -1));
 				}
 			}
 

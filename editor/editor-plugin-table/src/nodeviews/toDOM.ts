@@ -111,6 +111,7 @@ export const tableNodeSpecWithFixedToDOM = (
 					'div',
 					{
 						class: 'tableView-content-wrap',
+						'data-prosemirror-initial-toDOM-render': 'true',
 					},
 					tableContainerDiv,
 				];
@@ -161,6 +162,7 @@ export const tableNodeSpecWithFixedToDOM = (
 				'div',
 				{
 					class: 'tableView-content-wrap',
+					'data-prosemirror-initial-toDOM-render': 'true',
 				},
 				tableResizingDiv,
 			];

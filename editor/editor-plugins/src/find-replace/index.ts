@@ -7,4 +7,5 @@ export type {
 	FindReplaceOptions,
 	FindReplacePluginState,
 	FindReplacePlugin,
+	FindReplacePluginOptions,
 } from '@atlaskit/editor-plugin-find-replace';

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 10.8.1
+
+### Patch Changes
+
+- [#140847](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140847)
+  [`edf99b41dbfcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edf99b41dbfcb) -
+  ED-27529: The fix introduced to resolve tables flashing unstyled on init when R18 concurrent mode
+  was enabled resulted in sticky headers being broken for tables. In short, the logic for sticky
+  headers was not set up to handle initial prosemirror table structure being replaced with the
+  rendered react table node. This meant the sentinels for sticky headers were only setup on the
+  initial prosemirror table structure, which is removed once react is ready.
+
 ## 10.8.0
 
 ### Minor Changes

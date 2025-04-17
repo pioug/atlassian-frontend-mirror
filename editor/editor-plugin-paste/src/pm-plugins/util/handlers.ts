@@ -996,9 +996,9 @@ export function handleNestedTablePaste(slice: Slice, isNestingTablesSupported?: 
 	};
 }
 
-export function handleExpandPaste(slice: Slice, isNestingExpandsSupported?: boolean): Command {
+export function handleExpandPaste(slice: Slice): Command {
 	return (state, dispatch) => {
-		const isInsideNestableExpand = isNestingExpandsSupported && !!insideExpand(state);
+		const isInsideNestableExpand = !!insideExpand(state);
 
 		// Do not handle expand if it's not being pasted into a table or expand
 		// OR if it's nested within another node when being pasted into a table/expand

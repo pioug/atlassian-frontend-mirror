@@ -71,13 +71,7 @@ const customNestingItemStyles = css({
 const CustomComponent = forwardRef((props: CustomItemComponentProps, ref) => {
 	const { children, ...rest } = props;
 	return (
-		<button
-			type="button"
-			ref={ref}
-			css={btnStyles}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...rest}
-		>
+		<button type="button" ref={ref} css={btnStyles} {...rest}>
 			{children}
 		</button>
 	);

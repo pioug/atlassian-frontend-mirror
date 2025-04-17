@@ -93,7 +93,6 @@ const boxStyles = css({
 	minHeight: '100px',
 	padding: '1em',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: token('border.radius.100', '3px'),
 	marginBlockStart: '1em',
 	textAlign: 'left',
@@ -115,7 +114,6 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 					border: style.border ? `1px solid ${style.border}` : 'none',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					boxShadow: style.shadow,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					color: token('color.text'),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					cursor: isInteractive ? 'pointer' : 'default',

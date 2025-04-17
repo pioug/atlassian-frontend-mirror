@@ -4,12 +4,10 @@
  */
 import { type FC } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
 import type { VisuallyHiddenProps } from './types';
 
-// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 const visuallyHiddenStyles = css({
 	width: '1px',
 	height: '1px',

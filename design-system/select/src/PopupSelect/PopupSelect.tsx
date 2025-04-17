@@ -93,7 +93,6 @@ export interface PopupSelectProps<
 	 * The footer content shown at the bottom of the popup, underneath the select options.
 	 */
 	footer?: ReactNode;
-	// eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
 	/**
 	 * The props passed down to React Popper.
 	 *
@@ -120,7 +119,6 @@ export interface PopupSelectProps<
 	 * or a string containing a CSS length datatype.
 	 */
 	minMenuWidth?: number | string;
-	// eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
 	/**
 	 * Render props used to anchor the popup to your content.
 	 *
@@ -643,9 +641,7 @@ export default class PopupSelect<
 								label={providedAriaLabel}
 								// TODO: Popup Select does not work well with active-descendant
 								aria-live={
-									isAppleDevice() &&
-									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-									fg('design_system_select-a11y-improvement')
+									isAppleDevice() && fg('design_system_select-a11y-improvement')
 										? 'assertive' // only needed on Apple products
 										: undefined
 								}
@@ -658,7 +654,6 @@ export default class PopupSelect<
 								ref={this.getSelectRef}
 								{...props}
 								isSearchable={showSearchControl}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								styles={mergeStyles(this.defaultStyles, props.styles || {})}
 								maxMenuHeight={this.getMaxHeight()}
 								components={selectComponents}

@@ -16,7 +16,6 @@ describe('Textfield', () => {
 	const createTextfield = (props: TextfieldPropsWithRef = {}) => (
 		<label htmlFor="name">
 			Name
-			{/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
 			<Textfield id="name" testId={testId} {...props} />
 		</label>
 	);

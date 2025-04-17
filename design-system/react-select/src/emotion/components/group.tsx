@@ -85,15 +85,17 @@ const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 	} = props;
 	return (
 		<div {...getStyleProps(props, 'group', { group: true })} {...innerProps}>
-			<Heading
-				{...headingProps}
-				selectProps={selectProps}
-				getStyles={getStyles}
-				getClassNames={getClassNames}
-				cx={cx}
-			>
-				{label}
-			</Heading>
+			{label && (
+				<Heading
+					{...headingProps}
+					selectProps={selectProps}
+					getStyles={getStyles}
+					getClassNames={getClassNames}
+					cx={cx}
+				>
+					{label}
+				</Heading>
+			)}
 			<div>{children}</div>
 		</div>
 	);

@@ -81,7 +81,7 @@ const handleInlineTableWidth = (table: HTMLElement, width: number | undefined) =
 	table.style.setProperty('width', `${width}px`);
 };
 
-// Leave as a fallback incase the table's NodeSpec.toDOM is not defined.
+// Remove after removing the platform_editor_table_initial_load_fix flag.
 const toDOM = (node: PmNode, props: Props) => {
 	let colgroup: DOMOutputSpec = '';
 	if (props.allowColumnResizing) {

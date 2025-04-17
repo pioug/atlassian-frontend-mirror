@@ -86,6 +86,11 @@ export const quickInsertButtonDecoration = (
 		{
 			side: -2,
 			type: TYPE_QUICK_INSERT,
+			destroy: (_: Node) => {
+				if (fg('platform_editor_fix_widget_destroy')) {
+					nodeViewPortalProviderAPI.remove(key);
+				}
+			},
 		},
 	);
 };

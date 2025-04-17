@@ -246,7 +246,6 @@ const Grid = memo(
 						alignContent && alignContentMap[alignContent],
 						justifyContent && justifyContentMap[justifyContent],
 						autoFlow && gridAutoFlowMap[autoFlow],
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 						resolvedStyles.emotion,
 					]}
 					data-testid={testId}

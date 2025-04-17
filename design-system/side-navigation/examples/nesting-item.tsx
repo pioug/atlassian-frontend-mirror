@@ -41,7 +41,6 @@ const CustomNestingItem = forwardRef(
 		ref: React.Ref<HTMLAnchorElement>,
 	) => {
 		return (
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			<a href={href} {...props} ref={ref}>
 				{children}
 			</a>

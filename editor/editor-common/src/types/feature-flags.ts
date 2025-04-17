@@ -269,15 +269,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables nesting nested expands in expands
-	 *
-	 * @see https://hello.jira.atlassian.cloud/browse/FD-72082
-	 * @default false
-	 */
-	nestedExpandInExpandEx?: boolean;
-
-	/**
-	 * @description
 	 * Used by the legacy content macro to disable render tracking due to excessive logs.
 	 * Will be removed once re-rendering issue is resolved.
 	 * Note: This is hardcoded into the LCM code, it does not exist in Switcheroo.

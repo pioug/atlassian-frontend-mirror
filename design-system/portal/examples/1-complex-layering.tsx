@@ -1,4 +1,3 @@
-/* eslint-disable react/no-multi-comp */
 import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
@@ -32,7 +31,6 @@ const TooltipButton = ({
 	id?: string;
 	testId?: string;
 }) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div>
 		<Tooltip content="Click me">
 			<Button id={id} testId={testId} onClick={onClick}>

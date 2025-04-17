@@ -500,6 +500,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			Menu,
 			SingleValue,
 			...(!showClearIndicator && { ClearIndicator: EmptyComponent }),
+			...selectProps.components,
 		};
 
 		const { styles: selectStyles = {} } = selectProps;
@@ -582,13 +583,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					autoFocus={autoFocus}
 					clearControlLabel={clearControlLabel}
 					closeMenuOnSelect
-					// FOr some reason, this and the below `styles` type error _only_ show
-					// up when you alter some of the properties in the `selectComponents`
-					// object. These errors are still present, and I suspect have always
-					// been present, without changing the unrelated code. Ignoring as the
-					// component still works as expected despite this error. And also
-					// because the select refresh team may solve it later.
-					components={selectComponents}
 					enableAnimation={false}
 					inputId={id}
 					inputValue={actualSelectInputValue}
@@ -603,9 +597,17 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 						placeholder: this.props.placeholder,
 						l10n: this.state.l10n,
 					})}
+					// @ts-ignore -- Argument of type 'StylesConfig<OptionType, false, GroupBase<OptionType>>' is not assignable to parameter of type 'StylesConfig<OptionType, boolean, GroupBase<OptionType>>'
 					styles={mergedStyles}
 					value={initialValue}
 					{...selectProps}
+					// For some reason, this and the below `styles` type error _only_ show
+					// up when you alter some of the properties in the `selectComponents`
+					// object. These errors are still present, and I suspect have always
+					// been present, without changing the unrelated code. Ignoring as the
+					// component still works as expected despite this error. And also
+					// because the select refresh team may solve it later.
+					components={selectComponents}
 					// These are below the spread because I don't know what is in
 					// selectProps or not and what wil be overwritten
 					isClearable

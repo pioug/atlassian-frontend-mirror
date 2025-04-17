@@ -4,7 +4,6 @@ import jscodeshift from 'jscodeshift';
 
 import codemod from '../transform';
 
-/* eslint-disable no-console */
 export async function withMockedConsoleWarn(fn: any) {
 	const originalWarn = console.warn;
 	const warn = jest.fn();
@@ -14,7 +13,6 @@ export async function withMockedConsoleWarn(fn: any) {
 
 	console.warn = originalWarn;
 }
-/* eslint-enable no-console */
 
 interface Options {
 	parser: string;

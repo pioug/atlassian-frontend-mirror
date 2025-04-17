@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { featureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-export type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+export type {
+	FeatureFlagsPlugin,
+	FeatureFlagsPluginOptions,
+} from '@atlaskit/editor-plugin-feature-flags';

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
 import React, { type ReactNode } from 'react';
 
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';

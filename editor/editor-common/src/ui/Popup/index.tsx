@@ -6,6 +6,7 @@ import rafSchedule from 'raf-schd';
 import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Position } from './utils';
 import {
@@ -359,8 +360,16 @@ export default class Popup extends React.Component<Props, State> {
 			return null;
 		}
 
-		//In some cases we don't want to use default "Popup" text as an aria-label. It might be tedious for screen reader users.
-		const ariaLabel = this.props.ariaLabel === null ? undefined : this.props.ariaLabel || 'Popup';
+		/**
+		 * https://a11y.atlassian.net/browse/A11Y-9995
+		 * We set aria-label to undefined if it's null, no more 'Popup' fallback.
+		 * It is meaningless for screen readers and causes confusion.
+		 */
+		const ariaLabel = fg('editor_a11y_aria_label_removal_popup')
+			? (this.props.ariaLabel ?? undefined)
+			: this.props.ariaLabel === null
+				? undefined
+				: this.props.ariaLabel || 'Popup';
 
 		return (
 			<div

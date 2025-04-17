@@ -101,7 +101,6 @@ export const TargetInner = ({
 		testId={testId}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css={[pulse && animationStyles, reduceMotionAsPerUserPreference]}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		style={props.style}
@@ -133,7 +132,6 @@ export const TargetOverlay = ({ onClick, ...props }: HTMLAttributes<HTMLDivEleme
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 		css={targetOverlayStyles}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={
 			{
 				cursor: onClick ? 'pointer' : 'auto',

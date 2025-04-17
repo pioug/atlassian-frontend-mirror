@@ -27,7 +27,6 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 				if (!pluginState?.intentToStartEditTime) {
 					return tr;
 				}
-
 				return tr.setMeta(metricsKey, {
 					shouldStartTimer: true,
 					shouldPersistActiveSession: false,
@@ -69,12 +68,15 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 				}
 
 				const pluginState = api?.metrics.sharedState.currentState();
+
+				if (shouldPersistActiveSession && pluginState?.intentToStartEditTime) {
+					return tr.setMeta(metricsKey, {
+						shouldPersistActiveSession,
+					});
+				}
+
 				if (!pluginState || pluginState.intentToStartEditTime) {
-					if (shouldPersistActiveSession !== pluginState?.shouldPersistActiveSession) {
-						return tr.setMeta(metricsKey, {
-							shouldPersistActiveSession: shouldPersistActiveSession,
-						});
-					}
+					return tr;
 				}
 
 				tr.setMeta(metricsKey, {

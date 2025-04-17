@@ -87,18 +87,35 @@ const iconWrapperStyles = xcss({
 	alignItems: 'center',
 });
 
-const extendedIconWrapperStyles = css({
+const buttonWrapperStyles = css({
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
-	background: token('elevation.surface'),
-	marginBottom: token('space.negative.100', '-8px'),
-	paddingBottom: token('space.100', '8px'),
-	marginTop: token('space.negative.100', '-8px'),
-	paddingTop: token('space.100', '8px'),
-	marginRight: token('space.negative.100', '-8px'),
-	paddingRight: token('space.100', '8px'),
-	borderRadius: '6px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
+			marginBottom: token('space.negative.200', '-16px'),
+			paddingBottom: token('space.200', '16px'),
+			marginTop: token('space.negative.400', '-32px'),
+			paddingTop: `calc(${token('space.400', '32px')} - 1px)`,
+			marginRight: token('space.negative.150', '-12px'),
+			paddingRight: token('space.150', '12px'),
+			boxSizing: 'border-box',
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			background: `linear-gradient(to bottom, ${token('elevation.surface')} 90%, transparent)`,
+			marginBottom: token('space.negative.200', '-16px'),
+			paddingBottom: token('space.200', '16px'),
+			marginTop: token('space.negative.400', '-32px'),
+			paddingTop: `calc(${token('space.400', '32px')} - 1px)`,
+			marginRight: token('space.negative.150', '-12px'),
+			paddingRight: token('space.150', '12px'),
+			boxSizing: 'border-box',
+		},
 });
 
 // update color to match quick insert button for new editor controls
@@ -203,37 +220,41 @@ const dragHandleContainerStyles = xcss({
 
 const tooltipContainerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	bottom: `-${STICKY_CONTROLS_TOP_MARGIN}px`,
+	position: 'sticky',
+	display: 'block',
+	zIndex: 100, // card = 100
+});
+
+const tooltipContainerStylesStickyHeaderWithMask = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	bottom: `-${STICKY_CONTROLS_TOP_MARGIN}px`,
-	position: 'sticky',
-	zIndex: 100, // card = 100
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			top: '0',
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			top: '0',
+		},
 });
 
-const tooltipContainerStylesWithNodeControls = css({
-	top: '0',
+const tooltipContainerStylesStickyHeaderWithoutMask = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	bottom: `-${STICKY_CONTROLS_TOP_MARGIN}px`,
-	position: 'sticky',
-	zIndex: 100, // card = 100
-});
-
-const tooltipContainerStylesStickyHeader = css({
+	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing - STICKY_CONTROLS_TOP_MARGIN,
+			top: tableControlsSpacing,
 		},
-});
-
-// We need this to work around adjacent breakout marks wrapping the controls widget decorations
-const tooltipContainerStylesStickyHeaderWithMarksFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing - STICKY_CONTROLS_TOP_MARGIN,
+			top: tableControlsSpacing,
 		},
 });
 
@@ -1013,11 +1034,11 @@ export const DragHandle = ({
 		>
 			<span
 				css={[
-					shouldMaskNodeControls(nodeType, isTopLevelNode)
-						? tooltipContainerStylesWithNodeControls
-						: tooltipContainerStyles,
-					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
-					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
+					tooltipContainerStyles,
+					shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+						tooltipContainerStylesStickyHeaderWithMask,
+					!shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+						tooltipContainerStylesStickyHeaderWithoutMask,
 				]}
 			>
 				<Tooltip
@@ -1028,12 +1049,7 @@ export const DragHandle = ({
 						api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 					}}
 				>
-					<span
-						css={
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							shouldMaskNodeControls(nodeType, isTopLevelNode) && extendedIconWrapperStyles
-						}
-					>
+					<span css={[shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles]}>
 						{renderButton()}
 					</span>
 				</Tooltip>
@@ -1051,19 +1067,14 @@ export const DragHandle = ({
 		>
 			<span
 				css={[
-					shouldMaskNodeControls(nodeType, isTopLevelNode)
-						? tooltipContainerStylesWithNodeControls
-						: tooltipContainerStyles,
-					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
-					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
+					tooltipContainerStyles,
+					shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+						tooltipContainerStylesStickyHeaderWithMask,
+					!shouldMaskNodeControls(nodeType, isTopLevelNode) &&
+						tooltipContainerStylesStickyHeaderWithoutMask,
 				]}
 			>
-				<span
-					css={
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						shouldMaskNodeControls(nodeType, isTopLevelNode) && extendedIconWrapperStyles
-					}
-				>
+				<span css={[shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles]}>
 					{renderButton()}
 				</span>
 			</span>

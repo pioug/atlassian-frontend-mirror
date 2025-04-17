@@ -6,9 +6,12 @@ import { jsx, css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { Component } from 'react';
 import FieldRange from '@atlaskit/range';
+import { messages } from '@atlaskit/media-ui';
 import ScaleLargeIcon from '@atlaskit/icon/core/migration/image--media-services-scale-large';
 import ScaleSmallIcon from '@atlaskit/icon/core/migration/image--media-services-scale-small';
 import Button from '@atlaskit/button/standard-button';
+import { injectIntl } from 'react-intl-next';
+import { WrappedComponentProps } from 'react-intl-next';
 
 export interface SliderProps {
 	value: number;
@@ -30,11 +33,15 @@ const sliderWrapperStyles = css({
 	},
 });
 
-export class Slider extends Component<SliderProps, {}> {
+export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
 	static defaultProps = defaultProps;
 
 	render() {
-		const { value, onChange } = this.props;
+		const {
+			value,
+			onChange,
+			intl: { formatMessage },
+		} = this.props;
 		return (
 			<div data-testid="slider" css={sliderWrapperStyles}>
 				<Button
@@ -42,6 +49,7 @@ export class Slider extends Component<SliderProps, {}> {
 					className="zoom_button zoom_button_small"
 					iconAfter={<ScaleSmallIcon label="scale-small-icon" />}
 					onClick={() => onChange(0)}
+					aria-label={formatMessage(messages.image_cropper_zoom_out)}
 				/>
 				<FieldRange value={value} onChange={onChange} />
 				<Button
@@ -49,8 +57,11 @@ export class Slider extends Component<SliderProps, {}> {
 					className="zoom_button zoom_button_large"
 					iconAfter={<ScaleLargeIcon label="scale-large-icon" />}
 					onClick={() => onChange(100)}
+					aria-label={formatMessage(messages.image_cropper_zoom_in)}
 				/>
 			</div>
 		);
 	}
 }
+
+export default injectIntl<'intl', SliderProps & WrappedComponentProps>(Slider);

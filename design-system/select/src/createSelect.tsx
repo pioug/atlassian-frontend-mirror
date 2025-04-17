@@ -68,7 +68,6 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 				ref={internalSelectRef}
 				aria-live={fg('design_system_select-a11y-improvement') ? undefined : 'assertive'}
 				ariaLiveMessages={
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					//TO DO: Still need live region for PopupSelect because of the menu being open by default
 					isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)
 						? {

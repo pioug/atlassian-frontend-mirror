@@ -248,7 +248,6 @@ const Text = forwardRef(
 		const component = (
 			<Component
 				id={id}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={xcss}
 				css={[
 					styles.root,

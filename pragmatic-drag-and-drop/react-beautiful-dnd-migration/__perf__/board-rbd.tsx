@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { InteractionTaskArgs, PublicInteractionTask } from 'storybook-addon-performance';
 import invariant from 'tiny-invariant';
 

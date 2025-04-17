@@ -44,11 +44,11 @@ export interface LoadingItemsProps {
 const baseMotionStyles = css({
 	position: 'absolute',
 	zIndex: 1,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-physical-properties
+	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 	top: 0,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-physical-properties
+	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 	right: 0,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-physical-properties
+	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 	left: 0,
 });
 

@@ -14,11 +14,9 @@ const commonStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
 	minHeight: 40,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	padding: `${token('space.100', '10px')} ${token('space.300', '25px')} ${token(
 		'space.100',
 		'10px',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	)} var(--indent, ${token('space.300', '25px')})`,
 	position: 'relative',
 	alignItems: 'center',
@@ -46,7 +44,6 @@ const CommonCell: FC<HTMLAttributes<HTMLDivElement> & CommonCellProps> = ({
 		role="gridcell"
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		style={{ '--indent': indent, width } as CSSProperties}
 		css={commonStyles}
 	/>

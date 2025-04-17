@@ -470,6 +470,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 	const SingleValue = makeSingleValue({ lang: propLocale });
 
 	const selectComponents = {
+		...selectProps.components,
 		DropdownIndicator: shouldShowCalendarButton ? EmptyComponent : dropDownIcon,
 		// Only use this new container component if the calendar button is shown.
 		// Otherwise, it throws errors downstream for some reason
@@ -575,13 +576,6 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 				autoFocus={autoFocus}
 				clearControlLabel={clearControlLabel}
 				closeMenuOnSelect
-				// For some reason, this and the below `styles` type error _only_ show
-				// up when you alter some of the properties in the `selectComponents`
-				// object. These errors are still present, and I suspect have always
-				// been present, without changing the unrelated code. Ignoring as the
-				// component still works as expected despite this error. And also
-				// because the select refresh team may solve it later.
-				components={selectComponents}
 				enableAnimation={false}
 				inputId={id}
 				inputValue={actualSelectInputValue}
@@ -597,9 +591,17 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 					l10n: l10n,
 				})}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+				// @ts-ignore -- Type 'OptionType' is not assignable to type '{ label: string; value: string; }'
 				styles={mergedStyles}
 				value={initialValue}
 				{...selectProps}
+				// For some reason, this and the below `styles` type error _only_ show
+				// up when you alter some of the properties in the `selectComponents`
+				// object. These errors are still present, and I suspect have always
+				// been present, without changing the unrelated code. Ignoring as the
+				// component still works as expected despite this error. And also
+				// because the select refresh team may solve it later.
+				components={selectComponents}
 				// These are below the spread because I don't know what is in
 				// selectProps or not and what wil be overwritten
 				isClearable

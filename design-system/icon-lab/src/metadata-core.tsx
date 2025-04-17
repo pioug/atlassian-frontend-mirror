@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::2f9fbb2d46d4b891b4d432fc10fa866b>>
+ * @codegen <<SignedSource::507d576ac51298bbe1df0e262a310ef0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1142,6 +1142,50 @@ const metadata: Record<string, metadata> = {
 		team: 'Confluence Editor',
 		status: 'published',
 	},
+	'layout-three-columns-sidebars-left': {
+		keywords: [
+			'layout-three-columns-sidebars-left',
+			'layoutthreecolumnssidebarsleft',
+			'icon',
+			'icon-lab',
+			'core',
+			'layout',
+			'columns',
+			'3 col',
+			'3 cols',
+			'sidebars',
+			'asides',
+		],
+		componentName: 'LayoutThreeColumnsSidebarsLeftIcon',
+		package: '@atlaskit/icon-lab/core/layout-three-columns-sidebars-left',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for 3 column layout with 2 sidebars on left option in Confluence Editor.',
+		team: 'Editor',
+		status: 'published',
+	},
+	'layout-three-columns-sidebars-right': {
+		keywords: [
+			'layout-three-columns-sidebars-right',
+			'layoutthreecolumnssidebarsright',
+			'icon',
+			'icon-lab',
+			'core',
+			'layout',
+			'columns',
+			'3 col',
+			'3 cols',
+			'sidebars',
+			'asides',
+		],
+		componentName: 'LayoutThreeColumnsSidebarsRightIcon',
+		package: '@atlaskit/icon-lab/core/layout-three-columns-sidebars-right',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for 3 column layout with 2 sidebars on right option in Confluence Editor.',
+		team: 'Editor',
+		status: 'published',
+	},
 	'link-restricted-access': {
 		keywords: [
 			'link-restricted-access',
@@ -2118,6 +2162,16 @@ const metadata: Record<string, metadata> = {
 		team: 'Whiteboards',
 		status: 'published',
 	},
+	studio: {
+		keywords: ['studio', 'icon', 'icon-lab', 'core', 'studio', 'atlassian studio'],
+		componentName: 'StudioIcon',
+		package: '@atlaskit/icon-lab/core/studio',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for functional representation of Atlassian Studio',
+		team: 'Design Systems Team',
+		status: 'published',
+	},
 	'suggested-edit': {
 		keywords: [
 			'suggested-edit',
@@ -2259,6 +2313,25 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for functional representation of Talent app',
 		team: 'Talent',
+		status: 'published',
+	},
+	telescope: {
+		keywords: [
+			'telescope',
+			'icon',
+			'icon-lab',
+			'core',
+			'telescope',
+			'scope',
+			'discover',
+			'discovery',
+		],
+		componentName: 'TelescopeIcon',
+		package: '@atlaskit/icon-lab/core/telescope',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Discover feature in Atlassian Home',
+		team: 'Atlassian Home',
 		status: 'published',
 	},
 	template: {

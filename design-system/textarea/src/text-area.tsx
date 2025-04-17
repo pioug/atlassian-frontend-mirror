@@ -65,7 +65,7 @@ const baseStyles = css({
 	},
 
 	// border and background styles
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&[data-invalid]:focus': {
 		backgroundColor: token('color.background.input.pressed', N0),
 		borderColor: token('color.border.focused', B200),
@@ -79,7 +79,7 @@ const baseStyles = css({
 	},
 
 	// hover styles
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:hover:not(:read-only):not(:focus)': {
 		'&:disabled': {
 			backgroundColor: token('color.background.disabled', N20),
@@ -102,13 +102,13 @@ const baseStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'&[data-compact]': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: lineHeightCompact / 14,
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([data-compact])': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: lineHeightBase / 14,
 	},
 });

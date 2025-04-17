@@ -31,7 +31,7 @@ const ContainerDiv = styled.div({
 	position: 'relative',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const CenterDiv = styled.div({
 	top: 'calc(50% - 100px)',
 	left: 'calc(50% - 250px)',

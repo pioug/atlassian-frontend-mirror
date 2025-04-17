@@ -77,8 +77,11 @@ export class Client {
 	private dataAdapter = new NoFetchDataAdapter();
 	private overrideAdapter: PersistentOverrideAdapter;
 
-	constructor({ localStorageKey = LOCAL_STORAGE_KEY }: { localStorageKey?: string } = {}) {
-		this.overrideAdapter = new PersistentOverrideAdapter(localStorageKey);
+	constructor({
+		localStorageKey = LOCAL_STORAGE_KEY,
+		overrideAdapter,
+	}: { localStorageKey?: string; overrideAdapter?: PersistentOverrideAdapter } = {}) {
+		this.overrideAdapter = overrideAdapter || new PersistentOverrideAdapter(localStorageKey);
 	}
 
 	/**

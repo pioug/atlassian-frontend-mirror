@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-loom
 
+## 4.0.14
+
+### Patch Changes
+
+- [#142932](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142932)
+  [`15a1a0f2b9ee0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15a1a0f2b9ee0) -
+  NO-ISSUE: Add min-width to Loom and AI icons so that they don't bleed out when there isn't enough
+  space in the Primary Toolbar.
+- Updated dependencies
+
 ## 4.0.13
 
 ### Patch Changes

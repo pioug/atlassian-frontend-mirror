@@ -147,11 +147,7 @@ const Tabs = (props: TabsProps) => {
 		// The other styles applied through the CSS prop are there for styling children
 		// through inheritance. This is important for custom cases that use the useTabPanel(),
 		// which applies accessibility attributes that we use as a styling hook.
-		<div
-			data-testid={testId}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={[baseStyles, tabsStyles]}
-		>
+		<div data-testid={testId} css={[baseStyles, tabsStyles]}>
 			<TabListContext.Provider value={{ selected, onChange: onChangeAnalytics, tabsId: id }}>
 				{tabList}
 			</TabListContext.Provider>

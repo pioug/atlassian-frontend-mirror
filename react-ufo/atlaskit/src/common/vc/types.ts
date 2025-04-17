@@ -47,7 +47,6 @@ export type VCIgnoreReason =
 	| 'ssr-hydration'
 	| 'editor-lazy-node-view'
 	| 'not-visible'
-	| 'editor-container-mutation'
 	| 'non-visual-style'
 	| '';
 

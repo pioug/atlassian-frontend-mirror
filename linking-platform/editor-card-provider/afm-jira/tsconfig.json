@@ -36,6 +36,9 @@
 			"path": "../../linking-common/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../linking-types/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{

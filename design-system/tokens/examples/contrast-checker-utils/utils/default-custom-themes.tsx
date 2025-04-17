@@ -1,6 +1,5 @@
 import { type ActiveTokens } from '@atlaskit/tokens';
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const defaultCustomTheme: { name: ActiveTokens; value: string }[] = [
 	/*** DS token overrides ***/
 	/* Brand tokens */
@@ -28,4 +27,3 @@ export const defaultCustomTheme: { name: ActiveTokens; value: string }[] = [
 	{ name: 'color.link', value: '#64329a' },
 	{ name: 'color.link.pressed', value: '#452269' },
 ];
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */

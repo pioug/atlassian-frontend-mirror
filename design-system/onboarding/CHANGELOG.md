@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 14.0.2
+
+### Patch Changes
+
+- [#139445](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139445)
+  [`0f13df85731d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f13df85731d6) -
+  the component state update causes React Streming to have Suspense boundary received update before
+  hydrating finished error. Wrapping the state update in startTransition
+
 ## 14.0.1
 
 ### Patch Changes

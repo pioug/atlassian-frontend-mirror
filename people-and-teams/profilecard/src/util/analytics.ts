@@ -85,9 +85,10 @@ const getActionSubject = (type: string) => {
 	}
 };
 
-export const cardTriggered = (type: ProfileType, method: 'hover' | 'click') => {
+export const cardTriggered = (type: ProfileType, method: 'hover' | 'click', teamId?: string) => {
 	return createEvent('ui', 'triggered', getActionSubject(type), undefined, {
 		method,
+		...(type === 'team' && teamId ? { teamId } : {}),
 	});
 };
 

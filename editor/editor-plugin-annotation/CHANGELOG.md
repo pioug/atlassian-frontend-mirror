@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.6.0
+
+### Minor Changes
+
+- [#140231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140231)
+  [`c00bd6c36816f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c00bd6c36816f) -
+  Editor annotation plugin will now hook into the annotation manager and disable standard behaviour
+  when the FG platform_editor_comments_api_manager is enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

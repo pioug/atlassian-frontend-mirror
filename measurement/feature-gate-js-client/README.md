@@ -438,6 +438,33 @@ const unsubscribe = FeatureGates.onAnyUpdated(() => {});
 unsubscribe();
 ```
 
+### File-based persistent overrides
+
+For CLI tools and local development environments where the browser's localStorage is not available, you can use the `FilePersistentOverrideAdapter`. This allows you to persist feature flag overrides to a file on the file system.
+
+**⚠️ DO NOT USE THIS PACKAGE IN A BROWSER CONTEXT** - The `FilePersistentOverrideAdapter` is designed for CLI tools and local development environments only. It will not work properly in browser environments and may cause errors.
+
+```typescript
+import { FilePersistentOverrideAdapter } from '@atlaskit/feature-gate-js-client/file-persistent-override-adapter';
+import { FeatureGateClient } from '@atlaskit/feature-gate-js-client/client';
+
+// Create the file override adapter with a path where overrides will be stored
+const overrideAdapter = new FilePersistentOverrideAdapter('/path/to/overrides.json');
+
+// Create a client instance with the adapter
+const client = new FeatureGateClient({
+  overrideAdapter: overrideAdapter
+});
+
+
+await client.initialize({
+  // ... standard initialization options
+});
+
+```
+
+Unlike the browser localStorage adapter, the file adapter will create any necessary directories to store the file, and will properly handle file system errors.
+
 ### Multiple clients on a single page
 
 Typically we don't allow multiple usages of the feature gate client on a single page because the

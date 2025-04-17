@@ -72,7 +72,8 @@ export const ReactionSummaryViewEmojiPicker = ({
 		<Popup
 			testId="reaction-summary-view-emoji-picker"
 			isOpen={isOpen}
-			placement="right"
+			placement="bottom-start"
+			offset={[-10, -66]}
 			onClose={() => close()}
 			content={() => (
 				<EmojiPicker

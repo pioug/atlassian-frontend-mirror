@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugin-toolbar-lists-indentation';
-export type { ToolbarListsIndentationPlugin } from '@atlaskit/editor-plugin-toolbar-lists-indentation';
+export type {
+	ToolbarListsIndentationPlugin,
+	ToolbarListsIndentationPluginOptions,
+} from '@atlaskit/editor-plugin-toolbar-lists-indentation';

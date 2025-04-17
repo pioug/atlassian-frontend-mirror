@@ -24,7 +24,6 @@ const modalBodyStyles = css({
 	textAlign: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
 const modalHeadingStyles = css({
 	color: 'inherit',
 	font: token('font.heading.medium'),

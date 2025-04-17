@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/no-nested-styles */
 import React from 'react';
 
 import Heading from '@atlaskit/heading';

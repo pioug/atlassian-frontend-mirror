@@ -210,14 +210,12 @@ const Pressable = forwardRef(
 		const resolvedStyles = parseXcss(xcss);
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/no-html-button
 			<button
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
 				ref={ref}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={resolvedStyles.static}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...safeHtmlAttributes}
 				// eslint-disable-next-line react/button-has-type
 				type={type}
@@ -243,7 +241,6 @@ const Pressable = forwardRef(
 					paddingInlineStart && paddingStylesMap.paddingInlineStart[paddingInlineStart],
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingInlineEnd && paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					resolvedStyles.emotion,
 				]}
 				data-testid={testId}

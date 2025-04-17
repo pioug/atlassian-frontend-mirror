@@ -278,7 +278,6 @@ const TabList = ({ children }: TabListProps) => {
 		<div
 			role="tablist"
 			ref={ref}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			css={[baseStyles, fg('platform-component-visual-refresh') ? tabListStyles : tabListStylesOld]}
 		>
 			{childrenArray.map((child, index) =>

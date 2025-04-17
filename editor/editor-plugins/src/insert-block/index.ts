@@ -5,6 +5,7 @@ export { insertBlockPlugin } from '@atlaskit/editor-plugin-insert-block';
 export type {
 	InsertBlockPlugin,
 	InsertBlockOptions,
+	InsertBlockPluginOptions,
 	InsertBlockPluginDependencies,
 	InsertBlockPluginState,
 } from '@atlaskit/editor-plugin-insert-block';

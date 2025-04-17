@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 103.9.2
+
+### Patch Changes
+
+- [#139698](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139698)
+  [`cf8ea53ed0264`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf8ea53ed0264) -
+  Clean-up nested expand feature gate
+- Updated dependencies
+
+## 103.9.1
+
+### Patch Changes
+
+- [#140231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140231)
+  [`c00bd6c36816f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c00bd6c36816f) -
+  Editor annotation plugin will now hook into the annotation manager and disable standard behaviour
+  when the FG platform_editor_comments_api_manager is enabled.
+
+## 103.9.0
+
+### Minor Changes
+
+- [#138850](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138850)
+  [`6fe99d638a4ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fe99d638a4ca) -
+  Prevent media image resizing issue in confluence SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 103.8.0
 
 ### Minor Changes

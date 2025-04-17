@@ -8,6 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { componentMetadata } from '../../analytics/constants';
@@ -161,7 +162,13 @@ const DatasourceTableViewWithoutAnalytics = ({
 	}, [reset]);
 
 	if ((status === 'resolved' && !responseItems.length) || status === 'forbidden') {
-		return <NoResults onRefresh={handleErrorRefresh} />;
+		return (
+			<NoResults
+				{...(!fg('platform-linking-visual-refresh-sllv') && {
+					onRefresh: handleErrorRefresh,
+				})}
+			/>
+		);
 	}
 
 	if (status === 'unauthorized') {
@@ -180,7 +187,14 @@ const DatasourceTableViewWithoutAnalytics = ({
 	}
 
 	if (status === 'rejected') {
-		return <LoadingError onRefresh={handleErrorRefresh} />;
+		return (
+			<LoadingError
+				onRefresh={handleErrorRefresh}
+				{...(fg('platform-linking-visual-refresh-sllv') && {
+					url,
+				})}
+			/>
+		);
 	}
 
 	return (

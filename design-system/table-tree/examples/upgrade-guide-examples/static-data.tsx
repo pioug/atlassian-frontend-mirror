@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 
 import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';

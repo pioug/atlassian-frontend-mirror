@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::ce874b320ed63a83ed4913bc75803f5e>>
+ * @codegen <<SignedSource::a3d054bc7cfb602b3acafd14f3522741>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -76,6 +76,8 @@ import JiraAddIcon from '../../../../core/jira-add';
 import JiraUploadIcon from '../../../../core/jira-upload';
 import LayoutFiveColumnsIcon from '../../../../core/layout-five-columns';
 import LayoutFourColumnsIcon from '../../../../core/layout-four-columns';
+import LayoutThreeColumnsSidebarsLeftIcon from '../../../../core/layout-three-columns-sidebars-left';
+import LayoutThreeColumnsSidebarsRightIcon from '../../../../core/layout-three-columns-sidebars-right';
 import LinkRestrictedAccessIcon from '../../../../core/link-restricted-access';
 import LozengeIcon from '../../../../core/lozenge';
 import MicrophoneStrikethroughIcon from '../../../../core/microphone-strikethrough';
@@ -133,6 +135,7 @@ import StrokePropertiesIcon from '../../../../core/stroke-properties';
 import StrokeStyleDashedIcon from '../../../../core/stroke-style-dashed';
 import StrokeStyleDottedIcon from '../../../../core/stroke-style-dotted';
 import StrokeStyleSolidIcon from '../../../../core/stroke-style-solid';
+import StudioIcon from '../../../../core/studio';
 import SuggestedEditIcon from '../../../../core/suggested-edit';
 import SunsetIcon from '../../../../core/sunset';
 import SwapIcon from '../../../../core/swap';
@@ -141,6 +144,7 @@ import SyncIcon from '../../../../core/sync';
 import TabIcon from '../../../../core/tab';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TalentIcon from '../../../../core/talent';
+import TelescopeIcon from '../../../../core/telescope';
 import TemplateIcon from '../../../../core/template';
 import TextAudioTranscriptIcon from '../../../../core/text-audio-transcript';
 import TextBoldItalicIcon from '../../../../core/text-bold-italic';
@@ -386,6 +390,10 @@ const Icons = [
 	SpeedometerIcon,
 	TabIcon,
 	PinStrikethroughIcon,
+	StudioIcon,
+	LayoutThreeColumnsSidebarsLeftIcon,
+	LayoutThreeColumnsSidebarsRightIcon,
+	TelescopeIcon,
 ];
 
 const groupSize = 20;

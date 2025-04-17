@@ -1,5 +1,4 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
-/* eslint-disable import/no-extraneous-dependencies */
 /***
  * Commented due to HOT-111922
  * We will skip this test since this test is failing in CI with the following error

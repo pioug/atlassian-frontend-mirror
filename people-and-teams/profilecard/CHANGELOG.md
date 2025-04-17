@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 23.8.0
+
+### Minor Changes
+
+- [#141734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141734)
+  [`f714a477da668`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f714a477da668) -
+  Added Teamid to profilecard triggered ui event
+
 ## 23.7.9
 
 ### Patch Changes

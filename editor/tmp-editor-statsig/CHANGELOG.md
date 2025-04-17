@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.12.0
+
+### Minor Changes
+
+- [#142955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142955)
+  [`4eda8a13e23ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4eda8a13e23ba) -
+  [https://product-fabric.atlassian.net/browse/ED-27627](ED-27627) - implement editor
+  `featureFlagsPlugin` options creation inside `@atlassian/confluence-presets` package
+
+### Patch Changes
+
+- [#139698](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/139698)
+  [`cf8ea53ed0264`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf8ea53ed0264) -
+  Clean-up nested expand feature gate
+- Updated dependencies
+
+## 4.11.0
+
+### Minor Changes
+
+- [#142717](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142717)
+  [`d9c2b4afdc497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9c2b4afdc497) -
+  Add a null check for experiment config default value
+
 ## 4.10.0
 
 ### Minor Changes

@@ -28,13 +28,15 @@
 		".": "./src/index.ts",
 		"./timeline": "./src/timeline.ts",
 		"./metrics": "./src/metrics.ts",
-		"./react": "./src/react-api.tsx"
+		"./react": "./src/react-api.tsx",
+		"./inp": "./src/inp.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
 		"./timeline": "./src/timeline.ts",
 		"./metrics": "./src/metrics.ts",
-		"./react": "./src/react-api.tsx"
+		"./react": "./src/react-api.tsx",
+		"./inp": "./src/inp.ts"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0"
@@ -93,7 +95,7 @@
 		]
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "2.0.4",
+	"version": "2.1.0",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -4,8 +4,7 @@ import { canUseDOM } from 'exenv';
 import { createPortal } from 'react-dom';
 import { Transition } from 'react-transition-group';
 
-import { transitionDurationMs, panelWidth } from './constants';
-import { RightSidePanelDrawer, RightSidePanelDrawerContent } from './styled';
+import { RightSidePanelDrawer, RightSidePanelDrawerContent, transitionDurationMs } from './styled';
 
 export type TransitionStatus = 'unmounted' | 'exiting' | 'entering' | 'entered' | 'exited';
 
@@ -36,18 +35,6 @@ export interface State {
 	entered: boolean;
 	container?: Element | null; // Element in where the RightSidePanel will be attached
 }
-
-const defaultStyle = {
-	transition: `width ${transitionDurationMs}ms,
-  flex ${transitionDurationMs}ms`,
-	width: `0`,
-	flex: `0 0 0`,
-};
-
-const transitionStyles: { [id: string]: React.CSSProperties } = {
-	entered: { width: `${panelWidth}px`, flex: `0 0 ${panelWidth}px` },
-	exited: { width: 0, flex: `0 0 0` },
-};
 
 export class RightSidePanel extends Component<Props, State> {
 	attachPanelTo = this.props.attachPanelTo;
@@ -89,14 +76,7 @@ export class RightSidePanel extends Component<Props, State> {
 				onExited={onCloseAnimationFinished}
 			>
 				{(state: TransitionStatus) => (
-					<RightSidePanelDrawer
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							...defaultStyle,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							...transitionStyles[state],
-						}}
-					>
+					<RightSidePanelDrawer transitionState={state}>
 						<RightSidePanelDrawerContent>{children}</RightSidePanelDrawerContent>
 					</RightSidePanelDrawer>
 				)}

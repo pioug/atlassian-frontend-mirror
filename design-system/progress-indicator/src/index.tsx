@@ -2,6 +2,5 @@
 // having a single named export will avoid consumers having to update their
 // imports when there's a feature release.
 
-// eslint-disable-next-line import/prefer-default-export
 export { default as ProgressIndicator } from './components/progress-dots';
 export type { ProgressDotsProps } from './types';

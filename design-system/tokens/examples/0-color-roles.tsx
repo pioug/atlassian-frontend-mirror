@@ -175,7 +175,6 @@ const boxStyles = css({
 	minHeight: '100px',
 	padding: '1em',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: token('border.radius.100', '3px'),
 	marginBlockStart: '1em',
 	textAlign: 'left',

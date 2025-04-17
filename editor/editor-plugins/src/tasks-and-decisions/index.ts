@@ -5,6 +5,7 @@ export { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decis
 export type {
 	TasksAndDecisionsPlugin,
 	TaskDecisionPluginOptions,
+	TasksAndDecisionsPluginOptions,
 	TaskAndDecisionsSharedState,
 	TaskDecisionListType,
 	AddItemTransactionCreator,

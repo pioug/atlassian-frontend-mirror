@@ -8,7 +8,6 @@ export default () => (
 		appearance="success"
 		actions={[
 			<SectionMessageAction href="#">View commit</SectionMessageAction>,
-			// eslint-disable-next-line @repo/internal/react/use-noop
 			<SectionMessageAction onClick={() => {}}>Dismiss</SectionMessageAction>,
 		]}
 	>

@@ -21,6 +21,13 @@ import {
 import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
 
+import {
+	allowAnnotation,
+	applyDraft,
+	clearDraft,
+	getDraft,
+	startDraft,
+} from './annotation-manager-hooks';
 import { createPluginState } from './plugin-factory';
 import type {
 	InlineCommentMap,
@@ -138,7 +145,7 @@ const onSetVisibility = (view: EditorView) => (isVisible: boolean) => {
 };
 
 export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
-	const { provider, featureFlagsPluginState } = options;
+	const { provider, featureFlagsPluginState, annotationManager } = options;
 
 	return new SafePlugin({
 		key: inlineCommentPluginKey,
@@ -148,6 +155,13 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 		),
 
 		view(editorView: EditorView) {
+			if (annotationManager && fg('platform_editor_comments_api_manager')) {
+				annotationManager.hook('allowAnnotation', allowAnnotation(editorView, options));
+				annotationManager.hook('startDraft', startDraft(editorView, options));
+				annotationManager.hook('clearDraft', clearDraft(editorView, options));
+				annotationManager.hook('applyDraft', applyDraft(editorView, options));
+				annotationManager.hook('getDraft', getDraft(editorView, options));
+			}
 			// Get initial state
 			// Need to pass `editorView` to mitigate editor state going stale
 			fetchState(

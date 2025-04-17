@@ -11,7 +11,6 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../types';
 
@@ -23,12 +22,6 @@ import { getToolbarConfig } from './toolbar';
 // Ignored via go/ees005
 // eslint-disable-next-line prefer-const
 export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
-	// Confluence is injecting the FF through editor props, from an experiment
-	// Jira is pulling it in through platform feature flags, from a feature gate
-	const isNestingExpandsSupported =
-		api?.featureFlags?.sharedState.currentState()?.nestedExpandInExpandEx ||
-		fg('platform_editor_nest_nested_expand_in_expand_jira');
-
 	return {
 		name: 'expand',
 		nodes() {
@@ -41,11 +34,8 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 			];
 		},
 		actions: {
-			insertExpand: insertExpand(api?.analytics?.actions, isNestingExpandsSupported),
-			insertExpandWithInputMethod: insertExpandWithInputMethod(
-				api?.analytics?.actions,
-				isNestingExpandsSupported,
-			),
+			insertExpand: insertExpand(api?.analytics?.actions),
+			insertExpandWithInputMethod: insertExpandWithInputMethod(api?.analytics?.actions),
 		},
 		pmPlugins() {
 			return [
@@ -86,7 +76,7 @@ export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 						priority: 600,
 						icon: () => <IconExpand />,
 						action(insert, state) {
-							const node = createExpandNode(state, undefined, isNestingExpandsSupported);
+							const node = createExpandNode(state, undefined);
 							if (!node) {
 								return false;
 							}

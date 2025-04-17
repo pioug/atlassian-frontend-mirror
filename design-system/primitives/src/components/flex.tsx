@@ -160,7 +160,6 @@ const Flex = memo(
 						direction && flexDirectionMap[direction],
 						justifyContent && justifyContentMap[justifyContent],
 						wrap && flexWrapMap[wrap],
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 						resolvedStyles.emotion,
 					]}
 					data-testid={testId}

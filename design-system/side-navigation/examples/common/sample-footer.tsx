@@ -44,7 +44,6 @@ export const CustomItemFooter = ({ children, ...props }: CustomItemComponentProp
 const ExampleFooter = () => (
 	<Footer
 		useDeprecatedApi={false}
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 		description={
 			<Fragment>
 				<Anchor href="/feedback" xcss={styles.descriptionLink}>

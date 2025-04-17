@@ -1,5 +1,18 @@
 # @atlaskit/media-avatar-picker
 
+## 26.1.0
+
+### Minor Changes
+
+- [#141250](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141250)
+  [`97fb574ab2188`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97fb574ab2188) -
+  Keyboard only & screen reader navigation support for avatar image cropping functionality & added
+  a11y label for the zoom-in & zoom-out buttons
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.8
 
 ### Patch Changes

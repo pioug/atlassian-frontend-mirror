@@ -539,14 +539,14 @@ export const handlePasteNonNestableBlockNodesIntoListWithAnalytics =
 		)(handlePasteNonNestableBlockNodesIntoList(slice));
 
 export const handleExpandWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, isNestingExpandsSupported: boolean) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(view: EditorView, event: ClipboardEvent, slice: Slice): Command =>
 		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
 			createPasteAnalyticsPayloadBySelection(event, slice, {
 				type: PasteTypes.richText,
 				pasteSplitList: true,
 			}),
-		)(handleExpandPaste(slice, isNestingExpandsSupported));
+		)(handleExpandPaste(slice));
 
 export const handleNestedTablePasteWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, isNestingTablesSupported: boolean) =>

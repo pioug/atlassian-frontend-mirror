@@ -3,7 +3,7 @@ import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut'
 import Heading from '@atlaskit/heading';
 import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
 import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { ArticleContentInner, ArticleContentTitle, ArticleContentTitleLink } from './styled';
 import ArticleBody from './ArticleBody';

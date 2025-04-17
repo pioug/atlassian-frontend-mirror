@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 3.2.1
+
+### Patch Changes
+
+- [#142312](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142312)
+  [`21eed5379866d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21eed5379866d) -
+  [ux] Add icons to the list-indentation dropdown options and show active list option in the
+  toolbar.
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

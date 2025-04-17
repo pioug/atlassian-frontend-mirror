@@ -327,18 +327,9 @@ describe('Select', () => {
 		expect(screen.getAllByText('group')).toHaveLength(1);
 
 		// eslint-disable-next-line testing-library/no-node-access
-		const groupContainer = screen.getByText('group').parentNode;
-
-		if (groupContainer) {
-			expect(groupContainer).toBeInTheDocument();
-
-			const optionWrapper = groupContainer.childNodes[1];
-
-			expect(optionWrapper).toHaveTextContent('1');
-			expect(optionWrapper).toHaveTextContent('2');
-		} else {
-			fail('expected group container to exist');
-		}
+		const optionContainers = screen.getByText('group').nextElementSibling;
+		expect(optionContainers).toHaveTextContent('1');
+		expect(optionContainers).toHaveTextContent('2');
 	});
 
 	it('should  render only groups with a match when filtering', async () => {
@@ -456,7 +447,6 @@ describe('Select', () => {
 
 		expect(filterOptionSpy).toHaveBeenCalledTimes(2);
 	});
-	/* eslint-enable jest/no-disabled-tests */
 });
 
 describe('Select input', () => {

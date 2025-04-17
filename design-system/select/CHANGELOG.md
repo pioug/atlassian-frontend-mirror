@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 20.3.1
+
+### Patch Changes
+
+- [#142578](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142578)
+  [`a1e85a3a1ca96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1e85a3a1ca96) -
+  Export more types from atlaskit/react-select
+
 ## 20.3.0
 
 ### Minor Changes

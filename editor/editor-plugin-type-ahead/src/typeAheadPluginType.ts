@@ -10,6 +10,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import {
@@ -44,6 +45,7 @@ export type TypeAheadPlugin = NextEditorPlugin<
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<ContextPanelPlugin>,
+			OptionalPlugin<MetricsPlugin>,
 		];
 		sharedState: TypeAheadPluginSharedState;
 		actions: {

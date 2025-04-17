@@ -10,6 +10,7 @@ import type {
 	QuickInsertSharedState,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { closeElementBrowserModal } from '../../pm-plugins/commands';
 import type { QuickInsertPlugin } from '../../quickInsertPluginType';
@@ -29,10 +30,12 @@ const Modal = ({
 	helpUrl,
 	insertItem,
 	getSuggestions,
+	api,
 }: {
 	editorView: EditorView;
 	quickInsertState: QuickInsertSharedState | undefined;
 	isOffline: boolean;
+	api: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
 	helpUrl?: string;
 	insertItem?: (
 		item: QuickInsertItem,
@@ -71,15 +74,21 @@ const Modal = ({
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
 			closeElementBrowserModal()(editorView.state, editorView.dispatch);
+			if (fg('platform_editor_ease_of_use_metrics')) {
+				api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());
+			}
 			insertableItem.current = item;
 		},
-		[editorView],
+		[editorView, api],
 	);
 
 	const onClose = useCallback(() => {
 		closeElementBrowserModal()(editorView.state, editorView.dispatch);
+		if (fg('platform_editor_ease_of_use_metrics')) {
+			api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());
+		}
 		focusInEditor();
-	}, [editorView, focusInEditor]);
+	}, [editorView, focusInEditor, api]);
 
 	const onCloseComplete = useCallback(() => {
 		if (!insertableItem.current) {
@@ -123,6 +132,7 @@ export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
 			isOffline={connectivityState?.mode === 'offline'}
 			insertItem={pluginInjectionAPI?.quickInsert?.actions?.insertItem}
 			getSuggestions={pluginInjectionAPI?.quickInsert?.actions?.getSuggestions}
+			api={pluginInjectionAPI}
 		/>
 	);
 };

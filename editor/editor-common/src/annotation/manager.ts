@@ -34,6 +34,7 @@ export class SharedAnnotationManager implements AnnotationManager {
 	> = new Map();
 
 	private preemptiveGate: () => Promise<boolean> = () => Promise.resolve(true);
+	private activePreemptiveGate: Promise<boolean> | undefined = undefined;
 
 	setPreemptiveGate(handler: () => Promise<boolean>): AnnotationManager {
 		this.preemptiveGate = handler;
@@ -41,7 +42,20 @@ export class SharedAnnotationManager implements AnnotationManager {
 	}
 
 	checkPreemptiveGate(): Promise<boolean> {
-		return this.preemptiveGate();
+		if (this.activePreemptiveGate) {
+			// If the preemptive gate check already in flight then just return the promise
+			// and don't call the preemptive gate again.
+			// This is to prevent multiple calls to the preemptive gate creating multiple
+			// promises that will resolve at different times.
+			return Promise.resolve(this.activePreemptiveGate);
+		}
+
+		const gate = (this.activePreemptiveGate = this.preemptiveGate().then((result) => {
+			this.activePreemptiveGate = undefined;
+			return result;
+		}));
+
+		return gate;
 	}
 
 	onDraftAnnotationStarted(handler: (data: AnnotationDraftStartedData) => void): AnnotationManager {
@@ -114,17 +128,7 @@ export class SharedAnnotationManager implements AnnotationManager {
 		}
 
 		try {
-			const result = fn();
-
-			if (result.success) {
-				this.emitter.emit('draftAnnotationStarted', {
-					targetElement: result.targetElement,
-					inlineNodeTypes: result.inlineNodeTypes,
-					actionResult: result.actionResult,
-				});
-			}
-
-			return result;
+			return fn();
 		} catch (error) {
 			return { success: false, reason: 'hook-execution-error' };
 		}

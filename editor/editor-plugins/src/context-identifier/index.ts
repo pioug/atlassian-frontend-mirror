@@ -6,4 +6,5 @@ export type {
 	ContextIdentifierPlugin,
 	ContextIdentifierConfiguration,
 	PluginConfiguration,
+	ContextIdentifierPluginOptions,
 } from '@atlaskit/editor-plugin-context-identifier';

@@ -90,7 +90,6 @@ function getElements(): ReactElement[] {
 		return (
 			<span
 				css={elementStyles}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				style={{ '--local-color': colors[i % colors.length] } as CSSProperties}
 			>
 				{i}

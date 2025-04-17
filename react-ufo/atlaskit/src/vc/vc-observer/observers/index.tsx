@@ -68,17 +68,6 @@ const isElementVisible = withProfiling(
 	['vc'],
 );
 
-const isInsideEditorContainer = withProfiling(
-	function isInsideEditorContainer(target: Element): boolean {
-		if (!target || typeof target.closest !== 'function') {
-			return false;
-		}
-
-		return Boolean(target.closest('.ProseMirror'));
-	},
-	['vc'],
-);
-
 export class Observers implements BrowserObservers {
 	private intersectionObserver: IntersectionObserver | null;
 
@@ -331,39 +320,19 @@ export class Observers implements BrowserObservers {
 				} else if (mutation.type === 'attributes') {
 					if (mutation.target instanceof HTMLElement) {
 						const attributeName = mutation.attributeName;
-						if (fg('platform_ufo_vc_ignore_same_value_mutation')) {
-							/*
-								"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
-								I think it might have been something along the lines that for consistency every setAttribute call should create a record.
-								Conceptually there is after all a mutation: there is an old value replaced with a new one,
-								and whether or not they are the same doesn't really matter.
-								And Custom elements should work the same way as MutationObserver."
-								https://github.com/whatwg/dom/issues/520#issuecomment-336574796
-							*/
-							const oldValue = mutation.oldValue ?? undefined;
-							const newValue = attributeName
-								? mutation.target.getAttribute(attributeName)
-								: undefined;
-							if (oldValue !== newValue) {
-								if (isNonVisualStyleMutation(mutation)) {
-									ignoreReason = 'non-visual-style';
-								}
-								if (fg('platform_ufo_vc_fix_ignore_image_mutation')) {
-									if (isContainedWithinMediaWrapper(mutation.target)) {
-										ignoreReason = 'image';
-									}
-								}
-								this.observeElement(
-									mutation.target,
-									mutation,
-									'attr',
-									ignoreReason,
-									attributeName,
-									oldValue,
-									newValue,
-								);
-							}
-						} else {
+						/*
+							"MutationObserver was explicitly designed to work that way, but I can't now recall the reasoning.
+							I think it might have been something along the lines that for consistency every setAttribute call should create a record.
+							Conceptually there is after all a mutation: there is an old value replaced with a new one,
+							and whether or not they are the same doesn't really matter.
+							And Custom elements should work the same way as MutationObserver."
+							https://github.com/whatwg/dom/issues/520#issuecomment-336574796
+						*/
+						const oldValue = mutation.oldValue ?? undefined;
+						const newValue = attributeName
+							? mutation.target.getAttribute(attributeName)
+							: undefined;
+						if (oldValue !== newValue) {
 							if (isNonVisualStyleMutation(mutation)) {
 								ignoreReason = 'non-visual-style';
 							}
@@ -372,7 +341,15 @@ export class Observers implements BrowserObservers {
 									ignoreReason = 'image';
 								}
 							}
-							this.observeElement(mutation.target, mutation, 'attr', ignoreReason, attributeName);
+							this.observeElement(
+								mutation.target,
+								mutation,
+								'attr',
+								ignoreReason,
+								attributeName,
+								oldValue,
+								newValue,
+							);
 						}
 					}
 				}
@@ -439,12 +416,6 @@ export class Observers implements BrowserObservers {
 
 					if (!isElementVisible(target)) {
 						data.ignoreReason = 'not-visible';
-					}
-
-					if (fg('platform_editor_ed-25937_ignore_mutations_for_ttvc')) {
-						if (isInsideEditorContainer(target)) {
-							data.ignoreReason = 'editor-container-mutation';
-						}
 					}
 
 					this.callbacks.forEach((callback) => {

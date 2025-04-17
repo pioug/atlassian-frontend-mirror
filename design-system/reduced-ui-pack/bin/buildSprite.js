@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const { globSync } = require('glob'); // eslint-disable-line import/no-extraneous-dependencies
-const SVGSpriter = require('svg-sprite'); // eslint-disable-line import/no-extraneous-dependencies
-const mkdirp = require('mkdirp'); // eslint-disable-line import/no-extraneous-dependencies
+const { globSync } = require('glob');
+const SVGSpriter = require('svg-sprite');
+const mkdirp = require('mkdirp');
 const { getWorkspacesInfo } = require('@af/yarn-utils');
 
 getWorkspacesInfo({ only: '@atlaskit/icon' }).then(([pkg]) => {

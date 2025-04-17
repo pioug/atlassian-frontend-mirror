@@ -163,7 +163,7 @@ export default () => {
 						contrastBase={previousContrast.toPrecision(4)}
 						contrastCustom={contrast.toPrecision(4)}
 						baseThemeType={colorMode}
-						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{ marginBottom: token('space.050', '4px') }}
 					/>
 				);
@@ -178,9 +178,7 @@ export default () => {
 		return (
 			<code
 				style={{
-					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					backgroundColor: color,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					color: getContrastRatio('#ffffff', color) >= 4.5 ? 'white' : 'black',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					borderRadius: '24px',
@@ -270,7 +268,6 @@ export default () => {
 								css={colorContainerStyles}
 								style={{
 									background: colorString,
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									color: getContrastRatio('#ffffff', colorString) >= 4.5 ? 'white' : 'black',
 								}}
 							>
@@ -324,7 +321,6 @@ export default () => {
 								paddingBlock="space.050"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								xcss={xcss({
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 									border: `1px solid ${token('color.border')}`,
 									width: 'fit-content',
 									borderRadius: 'border.radius.circle',
@@ -372,7 +368,6 @@ export default () => {
 					<Heading size="large">Component examples</Heading>
 					<Inline space="space.100">
 						<Stack space="space.100">
-							{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 							<Link href="atlassian.design">Test link</Link>
 							<ButtonGroup label="Button examples">
 								<Button appearance="primary">Primary button</Button>

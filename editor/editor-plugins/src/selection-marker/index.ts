@@ -5,5 +5,6 @@ export { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker'
 export type {
 	SelectionMarkerPlugin,
 	SelectionMarkerPluginConfiguration,
+	SelectionMarkerPluginOptions,
 	ReleaseHiddenDecoration,
 } from '@atlaskit/editor-plugin-selection-marker';

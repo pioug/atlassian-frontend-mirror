@@ -84,13 +84,11 @@ export default class SpotlightTargetBackgroundExample extends Component<Object, 
 				<SpotlightManager>
 					<HighlightGroup>
 						<SpotlightTarget name="without">
-							{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
 							<Highlight bg="transparent" color="red">
 								No Target BG
 							</Highlight>
 						</SpotlightTarget>
 						<SpotlightTarget name="with">
-							{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */}
 							<Highlight bg="transparent" color="green">
 								White Target BG
 							</Highlight>

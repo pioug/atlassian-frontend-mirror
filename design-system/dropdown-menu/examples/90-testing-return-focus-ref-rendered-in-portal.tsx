@@ -12,6 +12,7 @@ export default function TestExample() {
 			<DropdownMenu
 				trigger="Actions"
 				testId="dropdown"
+				// eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent
 				shouldRenderToParent={false}
 				returnFocusRef={ref}
 			>

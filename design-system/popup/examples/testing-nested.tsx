@@ -19,11 +19,11 @@ const NestedPopup = ({ shouldRenderToParent }: { shouldRenderToParent?: boolean 
 
 	return (
 		<PopupMenuGroup onClick={(e) => e.stopPropagation()}>
-			<Section>
+			<Section title="Project actions">
 				<ButtonItem>Create project</ButtonItem>
 				<ButtonItem>View all projects</ButtonItem>
 			</Section>
-			<Section hasSeparator>
+			<Section title="More project actions" hasSeparator>
 				<Popup
 					isOpen={isOpen}
 					placement="right-start"
@@ -54,6 +54,8 @@ export const PopupPortal = ({ title }: { title: string }) => {
 			onClose={() => setIsOpen(false)}
 			content={() => <NestedPopup />}
 			placement="bottom-start"
+			// eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent
+			shouldRenderToParent={false}
 			trigger={(triggerProps) => (
 				<Button
 					{...triggerProps}
@@ -76,7 +78,8 @@ export const PopupDOM = ({ title }: { title: string }) => {
 			onClose={() => setIsOpen(false)}
 			content={() => <NestedPopup shouldRenderToParent />}
 			placement="bottom-start"
-			shouldRenderToParent
+			// eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent
+			shouldRenderToParent={false}
 			trigger={(triggerProps) => (
 				<Button
 					{...triggerProps}
@@ -102,6 +105,8 @@ export default () => {
 				onClose={() => setIsOpen(false)}
 				content={() => <NestedPopup shouldRenderToParent={false} />}
 				placement="bottom-start"
+				// eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent
+				shouldRenderToParent={false}
 				trigger={(triggerProps) => (
 					<Button
 						{...triggerProps}

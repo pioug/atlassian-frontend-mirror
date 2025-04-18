@@ -8,7 +8,7 @@ import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Inline } from '@atlaskit/primitives';
 
 const ActionsMenu = () => (
-	<DropdownMenu trigger="Actions">
+	<DropdownMenu shouldRenderToParent trigger="Actions">
 		<DropdownItemGroup>
 			<DropdownItem>Edit</DropdownItem>
 			<DropdownItem>Clone issue</DropdownItem>

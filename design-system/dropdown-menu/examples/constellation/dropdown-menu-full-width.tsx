@@ -7,6 +7,7 @@ const DropdownMenuFullWidth = () => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			shouldFitContainer
+			shouldRenderToParent
 			trigger={({ triggerRef, ...triggerProps }) => (
 				<Button ref={triggerRef} {...triggerProps} shouldFitContainer>
 					Page actions

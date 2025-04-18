@@ -39,6 +39,7 @@ const PopupDisableAutofocusExample = () => {
 		<Box xcss={wrapperStyles.root}>
 			<Textfield placeholder="This should stay focused when the popup opens" />
 			<Popup
+				shouldRenderToParent
 				// eslint-disable-next-line jsx-a11y/no-autofocus
 				autoFocus={false}
 				isOpen={isOpen}

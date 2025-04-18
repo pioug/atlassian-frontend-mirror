@@ -45,6 +45,7 @@ const PopupFocusExample = () => {
 				options={radioValues}
 			/>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={({ setInitialFocusRef }) => {

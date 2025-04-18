@@ -24,6 +24,7 @@ export default () => {
 			Popup with select
 			<br />
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				placement="bottom-start"

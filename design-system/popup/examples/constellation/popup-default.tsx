@@ -26,6 +26,7 @@ const PopupDefaultExample = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
 			placement="bottom-start"

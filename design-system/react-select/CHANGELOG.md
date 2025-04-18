@@ -1,5 +1,21 @@
 # @atlaskit/react-select
 
+## 2.4.3
+
+### Patch Changes
+
+- [#143201](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143201)
+  [`8995008d9cff5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8995008d9cff5) -
+  Improve assistive technology support for Async loading.
+
+## 2.4.2
+
+### Patch Changes
+
+- [#140048](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140048)
+  [`f05dae04933f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f05dae04933f3) -
+  Improve assistive technology support for removing selected values with Multiselect.
+
 ## 2.4.1
 
 ### Patch Changes

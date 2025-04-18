@@ -2536,6 +2536,56 @@ describe('accessibility > announces cleared values', () => {
 	);
 });
 
+describe('accessibility > multivalue', () => {
+	const orginalNavigator = window.navigator;
+	Object.defineProperty(
+		window.navigator,
+		'userAgentData',
+		((value) => ({
+			get() {
+				return value;
+			},
+			set(v) {
+				value = v;
+			},
+			//@ts-ignore we need to override platform to macOS to test aria-live messages
+		}))(window.navigator.userAgentData),
+	);
+
+	// NOTE: Using role="application" is not to be taken lightly. Always use extreme caution and be sure to test across all browser/AT combinations.
+	test('Value container should not have role="application" when values are added', () => {
+		global.navigator.userAgentData = { platform: 'macOS' };
+		const { rerender } = render(<Select {...BASIC_PROPS} isMulti />);
+		expect(screen.getByTestId(`${testId}-select--value-container`)).not.toHaveAttribute(
+			'role',
+			'application',
+		);
+
+		rerender(<Select {...BASIC_PROPS} isMulti value={OPTIONS[0]} />);
+		expect(screen.getByTestId(`${testId}-select--value-container`)).not.toHaveAttribute(
+			'role',
+			'application',
+		);
+		global.navigator = orginalNavigator;
+	});
+
+	test('Value container should have role="application" when values are added on Windows', () => {
+		global.navigator.userAgentData = { platform: 'Windows' };
+		const { rerender } = render(<Select {...BASIC_PROPS} isMulti />);
+		expect(screen.getByTestId(`${testId}-select--value-container`)).not.toHaveAttribute(
+			'role',
+			'application',
+		);
+
+		rerender(<Select {...BASIC_PROPS} isMulti value={OPTIONS[0]} />);
+		expect(screen.getByTestId(`${testId}-select--value-container`)).toHaveAttribute(
+			'role',
+			'application',
+		);
+		global.navigator = orginalNavigator;
+	});
+});
+
 test('closeMenuOnSelect prop > when passed as false it should not call onMenuClose on selecting option', async () => {
 	let onMenuCloseSpy = jest.fn();
 	const user = userEvent.setup();

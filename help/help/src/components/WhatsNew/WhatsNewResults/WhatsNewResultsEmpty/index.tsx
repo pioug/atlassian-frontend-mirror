@@ -5,7 +5,7 @@ import {
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import NotFoundImage from '../../../../assets/NotFoundImage';
 import { messages } from '../../../../messages';

@@ -33,6 +33,7 @@ export const DefaultSettings = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			placement="bottom-start"
 			content={SettingsContent}
 			isOpen={isOpen}

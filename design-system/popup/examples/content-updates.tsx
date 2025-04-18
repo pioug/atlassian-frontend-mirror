@@ -68,6 +68,7 @@ export default () => {
 		<Box xcss={buttonGroupContainer.root}>
 			<ButtonGroup label="Content updates">
 				<Popup
+					shouldRenderToParent
 					isOpen={isOpen}
 					onClose={() => setIsOpen(false)}
 					content={(props) => <Quotes onUpdate={isUpdateOn ? props.update : noop} />}

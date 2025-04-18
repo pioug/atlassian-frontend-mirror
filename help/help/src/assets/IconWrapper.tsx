@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { token } from '@atlaskit/tokens';
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { IconTile, type IconProps, type NewCoreIconProps } from '@atlaskit/icon';
 import { fg } from '@atlaskit/platform-feature-flags';
 

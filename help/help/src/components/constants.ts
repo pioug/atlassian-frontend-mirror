@@ -16,6 +16,3 @@ export const FADEIN_OVERLAY_TRANSITION_DURATION_MS = 440;
 export const HIDE_CONTENT_DELAY = FADEIN_OVERLAY_TRANSITION_DURATION_MS + 200;
 
 export type TransitionStatus = 'unmounted' | 'exiting' | 'entering' | 'entered' | 'exited';
-
-// Animation related consts
-export const TRANSITION_DURATION_MS = 220;

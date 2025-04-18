@@ -30,6 +30,7 @@ const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
 				}}
 				testId="dropdown"
 				shouldFitContainer
+				shouldRenderToParent
 			>
 				<DropdownItemGroup>
 					<DropdownItem>Move</DropdownItem>

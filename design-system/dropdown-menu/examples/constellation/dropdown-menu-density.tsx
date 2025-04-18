@@ -37,7 +37,7 @@ export default () => (
 				<DropdownItemCheckbox id="filter">Filter</DropdownItemCheckbox>
 			</DropdownItemGroup>
 		</DropdownMenu>
-		<DropdownMenu trigger="Cozy density" testId="dropdown">
+		<DropdownMenu shouldRenderToParent trigger="Cozy density" testId="dropdown">
 			<DropdownItemGroup>
 				<DropdownItem>Copy issue link</DropdownItem>
 				<DropdownItem>Add flag</DropdownItem>

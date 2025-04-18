@@ -7,7 +7,7 @@ import {
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Heading from '@atlaskit/heading';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../messages';
 import SomethingWrongImage from '../../../assets/SomethingWrongImage';

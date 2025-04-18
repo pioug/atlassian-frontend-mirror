@@ -52,6 +52,7 @@ export default () => {
 	return (
 		<div id="container" css={spacerStyles}>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={() => <PopupContent />}

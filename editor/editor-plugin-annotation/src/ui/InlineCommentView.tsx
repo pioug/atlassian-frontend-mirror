@@ -141,12 +141,16 @@ export function InlineCommentView({
 					textSelection={textSelection}
 					onCreate={(id) => {
 						if (!fg('platform_editor_comments_api_manager')) {
-							createAnnotation(editorAnalyticsAPI, editorAPI)(
+							const createAnnotationResult = createAnnotation(editorAnalyticsAPI, editorAPI)(
 								id,
 								AnnotationTypes.INLINE_COMMENT,
 								inlineCommentProvider.supportedBlockNodes,
 							)(editorView.state, editorView.dispatch);
 							!editorView.hasFocus() && editorView.focus();
+
+							if (!createAnnotationResult && fg('confluence_frontend_handle_annotation_error')) {
+								throw new Error('Failed to create annotation');
+							}
 						}
 					}}
 					onClose={() => {

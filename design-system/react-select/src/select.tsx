@@ -1139,7 +1139,7 @@ export default class Select<
 		this.setState({
 			inputIsHidden: nextFocus !== -1,
 			focusedValue: selectValue[nextFocus],
-			focusedValueId: `${this.getElementId('selected-value')}-${nextFocus}`,
+			focusedValueId: `${this.getElementId('selected-value')}-${nextFocus}-remove`,
 			focusedOption: null,
 			focusedOptionId: null,
 		});
@@ -2048,7 +2048,10 @@ export default class Select<
 							onMouseDown: (e) => {
 								e.preventDefault();
 							},
-							'data-testid': `${testId}-select--multivalue-${index}-remove`,
+							...(testId && {
+								'data-testid': `${testId}-select--multivalue-${index}-remove`,
+							}),
+							id: `${this.getElementId('selected-value')}-${index}-remove`,
 						}}
 						data={opt}
 						innerProps={{
@@ -2529,6 +2532,14 @@ export default class Select<
 							...(testId && {
 								'data-testid': `${testId}-select--value-container`,
 							}),
+							...(commonProps.isMulti &&
+								commonProps.hasValue &&
+								!isAppleDevice() && {
+									// Required to keep JAWS from popping out of forms mode when using LEFT/RIGHT arrow keys.
+									// This is Jedi Master level ARIA and not taken lightly. Do not modify without consulting
+									// DST Accessibility.
+									role: 'application',
+								}),
 						}}
 					>
 						{this.renderPlaceholderOrValue()}

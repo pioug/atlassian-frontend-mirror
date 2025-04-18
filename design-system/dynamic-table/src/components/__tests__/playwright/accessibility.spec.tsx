@@ -9,8 +9,13 @@ test('Dynamic-table should pass base aXe audit', async ({ page }) => {
 	await expect(popupTrigger).toBeVisible();
 	await expect(popupTrigger).toBeEnabled();
 
-	await popupTrigger.click();
-	await page.keyboard.press('Tab');
+	// Should be fine on click and tab, but `shouldRenderToParent` causes a
+	// slightly different focus situation:
+	// https://product-fabric.atlassian.net/browse/DSP-22371
+	// await popupTrigger.click();
+	// await page.keyboard.press('Tab');
+
+	await popupTrigger.press('Space');
 
 	const popupInnerElement = page.locator('button:has-text("James Madison")');
 

@@ -87,7 +87,7 @@ const HelpContentButton = ({
 					</HelpContentButtonExternalNotificationIcon>
 				)}
 				{href != null && (
-					<HelpContentButtonExternalLinkIcon data-testid="shortcutIcon">
+					<HelpContentButtonExternalLinkIcon dataTestId="shortcutIcon">
 						<ShortcutIcon color="currentColor" LEGACY_size="small" label="" />
 					</HelpContentButtonExternalLinkIcon>
 				)}

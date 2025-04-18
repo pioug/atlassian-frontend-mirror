@@ -24,11 +24,11 @@ const analyticsSpy = jest.fn();
 
 describe('ArticleContent', () => {
 	it('Match snapshot', () => {
-		const { container } = render(
+		const { asFragment } = render(
 			<ArticleWasHelpfulNoButton isSelected={false} onClick={mockOnClick} intl={intl} />,
 		);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 
 	it('props methods "onWasHelpfulNoButtonClick" and "onClick" should be executed when the user click the button', () => {

@@ -26,6 +26,7 @@ const ModalPopupClassicAPI = () => {
 		<Fragment>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<Popup
+				shouldRenderToParent
 				xcss={styles.padding}
 				appearance="UNSAFE_modal-below-sm"
 				isOpen
@@ -41,6 +42,7 @@ export const ModalPopupClassicAPILong = () => {
 		<Fragment>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<Popup
+				shouldRenderToParent
 				xcss={styles.padding}
 				appearance="UNSAFE_modal-below-sm"
 				isOpen

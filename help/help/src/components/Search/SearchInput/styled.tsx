@@ -2,12 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+
+import React from 'react';
+import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SearchInputContainer = styled.div({
+const searchInputContainerStyles = css({
 	order: 0,
 	flex: '0 1 auto',
 	alignSelf: 'auto',
@@ -15,8 +15,11 @@ export const SearchInputContainer = styled.div({
 	boxSizing: 'border-box',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SearchInputContainerAi = styled.div({
+export const SearchInputContainer = ({ children }: { children: React.ReactNode }) => (
+	<div css={searchInputContainerStyles}>{children}</div>
+);
+
+const searchInputContainerAiStyles = css({
 	width: `calc(100% - ${token('space.300', '24px')} - ${token('space.300', '24px')})`,
 	height: token('space.400', '32px'),
 	marginLeft: token('space.300', '24px'),
@@ -29,8 +32,11 @@ export const SearchInputContainerAi = styled.div({
 	boxSizing: 'border-box',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SearchIconContainer = styled.div({
+export const SearchInputContainerAi = ({ children }: { children: React.ReactNode }) => (
+	<div css={searchInputContainerAiStyles}>{children}</div>
+);
+
+const searchIconContainerStyles = css({
 	width: token('space.300', '24px'),
 	height: token('space.300', '24px'),
 	paddingLeft: token('space.050', '4px'),
@@ -44,8 +50,11 @@ export const SearchIconContainer = styled.div({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const CloseButtonAndSpinnerContainer = styled.div({
+export const SearchIconContainer = ({ children }: { children: React.ReactNode }) => (
+	<div css={searchIconContainerStyles}>{children}</div>
+);
+
+const closeButtonAndSpinnerContainerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 0,
 	paddingRight: token('space.100', '8px'),
@@ -61,3 +70,7 @@ export const CloseButtonAndSpinnerContainer = styled.div({
 		verticalAlign: 'middle',
 	},
 });
+
+export const CloseButtonAndSpinnerContainer = ({ children }: { children: React.ReactNode }) => (
+	<div css={closeButtonAndSpinnerContainerStyles}>{children}</div>
+);

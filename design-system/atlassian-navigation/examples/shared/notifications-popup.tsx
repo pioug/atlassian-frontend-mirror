@@ -87,6 +87,7 @@ export const NotificationsPopup = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			placement="bottom-start"
 			content={NotificationsContent}
 			isOpen={isOpen}

@@ -15,12 +15,10 @@ import { gridSize } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
 import SearchIcon from '@atlaskit/icon/core/migration/search';
 import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import { REQUEST_STATE } from '../../../model/Requests';
-
 import { useSearchContext } from '../../contexts/searchContext';
 import { messages } from '../../../messages';
 import { VIEW } from '../../constants';

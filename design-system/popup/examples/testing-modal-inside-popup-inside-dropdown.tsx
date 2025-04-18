@@ -63,6 +63,7 @@ const PopupComponent = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
 			placement="left-start"

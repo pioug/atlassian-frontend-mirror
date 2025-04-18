@@ -32,6 +32,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags'
 import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorActions } from '../../../index';
 import type { PrimaryToolbarComponents } from '../../../types';
@@ -86,7 +87,9 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 	const { editorAPI } = props;
 
 	// When primary toolbar components is undefined, do not show two line editor toolbar
-	const twoLineEditorToolbar = !!props.customPrimaryToolbarComponents;
+	const twoLineEditorToolbar = editorExperiment('platform_editor_controls', 'variant1')
+		? !!props.customPrimaryToolbarComponents && props.primaryToolbarComponents?.length !== 0
+		: !!props.customPrimaryToolbarComponents;
 
 	// When a toolbar portal context is provided, render the  toolbar inside a portal.
 	// Otherwise fall back to a fragment just to avoid forking rendering logic.

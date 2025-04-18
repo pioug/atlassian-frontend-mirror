@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 import { TabContainer, TabLabels, TabLabel } from './styled';
-import { Inline, Text } from '@atlaskit/primitives';
+import { Inline, Text } from '@atlaskit/primitives/compiled';
 
 interface TabProps {
 	label: string;

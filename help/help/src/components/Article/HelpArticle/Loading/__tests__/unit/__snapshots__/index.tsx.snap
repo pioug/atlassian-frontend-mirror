@@ -1,164 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ArticleContent Should match snapshot 1`] = `
-@keyframes animation-0 {
-  0% {
-    -webkit-background-position: -300px 0;
-    background-position: -300px 0;
-  }
-
-  100% {
-    -webkit-background-position: 1000px 0;
-    background-position: 1000px 0;
-  }
-}
-
-@keyframes animation-0 {
-  0% {
-    -webkit-background-position: -300px 0;
-    background-position: -300px 0;
-  }
-
-  100% {
-    -webkit-background-position: 1000px 0;
-    background-position: 1000px 0;
-  }
-}
-
-@keyframes animation-0 {
-  0% {
-    -webkit-background-position: -300px 0;
-    background-position: -300px 0;
-  }
-
-  100% {
-    -webkit-background-position: 1000px 0;
-    background-position: 1000px 0;
-  }
-}
-
-@keyframes animation-0 {
-  0% {
-    -webkit-background-position: -300px 0;
-    background-position: -300px 0;
-  }
-
-  100% {
-    -webkit-background-position: 1000px 0;
-    background-position: 1000px 0;
-  }
-}
-
-.emotion-0 {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  height: 20px;
-  margin-top: 0;
-  width: 100%;
-  border-radius: 2px;
-  -webkit-animation-duration: 1.2s;
-  animation-duration: 1.2s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-name: animation-0;
-  animation-name: animation-0;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  background-color: var(--ds-background-neutral, #EBECF0);
-  background-image: linear-gradient( to right, var(--ds-background-neutral-subtle, #EBECF0) 10%, var(--ds-background-neutral, #DFE1E6) 20%, var(--ds-background-neutral-subtle, #EBECF0) 30% );
-  background-repeat: no-repeat;
-}
-
-.emotion-1 {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  height: 1rem;
-  margin-top: 8px;
-  width: 90%;
-  border-radius: 2px;
-  -webkit-animation-duration: 1.2s;
-  animation-duration: 1.2s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-name: animation-0;
-  animation-name: animation-0;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  background-color: var(--ds-background-neutral, #EBECF0);
-  background-image: linear-gradient( to right, var(--ds-background-neutral-subtle, #EBECF0) 10%, var(--ds-background-neutral, #DFE1E6) 20%, var(--ds-background-neutral-subtle, #EBECF0) 30% );
-  background-repeat: no-repeat;
-}
-
-.emotion-2 {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  height: 1rem;
-  margin-top: 8px;
-  width: 80%;
-  border-radius: 2px;
-  -webkit-animation-duration: 1.2s;
-  animation-duration: 1.2s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-name: animation-0;
-  animation-name: animation-0;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  background-color: var(--ds-background-neutral, #EBECF0);
-  background-image: linear-gradient( to right, var(--ds-background-neutral-subtle, #EBECF0) 10%, var(--ds-background-neutral, #DFE1E6) 20%, var(--ds-background-neutral-subtle, #EBECF0) 30% );
-  background-repeat: no-repeat;
-}
-
-.emotion-4 {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  height: 1rem;
-  margin-top: 8px;
-  width: 70%;
-  border-radius: 2px;
-  -webkit-animation-duration: 1.2s;
-  animation-duration: 1.2s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-name: animation-0;
-  animation-name: animation-0;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  background-color: var(--ds-background-neutral, #EBECF0);
-  background-image: linear-gradient( to right, var(--ds-background-neutral-subtle, #EBECF0) 10%, var(--ds-background-neutral, #DFE1E6) 20%, var(--ds-background-neutral-subtle, #EBECF0) 30% );
-  background-repeat: no-repeat;
-}
-
-<div
-  aria-label="Loading"
-  role="img"
->
+<DocumentFragment>
   <div
-    class="emotion-0"
-  />
-  <div
-    class="emotion-1"
-  />
-  <div
-    class="emotion-2"
-  />
-  <div
-    class="emotion-2"
-  />
-  <div
-    class="emotion-4"
-  />
-</div>
+    aria-label="Loading"
+    role="img"
+  >
+    <style
+      data-cmpld="true"
+    >
+      ._2rkoyh40{border-radius:2px}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
+    </style>
+    <div
+      class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+      style="height: 20px; margin-top: 0px; width: 100%;"
+    />
+    <style
+      data-cmpld="true"
+    >
+      ._2rkoyh40{border-radius:2px}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
+    </style>
+    <div
+      class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+      style="height: 1rem; margin-top: 8px; width: 90%;"
+    />
+    <style
+      data-cmpld="true"
+    >
+      ._2rkoyh40{border-radius:2px}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
+    </style>
+    <div
+      class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+      style="height: 1rem; margin-top: 8px; width: 80%;"
+    />
+    <style
+      data-cmpld="true"
+    >
+      ._2rkoyh40{border-radius:2px}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
+    </style>
+    <div
+      class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+      style="height: 1rem; margin-top: 8px; width: 80%;"
+    />
+    <style
+      data-cmpld="true"
+    >
+      ._2rkoyh40{border-radius:2px}._1e0c1o8l{display:inline-block}._s7n4nkob{vertical-align:middle}._kqswh2mm{position:relative}._5sag126j{animation-duration:1.2s}._1o51q7pw{animation-fill-mode:forwards}._tip812c5{animation-iteration-count:infinite}._j7hq1en8{animation-name:k6xje6p}._1pglp3kn{animation-timing-function:linear}._bfhk1yrq{background-color:var(--ds-background-neutral,#ebecf0)}._1itk67kk{background-image:linear-gradient(to right,var(--ds-background-neutral-subtle,#ebecf0) 10%,var(--ds-background-neutral,#dfe1e6) 20%,var(--ds-background-neutral-subtle,#ebecf0) 30%)}._12vemgnk{background-repeat:no-repeat}@keyframes k6xje6p{0%{background-position:-300px 0}to{background-position:750pt 0}}
+    </style>
+    <div
+      class="_2rkoyh40 _1e0c1o8l _s7n4nkob _kqswh2mm _5sag126j _1o51q7pw _tip812c5 _j7hq1en8 _1pglp3kn _bfhk1yrq _1itk67kk _12vemgnk"
+      style="height: 1rem; margin-top: 8px; width: 70%;"
+    />
+  </div>
+</DocumentFragment>
 `;

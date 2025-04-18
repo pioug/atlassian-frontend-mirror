@@ -40,6 +40,7 @@ const PopupExample: FC<PopupExampleProps> = ({ name }) => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={onClose}
 			content={() => <Box xcss={contentStyles.root}>content</Box>}

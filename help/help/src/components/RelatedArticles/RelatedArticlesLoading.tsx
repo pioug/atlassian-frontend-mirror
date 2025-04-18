@@ -5,37 +5,37 @@ import { messages } from '../../messages';
 
 import { DividerLine, LoadingRectangle } from '../../util/styled';
 
-import { LoadignRelatedArticleList, LoadignRelatedArticleListItem } from './styled';
+import { LoadingRelatedArticleList, LoadingRelatedArticleListItem } from './styled';
 
 const RelatedArticlesLoading: React.FC<WrappedComponentProps> = ({ intl: { formatMessage } }) => {
 	return (
 		<>
-			<LoadignRelatedArticleList aria-label={formatMessage(messages.help_loading)} role="img">
-				<LoadignRelatedArticleListItem>
+			<LoadingRelatedArticleList aria-label={formatMessage(messages.help_loading)} role="img">
+				<LoadingRelatedArticleListItem>
 					<LoadingRectangle contentHeight="11px" contentWidth="60px" marginTop="0" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
 					<LoadingRectangle contentWidth="100%" marginTop="8px" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
-				</LoadignRelatedArticleListItem>
+				</LoadingRelatedArticleListItem>
 
-				<LoadignRelatedArticleListItem>
+				<LoadingRelatedArticleListItem>
 					<LoadingRectangle contentHeight="11px" contentWidth="60px" marginTop="0" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
 					<LoadingRectangle contentWidth="100%" marginTop="8px" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
-				</LoadignRelatedArticleListItem>
+				</LoadingRelatedArticleListItem>
 
-				<LoadignRelatedArticleListItem>
+				<LoadingRelatedArticleListItem>
 					<LoadingRectangle contentHeight="11px" contentWidth="60px" marginTop="0" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
 					<LoadingRectangle contentWidth="100%" marginTop="8px" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
 					<LoadingRectangle contentWidth="100%" marginTop="4px" />
-				</LoadignRelatedArticleListItem>
+				</LoadingRelatedArticleListItem>
 				<DividerLine />
-			</LoadignRelatedArticleList>
+			</LoadingRelatedArticleList>
 		</>
 	);
 };

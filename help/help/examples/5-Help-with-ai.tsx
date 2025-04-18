@@ -540,8 +540,7 @@ const Example = () => {
 							Help articles settings
 						</h3>
 						<div>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-							<ControlsWrapper style={{ width: '100%' }}>
+							<ControlsWrapper width="100%">
 								<Field label="Token" name="token">
 									{({ fieldProps }: any) => (
 										<>

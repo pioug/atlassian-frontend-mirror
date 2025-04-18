@@ -14,6 +14,7 @@ export default () => {
 				Default dropdown inside popup:
 			</Heading>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				placement="left-start"

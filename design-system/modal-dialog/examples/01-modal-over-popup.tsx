@@ -75,6 +75,7 @@ const PopupPlacementExample = () => {
 	return (
 		<Box xcss={styles.spacer}>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={() => <PopupContent />}

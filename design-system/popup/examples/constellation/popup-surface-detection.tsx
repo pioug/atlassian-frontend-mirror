@@ -34,6 +34,7 @@ const PopupSurfaceDetectionExample = () => {
 	return (
 		<Flex gap="space.200">
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				placement="bottom-start"

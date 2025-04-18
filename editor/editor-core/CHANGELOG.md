@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 205.5.2
+
+### Patch Changes
+
+- [#142763](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142763)
+  [`5b4752c09f19b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b4752c09f19b) -
+  Improve Node Validation
+
+## 205.5.1
+
+### Patch Changes
+
+- [#138479](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138479)
+  [`058e8050f1a78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/058e8050f1a78) -
+  [A11Y-9995] Popup aria label removed fallback and added aria label where it fits in places that
+  uses the component
+- Updated dependencies
+
 ## 205.5.0
 
 ### Minor Changes

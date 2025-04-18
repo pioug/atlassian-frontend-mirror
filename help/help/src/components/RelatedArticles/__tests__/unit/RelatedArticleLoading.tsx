@@ -7,12 +7,12 @@ import RelatedArticlesLoading from '../../RelatedArticlesLoading';
 
 describe('RelatedArticlesLoading', () => {
 	it('Should match snapshot', () => {
-		const { container } = render(
+		const { asFragment } = render(
 			<IntlProvider locale="en">
 				<RelatedArticlesLoading />
 			</IntlProvider>,
 		);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 });

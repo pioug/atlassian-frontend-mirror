@@ -55,6 +55,7 @@ export default () => {
 				Button 0
 			</Button>
 			<Popup
+				shouldRenderToParent
 				testId="popup"
 				isOpen={isOpen}
 				role="dialog"

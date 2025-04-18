@@ -101,6 +101,7 @@ const PopupPlacementExample = () => {
 
 				return (
 					<Popup
+						shouldRenderToParent
 						key={placement}
 						placement={placement}
 						isOpen={isOpen}

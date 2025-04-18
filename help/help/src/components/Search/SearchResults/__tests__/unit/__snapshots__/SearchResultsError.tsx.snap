@@ -1,149 +1,307 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResultsError Should match snapshot 1`] = `
-.emotion-0 {
-  padding: var(--ds-space-300, 24px) var(--ds-space-300, 24px) 0 var(--ds-space-300, 24px);
-  text-align: center;
-}
-
-<div
-  class="emotion-0"
->
-  <span>
-    <!--?xml version="1.0" encoding="UTF-8"?-->
-    
-
-    <svg
-      fill="none"
-      height="116"
-      viewBox="0 0 90 116"
-      width="90"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+<DocumentFragment>
+  <style
+    data-cmpld="true"
+  >
+    ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}
+  </style>
+  <div
+    class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o"
+  >
+    <span>
+      <!--?xml version="1.0" encoding="UTF-8"?-->
       
 
-      <path
-        d="M0 0H89.2308V116H0V0Z"
-      />
-      
-
-      <path
-        clip-rule="evenodd"
-        d="M51.5691 40.9323L87.7184 103.605C89.1943 106.161 89.195 109.312 87.72 111.869C86.2451 114.426 83.519 116.001 80.5691 116H8.27039C5.3205 116.001 2.59431 114.426 1.11941 111.869C-0.355493 109.312 -0.354868 106.161 1.12105 103.605L37.2704 40.9323C38.7445 38.3748 41.47 36.7992 44.4197 36.7992C47.3695 36.7992 50.095 38.3748 51.5691 40.9323ZM47.4558 86.4337L49.0227 62.2806C49.113 60.9009 48.6284 59.5454 47.6841 58.5363C46.7399 57.5271 45.4202 56.9545 44.0389 56.9544C42.6575 56.9545 41.3379 57.5271 40.3936 58.5363C39.4493 59.5454 38.9647 60.9009 39.055 62.2806L40.622 86.4337C40.7395 88.2366 42.2338 89.6395 44.0389 89.6414C45.844 89.6395 47.3383 88.2366 47.4558 86.4337ZM40.5075 103.118C39.4304 102.124 38.8237 100.72 38.8374 99.2536C38.8071 96.3645 41.1146 93.994 44.0008 93.9492C46.8187 93.943 49.1423 96.158 49.2734 98.9756C49.4045 101.793 47.2968 104.215 44.4905 104.471C43.0314 104.603 41.5845 104.112 40.5075 103.118Z"
-        fill="url(#paint0_linear)"
-        fill-rule="evenodd"
-      />
-      
-
-      <g
-        opacity="0.6"
+      <svg
+        fill="none"
+        height="116"
+        viewBox="0 0 90 116"
+        width="90"
+        xmlns="http://www.w3.org/2000/svg"
       >
         
 
         <path
-          d="M50.4387 15.3414L46.407 0.789686C46.3669 0.639179 46.2278 0.536726 46.0723 0.543265C45.9168 0.549803 45.7868 0.663577 45.7595 0.816916L43.224 14.4864L40.0683 13.8982C39.956 13.8774 39.8409 13.9157 39.7636 13.9998C39.6862 14.0839 39.6574 14.2018 39.6874 14.3121L43.7192 28.8639C43.7533 29.0153 43.8878 29.1229 44.0429 29.1229C44.198 29.1229 44.3324 29.0153 44.3666 28.8639L46.9021 15.1944L50.0578 15.7553C50.1701 15.7762 50.2852 15.7378 50.3625 15.6538C50.4399 15.5697 50.4687 15.4517 50.4387 15.3414Z"
-          fill="#C1C7D0"
+          d="M0 0H89.2308V116H0V0Z"
         />
         
 
         <path
-          d="M35.9759 23.3144L30.0562 18.658C30.0024 18.6156 29.9265 18.616 29.8732 18.659C29.8198 18.7019 29.8032 18.7761 29.8331 18.8377L32.8419 25.0516L31.3947 25.7651C31.3536 25.7923 31.329 25.8383 31.329 25.8876C31.329 25.9369 31.3536 25.9829 31.3947 26.0101L37.3089 30.6665C37.3627 30.7089 37.4386 30.7085 37.492 30.6655C37.5453 30.6226 37.5619 30.5484 37.532 30.4867L34.5014 24.262L35.9487 23.5594C35.9931 23.5371 36.0232 23.4937 36.0287 23.4443C36.0342 23.3948 36.0143 23.3459 35.9759 23.3144Z"
-          fill="#C1C7D0"
+          clip-rule="evenodd"
+          d="M51.5691 40.9323L87.7184 103.605C89.1943 106.161 89.195 109.312 87.72 111.869C86.2451 114.426 83.519 116.001 80.5691 116H8.27039C5.3205 116.001 2.59431 114.426 1.11941 111.869C-0.355493 109.312 -0.354868 106.161 1.12105 103.605L37.2704 40.9323C38.7445 38.3748 41.47 36.7992 44.4197 36.7992C47.3695 36.7992 50.095 38.3748 51.5691 40.9323ZM47.4558 86.4337L49.0227 62.2806C49.113 60.9009 48.6284 59.5454 47.6841 58.5363C46.7399 57.5271 45.4202 56.9545 44.0389 56.9544C42.6575 56.9545 41.3379 57.5271 40.3936 58.5363C39.4493 59.5454 38.9647 60.9009 39.055 62.2806L40.622 86.4337C40.7395 88.2366 42.2338 89.6395 44.0389 89.6414C45.844 89.6395 47.3383 88.2366 47.4558 86.4337ZM40.5075 103.118C39.4304 102.124 38.8237 100.72 38.8374 99.2536C38.8071 96.3645 41.1146 93.994 44.0008 93.9492C46.8187 93.943 49.1423 96.158 49.2734 98.9756C49.4045 101.793 47.2968 104.215 44.4905 104.471C43.0314 104.603 41.5845 104.112 40.5075 103.118Z"
+          fill="url(#paint0_linear)"
+          fill-rule="evenodd"
         />
         
 
-      </g>
-      
+        <g
+          opacity="0.6"
+        >
+          
 
-      <g
-        opacity="0.6"
-      >
+          <path
+            d="M50.4387 15.3414L46.407 0.789686C46.3669 0.639179 46.2278 0.536726 46.0723 0.543265C45.9168 0.549803 45.7868 0.663577 45.7595 0.816916L43.224 14.4864L40.0683 13.8982C39.956 13.8774 39.8409 13.9157 39.7636 13.9998C39.6862 14.0839 39.6574 14.2018 39.6874 14.3121L43.7192 28.8639C43.7533 29.0153 43.8878 29.1229 44.0429 29.1229C44.198 29.1229 44.3324 29.0153 44.3666 28.8639L46.9021 15.1944L50.0578 15.7553C50.1701 15.7762 50.2852 15.7378 50.3625 15.6538C50.4399 15.5697 50.4687 15.4517 50.4387 15.3414Z"
+            fill="#C1C7D0"
+          />
+          
+
+          <path
+            d="M35.9759 23.3144L30.0562 18.658C30.0024 18.6156 29.9265 18.616 29.8732 18.659C29.8198 18.7019 29.8032 18.7761 29.8331 18.8377L32.8419 25.0516L31.3947 25.7651C31.3536 25.7923 31.329 25.8383 31.329 25.8876C31.329 25.9369 31.3536 25.9829 31.3947 26.0101L37.3089 30.6665C37.3627 30.7089 37.4386 30.7085 37.492 30.6655C37.5453 30.6226 37.5619 30.5484 37.532 30.4867L34.5014 24.262L35.9487 23.5594C35.9931 23.5371 36.0232 23.4937 36.0287 23.4443C36.0342 23.3948 36.0143 23.3459 35.9759 23.3144Z"
+            fill="#C1C7D0"
+          />
+          
+
+        </g>
+        
+
+        <g
+          opacity="0.6"
+        >
+          
+
+          <path
+            d="M63.1956 20.4771C62.559 21.343 57.2106 17.4273 56.5794 18.2986C55.9483 19.17 61.2913 23.0857 60.6601 23.9571C60.029 24.8284 54.6751 20.9073 54.0385 21.7786C53.402 22.65 58.7504 26.5657 58.1138 27.4371C57.4772 28.3084 52.1288 24.3873 51.4922 25.2586C50.8556 26.13 56.204 30.0457 55.5674 30.9171"
+            stroke="#B3BAC5"
+            stroke-linecap="round"
+            stroke-width="2"
+          />
+          
+
+        </g>
         
 
         <path
-          d="M63.1956 20.4771C62.559 21.343 57.2106 17.4273 56.5794 18.2986C55.9483 19.17 61.2913 23.0857 60.6601 23.9571C60.029 24.8284 54.6751 20.9073 54.0385 21.7786C53.402 22.65 58.7504 26.5657 58.1138 27.4371C57.4772 28.3084 52.1288 24.3873 51.4922 25.2586C50.8556 26.13 56.204 30.0457 55.5674 30.9171"
+          d="M65.7917 35.5026C64.9974 36.2269 61.9559 32.8994 61.1615 33.6291C60.3672 34.3589 63.4086 37.6864 62.6142 38.4107C61.8199 39.135 58.7784 35.8075 57.984 36.5373C57.6141 36.8749 58.0711 37.7735 58.588 38.7157"
+          opacity="0.6"
           stroke="#B3BAC5"
           stroke-linecap="round"
           stroke-width="2"
         />
         
 
-      </g>
-      
-
-      <path
-        d="M65.7917 35.5026C64.9974 36.2269 61.9559 32.8994 61.1615 33.6291C60.3672 34.3589 63.4086 37.6864 62.6142 38.4107C61.8199 39.135 58.7784 35.8075 57.984 36.5373C57.6141 36.8749 58.0711 37.7735 58.588 38.7157"
-        opacity="0.6"
-        stroke="#B3BAC5"
-        stroke-linecap="round"
-        stroke-width="2"
-      />
-      
-
-      <path
-        d="M24.9199 35.399C25.9102 35.8184 27.6404 31.6576 28.6524 32.077C29.6644 32.4963 27.8961 36.6516 28.8863 37.071C29.8766 37.4903 31.6068 33.3296 32.6188 33.7489C33.0813 33.945 32.9507 34.9416 32.7766 35.9981"
-        opacity="0.6"
-        stroke="#B3BAC5"
-        stroke-linecap="round"
-        stroke-width="2"
-      />
-      
-
-      <defs>
+        <path
+          d="M24.9199 35.399C25.9102 35.8184 27.6404 31.6576 28.6524 32.077C29.6644 32.4963 27.8961 36.6516 28.8863 37.071C29.8766 37.4903 31.6068 33.3296 32.6188 33.7489C33.0813 33.945 32.9507 34.9416 32.7766 35.9981"
+          opacity="0.6"
+          stroke="#B3BAC5"
+          stroke-linecap="round"
+          stroke-width="2"
+        />
         
 
-        <lineargradient
-          gradientUnits="userSpaceOnUse"
-          id="paint0_linear"
-          x1="48.1573"
-          x2="101.562"
-          y1="152.281"
-          y2="85.0657"
-        >
+        <defs>
           
 
-          <stop
-            stop-color="#C1C7D0"
-          />
+          <lineargradient
+            gradientUnits="userSpaceOnUse"
+            id="paint0_linear"
+            x1="48.1573"
+            x2="101.562"
+            y1="152.281"
+            y2="85.0657"
+          >
+            
+
+            <stop
+              stop-color="#C1C7D0"
+            />
+            
+
+            <stop
+              offset="0.24"
+              stop-color="#C4CAD2"
+              stop-opacity="0.97"
+            />
+            
+
+            <stop
+              offset="0.5"
+              stop-color="#CDD1D9"
+              stop-opacity="0.89"
+            />
+            
+
+            <stop
+              offset="0.78"
+              stop-color="#DCDEE4"
+              stop-opacity="0.75"
+            />
+            
+
+            <stop
+              offset="1"
+              stop-color="#EBECF0"
+              stop-opacity="0.6"
+            />
+            
+
+          </lineargradient>
           
 
-          <stop
-            offset="0.24"
-            stop-color="#C4CAD2"
-            stop-opacity="0.97"
-          />
-          
-
-          <stop
-            offset="0.5"
-            stop-color="#CDD1D9"
-            stop-opacity="0.89"
-          />
-          
-
-          <stop
-            offset="0.78"
-            stop-color="#DCDEE4"
-            stop-opacity="0.75"
-          />
-          
-
-          <stop
-            offset="1"
-            stop-color="#EBECF0"
-            stop-opacity="0.6"
-          />
-          
-
-        </lineargradient>
+        </defs>
         
 
-      </defs>
+      </svg>
       
 
-    </svg>
-    
+    </span>
+  </div>
+  <style
+    data-cmpld="true"
+  >
+    ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}._125x1wmz p{color:var(--ds-text-subtlest,#6b778c)}
+  </style>
+  <div
+    class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o _125x1wmz"
+  >
+    <style
+      data-cmpld="true"
+    >
+      ._11c82smr{font:var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c8dcr7{font:var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c81ixg{font:var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c81o8v{font:var(--ds-font-body-small,normal 400 11px/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._19pkidpf{margin-top:0}._2hwxidpf{margin-right:0}._otyridpf{margin-bottom:0}._18u0idpf{margin-left:0}._1i4qfg65{overflow-wrap:anywhere}._k48pmoej{font-weight:var(--ds-font-weight-bold,700)}._zg8l1m30{font-style:italic}._y3gnh9n0{text-align:end}._y3gnv2br{text-align:start}._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._1e0ccj1k{display:-webkit-box}._sudp1e54{-webkit-box-orient:vertical}._1nmz9jpi{word-break:break-all}._syaz1fxt{color:var(--ds-text,#172b4d)}._syaz1tco{color:var(--ds-text-accent-lime,#4c6b1f)}._syaz1ik3{color:var(--ds-text-accent-lime-bolder,#37471f)}._syaz9lu1{color:var(--ds-text-accent-red,#ae2e24)}._syazhwvp{color:var(--ds-text-accent-red-bolder,#5d1f1a)}._syaz1q28{color:var(--ds-text-accent-orange,#a54800)}._syaz1vps{color:var(--ds-text-accent-orange-bolder,#702e00)}._syazfb2s{color:var(--ds-text-accent-yellow,#7f5f01)}._syazekll{color:var(--ds-text-accent-yellow-bolder,#533f04)}._syazh55r{color:var(--ds-text-accent-green,#216e4e)}._syaz1y78{color:var(--ds-text-accent-green-bolder,#164b35)}._syaz17qg{color:var(--ds-text-accent-teal,#206a83)}._syaz12v7{color:var(--ds-text-accent-teal-bolder,#164555)}._syazpnps{color:var(--ds-text-accent-blue,#05c)}._syazsc1o{color:var(--ds-text-accent-blue-bolder,#09326c)}._syaz10m5{color:var(--ds-text-accent-purple,#5e4db2)}._syaz2ibx{color:var(--ds-text-accent-purple-bolder,#352c63)}._syaz1s8m{color:var(--ds-text-accent-magenta,#943d73)}._syaz1qur{color:var(--ds-text-accent-magenta-bolder,#50253f)}._syaz1dyx{color:var(--ds-text-accent-gray,#44546f)}._syaz1x9z{color:var(--ds-text-accent-gray-bolder,#091e42)}._syaz1lh4{color:var(--ds-text-disabled,#091e424f)}._syaz15cr{color:var(--ds-text-inverse,#fff)}._syazaqb7{color:var(--ds-text-selected,#0c66e4)}._syaz1e6v{color:var(--ds-text-brand,#0c66e4)}._syaz1tmw{color:var(--ds-text-danger,#ae2e24)}._syazwx40{color:var(--ds-text-warning,#a54800)}._syazal3n{color:var(--ds-text-warning-inverse,#172b4d)}._syazy73q{color:var(--ds-text-success,#216e4e)}._syazzjem{color:var(--ds-text-discovery,#5e4db2)}._syaze0os{color:var(--ds-text-information,#05c)}._syaz131l{color:var(--ds-text-subtlest,#626f86)}._syaz1gjq{color:var(--ds-text-subtle,#44546f)}._syaz14q2{color:var(--ds-link,#0c66e4)}._syaz16c2{color:var(--ds-link-pressed,#05c)}._syazw7te{color:var(--ds-link-visited,#5e4db2)}._syazg3x0{color:var(--ds-link-visited-pressed,#352c63)}._k48p1wq8{font-weight:var(--ds-font-weight-medium,500)}._k48pi7a9{font-weight:var(--ds-font-weight-regular,400)}._k48p1pd9{font-weight:var(--ds-font-weight-semibold,600)}
+    </style>
+    <strong
+      class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _1i4qfg65 _11c82smr _syaz1fxt _k48pmoej"
+    >
+      We are having some trouble
+    </strong>
+  </div>
+  <style
+    data-cmpld="true"
+  >
+    ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}._125x1wmz p{color:var(--ds-text-subtlest,#6b778c)}
+  </style>
+  <div
+    class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o _125x1wmz"
+  >
+    <style
+      data-cmpld="true"
+    >
+      ._11c82smr{font:var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c8dcr7{font:var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c81ixg{font:var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._11c81o8v{font:var(--ds-font-body-small,normal 400 11px/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)}._19pkidpf{margin-top:0}._2hwxidpf{margin-right:0}._otyridpf{margin-bottom:0}._18u0idpf{margin-left:0}._1i4qfg65{overflow-wrap:anywhere}._k48pmoej{font-weight:var(--ds-font-weight-bold,700)}._zg8l1m30{font-style:italic}._y3gnh9n0{text-align:end}._y3gnv2br{text-align:start}._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._1e0ccj1k{display:-webkit-box}._sudp1e54{-webkit-box-orient:vertical}._1nmz9jpi{word-break:break-all}._syaz1fxt{color:var(--ds-text,#172b4d)}._syaz1tco{color:var(--ds-text-accent-lime,#4c6b1f)}._syaz1ik3{color:var(--ds-text-accent-lime-bolder,#37471f)}._syaz9lu1{color:var(--ds-text-accent-red,#ae2e24)}._syazhwvp{color:var(--ds-text-accent-red-bolder,#5d1f1a)}._syaz1q28{color:var(--ds-text-accent-orange,#a54800)}._syaz1vps{color:var(--ds-text-accent-orange-bolder,#702e00)}._syazfb2s{color:var(--ds-text-accent-yellow,#7f5f01)}._syazekll{color:var(--ds-text-accent-yellow-bolder,#533f04)}._syazh55r{color:var(--ds-text-accent-green,#216e4e)}._syaz1y78{color:var(--ds-text-accent-green-bolder,#164b35)}._syaz17qg{color:var(--ds-text-accent-teal,#206a83)}._syaz12v7{color:var(--ds-text-accent-teal-bolder,#164555)}._syazpnps{color:var(--ds-text-accent-blue,#05c)}._syazsc1o{color:var(--ds-text-accent-blue-bolder,#09326c)}._syaz10m5{color:var(--ds-text-accent-purple,#5e4db2)}._syaz2ibx{color:var(--ds-text-accent-purple-bolder,#352c63)}._syaz1s8m{color:var(--ds-text-accent-magenta,#943d73)}._syaz1qur{color:var(--ds-text-accent-magenta-bolder,#50253f)}._syaz1dyx{color:var(--ds-text-accent-gray,#44546f)}._syaz1x9z{color:var(--ds-text-accent-gray-bolder,#091e42)}._syaz1lh4{color:var(--ds-text-disabled,#091e424f)}._syaz15cr{color:var(--ds-text-inverse,#fff)}._syazaqb7{color:var(--ds-text-selected,#0c66e4)}._syaz1e6v{color:var(--ds-text-brand,#0c66e4)}._syaz1tmw{color:var(--ds-text-danger,#ae2e24)}._syazwx40{color:var(--ds-text-warning,#a54800)}._syazal3n{color:var(--ds-text-warning-inverse,#172b4d)}._syazy73q{color:var(--ds-text-success,#216e4e)}._syazzjem{color:var(--ds-text-discovery,#5e4db2)}._syaze0os{color:var(--ds-text-information,#05c)}._syaz131l{color:var(--ds-text-subtlest,#626f86)}._syaz1gjq{color:var(--ds-text-subtle,#44546f)}._syaz14q2{color:var(--ds-link,#0c66e4)}._syaz16c2{color:var(--ds-link-pressed,#05c)}._syazw7te{color:var(--ds-link-visited,#5e4db2)}._syazg3x0{color:var(--ds-link-visited-pressed,#352c63)}._k48p1wq8{font-weight:var(--ds-font-weight-medium,500)}._k48pi7a9{font-weight:var(--ds-font-weight-regular,400)}._k48p1pd9{font-weight:var(--ds-font-weight-semibold,600)}
+    </style>
+    <p
+      class="_19pkidpf _2hwxidpf _otyridpf _18u0idpf _1i4qfg65 _11c82smr _syaz1fxt"
+    >
+      It's taking us longer than expected to show this content. It's probably a temporary problem.
+    </p>
+  </div>
+  <style
+    data-cmpld="true"
+  >
+    ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}._125x1wmz p{color:var(--ds-text-subtlest,#6b778c)}
+  </style>
+  
 
-  </span>
-</div>
+.emotion-1,
+.emotion-1:hover,
+.emotion-1:active,
+.emotion-1:focus,
+.emotion-1:focus-visible,
+.emotion-1:visited,
+.emotion-1:disabled,
+.emotion-1[disabled] {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: var(--ds-border-radius, 3px);
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: var(--ds-font-weight-medium, 500);
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  white-space: nowrap;
+  background: var(--ds-background-brand-bold, #0052CC);
+  color: var(--ds-text-inverse, #FFFFFF)!important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  outline: none;
+}
+
+.emotion-1::-moz-focus-inner,
+.emotion-1:hover::-moz-focus-inner,
+.emotion-1:active::-moz-focus-inner,
+.emotion-1:focus::-moz-focus-inner,
+.emotion-1:focus-visible::-moz-focus-inner,
+.emotion-1:visited::-moz-focus-inner,
+.emotion-1:disabled::-moz-focus-inner,
+.emotion-1[disabled]::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-1:focus {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+.emotion-1:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+.emotion-1:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-1:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+.emotion-0 {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<div
+    class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o _125x1wmz"
+  >
+    <button
+      class="emotion-1"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="emotion-0"
+      >
+        Retry
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
 `;

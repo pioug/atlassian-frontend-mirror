@@ -57,6 +57,7 @@ const PopupExampleWithLabel = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
 			content={() => <PopupContent />}
@@ -77,6 +78,7 @@ const PopupExampleWithTitleId = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
 			content={() => <PopupContent hasTitle />}

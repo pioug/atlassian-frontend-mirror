@@ -67,6 +67,7 @@ const PopupContentUpdateExample = () => {
 	return (
 		<Box xcss={wrapperStyles.root}>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={(props) => <Values onUpdate={isUpdateOn ? props.update : noop} />}

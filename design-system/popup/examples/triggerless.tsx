@@ -27,6 +27,7 @@ const popupStyles = cssMap({
 });
 const HighlightPopup = (props: { children: React.ReactNode }) => (
 	<Popup
+		shouldRenderToParent
 		isOpen
 		placement="bottom"
 		content={() => (

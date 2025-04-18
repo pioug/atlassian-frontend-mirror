@@ -5,11 +5,7 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { REQUEST_STATE } from '../../../model/Requests';
 import { type ArticleItem } from '../../../model/Article';
 
-import {
-	FADEIN_OVERLAY_TRANSITION_DURATION_MS,
-	type TransitionStatus,
-	VIEW,
-} from '../../constants';
+import { type TransitionStatus, VIEW } from '../../constants';
 import { useSearchContext } from '../../contexts/searchContext';
 import { useNavigationContext } from '../../contexts/navigationContext';
 import { ARTICLE_TYPE } from '../../../model/Help';
@@ -18,24 +14,15 @@ import SearchResultsList from './SearchResults';
 import SearchExternalSite from './SearchExternalSite';
 import SearchResultsEmpty from './SearchResultsEmpty';
 import SearchResultsError from './SearchResultsError';
-import { SearchResultsContainer, SearchResultsContainerAi } from './styled';
+import {
+	FADEIN_OVERLAY_TRANSITION_DURATION_MS,
+	SearchResultsContainer,
+	SearchResultsContainerAi,
+} from './styled';
 
 interface SearchResultsProps {
 	isAiEnabled?: boolean;
 }
-
-const defaultStyle: Partial<React.CSSProperties> = {
-	transition: `opacity ${FADEIN_OVERLAY_TRANSITION_DURATION_MS}ms`,
-	opacity: 0,
-	visibility: 'hidden',
-};
-
-const transitionStyles: { [id: string]: React.CSSProperties } = {
-	entering: { opacity: 1, visibility: 'visible' },
-	entered: { opacity: 1, visibility: 'visible' },
-	exiting: { opacity: 0, visibility: 'visible' },
-	exited: { opacity: 0, visibility: 'hidden' },
-};
 
 export const SearchResults: React.FC<SearchResultsProps> = ({ isAiEnabled = false }) => {
 	const {
@@ -88,14 +75,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ isAiEnabled = fals
 			timeout={FADEIN_OVERLAY_TRANSITION_DURATION_MS}
 		>
 			{(state: TransitionStatus) => (
-				<SearchResultsContainerAi
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...defaultStyle,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...transitionStyles[state],
-					}}
-				>
+				<SearchResultsContainerAi transitionState={state}>
 					{/* Live Region for Announcements */}
 					<div
 						ref={liveRegionRef}
@@ -159,14 +139,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ isAiEnabled = fals
 			timeout={FADEIN_OVERLAY_TRANSITION_DURATION_MS}
 		>
 			{(state: TransitionStatus) => (
-				<SearchResultsContainer
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...defaultStyle,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						...transitionStyles[state],
-					}}
-				>
+				<SearchResultsContainer transitionState={state}>
 					{/* Live Region for Announcements */}
 					<div
 						ref={liveRegionRef}

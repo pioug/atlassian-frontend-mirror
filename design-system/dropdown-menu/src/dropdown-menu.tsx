@@ -268,6 +268,8 @@ const DropdownMenu = <T extends HTMLElement = any>({
 
 	return (
 		<SelectionStore>
+			{/* This is being handled in the spread props */}
+			{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 			<Popup
 				id={isLocalOpen ? id : undefined}
 				shouldFlip={shouldFlip}

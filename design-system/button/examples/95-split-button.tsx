@@ -34,6 +34,7 @@ export default () => {
 						<SplitButton spacing="compact">
 							<Button>Primary action</Button>
 							<DropdownMenu<HTMLButtonElement>
+								shouldRenderToParent
 								trigger={({ triggerRef, ...triggerProps }) => (
 									<IconButton
 										ref={triggerRef}
@@ -52,6 +53,7 @@ export default () => {
 						<SplitButton appearance="primary" spacing="compact">
 							<Button>Primary action</Button>
 							<DropdownMenu<HTMLButtonElement>
+								shouldRenderToParent
 								trigger={({ triggerRef, ...triggerProps }) => (
 									<IconButton
 										ref={triggerRef}
@@ -70,6 +72,7 @@ export default () => {
 						<SplitButton isDisabled spacing="compact">
 							<Button>Primary action</Button>
 							<DropdownMenu<HTMLButtonElement>
+								shouldRenderToParent
 								trigger={({ triggerRef, ...triggerProps }) => (
 									<IconButton
 										ref={triggerRef}
@@ -90,6 +93,7 @@ export default () => {
 						<SplitButton>
 							<Button>Primary action</Button>
 							<DropdownMenu<HTMLButtonElement>
+								shouldRenderToParent
 								trigger={({ triggerRef, ...triggerProps }) => (
 									<IconButton
 										ref={triggerRef}
@@ -108,6 +112,7 @@ export default () => {
 						<SplitButton appearance="primary">
 							<Button>Primary action</Button>
 							<DropdownMenu<HTMLButtonElement>
+								shouldRenderToParent
 								trigger={({ triggerRef, ...triggerProps }) => (
 									<IconButton
 										ref={triggerRef}
@@ -126,6 +131,7 @@ export default () => {
 						<SplitButton isDisabled>
 							<Button>Primary action</Button>
 							<DropdownMenu<HTMLButtonElement>
+								shouldRenderToParent
 								trigger={({ triggerRef, ...triggerProps }) => (
 									<IconButton
 										ref={triggerRef}
@@ -312,6 +318,7 @@ const JiraIssueViewActionsExample = () => {
 			<SplitButton appearance="default">
 				<Button iconBefore={LinkIcon}>Link issue</Button>
 				<DropdownMenu<HTMLButtonElement>
+					shouldRenderToParent
 					trigger={({ triggerRef, ...triggerProps }) => (
 						<IconButton
 							ref={triggerRef}
@@ -341,6 +348,7 @@ const WithWrappersExample = () => {
 				</div>
 				<div>
 					<DropdownMenu<HTMLButtonElement>
+						shouldRenderToParent
 						trigger={({ triggerRef, ...triggerProps }) => (
 							<IconButton
 								ref={triggerRef}
@@ -371,6 +379,7 @@ const WithWrappersExample = () => {
 				<div>
 					<span>
 						<DropdownMenu<HTMLButtonElement>
+							shouldRenderToParent
 							trigger={({ triggerRef, ...triggerProps }) => (
 								<IconButton
 									ref={triggerRef}

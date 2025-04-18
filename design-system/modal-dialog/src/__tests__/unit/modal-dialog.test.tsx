@@ -52,7 +52,11 @@ const LayeredModal = () => {
 			{isOpen && (
 				<ModalDialog onClose={close} testId="modal" label="Layered">
 					<ModalBody>
-						<DropdownMenu testId="dropdown-menu" trigger="I'm a dropdown menu, click me!">
+						<DropdownMenu
+							shouldRenderToParent
+							testId="dropdown-menu"
+							trigger="I'm a dropdown menu, click me!"
+						>
 							<DropdownItemGroup>
 								<DropdownItem>Edit</DropdownItem>
 								<DropdownItem>Share</DropdownItem>

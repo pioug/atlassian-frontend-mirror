@@ -102,6 +102,7 @@ const PopupPlacementExample = () => {
 			</Banner>
 			<div css={spacerStyles}>
 				<Popup
+					shouldRenderToParent
 					isOpen={isOpen}
 					testId="popup-content-wrapper"
 					onClose={() => setIsOpen(false)}

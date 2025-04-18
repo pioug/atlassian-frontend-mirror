@@ -24,11 +24,11 @@ const analyticsSpy = jest.fn();
 
 describe('WhatsNewResultsEmpty', () => {
 	it('Should match snapshot', () => {
-		const { container } = render(
+		const { asFragment } = render(
 			<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />,
 		);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 
 	it('Execute the function prop "onClearFilter" when the user clicks the link to open clear the filter', () => {

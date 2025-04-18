@@ -177,12 +177,18 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 
 	const ariaResults = useMemo(() => {
 		let resultsMsg = '';
+		if (isLoading) {
+			resultsMsg = 'Loading. ';
+		}
 		if (menuIsOpen && options.length && !isLoading && messages.onFilter) {
 			const resultsMessage = screenReaderStatus({
 				count: focusableOptions.length,
 			});
 
 			resultsMsg = messages.onFilter({ inputValue, resultsMessage });
+		}
+		if (options && options.length === 0) {
+			resultsMsg = 'No options. ';
 		}
 
 		return resultsMsg;

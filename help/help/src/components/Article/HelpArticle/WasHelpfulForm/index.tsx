@@ -20,18 +20,14 @@ import { Checkbox } from '@atlaskit/checkbox';
 import TextArea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
 import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import { Text } from '@atlaskit/primitives';
+import { css, jsx } from '@compiled/react';
+import { Text } from '@atlaskit/primitives/compiled';
+
 import { messages } from '../../../../messages';
 import { type ArticleFeedback } from '../../../../model/Article';
-
 import ArticleWasHelpfulYesButton from './WasHelpfulYesButton';
 import ArticleWasHelpfulNoButton from './WasHelpfulNoButton';
-
 import {
 	ArticleFeedbackContainer,
 	ArticleFeedbackText,
@@ -193,10 +189,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 			return (
 				<>
 					<ArticleFeedbackContainer>
-						<ArticleFeedbackText
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={{ paddingRight: token('space.100', '8px') }}
-						>
+						<ArticleFeedbackText paddingRight={token('space.100', '8px')}>
 							{formatMessage(messages.help_article_rating_title)}
 						</ArticleFeedbackText>
 						<ButtonGroup>
@@ -262,8 +255,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 													<>
 														<ArticleFeedbackText
 															id="articleFeedbackText"
-															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-															style={{ top: token('space.negative.100', '-8px') }}
+															top={token('space.negative.100', '-8px')}
 														>
 															{formatMessage(messages.help_article_rating_form_title)}
 														</ArticleFeedbackText>

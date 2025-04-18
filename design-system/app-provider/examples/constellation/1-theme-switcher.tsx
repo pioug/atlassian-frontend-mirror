@@ -71,7 +71,7 @@ function ColorModeSwitcher() {
 			<Box as="h3" paddingBlockEnd="space.200">
 				Current color mode: {colorMode}
 			</Box>
-			<DropdownMenu trigger="Change color mode">
+			<DropdownMenu shouldRenderToParent trigger="Change color mode">
 				<DropdownItemGroup>
 					<DropdownItem onClick={() => setColorMode('light')}>Light</DropdownItem>
 					<DropdownItem onClick={() => setColorMode('dark')}>Dark</DropdownItem>
@@ -91,7 +91,7 @@ function ThemeSwitcher() {
 			<Box as="h3" paddingBlockEnd="space.200">
 				Current light theme: {theme.light}
 			</Box>
-			<DropdownMenu trigger="Change light theme">
+			<DropdownMenu shouldRenderToParent trigger="Change light theme">
 				<DropdownItemGroup>
 					<DropdownItem onClick={() => setTheme({ light: 'legacy-light' })}>
 						Legacy light theme

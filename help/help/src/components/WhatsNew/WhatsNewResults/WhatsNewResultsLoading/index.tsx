@@ -7,7 +7,7 @@ import { messages } from '../../../../messages';
 
 import { LoadingRectangle } from '../../../../util/styled';
 
-import { LoadignWhatsNewResultsList, LoadignWhatsNewResultsListItem } from './styled';
+import { LoadingWhatsNewResultsList, LoadingWhatsNewResultsListItem } from './styled';
 
 import { WhatsNewResultsListTitleContainer } from '../styled';
 
@@ -17,12 +17,12 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 	return (
 		<>
 			<LoadingRectangle contentHeight={`${gridSize() * 5}px`} contentWidth="152px" marginTop="0" />
-			<LoadignWhatsNewResultsList aria-label={formatMessage(messages.help_loading)} role="img">
+			<LoadingWhatsNewResultsList aria-label={formatMessage(messages.help_loading)} role="img">
 				<WhatsNewResultsListTitleContainer>
 					<LoadingRectangle contentHeight="11px" contentWidth="60px" marginTop="0" />
 				</WhatsNewResultsListTitleContainer>
 
-				<LoadignWhatsNewResultsListItem>
+				<LoadingWhatsNewResultsListItem>
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -47,9 +47,9 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					/>
 					<LoadingRectangle contentWidth="100%" marginTop="8px" />
 					<LoadingRectangle contentWidth="90%" marginTop="4px" />
-				</LoadignWhatsNewResultsListItem>
+				</LoadingWhatsNewResultsListItem>
 
-				<LoadignWhatsNewResultsListItem>
+				<LoadingWhatsNewResultsListItem>
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -74,13 +74,13 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					/>
 					<LoadingRectangle contentWidth="100%" marginTop="8px" />
 					<LoadingRectangle contentWidth="90%" marginTop="4px" />
-				</LoadignWhatsNewResultsListItem>
+				</LoadingWhatsNewResultsListItem>
 
 				<WhatsNewResultsListTitleContainer>
 					<LoadingRectangle contentHeight="11px" contentWidth="60px" marginTop="0" />
 				</WhatsNewResultsListTitleContainer>
 
-				<LoadignWhatsNewResultsListItem>
+				<LoadingWhatsNewResultsListItem>
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -105,9 +105,9 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					/>
 					<LoadingRectangle contentWidth="100%" marginTop="8px" />
 					<LoadingRectangle contentWidth="90%" marginTop="4px" />
-				</LoadignWhatsNewResultsListItem>
+				</LoadingWhatsNewResultsListItem>
 
-				<LoadignWhatsNewResultsListItem>
+				<LoadingWhatsNewResultsListItem>
 					<LoadingRectangle
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -132,8 +132,8 @@ export const WhatsNewResultsLoading: React.FC<WrappedComponentProps> = ({
 					/>
 					<LoadingRectangle contentWidth="100%" marginTop="8px" />
 					<LoadingRectangle contentWidth="90%" marginTop="4px" />
-				</LoadignWhatsNewResultsListItem>
-			</LoadignWhatsNewResultsList>
+				</LoadingWhatsNewResultsListItem>
+			</LoadingWhatsNewResultsList>
 		</>
 	);
 };

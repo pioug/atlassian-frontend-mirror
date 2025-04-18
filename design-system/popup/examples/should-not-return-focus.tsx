@@ -42,6 +42,7 @@ export default () => {
 	return (
 		<div>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				shouldReturnFocus={false}

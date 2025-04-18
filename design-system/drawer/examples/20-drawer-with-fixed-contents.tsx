@@ -50,6 +50,7 @@ export default class DrawersExample extends Component<{}, State> {
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 						<div style={{ position: 'fixed', left: 100, top: 200 }}>
 							<DropdownMenu<HTMLButtonElement>
+								shouldRenderToParent
 								testId="dropdown"
 								trigger={({ triggerRef, ...providedProps }) => (
 									<Button id="trigger" ref={triggerRef} {...providedProps}>

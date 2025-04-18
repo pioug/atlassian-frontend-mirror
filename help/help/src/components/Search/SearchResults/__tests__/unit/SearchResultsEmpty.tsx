@@ -24,7 +24,7 @@ const analyticsSpy = jest.fn();
 
 describe('SearchResultsEmpty', () => {
 	it('Should match snapshot', () => {
-		const { container } = render(
+		const { asFragment } = render(
 			<SearchResultsEmpty
 				intl={intl}
 				onSearchExternalUrlClick={mockOnSearchExternalUrlClick}
@@ -32,7 +32,7 @@ describe('SearchResultsEmpty', () => {
 			/>,
 		);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 
 	it('Hide part of the alert message and the link to open a new page using the value of SearchExternalUrl if "SearchExternalUrl" is not defined', () => {

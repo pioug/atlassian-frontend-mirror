@@ -110,6 +110,7 @@ const ImportPopup = ({ onImport }: { onImport: (theme: ThemeExportFormat) => voi
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
 			placement="bottom-start"

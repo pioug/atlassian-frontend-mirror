@@ -21,9 +21,9 @@ const mockOnSearch = jest.fn();
 
 describe('SearchResultsError', () => {
 	it('Should match snapshot', () => {
-		const { container } = render(<SearchResultsError intl={intl} onSearch={mockOnSearch} />);
+		const { asFragment } = render(<SearchResultsError intl={intl} onSearch={mockOnSearch} />);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 
 	it('Should match snapshot', () => {

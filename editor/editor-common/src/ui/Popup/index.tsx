@@ -366,7 +366,7 @@ export default class Popup extends React.Component<Props, State> {
 		 * It is meaningless for screen readers and causes confusion.
 		 */
 		const ariaLabel = fg('editor_a11y_aria_label_removal_popup')
-			? (this.props.ariaLabel ?? undefined)
+			? this.props.ariaLabel ?? undefined
 			: this.props.ariaLabel === null
 				? undefined
 				: this.props.ariaLabel || 'Popup';

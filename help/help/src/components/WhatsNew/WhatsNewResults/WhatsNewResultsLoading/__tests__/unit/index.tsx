@@ -19,12 +19,12 @@ const analyticsSpy = jest.fn();
 
 describe('WhatsNewResultsLoading', () => {
 	it('Should match snapshot', () => {
-		const { container } = render(
+		const { asFragment } = render(
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<WhatsNewResultsLoading intl={intl} />
 			</AnalyticsListener>,
 		);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 });

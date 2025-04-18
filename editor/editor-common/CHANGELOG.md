@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 103.9.3
+
+### Patch Changes
+
+- [#138479](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138479)
+  [`058e8050f1a78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/058e8050f1a78) -
+  [A11Y-9995] Popup aria label removed fallback and added aria label where it fits in places that
+  uses the component
+
 ## 103.9.2
 
 ### Patch Changes

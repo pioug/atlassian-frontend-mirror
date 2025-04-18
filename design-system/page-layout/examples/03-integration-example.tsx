@@ -179,6 +179,7 @@ export const HelpPopup = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			placement="bottom-start"
 			content={HelpPopupContent}
 			isOpen={isOpen}

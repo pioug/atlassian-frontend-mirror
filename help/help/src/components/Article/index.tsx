@@ -1,11 +1,17 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
 import React, { useState, useLayoutEffect, useRef, useEffect, useCallback } from 'react';
 import { Transition } from 'react-transition-group';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { token } from '@atlaskit/tokens';
+import { css, jsx } from '@compiled/react';
 
 import { useNavigationContext } from '../contexts/navigationContext';
 import { useHelpArticleContext } from '../contexts/helpArticleContext';
 import { SLIDEIN_OVERLAY_TRANSITION_DURATION_MS, type TransitionStatus, VIEW } from '../constants';
-import { ArticleContainer, ArticleContainerAi } from './styled';
 import ArticleContent from './ArticleContent';
 import type { HistoryItem } from '../../model/Help';
 
@@ -13,11 +19,44 @@ interface ArticleProps {
 	isAiEnabled?: boolean;
 }
 
-// Animation
-const defaultStyle = {
+const articleContainerStyles = css({
+	paddingTop: token('space.200', '16px'),
+	paddingRight: token('space.300', '24px'),
+	paddingBottom: token('space.200', '16px'),
+	paddingLeft: token('space.300', '24px'),
+	position: 'absolute',
+	height: '100%',
+	width: '100%',
+	top: 0,
+	backgroundColor: token('elevation.surface', '#FFFFFF'),
 	left: '100%',
-};
+	flex: 1,
+	flexDirection: 'column',
+	boxSizing: 'border-box',
+	overflowX: 'hidden',
+	overflowY: 'auto',
+	zIndex: 2,
+});
 
+const articleContainerAiStyles = css({
+	paddingLeft: token('space.300', '24px'),
+	paddingRight: token('space.300', '24px'),
+	paddingBottom: token('space.200', '16px'),
+	position: 'absolute',
+	height: `calc(100% - ${token('space.800', '60px')})`,
+	width: '100%',
+	top: token('space.800', '60px'),
+	backgroundColor: token('elevation.surface', '#FFFFFF'),
+	left: '100%',
+	flex: 1,
+	flexDirection: 'column',
+	boxSizing: 'border-box',
+	overflowX: 'hidden',
+	overflowY: 'auto',
+	zIndex: 2,
+});
+
+// Animation
 const enableTransition: { [id: string]: React.CSSProperties } = {
 	enabled: {
 		transition: `left ${SLIDEIN_OVERLAY_TRANSITION_DURATION_MS}ms cubic-bezier(0.2, 0, 0, 1) 0s`,
@@ -127,11 +166,10 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 		>
 			{(state: TransitionStatus) => {
 				return (
-					<ArticleContainerAi
+					<div
+						css={articleContainerAiStyles}
 						ref={articleContainerRef}
 						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							...defaultStyle,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							...transitionStyles[state],
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -147,7 +185,7 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 								reloadWhatsNewArticle && handleOnWhatsNewArticleLoadingFailTryAgainButtonClick
 							}
 						/>
-					</ArticleContainerAi>
+					</div>
 				);
 			}}
 		</Transition>
@@ -163,11 +201,10 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 		>
 			{(state: TransitionStatus) => {
 				return (
-					<ArticleContainer
+					<div
+						css={articleContainerStyles}
 						ref={articleContainerRef}
 						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							...defaultStyle,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							...transitionStyles[state],
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -183,7 +220,7 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 								reloadWhatsNewArticle && handleOnWhatsNewArticleLoadingFailTryAgainButtonClick
 							}
 						/>
-					</ArticleContainer>
+					</div>
 				);
 			}}
 		</Transition>

@@ -19,9 +19,9 @@ const messageLoading = intl.formatMessage(messages.help_loading);
 
 describe('ArticleContent', () => {
 	it('Should match snapshot', () => {
-		const { container } = render(<Loading intl={intl} />);
+		const { asFragment } = render(<Loading intl={intl} />);
 
-		expect(container.firstChild).toMatchSnapshot();
+		expect(asFragment()).toMatchSnapshot();
 	});
 
 	it('Should display Loading component', () => {

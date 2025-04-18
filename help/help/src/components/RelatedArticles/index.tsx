@@ -9,21 +9,17 @@ import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics
 import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { Text } from '@atlaskit/primitives/compiled';
+import { css, jsx } from '@compiled/react';
 
 import { messages } from '../../messages';
 import { type ArticleItem } from '../../model/Article';
-
 import ArticlesList from '../ArticlesList';
-
 import RelatedArticlesLoading from './RelatedArticlesLoading';
 import { DividerLine } from '../../util/styled';
 import { RelatedArticlesTitle } from './styled';
 import useCancellablePromise from '../../util/hooks/cancellablePromise';
 import { usePrevious } from '../../util/hooks/previous';
-import { Text } from '@atlaskit/primitives';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;

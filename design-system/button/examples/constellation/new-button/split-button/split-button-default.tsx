@@ -9,6 +9,7 @@ const SplitButtonDefaultExample = () => {
 		<SplitButton>
 			<Button>Link issue</Button>
 			<DropdownMenu<HTMLButtonElement>
+				shouldRenderToParent
 				trigger={({ triggerRef, ...triggerProps }) => (
 					<IconButton
 						ref={triggerRef}

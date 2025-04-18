@@ -78,6 +78,7 @@ const PrimaryDropdown = (props: PrimaryDropdownProps) => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			content={content}
 			isOpen={isOpen}
 			onClose={onClose}

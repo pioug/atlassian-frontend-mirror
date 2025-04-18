@@ -19,6 +19,7 @@ export default () => {
 		<Fragment>
 			<Text as="p">Popup (custom z-index 600) with Dropdown (custom z-index 610)</Text>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				placement="bottom-start"

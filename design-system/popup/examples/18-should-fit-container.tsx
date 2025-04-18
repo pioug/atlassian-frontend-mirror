@@ -31,6 +31,7 @@ const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
 	return (
 		<Box xcss={spacerStyles.root}>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={() => <p>Hello</p>}

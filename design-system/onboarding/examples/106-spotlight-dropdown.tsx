@@ -16,6 +16,7 @@ const PopupWithSpotlight = () => {
 	const handleSpotlightClose = () => setIsSpotlightActive(false);
 	return (
 		<DropdownMenu
+			shouldRenderToParent
 			trigger={({ triggerRef, ...props }) => (
 				<Button {...props} ref={triggerRef}>
 					Open menu

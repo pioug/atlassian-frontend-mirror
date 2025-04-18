@@ -42,6 +42,7 @@ const PopupCustomExample = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			testId="popup-custom-example"
 			onClose={() => setIsOpen(false)}

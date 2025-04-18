@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ArticleContent Match snapshot 1`] = `
-.emotion-1 {
+<DocumentFragment>
+  .emotion-1 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -128,16 +129,17 @@ exports[`ArticleContent Match snapshot 1`] = `
 }
 
 <button
-  aria-checked="false"
-  class="emotion-1"
-  role="radio"
-  tabindex="0"
-  type="button"
->
-  <span
-    class="emotion-0"
+    aria-checked="false"
+    class="emotion-1"
+    role="radio"
+    tabindex="0"
+    type="button"
   >
-    No
-  </span>
-</button>
+    <span
+      class="emotion-0"
+    >
+      No
+    </span>
+  </button>
+</DocumentFragment>
 `;

@@ -162,7 +162,7 @@ const createBaseCells = (president: President, index: number) => [
 	{
 		key: 'MoreDropdown',
 		content: (
-			<DropdownMenu trigger="More" label={`More about ${president.name}`}>
+			<DropdownMenu shouldRenderToParent trigger="More" label={`More about ${president.name}`}>
 				<DropdownItemGroup>
 					<DropdownItem>{president.name}</DropdownItem>
 				</DropdownItemGroup>

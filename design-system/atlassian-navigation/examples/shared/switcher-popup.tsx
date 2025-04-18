@@ -92,6 +92,7 @@ export const SwitcherPopup = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			placement="bottom-start"
 			content={({ update }) => <SwitcherContent update={update} />}
 			isOpen={isOpen}

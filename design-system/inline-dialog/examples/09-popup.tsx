@@ -16,7 +16,7 @@ export default () => {
 				isOpen={isDialogOpen}
 				content={
 					<div>
-						<DropdownMenu trigger="Page actions" testId="dropdown">
+						<DropdownMenu shouldRenderToParent trigger="Page actions" testId="dropdown">
 							<DropdownItemGroup>
 								<DropdownItem>Move</DropdownItem>
 								<DropdownItem>Clone</DropdownItem>

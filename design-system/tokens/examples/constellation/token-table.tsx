@@ -123,7 +123,7 @@ const rows = presidents.map((president: President, index: number) => ({
 		{
 			key: 'MoreDropdown',
 			content: (
-				<DropdownMenu trigger="More">
+				<DropdownMenu shouldRenderToParent trigger="More">
 					<DropdownItemGroup>
 						<DropdownItem>{president.name}</DropdownItem>
 					</DropdownItemGroup>

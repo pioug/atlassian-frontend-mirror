@@ -76,6 +76,7 @@ export default () => {
 			<input id="text2" type="text" />
 
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={() => <PopupContent />}

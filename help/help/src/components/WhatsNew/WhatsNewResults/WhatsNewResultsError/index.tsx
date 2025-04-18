@@ -5,7 +5,7 @@ import { type WHATS_NEW_ITEM_TYPES } from '../../../../model/WhatsNew';
 
 import ErrorImage from '../../../../assets/ErrorImage';
 import { messages } from '../../../../messages';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { SearchResultEmptyMessageImage, SearchResultEmptyMessageText } from './styled';
 

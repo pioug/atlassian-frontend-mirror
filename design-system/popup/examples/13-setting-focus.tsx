@@ -82,6 +82,7 @@ export default () => {
 				aria-labelledby="radiogroup-label"
 			/>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={({ setInitialFocusRef }) => (

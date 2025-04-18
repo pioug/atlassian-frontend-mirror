@@ -26,6 +26,7 @@ const PopupFullWidth = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			content={() => <Box xcss={contentStyles.root}>Content</Box>}
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}

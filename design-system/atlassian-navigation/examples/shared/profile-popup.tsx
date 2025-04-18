@@ -56,6 +56,7 @@ export const ProfilePopup = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			placement="bottom-start"
 			content={ProfileContent}
 			isOpen={isOpen}

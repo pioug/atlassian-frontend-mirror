@@ -189,6 +189,7 @@ export default () => {
 				</Box>
 			</VisuallyHidden>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				offset={[0, 20]}

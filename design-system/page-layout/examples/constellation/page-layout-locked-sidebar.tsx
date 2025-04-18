@@ -51,6 +51,7 @@ const Menu = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			placement="bottom-start"
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}

@@ -63,7 +63,7 @@ export default function Example() {
 				/>
 				{color}
 			</Inline>
-			<DropdownMenu trigger="Choose a color">
+			<DropdownMenu shouldRenderToParent trigger="Choose a color">
 				{Object.keys(colorMap).map((el) => (
 					<DropdownItem key={el} isSelected={el === color} onClick={() => setColor(el)}>
 						{el}

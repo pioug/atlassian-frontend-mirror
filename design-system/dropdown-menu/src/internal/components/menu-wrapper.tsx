@@ -31,7 +31,7 @@ const LoadingIndicator = ({
 	statusLabel: MenuWrapperProps['statusLabel'];
 	testId?: string;
 }) => (
-	<Box xcss={spinnerContainerStyles}>
+	<Box xcss={spinnerContainerStyles} role="menuitem">
 		<Spinner size="small" label={statusLabel} testId={testId} />
 	</Box>
 );

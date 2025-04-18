@@ -9,7 +9,7 @@ import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import NotFoundImage from '../../../assets/NotFoundImage';
 import { messages } from '../../../messages';

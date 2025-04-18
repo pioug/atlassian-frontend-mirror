@@ -3,7 +3,7 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
 export default () => (
-	<DropdownMenu trigger="Cities">
+	<DropdownMenu trigger="Cities" shouldRenderToParent>
 		<DropdownItemGroup>
 			<DropdownItem>Sydney</DropdownItem>
 			<DropdownItem>Brisbane</DropdownItem>

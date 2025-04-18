@@ -278,7 +278,7 @@ describe('dropdown menu', () => {
 	});
 
 	describe('isLoading status', () => {
-		it('does not display the dropdown item when loading', async () => {
+		it('renders loading status as a menuitem', async () => {
 			render(
 				createDropdown({
 					isLoading: true,
@@ -292,7 +292,7 @@ describe('dropdown menu', () => {
 
 			fireEvent.click(screen.getByRole('button'));
 
-			expect(screen.queryAllByRole('menuitem')).toHaveLength(0);
+			expect(screen.queryAllByRole('menuitem')).toHaveLength(1);
 		});
 
 		it('display default label to indicate in loading status', async () => {

@@ -38,6 +38,7 @@ const PopupSurfaceDetectionExample = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			isOpen={isOpen}
 			onClose={() => setIsOpen(false)}
 			placement="bottom-start"

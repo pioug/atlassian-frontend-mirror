@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 14.0.3
+
+### Patch Changes
+
+- [#142008](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142008)
+  [`aebe96bb58f46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aebe96bb58f46) -
+  Improve semantics while loading for assistive technologies.
+
 ## 14.0.2
 
 ### Patch Changes

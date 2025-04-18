@@ -47,6 +47,7 @@ export default function DrawerExample() {
 					</p>
 					<div css={styles.menu}>
 						<DropdownMenu<HTMLButtonElement>
+							shouldRenderToParent
 							testId="dropdown"
 							trigger={({ triggerRef, ...providedProps }) => (
 								<Button id="trigger" ref={triggerRef} {...providedProps}>

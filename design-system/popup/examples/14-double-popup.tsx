@@ -41,6 +41,7 @@ const PopupContent: FC = () => {
 	return (
 		<div id="popup-content" css={sizedContentStyles}>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				placement="right-start"
 				onClose={() => setIsOpen(false)}
@@ -74,6 +75,7 @@ export default () => {
 	return (
 		<div css={spacerStyles}>
 			<Popup
+				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={() => <PopupContent />}

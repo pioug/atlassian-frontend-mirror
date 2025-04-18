@@ -38,6 +38,7 @@ const ExploreDropdown = () => {
 
 	return (
 		<Popup
+			shouldRenderToParent
 			content={PopupContents}
 			isOpen={isOpen}
 			placement="bottom-start"

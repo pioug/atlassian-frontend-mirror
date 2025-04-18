@@ -1,5 +1,13 @@
 # @atlaskit/help-layout
 
+## 6.0.1
+
+### Patch Changes
+
+- [#143181](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143181)
+  [`7f74322e75b83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f74322e75b83) -
+  Removed `styled-components` from peer dependencies.
+
 ## 6.0.0
 
 ### Major Changes

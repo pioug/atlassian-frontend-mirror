@@ -83,6 +83,7 @@ export default () => {
 							<div ref={middleRef} />
 							<Break />
 							<Popup
+								shouldRenderToParent
 								isOpen={isPopupOpen}
 								onClose={() => setIsPopupOpen(false)}
 								placement="bottom-start"

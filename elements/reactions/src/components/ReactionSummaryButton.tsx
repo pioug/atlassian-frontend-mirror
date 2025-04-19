@@ -53,6 +53,16 @@ interface ReactionSummaryButtonProps
 	 * Optional prop for applying subtle styling to reaction summary button
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
+
+	/**
+	 * Optional event handler when mouse enters the button
+	 */
+	onMouseEnter?: () => void;
+
+	/**
+	 * Optional event handler when mouse leaves the button
+	 */
+	onMouseLeave?: () => void;
 }
 
 /**
@@ -76,6 +86,8 @@ export const ReactionSummaryButton = forwardRef(
 			showOpaqueBackground = false,
 			subtleReactionsSummaryAndPicker = false,
 			useButtonAlignmentStyling = false,
+			onMouseEnter,
+			onMouseLeave,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
@@ -101,6 +113,8 @@ export const ReactionSummaryButton = forwardRef(
 			<Flex xcss={styles.container} ref={ref} alignItems="center" justifyContent="center">
 				<ReactionButton
 					onClick={onClick}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
 					testId={RENDER_SUMMARY_BUTTON_TESTID}
 					ariaLabel={intl.formatMessage(messages.summary)}
 					showSubtleStyle={subtleReactionsSummaryAndPicker}

@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 31.2.0
+
+### Minor Changes
+
+- [#143535](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143535)
+  [`a39ad7cdc2c99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a39ad7cdc2c99) -
+  [ux] Adds hoverable reactions summary functionality behind a prop as part of byline reactions
+  changes
+
 ## 31.1.0
 
 ### Minor Changes

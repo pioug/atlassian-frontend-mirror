@@ -106,6 +106,7 @@ interface ReactionButtonProps extends Pick<ReactionProps, 'flash'> {
 	ariaLabel: string;
 	ariaPressed?: boolean;
 	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
 	dataAttributes?: { [key: string]: string };
 	testId?: string;
@@ -125,6 +126,7 @@ export const ReactionButton = ({
 	ariaLabel,
 	ariaPressed,
 	onMouseEnter,
+	onMouseLeave,
 	onFocus,
 	children,
 	dataAttributes = {},
@@ -134,6 +136,7 @@ export const ReactionButton = ({
 		<Pressable
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			onFocus={onFocus}
 			aria-label={ariaLabel}
 			aria-pressed={ariaPressed}

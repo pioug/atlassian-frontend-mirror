@@ -237,6 +237,10 @@ export interface ReactionsProps
 	 * Optional prop for controlling text of the trigger button
 	 */
 	reactionPickerTriggerText?: string;
+	/**
+	 * Optional prop for controlling if the summary view is hoverable
+	 */
+	hoverableSummaryView?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -305,6 +309,7 @@ export const Reactions = React.memo(
 		allowSelectFromSummaryView = false,
 		useButtonAlignmentStyling = false,
 		reactionPickerTriggerText,
+		hoverableSummaryView = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -526,6 +531,7 @@ export const Reactions = React.memo(
 									onOpen={handlePickerOpen}
 									useButtonAlignmentStyling={useButtonAlignmentStyling}
 									reactionPickerTriggerText={reactionPickerTriggerText}
+									hoverableSummaryView={hoverableSummaryView}
 								/>
 							</div>
 						) : (

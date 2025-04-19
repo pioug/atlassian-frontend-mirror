@@ -97,6 +97,10 @@ interface ReactionSummaryViewProps
 	 * Optional event handler when the emoji picker is opened
 	 */
 	onOpen?: () => void;
+	/**
+	 * Optional prop to make the summary view open on hover
+	 */
+	hoverableSummaryView?: boolean;
 }
 
 export const ReactionSummaryView = ({
@@ -122,8 +126,11 @@ export const ReactionSummaryView = ({
 	onOpen,
 	useButtonAlignmentStyling,
 	reactionPickerTriggerText,
+	hoverableSummaryView = false,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
+	const [isHoveringSummaryView, setIsHoveringSummaryView] = useState<boolean>(false);
+	const [isSummaryViewButtonHovered, setIsSummaryViewButtonHovered] = useState<boolean>(false);
 
 	const handlePopupClose = useCallback(() => setSummaryPopupOpen(false), []);
 	const handleSummaryClick = useCallback(
@@ -131,11 +138,54 @@ export const ReactionSummaryView = ({
 		[isSummaryPopupOpen],
 	);
 
+	const handleButtonMouseEnter = useCallback(() => {
+		setIsSummaryViewButtonHovered(true);
+		if (hoverableSummaryView) {
+			setSummaryPopupOpen(true);
+		}
+	}, [hoverableSummaryView]);
+
+	const handleButtonMouseLeave = useCallback(() => {
+		setIsSummaryViewButtonHovered(false);
+		if (hoverableSummaryView && !isHoveringSummaryView) {
+			setSummaryPopupOpen(false);
+		}
+	}, [hoverableSummaryView, isHoveringSummaryView]);
+
+	const handleSummaryViewTrayMouseEnter = useCallback(() => {
+		setIsHoveringSummaryView(true);
+		if (hoverableSummaryView) {
+			setSummaryPopupOpen(true);
+		}
+	}, [hoverableSummaryView]);
+
+	const handleSummaryViewTrayMouseLeave = useCallback(() => {
+		setIsHoveringSummaryView(false);
+		if (hoverableSummaryView && !isSummaryViewButtonHovered) {
+			setSummaryPopupOpen(false);
+		}
+	}, [hoverableSummaryView, isSummaryViewButtonHovered]);
+
+	const handleEmojiSelection = useCallback(
+		(emojiId: string, source: ReactionSource) => {
+			onSelection(emojiId, source);
+			if (hoverableSummaryView) {
+				setSummaryPopupOpen(false);
+			}
+		},
+		[onSelection, hoverableSummaryView],
+	);
+
 	return (
 		<Popup
 			placement={placement}
+			offset={hoverableSummaryView ? [0, 0] : undefined}
 			content={() => (
-				<Box testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}>
+				<Box
+					testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}
+					onMouseEnter={handleSummaryViewTrayMouseEnter}
+					onMouseLeave={handleSummaryViewTrayMouseLeave}
+				>
 					<Inline xcss={styles.summaryPopup} space="space.025" shouldWrap alignBlock="center">
 						{reactions.map((reaction) => (
 							<Reaction
@@ -158,7 +208,7 @@ export const ReactionSummaryView = ({
 							<ReactionSummaryViewEmojiPicker
 								emojiProvider={emojiProvider}
 								disabled={disabled}
-								onSelection={onSelection}
+								onSelection={handleEmojiSelection}
 								emojiPickerSize={emojiPickerSize}
 								tooltipContent={tooltipContent}
 								reactionPickerTriggerIcon={reactionPickerTriggerIcon}
@@ -177,6 +227,8 @@ export const ReactionSummaryView = ({
 					emojiProvider={emojiProvider}
 					reactions={reactions}
 					onClick={handleSummaryClick}
+					onMouseEnter={handleButtonMouseEnter}
+					onMouseLeave={handleButtonMouseLeave}
 					showOpaqueBackground={showOpaqueBackground}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 					useButtonAlignmentStyling={useButtonAlignmentStyling}

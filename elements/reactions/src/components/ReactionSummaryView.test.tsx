@@ -133,4 +133,65 @@ describe('ReactionSummaryView', () => {
 		const picker = screen.queryByText('ReactionSummaryViewEmojiPicker');
 		expect(picker).not.toBeInTheDocument();
 	});
+
+	describe('hover functionality', () => {
+		it('should open popup when hovering the summary button if hoverableSummaryView is true', async () => {
+			renderComponent({ hoverableSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.hover(reactionSummaryButton);
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+		});
+
+		it('should not open popup when hovering the summary button if hoverableSummaryView is false', async () => {
+			renderComponent({ hoverableSummaryView: false });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.hover(reactionSummaryButton);
+			const summaryViewPopup = screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).not.toBeInTheDocument();
+		});
+
+		it('should keep popup open when moving from button to summary view', async () => {
+			renderComponent({ hoverableSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.hover(reactionSummaryButton);
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+
+			// Move from button to summary view
+			await userEvent.hover(summaryViewPopup);
+			// Summary view button is unhovered, but popup should still be open
+			await userEvent.unhover(reactionSummaryButton);
+
+			expect(summaryViewPopup).toBeInTheDocument();
+		});
+
+		it('should close popup when mouse leaves both button and summary view', async () => {
+			renderComponent({ hoverableSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.hover(reactionSummaryButton);
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+
+			await userEvent.unhover(reactionSummaryButton);
+			await userEvent.unhover(summaryViewPopup);
+
+			const closedPopup = screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(closedPopup).not.toBeInTheDocument();
+		});
+
+		it('should keep popup open when clicking summary button if hoverableSummaryView is false', async () => {
+			renderComponent({ hoverableSummaryView: false });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.click(reactionSummaryButton);
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+
+			await userEvent.unhover(reactionSummaryButton);
+			expect(summaryViewPopup).toBeInTheDocument();
+		});
+	});
 });

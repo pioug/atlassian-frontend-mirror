@@ -336,11 +336,11 @@ export class Observers implements BrowserObservers {
 							if (isNonVisualStyleMutation(mutation)) {
 								ignoreReason = 'non-visual-style';
 							}
-							if (fg('platform_ufo_vc_fix_ignore_image_mutation')) {
-								if (isContainedWithinMediaWrapper(mutation.target)) {
-									ignoreReason = 'image';
-								}
+
+							if (isContainedWithinMediaWrapper(mutation.target)) {
+								ignoreReason = 'image';
 							}
+
 							this.observeElement(
 								mutation.target,
 								mutation,
@@ -354,7 +354,6 @@ export class Observers implements BrowserObservers {
 					}
 				}
 			});
-
 			markProfilingEnd(operationTimer, { tags: ['vc'] });
 		});
 	}

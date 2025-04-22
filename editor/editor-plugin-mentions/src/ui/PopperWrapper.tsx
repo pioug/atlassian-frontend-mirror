@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef, useEffect, type PropsWithChildren } from 'react';
 
-import { Popper as ReactPopper } from '@atlaskit/popper';
+import { Popper as ReactPopper, type PopperChildrenProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
+import { layers } from '@atlaskit/theme/constants';
 
 import { useFocusTrap } from './useFocusTrap';
 
@@ -15,6 +16,26 @@ interface Props {
 	 */
 	children: React.ReactNode;
 }
+
+// From `packages/design-system/popup/src/reposition-on-update.tsx`
+export const RepositionOnUpdate = ({
+	children,
+	update,
+}: PropsWithChildren<{ update: PopperChildrenProps['update'] }>) => {
+	// Ref used here to skip update on first render (when refs haven't been set)
+	const isFirstRenderRef = useRef<boolean>(true);
+
+	useEffect(() => {
+		if (isFirstRenderRef.current) {
+			isFirstRenderRef.current = false;
+			return;
+		}
+		// callback function from popper that repositions pop-up on content Update
+		update();
+	}, [update, children]);
+
+	return children;
+};
 
 /**
  * A popup wrapper to match the behaviour of `@atlaskit/popup`
@@ -32,14 +53,14 @@ export function Popup({ referenceElement, children }: Props) {
 
 	useFocusTrap({ targetRef: targetRef });
 	return (
-		<Portal>
+		<Portal zIndex={layers.modal()}>
 			<ReactPopper
 				referenceElement={referenceElement}
 				offset={[0, 8]}
 				placement="bottom-end"
 				strategy="fixed"
 			>
-				{({ ref, style }) => (
+				{({ ref, style, update }) => (
 					<div
 						ref={(node: HTMLDivElement) => {
 							if (node) {
@@ -54,7 +75,7 @@ export function Popup({ referenceElement, children }: Props) {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						style={style}
 					>
-						{children}
+						<RepositionOnUpdate update={update}>{children}</RepositionOnUpdate>
 					</div>
 				)}
 			</ReactPopper>

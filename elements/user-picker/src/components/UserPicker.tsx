@@ -1,3 +1,7 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Select, { CreatableSelect } from '@atlaskit/select';
 import { UFOExperienceState } from '@atlaskit/ufo';
@@ -14,6 +18,7 @@ import {
 	userPickerRenderedUfoExperience as experience,
 	UfoErrorBoundary,
 } from '../util/ufoExperiences';
+import { jsx } from '@compiled/react';
 import { v4 as uuidv4 } from 'uuid';
 import { fg } from '@atlaskit/platform-feature-flags';
 

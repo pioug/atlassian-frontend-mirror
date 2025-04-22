@@ -90,13 +90,14 @@ const styles = cssMap({
 
 	fullWidthSummaryViewReactionPickerTrigger: {
 		width: '100%',
+		paddingTop: token('space.100'),
 		paddingLeft: token('space.100'),
 		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
 	},
 
 	fullWidth: {
 		width: '100%',
+		maxWidth: '305px',
 	},
 });
 

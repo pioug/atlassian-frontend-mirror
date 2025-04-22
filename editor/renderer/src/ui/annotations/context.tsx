@@ -2,6 +2,7 @@ import React, { createContext } from 'react';
 import type { Position } from './types';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type AnnotationsDraftContextWrapperChildrenProps = {
 	applyAnnotationDraftAt: (position: Position) => void;
@@ -16,6 +17,7 @@ type Props = {
 	setDraftRange: () => void;
 	clearDraftRange: () => void;
 	children: RenderCallbackType;
+	isNestedRender?: boolean;
 };
 
 type State = {
@@ -36,12 +38,21 @@ export class AnnotationsDraftContextWrapper extends React.Component<Props, State
 	};
 
 	render() {
-		const { children } = this.props;
+		const { children, isNestedRender } = this.props;
 		const { position } = this.state;
 		const applyAnnotationDraftAt = this.applyAnnotationDraftAt;
 		const clearAnnotationDraft = this.clearAnnotationDraft;
 
-		return (
+		/*
+		 * If this is a nested render, we do not provide the draft context
+		 * because it has already been provided higher up the component tree
+		 * and we need the original context to create draft annotations on extensions.
+		 */
+		return isNestedRender && fg('confluence_frontend_fix_extension_draft_annotation') ? (
+			<span data-testid="context-wrapper-without-provider">
+				{children({ applyAnnotationDraftAt, clearAnnotationDraft })}
+			</span>
+		) : (
 			<AnnotationsDraftContext.Provider value={position}>
 				{children({ applyAnnotationDraftAt, clearAnnotationDraft })}
 			</AnnotationsDraftContext.Provider>

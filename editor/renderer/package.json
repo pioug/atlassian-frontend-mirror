@@ -215,6 +215,9 @@
 		},
 		"cc_complexit_fe_memoValidation_redundant_calls": {
 			"type": "boolean"
+		},
+		"confluence_frontend_fix_extension_draft_annotation": {
+			"type": "boolean"
 		}
 	},
 	"af:exports": {

@@ -17,11 +17,11 @@ export type AIUnifiedCommonAttributes = {
 	traceIds?: string[];
 	invokedFrom?: string;
 	/**
-	 * Confidence score will be used passed in analytics events.
+	 * Nudge metrics will be used passed in analytics events.
 	 * It is currently only set when "Improve writing" is triggered from the
-	 * 	"Improve writing" nudge.
+	 * "Improve writing" nudge.
 	 */
-	confidenceScore?: number;
+	nudgeMetrics?: Record<string, number | undefined>;
 };
 
 type AIUnifiedAgentAttributes = {

@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider } from '@atlaskit/link-extractors';
+import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
@@ -62,12 +63,7 @@ export const InlineCard = ({
 
 	const resolvedProps =
 		status === SmartLinkStatus.Resolved
-			? extractInlineProps(
-					cardDetails as JsonLd.Data.BaseData,
-					renderers,
-					removeTextHighlightingFromTitle,
-					false,
-				)
+			? extractInlineProps(details, renderers, removeTextHighlightingFromTitle, false)
 			: {};
 
 	useEffect(() => {
@@ -121,7 +117,9 @@ export const InlineCard = ({
 				/>
 			);
 		case 'unauthorized':
-			const provider = extractProvider(cardDetails as JsonLd.Data.BaseData);
+			const provider = fg('smart_links_noun_support')
+				? extractSmartLinkProvider(details)
+				: extractProvider(cardDetails as JsonLd.Data.BaseData);
 			return (
 				<InlineCardUnauthorizedView
 					icon={provider && provider.icon}
@@ -138,7 +136,9 @@ export const InlineCard = ({
 				/>
 			);
 		case 'forbidden':
-			const providerForbidden = extractProvider(cardDetails as JsonLd.Data.BaseData);
+			const providerForbidden = fg('smart_links_noun_support')
+				? extractSmartLinkProvider(details)
+				: extractProvider(cardDetails as JsonLd.Data.BaseData);
 			const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
 			const requestAccessContext = extractRequestAccessContextImproved({
 				jsonLd: cardMetadata,
@@ -162,7 +162,9 @@ export const InlineCard = ({
 				/>
 			);
 		case 'not_found':
-			const providerNotFound = extractProvider(cardDetails as JsonLd.Data.BaseData);
+			const providerNotFound = fg('smart_links_noun_support')
+				? extractSmartLinkProvider(details)
+				: extractProvider(cardDetails as JsonLd.Data.BaseData);
 			return (
 				<InlineCardErroredView
 					url={url}

@@ -112,14 +112,18 @@ const destroyFn = (
 					scrollable.style.setProperty('scroll-behavior', null);
 				}
 
-				api?.core?.actions.execute(({ tr }) => {
+				if (!api) {
+					return;
+				}
+
+				api.core?.actions.execute(({ tr }) => {
 					const isMultiSelect = editorExperiment(
 						'platform_editor_element_drag_and_drop_multiselect',
 						true,
 					);
 
 					if (isMultiSelect) {
-						const { multiSelectDnD } = api?.blockControls?.sharedState.currentState() || {};
+						const { multiSelectDnD } = api.blockControls?.sharedState.currentState() || {};
 						// Restore the users initial Editor selection when the drop completes
 						if (multiSelectDnD) {
 							// If the TextSelection between the drag start and end has changed, the document has changed, and we should not reapply the last selection
@@ -145,7 +149,7 @@ const destroyFn = (
 								}
 							}
 						}
-						api?.selection?.commands.clearManualSelection()({ tr });
+						api.selection?.commands.clearManualSelection()({ tr });
 					}
 
 					const { start } = source.data as ElementDragSource;
@@ -153,7 +157,7 @@ const destroyFn = (
 					const lastDragCancelled = location.current.dropTargets.length === 0;
 					if (lastDragCancelled) {
 						let nodeTypes, hasSelectedMultipleNodes;
-						if (isMultiSelect && api) {
+						if (isMultiSelect) {
 							const position = getSelectedSlicePosition(start, tr, api);
 							const attributes = getMultiSelectAnalyticsAttributes(tr, position.from, position.to);
 							nodeTypes = attributes.nodeTypes;
@@ -162,7 +166,7 @@ const destroyFn = (
 
 						const resolvedMovingNode = tr.doc.resolve(start);
 						const maybeNode = resolvedMovingNode.nodeAfter;
-						api?.analytics?.actions.attachAnalyticsEvent({
+						api.analytics?.actions.attachAnalyticsEvent({
 							eventType: EVENT_TYPE.UI,
 							action: ACTION.CANCELLED,
 							actionSubject: ACTION_SUBJECT.DRAG,
@@ -174,8 +178,13 @@ const destroyFn = (
 							},
 						})(tr);
 					}
+
 					if (fg('platform_editor_ease_of_use_metrics')) {
-						api?.metrics?.commands.startActiveSessionTimer()({ tr });
+						api.metrics?.commands.startActiveSessionTimer()({ tr });
+					}
+
+					if (fg('platform_editor_user_intent_plugin')) {
+						api.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 					}
 
 					return tr.setMeta(key, {

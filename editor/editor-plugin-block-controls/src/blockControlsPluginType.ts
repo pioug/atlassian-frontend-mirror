@@ -14,6 +14,7 @@ import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
@@ -97,6 +98,7 @@ export type BlockControlsPluginDependencies = [
 	OptionalPlugin<SelectionPlugin>,
 	// For ease of use metrics to track transactions where content was moved
 	OptionalPlugin<MetricsPlugin>,
+	OptionalPlugin<UserIntentPlugin>,
 ];
 
 export type BlockControlsPlugin = NextEditorPlugin<

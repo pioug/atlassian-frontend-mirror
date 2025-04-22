@@ -125,12 +125,6 @@ export function ProfileCardComponent({
 		});
 	});
 
-	if (!provider || !activeMention) {
-		return null;
-	}
-
-	const { cloudId } = provider;
-
 	return (
 		<Popup referenceElement={dom}>
 			<LoadingWrapper isLoading={isLoading}>
@@ -144,7 +138,7 @@ export function ProfileCardComponent({
 					isBot={data?.isBot}
 					fullName={data?.fullName}
 					userId={id}
-					cloudId={cloudId}
+					cloudId={provider?.cloudId}
 					actions={actions}
 					isLoading={isLoading}
 					location={data?.location}

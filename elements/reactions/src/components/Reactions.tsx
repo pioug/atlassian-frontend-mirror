@@ -13,7 +13,6 @@ import {
 	type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
 import { type Placement } from '@atlaskit/popper';
-import { fg } from '@atlaskit/platform-feature-flags';
 import UFOSegment from '@atlaskit/react-ufo/segment';
 import { token } from '@atlaskit/tokens';
 
@@ -327,7 +326,7 @@ export const Reactions = React.memo(
 			if (status !== ReactionStatus.ready) {
 				renderTime.current = Date.now();
 			} else {
-				const isSSR = process.env.REACT_SSR && fg('platform_fix_analytics_error');
+				const isSSR = process.env.REACT_SSR;
 				if (isSampled(SAMPLING_RATE_REACTIONS_RENDERED_EXP) && !isSSR) {
 					createAndFireSafe(
 						createAnalyticsEvent,

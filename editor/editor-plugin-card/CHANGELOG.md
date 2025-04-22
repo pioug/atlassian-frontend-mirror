@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.14
+
+### Patch Changes
+
+- [#143317](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143317)
+  [`9af7f0abb556d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9af7f0abb556d) -
+  Add placeholder replace for SSRed element to ignore recalculation on TTVC
+- Updated dependencies
+
 ## 5.4.13
 
 ### Patch Changes

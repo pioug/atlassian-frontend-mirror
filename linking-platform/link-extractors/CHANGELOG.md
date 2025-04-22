@@ -1,5 +1,18 @@
 # @atlaskit/link-extractors
 
+## 2.2.0
+
+### Minor Changes
+
+- [#142166](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142166)
+  [`d17e6b5e5f937`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d17e6b5e5f937) -
+  Expose new extractors extractSmartLinkUrl, extractSmartLinkIcon, extractSmartLinkProvider,
+  extractEntityProvider. Renamed isEntityPresent.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

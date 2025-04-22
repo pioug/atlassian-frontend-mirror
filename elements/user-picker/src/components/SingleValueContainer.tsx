@@ -2,22 +2,40 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { components, type ValueContainerProps } from '@atlaskit/select';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import React from 'react';
+import { components, type ValueContainerProps } from '@atlaskit/select';
 import { type Option, type User } from '../types';
 import { SizeableAvatar } from './SizeableAvatar';
-import { BORDER_PADDING } from './styles';
 import ValueContainerWrapper from './ValueContainerWrapper';
+import { token } from '@atlaskit/tokens';
+import { css, cssMap, jsx } from '@compiled/react';
+
+const valueContainerStyles = cssMap({
+	root: {
+		gridTemplateColumns: 'auto 1fr',
+		paddingTop: token('space.075'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.0'),
+		overflowX: 'hidden',
+		overflowY: 'auto',
+		scrollbarWidth: 'none',
+		maxHeight: '100%',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&::-webkit-scrollbar': {
+			width: 0,
+			background: 'transparent',
+		},
+	},
+});
 
 const placeholderIconContainer = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingLeft: BORDER_PADDING,
+	paddingLeft: token('space.075', '6px'),
+	gridArea: '1/1/2/2',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
-	gridArea: '1/1/2/2',
 });
+
+const wrapperStyle = css({ flexGrow: 1 });
 
 const showUserAvatar = (inputValue?: string, value?: Option<User>) =>
 	value && value.data && inputValue === value.label;
@@ -52,7 +70,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 	Wrapper = ({ children }: { children: React.ReactElement }) => {
 		return this.onValueContainerClick ? (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
-			<div css={css({ flexGrow: 1 })} onMouseDown={this.onValueContainerClick}>
+			<div css={wrapperStyle} onMouseDown={this.onValueContainerClick}>
 				{children}
 			</div>
 		) : (
@@ -68,7 +86,7 @@ export class SingleValueContainer extends React.Component<ValueContainerProps<Op
 				isEnabled={this.onValueContainerClick}
 				onMouseDown={this.onValueContainerClick}
 			>
-				<components.ValueContainer {...valueContainerProps}>
+				<components.ValueContainer {...valueContainerProps} xcss={valueContainerStyles.root}>
 					<div css={placeholderIconContainer}>{this.renderAvatar()}</div>
 					{children}
 				</components.ValueContainer>

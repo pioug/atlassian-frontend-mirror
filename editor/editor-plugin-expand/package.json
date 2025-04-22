@@ -117,10 +117,6 @@
 		},
 		"platform_editor_disable_unnecessary_expand_renders": {
 			"type": "boolean"
-		},
-		"platform_editor_long_node_expand": {
-			"type": "boolean",
-			"referenceOnly": true
 		}
 	}
 }

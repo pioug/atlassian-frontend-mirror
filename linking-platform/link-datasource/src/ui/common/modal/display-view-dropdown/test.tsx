@@ -3,6 +3,8 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { type DisplayViewModes } from '../../../../common/types';
 
 import { DisplayViewDropDown } from './display-view-drop-down';
@@ -54,16 +56,29 @@ describe('DisplayViewDropDown', () => {
 		expect(getByTestId('dropdown-item-inline-link')).toHaveTextContent('Inline link');
 	});
 
-	it('should display the correct item description in the dropdown menu', () => {
-		const { getByTestId } = setup();
+	ffTest(
+		'platform-linking-visual-refresh-sllv',
+		() => {
+			const { getByTestId } = setup();
 
-		expect(getByTestId('dropdown-item-table')).toHaveTextContent(
-			'Display search results as a list',
-		);
-		expect(getByTestId('dropdown-item-inline-link')).toHaveTextContent(
-			'Display the number of search results as an inline Smart Link',
-		);
-	});
+			expect(getByTestId('dropdown-item-table')).toHaveTextContent(
+				'Display the number of search results as a list',
+			);
+			expect(getByTestId('dropdown-item-inline-link')).toHaveTextContent(
+				'Display the number of search results or as an inline Smart Link',
+			);
+		},
+		() => {
+			const { getByTestId } = setup();
+
+			expect(getByTestId('dropdown-item-table')).toHaveTextContent(
+				'Display search results as a list',
+			);
+			expect(getByTestId('dropdown-item-inline-link')).toHaveTextContent(
+				'Display the number of search results as an inline Smart Link',
+			);
+		},
+	);
 
 	it('should display list item followed by inline item', () => {
 		const { getByTestId } = setup();

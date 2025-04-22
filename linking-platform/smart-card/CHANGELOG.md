@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 36.8.1
+
+### Patch Changes
+
+- [#142166](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142166)
+  [`c721be0359308`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c721be0359308) -
+  Enable resolve inline-view from nounData behind ff: smart_links_noun_support
+- Updated dependencies
+
 ## 36.8.0
 
 ### Minor Changes

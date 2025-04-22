@@ -1,6 +1,9 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { AnnotationsDraftContext, AnnotationsDraftContextWrapper } from '../../context';
 import type { Position } from '../../types';
 
@@ -89,5 +92,47 @@ describe('Annotations: AnnotationsDraftContextWrapper', () => {
 
 			expect(mockClearDraftRange).toHaveBeenCalledTimes(1);
 		});
+	});
+});
+
+describe('Annotations: AnnotationsDraftContextWrapper nested render', () => {
+	const mockComponent = jest.fn();
+	const mockSetDraftRange = jest.fn();
+	const mockClearDraftRange = jest.fn();
+
+	const TestComponent = () => {
+		return <AnnotationsDraftContext.Consumer>{mockComponent}</AnnotationsDraftContext.Consumer>;
+	};
+
+	describe('should not render context provider when isNestedRender is true and feature flag is on', () => {
+		ffTest(
+			'confluence_frontend_fix_extension_draft_annotation',
+			() => {
+				render(
+					<AnnotationsDraftContextWrapper
+						setDraftRange={mockSetDraftRange}
+						clearDraftRange={mockClearDraftRange}
+						isNestedRender
+					>
+						{TestComponent}
+					</AnnotationsDraftContextWrapper>,
+				);
+
+				expect(screen.getByTestId('context-wrapper-without-provider')).toBeInTheDocument();
+			},
+			() => {
+				render(
+					<AnnotationsDraftContextWrapper
+						setDraftRange={mockSetDraftRange}
+						clearDraftRange={mockClearDraftRange}
+						isNestedRender
+					>
+						{TestComponent}
+					</AnnotationsDraftContextWrapper>,
+				);
+
+				expect(screen.queryByTestId('context-wrapper-without-provider')).not.toBeInTheDocument();
+			},
+		);
 	});
 });

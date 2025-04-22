@@ -14,6 +14,9 @@ export interface LinkProvider {
 	image?: string;
 }
 
+/**
+ * @deprecated Use extractSmartLinkProvider instead
+ */
 export const extractProvider = (jsonLd: JsonLd.Data.BaseData): LinkProvider | undefined => {
 	const generator = jsonLd.generator;
 	if (generator) {

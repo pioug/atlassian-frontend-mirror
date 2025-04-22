@@ -33,7 +33,6 @@
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
-		"@atlaskit/editor-plugin-block-controls": "workspace:^",
 		"@atlaskit/editor-plugin-context-panel": "workspace:^",
 		"@atlaskit/editor-plugin-copy-button": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
@@ -42,6 +41,7 @@
 		"@atlaskit/editor-plugin-emoji": "workspace:^",
 		"@atlaskit/editor-plugin-extension": "workspace:^",
 		"@atlaskit/editor-plugin-table": "workspace:^",
+		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -139,6 +139,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_4": {
+			"type": "boolean"
+		},
+		"platform_editor_user_intent_plugin": {
 			"type": "boolean"
 		}
 	}

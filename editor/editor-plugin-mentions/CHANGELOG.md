@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.4.2
+
+### Patch Changes
+
+- [#143385](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143385)
+  [`8c63cbda9b29f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c63cbda9b29f) -
+  Fix initial position of mention profile card popup.
+- Updated dependencies
+
 ## 4.4.1
 
 ### Patch Changes

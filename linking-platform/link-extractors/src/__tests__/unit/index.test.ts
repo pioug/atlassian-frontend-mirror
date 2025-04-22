@@ -3,7 +3,10 @@ import { SmartLinkResponse } from '@atlaskit/linking-types';
 import { TEST_INTERACTIVE_HREF_LINK } from '../../common/__mocks__/linkingPlatformJsonldMocks';
 import {
 	extractSmartLinkEmbed,
+	extractSmartLinkIcon,
+	extractSmartLinkProvider,
 	extractSmartLinkTitle,
+	extractSmartLinkUrl,
 	genericExtractPropsFromJSONLD,
 } from '../../index';
 
@@ -170,5 +173,105 @@ describe('extractSmartLinkTitle()', () => {
 		} as unknown as SmartLinkResponse;
 
 		expect(extractSmartLinkTitle(response)).toEqual('Non-Entity Title');
+	});
+});
+
+describe('extractSmartLinkUrl()', () => {
+	it('should return entity URL when response is an entity', () => {
+		const url = 'https://example.com/entity';
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			data: { '@type': 'Object' },
+			nounData: {
+				url,
+			},
+		} as SmartLinkResponse;
+
+		expect(extractSmartLinkUrl(response)).toEqual(url);
+	});
+
+	it('should return undefined when response is not an entity and has no URL', () => {
+		const response = { data: {} } as SmartLinkResponse;
+		expect(extractSmartLinkUrl(response)).toBeUndefined();
+	});
+
+	it('should return URL when response is not an entity but has a URL', () => {
+		const url = 'https://example.com/document';
+		const response = {
+			data: {
+				'@type': 'Document',
+				url,
+			},
+		} as SmartLinkResponse;
+
+		expect(extractSmartLinkUrl(response)).toEqual(url);
+	});
+});
+
+describe('extractSmartLinkIcon()', () => {
+	it('should return entity icon when response is an entity', () => {
+		const url = 'https://example.com/icon.png';
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			data: { '@type': 'Object' },
+			nounData: {
+				displayName: 'Entity Title',
+				['atlassian:design']: {
+					iconUrl: url,
+				},
+			},
+		} as SmartLinkResponse;
+
+		expect(extractSmartLinkIcon(response)).toEqual({ url, label: 'Entity Title' });
+	});
+});
+
+describe('extractSmartLinkProvider()', () => {
+	it('should return entityProvider when response is an entity and meta.generator is present', () => {
+		const response = {
+			meta: {
+				generator: {
+					name: 'Figma',
+					image: 'https://static.figma.com/app/icon/1/favicon.ico',
+					icon: {
+						url: 'https://static.figma.com/app/icon/1/favicon.ico',
+					},
+				},
+			},
+			data: { '@type': 'Object' },
+			nounData: {},
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkProvider(response)).toEqual({
+			text: 'Figma',
+			icon: 'https://static.figma.com/app/icon/1/favicon.ico',
+			image: 'https://static.figma.com/app/icon/1/favicon.ico',
+		});
+	});
+
+	it('should return `undefined` when response is not an entity and data has no provider', () => {
+		const response = { data: {} } as SmartLinkResponse;
+		expect(extractSmartLinkProvider(response)).toBeUndefined();
+	});
+
+	it('should return provider information when response is not an entity but has a provider', () => {
+		const response = {
+			data: {
+				'@type': 'Document',
+				generator: {
+					'@type': 'Application',
+					name: 'Figma',
+					icon: {
+						'@type': 'Image',
+						url: 'https://static.figma.com/app/icon/1/favicon.ico',
+					},
+				},
+			},
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkProvider(response)).toEqual({
+			text: 'Figma',
+			icon: 'https://static.figma.com/app/icon/1/favicon.ico',
+		});
 	});
 });

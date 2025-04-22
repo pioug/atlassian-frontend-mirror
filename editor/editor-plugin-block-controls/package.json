@@ -45,6 +45,7 @@
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
+		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "workspace:^",
@@ -177,6 +178,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_5": {
+			"type": "boolean"
+		},
+		"platform_editor_user_intent_plugin": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_sticky_mask": {

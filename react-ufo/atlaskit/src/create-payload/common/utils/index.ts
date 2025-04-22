@@ -1,6 +1,6 @@
-import { getReactUFOVersion } from '../../../common/constants';
 import type { LabelStack, SegmentLabel } from '../../../interaction-context';
 import { withProfiling } from '../../../self-measurements';
+import { getReactUFOPayloadVersion } from '../../utils/get-react-ufo-payload-version';
 
 export type SegmentItem = {
 	n: string;
@@ -69,7 +69,7 @@ export const labelStackStartWith = withProfiling(function labelStackStartWith(
 
 export const optimizeLabelStack = withProfiling(function optimizeLabelStack(
 	labelStack: LabelStack,
-	reactUFOVersion: ReturnType<typeof getReactUFOVersion>,
+	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
 ) {
 	return reactUFOVersion === '2.0.0'
 		? getLabelStackReference(labelStack)

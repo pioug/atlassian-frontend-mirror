@@ -5,7 +5,7 @@ import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { type Placement } from '@atlaskit/popper';
 
 import { type EmailValidator } from './components/emailValidation';
-import { type StylesConfig } from '@atlaskit/select';
+import { type StylesConfig, type SelectComponentsConfig } from '@atlaskit/select';
 import { type BaseUserPickerWithoutAnalytics } from './components/BaseUserPicker';
 
 export type UserPickerProps = WithAnalyticsEventsProps & {
@@ -96,6 +96,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	 * See https://react-select.com/styles
 	 */
 	styles?: StylesConfig;
+	/** Override the default components used in the user picker. */
+	components?: SelectComponentsConfig<OptionData, boolean>;
 	/** Default value for the field to be used on initial render.
 	 * `defaultValue` differs from `value` in that it sets the initial value then leaves the component 'uncontrolled'
 	 * whereas setting the `value` prop delegates responsibility for maintaining the value to the caller

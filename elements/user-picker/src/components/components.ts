@@ -9,6 +9,8 @@ import { SingleValueContainer } from './SingleValueContainer';
 import { PopupInput } from './PopupInput';
 import { PopupControl } from './PopupControl';
 import { Menu } from './Menu';
+import Control from './Control';
+
 /**
  * Memoize getComponents to avoid rerenders.
  */
@@ -29,6 +31,7 @@ export const getComponents = memoizeOne(
 				ValueContainer: multi ? MultiValueContainer : SingleValueContainer,
 				Input,
 				Menu,
+				Control,
 			};
 		}
 	},

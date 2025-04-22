@@ -3,10 +3,8 @@ jest.mock('../../../components/styles', () => ({
 }));
 
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type CSSObject } from '@emotion/react';
 import find from 'lodash/find';
-import { PopupSelect } from '@atlaskit/select';
+import { PopupSelect, type CSSObjectWithLabel } from '@atlaskit/select';
 import { shallow } from 'enzyme';
 import { getPopupStyles } from '../../../components/styles';
 import { PopupUserPickerWithoutAnalytics } from '../../../components/PopupUserPicker';
@@ -53,7 +51,7 @@ describe('PopupUserPicker', () => {
 
 		it('should override styles', () => {
 			const mockStyles = {
-				control: (style: CSSObject) => ({
+				control: (style: CSSObjectWithLabel) => ({
 					...style,
 					borderRadius: 8,
 				}),

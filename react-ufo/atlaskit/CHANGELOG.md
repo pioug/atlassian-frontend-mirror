@@ -1,5 +1,24 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.6.3
+
+### Patch Changes
+
+- [#141647](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141647)
+  [`66f1d049bd2ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66f1d049bd2ea) -
+  cleanup ff platform_ufo_vc_fix_ignore_image_mutation
+- [#143633](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143633)
+  [`16db0c6d6329c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16db0c6d6329c) -
+  FF cleanup - enable-react-ufo-payload-segment-compressed
+
+## 3.6.2
+
+### Patch Changes
+
+- [#143078](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143078)
+  [`194c184c53045`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/194c184c53045) -
+  FF cleanup - platform-ufo-add-segment-use-effect and ufo_chr_config
+
 ## 3.6.1
 
 ### Patch Changes

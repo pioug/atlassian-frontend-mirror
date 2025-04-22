@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 31.3.0
+
+### Minor Changes
+
+- [#143861](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143861)
+  [`54b42c1ffa021`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54b42c1ffa021) -
+  [ux] Updating the UI for the summary tray that includes the reaction picker
+
 ## 31.2.0
 
 ### Minor Changes

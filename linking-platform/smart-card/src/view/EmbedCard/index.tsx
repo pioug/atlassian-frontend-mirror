@@ -115,7 +115,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 					);
 				} else {
 					if (platform === 'mobile') {
-						const resolvedInlineViewProps = extractInlineProps(data);
+						const resolvedInlineViewProps = extractInlineProps(details);
 						return (
 							<InlineCardResolvedView
 								{...resolvedInlineViewProps}

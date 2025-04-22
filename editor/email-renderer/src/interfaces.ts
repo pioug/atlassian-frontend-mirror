@@ -67,4 +67,5 @@ export interface MetaDataContext {
 	hydration?: {
 		mediaMetaData?: { [key: string]: MediaMetaDataContextItem };
 	};
+	renderExternalImages?: boolean;
 }

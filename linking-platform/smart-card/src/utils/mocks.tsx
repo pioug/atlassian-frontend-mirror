@@ -1,5 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type BatchResponse, CardClient } from '@atlaskit/link-provider';
+import { SmartLinkResponse } from '@atlaskit/linking-types';
 
 export const mockContext = {
 	'@vocab': 'https://www.w3.org/ns/activitystreams#',
@@ -75,17 +76,52 @@ const successfulResponseData = {
 	},
 };
 
+const jsonLdResponse = {
+	meta: {
+		visibility: 'public',
+		access: 'granted',
+		auth: [],
+		definitionId: 'd1',
+		key: 'object-provider',
+	},
+	data: successfulResponseData,
+};
+
+const nounDataResponse = {
+	nounData: {
+		id: 'I love cheese',
+		displayName: 'I love cheese',
+		url: 'https://some.url',
+		lastUpdatedAt: '2025-01-08T22:26:52.501Z',
+		thumbnail: {
+			externalUrl: 'https://www.ilovecheese.com',
+		},
+		'atlassian:design': {
+			liveEmbedUrl: 'https://www.ilovecheese.com',
+			type: 'FILE',
+			inspectUrl: 'https://www.ilovecheese.com',
+			iconUrl: 'https://www.ilovecheese.com',
+		},
+	},
+};
+
 export const mocks = {
 	success: {
-		meta: {
-			visibility: 'public',
-			access: 'granted',
-			auth: [],
-			definitionId: 'd1',
-			key: 'object-provider',
-		},
-		data: successfulResponseData,
+		...jsonLdResponse,
 	} as JsonLd.Response,
+	nounDataSuccess: {
+		...jsonLdResponse,
+		...nounDataResponse,
+		meta: {
+			...jsonLdResponse.meta,
+			generator: {
+				name: 'I love cheese',
+				icon: {
+					url: 'https://www.ilovecheese.com',
+				},
+			},
+		},
+	} as SmartLinkResponse,
 	notFound: {
 		meta: {
 			visibility: 'not_found',

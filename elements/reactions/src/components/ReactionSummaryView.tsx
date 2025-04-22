@@ -186,6 +186,20 @@ export const ReactionSummaryView = ({
 					onMouseEnter={handleSummaryViewTrayMouseEnter}
 					onMouseLeave={handleSummaryViewTrayMouseLeave}
 				>
+					{allowSelectFromSummaryView && (
+						<Flex justifyContent="center">
+							<ReactionSummaryViewEmojiPicker
+								emojiProvider={emojiProvider}
+								disabled={disabled}
+								onSelection={handleEmojiSelection}
+								emojiPickerSize={emojiPickerSize}
+								tooltipContent={tooltipContent}
+								reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+								reactionPickerTriggerText={reactionPickerTriggerText}
+								onOpen={onOpen}
+							/>
+						</Flex>
+					)}
 					<Inline xcss={styles.summaryPopup} space="space.025" shouldWrap alignBlock="center">
 						{reactions.map((reaction) => (
 							<Reaction
@@ -203,20 +217,6 @@ export const ReactionSummaryView = ({
 							/>
 						))}
 					</Inline>
-					{allowSelectFromSummaryView && (
-						<Flex justifyContent="center">
-							<ReactionSummaryViewEmojiPicker
-								emojiProvider={emojiProvider}
-								disabled={disabled}
-								onSelection={handleEmojiSelection}
-								emojiPickerSize={emojiPickerSize}
-								tooltipContent={tooltipContent}
-								reactionPickerTriggerIcon={reactionPickerTriggerIcon}
-								reactionPickerTriggerText={reactionPickerTriggerText}
-								onOpen={onOpen}
-							/>
-						</Flex>
-					)}
 				</Box>
 			)}
 			isOpen={isSummaryPopupOpen}

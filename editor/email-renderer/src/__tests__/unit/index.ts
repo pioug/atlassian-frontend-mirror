@@ -27,6 +27,7 @@ import * as layoutColumnSection from './__fixtures__/layout-column-section.adf.j
 import * as extensions from './__fixtures__/extensions.adf.json';
 import * as date from './__fixtures__/date.adf.json';
 import * as mediaSingle from './__fixtures__/media-single.adf.json';
+import * as mediaSingleExternalImage from './__fixtures__/media-single-external-image.adf.json';
 import * as mediaSingleWithPixelSizing from './__fixtures__/media-single-pixel-sizing.adf.json';
 import * as mediaGroup from './__fixtures__/media-group.adf.json';
 import * as mediaGroupAllTypes from './__fixtures__/media-group-all-types.adf.json';
@@ -462,6 +463,11 @@ describe('Renderer - EmailSerializer', () => {
 	it('should render mediaGroup nested in quote', () => {
 		const { result } = render(mediaGroupInQuote);
 		expect(result).toMatchSnapshot('mediaGroup in quote');
+	});
+
+	it('should render images via URL when external rendering enabled', () => {
+		const { result } = render(mediaSingleExternalImage, undefined, { renderExternalImages: true });
+		expect(result).toMatchSnapshot('external image');
 	});
 
 	it('should transform and render nested table extension correctly', () => {

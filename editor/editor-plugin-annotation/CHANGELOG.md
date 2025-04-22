@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.7.0
+
+### Minor Changes
+
+- [#143244](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143244)
+  [`569fc7473a725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/569fc7473a725) -
+  adding event to platform to close inline comment in editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

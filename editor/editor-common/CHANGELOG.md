@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 103.11.0
+
+### Minor Changes
+
+- [#143244](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143244)
+  [`569fc7473a725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/569fc7473a725) -
+  adding event to platform to close inline comment in editor
+
+### Patch Changes
+
+- Updated dependencies
+
+## 103.10.0
+
+### Minor Changes
+
+- [#142947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142947)
+  [`65f0e1b7eb9b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65f0e1b7eb9b3) -
+  [ux] EDITOR-619 Send additional analytics for IW nudge
+
 ## 103.9.3
 
 ### Patch Changes

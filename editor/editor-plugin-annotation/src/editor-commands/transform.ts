@@ -57,13 +57,9 @@ const addAnnotationMark =
 
 			// The mark may not be applied to the current "head" of the bookmark so determine what was applied
 			// above and use that instead
-			if (fg('platform_editor_fix_missing_selected_annotations')) {
-				const annotationMarkStep = tr.steps.reverse().find(isAnnotationStep);
-				const headBasedOnMark = from === head ? annotationMarkStep?.from : annotationMarkStep?.to;
-				tr.setSelection(TextSelection.create(tr.doc, headBasedOnMark ?? head));
-			} else {
-				tr.setSelection(TextSelection.create(tr.doc, head));
-			}
+			const annotationMarkStep = tr.steps.reverse().find(isAnnotationStep);
+			const headBasedOnMark = from === head ? annotationMarkStep?.from : annotationMarkStep?.to;
+			tr.setSelection(TextSelection.create(tr.doc, headBasedOnMark ?? head));
 		}
 		return tr;
 	};

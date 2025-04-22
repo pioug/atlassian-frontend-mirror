@@ -13,7 +13,8 @@ export type UpdateEvent =
 	| 'unresolve'
 	| 'setselectedannotation'
 	| 'sethoveredannotation'
-	| 'removehoveredannotation';
+	| 'removehoveredannotation'
+	| 'closeinlinecomment';
 export type VisibilityEvent = 'setvisibility';
 
 type AnnotationCallback = (params: string) => void;

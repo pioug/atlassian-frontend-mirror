@@ -1,3 +1,7 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { components, type MultiValueProps } from '@atlaskit/select';
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
@@ -6,6 +10,8 @@ import { type Option, type User } from '../types';
 import { messages } from './i18n';
 import { isChildInput } from './utils';
 import ValueContainerWrapper from './ValueContainerWrapper';
+import { token } from '@atlaskit/tokens';
+import { cssMap, jsx } from '@compiled/react';
 
 export type State = {
 	valueSize: number;
@@ -19,6 +25,24 @@ type Props = MultiValueProps<Option<User>[], true> & {
 type ValueContainerInnerProps = {
 	ref: React.RefObject<HTMLDivElement>;
 };
+
+const valueContainerStyles = cssMap({
+	root: {
+		gridTemplateColumns: 'auto 1fr',
+		paddingTop: token('space.075'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.075'),
+		overflowX: 'hidden',
+		overflowY: 'auto',
+		scrollbarWidth: 'none',
+		maxHeight: '100%',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&::-webkit-scrollbar': {
+			width: 0,
+			background: 'transparent',
+		},
+	},
+});
 
 export class MultiValueContainer extends React.PureComponent<Props, State> {
 	static getDerivedStateFromProps(nextProps: Props, prevState: State) {
@@ -133,7 +157,9 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 				isEnabled={this.onValueContainerClick}
 				onMouseDown={this.onValueContainerClick}
 			>
-				<components.ValueContainer {...props}>{this.renderChildren()}</components.ValueContainer>
+				<components.ValueContainer {...props} xcss={valueContainerStyles.root}>
+					{this.renderChildren()}
+				</components.ValueContainer>
 			</ValueContainerWrapper>
 		);
 	}

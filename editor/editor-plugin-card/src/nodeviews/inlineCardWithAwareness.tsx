@@ -154,6 +154,9 @@ export const InlineCardWithAwareness = memo(
 			? innerCardWithOpenButtonOverlay
 			: innerCardOriginal;
 
+		const getPosFunction = typeof getPos === 'function' ? getPos : undefined;
+		const placeholderUniqId = getPosFunction?.() || 0;
+
 		return isOverlayEnabled || isPulseEnabled ? (
 			<AwarenessWrapper
 				isOverlayEnabled={isOverlayEnabled}
@@ -173,8 +176,15 @@ export const InlineCardWithAwareness = memo(
 				{innerCard}
 			</AwarenessWrapper>
 		) : (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<span className="card">{innerCard}</span>
+			<span
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="card"
+				data-vc="editor-plugin-inline-card"
+				data-ssr-placeholder={`editor-plugin-inline-card-${placeholderUniqId}`}
+				data-ssr-placeholder-replace={`editor-plugin-inline-card-${placeholderUniqId}`}
+			>
+				{innerCard}
+			</span>
 		);
 	},
 );

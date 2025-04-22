@@ -276,6 +276,9 @@
 			"path": "../../editor-plugin-unsupported-content/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-user-intent/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-width/afm-jira/tsconfig.json"
 		}
 	]

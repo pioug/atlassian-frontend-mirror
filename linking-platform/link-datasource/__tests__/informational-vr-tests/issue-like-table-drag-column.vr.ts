@@ -2,9 +2,9 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import { VRIssueLikeTable } from '../../examples/vr/issue-like-table';
+import { VRInformationalIssueLikeTable } from '../../examples/vr/issue-like-table';
 
-snapshotInformational(VRIssueLikeTable, {
+snapshotInformational(VRInformationalIssueLikeTable, {
 	description: 'drag column',
 	prepare: async (page: Page) => {
 		const source = await page.locator('[data-testid="type-column-heading"]').first();

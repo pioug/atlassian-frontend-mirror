@@ -17,6 +17,11 @@ const ICON_DIMENSION = 14;
 export default function media(node: NodeSerializerOpts) {
 	const { context, attrs } = node;
 
+	// We want to render external images even when metadata is not provided
+	if (context?.renderExternalImages && attrs.type === 'external') {
+		return renderImage(node, undefined);
+	}
+
 	// Without metadata, we render a generic lozenge
 	if (
 		!context ||

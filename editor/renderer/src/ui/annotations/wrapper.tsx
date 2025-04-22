@@ -12,13 +12,14 @@ import {
 type Props = {
 	rendererRef: React.RefObject<HTMLDivElement>;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	isNestedRender?: boolean;
 };
 
 export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>): JSX.Element => {
 	const providers = useContext(ProvidersContext);
 	const { range, type } = useAnnotationRangeState();
 	const { setDraftRange, clearDraftRange } = useAnnotationRangeDispatch();
-	const { rendererRef, createAnalyticsEvent, children } = props;
+	const { rendererRef, createAnalyticsEvent, children, isNestedRender } = props;
 	const inlineCommentProvider = providers && providers.inlineComment;
 	const selectionComponent = inlineCommentProvider && inlineCommentProvider.selectionComponent;
 	const hoverComponent = inlineCommentProvider && inlineCommentProvider.hoverComponent;
@@ -76,6 +77,7 @@ export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>)
 		<AnnotationsDraftContextWrapper
 			setDraftRange={setRangeForDraft}
 			clearDraftRange={clearRangeForDraft}
+			isNestedRender={isNestedRender}
 		>
 			{render}
 		</AnnotationsDraftContextWrapper>

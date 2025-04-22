@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.9.0
+
+### Minor Changes
+
+- [#142166](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142166)
+  [`93a0b91736f66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93a0b91736f66) -
+  Expose new type ProviderGenerator for noun support
+
 ## 9.8.0
 
 ### Minor Changes

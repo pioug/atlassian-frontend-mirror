@@ -109,10 +109,6 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 	const interactionId = useContext(UFOInteractionIDContext);
 
 	const interactionContext = useMemo<EnhancedUFOInteractionContextType>(() => {
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		if (!fg('platform-ufo-add-segment-use-effect')) {
-			addSegment(labelStack);
-		}
 		let lastCompleteEndTime = 0;
 		const complete = withProfiling(function complete(endTime: number = performance.now()) {
 			if (interactionId.current) {
@@ -366,9 +362,7 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 	);
 
 	useEffect(() => {
-		if (fg('platform-ufo-add-segment-use-effect')) {
-			addSegment(labelStack);
-		}
+		addSegment(labelStack);
 		return () => {
 			removeSegment(labelStack);
 		};

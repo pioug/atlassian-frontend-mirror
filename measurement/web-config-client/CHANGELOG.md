@@ -1,5 +1,13 @@
 # @atlaskit/web-config-client
 
+## 0.7.0
+
+### Minor Changes
+
+- [#143303](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143303)
+  [`522c49d66ab9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/522c49d66ab9b) -
+  Upgrading @atlassian/experiment-feature-gates to the latest version
+
 ## 0.6.0
 
 ### Minor Changes

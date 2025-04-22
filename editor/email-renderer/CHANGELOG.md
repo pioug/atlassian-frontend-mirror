@@ -1,5 +1,13 @@
 # @atlaskit/email-renderer
 
+## 9.5.0
+
+### Minor Changes
+
+- [#142993](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142993)
+  [`d6ab6d8225827`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6ab6d8225827) -
+  [ux] Add support for rendering external images
+
 ## 9.4.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "31.2.0",
+	"version": "31.3.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,9 +124,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"platform_fix_analytics_error": {
 			"type": "boolean"
 		},
 		"platform-make-accessible-close-button": {

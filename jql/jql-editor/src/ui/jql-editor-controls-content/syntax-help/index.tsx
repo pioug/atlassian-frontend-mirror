@@ -44,6 +44,7 @@ export const SyntaxHelp = () => {
 			content={<TooltipContent>{label}</TooltipContent>}
 			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			tag={TooltipTag}
+			isScreenReaderAnnouncementDisabled
 		>
 			<BaseSyntaxHelp describedby={descriptionId} label={label} onClick={onClick} />
 			<ScreenReaderText id={descriptionId}>

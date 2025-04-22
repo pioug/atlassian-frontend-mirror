@@ -136,11 +136,18 @@ export const AwarenessWrapper = ({
 	]);
 
 	const isInline = appearance === 'inline';
+	const placeholderUniqId = linkPosition || 0;
 
 	return useMemo(
 		() => (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<span css={shouldShowLinkPulse && loaderWrapperStyles} className="card">
+			<span
+				css={shouldShowLinkPulse && loaderWrapperStyles}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="card"
+				data-vc="awareness-wrapper"
+				data-ssr-placeholder={`awareness-wrapper-${placeholderUniqId}`}
+				data-ssr-placeholder-replace={`awareness-wrapper-${placeholderUniqId}`}
+			>
 				<AnalyticsContext
 					data={{
 						attributes: getResolvedAttributesFromStore(url, 'inline', cardContext?.value?.store),
@@ -166,6 +173,7 @@ export const AwarenessWrapper = ({
 			isResolvedViewRendered,
 			cardWithOverlay,
 			isInline,
+			placeholderUniqId,
 		],
 	);
 };

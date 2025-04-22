@@ -62,8 +62,14 @@ export {
 	isConfluenceGenerator,
 } from './common';
 
-export { extractEntity, isEntityType } from './entity';
-export { extractSmartLinkEmbed, extractSmartLinkTitle } from './smart-link';
+export { extractEntity, extractEntityProvider, isEntityPresent } from './entity';
+export {
+	extractSmartLinkEmbed,
+	extractSmartLinkTitle,
+	extractSmartLinkUrl,
+	extractSmartLinkIcon,
+	extractSmartLinkProvider,
+} from './smart-link';
 
 export type {
 	LinkPerson,

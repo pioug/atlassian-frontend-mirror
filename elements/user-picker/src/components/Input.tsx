@@ -1,12 +1,34 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { type AriaAttributes } from 'react';
 import { components, type OptionType, type SelectProps } from '@atlaskit/select';
 import { type AriaAttributesType } from '../types';
+import { token } from '@atlaskit/tokens';
+import { cssMap, jsx } from '@compiled/react';
 
 export type Props = {
 	selectProps?: SelectProps<OptionType, boolean>;
 	innerRef: (ref: React.Ref<HTMLInputElement>) => void;
 	ariaDescribedBy?: AriaAttributesType;
 };
+
+const inputStyles = cssMap({
+	root: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& input::placeholder': {
+			/* Chrome, Firefox, Opera, Safari 10.1+ */
+			color: token('color.text.subtlest'),
+			opacity: 1 /* Firefox */,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'& input:-ms-input-placeholder': {
+			/* Internet Explorer 10-11 */
+			color: token('color.text.subtlest'),
+		},
+	},
+});
 
 export class Input extends React.Component<Props & AriaAttributes> {
 	// onKeyPress is used instead as
@@ -45,6 +67,7 @@ export class Input extends React.Component<Props & AriaAttributes> {
 				aria-describedby={this.ariaDescribedBy}
 				innerRef={this.props.innerRef}
 				onKeyPress={this.handleKeyPress}
+				xcss={inputStyles.root}
 			/>
 		);
 	}

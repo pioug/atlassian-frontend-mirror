@@ -219,6 +219,10 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 				setHoveredAnnotation('')(editorView.state, editorView.dispatch);
 			};
 
+			const closeInlineCommentFn = () => {
+				closeComponent()(editorView.state, editorView.dispatch);
+			};
+
 			const { updateSubscriber } = provider;
 			if (updateSubscriber) {
 				updateSubscriber
@@ -229,7 +233,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					.on('setvisibility', setVisibility)
 					.on('setselectedannotation', setSelectedAnnotationFn)
 					.on('sethoveredannotation', setHoveredAnnotationFn)
-					.on('removehoveredannotation', removeHoveredannotationFn);
+					.on('removehoveredannotation', removeHoveredannotationFn)
+					.on('closeinlinecomment', closeInlineCommentFn);
 			}
 
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -274,7 +279,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 							.off('setvisibility', setVisibility)
 							.off('setselectedannotation', setSelectedAnnotationFn)
 							.off('sethoveredannotation', setHoveredAnnotationFn)
-							.off('removehoveredannotation', removeHoveredannotationFn);
+							.off('removehoveredannotation', removeHoveredannotationFn)
+							.off('closeinlinecomment', closeInlineCommentFn);
 					}
 				},
 			};

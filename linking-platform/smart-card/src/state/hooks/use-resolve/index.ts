@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 
+import { isEntityPresent } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import type { CardState } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../../constants';
 import { addMetadataToExperience } from '../../analytics';
@@ -24,7 +26,10 @@ const useResolve = () => {
 					status: SmartLinkStatus.Pending,
 					details: undefined,
 				} as CardState);
-			const hasData = !!(details && details.data);
+
+			const hasData = fg('smart_links_noun_support')
+				? !!((details && details.data) || isEntityPresent(details))
+				: !!(details && details.data);
 
 			if (isReloading || !hasData || isMetadataRequest) {
 				return connections.client

@@ -1,5 +1,11 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 import { components, type ClearIndicatorProps } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
+import { cssMap, jsx } from '@compiled/react';
 
 const AsyncTooltip = React.lazy(() =>
 	import(/* webpackChunkName: "@atlaskit-internal_@atlaskit/tooltip" */ '@atlaskit/tooltip').then(
@@ -10,6 +16,23 @@ const AsyncTooltip = React.lazy(() =>
 		},
 	),
 );
+
+const clearIndicatorStyles = cssMap({
+	root: {
+		opacity: 1,
+		'@media (hover: hover) and (pointer: fine)': {
+			opacity: 0,
+		},
+		transition: 'color 150ms, opacity 150ms',
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		'&:hover': {
+			color: token('color.icon.danger'),
+		},
+	},
+});
 
 export class ClearIndicator extends React.PureComponent<ClearIndicatorProps<any>> {
 	private handleMouseDown = (event: React.MouseEvent) => {
@@ -37,6 +60,7 @@ export class ClearIndicator extends React.PureComponent<ClearIndicatorProps<any>
 					...this.props.innerProps,
 					onMouseDown: this.handleMouseDown,
 				}}
+				xcss={clearIndicatorStyles.root}
 			/>
 		);
 		return clearValueLabel ? (

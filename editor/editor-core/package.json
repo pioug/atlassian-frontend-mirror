@@ -327,10 +327,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_long_node_expand": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"editor_a11y_refactor_find_replace_style": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -655,6 +651,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_controls_patch_4": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_user_intent_plugin": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

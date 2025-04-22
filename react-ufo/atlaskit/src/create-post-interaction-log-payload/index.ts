@@ -1,9 +1,9 @@
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
-import { getReactUFOVersion } from '../common/constants';
 import { type VCEntryType } from '../common/vc/types';
 import { getConfig, getPostInteractionRate } from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
+import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
 import { withProfiling } from '../self-measurements';
@@ -226,8 +226,7 @@ const createPostInteractionLogPayload = withProfiling(function createPostInterac
 				'event:schema': '1.0.0',
 				'event:source': {
 					name: 'react-ufo/web',
-					version: getReactUFOVersion(lastInteractionFinish.type),
-					payloadSource: 'platform',
+					version: getReactUFOPayloadVersion(lastInteractionFinish.type),
 				},
 				'event:region': config.region || 'unknown',
 				'experience:key': 'custom.post-interaction-logs',

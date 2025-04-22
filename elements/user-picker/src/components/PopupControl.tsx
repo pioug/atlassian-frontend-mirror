@@ -4,10 +4,11 @@
  */
 import React from 'react';
 import { token } from '@atlaskit/tokens';
-import { components, type ControlProps } from '@atlaskit/select';
+import { type ControlProps } from '@atlaskit/select';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { N200 } from '@atlaskit/theme/colors';
+import Control from './Control';
 
 const controlWrapper = css({
 	display: 'flex',
@@ -35,7 +36,7 @@ export class PopupControl extends React.PureComponent<ControlProps<any>> {
 		return (
 			<div css={controlWrapper}>
 				<div css={labelStyle}>{popupTitle}</div>
-				<components.Control {...this.props} />
+				<Control {...this.props} />
 			</div>
 		);
 	}

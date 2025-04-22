@@ -9,6 +9,11 @@ export const displayViewDropDownMessages = defineMessages({
 	viewModeListDescription: {
 		id: 'linkDataSource.jira-issues.configmodal.viewModeListDescription',
 		description: 'Description for list view mode',
+		defaultMessage: 'Display the number of search results as a list',
+	},
+	viewModeListDescriptionOld: {
+		id: 'linkDataSource.jira-issues.configmodal.viewModeListDescriptionOld',
+		description: 'Description for list view mode',
 		defaultMessage: 'Display search results as a list',
 	},
 	viewModeInlineLinkLabel: {
@@ -18,6 +23,11 @@ export const displayViewDropDownMessages = defineMessages({
 	},
 	viewModeInlineLinkDescription: {
 		id: 'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription',
+		description: 'Description for inline link view mode',
+		defaultMessage: 'Display the number of search results or as an inline Smart Link',
+	},
+	viewModeInlineLinkDescriptionOld: {
+		id: 'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescriptionOld',
 		description: 'Description for inline link view mode',
 		defaultMessage: 'Display the number of search results as an inline Smart Link',
 	},

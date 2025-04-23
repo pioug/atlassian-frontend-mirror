@@ -12,6 +12,7 @@ import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer } from '@atlaskit/drawer/compiled';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import Link from '@atlaskit/link';
@@ -23,6 +24,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Portal from '@atlaskit/portal';
+import { Inline } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -35,6 +37,7 @@ import {
 	FlagEventType,
 	type GiveKudosDrawerProps,
 	isFlagEventTypeValue,
+	KudosType,
 } from '../../types';
 
 const styles = cssMap({
@@ -59,7 +62,15 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const intl = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-	const { addFlag, teamCentralBaseUrl, analyticsSource, onClose, testId } = props;
+	const {
+		addFlag,
+		teamCentralBaseUrl,
+		analyticsSource,
+		onClose,
+		testId,
+		onCreateKudosSuccess,
+		isActionsEnabled,
+	} = props;
 
 	const shouldBlockTransition = useCallback(
 		(e: Event & { returnValue: any }) => {
@@ -74,11 +85,18 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 			const analyticsEvent = createAnalyticsEvent({
 				action: action,
 				actionSubject: 'createKudos',
-				attributes: { ...options, analyticsSource },
+				attributes: {
+					...options,
+					analyticsSource,
+					teamId:
+						props.recipient?.type === KudosType.TEAM ? props.recipient.recipientId : undefined,
+					KudosType: props.recipient?.type,
+					recipientId: props.recipient?.recipientId,
+				},
 			});
 			analyticsEvent.fire(ANALYTICS_CHANNEL);
 		},
-		[analyticsSource, createAnalyticsEvent],
+		[analyticsSource, createAnalyticsEvent, props.recipient],
 	);
 
 	const closeDrawer = useCallback(() => {
@@ -96,6 +114,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 			const handleCreateOrFail = (addFlagConfig: Flag) => {
 				closeDrawer();
 				addFlag && addFlag(addFlagConfig);
+				onCreateKudosSuccess && addFlagConfig.type === 'success' && onCreateKudosSuccess(flagEvent);
 			};
 
 			switch (flagEvent.eventType) {
@@ -115,6 +134,21 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 								}}
 							/>
 						),
+						actions: isActionsEnabled
+							? [
+									{
+										content: (
+											<Inline space="space.050" alignBlock="center">
+												<FormattedMessage {...messages.kudosCreatedActionFlag} />
+												<LinkExternalIcon label="" color="currentColor" />
+											</Inline>
+										),
+										href: `${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`,
+										target: '_blank',
+										onClick: () => undefined,
+									},
+								]
+							: undefined,
 						type: 'success',
 					});
 					break;
@@ -182,7 +216,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 					return;
 			}
 		},
-		[addFlag, closeDrawer, teamCentralBaseUrl],
+		[addFlag, closeDrawer, teamCentralBaseUrl, onCreateKudosSuccess, isActionsEnabled],
 	);
 
 	const messageListener = useCallback(

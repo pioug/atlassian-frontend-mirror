@@ -4,7 +4,7 @@
  * @jsxFrag
  */
 import type { MouseEvent } from 'react';
-import React, { Component, Fragment, useMemo } from 'react';
+import React, { Component, Fragment, useCallback, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -37,6 +37,7 @@ import type {
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	browser,
 	isNodeSelectedOrInRange,
@@ -606,9 +607,18 @@ const MediaSingleNodeWrapper = ({
 			'editorViewMode',
 		]);
 
+	const hasHadInteraction = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'interaction.hasHadInteraction',
+	);
 	const mediaProvider = useMemo(
 		() => (mediaState?.mediaProvider ? Promise.resolve(mediaState?.mediaProvider) : undefined),
 		[mediaState?.mediaProvider],
+	);
+
+	const isSelectedAndInteracted = useCallback(
+		() => Boolean(selected() && hasHadInteraction),
+		[hasHadInteraction, selected],
 	);
 
 	if (
@@ -626,7 +636,9 @@ const MediaSingleNodeWrapper = ({
 				mediaOptions={mediaOptions}
 				view={view}
 				fullWidthMode={fullWidthMode}
-				selected={selected}
+				selected={
+					fg('platform_editor_no_selection_until_interaction') ? isSelectedAndInteracted : selected
+				}
 				eventDispatcher={eventDispatcher}
 				mediaPluginState={mediaState ?? undefined}
 				annotationPluginState={annotationState ?? undefined}
@@ -655,7 +667,9 @@ const MediaSingleNodeWrapper = ({
 			mediaOptions={mediaOptions}
 			view={view}
 			fullWidthMode={fullWidthMode}
-			selected={selected}
+			selected={
+				fg('platform_editor_no_selection_until_interaction') ? isSelectedAndInteracted : selected
+			}
 			eventDispatcher={eventDispatcher}
 			mediaPluginState={mediaState ?? undefined}
 			annotationPluginState={annotationState ?? undefined}

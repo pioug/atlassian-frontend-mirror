@@ -98,6 +98,7 @@ export const WidthProvider = ({
 				return;
 			}
 
+			widthRef.current = nextWidth;
 			setWidth(nextWidth);
 		});
 	}, []);

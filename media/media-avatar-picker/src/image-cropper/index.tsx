@@ -134,16 +134,16 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 		let msg = '';
 		switch (e.key) {
 			case 'ArrowLeft':
-				msg = formatMessage(messages.image_cropper_image_moved, { from: 'left', to: 'right' });
+				msg = formatMessage(messages.image_cropper_image_moved, { key: 'left' });
 				break;
 			case 'ArrowRight':
-				msg = formatMessage(messages.image_cropper_image_moved, { from: 'right', to: 'left' });
+				msg = formatMessage(messages.image_cropper_image_moved, { key: 'right' });
 				break;
 			case 'ArrowUp':
-				msg = formatMessage(messages.image_cropper_image_moved, { from: 'top', to: 'bottom' });
+				msg = formatMessage(messages.image_cropper_image_moved, { key: 'top' });
 				break;
 			case 'ArrowDown':
-				msg = formatMessage(messages.image_cropper_image_moved, { from: 'bottom', to: 'top' });
+				msg = formatMessage(messages.image_cropper_image_moved, { key: 'bottom' });
 				break;
 			default:
 				return;

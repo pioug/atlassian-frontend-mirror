@@ -58,11 +58,9 @@ export const getSelectedDomElement = (
 
 	return (
 		// Content extension can be nested in bodied-extension, the following check is necessary for that case
-		(isContentExtension
-			? // Search down
-				selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container')
-			: // Try searching up and then down
-				closestElement(selectedExtensionDomNode, '.extension-container') ||
+		(isContentExtension // Search down
+			? selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container') // Try searching up and then down
+			: closestElement(selectedExtensionDomNode, '.extension-container') ||
 				selectedExtensionDomNode.querySelector<HTMLElement>('.extension-container')) ||
 		selectedExtensionDomNode
 	);

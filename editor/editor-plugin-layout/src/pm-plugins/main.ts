@@ -96,7 +96,8 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 		sel.$from.parent.type.name === 'layoutSection' &&
 		sel.$from.parent.childCount === 2 &&
 		dispatch &&
-		editorExperiment('advanced_layouts', true)
+		editorExperiment('advanced_layouts', true) &&
+		!editorExperiment('single_column_layouts', true)
 	) {
 		const tr = state.tr;
 		const layoutContentFragment =
@@ -212,12 +213,11 @@ export default (options: LayoutPluginOptions) =>
 
 			if (editorExperiment('advanced_layouts', true) && changes.length === 1) {
 				const change = changes[0];
-				// when need to update a layoutColumn with width 100
-				// meaning a single column layout has been create,
-				// We replace the layout with its content
-				// This is to prevent a single column layout from being created
-				// when a user deletes a layoutColumn
+				// When editorExperiment('single_column_layouts', true) is on
+				// delete can create a single column layout
+				// otherwise we replace the single column layout with its content
 				if (
+					!editorExperiment('single_column_layouts', true) &&
 					change.slice.content.childCount === 1 &&
 					change.slice.content.firstChild?.type.name === 'layoutColumn' &&
 					change.slice.content.firstChild?.attrs.width === EVEN_DISTRIBUTED_COL_WIDTHS[1]

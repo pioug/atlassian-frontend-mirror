@@ -49,7 +49,12 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 describe('@atlaskit/editor-core/utils insert', () => {
 	const createEditor = createProsemirrorEditorFactory();
 	let createAnalyticsEvent: CreateUIAnalyticsEvent;
-	createAnalyticsEvent = jest.fn(() => ({ fire() {} }) as UIAnalyticsEvent);
+	createAnalyticsEvent = jest.fn(
+		() =>
+			({
+				fire() {},
+			}) as UIAnalyticsEvent,
+	);
 	const editor = (doc: DocBuilder) => {
 		return createEditor({
 			doc,

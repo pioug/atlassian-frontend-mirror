@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "103.11.0",
+	"version": "103.12.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -114,7 +114,8 @@
 		"./nesting": "./src/nesting/utilities.ts",
 		"./UNSAFE_do_not_use_editor_context": "./src/ui/EditorContext/index.ts",
 		"./median": "./src/utils/median.ts",
-		"./ugc-tokens": "./src/ugc-tokens/index.ts"
+		"./ugc-tokens": "./src/ugc-tokens/index.ts",
+		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts"
 	},
 	"exports": {
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
@@ -202,7 +203,8 @@
 		"./nesting": "./src/nesting/utilities.ts",
 		"./UNSAFE_do_not_use_editor_context": "./src/ui/EditorContext/index.ts",
 		"./median": "./src/utils/median.ts",
-		"./ugc-tokens": "./src/ugc-tokens/index.ts"
+		"./ugc-tokens": "./src/ugc-tokens/index.ts",
+		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",
@@ -249,6 +251,7 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/task-decision": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
+		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
@@ -427,6 +430,9 @@
 			"type": "boolean"
 		},
 		"platform_fix_media_image_resizing": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_table_picker": {
 			"type": "boolean"
 		}
 	}

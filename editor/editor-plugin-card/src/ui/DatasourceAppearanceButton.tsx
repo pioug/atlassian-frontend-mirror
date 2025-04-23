@@ -19,7 +19,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { buildDatasourceAdf } from '@atlaskit/link-datasource';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 import { updateCardViaDatasource } from '../pm-plugins/doc';
 import { pluginKey } from '../pm-plugins/plugin-key';

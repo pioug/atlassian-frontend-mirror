@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.0
+
+### Minor Changes
+
+- [#142156](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142156)
+  [`9e2d56551d2cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e2d56551d2cc) -
+  Remove WithPluginState from Table via platform_editor_usesharedpluginstateselector
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.8.2
+
+### Patch Changes
+
+- [#142852](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142852)
+  [`ca0f841e860ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca0f841e860ab) -
+  [ux] [ED-27466] When table option in quick insert typeahead is selected, shows table size picker
+  allow user selecting the table size before inserting
+- Updated dependencies
+
 ## 10.8.1
 
 ### Patch Changes

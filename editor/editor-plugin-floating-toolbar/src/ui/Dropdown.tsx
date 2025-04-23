@@ -221,7 +221,6 @@ export default class Dropdown extends Component<Props, State> {
 					: typeof options === 'function'
 						? this.renderArrayOptions(this.makeArrayOptionsFromCallback(options))
 						: options.render({ hide: this.hide, dispatchCommand })}
-
 				{footer && (
 					<>
 						<Divider />

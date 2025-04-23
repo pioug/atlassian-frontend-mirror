@@ -51,12 +51,7 @@ import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
-import {
-	EditorState,
-	NodeSelection,
-	Selection,
-	TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -320,32 +315,6 @@ export function ReactEditorView(props: EditorViewProps) {
 				}
 			}
 
-			if (fg('platform_editor_no_cursor_on_live_doc_init')) {
-				if (!options.selectionAtStart) {
-					// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
-					selection = selection
-						? Selection.findFrom(selection.$head, -1, true) || undefined
-						: undefined;
-				}
-
-				// When in live mode, unless the document is empty we do not focus the editor and
-				// want to avoid placing the cursor inside any nodes which may show selection states
-				// or toolbar based on the cursor being inside them. As such we hard set the
-				// selection to the very start of the document regardless of whether that is a
-				// gapCursor or not.
-				// __livePage necessary because editorViewMode still thinks it is in 'edit' mode
-				// when this is called
-				if (doc && options.selectionAtStart && __livePage) {
-					selection = NodeSelection.create(doc, 0);
-				}
-				return EditorState.create({
-					schema,
-					plugins: plugins as Plugin[],
-					doc,
-					selection,
-				});
-			}
-
 			// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
 			const patchedSelection = selection
 				? Selection.findFrom(selection.$head, -1, true) || undefined
@@ -359,7 +328,6 @@ export function ReactEditorView(props: EditorViewProps) {
 			});
 		},
 		[
-			__livePage,
 			errorReporter,
 			featureFlags,
 			props.intl,

@@ -6,6 +6,7 @@ snapshot(ConfluenceSearchConfigModalNoInitialSearch, {
 	description: 'Confluence search config modal no initial search',
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'bandicoots-update-sllv-icons': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

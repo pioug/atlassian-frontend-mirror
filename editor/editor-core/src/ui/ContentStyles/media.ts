@@ -214,6 +214,10 @@ export const mediaStyles = () => css`
 	.mediaGroupView-content-wrap.${akEditorSelectedNodeClassName} #newFileExperienceWrapper {
 		box-shadow: ${akEditorSelectedBoxShadow};
 	}
+
+	.ak-editor-no-interaction #newFileExperienceWrapper {
+		box-shadow: none;
+	}
 `;
 
 /* `left: unset` above is to work around Chrome bug where rendering a div with

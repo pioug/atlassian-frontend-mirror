@@ -23,7 +23,7 @@ import type { DatasourceAdf } from '@atlaskit/link-datasource';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView, isDatasourceConfigEditable } from '../../pm-plugins/utils';

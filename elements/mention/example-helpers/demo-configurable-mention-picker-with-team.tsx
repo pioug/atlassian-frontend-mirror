@@ -1,6 +1,6 @@
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import React from 'react';
 import { type MentionResourceConfig } from '../src/api/MentionResource';
 import TeamMentionResource from '../src/api/TeamMentionResource';

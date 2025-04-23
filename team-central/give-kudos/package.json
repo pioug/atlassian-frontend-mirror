@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "4.0.5",
+	"version": "4.1.0",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,6 +54,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",

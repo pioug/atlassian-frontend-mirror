@@ -2,7 +2,7 @@
 import { onHidden } from './onHidden';
 
 export const whenIdle = (cb: () => void): number => {
-	const rIC = self.requestIdleCallback || self.setTimeout;
+	const rIC = window.requestIdleCallback || window.setTimeout;
 
 	let handle = -1;
 	cb = runOnce(cb);

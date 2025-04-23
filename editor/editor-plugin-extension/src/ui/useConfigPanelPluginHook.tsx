@@ -8,7 +8,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { clearEditingContext, forceAutoSave } from '../editor-commands/commands';
 import { type ExtensionPlugin } from '../extensionPluginType';

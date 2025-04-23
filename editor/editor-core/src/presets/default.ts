@@ -31,6 +31,7 @@ import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { historyPlugin } from '@atlaskit/editor-plugins/history';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
+import { interactionPlugin } from '@atlaskit/editor-plugins/interaction';
 import type { PastePluginOptions } from '@atlaskit/editor-plugins/paste';
 import { pastePlugin } from '@atlaskit/editor-plugins/paste';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugins/placeholder';
@@ -47,6 +48,7 @@ import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
@@ -108,6 +110,10 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add([pastePlugin, { ...options?.paste, isFullPage }])
 		.add(clipboardPlugin)
 		.add(focusPlugin)
+		.maybeAdd(
+			interactionPlugin,
+			Boolean(options?.__livePage) && fg('platform_editor_no_selection_until_interaction'),
+		)
 		.add(compositionPlugin)
 		.add([
 			contextIdentifierPlugin,

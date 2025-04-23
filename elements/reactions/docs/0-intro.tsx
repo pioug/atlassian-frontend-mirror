@@ -1,7 +1,7 @@
 import React from 'react';
 import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import ReactionsExample from '../examples/01-connected-reactions-view';
 

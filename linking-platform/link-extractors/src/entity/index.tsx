@@ -33,7 +33,11 @@ export function instanceOfDesignEntity(object: unknown): object is DesignEntity 
 }
 
 export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvider | undefined => {
-	const { icon, id, image, name } = response?.meta.generator as ProviderGenerator;
+	if (!response?.meta?.generator) {
+		return undefined;
+	}
+
+	const { icon, id, image, name } = response.meta.generator as ProviderGenerator;
 	if (!name || !icon) {
 		throw Error('Link.generator requires a name and icon.');
 	}

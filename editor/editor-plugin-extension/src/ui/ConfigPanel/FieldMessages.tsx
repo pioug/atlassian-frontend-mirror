@@ -5,7 +5,7 @@ import { injectIntl } from 'react-intl-next';
 
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { ErrorMessage, HelperMessage } from '@atlaskit/form';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { FieldTypeError, ValidationError } from './types';
 

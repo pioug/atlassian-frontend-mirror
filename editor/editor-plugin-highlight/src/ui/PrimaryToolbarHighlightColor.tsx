@@ -32,7 +32,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';

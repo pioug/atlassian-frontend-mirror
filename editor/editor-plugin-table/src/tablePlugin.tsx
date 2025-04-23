@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
@@ -49,7 +50,6 @@ import { createPlugin as createDragAndDropPlugin } from './pm-plugins/drag-and-d
 import { pluginKey as dragAndDropPluginKey } from './pm-plugins/drag-and-drop/plugin-key';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
-import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import { createPlugin as createStickyHeadersPlugin } from './pm-plugins/sticky-headers/plugin';
@@ -62,6 +62,10 @@ import { getPluginState as getFlexiResizingPlugin } from './pm-plugins/table-res
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing/plugin-key';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import {
+	createPlugin as createSizeSelectorPlugin,
+	pluginKey as sizeSelectorPluginKey,
+} from './pm-plugins/table-size-selector';
+import {
 	createPlugin as createTableWidthPlugin,
 	pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
@@ -69,7 +73,8 @@ import { createPlugin as createTableWidthInCommentFixPlugin } from './pm-plugins
 import { createTableWithWidth } from './pm-plugins/utils/create';
 import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
 import type { TablePlugin, TablePluginOptions } from './tablePluginType';
-import type { ColumnResizingPluginState } from './types';
+import type { ColumnResizingPluginState, TableSharedStateInternal } from './types';
+import { ContentComponent } from './ui/ContentComponent';
 import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
@@ -79,6 +84,7 @@ import FloatingDragMenu from './ui/FloatingDragMenu';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import { FloatingToolbarLabel } from './ui/FloatingToolbarLabel/FloatingToolbarLabel';
 import { GlobalStylesWrapper } from './ui/global-styles';
+import { SizeSelector } from './ui/SizeSelector';
 import { FullWidthDisplay } from './ui/TableFullWidthLabel';
 import { getToolbarConfig } from './ui/toolbar';
 
@@ -109,6 +115,14 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
 			options?.isCommentEditor);
 
+	const isTableSelectorEnabled =
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		!options?.isChromelessEditor &&
+		!options?.isCommentEditor &&
+		options?.getEditorFeatureFlags?.().tableSelector &&
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_table_picker');
+
 	return {
 		name: 'table',
 
@@ -119,11 +133,19 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 				return undefined;
 			}
 
-			const tablePluginState = getPluginState(editorState);
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const tablePluginState = pluginKey.getState(editorState)!;
 			const tableResizingPluginState = getFlexiResizingPlugin(editorState);
 			const tableWidthResizingPluginState = tableWidthPluginKey.getState(editorState);
 
-			return {
+			const stickyHeadersState = stickyHeadersPluginKey.getState(editorState);
+			const stickyHeader = stickyHeadersState
+				? findStickyHeaderForTable(stickyHeadersState, tablePluginState?.tablePos)
+				: undefined;
+
+			const dragAndDropState = dragAndDropPluginKey.getState(editorState);
+
+			const sharedStateInternal: TableSharedStateInternal = {
 				isFullWidthModeEnabled: !!options?.fullWidthEnabled,
 				wasFullWidthModeEnabled: !!options?.wasFullWidthEnabled,
 				isHeaderRowEnabled: tablePluginState.isHeaderRowEnabled,
@@ -143,7 +165,25 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 				// TableComponent listens for node attribute changes to update colgroups
 				tableNode: tablePluginState.tableNode,
 				widthToWidest: tablePluginState.widthToWidest,
+				resizingTableLocalId: tableWidthResizingPluginState?.tableLocalId,
+				tableRef: tablePluginState?.tableRef ?? undefined,
+				resizingTableRef: tableWidthResizingPluginState?.tableRef ?? undefined,
+				tablePos: tablePluginState.tablePos,
+				targetCellPosition: tablePluginState.targetCellPosition,
+				isContextualMenuOpen: tablePluginState.isContextualMenuOpen,
+				pluginConfig: tablePluginState.pluginConfig,
+				insertColumnButtonIndex: tablePluginState.insertColumnButtonIndex,
+				insertRowButtonIndex: tablePluginState.insertRowButtonIndex,
+				isDragAndDropEnabled: tablePluginState.isDragAndDropEnabled,
+				tableWrapperTarget: tablePluginState.tableWrapperTarget,
+				isCellMenuOpenByKeyboard: tablePluginState.isCellMenuOpenByKeyboard,
+				stickyHeader,
+				dragMenuDirection: dragAndDropState?.dragMenuDirection,
+				dragMenuIndex: dragAndDropState?.dragMenuIndex,
+				isDragMenuOpen: dragAndDropState?.isDragMenuOpen,
 			};
+
+			return sharedStateInternal;
 		},
 
 		actions: {
@@ -487,6 +527,11 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 						});
 					},
 				},
+				{
+					name: 'tableSizeSelectorPlugin',
+					plugin: ({ dispatch }) =>
+						isTableSelectorEnabled ? createSizeSelectorPlugin(dispatch) : undefined,
+				},
 			];
 
 			// Workaround for table element breaking issue caused by composition event with an inputType of deleteCompositionText.
@@ -510,6 +555,22 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			popupsScrollableElement,
 			dispatchAnalyticsEvent,
 		}) {
+			if (editorExperiment('platform_editor_usesharedpluginstateselector', true)) {
+				return (
+					<ContentComponent
+						api={api}
+						editorView={editorView}
+						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+						options={options}
+						popupsMountPoint={popupsMountPoint}
+						popupsBoundariesElement={popupsBoundariesElement}
+						popupsScrollableElement={popupsScrollableElement}
+						defaultGetEditorContainerWidth={defaultGetEditorContainerWidth}
+						defaultGetEditorFeatureFlags={defaultGetEditorFeatureFlags}
+					/>
+				);
+			}
+
 			return (
 				<ErrorBoundary
 					component={ACTION_SUBJECT.TABLES_PLUGIN}
@@ -529,6 +590,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 							tableResizingPluginState: tableResizingPluginKey,
 							stickyHeadersState: stickyHeadersPluginKey,
 							dragAndDropState: dragAndDropPluginKey,
+							sizeSelectorPluginState: sizeSelectorPluginKey,
 						}}
 						render={({
 							tableResizingPluginState: resizingPluginState,
@@ -536,6 +598,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 							tablePluginState,
 							tableWidthPluginState,
 							dragAndDropState,
+							sizeSelectorPluginState,
 						}) => {
 							const isColumnResizing = resizingPluginState?.dragging;
 							const isTableResizing = tableWidthPluginState?.resizing;
@@ -543,6 +606,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 							const resizingTableRef = tableWidthPluginState?.tableRef;
 							const isResizing = isColumnResizing || isTableResizing;
 							const widthToWidest = tablePluginState?.widthToWidest;
+							const isSizeSelectorOpen = sizeSelectorPluginState?.isSelectorOpen;
 
 							const {
 								tableNode,
@@ -695,6 +759,24 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 												offset={[0, 10]}
 											/>
 										)}
+
+									{isTableSelectorEnabled && isSizeSelectorOpen && (
+										<SizeSelector
+											api={api}
+											isOpenedByKeyboard={false}
+											popupsMountPoint={popupsMountPoint}
+											target={
+												sizeSelectorPluginState?.targetRef ??
+												getDomRefFromSelection(
+													editorView,
+													ACTION_SUBJECT_ID.PICKER_TABLE_SIZE,
+													api?.analytics?.actions.fireAnalyticsEvent,
+												)
+											}
+											popupsBoundariesElement={popupsBoundariesElement}
+											popupsScrollableElement={popupsScrollableElement}
+										/>
+									)}
 								</>
 							);
 						}}
@@ -714,6 +796,15 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 					keyshortcut: tooltip(toggleTable),
 					icon: () => <IconTable />,
 					action(insert, state) {
+						if (isTableSelectorEnabled) {
+							const tr = insert('');
+							tr.setMeta(sizeSelectorPluginKey, {
+								isSelectorOpen: true,
+							});
+
+							return tr;
+						}
+
 						// see comment on tablesPlugin.getSharedState on usage
 						const tableState = api?.table?.sharedState.currentState();
 						const tableNodeProps = {

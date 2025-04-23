@@ -1,6 +1,8 @@
 import { Device, snapshot } from '@af/visual-regression';
 
 import Basic from '../../../examples/0-basic';
+import Appearance from '../../../examples/1-appearance';
+import Resize from '../../../examples/2-resize';
 
 // @todo: remove in `platform_design_system_team_safari_input_fix` cleanup
 snapshot(Basic, {
@@ -24,3 +26,6 @@ snapshot(Basic, {
 		},
 	],
 });
+
+snapshot(Appearance);
+snapshot(Resize);

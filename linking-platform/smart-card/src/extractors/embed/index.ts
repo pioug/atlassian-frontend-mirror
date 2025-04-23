@@ -1,15 +1,23 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
+	extractEntityProvider,
 	extractLink,
 	extractPreview,
 	extractProvider,
 	extractProviderIcon,
+	extractSmartLinkEmbed,
+	extractSmartLinkTitle,
+	extractSmartLinkUrl,
 	extractTitle,
 	extractUrlFromIconJsonLd,
+	isEntityPresent,
 	type LinkPreview,
 	type LinkProvider,
 } from '@atlaskit/link-extractors';
+import { SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { getEmptyJsonLd } from '../../utils/jsonld';
 import { type CardPlatform, type EmbedIframeUrlType } from '../../view/Card/types';
 import { type EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedView';
 import { prioritiseIcon } from '../common/icon';
@@ -58,16 +66,42 @@ function generateContext(jsonLd: JsonLd.Data.BaseData): LinkProvider | undefined
 	};
 }
 
+/**
+ * We can migrate this to link extractors once we have deprecated JsonLd
+ */
+function extractSmartLinkContext(response?: SmartLinkResponse): LinkProvider | undefined {
+	if (isEntityPresent(response)) {
+		return extractEntityProvider(response);
+	}
+
+	return generateContext(response?.data as JsonLd.Data.BaseData);
+}
+
 export const extractEmbedProps = (
-	jsonLd: JsonLd.Data.BaseData,
-	meta?: JsonLd.Meta.BaseMeta,
+	response?: SmartLinkResponse,
 	platform?: CardPlatform,
 	iframeUrlType?: EmbedIframeUrlType,
-): EmbedCardResolvedViewProps => ({
-	link: extractLink(jsonLd) || '',
-	title: extractTitle(jsonLd),
-	context: generateContext(jsonLd),
-	preview: extractEmbedPreview(jsonLd, platform, iframeUrlType),
-	isTrusted: extractIsTrusted(meta),
-	isSupportTheming: extractIsSupportTheming(meta),
-});
+): EmbedCardResolvedViewProps => {
+	const meta = response?.meta;
+	const jsonLd = (response?.data as JsonLd.Data.BaseData) || getEmptyJsonLd();
+
+	if (fg('smart_links_noun_support')) {
+		return {
+			link: extractSmartLinkUrl(response) || '',
+			title: extractSmartLinkTitle(response),
+			context: extractSmartLinkContext(response),
+			preview: extractSmartLinkEmbed(response, iframeUrlType),
+			isTrusted: extractIsTrusted(meta),
+			isSupportTheming: extractIsSupportTheming(meta),
+		};
+	}
+
+	return {
+		link: extractLink(jsonLd) || '',
+		title: extractTitle(jsonLd),
+		context: generateContext(jsonLd),
+		preview: extractEmbedPreview(jsonLd, platform, iframeUrlType),
+		isTrusted: extractIsTrusted(meta),
+		isSupportTheming: extractIsSupportTheming(meta),
+	};
+};

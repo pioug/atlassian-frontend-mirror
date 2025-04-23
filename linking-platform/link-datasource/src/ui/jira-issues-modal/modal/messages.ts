@@ -103,10 +103,22 @@ export const modalMessages = defineMessages({
 		defaultMessage:
 			'Check your connection and refresh, or <a>open this query in Jira</a> to review.',
 	},
+	checkConnectionWithSourceVisualRefreshSllv: {
+		id: 'linkDataSource.jira-issues.checkConnectionWithSource.visual-refresh-sllv',
+		description:
+			'Instructions to let the user know how to resolve the error that occured, or click the link provided to open the query in Jira',
+		defaultMessage:
+			'Check your connection and refresh, or <a>open this project in Jira</a> to review.',
+	},
 	insertIssuesButtonTextIssueTermRefresh: {
 		id: 'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh',
 		description: 'Button text to insert the displayed content',
 		defaultMessage: 'Insert work items',
+	},
+	insertIssuesButtonTextIssueTermSllv: {
+		id: 'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv',
+		description: 'Button text to insert the displayed content',
+		defaultMessage: 'Insert results',
 	},
 	insertIssuesTitleIssueTermRefresh: {
 		id: 'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh',

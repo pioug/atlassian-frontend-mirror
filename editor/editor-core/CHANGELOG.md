@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 205.5.4
+
+### Patch Changes
+
+- [#142352](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142352)
+  [`05903fde6d94d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05903fde6d94d) -
+  Internal change to use Compiled variant of `@atlaskit/primitives`.
+- Updated dependencies
+
+## 205.5.3
+
+### Patch Changes
+
+- [#140969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140969)
+  [`b4ac22e73d43c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4ac22e73d43c) -
+  [ux] [ED-27253] hide selection states until editor has been interacted with
+- Updated dependencies
+
 ## 205.5.2
 
 ### Patch Changes

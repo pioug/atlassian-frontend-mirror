@@ -1,5 +1,17 @@
 # @atlassian/give-kudos
 
+## 4.1.0
+
+### Minor Changes
+
+- [#144593](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144593)
+  [`5ca0075ee0408`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ca0075ee0408) -
+  PTC-11485 Updated title for create team flag, added actions and exposed onCreateKudosSuccess to
+  Kudos
+- [#143734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143734)
+  [`aeb5f206e7d70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aeb5f206e7d70) -
+  Added teamid to create kudos opened event to track team active status
+
 ## 4.0.5
 
 ### Patch Changes

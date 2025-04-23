@@ -21,7 +21,7 @@ export interface EmbedCardResolvedViewProps {
 	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
 	frameStyle?: FrameStyle;
 	/** The src to be used for the `iframe` */
-	preview?: { src: string; aspectRatio?: number };
+	preview?: { src?: string; aspectRatio?: number };
 	/** A flag that determines whether link source can be trusted in iframe **/
 	isTrusted?: boolean;
 	/** The optional click handler */

@@ -22,7 +22,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Heading from '@atlaskit/heading';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Flex, Stack } from '@atlaskit/primitives';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import {

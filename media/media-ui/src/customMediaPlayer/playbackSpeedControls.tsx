@@ -1,9 +1,18 @@
+/**
+ * @jsxRuntime classic
+ * @jsxFrag jsx
+ * @jsx jsx
+ */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // Keep PlaybackSpeedControls to use static colors from the new color palette to support the hybrid
 // theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
+// with the compiled react, we are leaving the static colors in tact for now.
 import React, { type KeyboardEvent } from 'react';
 import { Component } from 'react';
+import { cssMap, jsx } from '@compiled/react';
+
 import {
+	components,
 	PopupSelect,
 	type OptionType,
 	type StylesConfig,
@@ -30,6 +39,14 @@ export interface PlaybackSpeedControlsProps {
 export interface PlaybackSpeedControlsState {
 	popupHeight: number;
 }
+
+const selectOptionStyles = cssMap({
+	root: {
+		'&:active': {
+			backgroundColor: '#a6c5e229',
+		},
+	},
+});
 
 export class PlaybackSpeedControls extends Component<
 	PlaybackSpeedControlsProps & WrappedComponentProps,
@@ -139,6 +156,9 @@ export class PlaybackSpeedControls extends Component<
 			<>
 				<WidthObserver setWidth={this.onResize} />
 				<PopupSelect
+					components={{
+						Option: (props) => <components.Option {...props} xcss={selectOptionStyles.root} />,
+					}}
 					minMenuWidth={140}
 					maxMenuHeight={popupHeight}
 					options={this.speedOptions()}

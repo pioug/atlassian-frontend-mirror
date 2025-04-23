@@ -16,7 +16,7 @@ import {
 } from '@atlaskit/editor-common/ui-color';
 import { ColorPickerButton } from '@atlaskit/editor-common/ui-menu';
 import { Field } from '@atlaskit/form';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import FieldMessages from '../FieldMessages';

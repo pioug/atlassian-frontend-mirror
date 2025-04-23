@@ -11,6 +11,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { EmojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -45,6 +46,7 @@ export type FloatingToolbarPluginDependencies = [
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<EmojiPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
+	OptionalPlugin<InteractionPlugin>,
 ];
 
 export type FloatingToolbarPlugin = NextEditorPlugin<

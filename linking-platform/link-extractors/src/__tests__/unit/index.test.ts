@@ -249,6 +249,20 @@ describe('extractSmartLinkProvider()', () => {
 		});
 	});
 
+	it('should return `undefined` when response is an entity but meta is missing generator', () => {
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			data: { '@type': 'Object' },
+			nounData: {
+				displayName: 'Entity Title',
+				['atlassian:design']: {
+					iconUrl: 'https://example.com/icon.png',
+				},
+			},
+		} as SmartLinkResponse;
+		expect(extractSmartLinkProvider(response)).toBeUndefined();
+	});
+
 	it('should return `undefined` when response is not an entity and data has no provider', () => {
 		const response = { data: {} } as SmartLinkResponse;
 		expect(extractSmartLinkProvider(response)).toBeUndefined();

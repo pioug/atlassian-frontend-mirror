@@ -1,7 +1,7 @@
 import React from 'react';
 import { PureComponent } from 'react';
 
-import { Text, Pressable } from '@atlaskit/primitives';
+import { Text, Pressable } from '@atlaskit/primitives/compiled';
 import Heading from '@atlaskit/heading';
 
 import type { EmojiProvider } from '../src/resource';
@@ -169,7 +169,7 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
 			}
 		}
 
-		return new Array<string>();
+		return [];
 	}
 
 	render() {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-element-browser
 
+## 0.1.14
+
+### Patch Changes
+
+- [#142352](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142352)
+  [`05903fde6d94d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05903fde6d94d) -
+  Internal change to use Compiled variant of `@atlaskit/primitives`.
+- Updated dependencies
+
 ## 0.1.13
 
 ### Patch Changes

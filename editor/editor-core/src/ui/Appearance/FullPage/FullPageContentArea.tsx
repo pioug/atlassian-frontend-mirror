@@ -7,6 +7,7 @@ import React, { useImperativeHandle, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, useTheme, type Theme } from '@emotion/react';
+import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -69,6 +70,7 @@ interface FullPageEditorContentAreaProps {
 	featureFlags?: FeatureFlags;
 	viewMode: ViewMode | undefined;
 	isEditorToolbarHidden?: boolean;
+	hasHadInteraction?: boolean;
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
@@ -99,6 +101,16 @@ const Content = React.forwardRef<
 		}),
 		[],
 	);
+
+	let interactionClassName: string | undefined;
+	if (
+		props.hasHadInteraction !== undefined &&
+		fg('platform_editor_no_selection_until_interaction')
+	) {
+		interactionClassName = props.hasHadInteraction
+			? 'ak-editor-has-interaction'
+			: 'ak-editor-no-interaction';
+	}
 
 	return (
 		<div
@@ -167,11 +179,22 @@ const Content = React.forwardRef<
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={editorContentGutterStyle()}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={[
-									'ak-editor-content-area',
-									'appearance-full-page',
-									fullWidthMode ? 'fabric-editor--full-width-mode' : '',
-								].join(' ')}
+								className={
+									fg('platform_editor_no_selection_until_interaction')
+										? classnames(
+												'ak-editor-content-area',
+												'appearance-full-page',
+												interactionClassName,
+												{
+													'fabric-editor--full-width-mode': fullWidthMode,
+												},
+											)
+										: [
+												'ak-editor-content-area',
+												'appearance-full-page',
+												fullWidthMode ? 'fabric-editor--full-width-mode' : '',
+											].join(' ')
+								}
 								ref={contentAreaRef}
 							>
 								{!!props.customContentComponents && 'before' in props.customContentComponents

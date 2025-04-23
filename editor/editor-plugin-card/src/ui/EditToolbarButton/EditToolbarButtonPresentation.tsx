@@ -22,7 +22,7 @@ import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 

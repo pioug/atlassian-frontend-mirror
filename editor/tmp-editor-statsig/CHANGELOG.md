@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.13.0
+
+### Minor Changes
+
+- [#142156](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142156)
+  [`9e2d56551d2cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e2d56551d2cc) -
+  Remove WithPluginState from Table via platform_editor_usesharedpluginstateselector
+
 ## 4.12.0
 
 ### Minor Changes

@@ -1,5 +1,51 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.0.3
+
+### Patch Changes
+
+- [#142352](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142352)
+  [`05903fde6d94d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05903fde6d94d) -
+  Internal change to use Compiled variant of `@atlaskit/primitives`.
+- [#141455](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141455)
+  [`8a8bd624345b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a8bd624345b5) -
+  [ED-27542] Clean up platform_editor_controls_patch_2 used for floating toolbar scroll left/right
+  buttons
+- Updated dependencies
+
+## 4.0.2
+
+### Patch Changes
+
+- [#143960](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143960)
+  [`e1bf8964b3cf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1bf8964b3cf8) -
+  Adding press interaction performance tracking to Comment action in floating toolbar. No UI change.
+- Updated dependencies
+
+## 4.0.1
+
+### Patch Changes
+
+- [#140969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140969)
+  [`b4ac22e73d43c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4ac22e73d43c) -
+  [ux] [ED-27253] hide selection states until editor has been interacted with
+- Updated dependencies
+
+## 4.0.0
+
+### Major Changes
+
+- [#141095](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141095)
+  [`c12941b65dc2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c12941b65dc2a) -
+  **WHAT**: Remove `@atlaskit/editor-plugin-block-controls` as a dependency from
+  `@atlaskit/editor-plugin-floating-toolbar`. Add `@atlaskit/editor-plugin-user-intent` as a
+  dependency and replace isDragging check from block controls with this user intention current
+  intention check.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.1
 
 ### Patch Changes

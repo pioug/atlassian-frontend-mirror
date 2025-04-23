@@ -25,7 +25,8 @@ import {
 	IconTwoColumnLayout,
 } from '@atlaskit/editor-common/quick-insert';
 import type { FloatingToolbarConfig, PMPlugin } from '@atlaskit/editor-common/types';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from './layoutPluginType';
@@ -40,6 +41,36 @@ import { default as createLayoutResizingPlugin } from './pm-plugins/resizing';
 import type { LayoutState } from './pm-plugins/types';
 import { GlobalStylesWrapper } from './ui/global-styles';
 import { buildToolbar } from './ui/toolbar';
+
+/**
+ * This function is used to set the selection into
+ * the first paragraph of the first column of a layout section.
+ * This function is only intended to be used after inserting a new layout section.
+ * @param tr - transaction
+ * @returns - transaction with the selection set to the first paragraph of the first column
+ */
+export const selectIntoLayoutSection = (tr: Transaction) => {
+	if (!editorExperiment('single_column_layouts', true)) {
+		return tr;
+	}
+
+	const { layoutSection, paragraph } = tr.doc.type.schema.nodes;
+	const nodeWithPos = findParentNode((node) => node.type === layoutSection)(tr.selection);
+
+	if (
+		!nodeWithPos ||
+		!nodeWithPos.node ||
+		nodeWithPos.node.type.name !== 'layoutSection' ||
+		nodeWithPos.node.firstChild?.firstChild?.type !== paragraph
+	) {
+		return tr;
+	}
+
+	// set text selection at the beginning of the layout section
+	// will set the selection to the first column
+	tr.setSelection(TextSelection.create(tr.doc, nodeWithPos.pos));
+	return tr;
+};
 
 export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 	const allowAdvancedSingleColumnLayout =
@@ -139,6 +170,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								action(insert, state, _source) {
 									const tr = insert(createMultiColumnLayoutSection(state, 1));
 									withInsertLayoutAnalytics(tr);
+									selectIntoLayoutSection(tr);
 									return tr;
 								},
 							},
@@ -160,6 +192,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 3));
 									withInsertLayoutAnalytics(tr);
+									selectIntoLayoutSection(tr);
 									return tr;
 								},
 							},
@@ -179,6 +212,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 2));
 									withInsertLayoutAnalytics(tr);
+									selectIntoLayoutSection(tr);
 									return tr;
 								},
 							},
@@ -194,6 +228,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 3));
 									withInsertLayoutAnalytics(tr);
+									selectIntoLayoutSection(tr);
 									return tr;
 								},
 							},
@@ -209,6 +244,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 4));
 									withInsertLayoutAnalytics(tr);
+									selectIntoLayoutSection(tr);
 									return tr;
 								},
 							},
@@ -224,6 +260,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 5));
 									withInsertLayoutAnalytics(tr);
+									selectIntoLayoutSection(tr);
 									return tr;
 								},
 							},

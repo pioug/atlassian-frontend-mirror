@@ -34,7 +34,7 @@ import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 

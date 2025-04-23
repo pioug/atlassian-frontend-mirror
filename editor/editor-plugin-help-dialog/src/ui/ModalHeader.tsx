@@ -30,7 +30,6 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 					{...messages.editorHelp}
 				/>
 			</Heading>
-
 			<div>
 				<ToolbarButton
 					// @ts-expect-error modal onClose handler requires second parameter of UIAnalyticsEvent, which we don't want to pass

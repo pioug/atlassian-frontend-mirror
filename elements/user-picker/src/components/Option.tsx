@@ -1,4 +1,4 @@
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { components, type OptionProps as AkOptionProps } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
 import React, { type FC } from 'react';

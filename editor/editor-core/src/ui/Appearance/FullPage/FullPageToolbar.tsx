@@ -144,7 +144,6 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 						dispatchAnalyticsEvent: props.dispatchAnalyticsEvent,
 					})
 				: null}
-
 			{!!props.customPrimaryToolbarComponents && 'after' in props.customPrimaryToolbarComponents
 				? props.customPrimaryToolbarComponents.after
 				: props.customPrimaryToolbarComponents}

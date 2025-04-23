@@ -4,6 +4,7 @@ export const expandADF = (breakoutMode = 'default') =>
 	({
 		version: 1,
 		type: 'doc',
+
 		content: [
 			{
 				type: 'expand',

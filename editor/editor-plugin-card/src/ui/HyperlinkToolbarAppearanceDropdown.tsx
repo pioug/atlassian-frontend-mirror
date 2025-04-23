@@ -16,7 +16,7 @@ import {
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 import type { HyperlinkToolbarAppearanceProps } from './HyperlinkToolbarAppearance';
 import { LinkAppearanceMenu } from './LinkToolbarAppearanceDropdown';

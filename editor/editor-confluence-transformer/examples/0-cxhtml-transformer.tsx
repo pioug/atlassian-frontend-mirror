@@ -252,7 +252,6 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 			// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
 			<div ref="root">
 				<Example onChange={this.handleChange} />
-
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<fieldset style={{ marginTop: token('space.250', '20px') }}>
 					<legend>

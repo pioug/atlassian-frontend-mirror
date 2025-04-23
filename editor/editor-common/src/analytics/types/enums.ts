@@ -425,6 +425,7 @@ export enum ACTION_SUBJECT_ID {
 	PICKER_MEDIA = 'mediaPicker',
 	PICKER_COLOR = 'colorPicker',
 	PICKER_EMOJI = 'emojiPicker',
+	PICKER_TABLE_SIZE = 'tableSizePicker',
 	DOCKED_PRIMARY_TOOLBAR = 'dockedPrimaryToolbar',
 	PLACEHOLDER_TEXT = 'placeholderText',
 	POST_QUERY_SEARCH_RESULTS = 'postQuerySearchResults',

@@ -5,8 +5,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { cssMap, cx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text } from '@atlaskit/primitives';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 import { token } from '@atlaskit/tokens';
 

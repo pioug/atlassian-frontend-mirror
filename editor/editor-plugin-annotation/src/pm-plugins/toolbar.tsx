@@ -146,6 +146,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 				selectionValid === AnnotationSelectionType.DISABLED ||
 				api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
+			interactionName: 'start-inline-comment-action',
 			icon: CommentIcon,
 			iconFallback: CommentIcon,
 			tooltipContent:

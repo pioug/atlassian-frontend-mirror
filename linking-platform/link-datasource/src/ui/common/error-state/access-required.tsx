@@ -29,17 +29,26 @@ const styles = cssMap({
 		flexDirection: 'column',
 		gap: token('space.200', '16px'),
 	},
-	urlStyles: {
+	urlStylesOld: {
 		color: token('color.text.subtlest', N400),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		font: token('font.body', fontFallback.body.medium),
+	},
+	urlStyles: {
+		font: token('font.heading.medium'),
+		color: token('color.text'),
+		marginTop: token('space.negative.200'),
 	},
 });
 
 const Description = ({ message, url }: { message: string; url: string }) => {
 	return (
 		<div css={styles.descriptionMessageStyles}>
-			<span css={styles.urlStyles}>{url}</span>
+			<span
+				css={[fg('platform-linking-visual-refresh-sllv') ? styles.urlStyles : styles.urlStylesOld]}
+			>
+				{url}
+			</span>
 			<span>{message}</span>
 		</div>
 	);
@@ -83,7 +92,12 @@ export const AccessRequired = ({ url }: AccessRequiredProps) => {
 		return (
 			<EmptyState
 				testId="datasource--access-required-with-url"
-				header={formatMessage(loadingErrorMessages.accessRequiredWithSite)}
+				header={formatMessage(
+					fg('platform-linking-visual-refresh-sllv')
+						? loadingErrorMessages.accessRequiredWithSite
+						: loadingErrorMessages.accessRequiredWithSiteOld,
+				)}
+				headingLevel={fg('platform-linking-visual-refresh-sllv') ? 2 : undefined}
 				description={
 					<Description message={formatMessage(loadingErrorMessages.accessInstructions)} url={url} />
 				}

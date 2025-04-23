@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
@@ -9,7 +8,7 @@ import { extractEmbedProps } from '../../extractors/embed';
 import { extractInlineProps } from '../../extractors/inline';
 import { getExtensionKey, hasAuthScopeOverrides } from '../../state/helpers';
 import { useControlDataExportConfig } from '../../state/hooks/use-control-data-export-config';
-import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
+import { getForbiddenJsonLd } from '../../utils/jsonld';
 import { getIsDataExportEnabled } from '../../utils/should-data-export';
 import BlockCardResolvedView from '../BlockCard/views/ResolvedView';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
@@ -48,8 +47,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 
 		const { status, details } = cardState;
 
-		const data = ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
-		const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
 		const extensionKey = getExtensionKey(details);
 		const isProductIntegrationSupported = hasAuthScopeOverrides(details);
 		const { shouldControlDataExport = false } = useControlDataExportConfig();
@@ -70,7 +67,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 					/>
 				);
 			case 'resolved':
-				const resolvedViewProps = extractEmbedProps(data, meta, platform, iframeUrlType);
+				const resolvedViewProps = extractEmbedProps(details, platform, iframeUrlType);
 				if (onResolve) {
 					onResolve({
 						title: resolvedViewProps.title,
@@ -81,7 +78,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 
 				if (fg('platform_smart_links_controlled_dsp_export_view')) {
 					if (getIsDataExportEnabled(shouldControlDataExport, cardState.details)) {
-						const unauthViewProps = extractEmbedProps(data, meta, platform);
+						const unauthViewProps = extractEmbedProps(details, platform);
 						return (
 							<UnauthorizedView
 								context={unauthViewProps.context}
@@ -143,7 +140,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 				if (onError) {
 					onError({ url, status });
 				}
-				const unauthorisedViewProps = extractEmbedProps(data, meta, platform);
+				const unauthorisedViewProps = extractEmbedProps(details, platform);
 				return (
 					<UnauthorizedView
 						context={unauthorisedViewProps.context}
@@ -162,7 +159,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 				if (onError) {
 					onError({ url, status });
 				}
-				const forbiddenViewProps = extractEmbedProps(data, meta, platform);
+				const forbiddenViewProps = extractEmbedProps(details, platform);
 				const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
 
 				if (forbiddenViewProps.preview) {
@@ -202,7 +199,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 				if (onError) {
 					onError({ url, status });
 				}
-				const notFoundViewProps = extractEmbedProps(data, meta, platform);
+				const notFoundViewProps = extractEmbedProps(details, platform);
 
 				const notFoundAccessContext = details?.meta
 					? extractRequestAccessContextImproved({

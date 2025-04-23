@@ -4,9 +4,10 @@
  */
 import { useEffect } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, cx, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import Button from '@atlaskit/button/new';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -24,19 +25,42 @@ const styles = cssMap({
 		placeItems: 'center',
 		placeSelf: 'center',
 	},
-	errorMessageContainerStyles: {
+	errorContainerStylesNew: {
+		display: 'grid',
+		gap: token('space.300', '24px'),
+		placeItems: 'center',
+		placeSelf: 'center',
+		paddingTop: token('space.600', '48px'),
+		paddingRight: token('space.600', '48px'),
+		paddingBottom: token('space.600', '48px'),
+		paddingLeft: token('space.600', '48px'),
+		maxWidth: '400px',
+	},
+	errorMessageContainerStylesOld: {
 		display: 'grid',
 		gap: token('space.100', '8px'),
 		placeItems: 'center',
+	},
+	errorMessageContainerStyles: {
+		display: 'grid',
+		gap: token('space.200', '16px'),
+		placeItems: 'center',
+		textAlign: 'center',
 	},
 });
 
 interface ModalLoadingErrorProps {
 	errorMessage?: React.ReactNode;
+	/**
+	 * This callback function is only consumed when the
+	 * ff `platform-linking-visual-refresh-sllv` is enabled.
+	 */
+	onRefresh?: () => void;
 }
 
 export const ModalLoadingError = ({
 	errorMessage = <FormattedMessage {...loadingErrorMessages.checkConnection} />,
+	onRefresh,
 }: ModalLoadingErrorProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -47,17 +71,53 @@ export const ModalLoadingError = ({
 	}, [fireEvent]);
 
 	return (
-		<Box xcss={styles.errorContainerStyles} testId="datasource-modal--loading-error">
+		<Box
+			xcss={cx(
+				fg('platform-linking-visual-refresh-sllv')
+					? styles.errorContainerStylesNew
+					: styles.errorContainerStyles,
+			)}
+			testId="datasource-modal--loading-error"
+		>
 			{fg('bandicoots-update-sllv-icons') ? (
 				<SpotErrorSearch size={'xlarge'} alt="" />
 			) : (
 				<LoadingErrorSVGOld />
 			)}
-			<Box xcss={styles.errorMessageContainerStyles}>
-				<Text size="small">
-					<FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
-				</Text>
-				<Text as="p">{errorMessage}</Text>
+			<Box
+				xcss={cx(
+					fg('platform-linking-visual-refresh-sllv')
+						? styles.errorMessageContainerStyles
+						: styles.errorMessageContainerStylesOld,
+				)}
+			>
+				{fg('platform-linking-visual-refresh-sllv') ? (
+					<Text as="span" size="large" weight="bold">
+						<FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
+					</Text>
+				) : (
+					<Text size="small">
+						<FormattedMessage {...loadingErrorMessages.unableToLoadResultsOld} />
+					</Text>
+				)}
+
+				{fg('platform-linking-visual-refresh-sllv') ? (
+					<Text as="span" size="medium">
+						{errorMessage}
+					</Text>
+				) : (
+					<Text as="p">{errorMessage}</Text>
+				)}
+
+				{onRefresh && fg('platform-linking-visual-refresh-sllv') && (
+					<Button
+						appearance="primary"
+						onClick={onRefresh}
+						testId="datasource-modal--loading-error-refresh"
+					>
+						<FormattedMessage {...loadingErrorMessages.refresh} />
+					</Button>
+				)}
 			</Box>
 		</Box>
 	);

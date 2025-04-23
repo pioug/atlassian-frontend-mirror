@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.7.1
+
+### Patch Changes
+
+- [#143960](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143960)
+  [`e1bf8964b3cf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1bf8964b3cf8) -
+  Adding press interaction performance tracking to Comment action in floating toolbar. No UI change.
+- Updated dependencies
+
 ## 2.7.0
 
 ### Minor Changes

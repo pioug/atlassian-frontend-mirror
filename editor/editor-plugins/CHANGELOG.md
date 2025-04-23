@@ -1,5 +1,54 @@
 # @atlaskit/editor-plugins
 
+## 8.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.0
+
+### Minor Changes
+
+- [#141095](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141095)
+  [`5f0694bcf5c1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f0694bcf5c1f) -
+  Add UserIntentPlugin as an optional dependency, and add its corresponding package as package
+  dependency
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.14
 
 ### Patch Changes

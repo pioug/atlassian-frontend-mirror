@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type InteractionState } from '../types';
 
@@ -25,7 +25,7 @@ export const createPlugin = () =>
 			},
 
 			apply(tr, oldPluginState) {
-				const meta = tr.getMeta(key) as boolean | { hasHadInteraction: boolean };
+				const meta = tr.getMeta(key) as InteractionState;
 				if (typeof meta === 'object') {
 					if (meta.hasHadInteraction !== oldPluginState.hasHadInteraction) {
 						return {
@@ -39,8 +39,12 @@ export const createPlugin = () =>
 
 		props: {
 			handleDOMEvents: {
+				// Handle all pointer click events (includes drag inside editor)
 				mousedown: handleInteraction,
+				// Handle keyboard events. Must be keyup to handle tabbing into editor (keyup occurs
+				// on the "next focused" element)
 				keyup: handleInteraction,
+				// Handle drag and drop _into_ the editor from outside. Eg image DnD
 				drop: handleInteraction,
 			},
 		},

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.6.4
+
+### Patch Changes
+
+- [#144654](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144654)
+  [`f01bae7a69fc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f01bae7a69fc9) -
+  remove withProfiling wrappers for intersection observer callbacks
+
 ## 3.6.3
 
 ### Patch Changes

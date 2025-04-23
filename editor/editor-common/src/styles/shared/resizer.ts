@@ -204,6 +204,13 @@ export const resizerStyles = css`
 		}
 	}
 
+	.ak-editor-no-interaction
+		.${akEditorSelectedNodeClassName}
+		.${resizerHandleClassName}:not(:hover)
+		.${resizerHandleThumbClassName} {
+		background: ${token('color.border')};
+	}
+
 	.${resizerHoverZoneClassName} {
 		position: relative;
 		display: inline-block;

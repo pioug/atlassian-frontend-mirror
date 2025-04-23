@@ -1,6 +1,7 @@
 import React, { type ReactNode } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -36,6 +37,9 @@ const styles = cssMap({
 			'40px 100%, 14px 100%, 40px 100%, 14px 100%, 100% 100px, 100% 14px, 100% 40px, 100% 10px',
 		backgroundAttachment: 'local, scroll, local, scroll, local, scroll, local, scroll',
 	},
+	contentContainerRemoveBorderStyles: {
+		borderBottom: 'none',
+	},
 });
 
 export interface ContentContainerProps {
@@ -45,7 +49,13 @@ export interface ContentContainerProps {
 
 export const ContentContainer = ({ children, withTableBorder }: ContentContainerProps) => {
 	return (
-		<Box xcss={cx(styles.contentContainerStyles, withTableBorder && styles.tableContainerStyles)}>
+		<Box
+			xcss={cx(
+				styles.contentContainerStyles,
+				withTableBorder && styles.tableContainerStyles,
+				fg('platform-linking-visual-refresh-sllv') && styles.contentContainerRemoveBorderStyles,
+			)}
+		>
 			{children}
 		</Box>
 	);

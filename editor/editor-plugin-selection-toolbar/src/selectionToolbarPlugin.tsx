@@ -381,8 +381,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					title: 'Selection toolbar',
 					nodeType: nodeType,
 					items: items,
-					...(isEditorControlsEnabled &&
-						fg('platform_editor_controls_patch_2') && { scrollable: true }),
+					...(isEditorControlsEnabled && { scrollable: true }),
 					onPositionCalculated,
 				};
 			},

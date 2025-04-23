@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/new';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 export const SimpleModal = (props: ConfirmationDialogProps & WrappedComponentProps) => {
 	const {
 		onConfirm,

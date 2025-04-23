@@ -198,6 +198,7 @@ export type FloatingToolbarButton<T extends Object> = {
 	className?: string;
 	tooltipContent?: TooltipProps['content'];
 	testId?: string;
+	interactionName?: string;
 	hideTooltipOnClick?: boolean;
 	confirmDialog?: ConfirmDialogOptions | (() => ConfirmDialogOptions);
 	// For sending data over the mobile bridge

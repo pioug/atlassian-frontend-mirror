@@ -30,7 +30,7 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Heading from '@atlaskit/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Flex, Stack } from '@atlaskit/primitives';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 const smartCardClient = new ConfluenceCardClient('stg');

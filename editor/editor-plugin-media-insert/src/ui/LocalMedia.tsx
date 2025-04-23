@@ -18,7 +18,7 @@ import {
 	type UploadErrorEventPayload,
 	type UploadPreviewUpdateEventPayload,
 } from '@atlaskit/media-picker';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 
 import { type InsertFile } from '../types';

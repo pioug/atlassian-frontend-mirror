@@ -123,6 +123,9 @@
 		"cc_complexit_fe_improve_table_sorting": {
 			"type": "boolean"
 		},
+		"platform_editor_annotation_position_comment_nodes": {
+			"type": "boolean"
+		},
 		"platform_editor_typography_ugc": {
 			"type": "boolean"
 		},

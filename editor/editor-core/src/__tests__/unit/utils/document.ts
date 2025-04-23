@@ -231,7 +231,12 @@ describe(name, () => {
 			const oldConsole = console.error;
 			// eslint-disable-next-line no-console
 			console.error = jest.fn();
-			let createAnalyticsEvent = jest.fn(() => ({ fire() {} }) as UIAnalyticsEvent);
+			let createAnalyticsEvent = jest.fn(
+				() =>
+					({
+						fire() {},
+					}) as UIAnalyticsEvent,
+			);
 
 			afterAll(() => {
 				// eslint-disable-next-line no-console

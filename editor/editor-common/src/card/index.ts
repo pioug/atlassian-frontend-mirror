@@ -8,6 +8,7 @@ export {
 	alignmentIcons,
 	wrappingIcons,
 	layoutToMessages,
+	buildLayoutDropdown,
 } from './MediaAndEmbedsToolbar';
 export type { IconMap, LayoutIcon } from './MediaAndEmbedsToolbar';
 export type {

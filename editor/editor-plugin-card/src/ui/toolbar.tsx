@@ -18,7 +18,11 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
-import { buildLayoutButtons, commandWithMetadata } from '@atlaskit/editor-common/card';
+import {
+	buildLayoutButtons,
+	buildLayoutDropdown,
+	commandWithMetadata,
+} from '@atlaskit/editor-common/card';
 import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link';
 import commonMessages, {
 	annotationMessages,
@@ -59,6 +63,7 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -276,6 +281,23 @@ const buildAlignmentOptions = (
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	cardOptions?: CardOptions,
 ): FloatingToolbarItem<Command>[] => {
+	if (
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_6')
+	) {
+		return buildLayoutDropdown(
+			state,
+			intl,
+			state.schema.nodes.embedCard,
+			widthPluginDependencyApi,
+			analyticsApi,
+			true,
+			true,
+			cardOptions?.allowWrapping,
+			cardOptions?.allowAlignment,
+		);
+	}
+
 	return buildLayoutButtons(
 		state,
 		intl,
@@ -548,6 +570,7 @@ const generateToolbarItems =
 					pluginInjectionApi?.analytics?.actions,
 					cardOptions,
 				);
+
 				if (alignmentOptions.length) {
 					alignmentOptions.push({
 						type: 'separator',

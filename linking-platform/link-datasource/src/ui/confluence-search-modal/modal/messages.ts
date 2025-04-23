@@ -50,4 +50,11 @@ export const confluenceSearchModalMessages = defineMessages({
 			'Placeholder text that will be placed next to a count of confluence search results',
 		defaultMessage: '### Results',
 	},
+	checkConnectionWithSource: {
+		id: 'linkDataSource.confluence-search.checkConnectionWithSource',
+		description:
+			'Instructions to let the user know how to resolve the error that occured, or click the link provided to open the query in Jira',
+		defaultMessage:
+			'Check your connection and refresh, or <a>open this project in Confluence</a> to review.',
+	},
 });

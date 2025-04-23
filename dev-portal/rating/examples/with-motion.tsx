@@ -19,7 +19,6 @@ export default () => {
 			<div style={{ marginBottom: 8 }}>
 				<Button onClick={() => setCount((prev) => prev + 1)}>Re-enter</Button>
 			</div>
-
 			<StaggeredEntrance>
 				<RatingGroup key={count} groupName="rating--motion">
 					<ZoomInStar label="Terrible" value="one" />

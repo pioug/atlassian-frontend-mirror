@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.5.0
+
+### Minor Changes
+
+- [#143677](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143677)
+  [`5ca641aae1cb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ca641aae1cb7) -
+  [ux] Behind fg `platform-linking-visual-refresh-sllv` - Updates styles for modal empty states
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.0
 
 ### Minor Changes

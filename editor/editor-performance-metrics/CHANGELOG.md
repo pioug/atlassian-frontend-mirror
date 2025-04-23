@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.1
+
+### Patch Changes
+
+- [#144646](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144646)
+  [`3781b3e732eff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3781b3e732eff) -
+  Used and check for window instead of self
+
 ## 2.1.0
 
 ### Minor Changes

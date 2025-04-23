@@ -201,8 +201,19 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 				return undefined;
 			}
 
-			const configWithNodeInfo =
-				pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined;
+			const hasHadInteraction = api?.interaction?.sharedState.currentState()?.hasHadInteraction;
+
+			let configWithNodeInfo: ConfigWithNodeInfo | undefined;
+
+			if (fg('platform_editor_no_selection_until_interaction')) {
+				configWithNodeInfo =
+					hasHadInteraction !== false
+						? pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined
+						: undefined;
+			} else {
+				configWithNodeInfo =
+					pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined;
+			}
 
 			return {
 				configWithNodeInfo,

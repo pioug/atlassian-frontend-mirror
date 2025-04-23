@@ -104,13 +104,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Emoji name',
 		description: 'verb - button label to search',
 	},
-	/*
 	searchResultsStatus: {
-		id: 'fabric.emoji.search.status',
+		id: 'fabric.emoji.search.status.count',
 		defaultMessage: 'Found {count} emojis',
 		description: 'search results status for screenreader to read out',
 	},
-	 */
 	searchResultsStatusSeeAll: {
 		id: 'fabric.emoji.search.status',
 		defaultMessage: 'Seeing all emojis',

@@ -309,4 +309,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-04-23
+	platform_editor_usesharedpluginstateselector: {
+		productKeys: {
+			confluence: 'platform_editor_usesharedpluginstateselector',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, ExperimentConfigValue>;

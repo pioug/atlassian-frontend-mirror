@@ -47,6 +47,7 @@ export interface Props {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	testId?: string;
+	interactionName?: string;
 	hideTooltipOnClick?: boolean;
 	tabIndex?: number | null | undefined;
 	areaControls?: string;
@@ -78,6 +79,7 @@ export default ({
 	tooltipContent,
 	tooltipStyle,
 	testId,
+	interactionName,
 	hideTooltipOnClick = true,
 	ariaHasPopup,
 	tabIndex,
@@ -173,6 +175,7 @@ export default ({
 							isSelected={selected}
 							isDisabled={disabled}
 							testId={testId}
+							interactionName={interactionName}
 							onFocus={onFocus}
 							onBlur={onBlur}
 							// @ts-ignore

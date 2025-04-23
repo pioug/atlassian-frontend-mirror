@@ -15,7 +15,7 @@ import {
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { Stack, Text } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 
 interface ErrorInfo {

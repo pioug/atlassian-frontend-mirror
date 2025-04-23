@@ -8,7 +8,7 @@ const messages = defineMessages({
 	},
 	kudosCreatedFlag: {
 		id: 'team-central.give-kudos.created.title.flag',
-		defaultMessage: 'Kudos created',
+		defaultMessage: 'Kudos has been created',
 		description: 'Title text for kudos creation flag.',
 	},
 	kudosCreatedDescriptionFlag: {
@@ -16,6 +16,11 @@ const messages = defineMessages({
 		defaultMessage: 'Your kudos has been sent. <a>View kudos</a>',
 		description:
 			'Description text for the kudos created flag. This includes a link to view the newly created kudos.',
+	},
+	kudosCreatedActionFlag: {
+		id: 'team-central.give-kudos.created.action.flag',
+		defaultMessage: 'View Kudos',
+		description: 'Action text for the kudos created flag to view the newly created kudos.',
 	},
 	kudosCreationFailedFlag: {
 		id: 'team-central.give-kudos.creation.failed.title.flag',

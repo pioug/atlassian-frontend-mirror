@@ -50,8 +50,8 @@
 		"wait-for-expect": "^1.2.0"
 	},
 	"optionalDependencies": {
-		"@atlassian/embedded-confluence-common": "^4.0.0",
-		"@atlassian/experience-tracker": "^3.0.0"
+		"@atlassian/embedded-confluence-common": "workspace:^",
+		"@atlassian/experience-tracker": "workspace:^"
 	},
 	"browser": "dist/embedded-confluence-bundle.js",
 	"af:exports": {

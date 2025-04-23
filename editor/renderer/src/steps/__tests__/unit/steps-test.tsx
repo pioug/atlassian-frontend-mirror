@@ -18,6 +18,7 @@ import * as ffPackage from '@atlaskit/platform-feature-flags';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClientProvider } from '@atlaskit/media-client-react';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('steps', () => {
 	const DOC_ROOT_OFFSET = 1;
@@ -318,6 +319,26 @@ describe('steps', () => {
 	});
 
 	describe('#resolvePos', () => {
+		ffTest.on('platform_editor_annotation_position_comment_nodes', '', () => {
+			it('should not include comment nodes towards calculation', async () => {
+				await setup();
+				const testElement = document.createElement('p');
+				testElement.dataset.rendererStartPos = '5';
+				testElement.innerHTML = [
+					'Hello ',
+					// At time this test was written, inline nodes that are loaded by loadable components were getting
+					// surrounded by comment nodes.
+					'<!-- data-loadable-begin="vg-Rq:EfLS5:URVzo:4y5Pz:qz-Pe:F4Zdx" -->',
+					'<span data-annotation-inline-node="true" data-annotation-mark="true" data-renderer-start-pos="10" data-ssr-placeholder="vg-Rq:EfLS5:URVzo:4y5Pz:qz-Pe:F4Zdx-3"></span>',
+					'<!-- data-loadable-end="vg-Rq:EfLS5:URVzo:4y5Pz:qz-Pe:F4Zdx" -->',
+					' world!',
+				].join('');
+				const finalTextNode = testElement.childNodes[testElement.childNodes.length - 1];
+
+				// 14 = start position (5) + 'Hello '.length (6) + inline node (1) + offset (2)
+				expect(resolvePos(finalTextNode, 2)).toBe(14);
+			});
+		});
 		describe('when the text node is inside code block', () => {
 			it('should return false', async () => {
 				await setup();

@@ -5,6 +5,7 @@ import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import LinkComponent from '@atlaskit/link';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -266,6 +267,24 @@ export const PlainConfluenceSearchConfigModal = (
 
 	const renderTableModalContent = useCallback(() => {
 		if (status === 'rejected') {
+			if (selectedConfluenceSite && fg('platform-linking-visual-refresh-sllv')) {
+				return (
+					<ModalLoadingError
+						errorMessage={
+							<FormattedMessage
+								{...confluenceSearchModalMessages.checkConnectionWithSource}
+								values={{
+									a: (urlText: React.ReactNode[]) => (
+										<LinkComponent href={selectedConfluenceSite.url}>{urlText}</LinkComponent>
+									),
+								}}
+							/>
+						}
+						onRefresh={() => reset({ shouldForceRequest: true })}
+					/>
+				);
+			}
+
 			return <ModalLoadingError />;
 		} else if (status === 'unauthorized') {
 			return <AccessRequired url={selectedConfluenceSiteUrl || urlBeingEdited} />;
@@ -308,6 +327,8 @@ export const PlainConfluenceSearchConfigModal = (
 		urlBeingEdited,
 		hasConfluenceSearchParams,
 		formatMessage,
+		reset,
+		selectedConfluenceSite,
 	]);
 
 	const renderInlineLinkModalContent = useCallback(() => {

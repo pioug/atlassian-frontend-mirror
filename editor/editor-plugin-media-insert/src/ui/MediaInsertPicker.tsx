@@ -24,7 +24,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
 import { type MediaInsertPickerProps } from '../types';

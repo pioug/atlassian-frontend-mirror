@@ -44,7 +44,7 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/calendar": "workspace:^",
-		"@atlaskit/css": "^0.10.0",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/layering": "workspace:^",

@@ -354,6 +354,8 @@ export const DragHandle = ({
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
+	const hasHadInteraction =
+		useSharedPluginStateSelector(api, 'interaction.hasHadInteraction') !== false;
 	const isLayoutColumn = nodeType === 'layoutColumn';
 	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
 	useEffect(() => {
@@ -988,7 +990,9 @@ export const DragHandle = ({
 				editorExperiment('advanced_layouts', true) &&
 					isLayoutColumn &&
 					layoutColumnDragHandleStyles,
-				dragHandleSelected && selectedStyles,
+				dragHandleSelected &&
+					(!fg('platform_editor_no_selection_until_interaction') || hasHadInteraction) &&
+					selectedStyles,
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

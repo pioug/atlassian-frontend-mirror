@@ -1,8 +1,9 @@
-import React, { Fragment, PureComponent } from 'react';
+import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
+import { cssMap } from '@atlaskit/css';
 import Form, {
 	ErrorMessage,
 	Field,
@@ -11,68 +12,22 @@ import Form, {
 	FormSection,
 	RequiredAsterisk,
 } from '@atlaskit/form';
+import { Box, Flex } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
-interface State {
-	eventResult: string;
-}
+const formContainerStyle = cssMap({
+	root: {
+		width: '400px',
+		minHeight: '60vh',
+	},
+});
 
-export default class LayoutExample extends PureComponent<void, State> {
-	state = {
-		eventResult:
-			'Click into and out of the input above to trigger onBlur & onFocus in the Fieldbase',
-	};
-
-	formRef: any;
-
-	// Form Event Handlers
-	onSubmitHandler = () => {
-		console.log('onSubmitHandler');
-	};
-
-	onValidateHandler = () => {
-		console.log('onValidateHandler');
-	};
-
-	onResetHandler = () => {
-		console.log('onResetHandler');
-	};
-
-	onChangeHandler = () => {
-		console.log('onChangeHandler');
-	};
-
-	onBlurHandler = () => {
-		console.log('onBlurHandler');
-	};
-
-	onFocusHandler = () => {
-		console.log('onFocusHandler');
-	};
-
-	// Footer Button Handlers
-	submitClickHandler = () => {
-		this.formRef.submit();
-	};
-
-	render() {
-		return (
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					display: 'flex',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: '400px',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: '0 auto',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					minHeight: '60vh',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					flexDirection: 'column',
-				}}
-			>
+export default () => {
+	return (
+		<Flex direction="column" alignItems="center">
+			<Box xcss={formContainerStyle.root}>
 				<Form onSubmit={console.log}>
 					{({ formProps }) => (
 						<form
@@ -129,7 +84,7 @@ export default class LayoutExample extends PureComponent<void, State> {
 									}}
 								>
 									{({ fieldProps: { id, ...rest }, error }) => (
-										<Fragment>
+										<>
 											<Select
 												id={`${id}-select`}
 												options={[
@@ -143,7 +98,7 @@ export default class LayoutExample extends PureComponent<void, State> {
 												{...rest}
 											/>
 											{error && <ErrorMessage>{error}</ErrorMessage>}
-										</Fragment>
+										</>
 									)}
 								</Field>
 
@@ -218,7 +173,7 @@ export default class LayoutExample extends PureComponent<void, State> {
 						</form>
 					)}
 				</Form>
-			</div>
-		);
-	}
-}
+			</Box>
+		</Flex>
+	);
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Icon from '@atlaskit/icon/utility/chevron-right';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 export function ExpandButton() {
 	return (

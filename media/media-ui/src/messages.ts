@@ -954,16 +954,16 @@ export const messages: Messages = defineMessages({
 	image_cropper_image_moved: {
 		id: 'media.media-avatar-picker.image-cropper.arrow-keys.action',
 		defaultMessage:
-			'You have moved the image from {from} to {to}, use arrow keys to move & crop the image',
+			'You have moved the image from {key, select, left {left to right} right {right to left} top {top to bottom} other {bottom to top} }, use arrow keys to move & crop the image',
 		description: 'Inform about the image movement when the arrow keys are pressed',
 	},
 	image_cropper_zoom_out: {
-		id: 'fabric.media.zoom_out',
+		id: 'media.media-avatar-picker.image-cropper.zoom_out',
 		defaultMessage: 'to 0% zoom',
 		description: 'Label for the zoom out button in image cropper slider',
 	},
 	image_cropper_zoom_in: {
-		id: 'fabric.media.zoom_in',
+		id: 'media.media-avatar-picker.image-cropper.zoom_in',
 		defaultMessage: 'to 100% zoom',
 		description: 'Label for the zoom in button in image cropper slider',
 	},

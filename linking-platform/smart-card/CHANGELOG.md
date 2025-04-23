@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 36.8.2
+
+### Patch Changes
+
+- [#144118](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144118)
+  [`74eae7139b13d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74eae7139b13d) -
+  Enable resolve embed-view with nounData behind ff: smart_links_noun_support
+- Updated dependencies
+
 ## 36.8.1
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-paste
 
+## 3.2.3
+
+### Patch Changes
+
+- [#142352](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142352)
+  [`05903fde6d94d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05903fde6d94d) -
+  Internal change to use Compiled variant of `@atlaskit/primitives`.
+- Updated dependencies
+
+## 3.2.2
+
+### Patch Changes
+
+- [#142936](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142936)
+  [`9d1e16eaadf95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d1e16eaadf95) -
+  ED-26662: Delete layout column can create a single column layout
+- Updated dependencies
+
 ## 3.2.1
 
 ### Patch Changes

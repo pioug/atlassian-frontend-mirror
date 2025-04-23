@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.5.2",
+	"version": "205.5.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -339,6 +339,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"editor_a11y_tab_does_not_close_menus": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_floating_toolbar_padding_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -567,6 +571,9 @@
 		"platform_editor_no_cursor_on_live_doc_init": {
 			"type": "boolean"
 		},
+		"platform_editor_no_selection_until_interaction": {
+			"type": "boolean"
+		},
 		"platform_editor_controls_no_toolbar_space": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -663,6 +670,14 @@
 			"referenceOnly": true
 		},
 		"platform_editor_controls_patch_6": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_table_picker": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_tables_table_selector": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

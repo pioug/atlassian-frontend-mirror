@@ -2,7 +2,7 @@ import React from 'react';
 import { md, Example, code, AtlassianInternalWarning, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import SimpleEmojiExample from '../examples/00-simple-emoji';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 const SimpleEmojiSource = require('!!raw-loader!../examples/00-simple-emoji');
 const EmojiProps = require('!!extract-react-types-loader!../src/components/common/Emoji');

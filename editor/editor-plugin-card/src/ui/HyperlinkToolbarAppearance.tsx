@@ -10,7 +10,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { Flex } from '@atlaskit/primitives';
+import { Flex } from '@atlaskit/primitives/compiled';
 
 import { type CardPlugin } from '../cardPluginType';
 

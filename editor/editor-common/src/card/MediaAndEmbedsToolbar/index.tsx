@@ -14,6 +14,9 @@ import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
 import AlignImageCenterIcon from '@atlaskit/icon/core/align-image-center';
 import AlignImageLeftIcon from '@atlaskit/icon/core/align-image-left';
 import AlignImageRightIcon from '@atlaskit/icon/core/align-image-right';
+import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
+import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
+import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
 import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
 import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
 import ContentWidthWide from '@atlaskit/icon/core/migration/content-width-wide--editor-media-wide';
@@ -27,9 +30,11 @@ import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
 import type { EditorAnalyticsAPI } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
 import { insideTable } from '../../core-utils';
+import { Keymap, alignCenter, alignLeft, alignRight, tooltip } from '../../keymaps';
 import commonMessages, { mediaAndEmbedToolbarMessages as toolbarMessages } from '../../messages';
 import type {
 	Command,
+	DropdownOptions,
 	EditorContainerWidth,
 	FloatingToolbarItem,
 	FloatingToolbarSeparator,
@@ -37,6 +42,7 @@ import type {
 	NextEditorPlugin,
 	PluginDependenciesAPI,
 } from '../../types';
+import { Shortcut } from '../../ui';
 import { alignAttributes, isInLayoutColumn, nonWrappedLayouts } from '../../utils';
 
 // Workaround as we don't want to import this package into `editor-common`
@@ -47,8 +53,9 @@ type WidthPluginDependencyApi = PluginDependenciesAPI<WidthPluginType> | undefin
 
 export type LayoutIcon = {
 	id?: string;
-	value: string;
+	value: MediaSingleLayout;
 	icon: Icon;
+	keyboardShortcut?: Keymap;
 };
 
 export type IconMap = Array<LayoutIcon | { value: 'separator' }>;
@@ -89,6 +96,27 @@ export const alignmentIcons: LayoutIcon[] = [
 				LEGACY_fallbackIcon={EditorAlignImageRight}
 			/>
 		),
+	},
+];
+
+const alignmentIconsControls: LayoutIcon[] = [
+	{
+		id: 'editor.media.alignLeft',
+		value: 'align-start',
+		icon: () => <AlignTextLeftIcon color="currentColor" spacing="spacious" label="" />,
+		keyboardShortcut: alignLeft,
+	},
+	{
+		id: 'editor.media.alignCenter',
+		value: 'center',
+		icon: () => <AlignTextCenterIcon color="currentColor" spacing="spacious" label="" />,
+		keyboardShortcut: alignCenter,
+	},
+	{
+		id: 'editor.media.alignRight',
+		value: 'align-end',
+		icon: () => <AlignTextRightIcon color="currentColor" spacing="spacious" label="" />,
+		keyboardShortcut: alignRight,
 	},
 ];
 
@@ -262,6 +290,48 @@ const mapIconsToToolbarItem = (
 		};
 	});
 
+type MapIconToDropdownOptionsProps = {
+	icons: LayoutIcon[];
+	layout: MediaSingleLayout;
+	intl: IntlShape;
+	nodeType: NodeType;
+	widthPluginDependencyApi: WidthPluginDependencyApi;
+	analyticsApi: EditorAnalyticsAPI | undefined;
+	isChangingLayoutDisabled?: boolean;
+	allowPixelResizing?: boolean;
+};
+
+const mapIconsToDropdownOptions = ({
+	icons,
+	layout,
+	intl,
+	nodeType,
+	widthPluginDependencyApi,
+	analyticsApi,
+	isChangingLayoutDisabled,
+	allowPixelResizing,
+}: MapIconToDropdownOptionsProps): DropdownOptions<Command> =>
+	icons.map((layoutOption: LayoutIcon) => {
+		const { id, value } = layoutOption;
+		return {
+			id: id,
+			icon: <layoutOption.icon label="" />,
+			title: intl.formatMessage(layoutToMessages[value]),
+			selected: getToolbarLayout(layout, allowPixelResizing) === value,
+			onClick: makeAlign(
+				value,
+				nodeType,
+				widthPluginDependencyApi,
+				analyticsApi,
+				allowPixelResizing,
+			),
+			...(layoutOption.keyboardShortcut && {
+				elemAfter: <Shortcut>{tooltip(layoutOption.keyboardShortcut)}</Shortcut>,
+			}),
+			...(isChangingLayoutDisabled && { disabled: value !== 'center' }),
+		};
+	});
+
 const shouldHideLayoutToolbar = (
 	selection: NodeSelection,
 	{ nodes }: Schema,
@@ -350,6 +420,81 @@ const buildLayoutButtons = (
 	];
 
 	return items;
+};
+
+export const buildLayoutDropdown = (
+	state: EditorState,
+	intl: IntlShape,
+	nodeType: NodeType,
+	widthPluginDependencyApi: WidthPluginDependencyApi,
+	analyticsApi: EditorAnalyticsAPI | undefined,
+	allowResizing?: boolean,
+	allowResizingInTables?: boolean,
+	allowWrapping = true,
+	allowAlignment = true,
+	isChangingLayoutDisabled?: boolean,
+	allowPixelResizing?: boolean,
+): FloatingToolbarItem<Command>[] => {
+	const { selection } = state;
+
+	if (
+		!(selection instanceof NodeSelection) ||
+		!selection.node ||
+		!nodeType ||
+		shouldHideLayoutToolbar(selection, state.schema, allowResizingInTables)
+	) {
+		return [];
+	}
+
+	const { layout } = selection.node.attrs;
+
+	const icons = [];
+
+	if (allowAlignment) {
+		icons.push(...alignmentIconsControls);
+	}
+
+	if (allowWrapping) {
+		icons.push(...wrappingIcons);
+	}
+
+	if (!allowResizing) {
+		icons.push(...breakoutIcons);
+	}
+
+	if (icons.length === 0) {
+		return [];
+	}
+
+	const selectedLayout = getSelectedLayoutIcon(icons, selection.node) || icons[0];
+	const alignmentDropdownOptions = mapIconsToDropdownOptions({
+		icons,
+		layout,
+		intl,
+		nodeType,
+		widthPluginDependencyApi,
+		analyticsApi,
+		isChangingLayoutDisabled,
+		allowPixelResizing,
+	});
+
+	return [
+		{
+			type: 'dropdown',
+			title: intl.formatMessage(layoutToMessages[selectedLayout.value]),
+			icon: selectedLayout.icon,
+			options: alignmentDropdownOptions,
+			testId: `${nodeType.name}-layout-dropdown-trigger-button`,
+		},
+	];
+};
+
+const getSelectedLayoutIcon = (layoutIcons: LayoutIcon[], selectedNode: Node) => {
+	const selectedLayout = selectedNode.attrs.layout;
+	return layoutIcons.find(
+		(icon) =>
+			icon.value === (nonWrappedLayouts.includes(selectedLayout) ? 'center' : selectedLayout),
+	);
 };
 
 const getSeparatorBetweenAlignmentAndWrapping = (

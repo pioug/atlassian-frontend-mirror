@@ -14,12 +14,15 @@ export const setupINPTracking = (callback: INPCallback): CleanupINPTracking | un
 };
 
 const isINPSupported = () => {
-	const isSSR = typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR || false);
+	const isSSR =
+		!window || (typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR || false));
 	if (isSSR) {
 		return false;
 	}
 	// Return if the browser doesn't support all APIs needed to measure INP.
-	if (!('PerformanceEventTiming' in self && 'interactionId' in PerformanceEventTiming.prototype)) {
+	if (
+		!('PerformanceEventTiming' in window && 'interactionId' in PerformanceEventTiming.prototype)
+	) {
 		return false;
 	}
 

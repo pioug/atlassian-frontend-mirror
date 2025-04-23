@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { screen } from '@testing-library/react';
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import {

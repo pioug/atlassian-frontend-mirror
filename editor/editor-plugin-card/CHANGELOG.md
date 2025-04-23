@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.16
+
+### Patch Changes
+
+- [#142352](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142352)
+  [`05903fde6d94d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05903fde6d94d) -
+  Internal change to use Compiled variant of `@atlaskit/primitives`.
+- Updated dependencies
+
+## 5.4.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.14
 
 ### Patch Changes

@@ -17,6 +17,7 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-to
 import type { FocusPlugin } from '@atlaskit/editor-plugins/focus';
 import type { HistoryPlugin } from '@atlaskit/editor-plugins/history';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
+import type { InteractionPlugin } from '@atlaskit/editor-plugins/interaction';
 import type { PastePlugin } from '@atlaskit/editor-plugins/paste';
 import type { PlaceholderPlugin } from '@atlaskit/editor-plugins/placeholder';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
@@ -65,6 +66,7 @@ export type DefaultPresetPlugins = [
 	BasePlugin,
 	ContextIdentifierPlugin,
 	CompositionPlugin,
+	InteractionPlugin | undefined,
 	FocusPlugin,
 	ClipboardPlugin,
 	PastePlugin,

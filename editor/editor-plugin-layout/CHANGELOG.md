@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.6.0
+
+### Minor Changes
+
+- [#144082](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144082)
+  [`583a67e0b8ee7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/583a67e0b8ee7) -
+  ED-27146 improve layout insertion behaivour, now will select into the layout after insertion.
+
+## 2.5.1
+
+### Patch Changes
+
+- [#142936](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142936)
+  [`9d1e16eaadf95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d1e16eaadf95) -
+  ED-26662: Delete layout column can create a single column layout
+- Updated dependencies
+
 ## 2.5.0
 
 ### Minor Changes

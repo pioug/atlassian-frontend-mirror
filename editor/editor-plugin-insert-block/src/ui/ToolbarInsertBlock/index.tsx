@@ -25,7 +25,7 @@ import {
 	wrapperStyle,
 } from '@atlaskit/editor-common/styles';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import { Popup, TableSelectorPopup } from '@atlaskit/editor-common/ui';
 import type { MenuItem, ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import {
@@ -49,7 +49,6 @@ import type { BlockMenuItem } from './create-items';
 import { createItems } from './create-items';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
-import TableSelectorPopup from './table-selector-popup-with-listeners';
 import type { Props, State } from './types';
 
 /**
@@ -395,6 +394,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 		return (
 			<TableSelectorPopup
+				allowOutsideSelection
 				target={ref}
 				onUnmount={onUnmount}
 				onSelection={this.handleSelectedTableSize}

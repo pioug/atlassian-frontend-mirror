@@ -30,6 +30,7 @@ import {
 } from '@atlaskit/editor-common/ui-react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { fg } from '@atlaskit/platform-feature-flags';
 import { borderRadius } from '@atlaskit/theme';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -167,7 +168,7 @@ const InsertMenu = ({
 			<ElementBrowserWrapper
 				handleClickOutside={toggleVisiblity}
 				handleEscapeKeydown={toggleVisiblity}
-				closeOnTab
+				closeOnTab={!fg('editor_a11y_tab_does_not_close_menus')}
 			>
 				<ElementBrowser
 					mode="inline"

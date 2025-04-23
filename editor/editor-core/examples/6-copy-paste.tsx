@@ -42,7 +42,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';

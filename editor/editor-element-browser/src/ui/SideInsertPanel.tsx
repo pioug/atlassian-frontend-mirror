@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import type { SideInsertPanelProps } from '../types';
 import { CategoriesStructure, useItems, PredefinedCategories } from '../utils/use-items';

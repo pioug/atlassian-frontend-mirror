@@ -12,6 +12,7 @@ import {
 import {
 	alignmentIcons,
 	buildLayoutButtons,
+	buildLayoutDropdown,
 	IconCard,
 	IconEmbed,
 	IconInline,
@@ -381,37 +382,57 @@ const generateMediaSingleFloatingToolbar = (
 		);
 
 		const addLayoutDropdownToToolbar = () => {
-			const selectedLayoutIcon = getSelectedLayoutIcon(
-				[...alignmentIcons, ...wrappingIcons],
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				selectedNode!.node,
-			);
+			if (
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_patch_6')
+			) {
+				const layoutDropdown = buildLayoutDropdown(
+					state,
+					intl,
+					state.schema.nodes.mediaSingle,
+					widthPlugin,
+					pluginInjectionApi?.analytics?.actions,
+					allowResizing,
+					allowResizingInTables,
+					true,
+					true,
+					isChangingLayoutDisabled,
+					allowPixelResizing,
+				);
+				toolbarButtons = [...toolbarButtons, ...layoutDropdown];
+			} else {
+				const selectedLayoutIcon = getSelectedLayoutIcon(
+					[...alignmentIcons, ...wrappingIcons],
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					selectedNode!.node,
+				);
 
-			if (selectedLayoutIcon && layoutButtons.length) {
-				const options: DropdownOptions<Command> = {
-					render: (props) => {
-						return (
-							<LayoutGroup
-								layoutButtons={layoutButtons}
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...props}
-							/>
-						);
-					},
-					width: 188,
-					height: 32,
-				};
-				const trigger: FloatingToolbarDropdown<Command> = {
-					id: 'media-single-layout',
-					testId: 'media-single-layout-dropdown-trigger',
-					type: 'dropdown',
-					options: options,
-					title: intl.formatMessage(layoutToMessages[selectedLayoutIcon.value]),
-					icon: selectedLayoutIcon.icon,
-				};
+				if (selectedLayoutIcon && layoutButtons.length) {
+					const options: DropdownOptions<Command> = {
+						render: (props) => {
+							return (
+								<LayoutGroup
+									layoutButtons={layoutButtons}
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...props}
+								/>
+							);
+						},
+						width: 188,
+						height: 32,
+					};
+					const trigger: FloatingToolbarDropdown<Command> = {
+						id: 'media-single-layout',
+						testId: 'media-single-layout-dropdown-trigger',
+						type: 'dropdown',
+						options: options,
+						title: intl.formatMessage(layoutToMessages[selectedLayoutIcon.value]),
+						icon: selectedLayoutIcon.icon,
+					};
 
-				toolbarButtons = [...toolbarButtons, trigger, { type: 'separator' }];
+					toolbarButtons = [...toolbarButtons, trigger, { type: 'separator' }];
+				}
 			}
 		};
 

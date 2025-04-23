@@ -5,7 +5,9 @@
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 
+import Link from '@atlaskit/link';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N300 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -29,7 +31,7 @@ const betaTagStyles = css({
 	display: 'flex',
 });
 
-const searchTitleStyles = css({
+const searchTitleStylesOld = css({
 	color: token('color.text.subtlest', N300),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.heading.medium', fontFallback.heading.medium),
@@ -41,8 +43,23 @@ const searchTitleStyles = css({
 	gap: token('space.100', '8px'),
 });
 
-const mainTextStyles = css({
+const searchTitleStyles = css({
+	color: token('color.text'),
+	font: token('font.heading.medium'),
+	paddingTop: token('space.300', '24px'),
+	paddingBottom: token('space.200', '16px'),
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	gap: token('space.100', '8px'),
+});
+
+const mainTextStylesOld = css({
 	color: token('color.text.subtlest', N300),
+});
+
+const mainTextStyles = css({
+	color: token('color.text.subtle', '#44546F'),
 });
 
 const learnMoreLinkStyles = css({
@@ -70,7 +87,11 @@ export const InitialStateView = ({
 		<div css={initialStateViewContainerStyles} data-testid="datasource-modal--initial-state-view">
 			<div css={svgAndTextsWrapperStyles}>
 				{icon}
-				<div css={searchTitleStyles}>
+				<div
+					css={[
+						fg('platform-linking-visual-refresh-sllv') ? searchTitleStyles : searchTitleStylesOld,
+					]}
+				>
 					{showBeta && (
 						<div css={betaTagStyles}>
 							<Lozenge appearance="new">
@@ -80,12 +101,22 @@ export const InitialStateView = ({
 					)}
 					{formatMessage(title)}
 				</div>
-				<div css={mainTextStyles}>{formatMessage(description)}</div>
-				{learnMoreLink && (
-					<a href={learnMoreLink.href} target="_blank" css={learnMoreLinkStyles}>
-						{formatMessage(learnMoreLink.text)}
-					</a>
-				)}
+				<div
+					css={[fg('platform-linking-visual-refresh-sllv') ? mainTextStyles : mainTextStylesOld]}
+				>
+					{formatMessage(description)}
+				</div>
+				{learnMoreLink ? (
+					fg('platform-linking-visual-refresh-sllv') ? (
+						<Link href={learnMoreLink.href} target="_blank">
+							{formatMessage(learnMoreLink.text)}
+						</Link>
+					) : (
+						<a href={learnMoreLink.href} target="_blank" css={learnMoreLinkStyles}>
+							{formatMessage(learnMoreLink.text)}
+						</a>
+					)
+				) : null}
 			</div>
 		</div>
 	);

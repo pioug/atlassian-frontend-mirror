@@ -41,7 +41,6 @@ const LAYOUT_COLUMN_DEPTH = 1;
 export const selectIntoLayout = (view: EditorView, posOfLayout: number, childIndex: number = 0) => {
 	const $maybeLayoutSection = view.state.doc.resolve(posOfLayout);
 	if ($maybeLayoutSection.nodeAfter?.type.name === 'layoutSection') {
-		// $maybeLayoutSection.posAtIndex(1, 1);
 		const layoutSectionNode = $maybeLayoutSection.nodeAfter;
 
 		// check if the childIndex is valid

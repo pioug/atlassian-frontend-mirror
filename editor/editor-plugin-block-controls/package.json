@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.10.3",
+	"version": "3.11.1",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,6 +41,7 @@
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
+		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-metrics": "workspace:^",
 		"@atlaskit/editor-plugin-quick-insert": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
@@ -184,6 +185,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_sticky_mask": {
+			"type": "boolean"
+		},
+		"platform_editor_no_selection_until_interaction": {
 			"type": "boolean"
 		},
 		"platform_editor_fix_widget_destroy": {

@@ -47,10 +47,11 @@ export const shouldSkipGapCursor = (
 			);
 		case Direction.DOWN:
 			return (
+				// end of a paragraph
 				atTheEndOfDoc(state) ||
 				isTextBlockNearPos(doc, schema, $pos, 1) ||
 				isPositionNearTableRow($pos, schema, 'after') ||
-				($pos.nodeBefore?.type.name === 'text' && !$pos.nodeAfter) // end of a paragraph
+				($pos.nodeBefore?.type.name === 'text' && !$pos.nodeAfter)
 			);
 		default:
 			return false;

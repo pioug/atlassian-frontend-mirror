@@ -123,6 +123,14 @@ function resolveNodePos(node: Node) {
 	let resolvedPos = 0;
 	let prev = node.previousSibling;
 	while (prev) {
+		if (fg('platform_editor_annotation_position_comment_nodes')) {
+			if (prev.nodeType === Node.COMMENT_NODE) {
+				// Comment nodes should not result in the position being
+				// incremented, so we skip them.
+				prev = prev.previousSibling;
+				continue;
+			}
+		}
 		if (prev && (isTextNode(prev) || isHighlightTextNode(prev))) {
 			resolvedPos += (prev.textContent || '').length;
 		} else if (prev) {

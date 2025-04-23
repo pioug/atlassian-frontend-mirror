@@ -232,6 +232,7 @@ const ToolbarItems = React.memo(
 							isRadioButton={item.isRadioButton}
 							pulse={item.pulse}
 							spotlightConfig={item.spotlightConfig}
+							interactionName={item.interactionName}
 						>
 							{item.showTitle && item.title}
 						</Button>
@@ -741,8 +742,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
 		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
-		const isEditorControlsPatch2Enabled =
-			isEditorControlsEnabled && fg('platform_editor_controls_patch_2');
 
 		if (!items || !items.length) {
 			return null;
@@ -788,7 +787,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							}
 							delay={250}
 						/>
-						{scrollable && isEditorControlsPatch2Enabled && (
+						{scrollable && isEditorControlsEnabled && (
 							<ScrollButton
 								intl={intl}
 								scrollContainerRef={this.scrollContainerRef}
@@ -819,7 +818,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							/>
 						</div>
 						{scrollable &&
-							(isEditorControlsPatch2Enabled ? (
+							(isEditorControlsEnabled ? (
 								<ScrollButton
 									intl={intl}
 									scrollContainerRef={this.scrollContainerRef}

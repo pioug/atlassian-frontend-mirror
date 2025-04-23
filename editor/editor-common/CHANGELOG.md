@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 103.12.1
+
+### Patch Changes
+
+- [#142352](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142352)
+  [`05903fde6d94d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05903fde6d94d) -
+  Internal change to use Compiled variant of `@atlaskit/primitives`.
+
+## 103.12.0
+
+### Minor Changes
+
+- [#142852](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142852)
+  [`ca0f841e860ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca0f841e860ab) -
+  [ux] [ED-27466] When table option in quick insert typeahead is selected, shows table size picker
+  allow user selecting the table size before inserting
+
+### Patch Changes
+
+- [#142798](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142798)
+  [`9dd2803c4c1dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9dd2803c4c1dc) -
+  Preserved the previously set value for width provider
+
+## 103.11.2
+
+### Patch Changes
+
+- [#143960](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143960)
+  [`e1bf8964b3cf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1bf8964b3cf8) -
+  Adding press interaction performance tracking to Comment action in floating toolbar. No UI change.
+- Updated dependencies
+
+## 103.11.1
+
+### Patch Changes
+
+- [#140969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140969)
+  [`b4ac22e73d43c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4ac22e73d43c) -
+  [ux] [ED-27253] hide selection states until editor has been interacted with
+
 ## 103.11.0
 
 ### Minor Changes

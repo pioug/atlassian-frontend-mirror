@@ -5,6 +5,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import LinkComponent from '@atlaskit/link';
 import type { DatasourceParameters, Link } from '@atlaskit/linking-types';
 import {
 	ModalBody,
@@ -319,6 +320,10 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	const renderIssuesModeContent = useCallback(() => {
 		const selectedJiraSiteUrl = selectedJiraSite?.url;
 		const getDescriptionMessage = () => {
+			if (currentSearchMethod === 'basic' && fg('platform-linking-visual-refresh-sllv')) {
+				return initialStateViewMessages.searchDescriptionForBasicSearchVisualRefreshSllv;
+			}
+
 			if (fg('confluence-issue-terminology-refresh')) {
 				return currentSearchMethod === 'jql'
 					? initialStateViewMessages.searchDescriptionForJQLSearchIssueTermRefresh
@@ -331,6 +336,26 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 		};
 
 		if (status === 'rejected' && jqlUrl) {
+			if (fg('platform-linking-visual-refresh-sllv')) {
+				return (
+					<ModalLoadingError
+						errorMessage={
+							jqlUrl ? (
+								<FormattedMessage
+									{...modalMessages.checkConnectionWithSourceVisualRefreshSllv}
+									values={{
+										a: (urlText: React.ReactNode[]) => (
+											<LinkComponent href={jqlUrl}>{urlText}</LinkComponent>
+										),
+									}}
+								/>
+							) : undefined
+						}
+						onRefresh={() => reset({ shouldForceRequest: true })}
+					/>
+				);
+			}
+
 			return (
 				<ModalLoadingError
 					errorMessage={
@@ -381,9 +406,14 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								currentSearchMethod === 'jql'
 									? {
 											href: jqlSupportDocumentLink,
-											text: initialStateViewMessages.learnMoreLink,
+											text: initialStateViewMessages.learnMoreLinkOld,
 										}
-									: undefined
+									: fg('platform-linking-visual-refresh-sllv')
+										? {
+												href: jqlSupportDocumentLink,
+												text: initialStateViewMessages.learnMoreLink,
+											}
+										: undefined
 							}
 						/>
 					)}
@@ -406,6 +436,7 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 		selectedJiraSite?.url,
 		status,
 		urlBeingEdited,
+		reset,
 	]);
 
 	const siteSelectorLabel = useMemo(() => {
@@ -529,7 +560,9 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								url={urlToInsert}
 								getAnalyticsPayload={getInsertButtonAnalyticsPayload}
 							>
-								{fg('confluence-issue-terminology-refresh') ? (
+								{fg('platform-linking-visual-refresh-sllv') ? (
+									<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermSllv} />
+								) : fg('confluence-issue-terminology-refresh') ? (
 									<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermRefresh} />
 								) : (
 									<FormattedMessage {...modalMessages.insertIssuesButtonText} />

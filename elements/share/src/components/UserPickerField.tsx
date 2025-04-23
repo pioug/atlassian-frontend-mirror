@@ -5,7 +5,7 @@ import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import SmartUserPicker, {
 	type EmailValidationResponse,
 	isValidEmail,

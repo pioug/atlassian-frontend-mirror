@@ -7,7 +7,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 type ListComponentProps = {
 	nodes: ConfirmDialogChildrenListItemProps[];

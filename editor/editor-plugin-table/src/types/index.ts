@@ -15,6 +15,7 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 
+import { RowStickyState } from '../pm-plugins/sticky-headers/types';
 import type { TablePlugin } from '../tablePluginType';
 
 export const RESIZE_HANDLE_AREA_DECORATION_GAP = 30;
@@ -58,10 +59,26 @@ export type TableSharedStateInternal = Pick<
 	| 'isTableHovered'
 	| 'tableNode'
 	| 'widthToWidest'
+	| 'tableRef'
+	| 'tablePos'
+	| 'targetCellPosition'
+	| 'isContextualMenuOpen'
+	| 'pluginConfig'
+	| 'insertColumnButtonIndex'
+	| 'insertRowButtonIndex'
+	| 'isDragAndDropEnabled'
+	| 'tableWrapperTarget'
+	| 'isCellMenuOpenByKeyboard'
 > & {
 	isResizing: boolean;
 	isTableResizing?: boolean;
 	isWholeTableInDanger?: boolean;
+	resizingTableRef?: HTMLTableElement;
+	resizingTableLocalId?: string;
+	stickyHeader?: RowStickyState;
+	dragMenuDirection?: TableDirection;
+	dragMenuIndex?: number;
+	isDragMenuOpen?: boolean;
 };
 
 export type TableSharedState = Pick<

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.11.1
+
+### Patch Changes
+
+- [#140969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140969)
+  [`b4ac22e73d43c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4ac22e73d43c) -
+  [ux] [ED-27253] hide selection states until editor has been interacted with
+- Updated dependencies
+
+## 3.11.0
+
+### Minor Changes
+
+- [#141095](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141095)
+  [`5f0694bcf5c1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f0694bcf5c1f) -
+  Add UserIntentPlugin as an optional dependency, and add its corresponding package as package
+  dependency
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.10.3
 
 ### Patch Changes

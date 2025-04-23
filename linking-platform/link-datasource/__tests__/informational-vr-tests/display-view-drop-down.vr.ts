@@ -14,6 +14,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	description: 'jira issues modal with drop down closed',
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'bandicoots-update-sllv-icons': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

@@ -24,12 +24,13 @@ interface FlagAction {
 	content: string | JSX.Element;
 	href?: string;
 	onClick?: () => void;
+	target?: string;
 }
 
 export interface Flag {
 	id: string | number;
 	title: string | JSX.Element;
-	description: string | JSX.Element;
+	description?: string | JSX.Element;
 	icon?: JSX.Element;
 	actions?: FlagAction[];
 	type?: FlagType;
@@ -56,4 +57,6 @@ export interface GiveKudosDrawerProps {
 	teamCentralBaseUrl: string;
 	cloudId: string;
 	addFlag?: (flag: any) => void;
+	onCreateKudosSuccess?: (flagEvent: FlagEvent) => void;
+	isActionsEnabled?: boolean;
 }

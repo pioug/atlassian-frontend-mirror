@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 2.2.1
+
+### Patch Changes
+
+- [#144118](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144118)
+  [`d608e2fc69b26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d608e2fc69b26) -
+  extractEntityProvider return undefined when no generator in meta
+
 ## 2.2.0
 
 ### Minor Changes

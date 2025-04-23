@@ -6,6 +6,7 @@ snapshot(JiraIssuesConfigModalNoResultsState, {
 	description: 'Jira issues config modal no results view',
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'bandicoots-update-sllv-icons': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

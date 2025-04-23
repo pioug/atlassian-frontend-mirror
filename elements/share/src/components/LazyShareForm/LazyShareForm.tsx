@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';

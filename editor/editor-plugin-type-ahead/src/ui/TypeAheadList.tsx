@@ -21,7 +21,7 @@ import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text, Box } from '@atlaskit/primitives';
+import { Text, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { InputMethodType } from '../pm-plugins/analytics';

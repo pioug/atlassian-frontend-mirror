@@ -13,7 +13,7 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
 import Heading from '@atlaskit/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import type { Format } from './Format';
 import ModalFooter from './ModalFooter';
@@ -75,7 +75,6 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										<li css={row} key={`autoFormatting-${form.name}`}>
 											<Text>{form.name}</Text>
-
 											{autoFormatting()}
 										</li>
 									);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SteppedRainbowIconDecoration } from '@atlaskit/editor-common/icons';
 import EditFilledIcon from '@atlaskit/icon/core/migration/edit--edit-filled';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 type EditorHighlightIconProps = {
 	disabled: boolean;

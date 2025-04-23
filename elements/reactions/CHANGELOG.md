@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 31.3.1
+
+### Patch Changes
+
+- [#142842](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142842)
+  [`63265d6000c11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63265d6000c11) -
+  Internal change to migrate to Compiled CSS-in-JS styling.
+- Updated dependencies
+
 ## 31.3.0
 
 ### Minor Changes

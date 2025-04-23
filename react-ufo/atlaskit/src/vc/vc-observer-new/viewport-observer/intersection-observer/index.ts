@@ -108,24 +108,15 @@ export function createIntersectionObserver(
 	const observer = new IntersectionObserver(intersectionObserverCallback);
 
 	return {
-		disconnect: withProfiling(
-			function disconnect() {
-				observer.disconnect();
-			},
-			['vc'],
-		),
-		unobserve: withProfiling(
-			function unobserve(target: Element) {
-				observer.unobserve(target);
-			},
-			['vc'],
-		),
-		watchAndTag: withProfiling(
-			function watchAndTag(target: Element, tagOrCallback: ObserveArg_TagOrCallback) {
-				callbacksPerElement.set(target, tagOrCallback);
-				observer.observe(target);
-			},
-			['vc'],
-		),
+		disconnect: () => {
+			observer.disconnect();
+		},
+		unobserve: (target: Element) => {
+			observer.unobserve(target);
+		},
+		watchAndTag: (target: Element, tagOrCallback: ObserveArg_TagOrCallback) => {
+			callbacksPerElement.set(target, tagOrCallback);
+			observer.observe(target);
+		},
 	};
 }

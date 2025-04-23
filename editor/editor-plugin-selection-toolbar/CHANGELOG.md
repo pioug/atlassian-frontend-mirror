@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.5.1
+
+### Patch Changes
+
+- [#141455](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141455)
+  [`8a8bd624345b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a8bd624345b5) -
+  [ED-27542] Clean up platform_editor_controls_patch_2 used for floating toolbar scroll left/right
+  buttons
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "3.6.1",
+	"version": "4.0.3",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,6 +40,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-plugin-emoji": "workspace:^",
 		"@atlaskit/editor-plugin-extension": "workspace:^",
+		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-table": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -135,10 +136,10 @@
 		"platform_editor_fix_floating_toolbar_scrollbar": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_2": {
+		"platform_editor_controls_patch_4": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_4": {
+		"platform_editor_no_selection_until_interaction": {
 			"type": "boolean"
 		},
 		"platform_editor_user_intent_plugin": {

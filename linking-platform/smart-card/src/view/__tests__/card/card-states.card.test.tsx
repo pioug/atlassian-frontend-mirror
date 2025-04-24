@@ -356,6 +356,7 @@ describe('smart-card: card states, block', () => {
 							key: 'jira-object-provider',
 							requestAccess: { accessType },
 						},
+
 						data: {
 							...mocks.forbidden.data,
 							generator: mockGenerator,

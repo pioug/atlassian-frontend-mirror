@@ -190,20 +190,15 @@ export const createPlugin =
 			},
 
 			filterTransaction(tr: Transaction) {
-				if (fg('platform_linking_enable_transaction_filtering')) {
-					const isOutsideClicked = tr.getMeta('outsideProsemirrorEditorClicked');
+				const isOutsideClicked = tr.getMeta('outsideProsemirrorEditorClicked');
 
-					if (isOutsideClicked) {
-						const isInlineEditingActive = document.getElementById('sllv-active-inline-edit');
-						if (isInlineEditingActive) {
-							return false;
-						}
+				if (isOutsideClicked) {
+					const isInlineEditingActive = document.getElementById('sllv-active-inline-edit');
+					if (isInlineEditingActive) {
+						return false;
 					}
-
-					return true;
-				} else {
-					return true;
 				}
+				return true;
 			},
 
 			view(view: EditorView) {

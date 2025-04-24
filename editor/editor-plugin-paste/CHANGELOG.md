@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste
 
+## 3.3.0
+
+### Minor Changes
+
+- [#145252](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145252)
+  [`bd0fd2a956be7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd0fd2a956be7) -
+  [https://product-fabric.atlassian.net/browse/ED-27653](ED-27653) move the `paste`, `hyperlink`,
+  `card` plugins configuration to `@atlassian/confluence-presets` package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.3
 
 ### Patch Changes

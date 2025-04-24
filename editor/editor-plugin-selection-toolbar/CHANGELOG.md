@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.5.2
+
+### Patch Changes
+
+- [#144194](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144194)
+  [`542b82e03416e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/542b82e03416e) -
+  [ux] Remove separators within group in Editor floating toolbar
+- Updated dependencies
+
 ## 3.5.1
 
 ### Patch Changes

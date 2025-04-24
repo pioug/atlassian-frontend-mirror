@@ -413,4 +413,66 @@ describe('<ResourcedEmoji />', () => {
 			expect(abortSpy).toHaveBeenCalledTimes(1);
 		});
 	});
+
+	describe('should trigger passed in callback props', () => {
+		it('and call onEmojiLoadSuccess if it is defined on a successful load', async () => {
+			const mockOnEmojiLoadSuccess = jest.fn();
+			const timeBeforeInView = 500;
+			mockAllIsIntersecting(false);
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+					onEmojiLoadSuccess={mockOnEmojiLoadSuccess}
+				/>,
+			);
+
+			const emoji = await screen.findByAltText('Media example');
+			// mimic user waited some time and then scroll to get emoji in viewport
+			await new Promise((r) => setTimeout(r, timeBeforeInView));
+			mockAllIsIntersecting(true);
+			// emoji in view port and load image
+			fireEvent.load(emoji);
+
+			expect(mockOnEmojiLoadSuccess).toHaveBeenCalled();
+		});
+
+		it('and call onEmojiLoadFail if it is defined when emoji fails to load', async () => {
+			const mockOnEmojiLoadFail = jest.fn();
+			mockAllIsIntersecting(false);
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+					onEmojiLoadFail={mockOnEmojiLoadFail}
+				/>,
+			);
+
+			const emoji = await screen.findByAltText('Media example');
+			mockAllIsIntersecting(true);
+			fireEvent.error(emoji);
+
+			expect(mockOnEmojiLoadFail).toHaveBeenCalled();
+		});
+
+		it('and call onEmojiLoadFail if it is defined when emoji has a rendering issue', async () => {
+			const mockOnEmojiLoadFail = jest.fn();
+			// cause a rendering issue by throwing an error when finding an emoji
+			const spy = jest
+				.spyOn(MockEmojiResource.prototype, 'fetchByEmojiId')
+				.mockImplementation(() => Promise.reject(new Error('test error')));
+
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={getEmojiResourcePromise() as Promise<EmojiProvider>}
+					emojiId={{ shortName: mediaEmoji.id, id: mediaEmoji.id }}
+					onEmojiLoadFail={mockOnEmojiLoadFail}
+				/>,
+			);
+
+			await waitFor(() => expect(mockOnEmojiLoadFail).toHaveBeenCalled());
+
+			spy.mockRestore();
+		});
+	});
 });

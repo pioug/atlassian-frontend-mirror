@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 114.10.1
+
+### Patch Changes
+
+- [#142223](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142223)
+  [`af7ab9622fe12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af7ab9622fe12) -
+  [ux] ED-27387 fix table sticky header positioning in embedded confluence
+- Updated dependencies
+
+## 114.10.0
+
+### Minor Changes
+
+- [#144384](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144384)
+  [`3a650f8970f01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a650f8970f01) -
+  Adding emoji load callbacks to Renderer EmojiConfig
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.9.1
 
 ### Patch Changes

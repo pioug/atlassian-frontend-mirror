@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import TextArea from '@atlaskit/textarea';
 
 import AISummary from '../src/view/common/ai-summary';

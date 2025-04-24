@@ -9,6 +9,7 @@ describe('extractState', () => {
 	const response = (serverAction = {}, preview = {}): JsonLd.Response =>
 		({
 			...jiraTask,
+
 			data: {
 				...jiraTask.data,
 				preview: { ...preview },

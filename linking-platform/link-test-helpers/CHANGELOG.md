@@ -1,5 +1,14 @@
 # @atlaskit/link-test-helpers
 
+## 8.0.3
+
+### Patch Changes
+
+- [#144137](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144137)
+  [`eb544453700f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb544453700f4) -
+  Add withWaitForItem test util function
+- Updated dependencies
+
 ## 8.0.2
 
 ### Patch Changes

@@ -294,6 +294,7 @@ class FieldsetField extends React.Component<Props, State> {
 						onClickRemove={this.onClickRemove}
 						onFieldChange={onFieldChange}
 						firstVisibleFieldName={firstVisibleFieldName}
+						isDisabled={field.isDisabled}
 					/>
 
 					{children && (

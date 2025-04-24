@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "10.9.0",
+	"version": "10.9.2",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -210,6 +210,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_table_picker": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_6": {
 			"type": "boolean"
 		}
 	}

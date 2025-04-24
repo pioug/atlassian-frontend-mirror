@@ -467,6 +467,11 @@ export const buildLayoutDropdown = (
 	}
 
 	const selectedLayout = getSelectedLayoutIcon(icons, selection.node) || icons[0];
+
+	if (!selectedLayout) {
+		return [];
+	}
+
 	const alignmentDropdownOptions = mapIconsToDropdownOptions({
 		icons,
 		layout,
@@ -484,6 +489,7 @@ export const buildLayoutDropdown = (
 			title: intl.formatMessage(layoutToMessages[selectedLayout.value]),
 			icon: selectedLayout.icon,
 			options: alignmentDropdownOptions,
+			shouldFitContainer: false,
 			testId: `${nodeType.name}-layout-dropdown-trigger-button`,
 		},
 	];

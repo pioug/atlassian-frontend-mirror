@@ -2,6 +2,7 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 
 import AtlasProject from '../../../__fixtures__/atlas-project';
 import BitbucketPullRequest from '../../../__fixtures__/bitbucket-pull-request';
+import CompassScorecard from '../../../__fixtures__/compass-scorecard';
 import ConfluenceBlog from '../../../__fixtures__/confluence-blog';
 import ConfluencePage from '../../../__fixtures__/confluence-page';
 import ConfluenceSpace from '../../../__fixtures__/confluence-space';
@@ -57,6 +58,94 @@ describe('extractFlexibleUiContext', () => {
 			targetBranch: 'target-branch',
 			title: 'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
 			url: 'https://link-url',
+		});
+	});
+
+	it('returns flexible ui context for compass scorecard', () => {
+		const data = extractFlexibleUiContext({
+			response: CompassScorecard as JsonLd.Response,
+		});
+
+		expect(data).toEqual({
+			actions: {
+				AISummaryAction: undefined,
+				AutomationAction: undefined,
+				CopyLinkAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: undefined,
+						display: undefined,
+						extensionKey: 'dragonfruit-object-provider',
+						id: undefined,
+						resourceType: 'scorecard-v2',
+					},
+				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'dragonfruit-object-provider',
+						id: undefined,
+					},
+				},
+				ViewRelatedLinksAction: undefined,
+			},
+			appliedToComponentsCount: 2,
+			ari: undefined,
+			assignedTo: undefined,
+			assignedToGroup: undefined,
+			attachmentCount: undefined,
+			authorGroup: undefined,
+			checklistProgress: undefined,
+			collaboratorGroup: undefined,
+			commentCount: undefined,
+			createdBy: undefined,
+			createdOn: undefined,
+			dueOn: undefined,
+			latestCommit: undefined,
+			linkIcon: {
+				label: 'Component readiness',
+				render: undefined,
+				url: 'https://compass-ui.prod-east.frontend.public.atl-paas.net/assets/scorecard-icon.svg',
+			},
+			location: undefined,
+			modifiedBy: undefined,
+			modifiedOn: undefined,
+			ownedBy: 'Ben Krig',
+			ownedByGroup: [
+				{
+					name: 'Ben Krig',
+					src: 'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5ce5eb3e00d9750e45e260b7/bee2c06c-5a29-4c54-bae4-1b0599289492/128',
+				},
+			],
+			preview: undefined,
+			priority: undefined,
+			programmingLanguage: undefined,
+			provider: {
+				label: 'Compass',
+				url: 'https://compass-ui.prod-east.frontend.public.atl-paas.net/assets/compass.svg',
+			},
+			reactCount: undefined,
+			readTime: undefined,
+			sentOn: undefined,
+			snippet:
+				'Ensure component details are ready for development teams to reference in the catalog.',
+			sourceBranch: undefined,
+			state: undefined,
+			storyPoints: undefined,
+			subTasksProgress: undefined,
+			subscriberCount: undefined,
+			targetBranch: undefined,
+			title: 'Component readiness',
+			url: 'https://ben-just-jwm.jira-dev.com/compass/scorecard/a7c20891-8958-4360-bc5a-8d8a26d7cdfc',
+			viewCount: undefined,
+			voteCount: undefined,
 		});
 	});
 

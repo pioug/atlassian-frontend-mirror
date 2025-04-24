@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { withWaitForItem } from '@atlaskit/link-test-helpers';
 import {
 	defaultInitialVisibleJiraColumnKeys,
 	mockBasicFilterAGGFetchRequests,
@@ -22,8 +23,6 @@ import {
 	type JiraIssueDatasourceParameters,
 	type JiraIssuesDatasourceAdf,
 } from '../src/ui/jira-issues-modal/types';
-
-import { withWaitForItem } from './utils/withWaitForItem';
 
 mockDatasourceFetchRequests();
 mockBasicFilterAGGFetchRequests();

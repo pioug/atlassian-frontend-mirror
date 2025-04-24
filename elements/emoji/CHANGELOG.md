@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 69.1.0
+
+### Minor Changes
+
+- [#144384](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144384)
+  [`3a650f8970f01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a650f8970f01) -
+  Adding emoji load callbacks to Renderer EmojiConfig
+
 ## 69.0.13
 
 ### Patch Changes

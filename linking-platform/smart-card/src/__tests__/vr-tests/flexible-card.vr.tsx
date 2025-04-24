@@ -17,6 +17,7 @@ import {
 import FlexibleUiBlockSnippet from '../../../examples/vr-flexible-card/vr-flexible-ui-block-snippet';
 import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title';
 import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexible-ui-composition';
+import FlexibleUiElementAppliedToComponentsCount from '../../../examples/vr-flexible-card/vr-flexible-ui-element-applied-to-components-count';
 import FlexibleUiElementAvatarGroup from '../../../examples/vr-flexible-card/vr-flexible-ui-element-avatar-group';
 import FlexibleUiElementBadge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-badge';
 import FlexibleUiElementLink from '../../../examples/vr-flexible-card/vr-flexible-ui-element-link';
@@ -213,6 +214,13 @@ snapshot(FlexibleUiElementBadge, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+snapshot(FlexibleUiElementAppliedToComponentsCount, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(FlexibleUiElementAvatarGroup, {

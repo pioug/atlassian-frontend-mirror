@@ -17,6 +17,7 @@ import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/
 import type { ReadOnlyParticipants } from '@atlaskit/editor-plugin-collab-edit';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
@@ -64,6 +65,12 @@ export const scrollToCollabCursor = (
 export const Avatars = React.memo((props: AvatarsProps) => {
 	const { sessionId, featureFlags, editorAPI } = props;
 	const participants = props.participants?.toArray() as CollabParticipant[];
+	if (fg('platform_editor_avatars_sort_error_fix')) {
+		if (!participants) {
+			return null;
+		}
+	}
+
 	const avatars = participants
 		.sort((p) => (p.sessionId === sessionId ? -1 : 1))
 		.map((participant) => toAvatar(participant, editorAPI));

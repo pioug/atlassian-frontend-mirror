@@ -127,6 +127,7 @@ export const mocks = {
 					cloudId: 'cloud-id',
 				},
 			},
+
 			data: {
 				'@context': {
 					'@vocab': 'https://www.w3.org/ns/activitystreams#',

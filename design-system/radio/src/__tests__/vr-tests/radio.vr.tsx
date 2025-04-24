@@ -10,6 +10,5 @@ snapshot(RadioExample, {
 	description: 'Visual refresh style',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-icon-control-migration': true,
 	},
 });

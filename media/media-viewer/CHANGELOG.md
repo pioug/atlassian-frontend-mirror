@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.0.9
+
+### Patch Changes
+
+- [#145195](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145195)
+  [`8fa3712b27618`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fa3712b27618) -
+  Internal change to move towards Compiled CSS-in-JS styling.
+
 ## 52.0.8
 
 ### Patch Changes

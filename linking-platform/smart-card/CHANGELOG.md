@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 36.9.0
+
+### Minor Changes
+
+- [#141991](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141991)
+  [`bcca20c11f791`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bcca20c11f791) -
+  [ux] Adds functionality to show a count of applied components to a Compass Scorecard Smartlink.
+
+### Patch Changes
+
+- [#144847](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144847)
+  [`00cb7d91843fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00cb7d91843fd) -
+  Internal change to move towards Compiled CSS-in-JS styling.
+- Updated dependencies
+
 ## 36.8.2
 
 ### Patch Changes

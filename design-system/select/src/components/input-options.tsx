@@ -217,8 +217,8 @@ export const CheckboxOption = <OptionT extends OptionType>(
 ): JSX.Element => (
 	<ControlOption<OptionT, true>
 		Icon={
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix, @atlaskit/platform/no-preconditioning
-			fg('platform-visual-refresh-icons') && fg('platform-icon-control-migration')
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			fg('platform-visual-refresh-icons')
 				? NewCheckboxIcon
 				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 					CheckboxIcon
@@ -235,8 +235,8 @@ export const RadioOption = <OptionT extends OptionType>(props: OptionProps<Optio
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
 	<ControlOption
 		Icon={
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix, @atlaskit/platform/no-preconditioning
-			fg('platform-visual-refresh-icons') && fg('platform-icon-control-migration')
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			fg('platform-visual-refresh-icons')
 				? NewRadioIcon
 				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 					RadioIcon

@@ -10,7 +10,7 @@ import React, {
 	useState,
 } from 'react';
 import { css, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
@@ -430,6 +430,7 @@ export interface PopperWrapperProps {
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 	const { settings, children, popperModifiers } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
+	const { formatMessage } = useIntl();
 	/**
 	 * add focus lock to popup
 	 */
@@ -439,6 +440,8 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 			{({ ref, style, update }) => {
 				return (
 					<div
+						role="group"
+						aria-label={formatMessage(messages.popperWrapperLabel)}
 						id={PICKER_CONTROL_ID}
 						data-testid={RENDER_REACTIONPICKERPANEL_TESTID}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

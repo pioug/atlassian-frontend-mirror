@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
 
 import ExampleContainer from './utils/example-container';

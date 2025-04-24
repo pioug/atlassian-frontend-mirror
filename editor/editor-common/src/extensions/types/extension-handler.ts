@@ -20,6 +20,7 @@ export type ExtensionHandler<T extends Parameters = Parameters> = (
 ) => JSX.Element | null;
 
 export type OnSaveCallback<T extends Parameters = Parameters> = (params: T) => void;
+export type OnSaveCallbackAsync<T extends Parameters = Parameters> = (params: T) => Promise<void>;
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

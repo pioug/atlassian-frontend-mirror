@@ -79,9 +79,8 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 		pluginsOptions: {
 			selectionToolbar() {
 				if (
-					options?.textHighlightingFloatingToolbarExperiment ||
-					(api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'none' &&
-						editorExperiment('platform_editor_controls', 'variant1', { exposure: true }))
+					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'none' &&
+					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 				) {
 					const toolbarCustom: FloatingToolbarCustom<Command> = {
 						type: 'custom',

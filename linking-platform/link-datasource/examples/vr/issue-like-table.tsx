@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { withWaitForItem } from '@atlaskit/link-test-helpers';
+
 import { ExampleIssueLikeTableExample } from '../../examples-helpers/buildIssueLikeTable';
 import VRTestWrapper from '../utils/VRWrapper';
-import { withWaitForItem } from '../utils/withWaitForItem';
 
 export const VRIssueLikeTable = (
 	props: React.ComponentProps<typeof ExampleIssueLikeTableExample>,

@@ -24,6 +24,34 @@ const flexStyles = css({
 	'[data-smart-block]': {
 		// MetadataBlock: Element showcase
 
+		"&[data-testid^='AppliedToComponentsCount']": {
+			display: 'flex',
+			'&:empty': {
+				justifyContent: 'space-between',
+			},
+			'&::before': {
+				display: 'inline-flex',
+				marginRight: '1rem',
+				width: '10rem',
+				alignItems: 'center',
+				backgroundColor: token('color.background.neutral', '#091E420F'),
+				borderRadius: '3px',
+				color: token('color.text', '#172B4D'),
+				justifyContent: 'center',
+				padding: '0.125rem 0',
+				/**
+				 * We are hacking flexible smart links styling here to display the information
+				 * about elements.
+				 */
+				fontFamily:
+					"'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace",
+				fontSize: '0.75rem',
+				lineHeight: '0.75rem',
+				wordBreak: 'break-all',
+				textAlign: 'center',
+				content: "'AppliedToComponentsCount'",
+			},
+		},
 		"&[data-testid^='AssignedTo']": {
 			display: 'flex',
 			'&:empty': {

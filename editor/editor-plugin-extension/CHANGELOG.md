@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.2.6
+
+### Patch Changes
+
+- [#142403](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142403)
+  [`152f0ebf88ba6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/152f0ebf88ba6) -
+  [ux] Fix a bug where autosave errors in the config panel would fail silently and prevent closing.
+  Additionally add support for disabling unsupported UI elements related to the macro config panel
+  while the user is offline, as part of the offline editor experiment.
+- Updated dependencies
+
 ## 5.2.5
 
 ### Patch Changes

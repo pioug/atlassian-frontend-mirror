@@ -44,8 +44,12 @@ const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
 			icon={
 				fg('bandicoots-update-sllv-icons') ? (
 					<SpotSearchNoResult
-						size={'medium'}
-						alt={formatMessage(asyncPopupSelectMessages.noOptionsMessage)}
+						size={fg('platform-linking-visual-refresh-sllv') ? 'large' : 'medium'}
+						alt={formatMessage(
+							fg('platform-linking-visual-refresh-sllv')
+								? asyncPopupSelectMessages.noOptionsMessage
+								: asyncPopupSelectMessages.noOptionsMessageOld,
+						)}
 					/>
 				) : (
 					<>
@@ -54,7 +58,16 @@ const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
 					</>
 				)
 			}
-			message={asyncPopupSelectMessages.noOptionsMessage}
+			message={
+				fg('platform-linking-visual-refresh-sllv')
+					? asyncPopupSelectMessages.noOptionsMessage
+					: asyncPopupSelectMessages.noOptionsMessageOld
+			}
+			description={
+				fg('platform-linking-visual-refresh-sllv')
+					? asyncPopupSelectMessages.noOptionsDescription
+					: undefined
+			}
 			testId={`${filterName}--no-options-message`}
 		/>
 	);

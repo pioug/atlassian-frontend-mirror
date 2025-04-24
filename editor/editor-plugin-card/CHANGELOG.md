@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.19
+
+### Patch Changes
+
+- [#145180](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145180)
+  [`46856892862ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46856892862ec) -
+  Clean up FG platform_linking_enable_transaction_filtering
+- Updated dependencies
+
+## 5.4.18
+
+### Patch Changes
+
+- [#144194](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144194)
+  [`542b82e03416e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/542b82e03416e) -
+  [ux] Remove separators within group in Editor floating toolbar
+- Updated dependencies
+
+## 5.4.17
+
+### Patch Changes
+
+- [#144829](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144829)
+  [`14b488c2295de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b488c2295de) -
+  [ux] ED27537 Update alignment dropdown in media and embed card floating toolbar
+- Updated dependencies
+
 ## 5.4.16
 
 ### Patch Changes

@@ -11,14 +11,9 @@ import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatti
 
 import type { HighlightPluginState } from './pm-plugins/main';
 
-export type HighlightPluginOptions = {
-	textHighlightingFloatingToolbarExperiment?: boolean;
-};
-
 export type HighlightPlugin = NextEditorPlugin<
 	'highlight',
 	{
-		pluginConfiguration?: HighlightPluginOptions;
 		dependencies: [
 			// Optional, we won't log analytics if it's not available
 			OptionalPlugin<AnalyticsPlugin>,

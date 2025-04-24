@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
 
 import CardViewExample from '../../../examples/card-view';

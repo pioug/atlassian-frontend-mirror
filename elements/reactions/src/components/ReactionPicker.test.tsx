@@ -1,6 +1,6 @@
 import React from 'react';
 import { type Stub, replaceRaf } from 'raf-stub';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { type EmojiProvider } from '@atlaskit/emoji';
@@ -174,7 +174,7 @@ jest.mock('@atlaskit/popper', () => ({
 }));
 
 const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings']) => {
-	return render(
+	return renderWithIntl(
 		<PopperWrapper settings={settings}>
 			<div>Mock children</div>
 		</PopperWrapper>,

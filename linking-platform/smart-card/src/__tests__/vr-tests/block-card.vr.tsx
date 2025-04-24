@@ -37,7 +37,7 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
-		'platform-smart-card-icon-migration': [true, false],
+		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(BlockCardErrorView, {
@@ -58,7 +58,7 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
-		'platform-smart-card-icon-migration': [true, false],
+		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(BlockCardForbiddenView, {
@@ -80,7 +80,7 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
-		'platform-smart-card-icon-migration': [true, false],
+		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(BlockCardNotFoundView, {

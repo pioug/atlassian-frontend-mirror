@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { IntlProvider } from 'react-intl-next';
 
-import { Box, Stack, Text } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';
 import { HoverCard } from '../../src/hoverCard';

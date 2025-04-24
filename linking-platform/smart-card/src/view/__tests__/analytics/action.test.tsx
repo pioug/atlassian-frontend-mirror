@@ -62,6 +62,7 @@ describe('actions', () => {
 				objectId: 'o1',
 				resourceType: 'sharedFile',
 			},
+
 			data: {
 				'@context': {
 					'@vocab': 'https://www.w3.org/ns/activitystreams#',

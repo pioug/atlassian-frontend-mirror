@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.0.5
+
+### Patch Changes
+
+- [#145321](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145321)
+  [`2798c91b69bd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2798c91b69bd9) -
+  [ux] ED-27537 Update dropdown to take in shouldFitContainer prop to fix dropdown content not
+  fitting for layout dropdown and add vr tests
+- Updated dependencies
+
+## 4.0.4
+
+### Patch Changes
+
+- [#145307](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145307)
+  [`64c485e3d2d32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64c485e3d2d32) -
+  [ux] Group AI buttons in Editor floating toolbar
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

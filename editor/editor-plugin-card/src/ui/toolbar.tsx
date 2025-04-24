@@ -298,7 +298,7 @@ const buildAlignmentOptions = (
 		);
 	}
 
-	return buildLayoutButtons(
+	const layoutButtons = buildLayoutButtons(
 		state,
 		intl,
 		state.schema.nodes.embedCard,
@@ -309,6 +309,11 @@ const buildAlignmentOptions = (
 		cardOptions?.allowWrapping,
 		cardOptions?.allowAlignment,
 	);
+
+	return editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_6')
+		? layoutButtons.filter((item) => item.type !== 'separator')
+		: layoutButtons;
 };
 
 const withToolbarMetadata = (command: Command) =>
@@ -545,7 +550,9 @@ const generateToolbarItems =
 							testId: 'link-toolbar-edit-link-button',
 							onClick: getEditLinkCallback(editorAnalyticsApi, true),
 						},
-						{ type: 'separator' },
+						...(fg('platform_editor_controls_patch_6')
+							? []
+							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
 						{
 							id: 'editor.link.openLink',
@@ -571,7 +578,11 @@ const generateToolbarItems =
 					cardOptions,
 				);
 
-				if (alignmentOptions.length) {
+				if (
+					alignmentOptions.length &&
+					(!editorExperiment('platform_editor_controls', 'variant1') ||
+						!fg('platform_editor_controls_patch_6'))
+				) {
 					alignmentOptions.push({
 						type: 'separator',
 					});
@@ -643,9 +654,9 @@ const generateToolbarItems =
 							]
 						: []),
 
-					{
-						type: 'separator',
-					},
+					...(fg('platform_editor_controls_patch_6')
+						? []
+						: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 				);
 			}
 
@@ -707,7 +718,7 @@ const getUnlinkButtonGroup = (
 					iconFallback: UnlinkIcon,
 					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
 				},
-				{ type: 'separator' },
+				...(fg('platform_editor_controls_patch_6') ? [] : [{ type: 'separator' }]),
 			] as Array<FloatingToolbarItem<Command>>)
 		: [];
 };

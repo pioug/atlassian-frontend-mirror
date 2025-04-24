@@ -9,6 +9,7 @@ import {
 	mockBaseResponse,
 	mockBBFileResponse,
 	mockCompassResponse,
+	mockCompassResponseWithAppliedToComponentsCount,
 	mockCompassResponseWithOwnedBy,
 	mockConfluenceResponse,
 	mockConfluenceResponseWithOwnedBy,
@@ -169,6 +170,16 @@ describe('getSimulatedBetterMetadata', () => {
 						{ name: ElementName.OwnedByGroup },
 						{ name: ElementName.OwnedBy },
 						...baseTopMetadata,
+					]);
+				});
+
+				it('should return AppliedToComponentsCount in bottom metadata when appliedToComponentsCount is present', () => {
+					const metadata = getSimulatedBetterMetadata(
+						mockCompassResponseWithAppliedToComponentsCount as JsonLd.Response,
+					);
+					expect(metadata.bottomMetadata).toEqual([
+						{ name: ElementName.AppliedToComponentsCount },
+						...baseBottomMetaData,
 					]);
 				});
 			},

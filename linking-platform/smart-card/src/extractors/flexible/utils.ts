@@ -32,6 +32,9 @@ export type LinkCommentType =
 export const extractCommentCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkCommentType, number>(data, 'schema:commentCount');
 
+export const extractAppliedToComponentsCount = (data: JsonLd.Data.BaseData) =>
+	extractValue<JsonLd.Data.Project, number>(data, 'atlassian:appliedToComponentsCount');
+
 export const extractDueOn = (data: JsonLd.Data.BaseData) =>
 	extractValue<JsonLd.Data.BaseData, string>(data, 'endTime');
 

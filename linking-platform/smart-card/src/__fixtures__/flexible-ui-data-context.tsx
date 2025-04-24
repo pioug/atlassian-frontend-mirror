@@ -50,6 +50,7 @@ const context: FlexibleUiDataContext = {
 			ari: 'ari:cloud:link:1234:example:abcd',
 		},
 	},
+	appliedToComponentsCount: 2,
 	attachmentCount: 3,
 	authorGroup: [{ name: 'Alexander Hamilton' }, { name: 'Spongebob Squarepants' }],
 	checklistProgress: '4/7',

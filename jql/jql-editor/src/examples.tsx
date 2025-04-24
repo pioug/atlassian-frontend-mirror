@@ -3,7 +3,7 @@ import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { injectable } from 'react-magnetic-di';
 
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { Template } from '../examples-utils/template';
 import { TemplateReadOnly } from '../examples-utils/template-read-only';

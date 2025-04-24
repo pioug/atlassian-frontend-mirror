@@ -84,6 +84,9 @@
 			"path": "../../../design-system/layering/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../link-client-extension/afm-jira/tsconfig.json"
 		},
 		{

@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { FieldDefinition, TabField, TabGroupField } from '@atlaskit/editor-common/extensions';
 import { isFieldset } from '@atlaskit/editor-common/extensions';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import Boolean from './Fields/Boolean';
 import ColorPicker from './Fields/ColorPicker';
@@ -164,6 +165,7 @@ export function FieldComponent({
 						onFieldChange={onFieldChange}
 						extensionManifest={extensionManifest}
 						featureFlags={featureFlags}
+						isDisabled={field.isDisabled}
 					/>
 				</Expand>
 			);
@@ -195,6 +197,7 @@ export function FieldComponent({
 						onFieldChange={onFieldChange}
 						extensionManifest={extensionManifest}
 						featureFlags={featureFlags}
+						isDisabled={field.isDisabled}
 					/>
 				);
 			};
@@ -227,14 +230,22 @@ export default function FormContent({
 	firstVisibleFieldName,
 	contextIdentifierProvider,
 	featureFlags,
+	isDisabled,
 }: FormContentProps) {
+	let mappedFields = fields;
+	if (editorExperiment('platform_editor_offline_editing_web', true)) {
+		mappedFields = fields.map((field) => ({
+			...field,
+			isDisabled: field.isDisabled ?? isDisabled,
+		}));
+	}
 	return (
 		<FormErrorBoundary
 			contextIdentifierProvider={contextIdentifierProvider}
 			extensionKey={extensionManifest.key}
-			fields={fields}
+			fields={mappedFields}
 		>
-			{fields.map((field: FieldDefinition) => {
+			{mappedFields.map((field: FieldDefinition) => {
 				let fieldElement = (
 					<FieldComponent
 						field={field}

@@ -22,7 +22,7 @@ export default function String({
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
 }) {
-	const { label, description, defaultValue, isRequired } = field;
+	const { label, description, defaultValue, isRequired, isDisabled } = field;
 
 	return (
 		<Field
@@ -32,6 +32,7 @@ export default function String({
 			isRequired={isRequired}
 			validate={(value?: string) => validate<string>(field, value || '')}
 			testId={`config-panel-string-${name}`}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error, meta }) => {
 				if (field.style === 'multiline') {

@@ -22,6 +22,11 @@ describe('BasicSearchInput', () => {
 						description: 'placeholder',
 						defaultMessage: 'custom placeholder',
 					}}
+					ariaLabel={{
+						id: 'test',
+						description: 'placeholder',
+						defaultMessage: 'custom placeholder',
+					}}
 					{...propsOverride}
 				/>
 			</IntlProvider>,

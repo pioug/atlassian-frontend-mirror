@@ -1,12 +1,19 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
-import { Grid } from '@atlaskit/primitives';
+import { Grid } from '@atlaskit/primitives/compiled';
 
 import { Card, ElementName, MetadataBlock, SmartLinkSize, TitleBlock } from '../../src';
 
 import { response1, response2, response3 } from './example-responses';
+
+const gridStyles = cssMap({
+	root: {
+		gridTemplateColumns: '1fr 1fr 1fr',
+	},
+});
 
 const examples = {
 	'https://examples/01': response2,
@@ -22,7 +29,7 @@ class CustomClient extends Client {
 
 export default () => (
 	<Provider client={new CustomClient('stg')}>
-		<Grid columnGap="space.100" templateColumns="1fr 1fr 1fr">
+		<Grid columnGap="space.100" xcss={gridStyles.root}>
 			{Object.keys(examples).map((url: string, idx: number) => (
 				<Card
 					appearance="block"

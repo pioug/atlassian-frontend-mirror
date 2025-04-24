@@ -7,9 +7,10 @@ describe('getInteractionStatus', () => {
 	const createInteractionMetrics = (abortReason?: string, apdex: any[] = []): InteractionMetrics =>
 		({
 			abortReason,
-			apdex,
+
 			// Add other required properties of InteractionMetrics interface
 			// with dummy values if needed
+			apdex,
 		}) as InteractionMetrics;
 
 	it('should return SUCCEEDED status when there is no abort reason and has BM3 TTI', () => {

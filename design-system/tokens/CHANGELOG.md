@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 4.8.1
+
+### Patch Changes
+
+- [#145286](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145286)
+  [`1da0ecb159341`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1da0ecb159341) -
+  Tiny wording change on @atlaskit/tokens/babel-plugin to more clearly describe the error without
+  string literal argument(s)
+
 ## 4.8.0
 
 ### Minor Changes

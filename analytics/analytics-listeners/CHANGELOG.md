@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 9.0.1
+
+### Patch Changes
+
+- [#144757](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144757)
+  [`a2a3467950054`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2a3467950054) -
+  Add Track Event to process-event for 'navigation' channel
+
 ## 9.0.0
 
 ### Major Changes

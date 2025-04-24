@@ -2,14 +2,21 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
+import { cssMap } from '@atlaskit/css';
 import { Label } from '@atlaskit/form';
-import { Grid } from '@atlaskit/primitives';
+import { Grid } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select/Select';
 import Textfield from '@atlaskit/textfield';
 
 import { ActionName } from '../../../../src';
 import { type BlockTemplate } from '../../types';
 import { type ChangeParams, getCustomActionIcon, handleOnChange } from '../../utils';
+
+const gridStyles = cssMap({
+	root: {
+		gridTemplateColumns: '1fr 67px',
+	},
+});
 
 type ActionProp = {
 	name: ActionName;
@@ -135,7 +142,7 @@ const ActionOption = ({
 	return (
 		<Grid rowGap="space.050">
 			<Label htmlFor={name}>Actions</Label>
-			<Grid alignItems="center" columnGap="space.100" templateColumns="1fr 67px">
+			<Grid alignItems="center" columnGap="space.100" xcss={gridStyles.root}>
 				<Select onChange={handleOnActionChange} options={options} placeholder="Choose an action" />
 				<Button onClick={handleOnAddClick(onChange, template, propName, [])}>Add</Button>
 			</Grid>
@@ -154,7 +161,7 @@ const ActionOption = ({
 					alignItems="center"
 					columnGap="space.100"
 					key={`${name}-${idx}`}
-					templateColumns="1fr 67px"
+					xcss={gridStyles.root}
 				>
 					{name === ActionName.CustomAction ? (
 						<Textfield

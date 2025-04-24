@@ -8,7 +8,9 @@ import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { Flex } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod, Site } from '../../../common/types';
@@ -31,13 +33,24 @@ import { buildJQL } from './buildJQL';
 import { modeSwitcherMessages } from './messages';
 
 const styles = cssMap({
+	basicSearchInputBoxStyles: {
+		width: '100%',
+	},
 	basicSearchInputContainerStyles: {
 		flexGrow: 1,
 	},
-	inputContainerStyles: {
+	inputContainerStylesOld: {
 		alignItems: 'baseline',
 		display: 'flex',
 		minHeight: '72px',
+	},
+	inputContainerStyles: {
+		alignItems: 'flex-start',
+		display: 'flex',
+		minHeight: '72px',
+	},
+	modeSwitcherContainerStyles: {
+		marginTop: token('space.050', '4px'),
 	},
 });
 
@@ -271,8 +284,61 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 		}
 	}, [currentCloudId, cloudId, setSearchBarJql]);
 
+	if (fg('platform-linking-visual-refresh-sllv')) {
+		return (
+			<div css={styles.inputContainerStyles} data-testid="jira-search-container">
+				{currentSearchMethod === 'basic' && (
+					<Box xcss={styles.basicSearchInputBoxStyles}>
+						<Flex alignItems="center" xcss={styles.basicSearchInputContainerStyles}>
+							<BasicSearchInput
+								isSearching={isSearching}
+								onChange={handleBasicSearchChange}
+								onSearch={handleSearch}
+								searchTerm={basicSearchTerm}
+								placeholder={basicSearchInputMessages.basicTextSearchLabel}
+								ariaLabel={basicSearchInputMessages.basicTextSearchLabel}
+								testId="jira-datasource-modal"
+								fullWidth={false}
+							/>
+							<BasicFilters
+								jql={searchBarJql}
+								site={site}
+								onChange={handleBasicFilterSelectionChange}
+								selections={filterSelections}
+								isJQLHydrating={basicFilterHydrationStatus === 'loading'}
+							/>
+						</Flex>
+
+						{currentSearchMethod === 'basic' && (
+							<Text size="small" color="color.text.subtlest" testId="jira-search-placeholder">
+								{formatMessage(basicSearchInputMessages.basicTextSearchLabel)}
+							</Text>
+						)}
+					</Box>
+				)}
+				{currentSearchMethod === 'jql' && (
+					<JiraJQLEditor
+						cloudId={cloudId || ''}
+						isSearching={isSearching}
+						onChange={onQueryChange}
+						onSearch={handleSearch}
+						query={searchBarJql}
+					/>
+				)}
+
+				<Box xcss={styles.modeSwitcherContainerStyles}>
+					<ModeSwitcher
+						onOptionValueChange={onSearchMethodChange}
+						selectedOptionValue={currentSearchMethod}
+						options={modeSwitcherOptions}
+					/>
+				</Box>
+			</div>
+		);
+	}
+
 	return (
-		<div css={styles.inputContainerStyles} data-testid="jira-search-container">
+		<div css={styles.inputContainerStylesOld} data-testid="jira-search-container">
 			{currentSearchMethod === 'basic' && (
 				<Flex alignItems="center" xcss={styles.basicSearchInputContainerStyles}>
 					<BasicSearchInput
@@ -281,6 +347,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 						onSearch={handleSearch}
 						searchTerm={basicSearchTerm}
 						placeholder={basicSearchInputMessages.basicTextSearchLabel}
+						ariaLabel={basicSearchInputMessages.basicTextSearchLabel}
 						testId="jira-datasource-modal"
 						fullWidth={false}
 					/>
@@ -302,6 +369,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 					query={searchBarJql}
 				/>
 			)}
+
 			<ModeSwitcher
 				onOptionValueChange={onSearchMethodChange}
 				selectedOptionValue={currentSearchMethod}

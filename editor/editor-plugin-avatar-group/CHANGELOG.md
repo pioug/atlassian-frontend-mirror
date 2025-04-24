@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 3.1.1
+
+### Patch Changes
+
+- [#145269](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145269)
+  [`737139c963111`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/737139c963111) -
+  [ux] Introduces an early-return guard inside `Avatars` that exits when `participants` is
+  null/undefined. Behind fg platform_editor_avatars_sort_error_fix. Prevents the runtime crash
+  `cannot read properties of undefined (reading sort)` observed while presence data is still
+  loading. For HOT-116939.
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

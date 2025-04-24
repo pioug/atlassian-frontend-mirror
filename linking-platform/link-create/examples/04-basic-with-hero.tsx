@@ -89,7 +89,6 @@ export default function CreateBasic() {
 					<p>ARI: {ari}</p>
 				</div>
 			)}
-
 			{link && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<div style={{ marginBottom: token('space.200', '1rem') }}>
@@ -98,7 +97,6 @@ export default function CreateBasic() {
 					</a>
 				</div>
 			)}
-
 			<ButtonGroup>
 				<Button
 					testId="link-create-show"
@@ -122,7 +120,6 @@ export default function CreateBasic() {
 					Create without Hero
 				</Button>
 			</ButtonGroup>
-
 			<LinkCreate
 				active={active}
 				plugins={[exampleCustomPlugin]}

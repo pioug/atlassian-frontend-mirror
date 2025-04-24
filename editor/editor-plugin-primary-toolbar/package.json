@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-primary-toolbar",
-	"version": "3.2.0",
+	"version": "3.2.1",
 	"description": "Primary toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -89,6 +89,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_controls_move_actions": {
+			"type": "boolean"
+		},
+		"platform_editor_insert_button_on_primary_toolbar": {
 			"type": "boolean"
 		}
 	}

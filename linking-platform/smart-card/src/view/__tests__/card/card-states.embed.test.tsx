@@ -289,6 +289,7 @@ describe('smart-card: card states, embed', () => {
 							key: 'jira-object-provider',
 							requestAccess: { accessType },
 						},
+
 						data: {
 							...mocks.forbidden.data,
 							generator: mockGenerator,

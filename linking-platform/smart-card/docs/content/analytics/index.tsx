@@ -2,7 +2,7 @@ import React from 'react';
 
 import { code } from '@atlaskit/docs';
 import Link from '@atlaskit/link';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 
 import customMd from '../../utils/custom-md';

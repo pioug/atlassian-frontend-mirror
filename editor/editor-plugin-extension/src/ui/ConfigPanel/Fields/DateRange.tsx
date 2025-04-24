@@ -50,12 +50,14 @@ const DateField = ({
 	onFieldChange,
 	intl,
 	isRequired,
+	isDisabled,
 }: {
 	parentField: DateRangeField;
 	scope: string;
 	fieldName: 'from' | 'to';
 	onFieldChange: OnFieldChange;
 	isRequired?: boolean;
+	isDisabled?: boolean;
 } & WrappedComponentProps) => (
 	<div css={horizontalFieldWrapperStyles} key={fieldName}>
 		<Field
@@ -66,6 +68,7 @@ const DateField = ({
 			validate={(value?: string) => {
 				return validateRequired<string | undefined>({ isRequired }, value);
 			}}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error }) => (
 				<Fragment>
@@ -144,6 +147,7 @@ const DateRange = function ({
 				isRequired={field.isRequired}
 				validate={(value?: string) => validate<string>(field, value || '')}
 				testId={`config-panel-date-range-${name}`}
+				isDisabled={field.isDisabled}
 			>
 				{({ fieldProps, error }) => (
 					<Fragment>
@@ -186,6 +190,7 @@ const DateRange = function ({
 						onFieldChange={onFieldChange}
 						intl={intl}
 						isRequired={field.isRequired}
+						isDisabled={field.isDisabled}
 					/>
 					<DateField
 						scope={name}
@@ -194,6 +199,7 @@ const DateRange = function ({
 						onFieldChange={onFieldChange}
 						intl={intl}
 						isRequired={field.isRequired}
+						isDisabled={field.isDisabled}
 					/>
 				</div>
 			)}

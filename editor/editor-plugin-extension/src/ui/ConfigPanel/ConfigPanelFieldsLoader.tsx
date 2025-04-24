@@ -11,6 +11,8 @@ import type {
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 
@@ -29,8 +31,8 @@ export type PublicProps = {
 	closeOnEsc?: boolean;
 	showHeader?: boolean;
 	featureFlags?: FeatureFlags;
-	onChange: (data: Parameters) => void;
-	onCancel: () => void;
+	onChange: (data: Parameters) => void | Promise<void>;
+	onCancel: () => void | Promise<void>;
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
 	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel?: boolean;
@@ -160,6 +162,10 @@ export default function FieldsLoader({
 
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+	const connectivityState = useSharedPluginStateSelector(api, 'connectivity.mode', {
+		disabled: editorExperiment('platform_editor_offline_editing_web', false),
+	});
+
 	return (
 		<FieldDefinitionsPromiseResolver
 			setErrorMessage={setErrorMessage}
@@ -184,6 +190,7 @@ export default function FieldsLoader({
 					featureFlags={featureFlags}
 					// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 					usingObjectSidebarPanel={usingObjectSidebarPanel}
+					disableFields={connectivityState === 'offline'}
 				/>
 			)}
 		</FieldDefinitionsPromiseResolver>

@@ -10,8 +10,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 function getIcon(isIndeterminate: boolean, isChecked: boolean) {
 	if (isIndeterminate) {
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-		if (fg('platform-visual-refresh-icons') && fg('platform-icon-control-migration')) {
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		if (fg('platform-visual-refresh-icons')) {
 			return (
 				<path
 					fillRule="evenodd"
@@ -26,8 +26,8 @@ function getIcon(isIndeterminate: boolean, isChecked: boolean) {
 	}
 
 	if (isChecked) {
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-		if (fg('platform-visual-refresh-icons') && fg('platform-icon-control-migration')) {
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		if (fg('platform-visual-refresh-icons')) {
 			return (
 				<path
 					fillRule="evenodd"
@@ -72,8 +72,8 @@ const CheckboxIcon = memo<{
 		>
 			<g fillRule="evenodd">
 				{
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform-visual-refresh-icons') && fg('platform-icon-control-migration') ? (
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-visual-refresh-icons') ? (
 						<rect fill="currentColor" x="5.5" y="5.5" width="13" height="13" rx="1.5" />
 					) : (
 						<rect fill="currentColor" x="6" y="6" width="12" height="12" rx="2" />

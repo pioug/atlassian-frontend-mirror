@@ -1,7 +1,7 @@
 import React, { type FocusEvent, type ReactNode } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import {
 	EditorThemeContext,

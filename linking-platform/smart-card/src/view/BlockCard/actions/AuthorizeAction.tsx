@@ -17,6 +17,7 @@ export const AuthorizeAction = (onAuthorize: () => void, providerName?: string):
 	({
 		appearance: 'primary',
 		name: ActionName.CustomAction,
+
 		content: providerName ? (
 			<FormattedMessage
 				{...messages.connect_unauthorised_account_action}
@@ -25,6 +26,7 @@ export const AuthorizeAction = (onAuthorize: () => void, providerName?: string):
 		) : (
 			<FormattedMessage {...messages.connect_link_account_card} />
 		),
+
 		onClick: onAuthorize,
 		testId: 'smart-action-connect-account',
 	}) as CustomActionItem;

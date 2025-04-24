@@ -2,5 +2,5 @@
 // Entry file in package.json
 
 export { highlightPlugin } from './highlightPlugin';
-export type { HighlightPlugin, HighlightPluginOptions } from './highlightPluginType';
+export type { HighlightPlugin } from './highlightPluginType';
 export type { HighlightPluginState } from './pm-plugins/main';

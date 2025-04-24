@@ -2,7 +2,7 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 const ContentTable = ({ items = [] }: { items: { name: string; content: any }[] }) => {
 	return (

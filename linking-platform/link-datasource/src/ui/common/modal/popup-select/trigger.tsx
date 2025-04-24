@@ -3,14 +3,16 @@ import React, { forwardRef, useCallback } from 'react';
 import { cssMap, styled } from '@compiled/react';
 
 import Badge from '@atlaskit/badge';
+import NewButton from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronDownIconOld from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectOption } from './types';
-
 export interface PopupTriggerProps {
 	label: string;
 	testId?: string;
@@ -25,8 +27,11 @@ const styles = cssMap({
 		textOverflow: 'ellipsis',
 		overflow: 'hidden',
 	},
-	badgeStyles: {
+	badgeStylesOld: {
 		marginLeft: token('space.050'),
+	},
+	badgeStyles: {
+		marginLeft: token('space.150'),
 	},
 });
 
@@ -74,27 +79,47 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 		);
 
 		const DefaultButton = useCallback(
-			() => (
-				<Button
-					appearance="default"
-					isSelected={isSelected || hasOptions}
-					isDisabled={isDisabled}
-					iconAfter={<ChevronDownIcon label="" color="currentColor" />}
-					testId={`${triggerButtonTestId}--button`}
-				>
-					<Flex>
-						<Box xcss={styles.triggerButtonLabelStyles}>
-							{label}
-							{firstOption && <>: {firstOption.label}</>}
-						</Box>
-						{selectedOptions && selectedOptions.length > 1 && (
-							<Flex xcss={styles.badgeStyles} alignItems="center">
-								<Badge appearance="primary">+{selectedOptions.length - 1}</Badge>
-							</Flex>
-						)}
-					</Flex>
-				</Button>
-			),
+			() =>
+				fg('platform-linking-visual-refresh-sllv') ? (
+					<NewButton
+						isSelected={isSelected || hasOptions}
+						isDisabled={isDisabled}
+						iconAfter={() => <ChevronDownIcon label="" color="currentColor" />}
+						testId={`${triggerButtonTestId}--button`}
+					>
+						<Flex>
+							<Box xcss={styles.triggerButtonLabelStyles}>
+								{label}
+								{firstOption && <>: {firstOption.label}</>}
+							</Box>
+							{selectedOptions && selectedOptions.length > 1 && (
+								<Flex xcss={styles.badgeStyles} alignItems="center">
+									<Badge appearance="primary">+{selectedOptions.length - 1}</Badge>
+								</Flex>
+							)}
+						</Flex>
+					</NewButton>
+				) : (
+					<Button
+						appearance="default"
+						isSelected={isSelected || hasOptions}
+						isDisabled={isDisabled}
+						iconAfter={<ChevronDownIconOld label="" color="currentColor" />}
+						testId={`${triggerButtonTestId}--button`}
+					>
+						<Flex>
+							<Box xcss={styles.triggerButtonLabelStyles}>
+								{label}
+								{firstOption && <>: {firstOption.label}</>}
+							</Box>
+							{selectedOptions && selectedOptions.length > 1 && (
+								<Flex xcss={styles.badgeStylesOld} alignItems="center">
+									<Badge appearance="primary">+{selectedOptions.length - 1}</Badge>
+								</Flex>
+							)}
+						</Flex>
+					</Button>
+				),
 			[
 				firstOption,
 				hasOptions,

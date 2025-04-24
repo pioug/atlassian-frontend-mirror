@@ -672,6 +672,10 @@ export const getToolbarConfig =
 				onBlur: clearHoverSelection(),
 			});
 
+			const shouldGroupWithoutSeparators =
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_patch_6');
+
 			return {
 				title: toolbarTitle,
 				getDomRef,
@@ -681,9 +685,9 @@ export const getToolbarConfig =
 				zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
 				items: [
 					menu,
-					separator(menu.hidden),
+					...(!shouldGroupWithoutSeparators ? [separator(menu.hidden)] : []),
 					...alignmentMenu,
-					separator(alignmentMenu.length === 0),
+					...(!shouldGroupWithoutSeparators ? [separator(alignmentMenu.length === 0)] : []),
 					...cellItems,
 					...columnSettingsItems,
 					...colorPicker,
@@ -698,6 +702,7 @@ export const getToolbarConfig =
 								deleteButton,
 							] as Array<FloatingToolbarItem<Command>>)
 						: [
+								shouldGroupWithoutSeparators && { type: 'separator', fullHeight: true },
 								{
 									type: 'overflow-dropdown',
 									dropdownWidth: 220,
@@ -900,7 +905,11 @@ const getColumnSettingItems = (
 		});
 	}
 
-	if (items.length !== 0) {
+	if (
+		items.length !== 0 &&
+		(!editorExperiment('platform_editor_controls', 'variant1') ||
+			!fg('platform_editor_controls_patch_6'))
+	) {
 		items.push({
 			type: 'separator',
 		});

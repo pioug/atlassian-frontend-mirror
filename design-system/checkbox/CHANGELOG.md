@@ -1,5 +1,17 @@
 # @atlaskit/checkbox
 
+## 17.1.0
+
+### Minor Changes
+
+- [#142856](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142856)
+  [`578fbeefd6128`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/578fbeefd6128) -
+  Remove feature flag to allow new controls
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.4
 
 ### Patch Changes

@@ -9,7 +9,7 @@ import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
@@ -91,7 +91,7 @@ export const SiteSelector = (props: SiteSelectorProps) => {
 								<Button
 									{...triggerProps}
 									isSelected={isOpen}
-									iconAfter={ChevronDownIcon}
+									iconAfter={() => <ChevronDownIcon label="" color="currentColor" />}
 									testId={`${testId}__control`}
 								>
 									{selectedSiteOption?.label || formatMessage(siteSelectorMessages.chooseSite)}

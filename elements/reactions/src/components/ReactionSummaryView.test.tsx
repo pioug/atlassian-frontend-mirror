@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
@@ -15,6 +15,10 @@ import { RENDER_REACTION_TESTID } from './Reaction';
 jest.mock('./ReactionSummaryViewEmojiPicker', () => ({
 	...jest.requireActual('./ReactionSummaryViewEmojiPicker'),
 	ReactionSummaryViewEmojiPicker: () => <div>ReactionSummaryViewEmojiPicker</div>,
+}));
+
+jest.mock('../hooks/useDelayedState', () => ({
+	useDelayedState: (defaultState: any) => useState(defaultState),
 }));
 
 const reactions: ReactionSummary[] = [

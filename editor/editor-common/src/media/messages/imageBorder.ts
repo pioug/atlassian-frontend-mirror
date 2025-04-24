@@ -6,10 +6,20 @@ export const imageBorderMessages = defineMessages({
 		defaultMessage: 'Color',
 		description: 'Change the border color of an image.',
 	},
+	borderColorDropdownAriaLabel: {
+		id: 'fabric.editor.imageBorderColor.dropdownAriaLabel',
+		defaultMessage: 'Image border options Color dropdown',
+		description: 'ARIA label for the dropdown to change the border color of an image.',
+	},
 	borderSize: {
 		id: 'fabric.editor.imageBorderSize',
 		defaultMessage: 'Size',
 		description: 'Change the border size of an image.',
+	},
+	borderSizeDropdownAriaLabel: {
+		id: 'fabric.editor.imageBorderSize.dropdownAriaLabel',
+		defaultMessage: 'Image border options Size dropdown',
+		description: 'ARIA label for the dropdown to change the border size of an image.',
 	},
 	addBorder: {
 		id: 'fabric.editor.addImageBorder',

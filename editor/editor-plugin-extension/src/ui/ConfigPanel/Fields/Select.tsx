@@ -44,6 +44,7 @@ export default function SelectField({
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return validate<ValueType<Option>>(field, value!);
 			}}
+			isDisabled={field.isDisabled}
 		>
 			{({ fieldProps, error }) => (
 				<Fragment>

@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 2.7.1
+
+### Patch Changes
+
+- [#144872](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144872)
+  [`ce47d82258a6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce47d82258a6d) -
+  Add comments to indicate depreciation; clarification on updated agentNamedId param because BE
+  changed to use agentExternalConfigReference
+
 ## 2.7.0
 
 ### Minor Changes

@@ -330,6 +330,7 @@ export type FloatingToolbarDropdown<T extends Object> = {
 	pulse?: boolean;
 	onMount?: () => void;
 	onClick?: () => void;
+	shouldFitContainer?: boolean;
 };
 
 type FloatingToolbarExtensionsPlaceholder = {

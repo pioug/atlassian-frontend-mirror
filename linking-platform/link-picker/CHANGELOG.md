@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.2.2
+
+### Patch Changes
+
+- [#144822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144822)
+  [`0b894f2dd0713`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b894f2dd0713) -
+  Set aria-hidden="true" attribute on decorative image in the link picker component
+
 ## 3.2.1
 
 ### Patch Changes

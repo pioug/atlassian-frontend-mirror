@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { cssMap } from '@compiled/react';
+import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { Flex } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { FILTER_SELECTION_DEBOUNCE_MS } from '../../common/modal/popup-select/constants';
@@ -22,6 +24,9 @@ interface Props {
 }
 
 const styles = cssMap({
+	basicSearchInputBoxStyles: {
+		width: '100%',
+	},
 	basicSearchInputContainerStyles: {
 		flexGrow: 1,
 	},
@@ -65,6 +70,7 @@ const ConfluenceSearchContainer = ({
 				}
 			: {},
 	);
+	const { formatMessage } = useIntl();
 
 	const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		const rawSearch = e.currentTarget.value;
@@ -126,23 +132,31 @@ const ConfluenceSearchContainer = ({
 	}, [users, status, filterSelections.lastModified]);
 
 	return (
-		<Flex alignItems="center" xcss={styles.basicSearchInputContainerStyles}>
-			<BasicSearchInput
-				testId="confluence-search-datasource-modal"
-				isSearching={isSearching}
-				onChange={handleSearchChange}
-				onSearch={onSearch}
-				searchTerm={searchBarSearchString}
-				placeholder={searchMessages.searchLabel}
-				fullWidth={false}
-			/>
-			<BasicFilters
-				cloudId={cloudId}
-				selections={filterSelections}
-				onChange={handleBasicFilterSelectionChange}
-				isHydrating={status === 'loading'}
-			/>
-		</Flex>
+		<Box xcss={styles.basicSearchInputBoxStyles}>
+			<Flex alignItems="center" xcss={styles.basicSearchInputContainerStyles}>
+				<BasicSearchInput
+					testId="confluence-search-datasource-modal"
+					isSearching={isSearching}
+					onChange={handleSearchChange}
+					onSearch={onSearch}
+					searchTerm={searchBarSearchString}
+					placeholder={searchMessages.searchLabel}
+					ariaLabel={searchMessages.searchLabel}
+					fullWidth={false}
+				/>
+				<BasicFilters
+					cloudId={cloudId}
+					selections={filterSelections}
+					onChange={handleBasicFilterSelectionChange}
+					isHydrating={status === 'loading'}
+				/>
+			</Flex>
+			{fg('platform-linking-visual-refresh-sllv') && (
+				<Text size="small" color="color.text.subtlest" testId="confluence-search-placeholder">
+					{formatMessage(searchMessages.searchLabel)}
+				</Text>
+			)}
+		</Box>
 	);
 };
 

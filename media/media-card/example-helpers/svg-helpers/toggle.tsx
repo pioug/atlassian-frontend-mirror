@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
 function makeid(length = 12) {

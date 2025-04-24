@@ -106,6 +106,17 @@ export const mockCompassResponseWithOwnedBy = {
 	},
 };
 
+export const mockCompassResponseWithAppliedToComponentsCount = {
+	meta: {
+		...mockBaseResponse.meta,
+		key: 'dragonfruit-object-provider',
+	},
+	data: {
+		...mockBaseResponse.data,
+		'atlassian:appliedToComponentsCount': 5,
+	},
+};
+
 export const mockJiraResponse = {
 	meta: {
 		...mockBaseResponse.meta,

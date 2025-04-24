@@ -10,7 +10,7 @@ import {
 	type OnDragEndResponder,
 } from 'react-beautiful-dnd';
 
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { type SmartLinkSize } from '../../../src';
 import { BlockName } from '../constants';

@@ -8,7 +8,7 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider as Provider, type ProviderProps } from '@atlaskit/link-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { Card, type CardProps } from '@atlaskit/smart-card';
 import { setGlobalTheme } from '@atlaskit/tokens';
 

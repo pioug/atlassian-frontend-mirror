@@ -27,7 +27,17 @@ const separatorFullHeight = css({
 	height: '40px',
 });
 
-export default ({ fullHeight }: { fullHeight?: boolean }) => (
+type SeparatorProps = {
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * This is no longer used and can be removed at a later date
+	 */
+	fullHeight?: boolean;
+};
+
+export default ({ fullHeight }: SeparatorProps) => (
 	<div
 		css={[
 			editorExperiment('platform_editor_controls', 'variant1') ? separatorNew : separator,

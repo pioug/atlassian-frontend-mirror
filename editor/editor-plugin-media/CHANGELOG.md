@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-media
 
+## 2.6.6
+
+### Patch Changes
+
+- [#144194](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144194)
+  [`542b82e03416e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/542b82e03416e) -
+  [ux] Remove separators within group in Editor floating toolbar
+- Updated dependencies
+
+## 2.6.5
+
+### Patch Changes
+
+- [#144182](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144182)
+  [`94ee57c2be328`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94ee57c2be328) -
+  A11Y-9934: Update aria labels to be translated and more accurate.
+- Updated dependencies
+
+## 2.6.4
+
+### Patch Changes
+
+- [#144829](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144829)
+  [`14b488c2295de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b488c2295de) -
+  [ux] ED27537 Update alignment dropdown in media and embed card floating toolbar
+- Updated dependencies
+
 ## 2.6.3
 
 ### Patch Changes

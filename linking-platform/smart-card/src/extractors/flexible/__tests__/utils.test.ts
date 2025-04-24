@@ -9,6 +9,7 @@ import {
 	TEST_URL,
 } from '../../common/__mocks__/jsonld';
 import {
+	extractAppliedToComponentsCount,
 	extractAssignedTo,
 	extractAttachmentCount,
 	extractChecklistProgress,
@@ -28,6 +29,22 @@ import {
 	extractSubTasksProgress,
 	extractTargetBranch,
 } from '../utils';
+
+describe('extractAppliedToComponentsCount', () => {
+	it('returns undefined when no applied components count is present', () => {
+		expect(extractAppliedToComponentsCount(TEST_BASE_DATA)).toBe(undefined);
+	});
+
+	it('returns number when applied components count is present', () => {
+		const value = extractAppliedToComponentsCount({
+			...TEST_BASE_DATA,
+			'atlassian:appliedToComponentsCount': 99,
+		} as JsonLd.Data.BaseData);
+
+		expect(value).toBeDefined();
+		expect(value).toBe(99);
+	});
+});
 
 describe('extractAttachmentCount', () => {
 	it('returns undefined when no attachment count present', () => {

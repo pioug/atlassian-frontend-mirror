@@ -44,4 +44,5 @@ export interface FormContentProps {
 	firstVisibleFieldName?: string;
 	contextIdentifierProvider?: ContextIdentifierProvider;
 	featureFlags?: FeatureFlags;
+	isDisabled?: boolean;
 }

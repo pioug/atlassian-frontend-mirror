@@ -211,11 +211,8 @@ const InnerRadio = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInp
 				data-invalid={isInvalid ? 'true' : undefined}
 				css={[
 					radioStyles,
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform-visual-refresh-icons') &&
-						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-						fg('platform-icon-control-migration') &&
-						newRadioStyles,
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-visual-refresh-icons') && newRadioStyles,
 				]}
 				ref={ref}
 			/>

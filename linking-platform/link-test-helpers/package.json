@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "8.0.2",
+	"version": "8.0.3",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,6 +46,7 @@
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
+		"@atlaskit/react-ufo": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@jest/globals": "^26.4.2",
 		"@testing-library/react": "^13.4.0",

@@ -93,7 +93,7 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
 	.ProseMirror {
-		${linkSharedStyle}
+		${linkSharedStyle()}
 	}
 `;
 

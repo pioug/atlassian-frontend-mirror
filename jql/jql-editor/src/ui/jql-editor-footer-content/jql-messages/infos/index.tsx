@@ -5,7 +5,7 @@ import { di } from 'react-magnetic-di';
 import { HelperMessage } from '@atlaskit/form';
 import LegacyInfoIcon from '@atlaskit/icon/glyph/info';
 import InfoIcon from '@atlaskit/icon/utility/information';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

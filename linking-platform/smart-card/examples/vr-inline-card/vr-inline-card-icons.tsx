@@ -1,5 +1,6 @@
+import { withWaitForItem } from '@atlaskit/link-test-helpers';
+
 import { InlineCardIcons } from '../utils/inline-card-icons';
-import { withWaitForItem } from '../utils/with-wait-for-item';
 
 export default withWaitForItem(InlineCardIcons, () => {
 	const item = document.body.querySelectorAll('[data-testid="document-file-format-icon"]');

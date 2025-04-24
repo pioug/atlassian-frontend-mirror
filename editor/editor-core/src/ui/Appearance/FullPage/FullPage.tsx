@@ -100,7 +100,16 @@ export const FullPageEditor = (props: ComponentProps) => {
 	);
 	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
 
-	const toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking');
+	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking');
+
+	if (!toolbarDocking && fg('platform_editor_controls_toolbar_ssr_fix')) {
+		// This is a workaround for the rendering issue with the selection toolbar
+		// where using useSharedPluginStateSelector or useSharedPluginState the state are not
+		// available when the editor is first loaded. and cause the toolbar to blink.
+		const defaultDocking = props.__livePage ? 'none' : 'top';
+		toolbarDocking =
+			editorAPI?.selectionToolbar?.sharedState.currentState()?.toolbarDocking ?? defaultDocking;
+	}
 
 	let primaryToolbarComponents = props.primaryToolbarComponents;
 
@@ -133,12 +142,25 @@ export const FullPageEditor = (props: ComponentProps) => {
 	const { customPrimaryToolbarComponents } = props;
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		if (toolbarDocking !== 'top') {
-			primaryToolbarComponents = [];
-		}
+		if (fg('platform_editor_controls_toolbar_ssr_fix')) {
+			if (toolbarDocking === 'none') {
+				primaryToolbarComponents = [];
 
-		if (!primaryToolbarComponents?.length && !hasCustomComponents(customPrimaryToolbarComponents)) {
-			isEditorToolbarHidden = true;
+				if (!hasCustomComponents(customPrimaryToolbarComponents)) {
+					isEditorToolbarHidden = true;
+				}
+			}
+		} else {
+			if (toolbarDocking !== 'top') {
+				primaryToolbarComponents = [];
+			}
+
+			if (
+				!primaryToolbarComponents?.length &&
+				!hasCustomComponents(customPrimaryToolbarComponents)
+			) {
+				isEditorToolbarHidden = true;
+			}
 		}
 	}
 

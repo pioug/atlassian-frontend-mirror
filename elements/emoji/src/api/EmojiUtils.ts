@@ -43,6 +43,9 @@ export interface OptimisticImageApiLoaderConfig extends Omit<ServiceConfig, 'url
 	getUrl: (emojiId: EmojiId) => string;
 }
 
+export type EmojiLoadSuccessCallback = (emojiId?: string) => void;
+export type EmojiLoadFailCallback = (emojiId?: string, reason?: string) => void;
+
 export const emojiRequest = (
 	provider: EmojiLoaderConfig,
 	options?: RequestServiceOptions,

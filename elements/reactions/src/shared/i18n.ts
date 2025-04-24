@@ -76,4 +76,9 @@ export const messages = defineMessages({
 		defaultMessage: 'View all user reactions',
 		description: 'Tooltip content of see who reacted link',
 	},
+	popperWrapperLabel: {
+		id: 'reactions-reaction.picker-label',
+		defaultMessage: 'Add reactions',
+		description: 'A label to the reaction picker group',
+	},
 });

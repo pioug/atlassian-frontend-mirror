@@ -96,7 +96,14 @@ export default function CheckboxGroup({
 	field: EnumCheckboxField;
 	onFieldChange: OnFieldChange;
 }) {
-	const { label: labelBase, description, defaultValue, isRequired = false, items: options } = field;
+	const {
+		label: labelBase,
+		description,
+		defaultValue,
+		isRequired = false,
+		items: options,
+		isDisabled,
+	} = field;
 
 	const label = (
 		<Fragment>
@@ -120,6 +127,7 @@ export default function CheckboxGroup({
 			isRequired={isRequired}
 			defaultValue={defaultValue}
 			validate={(value?: string[]) => validate(value, isRequired)}
+			isDisabled={isDisabled}
 		>
 			{(props) => {
 				return (

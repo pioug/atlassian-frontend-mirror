@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { type MediaClient, type FileState } from '@atlaskit/media-client';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
 import { getLanguageType, isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { Outcome } from '../../domain';
 import {

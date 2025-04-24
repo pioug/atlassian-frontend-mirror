@@ -143,3 +143,20 @@ if (isFedRamp()) {
 	// your specific logic here
 }
 ```
+
+
+### isFedrampModerate()
+Returns true if the current perimeter is in FedRAMP-Moderate. Note that this should be used instead of isFedramp(), as the deprecation process for the latter will begin in the near future.
+
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-context` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+
+
+### isIsolatedCloud()
+Returns true if the current perimeter is in Isolated Cloud. 
+
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-context` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+
+### isolatedCloudDomain()
+Returns the current `ic_domain`.
+
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-context` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.

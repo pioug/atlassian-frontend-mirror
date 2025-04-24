@@ -9,7 +9,7 @@ import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { AsyncSelect, PopupSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
@@ -102,7 +102,11 @@ export const AssetsObjectSchemaSelect = ({
 							{...restFieldProps}
 							label={formatMessage(objectSchemaSelectMessages.placeholder)}
 							target={({ isOpen, ...triggerProps }) => (
-								<Button {...triggerProps} isSelected={isOpen} iconAfter={ChevronDownIcon}>
+								<Button
+									{...triggerProps}
+									isSelected={isOpen}
+									iconAfter={() => <ChevronDownIcon label="" color="currentColor" />}
+								>
 									{restFieldProps.value?.label ||
 										formatMessage(objectSchemaSelectMessages.placeholder)}
 								</Button>

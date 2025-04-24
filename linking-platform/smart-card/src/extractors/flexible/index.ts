@@ -23,6 +23,7 @@ import { extractLinkIcon } from './icon';
 import extractProviderIcon from './icon/extract-provider-icon';
 import { extractLatestCommit, type LinkTypeLatestCommit } from './latest-commit';
 import {
+	extractAppliedToComponentsCount,
 	extractAssignedTo,
 	extractAttachmentCount,
 	extractChecklistProgress,
@@ -76,6 +77,7 @@ const extractFlexibleUiContext = ({
 			response,
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
 		}),
+		appliedToComponentsCount: extractAppliedToComponentsCount(data),
 		assignedToGroup: extractPersonAssignedToAsArray(
 			data as JsonLd.Data.Task | JsonLd.Data.TaskType,
 		),

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { HelperMessage } from '@atlaskit/form';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { JQL_EDITOR_HELP_CONTENT_ID } from '../../../common/constants';
 import { useEditorThemeContext } from '../../../hooks/use-editor-theme';

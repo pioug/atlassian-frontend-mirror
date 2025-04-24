@@ -1,17 +1,24 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Link from '@atlaskit/link';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Box, Grid, Stack } from '@atlaskit/primitives';
+import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 
 import { ResolvedClient, ResolvedClientEmbedUrl } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
 
+const gridStyles = cssMap({
+	root: {
+		gridTemplateColumns: '1fr 1fr',
+	},
+});
+
 export default () => (
 	<SmartCardProvider client={new ResolvedClient('stg')}>
 		<Box paddingBlockStart="space.300">
-			<Grid alignItems="center" columnGap="space.100" templateColumns="1fr 1fr">
+			<Grid alignItems="center" columnGap="space.100" xcss={gridStyles.root}>
 				<Stack space="space.600">
 					<SectionMessage>
 						You must be logged in to{' '}

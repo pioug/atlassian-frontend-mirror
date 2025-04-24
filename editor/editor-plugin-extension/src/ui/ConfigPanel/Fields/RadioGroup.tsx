@@ -30,6 +30,7 @@ export default function RadioField({
 			isRequired={field.isRequired}
 			validate={(value?: string) => validate<string | undefined>(field, value)}
 			testId={`config-panel-radio-group-${field.name}`}
+			isDisabled={field.isDisabled}
 		>
 			{({ fieldProps, error }) => (
 				<Fragment>

@@ -83,6 +83,8 @@ class EmojiNode extends PureComponent<EmojiProps, Object> {
 					shortName,
 				})}
 				editorEmoji={true}
+				onEmojiLoadSuccess={resourceConfig?.onEmojiLoadSuccess}
+				onEmojiLoadFail={resourceConfig?.onEmojiLoadFail}
 			/>
 		);
 	};

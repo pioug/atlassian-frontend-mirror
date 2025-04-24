@@ -24,7 +24,7 @@ export default function Number({
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
 }) {
-	const { label, description, defaultValue, isRequired } = field;
+	const { label, description, defaultValue, isRequired, isDisabled } = field;
 
 	function validateNumber(value?: string) {
 		const error = validate<string>(field, value || '');
@@ -48,6 +48,7 @@ export default function Number({
 			isRequired={isRequired}
 			validate={validateNumber}
 			testId={`config-panel-number-${name}`}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error, meta }) => {
 				return (

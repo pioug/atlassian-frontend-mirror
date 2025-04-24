@@ -33,6 +33,7 @@ interface BaseFieldDefinition {
 	isRequired?: boolean;
 	allowDuplicates?: boolean;
 	isHidden?: boolean;
+	isDisabled?: boolean;
 }
 
 interface BaseEnumField extends BaseFieldDefinition {

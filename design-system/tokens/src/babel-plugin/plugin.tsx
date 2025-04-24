@@ -112,7 +112,7 @@ export default function plugin() {
 							if (!path.node.arguments[0]) {
 								throw new Error(`token() requires at least one argument`);
 							} else if (!t.isStringLiteral(path.node.arguments[0])) {
-								throw new Error(`token() must have a string as the first argument`);
+								throw new Error(`token() must have a string literal as the first argument`);
 							} else if (path.node.arguments.length > 2) {
 								throw new Error(`token() does not accept ${path.node.arguments.length} arguments`);
 							}

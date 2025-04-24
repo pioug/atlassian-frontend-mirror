@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 
 import type { EmojiProvider } from '../../api/EmojiResource';
+import type { EmojiLoadSuccessCallback, EmojiLoadFailCallback } from '../../api/EmojiUtils';
 import { defaultEmojiHeight } from '../../util/constants';
 import { isImageRepresentation, isMediaRepresentation, isPromise } from '../../util/type-helpers';
 import { type EmojiId, type OptionalEmojiDescription, UfoEmojiTimings } from '../../types';
@@ -61,6 +61,16 @@ export interface Props extends BaseResourcedEmojiProps {
 	 * EmojiResource instance that handles fetching of emoji data.
 	 */
 	emojiProvider: Promise<EmojiProvider>;
+
+	/**
+	 * A callback triggered on emoji load success
+	 */
+	onEmojiLoadSuccess?: EmojiLoadSuccessCallback;
+
+	/**
+	 * A callback triggered on emoji load failure
+	 */
+	onEmojiLoadFail?: EmojiLoadFailCallback;
 }
 
 enum ResourcedEmojiComponentRenderStatesEnum {
@@ -79,6 +89,8 @@ export const ResourcedEmojiComponent = (props: Props) => {
 		optimistic = false,
 		optimisticImageURL = undefined,
 		editorEmoji,
+		onEmojiLoadSuccess,
+		onEmojiLoadFail,
 	} = props;
 	const { shortName, id, fallback } = emojiId;
 	const [emoji, setEmoji] = useState<OptionalEmojiDescription>();
@@ -86,40 +98,16 @@ export const ResourcedEmojiComponent = (props: Props) => {
 	const [imageLoadError, setImageLoadError] = useState(false);
 	const [resolvedEmojiProvider, setResolvedEmojiProvider] = useState<EmojiProvider>();
 
-	const getActiveInterationMetadata = () => {
-		const activeInteraction = getActiveInteraction();
-		let activeInteractionMetadata = {};
-		if (activeInteraction) {
-			activeInteractionMetadata = {
-				...(activeInteraction.metaData['productInteractionName']
-					? {
-							productInteractionName: activeInteraction.metaData[
-								'productInteractionName'
-							] as string,
-						}
-					: {}),
-				...(activeInteraction.metaData['productInteractionType']
-					? {
-							productInteractionType: activeInteraction.metaData[
-								'productInteractionType'
-							] as string,
-						}
-					: {}),
-			};
-		}
-		return activeInteractionMetadata;
-	};
-
 	const fetchOrGetEmoji = useCallback(
 		async (_emojiProvider: EmojiProvider, emojiId: EmojiId, optimisticFetch: boolean = false) => {
 			if (!_emojiProvider.fetchByEmojiId) {
-				const activeInteractionMetadata = getActiveInterationMetadata();
 				setEmoji(undefined);
+				const reason = 'missing fetchByEmojiId interface';
+				onEmojiLoadFail && onEmojiLoadFail(emojiId.id, reason);
 				sampledUfoRenderedEmoji(emojiId).failure({
 					metadata: {
-						reason: 'missing fetchByEmojiId interface',
+						reason,
 						source: 'ResourcedEmojiComponent',
-						...activeInteractionMetadata,
 					},
 				});
 			}
@@ -132,31 +120,31 @@ export const ResourcedEmojiComponent = (props: Props) => {
 					.then((emoji) => {
 						setEmoji(emoji);
 						if (!emoji) {
+							const reason = 'failed to find';
+							onEmojiLoadFail && onEmojiLoadFail(emojiId.id, reason);
 							// emoji is undefined
-							const activeInteractionMetadata = getActiveInterationMetadata();
 							sampledUfoRenderedEmoji(emojiId).failure({
 								metadata: {
-									reason: 'failed to find',
+									reason,
 									source: 'ResourcedEmojiComponent',
 									data: {
 										emoji: { id: emojiId.id, shortName: emojiId.shortName },
 									},
-									...activeInteractionMetadata,
 								},
 							});
 						}
 					})
 					.catch(() => {
 						setEmoji(undefined);
-						const activeInteractionMetadata = getActiveInterationMetadata();
+						const reason = 'failed to load';
+						onEmojiLoadFail && onEmojiLoadFail(emojiId.id, reason);
 						sampledUfoRenderedEmoji(emojiId).failure({
 							metadata: {
-								reason: 'failed to load',
+								reason,
 								source: 'ResourcedEmojiComponent',
 								data: {
 									emoji: { id: emojiId.id, shortName: emojiId.shortName },
 								},
-								...activeInteractionMetadata,
 							},
 						});
 					})
@@ -170,7 +158,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 				sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_END);
 			}
 		},
-		[],
+		[onEmojiLoadFail],
 	);
 
 	useEffect(() => {
@@ -244,19 +232,28 @@ export const ResourcedEmojiComponent = (props: Props) => {
 		return emoji;
 	}, [emoji, optimisticImageURL, fallback, fitToHeight, id, shortName]);
 
-	const handleOnLoadError = useCallback((emojiId: EmojiId) => {
-		const activeInteractionMetadata = getActiveInterationMetadata();
+	const handleOnLoadError = useCallback(
+		(emojiId: EmojiId) => {
+			setImageLoadError(true);
+			const reason = 'load error';
+			onEmojiLoadFail && onEmojiLoadFail(emojiId.id, reason);
+			sampledUfoRenderedEmoji(emojiId).failure({
+				metadata: {
+					reason,
+					source: 'ResourcedEmojiComponent',
+					emojiId: emojiId.id,
+				},
+			});
+		},
+		[onEmojiLoadFail],
+	);
 
-		setImageLoadError(true);
-		sampledUfoRenderedEmoji(emojiId).failure({
-			metadata: {
-				reason: 'load error',
-				source: 'ResourcedEmojiComponent',
-				emojiId: emojiId.id,
-				...activeInteractionMetadata,
-			},
-		});
-	}, []);
+	const handleOnLoadSuccess = useCallback(
+		(emojiId: EmojiId) => {
+			onEmojiLoadSuccess && onEmojiLoadSuccess(emojiId.id);
+		},
+		[onEmojiLoadSuccess],
+	);
 
 	return (
 		<EmojiCommonProvider emojiProvider={resolvedEmojiProvider}>
@@ -281,6 +278,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 						<Emoji
 							emoji={optimisticEmojiDescription}
 							onLoadError={handleOnLoadError}
+							onLoadSuccess={handleOnLoadSuccess}
 							showTooltip={showTooltip}
 							fitToHeight={fitToHeight}
 							autoWidth={!!emoji ? false : true}

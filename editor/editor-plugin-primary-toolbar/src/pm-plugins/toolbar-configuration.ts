@@ -21,11 +21,14 @@ export const getToolbarComponents = ({
 		contextualFormattingEnabled &&
 		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 	) {
-		if (fg('platform_editor_controls_move_actions')) {
-			configuration = toolbarConfigurationV2;
-		} else {
-			configuration = toolbarConfigurationV2WithUndoRedoAndFindReplace;
-		}
+		const shouldShowInsertBlock = fg('platform_editor_insert_button_on_primary_toolbar');
+		const shouldShowUndoRedoGroup = !fg('platform_editor_controls_move_actions');
+		const shouldShowFindGroup = !fg('platform_editor_controls_move_actions');
+		configuration = toolbarConfigurationV2(
+			shouldShowInsertBlock,
+			shouldShowUndoRedoGroup,
+			shouldShowFindGroup,
+		);
 	} else {
 		configuration = toolbarConfiguration;
 	}
@@ -170,23 +173,24 @@ const toolbarConfiguration: ToolbarElementConfig[] = [
 	...others,
 ];
 
-const toolbarConfigurationV2: ToolbarElementConfig[] = [
+const toolbarConfigurationV2 = (
+	shouldShowInsertBlock: boolean,
+	shouldShowUndoRedoGroup: boolean,
+	shouldShowFindGroup: boolean,
+): ToolbarElementConfig[] => [
+	...(shouldShowUndoRedoGroup ? undoRedoGroup : []),
 	...blockTypeGroup,
 	...textFormattingGroup,
 	...textColorGroup,
 	...alignmentGroup,
 	...listFormattingGroup,
 	...hyperlinkGroup,
+	...(shouldShowInsertBlock ? insertBlockGroup : []),
 	{
 		name: 'overflowMenu',
 	},
 	{
 		name: 'beforePrimaryToolbar',
 	},
-];
-
-const toolbarConfigurationV2WithUndoRedoAndFindReplace: ToolbarElementConfig[] = [
-	...undoRedoGroup,
-	...toolbarConfigurationV2,
-	...findGroup,
+	...(shouldShowFindGroup ? findGroup : []),
 ];

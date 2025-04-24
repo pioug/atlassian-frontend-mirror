@@ -6,3 +6,4 @@ export {
 	type MockIntersectionObserverOpts,
 	mockSimpleIntersectionObserver,
 } from './intersection-observer';
+export { withWaitForItem } from './withWaitForItem';

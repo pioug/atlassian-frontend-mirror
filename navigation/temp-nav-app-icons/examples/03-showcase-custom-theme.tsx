@@ -7,7 +7,7 @@ import { Fragment, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 
 import ShowcaseExample from './01-showcase';

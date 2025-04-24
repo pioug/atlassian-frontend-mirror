@@ -183,3 +183,5 @@ export const ViewCount = createElement<BadgeProps>(ElementName.ViewCount);
  * @see Badge
  */
 export const VoteCount = createElement<BadgeProps>(ElementName.VoteCount);
+
+export { default as AppliedToComponentsCount } from './applied-to-components-count';

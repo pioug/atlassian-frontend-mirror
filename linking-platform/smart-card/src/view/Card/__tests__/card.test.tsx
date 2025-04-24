@@ -10,7 +10,7 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';

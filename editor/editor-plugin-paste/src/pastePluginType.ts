@@ -30,7 +30,7 @@ export type LastContentPasted = {
 };
 
 export type PastePluginOptions = {
-	cardOptions?: CardOptions;
+	cardOptions?: Pick<CardOptions, 'provider' | 'allowBlockCards'>;
 	sanitizePrivateContent?: boolean;
 	isFullPage?: boolean;
 };

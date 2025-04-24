@@ -31,6 +31,12 @@ export type FlexibleUiDataContext = {
 	 */
 	attachmentCount?: number;
 	/**
+	 * Contains the number of applied components on the linked resource.
+	 * @type number
+	 * @see AppliedToComponentsCount
+	 */
+	appliedToComponentsCount?: number;
+	/**
 	 * An array containing data used to populate the AuthorGroup element.
 	 * @see AvatarGroup
 	 */

@@ -68,7 +68,7 @@ function Checkbox({
 	field: BooleanField;
 	onFieldChange: OnFieldChange;
 }) {
-	const { label, description, isRequired = false, defaultValue = false } = field;
+	const { label, description, isRequired = false, defaultValue = false, isDisabled } = field;
 
 	return (
 		<Field<boolean | string>
@@ -76,6 +76,7 @@ function Checkbox({
 			isRequired={isRequired}
 			validate={(value) => validate(value, isRequired)}
 			defaultValue={defaultValue}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error }) => {
 				const { value: isChecked, ...restFieldProps } = fieldProps;
@@ -106,7 +107,7 @@ function Toggle({
 	field: BooleanField;
 	onFieldChange: OnFieldChange;
 }) {
-	const { label, description, isRequired = false, defaultValue = false } = field;
+	const { label, description, isRequired = false, defaultValue = false, isDisabled } = field;
 
 	return (
 		<Field<boolean | string>
@@ -115,6 +116,7 @@ function Toggle({
 			validate={(value) => validate(value, isRequired)}
 			defaultValue={defaultValue}
 			testId={`config-panel-toggle-${name}`}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error }) => {
 				const { id, value: isChecked, ...restFieldProps } = fieldProps;

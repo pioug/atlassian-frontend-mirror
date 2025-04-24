@@ -725,6 +725,7 @@ export namespace JsonLd {
 			'atlassian:reactCount'?: number;
 			'schema:commentCount'?: number;
 			'atlassian:state'?: string | Primitives.State;
+			'atlassian:appliedToComponentsCount'?: number;
 		}
 
 		export interface SourceCodeDocument extends Document {

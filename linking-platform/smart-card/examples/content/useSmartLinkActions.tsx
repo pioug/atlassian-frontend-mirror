@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { Card, CardAction } from '../../src';
 import { useSmartLinkActions } from '../../src/hooks';

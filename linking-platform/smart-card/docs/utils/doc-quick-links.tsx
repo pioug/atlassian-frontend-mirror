@@ -17,7 +17,7 @@ import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
 import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
 import TeamsIcon from '@atlaskit/icon/core/teams';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { navigateToUrl, openUrl, toAbsolutePath, toPackagePath } from './index';
 

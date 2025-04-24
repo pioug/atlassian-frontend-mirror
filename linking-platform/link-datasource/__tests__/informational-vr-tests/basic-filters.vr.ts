@@ -201,15 +201,21 @@ filters.forEach((filter) => {
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `empty-message`);
 
 			await page
-				.getByRole('heading', { name: 'No matches found', exact: true })
+				.getByRole('heading', {
+					name: "We couldn't find anything matching your search",
+					exact: true,
+				})
+				.waitFor({ state: 'visible' });
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.getByText('Try again with a different term.')
 				.waitFor({ state: 'visible' });
 
 			await component.getByTestId(`jlol-basic-filter-${filter}--no-options-message`);
 		},
-		description: `${filter} open and view empty state`,
+		description: `${filter} open and view empty state - platform-linking-visual-refresh-sllv true`,
 		featureFlags: {
-			'bandicoots-update-sllv-icons': true,
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -230,10 +236,9 @@ filters.forEach((filter) => {
 
 			await component.getByTestId(`jlol-basic-filter-${filter}--no-options-message`);
 		},
-		description: `${filter} open and view empty state - bandicoots-update-sllv-icons false`,
+		description: `${filter} open and view empty state - platform-linking-visual-refresh-sllv false`,
 		featureFlags: {
-			'bandicoots-update-sllv-icons': false,
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': false,
 		},
 	});
 
@@ -248,15 +253,18 @@ filters.forEach((filter) => {
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `error-message`);
 
 			await page
-				.getByRole('heading', { name: 'Something went wrong', exact: true })
+				.getByRole('heading', { name: 'We ran into an issue trying to load results', exact: true })
 				.waitFor({ state: 'visible' });
+
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.getByText('Check your connection and refresh');
 
 			await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
 		},
-		description: `${filter} open and view error state`,
+		description: `${filter} open and view error state - platform-linking-visual-refresh-sllv true`,
 		featureFlags: {
-			'bandicoots-update-sllv-icons': true,
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': true,
 		},
 		waitForHold: true,
 	});
@@ -277,10 +285,9 @@ filters.forEach((filter) => {
 
 			await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
 		},
-		description: `${filter} open and view error state - bandicoots-update-sllv-icons false`,
+		description: `${filter} open and view error state - platform-linking-visual-refresh-sllv false`,
 		featureFlags: {
-			'bandicoots-update-sllv-icons': false,
-			'platform-linking-visual-refresh-sllv': [true, false],
+			'platform-linking-visual-refresh-sllv': false,
 		},
 		waitForHold: true,
 	});

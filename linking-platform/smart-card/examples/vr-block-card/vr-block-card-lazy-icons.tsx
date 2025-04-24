@@ -1,3 +1,5 @@
+import { withWaitForItem } from '@atlaskit/link-test-helpers';
+
 import {
 	BlockCardLazyIconsExample1,
 	BlockCardLazyIconsExample2,
@@ -10,7 +12,6 @@ import {
 	BlockCardLazyIconsFileTypeExample3,
 	BlockCardLazyIconsFileTypeExample4,
 } from '../utils/block-card-lazy-icons';
-import { withWaitForItem } from '../utils/with-wait-for-item';
 
 const generateBlockCardLazyIcons = (Component: React.ComponentType<any>, totalItems: number) =>
 	withWaitForItem(Component, () => {

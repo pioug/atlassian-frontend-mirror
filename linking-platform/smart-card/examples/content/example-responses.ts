@@ -106,6 +106,7 @@ export const unicornResponse = {
 		'schema:programmingLanguage': 'Javascript',
 		'atlassian:downloadUrl': '/favicon.ico',
 		'atlassian:storyPoints': 3,
+		'atlassian:appliedToComponentsCount': 3,
 		'schema:potentialAction': [{ '@type': 'DownloadAction', name: 'Download' }],
 		'atlassian:serverAction': [
 			{

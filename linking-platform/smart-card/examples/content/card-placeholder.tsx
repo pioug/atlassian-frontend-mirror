@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Inline, Text } from '@atlaskit/primitives';
+import { Inline, Text } from '@atlaskit/primitives/compiled';
 
 import { LoadingCardLink } from '../../src/view/CardWithUrl/component-lazy/LoadingCardLink';
 import { ResolvedClient } from '../utils/custom-client';

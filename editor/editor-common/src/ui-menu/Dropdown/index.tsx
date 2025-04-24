@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { OutsideClickTargetRefContext, withReactEditorViewOuterListeners } from '../../ui-react';
 import type { WithOutsideClickProps } from '../../ui-react/with-react-editor-view-outer-listeners';
 import type { OpenChangedEvent } from '../../ui/DropList';
@@ -29,6 +31,7 @@ export interface Props {
 	alignX?: 'left' | 'right' | 'center';
 	alignY?: 'start' | 'bottom' | 'top';
 	offset?: [number, number];
+	shouldFitContainer?: boolean;
 }
 
 export interface State {
@@ -94,6 +97,7 @@ export class Dropdown extends PureComponent<Props, State> {
 			alignX,
 			alignY,
 			offset,
+			shouldFitContainer = true,
 		} = this.props;
 
 		return (
@@ -132,7 +136,9 @@ export class Dropdown extends PureComponent<Props, State> {
 							isOpen={true}
 							onOpenChange={onOpenChange}
 							position={popupPlacement.join(' ')}
-							shouldFitContainer={true}
+							shouldFitContainer={
+								fg('platform_editor_controls_patch_6') ? shouldFitContainer : true
+							}
 							id={dropdownListId}
 						>
 							{children}

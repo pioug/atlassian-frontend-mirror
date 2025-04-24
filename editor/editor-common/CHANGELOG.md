@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 103.15.0
+
+### Minor Changes
+
+- [#145321](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145321)
+  [`2798c91b69bd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2798c91b69bd9) -
+  [ux] ED-27537 Update dropdown to take in shouldFitContainer prop to fix dropdown content not
+  fitting for layout dropdown and add vr tests
+
+## 103.14.1
+
+### Patch Changes
+
+- [#142403](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142403)
+  [`152f0ebf88ba6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/152f0ebf88ba6) -
+  [ux] Fix a bug where autosave errors in the config panel would fail silently and prevent closing.
+  Additionally add support for disabling unsupported UI elements related to the macro config panel
+  while the user is offline, as part of the offline editor experiment.
+- Updated dependencies
+
+## 103.14.0
+
+### Minor Changes
+
+- [#144699](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144699)
+  [`5fdd28b98ea91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fdd28b98ea91) -
+  [ux] ED-25977 add underline to links in edit mode to fix a11y violation
+- [#144182](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144182)
+  [`7da4b8d7e7d1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7da4b8d7e7d1b) -
+  A11Y-9934: Add aria labels to i18n messages for media dropdowns in the floating toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 103.13.0
+
+### Minor Changes
+
+- [#144829](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144829)
+  [`14b488c2295de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14b488c2295de) -
+  [ux] ED27537 Update alignment dropdown in media and embed card floating toolbar
+
 ## 103.12.1
 
 ### Patch Changes

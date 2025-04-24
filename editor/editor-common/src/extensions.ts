@@ -45,6 +45,7 @@ export type {
 	ExtensionParams,
 	UpdateExtension,
 	OnSaveCallback,
+	OnSaveCallbackAsync,
 	ExtensionAPI,
 	TransformBefore,
 	TransformAfter,

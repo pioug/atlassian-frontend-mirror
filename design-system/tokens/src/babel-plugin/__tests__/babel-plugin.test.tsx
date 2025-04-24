@@ -264,7 +264,7 @@ describe('Tokens Babel Plugin', () => {
         import { token } from '@atlaskit/tokens';
         token('this.token.does.not.exist');
       `,
-		).toThrowError("token 'this.token.does.not.exist' does not exist");
+		).toThrow("token 'this.token.does.not.exist' does not exist");
 	});
 
 	it('throws on empty token() call', () => {
@@ -273,7 +273,7 @@ describe('Tokens Babel Plugin', () => {
         import { token } from '@atlaskit/tokens';
         token();
       `,
-		).toThrowError('token() requires at least one argument');
+		).toThrow('token() requires at least one argument');
 	});
 
 	it('throws on non-string token argument', () => {
@@ -282,7 +282,7 @@ describe('Tokens Babel Plugin', () => {
         import { token } from '@atlaskit/tokens';
         token(()=>{}, color.blue, color.red);
       `,
-		).toThrowError('token() must have a string as the first argument');
+		).toThrow('token() must have a string literal as the first argument');
 	});
 
 	it('throws on too many arguments', () => {
@@ -291,7 +291,7 @@ describe('Tokens Babel Plugin', () => {
         import { token } from '@atlaskit/tokens';
         token('test-token', color.blue, color.red);
       `,
-		).toThrowError('token() does not accept 3 arguments');
+		).toThrow('token() does not accept 3 arguments');
 	});
 
 	it('correctly handles assorted usages', () => {

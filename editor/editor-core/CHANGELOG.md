@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 205.6.0
+
+### Minor Changes
+
+- [#144699](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144699)
+  [`5fdd28b98ea91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fdd28b98ea91) -
+  [ux] ED-25977 add underline to links in edit mode to fix a11y violation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 205.5.4
 
 ### Patch Changes

@@ -35,12 +35,14 @@ describe('inline edit with sweet state', () => {
 			(item) =>
 				({
 					ari: { data: item.ari },
+
 					key: {
 						data: {
 							url: item.url,
 							text: item.key,
 						},
 					},
+
 					summary: { data: item.summary },
 				}) as DatasourceDataResponseItem,
 		);

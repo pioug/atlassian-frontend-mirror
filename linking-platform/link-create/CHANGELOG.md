@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 4.0.8
+
+### Patch Changes
+
+- [#144847](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144847)
+  [`00cb7d91843fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00cb7d91843fd) -
+  Internal change to move towards Compiled CSS-in-JS styling.
+
 ## 4.0.7
 
 ### Patch Changes

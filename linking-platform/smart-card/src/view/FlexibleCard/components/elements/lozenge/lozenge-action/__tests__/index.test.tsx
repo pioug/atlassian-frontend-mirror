@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl-next';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import extractLozengeActionItems from '../../../../../../../extractors/action/extract-lozenge-action-items';
 import { ActionName } from '../../../../../../../index';

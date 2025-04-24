@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import ButtonOld from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 
@@ -26,10 +28,27 @@ const ShowMoreButton = ({ onShowMore, filterName }: ShowMoreButtonProps) => {
 		onShowMore();
 	}, [filterName, fireEvent, onShowMore]);
 
+	if (fg('platform-linking-visual-refresh-sllv')) {
+		return (
+			<Button
+				onClick={handleShowMore}
+				appearance="subtle"
+				testId={`${filterName}--show-more-button`}
+				spacing="compact"
+			>
+				{formatMessage(asyncPopupSelectMessages.showMoreMessage)}
+			</Button>
+		);
+	}
+
 	return (
-		<Button onClick={handleShowMore} appearance="link" testId={`${filterName}--show-more-button`}>
+		<ButtonOld
+			onClick={handleShowMore}
+			appearance="link"
+			testId={`${filterName}--show-more-button`}
+		>
 			{formatMessage(asyncPopupSelectMessages.showMoreMessage)}
-		</Button>
+		</ButtonOld>
 	);
 };
 

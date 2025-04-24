@@ -11,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { type ErrorShownBasicSearchDropdownAttributesType } from '../../../../../analytics/generated/analytics.types';
 import { SpotError } from '../../../../../common/ui/spot/error-state/error';
+import { SpotErrorOld } from '../../../../../common/ui/spot/error-state/error-old';
 import { SEARCH_DEBOUNCE_MS } from '../constants';
 
 import { asyncPopupSelectMessages } from './messages';
@@ -58,8 +59,13 @@ const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors
 	return (
 		<CustomSelectMessage
 			icon={
-				fg('bandicoots-update-sllv-icons') ? (
-					<SpotError size={'medium'} alt={formatMessage(asyncPopupSelectMessages.errorMessage)} />
+				fg('platform-linking-visual-refresh-sllv') ? (
+					<SpotError size="large" alt={formatMessage(asyncPopupSelectMessages.errorMessage)} />
+				) : fg('bandicoots-update-sllv-icons') ? (
+					<SpotErrorOld
+						size={'medium'}
+						alt={formatMessage(asyncPopupSelectMessages.errorMessageOld)}
+					/>
 				) : (
 					<>
 						{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
@@ -67,7 +73,16 @@ const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors
 					</>
 				)
 			}
-			message={asyncPopupSelectMessages.errorMessage}
+			message={
+				fg('platform-linking-visual-refresh-sllv')
+					? asyncPopupSelectMessages.errorMessage
+					: asyncPopupSelectMessages.errorMessageOld
+			}
+			description={
+				fg('platform-linking-visual-refresh-sllv')
+					? asyncPopupSelectMessages.errorDescription
+					: undefined
+			}
 			testId={`${filterName}--error-message`}
 		/>
 	);

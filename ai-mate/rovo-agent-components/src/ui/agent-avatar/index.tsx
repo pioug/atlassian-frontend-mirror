@@ -69,6 +69,13 @@ type AgentAvatarProps = {
 	forgeAgentIconUrl?: string | null;
 };
 
+/**
+ * Agent avatar components that handles rendering correct avatar for different variations of agent types
+ *
+ * @param agentNamedId - This is agent.external_config_reference, this value exists for OOTB (out of the box) agents. This id is the first priority to generate avatar because each OOTB agents have its own fixed avatar
+ * @param agentIdentityAccountId - This is Atlassian identity account ID for the agent(aaid). This id is prioritised to generate random avatar for non OOTB agents
+ * @param agentId - This is agent.id
+ */
 export const AgentAvatar = ({
 	imageUrl,
 	size = 'medium',

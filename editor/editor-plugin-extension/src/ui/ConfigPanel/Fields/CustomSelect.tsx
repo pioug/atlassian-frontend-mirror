@@ -61,6 +61,7 @@ function CustomSelect({
 		isRequired,
 		label,
 		options,
+		isDisabled,
 	} = field;
 	const [loading, setLoading] = useState(true);
 	const [resolver, setResolver] = useState<CustomFieldResolver | null>(null);
@@ -134,6 +135,7 @@ function CustomSelect({
 			defaultValue={defaultValue as ValueType<Option, false>}
 			validate={(value) => validate(field, value)}
 			testId={`config-panel-custom-select-${name}`}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error }) => (
 				<>

@@ -176,7 +176,6 @@ const Example = () => {
 					<p>ARI: {ari}</p>
 				</div>
 			)}
-
 			{link && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<div style={{ marginBottom: token('space.200', '1rem') }}>
@@ -185,7 +184,6 @@ const Example = () => {
 					</a>
 				</div>
 			)}
-
 			<Drawer
 				label="Default drawer"
 				onClose={withExitWarning(handleDrawerClose)}
@@ -210,7 +208,6 @@ const Example = () => {
 					</Box>
 				</DrawerContent>
 			</Drawer>
-
 			<Button appearance="primary" onClick={() => setDrawerOpen(true)}>
 				Open drawer
 			</Button>

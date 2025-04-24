@@ -550,7 +550,7 @@ const Editor = () => {
 			.add(editorDisabledPlugin)
 			.add(floatingToolbarPlugin)
 			.add(emojiPlugin)
-			.add([highlightPlugin, { textHighlightingFloatingToolbarExperiment: true }]),
+			.add(highlightPlugin),
 	);
 
 	return (

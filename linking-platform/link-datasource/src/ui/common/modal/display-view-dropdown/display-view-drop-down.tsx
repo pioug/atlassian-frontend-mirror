@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { cx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -84,26 +85,56 @@ export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewD
 		? formatMessage(displayViewDropDownMessages.viewModeListLabel)
 		: formatMessage(displayViewDropDownMessages.viewModeInlineLinkLabel);
 
+	if (fg('platform-linking-visual-refresh-sllv')) {
+		return (
+			<DropdownMenu
+				trigger={({ triggerRef, ...triggerProps }) => (
+					<Button
+						{...triggerProps}
+						ref={triggerRef}
+						iconAfter={() => <ChevronDownIcon label="" color="currentColor" />}
+					>
+						{triggerText}
+					</Button>
+				)}
+				testId="datasource-modal--view-drop-down"
+			>
+				<Box xcss={styles.dropDownItemGroupStyles}>
+					<DropdownItemGroup>
+						<DropdownItem
+							testId="dropdown-item-table"
+							onClick={() => onViewModeChange('table')}
+							isSelected={isTable}
+							description={formatMessage(displayViewDropDownMessages.viewModeListDescription)}
+							elemBefore={ListIcon}
+						>
+							<FormattedMessage {...displayViewDropDownMessages.viewModeListLabel} />
+						</DropdownItem>
+						<DropdownItem
+							testId="dropdown-item-inline-link"
+							onClick={() => onViewModeChange('inline')}
+							isSelected={!isTable}
+							description={formatMessage(displayViewDropDownMessages.viewModeInlineLinkDescription)}
+							elemBefore={InlineIcon}
+						>
+							<FormattedMessage {...displayViewDropDownMessages.viewModeInlineLinkLabel} />
+						</DropdownItem>
+					</DropdownItemGroup>
+				</Box>
+			</DropdownMenu>
+		);
+	}
+
 	return (
 		<DropdownMenu trigger={triggerText} testId="datasource-modal--view-drop-down">
-			<Box
-				xcss={cx(
-					fg('platform-linking-visual-refresh-sllv')
-						? styles.dropDownItemGroupStyles
-						: styles.dropDownItemGroupStylesOld,
-				)}
-			>
+			<Box xcss={styles.dropDownItemGroupStylesOld}>
 				<DropdownItemGroup>
 					<DropdownItem
 						testId="dropdown-item-table"
 						onClick={() => onViewModeChange('table')}
 						isSelected={isTable}
-						description={formatMessage(
-							fg('platform-linking-visual-refresh-sllv')
-								? displayViewDropDownMessages.viewModeListDescription
-								: displayViewDropDownMessages.viewModeListDescriptionOld,
-						)}
-						elemBefore={fg('platform-linking-visual-refresh-sllv') ? ListIcon : ListIconOld}
+						description={formatMessage(displayViewDropDownMessages.viewModeListDescriptionOld)}
+						elemBefore={ListIconOld}
 					>
 						<FormattedMessage {...displayViewDropDownMessages.viewModeListLabel} />
 					</DropdownItem>
@@ -112,11 +143,9 @@ export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewD
 						onClick={() => onViewModeChange('inline')}
 						isSelected={!isTable}
 						description={formatMessage(
-							fg('platform-linking-visual-refresh-sllv')
-								? displayViewDropDownMessages.viewModeInlineLinkDescription
-								: displayViewDropDownMessages.viewModeInlineLinkDescriptionOld,
+							displayViewDropDownMessages.viewModeInlineLinkDescriptionOld,
 						)}
-						elemBefore={fg('platform-linking-visual-refresh-sllv') ? InlineIcon : InlineIconOld}
+						elemBefore={InlineIconOld}
 					>
 						<FormattedMessage {...displayViewDropDownMessages.viewModeInlineLinkLabel} />
 					</DropdownItem>

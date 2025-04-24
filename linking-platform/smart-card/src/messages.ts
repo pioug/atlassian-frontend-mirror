@@ -42,6 +42,7 @@ export type MessageKey =
 	| 'copied_summary_action_description'
 	| 'beta'
 	| 'cannot_find_link'
+	| 'compass_applied_components_count'
 	| 'connect_link_account_card'
 	| 'connect_link_account_card_name'
 	| 'connect_link_account_card_description'
@@ -318,6 +319,11 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.check_this_link',
 		defaultMessage: 'Check this link',
 		description: 'Link safety warning modal header',
+	},
+	compass_applied_components_count: {
+		id: 'compass.applied_components_count.non-final',
+		defaultMessage:
+			'Applied to {numberOfComponents, plural, one {{numberOfComponents, number} component}  other {{numberOfComponents, number} components}}',
 	},
 	connect_to: {
 		id: 'fabric.linking.connect_to',

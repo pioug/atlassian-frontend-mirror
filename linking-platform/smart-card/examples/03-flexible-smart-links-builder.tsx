@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
-import { Box, Grid, Stack } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
 
 import EditLink from './flexible-builder/edit-link';
 import TemplateBuilder from './flexible-builder/template-builder';
@@ -8,6 +9,12 @@ import TemplateRenderer from './flexible-builder/template-renderer';
 import { type FlexibleTemplate } from './flexible-builder/types';
 import { getExampleFromLocalStorage, setExampleToLocalStorage } from './flexible-builder/utils';
 import JsonldEditor from './jsonld-editor/jsonld-editor';
+
+const gridStyles = cssMap({
+	root: {
+		gridTemplateColumns: '1fr 300px',
+	},
+});
 
 export default () => {
 	const [template, setTemplate] = useState<FlexibleTemplate>(getExampleFromLocalStorage());
@@ -19,7 +26,7 @@ export default () => {
 
 	return (
 		<Box padding="space.400">
-			<Grid gap="space.400" templateColumns="1fr 300px">
+			<Grid gap="space.400" xcss={gridStyles.root}>
 				<Stack space="space.100">
 					<JsonldEditor>
 						{({

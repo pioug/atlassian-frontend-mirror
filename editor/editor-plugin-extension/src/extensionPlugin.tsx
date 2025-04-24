@@ -204,9 +204,11 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 						hoverDecoration: api?.decorations?.actions.hoverDecoration,
 						applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
 						editorAnalyticsAPI: api?.analytics?.actions,
-						extensionApi: editorExperiment('platform_editor_controls', 'variant1')
-							? api
-							: undefined,
+						extensionApi:
+							editorExperiment('platform_editor_controls', 'variant1') ||
+							editorExperiment('platform_editor_offline_editing_web', true)
+								? api
+								: undefined,
 					}),
 			contextPanel:
 				// if showContextPanel action is not available, or platform_editor_ai_object_sidebar_injection feature flag is off

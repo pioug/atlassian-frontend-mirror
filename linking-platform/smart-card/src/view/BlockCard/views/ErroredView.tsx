@@ -45,7 +45,6 @@ const ErroredView = ({ testId = 'smart-block-errored-view', ...props }: Flexible
 					testId={`${testId}-warning-icon`}
 				/>
 			)}
-
 			<Text
 				maxLines={3}
 				message={{

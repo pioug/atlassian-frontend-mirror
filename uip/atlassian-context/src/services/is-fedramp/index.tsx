@@ -3,7 +3,7 @@ import { FEDRAMP_MODERATE } from '../../common/constants';
 /**
  * Caution: Consider Alternatives Use of this function is not recommended as a long term solution, as it creates an assumption
  * there are no other isolated environments than just FedRAMP Moderate. You are encouraged to consider alternate solutions,
- * such as Statsig or environment configuration, that don’t require creating a hard dependency between your code features
+ * such as Statsig or environment configuration, that don't require creating a hard dependency between your code features
  * and the FedRAMP environment.
  * See [go-is-fedramp](https://go.atlassian.com/is-fedramp)
  */

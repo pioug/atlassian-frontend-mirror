@@ -15,7 +15,11 @@ import type {
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, PluginKey, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
+import {
+	type EditorState,
+	type PluginKey,
+	type SelectionBookmark,
+} from '@atlaskit/editor-prosemirror/state';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -177,7 +181,6 @@ export default class TableView extends ReactNodeView<Props> {
 		let oldIgnoreMutation: (mutation: MutationRecord) => boolean;
 
 		let selectionBookmark: SelectionBookmark;
-		let parentOffset = 0;
 		let mutationsIgnored = false;
 
 		// Only proceed if we have both a node and table, and the table isn't already inside the node
@@ -188,8 +191,8 @@ export default class TableView extends ReactNodeView<Props> {
 			// Set up a temporary mutation handler that:
 			// - Ignores all DOM mutations except selection changes
 			// - Tracks when mutations have been ignored via mutationsIgnored flag
-			this.ignoreMutation = (m: MutationRecord) => {
-				const isSelectionMutation = m.target instanceof Selection;
+			this.ignoreMutation = (m: MutationRecord | { type: string; target: Node }) => {
+				const isSelectionMutation = m.type === 'selection';
 				if (!isSelectionMutation) {
 					mutationsIgnored = true;
 				}
@@ -202,14 +205,8 @@ export default class TableView extends ReactNodeView<Props> {
 				selectionBookmark = this.view.state.selection.getBookmark();
 			}
 
-			// Store the current cursor position within the parent node
-			// Used to determine if we need to restore selection later
-			if (this.view.state.selection?.ranges.length > 0) {
-				parentOffset = this.view.state.selection?.ranges[0].$from?.parentOffset ?? 0;
-			}
-
 			// Remove the ProseMirror table DOM structure to avoid duplication, as it's replaced with the React table node.
-			if (this.renderedDOM) {
+			if (this.dom && this.renderedDOM) {
 				this.dom.removeChild(this.renderedDOM);
 			}
 			// Move the table from the ProseMirror table structure into the React rendered table node.
@@ -223,11 +220,13 @@ export default class TableView extends ReactNodeView<Props> {
 				// Restore the selection only if:
 				// - We have a selection bookmark
 				// - Mutations were ignored during the table move
-				// - The cursor wasn't at the start of the node
-				if (selectionBookmark && mutationsIgnored && parentOffset > 0) {
-					this.view.dispatch(
-						this.view.state.tr.setSelection(selectionBookmark.resolve(this.view.state.tr.doc)),
-					);
+				// - The bookmarked selection is different from the current selection.
+				if (selectionBookmark && mutationsIgnored) {
+					const resolvedSelection = selectionBookmark.resolve(this.view.state.tr.doc);
+					// Don't set the selection if it's the same as the current selection.
+					if (!resolvedSelection.eq(this.view.state.selection)) {
+						this.view.dispatch(this.view.state.tr.setSelection(resolvedSelection));
+					}
 				}
 			});
 		}

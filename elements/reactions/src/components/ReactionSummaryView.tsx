@@ -13,6 +13,7 @@ import {
 	type ReactionMouseEnter,
 	type ReactionSource,
 } from '../types';
+import { useDelayedState } from '../hooks/useDelayedState';
 import { Reaction } from './Reaction';
 import { type ReactionsProps, type OpenReactionsDialogOptions } from './Reactions';
 import { type TriggerProps } from './Trigger';
@@ -101,6 +102,10 @@ interface ReactionSummaryViewProps
 	 * Optional prop to make the summary view open on hover
 	 */
 	hoverableSummaryView?: boolean;
+	/**
+	 * Optional prop to set a delay for the summary view when it opens/closes on hover
+	 */
+	hoverableSummaryViewDelay?: number;
 }
 
 export const ReactionSummaryView = ({
@@ -127,15 +132,19 @@ export const ReactionSummaryView = ({
 	useButtonAlignmentStyling,
 	reactionPickerTriggerText,
 	hoverableSummaryView = false,
+	hoverableSummaryViewDelay = 300,
 }: ReactionSummaryViewProps) => {
-	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
+	const [isSummaryPopupOpen, setSummaryPopupOpen] = useDelayedState<boolean>(
+		false,
+		hoverableSummaryViewDelay,
+	);
 	const [isHoveringSummaryView, setIsHoveringSummaryView] = useState<boolean>(false);
 	const [isSummaryViewButtonHovered, setIsSummaryViewButtonHovered] = useState<boolean>(false);
 
-	const handlePopupClose = useCallback(() => setSummaryPopupOpen(false), []);
+	const handlePopupClose = useCallback(() => setSummaryPopupOpen(false), [setSummaryPopupOpen]);
 	const handleSummaryClick = useCallback(
 		() => setSummaryPopupOpen(!isSummaryPopupOpen),
-		[isSummaryPopupOpen],
+		[isSummaryPopupOpen, setSummaryPopupOpen],
 	);
 
 	const handleButtonMouseEnter = useCallback(() => {
@@ -143,43 +152,42 @@ export const ReactionSummaryView = ({
 		if (hoverableSummaryView) {
 			setSummaryPopupOpen(true);
 		}
-	}, [hoverableSummaryView]);
+	}, [hoverableSummaryView, setSummaryPopupOpen]);
 
 	const handleButtonMouseLeave = useCallback(() => {
 		setIsSummaryViewButtonHovered(false);
 		if (hoverableSummaryView && !isHoveringSummaryView) {
 			setSummaryPopupOpen(false);
 		}
-	}, [hoverableSummaryView, isHoveringSummaryView]);
+	}, [hoverableSummaryView, isHoveringSummaryView, setSummaryPopupOpen]);
 
 	const handleSummaryViewTrayMouseEnter = useCallback(() => {
 		setIsHoveringSummaryView(true);
 		if (hoverableSummaryView) {
 			setSummaryPopupOpen(true);
 		}
-	}, [hoverableSummaryView]);
+	}, [hoverableSummaryView, setSummaryPopupOpen]);
 
 	const handleSummaryViewTrayMouseLeave = useCallback(() => {
 		setIsHoveringSummaryView(false);
 		if (hoverableSummaryView && !isSummaryViewButtonHovered) {
 			setSummaryPopupOpen(false);
 		}
-	}, [hoverableSummaryView, isSummaryViewButtonHovered]);
+	}, [hoverableSummaryView, isSummaryViewButtonHovered, setSummaryPopupOpen]);
 
 	const handleEmojiSelection = useCallback(
 		(emojiId: string, source: ReactionSource) => {
 			onSelection(emojiId, source);
 			if (hoverableSummaryView) {
-				setSummaryPopupOpen(false);
+				setSummaryPopupOpen(false, true);
 			}
 		},
-		[onSelection, hoverableSummaryView],
+		[onSelection, hoverableSummaryView, setSummaryPopupOpen],
 	);
 
 	return (
 		<Popup
 			placement={placement}
-			offset={hoverableSummaryView ? [0, 0] : undefined}
 			content={() => (
 				<Box
 					testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}

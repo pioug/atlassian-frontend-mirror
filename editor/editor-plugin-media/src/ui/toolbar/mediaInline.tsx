@@ -34,6 +34,7 @@ import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { messages } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -269,7 +270,9 @@ const getMediaInlineImageToolbar = (
 				);
 			},
 		});
-		inlineImageItems.push({ type: 'separator' });
+		if (!isEditorControlsEnabled || !fg('platform_editor_controls_patch_6')) {
+			inlineImageItems.push({ type: 'separator' });
+		}
 	}
 
 	const download: FloatingToolbarButton<Command> = {

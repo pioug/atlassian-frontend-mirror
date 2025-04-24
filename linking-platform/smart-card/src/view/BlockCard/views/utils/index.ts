@@ -71,7 +71,7 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 								...baseTopMetadata,
 							]
 						: defaultTopMetadata,
-					bottomMetadata: defaultBottomMetadata,
+					bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
 				};
 			} else {
 				return {

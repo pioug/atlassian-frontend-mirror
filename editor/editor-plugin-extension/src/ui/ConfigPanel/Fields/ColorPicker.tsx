@@ -261,7 +261,7 @@ const ColorPickerField = ({
 	onFieldChange: OnFieldChange;
 	featureFlags?: FeatureFlags;
 }) => {
-	const { label, defaultValue, isRequired } = field;
+	const { label, defaultValue, isRequired, isDisabled } = field;
 
 	return (
 		<Field
@@ -270,6 +270,7 @@ const ColorPickerField = ({
 			defaultValue={defaultValue}
 			testId={`config-panel-color-picker-${name}`}
 			validate={(value?: string) => validate<string>(field, value || '')}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error }) => (
 				<Fragment>

@@ -3,15 +3,18 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	CheckboxOption,
 	type InputActionMeta,
 	PopupSelect,
 	type ValueType,
 } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
+import { CheckboxOptionVisualRefreshSllv } from './checkbox-option-visual-refresh-sllv';
 import CustomControl from './control';
 import CustomDropdownIndicator from './dropdownIndicator';
 import PopupFooter from './footer';
@@ -26,6 +29,11 @@ const noFilterOptions = () => true;
 
 export interface FilterPopupSelectProps {
 	buttonLabel: string;
+	/**
+	 * This attribute is only consumed and used when the fg
+	 * `platform-linking-visual-refresh-sllv` is enabled
+	 */
+	searchPlaceholder?: string;
 	totalCount?: number;
 	filterName: string;
 	isDisabled: boolean;
@@ -47,6 +55,7 @@ export const FilterPopupSelect = ({
 	totalCount = 0,
 	status,
 	buttonLabel,
+	searchPlaceholder,
 	showLoading = false,
 	isDisabled = false,
 	showHydrating = false,
@@ -185,16 +194,39 @@ export const FilterPopupSelect = ({
 			shouldCloseMenuOnTab={false}
 			hideSelectedOptions={false}
 			isLoading={showLoading}
-			placeholder={formatMessage(asyncPopupSelectMessages.selectPlaceholder)}
+			placeholder={
+				searchPlaceholder && fg('platform-linking-visual-refresh-sllv')
+					? searchPlaceholder
+					: formatMessage(asyncPopupSelectMessages.selectPlaceholder)
+			}
 			// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 			menuListProps={menuListProps}
 			components={{
-				Option: CheckboxOption,
+				Option: fg('platform-linking-visual-refresh-sllv')
+					? CheckboxOptionVisualRefreshSllv
+					: CheckboxOption,
 				Control: CustomControl,
 				MenuList: CustomMenuList,
 				DropdownIndicator: CustomDropdownIndicator,
 				LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
 			}}
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+			styles={
+				fg('platform-linking-visual-refresh-sllv')
+					? {
+							container: (base) => ({
+								...base,
+								paddingTop: token('space.075'),
+								paddingBottom: 0,
+							}),
+							menuList: (base) => ({
+								...base,
+								paddingTop: token('space.050'),
+								paddingBottom: 0,
+							}),
+						}
+					: undefined
+			}
 			options={sortedOptions}
 			value={selectedOptions}
 			filterOption={noFilterOptions}

@@ -346,7 +346,9 @@ const generateMediaSingleFloatingToolbar = (
 				);
 			},
 		});
-		toolbarButtons.push({ type: 'separator' });
+		if (!isEditorControlsEnabled || !fg('platform_editor_controls_patch_6')) {
+			toolbarButtons.push({ type: 'separator' });
+		}
 	}
 
 	if (allowAdvancedToolBarOptions) {
@@ -431,7 +433,13 @@ const generateMediaSingleFloatingToolbar = (
 						icon: selectedLayoutIcon.icon,
 					};
 
-					toolbarButtons = [...toolbarButtons, trigger, { type: 'separator' }];
+					toolbarButtons = [
+						...toolbarButtons,
+						trigger,
+						...(isEditorControlsEnabled && fg('platform_editor_controls_patch_6')
+							? []
+							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
+					];
 				}
 			}
 		};

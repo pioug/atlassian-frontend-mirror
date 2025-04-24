@@ -92,6 +92,7 @@ export interface Props {
 	/** If true, the component will have pulse onboarding effect around it. */
 	pulse?: boolean;
 	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
+	shouldFitContainer?: boolean;
 }
 
 export interface State {
@@ -126,6 +127,7 @@ export default class Dropdown extends Component<Props, State> {
 			onMount,
 			pulse,
 			spotlightConfig,
+			shouldFitContainer,
 		} = this.props;
 
 		let trigger;
@@ -215,6 +217,7 @@ export default class Dropdown extends Component<Props, State> {
 				arrowKeyNavigationProviderOptions={{
 					type: ArrowKeyNavigationType.MENU,
 				}}
+				shouldFitContainer={shouldFitContainer}
 			>
 				{Array.isArray(options)
 					? this.renderArrayOptions(options)

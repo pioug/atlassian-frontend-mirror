@@ -17,6 +17,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { getChildrenInfo, getNodeName, isReferencedSource } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type {
 	DecorationsPlugin,
@@ -283,6 +284,7 @@ const editButton = (
 	extensionState: ExtensionState,
 	applyChangeToContextPanel: ApplyChangeHandler | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	isDisabled: boolean = false,
 ): Array<FloatingToolbarItem<Command>> => {
 	if (!extensionState.showEditButton) {
 		return [];
@@ -312,6 +314,7 @@ const editButton = (
 			title: formatMessage(messages.edit),
 			tabIndex: null,
 			focusEditoronEnter: true,
+			disabled: isDisabled,
 		},
 	];
 
@@ -391,7 +394,7 @@ interface GetToolbarConfigProps {
 	applyChangeToContextPanel?: ApplyChangeHandler | undefined;
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined;
 	extensionApi?:
-		| PublicPluginAPI<[ContextPanelPlugin, AnalyticsPlugin, DecorationsPlugin]>
+		| PublicPluginAPI<[ContextPanelPlugin, AnalyticsPlugin, DecorationsPlugin, ConnectivityPlugin]>
 		| undefined;
 }
 
@@ -423,12 +426,13 @@ export const getToolbarConfig =
 			state.schema.nodes.bodiedExtension,
 			state.schema.nodes.multiBodiedExtension,
 		];
-
 		const editButtonItems = editButton(
 			formatMessage,
 			extensionState,
 			applyChangeToContextPanel,
 			editorAnalyticsAPI,
+			editorExperiment('platform_editor_offline_editing_web', true) &&
+				extensionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 		);
 		const breakoutItems = breakoutOptions(
 			state,

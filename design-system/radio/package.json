@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/radio",
-	"version": "8.0.3",
+	"version": "8.1.0",
 	"description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -103,9 +103,6 @@
 	"homepage": "https://atlassian.design/components/radio/",
 	"platform-feature-flags": {
 		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
-		"platform-icon-control-migration": {
 			"type": "boolean"
 		}
 	}

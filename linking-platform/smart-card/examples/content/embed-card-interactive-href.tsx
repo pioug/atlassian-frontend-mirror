@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import {
 	ResolvedClient,

@@ -9,7 +9,7 @@ import {
 	type NonErrorFileState,
 	toCommonMediaClientError,
 } from '@atlaskit/media-client';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';

@@ -37,6 +37,8 @@ import type {
 	OptimisticImageApiLoaderConfig,
 	Options,
 	SingleEmojiApiLoaderConfig,
+	EmojiLoadSuccessCallback,
+	EmojiLoadFailCallback,
 } from './EmojiUtils';
 import { sampledUfoEmojiResourceFetched, ufoExperiences } from '../util/analytics/ufoExperiences';
 import { promiseWithTimeout } from '../util/timed-promise';
@@ -98,6 +100,16 @@ export interface EmojiResourceConfig {
 	 * the user is being presented with a placeholder
 	 */
 	optimisticImageApi?: OptimisticImageApiLoaderConfig;
+
+	/**
+	 * A callback triggered on emoji load success
+	 */
+	onEmojiLoadSuccess?: EmojiLoadSuccessCallback;
+
+	/**
+	 * A callback triggered on emoji load failure
+	 */
+	onEmojiLoadFail?: EmojiLoadFailCallback;
 }
 
 export interface OnEmojiProviderChange extends OnProviderChange<EmojiSearchResult, any, void> {}

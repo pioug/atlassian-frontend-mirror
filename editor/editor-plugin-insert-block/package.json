@@ -144,6 +144,9 @@
 		},
 		"platform_editor_add_media_from_url_rollout": {
 			"type": "boolean"
+		},
+		"platform_editor_insert_button_on_primary_toolbar": {
+			"type": "boolean"
 		}
 	}
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Link from '@atlaskit/link';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import { Card } from '@atlaskit/smart-card';
 

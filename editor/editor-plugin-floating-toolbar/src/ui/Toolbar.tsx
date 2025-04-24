@@ -68,6 +68,7 @@ export interface Props {
 	scrollable?: boolean;
 	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 	mediaAssistiveMessage?: string;
+	shouldFitContainer?: boolean;
 }
 
 type GroupedItems = (Item | Item[])[];
@@ -102,6 +103,19 @@ export function groupItems(items: Item[]): GroupedItems {
 				} else {
 					finalOutput.push(item);
 				}
+			} else if (
+				item.type === 'separator' &&
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_controls_patch_6')
+			) {
+				const isLeadingSeparator = i === 0;
+				const isTrailingSeparator = i === items.length - 1;
+				const isDuplicateSeparator = items[i - 1]?.type === 'separator';
+
+				!isLeadingSeparator &&
+					!isTrailingSeparator &&
+					!isDuplicateSeparator &&
+					finalOutput.push(item);
 			} else {
 				finalOutput.push(item);
 			}
@@ -309,6 +323,7 @@ const ToolbarItems = React.memo(
 							onMount={item.onMount}
 							onClick={item.onClick}
 							pulse={item.pulse}
+							shouldFitContainer={item.shouldFitContainer}
 						/>
 					);
 
@@ -405,6 +420,12 @@ const ToolbarItems = React.memo(
 						/>
 					);
 				case 'separator':
+					if (
+						editorExperiment('platform_editor_controls', 'variant1') &&
+						fg('platform_editor_controls_patch_6')
+					) {
+						return item.fullHeight ? <Separator key={idx} fullHeight={true} /> : null;
+					}
 					return <Separator key={idx} fullHeight={item.fullHeight} />;
 			}
 		};

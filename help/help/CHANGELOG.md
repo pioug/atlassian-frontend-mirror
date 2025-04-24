@@ -1,5 +1,14 @@
 # @atlaskit/help
 
+## 9.0.1
+
+### Patch Changes
+
+- [#144736](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144736)
+  [`ff74b78729adb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff74b78729adb) -
+  Internal change to move to Compiled CSS-in-JS styling.
+- Updated dependencies
+
 ## 9.0.0
 
 ### Major Changes

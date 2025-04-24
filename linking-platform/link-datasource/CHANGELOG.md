@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 4.6.1
+
+### Patch Changes
+
+- [#144847](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144847)
+  [`00cb7d91843fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00cb7d91843fd) -
+  Internal change to move towards Compiled CSS-in-JS styling.
+- Updated dependencies
+
+## 4.6.0
+
+### Minor Changes
+
+- [#143676](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143676)
+  [`e0e121346bc0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0e121346bc0b) -
+  [ux] Behind fg `platform-linking-visual-refresh-sllv` - Updates styles for modal filters
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.5.0
 
 ### Minor Changes

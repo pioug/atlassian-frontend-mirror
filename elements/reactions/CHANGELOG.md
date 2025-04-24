@@ -1,5 +1,18 @@
 # @atlaskit/reactions
 
+## 31.4.0
+
+### Minor Changes
+
+- [#144510](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144510)
+  [`9d23464afe923`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d23464afe923) -
+  [ux] adding delay to opening/closing the summary view tray when hovering is enabled via the
+  hoverableSummaryView prop
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.3.1
 
 ### Patch Changes

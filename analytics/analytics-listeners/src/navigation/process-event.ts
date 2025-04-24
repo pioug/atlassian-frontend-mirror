@@ -95,6 +95,7 @@ export default (
 		switch (eventType) {
 			case UI_EVENT_TYPE:
 			case OPERATIONAL_EVENT_TYPE:
+			case TRACK_EVENT_TYPE:
 				return {
 					eventType,
 					source,
@@ -111,9 +112,6 @@ export default (
 					attributes,
 					tags: Array.from(tags),
 				};
-			case TRACK_EVENT_TYPE:
-				logger.error('Track events are currently not supported for navigation events');
-				break;
 			default:
 				logger.error('Invalid event type', eventType);
 				break;

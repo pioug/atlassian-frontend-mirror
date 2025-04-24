@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import { AsanaTask } from '../examples-helpers/_jsonLDExamples';
 import '../examples-helpers';

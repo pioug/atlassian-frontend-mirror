@@ -7,6 +7,7 @@ import { messages } from '../../../../messages';
 import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 
+import AppliedToComponentsCount from './applied-to-components-count';
 import AtlaskitBadge from './atlaskit-badge';
 import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
 import AvatarGroup from './avatar-group';
@@ -27,6 +28,10 @@ import { type TextProps } from './text/types';
 const elementMappings: {
 	[key in ElementName]?: { component: React.ComponentType<any> | undefined; props?: any };
 } = {
+	[ElementName.AppliedToComponentsCount]: {
+		component: AppliedToComponentsCount,
+		props: { icon: IconType.Component },
+	},
 	[ElementName.AttachmentCount]: {
 		component: Badge,
 		props: { icon: IconType.Attachment },
@@ -122,6 +127,7 @@ const getData = (
 			const AvatarGroupsWithFallback = [ElementName.AssignedToGroup];
 			const showFallbackAvatar = AvatarGroupsWithFallback.includes(elementName);
 			return toAvatarGroupProps(data as AvatarItemProps[], showFallbackAvatar);
+		case ElementName.AppliedToComponentsCount:
 		case ElementName.AttachmentCount:
 		case ElementName.ChecklistProgress:
 		case ElementName.CommentCount:

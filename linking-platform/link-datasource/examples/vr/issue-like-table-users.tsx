@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withWaitForItem } from '../utils/withWaitForItem';
+import { withWaitForItem } from '@atlaskit/link-test-helpers';
 
 import { VRIssueLikeTable } from './issue-like-table';
 

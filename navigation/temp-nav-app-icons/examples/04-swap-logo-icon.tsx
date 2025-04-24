@@ -5,7 +5,7 @@
 import { Fragment, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import Toggle from '@atlaskit/toggle';
 

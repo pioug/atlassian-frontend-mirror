@@ -5,7 +5,7 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { Inline, Stack } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
 

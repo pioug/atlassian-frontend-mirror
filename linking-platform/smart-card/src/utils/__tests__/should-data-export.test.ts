@@ -7,6 +7,7 @@ describe('getIsDataExportEnabled', () => {
 	const getMockResponse = (meta: Partial<JsonLd.Meta.BaseMeta> = {}) =>
 		({
 			...mockConfluenceResponse,
+
 			meta: {
 				...mockConfluenceResponse.meta,
 				...meta,

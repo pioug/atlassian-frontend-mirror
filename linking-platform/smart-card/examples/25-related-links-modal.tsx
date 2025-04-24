@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 
 import { SmartLinkModalProvider, useSmartLinkModal } from '../src/state/modal';

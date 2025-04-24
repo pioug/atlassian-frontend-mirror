@@ -25,6 +25,7 @@ export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
 			key: 'object-provider',
 			...meta,
 		},
+
 		data: {
 			'@context': {
 				'@vocab': 'https://www.w3.org/ns/activitystreams#',

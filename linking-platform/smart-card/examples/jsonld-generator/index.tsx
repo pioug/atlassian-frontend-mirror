@@ -1,17 +1,24 @@
 import React, { useCallback } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
 import Form, { Field } from '@atlaskit/form';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Grid, Stack } from '@atlaskit/primitives';
+import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Textfield from '@atlaskit/textfield';
 
 import CollapsibleSection from './collapsible-section';
 import CustomFieldset from './custom-fieldset';
 import { transform } from './transform';
+
+const gridStyles = cssMap({
+	root: {
+		gridTemplateColumns: '1fr 1fr',
+	},
+});
 
 interface FormLinkData {
 	url: string;
@@ -143,7 +150,7 @@ const JsonLdGenerator = ({ onSubmit }: { onSubmit: (response: JsonLd.Response) =
 									{({ fieldProps }) => <Textfield {...fieldProps} />}
 								</Field>
 							</CustomFieldset>
-							<Grid gap="space.100" templateColumns="1fr 1fr">
+							<Grid gap="space.100" xcss={gridStyles.root}>
 								<Field defaultValue="" label="Attachment count" name="attachmentCount">
 									{({ fieldProps }) => <Textfield type="number" {...fieldProps} />}
 								</Field>

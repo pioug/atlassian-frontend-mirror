@@ -345,7 +345,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 							if (resolved[i + 1]?.pluginName === 'annotation') {
 								items.push({ type: 'separator', fullHeight: true });
-							} else {
+							} else if (!fg('platform_editor_controls_patch_6')) {
 								if (i !== resolved.length - 1 && !shouldNotAddSeparator) {
 									items.push({ type: 'separator', fullHeight: false });
 								}

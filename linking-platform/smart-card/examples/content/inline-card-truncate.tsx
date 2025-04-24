@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Box, Text } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 
 import { ResolvedClient, ResolvedClientWithLongTitleUrl } from '../../examples/utils/custom-client';

@@ -160,7 +160,6 @@ export default function CreateBasic() {
 					<p>ARI: {ari}</p>
 				</div>
 			)}
-
 			{link && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<div style={{ marginBottom: token('space.200', '1rem') }}>
@@ -169,7 +168,6 @@ export default function CreateBasic() {
 					</a>
 				</div>
 			)}
-
 			<Button testId="link-create-show" appearance="primary" onClick={() => setActive(true)}>
 				Create
 			</Button>

@@ -64,7 +64,7 @@ snapshot(InlineCardDefault, {
 snapshot(InlineCardSelected, {
 	description: 'inline card when selected',
 	featureFlags: {
-		'platform-smart-card-icon-migration': [true, false],
+		'platform-smart-card-icon-migration': true,
 	},
 	ignoredErrors: [
 		{
@@ -179,7 +179,7 @@ snapshot(InlineCardNotFound, {
 	description:
 		'inline card not found view renders correctly when hovering over url in not-found view',
 	featureFlags: {
-		'platform-smart-card-icon-migration': [true, false],
+		'platform-smart-card-icon-migration': true,
 	},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-not-found-view' } }],
 });

@@ -13,9 +13,10 @@ describe('getPageVisibilityUpToTTAI', () => {
 	const createInteractionMetrics = (start: number, end: number): InteractionMetrics =>
 		({
 			start,
-			end,
+
 			// Add other required properties of InteractionMetrics interface
 			// with dummy values if needed
+			end,
 		}) as InteractionMetrics;
 
 	// Clear all mocks before each test

@@ -120,12 +120,18 @@ export interface LabelProps extends React.HTMLProps<HTMLInputElement> {
 	/**
 	 * Bounded style overrides. Defining allowed styles through this prop will be supported for future component
 	 * iterations. Any styles that are not allowed by this API will result in type and land blocking violations.
+	 *
+	 * @example
+	 * ```tsx
+	 * import { cssMap } from '@atlaskit/css';
+	 * import { Checkbox } from '@atlaskit/checkbox';
+	 *
+	 * const styles = cssMap({
+	 * 	checkbox: { alignItems: 'center' },
+	 * });
+	 *
+	 * <Checkbox xcss={styles.checkbox} />
+	 * ```
 	 */
-	xcss?: StrictXCSSProp<
-		// Before adding styles here make sure to assert if they're compatible with the styles defined on
-		// the checkbox label. Currently interop between Emotion + Compiled aren't deterministic. Only
-		// define styles that aren't already defined on the label element to ensure deterministic behaviour.
-		'alignItems',
-		never
-	>;
+	xcss?: StrictXCSSProp<'alignItems', never>;
 }

@@ -86,8 +86,7 @@ export const ExpandedFrame = ({
 	const renderHeader = () => {
 		if (fg('platform-linking-visual-refresh-v1')) {
 			return (
-				frameStyle !== 'hide' && (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				frameStyle !== 'hide' && ( // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					<div className="embed-header" css={styles.header}>
 						<div css={styles.headerIcon}>{icon}</div>
 						<div css={styles.tooltipWrapper}>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
 
 import { BlockCardLazyIcons, BlockCardLazyIconsFileType } from './utils/block-card-lazy-icons';

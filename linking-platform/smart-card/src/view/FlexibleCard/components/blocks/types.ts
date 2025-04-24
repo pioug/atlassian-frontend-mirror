@@ -238,6 +238,7 @@ export type ElementItemProps =
 	| AssignedToGroup
 	| AttachmentCount
 	| AuthorGroup
+	| AppliedToComponentsCount
 	| ChecklistProgress
 	| CollaboratorGroup
 	| CommentCount
@@ -275,6 +276,13 @@ export type ElementItemProps =
  */
 export type AttachmentCount = {
 	name: ElementName.AttachmentCount;
+};
+/**
+ * Represents the props available for an AppliedToComponentsCount element.
+ * @see AppliedToComponentsCount
+ */
+export type AppliedToComponentsCount = {
+	name: ElementName.AppliedToComponentsCount;
 };
 /**
  * Represents the props available for an AuthorGroup element.

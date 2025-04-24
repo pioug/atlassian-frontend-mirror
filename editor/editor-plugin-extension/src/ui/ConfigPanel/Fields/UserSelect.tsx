@@ -161,7 +161,7 @@ export default function UserSelect({
 }) {
 	const [context, setContext] = useState({} as Partial<UserFieldContext>);
 	const { siteId, principalId, fieldId, productKey } = context;
-	const { label, defaultValue, description, isRequired, options } = field;
+	const { label, defaultValue, description, isRequired, options, isDisabled } = field;
 	const { type } = options.provider;
 
 	useEffect(() => {
@@ -199,6 +199,7 @@ export default function UserSelect({
 			defaultValue={defaultValue}
 			validate={(value) => validate(field, value)}
 			testId={`config-panel-user-select-${name}`}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error, meta }) => {
 				// if any of these don't exists, the provider is missing
@@ -207,7 +208,7 @@ export default function UserSelect({
 						<UnhandledType
 							key={name}
 							field={field}
-							errorMessage={`Field "${name}" can't be renderered. Missing provider for "${type}".`}
+							errorMessage={`Field "${name}" can't be rendered. Missing provider for "${type}".`}
 						/>
 					);
 				}

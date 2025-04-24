@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl, IntlProvider, useIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
-import { Pressable } from '@atlaskit/primitives';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 type OpenMediaViewerButtonProps = {

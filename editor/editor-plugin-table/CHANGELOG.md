@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.2
+
+### Patch Changes
+
+- [#144209](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144209)
+  [`7110eac24db43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7110eac24db43) -
+  ED-26373: Remove parentOffset logic from \_handleTableRef. This was preventing the users cursor
+  selection from being the first cell in the table upon table creation.
+- Updated dependencies
+
+## 10.9.1
+
+### Patch Changes
+
+- [#145186](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145186)
+  [`6a555b119bc46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a555b119bc46) -
+  ED-27719: Add checks to \_handleTableRef so this.dom is not used if it is undefined. This was
+  causing sentry errors.
+- [#144194](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144194)
+  [`542b82e03416e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/542b82e03416e) -
+  [ux] Remove separators within group in Editor floating toolbar
+- Updated dependencies
+
 ## 10.9.0
 
 ### Minor Changes

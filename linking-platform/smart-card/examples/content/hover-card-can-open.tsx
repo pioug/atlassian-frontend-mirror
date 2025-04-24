@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import { HoverCard } from '../../src/hoverCard';
 import { ResolvedClient, ResolvedClientEmbedUrl } from '../utils/custom-client';

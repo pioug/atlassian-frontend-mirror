@@ -16,6 +16,7 @@ export const ElementDisplaySchema: Record<ElementName, ElementDisplaySchemaType[
 	[ElementName.AssignedToGroup]: ['inline'],
 	[ElementName.AttachmentCount]: ['inline'],
 	[ElementName.AuthorGroup]: ['inline'],
+	[ElementName.AppliedToComponentsCount]: ['inline'],
 	[ElementName.ChecklistProgress]: ['inline'],
 	[ElementName.CollaboratorGroup]: ['inline'],
 	[ElementName.CommentCount]: ['inline'],

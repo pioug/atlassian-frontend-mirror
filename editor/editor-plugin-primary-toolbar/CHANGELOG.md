@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 3.2.1
+
+### Patch Changes
+
+- [#140839](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140839)
+  [`8c413615979d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c413615979d2) -
+  [ux] Include element insert plus button on Editor primary toolbar
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

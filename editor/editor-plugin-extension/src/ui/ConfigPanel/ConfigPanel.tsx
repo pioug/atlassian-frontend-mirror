@@ -20,6 +20,7 @@ import type {
 	ExtensionManifest,
 	FieldDefinition,
 	OnSaveCallback,
+	OnSaveCallbackAsync,
 	Parameters,
 	TabField,
 	TabGroupField,
@@ -30,6 +31,7 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import Form, { FormFooter } from '@atlaskit/form';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 
@@ -59,6 +61,7 @@ function ConfigForm({
 	submitting,
 	contextIdentifierProvider,
 	featureFlags,
+	disableFields,
 }: {
 	canSave: boolean;
 	errorMessage: string | null;
@@ -73,6 +76,7 @@ function ConfigForm({
 	submitting: boolean;
 	contextIdentifierProvider?: ContextIdentifierProvider | undefined;
 	featureFlags?: FeatureFlags;
+	disableFields?: boolean;
 } & WrappedComponentProps) {
 	useEffect(() => {
 		if (fields) {
@@ -101,6 +105,7 @@ function ConfigForm({
 				firstVisibleFieldName={firstVisibleFieldName}
 				contextIdentifierProvider={contextIdentifierProvider}
 				featureFlags={featureFlags}
+				isDisabled={disableFields}
 			/>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={canSave ? {} : { display: 'none' }}>
@@ -176,14 +181,15 @@ type Props = {
 	autoSaveReject?: RejectSave;
 	showHeader?: boolean;
 	closeOnEsc?: boolean;
-	onChange: OnSaveCallback;
-	onCancel: () => void;
+	onChange: OnSaveCallback | OnSaveCallbackAsync;
+	onCancel: () => void | Promise<void>;
 	errorMessage: string | null;
 	isLoading?: boolean;
 	featureFlags?: FeatureFlags;
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
 	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel?: boolean;
+	disableFields?: boolean;
 } & WithAnalyticsEventsProps;
 
 type State = {
@@ -363,7 +369,11 @@ class ConfigPanel extends React.Component<Props, State> {
 				fields,
 			);
 
-			onChange(serializedData);
+			if (editorExperiment('platform_editor_offline_editing_web', true, { exposure: true })) {
+				await onChange(serializedData);
+			} else {
+				onChange(serializedData);
+			}
 		} catch (error) {
 			autoSaveReject?.(error);
 			// eslint-disable-next-line no-console
@@ -515,6 +525,7 @@ class ConfigPanel extends React.Component<Props, State> {
 											parameters={currentParameters}
 											submitting={submitting}
 											featureFlags={featureFlags}
+											disableFields={this.props.disableFields}
 										/>
 									</form>
 								);
@@ -541,6 +552,7 @@ function ConfigFormIntlWithBoundary({
 	hasParsedParameters,
 	firstVisibleFieldName,
 	errorMessage,
+	disableFields,
 }: {
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
 	fields: FieldDefinition[];
@@ -555,6 +567,7 @@ function ConfigFormIntlWithBoundary({
 	hasParsedParameters: boolean;
 	firstVisibleFieldName?: string;
 	errorMessage: string | null;
+	disableFields?: boolean;
 }) {
 	const { contextIdentifierState } = useSharedPluginState(api, ['contextIdentifier']);
 	const { contextIdentifierProvider } = contextIdentifierState ?? {};
@@ -579,6 +592,7 @@ function ConfigFormIntlWithBoundary({
 				submitting={submitting}
 				contextIdentifierProvider={contextIdentifierProvider}
 				featureFlags={featureFlags}
+				disableFields={disableFields}
 			/>
 		</FormErrorBoundary>
 	);

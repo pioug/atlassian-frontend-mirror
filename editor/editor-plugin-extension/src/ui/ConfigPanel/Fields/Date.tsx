@@ -25,7 +25,7 @@ function Date({
 	onFieldChange: OnFieldChange;
 	placeholder?: string;
 } & WrappedComponentProps) {
-	const { label, description, defaultValue, isRequired } = field;
+	const { label, description, defaultValue, isRequired, isDisabled } = field;
 
 	return (
 		<Field<string>
@@ -35,6 +35,7 @@ function Date({
 			isRequired={isRequired}
 			validate={(value?: string) => validate(field, value)}
 			testId={`config-panel-date-picker-${name}`}
+			isDisabled={isDisabled}
 		>
 			{({ fieldProps, error }) => {
 				return (

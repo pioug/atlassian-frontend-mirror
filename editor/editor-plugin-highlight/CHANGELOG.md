@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 2.4.0
+
+### Minor Changes
+
+- [#144636](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144636)
+  [`b13ed93531996`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b13ed93531996) -
+  Clean-up unused text highlight floating toolbar configuration
+
 ## 2.3.1
 
 ### Patch Changes

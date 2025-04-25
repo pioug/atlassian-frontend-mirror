@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::abef9d23f187fcebf6ab9cdeb874229b>>
+ * @codegen <<SignedSource::c264ea60cc6348c4292744c1260543d8>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Linter } from 'eslint';
@@ -20,6 +20,9 @@ export default {
 		'@atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop': 'error',
 		'@atlaskit/design-system/no-html-anchor': 'warn',
 		'@atlaskit/design-system/no-html-button': 'warn',
+		'@atlaskit/design-system/no-html-checkbox': 'warn',
+		'@atlaskit/design-system/no-html-image': 'warn',
+		'@atlaskit/design-system/no-html-range': 'warn',
 		'@atlaskit/design-system/no-invalid-css-map': [
 			'error',
 			{

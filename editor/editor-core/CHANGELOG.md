@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 205.7.0
+
+### Minor Changes
+
+- [#145243](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145243)
+  [`7d32c3cc54ceb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d32c3cc54ceb) -
+  Exposes a new getNodeWithPosByLocalId(localId: string) function in the ExtensionAPI
+
+### Patch Changes
+
+- Updated dependencies
+
+## 205.6.1
+
+### Patch Changes
+
+- [#144882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144882)
+  [`a14feb4c5d6c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a14feb4c5d6c6) -
+  ED-27414 update user pref feature gate to unify frontend and ssr changes.
+- Updated dependencies
+
 ## 205.6.0
 
 ### Minor Changes

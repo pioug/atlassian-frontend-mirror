@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f169e765038e90ec6531f19333f70cfb>>
+ * @codegen <<SignedSource::5945e51ebc0b2c3553b51162f07dbd63>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -22,6 +22,9 @@ import noExportedCss from './no-exported-css';
 import noExportedKeyframes from './no-exported-keyframes';
 import noHtmlAnchor from './no-html-anchor';
 import noHtmlButton from './no-html-button';
+import noHtmlCheckbox from './no-html-checkbox';
+import noHtmlImage from './no-html-image';
+import noHtmlRange from './no-html-range';
 import noInvalidCssMap from './no-invalid-css-map';
 import noKeyframesTaggedTemplateExpression from './no-keyframes-tagged-template-expression';
 import noLegacyIcons from './no-legacy-icons';
@@ -75,6 +78,9 @@ export const rules = {
 	'no-exported-keyframes': noExportedKeyframes,
 	'no-html-anchor': noHtmlAnchor,
 	'no-html-button': noHtmlButton,
+	'no-html-checkbox': noHtmlCheckbox,
+	'no-html-image': noHtmlImage,
+	'no-html-range': noHtmlRange,
 	'no-invalid-css-map': noInvalidCssMap,
 	'no-keyframes-tagged-template-expression': noKeyframesTaggedTemplateExpression,
 	'no-legacy-icons': noLegacyIcons,

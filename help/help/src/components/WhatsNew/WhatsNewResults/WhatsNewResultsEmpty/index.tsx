@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { Text } from '@atlaskit/primitives/compiled';
+import Button from '@atlaskit/button/new';
 
 import NotFoundImage from '../../../../assets/NotFoundImage';
 import { messages } from '../../../../messages';
@@ -50,10 +51,9 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 							componentName: 'WhatsNewResultsEmpty',
 						}}
 					>
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-						<a href="#" onClick={handleClearFilterLinkClick}>
+						<Button appearance="primary" onClick={handleClearFilterLinkClick}>
 							{formatMessage(messages.help_whats_new_no_results_clear_filter_button_label)}
-						</a>
+						</Button>
 						<Text>{formatMessage(messages.help_whats_new_no_results_clear_filter_info)}</Text>
 					</AnalyticsContext>
 				</Text>

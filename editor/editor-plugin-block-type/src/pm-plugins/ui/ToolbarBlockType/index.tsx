@@ -26,7 +26,6 @@ import { ThemeMutationObserver } from '@atlaskit/tokens';
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
 import { NORMAL_TEXT } from '../../block-types';
-import type { BlockTypeState } from '../../main';
 import type { BlockType } from '../../types';
 
 import { BlockTypeButton } from './blocktype-button';
@@ -50,7 +49,11 @@ export interface Props {
 	isDisabled?: boolean;
 	isSmall?: boolean;
 	isReducedSpacing?: boolean;
-	pluginState: BlockTypeState;
+	currentBlockType?: BlockType;
+	blockTypesDisabled?: boolean;
+	availableBlockTypes?: BlockType[];
+	availableBlockTypesInDropdown?: BlockType[];
+	formattingIsPresent?: boolean;
 	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
@@ -120,12 +123,10 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			popupsScrollableElement,
 			isSmall,
 			isReducedSpacing,
-			pluginState: {
-				currentBlockType,
-				blockTypesDisabled,
-				availableBlockTypes,
-				availableBlockTypesInDropdown,
-			},
+			currentBlockType,
+			blockTypesDisabled,
+			availableBlockTypes = [],
+			availableBlockTypesInDropdown = [],
 			shouldUseDefaultRole,
 			intl: { formatMessage },
 			api,
@@ -140,7 +141,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		}
 
 		const blockTypeTitles = availableBlockTypesInDropdown
-			.filter((blockType) => blockType.name === currentBlockType.name)
+			.filter((blockType) => blockType.name === currentBlockType?.name)
 			.map((blockType) => blockType.title);
 
 		const defaultIcon = fg('platform_editor_controls_patch_4') ? <TextIcon label="" /> : <Text />;
@@ -162,7 +163,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					onKeyDown={this.handleTriggerByKeyboard}
 					formatMessage={formatMessage}
 					aria-expanded={active}
-					blockTypeName={currentBlockType.name}
+					blockTypeName={currentBlockType?.name}
 					blockTypeIcon={currentIcon || defaultIcon}
 				/>
 			);
@@ -229,7 +230,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					onKeyDown={this.handleTriggerByKeyboard}
 					formatMessage={formatMessage}
 					aria-expanded={active}
-					blockTypeName={currentBlockType.name}
+					blockTypeName={currentBlockType?.name}
 				/>
 
 				{!api?.primaryToolbar && (
@@ -262,11 +263,12 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 	private createItems = () => {
 		const {
 			intl: { formatMessage },
+			currentBlockType,
+			availableBlockTypesInDropdown,
+			formattingIsPresent,
 		} = this.props;
-		const { currentBlockType, availableBlockTypesInDropdown, formattingIsPresent } =
-			this.props.pluginState;
 
-		const items: MenuItem[] = availableBlockTypesInDropdown.map((blockType, index) => {
+		const items: MenuItem[] = (availableBlockTypesInDropdown ?? []).map((blockType, index) => {
 			const isActive = currentBlockType === blockType;
 			const tagName = blockType.tagName || 'p';
 			const Tag = tagName as keyof React.ReactHTML;
@@ -295,7 +297,9 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		});
 
 		if (
-			availableBlockTypesInDropdown.map((blockType) => blockType.name).includes('blockquote') &&
+			(availableBlockTypesInDropdown ?? [])
+				.map((blockType) => blockType.name)
+				.includes('blockquote') &&
 			editorExperiment('platform_editor_controls', 'control')
 		) {
 			const clearFormattingItem: MenuItem = {
@@ -348,7 +352,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			if (blockType.name === 'clearFormatting') {
 				this.props.clearFormatting();
 			} else {
-				const fromBlockQuote = this.props.pluginState.currentBlockType.name === 'blockquote';
+				const fromBlockQuote = this.props.currentBlockType?.name === 'blockquote';
 				this.props.setTextLevel(blockType.name as TextBlockTypes, fromBlockQuote);
 			}
 		}

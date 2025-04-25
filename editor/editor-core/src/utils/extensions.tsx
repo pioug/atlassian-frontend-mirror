@@ -22,6 +22,7 @@ import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -82,6 +83,7 @@ const showDummyAPIWarning = (location: string) => {
 const dummyExtensionAPI: ExtensionAPI = {
 	editInContextPanel: () => showDummyAPIWarning('editInContextPanel'),
 	_editInLegacyMacroBrowser: () => showDummyAPIWarning('_editInLegacyMacroBrowser'),
+	getNodeWithPosByLocalId: () => ({ node: null, pos: null }) as unknown as NodeWithPos,
 	doc: {
 		insertAfter: () => showDummyAPIWarning('doc:insertAfter'),
 		scrollTo: () => showDummyAPIWarning('doc:scrollTo'),

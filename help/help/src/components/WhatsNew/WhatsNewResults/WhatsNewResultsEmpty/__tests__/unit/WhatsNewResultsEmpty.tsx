@@ -38,19 +38,13 @@ describe('WhatsNewResultsEmpty', () => {
 			</AnalyticsListener>,
 		);
 
-		const LinkLabel = queryByText(messageClearFilterLink);
-		expect(LinkLabel).not.toBeNull();
+		const button = queryByText(messageClearFilterLink);
+		expect(button).not.toBeNull();
 
-		if (LinkLabel) {
-			const link = LinkLabel.closest('a');
-
-			expect(link).not.toBeNull();
-
-			if (link) {
-				expect(mockOnClearFilter).toHaveBeenCalledTimes(0);
-				fireEvent.click(link);
-				expect(mockOnClearFilter).toHaveBeenCalledTimes(1);
-			}
+		if (button) {
+			expect(mockOnClearFilter).toHaveBeenCalledTimes(0);
+			fireEvent.click(button);
+			expect(mockOnClearFilter).toHaveBeenCalledTimes(1);
 		}
 	});
 });

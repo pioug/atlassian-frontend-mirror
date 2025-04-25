@@ -6,27 +6,33 @@ import { Radio, RadioGroup } from '@atlaskit/radio';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 
 const colorItems: OptionsPropType = [
-	{ name: 'color', value: 'red', label: 'Red' },
-	{ name: 'color', value: 'blue', label: 'Blue' },
-	{ name: 'color', value: 'yellow', label: 'Yellow' },
-	{ name: 'color', value: 'green', label: 'Green' },
+	{ name: 'color', value: 'red', label: 'Red', testId: 'color-red' },
+	{ name: 'color', value: 'blue', label: 'Blue', testId: 'color-blue' },
+	{ name: 'color', value: 'yellow', label: 'Yellow', testId: 'color-yellow' },
+	{ name: 'color', value: 'green', label: 'Green', testId: 'color-green' },
 ];
 const fruitItems: OptionsPropType = [
-	{ name: 'fruit', value: 'apple', label: 'Apple' },
-	{ name: 'fruit', value: 'orange', label: 'Orange' },
-	{ name: 'fruit', value: 'peach', label: 'Peach' },
-	{ name: 'fruit', value: 'pair', label: 'Pair' },
+	{ name: 'fruit', value: 'apple', label: 'Apple', testId: 'fruit-apple' },
+	{ name: 'fruit', value: 'orange', label: 'Orange', testId: 'fruit-orange' },
+	{ name: 'fruit', value: 'peach', label: 'Peach', testId: 'fruit-peach' },
+	{ name: 'fruit', value: 'pair', label: 'Pair', testId: 'fruit-pair' },
 ];
 const cityItems: OptionsPropType = [
-	{ name: 'city', value: 'sydney', label: 'Sydney' },
-	{ name: 'city', value: 'mountain-view', label: 'Mountain View' },
-	{ name: 'city', value: 'new-york-city', label: 'New York City' },
-	{ name: 'city', value: 'gallifrey', label: 'Gallifrey', isDisabled: true },
+	{ name: 'city', value: 'sydney', label: 'Sydney', testId: 'city-sydney' },
+	{ name: 'city', value: 'mountain-view', label: 'Mountain View', testId: 'city-mv' },
+	{ name: 'city', value: 'new-york-city', label: 'New York City', testId: 'city-nyc' },
+	{
+		name: 'city',
+		value: 'gallifrey',
+		label: 'Gallifrey',
+		isDisabled: true,
+		testId: 'city-gallifrey',
+	},
 ];
 const weatherItems: OptionsPropType = [
-	{ name: 'weather', value: 'sunny', label: 'Sunny', isDisabled: true },
-	{ name: 'weather', value: 'cloudy', label: 'Cloudy', isDisabled: true },
-	{ name: 'weather', value: 'windy', label: 'Windy' },
+	{ name: 'weather', value: 'sunny', label: 'Sunny', isDisabled: true, testId: 'weather-sunny' },
+	{ name: 'weather', value: 'cloudy', label: 'Cloudy', isDisabled: true, testId: 'weather-cloudy' },
+	{ name: 'weather', value: 'windy', label: 'Windy', testId: 'weather-windy' },
 ];
 
 export default function FormExample() {
@@ -38,7 +44,7 @@ export default function FormExample() {
 						<form {...formProps} name="form-example">
 							<CheckboxField name="standalone">
 								{({ fieldProps }: { fieldProps: object }) => (
-									<Radio {...fieldProps} label="standalone radio" />
+									<Radio {...fieldProps} label="standalone radio" testId="standalone" />
 								)}
 							</CheckboxField>
 							<Field label="Required radio group" name="color" defaultValue="blue" isRequired>
@@ -63,7 +69,7 @@ export default function FormExample() {
 							<Field
 								label="Radio group with individual field enabled"
 								name="weather"
-								defaultValue="windy"
+								defaultValue="sunny"
 							>
 								{({ fieldProps }: { fieldProps: object }) => (
 									<RadioGroup {...fieldProps} isDisabled={undefined} options={weatherItems} />

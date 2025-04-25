@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 103.16.0
+
+### Minor Changes
+
+- [#145243](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145243)
+  [`7d32c3cc54ceb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d32c3cc54ceb) -
+  Exposes a new getNodeWithPosByLocalId(localId: string) function in the ExtensionAPI
+
 ## 103.15.0
 
 ### Minor Changes

@@ -7,6 +7,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { N800 } from '@atlaskit/theme/colors';
+import Heading from '@atlaskit/heading';
 
 const relatedArticlesTitleStyles = css({
 	color: token('color.text', N800),
@@ -18,7 +19,11 @@ const relatedArticlesTitleStyles = css({
 });
 
 export const RelatedArticlesTitle = ({ children }: { children: React.ReactNode }) => (
-	<div css={relatedArticlesTitleStyles}>{children}</div>
+	<div css={relatedArticlesTitleStyles}>
+		<Heading size="large" color="color.text">
+			{children}
+		</Heading>
+	</div>
 );
 
 /**

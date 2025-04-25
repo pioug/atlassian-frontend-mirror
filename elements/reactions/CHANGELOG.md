@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 31.5.0
+
+### Minor Changes
+
+- [#145160](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145160)
+  [`cab4c531afd63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cab4c531afd63) -
+  [ux] Modifies the clicking behavior for the hoverable summary view feature
+
 ## 31.4.0
 
 ### Minor Changes

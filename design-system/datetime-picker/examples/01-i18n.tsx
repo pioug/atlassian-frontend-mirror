@@ -1,4 +1,11 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
 import React from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import {
 	DatePicker,
@@ -9,8 +16,9 @@ import {
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
-import { Box } from '@atlaskit/primitives/compiled';
-import Select, { type ValueType } from '@atlaskit/select';
+import { Box } from '@atlaskit/primitives';
+import Select, { components, type ValueType } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 const onChange = (value: string) => {
 	console.log(value);
@@ -20,6 +28,28 @@ type WeekStartDayOption = {
 	value: DatePickerProps['weekStartDay'];
 	label: string;
 };
+
+const selectContainerStyles = cssMap({
+	root: {
+		marginBottom: token('space.100'),
+		marginTop: token('space.100'),
+		marginLeft: token('space.0'),
+		marginRight: token('space.0'),
+		width: '300px',
+	},
+});
+
+const selectDropDownIndicatorStyles = cssMap({
+	root: {
+		paddingLeft: token('space.0'),
+	},
+});
+
+const selectMenuStyles = cssMap({
+	root: {
+		width: '300px',
+	},
+});
 
 export default () => {
 	const [locale, setLocale] = React.useState('ja-JP');
@@ -55,6 +85,15 @@ export default () => {
 						container: (css: {}) => ({ ...css, width: 300, margin: '0.5em 0' }),
 						dropdownIndicator: (css: {}) => ({ ...css, paddingLeft: 0 }),
 						menu: (css: {}) => ({ ...css, width: 300 }),
+					}}
+					components={{
+						SelectContainer: (props) => (
+							<components.SelectContainer {...props} xcss={selectContainerStyles.root} />
+						),
+						DropdownIndicator: (props) => (
+							<components.DropdownIndicator {...props} xcss={selectDropDownIndicatorStyles.root} />
+						),
+						Menu: (props) => <components.Menu {...props} xcss={selectMenuStyles.root} />,
 					}}
 					options={[
 						{ label: 'Sunday', value: 0 },

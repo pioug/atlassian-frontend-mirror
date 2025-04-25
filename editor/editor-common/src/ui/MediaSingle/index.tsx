@@ -142,6 +142,7 @@ export default function MediaSingle({
 			data-width={mediaSingleWidth}
 			data-width-type={size?.widthType || 'percentage'}
 			data-node-type={nodeType}
+			data-vc="media-single"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={classnames(
 				'rich-media-item mediaSingleView-content-wrap',

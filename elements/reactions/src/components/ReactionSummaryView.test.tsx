@@ -12,9 +12,9 @@ import { type EmojiProvider } from '@atlaskit/emoji';
 import { RENDER_SUMMARY_BUTTON_TESTID } from './ReactionSummaryButton';
 import { RENDER_REACTION_TESTID } from './Reaction';
 
-jest.mock('./ReactionSummaryViewEmojiPicker', () => ({
-	...jest.requireActual('./ReactionSummaryViewEmojiPicker'),
-	ReactionSummaryViewEmojiPicker: () => <div>ReactionSummaryViewEmojiPicker</div>,
+jest.mock('@atlaskit/emoji/picker', () => ({
+	...jest.requireActual('@atlaskit/emoji/picker'),
+	EmojiPicker: () => <div>EmojiPicker</div>,
 }));
 
 jest.mock('../hooks/useDelayedState', () => ({
@@ -112,7 +112,7 @@ describe('ReactionSummaryView', () => {
 		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
 	});
 
-	it('should render ReactionSummaryViewEmojiPicker if allowSelectFromSummaryView is true', async () => {
+	it('should render ReactionSummaryViewEmojiPicker if allowSelectFromSummaryView is true and the trigger is clicked', async () => {
 		renderComponent({
 			reactions,
 			allowSelectFromSummaryView: true,
@@ -120,9 +120,14 @@ describe('ReactionSummaryView', () => {
 
 		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 		await userEvent.click(reactionSummaryButton);
-
-		const picker = await screen.findByText('ReactionSummaryViewEmojiPicker');
-		expect(picker).toBeInTheDocument();
+		const pickerContainer = await screen.findByTestId(
+			'reaction-summary-view-emoji-picker-container',
+		);
+		expect(pickerContainer).toBeInTheDocument();
+		const trigger = await screen.findByTestId('render-trigger-button');
+		await userEvent.click(trigger);
+		const emojiPicker = await screen.findByText('EmojiPicker');
+		expect(emojiPicker).toBeInTheDocument();
 	});
 
 	it('should not render ReactionSummaryViewEmojiPicker if allowSelectFromSummaryView is false', async () => {
@@ -134,11 +139,31 @@ describe('ReactionSummaryView', () => {
 		const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 		await userEvent.click(reactionSummaryButton);
 
-		const picker = screen.queryByText('ReactionSummaryViewEmojiPicker');
-		expect(picker).not.toBeInTheDocument();
+		const pickerContainer = screen.queryByTestId('reaction-summary-view-emoji-picker-container');
+		expect(pickerContainer).not.toBeInTheDocument();
 	});
 
 	describe('hover functionality', () => {
+		it('should open the emoji picker when the summary button is clicked with hoverableSummaryView', async () => {
+			renderComponent({ hoverableSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(reactionSummaryButton);
+
+			const emojiPicker = await screen.findByText('EmojiPicker');
+			expect(emojiPicker).toBeInTheDocument();
+		});
+
+		it('should close the emoji picker when the summary button is clicked for a second time', async () => {
+			renderComponent({ hoverableSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(reactionSummaryButton);
+			const emojiPicker = await screen.findByText('EmojiPicker');
+			expect(emojiPicker).toBeInTheDocument();
+
+			await userEvent.click(reactionSummaryButton);
+			expect(emojiPicker).not.toBeInTheDocument();
+		});
+
 		it('should open popup when hovering the summary button if hoverableSummaryView is true', async () => {
 			renderComponent({ hoverableSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
@@ -195,6 +220,22 @@ describe('ReactionSummaryView', () => {
 			expect(summaryViewPopup).toBeInTheDocument();
 
 			await userEvent.unhover(reactionSummaryButton);
+			expect(summaryViewPopup).toBeInTheDocument();
+		});
+
+		it('should keep the summary view open when the emoji picker is open', async () => {
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.hover(reactionSummaryButton);
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			const trigger = await screen.findByTestId('render-trigger-button');
+			await userEvent.click(trigger);
+			const emojiPicker = await screen.findByText('EmojiPicker');
+			expect(emojiPicker).toBeInTheDocument();
+
+			await userEvent.unhover(reactionSummaryButton);
+			await userEvent.unhover(summaryViewPopup);
+
 			expect(summaryViewPopup).toBeInTheDocument();
 		});
 	});

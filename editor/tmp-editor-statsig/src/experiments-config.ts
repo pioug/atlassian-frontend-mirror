@@ -318,4 +318,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-04-23
+	platform_renderer_fix_analytics_memo_callback: {
+		productKeys: {
+			confluence: 'platform_renderer_fix_analytics_memo_callback',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, ExperimentConfigValue>;

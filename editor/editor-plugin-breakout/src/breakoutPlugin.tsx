@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { breakout } from '@atlaskit/adf-schema';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type {
+	BreakoutMode,
+	ExtractInjectionAPI,
+	PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
+import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
@@ -16,6 +22,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { BreakoutPlugin, BreakoutPluginState } from './breakoutPluginType';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { findSupportedNodeForBreakout } from './pm-plugins/utils/find-breakout-node';
+import { getBreakoutMode } from './pm-plugins/utils/get-breakout-mode';
 import type { Props as LayoutButtonProps } from './ui/LayoutButton';
 import LayoutButton from './ui/LayoutButton';
 
@@ -131,7 +138,8 @@ function createPlugin(
 	});
 }
 
-interface LayoutButtonWrapperProps extends Omit<LayoutButtonProps, 'node'> {
+interface LayoutButtonWrapperProps
+	extends Omit<LayoutButtonProps, 'node' | 'breakoutMode' | 'isBreakoutNodePresent'> {
 	api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined;
 }
 
@@ -144,25 +152,83 @@ const LayoutButtonWrapper = ({
 }: LayoutButtonWrapperProps) => {
 	// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
 	const { breakoutState, editorViewModeState, editorDisabledState, blockControlsState } =
-		useSharedPluginState(api, [
-			'width',
-			'breakout',
-			'editorViewMode',
-			'editorDisabled',
-			'blockControls',
-		]);
+		useSharedPluginState(
+			api,
+			['width', 'breakout', 'editorViewMode', 'editorDisabled', 'blockControls'],
+			{
+				disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+			},
+		);
 
-	if (blockControlsState?.isDragging || blockControlsState?.isPMDragging) {
+	// isDragging
+	const isDraggingSelector = useSharedPluginStateSelector(api, 'blockControls.isDragging', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isDragging = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? isDraggingSelector
+		: blockControlsState?.isDragging;
+
+	// isPMDragging
+	const isPMDraggingSelector = useSharedPluginStateSelector(api, 'blockControls.isPMDragging', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isPMDragging = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? isPMDraggingSelector
+		: blockControlsState?.isPMDragging;
+
+	// mode
+	const modeSelector = useSharedPluginStateSelector(api, 'editorViewMode.mode', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const mode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? modeSelector
+		: editorViewModeState?.mode;
+
+	// editorDisabled
+	const editorDisabledSelector = useSharedPluginStateSelector(
+		api,
+		'editorDisabled.editorDisabled',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const editorDisabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? editorDisabledSelector
+		: editorDisabledState?.editorDisabled;
+
+	const [isBreakoutNodePresent, setIsBreakoutNodePresent] = useState<boolean>(() => {
+		const breakoutNode = findSupportedNodeForBreakout(editorView.state.selection);
+		return breakoutNode !== undefined;
+	});
+	const [breakoutMode, setBreakoutMode] = useState<BreakoutMode | undefined>(
+		getBreakoutMode(editorView.state),
+	);
+	usePluginStateEffect(api, ['breakout'], ({ breakoutState }) => {
+		if (editorExperiment('platform_editor_usesharedpluginstateselector', false)) {
+			return;
+		}
+		const breakoutNode = breakoutState?.breakoutNode ?? null;
+		const isBreakoutNodeNull = breakoutNode !== null;
+
+		if (isBreakoutNodePresent !== isBreakoutNodeNull) {
+			setIsBreakoutNodePresent(isBreakoutNodeNull);
+		}
+
+		const nextBreakoutMode = getBreakoutMode(editorView.state);
+		if (nextBreakoutMode !== breakoutMode) {
+			setBreakoutMode(nextBreakoutMode);
+		}
+	});
+
+	if (isDragging || isPMDragging) {
 		if (editorExperiment('advanced_layouts', true)) {
 			return null;
 		}
 	}
 
-	const isViewMode = editorViewModeState?.mode === 'view';
-	const isEditMode = editorViewModeState?.mode === 'edit';
-	return !isViewMode &&
-		editorDisabledState !== undefined &&
-		!editorDisabledState?.editorDisabled ? (
+	const isViewMode = mode === 'view';
+	const isEditMode = mode === 'edit';
+	return !isViewMode && editorDisabled === false ? (
 		<LayoutButton
 			editorView={editorView}
 			mountPoint={mountPoint}
@@ -170,6 +236,8 @@ const LayoutButtonWrapper = ({
 			scrollableElement={scrollableElement}
 			node={breakoutState?.breakoutNode?.node ?? null}
 			isLivePage={isEditMode}
+			breakoutMode={breakoutMode}
+			isBreakoutNodePresent={isBreakoutNodePresent}
 		/>
 	) : null;
 };

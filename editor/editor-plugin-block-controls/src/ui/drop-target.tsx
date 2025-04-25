@@ -10,6 +10,7 @@ import { type IntlShape } from 'react-intl-next';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -264,7 +265,17 @@ export const DropTarget = (
 	} = props;
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
-	const { widthState } = useSharedPluginState(api, ['width']);
+	const { widthState } = useSharedPluginState(api, ['width'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+
+	// lineLength
+	const lineLengthSelector = useSharedPluginStateSelector(api, 'width.lineLength', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const lineLength = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? lineLengthSelector
+		: widthState?.lineLength;
 
 	const isNestedDropTarget = parentNode?.type.name !== 'doc';
 
@@ -287,7 +298,7 @@ export const DropTarget = (
 		width: isNestedDropTarget ? 'unset' : '100%',
 		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH]: isNestedDropTarget
 			? '100%'
-			: `${widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH}px`,
+			: `${lineLength || DEFAULT_DROP_INDICATOR_WIDTH}px`,
 		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN]: isNestedDropTarget
 			? getNestedNodeLeftPaddingMargin(parentNode?.type.name)
 			: '0',
@@ -301,7 +312,7 @@ export const DropTarget = (
 				onDragLeave={() => setIsDraggedOver(false)}
 				onDrop={onDrop}
 				node={prevNode}
-				editorWidth={widthState?.lineLength}
+				editorWidth={lineLength}
 				anchorRectCache={anchorRectCache}
 				position="upper"
 				isNestedDropTarget={isNestedDropTarget}
@@ -328,7 +339,7 @@ export const DropTarget = (
 					onDrop={onDrop}
 					node={nextNode}
 					parent={parentNode}
-					editorWidth={widthState?.lineLength}
+					editorWidth={lineLength}
 					anchorRectCache={anchorRectCache}
 					position="lower"
 					isNestedDropTarget={isNestedDropTarget}

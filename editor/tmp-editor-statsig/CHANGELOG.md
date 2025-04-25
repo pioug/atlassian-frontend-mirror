@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.14.1
+
+### Patch Changes
+
+- [#145233](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145233)
+  [`bc70a53def230`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc70a53def230) -
+  Revert nullability checks on experiments package.
+
+## 4.14.0
+
+### Minor Changes
+
+- [#145086](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145086)
+  [`974da2c11753a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/974da2c11753a) -
+  Reduced dependency list of analytics callback in renderer
+
 ## 4.13.0
 
 ### Minor Changes

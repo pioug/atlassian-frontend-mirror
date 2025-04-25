@@ -706,6 +706,7 @@ const handleWrapperOnClick = (
 const RendererFunctionalComponent = (
 	props: RendererProps & { startPos?: number; skipValidation?: boolean },
 ) => {
+	const { createAnalyticsEvent } = props;
 	const mouseDownSelection = useRef<string | undefined>(undefined);
 	const providerFactory = useMemo(
 		() => props.dataProviders || new ProviderFactory(),
@@ -727,7 +728,7 @@ const RendererFunctionalComponent = (
 		[],
 	);
 
-	const fireAnalyticsEvent: FireAnalyticsCallback = useCallback(
+	const fireAnalyticsEventOld: FireAnalyticsCallback = useCallback(
 		(event) => {
 			const { createAnalyticsEvent } = props;
 
@@ -738,6 +739,24 @@ const RendererFunctionalComponent = (
 		},
 		[props],
 	);
+
+	const fireAnalyticsEventNew: FireAnalyticsCallback = useCallback(
+		(event) => {
+			if (createAnalyticsEvent) {
+				const channel = FabricChannel.editor;
+				createAnalyticsEvent(event).fire(channel);
+			}
+		},
+		[createAnalyticsEvent],
+	);
+
+	const fireAnalyticsEvent = editorExperiment(
+		'platform_renderer_fix_analytics_memo_callback',
+		true,
+		{ exposure: true },
+	)
+		? fireAnalyticsEventNew
+		: fireAnalyticsEventOld;
 
 	const deriveSerializerProps = useCallback(
 		(props: RendererProps & { startPos: number }): ReactSerializerInit => {

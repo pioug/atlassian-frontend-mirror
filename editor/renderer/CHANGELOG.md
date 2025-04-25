@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 114.10.2
+
+### Patch Changes
+
+- [#145086](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145086)
+  [`974da2c11753a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/974da2c11753a) -
+  Reduced dependency list of analytics callback in renderer
+- Updated dependencies
+
 ## 114.10.1
 
 ### Patch Changes

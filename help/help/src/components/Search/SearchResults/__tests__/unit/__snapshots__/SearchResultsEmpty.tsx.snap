@@ -15,6 +15,7 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
       
 
       <svg
+        aria-hidden="true"
         fill="none"
         height="116"
         viewBox="0 0 100 116"

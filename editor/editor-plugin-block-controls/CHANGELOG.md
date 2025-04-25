@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.11.2
+
+### Patch Changes
+
+- [#144898](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144898)
+  [`b9a10d6716ef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9a10d6716ef4) -
+  Enable useSharedPluginStateSelector in block-controls, block-type and breakout plugins
+- Updated dependencies
+
 ## 3.11.1
 
 ### Patch Changes

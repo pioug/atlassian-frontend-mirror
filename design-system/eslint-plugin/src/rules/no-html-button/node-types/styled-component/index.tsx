@@ -4,10 +4,9 @@ import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { getScope } from '@atlaskit/eslint-utils/context-compat';
 
-import { getJsxElementByName } from '../../utils/get-jsx-element-by-name';
+import { getJsxElementByName } from '../../../utils/get-jsx-element-by-name';
+import { getStyledComponentCall } from '../../../utils/get-styled-component-call';
 import { isSupportedForLint } from '../supported';
-
-import { getStyledComponentCall } from './get-styled-component-call';
 
 interface MetaData {
 	context: Rule.RuleContext;

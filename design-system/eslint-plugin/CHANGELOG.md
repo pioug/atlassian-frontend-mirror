@@ -1,5 +1,35 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.8.0
+
+### Minor Changes
+
+- [#145074](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145074)
+  [`97a43bf0f52f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97a43bf0f52f6) -
+  Add rule to encourage the usage of ADS range over native range input elements.
+
+## 13.7.0
+
+### Minor Changes
+
+- [#145592](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145592)
+  [`101d557dd9e1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/101d557dd9e1d) -
+  Add rule for encouraging use of the image component over `img`.
+
+### Patch Changes
+
+- [#145048](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145048)
+  [`4381ccf4b9460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4381ccf4b9460) -
+  Refactor duplicated utilities into own reusable files.
+
+## 13.6.0
+
+### Minor Changes
+
+- [#145045](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145045)
+  [`5aa392ee60fd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5aa392ee60fd9) -
+  Add rule to encourage the usage of ADS checkboxes over native checkbox input elements.
+
 ## 13.5.0
 
 ### Minor Changes

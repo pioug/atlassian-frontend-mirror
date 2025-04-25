@@ -6,6 +6,8 @@ import { useCallback, useState } from 'react';
 
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
+import { type OnEmojiEvent } from '@atlaskit/emoji/types';
+import { EmojiPicker } from '@atlaskit/emoji/picker';
 
 import {
 	type ReactionClick,
@@ -19,6 +21,7 @@ import { type ReactionsProps, type OpenReactionsDialogOptions } from './Reaction
 import { type TriggerProps } from './Trigger';
 import { ReactionSummaryViewEmojiPicker } from './ReactionSummaryViewEmojiPicker';
 import { ReactionSummaryButton } from './ReactionSummaryButton';
+import { PickerRender } from '../ufo';
 
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { cssMap, jsx } from '@compiled/react';
@@ -140,40 +143,120 @@ export const ReactionSummaryView = ({
 	);
 	const [isHoveringSummaryView, setIsHoveringSummaryView] = useState<boolean>(false);
 	const [isSummaryViewButtonHovered, setIsSummaryViewButtonHovered] = useState<boolean>(false);
+	const [isSummaryButtonEmojiPickerOpen, setIsSummaryButtonEmojiPickerOpen] =
+		useState<boolean>(false);
+	const [isSummaryViewTrayEmojiPickerOpen, setIsSummaryViewTrayEmojiPickerOpen] =
+		useState<boolean>(false);
 
-	const handlePopupClose = useCallback(() => setSummaryPopupOpen(false), [setSummaryPopupOpen]);
-	const handleSummaryClick = useCallback(
-		() => setSummaryPopupOpen(!isSummaryPopupOpen),
-		[isSummaryPopupOpen, setSummaryPopupOpen],
+	/**
+	 * Event callback when the picker is closed
+	 * @param _id Optional id if an emoji button was selected or undefined if was clicked outside the picker
+	 */
+	const close = useCallback(
+		(_id?: string) => {
+			setIsSummaryButtonEmojiPickerOpen(false);
+			// ufo abort reaction experience
+			PickerRender.abort({
+				metadata: {
+					emojiId: _id,
+					source: 'ReactionPicker',
+					reason: 'close dialog',
+				},
+			});
+		},
+		[setIsSummaryButtonEmojiPickerOpen],
 	);
+	/**
+	 * Event callback when an emoji icon is selected
+	 * @param item selected item
+	 */
+	const onEmojiSelected: OnEmojiEvent = useCallback(
+		(item) => {
+			// no emoji was selected
+			if (!item.id) {
+				return;
+			}
+			onSelection(item.id, 'emojiPicker');
+			close(item.id);
+		},
+		[onSelection, close],
+	);
+
+	const handlePopupClose = useCallback(() => {
+		setSummaryPopupOpen(false);
+		setIsSummaryButtonEmojiPickerOpen(false);
+	}, [setSummaryPopupOpen, setIsSummaryButtonEmojiPickerOpen]);
+
+	const handleSummaryClick = useCallback(() => {
+		if (hoverableSummaryView) {
+			// ufo start reactions picker open experience
+			PickerRender.start();
+			onOpen && onOpen();
+			setSummaryPopupOpen(false);
+			// ufo reactions picker opened success
+			PickerRender.success();
+		} else {
+			setSummaryPopupOpen(!isSummaryPopupOpen);
+		}
+		setIsSummaryButtonEmojiPickerOpen(!isSummaryButtonEmojiPickerOpen);
+	}, [
+		isSummaryPopupOpen,
+		onOpen,
+		isSummaryButtonEmojiPickerOpen,
+		hoverableSummaryView,
+		setSummaryPopupOpen,
+		setIsSummaryButtonEmojiPickerOpen,
+	]);
 
 	const handleButtonMouseEnter = useCallback(() => {
 		setIsSummaryViewButtonHovered(true);
-		if (hoverableSummaryView) {
+		if (hoverableSummaryView && !isSummaryButtonEmojiPickerOpen) {
 			setSummaryPopupOpen(true);
 		}
-	}, [hoverableSummaryView, setSummaryPopupOpen]);
+	}, [
+		hoverableSummaryView,
+		setSummaryPopupOpen,
+		setIsSummaryViewButtonHovered,
+		isSummaryButtonEmojiPickerOpen,
+	]);
 
 	const handleButtonMouseLeave = useCallback(() => {
 		setIsSummaryViewButtonHovered(false);
-		if (hoverableSummaryView && !isHoveringSummaryView) {
+		if (hoverableSummaryView && !isHoveringSummaryView && !isSummaryViewTrayEmojiPickerOpen) {
 			setSummaryPopupOpen(false);
 		}
-	}, [hoverableSummaryView, isHoveringSummaryView, setSummaryPopupOpen]);
+	}, [
+		hoverableSummaryView,
+		isHoveringSummaryView,
+		setSummaryPopupOpen,
+		setIsSummaryViewButtonHovered,
+		isSummaryViewTrayEmojiPickerOpen,
+	]);
 
 	const handleSummaryViewTrayMouseEnter = useCallback(() => {
 		setIsHoveringSummaryView(true);
-		if (hoverableSummaryView) {
+		if (hoverableSummaryView && !isSummaryButtonEmojiPickerOpen) {
 			setSummaryPopupOpen(true);
 		}
-	}, [hoverableSummaryView, setSummaryPopupOpen]);
+	}, [
+		hoverableSummaryView,
+		setSummaryPopupOpen,
+		setIsHoveringSummaryView,
+		isSummaryButtonEmojiPickerOpen,
+	]);
 
 	const handleSummaryViewTrayMouseLeave = useCallback(() => {
 		setIsHoveringSummaryView(false);
-		if (hoverableSummaryView && !isSummaryViewButtonHovered) {
+		if (hoverableSummaryView && !isSummaryViewButtonHovered && !isSummaryViewTrayEmojiPickerOpen) {
 			setSummaryPopupOpen(false);
 		}
-	}, [hoverableSummaryView, isSummaryViewButtonHovered, setSummaryPopupOpen]);
+	}, [
+		hoverableSummaryView,
+		isSummaryViewButtonHovered,
+		setIsHoveringSummaryView,
+		setSummaryPopupOpen,
+		isSummaryViewTrayEmojiPickerOpen,
+	]);
 
 	const handleEmojiSelection = useCallback(
 		(emojiId: string, source: ReactionSource) => {
@@ -188,46 +271,55 @@ export const ReactionSummaryView = ({
 	return (
 		<Popup
 			placement={placement}
-			content={() => (
-				<Box
-					testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}
-					onMouseEnter={handleSummaryViewTrayMouseEnter}
-					onMouseLeave={handleSummaryViewTrayMouseLeave}
-				>
-					{allowSelectFromSummaryView && (
-						<Flex justifyContent="center">
-							<ReactionSummaryViewEmojiPicker
-								emojiProvider={emojiProvider}
-								disabled={disabled}
-								onSelection={handleEmojiSelection}
-								emojiPickerSize={emojiPickerSize}
-								tooltipContent={tooltipContent}
-								reactionPickerTriggerIcon={reactionPickerTriggerIcon}
-								reactionPickerTriggerText={reactionPickerTriggerText}
-								onOpen={onOpen}
-							/>
-						</Flex>
-					)}
-					<Inline xcss={styles.summaryPopup} space="space.025" shouldWrap alignBlock="center">
-						{reactions.map((reaction) => (
-							<Reaction
-								key={reaction.emojiId}
-								reaction={reaction}
-								emojiProvider={emojiProvider}
-								onClick={onReactionClick}
-								onFocused={onReactionFocused}
-								onMouseEnter={onReactionMouseEnter}
-								flash={flash[reaction.emojiId]}
-								showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
-								allowUserDialog={allowUserDialog}
-								handleOpenReactionsDialog={handleOpenReactionsDialog}
-								isViewOnly={isViewOnly}
-							/>
-						))}
-					</Inline>
-				</Box>
-			)}
-			isOpen={isSummaryPopupOpen}
+			content={() =>
+				isSummaryButtonEmojiPickerOpen && hoverableSummaryView ? (
+					<EmojiPicker
+						emojiProvider={emojiProvider}
+						onSelection={onEmojiSelected}
+						size={emojiPickerSize}
+					/>
+				) : (
+					<Box
+						testId={RENDER_SUMMARY_VIEW_POPUP_TESTID}
+						onMouseEnter={handleSummaryViewTrayMouseEnter}
+						onMouseLeave={handleSummaryViewTrayMouseLeave}
+					>
+						{allowSelectFromSummaryView && (
+							<Flex justifyContent="center" testId="reaction-summary-view-emoji-picker-container">
+								<ReactionSummaryViewEmojiPicker
+									emojiProvider={emojiProvider}
+									disabled={disabled}
+									onSelection={handleEmojiSelection}
+									emojiPickerSize={emojiPickerSize}
+									tooltipContent={tooltipContent}
+									reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+									reactionPickerTriggerText={reactionPickerTriggerText}
+									onOpen={onOpen}
+									setIsSummaryViewTrayEmojiPickerOpen={setIsSummaryViewTrayEmojiPickerOpen}
+								/>
+							</Flex>
+						)}
+						<Inline xcss={styles.summaryPopup} space="space.025" shouldWrap alignBlock="center">
+							{reactions.map((reaction) => (
+								<Reaction
+									key={reaction.emojiId}
+									reaction={reaction}
+									emojiProvider={emojiProvider}
+									onClick={onReactionClick}
+									onFocused={onReactionFocused}
+									onMouseEnter={onReactionMouseEnter}
+									flash={flash[reaction.emojiId]}
+									showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+									allowUserDialog={allowUserDialog}
+									handleOpenReactionsDialog={handleOpenReactionsDialog}
+									isViewOnly={isViewOnly}
+								/>
+							))}
+						</Inline>
+					</Box>
+				)
+			}
+			isOpen={isSummaryPopupOpen || isSummaryButtonEmojiPickerOpen}
 			onClose={handlePopupClose}
 			trigger={(triggerProps) => (
 				<ReactionSummaryButton

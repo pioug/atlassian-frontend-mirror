@@ -351,7 +351,24 @@ export const DragHandle = ({
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
-	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+
+	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const macroInteractionUpdatesSelector = useSharedPluginStateSelector(
+		api,
+		'featureFlags.macroInteractionUpdates',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const macroInteractionUpdates = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? macroInteractionUpdatesSelector
+		: featureFlagsState?.macroInteractionUpdates;
+
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
 	const hasHadInteraction =
@@ -677,8 +694,6 @@ export const DragHandle = ({
 			},
 		});
 	}, [anchorName, api, getPos, isMultiSelect, nodeType, start, view]);
-
-	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 
 	const calculatePosition = useCallback(() => {
 		const pos = getPos();

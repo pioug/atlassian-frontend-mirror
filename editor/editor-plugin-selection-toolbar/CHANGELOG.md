@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.5.3
+
+### Patch Changes
+
+- [#144882](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144882)
+  [`0f6d28302bae7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f6d28302bae7) -
+  ED-27414 update user pref feature gate to unify frontend and ssr changes.
+
 ## 3.5.2
 
 ### Patch Changes

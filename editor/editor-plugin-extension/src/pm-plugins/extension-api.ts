@@ -358,6 +358,10 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 			editInLegacy();
 		},
 
+		getNodeWithPosByLocalId: (localId: string) => {
+			return ensureNodePosByLocalId(localId, { opName: 'getNodeWithPosByLocalId' });
+		},
+
 		doc,
 	};
 };

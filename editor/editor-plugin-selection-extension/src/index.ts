@@ -3,4 +3,8 @@
 
 export { selectionExtensionPlugin } from './selectionExtensionPlugin';
 export type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
-export type { SelectionExtensionComponentProps, SelectionExtensionPluginOptions } from './types';
+export type {
+	SelectionExtensionComponentProps,
+	SelectionExtensionPluginOptions,
+	SelectionExtension,
+} from './types';

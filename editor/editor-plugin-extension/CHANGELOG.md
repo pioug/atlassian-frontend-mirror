@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.3.0
+
+### Minor Changes
+
+- [#145243](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145243)
+  [`7d32c3cc54ceb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d32c3cc54ceb) -
+  Exposes a new getNodeWithPosByLocalId(localId: string) function in the ExtensionAPI
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.6
 
 ### Patch Changes

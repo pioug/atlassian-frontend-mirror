@@ -8,7 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "UIP Application Framework - Jupiter",
+		"team": "Orca",
 		"website": {
 			"name": "AtlassianContext",
 			"category": "Components"

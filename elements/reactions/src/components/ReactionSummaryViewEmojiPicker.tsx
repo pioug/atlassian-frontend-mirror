@@ -8,7 +8,9 @@ import { PickerRender } from '../ufo';
 import { Trigger } from './Trigger';
 import { type ReactionPickerProps } from './ReactionPicker';
 
-interface ReactionSummaryViewEmojiPickerProps extends ReactionPickerProps {}
+interface ReactionSummaryViewEmojiPickerProps extends ReactionPickerProps {
+	setIsSummaryViewTrayEmojiPickerOpen?: (isOpen: boolean) => void;
+}
 
 export const ReactionSummaryViewEmojiPicker = ({
 	emojiProvider,
@@ -19,6 +21,7 @@ export const ReactionSummaryViewEmojiPicker = ({
 	tooltipContent,
 	onOpen,
 	reactionPickerTriggerText,
+	setIsSummaryViewTrayEmojiPickerOpen,
 }: ReactionSummaryViewEmojiPickerProps) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -26,7 +29,9 @@ export const ReactionSummaryViewEmojiPicker = ({
 		// ufo start reactions picker open experience
 		PickerRender.start();
 
-		setIsOpen((prevIsOpen) => !prevIsOpen);
+		const newIsOpen = !isOpen;
+		setIsOpen(newIsOpen);
+		setIsSummaryViewTrayEmojiPickerOpen && setIsSummaryViewTrayEmojiPickerOpen(newIsOpen);
 		onOpen && onOpen();
 
 		// ufo reactions picker opened success
@@ -40,6 +45,7 @@ export const ReactionSummaryViewEmojiPicker = ({
 	const close = useCallback(
 		(_id?: string) => {
 			setIsOpen(false);
+			setIsSummaryViewTrayEmojiPickerOpen && setIsSummaryViewTrayEmojiPickerOpen(false);
 			// ufo abort reaction experience
 			PickerRender.abort({
 				metadata: {
@@ -49,7 +55,7 @@ export const ReactionSummaryViewEmojiPicker = ({
 				},
 			});
 		},
-		[setIsOpen],
+		[setIsOpen, setIsSummaryViewTrayEmojiPickerOpen],
 	);
 
 	/**
@@ -73,7 +79,7 @@ export const ReactionSummaryViewEmojiPicker = ({
 			testId="reaction-summary-view-emoji-picker"
 			isOpen={isOpen}
 			placement="bottom-start"
-			offset={[-10, -66]}
+			offset={[-10, -34]}
 			onClose={() => close()}
 			content={() => (
 				<EmojiPicker

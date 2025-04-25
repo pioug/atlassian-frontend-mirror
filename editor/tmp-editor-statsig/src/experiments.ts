@@ -60,9 +60,18 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 		return _overrides[experimentName] === expectedExperimentValue;
 	}
 
+	if (experimentConfig === undefined) {
+		// Warning! If a product is improperly configured (ie. their editor packages are misaligned)
+		// it can cause the editor to crash here or if the experiment does not exist.
+		// We will definitely crash via any code path later in this function - this just makes the error explicit and clear.
+		throw new Error(
+			`Editor experiment configuration is not defined ${experimentName}. Likely the experiment does not exist or editor package versions are misaligned`,
+		);
+	}
+
 	if (!_product) {
 		// This will be hit in the case of a product not having setup the editor experiment tooling
-		return experimentConfig?.defaultValue === expectedExperimentValue;
+		return experimentConfig.defaultValue === expectedExperimentValue;
 	}
 
 	// Typescript is complaining here about accessing the productKeys property

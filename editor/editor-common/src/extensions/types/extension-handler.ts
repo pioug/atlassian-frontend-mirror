@@ -1,4 +1,5 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import type { Parameters } from './extension-parameters';
 
@@ -35,6 +36,7 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
 		transformAfter: TransformAfter<T>,
 	) => void;
 	_editInLegacyMacroBrowser: () => void;
+	getNodeWithPosByLocalId: (localId: string) => NodeWithPos;
 	doc: {
 		insertAfter: (
 			localId: string,

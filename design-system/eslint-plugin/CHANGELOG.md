@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.10.0
+
+### Minor Changes
+
+- [#145568](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145568)
+  [`43180d95604d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43180d95604d6) -
+  Add rule to encourage use of the DS heading component over native HTML headings.
+
+## 13.9.0
+
+### Minor Changes
+
+- [#145662](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145662)
+  [`acf5f6979c85f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acf5f6979c85f) -
+  Add rule to encourage use of the DS select component over native HTML selects.
+
 ## 13.8.0
 
 ### Minor Changes

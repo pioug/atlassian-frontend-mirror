@@ -11,7 +11,7 @@ import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing
 import { DefaultReactions } from '../shared/constants';
 import { ReactionPicker } from './ReactionPicker';
 import { RENDER_BUTTON_TESTID } from './EmojiButton';
-import { RENDER_TRIGGER_BUTTON_TESTID } from './Trigger';
+import { RENDER_TRIGGER_BUTTON_TESTID, RENDER_LIST_ITEM_WRAPPER_TESTID } from './Trigger';
 import {
 	RENDER_REACTIONPICKERPANEL_TESTID,
 	PopperWrapper,
@@ -37,6 +37,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		onSelection: (emojiId: string) => void = () => {},
 		disabled = false,
 		onCancel?: () => {},
+		isListItem = false,
 	) => {
 		return (
 			<ReactionPicker
@@ -46,6 +47,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 				pickerQuickReactionEmojiIds={DefaultReactions}
 				disabled={disabled}
 				onCancel={onCancel}
+				isListItem={isListItem}
 			/>
 		);
 	};
@@ -164,6 +166,13 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		});
 		const showMoreButton = await screen.getByTestId(RENDER_SHOWMORE_TESTID);
 		expect(showMoreButton).toHaveFocus();
+	});
+
+	it('should render the trigger inside of a list item when `isListItem` is set to true', async () => {
+		renderWithIntl(renderPicker(() => {}, false, jest.fn(), true));
+
+		const listWrapper = await screen.getByTestId(RENDER_LIST_ITEM_WRAPPER_TESTID);
+		expect(listWrapper).toBeInTheDocument();
 	});
 });
 

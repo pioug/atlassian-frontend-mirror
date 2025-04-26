@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 31.5.1
+
+### Patch Changes
+
+- [#145524](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145524)
+  [`c667c355bfcf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c667c355bfcf6) -
+  Adding property to wrap button in list item when true
+
 ## 31.5.0
 
 ### Minor Changes

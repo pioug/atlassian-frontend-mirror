@@ -1,0 +1,27 @@
+Don't use native HTML headings. The Atlassian Design System provides a ready-made heading component
+that ensures accessible implementations, and provides access to ADS styling features like design
+tokens.
+
+Use the Atlassian Design System [Heading](/components/heading/) component when suitable.
+
+## Examples
+
+This rule marks code as violations when it finds native HTML heading elements.
+
+### Incorrect
+
+```jsx
+<h1>Hello world!</h1>
+ ^^ Using a native HTML heading element
+
+<span role="heading" aria-level="1">Hello world!</span>
+ ^^^^ Using `role="heading"` to create headings
+```
+
+### Correct
+
+```jsx
+import Heading from '@atlaskit/heading';
+
+<Heading as="h1">Hello, World!</Heading>;
+```

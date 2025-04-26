@@ -12,7 +12,7 @@ import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
-import { cssMap, jsx, cx } from '@compiled/react';
+import { cssMap, jsx, cx, css } from '@compiled/react';
 import React from 'react';
 
 const styles = cssMap({
@@ -107,6 +107,7 @@ const styles = cssMap({
 export const RENDER_TOOLTIP_TRIGGER_TESTID = 'render-tooltip-trigger';
 export const RENDER_TRIGGER_BUTTON_TESTID = 'render-trigger-button';
 export const RENDER_TRIGGER_CONTAINER_TESTID = 'render-trigger-container';
+export const RENDER_LIST_ITEM_WRAPPER_TESTID = 'render-list-item-wrapper';
 
 export interface TriggerProps {
 	/**
@@ -163,6 +164,10 @@ export interface TriggerProps {
 	 * Optional prop for controlling if the summary view reaction picker trigger should be full width
 	 */
 	fullWidthSummaryViewReactionPickerTrigger?: boolean;
+	/**
+	 * Optional prop to say if the reactions component is in a list
+	 */
+	isListItem?: boolean;
 }
 
 const i18n = defineMessages({
@@ -179,6 +184,10 @@ const addReactionStyles = cssMap({
 		color: token('color.text.subtle'),
 		marginLeft: token('space.050'),
 	},
+});
+
+const noMarkerListStyle = css({
+	listStyle: 'none',
 });
 
 /**
@@ -201,6 +210,7 @@ export const Trigger = React.forwardRef(
 			reactionPickerTriggerIcon,
 			reactionPickerTriggerText = formatMessage(i18n.addReaction),
 			fullWidthSummaryViewReactionPickerTrigger = false,
+			isListItem = false,
 		} = props;
 
 		const handleMouseDown = (
@@ -212,6 +222,52 @@ export const Trigger = React.forwardRef(
 			}
 		};
 
+		const renderPressableButton = () => (
+			<Pressable
+				testId={RENDER_TRIGGER_BUTTON_TESTID}
+				xcss={cx(
+					styles.trigger,
+					fullWidthSummaryViewReactionPickerTrigger && styles.fullWidth,
+					subtleReactionsSummaryAndPicker && styles.subtleTrigger,
+					showAddReactionText && styles.expandedTrigger,
+					disabled
+						? styles.disabledTrigger
+						: showOpaqueBackground
+							? styles.opaqueEnabledTrigger
+							: styles.transparentEnabledTrigger,
+					miniMode && styles.miniMode,
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
+					showRoundTrigger && styles.roundTrigger,
+				)}
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
+					lineHeight: '16px',
+				}}
+				onClick={handleMouseDown}
+				isDisabled={disabled}
+				ref={ref}
+				data-subtle={subtleReactionsSummaryAndPicker}
+				data-mini-mode={miniMode}
+				{...ariaAttributes}
+			>
+				{!!reactionPickerTriggerIcon ? (
+					reactionPickerTriggerIcon
+				) : (
+					// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
+					<EmojiAddIcon
+						testId="emoji-add-icon"
+						color={disabled ? token('color.icon.disabled') : token('color.icon')}
+						LEGACY_size="small"
+						label="Add reaction"
+					/>
+				)}
+				{showAddReactionText && (
+					<Box xcss={cx(addReactionStyles.addReactionMessage)}>{reactionPickerTriggerText}</Box>
+				)}
+			</Pressable>
+		);
+
 		return (
 			<Box
 				xcss={cx(
@@ -221,49 +277,13 @@ export const Trigger = React.forwardRef(
 				testId={RENDER_TRIGGER_CONTAINER_TESTID}
 			>
 				<Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
-					<Pressable
-						testId={RENDER_TRIGGER_BUTTON_TESTID}
-						xcss={cx(
-							styles.trigger,
-							fullWidthSummaryViewReactionPickerTrigger && styles.fullWidth,
-							subtleReactionsSummaryAndPicker && styles.subtleTrigger,
-							showAddReactionText && styles.expandedTrigger,
-							disabled
-								? styles.disabledTrigger
-								: showOpaqueBackground
-									? styles.opaqueEnabledTrigger
-									: styles.transparentEnabledTrigger,
-							miniMode && styles.miniMode,
-							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-							fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
-							showRoundTrigger && styles.roundTrigger,
-						)}
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
-							lineHeight: '16px',
-						}}
-						onClick={handleMouseDown}
-						isDisabled={disabled}
-						ref={ref}
-						data-subtle={subtleReactionsSummaryAndPicker}
-						data-mini-mode={miniMode}
-						{...ariaAttributes}
-					>
-						{!!reactionPickerTriggerIcon ? (
-							reactionPickerTriggerIcon
-						) : (
-							// TODO: https://product-fabric.atlassian.net/browse/DSP-21007
-							<EmojiAddIcon
-								testId="emoji-add-icon"
-								color={disabled ? token('color.icon.disabled') : token('color.icon')}
-								LEGACY_size="small"
-								label="Add reaction"
-							/>
-						)}
-						{showAddReactionText && (
-							<Box xcss={cx(addReactionStyles.addReactionMessage)}>{reactionPickerTriggerText}</Box>
-						)}
-					</Pressable>
+					{isListItem ? (
+						<li data-testid={RENDER_LIST_ITEM_WRAPPER_TESTID} css={noMarkerListStyle}>
+							{renderPressableButton()}
+						</li>
+					) : (
+						renderPressableButton()
+					)}
 				</Tooltip>
 			</Box>
 		);

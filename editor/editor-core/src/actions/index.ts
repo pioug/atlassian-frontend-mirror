@@ -48,7 +48,15 @@ const fakePluginKey = {
 	editorApi?.core.actions.requestDocument((doc) => {
   		// use doc as desired
 	})
- */
+
+ * If you were using editorActions.getNodeByLocalId(localId) replace with:
+	 	const { editorApi, preset } = usePreset(...);
+		const extensionAPI = editorAPI?.extension?.actions?.api();
+		// Use nodeWithPos as desired 
+		const nodeWithPos = extensionAPI.getNodeWithPosByLocalId(localId);
+		const node = nodeWithPos.node;
+		const nodePos = nodeWithPos.pos;
+*/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	private editorView?: EditorView;
@@ -212,6 +220,17 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		}
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
+	/**
+	 * @deprecated - please use `getNodeWithPosByLocalId` found in the core plugin actions instead
+	 * @example 
+	  	const { editorApi, preset } = usePreset(...);
+		const extensionAPI = editorAPI?.extension?.actions?.api();
+		// Use nodeWithPos as desired
+		const nodeWithPos = extensionAPI.getNodeWithPosByLocalId(localId);
+		const node = nodeWithPos.node;
+		const nodePos = nodeWithPos.pos;
+	 */
 	getNodeByLocalId(id: string): Node | undefined {
 		if (this.editorView?.state) {
 			const nodes = findNodePosByLocalIds(this.editorView?.state, [id]);

@@ -62,6 +62,21 @@ describe('RightSidePanel', () => {
 			expect(screen.getByRole('heading')).toHaveTextContent('Content');
 		});
 
+		it('Should render content in the right-side-panel with custom width', () => {
+			render(
+				<FlexContainer id="RightSidePanelTest">
+					<ContentWrapper>
+						<Page />
+						<RightSidePanel isOpen={true} attachPanelTo="RightSidePanelTest" width={500}>
+							<h1>Content</h1>
+						</RightSidePanel>
+					</ContentWrapper>
+				</FlexContainer>,
+			);
+
+			expect(screen.getByRole('heading')).toHaveTextContent('Content');
+		});
+
 		it('RightSidePanelDrawer should not be visible if isOpen is false', () => {
 			render(
 				<FlexContainer id="RightSidePanelTest">

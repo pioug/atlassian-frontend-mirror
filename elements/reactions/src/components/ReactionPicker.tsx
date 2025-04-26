@@ -158,6 +158,10 @@ export interface ReactionPickerProps
 	 * Optional prop for controlling text of the trigger button
 	 */
 	reactionPickerTriggerText?: string;
+	/**
+	 * Optional prop to say if the reactions component is in a list
+	 */
+	isListItem?: boolean;
 }
 
 /**
@@ -185,6 +189,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		reactionPickerTriggerText,
 		reactionPickerPlacement,
 		reactionsPickerPreventOverflowOptions,
+		isListItem = false,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -389,6 +394,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							showRoundTrigger={showRoundTrigger}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerTriggerText={reactionPickerTriggerText}
+							isListItem={isListItem}
 						/>
 					)}
 				</Reference>

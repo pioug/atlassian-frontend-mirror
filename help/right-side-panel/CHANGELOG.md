@@ -1,5 +1,13 @@
 # @atlaskit/right-side-panel
 
+## 3.0.2
+
+### Patch Changes
+
+- [#145839](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145839)
+  [`275b54ae946ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/275b54ae946ff) -
+  [ux] Adding width prop
+
 ## 3.0.1
 
 ### Patch Changes

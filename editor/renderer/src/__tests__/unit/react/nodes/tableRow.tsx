@@ -148,7 +148,7 @@ describe('Renderer - React/Nodes/TableRow', () => {
 	});
 
 	ffTest.on(
-		'platform_editor_table_column_group_width_check',
+		'platform_editor_table_column_group_width_check_3',
 		'colGroupWidths optimized tests',
 		() => {
 			const FakeCell = () => (
@@ -218,7 +218,7 @@ describe('Renderer - React/Nodes/TableRow', () => {
 	);
 
 	ffTest.off(
-		'platform_editor_table_column_group_width_check',
+		'platform_editor_table_column_group_width_check_3',
 		'colGroupWidths unoptimized tests',
 		() => {
 			const FakeCell = () => (

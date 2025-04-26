@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 205.7.1
+
+### Patch Changes
+
+- [#145932](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145932)
+  [`c771b0db325a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c771b0db325a2) -
+  Add comment to show example how to migrate editorActions.getNodeByLocalId to the editorAPI
+  equivalent
+
 ## 205.7.0
 
 ### Minor Changes

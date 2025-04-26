@@ -58,7 +58,7 @@ export default class TableRow extends React.Component<Props, State> {
 
 	addColGroupWidth = (childrenArray: React.ReactNode[]): React.ReactNode[] => {
 		if (
-			fg('platform_editor_table_column_group_width_check')
+			fg('platform_editor_table_column_group_width_check_3')
 				? this.state.colGroupWidths?.length
 				: this.state.colGroupWidths
 		) {

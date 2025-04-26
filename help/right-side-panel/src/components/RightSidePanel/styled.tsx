@@ -13,32 +13,44 @@ const PANEL_WIDTH = 368;
 export const transitionDurationMs = 220;
 
 const rightSidePanelDrawerStyles = css({
-	width: `${PANEL_WIDTH}px`,
-	flex: `0 0 ${PANEL_WIDTH}px`,
 	position: 'relative',
 	overflow: 'hidden',
 });
 
-const rightSidePanelDrawerTransitionStyles: { [id: string]: React.CSSProperties } = {
-	entered: { width: `${PANEL_WIDTH}px`, flex: `0 0 ${PANEL_WIDTH}px` },
-	exited: { width: 0, flex: `0 0 0` },
-};
+const rightSidePanelDrawerTransitionStyles = (
+	width?: number,
+): { [id: string]: React.CSSProperties } => ({
+	entered: {
+		width: `${width}px`,
+		flex: `0 0 ${width}px`,
+	},
+	exiting: {
+		width: 0,
+		flex: `0 0 0`,
+	},
+	exited: {
+		width: 0,
+		flex: `0 0 0`,
+	},
+});
 
 export const RightSidePanelDrawer = ({
 	transitionState,
 	children,
+	width = PANEL_WIDTH,
 }: {
 	transitionState: TransitionStatus;
 	children: React.ReactNode;
+	width?: number;
 }) => (
 	<div
 		css={rightSidePanelDrawerStyles}
 		style={{
-			transition: `width ${transitionDurationMs}ms, flex ${transitionDurationMs}ms`,
-			width: `0`,
-			flex: `0 0 0`,
+			width: `${width}px`,
+			flex: `0 0 ${width}px`,
+			transition: `width ${0.6 * width}ms, flex ${0.6 * width}ms`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			...rightSidePanelDrawerTransitionStyles[transitionState],
+			...rightSidePanelDrawerTransitionStyles(width)[transitionState],
 		}}
 	>
 		{children}
@@ -57,6 +69,19 @@ const rightSidePanelDrawerContentStyles = css({
 	position: 'fixed',
 });
 
-export const RightSidePanelDrawerContent = ({ children }: { children: React.ReactNode }) => (
-	<div css={rightSidePanelDrawerContentStyles}>{children}</div>
+export const RightSidePanelDrawerContent = ({
+	children,
+	width = PANEL_WIDTH,
+}: {
+	children: React.ReactNode;
+	width?: number;
+}) => (
+	<div
+		css={rightSidePanelDrawerContentStyles}
+		style={{
+			width: `${width}px`,
+		}}
+	>
+		{children}
+	</div>
 );

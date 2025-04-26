@@ -29,6 +29,8 @@ export interface Props {
 	onOpenAnimationFinished?: () => void;
 	// Function to be executed when the close animation finishes
 	onCloseAnimationFinished?: () => void;
+	// Width for the panel, default is 368px
+	width?: number;
 }
 
 export interface State {
@@ -76,8 +78,10 @@ export class RightSidePanel extends Component<Props, State> {
 				onExited={onCloseAnimationFinished}
 			>
 				{(state: TransitionStatus) => (
-					<RightSidePanelDrawer transitionState={state}>
-						<RightSidePanelDrawerContent>{children}</RightSidePanelDrawerContent>
+					<RightSidePanelDrawer transitionState={state} width={this.props.width}>
+						<RightSidePanelDrawerContent width={this.props.width}>
+							{children}
+						</RightSidePanelDrawerContent>
 					</RightSidePanelDrawer>
 				)}
 			</Transition>,

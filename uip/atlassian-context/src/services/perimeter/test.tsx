@@ -4,10 +4,6 @@ const mockDocument = { cookie: '' } as Document;
 globalThis.document = mockDocument;
 
 describe('Perimeter Detection', () => {
-	beforeEach(() => {
-		// @ts-expect-error
-		delete globalThis.UNSAFE_ATL_CONTEXT_BOUNDARY;
-	});
 	afterEach(() => {
 		global.document.cookie = 'atl-ctx=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 	});
@@ -64,7 +60,7 @@ describe('Perimeter Detection', () => {
 		});
 
 		it('returns undefined for non-isolated cloud environments', () => {
-			globalThis.document.cookie = `atl-ctx={"perimeter":"fedramp-moderate", "ic_domain":this would actually be null"}`;
+			globalThis.document.cookie = `atl-ctx={"perimeter":"fedramp-moderate", "ic_domain":null"}`;
 			expect(isolatedCloudDomain()).toBeUndefined();
 		});
 

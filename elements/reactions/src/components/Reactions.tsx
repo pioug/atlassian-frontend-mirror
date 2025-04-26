@@ -240,6 +240,10 @@ export interface ReactionsProps
 	 * Optional prop for controlling if the summary view is hoverable
 	 */
 	hoverableSummaryView?: boolean;
+	/**
+	 * Optional prop to say if the reactions component is in a list
+	 */
+	isListItem?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -309,6 +313,7 @@ export const Reactions = React.memo(
 		useButtonAlignmentStyling = false,
 		reactionPickerTriggerText,
 		hoverableSummaryView = false,
+		isListItem = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -577,6 +582,7 @@ export const Reactions = React.memo(
 							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerTriggerText={reactionPickerTriggerText}
+							isListItem={isListItem}
 						/>
 					)}
 					<ModalTransition>

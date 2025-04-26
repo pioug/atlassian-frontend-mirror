@@ -1,5 +1,7 @@
+import { GeneralizedPerimeterType } from '../../common/constants';
+
 export type AtlContextCookie = {
-	perimeter: string;
+	perimeter: GeneralizedPerimeterType;
 	ic_domain: string;
 };
 

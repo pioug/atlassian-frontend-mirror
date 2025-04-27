@@ -19,8 +19,7 @@ const isCacheableType = withProfiling(function isCacheableType(url: string, type
 		return true;
 	}
 
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (type === 'other' && url.includes('.js') && fg('ufo_support_other_resource_type_js')) {
+	if (type === 'other' && url.includes('.js')) {
 		return true;
 	}
 
@@ -74,18 +73,10 @@ const getReportedInitiatorTypes = withProfiling(function getReportedInitiatorTyp
 ) {
 	const ufoConfig = getConfigUFO();
 	if (!ufoConfig?.allowedResources) {
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		if (fg('ufo_support_other_resource_type_js')) {
-			if (xhrEnabled) {
-				return ['script', 'link', 'fetch', 'other', 'xmlhttprequest'];
-			}
-			return ['script', 'link', 'fetch', 'other'];
-		} else {
-			if (xhrEnabled) {
-				return ['script', 'link', 'fetch', 'xmlhttprequest'];
-			}
-			return ['script', 'link', 'fetch'];
+		if (xhrEnabled) {
+			return ['script', 'link', 'fetch', 'other', 'xmlhttprequest'];
 		}
+		return ['script', 'link', 'fetch', 'other'];
 	}
 	return ufoConfig.allowedResources;
 });
@@ -189,12 +180,7 @@ export const getResourceTimings = withProfiling(function getResourceTimings(
 			return;
 		}
 
-		if (
-			initiatorType === 'other' &&
-			!name.includes('.js') &&
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-			fg('ufo_support_other_resource_type_js')
-		) {
+		if (initiatorType === 'other' && !name.includes('.js')) {
 			return;
 		}
 

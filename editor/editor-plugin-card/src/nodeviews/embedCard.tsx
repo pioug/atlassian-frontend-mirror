@@ -451,18 +451,14 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
 		// It is a tradeoff for the bug mentioned that occurs in Chrome: https://product-fabric.atlassian.net/browse/ED-5379, https://github.com/ProseMirror/prosemirror/issues/884
-		if (fg('linking-platform-contenteditable-false-live-view')) {
-			this.unsubscribe =
-				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
-					({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
-				);
-			this.updateContentEditable(
-				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
-				domRef,
+		this.unsubscribe =
+			this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
+				({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
 			);
-		} else {
-			domRef.contentEditable = 'true';
-		}
+		this.updateContentEditable(
+			this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
+			domRef,
+		);
 		domRef.setAttribute('spellcheck', 'false');
 		return domRef;
 	}

@@ -3,6 +3,7 @@ import React from 'react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertBlockPlugin } from '../../index';
 import type { OnInsert } from '../ElementBrowser/types';
@@ -37,8 +38,14 @@ export interface BlockInsertMenuProps {
 }
 
 export const BlockInsertMenu = (props: BlockInsertMenuProps) => {
-	if (props.items.length === 0) {
-		return null;
+	if (fg('platform_editor_refactor_view_more')) {
+		if (props.items.length === 0 && !props.showElementBrowserLink) {
+			return null;
+		}
+	} else {
+		if (props.items.length === 0) {
+			return null;
+		}
 	}
 
 	if (props.disabled) {

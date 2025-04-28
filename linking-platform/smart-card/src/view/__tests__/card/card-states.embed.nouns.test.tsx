@@ -71,7 +71,7 @@ describe('smart-card: card states, embed', () => {
 					);
 				});
 
-				it('embed: should render with metadata when resolved, as block card - no preview present', async () => {
+				it('embed: should render with metadata when resolved as block card - no preview present', async () => {
 					const successWithoutPreview = {
 						...mocks.nounDataSuccess,
 						nounData: {
@@ -91,16 +91,16 @@ describe('smart-card: card states, embed', () => {
 							</Provider>
 						</IntlProvider>,
 					);
-					const resolvedViewName = await screen.findByText('I love cheese');
+					const resolvedViewName = await screen.findAllByText('I love cheese');
 					const resolvedViewDescription = await screen.findByText(
 						'Here is your serving of cheese: 🧀',
 					);
-					expect(resolvedViewName).toBeInTheDocument();
+					expect(resolvedViewName[0]).toBeInTheDocument();
 					expect(resolvedViewDescription).toBeInTheDocument();
 					expect(mockFetch).toHaveBeenCalledTimes(1);
 				});
 
-				it('should re-render when URL changes', async () => {
+				it('should fetch again when URL changes', async () => {
 					const { rerender } = render(
 						<IntlProvider locale="en">
 							<Provider client={mockClient}>
@@ -123,7 +123,7 @@ describe('smart-card: card states, embed', () => {
 					expect(mockFetch).toHaveBeenCalledTimes(2);
 				});
 
-				it('should not re-render when appearance changes', async () => {
+				it('should not fetch again when appearance changes', async () => {
 					const { rerender } = render(
 						<IntlProvider locale="en">
 							<Provider client={mockClient}>
@@ -142,7 +142,8 @@ describe('smart-card: card states, embed', () => {
 							</Provider>
 						</IntlProvider>,
 					);
-					await screen.findByText('I love cheese');
+
+					await screen.findAllByText('I love cheese');
 					expect(mockFetch).toHaveBeenCalledTimes(1);
 				});
 

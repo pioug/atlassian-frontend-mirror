@@ -4,14 +4,13 @@ import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
 import { getConfig } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
-import { withProfiling } from '../../self-measurements';
 import { getVCObserver } from '../../vc';
 
 import getInteractionStatus from './get-interaction-status';
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
 import getSSRDoneTimeValue from './get-ssr-done-time-value';
 
-const getVCMetrics = withProfiling(async function getVCMetrics(
+async function getVCMetrics(
 	interaction: InteractionMetrics,
 ): Promise<VCResult & { 'metric:vc90'?: number | null }> {
 	const config = getConfig();
@@ -90,6 +89,6 @@ const getVCMetrics = withProfiling(async function getVCMetrics(
 			'metric:vc90': VC['90'],
 		};
 	}
-});
+}
 
 export default getVCMetrics;

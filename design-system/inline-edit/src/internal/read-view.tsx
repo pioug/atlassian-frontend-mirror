@@ -120,6 +120,7 @@ const ReadView = ({
 				testId={testId && `${testId}--edit-button`}
 				aria-label={editButtonLabel}
 			></Pressable>
+			{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 			<div
 				css={[readViewWrapperStyles, readViewFitContainerWidth && readViewFitContainerWidthStyles]}
 				/**

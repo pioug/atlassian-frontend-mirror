@@ -546,7 +546,9 @@ const generateMediaSingleFloatingToolbar = (
 							onClick: () => {
 								return true;
 							},
-							icon: (
+							icon: fg('platform_editor_controls_patch_7') ? (
+								<MaximizeIcon color="currentColor" spacing="spacious" label="" />
+							) : (
 								<ImageFullscreenIcon
 									color="currentColor"
 									spacing="spacious"
@@ -564,15 +566,22 @@ const generateMediaSingleFloatingToolbar = (
 						type: 'dropdown',
 						options: options,
 						title: intl.formatMessage(messages.sizeOptions),
-						icon: () => (
-							<ImageFullscreenIcon
-								color="currentColor"
-								spacing="spacious"
-								label={intl.formatMessage(messages.sizeOptions)}
-								LEGACY_size="medium"
-								LEGACY_fallbackIcon={IconEmbed}
-							/>
-						),
+						icon: () =>
+							fg('platform_editor_controls_patch_7') ? (
+								<MaximizeIcon
+									color="currentColor"
+									spacing="spacious"
+									label={intl.formatMessage(messages.sizeOptions)}
+								/>
+							) : (
+								<ImageFullscreenIcon
+									color="currentColor"
+									spacing="spacious"
+									label={intl.formatMessage(messages.sizeOptions)}
+									LEGACY_size="medium"
+									LEGACY_fallbackIcon={IconEmbed}
+								/>
+							),
 					};
 
 					toolbarButtons.push(switchFromBlockToInline, {

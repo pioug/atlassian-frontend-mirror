@@ -111,6 +111,9 @@
 		"linking_platform_smart_links_in_live_pages": {
 			"type": "boolean"
 		},
+		"platform_editor_insert_button_on_primary_toolbar": {
+			"type": "boolean"
+		},
 		"platform_editor_controls_patch_3": {
 			"type": "boolean"
 		}

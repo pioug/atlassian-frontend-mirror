@@ -12,12 +12,14 @@ import type { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeas
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../analytics';
 import type { QuickInsertItem } from '../../provider-factory';
 import type { EmptyStateHandler } from '../../types';
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
+import { ViewMore as ViewMoreNext } from '../components/ViewMore';
 import {
 	DEVICE_BREAKPOINT_NUMBERS,
 	ELEMENT_BROWSER_ID,
@@ -48,7 +50,14 @@ export type StatelessElementBrowserProps = {
 	mode: keyof typeof Modes;
 	searchTerm?: string;
 	emptyStateHandler?: EmptyStateHandler;
+	/**
+	 * @private
+	 * @deprecated
+	 * Deprecated in favour of onViewMore
+	 * Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
+	 */
 	viewMoreItem?: QuickInsertItem;
+	onViewMore?: () => void;
 	cache?: CellMeasurerCache;
 } & WithAnalyticsEventsProps;
 
@@ -160,6 +169,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		onSelectItem,
 		onInsertItem,
 		viewMoreItem,
+		onViewMore,
 		selectedCategory,
 		onSelectCategory,
 		searchTerm,
@@ -206,7 +216,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	} = useSelectAndFocusOnArrowNavigation(
 		items.length - 1,
 		columnCount,
-		!!viewMoreItem,
+		fg('platform_editor_refactor_view_more') ? !!onViewMore : !!viewMoreItem,
 		itemIsDisabled,
 		isFocusSearch,
 	);
@@ -300,6 +310,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					onKeyPress={onItemsEnterTabKeyPress}
 					onKeyDown={onKeyDown}
 					viewMoreItem={viewMoreItem}
+					onViewMore={onViewMore}
 					focusOnViewMore={focusOnViewMore}
 					cache={cache}
 				/>
@@ -354,6 +365,7 @@ function MobileBrowser({
 	createAnalyticsEvent,
 	emptyStateHandler,
 	viewMoreItem,
+	onViewMore,
 	cache,
 }: StatelessElementBrowserProps &
 	SelectedItemProps & {
@@ -419,7 +431,12 @@ function MobileBrowser({
 					cache={cache}
 				/>
 			</div>
-			{viewMoreItem && <ViewMore item={viewMoreItem} focus={focusOnViewMore} />}
+			{onViewMore && fg('platform_editor_refactor_view_more') && (
+				<ViewMoreNext onViewMore={onViewMore} focus={focusOnViewMore} />
+			)}
+			{viewMoreItem && !fg('platform_editor_refactor_view_more') && (
+				<ViewMore item={viewMoreItem} focus={focusOnViewMore} />
+			)}
 		</div>
 	);
 }

@@ -169,7 +169,7 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
 					</FunctionalBrowserWrapper>
 					<FunctionalBrowserWrapper mediaClient={mediaClient} browseConfig={browseConfig}>
 						{(browse) => (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
 							<div style={{ margin: '5px' }} onClick={browse}>
 								Click me to upload. No, for real.
 							</div>

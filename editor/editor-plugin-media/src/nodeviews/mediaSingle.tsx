@@ -617,7 +617,7 @@ const MediaSingleNodeWrapper = ({
 	);
 
 	const isSelectedAndInteracted = useCallback(
-		() => Boolean(selected() && hasHadInteraction),
+		() => Boolean(selected() && hasHadInteraction !== false),
 		[hasHadInteraction, selected],
 	);
 

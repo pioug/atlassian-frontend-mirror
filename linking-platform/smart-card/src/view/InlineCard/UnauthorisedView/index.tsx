@@ -12,7 +12,7 @@ import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import { N500, R400 } from '@atlaskit/theme/colors';
+import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
@@ -20,7 +20,6 @@ import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
-import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButtonOldVisualRefresh } from '../styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
@@ -66,24 +65,15 @@ const fallbackUnauthorizedIcon = () => {
 		);
 	}
 
-	if (fg('platform-smart-card-icon-migration')) {
-		return (
-			<Box as="span" xcss={styles.iconWrapper}>
-				<LockLockedIcon
-					color={token('color.icon.danger')}
-					label="error"
-					LEGACY_fallbackIcon={LegacyLockIcon}
-					LEGACY_size="small"
-				/>
-			</Box>
-		);
-	}
-
 	return (
-		<AKIconWrapper>
-			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497*/}
-			<LegacyLockIcon label="error" size="small" primaryColor={token('color.icon.danger', R400)} />
-		</AKIconWrapper>
+		<Box as="span" xcss={styles.iconWrapper}>
+			<LockLockedIcon
+				color={token('color.icon.danger')}
+				label="error"
+				LEGACY_fallbackIcon={LegacyLockIcon}
+				LEGACY_size="small"
+			/>
+		</Box>
 	);
 };
 

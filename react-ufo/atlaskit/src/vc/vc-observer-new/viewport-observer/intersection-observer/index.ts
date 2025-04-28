@@ -1,4 +1,3 @@
-import { withProfiling } from '../../../../self-measurements';
 import type { VCObserverEntryType } from '../../types';
 import type { MutationData } from '../types';
 
@@ -19,14 +18,11 @@ export interface VCIntersectionObserver {
 	watchAndTag: (target: Element, tagOrCallback: ObserveArg_TagOrCallback) => void;
 }
 
-const isValidEntry = withProfiling(
-	function isValidEntry(entry: IntersectionObserverEntry) {
-		return (
-			entry.isIntersecting && entry.intersectionRect.width > 0 && entry.intersectionRect.height > 0
-		);
-	},
-	['vc'],
-);
+function isValidEntry(entry: IntersectionObserverEntry) {
+	return (
+		entry.isIntersecting && entry.intersectionRect.width > 0 && entry.intersectionRect.height > 0
+	);
+}
 
 export type IntersectionObserverArgs = {
 	onEntry: (entry: {
@@ -42,68 +38,63 @@ export type IntersectionObserverArgs = {
 	}) => void;
 };
 
-export function createIntersectionObserver(
-	args: IntersectionObserverArgs,
-): VCIntersectionObserver | null {
+export function createIntersectionObserver({
+	onEntry,
+	onObserved,
+}: IntersectionObserverArgs): VCIntersectionObserver | null {
 	if (!window || typeof window.IntersectionObserver !== 'function') {
 		return null;
 	}
 
-	const onEntry = withProfiling(args.onEntry, ['vc']);
-	const onObserved =
-		typeof args.onObserved === 'function' ? withProfiling(args.onObserved, ['vc']) : undefined;
-
 	const callbacksPerElement = new WeakMap<Element, ObserveArg_TagOrCallback>();
 
-	const intersectionObserverCallback: IntersectionObserverCallback = withProfiling(
-		function intersectionObserverCallback(entries) {
-			const validEntries: Array<WeakRef<HTMLElement>> = [];
-			const startTime = performance.now();
+	const intersectionObserverCallback: IntersectionObserverCallback = (entries) => {
+		const validEntries: Array<WeakRef<HTMLElement>> = [];
+		const startTime = performance.now();
 
-			entries.forEach((entry) => {
-				if (!(entry.target instanceof HTMLElement) || !isValidEntry(entry)) {
-					return;
-				}
+		entries.forEach((entry) => {
+			if (!(entry.target instanceof HTMLElement) || !isValidEntry(entry)) {
+				return;
+			}
 
-				let mutationTag: VCObserverEntryType | undefined | null = null;
-				let mutationData: MutationData | undefined | null = null;
-				const tagOrCallback = callbacksPerElement.get(entry.target);
-				if (typeof tagOrCallback === 'function') {
-					const tagOrCallbackResult = tagOrCallback({
-						target: entry.target,
-						rect: entry.intersectionRect,
-					});
-					if (!tagOrCallbackResult) {
-						mutationTag = 'unknown';
-					} else if (typeof tagOrCallbackResult === 'string') {
-						mutationTag = tagOrCallbackResult;
-					} else {
-						mutationTag = tagOrCallbackResult.type;
-						mutationData = tagOrCallbackResult.mutationData;
-					}
-				} else if (typeof tagOrCallback === 'string') {
-					mutationTag = tagOrCallback;
-				}
-
-				onEntry({
+			let mutationTag: VCObserverEntryType | undefined | null = null;
+			let mutationData: MutationData | undefined | null = null;
+			const tagOrCallback = callbacksPerElement.get(entry.target);
+			if (typeof tagOrCallback === 'function') {
+				const tagOrCallbackResult = tagOrCallback({
 					target: entry.target,
 					rect: entry.intersectionRect,
-					time: entry.time,
-					type: mutationTag ?? 'unknown',
-					mutationData,
 				});
-				validEntries.push(new WeakRef(entry.target));
+				if (!tagOrCallbackResult) {
+					mutationTag = 'unknown';
+				} else if (typeof tagOrCallbackResult === 'string') {
+					mutationTag = tagOrCallbackResult;
+				} else {
+					mutationTag = tagOrCallbackResult.type;
+					mutationData = tagOrCallbackResult.mutationData;
+				}
+			} else if (typeof tagOrCallback === 'string') {
+				mutationTag = tagOrCallback;
+			}
 
-				callbacksPerElement.delete(entry.target);
-				observer.unobserve(entry.target);
+			onEntry({
+				target: entry.target,
+				rect: entry.intersectionRect,
+				time: entry.time,
+				type: mutationTag ?? 'unknown',
+				mutationData,
 			});
+			validEntries.push(new WeakRef(entry.target));
 
-			onObserved?.({
-				time: startTime,
-				elements: validEntries,
-			});
-		},
-	);
+			callbacksPerElement.delete(entry.target);
+			observer.unobserve(entry.target);
+		});
+
+		onObserved?.({
+			time: startTime,
+			elements: validEntries,
+		});
+	};
 
 	const observer = new IntersectionObserver(intersectionObserverCallback);
 

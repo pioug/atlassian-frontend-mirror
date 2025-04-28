@@ -11,6 +11,7 @@ import { useIntl } from 'react-intl-next';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import { ButtonItem, Section } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -73,7 +74,14 @@ export const ViewMore = ({ onClick, isFocused }: { onClick: () => void; isFocuse
 					ref={ref}
 					onClick={onClick}
 					iconBefore={<ShowMoreHorizontalIcon label="" />}
-					aria-describedby={formatMessage(messages.viewMore)}
+					aria-describedby={
+						fg('platform_editor_refactor_view_more') ? undefined : formatMessage(messages.viewMore)
+					}
+					aria-label={
+						fg('platform_editor_refactor_view_more')
+							? formatMessage(messages.viewMoreAriaLabel)
+							: undefined
+					}
 					data-testid="quick-insert-view-more-elements-item"
 				>
 					{formatMessage(messages.viewMore)}

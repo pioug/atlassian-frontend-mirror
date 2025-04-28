@@ -8,7 +8,12 @@ import { jsx } from '@emotion/react';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { RendererActionsContext } from '@atlaskit/renderer/actions';
-import { useRendererAnnotationProviders } from '@af/editor-examples-helpers/use-annotation-providers';
+import {
+	AnnotationsProvider,
+	CommentsContentProvider,
+	RendererAnnotationComponents,
+	useRendererAnnotationProviders,
+} from '@atlaskit/editor-test-helpers/annotation-example';
 
 import { RendererWithAnalytics as Renderer } from '../../';
 import * as docWithMultipleMarksAndAnnotations from '../__fixtures__/annotation-over-marks.adf.json';
@@ -189,19 +194,21 @@ export function RendererWithFilteredTextHighlighter() {
 	);
 }
 
-export function RendererWithAnnotationsOverMarks() {
+function RendererWithAnnotationsOverMarks() {
 	const rendererRef = useRef<HTMLDivElement>(null);
-	const rendererAnnotationProviders = useRendererAnnotationProviders({
-		invisibleViewComponent: true,
-	});
+	const annotationProviders = useRendererAnnotationProviders();
 	return (
 		<RendererActionsContext>
 			<AnnotationsWrapper
 				rendererRef={rendererRef}
 				adfDocument={docWithMultipleMarksAndAnnotations}
-				annotationProvider={rendererAnnotationProviders}
+				annotationProvider={annotationProviders}
 				isNestedRender={false}
 			>
+				<RendererAnnotationComponents
+					annotationProviders={annotationProviders}
+					invisibleViewComponent
+				/>
 				<RendererWithAnalytics
 					innerRef={rendererRef}
 					document={docWithMultipleMarksAndAnnotations}
@@ -210,5 +217,15 @@ export function RendererWithAnnotationsOverMarks() {
 				/>
 			</AnnotationsWrapper>
 		</RendererActionsContext>
+	);
+}
+
+export function RendererWithAnnotationsOverMarksWrapper() {
+	return (
+		<AnnotationsProvider>
+			<CommentsContentProvider>
+				<RendererWithAnnotationsOverMarks />
+			</CommentsContentProvider>
+		</AnnotationsProvider>
 	);
 }

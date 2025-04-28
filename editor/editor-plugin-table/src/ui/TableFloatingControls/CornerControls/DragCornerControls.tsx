@@ -7,7 +7,9 @@ import { injectIntl } from 'react-intl-next';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import type { TablePlugin } from '../../../tablePluginType';
@@ -71,7 +73,16 @@ const DragCornerControlsComponentWithSelection = ({
 	intl: { formatMessage },
 	api,
 }: CornerControlProps & WrappedComponentProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
-	const { selectionState } = useSharedPluginState(api, ['selection']);
+	// selection
+	const { selectionState } = useSharedPluginState(api, ['selection'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? selectionsSelector
+		: selectionState?.selection;
 
 	const handleOnClick = () => {
 		const { state, dispatch } = editorView;
@@ -83,15 +94,15 @@ const DragCornerControlsComponentWithSelection = ({
 		clearHoverSelection()(state, dispatch);
 	};
 	const isActive = useMemo(() => {
-		if (!selectionState?.selection) {
+		if (!selection) {
 			return;
 		}
-		const table = findTable(selectionState.selection);
+		const table = findTable(selection);
 		if (!table) {
 			return false;
 		}
-		return isTableSelected(selectionState.selection);
-	}, [selectionState]);
+		return isTableSelected(selection);
+	}, [selection]);
 
 	if (isResizing) {
 		return null;

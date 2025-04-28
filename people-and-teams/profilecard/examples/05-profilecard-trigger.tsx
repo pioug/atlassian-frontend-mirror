@@ -198,7 +198,7 @@ export default function Example() {
 					 * clicked so we can easily verify that it's not triggered when
 					 * clicking the profile card trigger.
 					 */}
-					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 					<span onClick={() => setCount((c) => c + 1)}>
 						Lorem ipsum. Parent clicked {clickCount} times!{' '}
 						<ProfileCardTrigger

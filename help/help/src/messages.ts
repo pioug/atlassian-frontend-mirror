@@ -287,4 +287,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Need more help?',
 		description: 'Need more help text',
 	},
+	help_whats_new_filter_select_label: {
+		id: 'help.whats_new.filter_select_label',
+		defaultMessage: `Select a Category`,
+		description: `Label for the "Release types" dropdown`,
+	}
 });

@@ -170,7 +170,7 @@ describe('smart-card: card states, embed', () => {
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
-			it('should re-render when URL changes', async () => {
+			it('should fetch again when URL changes', async () => {
 				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
@@ -193,7 +193,7 @@ describe('smart-card: card states, embed', () => {
 				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
-			it('should not re-render when appearance changes', async () => {
+			it('should not fetch again when appearance changes', async () => {
 				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>

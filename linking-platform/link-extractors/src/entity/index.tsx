@@ -18,9 +18,6 @@ export const isEntityPresent = (response?: SmartLinkResponse): boolean =>
 export const extractEntity = (response?: SmartLinkResponse): EntityType | undefined =>
 	response?.nounData;
 
-export const extractEntityTitle = (response?: SmartLinkResponse): string | undefined =>
-	extractEntity(response)?.displayName;
-
 export const extractEntityEmbedUrl = (response?: SmartLinkResponse): string | undefined => {
 	const entity = extractEntity(response);
 	if (entity && instanceOfDesignEntity(entity)) {
@@ -59,5 +56,19 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 		icon: providerIcon,
 		id,
 		image: image ? image : icon.url,
+	};
+};
+
+export const extractEntityIcon = (response?: SmartLinkResponse) => {
+	const entity = extractEntity(response);
+	let url: string | undefined;
+
+	if (instanceOfDesignEntity(entity)) {
+		url = entity?.['atlassian:design'].iconUrl;
+	}
+
+	return {
+		url,
+		label: entity?.displayName,
 	};
 };

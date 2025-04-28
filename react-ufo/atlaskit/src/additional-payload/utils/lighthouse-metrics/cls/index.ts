@@ -1,13 +1,8 @@
-import { withProfiling } from '../../../../self-measurements';
 import type { PerformanceEntryBuffer } from '../utils/buffer';
 
 import type { LayoutShiftPerformanceEntry } from './types';
 
-export const getCLS = withProfiling(function getCLS(
-	start: number,
-	stop: number,
-	buffer: PerformanceEntryBuffer,
-) {
+export function getCLS(start: number, stop: number, buffer: PerformanceEntryBuffer) {
 	const layoutShifts = buffer
 		.getAll()
 		.filter((entry) => entry.startTime >= start && entry.startTime <= stop);
@@ -48,4 +43,4 @@ export const getCLS = withProfiling(function getCLS(
 
 	// Return score of largest burst as CLS metric
 	return Math.round(maxScore * 10000) / 10000;
-});
+}

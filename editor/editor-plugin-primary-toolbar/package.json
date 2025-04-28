@@ -93,6 +93,9 @@
 		},
 		"platform_editor_insert_button_on_primary_toolbar": {
 			"type": "boolean"
+		},
+		"platform_editor_undo_redo_find_on_primary_toolbar": {
+			"type": "boolean"
 		}
 	}
 }

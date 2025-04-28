@@ -312,6 +312,13 @@ export const status = mem((init: CreateInit) =>
 	}),
 );
 
+/**
+ * @private
+ * @deprecated
+ * Deprecated as view more is not an item in the element browser.
+ * View more is implemented directly in the ViewMore component inside the StatelessElementBrowser when
+ * platform_editor_refactor_view_more is used.
+ */
 export const more = mem((init: CreateInit) =>
 	from({
 		content: init.content,

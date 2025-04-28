@@ -46,13 +46,14 @@ import type {
 
 const resizerLabelStyles = xcss({
 	position: 'absolute',
-	bottom: token('space.negative.400', '-32px'),
+	bottom: token('space.0', '0'),
 	width: '100%',
 	overflow: 'visible',
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
 	height: token('space.0', '0px'),
+	zIndex: 'layer', // 400 same z-index as the floating toolbar
 });
 
 export type ResizerProps = {

@@ -8,6 +8,7 @@ import RocketIcon from './common/sample-logo';
 
 const Example = () => {
 	return (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box onClick={(e: MouseEvent) => e.preventDefault()}>
 			<NavigationHeader>
 				<Header description="Next-gen software">Concise Systems</Header>

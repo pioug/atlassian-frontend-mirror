@@ -194,14 +194,19 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 					onKeyDown={(e) => {
 						onKeyDown(e);
 						if (e.key === 'Esc' || e.key === 'Escape') {
-							if (fg('platform-design-system-inline-edit-reset-on-escape')) {
-								reset();
-							}
+							reset();
 							onCancel();
 						}
 					}}
 					onSubmit={onSubmit}
 					ref={formRef}
+					// Below we have added a class name to the form element to prevent the default focus on the form element
+					// This is because due to some default focus being applied to the form element, the inline edit component
+					// was being focused automatically and causing scroll issues in issue view
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={
+						fg('platform_design_system_inline_edit_dont_focus') ? 'dont-default-focus' : undefined
+					}
 				>
 					{shouldBeEditing ? (
 						<Field

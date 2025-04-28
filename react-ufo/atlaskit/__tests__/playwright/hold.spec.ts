@@ -33,11 +33,11 @@ test.describe('ReactUFO: hold (basic)', () => {
 				expect(Array.isArray(interactionMetrics.holdInfo)).toBe(true);
 				expect(interactionMetrics.holdInfo.length).toBeGreaterThanOrEqual(10);
 
-				const lastHoldInfo = interactionMetrics.holdInfo[interactionMetrics.holdInfo.length - 1];
-				expect(typeof lastHoldInfo.labelStack).toBe('string');
-				expect(lastHoldInfo.labelStack.includes('section-ten')).toBe(true);
-
-				expect(lastHoldInfo.endTime as number).toMatchTimeInSeconds(interactionMetrics.end);
+				interactionMetrics.holdInfo.forEach((hold, index) => {
+					expect(hold.labelStack.endsWith(`section-${index + 1}`)).toBe(true);
+					expect(typeof hold.startTime).toBe('number');
+					expect(typeof hold.endTime).toBe('number');
+				});
 			});
 		});
 	}
@@ -76,11 +76,11 @@ test.describe('ReactUFO: hold (basic section below viewport)', () => {
 				expect(Array.isArray(interactionMetrics.holdInfo)).toBe(true);
 				expect(interactionMetrics.holdInfo.length).toBeGreaterThanOrEqual(3);
 
-				const lastHoldInfo = interactionMetrics.holdInfo[interactionMetrics.holdInfo.length - 1];
-				expect(typeof lastHoldInfo.labelStack).toBe('string');
-				expect(lastHoldInfo.labelStack.includes('section-three')).toBe(true);
-
-				expect(lastHoldInfo.endTime as number).toMatchTimeInSeconds(interactionMetrics.end);
+				interactionMetrics.holdInfo.forEach((hold, index) => {
+					expect(hold.labelStack.endsWith(`section-${index + 1}`)).toBe(true);
+					expect(typeof hold.startTime).toBe('number');
+					expect(typeof hold.endTime).toBe('number');
+				});
 			});
 		});
 	}

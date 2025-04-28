@@ -13,11 +13,10 @@ import {
 	updatePageLoadInteractionName,
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
-import { withProfiling } from '../self-measurements';
 
 const AWAITING_PAGELOAD_NAME = 'awaiting_pageload_name';
 
-const traceUFOPageLoad = withProfiling(function traceUFOPageLoad(
+function traceUFOPageLoad(
 	ufoName?: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
 ) {
@@ -61,11 +60,11 @@ const traceUFOPageLoad = withProfiling(function traceUFOPageLoad(
 		updatePageLoadInteractionName(ufoName, routeName);
 		removeHoldByID(activeInteraction.id, AWAITING_PAGELOAD_NAME);
 	}
-});
+}
 
 export default traceUFOPageLoad;
 
-export const updatePageloadName = withProfiling(function updatePageloadName(
+export function updatePageloadName(
 	ufoName: string,
 	routeName: string | null | undefined = ufoName,
 ) {
@@ -83,4 +82,4 @@ export const updatePageloadName = withProfiling(function updatePageloadName(
 		}
 	}
 	removeHoldByID(interaction.id, AWAITING_PAGELOAD_NAME);
-});
+}

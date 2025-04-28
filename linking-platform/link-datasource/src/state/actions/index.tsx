@@ -9,7 +9,6 @@ import type {
 	AtomicActionExecuteResponse,
 	AtomicActionInterface,
 } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type DatasourceOperationFailedAttributesType,
@@ -271,10 +270,7 @@ export const useExecuteAtomicAction = ({
 	executeFetch?: ExecuteFetch;
 } => {
 	const [{ schema, fetchSchema }] = useAtomicUpdateActionSchema({ ari, fieldKey, integrationKey });
-	const item = fg('enable_datasource_fetch_action_inputs')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useDatasourceItem({ id: ari })
-		: undefined;
+	const item = useDatasourceItem({ id: ari });
 
 	const { executeAtomicAction: executeAction, invalidateDatasourceDataCacheByAri } =
 		useDatasourceClientExtension();
@@ -336,14 +332,10 @@ export const useExecuteAtomicAction = ({
 			 * controlled inputs are useful for search fields, where a variable query is passed to the fetchAction
 			 */
 			let inputs = controlledInputs;
-			/**
-			 * When FF is on and `controlledInputs` are not provided we look for required inputs in the fetchSchema
-			 */
 			if (
 				!Object.keys(inputs).length &&
 				fetchSchema.inputs &&
-				!!Object.keys(fetchSchema.inputs).length &&
-				fg('enable_datasource_fetch_action_inputs')
+				!!Object.keys(fetchSchema.inputs).length
 			) {
 				const inputKeys = Object.keys(fetchSchema.inputs);
 				/**

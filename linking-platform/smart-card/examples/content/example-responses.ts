@@ -126,6 +126,18 @@ export const unicornResponse = {
 					hostname: 'some-hostname',
 				},
 			},
+			{
+				'@type': 'UpdateAction',
+				name: 'UpdateAction',
+				dataUpdateAction: {
+					'@type': 'UpdateAction',
+					name: 'FollowEntityAction',
+				},
+				resourceIdentifiers: {
+					ari: 'ari',
+				},
+				refField: 'button',
+			},
 		],
 		summary:
 			'This is a showcase of a link response that contains a vast amount of data. It is unlikely that a real link would have all these information. For example, a blog link would not have data for a pull request target branch.',

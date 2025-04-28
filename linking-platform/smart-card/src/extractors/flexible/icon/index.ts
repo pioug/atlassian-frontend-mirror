@@ -1,5 +1,7 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { extractEntityIcon, isEntityPresent } from '@atlaskit/link-extractors';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
+import { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { IconType, SmartLinkStatus } from '../../../constants';
 
@@ -37,4 +39,22 @@ export const extractErrorIcon = (response?: JsonLd.Response, status?: SmartLinkS
 		default:
 			return { icon: IconType.Default };
 	}
+};
+
+/**
+ * Should be moved to link-extractors when jsonLd is deprecated
+ */
+export const extractSmartLinkIcon = (
+	response?: SmartLinkResponse,
+	renderers?: CardProviderRenderers,
+) => {
+	if (!response || !response?.data) {
+		return undefined;
+	}
+
+	if (isEntityPresent(response)) {
+		return extractEntityIcon(response);
+	}
+
+	return extractLinkIcon(response, renderers);
 };

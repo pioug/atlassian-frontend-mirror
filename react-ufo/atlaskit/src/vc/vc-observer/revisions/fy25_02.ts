@@ -1,5 +1,4 @@
 import type { ComponentsLogType } from '../../../common/vc/types';
-import { withProfiling } from '../../../self-measurements';
 
 import { FY25_01Classifier } from './fy25_01';
 import type { FilterComponentsLogArgs } from './types';
@@ -37,7 +36,6 @@ export class FY25_02Classifier extends FY25_01Classifier {
 	constructor() {
 		super();
 		this.mergeConfig();
-		this.filterComponentsLog = withProfiling(this.filterComponentsLog.bind(this), ['vc']);
 	}
 }
 

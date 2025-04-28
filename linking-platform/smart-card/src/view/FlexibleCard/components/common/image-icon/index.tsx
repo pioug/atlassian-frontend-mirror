@@ -2,9 +2,7 @@ import React from 'react';
 
 import ImageLoader from 'react-render-image';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { LoadingSkeletonNew, LoadingSkeletonOld } from '../loading-skeleton';
+import { LoadingSkeleton } from '../loading-skeleton';
 
 import { type ImageIconProps } from './types';
 
@@ -19,27 +17,18 @@ const ImageIcon = ({
 }: ImageIconProps) => (
 	<ImageLoader
 		src={url}
-		{...(fg('platform-smart-card-icon-migration')
-			? {
-					loading: (
-						<LoadingSkeletonNew testId={`${testId}-loading`} width={width} height={height} />
-					),
-					loaded: (
-						<img
-							src={url}
-							data-testid={`${testId}-image`}
-							alt=""
-							style={{
-								width,
-								height,
-							}}
-						/>
-					),
-				}
-			: {
-					loading: <LoadingSkeletonOld testId={`${testId}-loading`} />,
-					loaded: <img src={url} data-testid={`${testId}-image`} alt="" />,
-				})}
+		loading={<LoadingSkeleton testId={`${testId}-loading`} width={width} height={height} />}
+		loaded={
+			<img
+				src={url}
+				data-testid={`${testId}-image`}
+				alt=""
+				style={{
+					width,
+					height,
+				}}
+			/>
+		}
 		errored={defaultIcon}
 		onError={onError}
 		onLoad={onLoad}

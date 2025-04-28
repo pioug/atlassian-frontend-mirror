@@ -170,6 +170,7 @@ export type ReactUFOPayload = {
 			'ufo:vc:size': { w: number; h: number };
 			'ufo:vc:time': number;
 
+			'ufo:vc:abort:reason'?: string;
 			'ufo:vc:state'?: boolean;
 			'ufo:vc:clean'?: boolean;
 			'metrics:vc'?: Record<VCParts, number>;

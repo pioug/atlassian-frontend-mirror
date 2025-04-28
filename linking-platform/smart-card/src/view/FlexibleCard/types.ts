@@ -1,8 +1,8 @@
 import { type MessageDescriptor } from 'react-intl-next';
 
-import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState, type LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
+import { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { type SmartLinkSize, type SmartLinkStatus, type SmartLinkTheme } from '../../constants';
@@ -188,7 +188,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 > & {
 	fireEvent?: FireEventFunction;
 	status?: SmartLinkStatus;
-	response?: JsonLd.Response;
+	response?: SmartLinkResponse;
 	resolve?: ResolveFunction;
 	featureFlags?: Partial<LinkingPlatformFeatureFlags>;
 	aiSummaryConfig?: AISummaryConfig;

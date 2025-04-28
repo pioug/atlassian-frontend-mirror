@@ -1,5 +1,21 @@
 # @atlaskit/inline-edit
 
+## 15.2.0
+
+### Minor Changes
+
+- [#144637](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144637)
+  [`873027dabff6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/873027dabff6e) -
+  [ux] Added class to handle default focus on form elements
+
+## 15.1.5
+
+### Patch Changes
+
+- [#145361](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145361)
+  [`db584fb973656`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db584fb973656) -
+  Clean up of FG platform-design-system-inline-edit-reset-on-escape
+
 ## 15.1.4
 
 ### Patch Changes

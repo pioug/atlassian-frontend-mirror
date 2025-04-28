@@ -195,7 +195,13 @@ export const toolbarInsertBlockMessages = defineMessages({
 	viewMore: {
 		id: 'fabric.editor.viewMore',
 		defaultMessage: 'View more',
-		description: '',
+		description: 'View more elements that can be inserted',
+	},
+	viewMoreAriaLabel: {
+		id: 'fabric.editor.viewMoreAriaLabel',
+		defaultMessage: 'View all elements',
+		description:
+			'A more descriptive aria label describing that users can view all the elements to be inserted.',
 	},
 	insertMenu: {
 		id: 'fabric.editor.insertMenu',

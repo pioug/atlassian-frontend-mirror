@@ -2,7 +2,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { getConfig } from '../config';
-import { markProfilingEnd, markProfilingStart, withProfiling } from '../self-measurements';
 
 import { VCObserverNOOP } from './no-op-vc-observer';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './types';
@@ -18,7 +17,6 @@ class VCObserverWrapper implements VCObserverInterface {
 	private newVCObserver: VCObserverNew | null;
 
 	constructor(opts: VCObserverOptions = {}) {
-		const operationTimer = markProfilingStart('VCObserverWrapper constructor');
 		this.newVCObserver = null;
 
 		const isNewVCObserverEnabled =
@@ -30,15 +28,6 @@ class VCObserverWrapper implements VCObserverInterface {
 		}
 
 		this.oldVCObserver = new VCObserver(opts);
-
-		this.start = withProfiling(this.start.bind(this), ['vc']);
-		this.stop = withProfiling(this.stop.bind(this), ['vc']);
-		this.getVCRawData = withProfiling(this.getVCRawData.bind(this), ['vc']);
-		this.getVCResult = withProfiling(this.getVCResult.bind(this), ['vc']);
-		this.setSSRElement = withProfiling(this.setSSRElement.bind(this), ['vc']);
-		this.setReactRootRenderStart = withProfiling(this.setReactRootRenderStart.bind(this), ['vc']);
-		this.setReactRootRenderStop = withProfiling(this.setReactRootRenderStop.bind(this), ['vc']);
-		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 	start(startArg: { startTime: number }): void {
 		this.oldVCObserver?.start(startArg);
@@ -86,41 +75,35 @@ let isServer = Boolean((globalThis as any)?.__SERVER__);
 // Other products set this other variable to indicate it is running in SSR
 let isReactSSR = typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR || false);
 
-export const isEnvironmentSupported = withProfiling(
-	function isEnvironmentSupported() {
-		// SSR environment aren't supported
-		if (isReactSSR || isServer) {
-			return false;
-		}
+export function isEnvironmentSupported() {
+	// SSR environment aren't supported
+	if (isReactSSR || isServer) {
+		return false;
+	}
 
-		// Legacy browsers that doesn't support WeakRef
-		// aren't valid
-		if (typeof globalThis?.WeakRef !== 'function') {
-			return false;
-		}
+	// Legacy browsers that doesn't support WeakRef
+	// aren't valid
+	if (typeof globalThis?.WeakRef !== 'function') {
+		return false;
+	}
 
-		if (
-			typeof globalThis?.MutationObserver !== 'function' ||
-			typeof globalThis?.IntersectionObserver !== 'function' ||
-			typeof globalThis?.PerformanceObserver !== 'function'
-		) {
-			return false;
-		}
+	if (
+		typeof globalThis?.MutationObserver !== 'function' ||
+		typeof globalThis?.IntersectionObserver !== 'function' ||
+		typeof globalThis?.PerformanceObserver !== 'function'
+	) {
+		return false;
+	}
 
-		return true;
-	},
-	['vc'],
-);
+	return true;
+}
 
-export const getVCObserver = withProfiling(
-	function getVCObserver(opts: VCObserverOptions = {}): VCObserverInterface {
-		if (!globalThis.__vcObserver) {
-			const shouldMockVCObserver = !isEnvironmentSupported();
-			globalThis.__vcObserver = shouldMockVCObserver
-				? new VCObserverNOOP()
-				: new VCObserverWrapper(opts);
-		}
-		return globalThis.__vcObserver;
-	},
-	['vc'],
-);
+export function getVCObserver(opts: VCObserverOptions = {}): VCObserverInterface {
+	if (!globalThis.__vcObserver) {
+		const shouldMockVCObserver = !isEnvironmentSupported();
+		globalThis.__vcObserver = shouldMockVCObserver
+			? new VCObserverNOOP()
+			: new VCObserverWrapper(opts);
+	}
+	return globalThis.__vcObserver;
+}

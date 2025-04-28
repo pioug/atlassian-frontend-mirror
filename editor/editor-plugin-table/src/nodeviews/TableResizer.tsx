@@ -19,6 +19,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -26,6 +27,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -211,8 +213,21 @@ export const TableResizer = ({
 	const isResizing = useRef(false);
 	const areResizeMetaKeysPressed = useRef(false);
 	const resizerRef = useRef<ResizerNextHandler>(null);
-	const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
-	const { widthToWidest } = tableState as TableSharedStateInternal;
+	const { tableState } = useSharedPluginState(pluginInjectionApi, ['table'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+
+	// widthToWidest
+	const widthToWidestSelector = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'table.widthToWidest' as never,
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	) as TableSharedStateInternal['widthToWidest'];
+	const widthToWidest = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? widthToWidestSelector
+		: (tableState as TableSharedStateInternal).widthToWidest;
 
 	// used to reposition tooltip when table is resizing via keyboard
 	const updateTooltip = React.useRef<() => void>();
@@ -254,9 +269,9 @@ export const TableResizer = ({
 	const excludeGuidelineConfig = useMemo(
 		() => ({
 			innerGuidelines: !!isTableAlignmentEnabled,
-			breakoutPoints: !!(isTableAlignmentEnabled && tableState?.isFullWidthModeEnabled),
+			breakoutPoints: !!(isTableAlignmentEnabled && isFullWidthModeEnabled),
 		}),
-		[tableState, isTableAlignmentEnabled],
+		[isFullWidthModeEnabled, isTableAlignmentEnabled],
 	);
 
 	const updateActiveGuidelines = useCallback(

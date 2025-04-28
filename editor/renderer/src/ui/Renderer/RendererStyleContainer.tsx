@@ -610,27 +610,27 @@ const listsSharedStyles = css({
 
 	[`${orderedListSelector}, ${bulletListSelector}`]: {
 		/*
-      Ensures list item content adheres to the list's margin instead
-      of filling the entire block row. This is important to allow
-      clicking interactive elements which are floated next to a list.
+	  Ensures list item content adheres to the list's margin instead
+	  of filling the entire block row. This is important to allow
+	  clicking interactive elements which are floated next to a list.
 
-      For some history and context on this block, see PRs related to tickets.:
-      @see ED-6551 - original issue.
-      @see ED-7015 - follow up issue.
-      @see ED-7447 - flow-root change.
+	  For some history and context on this block, see PRs related to tickets.:
+	  @see ED-6551 - original issue.
+	  @see ED-7015 - follow up issue.
+	  @see ED-7447 - flow-root change.
 
 	  used to have display: 'table' in tag template style but not supported in object styles
 	  removed display: 'table' as 'flow-root' is supported in latest browsers
 
-      @see https://css-tricks.com/display-flow-root/
-    */
+	  @see https://css-tricks.com/display-flow-root/
+	*/
 		display: 'flow-root',
 	},
 
 	/* =============== INDENTATION AESTHETICS ========= */
 	/**
-        We support nested lists up to six levels deep.
-    **/
+		We support nested lists up to six levels deep.
+	**/
 	/* LEGACY LISTS */
 	'ul, ul ul ul ul': {
 		listStyleType: 'disc',
@@ -1996,7 +1996,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 
 	if (fg('platform_editor_emotion_refactor_renderer')) {
 		return (
-			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div
 				ref={innerRef}
 				onClick={onClick}
@@ -2083,7 +2083,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		);
 	}
 	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			ref={innerRef}
 			onClick={onClick}

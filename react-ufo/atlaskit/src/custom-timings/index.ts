@@ -3,7 +3,6 @@ import { useContext, useMemo } from 'react';
 import UFOInteractionContext from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { addCustomTiming, getCurrentInteractionType } from '../interaction-metrics';
-import { withProfiling } from '../self-measurements';
 
 export type BM3Marks = { [key: string]: number };
 export type BM3TimingsConfig = {
@@ -12,10 +11,7 @@ export type BM3TimingsConfig = {
 	endMark?: string;
 };
 
-export const getBm3Timings = withProfiling(function getBm3Timings(
-	marks?: BM3Marks,
-	timingConfigs?: BM3TimingsConfig[],
-) {
+export function getBm3Timings(marks?: BM3Marks, timingConfigs?: BM3TimingsConfig[]) {
 	const bm3Timings: { [key: string]: { startTime: number; endTime: number } } = {};
 	if (!marks || !timingConfigs) {
 		return bm3Timings;
@@ -35,7 +31,7 @@ export const getBm3Timings = withProfiling(function getBm3Timings(
 		bm3Timings[item.key] = { startTime, endTime };
 	});
 	return bm3Timings;
-});
+}
 
 export function UFOBM3TimingsToUFO({
 	marks,
@@ -59,10 +55,7 @@ export function UFOBM3TimingsToUFO({
 	return null;
 }
 
-export const addBM3TimingsToUFO = withProfiling(function addBM3TimingsToUFO(
-	marks?: BM3Marks,
-	timingsConfig?: BM3TimingsConfig[],
-) {
+export function addBM3TimingsToUFO(marks?: BM3Marks, timingsConfig?: BM3TimingsConfig[]) {
 	const interactionId = getInteractionId().current;
 	if (interactionId) {
 		const interactionType = getCurrentInteractionType(interactionId);
@@ -72,4 +65,4 @@ export const addBM3TimingsToUFO = withProfiling(function addBM3TimingsToUFO(
 		const bm3Timings = getBm3Timings(marks, timingsConfig);
 		addCustomTiming(interactionId, [], bm3Timings);
 	}
-});
+}

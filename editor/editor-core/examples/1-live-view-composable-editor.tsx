@@ -2,11 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import {
-	EditorExampleControls,
-	getExamplesProviders,
-	useEditorAndRendererAnnotationProviders,
-} from '@af/editor-examples-helpers/utils';
+import { EditorExampleControls, getExamplesProviders } from '@af/editor-examples-helpers/utils';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
@@ -17,6 +13,7 @@ import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 // Commented out - see below
 import { selectionExtensionPlugin } from '@atlaskit/editor-plugin-selection-extension';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
+import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import AppIcon from '@atlaskit/icon/core/app';
@@ -46,7 +43,7 @@ function ComposableEditorPage() {
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
 	const providers = getExamplesProviders({});
 
-	const editorAndRendererAnnotationProviders = useEditorAndRendererAnnotationProviders();
+	const editorAnnotationProviders = useEditorAnnotationProviders();
 	const universalPreset = useUniversalPreset({
 		props: {
 			appearance,
@@ -97,7 +94,7 @@ function ComposableEditorPage() {
 			allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
 			allowFindReplace: true,
 			annotationProviders: {
-				inlineComment: editorAndRendererAnnotationProviders.editorAnnotationProviders.inlineComment,
+				inlineComment: editorAnnotationProviders.inlineComment,
 			},
 			media: {
 				provider: providers.mediaProvider,

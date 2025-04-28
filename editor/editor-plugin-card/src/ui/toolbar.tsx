@@ -298,7 +298,7 @@ const buildAlignmentOptions = (
 		);
 	}
 
-	const layoutButtons = buildLayoutButtons(
+	return buildLayoutButtons(
 		state,
 		intl,
 		state.schema.nodes.embedCard,
@@ -309,11 +309,6 @@ const buildAlignmentOptions = (
 		cardOptions?.allowWrapping,
 		cardOptions?.allowAlignment,
 	);
-
-	return editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_6')
-		? layoutButtons.filter((item) => item.type !== 'separator')
-		: layoutButtons;
 };
 
 const withToolbarMetadata = (command: Command) =>

@@ -25,13 +25,7 @@ import {
 	wrapperStyle,
 } from '@atlaskit/editor-common/styles';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
-import {
-	Popup,
-	TableSelectorPopup,
-	ToolbarButtonGroup,
-	ToolbarDropdownWrapper,
-	ToolbarSeparator,
-} from '@atlaskit/editor-common/ui';
+import { Popup, TableSelectorPopup } from '@atlaskit/editor-common/ui';
 import type { MenuItem, ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import {
@@ -439,45 +433,6 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		const { isDisabled, isReducedSpacing, editorAppearance } = this.props;
 		const isFullPageAppearance = ['full-page', 'full-width'].includes(editorAppearance ?? '');
 
-		if (
-			isFullPageAppearance &&
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_insert_button_on_primary_toolbar')
-		) {
-			return (
-				<ToolbarButtonGroup>
-					<ToolbarDropdownWrapper>
-						{this.renderPopup()}
-						{this.renderTableSelectorPopup()}
-						<BlockInsertMenu
-							popupsMountPoint={this.props.popupsMountPoint}
-							popupsBoundariesElement={this.props.popupsBoundariesElement}
-							popupsScrollableElement={this.props.popupsScrollableElement}
-							disabled={this.props.isDisabled ?? false}
-							editorView={this.props.editorView}
-							spacing={this.props.isReducedSpacing ? 'none' : 'default'}
-							label={this.props.intl.formatMessage(messages.insertMenu)}
-							open={this.state.isPlusMenuOpen}
-							plusButtonRef={this.plusButtonRef?.deref()}
-							items={this.state.dropdownItems}
-							onRef={this.handleDropDownButtonRef}
-							onPlusButtonRef={this.handlePlusButtonRef}
-							onClick={this.handleClick}
-							onKeyDown={this.handleOpenByKeyboard}
-							onItemActivated={this.insertInsertMenuItem}
-							onInsert={this.insertInsertMenuItem as OnInsert}
-							onOpenChange={this.onOpenChange}
-							togglePlusMenuVisibility={this.togglePlusMenuVisibility}
-							showElementBrowserLink={this.props.showElementBrowserLink || false}
-							pluginInjectionApi={this.props.pluginInjectionApi}
-							isFullPageAppearance={isFullPageAppearance}
-						/>
-					</ToolbarDropdownWrapper>
-					<ToolbarSeparator />
-				</ToolbarButtonGroup>
-			);
-		}
-
 		const isTableButtonVisible = buttons.some(({ value }) => value.name === 'table');
 
 		const isTableSizeVisible = buttons.some(({ value }) => value.name === 'table selector');
@@ -612,7 +567,10 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 						isFullPageAppearance={isFullPageAppearance}
 					/>
 				</span>
-				{!this.props.pluginInjectionApi?.primaryToolbar && this.props.showSeparator && (
+				{((!this.props.pluginInjectionApi?.primaryToolbar && this.props.showSeparator) ||
+					(isFullPageAppearance &&
+						editorExperiment('platform_editor_controls', 'variant1') &&
+						fg('platform_editor_insert_button_on_primary_toolbar'))) && (
 					/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<span css={separatorStyles} />
@@ -874,7 +832,15 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 				this.insertHorizontalRule(inputMethod);
 				break;
 			case 'macro':
-				this.openElementBrowser();
+				/**
+				 * Remove 'macro' case when cleaning up platform_editor_refactor_view_more
+				 * along with the 'more' function from platform/packages/editor/editor-plugin-insert-block/src/ui/ToolbarInsertBlock/item.tsx
+				 * as it will no longer be needed for the View More button.
+				 * This will also reduce confusion from the 'macro' naming.
+				 */
+				if (!fg('platform_editor_refactor_view_more')) {
+					this.openElementBrowser();
+				}
 				break;
 			case 'date':
 				this.createDate(inputMethod);

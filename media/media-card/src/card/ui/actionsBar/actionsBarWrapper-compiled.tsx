@@ -30,7 +30,7 @@ const fixedActionBarStyle = css({
 
 export const ActionsBarWrapper = (props: ActionBarWrapperProps) => {
 	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			id="actionsBarWrapper"
 			data-testId="actionsBarWrapper"

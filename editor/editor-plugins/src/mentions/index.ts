@@ -8,4 +8,5 @@ export type {
 	MentionPluginOptions,
 	MentionsPluginOptions,
 	MentionSharedState,
+	MentionsChangedHandler,
 } from '@atlaskit/editor-plugin-mentions';

@@ -20,18 +20,20 @@ export interface MentionPluginConfig {
 	profilecardProvider?: Promise<ProfilecardProvider>;
 }
 
+export type MentionsChangedHandler = (
+	changes: {
+		type: 'added' | 'deleted';
+		localId: string;
+		id: string;
+		taskLocalId?: string;
+	}[],
+) => void;
+
 export interface MentionsPluginOptions extends MentionPluginConfig {
 	mentionProvider?: Providers['mentionProvider'];
 	sanitizePrivateContent?: boolean;
 	allowZeroWidthSpaceAfter?: boolean;
-	handleMentionsChanged?: (
-		mentionChanges: {
-			type: 'added' | 'deleted';
-			localId: string;
-			id: string;
-			taskLocalId?: string;
-		}[],
-	) => void;
+	handleMentionsChanged?: MentionsChangedHandler;
 }
 
 /**

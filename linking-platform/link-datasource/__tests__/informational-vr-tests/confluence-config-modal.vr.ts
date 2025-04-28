@@ -16,7 +16,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	description: 'Last Updated filter open state',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-update-sllv-icons': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -32,7 +31,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	description: 'Last Updated filter open state with custom date pickers',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-update-sllv-icons': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -45,7 +43,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	description: 'Edited/Created by CLOL filter in open state',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-update-sllv-icons': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

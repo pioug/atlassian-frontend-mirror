@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotErrorSearch } from '../../../common/ui/spot/error-state/search';
 
-import { LoadingErrorSVGOld } from './loading-error-svg-old';
 import { loadingErrorMessages } from './messages';
 
 const styles = cssMap({
@@ -92,11 +91,7 @@ export const LoadingError = ({ onRefresh, url }: LoadingErrorProps) => {
 				}
 				testId="datasource--loading-error"
 			>
-				{fg('bandicoots-update-sllv-icons') ? (
-					<SpotErrorSearch size={'xlarge'} alt="" />
-				) : (
-					<LoadingErrorSVGOld />
-				)}
+				<SpotErrorSearch size={'xlarge'} alt="" />
 				<Box xcss={styles.errorMessageContainerStyles}>
 					<Inline as="span" xcss={styles.errorMessageStyles}>
 						{fg('platform-linking-visual-refresh-sllv') ? (

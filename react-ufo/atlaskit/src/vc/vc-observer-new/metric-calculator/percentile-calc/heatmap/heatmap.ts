@@ -1,8 +1,3 @@
-import {
-	markProfilingEnd,
-	markProfilingStart,
-	withProfiling,
-} from '../../../../../self-measurements';
 import type { VCObserverEntry } from '../../../types';
 import isViewportEntryData from '../../utils/is-viewport-entry-data';
 import taskYield from '../../utils/task-yield';
@@ -19,39 +14,30 @@ import {
 
 const MAX_HEATMAP_SIZE = 1000;
 
-const createEmptyHeatmapEntry = withProfiling(
-	function createEmptyHeatmapEntry(): HeatmapEntry {
-		return {
-			head: null,
-			previousEntries: [],
-		};
-	},
-	['vc'],
-);
+function createEmptyHeatmapEntry(): HeatmapEntry {
+	return {
+		head: null,
+		previousEntries: [],
+	};
+}
 
-const createEmptyMap = withProfiling(
-	function createEmptyMap(heatmapWidth: number, heatmapHeight: number) {
-		return Array.from({ length: heatmapHeight }).map(() =>
-			Array.from({ length: heatmapWidth }).map(createEmptyHeatmapEntry),
-		);
-	},
-	['vc'],
-);
+function createEmptyMap(heatmapWidth: number, heatmapHeight: number) {
+	return Array.from({ length: heatmapHeight }).map(() =>
+		Array.from({ length: heatmapWidth }).map(createEmptyHeatmapEntry),
+	);
+}
 
-const isRectInside = withProfiling(
-	function isRectInside(
-		a: HeatmapRect | null | undefined,
-		b: HeatmapRect | null | undefined,
-	): boolean {
-		if (!a || !b) {
-			return false;
-		}
+function isRectInside(
+	a: HeatmapRect | null | undefined,
+	b: HeatmapRect | null | undefined,
+): boolean {
+	if (!a || !b) {
+		return false;
+	}
 
-		// Check if all corners of rectangle a are within the bounds of rectangle b
-		return a.left >= b.left && a.right <= b.right && a.top >= b.top && a.bottom <= b.bottom;
-	},
-	['vc'],
-);
+	// Check if all corners of rectangle a are within the bounds of rectangle b
+	return a.left >= b.left && a.right <= b.right && a.top >= b.top && a.bottom <= b.bottom;
+}
 
 export default class Heatmap {
 	private viewport: Viewport;
@@ -76,8 +62,6 @@ export default class Heatmap {
 	private map: Array<Array<HeatmapEntry>>;
 
 	constructor({ viewport, heatmapSize }: HeatmapOptions) {
-		const operationTimer = markProfilingStart('Heatmap constructor');
-
 		// TODO timeOrigin? do we need? for SSR??
 		this.viewport = viewport;
 
@@ -110,14 +94,6 @@ export default class Heatmap {
 		this.heatmapAreaSize = this.width * this.height;
 
 		this.map = createEmptyMap(this.width, this.height);
-
-		this.getHeatmap = withProfiling(this.getHeatmap.bind(this), ['vc']);
-		this.getCell = withProfiling(this.getCell.bind(this), ['vc']);
-		this.mapDOMRectToHeatmap = withProfiling(this.mapDOMRectToHeatmap.bind(this), ['vc']);
-		this.getRatio = withProfiling(this.getRatio.bind(this), ['vc']);
-		this.applyEntriesToHeatmap = withProfiling(this.applyEntriesToHeatmap.bind(this), ['vc']);
-		this.getVCPercentMetrics = withProfiling(this.getVCPercentMetrics.bind(this), ['vc']);
-		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	getHeatmap() {

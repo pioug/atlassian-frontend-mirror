@@ -11,8 +11,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	makeCustomActionItem,
@@ -554,59 +552,28 @@ describe('TitleBlock', () => {
 		);
 	});
 
-	ffTest.both('platform-smart-card-icon-migration', 'platform-smart-card-icon-migration', () => {
-		describe('with loading skeleton', () => {
-			it.each<[SmartLinkSize, string, string]>([
-				[SmartLinkSize.XLarge, '2rem', 'var(--ds-space-300)'],
-				[SmartLinkSize.Large, '1.5rem', 'var(--ds-space-300)'],
-				[SmartLinkSize.Medium, '1rem', 'var(--ds-space-200)'],
-				[SmartLinkSize.Small, '.75rem', 'var(--ds-space-200)'],
-			])(
-				'renders by size %s',
-				async (size: SmartLinkSize, dimensionOld: string, dimensionNew: string) => {
-					const LoadingSkeletonNewMock = jest.spyOn(LoadingSkeletonBundle, 'LoadingSkeletonNew');
+	describe('with loading skeleton', () => {
+		it.each<[SmartLinkSize, string]>([
+			[SmartLinkSize.XLarge, 'var(--ds-space-300)'],
+			[SmartLinkSize.Large, 'var(--ds-space-300)'],
+			[SmartLinkSize.Medium, 'var(--ds-space-200)'],
+			[SmartLinkSize.Small, 'var(--ds-space-200)'],
+		])('renders by size %s', async (size: SmartLinkSize, dimension: string) => {
+			const LoadingSkeletonNewMock = jest.spyOn(LoadingSkeletonBundle, 'LoadingSkeleton');
+			LoadingSkeletonNewMock.mockClear();
 
-					LoadingSkeletonNewMock.mockClear();
+			renderTitleBlock({
+				size,
+				status: SmartLinkStatus.Resolving,
+			});
 
-					const LoadingSkeletonOldMock = jest.spyOn(LoadingSkeletonBundle, 'LoadingSkeletonOld');
-
-					LoadingSkeletonOldMock.mockClear();
-
-					renderTitleBlock({
-						size,
-						status: SmartLinkStatus.Resolving,
-					});
-
-					const dimension = fg('platform-smart-card-icon-migration') ? dimensionNew : dimensionOld;
-
-					const icon = await screen.findByTestId('smart-block-title-icon');
-					const loadingSkeleton = await screen.findByTestId('smart-block-title-icon-loading');
-
-					if (
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						fg('platform-smart-card-icon-migration')
-					) {
-						expect(LoadingSkeletonNewMock).toHaveBeenCalledWith(
-							{
-								width: dimension,
-								height: dimension,
-								testId: 'smart-block-title-icon-loading',
-							},
-							{},
-						);
-					} else if (!fg('platform-smart-card-icon-migration')) {
-						expect(LoadingSkeletonOldMock).toHaveBeenCalledWith(
-							{
-								testId: 'smart-block-title-icon-loading',
-							},
-							{},
-						);
-					} else {
-						expect(icon).toHaveStyleDeclaration('width', dimension);
-						expect(icon).toHaveStyleDeclaration('height', dimension);
-						expect(loadingSkeleton).toBeDefined();
-					}
+			expect(LoadingSkeletonNewMock).toHaveBeenCalledWith(
+				{
+					width: dimension,
+					height: dimension,
+					testId: 'smart-block-title-icon-loading',
 				},
+				{},
 			);
 		});
 	});

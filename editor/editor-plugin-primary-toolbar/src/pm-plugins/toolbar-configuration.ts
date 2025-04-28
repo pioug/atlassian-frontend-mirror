@@ -22,8 +22,8 @@ export const getToolbarComponents = ({
 		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 	) {
 		const shouldShowInsertBlock = fg('platform_editor_insert_button_on_primary_toolbar');
-		const shouldShowUndoRedoGroup = !fg('platform_editor_controls_move_actions');
-		const shouldShowFindGroup = !fg('platform_editor_controls_move_actions');
+		const shouldShowUndoRedoGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
+		const shouldShowFindGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
 		configuration = toolbarConfigurationV2(
 			shouldShowInsertBlock,
 			shouldShowUndoRedoGroup,

@@ -18,7 +18,7 @@ export function DateNodeView(props: InlineNodeViewComponentProps) {
 	const { displayString, color } = getDateInformation(timestamp, intl, props.view.state, pos);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/no-classname-prop, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
 		<span className={DateSharedCssClassName.DATE_WRAPPER} onClick={handleClick}>
 			<Date color={color} value={timestamp}>
 				{displayString}

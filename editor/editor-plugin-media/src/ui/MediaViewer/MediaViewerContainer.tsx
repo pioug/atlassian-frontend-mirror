@@ -69,7 +69,7 @@ export const MediaViewerContainer = ({
 			{isEditorViewMode ? (
 				<Fragment>
 					{isInline ? (
-						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 						<span
 							onClick={showMediaViewer}
 							css={interactiveStyles}
@@ -78,7 +78,7 @@ export const MediaViewerContainer = ({
 							{children}
 						</span>
 					) : (
-						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 						<div
 							onClick={showMediaViewer}
 							css={interactiveStyles}

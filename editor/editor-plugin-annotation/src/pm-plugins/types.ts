@@ -90,12 +90,50 @@ export type InlineCommentAction =
 	  };
 
 export type InlineCommentPluginState = {
+	/**
+	 * The resolved state of the annotations.
+	 *
+	 * The keys are the annotation ids, and the values are booleans indicating whether the annotation is resolved or not.
+	 *
+	 * The annotation is only considered unresolved if the value is false. An undefined value is treated as resolved.
+	 * This is because the editor does not know yet the resolved state of the annotation, and so it is treated as resolved until
+	 * the editor receives the resolved state from the server. (see dirtyAnnotations for more details)
+	 *
+	 * Example value
+	 * ```
+	 * {
+	 *   // resolved comments
+	 *   'annotation-id': true,
+	 *   'annotation-id-3': undefined,
+	 *   // unresolved comment
+	 *   'annotation-id-2': false,
+	 *  }
+	 * ```
+	 */
 	annotations: InlineCommentMap;
+	/**
+	 * A list of the annotations at the current selection.
+	 *
+	 * While this is a list, consumers only make use of the first element, and from the
+	 * user perspective, there is only one annotation selected at a time.
+	 */
 	selectedAnnotations: AnnotationInfo[];
+	/**
+	 * Indicates the document has annotations which it does not currently know the resolved state of.
+	 * This can happen when the annotations are loaded via ncs, and the editor has not received the
+	 * resolved state of the annotations yet (as the resolved state comes from a separate service).
+	 */
 	dirtyAnnotations?: boolean;
 	mouseData: InlineCommentMouseData;
 	draftDecorationSet?: DecorationSet;
 	bookmark?: SelectionBookmark;
+	/**
+	 * Warning: This is not the state of annotations which are currently being hovered over,
+	 * but rather the annotations which have been given a selected like visual state from an
+	 * editor api.
+	 * The Comment consumer does this when browsing comments in the sidebar, where it sets
+	 * a "hovered" state on the annotation, while the comment is hovered in the sidebar.
+	 */
 	hoveredAnnotations?: AnnotationInfo[];
 
 	// Denotes if annotations are allowed to be create on empty nodes or nodes of whitespace (Confluence spec)

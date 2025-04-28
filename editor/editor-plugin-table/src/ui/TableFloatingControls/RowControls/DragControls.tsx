@@ -4,6 +4,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -11,6 +12,7 @@ import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
@@ -385,7 +387,16 @@ export const DragControlsWithSelection = ({
 	updateCellHoverLocation,
 	api,
 }: Exclude<DragControlsProps, 'selection'>) => {
-	const { selectionState } = useSharedPluginState(api, ['selection']);
+	// selection
+	const { selectionState } = useSharedPluginState(api, ['selection'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? selectionsSelector
+		: selectionState?.selection;
 
 	return (
 		<DragControls
@@ -403,7 +414,7 @@ export const DragControlsWithSelection = ({
 			selectRows={selectRows}
 			updateCellHoverLocation={updateCellHoverLocation}
 			api={api}
-			selection={selectionState?.selection}
+			selection={selection}
 		/>
 	);
 };

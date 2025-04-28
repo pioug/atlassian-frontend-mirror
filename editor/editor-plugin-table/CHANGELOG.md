@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.6
+
+### Patch Changes
+
+- [#145707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145707)
+  [`efae19bca16cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efae19bca16cb) -
+  Enable useSharedPluginStateSelector in Table
+
+## 10.9.5
+
+### Patch Changes
+
+- [#145710](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145710)
+  [`0cccd72c0228f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cccd72c0228f) -
+  ED-27559 Enable useSharedPluginStateSelector in Table
+
+## 10.9.4
+
+### Patch Changes
+
+- [#145762](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145762)
+  [`e6f1c6c538e39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6f1c6c538e39) -
+  Enable useSharedPluginStateSelector in Table
+
 ## 10.9.3
 
 ### Patch Changes

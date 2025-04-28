@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "5.4.19",
+	"version": "5.4.20",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -116,9 +116,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"linking-platform-contenteditable-false-live-view": {
-			"type": "boolean"
-		},
 		"editor_inline_comments_paste_insert_nodes": {
 			"type": "boolean"
 		},

@@ -1,12 +1,8 @@
 import { addError, getActiveInteraction, type InteractionError } from '../interaction-metrics';
-import { withProfiling } from '../self-measurements';
 
 type InteractionErrorManual = Pick<InteractionError, 'errorMessage' | 'name'>;
 
-export const setInteractionError = withProfiling(function setInteractionError(
-	interactionName: string,
-	error: InteractionErrorManual,
-) {
+export function setInteractionError(interactionName: string, error: InteractionErrorManual) {
 	const interaction = getActiveInteraction();
 	if (!interaction) {
 		return;
@@ -23,4 +19,4 @@ export const setInteractionError = withProfiling(function setInteractionError(
 		undefined,
 		true,
 	);
-});
+}

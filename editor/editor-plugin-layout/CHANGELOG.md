@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.6.1
+
+### Patch Changes
+
+- [#145340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145340)
+  [`21717a29553b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21717a29553b2) -
+  Switching from 5, 4, 3 empty columns layout to 1 column should work
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

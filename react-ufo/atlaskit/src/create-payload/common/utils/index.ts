@@ -1,5 +1,4 @@
 import type { LabelStack, SegmentLabel } from '../../../interaction-context';
-import { withProfiling } from '../../../self-measurements';
 import { getReactUFOPayloadVersion } from '../../utils/get-react-ufo-payload-version';
 
 export type SegmentItem = {
@@ -11,17 +10,15 @@ export type SegmentTree = {
 	r: SegmentItem;
 };
 
-export const sanitizeUfoName = withProfiling(function sanitizeUfoName(name: string) {
+export function sanitizeUfoName(name: string) {
 	return name.replace(/_/g, '-');
-});
+}
 
-export const isSegmentLabel = withProfiling(function isSegmentLabel(obj: any): obj is SegmentLabel {
+export function isSegmentLabel(obj: any): obj is SegmentLabel {
 	return obj && typeof obj.name === 'string' && typeof obj.segmentId === 'string';
-});
+}
 
-export const buildSegmentTree = withProfiling(function buildSegmentTree(
-	labelStacks: LabelStack[],
-): SegmentTree {
+export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 	const r: SegmentItem = { n: 'segment-tree-root', c: {} };
 	labelStacks.forEach((labelStack) => {
 		let currentNode = r;
@@ -39,11 +36,9 @@ export const buildSegmentTree = withProfiling(function buildSegmentTree(
 		});
 	});
 	return { r };
-});
+}
 
-export const stringifyLabelStackFully = withProfiling(function stringifyLabelStackFully(
-	labelStack: LabelStack,
-): string {
+export function stringifyLabelStackFully(labelStack: LabelStack): string {
 	return labelStack
 		.map((l) => {
 			if (isSegmentLabel(l)) {
@@ -52,22 +47,17 @@ export const stringifyLabelStackFully = withProfiling(function stringifyLabelSta
 			return l.name;
 		})
 		.join('/');
-});
+}
 
-const getLabelStackReference = withProfiling(function getLabelStackReference(
-	labelStack: LabelStack,
-): string {
+function getLabelStackReference(labelStack: LabelStack): string {
 	return labelStack.map((l) => (isSegmentLabel(l) ? l.segmentId : l.name)).join('/');
-});
+}
 
-export const labelStackStartWith = withProfiling(function labelStackStartWith(
-	labelStack: LabelStack,
-	startWith: LabelStack,
-) {
+export function labelStackStartWith(labelStack: LabelStack, startWith: LabelStack) {
 	return stringifyLabelStackFully(labelStack).startsWith(stringifyLabelStackFully(startWith));
-});
+}
 
-export const optimizeLabelStack = withProfiling(function optimizeLabelStack(
+export function optimizeLabelStack(
 	labelStack: LabelStack,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
 ) {
@@ -77,4 +67,4 @@ export const optimizeLabelStack = withProfiling(function optimizeLabelStack(
 				n: ls.name,
 				...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
 			}));
-});
+}

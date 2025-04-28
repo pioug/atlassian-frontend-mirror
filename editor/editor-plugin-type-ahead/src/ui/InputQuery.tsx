@@ -548,14 +548,14 @@ export const InputQuery = React.memo(
 		const intl = useIntl();
 
 		/**
-      When we migrated to emotion from styled component, we started getting this error.
-      jsx-a11y/interactive-supports-focus
-      Task added in https://product-fabric.atlassian.net/wiki/spaces/E/pages/3182068181/Potential+improvements#Moderate-changes.
-     */
+	  When we migrated to emotion from styled component, we started getting this error.
+	  jsx-a11y/interactive-supports-focus
+	  Task added in https://product-fabric.atlassian.net/wiki/spaces/E/pages/3182068181/Potential+improvements#Moderate-changes.
+	 */
 		return (
 			<Fragment>
 				{triggerQueryPrefix}
-				{/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
+				{/* eslint-disable-next-line jsx-a11y/interactive-supports-focus, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<span
 					css={[
 						querySpanStyles,

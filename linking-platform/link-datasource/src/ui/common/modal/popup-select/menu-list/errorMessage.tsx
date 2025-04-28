@@ -3,15 +3,11 @@ import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N500 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { type ErrorShownBasicSearchDropdownAttributesType } from '../../../../../analytics/generated/analytics.types';
 import { SpotError } from '../../../../../common/ui/spot/error-state/error';
-import { SpotErrorOld } from '../../../../../common/ui/spot/error-state/error-old';
 import { SEARCH_DEBOUNCE_MS } from '../constants';
 
 import { asyncPopupSelectMessages } from './messages';
@@ -33,8 +29,6 @@ const getErrorReasonType = (
 	return 'unknown';
 };
 
-const noop = () => '';
-
 const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors?: unknown[] }) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -51,27 +45,12 @@ const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors
 
 	useEffect(debouncedAnalyticsCallback, [debouncedAnalyticsCallback]);
 
-	const { formatMessage } = fg('bandicoots-update-sllv-icons')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIntl()
-		: { formatMessage: noop };
+	const { formatMessage } = useIntl();
 
 	return (
 		<CustomSelectMessage
 			icon={
-				fg('platform-linking-visual-refresh-sllv') ? (
-					<SpotError size="large" alt={formatMessage(asyncPopupSelectMessages.errorMessage)} />
-				) : fg('bandicoots-update-sllv-icons') ? (
-					<SpotErrorOld
-						size={'medium'}
-						alt={formatMessage(asyncPopupSelectMessages.errorMessageOld)}
-					/>
-				) : (
-					<>
-						{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
-						<ErrorIcon primaryColor={token('color.icon', N500)} label="" size="xlarge" />
-					</>
-				)
+				<SpotError size={'medium'} alt={formatMessage(asyncPopupSelectMessages.errorMessage)} />
 			}
 			message={
 				fg('platform-linking-visual-refresh-sllv')

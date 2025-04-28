@@ -84,12 +84,16 @@ type XOR<T1, T2, T3> =
 
 type ActionsTarget = XOR<{ ari: string }, { url: string }, { id: string }>;
 
+type SupportedActionInputPrimitives = string | number | boolean;
+
 export interface AtomicActionExecuteRequest {
 	integrationKey: string; // eg: jira
 	actionKey: string; // eg: atlassian:work-item:update:summary
 	parameters: {
 		inputs: {
-			[key: string]: string | number;
+			[key: string]:
+				| SupportedActionInputPrimitives
+				| Record<string, SupportedActionInputPrimitives>;
 		};
 		target: ActionsTarget;
 	};

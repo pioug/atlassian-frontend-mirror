@@ -1,5 +1,4 @@
 import type { ResourceEntry } from '../resource-timing/common/types';
-import { withProfiling } from '../self-measurements';
 
 /* Borrowed from https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/performance/browser-metrics/src/plugins/timings/resource.ts */
 export const cacheableTypes = ['script', 'link', 'other'];
@@ -10,7 +9,7 @@ export const DISK_KEY = 'disk';
 
 export const NETWORK_KEY = 'net';
 
-export const calculateTransferType = withProfiling(function calculateTransferType(
+export function calculateTransferType(
 	name: string,
 	type: string,
 	duration: number,
@@ -31,12 +30,9 @@ export const calculateTransferType = withProfiling(function calculateTransferTyp
 	}
 
 	return NETWORK_KEY;
-});
+}
 
-export const getTypeOfRequest = withProfiling(function getTypeOfRequest({
-	name,
-	initiatorType: type,
-}: ResourceEntry) {
+export function getTypeOfRequest({ name, initiatorType: type }: ResourceEntry) {
 	let category = 'other';
 	const urlWithoutQuery = name.split('?')[0];
 
@@ -71,11 +67,9 @@ export const getTypeOfRequest = withProfiling(function getTypeOfRequest({
 			break;
 	}
 	return category;
-});
+}
 
-export const checkIfTimingsAvailable = withProfiling(function checkIfTimingsAvailable(
-	entry: ResourceEntry,
-) {
+export function checkIfTimingsAvailable(entry: ResourceEntry) {
 	if (
 		entry.decodedSize === 0 &&
 		entry.encodedSize === 0 &&
@@ -86,11 +80,11 @@ export const checkIfTimingsAvailable = withProfiling(function checkIfTimingsAvai
 	}
 
 	return true;
-});
+}
 
-export const round = withProfiling(function round(n: number) {
+export function round(n: number) {
 	if (isNaN(n)) {
 		return 0;
 	}
 	return Math.round(n * 10000) / 10000;
-});
+}

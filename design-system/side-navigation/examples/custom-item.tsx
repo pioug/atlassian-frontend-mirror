@@ -18,6 +18,7 @@ const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>((props: CustomProp
 });
 
 const Example = () => (
+	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 	<Box onClick={(e: MouseEvent) => e.preventDefault()}>
 		<CustomItem href="/create-article-1" component={CustomLink}>
 			Custom create article

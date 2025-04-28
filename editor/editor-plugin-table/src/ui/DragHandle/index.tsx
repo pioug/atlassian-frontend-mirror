@@ -11,11 +11,13 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable, TableMap } from '@atlaskit/editor-tables';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
@@ -327,9 +329,31 @@ const DragHandleComponentWithSharedState = ({
 	intl,
 	api,
 }: DragHandleWithSharedStateProps & WrappedComponentProps) => {
-	const { tableState } = useSharedPluginState(api, ['table']) as {
+	const { tableState } = useSharedPluginState(api, ['table'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	}) as {
 		tableState?: TableSharedStateInternal;
 	};
+
+	// hoveredColumns
+	const hoveredColumnsSelector = useSharedPluginStateSelector(
+		api,
+		'table.hoveredColumns' as never,
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	) as TableSharedStateInternal['hoveredColumns'];
+	const hoveredColumns = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? hoveredColumnsSelector
+		: tableState?.hoveredColumns;
+
+	// hoveredRows
+	const hoveredRowsSelector = useSharedPluginStateSelector(api, 'table.hoveredRows' as never, {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	}) as TableSharedStateInternal['hoveredRows'];
+	const hoveredRows = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? hoveredRowsSelector
+		: tableState?.hoveredRows;
 
 	return (
 		<DragHandleComponent
@@ -348,8 +372,8 @@ const DragHandleComponentWithSharedState = ({
 			onClick={onClick}
 			editorView={editorView}
 			intl={intl}
-			hoveredColumns={tableState?.hoveredColumns}
-			hoveredRows={tableState?.hoveredRows}
+			hoveredColumns={hoveredColumns}
+			hoveredRows={hoveredRows}
 		/>
 	);
 };

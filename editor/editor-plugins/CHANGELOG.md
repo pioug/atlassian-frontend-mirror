@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugins
 
+## 8.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [#145336](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145336)
+  [`7c22413232131`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c22413232131) -
+  [https://product-fabric.atlassian.net/browse/ED-27657](ED-27657) - move the `mentions` and
+  `tasksAndDecisions` plugins configuration to `@atlassian/confluence-presets` package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.15
 
 ### Patch Changes

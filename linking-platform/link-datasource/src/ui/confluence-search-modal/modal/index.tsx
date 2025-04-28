@@ -10,6 +10,7 @@ import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { DatasourceAction, DatasourceSearchMethod } from '../../../analytics/types';
@@ -46,7 +47,6 @@ import {
 	type ConnectedConfluenceSearchConfigModalProps,
 } from '../types';
 
-import { ConfluenceSearchInitialStateSVGOld } from './confluence-search-initial-state-svg-old';
 import { confluenceSearchModalMessages } from './messages';
 
 const styles = cssMap({
@@ -64,8 +64,6 @@ const isValidParameters = (parameters: DatasourceParameters | undefined): boolea
 		Object.values(parameters).filter((v) => v !== undefined).length > 1
 	);
 
-const noop = () => '';
-
 export const PlainConfluenceSearchConfigModal = (
 	props: ConnectedConfluenceSearchConfigModalProps,
 ) => {
@@ -73,10 +71,7 @@ export const PlainConfluenceSearchConfigModal = (
 
 	const { currentViewMode } = useViewModeContext();
 
-	const { formatMessage } = fg('bandicoots-update-sllv-icons')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIntl()
-		: { formatMessage: noop };
+	const { formatMessage } = useIntl();
 
 	const {
 		visibleColumnKeys,
@@ -299,14 +294,10 @@ export const PlainConfluenceSearchConfigModal = (
 				<ContentContainer>
 					<InitialStateView
 						icon={
-							fg('bandicoots-update-sllv-icons') ? (
-								<RichIconSearch
-									size="xlarge"
-									alt={formatMessage(confluenceSearchModalMessages.initialViewSearchTitle)}
-								/>
-							) : (
-								<ConfluenceSearchInitialStateSVGOld />
-							)
+							<RichIconSearch
+								size="xlarge"
+								alt={formatMessage(confluenceSearchModalMessages.initialViewSearchTitle)}
+							/>
 						}
 						title={confluenceSearchModalMessages.initialViewSearchTitle}
 						description={confluenceSearchModalMessages.initialViewSearchDescription}
@@ -440,6 +431,14 @@ export const PlainConfluenceSearchConfigModal = (
 							url={confluenceSearchUrl}
 							prefixTextType="result"
 							testId="confluence-search-datasource-modal-total-results-count"
+							styles={
+								fg('platform-linking-visual-refresh-sllv')
+									? {
+											color: token('color.text'),
+											font: token('font.heading.xxsmall'),
+										}
+									: undefined
+							}
 						/>
 					)}
 					<CancelButton

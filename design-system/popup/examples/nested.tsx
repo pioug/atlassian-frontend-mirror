@@ -41,6 +41,7 @@ const NestedPopup: FC<NestedPopupProps> = ({ level }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box onClick={(e: React.MouseEvent) => e.stopPropagation()}>
 			<Stack xcss={nestedPopupStyles.root}>
 				<Section>

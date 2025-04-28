@@ -7,9 +7,9 @@ import {
 	RendererWithTableAndAnnotations,
 } from '../__helpers/rendererWithAnnotations';
 import { selectors } from '../__helpers/page-objects/_annotation';
-import { RendererWithAnnotationsOverMarks } from '../__helpers/renderer-with-text-highlighter';
+import { RendererWithAnnotationsOverMarksWrapper } from '../__helpers/renderer-with-text-highlighter';
 
-snapshotInformational(RendererWithAnnotationsOverMarks, {
+snapshotInformational(RendererWithAnnotationsOverMarksWrapper, {
 	description: 'displays the correct annotation highlight',
 	featureFlags: {
 		platform_renderer_nested_annotation_styling: true,

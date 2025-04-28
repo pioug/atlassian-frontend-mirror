@@ -50,6 +50,7 @@ export default function Example() {
 			<Inline grow="hug" space="space.100" xcss={styles.dashedBorder} alignInline="center">
 				<Box xcss={styles.root}>Static</Box>
 				<Box xcss={cx(styles.root, styles.bg)}>Composed</Box>
+				{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<Box
 					onClick={() => setIsFocused((prev) => !prev)}
 					xcss={cx(styles.root, styles.bg, styles.interactive, isFocused && styles.focused)}

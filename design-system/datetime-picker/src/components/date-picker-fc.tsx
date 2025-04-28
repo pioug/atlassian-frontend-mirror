@@ -548,6 +548,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 		// These event handlers must be on this element because the events come
 		// from different child elements.
 		// Until innerProps is removed, it must remain a div rather than a primitive component.
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			{...innerProps}
 			css={styles.pickerContainerStyle}

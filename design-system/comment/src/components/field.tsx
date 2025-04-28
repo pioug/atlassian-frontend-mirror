@@ -86,6 +86,7 @@ const Field: FC<CommentFieldProps> = ({
 			{children}
 		</Anchor>
 	) : (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<span
 			css={[textStyles.root, hasAuthor ? hasAuthorStyles.root : noAuthorStyles.root]}
 			/**

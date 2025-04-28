@@ -14,6 +14,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Change, PresetLayout } from '../types';
@@ -240,11 +241,11 @@ function removeLastColumnInLayout(column: Node, columnPos: number, insideRightEd
 		// check if the column only contains a paragraph with a placeholder text
 		// if so, remove the whole column, otherwise just remove the paragraph
 		if (isEmptyDocument(column)) {
-			tr.replaceRange(
-				tr.mapping.map(columnPos - 1),
-				tr.mapping.map(insideRightEdgePos),
-				Slice.empty,
-			);
+			const fromPos = fg('platform_editor_convert_multiple_columns_to_single')
+				? columnPos
+				: columnPos - 1;
+
+			tr.replaceRange(tr.mapping.map(fromPos), tr.mapping.map(insideRightEdgePos), Slice.empty);
 		} else {
 			tr.replaceRange(tr.mapping.map(columnPos - 1), tr.mapping.map(columnPos + 1), Slice.empty);
 		}

@@ -31,6 +31,7 @@ import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command, EditorPlugin, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
@@ -873,8 +874,17 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			)(pluginConfig(options?.tableOptions)),
 		},
 		usePluginHook({ editorView }) {
-			const { editorViewModeState } = useSharedPluginState(api, ['editorViewMode']);
-			const mode = editorViewModeState?.mode;
+			const { editorViewModeState } = useSharedPluginState(api, ['editorViewMode'], {
+				disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+			});
+
+			// mode
+			const modeSelector = useSharedPluginStateSelector(api, 'editorViewMode.mode', {
+				disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+			});
+			const mode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+				? modeSelector
+				: editorViewModeState?.mode;
 
 			useEffect(() => {
 				const { state, dispatch } = editorView;

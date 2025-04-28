@@ -121,7 +121,7 @@ const tooltipStyle = css({
 const getResponsiveStyles = (breakpoint: Breakpoint) => {
 	// dynamically setting the properties to avoid ratcheting build errors. These need to be removed however for the compiled transformation.
 	return breakpoint === 'small'
-		? { ['fontSize']: '11x', ['lineHeight']: '14px' }
+		? { ['fontSize']: '11px', ['lineHeight']: '14px' }
 		: { ['fontSize']: '14px', ['lineHeight']: '22px' };
 };
 
@@ -151,7 +151,7 @@ export const Wrapper = (props: WrapperProps) => {
 	const wrapperShadowKey = getShadowKey(disableOverlay, selected);
 
 	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			id="newFileExperienceWrapper"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

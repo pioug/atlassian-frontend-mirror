@@ -90,6 +90,7 @@ const Blanket = memo(
 			 * inaccessible custom element, we can add role="presentation" so that there
 			 * are no negative impacts to assistive technologies.
 			 */
+			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div
 				role="presentation"
 				css={[

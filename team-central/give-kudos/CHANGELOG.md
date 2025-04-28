@@ -1,5 +1,13 @@
 # @atlassian/give-kudos
 
+## 4.1.1
+
+### Patch Changes
+
+- [#145703](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145703)
+  [`2e93703d26d60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e93703d26d60) -
+  Fixed capitalization on kudos creation action flag message
+
 ## 4.1.0
 
 ### Minor Changes

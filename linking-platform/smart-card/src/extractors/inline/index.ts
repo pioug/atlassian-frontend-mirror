@@ -30,6 +30,9 @@ const extractInlineIcon = (jsonLd: JsonLd.Data.BaseData, showIconLabel = true) =
 	return extractIcon(jsonLd, 'provider', showIconLabel);
 };
 
+/**
+ * Should be moved to the smart link-extractor when jsonld is deprecated
+ */
 const extractSmartLinkInlineIcon = (response?: SmartLinkResponse, showLabel = true) => {
 	if (isEntityPresent(response)) {
 		const provider = extractEntityProvider(response);
@@ -56,9 +59,9 @@ export const extractInlineProps = (
 
 	if (fg('smart_links_noun_support')) {
 		return {
-			icon: extractSmartLinkInlineIcon(response, showLabel),
 			link: extractSmartLinkUrl(response),
 			title: extractSmartLinkTitle(response, removeTextHighlightingFromTitle),
+			icon: extractSmartLinkInlineIcon(response, showLabel),
 			// As we migrate to support more nouns we can incorporate these fields
 			lozenge: extractLozenge(jsonLd),
 			titleTextColor: extractTitleTextColor(jsonLd),

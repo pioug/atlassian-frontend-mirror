@@ -20,15 +20,6 @@ import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
 import { filterResourceTimings } from '../resource-timing/common/utils/resource-timing-buffer';
 import { roundEpsilon } from '../round-number';
-import {
-	getProfilerAsyncRuntime,
-	getProfilerRuntimeByTag,
-	getProfilerTotalRuntime,
-	markProfilingEnd,
-	markProfilingStart,
-	resetProfilerMeasurements,
-	withProfiling,
-} from '../self-measurements';
 import * as ssr from '../ssr';
 
 import type { OptimizedLabelStack } from './common/types';
@@ -45,9 +36,7 @@ import { getReactUFOPayloadVersion } from './utils/get-react-ufo-payload-version
 import getSSRDoneTimeValue from './utils/get-ssr-done-time-value';
 import getVCMetrics from './utils/get-vc-metrics';
 
-const getUfoNameOverride = withProfiling(function getUfoNameOverride(
-	interaction: InteractionMetrics,
-): string {
+function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
 	try {
 		const ufoNameOverrides = getUfoNameOverrides();
@@ -61,12 +50,9 @@ const getUfoNameOverride = withProfiling(function getUfoNameOverride(
 	} catch (e: unknown) {
 		return ufoName;
 	}
-});
+}
 
-const getEarliestLegacyStopTime = withProfiling(function getEarliestLegacyStopTime(
-	interaction: InteractionMetrics,
-	labelStack: LabelStack,
-) {
+function getEarliestLegacyStopTime(interaction: InteractionMetrics, labelStack: LabelStack) {
 	let earliestLegacyStopTime: number | null = null;
 	interaction.apdex.forEach((a) => {
 		if (!a?.stopTime) {
@@ -81,9 +67,9 @@ const getEarliestLegacyStopTime = withProfiling(function getEarliestLegacyStopTi
 	});
 
 	return earliestLegacyStopTime;
-});
+}
 
-const getBm3EndTimeOrFallbackValue = withProfiling(function getBm3EndTimeOrFallbackValue(
+function getBm3EndTimeOrFallbackValue(
 	interaction: InteractionMetrics,
 	labelStack: LabelStack = [],
 	fallbackValue = interaction.end,
@@ -93,19 +79,15 @@ const getBm3EndTimeOrFallbackValue = withProfiling(function getBm3EndTimeOrFallb
 	}
 
 	return getEarliestLegacyStopTime(interaction, labelStack) ?? fallbackValue;
-});
+}
 
-const getPageVisibilityUpToTTI = withProfiling(function getPageVisibilityUpToTTI(
-	interaction: InteractionMetrics,
-) {
+function getPageVisibilityUpToTTI(interaction: InteractionMetrics) {
 	const { start } = interaction;
 	const bm3EndTimeOrInteractionEndTime = getBm3EndTimeOrFallbackValue(interaction);
 	return getPageVisibilityState(start, bm3EndTimeOrInteractionEndTime);
-});
+}
 
-const getVisibilityStateFromPerformance = withProfiling(function getVisibilityStateFromPerformance(
-	stop: number,
-) {
+function getVisibilityStateFromPerformance(stop: number) {
 	try {
 		const results = performance.getEntriesByType('visibility-state');
 		if (!results || results.length === 0) {
@@ -129,57 +111,53 @@ const getVisibilityStateFromPerformance = withProfiling(function getVisibilitySt
 	} catch (e) {
 		return null;
 	}
-});
+}
 
-const getMoreAccuratePageVisibilityUpToTTI = withProfiling(
-	function getMoreAccuratePageVisibilityUpToTTI(interaction: InteractionMetrics) {
-		const old = getPageVisibilityUpToTTI(interaction);
-		const tti = getEarliestLegacyStopTime(interaction, []);
-		if (!tti) {
-			return old;
-		}
-		const buffered = getVisibilityStateFromPerformance(tti);
-		if (!buffered) {
-			return old;
-		}
-		if (buffered !== old) {
-			return 'mixed';
-		}
+function getMoreAccuratePageVisibilityUpToTTI(interaction: InteractionMetrics) {
+	const old = getPageVisibilityUpToTTI(interaction);
+	const tti = getEarliestLegacyStopTime(interaction, []);
+	if (!tti) {
 		return old;
-	},
-);
-
-const getMoreAccuratePageVisibilityUpToTTAI = withProfiling(
-	function getMoreAccuratePageVisibilityUpToTTAI(interaction: InteractionMetrics) {
-		const old = getPageVisibilityUpToTTAI(interaction);
-		const buffered = getVisibilityStateFromPerformance(interaction.end);
-		if (!buffered) {
-			return old;
-		}
-		if (buffered !== old) {
-			return 'mixed';
-		}
+	}
+	const buffered = getVisibilityStateFromPerformance(tti);
+	if (!buffered) {
 		return old;
-	},
-);
+	}
+	if (buffered !== old) {
+		return 'mixed';
+	}
+	return old;
+}
 
-const getResourceTimings = withProfiling(function getResourceTimings(start: number, end: number) {
+function getMoreAccuratePageVisibilityUpToTTAI(interaction: InteractionMetrics) {
+	const old = getPageVisibilityUpToTTAI(interaction);
+	const buffered = getVisibilityStateFromPerformance(interaction.end);
+	if (!buffered) {
+		return old;
+	}
+	if (buffered !== old) {
+		return 'mixed';
+	}
+	return old;
+}
+
+function getResourceTimings(start: number, end: number) {
 	return resourceTiming.getResourceTimings(start, end) ?? undefined;
-});
+}
 
-const getBundleEvalTimings = withProfiling(function getBundleEvalTimings(start: number) {
+function getBundleEvalTimings(start: number) {
 	return bundleEvalTiming.getBundleEvalTimings(start);
-});
+}
 
-const getSSRSuccess = withProfiling(function getSSRSuccess(type: InteractionType) {
+function getSSRSuccess(type: InteractionType) {
 	return type === 'page_load' ? ssr.getSSRSuccess() : undefined;
-});
+}
 
-const getSSRFeatureFlags = withProfiling(function getSSRFeatureFlags(type: InteractionType) {
+function getSSRFeatureFlags(type: InteractionType) {
 	return type === 'page_load' ? ssr.getSSRFeatureFlags() : undefined;
-});
+}
 
-const getLCP: (end: number) => Promise<number | null> = withProfiling(function getLCP(end) {
+const getLCP: (end: number) => Promise<number | null> = (end) => {
 	return new Promise((resolve) => {
 		let observer: PerformanceObserver;
 		const timeout = setTimeout(() => {
@@ -187,36 +165,31 @@ const getLCP: (end: number) => Promise<number | null> = withProfiling(function g
 			resolve(null);
 		}, 200);
 
-		const performanceObserverCallback: PerformanceObserverCallback = withProfiling(
-			function performanceObserverCallback(list) {
-				const entries = Array.from(list.getEntries());
-				const lastEntry = entries.reduce<PerformanceEntry | null>((agg, entry) => {
-					// Use the latest LCP candidate before TTAI
-					if (entry.startTime <= end && (agg === null || agg.startTime < entry.startTime)) {
-						return entry;
-					}
-					return agg;
-				}, null);
-
-				clearTimeout(timeout);
-
-				if (!lastEntry || lastEntry === null) {
-					resolve(null);
-				} else {
-					resolve(lastEntry.startTime);
+		const performanceObserverCallback: PerformanceObserverCallback = (list) => {
+			const entries = Array.from(list.getEntries());
+			const lastEntry = entries.reduce<PerformanceEntry | null>((agg, entry) => {
+				// Use the latest LCP candidate before TTAI
+				if (entry.startTime <= end && (agg === null || agg.startTime < entry.startTime)) {
+					return entry;
 				}
-			},
-		);
+				return agg;
+			}, null);
+
+			clearTimeout(timeout);
+
+			if (!lastEntry || lastEntry === null) {
+				resolve(null);
+			} else {
+				resolve(lastEntry.startTime);
+			}
+		};
 
 		observer = new PerformanceObserver(performanceObserverCallback);
 		observer.observe({ type: 'largest-contentful-paint', buffered: true });
 	});
-});
+};
 
-const getPaintMetrics = withProfiling(async function getPaintMetrics(
-	type: InteractionType,
-	end: number,
-) {
+async function getPaintMetrics(type: InteractionType, end: number) {
 	if (type !== 'page_load') {
 		return {};
 	}
@@ -236,17 +209,17 @@ const getPaintMetrics = withProfiling(async function getPaintMetrics(
 	}
 
 	return metrics;
-});
+}
 
-const getTTAI = withProfiling(function getTTAI(interaction: InteractionMetrics) {
+function getTTAI(interaction: InteractionMetrics) {
 	const { start, end } = interaction;
 	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
 	return !interaction.abortReason && pageVisibilityUpToTTAI === 'visible'
 		? Math.round(end - start)
 		: undefined;
-});
+}
 
-const getNavigationMetrics = withProfiling(function getNavigationMetrics(type: InteractionType) {
+function getNavigationMetrics(type: InteractionType) {
 	if (type !== 'page_load') {
 		return {};
 	}
@@ -294,9 +267,9 @@ const getNavigationMetrics = withProfiling(function getNavigationMetrics(type: I
 	return {
 		'metrics:navigation': metrics,
 	};
-});
+}
 
-const getPPSMetrics = withProfiling(function getPPSMetrics(interaction: InteractionMetrics) {
+function getPPSMetrics(interaction: InteractionMetrics) {
 	const { start, end } = interaction;
 	const config = getConfig();
 	const interactionStatus = getInteractionStatus(interaction);
@@ -329,19 +302,16 @@ const getPPSMetrics = withProfiling(function getPPSMetrics(interaction: Interact
 	}
 
 	return {};
-});
+}
 
-const getSSRProperties = withProfiling(function getSSRProperties(type: InteractionType) {
+function getSSRProperties(type: InteractionType) {
 	return {
 		'ssr:success': getSSRSuccess(type),
 		'ssr:featureFlags': getSSRFeatureFlags(type),
 	};
-});
+}
 
-const getAssetsMetrics = withProfiling(function getAssetsMetrics(
-	interaction: InteractionMetrics,
-	SSRDoneTime: number | undefined,
-) {
+function getAssetsMetrics(interaction: InteractionMetrics, SSRDoneTime: number | undefined) {
 	try {
 		const config = getConfig();
 		const { type } = interaction;
@@ -363,9 +333,9 @@ const getAssetsMetrics = withProfiling(function getAssetsMetrics(
 		// Skip CHR in case of error
 		return {};
 	}
-});
+}
 
-const getBrowserMetadata = withProfiling(function getBrowserMetadata() {
+function getBrowserMetadata() {
 	const data: {
 		'event:browser:name'?: string;
 		'event:browser:version'?: string;
@@ -406,11 +376,9 @@ const getBrowserMetadata = withProfiling(function getBrowserMetadata() {
 	}
 
 	return data;
-});
+}
 
-const getTracingContextData = withProfiling(function getTracingContextData(
-	interaction: InteractionMetrics,
-) {
+function getTracingContextData(interaction: InteractionMetrics) {
 	const { trace, start } = interaction;
 	let tracingContextData = {};
 
@@ -426,11 +394,9 @@ const getTracingContextData = withProfiling(function getTracingContextData(
 	}
 
 	return tracingContextData;
-});
+}
 
-const optimizeCustomData = withProfiling(function optimizeCustomData(
-	interaction: InteractionMetrics,
-) {
+function optimizeCustomData(interaction: InteractionMetrics) {
 	const { customData, legacyMetrics } = interaction;
 	const customDataMap = customData.reduce((result, { labelStack, data }) => {
 		const label = stringifyLabelStackFully(labelStack);
@@ -462,9 +428,9 @@ const optimizeCustomData = withProfiling(function optimizeCustomData(
 	}
 
 	return [...customDataMap.values()];
-});
+}
 
-const optimizeReactProfilerTimings = withProfiling(function optimizeReactProfilerTimings(
+function optimizeReactProfilerTimings(
 	reactProfilerTimings: InteractionMetrics['reactProfilerTimings'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
@@ -508,12 +474,9 @@ const optimizeReactProfilerTimings = withProfiling(function optimizeReactProfile
 	);
 
 	return [...reactProfilerTimingsMap.values()];
-});
+}
 
-const optimizeRedirects = withProfiling(function optimizeRedirects(
-	redirects: InteractionMetrics['redirects'],
-	interactionStart: number,
-) {
+function optimizeRedirects(redirects: InteractionMetrics['redirects'], interactionStart: number) {
 	let lastRedirectTime = interactionStart;
 	const updatedRedirects = redirects
 		.sort((a, b) => a.time - b.time)
@@ -540,9 +503,9 @@ const optimizeRedirects = withProfiling(function optimizeRedirects(
 		);
 
 	return updatedRedirects;
-});
+}
 
-const optimizeHoldInfo = withProfiling(function optimizeHoldInfo(
+function optimizeHoldInfo(
 	holdInfo: InteractionMetrics['holdInfo'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
@@ -575,9 +538,9 @@ const optimizeHoldInfo = withProfiling(function optimizeHoldInfo(
 	}, new Map());
 
 	return [...holdInfoMap.values()];
-});
+}
 
-const optimizeSpans = withProfiling(function optimizeSpans(
+function optimizeSpans(
 	spans: InteractionMetrics['spans'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
@@ -606,9 +569,9 @@ const optimizeSpans = withProfiling(function optimizeSpans(
 	);
 
 	return updatedSpans;
-});
+}
 
-const optimizeRequestInfo = withProfiling(function optimizeRequestInfo(
+function optimizeRequestInfo(
 	requestInfo: InteractionMetrics['requestInfo'],
 	interactionStart: number,
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
@@ -637,9 +600,9 @@ const optimizeRequestInfo = withProfiling(function optimizeRequestInfo(
 	);
 
 	return updatedRequestInfo;
-});
+}
 
-const optimizeCustomTimings = withProfiling(function optimizeCustomTimings(
+function optimizeCustomTimings(
 	customTimings: InteractionMetrics['customTimings'],
 	interactionStart: number,
 ) {
@@ -663,9 +626,9 @@ const optimizeCustomTimings = withProfiling(function optimizeCustomTimings(
 			endTime: number;
 		}[],
 	);
-});
+}
 
-const optimizeMarks = withProfiling(function optimizeMarks(
+function optimizeMarks(
 	marks: InteractionMetrics['marks'],
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
 ) {
@@ -674,9 +637,9 @@ const optimizeMarks = withProfiling(function optimizeMarks(
 		labelStack: labelStack && optimizeLabelStack(labelStack, reactUFOVersion),
 		time: Math.round(time),
 	}));
-});
+}
 
-const optimizeApdex = withProfiling(function optimizeApdex(
+function optimizeApdex(
 	apdex: ApdexType[],
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
 ) {
@@ -685,9 +648,9 @@ const optimizeApdex = withProfiling(function optimizeApdex(
 		stopTime: Math.round(stopTime),
 		...(labelStack ? { labelStack: optimizeLabelStack(labelStack, reactUFOVersion) } : {}),
 	}));
-});
+}
 
-const objectToArray = withProfiling(function objectToArray(obj: Record<string, any> = {}) {
+function objectToArray(obj: Record<string, any> = {}) {
 	return Object.keys(obj).reduce(
 		(result, key) => {
 			result.push({
@@ -699,11 +662,9 @@ const objectToArray = withProfiling(function objectToArray(obj: Record<string, a
 		},
 		[] as { label: string; data: any }[],
 	);
-});
+}
 
-const getBM3SubmetricsTimings = withProfiling(function getBM3SubmetricsTimings(
-	submetrics?: BM3Event[],
-) {
+function getBM3SubmetricsTimings(submetrics?: BM3Event[]) {
 	if (!submetrics) {
 		return null;
 	}
@@ -727,11 +688,9 @@ const getBM3SubmetricsTimings = withProfiling(function getBM3SubmetricsTimings(
 		});
 
 	return submetricsTimings;
-});
+}
 
-const getBm3TrackerTimings = withProfiling(function getBm3TrackerTimings(
-	interaction: InteractionMetrics,
-) {
+function getBm3TrackerTimings(interaction: InteractionMetrics) {
 	const interactionLegacyMetrics = interaction.legacyMetrics;
 	if (!interactionLegacyMetrics) {
 		return {};
@@ -753,13 +712,13 @@ const getBm3TrackerTimings = withProfiling(function getBm3TrackerTimings(
 		})
 		.filter((item) => !!item.type);
 	return { legacyMetrics };
-});
+}
 
-const getPayloadSize = withProfiling(function getPayloadSize(payload: object): number {
+function getPayloadSize(payload: object): number {
 	return Math.round(new TextEncoder().encode(JSON.stringify(payload)).length / 1024);
-});
+}
 
-const getStylesheetMetrics = withProfiling(function getStylesheetMetrics() {
+function getStylesheetMetrics() {
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (!fg('ufo_capture_stylesheet_metrics')) {
 		return {};
@@ -803,17 +762,17 @@ const getStylesheetMetrics = withProfiling(function getStylesheetMetrics() {
 	} catch (e) {
 		return {};
 	}
-});
+}
 
 let regularTTAI: number | undefined;
 let expTTAI: number | undefined;
 
-const getErrorCounts = withProfiling(function getErrorCounts(interaction: InteractionMetrics) {
+function getErrorCounts(interaction: InteractionMetrics) {
 	return {
 		'ufo:errors:globalCount': getGlobalErrorCount(),
 		'ufo:errors:count': interaction.errors.length,
 	};
-});
+}
 
 type PageLoadInitialSSRMetrics = {
 	SSRDoneTime?: number;
@@ -826,7 +785,6 @@ async function createInteractionMetricsPayload(
 	interactionId: string,
 	experimental?: boolean,
 ) {
-	const operationTimer = markProfilingStart('createInteractionMetricsPayload');
 	const interactionPayloadStart = performance.now();
 	const config = getConfig();
 	if (!config) {
@@ -1041,13 +999,6 @@ async function createInteractionMetricsPayload(
 					'metric:experimental:ttai': expTTAI,
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
-				...(fg('platform_ufo_self_timings')
-					? {
-							'ufo:self:timings:total': getProfilerTotalRuntime(),
-							'ufo:self:timings:async': getProfilerAsyncRuntime(),
-							'ufo:self:timings:vc': getProfilerRuntimeByTag('vc'),
-						}
-					: {}),
 			},
 		},
 	};
@@ -1056,9 +1007,6 @@ async function createInteractionMetricsPayload(
 		regularTTAI = undefined;
 		expTTAI = undefined;
 	}
-
-	markProfilingEnd(operationTimer);
-	resetProfilerMeasurements();
 
 	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
 	return payload;
@@ -1075,32 +1023,30 @@ export async function createPayloads(interactionId: string, interaction: Interac
 	return [interactionMetricsPayload];
 }
 
-export const createExperimentalMetricsPayload = withProfiling(
-	async function createExperimentalMetricsPayload(
-		interactionId: string,
-		interaction: InteractionMetrics,
-	) {
-		const config = getConfig();
+export async function createExperimentalMetricsPayload(
+	interactionId: string,
+	interaction: InteractionMetrics,
+) {
+	const config = getConfig();
 
-		if (!config) {
-			throw Error('UFO Configuration not provided');
-		}
+	if (!config) {
+		throw Error('UFO Configuration not provided');
+	}
 
-		const ufoName = sanitizeUfoName(interaction.ufoName);
-		const rate = getExperimentalInteractionRate(ufoName, interaction.type);
+	const ufoName = sanitizeUfoName(interaction.ufoName);
+	const rate = getExperimentalInteractionRate(ufoName, interaction.type);
 
-		if (!coinflip(rate)) {
-			return null;
-		}
+	if (!coinflip(rate)) {
+		return null;
+	}
 
-		const pageVisibilityState = getPageVisibilityState(interaction.start, interaction.end);
+	const pageVisibilityState = getPageVisibilityState(interaction.start, interaction.end);
 
-		if (pageVisibilityState !== 'visible') {
-			return null;
-		}
+	if (pageVisibilityState !== 'visible') {
+		return null;
+	}
 
-		const result = await createInteractionMetricsPayload(interaction, interactionId, true);
+	const result = await createInteractionMetricsPayload(interaction, interactionId, true);
 
-		return result;
-	},
-);
+	return result;
+}

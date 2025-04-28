@@ -21,7 +21,7 @@ export const StopPropagation = ({ children }: StopPropagationProps) => {
 	}, []);
 
 	return (
-		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<span css={styles} onClick={onClick}>
 			{children}
 		</span>

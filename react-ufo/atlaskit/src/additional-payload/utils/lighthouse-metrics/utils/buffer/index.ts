@@ -1,4 +1,3 @@
-import { withProfiling } from '../../../../../self-measurements';
 import { PerformanceObserverEntryTypes } from '../../const';
 
 export class BufferWithMaxLength<T> {
@@ -10,8 +9,6 @@ export class BufferWithMaxLength<T> {
 
 	constructor(maxLength = 1000) {
 		this.maxLength = maxLength;
-		this.push = withProfiling(this.push.bind(this));
-		this.getAll = withProfiling(this.getAll.bind(this));
 	}
 
 	push(item: T) {

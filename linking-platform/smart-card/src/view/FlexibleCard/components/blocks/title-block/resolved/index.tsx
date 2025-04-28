@@ -4,7 +4,6 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -47,15 +46,7 @@ const TitleBlockResolvedView = ({
 
 	return (
 		<Block {...blockProps} testId={`${testId}-resolved-view`}>
-			{!hideIcon && (
-				<LinkIcon
-					overrideIcon={icon}
-					position={position}
-					{...(fg('platform-smart-card-icon-migration') && {
-						size,
-					})}
-				/>
-			)}
+			{!hideIcon && <LinkIcon overrideIcon={icon} position={position} size={size} />}
 			<ElementGroup
 				direction={SmartLinkDirection.Vertical}
 				width={SmartLinkWidth.Flexible}

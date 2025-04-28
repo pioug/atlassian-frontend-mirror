@@ -41,8 +41,7 @@ export const messages = defineMessages({
 	},
 	panelLoadingError: {
 		id: 'fabric.editor.extensions.config-panel.loading-error.non-final',
-		defaultMessage:
-			"We're having a bit of trouble loading the configuration panel. Try refreshing the page.",
+		defaultMessage: 'We ran into a bit of trouble. Refresh to try again.',
 		description: 'Error message when loading the configuration panel',
 	},
 });

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.6.7
+
+### Patch Changes
+
+- [#146024](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146024)
+  [`f796438651e2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f796438651e2d) -
+  copy UFO custom data via structuredClone, instead of passing the object directly
+
 ## 3.6.6
 
 ### Patch Changes

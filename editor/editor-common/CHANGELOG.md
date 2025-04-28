@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 103.17.0
+
+### Minor Changes
+
+- [#142191](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142191)
+  [`8a39e59bec14f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a39e59bec14f) -
+  [ux] A11Y-9980: Refactored ViewMore button component to simplify usage, and updated icon and
+  styling alongside with adding support for aria-label.
+
+## 103.16.1
+
+### Patch Changes
+
+- [#146038](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146038)
+  [`3b0e0fffbbfe7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b0e0fffbbfe7) -
+  ED-27645 fix wide and full width label is overlapped by content below
+
 ## 103.16.0
 
 ### Minor Changes

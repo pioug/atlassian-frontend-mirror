@@ -253,6 +253,7 @@ describe('Popup Select', () => {
 
 	it('event listeners should continue to work when stopPropagation is called in parent', async () => {
 		render(
+			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div onClick={(e) => e.stopPropagation()} role="presentation">
 				<PopupSelect
 					options={OPTIONS}

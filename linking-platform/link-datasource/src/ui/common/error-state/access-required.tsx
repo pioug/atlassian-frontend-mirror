@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { SpotPadlockKey } from '../../../common/ui/spot/basics/padlock-key';
 
-import { AccessRequiredSVGOld } from './access-required-svg';
 import { loadingErrorMessages } from './messages';
 
 const styles = cssMap({
@@ -54,21 +53,12 @@ const Description = ({ message, url }: { message: string; url: string }) => {
 	);
 };
 
-const noop = () => '';
-
 const IconContainer = () => {
-	const { formatMessage } = fg('bandicoots-update-sllv-icons')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIntl()
-		: { formatMessage: noop };
+	const { formatMessage } = useIntl();
 
 	return (
 		<Box xcss={styles.iconContainerStyles}>
-			{fg('bandicoots-update-sllv-icons') ? (
-				<SpotPadlockKey size={'xlarge'} alt={formatMessage(loadingErrorMessages.accessRequired)} />
-			) : (
-				<AccessRequiredSVGOld />
-			)}
+			<SpotPadlockKey size={'xlarge'} alt={formatMessage(loadingErrorMessages.accessRequired)} />
 		</Box>
 	);
 };

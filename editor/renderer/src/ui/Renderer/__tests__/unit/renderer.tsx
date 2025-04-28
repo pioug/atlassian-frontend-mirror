@@ -9,8 +9,6 @@ import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui'
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import {
 	SEVERITY,
 	stopMeasure,
@@ -21,7 +19,7 @@ import type { CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analyti
 import RendererDefaultComponent, {
 	DEGRADED_SEVERITY_THRESHOLD,
 	NORMAL_SEVERITY_THRESHOLD,
-	__RendererClassComponent as Renderer,
+	RendererFunctionalComponent as Renderer,
 } from '../../';
 import { ValidationContextProvider } from '../../ValidationContext';
 import { Paragraph } from '../../../../react/nodes';
@@ -334,8 +332,8 @@ describe('unsupported content levels severity', () => {
 		jest.useFakeTimers();
 		jest.resetModules();
 		jest.isolateModules(() => {
-			const { __RendererClassComponent } = require('../..');
-			RendererIsolated = __RendererClassComponent;
+			const { RendererFunctionalComponent } = require('../..');
+			RendererIsolated = RendererFunctionalComponent;
 		});
 	});
 
@@ -369,17 +367,15 @@ describe('unsupported content levels severity', () => {
 		unsupportedContentLevelsTracking: any,
 		appearance?: RendererAppearance,
 	) => {
-		act(() => {
-			rendererWrapper = shallow(
-				<RendererIsolated
-					document={doc}
-					useSpecBasedValidator
-					unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
-					createAnalyticsEvent={createAnalyticsEvent}
-					appearance={appearance}
-				/>,
-			);
-		});
+		rendererWrapper = shallow(
+			<RendererIsolated
+				document={doc}
+				useSpecBasedValidator
+				unsupportedContentLevelsTracking={unsupportedContentLevelsTracking}
+				createAnalyticsEvent={createAnalyticsEvent}
+				appearance={appearance}
+			/>,
+		);
 	};
 
 	type TimesToRenderMap = { [appearance: string]: number };
@@ -522,7 +518,7 @@ describe('unsupported content levels severity', () => {
 				};
 				renderDoc(validDoc, levels, 'comment');
 				for (let i = 0; i < 10; i++) {
-					rendererWrapper!.instance().render();
+					rendererWrapper!.render();
 				}
 				jest.runAllTimers();
 				expectUnsupportedContentTrackingCalledNTimes(1);
@@ -657,8 +653,8 @@ describe('unsupported content levels severity', () => {
 				}));
 
 				jest.isolateModules(() => {
-					const { __RendererClassComponent } = require('../..');
-					RendererIsolated = __RendererClassComponent;
+					const { RendererFunctionalComponent } = require('../..');
+					RendererIsolated = RendererFunctionalComponent;
 				});
 
 				renderDoc = (doc: any, unsupportedContentLevelsTracking: any) => {
@@ -807,71 +803,37 @@ describe('severity', () => {
 });
 
 describe('ValidationContext', () => {
-	describe('render nested content in functional and class render under validation context', () => {
-		ffTest(
-			'platform_editor_react18_renderer',
-			() => {
-				const wrapper = mount(
-					<ValidationContextProvider value={{ skipValidation: true }}>
-						<IntlProvider locale="en">
-							<RendererDefaultComponent
-								document={adfNestedTableData as DocNode}
-								useSpecBasedValidator={true}
-							/>
-						</IntlProvider>
-					</ValidationContextProvider>,
-				);
-				expect(wrapper.find('table')).toHaveLength(2);
-				wrapper.unmount();
-			},
-			() => {
-				const wrapper = mount(
-					<ValidationContextProvider value={{ skipValidation: true }}>
-						<IntlProvider locale="en">
-							<RendererDefaultComponent
-								document={adfNestedTableData as DocNode}
-								useSpecBasedValidator={true}
-							/>
-						</IntlProvider>
-					</ValidationContextProvider>,
-				);
-				expect(wrapper.find('table')).toHaveLength(2);
-				wrapper.unmount();
-			},
-		);
+	describe('render nested content in render under validation context', () => {
+		it('it do', () => {
+			const wrapper = mount(
+				<ValidationContextProvider value={{ skipValidation: true }}>
+					<IntlProvider locale="en">
+						<RendererDefaultComponent
+							document={adfNestedTableData as DocNode}
+							useSpecBasedValidator={true}
+						/>
+					</IntlProvider>
+				</ValidationContextProvider>,
+			);
+			expect(wrapper.find('table')).toHaveLength(2);
+			wrapper.unmount();
+		});
 	});
 
-	describe('do not render nested content in functional and class render under validation context if skipValidation is false', () => {
-		ffTest(
-			'platform_editor_react18_renderer',
-			() => {
-				const wrapper = mount(
-					<ValidationContextProvider value={{ skipValidation: false }}>
-						<IntlProvider locale="en">
-							<RendererDefaultComponent
-								document={adfNestedTableData as DocNode}
-								useSpecBasedValidator={true}
-							/>
-						</IntlProvider>
-					</ValidationContextProvider>,
-				);
-				expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
-				wrapper.unmount();
-			},
-			() => {
-				const wrapper = mount(
-					<ValidationContextProvider value={{ skipValidation: false }}>
-						<IntlProvider locale="en">
-							<RendererDefaultComponent
-								document={adfNestedTableData as DocNode}
-								useSpecBasedValidator={true}
-							/>
-						</IntlProvider>
-					</ValidationContextProvider>,
-				);
-				expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
-				wrapper.unmount();
-			},
-		);
+	describe('do not render nested content in render under validation context if skipValidation is false', () => {
+		it('do not', () => {
+			const wrapper = mount(
+				<ValidationContextProvider value={{ skipValidation: false }}>
+					<IntlProvider locale="en">
+						<RendererDefaultComponent
+							document={adfNestedTableData as DocNode}
+							useSpecBasedValidator={true}
+						/>
+					</IntlProvider>
+				</ValidationContextProvider>,
+			);
+			expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
+			wrapper.unmount();
+		});
 	});
 });

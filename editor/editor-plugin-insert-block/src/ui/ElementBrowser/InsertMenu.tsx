@@ -28,8 +28,6 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { fg } from '@atlaskit/platform-feature-flags';
 import { borderRadius } from '@atlaskit/theme';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
@@ -96,7 +94,11 @@ const InsertMenu = ({
 
 	const quickInsertDropdownItems = dropdownItems.map(transform);
 
-	const viewMoreItem = showElementBrowserLink ? quickInsertDropdownItems.pop() : undefined;
+	// Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
+	const viewMoreItem =
+		!fg('platform_editor_refactor_view_more') && showElementBrowserLink
+			? quickInsertDropdownItems.pop()
+			: undefined;
 
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
@@ -162,6 +164,13 @@ const InsertMenu = ({
 	const emptyStateHandler =
 		pluginInjectionApi?.quickInsert?.sharedState.currentState()?.emptyStateHandler;
 
+	const onViewMore = useCallback(() => {
+		toggleVisiblity();
+		pluginInjectionApi?.core?.actions.execute(
+			pluginInjectionApi?.quickInsert?.commands.openElementBrowserModal,
+		);
+	}, [pluginInjectionApi, toggleVisiblity]);
+
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 		<div css={insertMenuWrapper(height, isFullPageAppearance)}>
@@ -180,6 +189,7 @@ const InsertMenu = ({
 					// On page resize we want the InlineElementBrowser to show updated tools/overflow items
 					key={quickInsertDropdownItems.length}
 					viewMoreItem={viewMoreItem}
+					onViewMore={onViewMore}
 					cache={cache}
 				/>
 			</ElementBrowserWrapper>

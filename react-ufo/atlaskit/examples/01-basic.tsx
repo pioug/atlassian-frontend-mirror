@@ -98,7 +98,7 @@ const useCounterToVisible = (base: number) => {
 const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-one"></UFOLoadHold>;
+		return <UFOLoadHold name="section-1"></UFOLoadHold>;
 	}
 
 	return (
@@ -113,7 +113,7 @@ const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-two"></UFOLoadHold>;
+		return <UFOLoadHold name="section-2"></UFOLoadHold>;
 	}
 
 	return (
@@ -128,7 +128,7 @@ const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-three"></UFOLoadHold>;
+		return <UFOLoadHold name="section-3"></UFOLoadHold>;
 	}
 
 	return (
@@ -143,7 +143,7 @@ const SectionFour = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-four"></UFOLoadHold>;
+		return <UFOLoadHold name="section-4"></UFOLoadHold>;
 	}
 
 	return (
@@ -158,7 +158,7 @@ const SectionFive = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-five"></UFOLoadHold>;
+		return <UFOLoadHold name="section-5"></UFOLoadHold>;
 	}
 
 	return (
@@ -173,7 +173,7 @@ const SectionSix = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-six"></UFOLoadHold>;
+		return <UFOLoadHold name="section-6"></UFOLoadHold>;
 	}
 
 	return (
@@ -188,7 +188,7 @@ const SectionSeven = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-seven"></UFOLoadHold>;
+		return <UFOLoadHold name="section-7"></UFOLoadHold>;
 	}
 
 	return (
@@ -203,7 +203,7 @@ const SectionEight = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-eight"></UFOLoadHold>;
+		return <UFOLoadHold name="section-8"></UFOLoadHold>;
 	}
 
 	return (
@@ -218,7 +218,7 @@ const SectionNine = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-nine"></UFOLoadHold>;
+		return <UFOLoadHold name="section-9"></UFOLoadHold>;
 	}
 
 	return (
@@ -233,7 +233,7 @@ const SectionTen = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-ten"></UFOLoadHold>;
+		return <UFOLoadHold name="section-10"></UFOLoadHold>;
 	}
 
 	return (

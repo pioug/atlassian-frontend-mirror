@@ -46,7 +46,6 @@ import {
 	tryComplete,
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
-import { withProfiling } from '../self-measurements';
 import generateId from '../short-id';
 
 import scheduleOnPaint from './schedule-on-paint';
@@ -110,7 +109,7 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 
 	const interactionContext = useMemo<EnhancedUFOInteractionContextType>(() => {
 		let lastCompleteEndTime = 0;
-		const complete = withProfiling(function complete(endTime: number = performance.now()) {
+		function complete(endTime: number = performance.now()) {
 			if (interactionId.current) {
 				if (parentContext) {
 					parentContext.complete();
@@ -124,7 +123,7 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 						cancelAnimationFrame?.(tryCompleteHandle);
 					}
 
-					const onComplete = withProfiling(function onComplete() {
+					const onComplete = () => {
 						if (capturedInteractionId === interactionId.current) {
 							const isPageVisible = globalThis?.document?.visibilityState === 'visible';
 							const canDoRAF = typeof requestAnimationFrame !== 'undefined';
@@ -141,12 +140,12 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 								tryComplete(interactionId.current, lastCompleteEndTime);
 							}
 						}
-					});
+					};
 
 					scheduleCallback(NormalPriority, onComplete);
 				}
 			}
-		});
+		}
 
 		function _internalHold(
 			this: EnhancedUFOInteractionContextType,

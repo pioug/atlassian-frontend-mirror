@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 
 import { RichIconSearch } from '../../../../../common/ui/rich-icon/search';
 
-import { CrystalBallSVGOld } from './assets/crystal-ball-svg-old';
 import { initialStateViewMessages } from './messages';
 
 const initialStateViewContainerStyles = css({
@@ -67,18 +66,15 @@ export const InitialStateView = () => {
 						: svgAndTextsWrapperStylesOld,
 				]}
 			>
-				{fg('bandicoots-update-sllv-icons') ? (
-					<RichIconSearch
-						size="xlarge"
-						alt={formatMessage(
-							fg('platform-linking-visual-refresh-sllv')
-								? initialStateViewMessages.searchTitle
-								: initialStateViewMessages.searchTitleOld,
-						)}
-					/>
-				) : (
-					<CrystalBallSVGOld />
-				)}
+				<RichIconSearch
+					size="xlarge"
+					alt={formatMessage(
+						fg('platform-linking-visual-refresh-sllv')
+							? initialStateViewMessages.searchTitle
+							: initialStateViewMessages.searchTitleOld,
+					)}
+				/>
+
 				<div
 					css={[
 						fg('platform-linking-visual-refresh-sllv') ? searchTitleStyles : searchTitleStylesOld,

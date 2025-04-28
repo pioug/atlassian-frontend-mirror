@@ -25,13 +25,19 @@ interface TableSearchCountProps {
 	prefixTextType: 'issue' | 'result' | 'item';
 	searchCount: number;
 	testId?: string;
+	/**
+	 * This attribute is only consumed when the fg
+	 * `platform-linking-visual-refresh-sllv` is enabled.
+	 */
+	styles?: React.CSSProperties;
 }
 
 const ItemCountWrapper = ({
 	url,
+	styles: additionalStyles,
 	children,
 	testId,
-}: Pick<TableSearchCountProps, 'testId' | 'url'> & { children: React.ReactNode }) => (
+}: Pick<TableSearchCountProps, 'testId' | 'url' | 'styles'> & { children: React.ReactNode }) => (
 	<Flex testId={testId} xcss={styles.searchCountStyles} alignItems="center">
 		<LinkUrl
 			href={url}
@@ -43,6 +49,8 @@ const ItemCountWrapper = ({
 					? token('color.text.subtlest')
 					: token('color.text.accent.gray', N800),
 				textDecoration: !url ? 'none' : '',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				...(fg('platform-linking-visual-refresh-sllv') && additionalStyles),
 			}}
 		>
 			{fg('platform-linking-visual-refresh-sllv') ? (
@@ -74,6 +82,7 @@ export const AssetsItemCount = ({
 const TableSearchCount = ({
 	url,
 	searchCount,
+	styles: additionalStyles,
 	testId = 'datasource-table-total-results-count',
 	prefixTextType = 'issue',
 }: TableSearchCountProps) => {
@@ -83,7 +92,7 @@ const TableSearchCount = ({
 			? 'issueCountTextIssueTermRefresh'
 			: (`${prefixTextType}CountText` as keyof typeof searchCountMessages);
 	return (
-		<ItemCountWrapper testId={testId} url={url}>
+		<ItemCountWrapper testId={testId} url={url} styles={additionalStyles}>
 			<FormattedMessage {...searchCountMessages[messageKey]} values={{ searchCount }} />
 		</ItemCountWrapper>
 	);

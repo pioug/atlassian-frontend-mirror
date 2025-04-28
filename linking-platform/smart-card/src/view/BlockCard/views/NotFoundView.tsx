@@ -10,9 +10,8 @@ import { useIntl } from 'react-intl-next';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider } from '@atlaskit/link-extractors';
+import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
@@ -38,12 +37,16 @@ const NotFoundView = ({
 }: FlexibleBlockCardProps) => {
 	const intl = useIntl();
 
-	const { cardState } = props;
+	const {
+		cardState: { details },
+	} = props;
 
 	const product = useMemo(() => {
-		const provider = extractProvider(cardState?.details?.data as JsonLd.Data.BaseData);
+		const provider = fg('smart_links_noun_support')
+			? extractSmartLinkProvider(details)
+			: extractProvider(details?.data as JsonLd.Data.BaseData);
 		return provider?.text ?? '';
-	}, [cardState?.details?.data]);
+	}, [details]);
 
 	const title = useMemo(
 		() =>
@@ -62,23 +65,13 @@ const NotFoundView = ({
 
 	return (
 		<UnresolvedView {...props} testId={testId} title={title}>
-			{fg('platform-smart-card-icon-migration') ? (
-				<LockLockedIcon
-					label="not-found-lock-icon"
-					color={token('color.icon.danger')}
-					LEGACY_fallbackIcon={LegacyLockIcon}
-					LEGACY_size="small"
-					testId={`${testId}-lock-icon`}
-				/>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497
-				<LegacyLockIcon
-					label="not-found-lock-icon"
-					size="small"
-					primaryColor={token('color.icon.danger', R300)}
-					testId={`${testId}-lock-icon`}
-				/>
-			)}
+			<LockLockedIcon
+				label="not-found-lock-icon"
+				color={token('color.icon.danger')}
+				LEGACY_fallbackIcon={LegacyLockIcon}
+				LEGACY_size="small"
+				testId={`${testId}-lock-icon`}
+			/>
 			<Text
 				message={description}
 				testId={`${testId}-message`}

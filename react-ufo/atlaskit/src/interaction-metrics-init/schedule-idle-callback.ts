@@ -5,9 +5,7 @@ import {
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { withProfiling } from '../self-measurements';
-
-const scheduleIdleCallback = withProfiling(function scheduleIdleCallback(work: () => void) {
+function scheduleIdleCallback(work: () => void) {
 	if (
 		typeof window !== 'undefined' &&
 		typeof window.requestIdleCallback === 'function' &&
@@ -18,6 +16,6 @@ const scheduleIdleCallback = withProfiling(function scheduleIdleCallback(work: (
 	} else {
 		scheduleCallback(idlePriority, work);
 	}
-});
+}
 
 export default scheduleIdleCallback;

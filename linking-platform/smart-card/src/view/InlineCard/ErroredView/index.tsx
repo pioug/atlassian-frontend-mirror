@@ -12,14 +12,12 @@ import ErrorIconCore from '@atlaskit/icon/core/migration/error';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
-import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
-import { AKIconWrapper } from '../Icon';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButtonOldVisualRefresh } from '../styled';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
@@ -63,28 +61,15 @@ const fallbackIcon = () => {
 		);
 	}
 
-	if (fg('platform-smart-card-icon-migration')) {
-		return (
-			<Box as="span" xcss={styles.iconWrapper}>
-				<ErrorIcon
-					color={token('color.icon.danger')}
-					label="error"
-					LEGACY_size="small"
-					testId="errored-view-default-icon"
-				/>
-			</Box>
-		);
-	}
-
 	return (
-		<AKIconWrapper>
+		<Box as="span" xcss={styles.iconWrapper}>
 			<ErrorIcon
+				color={token('color.icon.danger')}
 				label="error"
 				LEGACY_size="small"
-				color={token('color.icon.danger', R300)}
 				testId="errored-view-default-icon"
 			/>
-		</AKIconWrapper>
+		</Box>
 	);
 };
 

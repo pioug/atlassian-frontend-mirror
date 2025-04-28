@@ -8,4 +8,5 @@ export type {
 	MentionPluginOptions,
 	MentionsPluginOptions,
 	MentionSharedState,
+	MentionsChangedHandler,
 } from './types';

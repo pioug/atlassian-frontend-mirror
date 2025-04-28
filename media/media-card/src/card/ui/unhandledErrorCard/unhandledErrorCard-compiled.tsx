@@ -68,7 +68,7 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 		const convertedDimensions = getConvertedDimension(dimensions);
 		const hideText = !shouldShowText(getConvertedDimension(dimensions));
 		return (
-			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlaskit/ui-styling-standard/enforce-style-prop
+			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlaskit/ui-styling-standard/enforce-style-prop, @atlassian/a11y/interactive-element-not-keyboard-focusable
 			<div style={convertedDimensions} css={wrapperStyle} onClick={onClick}>
 				<WarningIcon
 					label="Error"

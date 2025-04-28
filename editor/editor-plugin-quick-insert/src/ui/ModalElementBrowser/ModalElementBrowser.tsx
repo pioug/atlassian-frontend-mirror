@@ -122,7 +122,7 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 	);
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div data-editor-popup={true} onClick={onModalClick} onKeyDown={onKeyDown}>
 			<ModalTransition>
 				{props.isOpen && (

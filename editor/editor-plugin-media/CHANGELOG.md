@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 2.6.7
+
+### Patch Changes
+
+- [#146103](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146103)
+  [`de3c759c70129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de3c759c70129) -
+  [ux] ED-26971 Update media toolbar icons and show resize option in disabled state for inline media
+
 ## 2.6.6
 
 ### Patch Changes

@@ -3,7 +3,6 @@ import { useContext, useMemo } from 'react';
 import UFOInteractionContext from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { addMark } from '../interaction-metrics';
-import { withProfiling } from '../self-measurements';
 
 export default function UFOCustomMark({ name, timestamp }: { name: string; timestamp?: number }) {
 	const interactionContext = useContext(UFOInteractionContext);
@@ -27,10 +26,7 @@ export function UFOCustomMarks({ data }: { data: { [key: string]: number } | und
 	return null;
 }
 
-export const addUFOCustomMark = withProfiling(function addUFOCustomMark(
-	name: string,
-	timestamp?: number,
-) {
+export function addUFOCustomMark(name: string, timestamp?: number) {
 	const interactionId = getInteractionId();
 	const currentInteractionId = interactionId.current;
 
@@ -39,4 +35,4 @@ export const addUFOCustomMark = withProfiling(function addUFOCustomMark(
 	}
 	const time = timestamp || performance.now();
 	addMark(currentInteractionId, 'custom', name, [], time);
-});
+}

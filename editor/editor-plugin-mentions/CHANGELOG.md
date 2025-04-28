@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.5.0
+
+### Minor Changes
+
+- [#145336](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145336)
+  [`7c22413232131`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c22413232131) -
+  [https://product-fabric.atlassian.net/browse/ED-27657](ED-27657) - move the `mentions` and
+  `tasksAndDecisions` plugins configuration to `@atlassian/confluence-presets` package
+
 ## 4.4.2
 
 ### Patch Changes

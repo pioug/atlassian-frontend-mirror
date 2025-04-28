@@ -2,7 +2,9 @@ import React from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TablePlugin } from '../../tablePluginType';
 
@@ -38,7 +40,16 @@ export const FloatingControlsWithSelection = ({
 	tableActive,
 	api,
 }: FloatingControlsWithSelectionProps) => {
-	const { selectionState } = useSharedPluginState(api, ['selection']);
+	// selection
+	const { selectionState } = useSharedPluginState(api, ['selection'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? selectionsSelector
+		: selectionState?.selection;
 
 	return (
 		<>
@@ -53,7 +64,7 @@ export const FloatingControlsWithSelection = ({
 				stickyTop={tableActive ? stickyTop : undefined}
 			/>
 			<RowControls
-				selection={selectionState?.selection}
+				selection={selection}
 				editorView={editorView}
 				tableRef={tableRef}
 				hoverRows={hoverRows}

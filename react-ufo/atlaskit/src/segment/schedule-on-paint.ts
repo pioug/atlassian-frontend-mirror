@@ -1,10 +1,6 @@
-import { withProfiling } from '../self-measurements';
-
 export type OnPaintCallback = () => any;
 
-const scheduleOnPaint = withProfiling(function scheduleOnPaint(_callback: OnPaintCallback) {
-	const callback = withProfiling(_callback);
-
+function scheduleOnPaint(callback: OnPaintCallback) {
 	if (globalThis.document?.visibilityState !== 'visible') {
 		// last resort fallback
 		setTimeout(callback, 100);
@@ -32,6 +28,6 @@ const scheduleOnPaint = withProfiling(function scheduleOnPaint(_callback: OnPain
 			});
 		});
 	}
-});
+}
 
 export default scheduleOnPaint;

@@ -1,23 +1,17 @@
-import { withProfiling } from '../../../self-measurements';
-
 import { getCLS } from './cls';
 import { PerformanceObserverEntryTypes } from './const';
 import { getTBT } from './tbt';
 import { EntriesBuffer } from './utils/buffer';
 import { startLSObserver, startLTObserver } from './utils/observer';
 
-export const startLighthouseObserver = withProfiling(function startLighthouseObserver() {
+export function startLighthouseObserver() {
 	startLSObserver();
 	startLTObserver();
-});
+}
 
-export const getLighthouseMetrics = withProfiling(function getLighthouseMetrics({
-	start,
-	stop,
-}: {
-	start: number;
-	stop: number;
-}): { [key: string]: number } {
+export function getLighthouseMetrics({ start, stop }: { start: number; stop: number }): {
+	[key: string]: number;
+} {
 	const tbt = getTBT(start, stop, EntriesBuffer[PerformanceObserverEntryTypes.LongTask]);
 
 	// no round as CLS is usually 0-1
@@ -27,4 +21,4 @@ export const getLighthouseMetrics = withProfiling(function getLighthouseMetrics(
 		'metric:tbt:observed': Math.round(tbt.observed),
 		'metric:cls': cls,
 	};
-});
+}

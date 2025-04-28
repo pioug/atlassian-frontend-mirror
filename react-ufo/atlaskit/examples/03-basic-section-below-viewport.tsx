@@ -60,7 +60,7 @@ const useCounterToVisible = (base: number) => {
 const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-one"></UFOLoadHold>;
+		return <UFOLoadHold name="section-1"></UFOLoadHold>;
 	}
 
 	return (
@@ -78,7 +78,7 @@ const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-two"></UFOLoadHold>;
+		return <UFOLoadHold name="section-2"></UFOLoadHold>;
 	}
 
 	return (
@@ -96,7 +96,7 @@ const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	const visibleAt = useCounterToVisible(base);
 
 	if (!visibleAt) {
-		return <UFOLoadHold name="section-three"></UFOLoadHold>;
+		return <UFOLoadHold name="section-3"></UFOLoadHold>;
 	}
 
 	return (

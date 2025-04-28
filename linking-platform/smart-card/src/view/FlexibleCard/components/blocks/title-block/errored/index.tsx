@@ -36,6 +36,7 @@ const TitleBlockErroredView = ({
 			{title}
 			{descriptor && (
 				<ElementGroup direction={SmartLinkDirection.Horizontal} align={SmartLinkAlignment.Right}>
+					{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 					<Box
 						onClick={onClick}
 						testId={`${testId}-errored-view-message`}

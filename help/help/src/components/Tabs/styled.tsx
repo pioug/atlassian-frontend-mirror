@@ -45,7 +45,7 @@ export const TabLabel = ({
 	onClick: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 	children: React.ReactNode;
 }) => (
-	// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+	// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 	<div
 		css={tabLabelStyles}
 		style={{

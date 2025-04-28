@@ -59,6 +59,7 @@ const Controlled = (props: ControlledProps) => {
 		 * as this is an accessibility anti-pattern. However, because this instance is
 		 * for "React" reasons and not creating an inaccessible custom element, we can
 		 */
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box onClick={handleClick}>
 			{props.children({
 				value: value,

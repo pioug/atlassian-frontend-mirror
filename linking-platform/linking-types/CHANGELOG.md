@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 9.10.0
+
+### Minor Changes
+
+- [#146289](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146289)
+  [`399d38bbd3ac4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/399d38bbd3ac4) -
+  Add support for boolean, record in `AtomicActionExecuteRequest` inputs.
+
 ## 9.9.0
 
 ### Minor Changes

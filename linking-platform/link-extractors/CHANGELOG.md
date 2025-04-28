@@ -1,5 +1,15 @@
 # @atlaskit/link-extractors
 
+## 2.3.0
+
+### Minor Changes
+
+- [#144842](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144842)
+  [`06d13af127efa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06d13af127efa) -
+  Export new entity based extractors extractSmartLinkAri, extractSmartLinkCreatedBy,
+  extractSmartLinkCreatedOn, extractSmartLinkModifiedBy, extractSmartLinkModifiedOn. Renamed:
+  extractSmartLinkIcon -> extractEntityIcon.
+
 ## 2.2.1
 
 ### Patch Changes

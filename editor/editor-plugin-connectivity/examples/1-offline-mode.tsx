@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { DevTools, useEditorAnnotationProviders } from '@af/editor-examples-helpers/utils';
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
@@ -40,6 +40,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { useEditorAnnotationProviders } from '@atlaskit/editor-test-helpers/annotation-example';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';

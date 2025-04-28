@@ -50,6 +50,7 @@ const CustomNestingItem = forwardRef(
 
 const BasicExample = () => {
 	return (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box xcss={styles.container} onClick={(e: MouseEvent) => e.preventDefault()}>
 			<NestableNavigationContent>
 				<Section title="Nesting items">

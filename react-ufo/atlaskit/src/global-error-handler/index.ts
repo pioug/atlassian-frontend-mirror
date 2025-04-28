@@ -1,7 +1,5 @@
 import { bind } from 'bind-event-listener';
 
-import { withProfiling } from '../self-measurements';
-
 let shouldInitilizeGlobalErrorHandler = true;
 
 type GlobalError = {
@@ -15,13 +13,13 @@ type GlobalError = {
 let globalCount = 0;
 const errors: GlobalError[] = [];
 
-let push = withProfiling(function push(
+let push = (
 	name: string,
 	labelStack: null,
 	errorType: string,
 	errorMessage: string,
 	errorStack?: string,
-) {
+) => {
 	errors.push({
 		name,
 		labelStack,
@@ -29,9 +27,9 @@ let push = withProfiling(function push(
 		errorMessage,
 		errorStack,
 	});
-});
+};
 
-export const sinkErrorHandler = withProfiling(function sinkErrorHandler(
+export function sinkErrorHandler(
 	sinkFunc: (
 		name: string,
 		labelStack: null,
@@ -40,18 +38,18 @@ export const sinkErrorHandler = withProfiling(function sinkErrorHandler(
 		errorStack?: string,
 	) => void,
 ) {
-	push = withProfiling(sinkFunc);
+	push = sinkFunc;
 	errors.forEach((e) => {
 		sinkFunc(e.name, e.labelStack, e.errorType, e.errorMessage, e.errorStack);
 	});
 	errors.length = 0;
-});
+}
 
-export const getGlobalErrorCount = withProfiling(function getGlobalErrorCount() {
+export function getGlobalErrorCount() {
 	return globalCount;
-});
+}
 
-const handleError = withProfiling(function handleError(e: ErrorEvent) {
+function handleError(e: ErrorEvent) {
 	globalCount++;
 	if (e.error?.UFOhasCaught === undefined) {
 		try {
@@ -71,11 +69,9 @@ const handleError = withProfiling(function handleError(e: ErrorEvent) {
 			// eslint-disable-next-line no-empty
 		} catch (e) {}
 	}
-});
+}
 
-const handlePromiseRejection = withProfiling(function handlePromiseRejection(
-	e: PromiseRejectionEvent,
-) {
+function handlePromiseRejection(e: PromiseRejectionEvent) {
 	globalCount++;
 	if (e.reason instanceof Error) {
 		push('GlobalErrorHandler', null, e.reason.name, e.reason.message, e.reason.stack);
@@ -86,9 +82,9 @@ const handlePromiseRejection = withProfiling(function handlePromiseRejection(
 			// eslint-disable-next-line no-empty
 		} catch (e) {}
 	}
-});
+}
 
-const setupUFOGlobalErrorHandler = withProfiling(function setupUFOGlobalErrorHandler() {
+function setupUFOGlobalErrorHandler() {
 	if (shouldInitilizeGlobalErrorHandler) {
 		bind(window, {
 			type: 'error',
@@ -101,6 +97,6 @@ const setupUFOGlobalErrorHandler = withProfiling(function setupUFOGlobalErrorHan
 		});
 		shouldInitilizeGlobalErrorHandler = false;
 	}
-});
+}
 
 export default setupUFOGlobalErrorHandler;

@@ -111,7 +111,17 @@ export const mocks = {
 	} as JsonLd.Response,
 	nounDataSuccess: {
 		...jsonLdResponse,
-		...nounDataResponse,
+		data: {
+			...jsonLdResponse.data,
+			generator: {
+				'@type': 'Application',
+				icon: {
+					'@type': 'Image',
+					url: 'https://www.ilovecheese.com',
+				},
+				name: 'I love cheese',
+			},
+		},
 		meta: {
 			...jsonLdResponse.meta,
 			generator: {
@@ -121,6 +131,7 @@ export const mocks = {
 				},
 			},
 		},
+		...nounDataResponse,
 	} as SmartLinkResponse,
 	notFound: {
 		meta: {

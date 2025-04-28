@@ -1,5 +1,4 @@
 import type { AssetsClassification, InteractionMetrics, InteractionType } from '../common';
-import { withProfiling } from '../self-measurements';
 
 let config: Config | undefined;
 export interface AdditionalData {
@@ -116,18 +115,15 @@ export type Config = {
 	readonly enableCompleteUsingDoubleRAF?: boolean;
 };
 
-export const setUFOConfig = withProfiling(function setUFOConfig(newConfig: Config) {
+export function setUFOConfig(newConfig: Config) {
 	config = newConfig;
-});
+}
 
-export const getConfig = withProfiling(function getConfig() {
+export function getConfig() {
 	return config;
-});
+}
 
-export const getInteractionRate = withProfiling(function getInteractionRate(
-	name: string,
-	interactionKind: InteractionKind,
-): number {
+export function getInteractionRate(name: string, interactionKind: InteractionKind): number {
 	try {
 		if (!config) {
 			return 0;
@@ -182,9 +178,9 @@ export const getInteractionRate = withProfiling(function getInteractionRate(
 		// Fallback
 		return 0;
 	}
-});
+}
 
-export const getExperimentalInteractionRate = withProfiling(function getExperimentalInteractionRate(
+export function getExperimentalInteractionRate(
 	name: string,
 	interactionType: InteractionType,
 ): number {
@@ -215,12 +211,9 @@ export const getExperimentalInteractionRate = withProfiling(function getExperime
 	} catch (e: any) {
 		return 0;
 	}
-});
+}
 
-export const getPostInteractionRate = withProfiling(function getPostInteractionRate(
-	name: string,
-	interactionType: InteractionType,
-): number {
+export function getPostInteractionRate(name: string, interactionType: InteractionType): number {
 	try {
 		if (!config) {
 			return 0;
@@ -242,11 +235,9 @@ export const getPostInteractionRate = withProfiling(function getPostInteractionR
 	} catch (e: any) {
 		return 0;
 	}
-});
+}
 
-export const getCapabilityRate = withProfiling(function getCapabilityRate(
-	capability: Capability,
-): number {
+export function getCapabilityRate(capability: Capability): number {
 	try {
 		if (!config) {
 			return 0;
@@ -262,33 +253,31 @@ export const getCapabilityRate = withProfiling(function getCapabilityRate(
 	} catch {
 		return 0;
 	}
-});
+}
 
 const validTypingMethods = ['timeout', 'timeoutNoAlloc', 'mutationObserver'] as const;
 type ValidTypingMethod = (typeof validTypingMethods)[number];
 
-export const getTypingPerformanceTracingMethod = withProfiling(
-	function getTypingPerformanceTracingMethod(): ValidTypingMethod {
-		const defaultMethod = 'timeout';
-		try {
-			if (!config) {
-				return defaultMethod;
-			}
-			const { typingMethod } = config;
-
-			if (typingMethod != null && validTypingMethods.find((m) => m === typingMethod)) {
-				return typingMethod as ValidTypingMethod;
-			} else {
-				return defaultMethod;
-			}
-		} catch (e: any) {
+export function getTypingPerformanceTracingMethod(): ValidTypingMethod {
+	const defaultMethod = 'timeout';
+	try {
+		if (!config) {
 			return defaultMethod;
 		}
-	},
-);
+		const { typingMethod } = config;
+
+		if (typingMethod != null && validTypingMethods.find((m) => m === typingMethod)) {
+			return typingMethod as ValidTypingMethod;
+		} else {
+			return defaultMethod;
+		}
+	} catch (e: any) {
+		return defaultMethod;
+	}
+}
 
 // Will ask UFO to wait for BM3 TTI for all events on this list
-export const getAwaitBM3TTIList = withProfiling(function getAwaitBM3TTIList(): string[] {
+export function getAwaitBM3TTIList(): string[] {
 	try {
 		if (!config) {
 			return [];
@@ -303,55 +292,49 @@ export const getAwaitBM3TTIList = withProfiling(function getAwaitBM3TTIList(): s
 	} catch (e: any) {
 		return [];
 	}
-});
+}
 
 // Flag to remove ufo segments prefixes
-export const getRemovePageSegmentsUFOPrefixes = withProfiling(
-	function getRemovePageSegmentsUFOPrefixes(): boolean {
-		try {
-			if (!config) {
-				return false;
-			}
-			const { removePageSegmentsUFOPrefixes } = config;
-
-			if (removePageSegmentsUFOPrefixes != null) {
-				return removePageSegmentsUFOPrefixes;
-			} else {
-				return false;
-			}
-		} catch (e: any) {
+export function getRemovePageSegmentsUFOPrefixes(): boolean {
+	try {
+		if (!config) {
 			return false;
 		}
-	},
-);
+		const { removePageSegmentsUFOPrefixes } = config;
+
+		if (removePageSegmentsUFOPrefixes != null) {
+			return removePageSegmentsUFOPrefixes;
+		} else {
+			return false;
+		}
+	} catch (e: any) {
+		return false;
+	}
+}
 
 // Flag to remove ufo segments prefixes
-export const getRemoveInteractionsUFOPrefixes = withProfiling(
-	function getRemoveInteractionsUFOPrefixes(): boolean {
-		try {
-			if (!config) {
-				return false;
-			}
-			const { removeInteractionsUFOPrefixes } = config;
-
-			if (removeInteractionsUFOPrefixes != null) {
-				return removeInteractionsUFOPrefixes;
-			} else {
-				return false;
-			}
-		} catch (e: any) {
+export function getRemoveInteractionsUFOPrefixes(): boolean {
+	try {
+		if (!config) {
 			return false;
 		}
-	},
-);
+		const { removeInteractionsUFOPrefixes } = config;
+
+		if (removeInteractionsUFOPrefixes != null) {
+			return removeInteractionsUFOPrefixes;
+		} else {
+			return false;
+		}
+	} catch (e: any) {
+		return false;
+	}
+}
 
 // Will ask UFO to override ufoName => experienceKey to the apdex key
 // This is to cover use cases where one rUFO route is split into multiple BM3 keys (1:N)
 // This workaround should only be used as last resource,
 // when we find router limitations preventing teams from splliting these routes
-export const getUfoNameOverrides = withProfiling(function getUfoNameOverrides():
-	| UFONameOverride
-	| undefined {
+export function getUfoNameOverrides(): UFONameOverride | undefined {
 	try {
 		if (!config) {
 			return undefined;
@@ -364,44 +347,40 @@ export const getUfoNameOverrides = withProfiling(function getUfoNameOverrides():
 	} catch (e: any) {
 		return undefined;
 	}
-});
+}
 
 // Contains the list of interactions that do not abort existing known interactions
-export const getDoNotAbortActivePressInteraction = withProfiling(
-	function getDoNotAbortActivePressInteraction(): string[] | undefined {
-		try {
-			if (!config) {
-				return undefined;
-			}
-			const { doNotAbortActivePressInteraction } = config;
-
-			return doNotAbortActivePressInteraction;
-		} catch (e: any) {
+export function getDoNotAbortActivePressInteraction(): string[] | undefined {
+	try {
+		if (!config) {
 			return undefined;
 		}
-	},
-);
+		const { doNotAbortActivePressInteraction } = config;
+
+		return doNotAbortActivePressInteraction;
+	} catch (e: any) {
+		return undefined;
+	}
+}
 
 // Contains the list of interactions that do not abort on transitions
-export const getDoNotAbortActivePressInteractionOnTransition = withProfiling(
-	function getDoNotAbortActivePressInteractionOnTransition(): string[] | undefined {
-		try {
-			if (!config) {
-				return undefined;
-			}
-			const { doNotAbortActivePressInteractionOnTransition } = config;
-
-			return doNotAbortActivePressInteractionOnTransition;
-		} catch (e: any) {
+export function getDoNotAbortActivePressInteractionOnTransition(): string[] | undefined {
+	try {
+		if (!config) {
 			return undefined;
 		}
-	},
-);
+		const { doNotAbortActivePressInteractionOnTransition } = config;
 
-export const shouldHandleEditorLnv = withProfiling(function shouldHandleEditorLnv(): boolean {
+		return doNotAbortActivePressInteractionOnTransition;
+	} catch (e: any) {
+		return undefined;
+	}
+}
+
+export function shouldHandleEditorLnv(): boolean {
 	try {
 		return config?.enableEditorLnvHandler ?? false;
 	} catch (e: any) {
 		return false;
 	}
-});
+}

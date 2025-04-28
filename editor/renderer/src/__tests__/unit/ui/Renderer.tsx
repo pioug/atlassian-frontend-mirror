@@ -18,7 +18,6 @@ import React from 'react';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -35,7 +34,7 @@ import { IntlProvider } from 'react-intl-next';
 import { Media } from '../../../react/nodes';
 import * as renderDocumentModule from '../../../render-document';
 import type { RendererProps } from '../../../ui/renderer-props';
-import Renderer, { __RendererClassComponent as BaseRenderer } from '../../../ui/Renderer';
+import Renderer, { RendererFunctionalComponent as BaseRenderer } from '../../../ui/Renderer';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 import { initialDoc } from '../../__fixtures__/initial-doc';
 import { intlRequiredDoc } from '../../__fixtures__/intl-required-doc';
@@ -65,99 +64,45 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 		jest.restoreAllMocks();
 	});
 	describe('should re-render when appearance changes', () => {
-		ffTest(
-			'platform_editor_react18_renderer',
-			() => {
-				const renderMock = jest.fn();
-				const WrappedRenderer = (props: any) => {
-					renderMock();
-					return <Renderer {...props} />;
-				};
-				renderer = mount(<WrappedRenderer document={initialDoc} />);
-				renderer.setProps({ appearance: 'full-width' });
-				renderer.setProps({ appearance: 'full-page' });
-				expect(renderMock).toHaveBeenCalledTimes(3);
-			},
-			() => {
-				// this test on the old component fails under React18 pipelines, this skips it
-				// only for React 18 to avoid the test failure blocking merge
-				if (process.env.IS_REACT_18) {
-					// calling fg here to avoid the test failure blocking merge
-					fg('platform_editor_react18_renderer');
-					expect(true).toBe(true);
-					return;
-				}
-				renderer = initRenderer();
-				const renderSpy = jest.spyOn(renderer.find(BaseRenderer).instance() as any, 'render');
-				renderer.setProps({ appearance: 'full-width' });
-				renderer.setProps({ appearance: 'full-page' });
-				expect(renderSpy).toHaveBeenCalledTimes(2);
-			},
-		);
+		it('does re-render', () => {
+			const renderMock = jest.fn();
+			const WrappedRenderer = (props: any) => {
+				renderMock();
+				return <Renderer {...props} />;
+			};
+			renderer = mount(<WrappedRenderer document={initialDoc} />);
+			renderer.setProps({ appearance: 'full-width' });
+			renderer.setProps({ appearance: 'full-page' });
+			expect(renderMock).toHaveBeenCalledTimes(3);
+		});
 	});
 
 	describe('should re-render when allowCustomPanels changes', () => {
-		ffTest(
-			'platform_editor_react18_renderer',
-			() => {
-				const renderMock = jest.fn();
-				const WrappedRenderer = (props: any) => {
-					renderMock();
-					return <Renderer {...props} />;
-				};
-				renderer = mount(<WrappedRenderer document={initialDoc} />);
-				renderer.setProps({ allowCustomPanels: false });
-				renderer.setProps({ allowCustomPanels: true });
-				expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 2 updates
-			},
-			() => {
-				// this test on the old component fails under React18 pipelines, this skips it
-				// only for React 18 to avoid the test failure blocking merge
-				if (process.env.IS_REACT_18) {
-					// calling fg here to avoid the test failure blocking merge
-					fg('platform_editor_react18_renderer');
-					expect(true).toBe(true);
-					return;
-				}
-				renderer = initRenderer();
-				const renderSpy = jest.spyOn(renderer.find(BaseRenderer).instance() as any, 'render');
-				renderer.setProps({ allowCustomPanels: false });
-				renderer.setProps({ allowCustomPanels: true });
-				expect(renderSpy).toHaveBeenCalledTimes(2);
-			},
-		);
+		it('does rerender', () => {
+			const renderMock = jest.fn();
+			const WrappedRenderer = (props: any) => {
+				renderMock();
+				return <Renderer {...props} />;
+			};
+			renderer = mount(<WrappedRenderer document={initialDoc} />);
+			renderer.setProps({ allowCustomPanels: false });
+			renderer.setProps({ allowCustomPanels: true });
+			expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 2 updates
+		});
 	});
 
 	describe('should not re-render when allowCustomPanels does not change', () => {
-		ffTest(
-			'platform_editor_react18_renderer',
-			() => {
-				const renderMock = jest.fn();
-				const WrappedRenderer = (props: any) => {
-					renderMock();
-					return <Renderer {...props} />;
-				};
-				renderer = mount(<WrappedRenderer document={initialDoc} />);
-				renderer.setProps({ allowCustomPanels: false });
-				renderer.setProps({ allowCustomPanels: false });
-				expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 1 update
-			},
-			() => {
-				// this test on the old component fails under React18 pipelines, this skips it
-				// only for React 18 to avoid the test failure blocking merge
-				if (process.env.IS_REACT_18) {
-					// calling fg here to avoid the test failure blocking merge
-					fg('platform_editor_react18_renderer');
-					expect(true).toBe(true);
-					return;
-				}
-				renderer = initRenderer();
-				const renderSpy = jest.spyOn(renderer.find(BaseRenderer).instance() as any, 'render');
-				renderer.setProps({ allowCustomPanels: false });
-				renderer.setProps({ allowCustomPanels: false });
-				expect(renderSpy).toHaveBeenCalledTimes(1);
-			},
-		);
+		it('does not render', () => {
+			const renderMock = jest.fn();
+			const WrappedRenderer = (props: any) => {
+				renderMock();
+				return <Renderer {...props} />;
+			};
+			renderer = mount(<WrappedRenderer document={initialDoc} />);
+			renderer.setProps({ allowCustomPanels: false });
+			renderer.setProps({ allowCustomPanels: false });
+			expect(renderMock).toHaveBeenCalledTimes(3); // Initial render + 1 update
+		});
 	});
 
 	it('should catch errors and render unsupported content text', () => {
@@ -557,58 +502,29 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 	// IMPORTANT: This test is needed to avoid SSR pages with extensions breaking. This test should only be changed when the
 	// ReactSerializer has been update to be more targetted in it updates.
 	describe('Extension Handlers', () => {
-		ffTest(
-			'platform_editor_react18_renderer',
-			() => {
-				const renderMock = jest.fn();
-				const WrappedRenderer = (props: any) => {
-					renderMock();
-					return <Renderer {...props} />;
-				};
-				renderer = mount(<WrappedRenderer document={initialDoc} />);
-				const renderDocumentSpy = jest.spyOn(renderDocumentModule, 'renderDocument');
+		it('renders when extensionHandlers change', () => {
+			const renderMock = jest.fn();
+			const WrappedRenderer = (props: any) => {
+				renderMock();
+				return <Renderer {...props} />;
+			};
+			renderer = mount(<WrappedRenderer document={initialDoc} />);
+			const renderDocumentSpy = jest.spyOn(renderDocumentModule, 'renderDocument');
 
-				renderer.setProps({ extensionHandlers: {} });
-				renderer.setProps({ extensionHandlers: {} });
+			renderer.setProps({ extensionHandlers: {} });
+			renderer.setProps({ extensionHandlers: {} });
 
-				expect(renderMock).toHaveBeenCalledTimes(3);
-				expect(renderDocumentSpy).toHaveBeenCalledTimes(2);
+			expect(renderMock).toHaveBeenCalledTimes(3);
+			expect(renderDocumentSpy).toHaveBeenCalledTimes(2);
 
-				// IMPORTANT: 2 renders have occured both times being passed 2 different extension handler objects
-				// This means the serializer passed to the renderDocument should have changed and NOT be the same serialzer instance
-				// Which was passed the first time.
-				// This is due to a HOT created in an attempt to reduce re-renders, which broken dynamic extensions on SSR pages
-				// PIR Action - https://product-fabric.atlassian.net/browse/ED-19393
-				// https://product-fabric.atlassian.net/wiki/spaces/E/pages/3656254243/PIR-15961+HOT-104596+-+Macros+are+not+loaded+on+SSR+enabled+views
-				expect(renderDocumentSpy.mock.calls[0][1]).not.toEqual(renderDocumentSpy.mock.calls[1][1]);
-			},
-			() => {
-				// this test on the old component fails under React18 pipelines, this skips it
-				// only for React 18 to avoid the test failure blocking merge
-				if (process.env.IS_REACT_18) {
-					fg('platform_editor_react18_renderer');
-					expect(true).toBe(true);
-					return;
-				}
-				renderer = initRenderer();
-				const renderSpy = jest.spyOn(renderer.find(BaseRenderer).instance() as any, 'render');
-				const renderDocumentSpy = jest.spyOn(renderDocumentModule, 'renderDocument');
-
-				renderer.setProps({ extensionHandlers: {} });
-				renderer.setProps({ extensionHandlers: {} });
-
-				expect(renderSpy).toHaveBeenCalledTimes(2);
-				expect(renderDocumentSpy).toHaveBeenCalledTimes(2);
-
-				// IMPORTANT: 2 renders have occured both times being passed 2 different extension handler objects
-				// This means the serializer passed to the renderDocument should have changed and NOT be the same serialzer instance
-				// Which was passed the first time.
-				// This is due to a HOT created in an attempt to reduce re-renders, which broken dynamic extensions on SSR pages
-				// PIR Action - https://product-fabric.atlassian.net/browse/ED-19393
-				// https://product-fabric.atlassian.net/wiki/spaces/E/pages/3656254243/PIR-15961+HOT-104596+-+Macros+are+not+loaded+on+SSR+enabled+views
-				expect(renderDocumentSpy.mock.calls[0][1]).not.toEqual(renderDocumentSpy.mock.calls[1][1]);
-			},
-		);
+			// IMPORTANT: 2 renders have occured both times being passed 2 different extension handler objects
+			// This means the serializer passed to the renderDocument should have changed and NOT be the same serialzer instance
+			// Which was passed the first time.
+			// This is due to a HOT created in an attempt to reduce re-renders, which broken dynamic extensions on SSR pages
+			// PIR Action - https://product-fabric.atlassian.net/browse/ED-19393
+			// https://product-fabric.atlassian.net/wiki/spaces/E/pages/3656254243/PIR-15961+HOT-104596+-+Macros+are+not+loaded+on+SSR+enabled+views
+			expect(renderDocumentSpy.mock.calls[0][1]).not.toEqual(renderDocumentSpy.mock.calls[1][1]);
+		});
 
 		it('should not re-render when extensionHandlers has not change', () => {
 			// this test on the old component fails under React18 pipelines, this skips it

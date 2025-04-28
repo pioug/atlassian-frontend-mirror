@@ -94,7 +94,8 @@ const EditToolbarButtonPresentation = ({
 							/>
 						)}
 					</Button>
-					<Separator />
+					{(!editorExperiment('platform_editor_controls', 'variant1') ||
+						!fg('platform_editor_controls_patch_6')) && <Separator />}
 				</Flex>
 			);
 		}
@@ -112,7 +113,9 @@ const EditToolbarButtonPresentation = ({
 							{...linkToolbarMessages.editDatasourceStandalone}
 						/>
 					</Button>
-					<Separator />
+
+					{(!editorExperiment('platform_editor_controls', 'variant1') ||
+						!fg('platform_editor_controls_patch_6')) && <Separator />}
 				</Flex>
 			);
 		}
@@ -141,7 +144,9 @@ const EditToolbarButtonPresentation = ({
 							{...messages.editDropdownTriggerTitle}
 						/>
 					</Button>
-					<Separator />
+
+					{(!editorExperiment('platform_editor_controls', 'variant1') ||
+						!fg('platform_editor_controls_patch_6')) && <Separator />}
 				</Flex>
 			);
 

@@ -7,6 +7,7 @@ import { Box } from '@atlaskit/primitives';
 import { LinkItem } from '../src';
 
 const Example = () => (
+	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 	<Box onClick={(e: MouseEvent) => e.preventDefault()}>
 		{/* eslint-disable jsx-a11y/anchor-is-valid */}
 		<LinkItem href="#">My articles</LinkItem>

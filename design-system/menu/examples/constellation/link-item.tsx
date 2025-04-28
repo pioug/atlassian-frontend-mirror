@@ -30,6 +30,7 @@ export default () => {
 		 * inaccessible custom element, we can add role="presentation" so that there is
 		 * no negative impacts to assistive technologies.
 		 */
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box onClick={(e: MouseEvent) => e.preventDefault()} role="presentation">
 			<LinkItem {...getComputedProps({ href: '#link-item1' })}>Customer Feedback</LinkItem>
 			<LinkItem {...getComputedProps({ href: '#link-item2' })}>Customer Feedback</LinkItem>

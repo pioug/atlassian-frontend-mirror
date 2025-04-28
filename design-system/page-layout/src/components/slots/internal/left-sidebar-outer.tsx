@@ -137,7 +137,7 @@ const LeftSidebarOuterComponent = (
 				 * On mobile, the `onClick` handler controls the toggled flyout behaviour.
 				 * This is not intended to be how you use this with a keyboard, there is a ResizeButton for this intentionally instead.
 				 */
-				// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+				// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 				<div
 					css={[
 						// mobile viewport styles

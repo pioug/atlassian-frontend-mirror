@@ -37,6 +37,7 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, tru
 
 	return (
 		<components.DropdownIndicator {...props}>
+			{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 			<Box
 				xcss={styles.customDropdownIndicatorStyles}
 				onClick={() => {

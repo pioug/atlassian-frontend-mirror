@@ -15,6 +15,7 @@ import {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { EVENT_CHANNEL } from '../../../analytics/constants';
@@ -62,10 +63,7 @@ import {
 	type JiraIssueDatasourceParametersQuery,
 } from '../types';
 
-import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
-
-const noop = () => '';
 
 const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
 	if (currentViewMode === 'table') {
@@ -123,10 +121,7 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const experienceId = useDatasourceExperienceId();
 
-	const { formatMessage } = fg('bandicoots-update-sllv-icons')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useIntl()
-		: { formatMessage: noop };
+	const { formatMessage } = useIntl();
 
 	const analyticsPayload = useMemo(
 		() => ({
@@ -383,18 +378,14 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 					) : (
 						<InitialStateView
 							icon={
-								fg('bandicoots-update-sllv-icons') ? (
-									<RichIconSearch
-										alt={formatMessage(
-											fg('confluence-issue-terminology-refresh')
-												? modalMessages.searchJiraTitleIssueTermRefresh
-												: modalMessages.searchJiraTitle,
-										)}
-										size={'xlarge'}
-									/>
-								) : (
-									<JiraInitialStateSVG />
-								)
+								<RichIconSearch
+									alt={formatMessage(
+										fg('confluence-issue-terminology-refresh')
+											? modalMessages.searchJiraTitleIssueTermRefresh
+											: modalMessages.searchJiraTitle,
+									)}
+									size={'xlarge'}
+								/>
 							}
 							title={
 								fg('confluence-issue-terminology-refresh')
@@ -547,6 +538,14 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								url={jqlUrl}
 								prefixTextType="issue"
 								testId="jira-datasource-modal-total-issues-count"
+								styles={
+									fg('platform-linking-visual-refresh-sllv')
+										? {
+												color: token('color.text'),
+												font: token('font.heading.xxsmall'),
+											}
+										: undefined
+								}
 							/>
 						)}
 						<CancelButton

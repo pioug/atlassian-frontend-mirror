@@ -1,4 +1,3 @@
-import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../self-measurements';
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
 import { type VCObserverEntryType } from '../types';
@@ -8,50 +7,41 @@ import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
 
-const isElementVisible = withProfiling(
-	function isElementVisible(element: Element) {
-		if (!(element instanceof HTMLElement)) {
-			return true;
-		}
+function isElementVisible(element: Element) {
+	if (!(element instanceof HTMLElement)) {
+		return true;
+	}
 
-		try {
-			const visible = element.checkVisibility({
-				// @ts-expect-error
-				visibilityProperty: true,
-				contentVisibilityAuto: true,
-				opacityProperty: true,
-			});
+	try {
+		const visible = element.checkVisibility({
+			// @ts-expect-error
+			visibilityProperty: true,
+			contentVisibilityAuto: true,
+			opacityProperty: true,
+		});
 
-			return visible;
-		} catch (e) {
-			// there is no support for checkVisibility
-			return true;
-		}
-	},
-	['vc'],
-);
+		return visible;
+	} catch (e) {
+		// there is no support for checkVisibility
+		return true;
+	}
+}
 
-const sameRectSize = withProfiling(
-	function sameRectSize(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
-		if (!a || !b) {
-			return false;
-		}
+function sameRectSize(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
+	if (!a || !b) {
+		return false;
+	}
 
-		return a.width === b.width && a.height === b.height;
-	},
-	['vc'],
-);
+	return a.width === b.width && a.height === b.height;
+}
 
-const sameRectDimensions = withProfiling(
-	function sameRectDimensions(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
-		if (!a || !b) {
-			return false;
-		}
+function sameRectDimensions(a: DOMRect | null | undefined, b: DOMRect | null | undefined) {
+	if (!a || !b) {
+		return false;
+	}
 
-		return a.width === b.width && a.height === b.height && a.x === b.x && a.y === b.y;
-	},
-	['vc'],
-);
+	return a.width === b.width && a.height === b.height && a.x === b.x && a.y === b.y;
+}
 
 export type ViewPortObserverConstructorArgs = {
 	onChange(onChangeArgs: {
@@ -71,9 +61,7 @@ export default class ViewportObserver {
 	private performanceObserver: PerformanceObserver | null;
 	private mapVisibleNodeRects: WeakMap<Element, DOMRect>;
 
-	constructor({ onChange: _onChange }: ViewPortObserverConstructorArgs) {
-		const onChange = withProfiling(_onChange, ['vc']);
-		const operationTimer = markProfilingStart('ViewportObserver constructor');
+	constructor({ onChange: onChange }: ViewPortObserverConstructorArgs) {
 		this.mapVisibleNodeRects = new WeakMap();
 		this.intersectionObserver = createIntersectionObserver({
 			onEntry: ({ target, rect, time, type, mutationData }) => {
@@ -188,11 +176,6 @@ export default class ViewportObserver {
 				}
 			},
 		});
-
-		this.start = withProfiling(this.start.bind(this), ['vc']);
-		this.stop = withProfiling(this.stop.bind(this), ['vc']);
-
-		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	start() {

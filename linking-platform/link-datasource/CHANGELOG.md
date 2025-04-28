@@ -1,5 +1,37 @@
 # @atlaskit/link-datasource
 
+## 4.8.0
+
+### Minor Changes
+
+- [#144701](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144701)
+  [`83ee70b0e7354`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83ee70b0e7354) -
+  [ux] Cleans up `bandicoots-update-sllv-icons` fg
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.7.1
+
+### Patch Changes
+
+- [#145369](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145369)
+  [`995c7b4234127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/995c7b4234127) -
+  Clean up FG enable_datasource_fetch_action_inputs
+
+## 4.7.0
+
+### Minor Changes
+
+- [#144089](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144089)
+  [`fc6dee851ba2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc6dee851ba2a) -
+  [ux] Behind fg `platform-linking-visual-refresh-sllv` - Updates styles for modal footer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.6.1
 
 ### Patch Changes

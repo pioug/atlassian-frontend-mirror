@@ -34,6 +34,7 @@ type BlanketProps = {
  */
 const Blanket = ({ isTinted, onBlanketClicked, style }: BlanketProps) => {
 	return (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			role="presentation"
 			css={blanketStyles}

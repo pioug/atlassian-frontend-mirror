@@ -6,7 +6,6 @@ import type {
 	VCRatioType,
 } from '../../../common/vc/types';
 import { getPageVisibilityState } from '../../../hidden-timing';
-import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../self-measurements';
 import type { ObservedMutationType } from '../observers/types';
 import type {
 	FilterComponentsLogType,
@@ -82,7 +81,6 @@ export class MultiRevisionHeatmap {
 	componentsLogs: PerRevision<ComponentsLogType>;
 
 	constructor({ viewport, revisions, arraySize, devToolsEnabled }: HeatmapAttrs) {
-		const operationTimer = markProfilingStart('MultiRevisionHeatmap constructor');
 		this.viewport = viewport;
 		this.revisions = revisions;
 		if (arraySize) {
@@ -99,17 +97,6 @@ export class MultiRevisionHeatmap {
 			this.componentsLogs[i] = {};
 			this.vcRatios[i] = {};
 		});
-
-		this.handleUpdate = withProfiling(this.handleUpdate.bind(this), ['vc']);
-		this.getData = withProfiling(this.getData.bind(this), ['vc']);
-		this.getPayloadShapedData = withProfiling(this.getPayloadShapedData.bind(this), ['vc']);
-		this.processData = withProfiling(this.processData.bind(this), ['vc']);
-		this.mapPixelsToHeatmap = withProfiling(this.mapPixelsToHeatmap.bind(this), ['vc']);
-		this.getElementRatio = withProfiling(this.getElementRatio.bind(this), ['vc']);
-		this.applyChangesToHeatMap = withProfiling(this.applyChangesToHeatMap.bind(this), ['vc']);
-		this.getIndex = withProfiling(this.getIndex.bind(this), ['vc']);
-		this.getCleanHeatmap = withProfiling(this.getCleanHeatmap.bind(this), ['vc']);
-		markProfilingEnd(operationTimer);
 	}
 
 	handleUpdate({
@@ -342,14 +329,11 @@ export class MultiRevisionHeatmap {
 		return new Int32Array(this.arraySize.w * this.arraySize.h);
 	}
 
-	static makeVCReturnObj = withProfiling(
-		function makeVCReturnObj<T>(VCParts: number[]) {
-			const vc: { [key: string]: null | T } = {};
-			VCParts.forEach((v) => {
-				vc[v] = null;
-			});
-			return vc;
-		},
-		['vc'],
-	);
+	static makeVCReturnObj<T>(VCParts: number[]) {
+		const vc: { [key: string]: null | T } = {};
+		VCParts.forEach((v) => {
+			vc[v] = null;
+		});
+		return vc;
+	}
 }

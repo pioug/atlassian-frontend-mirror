@@ -228,55 +228,6 @@ filters.forEach((filter) => {
 			await page
 				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
 				.waitFor({ state: 'visible' });
-			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `empty-message`);
-
-			await page
-				.getByRole('heading', { name: 'No matches found', exact: true })
-				.waitFor({ state: 'visible' });
-
-			await component.getByTestId(`jlol-basic-filter-${filter}--no-options-message`);
-		},
-		description: `${filter} open and view empty state - platform-linking-visual-refresh-sllv false`,
-		featureFlags: {
-			'platform-linking-visual-refresh-sllv': false,
-		},
-	});
-
-	snapshotInformational(BasicFiltersVR, {
-		...options,
-
-		prepare: async (page: Page, component: Locator) => {
-			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-			await page
-				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
-				.waitFor({ state: 'visible' });
-			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `error-message`);
-
-			await page
-				.getByRole('heading', { name: 'We ran into an issue trying to load results', exact: true })
-				.waitFor({ state: 'visible' });
-
-			await page
-				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
-				.getByText('Check your connection and refresh');
-
-			await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
-		},
-		description: `${filter} open and view error state - platform-linking-visual-refresh-sllv true`,
-		featureFlags: {
-			'platform-linking-visual-refresh-sllv': true,
-		},
-		waitForHold: true,
-	});
-
-	snapshotInformational(BasicFiltersVR, {
-		...options,
-
-		prepare: async (page: Page, component: Locator) => {
-			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
-			await page
-				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
-				.waitFor({ state: 'visible' });
 			await page.fill(`#jlol-basic-filter-${filter}-popup-select--input`, `error-message`);
 
 			await page
@@ -285,7 +236,7 @@ filters.forEach((filter) => {
 
 			await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
 		},
-		description: `${filter} open and view error state - platform-linking-visual-refresh-sllv false`,
+		description: `${filter} open and view error state`,
 		featureFlags: {
 			'platform-linking-visual-refresh-sllv': false,
 		},

@@ -6,7 +6,7 @@ import { css, jsx, keyframes } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import type { LoadingSkeletonPropsNew, LoadingSkeletonPropsOld } from './types';
+import type { LoadingSkeletonProps } from './types';
 
 const animationNameStyles = keyframes({
 	'0%': {
@@ -35,7 +35,7 @@ const loadingSkeletonStyle = css({
 	animationTimingFunction: 'linear',
 });
 
-const LoadingSkeletonNew = ({ testId, width, height }: LoadingSkeletonPropsNew) => {
+export const LoadingSkeleton = ({ testId, width, height }: LoadingSkeletonProps) => {
 	return (
 		<span
 			css={loadingSkeletonStyle}
@@ -47,11 +47,3 @@ const LoadingSkeletonNew = ({ testId, width, height }: LoadingSkeletonPropsNew) 
 		/>
 	);
 };
-
-const LoadingSkeletonOld = (props: LoadingSkeletonPropsOld) => {
-	return (
-		<LoadingSkeletonNew {...props} width={`${props.width}rem`} height={`${props.height}rem`} />
-	);
-};
-
-export { LoadingSkeletonOld, LoadingSkeletonNew };

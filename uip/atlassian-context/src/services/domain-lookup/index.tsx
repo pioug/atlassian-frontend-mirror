@@ -49,9 +49,7 @@ export function getATLContextDomain(
 	if (override) {
 		return (
 			// Exact match preferred
-			override[perimeter]?.[env] ??
-			// Fallback to mandatory commercial production
-			override[COMMERCIAL][PRODUCTION]
+			override[perimeter]?.[env] ?? override[COMMERCIAL][PRODUCTION] // Fallback to mandatory commercial production
 		);
 	}
 

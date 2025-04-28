@@ -2,7 +2,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type VCIgnoreReason } from '../../../common/vc/types';
 import { shouldHandleEditorLnv } from '../../../config';
-import { markProfilingEnd, markProfilingStart, withProfiling } from '../../../self-measurements';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
 import { EditorLnvHandler } from './editor-lnv';
@@ -51,22 +50,19 @@ type ConstructorOptions = {
 	selectorConfig: SelectorConfig;
 };
 
-const isElementVisible = withProfiling(
-	function isElementVisible(target: Element): boolean {
-		if (!target || typeof target.checkVisibility !== 'function') {
-			return true;
-		}
+function isElementVisible(target: Element): boolean {
+	if (!target || typeof target.checkVisibility !== 'function') {
+		return true;
+	}
 
-		const isVisible = target.checkVisibility({
-			contentVisibilityAuto: true,
-			opacityProperty: true,
-			visibilityProperty: true,
-		} as CheckVisibilityOptions);
+	const isVisible = target.checkVisibility({
+		contentVisibilityAuto: true,
+		opacityProperty: true,
+		visibilityProperty: true,
+	} as CheckVisibilityOptions);
 
-		return isVisible;
-	},
-	['vc'],
-);
+	return isVisible;
+}
 
 export class Observers implements BrowserObservers {
 	private intersectionObserver: IntersectionObserver | null;
@@ -102,7 +98,6 @@ export class Observers implements BrowserObservers {
 	};
 
 	constructor(opts: ConstructorOptions) {
-		const operationTimer = markProfilingStart('Observers constructor');
 		this.selectorConfig = {
 			...this.selectorConfig,
 			...opts.selectorConfig,
@@ -111,21 +106,6 @@ export class Observers implements BrowserObservers {
 		this.mutationObserver = this.getMutationObserver();
 		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers();
 		this.editorLnvHandler = new EditorLnvHandler();
-		this.isBrowserSupported = withProfiling(this.isBrowserSupported.bind(this), ['vc']);
-		this.observe = withProfiling(this.observe.bind(this), ['vc']);
-		this.disconnect = withProfiling(this.disconnect.bind(this), ['vc']);
-		this.subscribeResults = withProfiling(this.subscribeResults.bind(this), ['vc']);
-		this.getTotalTime = withProfiling(this.getTotalTime.bind(this), ['vc']);
-		this.setReactRootElement = withProfiling(this.setReactRootElement.bind(this), ['vc']);
-		this.setReactRootRenderStart = withProfiling(this.setReactRootRenderStart.bind(this), ['vc']);
-		this.setReactRootRenderStop = withProfiling(this.setReactRootRenderStop.bind(this), ['vc']);
-		this.observeElement = withProfiling(this.observeElement.bind(this), ['vc']);
-		this.getMutationObserver = withProfiling(this.getMutationObserver.bind(this), ['vc']);
-		this.getElementName = withProfiling(this.getElementName.bind(this), ['vc']);
-		this.getIntersectionObserver = withProfiling(this.getIntersectionObserver.bind(this), ['vc']);
-		this.measureStart = withProfiling(this.measureStart.bind(this), ['vc']);
-		this.measureStop = withProfiling(this.measureStop.bind(this), ['vc']);
-		markProfilingEnd(operationTimer, { tags: ['vc'] });
 	}
 
 	isBrowserSupported() {
@@ -220,7 +200,6 @@ export class Observers implements BrowserObservers {
 		const shouldHandleEditorLnvLocal = shouldHandleEditorLnv();
 
 		return new MutationObserver((mutations) => {
-			const operationTimer = markProfilingStart('mutationObserverCallback');
 			this.measureStart();
 
 			mutations.forEach((mutation: MutationRecordWithTimestamp) => {
@@ -354,7 +333,6 @@ export class Observers implements BrowserObservers {
 					}
 				}
 			});
-			markProfilingEnd(operationTimer, { tags: ['vc'] });
 		});
 	}
 
@@ -397,7 +375,6 @@ export class Observers implements BrowserObservers {
 		}
 
 		return new IntersectionObserver((entries) => {
-			const operationTimer = markProfilingStart('intersectionObserverCallback');
 			this.measureStart();
 			entries.forEach(({ isIntersecting, intersectionRect: ir, target }) => {
 				const data = this.observedMutations.get(target);
@@ -443,7 +420,6 @@ export class Observers implements BrowserObservers {
 				}
 			});
 			this.measureStop();
-			markProfilingEnd(operationTimer, { tags: ['vc'] });
 		});
 	}
 

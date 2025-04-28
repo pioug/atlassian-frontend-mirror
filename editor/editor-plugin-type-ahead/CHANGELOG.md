@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.5.2
+
+### Patch Changes
+
+- [#142191](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142191)
+  [`8a39e59bec14f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a39e59bec14f) -
+  A11Y-9980: Update view more button aria label to be more descriptive.
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

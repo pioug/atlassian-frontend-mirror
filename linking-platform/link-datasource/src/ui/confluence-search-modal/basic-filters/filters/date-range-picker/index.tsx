@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { N0, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -232,11 +231,7 @@ export const DateRangePicker = ({
 								<ErrorIcon
 									LEGACY_size="small"
 									color={token('color.icon.danger', R400)}
-									label={
-										fg('bandicoots-update-sllv-icons')
-											? formatMessage(dateRangeMessages.dateRangeError)
-											: 'Date range error'
-									}
+									label={formatMessage(dateRangeMessages.dateRangeError)}
 									LEGACY_margin={`0 ${token('space.negative.025')}`}
 								/>
 								{invalidDateRange}

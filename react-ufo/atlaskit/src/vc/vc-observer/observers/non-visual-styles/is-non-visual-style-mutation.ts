@@ -1,5 +1,3 @@
-import { withProfiling } from '../../../../self-measurements';
-
 /**
  * Checks if a mutation record represents a non-visual style change
  * @param mutation - The mutation record to check
@@ -10,30 +8,27 @@ import { withProfiling } from '../../../../self-measurements';
  * - The changed attribute is either 'class' or 'style'
  */
 
-const isNonVisualStyleMutation = withProfiling(
-	function isNonVisualStyleMutation({
-		target,
-		attributeName,
-	}: {
-		type: string;
-		target?: Node | null;
-		attributeName?: string | null;
-	}) {
-		if (!(target instanceof Element)) {
-			return false;
-		}
+function isNonVisualStyleMutation({
+	target,
+	attributeName,
+}: {
+	type: string;
+	target?: Node | null;
+	attributeName?: string | null;
+}) {
+	if (!(target instanceof Element)) {
+		return false;
+	}
 
-		if (attributeName !== 'class' && attributeName !== 'style') {
-			return false;
-		}
+	if (attributeName !== 'class' && attributeName !== 'style') {
+		return false;
+	}
 
-		if (target.getAttribute('data-vc-nvs') !== 'true') {
-			return false;
-		}
+	if (target.getAttribute('data-vc-nvs') !== 'true') {
+		return false;
+	}
 
-		return true;
-	},
-	['vc'],
-);
+	return true;
+}
 
 export default isNonVisualStyleMutation;

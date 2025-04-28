@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.20
+
+### Patch Changes
+
+- [#145382](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145382)
+  [`09a75a68f9d26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09a75a68f9d26) -
+  Clean up FG linking-platform-contenteditable-false-live-view
+- Updated dependencies
+
 ## 5.4.19
 
 ### Patch Changes

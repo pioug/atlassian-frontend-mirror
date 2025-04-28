@@ -6,7 +6,6 @@ import selectEvent from 'react-select-event';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import InlineEdit from '../../inline-edit';
 
@@ -217,73 +216,38 @@ describe('InlineEdit component', () => {
 			jest.clearAllMocks();
 		});
 
-		ffTest(
-			'platform-design-system-inline-edit-reset-on-escape',
-			() => {
-				render(<InlineEditExample onConfirmMock={onConfirmMock} defaultValue="Initial content" />);
+		it('should reset to default value on escape key press', async () => {
+			render(<InlineEditExample onConfirmMock={onConfirmMock} defaultValue="Initial content" />);
 
-				const read = screen.getByTestId('read-view');
-				expect(read).toBeInTheDocument();
-				expect(read).toHaveTextContent('Initial content');
+			const read = screen.getByTestId('read-view');
+			expect(read).toBeInTheDocument();
+			expect(read).toHaveTextContent('Initial content');
 
-				fireEvent.click(read);
+			fireEvent.click(read);
 
-				const textField = screen.getByTestId('edit-view');
+			const textField = screen.getByTestId('edit-view');
 
-				fireEvent.change(textField, { target: { value: 'New content' } });
+			fireEvent.change(textField, { target: { value: 'New content' } });
 
-				// Edit view should have value updated
-				expect(textField).toHaveValue('New content');
+			// Edit view should have value updated
+			expect(textField).toHaveValue('New content');
 
-				fireEvent.keyDown(textField, {
-					key: 'Escape',
-					code: 'Escape',
-					keyCode: 27,
-					charCode: 27,
-				});
+			fireEvent.keyDown(textField, {
+				key: 'Escape',
+				code: 'Escape',
+				keyCode: 27,
+				charCode: 27,
+			});
 
-				// Should switch back to read view and the original value
-				expect(screen.getByTestId('read-view')).toHaveTextContent('Initial content');
+			// Should switch back to read view and the original value
+			expect(screen.getByTestId('read-view')).toHaveTextContent('Initial content');
 
-				fireEvent.click(screen.getByTestId('read-view'));
+			fireEvent.click(screen.getByTestId('read-view'));
 
-				// Value displayed in edit view when reopened should be reset
-				const reopenedTextField = screen.getByTestId('edit-view');
-				expect(reopenedTextField).toHaveValue('Initial content');
-			},
-			() => {
-				render(<InlineEditExample onConfirmMock={onConfirmMock} defaultValue="Initial content" />);
-
-				const read = screen.getByTestId('read-view');
-				expect(read).toBeInTheDocument();
-				expect(read).toHaveTextContent('Initial content');
-
-				fireEvent.click(read);
-
-				const textField = screen.getByTestId('edit-view');
-
-				fireEvent.change(textField, { target: { value: 'New content' } });
-
-				// Edit view should have value updated
-				expect(textField).toHaveValue('New content');
-
-				fireEvent.keyDown(textField, {
-					key: 'Escape',
-					code: 'Escape',
-					keyCode: 27,
-					charCode: 27,
-				});
-
-				// Should switch back to read view and the original value
-				expect(screen.getByTestId('read-view')).toHaveTextContent('Initial content');
-
-				fireEvent.click(screen.getByTestId('read-view'));
-
-				// Value displayed in edit view when re-opened should NOT be reset
-				const reopenedTextField = screen.getByTestId('edit-view');
-				expect(reopenedTextField).toHaveValue('New content');
-			},
-		);
+			// Value displayed in edit view when reopened should be reset
+			const reopenedTextField = screen.getByTestId('edit-view');
+			expect(reopenedTextField).toHaveValue('Initial content');
+		});
 	});
 
 	describe('accessible edit button label', () => {

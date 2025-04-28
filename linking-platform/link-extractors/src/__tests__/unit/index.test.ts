@@ -1,9 +1,14 @@
 import { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { TEST_INTERACTIVE_HREF_LINK } from '../../common/__mocks__/linkingPlatformJsonldMocks';
+import { extractEntityIcon } from '../../entity';
 import {
+	extractSmartLinkAri,
+	extractSmartLinkCreatedBy,
+	extractSmartLinkCreatedOn,
 	extractSmartLinkEmbed,
-	extractSmartLinkIcon,
+	extractSmartLinkModifiedBy,
+	extractSmartLinkModifiedOn,
 	extractSmartLinkProvider,
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
@@ -208,7 +213,7 @@ describe('extractSmartLinkUrl()', () => {
 	});
 });
 
-describe('extractSmartLinkIcon()', () => {
+describe('extractEntityIcon()', () => {
 	it('should return entity icon when response is an entity', () => {
 		const url = 'https://example.com/icon.png';
 		const response = {
@@ -222,7 +227,7 @@ describe('extractSmartLinkIcon()', () => {
 			},
 		} as SmartLinkResponse;
 
-		expect(extractSmartLinkIcon(response)).toEqual({ url, label: 'Entity Title' });
+		expect(extractEntityIcon(response)).toEqual({ url, label: 'Entity Title' });
 	});
 });
 
@@ -287,5 +292,144 @@ describe('extractSmartLinkProvider()', () => {
 			text: 'Figma',
 			icon: 'https://static.figma.com/app/icon/1/favicon.ico',
 		});
+	});
+});
+
+describe('extractSmartLinkAri()', () => {
+	it('should return entity ARI when response is an entity', () => {
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			data: { '@type': 'Object' },
+			nounData: { ari: 'ari:cloud:jira:1234567890' },
+		} as SmartLinkResponse;
+
+		expect(extractSmartLinkAri(response)).toEqual('ari:cloud:jira:1234567890');
+	});
+
+	it('should return undefined when response is not an entity and has no ARI', () => {
+		const response = { data: {} } as SmartLinkResponse;
+		expect(extractSmartLinkAri(response)).toBeUndefined();
+	});
+
+	it('should return ARI when response is not an entity but has an ARI', () => {
+		const response = {
+			data: {
+				'@type': 'Document',
+				['atlassian:ari']: 'ari:cloud:jira:1234567890',
+			},
+		} as SmartLinkResponse;
+
+		expect(extractSmartLinkAri(response)).toEqual('ari:cloud:jira:1234567890');
+	});
+});
+
+describe('extractSmartLinkCreatedOn()', () => {
+	it('should return createdOn date when response is an entity', () => {
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			nounData: { createdAt: '2023-01-01T00:00:00Z' },
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkCreatedOn(response)).toEqual('2023-01-01T00:00:00Z');
+	});
+
+	it('should return undefined when response is not an entity and has no createdOn date', () => {
+		const response = { data: {} } as SmartLinkResponse;
+		expect(extractSmartLinkCreatedOn(response)).toBeUndefined();
+	});
+
+	it('should return createdOn date when response is not an entity but has a createdOn date', () => {
+		const response = {
+			data: {
+				'@type': 'Document',
+				['schema:dateCreated']: '2023-01-01T00:00:00Z',
+			},
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkCreatedOn(response)).toEqual('2023-01-01T00:00:00Z');
+	});
+});
+
+describe('extractSmartLinkModifiedOn()', () => {
+	it('should return modifiedOn date when response is an entity', () => {
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			data: { '@type': 'Object' },
+			nounData: { lastUpdatedAt: '2023-01-01T00:00:00Z' },
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkModifiedOn(response)).toEqual('2023-01-01T00:00:00Z');
+	});
+
+	it('should return undefined when response is not an entity and has no modifiedOn date', () => {
+		const response = { data: {} } as SmartLinkResponse;
+		expect(extractSmartLinkModifiedOn(response)).toBeUndefined();
+	});
+
+	it('should return modifiedOn date when response is not an entity but has a modifiedOn date', () => {
+		const response = {
+			data: {
+				'@type': 'Document',
+				updated: '2023-01-01T00:00:00Z',
+			},
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkModifiedOn(response)).toEqual('2023-01-01T00:00:00Z');
+	});
+});
+
+describe('extractSmartLinkCreatedBy()', () => {
+	it('should return createdBy when response is an entity', () => {
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			data: { '@type': 'Object' },
+			nounData: { createdBy: { id: 'user123' } },
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkCreatedBy(response)).toEqual('user123');
+	});
+
+	it('should return undefined when response is not an entity and has no createdBy', () => {
+		const response = { data: {} } as SmartLinkResponse;
+		expect(extractSmartLinkCreatedBy(response)).toBeUndefined();
+	});
+
+	it('should return createdBy when response is not an entity but has a createdBy', () => {
+		const response = {
+			data: {
+				'@type': 'Document',
+				attributedTo: [{ name: 'user123' }],
+			},
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkCreatedBy(response)).toEqual('user123');
+	});
+});
+
+describe('extractSmartLinkModifiedBy()', () => {
+	it('should return modifiedBy when response is an entity', () => {
+		const response = {
+			meta: { visibility: 'public', access: 'granted' },
+			data: { '@type': 'Object' },
+			nounData: { lastUpdatedBy: { id: 'user123' } },
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkModifiedBy(response)).toEqual('user123');
+	});
+
+	it('should return undefined when response is not an entity and has no modifiedBy', () => {
+		const response = { data: {} } as SmartLinkResponse;
+		expect(extractSmartLinkModifiedBy(response)).toBeUndefined();
+	});
+
+	it('should return modifiedBy when response is not an entity but has a modifiedBy', () => {
+		const response = {
+			data: {
+				'@type': 'Document',
+				['atlassian:updatedBy']: { name: 'user123' },
+			},
+		} as unknown as SmartLinkResponse;
+
+		expect(extractSmartLinkModifiedBy(response)).toEqual('user123');
 	});
 });

@@ -99,6 +99,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 				{componentName}
 			</IconModalHeader>
 			<ModalBody>
+				{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<div onClick={() => inputEl && inputEl.current!.select()} role="presentation">
 					<Textfield isReadOnly value={importStatement} ref={inputEl} />
 				</div>

@@ -11,6 +11,7 @@ import Select from '@atlaskit/select';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import { Label } from '@atlaskit/form';
 
 import { VIEW } from '../../constants';
 
@@ -177,11 +178,13 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 							state !== 'exited' && (
 								<>
 									<SelectContainer>
+										<Label htmlFor="help_whats_new_filter_select_label">{formatMessage(messages.help_whats_new_filter_select_label)}</Label>
 										<Select
 											defaultValue={selectedOption}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 											className="single-select"
 											classNamePrefix="react-select"
+											inputId="help_whats_new_filter_select_label"
 											options={[
 												{
 													value: '',
@@ -279,11 +282,13 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 							state !== 'exited' && (
 								<>
 									<SelectContainer>
+										<Label htmlFor="help_whats_new_filter_select_label">{formatMessage(messages.help_whats_new_filter_select_label)}</Label>
 										<Select
 											defaultValue={selectedOption}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 											className="single-select"
 											classNamePrefix="react-select"
+											inputId="help_whats_new_filter_select_label"
 											options={[
 												{
 													value: '',

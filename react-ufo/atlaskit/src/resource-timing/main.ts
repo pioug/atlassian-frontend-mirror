@@ -2,7 +2,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getConfig as getConfigUFO } from '../config';
 import { roundEpsilon } from '../round-number';
-import { withProfiling } from '../self-measurements';
 
 import type { ResourceEntry, ResourceTiming, ResourceTimings } from './common/types';
 import { getConfig } from './common/utils/config';
@@ -14,7 +13,7 @@ const CACHE_NETWORK = 'network';
 const CACHE_MEMORY = 'memory';
 const CACHE_DISK = 'disk';
 
-const isCacheableType = withProfiling(function isCacheableType(url: string, type: string) {
+function isCacheableType(url: string, type: string) {
 	if (alwaysCacheableTypes.includes(type)) {
 		return true;
 	}
@@ -24,15 +23,10 @@ const isCacheableType = withProfiling(function isCacheableType(url: string, type
 	}
 
 	return false;
-});
+}
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const calculateTransferType = withProfiling(function calculateTransferType(
-	name: string,
-	type: string,
-	duration: number,
-	size: number | void,
-) {
+function calculateTransferType(name: string, type: string, duration: number, size: number | void) {
 	if (!isCacheableType(name, type)) {
 		return CACHE_NETWORK;
 	}
@@ -48,13 +42,13 @@ const calculateTransferType = withProfiling(function calculateTransferType(
 	}
 
 	return CACHE_NETWORK;
-});
+}
 
-const getWindowObject = withProfiling(function getWindowObject() {
+function getWindowObject() {
 	return typeof window !== 'undefined' && !!window ? window : undefined;
-});
+}
 
-const hasAccessToResourceSize = withProfiling(function hasAccessToResourceSize(
+function hasAccessToResourceSize(
 	url: string,
 	type: string,
 	entry: ResourceEntry,
@@ -66,11 +60,9 @@ const hasAccessToResourceSize = withProfiling(function hasAccessToResourceSize(
 		(!!getWindowObject() && url.includes(window.location.hostname)) ||
 		hasTimingHeaders(url, entry)
 	);
-});
+}
 
-const getReportedInitiatorTypes = withProfiling(function getReportedInitiatorTypes(
-	xhrEnabled: boolean,
-) {
+function getReportedInitiatorTypes(xhrEnabled: boolean) {
 	const ufoConfig = getConfigUFO();
 	if (!ufoConfig?.allowedResources) {
 		if (xhrEnabled) {
@@ -79,21 +71,18 @@ const getReportedInitiatorTypes = withProfiling(function getReportedInitiatorTyp
 		return ['script', 'link', 'fetch', 'other'];
 	}
 	return ufoConfig.allowedResources;
-});
+}
 
-const evaluateAccessToResourceTimings = withProfiling(function evaluateAccessToResourceTimings(
-	url: string,
-	entry: ResourceEntry,
-) {
+function evaluateAccessToResourceTimings(url: string, entry: ResourceEntry) {
 	return !(entry.responseStart === 0 && entry.startTime > entry.responseStart);
-});
+}
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const getSizeObject = withProfiling(function getSizeObject(size?: number | void) {
+function getSizeObject(size?: number | void) {
 	return size !== undefined ? { size } : null;
-});
+}
 
-const getNetworkData = withProfiling(function getNetworkData(
+function getNetworkData(
 	item: ResourceEntry,
 	eventStart: number,
 	hasTimingHeaders: (
@@ -142,12 +131,9 @@ const getNetworkData = withProfiling(function getNetworkData(
 		requestStart: fg('ufo_return_relative_request_start') ? requestStartRelative : requestStart,
 		...getSizeObject(transferSize),
 	};
-});
+}
 
-export const getResourceTimings = withProfiling(function getResourceTimings(
-	interactionStart: number,
-	interactionEnd: number,
-) {
+export function getResourceTimings(interactionStart: number, interactionEnd: number) {
 	const resourceTiming: ResourceTimings = {};
 	if (interactionStart === null) {
 		return resourceTiming;
@@ -208,4 +194,4 @@ export const getResourceTimings = withProfiling(function getResourceTimings(
 	});
 
 	return resourceTiming;
-});
+}

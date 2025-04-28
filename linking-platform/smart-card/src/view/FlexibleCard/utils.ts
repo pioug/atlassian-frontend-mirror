@@ -1,13 +1,22 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider } from '@atlaskit/link-extractors';
+import {
+	extractProvider,
+	extractSmartLinkProvider,
+	isEntityPresent,
+} from '@atlaskit/link-extractors';
+import { SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context';
 import extractFlexibleUiContext from '../../extractors/flexible';
-import extractPreview from '../../extractors/flexible/extract-preview';
+import extractPreview, {
+	extractSmartLinkPreviewImage,
+} from '../../extractors/flexible/extract-preview';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
-import extractProviderIcon from '../../extractors/flexible/icon/extract-provider-icon';
+import extractProviderIcon, {
+	extractSmartLinkProviderIcon,
+} from '../../extractors/flexible/icon/extract-provider-icon';
 import { type MessageKey, messages } from '../../messages';
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { handleOnClick } from '../../utils';
@@ -31,10 +40,25 @@ export const getContextByStatus = (
 		case SmartLinkStatus.Errored:
 		case SmartLinkStatus.Fallback:
 		default:
-			const preview = extractPreview(response?.data as JsonLd.Data.BaseData);
-			const linkIcon = extractErrorIcon(response, status);
-			const provider = extractProviderIcon(response?.data as JsonLd.Data.BaseData);
-			return { linkIcon, title: url, url, provider, preview };
+			if (fg('smart_links_noun_support')) {
+				if (isEntityPresent(response)) {
+					return {
+						url,
+						title: url,
+						linkIcon: extractErrorIcon(response, status),
+						preview: extractSmartLinkPreviewImage(response),
+						provider: extractSmartLinkProviderIcon(response),
+					};
+				}
+			}
+
+			return {
+				url,
+				title: url,
+				linkIcon: extractErrorIcon(response, status),
+				preview: extractPreview(response?.data as JsonLd.Data.BaseData),
+				provider: extractProviderIcon(response?.data as JsonLd.Data.BaseData),
+			};
 	}
 };
 
@@ -63,11 +87,14 @@ const getForbiddenMessageKey = (meta: JsonLd.Meta.BaseMeta): MessageKey => {
 export const getRetryOptions = (
 	url: string,
 	status?: SmartLinkStatus,
-	response?: JsonLd.Response,
+	response?: SmartLinkResponse,
 	onAuthorize?: (() => void) | undefined,
 ): RetryOptions | undefined => {
 	const data = (response && response.data) || getEmptyJsonLd();
-	const provider = extractProvider(data as JsonLd.Data.BaseData);
+	const provider = fg('smart_links_noun_support')
+		? extractSmartLinkProvider(response)
+		: extractProvider(data as JsonLd.Data.BaseData);
+
 	const context = provider?.text;
 	const values = context ? { context } : undefined;
 	switch (status) {

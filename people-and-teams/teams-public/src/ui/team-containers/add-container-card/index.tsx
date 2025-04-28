@@ -54,6 +54,7 @@ const AddContainerCardWrapper = ({
 	const handleMouseEnter = () => setHovered(true);
 	const handleMouseLeave = () => setHovered(false);
 	return (
+		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<Box
 			backgroundColor={hovered ? 'elevation.surface.hovered' : 'elevation.surface.sunken'}
 			xcss={styles.container}

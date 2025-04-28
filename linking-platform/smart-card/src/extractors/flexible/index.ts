@@ -6,9 +6,17 @@ import {
 	extractLink,
 	extractPersonCreatedBy,
 	extractPersonOwnedBy,
+	extractSmartLinkAri,
+	extractSmartLinkCreatedBy,
+	extractSmartLinkCreatedOn,
+	extractSmartLinkModifiedBy,
+	extractSmartLinkModifiedOn,
+	extractSmartLinkTitle,
+	extractSmartLinkUrl,
 	extractTitle,
 	type LinkTypeCreated,
 } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
@@ -16,11 +24,11 @@ import { extractSummary } from '../common/primitives';
 
 import { extractFlexibleCardActions } from './actions';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
-import extractPreview from './extract-preview';
+import extractPreview, { extractSmartLinkPreviewImage } from './extract-preview';
 import extractPriority from './extract-priority';
 import extractState from './extract-state';
-import { extractLinkIcon } from './icon';
-import extractProviderIcon from './icon/extract-provider-icon';
+import { extractLinkIcon, extractSmartLinkIcon } from './icon';
+import extractProviderIcon, { extractSmartLinkProviderIcon } from './icon/extract-provider-icon';
 import { extractLatestCommit, type LinkTypeLatestCommit } from './latest-commit';
 import {
 	extractAppliedToComponentsCount,
@@ -47,7 +55,7 @@ import {
 	extractVoteCount,
 } from './utils';
 
-const extractFlexibleUiContext = ({
+const extractFlexibleUiContextFromJsonLd = ({
 	appearance,
 	fireEvent,
 	id,
@@ -117,6 +125,82 @@ const extractFlexibleUiContext = ({
 		url,
 		ari: extractAri(data),
 	};
+};
+
+const extractFlexibleUiContextFromEntity = ({
+	actionOptions,
+	appearance,
+	fireEvent,
+	id,
+	origin,
+	resolve,
+	response,
+}: Partial<ExtractFlexibleUiDataContextParams> = {}): FlexibleUiDataContext | undefined => {
+	if (!response) {
+		return undefined;
+	}
+
+	const data = response.data as JsonLd.Data.BaseData;
+	const url = extractSmartLinkUrl(response);
+
+	return {
+		actions: extractFlexibleCardActions({
+			response,
+			actionOptions,
+			id,
+			appearance,
+			fireEvent,
+		}),
+		url,
+		ari: extractSmartLinkAri(response),
+		title: extractSmartLinkTitle(response) || url,
+		linkIcon: extractSmartLinkIcon(response),
+		preview: extractSmartLinkPreviewImage(response),
+		provider: extractSmartLinkProviderIcon(response),
+		modifiedOn: extractSmartLinkModifiedOn(response),
+		createdOn: extractSmartLinkCreatedOn(response),
+		createdBy: extractSmartLinkCreatedBy(response),
+		modifiedBy: extractSmartLinkModifiedBy(response),
+		// We need to add/remove these as we support new entity types
+		assignedToGroup: extractPersonAssignedToAsArray(
+			data as JsonLd.Data.Task | JsonLd.Data.TaskType,
+		),
+		appliedToComponentsCount: extractAppliedToComponentsCount(data),
+		attachmentCount: extractAttachmentCount(data),
+		authorGroup: extractPersonCreatedBy(data),
+		ownedByGroup: extractPersonOwnedBy(data),
+		collaboratorGroup: extractPersonsUpdatedBy(data as JsonLd.Data.Document),
+		commentCount: extractCommentCount(data),
+		viewCount: extractViewCount(data),
+		reactCount: extractReactCount(data),
+		voteCount: extractVoteCount(data),
+		checklistProgress: extractChecklistProgress(data),
+		ownedBy: extractOwnedBy(data),
+		assignedTo: extractAssignedTo(data),
+		dueOn: extractDueOn(data),
+		latestCommit: extractLatestCommit(data as LinkTypeLatestCommit),
+		location: extractLocation(data),
+		priority: extractPriority(data as JsonLd.Data.Task),
+		programmingLanguage: extractProgrammingLanguage(data),
+		readTime: extractReadTime(data),
+		sentOn: extractSentOn(data),
+		snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string
+		sourceBranch: extractSourceBranch(data as JsonLd.Data.SourceCodePullRequest),
+		state: extractState(response, actionOptions, id, appearance, origin, fireEvent, resolve),
+		subscriberCount: extractSubscriberCount(data),
+		subTasksProgress: extractSubTasksProgress(data),
+		storyPoints: extractStoryPoints(data),
+		targetBranch: extractTargetBranch(data as JsonLd.Data.SourceCodePullRequest),
+	};
+};
+
+const extractFlexibleUiContext = (
+	props: Partial<ExtractFlexibleUiDataContextParams> = {},
+): FlexibleUiDataContext | undefined => {
+	if (fg('smart_links_noun_support')) {
+		return extractFlexibleUiContextFromEntity(props);
+	}
+	return extractFlexibleUiContextFromJsonLd(props);
 };
 
 export default extractFlexibleUiContext;

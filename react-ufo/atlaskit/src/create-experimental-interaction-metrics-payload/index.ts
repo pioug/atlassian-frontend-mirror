@@ -1,6 +1,5 @@
 import type { InteractionMetrics } from '../common';
 import { getPageVisibilityState } from '../hidden-timing';
-import { withProfiling } from '../self-measurements';
 import type { VCObserverOptions } from '../vc/types';
 import { VCObserver } from '../vc/vc-observer';
 
@@ -11,60 +10,50 @@ type InteractionMetricsHandler = (
 
 const interactionBuffer: { interactionId: string; data: InteractionMetrics }[] = [];
 
-let bufferInteractionData: (interactionId: string, data: InteractionMetrics) => void =
-	withProfiling(function bufferInteractionData(interactionId, data) {
-		interactionBuffer.push({ interactionId, data });
-	});
+let bufferInteractionData: (interactionId: string, data: InteractionMetrics) => void = (
+	interactionId,
+	data,
+) => {
+	interactionBuffer.push({ interactionId, data });
+};
 
-const clearInteractionBuffer = withProfiling(function clearInteractionBuffer() {
+function clearInteractionBuffer() {
 	interactionBuffer.length = 0;
-});
+}
 
-const appendInteractionData = withProfiling(function appendInteractionData(
-	interactionId: string,
-	data: InteractionMetrics,
-) {
+function appendInteractionData(interactionId: string, data: InteractionMetrics) {
 	bufferInteractionData(interactionId, data);
-});
+}
 
-export const installInteractionSink = withProfiling(function installInteractionSink(
-	handler: InteractionMetricsHandler,
-) {
+export function installInteractionSink(handler: InteractionMetricsHandler) {
 	for (const { interactionId, data } of interactionBuffer) {
 		handler(interactionId, data);
 	}
 	clearInteractionBuffer();
 
-	bufferInteractionData = withProfiling(handler);
-});
+	bufferInteractionData = handler;
+}
 
-export const sinkExperimentalHandler = withProfiling(function sinkExperimentalHandler(
+export function sinkExperimentalHandler(
 	sinkFn: (interactionId: string, interaction: InteractionMetrics) => void | Promise<void>,
 ) {
 	installInteractionSink(sinkFn);
-});
+}
 
-export const onExperimentalInteractionComplete = withProfiling(
-	function onExperimentalInteractionComplete(
-		interactionId: string,
-		data: InteractionMetrics,
-		endTime = performance.now(),
-	) {
-		if (data.ufoName) {
-			data.end = endTime;
-			appendInteractionData(interactionId, data);
-			clearInteractionBuffer();
-		}
-	},
-);
+export function onExperimentalInteractionComplete(
+	interactionId: string,
+	data: InteractionMetrics,
+	endTime = performance.now(),
+) {
+	if (data.ufoName) {
+		data.end = endTime;
+		appendInteractionData(interactionId, data);
+		clearInteractionBuffer();
+	}
+}
 
 export class ExperimentalVCMetrics {
 	vcObserver: VCObserver | null = null;
-
-	constructor() {
-		this.initialize = withProfiling(this.initialize.bind(this));
-		this.start = withProfiling(this.start.bind(this));
-	}
 
 	initialize(options: VCObserverOptions) {
 		if (this.vcObserver === null) {
@@ -80,9 +69,7 @@ export class ExperimentalVCMetrics {
 
 export const experimentalVC = new ExperimentalVCMetrics();
 
-export const getExperimentalVCMetrics = withProfiling(async function getExperimentalVCMetrics(
-	interaction: InteractionMetrics,
-) {
+export async function getExperimentalVCMetrics(interaction: InteractionMetrics) {
 	if (experimentalVC.vcObserver) {
 		const prefix = 'ufo-experimental';
 
@@ -115,4 +102,4 @@ export const getExperimentalVCMetrics = withProfiling(async function getExperime
 		};
 	}
 	return null;
-});
+}

@@ -509,7 +509,7 @@ const AnnotationCheckbox = (props: {
 				checked={state === AnnotationMarkStates.ACTIVE}
 			/>
 
-			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 			<span onClick={onClick}>{id}</span>
 		</div>
 	);

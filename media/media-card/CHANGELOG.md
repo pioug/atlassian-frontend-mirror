@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.2.1
+
+### Patch Changes
+
+- [#146064](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146064)
+  [`1467fbda1acd9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1467fbda1acd9) -
+  Fixing typo causing the font-size to not be correctly set for media with titlebar in compiled view
+
 ## 79.2.0
 
 ### Minor Changes

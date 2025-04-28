@@ -14,7 +14,6 @@ import {
 	sinkInteractionHandler,
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
-import { withProfiling } from '../self-measurements';
 import { getVCObserver } from '../vc';
 
 import scheduleIdleCallback from './schedule-idle-callback';
@@ -39,17 +38,14 @@ interface WindowWithUfoDevToolExtension extends Window {
 	__ufo_devtool_onUfoPayload?: (payload: UFOPayload) => void;
 }
 
-const sinkInteraction = withProfiling(function sinkInteraction(
+function sinkInteraction(
 	instance: GenericAnalyticWebClientInstance,
 	payloadPackage: {
 		createPayloads: (interactionId: string, interaction: InteractionMetrics) => Promise<any[]>;
 	},
 ) {
-	const sinkFn = withProfiling(function sinkFn(
-		interactionId: string,
-		interaction: InteractionMetrics,
-	) {
-		const onIdle = withProfiling(function onIdle() {
+	function sinkFn(interactionId: string, interaction: InteractionMetrics) {
+		function onIdle() {
 			payloadPackage
 				.createPayloads(interactionId, interaction)
 				.then((payloads) => {
@@ -67,58 +63,53 @@ const sinkInteraction = withProfiling(function sinkInteraction(
 				.catch((error) => {
 					throw error;
 				});
-		});
+		}
 
 		scheduleIdleCallback(onIdle);
-	});
+	}
 
 	sinkInteractionHandler(sinkFn);
-});
+}
 
-const sinkExperimentalInteractionMetrics = withProfiling(
-	function sinkExperimentalInteractionMetrics(
-		instance: GenericAnalyticWebClientInstance,
-		payloadPackage: {
-			createExperimentalMetricsPayload: (
-				interactionId: string,
-				interaction: InteractionMetrics,
-			) => Promise<any>;
-		},
-	) {
-		const experimentalMetricsSinkFn = withProfiling(function experimentalMetricsSinkFn(
+function sinkExperimentalInteractionMetrics(
+	instance: GenericAnalyticWebClientInstance,
+	payloadPackage: {
+		createExperimentalMetricsPayload: (
 			interactionId: string,
 			interaction: InteractionMetrics,
-		) {
-			const experimentalMetricsOnIdle = withProfiling(function experimentalMetricsOnIdle() {
-				const payloadPromise = payloadPackage.createExperimentalMetricsPayload(
-					interactionId,
-					interaction,
-				);
-
-				payloadPromise.then((payload) => {
-					if (payload) {
-						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-						if (fg('enable_ufo_devtools_api_for_extra_events')) {
-							// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
-							const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
-								.__ufo_devtool_onUfoPayload;
-
-							if (typeof devToolObserver === 'function') {
-								devToolObserver?.(payload);
-							}
-						}
-
-						instance.sendOperationalEvent(payload);
-					}
-				});
-			});
-
-			scheduleIdleCallback(experimentalMetricsOnIdle);
-		});
-
-		sinkExperimentalHandler(experimentalMetricsSinkFn);
+		) => Promise<any>;
 	},
-);
+) {
+	function experimentalMetricsSinkFn(interactionId: string, interaction: InteractionMetrics) {
+		function experimentalMetricsOnIdle() {
+			const payloadPromise = payloadPackage.createExperimentalMetricsPayload(
+				interactionId,
+				interaction,
+			);
+
+			payloadPromise.then((payload) => {
+				if (payload) {
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					if (fg('enable_ufo_devtools_api_for_extra_events')) {
+						// NOTE: This API is used by the UFO DevTool Chrome Extension and Criterion
+						const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+							.__ufo_devtool_onUfoPayload;
+
+						if (typeof devToolObserver === 'function') {
+							devToolObserver?.(payload);
+						}
+					}
+
+					instance.sendOperationalEvent(payload);
+				}
+			});
+		}
+
+		scheduleIdleCallback(experimentalMetricsOnIdle);
+	}
+
+	sinkExperimentalHandler(experimentalMetricsSinkFn);
+}
 
 function sinkPostInteractionLog(
 	instance: GenericAnalyticWebClientInstance,
@@ -145,7 +136,7 @@ function sinkPostInteractionLog(
 	});
 }
 
-export const init = withProfiling(function init(
+export function init(
 	analyticsWebClientAsync:
 		| Promise<GenericAnalyticWebClientPromise>
 		| Promise<GenericAnalyticWebClientInstance>,
@@ -209,4 +200,4 @@ export const init = withProfiling(function init(
 			}
 		}
 	});
-});
+}

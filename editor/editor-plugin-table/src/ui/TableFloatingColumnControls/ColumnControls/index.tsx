@@ -5,12 +5,14 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	clearHoverSelection,
@@ -76,7 +78,17 @@ export const ColumnControls = ({
 	api,
 }: ColumnControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
 	const columnControlsRef = useRef<HTMLDivElement>(null);
-	const { selectionState } = useSharedPluginState(api, ['selection']);
+
+	// selection
+	const { selectionState } = useSharedPluginState(api, ['selection'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? selectionsSelector
+		: selectionState?.selection;
 
 	const widths =
 		colWidths
@@ -89,9 +101,7 @@ export const ColumnControls = ({
 	// TODO: ED-26961 - reusing getRowsParams here because it's generic enough to work for columns -> rename
 	const columnParams = getRowsParams(colWidths ?? []);
 	const colIndex = hoveredCell?.colIndex;
-	const selectedColIndexes = getSelectedColumns(
-		selectionState?.selection || editorView.state.selection,
-	);
+	const selectedColIndexes = getSelectedColumns(selection || editorView.state.selection);
 
 	const firstRow = tableRef.querySelector('tr');
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;

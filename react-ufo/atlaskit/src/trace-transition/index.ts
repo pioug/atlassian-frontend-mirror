@@ -14,11 +14,10 @@ import {
 	tryComplete,
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
-import { withProfiling } from '../self-measurements';
 
 import { setInteractionActiveTrace } from './utils/set-interaction-active-trace';
 
-const traceUFOTransition = withProfiling(function traceUFOTransition(
+function traceUFOTransition(
 	ufoName: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
 ) {
@@ -51,7 +50,7 @@ const traceUFOTransition = withProfiling(function traceUFOTransition(
 			);
 		}
 	}
-});
+}
 
 export function useUFOTransitionCompleter() {
 	const interactionId = useContext(UFOInteractionIDContext);

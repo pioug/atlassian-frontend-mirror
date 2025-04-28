@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 36.10.0
+
+### Minor Changes
+
+- [#145328](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145328)
+  [`ef59f8d0752c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef59f8d0752c4) -
+  EDM-11533 cleaning up sl icon migration fg - part 1
+
+### Patch Changes
+
+- [#144842](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144842)
+  [`cdb734473a3c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdb734473a3c5) -
+  Enable resolve flexible/block-view with nounData behind ff: smart_links_noun_support
+- Updated dependencies
+
 ## 36.9.0
 
 ### Minor Changes

@@ -19,7 +19,7 @@ const messages = defineMessages({
 	},
 	kudosCreatedActionFlag: {
 		id: 'team-central.give-kudos.created.action.flag',
-		defaultMessage: 'View Kudos',
+		defaultMessage: 'View kudos',
 		description: 'Action text for the kudos created flag to view the newly created kudos.',
 	},
 	kudosCreationFailedFlag: {

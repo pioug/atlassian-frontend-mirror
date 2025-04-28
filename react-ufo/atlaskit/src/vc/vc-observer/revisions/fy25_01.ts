@@ -1,5 +1,3 @@
-import { withProfiling } from '../../../self-measurements';
-
 import type {
 	VCBoxType,
 	VCCalculationMethodArgs,
@@ -61,7 +59,6 @@ export class FY25_01Classifier extends ViewportUpdateClassifier {
 	constructor() {
 		super();
 		this.mergeConfig();
-		this.VCCalculationMethod = withProfiling(this.VCCalculationMethod.bind(this), ['vc']);
 	}
 }
 

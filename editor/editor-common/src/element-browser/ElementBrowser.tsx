@@ -18,7 +18,14 @@ export interface Props {
 	showCategories: boolean;
 	defaultCategory?: string;
 	emptyStateHandler?: EmptyStateHandler;
+	/**
+	 * @private
+	 * @deprecated
+	 * Deprecated in favour of onViewMore
+	 * Please clean up viewMoreItem when cleaning up platform_editor_refactor_view_more
+	 */
 	viewMoreItem?: QuickInsertItem;
+	onViewMore?: () => void;
 	cache?: CellMeasurerCache;
 }
 
@@ -121,6 +128,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 			mode,
 			emptyStateHandler,
 			viewMoreItem,
+			onViewMore,
 			cache,
 		} = this.props;
 		const { categories, searchTerm, selectedCategory, items } = this.state;
@@ -140,6 +148,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
 				emptyStateHandler={emptyStateHandler}
 				viewMoreItem={viewMoreItem}
 				cache={cache}
+				onViewMore={onViewMore}
 			/>
 		);
 	}

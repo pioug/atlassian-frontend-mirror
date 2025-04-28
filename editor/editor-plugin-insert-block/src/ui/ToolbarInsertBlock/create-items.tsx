@@ -323,7 +323,7 @@ const createInsertBlockItems = (
 		items.push(...insertMenuItems);
 	}
 
-	if (showElementBrowserLink) {
+	if (showElementBrowserLink && !fg('platform_editor_refactor_view_more')) {
 		items.push(
 			more({
 				content: formatMessage(messages.viewMore),

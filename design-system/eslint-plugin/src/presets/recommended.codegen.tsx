@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::18dcf6fce30892e43fb5fb76339c261e>>
+ * @codegen <<SignedSource::e19338713541f03377c09ec215ef56d4>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -20,6 +20,7 @@ export default {
 		'@atlaskit/design-system/no-html-anchor': 'warn',
 		'@atlaskit/design-system/no-html-button': 'warn',
 		'@atlaskit/design-system/no-html-checkbox': 'warn',
+		'@atlaskit/design-system/no-html-code': 'warn',
 		'@atlaskit/design-system/no-html-heading': 'warn',
 		'@atlaskit/design-system/no-html-image': 'warn',
 		'@atlaskit/design-system/no-html-range': 'warn',

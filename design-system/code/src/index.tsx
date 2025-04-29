@@ -1,4 +1,4 @@
-export { default as Code, getCodeStyles } from './code';
+export { default as Code } from './code';
 export { default as CodeBlock } from './code-block';
 
 export type {

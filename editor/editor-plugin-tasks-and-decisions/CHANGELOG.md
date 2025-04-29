@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.2
+
+### Patch Changes
+
+- [#146751](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146751)
+  [`ba4499469ce64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba4499469ce64) -
+  fix vanilla task with collab session
+- Updated dependencies
+
 ## 5.1.1
 
 ### Patch Changes

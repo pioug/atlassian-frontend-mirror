@@ -4,7 +4,7 @@ import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import StoryIcon from '@atlaskit/icon-object/glyph/story/16';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
 import { Inline } from '@atlaskit/primitives';
 
 const ActionsMenu = () => (
@@ -24,7 +24,7 @@ export default function Example() {
 				<Heading size="large">Create a backlog</Heading>
 			</Inline>
 			<Inline alignBlock="center" space="space.050">
-				<IconButton icon={StarFilledIcon} appearance="subtle" label="Add as favourite" />
+				<IconButton icon={StarStarredIcon} appearance="subtle" label="Add as favorite" />
 				<ActionsMenu />
 			</Inline>
 		</Inline>

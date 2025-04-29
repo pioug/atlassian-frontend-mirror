@@ -116,8 +116,6 @@ type AdditionalHTMLElementPropsExtender<Props extends SupportedElementAttributes
 		Props,
 		| 'className'
 		| 'style'
-		// There is no reason the default role should be overridden.
-		| 'role'
 		// Handled by `isDisabled`
 		| 'disabled'
 	>,

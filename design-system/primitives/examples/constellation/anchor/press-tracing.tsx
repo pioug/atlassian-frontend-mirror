@@ -3,7 +3,7 @@ import React from 'react';
 import __noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
-import Info from '@atlaskit/icon/glyph/info';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import Image from '@atlaskit/image';
 import InteractionContext from '@atlaskit/interaction-context';
 import { Anchor, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -38,15 +38,14 @@ const iconContainerStyles = xcss({
 });
 
 type ProjectLinkProps = {
-	href: string;
 	children: string;
 	icon: string;
 	id: string;
 };
 
-const ProjectLink = ({ href, children, icon, id }: ProjectLinkProps) => {
+const ProjectLink = ({ children, icon, id }: ProjectLinkProps) => {
 	return (
-		<Anchor href={href} xcss={anchorStyles} target="_blank" interactionName={`anchor-${id}`}>
+		<Anchor href="#" xcss={anchorStyles} interactionName={`anchor-${id}`}>
 			<Inline space="space.150" alignBlock="center">
 				<Box xcss={iconContainerStyles}>
 					<Image src={icon} alt="" />
@@ -69,7 +68,14 @@ const Projects = () => {
 					showFlag({
 						title: `Traced a press!`,
 						description: name,
-						icon: <Info label="Info" primaryColor={token('color.icon.information')} />,
+						icon: (
+							<InformationIcon
+								label="Info"
+								LEGACY_primaryColor={token('color.icon.information')}
+								color={token('color.icon.information')}
+								spacing="spacious"
+							/>
+						),
 						isAutoDismiss: true,
 					});
 				},
@@ -80,21 +86,13 @@ const Projects = () => {
 					Your projects
 				</Heading>
 				<Stack space="space.100">
-					<ProjectLink href="/components/button/examples" icon={ButtonIcon} id="evolving-button">
+					<ProjectLink icon={ButtonIcon} id="evolving-button">
 						Evolving Button: Open beta to GA
 					</ProjectLink>
-					<ProjectLink
-						href="/components/tokens/examples"
-						icon={ThemesIcon}
-						id="increased-contrast-themes"
-					>
+					<ProjectLink icon={ThemesIcon} id="increased-contrast-themes">
 						Increased contrast themes
 					</ProjectLink>
-					<ProjectLink
-						href="/components/primitives/text/examples"
-						icon={WatermelonIcon}
-						id="typography"
-					>
+					<ProjectLink icon={WatermelonIcon} id="typography">
 						ADS Typography
 					</ProjectLink>
 				</Stack>

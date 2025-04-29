@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 36.10.1
+
+### Patch Changes
+
+- [#146749](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146749)
+  [`7f825b2dc9207`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f825b2dc9207) -
+  Enable resolve hovercard view with nounData behind ff: smart_links_noun_support
+- Updated dependencies
+
 ## 36.10.0
 
 ### Minor Changes

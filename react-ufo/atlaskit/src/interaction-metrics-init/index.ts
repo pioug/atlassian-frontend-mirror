@@ -14,6 +14,7 @@ import {
 	sinkInteractionHandler,
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
+import { getPerformanceObserver } from '../interactions-performance-observer';
 import { getVCObserver } from '../vc';
 
 import scheduleIdleCallback from './schedule-idle-callback';
@@ -147,7 +148,6 @@ export function init(
 	}
 
 	setUFOConfig(config);
-
 	if (config.vc?.enabled) {
 		const vcOptions = {
 			heatmapSize: config.vc.heatmapSize,
@@ -168,6 +168,17 @@ export function init(
 	startLighthouseObserver();
 
 	initialized = true;
+
+	if (fg('platform_ufo_enable_events_observer')) {
+		if (typeof PerformanceObserver !== 'undefined') {
+			const observer = getPerformanceObserver();
+			observer.observe({
+				type: 'event',
+				buffered: true,
+				durationThreshold: 16,
+			} as PerformanceObserverInit);
+		}
+	}
 
 	Promise.all([
 		analyticsWebClientAsync,

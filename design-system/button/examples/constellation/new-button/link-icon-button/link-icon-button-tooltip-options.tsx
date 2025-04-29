@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkIconButton, type LinkIconButtonProps } from '@atlaskit/button/new';
-import UserIcon from '@atlaskit/icon/glyph/user-avatar-circle';
+import PersonAvatarIcon from '@atlaskit/icon/core/migration/person-avatar--user-avatar-circle';
 
 const tooltipOptions: LinkIconButtonProps['tooltip'] = {
 	position: 'right',
@@ -12,7 +12,7 @@ const LinkIconButtonTooltipOptionsExample = () => {
 	return (
 		<LinkIconButton
 			href="https://atlassian.com"
-			icon={UserIcon}
+			icon={PersonAvatarIcon}
 			label="View profile"
 			isTooltipDisabled={false}
 			tooltip={tooltipOptions}

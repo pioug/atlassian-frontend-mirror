@@ -156,9 +156,10 @@ const HoverCardResolvedView = ({
 	}, []);
 
 	const imagePreview = ImagePreview({
-		data: data,
 		fallbackElementHeight: snippetHeight.current,
+		response: cardState.details,
 	});
+
 	const snippet = imagePreview ? null : (
 		<SnippetBlock
 			status={SmartLinkStatus.Resolved}

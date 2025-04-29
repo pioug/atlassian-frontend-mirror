@@ -803,6 +803,7 @@ async function createInteractionMetricsPayload(
 		previousInteractionName,
 		isPreviousInteractionAborted,
 		abortedByInteractionName,
+		responsiveness,
 	} = interaction;
 	const pageVisibilityAtTTI = getPageVisibilityUpToTTI(interaction);
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
@@ -990,6 +991,7 @@ async function createInteractionMetricsPayload(
 						start,
 						getReactUFOPayloadVersion(interaction.type),
 					),
+					...(responsiveness ? { responsiveness } : {}),
 					...labelStack,
 					...pageLoadInteractionMetrics,
 					...getDetailedInteractionMetrics(resourceTimings),

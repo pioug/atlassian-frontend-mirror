@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
 import {
 	Spotlight,
 	SpotlightManager,

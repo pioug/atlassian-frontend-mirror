@@ -283,6 +283,11 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		return (
 			target && (
 				<PopupWithListeners
+					ariaLabel={
+						fg('editor_a11y_aria_label_removal_popup')
+							? intl.formatMessage(messages.statusEditorLabel)
+							: undefined
+					}
 					target={target}
 					offset={[0, 8]}
 					handleClickOutside={this.handleClickOutside}

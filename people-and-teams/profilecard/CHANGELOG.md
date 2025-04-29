@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 23.9.0
+
+### Minor Changes
+
+- [#145365](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145365)
+  [`f172c99cc3866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f172c99cc3866) -
+  [ux] show more icon in the team profile card if more action provided
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.8.0
 
 ### Minor Changes

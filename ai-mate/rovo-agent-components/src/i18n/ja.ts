@@ -22,6 +22,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': '次は何に取り組めばよいですか?',
   'ai-mate.chat-history.empty-state.suggestion3': '私の今週の作業のまとめを書いてください',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'エージェントを参照する',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'お気に入りに追加されていません。クリックしてお気に入りに追加',
   'rovo-chat.browse-agents.copy-agent-label': 'エージェントへのリンクをコピー',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'お気に入りから削除',
   'rovo-chat.view-agent.chat-to-agent-button': 'エージェントとチャット',

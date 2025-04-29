@@ -1,8 +1,7 @@
 import React from 'react';
 
+import LikeIcon from '@atlaskit/icon/glyph/like';
 import { Box } from '@atlaskit/primitives';
-
-import LikeIcon from '../../glyph/like';
 
 const IconMediumExample = () => {
 	return (

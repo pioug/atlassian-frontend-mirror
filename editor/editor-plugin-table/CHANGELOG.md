@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.8
+
+### Patch Changes
+
+- [#146228](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146228)
+  [`70d0e911d08ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70d0e911d08ec) -
+  Extract useInternalTablePluginStateSelector into a utility file
+- Updated dependencies
+
+## 10.9.7
+
+### Patch Changes
+
+- [#146244](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146244)
+  [`a87bc29b0ab36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a87bc29b0ab36) -
+  [ED-27681] Fix a bug where resize table column and then resize table cannot be undone
+
 ## 10.9.6
 
 ### Patch Changes

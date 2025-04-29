@@ -3,7 +3,9 @@ import React, { useCallback } from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
@@ -32,7 +34,24 @@ export function PrimaryToolbarComponent({
 	isToolbarReducedSpacing,
 	toolbarSize = ToolbarSize.XXL,
 }: PrimaryToolbarComponentProps) {
-	const { alignmentState } = useSharedPluginState(api, ['alignment']);
+	const { alignmentState } = useSharedPluginState(api, ['alignment'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+
+	const alignSelector = useSharedPluginStateSelector(api, 'alignment.align', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const align = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? alignSelector
+		: alignmentState?.align;
+
+	const isEnabledSelector = useSharedPluginStateSelector(api, 'alignment.isEnabled', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isEnabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? isEnabledSelector
+		: alignmentState?.isEnabled;
+
 	const changeAlignmentCallback = useCallback(
 		(align: AlignmentState) =>
 			changeAlignment(align, api, INPUT_METHOD.TOOLBAR)(editorView.state, editorView.dispatch),
@@ -41,12 +60,10 @@ export function PrimaryToolbarComponent({
 
 	return (
 		<ToolbarAlignment
-			pluginState={alignmentState}
+			align={align}
 			isReducedSpacing={isToolbarReducedSpacing}
 			changeAlignment={changeAlignmentCallback}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			disabled={disabled || !alignmentState!.isEnabled}
+			disabled={disabled || !isEnabled}
 			popupsMountPoint={popupsMountPoint}
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsScrollableElement={popupsScrollableElement}

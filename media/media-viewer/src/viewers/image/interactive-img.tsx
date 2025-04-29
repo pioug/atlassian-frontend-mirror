@@ -10,9 +10,9 @@ import {
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 import { MAX_RESOLUTION } from '@atlaskit/media-client/constants';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
+import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
+import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import Spinner from '@atlaskit/spinner';
-import { B75, B200, DN400, DN60, N0 } from '@atlaskit/theme/colors';
 import { BaselineExtend, HDIconGroupWrapper, ImageWrapper, Img } from '../../styleWrappers';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
@@ -101,23 +101,11 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
 		if (!isHDAvailable) {
 			return null;
 		}
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		const hdPrimaryColor = isHDActivating ? B75 : isHDActive ? B200 : DN400;
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		const hdSecondaryColor = isHDActive && !isHDActivating ? N0 : DN60;
-		const testId = isHDActivating ? 'hd-activating' : isHDActive ? 'hd-active' : 'hd-inactive';
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			<HDIconGroupWrapper className={hideControlsClassName}>
 				{isHDActivating ? <Spinner appearance="invert" /> : undefined}
-				{/* TODO: https://product-fabric.atlassian.net/browse/DSP-20900 */}
-				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
-				<HDIcon
-					primaryColor={hdPrimaryColor}
-					secondaryColor={hdSecondaryColor}
-					label="hd"
-					testId={testId}
-				/>
+				{isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd" />}
 			</HDIconGroupWrapper>
 		);
 	}

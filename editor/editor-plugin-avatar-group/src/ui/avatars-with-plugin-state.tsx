@@ -9,7 +9,9 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import messages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
@@ -37,16 +39,46 @@ const AvatarsWithPluginState = (props: AvatarsWithPluginStateProps & WrappedComp
 		editorAPI,
 	} = props;
 
-	const { collabEditState } = useSharedPluginState(editorAPI, ['collabEdit']);
+	const { collabEditState } = useSharedPluginState(editorAPI, ['collabEdit'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
 
-	if (!collabEditState) {
+	// sessionId
+	const sessionIdSelector = useSharedPluginStateSelector(editorAPI, 'collabEdit.sessionId', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const sessionId = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? sessionIdSelector
+		: collabEditState?.sessionId;
+
+	// activeParticipants
+	const activeParticipantsSelector = useSharedPluginStateSelector(
+		editorAPI,
+		'collabEdit.activeParticipants',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const activeParticipants = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? activeParticipantsSelector
+		: collabEditState?.activeParticipants;
+
+	const initialised = useSharedPluginStateSelector(editorAPI, 'collabEdit.initialised', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+
+	if (!collabEditState && editorExperiment('platform_editor_usesharedpluginstateselector', false)) {
+		return null;
+	}
+
+	if (!initialised && editorExperiment('platform_editor_usesharedpluginstateselector', true)) {
 		return null;
 	}
 
 	return (
 		<Avatars
-			sessionId={collabEditState.sessionId}
-			participants={collabEditState.activeParticipants}
+			sessionId={sessionId}
+			participants={activeParticipants}
 			editorView={editorView}
 			featureFlags={featureFlags}
 			editorAnalyticsAPI={editorAnalyticsAPI}

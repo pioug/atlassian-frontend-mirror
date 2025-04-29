@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import CrossIcon from '@atlaskit/icon/utility/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectProps } from '../../select';
@@ -208,35 +207,6 @@ const enabledStyles = css({
 	display: 'inherit',
 });
 
-const iconWrapperStyles = xcss({
-	padding: 'space.025',
-});
-
-const renderIcon = () => {
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (fg('platform-component-visual-refresh')) {
-		return <CrossIcon label="" color="currentColor" />;
-	}
-
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (fg('platform-visual-refresh-icons-legacy-facade')) {
-		return (
-			<Inline xcss={iconWrapperStyles}>
-				<CrossIcon label="" color="currentColor" />
-			</Inline>
-		);
-	}
-
-	return (
-		<LegacySelectClearIcon
-			label=""
-			primaryColor="transparent"
-			size="small"
-			secondaryColor="inherit"
-		/>
-	);
-};
-
 export function MultiValueRemove<Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
 	innerProps,
@@ -248,7 +218,14 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 				css={isDisabled ? disabledStyles : enabledStyles}
 				data-testid={isDisabled ? 'hide-clear-icon' : 'show-clear-icon'}
 			>
-				{renderIcon()}
+				<CrossIcon
+					label=""
+					color="currentColor"
+					LEGACY_fallbackIcon={LegacySelectClearIcon}
+					LEGACY_primaryColor="transparent"
+					LEGACY_secondaryColor="inherit"
+					LEGACY_size="small"
+				/>
 			</div>
 		</div>
 	);

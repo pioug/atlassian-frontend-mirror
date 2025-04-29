@@ -2,13 +2,13 @@ import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import ShowMoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 
 const DropdownMenuCustomTriggerButtonExample = () => {
 	return (
 		<DropdownMenu<HTMLButtonElement>
 			trigger={({ triggerRef, ...props }) => (
-				<IconButton {...props} icon={MoreIcon} label="more" ref={triggerRef} />
+				<IconButton {...props} icon={ShowMoreIcon} label="more" ref={triggerRef} />
 			)}
 			shouldRenderToParent
 		>

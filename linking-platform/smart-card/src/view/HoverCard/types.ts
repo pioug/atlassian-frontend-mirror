@@ -1,9 +1,9 @@
 import { type MouseEventHandler, type ReactElement } from 'react';
 
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import type { ActionName } from '../../constants';
 import { type AnalyticsHandler } from '../../utils/types';
@@ -119,8 +119,8 @@ export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 export type ImagePreviewProps = {
-	data: JsonLd.Data.BaseData;
 	fallbackElementHeight: number;
+	response?: SmartLinkResponse;
 };
 export interface HoverPreviewOptions {
 	/**

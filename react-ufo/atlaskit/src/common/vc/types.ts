@@ -42,13 +42,7 @@ export type VCEntryType = {
 	elements: string[];
 };
 
-export type VCIgnoreReason =
-	| 'image'
-	| 'ssr-hydration'
-	| 'editor-lazy-node-view'
-	| 'not-visible'
-	| 'non-visual-style'
-	| '';
+export type VCIgnoreReason = 'image' | 'ssr-hydration' | 'not-visible' | 'non-visual-style' | '';
 
 export type ComponentsLogEntry = {
 	type?: string;

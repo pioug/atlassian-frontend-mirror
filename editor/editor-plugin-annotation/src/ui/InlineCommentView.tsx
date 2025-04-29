@@ -16,6 +16,7 @@ import {
 	RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	getAnnotationInlineNodeTypes,
 	getRangeInlineNodeNames,
@@ -24,6 +25,7 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import {
@@ -84,16 +86,75 @@ export function InlineCommentView({
 
 	const { createComponent: CreateComponent, viewComponent: ViewComponent } = inlineCommentProvider;
 	const inlineCommentState = getPluginState(state);
-	const {
-		bookmark,
-		selectedAnnotations,
-		annotations,
-		isInlineCommentViewClosed,
-		isOpeningMediaCommentFromToolbar,
-	} = inlineCommentState || {};
+
+	// bookmark
+	const bookmarkSelector = useSharedPluginStateSelector(editorAPI, 'annotation.bookmark', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const bookmark = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? bookmarkSelector
+		: inlineCommentState?.bookmark;
+
+	// selectedAnnotations
+	const selectedAnnotationsSelector = useSharedPluginStateSelector(
+		editorAPI,
+		'annotation.selectedAnnotations',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const selectedAnnotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? selectedAnnotationsSelector
+		: inlineCommentState?.selectedAnnotations;
+
+	// annotations
+	const annotationsSelector = useSharedPluginStateSelector(editorAPI, 'annotation.annotations', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const annotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? annotationsSelector
+		: inlineCommentState?.annotations;
+
+	// isInlineCommentViewClosed
+	const isInlineCommentViewClosedSelector = useSharedPluginStateSelector(
+		editorAPI,
+		'annotation.isInlineCommentViewClosed',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const isInlineCommentViewClosed = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? isInlineCommentViewClosedSelector
+		: inlineCommentState?.isInlineCommentViewClosed;
+
+	// isOpeningMediaCommentFromToolbar
+	const isOpeningMediaCommentFromToolbarSelector = useSharedPluginStateSelector(
+		editorAPI,
+		'annotation.isOpeningMediaCommentFromToolbar',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const isOpeningMediaCommentFromToolbar = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? isOpeningMediaCommentFromToolbarSelector
+		: inlineCommentState?.isOpeningMediaCommentFromToolbar;
+
 	const annotationsList = getAllAnnotations(editorView.state.doc);
 
-	const selection = getSelectionPositions(state, inlineCommentState);
+	const selection = getSelectionPositions(
+		state,
+		editorExperiment('platform_editor_usesharedpluginstateselector', true)
+			? {
+					bookmark,
+				}
+			: inlineCommentState,
+	);
 	const position = findPosForDOM(selection);
 	let dom: HTMLElement | undefined;
 	try {
@@ -119,6 +180,15 @@ export function InlineCommentView({
 			dispatchAnalyticsEvent(payload);
 		}
 	}
+
+	// selectAnnotationMethod
+	const selectAnnotationMethodSelector = useSharedPluginStateSelector(
+		editorAPI,
+		'annotation.selectAnnotationMethod',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
 
 	if (!dom) {
 		return null;
@@ -181,8 +251,6 @@ export function InlineCommentView({
 			return;
 		}
 
-		const { selectAnnotationMethod } = inlineCommentState || {};
-
 		// fire analytics
 		const payload: AnnotationAEP = {
 			action: ACTION.VIEWED,
@@ -192,7 +260,9 @@ export function InlineCommentView({
 			attributes: {
 				overlap: activeAnnotations.length ? activeAnnotations.length - 1 : 0,
 				targetNodeType: editorView.state.doc.nodeAt(position)?.type.name,
-				method: selectAnnotationMethod,
+				method: editorExperiment('platform_editor_tables_table_selector', true)
+					? selectAnnotationMethodSelector
+					: inlineCommentState?.selectAnnotationMethod,
 			},
 		};
 		dispatchAnalyticsEvent(payload);

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import {
 	Spotlight,
 	SpotlightManager,
@@ -11,8 +12,6 @@ import {
 } from '@atlaskit/onboarding';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import CodeSandboxIcon from './example-components/code-sandbox-icon';
 
 const SpotlightTargetBackground = () => {
 	const [activeSpotlight, setActiveSpotlight] = useState<null | number>(null);
@@ -32,8 +31,8 @@ const SpotlightTargetBackground = () => {
 					{ onClick: () => end(), text: 'Dismiss', appearance: 'subtle' },
 				]}
 				heading="No targetBgColor set"
-				target="codesandbox"
-				key="codesandbox"
+				target="comment"
+				key="comment"
 				targetRadius={3}
 			>
 				You can see that even though the spotlight pulse surrounds the button, it no longer stands
@@ -65,8 +64,8 @@ const SpotlightTargetBackground = () => {
 	return (
 		<SpotlightManager>
 			<ButtonGroup label="Choose spotlight options">
-				<SpotlightTarget name="codesandbox">
-					<IconButton icon={CodeSandboxIcon} label="codesandbox" />
+				<SpotlightTarget name="comment">
+					<IconButton icon={CommentAddIcon} label="comment" />
 				</SpotlightTarget>
 				<SpotlightTarget name="copy">
 					<IconButton icon={CopyIcon} label="Copy" />

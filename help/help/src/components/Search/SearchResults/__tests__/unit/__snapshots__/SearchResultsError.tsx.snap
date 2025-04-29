@@ -190,16 +190,7 @@ exports[`SearchResultsError Should match snapshot 1`] = `
   >
     ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}._125x1wmz p{color:var(--ds-text-subtlest,#6b778c)}
   </style>
-  
-
-.emotion-1,
-.emotion-1:hover,
-.emotion-1:active,
-.emotion-1:focus,
-.emotion-1:focus-visible,
-.emotion-1:visited,
-.emotion-1:disabled,
-.emotion-1[disabled] {
+  .emotion-1 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -235,17 +226,54 @@ exports[`SearchResultsError Should match snapshot 1`] = `
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  outline: none;
 }
 
-.emotion-1::-moz-focus-inner,
-.emotion-1:hover::-moz-focus-inner,
-.emotion-1:active::-moz-focus-inner,
-.emotion-1:focus::-moz-focus-inner,
-.emotion-1:focus-visible::-moz-focus-inner,
-.emotion-1:visited::-moz-focus-inner,
-.emotion-1:disabled::-moz-focus-inner,
-.emotion-1[disabled]::-moz-focus-inner {
+.emotion-1:visited {
+  background: var(--ds-background-brand-bold, #0052CC);
+  color: var(--ds-text-inverse, #FFFFFF)!important;
+}
+
+.emotion-1:hover {
+  background: var(--ds-background-brand-bold-hovered, #0065FF);
+  color: var(--ds-text-inverse, #FFFFFF)!important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-1:active {
+  background: var(--ds-background-brand-bold-pressed, #0747A6);
+  color: var(--ds-text-inverse, #FFFFFF)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-1[data-firefox-is-active="true"] {
+  background: var(--ds-background-brand-bold-pressed, #0747A6);
+  color: var(--ds-text-inverse, #FFFFFF)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-1[disabled] {
+  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-1[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-1[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-1[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-brand-bold, #0052CC);
+  color: var(--ds-text-inverse, #FFFFFF)!important;
+}
+
+.emotion-1::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;

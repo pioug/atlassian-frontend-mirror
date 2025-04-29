@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import InlineEdit from '@atlaskit/inline-edit';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -98,7 +98,11 @@ const InlineEditValidationExample = () => {
 							elemAfterInput={
 								fieldProps.isInvalid && (
 									<Box xcss={errorIconContainerStyles.root}>
-										<ErrorIcon label="error" primaryColor={token('color.icon.danger')} />
+										<ErrorIcon
+											label="error"
+											LEGACY_primaryColor={token('color.icon.danger')}
+											color={token('color.icon.danger')}
+										/>
 									</Box>
 								)
 							}

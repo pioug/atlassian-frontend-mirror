@@ -1,9 +1,7 @@
 import React from 'react';
 
-import Icon from '@atlaskit/icon';
 import SmartLinkListIcon from '@atlaskit/icon/core/smart-link-list';
 import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 const IconDatasourceGlyph = (props: CustomGlyphProps) => {
@@ -39,16 +37,7 @@ const wrapperStyles = xcss({
 export const DatasourceIcon = (props: GlyphProps) => {
 	return (
 		<Flex xcss={wrapperStyles}>
-			{fg('platform-editor-plugin-card-icon-migration') ? (
-				<SmartLinkListIcon LEGACY_fallbackIcon={IconDatasourceGlyph} label={props?.label} />
-			) : (
-				<Icon
-					glyph={IconDatasourceGlyph}
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...props}
-				/>
-			)}
+			<SmartLinkListIcon LEGACY_fallbackIcon={IconDatasourceGlyph} label={props?.label} />
 		</Flex>
 	);
 };

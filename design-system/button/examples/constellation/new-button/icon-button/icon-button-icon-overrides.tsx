@@ -1,17 +1,18 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
 import { token } from '@atlaskit/tokens';
 
 const IconButtonSmallExample = () => {
 	return (
 		<IconButton
 			icon={(iconProps) => (
-				<StarFilledIcon
+				<StarStarredIcon
 					{...iconProps}
-					size="small"
-					primaryColor={token('color.icon.accent.orange')}
+					LEGACY_size="small"
+					LEGACY_primaryColor={token('color.icon.accent.orange')}
+					color={token('color.icon.accent.orange')}
 				/>
 			)}
 			label="Add to favorites"

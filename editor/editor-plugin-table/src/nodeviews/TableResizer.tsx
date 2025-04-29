@@ -19,7 +19,6 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -70,6 +69,7 @@ import {
 	TABLE_HIGHLIGHT_TOLERANCE,
 	TABLE_SNAP_GAP,
 } from '../ui/consts';
+import { useInternalTablePluginStateSelector } from '../ui/hooks/useInternalTablePluginStateSelector';
 
 interface TableResizerProps {
 	width: number;
@@ -218,13 +218,13 @@ export const TableResizer = ({
 	});
 
 	// widthToWidest
-	const widthToWidestSelector = useSharedPluginStateSelector(
+	const widthToWidestSelector = useInternalTablePluginStateSelector(
 		pluginInjectionApi,
-		'table.widthToWidest' as never,
+		'widthToWidest',
 		{
 			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
 		},
-	) as TableSharedStateInternal['widthToWidest'];
+	);
 	const widthToWidest = editorExperiment('platform_editor_usesharedpluginstateselector', true)
 		? widthToWidestSelector
 		: (tableState as TableSharedStateInternal).widthToWidest;

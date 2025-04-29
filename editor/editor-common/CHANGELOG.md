@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 103.18.0
+
+### Minor Changes
+
+- [#146371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146371)
+  [`9540ed4b36027`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9540ed4b36027) -
+  [A11Y-9995] Add label to Status editor popup
+
+### Patch Changes
+
+- Updated dependencies
+
+## 103.17.1
+
+### Patch Changes
+
+- [#146650](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146650)
+  [`9074704f03590`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9074704f03590) -
+  add data attribute to media single component
+- Updated dependencies
+
 ## 103.17.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { Inline } from '@atlaskit/primitives';
 
 const IconButtonSpacingExample = () => {

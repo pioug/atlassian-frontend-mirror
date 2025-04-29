@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 
 const IconButtonSelectedExample = () => {
-	return <IconButton isSelected icon={MoreIcon} label="More actions" />;
+	return <IconButton isSelected icon={ShowMoreHorizontalIcon} label="More actions" />;
 };
 
 export default IconButtonSelectedExample;

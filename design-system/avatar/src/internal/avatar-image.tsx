@@ -6,12 +6,9 @@ import { type FC, useEffect, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import PersonIconLegacy from '@atlaskit/icon/core/migration/person';
-import ReleaseIconMigration from '@atlaskit/icon/core/migration/release--ship';
-import PersonIcon from '@atlaskit/icon/core/person';
-import ReleaseIcon from '@atlaskit/icon/core/release';
+import PersonIcon from '@atlaskit/icon/core/migration/person';
+import ReleaseIcon from '@atlaskit/icon/core/migration/release--ship';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type AppearanceType, type SizeType } from '../types';
@@ -136,36 +133,28 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 				]}
 			>
 				{appearance === 'circle' ? (
-					fg('platform-component-visual-refresh') ? (
-						<PersonIcon
-							label={alt}
-							color={token('color.icon.subtle')}
-							testId={testId && `${testId}--person`}
-							spacing="spacious"
-						/>
-					) : (
-						<PersonIconLegacy
-							label={alt}
-							color={token('color.icon.inverse', N0)}
-							LEGACY_secondaryColor={token('color.icon.subtle', N90)}
-							testId={testId && `${testId}--person`}
-							spacing="spacious"
-						/>
-					)
-				) : fg('platform-component-visual-refresh') ? (
-					<ReleaseIcon
+					<PersonIcon
 						label={alt}
-						color={token('color.icon.subtle')}
-						testId={testId && `${testId}--ship`}
+						color={
+							fg('platform-component-visual-refresh')
+								? token('color.icon.subtle')
+								: token('color.icon.inverse')
+						}
+						testId={testId && `${testId}--person`}
 						spacing="spacious"
+						LEGACY_secondaryColor={token('color.icon.subtle')}
 					/>
 				) : (
-					<ReleaseIconMigration
+					<ReleaseIcon
 						label={alt}
-						color={token('color.icon.inverse', N0)}
-						LEGACY_secondaryColor={token('color.icon.subtle', N90)}
+						color={
+							fg('platform-component-visual-refresh')
+								? token('color.icon.subtle')
+								: token('color.icon.inverse')
+						}
 						testId={testId && `${testId}--ship`}
 						spacing="spacious"
+						LEGACY_secondaryColor={token('color.icon.subtle')}
 					/>
 				)}
 			</span>

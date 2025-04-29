@@ -22,6 +22,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': '接下來我應該處理什麼？',
   'ai-mate.chat-history.empty-state.suggestion3': '撰寫本週更新',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': '瀏覽客服人員',
+  'rovo-chat.browse-agents.click-to-favourite-label': '並未加入最愛，按一下即可加入',
   'rovo-chat.browse-agents.copy-agent-label': '複製客服人員的連結',
   'rovo-chat.browse-agents.remove-from-favourites-label': '從我的最愛中移除',
   'rovo-chat.view-agent.chat-to-agent-button': '與客服人員聊天',

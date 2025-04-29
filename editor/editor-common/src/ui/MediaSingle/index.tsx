@@ -14,6 +14,7 @@ import {
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import { getMediaSinglePixelWidth } from '../../media-single/utils';
@@ -156,6 +157,8 @@ export default function MediaSingle({
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...dataAttributes}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...(fg('platform_exclude_media_single_from_vc') && VcMediaWrapperProps)}
 		>
 			<MediaWrapper
 				hasFallbackContainer={hasFallbackContainer}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "19.1.4",
+	"version": "19.2.0",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,11 +50,13 @@
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
+		"react-intl-next": "npm:react-intl@^5.18.1",
 		"use-callback-ref": "^1.2.3",
 		"uuid": "^3.1.0"
 	},
@@ -91,6 +93,11 @@
 			"styling": [
 				"compiled"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"editor_a11y_group_around_action_items": {
+			"type": "boolean"
 		}
 	}
 }

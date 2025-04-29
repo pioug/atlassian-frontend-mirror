@@ -20,6 +20,6 @@ export type BooleanExperimentConfig = {
 export type MultivariateExperimentConfig<T extends string[]> = {
 	productKeys?: ProductKeys;
 	param: string;
-	values: T;
+	values: [...T]; // Turns string[] into a tuple
 	defaultValue: T[number];
 };

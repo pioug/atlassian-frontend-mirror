@@ -1,13 +1,12 @@
 import React from 'react';
 
-import DropboxIcon from '@atlaskit/icon/glyph/dropbox';
-import FilterIcon from '@atlaskit/icon/glyph/filter';
-import WorkIcon from '@atlaskit/icon/glyph/folder';
-import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
-import CustomerIcon from '@atlaskit/icon/glyph/person';
-import QueueIcon from '@atlaskit/icon/glyph/queues';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
-import LanguageIcon from '@atlaskit/icon/glyph/world';
+import FilterIcon from '@atlaskit/icon/core/migration/filter';
+import FolderClosedIcon from '@atlaskit/icon/core/migration/folder-closed--folder';
+import GlobeIcon from '@atlaskit/icon/core/migration/globe--world';
+import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb';
+import PagesIcon from '@atlaskit/icon/core/migration/pages--queues';
+import PersonIcon from '@atlaskit/icon/core/migration/person';
+import SettingsIcon from '@atlaskit/icon/core/migration/settings';
 
 import {
 	ButtonItem,
@@ -61,7 +60,7 @@ const BasicExample = () => {
 							id="queues"
 							isSelected
 							title="Queues view"
-							iconBefore={<QueueIcon label="" />}
+							iconBefore={<PagesIcon label="" />}
 						>
 							<Section title="Queues" isList>
 								<ButtonItem>Untriaged</ButtonItem>
@@ -82,7 +81,7 @@ const BasicExample = () => {
 						>
 							<Section>
 								<NestingItem
-									iconBefore={<LanguageIcon label="" />}
+									iconBefore={<GlobeIcon label="" />}
 									id="language-menu"
 									title="Language settings"
 								>
@@ -102,18 +101,9 @@ const BasicExample = () => {
 								</NestingItem>
 							</Section>
 						</NestingItem>
-						<NestingItem
-							id="dropbox"
-							iconBefore={<DropboxIcon label="" />}
-							title="Dropbox"
-							testId="dropbox-nesting-item"
-							isDisabled
-						>
-							<span />
-						</NestingItem>
-						<ButtonItem iconBefore={<WorkIcon label="" />}>Your work</ButtonItem>
+						<ButtonItem iconBefore={<FolderClosedIcon label="" />}>Your work</ButtonItem>
 						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-						<LinkItem href="#" iconBefore={<CustomerIcon label="" />}>
+						<LinkItem href="#" iconBefore={<PersonIcon label="" />}>
 							Your customers
 						</LinkItem>
 					</Section>

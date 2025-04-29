@@ -8,7 +8,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider } from '@atlaskit/link-extractors';
+import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -79,7 +79,9 @@ const HoverCardForbiddenView = ({
 	const { cardState, url } = flexibleCardProps;
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
 	const meta = cardState.details?.meta as JsonLd.Meta.BaseMeta;
-	const product = extractProvider(data)?.text ?? '';
+	const product = fg('smart_links_noun_support')
+		? extractSmartLinkProvider(cardState.details)?.text ?? ''
+		: extractProvider(data)?.text ?? '';
 	const hostname = <b>{extractHostname(url)}</b>;
 
 	const { action, descriptiveMessageKey, titleMessageKey, buttonDisabled } =

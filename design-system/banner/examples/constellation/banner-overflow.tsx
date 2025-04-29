@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { Box, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({
@@ -15,7 +15,9 @@ const message =
 const BannerOverflowExample = () => {
 	return (
 		<Box xcss={containerStyles}>
-			<Banner icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>{message}</Banner>
+			<Banner icon={<WarningIcon label="Warning" LEGACY_secondaryColor="inherit" />}>
+				{message}
+			</Banner>
 		</Box>
 	);
 };

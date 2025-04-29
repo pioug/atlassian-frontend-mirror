@@ -18,6 +18,7 @@ import { token } from '@atlaskit/tokens';
 
 import { fireEvent } from '../../util/analytics';
 
+import { ButtonSection } from './team-actions';
 import { TeamConnections } from './team-connections/main';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
 
@@ -120,6 +121,11 @@ interface TeamProfileCardProps {
 	userId: string;
 	isVerified?: boolean;
 	teamProfileUrl?: string;
+	isKudosEnabled?: boolean;
+	otherActions?: {
+		id: string;
+		item: React.ReactNode;
+	}[];
 }
 
 export const TeamProfileCard = ({
@@ -135,6 +141,8 @@ export const TeamProfileCard = ({
 	userId,
 	isVerified,
 	teamProfileUrl,
+	isKudosEnabled,
+	otherActions,
 }: TeamProfileCardProps) => {
 	const { teamContainers, loading } = useTeamContainers(teamId);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -221,19 +229,28 @@ export const TeamProfileCard = ({
 						/>
 					</Box>
 				)}
-				{teamProfileUrl && (
-					<Stack xcss={styles.viewProfileContainerStyles}>
-						<Pressable
-							onClick={onClick}
-							xcss={styles.viewProfileButtonStyles}
-							testId="view-profile-button"
-						>
-							<FormattedMessage
-								defaultMessage="View profile"
-								id="people-and-teams.team-profile-card.view-profile"
-							/>
-						</Pressable>
-					</Stack>
+				{isKudosEnabled || otherActions ? (
+					<ButtonSection
+						teamProfileUrl={teamProfileUrl}
+						isKudosEnabled={isKudosEnabled}
+						otherActions={otherActions}
+					/>
+				) : (
+					teamProfileUrl && (
+						// TODO: Remove this when clean up 'team-bi-directional-container-connection' experiment
+						<Stack xcss={styles.viewProfileContainerStyles}>
+							<Pressable
+								onClick={onClick}
+								xcss={styles.viewProfileButtonStyles}
+								testId="view-profile-button"
+							>
+								<FormattedMessage
+									defaultMessage="View profile"
+									id="people-and-teams.team-profile-card.view-profile"
+								/>
+							</Pressable>
+						</Stack>
+					)
 				)}
 			</Stack>
 		</TeamCardWrapper>

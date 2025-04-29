@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -36,7 +36,12 @@ const AutoDismissFlagInfoExample = () => {
 							appearance="info"
 							id={flagId}
 							icon={
-								<InfoIcon label="Info" secondaryColor={token('color.background.neutral.bold')} />
+								<InformationIcon
+									label="Info"
+									LEGACY_secondaryColor={token('color.background.neutral.bold')}
+									color={token('color.icon.inverse')}
+									spacing="spacious"
+								/>
 							}
 							key={flagId}
 							title={`#${flagId} Where is everybody?`}

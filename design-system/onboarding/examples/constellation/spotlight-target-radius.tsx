@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Avatar from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import {
 	Spotlight,
 	SpotlightManager,
@@ -12,8 +13,6 @@ import {
 } from '@atlaskit/onboarding';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import CodeSandboxIcon from './example-components/code-sandbox-icon';
 
 const SpotlightTargetRadius = () => {
 	const [activeSpotlight, setActiveSpotlight] = useState<null | number>(null);
@@ -32,12 +31,12 @@ const SpotlightTargetRadius = () => {
 					},
 					{ onClick: () => end(), text: 'Dismiss', appearance: 'subtle' },
 				]}
-				heading="Open CodeSandbox"
-				target="codesandbox"
-				key="codesandbox"
+				heading="Add a comment"
+				target="comment"
+				key="comment"
 				targetBgColor={N0}
 			>
-				A sandboxed environment where you can play around with examples is now only one click away.
+				Quickly add a comment to the issue.
 			</Spotlight>,
 			<Spotlight
 				targetRadius={3}
@@ -80,8 +79,8 @@ const SpotlightTargetRadius = () => {
 	return (
 		<SpotlightManager>
 			<ButtonGroup label="Choose spotlight options">
-				<SpotlightTarget name="codesandbox">
-					<IconButton icon={CodeSandboxIcon} label="codesandbox" />
+				<SpotlightTarget name="comment">
+					<IconButton icon={CommentAddIcon} label="comment" />
 				</SpotlightTarget>
 				<SpotlightTarget name="copy">
 					<IconButton icon={CopyIcon} label="Copy" />

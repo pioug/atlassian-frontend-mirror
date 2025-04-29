@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import OpenIcon from '@atlaskit/icon/glyph/open';
+import ArrowUpRightIcon from '@atlaskit/icon/core/migration/arrow-up-right--open';
 
 import { CustomItem, type CustomItemComponentProps, Section } from '../../src';
 
@@ -22,7 +22,11 @@ const ButtonItemExample = () => {
 	return (
 		<div>
 			<Section>
-				<CustomItem href="/create-issue" component={CustomLink} iconAfter={<OpenIcon label="" />}>
+				<CustomItem
+					href="/create-issue"
+					component={CustomLink}
+					iconAfter={<ArrowUpRightIcon label="" />}
+				>
 					Create external issue
 				</CustomItem>
 			</Section>

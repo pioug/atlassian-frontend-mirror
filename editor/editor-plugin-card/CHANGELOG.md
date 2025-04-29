@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.21
+
+### Patch Changes
+
+- [#146194](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146194)
+  [`dc301c3dad7a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc301c3dad7a8) -
+  [ux] Feature gate cleanup: platform-editor-plugin-card-icon-migration
+- Updated dependencies
+
 ## 5.4.20
 
 ### Patch Changes

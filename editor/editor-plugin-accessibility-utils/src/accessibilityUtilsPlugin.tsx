@@ -3,9 +3,11 @@ import React from 'react';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import type {
@@ -87,12 +89,39 @@ function ContentComponent({
 }: {
 	api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined;
 }) {
-	const { accessibilityUtilsState } = useSharedPluginState(api, ['accessibilityUtils']);
-	const role =
-		accessibilityUtilsState?.ariaLiveElementAttributes?.priority === 'important'
-			? 'alert'
-			: 'status';
-	const key = accessibilityUtilsState?.key;
+	const { accessibilityUtilsState } = useSharedPluginState(api, ['accessibilityUtils'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+
+	const ariaLiveElementAttributesSelector = useSharedPluginStateSelector(
+		api,
+		'accessibilityUtils.ariaLiveElementAttributes',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const ariaLiveElementAttributes = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? ariaLiveElementAttributesSelector
+		: accessibilityUtilsState?.ariaLiveElementAttributes;
+
+	const keySelector = useSharedPluginStateSelector(api, 'accessibilityUtils.key', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const key = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? keySelector
+		: accessibilityUtilsState?.key;
+
+	const messageSelector = useSharedPluginStateSelector(api, 'accessibilityUtils.message', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const message = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? messageSelector
+		: accessibilityUtilsState?.message;
+
+	const role = ariaLiveElementAttributes?.priority === 'important' ? 'alert' : 'status';
 
 	return (
 		<VisuallyHidden
@@ -102,7 +131,7 @@ function ContentComponent({
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(role === 'alert' && { key })}
 		>
-			{accessibilityUtilsState?.message}
+			{message}
 		</VisuallyHidden>
 	);
 }

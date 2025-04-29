@@ -20,6 +20,17 @@ export type MessageSendPayload = PayloadCore<
 	}
 >;
 
+// Can only specify either `agentId` or `agentExternalConfigReference`, not both
+type TargetAgentParam =
+	| {
+			agentId: string;
+			agentExternalConfigReference?: never;
+	  }
+	| {
+			agentId?: never;
+			agentExternalConfigReference: string;
+	  };
+
 export type ChatNewPayload = PayloadCore<
 	'chat-new',
 	{
@@ -38,8 +49,7 @@ export type ChatNewPayload = PayloadCore<
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
 		sourceId?: string;
-		agentId?: string;
-	}
+	} & Partial<TargetAgentParam>
 >;
 
 export type EditorContextPayloadData =
@@ -107,6 +117,7 @@ export type ChatOpenPayload = PayloadCore<
 	'chat-open',
 	{
 		channelId: string;
+		// @deprecated this is not being used, please use `chat-new` if you want to open a new chat with an agent
 		agentId?: string;
 	}
 >;

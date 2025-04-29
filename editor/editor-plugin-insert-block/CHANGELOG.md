@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.2.4
+
+### Patch Changes
+
+- [#146116](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146116)
+  [`67279b54bce62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67279b54bce62) -
+  [ux] Add all block insert actions in Editor primary toolbar
+- Updated dependencies
+
 ## 3.2.3
 
 ### Patch Changes

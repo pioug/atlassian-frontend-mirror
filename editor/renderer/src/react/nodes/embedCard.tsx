@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { useContext, useState, useRef } from 'react';
 import type { ComponentProps } from 'react';
 import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 
@@ -24,6 +25,7 @@ import {
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CardErrorBoundary } from './fallback';
 
@@ -185,6 +187,44 @@ export default function EmbedCard(props: {
 						}
 					};
 
+					let cardComponent;
+					if (smartLinks?.ssr && url && fg('platform_ssr_smartlink_embeds')) {
+						const ssrCardProps = {
+							url,
+							onClick,
+							container: portal,
+							platform: platform as 'web' | 'mobile',
+							frameStyle: smartLinks?.frameStyle ?? 'show',
+							actionOptions,
+						};
+
+						cardComponent = (
+							<CardSSR
+								appearance="embed"
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...ssrCardProps}
+								onResolve={onResolve}
+								inheritDimensions={true}
+								embedIframeRef={embedIframeRef}
+								onError={onError}
+							/>
+						);
+					} else {
+						cardComponent = (
+							<Card
+								appearance="embed"
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...cardProps}
+								onResolve={onResolve}
+								inheritDimensions={true}
+								embedIframeRef={embedIframeRef}
+								onError={onError}
+							/>
+						);
+					}
+
 					return (
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
@@ -217,16 +257,7 @@ export default function EmbedCard(props: {
 											data-card-url={url}
 											data-card-original-height={originalHeight}
 										>
-											<Card
-												appearance="embed"
-												// Ignored via go/ees005
-												// eslint-disable-next-line react/jsx-props-no-spreading
-												{...cardProps}
-												onResolve={onResolve}
-												inheritDimensions={true}
-												embedIframeRef={embedIframeRef}
-												onError={onError}
-											/>
+											{cardComponent}
 										</div>
 									</div>
 								</UIMediaSingle>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PersonIcon from '@atlaskit/icon/glyph/person';
+import PersonIcon from '@atlaskit/icon/core/migration/person';
 import { Bleed, Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 
 const buttonStyles = xcss({
@@ -28,7 +28,7 @@ export default function Basic() {
 			<Inline>
 				{['first', 'second', 'third', 'fourth'].map((key) => (
 					<Pressable key={key} xcss={buttonStyles} backgroundColor="color.background.neutral.bold">
-						<PersonIcon label="An avatar" size="medium" />
+						<PersonIcon label="An avatar" LEGACY_size="medium" spacing="spacious" />
 					</Pressable>
 				))}
 			</Inline>
@@ -36,7 +36,7 @@ export default function Basic() {
 				{['first', 'second', 'third', 'fourth'].map((key) => (
 					<Bleed inline="space.050" key={key}>
 						<Pressable xcss={buttonStyles} backgroundColor="color.background.neutral.bold">
-							<PersonIcon label="An avatar" size="medium" />
+							<PersonIcon label="An avatar" LEGACY_size="medium" spacing="spacious" />
 						</Pressable>
 					</Bleed>
 				))}

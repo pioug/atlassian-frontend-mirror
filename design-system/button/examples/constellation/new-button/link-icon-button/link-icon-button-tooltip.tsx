@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import UserIcon from '@atlaskit/icon/glyph/user-avatar-circle';
+import PersonAvatarIcon from '@atlaskit/icon/core/migration/person-avatar--user-avatar-circle';
 
 const LinkIconButtonTooltipExample = () => {
 	return (
 		<LinkIconButton
 			href="https://atlassian.com"
-			icon={UserIcon}
+			icon={PersonAvatarIcon}
 			label="View profile"
 			isTooltipDisabled={false}
 		/>

@@ -60,19 +60,12 @@ const AsyncSegmentHighlight = lazy(() =>
 	).then((module) => ({ default: module.SegmentHighlight })),
 );
 
-const noopIdMap = new Map<string, string>();
-
 // KARL TODO: finish self profiling
 /** A portion of the page we apply measurement to */
 export default function UFOSegment({ name: segmentName, children, mode = 'single' }: Props) {
 	const parentContext = useContext(UFOInteractionContext) as EnhancedUFOInteractionContextType;
 
 	const segmentIdMap = useMemo(() => {
-		if (!fg('platform_ufo_segment_list_mode')) {
-			// just in case we cause rerender issues, use noop map
-			return noopIdMap;
-		}
-
 		if (!parentContext?.segmentIdMap) {
 			return new Map<string, string>();
 		}
@@ -80,10 +73,6 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 	}, [parentContext]);
 
 	const segmentId = useMemo(() => {
-		if (!fg('platform_ufo_segment_list_mode')) {
-			return generateId();
-		}
-
 		if (mode === 'single') {
 			return generateId();
 		}

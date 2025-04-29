@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
 
 type MyRouterLinkConfig = {
 	to: string;
@@ -15,7 +15,7 @@ const LinkIconButtonExample = () => {
 				to: '/favorites',
 				replace: true,
 			}}
-			icon={StarFilledIcon}
+			icon={StarStarredIcon}
 			label="Favorites"
 		/>
 	);

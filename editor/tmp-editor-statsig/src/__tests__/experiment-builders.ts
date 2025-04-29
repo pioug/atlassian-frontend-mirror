@@ -37,7 +37,6 @@ describe('experiment-builders', () => {
 
 			expect(result).toEqual({
 				param: 'test.multivariate',
-				values: ['A', 'B', 'C'],
 				defaultValue: 'B',
 				typeGuard: expect.any(Function),
 			});

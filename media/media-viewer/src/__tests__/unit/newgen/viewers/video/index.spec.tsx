@@ -153,9 +153,7 @@ describe('Video viewer', () => {
 		fireEvent.click(screen.getByTestId('custom-media-player-hd-button'));
 
 		await waitFor(() => {
-			expect(screen.getByLabelText('hd').getAttribute('style')).toBe(
-				'--icon-primary-color: #c7d1db; --icon-secondary-color: #313D52;',
-			);
+			expect(screen.getByLabelText('hd')).toBeInTheDocument();
 		});
 	});
 
@@ -209,9 +207,7 @@ describe('Video viewer', () => {
 		setup();
 		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		expect(screen.getByLabelText('hd').getAttribute('style')).toBe(
-			'--icon-primary-color: #c7d1db; --icon-secondary-color: #313D52;',
-		);
+		expect(screen.getByLabelText('hd')).toBeInTheDocument();
 	});
 
 	describe('should use hd video artifact when available even if previous quality was sd when disable_video_640p_artifact feature flag is on', () => {

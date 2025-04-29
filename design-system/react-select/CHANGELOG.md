@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.4.4
+
+### Patch Changes
+
+- [#142181](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142181)
+  [`d6934885b334e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6934885b334e) -
+  Fixed some new icons that were enabled with the incorrect feature flag.
+
 ## 2.4.3
 
 ### Patch Changes

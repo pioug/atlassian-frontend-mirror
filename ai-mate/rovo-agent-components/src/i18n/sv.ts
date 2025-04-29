@@ -9,7 +9,7 @@
 export default {
   'ai-mate.agent-avatar-label': 'Agent-avatar',
   'ai-mate.agent-profile-info.created-by': 'Rovo-agenten har skapats av {creatorNameWithLink}',
-  'ai-mate.agent-profile-info.creator': 'Skapad av',
+  'ai-mate.agent-profile-info.creator': 'Skapades av',
   'ai-mate.agent-profile-info.deactivated': '(inaktiverad)',
   'ai-mate.agent-profile-info.hidden-icon': 'Dold',
   'ai-mate.agent-profile-info.hidden-tooltip': 'Agenten visas inte i sökresultaten',
@@ -23,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Vad ska jag arbeta med nu?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Skriv en uppdatering om min vecka',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Bläddra bland agenter',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'Inte favorit, klicka för att göra till favorit',
   'rovo-chat.browse-agents.copy-agent-label': 'Kopiera länk till agent',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Ta bort från favoriter',
   'rovo-chat.view-agent.chat-to-agent-button': 'Chatta med en agent',

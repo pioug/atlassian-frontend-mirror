@@ -57,6 +57,11 @@ export const aiConfigItemMessages = defineMessages({
 		defaultMessage: 'Open in Chat',
 		description: 'Tooltip and label for Open in Chat button',
 	},
+	configActionEdit: {
+		id: 'fabric.editor.ai.config.item.action.edit',
+		defaultMessage: 'Edit',
+		description: 'Edit underlying editor at the current location with AI generated content',
+	},
 
 	// Atlas shorten update messages
 	atlasShortenUpdatetitle: {

@@ -23,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Hvad skal jeg arbejde på som det næste?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Skriv en opdatering om min uge',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Gennemse agenter',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'Ikke favorit, klik for at gøre til favorit',
   'rovo-chat.browse-agents.copy-agent-label': 'Kopiér link til agent',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Fjern fra favoritter',
   'rovo-chat.view-agent.chat-to-agent-button': 'Chat med agent',

@@ -4,8 +4,9 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import type { CustomGlyphProps } from '../../src/types';
-import Icon from '../../src';
+
+import Icon from '@atlaskit/icon';
+import type { CustomGlyphProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({

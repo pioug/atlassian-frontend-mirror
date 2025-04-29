@@ -22,6 +22,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Tôi nên làm gì tiếp theo?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Viết một bản cập nhật về tuần của tôi',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Duyệt tìm nhân viên',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'Chưa được yêu thích, nhấp để đưa vào mục yêu thích',
   'rovo-chat.browse-agents.copy-agent-label': 'Sao chép liên kết đến nhân viên',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Xóa khỏi mục yêu thích',
   'rovo-chat.view-agent.chat-to-agent-button': 'Trò chuyện với Nhân viên',

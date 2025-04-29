@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
+import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
 import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -38,7 +38,7 @@ const DropdownMenuZIndex = () => {
 					isSelected={isOpen}
 					onClick={() => setIsOpen(!isOpen)}
 					value="Add"
-					icon={MediaServicesAddCommentIcon}
+					icon={CommentAddIcon}
 					label="Add"
 					testId="popup--trigger"
 				/>

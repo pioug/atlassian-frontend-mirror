@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -24,7 +25,23 @@ const FloatingToolbarSettings = {
 };
 
 export function FloatingToolbarComponent({ api, editorView }: FloatingToolbarComponentProps) {
-	const { alignmentState } = useSharedPluginState(api, ['alignment']);
+	const { alignmentState } = useSharedPluginState(api, ['alignment'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+
+	const alignSelector = useSharedPluginStateSelector(api, 'alignment.align', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const align = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? alignSelector
+		: alignmentState?.align;
+
+	const isEnabledSelector = useSharedPluginStateSelector(api, 'alignment.isEnabled', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isEnabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? isEnabledSelector
+		: alignmentState?.isEnabled;
 
 	const changeAlignmentCallback = useCallback(
 		(align: AlignmentState) => {
@@ -39,16 +56,14 @@ export function FloatingToolbarComponent({ api, editorView }: FloatingToolbarCom
 
 	return (
 		<ToolbarAlignment
-			pluginState={alignmentState}
+			align={align}
 			isReducedSpacing={
 				editorExperiment('platform_editor_controls', 'variant1')
 					? false
 					: FloatingToolbarSettings.isToolbarReducedSpacing
 			}
 			changeAlignment={changeAlignmentCallback}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			disabled={FloatingToolbarSettings.disabled || !alignmentState!.isEnabled}
+			disabled={FloatingToolbarSettings.disabled || !isEnabled}
 			toolbarType={ToolbarType.FLOATING}
 			api={api}
 		/>

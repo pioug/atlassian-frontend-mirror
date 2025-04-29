@@ -23,6 +23,8 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Sur quoi devrais-je travailler ensuite ?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Rédiger une mise à jour sur ma semaine',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Parcourir les agents',
+  'rovo-chat.browse-agents.click-to-favourite-label':
+    'Pas dans les favoris, cliquez pour ajouter cet agent aux favoris',
   'rovo-chat.browse-agents.copy-agent-label': "Copier le lien vers l'agent",
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Supprimer des favoris',
   'rovo-chat.view-agent.chat-to-agent-button': 'Discuter avec un agent',

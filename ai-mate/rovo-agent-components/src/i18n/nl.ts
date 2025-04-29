@@ -23,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Waar moet ik nu aan werken?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Schrijf een update over mijn week',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Agents zoeken',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'Nog geen favoriet, klik om toe te voegen aan favorieten',
   'rovo-chat.browse-agents.copy-agent-label': 'Link naar agent kopiëren',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Verwijderen uit favorieten',
   'rovo-chat.view-agent.chat-to-agent-button': 'Chatten met een Agent',

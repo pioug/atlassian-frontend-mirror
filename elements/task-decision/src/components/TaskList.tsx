@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
-import { PureComponent, type ReactNode } from 'react';
+import React, { PureComponent, ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { messages } from './i18n';
 import { token } from '@atlaskit/tokens';
+import { useIntl } from 'react-intl-next';
 
 const listStyles = css({
 	listStyleType: 'none',
@@ -22,7 +24,45 @@ export interface Props {
 	children?: ReactNode;
 }
 
-export default class TaskList extends PureComponent<Props, {}> {
+const TaskListNew = ({ listId, children }: Props) => {
+	const listSize = React.Children.count(children);
+
+	const { formatMessage } = useIntl();
+
+	if (!children) {
+		return null;
+	}
+
+	return (
+		<div
+			role="group"
+			css={listStyles}
+			data-task-list-local-id=""
+			aria-label={formatMessage(messages.fieldsetLabel)}
+		>
+			{React.Children.map(children, (child, idx) => {
+				const { localId } = (child as React.ReactElement).props as {
+					localId: string;
+				};
+				return (
+					<FabricElementsAnalyticsContext
+						data={{
+							listLocalId: listId,
+							listSize,
+							position: idx,
+						}}
+					>
+						<div key={idx} data-task-local-id={localId || ''} css={taskListStyles}>
+							{child}
+						</div>
+					</FabricElementsAnalyticsContext>
+				);
+			})}
+		</div>
+	);
+};
+
+class TaskListOld extends PureComponent<Props, {}> {
 	render() {
 		const { listId, children } = this.props;
 
@@ -62,3 +102,12 @@ export default class TaskList extends PureComponent<Props, {}> {
 		);
 	}
 }
+
+const TaskListNext = (props: Props) => {
+	if (fg('editor_a11y_group_around_action_items')) {
+		return <TaskListNew {...props} />;
+	}
+	return <TaskListOld {...props} />;
+};
+
+export default TaskListNext;

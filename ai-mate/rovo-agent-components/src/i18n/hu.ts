@@ -23,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Min dolgozzak legközelebb?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Írj egy frissítést a hetemről',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Ügynökök böngészése',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'Nem kedvenc, kattintással felveheted a kedvencek közé',
   'rovo-chat.browse-agents.copy-agent-label': 'Ügynökre mutató link másolása',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Eltávolítás a kedvencekből',
   'rovo-chat.view-agent.chat-to-agent-button': 'Csevegés ügynökkel',

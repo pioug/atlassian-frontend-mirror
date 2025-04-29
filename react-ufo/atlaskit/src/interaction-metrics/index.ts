@@ -90,6 +90,43 @@ function isPerformanceTracingEnabled() {
 	);
 }
 
+let performanceEventObserver: PerformanceObserver | undefined;
+
+export const getPerformanceObserver = (): PerformanceObserver => {
+	performanceEventObserver =
+		performanceEventObserver ||
+		new PerformanceObserver((entries: PerformanceObserverEntryList) => {
+			const list = entries.getEntries();
+			for (let entry of list) {
+				if (entry.name === 'click') {
+					setInteractionPerformanceEvent(entry as PerformanceEventTiming);
+				}
+			}
+		});
+	return performanceEventObserver;
+};
+
+export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming) => {
+	const interaction = getActiveInteraction();
+	if (interaction?.type === 'press') {
+		const responsiveness = interaction.responsiveness || {};
+		// if happens there is another event interaction that has started after
+		// the initial one, we don't want to replace the values if they have already
+		// been set up
+		responsiveness.experimentalInputToNextPaint =
+			responsiveness.experimentalInputToNextPaint || entry.duration;
+		responsiveness.inputDelay =
+			responsiveness.experimentalInputToNextPaint || entry.processingStart - entry.startTime;
+		interaction.responsiveness = responsiveness;
+		// if the entry start time is lower than the one in the interaction
+		// it means the interaction start time is not accurate, we assign
+		// this value which will match the timestamp in the event
+		if (entry.startTime < interaction.start) {
+			interaction.start = entry.startTime;
+		}
+	}
+};
+
 function labelStackToString(labelStack: LabelStack | null | undefined, name?: string) {
 	const stack = [...(labelStack ?? [])];
 	if (name) {

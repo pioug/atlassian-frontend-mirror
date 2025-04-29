@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 
 import {
@@ -33,7 +33,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
 			iconAfter={
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<span style={{ opacity: 0.51 }}>
-					<ChevronIcon label="" />
+					<ChevronDownIcon label="" />
 				</span>
 			}
 		>
@@ -54,7 +54,7 @@ const OverflowMenuExample = () => {
 					<ResponsivePrimaryButton>Explore</ResponsivePrimaryButton>,
 					<ResponsivePrimaryButton>Projects</ResponsivePrimaryButton>,
 					<ResponsivePrimaryButton>Dashboards</ResponsivePrimaryButton>,
-					<ResponsivePrimaryDropdownButton>Favourites</ResponsivePrimaryDropdownButton>,
+					<ResponsivePrimaryDropdownButton>Favorites</ResponsivePrimaryDropdownButton>,
 				]}
 			/>
 		</div>

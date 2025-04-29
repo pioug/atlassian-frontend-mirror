@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 3.1.2
+
+### Patch Changes
+
+- [#145138](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145138)
+  [`0ba0ff24c0e33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ba0ff24c0e33) -
+  Enable useSharedPluginStateSelector in accessibility, alignment, annotation and avatar-group
+  plugins
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

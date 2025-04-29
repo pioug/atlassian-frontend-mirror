@@ -8,7 +8,7 @@ import { useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { ButtonItem, LinkItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import {
 	Content,
@@ -65,7 +65,7 @@ const Menu = () => {
 						e.stopPropagation();
 						setIsOpen(!isOpen);
 					}}
-					icon={MoreIcon}
+					icon={ShowMoreHorizontalIcon}
 					label="more"
 				/>
 			)}

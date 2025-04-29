@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 3.1.11
+
+### Patch Changes
+
+- [#146371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146371)
+  [`9540ed4b36027`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9540ed4b36027) -
+  [A11Y-9995] Add label to Status editor popup
+- Updated dependencies
+
 ## 3.1.10
 
 ### Patch Changes

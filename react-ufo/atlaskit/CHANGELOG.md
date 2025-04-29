@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.8.0
+
+### Minor Changes
+
+- [#146843](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146843)
+  [`34bd7506b5f71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34bd7506b5f71) -
+  remove editor LNV handling, since we already have TTVC v3
+
+## 3.7.0
+
+### Minor Changes
+
+- [#144155](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144155)
+  [`328fc686d8e34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/328fc686d8e34) -
+  Added inp and input delay to React UFO press interactions
+
 ## 3.6.7
 
 ### Patch Changes

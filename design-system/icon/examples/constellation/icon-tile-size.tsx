@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { IconTile } from '@atlaskit/icon';
+import AddIcon from '@atlaskit/icon/core/add';
 import { Inline } from '@atlaskit/primitives';
-
-import AddIcon from '../../core/add';
-import { IconTile } from '../../src';
 
 const sizes = ['16', '24', '32', '40', '48'] as const;
 

@@ -107,7 +107,6 @@ export type Config = {
 	readonly shouldCalculateLighthouseMetricsFromTTAI?: boolean;
 	readonly timeWindowForLateMutationsInMilliseconds?: number;
 	readonly manuallyTrackReactProfilerMounts?: boolean;
-	readonly enableEditorLnvHandler?: boolean;
 	/**
 	 * @private
 	 * @deprecated setting this will do nothing now
@@ -374,13 +373,5 @@ export function getDoNotAbortActivePressInteractionOnTransition(): string[] | un
 		return doNotAbortActivePressInteractionOnTransition;
 	} catch (e: any) {
 		return undefined;
-	}
-}
-
-export function shouldHandleEditorLnv(): boolean {
-	try {
-		return config?.enableEditorLnvHandler ?? false;
-	} catch (e: any) {
-		return false;
 	}
 }

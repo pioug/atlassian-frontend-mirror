@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { B300, G300 } from '@atlaskit/theme/colors';
+import SVG from '@atlaskit/icon/svg';
 import type { SVGProps } from '@atlaskit/icon/types';
 import { Box } from '@atlaskit/primitives';
-
-import SVG from '../../src/entry-points/svg';
+import { B300, G300 } from '@atlaskit/theme/colors';
 
 const CustomSVGExample = (props: SVGProps) => {
 	const { primaryColor, size, label } = props;

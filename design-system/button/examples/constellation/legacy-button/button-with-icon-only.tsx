@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Button from '@atlaskit/button';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
 
 const ButtonWithIconOnlyExample = () => {
 	return (
 		<Button
-			iconAfter={<StarFilledIcon label="" size="medium" />}
+			iconAfter={<StarStarredIcon label="" LEGACY_size="medium" spacing="spacious" />}
 			appearance="primary"
 			aria-label="Unstar this page"
 		/>

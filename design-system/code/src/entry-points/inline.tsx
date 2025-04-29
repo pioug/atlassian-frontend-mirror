@@ -1,2 +1,2 @@
-export { default, getCodeStyles } from '../code';
+export { default } from '../code';
 export type { CodeBlockProps } from '../types';

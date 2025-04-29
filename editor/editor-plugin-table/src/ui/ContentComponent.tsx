@@ -7,12 +7,11 @@ import {
 	GetEditorContainerWidth,
 	GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { TablePlugin, TablePluginOptions } from '../tablePluginType';
-import { TableSharedStateInternal } from '../types';
 
 import FloatingContextualButton from './FloatingContextualButton';
 import FloatingContextualMenu from './FloatingContextualMenu';
@@ -23,18 +22,8 @@ import FloatingDragMenu from './FloatingDragMenu';
 import FloatingInsertButton from './FloatingInsertButton';
 import { FloatingToolbarLabel } from './FloatingToolbarLabel/FloatingToolbarLabel';
 import { GlobalStylesWrapper } from './global-styles';
+import { useInternalTablePluginStateSelector } from './hooks/useInternalTablePluginStateSelector';
 import { FullWidthDisplay } from './TableFullWidthLabel';
-
-const useSharedTablePluginStateSelector = <K extends keyof TableSharedStateInternal>(
-	api: ExtractInjectionAPI<TablePlugin> | undefined,
-	key: K,
-) => {
-	const value = useSharedPluginStateSelector(
-		api,
-		`table.${key}` as never,
-	) as TableSharedStateInternal[K];
-	return value;
-};
 
 export type ContentComponentProps = {
 	api: ExtractInjectionAPI<TablePlugin> | undefined;
@@ -62,35 +51,82 @@ const ContentComponentInternal = ({
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const ariaNotifyPlugin = api?.accessibilityUtils?.actions.ariaNotify;
 
-	const resizingTableLocalId = useSharedTablePluginStateSelector(api, 'resizingTableLocalId');
-	const resizingTableRef = useSharedTablePluginStateSelector(api, 'resizingTableRef');
-	const isTableResizing = useSharedTablePluginStateSelector(api, 'isTableResizing');
-	const isResizing = useSharedTablePluginStateSelector(api, 'isResizing');
-	const widthToWidest = useSharedTablePluginStateSelector(api, 'widthToWidest');
+	const resizingTableLocalId = useInternalTablePluginStateSelector(api, 'resizingTableLocalId', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const resizingTableRef = useInternalTablePluginStateSelector(api, 'resizingTableRef', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isTableResizing = useInternalTablePluginStateSelector(api, 'isTableResizing', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isResizing = useInternalTablePluginStateSelector(api, 'isResizing', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const widthToWidest = useInternalTablePluginStateSelector(api, 'widthToWidest', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
 
-	const tableNode = useSharedTablePluginStateSelector(api, 'tableNode');
-	const targetCellPosition = useSharedTablePluginStateSelector(api, 'targetCellPosition');
-	const isContextualMenuOpen = useSharedTablePluginStateSelector(api, 'isContextualMenuOpen');
-	const tableRef = useSharedTablePluginStateSelector(api, 'tableRef');
-	const pluginConfig = useSharedTablePluginStateSelector(api, 'pluginConfig');
-	const insertColumnButtonIndex = useSharedTablePluginStateSelector(api, 'insertColumnButtonIndex');
-	const insertRowButtonIndex = useSharedTablePluginStateSelector(api, 'insertRowButtonIndex');
-	const isHeaderColumnEnabled = useSharedTablePluginStateSelector(api, 'isHeaderColumnEnabled');
-	const isHeaderRowEnabled = useSharedTablePluginStateSelector(api, 'isHeaderRowEnabled');
-	const isDragAndDropEnabled = useSharedTablePluginStateSelector(api, 'isDragAndDropEnabled');
-	const tableWrapperTarget = useSharedTablePluginStateSelector(api, 'tableWrapperTarget');
-	const isCellMenuOpenByKeyboard = useSharedTablePluginStateSelector(
+	const tableNode = useInternalTablePluginStateSelector(api, 'tableNode', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const targetCellPosition = useInternalTablePluginStateSelector(api, 'targetCellPosition', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isContextualMenuOpen = useInternalTablePluginStateSelector(api, 'isContextualMenuOpen', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const tableRef = useInternalTablePluginStateSelector(api, 'tableRef', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const pluginConfig = useInternalTablePluginStateSelector(api, 'pluginConfig', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const insertColumnButtonIndex = useInternalTablePluginStateSelector(
+		api,
+		'insertColumnButtonIndex',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const insertRowButtonIndex = useInternalTablePluginStateSelector(api, 'insertRowButtonIndex', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isHeaderColumnEnabled = useInternalTablePluginStateSelector(api, 'isHeaderColumnEnabled', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isHeaderRowEnabled = useInternalTablePluginStateSelector(api, 'isHeaderRowEnabled', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isDragAndDropEnabled = useInternalTablePluginStateSelector(api, 'isDragAndDropEnabled', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const tableWrapperTarget = useInternalTablePluginStateSelector(api, 'tableWrapperTarget', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isCellMenuOpenByKeyboard = useInternalTablePluginStateSelector(
 		api,
 		'isCellMenuOpenByKeyboard',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
 	);
 
-	const { allowControls } = pluginConfig;
+	const { allowControls } = pluginConfig ?? {};
 
-	const stickyHeader = useSharedTablePluginStateSelector(api, 'stickyHeader');
+	const stickyHeader = useInternalTablePluginStateSelector(api, 'stickyHeader', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
 
-	const dragMenuDirection = useSharedTablePluginStateSelector(api, 'dragMenuDirection');
-	const dragMenuIndex = useSharedTablePluginStateSelector(api, 'dragMenuIndex');
-	const isDragMenuOpen = useSharedTablePluginStateSelector(api, 'isDragMenuOpen');
+	const dragMenuDirection = useInternalTablePluginStateSelector(api, 'dragMenuDirection', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const dragMenuIndex = useInternalTablePluginStateSelector(api, 'dragMenuIndex', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isDragMenuOpen = useInternalTablePluginStateSelector(api, 'isDragMenuOpen', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
 
 	return (
 		<>

@@ -281,7 +281,8 @@ export const resolveDraftBookmark = (
  */
 export function getSelectionPositions(
 	editorState: EditorState,
-	inlineCommentState?: InlineCommentPluginState | null | undefined,
+	// when cleaning up platform_editor_usesharedpluginstateselector, can change this prop to bookmark
+	inlineCommentState?: Partial<InlineCommentPluginState> | null | undefined,
 ): Selection {
 	const { bookmark } = inlineCommentState || {};
 	// get positions via saved bookmark if it is available

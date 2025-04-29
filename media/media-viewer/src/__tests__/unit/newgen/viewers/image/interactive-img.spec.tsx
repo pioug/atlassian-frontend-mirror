@@ -310,11 +310,11 @@ describe('InteractiveImg', () => {
 			await waitFor(() => {
 				expect(screen.getByTestId('media-viewer-image')).toBeVisible();
 			});
-			expect(component.getByTestId('hd-inactive')).toBeInTheDocument();
+			expect(component.getByLabelText('hd')).toBeInTheDocument();
 		});
 
-		it('should show activating HD button when zoomed in after 100%', () => {
-			const { component } = setup({
+		it('should show active HD button when zoomed in after 100%', async () => {
+			setup({
 				originalBinaryImageSrc: 'some-original-binary-url',
 			});
 
@@ -324,7 +324,9 @@ describe('InteractiveImg', () => {
 
 				fireEvent.click(zoomIn);
 			}
-			expect(component.getByTestId('hd-activating')).toBeInTheDocument();
+			await waitFor(() => {
+				expect(screen.getByLabelText('hd active')).toBeInTheDocument();
+			});
 		});
 	});
 });

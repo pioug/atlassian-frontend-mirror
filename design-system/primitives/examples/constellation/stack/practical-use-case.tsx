@@ -2,9 +2,9 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 import Story16Icon from '@atlaskit/icon-object/glyph/story/16';
-import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
-import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
-import EmojiSymbolsIcon from '@atlaskit/icon/glyph/emoji/symbols';
+import ComponentIcon from '@atlaskit/icon/core/migration/component';
+import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
+import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 
@@ -27,10 +27,10 @@ export default function Example() {
 				user experience from end to end. We started by identifying 12 top tasks…
 				<Inline space="space.050">
 					<Lozenge>
-						<EmojiSymbolsIcon label="" />
+						<ComponentIcon label="" />
 					</Lozenge>
 					<Lozenge>
-						<EmojiAtlassianIcon label="" />
+						<FeedbackIcon label="" />
 					</Lozenge>
 					<Lozenge>
 						<EmojiAddIcon label="" />

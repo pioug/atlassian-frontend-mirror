@@ -2,8 +2,8 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import Heading from '@atlaskit/heading';
-import BitbucketPullrequestsIcon from '@atlaskit/icon/glyph/bitbucket/pullrequests';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import PullRequestIcon from '@atlaskit/icon/core/migration/pull-request--bitbucket-pullrequests';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { AtlassianIcon } from '@atlaskit/logo';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
@@ -47,8 +47,8 @@ export default function Example() {
 					<Heading size="xxsmall">DSP-9786</Heading>
 				</Box>
 				<Inline space="space.100" alignBlock="center">
-					<BitbucketPullrequestsIcon size="small" label="" />
-					<MoreIcon size="small" label="" />
+					<PullRequestIcon LEGACY_size="small" label="" />
+					<ShowMoreHorizontalIcon LEGACY_size="small" label="" />
 					<Avatar size="small" />
 				</Inline>
 			</Box>

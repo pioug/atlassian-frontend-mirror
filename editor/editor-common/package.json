@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "103.17.0",
+	"version": "103.18.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,6 +30,7 @@
 		"runReact18": true
 	},
 	"af:exports": {
+		"./i18n": "./src/i18n/index.ts",
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
 		"./whitespace": "./src/whitespace/index.ts",
 		"./event-dispatcher": "./src/event-dispatcher/index.ts",
@@ -194,6 +195,7 @@
 		"./count-nodes": "./src/utils/count-nodes.ts",
 		"./doc-utils": "./src/doc-utils/index.ts",
 		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n": "./src/i18n/index.ts",
 		"./expand": "./src/expand/index.ts",
 		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
 		"./table": "./src/table/index.ts",
@@ -245,6 +247,7 @@
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
+		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/smart-user-picker": "workspace:^",
@@ -442,6 +445,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_refactor_view_more": {
+			"type": "boolean"
+		},
+		"platform_exclude_media_single_from_vc": {
 			"type": "boolean"
 		}
 	}

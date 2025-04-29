@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 52.0.10
+
+### Patch Changes
+
+- [#138829](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/138829)
+  [`4838615c1e10f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4838615c1e10f) -
+  Replaced HD icon for Images and Video
+- Updated dependencies
+
 ## 52.0.9
 
 ### Patch Changes

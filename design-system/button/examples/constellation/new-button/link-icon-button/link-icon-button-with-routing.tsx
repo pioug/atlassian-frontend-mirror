@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import UserIcon from '@atlaskit/icon/glyph/user-avatar-circle';
+import PersonAvatarIcon from '@atlaskit/icon/core/migration/person-avatar--user-avatar-circle';
 
 type MyRouterLinkConfig = {
 	to: string;
@@ -15,7 +15,7 @@ const LinkIconButtonWithRoutingExample = () => {
 				to: '/profile',
 				replace: true,
 			}}
-			icon={UserIcon}
+			icon={PersonAvatarIcon}
 			label="View profile"
 		/>
 	);

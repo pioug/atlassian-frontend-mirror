@@ -424,9 +424,6 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
 	testId?: string;
 }
 
-// @public @deprecated (undocumented)
-export const getCodeStyles: () => CSSObject;
-
 // @public (undocumented)
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];
 

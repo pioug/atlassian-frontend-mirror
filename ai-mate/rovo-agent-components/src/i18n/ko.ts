@@ -22,6 +22,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': '다음에는 어떤 작업을 해야 합니까?',
   'ai-mate.chat-history.empty-state.suggestion3': '한 주에 대한 업데이트를 작성하세요',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': '에이전트 찾아보기',
+  'rovo-chat.browse-agents.click-to-favourite-label': '즐겨찾기에 추가되지 않았습니다. 클릭하여 즐겨찾기에 추가하세요',
   'rovo-chat.browse-agents.copy-agent-label': '에이전트에 링크 복사',
   'rovo-chat.browse-agents.remove-from-favourites-label': '즐겨찾기에서 제거',
   'rovo-chat.view-agent.chat-to-agent-button': '에이전트와 채팅',

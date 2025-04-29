@@ -123,6 +123,13 @@ export interface Redirect {
 	time: number;
 }
 
+export type ResponsivenessMetric = {
+	experimentalInputToNextPaint?: number;
+	inputDelay?: number;
+	visuallyComplete?: number;
+	totalBlockingTime?: number;
+};
+
 export interface InteractionMetrics {
 	id: string;
 	start: number;
@@ -173,6 +180,7 @@ export interface InteractionMetrics {
 	 * ]
 	 * ```
 	 */
+	responsiveness?: ResponsivenessMetric;
 	labelStack: LabelStack | null;
 	routeName: string | null;
 	featureFlags?: {

@@ -291,5 +291,5 @@ export const messages = defineMessages({
 		id: 'help.whats_new.filter_select_label',
 		defaultMessage: `Select a Category`,
 		description: `Label for the "Release types" dropdown`,
-	}
+	},
 });

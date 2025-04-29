@@ -18,7 +18,6 @@ import {
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
 import EditIcon from '@atlaskit/icon/core/edit';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -126,11 +125,7 @@ const EditToolbarButtonPresentation = ({
 						testId="edit-dropdown-trigger"
 						iconAfter={
 							<span css={dropdownExpandContainer}>
-								{fg('platform-editor-plugin-card-icon-migration') ? (
-									<ChevronDownIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
-								) : (
-									<ExpandIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
-								)}
+								<ChevronDownIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
 							</span>
 						}
 						onClick={toggleOpen}

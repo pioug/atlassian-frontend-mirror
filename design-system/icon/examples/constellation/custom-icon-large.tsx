@@ -1,6 +1,7 @@
 import React from 'react';
-import type { CustomGlyphProps } from '../../src/types';
-import Icon from '../../src';
+
+import Icon from '@atlaskit/icon';
+import type { CustomGlyphProps } from '@atlaskit/icon/types';
 
 const CustomGlyph = (props: CustomGlyphProps) => (
 	<svg

@@ -2,14 +2,21 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import { token } from '@atlaskit/tokens';
 
 const FlagInfoExample = () => {
 	return (
 		<Flag
 			appearance="info"
-			icon={<InfoIcon label="Info" secondaryColor={token('color.background.neutral.bold')} />}
+			icon={
+				<InformationIcon
+					label="Info"
+					LEGACY_secondaryColor={token('color.background.neutral.bold')}
+					color={token('color.icon.inverse')}
+					spacing="spacious"
+				/>
+			}
 			id="info"
 			key="info"
 			title="There’s no one in this project"

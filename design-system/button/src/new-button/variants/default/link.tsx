@@ -437,6 +437,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 			onPointerUpCapture={onPointerUpCapture}
 			onTouchEndCapture={onTouchEndCapture}
 			onTouchStartCapture={onTouchStartCapture}
+			shouldFitContainer={shouldFitContainer}
 			testId={testId}
 			componentName="LinkButton"
 			interactionName={interactionName}

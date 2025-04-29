@@ -3,10 +3,10 @@ import React, { type ReactElement, type ReactNode, useCallback, useState } from 
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import Tick from '@atlaskit/icon/glyph/check-circle';
-import Error from '@atlaskit/icon/glyph/error';
-import Info from '@atlaskit/icon/glyph/info';
-import Warning from '@atlaskit/icon/glyph/warning';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -25,12 +25,40 @@ const getRandomIcon = (): ReactNode => {
 	return iconArray[Math.floor(Math.random() * iconArray.length)];
 };
 
-const iconMap = (key?: string, color?: string) => {
+const iconMap = (key?: string) => {
 	const icons: { [key: string]: ReactElement } = {
-		info: <Info label="Info" primaryColor={color || token('color.icon.information')} />,
-		success: <Tick label="Success" primaryColor={color || token('color.icon.success')} />,
-		warning: <Warning label="Warning" primaryColor={color || token('color.icon.warning')} />,
-		error: <Error label="Error" primaryColor={color || token('color.icon.danger')} />,
+		info: (
+			<InformationIcon
+				label="Info"
+				LEGACY_primaryColor={token('color.icon.information')}
+				color={token('color.icon.information')}
+				spacing="spacious"
+			/>
+		),
+		success: (
+			<SuccessIcon
+				label="Success"
+				LEGACY_primaryColor={token('color.icon.success')}
+				color={token('color.icon.success')}
+				spacing="spacious"
+			/>
+		),
+		warning: (
+			<WarningIcon
+				label="Warning"
+				LEGACY_primaryColor={token('color.icon.warning')}
+				color={token('color.icon.warning')}
+				spacing="spacious"
+			/>
+		),
+		error: (
+			<ErrorIcon
+				label="Error"
+				LEGACY_primaryColor={token('color.icon.danger')}
+				color={token('color.icon.danger')}
+				spacing="spacious"
+			/>
+		),
 	};
 
 	return key ? icons[key] : icons;

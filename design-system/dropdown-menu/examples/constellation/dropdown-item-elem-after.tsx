@@ -1,14 +1,14 @@
 import React from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import CheckIcon from '@atlaskit/icon/glyph/check';
+import CheckCircleIcon from '@atlaskit/icon/core/migration/check-circle';
 
 const DropdownItemElemAfterExample = () => {
 	return (
 		<DropdownMenu trigger="Open" shouldRenderToParent>
 			<DropdownItemGroup>
-				<DropdownItem elemAfter={<CheckIcon label="" />}>Kelly</DropdownItem>
-				<DropdownItem elemAfter={<CheckIcon label="" />}>Matt</DropdownItem>
+				<DropdownItem elemAfter={<CheckCircleIcon label="" />}>Kelly</DropdownItem>
+				<DropdownItem elemAfter={<CheckCircleIcon label="" />}>Matt</DropdownItem>
 			</DropdownItemGroup>
 		</DropdownMenu>
 	);

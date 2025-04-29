@@ -22,6 +22,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'ฉันควรทำงานอะไรต่อไป',
   'ai-mate.chat-history.empty-state.suggestion3': 'เขียนการอัปเดตเกี่ยวกับสัปดาห์ของฉัน',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'เรียกดูพนักงาน',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'ยังไม่เป็นรายการโปรด คลิกเพื่อเพิ่มเป็นรายการโปรด',
   'rovo-chat.browse-agents.copy-agent-label': 'คัดลอกลิงก์ไปยังพนักงาน',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'ลบออกจากรายการโปรด',
   'rovo-chat.view-agent.chat-to-agent-button': 'แชทกับพนักงาน',

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -38,7 +38,9 @@ const AutoDismissFlagWarningExample = () => {
 							icon={
 								<WarningIcon
 									label="Warning"
-									secondaryColor={token('color.background.warning.bold')}
+									LEGACY_secondaryColor={token('color.background.warning.bold')}
+									color={token('color.icon')}
+									spacing="spacious"
 								/>
 							}
 							key={flagId}

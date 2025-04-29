@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OpenIcon from '@atlaskit/icon/glyph/open';
+import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 
 import { ButtonItem, Section } from '../../src';
 
@@ -14,7 +14,7 @@ const ButtonItemExample = () => {
 				<ButtonItem isSelected>Selected page</ButtonItem>
 			</Section>
 			<Section>
-				<ButtonItem description="Opens in a new window" iconAfter={<OpenIcon label="" />}>
+				<ButtonItem description="Opens in a new window" iconAfter={<LinkExternalIcon label="" />}>
 					Create article
 				</ButtonItem>
 			</Section>

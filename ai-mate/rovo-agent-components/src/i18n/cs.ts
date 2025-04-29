@@ -23,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Na čem mám pracovat dále?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Napsat aktualizaci o mém týdnu',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Procházet agenty',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'Není v oblíbených, kliknutím přidáte.',
   'rovo-chat.browse-agents.copy-agent-label': 'Kopírovat odkaz na agenta',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Odebrat z oblíbených',
   'rovo-chat.view-agent.chat-to-agent-button': 'Chatovat s agentem',

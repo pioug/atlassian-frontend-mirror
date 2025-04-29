@@ -1,10 +1,8 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type VCIgnoreReason } from '../../../common/vc/types';
-import { shouldHandleEditorLnv } from '../../../config';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
-import { EditorLnvHandler } from './editor-lnv';
 import isNonVisualStyleMutation from './non-visual-styles/is-non-visual-style-mutation';
 import { SSRPlaceholderHandlers } from './ssr-placeholders';
 import type {
@@ -80,7 +78,6 @@ export class Observers implements BrowserObservers {
 	private _startMeasureTimestamp = -1;
 
 	private ssrPlaceholderHandler: SSRPlaceholderHandlers;
-	private editorLnvHandler: EditorLnvHandler;
 
 	private ssr: SSRInclusiveState = {
 		state: state.normal,
@@ -105,7 +102,6 @@ export class Observers implements BrowserObservers {
 		this.intersectionObserver = this.getIntersectionObserver();
 		this.mutationObserver = this.getMutationObserver();
 		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers();
-		this.editorLnvHandler = new EditorLnvHandler();
 	}
 
 	isBrowserSupported() {
@@ -140,7 +136,6 @@ export class Observers implements BrowserObservers {
 		this.callbacks = new Set();
 		this.ssr.reactRootElement = null;
 		this.ssrPlaceholderHandler.clear();
-		this.editorLnvHandler.clear();
 	}
 
 	subscribeResults = (cb: Callback) => {
@@ -196,8 +191,6 @@ export class Observers implements BrowserObservers {
 		if (!this.isBrowserSupported()) {
 			return null;
 		}
-
-		const shouldHandleEditorLnvLocal = shouldHandleEditorLnv();
 
 		return new MutationObserver((mutations) => {
 			this.measureStart();
@@ -271,19 +264,6 @@ export class Observers implements BrowserObservers {
 								return;
 							}
 
-							if (shouldHandleEditorLnvLocal) {
-								if (this.editorLnvHandler.shouldHandleAddedNode(node)) {
-									this.editorLnvHandler.handleAddedNode(node).then(({ shouldIgnore }) => {
-										this.observeElement(
-											node,
-											mutation,
-											'html',
-											shouldIgnore ? 'editor-lazy-node-view' : ignoreReason,
-										);
-									});
-									return;
-								}
-							}
 							this.observeElement(node, mutation, 'html', ignoreReason);
 						}
 						if (node instanceof Text && node.parentElement != null) {

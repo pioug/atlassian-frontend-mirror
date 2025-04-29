@@ -1308,6 +1308,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		if (!isUserTriggered) {
 			tintDirtyTransaction(tr);
+			if (fg('platform_editor_fix_table_resizing_undo')) {
+				// Avoid adding this transaction separately to the history as these are automatic updates
+				// as a consequence of another action
+				tr.setMeta('addToHistory', false);
+			}
 		}
 
 		dispatch(tr);

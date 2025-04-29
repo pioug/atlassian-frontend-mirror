@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
+import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
 import {
 	Spotlight,
 	SpotlightManager,
@@ -11,16 +12,14 @@ import {
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import CodeSandboxIcon from './example-components/code-sandbox-icon';
-
 const SpotlightHeadingAfterElement = () => {
 	const [isSpotlightActive, setIsSpotlightActive] = useState(false);
 	const start = () => setIsSpotlightActive(true);
 	const end = () => setIsSpotlightActive(false);
 	return (
 		<SpotlightManager>
-			<SpotlightTarget name="codesandbox">
-				<IconButton icon={CodeSandboxIcon} label="codesandbox" />
+			<SpotlightTarget name="comment">
+				<IconButton icon={CommentAddIcon} label="comment" />
 			</SpotlightTarget>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ marginTop: token('space.200', '16px') }}>
@@ -34,8 +33,7 @@ const SpotlightHeadingAfterElement = () => {
 					<Spotlight
 						headingAfterElement={
 							<IconButton
-								// TODO: (from codemod) "glyph", "primaryColor", "secondaryColor" and "testId" are no longer supported in button icons, please refactor the code and/or revisit the UI.
-								icon={CrossIcon}
+								icon={CloseIcon}
 								appearance="subtle"
 								onClick={() => end()}
 								label="Close"
@@ -47,14 +45,13 @@ const SpotlightHeadingAfterElement = () => {
 								text: 'OK',
 							},
 						]}
-						heading="Open CodeSandbox"
-						target="codesandbox"
-						key="codesandbox"
+						heading="Add a comment"
+						target="comment"
+						key="comment"
 						targetRadius={3}
 						targetBgColor={N0}
 					>
-						A sandboxed environment where you can play around with examples is now only one click
-						away.
+						Quickly add a comment to the issue.
 					</Spotlight>
 				)}
 			</SpotlightTransition>

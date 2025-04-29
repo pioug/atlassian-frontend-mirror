@@ -9,7 +9,8 @@ import PauseIcon from '@atlaskit/icon/core/migration/video-pause--vid-pause';
 import FullScreenIconOn from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
 import FullScreenIconOff from '@atlaskit/icon/core/migration/shrink-diagonal--vid-full-screen-off';
 import SoundIcon from '@atlaskit/icon/core/migration/volume-high--hipchat-outgoing-sound';
-import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
+import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
+import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import { type MediaFeatureFlags, type NumericalCardDimensions } from '@atlaskit/media-common';
 
@@ -20,7 +21,6 @@ import MediaButton from '../MediaButton';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
 import MediaPlayer, { type VideoState, type VideoActions } from './react-video-renderer';
-import { N0, DN60 } from '@atlaskit/theme/colors';
 import { TimeRange } from './timeRange';
 import VolumeRange from './volumeRange';
 import {
@@ -285,9 +285,6 @@ export class CustomMediaPlayerBase extends Component<
 			return;
 		}
 
-		const primaryColor = isHDActive ? '#579DFF' : '#c7d1db';
-		const secondaryColor = isHDActive ? N0 : DN60;
-
 		return (
 			<MediaButton
 				testId="custom-media-player-hd-button"
@@ -297,9 +294,7 @@ export class CustomMediaPlayerBase extends Component<
 						: undefined
 				}
 				iconBefore={
-					//TODO: https://product-fabric.atlassian.net/browse/DSP-20900
-					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-					<HDIcon primaryColor={primaryColor} secondaryColor={secondaryColor} label="hd" />
+					isHDActive ? <VideoHdFilledIcon label="hd active" /> : <VideoHdIcon label="hd" />
 				}
 			/>
 		);

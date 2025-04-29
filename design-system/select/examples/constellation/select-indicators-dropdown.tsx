@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-import EmojiIcon from '@atlaskit/icon/glyph/emoji';
+import EmojiIcon from '@atlaskit/icon/core/migration/emoji';
 import Select, { components, type DropdownIndicatorProps, type OptionType } from '@atlaskit/select';
 
 import { cities } from '../common/data';
@@ -9,7 +9,7 @@ import { cities } from '../common/data';
 const DropdownIndicator = (props: DropdownIndicatorProps<OptionType, true>) => {
 	return (
 		<components.DropdownIndicator {...props}>
-			<EmojiIcon label="Emoji" primaryColor={cities[2].color} />
+			<EmojiIcon label="Emoji" />
 		</components.DropdownIndicator>
 	);
 };

@@ -6,7 +6,7 @@ import React, { forwardRef, Fragment, useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import AddIcon from '@atlaskit/icon/glyph/editor/add';
+import AddIcon from '@atlaskit/icon/core/migration/add';
 import { token } from '@atlaskit/tokens';
 import Tooltip, {
 	type PositionType,

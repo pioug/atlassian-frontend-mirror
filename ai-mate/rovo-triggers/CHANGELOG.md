@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.11.0
+
+### Minor Changes
+
+- [#144867](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144867)
+  [`ccdd14f4bdaef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccdd14f4bdaef) -
+  Add support for agent-external-config-reference pubsub payload behind fg
+
 ## 2.10.0
 
 ### Minor Changes

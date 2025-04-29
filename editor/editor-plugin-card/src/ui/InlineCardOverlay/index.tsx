@@ -15,8 +15,6 @@ import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import type { Size } from '@atlaskit/icon';
 import CustomizeIcon from '@atlaskit/icon/core/migration/customize--preferences';
-import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, N0, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -280,19 +278,11 @@ const InlineCardOverlay = ({
 								className={ICON_AND_LABEL_CLASSNAME}
 							>
 								<span css={iconStyles}>
-									{fg('platform-editor-plugin-card-icon-migration') ? (
-										<CustomizeIcon
-											label={label}
-											LEGACY_size={iconSize.current}
-											testId={`${testId}-icon`}
-										/>
-									) : (
-										<PreferencesIcon
-											label={label}
-											size={iconSize.current}
-											testId={`${testId}-icon`}
-										/>
-									)}
+									<CustomizeIcon
+										label={label}
+										LEGACY_size={iconSize.current}
+										testId={`${testId}-icon`}
+									/>
 								</span>
 								{showLabel && (
 									<span

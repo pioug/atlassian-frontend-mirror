@@ -6,7 +6,7 @@ import Select from '@atlaskit/select';
 export default function SelectAppearanceSubtle() {
 	return (
 		<>
-			<Label htmlFor="subtle-appearance-example">Favourite fruit</Label>
+			<Label htmlFor="subtle-appearance-example">Favorite fruit</Label>
 			<Select
 				inputId="subtle-appearance-example"
 				appearance="subtle"

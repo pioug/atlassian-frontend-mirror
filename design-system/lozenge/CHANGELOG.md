@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 12.2.3
+
+### Patch Changes
+
+- [#146280](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146280)
+  [`736c6f3dad151`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/736c6f3dad151) -
+  Remove deprecated theme definitions.
+
 ## 12.2.2
 
 ### Patch Changes

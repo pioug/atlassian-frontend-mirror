@@ -1,17 +1,22 @@
 import React, { useCallback, useRef, useState } from 'react';
 
+import { JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import extractPreview from '../../../extractors/flexible/extract-preview';
+import extractPreview, {
+	extractSmartLinkPreviewImage,
+} from '../../../extractors/flexible/extract-preview';
 import { PreviewBlock } from '../../FlexibleCard/components/blocks';
 import { type ImagePreviewProps } from '../types';
 
-const ImagePreview = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
+const ImagePreview = ({ fallbackElementHeight, response }: ImagePreviewProps) => {
 	const transitionStarted = useRef<boolean>(false);
 	const previewBlockRef = useRef<HTMLDivElement>(null);
 	const [showPreview, setShowPreview] = useState<boolean>(true);
 	const [dynamicStyles, setDynamicStyles] = useState<React.CSSProperties>({});
+
+	const data = response?.data as JsonLd.Data.BaseData;
 
 	// Set Preview to a fixed height to enable transitions
 	const onPreviewRender = useCallback(() => {
@@ -40,6 +45,20 @@ const ImagePreview = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
 	const onPreviewTransitionEnd = useCallback(() => {
 		setShowPreview(false);
 	}, []);
+
+	if (fg('smart_links_noun_support')) {
+		return showPreview && extractSmartLinkPreviewImage(response) ? (
+			<PreviewBlock
+				onError={onPreviewError}
+				ignoreContainerPadding={true}
+				onTransitionEnd={onPreviewTransitionEnd}
+				blockRef={previewBlockRef}
+				onRender={onPreviewRender}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={dynamicStyles}
+			/>
+		) : null;
+	}
 
 	return showPreview && data && extractPreview(data) ? (
 		<PreviewBlock

@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider } from '@atlaskit/link-extractors';
+import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -73,7 +73,9 @@ const HoverCardUnauthorisedView = ({
 }: HoverCardUnauthorisedProps) => {
 	const { cardState } = flexibleCardProps;
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
-	const providerName = extractProvider(data)?.text;
+	const providerName = fg('smart_links_noun_support')
+		? extractSmartLinkProvider(cardState.details)?.text
+		: extractProvider(data)?.text;
 	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState.details);
 	const { authorize } = useSmartCardActions(id, url);
 	const { fireEvent } = useAnalyticsEvents();

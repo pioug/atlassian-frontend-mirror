@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { LinkIconButton } from '@atlaskit/button/new';
-import UserIcon from '@atlaskit/icon/glyph/add';
+import AddIcon from '@atlaskit/icon/core/migration/add';
 
 const LinkIconButtonPrimaryExample = () => {
 	return (
 		<LinkIconButton
 			href="https://atlassian.com"
-			icon={UserIcon}
+			icon={AddIcon}
 			label="Add new blog"
 			appearance="primary"
 		/>

@@ -6,7 +6,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import WorldIcon from '@atlaskit/icon/glyph/world';
+import GlobeIcon from '@atlaskit/icon/core/migration/globe--world';
+import { type NewGlyphColorProps } from '@atlaskit/icon/types';
 import { borderRadius } from '@atlaskit/theme/constants';
 
 const cardStyles = css({
@@ -59,7 +60,12 @@ const Card = ({ tokenSet }: { tokenSet: Record<string, string> }) => {
 				}),
 			]}
 		>
-			<WorldIcon label="" primaryColor={tokenSet.iconColor} />
+			<GlobeIcon
+				label=""
+				LEGACY_primaryColor={tokenSet.iconColor}
+				color={tokenSet.iconColor as NewGlyphColorProps['color']}
+				spacing="spacious"
+			/>
 			{tokenSet.label || 'Text'}
 		</span>
 	);

@@ -1,14 +1,16 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { TaskList as AkTaskList } from '@atlaskit/task-decision';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import FabricAnalyticsListener, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import TaskList from '../../../../react/nodes/taskList';
 import TaskItem from '../../../../react/nodes/taskItem';
 import ReactSerializer from '../../../../react';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('Renderer - React/Nodes/TaskList', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
-	let serialiser = new ReactSerializer({});
+	const serialiser = new ReactSerializer({});
 
 	beforeEach(() => {
 		analyticsWebClientMock = {
@@ -19,20 +21,63 @@ describe('Renderer - React/Nodes/TaskList', () => {
 		};
 	});
 
-	it('shouldmatch rendered AkTaskList', () => {
-		const text: any = 'This is a task list';
-		const taskList = shallow(<TaskList>{text}</TaskList>);
-		expect(taskList.is(AkTaskList)).toEqual(true);
+	ffTest.on('editor_a11y_group_around_action_items', 'ffOn', () => {
+		it('should wrap the task items in a group', () => {
+			renderWithIntl(
+				<TaskList localId="list-1">
+					<TaskItem
+						marks={[]}
+						serializer={serialiser}
+						nodeType="taskItem"
+						dataAttributes={{ 'data-renderer-start-pos': 0 }}
+						localId="task-1"
+					>
+						Hello <b>world</b>
+					</TaskItem>
+					<TaskItem
+						marks={[]}
+						serializer={serialiser}
+						nodeType="taskItem"
+						dataAttributes={{ 'data-renderer-start-pos': 0 }}
+						localId="task-2"
+					>
+						Goodbye <b>world</b>
+					</TaskItem>
+				</TaskList>,
+			);
+
+			expect(screen.queryByRole('group', { name: 'Action Item List' })).toBeInTheDocument();
+		});
+	});
+
+	ffTest.off('editor_a11y_group_around_action_items', 'ffOff', () => {
+		it('should not wrap the task items in a group', () => {
+			renderWithIntl(
+				<TaskList localId="list-1">
+					<TaskItem
+						marks={[]}
+						serializer={serialiser}
+						nodeType="taskItem"
+						dataAttributes={{ 'data-renderer-start-pos': 0 }}
+						localId="task-1"
+					>
+						Hello <b>world</b>
+					</TaskItem>
+				</TaskList>,
+			);
+
+			expect(screen.queryByRole('group', { name: 'Action Item List' })).not.toBeInTheDocument();
+		});
 	});
 
 	it('should not render if no children', () => {
-		const taskList = shallow(<TaskList />);
-		expect(taskList.isEmptyRender()).toEqual(true);
+		const { container } = renderWithIntl(<TaskList />);
+		expect(container).toBeEmptyDOMElement();
 	});
 
 	describe('analytics', () => {
-		it('check action fires an event', () => {
-			const component = mount(
+		it('check action fires an event', async () => {
+			renderWithIntl(
 				<FabricAnalyticsListener client={analyticsWebClientMock}>
 					<TaskList localId="list-1">
 						<TaskItem
@@ -47,7 +92,10 @@ describe('Renderer - React/Nodes/TaskList', () => {
 					</TaskList>
 				</FabricAnalyticsListener>,
 			);
-			component.find('input').simulate('change');
+
+			const checkbox = screen.getByRole('checkbox');
+			await userEvent.click(checkbox);
+
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -65,8 +113,8 @@ describe('Renderer - React/Nodes/TaskList', () => {
 			);
 		});
 
-		it('uncheck action fires an event', () => {
-			const component = mount(
+		it('uncheck action fires an event', async () => {
+			renderWithIntl(
 				<FabricAnalyticsListener client={analyticsWebClientMock}>
 					<TaskList localId="list-1">
 						<TaskItem
@@ -91,7 +139,10 @@ describe('Renderer - React/Nodes/TaskList', () => {
 					</TaskList>
 				</FabricAnalyticsListener>,
 			);
-			component.find('input').at(1).simulate('change');
+
+			const checkboxes = screen.getAllByRole('checkbox');
+			await userEvent.click(checkboxes[1]);
+
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({

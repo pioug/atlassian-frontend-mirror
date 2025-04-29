@@ -22,6 +22,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': '接下来我应该做什么？',
   'ai-mate.chat-history.empty-state.suggestion3': '撰写我这一周的最新情况',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': '浏览支持人员',
+  'rovo-chat.browse-agents.click-to-favourite-label': '未收藏，点击即可加入收藏夹',
   'rovo-chat.browse-agents.copy-agent-label': '复制支持人员链接',
   'rovo-chat.browse-agents.remove-from-favourites-label': '从收藏夹中移除',
   'rovo-chat.view-agent.chat-to-agent-button': '与支持人员聊天',

@@ -1,6 +1,11 @@
 import { defineMessages } from 'react-intl-next';
 
 export const messages = defineMessages({
+	statusEditorLabel: {
+		id: 'fabric.editor.statusEditorLabel',
+		defaultMessage: 'Status editor',
+		description: 'Label for the status element editor',
+	},
 	placeholder: {
 		id: 'fabric.editor.statusPlaceholder',
 		defaultMessage: 'Set a status',

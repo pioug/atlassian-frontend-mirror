@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import __noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
-import CheckIcon from '@atlaskit/icon/glyph/check';
-import Info from '@atlaskit/icon/glyph/info';
+import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--check';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import InteractionContext from '@atlaskit/interaction-context';
 import { ZoomIn } from '@atlaskit/motion';
 import { Box, Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
@@ -43,7 +43,12 @@ const ColorButton = ({ color, isSelected, onClick }: ColorButtonProps) => {
 					<ZoomIn>
 						{(props) => (
 							<div {...props}>
-								<CheckIcon label="" size="large" primaryColor={token('color.icon.inverse')} />
+								<CheckMarkIcon
+									label=""
+									LEGACY_size="large"
+									LEGACY_primaryColor={token('color.icon.inverse')}
+									color={token('color.icon.inverse')}
+								/>
 							</div>
 						)}
 					</ZoomIn>
@@ -67,7 +72,14 @@ const ColorPaletteButtons = () => {
 					showFlag({
 						title: `Traced a press!`,
 						description: name,
-						icon: <Info label="Info" primaryColor={token('color.icon.information')} />,
+						icon: (
+							<InformationIcon
+								label="Info"
+								LEGACY_primaryColor={token('color.icon.information')}
+								color={token('color.icon.information')}
+								spacing="spacious"
+							/>
+						),
 						isAutoDismiss: true,
 					});
 				},

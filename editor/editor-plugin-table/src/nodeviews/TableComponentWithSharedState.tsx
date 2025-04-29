@@ -3,19 +3,15 @@ import React from 'react';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type {
-	ExtractInjectionAPI,
-	GetEditorFeatureFlags,
-	getPosHandlerNode,
-} from '@atlaskit/editor-common/types';
+import type { GetEditorFeatureFlags, getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { TablePlugin } from '../tablePluginType';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
+import { useInternalTablePluginStateSelector } from '../ui/hooks/useInternalTablePluginStateSelector';
 
 import TableComponent from './TableComponent';
 import type { TableOptions } from './types';
@@ -38,16 +34,6 @@ type TableComponentWithSharedStateProps = {
 	allowControls?: boolean;
 	allowTableAlignment?: boolean;
 	allowTableResizing?: boolean;
-};
-
-const useSharedTablePluginStateSelector = <K extends keyof TableSharedStateInternal>(
-	api: ExtractInjectionAPI<TablePlugin> | undefined,
-	key: K,
-) => {
-	const value = useSharedPluginStateSelector(api, `table.${key}` as never, {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	}) as TableSharedStateInternal[K];
-	return value;
 };
 
 /**
@@ -73,21 +59,47 @@ export const TableComponentWithSharedState = ({
 			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
 		});
 
-	const isTableResizingSelector = useSharedTablePluginStateSelector(api, 'isTableResizing');
-	const isHeaderColumnEnabledSelector = useSharedTablePluginStateSelector(
+	const isTableResizingSelector = useInternalTablePluginStateSelector(api, 'isTableResizing', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isHeaderColumnEnabledSelector = useInternalTablePluginStateSelector(
 		api,
 		'isHeaderColumnEnabled',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
 	);
-	const isHeaderRowEnabledSelector = useSharedTablePluginStateSelector(api, 'isHeaderRowEnabled');
-	const orderingSelector = useSharedTablePluginStateSelector(api, 'ordering');
-	const isResizingSelector = useSharedTablePluginStateSelector(api, 'isResizing');
-	const isInDangerSelector = useSharedTablePluginStateSelector(api, 'isInDanger');
-	const hoveredCellSelector = useSharedTablePluginStateSelector(api, 'hoveredCell');
-	const hoveredRowsSelector = useSharedTablePluginStateSelector(api, 'hoveredRows');
-	const isTableHoveredSelector = useSharedTablePluginStateSelector(api, 'isTableHovered');
-	const isWholeTableInDangerSelector = useSharedTablePluginStateSelector(
+	const isHeaderRowEnabledSelector = useInternalTablePluginStateSelector(
+		api,
+		'isHeaderRowEnabled',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const orderingSelector = useInternalTablePluginStateSelector(api, 'ordering', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isResizingSelector = useInternalTablePluginStateSelector(api, 'isResizing', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isInDangerSelector = useInternalTablePluginStateSelector(api, 'isInDanger', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const hoveredCellSelector = useInternalTablePluginStateSelector(api, 'hoveredCell', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const hoveredRowsSelector = useInternalTablePluginStateSelector(api, 'hoveredRows', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isTableHoveredSelector = useInternalTablePluginStateSelector(api, 'isTableHovered', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isWholeTableInDangerSelector = useInternalTablePluginStateSelector(
 		api,
 		'isWholeTableInDanger',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
 	);
 
 	// mediaState
@@ -203,8 +215,8 @@ export const TableComponentWithSharedState = ({
 			isMediaFullscreen={isFullscreen}
 			options={options}
 			allowControls={allowControls}
-			isHeaderRowEnabled={isHeaderRowEnabled}
-			isHeaderColumnEnabled={isHeaderColumnEnabled}
+			isHeaderRowEnabled={isHeaderRowEnabled ?? false}
+			isHeaderColumnEnabled={isHeaderColumnEnabled ?? false}
 			isDragAndDropEnabled={options?.isDragAndDropEnabled && !isLivePageViewMode}
 			isTableScalingEnabled={options?.isTableScalingEnabled}
 			allowTableAlignment={allowTableAlignment}

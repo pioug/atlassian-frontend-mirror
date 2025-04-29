@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "5.4.20",
+	"version": "5.4.21",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -126,9 +126,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_fix_card_plugin_state": {
-			"type": "boolean"
-		},
-		"platform-editor-plugin-card-icon-migration": {
 			"type": "boolean"
 		},
 		"confluence-issue-terminology-refresh": {

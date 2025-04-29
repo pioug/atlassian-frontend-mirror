@@ -23,12 +23,7 @@ export const getToolbarComponents = ({
 	) {
 		const shouldShowInsertBlock = fg('platform_editor_insert_button_on_primary_toolbar');
 		const shouldShowUndoRedoGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
-		const shouldShowFindGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
-		configuration = toolbarConfigurationV2(
-			shouldShowInsertBlock,
-			shouldShowUndoRedoGroup,
-			shouldShowFindGroup,
-		);
+		configuration = toolbarConfigurationV2(shouldShowInsertBlock, shouldShowUndoRedoGroup);
 	} else {
 		configuration = toolbarConfiguration;
 	}
@@ -176,7 +171,7 @@ const toolbarConfiguration: ToolbarElementConfig[] = [
 const toolbarConfigurationV2 = (
 	shouldShowInsertBlock: boolean,
 	shouldShowUndoRedoGroup: boolean,
-	shouldShowFindGroup: boolean,
+	shouldShowFindGroup = false,
 ): ToolbarElementConfig[] => [
 	...(shouldShowUndoRedoGroup ? undoRedoGroup : []),
 	...blockTypeGroup,

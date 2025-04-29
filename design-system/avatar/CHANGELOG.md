@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 25.0.3
+
+### Patch Changes
+
+- [#142181](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142181)
+  [`d6934885b334e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6934885b334e) -
+  Fixed some new icons that were enabled with the incorrect feature flag.
+
 ## 25.0.2
 
 ### Patch Changes

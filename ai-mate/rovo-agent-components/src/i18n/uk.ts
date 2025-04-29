@@ -23,6 +23,7 @@ export default {
   'ai-mate.chat-history.empty-state.suggestion2': 'Над чим мені слід працювати далі?',
   'ai-mate.chat-history.empty-state.suggestion3': 'Створення опису новин за тиждень',
   'ai-mate.rovo-agent-components.browse-agents-pill.label': 'Пошук агентів',
+  'rovo-chat.browse-agents.click-to-favourite-label': 'Не додано до улюблених. Натисніть, щоб додати',
   'rovo-chat.browse-agents.copy-agent-label': 'Копіювати посилання на агента',
   'rovo-chat.browse-agents.remove-from-favourites-label': 'Видалити з улюблених',
   'rovo-chat.view-agent.chat-to-agent-button': 'Почати чат з агентом',

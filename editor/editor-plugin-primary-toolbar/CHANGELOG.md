@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 3.2.3
+
+### Patch Changes
+
+- [#146886](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146886)
+  [`c18099d101897`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c18099d101897) -
+  [ux] Do not add find&replace back to docked toolbar when the mitigation FG is enabled
+- Updated dependencies
+
+## 3.2.2
+
+### Patch Changes
+
+- [#146429](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146429)
+  [`8273b36d97d65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8273b36d97d65) -
+  [ux] Add undo/redo/find&replace back to docked toolbar when the mitigation FG is enabled
+
 ## 3.2.1
 
 ### Patch Changes

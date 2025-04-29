@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 205.7.3
+
+### Patch Changes
+
+- [#146429](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146429)
+  [`8273b36d97d65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8273b36d97d65) -
+  [ux] Add undo/redo/find&replace back to docked toolbar when the mitigation FG is enabled
+- Updated dependencies
+
 ## 205.7.2
 
 ### Patch Changes

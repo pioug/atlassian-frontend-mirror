@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -36,7 +36,12 @@ const AutoDismissFlagErrorExample = () => {
 							appearance="error"
 							id={flagId}
 							icon={
-								<ErrorIcon label="Error" secondaryColor={token('color.background.danger.bold')} />
+								<ErrorIcon
+									label="Error"
+									LEGACY_secondaryColor={token('color.background.danger.bold')}
+									color={token('color.icon.inverse')}
+									spacing="spacious"
+								/>
 							}
 							key={flagId}
 							title={`#${flagId} I'm an error`}

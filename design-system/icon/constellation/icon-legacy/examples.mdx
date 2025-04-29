@@ -17,14 +17,23 @@ import IconPrimaryColor from '../../examples/constellation/icon-primary-color.ts
 
 By default, icons are displayed in the `medium` size.
 
-<Example Component={IconDefault} packageName="@atlaskit/icon" />
+<Example
+	Component={IconDefault}
+	packageName="@atlaskit/icon"
+	disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]}
+	hiddenSections={['iconography']}
+/>
 
 ## Migration
 
 Atlassian products can feature flag between the old and new icon components via the `migration`
 entrypoint for the new icons, or manually via the `LEGACY_fallbackIcon` prop.
 
-<Example Component={IconMigration} packageName="@atlaskit/icon" />
+<Example
+	Component={IconMigration}
+	packageName="@atlaskit/icon"
+	disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]}
+/>
 
 To learn more about feature flagging and `LEGACY_` prefixed props, see the
 [icon migration guide](/components/icon/migration-guide#atlassian-developers).
@@ -36,19 +45,34 @@ To learn more about feature flagging and `LEGACY_` prefixed props, see the
 The `small` icon size (16px) is used when space is at a premium, such as search results or inline
 content.
 
-<Example Component={IconSmall} packageName="@atlaskit/icon" />
+<Example
+	Component={IconSmall}
+	packageName="@atlaskit/icon"
+	disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]}
+	hiddenSections={['iconography']}
+/>
 
 ### Medium
 
 The `medium` icon size (24px) is used in common interfaces.
 
-<Example Component={IconMedium} packageName="@atlaskit/icon" />
+<Example
+	Component={IconMedium}
+	packageName="@atlaskit/icon"
+	disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]}
+	hiddenSections={['iconography']}
+/>
 
 ### Large
 
 The `large` icon size (32px) is used in common interfaces.
 
-<Example Component={IconLarge} packageName="@atlaskit/icon" />
+<Example
+	Component={IconLarge}
+	packageName="@atlaskit/icon"
+	disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]}
+	hiddenSections={['iconography']}
+/>
 
 ## Color
 
@@ -57,4 +81,9 @@ The `large` icon size (32px) is used in common interfaces.
 This refers to the main color of the icon. The icon’s primary color inherits the current font color
 by default.
 
-<Example Component={IconPrimaryColor} packageName="@atlaskit/icon" />
+<Example
+	Component={IconPrimaryColor}
+	packageName="@atlaskit/icon"
+	disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]}
+	hiddenSections={['iconography']}
+/>

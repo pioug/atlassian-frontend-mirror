@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import Flag, { FlagGroup } from '@atlaskit/flag';
-import Info from '@atlaskit/icon/glyph/info';
+import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const FlagsInDrawerExample = () => {
 	const [open, setOpen] = useState<boolean>(false);
@@ -42,7 +43,14 @@ const FlagsInDrawerExample = () => {
 							return (
 								<Flag
 									id={flagId}
-									icon={<Info label="Info" />}
+									icon={
+										<InformationIcon
+											label="Info"
+											LEGACY_primaryColor={token('color.icon.information')}
+											color={token('color.icon.information')}
+											spacing="spacious"
+										/>
+									}
 									key={flagId}
 									title={`Flag #${flagId}`}
 									description="Example flag description"

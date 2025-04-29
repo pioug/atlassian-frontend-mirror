@@ -114,7 +114,7 @@ const AlignmentTableContainer = ({
 		: tableState?.wasFullWidthModeEnabled;
 
 	useEffect(() => {
-		if (editorExperiment('platform_editor_usesharedpluginstateselector', false) && !tableState) {
+		if (!tableState && editorExperiment('platform_editor_usesharedpluginstateselector', false)) {
 			return;
 		}
 

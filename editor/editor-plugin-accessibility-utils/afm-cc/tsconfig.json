@@ -21,6 +21,9 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/visually-hidden/afm-cc/tsconfig.json"
         }
     ]

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
-import StarIcon from '@atlaskit/icon/glyph/star';
-import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
+import StarUnstarredIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -84,21 +84,33 @@ export default () => {
 									<Icon glyph={Portfolio} primaryColor={token('color.icon.brand')} label="" />
 								</Box>
 							}
-							iconAfter={<StarFilledIcon primaryColor={token('color.icon.warning')} label="" />}
+							iconAfter={
+								<StarStarredIcon
+									LEGACY_primaryColor={token('color.icon.warning')}
+									color={token('color.icon.accent.orange')}
+									label=""
+								/>
+							}
 						>
 							Portfolio
 						</Item>
 						<Item
 							isLoading={isLoading}
 							iconBefore={<Icon glyph={Tempo} label="" />}
-							iconAfter={<StarFilledIcon primaryColor={token('color.icon.warning')} label="" />}
+							iconAfter={
+								<StarStarredIcon
+									LEGACY_primaryColor={token('color.icon.warning')}
+									color={token('color.icon.accent.orange')}
+									label=""
+								/>
+							}
 						>
 							Tempo timesheets
 						</Item>
 						<Item
 							isLoading={isLoading}
 							iconBefore={<Icon glyph={Invision} label="" />}
-							iconAfter={<StarIcon label="" />}
+							iconAfter={<StarUnstarredIcon label="" />}
 						>
 							Invision
 						</Item>

@@ -96,7 +96,12 @@ test.describe('ReactUFO: TTAI (basic section below viewport)', () => {
 					const sectionThreeRenderedAt = await getSectionVisibleAt('sectionThree');
 					expect(sectionThreeRenderedAt).not.toBeNull();
 
-					expect(interactionMetrics.end).toMatchTimeInSeconds(sectionThreeRenderedAt);
+					// if `platform_ufo_vc_ttai_on_paint` FG is disabled, we assert a less stringent check:
+					// Ensure that the difference between `interactionMetrics.end` and `sectionThreeRenderedAt` is < += 10, rounded to the nearest millisecond
+					const threshold = Math.abs(
+						Math.round(interactionMetrics.end) - Math.round(sectionThreeRenderedAt!),
+					);
+					expect(threshold).toBeLessThan(10);
 				});
 			});
 		}

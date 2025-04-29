@@ -6,7 +6,7 @@ import type {
 } from './types';
 import { type FilterArgs, ViewportUpdateClassifier } from './ViewportUpdateClassifier';
 
-const legacyIgnoreReasons = ['image', 'ssr-hydration', 'editor-lazy-node-view'];
+const legacyIgnoreReasons = ['image', 'ssr-hydration'];
 
 export class FY25_01Classifier extends ViewportUpdateClassifier {
 	revision = 'fy25.01';

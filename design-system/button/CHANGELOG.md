@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 23.0.6
+
+### Patch Changes
+
+- [#142967](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142967)
+  [`9b46cc7f6df9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b46cc7f6df9d) -
+  Allows `role` to be modified for new buttons.
+- Updated dependencies
+
 ## 23.0.5
 
 ### Patch Changes

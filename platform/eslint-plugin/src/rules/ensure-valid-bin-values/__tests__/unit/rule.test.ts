@@ -16,8 +16,9 @@ jest.mock('fs', () => {
 	const actual = jest.requireActual('fs');
 	return {
 		...actual,
-		statSync: jest.fn((stat: string) => ({
-			isFile: jest.fn(() => mockValidBinPaths.includes(stat)),
+		statSync: jest.fn((p: string) => ({
+			isFile: jest.fn(() => mockValidBinPaths.includes(p)),
+			isDirectory: jest.fn(() => actual.statSync(p).isDirectory()),
 		})),
 	};
 });

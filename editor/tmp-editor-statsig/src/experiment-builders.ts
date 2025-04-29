@@ -9,12 +9,12 @@ import type {
 /**
  * Helper to create a boolean experiment configuration
  */
-export function createBooleanExperiment(config: BooleanExperimentConfig): ExperimentConfigValue {
+export function createBooleanExperiment(config: BooleanExperimentConfig) {
 	return {
 		...config,
 		typeGuard: isBoolean,
-		defaultValue: config.defaultValue,
-	};
+		defaultValue: config.defaultValue as boolean,
+	} satisfies ExperimentConfigValue;
 }
 
 /**
@@ -22,10 +22,12 @@ export function createBooleanExperiment(config: BooleanExperimentConfig): Experi
  */
 export function createMultivariateExperiment<T extends string[]>(
 	config: MultivariateExperimentConfig<T>,
-): ExperimentConfigValue {
+) {
+	const { values, ...restConfig } = config;
+
 	return {
-		...config,
-		typeGuard: oneOf(config.values),
-		defaultValue: config.defaultValue,
-	};
+		...restConfig,
+		typeGuard: oneOf(values),
+		defaultValue: config.defaultValue as T[number],
+	} satisfies ExperimentConfigValue;
 }

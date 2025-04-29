@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
+import { IntlProvider, MessageDescriptor } from 'react-intl-next';
 
 import { useTeamContainers } from '@atlaskit/teams-public';
 
@@ -13,6 +13,13 @@ jest.mock('@atlaskit/teams-public', () => ({
 	...jest.requireActual('@atlaskit/teams-public'),
 	useTeamContainers: jest.fn(),
 	TeamContainers: () => <div data-testid="mocked-div">Mocked Team Containers</div>,
+}));
+
+jest.mock('react-intl-next', () => ({
+	...jest.requireActual('react-intl-next'),
+	useIntl: jest.fn().mockReturnValue({
+		formatMessage: ({ defaultMessage }: MessageDescriptor) => defaultMessage,
+	}),
 }));
 
 const JiraProject = {
@@ -41,6 +48,9 @@ describe('TeamProfileCard', () => {
 		window.open = jest.fn();
 		jsdom.reconfigure({
 			url: 'https://mock-confluence-tenant.jira-dev.com',
+		});
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [JiraProject, ConfluenceSpace],
 		});
 	});
 
@@ -83,9 +93,6 @@ describe('TeamProfileCard', () => {
 	});
 
 	test('should render the team connections if the team has containers other than the current one', () => {
-		(useTeamContainers as jest.Mock).mockReturnValue({
-			teamContainers: [JiraProject, ConfluenceSpace],
-		});
 		render(
 			<IntlProvider locale="en">
 				<TeamProfileCard
@@ -135,7 +142,7 @@ describe('TeamProfileCard', () => {
 				/>
 			</IntlProvider>,
 		);
-		const viewProfileButton = screen.getByTestId('view-profile-button');
+		const viewProfileButton = screen.getByRole('button', { name: 'View profile' });
 		expect(viewProfileButton).toBeInTheDocument();
 
 		await userEvent.click(viewProfileButton);
@@ -144,5 +151,73 @@ describe('TeamProfileCard', () => {
 			'https://test-prod-issue-create.atlassian.net/wiki/people/team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
 			'_blank',
 		);
+	});
+
+	test('should show the view profile button', async () => {
+		render(
+			<IntlProvider locale="en">
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+					isKudosEnabled
+				/>
+			</IntlProvider>,
+		);
+		const viewProfileButton = screen.getByRole('link', { name: /View profile*/ });
+		expect(viewProfileButton).toBeVisible();
+
+		await userEvent.click(viewProfileButton);
+
+		expect(viewProfileButton).toHaveAttribute(
+			'href',
+			'https://test-prod-issue-create.atlassian.net/wiki/people/team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
+		);
+	});
+
+	test('should render the kudos button if the team has kudos enabled', async () => {
+		render(
+			<IntlProvider locale="en">
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+					isKudosEnabled
+				/>
+			</IntlProvider>,
+		);
+		const showMoreButton = screen.getByRole('button', { name: 'Show more' });
+		expect(showMoreButton).toBeVisible();
+		await userEvent.click(showMoreButton);
+
+		const kudosButton = screen.getByRole('button', { name: 'Give kudos' });
+		expect(kudosButton).toBeVisible();
+	});
+
+	test('should render other actions if provided', async () => {
+		render(
+			<IntlProvider locale="en">
+				<TeamProfileCard
+					cloudId={mockCloudId}
+					userId={mockUserId}
+					containerId={'1234'}
+					{...mockProfileData}
+					otherActions={[
+						{ id: '1', item: <button>Action 1 </button> },
+						{ id: '2', item: <button>Action 2 </button> },
+					]}
+				/>
+			</IntlProvider>,
+		);
+		const showMoreButton = screen.getByRole('button', { name: 'Show more' });
+		expect(showMoreButton).toBeVisible();
+		await userEvent.click(showMoreButton);
+
+		const action1 = screen.getByRole('button', { name: 'Action 1' });
+		expect(action1).toBeInTheDocument();
+		const action2 = screen.getByRole('button', { name: 'Action 2' });
+		expect(action2).toBeInTheDocument();
 	});
 });

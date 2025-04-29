@@ -3,6 +3,7 @@
 
 import { isBoolean, oneOf } from './type-guards';
 import { ExperimentConfigValue } from './types';
+import { createBooleanExperiment, createMultivariateExperiment } from './experiment-builders';
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 
@@ -13,82 +14,72 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  */
 export const editorExperimentsConfig = {
 	// Added 2024-08-08
-	'example-boolean': {
+	'example-boolean': createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_editor_experiment_test_new_package_boolean',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		// Note -- you need to set the type to boolean for the default value
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-08-08
-	'example-multivariate': {
+	'example-multivariate': createMultivariateExperiment({
 		productKeys: {
 			confluence: 'confluence_editor_experiment_test_new_package_multivariate',
 		},
 		param: 'variant',
-		typeGuard: oneOf(['one', 'two', 'three']),
-		// Note -- you need to specify the type of the default value as the union of all possible values
-		// This is used to provide type safety on consumption
-		defaultValue: 'one' as 'one' | 'two' | 'three',
-	},
+		values: ['one', 'two', 'three'],
+		defaultValue: 'one',
+	}),
 	// Added 2024-08-08
-	'test-new-experiments-package': {
+	'test-new-experiments-package': createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_editor_experiment_test_new_package',
 			jira: 'jira_editor_experiment_test_new_package',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-09-05
-	support_table_in_comment: {
+	support_table_in_comment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_support_table_in_comment_exp',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-09-07
-	platform_editor_exp_lazy_node_views: {
+	platform_editor_exp_lazy_node_views: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_exp_lazy_node_views',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-09-18
-	platform_renderer_table_sticky_scrollbar: {
+	platform_renderer_table_sticky_scrollbar: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_renderer_table_sticky_scrollbar',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-10-01
-	comment_on_bodied_extensions: {
+	comment_on_bodied_extensions: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_comment_on_bodied_extensions',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-10-14
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_advanced_layouts/setup
-	advanced_layouts: {
+	advanced_layouts: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_advanced_layouts',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-3-15
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_single_column_layout/setup
 	single_column_layouts: {

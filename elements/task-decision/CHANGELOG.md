@@ -1,5 +1,18 @@
 # @atlaskit/task-decision
 
+## 19.2.0
+
+### Minor Changes
+
+- [#146310](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146310)
+  [`fb230587c00e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb230587c00e2) -
+  [ux] [A11Y-9616] Add internationalisation to tasks and descisions plugin, wrap tasks item lists in
+  a fieldset to group them and give them an accessible name
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.1.4
 
 ### Patch Changes

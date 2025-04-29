@@ -178,7 +178,9 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 							state !== 'exited' && (
 								<>
 									<SelectContainer>
-										<Label htmlFor="help_whats_new_filter_select_label">{formatMessage(messages.help_whats_new_filter_select_label)}</Label>
+										<Label htmlFor="help_whats_new_filter_select_label">
+											{formatMessage(messages.help_whats_new_filter_select_label)}
+										</Label>
 										<Select
 											defaultValue={selectedOption}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -282,7 +284,9 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 							state !== 'exited' && (
 								<>
 									<SelectContainer>
-										<Label htmlFor="help_whats_new_filter_select_label">{formatMessage(messages.help_whats_new_filter_select_label)}</Label>
+										<Label htmlFor="help_whats_new_filter_select_label">
+											{formatMessage(messages.help_whats_new_filter_select_label)}
+										</Label>
 										<Select
 											defaultValue={selectedOption}
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

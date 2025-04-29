@@ -169,17 +169,18 @@ export class TaskItemNodeView implements NodeView {
 	}
 
 	update(node: PMNode) {
-		if (node.type !== this.node.type) {
+		const isValidUpdate =
+			node.type === this.node.type && !!(node.attrs.state === this.node.attrs.state);
+		if (!isValidUpdate) {
 			return false;
 		}
 		this.updatePlaceholder(node);
 		if (!node.sameMarkup(this.node)) {
-			if (node.attrs.state !== this.node.attrs.state) {
-				this.dom.setAttribute('data-task-state', node.attrs.state);
-				this.dom.setAttribute('state', node.attrs.state);
-			}
-			this.node = node;
+			this.dom.setAttribute('data-task-state', node.attrs.state);
+			this.dom.setAttribute('data-task-local-id', node.attrs.localId);
+			this.dom.setAttribute('state', node.attrs.state);
 		}
+		this.node = node;
 		return true;
 	}
 

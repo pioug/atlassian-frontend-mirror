@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 114.11.0
+
+### Minor Changes
+
+- [#143555](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143555)
+  [`2827fa6f5b8d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2827fa6f5b8d9) -
+  Updated embed card to support SSR
+
 ## 114.10.2
 
 ### Patch Changes

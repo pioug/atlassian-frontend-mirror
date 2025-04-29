@@ -2,14 +2,21 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { token } from '@atlaskit/tokens';
 
 const FlagWarningExample = () => {
 	return (
 		<Flag
 			appearance="warning"
-			icon={<WarningIcon label="Warning" secondaryColor={token('color.background.warning.bold')} />}
+			icon={
+				<WarningIcon
+					label="Warning"
+					LEGACY_secondaryColor={token('color.background.warning.bold')}
+					color={token('color.icon')}
+					spacing="spacious"
+				/>
+			}
 			id="warning"
 			key="warning"
 			title="This page is visible to people outside your organization"

@@ -7,7 +7,7 @@ import { forwardRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import Popup, { type PopupComponentProps } from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -54,7 +54,7 @@ const PopupCustomExample = () => {
 					{...triggerProps}
 					isSelected={isOpen}
 					onClick={() => setIsOpen(!isOpen)}
-					icon={MoreIcon}
+					icon={ShowMoreHorizontalIcon}
 					label="More"
 				/>
 			)}

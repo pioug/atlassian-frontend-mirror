@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.5.4
+
+### Patch Changes
+
+- [#146885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146885)
+  [`0e54e7556bae4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e54e7556bae4) -
+  [ux] Fix issue with toolbar initial docking preference not updating correctly when navigating
+  between live docs and classic pages
+- Updated dependencies
+
 ## 3.5.3
 
 ### Patch Changes

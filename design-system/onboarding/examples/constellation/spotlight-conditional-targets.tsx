@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
-import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
+import CommentAddIcon from '@atlaskit/icon/core/migration/comment-add--media-services-add-comment';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
+import FullscreenEnterIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
 import {
 	Spotlight,
 	SpotlightManager,
@@ -13,8 +14,6 @@ import {
 } from '@atlaskit/onboarding';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import CodeSandboxIcon from './example-components/code-sandbox-icon';
 
 const SpotlightWithConditionalTargets = () => {
 	const [active, setActive] = useState<number | null>(null);
@@ -33,7 +32,7 @@ const SpotlightWithConditionalTargets = () => {
 
 		const spotlights = [
 			{
-				target: 'codesandbox',
+				target: 'comment',
 				element: (
 					<Spotlight
 						actions={[
@@ -43,14 +42,13 @@ const SpotlightWithConditionalTargets = () => {
 							},
 							{ onClick: () => end(), text: 'Dismiss', appearance: 'subtle' },
 						]}
-						heading="Open CodeSandbox"
-						target="codesandbox"
-						key="codesandbox"
+						heading="Add a comment"
+						target="comment"
+						key="comment"
 						targetRadius={3}
 						targetBgColor={N0}
 					>
-						A sandboxed environment where you can play around with examples is now only one click
-						away.
+						Quickly add a comment to the issue.
 					</Spotlight>
 				),
 			},
@@ -102,8 +100,8 @@ const SpotlightWithConditionalTargets = () => {
 	return (
 		<>
 			<ButtonGroup label="Choose spotlight options">
-				<SpotlightTarget name="codesandbox">
-					<IconButton icon={CodeSandboxIcon} label="codesandbox" />
+				<SpotlightTarget name="comment">
+					<IconButton icon={CommentAddIcon} label="comment" />
 				</SpotlightTarget>
 				{isSecondTargetVisible && (
 					<SpotlightTarget name="copy">
@@ -111,7 +109,7 @@ const SpotlightWithConditionalTargets = () => {
 					</SpotlightTarget>
 				)}
 				<SpotlightTarget name="expand">
-					<IconButton icon={VidFullScreenOnIcon} label="Full screen" />
+					<IconButton icon={FullscreenEnterIcon} label="Full screen" />
 				</SpotlightTarget>
 			</ButtonGroup>
 

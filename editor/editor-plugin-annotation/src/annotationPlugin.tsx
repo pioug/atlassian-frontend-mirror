@@ -3,6 +3,7 @@ import React from 'react';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -170,8 +171,29 @@ function AnnotationContentComponent({
 	annotationProviders,
 	dispatchAnalyticsEvent,
 }: AnnotationContentComponentProps) {
-	const { annotationState: inlineCommentState } = useSharedPluginState(api, ['annotation']);
-	if (inlineCommentState && !inlineCommentState.isVisible) {
+	const { annotationState } = useSharedPluginState(api, ['annotation'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const isVisibleSelector = useSharedPluginStateSelector(api, 'annotation.isVisible', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const isVisible = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? isVisibleSelector
+		: annotationState?.isVisible;
+
+	if (
+		annotationState &&
+		!isVisible &&
+		editorExperiment('platform_editor_usesharedpluginstateselector', false)
+	) {
+		return null;
+	}
+
+	// need to expclicitly check for false as undefined is also a valid value to continue
+	if (
+		isVisible === false &&
+		editorExperiment('platform_editor_usesharedpluginstateselector', true)
+	) {
 		return null;
 	}
 

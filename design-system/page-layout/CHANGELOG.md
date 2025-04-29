@@ -1,5 +1,14 @@
 # @atlaskit/page-layout
 
+## 4.1.0
+
+### Minor Changes
+
+- [#146292](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146292)
+  [`38b68fa4ad618`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38b68fa4ad618) -
+  [https://product-fabric.atlassian.net/browse/ED-27656](ED-27656) - move editor media plugin
+  options creation to @atlassian/confluence-presets package
+
 ## 4.0.4
 
 ### Patch Changes

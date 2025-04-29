@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as analytics from '../../../../../../utils/analytics';
 import { getMockForbiddenDirectAccessResponse } from '../../../../__tests__/__mocks__/mocks';
@@ -49,58 +50,61 @@ describe('Forbidden Hover Card', () => {
 		return { findByTestId, queryByTestId, analyticsSpy, user };
 	};
 
-	it('renders forbidden hover card content', async () => {
-		await setUpHoverCard();
-		await screen.findByTestId(forbiddenViewTestId);
-		const titleElement = await screen.findByTestId('hover-card-forbidden-view-title');
-		const mainContentElement = await screen.findByTestId('hover-card-forbidden-view-content');
-		const buttonElement = await screen.findByTestId('hover-card-forbidden-view-button');
+	//
+	ffTest.both('smart_links_noun_support', 'noun support', () => {
+		it('renders forbidden hover card content', async () => {
+			await setUpHoverCard();
+			await screen.findByTestId(forbiddenViewTestId);
+			const titleElement = await screen.findByTestId('hover-card-forbidden-view-title');
+			const mainContentElement = await screen.findByTestId('hover-card-forbidden-view-content');
+			const buttonElement = await screen.findByTestId('hover-card-forbidden-view-button');
 
-		expect(titleElement).toHaveTextContent('Join Jira to view this content');
-		expect(mainContentElement).toHaveTextContent(
-			'Your team uses Jira to collaborate and you can start using it right away!',
-		);
-		expect(buttonElement).toHaveTextContent('Join now');
-	});
+			expect(titleElement).toHaveTextContent('Join Jira to view this content');
+			expect(mainContentElement).toHaveTextContent(
+				'Your team uses Jira to collaborate and you can start using it right away!',
+			);
+			expect(buttonElement).toHaveTextContent('Join now');
+		});
 
-	it('does not render forbidden hover card when accessContext is undefined', async () => {
-		const mockResponse = getMockForbiddenDirectAccessResponse();
-		mockResponse.meta.requestAccess = undefined;
-		await setUpHoverCard(mockResponse);
-		const hoverCard = screen.queryByTestId(forbiddenViewTestId);
+		it('does not render forbidden hover card when accessContext is undefined', async () => {
+			const mockResponse = getMockForbiddenDirectAccessResponse();
+			mockResponse.meta.requestAccess = undefined;
+			await setUpHoverCard(mockResponse);
+			const hoverCard = screen.queryByTestId(forbiddenViewTestId);
 
-		expect(hoverCard).not.toBeInTheDocument();
-	});
+			expect(hoverCard).not.toBeInTheDocument();
+		});
 
-	it('does not render forbidden hover card when accessContext is malformed', async () => {
-		const mockResponse = getMockForbiddenDirectAccessResponse();
-		mockResponse.meta.requestAccess = {
-			accessType: 'blah',
-		};
-		await setUpHoverCard(mockResponse);
-		const hoverCard = screen.queryByTestId(forbiddenViewTestId);
+		it('does not render forbidden hover card when accessContext is malformed', async () => {
+			const mockResponse = getMockForbiddenDirectAccessResponse();
+			mockResponse.meta.requestAccess = {
+				accessType: 'blah',
+			};
+			await setUpHoverCard(mockResponse);
+			const hoverCard = screen.queryByTestId(forbiddenViewTestId);
 
-		expect(hoverCard).not.toBeInTheDocument();
-	});
+			expect(hoverCard).not.toBeInTheDocument();
+		});
 
-	it('fires buttonClicked event on click of the request access button', async () => {
-		const { analyticsSpy, user } = await setUpHoverCard();
+		it('fires buttonClicked event on click of the request access button', async () => {
+			const { analyticsSpy, user } = await setUpHoverCard();
 
-		window.open = jest.fn();
+			window.open = jest.fn();
 
-		const buttonElement = await screen.findByTestId('hover-card-forbidden-view-button');
-		await user.click(buttonElement);
+			const buttonElement = await screen.findByTestId('hover-card-forbidden-view-button');
+			await user.click(buttonElement);
 
-		expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-			{
-				payload: {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'crossJoin',
-					eventType: 'ui',
+			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'crossJoin',
+						eventType: 'ui',
+					},
 				},
-			},
-			analytics.ANALYTICS_CHANNEL,
-		);
+				analytics.ANALYTICS_CHANNEL,
+			);
+		});
 	});
 });

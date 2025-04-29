@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.10.2",
+	"version": "114.11.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
@@ -120,6 +121,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"confluence_frontend_table_cls_fix": {
+			"type": "boolean"
+		},
 		"cc_complexit_fe_improve_table_sorting": {
 			"type": "boolean"
 		},
@@ -217,6 +221,9 @@
 			"type": "boolean"
 		},
 		"cc_complexit_fe_memoValidation_redundant_calls": {
+			"type": "boolean"
+		},
+		"platform_ssr_smartlink_embeds": {
 			"type": "boolean"
 		},
 		"confluence_frontend_fix_extension_draft_annotation": {

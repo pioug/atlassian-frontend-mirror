@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::19fc297469c40b1fa9fd64c9f9313ba7>>
+ * @codegen <<SignedSource::0b49339ed517ad09644d8ae58d540900>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -23,6 +23,7 @@ import noExportedKeyframes from './no-exported-keyframes';
 import noHtmlAnchor from './no-html-anchor';
 import noHtmlButton from './no-html-button';
 import noHtmlCheckbox from './no-html-checkbox';
+import noHtmlCode from './no-html-code';
 import noHtmlHeading from './no-html-heading';
 import noHtmlImage from './no-html-image';
 import noHtmlRange from './no-html-range';
@@ -81,6 +82,7 @@ export const rules = {
 	'no-html-anchor': noHtmlAnchor,
 	'no-html-button': noHtmlButton,
 	'no-html-checkbox': noHtmlCheckbox,
+	'no-html-code': noHtmlCode,
 	'no-html-heading': noHtmlHeading,
 	'no-html-image': noHtmlImage,
 	'no-html-range': noHtmlRange,

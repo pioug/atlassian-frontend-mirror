@@ -10,7 +10,6 @@ import { token } from '@atlaskit/tokens';
 
 import CodeBidiWarning from './bidi-warning';
 import codeBidiWarningDecorator from './bidi-warning/bidi-warning-decorator';
-import { getCodeStyles } from './internal/theme/styles';
 import type { CodeProps } from './types';
 const styles = cssMap({
 	base: {
@@ -115,7 +114,5 @@ function isReactElement<P>(child: React.ReactNode): child is React.ReactElement<
 }
 
 Code.displayName = 'Code';
-
-export { getCodeStyles };
 
 export default Code;

@@ -17,7 +17,6 @@ import {
 	ArrowKeyNavigationType,
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import type { DatasourceAdf } from '@atlaskit/link-datasource';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
@@ -149,11 +148,7 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 						testId="edit-dropdown-trigger"
 						iconAfter={
 							<span css={dropdownExpandContainer}>
-								{fg('platform-editor-plugin-card-icon-migration') ? (
-									<ChevronDownIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
-								) : (
-									<ExpandIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
-								)}
+								<ChevronDownIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
 							</span>
 						}
 						onClick={toggleOpen}

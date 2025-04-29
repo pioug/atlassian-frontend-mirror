@@ -1,5 +1,17 @@
 # @atlaskit/code
 
+## 17.1.0
+
+### Minor Changes
+
+- [#146790](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146790)
+  [`14ab02f5ac440`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14ab02f5ac440) -
+  Removing deprecated `getCodeStyles` function export
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

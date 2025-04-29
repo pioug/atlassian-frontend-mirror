@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.11.0
+
+### Minor Changes
+
+- [#145669](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145669)
+  [`1bbae59bc57c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bbae59bc57c9) -
+  Add rule to encourage use of DS code component over native HTML elements.
+
 ## 13.10.0
 
 ### Minor Changes

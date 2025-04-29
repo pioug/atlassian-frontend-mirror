@@ -2,14 +2,21 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { token } from '@atlaskit/tokens';
 
 const FlagErrorExample = () => {
 	return (
 		<Flag
 			appearance="error"
-			icon={<ErrorIcon label="Error" secondaryColor={token('color.background.danger.bold')} />}
+			icon={
+				<ErrorIcon
+					label="Error"
+					LEGACY_secondaryColor={token('color.background.danger.bold')}
+					color={token('color.icon.inverse')}
+					spacing="spacious"
+				/>
+			}
 			id="error"
 			key="error"
 			title="We're having trouble connecting"

@@ -34,11 +34,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
-import {
-	ToolbarType,
-	type AlignmentPluginState,
-	type AlignmentState,
-} from '../../pm-plugins/types';
+import { ToolbarType, type AlignmentState } from '../../pm-plugins/types';
 import Alignment from '../Alignment';
 
 import { IconMap } from './icon-map';
@@ -48,7 +44,7 @@ export interface State {
 }
 
 export interface Props {
-	pluginState: AlignmentPluginState | undefined;
+	align: AlignmentState | undefined;
 	changeAlignment: (align: AlignmentState) => void;
 	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
@@ -76,14 +72,14 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 			popupsBoundariesElement,
 			popupsScrollableElement,
 			isReducedSpacing,
-			pluginState,
+			align,
 			disabled,
 			intl,
 			api,
 			toolbarType,
 			toolbarSize,
 		} = this.props;
-		const alignment = pluginState?.align ?? 'start';
+		const alignment = align ?? 'start';
 
 		const title = intl.formatMessage(messages.alignment);
 
@@ -113,7 +109,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 				key: 'alignmentLeft',
 				content: intl.formatMessage(messages.alignLeft),
 				value: { name: 'start' },
-				isActive: pluginState?.align === 'start',
+				isActive: align === 'start',
 				elemAfter: <Shortcut>{tooltip(alignLeft)}</Shortcut>,
 				elemBefore: <AlignTextLeftIcon label="" />,
 			},
@@ -121,7 +117,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 				key: 'alignmentCenter',
 				content: intl.formatMessage(messages.alignCenter),
 				value: { name: 'center' },
-				isActive: pluginState?.align === 'center',
+				isActive: align === 'center',
 				elemAfter: <Shortcut>{tooltip(alignCenter)}</Shortcut>,
 				elemBefore: <AlignTextCenterIcon label="" />,
 			},
@@ -129,7 +125,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 				key: 'alignmentRight',
 				content: intl.formatMessage(messages.alignRight),
 				value: { name: 'end' },
-				isActive: pluginState?.align === 'end',
+				isActive: align === 'end',
 				elemAfter: <Shortcut>{tooltip(alignRight)}</Shortcut>,
 				elemBefore: <AlignTextRightIcon label="" />,
 			},

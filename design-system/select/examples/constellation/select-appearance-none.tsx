@@ -6,7 +6,7 @@ import Select from '@atlaskit/select';
 export default function SelectAppearanceNone() {
 	return (
 		<>
-			<Label htmlFor="none-appearance-example">Favourite fruit</Label>
+			<Label htmlFor="none-appearance-example">Favorite fruit</Label>
 			<Select
 				inputId="none-appearance-example"
 				appearance="none"

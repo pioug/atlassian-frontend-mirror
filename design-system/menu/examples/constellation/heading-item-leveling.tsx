@@ -7,7 +7,7 @@ export default () => (
 	<MenuGroupContainer>
 		<MenuGroup>
 			<Section>
-				<HeadingItem>Heading level 2(default)</HeadingItem>
+				<HeadingItem>Heading level 2 (default)</HeadingItem>
 			</Section>
 			<Section>
 				<HeadingItem headingLevel={3}>Heading level 3</HeadingItem>

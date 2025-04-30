@@ -39,7 +39,7 @@ const viewports = [
 test.describe('TTVC: basic page (10 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_disable_ttvc_v1'],
+		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_vc_ttai_on_paint'],
 	});
 
 	for (const viewport of viewports) {
@@ -105,7 +105,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 test.describe('TTVC: basic page (3 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-three-sections',
-		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_disable_ttvc_v1'],
+		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_vc_ttai_on_paint'],
 	});
 
 	for (const viewport of viewports) {
@@ -171,7 +171,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 test.describe('TTVC: basic page (100 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-any-number-sections', // hardcoded to 100 in the code
-		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_disable_ttvc_v1'],
+		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_vc_ttai_on_paint'],
 	});
 
 	for (const viewport of viewports) {

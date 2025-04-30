@@ -1,5 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { getConfig } from '../../config';
+
 import { Observers } from './observers';
 import type { Callback } from './observers/types';
 
@@ -7,8 +9,10 @@ import { VCObserver } from './index';
 
 jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('./observers');
+jest.mock('../../config');
 
 const mockFg = fg as jest.Mock;
+const mockUFOConfig = getConfig as jest.Mock;
 
 const VIEWPORT_WIDTH = 1000;
 const VIEWPORT_HEIGHT = 500;
@@ -86,6 +90,18 @@ describe('vc-observer', () => {
 	});
 
 	describe('TTVC v1 enabled', () => {
+		beforeEach(() => {
+			mockUFOConfig.mockReturnValue({
+				vc: {
+					enabledVCRevisions: ['fy25.01', 'fy25.02'],
+				},
+			});
+		});
+
+		afterEach(() => {
+			mockUFOConfig.mockClear();
+		});
+
 		test('handles full screen updates', async () => {
 			vc.start({ startTime: 0 });
 			callbacks.forEach((fn: Callback) => {
@@ -1716,7 +1732,15 @@ describe('vc-observer', () => {
 
 	describe('TTVC v1 disabled', () => {
 		beforeEach(() => {
-			enableFeatureGate('platform_ufo_disable_ttvc_v1');
+			mockUFOConfig.mockReturnValue({
+				vc: {
+					enabledVCRevisions: ['fy25.02'],
+				},
+			});
+		});
+
+		afterEach(() => {
+			mockUFOConfig.mockClear();
 		});
 
 		test('handles full screen updates', async () => {
@@ -2663,7 +2687,7 @@ describe('vc-observer', () => {
 				expect(result['ufo:next:speedIndex']).toEqual(speedIndex);
 			});
 		});
-		describe('ff-disabeld', () => {
+		describe('ff-disabled', () => {
 			beforeEach(() => {
 				disableFeatureGate('ufo-calc-speed-index');
 			});

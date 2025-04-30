@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.11.2",
+	"version": "3.12.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -116,9 +116,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_element_dnd_nested_fix_patch_6": {
-			"type": "boolean"
-		},
-		"platform_editor_advanced_layouts_redraw_on_drag": {
 			"type": "boolean"
 		},
 		"platform_editor_use_nested_table_pm_nodes": {

@@ -378,3 +378,68 @@ export const removeProps = <Props extends object, K extends string[]>(
 		return newProps;
 	}, {}) as Omit<Props, K[number]>;
 };
+
+/**
+ * Filters out unsupported selectors (e.g., pseudo-classes, complex selectors) from a styles object.
+ * @param styles - The styles object to filter.
+ * @returns A new object containing only supported styles.
+ */
+export const filterUnsupportedSelectors = (styles: Record<string, any>): Record<string, any> => {
+	const unsupportedSelectors = [
+		':hover',
+		':focus',
+		':active',
+		':visited',
+		':link',
+		':checked',
+		':disabled',
+		':enabled',
+		':first-child',
+		':last-child',
+		':nth-child',
+		':nth-last-child',
+		':only-child',
+		':first-of-type',
+		':last-of-type',
+		':nth-of-type',
+		':nth-last-of-type',
+		':only-of-type',
+		':empty',
+		':not',
+		':root',
+		':target',
+		':before',
+		':after',
+		'::before',
+		'::after',
+		'::placeholder',
+		'::selection',
+		'::backdrop',
+		'::marker',
+		'::first-line',
+		'::first-letter',
+		'::spelling-error',
+		'::grammar-error',
+		'[attr]', // Attribute selectors
+		'[attr=value]', // Attribute value selectors
+		'[attr^=value]', // Attribute starts with
+		'[attr$=value]', // Attribute ends with
+		'[attr*=value]', // Attribute contains
+		'[attr|=value]', // Attribute value with hyphen
+		'[attr~=value]', // Attribute value in space-separated list
+		'>', // Child combinator
+		'+', // Adjacent sibling combinator
+		'~', // General sibling combinator
+		' ', // Descendant combinator
+	];
+
+	return Object.keys(styles).reduce(
+		(filteredStyles, key) => {
+			if (!unsupportedSelectors.some((selector) => key.includes(selector))) {
+				filteredStyles[key] = styles[key];
+			}
+			return filteredStyles;
+		},
+		{} as Record<string, any>,
+	);
+};

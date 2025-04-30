@@ -124,6 +124,23 @@ function getDomainForNonIsolatedCloud(
 }
 
 /**
+ * If the environment is already known, then it will be returned.
+ * Otherwise, the hostname will be inspected to determine the environment.
+ *
+ * @param environment
+ * @returns The environment
+ */
+function getEnv(environment?: EnvironmentType): EnvironmentType {
+	if (environment) {
+		return environment;
+	}
+	console.warn(
+		'In non-isolated cloud but no environment has been provided. Hostname will be inspected to determine environment instead.',
+	);
+	return _getEnvironmentFromDomain();
+}
+
+/**
  * WARNING: This function depends on the availability of the `atl-ctx` cookie, which is to be set by Isolated Cloud GlobalEdge.
  * If this note is still visible, this likely means that the cookie is not available yet.
  *
@@ -144,14 +161,4 @@ export function getUrlForDomainInContext(
 		return undefined;
 	}
 	return `${globalThis.location.protocol}//${domain}`;
-}
-
-function getEnv(environment?: EnvironmentType): EnvironmentType {
-	if (environment) {
-		return environment;
-	}
-	console.warn(
-		'In non-isolated cloud but no environment has been provided. Hostname will be inspected to determine environment instead.',
-	);
-	return _getEnvironmentFromDomain();
 }

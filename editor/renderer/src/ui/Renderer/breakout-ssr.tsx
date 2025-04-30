@@ -12,6 +12,7 @@ declare global {
 /**
  * Inline Script that updates breakout node width on client side,
  * before main JavaScript bundle is ready.
+ *
  * More info: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1216218119/Renderer+SSR+for+Breakout+Nodes
  */
 export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInlineScript: Boolean }) {
@@ -31,29 +32,27 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 	}
 
 	const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
+	const context = createBreakoutInlineScript(id);
+
 	return (
 		<script
 			data-breakout-script-id={id}
 			// To investigate if we can replace this.
 			// eslint-disable-next-line react/no-danger
-			dangerouslySetInnerHTML={{
-				__html: fg('confluence_frontend_table_cls_fix')
-					? createBreakoutInlineScript(id, true)
-					: createBreakoutInlineScript(id),
-			}}
+			dangerouslySetInnerHTML={{ __html: context }}
 			data-testid="breakout-ssr-inline-script"
-		/>
+		></script>
 	);
 }
 
-export function createBreakoutInlineScript(id: number, optionalFlagArg?: boolean) {
+export function createBreakoutInlineScript(id: number) {
 	return `
 	 (function(window){
 		if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) {
 			return;
 		}
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${optionalFlagArg ?? false});
+    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${Boolean(fg('platform-fix-table-ssr-resizing'))});
   })(window);
 `;
 }
@@ -71,7 +70,7 @@ export const breakoutInlineScriptContext = `
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEnabled: boolean) {
+function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableResizing: boolean) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
 
@@ -89,7 +88,7 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEna
 	}
 
 	const renderer: HTMLElement | undefined = findUp(
-		document.querySelector(`[data-breakout-script-id="${id}"]`),
+		document.querySelector('[data-breakout-script-id="' + id + '"]'),
 		(elem) => !!elem.parentElement?.classList.contains('ak-renderer-wrapper'),
 	);
 
@@ -103,24 +102,6 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEna
 				return;
 			}
 
-			if (
-				/**
-				 * The mutation observer is only called once per added node.
-				 * The above condition only deals with direct children of <div class="ak-renderer-document" />
-				 * When it is initially called on the direct children, not all the sub children have loaded.
-				 * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
-				 * Thus adding this conditional to deal with all media elements directly.
-				 */
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				(item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
-			) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				applyMediaBreakout(item.target as HTMLElement);
-			}
-
-			// Remove with feature gate 'confluence_frontend_table_cls_fix'
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if ((item.target as HTMLElement).classList.contains('ak-renderer-document')) {
@@ -142,7 +123,7 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEna
 					}
 
 					// When flag is on we are using CSS to calculate the table width thus don't need logic below to set the width and left.
-					if (!isFeatureFlagEnabled) {
+					if (!shouldFixTableResizing) {
 						if (node.classList.contains('pm-table-container') && mode === 'custom') {
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -172,7 +153,6 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEna
 						// because it breaks with sticky headers. This logic is copied from a table node:
 						// https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
 						if (
-							!fg('confluence_frontend_table_cls_fix') &&
 							node.classList.contains('pm-table-container') &&
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -188,6 +168,21 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEna
 						}
 					}
 				});
+			} else if (
+				/**
+				 * The mutation observer is only called once per added node.
+				 * The above condition only deals with direct children of <div class="ak-renderer-document" />
+				 * When it is initially called on the direct children, not all the sub children have loaded.
+				 * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
+				 * Thus adding this conditional to deal with all media elements directly.
+				 */
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
+			) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				applyMediaBreakout(item.target as HTMLElement);
 			}
 		});
 	});

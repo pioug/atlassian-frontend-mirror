@@ -133,7 +133,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 								appearance="subtle"
 								onClick={handleOnClearButtonClick}
 								spacing="none"
-								aria-label="Clear field"
+								aria-label="Clear"
 							>
 								<EditorCloseIcon color="currentColor" spacing="spacious" label="" />
 							</Button>

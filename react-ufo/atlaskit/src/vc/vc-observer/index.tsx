@@ -12,6 +12,7 @@ import type {
 	VCRawDataType,
 	VCResult,
 } from '../../common/vc/types';
+import { getConfig } from '../../config';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
@@ -126,7 +127,9 @@ export class VCObserver implements VCObserverInterface {
 			},
 		});
 
-		this.heatmap = fg('platform_ufo_disable_ttvc_v1') ? [] : this.getCleanHeatmap();
+		this.heatmap = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01')
+			? []
+			: this.getCleanHeatmap();
 
 		this.heatmapNext = this.getCleanHeatmap();
 		this.multiHeatmap = new MultiRevisionHeatmap({
@@ -246,7 +249,7 @@ export class VCObserver implements VCObserverInterface {
 			};
 		}
 
-		const isTTVCv1Disabled = fg('platform_ufo_disable_ttvc_v1');
+		const isTTVCv1Disabled = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01');
 
 		const ttvcV1Result = isTTVCv1Disabled
 			? {
@@ -415,21 +418,23 @@ export class VCObserver implements VCObserverInterface {
 			};
 		}
 
+		const isTTVCv3Enabled =
+			fg('platform_ufo_vc_observer_new') ||
+			getConfig()?.vc?.enabledVCRevisions?.includes('fy25.03');
+
 		return {
 			'metrics:vc': VC,
 			[`${fullPrefix}vc:state`]: true,
 			[`${fullPrefix}vc:clean`]: isVCClean,
 			[`${fullPrefix}vc:dom`]: VCBox,
-			[`${fullPrefix}vc:updates`]: fg('platform_ufo_vc_observer_new')
-				? undefined
-				: VCEntries.rel.slice(0, 50), // max 50
+			[`${fullPrefix}vc:updates`]: isTTVCv3Enabled ? undefined : VCEntries.rel.slice(0, 50), // max 50
 			[`${fullPrefix}vc:size`]: viewport,
 			[`${fullPrefix}vc:time`]: Math.round(totalTime + (stopTime - startTime)),
 			[`${fullPrefix}vc:total`]: totalPainted,
 			[`${fullPrefix}vc:ratios`]: ratios,
 			...outOfBoundary,
 			[`${fullPrefix}vc:next`]: vcNext.VC,
-			[`${fullPrefix}vc:next:updates`]: fg('platform_ufo_vc_observer_new')
+			[`${fullPrefix}vc:next:updates`]: isTTVCv3Enabled
 				? undefined
 				: vcNext.VCEntries.rel.slice(0, 50), // max 50
 			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
@@ -594,7 +599,10 @@ export class VCObserver implements VCObserverInterface {
 			newValue,
 		);
 
-		if (!fg('platform_ufo_vc_observer_new')) {
+		if (
+			!fg('platform_ufo_vc_observer_new') &&
+			!getConfig()?.vc?.enabledVCRevisions?.includes('fy25.03')
+		) {
 			this.onViewportChangeDetected({
 				timestamp: rawTime,
 				intersectionRect,
@@ -635,7 +643,7 @@ export class VCObserver implements VCObserverInterface {
 			if (!ignoreReason) {
 				this.applyChangesToHeatMap(mappedValues, time, this.heatmapNext);
 			}
-			const isTTVCv1Disabled = fg('platform_ufo_disable_ttvc_v1');
+			const isTTVCv1Disabled = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01');
 
 			if (
 				!isTTVCv1Disabled &&
@@ -724,7 +732,9 @@ export class VCObserver implements VCObserverInterface {
 			blocking: false,
 		};
 		this.detachAbortListeners();
-		this.heatmap = fg('platform_ufo_disable_ttvc_v1') ? [] : this.getCleanHeatmap();
+		this.heatmap = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01')
+			? []
+			: this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
 		this.multiHeatmap = new MultiRevisionHeatmap({
 			viewport: this.viewport,

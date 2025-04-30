@@ -1,49 +1,58 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mocks } from '../../../../utils/mocks';
 import { extractEmbedProps } from '../../../embed';
 
 describe('extractEmbedProps', () => {
-	it('extracts embed props', () => {
-		const props = extractEmbedProps(mocks.unauthorized, 'web');
+	ffTest.both('platform-linking-visual-refresh-v2', '', () => {
+		it('extracts embed props', () => {
+			const props = extractEmbedProps(mocks.unauthorized, 'web');
 
-		expect(props).toEqual({
-			isTrusted: true,
-			link: 'https://some.url',
-			title: 'I love cheese',
-			isSupportTheming: false,
+			expect(props).toEqual({
+				isTrusted: true,
+				link: 'https://some.url',
+				title: 'I love cheese',
+				isSupportTheming: false,
+				...(fg('platform-linking-visual-refresh-v2') && {
+					type: ['Object'],
+				}),
+			});
 		});
-	});
 
-	it('extracts embed props with provider details', () => {
-		const data = {
-			...mocks.unauthorized.data,
-			generator: {
-				'@type': 'Application',
-				name: 'provider-name',
-				icon: {
-					'@type': 'Image',
-					url: 'https://some.image.icon',
+		it('extracts embed props with provider details', () => {
+			const data = {
+				...mocks.unauthorized.data,
+				generator: {
+					'@type': 'Application',
+					name: 'provider-name',
+					icon: {
+						'@type': 'Image',
+						url: 'https://some.image.icon',
+					},
+					image: {
+						'@type': 'Image',
+						url: 'https://some.image.url',
+					},
 				},
-				image: {
-					'@type': 'Image',
-					url: 'https://some.image.url',
-				},
-			},
-		} as JsonLd.Data.BaseData;
-		const props = extractEmbedProps({ ...mocks.unauthorized, data }, 'web');
+			} as JsonLd.Data.BaseData;
+			const props = extractEmbedProps({ ...mocks.unauthorized, data }, 'web');
 
-		expect(props).toEqual({
-			context: {
-				icon: 'https://some.image.icon',
-				image: 'https://some.image.url',
-				text: 'provider-name',
-			},
-			isTrusted: true,
-			isSupportTheming: false,
-			link: 'https://some.url',
-			title: 'I love cheese',
+			expect(props).toEqual({
+				context: {
+					icon: 'https://some.image.icon',
+					image: 'https://some.image.url',
+					text: 'provider-name',
+				},
+				isTrusted: true,
+				isSupportTheming: false,
+				link: 'https://some.url',
+				title: 'I love cheese',
+				...(fg('platform-linking-visual-refresh-v2') && {
+					type: ['Object'],
+				}),
+			});
 		});
 	});
 
@@ -95,31 +104,36 @@ describe('extractEmbedProps', () => {
 	});
 
 	ffTest.on('smart_links_noun_support', 'nouns supported', () => {
-		it('extracts embed props with provider details', () => {
-			const meta = {
-				...mocks.unauthorized.meta,
-				generator: {
-					name: 'I love cheese',
-					icon: {
-						url: 'https://www.ilovecheese.com',
+		ffTest.both('platform-linking-visual-refresh-v2', '', () => {
+			it('extracts embed props with provider details', () => {
+				const meta = {
+					...mocks.unauthorized.meta,
+					generator: {
+						name: 'I love cheese',
+						icon: {
+							url: 'https://www.ilovecheese.com',
+						},
 					},
-				},
-			};
-			const props = extractEmbedProps({ ...mocks.nounDataSuccess, meta }, 'web');
+				};
+				const props = extractEmbedProps({ ...mocks.nounDataSuccess, meta }, 'web');
 
-			expect(props).toEqual({
-				context: {
-					text: 'I love cheese',
-					icon: 'https://www.ilovecheese.com',
-					image: 'https://www.ilovecheese.com',
-				},
-				isTrusted: true,
-				isSupportTheming: false,
-				link: 'https://some.url',
-				title: 'I love cheese',
-				preview: {
-					src: 'https://www.ilovecheese.com',
-				},
+				expect(props).toEqual({
+					context: {
+						text: 'I love cheese',
+						icon: 'https://www.ilovecheese.com',
+						image: 'https://www.ilovecheese.com',
+					},
+					isTrusted: true,
+					isSupportTheming: false,
+					link: 'https://some.url',
+					title: 'I love cheese',
+					preview: {
+						src: 'https://www.ilovecheese.com',
+					},
+					...(fg('platform-linking-visual-refresh-v2') && {
+						type: ['Object'],
+					}),
+				});
 			});
 		});
 

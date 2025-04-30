@@ -146,17 +146,94 @@ if (isFedRamp()) {
 
 
 ### isFedrampModerate()
-Returns true if the current perimeter is in FedRAMP-Moderate. Note that this should be used instead of isFedramp(), as the deprecation process for the latter will begin in the near future.
+Returns true if the current perimeter is in FedRAMP-Moderate. 
 
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-context` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+
+But when available, note that this should be used instead of isFedramp(), as the deprecation process for the latter will begin in the near future.
 
 
 ### isIsolatedCloud()
 Returns true if the current perimeter is in Isolated Cloud. 
 
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-context` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
 
 ### isolatedCloudDomain()
 Returns the current `ic_domain`.
 
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-context` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+
+
+### getDomainInContext(subdomain, environment)
+Returns the full domain (including support for Isolation Cloud) for a given Atlassian service or experience. 
+
+Important: Note that the library currently does NOT guarantee that the requested domain exists! It is assumed that when a user requests the full domain for a specific service, they already know the domain exists.
+
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+
+But when available, this should be used instead of `getATLContextDomain()`, as the deprecation process for the latter will begin in the near future.
+
+Parameters:
+* `subdomain` is a required parameter. This should be the service or Atlassian experience for which the full domain is being requested.
+* `environment` should be one of `dev`, `stg`, or `prod`. If this parameter is not provided, the library will inspect the hostname to try to determine the environment.
+
+
+#### Non-Isolated Cloud Details:
+
+For Non-Isolated Cloud (ex. fedramp-moderate and regular commercial), the perimeter and environment values will be used to create and return the expected domain.
+
+Exceptions to this are stored in the [fullDomainOverride](./src/common/constants/domains.tsx) definitions.
+
+Examples:
+When called in fedramp-moderate:
+
+```js
+import { getDomainInContext } from '@atlaskit/atlassian-context';
+
+getDomainInContext('id', 'stg') // returns "id.stg.atlassian-us-gov-mod.com"
+getDomainInContext('analytics', 'stg') // returns "analytics.atlassian.com" because `analytics` has a `fullDomainOverride` entry
+```
+
+When called in (non-isolated) commercial:
+
+```js
+import { getDomainInContext } from '@atlaskit/atlassian-context';
+
+getDomainInContext('id', 'prod') // returns "id.atlassian.com"
+getDomainInContext('analytics', 'prod') // returns "analytics.atlassian.com" because `analytics` has a `fullDomainOverride` entry
+```
+
+
+
+#### Isolated Cloud Details:
+
+For Oasis, one of three domain types are returned: a Reserved Name domain, a namespace subdomain, or an Atlassian services subdomain (see [RFC](https://hello.atlassian.net/wiki/spaces/NSC/pages/4352719139/RFC-3+Oasis+Isolation+Context+External+Public+DNS#Atlassian-owned-base-domain-with-domain-based-routing)).
+
+Reserved names and the namespace subdomains are temporarily being configured in the [ReservedNameMapping and AtlDomainMapping](./src/services/generalized-domain-lookup/constants.tsx) definitions. If a new name has been registered under one of these categories, please raise a PR to update the relevant mapping.
+
+Precedence is as follows: reserved name pattern > namespace pattern > default to the services pattern.
+
+Example:
+When called in (isolated) commercial:
+
+```js
+import { getDomainInContext } from '@atlaskit/atlassian-context';
+
+getDomainInContext('id') // returns "id.<icLabel>.<baseDomain>"
+getDomainInContext('packages') // returns "packages.atl.<icLabel>.<baseDomain>"
+getDomainInContext('new-service') // returns "new-service.services.<icLabel>.<baseDomain>"
+```
+
+### getUrlForDomainInContext()
+Returns the full url a given Atlassian service (including support for Isolation Cloud) by appending the current URL scheme.
+
+```js
+import { getUrlForDomainInContext } from '@atlaskit/atlassian-context';
+
+getUrlForDomainInContext('design', STAGING) // --> returns "https://design.atlassian.com"
+```
+
+
+_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
+
+But when available, this should be used instead of `getATLContextUrl()`, as the deprecation process for the latter will begin in the near future.

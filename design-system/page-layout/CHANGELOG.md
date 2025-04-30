@@ -1,5 +1,21 @@
 # @atlaskit/page-layout
 
+## 4.2.0
+
+### Minor Changes
+
+- [#147520](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147520)
+  [`88b9a0365fd5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88b9a0365fd5a) -
+  Fixes the Left Sidebar with React 18 concurrent rendering turned on as client-side initialization
+  animates the width of the left sidebar causing massive repaints and performance issues due to
+  non-concurrent-safe logic. This delays the animation until that initialization has happened.
+
+  This has no expected breaking changes, only a possible fix with concurrency.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.0
 
 ### Minor Changes

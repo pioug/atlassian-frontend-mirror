@@ -1,6 +1,6 @@
 import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
 
-import { getPreviewUrlWithTheme, importWithRetry, openUrl } from '../index';
+import { getPreviewUrlWithTheme, importWithRetry, isProfileType, openUrl } from '../index';
 import * as utils from '../index';
 
 export class ChunkLoadError extends Error {
@@ -104,5 +104,19 @@ describe('openUrl', () => {
 	it('does not open url', async () => {
 		await openUrl();
 		expect(openSpy).not.toHaveBeenCalled();
+	});
+});
+
+describe('isProfileType', () => {
+	it('should return false when type is not defined', () => {
+		expect(isProfileType(undefined)).toBe(false);
+	});
+
+	it('should return false when type does not contain Profile', () => {
+		expect(isProfileType(['Document', 'Object'])).toBe(false);
+	});
+
+	it('should return true when type does contain Profile', () => {
+		expect(isProfileType(['Document', 'Object', 'Profile'])).toBe(true);
 	});
 });

@@ -106,6 +106,7 @@ type Props = {
 	closeMediaInsertPicker: () => void;
 	insertMediaSingle: InsertMediaSingle;
 	insertExternalMediaSingle: InsertExternalMediaSingle;
+	isOnlyExternalLinks: boolean;
 };
 
 export function MediaFromURL({
@@ -114,6 +115,7 @@ export function MediaFromURL({
 	closeMediaInsertPicker,
 	insertMediaSingle,
 	insertExternalMediaSingle,
+	isOnlyExternalLinks,
 }: Props) {
 	const intl = useIntl();
 	const strings = {
@@ -127,6 +129,7 @@ export function MediaFromURL({
 	};
 
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
+	const [url, setUrl] = React.useState('');
 	const pasteFlag = React.useRef(false);
 
 	const {
@@ -193,15 +196,18 @@ export function MediaFromURL({
 		(e: React.FormEvent<HTMLInputElement>) => {
 			const url = e.currentTarget.value;
 			dispatch({ type: 'reset' });
+			setUrl(url);
 			if (!isValidUrl(url)) {
 				return;
 			}
 			if (pasteFlag.current) {
 				pasteFlag.current = false;
-				uploadExternalMedia(url);
+				if (!isOnlyExternalLinks) {
+					uploadExternalMedia(url);
+				}
 			}
 		},
-		[uploadExternalMedia],
+		[uploadExternalMedia, isOnlyExternalLinks],
 	);
 
 	const onPaste = React.useCallback(
@@ -231,7 +237,7 @@ export function MediaFromURL({
 
 	const onExternalInsert = React.useCallback(
 		(url: string) => {
-			if (previewState.warning) {
+			if (previewState.warning || isOnlyExternalLinks) {
 				insertExternalMediaSingle({
 					url,
 					alt: '',
@@ -240,7 +246,7 @@ export function MediaFromURL({
 			}
 			closeMediaInsertPicker();
 		},
-		[closeMediaInsertPicker, insertExternalMediaSingle, previewState.warning],
+		[closeMediaInsertPicker, insertExternalMediaSingle, previewState.warning, isOnlyExternalLinks],
 	);
 
 	const onInputKeyPress = React.useCallback(
@@ -289,7 +295,7 @@ export function MediaFromURL({
 					return onInsert();
 				}
 
-				if (previewState.warning) {
+				if (previewState.warning || isOnlyExternalLinks) {
 					return onExternalInsert(inputUrl);
 				}
 
@@ -338,7 +344,7 @@ export function MediaFromURL({
 											)}
 										</MessageWrapper>
 									</Box>
-									{!previewState.previewInfo && !previewState.error && !previewState.warning && (
+									{!previewState.previewInfo && !previewState.error && !previewState.warning && !isOnlyExternalLinks && (
 										<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
 											<Button
 												type="button"
@@ -382,7 +388,7 @@ export function MediaFromURL({
 								<Button
 									type="button"
 									appearance="primary"
-									isDisabled={!previewState.previewInfo && !previewState.warning}
+									isDisabled={isOnlyExternalLinks ? (!url || !isValidUrl(url)) : (!previewState.previewInfo && !previewState.warning)}
 									onClick={() => formProps.onSubmit()}
 								>
 									{strings.insert}

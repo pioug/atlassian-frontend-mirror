@@ -6,6 +6,7 @@ import {
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
 	extractTitle,
+	extractType,
 	type LinkPreview,
 } from '@atlaskit/link-extractors';
 import { SmartLinkResponse } from '@atlaskit/linking-types';
@@ -45,6 +46,9 @@ export const extractEmbedProps = (
 			preview: extractSmartLinkEmbed(response, iframeUrlType),
 			isTrusted: extractIsTrusted(meta),
 			isSupportTheming: extractIsSupportTheming(meta),
+			...(fg('platform-linking-visual-refresh-v2') && {
+				type: extractType(jsonLd),
+			}),
 		};
 	}
 
@@ -55,5 +59,8 @@ export const extractEmbedProps = (
 		preview: extractEmbedPreview(jsonLd, platform, iframeUrlType),
 		isTrusted: extractIsTrusted(meta),
 		isSupportTheming: extractIsSupportTheming(meta),
+		...(fg('platform-linking-visual-refresh-v2') && {
+			type: extractType(jsonLd),
+		}),
 	};
 };

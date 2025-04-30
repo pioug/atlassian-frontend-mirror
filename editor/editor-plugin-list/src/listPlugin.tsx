@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-	bulletList,
-	listItem,
-	orderedListWithOrder,
-	listItemWithoutNonBodiedMacros,
-} from '@atlaskit/adf-schema';
+import { bulletList, listItem, orderedListWithOrder } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -67,16 +62,13 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 		},
 
 		nodes() {
-			const listItemNode = editorExperiment('platform_editor_nested_non_bodied_macros', 'test')
-				? listItem
-				: listItemWithoutNonBodiedMacros;
 			return [
 				{ name: 'bulletList', node: bulletList },
 				{
 					name: 'orderedList',
 					node: orderedListWithOrder,
 				},
-				{ name: 'listItem', node: listItemNode },
+				{ name: 'listItem', node: listItem },
 			];
 		},
 

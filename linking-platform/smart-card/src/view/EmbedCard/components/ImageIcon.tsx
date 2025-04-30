@@ -1,8 +1,22 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
+import { cssMap, jsx } from '@compiled/react';
 import ImageLoader from 'react-render-image';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
+
 import { Image } from './styled';
+
+const styles = cssMap({
+	roundedImage: {
+		borderRadius: token('border.radius.circle'),
+	},
+});
 
 export interface ImageIconProps {
 	alt?: string;
@@ -10,6 +24,7 @@ export interface ImageIconProps {
 	src?: string;
 	title?: string;
 	default?: React.ReactElement;
+	appearance?: 'square' | 'round';
 }
 
 export const ImageIcon = ({
@@ -18,6 +33,7 @@ export const ImageIcon = ({
 	size = 16,
 	title,
 	default: defaultIcon,
+	appearance = 'square',
 }: ImageIconProps) => {
 	// TODO: do we need this?
 	if (!src) {
@@ -32,6 +48,9 @@ export const ImageIcon = ({
 			alt={alt}
 			size={size}
 			title={title}
+			css={
+				appearance === 'round' && fg('platform-linking-visual-refresh-v2') && styles.roundedImage
+			}
 		/>
 	);
 

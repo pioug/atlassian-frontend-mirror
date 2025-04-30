@@ -2,6 +2,7 @@ import { snapshot } from '@af/visual-regression';
 
 import VRInlineCardAllExamplesInText from '../../../examples/vr-inline-card/vr-inline-card-all-examples-in-text';
 import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-default-icon';
+import InlineCardDefaultWithNouns from '../../../examples/vr-inline-card/vr-inline-card-default-nouns';
 import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inline-card-default-truncate';
 import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
 import InlineCardErrorTruncate from '../../../examples/vr-inline-card/vr-inline-card-error-truncate';
@@ -36,6 +37,7 @@ import {
 	InlineCardWordWrapResolving,
 	InlineCardWordWrapUnAuth,
 } from '../../../examples/vr-inline-card/vr-inline-card-word-wrap';
+import { VRInlineProfileCard } from '../../../examples/vr-inline-card/vr-inline-profile-card';
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
@@ -48,6 +50,15 @@ snapshot(InlineCardDefault, {
 		},
 	],
 });
+
+snapshot(InlineCardDefaultWithNouns, {
+	description: 'inline card with Noun support',
+	featureFlags: {
+		smart_links_noun_support: true,
+	},
+	ignoredErrors: [],
+});
+
 snapshot(InlineCardDefault, {
 	description: 'inline card renders correctly when hovering over url',
 	featureFlags: {},
@@ -340,4 +351,31 @@ snapshot(VRInlineCardAllExamplesInText, {
 		'platform-smart-card-icon-migration': false,
 		'platform-linking-visual-refresh-v1': false,
 	},
+});
+
+snapshot(VRInlineProfileCard, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v2': true,
+	},
+	drawsOutsideBounds: true,
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
+});
+
+snapshot(VRInlineProfileCard, {
+	description: 'inline profile card with platform-linking-visual-refresh-v2 false',
+	featureFlags: {
+		'platform-linking-visual-refresh-v2': false,
+	},
+	drawsOutsideBounds: true,
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'hover-card-trigger-wrapper' },
+		},
+	],
 });

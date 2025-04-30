@@ -377,6 +377,21 @@ function Tooltip({
 	}, []);
 
 	const onFocus = useCallback(() => {
+		// Check if focus-visible
+		// Prevents tooltips from showing when focus is not visible,
+		// i.e., when focus is moved onto tooltip trigger inside a popup on open
+		try {
+			if (
+				targetRef.current &&
+				!targetRef.current.matches(':focus-visible') &&
+				fg('platform-tooltip-focus-visible')
+			) {
+				return;
+			}
+		} catch (_) {
+			// Ignore errors from environments that don't support :focus-visible
+		}
+
 		// TODO: this does not play well with `hideTooltipOnMouseDown`
 		// as "focus" will occur after the "mousedown".
 		tryShowTooltip({ type: 'keyboard' });

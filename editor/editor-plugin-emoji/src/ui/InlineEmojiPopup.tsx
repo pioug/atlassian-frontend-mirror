@@ -2,7 +2,8 @@ import React, { useCallback, useEffect } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT_ID, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -10,7 +11,6 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
-import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { type EmojiId, EmojiPicker } from '@atlaskit/emoji';
@@ -19,22 +19,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type EmojiPlugin } from '../emojiPluginType';
 
 const PopupWithListeners = withOuterListeners(Popup);
-
-const getDomRefFromSelection = (view: EditorView) => {
-	const domRef = findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view));
-	if (domRef instanceof HTMLElement) {
-		if (domRef.nodeName !== 'P') {
-			const paragraphRef = domRef.closest('p');
-			if (paragraphRef) {
-				return paragraphRef;
-			}
-		}
-
-		return domRef;
-	}
-
-	throw new Error('Invalid DOM reference');
-};
 
 const emojiPopupMessages = {
 	emojiPickerAriaLabel: {
@@ -100,7 +84,11 @@ export const InlineEmojiPopup = ({
 		return null;
 	}
 
-	const domRef = getDomRefFromSelection(editorView);
+	const domRef = getDomRefFromSelection(
+		editorView,
+		ACTION_SUBJECT_ID.PICKER_EMOJI,
+		api?.analytics?.actions,
+	);
 
 	return (
 		<PopupWithListeners

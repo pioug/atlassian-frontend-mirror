@@ -42,9 +42,7 @@ import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
 
-import { TableProcessorWithContainerStyles } from './tableNew';
-
-export type TableArrayMapped = {
+type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
 	rowReact: React.ReactElement;
 };
@@ -58,7 +56,7 @@ export const isStickyScrollbarEnabled = (appearance: RendererAppearance) =>
 	isFullWidthOrFullPageAppearance(appearance) &&
 	editorExperiment('platform_renderer_table_sticky_scrollbar', true, { exposure: true });
 
-export const orderChildren = (
+const orderChildren = (
 	children: React.ReactElement[],
 	tableNode: PMNode,
 	smartCardStorage: WithSmartCardStorageProps['smartCardStorage'],
@@ -105,27 +103,27 @@ export const orderChildren = (
 	return sortedTable.map((elem) => elem.rowReact);
 };
 
-export const hasRowspan = (row: PMNode) => {
+const hasRowspan = (row: PMNode) => {
 	let hasRowspan = false;
 	row.forEach((cell) => (hasRowspan = hasRowspan || cell.attrs.rowspan > 1));
 	return hasRowspan;
 };
 
-export const getRefTop = (refElement: HTMLElement): number => {
+const getRefTop = (refElement: HTMLElement): number => {
 	return Math.round(refElement.getBoundingClientRect().top);
 };
 
-export const shouldHeaderStick = (
+const shouldHeaderStick = (
 	scrollTop: number,
 	tableTop: number,
 	tableBottom: number,
 	rowHeight: number,
 ) => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
 
-export const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number) =>
+const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number) =>
 	tableBottom - rowHeight <= scrollTop && !(tableBottom < scrollTop);
 
-export const addSortableColumn = (
+const addSortableColumn = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rows: React.ReactElement<any>[],
@@ -144,7 +142,7 @@ export const addSortableColumn = (
 	});
 };
 
-export type TableProps = SharedTableProps & {
+type TableProps = SharedTableProps & {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children: React.ReactElement<any> | Array<React.ReactElement<any>>;
@@ -157,7 +155,7 @@ export type TableProps = SharedTableProps & {
 	isPresentational?: boolean;
 };
 
-export const isHeaderRowEnabled = (
+const isHeaderRowEnabled = (
 	rows: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
 ) => {
 	if (!rows.length) {
@@ -177,19 +175,19 @@ export const isHeaderRowEnabled = (
 	return children.every((node: React.ReactElement) => node.type === TableHeader);
 };
 
-export const tableCanBeSticky = (
+const tableCanBeSticky = (
 	node: PMNode | undefined,
 	children: (React.ReactChild | React.ReactFragment | React.ReactPortal)[],
 ) => {
 	return isHeaderRowEnabled(children) && node && node.firstChild && !hasRowspan(node.firstChild);
 };
 
-export interface TableOrderStatus {
+interface TableOrderStatus {
 	columnIndex: number;
 	order: SortOrder;
 }
 
-export interface TableState {
+interface TableState {
 	stickyMode: StickyMode;
 	wrapperWidth: number;
 	headerRowHeight: number;
@@ -692,7 +690,7 @@ export class TableContainer extends React.Component<
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									height: '100%',
 								}}
-							/>
+							></div>
 						</div>
 					)}
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
@@ -801,22 +799,7 @@ export class TableProcessor extends React.Component<
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TableWithShadowsAndContainerStyles: React.PropsWithChildren<any> = overflowShadow(
-	TableProcessorWithContainerStyles,
-	{
-		/**
-		 * The :scope is in reference to table container and we are selecting only
-		 * direct children that match the table node wrapper selector, not their
-		 * descendants.
-		 */
-		overflowSelector: `:scope > .${TableSharedCssClassName.TABLE_NODE_WRAPPER}`,
-		useShadowObserver: true,
-	},
-);
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TableWithShadows: React.PropsWithChildren<any> = overflowShadow(TableProcessor, {
+const TableWithShadows = overflowShadow(TableProcessor, {
 	/**
 	 * The :scope is in reference to table container and we are selecting only
 	 * direct children that match the table node wrapper selector, not their
@@ -827,52 +810,37 @@ const TableWithShadows: React.PropsWithChildren<any> = overflowShadow(TableProce
 });
 
 const TableWithWidth = (
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	props: React.PropsWithChildren<any>,
+	props: React.PropsWithChildren<
+		{
+			renderWidth?: number;
+		} & Omit<React.ComponentProps<typeof TableWithShadows>, 'renderWidth'>
+	>,
 ) => {
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (fg('confluence_frontend_table_cls_fix')) {
-		const colWidthsSum =
-			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
-		if (colWidthsSum || props.allowTableResizing) {
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			return <TableWithShadowsAndContainerStyles {...props} />;
-		}
-		return (
-			<TableProcessorWithContainerStyles
-				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...props}
-			/>
-		);
-	} else {
-		return (
-			<WidthConsumer>
-				{({ width }) => {
-					const renderWidth =
-						props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
-					const colWidthsSum =
-						props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
+	// Remember, `width` will be 0 during SSR
+	return (
+		<WidthConsumer>
+			{({ width }) => {
+				const renderWidth =
+					props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
+				const colWidthsSum = props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
 
-					if (colWidthsSum || props.allowTableResizing) {
+				if (colWidthsSum || props.allowTableResizing) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					return <TableWithShadows renderWidth={renderWidth} {...props} />;
+				}
+				// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
+				return (
+					<TableProcessor
+						renderWidth={renderWidth}
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
-						return <TableWithShadows renderWidth={renderWidth} {...props} />;
-					}
-					// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
-					return (
-						<TableProcessor
-							renderWidth={renderWidth}
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...props}
-						/>
-					);
-				}}
-			</WidthConsumer>
-		);
-	}
+						{...props}
+					/>
+				);
+			}}
+		</WidthConsumer>
+	);
 };
 
 export default withSmartCardStorage(TableWithWidth);

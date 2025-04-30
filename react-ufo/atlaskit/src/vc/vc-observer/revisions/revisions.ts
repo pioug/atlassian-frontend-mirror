@@ -1,11 +1,11 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { getConfig } from '../../../config';
 
 import { revFY25_01Classifier } from './fy25_01';
 import { revFY25_02Classifier } from './fy25_02';
 import { type RevisionEntry } from './types';
 
 export function getRevisions(): RevisionEntry[] {
-	if (fg('platform_ufo_disable_ttvc_v1')) {
+	if (!getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01')) {
 		return [
 			{
 				name: 'fy25.02',

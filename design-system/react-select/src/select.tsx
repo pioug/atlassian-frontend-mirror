@@ -51,6 +51,7 @@ import {
 import {
 	classNames,
 	cleanValue,
+	filterUnsupportedSelectors,
 	isDocumentElement,
 	isMobileDevice,
 	isTouchCapable,
@@ -1324,7 +1325,13 @@ export default class Select<
 		const base = defaultStyles[key](props as any);
 		base.boxSizing = 'border-box';
 		const custom = this.props.styles[key];
-		return custom ? custom(base, props as any) : base;
+		if (!custom) {
+			return base;
+		}
+		const customStyles = fg('compiled-react-select')
+			? filterUnsupportedSelectors(custom(base, props as any))
+			: custom(base, props as any);
+		return customStyles;
 	};
 	getClassNames = <Key extends keyof StylesProps<Option, IsMulti, Group>>(
 		key: Key,

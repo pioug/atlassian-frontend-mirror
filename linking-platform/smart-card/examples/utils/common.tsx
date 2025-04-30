@@ -6,10 +6,11 @@ import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import { SmartLinkResponse } from '@atlaskit/linking-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 
-import { forbiddenJira, iconGoogleDrive, imageForbiddenJiraEmbed } from '../images';
+import { forbiddenJira, iconGoogleDrive, image1, image2, imageForbiddenJiraEmbed } from '../images';
 interface VRTestCaseOpts {
 	title: string;
 	children: () => JSX.Element;
@@ -51,6 +52,61 @@ const encodedContent = encodeURIComponent(content);
 export const overrideEmbedContent = `data:text/html;charset=utf-8,${encodedContent}`;
 
 export const mocks = {
+	nounDataSuccess: {
+		meta: {
+			visibility: 'public',
+			access: 'granted',
+			auth: [],
+			definitionId: 'd1',
+			key: 'object-provider',
+			resourceType: 'object-resource',
+			subproduct: 'object-subproduct',
+			product: 'object-product',
+			generator: {
+				name: 'I love cheese',
+				icon: {
+					url: image2,
+				},
+			},
+		},
+		data: {
+			'@context': {
+				'@vocab': 'https://www.w3.org/ns/activitystreams#',
+				atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+				schema: 'http://schema.org/',
+			},
+			'@type': 'Object',
+			name: 'https://some.url',
+			summary: 'Here is your serving of cheese: 🧀',
+			preview: {
+				href: 'https://www.ilovecheese.com',
+			},
+			generator: {
+				'@type': 'Application',
+				icon: {
+					'@type': 'Image',
+					url: image2,
+				},
+				name: 'I love cheese',
+			},
+			url: 'https://some.url',
+		},
+		nounData: {
+			id: 'I love cheese',
+			displayName: 'I love cheese',
+			url: 'https://some.url',
+			lastUpdatedAt: '2025-01-08T22:26:52.501Z',
+			thumbnail: {
+				externalUrl: image1,
+			},
+			'atlassian:design': {
+				liveEmbedUrl: 'https://www.ilovecheese.com',
+				type: 'FILE',
+				inspectUrl: 'https://www.ilovecheese.com',
+				iconUrl: image2,
+			},
+		},
+	} as SmartLinkResponse,
 	notFound: {
 		meta: {
 			visibility: 'not_found',

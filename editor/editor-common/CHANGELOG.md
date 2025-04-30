@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 103.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 103.19.0
+
+### Minor Changes
+
+- [#144658](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144658)
+  [`e59e7f0ae0803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e59e7f0ae0803) -
+  Change to use getDomRefFromSelection utility from editor-common
+- [#146306](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146306)
+  [`93c6e82f28323`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93c6e82f28323) -
+  [EDITOR-588] Avoid a full document replace transaction if the document is unchanged when replacing
+  the document
+- [#146282](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146282)
+  [`c3731e806db40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3731e806db40) -
+  [ux] [A11Y-9995] Internationalise popup label for colour picker & fix test fixtures for it
+
+### Patch Changes
+
+- [#147400](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147400)
+  [`800ff50276ed7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/800ff50276ed7) -
+  Clean up experiment platform_editor_nested_non_bodied_macros
+- Updated dependencies
+
 ## 103.18.0
 
 ### Minor Changes

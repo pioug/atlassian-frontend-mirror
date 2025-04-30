@@ -60,10 +60,6 @@ const isNestedNBM = (state: EditorState, selectedExtNode: { pos: number; node: P
 		selection,
 	} = state;
 
-	if (!editorExperiment('platform_editor_nested_non_bodied_macros', 'test')) {
-		return false;
-	}
-
 	if (!selectedExtNode) {
 		return false;
 	}

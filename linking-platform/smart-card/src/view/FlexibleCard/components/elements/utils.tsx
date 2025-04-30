@@ -2,10 +2,13 @@ import React, { useContext } from 'react';
 
 import { FormattedDate, type MessageDescriptor } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { ElementName, IconType, SmartLinkInternalTheme } from '../../../../constants';
 import { messages } from '../../../../messages';
 import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
+import { isProfileType } from '../../../../utils';
 
 import AppliedToComponentsCount from './applied-to-components-count';
 import AtlaskitBadge from './atlaskit-badge';
@@ -164,6 +167,11 @@ const getData = (
 			return toTextProps(data as string | undefined);
 		case ElementName.Title:
 			return toLinkProps(context.title, context.url);
+		case ElementName.LinkIcon:
+			if (fg('platform-linking-visual-refresh-v2')) {
+				return toLinkIconProps(data, context.type);
+			}
+			return typeof data === 'object' ? data : undefined;
 		default:
 			return typeof data === 'object' ? data : undefined;
 	}
@@ -221,6 +229,23 @@ const toLinkProps = (text?: string, url?: string): Partial<LinkProps> | undefine
 
 const toTextProps = (content?: string): Partial<TextProps> | undefined => {
 	return content ? { content } : undefined;
+};
+
+const toLinkIconProps = (
+	data: FlexibleUiDataContext[keyof FlexibleUiDataContext] | undefined,
+	type: FlexibleUiDataContext['type'],
+) => {
+	const isDataLinkIcon = (_data: typeof data): _data is FlexibleUiDataContext['linkIcon'] => {
+		return typeof _data === 'object' && _data !== null && ('icon' in _data || 'url' in _data);
+	};
+
+	if (!isDataLinkIcon(data)) {
+		return typeof data === 'object' ? data : undefined;
+	}
+
+	const isImageRound = isProfileType(type);
+
+	return { ...data, appearance: isImageRound ? 'round' : 'square' };
 };
 
 export const createElement = <P extends {}>(name: ElementName): React.ComponentType<P> => {

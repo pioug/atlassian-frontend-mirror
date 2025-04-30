@@ -1,7 +1,6 @@
 import React from 'react';
 import { type ZipEntry } from 'unzipit';
 
-import { ButtonItem } from '@atlaskit/side-navigation';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
 import { downloadUrl } from '@atlaskit/media-common';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
@@ -14,7 +13,7 @@ import {
 } from './styleWrappers';
 import { getMediaTypeFromFilename, isMacPrivateFile, rejectAfter } from '../../utils';
 import { type ArchiveViewerError } from '../../errors';
-import { itemStyle } from './styles';
+import { CustomButtonItem } from './custom-button-item';
 import { messages } from '@atlaskit/media-ui';
 import { ArchiveDownloadButton } from './archive-download-button';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
@@ -46,14 +45,9 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 		return (
 			<ArchiveSidebarFileEntryWrapper key={entry.name} index={entry.name}>
 				<SidebarItemWrapper>
-					<ButtonItem
-						iconBefore={this.renderEntryIcon(entry)}
-						onClick={onClick}
-						// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
-						cssFn={() => itemStyle}
-					>
+					<CustomButtonItem iconBefore={this.renderEntryIcon(entry)} onClick={onClick}>
 						{this.formatName(root, entry.name)}
-					</ButtonItem>
+					</CustomButtonItem>
 				</SidebarItemWrapper>
 				{entry.isDirectory
 					? null

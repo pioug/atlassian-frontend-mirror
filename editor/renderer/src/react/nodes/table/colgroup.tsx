@@ -1,8 +1,6 @@
 import type { CSSProperties } from 'react';
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import {
 	akEditorTableNumberColumnWidth,
@@ -288,19 +286,14 @@ export const Colgroup = (props: SharedTableProps) => {
 			{isNumberColumnEnabled && (
 				<col
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					style={
-						fg('confluence_frontend_table_cls_fix')
-							? undefined
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								{ width: akEditorTableNumberColumnWidth }
-					}
+					style={{ width: akEditorTableNumberColumnWidth }}
 					data-test-id={'num'}
 				/>
 			)}
 			{colStyles.map((style, idx) => (
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/no-array-index-key, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<col key={idx} style={fg('confluence_frontend_table_cls_fix') ? undefined : style} />
+				<col key={idx} style={style} />
 			))}
 		</colgroup>
 	);

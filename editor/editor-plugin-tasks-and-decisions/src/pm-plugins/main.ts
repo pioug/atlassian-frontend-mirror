@@ -17,7 +17,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -25,7 +25,7 @@ import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
 import { DecisionItemVanilla } from '../nodeviews/DecisionItemVanilla';
 import { taskView } from '../nodeviews/task-node-view';
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
-import type { TaskDecisionPluginState } from '../types';
+import type { TaskDecisionPluginState, TaskItemInfoMeta } from '../types';
 
 import { focusTaskDecision, setProvider, openRequestEditPopup } from './actions';
 import {
@@ -94,6 +94,13 @@ export function createPlugin(
 						innerDecorations,
 					);
 				}) satisfies NodeViewConstructor,
+			},
+			decorations(state) {
+				const pluginState = stateKey.getState(state);
+				if (pluginState?.decorations) {
+					return pluginState.decorations;
+				}
+				return DecorationSet.empty;
 			},
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				// When a decision item is selected and the user starts typing, the entire node
@@ -240,6 +247,7 @@ export function createPlugin(
 					requestToEditContent,
 					focusedTaskItemLocalId: null,
 					taskDecisionProvider: undefined,
+					decorations: DecorationSet.empty,
 				};
 			},
 			apply(tr, pluginState) {
@@ -294,9 +302,31 @@ export function createPlugin(
 					};
 				}
 
-				// Dispatch
-				dispatch(stateKey, newPluginState);
-				return newPluginState;
+				const taskItemInfo = tr.getMeta('taskItemInfo') as TaskItemInfoMeta;
+				let decorations: DecorationSet = DecorationSet.empty;
+
+				if (taskItemInfo) {
+					decorations = DecorationSet.create(tr.doc, [
+						Decoration.inline(
+							taskItemInfo.from,
+							taskItemInfo.to,
+							{},
+							{
+								dataTaskNodeCheckState: taskItemInfo.checkState,
+							},
+						),
+					]);
+				} else {
+					decorations = newPluginState.decorations?.map(tr.mapping, tr.doc);
+				}
+
+				const newState = {
+					...newPluginState,
+					decorations,
+				};
+
+				dispatch(stateKey, newState);
+				return newState;
 			},
 		},
 		key: stateKey,

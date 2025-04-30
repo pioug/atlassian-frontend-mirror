@@ -3,11 +3,32 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import { ElementName, type IconType, SmartLinkTheme } from '../../../../../constants';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import { createElement } from '../utils';
+
+const iconAppearanceTestId = 'mock-appearance-icon';
+jest.mock('../icon', () => ({
+	...jest.requireActual('../icon'),
+	__esModule: true,
+	default: jest.fn((props) => {
+		const Icon = jest.requireActual('../icon').default;
+
+		return (
+			<div>
+				<div data-testId={iconAppearanceTestId}>
+					{props.appearance ? props.appearance : 'no-appearance'}
+				</div>
+				<Icon {...props} />
+			</div>
+		);
+	}),
+}));
 
 const renderComponent = (
 	Component: React.ComponentType<any>,
@@ -41,14 +62,35 @@ describe('createElement', () => {
 			expect(element.getAttribute('href')).toBe(context.url);
 		});
 
-		it('creates LinkIcon component from Icon element', async () => {
-			const Component = createElement(ElementName.LinkIcon);
-			renderComponent(Component, context, testId);
+		ffTest.both('platform-linking-visual-refresh-v2', '', () => {
+			it('creates LinkIcon component from Icon element', async () => {
+				const Component = createElement(ElementName.LinkIcon);
+				renderComponent(Component, context, testId);
 
-			const element = await screen.findByTestId(testId);
+				const element = await screen.findByTestId(testId);
 
-			expect(Component).toBeDefined();
-			expect(element.getAttribute('data-smart-element-icon')).toBeTruthy();
+				expect(Component).toBeDefined();
+				expect(element.getAttribute('data-smart-element-icon')).toBeTruthy();
+				expect(screen.getByTestId(iconAppearanceTestId).textContent).toEqual(
+					fg('platform-linking-visual-refresh-v2') ? 'square' : 'no-appearance',
+				);
+			});
+
+			it('should create round LinkIcon component from Icon element', async () => {
+				const Component = createElement(ElementName.LinkIcon);
+
+				const modifiedContext = {
+					...context,
+					type: ['Document', 'Profile'],
+				};
+
+				renderComponent(Component, modifiedContext, testId);
+
+				expect(Component).toBeDefined();
+				expect(screen.getByTestId(iconAppearanceTestId).textContent).toEqual(
+					fg('platform-linking-visual-refresh-v2') ? 'round' : 'no-appearance',
+				);
+			});
 		});
 
 		it('creates DueOn component from Lozenge element', async () => {

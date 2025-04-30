@@ -316,6 +316,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 			codeBidiWarningLabel={codeBidiWarningLabel}
 			codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 			text={text}
+			tabIndex="0"
 		/>
 	);
 });

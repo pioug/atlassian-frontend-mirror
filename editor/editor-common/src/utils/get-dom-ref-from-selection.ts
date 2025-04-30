@@ -1,7 +1,7 @@
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { AnalyticsEventPayload, DispatchAnalyticsEvent } from '../analytics';
+import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
 
 export const getDomRefFromSelection = (
@@ -10,7 +10,7 @@ export const getDomRefFromSelection = (
 		| ACTION_SUBJECT_ID.PICKER_MEDIA
 		| ACTION_SUBJECT_ID.PICKER_TABLE_SIZE
 		| ACTION_SUBJECT_ID.PICKER_EMOJI,
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
 ) => {
 	try {
 		const domRef = findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view));
@@ -27,7 +27,7 @@ export const getDomRefFromSelection = (
 			throw new Error('Invalid DOM reference');
 		}
 	} catch (error: unknown) {
-		if (dispatchAnalyticsEvent) {
+		if (editorAnalyticsAPI) {
 			const payload: AnalyticsEventPayload = {
 				action: ACTION.ERRORED,
 				actionSubject: ACTION_SUBJECT.PICKER,
@@ -37,7 +37,7 @@ export const getDomRefFromSelection = (
 					error: 'Error getting DOM reference from selection',
 				},
 			};
-			dispatchAnalyticsEvent(payload);
+			editorAnalyticsAPI.fireAnalyticsEvent(payload);
 		}
 	}
 };

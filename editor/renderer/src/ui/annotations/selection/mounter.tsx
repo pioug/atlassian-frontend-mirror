@@ -86,6 +86,22 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			const positionToAnnotate = draftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation) {
+				// TODO: EDITOR-595 - This analytic event is temporary and should be removed once the following issue
+				// has been identified and fixed: https://atlassian.slack.com/archives/C08JK0WSCH5/p1745902609966999
+				if (createAnalyticsEvent && fg('platform_renderer_annotations_create_debug_logging')) {
+					createAnalyticsEvent({
+						action: 'failed',
+						actionSubject: 'applyAnnotation',
+						actionSubjectId: 'inlineCommentFailureReason',
+						attributes: {
+							reason: 'Annotation Position invalid',
+							draftDocumentPosition,
+							documentPosition,
+							applyAnnotation: !!applyAnnotation,
+						},
+						eventType: EVENT_TYPE.OPERATIONAL,
+					}).fire(FabricChannel.editor);
+				}
 				return false;
 			}
 

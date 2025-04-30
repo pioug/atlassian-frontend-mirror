@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
+import { ImageIconProps } from '../../common/image-icon/types';
 import { getIconWidth } from '../../utils';
 
 import { type IconProps } from './types';
@@ -308,6 +309,7 @@ const renderImageIcon = (
 	url?: string,
 	testId?: string,
 	size = SmartLinkSize.Medium,
+	appearance?: ImageIconProps['appearance'],
 ): React.ReactNode | undefined => {
 	const width = size === SmartLinkSize.Large ? token('space.300') : token('space.200');
 
@@ -320,6 +322,9 @@ const renderImageIcon = (
 				{...(fg('platform-smart-card-icon-migration') && {
 					width,
 					height: width,
+				})}
+				{...(fg('platform-linking-visual-refresh-v2') && {
+					appearance,
 				})}
 			/>
 		);
@@ -343,6 +348,7 @@ const Icon = ({
 	size = SmartLinkSize.Medium,
 	testId = 'smart-element-icon',
 	url,
+	appearance = 'square',
 }: IconProps) => {
 	const element = useMemo(() => {
 		const defaultIcon = renderDefaultIcon(label, testId);
@@ -354,6 +360,7 @@ const Icon = ({
 				url,
 				testId,
 				fg('platform-smart-card-icon-migration') ? size : undefined,
+				fg('platform-linking-visual-refresh-v2') ? appearance : undefined,
 			) ||
 			renderAtlaskitIcon(
 				icon,
@@ -362,7 +369,7 @@ const Icon = ({
 			) ||
 			defaultIcon
 		);
-	}, [overrideIcon, icon, label, render, testId, url, size]);
+	}, [label, testId, overrideIcon, render, url, size, appearance, icon]);
 
 	const width = getIconWidth(size);
 
@@ -371,7 +378,7 @@ const Icon = ({
 			css={[
 				fg('platform-linking-visual-refresh-v1') && styles.container,
 				!fg('platform-smart-card-icon-migration') && iconStylesMapOld[size],
-				!fg('platform-smart-card-icon-migration') && positionStyleMap[position],
+				positionStyleMap[position],
 				render && !fg('platform-smart-card-icon-migration') && customRenderStyleMapOld[size],
 				render && fg('platform-smart-card-icon-migration') && customRenderStyleMapNew[size],
 			]}

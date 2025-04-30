@@ -21,7 +21,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 export type StickyMode = 'none' | 'stick' | 'pin-bottom';
 
 export const tableStickyPadding = 8;
@@ -47,7 +46,7 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
 
 // refactored based on fixedTableDivStaticStyles
 // TODO: DSP-4123 - Quality ticket
-const fixedTableDivStaticStylesNew = css({
+const fixedTableDivStaticStyles = css({
 	zIndex: 'var(--ak-renderer-sticky-header-zindex)',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${TableSharedCssClassName.TABLE_CONTAINER}, & .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
@@ -79,82 +78,7 @@ const fixedTableDivStaticStylesNew = css({
 	},
 });
 
-// TODO: DSP-4123 - Quality ticket
-const fixedTableDivStaticStyles = (
-	top: number | undefined,
-	width: number,
-	allowTableResizing?: boolean,
-) => {
-	let stickyHeaderZIndex: number;
-	if (allowTableResizing) {
-		stickyHeaderZIndex = 13;
-	} else {
-		stickyHeaderZIndex = akEditorStickyHeaderZIndex;
-	}
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	return css(typeof top === 'number' && `top: ${top}px;`, {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: `${width}px`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		zIndex: stickyHeaderZIndex,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		[`& .${TableSharedCssClassName.TABLE_CONTAINER}, & .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-			{
-				marginTop: 0,
-				marginBottom: 0,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-				tr: {
-					background: token('elevation.surface', 'white'),
-				},
-			},
-		borderTop: `${tableStickyPadding}px solid ${token('elevation.surface', 'white')}`,
-		background: token('elevation.surface.overlay', 'white'),
-		boxShadow: `0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)}`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		"div[data-expanded='false'] &": {
-			display: 'none',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		[`& .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after, & .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before`]:
-			{
-				top: '0px',
-				height: '100%',
-			},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		"&.fixed-table-div-custom-table-resizing[mode='stick']": {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			zIndex: stickyHeaderZIndex,
-		},
-	});
-};
-
-const FixedTableDivOld = (props: FixedProps) => {
-	const { top, wrapperWidth, mode, allowTableResizing } = props;
-	const fixedTableCss = [
-		fixedTableDivStaticStyles(top, wrapperWidth, allowTableResizing),
-		modeSpecficStyles?.[mode],
-	];
-
-	const attrs = { mode };
-
-	return (
-		<div
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...attrs}
-			data-testid="sticky-table-fixed"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={allowTableResizing ? 'fixed-table-div-custom-table-resizing' : ''}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={fixedTableCss}
-		>
-			{props.children}
-		</div>
-	);
-};
-
-const FixedTableDivNew = (props: FixedProps) => {
+const FixedTableDiv = (props: FixedProps) => {
 	const { top, wrapperWidth, mode, allowTableResizing } = props;
 	let stickyHeaderZIndex: number;
 	if (allowTableResizing) {
@@ -173,7 +97,7 @@ const FixedTableDivNew = (props: FixedProps) => {
 			data-testid="sticky-table-fixed"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={allowTableResizing ? 'fixed-table-div-custom-table-resizing' : ''}
-			css={[fixedTableDivStaticStylesNew, modeSpecficStyles?.[mode]]}
+			css={[fixedTableDivStaticStyles, modeSpecficStyles?.[mode]]}
 			style={
 				{
 					'--ak-renderer-sticky-header-zindex': stickyHeaderZIndex,
@@ -192,12 +116,6 @@ const FixedTableDivNew = (props: FixedProps) => {
 		</div>
 	);
 };
-
-const FixedTableDiv = componentWithFG(
-	'platform_editor_emotion_refactor_renderer',
-	FixedTableDivNew,
-	FixedTableDivOld,
-);
 
 type StickyTableProps = {
 	left?: number;

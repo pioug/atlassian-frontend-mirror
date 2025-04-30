@@ -16,6 +16,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { B400, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { isProfileType } from '../../../utils';
 import { Icon, Shimmer } from '../Icon';
 
 import {
@@ -74,6 +75,9 @@ const styles = cssMap({
 		color: token('color.text.subtlest'),
 		marginLeft: token('space.050'),
 	},
+	roundImageStyle: {
+		borderRadius: token('border.radius.circle'),
+	},
 });
 
 export interface IconAndTitleLayoutProps {
@@ -90,6 +94,7 @@ export interface IconAndTitleLayoutProps {
 	rightSide?: React.ReactNode;
 	rightSideSpacer?: boolean;
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	type?: string[];
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
@@ -118,6 +123,7 @@ export const IconAndTitleLayout = ({
 	link,
 	rightSide,
 	testId = 'inline-card-icon-and-title',
+	type,
 }: IconAndTitleLayoutProps) => {
 	const renderAtlaskitIcon = React.useCallback(() => {
 		if (emoji) {
@@ -135,6 +141,8 @@ export const IconAndTitleLayout = ({
 		return <IconWrapperOldVisualRefresh>{icon}</IconWrapperOldVisualRefresh>;
 	}, [emoji, icon]);
 
+	const profileType = fg('platform-linking-visual-refresh-v2') ? isProfileType(type) : false;
+
 	const renderImageIcon = React.useCallback(
 		(errored: React.ReactNode, testId: string) => {
 			di(ImageLoader);
@@ -145,25 +153,42 @@ export const IconAndTitleLayout = ({
 				return (
 					<ImageLoader
 						src={icon}
-						loaded={<img css={iconImageStyle} src={icon} data-testid={`${testId}-image`} alt="" />}
+						loaded={
+							<img
+								css={[iconImageStyle, profileType && styles.roundImageStyle]}
+								src={icon}
+								data-testid={`${testId}-image`}
+								alt=""
+							/>
+						}
 						errored={errored}
 						loading={<Shimmer testId={`${testId}-loading`} />}
 					/>
 				);
 			}
+
+			const removedProps = !fg('platform-linking-visual-refresh-v2')
+				? { className: 'smart-link-icon' }
+				: {};
+
 			return (
 				<ImageLoader
 					src={icon}
 					loaded={
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-						<Icon className="smart-link-icon" src={icon} data-testid={`${testId}-image`} alt="" />
+						<Icon
+							{...removedProps}
+							src={icon}
+							data-testid={`${testId}-image`}
+							alt=""
+							css={profileType && styles.roundImageStyle}
+						/>
 					}
 					errored={errored}
 					loading={<Shimmer testId={`${testId}-loading`} />}
 				/>
 			);
 		},
-		[icon],
+		[icon, profileType],
 	);
 
 	const renderIconPlaceholder = React.useCallback(

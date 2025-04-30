@@ -1,5 +1,6 @@
 // Avatar images
 export { default as avatar1 } from './avatar-1.svg';
+export { default as avatarSquare } from './avatar-square.svg';
 export { default as avatar2 } from './avatar-2.svg';
 export { default as avatar3 } from './avatar-3.svg';
 export { default as slackLogo } from './slack-logo.svg';

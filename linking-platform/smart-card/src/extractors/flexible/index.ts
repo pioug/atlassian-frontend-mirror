@@ -14,6 +14,7 @@ import {
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
 	extractTitle,
+	extractType,
 	type LinkTypeCreated,
 } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -124,6 +125,9 @@ const extractFlexibleUiContextFromJsonLd = ({
 		title: extractTitle(data) || url,
 		url,
 		ari: extractAri(data),
+		...(fg('platform-linking-visual-refresh-v2') && {
+			type: extractType(data),
+		}),
 	};
 };
 
@@ -191,6 +195,9 @@ const extractFlexibleUiContextFromEntity = ({
 		subTasksProgress: extractSubTasksProgress(data),
 		storyPoints: extractStoryPoints(data),
 		targetBranch: extractTargetBranch(data as JsonLd.Data.SourceCodePullRequest),
+		...(fg('platform-linking-visual-refresh-v2') && {
+			type: extractType(data),
+		}),
 	};
 };
 

@@ -20,9 +20,11 @@ import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-re
 import { BlockCardBitbucket } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
 import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
+import { BlockCardNouns } from '../../../examples/vr-block-card/vr-block-card-resolved-nouns';
 import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
 import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
+import { VRBlockProfileCard } from '../../../examples/vr-block-card/vr-block-profile-card';
 import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
 
 snapshot(BlockCardErrorView, {
@@ -219,5 +221,24 @@ snapshot(BlockCardLazyIconsFileType4, {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
+	},
+});
+snapshot(BlockCardNouns, {
+	description: `block card with noun support`,
+	featureFlags: {
+		smart_links_noun_support: true,
+	},
+});
+
+snapshot(VRBlockProfileCard, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v2': true,
+	},
+});
+
+snapshot(VRBlockProfileCard, {
+	description: 'block profile card with platform-linking-visual-refresh-v2 false',
+	featureFlags: {
+		'platform-linking-visual-refresh-v2': false,
 	},
 });

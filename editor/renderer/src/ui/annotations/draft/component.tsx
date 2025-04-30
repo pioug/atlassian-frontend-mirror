@@ -16,27 +16,11 @@ import { dataAttributes } from './dom';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 import type { TextHighlighter } from '../../../react/types';
-import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import { segmentText } from '../../../react/utils/segment-text';
 import { renderTextSegments } from '../../../react/utils/render-text-segments';
-import { fg } from '@atlaskit/platform-feature-flags';
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const markStyles = () =>
-	css(
-		{
-			color: 'inherit',
-			backgroundColor: 'unset',
-			WebkitTapHighlightColor: 'transparent',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		AnnotationSharedCSSByState().common,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		AnnotationSharedCSSByState().focus,
-	);
 
 // Localized AnnotationSharedCSSByState().common and AnnotationSharedCSSByState().focus
-const markStylesNew = css({
+const markStyles = css({
 	color: 'inherit',
 	backgroundColor: 'unset',
 	WebkitTapHighlightColor: 'transparent',
@@ -66,7 +50,7 @@ export const AnnotationDraft = ({
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...dataAttributes(draftPosition)}
-			css={fg('platform_editor_emotion_refactor_renderer') ? markStylesNew : markStyles}
+			css={markStyles}
 		>
 			{children}
 		</mark>

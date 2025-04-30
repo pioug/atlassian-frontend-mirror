@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.9.9
+
+### Patch Changes
+
+- [#144658](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144658)
+  [`e59e7f0ae0803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e59e7f0ae0803) -
+  Change to use getDomRefFromSelection utility from editor-common
+- Updated dependencies
+
 ## 10.9.8
 
 ### Patch Changes

@@ -2,19 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { createSerializer, matchers } from '@emotion/jest';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import type { CSSFn, CustomItemComponentProps } from '../../../types';
+import type { CustomItemComponentProps } from '../../../types';
 import CustomItem from '../../custom-item';
-
-expect.addSnapshotSerializer(createSerializer());
-expect.extend(matchers);
 
 window.requestAnimationFrame = (cb) => {
 	cb(-1);
@@ -72,8 +67,8 @@ describe('<CustomItem />', () => {
 			</CustomItem>,
 		);
 
-		expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');
-		expect(screen.getByTestId('link')).toHaveStyleRule('color', 'currentColor');
+		expect(screen.getByTestId('link')).toHaveCompiledCss({ backgroundColor: 'red' });
+		expect(screen.getByTestId('link')).toHaveCompiledCss({ color: 'currentColor' });
 	});
 
 	it('should not gain focus on mouse down when it had no initial focus', () => {
@@ -135,34 +130,6 @@ describe('<CustomItem />', () => {
 		fireEvent.click(screen.getByTestId('target'));
 
 		expect(callback).not.toHaveBeenCalled();
-	});
-
-	it('should respect the cssFn prop', () => {
-		const customCss: CSSFn = (state) => ({
-			...(state.isSelected && { border: '1px solid' }),
-			...(state.isDisabled && { pointerEvents: 'none' as const }),
-			padding: '10px',
-			opacity: 0.75,
-			borderRadius: '5px',
-		});
-		render(
-			<CustomItem
-				component={Component}
-				testId="component"
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-				cssFn={customCss}
-				isSelected
-				isDisabled
-			>
-				Helloo
-			</CustomItem>,
-		);
-		const component = screen.getByTestId('component');
-
-		expect(component).toHaveStyleRule('padding', '10px');
-		expect(component).toHaveStyleRule('opacity', '0.75');
-		expect(component).toHaveStyleRule('border-radius', '5px');
-		expect(component).toHaveStyleRule('border', '1px solid');
 	});
 
 	it('should prevent dragging so the transparent artefact isnt shown', () => {
@@ -293,8 +260,8 @@ describe('<CustomItem />', () => {
 					</CustomItem>,
 				);
 
-				expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');
-				expect(screen.getByTestId('link')).toHaveStyleRule('color', 'currentColor');
+				expect(screen.getByTestId('link')).toHaveCompiledCss({ backgroundColor: 'red' });
+				expect(screen.getByTestId('link')).toHaveCompiledCss({ color: 'currentColor' });
 			});
 
 			it('should not gain focus on mouse down when it had no initial focus', () => {
@@ -356,34 +323,6 @@ describe('<CustomItem />', () => {
 				fireEvent.click(screen.getByTestId('target'));
 
 				expect(callback).not.toHaveBeenCalled();
-			});
-
-			it('should respect the cssFn prop', () => {
-				const customCss: CSSFn = (state) => ({
-					...(state.isSelected && { border: '1px solid' }),
-					...(state.isDisabled && { pointerEvents: 'none' as const }),
-					padding: '10px',
-					opacity: 0.75,
-					borderRadius: '5px',
-				});
-				render(
-					<CustomItem
-						component={Component}
-						testId="component"
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-						cssFn={customCss}
-						isSelected
-						isDisabled
-					>
-						Helloo
-					</CustomItem>,
-				);
-				const component = screen.getByTestId('component');
-
-				expect(component).toHaveStyleRule('padding', '10px');
-				expect(component).toHaveStyleRule('opacity', '0.75');
-				expect(component).toHaveStyleRule('border-radius', '5px');
-				expect(component).toHaveStyleRule('border', '1px solid');
 			});
 
 			it('should prevent dragging so the transparent artefact isnt shown', () => {

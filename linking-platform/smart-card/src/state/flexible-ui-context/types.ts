@@ -241,6 +241,11 @@ export type FlexibleUiDataContext = {
 	 * @see Location
 	 */
 	location?: LinkLocation;
+	/**
+	 * Contains the type provided by the link extractor.
+	 * @type string
+	 */
+	type?: string[];
 };
 
 export type Icon = {

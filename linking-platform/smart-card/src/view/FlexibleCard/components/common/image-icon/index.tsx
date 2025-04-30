@@ -1,10 +1,23 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import ImageLoader from 'react-render-image';
+
+import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { LoadingSkeleton } from '../loading-skeleton';
 
 import { type ImageIconProps } from './types';
+
+const styles = cssMap({
+	roundImg: {
+		borderRadius: token('border.radius.circle'),
+	},
+});
 
 const ImageIcon = ({
 	defaultIcon,
@@ -12,6 +25,7 @@ const ImageIcon = ({
 	url,
 	width,
 	height,
+	appearance = 'square',
 	onError,
 	onLoad,
 }: ImageIconProps) => (
@@ -27,6 +41,7 @@ const ImageIcon = ({
 					width,
 					height,
 				}}
+				css={appearance === 'round' && fg('platform-linking-visual-refresh-v2') && styles.roundImg}
 			/>
 		}
 		errored={defaultIcon}

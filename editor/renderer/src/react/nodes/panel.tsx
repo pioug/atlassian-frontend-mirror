@@ -8,10 +8,7 @@ import { css, jsx } from '@emotion/react';
 import TipIcon from '@atlaskit/icon/core/migration/lightbulb--editor-hint';
 import { PanelType } from '@atlaskit/adf-schema';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-	PanelSharedCssClassName,
-	panelSharedStylesWithoutPrefix,
-} from '@atlaskit/editor-common/panel';
+import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
 import EmojiItem from './emoji';
@@ -24,7 +21,6 @@ import {
 } from '@atlaskit/editor-common/icons';
 import { token } from '@atlaskit/tokens';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { fg } from '@atlaskit/platform-feature-flags';
 interface PanelStyledProps {
 	'data-panel-type': PanelType;
@@ -193,46 +189,7 @@ const panelCustomBackground = css({
 	},
 });
 
-const PanelStyledOld = ({
-	backgroundColor,
-	hasIcon,
-	...props
-}: React.PropsWithChildren<PanelStyledProps & React.HTMLAttributes<HTMLDivElement>>) => {
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- nested css mixins are violations
-	let styles = css`
-		&.${PanelSharedCssClassName.prefix} {
-			${panelSharedStylesWithoutPrefix()}
-
-			&[data-panel-type=${PanelType.CUSTOM}] {
-				${hasIcon ? '' : 'padding-left: 12px;padding-right: 12px;'}
-			}
-		}
-	`;
-	if (props['data-panel-type'] === PanelType.CUSTOM && backgroundColor) {
-		// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- nested css mixins are violations
-		styles = css`
-			&.${PanelSharedCssClassName.prefix} {
-				${panelSharedStylesWithoutPrefix()}
-			}
-
-			&[data-panel-type=${PanelType.CUSTOM}] {
-				background-color: ${hexToEditorBackgroundPaletteColor(backgroundColor) || backgroundColor};
-				${hasIcon ? '' : 'padding-left: 12px;padding-right: 12px;'}
-			}
-		`;
-	}
-
-	return (
-		// eslint-disable-next-line
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<div css={styles} {...props}>
-			{props.children}
-		</div>
-	);
-};
-
-const PanelStyledNew = ({
+const PanelStyled = ({
 	backgroundColor,
 	hasIcon,
 	...props
@@ -260,12 +217,6 @@ const PanelStyledNew = ({
 		</div>
 	);
 };
-
-const PanelStyled = componentWithFG(
-	'platform_editor_emotion_refactor_renderer',
-	PanelStyledNew,
-	PanelStyledOld,
-);
 
 PanelStyled.displayName = 'PanelStyled';
 

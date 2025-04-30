@@ -3,6 +3,7 @@ import React, { forwardRef } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import Tooltip from '../../tooltip';
 import { type TooltipPrimitiveProps } from '../../tooltip-primitive';
@@ -10,8 +11,13 @@ import { type TooltipPrimitiveProps } from '../../tooltip-primitive';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+jest.mock('@atlaskit/platform-feature-flags');
+const mockGetBooleanFF = fg as jest.MockedFunction<typeof fg>;
+
 describe('Tooltip', () => {
 	beforeEach(() => {
+		mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible');
+		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
 		jest.useFakeTimers();
 	});
 
@@ -338,6 +344,40 @@ describe('Tooltip', () => {
 			});
 
 			expect(screen.getByTestId('tooltip')).toHaveTextContent('hello world');
+			unmount();
+		});
+	});
+
+	it('should not show the tooltip when the trigger is focused and focus is not visible', () => {
+		HTMLElement.prototype.matches = jest.fn().mockReturnValue(false);
+		const wrapped = (
+			<Tooltip testId="tooltip" content="hello world">
+				<button data-testid="trigger" type="button">
+					focus me
+				</button>
+			</Tooltip>
+		);
+		const renderProp = (
+			<Tooltip testId="tooltip" content="hello world">
+				{(tooltipProps) => (
+					<button {...tooltipProps} data-testid="trigger" type="button">
+						focus me
+					</button>
+				)}
+			</Tooltip>
+		);
+
+		[wrapped, renderProp].forEach((jsx) => {
+			const { unmount } = render(jsx);
+
+			const trigger = screen.getByTestId('trigger');
+
+			fireEvent.focus(trigger);
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
 			unmount();
 		});
 	});

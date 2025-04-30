@@ -5,7 +5,6 @@ import {
 	akEditorBlockquoteBorderColor,
 	blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -54,9 +53,7 @@ export const blockquoteSharedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> .extensionView-content-wrap:last-child': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			display: `${editorExperiment('platform_editor_nested_non_bodied_macros', 'test')}`
-				? 'block'
-				: 'inline-block',
+			display: 'block',
 		},
 	},
 });

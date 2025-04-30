@@ -154,7 +154,7 @@ export interface SectionProps {
 }
 
 export interface MenuItemPrimitiveProps {
-	children: (props: { className: string; children: React.ReactNode }) => JSX.Element;
+	children: (props: { className?: string; children: React.ReactNode }) => JSX.Element;
 	title: React.ReactNode | undefined;
 	description: React.ReactNode | undefined;
 	iconAfter: React.ReactNode | undefined;
@@ -173,15 +173,6 @@ export interface MenuItemPrimitiveProps {
 }
 
 export interface MenuItemProps {
-	/**
-	 * A function that overrides the styles of the component.
-	 * It receives the current styles and state and expects a styles object.
-	 *
-	 * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	cssFn?: CSSFn;
-
 	/**
 	 * Not recommended for general use as it enables unsafe style overrides.
 	 */
@@ -319,7 +310,7 @@ export interface CustomItemComponentProps {
 	 * Class to apply to the root container of the custom component.
 	 * Ensure this has been applied so the item styling is consistent.
 	 */
-	className: string;
+	className?: string;
 
 	/**
 	 * Test ID that's passed through to the custom component.

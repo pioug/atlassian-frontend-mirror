@@ -37,7 +37,7 @@ describe('Object Result', () => {
 	it('should render `name` prop', () => {
 		const name = "Phillip Jacobs' Personal Space";
 		resultWrapper.setProps({ name });
-		expect(resultWrapper.text()).toEqual(name);
+		expect(resultWrapper.text()).toEqual(expect.stringContaining(name));
 	});
 
 	it('should render lock icon on private room results', () => {

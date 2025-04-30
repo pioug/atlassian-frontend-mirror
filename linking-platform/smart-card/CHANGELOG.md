@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 36.11.1
+
+### Patch Changes
+
+- [#146358](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146358)
+  [`cb49f60f88979`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb49f60f88979) -
+  [ux] Update profile icons to be rounded
+- Updated dependencies
+
+## 36.11.0
+
+### Minor Changes
+
+- [#147390](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147390)
+  [`936db03f49922`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/936db03f49922) -
+  [ux] EDM-12440 fixing regression with position styles introduced with SL icon migration
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.10.1
 
 ### Patch Changes

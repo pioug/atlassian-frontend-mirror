@@ -771,7 +771,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 												getDomRefFromSelection(
 													editorView,
 													ACTION_SUBJECT_ID.PICKER_TABLE_SIZE,
-													api?.analytics?.actions.fireAnalyticsEvent,
+													api?.analytics?.actions,
 												)
 											}
 											popupsBoundariesElement={popupsBoundariesElement}

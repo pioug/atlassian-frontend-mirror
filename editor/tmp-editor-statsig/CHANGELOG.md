@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.15.0
+
+### Minor Changes
+
+- [#147400](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147400)
+  [`800ff50276ed7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/800ff50276ed7) -
+  Clean up experiment platform_editor_nested_non_bodied_macros
+
 ## 4.14.1
 
 ### Patch Changes

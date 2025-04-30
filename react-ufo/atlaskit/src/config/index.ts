@@ -42,6 +42,8 @@ type Rates = {
 	readonly [key: string]: number;
 };
 
+type TTVCRevisions = 'fy25.01' | 'fy25.02' | 'fy25.03';
+
 // Defensively typed, since this is directly user-editable
 // and they could delete empty members
 export type Config = {
@@ -90,7 +92,7 @@ export type Config = {
 		readonly ssr?: boolean;
 		readonly ssrWhitelist?: string[];
 		readonly stopVCAtInteractionFinish?: boolean;
-		readonly enableVCObserverNew?: boolean;
+		readonly enabledVCRevisions?: readonly TTVCRevisions[];
 	};
 	readonly postInteractionLog?: {
 		readonly enabled?: boolean;

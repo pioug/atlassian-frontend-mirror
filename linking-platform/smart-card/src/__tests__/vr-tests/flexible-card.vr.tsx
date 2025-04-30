@@ -6,6 +6,7 @@ import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-b
 import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states';
 import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
 import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
+import FlexibleUiBlockNouns from '../../../examples/vr-flexible-card/vr-flexible-ui-block-nouns';
 import {
 	FlexibleUiBlockPreviewLarge,
 	FlexibleUiBlockPreviewMedium,
@@ -351,5 +352,13 @@ snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+
+// Nouns
+snapshot(FlexibleUiBlockNouns, {
+	ignoredErrors: [],
+	featureFlags: {
+		smart_links_noun_support: true,
 	},
 });

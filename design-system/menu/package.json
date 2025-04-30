@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "3.2.0",
+	"version": "4.0.0",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,6 +50,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.3",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
@@ -138,6 +139,9 @@
 			"type": "boolean"
 		},
 		"platform_button_item-add-ufo-metrics": {
+			"type": "boolean"
+		},
+		"platform_fix_a11y_selected_and_hovered_state_color": {
 			"type": "boolean"
 		}
 	},

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.2.0
+
+### Minor Changes
+
+- [#147450](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147450)
+  [`38f270ecf0ed0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38f270ecf0ed0) -
+  Revert optimisation made to breakout
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.8
 
 ### Patch Changes

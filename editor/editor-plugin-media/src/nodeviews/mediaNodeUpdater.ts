@@ -220,7 +220,10 @@ export class MediaNodeUpdater {
 	};
 
 	uploadExternalMedia = async (getPos: ProsemirrorGetPosHandler) => {
-		const { node } = this.props;
+		const { node, mediaOptions } = this.props;
+		if (mediaOptions?.isExternalMediaUploadDisabled) {
+			return;
+		}
 		const mediaProvider = await this.props.mediaProvider;
 
 		if (node && mediaProvider) {

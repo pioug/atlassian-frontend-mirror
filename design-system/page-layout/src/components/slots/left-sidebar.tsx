@@ -17,7 +17,6 @@ import { css, jsx } from '@emotion/react';
 
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import { easeOut } from '@atlaskit/motion';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 import { N100A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -370,10 +369,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 		isDisabled: !isFlyoutOpen,
 	});
 
-	// We use both the state and our effect-based ref to protect animation until initialized fully
-	const isReady = fg('platform_dst_concurrent_left_sidebar_width')
-		? hasInit && notFirstRun.current
-		: notFirstRun.current;
+	/**
+	 * We use both the state and our effect-based ref to protect animation until initialized fully
+	 */
+	const isReady = hasInit && notFirstRun.current;
 
 	return (
 		<Fragment>

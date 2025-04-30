@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 6.2.5
+
+### Patch Changes
+
+- [#144658](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144658)
+  [`e59e7f0ae0803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e59e7f0ae0803) -
+  Change to use getDomRefFromSelection utility from editor-common
+- Updated dependencies
+
 ## 6.2.4
 
 ### Patch Changes

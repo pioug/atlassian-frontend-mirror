@@ -4,12 +4,35 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type LozengeProps } from '../../../../../types';
 import { InlineCardResolvedView } from '../../index';
 
-jest.mock('react-render-image');
+jest.mock('react-render-image', () => ({
+	...jest.requireActual('react-render-image'),
+	__esModule: true,
+	default: jest.fn(({ loaded }) => {
+		return <>{loaded}</>;
+	}),
+}));
+
+const mockTypeTestId = 'mocked-type-test-id';
+jest.mock('../../../IconAndTitleLayout', () => ({
+	...jest.requireActual('../../../IconAndTitleLayout'),
+	IconAndTitleLayout: jest.fn((props) => {
+		const Component = jest.requireActual('../../../IconAndTitleLayout').IconAndTitleLayout;
+
+		return (
+			<>
+				<div data-testid={mockTypeTestId}>{props.type?.join(', ')}</div>
+				<Component {...props} />
+			</>
+		);
+	}),
+}));
 
 describe('ResolvedView', () => {
 	it('should render the title', async () => {
@@ -23,6 +46,24 @@ describe('ResolvedView', () => {
 			'src',
 			'some-link-to-icon',
 		);
+	});
+
+	ffTest.both('platform-linking-visual-refresh-v2', '', () => {
+		it('should send type to IconAndTitleLayout', () => {
+			render(
+				<InlineCardResolvedView
+					icon="some-link-to-icon"
+					title="some text content"
+					type={['Document', 'Profile']}
+				/>,
+			);
+
+			if (fg('platform-linking-visual-refresh-v2')) {
+				expect(screen.getByTestId(mockTypeTestId)).toHaveTextContent('Document, Profile');
+			} else {
+				expect(screen.getByTestId(mockTypeTestId)).toBeEmptyDOMElement();
+			}
+		});
 	});
 
 	it('should not render icon when one is not provided', async () => {

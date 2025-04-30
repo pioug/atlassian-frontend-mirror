@@ -52,7 +52,6 @@ import { injectIntl } from 'react-intl-next';
 import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inline-comments-filter';
 import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 export type MediaProps = MediaCardProps & {
 	providers?: ProviderFactory;
@@ -95,16 +94,7 @@ const linkStyle = css({
 	height: '100% !important',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-const borderStyleOld = (color: string, width: number) => css`
-	position: absolute;
-	width: 100% !important;
-	height: 100% !important;
-	border-radius: ${width}px;
-	box-shadow: 0 0 0 ${width}px ${color};
-`;
-
-const borderStyleNew = css({
+const borderStyle = css({
 	position: 'absolute',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	width: '100% !important',
@@ -112,7 +102,7 @@ const borderStyleNew = css({
 	height: '100% !important',
 });
 
-const MediaBorderOld = ({
+const MediaBorder = ({
 	mark,
 	children,
 }: React.PropsWithChildren<{
@@ -132,36 +122,7 @@ const MediaBorderOld = ({
 			data-mark-type="border"
 			data-color={borderColor}
 			data-size={borderWidth}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={borderStyleOld(paletteColorValue, borderWidth)}
-		>
-			<MediaBorderGapFiller borderColor={borderColor} />
-			{children}
-		</div>
-	);
-};
-
-const MediaBorderNew = ({
-	mark,
-	children,
-}: React.PropsWithChildren<{
-	mark?: BorderMarkDefinition;
-}>): JSX.Element => {
-	if (!mark) {
-		return <Fragment>{children}</Fragment>;
-	}
-
-	const borderColor = mark?.attrs.color ?? '';
-	const borderWidth = mark?.attrs.size ?? 0;
-
-	const paletteColorValue = hexToEditorBorderPaletteColor(borderColor) || borderColor;
-
-	return (
-		<div
-			data-mark-type="border"
-			data-color={borderColor}
-			data-size={borderWidth}
-			css={borderStyleNew}
+			css={borderStyle}
 			style={{
 				borderRadius: `${borderWidth}px`,
 				boxShadow: `0 0 0 ${borderWidth}px ${paletteColorValue}`,
@@ -172,12 +133,6 @@ const MediaBorderNew = ({
 		</div>
 	);
 };
-
-const MediaBorder = componentWithFG(
-	'platform_editor_emotion_refactor_renderer',
-	MediaBorderNew,
-	MediaBorderOld,
-);
 
 const MediaLink = ({
 	mark,

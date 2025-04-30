@@ -2,12 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import {
-	extendedBlockquote,
-	blockquoteWithoutNonBodiedMacros,
-	hardBreak,
-	heading,
-} from '@atlaskit/adf-schema';
+import { extendedBlockquote, hardBreak, heading } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -178,17 +173,11 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		name: 'blockType',
 
 		nodes() {
-			const blockquote = editorExperiment('platform_editor_nested_non_bodied_macros', 'test', {
-				exposure: false,
-			})
-				? extendedBlockquote
-				: blockquoteWithoutNonBodiedMacros;
-
 			const nodes: BlockTypeNode[] = [
 				{ name: 'heading', node: heading },
 				{
 					name: 'blockquote',
-					node: blockquote,
+					node: extendedBlockquote,
 				},
 				{ name: 'hardBreak', node: hardBreak },
 			];

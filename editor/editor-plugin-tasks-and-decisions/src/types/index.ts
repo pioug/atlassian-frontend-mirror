@@ -4,6 +4,7 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';
@@ -100,6 +101,7 @@ export type TaskDecisionPluginState = {
 	requestToEditContent?: () => void;
 	taskDecisionProvider: TaskDecisionProvider | undefined;
 	openRequestToEditPopupAt?: number | null;
+	decorations: DecorationSet;
 };
 
 export type TaskAndDecisionsSharedState = Pick<
@@ -118,3 +120,11 @@ export type TaskAndDecisionsSharedState = Pick<
 };
 
 export type GetContextIdentifier = () => ContextIdentifierProvider | undefined;
+
+export type TaskItemState = 'DONE' | 'TODO';
+
+export type TaskItemInfoMeta = {
+	from: number;
+	to: number;
+	checkState: TaskItemState;
+};

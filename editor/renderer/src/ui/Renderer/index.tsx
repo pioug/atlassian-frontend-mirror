@@ -457,6 +457,11 @@ export const RendererFunctionalComponent = (
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	const rendererContext = useMemo(
+		() => createRendererContext(props.featureFlags, props.isTopLevelRenderer),
+		[props.featureFlags, props.isTopLevelRenderer, createRendererContext],
+	);
+
 	try {
 		const schema = getSchema(props.schema, props.adfStage);
 		const { result, stat, pmDoc } = renderDocument(
@@ -479,9 +484,7 @@ export const RendererFunctionalComponent = (
 		}
 
 		const rendererOutput = (
-			<RendererContextProvider
-				value={createRendererContext(props.featureFlags, props.isTopLevelRenderer)}
-			>
+			<RendererContextProvider value={rendererContext}>
 				<ActiveHeaderIdProvider value={getActiveHeadingId(props.allowHeadingAnchorLinks)}>
 					<AnalyticsContext.Provider
 						value={{
@@ -500,8 +503,7 @@ export const RendererFunctionalComponent = (
 									allowCustomPanels={props.allowCustomPanels}
 									allowPlaceholderText={props.allowPlaceholderText}
 									useBlockRenderForCodeBlock={
-										createRendererContext(props.featureFlags, props.isTopLevelRenderer).featureFlags
-											.useBlockRenderForCodeBlock ?? true
+										rendererContext.featureFlags.useBlockRenderForCodeBlock ?? true
 									}
 									addTelepointer={props.addTelepointer}
 									innerRef={editorRef}
@@ -509,10 +511,7 @@ export const RendererFunctionalComponent = (
 									onMouseDown={onMouseDownEditView}
 									ssr={props.media?.ssr}
 									isInsideOfInlineExtension={props.isInsideOfInlineExtension}
-									isTopLevelRenderer={
-										createRendererContext(props.featureFlags, props.isTopLevelRenderer)
-											.isTopLevelRenderer
-									}
+									isTopLevelRenderer={rendererContext.isTopLevelRenderer}
 									shouldRemoveEmptySpaceAroundContent={props.shouldRemoveEmptySpaceAroundContent}
 								>
 									{props.enableSsrInlineScripts || props.noOpSSRInlineScript ? (
@@ -557,15 +556,10 @@ export const RendererFunctionalComponent = (
 				allowPlaceholderText={props.allowPlaceholderText}
 				allowColumnSorting={props.allowColumnSorting}
 				allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
-				useBlockRenderForCodeBlock={
-					createRendererContext(props.featureFlags, props.isTopLevelRenderer).featureFlags
-						.useBlockRenderForCodeBlock ?? true
-				}
+				useBlockRenderForCodeBlock={rendererContext.featureFlags.useBlockRenderForCodeBlock ?? true}
 				addTelepointer={props.addTelepointer}
 				onClick={(event) => handleWrapperOnClick(event, props, mouseDownSelection)}
-				isTopLevelRenderer={
-					createRendererContext(props.featureFlags, props.isTopLevelRenderer).isTopLevelRenderer
-				}
+				isTopLevelRenderer={rendererContext.isTopLevelRenderer}
 			>
 				<UnsupportedBlock />
 			</RendererWrapper>

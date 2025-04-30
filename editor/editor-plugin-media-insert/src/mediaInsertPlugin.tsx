@@ -18,7 +18,7 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import type { InsertExternalMediaSingle, InsertFile, InsertMediaSingle } from './types';
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
 
-export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
+export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 	return {
 		name: 'mediaInsert',
 
@@ -132,6 +132,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 					insertMediaSingle={insertMediaSingle}
 					insertExternalMediaSingle={insertExternalMediaSingle}
 					insertFile={insertFile}
+					isOnlyExternalLinks={config?.isOnlyExternalLinks}
 				/>
 			);
 		},

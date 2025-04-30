@@ -5,11 +5,8 @@
 
 import { forwardRef, memo, type MouseEventHandler, useCallback, useContext } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
-import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
-import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -43,7 +40,6 @@ const CustomItem = memo(
 		(
 			{
 				component: Component,
-				cssFn = noop as any,
 				isDisabled = false,
 				isSelected = false,
 				onClick,
@@ -80,13 +76,6 @@ const CustomItem = memo(
 				return null;
 			}
 
-			propDeprecationWarning(
-				process.env._PACKAGE_NAME_ || '',
-				'cssFn',
-				cssFn !== (noop as any),
-				'', // TODO: Create DAC post when primitives/xcss are available as alternatives
-			);
-
 			return (
 				<MenuItemPrimitive
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -102,14 +91,6 @@ const CustomItem = memo(
 					isDisabled={isDisabled}
 					shouldTitleWrap={shouldTitleWrap}
 					shouldDescriptionWrap={shouldDescriptionWrap}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={css(
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						cssFn({
-							isDisabled,
-							isSelected,
-						}),
-					)}
 					testId={testId && `${testId}--primitive`}
 				>
 					{({ children, className }) => (

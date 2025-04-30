@@ -1,7 +1,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import { isBoolean, oneOf } from './type-guards';
 import { ExperimentConfigValue } from './types';
 import { createBooleanExperiment, createMultivariateExperiment } from './experiment-builders';
 
@@ -82,240 +81,206 @@ export const editorExperimentsConfig = {
 	}),
 	// Added 2025-3-15
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_single_column_layout/setup
-	single_column_layouts: {
+	single_column_layouts: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_single_column_layout',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-10-08
-	support_table_in_comment_jira: {
+	support_table_in_comment_jira: createBooleanExperiment({
 		productKeys: {
 			jira: 'platform_editor_support_table_in_comment_jira',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
-	'platform_editor_ai-prompts-placeholder': {
+		defaultValue: false,
+	}),
+	'platform_editor_ai-prompts-placeholder': createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai-prompts-placeholder',
 		},
 		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
+		values: ['control', 'test'],
+		defaultValue: 'control',
+	}),
 	// added 2024-11-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup
-	'nested-tables-in-tables': {
+	'nested-tables-in-tables': createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nested_tables',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-11-26
-	platform_editor_ai_unsplash_page_header: {
+	platform_editor_ai_unsplash_page_header: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_unsplash_page_header',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2024-12-05
-	platform_editor_blockquote_in_text_formatting_menu: {
+	platform_editor_blockquote_in_text_formatting_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_blockquote_in_text_formatting_menu',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-01-09
-	platform_editor_advanced_code_blocks: {
+	platform_editor_advanced_code_blocks: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_advanced_code_blocks',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-01-13
-	platform_editor_element_drag_and_drop_multiselect: {
+	platform_editor_element_drag_and_drop_multiselect: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_element_drag_and_drop_multiselect',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-01-16
-	live_pages_graceful_edit: {
+	live_pages_graceful_edit: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'live_pages_graceful_edit',
 		},
 		param: 'cohort',
-		typeGuard: oneOf([
-			'control',
-			'text-click-delayed',
-			'text-click-no-delay',
-			'initially-hide-toolbar',
-		]),
-		defaultValue: 'control' as
-			| 'control'
-			| 'text-click-delayed'
-			| 'text-click-no-delay'
-			| 'initially-hide-toolbar',
-	},
+		values: ['control', 'text-click-delayed', 'text-click-no-delay', 'initially-hide-toolbar'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-01-19
-	platform_editor_ai_edit_response_in_preview: {
+	platform_editor_ai_edit_response_in_preview: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_edit_response_in_preview',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-02-10
-	platform_editor_controls: {
+	platform_editor_controls: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_controls',
 		},
 		param: 'cohort',
-		typeGuard: oneOf(['control', 'variant1']),
-		defaultValue: 'control' as 'control' | 'variant1',
-	},
+		values: ['control', 'variant1'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-04-14
-	platform_editor_controls_shadow: {
+	platform_editor_controls_shadow: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_controls_shadow',
 		},
 		param: 'cohort',
-		typeGuard: oneOf(['control', 'variant1']),
-		defaultValue: 'control' as 'control' | 'variant1',
-	},
-	// Added 2025-02-18
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_non_bodied_macros/setup
-	platform_editor_nested_non_bodied_macros: {
-		productKeys: {
-			confluence: 'platform_editor_nested_non_bodied_macros',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
+		values: ['control', 'variant1'],
+		defaultValue: 'control',
+	}),
 	// Added 28-02-2025
-	platform_editor_insertion: {
+	platform_editor_insertion: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_insertion',
 		},
 		param: 'cohort',
-		typeGuard: oneOf(['control', 'variant1']),
-		defaultValue: 'control' as 'control' | 'variant1',
-	},
+		values: ['control', 'variant1'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-02-25
-	platform_editor_inline_node_virtualization: {
+	platform_editor_inline_node_virtualization: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_inline_node_virtualization',
 		},
 		param: 'variant',
-		typeGuard: oneOf(['off', 'fallback-small', 'fallback-large']),
-		defaultValue: 'off' as 'off' | 'fallback-small' | 'fallback-large',
-	},
+		values: ['off', 'fallback-small', 'fallback-large'],
+		defaultValue: 'off',
+	}),
 	// Added 2025-04-01
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_vanilla_dom/setup
-	platform_editor_vanilla_dom: {
+	platform_editor_vanilla_dom: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_vanilla_dom',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-03-13
-	editor_text_highlight_orange_to_yellow: {
+	editor_text_highlight_orange_to_yellow: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'editor_text_highlight_orange_to_yellow',
 		},
 		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
+		values: ['control', 'test'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-03-28
-	platform_editor_ai_proactive_ai_nudge_parameters: {
+	platform_editor_ai_proactive_ai_nudge_parameters: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_proactive_ai_nudge_parameters',
 		},
 		param: 'cohort',
-		typeGuard: oneOf(['control', 'variant1']),
-		defaultValue: 'control' as 'control' | 'variant1',
-	},
+		values: ['control', 'variant1'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-04-14
 	// https://switcheroo.atlassian.com/ui/gates/b159b45a-86d9-4f4b-b482-f9aca5b615d6/key/platform_editor_offline_editing_web
-	platform_editor_offline_editing_web: {
+	platform_editor_offline_editing_web: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_offline_editing_web',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-03-26
-	platform_editor_markdown_next_media_plugin_exp: {
+	platform_editor_markdown_next_media_plugin_exp: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_markdown_next_media_plugin_exp',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-04-14
-	editor_ai_inline_suggestion_date_v2: {
+	editor_ai_inline_suggestion_date_v2: createMultivariateExperiment({
 		productKeys: {
 			confluence: 'editor_ai_inline_suggestion_date_v2',
 		},
 		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
+		values: ['control', 'test'],
+		defaultValue: 'control',
+	}),
 	// Added 2025-04-17
-	platform_editor_tables_drag_and_drop: {
+	platform_editor_tables_drag_and_drop: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_tables_drag_and_drop',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-04-17
-	platform_editor_tables_table_selector: {
+	platform_editor_tables_table_selector: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_tables_table_selector',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-04-23
-	platform_editor_usesharedpluginstateselector: {
+	platform_editor_usesharedpluginstateselector: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_usesharedpluginstateselector',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 	// Added 2025-04-23
-	platform_renderer_fix_analytics_memo_callback: {
+	platform_renderer_fix_analytics_memo_callback: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_renderer_fix_analytics_memo_callback',
 		},
 		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

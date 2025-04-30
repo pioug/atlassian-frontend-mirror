@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 114.11.1
+
+### Patch Changes
+
+- [#147372](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147372)
+  [`9a77b2e8909a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a77b2e8909a2) -
+  Adding anlytics to help identify root cause of why annotaiton are not applied on some ranges
+- [#147400](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147400)
+  [`800ff50276ed7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/800ff50276ed7) -
+  Clean up experiment platform_editor_nested_non_bodied_macros
+- Updated dependencies
+
 ## 114.11.0
 
 ### Minor Changes

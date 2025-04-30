@@ -1,5 +1,13 @@
 # @atlaskit/visually-hidden
 
+## 3.0.3
+
+### Patch Changes
+
+- [#147260](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147260)
+  [`c5d147b984034`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5d147b984034) -
+  Prevent users to select and copy visually hidden text
+
 ## 3.0.2
 
 ### Patch Changes

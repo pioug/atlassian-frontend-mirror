@@ -373,3 +373,5 @@ export const getPreviewUrlWithTheme = (
 
 export const isIconSizeLarge = (size?: SmartLinkSize) =>
 	size && [SmartLinkSize.Large, SmartLinkSize.XLarge].includes(size);
+
+export const isProfileType = (type?: string[]) => !!(type && type.includes('Profile'));

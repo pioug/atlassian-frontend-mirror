@@ -31,3 +31,4 @@ export { JiraIssue, JiraIssueAssigned, JiraTasks, JiraProject } from './provider
 export { SlackMessage, SlackChannel } from './provider.slack';
 export { YouTubeVideo, YouTubeVideoUrl } from './provider.youtube';
 export { GoogleDoc, GoogleDocUrl } from './provider.gdrive';
+export { ProfileObject } from './provider.profile';

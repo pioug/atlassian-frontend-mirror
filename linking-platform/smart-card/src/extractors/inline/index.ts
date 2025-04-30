@@ -7,6 +7,7 @@ import {
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
 	extractTitle,
+	extractType,
 	isEntityPresent,
 } from '@atlaskit/link-extractors';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
@@ -66,6 +67,9 @@ export const extractInlineProps = (
 			lozenge: extractLozenge(jsonLd),
 			titleTextColor: extractTitleTextColor(jsonLd),
 			titlePrefix: extractTitlePrefix(jsonLd, renderers, 'inline'),
+			...(fg('platform-linking-visual-refresh-v2') && {
+				type: extractType(jsonLd),
+			}),
 		};
 	}
 
@@ -76,5 +80,8 @@ export const extractInlineProps = (
 		icon: extractInlineIcon(jsonLd, showLabel),
 		titleTextColor: extractTitleTextColor(jsonLd),
 		titlePrefix: extractTitlePrefix(jsonLd, renderers, 'inline'),
+		...(fg('platform-linking-visual-refresh-v2') && {
+			type: extractType(jsonLd),
+		}),
 	};
 };

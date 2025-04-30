@@ -1,5 +1,18 @@
 # @atlaskit/side-navigation
 
+## 9.0.0
+
+### Major Changes
+
+- [#141631](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141631)
+  [`c6c9daf3fbca2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6c9daf3fbca2) -
+  Removed the deprecated `cssFn` prop from `ButtonItem`, `LinkItem`, `CustomItem` and `GoBackItem`
+  components.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

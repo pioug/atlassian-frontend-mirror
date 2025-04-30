@@ -6,4 +6,5 @@ export type ImageIconProps = {
 	height?: string;
 	onError?: () => void;
 	onLoad?: () => void;
+	appearance?: 'square' | 'round';
 };

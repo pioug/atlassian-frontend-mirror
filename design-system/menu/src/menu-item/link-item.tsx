@@ -13,12 +13,9 @@ import {
 	useContext,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import { useRouterLink } from '@atlaskit/app-provider';
-import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
-import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -47,7 +44,6 @@ const LinkItem = memo(
 			const {
 				children,
 				href,
-				cssFn = noop as any,
 				description,
 				iconAfter,
 				iconBefore,
@@ -103,13 +99,6 @@ const LinkItem = memo(
 
 			const Component = isRouterLink ? RouterLink : 'a';
 
-			propDeprecationWarning(
-				process.env._PACKAGE_NAME_ || '',
-				'cssFn',
-				cssFn !== (noop as any),
-				'', // TODO: Create DAC post when primitives/xcss are available as alternatives
-			);
-
 			return (
 				<MenuItemPrimitive
 					{...rest}
@@ -124,13 +113,6 @@ const LinkItem = memo(
 					description={description}
 					shouldTitleWrap={shouldTitleWrap}
 					shouldDescriptionWrap={shouldDescriptionWrap}
-					css={
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-						cssFn({
-							isSelected,
-							isDisabled,
-						})
-					}
 					title={children}
 					testId={testId && `${testId}--primitive`}
 				>

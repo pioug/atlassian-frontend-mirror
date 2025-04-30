@@ -13,7 +13,6 @@ snapshotInformational(RendererWithAnnotationsOverMarksWrapper, {
 	description: 'displays the correct annotation highlight',
 	featureFlags: {
 		platform_renderer_nested_annotation_styling: true,
-		platform_editor_emotion_refactor_renderer: true,
 		editor_inline_comments_on_inline_nodes: true,
 	},
 	prepare: async (page) => {

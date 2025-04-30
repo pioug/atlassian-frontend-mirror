@@ -260,40 +260,38 @@ const containsNonTableBlockChildren = (fragment: Fragment, schema: Schema): bool
 };
 
 export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): Slice => {
-	if (fg('platform_editor_nested_tables_paste_wrap_fix')) {
-		// Case 1: A slice of a block selection inside a nested table
-		// Prosemirror wraps nested block selections in their respective tables
-		// We are using `safeInsert` to paste nested tables, so we do not want to preserve this wrapping
+	// Case 1: A slice of a block selection inside a nested table
+	// Prosemirror wraps nested block selections in their respective tables
+	// We are using `safeInsert` to paste nested tables, so we do not want to preserve this wrapping
 
-		// slice starts and ends inside a nested table at the same depth
-		if (slice.openStart >= 7 && slice.openEnd >= 7) {
-			let cleaned = slice;
-			let descendedDepth = 0;
-			const tableDepthDecrement = 2;
+	// slice starts and ends inside a nested table at the same depth
+	if (slice.openStart >= 7 && slice.openEnd >= 7) {
+		let cleaned = slice;
+		let descendedDepth = 0;
+		const tableDepthDecrement = 2;
 
-			// if the slice is a single cell table and contains cells with single cell tables, descend into it until we find textblock children
-			if (isFragmentSingleCellTable(slice.content, schema)) {
-				slice.content.firstChild?.descendants((node) => {
-					if (isNodeSingleCellTable(node, schema)) {
-						descendedDepth += tableDepthDecrement;
-					} else if (node.type === schema.nodes.table) {
-						return false;
-					} else if (containsNonTableBlockChildren(node.content, schema)) {
-						descendedDepth += tableDepthDecrement;
-						// create a new slice with the content of non-table block children and the depth of the nested tables subtracted
-						cleaned = new Slice(
-							node.content,
-							slice.openStart - descendedDepth - tableDepthDecrement,
-							slice.openEnd - descendedDepth - tableDepthDecrement,
-						);
-						return false;
-					}
-				});
-			}
+		// if the slice is a single cell table and contains cells with single cell tables, descend into it until we find textblock children
+		if (isFragmentSingleCellTable(slice.content, schema)) {
+			slice.content.firstChild?.descendants((node) => {
+				if (isNodeSingleCellTable(node, schema)) {
+					descendedDepth += tableDepthDecrement;
+				} else if (node.type === schema.nodes.table) {
+					return false;
+				} else if (containsNonTableBlockChildren(node.content, schema)) {
+					descendedDepth += tableDepthDecrement;
+					// create a new slice with the content of non-table block children and the depth of the nested tables subtracted
+					cleaned = new Slice(
+						node.content,
+						slice.openStart - descendedDepth - tableDepthDecrement,
+						slice.openEnd - descendedDepth - tableDepthDecrement,
+					);
+					return false;
+				}
+			});
+		}
 
-			if (!cleaned.eq(slice)) {
-				return cleaned;
-			}
+		if (!cleaned.eq(slice)) {
+			return cleaned;
 		}
 	}
 

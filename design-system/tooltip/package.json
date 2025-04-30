@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "20.0.5",
+	"version": "20.0.6",
 	"description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -111,6 +111,9 @@
 	"homepage": "https://atlassian.design/components/tooltip/",
 	"platform-feature-flags": {
 		"platform_dst_open_layer_observer_close_layers": {
+			"type": "boolean"
+		},
+		"platform-tooltip-focus-visible": {
 			"type": "boolean"
 		}
 	}

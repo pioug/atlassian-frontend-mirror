@@ -83,6 +83,23 @@ export interface MediaPluginOptions {
 	// default is context
 	mediaShallowCopyScope?: MediaCopyScope;
 	allowPixelResizing?: boolean;
+	/**
+	 * Enabling this will prevent this plugin from automatically trying to upload external images to the Media service.
+	 * This can be used in conjunction with the `isOnlyExternalLinks` config for `media-insert-plugin` to limit images
+	 * to external URLs in the UI as well.
+	 *
+	 * @example
+	 * ```typescript
+	 *  createDefaultPreset({ featureFlags: {}, paste: {} })
+	 *      .add(listPlugin)
+	 *      .add(gridPlugin)
+	 *      .add([mediaPlugin, { provider, allowMediaSingle: true, isExternalMediaUploadDisabled: true }])
+	 *      .add(insertBlockPlugin)
+	 *      .add(contentInsertionPlugin)
+	 *      .add([mediaInsertPlugin, { isOnlyExternalLinks: true }])
+	 * ```
+	 */
+	isExternalMediaUploadDisabled?: boolean;
 }
 
 /**

@@ -8,6 +8,7 @@ export { annotationMessages } from './annotation';
 export { messages as breakoutMessages } from './breakout';
 export { messages as blockTypeMessages } from './block-type';
 export { codeBidiWarningMessages } from './codeBidiWarning';
+export { colorPickerButtonMessages } from './color-picker-button';
 export { linkMessages } from './link';
 export { linkToolbarMessages } from './link-toolbar';
 export { unsupportedContentMessages } from './unsupportedContent';

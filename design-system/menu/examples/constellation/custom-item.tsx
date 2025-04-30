@@ -2,16 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { MouseEvent } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import Icon from '@atlaskit/icon';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { B100 } from '@atlaskit/theme/colors';
 
-import { type CSSFn, CustomItem, type CustomItemComponentProps } from '../../src';
+import { CustomItem, type CustomItemComponentProps } from '../../src';
 import Slack from '../icons/slack';
 
 type CustomComponentWithHrefProps = CustomItemComponentProps & {
@@ -20,40 +17,36 @@ type CustomComponentWithHrefProps = CustomItemComponentProps & {
 
 const CustomComponent = ({ children, href, ...props }: CustomComponentWithHrefProps) => {
 	return (
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-html-anchor
 		<a href={href} {...props}>
 			{children}
 		</a>
 	);
 };
 
-const cssFn: CSSFn = (state) => {
-	return {
+const styles = cssMap({
+	root: {
 		position: 'relative',
 		overflow: 'hidden',
 		userSelect: 'none',
-		'::before': state.isDisabled
-			? {}
-			: {
-					content: '""',
-					position: 'absolute',
-					left: 0,
-					top: 0,
-					bottom: 0,
-					width: 3,
-					transform: 'translateX(-1px)',
-					transition: 'transform 70ms ease-in-out',
-
-					backgroundColor: B100,
-				},
-
-		':hover::before': state.isDisabled
-			? {}
-			: {
-					transform: 'translateX(0)',
-				},
-	};
-};
+	},
+	interactive: {
+		'&::before': {
+			content: '""',
+			position: 'absolute',
+			left: 0,
+			top: 0,
+			bottom: 0,
+			width: 3,
+			transform: 'translateX(-1px)',
+			transition: 'transform 70ms ease-in-out',
+			backgroundColor: B100,
+		},
+		'&:hover::before': {
+			transform: 'translateX(0)',
+		},
+	},
+});
 
 export default () => (
 	/**
@@ -64,51 +57,46 @@ export default () => (
 	 * no negative impacts to assistive technologies.
 	 */
 	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
-	<Box onClick={(e: MouseEvent) => e.preventDefault()} role="presentation">
+	<Box onClick={(e: React.MouseEvent) => e.preventDefault()} role="presentation">
 		<CustomItem
 			href="/navigation-system"
 			component={CustomComponent}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={cssFn}
+			css={[styles.root, styles.interactive]}
 		>
-			Navigation System
+			CustomItem
 		</CustomItem>
 		<CustomItem
 			href="/navigation-system-1"
 			isSelected
 			component={CustomComponent}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={cssFn}
+			css={[styles.root, styles.interactive]}
 		>
-			Navigation System
+			isSelected CustomItem
 		</CustomItem>
 		<CustomItem
 			href="/navigation-system-2"
 			isDisabled
 			component={CustomComponent}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={cssFn}
+			css={styles.root}
 		>
-			Navigation System
+			isDisabled CustomItem
 		</CustomItem>
 		<CustomItem
 			href="/navigation-system-3"
 			component={CustomComponent}
 			iconBefore={<Icon glyph={Slack} label="" />}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={cssFn}
+			css={[styles.root, styles.interactive]}
 		>
-			Navigation System
+			iconBefore CustomItem
 		</CustomItem>
 		<CustomItem
 			href="/navigation-system-4"
 			component={CustomComponent}
 			iconBefore={<Icon glyph={Slack} label="" />}
 			description="Next-gen software project"
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={cssFn}
+			css={[styles.root, styles.interactive]}
 		>
-			Navigation System
+			iconBefore and description CustomItem
 		</CustomItem>
 	</Box>
 );

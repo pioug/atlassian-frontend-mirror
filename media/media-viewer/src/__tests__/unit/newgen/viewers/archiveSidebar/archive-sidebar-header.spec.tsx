@@ -4,7 +4,7 @@ import {
 	ArchiveSidebarHeader,
 	type HeaderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
-import { ButtonItem } from '@atlaskit/side-navigation';
+import { CustomButtonItem } from '../../../../../viewers/archiveSidebar/custom-button-item';
 import HomeIcon from '@atlaskit/icon/core/migration/home';
 import ArrowLeftIcon from '@atlaskit/icon/core/migration/arrow-left';
 
@@ -13,17 +13,17 @@ describe('ArchiveSidebarHeader', () => {
 		return mount(<ArchiveSidebarHeader {...props} />);
 	}
 
-	it('should render ButtonItem element', () => {
+	it('should render CustomButtonItem element', () => {
 		const el = mountBaseComponent({
 			folderName: 'folder_a',
 			onHeaderClick: () => {},
 		});
-		expect(el.find(ButtonItem)).toHaveLength(1);
+		expect(el.find(CustomButtonItem)).toHaveLength(1);
 	});
 	it('should call passed in callback when Item is clicked', () => {
 		const spy = jest.fn();
 		const el = shallow(<ArchiveSidebarHeader folderName={'folder_a'} onHeaderClick={spy} />);
-		el.find(ButtonItem).simulate('click');
+		el.find(CustomButtonItem).simulate('click');
 		expect(spy).toBeCalledTimes(1);
 	});
 	it('should render HomeIcon', () => {

@@ -48,9 +48,6 @@
             "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-tables/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../../elements/emoji/afm-cc/tsconfig.json"
         },
         {

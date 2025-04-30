@@ -4,14 +4,12 @@
  */
 import { useContext } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { ClassNames, css, jsx } from '@emotion/react';
+import { ClassNames, cssMap, jsx } from '@compiled/react';
+import { ax } from '@compiled/react/runtime';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
-import FocusRing from '@atlaskit/focus-ring';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Inline, type InlineProps, Stack, xcss } from '@atlaskit/primitives';
-import { N20, N200, N30 } from '@atlaskit/theme/colors';
+import { Inline, type InlineProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';
@@ -27,159 +25,166 @@ const defaultRender: RenderFunction = (Component, props) => (
 	<Component {...props} />
 );
 
-const beforeAfterElementStylesOld = css({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flexShrink: 0,
-});
-
-const beforeAfterElementStyles = css({
-	display: 'flex',
-	minWidth: 24,
-	minHeight: 24,
-	alignItems: 'center',
-	justifyContent: 'center',
-	flexShrink: 0,
-});
-
-const contentStyles = xcss({
-	outline: 'none',
-	overflow: 'hidden',
-	textAlign: 'left',
-});
-
-const truncateStyles = css({
-	display: 'block',
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-});
-
-const titleStyles = css({
-	font: token('font.body'),
-});
-
-const wordBreakStyles = css({
-	wordBreak: 'break-word',
-});
-
-const descriptionStyles = css({
-	color: token('color.text.subtlest', N200),
-	font: token('font.body.UNSAFE_small'),
-});
-
-const disabledDescriptionStyles = css({
-	color: token('color.text.disabled', N200),
-});
-
-const positionRelativeStyles = css({
-	position: 'relative',
-});
-
-const primitiveStyles = css({
-	display: 'flex',
-	boxSizing: 'border-box',
-	width: '100%',
-	minHeight: 40,
-	margin: token('space.0', '0px'),
-	alignItems: 'center',
-	border: 0,
-	outline: 0,
-	textDecoration: 'none',
-	userSelect: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&::-moz-focus-inner': {
+const styles = cssMap({
+	root: {
+		position: 'relative',
+		display: 'flex',
+		boxSizing: 'border-box',
+		width: '100%',
+		minHeight: 40,
+		marginTop: token('space.0', '0px'),
+		marginRight: token('space.0', '0px'),
+		marginBottom: token('space.0', '0px'),
+		marginLeft: token('space.0', '0px'),
+		alignItems: 'center',
 		border: 0,
-	},
-	'&:hover': {
+		outline: 0,
 		textDecoration: 'none',
+		userSelect: 'none',
+		cursor: 'pointer',
+		'&:hover': {
+			textDecoration: 'none',
+		},
+		'&:focus-visible': {
+			outlineColor: token('color.border.focused', '#2684FF'),
+			// @ts-ignore
+			outlineOffset: `calc(0px - ${token('border.width.outline')})`,
+			outlineStyle: 'solid',
+			// @ts-ignore
+			outlineWidth: token('border.width.outline'),
+		},
+		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
+			'&:focus-visible': {
+				outlineStyle: 'solid',
+				outlineWidth: 1,
+			},
+		},
+	},
+	beforeAfterElementOld: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flexShrink: 0,
+	},
+	beforeAfterElement: {
+		display: 'flex',
+		minWidth: 24,
+		minHeight: 24,
+		alignItems: 'center',
+		justifyContent: 'center',
+		flexShrink: 0,
+	},
+	content: {
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		flexGrow: 1,
+		outline: 'none',
+		overflow: 'hidden',
+		textAlign: 'left',
+	},
+	truncate: {
+		display: 'block',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+	},
+	title: {
+		font: token('font.body'),
+	},
+	wordBreak: {
+		wordBreak: 'break-word',
+	},
+	description: {
+		color: token('color.text.subtlest', '#6B778C'),
+		font: token('font.body.UNSAFE_small'),
+	},
+	disabledDescription: {
+		color: token('color.text.disabled', '#6B778C'),
+	},
+	unselected: {
+		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+		color: 'currentColor',
+		'&:visited': {
+			color: 'currentColor',
+		},
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered', '#F4F5F7'),
+			color: 'currentColor',
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.hovered', '#F4F5F7'),
+			color: 'currentColor',
+		},
+	},
+	disabled: {
+		cursor: 'not-allowed',
+		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+		color: token('color.text.disabled', '#6B778C'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			color: token('color.text.disabled', '#6B778C'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+			color: token('color.text.disabled', '#6B778C'),
+		},
+	},
+	selectedBorder: {
+		'&::before': {
+			width: 2,
+			position: 'absolute',
+			backgroundColor: token('color.border.selected', 'transparent'),
+			content: '""',
+			insetBlockEnd: token('space.0', '0px'),
+			insetBlockStart: token('space.0', '0px'),
+			insetInlineStart: token('space.0', '0px'),
+		},
+	},
+	selectedNotch: {
+		'&::before': {
+			width: 4,
+			position: 'absolute',
+			backgroundColor: token('color.border.selected', 'transparent'),
+			borderRadius: `0 ${token('border.radius', '4px')} ${token('border.radius', '4px')} 0`,
+			content: '""',
+			insetBlockEnd: token('space.150', '12px'),
+			insetBlockStart: token('space.150', '12px'),
+			insetInlineStart: token('space.0', '0px'),
+		},
+	},
+	selected: {
+		backgroundColor: token('color.background.selected', '#F4F5F7'),
+		// Fallback set as babel plugin inserts one otherwise
+		color: token('color.text.selected', 'currentColor'),
+		'&:visited': {
+			color: token('color.text.selected', 'currentColor'),
+		},
+		'&:hover': {
+			backgroundColor: token('color.background.selected.hovered', '#F4F5F7'),
+			color: token('color.text.accent.blue', 'currentColor'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.selected.pressed', '#EBECF0'),
+			color: token('color.text.selected', 'currentColor'),
+		},
+	},
+	selectedOld: {
+		'&:hover': {
+			color: token('color.text.selected', 'currentColor'),
+		},
 	},
 });
 
-const spacingMapStyles = {
-	cozy: css({
-		// 8 * 2 (16) + icon (24) === 40
+const spacingMapStyles = cssMap({
+	cozy: {
 		paddingBlock: token('space.100', '8px'),
 		paddingInline: token('space.200', '16px'),
-	}),
-	compact: css({
+	},
+	compact: {
 		minHeight: 32,
-		// 4 * 2 (8) + icon (24) === 32
 		paddingBlock: token('space.050', '4px'),
 		paddingInline: token('space.150', '12px'),
-	}),
-} as const;
-
-const interactiveStyles = css({
-	cursor: 'pointer',
-});
-
-const unselectedStyles = css({
-	backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-	color: 'currentColor',
-	'&:visited': {
-		color: 'currentColor',
-	},
-	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N20),
-		color: 'currentColor',
-	},
-	'&:active': {
-		backgroundColor: token('color.background.neutral.subtle.pressed', N30),
-		boxShadow: 'none',
-		color: 'currentColor',
-	},
-});
-
-const disabledStyles = css({
-	cursor: 'not-allowed',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&, :hover, :active': {
-		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-		color: token('color.text.disabled', N200),
-	},
-});
-
-const selectedBorderStyles = css({
-	'&::before': {
-		width: 2,
-		position: 'absolute',
-		background: token('color.border.selected', 'transparent'),
-		content: '""',
-		insetBlockEnd: 0,
-		insetBlockStart: 0,
-		insetInlineStart: 0,
-	},
-});
-
-const selectedNotchStyles = css({
-	'&::before': {
-		width: 4,
-		position: 'absolute',
-		background: token('color.border.selected', 'transparent'),
-		borderRadius: `0 ${token('border.radius', '4px')} ${token('border.radius', '4px')} 0`,
-		content: '""',
-		insetBlockEnd: token('space.150', '12px'),
-		insetBlockStart: token('space.150', '12px'),
-		insetInlineStart: 0,
-	},
-});
-
-const selectedStyles = css({
-	backgroundColor: token('color.background.selected', N20),
-	// Fallback set as babel plugin inserts one otherwise
-	color: token('color.text.selected', 'currentColor'),
-	'&:visited': {
-		color: token('color.text.selected', 'currentColor'),
-	},
-	'&:hover': {
-		backgroundColor: token('color.background.selected.hovered', N20),
-		color: token('color.text.selected', 'currentColor'),
-	},
-	'&:active': {
-		backgroundColor: token('color.background.selected.pressed', N30),
-		color: token('color.text.selected', 'currentColor'),
 	},
 });
 
@@ -230,92 +235,89 @@ const MenuItemPrimitive = ({
 
 	return (
 		<ClassNames>
-			{({ css: cn, cx }) => {
-				return (
-					<FocusRing isInset>
-						{children({
-							className: cx([
-								cn([
-									positionRelativeStyles,
-									primitiveStyles,
-									spacingMapStyles[spacing],
-									!isDisabled && !isSelected && unselectedStyles,
-									!isDisabled &&
-										isSelected && [
-											selectedStyles,
-											[
-												selectionStyle === 'border' && selectedBorderStyles,
-												selectionStyle === 'notch' && selectedNotchStyles,
-											],
-										],
-									isDisabled ? disabledStyles : interactiveStyles,
-								]),
-								UNSAFE_className,
-							]),
-							children: (
-								<Inline
-									as="span"
-									spread="space-between"
-									alignBlock="center"
-									space={gapMap[spacing]}
-									grow="fill"
-									testId={testId && `${testId}--container`}
+			{({ css: cn }: any) => {
+				return children({
+					className: ax([
+						cn(
+							styles.root,
+							spacingMapStyles[spacing],
+							!isDisabled && !isSelected && styles.unselected,
+							!isDisabled && isSelected && styles.selected,
+							!fg('platform_fix_a11y_selected_and_hovered_state_color') &&
+								!isDisabled &&
+								isSelected &&
+								styles.selectedOld,
+							!isDisabled && isSelected && selectionStyle === 'border' && styles.selectedBorder,
+							!isDisabled && isSelected && selectionStyle === 'notch' && styles.selectedNotch,
+							isDisabled && styles.disabled,
+						),
+						UNSAFE_className,
+					]),
+					children: (
+						<Inline
+							as="span"
+							spread="space-between"
+							alignBlock="center"
+							space={gapMap[spacing]}
+							grow="fill"
+							testId={testId && `${testId}--container`}
+						>
+							{iconBefore && (
+								<span
+									data-item-elem-before
+									css={[
+										fg('platform_ads_component_no_icon_spacing_support') &&
+											styles.beforeAfterElement,
+										!fg('platform_ads_component_no_icon_spacing_support') &&
+											styles.beforeAfterElementOld,
+									]}
+									data-testid={testId && `${testId}--icon-before`}
 								>
-									{iconBefore && (
+									{iconBefore}
+								</span>
+							)}
+							{title && (
+								<div css={styles.content}>
+									{renderTitle('span', {
+										children: title,
+										className: cn(
+											styles.title,
+											shouldTitleWrap ? styles.wordBreak : styles.truncate,
+										),
+										'data-item-title': true,
+									})}
+									{description && (
 										<span
-											data-item-elem-before
-											css={
-												fg('platform_ads_component_no_icon_spacing_support')
-													? beforeAfterElementStyles
-													: beforeAfterElementStylesOld
-											}
-											data-testid={testId && `${testId}--icon-before`}
+											data-item-description
+											css={[
+												styles.description,
+												isDisabled && styles.disabledDescription,
+												shouldDescriptionWrap && styles.wordBreak,
+												!shouldDescriptionWrap && styles.truncate,
+											]}
 										>
-											{iconBefore}
+											{description}
 										</span>
 									)}
-									{title && (
-										<Stack alignBlock="center" grow="fill" xcss={contentStyles}>
-											{renderTitle('span', {
-												children: title,
-												className: cn(
-													titleStyles,
-													shouldTitleWrap ? wordBreakStyles : truncateStyles,
-												),
-												'data-item-title': true,
-											})}
-											{description && (
-												<span
-													data-item-description
-													css={[
-														descriptionStyles,
-														isDisabled && disabledDescriptionStyles,
-														shouldDescriptionWrap ? wordBreakStyles : truncateStyles,
-													]}
-												>
-													{description}
-												</span>
-											)}
-										</Stack>
-									)}
-									{iconAfter && (
-										<span
-											data-item-elem-after
-											css={
-												fg('platform_ads_component_no_icon_spacing_support')
-													? beforeAfterElementStyles
-													: beforeAfterElementStylesOld
-											}
-											data-testid={testId && `${testId}--icon-after`}
-										>
-											{iconAfter}
-										</span>
-									)}
-								</Inline>
-							),
-						})}
-					</FocusRing>
-				);
+								</div>
+							)}
+							{iconAfter && (
+								<span
+									data-item-elem-after
+									css={[
+										fg('platform_ads_component_no_icon_spacing_support') &&
+											styles.beforeAfterElement,
+										!fg('platform_ads_component_no_icon_spacing_support') &&
+											styles.beforeAfterElementOld,
+									]}
+									data-testid={testId && `${testId}--icon-after`}
+								>
+									{iconAfter}
+								</span>
+							)}
+						</Inline>
+					),
+				});
 			}}
 		</ClassNames>
 	);

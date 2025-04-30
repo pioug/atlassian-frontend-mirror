@@ -12,7 +12,7 @@ import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
 import { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
-import { TaskAndDecisionsSharedState } from '../types';
+import { TaskAndDecisionsSharedState, TaskItemInfoMeta, TaskItemState } from '../types';
 
 import { taskItemToDom } from './taskItemNodeSpec';
 
@@ -121,7 +121,7 @@ export class TaskItemNodeView implements NodeView {
 		}
 		const { localId, state } = this.node.attrs;
 		const isDone = state === 'DONE';
-		const nextState = isDone ? 'TODO' : 'DONE';
+		const nextState: TaskItemState = isDone ? 'TODO' : 'DONE';
 
 		const currentTaskDecisionState: TaskAndDecisionsSharedState | undefined =
 			this.api?.taskDecision.sharedState.currentState();
@@ -143,6 +143,14 @@ export class TaskItemNodeView implements NodeView {
 			}),
 		);
 		tr.setMeta('scrollIntoView', false);
+
+		const taskItemInfoMeta: TaskItemInfoMeta = {
+			checkState: nextState,
+			from: nodePos,
+			to: nodePos + this.node.nodeSize,
+		};
+		tr.setMeta('taskItemInfo', taskItemInfoMeta);
+
 		this.view.dispatch(tr);
 	};
 

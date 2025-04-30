@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "10.9.8",
+	"version": "10.9.10",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -144,9 +144,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_disable_table_lnv": {
-			"type": "boolean"
-		},
-		"platform_editor_nested_tables_paste_wrap_fix": {
 			"type": "boolean"
 		},
 		"nested_table_control_padding_with_css": {

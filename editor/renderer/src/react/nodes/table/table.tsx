@@ -41,12 +41,7 @@ export const Table = React.memo(
 			tableWidth = 'inherit';
 		}
 		if (rendererAppearance === 'comment' && !allowTableResizing) {
-			// in the case we have css container stylings,
-			// we don't need to calculate width here as this
-			// is done via css
-			if (!fg('confluence_frontend_table_cls_fix')) {
-				tableWidth = renderWidth;
-			}
+			tableWidth = renderWidth;
 		}
 
 		const tableLayout = tableNode?.attrs.layout;

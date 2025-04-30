@@ -2,20 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { createSerializer, matchers } from '@emotion/jest';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import type { CSSFn } from '../../../types';
 import ButtonItem from '../../button-item';
-
-expect.addSnapshotSerializer(createSerializer());
-expect.extend(matchers);
 
 window.requestAnimationFrame = (cb) => {
 	cb(-1);
@@ -55,8 +48,8 @@ describe('<ButtonItem />', () => {
 			</ButtonItem>,
 		);
 
-		expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');
-		expect(screen.getByTestId('link')).toHaveStyleRule('color', 'currentColor');
+		expect(screen.getByTestId('link')).toHaveCompiledCss({ backgroundColor: 'red' });
+		expect(screen.getByTestId('link')).toHaveCompiledCss({ color: 'currentColor' });
 	});
 
 	// This behaviour exists only as a side effect for spread props.
@@ -122,42 +115,6 @@ describe('<ButtonItem />', () => {
 		expect(callback).not.toHaveBeenCalled();
 	});
 
-	it('should respect the cssFn prop', () => {
-		const customCssSelected = { border: '1px solid' };
-		const customCssDisabled = { pointerEvents: 'none' as const };
-		const customCss = {
-			padding: '10px',
-			opacity: 0.75,
-			borderRadius: '5px',
-		};
-
-		const cssFn: CSSFn = (state) => {
-			return {
-				...(state.isSelected && customCssSelected),
-				...(state.isDisabled && customCssDisabled),
-				...customCss,
-			};
-		};
-
-		const { container } = render(
-			<ButtonItem
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-				cssFn={cssFn}
-				isSelected
-				isDisabled
-				onClick={noop}
-			>
-				Helloo
-			</ButtonItem>,
-		);
-
-		expect(container.firstChild).toHaveStyleRule('padding', customCss.padding);
-		expect(container.firstChild).toHaveStyleRule('opacity', String(customCss.opacity));
-		expect(container.firstChild).toHaveStyleRule('border-radius', customCss.borderRadius);
-		expect(container.firstChild).toHaveStyleRule('border', customCssSelected.border);
-		expect(container.firstChild).toHaveStyleRule('pointer-events', customCssDisabled.pointerEvents);
-	});
-
 	ffTest.on(
 		'platform_button_item-add-ufo-metrics',
 		'with ufo interaction metrics FG enabled',
@@ -219,8 +176,8 @@ describe('<ButtonItem />', () => {
 					</ButtonItem>,
 				);
 
-				expect(screen.getByTestId('link')).toHaveStyleRule('background-color', 'red');
-				expect(screen.getByTestId('link')).toHaveStyleRule('color', 'currentColor');
+				expect(screen.getByTestId('link')).toHaveCompiledCss({ backgroundColor: 'red' });
+				expect(screen.getByTestId('link')).toHaveCompiledCss({ color: 'currentColor' });
 			});
 
 			// This behaviour exists only as a side effect for spread props.
@@ -284,45 +241,6 @@ describe('<ButtonItem />', () => {
 				fireEvent.click(screen.getByTestId('target'));
 
 				expect(callback).not.toHaveBeenCalled();
-			});
-
-			it('should respect the cssFn prop', () => {
-				const customCssSelected = { border: '1px solid' };
-				const customCssDisabled = { pointerEvents: 'none' as const };
-				const customCss = {
-					padding: '10px',
-					opacity: 0.75,
-					borderRadius: '5px',
-				};
-
-				const cssFn: CSSFn = (state) => {
-					return {
-						...(state.isSelected && customCssSelected),
-						...(state.isDisabled && customCssDisabled),
-						...customCss,
-					};
-				};
-
-				const { container } = render(
-					<ButtonItem
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-						cssFn={cssFn}
-						isSelected
-						isDisabled
-						onClick={noop}
-					>
-						Helloo
-					</ButtonItem>,
-				);
-
-				expect(container.firstChild).toHaveStyleRule('padding', customCss.padding);
-				expect(container.firstChild).toHaveStyleRule('opacity', String(customCss.opacity));
-				expect(container.firstChild).toHaveStyleRule('border-radius', customCss.borderRadius);
-				expect(container.firstChild).toHaveStyleRule('border', customCssSelected.border);
-				expect(container.firstChild).toHaveStyleRule(
-					'pointer-events',
-					customCssDisabled.pointerEvents,
-				);
 			});
 		},
 	);

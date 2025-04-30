@@ -6,6 +6,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
@@ -28,6 +29,7 @@ import {
 	editorAnalyticsChannel,
 	EVENT_TYPE,
 } from '../../analytics';
+import { colorPickerButtonMessages } from '../../messages/color-picker-button';
 import type { PaletteColor, PaletteTooltipMessages } from '../../ui-color';
 import {
 	ColorPalette,
@@ -115,6 +117,7 @@ const ColorPickerButton = (props: Props) => {
 	const [isPopupOpen, setIsPopupOpen] = React.useState(false);
 	const [isPopupPositioned, setIsPopupPositioned] = React.useState(false);
 	const [isOpenedByKeyboard, setIsOpenedByKeyboard] = React.useState(false);
+	const { formatMessage } = useIntl();
 
 	const togglePopup = () => {
 		setIsPopupOpen(!isPopupOpen);
@@ -207,7 +210,11 @@ const ColorPickerButton = (props: Props) => {
 				// if the toolbar is scrollable, this will be mounted in the root editor
 				// we need an index of > 500 to display over it
 				zIndex={props.setDisableParentScroll ? 600 : undefined}
-				ariaLabel="Color picker popup"
+				ariaLabel={
+					fg('editor_a11y_aria_label_removal_popup')
+						? formatMessage(colorPickerButtonMessages.colorPickerMenuLabel)
+						: 'Color picker popup'
+				}
 				onPositionCalculated={onPositionCalculated}
 			>
 				<div css={colorPickerWrapper} data-test-id="color-picker-menu">

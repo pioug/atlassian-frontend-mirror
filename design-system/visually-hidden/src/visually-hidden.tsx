@@ -16,6 +16,7 @@ const visuallyHiddenStyles = css({
 	border: '0',
 	clip: 'rect(1px, 1px, 1px, 1px)',
 	overflow: 'hidden',
+	userSelect: 'none',
 	whiteSpace: 'nowrap',
 });
 

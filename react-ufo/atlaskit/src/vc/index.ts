@@ -20,7 +20,8 @@ class VCObserverWrapper implements VCObserverInterface {
 		this.newVCObserver = null;
 
 		const isNewVCObserverEnabled =
-			fg('platform_ufo_vc_observer_new') || getConfig()?.vc?.enableVCObserverNew;
+			fg('platform_ufo_vc_observer_new') ||
+			getConfig()?.vc?.enabledVCRevisions?.includes('fy25.03');
 		if (isNewVCObserverEnabled) {
 			this.newVCObserver = new VCObserverNew({
 				selectorConfig: opts.selectorConfig,

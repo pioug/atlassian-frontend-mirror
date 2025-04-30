@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.4.5
+
+### Patch Changes
+
+- [#146587](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146587)
+  [`f296c108b483f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f296c108b483f) -
+  Filter out unsupported styles from styles props under feature flag
+
 ## 2.4.4
 
 ### Patch Changes

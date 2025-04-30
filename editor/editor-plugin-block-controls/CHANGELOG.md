@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.12.0
+
+### Minor Changes
+
+- [#141039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141039)
+  [`ac95ffeb54bda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac95ffeb54bda) -
+  ED-27226 clean up platform_editor_advanced_layouts_redraw_on_drag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.11.2
 
 ### Patch Changes

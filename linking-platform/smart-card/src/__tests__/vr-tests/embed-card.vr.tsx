@@ -27,6 +27,7 @@ import EmbedCardNotFoundViewFrameHide from '../../../examples/vr-embed-card/vr-e
 import EmbedCardNotFoundSiteAccessExists from '../../../examples/vr-embed-card/vr-embed-card-not-found-site-access-exists';
 import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved';
 import EmbedCardResolvedViewNoPreview from '../../../examples/vr-embed-card/vr-embed-card-resolved-no-preview';
+import EmbedCardResolvedViewNouns from '../../../examples/vr-embed-card/vr-embed-card-resolved-nouns';
 import EmbedCardResolvedSmall from '../../../examples/vr-embed-card/vr-embed-card-resolved-small';
 import EmbedCardResolvingView from '../../../examples/vr-embed-card/vr-embed-card-resolving';
 import EmbedCardSelected from '../../../examples/vr-embed-card/vr-embed-card-selected';
@@ -34,6 +35,7 @@ import EmbedCardUnauthorisedView from '../../../examples/vr-embed-card/vr-embed-
 import EmbedCardUnauthorisedViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-frame-hide';
 import EmbedCardUnauthorisedViewWithNoAuth from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-no-auth';
 import EmbedCardUnauthorisedViewWithProviderImage from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-with-provider-image';
+import { VREmbedProfileObject } from '../../../examples/vr-embed-card/vr-embed-profile-object';
 
 const EmbedCardForbiddenDefault = EmbedCardForbiddenView;
 const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
@@ -241,6 +243,11 @@ snapshot(EmbedCardNotFoundViewFrameHide, {
 snapshot(EmbedCardUnauthorisedViewFrameHide, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+	},
+});
+snapshot(EmbedCardResolvedViewNouns, {
+	featureFlags: {
+		smart_links_noun_support: true,
 	},
 });
 
@@ -503,5 +510,16 @@ snapshot(EmbedCardUnauthorisedViewFrameHide, {
 		'EmbedCardUnauthorisedViewFrameHide OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+	},
+});
+snapshot(VREmbedProfileObject, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v2': true,
+	},
+});
+snapshot(VREmbedProfileObject, {
+	description: 'embed profile object with platform-linking-visual-refresh-v2 false',
+	featureFlags: {
+		'platform-linking-visual-refresh-v2': false,
 	},
 });

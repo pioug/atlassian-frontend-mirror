@@ -1,5 +1,15 @@
 # @atlaskit/media-viewer
 
+## 52.0.11
+
+### Patch Changes
+
+- [#141631](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141631)
+  [`39f9ae5c433e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39f9ae5c433e6) -
+  Refactored internal code to be compatible with the latest version of @atlaskit/menu using Compiled
+  CSS-in-JS.
+- Updated dependencies
+
 ## 52.0.10
 
 ### Patch Changes

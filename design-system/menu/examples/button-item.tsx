@@ -1,13 +1,57 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
-import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
-import { borderRadius as borderRadiusFn } from '@atlaskit/theme/constants';
+import { cssMap, jsx } from '@compiled/react';
+
+import { B400, B50, N10, N200, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { ButtonItem, type CSSFn, type ItemState } from '../src';
+import { ButtonItem } from '../src';
 
 import ImgIcon from './common/img-icon';
 import Yeti from './icons/yeti.png';
+
+// Mimics overrides in side-navigation
+const styles = cssMap({
+	root: {
+		paddingBlockStart: token('space.100', '8px'),
+		paddingInlineEnd: token('space.300', '24px'),
+		paddingBlockEnd: token('space.100', '8px'),
+		paddingInlineStart: token('space.300', '24px'),
+		borderRadius: '3px',
+		backgroundColor: N10,
+		color: N500,
+		'&:hover': {
+			backgroundColor: N30,
+			textDecoration: 'none',
+			color: N500,
+		},
+		'&:active': {
+			color: B400,
+			backgroundColor: B50,
+			boxShadow: 'none',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-elem-before]': {
+			display: 'flex',
+			height: 8 * 1.25,
+			width: 8 * 1.25,
+			alignItems: 'center',
+			justifyContent: 'center',
+			marginRight: token('space.200', '16px'),
+		},
+	},
+	disabled: {
+		color: token('color.text.disabled', N200),
+		backgroundColor: N10,
+		'&:hover, &:active': {
+			backgroundColor: N10,
+			color: token('color.text.disabled', N200),
+		},
+	},
+});
 
 export default () => (
 	<div data-testid="button-items">
@@ -21,64 +65,14 @@ export default () => (
 		<ButtonItem iconBefore={<ImgIcon src={Yeti} alt="" />} description="Next-gen software project">
 			Activate
 		</ButtonItem>
-		<ButtonItem
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={styleOverrides}
-			description="Style overrides via cssFn"
-		>
+		<ButtonItem css={styles.root} description="Style overrides">
 			Activate
 		</ButtonItem>
-		<ButtonItem
-			isDisabled
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={styleOverrides}
-			description="Style overrides via cssFn"
-		>
+		<ButtonItem isDisabled css={[styles.root, styles.disabled]} description="Style overrides">
 			Activate
 		</ButtonItem>
-
-		<ButtonItem
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={styleOverrides}
-			description="Style overrides via cssFn"
-		>
+		<ButtonItem css={styles.root} description="Style overrides">
 			Activate
 		</ButtonItem>
 	</div>
 );
-
-// Mimics overrides in side-navigation
-const borderRadius = borderRadiusFn();
-const styleOverrides: CSSFn = ({ isSelected, isDisabled }: ItemState) => {
-	return {
-		padding: `${token('space.100', '8px')} ${token('space.300', '24px')}`,
-		borderRadius,
-		backgroundColor: N10,
-		color: N500,
-		'&:hover': {
-			backgroundColor: N30,
-			textDecoration: 'none',
-			color: N500,
-		},
-		'&:active': {
-			color: B400,
-			backgroundColor: B50,
-			boxShadow: 'none',
-		},
-		['& [data-item-elem-before]']: {
-			display: 'flex',
-			height: 8 * 1.25,
-			width: 8 * 1.25,
-			alignItems: 'center',
-			justifyContent: 'center',
-			marginRight: token('space.200', '16px'),
-		},
-		...(isSelected && {
-			backgroundColor: N30,
-			color: B400,
-		}),
-		...(isDisabled && {
-			backgroundColor: `${N10} !important`,
-		}),
-	};
-};

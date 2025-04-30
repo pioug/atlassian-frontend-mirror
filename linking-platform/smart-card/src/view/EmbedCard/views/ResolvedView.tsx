@@ -1,9 +1,10 @@
 import React from 'react';
 
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-import { getPreviewUrlWithTheme } from '../../../utils';
+import { getPreviewUrlWithTheme, isProfileType } from '../../../utils';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
@@ -35,6 +36,8 @@ export interface EmbedCardResolvedViewProps {
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	/** Optional callback for when user navigates into an iframe - for analytics **/
 	onIframeFocus?: () => void;
+	/** Type of the object */
+	type?: string[];
 }
 
 export const EmbedCardResolvedView = React.forwardRef<
@@ -56,6 +59,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 			onIframeDwell,
 			onIframeFocus,
 			isSupportTheming,
+			type,
 		},
 		embedIframeRef,
 	) => {
@@ -73,12 +77,23 @@ export const EmbedCardResolvedView = React.forwardRef<
 			),
 			[],
 		);
+
+		const profileType = isProfileType(type) && fg('platform-linking-visual-refresh-v2');
+
 		let icon = React.useMemo(() => {
 			if (React.isValidElement(iconFromContext)) {
 				return iconFromContext;
 			}
-			return <ImageIcon src={src} default={linkGlyph} />;
-		}, [src, linkGlyph, iconFromContext]);
+			return (
+				<ImageIcon
+					src={src}
+					default={linkGlyph}
+					{...(fg('platform-linking-visual-refresh-v2') && {
+						appearance: profileType ? 'round' : 'square',
+					})}
+				/>
+			);
+		}, [iconFromContext, src, linkGlyph, profileType]);
 
 		const themeState = useThemeObserver();
 		let previewUrl = preview?.src;

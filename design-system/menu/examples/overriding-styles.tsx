@@ -1,4 +1,10 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right';
 import { token } from '@atlaskit/tokens';
@@ -8,6 +14,54 @@ import { ButtonItem } from '../src';
 import ImgIcon from './common/img-icon';
 import koala from './icons/koala.png';
 
+const styles = cssMap({
+	buttonOne: {
+		paddingBlockStart: token('space.150', '12px'),
+		paddingInlineEnd: token('space.250', '20px'),
+		paddingBlockEnd: token('space.150', '12px'),
+		paddingInlineStart: token('space.250', '20px'),
+		borderStyle: 'solid',
+		borderWidth: '1px',
+		borderColor: '#CDCDCD',
+		backgroundColor: 'aliceblue',
+		borderRadius: 3,
+		'&:hover': {
+			backgroundColor: 'antiquewhite',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-description]': {
+			fontStyle: 'italic',
+			textDecoration: 'underline',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-elem-before]': { filter: 'grayscale(1)' },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-elem-after]': { opacity: 0 },
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:hover [data-item-elem-after]': { opacity: 1 },
+	},
+	selected: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-description]': {
+			textDecoration: 'underline',
+		},
+	},
+	buttonTwo: {
+		color: 'red',
+		'&:hover': {
+			color: 'green',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'[data-item-description]': {
+				color: 'green',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-item-description]': {
+			color: 'red',
+		},
+	},
+});
+
 export default () => (
 	<React.Fragment>
 		<ButtonItem
@@ -16,48 +70,18 @@ export default () => (
 			description="Hover over me"
 			iconAfter={<RightArrow label="" />}
 			isSelected
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={({ isSelected }) => {
-				return {
-					padding: `${token('space.150', '12px')} ${token('space.250', '20px')}`,
-					border: '1px solid #CDCDCD',
-					backgroundColor: 'aliceblue',
-					borderRadius: 3,
-					'&:hover': {
-						backgroundColor: 'antiquewhite',
-					},
-					['& [data-item-description]']: {
-						fontStyle: 'italic',
-						...(isSelected && { textDecoration: 'underline' }),
-					},
-					['& [data-item-elem-before]']: { filter: 'grayscale(1)' },
-					['& [data-item-elem-after]']: { opacity: 0 },
-					['&:hover [data-item-elem-after]']: { opacity: 1 },
-				};
-			}}
+			css={[styles.buttonOne, styles.selected]}
 		>
-			Nested navigation item
+			Button item
 		</ButtonItem>
 		<ButtonItem
 			onClick={console.log}
 			iconBefore={<ImgIcon alt="" src={koala} />}
 			description="Hover over me"
 			iconAfter={<RightArrow label="" />}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			cssFn={() => ({
-				color: 'red',
-				'&:hover': {
-					color: 'green',
-					'[data-item-description]': {
-						color: 'green',
-					},
-				},
-				'& [data-item-description]': {
-					color: 'red',
-				},
-			})}
+			css={styles.buttonTwo}
 		>
-			Nested navigation item with cssFn override
+			Button item
 		</ButtonItem>
 	</React.Fragment>
 );

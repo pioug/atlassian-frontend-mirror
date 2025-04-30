@@ -3,12 +3,18 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import Tooltip from '../../tooltip';
 
 jest.useFakeTimers();
+jest.mock('@atlaskit/platform-feature-flags');
+const mockGetBooleanFF = fg as jest.MockedFunction<typeof fg>;
 
 beforeEach(() => {
+	mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible');
+	HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
+
 	skipA11yAudit();
 });
 

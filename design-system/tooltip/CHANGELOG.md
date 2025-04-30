@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 20.0.6
+
+### Patch Changes
+
+- [#141620](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/141620)
+  [`2a925938dea16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a925938dea16) -
+  [ux] Check focus-visible before showing tooltip on focus events
+
 ## 20.0.5
 
 ### Patch Changes

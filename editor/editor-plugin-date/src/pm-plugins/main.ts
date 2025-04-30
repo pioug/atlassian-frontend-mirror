@@ -32,7 +32,13 @@ const createPlugin = (pmPluginFactoryParams: PMPluginFactoryParams) => {
 			nodeViews: {
 				date: (node, view, getPos, decorations) => {
 					if (editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })) {
-						return new DateNodeViewVanilla(node, view, getPos, pmPluginFactoryParams.getIntl());
+						return new DateNodeViewVanilla(
+							node,
+							view,
+							getPos,
+							pmPluginFactoryParams.getIntl(),
+							decorations,
+						);
 					}
 					return getInlineNodeViewProducer({
 						pmPluginFactoryParams,

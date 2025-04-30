@@ -21,7 +21,7 @@ export type { ButtonItemProps as GoBackItemProps } from '@atlaskit/menu';
 const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
 	(
 		{
-			cssFn,
+			className,
 			iconBefore = (
 				<ArrowLeftIcon
 					color="currentColor"
@@ -53,8 +53,8 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
 		return (
 			<ButtonItem
 				isSelected={isSelected}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-				cssFn={cssFn}
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
 				iconBefore={iconBefore}
 				onClick={onClickHandler}
 				ref={ref}

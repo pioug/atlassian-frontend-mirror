@@ -24,7 +24,7 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { type RendererWrapperProps } from './index';
-import { FullPagePadding, rendererStyles } from './style';
+import { FullPagePadding } from './style';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { RendererCssClassName } from '../../consts';
 import {
@@ -366,9 +366,7 @@ const blockquoteSharedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> .extensionView-content-wrap:last-child': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			display: `${editorExperiment('platform_editor_nested_non_bodied_macros', 'test')}`
-				? 'block'
-				: 'inline-block',
+			display: 'block',
 		},
 	},
 });
@@ -1984,8 +1982,6 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 		appearance,
 		allowNestedHeaderLinks,
 		allowColumnSorting,
-		allowAnnotations,
-		allowTableResizing,
 		useBlockRenderForCodeBlock,
 		children,
 		innerRef,
@@ -1994,112 +1990,92 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 
 	const isAdvancedLayoutsOn = editorExperiment('advanced_layouts', true);
 
-	if (fg('platform_editor_emotion_refactor_renderer')) {
-		return (
-			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
-			<div
-				ref={innerRef}
-				onClick={onClick}
-				onMouseDown={onMouseDown}
-				style={
-					{
-						'--ak-renderer-base-font-size': `${getBaseFontSize(appearance)}px`,
-						'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1')}`,
-						'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2')}`,
-						'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3')}`,
-						'--ak-renderer-editor-font-heading-h4': `${editorUGCToken('editor.font.heading.h4')}`,
-						'--ak-renderer-editor-font-heading-h5': `${editorUGCToken('editor.font.heading.h5')}`,
-						'--ak-renderer-editor-font-heading-h6': `${editorUGCToken('editor.font.heading.h6')}`,
-						'--ak-renderer-editor-font-normal-text': `${editorUGCToken('editor.font.body')}`,
-					} as React.CSSProperties
-				}
-				css={[
-					baseStyles,
-					appearance === 'full-page' && rendererFullPageStyles,
-					appearance === 'full-width' && rendererFullWidthStyles,
-					!isTableResizingEnabled(appearance) && rendererFullWidthStylesForTableResizing,
-					telepointerStyles,
-					whitespaceSharedStyles,
-					blockquoteSharedStyles,
-					fg('platform_editor_typography_ugc')
-						? headingsSharedStylesWithEditorUGC
-						: headingsSharedStyles,
-					headingWithAlignmentStyles,
-					ruleSharedStyles,
-					fg('platform_editor_typography_ugc')
-						? paragraphSharedStylesWithEditorUGC
-						: paragraphSharedStyles,
-					listsSharedStyles,
-					browser.gecko && listsSharedStylesForGekko,
-					indentationSharedStyles,
-					blockMarksSharedStyles,
-					codeMarkSharedStyles,
-					shadowSharedStyle,
-					dateSharedStyle,
-					textColorStyles,
-					backgroundColorStyles,
-					tasksAndDecisionsStyles,
-					smartCardStyles,
-					fg('platform-linking-visual-refresh-v1') && smartCardStylesAvatarFix,
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-					fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-					fg('editor_inline_comments_on_inline_nodes') &&
-						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-						fg('annotations_align_editor_and_renderer_styles') &&
-						rendererAnnotationStylesCommentHeightFix,
-					baseOtherStyles,
-					allowNestedHeaderLinks && alignedHeadingAnchorStyle,
-					mediaSingleSharedStyle,
-					tableSharedStyle,
-					tableRendererHeaderStylesForTableCellOnly,
-					isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,
-					fg('platform_editor_nested_dnd_styles_changes')
-						? firstNodeWithNotMarginTopWithNestedDnD
-						: firstNodeWithNotMarginTop,
-					rendererTableStyles,
-					isStickyScrollbarEnabled(appearance) && stickyScrollbarStyles,
-					rendererTableHeaderEqualHeightStylesForTableCellOnly,
-					allowColumnSorting && rendererTableSortableColumnStyles,
-					allowColumnSorting &&
-						allowNestedHeaderLinks &&
-						rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
-					fg('platform_editor_tables_numbered_column_correction')
-						? rendererTableColumnStyles
-						: rendererTableColumnStylesOld,
-					stickyHeaderStyles,
-					codeBlockAndLayoutStyles,
-					columnLayoutSharedStyle,
-					isAdvancedLayoutsOn && columnLayoutResponsiveSharedStyle,
-					isAdvancedLayoutsOn && columnLayoutResponsiveRendererStyles,
-					isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
-					!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
-					browser.safari && codeBlockInListSafariFixStyles,
-				]}
-				data-testid={testId}
-			>
-				{children}
-			</div>
-		);
-	}
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable
 		<div
 			ref={innerRef}
 			onClick={onClick}
 			onMouseDown={onMouseDown}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={rendererStyles({
-				appearance,
-				allowNestedHeaderLinks,
-				allowColumnSorting: !!allowColumnSorting,
-				useBlockRenderForCodeBlock,
-				allowAnnotations: allowAnnotations,
-				allowTableResizing: allowTableResizing,
-			})}
+			style={
+				{
+					'--ak-renderer-base-font-size': `${getBaseFontSize(appearance)}px`,
+					'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1')}`,
+					'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2')}`,
+					'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3')}`,
+					'--ak-renderer-editor-font-heading-h4': `${editorUGCToken('editor.font.heading.h4')}`,
+					'--ak-renderer-editor-font-heading-h5': `${editorUGCToken('editor.font.heading.h5')}`,
+					'--ak-renderer-editor-font-heading-h6': `${editorUGCToken('editor.font.heading.h6')}`,
+					'--ak-renderer-editor-font-normal-text': `${editorUGCToken('editor.font.body')}`,
+				} as React.CSSProperties
+			}
+			css={[
+				baseStyles,
+				appearance === 'full-page' && rendererFullPageStyles,
+				appearance === 'full-width' && rendererFullWidthStyles,
+				appearance === 'full-width' &&
+					!isTableResizingEnabled(appearance) &&
+					rendererFullWidthStylesForTableResizing,
+				telepointerStyles,
+				whitespaceSharedStyles,
+				blockquoteSharedStyles,
+				fg('platform_editor_typography_ugc')
+					? headingsSharedStylesWithEditorUGC
+					: headingsSharedStyles,
+				headingWithAlignmentStyles,
+				ruleSharedStyles,
+				fg('platform_editor_typography_ugc')
+					? paragraphSharedStylesWithEditorUGC
+					: paragraphSharedStyles,
+				listsSharedStyles,
+				browser.gecko && listsSharedStylesForGekko,
+				indentationSharedStyles,
+				blockMarksSharedStyles,
+				codeMarkSharedStyles,
+				shadowSharedStyle,
+				dateSharedStyle,
+				textColorStyles,
+				backgroundColorStyles,
+				tasksAndDecisionsStyles,
+				smartCardStyles,
+				fg('platform-linking-visual-refresh-v1') && smartCardStylesAvatarFix,
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
+				fg('editor_inline_comments_on_inline_nodes') &&
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('annotations_align_editor_and_renderer_styles') &&
+					rendererAnnotationStylesCommentHeightFix,
+				baseOtherStyles,
+				allowNestedHeaderLinks && alignedHeadingAnchorStyle,
+				mediaSingleSharedStyle,
+				tableSharedStyle,
+				tableRendererHeaderStylesForTableCellOnly,
+				isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,
+				fg('platform_editor_nested_dnd_styles_changes')
+					? firstNodeWithNotMarginTopWithNestedDnD
+					: firstNodeWithNotMarginTop,
+				rendererTableStyles,
+				isStickyScrollbarEnabled(appearance) && stickyScrollbarStyles,
+				rendererTableHeaderEqualHeightStylesForTableCellOnly,
+				allowColumnSorting && rendererTableSortableColumnStyles,
+				allowColumnSorting &&
+					allowNestedHeaderLinks &&
+					rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
+				fg('platform_editor_tables_numbered_column_correction')
+					? rendererTableColumnStyles
+					: rendererTableColumnStylesOld,
+				stickyHeaderStyles,
+				codeBlockAndLayoutStyles,
+				columnLayoutSharedStyle,
+				isAdvancedLayoutsOn && columnLayoutResponsiveSharedStyle,
+				isAdvancedLayoutsOn && columnLayoutResponsiveRendererStyles,
+				isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
+				!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
+				browser.safari && codeBlockInListSafariFixStyles,
+			]}
 			data-testid={testId}
 		>
-			{props.children}
+			{children}
 		</div>
 	);
 };

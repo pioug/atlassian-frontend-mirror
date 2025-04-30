@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.9.0
+
+### Minor Changes
+
+- [#147017](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147017)
+  [`cd0798d2a9a3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd0798d2a9a3d) -
+  Enable VC revisions by UFO config
+
 ## 3.8.0
 
 ### Minor Changes

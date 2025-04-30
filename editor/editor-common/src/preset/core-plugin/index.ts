@@ -1,5 +1,7 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Fragment, Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	CorePlugin,
@@ -79,6 +81,18 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					: Array.isArray(replaceValue)
 						? processRawFragmentValue(schema, replaceValue)
 						: processRawValue(schema, replaceValue);
+
+				// Don't replace the document if it's the same document, as full size
+				// replace transactions cause issues for collaborative editing and
+				// content reconciliation (eg. inline comments getting dropped)
+				if (
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+					fg('platform_editor_replace_document_shortcircuit') &&
+					content instanceof Node &&
+					state.doc.eq(content)
+				) {
+					return false;
+				}
 
 				if (content) {
 					const tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content);

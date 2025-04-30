@@ -8,11 +8,9 @@ import React, { useCallback, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
-	clearNextSiblingMarginTopStyle,
 	ExpandIconWrapper,
 	ExpandLayoutWrapperWithRef,
 	expandMessages,
-	sharedExpandStyles,
 	WidthProvider,
 } from '@atlaskit/editor-common/ui';
 import {
@@ -31,7 +29,6 @@ import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import type { RendererAppearance } from './Renderer/types';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
 type StyleProps = {
 	expanded?: boolean;
@@ -151,27 +148,15 @@ const contentContainerStylesNotExpanded = css({
 	},
 });
 
-const ContainerOld = (props: StyleProps) => {
-	const paddingBottom = props.expanded ? token('space.100', '8px') : token('space.0', '0px');
-	const sharedContainerStyles = sharedExpandStyles.containerStyles(props);
+const clearNextSiblingMarginTopStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& + *': {
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		marginTop: '0 !important',
+	},
+});
 
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-	const styles = () => css`
-		${sharedContainerStyles()}
-		padding: 0;
-		padding-bottom: ${paddingBottom};
-	`;
-
-	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage
-		<div css={styles} {...props}>
-			{props.children}
-		</div>
-	);
-};
-
-const ContainerNew = (props: StyleProps) => {
+const Container = (props: StyleProps) => {
 	return (
 		<div
 			css={[
@@ -189,34 +174,7 @@ const ContainerNew = (props: StyleProps) => {
 	);
 };
 
-const Container = componentWithFG(
-	'platform_editor_emotion_refactor_renderer',
-	ContainerNew,
-	ContainerOld,
-);
-
-const TitleContainerOld = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
-	const paddingBottom = !props.expanded ? token('space.100', '8px') : token('space.0', '0px');
-
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-	const styles = () => css`
-		${sharedExpandStyles.titleContainerStyles()}
-		padding: ${token('space.100', '8px')};
-		padding-bottom: ${paddingBottom};
-	`;
-
-	const { expanded, ...buttonProps } = props;
-
-	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-html-button
-		<button type="button" css={styles} {...buttonProps}>
-			{props.children}
-		</button>
-	);
-};
-
-const TitleContainerNew = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+const TitleContainer = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
 	const { expanded, ...buttonProps } = props;
 
 	return (
@@ -233,36 +191,9 @@ const TitleContainerNew = (props: StyleProps & React.ButtonHTMLAttributes<HTMLBu
 	);
 };
 
-const TitleContainer = componentWithFG(
-	'platform_editor_emotion_refactor_renderer',
-	TitleContainerNew,
-	TitleContainerOld,
-);
-
 TitleContainer.displayName = 'TitleContainerButton';
 
-const ContentContainerOld = (props: StyleProps) => {
-	const sharedContentStyles = sharedExpandStyles.contentStyles(props);
-	const visibility = props.expanded ? 'visible' : 'hidden';
-
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression  -- needs manual remediation
-	const styles = () => css`
-		${sharedContentStyles()};
-		padding-right: ${token('space.200', '16px')};
-		padding-left: ${token('space.400', '32px')};
-		visibility: ${visibility};
-	`;
-
-	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage
-		<div css={styles} {...props}>
-			{props.children}
-		</div>
-	);
-};
-
-const ContentContainerNew = (props: StyleProps) => {
+const ContentContainer = (props: StyleProps) => {
 	return (
 		<div
 			css={[
@@ -278,12 +209,6 @@ const ContentContainerNew = (props: StyleProps) => {
 		</div>
 	);
 };
-
-const ContentContainer = componentWithFG(
-	'platform_editor_emotion_refactor_renderer',
-	ContentContainerNew,
-	ContentContainerOld,
-);
 
 export interface ExpandProps {
 	title: string;
@@ -401,7 +326,6 @@ function Expand({
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 				<div className={`${nodeType}-content-wrapper`}>
 					<WidthProvider>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={clearNextSiblingMarginTopStyle} />
 						{children}
 					</WidthProvider>

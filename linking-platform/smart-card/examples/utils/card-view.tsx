@@ -58,6 +58,7 @@ const CardView = ({
 	url = 'https://some.url',
 	inheritDimensions,
 	truncateInline,
+	showHoverPreview,
 }: CardViewProps) => (
 	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
@@ -69,6 +70,7 @@ const CardView = ({
 				isSelected={isSelected}
 				inheritDimensions={inheritDimensions}
 				truncateInline={truncateInline}
+				showHoverPreview={showHoverPreview}
 			/>
 		</EmbedCardWrapper>
 	</SmartCardProvider>

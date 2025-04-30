@@ -6,6 +6,7 @@ import {
 	AtlasProjectNoPreview,
 	GoogleDoc,
 	GoogleDocUrl,
+	ProfileObject,
 	YouTubeVideo,
 	YouTubeVideoUrl,
 } from '../../examples-helpers/_jsonLDExamples';
@@ -35,6 +36,7 @@ export const ResolvedClientEmbedUrl = YouTubeVideoUrl;
 export const ResolvedClientEmbedInteractiveUrl = GoogleDocUrl;
 export const ResolvedClientWithLongTitleUrl = `${AtlasProject.data.url}/long-title`;
 export const ResolvedClientWithTextHighlightInTitleUrl = `${AtlasProject.data.url}/text-highlight-title`;
+export const ResolvedClientProfileUrl = `${AtlasProject.data.url}/profile-url`;
 export class ResolvedClient extends MockCardClient {
 	fetchData(url: string) {
 		switch (url) {
@@ -52,6 +54,8 @@ export class ResolvedClient extends MockCardClient {
 				});
 			case ResolvedClientUrlNoPreview:
 				return resolve(url, AtlasProjectNoPreview as JsonLd.Response<JsonLd.Data.BaseData>);
+			case ResolvedClientProfileUrl:
+				return resolve(url, ProfileObject as JsonLd.Response<JsonLd.Data.BaseData>);
 		}
 
 		const response = { ...AtlasProject };

@@ -9,10 +9,8 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type {
-	AnalyticsEventPayload,
-	DispatchAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import {
@@ -20,8 +18,6 @@ import {
 	Popup,
 	withOuterListeners,
 } from '@atlaskit/editor-common/ui';
-import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -37,40 +33,6 @@ import { MediaFromURLWithForm } from './MediaFromURLWithForm';
 import { MediaInsertWrapper } from './MediaInsertWrapper';
 
 const PopupWithListeners = withOuterListeners(Popup);
-
-const getDomRefFromSelection = (
-	view: EditorView,
-	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-) => {
-	try {
-		const domRef = findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view));
-		if (domRef instanceof HTMLElement) {
-			// If element is not a paragraph, we need to find the closest paragraph parent
-			if (domRef.nodeName !== 'P') {
-				const paragraphRef = domRef.closest('p');
-				if (paragraphRef) {
-					return paragraphRef;
-				}
-			}
-			return domRef;
-		} else {
-			throw new Error('Invalid DOM reference');
-		}
-	} catch (error: unknown) {
-		if (dispatchAnalyticsEvent) {
-			const payload: AnalyticsEventPayload = {
-				action: ACTION.ERRORED,
-				actionSubject: ACTION_SUBJECT.PICKER,
-				actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: {
-					error: 'Error getting DOM reference from selection',
-				},
-			};
-			dispatchAnalyticsEvent(payload);
-		}
-	}
-};
 
 /**
  * A custom TabPanel that is non-focusable.
@@ -97,6 +59,7 @@ export const MediaInsertPicker = ({
 	insertMediaSingle,
 	insertExternalMediaSingle,
 	insertFile,
+	isOnlyExternalLinks = false,
 }: MediaInsertPickerProps) => {
 	const { isOpen, mountInfo } = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState ?? {};
 
@@ -107,7 +70,11 @@ export const MediaInsertPicker = ({
 		mountPoint = mountInfo.mountPoint;
 	} else {
 		// If targetRef is undefined, target the selection in the editor
-		targetRef = getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
+		targetRef = getDomRefFromSelection(
+			editorView,
+			ACTION_SUBJECT_ID.PICKER_MEDIA,
+			api?.analytics?.actions,
+		);
 		mountPoint = popupsMountPoint;
 	}
 
@@ -159,22 +126,26 @@ export const MediaInsertPicker = ({
 						<Tabs id="media-insert-tab-navigation">
 							<Box paddingBlockEnd="space.150">
 								<TabList>
-									<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
+									{!isOnlyExternalLinks && <Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>}
 									<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
 								</TabList>
 							</Box>
-							<CustomTabPanel>
-								<LocalMedia
-									ref={autofocusRef}
-									mediaProvider={mediaProvider}
-									closeMediaInsertPicker={() => {
-										closeMediaInsertPicker();
-										focusEditor();
-									}}
-									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-									insertFile={insertFile}
-								/>
-							</CustomTabPanel>
+							{
+								!isOnlyExternalLinks && (
+									<CustomTabPanel>
+										<LocalMedia
+											ref={autofocusRef}
+											mediaProvider={mediaProvider}
+											closeMediaInsertPicker={() => {
+												closeMediaInsertPicker();
+												focusEditor();
+											}}
+											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+											insertFile={insertFile}
+										/>
+									</CustomTabPanel>
+								)
+							}
 							<CustomTabPanel>
 								{fg('platform_editor_media_from_url_remove_form') ? (
 									<MediaFromURL
@@ -186,6 +157,7 @@ export const MediaInsertPicker = ({
 										}}
 										insertMediaSingle={insertMediaSingle}
 										insertExternalMediaSingle={insertExternalMediaSingle}
+										isOnlyExternalLinks={isOnlyExternalLinks}
 									/>
 								) : (
 									<MediaFromURLWithForm
@@ -197,6 +169,7 @@ export const MediaInsertPicker = ({
 										}}
 										insertMediaSingle={insertMediaSingle}
 										insertExternalMediaSingle={insertExternalMediaSingle}
+										isOnlyExternalLinks={isOnlyExternalLinks}
 									/>
 								)}
 							</CustomTabPanel>

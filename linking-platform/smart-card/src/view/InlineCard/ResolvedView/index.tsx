@@ -40,6 +40,8 @@ export interface InlineCardResolvedViewProps {
 	actionOptions?: CardActionOptions;
 	/** Truncates the card to one line */
 	truncateInline?: boolean;
+	/** Type of inline card */
+	type?: string[];
 }
 
 export class InlineCardResolvedView extends React.Component<InlineCardResolvedViewProps> {
@@ -83,6 +85,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 			hoverPreviewOptions,
 			actionOptions,
 			truncateInline,
+			type,
 		} = this.props;
 
 		const inlineCardResolvedView = (
@@ -99,6 +102,9 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 					icon={icon}
 					title={title}
 					titleTextColor={titleTextColor}
+					{...(fg('platform-linking-visual-refresh-v2') && {
+						type,
+					})}
 				/>
 				{this.renderLozenge()}
 			</Frame>

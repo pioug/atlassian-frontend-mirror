@@ -12,7 +12,6 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
-import * as editorExperiments from '@atlaskit/tmp-editor-statsig/experiments';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type EditorActions from '../../../actions';
@@ -319,75 +318,6 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 							},
 							eventType: 'track',
 						}),
-					);
-				});
-
-				describe('platform_editor_nested_non_bodied_macros experiment exposure', () => {
-					let experimentSpy: jest.SpyInstance;
-
-					beforeEach(() => {
-						experimentSpy = jest.spyOn(editorExperiments, 'editorExperiment');
-					});
-
-					afterEach(() => {
-						experimentSpy.mockRestore();
-					});
-					it.each(['panel', 'blockquote', 'listItem', 'nestedExpand'])(
-						'should fire platform_editor_nested_non_bodied_macros experiment exposure for $s',
-						async (location) => {
-							const dummyExtensionProvider = setup();
-							const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
-							const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-								dummyExtensionProvider,
-								{} as EditorActions,
-								{ current: undefined },
-								createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
-							);
-
-							const findLocationSpy = jest.spyOn(analyticsUtil, 'findInsertLocation');
-							findLocationSpy.mockReturnValue(location);
-
-							const items = await quickInsertProvider.getItems();
-
-							items[0].action(jest.fn(), {} as EditorState);
-
-							expect(experimentSpy).toHaveBeenCalledWith(
-								'platform_editor_nested_non_bodied_macros',
-								'test',
-								{
-									exposure: true,
-								},
-							);
-						},
-					);
-
-					it.each(['table', 'doc'])(
-						'should not fire platform_editor_nested_non_bodied_macros experiment exposure for $s',
-						async (location) => {
-							const dummyExtensionProvider = setup();
-							const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
-							const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-								dummyExtensionProvider,
-								{} as EditorActions,
-								{ current: undefined },
-								createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
-							);
-
-							const findLocationSpy = jest.spyOn(analyticsUtil, 'findInsertLocation');
-							findLocationSpy.mockReturnValue(location);
-
-							const items = await quickInsertProvider.getItems();
-
-							items[0].action(jest.fn(), {} as EditorState);
-
-							expect(experimentSpy).not.toHaveBeenCalledWith(
-								'platform_editor_nested_non_bodied_macros',
-								'test',
-								{
-									exposure: true,
-								},
-							);
-						},
 					);
 				});
 			},

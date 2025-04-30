@@ -1,4 +1,8 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import StarIcon from '@atlaskit/icon/glyph/star';
@@ -14,6 +18,21 @@ import {
 	SkeletonHeadingItem,
 	SkeletonItem,
 } from '../src';
+
+const overrideStyles = css({
+	paddingBlockEnd: token('space.150', '12px'),
+	paddingBlockStart: token('space.150', '12px'),
+	paddingInlineEnd: token('space.250', '20px'),
+	paddingInlineStart: token('space.250', '20px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+	'[data-item-elem-after]': {
+		opacity: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&:hover [data-item-elem-after]': {
+		opacity: 1,
+	},
+});
 
 // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 const Emphasis = (props: CustomItemComponentProps) => <em {...props} />;
@@ -102,13 +121,7 @@ const ItemVariants = () => {
 				href="//www.atlassian.com"
 				iconAfter={Star}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-				cssFn={() => {
-					return {
-						padding: `${token('space.150', '12px')} ${token('space.250', '20px')}`,
-						[`& [data-item-elem-after]`]: { opacity: 0 },
-						[`&:hover [data-item-elem-after]`]: { opacity: 1 },
-					};
-				}}
+				css={overrideStyles}
 				isSelected
 			>
 				Selected Link Item

@@ -31,12 +31,103 @@ describe('getVCMetrics', () => {
 
 		// Default mock implementations
 		mockGetConfig.mockReturnValue({
-			vc: { enabled: true },
+			vc: {
+				enabled: true,
+				enabledVCRevisions: ['fy25.01', 'fy25.02'],
+			},
 			experimentalInteractionMetrics: { enabled: false },
 		} as unknown as ReturnType<typeof getConfig>);
 
 		mockGetVCObserver.mockReturnValue({
 			getVCResult: jest.fn().mockResolvedValue({
+				'ufo:vc:rev': [
+					{
+						clean: true,
+						'metric:vc90': 100,
+						revision: 'fy25.01',
+						vcDetails: {
+							'25': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'50': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'75': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'80': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'85': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'90': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'95': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'98': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'99': {
+								e: ['body > div'],
+								t: 100,
+							},
+						},
+					},
+					{
+						clean: true,
+						'metric:vc90': 100,
+						revision: 'fy25.02',
+						vcDetails: {
+							'25': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'50': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'75': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'80': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'85': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'90': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'95': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'98': {
+								e: ['body > div'],
+								t: 100,
+							},
+							'99': {
+								e: ['body > div'],
+								t: 100,
+							},
+						},
+					},
+				],
 				'metrics:vc': { '90': 100 },
 				'ufo:vc:clean': true,
 			}),
@@ -93,6 +184,121 @@ describe('getVCMetrics', () => {
 			'metrics:vc': { '90': 100 },
 			'ufo:vc:clean': true,
 			'metric:vc90': 100,
+		};
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toMatchObject(expectedVCResult);
+	});
+
+	it('should process page_load interaction correctly for fy25.01 disabled', async () => {
+		mockGetConfig.mockReturnValue({
+			vc: {
+				enabled: true,
+				enabledVCRevisions: ['fy25.02'],
+			},
+			experimentalInteractionMetrics: { enabled: false },
+		} as unknown as ReturnType<typeof getConfig>);
+
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+			apdex: [{ key: 'test-apdex', stopTime: 50 }],
+		} as unknown as InteractionMetrics;
+
+		const expectedVCResult = {
+			'metrics:vc': { '90': 100 },
+			'ufo:vc:clean': true,
+			'metric:vc90': 100,
+			'ufo:vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 100,
+					revision: 'fy25.01',
+					vcDetails: {
+						'25': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'50': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'75': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'80': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'85': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'90': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'95': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'98': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'99': {
+							e: ['body > div'],
+							t: 100,
+						},
+					},
+				},
+				{
+					clean: true,
+					'metric:vc90': 100,
+					revision: 'fy25.02',
+					vcDetails: {
+						'25': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'50': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'75': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'80': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'85': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'90': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'95': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'98': {
+							e: ['body > div'],
+							t: 100,
+						},
+						'99': {
+							e: ['body > div'],
+							t: 100,
+						},
+					},
+				},
+			],
 		};
 
 		const result = await getVCMetrics(interaction);

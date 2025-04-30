@@ -56,7 +56,7 @@ async function getVCMetrics(
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
-	if (fg('platform_ufo_disable_ttvc_v1')) {
+	if (!config?.vc?.enabledVCRevisions?.includes('fy25.01')) {
 		const ttvcV2Revision = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
 			({ revision }) => revision === 'fy25.02',
 		);

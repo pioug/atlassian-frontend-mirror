@@ -3,6 +3,7 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import Tooltip from '../../tooltip';
 
@@ -18,8 +19,14 @@ function assert(eventMock: jest.Mock<any, any>, expected: UIAnalyticsEvent) {
 	expect(eventMock.mock.calls[0][0].context).toEqual(expected.context);
 }
 
+jest.mock('@atlaskit/platform-feature-flags');
+const mockGetBooleanFF = fg as jest.MockedFunction<typeof fg>;
+
 describe('test analytics', () => {
 	beforeEach(() => {
+		mockGetBooleanFF.mockImplementation((key) => key === 'platform-tooltip-focus-visible');
+		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
+
 		jest.useFakeTimers();
 	});
 

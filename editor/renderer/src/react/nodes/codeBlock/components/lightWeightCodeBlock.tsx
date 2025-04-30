@@ -14,15 +14,14 @@ import {
 	blockNodesVerticalMargin,
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
-import { codeBlockSharedStyles, CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 import { useBidiWarnings } from '../../../hooks/use-bidi-warnings';
 import { RendererCssClassName } from '../../../../consts';
 import type { Props as CodeBlockProps } from '../codeBlock';
 import { token } from '@atlaskit/tokens';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 
-const codeBlockSharedStylesNew = css({
+const codeBlockSharedStyles = css({
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED}
 		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
 		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}`]: {
@@ -168,14 +167,7 @@ const codeBlockSharedStylesNew = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const lightWeightCodeBlockStylesOld = css`
-	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
-		cursor: text;
-	}
-`;
-
-const lightWeightCodeBlockStylesNew = css({
+const lightWeightCodeBlockStyles = css({
 	[`.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}`]: {
 		cursor: 'text',
 	},
@@ -206,57 +198,7 @@ export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = () => {
 	`;
 };
 
-const LightWeightCodeBlockOld = forwardRef(
-	(
-		{
-			text,
-			codeBidiWarningTooltipEnabled = true,
-			className,
-		}: Pick<CodeBlockProps, 'text' | 'codeBidiWarningTooltipEnabled' | 'className'>,
-		ref: React.Ref<HTMLDivElement>,
-	) => {
-		const textRows = useMemo(() => (text ?? '').split('\n'), [text]);
-		const { renderBidiWarnings } = useBidiWarnings({
-			enableWarningTooltip: codeBidiWarningTooltipEnabled,
-		});
-		const classNames = [LightWeightCodeBlockCssClassName.CONTAINER, className].join(' ');
-
-		return (
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={classNames}
-				ref={ref}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={[codeBlockSharedStyles(), lightWeightCodeBlockStylesOld]}
-			>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
-				<div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}>
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
-					>
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}
-						>
-							{textRows.map((_, index) => (
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/no-array-index-key
-								<span key={index} />
-							))}
-						</div>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-						<div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}>
-							<code>{renderBidiWarnings(text)}</code>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
-	},
-);
-
-const LightWeightCodeBlockNew = forwardRef(
+const LightWeightCodeBlock = forwardRef(
 	(
 		{
 			text,
@@ -280,7 +222,7 @@ const LightWeightCodeBlockNew = forwardRef(
 				className={classNames}
 				ref={ref}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={[codeBlockSharedStylesNew, lightWeightCodeBlockStylesNew]}
+				css={[codeBlockSharedStyles, lightWeightCodeBlockStyles]}
 				style={
 					{
 						'--ak-renderer-codeblock-content-wrapper-bg-img': codeBlockBackgroundImage,
@@ -312,12 +254,6 @@ const LightWeightCodeBlockNew = forwardRef(
 			</div>
 		);
 	},
-);
-
-const LightWeightCodeBlock = componentWithFG(
-	'platform_editor_emotion_refactor_renderer',
-	LightWeightCodeBlockNew,
-	LightWeightCodeBlockOld,
 );
 
 export default LightWeightCodeBlock;

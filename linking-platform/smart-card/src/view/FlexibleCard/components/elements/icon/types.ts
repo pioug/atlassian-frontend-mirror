@@ -34,4 +34,9 @@ export type IconProps = ElementProps & {
 	 * The icon from this url will be used if no render function or Atlaskit Icon is provided.
 	 */
 	url?: string;
+
+	/**
+	 * Whether to display the icon as a square or round image.
+	 */
+	appearance?: 'square' | 'round';
 };

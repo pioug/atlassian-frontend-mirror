@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.12.0
+
+### Minor Changes
+
+- [#145064](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145064)
+  [`7491e06cbbd8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7491e06cbbd8f) -
+  Add rule to encourage the usage of ADS radio over native radio input elements.
+
 ## 13.11.0
 
 ### Minor Changes

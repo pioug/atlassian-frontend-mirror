@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.7.0
+
+### Minor Changes
+
+- [#146198](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146198)
+  [`86a786e83342d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86a786e83342d) -
+  ED-27730 update layout analytics to include layout column count
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

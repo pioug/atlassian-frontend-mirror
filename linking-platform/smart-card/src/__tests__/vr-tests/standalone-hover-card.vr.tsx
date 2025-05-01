@@ -83,6 +83,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 
@@ -97,6 +98,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 
@@ -155,6 +157,7 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 

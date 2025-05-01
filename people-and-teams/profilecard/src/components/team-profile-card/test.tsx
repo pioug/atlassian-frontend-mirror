@@ -161,6 +161,8 @@ describe('TeamProfileCard', () => {
 					userId={mockUserId}
 					containerId={'1234'}
 					{...mockProfileData}
+					teamCentralBaseUrl="https://test-prod-issue-create.atlassian.net/wiki"
+					analyticsSource="test"
 					isKudosEnabled
 				/>
 			</IntlProvider>,
@@ -184,6 +186,8 @@ describe('TeamProfileCard', () => {
 					userId={mockUserId}
 					containerId={'1234'}
 					{...mockProfileData}
+					teamCentralBaseUrl="https://test-prod-issue-create.atlassian.net/wiki"
+					analyticsSource="test"
 					isKudosEnabled
 				/>
 			</IntlProvider>,

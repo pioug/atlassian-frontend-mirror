@@ -12,7 +12,6 @@ declare global {
 /**
  * Inline Script that updates breakout node width on client side,
  * before main JavaScript bundle is ready.
- *
  * More info: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1216218119/Renderer+SSR+for+Breakout+Nodes
  */
 export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInlineScript: Boolean }) {
@@ -32,27 +31,29 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 	}
 
 	const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
-	const context = createBreakoutInlineScript(id);
-
 	return (
 		<script
 			data-breakout-script-id={id}
 			// To investigate if we can replace this.
 			// eslint-disable-next-line react/no-danger
-			dangerouslySetInnerHTML={{ __html: context }}
+			dangerouslySetInnerHTML={{
+				__html: fg('platform-ssr-table-resize')
+					? createBreakoutInlineScript(id, true)
+					: createBreakoutInlineScript(id),
+			}}
 			data-testid="breakout-ssr-inline-script"
-		></script>
+		/>
 	);
 }
 
-export function createBreakoutInlineScript(id: number) {
+export function createBreakoutInlineScript(id: number, optionalFlagArg?: boolean) {
 	return `
 	 (function(window){
 		if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) {
 			return;
 		}
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${Boolean(fg('platform-fix-table-ssr-resizing'))});
+    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${optionalFlagArg ?? false});
   })(window);
 `;
 }
@@ -70,7 +71,7 @@ export const breakoutInlineScriptContext = `
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableResizing: boolean) {
+function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEnabled: boolean) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
 
@@ -88,7 +89,7 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 	}
 
 	const renderer: HTMLElement | undefined = findUp(
-		document.querySelector('[data-breakout-script-id="' + id + '"]'),
+		document.querySelector(`[data-breakout-script-id="${id}"]`),
 		(elem) => !!elem.parentElement?.classList.contains('ak-renderer-wrapper'),
 	);
 
@@ -102,6 +103,24 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 				return;
 			}
 
+			if (
+				/**
+				 * The mutation observer is only called once per added node.
+				 * The above condition only deals with direct children of <div class="ak-renderer-document" />
+				 * When it is initially called on the direct children, not all the sub children have loaded.
+				 * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
+				 * Thus adding this conditional to deal with all media elements directly.
+				 */
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
+			) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				applyMediaBreakout(item.target as HTMLElement);
+			}
+
+			// Remove with feature gate 'platform-ssr-table-resize'
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if ((item.target as HTMLElement).classList.contains('ak-renderer-document')) {
@@ -123,7 +142,7 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 					}
 
 					// When flag is on we are using CSS to calculate the table width thus don't need logic below to set the width and left.
-					if (!shouldFixTableResizing) {
+					if (!isFeatureFlagEnabled) {
 						if (node.classList.contains('pm-table-container') && mode === 'custom') {
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -168,21 +187,6 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 						}
 					}
 				});
-			} else if (
-				/**
-				 * The mutation observer is only called once per added node.
-				 * The above condition only deals with direct children of <div class="ak-renderer-document" />
-				 * When it is initially called on the direct children, not all the sub children have loaded.
-				 * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
-				 * Thus adding this conditional to deal with all media elements directly.
-				 */
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				(item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
-			) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				applyMediaBreakout(item.target as HTMLElement);
 			}
 		});
 	});

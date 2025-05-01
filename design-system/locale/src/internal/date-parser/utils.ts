@@ -69,7 +69,7 @@ export const isValid = (date: DateObj): boolean => {
  * @param date: DateObj
  * @returns DateObj
  */
-export const normalizeDate = (date: DateObj): DateObj => {
+export const normalizeDate = (date: DateObj, defaultFirstDay: boolean = false): DateObj => {
 	const now = toDateObj(new Date());
 	const { year, month, day } = date;
 
@@ -79,7 +79,8 @@ export const normalizeDate = (date: DateObj): DateObj => {
 	// Missing date pieces are filled in with their current date values
 	const normalizedYear = !isNaN(fullYear) ? fullYear : now.year;
 	const normalizedMonth = !isNaN(month) && month !== 0 ? month : now.month;
-	const normalizedDay = !isNaN(day) && day !== 0 ? day : now.day;
+	const normalizedDay =
+		!isNaN(day) && day !== 0 ? day : month !== 0 && defaultFirstDay ? 1 : now.day;
 
 	return {
 		year: normalizedYear,

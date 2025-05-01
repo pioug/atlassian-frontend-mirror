@@ -18,10 +18,17 @@ function Editor() {
 		createDefaultPreset({ featureFlags: {}, paste: {} })
 			.add(listPlugin)
 			.add(gridPlugin)
-			.add([mediaPlugin, { provider: storyMediaProviderFactory(), allowMediaSingle: true, isExternalMediaUploadDisabled: true }])
+			.add([
+				mediaPlugin,
+				{
+					provider: storyMediaProviderFactory(),
+					allowMediaSingle: true,
+					isExternalMediaUploadDisabled: true,
+				},
+			])
 			.add(insertBlockPlugin)
 			.add(contentInsertionPlugin)
-			.add([mediaInsertPlugin, { isOnlyExternalLinks: true }])
+			.add([mediaInsertPlugin, { isOnlyExternalLinks: true }]),
 	);
 
 	return <ComposableEditor preset={preset} />;
@@ -49,12 +56,12 @@ function Editor() {
 			<Editor />
 		</div>
 	);
-}
+};
 
 Example.decorators = [
 	withPlatformFeatureFlags({
-		'platform_editor_add_media_from_url_rollout': true,
-		'platform_editor_media_from_url_remove_form': true,
+		platform_editor_add_media_from_url_rollout: true,
+		platform_editor_media_from_url_remove_form: true,
 	}),
 ];
 

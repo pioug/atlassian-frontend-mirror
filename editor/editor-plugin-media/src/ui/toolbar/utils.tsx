@@ -34,10 +34,10 @@ const getSelectedMediaContainerNodeAttrs = (
 	return null;
 };
 
-export const getSelectedNearestMediaContainerNodeAttrs = (
-	mediaPluginState: MediaPluginState,
-): MediaADFAttrs | null => {
-	const selectedNode = mediaPluginState.selectedMediaContainerNode?.();
+export const getSelectedNearestMediaContainerNodeAttrsFunction = (
+	selectedMediaContainerNode: () => ProseMirrorNode | undefined,
+) => {
+	const selectedNode = selectedMediaContainerNode?.();
 	if (selectedNode) {
 		switch (selectedNode.type.name) {
 			case 'mediaSingle': {
@@ -50,6 +50,14 @@ export const getSelectedNearestMediaContainerNodeAttrs = (
 		}
 	}
 	return null;
+};
+
+export const getSelectedNearestMediaContainerNodeAttrs = (
+	mediaPluginState: MediaPluginState,
+): MediaADFAttrs | null => {
+	return getSelectedNearestMediaContainerNodeAttrsFunction(
+		mediaPluginState.selectedMediaContainerNode,
+	);
 };
 
 export const downloadMedia = async (

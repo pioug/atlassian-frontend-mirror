@@ -127,6 +127,10 @@ export interface AvatarPropTypes {
 	 * be used to wrap the element.
 	 */
 	as?: keyof JSX.IntrinsicElements | React.ComponentType<React.AllHTMLAttributes<HTMLElement>>;
+	/**
+	 * whether disable aria-labelledby for avatar img
+	 */
+	isDecorative?: boolean;
 }
 
 /**
@@ -158,6 +162,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 			target,
 			testId,
 			as: AvatarContainer = 'div',
+			isDecorative = false,
 		},
 		ref,
 	) => {
@@ -237,7 +242,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 				<AvatarContainer
 					data-testid={testId}
 					role={containerShouldBeImage ? 'img' : undefined}
-					aria-labelledby={containerShouldBeImage ? labelId : undefined}
+					aria-labelledby={containerShouldBeImage && !isDecorative ? labelId : undefined}
 					css={containerStyles}
 					style={{ zIndex: stackIndex }}
 				>

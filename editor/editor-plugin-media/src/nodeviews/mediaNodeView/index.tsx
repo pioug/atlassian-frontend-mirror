@@ -17,9 +17,11 @@ import type {
 	ExtractInjectionAPI,
 	EditorContainerWidth as WidthPluginState,
 } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
@@ -45,12 +47,26 @@ const MediaNodeWithProviders = ({
 	pluginInjectionApi,
 	innerComponent,
 }: MediaNodeWithProvidersProps) => {
-	const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, ['width', 'media']);
+	const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, ['width', 'media'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const mediaProviderSelector = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'media.mediaProvider',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+
+	const mediaProvider = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? mediaProviderSelector
+		: mediaState?.mediaProvider;
+
 	return innerComponent({
-		width: widthState,
-		mediaProvider: mediaState?.mediaProvider
-			? Promise.resolve(mediaState?.mediaProvider)
+		width: editorExperiment('platform_editor_usesharedpluginstateselector', true)
+			? widthState
 			: undefined,
+		mediaProvider: mediaProvider ? Promise.resolve(mediaProvider) : undefined,
 	});
 };
 

@@ -646,4 +646,21 @@ describe('Avatar', () => {
 			);
 		});
 	});
+	it('should render avatar with aria-labelledby when isDecorative is false', () => {
+		render(<Avatar name="Alexander Nevermind" testId={'avatar'} presence="presence" />);
+		const avatar = screen.getByTestId('avatar');
+		expect(avatar).toHaveAttribute('aria-labelledby');
+	});
+	it('should render avatar without aria-labelledby when isDecorative is true', () => {
+		render(
+			<Avatar
+				name="Alexander Nevermind"
+				testId={'avatar'}
+				presence="presence"
+				isDecorative={true}
+			/>,
+		);
+		const avatar = screen.getByTestId('avatar');
+		expect(avatar).not.toHaveAttribute('aria-labelledby');
+	});
 });

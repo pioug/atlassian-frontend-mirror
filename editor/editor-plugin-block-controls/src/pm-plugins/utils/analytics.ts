@@ -46,6 +46,7 @@ export const fireInsertLayoutAnalytics = (
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 	nodeTypes?: string,
 	hasSelectedMultipleNodes?: boolean,
+	columnCount?: number,
 ) => {
 	api?.analytics?.actions?.attachAnalyticsEvent({
 		action: ACTION.INSERTED,
@@ -55,6 +56,7 @@ export const fireInsertLayoutAnalytics = (
 			inputMethod: INPUT_METHOD.DRAG_AND_DROP,
 			nodeTypes,
 			hasSelectedMultipleNodes,
+			columnCount,
 		},
 		eventType: EVENT_TYPE.TRACK,
 	})(tr);

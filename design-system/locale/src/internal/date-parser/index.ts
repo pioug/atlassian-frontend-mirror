@@ -1,5 +1,6 @@
-import { type DateObj, isValid, normalizeDate, toDate } from './utils';
 import { normalizeLocale } from '../common';
+
+import { type DateObj, isValid, normalizeDate, toDate } from './utils';
 
 const INVALID_DATE: Date = new Date(NaN);
 const INVARIANT: DateObj = { year: 1993, month: 2, day: 18 };
@@ -20,7 +21,15 @@ const extractDateParts = (matchResult: RegExpMatchArray): number[] => {
 	);
 };
 
-export type DateParser = (date: string) => Date;
+export type CreateDateParserOptions = {
+	/**
+	 * The default day when the day is undefined
+	 * e.g. (when {month: 4, day: undefined} is passed day will always default too 1)
+	 */
+	defaultFirstDay?: boolean;
+};
+
+export type DateParser = (date: string, options?: CreateDateParserOptions) => Date;
 
 /**
  * Creates a date parser function for a specific locale. The function will
@@ -56,7 +65,7 @@ export const createDateParser = (locale: string): DateParser => {
 	const monthPosition = formatParts.indexOf(INVARIANT.month);
 	const dayPosition = formatParts.indexOf(INVARIANT.day);
 
-	return (date: string): Date => {
+	return (date: string, options: CreateDateParserOptions = {}): Date => {
 		const dateMatch = stripExtras(date).match(DATE_PARSER_REGEX);
 		if (!dateMatch) {
 			return INVALID_DATE;
@@ -72,7 +81,7 @@ export const createDateParser = (locale: string): DateParser => {
 			day: dateParts[dayPosition],
 		};
 
-		const normalizedDate = normalizeDate(extractedDate);
+		const normalizedDate = normalizeDate(extractedDate, options?.defaultFirstDay);
 
 		if (!isValid(normalizedDate)) {
 			return INVALID_DATE;

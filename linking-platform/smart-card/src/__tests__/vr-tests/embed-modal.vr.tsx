@@ -8,6 +8,7 @@ snapshot(EmbedModal, {
 	description: 'renders embed modal',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 
@@ -15,6 +16,7 @@ snapshot(EmbedModalWithFlexibleUiIcon, {
 	description: 'renders embed modal with flexible ui icon',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 
@@ -22,5 +24,6 @@ snapshot(EmbedModalConfluence, {
 	description: 'renders embed modal with Confluence icon',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });

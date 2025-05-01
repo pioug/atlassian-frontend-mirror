@@ -18,10 +18,12 @@ import {
 	Popup,
 	withOuterListeners,
 } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type MediaInsertPickerProps } from '../types';
 
@@ -61,7 +63,32 @@ export const MediaInsertPicker = ({
 	insertFile,
 	isOnlyExternalLinks = false,
 }: MediaInsertPickerProps) => {
-	const { isOpen, mountInfo } = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState ?? {};
+	const { isOpen: oldIsOpen, mountInfo: oldMountInfo } =
+		useSharedPluginState(api, ['mediaInsert'], {
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+		})?.mediaInsertState ?? {};
+	const oldMediaProvider = useSharedPluginState(api, ['media'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	})?.mediaState?.mediaProvider;
+	const isOpenSelector = useSharedPluginStateSelector(api, 'mediaInsert.isOpen', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const mountInfoSelector = useSharedPluginStateSelector(api, 'mediaInsert.mountInfo', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const mediaProviderSelector = useSharedPluginStateSelector(api, 'media.mediaProvider', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+
+	const isOpen = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? isOpenSelector
+		: oldIsOpen;
+	const mountInfo = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? mountInfoSelector
+		: oldMountInfo;
+	const mediaProvider = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? mediaProviderSelector
+		: oldMediaProvider;
 
 	let targetRef: HTMLElement | undefined;
 	let mountPoint: HTMLElement | undefined;
@@ -78,7 +105,6 @@ export const MediaInsertPicker = ({
 		mountPoint = popupsMountPoint;
 	}
 
-	const mediaProvider = useSharedPluginState(api, ['media'])?.mediaState?.mediaProvider;
 	const intl = useIntl();
 	const focusEditor = useFocusEditor({ editorView });
 	const { autofocusRef, onPositionCalculated } = useUnholyAutofocus();
@@ -126,26 +152,26 @@ export const MediaInsertPicker = ({
 						<Tabs id="media-insert-tab-navigation">
 							<Box paddingBlockEnd="space.150">
 								<TabList>
-									{!isOnlyExternalLinks && <Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>}
+									{!isOnlyExternalLinks && (
+										<Tab>{intl.formatMessage(mediaInsertMessages.fileTabTitle)}</Tab>
+									)}
 									<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
 								</TabList>
 							</Box>
-							{
-								!isOnlyExternalLinks && (
-									<CustomTabPanel>
-										<LocalMedia
-											ref={autofocusRef}
-											mediaProvider={mediaProvider}
-											closeMediaInsertPicker={() => {
-												closeMediaInsertPicker();
-												focusEditor();
-											}}
-											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-											insertFile={insertFile}
-										/>
-									</CustomTabPanel>
-								)
-							}
+							{!isOnlyExternalLinks && (
+								<CustomTabPanel>
+									<LocalMedia
+										ref={autofocusRef}
+										mediaProvider={mediaProvider}
+										closeMediaInsertPicker={() => {
+											closeMediaInsertPicker();
+											focusEditor();
+										}}
+										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+										insertFile={insertFile}
+									/>
+								</CustomTabPanel>
+							)}
 							<CustomTabPanel>
 								{fg('platform_editor_media_from_url_remove_form') ? (
 									<MediaFromURL

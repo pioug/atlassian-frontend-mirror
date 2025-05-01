@@ -567,13 +567,19 @@ export const RendererFunctionalComponent = (
 	}
 };
 
+const RendererFunctionalComponentMemoized = React.memo(RendererFunctionalComponent);
+
 export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
 	const { skipValidation } = useContext(ValidationContext) || {};
 
+	const RendererComponent = fg('cc_perf_reduce_rerenders')
+		? RendererFunctionalComponentMemoized
+		: RendererFunctionalComponent;
+
 	return (
-		<RendererFunctionalComponent
+		<RendererComponent
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}

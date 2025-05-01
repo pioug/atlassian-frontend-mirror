@@ -30,7 +30,8 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
 	canInsert,
 	type ContentNodeWithPos,
@@ -38,6 +39,7 @@ import {
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaState } from '../../types';
 
@@ -109,6 +111,30 @@ const getInsertMediaInlineAnalytics = (
 	};
 };
 
+export const getFailToInsertAnalytics = (
+	mediaState: MediaState,
+	actionSubjectId:
+		| ACTION_SUBJECT_ID.MEDIA_INLINE
+		| ACTION_SUBJECT_ID.MEDIA_GROUP
+		| ACTION_SUBJECT_ID.MEDIA_SINGLE,
+	inputMethod?: InputMethodInsertMedia,
+	insertMediaVia?: InsertMediaVia,
+	reason?: string,
+): InsertEventPayload => {
+	const media = mediaState.fileMimeType || 'unknown';
+	return {
+		action: ACTION.FAILED_TO_INSERT,
+		actionSubject: ACTION_SUBJECT.DOCUMENT,
+		actionSubjectId,
+		attributes: {
+			inputMethod,
+			fileExtension: media,
+			insertMediaVia,
+			reason,
+		},
+		eventType: EVENT_TYPE.OPERATIONAL,
+	};
+};
 /**
  * Check if current editor selections is a media group or not.
  * @param state Editor state
@@ -144,6 +170,28 @@ function shouldAppendParagraph(state: EditorState, node?: PMNode | null): boolea
 		!wasMediaNode
 	);
 }
+
+/**
+ * Check if node of type has been inserted successfully
+ */
+const hasInsertedNodeOfType = (tr: Transaction, nodeType: string) => {
+	let insertPos = -1;
+	tr.steps.forEach((step) => {
+		if (step instanceof ReplaceStep) {
+			step.slice.content.forEach((node) => {
+				if (node.type.name === nodeType) {
+					insertPos = step.from;
+				}
+			});
+		}
+	});
+
+	if (insertPos === -1 || tr.doc.nodeAt(insertPos)?.type.name !== nodeType) {
+		return false;
+	}
+
+	return true;
+};
 
 /**
  * Create a new media inline to insert the new media.
@@ -200,15 +248,50 @@ export const insertMediaInlineNode =
 
 		// Delete the selection if a selection is made
 		const deleteRange = findDeleteRange(state);
-		if (!deleteRange) {
-			tr.insert(pos, content);
+
+		if (fg('platform_editor_track_media_fail_to_insert')) {
+			let payload: InsertEventPayload;
+			try {
+				if (!deleteRange) {
+					tr.insert(pos, content);
+				} else {
+					tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
+				}
+
+				if (hasInsertedNodeOfType(tr, 'mediaInline')) {
+					payload = getInsertMediaInlineAnalytics(mediaState, inputMethod, insertMediaVia);
+				} else {
+					payload = getFailToInsertAnalytics(
+						mediaState,
+						ACTION_SUBJECT_ID.MEDIA_INLINE,
+						inputMethod,
+						insertMediaVia,
+					);
+				}
+			} catch (error) {
+				payload = getFailToInsertAnalytics(
+					mediaState,
+					ACTION_SUBJECT_ID.MEDIA_INLINE,
+					inputMethod,
+					insertMediaVia,
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					(error as any).toString(),
+				);
+			}
+
+			editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
 		} else {
-			tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
+			if (!deleteRange) {
+				tr.insert(pos, content);
+			} else {
+				tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
+			}
+
+			editorAnalyticsAPI?.attachAnalyticsEvent(
+				getInsertMediaInlineAnalytics(mediaState, inputMethod, insertMediaVia),
+			)(tr);
 		}
 
-		editorAnalyticsAPI?.attachAnalyticsEvent(
-			getInsertMediaInlineAnalytics(mediaState, inputMethod, insertMediaVia),
-		)(tr);
 		dispatch(tr);
 		return true;
 	};

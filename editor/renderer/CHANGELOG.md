@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 114.11.2
+
+### Patch Changes
+
+- [#147828](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147828)
+  [`874be077a3f5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/874be077a3f5f) -
+  Wrap RendererFunctionalComponent into memo
+
 ## 114.11.1
 
 ### Patch Changes

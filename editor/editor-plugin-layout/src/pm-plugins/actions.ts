@@ -204,6 +204,7 @@ export const insertLayoutColumnsWithAnalytics =
 			actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
 			attributes: {
 				inputMethod,
+				columnCount: fg('platform_editor_column_count_analytics') ? 2 : undefined,
 			},
 			eventType: EVENT_TYPE.TRACK,
 		})((state, dispatch) => {

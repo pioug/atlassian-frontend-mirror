@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 export const mockProfileData = {
-	teamId: '8ee37950-7de7-41ec-aee2-2c02c95949f4',
+	teamId: 'ari:cloud:identity::team/8ee37950-7de7-41ec-aee2-2c02c95949f4',
 	displayName: 'THE SUPER TEAM',
 	description:
 		"Super team's super description - This is a very long line, adding more lines here to test the line limit of 3 that we enforce on the description of the team. In case the description very long, it should display an elipses at the end and hide that content that is overflowing",

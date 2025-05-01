@@ -18,6 +18,7 @@ import type {
 	PMPlugin,
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -86,25 +87,56 @@ const MediaViewerFunctionalComponent = ({
 	api,
 	editorView,
 }: MediaViewerFunctionalComponentProps) => {
-	const { mediaState } = useSharedPluginState(api, ['media']);
+	const { mediaState } = useSharedPluginState(api, ['media'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const isMediaViewerVisibleSelector = useSharedPluginStateSelector(
+		api,
+		'media.isMediaViewerVisible',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const mediaViewerSelectedMediaSelector = useSharedPluginStateSelector(
+		api,
+		'media.mediaViewerSelectedMedia',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const mediaClientConfigSelector = useSharedPluginStateSelector(api, 'media.mediaClientConfig', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+
+	const isMediaViewerVisible = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? isMediaViewerVisibleSelector
+		: mediaState?.isMediaViewerVisible;
+	const mediaViewerSelectedMedia = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? mediaViewerSelectedMediaSelector
+		: mediaState?.mediaViewerSelectedMedia;
+	const mediaClientConfig = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? mediaClientConfigSelector
+		: mediaState?.mediaClientConfig;
 
 	// Only traverse document once when media viewer is visible, media viewer items will not update
 	// when document changes are made while media viewer is open
 
 	const mediaItems = useMemo(() => {
-		if (mediaState?.isMediaViewerVisible) {
+		if (isMediaViewerVisible) {
 			const mediaNodes = extractMediaNodes(editorView.state.doc);
 			return createMediaIdentifierArray(mediaNodes);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps -- only update mediaItems once when media viewer is visible
-	}, [mediaState?.isMediaViewerVisible]);
+	}, [isMediaViewerVisible]);
 
 	// Viewer does not have required attributes to render the media viewer
-	if (
-		!mediaState?.isMediaViewerVisible ||
-		!mediaState?.mediaViewerSelectedMedia ||
-		!mediaState?.mediaClientConfig
-	) {
+	if (!isMediaViewerVisible || !mediaViewerSelectedMedia || !mediaClientConfig) {
 		return null;
 	}
 
@@ -115,9 +147,9 @@ const MediaViewerFunctionalComponent = ({
 
 	return (
 		<RenderMediaViewer
-			mediaClientConfig={mediaState?.mediaClientConfig}
+			mediaClientConfig={mediaClientConfig}
 			onClose={handleOnClose}
-			selectedNodeAttrs={mediaState.mediaViewerSelectedMedia}
+			selectedNodeAttrs={mediaViewerSelectedMedia}
 			items={mediaItems}
 		/>
 	);

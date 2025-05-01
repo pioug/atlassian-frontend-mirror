@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.13.0
+
+### Minor Changes
+
+- [#147266](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147266)
+  [`b5c2728320969`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5c2728320969) -
+  Add rule to encourage use of DS textarea component.
+- [#147256](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147256)
+  [`df8b0619d7ebf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df8b0619d7ebf) -
+  Add rule to encourage use of DS textfield component.
+
 ## 13.12.0
 
 ### Minor Changes

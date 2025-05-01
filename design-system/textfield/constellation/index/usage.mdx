@@ -41,7 +41,9 @@ Avoid using placeholder text whenever possible. Make sure any critical informati
 either in the field label or using helper text below the field. Search fields or brief examples are
 the only exceptions where placeholder text is OK.
 
-To announce errors in helper text area during custom validation (reference to
+Don’t nest interactive elements in the text field, as it will cause focus issues.
+
+To announce errors in the helper text area during custom validation (reference to
 [Custom validation example](https://atlassian.design/components/textfield/examples#custom-validation)):
 
 - Validate field onBlur.

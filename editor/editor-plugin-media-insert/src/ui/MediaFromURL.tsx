@@ -344,21 +344,27 @@ export function MediaFromURL({
 											)}
 										</MessageWrapper>
 									</Box>
-									{!previewState.previewInfo && !previewState.error && !previewState.warning && !isOnlyExternalLinks && (
-										<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
-											<Button
-												type="button"
-												onClick={() => formProps.onSubmit()}
-												isLoading={previewState.isLoading}
-												isDisabled={!!error || !meta.dirty}
-												iconBefore={() => (
-													<ExpandIcon label="" LEGACY_fallbackIcon={EditorFilePreviewIconLegacy} />
-												)}
-											>
-												{strings.loadPreview}
-											</Button>
-										</Flex>
-									)}
+									{!previewState.previewInfo &&
+										!previewState.error &&
+										!previewState.warning &&
+										!isOnlyExternalLinks && (
+											<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
+												<Button
+													type="button"
+													onClick={() => formProps.onSubmit()}
+													isLoading={previewState.isLoading}
+													isDisabled={!!error || !meta.dirty}
+													iconBefore={() => (
+														<ExpandIcon
+															label=""
+															LEGACY_fallbackIcon={EditorFilePreviewIconLegacy}
+														/>
+													)}
+												>
+													{strings.loadPreview}
+												</Button>
+											</Flex>
+										)}
 								</Stack>
 							)}
 						</Field>
@@ -388,7 +394,11 @@ export function MediaFromURL({
 								<Button
 									type="button"
 									appearance="primary"
-									isDisabled={isOnlyExternalLinks ? (!url || !isValidUrl(url)) : (!previewState.previewInfo && !previewState.warning)}
+									isDisabled={
+										isOnlyExternalLinks
+											? !url || !isValidUrl(url)
+											: !previewState.previewInfo && !previewState.warning
+									}
 									onClick={() => formProps.onSubmit()}
 								>
 									{strings.insert}

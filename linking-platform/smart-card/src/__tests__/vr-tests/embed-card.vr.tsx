@@ -43,11 +43,13 @@ const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
 snapshot(EmbedCardErrorView, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenView, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenFixBlurring, {
@@ -58,11 +60,13 @@ snapshot(EmbedCardForbiddenFixBlurring, {
 snapshot(EmbedCardForbiddenDefault, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenObjectRequestAccess, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenSiteDeniedAccess, {
@@ -73,6 +77,7 @@ snapshot(EmbedCardForbiddenSiteDeniedAccess, {
 snapshot(EmbedCardForbiddenSiteDirectAccess, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
@@ -88,6 +93,7 @@ snapshot(EmbedCardForbiddenSitePendingAccess, {
 snapshot(EmbedCardForbiddenSiteRequestAccess, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardNotFoundView, {
@@ -133,11 +139,13 @@ snapshot(EmbedCardSelected, {
 snapshot(EmbedCardUnauthorisedView, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
@@ -196,6 +204,7 @@ snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
 snapshot(EmbedCardFrameStyleHide, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardFrameStyleHideAndSelected, {
@@ -233,6 +242,7 @@ snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
 snapshot(EmbedCardForbiddenViewFrameHide, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardNotFoundViewFrameHide, {
@@ -243,6 +253,7 @@ snapshot(EmbedCardNotFoundViewFrameHide, {
 snapshot(EmbedCardUnauthorisedViewFrameHide, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardResolvedViewNouns, {
@@ -257,6 +268,7 @@ snapshot(EmbedCardErrorView, {
 	description: 'EmbedCardErrorView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenView, {
@@ -264,6 +276,7 @@ snapshot(EmbedCardForbiddenView, {
 		'EmbedCardForbiddenView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenFixBlurring, {
@@ -278,6 +291,7 @@ snapshot(EmbedCardForbiddenDefault, {
 		'EmbedCardForbiddenDefault OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenObjectRequestAccess, {
@@ -285,6 +299,7 @@ snapshot(EmbedCardForbiddenObjectRequestAccess, {
 		'EmbedCardForbiddenObjectRequestAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenSiteDeniedAccess, {
@@ -299,6 +314,7 @@ snapshot(EmbedCardForbiddenSiteDirectAccess, {
 		'EmbedCardForbiddenSiteDirectAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
@@ -320,6 +336,7 @@ snapshot(EmbedCardForbiddenSiteRequestAccess, {
 		'EmbedCardForbiddenSiteRequestAccess OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardNotFoundView, {
@@ -375,6 +392,7 @@ snapshot(EmbedCardUnauthorisedView, {
 		'EmbedCardUnauthorisedView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
@@ -382,6 +400,7 @@ snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
 		'EmbedCardUnauthorisedViewWithProviderImage OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
@@ -496,6 +515,7 @@ snapshot(EmbedCardForbiddenViewFrameHide, {
 		'EmbedCardForbiddenViewFrameHide OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(EmbedCardNotFoundViewFrameHide, {
@@ -510,6 +530,7 @@ snapshot(EmbedCardUnauthorisedViewFrameHide, {
 		'EmbedCardUnauthorisedViewFrameHide OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 snapshot(VREmbedProfileObject, {

@@ -41,7 +41,12 @@ export const Table = React.memo(
 			tableWidth = 'inherit';
 		}
 		if (rendererAppearance === 'comment' && !allowTableResizing) {
-			tableWidth = renderWidth;
+			// in the case we have css container stylings,
+			// we don't need to calculate width here as this
+			// is done via css
+			if (!fg('platform-ssr-table-resize')) {
+				tableWidth = renderWidth;
+			}
 		}
 
 		const tableLayout = tableNode?.attrs.layout;

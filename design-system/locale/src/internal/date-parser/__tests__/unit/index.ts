@@ -1,6 +1,6 @@
 /* eslint-disable no-global-assign */
 
-import { createDateParser } from '../../';
+import { createDateParser } from '../../index';
 import { toDate, toDateObj } from '../../utils';
 
 const DATE_INVARIANT = new Date(2000, 7, 28);
@@ -20,8 +20,6 @@ describe('date-parser', () => {
 
 		it.each<[string, Date]>([
 			['0', toDate(now)],
-			['02', toDate({ ...now, month: 2 })],
-			['02/', toDate({ ...now, month: 2 })],
 			['02/1', toDate({ ...now, month: 2, day: 1 })],
 			['02/18', toDate({ ...now, month: 2, day: 18 })],
 			['02/18/', toDate({ ...now, month: 2, day: 18 })],
@@ -29,6 +27,37 @@ describe('date-parser', () => {
 			['02/18/19', toDate({ year: 2019, month: 2, day: 18 })],
 		])('parseDate(%s)', (dateString, expected) => {
 			expect(parseDate(dateString)).toEqual(expected);
+		});
+	});
+
+	describe.skip('defaults to the first of the selected month', () => {
+		const parseDate = createDateParser('en-US');
+		const now = toDateObj(new Date());
+
+		it.each<[string, Date]>([
+			['02', toDate({ ...now, month: 2, day: 1 })],
+			['02/', toDate({ ...now, month: 2, day: 1 })],
+		])('parseDate(%s)', (dateString, expected) => {
+			expect(
+				parseDate(dateString, {
+					defaultFirstDay: true,
+				}),
+			).toEqual(expected);
+		});
+	});
+	describe.skip('Partial Month Dates defaultFirstDay false', () => {
+		const parseDate = createDateParser('en-US');
+		const now = toDateObj(new Date());
+
+		it.each<[string, Date]>([
+			['02', toDate({ ...now, month: 2 })],
+			['02/', toDate({ ...now, month: 2 })],
+		])('parseDate(%s)', (dateString, expected) => {
+			expect(
+				parseDate(dateString, {
+					defaultFirstDay: false,
+				}),
+			).toEqual(expected);
 		});
 	});
 

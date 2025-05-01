@@ -8,7 +8,7 @@ import type {
 	INSERT_MEDIA_VIA,
 } from './enums';
 import type { InsertSmartLinkAEP } from './smart-links';
-import type { InsertAEP, TrackAEP } from './utils';
+import type { InsertAEP, TrackAEP, OperationalAEP } from './utils';
 
 export enum USER_CONTEXT {
 	EDIT = 'edit',
@@ -260,6 +260,7 @@ type InsertLayoutAEP = InsertAEP<
 		// and whether there are multiple nodes
 		nodeTypes?: string;
 		hasSelectedMultipleNodes?: boolean;
+		columnCount?: number;
 	},
 	undefined
 >;
@@ -324,6 +325,18 @@ type InsertPlaceholderTextAEP = InsertAEP<
 	undefined
 >;
 
+type FailedToInsertMediaPayload = OperationalAEP<
+	ACTION.FAILED_TO_INSERT,
+	ACTION_SUBJECT.DOCUMENT,
+	ACTION_SUBJECT_ID.MEDIA_INLINE | ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP,
+	{
+		inputMethod?: InputMethodInsertMedia;
+		fileExtension?: string;
+		insertMediaVia?: InsertMediaVia;
+		reason?: string;
+	}
+>;
+
 export type InsertEventPayload =
 	| InsertDividerAEP
 	| InsertLineBreakAEP
@@ -345,4 +358,5 @@ export type InsertEventPayload =
 	| InsertExtensionAEP
 	| InsertNodeViaExtensionAPIAEP
 	| InsertDateAEP
-	| InsertPlaceholderTextAEP;
+	| InsertPlaceholderTextAEP
+	| FailedToInsertMediaPayload;

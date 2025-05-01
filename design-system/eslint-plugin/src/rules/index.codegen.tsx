@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c2467b3710c61a46d8227d23aaa8b5cf>>
+ * @codegen <<SignedSource::be1696f2cf03313e918f93d6414aafd3>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -29,6 +29,8 @@ import noHtmlImage from './no-html-image';
 import noHtmlRadio from './no-html-radio';
 import noHtmlRange from './no-html-range';
 import noHtmlSelect from './no-html-select';
+import noHtmlTextInput from './no-html-text-input';
+import noHtmlTextarea from './no-html-textarea';
 import noInvalidCssMap from './no-invalid-css-map';
 import noKeyframesTaggedTemplateExpression from './no-keyframes-tagged-template-expression';
 import noLegacyIcons from './no-legacy-icons';
@@ -89,6 +91,8 @@ export const rules = {
 	'no-html-radio': noHtmlRadio,
 	'no-html-range': noHtmlRange,
 	'no-html-select': noHtmlSelect,
+	'no-html-text-input': noHtmlTextInput,
+	'no-html-textarea': noHtmlTextarea,
 	'no-invalid-css-map': noInvalidCssMap,
 	'no-keyframes-tagged-template-expression': noKeyframesTaggedTemplateExpression,
 	'no-legacy-icons': noLegacyIcons,

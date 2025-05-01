@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::a3d054bc7cfb602b3acafd14f3522741>>
+ * @codegen <<SignedSource::44d90593cb721a25d98da2218a021142>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -17,6 +17,7 @@ import { css, jsx } from '@compiled/react';
 import { Inline } from '@atlaskit/primitives';
 
 import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
+import AiGenerativeCleanupIcon from '../../../../core/ai-generative-cleanup';
 import AiGenerativeRemoveIcon from '../../../../core/ai-generative-remove';
 import AiGenerativeRemoveSilenceIcon from '../../../../core/ai-generative-remove-silence';
 import AiGenerativeTextIcon from '../../../../core/ai-generative-text';
@@ -34,8 +35,10 @@ import ArrowsDiagonalUpRightDownLeftIcon from '../../../../core/arrows-diagonal-
 import AssetsDataManagerIcon from '../../../../core/assets-data-manager';
 import AssetsGraphIcon from '../../../../core/assets-graph';
 import AssetsSchemaIcon from '../../../../core/assets-schema';
+import AtomIcon from '../../../../core/atom';
 import AudioWaveformIcon from '../../../../core/audio-waveform';
 import BeachUmbrellaIcon from '../../../../core/beach-umbrella';
+import BluetoothIcon from '../../../../core/bluetooth';
 import BlurIcon from '../../../../core/blur';
 import BookOpenIcon from '../../../../core/book-open';
 import BrowserExtensionIcon from '../../../../core/browser-extension';
@@ -44,6 +47,7 @@ import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
 import ColourNoneIcon from '../../../../core/colour-none';
+import CompassHingedIcon from '../../../../core/compass-hinged';
 import ContinueWhenIcon from '../../../../core/continue-when';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
 import CursorIcon from '../../../../core/cursor';
@@ -54,10 +58,12 @@ import DistributeSpacingHorizontalIcon from '../../../../core/distribute-spacing
 import DistributeSpacingVerticalIcon from '../../../../core/distribute-spacing-vertical';
 import DividerElementIcon from '../../../../core/divider-element';
 import DockToolbarTopIcon from '../../../../core/dock-toolbar-top';
+import DrawIcon from '../../../../core/draw';
 import DropShadowIcon from '../../../../core/drop-shadow';
 import DuplicateIcon from '../../../../core/duplicate';
 import EditionsIcon from '../../../../core/editions';
 import ExpandElementIcon from '../../../../core/expand-element';
+import EyedropperIcon from '../../../../core/eyedropper';
 import FieldTextIcon from '../../../../core/field-text';
 import FolderSharedIcon from '../../../../core/folder-shared';
 import GiftIcon from '../../../../core/gift';
@@ -74,6 +80,7 @@ import InitiativeIcon from '../../../../core/initiative';
 import JiraIcon from '../../../../core/jira';
 import JiraAddIcon from '../../../../core/jira-add';
 import JiraUploadIcon from '../../../../core/jira-upload';
+import KanbanIcon from '../../../../core/kanban';
 import LayoutFiveColumnsIcon from '../../../../core/layout-five-columns';
 import LayoutFourColumnsIcon from '../../../../core/layout-four-columns';
 import LayoutThreeColumnsSidebarsLeftIcon from '../../../../core/layout-three-columns-sidebars-left';
@@ -108,6 +115,7 @@ import ReplyRightIcon from '../../../../core/reply-right';
 import ReturnIcon from '../../../../core/return';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
+import SaveIcon from '../../../../core/save';
 import ScreenRecordIcon from '../../../../core/screen-record';
 import SectionIcon from '../../../../core/section';
 import ShapeDiamondIcon from '../../../../core/shape-diamond';
@@ -166,6 +174,7 @@ import TextItalicStrikethroughIcon from '../../../../core/text-italic-strikethro
 import TextItalicUnderlineIcon from '../../../../core/text-italic-underline';
 import TextItalicUnderlineStrikethroughIcon from '../../../../core/text-italic-underline-strikethrough';
 import TextLengthenIcon from '../../../../core/text-lengthen';
+import TextLetterCaseIcon from '../../../../core/text-letter-case';
 import TextParagraphIcon from '../../../../core/text-paragraph';
 import TextRephraseIcon from '../../../../core/text-rephrase';
 import TextUnderlineStrikethroughIcon from '../../../../core/text-underline-strikethrough';
@@ -394,6 +403,15 @@ const Icons = [
 	LayoutThreeColumnsSidebarsLeftIcon,
 	LayoutThreeColumnsSidebarsRightIcon,
 	TelescopeIcon,
+	DrawIcon,
+	SaveIcon,
+	CompassHingedIcon,
+	EyedropperIcon,
+	AtomIcon,
+	BluetoothIcon,
+	AiGenerativeCleanupIcon,
+	KanbanIcon,
+	TextLetterCaseIcon,
 ];
 
 const groupSize = 20;

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.11
+
+### Patch Changes
+
+- [#146949](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146949)
+  [`e3ec002371c78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3ec002371c78) -
+  [ux] Fixes Chrome specific issue when column drag handle doesn't open the drag menu after the last
+  column was selected by dragging across its columns from top to bottom.
+
 ## 10.9.10
 
 ### Patch Changes

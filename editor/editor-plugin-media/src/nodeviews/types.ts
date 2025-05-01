@@ -6,12 +6,10 @@ import type {
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
-import type { MediaPluginState } from '../pm-plugins/types';
 import type { ForwardRef, MediaOptions, getPosHandler as ProsemirrorGetPosHandler } from '../types';
 
 export interface MediaSingleNodeProps {
@@ -26,8 +24,10 @@ export interface MediaSingleNodeProps {
 	mediaProvider?: Promise<MediaProvider>;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	fullWidthMode?: boolean;
-	mediaPluginState: MediaPluginState;
-	annotationPluginState: InlineCommentPluginState;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	addPendingTask?: (promise: Promise<any>) => void;
+	isDrafting?: boolean;
+	targetNodeId?: string;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	isCopyPasteEnabled?: boolean;
 	forwardRef: ForwardRef;

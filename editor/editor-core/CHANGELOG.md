@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 205.8.0
+
+### Minor Changes
+
+- [#143009](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143009)
+  [`0531497d76444`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0531497d76444) -
+  [UX-3339] Adds a configuration for media insert to only allow for external links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 205.7.4
 
 ### Patch Changes

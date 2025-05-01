@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::507d576ac51298bbe1df0e262a310ef0>>
+ * @codegen <<SignedSource::b39ce66bd01fb5680d5c3b1df2e78e3b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -90,6 +90,26 @@ const metadata: Record<string, metadata> = {
 		team: 'Loom',
 		status: 'published',
 		slackChannel: '#feedback-loom-vizrefresh',
+	},
+	'ai-generative-cleanup': {
+		keywords: [
+			'ai-generative-cleanup',
+			'aigenerativecleanup',
+			'icon',
+			'icon-lab',
+			'core',
+			'broom',
+			'tidy',
+			'clean up',
+		],
+		componentName: 'AiGenerativeCleanupIcon',
+		package: '@atlaskit/icon-lab/core/ai-generative-cleanup',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for automated cleanup and tidy functionality',
+		team: 'Design System Team',
+		status: 'published',
+		slackChannel: '#icon-contributions',
 	},
 	'ai-generative-remove': {
 		keywords: [
@@ -436,6 +456,16 @@ const metadata: Record<string, metadata> = {
 		team: 'Assets',
 		status: 'published',
 	},
+	atom: {
+		keywords: ['atom', 'icon', 'icon-lab', 'core', 'atom', 'molecule', 'atomic design'],
+		componentName: 'AtomIcon',
+		package: '@atlaskit/icon-lab/core/atom',
+		type: 'core',
+		categorization: 'multi-purpose',
+		team: 'Design System Team',
+		status: 'published',
+		slackChannel: '#icon-contributions',
+	},
 	'audio-waveform': {
 		keywords: [
 			'audio-waveform',
@@ -476,6 +506,17 @@ const metadata: Record<string, metadata> = {
 		usage: 'User-selectable icon choice for calendars',
 		team: 'Growth Buy',
 		status: 'published',
+	},
+	bluetooth: {
+		keywords: ['bluetooth', 'icon', 'icon-lab', 'core', 'bluetooth', 'connectivity', 'bt'],
+		componentName: 'BluetoothIcon',
+		package: '@atlaskit/icon-lab/core/bluetooth',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for Bluetooth',
+		team: 'Design System Team',
+		status: 'published',
+		slackChannel: '#icon-contributions',
 	},
 	blur: {
 		keywords: ['blur', 'icon', 'icon-lab', 'core'],
@@ -608,6 +649,25 @@ const metadata: Record<string, metadata> = {
 		usage: "Remove colours from Whiteboard's colour picker",
 		team: 'Whiteboards',
 		status: 'published',
+	},
+	'compass-hinged': {
+		keywords: [
+			'compass-hinged',
+			'compasshinged',
+			'icon',
+			'icon-lab',
+			'core',
+			'compass',
+			'calipers',
+			'divider',
+		],
+		componentName: 'CompassHingedIcon',
+		package: '@atlaskit/icon-lab/core/compass-hinged',
+		type: 'core',
+		categorization: 'multi-purpose',
+		team: 'Design System Team',
+		status: 'published',
+		slackChannel: '#icon-contributions',
 	},
 	'continue-when': {
 		keywords: ['continue-when', 'continuewhen', 'icon', 'icon-lab', 'core'],
@@ -796,6 +856,17 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#Editor-design',
 	},
+	draw: {
+		keywords: ['draw', 'icon', 'icon-lab', 'core', 'pencil', 'drawing', 'annotate'],
+		componentName: 'DrawIcon',
+		package: '@atlaskit/icon-lab/core/draw',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'For drawing and annotation',
+		team: 'Design System Team',
+		status: 'ready-to-publish',
+		slackChannel: '#icon-contributions',
+	},
 	'drop-shadow': {
 		keywords: ['drop-shadow', 'dropshadow', 'icon', 'icon-lab', 'core', 'Drop shadow'],
 		componentName: 'DropShadowIcon',
@@ -856,6 +927,26 @@ const metadata: Record<string, metadata> = {
 		team: 'editor-design',
 		status: 'published',
 		slackChannel: '#editor-controls-project',
+	},
+	eyedropper: {
+		keywords: [
+			'eyedropper',
+			'icon',
+			'icon-lab',
+			'core',
+			'eyedropper',
+			'pipette',
+			'color picker',
+			'color sample',
+		],
+		componentName: 'EyedropperIcon',
+		package: '@atlaskit/icon-lab/core/eyedropper',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Sampling a color with a color picker',
+		team: 'Design System Team',
+		status: 'published',
+		slackChannel: '#icon-contributions',
 	},
 	'field-text': {
 		keywords: [
@@ -1101,6 +1192,17 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for importing Jira work items',
 		team: 'Whiteboards',
 		status: 'published',
+	},
+	kanban: {
+		keywords: ['kanban', 'icon', 'icon-lab', 'core'],
+		componentName: 'KanbanIcon',
+		package: '@atlaskit/icon-lab/core/kanban',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Kanban board',
+		team: 'Trello',
+		status: 'published',
+		slackChannel: '@joel unger',
 	},
 	'layout-five-columns': {
 		keywords: [
@@ -1680,6 +1782,27 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for roadmaps service.',
 		team: 'Design System Team',
 		status: 'published',
+	},
+	save: {
+		keywords: [
+			'save',
+			'icon',
+			'icon-lab',
+			'core',
+			'floppy disk',
+			'save',
+			'floppy drive',
+			'storage',
+			'diskette',
+		],
+		componentName: 'SaveIcon',
+		package: '@atlaskit/icon-lab/core/save',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for saving',
+		team: 'Design System Team',
+		status: 'published',
+		slackChannel: '#icon-contributions',
 	},
 	'screen-record': {
 		keywords: [
@@ -2750,6 +2873,30 @@ const metadata: Record<string, metadata> = {
 		usage: 'Lengthening text content with Atlassian Intelligence',
 		team: 'Editor AI',
 		status: 'published',
+	},
+	'text-letter-case': {
+		keywords: [
+			'text-letter-case',
+			'textlettercase',
+			'icon',
+			'icon-lab',
+			'core',
+			'text case',
+			'letter case',
+			'uppercase',
+			'lowercase',
+			'sentence case',
+			'title case',
+			'Aa',
+		],
+		componentName: 'TextLetterCaseIcon',
+		package: '@atlaskit/icon-lab/core/text-letter-case',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for letter casing and text-transform',
+		team: 'Design System Team',
+		status: 'published',
+		slackChannel: '#icon-contributions',
 	},
 	'text-paragraph': {
 		keywords: [

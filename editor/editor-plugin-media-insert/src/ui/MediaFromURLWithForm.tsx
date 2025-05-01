@@ -338,20 +338,26 @@ export function MediaFromURLWithForm({
 											)}
 										</MessageWrapper>
 									</Box>
-									{!previewState.previewInfo && !previewState.error && !previewState.warning && !isOnlyExternalLinks && (
-										<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
-											<Button
-												type="submit"
-												isLoading={previewState.isLoading}
-												isDisabled={!!error || !meta.dirty}
-												iconBefore={() => (
-													<ExpandIcon label="" LEGACY_fallbackIcon={EditorFilePreviewIconLegacy} />
-												)}
-											>
-												{strings.loadPreview}
-											</Button>
-										</Flex>
-									)}
+									{!previewState.previewInfo &&
+										!previewState.error &&
+										!previewState.warning &&
+										!isOnlyExternalLinks && (
+											<Flex xcss={PreviewBoxStyles} alignItems="center" justifyContent="center">
+												<Button
+													type="submit"
+													isLoading={previewState.isLoading}
+													isDisabled={!!error || !meta.dirty}
+													iconBefore={() => (
+														<ExpandIcon
+															label=""
+															LEGACY_fallbackIcon={EditorFilePreviewIconLegacy}
+														/>
+													)}
+												>
+													{strings.loadPreview}
+												</Button>
+											</Flex>
+										)}
 								</Stack>
 							)}
 						</Field>
@@ -381,7 +387,11 @@ export function MediaFromURLWithForm({
 								<Button
 									type="submit"
 									appearance="primary"
-									isDisabled={isOnlyExternalLinks ? (!url || !isValidUrl(url)) : (!previewState.previewInfo && !previewState.warning)}
+									isDisabled={
+										isOnlyExternalLinks
+											? !url || !isValidUrl(url)
+											: !previewState.previewInfo && !previewState.warning
+									}
 								>
 									{strings.insert}
 								</Button>

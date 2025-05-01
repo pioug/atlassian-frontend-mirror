@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 2.7.1
+
+### Patch Changes
+
+- [#146359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146359)
+  [`cb179949b078a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb179949b078a) -
+  Migrate media to use useSharedPluginStateSelector
+- [#147618](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147618)
+  [`3069d34098b9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3069d34098b9e) -
+  Fix image size difference during SSR
+- [#147467](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147467)
+  [`cce4ef288b918`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cce4ef288b918) -
+  [EDITOR-633] Fire document failedToInsert event when media inline fails to be inserted
+- Updated dependencies
+
+## 2.7.0
+
+### Minor Changes
+
+- [#143009](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143009)
+  [`6711c20c022e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6711c20c022e4) -
+  [UX-3339] Adds a configuration for media insert to only allow for external links.
+
 ## 2.6.7
 
 ### Patch Changes

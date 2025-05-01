@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "2.6.1",
+	"version": "2.7.0",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -106,6 +106,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_convert_multiple_columns_to_single": {
+			"type": "boolean"
+		},
+		"platform_editor_column_count_analytics": {
 			"type": "boolean"
 		}
 	}

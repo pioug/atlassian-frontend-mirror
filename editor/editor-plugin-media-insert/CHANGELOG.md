@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 6.3.1
+
+### Patch Changes
+
+- [#146359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146359)
+  [`cb179949b078a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb179949b078a) -
+  Migrate media to use useSharedPluginStateSelector
+- Updated dependencies
+
+## 6.3.0
+
+### Minor Changes
+
+- [#143009](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143009)
+  [`8ddfe6d95ad26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ddfe6d95ad26) -
+  [UX-3339] Adds a configuration for media insert to only allow for external links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.5
 
 ### Patch Changes

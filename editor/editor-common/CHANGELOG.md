@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 103.20.0
+
+### Minor Changes
+
+- [#146198](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146198)
+  [`86a786e83342d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86a786e83342d) -
+  ED-27730 update layout analytics to include layout column count
+
+### Patch Changes
+
+- [#146359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146359)
+  [`cb179949b078a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb179949b078a) -
+  Migrate media to use useSharedPluginStateSelector
+- [#147618](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147618)
+  [`3069d34098b9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3069d34098b9e) -
+  Fix image size difference during SSR
+- [#147467](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147467)
+  [`cce4ef288b918`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cce4ef288b918) -
+  [EDITOR-633] Fire document failedToInsert event when media inline fails to be inserted
+
 ## 103.19.1
 
 ### Patch Changes

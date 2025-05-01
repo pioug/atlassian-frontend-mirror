@@ -1,8 +1,8 @@
 jest.mock('../toFormattedParts');
 jest.mock('../../date-parser');
+import { createDateParser } from '../../date-parser';
 import { createLocalizationProvider, type LocalizationProvider } from '../localization-provider';
 import { toFormattedParts } from '../toFormattedParts';
-import { createDateParser } from '../../date-parser';
 
 type getDaysCase = [string, Parameters<LocalizationProvider['getDaysShort']>[0], Array<string>];
 
@@ -109,7 +109,7 @@ describe('LocalizationProvider', () => {
 		const result = provider.parseDate(input);
 
 		expect(createDateParser).toBeCalledWith('en');
-		expect(mockedDateParser).toBeCalledWith(input);
+		expect(mockedDateParser).toBeCalledWith(input, {});
 		expect(result).toBe(expectedResult);
 	});
 

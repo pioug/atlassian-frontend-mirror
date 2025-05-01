@@ -27,6 +27,7 @@ import {
 import type { FloatingToolbarConfig, PMPlugin } from '@atlaskit/editor-common/types';
 import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from './layoutPluginType';
@@ -144,13 +145,14 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				return undefined;
 			},
 			quickInsert: ({ formatMessage }) => {
-				const withInsertLayoutAnalytics = (tr: Transaction) => {
+				const withInsertLayoutAnalytics = (tr: Transaction, columnCount?: number) => {
 					api?.analytics?.actions?.attachAnalyticsEvent({
 						action: ACTION.INSERTED,
 						actionSubject: ACTION_SUBJECT.DOCUMENT,
 						actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
 						attributes: {
 							inputMethod: INPUT_METHOD.QUICK_INSERT,
+							columnCount,
 						},
 						eventType: EVENT_TYPE.TRACK,
 					})(tr);
@@ -169,7 +171,12 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: () => <IconOneColumnLayout />,
 								action(insert, state, _source) {
 									const tr = insert(createMultiColumnLayoutSection(state, 1));
-									withInsertLayoutAnalytics(tr);
+									if (fg('platform_editor_column_count_analytics')) {
+										withInsertLayoutAnalytics(tr, 1);
+									} else {
+										withInsertLayoutAnalytics(tr);
+									}
+
 									selectIntoLayoutSection(tr);
 									return tr;
 								},
@@ -191,7 +198,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: () => <IconThreeColumnLayout />,
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 3));
-									withInsertLayoutAnalytics(tr);
+									if (fg('platform_editor_column_count_analytics')) {
+										withInsertLayoutAnalytics(tr, 3);
+									} else {
+										withInsertLayoutAnalytics(tr);
+									}
 									selectIntoLayoutSection(tr);
 									return tr;
 								},
@@ -211,7 +222,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: () => <IconTwoColumnLayout />,
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 2));
-									withInsertLayoutAnalytics(tr);
+									if (fg('platform_editor_column_count_analytics')) {
+										withInsertLayoutAnalytics(tr, 2);
+									} else {
+										withInsertLayoutAnalytics(tr);
+									}
 									selectIntoLayoutSection(tr);
 									return tr;
 								},
@@ -227,7 +242,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: () => <IconThreeColumnLayout />,
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 3));
-									withInsertLayoutAnalytics(tr);
+									if (fg('platform_editor_column_count_analytics')) {
+										withInsertLayoutAnalytics(tr, 3);
+									} else {
+										withInsertLayoutAnalytics(tr);
+									}
 									selectIntoLayoutSection(tr);
 									return tr;
 								},
@@ -243,7 +262,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: () => <IconFourColumnLayout />,
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 4));
-									withInsertLayoutAnalytics(tr);
+									if (fg('platform_editor_column_count_analytics')) {
+										withInsertLayoutAnalytics(tr, 4);
+									} else {
+										withInsertLayoutAnalytics(tr);
+									}
 									selectIntoLayoutSection(tr);
 									return tr;
 								},
@@ -259,7 +282,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: () => <IconFiveColumnLayout />,
 								action(insert, state) {
 									const tr = insert(createMultiColumnLayoutSection(state, 5));
-									withInsertLayoutAnalytics(tr);
+									if (fg('platform_editor_column_count_analytics')) {
+										withInsertLayoutAnalytics(tr, 5);
+									} else {
+										withInsertLayoutAnalytics(tr);
+									}
 									selectIntoLayoutSection(tr);
 									return tr;
 								},

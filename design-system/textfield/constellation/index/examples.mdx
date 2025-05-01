@@ -63,8 +63,10 @@ A text field that's transparent until interaction or error.
 
 ## Elements before and after input
 
-Text fields can include elements before and after the input. This is useful for adding elements like
-icons or buttons into the text field.
+Text fields can include non-interactive elements before and after the input. This is useful for
+adding elements like icons into the text field.
+
+Don’t nest interactive elements in the text field, as it will cause accessibility and focus issues.
 
 <Example Component={TextFieldElementsBeforeAndAfter} packageName="@atlaskit/textfield" />
 

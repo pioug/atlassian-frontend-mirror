@@ -8,11 +8,11 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { isVideo } from '../../pm-plugins/utils/is-type';
-import { type MediaPluginState } from '../../types';
-import { getSelectedNearestMediaContainerNodeAttrs } from '../../ui/toolbar/utils';
+import { getSelectedNearestMediaContainerNodeAttrsFunction } from '../../ui/toolbar/utils';
 
 import { RenderMediaViewer } from './PortalWrapper';
 
@@ -22,7 +22,8 @@ const interactiveStyles = css({
 
 type MediaViewerContainerProps = {
 	mediaNode: PMNode;
-	mediaPluginState: MediaPluginState;
+	selectedMediaContainerNode: () => PMNode | undefined;
+	mediaClientConfig: MediaClientConfig;
 	isEditorViewMode?: boolean;
 	isSelected?: boolean;
 	isInline?: boolean;
@@ -31,7 +32,8 @@ type MediaViewerContainerProps = {
 const mediaViewerContainerTestID = 'media-viewer-container-test';
 export const MediaViewerContainer = ({
 	mediaNode,
-	mediaPluginState,
+	selectedMediaContainerNode,
+	mediaClientConfig,
 	isEditorViewMode = false,
 	isSelected = true,
 	isInline = false,
@@ -43,8 +45,9 @@ export const MediaViewerContainer = ({
 		setShowMediaViewer(isSelected);
 	}, [isSelected]);
 
-	const selectedNodeAttrs = getSelectedNearestMediaContainerNodeAttrs(mediaPluginState);
-	const mediaClientConfig = mediaPluginState.mediaClientConfig;
+	const selectedNodeAttrs = getSelectedNearestMediaContainerNodeAttrsFunction(
+		selectedMediaContainerNode,
+	);
 
 	const showMediaViewer = () => {
 		setShowMediaViewer(true);

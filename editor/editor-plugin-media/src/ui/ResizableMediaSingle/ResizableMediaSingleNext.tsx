@@ -12,6 +12,7 @@ import throttle from 'lodash/throttle';
 import memoizeOne from 'memoize-one';
 
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import {
 	findClosestSnap,
 	generateDefaultGuidelines,
@@ -591,7 +592,10 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		const isNestedNode = this.isAdjacentMode();
 		const handlePositioning = this.getHandlePositioning();
 
-		const maxWidth = this.getMaxWidth();
+		const maxWidth =
+			isSSR() && size.width && fg('platform_editor_fix_image_size_diff_during_ssr')
+				? undefined
+				: this.getMaxWidth();
 
 		const minWidth = this.calcMinWidth(isVideoFile, lineLength);
 

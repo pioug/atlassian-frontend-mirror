@@ -399,8 +399,7 @@ export class VCObserver implements VCObserverInterface {
 			calculatedVCNext: { VC: vcNext.VC, VCBox: vcNext.VCBox },
 			isEventAborted,
 		});
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
+
 		const speedIndex = {
 			[`ufo:speedIndex`]: isTTVCv1Disabled ? vcNext.VCEntries.speedIndex : VCEntries.speedIndex,
 			[`ufo:next:speedIndex`]: vcNext.VCEntries.speedIndex,
@@ -414,7 +413,7 @@ export class VCObserver implements VCObserverInterface {
 				...outOfBoundary,
 				[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 				...revisionsData,
-				...(isCalcSpeedIndexEnabled ? speedIndex : {}),
+				...speedIndex,
 			};
 		}
 
@@ -440,7 +439,7 @@ export class VCObserver implements VCObserverInterface {
 			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 			...revisionsData,
-			...(isCalcSpeedIndexEnabled ? speedIndex : {}),
+			...speedIndex,
 		};
 	};
 
@@ -499,9 +498,6 @@ export class VCObserver implements VCObserverInterface {
 		const VC: { [key: string]: number | null } = VCObserver.makeVCReturnObj<number>();
 		const VCBox: { [key: string]: string[] | null } = VCObserver.makeVCReturnObj<string[]>();
 
-		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-		const isCalcSpeedIndexEnabled = fg('ufo-calc-speed-index');
-
 		entries.reduce((acc = 0, v) => {
 			const currRatio = v[1] / totalPainted;
 			let VCRatio = currRatio + acc;
@@ -541,10 +537,8 @@ export class VCObserver implements VCObserverInterface {
 
 				const ratioDelta = (currentlyPaintedRatio - (acc.rel[i - 1]?.vc ?? 0)) / 100;
 
-				if (isCalcSpeedIndexEnabled) {
-					const speedIndex = timestamp * ratioDelta;
-					acc.speedIndex += speedIndex;
-				}
+				const speedIndex = timestamp * ratioDelta;
+				acc.speedIndex += speedIndex;
 
 				acc.abs.push([timestamp, currentlyPainted]);
 				acc.rel.push({

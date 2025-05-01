@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 36.12.0
+
+### Minor Changes
+
+- [#147420](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147420)
+  [`b01d0803eef3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b01d0803eef3f) -
+  [ux] Behind fg `platform-smart-card-remove-legacy-button` - deprecates legacy Button component in
+  favour of new Button component for EmbedCard, EmbedModal, HoverCard & AutomationModal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.11.1
 
 ### Patch Changes

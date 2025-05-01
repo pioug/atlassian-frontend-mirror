@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 23.10.0
+
+### Minor Changes
+
+- [#147535](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147535)
+  [`cb92395c4a53d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb92395c4a53d) -
+  [ux] implement the function of "give kudos" in the TeamProfileCardWithContainer
+
 ## 23.9.1
 
 ### Patch Changes

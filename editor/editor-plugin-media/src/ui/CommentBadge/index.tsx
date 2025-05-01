@@ -11,8 +11,10 @@ import {
 	CommentBadgeNext,
 } from '@atlaskit/editor-common/media-single';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { getPosHandler } from '../../types';
@@ -37,7 +39,40 @@ const CommentBadgeWrapper = ({
 	badgeOffsetRight,
 }: CommentBadgeProps) => {
 	const [entered, setEntered] = useState(false);
-	const { annotationState } = useSharedPluginState(api, ['annotation']);
+	const { annotationState } = useSharedPluginState(api, ['annotation'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const selectedAnnotationsSelector = useSharedPluginStateSelector(
+		api,
+		'annotation.selectedAnnotations',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const isInlineCommentViewClosedSelector = useSharedPluginStateSelector(
+		api,
+		'annotation.isInlineCommentViewClosed',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const annotationsSelector = useSharedPluginStateSelector(api, 'annotation.annotations', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+
+	const selectedAnnotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? selectedAnnotationsSelector
+		: annotationState?.selectedAnnotations;
+	const isInlineCommentViewClosed = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? isInlineCommentViewClosedSelector
+		: annotationState?.isInlineCommentViewClosed;
+	const annotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? annotationsSelector
+		: annotationState?.annotations;
+
 	const {
 		state: {
 			schema: {
@@ -50,16 +85,16 @@ const CommentBadgeWrapper = ({
 	} = view;
 
 	const status = useMemo(() => {
-		if (!annotationState?.selectedAnnotations || !mediaNode) {
+		if (!selectedAnnotations || !mediaNode) {
 			return 'default';
 		}
 
-		return annotationState.selectedAnnotations.some(
+		return selectedAnnotations.some(
 			(annotation) => !!mediaNode.marks.find((mark) => mark.attrs.id === annotation.id),
-		) && !annotationState.isInlineCommentViewClosed
+		) && !isInlineCommentViewClosed
 			? 'active'
 			: 'default';
-	}, [annotationState, mediaNode]);
+	}, [selectedAnnotations, isInlineCommentViewClosed, mediaNode]);
 
 	const onClick = useCallback(() => {
 		if (api.annotation && mediaNode) {
@@ -72,14 +107,14 @@ const CommentBadgeWrapper = ({
 
 	const hasNoComments =
 		!Number.isFinite(pos) ||
-		!annotationState?.annotations ||
+		!annotations ||
 		!mediaNode ||
 		mediaNode.type !== media ||
 		mediaNode.marks.every(
 			(maybeAnnotation) =>
 				maybeAnnotation.type !== annotation ||
-				!(maybeAnnotation.attrs.id in annotationState.annotations) ||
-				annotationState.annotations[maybeAnnotation.attrs.id],
+				!(maybeAnnotation.attrs.id in annotations) ||
+				annotations[maybeAnnotation.attrs.id],
 		);
 
 	if ((!isDrafting && hasNoComments) || !mediaNode) {
@@ -136,7 +171,40 @@ export const CommentBadgeNextWrapper = ({
 	isDrafting,
 }: CommentBadgeNextWrapperProps) => {
 	const [entered, setEntered] = useState(false);
-	const { annotationState } = useSharedPluginState(api, ['annotation']);
+	const { annotationState } = useSharedPluginState(api, ['annotation'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const selectedAnnotationsSelector = useSharedPluginStateSelector(
+		api,
+		'annotation.selectedAnnotations',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const isInlineCommentViewClosedSelector = useSharedPluginStateSelector(
+		api,
+		'annotation.isInlineCommentViewClosed',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const annotationsSelector = useSharedPluginStateSelector(api, 'annotation.annotations', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+
+	const selectedAnnotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? selectedAnnotationsSelector
+		: annotationState?.selectedAnnotations;
+	const isInlineCommentViewClosed = editorExperiment(
+		'platform_editor_usesharedpluginstateselector',
+		true,
+	)
+		? isInlineCommentViewClosedSelector
+		: annotationState?.isInlineCommentViewClosed;
+	const annotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? annotationsSelector
+		: annotationState?.annotations;
+
 	const {
 		state: {
 			schema: {
@@ -149,16 +217,16 @@ export const CommentBadgeNextWrapper = ({
 	} = view;
 
 	const status = useMemo(() => {
-		if (!annotationState?.selectedAnnotations || !mediaNode) {
+		if (!selectedAnnotations || !mediaNode) {
 			return 'default';
 		}
 
-		return annotationState.selectedAnnotations.some(
+		return selectedAnnotations.some(
 			(annotation) => !!mediaNode.marks.find((mark) => mark.attrs.id === annotation.id),
-		) && !annotationState.isInlineCommentViewClosed
+		) && !isInlineCommentViewClosed
 			? 'active'
 			: 'default';
-	}, [annotationState, mediaNode]);
+	}, [selectedAnnotations, isInlineCommentViewClosed, mediaNode]);
 
 	const onClick = useCallback(() => {
 		if (api.annotation && mediaNode) {
@@ -171,14 +239,14 @@ export const CommentBadgeNextWrapper = ({
 
 	const hasNoComments =
 		!Number.isFinite(pos) ||
-		!annotationState?.annotations ||
+		!annotations ||
 		!mediaNode ||
 		mediaNode.type !== media ||
 		mediaNode.marks.every(
 			(maybeAnnotation) =>
 				maybeAnnotation.type !== annotation ||
-				!(maybeAnnotation.attrs.id in annotationState.annotations) ||
-				annotationState.annotations[maybeAnnotation.attrs.id],
+				!(maybeAnnotation.attrs.id in annotations) ||
+				annotations[maybeAnnotation.attrs.id],
 		);
 
 	if ((!isDrafting && hasNoComments) || !mediaNode) {

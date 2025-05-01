@@ -1,0 +1,27 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::32908a99819e910135f53b0d0f549a31>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+/**
+ * Icon: "CompassHinged".
+ * Category: multi-purpose
+ * Location: @atlaskit/icon-lab
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
+ * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
+ */
+const CompassHingedIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M9.25 4.25a1.25 1.25 0 1 0-1.799 1.124l.128.054a1.25 1.25 0 0 0 .97-.054l.15-.087A1.25 1.25 0 0 0 9.25 4.25m-.763 2.706a2.8 2.8 0 0 1-.974 0L6.173 9.7a5.72 5.72 0 0 0 3.653 0zM10.75 4.25c0 .814-.355 1.545-.916 2.048l1.341 2.744a5.77 5.77 0 0 0 2.037-2.36l1.359.635a7.3 7.3 0 0 1-2.733 3.083l2.086 4.27-1.348.66-2.085-4.27A7.2 7.2 0 0 1 8 11.5a7.2 7.2 0 0 1-2.492-.44l-2.085 4.27-1.348-.66L4.16 10.4a7.3 7.3 0 0 1-2.73-3.083l1.36-.634a5.77 5.77 0 0 0 2.035 2.36l1.34-2.745A2.75 2.75 0 0 1 7.25 1.606V0h1.5v1.606a2.75 2.75 0 0 1 2 2.644"/>`
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+}, props));
+CompassHingedIcon.displayName = 'CompassHingedIcon';
+var _default = exports.default = CompassHingedIcon;

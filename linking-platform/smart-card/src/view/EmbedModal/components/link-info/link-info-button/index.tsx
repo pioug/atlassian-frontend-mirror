@@ -1,25 +1,26 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import { useIntl } from 'react-intl-next';
+
+import { IconButton } from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
 import { type LinkInfoButtonProps } from './types';
 
-const LinkInfoButton = ({ content, href, icon, onClick, target, testId }: LinkInfoButtonProps) => {
+const LinkInfoButton = ({ content, icon, label, onClick, testId }: LinkInfoButtonProps) => {
 	const onMouseDown = useMouseDownEvent();
+	const { formatMessage } = useIntl();
 
 	return (
 		<Tooltip content={content} hideTooltipOnClick={true} tag="span" testId={`${testId}-tooltip`}>
-			<Button
+			<IconButton
 				appearance="subtle"
-				href={href}
-				iconBefore={icon}
+				icon={icon}
+				label={formatMessage(label)}
 				onClick={onClick}
 				onMouseDown={onMouseDown}
-				spacing="none"
-				target={target}
 				testId={`${testId}-button`}
 			/>
 		</Tooltip>

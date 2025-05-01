@@ -176,7 +176,9 @@ function useSharedPluginStateSelectorInternal<
 	initialState: Result | undefined,
 	options: Options = {},
 ): Result | undefined {
-	const [selectedPluginState, setSelectedPluginState] = useState<Result | undefined>(initialState);
+	const [selectedPluginState, setSelectedPluginState] = useState<Result | undefined>(
+		() => initialState,
+	);
 
 	usePluginStateEffect(
 		api,
@@ -187,7 +189,7 @@ function useSharedPluginStateSelectorInternal<
 				pluginStates as unknown as NamedPluginStatesFromInjectionAPI<API, PluginNames>,
 			);
 			if (!isEqual(transformedValue, selectedPluginState)) {
-				setSelectedPluginState(transformedValue);
+				setSelectedPluginState(() => transformedValue);
 			}
 		},
 		options,

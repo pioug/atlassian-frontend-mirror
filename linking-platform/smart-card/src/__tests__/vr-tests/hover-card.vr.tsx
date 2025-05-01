@@ -89,6 +89,7 @@ snapshot(HoverCardUnauthorised, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 
@@ -104,6 +105,7 @@ snapshot(HoverCardUnauthorised, {
 	],
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
+		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
 

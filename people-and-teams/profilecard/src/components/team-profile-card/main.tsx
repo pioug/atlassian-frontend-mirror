@@ -18,7 +18,7 @@ import { token } from '@atlaskit/tokens';
 
 import { fireEvent } from '../../util/analytics';
 
-import { ButtonSection } from './team-actions';
+import { ButtonSection, ButtonSectionProps } from './team-actions';
 import { TeamConnections } from './team-connections/main';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
 
@@ -108,8 +108,9 @@ const HeaderImage = ({ srcUrl }: { srcUrl: string }) => (
 	/>
 );
 
-interface TeamProfileCardProps {
+type TeamProfileCardProps = {
 	containerId: string;
+	// this is Team Ari
 	teamId: string;
 	displayName: string;
 	description: string;
@@ -121,12 +122,7 @@ interface TeamProfileCardProps {
 	userId: string;
 	isVerified?: boolean;
 	teamProfileUrl?: string;
-	isKudosEnabled?: boolean;
-	otherActions?: {
-		id: string;
-		item: React.ReactNode;
-	}[];
-}
+} & ButtonSectionProps;
 
 export const TeamProfileCard = ({
 	containerId,
@@ -141,8 +137,7 @@ export const TeamProfileCard = ({
 	userId,
 	isVerified,
 	teamProfileUrl,
-	isKudosEnabled,
-	otherActions,
+	...props
 }: TeamProfileCardProps) => {
 	const { teamContainers, loading } = useTeamContainers(teamId);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -229,11 +224,12 @@ export const TeamProfileCard = ({
 						/>
 					</Box>
 				)}
-				{isKudosEnabled || otherActions ? (
+				{props.isKudosEnabled || props.otherActions ? (
 					<ButtonSection
 						teamProfileUrl={teamProfileUrl}
-						isKudosEnabled={isKudosEnabled}
-						otherActions={otherActions}
+						cloudId={cloudId}
+						teamId={teamId}
+						{...props}
 					/>
 				) : (
 					teamProfileUrl && (

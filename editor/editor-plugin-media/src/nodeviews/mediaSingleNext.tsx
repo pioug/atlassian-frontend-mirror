@@ -34,7 +34,6 @@ import type {
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
-import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
@@ -44,7 +43,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
-import type { MediaPluginState } from '../pm-plugins/types';
 import { isMediaBlobUrlFromAttrs } from '../pm-plugins/utils/media-common';
 import type { ForwardRef, MediaOptions } from '../types';
 import { CaptionPlaceholder, CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
@@ -364,8 +362,10 @@ type MediaSingleNodeNextProps = {
 	mediaProvider?: Promise<MediaProvider>;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	fullWidthMode?: boolean;
-	mediaPluginState: MediaPluginState | undefined;
-	annotationPluginState: InlineCommentPluginState | undefined;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	addPendingTask?: (promise: Promise<any>) => void;
+	isDrafting?: boolean;
+	targetNodeId?: string;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	isCopyPasteEnabled?: boolean;
 	forwardRef: ForwardRef;
@@ -388,12 +388,13 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 		dispatchAnalyticsEvent,
 		editorViewMode,
 		editorDisabled,
-		annotationPluginState,
+		isDrafting,
+		targetNodeId,
 		editorAppearance,
 		mediaProvider: mediaProviderPromise,
 		forwardRef,
 		contextIdentifierProvider: contextIdentifierProviderPromise,
-		mediaPluginState,
+		addPendingTask,
 	} = mediaSingleNodeNextProps;
 
 	const [mediaProvider, setMediaProvider] = React.useState<MediaProvider | null>(null);
@@ -418,7 +419,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 		mediaNodeUpdater,
 		getPos,
 		mediaNode,
-		addPendingTask: mediaPluginState?.addPendingTask || noop,
+		addPendingTask: addPendingTask || noop,
 	});
 
 	React.useLayoutEffect(() => {
@@ -557,8 +558,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 	const contentWidth = currentMaxWidth || lineLength;
 
 	const isCurrentNodeDrafting = Boolean(
-		annotationPluginState?.isDrafting &&
-			annotationPluginState?.targetNodeId === mediaNode?.firstChild?.attrs.id,
+		isDrafting && targetNodeId === mediaNode?.firstChild?.attrs.id,
 	);
 
 	const mediaSingleWrapperRef = React.createRef<HTMLDivElement>();

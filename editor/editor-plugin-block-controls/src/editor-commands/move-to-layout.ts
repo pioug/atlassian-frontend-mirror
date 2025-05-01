@@ -439,7 +439,12 @@ export const moveToLayout =
 						breakout.create({ mode: breakoutMode }),
 					]);
 
-				fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes);
+				if (fg('platform_editor_column_count_analytics')) {
+					// layout created via drag and drop will always be 2 columns
+					fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes, 2);
+				} else {
+					fireInsertLayoutAnalytics(tr, api, sourceNodeTypes, hasSelectedMultipleNodes);
+				}
 			}
 
 			return tr;

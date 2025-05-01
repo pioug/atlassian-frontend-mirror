@@ -53,6 +53,7 @@ import type { CardEvent } from '@atlaskit/media-card';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -164,7 +165,10 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 
 	updateMediaNodeAttributes = async (props: MediaSingleNodeProps) => {
 		this.createOrUpdateMediaNodeUpdater(props);
-		const { addPendingTask } = this.props.mediaPluginState;
+		const { addPendingTask } = this.props;
+		if (!addPendingTask) {
+			return;
+		}
 
 		// we want the first child of MediaSingle (type "media")
 		const node = this.props.node.firstChild;
@@ -314,7 +318,8 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			dispatchAnalyticsEvent,
 			editorViewMode,
 			editorDisabled,
-			annotationPluginState,
+			isDrafting,
+			targetNodeId,
 			editorAppearance,
 		} = this.props;
 
@@ -432,9 +437,9 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 
 		shouldShowPlaceholder = !editorDisabled && shouldShowPlaceholder;
 
-		const isCurrentNodeDrafting =
-			annotationPluginState?.isDrafting &&
-			annotationPluginState?.targetNodeId === node?.firstChild?.attrs.id;
+		const isCurrentNodeDrafting = Boolean(
+			isDrafting && targetNodeId === node?.firstChild?.attrs.id,
+		);
 
 		const pos = getPos();
 		const isInsideTable =
@@ -599,21 +604,89 @@ const MediaSingleNodeWrapper = ({
 	| 'editorViewMode'
 >) => {
 	const { widthState, mediaState, annotationState, editorDisabledState, editorViewModeState } =
-		useSharedPluginState(pluginInjectionApi, [
-			'width',
-			'media',
-			'annotation',
-			'editorDisabled',
-			'editorViewMode',
-		]);
+		useSharedPluginState(
+			pluginInjectionApi,
+			['width', 'media', 'annotation', 'editorDisabled', 'editorViewMode'],
+			{ disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true) },
+		);
+
+	const mediaProviderSelector = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'media.mediaProvider',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const addPendingTaskSelector = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'media.addPendingTask',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const isDraftingSelector = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'annotation.isDrafting',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const targetNodeIdSelector = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'annotation.targetNodeId',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const widthSelector = useSharedPluginStateSelector(pluginInjectionApi, 'width.width', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const lineLengthSelector = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const editorDisabledSelector = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'editorDisabled.editorDisabled',
+		{
+			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		},
+	);
+	const viewModeSelector = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+
+	const mediaProviderState = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? mediaProviderSelector
+		: mediaState?.mediaProvider;
+	const addPendingTask = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? addPendingTaskSelector
+		: mediaState?.addPendingTask;
+	const isDrafting = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? isDraftingSelector
+		: annotationState?.isDrafting;
+	const targetNodeId = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? targetNodeIdSelector
+		: annotationState?.targetNodeId;
+	const width = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? widthSelector
+		: widthState?.width;
+	const lineLength = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? lineLengthSelector
+		: widthState?.lineLength;
+	const editorDisabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? editorDisabledSelector
+		: editorDisabledState?.editorDisabled;
+	const viewMode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? viewModeSelector
+		: editorViewModeState?.mode;
 
 	const hasHadInteraction = useSharedPluginStateSelector(
 		pluginInjectionApi,
 		'interaction.hasHadInteraction',
 	);
 	const mediaProvider = useMemo(
-		() => (mediaState?.mediaProvider ? Promise.resolve(mediaState?.mediaProvider) : undefined),
-		[mediaState?.mediaProvider],
+		() => (mediaProviderState ? Promise.resolve(mediaProviderState) : undefined),
+		[mediaProviderState],
 	);
 
 	const isSelectedAndInteracted = useCallback(
@@ -627,8 +700,8 @@ const MediaSingleNodeWrapper = ({
 	) {
 		return (
 			<MediaSingleNodeNext
-				width={widthState?.width || 0}
-				lineLength={widthState?.lineLength || 0}
+				width={width || 0}
+				lineLength={lineLength || 0}
 				node={node}
 				getPos={getPos}
 				mediaProvider={mediaProvider}
@@ -640,13 +713,14 @@ const MediaSingleNodeWrapper = ({
 					fg('platform_editor_no_selection_until_interaction') ? isSelectedAndInteracted : selected
 				}
 				eventDispatcher={eventDispatcher}
-				mediaPluginState={mediaState ?? undefined}
-				annotationPluginState={annotationState ?? undefined}
+				addPendingTask={addPendingTask}
+				isDrafting={isDrafting}
+				targetNodeId={targetNodeId}
 				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 				forwardRef={forwardRef}
 				pluginInjectionApi={pluginInjectionApi}
-				editorDisabled={editorDisabledState?.editorDisabled}
-				editorViewMode={editorViewModeState?.mode === 'view'}
+				editorDisabled={editorDisabled}
+				editorViewMode={viewMode === 'view'}
 				editorAppearance={editorAppearance}
 			/>
 		);
@@ -654,12 +728,8 @@ const MediaSingleNodeWrapper = ({
 
 	return (
 		<MediaSingleNode
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			width={widthState!.width}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			lineLength={widthState!.lineLength}
+			width={width}
+			lineLength={lineLength}
 			node={node}
 			getPos={getPos}
 			mediaProvider={mediaProvider}
@@ -671,13 +741,14 @@ const MediaSingleNodeWrapper = ({
 				fg('platform_editor_no_selection_until_interaction') ? isSelectedAndInteracted : selected
 			}
 			eventDispatcher={eventDispatcher}
-			mediaPluginState={mediaState ?? undefined}
-			annotationPluginState={annotationState ?? undefined}
+			addPendingTask={addPendingTask}
+			isDrafting={isDrafting}
+			targetNodeId={targetNodeId}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 			forwardRef={forwardRef}
 			pluginInjectionApi={pluginInjectionApi}
-			editorDisabled={editorDisabledState?.editorDisabled}
-			editorViewMode={editorViewModeState?.mode === 'view'}
+			editorDisabled={editorDisabled}
+			editorViewMode={viewMode === 'view'}
 			editorAppearance={editorAppearance}
 		/>
 	);

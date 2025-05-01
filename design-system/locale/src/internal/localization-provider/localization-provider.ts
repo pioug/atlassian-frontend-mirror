@@ -1,5 +1,6 @@
 import { normalizeLocale } from '../common';
-import { createDateParser, type DateParser } from '../date-parser';
+import { createDateParser, type CreateDateParserOptions, type DateParser } from '../date-parser';
+
 import { type FormattedParts, toFormattedParts } from './toFormattedParts';
 
 export type DateFormatter = (date: Date) => string;
@@ -86,7 +87,8 @@ export const createLocalizationProvider = (
 		);
 	};
 
-	const parseDate = (date: string) => createDateParser(normalizedLocale)(date);
+	const parseDate = (date: string, options: CreateDateParserOptions = {}) =>
+		createDateParser(normalizedLocale)(date, options);
 
 	const formatToParts = (date: number | Date = new Date()) => {
 		const formatter = new Intl.DateTimeFormat(normalizedLocale, formatterOptions);

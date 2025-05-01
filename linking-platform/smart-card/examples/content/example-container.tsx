@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { IconType, MediaType, SmartLinkStatus } from '../../src/constants';
+import { ActionName, IconType, MediaType, SmartLinkStatus } from '../../src/constants';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { isFlexibleUiBlock } from '../../src/utils/flexible';
 import avatar1 from '../images/avatar-1.svg';
@@ -17,6 +17,24 @@ const lastMonth = new Date().setDate(today.getMonth() - 1);
 const nextMonth = new Date().setDate(today.getMonth() + 1);
 const context = getContext({
 	attachmentCount: 3,
+	actions: {
+		[ActionName.AutomationAction]: {
+			product: 'confluence',
+			resourceType: 'page',
+			baseAutomationUrl: 'https://hello.atlassian.com',
+			objectAri: 'ari:cloud:confluence:1234567890:page/1234567890',
+			siteAri: 'ari:cloud:site:1234567890',
+			canManageAutomation: false,
+			analyticsSource: 'automationAction',
+			objectName: 'Test Page',
+		},
+		[ActionName.PreviewAction]: {
+			invokeAction: {
+				actionFn: async () => {},
+				actionType: ActionName.PreviewAction,
+			},
+		},
+	},
 	authorGroup: [{ name: 'Aliza', src: avatar3 }],
 	checklistProgress: '4/6',
 	collaboratorGroup: [

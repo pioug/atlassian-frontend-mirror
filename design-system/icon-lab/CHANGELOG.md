@@ -1,5 +1,27 @@
 # @atlaskit/icon-lab
 
+## 4.10.0
+
+### Minor Changes
+
+- [#148003](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148003)
+  [`5e3708b3c4c7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e3708b3c4c7f) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `ai-generative-cleanup`
+  - `atom`
+  - `bluetooth`
+  - `compass-hinged`
+  - `draw`
+  - `eyedropper`
+  - `kanban`
+  - `save`
+  - `text-letter-case`
+
 ## 4.9.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.9.1
+
+### Patch Changes
+
+- [#147978](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147978)
+  [`af8b516786ee8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af8b516786ee8) -
+  FF cleanup ufo-calc-speed-index
+
 ## 3.9.0
 
 ### Minor Changes

@@ -6,7 +6,8 @@ import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import ButtonOld from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -96,6 +97,7 @@ const HoverCardForbiddenView = ({
 		return null;
 	}
 
+	const ButtonComponent = fg('platform-smart-card-remove-legacy-button') ? Button : ButtonOld;
 	return (
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
 			<PreviewBlock
@@ -126,14 +128,14 @@ const HoverCardForbiddenView = ({
 					]}
 					status={SmartLinkStatus.Forbidden}
 				>
-					<Button
+					<ButtonComponent
 						testId={`${testId}-button`}
 						onClick={action?.promise}
 						appearance="primary"
 						isDisabled={buttonDisabled}
 					>
 						{action?.text}
-					</Button>
+					</ButtonComponent>
 				</CustomBlock>
 			)}
 		</FlexibleCard>

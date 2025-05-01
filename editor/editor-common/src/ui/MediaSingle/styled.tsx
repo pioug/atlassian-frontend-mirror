@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { isSSR } from '../../core-utils/is-ssr';
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
@@ -284,7 +285,9 @@ export const MediaSingleDimensionHelper = ({
 				})
 			: ''}
 		/* If container doesn't exists, it will fallback to this */
-		max-width: ${calculatedMaxWidth};
+		max-width: ${isSSR() && fg('platform_editor_fix_image_size_diff_during_ssr')
+			? Math.max(calculatedWidth, calculatedMaxWidth)
+			: calculatedMaxWidth};
 		${isExtendedResizeExperienceOn &&
 		`&[class*='is-resizing'] {
     .new-file-experience-wrapper {

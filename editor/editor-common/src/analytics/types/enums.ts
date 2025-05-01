@@ -58,6 +58,7 @@ export enum ACTION {
 	ERRORED = 'errored',
 	EXPOSED = 'exposed',
 	FAILED_TO_UNMOUNT = 'failedToUnmount',
+	FAILED_TO_INSERT = 'failedToInsert',
 	FIND_NEXT_PERFORMED = 'findNextPerformed',
 	FIND_PERFORMED = 'findPerformed',
 	FIND_PREV_PERFORMED = 'findPrevPerformed',

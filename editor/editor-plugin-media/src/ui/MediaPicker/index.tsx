@@ -2,6 +2,8 @@ import React from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -37,7 +39,23 @@ const MediaPicker = ({
 	onBrowseFn,
 	editorDomElement,
 }: MediaPickerProps) => {
-	const { focusState, connectivityState } = useSharedPluginState(api, ['focus', 'connectivity']);
+	const { focusState, connectivityState } = useSharedPluginState(api, ['focus', 'connectivity'], {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+	});
+	const hasFocusSelector = useSharedPluginStateSelector(api, 'focus.hasFocus', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+	const connectivityModeSelector = useSharedPluginStateSelector(api, 'connectivity.mode', {
+		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+	});
+
+	const hasFocus = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? hasFocusSelector
+		: focusState?.hasFocus;
+	const connectivityMode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+		? connectivityModeSelector
+		: connectivityState?.mode;
+
 	const featureFlags = mediaState.mediaOptions && mediaState.mediaOptions.featureFlags;
 
 	// Ignored via go/ees005
@@ -53,7 +71,7 @@ const MediaPicker = ({
 	 */
 	const container = editorParent;
 
-	const clipboard = focusState?.hasFocus ? (
+	const clipboard = hasFocus ? (
 		<ClipboardWrapper mediaState={mediaState} featureFlags={featureFlags} container={container} />
 	) : null;
 
@@ -65,7 +83,7 @@ const MediaPicker = ({
 				isActive={
 					!isPopupOpened &&
 					// If we're offline don't show the dropzone
-					connectivityState?.mode !== 'offline'
+					connectivityMode !== 'offline'
 				}
 				featureFlags={featureFlags}
 				editorDomElement={editorDomElement}

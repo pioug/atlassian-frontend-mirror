@@ -1,5 +1,15 @@
 # @atlaskit/menu
 
+## 5.0.0
+
+### Major Changes
+
+- [#146281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146281)
+  [`ebb2af6f3c40f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebb2af6f3c40f) -
+  Removed deprecated `overrides` props from ButtonItem, CustomItem, and LinkItem, and from the
+  BaseItemProps type export. Introduced `isTitleHeading` prop on CustomItem which when true renders
+  its children in a `h2` element rather than the default `span`.
+
 ## 4.0.0
 
 ### Major Changes

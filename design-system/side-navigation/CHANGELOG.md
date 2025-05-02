@@ -1,5 +1,17 @@
 # @atlaskit/side-navigation
 
+## 9.1.0
+
+### Minor Changes
+
+- [#146281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146281)
+  [`14f44715214af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14f44715214af) -
+  Internal change to Header component to remove deprecated APIs.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.0
 
 ### Major Changes

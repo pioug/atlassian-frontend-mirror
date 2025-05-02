@@ -1,5 +1,16 @@
 # @atlaskit/comment
 
+## 13.0.6
+
+### Patch Changes
+
+- [#143193](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143193)
+  [`d93111444bdea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d93111444bdea) -
+  We are testing wrapping the comment header behind a feature flag. Now when shouldHeaderWrap is
+  set, the comment header will be wrapped to the next line based on screen size. If this fix is
+  successful, it will be available in a later release.
+- Updated dependencies
+
 ## 13.0.5
 
 ### Patch Changes

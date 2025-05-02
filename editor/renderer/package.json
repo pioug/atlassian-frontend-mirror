@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.11.2",
+	"version": "114.12.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -133,6 +133,9 @@
 		"platform_renderer_annotations_create_debug_logging": {
 			"type": "boolean"
 		},
+		"platform_editor_speedup_media_client": {
+			"type": "boolean"
+		},
 		"platform_editor_annotation_position_comment_nodes": {
 			"type": "boolean"
 		},
@@ -227,6 +230,9 @@
 			"type": "boolean"
 		},
 		"platform_ssr_smartlink_embeds": {
+			"type": "boolean"
+		},
+		"platform_ssr_smartlink_cards": {
 			"type": "boolean"
 		},
 		"confluence_frontend_fix_extension_draft_annotation": {

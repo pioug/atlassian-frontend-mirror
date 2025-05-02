@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 25.0.4
+
+### Patch Changes
+
+- [#146865](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146865)
+  [`944d9adf63995`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/944d9adf63995) -
+  add isDecorative attribute in the Avatar
+
 ## 25.0.3
 
 ### Patch Changes

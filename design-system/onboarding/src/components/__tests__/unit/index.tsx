@@ -250,7 +250,11 @@ describe('<Spotlight />', () => {
 		);
 
 		const targetStyles = getComputedStyle(screen.getByTestId('spotlight--target'));
-		expect(targetStyles.animation).toMatch(/\w+ 3s cubic-bezier\(.55,.055,.675,.19\) infinite/);
+		expect(targetStyles.getPropertyValue('animation-name')).toBeTruthy();
+		expect(targetStyles.getPropertyValue('animation-duration')).toEqual('3s');
+		expect(targetStyles.getPropertyValue('animation-timing-function')).toEqual(
+			'cubic-bezier(.55,.055,.675,.19)',
+		);
 	});
 
 	it('pulse should not appear on target element when SpotlightPulse pulse prop is false', () => {
@@ -275,8 +279,14 @@ describe('<Spotlight />', () => {
 			</SpotlightManager>,
 		);
 
-		const targetStyles = getComputedStyle(screen.getByTestId('spotlight--target'));
-		expect(targetStyles.animation).not.toMatch(/\w+ 3s cubic-bezier\(.55,.055,.675,.19\) infinite/);
+		expect(screen.getByTestId('spotlight--target')).not.toHaveCompiledCss(
+			'animation',
+			expect.any(String),
+		);
+		expect(screen.getByTestId('spotlight--target')).not.toHaveCompiledCss(
+			'animationName',
+			expect.any(String),
+		);
 	});
 
 	it('pulse should not appear on element when SpotlightPulse pulse prop is false', () => {
@@ -310,7 +320,11 @@ describe('<Spotlight />', () => {
 		);
 
 		const targetStyles = getComputedStyle(screen.getByTestId('spotlight-pulse'));
-		expect(targetStyles.animation).toMatch(/\w+ 3s cubic-bezier\(.55,.055,.675,.19\) infinite/);
+		expect(targetStyles.getPropertyValue('animation-name')).toBeTruthy();
+		expect(targetStyles.getPropertyValue('animation-duration')).toEqual('3s');
+		expect(targetStyles.getPropertyValue('animation-timing-function')).toEqual(
+			'cubic-bezier(.55,.055,.675,.19)',
+		);
 	});
 
 	// Skipped due to HOT-111922 Fails for React 18

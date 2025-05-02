@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.8.0",
+	"version": "205.8.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -419,10 +419,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_cell_selection_with_nested_tables": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_nested_tables_bodied_extension_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -432,10 +428,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_disable_drag_handle_nested_tables": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_nested_tables_bottom_sentinel": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

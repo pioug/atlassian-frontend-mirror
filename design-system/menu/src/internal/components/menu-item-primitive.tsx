@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { ClassNames, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
-import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, type InlineProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -20,7 +19,7 @@ import {
 	type SpacingMode,
 } from './menu-context';
 
-const defaultRender: RenderFunction = (Component, props) => (
+const renderTitle: RenderFunction = (Component, props) => (
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	<Component {...props} />
 );
@@ -213,24 +212,16 @@ const MenuItemPrimitive = ({
 	description,
 	iconAfter,
 	iconBefore,
-	overrides,
 	className: UNSAFE_externalClassName,
 	shouldTitleWrap = false,
 	shouldDescriptionWrap = false,
 	isDisabled = false,
 	isSelected = false,
+	isTitleHeading = false,
 	testId,
 }: MenuItemPrimitiveProps) => {
-	propDeprecationWarning(
-		process.env._PACKAGE_NAME_ || '',
-		'overrides',
-		overrides !== undefined,
-		'', // TODO: Create DAC post when primitives/xcss are available as alternatives
-	);
-
 	const spacing = useContext(SpacingContext);
 	const selectionStyle = useContext(SELECTION_STYLE_CONTEXT_DO_NOT_USE);
-	const renderTitle = (overrides && overrides.Title && overrides.Title.render) || defaultRender;
 	const UNSAFE_className = UNSAFE_externalClassName;
 
 	return (
@@ -278,7 +269,7 @@ const MenuItemPrimitive = ({
 							)}
 							{title && (
 								<div css={styles.content}>
-									{renderTitle('span', {
+									{renderTitle(isTitleHeading ? 'h2' : 'span', {
 										children: title,
 										className: cn(
 											styles.title,

@@ -4,6 +4,7 @@ import ExampleComment from '../../../../examples/01-example-comment';
 import NestedComments from '../../../../examples/03-nested-comments';
 import TextOverflow from '../../../../examples/08-with-restricted-size-and-non-space-separated-content';
 import WithInlineChildren from '../../../../examples/10-with-inline-children';
+import CommentWithHeaderWrap from '../../../../examples/13-comment-with-wrapping-header';
 
 snapshot(ExampleComment, {
 	variants: [
@@ -34,4 +35,10 @@ snapshot(NestedComments, {
 			},
 		},
 	],
+});
+
+snapshot(CommentWithHeaderWrap, {
+	featureFlags: {
+		'platform-comment-header-wrap': [true, false],
+	},
 });

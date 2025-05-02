@@ -4,16 +4,21 @@
 export { annotationPlugin } from './annotationPlugin';
 export type { AnnotationPlugin, AnnotationPluginOptions } from './annotationPluginType';
 export type {
-	AnnotationProviders,
-	InlineCommentAnnotationProvider,
 	AnnotationInfo,
-	InlineCommentCreateComponentProps,
-	InlineCommentViewComponentProps,
+	AnnotationProviders,
 	AnnotationState,
 	AnnotationTypeProvider,
-	InlineCommentState,
-	TargetType,
+	InlineCommentAnnotationProvider,
+	InlineCommentCompoundExperience,
+	InlineCommentCreateComponentProps,
 	InlineCommentInputMethod,
+	InlineCommentState,
+	InlineCommentViewComponentProps,
+	SelectInlineCommentCompoundExperience,
+	SelectInlineCommentCompoundExperienceEntryPoint,
+	SimpleSelectInlineCommentCompoundExperience,
+	StartAttributes,
+	TargetType,
 } from './types';
 export type {
 	InlineCommentMap,

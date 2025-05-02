@@ -34,7 +34,10 @@ const ResizingBox = styled.div({
 	justifyContent: 'center',
 	background: 'rgba(0, 0, 0, 0.2)',
 	color: '#333',
-	animation: `${growAndShrink} 3s ease-in-out infinite`,
+	animationName: growAndShrink,
+	animationDuration: '3s',
+	animationTimingFunction: 'ease-in-out',
+	animationIterationCount: 'infinite',
 	width: `${startSize}px`,
 	height: `${startSize}px`,
 });

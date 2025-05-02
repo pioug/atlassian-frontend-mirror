@@ -53,6 +53,9 @@ const fadeIn = keyframes({
 
 const popupPanelStyles = css({
 	position: 'absolute',
-	animation: `${fadeIn} 100ms forwards linear`,
+	animationName: fadeIn,
+	animationDuration: '100ms',
+	animationTimingFunction: 'linear',
+	animationFillMode: 'forwards',
 	transition: 'top 100ms ease-out, left 100ms ease-out',
 });

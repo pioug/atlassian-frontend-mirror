@@ -113,13 +113,8 @@ export class TableStickyScrollbar {
 			ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM,
 		);
 
-		this.sentinels.bottom = fg('platform_editor_nested_tables_bottom_sentinel')
-			? // eslint-disable-next-line @atlaskit/editor/no-as-casting
-				(bottomSentinels?.item(bottomSentinels.length - 1) as HTMLElement)
-			: // eslint-disable-next-line @atlaskit/editor/no-as-casting
-				(this.wrapper?.parentElement
-					?.getElementsByClassName(ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM)
-					?.item(0) as HTMLElement);
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
+		this.sentinels.bottom = bottomSentinels?.item(bottomSentinels.length - 1) as HTMLElement;
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting

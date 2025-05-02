@@ -55,6 +55,14 @@ export type CorePlugin = NextEditorPlugin<
 			 * @returns (boolean) if the blur was successful
 			 */
 			blur: () => boolean;
+			/**
+			 * Scroll to a specific position in the editor using native Element.scrollIntoView
+			 *
+			 * @param pos - Position number scroll to
+			 * @param scrollOptions - [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/scrollIntoView)
+			 * @returns (boolean) if scroll was successful
+			 */
+			scrollToPos: (pos: number, scrollOptions?: boolean | ScrollIntoViewOptions) => boolean;
 
 			/**
 			 * Replaces the current content of the editor with the provided raw value.

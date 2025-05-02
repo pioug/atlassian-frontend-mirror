@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.1
+
+### Patch Changes
+
+- [#147651](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147651)
+  [`a17e1c3a38139`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a17e1c3a38139) -
+  [ux] Unselect text formatting icon in floating toolbar when multiple parts with format in
+  selection
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

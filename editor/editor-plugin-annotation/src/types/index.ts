@@ -1,6 +1,7 @@
 import type React from 'react';
 
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	AnnotationUpdateEmitter,
@@ -130,36 +131,9 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 
 export interface AnnotationProviders {
 	inlineComment: InlineCommentAnnotationProvider;
-	// This is a limited version of the comment experience setup
-	// in Confluence, and used to track the success of comment creation.
-	createCommentExperience?: {
-		start: (_: {
-			attributes:
-				| {
-						pageClass: 'editor';
-						commentType: 'inline';
-						annotationId?: undefined;
-				  }
-				| {
-						pageClass: 'editor';
-						commentType: 'block';
-						blockType: 'media';
-						annotationId?: undefined;
-				  };
-		}) => void;
-		initExperience: {
-			start: () => void;
-		};
-	};
-
-	// This is a limited version of the comment experience setup
-	// in Confluence, and used to track the success of comment selection.
-	selectCommentExperience?: {
-		selectAnnotation: {
-			complete: (annotationId: string) => void;
-		};
-	};
-
+	createCommentExperience?: InlineCommentCompoundExperience;
+	// Annotations plugin uses only a simplified version of SelectInlineCommentCompoundExperience.
+	selectCommentExperience?: SimpleSelectInlineCommentCompoundExperience;
 	annotationManager?: AnnotationManager;
 }
 
@@ -190,4 +164,131 @@ export type DraftBookmark = {
 	to: number;
 	head: number;
 	isBlockNode?: boolean;
+};
+
+type ExperienceAttributes = {
+	[key: string]: string | number | boolean | string[] | number[];
+};
+
+type InlineCommentAttributes =
+	| { pageClass: 'editor'; commentType: 'inline'; annotationId?: undefined }
+	| { pageClass: 'editor'; commentType: 'block'; blockType: 'media'; annotationId?: undefined }
+	| { pageClass: 'renderer'; commentType: 'inline'; annotationId: string }
+	| { pageClass: 'renderer'; commentType: 'block'; blockType: 'media'; annotationId: string };
+
+export type SelectInlineCommentCompoundExperienceEntryPoint =
+	| 'create-comment'
+	| 'annotation-change'
+	| 'comment-navigation'
+	| 'keyboard-navigation'
+	| 'sidebar'
+	| 'unknown:RendererFocus'
+	| 'unknown:InlineComment'
+	| 'unknown:CommentsPanelList';
+
+export type StartAttributes =
+	| {
+			pageClass: 'editor' | 'renderer';
+			/**
+			 * This is optional as in some scenarios the entry point does not know
+			 * what type of comment is being selected (e.g. comment navigation, sidebar).
+			 **/
+			commentType?: 'block' | 'inline';
+			blockType?: 'media';
+			annotationId: string;
+			entryPoint: Exclude<
+				SelectInlineCommentCompoundExperienceEntryPoint,
+				'keyboard-navigation' | 'comment-navigation'
+			>;
+			linkedCompoundTaskId?: string;
+	  }
+	| {
+			pageClass: 'editor' | 'renderer';
+			/**
+			 * This is optional as in some scenarios the entry point does not know
+			 * what type of comment is being selected (e.g. comment navigation, sidebar).
+			 **/
+			commentType?: 'block' | 'inline';
+			blockType?: 'media';
+			entryPoint: 'keyboard-navigation' | 'comment-navigation';
+			linkedCompoundTaskId?: string;
+	  };
+
+type ExperienceDebugFunction = (params: {
+	createAnalyticsEvent: CreateUIAnalyticsEvent;
+	error: Error;
+	extraAttributes?: ExperienceAttributes;
+}) => void;
+
+export type InlineCommentCompoundExperience = {
+	start: (params: { attributes: InlineCommentAttributes }) => void;
+	debug: ExperienceDebugFunction;
+	addCommonAttributes: (commonAttributes: ExperienceAttributes) => void;
+	attachCommonAttributes: (experienceName: string) => void;
+	initExperience: {
+		start: () => void;
+		fail: (error: Error) => void;
+		softFail: (error: Error) => void;
+		abort: (params: { abortReason: 'Draft annotation removed from document' }) => void;
+		complete: () => void;
+		debug: ExperienceDebugFunction;
+	};
+	draftToPublishExperience: {
+		start: () => void;
+		publishFailed: (error: Error) => void;
+		publishSucceeded: () => void;
+		abort: (params: {
+			abortReason: 'Create Comment UI dismissed' | 'Unable to apply annotation to document';
+		}) => void;
+		fail: (error: Error, attributes?: ExperienceAttributes) => void;
+		dismissed: () => void;
+		softFail: (error: Error) => void;
+		complete: () => void;
+		debug: ExperienceDebugFunction;
+		debugPoint: (message: string, attributes?: ExperienceAttributes) => void;
+	};
+	attachCommentExperience: {
+		start: () => void;
+		fail: (error: Error, attributes?: ExperienceAttributes) => void;
+		complete: () => void;
+		debug: ExperienceDebugFunction;
+		debugPoint: (message: string, attributes?: ExperienceAttributes) => void;
+	};
+};
+
+export type SelectInlineCommentCompoundExperience = {
+	_start: (startAttributes: StartAttributes) => void;
+	addCommonAttributes: (additionalCommonAttributes: {
+		[key: string]: string | number | boolean;
+	}) => void;
+	abort: (params: { abortReason: 'test abort' }) => void;
+	selectAnnotation: {
+		debug: ExperienceDebugFunction;
+		start: (startAttributes: StartAttributes) => void;
+		abort: (params: { abortReason: 'Comment navigation when only one comment' }) => void;
+		complete: (startAttributes: StartAttributes) => void;
+	};
+	showComment: {
+		debug: ExperienceDebugFunction;
+		debugPoint: (
+			message: string,
+			attributes?: { [key: string]: string | number | boolean },
+		) => void;
+		start: (startAttributes: StartAttributes & { annotationId: string }) => void;
+		abort: (params: {
+			abortReason: 'Non inline comment being shown' | 'Comment sidebar dismissed';
+		}) => void;
+		fail: (error: Error, extraAttributes?: { misalignedBy: number }) => void;
+		complete: () => void;
+	};
+};
+
+/**
+ * Alternative to SelectInlineCommentCompoundExperience, used for the annotation plugin options
+ * in the confluence editor presets. See createFullPageEditorPreset.ts or annotationPluginOptions.ts for usage.
+ */
+export type SimpleSelectInlineCommentCompoundExperience = {
+	selectAnnotation: {
+		complete: (annotationId: string) => void;
+	};
 };

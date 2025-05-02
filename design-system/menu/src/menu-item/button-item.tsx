@@ -33,7 +33,6 @@ const ButtonItem = memo(
 				isSelected = false,
 				onClick,
 				testId,
-				overrides,
 				onMouseDown,
 				shouldTitleWrap,
 				shouldDescriptionWrap,
@@ -62,12 +61,11 @@ const ButtonItem = memo(
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={UNSAFE_className}
 					{...rest}
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					overrides={overrides}
 					iconBefore={iconBefore}
 					iconAfter={iconAfter}
 					isDisabled={isDisabled}
 					isSelected={isSelected}
+					isTitleHeading={false}
 					description={description}
 					title={children}
 					shouldTitleWrap={shouldTitleWrap}

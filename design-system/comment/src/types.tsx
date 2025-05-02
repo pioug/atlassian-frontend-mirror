@@ -82,4 +82,8 @@ export interface CommentProps {
 	 * Use this to set the semantic heading level of the comment. The default comment heading has an `h3` tag. Make sure that headings are in the correct order and don’t skip levels.
 	 */
 	headingLevel?: '1' | '2' | '3' | '4' | '5' | '6';
+	/**
+	 * Controls if the comment header should wrap.
+	 */
+	shouldHeaderWrap?: boolean;
 }

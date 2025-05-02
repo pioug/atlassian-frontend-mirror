@@ -63,7 +63,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 				 *
 				 * Check whether plugin contains any selection extensions
 				 */
-				if (!extensions?.firstParty && !extensions?.external) {
+				if (
+					(!extensions?.firstParty || extensions.firstParty.length === 0) &&
+					(!extensions?.external || extensions.external.length === 0)
+				) {
 					return;
 				}
 

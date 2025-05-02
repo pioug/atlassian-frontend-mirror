@@ -314,16 +314,11 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 					const bottomSentinels =
 						tableContainer &&
 						tableContainer.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM);
-					// Ignored via go/ees005
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					return fg('platform_editor_nested_tables_bottom_sentinel')
-						? // eslint-disable-next-line @atlaskit/editor/no-as-casting
-							bottomSentinels && (bottomSentinels.item(bottomSentinels.length - 1) as HTMLElement)
-						: tableContainer &&
-								// eslint-disable-next-line @atlaskit/editor/no-as-casting
-								(tableContainer
-									.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
-									.item(0) as HTMLElement);
+
+					return (
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
+						bottomSentinels && (bottomSentinels.item(bottomSentinels.length - 1) as HTMLElement)
+					);
 				};
 
 				const sentinelsInDom = () => getSentinelTop() !== null && getSentinelBottom() !== null;

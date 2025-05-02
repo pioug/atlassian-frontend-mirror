@@ -24,6 +24,7 @@ interface HeaderProps {
 	edited?: ReactNode;
 	isError?: boolean;
 	headingLevel?: '1' | '2' | '3' | '4' | '5' | '6';
+	shouldHeaderWrap?: boolean;
 }
 
 type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -59,12 +60,19 @@ const Header: FC<HeaderProps> = ({
 	testId,
 	type,
 	headingLevel = '3',
+	shouldHeaderWrap,
 }) => {
 	const Heading: HeadingLevel = `h${headingLevel}`;
 	const shouldRender = author || time || restrictedTo || (isSaving && savingText) || edited || type;
 	return shouldRender ? (
 		<Heading css={headingStyles.root}>
-			<Inline alignBlock="center" testId={testId} space="space.100" as="span">
+			<Inline
+				alignBlock="center"
+				testId={testId}
+				space="space.100"
+				as="span"
+				shouldWrap={fg('platform-comment-header-wrap') && shouldHeaderWrap}
+			>
 				{author}
 				{type && <Lozenge testId={testId && `${testId}-type`}>{type}</Lozenge>}
 				{time && !isSaving && !isError && time}

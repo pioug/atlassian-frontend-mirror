@@ -27,6 +27,7 @@ type DropdownMenuProps = {
 	popupsScrollableElement?: HTMLElement;
 	hasMoreButton: boolean;
 	toolbarType: ToolbarType;
+	shouldUnselect?: boolean;
 } & WrappedComponentProps;
 
 export const FormattingTextDropdownMenu = React.memo(
@@ -42,6 +43,7 @@ export const FormattingTextDropdownMenu = React.memo(
 		hasMoreButton,
 		intl,
 		toolbarType,
+		shouldUnselect,
 	}: DropdownMenuProps) => {
 		const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
 		const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
@@ -63,6 +65,22 @@ export const FormattingTextDropdownMenu = React.memo(
 			fg('platform_editor_controls_patch_4')
 				? items[0].items[0]?.elemBefore
 				: undefined;
+
+		const defaultIconName = items[0].items[0]?.value.name;
+
+		let iconBefore;
+		let activeIconName = defaultIconName;
+
+		if (
+			shouldUnselect &&
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_7')
+		) {
+			iconBefore = defaultIcon;
+		} else {
+			iconBefore = activeItem ? activeItem?.elemBefore : defaultIcon;
+			activeIconName = activeItem?.value.name || defaultIconName;
+		}
 
 		return (
 			<DropdownMenu
@@ -124,7 +142,8 @@ export const FormattingTextDropdownMenu = React.memo(
 							}
 						}}
 						toolbarType={toolbarType}
-						iconBefore={activeItem ? activeItem?.elemBefore : defaultIcon}
+						iconBefore={iconBefore}
+						activeIconName={activeIconName}
 					/>
 				)}
 			</DropdownMenu>

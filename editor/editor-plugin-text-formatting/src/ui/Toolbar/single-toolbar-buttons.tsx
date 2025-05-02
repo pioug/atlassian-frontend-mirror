@@ -15,6 +15,7 @@ import type { Command } from '@atlaskit/editor-common/types';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MenuIconItem } from './types';
 
@@ -23,10 +24,12 @@ export const SingleToolbarButtons = React.memo(
 		items,
 		isReducedSpacing,
 		editorView,
+		shouldUnselect,
 	}: {
 		items: MenuIconItem[];
 		isReducedSpacing: boolean;
 		editorView: EditorView;
+		shouldUnselect?: boolean;
 	}) => {
 		const onClick = useCallback(
 			(command: Command) => {
@@ -57,11 +60,23 @@ export const SingleToolbarButtons = React.memo(
 						buttonId={item.buttonId}
 						spacing={isReducedSpacing ? 'none' : 'default'}
 						onClick={onClick(item.command)}
-						selected={item.isActive}
+						selected={
+							shouldUnselect &&
+							editorExperiment('platform_editor_controls', 'variant1') &&
+							fg('platform_editor_controls_patch_7')
+								? false
+								: item.isActive
+						}
 						disabled={item.isDisabled}
 						title={item.tooltipElement}
 						iconBefore={item.iconElement}
-						aria-pressed={item.isActive}
+						aria-pressed={
+							shouldUnselect &&
+							editorExperiment('platform_editor_controls', 'variant1') &&
+							fg('platform_editor_controls_patch_7')
+								? false
+								: item.isActive
+						}
 						aria-label={item['aria-label'] ?? String(item.content)}
 						aria-keyshortcuts={item['aria-keyshortcuts']}
 					/>

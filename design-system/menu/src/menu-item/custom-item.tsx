@@ -42,13 +42,13 @@ const CustomItem = memo(
 				component: Component,
 				isDisabled = false,
 				isSelected = false,
+				isTitleHeading = false,
 				onClick,
 				testId,
 				children,
 				description,
 				iconAfter,
 				iconBefore,
-				overrides,
 				onMouseDown,
 				shouldTitleWrap,
 				shouldDescriptionWrap,
@@ -81,14 +81,13 @@ const CustomItem = memo(
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={UNSAFE_className}
 					{...rest}
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					overrides={overrides}
 					description={description}
 					iconAfter={iconAfter}
 					title={children}
 					iconBefore={iconBefore}
 					isSelected={isSelected}
 					isDisabled={isDisabled}
+					isTitleHeading={isTitleHeading}
 					shouldTitleWrap={shouldTitleWrap}
 					shouldDescriptionWrap={shouldDescriptionWrap}
 					testId={testId && `${testId}--primitive`}

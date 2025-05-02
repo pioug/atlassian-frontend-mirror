@@ -30,7 +30,12 @@ const pulseStyles = css({
 	display: 'inline-flex',
 	borderRadius: '3px',
 	boxShadow: `0 0 0 0 ${token('color.border.discovery', '#8270DB')}`,
-	animation: `${pulseKeyframes} 2s cubic-bezier(0.5, 0, 0, 1) 0.25s both 2`,
+	animationName: pulseKeyframes,
+	animationDuration: '2s',
+	animationTimingFunction: 'cubic-bezier(0.5, 0, 0, 1)',
+	animationDelay: '0.25s',
+	animationFillMode: 'both',
+	animationIterationCount: 2,
 });
 
 /**

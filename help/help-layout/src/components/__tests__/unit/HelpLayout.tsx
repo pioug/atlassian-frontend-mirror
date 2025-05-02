@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
+import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl-next';
 
 import { messages } from '../../../messages';
@@ -157,5 +158,65 @@ describe('BackButton', () => {
 
 		const loadingImg = queryByLabelText(messageLoading);
 		expect(loadingImg).not.toBeNull();
+	});
+});
+
+describe('Help Layout with Side Nav', () => {
+	const mockSideNavTabs = [
+		{
+			icon: <QuestionCircleIcon label={'help tab'} />,
+			label: 'help',
+			content: <div>Help Tab Content</div>,
+			header: {
+				title: 'Help',
+			},
+		},
+		{
+			icon: <QuestionCircleIcon label={'search tab'} />,
+			label: 'search',
+			content: <div>Search Tab Content</div>,
+			header: {
+				title: 'Search',
+			},
+		},
+	];
+
+	it('Should render the side nav when sideNavTabs is defined', () => {
+		const { queryByTestId } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={false}
+					isLoading={false}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					sideNavTabs={mockSideNavTabs}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
+
+		const sideNav = queryByTestId('side-nav-tabs');
+		expect(sideNav).not.toBeNull();
+	});
+
+	it('Should render side tabs', () => {
+		const { queryByTestId } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={false}
+					isLoading={false}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					sideNavTabs={mockSideNavTabs}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
+		const searchTab = queryByTestId('side-nav-search');
+		const helpTab = queryByTestId('side-nav-help');
+		expect(searchTab).not.toBeNull();
+		expect(helpTab).not.toBeNull();
 	});
 });

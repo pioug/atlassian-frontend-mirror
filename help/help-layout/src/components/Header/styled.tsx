@@ -30,16 +30,6 @@ export const CloseButtonContainer = ({ children }: { children: React.ReactNode }
 	<div css={closeButtonContainerStyles}>{children}</div>
 );
 
-const closeButtonContainerAiStyles = css({
-	position: 'absolute',
-	right: token('space.100', '8px'),
-	top: token('space.200', '15px'),
-});
-
-export const CloseButtonContainerAi = ({ children }: { children: React.ReactNode }) => (
-	<div css={closeButtonContainerAiStyles}>{children}</div>
-);
-
 export const TRANSITION_DURATION_MS = 220;
 
 const backButtonContainerStyles = css({
@@ -86,27 +76,6 @@ const headerTitleStyles = css({
 export const HeaderTitle = ({ children }: { children: React.ReactNode }) => (
 	// eslint-disable-next-line @atlaskit/design-system/use-heading
 	<h1 css={headerTitleStyles}>{children}</h1>
-);
-
-const headerTitleAiStyles = css({
-	color: token('color.text.subtle', N500),
-	textAlign: 'left',
-	font: token('font.body.large'),
-	fontWeight: token('font.weight.semibold'),
-	paddingTop: token('space.250', '18px'),
-	paddingBottom: token('space.200', '16px'),
-	width: `calc(100% - ${token('space.200', '16px')})`,
-	whiteSpace: 'nowrap',
-	textOverflow: 'ellipsis',
-	display: 'inline-block',
-	overflow: 'hidden',
-	verticalAlign: 'middle',
-	marginLeft: token('space.200', '16px'),
-});
-
-export const HeaderTitleAi = ({ children }: { children: React.ReactNode }) => (
-	// eslint-disable-next-line @atlaskit/design-system/use-heading
-	<h1 css={headerTitleAiStyles}>{children}</h1>
 );
 
 const headerContentStyles = css({

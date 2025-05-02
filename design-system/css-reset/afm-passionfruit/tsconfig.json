@@ -1,0 +1,31 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__css-reset/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"ts-node": {
+		"transpileOnly": true,
+		"files": true
+	},
+	"references": [
+		{
+			"path": "../../theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

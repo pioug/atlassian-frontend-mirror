@@ -16,6 +16,8 @@ import InlineCard from './inlineCard';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { DatasourceAdfView } from '@atlaskit/link-datasource';
 import { DatasourceTableView } from '@atlaskit/link-datasource';
+import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { token } from '@atlaskit/tokens';
@@ -135,6 +137,32 @@ export default function BlockCard(props: {
 		return <InlineCard data={data} url={url} />;
 	}
 
+	let cardComponent;
+	if (smartLinks?.ssr && url && fg('platform_ssr_smartlink_cards')) {
+		cardComponent = (
+			<CardSSR
+				appearance="block"
+				platform={platform}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...cardProps}
+				url={url}
+				onError={onError}
+			/>
+		);
+	} else {
+		cardComponent = (
+			<Card
+				appearance="block"
+				platform={platform}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...cardProps}
+				onError={onError}
+			/>
+		);
+	}
+
 	return (
 		<AnalyticsContext data={analyticsData}>
 			<div
@@ -150,14 +178,7 @@ export default function BlockCard(props: {
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...cardProps}
 				>
-					<Card
-						appearance="block"
-						platform={platform}
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...cardProps}
-						onError={onError}
-					/>
+					{cardComponent}
 				</CardErrorBoundary>
 			</div>
 		</AnalyticsContext>

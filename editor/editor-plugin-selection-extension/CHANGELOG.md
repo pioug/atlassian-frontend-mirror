@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 2.2.2
+
+### Patch Changes
+
+- [#147994](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147994)
+  [`59aa4e2352739`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59aa4e2352739) -
+  [ux] Hide overflow menu when extension config is empty array
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

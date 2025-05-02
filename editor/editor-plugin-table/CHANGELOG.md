@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.12
+
+### Patch Changes
+
+- [#148537](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148537)
+  [`3df3e55411ffd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3df3e55411ffd) -
+  EDITOR-328 Clean up nested table bugfix feature gate
+  `platform_editor_nested_tables_bottom_sentinel`
+- Updated dependencies
+
 ## 10.9.11
 
 ### Patch Changes

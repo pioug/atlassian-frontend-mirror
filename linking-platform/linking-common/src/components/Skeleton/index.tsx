@@ -32,7 +32,11 @@ const appearanceValues = {
 const spanSkeletonStyles = css({
 	userSelect: 'none',
 	backgroundRepeat: 'no-repeat',
-	animation: `${placeholderShimmer} 1s linear infinite forwards`,
+	animationName: placeholderShimmer,
+	animationDuration: '1s',
+	animationTimingFunction: 'linear',
+	animationIterationCount: 'infinite',
+	animationFillMode: 'forwards',
 });
 
 const spanSkeletonBackgroundStyleMap = cssMap({

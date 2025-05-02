@@ -2,6 +2,7 @@ import React from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import Header from './Header';
+import { SideNav } from './SideNav';
 
 import { type HelpLayout } from '../model/HelpLayout';
 import { messages } from '../messages';
@@ -14,9 +15,17 @@ export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (props)
 		footer,
 		children,
 		intl: { formatMessage },
+
+		sideNavTabs = [],
 		...rest
 	} = props;
-	return (
+	return sideNavTabs?.length ? (
+		<Container>
+			<Section>
+				<SideNav sideNavTabs={sideNavTabs} />
+			</Section>
+		</Container>
+	) : (
 		<Container>
 			<Section>
 				<Header {...rest} />

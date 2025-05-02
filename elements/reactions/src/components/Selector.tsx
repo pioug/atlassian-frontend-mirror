@@ -49,7 +49,10 @@ const revealAnimation = keyframes({
 });
 
 const revealStyle = css({
-	animation: `${revealAnimation} 150ms ease-in-out forwards`,
+	animationName: revealAnimation,
+	animationDuration: '150ms',
+	animationTimingFunction: 'ease-in-out',
+	animationFillMode: 'forwards',
 	opacity: 0,
 });
 

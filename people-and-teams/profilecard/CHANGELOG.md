@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 23.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.10.0
 
 ### Minor Changes

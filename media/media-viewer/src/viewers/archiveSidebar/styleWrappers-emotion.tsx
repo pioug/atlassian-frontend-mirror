@@ -71,7 +71,9 @@ const archiveSidebarFolderWrapperStyles = css({
 	transform: 'translateY(-100%)',
 	transition: 'all 1s',
 	opacity: 0,
-	animation: `${slideDown} 0.3s forwards`,
+	animationName: slideDown,
+	animationDuration: '0.3s',
+	animationFillMode: 'forwards',
 });
 
 const sidebarItemWrapperStyles = css({

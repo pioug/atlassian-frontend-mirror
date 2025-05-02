@@ -60,11 +60,16 @@ const determinateBarStyles = css({
 });
 
 const increasingBarStyles = css({
-	animation: `${increasingBarAnimation} 2s infinite`,
+	animationDuration: '2s',
+	animationIterationCount: 'infinite',
+	animationName: increasingBarAnimation,
 });
 
 const decreasingBarStyles = css({
-	animation: `${decreasingBarAnimation} 2s 0.5s infinite`,
+	animationDelay: '0.5s',
+	animationDuration: '2s',
+	animationIterationCount: 'infinite',
+	animationName: decreasingBarAnimation,
 });
 
 /**

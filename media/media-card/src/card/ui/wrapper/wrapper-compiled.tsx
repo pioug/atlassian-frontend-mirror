@@ -14,6 +14,9 @@ import { getDefaultCardDimensions } from '../../../utils/cardDimensions';
 import { getCSSUnitValue } from '../../../utils/getCSSUnitValue';
 import { type Breakpoint } from '../common';
 
+const LOCAL_WIDTH_VARIABLE = '--media-wrapper-width';
+const LOCAL_HEIGHT_VARIABLE = '--media-wrapper-height';
+
 const wrapperStyles = css({
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -25,6 +28,8 @@ const wrapperStyles = css({
 	maxWidth: '100%',
 	maxHeight: '100%',
 	borderRadius: '3px',
+	width: `var(${LOCAL_WIDTH_VARIABLE})`,
+	height: `var(${LOCAL_HEIGHT_VARIABLE})`,
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&:hover .media-card-blanket': {
@@ -157,12 +162,14 @@ export const Wrapper = (props: WrapperProps) => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={newFileExperienceClassName}
 			data-testid={testId}
-			style={{
-				width,
-				height,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				...getResponsiveStyles(breakpoint),
-			}}
+			style={
+				{
+					[LOCAL_WIDTH_VARIABLE]: width,
+					[LOCAL_HEIGHT_VARIABLE]: height,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...getResponsiveStyles(breakpoint),
+				} as React.CSSProperties
+			}
 			css={[
 				wrapperStyles,
 				displayBackground && backgroundStyle,

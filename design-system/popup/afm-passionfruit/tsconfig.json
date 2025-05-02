@@ -1,0 +1,45 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__popup/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../css/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../popper/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../portal/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

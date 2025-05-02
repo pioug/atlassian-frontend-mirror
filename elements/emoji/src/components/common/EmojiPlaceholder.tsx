@@ -39,7 +39,10 @@ const placeholderContainerAnimated = css({
 		backgroundColor: token('color.background.neutral', N20A),
 		height: '100%',
 		width: '100%',
-		animation: `${easeSweep} 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite`,
+		animationName: easeSweep,
+		animationDuration: '1s',
+		animationTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+		animationIterationCount: 'infinite',
 	},
 });
 

@@ -104,22 +104,22 @@ describe('Box component', () => {
 		expect(element).toHaveAttribute('aria-label', 'test Box');
 	});
 
-	test("fails typechecking on `backgroundColor` in `xcss` as it's a required prop", () => {
+	test("allows `backgroundColor` in `xcss` and `style` even though it's deprecated", () => {
 		render(
 			<Box
 				backgroundColor="elevation.surface"
 				testId={testId}
-				/* eslint-disable @compiled/no-suppress-xcss -- it's just a test! */
-				// @ts-expect-error -- `backgroundColor` is not allowed in `xcss`
 				xcss={cx(styles.root, styles.disallowed)}
-				/* eslint-enable @compiled/no-suppress-xcss */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Testing this scenario, would expect `props.background` or similar, not hardcoded styles
+				style={{ backgroundColor: 'red' }}
 			>
 				child
 			</Box>,
 		);
 
 		expect(screen.getByTestId(testId)).toHaveCompiledCss({
-			// NOTE: This does still override, but the types will fail
+			// NOTE: This does still override, the `styles.root` backgroundColor is used
+			// However, note the `props.style` will actually win, it's just not accounted for in `toHaveCompiledCss`
 			backgroundColor: 'var(--ds-background-brand-bold,#0c66e4)',
 		});
 	});

@@ -21,12 +21,18 @@ describe('@atlaskit/reactions/components/FlashAnimation', () => {
 		renderWithIntl(renderFlash());
 		const elem = await screen.findByTestId(RENDER_FLASHANIMATION_TESTID);
 		expect(elem).toBeInTheDocument();
+
 		expect(getComputedStyle(elem).getPropertyValue('animation')).toBeFalsy();
+		expect(getComputedStyle(elem).getPropertyValue('animationName')).toBeFalsy();
 	});
 
 	it('should include flash class', async () => {
 		renderWithIntl(renderFlash({ flash: true }));
 		const elem = await screen.findByTestId(RENDER_FLASHANIMATION_TESTID);
-		expect(elem).toHaveCompiledCss('animation', 'k1qrjcqm .7s ease-in-out');
+		expect(elem).toHaveCompiledCss({
+			animationName: 'k1qrjcqm',
+			animationDuration: '.7s',
+			animationTimingFunction: 'ease-in-out',
+		});
 	});
 });

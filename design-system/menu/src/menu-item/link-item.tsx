@@ -51,7 +51,6 @@ const LinkItem = memo(
 				isSelected = false,
 				onClick,
 				testId,
-				overrides,
 				onMouseDown,
 				shouldTitleWrap,
 				shouldDescriptionWrap,
@@ -104,12 +103,11 @@ const LinkItem = memo(
 					{...rest}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={UNSAFE_className}
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					overrides={overrides}
 					iconBefore={iconBefore}
 					iconAfter={iconAfter}
 					isSelected={isSelected}
 					isDisabled={isDisabled}
+					isTitleHeading={false}
 					description={description}
 					shouldTitleWrap={shouldTitleWrap}
 					shouldDescriptionWrap={shouldDescriptionWrap}

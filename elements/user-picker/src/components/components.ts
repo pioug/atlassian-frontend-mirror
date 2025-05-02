@@ -10,12 +10,19 @@ import { PopupInput } from './PopupInput';
 import { PopupControl } from './PopupControl';
 import { Menu } from './Menu';
 import Control from './Control';
+import { type SelectComponentsConfig } from '@atlaskit/select';
+import { OptionData } from '../types';
 
 /**
  * Memoize getComponents to avoid rerenders.
  */
 export const getComponents = memoizeOne(
-	(multi?: boolean, anchor?: React.ComponentType<any>, showClearIndicator?: boolean) => {
+	(
+		multi?: boolean,
+		anchor?: React.ComponentType<any>,
+		showClearIndicator?: boolean,
+		customComponents?: SelectComponentsConfig<OptionData, boolean>,
+	) => {
 		if (anchor) {
 			return {
 				Control: anchor,
@@ -32,6 +39,7 @@ export const getComponents = memoizeOne(
 				Input,
 				Menu,
 				Control,
+				...(customComponents ? customComponents : {}),
 			};
 		}
 	},

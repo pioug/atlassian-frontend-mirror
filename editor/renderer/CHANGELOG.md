@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 114.12.1
+
+### Patch Changes
+
+- [#148000](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148000)
+  [`3dc4d377d546d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dc4d377d546d) -
+  CONFCLOUD-81409 - speed up renderer media client under FG platform_editor_speedup_media_client
+- [#148201](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148201)
+  [`8e811f1840de7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e811f1840de7) -
+  Either actively or pre-emptively fixes a bug with keyframe animations in CJS and ESM distribution
+  targets for packages using Compiled CSS-in-JS. This may not affect this package, but the change
+  was made so a future migration does not accidentally break it.
+- Updated dependencies
+
+## 114.12.0
+
+### Minor Changes
+
+- [#147188](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147188)
+  [`55a71b17e1c48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55a71b17e1c48) -
+  Updated smartlink card view to support SSR
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.11.2
 
 ### Patch Changes

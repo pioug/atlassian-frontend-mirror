@@ -1,5 +1,17 @@
 # @atlaskit/help-layout
 
+## 6.1.0
+
+### Minor Changes
+
+- [#148345](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148345)
+  [`dca737c2952f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dca737c2952f7) -
+  [ux] Enabling side tab view via sideNavTabs prop
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

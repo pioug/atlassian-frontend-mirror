@@ -118,15 +118,12 @@ type BaseBoxProps<T extends CustomElementType> = {
 	 * Inline styles to be applied to the Box. Only apply as a last resort, or where
 	 * styles cannot otherwise be calculated outside of the runtime of the component they're applied.
 	 */
-	style?: Omit<StyleProp['style'], 'backgroundColor'>;
+	style?: Omit<StyleProp['style'], 'background' | 'backgroundColor'>;
 	/**
 	 * Apply a subset of permitted styles powered by Atlassian Design System design tokens.
-	 * Note that `backgroundColor` is not allowed, use the `backgroundColor` prop instead for surface awareness.
+	 * It's preferred you do not use `background` in `xcss` or `cssMap()` and instead use `props.backgroundColor` for surface awareness.
 	 */
-	xcss?: StrictXCSSProp<
-		Exclude<XCSSAllProperties, 'background' | 'backgroundColor'>,
-		XCSSAllPseudos
-	>;
+	xcss?: StrictXCSSProp<Exclude<XCSSAllProperties, 'background'>, XCSSAllPseudos>;
 };
 
 type BoxComponent = <T extends CustomElementType>(props: BoxProps<T>) => ReactElement | null;

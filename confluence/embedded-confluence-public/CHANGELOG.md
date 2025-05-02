@@ -1,5 +1,41 @@
 # @atlaskit/embedded-confluence
 
+## 4.0.0
+
+### Major Changes
+
+- [#147926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147926)
+  [`4c5a404f45416`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c5a404f45416) - 1.
+  This upgrade migrates css styles from using `@emotion/react` to use `@compiled/react`.
+
+  2. In addition to some dependency changes, **the embedded `ViewPage` and `Page` components will no
+     longer accept the `className` prop because of the interference it causes with SSR.**
+
+  3. As an alternative, styles should be applied to a wrapping container placed around the
+     `ViewPage` component.
+
+  **NOTE:** Some bundlers may not support `.css` files inside `node_modules/` out-of-the-box like
+  the ones that Compiled generates. Please follow the guide below depending on the bundler your app
+  uses:
+
+  1. If your app relies on **Webpack**, then you need to add `style-loader` and `css-loader` to your
+     `webpack.config.js`. (More info on [CSS Loader](https://webpack.js.org/loaders/css-loader/)).
+
+     - (OPTIONAL) Consider adding `@compiled/webpack-loader` to your Webpack configuration, so that
+       the `.css` files from Compiled CSS-in-JS are merged into a single stylesheet.
+       [See here for installation instructions](https://compiledcssinjs.com/docs/installation#webpack).
+
+  2. If your app relies on **Parcel**, no intervention is necessary. (More info on
+     [Parcel CSS](https://parceljs.org/languages/css/)).
+
+     - (OPTIONAL) Consider adding `@compiled/parcel-loader` to your Parcel configuration, so that
+       the `.css` files from Compiled CSS-in-JS are merged into a single stylesheet.
+       [See here for installation instructions](https://compiledcssinjs.com/docs/installation#parcel).
+
+  3. If your app relies on **Vite** or **Next.js**, no intervention is necessary. (More info on
+     [Vite Features](https://vite.dev/guide/features#css) and
+     [Next JS external stylesheets](https://nextjs.org/docs/pages/building-your-application/styling/css#external-stylesheets))
+
 ## 3.0.1
 
 ## 3.0.0

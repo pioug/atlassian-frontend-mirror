@@ -30,6 +30,7 @@ type DropdownButtonProps = {
 	onKeyDown?: (event: React.KeyboardEvent) => void;
 	toolbarType: ToolbarType;
 	iconBefore?: ReactElement;
+	activeIconName?: string;
 };
 
 export const DropdownToolbarButton = ({
@@ -42,6 +43,7 @@ export const DropdownToolbarButton = ({
 	onKeyDown,
 	toolbarType,
 	iconBefore,
+	activeIconName,
 }: DropdownButtonProps) => {
 	const reducedSpacing = toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
 
@@ -69,6 +71,7 @@ export const DropdownToolbarButton = ({
 							: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 								triggerWrapperStyles
 					}
+					data-testid={activeIconName ? `editor-toolbar__${activeIconName}` : undefined}
 				>
 					{iconBefore ? (
 						iconBefore

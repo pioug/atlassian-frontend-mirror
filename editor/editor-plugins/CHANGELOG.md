@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugins
 
+## 8.3.14
+
+### Patch Changes
+
+- [#146979](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146979)
+  [`5cea1d6e69c56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cea1d6e69c56) -
+  ED-27655: Moving annotation plugin options from confluence's full page editor preset to the
+  confluence-presets.
+- Updated dependencies
+
+## 8.3.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.3.12
 
 ### Patch Changes

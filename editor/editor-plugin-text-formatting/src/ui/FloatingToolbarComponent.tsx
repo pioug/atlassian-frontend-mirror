@@ -12,13 +12,16 @@ import { injectIntl } from 'react-intl-next';
 import { type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
 import { DefaultFloatingToolbarButtonsNext } from './Toolbar/constants';
 import { FormattingTextDropdownMenu } from './Toolbar/dropdown-menu';
+import { hasMultiplePartsWithFormattingInSelection } from './Toolbar/formatting-in-selection-utils';
 import { useClearIcon } from './Toolbar/hooks/clear-formatting-icon';
 import { useFormattingIcons } from './Toolbar/hooks/formatting-icons';
 import { useIconList } from './Toolbar/hooks/use-icon-list';
@@ -59,9 +62,26 @@ const FloatingToolbarTextFormat = ({
 		toolbarType: FloatingToolbarSettings.toolbarType,
 	});
 
+	let hasMultiplePartsWithFormattingSelected;
+	if (
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_7')
+	) {
+		const { selection } = editorView.state;
+		const { from, to } = selection;
+		const selectedContent =
+			selection instanceof TextSelection
+				? editorView.state.doc.slice(from, to).content.content.slice()
+				: undefined;
+		hasMultiplePartsWithFormattingSelected = hasMultiplePartsWithFormattingInSelection({
+			selectedContent,
+		});
+	}
+
 	const { dropdownItems, singleItems } = useIconList({
 		icons: defaultIcons,
 		iconTypeList: DefaultFloatingToolbarButtonsNext,
+		shouldUnselect: hasMultiplePartsWithFormattingSelected,
 	});
 
 	const clearIcon = useClearIcon({
@@ -81,7 +101,12 @@ const FloatingToolbarTextFormat = ({
 
 	return (
 		<React.Fragment>
-			<SingleToolbarButtons items={singleItems} editorView={editorView} isReducedSpacing={false} />
+			<SingleToolbarButtons
+				items={singleItems}
+				editorView={editorView}
+				isReducedSpacing={false}
+				shouldUnselect={hasMultiplePartsWithFormattingSelected}
+			/>
 			<FormattingTextDropdownMenu
 				editorView={editorView}
 				items={
@@ -99,6 +124,7 @@ const FloatingToolbarTextFormat = ({
 				hasMoreButton={FloatingToolbarSettings.hasMoreButton}
 				intl={intl}
 				toolbarType={FloatingToolbarSettings.toolbarType}
+				shouldUnselect={hasMultiplePartsWithFormattingSelected}
 			/>
 		</React.Fragment>
 	);

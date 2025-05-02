@@ -47,12 +47,16 @@ const loadIn = keyframes({
 
 const styles = cssMap({
 	rotateStyles: {
-		animation: `${rotate} 0.86s infinite`,
+		animationName: rotate,
+		animationDuration: '0.86s',
+		animationIterationCount: 'infinite',
 		animationTimingFunction: 'cubic-bezier(0.4, 0.15, 0.6, 0.85)',
 		transformOrigin: 'center',
 	},
 	loadInStyles: {
-		animation: `${loadIn} 1s ease-in-out`,
+		animationName: loadIn,
+		animationDuration: '1s',
+		animationTimingFunction: 'ease-in-out',
 		/**
 		 * When the animation completes, stay at the last frame of the animation.
 		 */

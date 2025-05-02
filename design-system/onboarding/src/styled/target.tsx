@@ -41,7 +41,10 @@ const pulseKeyframes = keyframes({
 });
 
 const animationStyles = css({
-	animation: `${pulseKeyframes} 3000ms ${easing} infinite`,
+	animationDuration: '3000ms',
+	animationIterationCount: 'infinite',
+	animationName: pulseKeyframes,
+	animationTimingFunction: easing,
 	// Keep a purple boxshadow on the Pulse component if `prefers-reduced-motion`
 	// is applied so we still have a functioning semantic affordance.
 	boxShadow: baseShadow,

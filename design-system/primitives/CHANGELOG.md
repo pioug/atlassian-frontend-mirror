@@ -1,5 +1,15 @@
 # @atlaskit/primitives
 
+## 14.5.0
+
+### Minor Changes
+
+- [#148288](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148288)
+  [`c31c2fb751ae5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c31c2fb751ae5) -
+  Add `backgroundColor` back to `props.style` and `props.xcss` for `Box` from
+  `@atlaskit/primitives/compiled` to have a more iterative migration, but we still prefer the
+  `props.backgroundColor` value.
+
 ## 14.4.0
 
 ### Minor Changes

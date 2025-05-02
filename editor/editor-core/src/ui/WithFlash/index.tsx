@@ -30,7 +30,9 @@ const pulseBackgroundReverse = keyframes({
 const flashWrapper = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.-flash > div': {
-		animation: `0.25s ease-in-out ${pulseBackgroundReverse}`,
+		animationName: pulseBackgroundReverse,
+		animationDuration: '0.25s',
+		animationTimingFunction: 'ease-in-out',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div': {
@@ -41,7 +43,9 @@ const flashWrapper = css({
 const flashWrapperAnimated = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`${flashWrapper} & > div`]: {
-		animation: `0.25s ease-in-out ${pulseBackground}`,
+		animationName: pulseBackground,
+		animationDuration: '0.25s',
+		animationTimingFunction: 'ease-in-out',
 	},
 });
 

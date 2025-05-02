@@ -20,6 +20,25 @@ export interface HelpPanelHeader {
 	// AI implementation flag for new layout
 	isAiEnabled?: boolean;
 }
+export interface HeaderContent {
+	title: string;
+	onNewChatButtonClick?(
+		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		analyticsEvent: UIAnalyticsEvent,
+	): void;
+	onCloseButtonClick?(
+		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		analyticsEvent: UIAnalyticsEvent,
+	): void;
+}
+
+export interface SideNavTab {
+	icon: React.ReactNode;
+	label: string;
+	content: React.ReactNode;
+	onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+	header: HeaderContent;
+}
 
 export interface HelpLayout extends HelpPanelHeader {
 	// Loading state. This prop is optional
@@ -28,6 +47,6 @@ export interface HelpLayout extends HelpPanelHeader {
 	footer?: React.ReactNode;
 	// Wrapped content
 	children?: React.ReactNode;
-	// AI implementation flag for new layout
-	isAiEnabled?: boolean;
+	// Tabs
+	sideNavTabs?: SideNavTab[];
 }

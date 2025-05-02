@@ -19,7 +19,10 @@ import {
 	updateMouseState,
 } from '../editor-commands';
 import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
-import type { InlineCommentAnnotationProvider } from '../types';
+import type {
+	InlineCommentAnnotationProvider,
+	SimpleSelectInlineCommentCompoundExperience,
+} from '../types';
 
 import {
 	allowAnnotation,
@@ -261,7 +264,10 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 							annotations &&
 							annotations[selectedAnnotationId] === false
 						) {
-							options.selectCommentExperience?.selectAnnotation.complete(selectedAnnotationId);
+							// Under the confluence_comments_select_comment_experience feature flag, the selectComponentExperience is using a simplified object, which is why it's type asserted.
+							(
+								options.selectCommentExperience as SimpleSelectInlineCommentCompoundExperience
+							)?.selectAnnotation.complete(selectedAnnotationId);
 						}
 					}
 

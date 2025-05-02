@@ -33,7 +33,9 @@ const containerStyle = css({
 });
 
 const flashStyle = css({
-	animation: `${flashAnimation} ${flashTime}ms ease-in-out`,
+	animationName: flashAnimation,
+	animationDuration: `${flashTime}ms`,
+	animationTimingFunction: 'ease-in-out',
 });
 
 export type FlashAnimationProps = PropsWithChildren<{

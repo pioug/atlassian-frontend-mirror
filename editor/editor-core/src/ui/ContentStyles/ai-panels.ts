@@ -40,7 +40,10 @@ const aiPrismColor = {
 
 const prismBorderAnimationStyles = css({
 	'&::before, &::after': {
-		animation: `${rotationAnimation} linear 2s infinite`,
+		animationName: rotationAnimation,
+		animationDuration: '2s',
+		animationTimingFunction: 'linear',
+		animationIterationCount: 'infinite',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(isFirefox ? { animationDirection: 'normal', animationDuration: '1s' } : {}),
 		'@media (prefers-reduced-motion)': {

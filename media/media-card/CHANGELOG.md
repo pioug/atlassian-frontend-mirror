@@ -1,5 +1,15 @@
 # @atlaskit/media-card
 
+## 79.2.2
+
+### Patch Changes
+
+- [#148508](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148508)
+  [`3b5a9d9a7b657`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5a9d9a7b657) -
+  Fixed a bug in safari where height for image wrapper when inline was not correct in compiled, this
+  was not an issue in emotion as it was overriden by a more specific selector
+- Updated dependencies
+
 ## 79.2.1
 
 ### Patch Changes

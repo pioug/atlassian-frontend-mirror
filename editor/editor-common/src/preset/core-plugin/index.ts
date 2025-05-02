@@ -64,6 +64,35 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				(editorView.dom as HTMLElement).blur();
 				return true;
 			},
+			scrollToPos(pos: number, scrollOptions?: boolean | ScrollIntoViewOptions) {
+				const editorView = config?.getEditorView();
+
+				if (!editorView) {
+					return false;
+				}
+
+				const tr = editorView.state.tr;
+				const isValidPos = typeof pos === 'number' && pos >= 0 && pos <= tr.doc.content.size;
+
+				if (!isValidPos) {
+					return false;
+				}
+
+				const dom = editorView.domAtPos(pos).node;
+
+				if (!(dom instanceof Element)) {
+					// If it's not an element (e.g. #text node), we'll try the parent.
+					// This is expected to cover most of the scenarios, if not, window.scrollTo is an alternative
+					if (dom.parentNode instanceof Element) {
+						dom.parentNode.scrollIntoView(scrollOptions);
+						return true;
+					}
+					return false;
+				}
+
+				dom.scrollIntoView(scrollOptions);
+				return true;
+			},
 			replaceDocument: (
 				replaceValue: Node | Fragment | Array<Node> | Object | String,
 				options?: { scrollIntoView?: boolean; skipValidation?: boolean },

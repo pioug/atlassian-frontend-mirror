@@ -17,7 +17,10 @@ const pulseKeyframes = keyframes({
 const pulseStyles = css({
 	borderRadius: '3px',
 	boxShadow: `0 0 0 0 ${token('color.background.discovery.bold', '#5243AA')}`,
-	animation: `${pulseKeyframes} 1.45s cubic-bezier(0.5, 0, 0, 1) 3`,
+	animationName: pulseKeyframes,
+	animationDuration: '1.45s',
+	animationTimingFunction: 'cubic-bezier(0.5, 0, 0, 1)',
+	animationIterationCount: 3,
 });
 
 const commonStyles = css({

@@ -159,15 +159,14 @@ export interface MenuItemPrimitiveProps {
 	description: React.ReactNode | undefined;
 	iconAfter: React.ReactNode | undefined;
 	iconBefore: React.ReactNode | undefined;
-	/**
-	 * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	overrides: Overrides | undefined;
 	shouldTitleWrap: boolean | undefined;
 	shouldDescriptionWrap: boolean | undefined;
 	isDisabled: boolean | undefined;
 	isSelected: boolean | undefined;
+	/**
+	 * @deprecated This API exists to support functionality in `@atlaskit/side-navigation` and should not be used. Once the new navigation is fully rolled out, this prop will be removed.
+	 */
+	isTitleHeading: boolean | undefined;
 	className?: string;
 	testId?: string;
 }
@@ -229,14 +228,6 @@ export interface MenuItemProps {
 	testId?: string;
 
 	/**
-	 * Custom overrides for the composed components.
-	 *
-	 * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	overrides?: Overrides;
-
-	/**
 	 * When `true`, the title of the item will wrap multiple lines if it's long enough.
 	 */
 	shouldTitleWrap?: boolean;
@@ -245,6 +236,12 @@ export interface MenuItemProps {
 	 * When `true`, the description of the item will wrap multiple lines if it's long enough.
 	 */
 	shouldDescriptionWrap?: boolean;
+
+	/**
+	 * When `true`, the title of the item will render as a `h2` rather than a `span`
+	 * @deprecated This API exists to support functionality in `@atlaskit/side-navigation` and should not be used. Once the new navigation is fully rolled out, this prop will be removed.
+	 */
+	isTitleHeading?: boolean;
 
 	/**
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).

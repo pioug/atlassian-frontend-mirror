@@ -1,10 +1,14 @@
 import { useMemo } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
 import type { IconTypes, MenuIconItem } from '../types';
 
 interface UseIconsParams {
 	icons: Array<MenuIconItem | null>;
 	iconTypeList: IconTypes[];
+	shouldUnselect?: boolean;
 }
 
 export type IconsPositions = {
@@ -12,14 +16,21 @@ export type IconsPositions = {
 	singleItems: Array<MenuIconItem>;
 };
 
-export const useIconList = ({ icons, iconTypeList }: UseIconsParams) => {
+export const useIconList = ({ icons, iconTypeList, shouldUnselect }: UseIconsParams) => {
 	return useMemo(() => {
 		return icons.reduce<IconsPositions>(
 			(acc, icon) => {
 				if (!icon || !icon.iconMark) {
 					return acc;
 				}
-
+				if (
+					shouldUnselect &&
+					icon.isActive &&
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_7')
+				) {
+					icon.isActive = false;
+				}
 				const isIconSingleButton = iconTypeList.includes(icon.iconMark);
 
 				if (isIconSingleButton) {
@@ -36,5 +47,5 @@ export const useIconList = ({ icons, iconTypeList }: UseIconsParams) => {
 			},
 			{ dropdownItems: [], singleItems: [] },
 		);
-	}, [icons, iconTypeList]);
+	}, [icons, shouldUnselect, iconTypeList]);
 };

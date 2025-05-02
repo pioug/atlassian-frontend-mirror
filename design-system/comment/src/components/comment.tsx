@@ -45,6 +45,7 @@ const Comment: FC<CommentProps> = ({
 	afterContent,
 	shouldRenderNestedCommentsInline,
 	headingLevel = '3',
+	shouldHeaderWrap,
 }) => {
 	const headerProps = {
 		author,
@@ -56,6 +57,7 @@ const Comment: FC<CommentProps> = ({
 		time,
 		type,
 		headingLevel,
+		shouldHeaderWrap,
 	};
 	const footerProps = {
 		actions,

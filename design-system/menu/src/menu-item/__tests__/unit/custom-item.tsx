@@ -186,6 +186,33 @@ describe('<CustomItem />', () => {
 		expect(screen.getByTestId('target')).toHaveAttribute('href', '/my-details');
 	});
 
+	it('should render children in a span when isTitleHeading is false (default)', () => {
+		render(
+			<CustomItem component={Component} testId="is-title-heading-false">
+				Hello world
+			</CustomItem>,
+		);
+
+		expect(
+			screen.queryByRole('heading', { level: 2, name: 'Hello world' }),
+		).not.toBeInTheDocument();
+		const span = screen.getByText('Hello world');
+		expect(span.tagName.toLowerCase()).toBe('span');
+		expect(span).toBeVisible();
+	});
+
+	it('should render children in a h2 when isTitleHeading is true', () => {
+		render(
+			<CustomItem component={Component} testId="is-title-heading-true" isTitleHeading>
+				Hello world
+			</CustomItem>,
+		);
+
+		const heading = screen.getByRole('heading', { level: 2, name: 'Hello world' });
+		expect(heading.tagName.toLowerCase()).toBe('h2');
+		expect(heading).toBeVisible();
+	});
+
 	ffTest.on(
 		'platform_button_item-add-ufo-metrics',
 		'with ufo interaction metrics FG enabled',

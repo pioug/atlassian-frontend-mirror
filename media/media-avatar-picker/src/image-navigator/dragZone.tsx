@@ -44,7 +44,10 @@ const droppingAnimation = css({
 	backgroundColor: token('color.background.information.hovered', '#ddecfe'),
 	'&::after': {
 		borderColor: token('color.border.information', '#0e56c4'),
-		animation: `${spin} 8s linear infinite`,
+		animationName: spin,
+		animationDuration: '8s',
+		animationTimingFunction: 'linear',
+		animationIterationCount: 'infinite',
 	},
 });
 

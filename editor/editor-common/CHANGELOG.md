@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 103.21.1
+
+### Patch Changes
+
+- [#148000](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148000)
+  [`3dc4d377d546d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dc4d377d546d) -
+  CONFCLOUD-81409 - speed up renderer media client under FG platform_editor_speedup_media_client
+- Updated dependencies
+
+## 103.21.0
+
+### Minor Changes
+
+- [#142736](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142736)
+  [`0ec12ef9f6524`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ec12ef9f6524) -
+  [ux] scrollToPos function added to the core plugin. It can be accessed via
+  editorAPI.core.actions.scrollToPos().
+
 ## 103.20.0
 
 ### Minor Changes

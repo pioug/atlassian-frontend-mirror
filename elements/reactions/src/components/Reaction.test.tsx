@@ -133,8 +133,10 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 
 		const flashAnimationWrapper = await screen.findByTestId(RENDER_FLASHANIMATION_TESTID);
 		expect(flashAnimationWrapper).toBeInTheDocument();
-		const styles = window.getComputedStyle(flashAnimationWrapper);
-		expect(styles.getPropertyValue('animation')).toBeTruthy();
+		expect(flashAnimationWrapper).toHaveCompiledCss({
+			animationDuration: '.7s',
+			animationTimingFunction: 'ease-in-out',
+		});
 	});
 
 	it('should render ReactionTooltip', async () => {

@@ -9,6 +9,7 @@ export {
 	ProviderFactoryProvider,
 	useProviderFactory,
 	useProvider,
+	useProviderLayout,
 } from './provider-factory/context';
 export { default as ProviderFactory } from './provider-factory/provider-factory';
 

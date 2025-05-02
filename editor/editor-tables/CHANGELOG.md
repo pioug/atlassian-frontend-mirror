@@ -1,5 +1,13 @@
 # @atlaskit/editor-tables
 
+## 2.9.3
+
+### Patch Changes
+
+- [#148184](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148184)
+  [`cf70e8acad123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf70e8acad123) -
+  EDITOR-321 Cleaned up feature gate `platform_editor_cell_selection_with_nested_tables`
+
 ## 2.9.2
 
 ### Patch Changes

@@ -136,14 +136,34 @@ describe('UserPicker', () => {
 
 		it('should call getComponents with false if single picker', () => {
 			shallowUserPicker({ isMulti: false });
-			expect(getComponents).toHaveBeenCalledWith(false, undefined, false);
+			expect(getComponents).toHaveBeenCalledWith(false, undefined, false, {});
 			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined, false);
 		});
 
 		it('should call getComponents with true if multi picker', () => {
 			shallowUserPicker({ isMulti: true });
-			expect(getComponents).toHaveBeenCalledWith(true, undefined, false);
+			expect(getComponents).toHaveBeenCalledWith(true, undefined, false, {});
 			expect(getStylesMock).toHaveBeenCalledWith(350, true, false, undefined, undefined, false);
+		});
+
+		it('should call getComponents with components if components are passed', () => {
+			shallowUserPicker({
+				isMulti: false,
+				components: { Option: () => <div>Option</div> },
+			});
+			expect(getComponents).toHaveBeenCalledWith(false, undefined, false, {
+				Option: expect.any(Function),
+			});
+			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined, false);
+		});
+
+		it('should call getComponents with empty object if no components are passed', () => {
+			shallowUserPicker({
+				isMulti: false,
+				components: undefined,
+			});
+			expect(getComponents).toHaveBeenCalledWith(false, undefined, false, {});
+			expect(getStylesMock).toHaveBeenCalledWith(350, false, false, undefined, undefined, false);
 		});
 	});
 

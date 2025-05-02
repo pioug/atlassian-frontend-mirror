@@ -7,7 +7,6 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CellSelection } from '../cell-selection';
 import type { Axis, CommandWithView, Direction, Dispatch } from '../types';
@@ -254,17 +253,11 @@ export function handleMouseDown(
 		const isBothCellsInSameTable = isCurrCellInsideNestedTable === isStartCellInsideNestedTable;
 		let $moveAnchor;
 
-		const oldIfStatement = currDOMCell !== startDOMCell;
-		const newIfStatement = currDOMCell !== startDOMCell && isBothCellsInSameTable;
-		const checkCellsAreDifferent = fg('platform_editor_cell_selection_with_nested_tables')
-			? newIfStatement
-			: oldIfStatement;
-
 		if (anchor != null) {
 			// Continuing an existing cross-cell selection
 			$moveAnchor = view.state.doc.resolve(anchor);
 			// Ignored via go/ees005
-		} else if (checkCellsAreDifferent) {
+		} else if (currDOMCell !== startDOMCell && isBothCellsInSameTable) {
 			// Moving out of the initial cell -- start a new cell selection
 			$moveAnchor = cellUnderMouse(view, startEvent);
 			if (!$moveAnchor) {

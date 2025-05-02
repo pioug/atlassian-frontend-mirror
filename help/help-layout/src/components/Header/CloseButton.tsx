@@ -11,7 +11,7 @@ import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 
 import { messages } from '../../messages';
 
-import { CloseButtonContainer, CloseButtonContainerAi } from './styled';
+import { CloseButtonContainer } from './styled';
 
 interface Props {
 	// Function executed when the user clicks the close button
@@ -19,7 +19,6 @@ interface Props {
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent?: UIAnalyticsEvent,
 	): void;
-	isAiEnabled?: boolean;
 }
 
 /**
@@ -30,7 +29,6 @@ interface Props {
  */
 export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 	onClick,
-	isAiEnabled,
 	intl: { formatMessage },
 }) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -44,24 +42,7 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 		}
 	};
 
-	return isAiEnabled ? (
-		<CloseButtonContainerAi>
-			<Tooltip content={formatMessage(messages.help_panel_header_close)} position="left">
-				<Button
-					onClick={handleOnClick}
-					appearance="subtle"
-					aria-label={formatMessage(messages.help_panel_header_close_button)}
-					iconBefore={
-						<EditorCloseIcon
-							color="currentColor"
-							label={formatMessage(messages.help_panel_header_close)}
-							LEGACY_size="medium"
-						/>
-					}
-				/>
-			</Tooltip>
-		</CloseButtonContainerAi>
-	) : (
+	return (
 		<CloseButtonContainer>
 			<Tooltip content={formatMessage(messages.help_panel_header_close)} position="left">
 				<Button

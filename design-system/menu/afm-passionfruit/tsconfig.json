@@ -1,0 +1,45 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__menu/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../app-provider/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../focus-ring/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../observability/interaction-context/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../theme/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

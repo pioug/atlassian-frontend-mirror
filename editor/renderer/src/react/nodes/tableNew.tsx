@@ -419,7 +419,6 @@ export class TableContainer extends React.Component<
 		const {
 			isNumberColumnEnabled,
 			layout,
-			renderWidth,
 			columnWidths,
 			stickyHeaders,
 			tableNode,
@@ -460,14 +459,14 @@ export class TableContainer extends React.Component<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				className="table-alignment-container"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				style={{ display: 'flex', justifyContent: 'center' }}
+				style={{ display: 'flex', justifyContent: `${tableNode?.attrs.layout}` }}
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					className="pm-table-resizer-container"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={{
-						width: `min(calc(100cqw - ${gutterPadding}px) ${tableWidthAttribute}`,
+						width: `min(calc(100cqw - ${gutterPadding}px), ${tableWidthAttribute})`,
 					}}
 				>
 					<div
@@ -494,7 +493,6 @@ export class TableContainer extends React.Component<
 								className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
 									this.props.shadowClassNames || ''
 								}`}
-								data-number-column={tableNode?.attrs.isNumberColumnEnabled}
 								data-layout={this.updatedLayout}
 								data-testid="table-container"
 								ref={this.props.handleRef}
@@ -510,7 +508,7 @@ export class TableContainer extends React.Component<
 								{stickyHeaders && tableNode && tableCanBeSticky(tableNode, children) && (
 									<StickyTable
 										isNumberColumnEnabled={isNumberColumnEnabled}
-										renderWidth={renderWidth}
+										renderWidth={0}
 										tableWidth="inherit"
 										layout={layout}
 										handleRef={this.props.handleRef}
@@ -545,7 +543,7 @@ export class TableContainer extends React.Component<
 										columnWidths={columnWidths}
 										layout={layout}
 										isNumberColumnEnabled={isNumberColumnEnabled}
-										renderWidth={renderWidth}
+										renderWidth={0}
 										tableNode={tableNode}
 										rendererAppearance={rendererAppearance}
 										isInsideOfBlockNode={isInsideOfBlockNode}

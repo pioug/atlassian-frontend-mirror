@@ -11,7 +11,7 @@ import { PopupControl } from './PopupControl';
 import { Menu } from './Menu';
 import Control from './Control';
 import { type SelectComponentsConfig } from '@atlaskit/select';
-import { OptionData } from '../types';
+import { type OptionData } from '../types';
 
 /**
  * Memoize getComponents to avoid rerenders.

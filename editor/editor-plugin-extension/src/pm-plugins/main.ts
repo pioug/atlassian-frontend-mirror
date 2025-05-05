@@ -10,8 +10,8 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
-	createSelectionClickHandler,
 	GapCursorSelection,
+	createSelectionClickHandler,
 	isSelectionAtEndOfNode,
 	isSelectionAtStartOfNode,
 } from '@atlaskit/editor-common/selection';
@@ -21,14 +21,13 @@ import type {
 	FeatureFlags,
 } from '@atlaskit/editor-common/types';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeOfTypeClosestToPos,
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearEditingContext, updateState } from '../editor-commands/commands';
 import type { ExtensionPlugin, ExtensionPluginOptions } from '../extensionPluginType';
@@ -412,10 +411,8 @@ export const createPlugin = (
 			handleClickOn: createSelectionClickHandler(
 				['extension', 'bodiedExtension', 'multiBodiedExtension'],
 				(target) =>
-					fg('platform_editor_legacy_content_macro')
-						? !target.closest('.extension-non-editable-area') &&
-							(!target.closest('.extension-content') || !!target.closest('.extension-container'))
-						: !target.closest('.extension-content'), // It's to enable nested extensions selection
+					!target.closest('.extension-non-editable-area') &&
+					(!target.closest('.extension-content') || !!target.closest('.extension-container')), // It's to enable nested extensions selection
 				{ useLongPressSelection },
 			),
 		},

@@ -3,17 +3,20 @@
  * @jsx jsx
  */
 import { Fragment } from 'react';
+import { keyframes } from '@compiled/react';
+
 import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Tooltip from '@atlaskit/tooltip';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+import { css, jsx, cssMap } from '@atlaskit/css';
+
+import { messages } from '../shared/i18n';
 import { DefaultReactions } from '../shared/constants';
 import { EmojiButton } from './EmojiButton';
 import { ShowMore } from './ShowMore';
-import { keyframes } from '@compiled/react';
-import { css, jsx, cssMap } from '@atlaskit/css';
-
-import { Box, Inline } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
+import { Trigger } from './Trigger';
 
 const styles = cssMap({
 	container: {
@@ -31,6 +34,14 @@ const styles = cssMap({
 		marginInlineEnd: token('space.100'),
 		height: '24px',
 		display: 'inline-block',
+	},
+
+	hoverableReactionPickerSelectorContainer: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		gap: token('space.050'),
 	},
 });
 
@@ -82,6 +93,10 @@ export interface SelectorProps {
 	 * Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link DefaultReactions})
 	 */
 	pickerQuickReactionEmojiIds?: EmojiId[];
+	/**
+	 * Optional prop for hoverable reaction picker selector
+	 */
+	hoverableReactionPickerSelector?: boolean;
 }
 
 type RevealProps = {
@@ -106,6 +121,7 @@ export const Selector = ({
 	onSelection,
 	showMore,
 	pickerQuickReactionEmojiIds = DefaultReactions,
+	hoverableReactionPickerSelector = false,
 }: SelectorProps) => {
 	/**
 	 * Render the default emoji icon
@@ -113,14 +129,49 @@ export const Selector = ({
 	 * @param index location of the emoji in the array
 	 */
 	const renderEmoji = (emoji: EmojiId, index: number) => {
-		return (
+		const emojiButtonAndTooltip = (
+			<Tooltip content={emoji.shortName}>
+				<EmojiButton
+					emojiId={emoji}
+					emojiProvider={emojiProvider}
+					onClick={onSelection}
+					hoverableReactionPickerSelectorEmoji={hoverableReactionPickerSelector}
+				/>
+			</Tooltip>
+		);
+
+		return hoverableReactionPickerSelector ? (
+			emojiButtonAndTooltip
+		) : (
 			<Reveal key={emoji.id ?? emoji.shortName} testId={RENDER_SELECTOR_TESTID}>
-				<Tooltip content={emoji.shortName}>
-					<EmojiButton emojiId={emoji} emojiProvider={emojiProvider} onClick={onSelection} />
-				</Tooltip>
+				{emojiButtonAndTooltip}
 			</Reveal>
 		);
 	};
+
+	if (hoverableReactionPickerSelector) {
+		return (
+			<Box xcss={styles.hoverableReactionPickerSelectorContainer}>
+				<Trigger
+					tooltipContent={messages.addReaction.defaultMessage}
+					onClick={onMoreClick}
+					showAddReactionText
+					reactionPickerTriggerText={messages.addNewReaction.defaultMessage}
+					fullWidthSelectorTrayReactionPickerTrigger
+				/>
+				<Inline
+					alignBlock="center"
+					xcss={
+						hoverableReactionPickerSelector
+							? styles.hoverableReactionPickerSelectorContainer
+							: styles.container
+					}
+				>
+					{pickerQuickReactionEmojiIds ? pickerQuickReactionEmojiIds.map(renderEmoji) : null}
+				</Inline>
+			</Box>
+		);
+	}
 
 	return (
 		<Inline alignBlock="center" xcss={styles.container}>

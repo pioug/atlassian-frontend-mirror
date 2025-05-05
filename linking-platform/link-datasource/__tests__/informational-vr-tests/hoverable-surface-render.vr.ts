@@ -35,6 +35,7 @@ snapshotInformational(VRJiraIssueTableHoverable, {
 		},
 	],
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 	waitForHold: true,
@@ -46,14 +47,8 @@ snapshotInformational(VREmptyStateHoverable, {
 		await page.hover(hoverableContainerSelector);
 	},
 	description: 'empty state table on a hoverable surface',
-	ignoredErrors: [
-		{
-			pattern: /(received unsupported error)|(The above error occurred in the)/,
-			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
-			jiraIssueId: 'NONE-123',
-		},
-	],
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 	waitForHold: true,

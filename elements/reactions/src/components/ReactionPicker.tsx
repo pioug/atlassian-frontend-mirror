@@ -9,7 +9,7 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { type OnEmojiEvent, type PickerSize } from '@atlaskit/emoji/types';
@@ -24,14 +24,17 @@ import {
 	type Placement,
 } from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { useCloseManager } from '../hooks/useCloseManager';
+import { useDelayedState } from '../hooks/useDelayedState';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { messages } from '../shared/i18n';
 import { type ReactionSource } from '../types';
 import { PickerRender } from '../ufo';
 import { Selector, type SelectorProps } from './Selector';
 import { Trigger, type TriggerProps } from './Trigger';
+import { RepositionOnUpdate } from './RepositionOnUpdate';
 
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -42,10 +45,6 @@ const pickerStyle = css({
 	'&.miniMode': {
 		display: 'inline-block',
 	},
-});
-
-const contentStyle = css({
-	display: 'flex',
 });
 
 const popupWrapperStyle = css({
@@ -68,7 +67,11 @@ const popupStyle = css({
 	},
 });
 
-import { RepositionOnUpdate } from './RepositionOnUpdate';
+const additionalStyles = cssMap({
+	selectorContainer: {
+		display: 'flex',
+	},
+});
 
 /**
  * Test id for wrapper ReactionPicker div
@@ -162,6 +165,14 @@ export interface ReactionPickerProps
 	 * Optional prop to say if the reactions component is in a list
 	 */
 	isListItem?: boolean;
+	/**
+	 * Optional prop for hoverable reaction picker
+	 */
+	hoverableReactionPicker?: boolean;
+	/**
+	 * Optional prop to set a delay for the reaction picker when it opens/closes on hover
+	 */
+	hoverableReactionPickerDelay?: number;
 }
 
 /**
@@ -190,9 +201,19 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		reactionPickerPlacement,
 		reactionsPickerPreventOverflowOptions,
 		isListItem = false,
+		hoverableReactionPicker = false,
+		hoverableReactionPickerDelay = 0,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
+	const [isHoverableReactionPickerEmojiPickerOpen, setIsHoverableReactionPickerEmojiPickerOpen] =
+		useState(false);
+	const [isHoveringTrigger, setIsHoveringTrigger] = useState(false);
+	const [isHoveringPopup, setIsHoveringPopup] = useState(false);
+	const [isPopupTrayOpen, setIsPopupTrayOpen] = useDelayedState<boolean>(
+		false,
+		hoverableReactionPickerDelay,
+	);
 
 	/**
 	 * Container <div /> reference (used by custom hook to detect click outside)
@@ -240,10 +261,6 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 
 	const [settings, setSettings] = useState({
 		/**
-		 * Show the picker floating panel
-		 */
-		isOpen: false,
-		/**
 		 * Show the full custom emoji list picker or the default list of emojis
 		 */
 		showFullPicker:
@@ -269,7 +286,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			}
 		},
 		true,
-		settings.isOpen,
+		isPopupTrayOpen,
 	);
 
 	/**
@@ -278,10 +295,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	 */
 	const close = useCallback(
 		(_id?: string) => {
-			setSettings({
-				...settings,
-				isOpen: false,
-			});
+			setIsPopupTrayOpen(false);
 			// ufo abort reaction experience
 			PickerRender.abort({
 				metadata: {
@@ -290,8 +304,11 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					reason: 'close dialog',
 				},
 			});
+			if (hoverableReactionPicker) {
+				setIsHoverableReactionPickerEmojiPickerOpen(false);
+			}
 		},
-		[settings],
+		[setIsPopupTrayOpen, setIsHoverableReactionPickerEmojiPickerOpen, hoverableReactionPicker],
 	);
 
 	/**
@@ -302,13 +319,24 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		(e: React.MouseEvent<HTMLElement>) => {
 			e.preventDefault();
 			setSettings({
-				isOpen: true,
-				showFullPicker: true,
+				showFullPicker: hoverableReactionPicker ? settings.showFullPicker : true,
 				popperPlacement,
 			});
+			setIsPopupTrayOpen(true);
+			if (hoverableReactionPicker) {
+				setIsHoverableReactionPickerEmojiPickerOpen(!isHoverableReactionPickerEmojiPickerOpen);
+			}
 			onShowMore();
 		},
-		[onShowMore, popperPlacement],
+		[
+			settings.showFullPicker,
+			setIsPopupTrayOpen,
+			onShowMore,
+			popperPlacement,
+			hoverableReactionPicker,
+			setIsHoverableReactionPickerEmojiPickerOpen,
+			isHoverableReactionPickerEmojiPickerOpen,
+		],
 	);
 
 	/**
@@ -321,34 +349,103 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			if (!item.id) {
 				return;
 			}
-			onSelection(item.id, settings.showFullPicker ? 'emojiPicker' : 'quickSelector');
+			onSelection(
+				item.id,
+				settings.showFullPicker ||
+					(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen)
+					? 'emojiPicker'
+					: 'quickSelector',
+			);
 			close(item.id);
 		},
-		[close, onSelection, settings.showFullPicker],
+		[
+			close,
+			onSelection,
+			settings.showFullPicker,
+			hoverableReactionPicker,
+			isHoverableReactionPickerEmojiPickerOpen,
+		],
 	);
 
 	/**
 	 * Event handler when the emoji icon to open the custom picker is selected
 	 */
-	const onTriggerClick = () => {
+	const onTriggerClick = useCallback(() => {
 		// ufo start reactions picker open experience
 		PickerRender.start();
 
 		setSettings({
-			isOpen: !settings.isOpen,
-			showFullPicker:
-				!!allowAllEmojis &&
-				Array.isArray(pickerQuickReactionEmojiIds) &&
-				pickerQuickReactionEmojiIds.length === 0,
+			...settings,
 			popperPlacement,
 		});
+
+		if (hoverableReactionPicker) {
+			setIsHoverableReactionPickerEmojiPickerOpen(!isHoverableReactionPickerEmojiPickerOpen);
+			setIsPopupTrayOpen(!isHoverableReactionPickerEmojiPickerOpen || !isPopupTrayOpen);
+		} else {
+			setIsPopupTrayOpen(!isPopupTrayOpen);
+		}
 
 		onOpen();
 		// ufo reactions picker opened success
 		PickerRender.success();
-	};
+	}, [
+		hoverableReactionPicker,
+		isPopupTrayOpen,
+		setIsPopupTrayOpen,
+		isHoverableReactionPickerEmojiPickerOpen,
+		onOpen,
+		settings,
+		popperPlacement,
+	]);
 
-	const wrapperClassName = ` ${settings.isOpen ? 'isOpen' : ''} ${
+	const handleTriggerMouseEnter = useCallback(() => {
+		if (hoverableReactionPicker) {
+			setIsHoveringTrigger(true);
+			if (!isHoverableReactionPickerEmojiPickerOpen) {
+				setIsPopupTrayOpen(true);
+			}
+		}
+	}, [hoverableReactionPicker, isHoverableReactionPickerEmojiPickerOpen, setIsPopupTrayOpen]);
+
+	const handleTriggerMouseLeave = useCallback(() => {
+		if (hoverableReactionPicker) {
+			setIsHoveringTrigger(false);
+			if (!isHoveringPopup && !isHoverableReactionPickerEmojiPickerOpen) {
+				setIsPopupTrayOpen(false);
+			}
+		}
+	}, [
+		hoverableReactionPicker,
+		isHoveringPopup,
+		isHoverableReactionPickerEmojiPickerOpen,
+		setIsPopupTrayOpen,
+	]);
+
+	const handlePopupMouseEnter = useCallback(() => {
+		if (hoverableReactionPicker) {
+			setIsHoveringPopup(true);
+			if (!isHoverableReactionPickerEmojiPickerOpen) {
+				setIsPopupTrayOpen(true);
+			}
+		}
+	}, [hoverableReactionPicker, isHoverableReactionPickerEmojiPickerOpen, setIsPopupTrayOpen]);
+
+	const handlePopupMouseLeave = useCallback(() => {
+		if (hoverableReactionPicker) {
+			setIsHoveringPopup(false);
+			if (!isHoveringTrigger && !isHoverableReactionPickerEmojiPickerOpen) {
+				setIsPopupTrayOpen(false);
+			}
+		}
+	}, [
+		hoverableReactionPicker,
+		isHoveringTrigger,
+		isHoverableReactionPickerEmojiPickerOpen,
+		setIsPopupTrayOpen,
+	]);
+
+	const wrapperClassName = ` ${isPopupTrayOpen ? 'isOpen' : ''} ${
 		miniMode ? 'miniMode' : ''
 	} ${className}`;
 
@@ -368,54 +465,66 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 				<Reference>
 					{({ ref }) => (
 						// Render a button to open the <Selector /> panel
-						<Trigger
-							ariaAttributes={{
-								'aria-expanded': settings.isOpen,
-								'aria-controls': PICKER_CONTROL_ID,
-							}}
-							ref={(node: HTMLButtonElement | null) => {
-								if (node && settings.isOpen) {
-									if (typeof ref === 'function') {
-										ref(node);
-									} else {
-										(ref as React.MutableRefObject<HTMLButtonElement>).current = node;
+						<Box onMouseEnter={handleTriggerMouseEnter} onMouseLeave={handleTriggerMouseLeave}>
+							<Trigger
+								ariaAttributes={{
+									'aria-expanded': isPopupTrayOpen,
+									'aria-controls': PICKER_CONTROL_ID,
+								}}
+								ref={(node: HTMLButtonElement | null) => {
+									if (node && isPopupTrayOpen) {
+										if (typeof ref === 'function') {
+											ref(node);
+										} else {
+											(ref as React.MutableRefObject<HTMLButtonElement>).current = node;
+										}
+										setTriggerRef(node);
 									}
-									setTriggerRef(node);
-								}
-							}}
-							isSelected={settings.isOpen}
-							onClick={onTriggerClick}
-							miniMode={miniMode}
-							disabled={disabled}
-							tooltipContent={settings.isOpen ? null : tooltipContent}
-							showOpaqueBackground={showOpaqueBackground}
-							showAddReactionText={showAddReactionText}
-							subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
-							showRoundTrigger={showRoundTrigger}
-							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
-							reactionPickerTriggerText={reactionPickerTriggerText}
-							isListItem={isListItem}
-						/>
+								}}
+								isSelected={isPopupTrayOpen}
+								onClick={onTriggerClick}
+								miniMode={miniMode}
+								disabled={disabled}
+								tooltipContent={isPopupTrayOpen ? null : tooltipContent}
+								showOpaqueBackground={showOpaqueBackground}
+								showAddReactionText={showAddReactionText}
+								subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
+								showRoundTrigger={showRoundTrigger}
+								reactionPickerTriggerIcon={reactionPickerTriggerIcon}
+								reactionPickerTriggerText={reactionPickerTriggerText}
+								isListItem={isListItem}
+							/>
+						</Box>
 					)}
 				</Reference>
-				{settings.isOpen && (
-					<PopperWrapper settings={settings} popperModifiers={popperModifiers}>
-						{settings.showFullPicker ? (
+				{isPopupTrayOpen && (
+					<PopperWrapper
+						settings={settings}
+						popperModifiers={popperModifiers}
+						isOpen={isPopupTrayOpen}
+					>
+						{settings.showFullPicker ||
+						(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
 							<EmojiPicker
 								emojiProvider={emojiProvider}
 								onSelection={onEmojiSelected}
 								size={emojiPickerSize}
 							/>
 						) : (
-							<div css={contentStyle}>
+							<Box
+								xcss={additionalStyles.selectorContainer}
+								onMouseEnter={handlePopupMouseEnter}
+								onMouseLeave={handlePopupMouseLeave}
+							>
 								<Selector
 									emojiProvider={emojiProvider}
 									onSelection={onEmojiSelected}
 									showMore={allowAllEmojis}
 									onMoreClick={onSelectMoreClick}
 									pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
+									hoverableReactionPickerSelector={hoverableReactionPicker}
 								/>
-							</div>
+							</Box>
 						)}
 					</PopperWrapper>
 				)}
@@ -426,15 +535,15 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 
 export interface PopperWrapperProps {
 	settings: {
-		isOpen: boolean;
 		showFullPicker: boolean;
 		popperPlacement: Placement;
 	};
+	isOpen: boolean;
 	popperModifiers?: PopperProps<{}>['modifiers'];
 }
 
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
-	const { settings, children, popperModifiers } = props;
+	const { settings, isOpen, children, popperModifiers } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const { formatMessage } = useIntl();
 	/**
@@ -466,7 +575,7 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 						tabIndex={0}
 					>
-						<RepositionOnUpdate update={update} settings={settings}>
+						<RepositionOnUpdate update={update} settings={settings} isOpen={isOpen}>
 							<div css={popupStyle}>{children}</div>
 						</RepositionOnUpdate>
 					</div>

@@ -31,7 +31,6 @@ import {
 	header,
 	overflowWrapperStyles,
 	widerLayoutClassName,
-	wrapperStyle,
 	wrapperStyleInheritedCursor,
 } from './styles';
 
@@ -119,8 +118,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
 		'with-bodied-border':
 			showMacroInteractionDesignUpdates &&
-			(hasBody ||
-				(isLegacyContentMacroExtension(node) && fg('platform_editor_legacy_content_macro'))) &&
+			(hasBody || isLegacyContentMacroExtension(node)) &&
 			!showBodiedExtensionRendererView &&
 			show1PBodiedExtensionBorder,
 		'with-margin-styles':
@@ -194,10 +192,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 					customContainerStyles={customContainerStyles}
 					setIsNodeHovered={setIsNodeHovered}
-					isBodiedMacro={
-						hasBody ||
-						(isLegacyContentMacroExtension(node) && fg('platform_editor_legacy_content_macro'))
-					}
+					isBodiedMacro={hasBody || isLegacyContentMacroExtension(node)}
 					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
@@ -214,7 +209,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				className={classNames}
 				css={
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					fg('platform_editor_legacy_content_macro') ? wrapperStyleInheritedCursor : wrapperStyle
+					wrapperStyleInheritedCursor
 				}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={customContainerStyles}

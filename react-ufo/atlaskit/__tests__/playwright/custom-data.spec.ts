@@ -3,7 +3,7 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: Custom Data', () => {
 	test.use({
 		examplePage: 'basic-with-custom-data',
-		featureFlags: ['platform_ufo_vc_ttai_on_paint'],
+		featureFlags: [],
 	});
 
 	test('custom data should be present in the UFO payload', async ({

@@ -1,5 +1,20 @@
 # @atlaskit/primitives
 
+## 14.6.0
+
+### Minor Changes
+
+- [#148632](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148632)
+  [`9dd484b8a47eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9dd484b8a47eb) -
+  Make `<Pressable backgroundColor>` and `<Anchor backgroundColor>` a deprecated prop to ease the
+  migration to `@atlaskit/primitives/compiled` as including a `backgroundColor` style map for this
+  component is a large bytesize impact and it may lead to bad patterns as you should typically also
+  have `backgroundColor` changes in `&:hover` and `&:focus` states.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.5.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.9.2
+
+### Patch Changes
+
+- [#149337](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149337)
+  [`cf5be62e3c4a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf5be62e3c4a3) -
+  clean up fg platform_ufo_vc_ttai_on_paint
+- [#148259](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148259)
+  [`5504072998c27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5504072998c27) -
+  Fixed a performance regression in SPA transitions when feature gate
+  'platform_ufo_no_vc_on_aborted' is enabled. The issue was caused by not properly stopping the VC
+  observer when returning early for aborted/invisible interactions, which led to background observer
+  processes interfering with subsequent interactions. The fix ensures proper cleanup of the VC
+  observer in all code paths.
+
 ## 3.9.1
 
 ### Patch Changes

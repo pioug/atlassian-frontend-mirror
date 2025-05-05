@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.6.0
+
+### Minor Changes
+
+- [#149207](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149207)
+  [`41c4599b89f3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41c4599b89f3c) -
+  ED-27854 Add invocationMethod to typeahead closed event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.4
 
 ### Patch Changes

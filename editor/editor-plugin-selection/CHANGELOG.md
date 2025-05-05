@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.2.1
+
+### Patch Changes
+
+- [#149285](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149285)
+  [`d00629c3a33cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d00629c3a33cf) -
+  Clean up feature gate platform_editor_lcm_inline_node_selection_fix
+
+## 2.2.0
+
+### Minor Changes
+
+- [#147781](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147781)
+  [`154676654d6ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/154676654d6ce) -
+  [ED-27777] Remove selection decorator until interaction for live pages
+
 ## 2.1.9
 
 ### Patch Changes

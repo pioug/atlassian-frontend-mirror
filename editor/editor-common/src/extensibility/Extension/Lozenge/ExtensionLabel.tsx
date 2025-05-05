@@ -7,10 +7,9 @@ import type { CSSProperties } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
-import { defineMessages, FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, defineMessages } from 'react-intl-next';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -214,7 +213,7 @@ export const ExtensionLabel = ({
 				}
 			}}
 			data-testid="new-lozenge-container"
-			contentEditable={fg('platform_editor_legacy_content_macro') ? false : undefined}
+			contentEditable={false}
 		>
 			<Tooltip
 				content={

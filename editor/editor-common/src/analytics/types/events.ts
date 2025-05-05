@@ -32,6 +32,7 @@ import type {
 	ACTION_SUBJECT_ID,
 	CONTENT_COMPONENT,
 	FLOATING_CONTROLS_TITLE,
+	INPUT_METHOD,
 } from './enums';
 import type { ExtensionEventPayload } from './extension-events';
 import type { FindReplaceEventPayload } from './find-replace-events';
@@ -135,7 +136,8 @@ export type AnalyticsEventPayload<T = void> =
 	| SelectionExtensionEventPayload
 	| TelepointerClickPayload
 	| SelectionToolbarEventPayload
-	| AlignmentEventPayload;
+	| AlignmentEventPayload
+	| UndoRedoAEP;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,
@@ -162,6 +164,16 @@ type MBEEventPayload = TrackAEP<
 		extensionKey: string;
 		localId: string;
 		currentFramesCount: number;
+	},
+	undefined
+>;
+
+type UndoRedoAEP = TrackAEP<
+	ACTION.UNDO_PERFORMED | ACTION.REDO_PERFORMED,
+	ACTION_SUBJECT.EDITOR,
+	undefined,
+	{
+		inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR | INPUT_METHOD.EXTERNAL;
 	},
 	undefined
 >;

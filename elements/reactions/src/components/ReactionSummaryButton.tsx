@@ -6,6 +6,7 @@ import { forwardRef, useMemo } from 'react';
 import { useIntl } from 'react-intl-next';
 import { ResourcedEmoji } from '@atlaskit/emoji';
 import { messages } from '../shared/i18n';
+import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
 import { type ReactionSummary } from '../types';
 import { Counter } from './Counter';
 import { ReactionButton } from './ReactionButton';
@@ -134,7 +135,7 @@ export const ReactionSummaryButton = forwardRef(
 									key={reaction.emojiId}
 									emojiProvider={emojiProvider}
 									emojiId={{ id: reaction.emojiId, shortName: '' }}
-									fitToHeight={16}
+									fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
 								/>
 							</Box>
 						))}

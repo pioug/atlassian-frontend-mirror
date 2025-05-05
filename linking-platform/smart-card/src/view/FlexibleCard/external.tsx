@@ -14,6 +14,7 @@ import {
 	DownloadAction as DownloadActionComponent,
 	FollowAction as FollowActionComponent,
 	PreviewAction as PreviewActionComponent,
+	UnresolvedAction as UnresolvedActionComponent,
 } from './components/actions';
 import {
 	AssignedTo,
@@ -142,3 +143,5 @@ export type PreviewActionProps = BaseActionProps;
 export const PreviewAction = (props: PreviewActionProps) => (
 	<PreviewActionComponent {...toActionProps(props)} />
 );
+
+export const UnresolvedAction = () => <UnresolvedActionComponent />;

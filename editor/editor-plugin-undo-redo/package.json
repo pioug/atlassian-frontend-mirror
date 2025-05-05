@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-undo-redo",
-	"version": "2.0.9",
+	"version": "2.0.10",
 	"description": "Undo redo plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -97,6 +97,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_cmd_y_mac_redo_shortcut": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_analytics": {
 			"type": "boolean"
 		}
 	}

@@ -32,10 +32,23 @@ type TypeAheadAEP<ActionSubjectID, Attributes> = UIAEP<
 	undefined
 >;
 
+// duplicate from packages/editor/editor-plugin-type-ahead/src/types/index.ts
+type TypeAheadInputMethod =
+	| INPUT_METHOD.INSERT_MENU
+	| INPUT_METHOD.KEYBOARD
+	| INPUT_METHOD.QUICK_INSERT
+	| INPUT_METHOD.TOOLBAR
+	/**
+	 * For Typeahead - Empty line prompt experiment
+	 * Clean up ticket ED-24824
+	 */
+	| 'blockControl';
+
 type TypeAheadClosedAttributes = {
 	inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE | null;
 	closeAction: ACTION.INSERTED | ACTION.CANCELLED | ACTION.VIEW_MORE | null;
 	hasQuery: boolean;
+	invocationMethod?: TypeAheadInputMethod | null;
 };
 
 type TypeaheadQuickInsertClosedAEP = TrackAEP<
@@ -49,16 +62,7 @@ type TypeaheadQuickInsertClosedAEP = TrackAEP<
 type TypeAheadEmojiAEP = TypeAheadAEP<
 	ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI | TypeAheadAvailableNodes.EMOJI,
 	{
-		inputMethod:
-			| INPUT_METHOD.TOOLBAR
-			| INPUT_METHOD.INSERT_MENU
-			| INPUT_METHOD.QUICK_INSERT
-			| INPUT_METHOD.KEYBOARD
-			/**
-			 * For Typeahead - Empty line prompt experiment
-			 * Clean up ticket ED-24824
-			 */
-			| 'blockControl';
+		inputMethod: TypeAheadInputMethod;
 	}
 >;
 

@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.3.0
+
+### Minor Changes
+
+- [#149412](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149412)
+  [`9f8ef0b37ee6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f8ef0b37ee6e) -
+  Added emailUuid identifier.
+
 ## 5.2.0
 
 ### Minor Changes

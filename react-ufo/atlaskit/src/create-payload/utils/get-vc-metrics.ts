@@ -28,6 +28,7 @@ async function getVCMetrics(
 			pageVisibilityUpToTTAI !== 'visible') &&
 		fg('platform_ufo_no_vc_on_aborted')
 	) {
+		getVCObserver().stop();
 		return {};
 	}
 

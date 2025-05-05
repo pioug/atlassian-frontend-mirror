@@ -85,10 +85,10 @@ const renderChildren = (
 					return React.cloneElement(child, {
 						// @ts-expect-error
 						onClick,
-						retry,
 						size,
 						status,
 						theme: containerTheme,
+						...(fg('platform-linking-flexible-card-unresolved-action') ? undefined : { retry }),
 					});
 				}
 			}

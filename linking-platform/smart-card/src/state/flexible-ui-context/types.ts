@@ -7,6 +7,7 @@ import {
 	type MediaType,
 } from '../../constants';
 import { type LinkLozenge } from '../../extractors/common/lozenge/types';
+import { type RetryOptions } from '../../view/FlexibleCard/types';
 import { type InvokeClientActionProps } from '../hooks/use-invoke-client-action/types';
 import { type InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
 
@@ -272,6 +273,7 @@ export type FlexibleUiActions = {
 	[ActionName.CopyLinkAction]?: CopyLinkActionData;
 	[InternalActionName.AISummaryAction]?: AISummaryActionData;
 	[ActionName.AutomationAction]?: AutomationActionData;
+	[InternalActionName.UnresolvedAction]?: UnresolvedActionData;
 	[InternalActionName.ViewRelatedLinksAction]?: ViewRelatedLinksActionData;
 };
 
@@ -304,6 +306,8 @@ export type AutomationActionData = {
 	analyticsSource: string;
 	objectName?: string;
 };
+
+export type UnresolvedActionData = RetryOptions;
 
 export type ViewRelatedLinksActionData = {
 	ari: string;

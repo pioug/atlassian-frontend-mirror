@@ -8,7 +8,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	createEditSelectedExtensionAction,
@@ -194,22 +193,10 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 		},
 
 		pluginsOptions: {
-			floatingToolbar: fg('platform_editor_legacy_content_macro')
-				? getToolbarConfig({
-						breakoutEnabled: options.breakoutEnabled,
-						extensionApi: api,
-					})
-				: getToolbarConfig({
-						breakoutEnabled: options.breakoutEnabled,
-						hoverDecoration: api?.decorations?.actions.hoverDecoration,
-						applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
-						editorAnalyticsAPI: api?.analytics?.actions,
-						extensionApi:
-							editorExperiment('platform_editor_controls', 'variant1') ||
-							editorExperiment('platform_editor_offline_editing_web', true)
-								? api
-								: undefined,
-					}),
+			floatingToolbar: getToolbarConfig({
+				breakoutEnabled: options.breakoutEnabled,
+				extensionApi: api,
+			}),
 			contextPanel:
 				// if showContextPanel action is not available, or platform_editor_ai_object_sidebar_injection feature flag is off
 				// 	then keep using old context panel.

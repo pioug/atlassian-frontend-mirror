@@ -23,6 +23,16 @@ describe('useDelayedState', () => {
 		expect(result.current[0]).toBe('new value');
 	});
 
+	it('should update state immediately when delay is 0', () => {
+		const { result } = renderHook(() => useDelayedState('initial', 0));
+
+		act(() => {
+			result.current[1]('new value', false);
+		});
+
+		expect(result.current[0]).toBe('new value');
+	});
+
 	it('should update state after delay when immediate is false', () => {
 		const { result } = renderHook(() => useDelayedState('initial', 1000));
 

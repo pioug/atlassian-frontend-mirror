@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "2.1.9",
+	"version": "2.2.1",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,6 +21,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
@@ -91,10 +92,10 @@
 		"platform_editor_fix_drag_and_drop_lists": {
 			"type": "boolean"
 		},
-		"platform_editor_lcm_inline_node_selection_fix": {
+		"platform_editor_nested_tables_gap_cursor": {
 			"type": "boolean"
 		},
-		"platform_editor_nested_tables_gap_cursor": {
+		"platform_editor_no_selection_decorations": {
 			"type": "boolean"
 		}
 	}

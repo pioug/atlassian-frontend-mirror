@@ -40,7 +40,7 @@ const setManualSelection =
 		});
 	};
 
-export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
+export const selectionPlugin: SelectionPlugin = ({ api, config: options }) => ({
 	name: 'selection',
 
 	commands: {
@@ -73,7 +73,7 @@ export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
 			{
 				name: 'selection',
 				plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
-					createPlugin(dispatch, dispatchAnalyticsEvent, options),
+					createPlugin(api, dispatch, dispatchAnalyticsEvent, options),
 			},
 			{
 				name: 'selectionKeymap',

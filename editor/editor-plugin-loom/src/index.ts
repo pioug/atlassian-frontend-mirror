@@ -6,6 +6,8 @@ export type { LoomPlugin } from './loomPluginType';
 export type { LoomPluginState } from './pm-plugins/main';
 export type {
 	LoomPluginOptions,
+	LoomPluginOptionsWithProvider,
+	LoomPluginOptionsWithoutProvider,
 	LoomProviderOptions,
 	VideoMeta,
 	GetClient,

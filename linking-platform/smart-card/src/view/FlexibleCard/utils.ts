@@ -7,7 +7,7 @@ import {
 import { SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { SmartLinkStatus } from '../../constants';
+import { InternalActionName, SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context';
 import extractFlexibleUiContext from '../../extractors/flexible';
 import extractPreview, {
@@ -40,6 +40,17 @@ export const getContextByStatus = (
 		case SmartLinkStatus.Errored:
 		case SmartLinkStatus.Fallback:
 		default:
+			const actions = fg('platform-linking-flexible-card-unresolved-action')
+				? {
+						[InternalActionName.UnresolvedAction]: getRetryOptions(
+							url,
+							status,
+							response,
+							params.onAuthorize,
+						),
+					}
+				: undefined;
+
 			if (fg('smart_links_noun_support')) {
 				if (isEntityPresent(response)) {
 					return {
@@ -48,6 +59,7 @@ export const getContextByStatus = (
 						linkIcon: extractErrorIcon(response, status),
 						preview: extractSmartLinkPreviewImage(response),
 						provider: extractSmartLinkProviderIcon(response),
+						actions,
 					};
 				}
 			}
@@ -58,6 +70,7 @@ export const getContextByStatus = (
 				linkIcon: extractErrorIcon(response, status),
 				preview: extractPreview(response?.data as JsonLd.Data.BaseData),
 				provider: extractProviderIcon(response?.data as JsonLd.Data.BaseData),
+				actions,
 			};
 	}
 };

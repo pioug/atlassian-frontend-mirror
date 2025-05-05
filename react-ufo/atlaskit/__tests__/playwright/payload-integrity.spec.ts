@@ -18,7 +18,7 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 			width: 1920,
 			height: 1080,
 		},
-		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_vc_ttai_on_paint'],
+		featureFlags: ['ufo_payload_use_idle_callback'],
 	});
 
 	test(`UFO payload contains expected fields for a basic implementation`, async ({

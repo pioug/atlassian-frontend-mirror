@@ -6,6 +6,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Add reaction',
 		description: 'Message for add reaction button',
 	},
+	addNewReaction: {
+		id: 'fabric.reactions.add.new',
+		defaultMessage: 'Add new',
+		description: 'Message for add new reaction button in hoverable reaction picker',
+	},
 	loadingReactions: {
 		id: 'fabric.reactions.loading',
 		defaultMessage: 'Loading...',

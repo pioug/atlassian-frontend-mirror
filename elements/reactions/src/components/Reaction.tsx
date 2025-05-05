@@ -20,6 +20,7 @@ import { ReactionParticleEffect } from './ReactionParticleEffect';
 import { ReactionTooltip } from './ReactionTooltip';
 import { messages } from '../shared/i18n';
 import { isLeftClick } from '../shared/utils';
+import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
 import { type ReactionFocused } from '../types/reaction';
 import { ReactionButton } from './ReactionButton';
 import { StaticReaction } from './StaticReaction';
@@ -192,7 +193,11 @@ export const Reaction = ({
 	const emojiAndCount = (
 		<Inline>
 			<div css={[emojiStyle, reaction.count === 0 && emojiNoReactionStyle]}>
-				<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={16} />
+				<ResourcedEmoji
+					emojiProvider={emojiProvider}
+					emojiId={emojiId}
+					fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
+				/>
 			</div>
 			<Counter value={reaction.count} highlight={!isViewOnly && reaction.reacted} />
 		</Inline>

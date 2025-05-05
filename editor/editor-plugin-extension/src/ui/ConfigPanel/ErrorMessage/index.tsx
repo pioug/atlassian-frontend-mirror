@@ -18,7 +18,7 @@ const ConfigPanelErrorMessage = ({ errorMessage, intl }: Props) => {
 			header={intl.formatMessage(messages.configFailedToLoad)}
 			description={errorMessage}
 			renderImage={() => <ErrorImage />}
-			size="narrow"
+			width="narrow"
 			imageHeight={80}
 			testId="config-panel-error-message"
 		/>

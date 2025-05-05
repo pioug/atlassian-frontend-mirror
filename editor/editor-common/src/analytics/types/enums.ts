@@ -62,6 +62,8 @@ export enum ACTION {
 	FIND_NEXT_PERFORMED = 'findNextPerformed',
 	FIND_PERFORMED = 'findPerformed',
 	FIND_PREV_PERFORMED = 'findPrevPerformed',
+	UNDO_PERFORMED = 'undo',
+	REDO_PERFORMED = 'redo',
 	FORMATTED = 'formatted',
 	HELP_OPENED = 'helpOpened',
 	HIGHLIGHTED = 'highlighted',

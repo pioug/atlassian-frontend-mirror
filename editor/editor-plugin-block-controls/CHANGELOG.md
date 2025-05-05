@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.13.1
+
+### Patch Changes
+
+- [#148485](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148485)
+  [`a3ec09f649d4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3ec09f649d4a) -
+  [EDITOR-323] Clean up feature gate `platform_editor_disable_drag_handle_nested_tables`
+- Updated dependencies
+
 ## 3.13.0
 
 ### Minor Changes

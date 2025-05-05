@@ -10,7 +10,7 @@ test.describe('ReactUFO: Revisions - moving-node', () => {
 	);
 	test.use({
 		examplePage: 'moving-node',
-		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
+		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {
@@ -51,8 +51,8 @@ test.describe('ReactUFO: Revisions - moving-node', () => {
 						const vc90Result = rev['metric:vc90'];
 						expect(vc90Result).toBeDefined();
 
-						expect(vc25).toMatchTimeInSeconds(mainDivVisibleAt);
-						expect(vc90Result).toMatchTimeInSeconds(contentToMutateDivVisibleAt);
+						expect(vc25).toMatchTimestamp(mainDivVisibleAt);
+						expect(vc90Result).toMatchTimestamp(contentToMutateDivVisibleAt);
 					});
 				}
 			});

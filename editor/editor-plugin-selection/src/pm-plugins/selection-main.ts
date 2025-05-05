@@ -2,10 +2,14 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { SelectionPlugin } from '../selectionPluginType';
 import type { SelectionPluginOptions } from '../types';
 import { selectionPluginKey } from '../types';
 
@@ -22,6 +26,7 @@ export const getInitialState = (state: EditorState): SelectionPluginState => ({
 });
 
 export const createPlugin = (
+	api: ExtractInjectionAPI<SelectionPlugin> | undefined,
 	dispatch: Dispatch,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	options: SelectionPluginOptions = {},
@@ -42,6 +47,7 @@ export const createPlugin = (
 					}
 				}
 			}
+
 			if (!shouldRecalcDecorations({ oldEditorState, newEditorState }) && !manualSelection) {
 				return;
 			}
@@ -84,6 +90,22 @@ export const createPlugin = (
 		props: {
 			createSelectionBetween: onCreateSelectionBetween,
 			decorations(state) {
+				// TODO: ED-27865 - This has to be explicitly checked against false to ensure that
+				// we don't change behaviour when hasHadInteraction is undefined.
+				const hasHadInteraction =
+					api?.interaction?.sharedState.currentState()?.hasHadInteraction !== false;
+
+				// Do not show selection decorations for live pages where the user has not
+				// interacted with the page. We do not show cursor until interaction and we do not
+				// want to show selections either.
+				if (
+					options.__livePage &&
+					!hasHadInteraction &&
+					fg('platform_editor_no_selection_decorations')
+				) {
+					return DecorationSet.empty;
+				}
+
 				return getPluginState(state).decorationSet;
 			},
 

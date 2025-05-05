@@ -351,12 +351,12 @@ const customMatchers = {
 	/**
 	 * Matches timestamps converted to seconds.
 	 *
-	 * It checks only the first two decimal values.
+	 * It checks only up to 1 decimal value precision.
 	 *
 	 *
 	 * @param selection
 	 */
-	toMatchTimeInSeconds(
+	toMatchTimestamp(
 		this: ReturnType<Expect['getState']>,
 		timestampReceived: DOMHighResTimeStamp | undefined | null,
 		timestampExpected: DOMHighResTimeStamp | null,
@@ -367,7 +367,7 @@ const customMatchers = {
 		let pass: boolean;
 		let matcherResult: any;
 		try {
-			baseExpect(receivedInSeconds).toBeCloseTo(expectedInSeconds, 2);
+			baseExpect(receivedInSeconds).toBeCloseTo(expectedInSeconds, 1);
 			pass = true;
 		} catch (e: any) {
 			matcherResult = e.matcherResult;

@@ -58,6 +58,7 @@ type BasePressableProps = {
 	analyticsContext?: Record<string, any>;
 	/**
 	 * Token representing background color with a built-in fallback value.
+	 * @deprecated Please pass via `props.xcss`, eg. `xcss({ backgroundColor: '…' })` instead and include states such as hover values as well.
 	 */
 	backgroundColor?: BackgroundColor;
 	/**

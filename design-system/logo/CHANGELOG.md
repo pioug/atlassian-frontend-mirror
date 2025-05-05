@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 17.0.0
+
+### Major Changes
+
+- [#148090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148090)
+  [`6b95a2eecc267`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b95a2eecc267) -
+  Removed deprecated HalpIcon, HalpLogo, and AtlassianStartLogo.
+
 ## 16.0.3
 
 ### Patch Changes

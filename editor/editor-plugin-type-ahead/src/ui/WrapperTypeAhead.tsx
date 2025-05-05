@@ -120,6 +120,7 @@ export const WrapperTypeAhead = React.memo(
 						ACTION.CANCELLED,
 						!!queryRef.current,
 						INPUT_METHOD.KEYBOARD,
+						getPluginState(editorView.state)?.inputMethod,
 					);
 				}
 				setClosed(true);
@@ -127,7 +128,7 @@ export const WrapperTypeAhead = React.memo(
 				const fullquery = addPrefixTrigger ? `${triggerHandler.trigger}${text}` : text;
 				onTextInsert({ forceFocusOnEditor, setSelectionAt, text: fullquery });
 			},
-			[api, triggerHandler.trigger, onTextInsert],
+			[triggerHandler.trigger, onTextInsert, api, editorView.state],
 		);
 
 		const insertSelectedItem = useCallback(
@@ -156,6 +157,7 @@ export const WrapperTypeAhead = React.memo(
 						ACTION.INSERTED,
 						!!queryRef.current,
 						INPUT_METHOD.KEYBOARD,
+						getPluginState(editorView.state)?.inputMethod,
 					);
 				}
 
@@ -168,7 +170,7 @@ export const WrapperTypeAhead = React.memo(
 					});
 				});
 			},
-			[onItemInsert, api, items],
+			[items, api, editorView.state, onItemInsert],
 		);
 
 		const showTypeAheadPopupList = useCallback(() => {}, []);

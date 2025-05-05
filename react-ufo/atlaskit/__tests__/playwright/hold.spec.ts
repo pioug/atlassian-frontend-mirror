@@ -3,7 +3,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: hold (basic)', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: ['platform_ufo_vc_ttai_on_paint'],
+		featureFlags: [],
 	});
 
 	for (const viewport of viewports) {
@@ -46,7 +46,7 @@ test.describe('ReactUFO: hold (basic)', () => {
 test.describe('ReactUFO: hold (basic section below viewport)', () => {
 	test.use({
 		examplePage: 'basic-section-below-viewport',
-		featureFlags: ['platform_ufo_vc_ttai_on_paint'],
+		featureFlags: [],
 	});
 
 	for (const viewport of viewports) {

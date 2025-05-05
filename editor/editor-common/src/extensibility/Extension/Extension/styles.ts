@@ -45,11 +45,6 @@ export const wrapperStyleInheritedCursor = css(wrapperStyleWithoutCursor, {
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const wrapperStyle = css(wrapperStyleWithoutCursor, {
-	cursor: 'pointer',
-});
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const header = css({
 	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} 0px`,

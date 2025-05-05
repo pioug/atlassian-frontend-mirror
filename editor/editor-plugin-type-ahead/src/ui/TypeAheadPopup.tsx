@@ -44,7 +44,7 @@ import {
 } from '../pm-plugins/constants';
 import { getPluginState } from '../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
-import type { OnSelectItem, TypeAheadErrorInfo } from '../types';
+import type { OnSelectItem, TypeAheadErrorInfo, TypeAheadInputMethod } from '../types';
 
 import { TypeAheadErrorFallback } from './TypeAheadErrorFallback';
 import { TypeAheadList } from './TypeAheadList';
@@ -150,9 +150,11 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const activityStateRef = useRef<{
 		inputMethod: InputMethodType | null;
 		closeAction: CloseActionType | null;
+		invocationMethod?: TypeAheadInputMethod | null;
 	}>({
 		inputMethod: null,
 		closeAction: null,
+		invocationMethod: getPluginState(editorView.state)?.inputMethod,
 	});
 
 	const startTime = useMemo(
@@ -369,6 +371,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		const { removePrefixTriggerOnCancel } = getPluginState(editorView.state) || {};
 		const escape = (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
+				activityStateRef.current.inputMethod = INPUT_METHOD.KEYBOARD;
 				cancel({
 					addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
 					setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
@@ -411,6 +414,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			activityStateRef.current = {
 				inputMethod: INPUT_METHOD.MOUSE,
 				closeAction: ACTION.VIEW_MORE,
+				invocationMethod: activityStateRef.current.invocationMethod,
 			};
 		}
 
@@ -441,15 +445,17 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 					// will be handled by WrapperTypeAhead
 					fireTypeAheadClosedAnalyticsEvent(
 						api,
-						activityStateRef.current.closeAction,
+						activityStateRef.current.closeAction || ACTION.CANCELLED,
 						!isEmptyQuery,
-						activityStateRef.current.inputMethod,
+						activityStateRef.current.inputMethod || INPUT_METHOD.MOUSE,
+						activityStateRef.current.invocationMethod,
 					);
 
 					// reset activity state
 					activityStateRef.current = {
 						inputMethod: null,
 						closeAction: null,
+						invocationMethod: null,
 					};
 				}
 			}}
@@ -482,6 +488,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 									activityStateRef.current = {
 										inputMethod: inputMethod || null,
 										closeAction: ACTION.INSERTED,
+										invocationMethod: activityStateRef.current.invocationMethod,
 									};
 								}
 

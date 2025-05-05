@@ -22,6 +22,7 @@ snapshotInformational(VRIssueLikeTableUser, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-assignee': false,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
@@ -43,6 +44,7 @@ snapshotInformational(VRIssueLikeTableUserLoading, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-assignee': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
@@ -66,6 +68,7 @@ snapshotInformational(VRIssueLikeTableUser, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-assignee': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
@@ -90,6 +93,7 @@ snapshotInformational(VRIssueLikeTableUser, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-assignee': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},

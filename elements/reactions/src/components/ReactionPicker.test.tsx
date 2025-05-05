@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { type Stub, replaceRaf } from 'raf-stub';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -19,6 +19,15 @@ import {
 } from './ReactionPicker';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 
+jest.mock('@atlaskit/emoji/picker', () => ({
+	...jest.requireActual('@atlaskit/emoji/picker'),
+	EmojiPicker: () => <div>EmojiPicker</div>,
+}));
+
+jest.mock('../hooks/useDelayedState', () => ({
+	useDelayedState: (defaultState: any) => useState(defaultState),
+}));
+
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as unknown as Stub;
@@ -38,6 +47,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		disabled = false,
 		onCancel?: () => {},
 		isListItem = false,
+		hoverableReactionPicker = false,
 	) => {
 		return (
 			<ReactionPicker
@@ -48,6 +58,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 				disabled={disabled}
 				onCancel={onCancel}
 				isListItem={isListItem}
+				hoverableReactionPicker={hoverableReactionPicker}
 			/>
 		);
 	};
@@ -83,6 +94,26 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		expect(selectorButtons).toBeDefined();
 		expect(selectorButtons.length).toEqual(DefaultReactions.length);
 		expect(selectorButtons[0]).not.toHaveFocus();
+	});
+
+	it('should render hoverable selector when hoverableReactionPicker is true and reaction trigger is hovered', async () => {
+		renderWithIntl(renderPicker(() => {}, false, jest.fn(), true, true));
+		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		expect(triggerPickerButton).toBeInTheDocument();
+		user.hover(triggerPickerButton);
+		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+		expect(selectorButtons).toBeDefined();
+		expect(selectorButtons.length).toEqual(DefaultReactions.length);
+		expect(selectorButtons[0]).not.toHaveFocus();
+	});
+
+	it('should render the emoji picker when hoverableReactionPicker is true and reaction trigger is clicked', async () => {
+		renderWithIntl(renderPicker(() => {}, false, jest.fn(), true, true));
+		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		expect(triggerPickerButton).toBeInTheDocument();
+		user.click(triggerPickerButton);
+		const emojiPicker = await screen.findByText('EmojiPicker');
+		expect(emojiPicker).toBeInTheDocument();
 	});
 
 	it('should call "onSelection" when an emoji is seleted', async () => {
@@ -182,23 +213,22 @@ jest.mock('@atlaskit/popper', () => ({
 	Popper: jest.fn(({ children }) => children({ ref: jest.fn(), style: {}, update: jest.fn() })),
 }));
 
-const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings']) => {
+const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings'], isOpen: boolean) => {
 	return renderWithIntl(
-		<PopperWrapper settings={settings}>
+		<PopperWrapper settings={settings} isOpen={isOpen}>
 			<div>Mock children</div>
 		</PopperWrapper>,
 	);
 };
 
 const popperWrapperProps: PopperWrapperProps['settings'] = {
-	isOpen: true,
 	showFullPicker: true,
 	popperPlacement: 'bottom-start',
 };
 
 describe('PopperWrapper', () => {
 	it('should use bottom-start placement when placement is bottom-start', async () => {
-		mockRenderPopperWrapper(popperWrapperProps);
+		mockRenderPopperWrapper(popperWrapperProps, true);
 		expect(Popper).toHaveBeenCalledWith(
 			expect.objectContaining({ placement: 'bottom-start' }),
 			expect.anything(),

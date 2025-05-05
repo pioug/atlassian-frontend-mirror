@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-loom
 
+## 4.1.0
+
+### Minor Changes
+
+- [#149226](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149226)
+  [`a92babbc8695e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a92babbc8695e) -
+  [https://product-fabric.atlassian.net/browse/ED-27660](ED-27660) - move editor loom plugin options
+  to @atlassian/confluence-presets
+
 ## 4.0.14
 
 ### Patch Changes

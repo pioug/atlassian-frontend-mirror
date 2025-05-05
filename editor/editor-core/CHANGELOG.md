@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 205.8.2
+
+### Patch Changes
+
+- [#148176](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148176)
+  [`ff3d1fcb8f797`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff3d1fcb8f797) -
+  Clean-up platform_editor_legacy_content_macro feature gate
+- Updated dependencies
+
 ## 205.8.1
 
 ### Patch Changes

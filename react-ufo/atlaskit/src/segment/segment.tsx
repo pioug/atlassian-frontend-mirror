@@ -17,8 +17,6 @@ import {
 } from 'scheduler';
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import type { EnhancedUFOInteractionContextType } from '../common';
 import { getConfig, getInteractionRate } from '../config';
@@ -318,14 +316,10 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 						startTime,
 						commitTime,
 					);
-					if (fg('platform_ufo_vc_ttai_on_paint')) {
-						scheduleOnPaint(() => {
-							const paintedTime = performance.now();
-							this.complete(paintedTime);
-						});
-					} else {
-						this.complete(commitTime);
-					}
+					scheduleOnPaint(() => {
+						const paintedTime = performance.now();
+						this.complete(paintedTime);
+					});
 				}
 			},
 			_internalHold,

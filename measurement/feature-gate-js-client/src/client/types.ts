@@ -13,6 +13,7 @@ export type Identifiers = {
 	bitbucketConnectAppId?: string;
 	bitbucketRepositoryId?: string;
 	bitbucketWorkspaceId?: string;
+	emailUuid?: string;
 	gsacIssueId?: string;
 	intercomConversationId?: string;
 	loomAnonymousId?: string;

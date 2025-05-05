@@ -65,7 +65,7 @@ const shouldIgnoreNode = (
 
 	const isNestedTable = isTable && parentIsTable;
 
-	if (isNestedTable && fg('platform_editor_disable_drag_handle_nested_tables')) {
+	if (isNestedTable) {
 		return true;
 	}
 

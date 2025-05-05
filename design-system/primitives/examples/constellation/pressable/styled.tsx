@@ -5,7 +5,6 @@ import Box from '@atlaskit/primitives/box';
 import { media } from '@atlaskit/primitives/responsive';
 import Stack from '@atlaskit/primitives/stack';
 import Text from '@atlaskit/primitives/text';
-import { token } from '@atlaskit/tokens';
 
 const pressableStyles = xcss({
 	borderRadius: '3px',
@@ -13,6 +12,7 @@ const pressableStyles = xcss({
 	borderWidth: 'border.width',
 	borderStyle: 'solid',
 	color: 'color.text',
+	backgroundColor: 'color.background.neutral.subtle',
 
 	':hover': {
 		backgroundColor: 'color.background.neutral.subtle.hovered',
@@ -23,7 +23,7 @@ const pressableStyles = xcss({
 });
 
 const valueStyles = xcss({
-	font: token('font.heading.xlarge'),
+	font: 'font.heading.xlarge',
 });
 
 const gridStyles = xcss({
@@ -47,11 +47,7 @@ const ProjectStatus = ({
 	color: TextColor;
 }) => {
 	return (
-		<Pressable
-			xcss={pressableStyles}
-			backgroundColor="color.background.neutral.subtle"
-			padding="space.150"
-		>
+		<Pressable xcss={pressableStyles} padding="space.150">
 			<Flex as="span" gap="space.150" alignItems="center">
 				<Text color={color}>
 					<Box as="span" xcss={valueStyles}>

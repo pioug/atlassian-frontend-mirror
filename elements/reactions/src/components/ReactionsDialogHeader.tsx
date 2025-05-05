@@ -24,6 +24,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { messages } from '../shared/i18n';
 import { Counter } from './Counter';
 import { type ReactionSummary } from '../types';
+import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
 
 const styles = cssMap({
 	leftNavigationStyle: {
@@ -306,7 +307,7 @@ export const ReactionsDialogHeader = ({
 													<ResourcedEmoji
 														emojiProvider={emojiProvider}
 														emojiId={emojiId}
-														fitToHeight={16}
+														fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
 														showTooltip
 													/>
 												</Box>

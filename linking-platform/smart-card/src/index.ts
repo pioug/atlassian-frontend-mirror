@@ -87,6 +87,7 @@ export {
 	DownloadAction,
 	FollowAction,
 	PreviewAction,
+	UnresolvedAction,
 } from './view/FlexibleCard/external';
 export type {
 	ActionItem,

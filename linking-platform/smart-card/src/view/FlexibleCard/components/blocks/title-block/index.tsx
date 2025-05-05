@@ -6,6 +6,8 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { SmartLinkStatus } from '../../../../../constants';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { Title } from '../../elements';
@@ -75,8 +77,10 @@ const TitleBlock = ({
 	className,
 	...props
 }: TitleBlockProps) => {
-	if (hideRetry && props.retry) {
-		delete props.retry;
+	if (!fg('platform-linking-flexible-card-unresolved-action')) {
+		if (hideRetry && props.retry) {
+			delete props.retry;
+		}
 	}
 
 	const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
@@ -123,6 +127,7 @@ const TitleBlock = ({
 			title={title}
 			metadataPosition={metadataPosition}
 			hideIcon={hideIcon}
+			{...(fg('platform-linking-flexible-card-unresolved-action') ? { hideRetry } : undefined)}
 			icon={icon}
 			size={props.size}
 			theme={theme}

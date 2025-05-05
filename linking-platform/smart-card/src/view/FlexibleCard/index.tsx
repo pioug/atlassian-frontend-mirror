@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import { FlexibleUiContext, FlexibleUiOptionContext } from '../../state/flexible-ui-context';
@@ -50,6 +52,7 @@ const FlexibleCard = ({
 				fireEvent,
 				response: details,
 				id,
+				onAuthorize,
 				origin,
 				renderers,
 				resolve,
@@ -63,6 +66,7 @@ const FlexibleCard = ({
 			details,
 			fireEvent,
 			id,
+			onAuthorize,
 			origin,
 			renderers,
 			actionOptions,
@@ -71,7 +75,10 @@ const FlexibleCard = ({
 			url,
 		],
 	);
-	const retry = getRetryOptions(url, status, details, onAuthorize);
+	const retry = fg('platform-linking-flexible-card-unresolved-action')
+		? undefined
+		: getRetryOptions(url, status, details, onAuthorize);
+
 	const { title } = context || {};
 
 	useEffect(() => {

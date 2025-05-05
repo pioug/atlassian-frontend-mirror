@@ -11,6 +11,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	makeCustomActionItem,
@@ -20,12 +21,14 @@ import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import {
 	ActionName,
 	ElementName,
+	InternalActionName,
 	SmartLinkSize,
 	SmartLinkStatus,
 	SmartLinkTheme,
 } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import * as LoadingSkeletonBundle from '../../../common/loading-skeleton';
 import { type NamedActionItem } from '../../types';
 import TitleBlock from '../index';
@@ -44,11 +47,11 @@ describe('TitleBlock', () => {
 	const regularIconTestId = 'smart-element-icon-icon';
 	const overrideIconTestId = 'smart-element-icon-overrideIcon';
 
-	const renderTitleBlock = (props?: TitleBlockProps) => {
+	const renderTitleBlock = (props?: TitleBlockProps, mockContext?: FlexibleUiDataContext) => {
 		return render(
 			<IntlProvider locale="en">
 				<SmartCardProvider>
-					<FlexibleUiContext.Provider value={context}>
+					<FlexibleUiContext.Provider value={mockContext ?? context}>
 						<TitleBlock status={SmartLinkStatus.Resolved} {...props} />
 					</FlexibleUiContext.Provider>
 				</SmartCardProvider>
@@ -339,27 +342,85 @@ describe('TitleBlock', () => {
 			expect(element).toBeDefined();
 		});
 
-		it('renders formatted message', async () => {
-			renderTitleBlock({
-				status: SmartLinkStatus.NotFound,
-				retry: { descriptor: messages.cannot_find_link },
+		ffTest.off('platform-linking-flexible-card-unresolved-action', 'with fg off', () => {
+			it('renders formatted message', async () => {
+				renderTitleBlock({
+					status: SmartLinkStatus.NotFound,
+					retry: { descriptor: messages.cannot_find_link },
+				});
+
+				const message = await screen.findByTestId('smart-block-title-errored-view-message');
+
+				expect(message).toHaveTextContent("Can't find link");
 			});
 
-			const message = await screen.findByTestId('smart-block-title-errored-view-message');
+			it('does not render formatted message', async () => {
+				renderTitleBlock({
+					status: SmartLinkStatus.NotFound,
+					retry: { descriptor: messages.cannot_find_link },
+					hideRetry: true,
+				});
 
-			expect(message).toHaveTextContent("Can't find link");
+				const message = screen.queryByTestId('smart-block-title-errored-view-message');
+
+				expect(message).toBeNull();
+			});
 		});
 
-		it("doesn't renders formatted message", async () => {
-			renderTitleBlock({
-				status: SmartLinkStatus.NotFound,
-				retry: { descriptor: messages.cannot_find_link },
-				hideRetry: true,
+		ffTest.on('platform-linking-flexible-card-unresolved-action', 'with fg on', () => {
+			it('should render formatted message', async () => {
+				renderTitleBlock(
+					{ status: SmartLinkStatus.NotFound },
+					{
+						actions: {
+							[InternalActionName.UnresolvedAction]: { descriptor: messages.cannot_find_link },
+						},
+					},
+				);
+
+				const message = await screen.findByTestId('smart-block-title-errored-view-message');
+
+				expect(message).toHaveTextContent("Can't find link");
 			});
 
-			const message = screen.queryByTestId('smart-block-title-errored-view-message');
+			it('should render unresolved action when action data is present in context', async () => {
+				const mockOnClick = jest.fn();
+				renderTitleBlock(
+					{ status: SmartLinkStatus.NotFound },
+					{
+						actions: {
+							[InternalActionName.UnresolvedAction]: {
+								descriptor: messages.request_access,
+								onClick: mockOnClick,
+							},
+						},
+					},
+				);
 
-			expect(message).toBeNull();
+				const button = await screen.findByRole('button');
+				await userEvent.click(button);
+
+				expect(button).toHaveTextContent('Request access');
+				expect(mockOnClick).toHaveBeenCalled();
+			});
+
+			it('should not render unresolved action when action data is not present in context', async () => {
+				renderTitleBlock(
+					{
+						status: SmartLinkStatus.NotFound,
+						hideRetry: true,
+					},
+					{
+						actions: {
+							[InternalActionName.UnresolvedAction]: { descriptor: messages.cannot_find_link },
+						},
+					},
+				);
+
+				const message = screen.queryByTestId('smart-block-title-errored-view-message');
+
+				expect(message).toBeNull();
+			});
 		});
 	});
 

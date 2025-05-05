@@ -39,12 +39,6 @@ interface InlineMessageProps {
 	 */
 	appearance?: IconAppearance;
 	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-162 Internal documentation for deprecation (no external access)} Please avoid using this prop as we intend to remove the prop completely in a future release. See DSP-5207 for more information.
-	 * Instead use the 'appearance' prop.
-	 * Set the icon to be used before the title.
-	 */
-	type?: IconAppearance;
-	/**
 	 * A unique string that appears as a data attribute, `data-testid`,
 	 * in the rendered code. It is provided to serve as a hook for automated tests.
 	 *
@@ -125,8 +119,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 	placement = 'bottom-start',
 	secondaryText = '',
 	title = '',
-	type = 'connectivity',
-	appearance,
+	appearance = 'connectivity',
 	children,
 	testId,
 	iconLabel,
@@ -138,10 +131,6 @@ const InlineMessage: FC<InlineMessageProps> = ({
 	}, [setIsOpen]);
 
 	const onCloseDialog = useCallback(() => setIsOpen(false), [setIsOpen]);
-
-	if (!appearance) {
-		appearance = type;
-	}
 
 	return (
 		<div css={[rootStyles, iconColor[appearance]]} data-testid={testId}>

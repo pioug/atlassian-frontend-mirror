@@ -6,7 +6,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - basic', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
+		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {
@@ -42,7 +42,7 @@ test.describe('ReactUFO: Revisions - basic', () => {
 					expect(vc90Result).toBeDefined();
 
 					await test.step(`checking revision ${revisionName}`, () => {
-						expect(vc90Result).toMatchTimeInSeconds(sectionNineVisibleAt);
+						expect(vc90Result).toMatchTimestamp(sectionNineVisibleAt);
 					});
 				}
 			});
@@ -53,7 +53,7 @@ test.describe('ReactUFO: Revisions - basic', () => {
 test.describe('ReactUFO: Revisions - nested', () => {
 	test.use({
 		examplePage: 'nested-elements',
-		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_vc_ttai_on_paint'],
+		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {
@@ -89,7 +89,7 @@ test.describe('ReactUFO: Revisions - nested', () => {
 					expect(vc90Result).toBeDefined();
 
 					await test.step(`checking revision ${revisionName}`, () => {
-						expect(vc90Result).toMatchTimeInSeconds(sectionBVisibleAt);
+						expect(vc90Result).toMatchTimestamp(sectionBVisibleAt);
 					});
 				}
 			});

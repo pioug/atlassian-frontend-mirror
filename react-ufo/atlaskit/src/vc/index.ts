@@ -45,7 +45,7 @@ class VCObserverWrapper implements VCObserverInterface {
 		const oldResult = await this.oldVCObserver?.getVCResult(param);
 		const newResult = await this.newVCObserver?.getVCResult({
 			start: param.start,
-			stop: fg('platform_ufo_vc_ttai_on_paint') ? param.stop : performance.now(),
+			stop: param.stop,
 		});
 
 		if (oldResult && !newResult) {

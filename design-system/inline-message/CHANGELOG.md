@@ -1,5 +1,17 @@
 # @atlaskit/inline-message
 
+## 15.0.0
+
+### Major Changes
+
+- [#148091](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148091)
+  [`25880861de2d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25880861de2d3) -
+  Removed deprecated `type` prop. Use the `appearance` prop instead.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.5
 
 ### Patch Changes

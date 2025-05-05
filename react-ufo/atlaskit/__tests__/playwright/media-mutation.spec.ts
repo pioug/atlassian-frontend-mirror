@@ -46,7 +46,7 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 
 						for (const checkpoint of VCObserver.VCParts) {
 							await test.step(`checking fy25_02_rev vc ${checkpoint} details`, () => {
-								expect(fy25_02_rev!.vcDetails![checkpoint].t).toMatchTimeInSeconds(mainDivAddedAt);
+								expect(fy25_02_rev!.vcDetails![checkpoint].t).toMatchTimestamp(mainDivAddedAt);
 								expect(fy25_02_rev!.vcDetails![checkpoint].e).not.toContain(
 									'div[testid=media-style-mutation-div]',
 								);
@@ -59,7 +59,7 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 						const vc90Result = fy25_02_rev!['metric:vc90'];
 						expect(vc90Result).toBeDefined();
 
-						expect(vc90Result).toMatchTimeInSeconds(mainDivAddedAt);
+						expect(vc90Result).toMatchTimestamp(mainDivAddedAt);
 
 						// check future bigger revisions
 						const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
@@ -71,11 +71,11 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 							expect(rev!.clean).toEqual(true);
 
 							await test.step(`checking revision ${revisionName}`, async () => {
-								expect(vc90Result).toMatchTimeInSeconds(mainDivVisibleAt);
+								expect(vc90Result).toMatchTimestamp(mainDivVisibleAt);
 
 								for (const checkpoint of VCObserver.VCParts) {
 									await test.step(`checking revision ${revisionName} vc ${checkpoint} details`, () => {
-										expect(rev!.vcDetails![checkpoint].t).toMatchTimeInSeconds(mainDivVisibleAt);
+										expect(rev!.vcDetails![checkpoint].t).toMatchTimestamp(mainDivVisibleAt);
 										expect(rev!.vcDetails![checkpoint].e).not.toContain(
 											'div[testid=media-style-mutation-div]',
 										);

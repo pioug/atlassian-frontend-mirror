@@ -73,7 +73,7 @@ export type ButtonComponent = React.ForwardRefExoticComponent<
 
 export type RenderButton = (ButtonComponent: ButtonComponent) => JSX.Element | null;
 
-type LoomPluginOptionsWithProvider = {
+export type LoomPluginOptionsWithProvider = {
 	loomProvider: LoomProviderOptions;
 	/**
 	 * Customize the button component, e.g. adding pulse, a11y.
@@ -85,7 +85,7 @@ type LoomPluginOptionsWithProvider = {
 	shouldShowToolbarButton?: boolean;
 };
 
-type LoomPluginOptionsWithoutProvider = {
+export type LoomPluginOptionsWithoutProvider = {
 	loomProvider?: LoomProviderOptions;
 	/**
 	 * Customize the button component, e.g. adding pulse, a11y.

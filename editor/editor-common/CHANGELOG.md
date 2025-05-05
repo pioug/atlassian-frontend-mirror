@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 103.22.0
+
+### Minor Changes
+
+- [#149207](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149207)
+  [`41c4599b89f3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41c4599b89f3c) -
+  ED-27854 Add invocationMethod to typeahead closed event
+
+### Patch Changes
+
+- Updated dependencies
+
+## 103.21.2
+
+### Patch Changes
+
+- [#148176](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148176)
+  [`ff3d1fcb8f797`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff3d1fcb8f797) -
+  Clean-up platform_editor_legacy_content_macro feature gate
+- [#149192](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149192)
+  [`7dd3315f8b3a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7dd3315f8b3a2) -
+  Added undo/redo analytics
+
 ## 103.21.1
 
 ### Patch Changes

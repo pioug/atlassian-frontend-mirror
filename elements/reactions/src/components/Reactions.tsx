@@ -574,7 +574,11 @@ export const Reactions = React.memo(
 							onOpen={handlePickerOpen}
 							onCancel={handleOnCancel}
 							onShowMore={handleOnMore}
-							tooltipContent={getTooltip(status, errorMessage, reactionPickerTriggerTooltipContent)}
+							tooltipContent={
+								hoverableSummaryView
+									? null
+									: getTooltip(status, errorMessage, reactionPickerTriggerTooltipContent)
+							}
 							emojiPickerSize={emojiPickerSize}
 							miniMode={miniMode}
 							showOpaqueBackground={showOpaqueBackground}
@@ -583,6 +587,8 @@ export const Reactions = React.memo(
 							reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 							reactionPickerTriggerText={reactionPickerTriggerText}
 							isListItem={isListItem}
+							hoverableReactionPicker={hoverableSummaryView}
+							hoverableReactionPickerDelay={hoverableSummaryView ? 300 : 0}
 						/>
 					)}
 					<ModalTransition>

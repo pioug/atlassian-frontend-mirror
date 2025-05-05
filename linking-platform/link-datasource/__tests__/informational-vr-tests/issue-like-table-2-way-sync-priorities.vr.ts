@@ -22,6 +22,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-priority': false,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
@@ -43,6 +44,7 @@ snapshotInformational(VRIssueLikeTablePrioritiesLoading, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-priority': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
@@ -66,6 +68,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-priority': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
@@ -89,6 +92,7 @@ snapshotInformational(VRIssueLikeTablePriorities, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
+		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-datasources-enable-two-way-sync-priority': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},

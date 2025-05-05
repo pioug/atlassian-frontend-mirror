@@ -874,17 +874,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				popupsMountPoint: props.editorProps.popupsMountPoint,
 			}}
 		>
-			{fg('platform_editor_legacy_content_macro') ? (
-				renderTrackingEnabled && (
-					<RenderTracking
-						componentProps={props}
-						action={ACTION.RE_RENDERED}
-						actionSubject={ACTION_SUBJECT.REACT_EDITOR_VIEW}
-						handleAnalyticsEvent={handleAnalyticsEvent}
-						useShallow={true}
-					/>
-				)
-			) : (
+			{renderTrackingEnabled && (
 				<RenderTracking
 					componentProps={props}
 					action={ACTION.RE_RENDERED}

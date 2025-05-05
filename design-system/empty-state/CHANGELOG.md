@@ -1,5 +1,13 @@
 # @atlaskit/empty-state
 
+## 10.0.0
+
+### Major Changes
+
+- [#148636](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148636)
+  [`47f6324868677`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47f6324868677) -
+  Removed deprecated `size` prop. Use the `width` prop instead. Removed exported `Sizes` type.
+
 ## 9.0.5
 
 ### Patch Changes

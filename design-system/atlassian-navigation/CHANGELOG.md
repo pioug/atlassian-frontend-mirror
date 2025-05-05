@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 5.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.6
 
 ### Patch Changes

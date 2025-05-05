@@ -45,7 +45,6 @@ const EmptyState = ({
 	renderImage,
 	secondaryAction,
 	width,
-	size,
 	tertiaryAction,
 	testId,
 }: EmptyStateProps) => {
@@ -76,7 +75,7 @@ const EmptyState = ({
 			| 'h5'
 			| 'h6';
 	return (
-		<Container testId={testId} width={width || size || 'wide'}>
+		<Container testId={testId} width={width || 'wide'}>
 			{imageUrl ? (
 				<HeaderImage
 					src={imageUrl}

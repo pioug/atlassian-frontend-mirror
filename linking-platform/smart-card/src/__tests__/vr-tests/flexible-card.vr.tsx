@@ -77,6 +77,23 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
+// Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
+snapshot(FlexibleUiBlockTitle, {
+	ignoredErrors: [
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'EDM-10562',
+		},
+	],
+	featureFlags: {
+		'platform-smart-card-icon-migration': true,
+		'platform-component-visual-refresh': true,
+		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-v2': true,
+		'platform-linking-flexible-card-unresolved-action': [true, false],
+	},
+});
 snapshot(FlexibleUiBlockTitle, {
 	description: 'flexible-ui-block-title--title hovered',
 	states: [
@@ -329,6 +346,25 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
+	},
+});
+// Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
+snapshot(FlexibleUiAccessibilityForbidden, {
+	description: 'flexible=ui-accessibility--error message focused',
+	states: [
+		{
+			selector: {
+				byTestId: 'keyboard-2-errored-view-message',
+			},
+			state: 'focused',
+		},
+	],
+	featureFlags: {
+		'platform-smart-card-icon-migration': true,
+		'platform-component-visual-refresh': true,
+		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-v2': true,
+		'platform-linking-flexible-card-unresolved-action': [true, false],
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {

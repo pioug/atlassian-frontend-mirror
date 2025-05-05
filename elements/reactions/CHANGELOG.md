@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 31.6.1
+
+### Patch Changes
+
+- [#149379](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149379)
+  [`5a2aafb7bc8ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a2aafb7bc8ce) -
+  Fixes a bug when triggering a reaction where the mix of float and fade keyframe animations weren't
+  working in CJS and ESM distribution targets for packages from a bug in Compiled CSS-in-JS.
+
+## 31.6.0
+
+### Minor Changes
+
+- [#147980](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147980)
+  [`ee0f8520e320c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee0f8520e320c) -
+  [ux] Adds a hoverable reaction picker mode for empty reactions state as part of byline reactions
+  changes
+
 ## 31.5.2
 
 ### Patch Changes

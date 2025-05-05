@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 
 import { Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-import { token } from '@atlaskit/tokens';
 
 const pressableStyles = xcss({
-	fontWeight: token('font.weight.medium'),
+	fontWeight: 'font.weight.medium',
+	backgroundColor: 'color.background.neutral.subtle',
 });
 
 const enabledStyles = xcss({
@@ -13,9 +13,11 @@ const enabledStyles = xcss({
 
 	':hover': {
 		textDecoration: 'underline',
+		backgroundColor: 'color.background.neutral.subtle.hovered',
 	},
 	':active': {
 		color: 'color.text',
+		backgroundColor: 'color.background.neutral.subtle.pressed',
 	},
 });
 
@@ -42,7 +44,6 @@ export default function Disabled() {
 				isDisabled={isDisabled}
 				onClick={handleClick}
 				padding="space.0"
-				backgroundColor="color.background.neutral.subtle"
 				xcss={[pressableStyles, isDisabled ? disabledStyles : enabledStyles]}
 			>
 				Edit comment

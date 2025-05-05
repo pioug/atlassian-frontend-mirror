@@ -7,12 +7,8 @@ import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: class attribute mutation', () => {
 	const featureFlagsSetups = [
-		['platform_ufo_vc_ttai_on_paint', 'platform_ufo_log_attr_mutation_values'],
-		[
-			'platform_ufo_vc_ttai_on_paint',
-			'platform_ufo_log_attr_mutation_values',
-			'platform_ufo_vc_observer_new',
-		],
+		['platform_ufo_log_attr_mutation_values'],
+		['platform_ufo_log_attr_mutation_values', 'platform_ufo_vc_observer_new'],
 	];
 	for (const featureFlags of featureFlagsSetups) {
 		test.describe(`with feature flags: ${featureFlags.length > 0 ? featureFlags.join(', ') : 'no feature flags'}`, () => {
@@ -54,7 +50,7 @@ test.describe('ReactUFO: class attribute mutation', () => {
 
 						for (const checkpoint of ['25', '50', '75', '80', '85', '90', '95', '98', '99']) {
 							await test.step(`checking fy25_02_rev vc ${checkpoint} details`, () => {
-								expect(fy25_02_rev!.vcDetails![checkpoint].t).toMatchTimeInSeconds(
+								expect(fy25_02_rev!.vcDetails![checkpoint].t).toMatchTimestamp(
 									contentDivClassChangeAt,
 								);
 								expect(fy25_02_rev!.vcDetails![checkpoint].e).toContain('div[testid=content-div]');
@@ -64,7 +60,7 @@ test.describe('ReactUFO: class attribute mutation', () => {
 						const vc90Result = fy25_02_rev!['metric:vc90'];
 						expect(vc90Result).toBeDefined();
 
-						expect(vc90Result).toMatchTimeInSeconds(contentDivClassChangeAt);
+						expect(vc90Result).toMatchTimestamp(contentDivClassChangeAt);
 
 						await test.step('checking window.__vcNext for DevTool integration', () => {
 							expect(vcNext).toBeDefined();
@@ -112,13 +108,11 @@ test.describe('ReactUFO: class attribute mutation', () => {
 							expect(rev!.clean).toEqual(true);
 
 							await test.step(`checking revision ${revisionName}`, async () => {
-								expect(vc90Result).toMatchTimeInSeconds(contentDivClassChangeAt);
+								expect(vc90Result).toMatchTimestamp(contentDivClassChangeAt);
 
 								for (const checkpoint of ['25', '50', '75', '80', '85', '90', '95', '98', '99']) {
 									await test.step(`checking revision ${revisionName} vc ${checkpoint} details`, () => {
-										expect(rev!.vcDetails![checkpoint].t).toMatchTimeInSeconds(
-											contentDivClassChangeAt,
-										);
+										expect(rev!.vcDetails![checkpoint].t).toMatchTimestamp(contentDivClassChangeAt);
 										expect(rev!.vcDetails![checkpoint].e).toContain(
 											'div[data-testid="content-div"]',
 										);

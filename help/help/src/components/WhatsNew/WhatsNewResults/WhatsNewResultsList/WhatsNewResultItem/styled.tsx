@@ -21,6 +21,7 @@ const whatsNewResultListItemWrapperStyles = css({
 	color: `${token('color.text.subtlest', N200)}`,
 	backgroundColor: `${token('color.background.neutral.subtle', N0)}`,
 	borderRadius: `3px`,
+	textAlign: `left`,
 	'&:hover, &:focus, &:visited, &:active': {
 		textDecoration: `none`,
 		outline: `none`,
@@ -47,10 +48,10 @@ export const WhatsNewResultListItemWrapper = ({
 	styles?: React.CSSProperties;
 	[rest: string]: any;
 }) => (
-	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
-	<a css={whatsNewResultListItemWrapperStyles} style={styles} {...rest}>
+	// eslint-disable-next-line @atlaskit/design-system/no-html-button, @atlaskit/ui-styling-standard/enforce-style-prop
+	<button css={whatsNewResultListItemWrapperStyles} style={styles} {...rest}>
 		{children}
-	</a>
+	</button>
 );
 
 const whatsNewResultListItemTitleContainerStyles = css({

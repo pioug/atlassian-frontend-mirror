@@ -20,7 +20,7 @@ export const useDelayedState = <T>(initialState: T, delay: number): useDelayedSt
 				clearTimeout(timeoutRef.current);
 			}
 
-			if (immediate) {
+			if (immediate || delay === 0) {
 				setState(newState);
 			} else {
 				timeoutRef.current = setTimeout(() => {

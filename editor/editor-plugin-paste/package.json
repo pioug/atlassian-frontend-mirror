@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "3.3.0",
+	"version": "3.3.1",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -115,9 +115,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_fix_captions_on_copy": {
-			"type": "boolean"
-		},
-		"platform_editor_legacy_content_macro": {
 			"type": "boolean"
 		},
 		"platform_editor_macroid_reset_for_ext_on_paste": {

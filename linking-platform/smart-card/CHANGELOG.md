@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 36.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.13.0
+
+### Minor Changes
+
+- [#148306](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148306)
+  [`4bd610f4ddae6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bd610f4ddae6) -
+  [ux] Export unresolved action behind platform-linking-flexible-card-unresolved-action fg
+
 ## 36.12.1
 
 ### Patch Changes

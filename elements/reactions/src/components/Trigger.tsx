@@ -95,6 +95,13 @@ const styles = cssMap({
 		paddingRight: token('space.100'),
 	},
 
+	fullWidthSelectorTrayReactionPickerTrigger: {
+		width: '100%',
+		paddingTop: token('space.050'),
+		paddingLeft: token('space.050'),
+		paddingRight: token('space.050'),
+	},
+
 	fullWidth: {
 		width: '100%',
 		maxWidth: '305px',
@@ -168,6 +175,10 @@ export interface TriggerProps {
 	 * Optional prop to say if the reactions component is in a list
 	 */
 	isListItem?: boolean;
+	/*
+	 * Optional prop for controlling if the selector tray reaction picker trigger should be full width
+	 */
+	fullWidthSelectorTrayReactionPickerTrigger?: boolean;
 }
 
 const i18n = defineMessages({
@@ -211,6 +222,7 @@ export const Trigger = React.forwardRef(
 			reactionPickerTriggerText = formatMessage(i18n.addReaction),
 			fullWidthSummaryViewReactionPickerTrigger = false,
 			isListItem = false,
+			fullWidthSelectorTrayReactionPickerTrigger = false,
 		} = props;
 
 		const handleMouseDown = (
@@ -227,7 +239,9 @@ export const Trigger = React.forwardRef(
 				testId={RENDER_TRIGGER_BUTTON_TESTID}
 				xcss={cx(
 					styles.trigger,
-					fullWidthSummaryViewReactionPickerTrigger && styles.fullWidth,
+					(fullWidthSummaryViewReactionPickerTrigger ||
+						fullWidthSelectorTrayReactionPickerTrigger) &&
+						styles.fullWidth,
 					subtleReactionsSummaryAndPicker && styles.subtleTrigger,
 					showAddReactionText && styles.expandedTrigger,
 					disabled
@@ -273,6 +287,8 @@ export const Trigger = React.forwardRef(
 				xcss={cx(
 					fullWidthSummaryViewReactionPickerTrigger &&
 						styles.fullWidthSummaryViewReactionPickerTrigger,
+					fullWidthSelectorTrayReactionPickerTrigger &&
+						styles.fullWidthSelectorTrayReactionPickerTrigger,
 				)}
 				testId={RENDER_TRIGGER_CONTAINER_TESTID}
 			>

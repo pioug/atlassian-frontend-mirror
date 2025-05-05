@@ -21,6 +21,9 @@
 			"path": "../../editor-common/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/visually-hidden/afm-jira/tsconfig.json"
 		}
 	]

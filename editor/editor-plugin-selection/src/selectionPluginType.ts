@@ -1,5 +1,10 @@
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
-import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 
 import type { EditorSelectionAPI, SelectionPluginOptions } from './types';
 
@@ -8,6 +13,7 @@ export type SelectionPlugin = NextEditorPlugin<
 	{
 		pluginConfiguration: SelectionPluginOptions | undefined;
 		actions: EditorSelectionAPI;
+		dependencies: [OptionalPlugin<InteractionPlugin>];
 		commands: {
 			displayGapCursor: (toggle: boolean) => EditorCommand;
 			clearManualSelection: () => EditorCommand;

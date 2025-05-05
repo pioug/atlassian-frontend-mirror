@@ -1,12 +1,14 @@
 import React from 'react';
 
+import { ACTION } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { attachInputMeta } from './pm-plugins/attach-input-meta';
+import { attachInputMeta, attachInputMetaWithAnalytics } from './pm-plugins/attach-input-meta';
 import { InputSource } from './pm-plugins/enums';
 import { keymapPlugin } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
@@ -46,7 +48,14 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		return forceFocus(
 			editorViewRef.current,
 			api,
-		)(attachInputMeta(inputSource || InputSource.EXTERNAL)(undo));
+		)(
+			fg('platform_editor_controls_patch_analytics')
+				? attachInputMetaWithAnalytics(api?.analytics?.actions)(
+						inputSource || InputSource.EXTERNAL,
+						ACTION.UNDO_PERFORMED,
+					)(undo)
+				: attachInputMeta(inputSource || InputSource.EXTERNAL)(undo),
+		);
 	};
 
 	const handleRedo = (inputSource?: InputSource): boolean => {
@@ -56,7 +65,14 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 		return forceFocus(
 			editorViewRef.current,
 			api,
-		)(attachInputMeta(inputSource || InputSource.EXTERNAL)(redo));
+		)(
+			fg('platform_editor_controls_patch_analytics')
+				? attachInputMetaWithAnalytics(api?.analytics?.actions)(
+						inputSource || InputSource.EXTERNAL,
+						ACTION.REDO_PERFORMED,
+					)(redo)
+				: attachInputMeta(inputSource || InputSource.EXTERNAL)(redo),
+		);
 	};
 
 	return {

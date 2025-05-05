@@ -60,3 +60,6 @@ export const NUMBER_OF_REACTIONS_TO_DISPLAY = 8;
 
 // This rate is used in fetching emoji resource
 export const SAMPLING_RATE_REACTIONS_RENDERED_EXP = 50;
+
+// Reactions compact height value
+export const RESOURCED_EMOJI_COMPACT_HEIGHT = 16;

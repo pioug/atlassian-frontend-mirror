@@ -7,8 +7,7 @@ export interface RenderImageProps {
 	imageHeight?: number;
 }
 
-export type Sizes = 'narrow' | 'wide';
-export type Width = Sizes;
+export type Width = 'narrow' | 'wide';
 
 export interface EmptyStateProps {
 	/**
@@ -28,11 +27,6 @@ export interface EmptyStateProps {
 	 * Controls how much horizontal space the component fills. Defaults to "wide".
 	 */
 	width?: Width;
-	/**
-	 * @deprecated
-	 * Duplicates the `width` prop. Use `width instead`.
-	 */
-	size?: Width;
 	/**
 	 * The url of image that will be shown above the title, fed directly into the `src` prop of an <img> element.
 	 * Note, this image will be constrained by the `maxWidth` and `maxHeight` props.

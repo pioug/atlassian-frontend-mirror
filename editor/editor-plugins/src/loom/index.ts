@@ -6,6 +6,8 @@ export type {
 	LoomPlugin,
 	LoomPluginState,
 	LoomPluginOptions,
+	LoomPluginOptionsWithProvider,
+	LoomPluginOptionsWithoutProvider,
 	LoomProviderOptions,
 	VideoMeta,
 	GetClient,

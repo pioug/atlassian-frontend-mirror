@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 
-import { ACTION, INPUT_METHOD, PasteTypes } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION, INPUT_METHOD, PasteTypes } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import { insideTable } from '@atlaskit/editor-common/core-utils';
@@ -16,8 +16,8 @@ import { measureRender } from '@atlaskit/editor-common/performance/measure-rende
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
-	transformSingleLineCodeBlockToCodeMark,
 	transformSingleColumnLayout,
+	transformSingleLineCodeBlockToCodeMark,
 	transformSliceNestedExpandToExpand,
 	transformSliceToDecisionList,
 	transformSliceToJoinAdjacentCodeBlocks,
@@ -58,6 +58,7 @@ import {
 	handleExpandWithAnalytics,
 	handleMarkdownWithAnalytics,
 	handleMediaSingleWithAnalytics,
+	handleNestedTablePasteWithAnalytics,
 	handlePasteAsPlainTextWithAnalytics,
 	handlePasteIntoCaptionWithAnalytics,
 	handlePasteIntoTaskAndDecisionWithAnalytics,
@@ -68,7 +69,6 @@ import {
 	handleRichTextWithAnalytics,
 	handleSelectedTableWithAnalytics,
 	sendPasteAnalyticsEvent,
-	handleNestedTablePasteWithAnalytics,
 } from './analytics';
 import { clipboardTextSerializer } from './clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
@@ -221,11 +221,7 @@ export function createPlugin(
 				}
 
 				// Strip Legacy Content Macro (LCM) extensions on paste
-				if (
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-					fg('platform_editor_legacy_content_macro') &&
-					!fg('platform_editor_legacy_content_macro_insert')
-				) {
+				if (!fg('platform_editor_legacy_content_macro_insert')) {
 					slice = transformSliceToRemoveLegacyContentMacro(slice, schema);
 				}
 

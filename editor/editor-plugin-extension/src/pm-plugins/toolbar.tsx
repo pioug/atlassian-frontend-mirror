@@ -19,10 +19,7 @@ import { getChildrenInfo, getNodeName, isReferencedSource } from '@atlaskit/edit
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import type {
-	DecorationsPlugin,
-	HoverDecorationHandler,
-} from '@atlaskit/editor-plugin-decorations';
+import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -344,26 +341,20 @@ const calculateToolbarPosition = (
 
 	let scrollWrapper = editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
 
-	if (fg('platform_editor_legacy_content_macro')) {
-		if (!extensionNode) {
-			return nextPos;
-		}
-		const isInsideEditableExtensionArea = !!editorView.dom.closest('.extension-editable-area');
+	if (!extensionNode) {
+		return nextPos;
+	}
+	const isInsideEditableExtensionArea = !!editorView.dom.closest('.extension-editable-area');
 
-		if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
-			return nextPos;
-		}
+	if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
+		return nextPos;
+	}
 
-		if (isInsideEditableExtensionArea && scrollWrapper.parentElement) {
-			// The editable extension area may have its own scroll wrapper, so we want to keep searching up the tree for the page level scroll wrapper.
+	if (isInsideEditableExtensionArea && scrollWrapper.parentElement) {
+		// The editable extension area may have its own scroll wrapper, so we want to keep searching up the tree for the page level scroll wrapper.
 
-			scrollWrapper =
-				scrollWrapper.parentElement.closest('.fabric-editor-popup-scroll-parent') || scrollWrapper;
-		}
-	} else {
-		if (!isBodiedExtensionInsideMBE) {
-			return nextPos;
-		}
+		scrollWrapper =
+			scrollWrapper.parentElement.closest('.fabric-editor-popup-scroll-parent') || scrollWrapper;
 	}
 
 	// Ignored via go/ees005
@@ -386,31 +377,20 @@ const calculateToolbarPosition = (
 
 interface GetToolbarConfigProps {
 	breakoutEnabled: boolean | undefined;
-	hoverDecoration?: HoverDecorationHandler | undefined;
-	applyChangeToContextPanel?: ApplyChangeHandler | undefined;
-	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined;
 	extensionApi?:
 		| PublicPluginAPI<[ContextPanelPlugin, AnalyticsPlugin, DecorationsPlugin, ConnectivityPlugin]>
 		| undefined;
 }
 
 export const getToolbarConfig =
-	({
-		breakoutEnabled = true,
-		hoverDecoration,
-		applyChangeToContextPanel,
-		editorAnalyticsAPI,
-		extensionApi,
-	}: GetToolbarConfigProps): FloatingToolbarHandler =>
+	({ breakoutEnabled = true, extensionApi }: GetToolbarConfigProps): FloatingToolbarHandler =>
 	(state, intl) => {
 		const { formatMessage } = intl;
 		const extensionState = getPluginState(state);
-		if (fg('platform_editor_legacy_content_macro')) {
-			// TODO: ED-26962 - Change these all to const upon removal of the above FG. Remove the function params also.
-			hoverDecoration = extensionApi?.decorations?.actions.hoverDecoration;
-			applyChangeToContextPanel = extensionApi?.contextPanel?.actions.applyChange;
-			editorAnalyticsAPI = extensionApi?.analytics?.actions;
-		}
+
+		const hoverDecoration = extensionApi?.decorations?.actions.hoverDecoration;
+		const applyChangeToContextPanel = extensionApi?.contextPanel?.actions.applyChange;
+		const editorAnalyticsAPI = extensionApi?.analytics?.actions;
 
 		if (!extensionState || extensionState.showContextPanel || !extensionState.element) {
 			return;

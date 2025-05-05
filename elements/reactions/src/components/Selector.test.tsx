@@ -16,6 +16,7 @@ const renderSelector = (
 	onSelection: OnEmojiEvent = () => {},
 	showMore = false,
 	onMoreClick = () => {},
+	hoverableReactionPickerSelector = false,
 ) => {
 	return (
 		<Selector
@@ -23,6 +24,7 @@ const renderSelector = (
 			onSelection={onSelection}
 			showMore={showMore}
 			onMoreClick={onMoreClick}
+			hoverableReactionPickerSelector={hoverableReactionPickerSelector}
 		/>
 	);
 };
@@ -69,5 +71,11 @@ describe('@atlaskit/reactions/components/selector', () => {
 		fireEvent.click(button);
 
 		expect(onMoreClick.mock.calls).toHaveLength(1);
+	});
+
+	it('should render hoverable selector with add reaction trigger contained when hoverableReactionPickerSelector is true', async () => {
+		renderWithIntl(renderSelector(jest.fn(), false, jest.fn(), true));
+		const triggerPickerButton = await screen.findByLabelText('Add reaction');
+		expect(triggerPickerButton).toBeInTheDocument();
 	});
 });

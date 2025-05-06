@@ -31,7 +31,6 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -39,7 +38,6 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
-		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(BlockCardErrorView, {
@@ -52,7 +50,6 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -60,7 +57,6 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
-		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(BlockCardForbiddenView, {
@@ -74,7 +70,6 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -82,7 +77,6 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
-		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(BlockCardNotFoundView, {
@@ -147,7 +141,6 @@ snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -155,7 +148,6 @@ snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -163,7 +155,6 @@ snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -171,7 +162,6 @@ snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -179,7 +169,6 @@ snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -187,7 +176,6 @@ snapshot(BlockCardLazyIcon6, {
 	description: `block card with lazy load icons, slice 6`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -195,7 +183,6 @@ snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -203,7 +190,6 @@ snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -211,7 +197,6 @@ snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });
@@ -219,7 +204,6 @@ snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 		'icon-object-migration': true,
 	},
 });

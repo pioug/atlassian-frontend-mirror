@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 205.10.0
+
+### Minor Changes
+
+- [#140315](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140315)
+  [`e9258b34b7063`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9258b34b7063) -
+  MODES-6284 Add CMD+OPT+Y as yellow text highlight shortcut
+
+### Patch Changes
+
+- Updated dependencies
+
+## 205.9.1
+
+### Patch Changes
+
+- [#149435](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149435)
+  [`d65b9032b4136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d65b9032b4136) -
+  Clean-up feature gate platform_editor_macroid_reset_for_ext_on_paste
+- Updated dependencies
+
+## 205.9.0
+
+### Minor Changes
+
+- [#147951](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147951)
+  [`ec2f90f672938`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec2f90f672938) -
+  [ux] getFullName has been added to PluginState. User's initial and full name are now in their
+  separate elements under telepointer.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 205.8.2
 
 ### Patch Changes

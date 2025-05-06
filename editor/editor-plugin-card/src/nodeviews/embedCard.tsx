@@ -31,7 +31,6 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
@@ -498,9 +497,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 	destroy() {
 		this.unsubscribe?.();
-		if (fg('platform_editor_fix_card_plugin_state')) {
-			this.removeCard();
-		}
+		this.removeCard();
 	}
 
 	private removeCard() {

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { SmartLinkSize } from '../../../../../../constants';
 import { LoadingSkeleton } from '../../../common/loading-skeleton';
-import { getIconWidthNew } from '../../../utils';
+import { getIconWidth } from '../../../utils';
 import Block from '../../block';
 import { type TitleBlockViewProps } from '../types';
 
@@ -22,7 +22,7 @@ const TitleBlockResolvingView = ({
 }: TitleBlockViewProps) => {
 	const { size = SmartLinkSize.Medium } = blockProps;
 
-	const iconWidth = getIconWidthNew(size);
+	const iconWidth = getIconWidth(size);
 
 	return (
 		<Block {...blockProps} testId={`${testId}-resolving-view`}>

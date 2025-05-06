@@ -1,7 +1,6 @@
 import { IntlShape } from 'react-intl-next';
 
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
-import { logException } from '@atlaskit/editor-common/monitoring';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
@@ -9,54 +8,35 @@ import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import { statusToDOM } from './statusNodeSpec';
 
 export class StatusNodeView implements NodeView {
-	dom: HTMLElement = document.createElement('div');
+	dom: Node;
+	domElement: HTMLElement | undefined;
 	private box: HTMLElement | null = null;
 	private textContainer: HTMLElement | null = null;
 	private node: PMNode;
 	private intl: IntlShape;
 
-	private static logError(error: Error) {
-		void logException(error, {
-			location: 'editor-plugin-status/StatusNodeView',
-		});
-	}
-
 	constructor(node: PMNode, intl: IntlShape) {
 		this.node = node;
 		this.intl = intl;
+		const spec = statusToDOM(node);
+		const { dom } = DOMSerializer.renderSpec(document, spec);
+		this.dom = dom;
+		this.domElement = dom instanceof HTMLElement ? dom : undefined;
+		if (this.domElement) {
+			this.box = this.domElement.querySelector('.status-lozenge-span');
+			this.textContainer = this.domElement.querySelector('.lozenge-text');
+		}
 
-		try {
-			const spec = statusToDOM(node);
-			const { dom } = DOMSerializer.renderSpec(document, spec);
-			if (!(dom instanceof HTMLElement)) {
-				throw new Error('DOMSerializer.renderSpec() did not return HTMLElement');
-			}
-			this.dom = dom;
-			this.box = this.dom.querySelector('.status-lozenge-span');
-			this.textContainer = this.dom.querySelector('.lozenge-text');
-
-			if (!node.attrs.text) {
-				this.setPlaceholder();
-			}
-		} catch (error) {
-			StatusNodeView.logError(
-				error instanceof Error ? error : new Error('Unknown error on StatusNodeView constructor'),
-			);
-			this.renderFallback();
+		if (!node.attrs.text) {
+			this.setPlaceholder();
 		}
 	}
 
 	private setPlaceholder() {
-		if (this.textContainer) {
+		if (this.textContainer && this.domElement) {
 			this.textContainer.textContent = this.intl.formatMessage(messages.placeholder);
-			this.dom.style.setProperty('opacity', '0.5');
+			this.domElement.style.setProperty('opacity', '0.5');
 		}
-	}
-
-	private renderFallback() {
-		const fallbackElement = document.createElement('span');
-		fallbackElement.innerText = this.node.attrs.text;
-		this.dom.appendChild(fallbackElement);
 	}
 
 	update(node: PMNode) {
@@ -76,8 +56,8 @@ export class StatusNodeView implements NodeView {
 			this.setPlaceholder();
 		}
 
-		if (node.attrs.text) {
-			this.dom.style.setProperty('opacity', '1');
+		if (node.attrs.text && this.domElement) {
+			this.domElement.style.setProperty('opacity', '1');
 		}
 
 		this.node = node;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.8.2",
+	"version": "205.10.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -403,10 +403,6 @@
 		"platform_editor_lcm_toolbar_portals": {
 			"type": "boolean"
 		},
-		"platform_editor_macroid_reset_for_ext_on_paste": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_track_node_types": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -512,10 +508,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_scroll_table_flickering_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_render_media_viewer_as_inline": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -625,6 +617,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_yellow_text_highlight_shortcut": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_controls_widget_visibility": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -681,9 +677,16 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_ed-27630_date_popup_deleted_node": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_refactor_view_more": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"confluence_team_presence_scroll_to_pointer": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

@@ -1,6 +1,5 @@
 import { IntlShape } from 'react-intl-next';
 
-import { logException } from '@atlaskit/editor-common/monitoring';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -12,14 +11,12 @@ import { setDatePickerAt } from '../pm-plugins/actions';
 import { dateToDOM } from './dateNodeSpec';
 
 export class DateNodeView implements NodeView {
+	dom: Node;
 	private node: PMNode;
 	private readonly intl: IntlShape;
 	private readonly view: EditorView;
 	private readonly getPos: getPosHandlerNode;
-
 	private parentTaskState: string = '';
-
-	readonly dom: HTMLElement = document.createElement('span');
 
 	constructor(
 		node: PMNode,
@@ -32,7 +29,16 @@ export class DateNodeView implements NodeView {
 		this.intl = intl;
 		this.view = view;
 		this.getPos = getPos;
-		this.dom = this.createDOM(node);
+		const spec = dateToDOM(node, this.view.state, this.getPos, this.intl);
+		const { dom } = DOMSerializer.renderSpec(document, spec);
+		this.dom = dom;
+
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		dom.addEventListener('click', (event) => {
+			event.stopImmediatePropagation();
+			const { state, dispatch } = this.view;
+			setDatePickerAt(state.selection.from)(state, dispatch);
+		});
 		this.parentTaskState = DateNodeView.getParentTaskState(decorations);
 	}
 	update(node: PMNode, decorations: ReadonlyArray<Decoration>) {
@@ -54,47 +60,10 @@ export class DateNodeView implements NodeView {
 		return skipProseMirrorDomUpdate;
 	}
 
-	private createDOM(node: PMNode): HTMLElement {
-		try {
-			const spec = dateToDOM(node, this.view.state, this.getPos, this.intl);
-			const { dom } = DOMSerializer.renderSpec(document, spec);
-
-			if (!(dom instanceof HTMLElement)) {
-				throw new Error('DOMSerializer.renderSpec() did not return HTMLElement');
-			}
-
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			dom.addEventListener('click', (event) => {
-				event.stopImmediatePropagation();
-				const { state, dispatch } = this.view;
-				setDatePickerAt(state.selection.from)(state, dispatch);
-			});
-
-			return dom;
-		} catch (error) {
-			DateNodeView.logError(
-				error instanceof Error ? error : new Error('Unknown error on DateNodeView constructor'),
-			);
-			return this.renderFallback();
-		}
-	}
-
-	private renderFallback() {
-		const fallbackElement = document.createElement('span');
-		fallbackElement.innerText = this.node.attrs.timestamp;
-		return fallbackElement;
-	}
-
 	private static getParentTaskState(decorations: readonly Decoration[]) {
 		const parentTaskDecoration = decorations.find((d) => {
 			return d.spec.dataTaskNodeCheckState !== undefined;
 		});
 		return parentTaskDecoration?.spec?.dataTaskNodeCheckState ?? '';
-	}
-
-	private static logError(error: Error) {
-		void logException(error, {
-			location: 'editor-plugin-date/DateNodeView',
-		});
 	}
 }

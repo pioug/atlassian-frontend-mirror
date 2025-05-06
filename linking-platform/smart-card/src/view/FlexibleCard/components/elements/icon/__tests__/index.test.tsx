@@ -11,7 +11,7 @@ import type { GlyphProps } from '@atlaskit/icon/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
+import { IconType } from '../../../../../../constants';
 import Icon from '../index';
 
 const mockAppearanceTestId = 'mock-appearance-test-id';
@@ -168,35 +168,6 @@ describe('Element: Icon', () => {
 			expect(imageIcon).not.toBeInTheDocument();
 			expect(akIcon).not.toBeInTheDocument();
 			expect(bitbucketIcon).toBeTruthy();
-		});
-	});
-
-	describe('size', () => {
-		it.each([
-			[SmartLinkSize.XLarge, '2rem'],
-			[SmartLinkSize.Large, '1.5rem'],
-			[SmartLinkSize.Medium, '1rem'],
-			[SmartLinkSize.Small, '.75rem'],
-		])('renders element in %s size', async (size: SmartLinkSize, expectedSize: string) => {
-			render(<Icon size={size} />);
-
-			const element = await screen.findByTestId('smart-element-icon');
-
-			expect(element).toHaveCompiledCss('height', expectedSize);
-			expect(element).toHaveCompiledCss('width', expectedSize);
-		});
-	});
-
-	describe('position', () => {
-		it.each([
-			[SmartLinkPosition.Top, 'flex-start'],
-			[SmartLinkPosition.Center, 'center'],
-		])('renders element at %s position', async (position, expectedAlignSelf) => {
-			render(<Icon position={position} size={SmartLinkSize.Small} />);
-
-			const element = await screen.findByTestId('smart-element-icon');
-
-			expect(element).toHaveCompiledCss('align-self', expectedAlignSelf);
 		});
 	});
 

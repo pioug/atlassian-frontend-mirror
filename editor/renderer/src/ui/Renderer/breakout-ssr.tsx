@@ -71,7 +71,7 @@ export const breakoutInlineScriptContext = `
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEnabled: boolean) {
+function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldSkipBreakoutScript: boolean) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
 
@@ -103,23 +103,6 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEna
 				return;
 			}
 
-			if (
-				/**
-				 * The mutation observer is only called once per added node.
-				 * The above condition only deals with direct children of <div class="ak-renderer-document" />
-				 * When it is initially called on the direct children, not all the sub children have loaded.
-				 * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
-				 * Thus adding this conditional to deal with all media elements directly.
-				 */
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				(item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
-			) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @atlaskit/editor/no-as-casting
-				applyMediaBreakout(item.target as HTMLElement);
-			}
-
 			// Remove with feature gate 'platform-ssr-table-resize'
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -142,51 +125,69 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, isFeatureFlagEna
 					}
 
 					// When flag is on we are using CSS to calculate the table width thus don't need logic below to set the width and left.
-					if (!isFeatureFlagEnabled) {
-						if (node.classList.contains('pm-table-container') && mode === 'custom') {
+					if (shouldSkipBreakoutScript && node.classList.contains('pm-table-container')) {
+						return;
+					}
+
+					// use breakout script for all other types of nodes
+					if (node.classList.contains('pm-table-container') && mode === 'custom') {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						const rendererWidth = renderer!.offsetWidth;
+						const effectiveWidth = rendererWidth - breakoutConsts.padding;
+						width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
+					} else if (resizedBreakout) {
+						width = breakoutConsts.calcBreakoutWithCustomWidth(
+							mode,
+							node.dataset.width || null,
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							const rendererWidth = renderer!.offsetWidth;
-							const effectiveWidth = rendererWidth - breakoutConsts.padding;
-							width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
-						} else if (resizedBreakout) {
-							width = breakoutConsts.calcBreakoutWithCustomWidth(
-								mode,
-								node.dataset.width || null,
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								renderer!.offsetWidth,
-							);
+							renderer!.offsetWidth,
+						);
+					} else {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
+					}
+
+					if (node.style.width === width) {
+						return;
+					}
+					node.style.width = width;
+
+					// Tables require some special logic, as they are not using common css transform approach,
+					// because it breaks with sticky headers. This logic is copied from a table node:
+					// https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
+					if (
+						node.classList.contains('pm-table-container') &&
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						!renderer!.classList.contains('is-full-width')
+					) {
+						const lineLength = breakoutConsts.calcLineLength();
+						const left = lineLength / 2 - parseInt(width) / 2;
+						if (left < 0 && parseInt(width) > lineLength) {
+							node.style.left = left + 'px';
 						} else {
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
-						}
-
-						if (node.style.width === width) {
-							return;
-						}
-						node.style.width = width;
-
-						// Tables require some special logic, as they are not using common css transform approach,
-						// because it breaks with sticky headers. This logic is copied from a table node:
-						// https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
-						if (
-							node.classList.contains('pm-table-container') &&
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							!renderer!.classList.contains('is-full-width')
-						) {
-							const lineLength = breakoutConsts.calcLineLength();
-							const left = lineLength / 2 - parseInt(width) / 2;
-							if (left < 0 && parseInt(width) > lineLength) {
-								node.style.left = left + 'px';
-							} else {
-								node.style.left = '';
-							}
+							node.style.left = '';
 						}
 					}
 				});
+			} else if (
+				/**
+				 * The mutation observer is only called once per added node.
+				 * The above condition only deals with direct children of <div class="ak-renderer-document" />
+				 * When it is initially called on the direct children, not all the sub children have loaded.
+				 * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
+				 * Thus adding this conditional to deal with all media elements directly.
+				 */
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
+			) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				applyMediaBreakout(item.target as HTMLElement);
 			}
 		});
 	});

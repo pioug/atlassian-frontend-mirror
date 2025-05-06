@@ -149,6 +149,7 @@ export type BlockControlsMeta = {
 	dom: HTMLElement;
 	editorHeight: number;
 	nodeMoved: boolean;
+	editorBlurred: boolean;
 };
 
 export type MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP | INPUT_METHOD.SHORTCUT;

@@ -1,5 +1,23 @@
 # @atlaskit/teams-public
 
+## 0.25.0
+
+### Minor Changes
+
+- [#149369](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149369)
+  [`36dc8ea113f22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36dc8ea113f22) -
+  [ux] Add Loom tab to container linker in team profile page
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.24.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.24.1
 
 ### Patch Changes

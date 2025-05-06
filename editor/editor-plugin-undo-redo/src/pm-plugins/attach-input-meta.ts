@@ -51,11 +51,13 @@ export const attachInputMetaWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(inputSource: InputSource, action: ACTION.UNDO_PERFORMED | ACTION.REDO_PERFORMED) =>
 	(command: Command) =>
-		withAnalytics(editorAnalyticsAPI, {
-			eventType: EVENT_TYPE.TRACK,
-			action,
-			actionSubject: ACTION_SUBJECT.EDITOR,
-			attributes: {
-				inputMethod: inputSourceToInputMethod(inputSource),
-			},
-		})(attachInputMeta(inputSource)(command));
+		attachInputMeta(inputSource)(
+			withAnalytics(editorAnalyticsAPI, {
+				eventType: EVENT_TYPE.TRACK,
+				action,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				attributes: {
+					inputMethod: inputSourceToInputMethod(inputSource),
+				},
+			})(command),
+		);

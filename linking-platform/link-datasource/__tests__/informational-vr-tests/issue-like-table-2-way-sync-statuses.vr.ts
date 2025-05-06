@@ -16,7 +16,6 @@ snapshotInformational(VRIssueLikeTableStatusLoading, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 	ignoredErrors: [
@@ -37,7 +36,6 @@ snapshotInformational(VRIssueLikeTableStatus, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
@@ -61,7 +59,6 @@ snapshotInformational(VRIssueLikeTableStatus, {
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},

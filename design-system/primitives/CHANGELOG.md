@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 14.7.0
+
+### Minor Changes
+
+- [#146876](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146876)
+  [`1f9d7feceff9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f9d7feceff9f) -
+  Removed deprecated unsafe anchor and unsafe anchor props.
+
 ## 14.6.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 23.0.7
+
+### Patch Changes
+
+- [#149289](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149289)
+  [`718ee6f525ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/718ee6f525ccc) -
+  Fixed a bug in LinkButton, where the `shouldFitContainer` prop was unintentionally being passed to
+  the underlying anchor DOM element.
+
 ## 23.0.6
 
 ### Patch Changes

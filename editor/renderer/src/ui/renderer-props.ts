@@ -8,7 +8,7 @@ import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/u
 import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import type { RendererContext } from '../';
+import type { ReactSerializerInit, RendererContext, Serializer } from '../';
 import type { TextHighlighter, ExtensionViewportSize } from '../react/types';
 import type { RenderOutputStat } from '../render-document';
 import type { MediaOptions } from '../types/mediaOptions';
@@ -133,4 +133,10 @@ export interface RendererProps {
 	UNSTABLE_textHighlighter?: TextHighlighter;
 	UNSTABLE_allowTableAlignment?: boolean;
 	UNSTABLE_allowTableResizing?: boolean;
+
+	/**
+	 * Creates a new `Serializer` to transform the ADF `document` into `JSX.Element`.
+	 * Allows Confluence to implement {@link https://hello.atlassian.net/wiki/spaces/~lmarinov/pages/5177285037/COMPLEXIT+Progressive+rendering+of+ADF progressive rendering}.
+	 */
+	createSerializer?(init: ReactSerializerInit): Serializer<JSX.Element> | null;
 }

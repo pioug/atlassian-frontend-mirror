@@ -20,30 +20,6 @@ export const decisionItemSpecWithFixedToDOM = () => {
 				class: 'decisionItemView-content-wrap',
 			};
 
-			// Ignored via go/ees007
-			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-			// TODO: can copy raw SVG from DST later
-			const decisionItemIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-			decisionItemIcon.setAttribute('width', '24');
-			decisionItemIcon.setAttribute('height', '24');
-			decisionItemIcon.setAttribute('viewBox', '0 0 24 24');
-			decisionItemIcon.setAttribute('role', 'presentation');
-			const decisionItemSvgPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-			decisionItemSvgPath.setAttribute('fill', 'currentColor');
-			decisionItemSvgPath.setAttribute('fill-rule', 'evenodd');
-			decisionItemSvgPath.setAttribute(
-				'd',
-				'm9.414 8 3.293 3.293c.187.187.293.442.293.707v5a1 1 0 0 1-2 0v-4.586l-3-3V10.5a1 1 0 0 1-2 0V7a1 1 0 0 1 1-1h3.5a1 1 0 0 1 0 2zm8.293-1.707a1 1 0 0 1 0 1.414l-2.5 2.5a.997.997 0 0 1-1.414 0 1 1 0 0 1 0-1.414l2.5-2.5a1 1 0 0 1 1.414 0',
-			);
-			decisionItemIcon.setAttribute(
-				'style',
-				convertToInlineCss({
-					width: '32px',
-					height: '32px',
-				}),
-			);
-			decisionItemIcon.appendChild(decisionItemSvgPath);
-
 			const showPlaceholder = node.content.size === 0;
 
 			return [
@@ -72,20 +48,45 @@ export const decisionItemSpecWithFixedToDOM = () => {
 								height: '16px',
 								margin: `${token('space.050', '4px')} ${token('space.150', '12px')} 0 0`,
 								color: showPlaceholder ? token('color.icon.subtle') : token('color.icon.success'),
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
 							}),
 							contentEditable: 'false',
+							'data-component': 'icon',
 						},
 						[
 							'span',
 							{
+								role: 'img',
+								'aria-label': 'Decision',
 								style: convertToInlineCss({
-									margin: token('space.negative.100', '-8px'),
-									display: 'inline-block',
 									width: '32px',
 									height: '32px',
 								}),
 							},
-							decisionItemIcon,
+							[
+								'http://www.w3.org/2000/svg svg',
+								{
+									viewBox: `0 0 24 24`,
+									role: 'presentation',
+									width: '24',
+									height: '24',
+									'data-icon-source': 'legacy',
+									style: convertToInlineCss({
+										width: '32px',
+										height: '32px',
+									}),
+								},
+								[
+									'http://www.w3.org/2000/svg path',
+									{
+										fill: 'currentcolor',
+										'fill-rule': 'evenodd',
+										d: 'm9.414 8 3.293 3.293c.187.187.293.442.293.707v5a1 1 0 0 1-2 0v-4.586l-3-3V10.5a1 1 0 0 1-2 0V7a1 1 0 0 1 1-1h3.5a1 1 0 0 1 0 2zm8.293-1.707a1 1 0 0 1 0 1.414l-2.5 2.5a.997.997 0 0 1-1.414 0 1 1 0 0 1 0-1.414l2.5-2.5a1 1 0 0 1 1.414 0',
+									},
+								],
+							],
 						],
 					],
 					[

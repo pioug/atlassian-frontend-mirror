@@ -51,15 +51,6 @@ describe('Element: Badge', () => {
 	});
 
 	describe('size', () => {
-		it('renders icon at  0.75rem', async () => {
-			render(<Badge icon={IconType.Comment} label="99" />);
-
-			const icon = await screen.findByTestId('smart-element-badge-icon');
-
-			expect(icon).toHaveStyle(`height: 1rem`);
-			expect(icon).toHaveStyle(`width: 1rem`);
-		});
-
 		it('renders text at .75rem', async () => {
 			render(<Badge icon={IconType.Comment} label="99" />);
 

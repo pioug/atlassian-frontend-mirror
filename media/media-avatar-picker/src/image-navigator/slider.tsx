@@ -51,7 +51,11 @@ export class Slider extends Component<SliderProps & WrappedComponentProps, {}> {
 					onClick={() => onChange(0)}
 					aria-label={formatMessage(messages.image_cropper_zoom_out)}
 				/>
-				<FieldRange value={value} onChange={onChange} />
+				<FieldRange
+					value={value}
+					onChange={onChange}
+					aria-label={formatMessage(messages.image_cropper_zoom_slider)}
+				/>
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="zoom_button zoom_button_large"

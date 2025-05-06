@@ -1,0 +1,33 @@
+{
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../post-office/tsDist/@atlassian__teams-client/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../uip/atlassian-context/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-post-office/tsconfig.json"
+		}
+	]
+}

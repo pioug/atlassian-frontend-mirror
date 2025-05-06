@@ -30,13 +30,12 @@ interface Params {
 }
 
 export class EmojiNodeView implements NodeView {
+	dom: Node;
+	domElement: HTMLElement | undefined;
 	private readonly node: PMNode;
 	private readonly intl: IntlShape;
 
 	readonly destroy = () => {};
-	// The pure `span` element will be used as a worse fallback only
-	// if DOMSerializer.renderSpec() in constructor fails.
-	readonly dom: HTMLElement = document.createElement('span');
 
 	private static logError(error: Error) {
 		void logException(error, {
@@ -47,57 +46,43 @@ export class EmojiNodeView implements NodeView {
 	constructor(node: PMNode, { intl, api }: Params) {
 		this.node = node;
 		this.intl = intl;
+		const { dom } = DOMSerializer.renderSpec(document, emojiToDom(this.node));
+		this.dom = dom;
+		this.domElement = dom instanceof HTMLElement ? dom : undefined;
 
-		try {
-			const { dom } = DOMSerializer.renderSpec(document, emojiToDom(this.node));
-			if (!(dom instanceof HTMLElement)) {
-				// It's safe to throw error here because, the code is wrapped in try-catch.
-				// However, it should never happen because `DOMSerializer.renderSpec()` should always return HTMLElement.
-				throw new Error('DOMSerializer.renderSpec() did not return HTMLElement');
-			}
-
-			this.dom = dom;
-
-			if (isSSR()) {
-				// The provider doesn't work in SSR, and we don't want to render fallback in SSR,
-				// that's why we don't need to continue node rendering.
-				// In SSR we want to show a placeholder, that `emojiToDom()` returns.
-				return;
-			}
-
-			// We use the `emojiProvider` from the shared state
-			// because it supports the `emojiProvider` prop in the `ComposableEditor` options
-			// as well as the `emojiProvider` in the `EmojiPlugin` options.
-			const sharedState = api?.emoji?.sharedState;
-			if (!sharedState) {
-				return;
-			}
-
-			let emojiProvider: EmojiProvider | undefined = sharedState.currentState()?.emojiProvider;
-			if (emojiProvider) {
-				void this.updateDom(emojiProvider);
-			}
-
-			const unsubscribe = sharedState.onChange(({ nextSharedState }) => {
-				if (emojiProvider === nextSharedState?.emojiProvider) {
-					// Do not update if the provider is the same
-					return;
-				}
-
-				emojiProvider = nextSharedState?.emojiProvider;
-				void this.updateDom(emojiProvider);
-			});
-
-			this.destroy = () => {
-				unsubscribe();
-			};
-		} catch (error) {
-			EmojiNodeView.logError(
-				error instanceof Error ? error : new Error('Unknown error on EmojiNodeView constructor'),
-			);
-
-			this.renderFallback();
+		if (isSSR()) {
+			// The provider doesn't work in SSR, and we don't want to render fallback in SSR,
+			// that's why we don't need to continue node rendering.
+			// In SSR we want to show a placeholder, that `emojiToDom()` returns.
+			return;
 		}
+
+		// We use the `emojiProvider` from the shared state
+		// because it supports the `emojiProvider` prop in the `ComposableEditor` options
+		// as well as the `emojiProvider` in the `EmojiPlugin` options.
+		const sharedState = api?.emoji?.sharedState;
+		if (!sharedState) {
+			return;
+		}
+
+		let emojiProvider: EmojiProvider | undefined = sharedState.currentState()?.emojiProvider;
+		if (emojiProvider) {
+			void this.updateDom(emojiProvider);
+		}
+
+		const unsubscribe = sharedState.onChange(({ nextSharedState }) => {
+			if (emojiProvider === nextSharedState?.emojiProvider) {
+				// Do not update if the provider is the same
+				return;
+			}
+
+			emojiProvider = nextSharedState?.emojiProvider;
+			void this.updateDom(emojiProvider);
+		});
+
+		this.destroy = () => {
+			unsubscribe();
+		};
 	}
 
 	private async updateDom(emojiProvider: EmojiProvider | undefined) {
@@ -114,9 +99,7 @@ export class EmojiNodeView implements NodeView {
 			);
 			if (!emojiDescription) {
 				EmojiNodeView.logError(new Error('Emoji description is not loaded'));
-
 				this.renderFallback();
-
 				return;
 			}
 
@@ -152,14 +135,16 @@ export class EmojiNodeView implements NodeView {
 	// emoji data to prevent rendering empty emoji during loading.
 	private cleanUpAndRenderCommonAttributes() {
 		// Clean up the DOM before rendering the new emoji
-		this.dom.innerHTML = '';
-		this.dom.style.cssText = '';
-		this.dom.classList.remove(EmojiSharedCssClassName.EMOJI_PLACEHOLDER);
-		this.dom.removeAttribute('aria-label'); // The label is set in the renderEmoji method
-		this.dom.removeAttribute('aria-busy');
+		if (this.domElement) {
+			this.domElement.innerHTML = '';
+			this.domElement.style.cssText = '';
+			this.domElement.classList.remove(EmojiSharedCssClassName.EMOJI_PLACEHOLDER);
+			this.domElement.removeAttribute('aria-label'); // The label is set in the renderEmoji method
+			this.domElement.removeAttribute('aria-busy');
 
-		// Each vanilla JS node implementation should have this data attribute
-		this.dom.setAttribute('data-prosemirror-node-view-type', 'vanilla');
+			// Each vanilla JS node implementation should have this data attribute
+			this.domElement.setAttribute('data-prosemirror-node-view-type', 'vanilla');
+		}
 	}
 
 	private renderFallback() {

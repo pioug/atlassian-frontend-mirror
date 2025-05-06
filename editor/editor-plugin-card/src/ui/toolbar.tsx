@@ -13,7 +13,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID as ACTION_SUBJECTID,
 	buildOpenedSettingsPayload,
-	buildVisitedLinkPayload,
+	buildVisitedNonHyperLinkPayload,
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
@@ -122,27 +122,38 @@ export const removeCard = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): 
 	);
 
 export const visitCardLink =
-	(editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+	(
+		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+		inputMethod:
+			| INPUT_METHOD.BUTTON
+			| INPUT_METHOD.DOUBLE_CLICK
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TOOLBAR,
+	): Command =>
 	(state, dispatch) => {
 		if (!(state.selection instanceof NodeSelection)) {
 			return false;
 		}
 
 		const { type } = state.selection.node;
-		const { url } = titleUrlPairFromNode(state.selection.node);
 
-		// All card links should open in the same tab per https://product-fabric.atlassian.net/browse/MS-1583.
-		// We are in edit mode here, open the smart card URL in a new window.
-		window.open(url);
+		if (!fg('smart_link_editor_update_toolbar_open_link')) {
+			const { url } = titleUrlPairFromNode(state.selection.node);
+
+			// All card links should open in the same tab per https://product-fabric.atlassian.net/browse/MS-1583.
+			// We are in edit mode here, open the smart card URL in a new window.
+			window.open(url);
+		}
 
 		if (dispatch) {
 			const { tr } = state;
 			editorAnalyticsApi?.attachAnalyticsEvent(
-				buildVisitedLinkPayload(
+				buildVisitedNonHyperLinkPayload(
 					type.name as
 						| ACTION_SUBJECT_ID.CARD_INLINE
 						| ACTION_SUBJECT_ID.CARD_BLOCK
 						| ACTION_SUBJECT_ID.EMBEDS,
+					inputMethod,
 				),
 			)(tr);
 
@@ -487,6 +498,10 @@ const generateToolbarItems =
 					]
 				: [];
 
+			const openLinkInputMethod = fg('platform_editor_controls_patch_analytics')
+				? INPUT_METHOD.FLOATING_TB
+				: INPUT_METHOD.TOOLBAR;
+
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = editorExperiment(
 				'platform_editor_controls',
 				'control',
@@ -502,7 +517,11 @@ const generateToolbarItems =
 							metadata: metadata,
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
-							onClick: visitCardLink(editorAnalyticsApi),
+							onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
+							...(fg('smart_link_editor_update_toolbar_open_link') && {
+								href: url,
+								target: '_blank',
+							}),
 						},
 						{ type: 'separator' },
 						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
@@ -557,7 +576,11 @@ const generateToolbarItems =
 							metadata: metadata,
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
-							onClick: visitCardLink(editorAnalyticsApi),
+							onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
+							...(fg('smart_link_editor_update_toolbar_open_link') && {
+								href: url,
+								target: '_blank',
+							}),
 						},
 						...(commentItems.length > 1
 							? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
@@ -827,6 +850,10 @@ const getDatasourceButtonGroup = (
 		}
 	}
 
+	const openLinkInputMethod = fg('platform_editor_controls_patch_analytics')
+		? INPUT_METHOD.FLOATING_TB
+		: INPUT_METHOD.TOOLBAR;
+
 	toolbarItems.push({
 		type: 'custom',
 		fallback: [],
@@ -854,7 +881,11 @@ const getDatasourceButtonGroup = (
 			metadata: metadata,
 			className: 'hyperlink-open-link',
 			title: intl.formatMessage(linkMessages.openLink),
-			onClick: visitCardLink(editorAnalyticsApi),
+			onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
+			...(fg('smart_link_editor_update_toolbar_open_link') && {
+				href: node.attrs.url,
+				target: '_blank',
+			}),
 		});
 		if (editorExperiment('platform_editor_controls', 'control')) {
 			toolbarItems.push({ type: 'separator' });

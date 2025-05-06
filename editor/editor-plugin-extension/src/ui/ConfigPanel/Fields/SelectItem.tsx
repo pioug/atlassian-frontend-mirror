@@ -54,7 +54,7 @@ export const formatOptionLabel = (
 				)}
 			</span>
 			<div
-				style={{ paddingLeft: icon ? token('space.100', '8px') : 0 }}
+				style={{ paddingLeft: icon ? token('space.100', '8px') : token('space.0', '0') }}
 				data-testid="extension-option-label"
 			>
 				{label}

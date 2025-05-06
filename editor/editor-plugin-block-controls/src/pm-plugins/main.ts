@@ -16,8 +16,13 @@ import {
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
-import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -431,6 +436,14 @@ export const apply = (
 		// Remove handle dec when explicitly hidden, a node is resizing, activeNode pos was deleted, or DnD moved a node
 		shouldRemoveHandle =
 			latestActiveNode && (isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved);
+	}
+
+	if (
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_7')
+	) {
+		// Remove handle dec when editor is blurred
+		shouldRemoveHandle = shouldRemoveHandle || meta?.editorBlurred;
 	}
 
 	if (shouldRemoveHandle) {
@@ -863,6 +876,32 @@ export const createPlugin = (
 						view.dispatch(
 							view.state.tr.setMeta(key, { ...view.state.tr.getMeta(key), isShiftDown: false }),
 						);
+					}
+				},
+				blur(view: EditorView, event: FocusEvent) {
+					if (
+						editorExperiment('platform_editor_controls', 'variant1') &&
+						fg('platform_editor_controls_patch_7')
+					) {
+						const isChildOfEditor =
+							event.relatedTarget instanceof HTMLElement &&
+							event.relatedTarget.closest(`#${EDIT_AREA_ID}`) !== null;
+
+						// don't do anything if the event target is a child of the editor or if the editor has focus
+						if (isChildOfEditor || view.hasFocus()) {
+							return false;
+						}
+
+						api?.core?.actions.execute(({ tr }: { tr: Transaction }) => {
+							const currMeta = tr.getMeta(key);
+
+							tr.setMeta(key, {
+								...currMeta,
+								editorBlurred: true,
+							});
+							return tr;
+						});
+						return false;
 					}
 				},
 			},

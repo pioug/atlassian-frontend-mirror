@@ -286,7 +286,10 @@ export const MediaSingleDimensionHelper = ({
 			: ''}
 		/* If container doesn't exists, it will fallback to this */
 		max-width: ${isSSR() && fg('platform_editor_fix_image_size_diff_during_ssr')
-			? Math.max(calculatedWidth, calculatedMaxWidth)
+			? Math.max(
+					parseInt(calculatedWidth.replace('px', '')),
+					parseInt(calculatedMaxWidth.replace('px', '')),
+				) + 'px'
 			: calculatedMaxWidth};
 		${isExtendedResizeExperienceOn &&
 		`&[class*='is-resizing'] {

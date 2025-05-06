@@ -20,6 +20,8 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
@@ -171,7 +173,10 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 		(mediaContainerWidth: number) => {
 			const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
 
-			const maxWidth = containerWidth;
+			const maxWidth =
+				isSSR() && widthAttr && fg('platform_editor_fix_image_size_diff_during_ssr')
+					? Math.max(widthAttr, containerWidth)
+					: containerWidth;
 			const maxHeight = (height / width) * maxWidth;
 			const cardDimensions = {
 				width: `${maxWidth}px`,
@@ -196,7 +201,16 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 				lineLength,
 			};
 		},
-		[height, isFullWidth, isInsideOfBlockNode, layout, padding, rendererAppearance, width],
+		[
+			height,
+			isFullWidth,
+			isInsideOfBlockNode,
+			layout,
+			padding,
+			rendererAppearance,
+			width,
+			widthAttr,
+		],
 	);
 
 	const originalDimensions = useMemo(() => ({ width, height }), [height, width]);

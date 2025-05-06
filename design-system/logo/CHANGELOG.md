@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 18.0.0
+
+### Major Changes
+
+- [#146780](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/146780)
+  [`c1fa4405cb8c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1fa4405cb8c6) -
+  Remove deprecated default prop constants.
+
 ## 17.0.0
 
 ### Major Changes

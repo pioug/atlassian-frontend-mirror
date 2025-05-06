@@ -9,7 +9,7 @@ export default function ShouldFitContainerExample() {
 	return (
 		<Stack space="space.100">
 			{variants.map(({ name, Component }) => (
-				<Box>
+				<Box key={name}>
 					<Component key={name} shouldFitContainer>
 						{name}
 					</Component>

@@ -1,7 +1,5 @@
 import Bowser from 'bowser-ultralight';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getLighthouseMetrics } from '../additional-payload';
 import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
@@ -719,10 +717,6 @@ function getPayloadSize(payload: object): number {
 }
 
 function getStylesheetMetrics() {
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (!fg('ufo_capture_stylesheet_metrics')) {
-		return {};
-	}
 	try {
 		const stylesheets = Array.from(document.styleSheets);
 		const stylesheetCount = stylesheets.length;

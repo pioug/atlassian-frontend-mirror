@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-date
 
+## 4.3.0
+
+### Minor Changes
+
+- [#149446](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149446)
+  [`2f6846b2a166e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f6846b2a166e) -
+  Dismissed date popup when date node is deleted from the document
+
+### Patch Changes
+
+- [#148210](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148210)
+  [`10eb0681e9681`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10eb0681e9681) -
+  fix SSR issues
+
 ## 4.2.0
 
 ### Minor Changes

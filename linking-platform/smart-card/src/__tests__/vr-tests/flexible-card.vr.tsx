@@ -87,7 +87,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
@@ -238,7 +237,6 @@ snapshot(FlexibleUiElementAppliedToComponentsCount, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
-		'platform-smart-card-icon-migration': true,
 	},
 });
 snapshot(FlexibleUiElementAvatarGroup, {
@@ -360,7 +358,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,

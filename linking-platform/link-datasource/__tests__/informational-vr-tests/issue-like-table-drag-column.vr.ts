@@ -26,7 +26,6 @@ snapshotInformational(VRInformationalIssueLikeTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

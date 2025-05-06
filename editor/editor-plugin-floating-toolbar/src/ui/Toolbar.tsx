@@ -590,19 +590,12 @@ const toolbarOverflow = ({
 								overflow: 'hidden',
 							})
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							fg('platform_editor_fix_floating_toolbar_scrollbar')
-							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								css({
-									overflowX: 'auto',
-									overflowY: 'hidden',
-									// When scrollable is true, ScrollButtons will be shown, hence we want to hide show default horizontal scrollbar
-									scrollbarWidth: 'none',
-								})
-							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-								css({
-									overflowX: 'auto',
-									overflowY: 'hidden',
-								}),
+							css({
+								overflowX: 'auto',
+								overflowY: 'hidden',
+								// When scrollable is true, ScrollButtons will be shown, hence we want to hide show default horizontal scrollbar
+								scrollbarWidth: 'none',
+							}),
 					{
 						WebkitOverflowScrolling: 'touch',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

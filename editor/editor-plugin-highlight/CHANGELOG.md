@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-highlight
 
+## 2.5.0
+
+### Minor Changes
+
+- [#140315](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140315)
+  [`e9258b34b7063`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9258b34b7063) -
+  MODES-6284 Add CMD+OPT+Y as yellow text highlight shortcut
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 3.3.2
+
+### Patch Changes
+
+- [#149435](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149435)
+  [`d65b9032b4136`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d65b9032b4136) -
+  Clean-up feature gate platform_editor_macroid_reset_for_ext_on_paste
+- Updated dependencies
+
 ## 3.3.1
 
 ### Patch Changes

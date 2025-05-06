@@ -7,27 +7,53 @@ import {
 	undo,
 } from '@atlaskit/editor-common/keymaps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { redoFromKeyboard, undoFromKeyboard } from './commands';
+import { UndoRedoPlugin } from '../undoRedoPluginType';
 
-export function keymapPlugin(): SafePlugin {
+import {
+	redoFromKeyboard,
+	redoFromKeyboardWithAnalytics,
+	undoFromKeyboard,
+	undoFromKeyboardWithAnalytics,
+} from './commands';
+
+export function keymapPlugin(api?: ExtractInjectionAPI<UndoRedoPlugin>): SafePlugin {
 	const list = {};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	bindKeymapWithCommand(findKeyMapForBrowser(redo)!, redoFromKeyboard, list);
+	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		findKeyMapForBrowser(redo)!,
+		fg('platform_editor_controls_patch_analytics')
+			? redoFromKeyboardWithAnalytics(api?.analytics?.actions)
+			: redoFromKeyboard,
+		list,
+	);
 
 	if (fg('platform_editor_cmd_y_mac_redo_shortcut')) {
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		bindKeymapWithCommand(findKeyMapForBrowser(redoAlt)!, redoFromKeyboard, list);
+		bindKeymapWithCommand(
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			findKeyMapForBrowser(redoAlt)!,
+			fg('platform_editor_controls_patch_analytics')
+				? redoFromKeyboardWithAnalytics(api?.analytics?.actions)
+				: redoFromKeyboard,
+			list,
+		);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	bindKeymapWithCommand(undo.common!, undoFromKeyboard, list);
+	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		undo.common!,
+		fg('platform_editor_controls_patch_analytics')
+			? undoFromKeyboardWithAnalytics(api?.analytics?.actions)
+			: undoFromKeyboard,
+		list,
+	);
 
 	return new SafePlugin({
 		props: {

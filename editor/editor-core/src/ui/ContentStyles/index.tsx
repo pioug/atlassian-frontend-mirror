@@ -13,7 +13,7 @@ import type { SerializedStyles } from '@emotion/react';
 import { css, jsx, useTheme, type Theme } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { telepointerStyle } from '@atlaskit/editor-common/collab';
+import { telepointerStyle, telepointerStyleWithInitialOnly } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName, defaultEmojiHeight } from '@atlaskit/editor-common/emoji';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
@@ -506,7 +506,9 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${ruleStyles()}
   ${mediaStyles()}
   ${layoutStyles(props.viewMode)}
-  ${telepointerStyle}
+  ${fg('confluence_team_presence_scroll_to_pointer')
+		? telepointerStyle
+		: telepointerStyleWithInitialOnly}
   ${gapCursorStyles};
 	${panelStyles()}
 	${mentionsStyles}

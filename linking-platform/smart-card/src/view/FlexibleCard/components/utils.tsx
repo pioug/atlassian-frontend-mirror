@@ -4,7 +4,6 @@ import { FormattedMessage, type IntlShape, type MessageDescriptor } from 'react-
 import Loadable from 'react-loadable';
 
 import { type Spacing } from '@atlaskit/button';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { Space } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -35,23 +34,7 @@ export const getFormattedMessageAsString = (
 	return message ? formatMessage(message, { context }) : '';
 };
 
-// TODO Delete when cleaning platform-smart-card-icon-migration
-export const getIconWidthOld = (size?: SmartLinkSize): string => {
-	switch (size) {
-		case SmartLinkSize.XLarge:
-			return '2rem';
-		case SmartLinkSize.Large:
-			return '1.5rem';
-		case SmartLinkSize.Medium:
-			return '1rem';
-		case SmartLinkSize.Small:
-		default:
-			return '.75rem';
-	}
-};
-
-// TODO Rename to getIconWidth when cleaning platform-smart-card-icon-migration
-export const getIconWidthNew = (size?: SmartLinkSize): string => {
+export const getIconWidth = (size?: SmartLinkSize): string => {
 	switch (size) {
 		case SmartLinkSize.XLarge:
 		case SmartLinkSize.Large:
@@ -61,11 +44,6 @@ export const getIconWidthNew = (size?: SmartLinkSize): string => {
 		default:
 			return token('space.200');
 	}
-};
-
-// TODO Delete when cleaning platform-smart-card-icon-migration
-export const getIconWidth = (size?: SmartLinkSize): string => {
-	return fg('platform-smart-card-icon-migration') ? getIconWidthNew(size) : getIconWidthOld(size);
 };
 
 export const importIcon = (importFn: () => Promise<any>): any => {

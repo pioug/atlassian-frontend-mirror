@@ -11,13 +11,7 @@ export {
 	type ConversationStartersProps,
 	getConversationStarters,
 } from './ui/agent-conversation-starters';
-export {
-	ChatPill,
-	type ChatPillProps,
-	BrowseAgentsPill,
-	ConversationStarterPill,
-} from './common/ui/chat-pill';
-export type { BrowseAgentsPillProps } from './common/ui/chat-pill';
+export { ChatPill, BrowseAgentsPill, type ChatPillProps } from './common/ui/chat-pill';
 export { ChatPillIcon } from './common/ui/chat-icon';
 export { ShowIcon } from './common/ui/show-icon';
 export { HiddenIcon } from './common/ui/hidden-icon';

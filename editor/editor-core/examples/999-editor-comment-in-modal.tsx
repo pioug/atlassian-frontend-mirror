@@ -40,7 +40,7 @@ export default () => {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={closeModal} width="large">
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Editor inside Modal</ModalTitle>
 						</ModalHeader>
 						<ModalBody>

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.6.2
+
+### Patch Changes
+
+- [#148210](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148210)
+  [`10eb0681e9681`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10eb0681e9681) -
+  fix SSR issues
+
 ## 3.6.1
 
 ### Patch Changes

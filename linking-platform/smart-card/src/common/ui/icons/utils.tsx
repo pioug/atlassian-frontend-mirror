@@ -39,7 +39,7 @@ type IconTileProps = ComponentPropsWithoutRef<typeof IconTile>;
 export const renderIconTile = (
 	Icon: IconTileProps['icon'],
 	appearance: IconTileProps['appearance'],
-	LegacyIcon?: ComponentType<Omit<AtlaskitIconTileProps, 'size'>>,
+	LegacyIcon?: ComponentType<AtlaskitIconTileProps>,
 ): React.FC<AtlaskitIconTileProps> => {
 	return ({ size, ...props }: AtlaskitIconTileProps) => {
 		return (
@@ -48,7 +48,7 @@ export const renderIconTile = (
 				icon={Icon}
 				size={transformSmartLinkSizeToIconTileSize(size)}
 				{...props}
-				LEGACY_fallbackComponent={LegacyIcon && <LegacyIcon {...props} />}
+				LEGACY_fallbackComponent={LegacyIcon && <LegacyIcon {...props} size={size} />}
 			/>
 		);
 	};

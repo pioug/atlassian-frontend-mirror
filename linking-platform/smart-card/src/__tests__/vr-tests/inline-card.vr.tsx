@@ -74,9 +74,7 @@ snapshot(InlineCardDefault, {
 
 snapshot(InlineCardSelected, {
 	description: 'inline card when selected',
-	featureFlags: {
-		'platform-smart-card-icon-migration': true,
-	},
+	featureFlags: {},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -177,7 +175,6 @@ snapshot(InlineCardForbiddenDefaultIcon, {
 snapshot(InlineCardForbiddenDefaultIcon, {
 	description: 'inline card forbidden view with default icon',
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-visual-refresh-icons': true,
 		'platform-component-visual-refresh': true,
 	},
@@ -189,9 +186,7 @@ snapshot(InlineCardNotFound, {
 snapshot(InlineCardNotFound, {
 	description:
 		'inline card not found view renders correctly when hovering over url in not-found view',
-	featureFlags: {
-		'platform-smart-card-icon-migration': true,
-	},
+	featureFlags: {},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-not-found-view' } }],
 });
 
@@ -310,7 +305,6 @@ snapshot(InlineCardUnauthorisedDefaultIcon, {
 snapshot(InlineCardUnauthorisedDefaultIcon, {
 	description: 'inline card unauthorised view with default icon',
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-visual-refresh-icons': true,
 		'platform-component-visual-refresh': true,
 	},
@@ -320,7 +314,6 @@ snapshot(InlineCardIcons, {
 	description: `inline card icons`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
-		'platform-smart-card-icon-migration': true,
 	},
 });
 
@@ -328,7 +321,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples in text`,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -338,7 +330,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples in text OLD`,
 	featureFlags: {
 		'platform-component-visual-refresh': false,
-		'platform-smart-card-icon-migration': false,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -348,7 +339,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples in text COMPILED ONLY`,
 	featureFlags: {
 		'platform-component-visual-refresh': false,
-		'platform-smart-card-icon-migration': false,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });

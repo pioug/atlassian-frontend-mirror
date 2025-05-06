@@ -3,7 +3,6 @@ import { IntlShape } from 'react-intl-next';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI, getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -23,7 +22,8 @@ interface TaskItemNodeViewOptions {
 }
 
 export class TaskItemNodeView implements NodeView {
-	dom: HTMLElement = document.createElement('span');
+	dom: Node;
+	domElement: HTMLElement | undefined;
 	contentDOM: HTMLElement | undefined;
 	private node: PMNode;
 	private view: EditorView;
@@ -34,12 +34,6 @@ export class TaskItemNodeView implements NodeView {
 	private unbindInputDom: UnbindFn | undefined;
 	private emptyContent: boolean | undefined;
 	private input?: HTMLInputElement;
-
-	private static logError(error: Error) {
-		void logException(error, {
-			location: 'editor-plugin-date/DateNodeView',
-		});
-	}
 
 	constructor(
 		node: PMNode,
@@ -53,24 +47,17 @@ export class TaskItemNodeView implements NodeView {
 		this.intl = intl;
 		this.api = api;
 		this.view = view;
-
-		try {
-			const domPlaceholder =
-				placeholder ?? this.intl.formatMessage(tasksAndDecisionsMessages.taskPlaceholder);
-			const { dom, contentDOM } = DOMSerializer.renderSpec(
-				document,
-				taskItemToDom(node, domPlaceholder),
-			);
-			if (!(dom instanceof HTMLElement)) {
-				// It's safe to throw error here because, the code is wrapped in try-catch.
-				// However, it should never happen because `DOMSerializer.renderSpec()` should always return HTMLElement.
-				throw new Error('DOMSerializer.renderSpec() did not return HTMLElement');
-			}
-
-			this.dom = dom;
-			this.contentDOM = contentDOM;
-
-			this.input = this.dom.querySelector('input[type="checkbox"]') as HTMLInputElement;
+		const domPlaceholder =
+			placeholder ?? this.intl.formatMessage(tasksAndDecisionsMessages.taskPlaceholder);
+		const { dom, contentDOM } = DOMSerializer.renderSpec(
+			document,
+			taskItemToDom(node, domPlaceholder),
+		);
+		this.dom = dom;
+		this.contentDOM = contentDOM;
+		this.domElement = this.dom instanceof HTMLElement ? this.dom : undefined;
+		if (this.domElement) {
+			this.input = this.domElement.querySelector('input[type="checkbox"]') as HTMLInputElement;
 			this.unbindInputDom = bindAll(this.input, [
 				{ type: 'click', listener: this.handleOnClick },
 				{
@@ -81,11 +68,6 @@ export class TaskItemNodeView implements NodeView {
 
 			this.objectId = this.getObjectAri();
 			this.updatePlaceholder(node);
-		} catch (error) {
-			TaskItemNodeView.logError(
-				error instanceof Error ? error : new Error('Unknown error on TaskItemNodeView constructor'),
-			);
-			this.renderFallback();
 		}
 	}
 
@@ -158,15 +140,6 @@ export class TaskItemNodeView implements NodeView {
 		return node.content.childCount === 0;
 	}
 
-	private renderFallback() {
-		const fallbackElementInput = document.createElement('input');
-		fallbackElementInput.setAttribute('type', 'checkbox');
-		const fallbackElementText = document.createElement('span');
-		fallbackElementText.innerText = this.node.firstChild?.text || '';
-		this.dom.appendChild(fallbackElementInput);
-		this.dom.appendChild(fallbackElementText);
-	}
-
 	// Update the placeholder visibility based on content
 	private updatePlaceholder(node: PMNode) {
 		const currentIsContentEmpty = this.isContentEmpty(node);
@@ -183,10 +156,10 @@ export class TaskItemNodeView implements NodeView {
 			return false;
 		}
 		this.updatePlaceholder(node);
-		if (!node.sameMarkup(this.node)) {
-			this.dom.setAttribute('data-task-state', node.attrs.state);
-			this.dom.setAttribute('data-task-local-id', node.attrs.localId);
-			this.dom.setAttribute('state', node.attrs.state);
+		if (this.domElement && !node.sameMarkup(this.node)) {
+			this.domElement.setAttribute('data-task-state', node.attrs.state);
+			this.domElement.setAttribute('data-task-local-id', node.attrs.localId);
+			this.domElement.setAttribute('state', node.attrs.state);
 		}
 		this.node = node;
 		return true;

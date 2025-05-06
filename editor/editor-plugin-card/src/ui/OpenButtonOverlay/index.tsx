@@ -8,11 +8,14 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
+
+import { visitCardLink } from '../toolbar';
 
 import type { OpenButtonOverlayProps } from './types';
 
@@ -75,7 +78,8 @@ const OpenButtonOverlay = ({
 	isVisible = false,
 	url,
 	editorAppearance,
-	...props
+	editorAnalyticsApi,
+	view,
 }: React.PropsWithChildren<OpenButtonOverlayProps>) => {
 	// TODO: ED-26961 - add translation
 	const label = 'Open';
@@ -86,11 +90,6 @@ const OpenButtonOverlay = ({
 	const [showLabel, setShowLabel] = useState(true);
 	const [isHovered, setHovered] = useState(false);
 	const openTextWidthRef = useRef(DEFAULT_OPEN_TEXT_WIDTH);
-
-	const handleDoubleClick = () => {
-		// Double click opens the link in a new tab
-		window.open(url, '_blank');
-	};
 
 	useLayoutEffect(() => {
 		const hiddenText = hiddenTextRef.current;
@@ -135,6 +134,25 @@ const OpenButtonOverlay = ({
 		setHovered(isHovered);
 	};
 
+	const sendVisitLinkAnalytics = (inputMethod: INPUT_METHOD.DOUBLE_CLICK | INPUT_METHOD.BUTTON) => {
+		if (editorAnalyticsApi && view) {
+			visitCardLink(editorAnalyticsApi, inputMethod)(view.state, view.dispatch);
+		}
+	};
+
+	const handleDoubleClick = () => {
+		if (fg('platform_editor_controls_patch_analytics')) {
+			sendVisitLinkAnalytics(INPUT_METHOD.DOUBLE_CLICK);
+		}
+
+		// Double click opens the link in a new tab
+		window.open(url, '_blank');
+	};
+
+	const handleClick = () => {
+		sendVisitLinkAnalytics(INPUT_METHOD.BUTTON);
+	};
+
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<span
@@ -166,6 +184,7 @@ const OpenButtonOverlay = ({
 								? '1px'
 								: token('space.025'),
 					}}
+					onClick={fg('platform_editor_controls_patch_analytics') ? handleClick : undefined}
 				>
 					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
 						<LinkExternalIcon label="" />

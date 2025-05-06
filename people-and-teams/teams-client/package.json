@@ -1,0 +1,124 @@
+{
+	"name": "@atlaskit/teams-client",
+	"version": "4.0.0",
+	"description": "A client to retrieve team related data",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "People and Teams Collective"
+	},
+	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./client": "./src/services/index.ts",
+		"./permissions": "./src/common/utils/permissions/index.ts",
+		"./sentry": "./src/services/sentry/index.ts",
+		"./user-info-provider": "./src/services/user-info-provider/index.ts",
+		"./utils": "./src/common/utils/index.ts",
+		"./mocks": "./src/mocks/index.ts",
+		"./types": "./src/types/index.ts",
+		"./ufo": "./src/common/utils/ufo/index.ts",
+		"./public": "./src/services/public-api-client/index.ts",
+		"./use-query-light": "./src/services/use-query-light/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./client": "./src/services/index.ts",
+		"./permissions": "./src/common/utils/permissions/index.ts",
+		"./sentry": "./src/services/sentry/index.ts",
+		"./user-info-provider": "./src/services/user-info-provider/index.ts",
+		"./utils": "./src/common/utils/index.ts",
+		"./mocks": "./src/mocks/index.ts",
+		"./types": "./src/types/index.ts",
+		"./ufo": "./src/common/utils/ufo/index.ts",
+		"./public": "./src/services/public-api-client/index.ts",
+		"./use-query-light": "./src/services/use-query-light/index.ts"
+	},
+	"scripts": {
+		"generate:types:public-api": "yarn swagger-typescript-api -p ./src/services/public-api-client/swagger.json -o ./src/services/public-api-client/generated/ --modular --no-client --union-enums",
+		"generate:docs:teams-client": "ts-node --project ../../../tsconfig.node.json ./scripts/generate-docs.ts && yarn ../../.. prettier --write packages/people-and-teams/teams-client/docs"
+	},
+	"dependencies": {
+		"@atlaskit/atlassian-context": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/ufo": "workspace:^",
+		"@babel/runtime": "^7.0.0",
+		"@sentry/browser": "^6.18.2",
+		"date-fns-tz": "^2.0.0",
+		"faker": "^4.1.0",
+		"graphql": "^15.8.0",
+		"graphql-tag": "^2.10.1",
+		"lodash": "^4.17.21"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0"
+	},
+	"devDependencies": {
+		"@atlassian/codegen": "workspace:^",
+		"@atlassian/ptc-test-utils": "workspace:^",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/react-hooks": "^8.0.1",
+		"react-dom": "^18.2.0",
+		"swagger-typescript-api": "^13.0.3",
+		"ts-morph": "^17.0.0",
+		"ts-node": "^10.9.1",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"enable_edit_team_name_external_type_teams": {
+			"type": "boolean"
+		}
+	}
+}

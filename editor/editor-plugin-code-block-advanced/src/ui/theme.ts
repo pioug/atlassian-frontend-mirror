@@ -23,6 +23,9 @@ export const cmTheme = CodeMirror.theme({
 	'&.cm-editor.code-block.danger': {
 		backgroundColor: token('color.background.danger'),
 	},
+	'.cm-content[aria-readonly="true"]': {
+		caretColor: 'transparent',
+	},
 	'.cm-content': {
 		cursor: 'text',
 		caretColor: token('color.text'),

@@ -57,8 +57,6 @@ import {
 
 snapshotInformational(RendererInlineCardXSS, {
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
-
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -67,7 +65,6 @@ snapshotInformational(RendererInlineCard, {
 		await page.getByTestId('inline-card-resolved-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -76,7 +73,6 @@ snapshotInformational(RendererInlineCardResolving, {
 		await page.getByTestId('inline-card-resolving-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -85,7 +81,6 @@ snapshotInformational(RendererInlineCardUnauthorized, {
 		await page.getByTestId('inline-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -94,7 +89,6 @@ snapshotInformational(RendererInlineCardForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -103,7 +97,6 @@ snapshotInformational(RendererInlineCardNotFound, {
 		await page.getByTestId('inline-card-not-found-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -112,7 +105,6 @@ snapshotInformational(RendererInlineCardErrored, {
 		await page.getByTestId('inline-card-errored-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -317,8 +309,6 @@ snapshotInformational(RendererInlineCardRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
-
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -327,8 +317,6 @@ snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
-
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -337,7 +325,6 @@ snapshotInformational(RendererInlineCardRequestAccessForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -346,7 +333,6 @@ snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -355,7 +341,6 @@ snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -364,8 +349,6 @@ snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
-
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -374,7 +357,6 @@ snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-smart-card-icon-migration': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });

@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE, INPUT_METHOD } from './types/enums';
@@ -45,24 +46,41 @@ const mapLinkTypeToCardAppearance = (type: LinkType): CardAppearance | 'url' => 
 
 export const buildVisitedLinkPayload = (type: LinkType): AnalyticsEventPayload => {
 	return type === ACTION_SUBJECT_ID.HYPERLINK
-		? {
-				action: ACTION.VISITED,
-				actionSubject: ACTION_SUBJECT.HYPERLINK,
-				actionSubjectId: undefined,
-				attributes: {
-					inputMethod: INPUT_METHOD.TOOLBAR,
-				},
-				eventType: EVENT_TYPE.TRACK,
-			}
-		: {
-				action: ACTION.VISITED,
-				actionSubject: ACTION_SUBJECT.SMART_LINK,
-				actionSubjectId: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
-				attributes: {
-					inputMethod: INPUT_METHOD.TOOLBAR,
-				},
-				eventType: EVENT_TYPE.TRACK,
-			};
+		? buildVisitedHyperLinkPayload()
+		: buildVisitedNonHyperLinkPayload(type, INPUT_METHOD.TOOLBAR);
+};
+
+const buildVisitedHyperLinkPayload = (): AnalyticsEventPayload => {
+	return {
+		action: ACTION.VISITED,
+		actionSubject: ACTION_SUBJECT.HYPERLINK,
+		actionSubjectId: undefined,
+		attributes: {
+			inputMethod: INPUT_METHOD.TOOLBAR,
+		},
+		eventType: EVENT_TYPE.TRACK,
+	};
+};
+
+export const buildVisitedNonHyperLinkPayload = (
+	type: LinkType,
+	inputMethod:
+		| INPUT_METHOD.TOOLBAR
+		| INPUT_METHOD.BUTTON
+		| INPUT_METHOD.DOUBLE_CLICK
+		| INPUT_METHOD.FLOATING_TB,
+): AnalyticsEventPayload => {
+	return {
+		action: ACTION.VISITED,
+		actionSubject: ACTION_SUBJECT.SMART_LINK,
+		actionSubjectId: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
+		attributes: {
+			inputMethod: fg('platform_editor_controls_patch_analytics')
+				? inputMethod
+				: INPUT_METHOD.TOOLBAR,
+		},
+		eventType: EVENT_TYPE.TRACK,
+	};
 };
 
 export const buildOpenedSettingsPayload = (type: LinkType): AnalyticsEventPayload => {

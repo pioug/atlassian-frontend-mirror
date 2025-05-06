@@ -43,169 +43,7 @@ const positionStyleMap = cssMap({
 	},
 });
 
-const iconStylesMapOld = cssMap({
-	xlarge: {
-		flex: '0 0 auto',
-		height: '2rem',
-		minHeight: '2rem',
-		maxHeight: '2rem',
-		width: '2rem',
-		minWidth: '2rem',
-		maxWidth: '2rem',
-		'span, svg, img': {
-			height: '2rem',
-			minHeight: '2rem',
-			maxHeight: '2rem',
-			width: '2rem',
-			minWidth: '2rem',
-			maxWidth: '2rem',
-		},
-		svg: {
-			padding: 0,
-		},
-	},
-	large: {
-		flex: '0 0 auto',
-		height: '1.5rem',
-		minHeight: '1.5rem',
-		maxHeight: '1.5rem',
-		width: '1.5rem',
-		minWidth: '1.5rem',
-		maxWidth: '1.5rem',
-		'span, svg, img': {
-			height: '1.5rem',
-			minHeight: '1.5rem',
-			maxHeight: '1.5rem',
-			width: '1.5rem',
-			minWidth: '1.5rem',
-			maxWidth: '1.5rem',
-		},
-		svg: {
-			padding: 0,
-		},
-	},
-	medium: {
-		flex: '0 0 auto',
-		height: '1rem',
-		minHeight: '1rem',
-		maxHeight: '1rem',
-		width: '1rem',
-		minWidth: '1rem',
-		maxWidth: '1rem',
-		'span, svg, img': {
-			height: '1rem',
-			minHeight: '1rem',
-			maxHeight: '1rem',
-			width: '1rem',
-			minWidth: '1rem',
-			maxWidth: '1rem',
-		},
-		svg: {
-			padding: 0,
-		},
-	},
-	small: {
-		flex: '0 0 auto',
-		height: '.75rem',
-		minHeight: '.75rem',
-		maxHeight: '.75rem',
-		width: '.75rem',
-		minWidth: '.75rem',
-		maxWidth: '.75rem',
-		'span, svg, img': {
-			height: '.75rem',
-			minHeight: '.75rem',
-			maxHeight: '.75rem',
-			width: '.75rem',
-			minWidth: '.75rem',
-			maxWidth: '.75rem',
-		},
-		svg: {
-			padding: 0,
-		},
-	},
-});
-
-const customRenderStyleMapOld = cssMap({
-	xlarge: {
-		display: '-webkit-box',
-		overflow: 'hidden',
-		wordBreak: 'break-word',
-		WebkitLineClamp: 1,
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: 'calc(1 * 2rem)',
-		},
-		lineHeight: '2rem',
-		fontSize: '2rem',
-		textAlign: 'center',
-		textOverflow: 'clip',
-		WebkitBoxOrient: 'unset',
-		span: {
-			margin: 0,
-			padding: 0,
-			verticalAlign: 'baseline',
-		},
-	},
-	large: {
-		display: '-webkit-box',
-		overflow: 'hidden',
-		wordBreak: 'break-word',
-		WebkitLineClamp: 1,
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: 'calc(1 * 1.5rem)',
-		},
-		lineHeight: '1.5rem',
-		fontSize: '1.5rem',
-		textAlign: 'center',
-		textOverflow: 'clip',
-		WebkitBoxOrient: 'unset',
-		span: {
-			margin: 0,
-			padding: 0,
-			verticalAlign: 'baseline',
-		},
-	},
-	medium: {
-		display: '-webkit-box',
-		overflow: 'hidden',
-		wordBreak: 'break-word',
-		WebkitLineClamp: 1,
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: 'calc(1 * 1rem)',
-		},
-		lineHeight: '1rem',
-		fontSize: '1rem',
-		textAlign: 'center',
-		textOverflow: 'clip',
-		WebkitBoxOrient: 'unset',
-		span: {
-			margin: 0,
-			padding: 0,
-			verticalAlign: 'baseline',
-		},
-	},
-	small: {
-		display: '-webkit-box',
-		overflow: 'hidden',
-		wordBreak: 'break-word',
-		WebkitLineClamp: 1,
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: 'calc(1 * .75rem)',
-		},
-		lineHeight: '.75rem',
-		fontSize: '.75rem',
-		textAlign: 'center',
-		textOverflow: 'clip',
-		WebkitBoxOrient: 'unset',
-		span: {
-			margin: 0,
-			padding: 0,
-			verticalAlign: 'baseline',
-		},
-	},
-});
-
-const customRenderStyleMapNew = cssMap({
+const customRenderStyleMap = cssMap({
 	xlarge: {
 		display: '-webkit-box',
 		overflow: 'hidden',
@@ -222,6 +60,8 @@ const customRenderStyleMapNew = cssMap({
 			margin: 0,
 			padding: 0,
 			verticalAlign: 'baseline',
+			height: '100%',
+			width: '100%',
 		},
 	},
 	large: {
@@ -240,6 +80,8 @@ const customRenderStyleMapNew = cssMap({
 			margin: 0,
 			padding: 0,
 			verticalAlign: 'baseline',
+			height: '100%',
+			width: '100%',
 		},
 	},
 	medium: {
@@ -258,6 +100,8 @@ const customRenderStyleMapNew = cssMap({
 			margin: 0,
 			padding: 0,
 			verticalAlign: 'baseline',
+			height: '100%',
+			width: '100%',
 		},
 	},
 	small: {
@@ -276,6 +120,8 @@ const customRenderStyleMapNew = cssMap({
 			margin: 0,
 			padding: 0,
 			verticalAlign: 'baseline',
+			height: '100%',
+			width: '100%',
 		},
 	},
 });
@@ -292,9 +138,7 @@ const renderAtlaskitIcon = (
 				testId={`${testId}-icon`}
 				aria-hidden="true"
 				label="" // Since we already set aria-hidden="true", the label should be given an empty string
-				{...(fg('platform-smart-card-icon-migration') && {
-					size,
-				})}
+				size={size}
 			/>
 		);
 	}
@@ -319,10 +163,8 @@ const renderImageIcon = (
 				defaultIcon={defaultIcon}
 				testId={testId}
 				url={url}
-				{...(fg('platform-smart-card-icon-migration') && {
-					width,
-					height: width,
-				})}
+				width={width}
+				height={width}
 				{...(fg('platform-linking-visual-refresh-v2') && {
 					appearance,
 				})}
@@ -359,14 +201,10 @@ const Icon = ({
 				defaultIcon,
 				url,
 				testId,
-				fg('platform-smart-card-icon-migration') ? size : undefined,
+				size,
 				fg('platform-linking-visual-refresh-v2') ? appearance : undefined,
 			) ||
-			renderAtlaskitIcon(
-				icon,
-				testId,
-				fg('platform-smart-card-icon-migration') ? size : undefined,
-			) ||
+			renderAtlaskitIcon(icon, testId, size) ||
 			defaultIcon
 		);
 	}, [label, testId, overrideIcon, render, url, size, appearance, icon]);
@@ -375,13 +213,7 @@ const Icon = ({
 
 	return (
 		<div
-			css={[
-				fg('platform-linking-visual-refresh-v1') && styles.container,
-				!fg('platform-smart-card-icon-migration') && iconStylesMapOld[size],
-				positionStyleMap[position],
-				render && !fg('platform-smart-card-icon-migration') && customRenderStyleMapOld[size],
-				render && fg('platform-smart-card-icon-migration') && customRenderStyleMapNew[size],
-			]}
+			css={[styles.container, positionStyleMap[position], render && customRenderStyleMap[size]]}
 			{...(fg('platform-linking-visual-refresh-v1') ? {} : { ['data-fit-to-content']: true })}
 			data-smart-element={name}
 			data-smart-element-icon
@@ -389,19 +221,15 @@ const Icon = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 		>
-			{fg('platform-smart-card-icon-migration') ? (
-				<Box
-					xcss={styles.iconWrapperStyle}
-					style={{
-						width,
-						height: width,
-					}}
-				>
-					{element}
-				</Box>
-			) : (
-				element
-			)}
+			<Box
+				xcss={styles.iconWrapperStyle}
+				style={{
+					width,
+					height: width,
+				}}
+			>
+				{element}
+			</Box>
 		</div>
 	);
 };

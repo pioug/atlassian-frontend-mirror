@@ -26,7 +26,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -50,7 +49,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -73,7 +71,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -96,7 +93,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -120,7 +116,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -143,7 +138,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -160,7 +154,6 @@ snapshotInformational(JiraIssuesTableSingleRow, {
 	drawsOutsideBounds: true,
 	description: 'Hovering over summary',
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -179,7 +172,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -198,7 +190,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -217,7 +208,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -236,7 +226,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -255,7 +244,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
@@ -280,7 +268,6 @@ snapshotInformational(JiraIssuesTable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

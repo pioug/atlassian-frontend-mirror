@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 2.0.11
+
+### Patch Changes
+
+- [#149778](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149778)
+  [`de5587be5f109`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de5587be5f109) -
+  Added undo/redo via shortcut analytics
+- Updated dependencies
+
 ## 2.0.10
 
 ### Patch Changes

@@ -753,9 +753,7 @@ export function createPlugin(
 					slice = transformSingleColumnLayout(slice, schema);
 				}
 
-				if (fg('platform_editor_macroid_reset_for_ext_on_paste')) {
-					slice = transformSliceToRemoveMacroId(slice, schema);
-				}
+				slice = transformSliceToRemoveMacroId(slice, schema);
 
 				return slice;
 			},

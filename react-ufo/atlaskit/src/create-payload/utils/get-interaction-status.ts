@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { InteractionMetrics } from '../../common';
 
 /**
@@ -23,10 +25,18 @@ import type { InteractionMetrics } from '../../common';
  * // Returns: { originalInteractionStatus: 'SUCCEEDED', overrideStatus: 'SUCCEEDED' }
  */
 function getInteractionStatus(interaction: InteractionMetrics) {
-	const originalInteractionStatus = interaction.abortReason ? 'ABORTED' : 'SUCCEEDED';
+	let originalInteractionStatus = interaction.abortReason ? 'ABORTED' : 'SUCCEEDED';
+	const hasErrors = interaction.errors.length > 0;
+
+	if (fg('platform_ufo_set_event_failed_status_in_client')) {
+		originalInteractionStatus = hasErrors ? 'FAILED' : originalInteractionStatus;
+	}
 
 	const hasBm3TTI = interaction.apdex.length > 0;
-	const overrideStatus = hasBm3TTI ? 'SUCCEEDED' : originalInteractionStatus;
+	const overrideStatus =
+		hasBm3TTI && !fg('platform_ufo_ignore_bm3_tti_event_status')
+			? 'SUCCEEDED'
+			: originalInteractionStatus;
 
 	return { originalInteractionStatus, overrideStatus } as const;
 }

@@ -1,4 +1,4 @@
-export type ContainerTypes = 'ConfluenceSpace' | 'JiraProject' | 'WebLink';
+export type ContainerTypes = 'ConfluenceSpace' | 'JiraProject' | 'LoomSpace' | 'WebLink';
 
 export enum JiraProjectTypes {
 	PRODUCT_DISCOVERY = 'Product Discovery',

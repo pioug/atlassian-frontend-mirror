@@ -96,7 +96,7 @@ export const editType = ({
 export const isEditTypeSupported = (type: DatasourceType['type']) => {
 	const supportedEditType = [
 		'string',
-		...(fg('platform-datasources-enable-two-way-sync-statuses') ? ['status'] : []),
+		'status',
 		...(fg('platform-datasources-enable-two-way-sync-priority') ? ['icon'] : []),
 		...(fg('platform-datasources-enable-two-way-sync-assignee') ? ['user'] : []),
 	];

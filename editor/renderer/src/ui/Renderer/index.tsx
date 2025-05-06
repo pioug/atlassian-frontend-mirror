@@ -324,10 +324,16 @@ export const RendererFunctionalComponent = (
 		[createRendererContext, providerFactory, fireAnalyticsEvent],
 	);
 
-	const serializer = useMemo(
-		() => new ReactSerializer(deriveSerializerProps({ ...props, startPos: props.startPos ?? 0 })),
-		[deriveSerializerProps, props],
-	);
+	const serializer = useMemo(() => {
+		const init = deriveSerializerProps({ ...props, startPos: props.startPos ?? 0 });
+		if (fg('cc_complexit_fe_progressive_adf_rendering')) {
+			const newSerializer = props.createSerializer?.(init);
+			if (newSerializer) {
+				return newSerializer;
+			}
+		}
+		return new ReactSerializer(init);
+	}, [deriveSerializerProps, props]);
 	const localRef = useRef<HTMLDivElement>(null);
 	const editorRef = props.innerRef || localRef;
 	const id = useMemo(() => uuid(), []);

@@ -12,7 +12,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
-import Modal from '@atlaskit/modal-dialog';
+import Modal, { ModalHeader } from '@atlaskit/modal-dialog';
 
 import { checkForModal, clickAreaClickHandler } from '../../../../ui/Addon/click-area-helper';
 
@@ -65,6 +65,7 @@ const DummyComponent = (props: any) => {
 	if (props.renderInsideModal) {
 		return (
 			<Modal>
+				<ModalHeader hasCloseButton></ModalHeader>
 				<Editor handleClick={props.handleClick} />
 			</Modal>
 		);

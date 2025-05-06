@@ -660,7 +660,7 @@ export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 // ED-22557: Safely convert to object styling
 // Disable top: -14px since it is necessary to align to cursor
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const telepointerStyle = css`
+export const telepointerStyleWithInitialOnly = css`
 	.ProseMirror .telepointer {
 		position: relative;
 		transition: opacity 200ms;
@@ -682,6 +682,74 @@ export const telepointerStyle = css`
 			left: 0px;
 			border-radius: 2px 2px 2px 0;
 			line-height: initial;
+		}
+
+		&.${TELEPOINTER_DIM_CLASS} {
+			opacity: 0.2;
+		}
+
+		${participantColors.map((participantColor, index) =>
+			telepointerColorStyle(participantColor.backgroundColor, participantColor.textColor, index),
+		)};
+	}
+`;
+
+// ED-22557: Safely convert to object styling
+// Disable top: -14px since it is necessary to align to cursor
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const telepointerStyle = css`
+	.ProseMirror .telepointer {
+		position: relative;
+		transition: opacity 200ms;
+
+		&.telepointer-selection:not(.inlineNodeView) {
+			line-height: 1.2;
+			pointer-events: none;
+			user-select: none;
+		}
+
+		&.telepointer-selection-badge {
+			.telepointer-initial,
+			.telepointer-fullname {
+				position: absolute;
+				display: block;
+				user-select: none;
+				white-space: pre;
+				top: -14px;
+				left: 0px;
+				font: ${token('font.body.small')};
+				padding-left: ${token('space.050')};
+				padding-right: ${token('space.050')};
+				color: ${token('color.text.inverse')};
+				border-radius: 0 2px 2px 0;
+			}
+
+			.telepointer-initial {
+				opacity: 1;
+				transition: opacity 0.15s ease-out;
+			}
+
+			.telepointer-fullname {
+				opacity: 0;
+				transform: scaleX(0);
+				transform-origin: left;
+				transition:
+					transform 0.15s ease-out,
+					opacity 0.15s ease-out;
+			}
+		}
+
+		&:hover {
+			.telepointer-initial {
+				opacity: 0;
+				transition-delay: 150ms;
+			}
+
+			.telepointer-fullname {
+				transform: scaleX(100%);
+				opacity: 1;
+				z-index: 1;
+			}
 		}
 
 		&.${TELEPOINTER_DIM_CLASS} {

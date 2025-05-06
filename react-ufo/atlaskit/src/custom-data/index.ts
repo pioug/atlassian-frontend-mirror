@@ -1,7 +1,5 @@
 import { useContext, useMemo } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import UFOInteractionContext from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { addCustomData, type CustomData } from '../interaction-metrics';
@@ -17,10 +15,7 @@ export default function UFOCustomData({ data }: UFOCustomDataProps) {
 			return;
 		}
 
-		if (
-			typeof globalThis?.structuredClone === 'function' &&
-			fg('platform_ufo_custom_data_structured_clone')
-		) {
+		if (typeof globalThis?.structuredClone === 'function') {
 			interactionContext.addCustomData(globalThis.structuredClone(data));
 		} else {
 			interactionContext.addCustomData(data);
@@ -36,10 +31,7 @@ export function addUFOCustomData(data: CustomData) {
 		return;
 	}
 
-	if (
-		typeof globalThis?.structuredClone === 'function' &&
-		fg('platform_ufo_custom_data_structured_clone')
-	) {
+	if (typeof globalThis?.structuredClone === 'function') {
 		addCustomData(currentInteractionId, [], globalThis.structuredClone(data));
 	} else {
 		addCustomData(currentInteractionId, [], data);

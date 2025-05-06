@@ -87,7 +87,7 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			const plugins: Array<PMPlugin> = [
 				{
 					name: 'undoRedoKeyMap',
-					plugin: () => keymapPlugin(),
+					plugin: () => keymapPlugin(api),
 				},
 				{
 					name: 'undoRedoPlugin',

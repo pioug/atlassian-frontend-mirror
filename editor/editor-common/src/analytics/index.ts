@@ -193,6 +193,7 @@ export { getAnalyticsEventsFromTransaction } from './utils';
 export {
 	buildEditLinkPayload,
 	buildVisitedLinkPayload,
+	buildVisitedNonHyperLinkPayload,
 	buildOpenedSettingsPayload,
 	unlinkPayload,
 } from './linking-utils';

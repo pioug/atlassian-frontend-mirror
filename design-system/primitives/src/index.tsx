@@ -28,20 +28,8 @@ export { default as Text } from './components/text';
 export type { TextProps } from './components/text';
 export { default as Pressable } from './components/pressable';
 export type { PressableProps } from './components/pressable';
-export {
-	/**
-	 * @deprecated Use `Anchor` instead. This will be removed in a future major release.
-	 */
-	default as UNSAFE_ANCHOR,
-	default as Anchor,
-} from './components/anchor';
-export type {
-	/**
-	 * @deprecated Use `AnchorProps` instead. This will be removed in a future major release.
-	 */
-	AnchorProps as UNSAFE_AnchorProps,
-	AnchorProps,
-} from './components/anchor';
+export { default as Anchor } from './components/anchor';
+export type { AnchorProps } from './components/anchor';
 export { media, UNSAFE_media, UNSAFE_BREAKPOINTS_CONFIG } from './responsive';
 export type { Breakpoint, MediaQuery } from './responsive';
 export { useSurface as UNSAFE_useSurface } from './utils/surface-provider';

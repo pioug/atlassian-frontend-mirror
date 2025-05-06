@@ -1,6 +1,12 @@
 import { closeBrackets } from '@codemirror/autocomplete';
 import { syntaxHighlighting, bracketMatching } from '@codemirror/language';
-import { Compartment, Extension, EditorSelection, Facet } from '@codemirror/state';
+import {
+	Compartment,
+	Extension,
+	EditorSelection,
+	Facet,
+	EditorState as CodeMirrorState,
+} from '@codemirror/state';
 import { EditorView as CodeMirror, lineNumbers, ViewUpdate, gutters } from '@codemirror/view';
 
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
@@ -103,7 +109,10 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				// Renderer behaviour
 				gutters({ fixed: false }),
 				CodeMirror.updateListener.of((update) => this.forwardUpdate(update)),
-				this.readOnlyCompartment.of(CodeMirror.editable.of(this.view.editable)),
+				this.readOnlyCompartment.of([
+					CodeMirrorState.readOnly.of(!this.view.editable),
+					CodeMirror.contentAttributes.of({ contentEditable: `${this.view.editable}` }),
+				]),
 				closeBrackets(),
 				CodeMirror.editorAttributes.of({ class: 'code-block' }),
 				manageSelectionMarker(config.api),
@@ -161,7 +170,10 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private updateReadonlyState() {
 		this.updating = true;
 		this.cm.dispatch({
-			effects: this.readOnlyCompartment.reconfigure(CodeMirror.editable.of(this.view.editable)),
+			effects: this.readOnlyCompartment.reconfigure([
+				CodeMirrorState.readOnly.of(!this.view.editable),
+				CodeMirror.contentAttributes.of({ contentEditable: `${this.view.editable}` }),
+			]),
 		});
 		this.updating = false;
 	}

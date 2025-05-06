@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.3.4
+
+### Patch Changes
+
+- [#149866](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149866)
+  [`954765b065c36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/954765b065c36) -
+  ENGHEALTH-8720 use design tokens instead of hard coded values
+- Updated dependencies
+
 ## 5.3.3
 
 ### Patch Changes

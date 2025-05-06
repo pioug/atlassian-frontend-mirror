@@ -139,7 +139,10 @@ export default function MediaSingle({
 				isInsideOfInlineExtension,
 			})}
 			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...(fg('platform_fix_media_image_resizing') ? {} : { 'data-layout': layout })}
+			{...(fg('platform_fix_media_image_resizing') ||
+			fg('platform_editor_fix_image_size_diff_during_ssr')
+				? {}
+				: { 'data-layout': layout })}
 			data-width={mediaSingleWidth}
 			data-width-type={size?.widthType || 'percentage'}
 			data-node-type={nodeType}

@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 114.13.0
+
+### Minor Changes
+
+- [#148846](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148846)
+  [`b98e0ab69e871`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b98e0ab69e871) -
+  Add new Renderer prop createSerializer to allow Confluence to implement progressive rendering of
+  ADF
+  (https://hello.atlassian.net/wiki/spaces/~lmarinov/pages/5177285037/COMPLEXIT+Progressive+rendering+of+ADF)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 114.12.1
 
 ### Patch Changes

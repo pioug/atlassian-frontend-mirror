@@ -15,4 +15,10 @@ export interface ProviderGenerator {
 	};
 }
 
-export type SmartLinkResponse = JsonLd.Response & { nounData?: EntityType };
+export type SmartLinkResponse = JsonLd.Response & {
+	/**
+	 * @experimental
+	 * Still under development. Use with caution.
+	 */
+	nounData?: EntityType;
+};

@@ -12,6 +12,16 @@ export const undoFromToolbar = attachInputMeta(InputSource.TOOLBAR)(undo);
 
 export const redoFromToolbar = attachInputMeta(InputSource.TOOLBAR)(redo);
 
+export const undoFromKeyboardWithAnalytics = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	attachInputMetaWithAnalytics(editorAnalyticsAPI)(InputSource.KEYBOARD, ACTION.UNDO_PERFORMED)(
+		undo,
+	);
+
+export const redoFromKeyboardWithAnalytics = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	attachInputMetaWithAnalytics(editorAnalyticsAPI)(InputSource.KEYBOARD, ACTION.REDO_PERFORMED)(
+		redo,
+	);
+
 export const undoFromToolbarWithAnalytics = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	attachInputMetaWithAnalytics(editorAnalyticsAPI)(InputSource.TOOLBAR, ACTION.UNDO_PERFORMED)(
 		undo,

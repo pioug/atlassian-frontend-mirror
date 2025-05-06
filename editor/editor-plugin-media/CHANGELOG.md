@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media
 
+## 2.7.3
+
+### Patch Changes
+
+- [#148591](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148591)
+  [`035d279540218`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/035d279540218) -
+  Clean up platform_editor_render_media_viewer_as_inline
+- Updated dependencies
+
+## 2.7.2
+
+### Patch Changes
+
+- [#149374](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149374)
+  [`8ceea3e0f2f07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ceea3e0f2f07) -
+  ENGHEALTH-8721 use design token for colour in media border colour button border
+- Updated dependencies
+
 ## 2.7.1
 
 ### Patch Changes

@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 103.23.0
+
+### Minor Changes
+
+- [#140315](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140315)
+  [`e9258b34b7063`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9258b34b7063) -
+  MODES-6284 Add CMD+OPT+Y as yellow text highlight shortcut
+
+## 103.22.3
+
+### Patch Changes
+
+- [#149530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149530)
+  [`a432884180253`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a432884180253) -
+  Sends SmartLink Visited event with additional input methods depending on the way the link was
+  opened.
+- Updated dependencies
+
+## 103.22.2
+
+### Patch Changes
+
+- [#148616](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148616)
+  [`88c51b91d61b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88c51b91d61b9) -
+  [CONFCLOUD-71644] Fix: code block doesn't have the correct backaground color in page include macro
+- Updated dependencies
+
+## 103.22.1
+
+### Patch Changes
+
+- [#147951](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147951)
+  [`ec2f90f672938`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec2f90f672938) -
+  [ux] getFullName has been added to PluginState. User's initial and full name are now in their
+  separate elements under telepointer.
+
 ## 103.22.0
 
 ### Minor Changes

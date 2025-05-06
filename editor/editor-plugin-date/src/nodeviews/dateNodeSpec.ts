@@ -2,6 +2,7 @@ import { createIntl } from 'react-intl-next';
 import type { IntlShape } from 'react-intl-next';
 
 import { date } from '@atlaskit/adf-schema';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { timestampToString } from '@atlaskit/editor-common/utils';
@@ -14,7 +15,6 @@ import { token } from '@atlaskit/tokens';
 
 import { getDateInformation } from './utils';
 
-const isSSR = Boolean(process.env.REACT_SSR);
 let intlRef: ReturnType<typeof createIntl> | undefined;
 
 /**
@@ -24,10 +24,7 @@ let intlRef: ReturnType<typeof createIntl> | undefined;
  * @returns
  */
 export const dateNodeSpec = () => {
-	if (
-		!editorExperiment('platform_editor_vanilla_dom', true) &&
-		(isSSR || editorExperiment('platform_editor_inline_node_virtualization', 'off'))
-	) {
+	if (isSSR() || editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
 		return date;
 	}
 

@@ -74,9 +74,13 @@ export class PluginState {
 		this.onError = onError || this.onError;
 	}
 
-	getInitial(sessionId: string) {
+	getFullName(sessionId: string) {
 		const participant = this.participants.get(sessionId);
-		return participant ? participant.name.substring(0, 1).toUpperCase() : 'X';
+		return participant ? participant.name : 'X';
+	}
+
+	getInitial(sessionId: string) {
+		return this.getFullName(sessionId).substring(0, 1).toUpperCase();
 	}
 
 	getPresenceId(sessionId: string) {
@@ -168,6 +172,7 @@ export class PluginState {
 						isSelection,
 						this.getInitial(sessionId),
 						this.getPresenceId(sessionId),
+						this.getFullName(sessionId),
 					),
 				);
 			}
@@ -208,6 +213,7 @@ export class PluginState {
 										false,
 										this.getInitial(sessionId),
 										presenceId,
+										this.getFullName(sessionId),
 									),
 								);
 							}

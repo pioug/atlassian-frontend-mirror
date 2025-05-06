@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.4
+
+### Patch Changes
+
+- [#149738](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149738)
+  [`3098e65159385`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3098e65159385) -
+  Fix selection when the editor is disabled.
+
 ## 2.2.3
 
 ### Patch Changes

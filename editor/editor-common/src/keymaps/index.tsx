@@ -128,6 +128,7 @@ export const activateVideoControls = makeKeyMapWithCommon(
 );
 
 export const toggleHighlightPalette = makeKeyMapWithCommon('Toggle Highlight Palette', 'Mod-Alt-b');
+export const applyYellowHighlight = makeKeyMapWithCommon('Apply Yellow Highlight', 'Mod-Alt-y');
 export const focusToContextMenuTrigger = makeKeyMapWithCommon(
 	'Focus table context menu trigger',
 	'Shift-F10',

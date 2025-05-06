@@ -1,5 +1,14 @@
 # @atlaskit/status
 
+## 3.0.5
+
+### Patch Changes
+
+- [#149866](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149866)
+  [`954765b065c36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/954765b065c36) -
+  ENGHEALTH-8720 use design tokens instead of hard coded values
+- Updated dependencies
+
 ## 3.0.4
 
 ### Patch Changes

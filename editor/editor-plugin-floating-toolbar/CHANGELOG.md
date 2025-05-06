@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.0.8
+
+### Patch Changes
+
+- [#149852](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149852)
+  [`62fbcc86c35ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62fbcc86c35ba) -
+  clean up platform_editor_fix_floating_toolbar_scrollbar
+- Updated dependencies
+
 ## 4.0.7
 
 ### Patch Changes

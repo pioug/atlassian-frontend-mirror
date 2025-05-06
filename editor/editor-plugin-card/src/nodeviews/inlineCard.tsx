@@ -50,11 +50,9 @@ export const InlineCard = memo(
 		useEffect(() => {
 			const id = refId.current;
 			return () => {
-				if (fg('platform_editor_fix_card_plugin_state')) {
-					const { tr } = view.state;
-					removeCard({ id })(tr);
-					view.dispatch(tr);
-				}
+				const { tr } = view.state;
+				removeCard({ id })(tr);
+				view.dispatch(tr);
 			};
 		}, [getPos, view]);
 

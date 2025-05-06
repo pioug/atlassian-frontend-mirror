@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.25
+
+### Patch Changes
+
+- [#149184](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149184)
+  [`2df75499ccc98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2df75499ccc98) -
+  Cleanup feature gate to fix plugin state on card plugin.
+- [#149530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149530)
+  [`a432884180253`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a432884180253) -
+  Sends SmartLink Visited event with additional input methods depending on the way the link was
+  opened.
+- Updated dependencies
+
+## 5.4.24
+
+### Patch Changes
+
+- [#148769](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148769)
+  [`4d875576ce223`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d875576ce223) -
+  [ux] Update link button to be an anchor
+- Updated dependencies
+
 ## 5.4.23
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.5.0
+
+### Minor Changes
+
+- [#147951](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147951)
+  [`ec2f90f672938`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec2f90f672938) -
+  [ux] getFullName has been added to PluginState. User's initial and full name are now in their
+  separate elements under telepointer.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.1
 
 ### Patch Changes

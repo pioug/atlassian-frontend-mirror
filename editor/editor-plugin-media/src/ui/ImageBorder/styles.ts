@@ -75,7 +75,6 @@ export const buttonStyle = (selected: boolean) => css`
 	display: block;
 `;
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const buttonWrapperStyle = css`
 	border: 1px solid transparent;
@@ -88,7 +87,7 @@ export const buttonWrapperStyle = css`
 	&:focus-within,
 	&:focus,
 	&:hover {
-		border-color: ${N50} !important;
+		border-color: ${token('color.border', N50)} !important;
 	}
 `;
 

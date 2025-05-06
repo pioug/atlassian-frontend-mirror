@@ -39,15 +39,12 @@ export const InlineCardWithAwareness = memo(
 		const [isInserted, setIsInserted] = useState(false);
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 		const editorAppearance = pluginInjectionApi?.card.sharedState.currentState()?.editorAppearance;
+		const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
 
 		const onResolve = useCallback((tr: Transaction, title?: string): void => {
-			if (fg('platform_editor_fix_card_plugin_state')) {
-				const metadata = tr.getMeta(pluginKey);
-				if (metadata && metadata.type === 'REGISTER') {
-					registerRemoveOverlay(() => setIsInserted(false), metadata.info)(tr);
-				} else {
-					registerRemoveOverlay(() => setIsInserted(false))(tr);
-				}
+			const metadata = tr.getMeta(pluginKey);
+			if (metadata && metadata.type === 'REGISTER') {
+				registerRemoveOverlay(() => setIsInserted(false), metadata.info)(tr);
 			} else {
 				registerRemoveOverlay(() => setIsInserted(false))(tr);
 			}
@@ -82,6 +79,8 @@ export const InlineCardWithAwareness = memo(
 					isVisible={isResolvedViewRendered}
 					url={node.attrs.url}
 					editorAppearance={editorAppearance}
+					editorAnalyticsApi={editorAnalyticsApi}
+					view={view}
 				>
 					<InlineCard
 						node={node}
@@ -110,6 +109,7 @@ export const InlineCardWithAwareness = memo(
 				cardContext,
 				isHovered,
 				isPageSSRed,
+				editorAnalyticsApi,
 			],
 		);
 

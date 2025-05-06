@@ -135,7 +135,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-statuses']);
 
 		await page.getByTestId('link-datasource-render-type--status').first().click();
 		await page.getByTestId('inline-edit-status-option-In Progress').first().click();
@@ -174,7 +173,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-statuses']);
 
 		await page.getByTestId('link-datasource-render-type--status').first().click();
 		await page.getByRole('combobox').fill('in p');

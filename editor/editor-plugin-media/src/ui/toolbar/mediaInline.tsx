@@ -390,7 +390,7 @@ const getMediaInlineImageToolbar = (
 					<ImageInlineIcon
 						color="currentColor"
 						spacing="spacious"
-						label={mediaInlineImageTitle}
+						label={fg('platform_editor_controls_patch_7') ? '' : mediaInlineImageTitle}
 						LEGACY_size="medium"
 						LEGACY_fallbackIcon={IconInline}
 					/>
@@ -406,7 +406,7 @@ const getMediaInlineImageToolbar = (
 					<ImageFullscreenIcon
 						color="currentColor"
 						spacing="spacious"
-						label={mediaSingleTitle}
+						label={fg('platform_editor_controls_patch_7') ? '' : mediaSingleTitle}
 						LEGACY_size="medium"
 						LEGACY_fallbackIcon={IconEmbed}
 					/>

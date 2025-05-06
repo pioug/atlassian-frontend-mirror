@@ -39,6 +39,7 @@ export function taskItemToDom(node: PMNode, placeholder: string): DOMOutputSpec 
 		'data-task-local-id': node.attrs.localId,
 		'data-task-state': node.attrs.state,
 		'data-prosemirror-node-view-type': 'vanilla',
+		'data-prosemirror-node-name': 'taskItem',
 	};
 
 	return [

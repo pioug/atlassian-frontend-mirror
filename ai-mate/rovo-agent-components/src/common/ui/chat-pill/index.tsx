@@ -25,34 +25,6 @@ const stylesCompiled = cssMapCompiled({
 });
 
 const styles = cssMap({
-	conversationStarterPill: {
-		color: token('color.text'),
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
-		borderWidth: token('border.width'),
-		borderStyle: 'solid',
-		borderColor: token('color.border'),
-		borderRadius: token('border.radius.200'),
-		borderBottomRightRadius: token('border.radius.050', '2px'),
-		font: token('font.body'),
-		fontWeight: token('font.weight.medium', '500'),
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
-		flexShrink: 1,
-		backgroundColor: 'transparent',
-		width: '100%',
-
-		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered'),
-		},
-
-		'&:active': {
-			backgroundColor: token('color.background.neutral.pressed'),
-		},
-	},
-
 	button: {
 		color: token('color.text.subtle'),
 		paddingTop: token('space.075'),
@@ -73,7 +45,6 @@ const styles = cssMap({
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
-
 		'&:active': {
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
@@ -128,19 +99,4 @@ export const BrowseAgentsPill = forwardRef<HTMLButtonElement, BrowseAgentsPillPr
 			</Pressable>
 		);
 	},
-);
-
-export const ConversationStarterPill = forwardRef<HTMLButtonElement, ChatPillProps>(
-	({ children, whiteSpacePreWrap = true, ...props }, ref) => (
-		<Pressable ref={ref} {...props} xcss={styles.conversationStarterPill}>
-			<div css={stylesCompiled.pillLineHeight}>
-				<Inline space="space.050" xcss={styles.buttonInline}>
-					<ChatPillIcon />
-					<Box xcss={cx(styles.queryText, whiteSpacePreWrap && styles.whiteSpacePreWrap)}>
-						{children}
-					</Box>
-				</Inline>
-			</div>
-		</Pressable>
-	),
 );

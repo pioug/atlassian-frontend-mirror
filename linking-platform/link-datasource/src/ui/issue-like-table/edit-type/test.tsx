@@ -78,7 +78,7 @@ describe('isEditTypeSupported', () => {
 		['link', false],
 		['number', false],
 		['richtext', false],
-		['status', false],
+		['status', true],
 		['string', true],
 		['tag', false],
 		['time', false],

@@ -39,10 +39,10 @@ export default function IconButtonExample() {
 										<th>Selected</th>
 										<th>Disabled + Selected</th>
 										{iconSizes.map((size) => (
-											<th>{capitalize(size)} icon size</th>
+											<th key={size}>{capitalize(size)} icon size</th>
 										))}
 										{iconButtonShapes.map((shape) => (
-											<th>{shape} shape</th>
+											<th key={shape}>{shape} shape</th>
 										))}
 									</tr>
 								</thead>
@@ -109,7 +109,7 @@ export default function IconButtonExample() {
 												</td>
 
 												{iconSizes.map((size) => (
-													<td>
+													<td key={size}>
 														<Component
 															appearance={appearance}
 															icon={(iconProps) => <StarFilledIcon {...iconProps} size={size} />}
@@ -117,7 +117,7 @@ export default function IconButtonExample() {
 													</td>
 												))}
 												{iconButtonShapes.map((shape) => (
-													<td>
+													<td key={shape}>
 														<Component appearance={appearance} shape={shape} />
 													</td>
 												))}

@@ -35,13 +35,7 @@ import {
 } from '@atlaskit/media-test-helpers/collectionNames';
 import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { fileToDataURI } from '@atlaskit/media-ui';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
+import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { token } from '@atlaskit/tokens';
@@ -585,15 +579,10 @@ const ClipboardWidthPopup = ({ content }: { content: ReactNode }) => {
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={() => setIsOpen(false)} width="large">
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle>Editor inside Modal</ModalTitle>
 						</ModalHeader>
 						<ModalBody>{content}</ModalBody>
-						<ModalFooter>
-							<Button appearance="subtle" onClick={() => setIsOpen(false)}>
-								Cancel
-							</Button>
-						</ModalFooter>
 					</Modal>
 				)}
 			</ModalTransition>

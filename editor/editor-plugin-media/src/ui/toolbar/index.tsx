@@ -532,7 +532,7 @@ const generateMediaSingleFloatingToolbar = (
 								<ImageInlineIcon
 									color="currentColor"
 									spacing="spacious"
-									label={inlineTitle}
+									label={fg('platform_editor_controls_patch_7') ? '' : inlineTitle}
 									LEGACY_size="medium"
 									LEGACY_fallbackIcon={IconInline}
 								/>
@@ -552,7 +552,7 @@ const generateMediaSingleFloatingToolbar = (
 								<ImageFullscreenIcon
 									color="currentColor"
 									spacing="spacious"
-									label={floatingSwitcherTitle}
+									label={fg('platform_editor_controls_patch_7') ? '' : floatingSwitcherTitle}
 									LEGACY_size="medium"
 									LEGACY_fallbackIcon={IconEmbed}
 								/>

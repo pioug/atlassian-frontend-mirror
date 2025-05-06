@@ -1,0 +1,33 @@
+{
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlassian__teams-client/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../uip/atlassian-context/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-jira/tsconfig.json"
+		}
+	]
+}

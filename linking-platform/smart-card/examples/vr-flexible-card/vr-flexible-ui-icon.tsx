@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { IconType } from '../../src/constants';
+import { IconType, SmartLinkSize } from '../../src/constants';
 import AtlaskitIcon from '../../src/view/FlexibleCard/components/common/atlaskit-icon';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 function generateExample(iconType: IconType) {
 	return () => (
 		<VRTestWrapper>
-			<AtlaskitIcon icon={iconType} />
+			<AtlaskitIcon icon={iconType} size={SmartLinkSize.Large} />
 		</VRTestWrapper>
 	);
 }

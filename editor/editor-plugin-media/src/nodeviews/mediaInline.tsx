@@ -28,7 +28,6 @@ import type { FileIdentifier } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
@@ -191,7 +190,7 @@ export const MediaInline = (props: MediaInlineProps) => {
 			mediaClientConfig={props.mediaClientConfig}
 			isEditorViewMode={props.editorViewMode}
 			isSelected={props.isSelected}
-			isInline={fg('platform_editor_render_media_viewer_as_inline')}
+			isInline={true}
 		>
 			<MediaInlineCard
 				isSelected={props.isSelected}

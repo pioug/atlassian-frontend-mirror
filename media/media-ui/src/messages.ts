@@ -157,6 +157,7 @@ export type MessageKey =
 	| 'image_cropper_image_moved'
 	| 'image_cropper_zoom_out'
 	| 'image_cropper_zoom_in'
+	| 'image_cropper_zoom_slider'
 	| RequestAccessMessageKey;
 
 type Messages = {
@@ -966,5 +967,10 @@ export const messages: Messages = defineMessages({
 		id: 'media.media-avatar-picker.image-cropper.zoom_in',
 		defaultMessage: 'to 100% zoom',
 		description: 'Label for the zoom in button in image cropper slider',
+	},
+	image_cropper_zoom_slider: {
+		id: 'media.media-avatar-picker.image-cropper.zoom_slider',
+		defaultMessage: 'set zoom',
+		description: 'Label for the zoom slider to adjust image zoom',
 	},
 });

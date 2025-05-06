@@ -1,5 +1,24 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.9.4
+
+### Patch Changes
+
+- [#148802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148802)
+  [`47aa048599ddc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47aa048599ddc) -
+  FF cleanup - ufo_capture_stylesheet_metrics
+
+## 3.9.3
+
+### Patch Changes
+
+- [#149225](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149225)
+  [`212d1bc6cd2a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/212d1bc6cd2a7) -
+  set the FAILED status client side, and ignore BM3 TTI event status
+- [#148864](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148864)
+  [`93b2b5271da55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93b2b5271da55) -
+  FF cleanup: platform_ufo_custom_data_structured_clone
+
 ## 3.9.2
 
 ### Patch Changes

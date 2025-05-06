@@ -1,6 +1,7 @@
 import React from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { browser } from '@atlaskit/editor-common/browser';
 
 import type { TableLayout, UrlType } from '@atlaskit/adf-schema';
 import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common/styles';
@@ -831,7 +832,7 @@ const TableWithWidth = (
 	props: React.PropsWithChildren<any>,
 ) => {
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (fg('platform-ssr-table-resize')) {
+	if (!browser.safari && fg('platform-ssr-table-resize')) {
 		const colWidthsSum =
 			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 		if (colWidthsSum || props.allowTableResizing) {

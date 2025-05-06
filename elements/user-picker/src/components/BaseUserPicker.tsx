@@ -574,7 +574,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				aria-describedby={
 					fg('pass-aria-describedby-to-baseuserpicker') ? ariaDescribedBy : undefined
 				}
-				aria-label={ariaLabel}
 				aria-live={ariaLive}
 				aria-required={required} // This has been added as a safety net.
 				required={required}
@@ -589,6 +588,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				loadingMessage={loadingMessage}
 				menuPlacement="auto"
 				placeholder={placeholder ?? <FormattedMessage {...messages.placeholder} />}
+				label={ariaLabel}
 				addMoreMessage={addMoreMessage}
 				classNamePrefix={classNamePrefix}
 				hoveringClearIndicator={hoveringClearIndicator}

@@ -28,23 +28,23 @@ const styles = cssMap({
 	},
 });
 
-// We have tried with changing border and padding from 1px to token near version 2px,
-// the pop - up is being expanded to two lines.
 const buttonWrapperStyles = css({
-	borderWidth: '1px',
+	borderWidth: token('border.width'),
 	borderStyle: 'solid',
 	borderColor: 'transparent',
-	marginTop: '0px',
+	marginTop: token('space.0'),
 	marginRight: token('space.025'),
-	marginBottom: '0px',
+	marginBottom: token('space.0'),
 	marginLeft: token('space.025'),
 	display: 'flex',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	padding: '1px',
+	paddingTop: token('border.width'),
+	paddingRight: token('border.width'),
+	paddingBottom: token('border.width'),
+	paddingLeft: token('border.width'),
 	borderRadius: token('space.075'),
 	'&:hover': {
-		border: `1px solid ${token('color.border')}`,
+		border: `${token('border.width')} solid ${token('color.border')}`,
 	},
 });
 

@@ -35,7 +35,6 @@ snapshotInformational(VRJiraIssueTableHoverable, {
 		},
 	],
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 	waitForHold: true,
@@ -48,7 +47,6 @@ snapshotInformational(VREmptyStateHoverable, {
 	},
 	description: 'empty state table on a hoverable surface',
 	featureFlags: {
-		'platform-datasources-enable-two-way-sync-statuses': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 	waitForHold: true,

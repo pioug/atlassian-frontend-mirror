@@ -10,6 +10,7 @@ import {
 	overflowShadow,
 	relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export const CodeBlockSharedCssClassName = {
@@ -59,7 +60,11 @@ export const codeBlockSharedStyles = () => css`
 		cursor: pointer;
 		clear: both;
 
-		--ds--code--bg-color: transparent;
+		${fg('platform_editor_fix_code_block_bg_color_in_macro')
+			? css``
+			: css`
+					--ds--code--bg-color: transparent;
+				`}
 
 		.code-block-gutter-pseudo-element::before {
 			content: attr(data-label);

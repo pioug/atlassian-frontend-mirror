@@ -4,8 +4,9 @@
  */
 import { Fragment, useCallback, useState } from 'react';
 
+import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
-import { jsx } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -13,6 +14,11 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Flex, Text } from '@atlaskit/primitives/compiled';
+
+const styles = cssMap({
+	footer: { flex: '1' },
+});
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -50,9 +56,18 @@ export default function Example() {
 							</p>
 						</ModalBody>
 						<ModalFooter>
-							<Button appearance="primary" onClick={closeModal}>
-								Close
-							</Button>
+							<Flex xcss={styles.footer} justifyContent="space-between">
+								<Flex alignItems="center" gap="space.100">
+									<Avatar
+										size="small"
+										src="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"
+									/>
+									<Text>Hey there!</Text>
+								</Flex>
+								<Button appearance="primary" onClick={closeModal}>
+									Close
+								</Button>
+							</Flex>
 						</ModalFooter>
 					</Modal>
 				)}

@@ -48,6 +48,7 @@ export const createTelepointers = (
 	isSelection: boolean,
 	initial: string,
 	presenceId: string,
+	fullName: string,
 ) => {
 	const decorations: Decoration[] = [];
 	const avatarColor = getAvatarColor(presenceId);
@@ -76,6 +77,21 @@ export const createTelepointers = (
 	cursor.className = `telepointer color-${color} telepointer-selection-badge`;
 	cursor.style.cssText = `${style({ color: avatarColor.backgroundColor })};`;
 	cursor.setAttribute('data-initial', initial);
+
+	if (fg('confluence_team_presence_scroll_to_pointer')) {
+		const fullNameEl = document.createElement('span');
+		fullNameEl.textContent = fullName;
+		fullNameEl.className = 'telepointer-fullname';
+		fullNameEl.style.backgroundColor = avatarColor.backgroundColor;
+		cursor.appendChild(fullNameEl);
+
+		const initialEl = document.createElement('span');
+		initialEl.textContent = initial;
+		initialEl.className = 'telepointer-initial';
+		initialEl.style.backgroundColor = avatarColor.backgroundColor;
+		cursor.appendChild(initialEl);
+	}
+
 	return decorations
 		.concat(
 			// Ignored via go/ees005

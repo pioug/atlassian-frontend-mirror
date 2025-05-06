@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 36.14.0
+
+### Minor Changes
+
+- [#149950](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149950)
+  [`09f007196931b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09f007196931b) -
+  [ux] Cleaning up SL icon migration feature flag for size changes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.13.1
 
 ### Patch Changes

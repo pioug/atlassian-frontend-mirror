@@ -1,0 +1,50 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx",
+		"./src/mocks/team-link.ts",
+		"./src/mocks/team.ts",
+		"./src/mocks/with-faker.ts"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlassian__teams-client/app"
+	},
+	"references": [
+		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../data/ufo-external/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/codegen/tsconfig.app.json"
+		}
+	]
+}

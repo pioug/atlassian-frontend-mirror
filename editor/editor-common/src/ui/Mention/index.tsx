@@ -42,7 +42,10 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 		const { accessLevel, eventHandlers, id, text, localId } = this.props;
 		const { mentionProvider, profilecardProvider } = providers;
 
-		if (fg('platform_editor_react18_mention_with_provider_fix')) {
+		if (
+			fg('platform_editor_react18_mention_with_provider_fix') ||
+			fg('platform_editor_react18_mention_with_provider_jira')
+		) {
 			return (
 				<MentionWithProviders
 					id={id}

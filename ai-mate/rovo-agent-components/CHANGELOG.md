@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 2.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.0
+
+### Minor Changes
+
+- [#145486](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/145486)
+  [`7a846609af2b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a846609af2b9) -
+  Consolidate browse agents pill and conversation starter pill into single chat pill component
+
 ## 2.7.2
 
 ### Patch Changes

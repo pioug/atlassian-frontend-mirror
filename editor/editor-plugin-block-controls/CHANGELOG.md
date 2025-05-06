@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.13.2
+
+### Patch Changes
+
+- [#149332](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149332)
+  [`592aba2930c2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/592aba2930c2a) -
+  Fix cursor not show issue when tabbing from page title
+- Updated dependencies
+
 ## 3.13.1
 
 ### Patch Changes

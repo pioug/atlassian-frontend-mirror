@@ -1,5 +1,19 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.5.12
+
+### Patch Changes
+
+- [#150050](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150050)
+  [`1f5959b9645fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f5959b9645fc) -
+  ENGHEALTH-28426 use atlaskit/modal-dialog closeButton for extension dropbox modal
+
+## 0.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.10
 
 ### Patch Changes

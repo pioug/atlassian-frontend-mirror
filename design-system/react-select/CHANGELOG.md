@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.4.6
+
+### Patch Changes
+
+- [#149640](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149640)
+  [`0f41428da5608`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f41428da5608) -
+  Remove label in compiled styles
+
 ## 2.4.5
 
 ### Patch Changes

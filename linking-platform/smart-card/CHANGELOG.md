@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 36.15.0
+
+### Minor Changes
+
+- [#148527](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148527)
+  [`6b0ed86beb49d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b0ed86beb49d) -
+  Add props to exported flexible card elements to increase flexibility
+
+### Patch Changes
+
+- [#149967](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149967)
+  [`36c2c5587b7b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36c2c5587b7b0) -
+  [ux] Remove unnecessary aria-label behind FG platform_bandicoots-smart-card-disable-aria
+- Updated dependencies
+
 ## 36.14.0
 
 ### Minor Changes

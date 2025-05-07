@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 4.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [#148777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148777)
+  [`4ec86d3df0375`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ec86d3df0375) -
+  Update type for canClosePanel to return promise for object sidebar
+
 ## 4.0.4
 
 ### Patch Changes

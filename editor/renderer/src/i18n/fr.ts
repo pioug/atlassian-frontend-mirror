@@ -16,5 +16,4 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'Néant',
   'fabric.editor.inlineComment.marker.end': 'fin du commentaire contextuel',
   'fabric.editor.inlineComment.marker.start': 'début du commentaire contextuel',
-  'fabric.editor.status.accessibilityLabel': 'état :',
 };

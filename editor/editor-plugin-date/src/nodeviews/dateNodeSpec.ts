@@ -10,7 +10,6 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { N30A, N800 } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getDateInformation } from './utils';
@@ -24,7 +23,7 @@ let intlRef: ReturnType<typeof createIntl> | undefined;
  * @returns
  */
 export const dateNodeSpec = () => {
-	if (isSSR() || editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
+	if (isSSR()) {
 		return date;
 	}
 

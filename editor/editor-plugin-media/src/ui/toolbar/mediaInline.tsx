@@ -52,6 +52,7 @@ import {
 	changeInlineToMediaCard,
 	changeMediaInlineToMediaSingle,
 	removeInlineCard,
+	removeInlineCardWithAnalytics,
 	setBorderMark,
 	toggleBorderMark,
 } from './commands';
@@ -181,7 +182,9 @@ export const generateMediaInlineFloatingToolbar = (
 				onFocus: hoverDecoration?.(mediaInline, true),
 				onBlur: hoverDecoration?.(mediaInline, false),
 				title: intl.formatMessage(commonMessages.remove),
-				onClick: removeInlineCard,
+				onClick: fg('platform_editor_controls_patch_analytics_2')
+					? removeInlineCardWithAnalytics(editorAnalyticsAPI)
+					: removeInlineCard,
 				testId: 'media-toolbar-remove-button',
 			},
 		);
@@ -518,7 +521,9 @@ const getMediaInlineImageToolbar = (
 			onFocus: hoverDecoration?.(mediaInline, true),
 			onBlur: hoverDecoration?.(mediaInline, false),
 			title: intl.formatMessage(commonMessages.remove),
-			onClick: removeInlineCard,
+			onClick: fg('platform_editor_controls_patch_analytics_2')
+				? removeInlineCardWithAnalytics(editorAnalyticsAPI)
+				: removeInlineCard,
 			testId: 'media-toolbar-remove-button',
 		});
 	}

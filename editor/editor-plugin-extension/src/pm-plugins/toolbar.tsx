@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/extensions';
 import commonMessages from '@atlaskit/editor-common/messages';
 import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles';
@@ -484,7 +484,7 @@ export const getToolbarConfig =
 								),
 								iconFallback: DeleteIcon,
 								appearance: 'danger',
-								onClick: removeExtension(editorAnalyticsAPI),
+								onClick: removeExtension(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
 								onMouseEnter: hoverDecoration?.(nodeType, true),
 								onMouseLeave: hoverDecoration?.(nodeType, false),
 								onFocus: hoverDecoration?.(nodeType, true),
@@ -509,7 +509,10 @@ export const getToolbarConfig =
 										onClick: () => {
 											extensionApi?.core?.actions.execute(
 												// @ts-ignore
-												extensionApi?.floatingToolbar?.commands.copyNode(nodeType),
+												extensionApi?.floatingToolbar?.commands.copyNode(
+													nodeType,
+													INPUT_METHOD.FLOATING_TB,
+												),
 											);
 											return true;
 										},
@@ -519,7 +522,7 @@ export const getToolbarConfig =
 									},
 									{
 										title: formatMessage(commonMessages.delete),
-										onClick: removeExtension(editorAnalyticsAPI),
+										onClick: removeExtension(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
 										icon: <DeleteIcon label="" />,
 										...hoverDecorationProps(nodeType),
 									},

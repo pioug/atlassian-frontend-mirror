@@ -220,6 +220,9 @@ const toFormattedTextProps = (
 	descriptor: MessageDescriptor,
 	context?: string,
 ): Partial<TextProps> | undefined => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return context ? { message: { descriptor, values: { context } }, content: context } : undefined;
+	}
 	return context ? { message: { descriptor, values: { context } } } : undefined;
 };
 

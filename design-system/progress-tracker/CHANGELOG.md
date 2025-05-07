@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 10.0.4
+
+### Patch Changes
+
+- [#150382](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150382)
+  [`878831658be56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/878831658be56) -
+  Update ProgressTracker to an ordered list for better semantics.
+
 ## 10.0.3
 
 ### Patch Changes

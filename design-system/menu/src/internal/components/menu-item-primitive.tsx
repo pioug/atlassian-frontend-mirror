@@ -44,13 +44,17 @@ const styles = cssMap({
 		'&:hover': {
 			textDecoration: 'none',
 		},
-		'&:focus-visible': {
+		'&:focus, &:focus-visible': {
 			outlineColor: token('color.border.focused', '#2684FF'),
 			// @ts-ignore
 			outlineOffset: `calc(0px - ${token('border.width.outline')})`,
 			outlineStyle: 'solid',
 			// @ts-ignore
 			outlineWidth: token('border.width.outline'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:focus:not(:focus-visible)': {
+			outline: 'none',
 		},
 		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 			'&:focus-visible': {

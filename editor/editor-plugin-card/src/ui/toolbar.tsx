@@ -105,7 +105,9 @@ export const removeCard = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): 
 				actionSubject: ACTION_SUBJECT.SMART_LINK,
 				actionSubjectId: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
 				attributes: {
-					inputMethod: INPUT_METHOD.TOOLBAR,
+					inputMethod: fg('platform_editor_controls_patch_analytics_2')
+						? INPUT_METHOD.FLOATING_TB
+						: INPUT_METHOD.TOOLBAR,
 					displayMode: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
 				},
 				eventType: EVENT_TYPE.TRACK,
@@ -124,11 +126,7 @@ export const removeCard = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): 
 export const visitCardLink =
 	(
 		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-		inputMethod:
-			| INPUT_METHOD.BUTTON
-			| INPUT_METHOD.DOUBLE_CLICK
-			| INPUT_METHOD.FLOATING_TB
-			| INPUT_METHOD.TOOLBAR,
+		inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.TOOLBAR,
 	): Command =>
 	(state, dispatch) => {
 		if (!(state.selection instanceof NodeSelection)) {
@@ -137,6 +135,10 @@ export const visitCardLink =
 
 		const { type } = state.selection.node;
 
+		// EDM-12466:
+		// During smart_link_editor_update_toolbar_open_link clean up
+		// Consider updating the code to use visitCardLink or visitCardLinkAnalyticsOnly for all input methods:
+		// INPUT_METHOD.FLOATING_TB | INPUT_METHOD.TOOLBAR | NPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK
 		if (!fg('smart_link_editor_update_toolbar_open_link')) {
 			const { url } = titleUrlPairFromNode(state.selection.node);
 
@@ -144,6 +146,35 @@ export const visitCardLink =
 			// We are in edit mode here, open the smart card URL in a new window.
 			window.open(url);
 		}
+
+		if (dispatch) {
+			const { tr } = state;
+			editorAnalyticsApi?.attachAnalyticsEvent(
+				buildVisitedNonHyperLinkPayload(
+					type.name as
+						| ACTION_SUBJECT_ID.CARD_INLINE
+						| ACTION_SUBJECT_ID.CARD_BLOCK
+						| ACTION_SUBJECT_ID.EMBEDS,
+					inputMethod,
+				),
+			)(tr);
+
+			dispatch(tr);
+		}
+		return true;
+	};
+
+export const visitCardLinkAnalyticsOnly =
+	(
+		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+		inputMethod: INPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK,
+	): Command =>
+	(state, dispatch) => {
+		if (!(state.selection instanceof NodeSelection)) {
+			return false;
+		}
+
+		const { type } = state.selection.node;
 
 		if (dispatch) {
 			const { tr } = state;
@@ -695,7 +726,10 @@ const generateToolbarItems =
 								onClick: () => {
 									pluginInjectionApi?.core?.actions.execute(
 										// @ts-ignore
-										pluginInjectionApi?.floatingToolbar?.commands.copyNode(node.type),
+										pluginInjectionApi?.floatingToolbar?.commands.copyNode(
+											node.type,
+											INPUT_METHOD.FLOATING_TB,
+										),
 									);
 									return true;
 								},
@@ -934,7 +968,10 @@ const getDatasourceButtonGroup = (
 						onClick: () => {
 							pluginInjectionApi?.core?.actions.execute(
 								// @ts-ignore
-								pluginInjectionApi?.floatingToolbar?.commands.copyNode(node.type),
+								pluginInjectionApi?.floatingToolbar?.commands.copyNode(
+									node.type,
+									INPUT_METHOD.FLOATING_TB,
+								),
 							);
 							return true;
 						},

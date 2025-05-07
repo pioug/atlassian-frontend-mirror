@@ -164,6 +164,7 @@ type MBEEventPayload = TrackAEP<
 		extensionKey: string;
 		localId: string;
 		currentFramesCount: number;
+		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 	},
 	undefined
 >;

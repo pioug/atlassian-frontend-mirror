@@ -125,9 +125,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"visual-refresh-user-picker": {
-			"type": "boolean"
-		},
 		"user-picker-show-clear-indicator": {
 			"type": "boolean"
 		}

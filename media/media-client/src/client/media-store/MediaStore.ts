@@ -82,7 +82,7 @@ const cdnFeatureFlag = (endpoint: string) => {
 export class MediaStore implements MediaApi {
 	private readonly _chunkHashAlgorithm: ChunkHashAlgorithm;
 	constructor(private readonly config: MediaApiConfig) {
-		this._chunkHashAlgorithm = config.chunkHashAlgorithm || ChunkHashAlgorithm.Sha1;
+		this._chunkHashAlgorithm = config.chunkHashAlgorithm || ChunkHashAlgorithm.Sha256;
 	}
 
 	async removeCollectionFile(

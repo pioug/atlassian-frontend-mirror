@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import type { IntlShape, MessageDescriptor } from 'react-intl-next';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import commonMessages, {
 	layoutMessages,
 	layoutMessages as toolbarMessages,
@@ -287,7 +287,7 @@ export const buildToolbar = (
 			icon: DeleteIcon,
 			testId: commonMessages.remove.id,
 			title: intl.formatMessage(commonMessages.remove),
-			onClick: deleteActiveLayoutNode(editorAnalyticsAPI),
+			onClick: deleteActiveLayoutNode(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
 			onMouseEnter: hoverDecoration?.(nodeType, true),
 			onMouseLeave: hoverDecoration?.(nodeType, false),
 			onFocus: hoverDecoration?.(nodeType, true),
@@ -321,7 +321,7 @@ export const buildToolbar = (
 					onClick: () => {
 						api?.core?.actions.execute(
 							// @ts-ignore
-							api?.floatingToolbar?.commands.copyNode(nodeType),
+							api?.floatingToolbar?.commands.copyNode(nodeType, INPUT_METHOD.FLOATING_TB),
 						);
 						return true;
 					},
@@ -330,8 +330,7 @@ export const buildToolbar = (
 				},
 				{
 					title: intl.formatMessage(commonMessages.delete),
-					onClick: deleteActiveLayoutNode(editorAnalyticsAPI),
-
+					onClick: deleteActiveLayoutNode(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
 					icon: <DeleteIcon label="" />,
 					...hoverDecorationProps(nodeType),
 				},

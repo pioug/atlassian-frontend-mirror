@@ -269,6 +269,8 @@ export enum ACTION_SUBJECT {
 	LAYOUT = 'layout',
 	LIST = 'list',
 	MEDIA = 'media',
+	MEDIA_GROUP = 'mediaGroup',
+	MEDIA_INLINE = 'mediaInline',
 	MEDIA_SINGLE = 'mediaSingle',
 	MENTION = 'mention',
 	MENTION_TYPEAHEAD = 'mentionTypeahead',

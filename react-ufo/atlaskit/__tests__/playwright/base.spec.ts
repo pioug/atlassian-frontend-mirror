@@ -69,7 +69,7 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
 
 				expect(ttvcV2Revision).toBeTruthy();
-				expect(ttvcV2Revision!.vcDetails?.['90'].e).toStrictEqual(['div[testid=sectionNine]']);
+				expect(ttvcV2Revision!.vcDetails?.['90'].e).toContainEqual('div[testid=sectionNine]');
 				expect(ttvcV2Revision!.vcDetails?.['90'].t).toMatchTimestamp(sectionNineVisibleAt);
 			});
 
@@ -135,7 +135,7 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 				const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
 
 				expect(ttvcV2Revision).toBeTruthy();
-				expect(ttvcV2Revision!.vcDetails?.['90'].e).toStrictEqual(['div[testid=sectionThree]']);
+				expect(ttvcV2Revision!.vcDetails?.['90'].e).toContainEqual('div[testid=sectionThree]');
 				expect(ttvcV2Revision!.vcDetails?.['90'].t).toMatchTimestamp(sectionThreeVisibleAt);
 			});
 

@@ -6,7 +6,13 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import DateTime from '../index';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
 
 describe('Element: Text', () => {
 	const testId = 'smart-element-date-time';
@@ -114,5 +120,23 @@ describe('Element: Text', () => {
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
 		expect(element).toHaveTextContent('Last commit on Jan 17, 2022');
+	});
+
+	it('should render date only if hideDatePrefix is true', async () => {
+		const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
+		(fg as jest.Mock).mockReturnValue(true);
+		render(
+			<IntlProvider locale="en">
+				<DateTime
+					date={new Date(eightDaysBack)}
+					type="created"
+					text="First commit on"
+					hideDatePrefix
+				/>
+			</IntlProvider>,
+		);
+		const element = await screen.findByTestId(testId);
+		expect(element).toBeTruthy();
+		expect(element).toHaveTextContent('Jan 17, 2022');
 	});
 });

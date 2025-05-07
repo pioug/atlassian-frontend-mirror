@@ -245,6 +245,13 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		min-width: 0;
 	}
 
+	/* support nested panel */
+	${fg('platform_editor_add_border_for_nested_panel')
+		? `.${PanelSharedCssClassName.content} .${prefix} {
+			border: 1px solid ${token('color.border', '#091E42')};
+		}`
+		: ''}
+
 	&[data-panel-type='${PanelType.INFO}'] {
 		${getIconStyles(PanelType.INFO)}
 	}

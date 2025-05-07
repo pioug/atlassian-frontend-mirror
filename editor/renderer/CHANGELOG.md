@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 115.0.0
+
+### Minor Changes
+
+- [#148116](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148116)
+  [`6170d49320f56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6170d49320f56) -
+  [ux] EDITOR-618 Add border style when a panel is nested in other panels
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.13.1
+
+### Patch Changes
+
+- [#148536](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148536)
+  [`da7c16d27cfcc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da7c16d27cfcc) -
+  Update fragment serializer logic
+- Updated dependencies
+
 ## 114.13.0
 
 ### Minor Changes

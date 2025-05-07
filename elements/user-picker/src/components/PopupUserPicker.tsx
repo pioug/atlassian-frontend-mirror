@@ -61,8 +61,8 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 			width,
 			isMulti,
 			styles,
-			// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-			fg('platform-component-visual-refresh') && fg('visual-refresh-user-picker'),
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			fg('platform-component-visual-refresh'),
 		);
 
 		return (

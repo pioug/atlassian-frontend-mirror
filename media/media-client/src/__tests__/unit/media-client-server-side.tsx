@@ -9,7 +9,6 @@ import Example4 from '../../../examples/2-image-metadata';
 import Example5 from '../../../examples/2-upload-file';
 import Example6 from '../../../examples/3-upload-touch';
 import Example7 from '../../../examples/4-items-batching';
-import Example8 from '../../../examples/uploader-sha256';
 
 class Example extends React.Component {
 	constructor(props: any) {
@@ -33,7 +32,7 @@ class Example extends React.Component {
 
 // @ts-ignore
 test.skip('media-client server side rendering of project examples', async () => {
-	const examples = [Example1, Example2, Example3, Example4, Example5, Example6, Example7, Example8];
+	const examples = [Example1, Example2, Example3, Example4, Example5, Example6, Example7];
 
 	for (const EachExample of examples) {
 		// @ts-ignore

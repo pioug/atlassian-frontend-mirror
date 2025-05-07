@@ -6,10 +6,7 @@ import { ComponentsLogEntry } from '../../src/common/vc/types';
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: class attribute mutation', () => {
-	const featureFlagsSetups = [
-		['platform_ufo_log_attr_mutation_values'],
-		['platform_ufo_log_attr_mutation_values', 'platform_ufo_vc_observer_new'],
-	];
+	const featureFlagsSetups = [[], ['platform_ufo_vc_observer_new']];
 	for (const featureFlags of featureFlagsSetups) {
 		test.describe(`with feature flags: ${featureFlags.length > 0 ? featureFlags.join(', ') : 'no feature flags'}`, () => {
 			for (const viewport of viewports) {

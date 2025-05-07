@@ -90,6 +90,7 @@ export interface HoverCardInternalProps {
 	noFadeDelay?: boolean;
 	/**
 	 * A flag to determine whether to show aria-label
+	 * @deprecated remove when cleaning up FG platform_bandicoots-smart-card-disable-aria
 	 */
 	showLabel?: boolean;
 }

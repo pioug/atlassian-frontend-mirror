@@ -199,6 +199,7 @@ describe('Editor click area handler', () => {
 						}}
 					/>
 					<Modal>
+						<ModalHeader hasCloseButton></ModalHeader>
 						<div>Some Content</div>
 						<button id="test-button" onClick={onClickButtonHandler}></button>
 					</Modal>
@@ -255,6 +256,7 @@ describe('checkForModal', () => {
 					}}
 				/>
 				<Modal>
+					<ModalHeader hasCloseButton></ModalHeader>
 					<div>Some Content</div>
 					<button id="test-button" onClick={onClickButtonHandler}></button>
 				</Modal>

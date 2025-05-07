@@ -6,8 +6,14 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { messages } from '../../../../../../messages';
 import Text from '../index';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
 
 describe('Element: Text', () => {
 	const testId = 'smart-element-text';
@@ -38,7 +44,7 @@ describe('Element: Text', () => {
 		expect(element.textContent).toBe(messages.cannot_find_link.defaultMessage);
 	});
 
-	it('renders formatted message as priority', async () => {
+	it('renders formatted message as priority when hideFormat is false', async () => {
 		const message = {
 			descriptor: messages.cannot_find_link,
 		};
@@ -51,6 +57,23 @@ describe('Element: Text', () => {
 		const element = await screen.findByTestId(testId);
 
 		expect(element.textContent).toBe(messages.cannot_find_link.defaultMessage);
+	});
+
+	it('renders content as priority when hideFormat is true', async () => {
+		(fg as jest.Mock).mockReturnValue(true);
+		const message = {
+			descriptor: messages.created_by,
+			values: { context: 'someone' },
+		};
+
+		const content = 'random text';
+		render(<Text content={content} message={message} hideFormat />);
+
+		const element = await screen.findByTestId(testId);
+
+		expect(element).toBeTruthy();
+		expect(element.getAttribute('data-smart-element-text')).toBeTruthy();
+		expect(element).toHaveTextContent(content);
 	});
 
 	it('renders formatted messages with values', async () => {

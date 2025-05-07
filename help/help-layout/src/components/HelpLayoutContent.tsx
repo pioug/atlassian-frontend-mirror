@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import Header from './Header';
@@ -15,10 +15,18 @@ export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (props)
 		footer,
 		children,
 		intl: { formatMessage },
-
 		sideNavTabs = [],
+		onLoad,
 		...rest
 	} = props;
+
+	useEffect(() => {
+		if (onLoad) {
+			onLoad();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return sideNavTabs?.length ? (
 		<Container>
 			<Section>

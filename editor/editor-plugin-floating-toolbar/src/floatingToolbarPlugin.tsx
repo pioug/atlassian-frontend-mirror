@@ -7,6 +7,7 @@ import type {
 	AnalyticsEventPayload,
 	DispatchAnalyticsEvent,
 	FLOATING_CONTROLS_TITLE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -193,7 +194,8 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 			forceFocusSelector,
 		},
 		commands: {
-			copyNode: (nodeType: NodeType | NodeType[]) => copyNode(nodeType),
+			copyNode: (nodeType: NodeType | NodeType[], inputMethod?: INPUT_METHOD) =>
+				copyNode(nodeType, api?.analytics?.actions, inputMethod),
 		},
 
 		getSharedState(editorState) {

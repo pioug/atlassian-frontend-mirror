@@ -189,15 +189,6 @@ export const editorExperimentsConfig = {
 		values: ['control', 'variant1'],
 		defaultValue: 'control',
 	}),
-	// Added 2025-02-25
-	platform_editor_inline_node_virtualization: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_inline_node_virtualization',
-		},
-		param: 'variant',
-		values: ['off', 'fallback-small', 'fallback-large'],
-		defaultValue: 'off',
-	}),
 	// Added 2025-04-01
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_vanilla_dom/setup
 	platform_editor_vanilla_dom: createBooleanExperiment({
@@ -282,5 +273,14 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2025-05-05
+	editor_ai_contextual_selection_toolbar_button: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'editor_ai_contextual_selection_toolbar_button',
+		},
+		param: 'cohort',
+		values: ['control', 'test'],
+		defaultValue: 'control',
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.13.4
+
+### Patch Changes
+
+- [#149231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149231)
+  [`1c807d5c27e51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c807d5c27e51) -
+  Fix cursor being hidden on empty lines in safari.
+
+## 3.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.13.2
 
 ### Patch Changes

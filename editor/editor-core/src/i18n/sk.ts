@@ -8,5 +8,6 @@
 //Slovak
 export default {
   'fabric.editor.chromeCollapsedPlaceholder': 'None',
+  'fabric.editor.editorAssistiveLabel': 'Hlavná oblasť obsahu, sem začnite zadávať text.',
   'fabric.editor.headingLink.toolbarHelpTitle': 'None',
 };

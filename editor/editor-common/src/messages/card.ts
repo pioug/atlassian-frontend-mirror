@@ -58,6 +58,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Inline',
 		description: 'Title for option to display link in the inline view.',
 	},
+	openButtonTitle: {
+		id: 'fabric.editor.openButtonTitle',
+		defaultMessage: 'Open',
+		description: 'Title for a button that opens a link when clicked.',
+	},
 	embedTitle: {
 		id: 'fabric.editor.embedTitle',
 		defaultMessage: 'Embed',

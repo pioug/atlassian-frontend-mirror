@@ -19,6 +19,7 @@ import {
 	removeParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PanelOptions } from '../pm-plugins/main';
 import { findPanel } from '../pm-plugins/utils/utils';
@@ -35,7 +36,11 @@ export const removePanel =
 		const payload: AnalyticsEventPayload = {
 			action: ACTION.DELETED,
 			actionSubject: ACTION_SUBJECT.PANEL,
-			attributes: { inputMethod: INPUT_METHOD.TOOLBAR },
+			attributes: {
+				inputMethod: fg('platform_editor_controls_patch_analytics_2')
+					? INPUT_METHOD.FLOATING_TB
+					: INPUT_METHOD.TOOLBAR,
+			},
 			eventType: EVENT_TYPE.TRACK,
 		};
 

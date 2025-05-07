@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "36.14.0",
+	"version": "36.15.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -221,6 +221,9 @@
 		"fix_a11y_violation_in_hover_card_trigger": {
 			"type": "boolean"
 		},
+		"platform_bandicoots-smart-card-disable-aria": {
+			"type": "boolean"
+		},
 		"platform_smart_links_controlled_dsp_export_view": {
 			"type": "boolean"
 		},
@@ -239,6 +242,9 @@
 		"platform-smart-card-remove-legacy-button": {
 			"type": "boolean",
 			"showOnWebsiteForTransitiveDependencies": true
+		},
+		"platform-linking-additional-flexible-element-props": {
+			"type": "boolean"
 		}
 	}
 }

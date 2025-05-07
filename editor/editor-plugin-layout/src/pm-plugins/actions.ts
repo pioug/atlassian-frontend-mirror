@@ -1,4 +1,4 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -580,7 +580,10 @@ export const fixColumnStructure = (state: EditorState) => {
 };
 
 export const deleteActiveLayoutNode =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+		inputMethod?: INPUT_METHOD.FLOATING_TB,
+	): Command =>
 	(state, dispatch) => {
 		const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
 		if (pos !== null) {
@@ -592,6 +595,7 @@ export const deleteActiveLayoutNode =
 					actionSubject: ACTION_SUBJECT.LAYOUT,
 					attributes: {
 						layout: formatLayoutName(selectedLayout as PresetLayout),
+						inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
 					},
 					eventType: EVENT_TYPE.TRACK,
 				})(tr);

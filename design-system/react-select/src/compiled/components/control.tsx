@@ -52,7 +52,6 @@ export interface ControlProps<
 
 const styles = cssMap({
 	default: {
-		label: 'control',
 		alignItems: 'center',
 		cursor: 'default',
 		display: 'flex',

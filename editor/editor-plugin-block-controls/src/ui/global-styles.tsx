@@ -5,6 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import {
 	akEditorBreakoutPadding,
 	akEditorCalculatedWideLayoutWidth,
@@ -227,12 +228,29 @@ const headingWithIndentationInLayoutStyleFix = css({
 		},
 });
 
+const withRelativePosStyleLegacy = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&& ${dragHandlerAnchorSelector}`]: {
+			position: 'relative',
+		},
+	},
+});
+
 const withRelativePosStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		[`&& ${dragHandlerAnchorSelector}`]: {
 			position: 'relative',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		[`&& ${dragHandlerAnchorSelector}:has(> .ProseMirror-trailingBreak:only-child)::before`]: {
+			// Workaround to force safari to show the cursor on blank lines even when there is no content
+			// See: CONFCLOUD-80210
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			content: `"${ZERO_WIDTH_SPACE}"`,
 		},
 	},
 });
@@ -284,7 +302,9 @@ export const GlobalStylesWrapper = () => {
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
 				withFormatInLayoutStyleFix,
-				withRelativePosStyle,
+				fg('platform_editor_fix_safari_cursor_hidden_empty')
+					? withRelativePosStyle
+					: withRelativePosStyleLegacy,
 				topLevelNodeMarginStyles,
 				withAnchorNameZindexStyle,
 				,

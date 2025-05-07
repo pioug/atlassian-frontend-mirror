@@ -748,7 +748,10 @@ export const getToolbarConfig =
 											onClick: () => {
 												api?.core?.actions.execute(
 													// @ts-ignore
-													api?.floatingToolbar?.commands.copyNode(nodeType),
+													api?.floatingToolbar?.commands.copyNode(
+														nodeType,
+														INPUT_METHOD.FLOATING_TB,
+													),
 												);
 												return true;
 											},

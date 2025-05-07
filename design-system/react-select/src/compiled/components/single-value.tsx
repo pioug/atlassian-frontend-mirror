@@ -39,7 +39,6 @@ export const css = () => ({});
 
 const styles = cssMap({
 	root: {
-		label: 'singleValue',
 		gridArea: '1 / 1 / 2 / 3',
 		maxWidth: '100%',
 		overflow: 'hidden',

@@ -46,6 +46,7 @@ export interface MediaClientConfig {
 	readonly initialAuth?: Auth;
 	readonly stargateBaseUrl?: string;
 	readonly getAuthFromContext?: AuthFromContextProvider;
+	/** @deprecated This option has no effect. SHA256 is used for all uploads. */
 	readonly useSha256ForUploads?: boolean;
 	readonly authProviderTimeoutMs?: number;
 	readonly enforceDataSecurityPolicy?: boolean;

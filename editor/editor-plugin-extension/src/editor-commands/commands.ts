@@ -1,5 +1,5 @@
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -25,6 +25,7 @@ import {
 	removeParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionAction, ExtensionState, RejectSave } from '../extensionPluginType';
 import { createCommand } from '../pm-plugins/plugin-factory';
@@ -114,7 +115,10 @@ export const updateExtensionLayout = (layout: ExtensionLayout, analyticsApi?: Ed
 		return tr;
 	});
 
-export const removeExtension = (editorAnalyticsAPI?: EditorAnalyticsAPI) =>
+export const removeExtension = (
+	editorAnalyticsAPI?: EditorAnalyticsAPI,
+	inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB,
+) =>
 	createCommand(
 		{
 			type: 'UPDATE_STATE',
@@ -122,9 +126,9 @@ export const removeExtension = (editorAnalyticsAPI?: EditorAnalyticsAPI) =>
 		},
 		(tr, state) => {
 			if (getSelectedExtension(state)) {
-				return removeSelectedNodeWithAnalytics(state, tr, editorAnalyticsAPI);
+				return removeSelectedNodeWithAnalytics(state, tr, editorAnalyticsAPI, inputMethod);
 			} else {
-				return checkAndRemoveExtensionNode(state, tr, editorAnalyticsAPI);
+				return checkAndRemoveExtensionNode(state, tr, editorAnalyticsAPI, inputMethod);
 			}
 		},
 	);
@@ -144,6 +148,7 @@ export const removeSelectedNodeWithAnalytics = (
 	state: EditorState,
 	tr: Transaction,
 	analyticsApi?: EditorAnalyticsAPI,
+	inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB,
 ) => {
 	if (state.selection instanceof NodeSelection) {
 		const node = state.selection.node;
@@ -157,6 +162,7 @@ export const removeSelectedNodeWithAnalytics = (
 					extensionType: node.attrs.extensionType,
 					extensionKey: node.attrs.extensionKey,
 					localId: node.attrs.localId,
+					inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
 				},
 			})(tr);
 		}
@@ -169,6 +175,7 @@ export const checkAndRemoveExtensionNode = (
 	state: EditorState,
 	tr: Transaction,
 	analyticsApi?: EditorAnalyticsAPI,
+	inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB,
 ) => {
 	let nodeType = state.schema.nodes.bodiedExtension;
 
@@ -187,6 +194,7 @@ export const checkAndRemoveExtensionNode = (
 					extensionKey: maybeMBENode.node.attrs.extensionKey,
 					localId: maybeMBENode.node.attrs.localId,
 					currentFramesCount: maybeMBENode.node.content.childCount,
+					inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
 				},
 			})(tr);
 		}
@@ -206,6 +214,7 @@ export const checkAndRemoveExtensionNode = (
 					extensionType: bodiedExtensionNode.node.attrs.extensionType,
 					extensionKey: bodiedExtensionNode.node.attrs.extensionKey,
 					localId: bodiedExtensionNode.node.attrs.localId,
+					inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
 				},
 			})(tr);
 		}

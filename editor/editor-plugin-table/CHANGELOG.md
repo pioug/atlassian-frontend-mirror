@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.16
+
+### Patch Changes
+
+- [#149482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149482)
+  [`1f1f73876c3c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f1f73876c3c8) -
+  ED-27860 Add analytics for copy and delete button in floating toolbars
+- Updated dependencies
+
 ## 10.9.15
 
 ### Patch Changes

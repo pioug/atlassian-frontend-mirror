@@ -153,9 +153,9 @@ const ProgressTracker = ({
 	};
 
 	return (
-		<ul data-testid={testId} style={listInlineStyles} css={containerStyles} aria-label={label}>
+		<ol data-testid={testId} style={listInlineStyles} css={containerStyles} aria-label={label}>
 			{progressItems}
-		</ul>
+		</ol>
 	);
 };
 

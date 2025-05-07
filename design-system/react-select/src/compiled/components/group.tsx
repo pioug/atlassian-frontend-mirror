@@ -133,7 +133,6 @@ const headingStyles = css({
 	cursor: 'default',
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
-	label: 'group',
 	// https://product-fabric.atlassian.net/browse/DSP-22128
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginBlockEnd: '0.25em',

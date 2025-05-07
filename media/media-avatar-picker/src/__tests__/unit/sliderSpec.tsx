@@ -34,7 +34,7 @@ describe('Slider', () => {
 		const zoomOutBtn = element.querySelector('.zoom_button_small');
 		zoomOutBtn && fireEvent.click(zoomOutBtn);
 		expect(onChange).toHaveBeenCalledWith(0);
-		expect(zoomOutBtn).toHaveAttribute('aria-label', 'to 0% zoom');
+		expect(zoomOutBtn).toHaveAttribute('aria-label', 'Zoom out');
 	});
 
 	it('should zoom to 100 when large icon clicked', () => {
@@ -42,6 +42,6 @@ describe('Slider', () => {
 		const zoomInBtn = element.querySelector('.zoom_button_large');
 		zoomInBtn && fireEvent.click(zoomInBtn);
 		expect(onChange).toHaveBeenCalledWith(100);
-		expect(zoomInBtn).toHaveAttribute('aria-label', 'to 100% zoom');
+		expect(zoomInBtn).toHaveAttribute('aria-label', 'Zoom in');
 	});
 });

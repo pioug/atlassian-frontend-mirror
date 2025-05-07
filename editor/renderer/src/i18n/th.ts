@@ -16,5 +16,4 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'ไม่มี',
   'fabric.editor.inlineComment.marker.end': 'สิ้นสุดความคิดเห็นในบรรทัด',
   'fabric.editor.inlineComment.marker.start': 'เริ่มต้นความคิดเห็นในบรรทัด',
-  'fabric.editor.status.accessibilityLabel': 'สถานะ:',
 };

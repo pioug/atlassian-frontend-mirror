@@ -17,4 +17,9 @@ export type DateTimeProps = ElementProps & {
 	 * The override text which will show next to the date
 	 */
 	text?: string;
+
+	/**
+	 * Hide the date prefix (e.g. "Created on", "Modified on", "Sent on")
+	 */
+	hideDatePrefix?: boolean;
 };

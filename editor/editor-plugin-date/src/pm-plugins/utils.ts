@@ -36,6 +36,7 @@ export function mapping(tr: ReadonlyTransaction, pluginState: DatePluginState): 
 			isNew: pluginState.isNew,
 			isDateEmpty: pluginState.isDateEmpty,
 			focusDateInput: pluginState.focusDateInput,
+			isInitialised: pluginState.isInitialised,
 		};
 	} else {
 		return {
@@ -43,6 +44,7 @@ export function mapping(tr: ReadonlyTransaction, pluginState: DatePluginState): 
 			isNew: pluginState.isNew,
 			isDateEmpty: pluginState.isDateEmpty,
 			focusDateInput: pluginState.focusDateInput,
+			isInitialised: pluginState.isInitialised,
 		};
 	}
 }
@@ -64,6 +66,7 @@ export function onSelectionChanged(
 				isNew: false,
 				isDateEmpty: false,
 				focusDateInput: false,
+				isInitialised: true,
 			};
 		}
 

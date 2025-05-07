@@ -94,6 +94,11 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	const hasChildren = !!children;
 	const removeBorder = showMacroInteractionDesignUpdates || !!(hideFrame && !hasBody);
 
+	// Some native bodied macros (e.g Content properties) have this param to hide in view mode
+	// which we want to also hide in live page view mode too
+	const macroParamHiddenValue = node?.attrs?.parameters?.macroParams?.hidden?.value;
+	const shouldHideInLivePageViewMode = isLivePageViewMode && macroParamHiddenValue === 'true'; // it is stored as a string
+
 	const { getPos, view } = props;
 	const isTopLevelNode = React.useMemo(() => {
 		const pos: number | undefined = typeof getPos === 'function' ? getPos() : undefined;
@@ -252,18 +257,22 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 							className={newContentClassNames}
 							data-testid="extension-new-content"
 						>
-							<div
-								data-testid="extension-content"
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								css={content}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={contentClassNames}
-								ref={!fg('platform_editor_extension_fix_ssr_ref') ? handleContentDOMRef : undefined}
-							>
-								{/* NOTE: this is a way around a bit strange issue where ref is always null on SSR
+							{!shouldHideInLivePageViewMode && (
+								<div
+									data-testid="extension-content"
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+									css={content}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+									className={contentClassNames}
+									ref={
+										!fg('platform_editor_extension_fix_ssr_ref') ? handleContentDOMRef : undefined
+									}
+								>
+									{/* NOTE: this is a way around a bit strange issue where ref is always null on SSR
 								    when `css` property is provided to the component. */}
-								{fg('platform_editor_extension_fix_ssr_ref') && <div ref={handleContentDOMRef} />}
-							</div>
+									{fg('platform_editor_extension_fix_ssr_ref') && <div ref={handleContentDOMRef} />}
+								</div>
+							)}
 						</div>
 					)}
 				</div>

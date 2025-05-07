@@ -123,6 +123,7 @@ export interface UserSearchItem {
 	title?: string;
 	description?: string;
 	nickname?: string;
+	email?: string;
 
 	includesYou?: boolean;
 	notMentionable?: boolean;

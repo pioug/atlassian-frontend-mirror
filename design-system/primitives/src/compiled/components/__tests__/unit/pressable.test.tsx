@@ -5,7 +5,8 @@
 import { Fragment } from 'react';
 
 import { jsx } from '@compiled/react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
@@ -126,8 +127,43 @@ describe('Pressable', () => {
 		});
 	});
 
-	it('should call click handler when present', () => {
+	describe('tabIndex', () => {
+		it('should not set tabIndex to 0 by default', () => {
+			render(<Pressable testId={testId}>Pressable</Pressable>);
+			expect(screen.getByTestId(testId)).not.toHaveAttribute('tabindex');
+		});
+
+		it('should set tabIndex to 0 by default for Safari ', () => {
+			const orginalNavigator = window.navigator;
+			Object.defineProperty(window.navigator, 'userAgent', { value: 'safari', writable: true });
+
+			render(<Pressable testId={testId}>Pressable</Pressable>);
+			expect(screen.getByTestId(testId)).toHaveAttribute('tabindex', '0');
+			global.navigator = orginalNavigator;
+		});
+
+		it('should not have tabIndex when isDisabled is true', () => {
+			render(
+				<Pressable testId={testId} isDisabled>
+					Disabled
+				</Pressable>,
+			);
+			expect(screen.getByTestId(testId)).not.toHaveAttribute('tabindex');
+		});
+
+		it('should set tabIndex to the provided value', () => {
+			render(
+				<Pressable testId={testId} tabIndex={-1}>
+					Pressable
+				</Pressable>,
+			);
+			expect(screen.getByTestId(testId)).toHaveAttribute('tabindex', '-1');
+		});
+	});
+
+	it('should call click handler when present', async () => {
 		const mockOnClick = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<Pressable testId={testId} onClick={mockOnClick}>
@@ -135,7 +171,7 @@ describe('Pressable', () => {
 			</Pressable>,
 		);
 
-		fireEvent.click(screen.getByTestId(testId));
+		await user.click(screen.getByTestId(testId));
 
 		expect(mockOnClick).toHaveBeenCalled();
 	});
@@ -204,10 +240,12 @@ describe('Pressable', () => {
 	describe('analytics', () => {
 		const packageName = process.env._PACKAGE_NAME_ as string;
 		const packageVersion = process.env._PACKAGE_VERSION_ as string;
+		const user = userEvent.setup();
 
-		it('should fire an event on the public channel and the internal channel', () => {
+		it('should fire an event on the public channel and the internal channel', async () => {
 			const onPublicEvent = jest.fn();
 			const onAtlaskitEvent = jest.fn();
+
 			function WithBoth() {
 				return (
 					<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
@@ -228,7 +266,7 @@ describe('Pressable', () => {
 
 			const pressable = screen.getByTestId(testId);
 
-			fireEvent.click(pressable);
+			await user.click(pressable);
 
 			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 				payload: {
@@ -258,7 +296,7 @@ describe('Pressable', () => {
 			assert(onAtlaskitEvent);
 		});
 
-		it('should allow the addition of additional context', () => {
+		it('should allow the addition of additional context', async () => {
 			function App({
 				onEvent,
 				channel,
@@ -288,7 +326,7 @@ describe('Pressable', () => {
 			render(<App onEvent={onEvent} channel="atlaskit" analyticsContext={extraContext} />);
 			const pressable = screen.getByTestId(testId);
 
-			fireEvent.click(pressable);
+			await user.click(pressable);
 
 			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 				payload: {
@@ -314,7 +352,7 @@ describe('Pressable', () => {
 			expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
 		});
 
-		it('should allow componentName to be overridden', () => {
+		it('should allow componentName to be overridden', async () => {
 			function App({
 				onEvent,
 				channel,
@@ -344,7 +382,7 @@ describe('Pressable', () => {
 			render(<App onEvent={onEvent} channel="atlaskit" />);
 			const pressable = screen.getByTestId(testId);
 
-			fireEvent.click(pressable);
+			await user.click(pressable);
 
 			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 				payload: {
@@ -369,7 +407,7 @@ describe('Pressable', () => {
 			expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
 		});
 
-		it('should not error if there is no analytics provider', () => {
+		it('should not error if there is no analytics provider', async () => {
 			const error = jest.spyOn(console, 'error');
 			const onClick = jest.fn();
 			render(
@@ -379,7 +417,7 @@ describe('Pressable', () => {
 			);
 
 			const button = screen.getByTestId(testId);
-			fireEvent.click(button);
+			user.click(button);
 
 			expect(error).not.toHaveBeenCalled();
 			error.mockRestore();

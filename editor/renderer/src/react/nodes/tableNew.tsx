@@ -48,6 +48,7 @@ const getColgroupChildrenLength = (table: PMNode): number => {
 
 const gutterPadding = akEditorGutterPaddingDynamic() * 2;
 
+const TABLE_MAX_WIDTH = 1800;
 const COLUMN_MIN_WIDTH = 48;
 
 export type TableArrayMapped = {
@@ -432,7 +433,25 @@ export class TableContainer extends React.Component<
 
 		const { stickyMode } = this.state;
 
-		const tableWidthAttribute = tableNode?.attrs.width ? `${tableNode?.attrs.width}px` : `100%`;
+		const getTableWidthAttribute = () => {
+			// this scenario occurs when there is a full width table within the full width renderer,
+			// in which case the parent container is already the correct size
+			if (rendererAppearance === 'full-width' && tableNode?.attrs.width === TABLE_MAX_WIDTH) {
+				return `100%`;
+			}
+			// this scenario occurs when there is a full width table nested within a component (expand, column layout). In these cases
+			// the table should inherit the width of its parent component
+			if (
+				rendererAppearance === 'full-page' &&
+				tableNode?.attrs.width === TABLE_MAX_WIDTH &&
+				layout === 'align-start'
+			) {
+				return `100%`;
+			}
+			return `${tableNode?.attrs.width}px`;
+		};
+
+		const tableWidthAttribute = getTableWidthAttribute();
 		const children = React.Children.toArray(this.props.children);
 
 		let tableMinWidth;
@@ -442,8 +461,7 @@ export class TableContainer extends React.Component<
 
 		// Historically, tables in the full-width renderer had their layout set to 'default' which is deceiving.
 		// This check caters for those tables and helps with SSR logic
-		const isFullWidth =
-			!tableNode?.attrs.width && rendererAppearance === 'full-width' && layout !== 'full-width';
+		const isFullWidth = rendererAppearance === 'full-width' && layout !== 'full-width';
 
 		if (isFullWidth) {
 			this.updatedLayout = 'full-width';
@@ -454,12 +472,20 @@ export class TableContainer extends React.Component<
 			this.updatedLayout = layout;
 		}
 
+		// full width tables can have either left-aligned or centered layout despite looking centered in the renderer.
+		// in these cases, keep the alignment unset
+		const getTableAlignment = () => {
+			return isFullWidth && tableNode?.attrs.width === TABLE_MAX_WIDTH
+				? ''
+				: tableNode?.attrs.layout;
+		};
+
 		return (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				className="table-alignment-container"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				style={{ display: 'flex', justifyContent: `${tableNode?.attrs.layout}` }}
+				style={{ display: 'flex', justifyContent: getTableAlignment() }}
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -478,7 +504,7 @@ export class TableContainer extends React.Component<
 							userSelect: 'auto',
 							boxSizing: 'border-box',
 							['--ak-editor-table-gutter-padding' as string]: `${gutterPadding}px`,
-							['--ak-editor-table-max-width' as string]: `1800px`,
+							['--ak-editor-table-max-width' as string]: `${TABLE_MAX_WIDTH}px`,
 							['--ak-editor-table-min-width' as string]: `${tableMinWidth}px`,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							minWidth: 'var(--ak-editor-table-min-width)',

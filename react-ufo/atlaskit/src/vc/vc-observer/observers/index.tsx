@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type VCIgnoreReason } from '../../../common/vc/types';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
@@ -169,22 +167,14 @@ export class Observers implements BrowserObservers {
 		newValue: string | null = null,
 	) => {
 		this.intersectionObserver?.observe(node);
-		if (fg('platform_ufo_log_attr_mutation_values')) {
-			this.observedMutations.set(node, {
-				mutation,
-				ignoreReason,
-				type,
-				attributeName,
-				oldValue,
-				newValue,
-			});
-		} else {
-			this.observedMutations.set(node, {
-				mutation,
-				ignoreReason,
-				type,
-			});
-		}
+		this.observedMutations.set(node, {
+			mutation,
+			ignoreReason,
+			type,
+			attributeName,
+			oldValue,
+			newValue,
+		});
 	};
 
 	private getMutationObserver() {

@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import { expect, test } from '@af/integration-testing';
 
 const trigger = '[data-testid="lite-mode-ddm--trigger"]';
@@ -357,6 +358,125 @@ test.describe('returnFocusRef', () => {
 			await page.locator(`#${outsideDropdown}`).click();
 			await expect(page.getByTestId(contentTestId)).toBeHidden();
 			await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+		});
+	});
+});
+
+test.describe('Returns focus to trigger', () => {
+	test.describe('with platform_design_system_team_dropdown_return_focus', () => {
+		test.describe('Dropdown focus when clicking outside', () => {
+			test.beforeEach(async ({ page }) => {
+				await page.visitExample(
+					'design-system',
+					'dropdown-menu',
+					'dropdown-trigger-focus-click-outside',
+					{
+						featureFlag: 'platform_design_system_team_dropdown_return_focus',
+					},
+				);
+			});
+
+			test('should not return focus to trigger when clicking on another button', async ({
+				page,
+			}) => {
+				const trigger = page.getByTestId('dropdown--trigger');
+				await trigger.click();
+				await expect(trigger).toBeFocused();
+
+				const menu = page.getByTestId('dropdown--content');
+				await expect(menu).toBeVisible();
+
+				const button = page.getByTestId('button-for-focus');
+				await button.click();
+				await expect(menu).toBeHidden();
+				await expect(button).toBeFocused();
+			});
+
+			test('should not return focus to trigger when clicking on another input', async ({
+				page,
+			}) => {
+				const trigger = page.getByTestId('dropdown--trigger');
+				await trigger.click();
+				await expect(trigger).toBeFocused();
+
+				const menu = page.getByTestId('dropdown--content');
+				await expect(menu).toBeVisible();
+
+				const input = page.getByTestId('input-for-focus');
+				await input.click();
+				await expect(menu).toBeHidden();
+				await expect(input).toBeFocused();
+			});
+
+			test('should return focus when clicking on body', async ({ page }) => {
+				const trigger = page.getByTestId('dropdown--trigger');
+				await trigger.click();
+				await expect(trigger).toBeFocused();
+
+				const menu = page.getByTestId('dropdown--content');
+				await expect(menu).toBeVisible();
+
+				page.click('body');
+				await expect(menu).toBeHidden();
+				await expect(trigger).toBeFocused();
+			});
+		});
+	});
+
+	test.describe('without platform_design_system_team_dropdown_return_focus', () => {
+		test.describe('Dropdown focus when clicking outside', () => {
+			test.beforeEach(async ({ page }) => {
+				await page.visitExample(
+					'design-system',
+					'dropdown-menu',
+					'dropdown-trigger-focus-click-outside',
+				);
+			});
+
+			test('should not return focus to trigger when clicking on another button', async ({
+				page,
+			}) => {
+				const trigger = page.getByTestId('dropdown--trigger');
+				await trigger.click();
+				await expect(trigger).toBeFocused();
+
+				const menu = page.getByTestId('dropdown--content');
+				await expect(menu).toBeVisible();
+
+				const button = page.getByTestId('button-for-focus');
+				await button.click();
+				await expect(menu).toBeHidden();
+				await expect(trigger).toBeFocused();
+			});
+
+			test('should not return focus to trigger when clicking on another input', async ({
+				page,
+			}) => {
+				const trigger = page.getByTestId('dropdown--trigger');
+				await trigger.click();
+				await expect(trigger).toBeFocused();
+
+				const menu = page.getByTestId('dropdown--content');
+				await expect(menu).toBeVisible();
+
+				const input = page.getByTestId('input-for-focus');
+				await input.click();
+				await expect(menu).toBeHidden();
+				await expect(trigger).toBeFocused();
+			});
+
+			test('should return focus when clicking on body', async ({ page }) => {
+				const trigger = page.getByTestId('dropdown--trigger');
+				await trigger.click();
+				await expect(trigger).toBeFocused();
+
+				const menu = page.getByTestId('dropdown--content');
+				await expect(menu).toBeVisible();
+
+				page.click('body');
+				await expect(menu).toBeHidden();
+				await expect(trigger).toBeFocused();
+			});
 		});
 	});
 });

@@ -7,7 +7,7 @@ import type { MessageDescriptor } from 'react-intl-next';
 export type ObjectSidebarBehavior = 'push' | 'cover';
 // Below type is copied from confluence/next/packages/object-sidebar-api/src/useObjectSidebar.tsx
 export type ObjectSidebarPanelCloseOptions = {
-	canClosePanel?: () => boolean; // Returns true if panel can be closed
+	canClosePanel?: () => Promise<boolean>; // Returns true if panel can be closed
 	onPanelClose?: () => void;
 };
 

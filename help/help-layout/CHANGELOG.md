@@ -1,5 +1,17 @@
 # @atlaskit/help-layout
 
+## 6.2.0
+
+### Minor Changes
+
+- [#150389](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150389)
+  [`c80e7098610aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c80e7098610aa) -
+  [ux] Adding dynamic header for side tab experience
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

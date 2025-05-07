@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 
+import { Box, xcss } from '@atlaskit/primitives';
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
@@ -20,15 +21,19 @@ export const HeaderContainer = ({ children }: { children: React.ReactNode }) => 
 	<div css={headerContainerStyles}>{children}</div>
 );
 
-const closeButtonContainerStyles = css({
+const closeButtonContainerStyles = xcss({
 	position: 'absolute',
-	right: token('space.100', '8px'),
-	top: token('space.150', '12px'),
+	right: 'space.100',
+	top: 'space.150',
 });
 
-export const CloseButtonContainer = ({ children }: { children: React.ReactNode }) => (
-	<div css={closeButtonContainerStyles}>{children}</div>
-);
+export const CloseButtonContainer = ({
+	inDynamicHeader,
+	children,
+}: {
+	inDynamicHeader: boolean;
+	children: React.ReactNode;
+}) => <Box xcss={!inDynamicHeader && closeButtonContainerStyles}>{children}</Box>;
 
 export const TRANSITION_DURATION_MS = 220;
 

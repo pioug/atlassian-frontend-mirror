@@ -557,6 +557,9 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'More actions',
 		description: 'Allows the users to see more link actions',
 	},
+	/**
+	 * @deprecated remove when cleaning up FG platform_bandicoots-smart-card-disable-aria
+	 */
 	more_information_about_this_work_item: {
 		id: 'fabric.linking.more_information_about_this_work_item',
 		defaultMessage: 'More information about this work item',

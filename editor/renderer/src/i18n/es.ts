@@ -16,5 +16,4 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'ninguno',
   'fabric.editor.inlineComment.marker.end': 'final de comentario insertado',
   'fabric.editor.inlineComment.marker.start': 'inicio de comentario insertado',
-  'fabric.editor.status.accessibilityLabel': 'estado:',
 };

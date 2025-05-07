@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.16.0
+
+### Minor Changes
+
+- [#149327](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149327)
+  [`f1ba918778e20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1ba918778e20) -
+  EDITOR-676: Add editor_ai_contextual_selection_toolbar_button experiment.
+
+### Patch Changes
+
+- [#148798](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148798)
+  [`8112e98809756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8112e98809756) -
+  [No Issue] Clean up virtualization feature flag
+
 ## 4.15.0
 
 ### Minor Changes

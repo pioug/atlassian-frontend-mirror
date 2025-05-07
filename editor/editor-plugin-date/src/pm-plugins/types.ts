@@ -4,9 +4,11 @@ export type DatePluginState = {
 	showDatePickerAt: number | null;
 	isDateEmpty: boolean;
 	focusDateInput: boolean;
+	isInitialised: boolean;
 };
 export type DatePluginMeta = {
 	isNew?: boolean;
 	showDatePickerAt?: number | null;
 	isDateEmpty?: boolean;
+	isInitialised: boolean;
 };

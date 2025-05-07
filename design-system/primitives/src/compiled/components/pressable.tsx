@@ -14,6 +14,7 @@ import {
 import { cx, jsx, cssMap as unboundedCssMap } from '@compiled/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { isSafari } from '@atlaskit/ds-lib/device-check';
 import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
@@ -99,6 +100,7 @@ const Pressable = forwardRef(
 			style,
 			testId,
 			xcss,
+			tabIndex,
 			...htmlAttributes
 		}: PressableProps,
 		ref?: Ref<HTMLButtonElement>,
@@ -130,6 +132,10 @@ const Pressable = forwardRef(
 			<Focusable
 				// @ts-expect-error we don't allow `button` on Focusable for makers as they should use Pressable instead
 				as="button"
+				// Safari does not apply focus to buttons on click like other browsers, which means click events will not be fired.
+				// Adding a tabIndex of 0 to the button will allow it to be focused on click.
+				// This is a known issue in Safari that is meant to be "intended", see https://bugs.webkit.org/show_bug.cgi?id=22261
+				tabIndex={tabIndex ?? (isSafari() && !isDisabled ? 0 : undefined)}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- TODO: Properly type this and allow pass-through if we can determine the type
 				style={style}
 				{...safeHtmlAttributes}

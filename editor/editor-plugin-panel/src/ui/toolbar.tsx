@@ -9,6 +9,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import commonMessages, { panelMessages as messages } from '@atlaskit/editor-common/messages';
@@ -359,7 +360,7 @@ export const getToolbarItems = (
 						onClick: () => {
 							api?.core?.actions.execute(
 								// @ts-ignore
-								api?.floatingToolbar?.commands.copyNode(panelNodeType),
+								api?.floatingToolbar?.commands.copyNode(panelNodeType, INPUT_METHOD.FLOATING_TB),
 							);
 							return true;
 						},

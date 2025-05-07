@@ -84,10 +84,8 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 		return (
 			<SizeableAvatar
 				appearance={
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform-component-visual-refresh') && fg('visual-refresh-user-picker')
-						? 'medium'
-						: 'big'
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-component-visual-refresh') ? 'medium' : 'big'
 				}
 				src={avatarUrl}
 				presence={status}

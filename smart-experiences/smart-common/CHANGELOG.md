@@ -1,5 +1,16 @@
 # @atlaskit/smart-common
 
+## 2.0.0
+
+### Major Changes
+
+- [#149899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149899)
+  [`14874d8eaec78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14874d8eaec78) -
+  [ux] Added featured user tags renderer in invite-people based on the optional
+  experimental_featuredUsers prop under the experiment feature gate:
+  `recommend_teammates_in_project_invite`. Updated API of smart-common to take optional email prop
+  for UserSearchItem since we want to support finding users by email and id.
+
 ## 1.0.0
 
 ### Major Changes

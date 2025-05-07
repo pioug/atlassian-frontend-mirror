@@ -191,6 +191,31 @@ describe('createElement', () => {
 		);
 	});
 
+	ffTest.on('platform-linking-additional-flexible-element-props', '', () => {
+		it.each([
+			[ElementName.CreatedBy, 'createdBy'],
+			[ElementName.ModifiedBy, 'modifiedBy'],
+			[ElementName.OwnedBy, 'ownedBy'],
+			[ElementName.SourceBranch, 'sourceBranch'],
+			[ElementName.TargetBranch, 'targetBranch'],
+		])(
+			'creates %s component from Text element without format',
+			async (elementName: ElementName, contextKey: string) => {
+				const key = contextKey as EnumKeysAsString<FlexibleUiDataContext>;
+				const Component = createElement(elementName);
+				renderComponent(Component, context, undefined, {
+					hideFormat: true,
+				});
+
+				const element = await screen.findByTestId('smart-element-text');
+
+				expect(Component).toBeDefined();
+				expect(element).toHaveTextContent(context[key] as string);
+				expect(element).toBeDefined();
+			},
+		);
+	});
+
 	it('throws error if base element does not exists', () => {
 		expect(() => createElement('Random' as ElementName)).toThrow(
 			new Error('Element Random does not exist.'),

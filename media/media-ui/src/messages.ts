@@ -960,12 +960,12 @@ export const messages: Messages = defineMessages({
 	},
 	image_cropper_zoom_out: {
 		id: 'media.media-avatar-picker.image-cropper.zoom_out',
-		defaultMessage: 'to 0% zoom',
+		defaultMessage: 'Zoom out',
 		description: 'Label for the zoom out button in image cropper slider',
 	},
 	image_cropper_zoom_in: {
 		id: 'media.media-avatar-picker.image-cropper.zoom_in',
-		defaultMessage: 'to 100% zoom',
+		defaultMessage: 'Zoom in',
 		description: 'Label for the zoom in button in image cropper slider',
 	},
 	image_cropper_zoom_slider: {

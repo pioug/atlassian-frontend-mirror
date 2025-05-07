@@ -257,6 +257,28 @@ const baseStyles = css({
 	},
 });
 
+const hideHeadingCopyLinkWrapperStyles = css({
+	'& h1, & h2, & h3, & h4, & h5, & h6': {
+		[`.${HeadingAnchorWrapperClassName}`]: {
+			'&:focus-within': {
+				opacity: 1,
+			},
+		},
+		[`@media (hover: hover) and (pointer: fine)`]: {
+			[`.${HeadingAnchorWrapperClassName}`]: {
+				opacity: 0,
+				transition: `opacity 0.2s ease 0s`,
+			},
+
+			'&:hover': {
+				[`.${HeadingAnchorWrapperClassName}`]: {
+					opacity: 1,
+				},
+			},
+		},
+	},
+});
+
 const rendererFullPageStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	maxWidth: `${akEditorDefaultLayoutWidth}px`,
@@ -2010,6 +2032,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 			}
 			css={[
 				baseStyles,
+				fg('platform_hide_heading_anchor_wrapper_before_hover') && hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' && rendererFullPageStyles,
 				appearance === 'full-width' && rendererFullWidthStyles,
 				appearance === 'full-width' &&

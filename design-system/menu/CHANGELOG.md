@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 5.0.1
+
+### Patch Changes
+
+- [#150647](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150647)
+  [`a0fe499b55985`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0fe499b55985) -
+  Adds a `:focus` style reset to menu items to prevent :focus styles with lower specificity from
+  leaking through.
+
 ## 5.0.0
 
 ### Major Changes

@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.1.9
+
+### Patch Changes
+
+- [#148734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148734)
+  [`f64d4fd0fb594`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f64d4fd0fb594) -
+  Label content update for the zoom in/out button for image cropping functionality
+
 ## 28.1.8
 
 ### Patch Changes

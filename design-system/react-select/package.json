@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "2.4.5",
+	"version": "2.4.6",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

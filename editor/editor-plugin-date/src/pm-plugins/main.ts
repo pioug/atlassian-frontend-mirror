@@ -23,6 +23,7 @@ const createPlugin = (pmPluginFactoryParams: PMPluginFactoryParams) => {
 		isNew: false,
 		isDateEmpty: false,
 		focusDateInput: false,
+		isInitialised: true,
 	};
 
 	return new SafePlugin({

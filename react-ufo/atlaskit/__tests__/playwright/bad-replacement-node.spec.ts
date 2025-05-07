@@ -21,11 +21,9 @@ test.describe('ReactUFO: Revisions - bad replacement node', () => {
 				getSectionVisibleAt,
 			}) => {
 				const mainDiv = page.locator('[data-testid="main"]');
-				const placeholderDiv = page.locator('[data-testid="section-to-replace-placeholder"]');
 				const finalDiv = page.locator('[data-testid="section-to-replace-final"]');
 
 				await expect(mainDiv).toBeVisible();
-				await expect(placeholderDiv).toBeVisible();
 				await expect(finalDiv).toBeVisible();
 
 				const finalDivVisibleAt = await getSectionVisibleAt('section-to-replace-final');

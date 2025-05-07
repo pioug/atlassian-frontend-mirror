@@ -137,6 +137,7 @@ describe('@atlaskit/progress-tracker', () => {
 
 		const progressTracker = screen.getByTestId('progress-tracker');
 		expect(progressTracker).toBeInTheDocument();
+		expect(progressTracker.nodeName).toBe('OL');
 
 		const childElements = progressTracker.childNodes;
 

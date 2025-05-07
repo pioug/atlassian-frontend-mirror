@@ -1,32 +1,33 @@
 jest.mock('../../simpleHasher');
-jest.mock('../../workerHasher');
+jest.mock('../../sha256SimpleHasher');
 
 import { SimpleHasher } from '../../simpleHasher';
-import { WorkerHasher } from '../../workerHasher';
-import { createHasher, destroyHasher } from '../../hasherCreator';
+import { SimpleHasher as Sha256SimpleHasher } from '../../sha256SimpleHasher';
+
+import { createHasher, destroyHashers } from '../../hasherCreator';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 
 describe('createHasher', () => {
 	const SimpleHasherStub: jest.Mock<SimpleHasher> = SimpleHasher as any;
-	const WorkerHasherStub: jest.Mock<WorkerHasher> = WorkerHasher as any;
+	const Sha256SimpleHasherStub: jest.Mock<Sha256SimpleHasher> = Sha256SimpleHasher as any;
 
 	beforeEach(() => {
-		destroyHasher();
+		destroyHashers();
 		SimpleHasherStub.mockReset();
-		WorkerHasherStub.mockReset();
+		Sha256SimpleHasherStub.mockReset();
 	});
 
-	it('should create WorkerHasher by default', async () => {
-		const hasher = await createHasher(ChunkHashAlgorithm.Sha1);
-		expect(hasher).toEqual(WorkerHasherStub.mock.instances[0]);
+	it('should create Sha256SimpleHasher', async () => {
+		const hasher = await createHasher(ChunkHashAlgorithm.Sha256);
+		expect(hasher).toEqual(Sha256SimpleHasherStub.mock.instances[0]);
 	});
 
-	it('should create SimpleHasher if WorkerHasher throws an exception', async () => {
-		WorkerHasherStub.mockImplementation(() => {
+	it('should create SimpleHasher if Sha256SimpleHasher throws an exception', async () => {
+		Sha256SimpleHasherStub.mockImplementation(() => {
 			throw new Error('some-error');
 		});
 
-		const hasher = await createHasher(ChunkHashAlgorithm.Sha1);
+		const hasher = await createHasher(ChunkHashAlgorithm.Sha256);
 		expect(hasher).toEqual(SimpleHasherStub.mock.instances[0]);
 	});
 });

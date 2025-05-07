@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 33.0.0
+
+### Patch Changes
+
+- [#150406](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150406)
+  [`dad9e400fc02a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dad9e400fc02a) -
+  SHA256 is now the default and only uploading hash algorithm
+- Updated dependencies
+
 ## 32.0.2
 
 ### Patch Changes

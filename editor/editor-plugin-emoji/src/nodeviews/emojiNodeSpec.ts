@@ -1,7 +1,6 @@
 import { emoji } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -13,7 +12,7 @@ const isSSR = Boolean(process.env.REACT_SSR);
  * @returns
  */
 export const emojiNodeSpec = () => {
-	if (isSSR || editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
+	if (isSSR) {
 		return emoji;
 	}
 

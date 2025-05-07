@@ -3,6 +3,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { CopyButtonPlugin } from '@atlaskit/editor-plugin-copy-button';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -47,6 +48,7 @@ export type FloatingToolbarPluginDependencies = [
 	OptionalPlugin<EmojiPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
 	OptionalPlugin<InteractionPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
 ];
 
 export type FloatingToolbarPlugin = NextEditorPlugin<

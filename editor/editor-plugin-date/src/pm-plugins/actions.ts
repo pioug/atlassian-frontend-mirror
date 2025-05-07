@@ -63,6 +63,7 @@ export const createDate =
 			isNew: true,
 			isDateEmpty: false,
 			focusDateInput: false,
+			isInitialised: true,
 		};
 		return tr.setMeta(pluginKey, newPluginState);
 	};

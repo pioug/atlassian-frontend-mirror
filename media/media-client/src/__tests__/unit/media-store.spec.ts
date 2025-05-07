@@ -144,7 +144,7 @@ describe('MediaStore', () => {
 				expect(response).toEqual({ data });
 
 				expect(fetchMock).toHaveBeenCalledWith(
-					`${baseUrl}/upload?createUpTo=${createUpTo}&hashAlgorithm=sha1`,
+					`${baseUrl}/upload?createUpTo=${createUpTo}&hashAlgorithm=sha256`,
 					{
 						method: 'POST',
 						headers: {
@@ -169,7 +169,7 @@ describe('MediaStore', () => {
 				expect(response).toEqual({ data });
 
 				expect(fetchMock).toHaveBeenCalledWith(
-					`${baseUrl}/upload?createUpTo=${createUpTo}&hashAlgorithm=sha1`,
+					`${baseUrl}/upload?createUpTo=${createUpTo}&hashAlgorithm=sha256`,
 					{
 						method: 'POST',
 						headers: {
@@ -191,7 +191,7 @@ describe('MediaStore', () => {
 					authContext: {
 						collectionName: 'my-collection',
 					},
-					params: { createUpTo: 1, hashAlgorithm: 'sha1' },
+					params: { createUpTo: 1, hashAlgorithm: 'sha256' },
 					headers: {
 						Accept: 'application/json',
 					},
@@ -263,7 +263,7 @@ describe('MediaStore', () => {
 						endpoint: '/upload',
 						headers: { Accept: 'application/json' },
 						method: 'POST',
-						params: { createUpTo: 1, hashAlgorithm: 'sha1' },
+						params: { createUpTo: 1, hashAlgorithm: 'sha256' },
 						traceContext: {
 							traceId: 'test-trace-id',
 							spanId: expect.any(String),
@@ -734,7 +734,7 @@ describe('MediaStore', () => {
 
 				expect(response).toEqual({ data });
 				expect(fetchMock).toHaveBeenCalledWith(
-					`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha1`,
+					`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha256`,
 					{
 						method: 'POST',
 						headers: {
@@ -862,7 +862,7 @@ describe('MediaStore', () => {
 							'Content-Type': 'application/json',
 						},
 						method: 'POST',
-						params: { hashAlgorithm: 'sha1' },
+						params: { hashAlgorithm: 'sha256' },
 						traceContext: {
 							traceId: 'test-trace-id',
 							spanId: expect.any(String),

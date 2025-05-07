@@ -179,6 +179,13 @@ const panelNestedIconStyles = css({
 	},
 });
 
+const nestedPanelStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ak-editor-panel__content .ak-editor-panel': {
+		border: `1px solid ${token('color.border', '#091E42')}`,
+	},
+});
+
 const panelCustomBackground = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	'&.ak-editor-panel': {
@@ -208,6 +215,7 @@ const PanelStyled = ({
 				!hasIcon && panelHasNoIconStyles,
 				props['data-panel-type'] === PanelType.CUSTOM && backgroundColor && panelCustomBackground,
 				fg('platform_editor_nested_dnd_styles_changes') && panelNestedIconStyles,
+				fg('platform_editor_add_border_for_nested_panel') && nestedPanelStyles,
 			]}
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading

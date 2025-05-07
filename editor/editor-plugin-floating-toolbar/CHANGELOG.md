@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.1.0
+
+### Minor Changes
+
+- [#149482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149482)
+  [`1f1f73876c3c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f1f73876c3c8) -
+  ED-27860 Add analytics for copy and delete button in floating toolbars
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.8
 
 ### Patch Changes

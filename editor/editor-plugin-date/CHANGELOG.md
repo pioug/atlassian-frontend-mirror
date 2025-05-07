@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-date
 
+## 4.3.2
+
+### Patch Changes
+
+- [#149315](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149315)
+  [`48b82f7847cb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48b82f7847cb0) -
+  Adds an isInitialised variable to date plugin shared state
+
+## 4.3.1
+
+### Patch Changes
+
+- [#148798](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148798)
+  [`8112e98809756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8112e98809756) -
+  [No Issue] Clean up virtualization feature flag
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

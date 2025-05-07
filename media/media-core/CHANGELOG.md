@@ -1,5 +1,14 @@
 # @atlaskit/media-core
 
+## 36.0.0
+
+### Major Changes
+
+- [#150406](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150406)
+  [`3004ef5c3d294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3004ef5c3d294) -
+  Removed upload hashing algorithm ChunkHashAlgorithm.Sha1. Media Client now uses
+  ChunkHashAlgorithm.Sha256 by default
+
 ## 35.0.0
 
 ### Major Changes

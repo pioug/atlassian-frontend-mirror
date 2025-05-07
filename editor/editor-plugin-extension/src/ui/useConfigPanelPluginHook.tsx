@@ -127,7 +127,7 @@ export function showConfigPanel({
 				},
 				BodyComponent,
 				closeOptions: {
-					canClosePanel: () => {
+					canClosePanel: async () => {
 						// When navigating away from the editor, the editorView is destroyed.
 						if (editorView.isDestroyed) {
 							return true;
@@ -140,7 +140,7 @@ export function showConfigPanel({
 						 * 		which will call hideConfigPanel.
 						 */
 						if (extensionState?.showContextPanel) {
-							startClosingConfigPanel({ api, editorView });
+							await startClosingConfigPanel({ api, editorView });
 							return false;
 						}
 

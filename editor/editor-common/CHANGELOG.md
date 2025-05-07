@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 104.0.0
+
+### Minor Changes
+
+- [#148116](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148116)
+  [`6170d49320f56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6170d49320f56) -
+  [ux] EDITOR-618 Add border style when a panel is nested in other panels
+- [#149482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149482)
+  [`1f1f73876c3c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f1f73876c3c8) -
+  ED-27860 Add analytics for copy and delete button in floating toolbars
+
+### Patch Changes
+
+- [#148798](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148798)
+  [`8112e98809756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8112e98809756) -
+  [No Issue] Clean up virtualization feature flag
+- Updated dependencies
+
+## 103.24.0
+
+### Minor Changes
+
+- [#148473](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148473)
+  [`d0e0dc8f37b91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0e0dc8f37b91) -
+  [ux] Adds a condition to hide bodied extension content in live pages view mode if the
+  node?.attrs?.parameters?.macroParams?.hidden?.value is "true"
+
 ## 103.23.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-expand
 
+## 3.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.7
 
 ### Patch Changes

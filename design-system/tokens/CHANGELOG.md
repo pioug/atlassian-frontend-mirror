@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.8.2
+
+### Patch Changes
+
+- [#150642](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150642)
+  [`862ea073ae70a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/862ea073ae70a) -
+  Fix bug where token-descriptions.csv had broken formatting
+
 ## 4.8.1
 
 ### Patch Changes

@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.jira.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlassian__teams-client/app",
+		"outDir": "../../../../../tsDist/@atlaskit__teams-client/app",
 		"rootDir": "../",
 		"composite": true
 	},

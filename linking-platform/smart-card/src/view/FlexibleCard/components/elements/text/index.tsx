@@ -48,6 +48,7 @@ const Text = ({
 	name,
 	className,
 	testId = 'smart-element-text',
+	hideFormat = false,
 }: TextProps) => {
 	if (!message && !content) {
 		return null;
@@ -61,6 +62,9 @@ const Text = ({
 			maxHeight: `calc(${maxLines} * 1rem)`,
 		},
 	});
+
+	const newContent = hideFormat && content ? content : getFormattedMessage(message) || content;
+	const oldContent = getFormattedMessage(message) || content;
 
 	return (
 		<span
@@ -77,7 +81,7 @@ const Text = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 		>
-			{getFormattedMessage(message) || content}
+			{fg('platform-linking-additional-flexible-element-props') ? newContent : oldContent}
 		</span>
 	);
 };

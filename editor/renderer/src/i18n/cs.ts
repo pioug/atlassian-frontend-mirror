@@ -16,5 +16,4 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'Žádné',
   'fabric.editor.inlineComment.marker.end': 'konec vloženého komentáře',
   'fabric.editor.inlineComment.marker.start': 'začátek vloženého komentáře',
-  'fabric.editor.status.accessibilityLabel': 'stav:',
 };

@@ -8,6 +8,10 @@
  */
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { SmartLinkSize } from '../../constants';
+
 import {
 	CopyLinkAction as CopyLinkActionComponent,
 	CustomAction as CustomActionComponent,
@@ -52,6 +56,8 @@ import {
 	ViewCount,
 	VoteCount,
 } from './components/elements';
+import { type DateTimeProps } from './components/elements/date-time/types';
+import { type IconProps } from './components/elements/icon/types';
 import { type LinkProps } from './components/elements/link/types';
 import { type TextProps } from './components/elements/text/types';
 
@@ -67,11 +73,43 @@ export const CreatedOnElement = () => <CreatedOn />;
 export const CreatedByElement = () => <CreatedBy />;
 export const DueOnElement = () => <DueOn />;
 export const LatestCommitElement = () => <LatestCommit />;
-export const LinkIconElement = () => <LinkIcon />;
+
+type LinkIconElementProps = Pick<IconProps, 'render'> & {
+	iconTileSize?: 16 | 24;
+};
+export const LinkIconElement = (props?: LinkIconElementProps) => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return <LinkIcon />;
+	}
+	return (
+		<LinkIcon
+			size={props?.iconTileSize === 24 ? SmartLinkSize.Large : SmartLinkSize.Medium}
+			render={props?.render}
+		/>
+	);
+};
+
 export const LocationElement = () => <Location />;
 export const ModifiedByElement = () => <ModifiedBy />;
-export const ModifiedOnElement = () => <ModifiedOn />;
-export const OwnedByElement = () => <OwnedBy />;
+
+type ModifiedOnElementProps = Pick<DateTimeProps, 'hideDatePrefix'>;
+export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return <ModifiedOn hideDatePrefix={props?.hideDatePrefix} />;
+	}
+	return <ModifiedOn />;
+};
+
+type OwnedByElementProps = {
+	hidePrefix?: boolean;
+};
+export const OwnedByElement = (props?: OwnedByElementProps) => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return <OwnedBy hideFormat={props?.hidePrefix} />;
+	}
+	return <OwnedBy />;
+};
+
 export const OwnedByGroupElement = () => <OwnedByGroup />;
 export const PreviewElement = () => <Preview />;
 export const PriorityElement = () => <Priority />;

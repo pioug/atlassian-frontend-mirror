@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 206.0.1
+
+### Patch Changes
+
+- [#150109](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150109)
+  [`15c263bb5c421`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15c263bb5c421) -
+  Clean-up feature gate platform_editor_lcm_toolbar_portals
+- Updated dependencies
+
+## 206.0.0
+
+### Patch Changes
+
+- [#148725](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148725)
+  [`1bc7ac4bd7eff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bc7ac4bd7eff) -
+  [ux] [ED-27491] Make main content area focus-able and remove autofocus behaviour from editor-core
+- Updated dependencies
+
 ## 205.10.0
 
 ### Minor Changes

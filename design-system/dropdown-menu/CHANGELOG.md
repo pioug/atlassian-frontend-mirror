@@ -1,5 +1,16 @@
 # @atlaskit/dropdown-menu
 
+## 14.1.3
+
+### Patch Changes
+
+- [#148964](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148964)
+  [`a07dc3da50fa9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a07dc3da50fa9) -
+  "We are testing keyboard focus improvement behind a feature flag. This change does not force focus
+  to return to the Dropdown trigger if another interactive element is clicked outside of the menu.
+  If this fix is successful it will be available in a later release."
+- Updated dependencies
+
 ## 14.1.2
 
 ### Patch Changes

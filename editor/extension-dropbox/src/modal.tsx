@@ -8,12 +8,11 @@ import { jsx, css } from '@emotion/react';
 
 import ModalDialog, {
 	ModalTransition,
+	CloseButton,
 	useModal,
 	ModalBody as AKModalBody,
 } from '@atlaskit/modal-dialog';
 
-import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
-import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
 
 import { DROPBOX_IFRAME_NAME } from './constants';
@@ -60,11 +59,7 @@ const Header = () => {
 				</Heading>
 			</Box>
 			<div>
-				<Button
-					appearance="subtle"
-					iconBefore={<EditorCloseIcon label="close dropbox modal" />}
-					onClick={onClose}
-				/>
+				<CloseButton onClick={onClose} />
 			</div>
 		</div>
 	);

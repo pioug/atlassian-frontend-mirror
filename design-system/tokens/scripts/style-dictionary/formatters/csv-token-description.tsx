@@ -12,7 +12,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 			.filter((token) => token.attributes?.state !== 'deprecated')
 			.filter((token) => token.attributes?.state !== 'deleted'),
 	).forEach((token) => {
-		tokens += `${getTokenId(token.path)}, "${token.attributes?.description}"\n`;
+		tokens += `${getTokenId(token.path)}, "${token.attributes?.description.replace(/[\r\n]/g, ' ')}"\n`;
 	});
 
 	return tokens;

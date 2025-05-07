@@ -34,6 +34,7 @@ export type DatePluginSharedState = {
 	showDatePickerAt?: number | null;
 	isNew: boolean;
 	focusDateInput: boolean;
+	isInitialised: boolean;
 };
 
 export type InsertDate = (props: {

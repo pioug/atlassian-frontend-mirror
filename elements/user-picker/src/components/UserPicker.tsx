@@ -112,8 +112,8 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 								this.props.appearance === 'compact',
 								this.props.styles,
 								this.props.isInvalid,
-								// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
-								fg('platform-component-visual-refresh') && fg('visual-refresh-user-picker'),
+								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+								fg('platform-component-visual-refresh'),
 							)}
 							components={getComponents(
 								isMulti,

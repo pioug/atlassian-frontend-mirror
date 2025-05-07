@@ -5,7 +5,9 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import type {
 	Command,
@@ -195,6 +197,17 @@ export const changeMediaInlineToMediaSingle =
 		}
 		return true;
 	};
+
+export const removeInlineCardWithAnalytics = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): Command => {
+	return withAnalytics(editorAnalyticsAPI, {
+		action: ACTION.DELETED,
+		actionSubject: ACTION_SUBJECT.MEDIA_INLINE,
+		attributes: { inputMethod: INPUT_METHOD.FLOATING_TB },
+		eventType: EVENT_TYPE.TRACK,
+	})(removeInlineCard);
+};
 
 export const removeInlineCard: Command = (state, dispatch) => {
 	if (isNodeSelection(state.selection)) {

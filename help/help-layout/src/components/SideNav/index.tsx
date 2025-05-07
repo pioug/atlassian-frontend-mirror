@@ -80,8 +80,9 @@ export const SideNav = ({ sideNavTabs }: SideNavProps) => {
 							<Tooltip ignoreTooltipPointerEvents position="left" content={tab.label}>
 								<Pressable
 									xcss={cx(styles.navButton, index === activeIndex && styles.navButtonSelected)}
-									onClick={() => {
+									onClick={(event) => {
 										setActiveIndex(index);
+										tab.onClick && tab?.onClick(event);
 									}}
 									testId={`side-nav-button-${tab.label}`}
 								>
@@ -103,6 +104,7 @@ export const SideNav = ({ sideNavTabs }: SideNavProps) => {
 					title={sideNavTabs[activeIndex].header.title}
 					onCloseButtonClick={sideNavTabs[activeIndex].header.onCloseButtonClick}
 					onNewChatButtonClick={sideNavTabs[activeIndex].header.onNewChatButtonClick}
+					newChatButtonDisabled={sideNavTabs[activeIndex].header.newChatButtonDisabled}
 				/>
 				{sideNavTabs[activeIndex].content}
 			</Flex>

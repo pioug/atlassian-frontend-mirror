@@ -2,17 +2,18 @@
 // eslint-disable-next-line import/no-namespace
 import * as clipboard from 'clipboard-polyfill';
 
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type {
-	ACTION,
 	AnalyticsEventPayload,
+	INPUT_METHOD,
 	SelectCellAEP,
 	SelectNodeAEP,
 	SelectRangeAEP,
 } from '../analytics';
-import { ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
 import {
 	getAllSelectionAnalyticsPayload,
 	getCellSelectionAnalyticsPayload,
@@ -180,4 +181,33 @@ export const getAnalyticsPayload = (
 			},
 		};
 	}
+};
+
+export const getNodeCopiedAnalyticsPayload = (
+	node: PMNode,
+	inputMethod?: INPUT_METHOD,
+): AnalyticsEventPayload => {
+	const nodeType = node.type.name;
+	let extensionType: string | undefined;
+	let extensionKey: string | undefined;
+
+	if (isExtensionNode(nodeType)) {
+		extensionType = node.attrs.extensionType;
+		extensionKey = node.attrs.extensionKey;
+	}
+
+	const payload: AnalyticsEventPayload = {
+		eventType: EVENT_TYPE.TRACK,
+		action: ACTION.COPIED,
+		actionSubject: ACTION_SUBJECT.DOCUMENT,
+		attributes: {
+			content: [nodeType],
+			inputMethod,
+			nodeType,
+			...(extensionType ? { extensionType } : {}),
+			...(extensionKey ? { extensionKey } : {}),
+		},
+	};
+
+	return payload;
 };

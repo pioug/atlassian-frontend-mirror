@@ -1,5 +1,14 @@
 # @atlaskit/media-avatar-picker
 
+## 26.1.2
+
+### Patch Changes
+
+- [#148734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148734)
+  [`f64d4fd0fb594`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f64d4fd0fb594) -
+  Label content update for the zoom in/out button for image cropping functionality
+- Updated dependencies
+
 ## 26.1.1
 
 ### Patch Changes

@@ -16,5 +16,4 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': '无',
   'fabric.editor.inlineComment.marker.end': '内联评论结束',
   'fabric.editor.inlineComment.marker.start': '内联评论开始',
-  'fabric.editor.status.accessibilityLabel': '状态：',
 };

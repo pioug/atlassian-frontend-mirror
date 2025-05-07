@@ -147,13 +147,16 @@ const datePlugin: DatePlugin = ({ config = {}, api }) => ({
 				showDatePickerAt: null,
 				isNew: false,
 				focusDateInput: false,
+				isInitialised: true,
 			};
 		}
-		const { showDatePickerAt, isNew, focusDateInput } = datePluginKey.getState(editorState) || {};
+		const { showDatePickerAt, isNew, focusDateInput, isInitialised } =
+			datePluginKey.getState(editorState) || {};
 		return {
 			showDatePickerAt,
 			isNew: !!isNew,
 			focusDateInput: !!focusDateInput,
+			isInitialised: !!isInitialised,
 		};
 	},
 

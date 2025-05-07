@@ -33,9 +33,7 @@ export class MediaClient {
 			new MediaApi({
 				authProvider: mediaClientConfig.authProvider,
 				initialAuth: mediaClientConfig.initialAuth,
-				chunkHashAlgorithm: mediaClientConfig.useSha256ForUploads
-					? ChunkHashAlgorithm.Sha256
-					: ChunkHashAlgorithm.Sha1,
+				chunkHashAlgorithm: ChunkHashAlgorithm.Sha256,
 				authProviderTimeout: mediaClientConfig.authProviderTimeoutMs,
 			});
 		this.config = mediaClientConfig;

@@ -1,16 +1,22 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
 import {
 	copyHTMLToClipboard,
 	copyHTMLToClipboardPolyfill,
+	getNodeCopiedAnalyticsPayload,
 } from '@atlaskit/editor-common/clipboard';
 import { getSelectedNodeOrNodeParentByNodeType, toDOM } from '@atlaskit/editor-common/copy-button';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const copyNode =
-	(nodeType: NodeType | Array<NodeType>, editorAnalyticsAp?: EditorAnalyticsAPI | undefined) =>
+	(
+		nodeType: NodeType | Array<NodeType>,
+		editorAnalyticsApi?: EditorAnalyticsAPI | undefined,
+		inputMethod?: INPUT_METHOD,
+	) =>
 	({ tr }: { tr: Transaction }) => {
 		// const { tr, schema } = state;
 
@@ -60,6 +66,12 @@ export const copyNode =
 				copyHTMLToClipboard(div);
 			}
 		}
+
+		if (editorAnalyticsApi && fg('platform_editor_controls_patch_analytics_2')) {
+			const analyticsPayload = getNodeCopiedAnalyticsPayload(contentNodeWithPos.node, inputMethod);
+			editorAnalyticsApi.attachAnalyticsEvent(analyticsPayload)(copyToClipboardTr);
+		}
+
 		copyToClipboardTr.setMeta('scrollIntoView', false);
 		return copyToClipboardTr;
 	};

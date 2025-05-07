@@ -58,8 +58,9 @@ type ExtensionDeletedAEP = TrackAEP<
 		extensionType: string;
 		extensionKey: string;
 		localId: string;
+		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 	},
-	INPUT_METHOD.TOOLBAR
+	INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB
 >;
 
 type ExtensionAPICalledPayload = TrackAEP<

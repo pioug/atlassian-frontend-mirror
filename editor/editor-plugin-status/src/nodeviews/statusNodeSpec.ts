@@ -5,7 +5,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -100,7 +99,7 @@ const isAndroidChromium =
  * @returns
  */
 export const statusNodeSpec = () => {
-	if (isSSR || editorExperiment('platform_editor_inline_node_virtualization', 'off')) {
+	if (isSSR) {
 		return status;
 	}
 

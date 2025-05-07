@@ -191,9 +191,18 @@ const DropdownMenu = <T extends HTMLElement = any>({
 					itemRef.current?.focus();
 				});
 			} else if (triggerRef.current) {
-				requestAnimationFrame(() => {
-					triggerRef.current?.focus();
-				});
+				// Don't focus the trigger if the click was outside of the menu
+				const isClickOutsideMenu =
+					event?.target instanceof HTMLElement && event.target.closest?.('[role="menu"]') === null;
+				const shouldPreventFocus =
+					isClickOutsideMenu &&
+					document.activeElement !== document.body && // except if clicking on the body
+					fg('platform_design_system_team_dropdown_return_focus');
+				if (!shouldPreventFocus) {
+					requestAnimationFrame(() => {
+						triggerRef.current?.focus();
+					});
+				}
 			}
 
 			const newValue = false;

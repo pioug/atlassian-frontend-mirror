@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "103.23.0",
+	"version": "104.0.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -457,6 +457,9 @@
 			"type": "boolean"
 		},
 		"platform_exclude_media_single_from_vc": {
+			"type": "boolean"
+		},
+		"platform_editor_add_border_for_nested_panel": {
 			"type": "boolean"
 		},
 		"platform_editor_fix_code_block_bg_color_in_macro": {

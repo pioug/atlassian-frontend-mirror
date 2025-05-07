@@ -8,6 +8,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import {
 	alignmentIcons,
@@ -19,6 +20,7 @@ import {
 	layoutToMessages,
 	wrappingIcons,
 } from '@atlaskit/editor-common/card';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
 import commonMessages, {
 	cardMessages,
@@ -115,11 +117,31 @@ const mediaTypeMessages = {
 	unknown: messages.file_unknown_is_selected,
 };
 
+const removeWithAnalytics = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command => {
+	return withAnalytics(editorAnalyticsApi, {
+		action: ACTION.DELETED,
+		actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
+		attributes: { inputMethod: INPUT_METHOD.FLOATING_TB },
+		eventType: EVENT_TYPE.TRACK,
+	})(remove);
+};
+
 const remove: Command = (state, dispatch) => {
 	if (dispatch) {
 		dispatch(removeSelectedNode(state.tr));
 	}
 	return true;
+};
+
+const handleRemoveMediaGroupWithAnalytics = (
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): Command => {
+	return withAnalytics(editorAnalyticsApi, {
+		action: ACTION.DELETED,
+		actionSubject: ACTION_SUBJECT.MEDIA_GROUP,
+		attributes: { inputMethod: INPUT_METHOD.FLOATING_TB },
+		eventType: EVENT_TYPE.TRACK,
+	})(handleRemoveMediaGroup);
 };
 
 const handleRemoveMediaGroup: Command = (state, dispatch) => {
@@ -253,7 +275,9 @@ const generateMediaCardFloatingToolbar = (
 				onFocus: hoverDecoration?.(mediaGroup, true),
 				onBlur: hoverDecoration?.(mediaGroup, false),
 				title: intl.formatMessage(commonMessages.remove),
-				onClick: handleRemoveMediaGroup,
+				onClick: fg('platform_editor_controls_patch_analytics_2')
+					? handleRemoveMediaGroupWithAnalytics(editorAnalyticsAPI)
+					: handleRemoveMediaGroup,
 				testId: 'media-toolbar-remove-button',
 			},
 		);
@@ -774,7 +798,9 @@ const generateMediaSingleFloatingToolbar = (
 			onFocus: hoverDecoration?.(mediaSingle, true),
 			onBlur: hoverDecoration?.(mediaSingle, false),
 			title: intl.formatMessage(commonMessages.remove),
-			onClick: remove,
+			onClick: fg('platform_editor_controls_patch_analytics_2')
+				? removeWithAnalytics(pluginInjectionApi?.analytics?.actions)
+				: remove,
 			testId: 'media-toolbar-remove-button',
 			supportsViewMode: false,
 		};
@@ -1080,7 +1106,10 @@ export const floatingToolbar = (
 					onClick: () => {
 						pluginInjectionApi?.core?.actions.execute(
 							// @ts-ignore
-							pluginInjectionApi?.floatingToolbar?.commands.copyNode(nodeType),
+							pluginInjectionApi?.floatingToolbar?.commands.copyNode(
+								nodeType,
+								INPUT_METHOD.FLOATING_TB,
+							),
 						);
 						return true;
 					},
@@ -1089,7 +1118,9 @@ export const floatingToolbar = (
 				},
 				{
 					title: intl?.formatMessage(commonMessages.delete),
-					onClick: remove,
+					onClick: fg('platform_editor_controls_patch_analytics_2')
+						? removeWithAnalytics(pluginInjectionApi?.analytics?.actions)
+						: remove,
 					icon: <DeleteIcon label="" />,
 					...hoverDecorationProps(nodeType),
 				},

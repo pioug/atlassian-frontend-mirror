@@ -11,7 +11,6 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -57,22 +56,6 @@ const canRenderFallback = (node: PMNode): boolean => {
 // list of inline nodes with toDOM fallback implementations that can be virtualized. As
 // additional nodes are converted they should be added here
 const virtualizedNodeAllowlist = ['status', 'mention', 'emoji', 'date', 'inlineCard'];
-
-function checkExperimentExposure() {
-	if (editorExperiment('platform_editor_inline_node_virtualization', 'off', { exposure: true })) {
-		return false;
-	}
-
-	if (
-		editorExperiment('platform_editor_inline_node_virtualization', 'fallback-small', {
-			exposure: true,
-		})
-	) {
-		return true;
-	}
-
-	return false;
-}
 
 function createNodeView<ExtraComponentProps>({
 	nodeViewParams,
@@ -550,15 +533,7 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
 			return createNodeView(parameters);
 		}
 
-		if (
-			// Due to the experiment, we need to check experiment exposure
-			// when a document has more than 100 (virtulizables) nodes.
-			checkExperimentExposure()
-		) {
-			return createNodeViewVirtualized(parameters);
-		}
-
-		return createNodeView(parameters);
+		return createNodeViewVirtualized(parameters);
 	}
 
 	return nodeViewProducer;

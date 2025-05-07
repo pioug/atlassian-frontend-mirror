@@ -5,9 +5,10 @@ import {
 	EVENT_TYPE,
 	MODE,
 	PLATFORMS,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { copyToClipboard, getAnalyticsPayload } from '@atlaskit/editor-common/clipboard';
 import {
 	codeBlockWrappedStates,
 	isCodeBlockWordWrapEnabled,
@@ -37,6 +38,17 @@ import { type CodeBlockState } from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
 
+export const removeCodeBlockWithAnalytics = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): Command => {
+	return withAnalytics(editorAnalyticsAPI, {
+		action: ACTION.DELETED,
+		actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+		attributes: { inputMethod: INPUT_METHOD.FLOATING_TB },
+		eventType: EVENT_TYPE.TRACK,
+	})(removeCodeBlock);
+};
+
 export const removeCodeBlock: Command = (state, dispatch) => {
 	const {
 		schema: { nodes },
@@ -49,6 +61,7 @@ export const removeCodeBlock: Command = (state, dispatch) => {
 		} else {
 			removeTr = removeParentNodeOfType(nodes.codeBlock)(tr);
 		}
+
 		dispatch(removeTr);
 	}
 	return true;
@@ -83,6 +96,45 @@ export const changeLanguage =
 				eventType: EVENT_TYPE.TRACK,
 			})(result);
 			dispatch(result);
+		}
+
+		return true;
+	};
+
+export const copyContentToClipboardWithAnalytics =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(state, dispatch) => {
+		const {
+			schema: { nodes },
+			tr,
+		} = state;
+
+		const codeBlock = findParentNodeOfType(nodes.codeBlock)(tr.selection);
+		const textContent = codeBlock && codeBlock.node.textContent;
+
+		if (textContent) {
+			copyToClipboard(textContent);
+			const copyToClipboardTr = tr;
+
+			copyToClipboardTr.setMeta(pluginKey, {
+				type: ACTIONS.SET_COPIED_TO_CLIPBOARD,
+				data: true,
+			});
+			copyToClipboardTr.setMeta(copySelectionPluginKey, 'remove-selection');
+
+			if (editorAnalyticsAPI) {
+				const analyticsPayload = getAnalyticsPayload(state, ACTION.COPIED);
+
+				if (analyticsPayload) {
+					analyticsPayload.attributes.inputMethod = INPUT_METHOD.FLOATING_TB;
+					analyticsPayload.attributes.nodeType = codeBlock?.node.type.name;
+					editorAnalyticsAPI.attachAnalyticsEvent(analyticsPayload)(copyToClipboardTr);
+				}
+			}
+
+			if (dispatch) {
+				dispatch(copyToClipboardTr);
+			}
 		}
 
 		return true;

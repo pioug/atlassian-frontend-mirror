@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 3.1.13
+
+### Patch Changes
+
+- [#148798](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148798)
+  [`8112e98809756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8112e98809756) -
+  [No Issue] Clean up virtualization feature flag
+- Updated dependencies
+
 ## 3.1.12
 
 ### Patch Changes

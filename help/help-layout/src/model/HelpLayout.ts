@@ -30,6 +30,7 @@ export interface HeaderContent {
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
+	newChatButtonDisabled?: boolean;
 }
 
 export interface SideNavTab {
@@ -49,4 +50,5 @@ export interface HelpLayout extends HelpPanelHeader {
 	children?: React.ReactNode;
 	// Tabs
 	sideNavTabs?: SideNavTab[];
+	onLoad?: () => void;
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "205.10.0",
+	"version": "206.0.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -399,9 +399,6 @@
 		"platform_editor_renderer_table_header_styles": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_lcm_toolbar_portals": {
-			"type": "boolean"
 		},
 		"platform_editor_track_node_types": {
 			"type": "boolean",

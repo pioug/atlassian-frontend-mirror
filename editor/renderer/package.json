@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "114.13.0",
+	"version": "115.0.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -130,6 +130,9 @@
 		"cc_perf_reduce_rerenders": {
 			"type": "boolean"
 		},
+		"cc_complexit_fe_reduce_fragment_serialization": {
+			"type": "boolean"
+		},
 		"platform_renderer_annotations_create_debug_logging": {
 			"type": "boolean"
 		},
@@ -237,7 +240,13 @@
 		"sticky_header_in_embedded_confluence_fix": {
 			"type": "boolean"
 		},
+		"platform_editor_add_border_for_nested_panel": {
+			"type": "boolean"
+		},
 		"platform_editor_fix_image_size_diff_during_ssr": {
+			"type": "boolean"
+		},
+		"platform_hide_heading_anchor_wrapper_before_hover": {
 			"type": "boolean"
 		}
 	},

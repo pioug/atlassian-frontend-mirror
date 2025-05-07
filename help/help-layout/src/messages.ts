@@ -26,4 +26,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Close Help Panel',
 		description: '',
 	},
+	help_panel_new_chat_button: {
+		id: 'helpPanel.header.new.chat.button',
+		defaultMessage: 'New',
+		description: 'Start a new chat with CSM agent',
+	},
 });

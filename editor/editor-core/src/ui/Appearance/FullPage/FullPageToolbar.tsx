@@ -31,7 +31,6 @@ import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorActions } from '../../../index';
@@ -96,10 +95,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 	const { Portal: ToolbarPortal } = useToolbarPortal() ?? { Portal: React.Fragment };
 	const hasToolbarPortal = ToolbarPortal !== React.Fragment;
 
-	const popupsMountPoint =
-		hasToolbarPortal && fg('platform_editor_lcm_toolbar_portals')
-			? undefined
-			: props.popupsMountPoint;
+	const popupsMountPoint = hasToolbarPortal ? undefined : props.popupsMountPoint;
 
 	const nonCustomToolbar = (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -188,37 +184,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 					handleEscape={handleEscape}
 					intl={props.intl}
 				>
-					{fg('platform_editor_lcm_toolbar_portals') ? (
-						<ToolbarPortal>
-							<div
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								css={mainToolbarStyle(
-									props.showKeyline || contextPanelWidth > 0,
-									twoLineEditorToolbar,
-								)}
-								data-testid="ak-editor-main-toolbar"
-							>
-								<div
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
-									role="toolbar"
-									aria-label={props.intl.formatMessage(messages.toolbarLabel)}
-								>
-									{shouldSplitToolbar ? customToolbar : nonCustomToolbar}
-								</div>
-								<div
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
-									data-testid="avatar-group-outside-plugin"
-									role="region"
-									aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
-								>
-									{shouldSplitToolbar ? nonCustomToolbar : customToolbar}
-								</div>
-								<ToolbarPortalMountPoint />
-							</div>
-						</ToolbarPortal>
-					) : (
+					<ToolbarPortal>
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={mainToolbarStyle(
@@ -244,8 +210,9 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 							>
 								{shouldSplitToolbar ? nonCustomToolbar : customToolbar}
 							</div>
+							<ToolbarPortalMountPoint />
 						</div>
-					)}
+					</ToolbarPortal>
 				</ToolbarArrowKeyNavigationProvider>
 			)}
 		</ContextPanelConsumer>

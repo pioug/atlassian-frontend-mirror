@@ -827,12 +827,34 @@ const TableWithShadows: React.PropsWithChildren<any> = overflowShadow(TableProce
 	useShadowObserver: true,
 });
 
+// Legacy tables have only one of the three layouts and do not have a width attribute
+const isLegacyTable = (layout: string) => {
+	return Boolean(['default', 'wide', 'full-width'].includes(layout));
+};
+
+const shouldRenderTableWithCSSWidth = (layout: string, width: number | undefined) => {
+	// The CSS width optimization is currently only in place when the table node
+	// has a defined width and is not a legacy table
+
+	// the optimization is also skipped for Safari due to browser limitations with container styles
+	if (browser.safari || !width || isLegacyTable(layout)) {
+		return false;
+	}
+	return true;
+};
+
 const TableWithWidth = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	props: React.PropsWithChildren<any>,
 ) => {
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (!browser.safari && fg('platform-ssr-table-resize')) {
+	if (
+		shouldRenderTableWithCSSWidth(
+			props.tableNode?.attrs?.layout ?? '',
+			props.tableNode?.attrs?.width,
+		) &&
+		fg('platform-ssr-table-resize')
+	) {
 		const colWidthsSum =
 			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 		if (colWidthsSum || props.allowTableResizing) {

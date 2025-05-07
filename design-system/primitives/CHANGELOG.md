@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 14.7.1
+
+### Patch Changes
+
+- [#148964](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148964)
+  [`79dddcb8a67c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79dddcb8a67c0) -
+  Add tabindex="0" to Pressable for Safari so that click events are fired
+- Updated dependencies
+
 ## 14.7.0
 
 ### Minor Changes

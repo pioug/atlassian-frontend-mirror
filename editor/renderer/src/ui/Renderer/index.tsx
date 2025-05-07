@@ -51,6 +51,7 @@ import type { ReactSerializerInit } from '../../react';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
 import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
 import { RendererContextProvider, useRendererContext } from '../../renderer-context';
+import { type Serializer } from '../../serializer';
 import { findInTree } from '../../utils';
 import {
 	RendererContext as ActionsContext,
@@ -71,6 +72,7 @@ import { ValidationContext } from './ValidationContext';
 import { RendererStyleContainer } from './RendererStyleContainer';
 import { getBaseFontSize } from './get-base-font-size';
 import { removeEmptySpaceAroundContent } from './rendererHelper';
+import { useMemoFromPropsDerivative } from './useMemoFromPropsDerivative';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -264,7 +266,7 @@ export const RendererFunctionalComponent = (
 		: fireAnalyticsEventOld;
 
 	const deriveSerializerProps = useCallback(
-		(props: RendererProps & { startPos: number }): ReactSerializerInit => {
+		(props: RendererProps & { startPos?: number }): ReactSerializerInit => {
 			const stickyHeaders = props.stickyHeaders
 				? props.stickyHeaders === true
 					? {}
@@ -277,9 +279,8 @@ export const RendererFunctionalComponent = (
 					annotationProvider.inlineComment.allowDraftMode,
 			);
 			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
-
 			return {
-				startPos: props.startPos,
+				startPos: props.startPos ?? 0,
 				providers: providerFactory,
 				eventHandlers: props.eventHandlers,
 				extensionHandlers: props.extensionHandlers,
@@ -324,16 +325,13 @@ export const RendererFunctionalComponent = (
 		[createRendererContext, providerFactory, fireAnalyticsEvent],
 	);
 
-	const serializer = useMemo(() => {
-		const init = deriveSerializerProps({ ...props, startPos: props.startPos ?? 0 });
-		if (fg('cc_complexit_fe_progressive_adf_rendering')) {
-			const newSerializer = props.createSerializer?.(init);
-			if (newSerializer) {
-				return newSerializer;
-			}
-		}
-		return new ReactSerializer(init);
-	}, [deriveSerializerProps, props]);
+	// Abstract out the logic into its own function
+	const serializer = useMemoFromPropsDerivative(
+		(serializerProps) => new ReactSerializer(serializerProps),
+		deriveSerializerProps,
+		props,
+	);
+
 	const localRef = useRef<HTMLDivElement>(null);
 	const editorRef = props.innerRef || localRef;
 	const id = useMemo(() => uuid(), []);
@@ -474,7 +472,7 @@ export const RendererFunctionalComponent = (
 			props.shouldRemoveEmptySpaceAroundContent
 				? removeEmptySpaceAroundContent(props.document)
 				: props.document,
-			serializer,
+			serializer as Serializer<JSX.Element>,
 			schema,
 			props.adfStage,
 			props.useSpecBasedValidator,

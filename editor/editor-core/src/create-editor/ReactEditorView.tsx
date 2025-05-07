@@ -132,15 +132,6 @@ type ReactEditorViewPlugins = [
 	OptionalPlugin<CustomAutoformatPlugin>,
 ];
 
-const focusElementOutsideEditor = () => {
-	// TODO: ED-26841 - This is an awful way of selecting this, would love a
-	// better way be that a ref or even an id or data attibute.
-	const aiButton = document.querySelector('[data-testid="platform-ai-button"]');
-	if (aiButton && aiButton instanceof HTMLElement) {
-		aiButton.focus();
-	}
-};
-
 export function ReactEditorView(props: EditorViewProps) {
 	const {
 		preset,
@@ -666,17 +657,13 @@ export function ReactEditorView(props: EditorViewProps) {
 			if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
 				if (!mitigateScrollJump) {
 					const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
-					if (liveDocWithContent && fg('platform_editor_no_cursor_on_live_doc_init')) {
-						focusElementOutsideEditor();
-					} else {
+					if (!liveDocWithContent || !fg('platform_editor_no_cursor_on_live_doc_init')) {
 						focusTimeoutId.current = handleEditorFocus(editorView);
 					}
 				}
 			} else {
 				const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
-				if (liveDocWithContent && fg('platform_editor_no_cursor_on_live_doc_init')) {
-					focusElementOutsideEditor();
-				} else {
+				if (!liveDocWithContent || !fg('platform_editor_no_cursor_on_live_doc_init')) {
 					focusTimeoutId.current = handleEditorFocus(editorView);
 				}
 			}

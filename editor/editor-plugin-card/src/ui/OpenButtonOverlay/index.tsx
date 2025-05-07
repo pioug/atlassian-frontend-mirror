@@ -7,15 +7,17 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react'; // eslint-disable-line @atlaskit/ui-styling-standard/use-compiled
+import { useIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { cardMessages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { visitCardLink } from '../toolbar';
+import { visitCardLinkAnalyticsOnly } from '../toolbar';
 
 import type { OpenButtonOverlayProps } from './types';
 
@@ -81,8 +83,10 @@ const OpenButtonOverlay = ({
 	editorAnalyticsApi,
 	view,
 }: React.PropsWithChildren<OpenButtonOverlayProps>) => {
-	// TODO: ED-26961 - add translation
-	const label = 'Open';
+	const { formatMessage } = useIntl();
+	const label = fg('platform_editor_controls_patch_8')
+		? formatMessage(cardMessages.openButtonTitle)
+		: 'Open';
 
 	const containerRef = useRef<HTMLSpanElement>(null);
 	const openButtonRef = useRef<HTMLAnchorElement>(null);
@@ -136,7 +140,7 @@ const OpenButtonOverlay = ({
 
 	const sendVisitLinkAnalytics = (inputMethod: INPUT_METHOD.DOUBLE_CLICK | INPUT_METHOD.BUTTON) => {
 		if (editorAnalyticsApi && view) {
-			visitCardLink(editorAnalyticsApi, inputMethod)(view.state, view.dispatch);
+			visitCardLinkAnalyticsOnly(editorAnalyticsApi, inputMethod)(view.state, view.dispatch);
 		}
 	};
 

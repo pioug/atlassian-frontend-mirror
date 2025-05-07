@@ -19,6 +19,7 @@ interface Props {
 		event: React.MouseEvent<HTMLElement, MouseEvent>,
 		analyticsEvent?: UIAnalyticsEvent,
 	): void;
+	inDynamicHeader?: boolean;
 }
 
 /**
@@ -29,6 +30,7 @@ interface Props {
  */
 export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 	onClick,
+	inDynamicHeader = false,
 	intl: { formatMessage },
 }) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -43,7 +45,7 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 	};
 
 	return (
-		<CloseButtonContainer>
+		<CloseButtonContainer inDynamicHeader={inDynamicHeader}>
 			<Tooltip content={formatMessage(messages.help_panel_header_close)} position="left">
 				<Button
 					onClick={handleOnClick}

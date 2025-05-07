@@ -293,7 +293,6 @@ const coercePlacement = (p: MenuPlacement) => (p === 'auto' ? 'bottom' : p);
 
 const menuStyles = cssMap({
 	root: {
-		label: 'menu',
 		position: 'absolute',
 		width: '100%',
 		zIndex: 1,

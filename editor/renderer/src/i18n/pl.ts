@@ -16,5 +16,4 @@ export default {
   'fabric.editor.headingLink.noneSortingLabel': 'Brak',
   'fabric.editor.inlineComment.marker.end': 'koniec komentarza śródwierszowego',
   'fabric.editor.inlineComment.marker.start': 'początek komentarza śródwierszowego',
-  'fabric.editor.status.accessibilityLabel': 'status:',
 };

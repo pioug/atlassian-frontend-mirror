@@ -75,6 +75,7 @@ const DateTime = ({
 	type,
 	testId = 'smart-element-date-time',
 	text,
+	hideDatePrefix = false,
 }: DateTimeProps) => {
 	const { formatRelativeTime, formatDate } = useIntl();
 	if (!type || !date) {
@@ -98,6 +99,15 @@ const DateTime = ({
 		});
 	}
 
+	let content;
+	if (hideDatePrefix && fg('platform-linking-additional-flexible-element-props')) {
+		content = context;
+	} else if (text) {
+		content = `${text} ${context}`;
+	} else {
+		content = <FormattedMessage {...typeToDescriptorMap[type][typeVariant]} values={{ context }} />;
+	}
+
 	return (
 		<span
 			css={[
@@ -111,11 +121,7 @@ const DateTime = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 		>
-			{text ? (
-				`${text} ${context}`
-			) : (
-				<FormattedMessage {...typeToDescriptorMap[type][typeVariant]} values={{ context }} />
-			)}
+			{content}
 		</span>
 	);
 };

@@ -74,7 +74,9 @@ export const DropTargetLayout = (
 			height = `${layoutColumnRect?.height || 0}px`;
 		}
 	}
+
 	const dropTargetStackLayoutHintStyle = css({
+		// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		[`@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`]: {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values

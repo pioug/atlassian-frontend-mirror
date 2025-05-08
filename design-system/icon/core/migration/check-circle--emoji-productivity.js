@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7f9ad5812ba23ca8aa4f397c637fb80a>>
+ * @codegen <<SignedSource::d8f21fb469314a34472ee7251285412e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  *
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: completed items, productivity emoji category. Completed task issue status in JSM Calendar view.
+ * Usage guidance: Known uses: completed items, productivity emoji category. Completed task work type in JSM Calendar view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

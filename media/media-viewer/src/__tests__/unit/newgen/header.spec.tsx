@@ -132,6 +132,23 @@ describe('<Header />', () => {
 			});
 		});
 
+		it('should render file name as a heading level 1', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<Header intl={fakeIntl} identifier={identifier} traceContext={traceContext} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const heading = await screen.findByRole('heading', { level: 1 });
+			expect(heading).toBeVisible();
+			expect(heading).toHaveTextContent('img.png');
+		});
+
 		describe('File collectionName', () => {
 			it('shows the title when loaded', async () => {
 				const [fileItem, identifier] =

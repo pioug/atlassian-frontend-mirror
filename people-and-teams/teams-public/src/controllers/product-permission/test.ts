@@ -142,6 +142,12 @@ describe('getProductPermissionRequestBody', () => {
 				principalId: `ari:cloud:identity::user/${userId}`,
 				dontRequirePrincipalInSite: true,
 			},
+			{
+				permissionId: 'manage',
+				resourceId: `ari:cloud:loom::site/${cloudId}`,
+				principalId: `ari:cloud:identity::user/${userId}`,
+				dontRequirePrincipalInSite: true,
+			},
 		]);
 
 		expect(result).toBe(expectedBody);
@@ -192,5 +198,20 @@ describe('hasProductPermission', () => {
 			},
 		};
 		expect(hasProductPermission(permissions, 'jira', ['read'])).toBe(false);
+	});
+
+	it('should return correct permissions for each product', () => {
+		const permissions = {
+			jira: {
+				write: false,
+				read: false,
+			},
+			loom: {
+				write: true,
+				read: true,
+			},
+		};
+		expect(hasProductPermission(permissions, 'jira', ['read'])).toBe(false);
+		expect(hasProductPermission(permissions, 'loom', ['read'])).toBe(true);
 	});
 });

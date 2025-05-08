@@ -472,6 +472,18 @@ export class TableContainer extends React.Component<
 			this.updatedLayout = layout;
 		}
 
+		// These styling removes extra padding for `comment` rendererAppearance.
+		// This is especially relevant for Jira which only uses `comment` appearance and does not need padding.
+		const resizerContainerPadding = rendererAppearance === 'comment' ? 0 : gutterPadding;
+		const resizerItemMaxWidth =
+			rendererAppearance === 'comment'
+				? `min(100cqw, var(--ak-editor-table-max-width))`
+				: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`;
+		const resizerItemWidth =
+			rendererAppearance === 'comment'
+				? `min(100cqw, ${tableWidthAttribute})`
+				: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${tableWidthAttribute})`;
+
 		// full width tables can have either left-aligned or centered layout despite looking centered in the renderer.
 		// in these cases, keep the alignment unset
 		const getTableAlignment = () => {
@@ -492,7 +504,7 @@ export class TableContainer extends React.Component<
 					className="pm-table-resizer-container"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={{
-						width: `min(calc(100cqw - ${gutterPadding}px), ${tableWidthAttribute})`,
+						width: `min(calc(100cqw - ${resizerContainerPadding}px), ${tableWidthAttribute})`,
 					}}
 				>
 					<div
@@ -508,8 +520,8 @@ export class TableContainer extends React.Component<
 							['--ak-editor-table-min-width' as string]: `${tableMinWidth}px`,
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							minWidth: 'var(--ak-editor-table-min-width)',
-							maxWidth: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`,
-							width: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${tableWidthAttribute})`,
+							maxWidth: resizerItemMaxWidth,
+							width: resizerItemWidth,
 						}}
 					>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop  */}

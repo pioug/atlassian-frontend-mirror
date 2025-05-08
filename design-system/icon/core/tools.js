@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1ef3fd4ef45e64c5cc0f0d33922c08ce>>
+ * @codegen <<SignedSource::fd193d6db8f1ff9d9d5b933f93f1e56e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Tools".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known usages: 'Service request' Jira issue type.
+ * Usage guidance: Known usages: 'Service request' Jira work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

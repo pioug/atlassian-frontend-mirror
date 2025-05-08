@@ -198,7 +198,7 @@ const breakoutWidthStyling = () => {
 const viewModeSortStyles = () => {
 	return fg('platform_editor_nested_tables_view_mode_sort')
 		? css`
-				// new styles
+				/* new styles */
 				th {
 					.${SORTING_ICON_CLASS_NAME} {
 						+ p {
@@ -233,7 +233,7 @@ const viewModeSortStyles = () => {
 				}
 			`
 		: css`
-				// old styles
+				/* old styles */
 				th {
 					.${SORTING_ICON_CLASS_NAME} {
 						+ p {
@@ -575,7 +575,7 @@ export const baseTableStyles = (props: {
     ${stickyScrollbarStyles}
 
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
-		height: 0; // stop overflow flash & set correct height in update-overflow-shadows.ts
+		height: 0; /* stop overflow flash & set correct height in update-overflow-shadows.ts */
 	}
 
 	.less-padding {
@@ -584,9 +584,9 @@ export const baseTableStyles = (props: {
 		.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}, .${ClassName.ROW_CONTROLS_WRAPPER} {
 			padding: 0 ${tablePadding}px;
 
-			// https://product-fabric.atlassian.net/browse/ED-16386
-			// Fixes issue where the extra padding that is added here throws off the position
-			// of the rows control dot
+			/* https://product-fabric.atlassian.net/browse/ED-16386
+			Fixes issue where the extra padding that is added here throws off the position
+			of the rows control dot */
 			&::after {
 				right: 6px !important;
 			}
@@ -965,8 +965,8 @@ export const baseTableStyles = (props: {
 		}
 	}
 
-	// add a background above the first numbered column cell when sticky header is engaged
-	// which hides the table when scrolling
+	/* add a background above the first numbered column cell when sticky header is engaged
+	which hides the table when scrolling */
 	${fg('platform_editor_nested_tables_sticky_header_bug')
 		? `
 		${
@@ -983,7 +983,7 @@ export const baseTableStyles = (props: {
 				background-color: ${token('elevation.surface', 'white')};
 				position: absolute;
 
-				// the extra pixel is accounting for borders
+				/* the extra pixel is accounting for borders */
 				top: -34px;
 				left: -1px;
 			}
@@ -999,7 +999,7 @@ export const baseTableStyles = (props: {
 				background-color: ${token('elevation.surface', 'white')};
 				position: absolute;
 
-				// the extra pixel is accounting for borders
+				/* the extra pixel is accounting for borders */
 				top: -34px;
 				left: -1px;
 			}
@@ -1027,7 +1027,7 @@ export const baseTableStyles = (props: {
 			}
 		}
 
-		// nested tables should be ignored when we apply border-left: 0 to the parent table
+		/* nested tables should be ignored when we apply border-left: 0 to the parent table */
 		.${ClassName.TABLE_CONTAINER} {
 			.${ClassName.NUMBERED_COLUMN_BUTTON} {
 				border-left: 1px solid ${tableBorderColor};
@@ -1061,9 +1061,9 @@ export const baseTableStyles = (props: {
 		table-layout: fixed;
 		white-space: normal;
 		border-top: none;
-		// 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212
+		/* 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212 */
 		margin-right: -1px;
-		// Allows better positioning for the shadow sentinels - ED-16668
+		/* Allows better positioning for the shadow sentinels - ED-16668 */
 		position: relative;
 
 		> tbody > tr {
@@ -1147,7 +1147,7 @@ export const baseTableStyles = (props: {
 		}
 	}
 
-	// override for DnD controls
+	/* override for DnD controls */
 	.${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
 		position: absolute;
 		margin-top: ${tableMarginTop}px;
@@ -1190,7 +1190,7 @@ export const baseTableStyles = (props: {
 		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
 	}
 
-	// nested tables
+	/* nested tables */
 	${fg('platform_editor_nested_table_drag_controls')
 		? `
 		.${ClassName.TABLE_CONTAINER} {
@@ -1238,7 +1238,7 @@ export const tableStyles = (props: {
 export const tableFullPageEditorStyles = css`
 	.ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
 		margin-left: 0;
-		// 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212
+		/* 1px border width offset added here to prevent unwanted overflow and scolling - ED-16212 */
 		margin-right: -1px;
 		width: 100%;
 	}

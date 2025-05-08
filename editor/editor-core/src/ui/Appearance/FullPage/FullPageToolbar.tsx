@@ -31,6 +31,7 @@ import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorActions } from '../../../index';
@@ -130,7 +131,12 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 					beforePrimaryToolbarComponents={props.customPrimaryToolbarComponents?.before}
 				/>
 			) : null}
-			{editorAPI?.findReplace && twoLineEditorToolbar
+			{!(
+				editorExperiment('platform_editor_controls', 'variant1') &&
+				fg('platform_editor_find_and_replace_duplication')
+			) &&
+			editorAPI?.findReplace &&
+			twoLineEditorToolbar
 				? editorAPI?.findReplace.actions.registerToolbarButton({
 						popupsBoundariesElement: props.popupsBoundariesElement,
 						popupsMountPoint: popupsMountPoint,

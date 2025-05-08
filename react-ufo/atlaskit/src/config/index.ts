@@ -43,6 +43,7 @@ type Rates = {
 };
 
 type TTVCRevisions = 'fy25.01' | 'fy25.02' | 'fy25.03';
+const DEFAULT_TTVC_REVISION = 'fy25.02';
 
 // Defensively typed, since this is directly user-editable
 // and they could delete empty members
@@ -122,6 +123,29 @@ export function setUFOConfig(newConfig: Config) {
 
 export function getConfig() {
 	return config;
+}
+
+export function getEnabledVCRevisions(): TTVCRevisions[] {
+	try {
+		if (!config) {
+			return [];
+		}
+
+		if (config.vc?.enabled) {
+			return Array.isArray(config.vc?.enabledVCRevisions) &&
+				config.vc?.enabledVCRevisions.length > 0
+				? config.vc.enabledVCRevisions
+				: [DEFAULT_TTVC_REVISION];
+		}
+
+		return [];
+	} catch {
+		return [];
+	}
+}
+
+export function isVCRevisionEnabled(revision: TTVCRevisions) {
+	return getEnabledVCRevisions().includes(revision);
 }
 
 export function getInteractionRate(name: string, interactionKind: InteractionKind): number {

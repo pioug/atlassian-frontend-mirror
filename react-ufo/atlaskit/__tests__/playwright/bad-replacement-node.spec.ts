@@ -6,7 +6,6 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - bad replacement node', () => {
 	test.use({
 		examplePage: 'bad-node-replacement',
-		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {

@@ -32,6 +32,14 @@ const execAsync = promisify(exec);
  *   @param {boolean} [options.useLegacyColorTheme] - If true, uses the legacy theme for color token mapping.
  *   @param {string} [options.reportFolder] - Directory path to output transformation reports. Reports will be generated only if this option is provided.
  *   @param {boolean} [options.dry] - If true, performs a dry run without modifying the files.
+ *   @param {string} [options.skipTokens] - A comma-separated list of token prefixes to exempt from automatic fallback removal. By default, 'border' tokens are always included in this list. Whether fallbacks for these tokens are removed when they exactly match depends on the preserveSkippedFallbacks option.
+ *   @param {boolean} [options.preserveSkippedFallbacks] - If true, fallbacks for skipped tokens will never be removed, even if they exactly match the token value. If false (default), fallbacks for skipped tokens will be removed if they exactly match.
+ *   @param {boolean} [options.skipEslint] - If true, skips running ESLint on modified files after transformation.
+ *   @param {boolean} [options.skipPrettier] - If true, skips running Prettier on modified files after transformation.
+ *   @param {number} [options.colorDifferenceThreshold] - The maximum allowed difference for color tokens to be considered acceptable for removal. Default is 15.
+ *   @param {number} [options.spaceDifferenceThreshold] - The maximum allowed percentage difference for space tokens to be considered acceptable for removal. Default is 0.
+ *   @param {number} [options.numericDifferenceThreshold] - The maximum allowed percentage difference for numeric tokens to be considered acceptable for removal. Default is 0.
+ *   @param {number} [options.borderDifferenceThreshold] - The maximum allowed percentage difference for border tokens to be considered acceptable for removal. Default is 0.
  *
  * @returns {Promise<string>} A promise that resolves to the transformed source code as a string.
  */
@@ -56,6 +64,55 @@ export default async function transformer(
 		console.log(
 			chalk.yellow(`Using ${options.useLegacyColorTheme ? 'legacy light' : 'light'} theme.`),
 		);
+
+		if (options.skipTokens) {
+			console.log(
+				chalk.yellow(`Auto fallback exemptions active for: ${options.skipTokens}`),
+			);
+		}
+
+		if (options.preserveSkippedFallbacks) {
+			console.log(
+				chalk.yellow(`Preserving all fallbacks for skipped tokens, even if they match exactly.`),
+			);
+		}
+
+		if (options.skipEslint) {
+			console.log(
+				chalk.yellow(`Skipping ESLint post-processing.`),
+			);
+		}
+
+		if (options.skipPrettier) {
+			console.log(
+				chalk.yellow(`Skipping Prettier post-processing.`),
+			);
+		}
+
+		// Log threshold values if they are set
+		if (options.colorDifferenceThreshold !== undefined) {
+			console.log(
+				chalk.yellow(`Color difference threshold set to: ${options.colorDifferenceThreshold}`),
+			);
+		}
+
+		if (options.spaceDifferenceThreshold !== undefined) {
+			console.log(
+				chalk.yellow(`Space difference threshold set to: ${options.spaceDifferenceThreshold}%`),
+			);
+		}
+
+		if (options.numericDifferenceThreshold !== undefined) {
+			console.log(
+				chalk.yellow(`Numeric difference threshold set to: ${options.numericDifferenceThreshold}%`),
+			);
+		}
+
+		if (options.borderDifferenceThreshold !== undefined) {
+			console.log(
+				chalk.yellow(`Border difference threshold set to: ${options.borderDifferenceThreshold}%`),
+			);
+		}
 	}
 
 	const tokenMap = getTokenMap(options.useLegacyColorTheme ?? false);
@@ -160,8 +217,18 @@ export async function afterAll(options: RemoveTokenFallbackOptions): Promise<voi
 				console.log('Root directory:', rootDir);
 
 				await gitStage(filePaths, rootDir);
-				await runEslint(filePaths, rootDir);
-				await runPrettier(filePaths, rootDir);
+
+				if (!options.skipEslint) {
+					await runEslint(filePaths, rootDir);
+				} else if (options.verbose) {
+					console.log(chalk.blue('Skipping ESLint post-processing as requested.'));
+				}
+
+				if (!options.skipPrettier) {
+					await runPrettier(filePaths, rootDir);
+				} else if (options.verbose) {
+					console.log(chalk.blue('Skipping Prettier post-processing as requested.'));
+				}
 			}
 		} catch (error: unknown) {
 			if (error instanceof Error) {

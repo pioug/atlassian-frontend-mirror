@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.6.2
+
+### Patch Changes
+
+- [#151451](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151451)
+  [`5d06214eacce9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d06214eacce9) -
+  [ux] Bring ounline back when ViewMore button is focused via keyboard.
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

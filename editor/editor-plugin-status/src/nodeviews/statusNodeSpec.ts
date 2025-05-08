@@ -2,6 +2,7 @@ import { createIntl } from 'react-intl-next';
 
 import { status } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { browser } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -258,7 +259,6 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		class: 'statusView-content-wrap inlineNodeView',
 		'data-testid': 'statusContainerView',
 		'data-prosemirror-node-view-type': 'vanilla',
-		'data-prosemirror-node-name': 'status',
 		'local-id': localId,
 	};
 
@@ -303,6 +303,12 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 			['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
 		],
 		['span', statusElementAttrs, ['span', lozengeWrapperAttrs, ['span', lozengeTextAttrs, text]]],
-		['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+		browser.android
+			? [
+					'span',
+					{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
+					['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+				]
+			: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ''],
 	];
 };

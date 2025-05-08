@@ -75,7 +75,7 @@ export const SearchInput = styled.input`
 	flex-grow: 1;
 	font-size: 1.4em;
 	outline: 0;
-	// Safari adds 2px margin-left
+	/* Safari adds 2px margin-left */
 	margin-left: 0;
 	${getPlaceholderStyle(getPlaceholderColor)};
 `;

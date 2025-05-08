@@ -30,8 +30,8 @@ export const mediaStyles = () => css`
 		}
 
 		.media-extended-resize-experience[layout^='wrap-'] {
-			// override 'overflow: auto' when viewport <= 410 set by mediaSingleSharedStyle
-			// to prevent scroll bar
+			/* override 'overflow: auto' when viewport <= 410 set by mediaSingleSharedStyle
+			to prevent scroll bar */
 			overflow: visible !important;
 		}
 
@@ -59,7 +59,7 @@ export const mediaStyles = () => css`
 
 		.mediaSingleView-content-wrap[layout^='wrap-'] {
 			max-width: 100%;
-			// overwrite default Prosemirror setting making it clear: both
+			/* overwrite default Prosemirror setting making it clear: both */
 			clear: inherit;
 		}
 

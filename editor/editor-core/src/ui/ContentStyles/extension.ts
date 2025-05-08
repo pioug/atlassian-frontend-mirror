@@ -28,7 +28,7 @@ const extensionLabelStyles = css`
 		box-shadow: none;
 	}
 
-	// Targets the icon for bodied macro styling in button label
+	/* Targets the icon for bodied macro styling in button label */
 	&.danger > span > div > .extension-label > span {
 		display: inline;
 	}
@@ -37,7 +37,7 @@ const extensionLabelStyles = css`
 		display: inline;
 	}
 
-	// Start of bodied extension edit toggle styles
+	/* Start of bodied extension edit toggle styles */
 	&.danger.${akEditorSelectedNodeClassName} > span > .extension-edit-toggle-container {
 		opacity: 1;
 	}
@@ -46,7 +46,7 @@ const extensionLabelStyles = css`
 		opacity: 1;
 	}
 
-	// In view mode of the bodied macro, we never want to show the extension label
+	/* In view mode of the bodied macro, we never want to show the extension label */
 	&.danger.${akEditorSelectedNodeClassName} > span > div > .extension-label.always-hide-label {
 		opacity: 0;
 	}
@@ -58,7 +58,7 @@ const extensionLabelStyles = css`
 		opacity: 0;
 	}
 
-	// .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled
+	/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
 	&:not(.danger).${akEditorSelectedNodeClassName}
 		> span
 		> div
@@ -114,7 +114,7 @@ export const extensionStyles = css`
 		}
 		.multiBodiedExtension--container {
 			width: 100%;
-			max-width: 100%; // ensure width can't go over 100%;
+			max-width: 100%; /* ensure width can't go over 100% */
 		}
 	}
 
@@ -126,8 +126,8 @@ export const extensionStyles = css`
 		}
 
 		&.danger > span > .with-danger-overlay {
-			// If the macro turned used to turn red before, not setting the background to be transparent will cause the
-			// danger state to have two layers of red which we don't want.
+			/* If the macro turned used to turn red before, not setting the background to be transparent will cause the
+			danger state to have two layers of red which we don't want. */
 			background-color: transparent;
 			.extension-overlay {
 				${dangerOverlayStyles}
@@ -143,10 +143,10 @@ export const extensionStyles = css`
 		${extensionLabelStyles}
 	}
 
-	// This is referenced in the toDOM of a bodied extension and is used to put
-	// label content into the bodied extension.
-	// We do this so that we don't serialise the label (which causes the label to be
-	// be copied to the clipboard causing copy-paste issues).
+	/* This is referenced in the toDOM of a bodied extension and is used to put
+	label content into the bodied extension.
+	We do this so that we don't serialise the label (which causes the label to be
+	be copied to the clipboard causing copy-paste issues). */
 	.bodied-extension-to-dom-label::after {
 		content: attr(data-bodied-extension-label);
 	}
@@ -201,7 +201,7 @@ export const extensionStyles = css`
 
 	.bodiedExtensionView-content-wrap .extensionView-content-wrap .extension-container {
 		width: 100%;
-		max-width: 100%; // ensure width can't go over 100%;
+		max-width: 100%; /* ensure width can't go over 100% */
 	}
 
 	[data-mark-type='fragment'] {

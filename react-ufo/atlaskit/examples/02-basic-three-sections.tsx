@@ -1,8 +1,9 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
+ * @jsxFrag Fragment
  */
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -54,46 +55,83 @@ const useCounterToVisible = (base: number) => {
 
 // Define each section component using the custom hook
 const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+	const [isWaitingForFinish, setIsWaitingForFinish] = useState(true);
 	const visibleAt = useCounterToVisible(base);
+
+	useEffect(() => {
+		if (visibleAt) {
+			setTimeout(() => {
+				setIsWaitingForFinish(false);
+			}, 200);
+		}
+	}, [visibleAt]);
+
 	if (!visibleAt) {
 		return <UFOLoadHold name="section-one"></UFOLoadHold>;
 	}
 
 	return (
-		<div data-testid="sectionOne" css={sectionOneStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<Fragment>
+			<UFOLoadHold name="loading" hold={isWaitingForFinish} />
+			<div data-testid="sectionOne" css={sectionOneStyle}>
+				<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+				<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+			</div>
+		</Fragment>
 	);
 };
 
 const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+	const [isWaitingForFinish, setIsWaitingForFinish] = useState(true);
 	const visibleAt = useCounterToVisible(base);
+
+	useEffect(() => {
+		if (visibleAt) {
+			setTimeout(() => {
+				setIsWaitingForFinish(false);
+			}, 200);
+		}
+	}, [visibleAt]);
 
 	if (!visibleAt) {
 		return <UFOLoadHold name="section-two"></UFOLoadHold>;
 	}
 
 	return (
-		<div data-testid="sectionTwo" css={sectionTwoStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<Fragment>
+			<UFOLoadHold name="loading" hold={isWaitingForFinish} />
+			<div data-testid="sectionTwo" css={sectionTwoStyle}>
+				<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+				<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+			</div>
+		</Fragment>
 	);
 };
 
 const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
+	const [isWaitingForFinish, setIsWaitingForFinish] = useState(true);
 	const visibleAt = useCounterToVisible(base);
+
+	useEffect(() => {
+		if (visibleAt) {
+			setTimeout(() => {
+				setIsWaitingForFinish(false);
+			}, 200);
+		}
+	}, [visibleAt]);
 
 	if (!visibleAt) {
 		return <UFOLoadHold name="section-three"></UFOLoadHold>;
 	}
 
 	return (
-		<div data-testid="sectionThree" css={sectionThreeStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<Fragment>
+			<UFOLoadHold name="loading" hold={isWaitingForFinish} />
+			<div data-testid="sectionThree" css={sectionThreeStyle}>
+				<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+				<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+			</div>
+		</Fragment>
 	);
 };
 

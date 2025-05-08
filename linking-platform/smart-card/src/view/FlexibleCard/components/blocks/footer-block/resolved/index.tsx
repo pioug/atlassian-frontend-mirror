@@ -6,6 +6,7 @@ import { useCallback, useMemo } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -31,6 +32,10 @@ const actionGroupStyles = css({
 	maxHeight: token('space.400'),
 });
 
+const safariStyles = css({
+	height: '100%',
+});
+
 const FooterBlockResolvedView = (props: FooterBlockProps) => {
 	const {
 		actions,
@@ -45,6 +50,11 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 		() => filterActionItems(actions, context)?.length > 0,
 		[actions, context],
 	);
+
+	const { safari = false } = fg('platform-linking-visual-refresh-v2')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => browser(), [])
+		: {};
 
 	const onDropdownOpenChange = useCallback(
 		(isOpen: boolean) => {
@@ -68,9 +78,15 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 					testId="smart-element-group-actions"
 					align={SmartLinkAlignment.Right}
 					direction={SmartLinkDirection.Horizontal}
-					{...(fg('platform-linking-visual-refresh-v1')
-						? { css: size === SmartLinkSize.XLarge && actionGroupStyles }
-						: { css: size === SmartLinkSize.XLarge && actionGroupStylesOld })}
+					css={[
+						size === SmartLinkSize.XLarge &&
+							fg('platform-linking-visual-refresh-v1') &&
+							actionGroupStyles,
+						size === SmartLinkSize.XLarge &&
+							!fg('platform-linking-visual-refresh-v1') &&
+							actionGroupStylesOld,
+						safari && safariStyles,
+					]}
 					width={SmartLinkWidth.Flexible}
 				>
 					<ActionGroup

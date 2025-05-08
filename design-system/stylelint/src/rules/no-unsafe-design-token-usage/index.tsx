@@ -1,5 +1,5 @@
 import valueParser from 'postcss-value-parser';
-import stylelint, { type Rule, type RuleBase, type RuleMessageFunc } from 'stylelint';
+import stylelint, { type Rule, type RuleBase } from 'stylelint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
@@ -12,13 +12,6 @@ type PluginFlags = {
 	fallbackUsage: 'forced' | 'optional' | 'none';
 };
 
-type RuleMessage = {
-	invalidToken: RuleMessageFunc;
-	tokenRemoved: RuleMessageFunc;
-	missingFallback: string;
-	hasFallback: string;
-};
-
 export const ruleName = 'design-system/no-unsafe-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
 	invalidToken: (name) =>
@@ -27,7 +20,7 @@ export const messages = stylelint.utils.ruleMessages(ruleName, {
 		`The token '${name}' has been deleted. Please use ${replacement} instead.`,
 	missingFallback: 'Token usage is missing a fallback.',
 	hasFallback: 'Token usage has a fallback.',
-} as RuleMessage);
+});
 
 const isInvalidToken = (node: valueParser.Node): boolean =>
 	isWord(node) && node.value.startsWith('--ds-') && !isToken(node);

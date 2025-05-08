@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 3.1.14
+
+### Patch Changes
+
+- [#150908](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150908)
+  [`0ab8e0f1007ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ab8e0f1007ea) -
+  NOISSUE: fix status selection within tables
+- Updated dependencies
+
 ## 3.1.13
 
 ### Patch Changes

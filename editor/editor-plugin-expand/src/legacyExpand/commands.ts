@@ -51,7 +51,11 @@ export const deleteExpandAtPos =
 				expandNode.type === state.schema.nodes.expand
 					? ACTION_SUBJECT.EXPAND
 					: ACTION_SUBJECT.NESTED_EXPAND,
-			attributes: { inputMethod: INPUT_METHOD.TOOLBAR },
+			attributes: {
+				inputMethod: fg('platform_editor_controls_patch_analytics_2')
+					? INPUT_METHOD.FLOATING_TB
+					: INPUT_METHOD.TOOLBAR,
+			},
 			eventType: EVENT_TYPE.TRACK,
 		};
 

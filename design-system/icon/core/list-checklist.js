@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::73808f38f66365176a0f7bc5375dd65a>>
+ * @codegen <<SignedSource::b903c1aeed9dcc78b6920466c5c66a0d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ListChecklist".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known usages: 'Requirement' Jira issue type.
+ * Usage guidance: Known usages: Checklist, 'Requirement' work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

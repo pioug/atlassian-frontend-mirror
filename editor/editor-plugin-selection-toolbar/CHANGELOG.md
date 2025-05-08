@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.6.0
+
+### Minor Changes
+
+- [#151276](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151276)
+  [`e483670a03fa3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e483670a03fa3) -
+  [ux] [EDITOR-670] Adds a new action to selectionToolbar `forceToolbarDockingWithoutAnalytics`
+  which performs similarly to `setToolbarDocking` with a couple of differences. 1) It does not fire
+  any analytics. 2) It does not make any changes to the selection. This was required due to issues
+  with the Confluence Legacy Content Extension which needs to manipulate the scrollbar position when
+  editor controls are enabled but relies on the selection remaining stable.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.7
 
 ### Patch Changes

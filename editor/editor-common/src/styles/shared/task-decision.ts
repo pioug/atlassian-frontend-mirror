@@ -50,13 +50,13 @@ export const tasksAndDecisionsStyles = css`
 	}
 
 	div[data-task-list-local-id] {
-		// If task item is not first in the list then set margin top to 4px.
+		/* If task item is not first in the list then set margin top to 4px. */
 		div + div {
 			margin-top: ${token('space.050', '4px')};
 		}
 	}
 
-	// If task list is not first in the document then set margin top to 4px.
+	/* If task list is not first in the document then set margin top to 4px. */
 	div[data-task-list-local-id] div[data-task-list-local-id] {
 		margin-top: ${token('space.050', '4px')};
 		margin-left: ${token('space.300', '24px')};

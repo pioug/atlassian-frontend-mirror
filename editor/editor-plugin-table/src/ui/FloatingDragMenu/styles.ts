@@ -31,7 +31,7 @@ export const dragMenuBackgroundColorStyles = () => css`
 		position: absolute;
 		top: ${TABLE_DRAG_MENU_PADDING_TOP +
 		TABLE_DRAG_MENU_SORT_GROUP_HEIGHT +
-		TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT}px; // move the submenu down when 'sort increasing/decreasing' appear before background color picker
+		TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT}px; /* move the submenu down when 'sort increasing/decreasing' appear before background color picker */
 		left: ${dragMenuDropdownWidth}px;
 		padding: ${token('space.100', '8px')};
 

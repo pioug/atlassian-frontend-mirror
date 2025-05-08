@@ -1,7 +1,5 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
-import { getConfig } from '../config';
+import { isVCRevisionEnabled } from '../config';
 
 import { VCObserverNOOP } from './no-op-vc-observer';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './types';
@@ -19,10 +17,7 @@ class VCObserverWrapper implements VCObserverInterface {
 	constructor(opts: VCObserverOptions = {}) {
 		this.newVCObserver = null;
 
-		const isNewVCObserverEnabled =
-			fg('platform_ufo_vc_observer_new') ||
-			getConfig()?.vc?.enabledVCRevisions?.includes('fy25.03');
-		if (isNewVCObserverEnabled) {
+		if (isVCRevisionEnabled('fy25.03')) {
 			this.newVCObserver = new VCObserverNew({
 				selectorConfig: opts.selectorConfig,
 			});

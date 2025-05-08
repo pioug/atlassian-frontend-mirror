@@ -1,7 +1,5 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { InteractionMetrics } from '../../common/common/types';
-import { getConfig } from '../../config';
+import { isVCRevisionEnabled } from '../../config';
 import { getPageVisibilityState } from '../../hidden-timing';
 
 import type { MultiRevisionHeatmap } from './heatmap/heatmap';
@@ -59,12 +57,7 @@ export function getVCRevisionsData({
 	calculatedVCNext: CalculatedVC;
 	ssr?: number;
 }) {
-	const ufoConfig = getConfig();
-
-	if (
-		!fg('platform_ufo_vc_observer_new') &&
-		!ufoConfig?.vc?.enabledVCRevisions?.includes('fy25.03')
-	) {
+	if (!isVCRevisionEnabled('fy25.03')) {
 		if (!multiHeatmap) {
 			return null;
 		}
@@ -98,7 +91,7 @@ export function getVCRevisionsData({
 		vcDetails: createVCDetails(calculatedVCNext, shouldHaveVCmetric),
 	};
 
-	if (!ufoConfig?.vc?.enabledVCRevisions?.includes('fy25.01')) {
+	if (!isVCRevisionEnabled('fy25.01')) {
 		return {
 			[`${fullPrefix}vc:rev`]: [ttvcV2Revision],
 		};

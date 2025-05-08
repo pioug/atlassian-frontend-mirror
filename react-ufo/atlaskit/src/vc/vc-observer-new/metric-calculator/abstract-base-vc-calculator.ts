@@ -1,7 +1,10 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
 import type { VCObserverEntry } from '../types';
 
 import calculateTTVCPercentiles from './percentile-calc';
-import type { RevisionPayloadEntry, VCCalculator, VCCalculatorParam } from './types';
+import type { VCCalculator, VCCalculatorParam } from './types';
 import getViewportHeight from './utils/get-viewport-height';
 import getViewportWidth from './utils/get-viewport-width';
 
@@ -14,6 +17,11 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 	protected abstract isVCClean(filteredEntries: ReadonlyArray<VCObserverEntry>): boolean;
 
+	protected abstract getVCCleanStatus(filteredEntries: ReadonlyArray<VCObserverEntry>): {
+		isVCClean: boolean;
+		dirtyReason?: VCAbortReason;
+	};
+
 	async calculate({
 		startTime,
 		stopTime,
@@ -22,14 +30,28 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		const filteredEntries = orderedEntries.filter((entry) => {
 			return this.isEntryIncluded(entry);
 		});
-		const isVCClean = this.isVCClean(filteredEntries);
 
-		if (!isVCClean) {
-			return {
-				revision: this.revisionNo,
-				'metric:vc90': null,
-				clean: false,
-			};
+		if (fg('platform_ufo_add_vc_abort_reason_by_revisions')) {
+			const { isVCClean, dirtyReason } = this.getVCCleanStatus(filteredEntries);
+
+			if (!isVCClean) {
+				return {
+					revision: this.revisionNo,
+					'metric:vc90': null,
+					clean: false,
+					abortReason: dirtyReason,
+				};
+			}
+		} else {
+			const isVCClean = this.isVCClean(filteredEntries);
+
+			if (!isVCClean) {
+				return {
+					revision: this.revisionNo,
+					'metric:vc90': null,
+					clean: false,
+				};
+			}
 		}
 
 		const vcDetails = await calculateTTVCPercentiles({
@@ -46,7 +68,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		return {
 			revision: this.revisionNo,
 			vcDetails: vcDetails ?? undefined,
-			clean: isVCClean,
+			clean: true,
 			'metric:vc90': vcDetails?.['90']?.t ?? null,
 		};
 	}

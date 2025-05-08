@@ -99,7 +99,7 @@ export const listsSharedStyles = css`
 
       @see https://css-tricks.com/display-flow-root/
     */
-		// For older browsers the do not support flow-root.
+		/* For older browsers the do not support flow-root. */
 		/* stylelint-disable declaration-block-no-duplicate-properties */
 		display: table;
 		display: flow-root;

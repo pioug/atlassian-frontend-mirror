@@ -9,7 +9,6 @@ import { Emoji, type EmojiProps } from '@atlaskit/editor-common/emoji';
 
 // eslint-disable-next-line
 const clickSelectWrapperStyle = css`
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 	user-select: all;
 `;
 

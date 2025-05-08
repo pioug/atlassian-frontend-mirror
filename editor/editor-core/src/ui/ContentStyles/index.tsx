@@ -46,7 +46,7 @@ import {
 	unsupportedStyles,
 	whitespaceSharedStyles,
 } from '@atlaskit/editor-common/styles';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
@@ -108,6 +108,7 @@ type ContentStylesProps = {
 		| 'typography-modernized'
 		| 'typography-refreshed';
 	isScrollable?: boolean;
+	appearance?: EditorAppearance;
 };
 
 const ruleStyles = () => css`
@@ -231,16 +232,16 @@ const listsStyles = css`
 				margin: ${token('space.050', '4px')} 0 0 0;
 			}
 
-			// In SSR the above rule will apply to all p tags because first-child would be a style tag.
-			// The following rule resets the first p tag back to its original margin
-			// defined in packages/editor/editor-common/src/styles/shared/paragraph.ts
+			/* In SSR the above rule will apply to all p tags because first-child would be a style tag.
+			The following rule resets the first p tag back to its original margin
+			defined in packages/editor/editor-common/src/styles/shared/paragraph.ts */
 			> style:first-child + p {
 				margin-top: ${blockNodesVerticalMargin};
 			}
 		}
 
 		&:not([data-node-type='decisionList']) > li,
-    // This prevents https://product-fabric.atlassian.net/browse/ED-20924
+    /* This prevents https://product-fabric.atlassian.net/browse/ED-20924 */
     &:not(.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}) > li {
 			${browser.safari ? codeBlockInListSafariFix : ''}
 		}
@@ -382,7 +383,12 @@ export const fixBlockControlStylesSSR = () => {
 
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
-const contentStyles = (props: ContentStylesProps) => css`
+
+// We are going to deprecate this in near future
+// Currently, we are migrating content styles in packages/editor/editor-core/src/ui/EditorContentContainer.tsx
+// Under editor experiment platform_editor_core_static_emotion
+// If you are making changes to this file, please make sure to update in EditorContentContainer.tsx as well
+const legacyContentStyles = (props: ContentStylesProps) => css`
 	--ak-editor--default-gutter-padding: ${akEditorGutterPadding}px;
 	/* 52 is from akEditorGutterPaddingDynamic via editor-shared-styles */
 	--ak-editor--large-gutter-padding: ${akEditorGutterPaddingDynamic()}px;
@@ -534,7 +540,7 @@ const contentStyles = (props: ContentStylesProps) => css`
 	vanillaTaskItemStyles}
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	vanillaDecisionStyles}
-  // Switch between the two icons based on the visual refresh feature gate
+  /* Switch between the two icons based on the visual refresh feature gate */
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	fg('platform-visual-refresh-icons') &&
 	vanillaDecisionIconWithVisualRefresh}
@@ -580,9 +586,9 @@ const contentStyles = (props: ContentStylesProps) => css`
 		text-align: center;
 	}
 
-	// For FullPage only when inside a table
-	// Related code all lives inside: packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts
-	// In the "editorContentAreaContainerStyle" function
+	/* For FullPage only when inside a table
+	Related code all lives inside: packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts
+	In the "editorContentAreaContainerStyle" function */
 	.fabric-editor--full-width-mode {
 		.pm-table-container {
 			.code-block,
@@ -633,7 +639,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 		const { colorMode, typography } = useThemeObserver();
 		const memoizedStyle = useMemo(
 			() =>
-				contentStyles({
+				legacyContentStyles({
 					theme,
 					colorMode,
 					featureFlags,
@@ -651,6 +657,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 					ref={ref}
 					css={[memoizedStyle, styles]}
 					data-editor-scroll-container="true"
+					data-testid="editor-content-container"
 				>
 					{children}
 				</div>
@@ -663,6 +670,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 				className={className}
 				ref={ref}
 				css={[memoizedStyle, styles]}
+				data-testid="editor-content-container"
 			>
 				{children}
 			</div>

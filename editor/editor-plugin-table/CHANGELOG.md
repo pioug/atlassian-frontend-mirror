@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.17
+
+### Patch Changes
+
+- [#150219](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150219)
+  [`8f6e3a7613db0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f6e3a7613db0) -
+  Fixes invalid css comments in template literal styles
+- Updated dependencies
+
 ## 10.9.16
 
 ### Patch Changes

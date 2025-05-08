@@ -116,9 +116,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_legacy_content_macro": {
-			"type": "boolean"
-		},
 		"platform_editor_ai_object_sidebar_injection": {
 			"type": "boolean"
 		},

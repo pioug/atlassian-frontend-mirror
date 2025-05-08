@@ -30,27 +30,39 @@ const Section = ({
 	backgroundColor: string;
 	testId: string;
 }) => {
+	const [isWaitingForFinish, setIsWaitingForFinish] = useState(true);
 	const visibleAt = useCounterToVisible(base);
+
+	useEffect(() => {
+		if (visibleAt) {
+			setTimeout(() => {
+				setIsWaitingForFinish(false);
+			}, 200);
+		}
+	}, [visibleAt]);
 
 	if (!visibleAt) {
 		return <UFOLoadHold name={testId}></UFOLoadHold>;
 	}
 
 	return (
-		<div
-			data-testid={testId}
-			style={{
-				backgroundColor,
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				width: '100%',
-				height: '100%',
-				fontSize: '10px',
-			}}
-		>
-			<h2>Rendered: {Math.round(visibleAt)}ms</h2>
-		</div>
+		<>
+			<UFOLoadHold name="loading" hold={isWaitingForFinish} />
+			<div
+				data-testid={testId}
+				style={{
+					backgroundColor,
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					width: '100%',
+					height: '100%',
+					fontSize: '10px',
+				}}
+			>
+				<h2>Rendered: {Math.round(visibleAt)}ms</h2>
+			</div>
+		</>
 	);
 };
 

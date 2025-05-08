@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 25.7.0
+
+### Minor Changes
+
+- [#150689](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150689)
+  [`35118f49ae5c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35118f49ae5c3) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `child-work-items`
+
 ## 25.6.0
 
 ### Minor Changes

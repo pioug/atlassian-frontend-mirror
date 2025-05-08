@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "4.0.9",
+	"version": "4.0.10",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,6 +51,7 @@
 		"@atlaskit/icon-object": "workspace:^",
 		"@atlaskit/intl-messages-provider": "workspace:^",
 		"@atlaskit/layering": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -126,6 +127,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform-link-create-button-migration": {
+			"type": "boolean"
 		}
 	}
 }

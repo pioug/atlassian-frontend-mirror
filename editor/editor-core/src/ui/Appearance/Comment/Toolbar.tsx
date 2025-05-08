@@ -41,7 +41,7 @@ const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
           justify-content: flex-end;
         }
 
-        //make this more explicit for a toolbar
+        /* make this more explicit for a toolbar */
         > *:nth-child(1) {
           @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
             > div:nth-child(2) {

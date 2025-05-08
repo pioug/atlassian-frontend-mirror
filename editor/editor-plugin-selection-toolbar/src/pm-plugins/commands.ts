@@ -58,3 +58,22 @@ export const setToolbarDocking =
 
 		return tr;
 	};
+
+// Performs similarly to `setToolbarDocking` with a couple of differences.
+// 1) It does not fire any analytics.
+// 2) It does not make any changes to the selection.
+// This was required due to issues with the Confluence Legacy Content Extension which needs to manipulate the scrollbar position when editor controls are enabled
+// but relies on the selection remaining stable.
+export const forceToolbarDockingWithoutAnalytics =
+	({
+		toolbarDocking,
+		userPreferencesProvider,
+	}: {
+		toolbarDocking: ToolbarDocking;
+		userPreferencesProvider?: UserPreferencesProvider;
+	}): EditorCommand =>
+	({ tr }) => {
+		userPreferencesProvider?.updatePreference('toolbarDockingInitialPosition', toolbarDocking);
+		tr.setMeta(selectionToolbarPluginKey, { toolbarDocking });
+		return tr;
+	};

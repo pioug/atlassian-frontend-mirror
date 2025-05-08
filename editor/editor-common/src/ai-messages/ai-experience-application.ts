@@ -9,6 +9,12 @@ export const aiExperienceApplicationMessages = defineMessages({
 		description:
 			'Message to indicate to user the response from Atlassian Intelligence response is too similar or the same as their input.',
 	},
+	generatingAiResponse: {
+		id: 'fabric.editor.ai.experience.generatingAiResponse',
+		defaultMessage: 'Generating',
+		description:
+			'Message to indicate to user that Atlassian Intelligence is generating a response to their input.',
+	},
 	discardMessagePrompt: {
 		id: 'fabric.editor.ai.experience.discardMessagePrompt',
 		defaultMessage: 'Do you want to discard your prompt?',

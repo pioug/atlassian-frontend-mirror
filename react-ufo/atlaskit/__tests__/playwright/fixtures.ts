@@ -385,6 +385,16 @@ const customMatchers = {
 
 export const expect = baseExpect.extend(customMatchers);
 
+/*
+ *
+ * Most used viewports (ordered)
+ *
+ * - 1920x1080
+ * - 1536x864
+ * - 2560x1440
+ * - 1280x720
+ * - 1728x1117
+ */
 export const viewports = [
 	{
 		width: 1920,

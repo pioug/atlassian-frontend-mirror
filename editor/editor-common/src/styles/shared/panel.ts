@@ -226,7 +226,7 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		.${emojiImage} {
 			vertical-align: ${panelEmojiImageVerticalAlignment}px;
 
-			// Vertical align only works for inline-block elements in Firefox
+			/* Vertical align only works for inline-block elements in Firefox */
 			@-moz-document url-prefix() {
 				img {
 					display: inline-block;

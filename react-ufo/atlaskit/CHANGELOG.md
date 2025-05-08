@@ -1,5 +1,24 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.10.1
+
+### Patch Changes
+
+- [#150909](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150909)
+  [`3fca421422bb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fca421422bb6) -
+  FF cleanup - platform_ufo_vc_observer_new
+- [#150909](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150909)
+  [`568e2ae966df9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/568e2ae966df9) -
+  FF cleanup - platform_ufo_vc_observer_new
+
+## 3.10.0
+
+### Minor Changes
+
+- [#150556](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150556)
+  [`b6a8637092517`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6a8637092517) -
+  Add VC abort reason per TTVC revision
+
 ## 3.9.5
 
 ### Patch Changes

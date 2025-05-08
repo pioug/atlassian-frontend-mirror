@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 4.0.10
+
+### Patch Changes
+
+- [#150639](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150639)
+  [`7f8ad095c52c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f8ad095c52c4) -
+  [ux] EDM-12483 migrating button usages to use new ADS button
+
 ## 4.0.9
 
 ### Patch Changes

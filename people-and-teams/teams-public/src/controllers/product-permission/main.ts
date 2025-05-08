@@ -20,7 +20,8 @@ const actions: ProductPermissionsActions = {
 				permissionIds.some(
 					(permissionId) =>
 						permissions.confluence?.[permissionId] === undefined ||
-						permissions.jira?.[permissionId] === undefined,
+						permissions.jira?.[permissionId] === undefined ||
+						permissions.loom?.[permissionId] === undefined,
 				);
 
 			if (!shouldFetch) {

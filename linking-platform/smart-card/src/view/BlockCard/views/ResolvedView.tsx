@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -67,6 +68,10 @@ const footerBlockCss = css({
 	alignSelf: 'stretch',
 });
 
+const footerBlockSafariStyles = css({
+	height: '100%',
+});
+
 const metadataBlockCssOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span[data-smart-element-avatar-group]': {
@@ -98,6 +103,11 @@ const ResolvedView = ({
 	url,
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
+
+	const { safari = false } = fg('platform-linking-visual-refresh-v2')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => browser(), [])
+		: {};
 
 	useEffect(() => {
 		setIsPreviewBlockErrored(false);
@@ -162,7 +172,10 @@ const ResolvedView = ({
 				/>
 			) : null}
 			<FooterBlock
-				css={[fg('platform-linking-visual-refresh-v1') ? footerBlockCss : footerBlockCssOld]}
+				css={[
+					fg('platform-linking-visual-refresh-v1') ? footerBlockCss : footerBlockCssOld,
+					safari && fg('platform-linking-visual-refresh-v2') && footerBlockSafariStyles,
+				]}
 				actions={footerActions}
 				status={SmartLinkStatus.Resolved}
 			/>

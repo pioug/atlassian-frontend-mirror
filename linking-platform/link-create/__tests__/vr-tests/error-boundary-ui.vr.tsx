@@ -17,4 +17,7 @@ const options: OptionsType = {
 
 snapshot(DefaultErrorBoundary, {
 	...options,
+	featureFlags: {
+		"platform-link-create-button-migration": [true, false]
+	}
 });

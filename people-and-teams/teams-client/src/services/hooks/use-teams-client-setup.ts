@@ -53,4 +53,15 @@ export const useTeamsClientSetupNext = ({
 			});
 		}
 	}, [cloudId, orgId, principalUserId]);
+
+	useEffect(() => {
+		if (!stargateRoot) {
+			return;
+		}
+		teamsClient.setTeamCentralContext(stargateRoot, {
+			cloudId,
+			orgId,
+			userId: principalUserId,
+		});
+	}, [cloudId, orgId, principalUserId, stargateRoot]);
 };

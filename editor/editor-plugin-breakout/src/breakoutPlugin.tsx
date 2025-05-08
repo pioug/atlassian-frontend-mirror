@@ -2,7 +2,10 @@ import React from 'react';
 
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { breakout } from '@atlaskit/adf-schema';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
@@ -137,6 +140,40 @@ interface LayoutButtonWrapperProps
 	api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined;
 }
 
+const useOldHook = (api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
+	// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
+	const { breakoutState, editorViewModeState, editorDisabledState, blockControlsState } =
+		useSharedPluginState(api, [
+			'width',
+			'breakout',
+			'editorViewMode',
+			'editorDisabled',
+			'blockControls',
+		]);
+	return {
+		breakoutNode: breakoutState?.breakoutNode,
+		isDragging: blockControlsState?.isDragging,
+		isPMDragging: blockControlsState?.isPMDragging,
+		mode: editorViewModeState?.mode,
+		editorDisabled: editorDisabledState?.editorDisabled,
+	};
+};
+const useNewHook = (api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
+	const breakoutNode = useSharedPluginStateSelector(api, 'breakout.breakoutNode');
+	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging');
+	const isPMDragging = useSharedPluginStateSelector(api, 'blockControls.isPMDragging');
+	const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+	const editorDisabled = useSharedPluginStateSelector(api, 'editorDisabled.editorDisabled');
+	return {
+		breakoutNode,
+		isDragging,
+		isPMDragging,
+		mode,
+		editorDisabled,
+	};
+};
+const useSharedState = sharedPluginStateHookMigratorFactory(useNewHook, useOldHook);
+
 const LayoutButtonWrapper = ({
 	api,
 	editorView,
@@ -144,59 +181,7 @@ const LayoutButtonWrapper = ({
 	scrollableElement,
 	mountPoint,
 }: LayoutButtonWrapperProps) => {
-	// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
-	const { breakoutState, editorViewModeState, editorDisabledState, blockControlsState } =
-		useSharedPluginState(
-			api,
-			['width', 'breakout', 'editorViewMode', 'editorDisabled', 'blockControls'],
-			{
-				disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-			},
-		);
-
-	// breakoutNode
-	const breakoutNodeSelector = useSharedPluginStateSelector(api, 'breakout.breakoutNode', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const breakoutNode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? breakoutNodeSelector
-		: breakoutState?.breakoutNode;
-
-	// isDragging
-	const isDraggingSelector = useSharedPluginStateSelector(api, 'blockControls.isDragging', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isDragging = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? isDraggingSelector
-		: blockControlsState?.isDragging;
-
-	// isPMDragging
-	const isPMDraggingSelector = useSharedPluginStateSelector(api, 'blockControls.isPMDragging', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isPMDragging = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? isPMDraggingSelector
-		: blockControlsState?.isPMDragging;
-
-	// mode
-	const modeSelector = useSharedPluginStateSelector(api, 'editorViewMode.mode', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const mode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? modeSelector
-		: editorViewModeState?.mode;
-
-	// editorDisabled
-	const editorDisabledSelector = useSharedPluginStateSelector(
-		api,
-		'editorDisabled.editorDisabled',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const editorDisabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? editorDisabledSelector
-		: editorDisabledState?.editorDisabled;
+	const { breakoutNode, isDragging, isPMDragging, mode, editorDisabled } = useSharedState(api);
 
 	if (isDragging || isPMDragging) {
 		if (editorExperiment('advanced_layouts', true)) {

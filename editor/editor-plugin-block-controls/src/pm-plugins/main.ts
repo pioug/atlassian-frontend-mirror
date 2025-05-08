@@ -887,7 +887,8 @@ export const createPlugin = (
 							event.relatedTarget instanceof HTMLElement &&
 							event.relatedTarget.closest(`#${EDIT_AREA_ID}`) !== null;
 
-						// don't do anything if the event target is a child of the editor or if the editor has focus
+						// don't do anything if the event relatedTarget (the element receiving focus) is a child of the editor
+						// or if the editor has focus
 						if (isChildOfEditor || view.hasFocus()) {
 							return false;
 						}

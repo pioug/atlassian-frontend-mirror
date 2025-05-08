@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::44d90593cb721a25d98da2218a021142>>
+ * @codegen <<SignedSource::60f43e110e6c9542b2292914b02a466b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -72,6 +72,7 @@ import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
 import HandIcon from '../../../../core/hand';
 import HistoryIcon from '../../../../core/history';
+import HourglassIcon from '../../../../core/hourglass';
 import IfElseIcon from '../../../../core/if-else';
 import ImageAltTextIcon from '../../../../core/image-alt-text';
 import ImageCropIcon from '../../../../core/image-crop';
@@ -177,6 +178,8 @@ import TextLengthenIcon from '../../../../core/text-lengthen';
 import TextLetterCaseIcon from '../../../../core/text-letter-case';
 import TextParagraphIcon from '../../../../core/text-paragraph';
 import TextRephraseIcon from '../../../../core/text-rephrase';
+import TextSubscriptIcon from '../../../../core/text-subscript';
+import TextSuperscriptIcon from '../../../../core/text-superscript';
 import TextUnderlineStrikethroughIcon from '../../../../core/text-underline-strikethrough';
 import TicketIcon from '../../../../core/ticket';
 import TidyIcon from '../../../../core/tidy';
@@ -412,6 +415,9 @@ const Icons = [
 	AiGenerativeCleanupIcon,
 	KanbanIcon,
 	TextLetterCaseIcon,
+	HourglassIcon,
+	TextSubscriptIcon,
+	TextSuperscriptIcon,
 ];
 
 const groupSize = 20;

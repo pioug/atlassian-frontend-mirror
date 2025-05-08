@@ -4,6 +4,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	ComponentsLogType,
+	RevisionPayload,
 	VCAbortReason,
 	VCAbortReasonType,
 	VCEntryType,
@@ -12,7 +13,7 @@ import type {
 	VCRawDataType,
 	VCResult,
 } from '../../common/vc/types';
-import { getConfig } from '../../config';
+import { isVCRevisionEnabled } from '../../config';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
@@ -127,9 +128,7 @@ export class VCObserver implements VCObserverInterface {
 			},
 		});
 
-		this.heatmap = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01')
-			? []
-			: this.getCleanHeatmap();
+		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();
 
 		this.heatmapNext = this.getCleanHeatmap();
 		this.multiHeatmap = new MultiRevisionHeatmap({
@@ -235,21 +234,57 @@ export class VCObserver implements VCObserverInterface {
 			multiHeatmap,
 		} = rawData;
 
-		if (abortReasonInfo !== null && abortReason.blocking) {
+		const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01');
+
+		// NOTE: as part of platform_ufo_add_vc_abort_reason_by_revisions feature,
+		// we want to report abort by scroll events the same way as other abort reasons
+		// i.e. not have the concept of `abortReason.blocking` anymore
+		if (abortReasonInfo !== null && fg('platform_ufo_add_vc_abort_reason_by_revisions')) {
 			// exposing data to devtools
 			try {
 				if (devToolsEnabled && !this.isPostInteraction) {
 					window.__vcNotAvailableReason = abortReasonInfo;
 				}
 			} catch (e) {}
+
+			const vcAbortedResultWithRevisions = {
+				[`${fullPrefix}vc:state`]: false,
+				[`${fullPrefix}vc:abort:reason`]: abortReason.reason,
+				[`${fullPrefix}vc:abort:timestamp`]: abortReason.timestamp,
+				[`${fullPrefix}vc:rev`]: [
+					{
+						revision: 'fy25.02',
+						clean: false,
+						'metric:vc90': null,
+						abortReason: abortReason.reason,
+					},
+				] as RevisionPayload,
+			};
+
+			if (!isTTVCv1Disabled) {
+				(vcAbortedResultWithRevisions[`${fullPrefix}vc:rev`] as RevisionPayload).push({
+					revision: 'fy25.01',
+					clean: false,
+					'metric:vc90': null,
+					abortReason: abortReason.reason,
+				});
+			}
+
+			return vcAbortedResultWithRevisions;
+		} else if (abortReasonInfo !== null && abortReason.blocking) {
+			// exposing data to devtools
+			try {
+				if (devToolsEnabled && !this.isPostInteraction) {
+					window.__vcNotAvailableReason = abortReasonInfo;
+				}
+			} catch (e) {}
+
 			return {
 				[`${fullPrefix}vc:state`]: false,
 				[`${fullPrefix}vc:abort:reason`]: abortReasonInfo,
 				[`${fullPrefix}vc:abort:timestamp`]: abortReason.timestamp,
 			};
 		}
-
-		const isTTVCv1Disabled = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01');
 
 		const ttvcV1Result = isTTVCv1Disabled
 			? {
@@ -417,9 +452,7 @@ export class VCObserver implements VCObserverInterface {
 			};
 		}
 
-		const isTTVCv3Enabled =
-			fg('platform_ufo_vc_observer_new') ||
-			getConfig()?.vc?.enabledVCRevisions?.includes('fy25.03');
+		const isTTVCv3Enabled = isVCRevisionEnabled('fy25.03');
 
 		return {
 			'metrics:vc': VC,
@@ -593,10 +626,7 @@ export class VCObserver implements VCObserverInterface {
 			newValue,
 		);
 
-		if (
-			!fg('platform_ufo_vc_observer_new') &&
-			!getConfig()?.vc?.enabledVCRevisions?.includes('fy25.03')
-		) {
+		if (!isVCRevisionEnabled('fy25.03')) {
 			this.onViewportChangeDetected({
 				timestamp: rawTime,
 				intersectionRect,
@@ -637,7 +667,7 @@ export class VCObserver implements VCObserverInterface {
 			if (!ignoreReason) {
 				this.applyChangesToHeatMap(mappedValues, time, this.heatmapNext);
 			}
-			const isTTVCv1Disabled = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01');
+			const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01');
 
 			if (
 				!isTTVCv1Disabled &&
@@ -726,9 +756,7 @@ export class VCObserver implements VCObserverInterface {
 			blocking: false,
 		};
 		this.detachAbortListeners();
-		this.heatmap = !getConfig()?.vc?.enabledVCRevisions?.includes('fy25.01')
-			? []
-			: this.getCleanHeatmap();
+		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
 		this.multiHeatmap = new MultiRevisionHeatmap({
 			viewport: this.viewport,
@@ -852,8 +880,10 @@ export class VCObserver implements VCObserverInterface {
 	};
 
 	private detachAbortListeners() {
-		this.unbind.forEach((fn) => fn());
-		this.unbind = [];
+		if (Array.isArray(this.unbind)) {
+			this.unbind.forEach((fn) => fn());
+			this.unbind = [];
+		}
 	}
 
 	private measureStart() {

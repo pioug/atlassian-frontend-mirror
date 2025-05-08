@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.1.2
+
+### Patch Changes
+
+- [#151316](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151316)
+  [`a690cef2c18f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a690cef2c18f0) -
+  [ux] Uses aria-expanded for floating toolbar dropdowns with where trigger button has an icon.
+
+## 4.1.1
+
+### Patch Changes
+
+- [#150643](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150643)
+  [`ac4a612b39bbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac4a612b39bbf) -
+  [ux] Sets aria-expanded and aria-haspopup for the dropdown-overflow following a11y best practice
+
 ## 4.1.0
 
 ### Minor Changes

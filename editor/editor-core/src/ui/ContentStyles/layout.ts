@@ -136,9 +136,9 @@ const layoutSectionStyles = () =>
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 const layoutBorderStyles = (viewMode?: 'edit' | 'view') => css`
-	// TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
-	// This is because the default state already uses the same token and, as such, the hover style won't change anything.
-	// https://product-fabric.atlassian.net/browse/DSP-4441
+	/* TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
+	This is because the default state already uses the same token and, as such, the hover style won't change anything.
+	https://product-fabric.atlassian.net/browse/DSP-4441 */
 	/* Shows the border when cursor is inside a layout */
 	&.selected [data-layout-column],
 	&:hover [data-layout-column] {
@@ -188,6 +188,7 @@ const rowSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
 	}
 `;
 
+// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 const layoutWithSeparatorBorderResponsiveStyles = (
 	breakpoint: number,
 	viewMode?: 'edit' | 'view',
@@ -245,6 +246,7 @@ const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => {
 	`;
 };
 
+// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 const layoutResponsiveStyles = (viewMode?: 'edit' | 'view') =>
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 	css`
@@ -294,12 +296,12 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	.ProseMirror {
 		${layoutSectionStyles()}
 		[data-layout-section] {
-			// Ignored via go/ees007
-			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-			// TODO: Migrate away from gridSize
-			// Recommendation: Replace directly with 7px
+			/* Ignored via go/ees007
+			TODO: Migrate away from gridSize
+			Recommendation: Replace directly with 7px */
 			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset +
-				(fg('platform_editor_nested_dnd_styles_changes') ? 8 : 0)}px 0;
+				(fg('platform_editor_nested_dnd_styles_changes') ? 8 : 0)}px
+				0;
 			transition: border-color 0.3s ${akEditorSwoopCubicBezier};
 			cursor: ${viewMode === 'view' ? 'default' : 'pointer'};
 
@@ -378,7 +380,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			${layoutColumnStyles()}
 		}
 
-		// styles to support borders for layout
+		/* styles to support borders for layout */
 		[data-layout-section],
 		.layoutSectionView-content-wrap {
 			${editorExperiment('advanced_layouts', true)
@@ -389,7 +391,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 
 	${editorExperiment('advanced_layouts', true) && layoutResponsiveStyles(viewMode)}
 
-	// hide separator when element is dragging on top of a layout column
+	/* hide separator when element is dragging on top of a layout column */
 	[data-blocks-drop-target-container] ~ [data-layout-column] > [data-layout-content]::before {
 		display: none;
 	}

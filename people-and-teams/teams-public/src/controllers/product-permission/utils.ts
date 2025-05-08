@@ -1,8 +1,9 @@
-import type {
-	ProductPermissionRequestBodyType,
-	ProductPermissionsResponse,
-	ProductPermissionsType,
-	UserProductPermissions,
+import {
+	type ProductPermissionRequestBodyType,
+	type ProductPermissionsResponse,
+	type ProductPermissionsType,
+	SUPPORTED_PRODUCTS,
+	type UserProductPermissions,
 } from './types';
 
 const PRODUCTS = [
@@ -12,27 +13,24 @@ const PRODUCTS = [
 	'jira-software',
 	'jira-servicedesk',
 	'jira-product-discovery',
+	'loom',
 ];
 
 export const transformPermissions = (
 	permissions: ProductPermissionsResponse[],
 ): UserProductPermissions => {
 	return permissions.reduce((acc: UserProductPermissions, permission) => {
-		if (permission.resourceId.includes('jira')) {
-			acc['jira'] = {
-				...acc['jira'],
-				[permission.permissionId as keyof ProductPermissionsType]:
-					acc['jira']?.[permission.permissionId as keyof ProductPermissionsType] ||
-					permission.permitted,
-			};
-		} else if (permission.resourceId.includes('confluence')) {
-			acc['confluence'] = {
-				...acc['confluence'],
-				[permission.permissionId as keyof ProductPermissionsType]:
-					acc['confluence']?.[permission.permissionId as keyof ProductPermissionsType] ||
-					permission.permitted,
-			};
-		}
+		SUPPORTED_PRODUCTS.forEach((supportedProduct) => {
+			if (permission.resourceId.includes(supportedProduct)) {
+				acc[supportedProduct] = {
+					...acc[supportedProduct],
+					[permission.permissionId as keyof ProductPermissionsType]:
+						acc[supportedProduct]?.[permission.permissionId as keyof ProductPermissionsType] ||
+						permission.permitted,
+				};
+			}
+		});
+
 		return acc;
 	}, {});
 };

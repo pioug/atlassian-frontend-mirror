@@ -1,5 +1,25 @@
 # @atlaskit/icon-lab
 
+## 4.11.0
+
+### Minor Changes
+
+- [#150689](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150689)
+  [`35118f49ae5c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/35118f49ae5c3) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `hourglass`
+  - `text-subscript`
+  - `text-superscript`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.10.0
 
 ### Minor Changes

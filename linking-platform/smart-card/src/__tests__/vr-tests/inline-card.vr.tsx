@@ -230,6 +230,7 @@ snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 
@@ -237,6 +238,7 @@ snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 
@@ -244,6 +246,7 @@ snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 
@@ -251,6 +254,7 @@ snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 
@@ -266,9 +270,29 @@ snapshot(InlineCardWordWrapResolved, {
 	},
 	waitForReactLazy: true,
 });
+// Remove on platform-linking-visual-refresh-inline-lozenge cleanup
+snapshot(InlineCardWordWrapResolved, {
+	description: 'inline card word wrap resolved inline lozenge',
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-inline-lozenge': [true, false],
+	},
+	waitForReactLazy: true,
+});
 snapshot(InlineCardWordWrapForbidden, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+	},
+	waitForReactLazy: true,
+});
+// Remove on platform-linking-visual-refresh-inline-lozenge cleanup
+snapshot(InlineCardWordWrapForbidden, {
+	description: 'inline card word wrap forbidden inline lozenge',
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -340,6 +364,17 @@ snapshot(VRInlineCardAllExamplesInText, {
 	featureFlags: {
 		'platform-component-visual-refresh': false,
 		'platform-linking-visual-refresh-v1': false,
+	},
+});
+
+// TODO: Remove on platform-linking-visual-refresh-inline-lozenge cleanup
+snapshot(VRInlineCardAllExamplesInText, {
+	description: `inline card with all card examples lozenge`,
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-v2': true,
+		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.3
+
+### Patch Changes
+
+- [#150144](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150144)
+  [`7cee8fc602804`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7cee8fc602804) -
+  Unselect the options when the selection has some part with only one formatting and some part
+  without any formatting
+
 ## 2.2.2
 
 ### Patch Changes

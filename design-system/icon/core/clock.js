@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::92ee1be6e4ceec90ef291a87140cefc4>>
+ * @codegen <<SignedSource::e4c1734fa923dab0dd658a9a18dcfad0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Clock".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: recent, time input, sprint time remaining. Overdue task issue status in JSM Calendar view.
+ * Usage guidance: Known uses: recent, time input, sprint time remaining, overdue task work type status.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

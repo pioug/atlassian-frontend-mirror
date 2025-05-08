@@ -71,9 +71,9 @@ const contentStyles = (styleProps: StyleProps) => () =>
 		margin-left: ${token('space.050', '4px')};
 		display: flow-root;
 
-		// The follow rules inside @supports block are added as a part of ED-8893
-		// The fix is targeting mobile bridge on iOS 12 or below,
-		// We should consider remove this fix when we no longer support iOS 12
+		/* The follow rules inside @supports block are added as a part of ED-8893
+		The fix is targeting mobile bridge on iOS 12 or below,
+		We should consider remove this fix when we no longer support iOS 12 */
 		@supports not (display: flow-root) {
 			width: 100%;
 			box-sizing: border-box;

@@ -1,5 +1,5 @@
+import type { RevisionPayloadVCDetails } from '../../../../../common/vc/types';
 import type { VCObserverEntry } from '../../../types';
-import type { RevisionPayloadVCDetails } from '../../types';
 import isViewportEntryData from '../../utils/is-viewport-entry-data';
 import taskYield from '../../utils/task-yield';
 

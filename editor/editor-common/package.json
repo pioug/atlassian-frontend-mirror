@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "104.0.0",
+	"version": "104.1.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -244,6 +244,7 @@
 		"@atlaskit/menu": "workspace:^",
 		"@atlaskit/onboarding": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",

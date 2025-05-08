@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.26.0
+
+### Minor Changes
+
+- [#150751](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150751)
+  [`ffd84664d93f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffd84664d93f3) -
+  Check for user's permission for loom
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.25.0
 
 ### Minor Changes

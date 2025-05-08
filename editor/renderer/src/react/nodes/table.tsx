@@ -849,10 +849,11 @@ const TableWithWidth = (
 ) => {
 	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (
-		shouldRenderTableWithCSSWidth(
+		(shouldRenderTableWithCSSWidth(
 			props.tableNode?.attrs?.layout ?? '',
 			props.tableNode?.attrs?.width,
-		) &&
+		) ||
+			props.rendererAppearance === 'comment') &&
 		fg('platform-ssr-table-resize')
 	) {
 		const colWidthsSum =

@@ -6,7 +6,6 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - basic', () => {
 	test.use({
 		examplePage: 'basic',
-		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {
@@ -53,7 +52,6 @@ test.describe('ReactUFO: Revisions - basic', () => {
 test.describe('ReactUFO: Revisions - nested', () => {
 	test.use({
 		examplePage: 'nested-elements',
-		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {

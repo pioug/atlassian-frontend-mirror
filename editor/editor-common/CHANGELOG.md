@@ -1,5 +1,36 @@
 # @atlaskit/editor-common
 
+## 104.1.0
+
+### Minor Changes
+
+- [#150308](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150308)
+  [`2ff234cb3d76e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ff234cb3d76e) -
+  Add sharedPluginStateHookMigratorFactory to facilitate the migration from useSharedPluginState to
+  useSharedPluginStateSelector
+- [#151287](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151287)
+  [`5c11a90abe908`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c11a90abe908) -
+  [ux] [EDITOR-697] When the message_template from assistance service is unknown fallback to the
+  text "Generating"
+
+### Patch Changes
+
+- [#150219](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150219)
+  [`8f6e3a7613db0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f6e3a7613db0) -
+  Fixes invalid css comments in template literal styles
+- [#150731](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150731)
+  [`e21eb5fc3b241`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e21eb5fc3b241) -
+  ED-27860 Fix media deleted events and update inputMethod to floatingToolbar for expands
+- Updated dependencies
+
+## 104.0.1
+
+### Patch Changes
+
+- [#150983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150983)
+  [`a363af43f9cd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a363af43f9cd6) -
+  [ux] Adds i18n title for Open button that is shown on hovering a smartlink.
+
 ## 104.0.0
 
 ### Minor Changes

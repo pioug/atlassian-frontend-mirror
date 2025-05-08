@@ -26,6 +26,14 @@ export type RemoveTokenFallbackOptions = Options & {
 	reportFolder?: string;
 	addEslintComments?: boolean;
 	forceUpdate?: boolean;
+	skipTokens?: string;
+	preserveSkippedFallbacks?: boolean;
+	skipEslint?: boolean;
+	skipPrettier?: boolean;
+	colorDifferenceThreshold?: number;
+	spaceDifferenceThreshold?: number;
+	numericDifferenceThreshold?: number;
+	borderDifferenceThreshold?: number;
 };
 
 export type WithResolvedDeclarations = {

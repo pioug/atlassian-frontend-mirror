@@ -117,10 +117,32 @@ const mediaTypeMessages = {
 	unknown: messages.file_unknown_is_selected,
 };
 
-const removeWithAnalytics = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command => {
+const getMediaActionSubject = (nodeType: NodeType) => {
+	switch (nodeType.name) {
+		case 'mediaSingle':
+			return ACTION_SUBJECT.MEDIA_SINGLE;
+		case 'mediaInline':
+			return ACTION_SUBJECT.MEDIA_INLINE;
+		case 'mediaGroup':
+			return ACTION_SUBJECT.MEDIA_GROUP;
+		default:
+			return ACTION_SUBJECT.MEDIA;
+	}
+};
+
+const removeWithAnalytics = (
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	nodeType?: NodeType,
+): Command => {
+	if (!nodeType) {
+		return remove;
+	}
+
+	const mediaType = getMediaActionSubject(nodeType);
+
 	return withAnalytics(editorAnalyticsApi, {
 		action: ACTION.DELETED,
-		actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
+		actionSubject: mediaType,
 		attributes: { inputMethod: INPUT_METHOD.FLOATING_TB },
 		eventType: EVENT_TYPE.TRACK,
 	})(remove);
@@ -1119,7 +1141,7 @@ export const floatingToolbar = (
 				{
 					title: intl?.formatMessage(commonMessages.delete),
 					onClick: fg('platform_editor_controls_patch_analytics_2')
-						? removeWithAnalytics(pluginInjectionApi?.analytics?.actions)
+						? removeWithAnalytics(pluginInjectionApi?.analytics?.actions, selectedNodeType)
 						: remove,
 					icon: <DeleteIcon label="" />,
 					...hoverDecorationProps(nodeType),

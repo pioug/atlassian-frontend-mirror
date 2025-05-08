@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.4.2
+
+### Patch Changes
+
+- [#150122](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150122)
+  [`92cc72b849cd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92cc72b849cd4) -
+  EDITOR-705 - cleanup FG platform_editor_update_insert_link_mark_end_pos
+
 ## 4.4.1
 
 ### Patch Changes

@@ -1,5 +1,48 @@
 # @atlaskit/editor-core
 
+## 206.1.1
+
+### Patch Changes
+
+- [#150122](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150122)
+  [`92cc72b849cd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92cc72b849cd4) -
+  EDITOR-705 - cleanup FG platform_editor_update_insert_link_mark_end_pos
+- Updated dependencies
+
+## 206.1.0
+
+### Minor Changes
+
+- [#149914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149914)
+  [`069cd0cee4bdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/069cd0cee4bdd) -
+  migrate editor core styles under new experiment to prepare optimization
+
+### Patch Changes
+
+- [#143034](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/143034)
+  [`13c53d8240b22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13c53d8240b22) -
+  [ux] [ED-27219] remove duplicated find and replace from custom toolbar for embedded pages under
+  experiment platform_editor_controls and FG platform_editor_find_and_replace_duplication
+- Updated dependencies
+
+## 206.0.3
+
+### Patch Changes
+
+- [#150243](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150243)
+  [`860ff9fc6066c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/860ff9fc6066c) -
+  Remove FG platform_editor_controls_sticky_controls
+- Updated dependencies
+
+## 206.0.2
+
+### Patch Changes
+
+- [#150219](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150219)
+  [`8f6e3a7613db0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f6e3a7613db0) -
+  Fixes invalid css comments in template literal styles
+- Updated dependencies
+
 ## 206.0.1
 
 ### Patch Changes

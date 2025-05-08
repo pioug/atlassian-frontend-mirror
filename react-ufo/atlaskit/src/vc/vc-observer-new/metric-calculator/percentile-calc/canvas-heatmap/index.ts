@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { RevisionPayloadVCDetails } from '../../../../../common/vc/types';
 import type { ViewportEntryData } from '../../../types';
-import type { RevisionPayloadVCDetails } from '../../types';
 import type { CalcTTVCPercentilesArg } from '../types';
 
 import { ViewportCanvas } from './canvas-pixel';

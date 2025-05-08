@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 import React, { useImperativeHandle, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, useTheme, type Theme } from '@emotion/react';
+import { css, jsx, useTheme, type Theme } from '@emotion/react';
 import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -26,7 +26,9 @@ import type {
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type EditorActions from '../../../actions';
@@ -35,7 +37,9 @@ import type { ContentComponents, ReactComponents } from '../../../types';
 // eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
+import { createEditorContentStyle } from '../../ContentStyles';
 import { ContextPanel } from '../../ContextPanel';
+import EditorContentContainer from '../../EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
 
 import {
@@ -44,7 +48,6 @@ import {
 	contentAreaWrapper,
 	editorContentAreaStyle,
 	editorContentGutterStyle,
-	ScrollContainer,
 	sidebarArea,
 } from './StyledComponents';
 import type { ScrollContainerRefs } from './types';
@@ -75,6 +78,30 @@ interface FullPageEditorContentAreaProps {
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 export const EDITOR_CONTAINER = 'ak-editor-container';
+
+const scrollStyles = css(
+	{
+		flexGrow: 1,
+		height: '100%',
+		overflowY: 'scroll',
+		position: 'relative',
+		display: 'flex',
+		flexDirection: 'column',
+		scrollBehavior: 'smooth',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	scrollbarStyles,
+);
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+const ScrollContainer = createEditorContentStyle(scrollStyles);
+ScrollContainer.displayName = 'ScrollContainer';
+
+const EditorContainer = componentWithCondition(
+	() => editorExperiment('platform_editor_core_static_emotion', true),
+	EditorContentContainer,
+	ScrollContainer,
+);
 
 const Content = React.forwardRef<
 	ScrollContainerRefs,
@@ -140,13 +167,14 @@ const Content = React.forwardRef<
 				data-testid={EDITOR_CONTAINER}
 				data-editor-container={'true'}
 			>
-				<ScrollContainer
+				<EditorContainer
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="fabric-editor-popup-scroll-parent"
 					featureFlags={props.featureFlags}
 					ref={scrollContainerRef}
 					viewMode={props?.viewMode}
 					isScrollable
+					appearance={props.appearance}
 				>
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div
@@ -224,7 +252,7 @@ const Content = React.forwardRef<
 							</div>
 						</div>
 					</ClickAreaBlock>
-				</ScrollContainer>
+				</EditorContainer>
 			</div>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={sidebarArea}>

@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.18.0
+
+### Minor Changes
+
+- [#149914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149914)
+  [`069cd0cee4bdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/069cd0cee4bdd) -
+  migrate editor core styles under new experiment to prepare optimization
+
+## 4.17.0
+
+### Minor Changes
+
+- [#150957](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150957)
+  [`ae21450efe2f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae21450efe2f0) -
+  [ux] [EDITOR-697] Add remove retry experiment, update tests and cleanup eslint rules as found
+
 ## 4.16.0
 
 ### Minor Changes

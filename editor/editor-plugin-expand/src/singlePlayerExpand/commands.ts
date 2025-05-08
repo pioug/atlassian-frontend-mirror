@@ -20,6 +20,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
@@ -125,7 +126,11 @@ export const deleteExpandAtPos =
 				expandNode.type === state.schema.nodes.expand
 					? ACTION_SUBJECT.EXPAND
 					: ACTION_SUBJECT.NESTED_EXPAND,
-			attributes: { inputMethod: INPUT_METHOD.TOOLBAR },
+			attributes: {
+				inputMethod: fg('platform_editor_controls_patch_analytics_2')
+					? INPUT_METHOD.FLOATING_TB
+					: INPUT_METHOD.TOOLBAR,
+			},
 			eventType: EVENT_TYPE.TRACK,
 		};
 

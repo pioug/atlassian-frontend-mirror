@@ -1,14 +1,21 @@
-import { getConfig } from '../../config';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { isVCRevisionEnabled } from '../../config';
+
+import { attachAbortListeners } from './attachAbortListeners';
 import { Observers } from './observers';
 import type { Callback } from './observers/types';
 
 import { VCObserver } from './index';
 
+jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('./observers');
 jest.mock('../../config');
+jest.mock('./attachAbortListeners');
 
-const mockUFOConfig = getConfig as jest.Mock;
+const mockIsVCRevisionEnabled = isVCRevisionEnabled as jest.Mock;
+const mockAttachAbortListeners = attachAbortListeners as jest.Mock;
+const mockFg = fg as jest.Mock;
 
 const VIEWPORT_WIDTH = 1000;
 const VIEWPORT_HEIGHT = 500;
@@ -54,10 +61,14 @@ describe('vc-observer', () => {
 			() => VCObserverMockImplementation,
 		);
 
+		mockAttachAbortListeners.mockClear();
+		mockFg.mockClear();
+
 		vc = new VCObserver({
 			heatmapSize: 100,
 			oldDomUpdates: true,
 		});
+
 		global.window = Object.create(window);
 		const properties = {
 			innerWidth: { value: VIEWPORT_WIDTH, writable: true },
@@ -72,16 +83,16 @@ describe('vc-observer', () => {
 	});
 
 	describe('TTVC v1 enabled', () => {
+		const enabledVCRevisions = ['fy25.01', 'fy25.02'];
+
 		beforeEach(() => {
-			mockUFOConfig.mockReturnValue({
-				vc: {
-					enabledVCRevisions: ['fy25.01', 'fy25.02'],
-				},
-			});
+			mockIsVCRevisionEnabled.mockImplementation((revision) =>
+				enabledVCRevisions.includes(revision),
+			);
 		});
 
 		afterEach(() => {
-			mockUFOConfig.mockClear();
+			mockIsVCRevisionEnabled.mockClear();
 		});
 
 		test('handles full screen updates', async () => {
@@ -1729,16 +1740,16 @@ describe('vc-observer', () => {
 	});
 
 	describe('TTVC v1 disabled', () => {
+		const enabledVCRevisions = ['fy25.02'];
+
 		beforeEach(() => {
-			mockUFOConfig.mockReturnValue({
-				vc: {
-					enabledVCRevisions: ['fy25.02'],
-				},
-			});
+			mockIsVCRevisionEnabled.mockImplementation((revision) =>
+				enabledVCRevisions.includes(revision),
+			);
 		});
 
 		afterEach(() => {
-			mockUFOConfig.mockClear();
+			mockIsVCRevisionEnabled.mockClear();
 		});
 
 		test('handles full screen updates', async () => {
@@ -2605,6 +2616,264 @@ describe('vc-observer', () => {
 		});
 	});
 
+	describe('VC dirty (aborted) scenarios', () => {
+		describe('FG disabled - platform_ufo_add_vc_abort_reason_by_revisions', () => {
+			test('abort scenario - resize', async () => {
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('resize', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
+
+				expect(result).toEqual({
+					'vc:state': false,
+					'vc:abort:reason': 'resize',
+					'vc:abort:timestamp': 0,
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+
+			test('abort scenario - keypress', async () => {
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('keydown', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
+
+				expect(result).toEqual({
+					'vc:state': false,
+					'vc:abort:reason': 'keypress',
+					'vc:abort:timestamp': 0,
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+
+			test('abort scenario - wheel', async () => {
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('wheel', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
+
+				expect(result).toEqual({
+					'ufo:next:speedIndex': 0,
+					'ufo:speedIndex': 0,
+					'vc:ignored': [],
+					'vc:ratios': {},
+					'vc:rev': [
+						{
+							clean: false, // this is an implicit abort by scroll, because currently scroll data is not recorded
+							'metric:vc90': null,
+							revision: 'fy25.02',
+							vcDetails: {
+								'25': {
+									e: [],
+									t: 0,
+								},
+								'50': {
+									e: [],
+									t: 0,
+								},
+								'75': {
+									e: [],
+									t: 0,
+								},
+								'80': {
+									e: [],
+									t: 0,
+								},
+								'85': {
+									e: [],
+									t: 0,
+								},
+								'90': {
+									e: [],
+									t: 0,
+								},
+								'95': {
+									e: [],
+									t: 0,
+								},
+								'98': {
+									e: [],
+									t: 0,
+								},
+								'99': {
+									e: [],
+									t: 0,
+								},
+							},
+						},
+					],
+					'vc:size': {
+						h: 500,
+						w: 1000,
+					},
+					'vc:time': 1,
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+		});
+		describe('FG enabled - platform_ufo_add_vc_abort_reason_by_revisions', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation((key) => {
+					if (key === 'platform_ufo_add_vc_abort_reason_by_revisions') {
+						return true;
+					}
+
+					return false;
+				});
+			});
+
+			test('abort scenario - resize', async () => {
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('resize', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
+
+				expect(result).toEqual({
+					'vc:state': false,
+					'vc:abort:reason': 'resize',
+					'vc:abort:timestamp': 0,
+					'vc:rev': [
+						{
+							abortReason: 'resize',
+							clean: false,
+							'metric:vc90': null,
+							revision: 'fy25.02',
+						},
+					],
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+
+			test('abort scenario - keypress', async () => {
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('keydown', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
+
+				expect(result).toEqual({
+					'vc:state': false,
+					'vc:abort:reason': 'keypress',
+					'vc:abort:timestamp': 0,
+					'vc:rev': [
+						{
+							abortReason: 'keypress',
+							clean: false,
+							'metric:vc90': null,
+							revision: 'fy25.02',
+						},
+					],
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+
+			test('abort scenario - wheel', async () => {
+				const mockUnbindFn = jest.fn();
+				const abortReasonCallback = jest.fn();
+				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+					abortReasonCallback.mockImplementation(callback);
+					return [mockUnbindFn];
+				});
+				vc.start({ startTime: 0 });
+
+				abortReasonCallback('wheel', 0);
+
+				const result = await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+				});
+
+				expect(result).toEqual({
+					'vc:state': false,
+					'vc:abort:reason': 'scroll',
+					'vc:abort:timestamp': 0,
+					'vc:rev': [
+						{
+							abortReason: 'scroll',
+							clean: false,
+							'metric:vc90': null,
+							revision: 'fy25.02',
+						},
+					],
+				});
+
+				expect(mockUnbindFn).toHaveBeenCalled();
+			});
+		});
+	});
+
 	test('handles cases where IntersectionObserver or MutationObserver is not browser supported', async () => {
 		(Observers as unknown as jest.MockedClass<any>).mockImplementation(() => ({
 			...VCObserverMockImplementation,
@@ -2626,6 +2895,14 @@ describe('vc-observer', () => {
 			'vc:state': false,
 			'vc:abort:reason': 'not-supported',
 			'vc:abort:timestamp': 0,
+			'vc:rev': [
+				{
+					abortReason: 'not-supported',
+					clean: false,
+					'metric:vc90': null,
+					revision: 'fy25.02',
+				},
+			],
 		});
 	});
 	describe('speed index', () => {

@@ -1,5 +1,13 @@
 # @atlaskit/stylelint-design-system
 
+## 2.2.0
+
+### Minor Changes
+
+- [#150219](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150219)
+  [`6746314317a26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6746314317a26) -
+  Bumps stylelint to v15
+
 ## 2.1.9
 
 ### Patch Changes

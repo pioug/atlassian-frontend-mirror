@@ -1,5 +1,7 @@
 import type { StoreActionApi } from 'react-sweet-state';
 
+export const SUPPORTED_PRODUCTS = ['confluence', 'jira', 'loom'] as const;
+
 export type ProductPermissionRequestBodyType = {
 	permissionId: keyof ProductPermissionsType;
 	resourceId: string;
@@ -19,9 +21,10 @@ export type ProductPermissionsType = {
 	manage?: boolean;
 };
 
+export type SupportedProductKeys = (typeof SUPPORTED_PRODUCTS)[number];
+
 export type UserProductPermissions = {
-	jira?: ProductPermissionsType;
-	confluence?: ProductPermissionsType;
+	[Key in SupportedProductKeys]?: ProductPermissionsType;
 };
 
 export type ProductPermissionsServiceResult = {

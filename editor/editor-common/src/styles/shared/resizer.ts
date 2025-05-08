@@ -222,7 +222,7 @@ export const resizerStyles = css`
 		}
 	}
 
-	// This below style is here to make sure the image width is correct when nested in a table
+	/* This below style is here to make sure the image width is correct when nested in a table */
 	table .${resizerHoverZoneClassName}, table .${resizerHoverZoneClassName}.${resizerExtendedZone} {
 		padding: unset;
 		left: unset;

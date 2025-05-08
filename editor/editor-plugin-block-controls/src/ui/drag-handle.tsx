@@ -744,11 +744,9 @@ export const DragHandle = ({
 		const isSticky = shouldBeSticky(nodeType);
 
 		if (supportsAnchor) {
-			const bottom =
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_sticky_controls')
-					? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
-					: {};
+			const bottom = editorExperiment('platform_editor_controls', 'variant1')
+				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
+				: {};
 
 			return {
 				left: isEdgeCase
@@ -766,17 +764,15 @@ export const DragHandle = ({
 			};
 		}
 
-		const height =
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_sticky_controls')
-				? getControlHeightCSSValue(
-						getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
-						isSticky,
-						isTopLevelNode,
-						`${DRAG_HANDLE_HEIGHT}`,
-						isLayoutColumn,
-					)
-				: {};
+		const height = editorExperiment('platform_editor_controls', 'variant1')
+			? getControlHeightCSSValue(
+					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
+					isSticky,
+					isTopLevelNode,
+					`${DRAG_HANDLE_HEIGHT}`,
+					isLayoutColumn,
+				)
+			: {};
 		return {
 			left: isEdgeCase
 				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
@@ -992,8 +988,7 @@ export const DragHandle = ({
 		<button
 			type="button"
 			css={[
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_sticky_controls')
+				editorExperiment('platform_editor_controls', 'variant1')
 					? dragHandleButtonStyles
 					: dragHandleButtonStylesOld,
 				editorExperiment('platform_editor_controls', 'variant1') && dragHandleColor,
@@ -1011,14 +1006,7 @@ export const DragHandle = ({
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={
-				(!(
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_sticky_controls')
-				) &&
-					positionStyles) ||
-				{}
-			}
+			style={(!editorExperiment('platform_editor_controls', 'variant1') && positionStyles) || {}}
 			onClick={handleOnClick}
 			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}
@@ -1116,10 +1104,7 @@ export const DragHandle = ({
 	const stickyRender = isTooltip ? stickyWithTooltip() : stickyWithoutTooltip();
 	const render = isTooltip ? buttonWithTooltip() : renderButton();
 
-	return editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_sticky_controls')
-		? stickyRender
-		: render;
+	return editorExperiment('platform_editor_controls', 'variant1') ? stickyRender : render;
 };
 
 export const DragHandleWithVisibility = ({

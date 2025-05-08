@@ -1,7 +1,7 @@
-import type { RevisionPayloadVCDetails } from '../types';
+import type { RevisionPayloadVCDetails } from '../../../../common/vc/types';
 
 import calcUsingCanvas from './canvas-heatmap';
-import caclUsingOldHeatmap from './heatmap';
+import calcUsingOldHeatmap from './heatmap';
 import calcUsingRectSweepingLine from './rect-sweeping-line';
 import type { CalcTTVCPercentilesArg } from './types';
 
@@ -22,7 +22,7 @@ async function calculateTTVCPercentiles(
 	}
 
 	if (algo === 'old_heatmap') {
-		const vcDetails = await caclUsingOldHeatmap(arg);
+		const vcDetails = await calcUsingOldHeatmap(arg);
 		return vcDetails;
 	}
 	throw new Error('unexpected Error algo not chosen correctly');

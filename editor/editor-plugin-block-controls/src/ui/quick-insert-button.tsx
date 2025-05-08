@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -53,33 +53,6 @@ import { createNewLine } from './utils/editor-commands';
 import { VisibilityContainer } from './visibility-container';
 
 const TEXT_PARENT_TYPES = ['paragraph', 'heading', 'blockquote', 'taskItem', 'decisionItem'];
-
-const buttonStyles = xcss({
-	boxSizing: 'border-box',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'center',
-	alignItems: 'center',
-	height: token('space.300'),
-	width: token('space.300'),
-	border: 'none',
-	backgroundColor: 'color.background.neutral.subtle',
-	borderRadius: '50%',
-	zIndex: 'card',
-	outline: 'none',
-
-	':hover': {
-		backgroundColor: 'color.background.neutral.subtle.hovered',
-	},
-
-	':active': {
-		backgroundColor: 'color.background.neutral.subtle.pressed',
-	},
-
-	':focus': {
-		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
-	},
-});
 
 const disabledStyles = xcss({
 	pointerEvents: 'none',
@@ -195,7 +168,7 @@ export const TypeAheadControl = ({
 	// CHANGES - removed `editorExperiment('nested-dnd', true)` check and rootNodeType calculation
 	// CHANGES - replace anchorName with rootAnchorName
 	// CHANGES - `removed editorExperiment('advanced_layouts', true) && isLayoutColumn` checks as quick insert button will not be positioned for layout column
-	const calculatePosition = useCallback(() => {
+	const calculatePosition = useCallback((): CSSProperties => {
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${rootAnchorName} start)`) &&
 			CSS.supports('left', `anchor(${rootAnchorName} start)`);
@@ -231,10 +204,7 @@ export const TypeAheadControl = ({
 
 		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
 		const isSticky = shouldBeSticky(rootNodeType);
-
-		const bottom = fg('platform_editor_controls_sticky_controls')
-			? getControlBottomCSSValue(safeAnchorName || anchorName, isSticky, true)
-			: {};
+		const bottom = getControlBottomCSSValue(safeAnchorName || anchorName, isSticky, true);
 
 		if (supportsAnchor) {
 			return {
@@ -244,19 +214,13 @@ export const TypeAheadControl = ({
 
 				top: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(rootNodeType)}px)`,
 				...bottom,
-			};
+			} as CSSProperties;
 		}
 
-		// expensive, calls offsetHeight, guard behind FG
-		const nodeHeight =
-			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-			(fg('platform_editor_controls_sticky_controls') &&
-				getNodeHeight(dom, safeAnchorName || anchorName, anchorRectCache)) ||
-			0;
+		// expensive, calls offsetHeight
+		const nodeHeight = getNodeHeight(dom, safeAnchorName || anchorName, anchorRectCache) || 0;
 
-		const height = fg('platform_editor_controls_sticky_controls')
-			? getControlHeightCSSValue(nodeHeight, isSticky, true, token('space.300'))
-			: {};
+		const height = getControlHeightCSSValue(nodeHeight, isSticky, true, token('space.300'));
 
 		return {
 			left: isEdgeCase
@@ -270,7 +234,7 @@ export const TypeAheadControl = ({
 					)} + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 			top: getTopPosition(dom, rootNodeType),
 			...height,
-		};
+		} as CSSProperties;
 	}, [
 		rootAnchorName,
 		getPos,
@@ -403,7 +367,7 @@ export const TypeAheadControl = ({
 				type="button"
 				aria-label={formatMessage(messages.insert)}
 				xcss={[
-					fg('platform_editor_controls_sticky_controls') ? stickyButtonStyles : buttonStyles,
+					stickyButtonStyles,
 					isTypeAheadOpen && !fg('platform_editor_controls_widget_visibility')
 						? disabledStyles
 						: undefined,
@@ -435,20 +399,15 @@ export const TypeAheadControl = ({
 					disabledContainerStyles,
 			]}
 		>
-			{fg('platform_editor_controls_sticky_controls') ? (
-				<span
-					css={[
-						tooltipContainerStyles,
-						fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
-						fg('platform_editor_controls_patch_4') &&
-							tooltipContainerStylesStickyHeaderWithMarksFix,
-					]}
-				>
-					{tooltipPressable()}
-				</span>
-			) : (
-				tooltipPressable()
-			)}
+			<span
+				css={[
+					tooltipContainerStyles,
+					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
+					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
+				]}
+			>
+				{tooltipPressable()}
+			</span>
 		</Box>
 	);
 };

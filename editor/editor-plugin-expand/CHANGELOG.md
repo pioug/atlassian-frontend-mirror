@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 3.2.9
+
+### Patch Changes
+
+- [#150731](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150731)
+  [`e21eb5fc3b241`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e21eb5fc3b241) -
+  ED-27860 Fix media deleted events and update inputMethod to floatingToolbar for expands
+- Updated dependencies
+
 ## 3.2.8
 
 ### Patch Changes

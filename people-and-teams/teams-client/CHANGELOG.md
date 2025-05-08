@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.1.0
+
+### Minor Changes
+
+- [#150686](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150686)
+  [`81860cdd074fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81860cdd074fd) -
+  Migrate team central client to move away from Apollo
+
 ## 4.0.0
 
 ### Major Changes

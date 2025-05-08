@@ -1,20 +1,5 @@
+import { RevisionPayloadEntry } from '../../../common/vc/types';
 import type { VCObserverEntry } from '../types';
-
-export type RevisionPayloadVCDetails = {
-	[key: string]: {
-		t: number;
-		e: string[];
-	};
-};
-
-export type RevisionPayloadEntry = {
-	'metric:vc90': number | null;
-	revision: string;
-	clean: boolean;
-	vcDetails?: RevisionPayloadVCDetails;
-};
-
-export type RevisionPayload = RevisionPayloadEntry[];
 
 export type VCCalculatorParam = {
 	startTime: DOMHighResTimeStamp;

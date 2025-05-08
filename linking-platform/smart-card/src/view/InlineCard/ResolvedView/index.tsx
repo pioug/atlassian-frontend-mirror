@@ -7,6 +7,7 @@ import { type LozengeProps } from '../../../types';
 import type { CardActionOptions } from '../../Card/types';
 import { HoverCard } from '../../HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
+import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
 
@@ -51,6 +52,20 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 			return null;
 		}
 		const appearance = lozenge.appearance || 'default';
+		if (fg('platform-linking-visual-refresh-inline-lozenge')) {
+			return (
+				<InlineLozenge
+					testId="inline-card-resolved-view-lozenge"
+					appearance={appearance}
+					style={{ backgroundColor: lozenge?.style?.backgroundColor, color: lozenge?.style?.color }}
+					isBold={
+						fg('platform-component-visual-refresh') ? lozenge.isBold !== false : lozenge.isBold
+					}
+				>
+					{lozenge.text}
+				</InlineLozenge>
+			);
+		}
 
 		return (
 			<LozengeWrapper>

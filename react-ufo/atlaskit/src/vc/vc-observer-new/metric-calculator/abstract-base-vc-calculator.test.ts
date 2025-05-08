@@ -1,10 +1,16 @@
 // abstract-base-vc-calculator.test.ts
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { VCAbortReason } from '../../../common/vc/types';
 import { VCObserverEntry } from '../types';
 
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
 import * as calculateTTVCPercentiles from './percentile-calc';
 import * as getViewportHeight from './utils/get-viewport-height';
 import * as getViewportWidth from './utils/get-viewport-width';
+
+jest.mock('@atlaskit/platform-feature-flags');
+const mockFg = fg as jest.Mock;
 
 // Create a concrete implementation for testing
 class TestVCCalculator extends AbstractVCCalculatorBase {
@@ -14,6 +20,10 @@ class TestVCCalculator extends AbstractVCCalculatorBase {
 
 	protected isVCClean(filteredEntries: ReadonlyArray<VCObserverEntry>): boolean {
 		return true; // For testing purposes
+	}
+
+	protected getVCCleanStatus(filteredEntries: ReadonlyArray<VCObserverEntry>) {
+		return { isVCClean: true }; // For testing purposes
 	}
 }
 
@@ -38,6 +48,11 @@ describe('AbstractVCCalculatorBase', () => {
 			protected isVCClean() {
 				return false;
 			}
+			protected getVCCleanStatus() {
+				return {
+					isVCClean: false,
+				};
+			}
 		})('test-revision');
 
 		const result = await mockCalculator.calculate({
@@ -50,6 +65,44 @@ describe('AbstractVCCalculatorBase', () => {
 			revision: 'test-revision',
 			'metric:vc90': null,
 			clean: false,
+		});
+	});
+
+	it('should return unclean result when getVCCleanStatus returns isVCClean=false and a dirtyReason', async () => {
+		mockFg.mockImplementationOnce((key) => {
+			if (key === 'platform_ufo_add_vc_abort_reason_by_revisions') {
+				return true;
+			}
+
+			return false;
+		});
+
+		const mockCalculator = new (class extends AbstractVCCalculatorBase {
+			protected isEntryIncluded() {
+				return true;
+			}
+			protected isVCClean() {
+				return false;
+			}
+			protected getVCCleanStatus() {
+				return {
+					isVCClean: false,
+					dirtyReason: 'scroll' as VCAbortReason,
+				};
+			}
+		})('test-revision');
+
+		const result = await mockCalculator.calculate({
+			orderedEntries: [],
+			startTime: 0,
+			stopTime: 1000,
+		});
+
+		expect(result).toEqual({
+			revision: 'test-revision',
+			'metric:vc90': null,
+			clean: false,
+			abortReason: 'scroll',
 		});
 	});
 
@@ -93,6 +146,11 @@ describe('AbstractVCCalculatorBase', () => {
 			}
 			protected isVCClean() {
 				return true;
+			}
+			protected getVCCleanStatus() {
+				return {
+					isVCClean: true,
+				};
 			}
 		})('test-revision');
 

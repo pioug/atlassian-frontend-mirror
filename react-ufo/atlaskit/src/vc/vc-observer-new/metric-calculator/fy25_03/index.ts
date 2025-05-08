@@ -1,3 +1,4 @@
+import { VCAbortReason } from '../../../../common/vc/types';
 import type {
 	VCObserverEntry,
 	VCObserverEntryType,
@@ -65,5 +66,30 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			return false;
 		});
 		return !hasAbortEvent;
+	}
+
+	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]) {
+		let dirtyReason: VCAbortReason | '' = '';
+		const hasAbortEvent = filteredEntries.some((entry) => {
+			if (entry.type === 'window:event') {
+				const data = entry.data as WindowEventEntryData;
+				if (ABORTING_WINDOW_EVENT.includes(data.eventType)) {
+					dirtyReason = data.eventType === 'keydown' ? 'keypress' : data.eventType;
+					return true;
+				}
+			}
+			return false;
+		});
+
+		if (hasAbortEvent && dirtyReason) {
+			return {
+				isVCClean: false,
+				dirtyReason,
+			};
+		}
+
+		return {
+			isVCClean: true,
+		};
 	}
 }

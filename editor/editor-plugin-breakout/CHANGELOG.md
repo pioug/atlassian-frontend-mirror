@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.2.2
+
+### Patch Changes
+
+- [#150308](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150308)
+  [`a8c419124f349`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8c419124f349) -
+  Migrate breakoutPlugin to useSharedPluginStateSelector
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

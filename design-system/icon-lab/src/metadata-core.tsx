@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::b39ce66bd01fb5680d5c3b1df2e78e3b>>
+ * @codegen <<SignedSource::f0b90439e1bef3d763c312147c066d7c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -864,7 +864,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'For drawing and annotation',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'drop-shadow': {
@@ -1090,6 +1090,17 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#feedback-loom-vizrefresh',
 	},
+	hourglass: {
+		keywords: ['hourglass', 'icon', 'icon-lab', 'core'],
+		componentName: 'HourglassIcon',
+		package: '@atlaskit/icon-lab/core/hourglass',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Aging or expiring items',
+		team: 'Trello',
+		status: 'published',
+		slackChannel: 'joel unger',
+	},
 	'if-else': {
 		keywords: ['if-else', 'ifelse', 'icon', 'icon-lab', 'core', 'condition', 'statement', 'branch'],
 		componentName: 'IfElseIcon',
@@ -1138,18 +1149,16 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'icon-lab',
 			'core',
-			'fortune teller',
 			'crystal ball',
-			'future',
-			'issue type',
 			'system object',
 			'work collection',
+			'work type',
 		],
 		componentName: 'InitiativeIcon',
 		package: '@atlaskit/icon-lab/core/initiative',
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Representing Jira Initiatives',
+		usage: 'Reserved for initiative work type.',
 		team: 'Jira Enterprise',
 		status: 'published',
 	},
@@ -2940,6 +2949,44 @@ const metadata: Record<string, metadata> = {
 		team: 'Editor AI',
 		status: 'published',
 	},
+	'text-subscript': {
+		keywords: [
+			'text-subscript',
+			'textsubscript',
+			'icon',
+			'icon-lab',
+			'core',
+			'subscript',
+			'text formatting',
+		],
+		componentName: 'TextSubscriptIcon',
+		package: '@atlaskit/icon-lab/core/text-subscript',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for subscript text formatting.',
+		team: 'Editor',
+		status: 'published',
+		slackChannel: '#editor-design',
+	},
+	'text-superscript': {
+		keywords: [
+			'text-superscript',
+			'textsuperscript',
+			'icon',
+			'icon-lab',
+			'core',
+			'superscript',
+			'text formatting',
+		],
+		componentName: 'TextSuperscriptIcon',
+		package: '@atlaskit/icon-lab/core/text-superscript',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for superscript text formatting.',
+		team: 'Editor',
+		status: 'published',
+		slackChannel: '#Editor-design',
+	},
 	'text-underline-strikethrough': {
 		keywords: [
 			'text-underline-strikethrough',
@@ -3550,7 +3597,6 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'icon-lab',
 			'core',
-			'issue',
 			'work item',
 			'work type',
 			'add',

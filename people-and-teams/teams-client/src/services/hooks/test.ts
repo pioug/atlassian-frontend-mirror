@@ -84,4 +84,31 @@ describe('useTeamsClientSetupNext', () => {
 			orgId: 'org-id',
 		});
 	});
+
+	it('should call teamsClient.setTeamCentralContext with stargateRoot, cloudId, orgId, and userId', () => {
+		const stargateRoot = 'https://stargate.example.com';
+		const cloudId = 'cloud-id-123';
+		const orgId = 'org-id-456';
+		const userId = 'user-id-789';
+
+		renderHook(() =>
+			useTeamsClientSetupNext({ stargateRoot, cloudId, orgId, principalUserId: userId }),
+		);
+
+		expect(teamsClient.setTeamCentralContext).toHaveBeenCalledWith(stargateRoot, {
+			cloudId,
+			orgId,
+			userId,
+		});
+	});
+
+	it('should not call teamsClient.setTeamCentralContext when stargateRoot is not defined', () => {
+		const cloudId = 'cloud-id-123';
+		const orgId = 'org-id-456';
+		const userId = 'user-id-789';
+
+		renderHook(() => useTeamsClientSetupNext({ cloudId, orgId, principalUserId: userId }));
+
+		expect(teamsClient.setTeamCentralContext).not.toHaveBeenCalled();
+	});
 });

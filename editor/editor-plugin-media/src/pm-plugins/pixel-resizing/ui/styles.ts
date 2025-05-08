@@ -15,7 +15,7 @@ export const pixelSizingWrapper = css`
 	text-align: center;
 	height: ${token('space.300', '24px')};
 
-	// Atlaskit fieldset does not allow style override
+	/* Atlaskit fieldset does not allow style override */
 	& > * {
 		margin-top: 0 !important;
 	}

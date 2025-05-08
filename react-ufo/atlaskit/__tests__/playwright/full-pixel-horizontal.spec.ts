@@ -6,7 +6,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - Full Horizontal Pixel Page', () => {
 	test.use({
 		examplePage: 'full-horizontal-pixel-page',
-		featureFlags: ['platform_ufo_vc_observer_new', 'platform_ufo_canvas_heatmap_full_precision'],
+		featureFlags: ['platform_ufo_canvas_heatmap_full_precision'],
 	});
 
 	for (const viewport of viewports) {
@@ -75,7 +75,6 @@ test.describe('ReactUFO: Revisions - Full Horizontal Pixel Page', () => {
 test.describe('ReactUFO: Scaled (with margin error)- Full Horizontal Pixel Page', () => {
 	test.use({
 		examplePage: 'full-horizontal-pixel-page',
-		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {

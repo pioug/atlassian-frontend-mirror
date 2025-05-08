@@ -47,13 +47,11 @@ export const dragHandleDecoration = (
 	handleOptions?: HandleOptions,
 	anchorRectCache?: AnchorRectCache,
 ) => {
-	if (!fg('platform_editor_fix_widget_destroy')) {
-		unmountDecorations(
-			nodeViewPortalProviderAPI,
-			'data-blocks-drag-handle-container',
-			'data-blocks-drag-handle-key',
-		);
-	}
+	unmountDecorations(
+		nodeViewPortalProviderAPI,
+		'data-blocks-drag-handle-container',
+		'data-blocks-drag-handle-key',
+	);
 
 	let unbind: UnbindFn;
 	const key = uuid();
@@ -161,12 +159,8 @@ export const dragHandleDecoration = (
 			side: -1,
 			type: TYPE_HANDLE_DEC,
 			testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-			destroy: (node: Node) => {
+			destroy: (_: Node) => {
 				unbind && unbind();
-				if (fg('platform_editor_fix_widget_destroy')) {
-					// eslint-disable-next-line @atlaskit/editor/no-as-casting
-					ReactDOM.unmountComponentAtNode(node as HTMLElement);
-				}
 			},
 		},
 	);

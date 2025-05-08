@@ -50,6 +50,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "^13.4.0",
+		"@testing-library/react-hooks": "^8.0.1",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
@@ -92,7 +93,7 @@
 		}
 	},
 	"name": "@atlaskit/platform-feature-flags-react",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "utility library for working with feature flags in react",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

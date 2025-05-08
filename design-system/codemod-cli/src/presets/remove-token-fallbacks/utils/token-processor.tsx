@@ -90,6 +90,39 @@ export class TokenProcessor {
 		this.log(chalk.red(message));
 	}
 
+	/**
+	 * Checks if a token should be exempted from automatic fallback removal
+	 * @param tokenKey The token key to check
+	 * @returns An object containing whether the token should be exempted and related information
+	 */
+	private checkTokenExemption(tokenKey: string): {
+		shouldBeExempted: boolean;
+		exemptedPrefix: string | null;
+		exemptionList: string[];
+	} {
+		// Create exemption list from user-provided skipTokens, and always include 'border'
+		const userExemptions = this.options.skipTokens
+			? this.options.skipTokens.split(',').map(item => item.trim())
+			: [];
+
+		// Always include 'border' in the exemption list
+		const exemptionList = [...userExemptions];
+		if (!exemptionList.includes('border')) {
+			exemptionList.push('border');
+		}
+
+		const isExemptedToken = exemptionList.some(prefix => tokenKey.startsWith(prefix));
+		const exemptedPrefix = isExemptedToken
+			? exemptionList.find(prefix => tokenKey.startsWith(prefix)) || null
+			: null;
+
+		return {
+			shouldBeExempted: isExemptedToken,
+			exemptedPrefix,
+			exemptionList
+		};
+	}
+
 	private async processSingleToken(
 		callPath: ASTPath<CallExpression>,
 	): Promise<TokenProcessingResult & { shouldLog: boolean }> {
@@ -113,11 +146,7 @@ export class TokenProcessor {
 				resolvedLocalVarDeclaration: undefined,
 			};
 		}
-		const isSkipped = false;
-		// tokenKey.startsWith('elevation.shadow') ||
-		// tokenKey.startsWith('font.body') ||
-		// tokenKey.startsWith('font.heading');
-		const tokenValue = isSkipped ? '' : this.tokenMap[tokenKey];
+		const tokenValue = this.tokenMap[tokenKey];
 		this.logVerbose(
 			`Token value from tokenMap: ${chalk.magenta(tokenValue)} for key: ${chalk.yellow(tokenKey)}`,
 		);
@@ -126,14 +155,7 @@ export class TokenProcessor {
 			fallbackValue,
 			resolvedImportDeclaration,
 			resolvedLocalVarDeclaration,
-		} = isSkipped
-			? {
-					rawFallbackValue: 'N/A',
-					fallbackValue: undefined,
-					resolvedImportDeclaration: undefined,
-					resolvedLocalVarDeclaration: undefined,
-				}
-			: await this.getFallbackValue(args[1]);
+		} = await this.getFallbackValue(args[1]);
 		const {
 			difference,
 			isAcceptableDifference,
@@ -141,7 +163,7 @@ export class TokenProcessor {
 			fallbackLogValue,
 			normalizedTokenValue,
 			normalizedFallbackValue,
-		} = normalizeValues(tokenKey, tokenValue, fallbackValue);
+		} = normalizeValues(tokenKey, tokenValue, fallbackValue, this.options);
 		const areEqual = normalizedTokenValue === normalizedFallbackValue;
 		const logData = {
 			teamInfo: this.teamInfo,
@@ -156,9 +178,20 @@ export class TokenProcessor {
 		let fallbackRemoved = false;
 		let importDeclaration: ASTPath<ImportDeclaration> | undefined;
 		let localVarDeclaration: ASTPath<VariableDeclarator> | undefined;
-		const isBorderToken = tokenKey.startsWith('border');
 
-		if (areEqual || ((isAcceptableDifference || this.options.forceUpdate) && !isBorderToken)) {
+		// Check if token should be exempted
+		const { shouldBeExempted, exemptedPrefix } = this.checkTokenExemption(tokenKey);
+
+		// Determine if we should modify this token based on the exemption status and settings
+		const shouldModifyToken =
+			// Always modify if not exempted and values match
+			(areEqual && !shouldBeExempted) ||
+			// Or if values don't exactly match but are acceptable to modify and not exempted
+			((isAcceptableDifference || this.options.forceUpdate) && !shouldBeExempted) ||
+			// Or if exempted but values match exactly and we're not preserving skipped fallbacks
+			(areEqual && shouldBeExempted && !this.options.preserveSkippedFallbacks);
+
+		if (shouldModifyToken) {
 			this.log(
 				chalk.green(
 					areEqual
@@ -172,8 +205,10 @@ export class TokenProcessor {
 			importDeclaration = resolvedImportDeclaration;
 			localVarDeclaration = resolvedLocalVarDeclaration;
 		} else {
-			const message = isBorderToken
-				? 'Skip modifying border token'
+			const message = shouldBeExempted
+				? this.options.preserveSkippedFallbacks && areEqual
+					? `Preserving fallback for exempted token '${tokenKey}' (matches exemption '${exemptedPrefix}')`
+					: `Skip modifying exempted token '${tokenKey}' (matches exemption '${exemptedPrefix}')`
 				: normalizedFallbackValue === undefined
 					? `Fallback value could not be resolved`
 					: `Values mismatched significantly`;

@@ -3,8 +3,11 @@
  * @jsx jsx
  */
 
+import { useMemo } from 'react';
+
 import { css, jsx } from '@compiled/react';
 
+import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -73,6 +76,10 @@ const footerBlockCss = css({
 	alignSelf: 'stretch',
 });
 
+const footerBlockSafariStyles = css({
+	height: '100%',
+});
+
 const UnresolvedView = ({
 	actions,
 	cardState,
@@ -84,41 +91,51 @@ const UnresolvedView = ({
 	testId,
 	title,
 	url,
-}: UnresolvedViewProps) => (
-	<FlexibleCard
-		appearance="block"
-		cardState={cardState}
-		onAuthorize={onAuthorize}
-		onClick={onClick}
-		onError={onError}
-		origin="smartLinkCard"
-		testId={testId}
-		ui={FlexibleCardUiOptions}
-		url={url}
-	>
-		<TitleBlock
-			{...titleBlockOptions}
-			hideIcon={!!title}
-			text={title}
-			css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
-			status={cardState.status as SmartLinkStatus}
-		/>
-		<CustomBlock
-			css={[fg('platform-linking-visual-refresh-v1') ? customBlockStyles : customBlockStylesOld]}
-			status={cardState.status as SmartLinkStatus}
+}: UnresolvedViewProps) => {
+	const { safari = false } = fg('platform-linking-visual-refresh-v2')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => browser(), [])
+		: {};
+
+	return (
+		<FlexibleCard
+			appearance="block"
+			cardState={cardState}
+			onAuthorize={onAuthorize}
+			onClick={onClick}
+			onError={onError}
+			origin="smartLinkCard"
+			testId={testId}
+			ui={FlexibleCardUiOptions}
+			url={url}
 		>
-			{children}
-		</CustomBlock>
-		{showPreview && (
-			<PreviewBlock {...PreviewBlockOptions} status={cardState.status as SmartLinkStatus} />
-		)}
-		<InternalFooterBlock
-			css={[fg('platform-linking-visual-refresh-v1') ? footerBlockCss : footerBlockCssOld]}
-			actions={actions}
-			testId="smart-block-card-footer"
-			status={cardState.status as SmartLinkStatus}
-		/>
-	</FlexibleCard>
-);
+			<TitleBlock
+				{...titleBlockOptions}
+				hideIcon={!!title}
+				text={title}
+				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
+				status={cardState.status as SmartLinkStatus}
+			/>
+			<CustomBlock
+				css={[fg('platform-linking-visual-refresh-v1') ? customBlockStyles : customBlockStylesOld]}
+				status={cardState.status as SmartLinkStatus}
+			>
+				{children}
+			</CustomBlock>
+			{showPreview && (
+				<PreviewBlock {...PreviewBlockOptions} status={cardState.status as SmartLinkStatus} />
+			)}
+			<InternalFooterBlock
+				css={[
+					fg('platform-linking-visual-refresh-v1') ? footerBlockCss : footerBlockCssOld,
+					safari && fg('platform-linking-visual-refresh-v2') && footerBlockSafariStyles,
+				]}
+				actions={actions}
+				testId="smart-block-card-footer"
+				status={cardState.status as SmartLinkStatus}
+			/>
+		</FlexibleCard>
+	);
+};
 
 export default UnresolvedView;

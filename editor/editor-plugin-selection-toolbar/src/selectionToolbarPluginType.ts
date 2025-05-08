@@ -34,6 +34,7 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			suppressToolbar?: () => boolean;
 			unsuppressToolbar?: () => boolean;
 			setToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean;
+			forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean;
 			refreshToolbarDocking?: () => boolean;
 		};
 	}

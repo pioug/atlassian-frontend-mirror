@@ -53,6 +53,7 @@ const columnLayoutResponsiveSharedStyle = css({
 
 const LAYOUT_BREAKPOINT_RENDERER = 629;
 
+/* jest warning: JSDOM version (22) doesn't support the new @container CSS rule */
 const columnLayoutResponsiveRendererStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.layout-section-container': {

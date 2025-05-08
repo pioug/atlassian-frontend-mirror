@@ -28,7 +28,12 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { setToolbarDocking, toggleToolbar, updateToolbarDocking } from './pm-plugins/commands';
+import {
+	setToolbarDocking,
+	toggleToolbar,
+	updateToolbarDocking,
+	forceToolbarDockingWithoutAnalytics,
+} from './pm-plugins/commands';
 import { selectionToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
 import type { ToolbarDocking } from './types';
@@ -99,6 +104,16 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							toolbarDocking,
 							userPreferencesProvider,
 							editorAnalyticsApi: api?.analytics?.actions,
+						}),
+					) ?? false
+				);
+			},
+			forceToolbarDockingWithoutAnalytics: (toolbarDocking: ToolbarDocking) => {
+				return (
+					api?.core.actions.execute(
+						forceToolbarDockingWithoutAnalytics({
+							toolbarDocking,
+							userPreferencesProvider,
 						}),
 					) ?? false
 				);

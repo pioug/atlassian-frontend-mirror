@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::60630756465d7c82bb828edf78115f0b>>
+ * @codegen <<SignedSource::1c3fe5726d41070bfdd7410791a05e21>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Initiative".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Representing Jira Initiatives
+ * Usage guidance: Reserved for initiative work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

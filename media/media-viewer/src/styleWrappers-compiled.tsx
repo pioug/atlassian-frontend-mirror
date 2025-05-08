@@ -10,6 +10,7 @@ import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
 import { token } from '@atlaskit/tokens';
 import { Box, xcss } from '@atlaskit/primitives';
+import Heading from '@atlaskit/heading';
 
 const blanketStyles = css({
 	position: 'fixed',
@@ -280,10 +281,17 @@ const metadataWrapperStyles = css({
 });
 
 const metadataFileNameStyles = css({
-	maxWidth: '100%',
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	h1: {
+		maxWidth: '100%',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		font: token('font.body'),
+		fontWeight: token('font.weight.medium'),
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		color: '#c7d1db',
+	},
 });
 
 const metadataSubTextStyles = css({
@@ -705,8 +713,10 @@ export const MetadataFileName = ({
 	'data-testid': datatestId,
 	children,
 }: MetadataFileNameProps) => (
-	<div css={metadataFileNameStyles} data-testid={datatestId}>
-		{children}
+	<div css={metadataFileNameStyles}>
+		<Heading as="h1" size="medium" testId={datatestId}>
+			{children}
+		</Heading>
 	</div>
 );
 

@@ -20,6 +20,7 @@ import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { type RequestAccessContextProps } from '../../types';
 import { ActionButton } from '../common/action-button';
+import InlineLozenge from '../common/inline-lozenge';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
 import { IconStyledButtonOldVisualRefresh } from '../styled';
@@ -30,13 +31,24 @@ const styles = cssMap({
 		marginRight: token('space.negative.025'),
 		display: 'inline flex',
 	},
-	actionButtonLozengeStyle: {
+	actionButtonLozengeStyleOld: {
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderRadius: token('border.radius.050'),
 		paddingTop: token('space.0'),
 		paddingRight: token('space.0'),
 		paddingBottom: token('space.0'),
 		paddingLeft: token('space.0'),
+	},
+	actionButtonLozengeStyleNew: {
+		backgroundColor: token('color.background.neutral.subtle'),
+		borderRadius: token('border.radius.050'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+
+		// Set max width to prevent button to overflow on top of other element in smaller space, e.g. inside table cell
+		maxWidth: '100%',
 	},
 });
 
@@ -164,10 +176,28 @@ export const InlineCardForbiddenView = ({
 		}
 		if (onAuthorise) {
 			if (fg('platform-linking-visual-refresh-v1')) {
+				if (fg('platform-linking-visual-refresh-inline-lozenge')) {
+					return (
+						<Pressable
+							xcss={styles.actionButtonLozengeStyleNew}
+							onClick={handleRetry}
+							style={{ font: `inherit` }}
+							testId="button-connect-other-account"
+						>
+							<InlineLozenge
+								appearance="moved"
+								{...(fg('platform-component-visual-refresh') ? { isBold: true } : undefined)}
+							>
+								{renderForbiddenAccessMessage()}
+							</InlineLozenge>
+						</Pressable>
+					);
+				}
+
 				return (
 					<LozengeWrapper>
 						<Pressable
-							xcss={styles.actionButtonLozengeStyle}
+							xcss={styles.actionButtonLozengeStyleOld}
 							onClick={handleRetry}
 							testId="button-connect-other-account"
 						>

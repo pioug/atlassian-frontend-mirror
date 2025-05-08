@@ -1,10 +1,10 @@
-import { getConfig } from '../../config';
+import { isVCRevisionEnabled } from '../../config';
 import { getPageVisibilityState } from '../../hidden-timing';
 
 import { getVCRevisionsData } from './getVCRevisionsData';
 
 jest.mock('../../config');
-const mockGetConfig = getConfig as jest.Mock;
+const mockIsVCRevisionEnabled = isVCRevisionEnabled as jest.Mock;
 
 jest.mock('../../hidden-timing');
 const mockGetPageVisibilityState = getPageVisibilityState as jest.Mock;
@@ -13,15 +13,12 @@ describe('getVCRevisionsData', () => {
 	mockGetPageVisibilityState.mockReturnValue('visible');
 
 	afterEach(() => {
-		mockGetConfig.mockClear();
+		mockIsVCRevisionEnabled.mockClear();
 	});
 
 	beforeEach(() => {
-		mockGetConfig.mockReturnValue({
-			vc: {
-				enabledVCRevisions: ['fy25.01', 'fy25.02', 'fy25.03'],
-			},
-		});
+		const enabledVCRevisions = ['fy25.01', 'fy25.02', 'fy25.03'];
+		mockIsVCRevisionEnabled.mockImplementation((revision) => enabledVCRevisions.includes(revision));
 	});
 
 	test('use existing VC input data to calculate the revised VC metrics', () => {
@@ -177,11 +174,8 @@ describe('getVCRevisionsData', () => {
 	});
 
 	test('removes the fy25.01 VC payload when it is no longer enabled', () => {
-		mockGetConfig.mockReturnValueOnce({
-			vc: {
-				enabledVCRevisions: ['fy25.02', 'fy25.03'],
-			},
-		});
+		const enabledVCRevisions = ['fy25.02', 'fy25.03'];
+		mockIsVCRevisionEnabled.mockImplementation((revision) => enabledVCRevisions.includes(revision));
 
 		expect(
 			getVCRevisionsData({

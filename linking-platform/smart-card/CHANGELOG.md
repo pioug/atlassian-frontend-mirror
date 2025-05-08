@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 36.15.1
+
+### Patch Changes
+
+- [#151434](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151434)
+  [`af0089cbc89d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af0089cbc89d6) -
+  [ux] Fix InlineCard Lozenge overlap other element in smaller space
+
 ## 36.15.0
 
 ### Minor Changes

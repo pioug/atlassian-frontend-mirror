@@ -10,7 +10,6 @@ test.describe('ReactUFO: Revisions - moving-node', () => {
 	);
 	test.use({
 		examplePage: 'moving-node',
-		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {

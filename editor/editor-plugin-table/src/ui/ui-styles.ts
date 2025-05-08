@@ -468,7 +468,7 @@ export const floatingColumnControls = () => {
 
 export const rowControlsWrapperDotStyle = () => {
 	return css`
-		// override for DnD controls
+		/* override for DnD controls */
 		div.${ClassName.WITH_CONTROLS}>.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}::after {
 			display: none;
 		}
@@ -497,7 +497,7 @@ export const columnControlsDecoration = () => {
 			left: 0;
 			top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
 			height: ${columnControlsDecorationHeight}px;
-			// floating dot for adding column button
+			/* floating dot for adding column button */
 			&::before {
 				content: ' ';
 				background-color: ${tableBorderColor};
@@ -530,7 +530,7 @@ export const columnControlsDecoration = () => {
 			}
 		}
 
-		// floating dot for adding column button - overriding style on last column to avoid scroll
+		/* floating dot for adding column button - overriding style on last column to avoid scroll */
 		${getFloatingDotOverrides()}
 
 		.${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
@@ -652,7 +652,7 @@ export const hoveredWarningCell = css`
 			background-color: ${token(
 				'color.background.warning',
 				Y50,
-			)} !important; // We need to override the background-color added to the cell
+			)} !important; /* We need to override the background-color added to the cell */
 			border: 1px solid ${token('color.border.warning', Y200)};
 		}
 	}
@@ -685,7 +685,7 @@ const resizeLineStyles = () => {
 			z-index: ${columnControlsZIndex * 2};
 		}
 
-		// Styles when drag and drop is disabled - will be removed
+		/* Styles when drag and drop is disabled - will be removed */
 		td.${ClassName.WITH_RESIZE_LINE}::before {
 			content: ' ';
 			position: absolute;
@@ -771,7 +771,7 @@ export const resizeHandle = () => css`
       tr:first-of-type
       td.${ClassName.WITH_DRAG_RESIZE_LINE}
       .${ClassName.RESIZE_HANDLE_DECORATION}::after,
-	  // Styles when drag and drop is disabled - will be removed
+	  /* Styles when drag and drop is disabled - will be removed */
 		table
       tr:first-of-type
       th.${ClassName.WITH_RESIZE_LINE}

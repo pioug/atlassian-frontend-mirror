@@ -109,13 +109,13 @@ export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 	}
 
 	div[extensionType='com.atlassian.ai-blocks'] {
-		// This hides the label for the extension
+		/* This hides the label for the extension */
 		.extension-label {
 			display: none;
 		}
 
-		// This styles the ai panel correctly when its just sitting on the page and there
-		// is no user interaction
+		/* This styles the ai panel correctly when its just sitting on the page and there
+		is no user interaction */
 		.extension-container {
 			position: relative;
 			box-shadow: none;
@@ -138,7 +138,7 @@ export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 		}
 	}
 
-	// This styles the ai panel correctly when its streaming
+	/* This styles the ai panel correctly when its streaming */
 	div[extensionType='com.atlassian.ai-blocks']:has(.streaming) {
 		.extension-container {
 			box-shadow: none;
@@ -151,14 +151,14 @@ export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 		}
 	}
 
-	// This styles the ai panel correctly when a user is hovering over the delete button in the floating panel
+	/* This styles the ai panel correctly when a user is hovering over the delete button in the floating panel */
 	div[extensionType='com.atlassian.ai-blocks'].danger {
 		.extension-container {
 			box-shadow: 0 0 0 1px ${token('color.border.danger')};
 		}
 	}
 
-	// This removes the margin from the action list when inside an ai panel
+	/* This removes the margin from the action list when inside an ai panel */
 	div[extensiontype='com.atlassian.ai-blocks'][extensionkey='ai-action-items-block:aiActionItemsBodiedExtension'] {
 		div[data-node-type='actionList'] {
 			margin: 0 !important;

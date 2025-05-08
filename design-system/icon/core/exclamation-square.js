@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3716a83a4a510a33581f8c3f5b733236>>
+ * @codegen <<SignedSource::2b0d124e457d5801617d2b83aa5799b9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ExclamationSquare".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Known uses: Exclamation Jira issue type
+ * Usage guidance: Known uses: Exclamation work type.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

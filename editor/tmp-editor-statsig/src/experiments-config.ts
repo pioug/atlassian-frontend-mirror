@@ -283,4 +283,20 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-05-07
+	editor_ai_cmd_palette_remove_retry: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_ai_cmd_palette_remove_retry',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-05-08
+	platform_editor_core_static_emotion: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_core_static_emotion',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

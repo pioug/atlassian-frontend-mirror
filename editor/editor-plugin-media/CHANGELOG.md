@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 3.0.1
+
+### Patch Changes
+
+- [#150219](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150219)
+  [`8f6e3a7613db0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f6e3a7613db0) -
+  Fixes invalid css comments in template literal styles
+- [#150731](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150731)
+  [`e21eb5fc3b241`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e21eb5fc3b241) -
+  ED-27860 Fix media deleted events and update inputMethod to floatingToolbar for expands
+- Updated dependencies
+
 ## 3.0.0
 
 ### Patch Changes

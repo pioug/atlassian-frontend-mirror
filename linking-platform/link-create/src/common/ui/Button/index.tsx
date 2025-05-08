@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
-import AkButton from '@atlaskit/button';
+import AkButton from '@atlaskit/button/new';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import createEventPayload, {
@@ -17,7 +17,7 @@ type ButtonProps = React.ComponentProps<typeof AkButton> & {
 };
 
 export const Button = forwardRef(
-	({ actionSubjectId, ...props }: ButtonProps, ref: React.Ref<HTMLElement>) => {
+	({ actionSubjectId, ...props }: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 
 		return (
@@ -32,6 +32,6 @@ export const Button = forwardRef(
 					props.onClick?.(event, cloned ?? new UIAnalyticsEvent({ payload }));
 				}}
 			/>
-		);
+		)
 	},
 );

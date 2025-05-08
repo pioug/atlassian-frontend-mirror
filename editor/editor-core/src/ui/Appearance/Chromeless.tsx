@@ -15,10 +15,13 @@ import type {
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../types';
 import { createEditorContentStyle } from '../ContentStyles';
+import EditorContentContainer from '../EditorContentContainer';
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
 
@@ -50,12 +53,18 @@ const chromelessEditorStyles = css(
 	},
 );
 
-const ContentArea = createEditorContentStyle();
+export const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
 
 type AppearanceProps = EditorAppearanceComponentProps<
 	[OptionalPlugin<MaxContentSizePlugin>, OptionalPlugin<EditorViewModePlugin>]
 >;
+
+const EditorContainer = componentWithCondition(
+	() => editorExperiment('platform_editor_core_static_emotion', true),
+	EditorContentContainer,
+	ContentArea,
+);
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -108,11 +117,12 @@ export default class Editor extends React.Component<AppearanceProps> {
 					data-testid="chromeless-editor"
 					ref={(ref: HTMLElement | null) => (this.containerElement = ref)}
 				>
-					<ContentArea
+					<EditorContainer
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className="ak-editor-content-area"
 						featureFlags={featureFlags}
 						viewMode={editorViewModeState?.mode}
+						appearance={this.appearance}
 					>
 						{customContentComponents && 'before' in customContentComponents
 							? customContentComponents.before
@@ -137,7 +147,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 						{customContentComponents && 'after' in customContentComponents
 							? customContentComponents.after
 							: null}
-					</ContentArea>
+					</EditorContainer>
 				</div>
 			</WithFlash>
 		);

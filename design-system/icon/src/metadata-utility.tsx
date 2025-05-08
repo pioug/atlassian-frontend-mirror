@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::61c8e5972c67cf6862ba338f4468f558>>
+ * @codegen <<SignedSource::0a9bbc9e058d3b90ee6b8b82cf2f9830>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -194,7 +194,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for calendar year button.',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#help-design-system',
 	},
 	'chevron-double-right': {
@@ -214,7 +214,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: 'Reserved for calendar year button.',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#help-design-system',
 	},
 	'chevron-down': {

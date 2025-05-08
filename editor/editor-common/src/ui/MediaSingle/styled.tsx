@@ -256,6 +256,7 @@ export const MediaSingleDimensionHelper = ({
 		isExtendedResizeExperienceOn ? `${containerWidth}px` : calcMaxWidth(layout, containerWidth),
 	);
 
+	// jest warning: JSDOM version (22) doesn't support the new @container CSS rule
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 	return css`
 		/* For nested rich media items, set max-width to 100% */
@@ -366,9 +367,9 @@ export const mediaWrapperStyle = (props: MediaWrapperProps) => css`
 		width: 100%;
 	}
 
-	// Comments on media project adds comment badge as child of the media wrapper,
-	// thus we need to exclude it so that style is applied to intended div
-	// remove [data-comment-badge='true'] when ff platform_editor_add_media_from_url_rollout is cleaned up
+	/* Comments on media project adds comment badge as child of the media wrapper,
+	thus we need to exclude it so that style is applied to intended div
+	remove [data-comment-badge='true'] when ff platform_editor_add_media_from_url_rollout is cleaned up */
 	& > div:not([data-comment-badge='true'], [data-media-badges='true']) {
 		position: ${props.hasFallbackContainer ? 'absolute' : 'relative'};
 		height: 100%;

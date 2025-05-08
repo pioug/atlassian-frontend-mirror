@@ -3,6 +3,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('TTVC Dirty Scenarios', () => {
 	test.use({
 		examplePage: 'basic-section-below-viewport',
+		featureFlags: ['platform_ufo_add_vc_abort_reason_by_revisions'],
 	});
 
 	for (const viewport of viewports) {
@@ -32,7 +33,7 @@ test.describe('TTVC Dirty Scenarios', () => {
 				expect(ttvcV2Revision?.['metric:vc90']).toBeNull();
 			});
 
-			test('ufo:vc:abort:reason is `scroll`, and there is no VC fields, when there is a window resize event', async ({
+			test('ufo:vc:abort:reason is `scroll` when there is a window resize event', async ({
 				page,
 				waitForReactUFOPayload,
 			}) => {
@@ -48,9 +49,11 @@ test.describe('TTVC Dirty Scenarios', () => {
 				const vcAbortReason = reactUFOPayload!.attributes.properties['ufo:vc:abort:reason'];
 				expect(vcAbortReason).toBe('resize');
 
-				// NOTE: this should be changed, so that each VC revision entry contains an `abortReason` field
 				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
-				expect(ufoVCRev).toBeUndefined();
+				expect(ufoVCRev).toEqual([
+					{ abortReason: 'resize', clean: false, 'metric:vc90': null, revision: 'fy25.02' },
+					{ abortReason: 'resize', clean: false, 'metric:vc90': null, revision: 'fy25.03' },
+				]);
 			});
 
 			test('ufo:vc:abort:reason is `keypress`, and there is no VC fields, when there is a keypress event', async ({
@@ -69,9 +72,11 @@ test.describe('TTVC Dirty Scenarios', () => {
 				const vcAbortReason = reactUFOPayload!.attributes.properties['ufo:vc:abort:reason'];
 				expect(vcAbortReason).toBe('keypress');
 
-				// NOTE: this should be changed, so that each VC revision entry contains an `abortReason` field
 				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
-				expect(ufoVCRev).toBeUndefined();
+				expect(ufoVCRev).toEqual([
+					{ abortReason: 'keypress', clean: false, 'metric:vc90': null, revision: 'fy25.02' },
+					{ abortReason: 'keypress', clean: false, 'metric:vc90': null, revision: 'fy25.03' },
+				]);
 			});
 		});
 	}

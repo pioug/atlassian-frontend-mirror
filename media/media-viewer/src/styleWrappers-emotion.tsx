@@ -16,6 +16,7 @@ import { ArchiveSideBarWidth } from './viewers/archiveSidebar/styles';
 import { token } from '@atlaskit/tokens';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { Box, xcss } from '@atlaskit/primitives';
+import Heading from '@atlaskit/heading';
 
 const SIDEBAR_WIDTH = 416;
 
@@ -288,8 +289,19 @@ const metadataWrapperStyles = css({
 	display: 'flex',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const metadataFileNameStyles = css(ellipsis());
+const metadataFileNameStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	h1: {
+		maxWidth: '100%',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		font: token('font.body'),
+		fontWeight: token('font.weight.medium'),
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		color: '#c7d1db',
+	},
+});
 
 const metadataSubTextStyles = css(
 	{
@@ -699,8 +711,10 @@ export const MetadataFileName = ({
 	'data-testid': datatestId,
 	children,
 }: MetadataFileNameProps) => (
-	<div css={metadataFileNameStyles} data-testid={datatestId}>
-		{children}
+	<div css={metadataFileNameStyles}>
+		<Heading as="h1" size="medium" testId={datatestId}>
+			{children}
+		</Heading>
 	</div>
 );
 

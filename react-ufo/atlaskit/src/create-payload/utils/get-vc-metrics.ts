@@ -2,7 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
-import { getConfig } from '../../config';
+import { getConfig, isVCRevisionEnabled } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
 import { getVCObserver } from '../../vc';
 
@@ -57,7 +57,7 @@ async function getVCMetrics(
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
-	if (!config?.vc?.enabledVCRevisions?.includes('fy25.01')) {
+	if (!isVCRevisionEnabled('fy25.01')) {
 		const ttvcV2Revision = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
 			({ revision }) => revision === 'fy25.02',
 		);

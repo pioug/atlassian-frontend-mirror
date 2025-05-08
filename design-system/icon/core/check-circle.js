@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::748f85337bfdc39189d1ccb0fbfec926>>
+ * @codegen <<SignedSource::114f507630eda1e5cfc84d510c7f0a43>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "CheckCircle".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose - Known uses: completed items, productivity emoji category. Completed task issue status in JSM Calendar view.
+ * Usage guidance: Known uses: completed items, productivity emoji category. Completed task work type in JSM Calendar view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

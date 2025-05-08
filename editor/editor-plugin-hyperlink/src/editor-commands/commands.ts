@@ -24,7 +24,6 @@ import { getLinkCreationAnalyticsEvent, normalizeUrl } from '@atlaskit/editor-co
 import type { Mark, Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { stateKey } from '../pm-plugins/main';
 
@@ -154,20 +153,12 @@ export function insertLink(
 			const text = displayText || incomingTitle || incomingHref;
 			if (!displayText || displayText !== currentText) {
 				tr.insertText(text, from, to);
-				if (fg('platform_editor_update_insert_link_mark_end_pos')) {
-					// new block created to wrap the link
-					if (tr.mapping.map(from) === from + text.length + 2) {
-						// +1 is for the block's opening tag
-						markEnd = from + text.length + 1;
-					} else {
-						markEnd = from + text.length;
-					}
+				// new block created to wrap the link
+				if (tr.mapping.map(from) === from + text.length + 2) {
+					// +1 is for the block's opening tag
+					markEnd = from + text.length + 1;
 				} else {
-					if (!isTextAtPos(from)(state)) {
-						markEnd = from + text.length + 1;
-					} else {
-						markEnd = from + text.length;
-					}
+					markEnd = from + text.length;
 				}
 			}
 

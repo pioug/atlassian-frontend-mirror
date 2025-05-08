@@ -15,6 +15,7 @@ import mutabilityClient from './mutability-client';
 import objectResolverClient from './object-resolver-client';
 import permsClient from './perms-client';
 import publicApiClient from './public-api-client';
+import teamCentralClient from './team-central-client';
 import teamsInSlackClient from './teams-in-slack-client';
 import { type ClientContextProps } from './types';
 import userPreferencesClient from './user-preferences-client';
@@ -43,6 +44,7 @@ export class TeamsClient {
 	private readonly _teamsInSlackClient = teamsInSlackClient;
 	private readonly _collaborationGraphClient = collaborationGraphClient;
 	private readonly _identityClient = identityClient;
+	private readonly _teamCentralClient = teamCentralClient;
 
 	constructor(
 		/**
@@ -94,6 +96,11 @@ export class TeamsClient {
 		this._mutabilityClient.setContext(context);
 		this._publicApiClient.setContext(context);
 		this._invitationsClient.setContext(context);
+	}
+
+	setTeamCentralContext(baseUrl: string, context: ClientContextProps) {
+		this._teamCentralClient.setContext(context);
+		this._teamCentralClient.setBaseUrl(baseUrl);
 	}
 
 	/**
@@ -754,6 +761,54 @@ export class TeamsClient {
 		return this.measurePerformance('updateUserAvatar', () =>
 			this._identityClient.updateUserAvatar(...args),
 		);
+	}
+
+	async addTeamWatcher(
+		...args: Parameters<typeof teamCentralClient.addTeamWatcher>
+	): Promise<AwaitedReturn<typeof teamCentralClient.addTeamWatcher>> {
+		return this._teamCentralClient.addTeamWatcher(...args);
+	}
+
+	async removeTeamWatcher(
+		...args: Parameters<typeof teamCentralClient.removeTeamWatcher>
+	): Promise<AwaitedReturn<typeof teamCentralClient.removeTeamWatcher>> {
+		return this._teamCentralClient.removeTeamWatcher(...args);
+	}
+
+	async deleteKudos(
+		...args: Parameters<typeof teamCentralClient.deleteKudos>
+	): Promise<AwaitedReturn<typeof teamCentralClient.deleteKudos>> {
+		return this._teamCentralClient.deleteKudos(...args);
+	}
+
+	async queryTagList(
+		...args: Parameters<typeof teamCentralClient.queryTagList>
+	): Promise<AwaitedReturn<typeof teamCentralClient.queryTagList>> {
+		return this._teamCentralClient.queryTagList(...args);
+	}
+
+	async createTag(
+		...args: Parameters<typeof teamCentralClient.createTag>
+	): Promise<AwaitedReturn<typeof teamCentralClient.createTag>> {
+		return this._teamCentralClient.createTag(...args);
+	}
+
+	async createHelpPointer(
+		...args: Parameters<typeof teamCentralClient.createHelpPointer>
+	): Promise<AwaitedReturn<typeof teamCentralClient.createHelpPointer>> {
+		return this._teamCentralClient.createHelpPointer(...args);
+	}
+
+	async updateHelpPointer(
+		...args: Parameters<typeof teamCentralClient.updateHelpPointer>
+	): Promise<AwaitedReturn<typeof teamCentralClient.updateHelpPointer>> {
+		return this._teamCentralClient.updateHelpPointer(...args);
+	}
+
+	async deleteHelpPointer(
+		...args: Parameters<typeof teamCentralClient.deleteHelpPointer>
+	): Promise<AwaitedReturn<typeof teamCentralClient.deleteHelpPointer>> {
+		return this._teamCentralClient.deleteHelpPointer(...args);
 	}
 }
 

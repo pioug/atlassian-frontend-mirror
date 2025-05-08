@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.13.5
+
+### Patch Changes
+
+- [#151363](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151363)
+  [`ff30967c9ad78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff30967c9ad78) -
+  Revert destroy change for drag handle widgets
+- [#150243](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150243)
+  [`860ff9fc6066c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/860ff9fc6066c) -
+  Remove FG platform_editor_controls_sticky_controls
+
 ## 3.13.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.27
+
+### Patch Changes
+
+- [#150983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150983)
+  [`a363af43f9cd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a363af43f9cd6) -
+  [ux] Adds i18n title for Open button that is shown on hovering a smartlink.
+- Updated dependencies
+
 ## 5.4.26
 
 ### Patch Changes

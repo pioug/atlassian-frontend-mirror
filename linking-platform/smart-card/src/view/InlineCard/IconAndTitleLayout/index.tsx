@@ -378,6 +378,7 @@ const LozengeWrapperOldVisualRefresh = styled.span({
 	marginLeft: token('space.025', '2px'),
 });
 
+// Remove on platform-linking-visual-refresh-inline-lozenge cleanup
 export const LozengeWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
 	// note: This is just to get the types to work due to compiled css weirdness.
 	return <LozengeWrapperOldVisualRefresh {...(props as any)} />;

@@ -1,7 +1,8 @@
+import { RevisionPayloadEntry } from '../../common/vc/types';
+
 import EntriesTimeline from './entries-timeline';
 import getElementName, { type SelectorConfig } from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
-import type { RevisionPayloadEntry } from './metric-calculator/types';
 import type { VCObserverGetVCResultParam } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';

@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.0.14
+
+### Patch Changes
+
+- [#149114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149114)
+  [`3296813800110`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3296813800110) -
+  Heading element for the file name instead of div element
+
 ## 52.0.13
 
 ### Patch Changes

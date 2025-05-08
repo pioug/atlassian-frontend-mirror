@@ -1,15 +1,10 @@
 import valueParser from 'postcss-value-parser';
-import stylelint, { type Rule, type RuleBase, type RuleMessageFunc } from 'stylelint';
+import stylelint, { type Rule, type RuleBase } from 'stylelint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
 
 import { isFunction, isWord } from '../../utils/rules';
-
-type RuleMessage = {
-	invalidToken: RuleMessageFunc;
-	deprecatedToken: RuleMessageFunc;
-};
 
 export const ruleName = 'design-system/no-deprecated-design-token-usage';
 export const messages = stylelint.utils.ruleMessages(ruleName, {
@@ -17,7 +12,7 @@ export const messages = stylelint.utils.ruleMessages(ruleName, {
 		`The token '${name}' has been deprecated. Please use ${replacement} instead.`,
 	deprecatedToken: (name) =>
 		`The token '${name}' is deprecated, Please refer to the changelog for guidance on how to migrate. https://atlassian.design/components/tokens/changelog`,
-} as RuleMessage);
+});
 
 const isDeprecatedToken = (node: valueParser.Node): boolean =>
 	isWord(node) &&

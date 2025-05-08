@@ -39,7 +39,7 @@ const inlineImageHeight = (height: number | string, margin: number = 0) => css`
  */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, Nested and dynamic css calls are violations, needs manual remediation
 export const mediaInlineImageStyles = css`
-	// p, h3, and action items
+	/* p, h3, and action items */
 	.${INLINE_IMAGE_WRAPPER_CLASS_NAME} {
 		height: ${referenceHeights['p']}px;
 		transform: translateY(-2px);

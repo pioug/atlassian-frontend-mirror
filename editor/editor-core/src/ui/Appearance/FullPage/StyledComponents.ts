@@ -11,12 +11,9 @@ import {
 	akEditorSwoopCubicBezier,
 	akLayoutGutterOffset,
 } from '@atlaskit/editor-shared-styles';
-import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
-
-import { createEditorContentStyle } from '../../ContentStyles';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
@@ -30,24 +27,6 @@ export const fullPageEditorWrapper = css({
 	flexDirection: 'column',
 	boxSizing: 'border-box',
 });
-
-const scrollStyles = css(
-	{
-		flexGrow: 1,
-		height: '100%',
-		overflowY: 'scroll',
-		position: 'relative',
-		display: 'flex',
-		flexDirection: 'column',
-		scrollBehavior: 'smooth',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	scrollbarStyles,
-);
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ScrollContainer = createEditorContentStyle(scrollStyles);
-ScrollContainer.displayName = 'ScrollContainer';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentArea = () => {

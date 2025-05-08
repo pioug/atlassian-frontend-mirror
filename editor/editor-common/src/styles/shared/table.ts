@@ -181,7 +181,7 @@ const tableSharedStyle = () => css`
 				}
 			}
 
-			// Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected
+			/* Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected */
 			> tbody > tr > td {
 				background-color: ${token('elevation.surface')};
 			}
@@ -223,7 +223,7 @@ const tableSharedStyle = () => css`
 								'rgb(235, 237, 240)',
 							)}!important;
 
-							// selector lives inside @atlaskit/code
+							/* selector lives inside @atlaskit/code */
 							--ds--code--line-number-bg-color: ${token(
 								'color.background.neutral',
 								'rgb(226, 229, 233)',

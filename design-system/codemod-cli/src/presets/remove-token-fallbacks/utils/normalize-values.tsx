@@ -1,17 +1,20 @@
 import chalk from 'chalk';
 
+import { RemoveTokenFallbackOptions } from '../types';
+
 import { colorToHex, compareHex, isValidColor } from './color-utils';
 
-// so far allowing to remove only exact matches in values. Can be increased to auto-remove fallbacks with similar values
-const ACCEPTABLE_COLOR_DIFFERENCE = 15;
-const ACCEPTABLE_SPACE_DIFFERENCE = 0;
-const ACCEPTABLE_NUMERIC_DIFFERENCE = 0;
-const ACCEPTABLE_BORDER_DIFFERENCE = 0;
+// Default threshold values
+const DEFAULT_COLOR_DIFFERENCE = 15;
+const DEFAULT_SPACE_DIFFERENCE = 0;
+const DEFAULT_NUMERIC_DIFFERENCE = 0;
+const DEFAULT_BORDER_DIFFERENCE = 0;
 
 export function normalizeValues(
 	tokenKey: string,
 	tokenValue: string | undefined,
 	fallbackValue: string | undefined,
+	options?: RemoveTokenFallbackOptions
 ): {
 	difference?: number;
 	isAcceptableDifference?: boolean;
@@ -20,6 +23,23 @@ export function normalizeValues(
 	normalizedTokenValue: string | undefined;
 	normalizedFallbackValue: string | undefined;
 } {
+	// Use options thresholds or defaults
+	const colorDifference = options?.colorDifferenceThreshold !== undefined
+		? options.colorDifferenceThreshold
+		: DEFAULT_COLOR_DIFFERENCE;
+
+	const spaceDifference = options?.spaceDifferenceThreshold !== undefined
+		? options.spaceDifferenceThreshold
+		: DEFAULT_SPACE_DIFFERENCE;
+
+	const numericDifference = options?.numericDifferenceThreshold !== undefined
+		? options.numericDifferenceThreshold
+		: DEFAULT_NUMERIC_DIFFERENCE;
+
+	const borderDifference = options?.borderDifferenceThreshold !== undefined
+		? options.borderDifferenceThreshold
+		: DEFAULT_BORDER_DIFFERENCE;
+
 	let tokenLogValue: string | undefined;
 	let fallbackLogValue: string | undefined;
 	let normalizedTokenValue = tokenValue;
@@ -41,7 +61,7 @@ export function normalizeValues(
 		}
 		if (normalizedTokenValue && normalizedFallbackValue) {
 			difference = compareHex(normalizedTokenValue, normalizedFallbackValue);
-			isAcceptableDifference = difference <= ACCEPTABLE_COLOR_DIFFERENCE;
+			isAcceptableDifference = difference <= colorDifference;
 		}
 	} else if (lowerCaseTokenKey.startsWith('space') || lowerCaseTokenKey.startsWith('border')) {
 		const tokenValueInPx = tokenValue ? convertToPx(tokenValue) : undefined;
@@ -52,8 +72,8 @@ export function normalizeValues(
 			isAcceptableDifference =
 				difference <=
 				(lowerCaseTokenKey.startsWith('space')
-					? ACCEPTABLE_SPACE_DIFFERENCE
-					: ACCEPTABLE_BORDER_DIFFERENCE);
+					? spaceDifference
+					: borderDifference);
 		}
 		// Log the normalized values
 		normalizedTokenValue = tokenValue;
@@ -67,7 +87,7 @@ export function normalizeValues(
 		if (!isNaN(tokenValueNumber) && !isNaN(fallbackValueNumber)) {
 			const maxVal = Math.max(tokenValueNumber, fallbackValueNumber);
 			difference = (Math.abs(tokenValueNumber - fallbackValueNumber) / maxVal) * 100;
-			isAcceptableDifference = difference <= ACCEPTABLE_NUMERIC_DIFFERENCE;
+			isAcceptableDifference = difference <= numericDifference;
 		}
 		// Log the normalized values
 		normalizedTokenValue = tokenValue;

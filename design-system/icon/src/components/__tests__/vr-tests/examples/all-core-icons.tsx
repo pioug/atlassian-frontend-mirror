@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::8b1f7870880280d30705c70b82e5f2ce>>
+ * @codegen <<SignedSource::9139c1d9811dfa32789037883efebd52>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -81,6 +81,7 @@ import CheckboxCheckedIcon from '../../../../../core/checkbox-checked';
 import CheckboxIndeterminateIcon from '../../../../../core/checkbox-indeterminate';
 import CheckboxUncheckedIcon from '../../../../../core/checkbox-unchecked';
 import ChildIssuesIcon from '../../../../../core/child-issues';
+import ChildWorkItemsIcon from '../../../../../core/child-work-items';
 import ClipboardIcon from '../../../../../core/clipboard';
 import ClockIcon from '../../../../../core/clock';
 import CloseIcon from '../../../../../core/close';
@@ -416,6 +417,7 @@ const Icons = [
 	CheckboxIndeterminateIcon,
 	CheckboxUncheckedIcon,
 	ChildIssuesIcon,
+	ChildWorkItemsIcon,
 	ClockIcon,
 	CloudArrowUpIcon,
 	AngleBracketsIcon,

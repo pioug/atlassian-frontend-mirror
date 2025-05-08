@@ -6,7 +6,6 @@ import { expect, test, viewports } from './fixtures';
 test.describe('ReactUFO: Revisions - replacement node', () => {
 	test.use({
 		examplePage: 'same-attribute-value-mutation',
-		featureFlags: ['platform_ufo_vc_observer_new'],
 	});
 
 	for (const viewport of viewports) {

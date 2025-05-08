@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "206.0.1",
+	"version": "206.1.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -175,9 +175,6 @@
 		"platform.editor.live-pages-expand-divergence": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform_editor_update_insert_link_mark_end_pos": {
-			"type": "boolean"
 		},
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean",
@@ -594,10 +591,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_sticky_controls": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_nested_tables_sticky_header_bug": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -641,6 +634,9 @@
 		"platform_editor_user_intent_plugin": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_find_and_replace_duplication": {
+			"type": "boolean"
 		},
 		"editor_a11y_aria_label_removal_popup": {
 			"type": "boolean",

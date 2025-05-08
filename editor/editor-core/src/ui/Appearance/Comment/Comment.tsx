@@ -22,6 +22,8 @@ import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
@@ -30,6 +32,7 @@ import type { EditorAppearanceComponentProps } from '../../../types';
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
 import { createEditorContentStyle } from '../../ContentStyles';
+import EditorContentContainer from '../../EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 import WithFlash from '../../WithFlash';
@@ -102,6 +105,12 @@ type ComponentProps = EditorAppearanceComponentProps<
 		OptionalPlugin<PrimaryToolbarPlugin>,
 	]
 >;
+
+const EditorContainer = componentWithCondition(
+	() => editorExperiment('platform_editor_core_static_emotion', true),
+	EditorContentContainer,
+	ContentArea,
+);
 
 export const CommentEditorWithIntl = (props: ComponentProps) => {
 	const { editorAPI } = props;
@@ -253,7 +262,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 						<WidthConsumer>
 							{({ width }) => {
 								return (
-									<ContentArea
+									<EditorContainer
 										ref={containerElement}
 										css={
 											maxHeight
@@ -275,6 +284,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 										})}
 										featureFlags={featureFlags}
 										viewMode={editorViewModeState?.mode}
+										appearance={appearance}
 									>
 										{customContentComponents && 'before' in customContentComponents
 											? contentComponentClickWrapper(customContentComponents.before)
@@ -299,7 +309,7 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 										{customContentComponents && 'after' in customContentComponents
 											? contentComponentClickWrapper(customContentComponents.after)
 											: null}
-									</ContentArea>
+									</EditorContainer>
 								);
 							}}
 						</WidthConsumer>

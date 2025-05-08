@@ -1,4 +1,4 @@
-import type { RevisionPayloadVCDetails } from '../../types';
+import type { RevisionPayloadVCDetails } from '../../../../../common/vc/types';
 
 import { calculatePercentiles } from './index';
 

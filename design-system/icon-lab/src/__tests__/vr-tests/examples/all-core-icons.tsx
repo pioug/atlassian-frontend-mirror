@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::60f43e110e6c9542b2292914b02a466b>>
+ * @codegen <<SignedSource::0c90ae75bcdd7001a47d7b55bd06564c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -71,6 +71,7 @@ import GlobeStrikethroughIcon from '../../../../core/globe-strikethrough';
 import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
 import HandIcon from '../../../../core/hand';
+import HandClenchedIcon from '../../../../core/hand-clenched';
 import HistoryIcon from '../../../../core/history';
 import HourglassIcon from '../../../../core/hourglass';
 import IfElseIcon from '../../../../core/if-else';
@@ -119,12 +120,31 @@ import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import SaveIcon from '../../../../core/save';
 import ScreenRecordIcon from '../../../../core/screen-record';
 import SectionIcon from '../../../../core/section';
+import ShapeCommentLeftIcon from '../../../../core/shape-comment-left';
+import ShapeCommentRightIcon from '../../../../core/shape-comment-right';
+import ShapeDatabaseIcon from '../../../../core/shape-database';
+import ShapeDelayIcon from '../../../../core/shape-delay';
 import ShapeDiamondIcon from '../../../../core/shape-diamond';
+import ShapeDisplayIcon from '../../../../core/shape-display';
+import ShapeDocumentSymbolIcon from '../../../../core/shape-document-symbol';
 import ShapeEllipseIcon from '../../../../core/shape-ellipse';
+import ShapeHardDiskIcon from '../../../../core/shape-hard-disk';
+import ShapeInternalStorageIcon from '../../../../core/shape-internal-storage';
+import ShapeManualInputIcon from '../../../../core/shape-manual-input';
+import ShapeManualOperationSymbolIcon from '../../../../core/shape-manual-operation-symbol';
+import ShapeMindmapIcon from '../../../../core/shape-mindmap';
+import ShapeMultipleDocumentsIcon from '../../../../core/shape-multiple-documents';
+import ShapeOffPageIcon from '../../../../core/shape-off-page';
 import ShapeParallelogramSkewLeftIcon from '../../../../core/shape-parallelogram-skew-left';
 import ShapeParallelogramSkewRightIcon from '../../../../core/shape-parallelogram-skew-right';
+import ShapePredefinedProcessIcon from '../../../../core/shape-predefined-process';
+import ShapePreparationSymbolIcon from '../../../../core/shape-preparation-symbol';
 import ShapeRectangleIcon from '../../../../core/shape-rectangle';
 import ShapeRectangleRoundedIcon from '../../../../core/shape-rectangle-rounded';
+import ShapeStartEndIcon from '../../../../core/shape-start-end';
+import ShapeStoredDataIcon from '../../../../core/shape-stored-data';
+import ShapeSummingJunctionCrossIcon from '../../../../core/shape-summing-junction-cross';
+import ShapeSummingJunctionPlusIcon from '../../../../core/shape-summing-junction-plus';
 import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
@@ -418,6 +438,26 @@ const Icons = [
 	HourglassIcon,
 	TextSubscriptIcon,
 	TextSuperscriptIcon,
+	ShapeCommentLeftIcon,
+	ShapeCommentRightIcon,
+	ShapeDatabaseIcon,
+	ShapeDelayIcon,
+	ShapeDisplayIcon,
+	ShapeDocumentSymbolIcon,
+	ShapeHardDiskIcon,
+	ShapeInternalStorageIcon,
+	ShapeManualOperationSymbolIcon,
+	ShapeMindmapIcon,
+	ShapeMultipleDocumentsIcon,
+	ShapeOffPageIcon,
+	ShapePredefinedProcessIcon,
+	ShapePreparationSymbolIcon,
+	ShapeManualInputIcon,
+	ShapeStartEndIcon,
+	ShapeStoredDataIcon,
+	ShapeSummingJunctionCrossIcon,
+	ShapeSummingJunctionPlusIcon,
+	HandClenchedIcon,
 ];
 
 const groupSize = 20;
@@ -460,3 +500,5 @@ export const IconGroup7 = allExamples[7];
 export const IconGroup8 = allExamples[8];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IconGroup9 = allExamples[9];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const IconGroup10 = allExamples[10];

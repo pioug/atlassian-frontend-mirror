@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 115.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 115.0.1
 
 ### Patch Changes

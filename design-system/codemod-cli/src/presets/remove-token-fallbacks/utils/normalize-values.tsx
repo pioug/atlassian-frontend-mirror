@@ -14,7 +14,7 @@ export function normalizeValues(
 	tokenKey: string,
 	tokenValue: string | undefined,
 	fallbackValue: string | undefined,
-	options?: RemoveTokenFallbackOptions
+	options?: RemoveTokenFallbackOptions,
 ): {
 	difference?: number;
 	isAcceptableDifference?: boolean;
@@ -24,21 +24,25 @@ export function normalizeValues(
 	normalizedFallbackValue: string | undefined;
 } {
 	// Use options thresholds or defaults
-	const colorDifference = options?.colorDifferenceThreshold !== undefined
-		? options.colorDifferenceThreshold
-		: DEFAULT_COLOR_DIFFERENCE;
+	const colorDifference =
+		options?.colorDifferenceThreshold !== undefined
+			? options.colorDifferenceThreshold
+			: DEFAULT_COLOR_DIFFERENCE;
 
-	const spaceDifference = options?.spaceDifferenceThreshold !== undefined
-		? options.spaceDifferenceThreshold
-		: DEFAULT_SPACE_DIFFERENCE;
+	const spaceDifference =
+		options?.spaceDifferenceThreshold !== undefined
+			? options.spaceDifferenceThreshold
+			: DEFAULT_SPACE_DIFFERENCE;
 
-	const numericDifference = options?.numericDifferenceThreshold !== undefined
-		? options.numericDifferenceThreshold
-		: DEFAULT_NUMERIC_DIFFERENCE;
+	const numericDifference =
+		options?.numericDifferenceThreshold !== undefined
+			? options.numericDifferenceThreshold
+			: DEFAULT_NUMERIC_DIFFERENCE;
 
-	const borderDifference = options?.borderDifferenceThreshold !== undefined
-		? options.borderDifferenceThreshold
-		: DEFAULT_BORDER_DIFFERENCE;
+	const borderDifference =
+		options?.borderDifferenceThreshold !== undefined
+			? options.borderDifferenceThreshold
+			: DEFAULT_BORDER_DIFFERENCE;
 
 	let tokenLogValue: string | undefined;
 	let fallbackLogValue: string | undefined;
@@ -70,10 +74,7 @@ export function normalizeValues(
 			const maxVal = Math.max(tokenValueInPx, fallbackValueInPx);
 			difference = (Math.abs(tokenValueInPx - fallbackValueInPx) / maxVal) * 100;
 			isAcceptableDifference =
-				difference <=
-				(lowerCaseTokenKey.startsWith('space')
-					? spaceDifference
-					: borderDifference);
+				difference <= (lowerCaseTokenKey.startsWith('space') ? spaceDifference : borderDifference);
 		}
 		// Log the normalized values
 		normalizedTokenValue = tokenValue;

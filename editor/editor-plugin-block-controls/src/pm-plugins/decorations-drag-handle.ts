@@ -65,6 +65,7 @@ export const dragHandleDecoration = (
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
 			element.setAttribute('data-blocks-drag-handle-key', key);
+
 			let isTopLevelNode = true;
 
 			const getPos = () => {
@@ -85,13 +86,18 @@ export const dragHandleDecoration = (
 			 * However, the tooltip for nested drag handle is no long working.
 			 */
 			if (newPos === undefined || !isTopLevelNode) {
-				// This will also hide the tooltip.
-				unbind = bind(element, {
-					type: 'mouseover',
-					listener: (e) => {
+				if (fg('platform_editor_fix_widget_destroy')) {
+					element.onmouseover = (e) => {
 						e.stopPropagation();
-					},
-				});
+					};
+				} else {
+					unbind = bind(element, {
+						type: 'mouseover',
+						listener: (e) => {
+							e.stopPropagation();
+						},
+					});
+				}
 			}
 
 			// There are times when global clear: "both" styles are applied to this decoration causing jumpiness

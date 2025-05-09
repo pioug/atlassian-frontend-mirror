@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 31.6.3
+
+### Patch Changes
+
+- [#151050](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151050)
+  [`bed009e6ccbf2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bed009e6ccbf2) -
+  A11y fix to allow screenreaders to read out the current emoji counts
+
 ## 31.6.2
 
 ### Patch Changes

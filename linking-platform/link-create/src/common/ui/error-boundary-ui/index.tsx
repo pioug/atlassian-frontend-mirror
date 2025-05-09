@@ -29,25 +29,26 @@ export const ErrorBoundaryUI = () => {
 				<FormattedMessage
 					{...messages.description}
 					values={{
-						a: (label: React.ReactNode[]) => fg('platform-link-create-button-migration') ? (
-							<Link
-								href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								{label}
-							</Link>
+						a: (label: React.ReactNode[]) =>
+							fg('platform-link-create-button-migration') ? (
+								<Link
+									href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{label}
+								</Link>
 							) : (
-							<Button
-								appearance="link"
-								spacing="none"
-								href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								{label}
-							</Button>
-						),
+								<Button
+									appearance="link"
+									spacing="none"
+									href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{label}
+								</Button>
+							),
 					}}
 				/>
 			}

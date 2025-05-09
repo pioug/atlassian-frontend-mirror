@@ -17,6 +17,7 @@ import type { ReadOnlyParticipants } from '../../types';
 import { Participants } from '../participants';
 import {
 	createTelepointers,
+	_findPointers,
 	findPointers,
 	getPositionOfTelepointer,
 	isReplaceStep,
@@ -119,7 +120,12 @@ export class PluginState {
 
 			// Remove telepointers for users that left
 			left.forEach((i) => {
-				const pointers = findPointers(i.sessionId, this.decorationSet);
+				let pointers;
+				if (fg('confluence_team_presence_scroll_to_pointer')) {
+					pointers = findPointers(this.getPresenceId(i.sessionId), this.decorationSet);
+				} else {
+					pointers = _findPointers(i.sessionId, this.decorationSet);
+				}
 				if (pointers) {
 					remove = remove.concat(pointers);
 				}
@@ -129,7 +135,12 @@ export class PluginState {
 		if (telepointerData) {
 			const { sessionId } = telepointerData;
 			if (participants.get(sessionId) && sessionId !== sid) {
-				const oldPointers = findPointers(sessionId, this.decorationSet);
+				let oldPointers;
+				if (fg('confluence_team_presence_scroll_to_pointer')) {
+					oldPointers = findPointers(this.getPresenceId(sessionId), this.decorationSet);
+				} else {
+					oldPointers = _findPointers(sessionId, this.decorationSet);
+				}
 
 				if (oldPointers) {
 					remove = remove.concat(oldPointers);

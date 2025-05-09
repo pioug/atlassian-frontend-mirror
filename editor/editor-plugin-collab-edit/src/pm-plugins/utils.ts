@@ -19,12 +19,20 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
+export const _findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
 		.find()
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.reduce((arr, deco: any) => (deco.spec.pointer.sessionId === id ? arr.concat(deco) : arr), []);
+
+export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
+	decorations.find().reduce(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		(arr, deco: any) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr),
+		[],
+	);
 
 function style(options: { color: string }) {
 	const color = (options && options.color) || 'black';

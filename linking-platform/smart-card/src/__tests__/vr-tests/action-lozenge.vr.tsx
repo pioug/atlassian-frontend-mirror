@@ -15,6 +15,7 @@ snapshot(ActionItem, {
 snapshot(ActionTrigger, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
 

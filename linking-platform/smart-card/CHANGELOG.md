@@ -1,5 +1,33 @@
 # @atlaskit/smart-card
 
+## 37.1.0
+
+### Minor Changes
+
+- [#149339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149339)
+  [`9209eff7c4cb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9209eff7c4cb1) -
+  [ux] Behind fg `platform-linking-visual-refresh-v2` - Updated interactive state for lozenge action
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.0.0
+
+### Major Changes
+
+- [#150608](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150608)
+  [`c920f5dbaa727`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c920f5dbaa727) -
+  rename prop hidePrefix to hideFormat for OwnedByElement
+
+## 36.15.2
+
+### Patch Changes
+
+- [#150610](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150610)
+  [`b33efda8cfa3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b33efda8cfa3f) -
+  [ux] Fix BlockCard button get cutoff in safari (behind fg platform-linking-visual-refresh-v2)
+
 ## 36.15.1
 
 ### Patch Changes

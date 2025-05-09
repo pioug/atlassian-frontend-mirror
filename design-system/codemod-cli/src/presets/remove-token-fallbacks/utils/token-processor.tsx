@@ -102,7 +102,7 @@ export class TokenProcessor {
 	} {
 		// Create exemption list from user-provided skipTokens, and always include 'border'
 		const userExemptions = this.options.skipTokens
-			? this.options.skipTokens.split(',').map(item => item.trim())
+			? this.options.skipTokens.split(',').map((item) => item.trim())
 			: [];
 
 		// Always include 'border' in the exemption list
@@ -111,15 +111,15 @@ export class TokenProcessor {
 			exemptionList.push('border');
 		}
 
-		const isExemptedToken = exemptionList.some(prefix => tokenKey.startsWith(prefix));
+		const isExemptedToken = exemptionList.some((prefix) => tokenKey.startsWith(prefix));
 		const exemptedPrefix = isExemptedToken
-			? exemptionList.find(prefix => tokenKey.startsWith(prefix)) || null
+			? exemptionList.find((prefix) => tokenKey.startsWith(prefix)) || null
 			: null;
 
 		return {
 			shouldBeExempted: isExemptedToken,
 			exemptedPrefix,
-			exemptionList
+			exemptionList,
 		};
 	}
 

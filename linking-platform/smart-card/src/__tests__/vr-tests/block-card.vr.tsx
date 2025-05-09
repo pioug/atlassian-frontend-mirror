@@ -110,6 +110,7 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
 snapshot(BlockCardConfluence, {

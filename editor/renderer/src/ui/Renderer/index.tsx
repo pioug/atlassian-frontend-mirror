@@ -327,7 +327,16 @@ export const RendererFunctionalComponent = (
 
 	// Abstract out the logic into its own function
 	const serializer = useMemoFromPropsDerivative(
-		(serializerProps) => new ReactSerializer(serializerProps),
+		(serializerProps) => {
+			// If progressive rendering is enabled, create a new serializer
+			if (fg('cc_complexit_fe_progressive_adf_rendering')) {
+				const newSerializer = props.createSerializer?.(serializerProps);
+				if (newSerializer) {
+					return newSerializer;
+				}
+			}
+			return new ReactSerializer(serializerProps);
+		},
 		deriveSerializerProps,
 		props,
 	);

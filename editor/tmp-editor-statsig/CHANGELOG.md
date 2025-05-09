@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.19.0
+
+### Minor Changes
+
+- [#150067](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150067)
+  [`f625a2dfb3214`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f625a2dfb3214) -
+  NO-ISSUE: Pass in values into multivariate configs so that it can be picked up by the experiment
+  picker in Statlas
+
 ## 4.18.0
 
 ### Minor Changes

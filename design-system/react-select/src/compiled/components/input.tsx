@@ -112,13 +112,13 @@ const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-Input')}
 			data-value={value || ''}
 			data-testid={dataId && `${dataId}-container`}
 		>
 			<input
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={builtinCX({ input: true }, inputClassName)}
+				className={builtinCX({ input: true }, inputClassName, '-input')}
 				ref={innerRef}
 				css={[nativeInnputStyles, isHidden && hidden]}
 				disabled={isDisabled}

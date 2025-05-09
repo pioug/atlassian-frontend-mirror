@@ -55,6 +55,17 @@ export type ViewPortObserverConstructorArgs = {
 	}): void;
 };
 
+const createElementMutationsWatcher =
+	(removedNodeRects: (DOMRect | undefined)[]) =>
+	({ rect }: { rect: DOMRectReadOnly }) => {
+		const wasDeleted = removedNodeRects.some((nr) => sameRectDimensions(nr, rect));
+		if (wasDeleted) {
+			return 'mutation:element-replacement';
+		}
+
+		return 'mutation:element';
+	};
+
 export default class ViewportObserver {
 	private intersectionObserver: VCIntersectionObserver | null;
 	private mutationObserver: MutationObserver | null;
@@ -108,14 +119,10 @@ export default class ViewportObserver {
 						return;
 					}
 
-					this.intersectionObserver?.watchAndTag(addedNode, ({ rect }) => {
-						const wasDeleted = removedNodeRects.some((nr) => sameRectDimensions(nr, rect));
-						if (wasDeleted) {
-							return 'mutation:element-replacement';
-						}
-
-						return 'mutation:element';
-					});
+					this.intersectionObserver?.watchAndTag(
+						addedNode,
+						createElementMutationsWatcher(removedNodeRects),
+					);
 				});
 			},
 			onAttributeMutation: ({ target, attributeName }) => {

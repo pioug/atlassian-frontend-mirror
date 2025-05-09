@@ -21,6 +21,8 @@ const styles = css({
 const A11yText = (props: JSX.IntrinsicElements['span']) => (
 	<span
 		css={styles}
+		// eslint-disable-next-line  @atlaskit/ui-styling-standard/no-classname-prop
+		className="-a11yText"
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	/>

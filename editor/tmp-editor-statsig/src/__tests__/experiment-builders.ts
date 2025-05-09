@@ -39,6 +39,7 @@ describe('experiment-builders', () => {
 				param: 'test.multivariate',
 				defaultValue: 'B',
 				typeGuard: expect.any(Function),
+				values: ['A', 'B', 'C'],
 			});
 
 			// Test the type guard

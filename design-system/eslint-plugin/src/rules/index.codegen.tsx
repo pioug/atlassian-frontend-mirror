@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::be1696f2cf03313e918f93d6414aafd3>>
+ * @codegen <<SignedSource::d42e0ce93d45d02a5c30dcfdb7110c17>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -17,6 +17,7 @@ import noDeprecatedApis from './no-deprecated-apis';
 import noDeprecatedDesignTokenUsage from './no-deprecated-design-token-usage';
 import noDeprecatedImports from './no-deprecated-imports';
 import noDirectUseOfWebPlatformDragAndDrop from './no-direct-use-of-web-platform-drag-and-drop';
+import noEmotionPrimitives from './no-emotion-primitives';
 import noEmptyStyledExpression from './no-empty-styled-expression';
 import noExportedCss from './no-exported-css';
 import noExportedKeyframes from './no-exported-keyframes';
@@ -79,6 +80,7 @@ export const rules = {
 	'no-deprecated-design-token-usage': noDeprecatedDesignTokenUsage,
 	'no-deprecated-imports': noDeprecatedImports,
 	'no-direct-use-of-web-platform-drag-and-drop': noDirectUseOfWebPlatformDragAndDrop,
+	'no-emotion-primitives': noEmotionPrimitives,
 	'no-empty-styled-expression': noEmptyStyledExpression,
 	'no-exported-css': noExportedCss,
 	'no-exported-keyframes': noExportedKeyframes,

@@ -57,7 +57,7 @@ const Placeholder = <Option, IsMulti extends boolean, Group extends GroupBase<Op
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-placeholder')}
 			{...innerProps}
 		>
 			{children}

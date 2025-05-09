@@ -13,7 +13,7 @@ export interface TeamContainerProps {
 	 */
 	onAddAContainerClick: (
 		e: React.MouseEvent<HTMLButtonElement>,
-		containerType: 'Confluence' | 'Jira',
+		containerType: 'Confluence' | 'Jira' | 'Loom',
 	) => void;
 	/**
 	 * The component to replace current components

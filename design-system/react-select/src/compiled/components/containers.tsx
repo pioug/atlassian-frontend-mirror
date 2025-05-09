@@ -75,7 +75,7 @@ export const SelectContainer = <Option, IsMulti extends boolean, Group extends G
 				fg('platform_design_system_team_safari_input_fix') && containerStyles.ff_safari_input_fix,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-container')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}
@@ -161,7 +161,7 @@ export const ValueContainer = <Option, IsMulti extends boolean, Group extends Gr
 				isCompact && valueContainerStyles.compact,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx((className || 'value-container') as any, xcss)}
+			className={cx(className as any, xcss, '-ValueContainer')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}
@@ -219,7 +219,7 @@ export const IndicatorsContainer = <
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-IndicatorsContainer')}
 			{...innerProps}
 		>
 			{children}

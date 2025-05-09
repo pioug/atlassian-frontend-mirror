@@ -51,6 +51,7 @@ snapshot(HoverCardAssignedJiraIssue, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
 
@@ -60,6 +61,7 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
 

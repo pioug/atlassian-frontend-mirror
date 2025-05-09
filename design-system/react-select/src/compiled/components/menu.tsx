@@ -393,7 +393,7 @@ const Menu = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 		<div
 			css={[menuStyles.root, menuStyles[placement]]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(xcss, className as any)}
+			className={cx(xcss, className as any, '-menu')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			ref={innerRef}
@@ -460,7 +460,7 @@ export const MenuList = <Option, IsMulti extends boolean, Group extends GroupBas
 		<div
 			css={menuListStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-MenuList')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={{ ...(css as CSSProperties), maxHeight: maxHeight }}
 			ref={innerRef}
@@ -522,7 +522,7 @@ export const NoOptionsMessage = <Option, IsMulti extends boolean, Group extends 
 		<div
 			css={noticeStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-NoOptionsMessage')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line jsx-a11y/role-has-required-aria-props
@@ -553,7 +553,7 @@ export const LoadingMessage = <Option, IsMulti extends boolean, Group extends Gr
 		<div
 			css={noticeStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-LoadingMessage')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}
@@ -690,7 +690,7 @@ export const MenuPortal = <Option, IsMulti extends boolean, Group extends GroupB
 	const menuWrapper = (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-MenuPortal')}
 			ref={setMenuPortalElement}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

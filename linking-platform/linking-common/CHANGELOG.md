@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 8.1.0
+
+### Minor Changes
+
+- [#149339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149339)
+  [`f89e082912cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f89e082912cb2) -
+  Added `withFeatureFlaggedComponent` utility HOC
+
 ## 8.0.6
 
 ### Patch Changes

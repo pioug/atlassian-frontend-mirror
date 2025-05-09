@@ -13,7 +13,7 @@ export function createBooleanExperiment(config: BooleanExperimentConfig) {
 	return {
 		...config,
 		typeGuard: isBoolean,
-		defaultValue: config.defaultValue as boolean,
+		defaultValue: config.defaultValue,
 	} satisfies ExperimentConfigValue;
 }
 
@@ -23,11 +23,11 @@ export function createBooleanExperiment(config: BooleanExperimentConfig) {
 export function createMultivariateExperiment<T extends string[]>(
 	config: MultivariateExperimentConfig<T>,
 ) {
-	const { values, ...restConfig } = config;
-
+	const { values } = config;
 	return {
-		...restConfig,
-		typeGuard: oneOf(values),
-		defaultValue: config.defaultValue as T[number],
+		...config,
+		values: [...values], // Maintains the tuple
+		typeGuard: oneOf(config.values),
+		defaultValue: config.defaultValue,
 	} satisfies ExperimentConfigValue;
 }

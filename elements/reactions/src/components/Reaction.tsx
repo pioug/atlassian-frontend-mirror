@@ -203,6 +203,17 @@ export const Reaction = ({
 		</Inline>
 	);
 
+	let reactionAriaLabel = intl.formatMessage(messages.reactWithEmoji, {
+		emoji: emojiName,
+	});
+
+	if (reaction.count) {
+		reactionAriaLabel = intl.formatMessage(messages.reactWithEmojiAndCount, {
+			emoji: emojiName,
+			count: reaction.count,
+		});
+	}
+
 	return (
 		<Box xcss={styles.container}>
 			{showParticleEffect && (
@@ -231,9 +242,7 @@ export const Reaction = ({
 					<ReactionButton
 						onClick={handleClick}
 						flash={flash}
-						ariaLabel={intl.formatMessage(messages.reactWithEmoji, {
-							emoji: emojiName,
-						})}
+						ariaLabel={reactionAriaLabel}
 						ariaPressed={reacted}
 						onMouseEnter={handleMouseEnter}
 						onFocus={handleFocused}

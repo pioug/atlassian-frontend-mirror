@@ -27,6 +27,12 @@ export const messages = defineMessages({
 		defaultMessage: 'React with {emoji} emoji',
 		description: 'Aria label on reaction button',
 	},
+	reactWithEmojiAndCount: {
+		id: 'fabric.reactions.reactwithemojiandcount',
+		defaultMessage:
+			'{count, plural, one {# {emoji} emoji} other {# {emoji} emojis}}. React with {emoji} emoji',
+		description: 'Aria label on reaction button',
+	},
 	summary: {
 		id: 'fabric.reactions.summary',
 		defaultMessage: 'View all user reactions',

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.10.2
+
+### Patch Changes
+
+- [#151997](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151997)
+  [`d8723519dfff4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8723519dfff4) -
+  Fix memory leak on TTVC v3
+
 ## 3.10.1
 
 ### Patch Changes

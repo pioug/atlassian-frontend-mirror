@@ -114,7 +114,7 @@ export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-indicatorContainer')}
 			{...innerProps}
 		>
 			{children ? (
@@ -195,7 +195,7 @@ export const ClearIndicator = <Option, IsMulti extends boolean, Group extends Gr
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-indicatorContainer')}
 			{...innerProps}
 		>
 			{/* The Clear button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field */}
@@ -278,7 +278,7 @@ export const LoadingIndicator = <Option, IsMulti extends boolean, Group extends 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-loadingIndicator')}
 			{...innerProps}
 		>
 			<Spinner size="small" />

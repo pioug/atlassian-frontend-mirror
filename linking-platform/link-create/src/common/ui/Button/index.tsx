@@ -32,6 +32,6 @@ export const Button = forwardRef(
 					props.onClick?.(event, cloned ?? new UIAnalyticsEvent({ payload }));
 				}}
 			/>
-		)
+		);
 	},
 );

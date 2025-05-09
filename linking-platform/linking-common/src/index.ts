@@ -43,7 +43,7 @@ export type { LinkingPlatformFeatureFlags } from './ff';
 export { promiseDebounce } from './utils/promise-debounce';
 export { getStatus } from './utils/get-status';
 export { filterSiteProducts } from './utils/filter-site-products';
-
+export { withFeatureFlaggedComponent } from './utils/with-feature-flagged-component';
 export { getBaseUrl, getResolverUrl, BaseUrls } from './environments';
 
 export { request, NetworkError } from './api';

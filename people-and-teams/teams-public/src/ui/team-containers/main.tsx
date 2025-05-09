@@ -5,6 +5,7 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -47,14 +48,17 @@ export const TeamContainers = ({
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
 	const [_, actions] = useTeamContainersHook();
-	const [showAddJiraContainer, setShowAddJiraContainer] = useState(false);
-	const [showAddConfluenceContainer, setShowAddConfluenceContainer] = useState(false);
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
 	const [selectedContainerDetails, setSelectedContainerDetails] = useState<
 		SelectedContainerDetails | undefined
 	>();
 	const [filteredTeamContainers, setFilteredTeamContainers] = useState(teamContainers);
+	const [showAddContainer, setShowAddContainer] = useState({
+		Jira: false,
+		Confluence: false,
+		Loom: false,
+	});
 
 	const { fireOperationalEvent, fireTrackEvent } = usePeopleAndTeamAnalytics();
 
@@ -78,8 +82,7 @@ export const TeamContainers = ({
 			filteredTeamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW ||
 			isDisplayedOnProfileCard
 		) {
-			setShowAddJiraContainer(false);
-			setShowAddConfluenceContainer(false);
+			setShowAddContainer({ Jira: false, Confluence: false, Loom: false });
 		} else {
 			const hasJiraProject = filteredTeamContainers.some(
 				(container) => container.type === 'JiraProject',
@@ -87,16 +90,24 @@ export const TeamContainers = ({
 			const hasConfluenceSpace = filteredTeamContainers.some(
 				(container) => container.type === 'ConfluenceSpace',
 			);
-			setShowAddJiraContainer(
-				!hasJiraProject &&
+			const hasLoomSpace = filteredTeamContainers.some(
+				(container) => container.type === 'LoomSpace',
+			);
+
+			setShowAddContainer({
+				Jira:
+					!hasJiraProject &&
 					!!productPermissions &&
 					!!hasProductPermission(productPermissions, 'jira'),
-			);
-			setShowAddConfluenceContainer(
-				!hasConfluenceSpace &&
+				Confluence:
+					!hasConfluenceSpace &&
 					!!productPermissions &&
 					!!hasProductPermission(productPermissions, 'confluence'),
-			);
+				Loom:
+					!hasLoomSpace &&
+					!!productPermissions &&
+					!!hasProductPermission(productPermissions, 'loom'),
+			});
 		}
 	}, [isDisplayedOnProfileCard, productPermissions, filteredTeamContainers]);
 
@@ -172,7 +183,8 @@ export const TeamContainers = ({
 			!(
 				productPermissions &&
 				(hasProductPermission(productPermissions, 'jira') ||
-					hasProductPermission(productPermissions, 'confluence'))
+					hasProductPermission(productPermissions, 'confluence') ||
+					hasProductPermission(productPermissions, 'loom'))
 			))
 	) {
 		return <NoProductAccessState />;
@@ -205,16 +217,22 @@ export const TeamContainers = ({
 							/>
 						);
 					})}
-					{showAddJiraContainer && (
+					{showAddContainer.Jira && (
 						<AddContainerCard
 							onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
 							containerType="JiraProject"
 						/>
 					)}
-					{showAddConfluenceContainer && (
+					{showAddContainer.Confluence && (
 						<AddContainerCard
 							onAddAContainerClick={(e) => onAddAContainerClick(e, 'Confluence')}
 							containerType="ConfluenceSpace"
+						/>
+					)}
+					{showAddContainer.Loom && fg('loom_tab_in_container_linker_team_profile_page') && (
+						<AddContainerCard
+							onAddAContainerClick={(e) => onAddAContainerClick(e, 'Loom')}
+							containerType="LoomSpace"
 						/>
 					)}
 					{showMore &&

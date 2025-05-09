@@ -1,5 +1,54 @@
 # @atlaskit/icon-lab
 
+## 4.12.0
+
+### Minor Changes
+
+- [#151550](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151550)
+  [`8aaa23d8f2d84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8aaa23d8f2d84) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `hand-clenched`
+  - `shape-comment-left`
+  - `shape-comment-right`
+  - `shape-database`
+  - `shape-delay`
+  - `shape-display`
+  - `shape-document-symbol`
+  - `shape-hard-disk`
+  - `shape-internal-storage`
+  - `shape-manual-input`
+  - `shape-manual-operation-symbol`
+  - `shape-mindmap`
+  - `shape-multiple-documents`
+  - `shape-off-page`
+  - `shape-predefined-process`
+  - `shape-preparation-symbol`
+  - `shape-start-end`
+  - `shape-stored-data`
+  - `shape-summing-junction-cross`
+  - `shape-summing-junction-plus`
+
+- [#148166](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148166)
+  [`06a7435a03c28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06a7435a03c28) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `book-open`
+  - `cloud-saved`
+  - `speedometer-up`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.11.0
 
 ### Minor Changes

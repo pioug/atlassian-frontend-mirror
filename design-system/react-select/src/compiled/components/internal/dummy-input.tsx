@@ -32,5 +32,6 @@ export default function DummyInput({
 	// Remove animation props not meant for HTML elements
 	const filteredProps = removeProps(props, 'onExited', 'in', 'enter', 'exit', 'appear');
 
-	return <input ref={innerRef} {...filteredProps} css={dummyInputStyles} />;
+	// eslint-disable-next-line  @atlaskit/ui-styling-standard/no-classname-prop
+	return <input ref={innerRef} className="-dummyInput" {...filteredProps} css={dummyInputStyles} />;
 }

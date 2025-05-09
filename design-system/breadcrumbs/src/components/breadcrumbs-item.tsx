@@ -45,13 +45,8 @@ const VAR_STEP_TRUNCATION_WIDTH = '--max-width';
 const ICON_WIDTH_ESTIMATE = 24;
 
 const staticItemStyles = css({
-	// TODO: Replace fontWeight and lineHeight with "font: token('font.body')" and remove all the !important once Button is migrated to compiled
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-	fontWeight: `${token('font.weight.regular')} !important`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/use-tokens-typography
 	lineHeight: `20px !important`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-	paddingBlock: `${token('space.025')} !important`,
 });
 
 const staticItemWithTruncationStyles = css({
@@ -106,6 +101,14 @@ const BreadcrumbsItem = memo(
 			iconWidthAllowance,
 		);
 
+		// This should be a part of staticItemStyles but it requires the !important flag to prevent the padding from being overridden by the button styles
+		// compiled treats `${token(xxx)} !important` differently when concat !important in es2019 and esm built files
+		// the padding and font weight were not sourced correctly in the esm build
+		const buttonOverrideStyles: CSSProperties = {
+			paddingBlock: token('space.025'),
+			fontWeight: token('font.weight.regular'),
+		};
+
 		// Note: cast to `any` is required to type verification - see https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors
 		const dynamicItemStyles: CSSProperties = {
 			[VAR_STEP_TRUNCATION_WIDTH as any]:
@@ -130,7 +133,9 @@ const BreadcrumbsItem = memo(
 					truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={truncationWidth ? dynamicItemStyles : undefined}
+				style={
+					truncationWidth ? { ...dynamicItemStyles, ...buttonOverrideStyles } : buttonOverrideStyles
+				}
 			>
 				{text}
 			</Step>

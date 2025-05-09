@@ -300,8 +300,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			TODO: Migrate away from gridSize
 			Recommendation: Replace directly with 7px */
 			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset +
-				(fg('platform_editor_nested_dnd_styles_changes') ? 8 : 0)}px
-				0;
+				(fg('platform_editor_nested_dnd_styles_changes') ? 8 : 0)}px 0;
 			transition: border-color 0.3s ${akEditorSwoopCubicBezier};
 			cursor: ${viewMode === 'view' ? 'default' : 'pointer'};
 

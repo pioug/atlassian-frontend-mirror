@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.27.0
+
+### Minor Changes
+
+- [#151399](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151399)
+  [`f764a1f7a4600`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f764a1f7a4600) -
+  [ux] Add loom add container card on profile page
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.26.0
 
 ### Minor Changes

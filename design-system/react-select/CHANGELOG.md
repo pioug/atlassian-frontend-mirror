@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 2.4.7
+
+### Patch Changes
+
+- [#150364](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150364)
+  [`8b38cbb81c263`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b38cbb81c263) -
+  Add emotion class on compiled components to continue support of class queries temporarily, please
+  avoid using any class to style or query'
+
 ## 2.4.6
 
 ### Patch Changes

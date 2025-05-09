@@ -11,6 +11,7 @@ import ConfluenceIcon from '../assets/ConfluenceIcon.svg';
 import JiraIcon from '../assets/JiraIcon.svg';
 import JiraProjectDiscovery from '../assets/JiraProjectDiscovery.svg';
 import JiraServiceManagement from '../assets/JiraServiceManagement.svg';
+import LoomIcon from '../assets/LoomIcon.svg';
 import { type ContainerSubTypes, type ContainerTypes } from '../types';
 
 interface ContainerProperties {
@@ -42,6 +43,16 @@ export const messages = defineMessages({
 		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-description.non-final',
 		defaultMessage: 'Confluence',
 		description: 'Description of the card to add a Confluence space to a team',
+	},
+	addLoomContainerTitle: {
+		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title.non-final',
+		defaultMessage: 'Add space',
+		description: 'Title of the card to add a Loom space to a team',
+	},
+	confluenceLoomDescription: {
+		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description.non-final',
+		defaultMessage: 'Loom',
+		description: 'Description of the card to add a Loom space to a team',
 	},
 	addJiraProjectTitle: {
 		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-title.non-final',
@@ -137,6 +148,17 @@ export const getContainerProperties = (
 				icon: (
 					<Comp xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
+					</Comp>
+				),
+				title: <FormattedMessage {...messages.addLoomContainerTitle} />,
+				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
+			};
+		case 'LoomSpace':
+			return {
+				description: <FormattedMessage {...messages.loomSpaceDescription} />,
+				icon: (
+					<Comp xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+						<Image src={LoomIcon} alt="" testId="confluence-space-container-icon" />
 					</Comp>
 				),
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,

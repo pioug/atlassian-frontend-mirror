@@ -203,7 +203,7 @@ export const MultiValueContainer = <
 			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-multiValue')}
 		>
 			{children}
 		</div>
@@ -229,7 +229,7 @@ export const MultiValueLabel = <Option, IsMulti extends boolean, Group extends G
 			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-MultiValueLabel')}
 		>
 			{children}
 		</div>
@@ -276,7 +276,7 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss)}
+			className={cx(className as any, xcss, '-MultiValueRemove')}
 		>
 			<div
 				css={[isDisabled && disabledStyles, !isDisabled && enabledStyles]}

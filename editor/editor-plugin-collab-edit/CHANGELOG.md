@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.6.0
+
+### Minor Changes
+
+- [#149711](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149711)
+  [`70859ded55acd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70859ded55acd) -
+  [ux] Telepointers deduplicated based on presence id
+
 ## 3.5.1
 
 ### Patch Changes

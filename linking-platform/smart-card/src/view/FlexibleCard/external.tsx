@@ -59,6 +59,7 @@ import {
 import { type DateTimeProps } from './components/elements/date-time/types';
 import { type IconProps } from './components/elements/icon/types';
 import { type LinkProps } from './components/elements/link/types';
+import { type PreviewProps } from './components/elements/preview/types';
 import { type TextProps } from './components/elements/text/types';
 
 // ---- EXPORTED METADATA COMPONENT ---- //
@@ -100,18 +101,26 @@ export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	return <ModifiedOn />;
 };
 
-type OwnedByElementProps = {
-	hidePrefix?: boolean;
-};
+type OwnedByElementProps = Pick<TextProps, 'hideFormat'>;
 export const OwnedByElement = (props?: OwnedByElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <OwnedBy hideFormat={props?.hidePrefix} />;
+		return <OwnedBy hideFormat={props?.hideFormat} />;
 	}
 	return <OwnedBy />;
 };
 
 export const OwnedByGroupElement = () => <OwnedByGroup />;
-export const PreviewElement = () => <Preview />;
+
+type PreviewElementProps = {
+	url?: PreviewProps['overrideUrl'];
+};
+export const PreviewElement = (props?: PreviewElementProps) => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return <Preview overrideUrl={props?.url} />;
+	}
+	return <Preview />;
+};
+
 export const PriorityElement = () => <Priority />;
 export const ProgrammingLanguageElement = () => <ProgrammingLanguage />;
 export const ProviderElement = () => <Provider />;

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.13.6
+
+### Patch Changes
+
+- [#151503](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151503)
+  [`cba8cfe03c049`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cba8cfe03c049) -
+  Fix event listener leak
+- Updated dependencies
+
 ## 3.13.5
 
 ### Patch Changes

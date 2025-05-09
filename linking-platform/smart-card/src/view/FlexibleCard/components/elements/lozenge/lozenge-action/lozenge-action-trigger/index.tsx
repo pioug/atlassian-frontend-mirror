@@ -3,12 +3,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cx, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { withFeatureFlaggedComponent } from '@atlaskit/linking-common';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -20,6 +21,21 @@ const styles = cssMap({
 	chevronDown: {
 		marginLeft: token('space.075'),
 		display: 'flex',
+	},
+	lozengeContainer: {
+		all: 'unset',
+		backgroundColor: 'transparent',
+		borderRadius: token('border.radius.100'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		borderColor: 'transparent',
+		display: 'flex',
+		alignItems: 'center',
+		height: '16px',
+	},
+	lozengeContainerSelected: {
+		borderColor: token('color.border.focused'),
+		overflow: 'hidden',
 	},
 });
 
@@ -56,7 +72,7 @@ const triggerButtonStyles = css({
 	},
 });
 
-const LozengeActionTrigger = ({
+const LozengeActionTriggerOld = ({
 	appearance,
 	isOpen,
 	testId,
@@ -90,11 +106,12 @@ const LozengeActionTrigger = ({
 		),
 		[appearance, isBold, text],
 	);
+
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
 			type="button"
 			{...props}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={triggerButtonStyles}
 			data-action-open={isOpen}
 			data-testid={`${testId}--trigger`}
@@ -107,4 +124,108 @@ const LozengeActionTrigger = ({
 	);
 };
 
-export default LozengeActionTrigger;
+const LozengeActionTrigger = ({
+	appearance,
+	isOpen,
+	testId,
+	text,
+	triggerRef,
+	...props
+}: LozengeActionTriggerProps) => {
+	const [isHovering, setIsHovering] = useState(false);
+	const [isPressing, setIsPressing] = useState(false);
+	const [lozengeBackgroundColor, setLozengeBackgroundColor] = useState<string | undefined>(
+		undefined,
+	);
+	const [lozengeForegroundColor, setLozengeForegroundColor] = useState<string | undefined>(
+		undefined,
+	);
+
+	const onMouseEnter = useCallback(() => setIsHovering(true), []);
+	const onMouseLeave = useCallback(() => setIsHovering(false), []);
+	const onMouseOrKeyDown = useCallback(() => setIsPressing(true), []);
+	const onMouseOrKeyUp = useCallback(() => setIsPressing(false), []);
+
+	useEffect(() => {
+		if (isPressing) {
+			setLozengeBackgroundColor(token('color.background.selected.pressed'));
+			setLozengeForegroundColor(token('color.text.selected'));
+		} else if (isOpen) {
+			if (isHovering) {
+				setLozengeBackgroundColor(token('color.background.selected.hovered'));
+			} else {
+				setLozengeBackgroundColor(token('color.background.selected'));
+			}
+			setLozengeForegroundColor(token('color.text.selected'));
+		} else {
+			setLozengeBackgroundColor(undefined);
+			setLozengeForegroundColor(undefined);
+		}
+	}, [isPressing, isOpen, isHovering]);
+
+	const lozenge = useMemo(() => {
+		return (
+			<Box
+				xcss={cx(
+					styles.lozengeContainer,
+					(isOpen || isPressing) && styles.lozengeContainerSelected,
+				)}
+				as="span"
+			>
+				<Lozenge
+					appearance={appearance}
+					isBold={fg('platform-component-visual-refresh') ? true : isHovering}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					style={{
+						backgroundColor: lozengeBackgroundColor,
+						color: lozengeForegroundColor,
+					}}
+				>
+					<span css={triggerLozengeStyles}>
+						<span>{text}</span>
+						<Box as="span" xcss={styles.chevronDown}>
+							<ChevronDownIcon
+								color="currentColor"
+								label="options"
+								LEGACY_size="medium"
+								LEGACY_margin="-4px -8px -4px -7px"
+							/>
+						</Box>
+					</span>
+				</Lozenge>
+			</Box>
+		);
+	}, [
+		appearance,
+		isHovering,
+		isPressing,
+		text,
+		isOpen,
+		lozengeBackgroundColor,
+		lozengeForegroundColor,
+	]);
+
+	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-button
+		<button
+			type="button"
+			{...props}
+			css={triggerButtonStyles}
+			data-action-open={isOpen}
+			data-testid={`${testId}--trigger`}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			onMouseDown={onMouseOrKeyDown}
+			onMouseUp={onMouseOrKeyUp}
+			onKeyDown={onMouseOrKeyDown}
+			onKeyUp={onMouseOrKeyUp}
+			ref={triggerRef}
+		>
+			{lozenge}
+		</button>
+	);
+};
+
+export default withFeatureFlaggedComponent(LozengeActionTriggerOld, LozengeActionTrigger, () =>
+	fg('platform-linking-visual-refresh-v2'),
+);

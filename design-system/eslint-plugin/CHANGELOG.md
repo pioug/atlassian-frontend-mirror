@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.14.0
+
+### Minor Changes
+
+- [#151383](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151383)
+  [`772bdcfd2ec5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/772bdcfd2ec5b) -
+  Add `no-emotion-primitives` lint rule.
+
 ## 13.13.0
 
 ### Minor Changes

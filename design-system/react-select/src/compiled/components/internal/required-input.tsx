@@ -28,6 +28,8 @@ const RequiredInput: FunctionComponent<{
 		name={name}
 		tabIndex={-1}
 		aria-hidden="true"
+		// eslint-disable-next-line  @atlaskit/ui-styling-standard/no-classname-prop
+		className="-requiredInput"
 		onFocus={onFocus}
 		css={styles}
 		// Prevent `Switching from uncontrolled to controlled` error

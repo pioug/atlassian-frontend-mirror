@@ -66,9 +66,7 @@ export default async function transformer(
 		);
 
 		if (options.skipTokens) {
-			console.log(
-				chalk.yellow(`Auto fallback exemptions active for: ${options.skipTokens}`),
-			);
+			console.log(chalk.yellow(`Auto fallback exemptions active for: ${options.skipTokens}`));
 		}
 
 		if (options.preserveSkippedFallbacks) {
@@ -78,15 +76,11 @@ export default async function transformer(
 		}
 
 		if (options.skipEslint) {
-			console.log(
-				chalk.yellow(`Skipping ESLint post-processing.`),
-			);
+			console.log(chalk.yellow(`Skipping ESLint post-processing.`));
 		}
 
 		if (options.skipPrettier) {
-			console.log(
-				chalk.yellow(`Skipping Prettier post-processing.`),
-			);
+			console.log(chalk.yellow(`Skipping Prettier post-processing.`));
 		}
 
 		// Log threshold values if they are set

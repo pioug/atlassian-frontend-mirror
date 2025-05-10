@@ -458,6 +458,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						allowMediaInlineImages: options && options.allowMediaInlineImages,
 						isViewOnly: api?.editorViewMode?.sharedState.currentState()?.mode === 'view',
 						allowPixelResizing: options?.allowPixelResizing,
+						onCommentButtonMount: options?.onCommentButtonMount,
 					},
 					api,
 				),

@@ -46,6 +46,7 @@ interface BuildToolbarOptions {
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 	createCommentExperience?: AnnotationProviders['createCommentExperience'];
 	annotationManager?: AnnotationProviders['annotationManager'];
+	onCommentButtonMount?: () => void;
 }
 
 export const getValidNodes = (state: EditorState): NodeType[] => {
@@ -105,6 +106,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 	api,
 	createCommentExperience,
 	annotationManager,
+	onCommentButtonMount,
 }: BuildToolbarOptions) =>
 	| {
 			title: string;
@@ -122,6 +124,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 		api,
 		createCommentExperience,
 		annotationManager,
+		onCommentButtonMount,
 	}: BuildToolbarOptions) => {
 		const { schema } = state;
 		const selectionValid = isSelectionValid(state);
@@ -157,6 +160,10 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 				),
 			title: createCommentMessage,
 			onMount: () => {
+				if (fg('confluence_frontend_preload_inline_comment_editor')) {
+					onCommentButtonMount && onCommentButtonMount();
+				}
+
 				// Check if the selection includes an non-text inline node
 				const inlineCommentPluginState = getPluginState(state);
 				const inlineNodeNames =

@@ -4,9 +4,13 @@ import React from 'react';
 import { withTheme } from '@emotion/react';
 import classnames from 'classnames';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI, GridType } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -176,6 +180,25 @@ const Grid = ({
 
 const ThemedGrid = withTheme(Grid);
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<typeof gridPlugin> | undefined) => {
+		const width = useSharedPluginStateSelector(api, 'width.width');
+		const visible = useSharedPluginStateSelector(api, 'grid.visible');
+		const gridType = useSharedPluginStateSelector(api, 'grid.gridType');
+		const highlight = useSharedPluginStateSelector(api, 'grid.highlight');
+		return { width, visible, gridType, highlight };
+	},
+	(api: ExtractInjectionAPI<typeof gridPlugin> | undefined) => {
+		const { widthState, gridState } = useSharedPluginState(api, ['width', 'grid']);
+		return {
+			width: widthState?.width,
+			visible: gridState?.visible,
+			gridType: gridState?.gridType,
+			highlight: gridState?.highlight,
+		};
+	},
+);
+
 interface ContentComponentProps {
 	api: ExtractInjectionAPI<typeof gridPlugin> | undefined;
 	editorView: EditorView;
@@ -183,22 +206,22 @@ interface ContentComponentProps {
 }
 
 const ContentComponent = ({ api, editorView, options }: ContentComponentProps) => {
-	const { widthState, gridState } = useSharedPluginState(api, ['width', 'grid']);
+	const { width, visible, gridType, highlight } = useSharedState(api);
 
-	if (!gridState) {
+	if (visible === undefined || !highlight) {
 		return null;
 	}
 
 	return (
 		<ThemedGrid
 			shouldCalcBreakoutGridLines={options && options.shouldCalcBreakoutGridLines}
-			editorWidth={widthState?.width ?? akEditorFullPageMaxWidth}
+			editorWidth={width ?? akEditorFullPageMaxWidth}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			containerElement={editorView.dom as HTMLElement}
-			visible={gridState.visible}
-			gridType={gridState.gridType ?? 'full'}
-			highlight={gridState.highlight}
+			visible={visible}
+			gridType={gridType ?? 'full'}
+			highlight={highlight}
 		/>
 	);
 };

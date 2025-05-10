@@ -21,6 +21,22 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		expect(addReactionText).toHaveCompiledCss('margin-left', 'var(--ds-space-050,4px)');
 	});
 
+	it('should not render tooltip when showAddReactionText is true', async () => {
+		renderWithIntl(<Trigger tooltipContent="" showAddReactionText />);
+		const trigger = await screen.findByTestId('render-trigger-button');
+		fireEvent.mouseEnter(trigger);
+		await screen.findByTestId('render-trigger-button');
+		expect(screen.queryByTestId('render-tooltip-trigger')).not.toBeInTheDocument();
+	});
+
+	it('should render tooltip with correct content when showAddReactionText is false', async () => {
+		renderWithIntl(<Trigger tooltipContent="test tooltip" />);
+		const trigger = await screen.findByTestId('render-trigger-button');
+		fireEvent.mouseEnter(trigger);
+		const tooltip = await screen.findByTestId('render-tooltip-trigger');
+		expect(tooltip).toHaveTextContent('test tooltip');
+	});
+
 	it('should render custom text when reactionPickerTriggerText is passed in', async () => {
 		renderWithIntl(
 			<Trigger tooltipContent="" showAddReactionText reactionPickerTriggerText="Add new" />,

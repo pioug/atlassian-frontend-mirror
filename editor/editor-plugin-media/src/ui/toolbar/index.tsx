@@ -362,6 +362,7 @@ const generateMediaSingleFloatingToolbar = (
 		allowImagePreview,
 		isViewOnly,
 		allowPixelResizing,
+		onCommentButtonMount,
 	} = options;
 
 	let toolbarButtons: FloatingToolbarItem<Command>[] = [];
@@ -693,7 +694,7 @@ const generateMediaSingleFloatingToolbar = (
 
 		if (!isEditorControlsEnabled) {
 			if (allowCommentsOnMedia) {
-				toolbarButtons.push(commentButton(intl, state, pluginInjectionApi), {
+				toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount), {
 					type: 'separator',
 					supportsViewMode: true,
 				});
@@ -915,7 +916,7 @@ const generateMediaSingleFloatingToolbar = (
 
 		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
 			updateToFullHeightSeparator(toolbarButtons);
-			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi));
+			toolbarButtons.push(commentButton(intl, state, pluginInjectionApi, onCommentButtonMount));
 		}
 
 		return toolbarButtons;

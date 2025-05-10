@@ -244,6 +244,10 @@ export interface ReactionsProps
 	 * Optional prop to say if the reactions component is in a list
 	 */
 	isListItem?: boolean;
+	/**
+	 *  Optional prop to change the placement of the reaction picker popup
+	 */
+	reactionPickerPlacement?: Placement;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -314,6 +318,7 @@ export const Reactions = React.memo(
 		reactionPickerTriggerText,
 		hoverableSummaryView = false,
 		isListItem = false,
+		reactionPickerPlacement,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -589,6 +594,7 @@ export const Reactions = React.memo(
 							isListItem={isListItem}
 							hoverableReactionPicker={hoverableSummaryView}
 							hoverableReactionPickerDelay={hoverableSummaryView ? 300 : 0}
+							reactionPickerPlacement={reactionPickerPlacement}
 						/>
 					)}
 					<ModalTransition>

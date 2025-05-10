@@ -11,9 +11,13 @@ import type {
 	GuidelinePluginOptions,
 	GuidelinePluginState,
 } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
@@ -66,6 +70,25 @@ const guidelinePMPlugin = new SafePlugin<GuidelinePluginState>({
 	},
 });
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<typeof guidelinePlugin> | undefined) => {
+		const width = useSharedPluginStateSelector(api, 'width.width');
+		const lineLength = useSharedPluginStateSelector(api, 'width.lineLength');
+		const guidelines = useSharedPluginStateSelector(api, 'guideline.guidelines');
+		const rect = useSharedPluginStateSelector(api, 'guideline.rect');
+		return { width, lineLength, guidelines, rect };
+	},
+	(api: ExtractInjectionAPI<typeof guidelinePlugin> | undefined) => {
+		const { widthState, guidelineState } = useSharedPluginState(api, ['width', 'guideline']);
+		return {
+			width: widthState?.width,
+			lineLength: widthState?.lineLength,
+			guidelines: guidelineState?.guidelines,
+			rect: guidelineState?.rect,
+		};
+	},
+);
+
 const ContentComponent = ({
 	api,
 	editorView,
@@ -75,23 +98,16 @@ const ContentComponent = ({
 	editorView: EditorView;
 	options: GuidelinePluginOptions | undefined;
 }) => {
-	const { widthState, guidelineState } = useSharedPluginState(api, ['width', 'guideline']);
+	const { width, lineLength, guidelines, rect } = useSharedState(api);
 
-	if (
-		!widthState ||
-		!widthState.width ||
-		!widthState.lineLength ||
-		!guidelineState ||
-		!guidelineState.guidelines ||
-		guidelineState.guidelines.length === 0
-	) {
+	if (!width || !lineLength || !guidelines || guidelines.length === 0) {
 		return null;
 	}
 
 	const updateRect = ({ top, left }: GuidelineContainerRect) => {
 		const { dispatch, state } = editorView;
 
-		const { top: prevTop, left: prevLeft } = guidelineState.rect || {};
+		const { top: prevTop, left: prevLeft } = rect || {};
 
 		if (prevTop !== top || prevLeft !== left) {
 			const tr = state.tr.setMeta(key, {
@@ -105,12 +121,12 @@ const ContentComponent = ({
 	return (
 		<div css={guidelineStyles}>
 			<GuidelineContainer
-				guidelines={guidelineState.guidelines}
+				guidelines={guidelines}
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				height={(editorView.dom as HTMLElement).scrollHeight}
-				width={widthState.width}
-				editorWidth={widthState.lineLength}
+				width={width}
+				editorWidth={lineLength}
 				updateRect={updateRect}
 			/>
 		</div>

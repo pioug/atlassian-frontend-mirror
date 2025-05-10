@@ -123,6 +123,9 @@
 		},
 		"confluence_frontend_handle_annotation_error": {
 			"type": "boolean"
+		},
+		"confluence_frontend_preload_inline_comment_editor": {
+			"type": "boolean"
 		}
 	}
 }

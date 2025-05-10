@@ -10,7 +10,10 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
 import {
 	getAriaKeyshortcuts,
@@ -27,6 +30,7 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
@@ -51,6 +55,23 @@ type PrimaryToolbarHighlightColorProps = {
 	editorView: EditorView;
 } & WrappedComponentProps;
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
+		const isPaletteOpen = useSharedPluginStateSelector(api, 'highlight.isPaletteOpen');
+		const highlightDisabled = useSharedPluginStateSelector(api, 'highlight.disabled');
+		const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
+		return { isPaletteOpen, highlightDisabled, activeColor };
+	},
+	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
+		const { highlightState } = useSharedPluginState(api, ['highlight']);
+		return {
+			isPaletteOpen: highlightState?.isPaletteOpen,
+			highlightDisabled: highlightState?.disabled,
+			activeColor: highlightState?.activeColor,
+		};
+	},
+);
+
 const PrimaryToolbarHighlightColor = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
@@ -62,10 +83,10 @@ const PrimaryToolbarHighlightColor = ({
 	editorView,
 }: PrimaryToolbarHighlightColorProps) => {
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
-	const { highlightState } = useSharedPluginState(pluginInjectionApi, ['highlight']);
+	const { isPaletteOpen, highlightDisabled, activeColor } = useSharedState(pluginInjectionApi);
 
 	const setIsDropdownOpen = (isOpen: boolean) => {
-		if (!highlightState?.disabled) {
+		if (!highlightDisabled) {
 			const { state, dispatch } = editorView;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -76,7 +97,7 @@ const PrimaryToolbarHighlightColor = ({
 		}
 	};
 
-	const isDropdownOpen: boolean = !!highlightState?.isPaletteOpen;
+	const isDropdownOpen: boolean = !!isPaletteOpen;
 
 	const {
 		handleClick,
@@ -93,7 +114,7 @@ const PrimaryToolbarHighlightColor = ({
 	});
 
 	// Don't render the toolbar option while the plugin is initialising
-	if (!highlightState) {
+	if (activeColor === undefined || highlightDisabled === undefined) {
 		return null;
 	}
 
@@ -102,9 +123,7 @@ const PrimaryToolbarHighlightColor = ({
 	// Get the design token for the  active color (if it exists) to modify the toolbar
 	// icon, but show the nice rainbow if none is selected
 	const activeColorToken =
-		highlightState.activeColor === null
-			? null
-			: hexToEditorTextBackgroundPaletteColor(highlightState.activeColor);
+		activeColor === null ? null : hexToEditorTextBackgroundPaletteColor(activeColor);
 
 	return (
 		<Flex alignItems="center">
@@ -112,15 +131,15 @@ const PrimaryToolbarHighlightColor = ({
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
-				isOpen={isDropdownOpen && !highlightState.disabled}
-				activeColor={highlightState.activeColor}
+				isOpen={isDropdownOpen && !highlightDisabled}
+				activeColor={activeColor}
 				trigger={
 					<ToolbarButton
 						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-imported-style-values
 						css={disableBlueBorderStyles}
 						buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
 						spacing={isToolbarReducedSpacing ? 'none' : 'default'}
-						disabled={disabled || highlightState.disabled}
+						disabled={disabled || highlightDisabled}
 						selected={isDropdownOpen}
 						aria-label={tooltip(toggleHighlightPalette, toolbarButtonLabel)}
 						aria-keyshortcuts={getAriaKeyshortcuts(toggleHighlightPalette)}
@@ -137,7 +156,7 @@ const PrimaryToolbarHighlightColor = ({
 								<div css={triggerWrapperStylesWithPadding}>
 									<DynamicStrokeIconDecoration
 										selectedColor={activeColorToken}
-										disabled={highlightState.disabled}
+										disabled={highlightDisabled}
 										icon={<HighlightIcon label="" color="currentColor" spacing="spacious" />}
 									/>
 									{
@@ -151,7 +170,7 @@ const PrimaryToolbarHighlightColor = ({
 								<Flex>
 									<EditorHighlightIcon
 										selectedColor={activeColorToken}
-										disabled={highlightState.disabled}
+										disabled={highlightDisabled}
 									/>
 
 									<span

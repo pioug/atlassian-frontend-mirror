@@ -199,6 +199,9 @@
 		},
 		"platform_editor_controls_patch_analytics_2": {
 			"type": "boolean"
+		},
+		"confluence_frontend_preload_inline_comment_editor": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

@@ -127,6 +127,7 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
 	 * Note 2: text is supported by default.
 	 */
 	supportedBlockNodes?: string[];
+	onCommentButtonMount?: () => void;
 };
 
 export interface AnnotationProviders {
@@ -232,6 +233,7 @@ export type InlineCommentCompoundExperience = {
 		abort: (params: { abortReason: 'Draft annotation removed from document' }) => void;
 		complete: () => void;
 		debug: ExperienceDebugFunction;
+		debugPoint: (message: string, attributes?: ExperienceAttributes) => void;
 	};
 	draftToPublishExperience: {
 		start: () => void;

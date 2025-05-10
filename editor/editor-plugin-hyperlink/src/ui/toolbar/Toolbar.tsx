@@ -14,7 +14,10 @@ import {
 	buildVisitedLinkPayload,
 } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type {
 	EditInsertedState,
 	HyperlinkAddToolbarProps,
@@ -40,6 +43,7 @@ import {
 	RECENT_SEARCH_HEIGHT_IN_PX,
 	RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -108,6 +112,23 @@ function getLinkText(
 	return activeLinkMark.node.text;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<HyperlinkPlugin> | undefined) => {
+		const timesViewed = useSharedPluginStateSelector(api, 'hyperlink.timesViewed');
+		const inputMethod = useSharedPluginStateSelector(api, 'hyperlink.inputMethod');
+		const searchSessionId = useSharedPluginStateSelector(api, 'hyperlink.searchSessionId');
+		return { timesViewed, inputMethod, searchSessionId };
+	},
+	(api: ExtractInjectionAPI<HyperlinkPlugin> | undefined) => {
+		const { hyperlinkState } = useSharedPluginState(api, ['hyperlink']);
+		return {
+			timesViewed: hyperlinkState?.timesViewed,
+			inputMethod: hyperlinkState?.inputMethod,
+			searchSessionId: hyperlinkState?.searchSessionId,
+		};
+	},
+);
+
 export function HyperlinkAddToolbarWithState({
 	linkPickerOptions = {},
 	onSubmit,
@@ -125,7 +146,8 @@ export function HyperlinkAddToolbarWithState({
 }: HyperlinkAddToolbarProps & {
 	pluginInjectionApi: ExtractInjectionAPI<HyperlinkPlugin> | undefined;
 }) {
-	const { hyperlinkState } = useSharedPluginState(pluginInjectionApi, ['hyperlink']);
+	const { timesViewed, inputMethod, searchSessionId } = useSharedState(pluginInjectionApi);
+
 	// This is constant rather than dynamic - because if someone's already got a hyperlink toolbar open,
 	// we don't want to dynamically change it on them as this would cause data loss if they've already
 	// started typing in the fields.
@@ -147,9 +169,9 @@ export function HyperlinkAddToolbarWithState({
 			onClose={onClose}
 			onEscapeCallback={onEscapeCallback}
 			onClickAwayCallback={onClickAwayCallback}
-			timesViewed={hyperlinkState?.timesViewed}
-			inputMethod={hyperlinkState?.inputMethod}
-			searchSessionId={hyperlinkState?.searchSessionId}
+			timesViewed={timesViewed}
+			inputMethod={inputMethod}
+			searchSessionId={searchSessionId}
 			isOffline={isOffline.current}
 		/>
 	);

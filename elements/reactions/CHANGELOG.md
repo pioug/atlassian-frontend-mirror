@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 31.7.0
+
+### Minor Changes
+
+- [#150353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150353)
+  [`fb0f2127ccd01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb0f2127ccd01) -
+  [ux] Removes reactions trigger tooltip when the reaction trigger already has text
+- [#152335](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152335)
+  [`e863365b1e932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e863365b1e932) -
+  Pass reactionPickerPlacement prop into Reactions component to allow for differing aligment of
+  reaction picker popup
+
 ## 31.6.3
 
 ### Patch Changes

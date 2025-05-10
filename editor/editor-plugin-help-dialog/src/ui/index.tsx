@@ -9,8 +9,12 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AkModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 
@@ -27,13 +31,28 @@ export interface HelpDialogProps {
 	quickInsertEnabled?: boolean;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
+		const isVisible = useSharedPluginStateSelector(api, 'helpDialog.isVisible');
+		const imageEnabled = useSharedPluginStateSelector(api, 'helpDialog.imageEnabled');
+		return { isVisible, imageEnabled };
+	},
+	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
+		const { helpDialogState } = useSharedPluginState(api, ['helpDialog']);
+		return {
+			isVisible: helpDialogState?.isVisible,
+			imageEnabled: helpDialogState?.imageEnabled,
+		};
+	},
+);
+
 const HelpDialog = ({
 	pluginInjectionApi,
 	editorView,
 	quickInsertEnabled,
 	intl,
 }: HelpDialogProps & WrappedComponentProps) => {
-	const { helpDialogState } = useSharedPluginState(pluginInjectionApi, ['helpDialog']);
+	const { isVisible, imageEnabled } = useSharedState(pluginInjectionApi);
 
 	const closeDialog = useCallback(() => {
 		const {
@@ -45,11 +64,11 @@ const HelpDialog = ({
 
 	const handleEsc = useCallback(
 		(e: KeyboardEvent) => {
-			if (e.key === 'Escape' && helpDialogState?.isVisible) {
+			if (e.key === 'Escape' && isVisible) {
 				closeDialog();
 			}
 		},
-		[closeDialog, helpDialogState?.isVisible],
+		[closeDialog, isVisible],
 	);
 
 	useEffect(() => {
@@ -67,13 +86,13 @@ const HelpDialog = ({
 	const formatting: Format[] = getSupportedFormatting(
 		editorView.state.schema,
 		intl,
-		helpDialogState?.imageEnabled,
+		imageEnabled,
 		quickInsertEnabled,
 	);
 
 	return (
 		<ModalTransition>
-			{helpDialogState?.isVisible ? (
+			{isVisible ? (
 				<AkModalDialog width="large" onClose={closeDialog} testId="help-modal-dialog">
 					<Modal formatting={formatting} />
 				</AkModalDialog>

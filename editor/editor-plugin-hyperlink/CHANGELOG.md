@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.4.3
+
+### Patch Changes
+
+- [#148126](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148126)
+  [`2839a051cf613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2839a051cf613) -
+  Migrate to useSharedPluginStateSelector for grid, guideline, help-dialog, highlight and hyperlink
+  plugins
+
 ## 4.4.2
 
 ### Patch Changes

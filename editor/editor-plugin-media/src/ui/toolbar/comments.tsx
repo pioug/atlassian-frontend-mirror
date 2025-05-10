@@ -26,6 +26,7 @@ export const commentButton = (
 	intl: IntlShape,
 	state: EditorState,
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+	onCommentButtonMount?: () => void,
 ): FloatingToolbarButton<Command> => {
 	const selectMediaNode = getSelectedMediaSingle(state)?.node.firstChild;
 	let hasActiveComments = false;
@@ -80,5 +81,10 @@ export const commentButton = (
 		tooltipContent: <ToolTipContent description={title} />,
 		supportsViewMode: true,
 		disabled: api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
+		onMount: () => {
+			if (fg('confluence_frontend_preload_inline_comment_editor')) {
+				onCommentButtonMount && onCommentButtonMount();
+			}
+		},
 	};
 };

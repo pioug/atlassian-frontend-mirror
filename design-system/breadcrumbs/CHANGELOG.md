@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 15.1.1
+
+### Patch Changes
+
+- [#152473](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152473)
+  [`281c99e7da3fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/281c99e7da3fc) -
+  Fix breadcrumbs padding and font weight in CJS and ESM distributions.
+
 ## 15.1.0
 
 ### Minor Changes

@@ -100,6 +100,7 @@ export interface MediaPluginOptions {
 	 * ```
 	 */
 	isExternalMediaUploadDisabled?: boolean;
+	onCommentButtonMount?: () => void;
 }
 
 /**
@@ -186,6 +187,7 @@ export type MediaFloatingToolbarOptions = {
 	allowCommentsOnMedia?: boolean;
 	isViewOnly?: boolean;
 	allowPixelResizing?: boolean;
+	onCommentButtonMount?: () => void;
 };
 
 export type MediaDecorationSpec = {

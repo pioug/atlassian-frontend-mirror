@@ -292,7 +292,11 @@ export const Trigger = React.forwardRef(
 				)}
 				testId={RENDER_TRIGGER_CONTAINER_TESTID}
 			>
-				<Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
+				<Tooltip
+					testId={RENDER_TOOLTIP_TRIGGER_TESTID}
+					content={tooltipContent}
+					canAppear={() => !showAddReactionText}
+				>
 					{isListItem ? (
 						<li data-testid={RENDER_LIST_ITEM_WRAPPER_TESTID} css={noMarkerListStyle}>
 							{renderPressableButton()}

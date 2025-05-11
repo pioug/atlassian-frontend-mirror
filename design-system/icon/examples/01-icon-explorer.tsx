@@ -5,7 +5,7 @@
 import { type ComponentType, type SyntheticEvent, useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { metaDataWithPackageLoader as fileTypeIconMetadata } from '@atlaskit/icon-file-type/metadata';
@@ -20,6 +20,7 @@ import { type LEGACY_Metadata } from '../src/types';
 import logoIcons from '../utils/logo-icons';
 
 import IconExplorerCell from './utils/icon-explorer-cell';
+// eslint-disable-next-line no-duplicate-imports
 import type { IconCommonProps } from './utils/icon-explorer-cell';
 
 type IconsList = Record<string, IconData>;
@@ -101,7 +102,10 @@ const getKeywords = (logoMap: LogoMap): IconData['keywords'] =>
 	);
 
 const gridWrapperStyles = css({
-	padding: `${token('space.100', '10px')} ${token('space.050', '5px')} ${token('space.0', '0px')}`,
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.100', '10px'),
+	paddingInlineEnd: token('space.050', '5px'),
+	paddingInlineStart: token('space.050', '5px'),
 });
 
 const iconExplorerGridStyles = css({
@@ -113,8 +117,11 @@ const iconExplorerGridStyles = css({
 });
 
 const noIconsStyles = css({
-	padding: token('space.100', '10px'),
 	marginBlockStart: token('space.100', '10px'),
+	paddingBlockEnd: token('space.100', '10px'),
+	paddingBlockStart: token('space.100', '10px'),
+	paddingInlineEnd: token('space.100', '10px'),
+	paddingInlineStart: token('space.100', '10px'),
 });
 
 const filterIcons = (icons: IconsList, query: string) => {

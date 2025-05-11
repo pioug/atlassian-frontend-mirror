@@ -1,43 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
-.emotion-0 {
-  display: inline-block;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.emotion-0 >svg {
-  overflow: hidden;
-  pointer-events: none;
-  max-width: 100%;
-  max-height: 100%;
-  color: var(--icon-primary-color);
-  fill: var(--icon-secondary-color);
-  vertical-align: bottom;
-}
-
-.emotion-0 >svg stop {
-  stop-color: currentColor;
-}
-
-@media screen and (forced-colors: active) {
-  .emotion-0 >svg {
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
-    --icon-primary-color: CanvasText;
-    --icon-secondary-color: Canvas;
-  }
-}
-
 <span
   aria-label="test-label"
-  class="emotion-0"
+  class="_1e0c1o8l _1o9zidpf _vyfuvuon _vwz4kb7n _1szv15vq _1tly15vq _rzyw1osq _17jb1osq _1ksvoz0e _3se1x1jp _re2rglyw _1veoyfq0 _1kg81r31 _jcxd1r8n _gq0g1onz _1trkwc43"
   data-vc="icon-undefined"
   role="img"
-  style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
+  style="--icon-primary-color: currentColor;"
 >
   <svg
     height="24"
@@ -55,43 +24,12 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
 `;
 
 exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
-.emotion-0 {
-  display: inline-block;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.emotion-0 >svg {
-  overflow: hidden;
-  pointer-events: none;
-  max-width: 100%;
-  max-height: 100%;
-  color: var(--icon-primary-color);
-  fill: var(--icon-secondary-color);
-  vertical-align: bottom;
-}
-
-.emotion-0 >svg stop {
-  stop-color: currentColor;
-}
-
-@media screen and (forced-colors: active) {
-  .emotion-0 >svg {
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
-    --icon-primary-color: CanvasText;
-    --icon-secondary-color: Canvas;
-  }
-}
-
 <span
   aria-label="My icon"
-  class="emotion-0"
+  class="_1e0c1o8l _1o9zidpf _vyfuvuon _vwz4kb7n _1szv15vq _1tly15vq _rzyw1osq _17jb1osq _1ksvoz0e _3se1x1jp _re2rglyw _1veoyfq0 _1kg81r31 _jcxd1r8n _gq0g1onz _1trkwc43"
   data-vc="icon-undefined"
   role="img"
-  style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
+  style="--icon-primary-color: currentColor;"
 >
   <svg
     role="presentation"
@@ -102,48 +40,19 @@ exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
 `;
 
 exports[`Glyph should match snapshot 1`] = `
-.emotion-1 {
-  display: inline-block;
-  box-sizing: border-box;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-  -webkit-padding-end: var(--ds--button--new-icon-padding-end, 0);
-  padding-inline-end: var(--ds--button--new-icon-padding-end, 0);
-  -webkit-padding-start: var(--ds--button--new-icon-padding-start, 0);
-  padding-inline-start: var(--ds--button--new-icon-padding-start, 0);
-}
-
-@media screen and (forced-colors: active) {
-  .emotion-1 {
-    color: CanvasText;
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
-  }
-}
-
-.emotion-0 {
-  overflow: hidden;
-  pointer-events: none;
-  color: currentColor;
-  vertical-align: bottom;
-  width: var(--ds-space-200, 16px);
-  height: var(--ds-space-200, 16px);
-}
-
-.emotion-0 stop {
-  stop-color: currentColor;
-}
-
 <span
   aria-label="test-label"
-  class="emotion-1"
+  class="_1e0c1o8l _vchhusvi _1o9zidpf _vwz4kb7n _y4ti1igz _bozg1mb9 _12va1onz _jcxd1r8n"
   role="img"
   style="color: currentColor;"
 >
+  <style
+    data-cmpld="true"
+  >
+    ._1reo15vq{overflow-x:hidden}._18m915vq{overflow-y:hidden}._syaz1r31{color:currentColor}._lcxvglyw{pointer-events:none}._s7n4yfq0{vertical-align:bottom}._vc881r31 stop{stop-color:currentColor}._1bsbutpp{width:var(--ds-space-150,9pt)}._4t3iutpp{height:var(--ds-space-150,9pt)}._1bsbpxbi{width:var(--ds-space-200,1pc)}._4t3ipxbi{height:var(--ds-space-200,1pc)}._1bsb1ejb{width:var(--ds-space-300,24px)}._4t3i1ejb{height:var(--ds-space-300,24px)}
+  </style>
   <svg
-    class="emotion-0"
+    class="_1reo15vq _18m915vq _syaz1r31 _lcxvglyw _s7n4yfq0 _vc881r31 _1bsbpxbi _4t3ipxbi"
     fill="none"
     role="presentation"
     viewBox="0 0 16 16"

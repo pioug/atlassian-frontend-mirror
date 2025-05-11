@@ -40,7 +40,8 @@
 		}
 	},
 	"sideEffects": [
-		"**/*.compiled.css"
+		"dist/es2019/test-utils/index.js",
+		"dist/esm/test-utils/index.js"
 	],
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {

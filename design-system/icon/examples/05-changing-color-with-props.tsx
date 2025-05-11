@@ -3,16 +3,19 @@
  * @jsx jsx
  */
 import { useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import Tooltip from '@atlaskit/tooltip';
+import { css, jsx } from '@compiled/react';
+
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
-import BookIcon from '../glyph/book';
-import ArrowUpIcon from '../glyph/arrow-up';
+import Tooltip from '@atlaskit/tooltip';
+
 import ArrowDownIcon from '../glyph/arrow-down';
 import ArrowLeftIcon from '../glyph/arrow-left';
 import ArrowRightIcon from '../glyph/arrow-right';
+import ArrowUpIcon from '../glyph/arrow-up';
+import BookIcon from '../glyph/book';
 
 const containerStyles = css({
 	display: 'flex',

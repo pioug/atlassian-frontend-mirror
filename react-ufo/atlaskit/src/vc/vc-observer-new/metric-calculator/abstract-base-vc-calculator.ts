@@ -67,9 +67,9 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 		return {
 			revision: this.revisionNo,
-			vcDetails: vcDetails ?? undefined,
 			clean: true,
 			'metric:vc90': vcDetails?.['90']?.t ?? null,
+			vcDetails: vcDetails ?? undefined,
 		};
 	}
 }

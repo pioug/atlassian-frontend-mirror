@@ -248,6 +248,10 @@ export interface ReactionsProps
 	 *  Optional prop to change the placement of the reaction picker popup
 	 */
 	reactionPickerPlacement?: Placement;
+	/**
+	 * Optional prop to add an icon to the end of the summary button
+	 */
+	summaryButtonIconAfter?: React.ReactNode;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -319,6 +323,7 @@ export const Reactions = React.memo(
 		hoverableSummaryView = false,
 		isListItem = false,
 		reactionPickerPlacement,
+		summaryButtonIconAfter,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -541,6 +546,7 @@ export const Reactions = React.memo(
 									useButtonAlignmentStyling={useButtonAlignmentStyling}
 									reactionPickerTriggerText={reactionPickerTriggerText}
 									hoverableSummaryView={hoverableSummaryView}
+									summaryButtonIconAfter={summaryButtonIconAfter}
 								/>
 							</div>
 						) : (

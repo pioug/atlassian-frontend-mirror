@@ -109,6 +109,10 @@ interface ReactionSummaryViewProps
 	 * Optional prop to set a delay for the summary view when it opens/closes on hover
 	 */
 	hoverableSummaryViewDelay?: number;
+	/**
+	 * Optional prop to control if the side picker is shown
+	 */
+	summaryButtonIconAfter?: React.ReactNode;
 }
 
 export const ReactionSummaryView = ({
@@ -136,6 +140,7 @@ export const ReactionSummaryView = ({
 	reactionPickerTriggerText,
 	hoverableSummaryView = false,
 	hoverableSummaryViewDelay = 300,
+	summaryButtonIconAfter,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useDelayedState<boolean>(
 		false,
@@ -332,6 +337,7 @@ export const ReactionSummaryView = ({
 					showOpaqueBackground={showOpaqueBackground}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 					useButtonAlignmentStyling={useButtonAlignmentStyling}
+					summaryButtonIconAfter={summaryButtonIconAfter}
 				/>
 			)}
 		/>

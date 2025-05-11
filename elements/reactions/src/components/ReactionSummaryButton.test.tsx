@@ -96,6 +96,12 @@ describe('ReactionSummaryButton', () => {
 		expect(counter).toBeInTheDocument();
 	});
 
+	it('should display the summary button icon after when summaryButtonIconAfter is passed in', async () => {
+		renderComponent({ summaryButtonIconAfter: <div>Summary Button Icon After</div> });
+		const summaryButtonIconAfter = screen.getByText('Summary Button Icon After');
+		expect(summaryButtonIconAfter).toBeInTheDocument();
+	});
+
 	it('should call onClick callback when clicked', async () => {
 		renderComponent();
 		const button = screen.getByTestId(RENDER_SUMMARY_BUTTON_TESTID);

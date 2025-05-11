@@ -99,7 +99,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/register": "^7.25.9",
 		"@babel/runtime": "^7.0.0",
-		"@emotion/react": "^11.7.1"
+		"@compiled/react": "^0.18.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -132,7 +132,6 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@babel/core": "7.24.9",
 		"@codeshift/utils": "^0.2.4",
-		"@compiled/react": "^0.18.3",
 		"@testing-library/react": "^13.4.0",
 		"fs-extra": "^4.0.2",
 		"globby": "^6.1.0",
@@ -152,8 +151,7 @@
 			"dom-events": "use-bind-event-listener",
 			"design-system": "v1",
 			"styling": [
-				"static",
-				"emotion"
+				"static"
 			],
 			"ui-components": "lite-mode",
 			"analytics": "analytics-next",

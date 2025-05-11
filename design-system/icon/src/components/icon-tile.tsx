@@ -4,130 +4,129 @@
  */
 import { type ComponentType } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { type IconTileAppearance, type IconTileProps, type IconTileSize } from '../types';
+import { type IconTileProps } from '../types';
 
 import { type InternalIconPropsNew } from './icon-new';
 
-const sizeMap: { [K in IconTileSize]: SerializedStyles } = {
-	'16': css({
+const sizeMap = cssMap({
+	'16': {
 		width: '16px',
 		height: '16px',
-	}),
-	'24': css({
+	},
+	'24': {
 		width: '24px',
 		height: '24px',
-	}),
-	'32': css({
+	},
+	'32': {
 		width: '32px',
 		height: '32px',
-	}),
-	'40': css({
+	},
+	'40': {
 		width: '40px',
 		height: '40px',
-	}),
-	'48': css({
+	},
+	'48': {
 		width: '48px',
 		height: '48px',
-	}),
-};
+	},
+});
 
-const appearanceMap: { [K in IconTileAppearance]: SerializedStyles } = {
-	grayBold: css({
+const appearanceMap = cssMap({
+	grayBold: {
 		backgroundColor: token('color.background.accent.gray.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	limeBold: css({
+	},
+	limeBold: {
 		backgroundColor: token('color.background.accent.lime.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	greenBold: css({
+	},
+	greenBold: {
 		backgroundColor: token('color.background.accent.green.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	blueBold: css({
+	},
+	blueBold: {
 		backgroundColor: token('color.background.accent.blue.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	redBold: css({
+	},
+	redBold: {
 		backgroundColor: token('color.background.accent.red.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	purpleBold: css({
+	},
+	purpleBold: {
 		backgroundColor: token('color.background.accent.purple.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	magentaBold: css({
+	},
+	magentaBold: {
 		backgroundColor: token('color.background.accent.magenta.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	tealBold: css({
+	},
+	tealBold: {
 		backgroundColor: token('color.background.accent.teal.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	orangeBold: css({
+	},
+	orangeBold: {
 		backgroundColor: token('color.background.accent.orange.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	yellowBold: css({
+	},
+	yellowBold: {
 		backgroundColor: token('color.background.accent.yellow.bolder'),
 		color: token('color.icon.inverse'),
-	}),
-	gray: css({
+	},
+	gray: {
 		backgroundColor: token('color.background.accent.gray.subtler'),
 		color: token('color.icon.accent.gray'),
-	}),
-	lime: css({
+	},
+	lime: {
 		backgroundColor: token('color.background.accent.lime.subtler'),
 		color: token('color.icon.accent.lime'),
-	}),
-	orange: css({
+	},
+	orange: {
 		backgroundColor: token('color.background.accent.orange.subtler'),
 		color: token('color.icon.accent.orange'),
-	}),
-	magenta: css({
+	},
+	magenta: {
 		backgroundColor: token('color.background.accent.magenta.subtler'),
 		color: token('color.icon.accent.magenta'),
-	}),
-	green: css({
+	},
+	green: {
 		backgroundColor: token('color.background.accent.green.subtler'),
 		color: token('color.icon.accent.green'),
-	}),
-	blue: css({
+	},
+	blue: {
 		backgroundColor: token('color.background.accent.blue.subtler'),
 		color: token('color.icon.accent.blue'),
-	}),
-	red: css({
+	},
+	red: {
 		backgroundColor: token('color.background.accent.red.subtler'),
 		color: token('color.icon.accent.red'),
-	}),
-	purple: css({
+	},
+	purple: {
 		backgroundColor: token('color.background.accent.purple.subtler'),
 		color: token('color.icon.accent.purple'),
-	}),
-	teal: css({
+	},
+	teal: {
 		backgroundColor: token('color.background.accent.teal.subtler'),
 		color: token('color.icon.accent.teal'),
-	}),
-	yellow: css({
+	},
+	yellow: {
 		backgroundColor: token('color.background.accent.yellow.subtler'),
 		color: token('color.icon.accent.yellow'),
-	}),
-};
+	},
+});
 
-const shapeMap = {
-	square: css({
+const shapeMap = cssMap({
+	square: {
 		borderRadius: token('border.radius.100'),
-	}),
-	circle: css({
+	},
+	circle: {
 		borderRadius: token('border.radius.circle'),
-	}),
-};
+	},
+});
 
 const iconTileStyles = css({
 	display: 'inline-flex',
@@ -160,6 +159,7 @@ export default function IconTile(props: IconTileProps) {
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;
 
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (LEGACY_fallbackComponent && !fg('platform-visual-refresh-icons')) {
 		return LEGACY_fallbackComponent;
 	} else {

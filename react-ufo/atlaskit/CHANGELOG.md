@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.10.3
+
+### Patch Changes
+
+- [#148578](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148578)
+  [`d0ee548642b3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0ee548642b3e) -
+  Use `ufo:vc:rev` for late mutations post interaction log
+
 ## 3.10.2
 
 ### Patch Changes

@@ -5,7 +5,7 @@
 import { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -32,7 +32,10 @@ const iconRowStyles = css({
 });
 
 const iconWrapperStyles = css({
-	margin: token('space.050', '4px'),
+	marginBlockEnd: token('space.050', '4px'),
+	marginBlockStart: token('space.050', '4px'),
+	marginInlineEnd: token('space.050', '4px'),
+	marginInlineStart: token('space.050', '4px'),
 });
 
 const demoIcons = [

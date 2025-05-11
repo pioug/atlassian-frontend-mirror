@@ -4,13 +4,11 @@
  */
 import { type CSSProperties, memo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 import type { IconProps } from '../types';
-
-import { commonSVGStyles, getIconSize } from './styles';
-import { getBackground } from './utils';
 
 /**
  * We are hiding these props from consumers as they're used to
@@ -41,39 +39,87 @@ interface InternalIconProps extends IconProps {
 const iconStyles = css({
 	display: 'inline-block',
 	flexShrink: 0,
+	'--icon-secondary-color': token('elevation.surface', '#FFFFFF'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
 	'> svg': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		...commonSVGStyles,
 		maxWidth: '100%',
 		maxHeight: '100%',
 		color: 'var(--icon-primary-color)',
 		fill: 'var(--icon-secondary-color)',
+		overflow: 'hidden',
+		pointerEvents: 'none',
 		verticalAlign: 'bottom',
+		/**
+		 * Stop-color doesn't properly apply in chrome when the inherited/current color changes.
+		 * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
+		 * rule) and then override it with currentColor for the color changes to be picked up.
+		 */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+		stop: {
+			stopColor: 'currentColor',
+		},
 	},
 });
+
+const sizeStyles = cssMap({
+	small: {
+		width: '16px',
+		height: '16px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> svg': {
+			width: '16px',
+			height: '16px',
+		},
+	},
+	medium: {
+		width: '24px',
+		height: '24px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> svg': {
+			width: '24px',
+			height: '24px',
+		},
+	},
+	large: {
+		width: '32px',
+		height: '32px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> svg': {
+			width: '32px',
+			height: '32px',
+		},
+	},
+	xlarge: {
+		width: '48px',
+		height: '48px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> svg': {
+			width: '48px',
+			height: '48px',
+		},
+	},
+});
+
 /**
  * For windows high contrast mode
  */
 const baseHcmStyles = css({
 	'@media screen and (forced-colors: active)': {
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'> svg': {
-			filter: 'grayscale(1)',
-			'--icon-primary-color': 'CanvasText', // foreground
-			'--icon-secondary-color': 'Canvas', // background
-		},
+		filter: 'grayscale(1)',
+		'--icon-primary-color': 'CanvasText', // foreground
+		'--icon-secondary-color': 'Canvas', // background
 	},
 });
 const primaryEqualsSecondaryHcmStyles = css({
 	'@media screen and (forced-colors: active)': {
+		// if the primaryColor is the same as the secondaryColor we
+		// set the --icon-primary-color to Canvas
+		// this is usually to convey state i.e. Checkbox checked -> not checked
 		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> svg': {
-			// if the primaryColor is the same as the secondaryColor we
-			// set the --icon-primary-color to Canvas
-			// this is usually to convey state i.e. Checkbox checked -> not checked
 			'--icon-primary-color': 'Canvas', // foreground
 		},
 	},
@@ -116,7 +162,7 @@ export const Icon = memo(function Icon(props: IconProps) {
 				},
 			}
 		: { children: Glyph ? <Glyph role="presentation" /> : null };
-	const dimensions = getIconSize({ width, height, size });
+	const customDimensions = width && height ? { width: width + 'px', height: height + 'px' } : null;
 
 	return (
 		<span
@@ -127,9 +173,13 @@ export const Icon = memo(function Icon(props: IconProps) {
 			aria-hidden={label ? undefined : true}
 			style={
 				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...customDimensions,
+
 					'--icon-primary-color': primaryColor,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					'--icon-secondary-color': secondaryColor || getBackground(),
+					'--icon-secondary-color': secondaryColor,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					margin: UNSAFE_margin,
 				} as CSSProperties
 			}
@@ -142,16 +192,7 @@ export const Icon = memo(function Icon(props: IconProps) {
 				// NB: This can be resolved if this component, composes base SVG / and/or skeleton
 				// We could then simplify how common styles are dealt with simply by encapsulating them
 				// at their appropriate level and/or having a singular approach to css variables in the package
-				dimensions &&
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css({
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						width: dimensions.width,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						height: dimensions.height,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						'> svg': dimensions,
-					}),
+				size && sizeStyles[size],
 			]}
 		/>
 	);

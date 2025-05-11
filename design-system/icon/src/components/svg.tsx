@@ -3,15 +3,46 @@
  * @jsx jsx
  */
 import { memo } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+
+import { css, cssMap, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 import type { SVGProps } from '../types';
-import { getBackground } from './utils';
-import { commonSVGStyles, sizeStyleMap } from './styles';
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const svgStyles = css(commonSVGStyles);
+const sizeStyles = cssMap({
+	small: {
+		width: '16px',
+		height: '16px',
+	},
+	medium: {
+		width: '24px',
+		height: '24px',
+	},
+	large: {
+		width: '32px',
+		height: '32px',
+	},
+	xlarge: {
+		width: '48px',
+		height: '48px',
+	},
+});
+
+const svgStyles = css({
+	fill: token('elevation.surface', '#FFFFFF'),
+	overflow: 'hidden',
+	pointerEvents: 'none',
+	/**
+	 * Stop-color doesn't properly apply in chrome when the inherited/current color changes.
+	 * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
+	 * rule) and then override it with currentColor for the color changes to be picked up.
+	 */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+	stop: {
+		stopColor: 'currentColor',
+	},
+});
 
 /**
  * __SVG__
@@ -35,10 +66,10 @@ const SVG = memo(function SVG({
 			style={{
 				color: primaryColor,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				fill: secondaryColor || getBackground(),
+				fill: secondaryColor,
 			}}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={[svgStyles, sizeStyleMap[size]]}
+			css={[svgStyles, sizeStyles[size]]}
 			data-testid={testId}
 			aria-label={label || undefined}
 			role={label ? 'img' : 'presentation'}

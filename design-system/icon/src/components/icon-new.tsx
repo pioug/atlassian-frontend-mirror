@@ -4,8 +4,7 @@
  */
 import { memo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -24,23 +23,20 @@ export type InternalIconPropsNew = UNSAFE_NewGlyphProps & {
 	shouldScale?: boolean;
 };
 
-const commonSVGStyles = css({
+const svgStyles = css({
+	color: 'currentColor',
 	overflow: 'hidden',
 	pointerEvents: 'none',
+	verticalAlign: 'bottom',
 	/**
 	 * Stop-color doesn't properly apply in chrome when the inherited/current color changes.
 	 * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
 	 * rule) and then override it with currentColor for the color changes to be picked up.
 	 */
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors
 	stop: {
 		stopColor: 'currentColor',
 	},
-});
-
-const svgStyles = css({
-	color: 'currentColor',
-	verticalAlign: 'bottom',
 });
 
 const iconStyles = css({
@@ -78,32 +74,32 @@ const scaleSize = css({
 	height: 'inherit',
 });
 
-const sizeMap = {
-	core: {
-		none: css({
-			width: token('space.200'),
-			height: token('space.200'),
-		}),
-		spacious: css({
-			width: token('space.300'),
-			height: token('space.300'),
-		}),
+const coreSizes = cssMap({
+	none: {
+		width: token('space.200'),
+		height: token('space.200'),
 	},
-	utility: {
-		none: css({
-			width: token('space.150'),
-			height: token('space.150'),
-		}),
-		compact: css({
-			width: token('space.200'),
-			height: token('space.200'),
-		}),
-		spacious: css({
-			width: token('space.300'),
-			height: token('space.300'),
-		}),
+	compact: {},
+	spacious: {
+		width: token('space.300'),
+		height: token('space.300'),
 	},
-} as const;
+});
+
+const utilSizes = cssMap({
+	none: {
+		width: token('space.150'),
+		height: token('space.150'),
+	},
+	compact: {
+		width: token('space.200'),
+		height: token('space.200'),
+	},
+	spacious: {
+		width: token('space.300'),
+		height: token('space.300'),
+	},
+});
 
 const baseSizeMap = {
 	core: 16,
@@ -154,6 +150,7 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		: undefined;
 
 	// Fall back to old icon
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (FallbackIcon && !fg('platform-visual-refresh-icons')) {
 		// parse out unnecessary props
 		return (
@@ -201,13 +198,12 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 				viewBox={`${0 - viewBoxPadding} ${0 - viewBoxPadding} ${viewBoxSize} ${viewBoxSize}`}
 				role="presentation"
 				css={[
-					commonSVGStyles,
 					svgStyles,
 					shouldScale
 						? scaleSize
 						: props.type === 'utility'
-							? sizeMap[props.type][props.spacing ?? 'none']
-							: sizeMap['core'][props.spacing ?? 'none'],
+							? utilSizes[props.spacing ?? 'none']
+							: coreSizes[props.spacing ?? 'none'],
 				]}
 				dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 			/>

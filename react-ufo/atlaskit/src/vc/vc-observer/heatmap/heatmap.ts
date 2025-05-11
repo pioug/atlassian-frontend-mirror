@@ -168,12 +168,12 @@ export class MultiRevisionHeatmap {
 
 			return {
 				revision: rev.name,
-				vcDetails,
 				clean: args.clean,
 				'metric:vc90':
 					args.clean && !args.isEventAborted && pageVisibilityUpToTTAI === 'visible'
 						? vcDetails?.['90']?.t
 						: null,
+				vcDetails,
 			};
 		});
 		return payload;

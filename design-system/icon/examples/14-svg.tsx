@@ -3,10 +3,10 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import { B500, G500 } from '@atlaskit/theme/colors';
 import type { SVGProps } from '@atlaskit/icon/types';
+import { B500, G500 } from '@atlaskit/theme/colors';
 
 import SVG from '../src/entry-points/svg';
 

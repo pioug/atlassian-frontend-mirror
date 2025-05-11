@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 31.8.0
+
+### Minor Changes
+
+- [#152134](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152134)
+  [`9d7c343ded23e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d7c343ded23e) -
+  [ux] Adds an optional side picker emoji icon to the reaction summary button
+
 ## 31.7.0
 
 ### Minor Changes

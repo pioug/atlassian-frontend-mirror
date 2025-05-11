@@ -31,6 +31,13 @@ const styles = cssMap({
 	container: {
 		position: 'relative',
 	},
+
+	summaryButtonIconAfter: {
+		paddingRight: token('space.100'),
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 });
 
 interface ReactionSummaryButtonProps
@@ -64,6 +71,11 @@ interface ReactionSummaryButtonProps
 	 * Optional event handler when mouse leaves the button
 	 */
 	onMouseLeave?: () => void;
+
+	/**
+	 * Optional prop to add an icon to the end of the summary button
+	 */
+	summaryButtonIconAfter?: React.ReactNode;
 }
 
 /**
@@ -89,6 +101,7 @@ export const ReactionSummaryButton = forwardRef(
 			useButtonAlignmentStyling = false,
 			onMouseEnter,
 			onMouseLeave,
+			summaryButtonIconAfter,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
@@ -145,6 +158,9 @@ export const ReactionSummaryButton = forwardRef(
 						useDarkerFont={useButtonAlignmentStyling}
 						useUpdatedStyles={useButtonAlignmentStyling}
 					/>
+					{summaryButtonIconAfter && (
+						<Box xcss={styles.summaryButtonIconAfter}>{summaryButtonIconAfter}</Box>
+					)}
 				</ReactionButton>
 			</Flex>
 		);

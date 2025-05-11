@@ -5,7 +5,7 @@
 import { Fragment, type SyntheticEvent, useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
@@ -22,6 +22,7 @@ import iconMetadata from '../src/metadata-core';
 import utilityIconMetadata from '../src/metadata-utility';
 
 import IconExplorerCell from './utils/new-icon-explorer-cell';
+// eslint-disable-next-line no-duplicate-imports
 import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
 
 type IconsList = Record<string, IconExplorerCellProps>;
@@ -110,7 +111,10 @@ const iconExplorerGridStyles = css({
 });
 
 const noIconsStyles = css({
-	padding: token('space.100', '10px'),
+	paddingBlockEnd: token('space.100', '10px'),
+	paddingBlockStart: token('space.100', '10px'),
+	paddingInlineEnd: token('space.100', '10px'),
+	paddingInlineStart: token('space.100', '10px'),
 });
 
 const filterIcons = (icons: IconsList, query: string) => {

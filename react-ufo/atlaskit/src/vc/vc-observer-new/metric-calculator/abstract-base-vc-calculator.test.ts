@@ -133,9 +133,9 @@ describe('AbstractVCCalculatorBase', () => {
 
 		expect(result).toEqual({
 			revision: 'test-revision',
-			vcDetails: mockPercentileResult,
 			clean: true,
 			'metric:vc90': 100,
+			vcDetails: mockPercentileResult,
 		});
 	});
 

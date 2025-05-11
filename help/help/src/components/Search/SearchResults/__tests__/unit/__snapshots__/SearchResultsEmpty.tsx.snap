@@ -213,7 +213,7 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
   >
     ._ca0q1ejb{padding-top:var(--ds-space-300,24px)}._u5f31ejb{padding-right:var(--ds-space-300,24px)}._n3tdidpf{padding-bottom:0}._19bv1ejb{padding-left:var(--ds-space-300,24px)}._y3gn1h6o{text-align:center}._125x1wmz p{color:var(--ds-text-subtlest,#6b778c)}
   </style>
-  .emotion-3 {
+  .emotion-2 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -251,12 +251,12 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
   justify-content: center;
 }
 
-.emotion-3:visited {
+.emotion-2:visited {
   background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-link, #0052CC)!important;
 }
 
-.emotion-3:hover {
+.emotion-2:hover {
   background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-link, #0065FF)!important;
   -webkit-text-decoration: underline;
@@ -264,19 +264,19 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
   transition-duration: 0s,0.15s;
 }
 
-.emotion-3:active {
+.emotion-2:active {
   background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-link-pressed, #0747A6)!important;
   transition-duration: 0s,0s;
 }
 
-.emotion-3[data-firefox-is-active="true"] {
+.emotion-2[data-firefox-is-active="true"] {
   background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-link-pressed, #0747A6)!important;
   transition-duration: 0s,0s;
 }
 
-.emotion-3[disabled] {
+.emotion-2[disabled] {
   background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-text-disabled, #A5ADBA)!important;
   cursor: not-allowed;
@@ -284,40 +284,40 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
   text-decoration: none;
 }
 
-.emotion-3[data-has-overlay="true"] {
+.emotion-2[data-has-overlay="true"] {
   cursor: default;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.emotion-3[data-has-overlay="true"]:not([disabled]):hover,
-.emotion-3[data-has-overlay="true"]:not([disabled]):active {
+.emotion-2[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-2[data-has-overlay="true"]:not([disabled]):active {
   background: var(--ds-background-neutral-subtle, none);
   color: var(--ds-link, #0052CC)!important;
 }
 
-.emotion-3::-moz-focus-inner {
+.emotion-2::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.emotion-3:focus {
+.emotion-2:focus {
   outline: 2px solid var(--ds-border-focused, #2684FF);
   outline-offset: 2px;
 }
 
-.emotion-3:focus-visible {
+.emotion-2:focus-visible {
   outline: 2px solid var(--ds-border-focused, #2684FF);
   outline-offset: 2px;
 }
 
-.emotion-3:focus:not(:focus-visible) {
+.emotion-2:focus:not(:focus-visible) {
   outline: none;
 }
 
 @media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
-  .emotion-3:focus-visible {
+  .emotion-2:focus-visible {
     outline: 1px solid;
   }
 }
@@ -339,7 +339,7 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
   white-space: nowrap;
 }
 
-.emotion-2 {
+.emotion-1 {
   opacity: 1;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
@@ -370,50 +370,6 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
   margin-inline-end: var(--ds-space-negative-025, -2px);
 }
 
-.emotion-1 {
-  display: inline-block;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  line-height: 1;
-  width: 16px;
-  height: 16px;
-}
-
-.emotion-1 >svg {
-  overflow: hidden;
-  pointer-events: none;
-  max-width: 100%;
-  max-height: 100%;
-  color: var(--icon-primary-color);
-  fill: var(--icon-secondary-color);
-  vertical-align: bottom;
-}
-
-.emotion-1 >svg stop {
-  stop-color: currentColor;
-}
-
-@media screen and (forced-colors: active) {
-  .emotion-1 >svg {
-    -webkit-filter: grayscale(1);
-    filter: grayscale(1);
-    --icon-primary-color: CanvasText;
-    --icon-secondary-color: Canvas;
-  }
-}
-
-@media screen and (forced-colors: active) {
-  .emotion-1 >svg {
-    --icon-primary-color: Canvas;
-  }
-}
-
-.emotion-1 >svg {
-  width: 16px;
-  height: 16px;
-}
-
 <div
     class="_ca0q1ejb _u5f31ejb _n3tdidpf _19bv1ejb _y3gn1h6o _125x1wmz"
   >
@@ -428,7 +384,7 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
       Try again with a different term or 
       <br />
       <a
-        class="emotion-3"
+        class="emotion-2"
         href="https://www.atlassian.com/"
         tabindex="0"
         target="_blank"
@@ -439,11 +395,16 @@ exports[`SearchResultsEmpty Should match snapshot 1`] = `
           search all online help articles.
         </span>
         <span
-          class="emotion-2"
+          class="emotion-1"
         >
+          <style
+            data-cmpld="true"
+          >
+            ._1e0c1o8l{display:inline-block}._1o9zidpf{flex-shrink:0}._vyfuvuon{--icon-secondary-color:var(--ds-surface,#fff)}._vwz4kb7n{line-height:1}._1szv15vq &gt;svg{overflow-x:hidden}._1tly15vq &gt;svg{overflow-y:hidden}._rzyw1osq &gt;svg{max-width:100%}._17jb1osq &gt;svg{max-height:100%}._1ksvoz0e &gt;svg{color:var(--icon-primary-color)}._3se1x1jp &gt;svg{fill:var(--icon-secondary-color)}._re2rglyw &gt;svg{pointer-events:none}._1veoyfq0 &gt;svg{vertical-align:bottom}._1kg81r31 &gt;svg stop{stop-color:currentColor}._1bsb7vkz{width:1pc}._4t3i7vkz{height:1pc}._5fdi7vkz &gt;svg{width:1pc}._zbji7vkz &gt;svg{height:1pc}._1bsb1tcg{width:24px}._4t3i1tcg{height:24px}._5fdi1tcg &gt;svg{width:24px}._zbji1tcg &gt;svg{height:24px}._1bsbzwfg{width:2pc}._4t3izwfg{height:2pc}._5fdizwfg &gt;svg{width:2pc}._zbjizwfg &gt;svg{height:2pc}._1bsbckbl{width:3pc}._4t3ickbl{height:3pc}._5fdickbl &gt;svg{width:3pc}._zbjickbl &gt;svg{height:3pc}@media screen and (forced-colors:active){._jcxd1r8n{filter:grayscale(1)}._gq0g1onz{--icon-primary-color:CanvasText}._1trkwc43{--icon-secondary-color:Canvas}}@media screen and (forced-colors:active){._18hbwc43 &gt;svg{--icon-primary-color:Canvas}}@media screen and (forced-colors:active){._4fyi1j28 &gt;svg{--icon-secondary-color:transparent}}
+          </style>
           <span
             aria-hidden="true"
-            class="emotion-1"
+            class="_1e0c1o8l _1o9zidpf _vyfuvuon _vwz4kb7n _1szv15vq _1tly15vq _rzyw1osq _17jb1osq _1ksvoz0e _3se1x1jp _re2rglyw _1veoyfq0 _1kg81r31 _jcxd1r8n _gq0g1onz _1trkwc43 _18hbwc43 _1bsb7vkz _4t3i7vkz _5fdi7vkz _zbji7vkz"
             data-vc="icon-undefined"
             style="--icon-primary-color: var(--ds-icon-subtle, #8993A4); --icon-secondary-color: var(--ds-icon-subtle, #8993A4);"
           >

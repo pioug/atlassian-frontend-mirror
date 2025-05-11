@@ -51,14 +51,6 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 
 		const button = await screen.findByTestId('render-trigger-button');
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveCompiledCss('min-width', '24px');
-	});
-
-	it('should have full width styles on render trigger container when fullWidthSummaryViewReactionPickerTrigger is true', async () => {
-		renderWithIntl(<Trigger tooltipContent="" fullWidthSummaryViewReactionPickerTrigger />);
-		const button = await screen.findByTestId('render-trigger-container');
-		expect(button).toBeInTheDocument();
-		expect(button).toHaveCompiledCss('width', '100%');
 	});
 
 	it('should have full width styles on render trigger container when fullWidthSelectorTrayReactionPickerTrigger is true', async () => {

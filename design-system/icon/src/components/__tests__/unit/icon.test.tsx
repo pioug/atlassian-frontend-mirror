@@ -1,12 +1,10 @@
-import React, { type CSSProperties } from 'react';
+import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
 import AddIconNew from '../../../../core/add';
 import AddIcon from '../../../../glyph/add';
-import { sizes as sizeValues } from '../../../constants';
 import Icon, { type CustomGlyphProps, IconNew, type IconProps, size } from '../../../index';
-import { type Size } from '../../../types';
 
 describe('@atlaskit/icon', () => {
 	describe('Icon', () => {
@@ -88,37 +86,6 @@ describe('@atlaskit/icon', () => {
 			render(<MyIcon label="My icon" />);
 
 			expect(screen.getByRole('img')).toBeInTheDocument();
-		});
-
-		describe('size property', () => {
-			const sizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
-
-			sizes.forEach((s) => {
-				it(`with value ${s}`, () => {
-					render(<Icon glyph={empty} label={s} size={s} />);
-					const element = screen.getByRole('img');
-					expect(element).toHaveStyleDeclaration('height', sizeValues[s]);
-					expect(element).toHaveStyleDeclaration('width', sizeValues[s]);
-				});
-			});
-
-			it(`should use width/height if provided`, () => {
-				const label = 'width';
-				const props = { width: 10, height: 10 } as CSSProperties;
-				render(<Icon glyph={empty} label={label} {...props} />);
-				const element = screen.getByRole('img');
-				expect(element).toHaveStyleDeclaration('height', '10px');
-				expect(element).toHaveStyleDeclaration('width', '10px');
-			});
-
-			it(`should use width/height above size`, () => {
-				const size = 'large';
-				const props = { width: 10, height: 10 } as CSSProperties;
-				render(<Icon glyph={empty} label={size} size={size} {...props} />);
-				const element = screen.getByRole('img');
-				expect(element).toHaveStyleDeclaration('height', '10px');
-				expect(element).toHaveStyleDeclaration('width', '10px');
-			});
 		});
 
 		describe('primaryColor property', () => {

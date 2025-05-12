@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 2.3.0
+
+### Minor Changes
+
+- [#150896](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150896)
+  [`e3bd4fc83898b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3bd4fc83898b) -
+  Used plugin selector conditionally behind feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

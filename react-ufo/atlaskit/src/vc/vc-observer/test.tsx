@@ -117,6 +117,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'vc:state': true,
@@ -328,6 +329,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -590,6 +592,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -815,6 +818,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 8,
@@ -1042,6 +1046,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -1230,6 +1235,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 5,
@@ -1403,6 +1409,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(resultTransition).toEqual({
 				'ufo:next:speedIndex': 10,
@@ -1579,6 +1586,7 @@ describe('vc-observer', () => {
 				prefix: '',
 				ssr: 3,
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 7,
@@ -1774,6 +1782,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 5,
@@ -1893,6 +1902,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -2053,6 +2063,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -2176,6 +2187,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 8,
@@ -2303,6 +2315,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 9,
@@ -2389,6 +2402,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 5,
@@ -2470,6 +2484,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(resultTransition).toEqual({
 				'ufo:next:speedIndex': 10,
@@ -2554,6 +2569,7 @@ describe('vc-observer', () => {
 				prefix: '',
 				ssr: 3,
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			expect(result).toEqual({
 				'ufo:next:speedIndex': 7,
@@ -2635,6 +2651,7 @@ describe('vc-observer', () => {
 					tti: 3,
 					prefix: '',
 					isEventAborted: false,
+					experienceKey: 'test',
 				});
 
 				expect(result).toEqual({
@@ -2663,6 +2680,7 @@ describe('vc-observer', () => {
 					tti: 3,
 					prefix: '',
 					isEventAborted: false,
+					experienceKey: 'test',
 				});
 
 				expect(result).toEqual({
@@ -2691,6 +2709,7 @@ describe('vc-observer', () => {
 					tti: 3,
 					prefix: '',
 					isEventAborted: false,
+					experienceKey: 'test',
 				});
 
 				expect(result).toEqual({
@@ -2781,6 +2800,7 @@ describe('vc-observer', () => {
 					tti: 3,
 					prefix: '',
 					isEventAborted: false,
+					experienceKey: 'test',
 				});
 
 				expect(result).toEqual({
@@ -2817,6 +2837,7 @@ describe('vc-observer', () => {
 					tti: 3,
 					prefix: '',
 					isEventAborted: false,
+					experienceKey: 'test',
 				});
 
 				expect(result).toEqual({
@@ -2853,6 +2874,7 @@ describe('vc-observer', () => {
 					tti: 3,
 					prefix: '',
 					isEventAborted: false,
+					experienceKey: 'test',
 				});
 
 				expect(result).toEqual({
@@ -2890,7 +2912,14 @@ describe('vc-observer', () => {
 		vc.start({ startTime: 0 });
 
 		expect(
-			await vc.getVCResult({ start: 0, stop: 100, tti: 3, prefix: '', isEventAborted: false }),
+			await vc.getVCResult({
+				start: 0,
+				stop: 100,
+				tti: 3,
+				prefix: '',
+				isEventAborted: false,
+				experienceKey: 'test',
+			}),
 		).toEqual({
 			'vc:state': false,
 			'vc:abort:reason': 'not-supported',
@@ -2966,6 +2995,7 @@ describe('vc-observer', () => {
 				tti: 3,
 				prefix: '',
 				isEventAborted: false,
+				experienceKey: 'test',
 			});
 			const speedIndex = result['ufo:speedIndex'];
 

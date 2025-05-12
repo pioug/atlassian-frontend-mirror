@@ -11,6 +11,7 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -178,9 +179,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let oldIgnoreMutation: any;
-
+		let parentOffset = 0; // Remove with feature gate: platform_editor_r18_fix_selection_resync
 		let selectionBookmark: SelectionBookmark;
-		let parentOffset = 0;
 		let mutationsIgnored = false;
 
 		// move the contentDOM node inside the inner reference after rendering
@@ -205,24 +205,41 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			}
 
 			// ... and capture parent offset before DOM change
-			if (this.view.state.selection?.ranges.length > 0) {
-				parentOffset = this.view.state.selection?.ranges[0].$from?.parentOffset ?? 0;
+			if (!fg('platform_editor_r18_fix_selection_resync')) {
+				if (this.view.state.selection?.ranges.length > 0) {
+					parentOffset = this.view.state.selection?.ranges[0].$from?.parentOffset ?? 0;
+				}
 			}
 
 			node.appendChild(contentDOM);
 
+			// After the next frame:
 			requestAnimationFrame(() => {
-				// Reset ignoreMutation after frame ....
+				// Restore the original mutation handler
 				// @ts-ignore - this may not have been declared by implementing class
 				this.ignoreMutation = oldIgnoreMutation;
 
-				// only trigger selection re-sync if the selection is not at the start of the
-				// node, and DOM mutations were ignored
-				if (selectionBookmark && mutationsIgnored && parentOffset > 0) {
-					// ... and dispatch expected selection state
-					this.view.dispatch(
-						this.view.state.tr.setSelection(selectionBookmark.resolve(this.view.state.tr.doc)),
-					);
+				// Restore the selection only if:
+				// - We have a selection bookmark
+				// - Mutations were ignored during the table move
+				// - The bookmarked selection is different from the current selection.
+				if (selectionBookmark && mutationsIgnored) {
+					if (fg('platform_editor_r18_fix_selection_resync')) {
+						const resolvedSelection = selectionBookmark.resolve(this.view.state.tr.doc);
+						// Don't set the selection if it's the same as the current selection.
+						if (!resolvedSelection.eq(this.view.state.selection)) {
+							const tr = this.view.state.tr.setSelection(resolvedSelection);
+							tr.setMeta('source', 'ReactNodeView:_handleRef:selection-resync');
+							this.view.dispatch(tr);
+						}
+					} else {
+						if (parentOffset > 0) {
+							// ... and dispatch expected selection state
+							this.view.dispatch(
+								this.view.state.tr.setSelection(selectionBookmark.resolve(this.view.state.tr.doc)),
+							);
+						}
+					}
 				}
 			});
 		}

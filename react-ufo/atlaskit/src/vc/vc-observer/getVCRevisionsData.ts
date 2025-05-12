@@ -1,4 +1,7 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { InteractionMetrics } from '../../common/common/types';
+import { RevisionPayload } from '../../common/vc/types';
 import { isVCRevisionEnabled } from '../../config';
 import { getPageVisibilityState } from '../../hidden-timing';
 
@@ -24,12 +27,12 @@ function createVCDetails(calculatedVC: CalculatedVC, shouldHaveVCmetric: boolean
 		return {};
 	}
 
-	const details: { [key: string]: { t: number | undefined | null; e: string[] } } = {};
+	const details: { [key: string]: { t: number; e: string[] } } = {};
 	const { VC, VCBox } = calculatedVC; // Destructure once to avoid repeated property access
 
 	for (const key of VCParts) {
 		details[key] = {
-			t: VC[key],
+			t: VC[key] || -1,
 			e: VCBox[key] || READONLY_EMPTY_ARRAY,
 		};
 	}
@@ -47,6 +50,7 @@ export function getVCRevisionsData({
 	ssr,
 	calculatedVC,
 	calculatedVCNext,
+	experienceKey,
 }: {
 	fullPrefix?: string;
 	interaction: Pick<InteractionMetrics, 'start' | 'end'>;
@@ -55,9 +59,16 @@ export function getVCRevisionsData({
 	multiHeatmap: MultiRevisionHeatmap | null;
 	calculatedVC: CalculatedVC;
 	calculatedVCNext: CalculatedVC;
+	experienceKey: string;
 	ssr?: number;
 }) {
-	if (!isVCRevisionEnabled('fy25.03')) {
+	const isTTVCv3Enabled = fg('platform_ufo_vc_enable_revisions_by_experience')
+		? isVCRevisionEnabled('fy25.03', experienceKey)
+		: isVCRevisionEnabled('fy25.03');
+
+	// As part of `platform_ufo_vc_enable_revisions_by_experience`, we are looking to turn off the `multiHeatmap` branch of code
+	// for calculating TTVC, and instead rely on existing values already available, e.g. `calculatedVC` and `calculatedVCNext`
+	if (!isTTVCv3Enabled && !fg('platform_ufo_vc_enable_revisions_by_experience')) {
 		if (!multiHeatmap) {
 			return null;
 		}
@@ -78,34 +89,61 @@ export function getVCRevisionsData({
 		};
 	}
 
-	// Calculate these conditions once
 	const pageVisibilityUpToTTAI = getPageVisibilityState(interaction.start, interaction.end);
 	const isVisiblePageVisibleUpToTTAI = pageVisibilityUpToTTAI === 'visible';
 	const shouldHaveVCmetric = isVCClean && !isEventAborted && isVisiblePageVisibleUpToTTAI;
 
-	// Create the V2 revision object which is always needed
-	const ttvcV2Revision = {
-		revision: 'fy25.02',
-		clean: isVCClean,
-		'metric:vc90': shouldHaveVCmetric ? calculatedVCNext.VC['90'] : null,
-		vcDetails: createVCDetails(calculatedVCNext, shouldHaveVCmetric),
-	};
+	if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+		const availableVCRevisionPayloads: RevisionPayload = [];
 
-	if (!isVCRevisionEnabled('fy25.01')) {
+		if (isVCRevisionEnabled('fy25.01', experienceKey)) {
+			availableVCRevisionPayloads.push({
+				revision: 'fy25.01',
+				clean: isVCClean,
+				'metric:vc90': shouldHaveVCmetric ? calculatedVC.VC['90'] : null,
+				vcDetails: createVCDetails(calculatedVC, shouldHaveVCmetric),
+			});
+		}
+
+		if (isVCRevisionEnabled('fy25.02', experienceKey)) {
+			availableVCRevisionPayloads.push({
+				revision: 'fy25.02',
+				clean: isVCClean,
+				'metric:vc90': shouldHaveVCmetric ? calculatedVCNext.VC['90'] : null,
+				vcDetails: createVCDetails(calculatedVCNext, shouldHaveVCmetric),
+			});
+		}
+
 		return {
-			[`${fullPrefix}vc:rev`]: [ttvcV2Revision],
+			[`${fullPrefix}vc:rev`]: availableVCRevisionPayloads,
+		};
+	} else {
+		// Create the V2 revision object which is always needed
+		const ttvcV2Revision = {
+			revision: 'fy25.02',
+			clean: isVCClean,
+			'metric:vc90': shouldHaveVCmetric ? calculatedVCNext.VC['90'] : null,
+			vcDetails: createVCDetails(calculatedVCNext, shouldHaveVCmetric),
+		};
+
+		const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01');
+
+		if (isTTVCv1Disabled) {
+			return {
+				[`${fullPrefix}vc:rev`]: [ttvcV2Revision],
+			};
+		}
+
+		// Only create ttvcV1Revision when we're actually going to use it
+		const ttvcV1Revision = {
+			revision: 'fy25.01',
+			clean: isVCClean,
+			'metric:vc90': shouldHaveVCmetric ? calculatedVC.VC['90'] : null,
+			vcDetails: createVCDetails(calculatedVC, shouldHaveVCmetric),
+		};
+
+		return {
+			[`${fullPrefix}vc:rev`]: [ttvcV1Revision, ttvcV2Revision],
 		};
 	}
-
-	// Only create ttvcV1Revision when we're actually going to use it
-	const ttvcV1Revision = {
-		revision: 'fy25.01',
-		clean: isVCClean,
-		'metric:vc90': shouldHaveVCmetric ? calculatedVC.VC['90'] : null,
-		vcDetails: createVCDetails(calculatedVC, shouldHaveVCmetric),
-	};
-
-	return {
-		[`${fullPrefix}vc:rev`]: [ttvcV1Revision, ttvcV2Revision],
-	};
 }

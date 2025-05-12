@@ -4,7 +4,7 @@
  */
 /** @jsxFrag */
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import {
 	useAnalyticsEvents,
@@ -80,6 +80,8 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 	const [wasHelpfulFormSubmitedFailed, setWasHelpfulFormSubmitedFailed] = useState<boolean>(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
+	const wasHelpfulFormClickedButtonRef = useRef<HTMLElement | null>(null);
+
 	const negativeFeedbackReason = [
 		{
 			name: 'negativeFeedbackReason',
@@ -106,6 +108,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 			}
 
 			setWasHelpful(true);
+			wasHelpfulFormClickedButtonRef.current = event.currentTarget;
 		});
 
 	const handleArticleWasHelpfulNoButtonClick =
@@ -116,6 +119,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 			}
 
 			setWasHelpful(false);
+			wasHelpfulFormClickedButtonRef.current = event.currentTarget;
 		});
 
 	const radioGroupReasonOnChange = (event: React.SyntheticEvent<any>): void => {
@@ -169,6 +173,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 
 	const onFeedbackSubmitCancel = (): void => {
 		setWasHelpful(null);
+		wasHelpfulFormClickedButtonRef.current?.focus?.();
 	};
 
 	const handleTryAgainOnClick = () => {

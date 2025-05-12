@@ -70,6 +70,7 @@ const homeStyles = css({
 	paddingBottom: token('space.200', '16px'),
 	paddingLeft: token('space.200', '16px'),
 	boxSizing: 'border-box',
+	marginTop: 0,
 });
 
 export const Home = ({ isOverlayFullyVisible, isOverlayVisible, children }: HomeProps) => (
@@ -91,6 +92,7 @@ const homeAiStyles = css({
 	paddingRight: token('space.200', '16px'),
 	paddingBottom: token('space.200', '16px'),
 	boxSizing: 'border-box',
+	marginTop: 0,
 });
 
 export const HomeAi = ({ isOverlayFullyVisible, isOverlayVisible, children }: HomeProps) => (
@@ -161,4 +163,14 @@ export const BackButtonContainer = ({
 	>
 		{children}
 	</div>
+);
+
+const ulStyles = css({
+	listStyle: 'none',
+	margin: 0,
+	padding: 0,
+});
+
+export const StyledUl = ({ children }: { children: React.ReactNode }) => (
+	<ul css={ulStyles}>{children}</ul>
 );

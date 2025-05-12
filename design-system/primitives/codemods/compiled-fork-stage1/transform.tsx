@@ -1,6 +1,6 @@
 import type { API, FileInfo, JSXAttribute } from 'jscodeshift';
 
-const ANCHOR_XCSS_PROPS = [
+const ANCHOR_PRESSABLE_XCSS_PROPS = [
 	'backgroundColor',
 	'padding',
 	'paddingBlock',
@@ -56,21 +56,21 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 		}
 	}
 
-	// Find JSX elements for Grid and Anchor
+	// Find JSX elements for Grid, Anchor and Pressable
 	root.find(j.JSXElement).forEach((path) => {
 		if (!j.JSXIdentifier.check(path.node.openingElement.name)) {
 			return;
 		}
 
 		const elementName = path.node.openingElement.name.name;
-		if (elementName !== 'Grid' && elementName !== 'Anchor') {
+		if (elementName !== 'Grid' && elementName !== 'Anchor' && elementName !== 'Pressable') {
 			return;
 		}
 
 		const attributes = path.node.openingElement.attributes || [];
 		const props = attributes.filter((attr) => j.JSXAttribute.check(attr)) as Array<JSXAttribute>;
 
-		const xcssProps = elementName === 'Grid' ? GRID_XCSS_PROPS : ANCHOR_XCSS_PROPS;
+		const xcssProps = elementName === 'Grid' ? GRID_XCSS_PROPS : ANCHOR_PRESSABLE_XCSS_PROPS;
 		const propsToTransform = props.filter(
 			(prop) => j.JSXIdentifier.check(prop.name) && xcssProps.includes(prop.name.name),
 		);

@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { RevisionPayload, VCRawDataType, VCResult } from '../common/vc/types';
 import { isVCRevisionEnabled } from '../config';
 
@@ -17,43 +19,115 @@ class VCObserverWrapper implements VCObserverInterface {
 	constructor(opts: VCObserverOptions = {}) {
 		this.newVCObserver = null;
 
-		if (isVCRevisionEnabled('fy25.03')) {
-			this.newVCObserver = new VCObserverNew({
-				selectorConfig: opts.selectorConfig,
-			});
-		}
+		if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+			this.oldVCObserver = null;
 
-		this.oldVCObserver = new VCObserver(opts);
+			if (isVCRevisionEnabled('fy25.03')) {
+				this.newVCObserver = new VCObserverNew({
+					selectorConfig: opts.selectorConfig,
+				});
+			}
+
+			if (isVCRevisionEnabled('fy25.01') || isVCRevisionEnabled('fy25.02')) {
+				this.oldVCObserver = new VCObserver(opts);
+			}
+		} else {
+			if (isVCRevisionEnabled('fy25.03')) {
+				this.newVCObserver = new VCObserverNew({
+					selectorConfig: opts.selectorConfig,
+				});
+			}
+
+			this.oldVCObserver = new VCObserver(opts);
+		}
 	}
-	start(startArg: { startTime: number }): void {
-		this.oldVCObserver?.start(startArg);
-		this.newVCObserver?.start({ startTime: startArg.startTime });
+
+	start({ startTime, experienceKey }: { startTime: number; experienceKey: string }): void {
+		if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+			if (
+				isVCRevisionEnabled('fy25.01', experienceKey) ||
+				isVCRevisionEnabled('fy25.02', experienceKey)
+			) {
+				this.oldVCObserver?.start({ startTime });
+			}
+
+			if (isVCRevisionEnabled('fy25.03', experienceKey)) {
+				this.newVCObserver?.start({ startTime });
+			}
+		} else {
+			this.oldVCObserver?.start({ startTime });
+			this.newVCObserver?.start({ startTime });
+		}
 	}
-	stop(): void {
-		this.oldVCObserver?.stop();
-		this.newVCObserver?.stop();
+
+	stop(experienceKey?: string): void {
+		if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+			if (
+				isVCRevisionEnabled('fy25.01', experienceKey) ||
+				isVCRevisionEnabled('fy25.02', experienceKey)
+			) {
+				this.oldVCObserver?.stop();
+			}
+
+			if (isVCRevisionEnabled('fy25.03', experienceKey)) {
+				this.newVCObserver?.stop();
+			}
+		} else {
+			this.oldVCObserver?.stop();
+			this.newVCObserver?.stop();
+		}
 	}
+
 	getVCRawData(): VCRawDataType | null {
 		return this.oldVCObserver?.getVCRawData() ?? null;
 	}
+
 	async getVCResult(param: GetVCResultType): Promise<VCResult> {
-		const oldResult = await this.oldVCObserver?.getVCResult(param);
-		const newResult = await this.newVCObserver?.getVCResult({
-			start: param.start,
-			stop: param.stop,
-		});
+		if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+			const { experienceKey } = param;
 
-		if (oldResult && !newResult) {
-			return oldResult;
+			const v1v2Result =
+				isVCRevisionEnabled('fy25.01', experienceKey) ||
+				isVCRevisionEnabled('fy25.02', experienceKey)
+					? await this.oldVCObserver?.getVCResult(param)
+					: {};
+			const v3Result = isVCRevisionEnabled('fy25.03', experienceKey)
+				? await this.newVCObserver?.getVCResult({
+						start: param.start,
+						stop: param.stop,
+					})
+				: [];
+
+			if (!v3Result) {
+				return v1v2Result ?? {};
+			}
+
+			return {
+				...v1v2Result,
+				'ufo:vc:rev': [
+					...((v1v2Result?.['ufo:vc:rev'] as RevisionPayload | undefined) ?? []),
+					...(v3Result ?? []),
+				],
+			};
+		} else {
+			const oldResult = await this.oldVCObserver?.getVCResult(param);
+			const newResult = await this.newVCObserver?.getVCResult({
+				start: param.start,
+				stop: param.stop,
+			});
+
+			if (oldResult && !newResult) {
+				return oldResult;
+			}
+
+			return {
+				...(oldResult ?? {}),
+				'ufo:vc:rev': [
+					...((oldResult?.['ufo:vc:rev'] as RevisionPayload | undefined) ?? []),
+					...(newResult ?? []),
+				],
+			};
 		}
-
-		return {
-			...(oldResult ?? {}),
-			'ufo:vc:rev': [
-				...((oldResult?.['ufo:vc:rev'] as RevisionPayload | undefined) ?? []),
-				...(newResult ?? []),
-			],
-		};
 	}
 	setSSRElement(element: HTMLElement): void {
 		this.oldVCObserver?.setSSRElement(element);

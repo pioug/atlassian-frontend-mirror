@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 2.0.7
+
+### Patch Changes
+
+- [#151999](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151999)
+  [`daf7c638efb95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf7c638efb95) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
 ## 2.0.6
 
 ### Patch Changes

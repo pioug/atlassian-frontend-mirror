@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 14.7.2
+
+### Patch Changes
+
+- [#152840](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152840)
+  [`c6830ce5e4911`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6830ce5e4911) -
+  Fix bug in `compiled-fork-stage1` codemod in which deprecated Pressable props were not being moved
+  into the `xcss` prop.
+
 ## 14.7.1
 
 ### Patch Changes

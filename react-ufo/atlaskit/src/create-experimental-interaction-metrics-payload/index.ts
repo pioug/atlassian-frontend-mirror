@@ -80,6 +80,7 @@ export async function getExperimentalVCMetrics(interaction: InteractionMetrics) 
 			isEventAborted: !!interaction.abortReason,
 			prefix,
 			vc: interaction.vc,
+			experienceKey: interaction.ufoName,
 		});
 
 		const VC = result?.['metrics:vc'] as {

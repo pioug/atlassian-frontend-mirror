@@ -8,6 +8,7 @@ export type GetVCResultType = {
 	prefix?: string;
 	ssr?: number;
 	vc?: VCRawDataType | null;
+	experienceKey: string;
 };
 
 export type SelectorConfig = {
@@ -27,8 +28,8 @@ export type VCObserverOptions = {
 };
 
 export interface VCObserverInterface {
-	start(startArg: { startTime: number }): void;
-	stop(): void;
+	start(startArg: { startTime: number; experienceKey?: string }): void;
+	stop(experienceKey?: string): void;
 	getVCRawData(): VCRawDataType | null;
 	getVCResult(param: GetVCResultType): Promise<VCResult>;
 	setSSRElement(element: HTMLElement): void;

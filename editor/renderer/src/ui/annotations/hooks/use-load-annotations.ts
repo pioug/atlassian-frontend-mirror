@@ -6,6 +6,7 @@ import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { ProvidersContext } from '../context';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 
 export type LoadCompleteHandler = (params: { numberOfUnresolvedInlineComments: number }) => void;
 
@@ -17,6 +18,7 @@ type Props = {
 export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete }: Props) => {
 	const actions = useContext(ActionsContext);
 	const providers = useContext(ProvidersContext);
+	const { dispatch } = useAnnotationManagerDispatch();
 
 	useEffect(() => {
 		if (!providers) {
@@ -61,7 +63,18 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete
 				{},
 			);
 
-			updateSubscriberInlineComment.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, payload);
+			if (fg('platform_editor_comments_api_manager')) {
+				dispatch({
+					type: 'loadAnnotation',
+					data: Object.keys(payload).map((id) => ({
+						id,
+						markState: payload[id].state ?? undefined,
+					})),
+				});
+			} else {
+				updateSubscriberInlineComment.emit(AnnotationUpdateEvent.SET_ANNOTATION_STATE, payload);
+			}
+
 			onLoadComplete &&
 				onLoadComplete({
 					numberOfUnresolvedInlineComments: data.filter((data) => data.state === 'active').length,
@@ -69,5 +82,5 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete
 		};
 
 		inlineCommentGetState(ids, isNestedRender).then(cb);
-	}, [actions, providers, adfDocument, isNestedRender, onLoadComplete]);
+	}, [actions, providers, adfDocument, isNestedRender, onLoadComplete, dispatch]);
 };

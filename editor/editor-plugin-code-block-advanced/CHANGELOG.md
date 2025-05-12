@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.6
+
+### Patch Changes
+
+- [#152049](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152049)
+  [`a2bdf059329e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2bdf059329e8) -
+  Add support for Gherkin language to code
+
 ## 2.2.5
 
 ### Patch Changes

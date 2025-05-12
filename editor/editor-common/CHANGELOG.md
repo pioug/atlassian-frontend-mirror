@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 104.1.4
+
+### Patch Changes
+
+- [#149969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149969)
+  [`42c3f35e57188`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42c3f35e57188) -
+  ED-27882: Get rid of parent offset check in \_handleRef in the react node view. Add metadata to
+  these calls in the \_handleRef and \_handleTableRef.
+- Updated dependencies
+
+## 104.1.3
+
+### Patch Changes
+
+- [#142925](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142925)
+  [`e013698350bef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e013698350bef) -
+  This updates the renderer to use the new annotation manager create comment APIs and disables the
+  use of the old create hooks. This should be backward compatible and can be controled by a FG
+- Updated dependencies
+
+## 104.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 104.1.1
 
 ### Patch Changes

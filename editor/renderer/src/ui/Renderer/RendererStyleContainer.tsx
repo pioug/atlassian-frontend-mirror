@@ -968,6 +968,14 @@ const smartCardStylesAvatarFix = css({
 	},
 });
 
+const smartCardStylesAvatarMarginFix = css({
+	[`.${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
+		'ul, ol': {
+			marginRight: 'inherit',
+		},
+	},
+});
+
 const baseOtherStyles = css({
 	'& .UnknownBlock': {
 		fontFamily: token('font.family.body'),
@@ -2061,6 +2069,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				tasksAndDecisionsStyles,
 				smartCardStyles,
 				fg('platform-linking-visual-refresh-v1') && smartCardStylesAvatarFix,
+				fg('smartcard_avatar_margin_fix') && smartCardStylesAvatarMarginFix,
 				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix

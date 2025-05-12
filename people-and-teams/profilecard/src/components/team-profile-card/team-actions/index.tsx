@@ -37,6 +37,7 @@ type BaseButtonSectionProps = {
 	otherActions?: ActionItem[];
 	cloudId: string;
 	teamId: string;
+	loading?: boolean;
 };
 
 type KudosEnabledProps = BaseButtonSectionProps & {
@@ -55,6 +56,7 @@ export const ButtonSection = ({
 	teamProfileUrl,
 	isKudosEnabled,
 	otherActions,
+	loading,
 	...props
 }: ButtonSectionProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -105,7 +107,7 @@ export const ButtonSection = ({
 							</LinkButton>
 						</Box>
 					)}
-					{extraActions.length > 0 && <MoreActions actions={extraActions} />}
+					{extraActions.length > 0 && <MoreActions actions={extraActions} loading={loading} />}
 				</Inline>
 			</Stack>
 			{isKudosEnabled && kudosProps && (

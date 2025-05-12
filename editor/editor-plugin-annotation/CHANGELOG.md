@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.7.6
+
+### Patch Changes
+
+- [#142925](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142925)
+  [`e013698350bef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e013698350bef) -
+  This updates the renderer to use the new annotation manager create comment APIs and disables the
+  use of the old create hooks. This should be backward compatible and can be controled by a FG
+- [#151999](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151999)
+  [`daf7c638efb95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf7c638efb95) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
+## 2.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.4
 
 ### Patch Changes

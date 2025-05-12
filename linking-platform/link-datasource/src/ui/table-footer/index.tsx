@@ -35,9 +35,9 @@ const styles = cssMap({
 	footer: {
 		color: token('color.text.subtlest'),
 		font: token('font.body.small'),
-		paddingTop: token('space.300'),
+		paddingTop: token('space.100'),
 		paddingRight: token('space.200'),
-		paddingBottom: token('space.300'),
+		paddingBottom: token('space.100'),
 		paddingLeft: token('space.200'),
 		boxSizing: 'border-box',
 		borderRadius: 'inherit',

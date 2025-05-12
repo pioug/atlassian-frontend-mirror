@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { AnnotationView } from './view';
 import { AnnotationsContextWrapper } from './wrapper';
 import { type AnnotationsWrapperProps } from './types';
@@ -10,6 +12,7 @@ import { useAnnotationStateByTypeEvent } from './hooks/use-events';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { AnnotationRangeProvider } from './contexts/AnnotationRangeContext';
 import { AnnotationHoverContext } from './contexts/AnnotationHoverContext';
+import { AnnotationManagerProvider } from './contexts/AnnotationManagerContext';
 
 type LoadAnnotationsProps = {
 	adfDocument: JSONDocNode;
@@ -32,13 +35,13 @@ export const AnnotationsPositionContext = React.createContext<{ startPos: number
 	startPos: 1,
 });
 
-export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
-	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender, onLoadComplete } =
-		props;
+export const AnnotationsWrapperInner = (
+	props: Omit<AnnotationsWrapperProps, 'annotationProvider'>,
+) => {
+	const { children, rendererRef, adfDocument, isNestedRender, onLoadComplete } = props;
+	const providers = useContext(ProvidersContext);
 	const updateSubscriber =
-		annotationProvider &&
-		annotationProvider.inlineComment &&
-		annotationProvider.inlineComment.updateSubscriber;
+		providers && providers.inlineComment && providers.inlineComment.updateSubscriber;
 	const inlineCommentAnnotationsState = useAnnotationStateByTypeEvent({
 		type: AnnotationTypes.INLINE_COMMENT,
 		updateSubscriber: updateSubscriber || null,
@@ -46,31 +49,71 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	return (
-		<ProvidersContext.Provider value={annotationProvider}>
-			<InlineCommentsStateContext.Provider value={inlineCommentAnnotationsState}>
-				<AnnotationRangeProvider
-					allowCommentsOnMedia={annotationProvider?.inlineComment?.allowCommentsOnMedia ?? false}
-				>
-					<AnnotationHoverContext>
-						<AnnotationsContextWrapper
-							createAnalyticsEvent={createAnalyticsEvent}
-							rendererRef={rendererRef}
+		<InlineCommentsStateContext.Provider value={inlineCommentAnnotationsState}>
+			<AnnotationRangeProvider
+				allowCommentsOnMedia={providers?.inlineComment?.allowCommentsOnMedia ?? false}
+			>
+				<AnnotationHoverContext>
+					<AnnotationsContextWrapper
+						createAnalyticsEvent={createAnalyticsEvent}
+						rendererRef={rendererRef}
+						isNestedRender={isNestedRender}
+					>
+						<LoadAnnotations
+							adfDocument={adfDocument}
 							isNestedRender={isNestedRender}
-						>
-							<LoadAnnotations
-								adfDocument={adfDocument}
-								isNestedRender={isNestedRender}
-								onLoadComplete={onLoadComplete}
-							/>
-							<AnnotationView
-								isNestedRender={isNestedRender}
-								createAnalyticsEvent={createAnalyticsEvent}
-							/>
-							{children}
-						</AnnotationsContextWrapper>
-					</AnnotationHoverContext>
-				</AnnotationRangeProvider>
-			</InlineCommentsStateContext.Provider>
-		</ProvidersContext.Provider>
+							onLoadComplete={onLoadComplete}
+						/>
+						<AnnotationView
+							isNestedRender={isNestedRender}
+							createAnalyticsEvent={createAnalyticsEvent}
+						/>
+						{children}
+					</AnnotationsContextWrapper>
+				</AnnotationHoverContext>
+			</AnnotationRangeProvider>
+		</InlineCommentsStateContext.Provider>
 	);
+};
+
+export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
+	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender, onLoadComplete } =
+		props;
+
+	if (!isNestedRender && fg('platform_editor_comments_api_manager')) {
+		// We need to ensure there is a single instance of the annotation manager for the whole document
+		// and that it is the same instance for all annotations.
+		// This is because the annotation manager is responsible for managing the state of ALL annotations.
+		// This includes annotations inside extensions.
+		return (
+			<ProvidersContext.Provider value={annotationProvider}>
+				<AnnotationManagerProvider
+					annotationManager={annotationProvider?.annotationManager}
+					updateSubscriber={annotationProvider?.inlineComment?.updateSubscriber ?? undefined}
+				>
+					<AnnotationsWrapperInner
+						rendererRef={rendererRef}
+						adfDocument={adfDocument}
+						isNestedRender={isNestedRender}
+						onLoadComplete={onLoadComplete}
+					>
+						{children}
+					</AnnotationsWrapperInner>
+				</AnnotationManagerProvider>
+			</ProvidersContext.Provider>
+		);
+	} else {
+		return (
+			<ProvidersContext.Provider value={annotationProvider}>
+				<AnnotationsWrapperInner
+					rendererRef={rendererRef}
+					adfDocument={adfDocument}
+					isNestedRender={isNestedRender}
+					onLoadComplete={onLoadComplete}
+				>
+					{children}
+				</AnnotationsWrapperInner>
+			</ProvidersContext.Provider>
+		);
+	}
 };

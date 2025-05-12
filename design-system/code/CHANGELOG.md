@@ -1,5 +1,21 @@
 # @atlaskit/code
 
+## 17.1.2
+
+### Patch Changes
+
+- [#152825](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152825)
+  [`5e38d365c6154`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e38d365c6154) -
+  Reverts addition of tab index to code block
+
+## 17.1.1
+
+### Patch Changes
+
+- [#152049](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152049)
+  [`a2bdf059329e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2bdf059329e8) -
+  Add support for Gherkin language to code
+
 ## 17.1.0
 
 ### Minor Changes

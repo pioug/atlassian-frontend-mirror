@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
@@ -24,6 +26,24 @@ interface PrimaryToolbarComponentProps {
 	toolbarSize?: ToolbarSize;
 }
 
+const usePrimaryToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<AlignmentPlugin> | undefined) => {
+		const align = useSharedPluginStateSelector(api, 'alignment.align');
+		const isEnabled = useSharedPluginStateSelector(api, 'alignment.isEnabled');
+		return {
+			align,
+			isEnabled,
+		};
+	},
+	(api: ExtractInjectionAPI<AlignmentPlugin> | undefined) => {
+		const { alignmentState } = useSharedPluginState(api, ['alignment']);
+		return {
+			align: alignmentState?.align,
+			isEnabled: alignmentState?.isEnabled,
+		};
+	},
+);
+
 export function PrimaryToolbarComponent({
 	api,
 	editorView,
@@ -34,23 +54,7 @@ export function PrimaryToolbarComponent({
 	isToolbarReducedSpacing,
 	toolbarSize = ToolbarSize.XXL,
 }: PrimaryToolbarComponentProps) {
-	const { alignmentState } = useSharedPluginState(api, ['alignment'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	const alignSelector = useSharedPluginStateSelector(api, 'alignment.align', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const align = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? alignSelector
-		: alignmentState?.align;
-
-	const isEnabledSelector = useSharedPluginStateSelector(api, 'alignment.isEnabled', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isEnabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? isEnabledSelector
-		: alignmentState?.isEnabled;
+	const { align, isEnabled } = usePrimaryToolbarComponentPluginState(api);
 
 	const changeAlignmentCallback = useCallback(
 		(align: AlignmentState) =>

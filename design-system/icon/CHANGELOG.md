@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 26.0.0
+
+### Major Changes
+
+- [#137001](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/137001)
+  [`37c3ccf696abd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37c3ccf696abd) -
+  Migrate @atlaskit/icon to @compiled css
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.8.0
 
 ### Minor Changes

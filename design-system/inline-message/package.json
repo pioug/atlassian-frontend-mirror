@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-message",
-	"version": "15.0.0",
+	"version": "15.0.1",
 	"description": "An inline message lets users know when important information is available or when an action is required.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

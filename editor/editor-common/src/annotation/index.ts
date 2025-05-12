@@ -2,7 +2,7 @@ import { EventEmitter } from 'events';
 
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { AddNodeMarkStep, AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 import { SharedAnnotationManager } from './manager';
 
@@ -31,15 +31,22 @@ export class AnnotationUpdateEmitter extends EventEmitter {
 	}
 }
 
+type AnnotationByMatches = {
+	originalSelection: string;
+	numMatches: number;
+	matchIndex: number;
+	pos?: number;
+	// isAnnotationAllowed?: boolean;
+};
+
 // type ActionResult = { step: Step; doc: JSONDocNode } | false;
-type ActionResult = {
-	step: Step;
+export type ActionResult = {
+	step: AddMarkStep | AddNodeMarkStep;
 	doc: JSONDocNode;
 	/** The list of types of all inline nodes, which were wrapped by annotation. */
 	inlineNodeTypes?: string[];
 	targetNodeType?: string;
-};
-// } & AnnotationByMatches)
+} & AnnotationByMatches;
 // | false;
 
 // ### Events
@@ -91,6 +98,12 @@ export type ApplyDraftResult =
 	| {
 			success: true;
 			targetElement: HTMLElement | undefined;
+
+			/**
+			 * The actionResult will be set if the id passed to the applyDraft method is different from the id created
+			 * from the startDraft call.
+			 */
+			actionResult: ActionResult | undefined;
 	  };
 
 export type GetDraftResult =
@@ -125,7 +138,23 @@ export type AnnotationManagerMethods = {
 	allowAnnotation: () => boolean;
 	startDraft: () => StartDraftResult;
 	clearDraft: () => ClearDraftResult;
+
+	/**
+	 * This will apply the current draft to the document.
+	 *
+	 * If an id is passed, it will be used to apply the draft, it will
+	 * also generate a new actionResult value if the passed id is different from the one returned from the startDraft method.
+	 *
+	 * @param id The id of the annotation to apply. Ideally the same as the one returned from the startDraft method.
+	 * If the id is different, the actionResult will contain a step and document with the new id. Changing the id is discouraged
+	 * as this creates different behaviour between the editor and renderer.
+	 */
 	applyDraft: (id: AnnotationId) => ApplyDraftResult;
+
+	/**
+	 * This can be used to inspect the current active draft.
+	 * @returns The current draft data. If the draft is not started, it will return an error.
+	 */
 	getDraft: () => GetDraftResult;
 
 	setIsAnnotationSelected: (id: AnnotationId, isSelected: boolean) => SelectAnnotationResult;
@@ -145,6 +174,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 
 	/**
 	 * This method is used to run the configured preemptive gate check.
+	 * @private
 	 * @internal
 	 */
 	checkPreemptiveGate(): Promise<boolean>;
@@ -160,6 +190,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	): AnnotationManager;
 
 	/**
+	 * @private
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
@@ -176,6 +207,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	): AnnotationManager;
 
 	/**
+	 * @private
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */
@@ -185,6 +217,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	): AnnotationManager;
 
 	/**
+	 *
 	 * @internal
 	 * This method is intended for internal Platform use only. It is not intended for use by Product code.
 	 */

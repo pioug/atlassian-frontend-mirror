@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.5.0
+
+### Minor Changes
+
+- [#150874](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150874)
+  [`447821a1397a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/447821a1397a2) -
+  Used plugin selector conditionally behind feature flag
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.1
 
 ### Patch Changes

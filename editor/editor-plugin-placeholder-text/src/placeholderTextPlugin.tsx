@@ -9,11 +9,15 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { isNodeEmpty } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
@@ -184,13 +188,27 @@ type ContentComponentProps = Pick<
 	dependencyApi: ExtractInjectionAPI<typeof placeholderTextPlugin> | undefined;
 };
 
+const useSharedPlaceholderTextState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined) => {
+		const showInsertPanelAt = useSharedPluginStateSelector(
+			api,
+			'placeholderText.showInsertPanelAt',
+		);
+		return { showInsertPanelAt };
+	},
+	(api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined) => {
+		const { placeholderTextState } = useSharedPluginState(api, ['placeholderText']);
+		return { showInsertPanelAt: placeholderTextState?.showInsertPanelAt };
+	},
+);
+
 function ContentComponent({
 	editorView,
 	dependencyApi,
 	popupsMountPoint,
 	popupsBoundariesElement,
 }: ContentComponentProps): JSX.Element | null {
-	const { placeholderTextState } = useSharedPluginState(dependencyApi, ['placeholderText']);
+	const { showInsertPanelAt } = useSharedPlaceholderTextState(dependencyApi);
 
 	const insertPlaceholderText = (value: string) =>
 		insertPlaceholderTextAtSelection(value)(editorView.state, editorView.dispatch);
@@ -200,7 +218,7 @@ function ContentComponent({
 	const getFixedCoordinatesFromPos = (pos: number) => editorView.coordsAtPos(pos);
 	const setFocusInEditor = () => editorView.focus();
 
-	if (placeholderTextState?.showInsertPanelAt) {
+	if (showInsertPanelAt) {
 		return (
 			<PlaceholderFloatingToolbar
 				// Ignored via go/ees005
@@ -211,7 +229,7 @@ function ContentComponent({
 				getFixedCoordinatesFromPos={getFixedCoordinatesFromPos}
 				getNodeFromPos={getNodeFromPos}
 				hidePlaceholderFloatingToolbar={hidePlaceholderToolbar}
-				showInsertPanelAt={placeholderTextState.showInsertPanelAt}
+				showInsertPanelAt={showInsertPanelAt}
 				insertPlaceholder={insertPlaceholderText}
 				setFocusInEditor={setFocusInEditor}
 			/>

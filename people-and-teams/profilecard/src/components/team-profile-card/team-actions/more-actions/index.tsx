@@ -17,9 +17,10 @@ export type ActionItem = {
 
 type MoreActionsProps = {
 	actions: ActionItem[];
+	loading?: boolean;
 };
 
-export const MoreActions = ({ actions }: MoreActionsProps) => {
+export const MoreActions = ({ actions, loading }: MoreActionsProps) => {
 	const { formatMessage } = useIntl();
 	const [isOpen, setOpen] = useState(false);
 
@@ -47,6 +48,7 @@ export const MoreActions = ({ actions }: MoreActionsProps) => {
 					label={formatMessage(messages.showMoreIconLabel)}
 					onClick={() => onMoreClick(!isOpen)}
 					isSelected={isOpen}
+					isLoading={loading}
 				/>
 			)}
 			placement="right-start"

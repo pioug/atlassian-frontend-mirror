@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 37.1.3
+
+### Patch Changes
+
+- [#152068](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152068)
+  [`8689483a3d0e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8689483a3d0e3) -
+  Add deprecation to featureFlags type and props within linking platform packages
+- Updated dependencies
+
+## 37.1.2
+
+### Patch Changes
+
+- [#152203](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152203)
+  [`978e65df8e2a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/978e65df8e2a4) -
+  Fix LinkIconElement return
+
+## 37.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.1.0
 
 ### Minor Changes

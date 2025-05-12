@@ -180,6 +180,8 @@ export const applyDraft =
 			success: true,
 			// Get the dom element from the newly created annotation and return it here.
 			targetElement,
+			// In Editor this is undefined, because the editor will update the document.
+			actionResult: undefined,
 		};
 	};
 

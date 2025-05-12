@@ -1,19 +1,25 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
+import uuid from 'uuid/v4';
+
+import { AnnotationMarkStates, AnnotationTypes, type DocNode } from '@atlaskit/adf-schema';
 import {
-	type AnnotationActionResult,
+	AnnotationManager,
+	AnnotationUpdateEmitter,
+	createAnnotationManager,
+} from '@atlaskit/editor-common/annotation';
+import {
+	// type AnnotationActionResult,
 	type AnnotationProviders,
 	AnnotationUpdateEvent,
 } from '@atlaskit/editor-common/types';
+import type { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { HighlightBar } from './HighlightBar';
 import { AttachedComment } from './AttachedComment';
-import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
-import uuid from 'uuid/v4';
-
 import { popupPortalContainerId } from './shared';
-
-import { AnnotationMarkStates, AnnotationTypes, type DocNode } from '@atlaskit/adf-schema';
 import { ExampleHighlightMenu } from './mock-ui';
 
 type AnnotationEventEmitterFn = () => any;
@@ -25,6 +31,14 @@ export const getRendererAnnotationEventEmitter: AnnotationEventEmitterFn = () =>
 	}
 
 	return rendererEmitter;
+};
+
+let annotationManager: AnnotationManager | undefined;
+export const getRendererAnnotationManager: () => AnnotationManager = () => {
+	if (!annotationManager) {
+		annotationManager = createAnnotationManager();
+	}
+	return annotationManager;
 };
 
 export const useExampleRendererAnnotationProvider = () => {
@@ -61,6 +75,7 @@ export const useExampleRendererAnnotationProvider = () => {
 			viewComponent: () => <div data-testid="rap-view-component">view component</div>,
 			updateSubscriber: getRendererAnnotationEventEmitter(),
 		},
+		annotationManager: getRendererAnnotationManager(),
 	};
 
 	return {
@@ -82,17 +97,18 @@ function SelectionComponent({
 }: React.ComponentProps<NonNullable<AnnotationProviders['inlineComment']['selectionComponent']>>) {
 	const mountPoint = document.querySelector(`#${popupPortalContainerId}`)!;
 	const annotationProductDispatch = React.useContext(ExampleAnnotationProductDispatch);
-	const [draft, setDraft] = React.useState<{
-		annotationActionResult: NonNullable<Exclude<AnnotationActionResult, false>>;
+	const [draft, setDraft] = useState<{
 		id: string;
+		draftDoc?: DocNode;
 	}>();
 	const eventEmitter = getRendererAnnotationEventEmitter();
+	const annotationManager = getRendererAnnotationManager();
 
-	let [commentState, setCommentState] = React.useState<
+	const [commentState, setCommentState] = React.useState<
 		'none' | 'draft' | 'selection' | 'something-else'
 	>('none');
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (commentState === 'none' && range) {
 			setCommentState('selection');
 		}
@@ -113,46 +129,103 @@ function SelectionComponent({
 				Comment UI
 				<button
 					onClick={() => {
-						removeDraftMode();
-						if (draft) {
-							annotationProductDispatch({
-								type: 'comment.add',
-								id: draft.id,
-								initialComment: 'fake added comment',
-							});
-							annotationProductDispatch({
-								type: 'document.update',
-								document: draft.annotationActionResult.doc as any,
-							});
+						if (fg('platform_editor_comments_api_manager')) {
+							if (draft) {
+								// This is setting a new uuid for the annotation because this is currently how annotations
+								// behave in CCFE.
+								const annotationId = uuid();
+								const draftRes = annotationManager.applyDraft(annotationId);
 
-							new Promise((res) => {
-								setTimeout(res, 250);
-							}).then(() => {
-								// Tell the renderer to set the new comment to active
-								if (
-									eventEmitter.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
-										annotationIds: [draft.id],
-										// eventTarget: wrapperDOM,
-										eventTarget: document.getElementById(draft.id),
-									})
-								) {
-									eventEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, {
-										annotationId: draft.id,
+								if (draftRes.success) {
+									console.log(
+										'%c%s',
+										'color:rgb(0, 35, 0); background: #CCFFCC;',
+										'[AnnotationManager] applyDraft success:',
+										draftRes,
+									);
+
+									setDraft({
+										id: annotationId,
+										draftDoc: draftRes.actionResult?.doc as DocNode,
+									});
+
+									annotationProductDispatch({
+										type: 'comment.add',
+										id: annotationId,
+										initialComment: 'fake added comment',
+									});
+									if (draft.draftDoc) {
+										annotationProductDispatch({
+											type: 'document.update',
+											document: draftRes.actionResult?.doc as DocNode, //draft.draftDoc as any,
+										});
+									}
+								} else {
+									console.warn('[AnnotationManager] applyDraft failed', draftRes.reason);
+								}
+							}
+						} else {
+							removeDraftMode();
+							if (draft) {
+								annotationProductDispatch({
+									type: 'comment.add',
+									id: draft.id,
+									initialComment: 'fake added comment',
+								});
+
+								if (draft.draftDoc) {
+									annotationProductDispatch({
+										type: 'document.update',
+										document: draft.draftDoc as any,
 									});
 								}
-								// eventEmitter.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
-								// eventEmitter.emit(AnnotationUpdateEvent.DESELECT_ANNOTATIONS);
-								// setCommentState('none');
 
-								onClose();
-								removeDraftMode();
-								onClose();
-							});
+								new Promise((res) => {
+									setTimeout(res, 250);
+								}).then(() => {
+									// Tell the renderer to set the new comment to active
+									if (
+										eventEmitter.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
+											annotationIds: [draft.id],
+											// eventTarget: wrapperDOM,
+											eventTarget: document.getElementById(draft.id),
+										})
+									) {
+										eventEmitter.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, {
+											annotationId: draft.id,
+										});
+									}
+									// eventEmitter.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
+									// eventEmitter.emit(AnnotationUpdateEvent.DESELECT_ANNOTATIONS);
+									// setCommentState('none');
+
+									onClose();
+									removeDraftMode();
+									onClose();
+								});
+							}
 						}
 					}}
 				>
 					save comment
 				</button>
+				{fg('platform_editor_comments_api_manager') && (
+					<button
+						onClick={() => {
+							if (draft) {
+								const draftRes = annotationManager.clearDraft();
+
+								if (draftRes.success) {
+									setCommentState('none');
+								} else {
+									console.warn('[AnnotationManager] clearDraft failed', draftRes.reason);
+								}
+							}
+						}}
+					>
+						cancel
+					</button>
+				)}
 			</AttachedComment>
 		);
 	}
@@ -164,14 +237,62 @@ function SelectionComponent({
 					<ExampleHighlightMenu.Item>
 						<button
 							onClick={() => {
-								const annotationId = uuid();
-								const annotationActionResult = applyDraftMode({
-									annotationId,
-									keepNativeSelection: false,
-								});
-								if (annotationActionResult) {
-									setCommentState('draft');
-									setDraft({ annotationActionResult, id: annotationId });
+								const annotationId = uuid() as string;
+								if (fg('platform_editor_comments_api_manager')) {
+									annotationManager
+										.checkPreemptiveGate()
+										.then((canStartDraft) => {
+											if (canStartDraft) {
+												const startResult = annotationManager.startDraft();
+												if (startResult.success) {
+													console.log(
+														'%c%s',
+														'color:rgb(0, 35, 0); background: #CCFFCC;',
+														'[AnnotationManager] startDraft success:',
+														startResult,
+													);
+													setCommentState('draft');
+													// WHY?? are we pulling the id from the step.
+													// See: https://hello.jira.atlassian.cloud/browse/EDITOR-626
+													setDraft({
+														id:
+															(startResult.actionResult?.step as AddMarkStep)?.mark?.attrs?.id ??
+															annotationId,
+														draftDoc: startResult.actionResult?.doc as DocNode,
+													});
+												} else {
+													console.log(
+														'%c%s',
+														'color:rgb(37, 29, 0); background:rgb(255, 210, 131);',
+														'[AnnotationManager] startDraft failed:',
+														startResult.reason,
+													);
+												}
+											} else {
+												console.log(
+													'%c%s',
+													'color:rgb(45, 9, 0); background:rgb(255, 149, 131);',
+													'[AnnotationManager] startDraft checkPreemptiveGate failed',
+												);
+											}
+										})
+										.catch((err) => {
+											console.log(
+												'%c%s',
+												'color:rgb(45, 9, 0); background:rgb(255, 149, 131);',
+												'[AnnotationManager] checkPreemptiveGate Error:',
+												err,
+											);
+										});
+								} else {
+									const annotationActionResult = applyDraftMode({
+										annotationId,
+										keepNativeSelection: false,
+									});
+									if (annotationActionResult) {
+										setCommentState('draft');
+										setDraft({ id: annotationId, draftDoc: annotationActionResult.doc as DocNode });
+									}
 								}
 							}}
 							disabled={!isAnnotationAllowed}

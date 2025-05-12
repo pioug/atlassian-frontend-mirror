@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.19
+
+### Patch Changes
+
+- [#149969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149969)
+  [`42c3f35e57188`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42c3f35e57188) -
+  ED-27882: Get rid of parent offset check in \_handleRef in the react node view. Add metadata to
+  these calls in the \_handleRef and \_handleTableRef.
+- Updated dependencies
+
+## 10.9.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.9.17
 
 ### Patch Changes

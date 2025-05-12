@@ -1,3 +1,7 @@
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
+ * Remove any usages of this type. It is dead code
+ */
 export interface LinkingPlatformFeatureFlags {
 	/**
 	 * @deprecated Implementation removed in EDM-3632 - enable this feature using the showHoverPreview prop outside of LinkingPlatformFeatureFlags

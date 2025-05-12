@@ -6,7 +6,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('TTVC: basic page (3 congruent sections)', () => {
 	test.use({
 		examplePage: 'basic-three-sections',
-		featureFlags: ['ufo_payload_use_idle_callback'],
+		featureFlags: ['ufo_payload_use_idle_callback', 'platform_ufo_use_offscreen_canvas'],
 	});
 
 	for (const viewport of viewports) {

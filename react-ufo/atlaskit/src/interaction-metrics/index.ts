@@ -864,7 +864,7 @@ export function addNewInteraction(
 		addHoldByID(interactionId, [], ufoName, ufoName, true);
 	}
 	if (type === 'transition') {
-		getVCObserver().start({ startTime });
+		getVCObserver().start({ startTime, experienceKey: ufoName });
 		postInteractionLog.startVCObserver({ startTime });
 		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 			experimentalVC.start({ startTime });

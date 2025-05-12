@@ -1,7 +1,9 @@
+// packages/react-ufo/atlaskit/src/create-payload/utils/get-vc-metrics.test.ts
+
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { InteractionMetrics } from '../../common';
-import { getConfig } from '../../config';
+import { getConfig, getMostRecentVCRevision, isVCRevisionEnabled } from '../../config';
 import { getVCObserver } from '../../vc';
 
 import getInteractionStatus from './get-interaction-status';
@@ -45,87 +47,11 @@ describe('getVCMetrics', () => {
 						clean: true,
 						'metric:vc90': 100,
 						revision: 'fy25.01',
-						vcDetails: {
-							'25': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'50': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'75': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'80': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'85': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'90': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'95': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'98': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'99': {
-								e: ['body > div'],
-								t: 100,
-							},
-						},
 					},
 					{
 						clean: true,
 						'metric:vc90': 100,
 						revision: 'fy25.02',
-						vcDetails: {
-							'25': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'50': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'75': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'80': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'85': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'90': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'95': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'98': {
-								e: ['body > div'],
-								t: 100,
-							},
-							'99': {
-								e: ['body > div'],
-								t: 100,
-							},
-						},
 					},
 				],
 				'metrics:vc': { '90': 100 },
@@ -146,7 +72,7 @@ describe('getVCMetrics', () => {
 	});
 
 	it('should return empty object if VC is not enabled', async () => {
-		mockGetConfig.mockReturnValue({ vc: { enabled: false }, product: 'test', region: 'test' });
+		mockGetConfig.mockReturnValue({ product: 'test', region: 'unknown', vc: { enabled: false } });
 
 		const interaction: InteractionMetrics = {
 			type: 'page_load',
@@ -190,7 +116,7 @@ describe('getVCMetrics', () => {
 		expect(result).toMatchObject(expectedVCResult);
 	});
 
-	it('should process page_load interaction correctly for fy25.01 disabled', async () => {
+	it('should process page_load interaction correctly when fy25.01 is disabled', async () => {
 		mockGetConfig.mockReturnValue({
 			vc: {
 				enabled: true,
@@ -216,87 +142,11 @@ describe('getVCMetrics', () => {
 					clean: true,
 					'metric:vc90': 100,
 					revision: 'fy25.01',
-					vcDetails: {
-						'25': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'50': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'75': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'80': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'85': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'90': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'95': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'98': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'99': {
-							e: ['body > div'],
-							t: 100,
-						},
-					},
 				},
 				{
 					clean: true,
 					'metric:vc90': 100,
 					revision: 'fy25.02',
-					vcDetails: {
-						'25': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'50': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'75': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'80': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'85': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'90': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'95': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'98': {
-							e: ['body > div'],
-							t: 100,
-						},
-						'99': {
-							e: ['body > div'],
-							t: 100,
-						},
-					},
 				},
 			],
 		};
@@ -307,9 +157,9 @@ describe('getVCMetrics', () => {
 
 	it('should handle SSR configuration for page_load', async () => {
 		mockGetConfig.mockReturnValue({
-			vc: { enabled: true, ssrWhitelist: ['test'] },
 			product: 'test',
-			region: 'test',
+			region: 'unknown',
+			vc: { enabled: true, ssrWhitelist: ['test'] },
 		});
 
 		const interaction: InteractionMetrics = {
@@ -357,10 +207,10 @@ describe('getVCMetrics', () => {
 
 	it('should stop VC observer when experimental metrics are enabled', async () => {
 		mockGetConfig.mockReturnValue({
+			product: 'test',
+			region: 'unknown',
 			vc: { enabled: true },
 			experimentalInteractionMetrics: { enabled: true },
-			product: 'test',
-			region: 'test',
 		});
 
 		const mockStop = jest.fn();
@@ -381,5 +231,170 @@ describe('getVCMetrics', () => {
 
 		await getVCMetrics(interaction);
 		expect(mockStop).toHaveBeenCalled();
+	});
+
+	// New test to ensure coverage for the platform_ufo_vc_enable_revisions_by_experience flag
+	it('should handle VC revisions by experience when the flag is enabled', async () => {
+		enabledFg.add('platform_ufo_vc_enable_revisions_by_experience');
+
+		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
+			typeof getMostRecentVCRevision
+		>;
+		mockGetMostRecentVCRevision.mockReturnValue('fy25.02');
+
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+		} as unknown as InteractionMetrics;
+
+		const expectedVCResult = {
+			'metrics:vc': { '90': 100 },
+			'ufo:vc:clean': true,
+			'metric:vc90': 100,
+		};
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toMatchObject(expectedVCResult);
+	});
+
+	// Ensure isVCRevisionEnabled is correctly tested for other scenarios
+	it('should handle isVCRevisionEnabled correctly for fy25.01', async () => {
+		const mockIsVCRevisionEnabled = isVCRevisionEnabled as jest.MockedFunction<
+			typeof isVCRevisionEnabled
+		>;
+		mockIsVCRevisionEnabled.mockReturnValue(false);
+
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+		} as unknown as InteractionMetrics;
+
+		const expectedVCResult = {
+			'metrics:vc': { '90': 100 },
+			'ufo:vc:clean': true,
+			'metric:vc90': 100, // This should reflect the fallback to fy25.02
+			'ufo:vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 100,
+					revision: 'fy25.01',
+				},
+				{
+					clean: true,
+					'metric:vc90': 100,
+					revision: 'fy25.02',
+				},
+			],
+		};
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toEqual(expectedVCResult);
+	});
+
+	it('should correctly handle clean and non-clean revisions', async () => {
+		mockGetVCObserver.mockReturnValue({
+			getVCResult: jest.fn().mockResolvedValue({
+				'ufo:vc:rev': [
+					{
+						clean: true,
+						'metric:vc90': 90,
+						revision: 'fy25.01',
+					},
+					{
+						clean: true,
+						'metric:vc90': 100,
+						revision: 'fy25.02',
+					},
+				],
+				'metrics:vc': { '90': 100 },
+				'ufo:vc:clean': true,
+			}),
+			stop: jest.fn(),
+		} as unknown as ReturnType<typeof getVCObserver>);
+
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+		} as unknown as InteractionMetrics;
+
+		const expectedVCResult = {
+			'metrics:vc': { '90': 100 },
+			'ufo:vc:clean': true,
+			'metric:vc90': 100, // The clean revision should be used
+			'ufo:vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 90,
+					revision: 'fy25.01',
+				},
+				{
+					clean: true,
+					'metric:vc90': 100,
+					revision: 'fy25.02',
+				},
+			],
+		};
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toEqual(expectedVCResult);
+	});
+
+	it('should not report VC metrics if interaction status is not succeeded and flag is set', async () => {
+		(getInteractionStatus as jest.Mock).mockReturnValue({
+			originalInteractionStatus: 'FAILED',
+		});
+		enabledFg.add('platform_ufo_no_vc_on_aborted');
+
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+		} as unknown as InteractionMetrics;
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toEqual({});
+	});
+
+	it('should use most recent VC revision from the experience key', async () => {
+		enabledFg.add('platform_ufo_vc_enable_revisions_by_experience');
+		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
+			typeof getMostRecentVCRevision
+		>;
+		mockGetMostRecentVCRevision.mockReturnValue('fy25.02');
+
+		const interaction: InteractionMetrics = {
+			type: 'page_load',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+		} as unknown as InteractionMetrics;
+
+		const expectedVCResult = {
+			'metrics:vc': { '90': 100 },
+			'ufo:vc:clean': true,
+			'metric:vc90': 100, // Should match the most recent VC revision
+			'ufo:vc:rev': [
+				{
+					clean: true,
+					'metric:vc90': 100,
+					revision: 'fy25.01',
+				},
+				{
+					clean: true,
+					'metric:vc90': 100,
+					revision: 'fy25.02',
+				},
+			],
+		};
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toEqual(expectedVCResult);
 	});
 });

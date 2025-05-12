@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 8.1.1
+
+### Patch Changes
+
+- [#152068](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152068)
+  [`8689483a3d0e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8689483a3d0e3) -
+  Add deprecation to featureFlags type and props within linking platform packages
+
 ## 8.1.0
 
 ### Minor Changes

@@ -1,11 +1,12 @@
 import type { VCObserverEntry } from '../types';
 
 export default class EntriesTimeline {
-	private unorderedEntries: VCObserverEntry[] = [];
+	private unorderedEntries: VCObserverEntry[];
+	private sortedEntriesCache: Map<string, WeakRef<VCObserverEntry[]>>;
 
-	private sortedEntriesCache = new Map<string, WeakRef<VCObserverEntry[]>>();
 	constructor() {
 		this.unorderedEntries = [];
+		this.sortedEntriesCache = new Map();
 	}
 
 	push(entry: VCObserverEntry) {

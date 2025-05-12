@@ -50,6 +50,7 @@ const JiraIssuesTableView = ({
 			summary: 180,
 			link: 350,
 			labels: 100,
+			priority: 200,
 		},
 	});
 

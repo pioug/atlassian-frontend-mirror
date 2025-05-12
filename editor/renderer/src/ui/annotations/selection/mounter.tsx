@@ -1,5 +1,13 @@
-import React, { useCallback, useState, useContext, useMemo } from 'react';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import React, { useCallback, useState, useContext, useMemo, useEffect } from 'react';
+
+import uuid from 'uuid/v4';
+
+import { type AnnotationId, AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type {
+	ApplyDraftResult,
+	ClearDraftResult,
+	StartDraftResult,
+} from '@atlaskit/editor-common/annotation';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	AnnotationByMatches,
@@ -18,6 +26,10 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { getRendererRangeInlineNodeNames } from '../../../actions/get-renderer-range-inline-node-names';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import {
+	useAnnotationManagerDispatch,
+	useAnnotationManagerState,
+} from '../contexts/AnnotationManagerContext';
 
 type Props = {
 	range: Range | null;
@@ -52,6 +64,8 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	const [draftDocumentPosition, setDraftDocumentPosition] = useState<Position | null>();
 
 	const actions = useContext(ActionsContext);
+	const { isDrafting, draftId } = useAnnotationManagerState();
+	const { annotationManager, dispatch } = useAnnotationManagerDispatch();
 
 	const inlineNodeTypes = useMemo(() => {
 		if (fg('annotations_defensive_node_name_calculations')) {
@@ -251,6 +265,194 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 		onCloseProps();
 	}, [onCloseProps, removeDraftModeCallback, createAnalyticsEvent, inlineNodeTypes]);
 
+	useEffect(() => {
+		if (fg('platform_editor_comments_api_manager')) {
+			const allowAnnotation = (): boolean => {
+				if (isDrafting) {
+					return false;
+				}
+				return isAnnotationAllowed;
+			};
+
+			annotationManager?.hook('allowAnnotation', allowAnnotation);
+			return () => {
+				annotationManager?.unhook('allowAnnotation', allowAnnotation);
+			};
+		}
+	}, [annotationManager, isAnnotationAllowed, isDrafting]);
+
+	useEffect(() => {
+		if (fg('platform_editor_comments_api_manager')) {
+			const startDraft = (): StartDraftResult => {
+				if (isDrafting) {
+					return {
+						success: false,
+						reason: 'draft-in-progress',
+					};
+				}
+
+				if (!actions.isValidAnnotationRange(range)) {
+					return {
+						success: false,
+						reason: 'invalid-range',
+					};
+				}
+
+				const id = uuid();
+				const result = applyDraftModeCallback({
+					annotationId: id,
+					keepNativeSelection: false,
+				});
+
+				if (!result) {
+					return {
+						success: false,
+						reason: 'invalid-range',
+					};
+				}
+
+				dispatch({
+					type: 'setDrafting',
+					data: {
+						isDrafting: true,
+						draftId: id,
+						draftActionResult: result,
+					},
+				});
+
+				dispatch({
+					type: 'resetSelectedAnnotation',
+				});
+
+				return {
+					success: true,
+					// We cannot get a ref to the target element here
+					// because the draft is not yet applied to the DOM
+					targetElement: undefined,
+					inlineNodeTypes: result.inlineNodeTypes ?? [],
+					actionResult: {
+						step: result.step,
+						doc: result.doc,
+						inlineNodeTypes: result.inlineNodeTypes,
+						targetNodeType: result.targetNodeType,
+						originalSelection: result.originalSelection,
+						numMatches: result.numMatches,
+						matchIndex: result.matchIndex,
+						pos: result.pos,
+					},
+				};
+			};
+
+			annotationManager?.hook('startDraft', startDraft);
+
+			return () => {
+				annotationManager?.unhook('startDraft', startDraft);
+			};
+		}
+	}, [annotationManager, isDrafting, applyDraftModeCallback, actions, range, dispatch]);
+
+	useEffect(() => {
+		if (fg('platform_editor_comments_api_manager')) {
+			const clearDraft = (): ClearDraftResult => {
+				if (!isDrafting) {
+					return {
+						success: false,
+						reason: 'draft-not-started',
+					};
+				}
+
+				dispatch({
+					type: 'setDrafting',
+					data: {
+						isDrafting: false,
+						draftId: undefined,
+						draftActionResult: undefined,
+					},
+				});
+
+				onCloseCallback();
+
+				return {
+					success: true,
+				};
+			};
+
+			annotationManager?.hook('clearDraft', clearDraft);
+
+			return () => {
+				annotationManager?.unhook('clearDraft', clearDraft);
+			};
+		}
+	}, [annotationManager, onCloseCallback, isDrafting, dispatch]);
+
+	useEffect(() => {
+		if (fg('platform_editor_comments_api_manager')) {
+			const applyDraft = (id: AnnotationId): ApplyDraftResult => {
+				if (!isDrafting || !draftId) {
+					return {
+						success: false,
+						reason: 'draft-not-started',
+					};
+				}
+
+				const result = onCreateCallback(id);
+				if (!result) {
+					return {
+						success: false,
+						reason: 'range-no-longer-exists',
+					};
+				}
+
+				onCloseCallback();
+
+				dispatch({
+					type: 'setDrafting',
+					data: {
+						isDrafting: false,
+						draftId: undefined,
+						draftActionResult: undefined,
+					},
+				});
+
+				dispatch({
+					type: 'updateAnnotation',
+					data: {
+						id,
+						selected: true,
+						markState: AnnotationMarkStates.ACTIVE,
+					},
+				});
+
+				return {
+					success: true,
+					targetElement: undefined,
+					actionResult:
+						id !== draftId
+							? {
+									step: result.step,
+									doc: result.doc,
+									inlineNodeTypes: result.inlineNodeTypes,
+									targetNodeType: result.targetNodeType,
+									originalSelection: result.originalSelection,
+									numMatches: result.numMatches,
+									matchIndex: result.matchIndex,
+									pos: result.pos,
+								}
+							: undefined,
+				};
+			};
+
+			annotationManager?.hook('applyDraft', applyDraft);
+
+			return () => {
+				annotationManager?.unhook('applyDraft', applyDraft);
+			};
+		}
+	}, [annotationManager, onCreateCallback, onCloseCallback, isDrafting, draftId, dispatch]);
+
+	// Please remove this NOP function when the flag platform_editor_comments_api_manager is removed.
+	const nop = useMemo(() => () => false, []);
+
 	return (
 		<Component
 			range={range}
@@ -259,11 +461,11 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			wrapperDOM={wrapperDOM.current as HTMLElement}
 			isAnnotationAllowed={isAnnotationAllowed}
-			onClose={onCloseCallback}
-			onCreate={onCreateCallback}
+			onClose={fg('platform_editor_comments_api_manager') ? nop : onCloseCallback}
+			onCreate={fg('platform_editor_comments_api_manager') ? nop : onCreateCallback}
 			getAnnotationIndexMatch={createIndexCallback}
-			applyDraftMode={applyDraftModeCallback}
-			removeDraftMode={removeDraftModeCallback}
+			applyDraftMode={fg('platform_editor_comments_api_manager') ? nop : applyDraftModeCallback}
+			removeDraftMode={fg('platform_editor_comments_api_manager') ? nop : removeDraftModeCallback}
 			inlineNodeTypes={inlineNodeTypes}
 		/>
 	);

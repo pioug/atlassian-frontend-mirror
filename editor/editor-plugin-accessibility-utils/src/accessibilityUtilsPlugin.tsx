@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import type {
@@ -84,43 +86,32 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
 	};
 };
 
+const useAccessibilityUtilsPluginState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined) => {
+		const ariaLiveElementAttributes = useSharedPluginStateSelector(
+			api,
+			'accessibilityUtils.ariaLiveElementAttributes',
+		);
+		const key = useSharedPluginStateSelector(api, 'accessibilityUtils.key');
+		const message = useSharedPluginStateSelector(api, 'accessibilityUtils.message');
+		return { ariaLiveElementAttributes, key, message };
+	},
+	(api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined) => {
+		const { accessibilityUtilsState } = useSharedPluginState(api, ['accessibilityUtils']);
+		return {
+			ariaLiveElementAttributes: accessibilityUtilsState?.ariaLiveElementAttributes,
+			key: accessibilityUtilsState?.key,
+			message: accessibilityUtilsState?.message,
+		};
+	},
+);
+
 function ContentComponent({
 	api,
 }: {
 	api: ExtractInjectionAPI<AccessibilityUtilsPlugin> | undefined;
 }) {
-	const { accessibilityUtilsState } = useSharedPluginState(api, ['accessibilityUtils'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	const ariaLiveElementAttributesSelector = useSharedPluginStateSelector(
-		api,
-		'accessibilityUtils.ariaLiveElementAttributes',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const ariaLiveElementAttributes = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? ariaLiveElementAttributesSelector
-		: accessibilityUtilsState?.ariaLiveElementAttributes;
-
-	const keySelector = useSharedPluginStateSelector(api, 'accessibilityUtils.key', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const key = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? keySelector
-		: accessibilityUtilsState?.key;
-
-	const messageSelector = useSharedPluginStateSelector(api, 'accessibilityUtils.message', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const message = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? messageSelector
-		: accessibilityUtilsState?.message;
-
+	const { ariaLiveElementAttributes, key, message } = useAccessibilityUtilsPluginState(api);
 	const role = ariaLiveElementAttributes?.priority === 'important' ? 'alert' : 'status';
 
 	return (

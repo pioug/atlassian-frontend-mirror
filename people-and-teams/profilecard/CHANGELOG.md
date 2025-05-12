@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 23.11.0
+
+### Minor Changes
+
+- [#152660](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152660)
+  [`0c6554631c783`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c6554631c783) -
+  [ux] add a loading prop for the more icon button
+
+## 23.10.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.10.7
 
 ### Patch Changes

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.13.9
+
+### Patch Changes
+
+- [#151481](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151481)
+  [`57d45d9fbcb6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57d45d9fbcb6d) -
+  Remove FG platform_editor_controls_sticky_mask
+- Updated dependencies
+
+## 3.13.8
+
+### Patch Changes
+
+- [#152650](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152650)
+  [`d5514d2d48aef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5514d2d48aef) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+
+## 3.13.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.13.6
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 4.9.3
+
+### Patch Changes
+
+- [#150802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150802)
+  [`8e884525a16fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e884525a16fa) -
+  [ux] Behind fg `platform-linking-visual-refresh-sllv` - Fixed issues with loading error and table
+  footer paddings
+- Updated dependencies
+
+## 4.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.9.1
 
 ### Patch Changes

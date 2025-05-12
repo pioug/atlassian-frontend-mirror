@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react';
 
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
@@ -9,6 +12,7 @@ import type {
 	QuickInsertSearchOptions,
 	QuickInsertSharedState,
 } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -33,7 +37,12 @@ const Modal = ({
 	api,
 }: {
 	editorView: EditorView;
-	quickInsertState: QuickInsertSharedState | undefined;
+	quickInsertState: {
+		lazyDefaultItems?: QuickInsertSharedState['lazyDefaultItems'];
+		providedItems?: QuickInsertSharedState['providedItems'];
+		isElementBrowserModalOpen?: QuickInsertSharedState['isElementBrowserModalOpen'];
+		emptyStateHandler?: QuickInsertSharedState['emptyStateHandler'];
+	};
 	isOffline: boolean;
 	api: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
 	helpUrl?: string;
@@ -53,12 +62,7 @@ const Modal = ({
 			}) ?? [],
 		// See: https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/157796/overview?commentId=8559952
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[
-			getSuggestions,
-			quickInsertState?.lazyDefaultItems,
-			quickInsertState?.providedItems,
-			isOffline,
-		],
+		[getSuggestions, quickInsertState.lazyDefaultItems, quickInsertState.providedItems, isOffline],
 	);
 
 	const focusInEditor = useCallback(() => {
@@ -109,8 +113,8 @@ const Modal = ({
 			getItems={getItems}
 			onInsertItem={onInsertItem}
 			helpUrl={helpUrl}
-			isOpen={quickInsertState?.isElementBrowserModalOpen || false}
-			emptyStateHandler={quickInsertState?.emptyStateHandler}
+			isOpen={quickInsertState.isElementBrowserModalOpen || false}
+			emptyStateHandler={quickInsertState.emptyStateHandler}
 			onClose={onClose}
 			onCloseComplete={onCloseComplete}
 			shouldReturnFocus={false}
@@ -118,18 +122,54 @@ const Modal = ({
 	);
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<QuickInsertPlugin> | undefined) => {
+		const lazyDefaultItems = useSharedPluginStateSelector(api, 'quickInsert.lazyDefaultItems');
+		const providedItems = useSharedPluginStateSelector(api, 'quickInsert.providedItems');
+		const isElementBrowserModalOpen = useSharedPluginStateSelector(
+			api,
+			'quickInsert.isElementBrowserModalOpen',
+		);
+		const emptyStateHandler = useSharedPluginStateSelector(api, 'quickInsert.emptyStateHandler');
+		const mode = useSharedPluginStateSelector(api, 'connectivity.mode');
+		return {
+			mode,
+			lazyDefaultItems,
+			providedItems,
+			isElementBrowserModalOpen,
+			emptyStateHandler,
+		};
+	},
+	(api: ExtractInjectionAPI<QuickInsertPlugin> | undefined) => {
+		const { quickInsertState, connectivityState } = useSharedPluginState(api, [
+			'quickInsert',
+			'connectivity',
+		]);
+		return {
+			lazyDefaultItems: quickInsertState?.lazyDefaultItems,
+			providedItems: quickInsertState?.providedItems,
+			isElementBrowserModalOpen: quickInsertState?.isElementBrowserModalOpen,
+			emptyStateHandler: quickInsertState?.emptyStateHandler,
+			mode: connectivityState?.mode,
+		};
+	},
+);
+
 export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
-	const { quickInsertState, connectivityState } = useSharedPluginState(pluginInjectionAPI, [
-		'quickInsert',
-		'connectivity',
-	]);
+	const { lazyDefaultItems, providedItems, isElementBrowserModalOpen, emptyStateHandler, mode } =
+		useSharedState(pluginInjectionAPI);
 
 	return (
 		<Modal
-			quickInsertState={quickInsertState ?? undefined}
+			quickInsertState={{
+				lazyDefaultItems,
+				providedItems,
+				isElementBrowserModalOpen,
+				emptyStateHandler,
+			}}
 			editorView={editorView}
 			helpUrl={helpUrl}
-			isOffline={connectivityState?.mode === 'offline'}
+			isOffline={mode === 'offline'}
 			insertItem={pluginInjectionAPI?.quickInsert?.actions?.insertItem}
 			getSuggestions={pluginInjectionAPI?.quickInsert?.actions?.getSuggestions}
 			api={pluginInjectionAPI}

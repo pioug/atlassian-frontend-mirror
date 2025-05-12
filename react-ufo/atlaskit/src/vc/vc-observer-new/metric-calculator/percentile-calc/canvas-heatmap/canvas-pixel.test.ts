@@ -1,8 +1,14 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { calculateDrawnPixelsRaw, getRGBComponents, ViewportCanvas } from './canvas-pixel';
 
 jest.mock('../../utils/task-yield', () => {
 	return jest.fn(() => Promise.resolve());
 });
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
 
 // Mock canvas and context
 const mockGetContext = jest.fn();
@@ -11,48 +17,130 @@ const mockFillRect = jest.fn();
 const mockScale = jest.fn();
 const mockGetImageData = jest.fn();
 
-// Mock canvas element
-class MockCanvas {
+// Mock OffscreenCanvas
+class MockOffscreenCanvas {
 	width: number = 0;
 	height: number = 0;
 	getContext = mockGetContext;
 }
 
-// Mock context
+const mockOffscreenCanvas = jest.fn().mockImplementation(() => {
+	return new MockOffscreenCanvas();
+});
+
+// Mock HTMLCanvasElement
+class MockHTMLCanvasElement {
+	width: number = 0;
+	height: number = 0;
+	getContext = mockGetContext;
+}
+
+// Mock OffscreenCanvasRenderingContext2D and CanvasRenderingContext2D
 const mockContext = {
 	clearRect: mockClearRect,
 	fillRect: mockFillRect,
 	scale: mockScale,
 	getImageData: mockGetImageData,
+	globalCompositeOperation: 'source-over',
+	imageSmoothingEnabled: true, // Default to true
 };
 
-// Mock document.createElement
-document.createElement = jest.fn().mockImplementation((tagName) => {
-	if (tagName === 'canvas') {
-		return new MockCanvas();
-	}
-	return null;
+// Mock document.createElement for HTMLCanvasElement
+const mockCreateElement = jest.fn().mockImplementation(() => {
+	return new MockHTMLCanvasElement();
 });
+
+// Mock document
+if (!global.document) {
+	global.document = {} as any;
+}
+global.document.createElement = mockCreateElement;
 
 describe('ViewportCanvas', () => {
 	beforeEach(() => {
 		// Reset all mocks before each test
 		jest.clearAllMocks();
 		mockGetContext.mockReturnValue(mockContext);
+		(fg as jest.Mock).mockReturnValue(false); // Default to feature flag disabled
+		mockContext.imageSmoothingEnabled = true; // Reset to default
 	});
 
-	test('should create instance with correct dimensions', () => {
-		const viewport = { width: 200, height: 150 };
-		const scaleFactor = 0.5;
-		const canvas = new ViewportCanvas(viewport, scaleFactor);
+	describe('when OffscreenCanvas is available', () => {
+		beforeEach(() => {
+			// Ensure OffscreenCanvas is defined
+			(global as any).OffscreenCanvas = mockOffscreenCanvas;
+		});
 
-		// Access private properties for testing (using any type assertion)
-		const scaledDimensions = canvas.getScaledDimensions();
-		expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));
-		expect(scaledDimensions.height).toBe(Math.ceil(viewport.height * scaleFactor));
+		test('should create instance with OffscreenCanvas and disable image smoothing when feature flag is enabled', () => {
+			(fg as jest.Mock).mockReturnValue(true);
+			const viewport = { width: 200, height: 150 };
+			const scaleFactor = 0.5;
+			const canvas = new ViewportCanvas(viewport, scaleFactor);
+
+			expect(mockOffscreenCanvas).toHaveBeenCalled();
+			expect(mockCreateElement).not.toHaveBeenCalled();
+			expect(mockContext.imageSmoothingEnabled).toBe(false);
+
+			const scaledDimensions = canvas.getScaledDimensions();
+			expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));
+			expect(scaledDimensions.height).toBe(Math.ceil(viewport.height * scaleFactor));
+		});
+
+		test('should create instance with HTMLCanvasElement and keep image smoothing enabled when feature flag is disabled', () => {
+			(fg as jest.Mock).mockReturnValue(false);
+			const viewport = { width: 200, height: 150 };
+			const scaleFactor = 0.5;
+			const canvas = new ViewportCanvas(viewport, scaleFactor);
+
+			expect(mockCreateElement).toHaveBeenCalledWith('canvas');
+			expect(mockCreateElement).toHaveBeenCalledTimes(1);
+			expect(mockContext.imageSmoothingEnabled).toBe(true);
+
+			const scaledDimensions = canvas.getScaledDimensions();
+			expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));
+			expect(scaledDimensions.height).toBe(Math.ceil(viewport.height * scaleFactor));
+		});
+
+		test('should fallback to HTMLCanvasElement when feature flag is disabled', () => {
+			(fg as jest.Mock).mockReturnValue(false);
+			const viewport = { width: 200, height: 150 };
+			const scaleFactor = 0.5;
+			const canvas = new ViewportCanvas(viewport, scaleFactor);
+
+			expect(mockCreateElement).toHaveBeenCalledWith('canvas');
+			expect(mockCreateElement).toHaveBeenCalledTimes(1);
+
+			const scaledDimensions = canvas.getScaledDimensions();
+			expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));
+			expect(scaledDimensions.height).toBe(Math.ceil(viewport.height * scaleFactor));
+		});
+	});
+
+	describe('when OffscreenCanvas is not available', () => {
+		beforeEach(() => {
+			// Remove OffscreenCanvas
+			delete (global as any).OffscreenCanvas;
+			// Reset mockCreateElement to ensure it's called
+			mockCreateElement.mockClear();
+		});
+
+		test('should fallback to HTMLCanvasElement', () => {
+			const viewport = { width: 200, height: 150 };
+			const scaleFactor = 0.5;
+			const canvas = new ViewportCanvas(viewport, scaleFactor);
+
+			expect(mockCreateElement).toHaveBeenCalledWith('canvas');
+			expect(mockCreateElement).toHaveBeenCalledTimes(1);
+
+			const scaledDimensions = canvas.getScaledDimensions();
+			expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));
+			expect(scaledDimensions.height).toBe(Math.ceil(viewport.height * scaleFactor));
+		});
 	});
 
 	test('should throw error when canvas context is not available', () => {
+		// Ensure OffscreenCanvas is available but context is null
+		(global as any).OffscreenCanvas = mockOffscreenCanvas;
 		mockGetContext.mockReturnValue(null);
 
 		expect(() => {
@@ -66,7 +154,6 @@ describe('ViewportCanvas', () => {
 			const scaleFactor = 0.25;
 			const canvas = new ViewportCanvas(viewport, scaleFactor);
 
-			// Access private properties for testing (using any type assertion)
 			const scaledDimensions = canvas.getScaledDimensions();
 			expect(scaledDimensions.width).toBe(1);
 			expect(scaledDimensions.height).toBe(1);

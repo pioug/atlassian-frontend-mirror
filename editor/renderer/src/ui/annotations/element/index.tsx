@@ -5,13 +5,16 @@ import {
 	AnnotationMarkStates,
 	type AnnotationTypes,
 } from '@atlaskit/adf-schema';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { MarkComponent } from './mark';
 import { useInlineCommentsFilter } from '../hooks/use-inline-comments-filter';
 import { useInlineCommentSubscriberContext } from '../hooks/use-inline-comment-subscriber';
 import { useHasFocusEvent } from '../hooks/use-events';
 import { InlineCommentsStateContext } from '../context';
-import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
+import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 
 type MarkElementProps = React.PropsWithChildren<{
 	id: AnnotationId;
@@ -32,6 +35,8 @@ const MarkElement = ({
 	const states = useContext(InlineCommentsStateContext);
 	const { hasFocus, isHovered } = useHasFocusEvent({ id, updateSubscriber });
 	const dataAttributesMemorized = useMemo(() => dataAttributes, [dataAttributes]);
+	const { dispatch, annotationManager } = useAnnotationManagerDispatch();
+
 	const onClick = useCallback(
 		(props: OnAnnotationClickPayload) => {
 			if (!updateSubscriber) {
@@ -43,12 +48,45 @@ const MarkElement = ({
 			}
 
 			const { eventTarget, annotationIds } = props;
-			updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
-				annotationIds,
-				eventTarget,
-			});
+
+			if (fg('platform_editor_comments_api_manager')) {
+				if (hasFocus) {
+					return;
+				}
+
+				annotationManager
+					?.checkPreemptiveGate()
+					.then((canSelect) => {
+						if (canSelect) {
+							dispatch({
+								type: 'updateAnnotation',
+								data: {
+									id: annotationIds[0],
+									selected: true,
+								},
+							});
+
+							dispatch({
+								type: 'setSelectedMarkRef',
+								data: {
+									markRef: eventTarget,
+								},
+							});
+						} else {
+							// TODO: EDITOR-595 - If the preemptive gate returns false, should we track the analytics event?
+						}
+					})
+					.catch((error) => {
+						// TODO: EDITOR-595 - An error occurred while checking the preemptive gate. We should report this error.
+					});
+			} else {
+				updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
+					annotationIds,
+					eventTarget,
+				});
+			}
 		},
-		[updateSubscriber, useBlockLevel],
+		[updateSubscriber, useBlockLevel, dispatch, annotationManager, hasFocus],
 	);
 
 	const activeParentIds = useInlineCommentsFilter({

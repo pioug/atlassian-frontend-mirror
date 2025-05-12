@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 3.1.5
+
+### Patch Changes
+
+- [#151999](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151999)
+  [`daf7c638efb95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf7c638efb95) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
+## 3.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.3
 
 ### Patch Changes

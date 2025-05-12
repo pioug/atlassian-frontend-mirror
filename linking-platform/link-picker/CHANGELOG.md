@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 3.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.2
 
 ### Patch Changes

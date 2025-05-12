@@ -118,6 +118,7 @@ export default class PostInteractionLog {
 			isEventAborted: !!this.lastInteractionFinish.abortReason,
 			prefix: 'ufo',
 			...this.vcObserverSSRConfig,
+			experienceKey: this.lastInteractionFinish.ufoName,
 		});
 
 		if (getConfig()?.experimentalInteractionMetrics?.enabled) {

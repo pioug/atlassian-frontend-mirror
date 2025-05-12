@@ -420,6 +420,11 @@ export const SUPPORTED_LANGUAGES = [
 		value: 'handlebars',
 	},
 	{
+		name: 'Gherkin',
+		alias: ['gherkin', 'cucumber'],
+		value: 'gherkin',
+	},
+	{
 		name: 'ABAP',
 		alias: ['abap'],
 		value: 'abap',

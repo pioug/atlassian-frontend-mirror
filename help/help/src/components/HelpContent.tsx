@@ -19,7 +19,7 @@ import HelpContentButton from './HelpContentButton';
 import BackButton from './BackButton';
 import { NeedMoreHelp } from './NeedMoreHelp';
 import type { Props as HelpContentButtonProps } from './HelpContentButton';
-import { HelpBodyContainer, HelpBody, Home, HomeAi, HelpBodyAi } from './styled';
+import { HelpBodyContainer, HelpBody, Home, HomeAi, HelpBodyAi, StyledUl } from './styled';
 import { HelpFooter } from './styled';
 import { Tabs } from './Tabs';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
@@ -114,13 +114,15 @@ export const HelpContent: React.FC<HelpContentInterface & WrappedComponentProps>
 								isOverlayVisible={isOverlayVisible}
 							>
 								{homeContent}
-								{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
-									<WhatsNewButton productName={productName} />
-								)}
-								{homeOptions &&
-									homeOptions.map((defaultOption: HelpContentButtonProps) => {
-										return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
-									})}
+								<StyledUl>
+									{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
+										<WhatsNewButton productName={productName} />
+									)}
+									{homeOptions &&
+										homeOptions.map((defaultOption: HelpContentButtonProps) => {
+											return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
+										})}
+								</StyledUl>
 							</HomeAi>
 						</HelpBodyAi>
 						<WhatsNewResults />
@@ -149,13 +151,15 @@ export const HelpContent: React.FC<HelpContentInterface & WrappedComponentProps>
 					<ArticleComponent />
 					<Home isOverlayFullyVisible={isOverlayFullyVisible} isOverlayVisible={isOverlayVisible}>
 						{homeContent}
-						{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
-							<WhatsNewButton productName={productName} />
-						)}
-						{homeOptions &&
-							homeOptions.map((defaultOption: HelpContentButtonProps) => {
-								return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
-							})}
+						<StyledUl>
+							{onSearchWhatsNewArticles && onGetWhatsNewArticle && (
+								<WhatsNewButton productName={productName} />
+							)}
+							{homeOptions &&
+								homeOptions.map((defaultOption: HelpContentButtonProps) => {
+									return <HelpContentButton key={defaultOption.id} {...defaultOption} />;
+								})}
+						</StyledUl>
 					</Home>
 				</HelpBody>
 				<WhatsNewResults />

@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.11.0
+
+### Minor Changes
+
+- [#152178](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152178)
+  [`b61bda55f25b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b61bda55f25b4) -
+  Enable TTVC revision logic by experience
+
+## 3.10.4
+
+### Patch Changes
+
+- [#152686](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152686)
+  [`d4b943e998cff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4b943e998cff) -
+  AFO-3823 improve VCObserverNew perf overhead
+
 ## 3.10.3
 
 ### Patch Changes

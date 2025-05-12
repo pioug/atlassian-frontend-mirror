@@ -229,6 +229,7 @@ export const TeamProfileCard = ({
 						teamProfileUrl={teamProfileUrl}
 						cloudId={cloudId}
 						teamId={teamId}
+						loading={loading}
 						{...props}
 					/>
 				) : (

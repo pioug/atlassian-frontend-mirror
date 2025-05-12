@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { AssetsClassification, InteractionMetrics, InteractionType } from '../common';
 
 let config: Config | undefined;
@@ -93,7 +95,17 @@ export type Config = {
 		readonly ssr?: boolean;
 		readonly ssrWhitelist?: string[];
 		readonly stopVCAtInteractionFinish?: boolean;
-		readonly enabledVCRevisions?: readonly TTVCRevisions[];
+		/**
+		 * The revisions of TTVC that will be calculated
+		 * - `all` is the TTVC revisions that are used on a product level
+		 * - `byExperience` is the version that is used on an experience level.
+		 *   Note that an entry in the `byExperience` config should only be a SUBSET of the `all` config,
+		 *   i.e. every element for all `byExperience` entry configs should exist in the `all` config
+		 */
+		readonly enabledVCRevisions?: {
+			all: readonly TTVCRevisions[];
+			byExperience?: Record<string, readonly TTVCRevisions[]>;
+		};
 	};
 	readonly postInteractionLog?: {
 		readonly enabled?: boolean;
@@ -118,24 +130,64 @@ export type Config = {
 };
 
 export function setUFOConfig(newConfig: Config) {
-	config = newConfig;
+	if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+		// Handle edge cases with `enabledVCRevisions`
+		const { enabledVCRevisions } = newConfig?.vc ?? {};
+		if (typeof enabledVCRevisions?.byExperience === 'object') {
+			config = {
+				...newConfig,
+				vc: {
+					...newConfig.vc,
+					enabledVCRevisions: {
+						// enforce axiom about `enabledVCRevisions.all` config
+						all: Array.from(
+							new Set([
+								DEFAULT_TTVC_REVISION,
+								...enabledVCRevisions?.all,
+								...Object.values(enabledVCRevisions?.byExperience).flat(),
+							]),
+						),
+						byExperience: { ...enabledVCRevisions?.byExperience },
+					},
+				},
+			};
+		} else {
+			config = newConfig;
+		}
+	} else {
+		config = newConfig;
+	}
 }
 
 export function getConfig() {
 	return config;
 }
 
-export function getEnabledVCRevisions(): TTVCRevisions[] {
+const isValidConfigArray = <T>(array: any): array is T[] => {
+	return Array.isArray(array) && array.length > 0;
+};
+
+export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVCRevisions[] {
 	try {
 		if (!config) {
 			return [];
 		}
 
 		if (config.vc?.enabled) {
-			return Array.isArray(config.vc?.enabledVCRevisions) &&
-				config.vc?.enabledVCRevisions.length > 0
-				? config.vc.enabledVCRevisions
-				: [DEFAULT_TTVC_REVISION];
+			const { enabledVCRevisions } = config.vc ?? {};
+
+			if (
+				isValidConfigArray(enabledVCRevisions?.byExperience?.[experienceKey]) &&
+				fg('platform_ufo_vc_enable_revisions_by_experience')
+			) {
+				return enabledVCRevisions.byExperience?.[experienceKey];
+			}
+
+			if (isValidConfigArray(enabledVCRevisions?.all)) {
+				return enabledVCRevisions.all;
+			}
+
+			return [DEFAULT_TTVC_REVISION];
 		}
 
 		return [];
@@ -144,8 +196,14 @@ export function getEnabledVCRevisions(): TTVCRevisions[] {
 	}
 }
 
-export function isVCRevisionEnabled(revision: TTVCRevisions) {
-	return getEnabledVCRevisions().includes(revision);
+export function isVCRevisionEnabled(revision: TTVCRevisions, experienceKey?: string) {
+	return getEnabledVCRevisions(experienceKey).includes(revision);
+}
+
+export function getMostRecentVCRevision(experienceKey: string = '') {
+	const enabledVCRevisions = getEnabledVCRevisions(experienceKey);
+
+	return enabledVCRevisions[enabledVCRevisions.length - 1];
 }
 
 export function getInteractionRate(name: string, interactionKind: InteractionKind): number {

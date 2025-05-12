@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 
 import type {
@@ -18,6 +18,11 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
+import { fg } from '@atlaskit/platform-feature-flags';
+import {
+	useAnnotationManagerDispatch,
+	useAnnotationManagerState,
+} from '../contexts/AnnotationManagerContext';
 
 type ListenEventProps = {
 	id: AnnotationId;
@@ -35,6 +40,8 @@ export const useAnnotationStateByTypeEvent = ({
 	updateSubscriber,
 }: UseAnnotationUpdateSatteByEventProps) => {
 	const [states, setStates] = useState<Record<AnnotationId, AnnotationMarkStates | null>>({});
+	const { dispatch } = useAnnotationManagerDispatch();
+	const { annotations } = useAnnotationManagerState();
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber) {
@@ -70,19 +77,38 @@ export const useAnnotationStateByTypeEvent = ({
 			});
 		};
 
-		updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_STATE, cb);
+		if (!fg('platform_editor_comments_api_manager')) {
+			updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_STATE, cb);
 
-		return () => {
-			updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_STATE, cb);
-		};
-	}, [states, type, updateSubscriber]);
+			return () => {
+				updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_STATE, cb);
+			};
+		}
+	}, [states, type, updateSubscriber, dispatch]);
 
-	return states;
+	const annotationMarkStates = useMemo(() => {
+		return Object.values(annotations).reduce<Record<AnnotationId, AnnotationMarkStates | null>>(
+			(acc, curr) => {
+				return {
+					...acc,
+					[curr.id]: curr.markState,
+				};
+			},
+			{},
+		);
+	}, [annotations]);
+
+	if (fg('platform_editor_comments_api_manager')) {
+		return annotationMarkStates;
+	} else {
+		return states;
+	}
 };
 
 export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => {
 	const [hasFocus, setHasFocus] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
+	const { currentSelectedAnnotationId, currentHoveredAnnotationId } = useAnnotationManagerState();
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber) {
@@ -115,23 +141,35 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 			}
 		};
 
-		updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
-		updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_HOVERED, callbackForHoveredAnnotation);
-		updateSubscriber.on(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
-		updateSubscriber.on(AnnotationUpdateEvent.REMOVE_ANNOTATION_HOVERED, removeHoverEffect);
-
-		return () => {
-			updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
-			updateSubscriber.off(
+		if (!fg('platform_editor_comments_api_manager')) {
+			updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
+			updateSubscriber.on(
 				AnnotationUpdateEvent.SET_ANNOTATION_HOVERED,
 				callbackForHoveredAnnotation,
 			);
-			updateSubscriber.off(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
-			updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_HOVERED, removeHoverEffect);
-		};
+			updateSubscriber.on(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
+			updateSubscriber.on(AnnotationUpdateEvent.REMOVE_ANNOTATION_HOVERED, removeHoverEffect);
+
+			return () => {
+				updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
+				updateSubscriber.off(
+					AnnotationUpdateEvent.SET_ANNOTATION_HOVERED,
+					callbackForHoveredAnnotation,
+				);
+				updateSubscriber.off(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
+				updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_HOVERED, removeHoverEffect);
+			};
+		}
 	}, [id, updateSubscriber]);
 
-	return { hasFocus, isHovered };
+	if (fg('platform_editor_comments_api_manager')) {
+		return {
+			hasFocus: currentSelectedAnnotationId === id,
+			isHovered: currentHoveredAnnotationId === id,
+		};
+	} else {
+		return { hasFocus, isHovered };
+	}
 };
 
 type AnnotationsWithClickTarget = Pick<
@@ -145,6 +183,24 @@ export const useAnnotationClickEvent = (
 	const [annotationClickEvent, setAnnotationClickEvent] =
 		useState<AnnotationsWithClickTarget>(null);
 	const { updateSubscriber, createAnalyticsEvent, isNestedRender } = props;
+
+	const { currentSelectedAnnotationId, currentSelectedMarkRef } = useAnnotationManagerState();
+	const selectedAnnotation = useMemo(() => {
+		return currentSelectedAnnotationId && currentSelectedMarkRef
+			? {
+					annotations: [
+						{
+							id: currentSelectedAnnotationId,
+							type: AnnotationTypes.INLINE_COMMENT,
+						},
+					],
+					clickElementTarget: currentSelectedMarkRef,
+				}
+			: {
+					annotations: [],
+					clickElementTarget: undefined,
+				};
+	}, [currentSelectedAnnotationId, currentSelectedMarkRef]);
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber || isNestedRender) {
@@ -194,14 +250,20 @@ export const useAnnotationClickEvent = (
 			}
 		};
 
-		updateSubscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
-		updateSubscriber.on(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
+		if (!fg('platform_editor_comments_api_manager')) {
+			updateSubscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
+			updateSubscriber.on(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 
-		return () => {
-			updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
-			updateSubscriber.off(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
-		};
+			return () => {
+				updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
+				updateSubscriber.off(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
+			};
+		}
 	}, [updateSubscriber, createAnalyticsEvent, isNestedRender]);
 
-	return annotationClickEvent;
+	if (fg('platform_editor_comments_api_manager')) {
+		return selectedAnnotation;
+	} else {
+		return annotationClickEvent;
+	}
 };

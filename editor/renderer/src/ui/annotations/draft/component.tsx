@@ -2,10 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token } from '@atlaskit/tokens';
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
+import { token } from '@atlaskit/tokens';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 import type { Position } from '../types';
 import { InsertDraftPosition } from '../types';
@@ -13,11 +15,11 @@ import { AnnotationsDraftContext } from '../context';
 import { splitText, calcTextSplitOffset, findTextString } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
-import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 import type { TextHighlighter } from '../../../react/types';
 import { segmentText } from '../../../react/utils/segment-text';
 import { renderTextSegments } from '../../../react/utils/render-text-segments';
+import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 
 // Localized AnnotationSharedCSSByState().common and AnnotationSharedCSSByState().focus
 const markStyles = css({
@@ -44,6 +46,20 @@ export const AnnotationDraft = ({
 	draftPosition,
 	children,
 }: React.PropsWithChildren<{ draftPosition: Position }>) => {
+	const { dispatch } = useAnnotationManagerDispatch();
+
+	const markRef = useCallback(
+		(node: HTMLElement | null) => {
+			dispatch({
+				type: 'setDraftMarkRef',
+				data: {
+					draftMarkRef: node ?? undefined,
+				},
+			});
+		},
+		[dispatch],
+	);
+
 	return (
 		<mark
 			data-renderer-mark={true}
@@ -51,6 +67,7 @@ export const AnnotationDraft = ({
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...dataAttributes(draftPosition)}
 			css={markStyles}
+			ref={markRef}
 		>
 			{children}
 		</mark>

@@ -32,8 +32,10 @@ const styles = cssMap({
 		gap: token('space.200', '16px'),
 		placeItems: 'center',
 		placeSelf: 'center',
-		maxWidth: '304px',
+		maxWidth: '400px',
 		textAlign: 'center',
+		paddingInline: token('space.600'),
+		paddingBlock: token('space.600'),
 	},
 	errorMessageContainerStyles: {
 		display: 'grid',

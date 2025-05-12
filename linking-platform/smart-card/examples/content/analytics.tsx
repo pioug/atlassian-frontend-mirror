@@ -25,6 +25,14 @@ type ExampleComponentProps = {
 };
 
 const ExampleComponent = ({ setRecentEvents }: ExampleComponentProps): JSX.Element => {
+	const handleOnClick = React.useCallback(
+		(e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => {
+			e.preventDefault();
+			return;
+		},
+		[],
+	);
+
 	return (
 		<AnalyticsListener
 			onEvent={(event) => {
@@ -48,6 +56,7 @@ const ExampleComponent = ({ setRecentEvents }: ExampleComponentProps): JSX.Eleme
 						appearance="inline"
 						platform="web"
 						showHoverPreview={true}
+						onClick={handleOnClick}
 					/>
 				</SmartCardProvider>
 			</AnalyticsContext>

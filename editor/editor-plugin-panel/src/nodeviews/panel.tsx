@@ -5,7 +5,10 @@ import uuid from 'uuid/v4';
 import type { PanelAttributes } from '@atlaskit/adf-schema';
 import { PanelType } from '@atlaskit/adf-schema';
 import { Emoji } from '@atlaskit/editor-common/emoji';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import {
 	PanelErrorIcon,
 	PanelInfoIcon,
@@ -21,6 +24,7 @@ import type {
 	getPosHandler,
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -52,10 +56,16 @@ interface PanelIconAttributes {
 	pluginInjectionApi: ExtractInjectionAPI<PanelPlugin> | undefined;
 }
 
-const useEmojiProvider = (pluginInjectionApi: ExtractInjectionAPI<PanelPlugin> | undefined) => {
-	const { emojiState } = useSharedPluginState(pluginInjectionApi, ['emoji']);
-	return emojiState?.emojiProvider;
-};
+const useEmojiProvider = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<PanelPlugin> | undefined) => {
+		const emojiProvider = useSharedPluginStateSelector(api, 'emoji.emojiProvider');
+		return emojiProvider;
+	},
+	(api: ExtractInjectionAPI<PanelPlugin> | undefined) => {
+		const { emojiState } = useSharedPluginState(api, ['emoji']);
+		return emojiState?.emojiProvider;
+	},
+);
 
 export const PanelIcon = (props: PanelIconAttributes) => {
 	const {

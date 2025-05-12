@@ -157,6 +157,31 @@ const MyComponent = () => (
 );`);
 	});
 
+	it('should transform Pressable props to xcss', async () => {
+		const input = `
+import { Pressable } from '@atlaskit/primitives';
+
+const MyComponent = () => (
+	<Pressable backgroundColor="blue" padding="8px" paddingBlock="16px" />
+);
+`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
+import { Pressable } from "@atlaskit/primitives/compiled";
+
+const pressableStyles = cssMap({
+    root: {
+        backgroundColor: "blue",
+        padding: "8px",
+        paddingBlock: "16px"
+    }
+});
+
+const MyComponent = () => (
+	<Pressable xcss={pressableStyles.root} />
+);`);
+	});
+
 	it('should handle components with existing xcss prop', async () => {
 		const input = `
 import { Grid } from '@atlaskit/primitives';

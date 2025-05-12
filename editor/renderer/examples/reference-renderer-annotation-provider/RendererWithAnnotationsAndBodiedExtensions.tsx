@@ -2,11 +2,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+import React, {
+	type ChangeEvent,
+	useCallback,
+	useContext,
+	useState,
+	useEffect,
+	useRef,
+} from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import { type AnnotationMarkStates, type DocNode } from '@atlaskit/adf-schema';
+import Button from '@atlaskit/button/new';
+import { Checkbox } from '@atlaskit/checkbox';
+import { token } from '@atlaskit/tokens';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
 
 import { RendererWithAnalytics, AnnotationsWrapper, ReactRenderer } from '../../src/';
 
@@ -16,6 +33,23 @@ import {
 	useExampleRendererAnnotationProvider,
 } from './example-renderer-annotation-provider';
 import { RendererActionsContext } from '../../src/actions';
+
+const toolbarStyle = css({
+	display: 'flex',
+	flexDirection: 'row',
+	alignItems: 'center',
+	gap: token('space.100', '8px'),
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
+	borderBottom: `1px solid ${token('color.border')}`,
+});
+
+const toolbarSection = css({
+	display: 'flex',
+	gap: token('space.025', '2px'),
+});
 
 function BodiedExtensionRenderer({
 	localRef,
@@ -36,6 +70,7 @@ function BodiedExtensionRenderer({
 			viewComponent: () => null,
 			...originalAnnotationProps,
 		},
+		annotationManagaer: annotationProvider.annotationManager,
 	};
 	return (
 		<AnnotationsWrapper
@@ -57,19 +92,102 @@ function BodiedExtensionRenderer({
 	);
 }
 
+const AppHeader = ({
+	annotationProvider,
+}: {
+	annotationProvider: ReturnType<
+		typeof useExampleRendererAnnotationProvider
+	>['rendererAnnotationProvider'];
+}) => {
+	const [modalProps, setModalProps] = useState<
+		{ onConfirm: () => void; onCancel: () => void } | undefined
+	>(undefined);
+	const [unsavedChanges, setUnsavedChanges] = useState(false);
+	const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+		setUnsavedChanges((current) => !current);
+	}, []);
+	const openModal = useCallback((endProps: { onConfirm: () => void; onCancel: () => void }) => {
+		setModalProps(endProps);
+	}, []);
+
+	const cancelModal = useCallback(() => {
+		modalProps?.onCancel();
+		setModalProps(undefined);
+	}, [modalProps]);
+
+	const discardModal = useCallback(() => {
+		modalProps?.onConfirm();
+		setModalProps(undefined);
+	}, [modalProps]);
+
+	useEffect(() => {
+		if (unsavedChanges) {
+			annotationProvider.annotationManager?.setPreemptiveGate(
+				() =>
+					new Promise((resolve) => {
+						// Show discard changes confirmation prompt
+						openModal({
+							onConfirm: () => {
+								resolve(true);
+							},
+							onCancel: () => {
+								resolve(false);
+							},
+						});
+					}),
+			);
+		} else {
+			annotationProvider.annotationManager?.setPreemptiveGate(() => Promise.resolve(true));
+		}
+		return () => {
+			annotationProvider.annotationManager?.setPreemptiveGate(() => Promise.resolve(true));
+		};
+	}, [unsavedChanges, openModal, annotationProvider.annotationManager]);
+
+	return (
+		<React.Fragment>
+			<div css={toolbarStyle}>
+				<div css={toolbarSection}>
+					<Checkbox label="Mock Unsaved Changes" onChange={onChange} isChecked={unsavedChanges} />
+				</div>
+			</div>
+
+			<ModalTransition>
+				{!!modalProps && (
+					<Modal onClose={cancelModal}>
+						<ModalHeader>
+							<ModalTitle appearance="warning">Discard Changes</ModalTitle>
+						</ModalHeader>
+						<ModalBody>You have unsaved changes. Are you sure you want to discard them?</ModalBody>
+						<ModalFooter>
+							<Button appearance="subtle" onClick={cancelModal}>
+								Cancel
+							</Button>
+							<Button appearance="warning" onClick={discardModal}>
+								Discard
+							</Button>
+						</ModalFooter>
+					</Modal>
+				)}
+			</ModalTransition>
+		</React.Fragment>
+	);
+};
+
 const App = () => {
-	const { document } = React.useContext(ExampleAnnotationProductStateContext);
+	const { document } = useContext(ExampleAnnotationProductStateContext);
 	const { rendererAnnotationProvider, highlightsMountPoint } =
 		useExampleRendererAnnotationProvider();
-	const localRef = React.useRef<HTMLDivElement | null>(null);
+	const localRef = useRef<HTMLDivElement | null>(null);
 	/**
 	 * The renderer user selection tracking is only set up correctly if the renderer ref is assigned.
 	 * This requires a second render to ensure this is setup.
 	 */
-	const [_, setInnerRefAssigned] = React.useState<boolean>(false);
+	const [_, setInnerRefAssigned] = useState<boolean>(false);
 
 	return (
 		<React.Fragment>
+			<AppHeader annotationProvider={rendererAnnotationProvider} />
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop */}
 			<div style={{ height: '3rem' }}></div>
 			{highlightsMountPoint}

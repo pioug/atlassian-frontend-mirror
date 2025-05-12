@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 115.0.5
+
+### Patch Changes
+
+- [#152190](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152190)
+  [`28f5e254032c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28f5e254032c1) -
+  [ux] Fix smart card avatar squashed appearance with margin-right override behind
+  smartcard_avatar_margin_fix
+- Updated dependencies
+
+## 115.0.4
+
+### Patch Changes
+
+- [#142925](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/142925)
+  [`e013698350bef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e013698350bef) -
+  This updates the renderer to use the new annotation manager create comment APIs and disables the
+  use of the old create hooks. This should be backward compatible and can be controled by a FG
+- Updated dependencies
+
+## 115.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 115.0.2
 
 ### Patch Changes

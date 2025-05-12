@@ -80,14 +80,14 @@ type LinkIconElementProps = Pick<IconProps, 'render'> & {
 };
 export const LinkIconElement = (props?: LinkIconElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <LinkIcon />;
+		return (
+			<LinkIcon
+				size={props?.iconTileSize === 24 ? SmartLinkSize.Large : SmartLinkSize.Medium}
+				render={props?.render}
+			/>
+		);
 	}
-	return (
-		<LinkIcon
-			size={props?.iconTileSize === 24 ? SmartLinkSize.Large : SmartLinkSize.Medium}
-			render={props?.render}
-		/>
-	);
+	return <LinkIcon />;
 };
 
 export const LocationElement = () => <Location />;

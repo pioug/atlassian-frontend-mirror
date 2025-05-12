@@ -17,7 +17,10 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
 	dragToMoveLeft,
@@ -334,6 +337,24 @@ type DragHandleProps = {
 	anchorRectCache?: AnchorRectCache;
 };
 
+const useDragHandlePluginState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+		const macroInteractionUpdates = useSharedPluginStateSelector(
+			api,
+			'featureFlags.macroInteractionUpdates',
+		);
+		return {
+			macroInteractionUpdates,
+		};
+	},
+	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+		const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+		return {
+			macroInteractionUpdates: featureFlagsState?.macroInteractionUpdates,
+		};
+	},
+);
+
 export const DragHandle = ({
 	view,
 	api,
@@ -352,23 +373,7 @@ export const DragHandle = ({
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
 
-	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const macroInteractionUpdatesSelector = useSharedPluginStateSelector(
-		api,
-		'featureFlags.macroInteractionUpdates',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const macroInteractionUpdates = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? macroInteractionUpdatesSelector
-		: featureFlagsState?.macroInteractionUpdates;
-
+	const { macroInteractionUpdates } = useDragHandlePluginState(api);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
 	const hasHadInteraction =

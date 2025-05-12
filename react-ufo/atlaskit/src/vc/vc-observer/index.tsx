@@ -14,6 +14,7 @@ import type {
 	VCResult,
 } from '../../common/vc/types';
 import { isVCRevisionEnabled } from '../../config';
+import { getActiveInteraction } from '../../interaction-metrics';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
@@ -210,6 +211,7 @@ export class VCObserver implements VCObserverInterface {
 		ssr,
 		vc,
 		isEventAborted,
+		experienceKey,
 	}: GetVCResultType): Promise<VCResult> => {
 		const startTime = performance.now();
 		// add local measurement
@@ -234,7 +236,9 @@ export class VCObserver implements VCObserverInterface {
 			multiHeatmap,
 		} = rawData;
 
-		const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01');
+		const isTTVCv1Disabled = fg('platform_ufo_vc_enable_revisions_by_experience')
+			? !isVCRevisionEnabled('fy25.01', experienceKey)
+			: !isVCRevisionEnabled('fy25.01');
 
 		// NOTE: as part of platform_ufo_add_vc_abort_reason_by_revisions feature,
 		// we want to report abort by scroll events the same way as other abort reasons
@@ -433,6 +437,7 @@ export class VCObserver implements VCObserverInterface {
 			calculatedVC: { VC, VCBox },
 			calculatedVCNext: { VC: vcNext.VC, VCBox: vcNext.VCBox },
 			isEventAborted,
+			experienceKey,
 		});
 
 		const speedIndex = {
@@ -452,7 +457,9 @@ export class VCObserver implements VCObserverInterface {
 			};
 		}
 
-		const isTTVCv3Enabled = isVCRevisionEnabled('fy25.03');
+		const isTTVCv3Enabled = fg('platform_ufo_vc_enable_revisions_by_experience')
+			? isVCRevisionEnabled('fy25.03', experienceKey)
+			: isVCRevisionEnabled('fy25.03');
 
 		return {
 			'metrics:vc': VC,
@@ -626,7 +633,14 @@ export class VCObserver implements VCObserverInterface {
 			newValue,
 		);
 
-		if (!isVCRevisionEnabled('fy25.03')) {
+		let isTTVCv3Disabled = !isVCRevisionEnabled('fy25.03');
+
+		if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+			const interaction = getActiveInteraction();
+			isTTVCv3Disabled = !isVCRevisionEnabled('fy25.03', interaction?.ufoName);
+		}
+
+		if (isTTVCv3Disabled) {
 			this.onViewportChangeDetected({
 				timestamp: rawTime,
 				intersectionRect,
@@ -667,7 +681,13 @@ export class VCObserver implements VCObserverInterface {
 			if (!ignoreReason) {
 				this.applyChangesToHeatMap(mappedValues, time, this.heatmapNext);
 			}
-			const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01');
+
+			let isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01');
+
+			if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+				const interaction = getActiveInteraction();
+				isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01', interaction?.ufoName);
+			}
 
 			if (
 				!isTTVCv1Disabled &&

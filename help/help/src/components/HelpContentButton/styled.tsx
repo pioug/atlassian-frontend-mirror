@@ -8,6 +8,14 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { B100, B50, N30, N600 } from '@atlaskit/theme/colors';
 
+const wrappedSpanStyles = css({
+	display: 'table',
+});
+
+const parentListItemHelpContentButtonContainerStyles = css({
+	margin: 0
+});
+
 const helpContentButtonContainerStyles = css({
 	display: 'block',
 	cursor: 'pointer',
@@ -18,6 +26,9 @@ const helpContentButtonContainerStyles = css({
 	paddingBottom: token('space.100', '8px'),
 	paddingLeft: token('space.100', '8px'),
 	borderRadius: '3px',
+	border: 'none',
+	background: 'transparent',
+	font: token('font.body', 'inherit'),
 	'&:hover, &:focus, &:visited, &:active': {
 		textDecoration: 'none',
 		outline: 'none',
@@ -53,20 +64,45 @@ export const HelpContentButtonContainer = ({
 	tabIndex,
 	target,
 	children,
-}: HelpContentButtonContainerProps) => (
-	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-	<a
-		onClick={onClick}
-		onKeyDown={onKeyDown}
-		href={href}
-		id={id}
-		tabIndex={tabIndex}
-		target={target}
-		css={helpContentButtonContainerStyles}
-	>
-		{children}
-	</a>
-);
+}: HelpContentButtonContainerProps) => {
+	if (href) {
+		return (
+			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+			<li
+				css={parentListItemHelpContentButtonContainerStyles}
+			>
+				<a
+					onClick={onClick}
+					onKeyDown={onKeyDown}
+					href={href}
+					id={id}
+					tabIndex={tabIndex}
+					target={target}
+					css={helpContentButtonContainerStyles}
+				>
+					<span css={wrappedSpanStyles}>{children}</span>
+				</a>
+			</li>
+		);
+	}
+
+	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+		<li
+			css={parentListItemHelpContentButtonContainerStyles}
+		>
+			<button
+				onClick={onClick}
+				onKeyDown={onKeyDown}
+				id={id}
+				tabIndex={tabIndex}
+				css={helpContentButtonContainerStyles}
+			>
+				<span css={wrappedSpanStyles}>{children}</span>
+			</button>
+		</li>
+	);
+};
 
 const helpContentButtonIconStyles = css({
 	display: 'inline-block',

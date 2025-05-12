@@ -3,7 +3,10 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -11,7 +14,6 @@ import { ArrowKeyNavigationType, DropdownMenu } from '@atlaskit/editor-common/ui
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -26,6 +28,24 @@ type BlockMenuProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 };
 
+const useBlockMenuPluginState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+		const isMenuOpen = useSharedPluginStateSelector(api, 'blockControls.isMenuOpen');
+		const menuTriggerBy = useSharedPluginStateSelector(api, 'blockControls.menuTriggerBy');
+		return {
+			isMenuOpen,
+			menuTriggerBy,
+		};
+	},
+	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+		const { blockControlsState } = useSharedPluginState(api, ['blockControls']);
+		return {
+			isMenuOpen: blockControlsState?.isMenuOpen,
+			menuTriggerBy: blockControlsState?.menuTriggerBy,
+		};
+	},
+);
+
 const BlockMenu = ({
 	editorView,
 	mountPoint,
@@ -34,26 +54,7 @@ const BlockMenu = ({
 	api,
 	intl: { formatMessage },
 }: BlockMenuProps & WrappedComponentProps) => {
-	const { blockControlsState } = useSharedPluginState(api, ['blockControls'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	// isMenuOpen
-	const isMenuOpenSelector = useSharedPluginStateSelector(api, 'blockControls.isMenuOpen', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isMenuOpen = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? isMenuOpenSelector
-		: blockControlsState?.isMenuOpen;
-
-	// menuTriggerBy
-	const menuTriggerBySelector = useSharedPluginStateSelector(api, 'blockControls.menuTriggerBy', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const menuTriggerBy = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? menuTriggerBySelector
-		: blockControlsState?.menuTriggerBy;
-
+	const { isMenuOpen, menuTriggerBy } = useBlockMenuPluginState(api);
 	if (isMenuOpen) {
 		return null;
 	}

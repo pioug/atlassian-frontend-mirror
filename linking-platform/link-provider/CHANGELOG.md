@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 2.1.2
+
+### Patch Changes
+
+- [#152068](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152068)
+  [`8689483a3d0e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8689483a3d0e3) -
+  Add deprecation to featureFlags type and props within linking platform packages
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

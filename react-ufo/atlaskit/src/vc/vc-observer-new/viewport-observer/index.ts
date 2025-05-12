@@ -71,138 +71,202 @@ export default class ViewportObserver {
 	private mutationObserver: MutationObserver | null;
 	private performanceObserver: PerformanceObserver | null;
 	private mapVisibleNodeRects: WeakMap<Element, DOMRect>;
+	private onChange: ViewPortObserverConstructorArgs['onChange'];
+	private isStarted: boolean;
 
-	constructor({ onChange: onChange }: ViewPortObserverConstructorArgs) {
+	constructor({ onChange }: ViewPortObserverConstructorArgs) {
 		this.mapVisibleNodeRects = new WeakMap();
-		this.intersectionObserver = createIntersectionObserver({
-			onEntry: ({ target, rect, time, type, mutationData }) => {
-				if (!target) {
-					return;
-				}
+		this.onChange = onChange;
+		this.isStarted = false;
+		this.intersectionObserver = null;
+		this.mutationObserver = null;
+		this.performanceObserver = null;
+	}
 
-				const visible = isElementVisible(target);
+	private handleIntersectionEntry = ({
+		target,
+		rect,
+		time,
+		type,
+		mutationData,
+	}: {
+		target: HTMLElement | null;
+		rect: DOMRectReadOnly;
+		time: DOMHighResTimeStamp;
+		type: VCObserverEntryType;
+		mutationData?: MutationData | null;
+	}) => {
+		if (!target) {
+			return;
+		}
 
-				const lastElementRect = this.mapVisibleNodeRects.get(target);
+		const visible = isElementVisible(target);
+		const lastElementRect = this.mapVisibleNodeRects.get(target);
+		this.mapVisibleNodeRects.set(target, rect);
 
-				this.mapVisibleNodeRects.set(target, rect);
+		this.onChange({
+			time,
+			type,
+			elementRef: new WeakRef(target),
+			visible,
+			rect,
+			previousRect: lastElementRect,
+			mutationData,
+		});
+	};
 
-				onChange({
+	private handleChildListMutation = ({
+		addedNodes,
+		removedNodes,
+	}: {
+		addedNodes: readonly HTMLElement[];
+		removedNodes: readonly HTMLElement[];
+	}) => {
+		const removedNodeRects = removedNodes.map((n) => this.mapVisibleNodeRects.get(n));
+
+		addedNodes.forEach((addedNode) => {
+			const sameDeletedNode = removedNodes.find((n) => n.isEqualNode(addedNode));
+
+			if (sameDeletedNode) {
+				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:remount');
+				return;
+			}
+
+			if (isContainedWithinMediaWrapper(addedNode)) {
+				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:media');
+				return;
+			}
+
+			this.intersectionObserver?.watchAndTag(
+				addedNode,
+				createElementMutationsWatcher(removedNodeRects),
+			);
+		});
+	};
+
+	private handleAttributeMutation = ({
+		target,
+		attributeName,
+	}: {
+		target: HTMLElement;
+		attributeName: string;
+	}) => {
+		this.intersectionObserver?.watchAndTag(target, ({ target, rect }) => {
+			if (isContainedWithinMediaWrapper(target)) {
+				return {
+					type: 'mutation:media',
+					mutationData: {
+						attributeName,
+					},
+				};
+			}
+
+			if (isNonVisualStyleMutation({ target, attributeName, type: 'attributes' })) {
+				return {
+					type: 'mutation:attribute:non-visual-style',
+					mutationData: {
+						attributeName,
+					},
+				};
+			}
+
+			const lastElementRect = this.mapVisibleNodeRects.get(target);
+			if (lastElementRect && sameRectSize(rect, lastElementRect)) {
+				return {
+					type: 'mutation:attribute:no-layout-shift',
+					mutationData: {
+						attributeName,
+					},
+				};
+			}
+
+			return {
+				type: 'mutation:attribute',
+				mutationData: {
+					attributeName,
+				},
+			};
+		});
+	};
+
+	private handleLayoutShift = ({
+		time,
+		changedRects,
+	}: {
+		time: DOMHighResTimeStamp;
+		changedRects: Array<{
+			node: HTMLElement;
+			rect: DOMRectReadOnly;
+			previousRect: DOMRectReadOnly;
+		}>;
+	}) => {
+		for (const changedRect of changedRects) {
+			const target = changedRect.node;
+
+			if (target) {
+				this.onChange({
 					time,
-					type,
 					elementRef: new WeakRef(target),
-					visible,
-					rect,
-					previousRect: lastElementRect,
-					mutationData,
+					visible: true,
+					rect: changedRect.rect,
+					previousRect: changedRect.previousRect,
+					type: 'layout-shift',
 				});
-			},
+			}
+		}
+	};
+
+	private initializeObservers() {
+		if (this.isStarted) {
+			return;
+		}
+
+		this.intersectionObserver = createIntersectionObserver({
+			onEntry: this.handleIntersectionEntry,
 		});
 
 		this.mutationObserver = createMutationObserver({
-			onChildListMutation: ({ addedNodes, removedNodes }) => {
-				const removedNodeRects = removedNodes?.map((n) => this.mapVisibleNodeRects.get(n)) ?? [];
-
-				addedNodes.forEach((addedNode) => {
-					// for (const elem of addedNode.querySelectorAll('*')) {
-					// 	this.intersectionObserver?.watchAndTag(elem, 'mutation:child-element');
-					// }
-
-					const sameDeletedNode = removedNodes.find((n) => n.isEqualNode(addedNode));
-
-					if (sameDeletedNode) {
-						this.intersectionObserver?.watchAndTag(addedNode, 'mutation:remount');
-						return;
-					}
-
-					if (isContainedWithinMediaWrapper(addedNode)) {
-						this.intersectionObserver?.watchAndTag(addedNode, 'mutation:media');
-						return;
-					}
-
-					this.intersectionObserver?.watchAndTag(
-						addedNode,
-						createElementMutationsWatcher(removedNodeRects),
-					);
-				});
-			},
-			onAttributeMutation: ({ target, attributeName }) => {
-				this.intersectionObserver?.watchAndTag(target, ({ target, rect }) => {
-					if (isContainedWithinMediaWrapper(target)) {
-						return {
-							type: 'mutation:media',
-							mutationData: {
-								attributeName,
-							},
-						};
-					}
-
-					if (isNonVisualStyleMutation({ target, attributeName, type: 'attributes' })) {
-						return {
-							type: 'mutation:attribute:non-visual-style',
-							mutationData: {
-								attributeName,
-							},
-						};
-					}
-
-					const lastElementRect = this.mapVisibleNodeRects.get(target);
-					if (lastElementRect && sameRectSize(rect, lastElementRect)) {
-						return {
-							type: 'mutation:attribute:no-layout-shift',
-							mutationData: {
-								attributeName,
-							},
-						};
-					}
-
-					return {
-						type: 'mutation:attribute',
-						mutationData: {
-							attributeName,
-						},
-					};
-				});
-			},
+			onChildListMutation: this.handleChildListMutation,
+			onAttributeMutation: this.handleAttributeMutation,
 		});
 
 		this.performanceObserver = createPerformanceObserver({
-			onLayoutShift: ({ time, changedRects }) => {
-				for (const changedRect of changedRects) {
-					const target = changedRect.node;
-
-					if (target) {
-						onChange({
-							time,
-							elementRef: new WeakRef(target),
-							visible: true,
-							rect: changedRect.rect,
-							previousRect: changedRect.previousRect,
-							type: 'layout-shift',
-						});
-					}
-				}
-			},
+			onLayoutShift: this.handleLayoutShift,
 		});
 	}
 
 	start() {
+		if (this.isStarted) {
+			return;
+		}
+
+		this.initializeObservers();
+
 		this.mutationObserver?.observe(document.body, {
 			attributeOldValue: true,
 			attributes: true,
 			childList: true,
 			subtree: true,
 		});
+
 		this.performanceObserver?.observe({
 			type: 'layout-shift',
 			buffered: true,
 			// @ts-ignore-error
 			durationThreshold: 30,
 		});
+
+		this.isStarted = true;
 	}
 
 	stop() {
+		if (!this.isStarted) {
+			return;
+		}
+
 		this.mutationObserver?.disconnect();
 		this.intersectionObserver?.disconnect();
 		this.performanceObserver?.disconnect();
+		this.isStarted = false;
 	}
 }

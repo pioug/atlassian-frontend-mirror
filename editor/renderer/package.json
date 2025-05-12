@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "115.0.2",
+	"version": "115.0.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -78,6 +78,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-gas-types": "workspace:^",
+		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/css-reset": "workspace:^",
 		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
@@ -86,6 +87,7 @@
 		"@atlaskit/media-integration-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
+		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/navigation-next": "patch:@atlaskit/navigation-next@npm%3A9.0.17#~/.yarn/patches/@atlaskit-navigation-next-npm-9.0.17-d1445f2f74.patch",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
@@ -207,6 +209,12 @@
 		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
 		},
+		"platform_editor_comments_api_manager": {
+			"type": "boolean"
+		},
+		"platform_editor_comments_api_manager_select": {
+			"type": "boolean"
+		},
 		"platform_renderer_isPresentational": {
 			"type": "boolean"
 		},
@@ -244,6 +252,9 @@
 			"type": "boolean"
 		},
 		"platform_hide_heading_anchor_wrapper_before_hover": {
+			"type": "boolean"
+		},
+		"smartcard_avatar_margin_fix": {
 			"type": "boolean"
 		}
 	},

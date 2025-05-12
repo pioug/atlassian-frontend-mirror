@@ -225,7 +225,13 @@ export default class TableView extends ReactNodeView<Props> {
 					const resolvedSelection = selectionBookmark.resolve(this.view.state.tr.doc);
 					// Don't set the selection if it's the same as the current selection.
 					if (!resolvedSelection.eq(this.view.state.selection)) {
-						this.view.dispatch(this.view.state.tr.setSelection(resolvedSelection));
+						if (fg('platform_editor_r18_fix_selection_resync')) {
+							const tr = this.view.state.tr.setSelection(resolvedSelection);
+							tr.setMeta('source', 'TableNodeView:_handleTableRef:selection-resync');
+							this.view.dispatch(tr);
+						} else {
+							this.view.dispatch(this.view.state.tr.setSelection(resolvedSelection));
+						}
 					}
 				}
 			});

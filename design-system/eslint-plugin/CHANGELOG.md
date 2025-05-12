@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.14.2
+
+### Patch Changes
+
+- [#152496](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152496)
+  [`0411aae834d96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0411aae834d96) -
+  Fix typescript issue for missing "json-schema-to-ts" dependency introduced by
+  `no-emotion-primitives` lint rule changes
+
+## 13.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.14.0
 
 ### Minor Changes

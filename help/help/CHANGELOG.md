@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 9.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

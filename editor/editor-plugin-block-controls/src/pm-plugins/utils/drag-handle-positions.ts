@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -124,7 +123,6 @@ export const shouldMaskNodeControls = (nodeType: string, isTopLevelNode: boolean
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 		isTopLevelNode &&
 		['table'].includes(nodeType) &&
-		fg('platform_editor_controls_sticky_mask') &&
 		editorExperiment('platform_editor_controls', 'variant1')
 	);
 };

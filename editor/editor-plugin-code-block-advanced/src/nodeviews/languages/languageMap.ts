@@ -63,6 +63,10 @@ export const mapLanguageToCodeMirror = (language: LanguageAliasValue) => {
 			return languages.find((l) => {
 				return l.name === 'VB.NET';
 			});
+		case 'gherkin':
+			return languages.find((l) => {
+				return l.name === 'Gherkin';
+			});
 		case 'handlebars':
 			return LanguageDescription.of({
 				name: 'Handlebars',

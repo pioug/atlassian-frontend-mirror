@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-placeholder-text
 
+## 2.3.0
+
+### Minor Changes
+
+- [#150855](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150855)
+  [`06f114eb0c6a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06f114eb0c6a3) -
+  Used plugin selector conditionally behind feature flag
+
+## 2.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.4.0
+
+### Minor Changes
+
+- [#150819](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150819)
+  [`fc0d378df7ab1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc0d378df7ab1) -
+  Used plugin selector conditionally behind feature flag
+
+## 4.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.8
 
 ### Patch Changes

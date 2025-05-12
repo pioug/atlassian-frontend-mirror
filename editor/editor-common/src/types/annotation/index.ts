@@ -1,6 +1,6 @@
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { AddNodeMarkStep, AddMarkStep, Step } from '@atlaskit/editor-prosemirror/transform';
 
 import type { AnnotationManager } from '../../annotation';
 
@@ -17,7 +17,7 @@ export type AnnotationByMatches = {
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 export type AnnotationActionResult =
 	| ({
-			step: Step;
+			step: AddMarkStep | AddNodeMarkStep;
 			doc: JSONDocNode;
 			/** The list of types of all inline nodes, which were wrapped by annotation. */
 			inlineNodeTypes?: string[];

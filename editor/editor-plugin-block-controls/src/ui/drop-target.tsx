@@ -8,7 +8,10 @@ import { type CSSProperties, Fragment, useEffect, useMemo, useRef, useState } fr
 import { css, jsx } from '@emotion/react';
 import { type IntlShape } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -249,6 +252,21 @@ const HoverZone = ({
 	);
 };
 
+const useDropTargetPluginState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+		const lineLength = useSharedPluginStateSelector(api, 'width.lineLength');
+		return {
+			lineLength,
+		};
+	},
+	(api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+		const { widthState } = useSharedPluginState(api, ['width']);
+		return {
+			lineLength: widthState?.lineLength,
+		};
+	},
+);
+
 export const DropTarget = (
 	props: DropTargetProps & { anchorRectCache?: AnchorRectCache; isSameLayout?: boolean },
 ) => {
@@ -264,18 +282,7 @@ export const DropTarget = (
 		isSameLayout,
 	} = props;
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
-
-	const { widthState } = useSharedPluginState(api, ['width'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	// lineLength
-	const lineLengthSelector = useSharedPluginStateSelector(api, 'width.lineLength', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const lineLength = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? lineLengthSelector
-		: widthState?.lineLength;
+	const { lineLength } = useDropTargetPluginState(api);
 
 	const isNestedDropTarget = parentNode?.type.name !== 'doc';
 

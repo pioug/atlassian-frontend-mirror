@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "206.1.1",
+	"version": "206.1.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -550,10 +550,6 @@
 		},
 		"platform_editor_quick_insert_placeholder": {
 			"type": "boolean"
-		},
-		"platform_editor_controls_sticky_mask": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_numbered_column_misalignment": {
 			"type": "boolean",

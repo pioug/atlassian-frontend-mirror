@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.1.18
+
+### Patch Changes
+
+- [#152650](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152650)
+  [`d5514d2d48aef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5514d2d48aef) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+
+## 5.1.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.16
 
 ### Patch Changes

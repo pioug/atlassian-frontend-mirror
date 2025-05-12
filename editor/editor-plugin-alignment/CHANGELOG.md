@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-alignment
 
+## 3.1.14
+
+### Patch Changes
+
+- [#151999](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151999)
+  [`daf7c638efb95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daf7c638efb95) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
+## 3.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.12
 
 ### Patch Changes

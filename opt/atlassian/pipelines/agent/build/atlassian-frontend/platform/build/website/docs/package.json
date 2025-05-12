@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "10.0.16",
+	"version": "10.0.17",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

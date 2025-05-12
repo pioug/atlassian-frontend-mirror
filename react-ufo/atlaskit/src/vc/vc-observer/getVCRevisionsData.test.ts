@@ -24,6 +24,7 @@ describe('getVCRevisionsData', () => {
 	test('use existing VC input data to calculate the revised VC metrics', () => {
 		expect(
 			getVCRevisionsData({
+				experienceKey: 'test',
 				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
@@ -179,6 +180,7 @@ describe('getVCRevisionsData', () => {
 
 		expect(
 			getVCRevisionsData({
+				experienceKey: 'test',
 				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
@@ -288,6 +290,7 @@ describe('getVCRevisionsData', () => {
 	test('returns null metric:vc90 and empty vcDetails if isVCClean === false', () => {
 		expect(
 			getVCRevisionsData({
+				experienceKey: 'test',
 				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
@@ -366,6 +369,7 @@ describe('getVCRevisionsData', () => {
 	test('returns null metric:vc90 and empty vcDetails if isEventAborted === true', () => {
 		expect(
 			getVCRevisionsData({
+				experienceKey: 'test',
 				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
@@ -446,6 +450,7 @@ describe('getVCRevisionsData', () => {
 
 		expect(
 			getVCRevisionsData({
+				experienceKey: 'test',
 				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {

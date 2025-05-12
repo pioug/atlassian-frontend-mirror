@@ -190,6 +190,10 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 	status?: SmartLinkStatus;
 	response?: SmartLinkResponse;
 	resolve?: ResolveFunction;
+	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
+	 * Remove any usages of this type or value. It is dead code
+	 */
 	featureFlags?: Partial<LinkingPlatformFeatureFlags>;
 	aiSummaryConfig?: AISummaryConfig;
 };

@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 206.1.3
+
+### Patch Changes
+
+- [#151481](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151481)
+  [`57d45d9fbcb6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57d45d9fbcb6d) -
+  Remove FG platform_editor_controls_sticky_mask
+- Updated dependencies
+
+## 206.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 206.1.1
 
 ### Patch Changes

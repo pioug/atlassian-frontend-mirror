@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -22,69 +25,44 @@ const FloatingToolbarSettings = {
 	shouldUseDefaultRole: false,
 };
 
+const useFloatingToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<BlockTypePlugin> | undefined) => {
+		const currentBlockType = useSharedPluginStateSelector(api, 'blockType.currentBlockType');
+		const blockTypesDisabled = useSharedPluginStateSelector(api, 'blockType.blockTypesDisabled');
+		const availableBlockTypes = useSharedPluginStateSelector(api, 'blockType.availableBlockTypes');
+		const availableBlockTypesInDropdown = useSharedPluginStateSelector(
+			api,
+			'blockType.availableBlockTypesInDropdown',
+		);
+		const formattingIsPresent = useSharedPluginStateSelector(api, 'blockType.formattingIsPresent');
+		return {
+			currentBlockType,
+			blockTypesDisabled,
+			availableBlockTypes,
+			availableBlockTypesInDropdown,
+			formattingIsPresent,
+		};
+	},
+	(api: ExtractInjectionAPI<BlockTypePlugin> | undefined) => {
+		const { blockTypeState } = useSharedPluginState(api, ['blockType']);
+		return {
+			currentBlockType: blockTypeState?.currentBlockType,
+			blockTypesDisabled: blockTypeState?.blockTypesDisabled,
+			availableBlockTypes: blockTypeState?.availableBlockTypes,
+			availableBlockTypesInDropdown: blockTypeState?.availableBlockTypesInDropdown,
+			formattingIsPresent: blockTypeState?.formattingIsPresent,
+		};
+	},
+);
+
 export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps) {
-	const { blockTypeState } = useSharedPluginState(api, ['blockType'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	// currentBlockType
-	const currentBlockTypeSelector = useSharedPluginStateSelector(api, 'blockType.currentBlockType', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const currentBlockType = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? currentBlockTypeSelector
-		: blockTypeState?.currentBlockType;
-
-	// blockTypesDisabled
-	const blockTypesDisabledSelector = useSharedPluginStateSelector(
-		api,
-		'blockType.blockTypesDisabled',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const blockTypesDisabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? blockTypesDisabledSelector
-		: blockTypeState?.blockTypesDisabled;
-
-	// availableBlockTypes
-	const availableBlockTypesSelector = useSharedPluginStateSelector(
-		api,
-		'blockType.availableBlockTypes',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const availableBlockTypes = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? availableBlockTypesSelector
-		: blockTypeState?.availableBlockTypes;
-
-	// availableBlockTypesInDropdown
-	const availableBlockTypesInDropdownSelector = useSharedPluginStateSelector(
-		api,
-		'blockType.availableBlockTypesInDropdown',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const availableBlockTypesInDropdown = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? availableBlockTypesInDropdownSelector
-		: blockTypeState?.availableBlockTypesInDropdown;
-
-	// formattingIsPresent
-	const formattingIsPresentSelector = useSharedPluginStateSelector(
-		api,
-		'blockType.formattingIsPresent',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const formattingIsPresent = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? formattingIsPresentSelector
-		: blockTypeState?.formattingIsPresent;
+	const {
+		currentBlockType,
+		blockTypesDisabled,
+		availableBlockTypes,
+		availableBlockTypesInDropdown,
+		formattingIsPresent,
+	} = useFloatingToolbarComponentPluginState(api);
 
 	const boundSetBlockType = useCallback(
 		(name: TextBlockTypes) =>

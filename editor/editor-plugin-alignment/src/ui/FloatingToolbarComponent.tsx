@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -24,25 +27,26 @@ const FloatingToolbarSettings = {
 	isToolbarReducedSpacing: true,
 };
 
+const useFloatingToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<AlignmentPlugin> | undefined) => {
+		const align = useSharedPluginStateSelector(api, 'alignment.align');
+		const isEnabled = useSharedPluginStateSelector(api, 'alignment.isEnabled');
+		return {
+			align,
+			isEnabled,
+		};
+	},
+	(api: ExtractInjectionAPI<AlignmentPlugin> | undefined) => {
+		const { alignmentState } = useSharedPluginState(api, ['alignment']);
+		return {
+			align: alignmentState?.align,
+			isEnabled: alignmentState?.isEnabled,
+		};
+	},
+);
+
 export function FloatingToolbarComponent({ api, editorView }: FloatingToolbarComponentProps) {
-	const { alignmentState } = useSharedPluginState(api, ['alignment'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	const alignSelector = useSharedPluginStateSelector(api, 'alignment.align', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const align = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? alignSelector
-		: alignmentState?.align;
-
-	const isEnabledSelector = useSharedPluginStateSelector(api, 'alignment.isEnabled', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isEnabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? isEnabledSelector
-		: alignmentState?.isEnabled;
-
+	const { align, isEnabled } = useFloatingToolbarComponentPluginState(api);
 	const changeAlignmentCallback = useCallback(
 		(align: AlignmentState) => {
 			return changeAlignment(

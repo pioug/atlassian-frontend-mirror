@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
+import type { FloatingToolbarConfig, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import { hideToolbar, showToolbar } from './editor-commands/commands';
 import type { PasteOptionsToolbarPlugin } from './pasteOptionsToolbarPluginType';
@@ -9,6 +13,17 @@ import { createPlugin } from './pm-plugins/main';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types/types';
 import type { PasteOtionsPluginState } from './types/types';
 import { buildToolbar, isToolbarVisible } from './ui/toolbar';
+
+const useSharedPasteState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined) => {
+		const lastContentPasted = useSharedPluginStateSelector(api, 'paste.lastContentPasted');
+		return { lastContentPasted };
+	},
+	(api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined) => {
+		const { pasteState } = useSharedPluginState(api, ['paste']);
+		return { lastContentPasted: pasteState?.lastContentPasted };
+	},
+);
 
 export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
@@ -36,8 +51,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 		},
 
 		usePluginHook({ editorView }) {
-			const { pasteState } = useSharedPluginState(api, ['paste']);
-			const lastContentPasted = pasteState?.lastContentPasted;
+			const { lastContentPasted } = useSharedPasteState(api);
 
 			useEffect(() => {
 				if (!lastContentPasted) {

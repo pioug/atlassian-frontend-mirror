@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import taskYield from '../../utils/task-yield';
 
 type RGBColor = `rgb(${number}, ${number}, ${number})`; // 24-bit color value
@@ -6,17 +8,20 @@ type Viewport = {
 	height: number;
 };
 
+type CanvasType = OffscreenCanvas | HTMLCanvasElement;
+type CanvasContextType = OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D;
+
 /**
  * Class responsible for managing a scaled canvas and tracking pixel drawing operations.
- * It uses an OffscreenCanvas for better performance and maintains a mapping between
- * colors and timestamps for pixel counting purposes.
+ * It uses either an OffscreenCanvas (if available) or a regular HTML Canvas for better performance
+ * and maintains a mapping between colors and timestamps for pixel counting purposes.
  */
 export class ViewportCanvas {
-	/** The underlying OffscreenCanvas instance */
-	private readonly canvas: HTMLCanvasElement | OffscreenCanvas;
+	/** The underlying Canvas instance (either OffscreenCanvas or HTMLCanvasElement) */
+	private readonly canvas: CanvasType;
 
 	/** The 2D rendering context of the canvas */
-	private readonly ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
+	private readonly ctx: CanvasContextType;
 
 	/** Scale factor applied to the canvas (affects final pixel counts) */
 	private readonly scaleFactor: number;
@@ -54,16 +59,14 @@ export class ViewportCanvas {
 		this.scaleX = this.scaledWidth / safeViewportWidth;
 		this.scaleY = this.scaledHeight / safeViewportHeight;
 
-		// Initialize OffscreenCanvas with scaled dimensions
-		this.canvas = document.createElement('canvas');
-		this.canvas.width = this.scaledWidth;
-		this.canvas.height = this.scaledHeight;
+		// Initialize canvas with scaled dimensions
+		this.canvas = this.createCanvas(this.scaledWidth, this.scaledHeight);
 
 		const ctx = this.canvas.getContext('2d', {
 			alpha: false, // Disable alpha channel for better performance
 			willReadFrequently: true, // Optimize for frequent pixel reading
 			colorSpace: 'srgb', // Use standard RGB color space
-		});
+		}) as CanvasContextType | null;
 
 		if (!ctx) {
 			throw new Error('Could not get canvas context');
@@ -71,7 +74,25 @@ export class ViewportCanvas {
 
 		this.ctx = ctx;
 		this.ctx.globalCompositeOperation = 'source-over';
+		if (fg('platform_ufo_use_offscreen_canvas')) {
+			this.ctx.imageSmoothingEnabled = false; // Disable image smoothing for better performance
+		}
+
 		this.clear();
+	}
+
+	/**
+	 * Creates a canvas instance, falling back to HTMLCanvasElement if OffscreenCanvas is not available
+	 * or if the feature flag is disabled
+	 */
+	private createCanvas(width: number, height: number): CanvasType {
+		if (typeof OffscreenCanvas !== 'undefined' && fg('platform_ufo_use_offscreen_canvas')) {
+			return new OffscreenCanvas(width, height);
+		}
+		const canvas = document.createElement('canvas');
+		canvas.width = width;
+		canvas.height = height;
+		return canvas;
 	}
 
 	public getScaledDimensions() {

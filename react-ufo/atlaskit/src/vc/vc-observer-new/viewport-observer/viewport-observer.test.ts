@@ -72,9 +72,11 @@ describe('ViewportObserver', () => {
 		);
 
 		observer = new ViewportObserver({ onChange: onChangeMock });
+		observer.start();
 	});
 
 	it('should initialize observers in the constructor', () => {
+		observer.start();
 		expect(createIntersectionObserver).toHaveBeenCalled();
 		expect(createMutationObserver).toHaveBeenCalled();
 		expect(createPerformanceObserver).toHaveBeenCalled();

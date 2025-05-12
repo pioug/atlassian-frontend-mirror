@@ -9,24 +9,24 @@ import {
 
 snapshot(GenericLoadingErrorVR, {
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 
 snapshot(GenericLoadingErrorWithoutRefreshVR, {
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 
 snapshot(JiraLoadingErrorVR, {
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });
 
 snapshot(ConfluenceLoadingErrorVR, {
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': true,
+		'platform-linking-visual-refresh-sllv': [true, false],
 	},
 });

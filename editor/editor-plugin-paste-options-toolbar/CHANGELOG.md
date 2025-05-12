@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 2.1.0
+
+### Minor Changes
+
+- [#150836](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150836)
+  [`04b73eab35ce8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04b73eab35ce8) -
+  Used plugin selector conditionally behind feature flag
+
+## 2.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.6
 
 ### Patch Changes

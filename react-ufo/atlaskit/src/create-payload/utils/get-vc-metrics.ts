@@ -2,7 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
-import { getConfig, isVCRevisionEnabled } from '../../config';
+import { getConfig, getMostRecentVCRevision, isVCRevisionEnabled } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
 import { getVCObserver } from '../../vc';
 
@@ -23,12 +23,12 @@ async function getVCMetrics(
 	const interactionStatus = getInteractionStatus(interaction);
 	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
 
-	if (
-		(interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
-			pageVisibilityUpToTTAI !== 'visible') &&
-		fg('platform_ufo_no_vc_on_aborted')
-	) {
-		getVCObserver().stop();
+	const shouldReportVCMetrics =
+		interactionStatus.originalInteractionStatus === 'SUCCEEDED' &&
+		pageVisibilityUpToTTAI === 'visible';
+
+	if (!shouldReportVCMetrics && fg('platform_ufo_no_vc_on_aborted')) {
+		getVCObserver().stop(interaction.ufoName);
 		return {};
 	}
 
@@ -48,47 +48,64 @@ async function getVCMetrics(
 		prefix,
 		vc: interaction.vc,
 		isEventAborted: interactionStatus.originalInteractionStatus !== 'SUCCEEDED',
+		experienceKey: interaction.ufoName,
 		...ssr,
 	});
 
 	if (config.experimentalInteractionMetrics?.enabled) {
-		getVCObserver().stop();
+		getVCObserver().stop(interaction.ufoName);
 	}
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
-	if (!isVCRevisionEnabled('fy25.01')) {
-		const ttvcV2Revision = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
-			({ revision }) => revision === 'fy25.02',
+	if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
+		const mostRecentVCRevision = getMostRecentVCRevision(interaction.ufoName);
+		const mostRecentVCRevisionPayload = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
+			({ revision }) => revision === mostRecentVCRevision,
 		);
-		if (!ttvcV2Revision?.clean) {
+
+		if (!shouldReportVCMetrics || !mostRecentVCRevisionPayload?.clean) {
 			return result;
 		}
 
 		return {
 			...result,
-			'metric:vc90': ttvcV2Revision['metric:vc90'],
+			'metric:vc90': mostRecentVCRevisionPayload['metric:vc90'],
 		};
 	} else {
-		const VC = result?.['metrics:vc'] as {
-			[key: string]: number | null;
-		};
+		if (!isVCRevisionEnabled('fy25.01')) {
+			const ttvcV2Revision = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
+				({ revision }) => revision === 'fy25.02',
+			);
+			if (!ttvcV2Revision?.clean) {
+				return result;
+			}
 
-		if (!VC || !result?.[`${prefix}:vc:clean`]) {
-			return result;
+			return {
+				...result,
+				'metric:vc90': ttvcV2Revision['metric:vc90'],
+			};
+		} else {
+			const VC = result?.['metrics:vc'] as {
+				[key: string]: number | null;
+			};
+
+			if (!VC || !result?.[`${prefix}:vc:clean`]) {
+				return result;
+			}
+
+			if (
+				interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
+				pageVisibilityUpToTTAI !== 'visible'
+			) {
+				return result;
+			}
+
+			return {
+				...result,
+				'metric:vc90': VC['90'],
+			};
 		}
-
-		if (
-			interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
-			pageVisibilityUpToTTAI !== 'visible'
-		) {
-			return result;
-		}
-
-		return {
-			...result,
-			'metric:vc90': VC['90'],
-		};
 	}
 }
 

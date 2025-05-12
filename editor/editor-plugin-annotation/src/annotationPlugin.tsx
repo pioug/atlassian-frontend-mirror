@@ -1,7 +1,10 @@
 import React from 'react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -18,6 +21,7 @@ import {
 	buildToolbar,
 	shouldSuppressFloatingToolbar,
 } from './pm-plugins/toolbar';
+import { InlineCommentPluginState } from './pm-plugins/types';
 import {
 	getPluginState,
 	hasAnyUnResolvedAnnotationInPage,
@@ -166,21 +170,32 @@ interface AnnotationContentComponentProps {
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
 }
 
+const useAnnotationContentComponentPluginState = sharedPluginStateHookMigratorFactory(
+	(
+		api: ExtractInjectionAPI<typeof annotationPlugin> | undefined,
+	): { isVisible: boolean | undefined; annotationState: InlineCommentPluginState | undefined } => {
+		const isVisible = useSharedPluginStateSelector(api, 'annotation.isVisible');
+		return {
+			isVisible,
+			annotationState: undefined,
+		};
+	},
+	(api: ExtractInjectionAPI<typeof annotationPlugin> | undefined) => {
+		const { annotationState } = useSharedPluginState(api, ['annotation']);
+		return {
+			isVisible: annotationState?.isVisible,
+			annotationState,
+		};
+	},
+);
+
 function AnnotationContentComponent({
 	api,
 	editorView,
 	annotationProviders,
 	dispatchAnalyticsEvent,
 }: AnnotationContentComponentProps) {
-	const { annotationState } = useSharedPluginState(api, ['annotation'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const isVisibleSelector = useSharedPluginStateSelector(api, 'annotation.isVisible', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isVisible = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? isVisibleSelector
-		: annotationState?.isVisible;
+	const { isVisible, annotationState } = useAnnotationContentComponentPluginState(api);
 
 	if (
 		annotationState &&

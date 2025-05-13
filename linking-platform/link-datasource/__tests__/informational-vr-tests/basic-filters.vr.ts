@@ -78,6 +78,7 @@ snapshotInformational(WithModal, {
 	description: 'basic mode with basic filters',
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
+		'replace-legacy-button-in-sllv': [false, true],
 	},
 });
 
@@ -253,10 +254,30 @@ filters.forEach((filter) => {
 				.waitFor({ state: 'visible' });
 			await page.keyboard.press('Tab');
 		},
-		description: `${filter} open and focus show more button`,
+		description: `${filter} open and focus show more button - replace-legacy-button-in-sllv disabled`,
 		featureFlags: {
 			'platform-component-visual-refresh': [true, false],
 			'platform-linking-visual-refresh-sllv': [true, false],
+			'replace-legacy-button-in-sllv': false,
+		},
+		waitForHold: true,
+	});
+
+	snapshotInformational(BasicFiltersVR, {
+		...options,
+
+		prepare: async (page: Page, component: Locator) => {
+			await component.getByTestId(`jlol-basic-filter-${filter}-trigger`).click();
+			await page
+				.getByTestId(`jlol-basic-filter-${filter}-popup-select-select--container`)
+				.waitFor({ state: 'visible' });
+			await page.keyboard.press('Tab');
+		},
+		description: `${filter} open and focus show more button - replace-legacy-button-in-sllv enabled`,
+		featureFlags: {
+			'platform-component-visual-refresh': [true, false],
+			'platform-linking-visual-refresh-sllv': [true, false],
+			'replace-legacy-button-in-sllv': true,
 		},
 		waitForHold: true,
 	});

@@ -71,6 +71,8 @@ export default class RendererActions
 	private ref?: any;
 	private onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 
+	private debugAnalyticLoggingEnabled: boolean = false;
+
 	constructor(initFromContext: boolean = false) {
 		this.initFromContext = initFromContext;
 		this.transformer = new JSONTransformer();
@@ -108,7 +110,11 @@ export default class RendererActions
 	 */
 	_privateValidatePositionsForAnnotation(from: number, to: number): boolean {
 		if (!this.doc || !this.schema) {
-			if (this.onAnalyticsEvent && fg('platform_renderer_annotations_create_debug_logging')) {
+			if (
+				this.debugAnalyticLoggingEnabled &&
+				this.onAnalyticsEvent &&
+				fg('platform_renderer_annotations_create_debug_logging')
+			) {
 				this.onAnalyticsEvent({
 					// @ts-ignore
 					action: 'failed',
@@ -131,7 +137,11 @@ export default class RendererActions
 
 		const currentSelection = TextSelection.create(this.doc, from, to);
 		if (isEmptyTextSelection(currentSelection, this.schema)) {
-			if (this.onAnalyticsEvent && fg('platform_renderer_annotations_create_debug_logging')) {
+			if (
+				this.debugAnalyticLoggingEnabled &&
+				this.onAnalyticsEvent &&
+				fg('platform_renderer_annotations_create_debug_logging')
+			) {
 				this.onAnalyticsEvent({
 					// @ts-ignore
 					action: 'failed',
@@ -154,6 +164,7 @@ export default class RendererActions
 
 		const result = canApplyAnnotationOnRange({ from, to }, this.doc, this.schema);
 		if (
+			this.debugAnalyticLoggingEnabled &&
 			!result &&
 			this.onAnalyticsEvent &&
 			fg('platform_renderer_annotations_create_debug_logging')
@@ -419,7 +430,11 @@ export default class RendererActions
 
 	isValidAnnotationPosition(pos: Position) {
 		if (!pos || !this.doc) {
-			if (this.onAnalyticsEvent && fg('platform_renderer_annotations_create_debug_logging')) {
+			if (
+				this.debugAnalyticLoggingEnabled &&
+				this.onAnalyticsEvent &&
+				fg('platform_renderer_annotations_create_debug_logging')
+			) {
 				this.onAnalyticsEvent({
 					// @ts-ignore
 					action: 'failed',
@@ -627,5 +642,12 @@ export default class RendererActions
 		}
 
 		return getAnnotationInlineNodeTypes({ doc: this.doc, schema: this.schema }, annotationId);
+	}
+
+	/**
+	 * This is a temporary method used for controlling when extra analytics shoulw be logged.
+	 */
+	_setDebugLogging(enabled: boolean) {
+		this.debugAnalyticLoggingEnabled = enabled;
 	}
 }

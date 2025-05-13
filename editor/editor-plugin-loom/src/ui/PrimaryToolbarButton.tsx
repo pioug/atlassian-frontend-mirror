@@ -7,18 +7,40 @@ import React, { useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type {
 	EditorAppearance,
 	ExtractInjectionAPI,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';
 import { type ButtonComponentProps, type LoomPluginOptions } from '../types';
 
 import ToolbarButtonComponent from './ToolbarButtonComponent';
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
+		const loomEnabled = useSharedPluginStateSelector(api, 'loom.isEnabled');
+		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+		return {
+			loomEnabled,
+			connectivityMode,
+		};
+	},
+	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
+		const { loomState, connectivityState } = useSharedPluginState(api, ['loom', 'connectivity']);
+		return {
+			loomEnabled: loomState?.isEnabled,
+			connectivityMode: connectivityState?.mode,
+		};
+	},
+);
 
 const CustomisableLoomToolbarButton = (
 	disabled: boolean,
@@ -27,8 +49,8 @@ const CustomisableLoomToolbarButton = (
 ) =>
 	React.forwardRef<HTMLElement, ButtonComponentProps>((props, ref) => {
 		const { onClickBeforeInit, isDisabled = false, href, ...restProps } = props;
-		const { loomState, connectivityState } = useSharedPluginState(api, ['loom', 'connectivity']);
-		const isLoomEnabled = !!loomState?.isEnabled;
+		const { loomEnabled, connectivityMode } = useSharedState(api);
+		const isLoomEnabled = !!loomEnabled;
 		const handleOnClick = useCallback(
 			(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
 				if (isLoomEnabled) {
@@ -45,7 +67,7 @@ const CustomisableLoomToolbarButton = (
 				hideTooltip={!!(restProps.onMouseEnter || restProps.onMouseLeave)}
 				// Ignore href if Loom is enabled so that it doesn't interfere with recording
 				href={isLoomEnabled ? undefined : href}
-				disabled={disabled || isDisabled || connectivityState?.mode === 'offline'}
+				disabled={disabled || isDisabled || connectivityMode === 'offline'}
 				api={api}
 				appearance={appearance}
 				onClick={(e) => handleOnClick(e)}
@@ -66,15 +88,15 @@ const LoomToolbarButtonWrapper = ({
 	appearance: EditorAppearance;
 }) => {
 	const handleOnClick = useCallback(() => executeRecordVideo(api), [api]);
-	const { loomState, connectivityState } = useSharedPluginState(api, ['loom', 'connectivity']);
-	if (!loomState) {
+	const { loomEnabled, connectivityMode } = useSharedState(api);
+	if (loomEnabled === undefined) {
 		return null;
 	}
 
 	return (
 		<ToolbarButtonComponent
 			// Disable the icon while the SDK isn't initialised
-			disabled={disabled || !loomState?.isEnabled || connectivityState?.mode === 'offline'}
+			disabled={disabled || !loomEnabled || connectivityMode === 'offline'}
 			api={api}
 			appearance={appearance}
 			onClick={handleOnClick}

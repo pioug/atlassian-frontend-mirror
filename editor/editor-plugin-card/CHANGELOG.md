@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-card
 
+## 5.4.31
+
+### Patch Changes
+
+- [#153459](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153459)
+  [`56a72b77265db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56a72b77265db) -
+  [ux] Show smart link open button overlay in chromeless editor
+- Updated dependencies
+
+## 5.4.30
+
+### Patch Changes
+
+- [#153256](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153256)
+  [`3644fbe36073d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3644fbe36073d) -
+  [ux] When ViewAll dropdown closes via ESC key press or submenus close via ESC or Enter, the focus
+  is set on ViewAll button.
+- Updated dependencies
+
 ## 5.4.29
 
 ### Patch Changes

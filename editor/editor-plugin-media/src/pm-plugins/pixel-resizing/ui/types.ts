@@ -53,12 +53,18 @@ export type PixelEntryProps = {
 	/**
 	 * Called when the Enter key is pressed or close button is clicked
 	 */
-	onCloseAndSave?: (data: PixelEntryFormData) => void;
+	onCloseAndSave?: (data: PixelEntryFormData, setFocus?: boolean) => void;
 
 	/**
 	 *
 	 */
 	isViewMode?: boolean;
+
+	/**
+	 * Selector of a button on the floating toolbar that opens PixelEntry.
+	 * Used to set focus back to that button once PixelEntry is unmounted due to key press on Esc Or Enter
+	 */
+	triggerButtonSelector?: string;
 };
 
 export type PixelEntryFormValues = {
@@ -79,6 +85,6 @@ export type PixelEntryComponentNextProps = {
 	computedHeight: number | '';
 	handleFieldChange: (type: string) => (event: ChangeEvent<HTMLInputElement>) => void;
 	formatMessage: IntlShape['formatMessage'];
-	handleCloseAndSave: (data: PixelEntryFormValues) => void;
+	handleCloseAndSave: (data: PixelEntryFormValues, setFocus?: boolean) => void;
 	isViewMode?: boolean;
 };

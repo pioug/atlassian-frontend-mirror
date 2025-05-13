@@ -174,7 +174,11 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 			const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
 
 			const maxWidth =
-				isSSR() && widthAttr && fg('platform_editor_fix_image_size_diff_during_ssr')
+				isSSR() &&
+				widthAttr &&
+				typeof widthAttr === 'number' &&
+				widthType === 'pixel' &&
+				fg('platform_editor_fix_image_size_diff_during_ssr')
 					? Math.max(widthAttr, containerWidth)
 					: containerWidth;
 			const maxHeight = (height / width) * maxWidth;
@@ -210,6 +214,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 			rendererAppearance,
 			width,
 			widthAttr,
+			widthType,
 		],
 	);
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.9.3",
+	"version": "4.10.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -192,6 +192,9 @@
 			"showOnWebsiteForTransitiveDependencies": true
 		},
 		"platform-linking-visual-refresh-sllv": {
+			"type": "boolean"
+		},
+		"replace-legacy-button-in-sllv": {
 			"type": "boolean"
 		}
 	}

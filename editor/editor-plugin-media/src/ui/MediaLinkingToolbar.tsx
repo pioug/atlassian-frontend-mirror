@@ -40,11 +40,15 @@ type Props = {
 	intl: IntlShape;
 	providerFactory: ProviderFactory;
 	editing: boolean;
-	onBack: (url: string, meta: { inputMethod?: RecentSearchInputTypes }) => void;
-	onUnlink: () => void;
+	onBack: (url: string, meta: { inputMethod?: RecentSearchInputTypes }, setFocus?: boolean) => void;
+	onUnlink: (setFocus?: boolean) => void;
 	onCancel: () => void;
 	onBlur: (href: string) => void;
-	onSubmit: (href: string, meta: { inputMethod: RecentSearchInputTypes }) => void;
+	onSubmit: (
+		href: string,
+		meta: { inputMethod: RecentSearchInputTypes },
+		setFocus?: boolean,
+	) => void;
 	displayUrl?: string;
 };
 
@@ -79,16 +83,19 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 		this.props.onSubmit(url, { inputMethod });
 	};
 
-	private handleOnBack = ({
-		url,
-		inputMethod,
-	}: {
-		url: string;
-		inputMethod?: RecentSearchInputTypes;
-	}) => {
+	private handleOnBack = (
+		{
+			url,
+			inputMethod,
+		}: {
+			url: string;
+			inputMethod?: RecentSearchInputTypes;
+		},
+		setFocus?: boolean,
+	) => {
 		const { onBack } = this.props;
 		if (onBack) {
-			onBack(url, { inputMethod });
+			onBack(url, { inputMethod }, setFocus);
 		}
 	};
 
@@ -99,10 +106,10 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 		}
 	};
 
-	private handleUnlink = () => {
+	private handleUnlink = (setFocus?: boolean) => {
 		const { onUnlink } = this.props;
 		if (onUnlink) {
-			onUnlink();
+			onUnlink(setFocus);
 		}
 	};
 
@@ -172,6 +179,17 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 										inputMethod: currentInputMethod,
 									})
 								}
+								onKeyDown={(event) => {
+									if (event.key === 'Enter') {
+										this.handleOnBack(
+											{
+												url: value,
+												inputMethod: currentInputMethod,
+											},
+											true,
+										);
+									}
+								}}
 							/>
 						</span>
 						<PanelTextInput
@@ -204,7 +222,12 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 								<Button
 									title={formatUnlinkText}
 									icon={<EditorUnlinkIcon label={formatUnlinkText} />}
-									onClick={this.handleUnlink}
+									onClick={() => this.handleUnlink()}
+									onKeyDown={(event) => {
+										if (event.key === 'Enter') {
+											this.handleUnlink(true);
+										}
+									}}
 								/>
 							</Fragment>
 						)}

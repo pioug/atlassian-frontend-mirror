@@ -26,6 +26,7 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import {
@@ -171,6 +172,11 @@ export function InlineCommentView({
 		}
 	}
 
+	// Network Status
+	const networkStatusSelector = useSharedPluginStateSelector(editorAPI, 'connectivity.mode', {
+		disabled: editorExperiment('platform_editor_offline_editing_web', false),
+	});
+
 	if (!dom) {
 		return null;
 	}
@@ -215,6 +221,7 @@ export function InlineCommentView({
 					}}
 					inlineNodeTypes={inlineNodeTypes}
 					isOpeningMediaCommentFromToolbar={isOpeningMediaCommentFromToolbar}
+					isOffline={networkStatusSelector === 'offline'}
 				/>
 			</div>
 		);
@@ -285,6 +292,7 @@ export function InlineCommentView({
 					closeComponent()(editorView.state, editorView.dispatch);
 				}}
 				isOpeningMediaCommentFromToolbar={isOpeningMediaCommentFromToolbar}
+				isOffline={networkStatusSelector === 'offline'}
 			/>
 		</AnnotationViewWrapper>
 	);

@@ -21,6 +21,7 @@ import {
 	useInlineAnnotationProps,
 	type MarkDataAttributes,
 } from '../../ui/annotations/element/useInlineAnnotationProps';
+import { usePortal } from '../../ui/Renderer/PortalContext';
 
 export interface InlineCardProps extends MarkDataAttributes {
 	url?: string;
@@ -32,9 +33,15 @@ export interface InlineCardProps extends MarkDataAttributes {
 }
 
 const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
-	const { url, data, eventHandlers, portal, smartLinks } = props;
+	const { url, data, eventHandlers, smartLinks } = props;
+	const portal = usePortal(props);
 	const onClick = getCardClickHandler(eventHandlers, url);
-	const cardProps = { url, data, onClick, container: portal };
+	const cardProps = {
+		url,
+		data,
+		onClick,
+		container: portal,
+	};
 	const { hideHoverPreview, actionOptions, ssr } = smartLinks || {};
 
 	const analyticsData = {

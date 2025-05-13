@@ -112,7 +112,7 @@ describe('ReactionSummaryView', () => {
 		expect(mockHandleOpenReactionsDialog).toHaveBeenCalled();
 	});
 
-	it('should render ReactionSummaryViewEmojiPicker if allowSelectFromSummaryView is true and the trigger is clicked', async () => {
+	it('should render emoji picker button if allowSelectFromSummaryView is true and the trigger is clicked', async () => {
 		renderComponent({
 			reactions,
 			allowSelectFromSummaryView: true,
@@ -130,7 +130,7 @@ describe('ReactionSummaryView', () => {
 		expect(emojiPicker).toBeInTheDocument();
 	});
 
-	it('should not render ReactionSummaryViewEmojiPicker if allowSelectFromSummaryView is false', async () => {
+	it('should not render emoji picker button if allowSelectFromSummaryView is false', async () => {
 		renderComponent({
 			reactions,
 			allowSelectFromSummaryView: false,
@@ -223,20 +223,16 @@ describe('ReactionSummaryView', () => {
 			expect(summaryViewPopup).toBeInTheDocument();
 		});
 
-		it('should keep the summary view open when the emoji picker is open', async () => {
+		it('should close the summary view when the emoji picker is opened', async () => {
 			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.hover(reactionSummaryButton);
-			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).toBeInTheDocument();
+
 			const trigger = await screen.findByTestId('render-trigger-button');
 			await userEvent.click(trigger);
-			const emojiPicker = await screen.findByText('EmojiPicker');
-			expect(emojiPicker).toBeInTheDocument();
-
-			await userEvent.unhover(reactionSummaryButton);
-			await userEvent.unhover(summaryViewPopup);
-
-			expect(summaryViewPopup).toBeInTheDocument();
+			expect(await screen.findByText('EmojiPicker')).toBeInTheDocument();
+			expect(screen.queryByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID)).not.toBeInTheDocument();
 		});
 	});
 });

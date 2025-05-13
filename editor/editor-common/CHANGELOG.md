@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 105.0.0
+
+### Major Changes
+
+- [#152928](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152928)
+  [`085c1eac95c8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/085c1eac95c8f) -
+  [EDITOR-709] Removed unused analytics enums and types
+
+### Patch Changes
+
+- [#153538](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153538)
+  [`5c7cf4707fb42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c7cf4707fb42) -
+  [ux] Fix Smart Link AvatarGroup padding
+
 ## 104.1.4
 
 ### Patch Changes

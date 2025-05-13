@@ -3,12 +3,14 @@
  * @jsx jsx
  */
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -34,6 +36,10 @@ export interface BasicSearchInputProps {
 
 const searchButtonStyles = css({
 	marginRight: token('space.075', '6px'),
+});
+
+const styles = cssMap({
+	searchButtonContainer: { marginRight: token('space.075', '6px') },
 });
 
 const formStyles = css({
@@ -87,27 +93,54 @@ export const BasicSearchInput = ({
 		>
 			<Textfield
 				elemAfterInput={
-					<LoadingButton
-						appearance="primary"
-						css={searchButtonStyles}
-						iconBefore={
-							<SearchIcon
+					fg('replace-legacy-button-in-sllv') ? (
+						<Box xcss={styles.searchButtonContainer}>
+							<IconButton
+								appearance="primary"
+								isLoading={isSearching}
+								icon={(iconProps) => (
+									<SearchIcon
+										{...iconProps}
+										LEGACY_size="medium"
+										spacing="spacious"
+										color="currentColor"
+									/>
+								)}
+								spacing="compact"
+								type="submit"
 								label={formatMessage(
 									fg('confluence-issue-terminology-refresh')
 										? basicSearchInputMessages.basicTextSearchLabelIssueTermRefresh
 										: basicSearchInputMessages.basicTextSearchLabel,
 								)}
-								LEGACY_size="medium"
-								color="currentColor"
-								spacing="spacious"
+								isDisabled={isDisabled}
+								testId={`${testId}--basic-search-button`}
+								onClick={handleSearchWithAnalytics}
 							/>
-						}
-						isDisabled={isDisabled}
-						isLoading={isSearching}
-						onClick={handleSearchWithAnalytics}
-						spacing="none"
-						testId={`${testId}--basic-search-button`}
-					/>
+						</Box>
+					) : (
+						<LoadingButton
+							appearance="primary"
+							css={searchButtonStyles}
+							iconBefore={
+								<SearchIcon
+									label={formatMessage(
+										fg('confluence-issue-terminology-refresh')
+											? basicSearchInputMessages.basicTextSearchLabelIssueTermRefresh
+											: basicSearchInputMessages.basicTextSearchLabel,
+									)}
+									LEGACY_size="medium"
+									color="currentColor"
+									spacing="spacious"
+								/>
+							}
+							isDisabled={isDisabled}
+							isLoading={isSearching}
+							onClick={handleSearchWithAnalytics}
+							spacing="none"
+							testId={`${testId}--basic-search-button`}
+						/>
+					)
 				}
 				autoFocus
 				onChange={onChange}

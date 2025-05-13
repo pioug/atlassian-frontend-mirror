@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.7
+
+### Patch Changes
+
+- [#153048](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153048)
+  [`3ed1cacec6ad5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ed1cacec6ad5) -
+  [ux] Fix small gutter flicker on load
+
 ## 2.2.6
 
 ### Patch Changes

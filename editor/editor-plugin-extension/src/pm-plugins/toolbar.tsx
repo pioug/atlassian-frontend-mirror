@@ -443,6 +443,13 @@ export const getToolbarConfig =
 			onFocus: hoverDecoration?.(nodeType, true, className),
 			onBlur: hoverDecoration?.(nodeType, false, className),
 		});
+
+		// testId is required to show focus on trigger button on ESC key press
+		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+		const testId = fg('platform_editor_controls_patch_8')
+			? 'extension-overflow-dropdown-trigger'
+			: undefined;
+
 		return {
 			title: 'Extension floating controls',
 			// Ignored via go/ees005
@@ -503,6 +510,7 @@ export const getToolbarConfig =
 							},
 							{
 								type: 'overflow-dropdown',
+								testId,
 								options: [
 									{
 										title: formatMessage(commonMessages.copyToClipboard),

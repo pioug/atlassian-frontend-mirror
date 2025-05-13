@@ -73,6 +73,7 @@ import { RendererStyleContainer } from './RendererStyleContainer';
 import { getBaseFontSize } from './get-base-font-size';
 import { removeEmptySpaceAroundContent } from './rendererHelper';
 import { useMemoFromPropsDerivative } from './useMemoFromPropsDerivative';
+import { PortalContext } from './PortalContext';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -83,7 +84,6 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 const setAsQueryContainerStyles = css({
 	containerName: 'ak-renderer-wrapper',
 	containerType: 'inline-size',
-	contain: 'layout style inline-size',
 });
 
 const handleMouseTripleClickInTables = (event: MouseEvent) => {
@@ -207,9 +207,6 @@ const handleWrapperOnClick = (
 	}
 };
 
-/**
- * Exported due to enzyme test reliance on this component.
- */
 export const RendererFunctionalComponent = (
 	props: RendererProps & { startPos?: number; skipValidation?: boolean },
 ) => {
@@ -582,14 +579,47 @@ export const RendererFunctionalComponent = (
 
 const RendererFunctionalComponentMemoized = React.memo(RendererFunctionalComponent);
 
+const RendererFunctionalComponentWithPortalContext = (
+	props: RendererProps & { startPos?: number; skipValidation?: boolean },
+) => {
+	const { portal, ...propsWithoutPortal } = props;
+
+	return (
+		<PortalContext.Provider value={portal}>
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+			<RendererFunctionalComponent {...propsWithoutPortal} />
+		</PortalContext.Provider>
+	);
+};
+
+const RendererFunctionalComponentWithPortalContextMemoized = React.memo(
+	RendererFunctionalComponentWithPortalContext,
+);
+
+const getRendererComponent = (nodeComponents: RendererProps['nodeComponents']) => {
+	// If nodeComponents are provided, for now we don't want to remove portal from props
+	// and use context instead because at this time we cannot guarantee that existing
+	// consumers of Atlaskit Renderer will update to use the new portal context.
+	if (!Boolean(nodeComponents) && fg('cc_complexit_reduce_portal_rerenders')) {
+		if (fg('cc_perf_reduce_rerenders')) {
+			return RendererFunctionalComponentWithPortalContextMemoized;
+		}
+		return RendererFunctionalComponentWithPortalContext;
+	}
+
+	if (fg('cc_perf_reduce_rerenders')) {
+		return RendererFunctionalComponentMemoized;
+	}
+
+	return RendererFunctionalComponent;
+};
+
 export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
 	const { skipValidation } = useContext(ValidationContext) || {};
 
-	const RendererComponent = fg('cc_perf_reduce_rerenders')
-		? RendererFunctionalComponentMemoized
-		: RendererFunctionalComponent;
+	const RendererComponent = getRendererComponent(props.nodeComponents);
 
 	return (
 		<RendererComponent
@@ -777,11 +807,11 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	// Only apply container-type = inline-size when having a known width in full-page/full-width/comment mode.
 	// Otherwise when appearance is unspecified the renderer size is decided by the content.
 	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
-	return (appearance === 'full-page' || appearance === 'full-width' || appearance === 'comment') &&
+	return appearance === 'comment' &&
 		// In case of having excerpt-include on page there are multiple renderers nested.
 		// Make sure only the root renderer is set to be query container.
 		isTopLevelRenderer &&
-		fg('platform-fix-table-ssr-resizing') ? (
+		fg('platform-ssr-table-resize') ? (
 		<div css={setAsQueryContainerStyles}>{renderer}</div>
 	) : (
 		renderer

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-loom
 
+## 4.1.3
+
+### Patch Changes
+
+- [#152768](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152768)
+  [`2e80bc703b181`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e80bc703b181) -
+  [ED-27555] Migrate to useSharedPluginStateSelector for insert-block, layout, loom plugins
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

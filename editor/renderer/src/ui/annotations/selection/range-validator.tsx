@@ -11,8 +11,16 @@ type Props = {
 		React.PropsWithChildren<InlineCommentSelectionComponentProps>
 	>;
 	rendererRef: React.RefObject<HTMLDivElement>;
-	applyAnnotationDraftAt: (position: Position) => void;
-	clearAnnotationDraft: () => void;
+	/**
+	 * @private
+	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
+	 */
+	applyAnnotationDraftAt?: (position: Position) => void;
+	/**
+	 * @private
+	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
+	 */
+	clearAnnotationDraft?: () => void;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
@@ -25,11 +33,13 @@ export const SelectionRangeValidator = (props: Props) => {
 		createAnalyticsEvent,
 	} = props;
 	const actions = useContext(ActionsContext);
-	const [range, draftRange, clearRange] = useUserSelectionRange({
+	const [type, range, draftRange, clearRange] = useUserSelectionRange({
 		rendererRef,
 	});
 
-	if (!range && !draftRange) {
+	const selectionRange = type === 'selection' ? range : null;
+
+	if (!selectionRange && !draftRange) {
 		return null;
 	}
 	const documentPosition = actions.getPositionFromRange(range);
@@ -45,7 +55,7 @@ export const SelectionRangeValidator = (props: Props) => {
 
 	return (
 		<SelectionInlineCommentMounter
-			range={range}
+			range={selectionRange}
 			draftRange={draftRange}
 			wrapperDOM={rendererRef}
 			component={selectionComponent}
@@ -60,3 +70,5 @@ export const SelectionRangeValidator = (props: Props) => {
 		/>
 	);
 };
+
+SelectionRangeValidator.displayName = 'SelectionRangeValidator';

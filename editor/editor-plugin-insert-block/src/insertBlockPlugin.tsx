@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -14,6 +17,7 @@ import type {
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -223,6 +227,92 @@ interface ToolbarInsertBlockWithInjectionApiProps
 	appearance: EditorAppearance | undefined;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
+		const emojiProviderSelector = useSharedPluginStateSelector(api, 'emoji.emojiProvider');
+		const showMediaPicker = useSharedPluginStateSelector(api, 'media.showMediaPicker');
+		const mediaAllowsUploads = useSharedPluginStateSelector(api, 'media.allowsUploads');
+		const showElementBrowser = useSharedPluginStateSelector(api, 'insertBlock.showElementBrowser');
+		const isTypeAheadAllowed = useSharedPluginStateSelector(api, 'typeAhead.isAllowed');
+		const mentionProvider = useSharedPluginStateSelector(api, 'mention.mentionProvider');
+		const canInsertMention = useSharedPluginStateSelector(api, 'mention.canInsertMention');
+		const dateEnabled = useSharedPluginStateSelector(api, 'date.isInitialised');
+		const placeholderTextAllowInserting = useSharedPluginStateSelector(
+			api,
+			'placeholderText.allowInserting',
+		);
+		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+		const imageUploadEnabled = useSharedPluginStateSelector(api, 'imageUpload.enabled');
+		const availableWrapperBlockTypes = useSharedPluginStateSelector(
+			api,
+			'blockType.availableWrapperBlockTypes',
+		);
+		const canInsertLink = useSharedPluginStateSelector(api, 'hyperlink.canInsertLink');
+		const activeLinkMark = useSharedPluginStateSelector(api, 'hyperlink.activeLinkMark');
+
+		return {
+			emojiProviderSelector,
+			showMediaPicker,
+			mediaAllowsUploads,
+			showElementBrowser,
+			isTypeAheadAllowed,
+			mentionProvider,
+			canInsertMention,
+			dateEnabled,
+			placeholderTextAllowInserting,
+			connectivityMode,
+			imageUploadEnabled,
+			availableWrapperBlockTypes,
+			canInsertLink,
+			activeLinkMark,
+		};
+	},
+	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
+		const {
+			dateState,
+			hyperlinkState,
+			imageUploadState,
+			mentionState,
+			emojiState,
+			blockTypeState,
+			mediaState,
+			typeAheadState,
+			placeholderTextState,
+			insertBlockState,
+			connectivityState,
+		} = useSharedPluginState(api, [
+			'hyperlink',
+			'date',
+			'imageUpload',
+			'mention',
+			'emoji',
+			'blockType',
+			'media',
+			'typeAhead',
+			'placeholderText',
+			'insertBlock',
+			'connectivity',
+		]);
+
+		return {
+			emojiProviderSelector: emojiState?.emojiProvider,
+			showMediaPicker: mediaState?.showMediaPicker,
+			mediaAllowsUploads: mediaState?.allowsUploads,
+			showElementBrowser: insertBlockState?.showElementBrowser,
+			isTypeAheadAllowed: typeAheadState?.isAllowed,
+			mentionProvider: mentionState?.mentionProvider,
+			canInsertMention: mentionState?.canInsertMention,
+			dateEnabled: dateState?.isInitialised,
+			placeholderTextAllowInserting: placeholderTextState?.allowInserting,
+			connectivityMode: connectivityState?.mode,
+			imageUploadEnabled: imageUploadState?.enabled,
+			availableWrapperBlockTypes: blockTypeState?.availableWrapperBlockTypes,
+			canInsertLink: hyperlinkState?.canInsertLink,
+			activeLinkMark: hyperlinkState?.activeLinkMark,
+		};
+	},
+);
+
 function ToolbarInsertBlockWithInjectionApi({
 	editorView,
 	editorActions,
@@ -241,41 +331,32 @@ function ToolbarInsertBlockWithInjectionApi({
 }: ToolbarInsertBlockWithInjectionApiProps) {
 	const buttons = toolbarSizeToButtons(toolbarSize, appearance);
 	const {
-		dateState,
-		hyperlinkState,
-		imageUploadState,
-		mentionState,
-		emojiState,
-		blockTypeState,
-		mediaState,
-		typeAheadState,
-		placeholderTextState,
-		insertBlockState,
-		connectivityState,
-	} = useSharedPluginState(pluginInjectionApi, [
-		'hyperlink',
-		'date',
-		'imageUpload',
-		'mention',
-		'emoji',
-		'blockType',
-		'media',
-		'typeAhead',
-		'placeholderText',
-		'insertBlock',
-		'connectivity',
-	]);
+		emojiProviderSelector,
+		showMediaPicker,
+		mediaAllowsUploads,
+		showElementBrowser,
+		isTypeAheadAllowed,
+		mentionProvider,
+		canInsertMention,
+		dateEnabled,
+		placeholderTextAllowInserting,
+		connectivityMode,
+		imageUploadEnabled,
+		availableWrapperBlockTypes,
+		canInsertLink,
+		activeLinkMark,
+	} = useSharedState(pluginInjectionApi);
 
 	const getEmojiProvider = () => {
-		if (emojiState?.emojiProvider) {
-			return Promise.resolve(emojiState?.emojiProvider);
+		if (emojiProviderSelector) {
+			return Promise.resolve(emojiProviderSelector);
 		}
 	};
 
 	const emojiProvider = getEmojiProvider();
 
 	const onShowMediaPicker = (mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement }) => {
-		if (!mediaState) {
+		if (!showMediaPicker) {
 			return;
 		}
 
@@ -284,44 +365,42 @@ function ToolbarInsertBlockWithInjectionApi({
 				pluginInjectionApi?.mediaInsert?.commands.showMediaInsertPopup(mountInfo),
 			);
 		} else {
-			mediaState.showMediaPicker();
+			showMediaPicker();
 		}
 	};
 
 	return (
 		<ToolbarInsertBlock
-			showElementBrowser={insertBlockState?.showElementBrowser || false}
+			showElementBrowser={showElementBrowser || false}
 			pluginInjectionApi={pluginInjectionApi}
 			buttons={buttons}
 			isReducedSpacing={isToolbarReducedSpacing}
 			isDisabled={disabled}
-			isTypeAheadAllowed={Boolean(typeAheadState?.isAllowed)}
+			isTypeAheadAllowed={Boolean(isTypeAheadAllowed)}
 			editorView={editorView}
 			tableSupported={!!editorView.state.schema.nodes.table}
 			tableSelectorSupported={
 				options.tableSelectorSupported && !!editorView.state.schema.nodes.table
 			}
 			actionSupported={!!editorView.state.schema.nodes.taskItem}
-			mentionsSupported={!!(mentionState && mentionState.mentionProvider)}
-			mentionsDisabled={!!(mentionState && !mentionState.canInsertMention)}
+			mentionsSupported={!!mentionProvider}
+			mentionsDisabled={!canInsertMention}
 			decisionSupported={!!editorView.state.schema.nodes.decisionItem}
-			dateEnabled={!!dateState}
-			placeholderTextEnabled={placeholderTextState && placeholderTextState.allowInserting}
+			dateEnabled={!!dateEnabled}
+			placeholderTextEnabled={!!placeholderTextAllowInserting}
 			layoutSectionEnabled={Boolean(pluginInjectionApi?.layout)}
 			expandEnabled={!!options.allowExpand}
-			mediaUploadsEnabled={(mediaState && mediaState.allowsUploads) ?? undefined}
+			mediaUploadsEnabled={mediaAllowsUploads ?? undefined}
 			onShowMediaPicker={onShowMediaPicker}
-			mediaSupported={!!mediaState}
-			isEditorOffline={connectivityState?.mode === 'offline'}
+			mediaSupported={mediaAllowsUploads !== undefined}
+			isEditorOffline={connectivityMode === 'offline'}
 			imageUploadSupported={!!pluginInjectionApi?.imageUpload}
-			imageUploadEnabled={imageUploadState?.enabled}
+			imageUploadEnabled={imageUploadEnabled}
 			handleImageUpload={pluginInjectionApi?.imageUpload?.actions.startUpload}
-			availableWrapperBlockTypes={blockTypeState && blockTypeState.availableWrapperBlockTypes}
-			linkSupported={!!hyperlinkState}
-			linkDisabled={
-				!hyperlinkState || !hyperlinkState.canInsertLink || !!hyperlinkState.activeLinkMark
-			}
-			emojiDisabled={!emojiState || !emojiProvider}
+			availableWrapperBlockTypes={availableWrapperBlockTypes}
+			linkSupported={canInsertLink !== undefined}
+			linkDisabled={!canInsertLink || !!activeLinkMark}
+			emojiDisabled={!emojiProvider}
 			emojiProvider={emojiProvider}
 			nativeStatusSupported={options.nativeStatusSupported}
 			horizontalRuleEnabled={options.horizontalRuleEnabled}

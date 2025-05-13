@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "2.7.2",
+	"version": "2.7.3",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -112,6 +112,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_analytics_2": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		}
 	}

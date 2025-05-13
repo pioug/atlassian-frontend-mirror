@@ -39,7 +39,7 @@ export const VerifiedTeamIcon = ({
 
 	return tooltipContent ? (
 		<Tooltip content={tooltipContent}>
-			<span tabIndex={0} role="button" aria-hidden="true" data-testid="verified-team-icon">
+			<span tabIndex={0} role="button" data-testid="verified-team-icon">
 				{' '}
 				<VerifiedIcon
 					color={token('color.icon.accent.blue')}

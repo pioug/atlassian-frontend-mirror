@@ -15,7 +15,7 @@ import EmailIcon from '@atlaskit/icon/core/migration/email';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { MenuGroup } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { N300, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -38,6 +38,7 @@ import { ShareHeader } from './ShareHeader';
 import { ShareMenuItem } from './ShareMenuItem';
 import { UserPickerField } from './UserPickerField';
 
+const styles = xcss({ width: '100%', minWidth: '0px', flex: '1 1 auto' });
 const submitButtonWrapperStyles = css({
 	display: 'flex',
 	marginLeft: 'auto',
@@ -161,6 +162,8 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 			shareError,
 			userPickerOptions,
 			productAttributes,
+			additionalUserFields,
+			isExtendedShareDialogEnabled,
 		} = this.props;
 
 		return (
@@ -172,26 +175,54 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 						<RequiredAsterisk />
 					</div>
 					<div css={formFieldStyles}>
-						<UserPickerField
-							onInputChange={onUserInputChange}
-							onChange={onUserSelectionChange}
-							loadOptions={loadOptions}
-							defaultValue={defaultValue && defaultValue.users}
-							config={config}
-							isLoading={isFetchingConfig}
-							product={product || 'confluence'}
-							enableSmartUserPicker={enableSmartUserPicker}
-							loggedInAccountId={loggedInAccountId}
-							cloudId={cloudId}
-							selectPortalRef={selectPortalRef}
-							isPublicLink={isPublicLink}
-							helperMessage={helperMessage}
-							orgId={orgId}
-							isBrowseUsersDisabled={isBrowseUsersDisabled}
-							shareError={shareError}
-							userPickerOptions={userPickerOptions}
-							productAttributes={productAttributes}
-						/>
+						{isExtendedShareDialogEnabled ? (
+							<Inline space="space.100">
+								<Box xcss={styles}>
+									<UserPickerField
+										onInputChange={onUserInputChange}
+										onChange={onUserSelectionChange}
+										loadOptions={loadOptions}
+										defaultValue={defaultValue && defaultValue.users}
+										config={config}
+										isLoading={isFetchingConfig}
+										product={product || 'confluence'}
+										enableSmartUserPicker={enableSmartUserPicker}
+										loggedInAccountId={loggedInAccountId}
+										cloudId={cloudId}
+										selectPortalRef={selectPortalRef}
+										isPublicLink={isPublicLink}
+										helperMessage={helperMessage}
+										orgId={orgId}
+										isBrowseUsersDisabled={isBrowseUsersDisabled}
+										shareError={shareError}
+										userPickerOptions={userPickerOptions}
+										productAttributes={productAttributes}
+									/>
+								</Box>
+								{additionalUserFields}
+							</Inline>
+						) : (
+							<UserPickerField
+								onInputChange={onUserInputChange}
+								onChange={onUserSelectionChange}
+								loadOptions={loadOptions}
+								defaultValue={defaultValue && defaultValue.users}
+								config={config}
+								isLoading={isFetchingConfig}
+								product={product || 'confluence'}
+								enableSmartUserPicker={enableSmartUserPicker}
+								loggedInAccountId={loggedInAccountId}
+								cloudId={cloudId}
+								selectPortalRef={selectPortalRef}
+								isPublicLink={isPublicLink}
+								helperMessage={helperMessage}
+								orgId={orgId}
+								isBrowseUsersDisabled={isBrowseUsersDisabled}
+								shareError={shareError}
+								userPickerOptions={userPickerOptions}
+								productAttributes={productAttributes}
+							/>
+						)}
 					</div>
 					<div css={formFieldStyles}>
 						<CommentField defaultValue={defaultValue && defaultValue.comment} />

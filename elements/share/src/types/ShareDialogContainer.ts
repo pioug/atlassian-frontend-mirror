@@ -186,4 +186,8 @@ export type ShareDialogContainerProps = {
 	workspaceAri?: string;
 	/* Indicates if share submit button is disabled */
 	isSubmitShareDisabled?: boolean;
+	/* Enables rendering of additional user fields alongside UI updates for project access level integrations */
+	isExtendedShareDialogEnabled?: boolean;
+	/* Additional user fields to be displayed alongside the user picker */
+	additionalUserFields?: React.ReactNode;
 };

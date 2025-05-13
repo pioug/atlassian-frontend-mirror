@@ -143,9 +143,13 @@ export const InlineCardWithAwareness = memo(
 		);
 
 		const shouldShowOpenButtonOverlay = useMemo(() => {
+			const shouldShowOpenButtonOverlayInChomeless =
+				editorAppearance === 'chromeless' && fg('platform_editor_controls_patch_8');
+
 			return (
 				(editorViewModeState?.mode === 'edit' ||
-					(editorAppearance === 'comment' && fg('platform_editor_controls_patch_6'))) &&
+					(editorAppearance === 'comment' && fg('platform_editor_controls_patch_6')) ||
+					shouldShowOpenButtonOverlayInChomeless) &&
 				editorExperiment('platform_editor_controls', 'variant1')
 			);
 		}, [editorViewModeState?.mode, editorAppearance]);

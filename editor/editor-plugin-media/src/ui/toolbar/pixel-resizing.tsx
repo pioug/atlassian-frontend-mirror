@@ -30,6 +30,7 @@ export const getPixelResizingToolbar = (
 		pluginState,
 		hoverDecoration,
 		isEditorFullWidthEnabled,
+		triggerButtonSelector,
 	}: Omit<Props, 'editorView' | 'selectedMediaSingleNode'>,
 ): FloatingToolbarConfig => ({
 	...toolbarBaseConfig,
@@ -56,6 +57,7 @@ export const getPixelResizingToolbar = (
 						pluginState={pluginState}
 						hoverDecoration={hoverDecoration}
 						isEditorFullWidthEnabled={isEditorFullWidthEnabled}
+						triggerButtonSelector={triggerButtonSelector}
 					/>
 				);
 			},

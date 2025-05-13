@@ -52,6 +52,7 @@ import { injectIntl } from 'react-intl-next';
 import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inline-comments-filter';
 import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import { useAnnotationRangeState } from '../../../ui/annotations/contexts/AnnotationRangeContext';
 
 export type MediaProps = MediaCardProps & {
 	providers?: ProviderFactory;
@@ -529,7 +530,12 @@ class Media extends PureComponent<MediaProps, Object> {
 }
 
 const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
-	const draftPosition = React.useContext(AnnotationsDraftContext);
+	const draftPositionOld = React.useContext(AnnotationsDraftContext);
+	const { hoverDraftDocumentPosition } = useAnnotationRangeState();
+
+	const draftPosition = fg('platform_renderer_annotation_draft_position_fix')
+		? hoverDraftDocumentPosition
+		: draftPositionOld;
 
 	const { dataAttributes } = props;
 	const pos = dataAttributes && dataAttributes['data-renderer-start-pos'];

@@ -11,7 +11,10 @@ import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer'
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ELEMENT_ITEM_HEIGHT, ElementBrowser } from '@atlaskit/editor-common/element-browser';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
 	IconCode,
@@ -23,19 +26,40 @@ import {
 	IconQuote,
 	IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners as withOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { borderRadius } from '@atlaskit/theme';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import type { insertBlockPlugin } from '../../insertBlockPlugin';
+
 import type { InsertMenuProps, SvgGetterParams } from './types';
 
 export const DEFAULT_HEIGHT = 560;
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
+		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+
+		return {
+			connectivityMode,
+		};
+	},
+	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
+		const { connectivityState } = useSharedPluginState(api, ['connectivity']);
+
+		return {
+			connectivityMode: connectivityState?.mode,
+		};
+	},
+);
 
 const InsertMenu = ({
 	editorView,
@@ -114,7 +138,7 @@ const InsertMenu = ({
 		[editorView, toggleVisiblity, pluginInjectionApi],
 	);
 
-	const { connectivityState } = useSharedPluginState(pluginInjectionApi, ['connectivity']);
+	const { connectivityMode } = useSharedState(pluginInjectionApi);
 
 	const getItems = useCallback(
 		(query?: string, category?: string) => {
@@ -133,7 +157,7 @@ const InsertMenu = ({
 							category,
 						})
 						?.map((item) =>
-							connectivityState?.mode === 'offline' && item.isDisabledOffline
+							connectivityMode === 'offline' && item.isDisabledOffline
 								? { ...item, isDisabled: true }
 								: item,
 						) ?? [];
@@ -145,7 +169,7 @@ const InsertMenu = ({
 							featuredItems: true,
 						})
 						?.map((item) =>
-							connectivityState?.mode === 'offline' && item.isDisabledOffline
+							connectivityMode === 'offline' && item.isDisabledOffline
 								? { ...item, isDisabled: true }
 								: item,
 						) ?? [];
@@ -158,7 +182,7 @@ const InsertMenu = ({
 			setItemCount(result.length);
 			return result;
 		},
-		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems, connectivityState],
+		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems, connectivityMode],
 	);
 
 	const emptyStateHandler =

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.2.7
+
+### Patch Changes
+
+- [#152768](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152768)
+  [`2e80bc703b181`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e80bc703b181) -
+  [ED-27555] Migrate to useSharedPluginStateSelector for insert-block, layout, loom plugins
+- Updated dependencies
+
 ## 3.2.6
 
 ### Patch Changes

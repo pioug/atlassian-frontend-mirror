@@ -8,13 +8,13 @@ import type {
 
 import type { AEP } from './enums';
 
+import type { SortOrder } from '@atlaskit/editor-common/types';
 import type {
 	SEVERITY,
 	UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
 	UnsupportedContentPayload,
 	UnsupportedContentTooltipPayload,
 } from '@atlaskit/editor-common/utils';
-import type { SortOrder } from '@atlaskit/editor-common/types';
 
 export enum PLATFORM {
 	NATIVE = 'mobileNative',
@@ -264,18 +264,6 @@ type MediaLnkTransformedAEP = AEP<
 	EVENT_TYPE.OPERATIONAL
 >;
 
-type RendererTTIAEP = AEP<
-	ACTION.RENDERER_TTI,
-	ACTION_SUBJECT.RENDERER,
-	undefined,
-	{
-		tti: number;
-		ttiFromInvocation: number;
-		canceled: boolean;
-	},
-	EVENT_TYPE.OPERATIONAL
->;
-
 type NestedTableTransformedAEP = OperationalAEP<
 	ACTION.NESTED_TABLE_TRANSFORMED,
 	ACTION_SUBJECT.RENDERER,
@@ -306,7 +294,6 @@ export type AnalyticsEventPayload<T = void> =
 	| AnnotationDeleteAEP
 	| MediaLnkTransformedAEP
 	| InvalidProsemirrorDocumentErrorAEP
-	| RendererTTIAEP
 	| NestedTableTransformedAEP;
 
 export type FireAnalyticsCallback = <T = void>(

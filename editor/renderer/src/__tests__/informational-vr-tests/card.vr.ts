@@ -116,6 +116,15 @@ snapshotInformational(RendererBlockCard, {
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
+snapshotInformational(RendererBlockCard, {
+	prepare: async (page) => {
+		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
+	},
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+		platform_ssr_smartlink_cards: [true, false],
+	},
+});
 snapshotInformational(RendererBlockCardXSS, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],

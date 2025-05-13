@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 4.2.5
+
+### Patch Changes
+
+- [#151981](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151981)
+  [`81504547cb490`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81504547cb490) -
+  [ux] Issue Navigator links will be converted into smart link embed by default
+
 ## 4.2.4
 
 ### Patch Changes

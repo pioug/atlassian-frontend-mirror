@@ -213,9 +213,9 @@ jest.mock('@atlaskit/popper', () => ({
 	Popper: jest.fn(({ children }) => children({ ref: jest.fn(), style: {}, update: jest.fn() })),
 }));
 
-const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings'], isOpen: boolean) => {
+const mockRenderPopperWrapper = (settings: PopperWrapperProps['settings']) => {
 	return renderWithIntl(
-		<PopperWrapper settings={settings} isOpen={isOpen}>
+		<PopperWrapper settings={settings}>
 			<div>Mock children</div>
 		</PopperWrapper>,
 	);
@@ -228,7 +228,7 @@ const popperWrapperProps: PopperWrapperProps['settings'] = {
 
 describe('PopperWrapper', () => {
 	it('should use bottom-start placement when placement is bottom-start', async () => {
-		mockRenderPopperWrapper(popperWrapperProps, true);
+		mockRenderPopperWrapper(popperWrapperProps);
 		expect(Popper).toHaveBeenCalledWith(
 			expect.objectContaining({ placement: 'bottom-start' }),
 			expect.anything(),

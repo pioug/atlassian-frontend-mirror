@@ -35,7 +35,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N200, N30, N80, R400 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { closeMediaAltTextMenu, closeMediaAltTextMenuAndSave } from '../commands';
@@ -101,6 +103,7 @@ type Props = {
 	value?: string;
 	altTextValidator?: (value: string) => string[];
 	onEscape?: () => void;
+	onEnter?: () => void;
 } & WrappedComponentProps &
 	WithAnalyticsEventsProps;
 
@@ -173,6 +176,12 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		});
 		const hasErrors = !!errorsList.length;
 
+		const onSubmit =
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_8')
+				? this.closeMediaAltTextMenuAndSetFocus
+				: this.closeMediaAltTextMenu;
+
 		return (
 			<div css={containerStyles}>
 				<section css={inputWrapperStyles}>
@@ -193,7 +202,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 						onCancel={this.dispatchCancelEvent}
 						onChange={this.handleOnChange}
 						onBlur={this.handleOnBlur}
-						onSubmit={this.closeMediaAltTextMenu}
+						onSubmit={onSubmit}
 						maxLength={MAX_ALT_TEXT_LENGTH}
 						ariaRequired={true}
 						ariaInvalid={hasErrors}
@@ -243,6 +252,11 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		}
 	};
 
+	private closeMediaAltTextMenuAndSetFocus = () => {
+		this.closeMediaAltTextMenu();
+		this.props.onEnter?.();
+	};
+
 	private fireAnalytics(actionType: MediaAltTextActionType) {
 		const { createAnalyticsEvent, nodeType, mediaType } = this.props;
 		if (createAnalyticsEvent && this.fireCustomAnalytics) {
@@ -263,7 +277,6 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 
 	private dispatchCancelEvent = (event: KeyboardEvent) => {
 		const { view, onEscape } = this.props;
-
 		// We need to pass down the ESCAPE keymap
 		// because when we focus on the Toolbar, Prosemirror blur,
 		// making all keyboard shortcuts not working
@@ -295,7 +308,14 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 	private handleOnBlur = (e: FocusEvent) => {
 		// prevent other selection transaction gets triggered
 		e.stopPropagation();
-		this.closeMediaAltTextMenu();
+		if (
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_8')
+		) {
+			this.closeMediaAltTextMenuAndSetFocus();
+		} else {
+			this.closeMediaAltTextMenu(); // Why do we close the menu on blur? Is it a bug?
+		}
 	};
 
 	private handleClearText = () => {

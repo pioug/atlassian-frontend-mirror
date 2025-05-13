@@ -204,19 +204,32 @@ export const TableFooter = ({
 									<SyncInfo lastSyncTime={lastSyncTime} />
 								)}
 							</SyncTextWrapper>
-							<Button
-								onClick={onRefresh}
-								appearance="subtle"
-								iconBefore={
-									<RefreshIcon
-										label={intl.formatMessage(footerMessages.refreshLabel)}
-										color="currentColor"
-										spacing="spacious"
-									/>
-								}
-								isDisabled={isLoading}
-								testId="refresh-button"
-							/>
+							{fg('replace-legacy-button-in-sllv') ? (
+								<IconButton
+									onClick={onRefresh}
+									appearance="subtle"
+									icon={(iconProps) => (
+										<RefreshIcon {...iconProps} color="currentColor" spacing="spacious" />
+									)}
+									label={intl.formatMessage(footerMessages.refreshLabel)}
+									isDisabled={isLoading}
+									testId="refresh-button"
+								/>
+							) : (
+								<Button
+									onClick={onRefresh}
+									appearance="subtle"
+									iconBefore={
+										<RefreshIcon
+											label={intl.formatMessage(footerMessages.refreshLabel)}
+											color="currentColor"
+											spacing="spacious"
+										/>
+									}
+									isDisabled={isLoading}
+									testId="refresh-button"
+								/>
+							)}
 						</Fragment>
 					)}
 				</SyncWrapper>

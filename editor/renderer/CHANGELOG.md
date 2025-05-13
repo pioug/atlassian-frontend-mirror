@@ -1,5 +1,44 @@
 # @atlaskit/renderer
 
+## 116.0.0
+
+### Major Changes
+
+- [#152928](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152928)
+  [`085c1eac95c8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/085c1eac95c8f) -
+  [EDITOR-709] Removed unused analytics enums and types
+
+### Patch Changes
+
+- [#153538](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153538)
+  [`5c7cf4707fb42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c7cf4707fb42) -
+  [ux] Fix Smart Link AvatarGroup padding
+- Updated dependencies
+
+## 115.1.0
+
+### Minor Changes
+
+- [#151824](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151824)
+  [`0828a5f0b032e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0828a5f0b032e) -
+  Extract portal to a context when custom nodeComponents are not passed in.
+
+### Patch Changes
+
+- [#152820](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152820)
+  [`00eda15128c75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00eda15128c75) -
+  ED-27923:Fix embeded card width during SSR
+
+## 115.0.6
+
+### Patch Changes
+
+- [#152081](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152081)
+  [`703ddc882eae5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/703ddc882eae5) -
+  The annotation draft position has been moved to a high-order context so it can persist across
+  unmounts. The Range context has also been update to support multiple active annotation drafts.
+  This is because currently both the media and selection comments can be opened
+
 ## 115.0.5
 
 ### Patch Changes

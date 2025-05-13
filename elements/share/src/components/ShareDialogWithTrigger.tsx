@@ -603,6 +603,8 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 			isBrowseUsersDisabled,
 			userPickerOptions,
 			isSubmitShareDisabled,
+			additionalUserFields,
+			isExtendedShareDialogEnabled,
 		} = this.props;
 
 		const style =
@@ -671,6 +673,8 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 								selectPortalRef={this.selectPortalRef}
 								isBrowseUsersDisabled={isBrowseUsersDisabled}
 								userPickerOptions={userPickerOptions}
+								additionalUserFields={additionalUserFields}
+								isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 							/>
 						</div>
 					)}

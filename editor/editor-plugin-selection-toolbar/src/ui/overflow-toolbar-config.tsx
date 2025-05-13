@@ -18,6 +18,7 @@ import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
 import MinusIcon from '@atlaskit/icon/core/minus';
 import CheckMarkIcon from '@atlaskit/icon/utility/check-mark';
 import { HeadingItem } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -60,10 +61,17 @@ export const getOverflowFloatingToolbarConfig = ({
 		},
 	];
 
+	// testId is required to show focus on trigger button on ESC key press
+	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+	const testId = fg('platform_editor_controls_patch_8')
+		? 'selectionToolbar-overflow-dropdown-trigger'
+		: undefined;
+
 	return [
 		{ type: 'separator', fullHeight: true },
 		{
 			type: 'overflow-dropdown',
+			testId,
 			dropdownWidth: 240,
 			options: dropdownOptions,
 		},

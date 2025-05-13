@@ -584,6 +584,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			isBrowseUsersDisabled,
 			userPickerOptions,
 			isSubmitShareDisabled,
+			additionalUserFields,
+			isExtendedShareDialogEnabled,
 		} = this.props;
 
 		const footer = resolveShareFooter(integrationMode, this.state.tabIndex, customFooter);
@@ -650,6 +652,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 								selectPortalRef={this.selectPortalRef}
 								isBrowseUsersDisabled={isBrowseUsersDisabled}
 								userPickerOptions={userPickerOptions}
+								additionalUserFields={additionalUserFields}
+								isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 							/>
 						</div>
 					)}

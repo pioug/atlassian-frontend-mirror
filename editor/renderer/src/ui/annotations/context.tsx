@@ -24,12 +24,25 @@ type State = {
 	position: Position | null;
 };
 
-export const AnnotationsDraftContext = createContext<Position | null>(null);
 export const ProvidersContext = createContext<AnnotationProviders | null | undefined>(null);
 export const InlineCommentsStateContext = createContext<
 	Record<AnnotationId, AnnotationMarkStates | null>
 >({});
 
+/**
+ * @private
+ * @deprecated The FG platform_renderer_annotation_draft_position_fix will make this context redundant as the draft position
+ * has been moved to the AnnotationRangeProvider in order to be more consistent with the hover and selection ranges.
+ * Once the FG is rolled out this context will be removed. Please ensure any changes are duplicated to the AnnotationRangeProvider.
+ */
+export const AnnotationsDraftContext = createContext<Position | null>(null);
+
+/**
+ * @private
+ * @deprecated The FG platform_renderer_annotation_draft_position_fix will make this context redundant as the draft position
+ * has been moved to the AnnotationRangeProvider in order to be more consistent with the hover and selection ranges.
+ * Once the FG is rolled out this context will be removed. Please ensure any changes are duplicated to the AnnotationRangeProvider.
+ */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class AnnotationsDraftContextWrapper extends React.Component<Props, State> {

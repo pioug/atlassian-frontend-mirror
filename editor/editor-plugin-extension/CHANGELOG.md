@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.3.7
+
+### Patch Changes
+
+- [#153256](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153256)
+  [`3644fbe36073d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3644fbe36073d) -
+  [ux] When ViewAll dropdown closes via ESC key press or submenus close via ESC or Enter, the focus
+  is set on ViewAll button.
+- Updated dependencies
+
 ## 5.3.6
 
 ### Patch Changes

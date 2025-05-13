@@ -8,7 +8,6 @@ export enum EVENT_TYPE {
 export enum ACTION {
 	STARTED = 'started',
 	RENDERED = 'rendered',
-	RENDERER_TTI = 'tti',
 	CRASHED = 'unhandledErrorCaught',
 	INVALID_PROSEMIRROR_DOCUMENT = 'invalidProsemirrorDocument',
 	SELECT_ALL_CAUGHT = 'selectAllCaught',

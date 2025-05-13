@@ -5,6 +5,7 @@
  */
 import React from 'react';
 
+import { AssetsIcon, AssetsLogo } from '@atlaskit/temp-nav-app-icons/assets';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/temp-nav-app-icons/confluence';
 import {
 	CustomerServiceManagementIcon,
@@ -86,5 +87,14 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <TrelloIcon {...props} size="24" />,
 		Icon32: (props) => <TrelloIcon {...props} size="32" />,
 		Logo: (props) => <TrelloLogo {...props} />,
+	},
+	{
+		name: 'Assets',
+		Icon12: (props) => <AssetsIcon {...props} size="12" />,
+		Icon16: (props) => <AssetsIcon {...props} size="16" />,
+		Icon20: (props) => <AssetsIcon {...props} size="20" />,
+		Icon24: (props) => <AssetsIcon {...props} size="24" />,
+		Icon32: (props) => <AssetsIcon {...props} size="32" />,
+		Logo: (props) => <AssetsLogo {...props} />,
 	},
 ];

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.5
+
+### Patch Changes
+
+- [#152656](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152656)
+  [`cd915ad2cc130`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd915ad2cc130) -
+  Disallow keyboard formatting when selection contains text with code mark
+- Updated dependencies
+
 ## 2.2.4
 
 ### Patch Changes

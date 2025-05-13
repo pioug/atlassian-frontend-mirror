@@ -23,7 +23,7 @@ export const getSmartCardSharedStyles = () => `
     max-width: ${8 * 95}px;
   }
 
-  .${SmartCardSharedCssClassName.LOADER_WRAPPER} {
+  .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER} {
     /* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
     ul, ol {
       padding-left: inherit;

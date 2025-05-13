@@ -23,6 +23,7 @@ import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema'
 import { token } from '@atlaskit/tokens';
 import { N40 } from '@atlaskit/theme/colors';
 import { calcBreakoutWidth, canRenderDatasource } from '@atlaskit/editor-common/utils';
+import { usePortal } from '../../ui/Renderer/PortalContext';
 
 const datasourceContainerStyle = css({
 	borderRadius: `${token('border.radius.200', '8px')}`,
@@ -45,7 +46,8 @@ export default function BlockCard(props: {
 	layout?: string;
 	isNodeNested?: boolean;
 }) {
-	const { url, data, eventHandlers, portal, smartLinks, isNodeNested } = props;
+	const { url, data, eventHandlers, smartLinks, isNodeNested } = props;
+	const portal = usePortal(props);
 	const { actionOptions } = smartLinks || {};
 	const onClick = getCardClickHandler(eventHandlers, url);
 

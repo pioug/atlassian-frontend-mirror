@@ -2,6 +2,8 @@ import { EditorView as CodeMirror } from '@codemirror/view';
 
 import { token } from '@atlaskit/tokens';
 
+const lineHeight = '1.5rem';
+
 export const cmTheme = CodeMirror.theme({
 	'&': {
 		backgroundColor: token('color.background.neutral'),
@@ -12,7 +14,7 @@ export const cmTheme = CodeMirror.theme({
 		fontSize: '0.875rem',
 		// Custom syntax styling to match existing styling
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '1.5rem',
+		lineHeight: lineHeight,
 	},
 	'&.cm-focused': {
 		outline: 'none',
@@ -57,6 +59,14 @@ export const cmTheme = CodeMirror.theme({
 		paddingLeft: token('space.0'),
 		paddingRight: token('space.0'),
 		minWidth: 'unset',
+	},
+	// Set the gutter element min height to prevent flicker of styling while
+	// codemirror is calculating (which happens after an animation frame).
+	// Example problem: https://github.com/codemirror/dev/issues/1076
+	// Ignore the first gutter element as it is a special hidden element.
+	'.cm-gutterElement:not(:first-child)': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		minHeight: lineHeight,
 	},
 });
 

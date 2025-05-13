@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, render, fireEvent, act, waitFor } from '@testing-library/react';
+import { screen, render, fireEvent, act, waitFor, renderHook } from '@testing-library/react';
 
 import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
 import { AnnotationsDraftContext } from '../../../context';
@@ -139,6 +139,10 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			return <div ref={props.rendererRef} data-testid="renderer-container" />;
 		};
 
+		const wrapper = ({ children }: React.PropsWithChildren) => (
+			<AnnotationRangeProvider>{children}</AnnotationRangeProvider>
+		);
+
 		const renderDummyComponentWithDraftContext = (
 			myFakePosition: Position | null,
 			fakeFunction: jest.Mock,
@@ -177,43 +181,72 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		});
 
 		describe('when the selection changes', () => {
-			it('should change the range value when annotation draft is not happening', async () => {
-				const fakeFunction = jest.fn();
+			ffTest.off('platform_renderer_annotation_draft_position_fix', '', () => {
+				it('should change the range value when annotation draft is not happening', async () => {
+					const fakeFunction = jest.fn();
 
-				expect(fakeFunction).toHaveBeenCalledTimes(0);
-				expect(document.getSelection).toHaveBeenCalledTimes(0);
+					expect(fakeFunction).toHaveBeenCalledTimes(0);
+					expect(document.getSelection).toHaveBeenCalledTimes(0);
 
-				renderDummyComponentWithDraftContext(myFakePosition, fakeFunction);
+					renderDummyComponentWithDraftContext(myFakePosition, fakeFunction);
 
-				expect(fakeFunction).toHaveBeenCalledTimes(1);
-				expect(fakeFunction).toHaveBeenCalledWith([null, null, expect.any(Function)]);
+					expect(fakeFunction).toHaveBeenCalledTimes(1);
+					expect(fakeFunction).toHaveBeenCalledWith([null, null, null, expect.any(Function)]);
 
-				fakeFunction.mockClear();
-				dispatchSelectionChange();
-				jest.runAllTimers();
+					fakeFunction.mockClear();
+					dispatchSelectionChange();
+					jest.runAllTimers();
 
-				expect(document.getSelection).toHaveBeenCalledTimes(1);
-				expect(fakeFunction).toHaveBeenCalledTimes(2);
+					expect(document.getSelection).toHaveBeenCalledTimes(1);
+					expect(fakeFunction).toHaveBeenCalledTimes(2);
+				});
+
+				it('should change the range value when annotation draft is happening', async () => {
+					const fakeFunction = jest.fn();
+
+					expect(fakeFunction).toHaveBeenCalledTimes(0);
+					expect(document.getSelection).toHaveBeenCalledTimes(0);
+
+					renderDummyComponentWithDraftContext(null, fakeFunction);
+
+					expect(fakeFunction).toHaveBeenCalledTimes(1);
+					expect(fakeFunction).toHaveBeenCalledWith([null, null, null, expect.any(Function)]);
+
+					fakeFunction.mockClear();
+					dispatchSelectionChange();
+					jest.runAllTimers();
+
+					expect(document.getSelection).toHaveBeenCalledTimes(1);
+					expect(fakeFunction).toHaveBeenCalledTimes(2);
+					expect(fakeFunction).toHaveBeenCalledWith([
+						'selection',
+						myFakeValidRange,
+						null,
+						expect.any(Function),
+					]);
+				});
 			});
 
-			it('should change the range value when annotation draft is happening', async () => {
-				const fakeFunction = jest.fn();
+			ffTest.on('platform_renderer_annotation_draft_position_fix', '', () => {
+				it('should change the range value when a selection is performed', async () => {
+					const { result } = renderHook(() => useUserSelectionRange({ rendererRef: fakeRef }), {
+						wrapper,
+					});
 
-				expect(fakeFunction).toHaveBeenCalledTimes(0);
-				expect(document.getSelection).toHaveBeenCalledTimes(0);
+					expect(result.current).toEqual([null, null, null, expect.any(Function)]);
 
-				renderDummyComponentWithDraftContext(null, fakeFunction);
+					dispatchSelectionChange();
+					jest.runAllTimers();
 
-				expect(fakeFunction).toHaveBeenCalledTimes(1);
-				expect(fakeFunction).toHaveBeenCalledWith([null, null, expect.any(Function)]);
+					expect(document.getSelection).toHaveBeenCalledTimes(1);
 
-				fakeFunction.mockClear();
-				dispatchSelectionChange();
-				jest.runAllTimers();
-
-				expect(document.getSelection).toHaveBeenCalledTimes(1);
-				expect(fakeFunction).toHaveBeenCalledTimes(2);
-				expect(fakeFunction).toHaveBeenCalledWith([myFakeValidRange, null, expect.any(Function)]);
+					expect(result.current).toEqual([
+						'selection',
+						myFakeValidRange,
+						null,
+						expect.any(Function),
+					]);
+				});
 			});
 		});
 
@@ -393,6 +426,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
 				await waitFor(() => {
 					expect(fakeFunction).toHaveBeenCalledWith([
+						'selection',
 						myFakeValidRangeUpdated,
 						null,
 						expect.any(Function),

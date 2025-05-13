@@ -23,6 +23,8 @@ export type ShareFormProps = Pick<
 	| 'isBrowseUsersDisabled'
 	| 'userPickerOptions'
 	| 'productAttributes'
+	| 'additionalUserFields'
+	| 'isExtendedShareDialogEnabled'
 > & {
 	config?: ConfigResponse;
 	isFetchingConfig?: boolean;

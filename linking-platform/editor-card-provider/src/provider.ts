@@ -119,6 +119,9 @@ const isCustomer360LandingPage = (url: string) =>
 const isConfluenceTeamCalendars = (url: string) =>
 	url.match(/\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/);
 
+const isJiraIssueNavigator = (url: string) =>
+	url.match(/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/);
+
 export class EditorCardProvider implements CardProvider {
 	private baseUrl: string;
 	private resolverUrl: string;
@@ -278,6 +281,11 @@ export class EditorCardProvider implements CardProvider {
 			isConfluenceTeamCalendarsEvaluated = isConfluenceTeamCalendars(url);
 		}
 
+		let isJiraIssueNavigatorEvaluated;
+		if (fg('jira_nin_smart_link')) {
+			isJiraIssueNavigatorEvaluated = isJiraIssueNavigator(url);
+		}
+
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -298,7 +306,8 @@ export class EditorCardProvider implements CardProvider {
 			isJiraFormEvaluated ||
 			isJiraSummaryEvaluated ||
 			isCustomer360LandingPage(url) ||
-			isConfluenceTeamCalendarsEvaluated
+			isConfluenceTeamCalendarsEvaluated ||
+			isJiraIssueNavigatorEvaluated
 		) {
 			return 'embed';
 		}

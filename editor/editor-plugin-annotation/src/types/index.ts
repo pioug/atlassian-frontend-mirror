@@ -41,6 +41,10 @@ type AnnotationComponentProps = {
 	 * Indicates that a draft comment was discarded/cancelled
 	 */
 	onClose?: () => void;
+	/**
+	 * Indicates whether the comment UI is offline and should be disabled
+	 */
+	isOffline?: boolean;
 };
 
 export type InlineCommentCreateComponentProps = AnnotationComponentProps & {

@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 6.3.0
+
+### Minor Changes
+
+- [#151489](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151489)
+  [`ce039492f86ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce039492f86ce) -
+  [ux] Added an experimental `additionalUserFields` prop to render extra form fields alongside the
+  existing user picker
+
 ## 6.2.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.2
+
+### Patch Changes
+
+- [#147852](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147852)
+  [`dd88f19c8502c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd88f19c8502c) -
+  initial user latency api implementation
+
 ## 2.1.1
 
 ### Patch Changes

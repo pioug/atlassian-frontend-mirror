@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import {
+	type RangeType,
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
@@ -11,13 +12,15 @@ type Props = {
 	rendererRef: React.RefObject<HTMLDivElement>;
 };
 
-export const useUserSelectionRange = (props: Props): [Range | null, Range | null, () => void] => {
+export const useUserSelectionRange = (
+	props: Props,
+): [RangeType, Range | null, Range | null, () => void] => {
 	const {
 		rendererRef: { current: rendererDOM },
 	} = props;
 	const selectionTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
-	const { clearRange, setRange } = useAnnotationRangeDispatch();
-	const { range, draftRange, type } = useAnnotationRangeState();
+	const { clearRange, clearSelectionRange, setSelectionRange } = useAnnotationRangeDispatch();
+	const { range, type, selectionDraftRange } = useAnnotationRangeState();
 	const lastRangeRef = useRef<Range | null>(null);
 
 	const onSelectionChange = useCallback(
@@ -67,7 +70,7 @@ export const useUserSelectionRange = (props: Props): [Range | null, Range | null
 								_range = sel.getRangeAt(0);
 							}
 						}
-						setRange(_range.cloneRange());
+						setSelectionRange(_range.cloneRange());
 						lastRangeRef.current = _range;
 					}
 				}, 100);
@@ -117,12 +120,12 @@ export const useUserSelectionRange = (props: Props): [Range | null, Range | null
 
 							_range.setEnd(lastChild as Node, (lastChild as Text).length || 0);
 						}
-						setRange(_range.cloneRange());
+						setSelectionRange(_range.cloneRange());
 					}
 				}, 250);
 			}
 		},
-		[rendererDOM, setRange],
+		[rendererDOM, setSelectionRange],
 	);
 
 	useEffect(() => {
@@ -137,9 +140,18 @@ export const useUserSelectionRange = (props: Props): [Range | null, Range | null
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('selectionchange', onSelectionChange);
-			clearRange();
+			if (fg('platform_renderer_annotation_draft_position_fix')) {
+				clearSelectionRange();
+			} else {
+				clearRange();
+			}
 		};
-	}, [rendererDOM, onSelectionChange, clearRange]);
+	}, [rendererDOM, onSelectionChange, clearSelectionRange, clearRange]);
 
-	return [type === 'selection' ? range : null, draftRange, clearRange];
+	return [
+		type,
+		range,
+		selectionDraftRange,
+		fg('platform_renderer_annotation_draft_position_fix') ? clearSelectionRange : clearRange,
+	];
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "4.4.0",
+	"version": "4.4.1",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -106,6 +106,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_analytics_2": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		}
 	},

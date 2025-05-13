@@ -4,6 +4,8 @@ import { AnnotationsDraftContextWrapper, ProvidersContext } from './context';
 import { RangeValidator as HoverRangeValidator } from './hover/range-validator';
 import { SelectionRangeValidator } from './selection/range-validator';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
@@ -15,7 +17,9 @@ type Props = {
 	isNestedRender?: boolean;
 };
 
-export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>): JSX.Element => {
+export const AnnotationsContextWrapperOld = (
+	props: React.PropsWithChildren<Props>,
+): JSX.Element => {
 	const providers = useContext(ProvidersContext);
 	const { range, type } = useAnnotationRangeState();
 	const { setDraftRange, clearDraftRange } = useAnnotationRangeDispatch();
@@ -82,4 +86,69 @@ export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>)
 			{render}
 		</AnnotationsDraftContextWrapper>
 	);
+};
+
+export const AnnotationsContextWrapperNew = (
+	props: React.PropsWithChildren<Props>,
+): JSX.Element => {
+	const providers = useContext(ProvidersContext);
+	const { rendererRef, createAnalyticsEvent, children } = props;
+	const inlineCommentProvider = providers && providers.inlineComment;
+	const selectionComponent = inlineCommentProvider && inlineCommentProvider.selectionComponent;
+	const hoverComponent = inlineCommentProvider && inlineCommentProvider.hoverComponent;
+
+	if (!selectionComponent && !hoverComponent) {
+		return <>{children}</>;
+	}
+
+	return (
+		<>
+			{children}
+			{!!hoverComponent && (
+				<HoverRangeValidator
+					createAnalyticsEvent={createAnalyticsEvent}
+					rendererRef={rendererRef}
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					component={hoverComponent!}
+				/>
+			)}
+			{!!selectionComponent && (
+				<SelectionRangeValidator
+					createAnalyticsEvent={createAnalyticsEvent}
+					rendererRef={rendererRef}
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					selectionComponent={selectionComponent!}
+				/>
+			)}
+		</>
+	);
+};
+
+export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>): JSX.Element => {
+	if (fg('platform_renderer_annotation_draft_position_fix')) {
+		// IMPORTANT: Please make sure the AnnotationsDraftContextWrapper is not used anc cleaned up correctly.
+		// This code path completely removes all reliance on that wrapper. Also the applyAnnotationDraftAt & clearAnnotationDraft
+		// properties have been made optional and not used. This means when we cleanup we can also remove those properties.
+		return (
+			<AnnotationsContextWrapperNew
+				rendererRef={props.rendererRef}
+				createAnalyticsEvent={props.createAnalyticsEvent}
+				isNestedRender={props.isNestedRender}
+			>
+				{props.children}
+			</AnnotationsContextWrapperNew>
+		);
+	} else {
+		return (
+			<AnnotationsContextWrapperOld
+				rendererRef={props.rendererRef}
+				createAnalyticsEvent={props.createAnalyticsEvent}
+				isNestedRender={props.isNestedRender}
+			>
+				{props.children}
+			</AnnotationsContextWrapperOld>
+		);
+	}
 };

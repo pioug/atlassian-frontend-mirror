@@ -384,7 +384,6 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 								menuPortalTarget={menuPortalTarget}
 								inputId={fieldProps.id}
 							/>
-
 							{helperMessage && !wasValidationOrShareError && (
 								<HelperMessage testId="user-picker">{helperMessage}</HelperMessage>
 							)}

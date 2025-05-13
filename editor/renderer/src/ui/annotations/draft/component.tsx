@@ -8,6 +8,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Position } from '../types';
 import { InsertDraftPosition } from '../types';
@@ -20,6 +21,7 @@ import type { TextHighlighter } from '../../../react/types';
 import { segmentText } from '../../../react/utils/segment-text';
 import { renderTextSegments } from '../../../react/utils/render-text-segments';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
+import { useAnnotationRangeState } from '../contexts/AnnotationRangeContext';
 
 // Localized AnnotationSharedCSSByState().common and AnnotationSharedCSSByState().focus
 const markStyles = css({
@@ -156,7 +158,13 @@ export const TextWithAnnotationDraft = ({
 		}),
 		[endPos, startPos],
 	);
-	const nextDraftPosition = React.useContext(AnnotationsDraftContext);
+	const nextDraftPositionOld = React.useContext(AnnotationsDraftContext);
+	const { selectionDraftDocumentPosition } = useAnnotationRangeState();
+
+	const nextDraftPosition = fg('platform_renderer_annotation_draft_position_fix')
+		? selectionDraftDocumentPosition
+		: nextDraftPositionOld;
+
 	const shouldApplyAnnotationAt = React.useMemo(() => {
 		if (!nextDraftPosition) {
 			return false;

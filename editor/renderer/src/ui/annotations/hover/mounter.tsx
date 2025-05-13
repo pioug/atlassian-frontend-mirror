@@ -4,6 +4,7 @@ import type {
 	AnnotationByMatches,
 	InlineCommentHoverComponentProps,
 } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft/dom';
 import type { Position } from '../types';
@@ -16,6 +17,10 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import {
+	useAnnotationRangeDispatch,
+	useAnnotationRangeState,
+} from '../contexts/AnnotationRangeContext';
 
 type Props = {
 	range: Range;
@@ -26,8 +31,16 @@ type Props = {
 	isAnnotationAllowed: boolean;
 	onClose: () => void;
 	applyAnnotation: ApplyAnnotation;
-	applyAnnotationDraftAt: (position: Position) => void;
-	clearAnnotationDraft: () => void;
+	/**
+	 * @private
+	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
+	 */
+	applyAnnotationDraftAt?: (position: Position) => void;
+	/**
+	 * @private
+	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
+	 */
+	clearAnnotationDraft?: () => void;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
 };
@@ -47,15 +60,26 @@ export const Mounter = React.memo((props: Props) => {
 		createAnalyticsEvent,
 		generateIndexMatch,
 	} = props;
+
+	// if platform_renderer_annotation_draft_position_fix is enabled; then
+	const { promoteHoverToDraft, clearHoverDraft } = useAnnotationRangeDispatch();
+	const { hoverDraftDocumentPosition } = useAnnotationRangeState();
+	// else;
 	const [draftDocumentPosition, setDraftDocumentPosition] = useState<Position | null>();
+	// end-if
 
 	const actions = useContext(ActionsContext);
 
 	const onCreateCallback = useCallback(
 		(annotationId: string) => {
-			if (!isAnnotationAllowed || !documentPosition || !applyAnnotation) {
+			const positionToAnnotate = fg('platform_renderer_annotation_draft_position_fix')
+				? hoverDraftDocumentPosition || documentPosition
+				: draftDocumentPosition || documentPosition;
+
+			if (!isAnnotationAllowed || !positionToAnnotate || !applyAnnotation) {
 				return false;
 			}
+
 			const annotation = {
 				annotationId,
 				annotationType: AnnotationTypes.INLINE_COMMENT,
@@ -71,7 +95,7 @@ export const Mounter = React.memo((props: Props) => {
 				}).fire(FabricChannel.editor);
 			}
 
-			return applyAnnotation(draftDocumentPosition || documentPosition, annotation);
+			return applyAnnotation(positionToAnnotate, annotation);
 		},
 		[
 			isAnnotationAllowed,
@@ -79,6 +103,7 @@ export const Mounter = React.memo((props: Props) => {
 			applyAnnotation,
 			draftDocumentPosition,
 			createAnalyticsEvent,
+			hoverDraftDocumentPosition,
 		],
 	);
 
@@ -110,8 +135,12 @@ export const Mounter = React.memo((props: Props) => {
 				return false;
 			}
 
-			setDraftDocumentPosition(documentPosition);
-			applyAnnotationDraftAt(documentPosition);
+			if (fg('platform_renderer_annotation_draft_position_fix')) {
+				promoteHoverToDraft(documentPosition);
+			} else {
+				setDraftDocumentPosition(documentPosition);
+				applyAnnotationDraftAt && applyAnnotationDraftAt(documentPosition);
+			}
 
 			if (createAnalyticsEvent) {
 				const uniqueAnnotationsInRange = actions.getAnnotationsByPosition(range);
@@ -137,7 +166,9 @@ export const Mounter = React.memo((props: Props) => {
 				}
 			});
 
-			const positionToAnnotate = draftDocumentPosition || documentPosition;
+			const positionToAnnotate = fg('platform_renderer_annotation_draft_position_fix')
+				? hoverDraftDocumentPosition || documentPosition
+				: draftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
 				return false;
@@ -159,18 +190,24 @@ export const Mounter = React.memo((props: Props) => {
 			draftDocumentPosition,
 			actions,
 			range,
+			promoteHoverToDraft,
+			hoverDraftDocumentPosition,
 		],
 	);
 
 	const removeDraftModeCallback = useCallback(() => {
-		clearAnnotationDraft();
+		if (fg('platform_renderer_annotation_draft_position_fix')) {
+			clearHoverDraft();
+		} else {
+			clearAnnotationDraft && clearAnnotationDraft();
+			setDraftDocumentPosition(null);
+		}
 
-		setDraftDocumentPosition(null);
 		const sel = window.getSelection();
 		if (sel) {
 			sel.removeAllRanges();
 		}
-	}, [clearAnnotationDraft]);
+	}, [clearAnnotationDraft, clearHoverDraft]);
 
 	const onCloseCallback = useCallback(() => {
 		if (createAnalyticsEvent) {

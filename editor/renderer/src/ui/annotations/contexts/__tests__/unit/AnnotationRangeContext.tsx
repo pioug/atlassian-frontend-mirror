@@ -110,7 +110,7 @@ describe('Annotations: AnnotationRangeContext', () => {
 		expect(result.current.type).toBe(null);
 
 		act(() => {
-			result.current.setRange(range);
+			result.current.setSelectionRange(range);
 		});
 
 		expect(result.current.range).toBe(range);
@@ -127,7 +127,7 @@ describe('Annotations: AnnotationRangeContext', () => {
 		);
 
 		act(() => {
-			result.current.setRange(range);
+			result.current.setSelectionRange(range);
 		});
 
 		expect(result.current.range).toBe(range);
@@ -151,7 +151,7 @@ describe('Annotations: AnnotationRangeContext', () => {
 		);
 
 		act(() => {
-			result.current.setRange(range);
+			result.current.setSelectionRange(range);
 		});
 
 		expect(result.current.range).toBe(range);

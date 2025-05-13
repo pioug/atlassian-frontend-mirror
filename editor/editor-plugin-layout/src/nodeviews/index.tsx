@@ -2,11 +2,15 @@ import React, { useCallback } from 'react';
 
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { BreakoutResizer, ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
 import { type ExtractInjectionAPI, type getPosHandlerNode } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	DOMSerializer,
 	Schema,
@@ -64,6 +68,17 @@ const isEmptyLayout = (node?: PMNode) => {
 	return isEmpty;
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
+		const editorDisabled = useSharedPluginStateSelector(api, 'editorDisabled.editorDisabled');
+		return { editorDisabled };
+	},
+	(api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
+		const { editorDisabledState } = useSharedPluginState(api, ['editorDisabled']);
+		return { editorDisabled: editorDisabledState?.editorDisabled };
+	},
+);
+
 const LayoutBreakoutResizer = ({
 	pluginInjectionApi,
 	forwardRef,
@@ -77,7 +92,7 @@ const LayoutBreakoutResizer = ({
 	forwardRef: ForwardRef;
 	parentRef?: HTMLElement;
 }) => {
-	const { editorDisabledState } = useSharedPluginState(pluginInjectionApi, ['editorDisabled']);
+	const { editorDisabled } = useSharedState(pluginInjectionApi);
 
 	const getEditorWidth = () => {
 		return pluginInjectionApi?.width?.sharedState.currentState();
@@ -121,9 +136,7 @@ const LayoutBreakoutResizer = ({
 			editorView={view}
 			nodeType="layoutSection"
 			getEditorWidth={getEditorWidth}
-			disabled={
-				editorDisabledState?.editorDisabled === true || !isBreakoutAvailable(view.state.schema)
-			}
+			disabled={editorDisabled === true || !isBreakoutAvailable(view.state.schema)}
 			parentRef={parentRef}
 			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 			displayGuidelines={

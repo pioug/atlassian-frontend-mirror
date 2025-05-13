@@ -9,10 +9,14 @@ import { jsx, css } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import VideoIcon from '@atlaskit/icon/core/video';
 import { token } from '@atlaskit/tokens';
 
@@ -33,6 +37,21 @@ interface Props extends Omit<ButtonComponentProps, 'onClickBeforeInit'> {
 const iconMinWidthStyle = css({
 	minWidth: 24,
 });
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
+		const width = useSharedPluginStateSelector(api, 'width.width');
+		return {
+			width,
+		};
+	},
+	(api: ExtractInjectionAPI<LoomPlugin> | undefined) => {
+		const { widthState } = useSharedPluginState(api, ['width']);
+		return {
+			width: widthState?.width,
+		};
+	},
+);
 
 const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedComponentProps>(
 	(
@@ -59,13 +78,13 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 		},
 		ref,
 	) => {
-		const { widthState } = useSharedPluginState(api, ['loom', 'width']);
+		const { width } = useSharedState(api);
 		const label = formatMessage(
 			appearance === 'comment'
 				? toolbarInsertBlockMessages.addLoomVideoComment
 				: toolbarInsertBlockMessages.addLoomVideo,
 		);
-		const shouldShowRecordText = (widthState?.width || 0) > LOOM_BUTTON_WIDTH_BREAKPOINT;
+		const shouldShowRecordText = (width || 0) > LOOM_BUTTON_WIDTH_BREAKPOINT;
 
 		return (
 			<ToolbarButton

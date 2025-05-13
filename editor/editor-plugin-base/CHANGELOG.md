@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-base
 
+## 3.0.0
+
+### Major Changes
+
+- [#152928](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152928)
+  [`085c1eac95c8f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/085c1eac95c8f) -
+  [EDITOR-709] Removed unused analytics enums and types
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.5
 
 ### Patch Changes

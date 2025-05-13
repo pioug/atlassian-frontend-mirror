@@ -105,6 +105,7 @@ export const aiExperienceApplicationMessages = defineMessages({
 		defaultMessage: 'Rovo agents',
 		description: 'Heading text to indicate that the next set of features are for agents',
 	},
+	// Remove when cleaning up editor_ai_converge_free_gen_on_rovo
 	useGeneralAiKnowledgeLabel: {
 		id: 'fabric.editor.ai.experience.useGeneralAiKnowledgeLabel',
 		defaultMessage: 'Use general knowledge',

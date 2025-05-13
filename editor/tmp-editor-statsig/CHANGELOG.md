@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.20.0
+
+### Minor Changes
+
+- [#153675](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153675)
+  [`8e3fe74a1e3ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e3fe74a1e3ed) -
+  [ux] [EDITOR-723] Editor AI users use Rovo General Knowledge for free generate
+
 ## 4.19.0
 
 ### Minor Changes

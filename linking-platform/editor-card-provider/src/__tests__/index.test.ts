@@ -46,7 +46,7 @@ const getMockProvidersResponse = ({
 				},
 				{
 					source:
-						'^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/(list)\\/?',
+						'^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/(list|issues)\\/?',
 				},
 				{
 					source:
@@ -54,7 +54,7 @@ const getMockProvidersResponse = ({
 				},
 				{
 					source:
-						'^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/(timeline|calendar|list|board|summary)\\/?',
+						'^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/core\\/projects\\/(?<resourceId>\\w+)\\/(timeline|calendar|list|board|issues|summary)\\/?',
 				},
 				{
 					source:
@@ -175,7 +175,8 @@ describe('providers > editor', () => {
 			(flag) =>
 				flag === 'smart_links_for_plans_platform' ||
 				flag === 'smartlink_jira_software_form' ||
-				flag === 'plan_smart_link_base_url',
+				flag === 'plan_smart_link_base_url' ||
+				flag === 'jira_nin_smart_link',
 		);
 	});
 
@@ -497,6 +498,10 @@ describe('providers > editor', () => {
 			'https://jdog.jira-dev.com/jira/core/projects/NPM5/list',
 		],
 		[
+			'Jira work management (JWM) issue navigator view',
+			'https://jdog.jira-dev.com/jira/core/projects/NPM5/issues',
+		],
+		[
 			'Jira work management (JWM) board view',
 			'https://jdog.jira-dev.com/jira/core/projects/NPM5/board',
 		],
@@ -587,6 +592,10 @@ describe('providers > editor', () => {
 		[
 			'Jira CMP Form embed',
 			'https://hello.jira.atlassian.cloud/jira/software/c/projects/TNK/form/4056',
+		],
+		[
+			'Jira Issue Navigator embed',
+			'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/issues',
 		],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',

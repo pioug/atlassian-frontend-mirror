@@ -184,7 +184,8 @@ const OpenButtonOverlay = ({
 					target="_blank"
 					style={{
 						paddingBlock:
-							editorAppearance === 'comment' && fg('platform_editor_controls_patch_6')
+							(editorAppearance === 'comment' && fg('platform_editor_controls_patch_6')) ||
+							(editorAppearance === 'chromeless' && fg('platform_editor_controls_patch_8'))
 								? '1px'
 								: token('space.025'),
 					}}

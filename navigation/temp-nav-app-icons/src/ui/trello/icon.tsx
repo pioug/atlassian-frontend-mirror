@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b73a4f9d51f948df8097f19e5141b5e0>>
+ * @codegen <<SignedSource::ce5b9fbd7811d07687572e8e6bbfb3e8>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -15,7 +15,7 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 </svg>
 `;
 const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
-    <path fill="var(--themed-icon-color, currentcolor)" fill-rule="evenodd" d="M6 0a6 6 0 0 0-6 6v12a6 6 0 0 0 6 6h12a6 6 0 0 0 6-6V6a6 6 0 0 0-6-6zm4.338 17.286a.95.95 0 0 1-.948.948H5.38a.95.95 0 0 1-.948-.948V5.38c0-.524.425-.948.948-.948h4.01c.524 0 .948.425.948.948zm9.231-5.466a.95.95 0 0 1-.948.948H14.61a.95.95 0 0 1-.948-.948V5.379c0-.524.424-.948.948-.948h4.011c.524 0 .948.425.948.948z" clip-rule="evenodd"/>
+    <path fill="var(--themed-icon-color, currentcolor)" d="M18 0a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6zM5.379 4.43a.95.95 0 0 0-.948.949v11.907c0 .523.424.948.948.948H9.39a.95.95 0 0 0 .947-.948V5.38a.95.95 0 0 0-.947-.948zm9.23 0a.95.95 0 0 0-.947.949v6.44c0 .523.423.948.947.949h4.012a.95.95 0 0 0 .948-.949V5.38a.95.95 0 0 0-.948-.948z"/>
 </svg>
 `;
 

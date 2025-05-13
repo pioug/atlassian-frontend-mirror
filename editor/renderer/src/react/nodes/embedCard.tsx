@@ -33,6 +33,7 @@ import type { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { usePortal } from '../../ui/Renderer/PortalContext';
 
 const embedCardWrapperStyles = css({
 	width: '100%',
@@ -48,6 +49,7 @@ const embedCardWrapperStyles = css({
 	margin: '0 auto',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 const uIMediaSingleLayoutStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginLeft: '50%',
@@ -72,7 +74,6 @@ export default function EmbedCard(props: {
 		url,
 		data,
 		eventHandlers,
-		portal,
 		layout,
 		width,
 		isInsideOfBlockNode,
@@ -80,6 +81,7 @@ export default function EmbedCard(props: {
 		smartLinks,
 		isInsideOfInlineExtension,
 	} = props;
+	const portal = usePortal(props);
 	const embedIframeRef = useRef(null);
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const { actionOptions } = smartLinks || {};

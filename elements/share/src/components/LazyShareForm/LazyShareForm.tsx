@@ -61,6 +61,8 @@ export type LazyShareFormProps = Pick<
 	| 'userPickerOptions'
 	| 'isMenuItemSelected'
 	| 'isSubmitShareDisabled'
+	| 'additionalUserFields'
+	| 'isExtendedShareDialogEnabled'
 > &
 	Pick<
 		ShareDialogWithTriggerStates,
@@ -150,6 +152,8 @@ function LazyShareForm(props: LazyShareFormProps) {
 		isBrowseUsersDisabled,
 		userPickerOptions,
 		isSubmitShareDisabled,
+		additionalUserFields,
+		isExtendedShareDialogEnabled,
 	} = props;
 
 	const header = customHeader ? <div css={headerCustomStyles}>{customHeader}</div> : null;
@@ -225,6 +229,8 @@ function LazyShareForm(props: LazyShareFormProps) {
 							isBrowseUsersDisabled={isBrowseUsersDisabled}
 							userPickerOptions={userPickerOptions}
 							isSubmitShareDisabled={isSubmitShareDisabled}
+							additionalUserFields={additionalUserFields}
+							isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 						/>
 					) : (
 						<Text as="p">

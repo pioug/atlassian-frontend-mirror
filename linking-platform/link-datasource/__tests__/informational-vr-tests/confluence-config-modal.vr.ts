@@ -17,6 +17,7 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
+		'replace-legacy-button-in-sllv': [false, true],
 	},
 });
 
@@ -32,6 +33,7 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
+		'replace-legacy-button-in-sllv': [false, true],
 	},
 });
 
@@ -44,5 +46,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
+		'replace-legacy-button-in-sllv': [false, true],
 	},
 });

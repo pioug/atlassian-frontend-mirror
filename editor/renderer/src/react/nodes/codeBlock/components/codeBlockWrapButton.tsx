@@ -8,12 +8,12 @@ import type { Dispatch, SetStateAction } from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
-import Icon from '@atlaskit/icon';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
+import Icon from '@atlaskit/icon';
+import Tooltip from '@atlaskit/tooltip';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
 
 const WrapIcon = () => {
 	return (
@@ -58,7 +58,7 @@ const CodeBlockWrapButton = ({
 							isSelected={wrapLongLines}
 							onClick={(event) => {
 								fireAnalyticsEvent({
-									// @ts-expect-error - Type 'ACTION.CLICKED' is not assignable to type 'ACTION.CLICKED | ACTION.EDITOR_TTI | ACTION.MEDIA_LINK_TRANSFORMED | ACTION.STARTED | ACTION.TOGGLE_EXPAND | ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED | ACTION.VISITED | ACTION.RENDERED | ACTION.INVALID_PROSEMIRROR_DOCUMENT | ACTION.CRASHED | ... 6 more ... | AnnotationActionType'
+									// @ts-expect-error - Type 'ACTION.CLICKED' is not assignable to type 'ACTION.CLICKED | ACTION.MEDIA_LINK_TRANSFORMED | ACTION.STARTED | ACTION.TOGGLE_EXPAND | ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED | ACTION.VISITED | ACTION.RENDERED | ACTION.INVALID_PROSEMIRROR_DOCUMENT | ACTION.CRASHED | ... 6 more ... | AnnotationActionType'
 									// This error was introduced after upgrading to TypeScript 5
 									action: ACTION.CLICKED,
 									actionSubject: ACTION_SUBJECT.BUTTON,

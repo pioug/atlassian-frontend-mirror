@@ -716,10 +716,16 @@ const generateToolbarItems =
 					onFocus: hoverDecoration?.(nodeType, true, className),
 					onBlur: hoverDecoration?.(nodeType, false, className),
 				});
+				// testId is required to show focus on trigger button on ESC key press
+				// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+				const testId = fg('platform_editor_controls_patch_8')
+					? 'card-overflow-dropdown-trigger'
+					: undefined;
 				const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 					{ type: 'separator', fullHeight: true },
 					{
 						type: 'overflow-dropdown',
+						testId,
 						options: [
 							{
 								title: intl.formatMessage(commonMessages.copyToClipboard),
@@ -958,10 +964,17 @@ const getDatasourceButtonGroup = (
 			},
 		);
 	} else {
+		// testId is required to show focus on trigger button on ESC key press
+		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+		const testId = fg('platform_editor_controls_patch_8')
+			? 'datasource-overflow-dropdown-trigger'
+			: undefined;
+
 		toolbarItems.push({ type: 'separator', fullHeight: true });
 		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 			{
 				type: 'overflow-dropdown',
+				testId,
 				options: [
 					{
 						title: intl.formatMessage(commonMessages.copyToClipboard),

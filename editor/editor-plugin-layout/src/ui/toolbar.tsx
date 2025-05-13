@@ -30,6 +30,7 @@ import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/migration/layout
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
 import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-left--editor-layout-two-left-sidebar';
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-right--editor-layout-two-right-sidebar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../index';
@@ -313,8 +314,14 @@ export const buildToolbar = (
 			onFocus: hoverDecoration?.(nodeType, true, className),
 			onBlur: hoverDecoration?.(nodeType, false, className),
 		});
+		// testId is required to show focus on trigger button on ESC key press
+		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+		const testId = fg('platform_editor_controls_patch_8')
+			? 'layout-overflow-dropdown-trigger'
+			: undefined;
 		const overflowMenu: FloatingToolbarItem<Command> = {
 			type: 'overflow-dropdown',
+			testId,
 			options: [
 				{
 					title: intl.formatMessage(commonMessages.copyToClipboard),

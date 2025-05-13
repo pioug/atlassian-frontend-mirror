@@ -4,14 +4,16 @@
  */
 import React, { useEffect } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import ButtonOld from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import EmptyState from '@atlaskit/empty-state';
 import { type DatasourceMeta } from '@atlaskit/linking-types';
 import { AuthError, auth as outboundAuth } from '@atlaskit/outbound-auth-flow-client';
-import { Anchor } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -22,6 +24,12 @@ import { ProviderAuthRequiredSVG } from './provider-auth-required-svg';
 
 const buttonStyles = css({
 	marginTop: token('space.200', '16px'),
+});
+
+const styles = cssMap({
+	buttonContainer: {
+		marginTop: token('space.200', '16px'),
+	},
 });
 
 const learnMoreAboutSmartLinksUrl =
@@ -85,11 +93,18 @@ export const ProviderAuthRequired = ({
 		</React.Fragment>
 	);
 
-	const renderAuthConnectButton = () => (
-		<Button onClick={onAuthRequest} appearance="primary" css={buttonStyles}>
-			{formatMessage(loadingErrorMessages.authConnectButtonText)}
-		</Button>
-	);
+	const renderAuthConnectButton = () =>
+		fg('replace-legacy-button-in-sllv') ? (
+			<Box xcss={styles.buttonContainer}>
+				<Button onClick={onAuthRequest} appearance="primary">
+					{formatMessage(loadingErrorMessages.authConnectButtonText)}
+				</Button>
+			</Box>
+		) : (
+			<ButtonOld onClick={onAuthRequest} appearance="primary" css={buttonStyles}>
+				{formatMessage(loadingErrorMessages.authConnectButtonText)}
+			</ButtonOld>
+		);
 
 	return (
 		<EmptyState

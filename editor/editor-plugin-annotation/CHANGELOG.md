@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.0
+
+### Minor Changes
+
+- [#153391](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153391)
+  [`1e42cbe3dd636`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e42cbe3dd636) -
+  [ux] [ED-27484] Track network state from connectivity plugin and provide this to view/create
+  components
+
 ## 2.7.6
 
 ### Patch Changes

@@ -13,6 +13,7 @@ import { IconButton } from '@atlaskit/button/new';
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import Form, { Field } from '@atlaskit/form';
 import CloseIcon from '@atlaskit/icon/core/close';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, Box, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -109,7 +110,7 @@ export const PixelEntryComponent = ({
 
 	// Handle submit when user presses enter or click close button in PixelEntryComponentNext
 	const handleCloseAndSave = useCallback(
-		(data: PixelEntryFormValues) => {
+		(data: PixelEntryFormValues, setFocus?: boolean) => {
 			if (data.inputWidth === '' || data.inputHeight === '') {
 				return;
 			}
@@ -136,7 +137,7 @@ export const PixelEntryComponent = ({
 					setComputedHeight(Math.round(ratioWidth * widthToBeSubmitted));
 				}
 
-				onCloseAndSave({ width: widthToBeSubmitted, validation });
+				onCloseAndSave({ width: widthToBeSubmitted, validation }, setFocus);
 			}
 		},
 		[maxWidth, minWidth, onCloseAndSave, ratioWidth],
@@ -325,9 +326,13 @@ export const PixelEntryComponentNext = ({
 	}, [isViewMode, widthInputRef]);
 
 	const handleKeyDown = useCallback(
-		(event: React.KeyboardEvent<HTMLInputElement>) => {
+		(event: React.KeyboardEvent<HTMLElement>) => {
 			if (event.key === 'Enter') {
-				handleCloseAndSave({ inputWidth: computedWidth, inputHeight: computedHeight });
+				const shouldSetFocus = true;
+				handleCloseAndSave(
+					{ inputWidth: computedWidth, inputHeight: computedHeight },
+					shouldSetFocus,
+				);
 			}
 		},
 		[computedWidth, computedHeight, handleCloseAndSave],
@@ -392,6 +397,7 @@ export const PixelEntryComponentNext = ({
 							onClick={() => {
 								handleCloseAndSave({ inputWidth: computedWidth, inputHeight: computedHeight });
 							}}
+							onKeyDown={fg('platform_editor_controls_patch_8') ? handleKeyDown : undefined}
 						/>
 					</Fragment>
 				)}

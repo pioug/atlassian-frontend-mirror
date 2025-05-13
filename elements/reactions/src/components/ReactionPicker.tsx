@@ -295,7 +295,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	 */
 	const close = useCallback(
 		(_id?: string) => {
-			setIsPopupTrayOpen(false);
+			setIsPopupTrayOpen(false, true);
 			// ufo abort reaction experience
 			PickerRender.abort({
 				metadata: {
@@ -381,7 +381,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 
 		if (hoverableReactionPicker) {
 			setIsHoverableReactionPickerEmojiPickerOpen(!isHoverableReactionPickerEmojiPickerOpen);
-			setIsPopupTrayOpen(!isHoverableReactionPickerEmojiPickerOpen || !isPopupTrayOpen);
+			setIsPopupTrayOpen(!isHoverableReactionPickerEmojiPickerOpen || !isPopupTrayOpen, true);
 		} else {
 			setIsPopupTrayOpen(!isPopupTrayOpen);
 		}
@@ -498,11 +498,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 					)}
 				</Reference>
 				{isPopupTrayOpen && (
-					<PopperWrapper
-						settings={settings}
-						popperModifiers={popperModifiers}
-						isOpen={isPopupTrayOpen}
-					>
+					<PopperWrapper settings={settings} popperModifiers={popperModifiers}>
 						{settings.showFullPicker ||
 						(hoverableReactionPicker && isHoverableReactionPickerEmojiPickerOpen) ? (
 							<EmojiPicker
@@ -538,12 +534,11 @@ export interface PopperWrapperProps {
 		showFullPicker: boolean;
 		popperPlacement: Placement;
 	};
-	isOpen: boolean;
 	popperModifiers?: PopperProps<{}>['modifiers'];
 }
 
 export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
-	const { settings, isOpen, children, popperModifiers } = props;
+	const { settings, children, popperModifiers } = props;
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const { formatMessage } = useIntl();
 	/**
@@ -575,7 +570,7 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 						// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 						tabIndex={0}
 					>
-						<RepositionOnUpdate update={update} settings={settings} isOpen={isOpen}>
+						<RepositionOnUpdate update={update} settings={settings}>
 							<div css={popupStyle}>{children}</div>
 						</RepositionOnUpdate>
 					</div>

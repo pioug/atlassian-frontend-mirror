@@ -13,7 +13,7 @@ const wrappedSpanStyles = css({
 });
 
 const parentListItemHelpContentButtonContainerStyles = css({
-	margin: 0
+	margin: 0,
 });
 
 const helpContentButtonContainerStyles = css({
@@ -68,9 +68,7 @@ export const HelpContentButtonContainer = ({
 	if (href) {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-			<li
-				css={parentListItemHelpContentButtonContainerStyles}
-			>
+			<li css={parentListItemHelpContentButtonContainerStyles}>
 				<a
 					onClick={onClick}
 					onKeyDown={onKeyDown}
@@ -88,9 +86,7 @@ export const HelpContentButtonContainer = ({
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-		<li
-			css={parentListItemHelpContentButtonContainerStyles}
-		>
+		<li css={parentListItemHelpContentButtonContainerStyles}>
 			<button
 				onClick={onClick}
 				onKeyDown={onKeyDown}

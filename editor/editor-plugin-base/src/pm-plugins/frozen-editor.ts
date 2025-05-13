@@ -118,13 +118,7 @@ export default (
 			inputTracking?.severityDegradedThreshold || DEFAULT_TRACK_SEVERITY_THRESHOLD_DEGRADED;
 
 		const createDispatchSample =
-			(
-				action:
-					| ACTION.INPUT_PERF_SAMPLING
-					| ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS
-					| ACTION.INPUT_PERF_SAMPLING_RENDERED,
-				view: EditorView,
-			) =>
+			(action: ACTION.INPUT_PERF_SAMPLING, view: EditorView) =>
 			(time: number, severity: SEVERITY) => {
 				const { state } = view;
 				const nodesCount = getNodeCount(state);

@@ -10,7 +10,7 @@ jest.mock('../../mounter', () => {
 jest.doMock('../../../hooks/user-selection', () => {
 	return {
 		useUserSelectionRange: () => {
-			return [new Range(), () => {}];
+			return ['selection', new Range(), () => {}];
 		},
 	};
 });

@@ -19,6 +19,8 @@ import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import TextIcon from '@atlaskit/icon/core/text';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { openMediaAltTextMenu } from '../../pm-plugins/alt-text/commands';
 import AltTextEdit from '../../pm-plugins/alt-text/ui/AltTextEdit';
@@ -67,13 +69,19 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 			/** Focus should move to the 'Alt text' button when the toolbar closes
 			 * and not close the floating toolbar.
 			 */
-			const handleEsc = () => {
+			const setFocus = () => {
 				const {
 					state: { tr },
 					dispatch,
 				} = view;
-				const newTr = options?.forceFocusSelector?.(`[data-testid="${testId}"]`)(tr);
+				const elementSelector =
+					options?.triggerButtonSelector &&
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_8')
+						? options.triggerButtonSelector
+						: `[data-testid="${testId}"]`;
 
+				const newTr = options?.forceFocusSelector?.(elementSelector)(tr);
 				if (newTr) {
 					dispatch(newTr);
 				}
@@ -89,7 +97,8 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 					mediaType={mediaNode.attrs.type}
 					value={mediaNode.attrs.alt}
 					altTextValidator={options && options.altTextValidator}
-					onEscape={handleEsc}
+					onEscape={setFocus}
+					onEnter={setFocus}
 				/>
 			);
 		},
@@ -99,6 +108,7 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 interface AltTextToolbarOptions {
 	altTextValidator?: (value: string) => string[];
 	forceFocusSelector?: ForceFocusSelector;
+	triggerButtonSelector?: string;
 }
 
 export const getAltTextToolbar = (

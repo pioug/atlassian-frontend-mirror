@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { shallow } from 'enzyme';
 import { FormattedMessage, IntlProvider } from 'react-intl-next';
 
@@ -226,6 +226,61 @@ describe('ShareForm', () => {
 				expect(button.prop('isDisabled')).toEqual(true);
 
 				expect(form.find(ErrorIcon).exists()).toBe(false);
+			});
+		});
+
+		describe('Additional user fields', () => {
+			it('should render additional user fields when isExtendedShareDialogEnabled is true', () => {
+				render(
+					<IntlProvider locale="en">
+						<ShareForm
+							{...defaultProps}
+							title="Share"
+							showTitle={false}
+							copyLink="link"
+							product="jira"
+							isExtendedShareDialogEnabled={true}
+							additionalUserFields={<div>User role field</div>}
+						/>
+					</IntlProvider>,
+				);
+
+				expect(screen.getByText('User role field')).toBeVisible();
+			});
+
+			it('should not render additional user fields when isExtendedShareDialogEnabled is false', () => {
+				render(
+					<IntlProvider locale="en">
+						<ShareForm
+							{...defaultProps}
+							title="Share"
+							showTitle={false}
+							copyLink="link"
+							product="jira"
+							isExtendedShareDialogEnabled={false}
+							additionalUserFields={<div>User role field</div>}
+						/>
+					</IntlProvider>,
+				);
+
+				expect(screen.queryByText('User role field')).not.toBeInTheDocument();
+			});
+
+			it('should not render additional user fields when they do not exist', () => {
+				render(
+					<IntlProvider locale="en">
+						<ShareForm
+							{...defaultProps}
+							title="Share"
+							showTitle={false}
+							copyLink="link"
+							product="jira"
+							isExtendedShareDialogEnabled={true}
+						/>
+					</IntlProvider>,
+				);
+
+				expect(screen.queryByText('User role field')).not.toBeInTheDocument();
 			});
 		});
 

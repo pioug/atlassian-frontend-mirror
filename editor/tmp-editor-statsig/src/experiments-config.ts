@@ -299,4 +299,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-05-08
+	editor_ai_converge_free_gen_on_rovo: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_ai_converge_free_gen_on_rovo',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

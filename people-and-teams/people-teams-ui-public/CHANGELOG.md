@@ -1,5 +1,13 @@
 # @atlaskit/people-teams-ui-public
 
+## 3.1.3
+
+### Patch Changes
+
+- [#151525](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151525)
+  [`cbaf5dcdd75f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbaf5dcdd75f0) -
+  NO-ISSUE Fix verified team icon a11y conflict
+
 ## 3.1.2
 
 ### Patch Changes

@@ -23,6 +23,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import {
@@ -41,6 +42,7 @@ import type { MediaToolbarBaseConfig } from '../../types';
 import MediaLinkingToolbar from '../../ui/MediaLinkingToolbar';
 
 const FORCE_FOCUS_SELECTOR = '[data-testid="add-link-button"],[data-testid="edit-link-button"]';
+const FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS = '[data-testid="media-overflow-dropdown-trigger"]';
 
 export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
 	const mediaLinkingState = getMediaLinkingState(editorState);
@@ -90,6 +92,23 @@ export const getLinkingToolbar = (
 								return null;
 							}
 
+							const setFocusOnFloatingToolbar = (setFocus?: boolean) => {
+								if (
+									setFocus &&
+									editorExperiment('platform_editor_controls', 'variant1') &&
+									fg('platform_editor_controls_patch_8')
+								) {
+									const {
+										state: { tr },
+										dispatch,
+									} = view;
+									pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(
+										FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS,
+									)(tr);
+									dispatch(tr);
+								}
+							};
+
 							return (
 								<MediaLinkingToolbar
 									key={idx}
@@ -97,10 +116,11 @@ export const getLinkingToolbar = (
 									providerFactory={providerFactory}
 									intl={intl}
 									editing={editing}
-									onUnlink={() =>
-										unlink(pluginInjectionApi?.analytics?.actions)(view.state, view.dispatch, view)
-									}
-									onBack={(href, meta) => {
+									onUnlink={(setFocus) => {
+										unlink(pluginInjectionApi?.analytics?.actions)(view.state, view.dispatch, view);
+										setFocusOnFloatingToolbar(setFocus);
+									}}
+									onBack={(href, meta, setFocus) => {
 										if (href.trim() && meta.inputMethod) {
 											setUrlToMedia(href, meta.inputMethod, pluginInjectionApi?.analytics?.actions)(
 												view.state,
@@ -109,6 +129,7 @@ export const getLinkingToolbar = (
 											);
 										}
 										hideLinkingToolbar(view.state, view.dispatch, view);
+										setFocusOnFloatingToolbar(setFocus);
 									}}
 									onCancel={() => {
 										hideLinkingToolbar(view.state, view.dispatch, view, true);
@@ -119,9 +140,12 @@ export const getLinkingToolbar = (
 											state: { tr },
 											dispatch,
 										} = view;
-										pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(
-											FORCE_FOCUS_SELECTOR,
-										)(tr);
+										const selector =
+											editorExperiment('platform_editor_controls', 'variant1') &&
+											fg('platform_editor_controls_patch_8')
+												? FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS
+												: FORCE_FOCUS_SELECTOR;
+										pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(selector)(tr);
 										dispatch(tr);
 									}}
 									onSubmit={(href, meta) => {
@@ -131,6 +155,7 @@ export const getLinkingToolbar = (
 											view,
 										);
 										hideLinkingToolbar(view.state, view.dispatch, view);
+										setFocusOnFloatingToolbar(true);
 									}}
 									onBlur={() => {
 										hideLinkingToolbar(view.state, view.dispatch, view);

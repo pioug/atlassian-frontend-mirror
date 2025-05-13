@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 4.10.0
+
+### Minor Changes
+
+- [#152998](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152998)
+  [`1218a87e3f6f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1218a87e3f6f4) -
+  [ux] Behind fg `replace-legacy-button-in-sllv` - replaces legacy Button component with new Button
+  component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.9.3
 
 ### Patch Changes

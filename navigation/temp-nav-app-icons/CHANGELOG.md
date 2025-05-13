@@ -1,5 +1,15 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.7.2
+
+### Patch Changes
+
+- [#153281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153281)
+  [`85cdfdd64c682`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85cdfdd64c682) - -
+  - Resolved a bug in wordmarks where SF pro was displaying rather than Atlassian Sans.
+  - Minor optical adjustments made to glyph scale with App tiles
+  - Added custom theming support to Assets icon
+
 ## 0.7.1
 
 ### Patch Changes

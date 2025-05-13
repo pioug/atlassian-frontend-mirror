@@ -6,7 +6,6 @@ import type { SEVERITY } from '../../utils/analytics';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { AnnotationAEP } from './inline-comment-events';
-import type { PluginPerformanceReportData } from './performance-report';
 import type { OperationalAEP, OperationalAEPWithObjectId, TrackAEP, UIAEP } from './utils';
 
 export enum PLATFORMS {
@@ -94,20 +93,6 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
 	}
 >;
 
-type EditorTTIAEP = OperationalAEP<
-	ACTION.EDITOR_TTI,
-	ACTION_SUBJECT.EDITOR,
-	undefined,
-	{
-		tti: number;
-		ttiFromInvocation: number;
-		canceled: boolean;
-		ttiSeverity?: SEVERITY;
-		ttiFromInvocationSeverity?: SEVERITY;
-		distortedDuration: boolean;
-	}
->;
-
 type EditorContentRetrievalPerformedAEP = OperationalAEP<
 	ACTION.EDITOR_CONTENT_RETRIEVAL_PERFORMED,
 	ACTION_SUBJECT.EDITOR,
@@ -161,10 +146,8 @@ type SlowInputAEP = OperationalAEPWithObjectId<
 	}
 >;
 
-type InputPerfSamlingAEP = OperationalAEPWithObjectId<
-	| ACTION.INPUT_PERF_SAMPLING
-	| ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS
-	| ACTION.INPUT_PERF_SAMPLING_RENDERED,
+type InputPerfSamplingAEP = OperationalAEPWithObjectId<
+	ACTION.INPUT_PERF_SAMPLING,
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
@@ -176,9 +159,7 @@ type InputPerfSamlingAEP = OperationalAEPWithObjectId<
 >;
 
 type InputPerfSamplingAvgAEP = OperationalAEPWithObjectId<
-	| ACTION.INPUT_PERF_SAMPLING_AVG
-	| ACTION.INPUT_PERF_SAMPLING_SINGLE_KEYPRESS_AVG
-	| ACTION.INPUT_PERF_SAMPLING_RENDERED_AVG,
+	ACTION.INPUT_PERF_SAMPLING_AVG,
 	ACTION_SUBJECT.EDITOR,
 	undefined,
 	{
@@ -188,16 +169,6 @@ type InputPerfSamplingAvgAEP = OperationalAEPWithObjectId<
 		nodeCount?: Record<string, number>;
 		nodeSize: number;
 		severity?: SEVERITY;
-	}
->;
-
-type DispatchedTransactionAEP = OperationalAEP<
-	ACTION.TRANSACTION_DISPATCHED,
-	ACTION_SUBJECT.EDITOR,
-	undefined,
-	{
-		report: PluginPerformanceReportData;
-		participants: number;
 	}
 >;
 
@@ -522,17 +493,15 @@ export type GeneralEventPayload<T = void> =
 	| ButtonHelpAEP
 	| ButtonUploadMediaAEP
 	| ColorPickerAEP
-	| DispatchedTransactionAEP
 	| EditorPerfAEP
 	| EditorRenderedAEP<T>
 	| EditorStartAEP
 	| EditorStopAEP
-	| EditorTTIAEP
 	| ExpandToggleAEP
 	| FeedbackAEP
 	| FullWidthModeAEP
 	| HelpQuickInsertAEP
-	| InputPerfSamlingAEP
+	| InputPerfSamplingAEP
 	| InputPerfSamplingAvgAEP
 	| PickerEmojiAEP
 	| PickerImageAEP

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.7.3
+
+### Patch Changes
+
+- [#153256](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153256)
+  [`3644fbe36073d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3644fbe36073d) -
+  [ux] When ViewAll dropdown closes via ESC key press or submenus close via ESC or Enter, the focus
+  is set on ViewAll button.
+- [#152768](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152768)
+  [`2e80bc703b181`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e80bc703b181) -
+  [ED-27555] Migrate to useSharedPluginStateSelector for insert-block, layout, loom plugins
+- Updated dependencies
+
 ## 2.7.2
 
 ### Patch Changes

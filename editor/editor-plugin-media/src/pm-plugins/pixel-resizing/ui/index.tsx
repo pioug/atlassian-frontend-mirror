@@ -44,6 +44,7 @@ export type Props = {
 	pluginState: MediaPluginState;
 	hoverDecoration: HoverDecorationHandler | undefined;
 	isEditorFullWidthEnabled?: boolean;
+	triggerButtonSelector?: string;
 };
 
 export const PixelEntry = ({
@@ -54,6 +55,7 @@ export const PixelEntry = ({
 	pluginState,
 	hoverDecoration,
 	isEditorFullWidthEnabled,
+	triggerButtonSelector,
 }: Props) => {
 	const { state, dispatch } = editorView;
 	const { mediaSingle } = state.schema.nodes;
@@ -113,6 +115,8 @@ export const PixelEntry = ({
 
 	const pixelWidth = hasPixelType ? mediaSingleWidth : pixelWidthFromElement;
 
+	const forceFocusSelector = pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector;
+
 	return (
 		<PixelEntryComponent
 			intl={intl}
@@ -136,23 +140,33 @@ export const PixelEntry = ({
 				}
 			}}
 			onMigrate={() => {
-				const tr = state.tr.setNodeMarkup(selectedMediaSingleNode.pos, undefined, {
+				let tr = state.tr.setNodeMarkup(selectedMediaSingleNode.pos, undefined, {
 					...selectedMediaSingleNode.node.attrs,
 					width: pixelWidthFromElement,
 					widthType: 'pixel',
 				});
 				tr.setMeta('scrollIntoView', false);
 				tr.setSelection(NodeSelection.create(tr.doc, selectedMediaSingleNode.pos));
+				if (triggerButtonSelector) {
+					const newTr = forceFocusSelector && forceFocusSelector(triggerButtonSelector)(tr);
+					tr = newTr !== undefined ? newTr : tr;
+				}
 				dispatch(tr);
 			}}
-			onCloseAndSave={({ width, validation }) => {
-				const tr = updateNodeWithTr(width, validation);
+			onCloseAndSave={({ width, validation }, setFocus) => {
+				let tr = updateNodeWithTr(width, validation);
+
+				if (setFocus && triggerButtonSelector) {
+					const newTr = forceFocusSelector && tr && forceFocusSelector(triggerButtonSelector)(tr);
+					tr = newTr !== undefined ? newTr : tr;
+				}
 
 				if (tr) {
 					return closePixelEditorAndSave(() => tr)(state, dispatch);
 				}
 			}}
 			isViewMode={pluginState.isResizing}
+			triggerButtonSelector={triggerButtonSelector}
 		/>
 	);
 };

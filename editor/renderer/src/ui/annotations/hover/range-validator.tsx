@@ -13,8 +13,16 @@ import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';
 type Props = {
 	component: React.ComponentType<InlineCommentHoverComponentProps>;
 	rendererRef: React.RefObject<HTMLDivElement>;
-	applyAnnotationDraftAt: (position: Position) => void;
-	clearAnnotationDraft: () => void;
+	/**
+	 * @private
+	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
+	 */
+	applyAnnotationDraftAt?: (position: Position) => void;
+	/**
+	 * @private
+	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
+	 */
+	clearAnnotationDraft?: () => void;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
@@ -53,3 +61,5 @@ export const RangeValidator = (props: Props) => {
 		/>
 	);
 };
+
+RangeValidator.displayName = 'HoverRangeValidator';

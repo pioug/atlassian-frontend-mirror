@@ -40,6 +40,13 @@ export type PerformanceFirstPaintEvent = BasicEventTimestamp<'performance:first-
 export type PerformanceFirstContentfulPaintEvent =
 	BasicEventTimestamp<'performance:first-contentful-paint'>;
 export type PerformanceLayoutShiftEvent = BasicEventTimestamp<'performance:layout-shift'>;
+export type PerformanceLongAnimationFrameEvent = BasicEventTimestamp<
+	'performance:long-animation-frame',
+	{
+		// TODO: PGXT-7953 - use type `PerformanceLongAnimationFrameTiming` https://product-fabric.atlassian.net/browse/PGXT-7953
+		entry: PerformanceEntry;
+	}
+>;
 export type UserEvent = BasicEventTimestamp<
 	`user-event:${UserEventCategory}`,
 	{
@@ -47,6 +54,8 @@ export type UserEvent = BasicEventTimestamp<
 		elementName: string;
 		eventName: string;
 		duration: number;
+		// Made optional for now because unsure if this affects production logic or not
+		entry?: PerformanceEventTiming;
 	}
 >;
 export type IdleTimeEvent = BasicEventTimestamp<
@@ -90,6 +99,7 @@ export type TimelineEvent =
 	| PerformanceFirstPaintEvent
 	| PerformanceFirstContentfulPaintEvent
 	| PerformanceLayoutShiftEvent
+	| PerformanceLongAnimationFrameEvent
 	| IdleTimeEvent
 	| UserEvent
 	| HoldIdleTimeoutEvent
@@ -106,7 +116,9 @@ export type TimelineEventsGrouped = {
 
 export type TimelineOptions = {
 	cleanup: {
-		eventsThreshold: 100 | 1000 | 3000 | 10000;
+		// TODO: PGXT-7918 - Remove threshold. Set threshold option for 10 events for debugging purposes
+		// https://product-fabric.atlassian.net/browse/PGXT-7918
+		eventsThreshold: 10 | 100 | 1000 | 3000 | 10000;
 	};
 	/*
 	 * Control how often the Idle Buffer is flushed to the subscribers.

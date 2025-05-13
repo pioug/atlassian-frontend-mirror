@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1cc934d4cd647b12b27329d5fb319ddd>>
+ * @codegen <<SignedSource::f20eaf1874c6ccbf812f921695a8d7ed>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -11,11 +11,11 @@ import type { ThemedIconProps } from '../../utils/types';
 // `height` is set to 100% to allow the SVG to scale with the parent element
 const svg = `<svg height="100%" viewBox="0 0 24 24">
     <path fill="var(--tile-color,#ffc716)" d="M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z"/>
-    <path fill="var(--icon-color, #101214)" d="M13.7 10.202h4.464c.67 0 .9.638.49 1.145l-6.98 8.615c-2.257-1.798-2.044-4.643-.393-6.719zm-3.449 3.433H5.788c-.67 0-.9-.637-.49-1.144l6.98-8.616c2.256 1.798 2.011 4.61.376 6.703z"/>
+    <path fill="var(--icon-color, #101214)" d="M13.744 10.156h4.578c.688 0 .922.654.503 1.174l-7.16 8.837c-2.314-1.845-2.096-4.763-.402-6.892zm-3.538 3.521H5.63c-.688 0-.923-.654-.504-1.173l7.16-8.837c2.315 1.844 2.063 4.728.386 6.875z"/>
 </svg>
 `;
 const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
-    <path fill="var(--themed-icon-color, currentcolor)" fill-rule="evenodd" d="M6 0a6 6 0 0 0-6 6v12a6 6 0 0 0 6 6h12a6 6 0 0 0 6-6V6a6 6 0 0 0-6-6zm12.164 10.202h-4.463l-2.42 3.041c-1.651 2.076-1.864 4.921.392 6.72l6.981-8.616c.41-.507.18-1.145-.49-1.145M5.788 13.635h4.463l2.403-3.057c1.635-2.093 1.88-4.905-.376-6.703l-6.98 8.616c-.41.507-.18 1.144.49 1.144" clip-rule="evenodd"/>
+    <path fill="var(--themed-icon-color, currentcolor)" d="M18 0a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V6a6 6 0 0 1 6-6zm-4.256 10.156-2.481 3.12c-1.694 2.129-1.912 5.047.402 6.891l7.16-8.837c.42-.52.185-1.174-.503-1.174zm-8.619 2.348c-.419.52-.183 1.174.504 1.174h4.577l2.465-3.136c1.677-2.146 1.928-5.03-.386-6.875z"/>
 </svg>
 `;
 

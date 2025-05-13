@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 31.9.0
+
+### Minor Changes
+
+- [#153222](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153222)
+  [`a88a4a1473714`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a88a4a1473714) -
+  refactor how the "add new emoji" button in the reactions summary dropdown is rendered. it now
+  shares a popup component instead of having its own that is offset to look like the same one
+
+### Patch Changes
+
+- [#153159](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153159)
+  [`4a248e83c7f9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a248e83c7f9f) -
+  Refactoring reposition on update to remove redundant isOpen prop
+
 ## 31.8.1
 
 ### Patch Changes

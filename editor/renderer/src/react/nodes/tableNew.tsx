@@ -472,16 +472,26 @@ export class TableContainer extends React.Component<
 			this.updatedLayout = layout;
 		}
 
+		// defined in colgroup.tsx:
+		// appearance == comment && allowTableResizing && means it is a comment
+		// appearance == comment && !allowTableResizing && means it is a inline comment
+		// for inline comments, the table should inherit the width of the parent component rather than maintain its own size
+		const isInsideInlineComment = rendererAppearance === 'comment' && !allowTableResizing;
+
 		// These styling removes extra padding for `comment` rendererAppearance.
 		// This is especially relevant for Jira which only uses `comment` appearance and does not need padding.
 		const resizerContainerPadding = rendererAppearance === 'comment' ? 0 : gutterPadding;
 		const resizerItemMaxWidth =
 			rendererAppearance === 'comment'
-				? `min(100cqw, var(--ak-editor-table-max-width))`
+				? isInsideInlineComment
+					? 'inherit'
+					: `min(100cqw, var(--ak-editor-table-max-width))`
 				: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`;
 		const resizerItemWidth =
 			rendererAppearance === 'comment'
-				? `min(100cqw, ${tableWidthAttribute})`
+				? isInsideInlineComment
+					? 'inherit'
+					: `min(100cqw, ${tableWidthAttribute})`
 				: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${tableWidthAttribute})`;
 
 		// full width tables can have either left-aligned or centered layout despite looking centered in the renderer.
@@ -504,7 +514,9 @@ export class TableContainer extends React.Component<
 					className="pm-table-resizer-container"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={{
-						width: `min(calc(100cqw - ${resizerContainerPadding}px), ${tableWidthAttribute})`,
+						width: isInsideInlineComment
+							? '100%'
+							: `min(calc(100cqw - ${resizerContainerPadding}px), ${tableWidthAttribute})`,
 					}}
 				>
 					<div

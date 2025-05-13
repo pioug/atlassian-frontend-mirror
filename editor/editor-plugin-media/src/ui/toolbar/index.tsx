@@ -932,6 +932,8 @@ const getMediaTypeMessage = (selectedNodeTypeSingle: string): MessageDescriptor 
 		: messages.file_unknown_is_selected;
 };
 
+export const overflowDropdwonBtnTriggerTestId = 'media-overflow-dropdown-trigger';
+
 export const floatingToolbar = (
 	state: EditorState,
 	intl: IntlShape,
@@ -1003,12 +1005,21 @@ export const floatingToolbar = (
 		}
 	}
 
+	// testId is required to show focus on trigger button on ESC key press
+	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+	const overflowButtonSelector =
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		fg('platform_editor_controls_patch_8')
+			? `[data-testid="${overflowDropdwonBtnTriggerTestId}"]`
+			: undefined;
+
 	if (allowAltTextOnImages) {
 		const mediaAltTextPluginState = getMediaAltTextPluginState(state);
 		if (mediaAltTextPluginState.isAltTextEditorOpen) {
 			return getAltTextToolbar(baseToolbar, {
 				altTextValidator,
 				forceFocusSelector: pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector,
+				triggerButtonSelector: overflowButtonSelector,
 			});
 		}
 	}
@@ -1030,6 +1041,7 @@ export const floatingToolbar = (
 				pluginState: mediaPluginState,
 				hoverDecoration,
 				isEditorFullWidthEnabled: options.fullWidthEnabled,
+				triggerButtonSelector: overflowButtonSelector,
 			});
 		}
 	}
@@ -1122,6 +1134,7 @@ export const floatingToolbar = (
 		items.push({
 			type: 'overflow-dropdown',
 			id: 'media',
+			testId: overflowDropdwonBtnTriggerTestId,
 			options: [
 				...customOptions,
 				{

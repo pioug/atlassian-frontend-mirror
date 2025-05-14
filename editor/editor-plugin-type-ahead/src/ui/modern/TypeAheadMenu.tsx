@@ -13,7 +13,7 @@ import { useItemInsert } from '../hooks/use-item-insert';
 import { TypeAheadPopup as TypeAheadPopupModern } from './TypeAheadPopup';
 
 type TypeAheadMenuType = {
-	typeAheadState: TypeAheadPluginSharedState;
+	typeAheadState: Omit<TypeAheadPluginSharedState, 'isOpen' | 'isAllowed' | 'selectedIndex'>;
 	editorView: EditorView;
 	popupMountRef: PopupMountPointReference;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;

@@ -51,7 +51,7 @@ export const SCIMSyncTeamPermissions = (isMember: boolean, isOrgAdmin: boolean) 
 	EDIT_DESCRIPTION: isMember || isOrgAdmin,
 	EDIT_TEAM_SETTINGS: isMember || isOrgAdmin,
 	EDIT_TEAM_LINK: isMember || isOrgAdmin,
-	EDIT_TEAM_NAME: (isMember || isOrgAdmin) && fg('enable_edit_team_name_external_type_teams'),
+	EDIT_TEAM_NAME: isOrgAdmin && fg('enable_edit_team_name_external_type_teams'),
 });
 
 export const getPermissionMap = (

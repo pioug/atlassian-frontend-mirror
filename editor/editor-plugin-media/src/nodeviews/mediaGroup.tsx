@@ -4,7 +4,10 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { nodeViewsMessages as messages } from '@atlaskit/editor-common/media';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -376,38 +379,36 @@ interface MediaGroupNodeViewInternalProps {
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const editorDisabled = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'editorDisabled.editorDisabled',
+		);
+		const editorViewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		return {
+			editorDisabled,
+			editorViewMode,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { editorDisabledState: editorDisabledPlugin, editorViewModeState: editorViewModePlugin } =
+			useSharedPluginState(pluginInjectionApi, ['editorDisabled', 'editorViewMode']);
+		return {
+			editorDisabled: editorDisabledPlugin?.editorDisabled,
+			editorViewMode: editorViewModePlugin?.mode,
+		};
+	},
+);
+
 function MediaGroupNodeViewInternal({
 	renderFn,
 	pluginInjectionApi,
 }: MediaGroupNodeViewInternalProps) {
-	const { editorDisabledState: editorDisabledPlugin, editorViewModeState: editorViewModePlugin } =
-		useSharedPluginState(pluginInjectionApi, ['editorDisabled', 'editorViewMode'], {
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-		});
-	const editorDisabledSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'editorDisabled.editorDisabled',
-		{ disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false) },
-	);
-	const editorViewModeSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'editorViewMode.mode',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-
-	const editorDisabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? editorDisabledSelector
-		: editorDisabledPlugin?.editorDisabled;
-	const editorViewMode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? editorViewModeSelector
-		: editorViewModePlugin?.mode;
+	const { editorDisabled, editorViewMode } = useSharedState(pluginInjectionApi);
 
 	const mediaProvider = useMediaProvider(pluginInjectionApi);
 	return renderFn({
-		editorDisabledPlugin,
-		editorViewModePlugin,
 		editorDisabled,
 		editorViewMode,
 		mediaProvider,
@@ -425,8 +426,6 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 				providerFactory={providerFactory}
 				renderNode={({ contextIdentifierProvider }) => {
 					const renderFn = ({
-						editorDisabledPlugin,
-						editorViewModePlugin,
 						mediaProvider: mediaProviderFromState,
 						editorDisabled,
 						editorViewMode,
@@ -468,11 +467,7 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 								getPos={getPos}
 								view={this.view}
 								forwardRef={forwardRef}
-								disabled={
-									editorExperiment('platform_editor_usesharedpluginstateselector', true)
-										? editorDisabled
-										: (editorDisabledPlugin || {}).editorDisabled
-								}
+								disabled={editorDisabled}
 								allowLazyLoading={mediaOptions.allowLazyLoading}
 								mediaProvider={mediaProvider}
 								contextIdentifierProvider={contextIdentifierProvider}
@@ -480,11 +475,7 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 								anchorPos={this.view.state.selection.$anchor.pos}
 								headPos={this.view.state.selection.$head.pos}
 								mediaOptions={mediaOptions}
-								editorViewMode={
-									editorExperiment('platform_editor_usesharedpluginstateselector', true)
-										? editorViewMode === 'view'
-										: editorViewModePlugin?.mode === 'view'
-								}
+								editorViewMode={editorViewMode === 'view'}
 							/>
 						);
 					};

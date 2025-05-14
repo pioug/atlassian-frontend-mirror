@@ -1,0 +1,20 @@
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { TrackAEP } from './utils';
+
+type OfflineEditingAEP = TrackAEP<
+	ACTION.OFFLINE_STORAGE_TOO_MANY_RETRIES_ERROR | ACTION.OFFLINE_STORAGE_STEPS_DATABASE_ERROR,
+	ACTION_SUBJECT.OFFLINE_EDITING,
+	ACTION_SUBJECT_ID.OFFLINE_EDITING,
+	{
+		errorMessage?: string;
+		version?: number;
+		stepsCount?: number;
+		status?: string;
+		retryCount?: number;
+		retrySource?: string;
+		healthy?: boolean;
+	},
+	undefined
+>;
+
+export type OfflineEditingEventPayload = OfflineEditingAEP;

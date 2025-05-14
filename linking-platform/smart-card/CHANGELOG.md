@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 38.0.0
+
+### Major Changes
+
+- [#152125](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152125)
+  [`686465c46534f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/686465c46534f) -
+  Remove featureFlags prop from SmartCardProvider as per ENGHEALTH-30338
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.1.3
 
 ### Patch Changes

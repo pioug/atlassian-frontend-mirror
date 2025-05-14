@@ -25,7 +25,7 @@ const headingStyles = css({
 });
 
 const taglineStyles = css({
-	paddingBlockEnd: token('space.200', '16px'),
+	paddingBlockEnd: token('space.200'),
 });
 
 const optionStyles = cssMap({

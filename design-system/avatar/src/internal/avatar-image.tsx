@@ -19,6 +19,7 @@ interface AvatarImageProps {
 	alt?: string;
 	src?: string;
 	testId?: string;
+	imgLoading?: 'lazy' | 'eager';
 }
 
 const styles = cssMap({
@@ -115,7 +116,14 @@ const nestedSvgStylesMap = cssMap({
  *
  * An avatar image is an internal component used to control the rendering phases of an image.
  */
-const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, testId }) => {
+const AvatarImage: FC<AvatarImageProps> = ({
+	alt = '',
+	src,
+	appearance,
+	size,
+	testId,
+	imgLoading,
+}) => {
 	const [hasImageErrored, setHasImageErrored] = useState(false);
 
 	// If src changes, reset state
@@ -163,6 +171,7 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 
 	return (
 		<img
+			loading={imgLoading}
 			src={src}
 			alt={alt}
 			data-testid={testId && `${testId}--image`}

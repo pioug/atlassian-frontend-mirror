@@ -4,12 +4,14 @@ import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import type { TablePlugin } from '../../../tablePluginType';
@@ -66,6 +68,21 @@ const DragCornerControlsComponent = ({
 	);
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection');
+		return {
+			selection: selectionsSelector,
+		};
+	},
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const { selectionState } = useSharedPluginState(api, ['selection']);
+		return {
+			selection: selectionState?.selection,
+		};
+	},
+);
+
 const DragCornerControlsComponentWithSelection = ({
 	editorView,
 	isInDanger,
@@ -73,16 +90,7 @@ const DragCornerControlsComponentWithSelection = ({
 	intl: { formatMessage },
 	api,
 }: CornerControlProps & WrappedComponentProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
-	// selection
-	const { selectionState } = useSharedPluginState(api, ['selection'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? selectionsSelector
-		: selectionState?.selection;
+	const { selection } = useSharedState(api);
 
 	const handleOnClick = () => {
 		const { state, dispatch } = editorView;

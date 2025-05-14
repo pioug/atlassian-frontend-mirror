@@ -15,10 +15,10 @@ const readViewStyles = css({
 	maxWidth: '100%',
 	font: token('font.heading.large'),
 	overflow: 'hidden',
-	paddingBlockEnd: token('space.100', '8px'),
-	paddingBlockStart: token('space.100', '8px'),
-	paddingInlineEnd: token('space.075', '6px'),
-	paddingInlineStart: token('space.075', '6px'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.075'),
+	paddingInlineStart: token('space.075'),
 });
 
 const editViewStyles = css({
@@ -29,10 +29,10 @@ const editViewStyles = css({
 	cursor: 'inherit',
 	font: token('font.heading.large'),
 	outline: 'none',
-	paddingBlockEnd: token('space.075', '6px'),
-	paddingBlockStart: token('space.075', '6px'),
-	paddingInlineEnd: token('space.075', '6px'),
-	paddingInlineStart: token('space.075', '6px'),
+	paddingBlockEnd: token('space.075'),
+	paddingBlockStart: token('space.075'),
+	paddingInlineEnd: token('space.075'),
+	paddingInlineStart: token('space.075'),
 	'&:focus': {
 		border: `2px solid ${token('color.border.focused')}`,
 	},

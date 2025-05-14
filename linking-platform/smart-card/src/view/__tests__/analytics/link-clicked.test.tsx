@@ -42,10 +42,6 @@ type TestCaseOptions = {
 	 * Expected context to be seen on the event
 	 */
 	context?: Record<string, unknown>[];
-	/**
-	 * Feature flags to supply to the smart card provider
-	 */
-	featureFlags?: React.ComponentProps<typeof Provider>['featureFlags'];
 };
 
 const PACKAGE_CONTEXT = {
@@ -118,12 +114,12 @@ describe('`link clicked`', () => {
 		const setup = async (props: Partial<React.ComponentProps<typeof Card>> = {}) => {
 			const user = userEvent.setup();
 			const spy = jest.fn();
-			const { selector, beforeClick, featureFlags } = options ?? {};
+			const { selector, beforeClick } = options ?? {};
 
 			render(
 				<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
 					<IntlProvider locale="en">
-						<Provider client={mockClient} featureFlags={featureFlags}>
+						<Provider client={mockClient}>
 							<Card testId="card" url="https://atlassian.com" {...cardProps} {...props} />
 						</Provider>
 					</IntlProvider>
@@ -709,7 +705,7 @@ describe('`link clicked`', () => {
 		const setup = async (props: Partial<React.ComponentProps<typeof Card>> = {}) => {
 			const user = userEvent.setup();
 			const spy = jest.fn();
-			const { selector, beforeClick, featureFlags } = options ?? {};
+			const { selector, beforeClick } = options ?? {};
 
 			const getCardProps = () => {
 				switch (testCase) {
@@ -731,7 +727,7 @@ describe('`link clicked`', () => {
 			render(
 				<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
 					<IntlProvider locale="en">
-						<Provider client={mockClient} featureFlags={featureFlags}>
+						<Provider client={mockClient}>
 							<Card testId="card" url="about:blank" {...props} {...getCardProps()} />
 						</Provider>
 					</IntlProvider>

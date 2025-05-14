@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "105.0.0",
+	"version": "105.2.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -109,6 +109,7 @@
 		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
 		"./code-block": "./src/code-block/index.ts",
 		"./table": "./src/table/index.ts",
+		"./user-preferences": "./src/user-preferences/index.ts",
 		"./use-plugin-state-effect": "./src/hooks/usePluginStateEffect.ts",
 		"./use-shared-plugin-state-selector": "./src/hooks/useSharedPluginStateSelector/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts",
@@ -203,6 +204,7 @@
 		"./use-shared-plugin-state-selector": "./src/hooks/useSharedPluginStateSelector/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts",
 		"./nesting": "./src/nesting/utilities.ts",
+		"./user-preferences": "./src/user-preferences/index.ts",
 		"./UNSAFE_do_not_use_editor_context": "./src/ui/EditorContext/index.ts",
 		"./median": "./src/utils/median.ts",
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
@@ -380,9 +382,6 @@
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"platform_renderer_table_sort_btn_aria_hidden": {
 			"type": "boolean"
 		},
 		"platform_editor_multi_body_extension_extensibility": {

@@ -11,6 +11,25 @@
    };
    ```
 
+By default, the theme is set to auto (which matches the browser's theme). However, you can easily
+override this default by specifying a custom theme using the adsTheme parameter in your
+`.storybook/preview.js` file.
+
+### Example Usage
+
+In your `.storybook/preview.js` file, you can set the adsTheme parameter to either 'light' or
+'dark':
+
+```js
+const preview: Preview = {
+	parameters: {
+		adsTheme: 'light' | 'dark',
+	}
+	// ... other parameters
+}
+export default preview;
+```
+
 ## Storybook v7
 
 1. Install a pre-1.0 version of the addon (e.g., `0.8.0`).

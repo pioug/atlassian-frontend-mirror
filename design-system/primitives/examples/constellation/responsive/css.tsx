@@ -9,20 +9,20 @@ import { media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
 const cardStyles = css({
-	padding: token('space.050', '4px'),
+	padding: token('space.050'),
 	borderColor: token('color.border.discovery'),
 	borderStyle: 'solid',
-	borderWidth: token('border.width.0', '0px'),
+	borderWidth: token('border.width.0'),
 	[media.above.xs]: {
-		padding: token('space.100', '8px'),
+		padding: token('space.100'),
 	},
 	[media.above.sm]: {
-		padding: token('space.150', '12px'),
-		borderWidth: token('border.width', '1px'),
+		padding: token('space.150'),
+		borderWidth: token('border.width'),
 	},
 	[media.above.md]: {
-		padding: token('space.200', '16px'),
-		borderWidth: token('border.width.outline', '2px'),
+		padding: token('space.200'),
+		borderWidth: token('border.width.outline'),
 	},
 });
 

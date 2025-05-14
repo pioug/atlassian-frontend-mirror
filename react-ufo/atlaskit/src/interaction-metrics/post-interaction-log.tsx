@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	type LastInteractionFinishInfo,
 	type PostInteractionLogOutput,
@@ -6,7 +8,8 @@ import {
 import type { VCResult } from '../common/vc/types';
 import { getConfig } from '../config';
 import type { LabelStack } from '../interaction-context';
-import type { VCObserverOptions } from '../vc/types';
+import { VCObserverWrapper } from '../vc';
+import type { VCObserverInterface, VCObserverOptions } from '../vc/types';
 import { VCObserver } from '../vc/vc-observer';
 
 const POST_INTERACTION_LOG_SEND_DEFAULT_TIMEOUT = 3000;
@@ -30,7 +33,7 @@ export default class PostInteractionLog {
 	/**
 	 * independent VC observer, that observes until `custom.post-interaction-logs` event is sent
 	 */
-	vcObserver: VCObserver | null = null;
+	vcObserver: VCObserverInterface | null = null;
 
 	vcObserverSSRConfig: {
 		ssr: number | undefined;
@@ -39,7 +42,9 @@ export default class PostInteractionLog {
 	lastInteractionFinishVCResult?: VCResult;
 
 	initializeVCObserver(options: VCObserverOptions) {
-		if (this.vcObserver === null) {
+		if (fg('platform_ufo_vc_align_revisions_on_watchdog_event')) {
+			this.vcObserver = new VCObserverWrapper({ ...options, isPostInteraction: true });
+		} else if (this.vcObserver === null) {
 			this.vcObserver = new VCObserver({ ...options, isPostInteraction: true });
 		}
 	}
@@ -152,6 +157,7 @@ export default class PostInteractionLog {
 		type,
 		experimentalTTAI,
 		experimentalVC90,
+		errors,
 	}: LastInteractionFinishInfo) {
 		this.lastInteractionFinish = {
 			ufoName,
@@ -164,6 +170,7 @@ export default class PostInteractionLog {
 			type,
 			experimentalTTAI,
 			experimentalVC90,
+			errors,
 		};
 
 		const timeout =

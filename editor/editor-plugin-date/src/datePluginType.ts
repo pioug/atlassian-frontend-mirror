@@ -4,7 +4,7 @@ import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 
-import type { DatePluginConfig, DatePluginSharedState, DeleteDate, InsertDate } from './types';
+import type { DatePluginOptions, DatePluginSharedState, DeleteDate, InsertDate } from './types';
 
 export type DatePluginDependencies = [
 	typeof analyticsPlugin,
@@ -13,10 +13,11 @@ export type DatePluginDependencies = [
 	OptionalPlugin<EditorViewModePlugin>,
 ];
 
+
 export type DatePlugin = NextEditorPlugin<
 	'date',
 	{
-		pluginConfiguration: DatePluginConfig | undefined;
+		pluginConfiguration: DatePluginOptions | undefined;
 		dependencies: DatePluginDependencies;
 		sharedState: DatePluginSharedState;
 		commands: {

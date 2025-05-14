@@ -32,10 +32,6 @@ jest.mock('../../../utils/shouldSample');
 
 mockSimpleIntersectionObserver();
 
-jest.mock('@atlaskit/link-provider', () => ({
-	useFeatureFlag: () => true,
-}));
-
 expect.extend(jestExtendedMatchers);
 
 describe('smart-card: success analytics', () => {

@@ -11,7 +11,7 @@ const LabelElement = styled.label({
 	fontWeight: token('font.weight.semibold'),
 	color: token('color.text.subtle'),
 	display: 'inline-block',
-	marginBottom: token('space.050', '4px'),
+	marginBottom: token('space.050'),
 	marginTop: 0,
 });
 

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 2.0.15
+
+### Patch Changes
+
+- [#154149](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154149)
+  [`4b955e247c793`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b955e247c793) -
+  [ED-27560] Migrate to useSharedPluginStateSelector for text color, toolbar lists indentation,
+  type-ahead, undo-redo plugins
+- Updated dependencies
+
 ## 2.0.14
 
 ### Patch Changes

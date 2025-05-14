@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider as Provider, type ProviderProps } from '@atlaskit/link-provider';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import { Box } from '@atlaskit/primitives/compiled';
 import { Card, type CardProps } from '@atlaskit/smart-card';
@@ -20,7 +20,6 @@ import { mockUrl } from './common.test-utils';
 
 export type SetUpParams = {
 	mock?: any;
-	featureFlags?: ProviderProps['featureFlags'];
 	testId?: string;
 	component?: ReactElement;
 	extraCardProps?: Partial<CardProps>;
@@ -39,7 +38,6 @@ export const userEventOptionsWithAdvanceTimers = {
 
 export const setup = async ({
 	mock = mockConfluenceResponse,
-	featureFlags,
 	testId = 'inline-card-resolved-view',
 	component,
 	extraCardProps,
@@ -62,7 +60,7 @@ export const setup = async ({
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
 					<IntlProvider locale="en">
-						<Provider client={mockClient} featureFlags={featureFlags}>
+						<Provider client={mockClient}>
 							{component ? (
 								component
 							) : (

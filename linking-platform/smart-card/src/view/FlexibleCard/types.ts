@@ -1,7 +1,7 @@
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { type CardState, type LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
+import { type CardState } from '@atlaskit/linking-common';
 import { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { type FireEventFunction } from '../../common/analytics/types';
@@ -190,11 +190,6 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 	status?: SmartLinkStatus;
 	response?: SmartLinkResponse;
 	resolve?: ResolveFunction;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
-	 * Remove any usages of this type or value. It is dead code
-	 */
-	featureFlags?: Partial<LinkingPlatformFeatureFlags>;
 	aiSummaryConfig?: AISummaryConfig;
 };
 

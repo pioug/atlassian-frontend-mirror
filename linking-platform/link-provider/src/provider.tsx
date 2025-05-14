@@ -20,7 +20,6 @@ export function SmartCardProvider({
 	authFlow: customAuthFlow,
 	children,
 	renderers,
-	featureFlags,
 	isAdminHubAIEnabled,
 	product,
 	shouldControlDataExport,
@@ -69,7 +68,6 @@ export function SmartCardProvider({
 			extractors: {
 				getPreview,
 			},
-			featureFlags,
 			isAdminHubAIEnabled,
 			product,
 			shouldControlDataExport,
@@ -81,7 +79,6 @@ export function SmartCardProvider({
 		product,
 		shouldControlDataExport,
 		renderers,
-		featureFlags,
 		store,
 	]);
 

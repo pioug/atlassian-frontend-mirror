@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 31.10.0
+
+### Minor Changes
+
+- [#152755](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152755)
+  [`a19a563a40597`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a19a563a40597) -
+  make reactions picker popup opened in portal, and revert popper strategy to fix from absolute
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.9.0
 
 ### Minor Changes

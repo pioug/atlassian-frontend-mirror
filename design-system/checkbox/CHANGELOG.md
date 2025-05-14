@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 17.1.2
+
+### Patch Changes
+
+- [#152680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152680)
+  [`21585471cb6c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21585471cb6c1) -
+  Internal refactoring to use `cssMap` instead of `css`
+
 ## 17.1.1
 
 ### Patch Changes

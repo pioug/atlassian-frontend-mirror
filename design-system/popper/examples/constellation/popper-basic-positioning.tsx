@@ -13,10 +13,10 @@ const popupStyles = css({
 	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.raised'),
-	paddingBlockEnd: token('space.100', '8px'),
-	paddingBlockStart: token('space.100', '8px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 const BasicPositioningExample = () => (

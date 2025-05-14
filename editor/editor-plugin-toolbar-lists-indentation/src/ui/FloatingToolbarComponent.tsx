@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -29,6 +33,42 @@ const FloatingToolbarSettings = {
 	isSmall: true,
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined) => {
+		const bulletListActive = useSharedPluginStateSelector(api, 'list.bulletListActive');
+		const bulletListDisabled = useSharedPluginStateSelector(api, 'list.bulletListDisabled');
+		const orderedListActive = useSharedPluginStateSelector(api, 'list.orderedListActive');
+		const orderedListDisabled = useSharedPluginStateSelector(api, 'list.orderedListDisabled');
+		const isIndentationAllowed = useSharedPluginStateSelector(
+			api,
+			'indentation.isIndentationAllowed',
+		);
+		const indentDisabled = useSharedPluginStateSelector(api, 'indentation.indentDisabled');
+		const outdentDisabled = useSharedPluginStateSelector(api, 'indentation.outdentDisabled');
+		return {
+			bulletListActive,
+			bulletListDisabled,
+			orderedListActive,
+			orderedListDisabled,
+			isIndentationAllowed,
+			indentDisabled,
+			outdentDisabled,
+		};
+	},
+	(api: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined) => {
+		const { listState, indentationState } = useSharedPluginState(api, ['list', 'indentation']);
+		return {
+			bulletListActive: listState?.bulletListActive,
+			bulletListDisabled: listState?.bulletListDisabled,
+			orderedListActive: listState?.orderedListActive,
+			orderedListDisabled: listState?.orderedListDisabled,
+			isIndentationAllowed: indentationState?.isIndentationAllowed,
+			indentDisabled: indentationState?.indentDisabled,
+			outdentDisabled: indentationState?.outdentDisabled,
+		};
+	},
+);
+
 export function FloatingToolbarComponent({
 	featureFlags,
 	editorView,
@@ -36,10 +76,15 @@ export function FloatingToolbarComponent({
 	pluginInjectionApi,
 	allowHeadingAndParagraphIndentation,
 }: FloatingToolbarComponentProps) {
-	const { listState, indentationState } = useSharedPluginState(pluginInjectionApi, [
-		'list',
-		'indentation',
-	]);
+	const {
+		bulletListActive,
+		bulletListDisabled,
+		orderedListActive,
+		orderedListDisabled,
+		isIndentationAllowed,
+		indentDisabled,
+		outdentDisabled,
+	} = useSharedState(pluginInjectionApi);
 	const [taskDecisionState, setTaskDecisionState] = useState<TaskDecisionState | undefined>();
 	usePluginStateEffect(
 		pluginInjectionApi,
@@ -63,13 +108,23 @@ export function FloatingToolbarComponent({
 		editorView.state,
 		allowHeadingAndParagraphIndentation,
 		taskDecisionState,
-		indentationState,
+		{
+			isIndentationAllowed,
+			indentDisabled,
+			outdentDisabled,
+		},
 		pluginInjectionApi?.list?.actions.isInsideListItem,
 	);
 
-	if (!listState) {
+	if (
+		bulletListActive === undefined ||
+		bulletListDisabled === undefined ||
+		orderedListActive === undefined ||
+		orderedListDisabled === undefined
+	) {
 		return null;
 	}
+
 	return (
 		<ToolbarListsIndentation
 			featureFlags={featureFlags}
@@ -81,18 +136,10 @@ export function FloatingToolbarComponent({
 			}
 			disabled={FloatingToolbarSettings.disabled}
 			editorView={editorView}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			bulletListActive={listState!.bulletListActive}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			bulletListDisabled={listState!.bulletListDisabled}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			orderedListActive={listState!.orderedListActive}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			orderedListDisabled={listState!.orderedListDisabled}
+			bulletListActive={bulletListActive}
+			bulletListDisabled={bulletListDisabled}
+			orderedListActive={orderedListActive}
+			orderedListDisabled={orderedListDisabled}
 			showIndentationButtons={!!showIndentationButtons}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

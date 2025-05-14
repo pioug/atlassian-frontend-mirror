@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-analytics
 
+## 2.3.0
+
+### Minor Changes
+
+- [#149096](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149096)
+  [`831e11ae4484e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/831e11ae4484e) -
+  ED-27855 remove duplicate typeahead invoked events
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.3
 
 ### Patch Changes

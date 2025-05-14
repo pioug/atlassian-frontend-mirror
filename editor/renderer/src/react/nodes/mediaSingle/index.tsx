@@ -177,7 +177,6 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 				isSSR() &&
 				widthAttr &&
 				typeof widthAttr === 'number' &&
-				widthType === 'pixel' &&
 				fg('platform_editor_fix_image_size_diff_during_ssr')
 					? Math.max(widthAttr, containerWidth)
 					: containerWidth;
@@ -214,7 +213,6 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 			rendererAppearance,
 			width,
 			widthAttr,
-			widthType,
 		],
 	);
 

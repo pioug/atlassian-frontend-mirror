@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-color
 
+## 2.3.4
+
+### Patch Changes
+
+- [#154149](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154149)
+  [`4b955e247c793`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b955e247c793) -
+  [ED-27560] Migrate to useSharedPluginStateSelector for text color, toolbar lists indentation,
+  type-ahead, undo-redo plugins
+
 ## 2.3.3
 
 ### Patch Changes

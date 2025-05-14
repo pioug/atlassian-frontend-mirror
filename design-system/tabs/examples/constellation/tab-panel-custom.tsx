@@ -19,18 +19,18 @@ const customPanelStyles = css({
 	borderRadius: '3px',
 	color: token('color.text.subtlest'),
 	font: token('font.heading.xxlarge'),
-	marginBlockEnd: token('space.100', '8px'),
-	marginBlockStart: token('space.200', '16px'),
-	paddingBlockEnd: token('space.400', '32px'),
-	paddingBlockStart: token('space.400', '32px'),
-	paddingInlineEnd: token('space.400', '32px'),
-	paddingInlineStart: token('space.400', '32px'),
+	marginBlockEnd: token('space.100'),
+	marginBlockStart: token('space.200'),
+	paddingBlockEnd: token('space.400'),
+	paddingBlockStart: token('space.400'),
+	paddingInlineEnd: token('space.400'),
+	paddingInlineStart: token('space.400'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
-		paddingBlockEnd: token('space.400', '32px'),
-		paddingBlockStart: token('space.400', '32px'),
-		paddingInlineEnd: token('space.400', '32px'),
-		paddingInlineStart: token('space.400', '32px'),
+		paddingBlockEnd: token('space.400'),
+		paddingBlockStart: token('space.400'),
+		paddingInlineEnd: token('space.400'),
+		paddingInlineStart: token('space.400'),
 	},
 });
 

@@ -22,12 +22,11 @@ const SpotlightHeadingAfterElement = () => {
 				<IconButton icon={CommentAddIcon} label="comment" />
 			</SpotlightTarget>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ marginTop: token('space.200', '16px') }}>
+			<div style={{ marginTop: token('space.200') }}>
 				<Button appearance="primary" onClick={() => start()}>
 					Show example spotlight
 				</Button>
 			</div>
-
 			<SpotlightTransition>
 				{isSpotlightActive && (
 					<Spotlight

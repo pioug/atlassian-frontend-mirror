@@ -2,7 +2,10 @@
 import type { MouseEvent } from 'react';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -12,7 +15,6 @@ import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
@@ -371,6 +373,21 @@ export const DragControls = ({
 	);
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection');
+		return {
+			selection: selectionsSelector,
+		};
+	},
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const { selectionState } = useSharedPluginState(api, ['selection']);
+		return {
+			selection: selectionState?.selection,
+		};
+	},
+);
+
 export const DragControlsWithSelection = ({
 	editorView,
 	tableRef,
@@ -387,17 +404,7 @@ export const DragControlsWithSelection = ({
 	updateCellHoverLocation,
 	api,
 }: Exclude<DragControlsProps, 'selection'>) => {
-	// selection
-	const { selectionState } = useSharedPluginState(api, ['selection'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? selectionsSelector
-		: selectionState?.selection;
-
+	const { selection } = useSharedState(api);
 	return (
 		<DragControls
 			editorView={editorView}

@@ -35,7 +35,6 @@ jest.mock('@atlaskit/link-provider', () => ({
 			authFlow: 'disabled',
 		},
 	}),
-	useFeatureFlag: jest.fn(),
 }));
 
 describe('Unauthorised Hover Card', () => {

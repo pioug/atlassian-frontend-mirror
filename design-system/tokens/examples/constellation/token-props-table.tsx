@@ -68,8 +68,8 @@ const codeStyles = css({
 	color: token('color.text'),
 	fontSize: '1em',
 	lineHeight: '20px',
-	paddingBlock: token('space.050', '4px'),
-	paddingInline: token('space.100', '8px'),
+	paddingBlock: token('space.050'),
+	paddingInline: token('space.100'),
 });
 
 const TokenPropsTable = ({

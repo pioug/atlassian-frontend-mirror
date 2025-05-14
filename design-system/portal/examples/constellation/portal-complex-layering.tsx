@@ -51,7 +51,7 @@ const TooltipButton = ({
 
 const spotlightContainerStyles = css({
 	display: 'flex',
-	padding: token('space.300', '24px'),
+	padding: token('space.300'),
 	justifyContent: 'space-between',
 });
 

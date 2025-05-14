@@ -19,7 +19,7 @@ const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMet
 				<span
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						paddingLeft: token('space.100', '8px'),
+						paddingLeft: token('space.100'),
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						paddingBottom: 0,
 					}}

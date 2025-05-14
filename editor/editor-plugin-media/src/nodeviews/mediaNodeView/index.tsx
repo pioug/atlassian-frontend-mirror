@@ -2,7 +2,10 @@ import React from 'react';
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -21,7 +24,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
@@ -43,29 +45,30 @@ interface MediaNodeWithProvidersProps {
 	innerComponent: (props: MediaNodeWithPluginStateComponentProps) => React.ReactElement;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const mediaProvider = useSharedPluginStateSelector(pluginInjectionApi, 'media.mediaProvider');
+		return {
+			mediaProvider,
+			widthState: undefined,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, ['width', 'media']);
+		return {
+			mediaProvider: mediaState?.mediaProvider,
+			widthState,
+		};
+	},
+);
+
 const MediaNodeWithProviders = ({
 	pluginInjectionApi,
 	innerComponent,
 }: MediaNodeWithProvidersProps) => {
-	const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, ['width', 'media'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const mediaProviderSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'media.mediaProvider',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-
-	const mediaProvider = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? mediaProviderSelector
-		: mediaState?.mediaProvider;
-
+	const { mediaProvider, widthState } = useSharedState(pluginInjectionApi);
 	return innerComponent({
-		width: editorExperiment('platform_editor_usesharedpluginstateselector', true)
-			? widthState
-			: undefined,
+		width: widthState, // Remove when platform_editor_usesharedpluginstateselector is cleaned up
 		mediaProvider: mediaProvider ? Promise.resolve(mediaProvider) : undefined,
 	});
 };

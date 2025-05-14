@@ -7,7 +7,10 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
@@ -62,70 +65,77 @@ type MediaViewerFunctionalComponentProps = {
 	editorView: EditorView;
 };
 
+const useMediaPickerSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const onPopupToggle = useSharedPluginStateSelector(api, 'media.onPopupToggle');
+		const setBrowseFn = useSharedPluginStateSelector(api, 'media.setBrowseFn');
+		return {
+			onPopupToggle,
+			setBrowseFn,
+		};
+	},
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { mediaState } = useSharedPluginState(api, ['media']);
+		return {
+			onPopupToggle: mediaState?.onPopupToggle,
+			setBrowseFn: mediaState?.setBrowseFn,
+		};
+	},
+);
+
 const MediaPickerFunctionalComponent = ({
 	api,
 	editorDomElement,
 	appearance,
 }: MediaPickerFunctionalComponentProps) => {
-	const { mediaState } = useSharedPluginState(api, ['media']);
-
-	if (!mediaState) {
+	const { onPopupToggle, setBrowseFn } = useMediaPickerSharedState(api);
+	if (!onPopupToggle || !setBrowseFn) {
 		return null;
 	}
 
 	return (
 		<MediaPickerComponents
+			onPopupToggle={onPopupToggle}
+			setBrowseFn={setBrowseFn}
 			editorDomElement={editorDomElement}
-			mediaState={mediaState}
 			appearance={appearance}
 			api={api}
 		/>
 	);
 };
 
+const useMediaViewerSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const isMediaViewerVisible = useSharedPluginStateSelector(api, 'media.isMediaViewerVisible');
+		const mediaViewerSelectedMedia = useSharedPluginStateSelector(
+			api,
+			'media.mediaViewerSelectedMedia',
+		);
+		const mediaClientConfig = useSharedPluginStateSelector(api, 'media.mediaClientConfig');
+		return {
+			isMediaViewerVisible,
+			mediaViewerSelectedMedia,
+			mediaClientConfig,
+		};
+	},
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { mediaState } = useSharedPluginState(api, ['media']);
+		return {
+			isMediaViewerVisible: mediaState?.isMediaViewerVisible,
+			mediaViewerSelectedMedia: mediaState?.mediaViewerSelectedMedia,
+			mediaClientConfig: mediaState?.mediaClientConfig,
+		};
+	},
+);
+
 const MediaViewerFunctionalComponent = ({
 	api,
 	editorView,
 }: MediaViewerFunctionalComponentProps) => {
-	const { mediaState } = useSharedPluginState(api, ['media'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const isMediaViewerVisibleSelector = useSharedPluginStateSelector(
-		api,
-		'media.isMediaViewerVisible',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const mediaViewerSelectedMediaSelector = useSharedPluginStateSelector(
-		api,
-		'media.mediaViewerSelectedMedia',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const mediaClientConfigSelector = useSharedPluginStateSelector(api, 'media.mediaClientConfig', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-
-	const isMediaViewerVisible = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? isMediaViewerVisibleSelector
-		: mediaState?.isMediaViewerVisible;
-	const mediaViewerSelectedMedia = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? mediaViewerSelectedMediaSelector
-		: mediaState?.mediaViewerSelectedMedia;
-	const mediaClientConfig = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? mediaClientConfigSelector
-		: mediaState?.mediaClientConfig;
-
 	// Only traverse document once when media viewer is visible, media viewer items will not update
 	// when document changes are made while media viewer is open
+	const { isMediaViewerVisible, mediaViewerSelectedMedia, mediaClientConfig } =
+		useMediaViewerSharedState(api);
 
 	const mediaItems = useMemo(() => {
 		if (isMediaViewerVisible) {

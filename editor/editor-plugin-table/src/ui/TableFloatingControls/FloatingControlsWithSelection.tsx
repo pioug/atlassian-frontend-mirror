@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TablePlugin } from '../../tablePluginType';
 
@@ -26,6 +28,21 @@ type FloatingControlsWithSelectionProps = {
 	api?: ExtractInjectionAPI<TablePlugin>;
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection');
+		return {
+			selection: selectionsSelector,
+		};
+	},
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const { selectionState } = useSharedPluginState(api, ['selection']);
+		return {
+			selection: selectionState?.selection,
+		};
+	},
+);
+
 export const FloatingControlsWithSelection = ({
 	editorView,
 	tableRef,
@@ -40,17 +57,7 @@ export const FloatingControlsWithSelection = ({
 	tableActive,
 	api,
 }: FloatingControlsWithSelectionProps) => {
-	// selection
-	const { selectionState } = useSharedPluginState(api, ['selection'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? selectionsSelector
-		: selectionState?.selection;
-
+	const { selection } = useSharedState(api);
 	return (
 		<>
 			<CornerControls

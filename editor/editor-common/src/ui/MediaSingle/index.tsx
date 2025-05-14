@@ -50,6 +50,27 @@ export interface Props {
 	editorAppearance?: EditorAppearance;
 }
 
+/**
+ * MediaSingle
+ * @param root0
+ * @param root0.layout
+ * @param root0.width
+ * @param root0.height
+ * @param root0.containerWidth
+ * @param root0.isLoading
+ * @param root0.pctWidth
+ * @param root0.size
+ * @param root0.className
+ * @param root0.children
+ * @param root0.nodeType
+ * @param root0.fullWidthMode
+ * @param root0.lineLength
+ * @param root0.hasFallbackContainer
+ * @param root0.handleMediaSingleRef
+ * @param root0.isInsideOfInlineExtension
+ * @param root0.dataAttributes
+ * @example
+ */
 export default function MediaSingle({
 	layout,
 	width,
@@ -137,6 +158,7 @@ export default function MediaSingle({
 				fullWidthMode,
 				isExtendedResizeExperienceOn: isPixelWidth,
 				isInsideOfInlineExtension,
+				nodeType,
 			})}
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(fg('platform_fix_media_image_resizing') ||

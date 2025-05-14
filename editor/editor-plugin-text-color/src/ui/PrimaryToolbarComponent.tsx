@@ -1,8 +1,12 @@
 import React from 'react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { TextColorPlugin } from '../textColorPluginType';
@@ -23,6 +27,30 @@ interface PrimaryToolbarComponentProps {
 	api: ExtractInjectionAPI<TextColorPlugin> | undefined;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TextColorPlugin> | undefined) => {
+		const color = useSharedPluginStateSelector(api, 'textColor.color');
+		const defaultColor = useSharedPluginStateSelector(api, 'textColor.defaultColor');
+		const palette = useSharedPluginStateSelector(api, 'textColor.palette');
+		const textColorDisabled = useSharedPluginStateSelector(api, 'textColor.disabled');
+		return {
+			color,
+			defaultColor,
+			palette,
+			textColorDisabled,
+		};
+	},
+	(api: ExtractInjectionAPI<TextColorPlugin> | undefined) => {
+		const { textColorState } = useSharedPluginState(api, ['textColor']);
+		return {
+			color: textColorState?.color,
+			defaultColor: textColorState?.defaultColor,
+			palette: textColorState?.palette,
+			textColorDisabled: textColorState?.disabled,
+		};
+	},
+);
+
 export function PrimaryToolbarComponent({
 	api,
 	isReducedSpacing,
@@ -33,12 +61,14 @@ export function PrimaryToolbarComponent({
 	dispatchAnalyticsEvent,
 	disabled,
 }: PrimaryToolbarComponentProps) {
-	const { textColorState } = useSharedPluginState(api, ['textColor']);
+	const { color, defaultColor, palette, textColorDisabled } = useSharedState(api);
+
+	if (color === undefined || defaultColor === undefined || palette === undefined) {
+		return null;
+	}
 	return (
 		<ToolbarTextColor
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			pluginState={textColorState!}
+			pluginState={{ color, defaultColor, palette, disabled: textColorDisabled }}
 			isReducedSpacing={isReducedSpacing}
 			editorView={editorView}
 			popupsMountPoint={popupsMountPoint}

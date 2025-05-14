@@ -18,9 +18,9 @@ export interface TaskDecisionState {
 }
 
 interface IndentationState {
-	isIndentationAllowed: boolean;
-	indentDisabled: boolean;
-	outdentDisabled: boolean;
+	isIndentationAllowed?: boolean;
+	indentDisabled?: boolean;
+	outdentDisabled?: boolean;
 }
 
 export function getIndentationButtonsState(
@@ -73,7 +73,8 @@ export function getIndentationButtonsState(
 		allowHeadingAndParagraphIndentation &&
 		(indentationState?.isIndentationAllowed ?? false) &&
 		(isTopLevelParagraphOrHeading || isInLayoutNode) &&
-		indentationState
+		indentationState?.indentDisabled !== undefined &&
+		indentationState?.outdentDisabled !== undefined
 	) {
 		return {
 			indentDisabled: indentationState.indentDisabled,

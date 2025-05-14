@@ -1,5 +1,17 @@
 # @atlaskit/link-provider
 
+## 3.0.0
+
+### Major Changes
+
+- [#152125](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152125)
+  [`8fbd6c30c5ee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fbd6c30c5ee3) -
+  Remove dead type CardProviderCacheOpts and any related values
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 117.0.1
+
+### Patch Changes
+
+- [#154154](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154154)
+  [`ac64f10ddbadb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac64f10ddbadb) -
+  ED-27923: Added condition check in mediaSingle in common to fix embed width during SSR"
+- Updated dependencies
+
+## 117.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.0.0
 
 ### Major Changes

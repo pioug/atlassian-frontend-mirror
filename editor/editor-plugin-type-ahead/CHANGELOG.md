@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.7.2
+
+### Patch Changes
+
+- [#154149](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154149)
+  [`4b955e247c793`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b955e247c793) -
+  [ED-27560] Migrate to useSharedPluginStateSelector for text color, toolbar lists indentation,
+  type-ahead, undo-redo plugins
+
+## 2.7.1
+
+### Patch Changes
+
+- [#153608](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153608)
+  [`3fd5ce348dc5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fd5ce348dc5c) -
+  EDITOR-740 - cleanup FG platform_editor_update_type_ahead_locale
+- Updated dependencies
+
+## 2.7.0
+
+### Minor Changes
+
+- [#149096](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149096)
+  [`831e11ae4484e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/831e11ae4484e) -
+  ED-27855 remove duplicate typeahead invoked events
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.4
 
 ### Patch Changes

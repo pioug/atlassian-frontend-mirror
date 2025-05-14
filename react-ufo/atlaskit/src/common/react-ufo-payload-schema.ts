@@ -2,7 +2,13 @@ import { createPayloads } from '../create-payload';
 import { LabelStack } from '../interaction-context';
 import { VCObserver } from '../vc/vc-observer';
 
-import type { AbortReasonType, ApdexType, InteractionType, SegmentInfo } from './common/types';
+import type {
+	AbortReasonType,
+	ApdexType,
+	InteractionError,
+	InteractionType,
+	SegmentInfo,
+} from './common/types';
 import type { RevisionPayload } from './vc/types';
 
 type ExtractPromise<T> = T extends Promise<infer U> ? U : never;
@@ -150,10 +156,10 @@ export type ReactUFOPayload = {
 				segments: SegmentInfo[] | RootSegment;
 				reactProfilerTimings: ReactProfilerTiming[];
 				holdInfo: HoldInfo[];
+				errors: InteractionError[];
 				// TODO: fix typings here - update as necessary for integration tests
 				// marks: [];
 				// customData: [];
-				// errors: [];
 				// holdActive: [];
 				// redirects: [];
 				// spans: [];
@@ -169,7 +175,10 @@ export type ReactUFOPayload = {
 			'ufo:vc:ratios': Record<string, number>;
 			'ufo:vc:size': { w: number; h: number };
 			'ufo:vc:time': number;
+			'ufo:speedIndex'?: number;
 
+			// TTVC fields to be deprecated
+			'ufo:vc:ignored'?: string[];
 			'ufo:vc:abort:reason'?: string;
 			'ufo:vc:state'?: boolean;
 			'ufo:vc:clean'?: boolean;
@@ -180,11 +189,56 @@ export type ReactUFOPayload = {
 			'ufo:vc:next'?: Record<VCParts, number>;
 			'ufo:vc:next:updates'?: Array<{ time: number; vc: number; elements: string[] }>;
 			'ufo:vc:next:dom'?: Record<VCParts, string[]>;
-			'ufo:vc:ignored'?: string[];
 			'metric:vc90'?: number;
-			'ufo:speedIndex'?: number;
 			'ufo:next:speedIndex'?: number;
 			'ufo:vc:updates:next'?: Array<{ time: number; vc: number; elements: string[] }>;
+		};
+	};
+};
+
+type LateElement = {
+	time: number;
+	element: string;
+	viewportHeatmapPercentage: number;
+};
+
+export type PostInteractionLogPayload = {
+	actionSubject: 'experience';
+	action: 'measured';
+	eventType: 'operational';
+	source: 'measured';
+	tags: ['observability'];
+	attributes: {
+		properties: {
+			'event:hostname': string;
+			'event:product': string;
+			'event:schema': '1.0.0';
+			'event:source': {
+				name: 'react-ufo/web';
+				version: '1.0.1';
+			};
+			'event:region': string;
+			'experience:key': 'custom.post-interaction-logs';
+			postInteractionLog: {
+				lastInteractionFinish: {
+					ufoName: string;
+					start: number;
+					end: number;
+					id: string;
+					routeName: string;
+					type: InteractionType;
+					errors: InteractionError[];
+					ttai: number;
+					vc90: number;
+					vcClean: boolean;
+				};
+				revisedEndTime: number;
+				revisedTtai: number;
+				revisedVC90: number;
+				vcClean: boolean;
+				lateMutations: LateElement[];
+				reactProfilerTimings: ReactProfilerTiming[];
+			};
 		};
 	};
 };

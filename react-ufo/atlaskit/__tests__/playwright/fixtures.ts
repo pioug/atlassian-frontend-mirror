@@ -7,7 +7,10 @@ import {
 	type Page,
 } from '@af/integration-testing';
 
-import { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema';
+import {
+	PostInteractionLogPayload,
+	ReactUFOPayload,
+} from '../../src/common/react-ufo-payload-schema';
 
 import { WindowWithReactUFOTestGlobals } from './window-type';
 
@@ -59,6 +62,7 @@ export const test = base.extend<{
 	featureFlags: string[];
 	examplePage: string;
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+	waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
 	/*
 	 * ATTENTION: This function uses a `performance.now()` from the DOMMutation callback.
 	 * This is not valid for the last ReactUFO TTVC version,
@@ -254,6 +258,45 @@ export const test = base.extend<{
 				.not.toBeNull();
 
 			return reactUFOPayload;
+		};
+
+		await use(reset);
+	},
+	waitForPostInteractionLogPayload: async ({ page }, use) => {
+		const reset = async () => {
+			// This is hardcoded applied when the `sendOperationalEvent` is called
+			// See: website/src/metrics.ts
+			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
+
+			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
+
+			let postInteractionLogPayload: PostInteractionLogPayload | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate(() => {
+							const payloads =
+								(window as WindowWithReactUFOTestGlobals).__websiteReactUfoPostInteraction || [];
+							if (payloads.length < 1) {
+								return Promise.resolve(null);
+							}
+
+							return Promise.resolve(payloads[0]);
+						});
+
+						postInteractionLogPayload = value;
+
+						return postInteractionLogPayload;
+					},
+					{
+						message: `React UFO payload never received.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return postInteractionLogPayload;
 		};
 
 		await use(reset);

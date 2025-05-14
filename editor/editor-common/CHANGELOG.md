@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 105.2.2
+
+### Patch Changes
+
+- [#153287](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153287)
+  [`aa386bc7b76a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa386bc7b76a5) -
+  ED-27636 Offline Editing: Add types to be used for offline storage analytic events
+
+## 105.2.1
+
+### Patch Changes
+
+- [#153328](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153328)
+  [`978203c5a3164`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/978203c5a3164) -
+  FD-84590 clean up fg platform_renderer_table_sort_btn_aria_hidden
+
+## 105.2.0
+
+### Minor Changes
+
+- [#153475](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153475)
+  [`b9a03a01ca8da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9a03a01ca8da) -
+  EDITOR-737: Add word count attribute to define button analytics.
+- [#150264](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150264)
+  [`f714a99eb7641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f714a99eb7641) -
+  ED-27284 add user-preferences plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 105.1.0
+
+### Minor Changes
+
+- [#149096](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149096)
+  [`831e11ae4484e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/831e11ae4484e) -
+  ED-27855 remove duplicate typeahead invoked events
+
 ## 105.0.0
 
 ### Major Changes

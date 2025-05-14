@@ -14,10 +14,10 @@ const containerStyles = xcss({
 });
 
 const figcaptionStyles = css({
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 	position: 'absolute',
 	background: token('color.background.neutral'),
-	insetBlockEnd: token('space.0', '0px'),
+	insetBlockEnd: token('space.0'),
 });
 
 const figureStyles = css({
@@ -39,7 +39,7 @@ const bottomSquareStyles = css({
 });
 
 const topSquarePositionStyles = css({
-	insetBlockStart: token('space.0', '0px'),
+	insetBlockStart: token('space.0'),
 	insetInlineStart: '256px',
 });
 

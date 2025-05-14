@@ -62,10 +62,10 @@ const centeredStyles = css({ height: '82px' });
 
 const blockStyles = css({
 	width: 'auto',
-	marginBlockEnd: token('space.050', '4px'),
-	marginBlockStart: token('space.050', '4px'),
-	marginInlineEnd: token('space.050', '4px'),
-	marginInlineStart: token('space.050', '4px'),
+	marginBlockEnd: token('space.050'),
+	marginBlockStart: token('space.050'),
+	marginInlineEnd: token('space.050'),
+	marginInlineStart: token('space.050'),
 	overflow: 'hidden',
 });
 

@@ -9,7 +9,6 @@ import {
 } from '@atlaskit/editor-common/types';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { TablePlugin, TablePluginOptions } from '../tablePluginType';
 
@@ -51,82 +50,38 @@ const ContentComponentInternal = ({
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const ariaNotifyPlugin = api?.accessibilityUtils?.actions.ariaNotify;
 
-	const resizingTableLocalId = useInternalTablePluginStateSelector(api, 'resizingTableLocalId', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const resizingTableRef = useInternalTablePluginStateSelector(api, 'resizingTableRef', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isTableResizing = useInternalTablePluginStateSelector(api, 'isTableResizing', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isResizing = useInternalTablePluginStateSelector(api, 'isResizing', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const widthToWidest = useInternalTablePluginStateSelector(api, 'widthToWidest', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
+	const resizingTableLocalId = useInternalTablePluginStateSelector(api, 'resizingTableLocalId');
+	const resizingTableRef = useInternalTablePluginStateSelector(api, 'resizingTableRef');
+	const isTableResizing = useInternalTablePluginStateSelector(api, 'isTableResizing');
+	const isResizing = useInternalTablePluginStateSelector(api, 'isResizing');
+	const widthToWidest = useInternalTablePluginStateSelector(api, 'widthToWidest');
 
-	const tableNode = useInternalTablePluginStateSelector(api, 'tableNode', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const targetCellPosition = useInternalTablePluginStateSelector(api, 'targetCellPosition', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isContextualMenuOpen = useInternalTablePluginStateSelector(api, 'isContextualMenuOpen', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const tableRef = useInternalTablePluginStateSelector(api, 'tableRef', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const pluginConfig = useInternalTablePluginStateSelector(api, 'pluginConfig', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
+	const tableNode = useInternalTablePluginStateSelector(api, 'tableNode');
+	const targetCellPosition = useInternalTablePluginStateSelector(api, 'targetCellPosition');
+	const isContextualMenuOpen = useInternalTablePluginStateSelector(api, 'isContextualMenuOpen');
+	const tableRef = useInternalTablePluginStateSelector(api, 'tableRef');
+	const pluginConfig = useInternalTablePluginStateSelector(api, 'pluginConfig');
 	const insertColumnButtonIndex = useInternalTablePluginStateSelector(
 		api,
 		'insertColumnButtonIndex',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
 	);
-	const insertRowButtonIndex = useInternalTablePluginStateSelector(api, 'insertRowButtonIndex', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isHeaderColumnEnabled = useInternalTablePluginStateSelector(api, 'isHeaderColumnEnabled', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isHeaderRowEnabled = useInternalTablePluginStateSelector(api, 'isHeaderRowEnabled', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isDragAndDropEnabled = useInternalTablePluginStateSelector(api, 'isDragAndDropEnabled', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const tableWrapperTarget = useInternalTablePluginStateSelector(api, 'tableWrapperTarget', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
+	const insertRowButtonIndex = useInternalTablePluginStateSelector(api, 'insertRowButtonIndex');
+	const isHeaderColumnEnabled = useInternalTablePluginStateSelector(api, 'isHeaderColumnEnabled');
+	const isHeaderRowEnabled = useInternalTablePluginStateSelector(api, 'isHeaderRowEnabled');
+	const isDragAndDropEnabled = useInternalTablePluginStateSelector(api, 'isDragAndDropEnabled');
+	const tableWrapperTarget = useInternalTablePluginStateSelector(api, 'tableWrapperTarget');
 	const isCellMenuOpenByKeyboard = useInternalTablePluginStateSelector(
 		api,
 		'isCellMenuOpenByKeyboard',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
 	);
 
 	const { allowControls } = pluginConfig ?? {};
 
-	const stickyHeader = useInternalTablePluginStateSelector(api, 'stickyHeader', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
+	const stickyHeader = useInternalTablePluginStateSelector(api, 'stickyHeader');
 
-	const dragMenuDirection = useInternalTablePluginStateSelector(api, 'dragMenuDirection', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const dragMenuIndex = useInternalTablePluginStateSelector(api, 'dragMenuIndex', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const isDragMenuOpen = useInternalTablePluginStateSelector(api, 'isDragMenuOpen', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
+	const dragMenuDirection = useInternalTablePluginStateSelector(api, 'dragMenuDirection');
+	const dragMenuIndex = useInternalTablePluginStateSelector(api, 'dragMenuIndex');
+	const isDragMenuOpen = useInternalTablePluginStateSelector(api, 'isDragMenuOpen');
 
 	return (
 		<>

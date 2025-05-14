@@ -131,6 +131,10 @@ export interface AvatarPropTypes {
 	 * whether disable aria-labelledby for avatar img
 	 */
 	isDecorative?: boolean;
+	/**
+	 * Defines the loading behaviour of the avatar image. Default value is eager.
+	 */
+	imgLoading?: 'lazy' | 'eager';
 }
 
 /**
@@ -163,6 +167,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 			testId,
 			as: AvatarContainer = 'div',
 			isDecorative = false,
+			imgLoading,
 		},
 		ref,
 	) => {
@@ -267,6 +272,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 									appearance={appearance}
 									size={size}
 									testId={testId}
+									imgLoading={imgLoading}
 								/>
 							),
 						}}

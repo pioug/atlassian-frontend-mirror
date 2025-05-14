@@ -7,6 +7,7 @@ import type {
 	UnsupportedContentTooltipPayload,
 	UserBrowserExtensionResults,
 } from '../../utils';
+import type { FireAnalyticsEventOptions } from '../api';
 
 import type { ActiveSessionEventPayload } from './activity-session-events';
 import type { AICommandPaletteEventPayload } from './ai-command-palette-events';
@@ -55,6 +56,7 @@ import { type MentionEventPayload } from './mention-events';
 import type { MoveContentEventPayload } from './move-content-events';
 import { type NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
+import type { OfflineEditingEventPayload } from './offline-editing-event';
 import type { PasteEventPayload } from './paste-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
 import type { SelectionEventPayload } from './selection-events';
@@ -137,7 +139,8 @@ export type AnalyticsEventPayload<T = void> =
 	| TelepointerClickPayload
 	| SelectionToolbarEventPayload
 	| AlignmentEventPayload
-	| UndoRedoAEP;
+	| UndoRedoAEP
+	| OfflineEditingEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,
@@ -366,7 +369,7 @@ export type FireAnalyticsCallback = <T>(payload: FireAnalyticsEventPayload<T>) =
 
 export type FireAnalyticsEvent = (
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-	options?: { immediate?: boolean },
+	options?: FireAnalyticsEventOptions,
 ) => FireAnalyticsCallback;
 
 export type FireAnalyticsEventPayload<T = void> = {

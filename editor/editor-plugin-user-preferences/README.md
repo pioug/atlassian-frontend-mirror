@@ -1,0 +1,1 @@
+# Editor plugin user preferences

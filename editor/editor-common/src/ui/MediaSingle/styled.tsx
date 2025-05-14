@@ -63,6 +63,13 @@ function getWidthIfDefaultMode(
  * If an image has not been resized using the pctWidth attribute,
  * then an image in wide or full-width can not be wider than the image's
  * original width.
+ * @param layout
+ * @param width
+ * @param containerWidth
+ * @param fullWidthMode
+ * @param isResized
+ * @param isInsideOfInlineExtension
+ * @example
  */
 export function calcLegacyWidth(
 	layout: MediaSingleLayout,
@@ -99,6 +106,12 @@ export function calcLegacyWidth(
  * If an image has not been resized using the pctWidth attribute,
  * then an image in wide or full-width can not be wider than the image's
  * original width.
+ * @param layout
+ * @param width
+ * @param containerWidth
+ * @param fullWidthMode
+ * @param isResized
+ * @example
  */
 export function calcLegacyWidthForInline(
 	layout: MediaSingleLayout,
@@ -131,6 +144,10 @@ export function calcLegacyWidthForInline(
  *
  * Wide and full-width images are always that size (960px and 100%); there is
  * no distinction between max-width and width.
+ * @param layout
+ * @param width
+ * @param containerWidth
+ * @example
  */
 export function calcResizedWidth(
 	layout: MediaSingleLayout,
@@ -186,6 +203,7 @@ function isImageAligned(layout: MediaSingleLayout): string {
  *
  * @param widthValue CSS width value to be rounded
  * @returns Reduced CSS width value where px value given, or otherwise the original value
+ * @example
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -220,11 +238,24 @@ export interface MediaSingleWrapperProps {
 	isExtendedResizeExperienceOn?: boolean;
 	isNestedNode?: boolean;
 	isInsideOfInlineExtension?: boolean;
+	nodeType?: string;
 }
 
 /**
  * Can't use `.attrs` to handle highly dynamic styles because we are still
  * supporting `styled-components` v1.
+ * @param root0
+ * @param root0.containerWidth
+ * @param root0.fullWidthMode
+ * @param root0.isResized
+ * @param root0.layout
+ * @param root0.mediaSingleWidth
+ * @param root0.width
+ * @param root0.isExtendedResizeExperienceOn
+ * @param root0.isNestedNode
+ * @param root0.isInsideOfInlineExtension
+ * @param root0.nodeType
+ * @example
  */
 export const MediaSingleDimensionHelper = ({
 	containerWidth = 0,
@@ -236,6 +267,7 @@ export const MediaSingleDimensionHelper = ({
 	isExtendedResizeExperienceOn,
 	isNestedNode = false,
 	isInsideOfInlineExtension = false,
+	nodeType,
 }: MediaSingleWrapperProps) => {
 	const calculatedWidth = roundToClosestEvenPxValue(
 		isExtendedResizeExperienceOn
@@ -286,7 +318,9 @@ export const MediaSingleDimensionHelper = ({
 				})
 			: ''}
 		/* If container doesn't exists, it will fallback to this */
-		max-width: ${isSSR() && fg('platform_editor_fix_image_size_diff_during_ssr')
+		max-width: ${isSSR() &&
+		!calculatedMaxWidth.endsWith('%') &&
+		fg('platform_editor_fix_image_size_diff_during_ssr')
 			? Math.max(
 					parseInt(calculatedWidth.replace('px', '')),
 					parseInt(calculatedMaxWidth.replace('px', '')),

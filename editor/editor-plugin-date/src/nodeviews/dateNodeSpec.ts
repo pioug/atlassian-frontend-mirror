@@ -5,7 +5,7 @@ import { date } from '@atlaskit/adf-schema';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { getPosHandlerNode } from '@atlaskit/editor-common/types';
-import { timestampToString } from '@atlaskit/editor-common/utils';
+import { browser, timestampToString } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -98,6 +98,12 @@ export const dateToDOM = (
 			['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
 		],
 		['span', wrapperAttrs, ['span', attrs, displayString]],
-		['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+		browser.android
+		? [
+				'span',
+				{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
+				['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+			]
+		: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ''],
 	] satisfies DOMOutputSpec;
 };

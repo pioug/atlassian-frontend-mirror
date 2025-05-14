@@ -9,7 +9,9 @@ type DefineButtonClickedAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.BUTTON,
 	ACTION_SUBJECT_ID.AI_DEFINITIONS_DEFINE_BUTTON,
-	CommonAttributes,
+	CommonAttributes & {
+		wordCount: number;
+	},
 	undefined
 >;
 

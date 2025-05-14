@@ -30,7 +30,7 @@ ${code`
 type DatePlugin = NextEditorPlugin<
   'date',
   {
-    pluginConfiguration: DatePluginConfig | undefined;
+    pluginConfiguration: DatePluginOptions | undefined;
     dependencies: [typeof analyticsPlugin, EditorDisabledPlugin];
     sharedState: DatePluginSharedState;
     commands: {

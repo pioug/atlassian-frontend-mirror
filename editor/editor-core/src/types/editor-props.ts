@@ -30,7 +30,7 @@ import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 import type { CodeBlockOptions } from '@atlaskit/editor-plugins/code-block';
-import type { DatePluginConfig } from '@atlaskit/editor-plugins/date';
+import type { DatePluginOptions } from '@atlaskit/editor-plugins/date';
 import type { FindReplaceOptions } from '@atlaskit/editor-plugins/find-replace';
 import type { LayoutPluginOptions } from '@atlaskit/editor-plugins/layout';
 import type { MediaOptions, MediaState } from '@atlaskit/editor-plugins/media/types';
@@ -381,8 +381,8 @@ export interface EditorPluginFeatureProps {
 	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
 
 	// Enable dates. You will most likely need backend ADF storage for this feature.
-	// Can use true/false to enable/disable default or can pass in DatePluginConfig object to configure weekStartDay
-	allowDate?: boolean | DatePluginConfig;
+	// Can use true/false to enable/disable default or can pass in DatePluginOptions object to configure weekStartDay
+	allowDate?: boolean | DatePluginOptions;
 
 	// Temporary flag to enable layouts while it's under development
 	// Use object form to enable breakout for layouts, and to enable the newer layouts - left sidebar & right sidebar

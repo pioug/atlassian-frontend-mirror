@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.21.0
+
+### Minor Changes
+
+- [#153704](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153704)
+  [`edb0da26267e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edb0da26267e6) -
+  EDITOR-736 Put agent powered free generate in comment behind experiment.
+
 ## 4.20.0
 
 ### Minor Changes

@@ -19,7 +19,10 @@ import {
 import { browser } from '@atlaskit/editor-common/browser';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
@@ -30,7 +33,12 @@ import {
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command, EditorPlugin, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorPlugin,
+	ExtractInjectionAPI,
+	GetEditorContainerWidth,
+} from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -90,6 +98,19 @@ import { FullWidthDisplay } from './ui/TableFullWidthLabel';
 import { getToolbarConfig } from './ui/toolbar';
 
 const defaultGetEditorFeatureFlags = () => ({});
+
+const useTableSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		return { mode };
+	},
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const { editorViewModeState } = useSharedPluginState(api, ['editorViewMode']);
+		return {
+			mode: editorViewModeState?.mode,
+		};
+	},
+);
 
 /**
  * Table plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -874,17 +895,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			)(pluginConfig(options?.tableOptions)),
 		},
 		usePluginHook({ editorView }) {
-			const { editorViewModeState } = useSharedPluginState(api, ['editorViewMode'], {
-				disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-			});
-
-			// mode
-			const modeSelector = useSharedPluginStateSelector(api, 'editorViewMode.mode', {
-				disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-			});
-			const mode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-				? modeSelector
-				: editorViewModeState?.mode;
+			const { mode } = useTableSharedState(api);
 
 			useEffect(() => {
 				const { state, dispatch } = editorView;

@@ -10,10 +10,10 @@ import { token } from '@atlaskit/tokens';
 
 const layoutStyles = css({
 	display: 'flex',
-	gap: token('space.300', '24px'),
+	gap: token('space.300'),
 	flexDirection: 'column',
-	paddingBlockEnd: token('space.300', '24px'),
-	paddingBlockStart: token('space.300', '24px'),
+	paddingBlockEnd: token('space.300'),
+	paddingBlockStart: token('space.300'),
 	paddingInlineEnd: 0,
 	paddingInlineStart: 0,
 });

@@ -14,24 +14,18 @@ import { useItemInsert } from './hooks/use-item-insert';
 import { TypeAheadPopup } from './TypeAheadPopup';
 
 type TypeAheadMenuType = {
-	typeAheadState: TypeAheadPluginSharedState;
+	typeAheadState: Omit<TypeAheadPluginSharedState, 'isOpen' | 'isAllowed' | 'selectedIndex'>;
 	editorView: EditorView;
 	popupMountRef: PopupMountPointReference;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	selectedIndex: number;
 };
 
 export const TypeAheadMenu = React.memo(
-	({ editorView, popupMountRef, typeAheadState, api }: TypeAheadMenuType) => {
+	({ editorView, popupMountRef, typeAheadState, selectedIndex, api }: TypeAheadMenuType) => {
 		const isOpen = typeAheadState.decorationSet.find().length > 0;
-		const {
-			triggerHandler,
-			items,
-			errorInfo,
-			selectedIndex,
-			decorationElement,
-			decorationSet,
-			query,
-		} = typeAheadState;
+		const { triggerHandler, items, errorInfo, decorationElement, decorationSet, query } =
+			typeAheadState;
 
 		const [onItemInsert, onTextInsert, onItemMatch] = useItemInsert(
 			// Ignored via go/ees005

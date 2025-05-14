@@ -3,13 +3,19 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { flushSync } from 'react-dom';
 
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { BrowserConfig, ClipboardConfig, DropzoneConfig } from '@atlaskit/media-picker/types';
 
+import { MediaNextEditorPluginType } from '../../mediaPluginType';
 import PickerFacade from '../../pm-plugins/picker-facade';
-import type { MediaPluginState } from '../../pm-plugins/types';
 import type { CustomMediaPicker } from '../../types';
 
 interface ChildrenProps {
@@ -19,7 +25,7 @@ interface ChildrenProps {
 }
 
 export type Props = {
-	mediaState: MediaPluginState;
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	analyticsName: string;
 	children: (props: ChildrenProps) => React.ReactElement | null;
 };
@@ -38,19 +44,43 @@ const dummyMediaPickerObject: CustomMediaPicker = {
 	setUploadParams: () => {},
 };
 
-export default function PickerFacadeProvider({ mediaState, analyticsName, children }: Props) {
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const mediaProvider = useSharedPluginStateSelector(api, 'media.mediaProvider');
+		const mediaOptions = useSharedPluginStateSelector(api, 'media.mediaOptions');
+		const insertFile = useSharedPluginStateSelector(api, 'media.insertFile');
+		const options = useSharedPluginStateSelector(api, 'media.options');
+		return {
+			mediaProvider,
+			mediaOptions,
+			insertFile,
+			options,
+		};
+	},
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { mediaState } = useSharedPluginState(api, ['media']);
+		const mediaProvider = useMemo(() => mediaState?.mediaProvider, [mediaState?.mediaProvider]);
+		return {
+			mediaProvider,
+			mediaOptions: mediaState?.mediaOptions,
+			insertFile: mediaState?.insertFile,
+			options: mediaState?.options,
+		};
+	},
+);
+
+export default function PickerFacadeProvider({ api, analyticsName, children }: Props) {
 	const [state, setState] = useState<State>({
 		pickerFacadeInstance: undefined,
 		config: undefined,
 		mediaClientConfig: undefined,
 	});
-
-	const mediaProvider = useMemo(() => mediaState?.mediaProvider, [mediaState?.mediaProvider]);
+	const { mediaProvider, mediaOptions, insertFile, options } = useSharedState(api);
 
 	const handleMediaProvider = useCallback(
 		async (_name: string, provider: Promise<MediaProvider> | undefined) => {
 			const mediaProvider = await provider;
-			if (!mediaProvider || !mediaProvider.uploadParams) {
+			if (!mediaProvider || !mediaProvider.uploadParams || !insertFile) {
 				return;
 			}
 			const resolvedMediaClientConfig =
@@ -61,8 +91,8 @@ export default function PickerFacadeProvider({ mediaState, analyticsName, childr
 			}
 			const pickerFacadeConfig = {
 				mediaClientConfig: resolvedMediaClientConfig,
-				errorReporter: mediaState.options.errorReporter || new ErrorReporter(),
-				featureFlags: mediaState.mediaOptions && mediaState.mediaOptions.featureFlags,
+				errorReporter: options?.errorReporter || new ErrorReporter(),
+				featureFlags: mediaOptions && mediaOptions.featureFlags,
 			};
 
 			const pickerFacadeInstance = await new PickerFacade(
@@ -71,7 +101,7 @@ export default function PickerFacadeProvider({ mediaState, analyticsName, childr
 				dummyMediaPickerObject,
 				analyticsName,
 			).init();
-			pickerFacadeInstance.onNewMedia(mediaState.insertFile);
+			pickerFacadeInstance.onNewMedia(insertFile);
 			pickerFacadeInstance.setUploadParams(mediaProvider.uploadParams);
 			const config = {
 				uploadParams: mediaProvider.uploadParams,
@@ -84,12 +114,7 @@ export default function PickerFacadeProvider({ mediaState, analyticsName, childr
 				});
 			});
 		},
-		[
-			analyticsName,
-			mediaState.insertFile,
-			mediaState.mediaOptions,
-			mediaState.options.errorReporter,
-		],
+		[analyticsName, insertFile, mediaOptions, options?.errorReporter],
 	);
 
 	useEffect(() => {

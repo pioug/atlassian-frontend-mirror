@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
-import { useFeatureFlag } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../constants';
@@ -54,12 +53,6 @@ export const InlineCard = ({
 	const cardDetails = (details && details.data) || getEmptyJsonLd();
 	const extensionKey = getExtensionKey(details);
 	const testIdWithStatus = testId ? `${testId}-${status}-view` : undefined;
-
-	const showHoverPreviewFlag = useFeatureFlag('showHoverPreview');
-
-	if (showHoverPreview === undefined && showHoverPreviewFlag !== undefined) {
-		showHoverPreview = Boolean(showHoverPreviewFlag);
-	}
 
 	const resolvedProps =
 		status === SmartLinkStatus.Resolved

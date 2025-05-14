@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 const toggleStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	marginBlockEnd: token('space.100', '8px'),
+	marginBlockEnd: token('space.100'),
 });
 
 const labelStyles = css({

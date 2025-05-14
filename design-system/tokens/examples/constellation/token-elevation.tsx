@@ -37,7 +37,7 @@ const elevationStyles = {
 	raised: {
 		label: 'Raised',
 		backgroundColor: token('elevation.surface.raised'),
-		shadow: token('elevation.shadow.raised', '0px 1px 1px #091E4240, 0px 0px 1px #091E424F'),
+		shadow: token('elevation.shadow.raised'),
 	},
 	overlay: {
 		label: 'Overlay',

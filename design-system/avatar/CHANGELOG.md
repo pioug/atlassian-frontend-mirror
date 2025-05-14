@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 25.1.0
+
+### Minor Changes
+
+- [#152706](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152706)
+  [`72f35bd8c908c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72f35bd8c908c) -
+  Add prop to control lazy loading behaviour for avatar
+
 ## 25.0.5
 
 ### Patch Changes

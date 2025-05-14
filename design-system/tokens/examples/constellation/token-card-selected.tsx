@@ -23,20 +23,20 @@ iconColor: token('color.icon.selected'),
 
 const selectedStyles = {
 	bold: {
-		color: token('color.text.inverse', '#FFFFFF'),
-		backgroundColor: token('color.background.selected.bold', '#0C66E4'),
-		border: `1px solid ${token('color.border.selected', '#0C66E4')}`,
-		hoverBackgroundColor: token('color.background.selected.bold.hovered', '#0055CC'),
-		activeBackgroundColor: token('color.background.selected.bold.pressed', '#09326C'),
-		iconColor: token('color.icon.inverse', '#FFFFFF'),
+		color: token('color.text.inverse'),
+		backgroundColor: token('color.background.selected.bold'),
+		border: `1px solid ${token('color.border.selected')}`,
+		hoverBackgroundColor: token('color.background.selected.bold.hovered'),
+		activeBackgroundColor: token('color.background.selected.bold.pressed'),
+		iconColor: token('color.icon.inverse'),
 	},
 	default: {
-		color: token('color.text', '#172B4D'),
-		backgroundColor: token('color.background.selected', '#E9F2FF'),
-		border: `1px solid ${token('color.border.selected', '#0C66E4')}`,
-		hoverBackgroundColor: token('color.background.selected.hovered', '#CCE0FF'),
-		activeBackgroundColor: token('color.background.selected.pressed', '#85B8FF'),
-		iconColor: token('color.icon.selected', '#0C66E4'),
+		color: token('color.text'),
+		backgroundColor: token('color.background.selected'),
+		border: `1px solid ${token('color.border.selected')}`,
+		hoverBackgroundColor: token('color.background.selected.hovered'),
+		activeBackgroundColor: token('color.background.selected.pressed'),
+		iconColor: token('color.icon.selected'),
 	},
 };
 

@@ -155,7 +155,7 @@ const AppHeader = ({
 			<ModalTransition>
 				{!!modalProps && (
 					<Modal onClose={cancelModal}>
-						<ModalHeader>
+						<ModalHeader hasCloseButton>
 							<ModalTitle appearance="warning">Discard Changes</ModalTitle>
 						</ModalHeader>
 						<ModalBody>You have unsaved changes. Are you sure you want to discard them?</ModalBody>

@@ -13,7 +13,10 @@ import {
 import { browser } from '@atlaskit/editor-common/browser';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { focusTableResizer, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
@@ -26,7 +29,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
@@ -182,6 +184,22 @@ const getVisibleGuidelines = (
 	});
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
+		const widthToWidest = useInternalTablePluginStateSelector(pluginInjectionApi, 'widthToWidest');
+		return {
+			widthToWidest,
+		};
+	},
+	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
+		const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
+		const tableStateInternal = tableState as TableSharedStateInternal;
+		return {
+			widthToWidest: tableStateInternal.widthToWidest,
+		};
+	},
+);
+
 export const TableResizer = ({
 	children,
 	width,
@@ -213,21 +231,7 @@ export const TableResizer = ({
 	const isResizing = useRef(false);
 	const areResizeMetaKeysPressed = useRef(false);
 	const resizerRef = useRef<ResizerNextHandler>(null);
-	const { tableState } = useSharedPluginState(pluginInjectionApi, ['table'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	// widthToWidest
-	const widthToWidestSelector = useInternalTablePluginStateSelector(
-		pluginInjectionApi,
-		'widthToWidest',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const widthToWidest = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? widthToWidestSelector
-		: (tableState as TableSharedStateInternal).widthToWidest;
+	const { widthToWidest } = useSharedState(pluginInjectionApi);
 
 	// used to reposition tooltip when table is resizing via keyboard
 	const updateTooltip = React.useRef<() => void>();

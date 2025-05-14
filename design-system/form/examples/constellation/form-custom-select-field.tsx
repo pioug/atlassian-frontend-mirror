@@ -81,9 +81,9 @@ const ColorBox = ({ color }: { color: string }) => (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			display: 'inline-block',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			marginRight: token('space.100', '8px'),
+			marginRight: token('space.100'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			marginBottom: token('space.050', '4px'),
+			marginBottom: token('space.050'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			verticalAlign: 'middle',
 		}}

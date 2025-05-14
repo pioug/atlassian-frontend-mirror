@@ -23,20 +23,20 @@ iconColor: token('color.icon.danger'),
 
 const dangerStyles = {
 	bold: {
-		color: token('color.text.inverse', '#FFFFFF'),
-		backgroundColor: token('color.background.danger.bold', '#CA3521'),
-		border: `1px solid ${token('color.border.danger', '#E34935')}`,
-		hoverBackgroundColor: token('color.background.danger.bold.hovered', '#AE2A19'),
-		activeBackgroundColor: token('color.background.danger.bold.pressed', '#601E16'),
-		iconColor: token('color.icon.inverse', '#FFFFFF'),
+		color: token('color.text.inverse'),
+		backgroundColor: token('color.background.danger.bold'),
+		border: `1px solid ${token('color.border.danger')}`,
+		hoverBackgroundColor: token('color.background.danger.bold.hovered'),
+		activeBackgroundColor: token('color.background.danger.bold.pressed'),
+		iconColor: token('color.icon.inverse'),
 	},
 	default: {
-		color: token('color.text', '#172B4D'),
-		backgroundColor: token('color.background.danger', '#FFEDEB'),
-		border: `1px solid ${token('color.border.danger', '#E34935')}`,
-		hoverBackgroundColor: token('color.background.danger.hovered', '#FFD2CC'),
-		activeBackgroundColor: token('color.background.danger.pressed', '#FF9C8F'),
-		iconColor: token('color.icon.danger', '#E34935'),
+		color: token('color.text'),
+		backgroundColor: token('color.background.danger'),
+		border: `1px solid ${token('color.border.danger')}`,
+		hoverBackgroundColor: token('color.background.danger.hovered'),
+		activeBackgroundColor: token('color.background.danger.pressed'),
+		iconColor: token('color.icon.danger'),
 	},
 };
 

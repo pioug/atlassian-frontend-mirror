@@ -57,8 +57,8 @@ const containerStyles = css({ textAlign: 'center' });
 const centeredStyles = css({
 	height: '300px',
 	position: 'relative',
-	marginBlockEnd: token('space.0', '0'),
-	marginBlockStart: token('space.0', '0'),
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
 	marginInlineEnd: 'auto',
 	marginInlineStart: 'auto',
 	overflow: 'hidden',

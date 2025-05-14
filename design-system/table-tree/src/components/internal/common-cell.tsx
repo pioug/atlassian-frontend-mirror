@@ -38,10 +38,13 @@ interface CommonCellProps {
 const CommonCell: FC<HTMLAttributes<HTMLDivElement> & CommonCellProps> = ({
 	indent,
 	width,
+	className,
 	...props
 }) => (
 	<div
 		role="gridcell"
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		className={className}
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 		style={{ '--indent': indent, width } as CSSProperties}

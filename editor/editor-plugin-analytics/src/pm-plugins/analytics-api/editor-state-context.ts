@@ -73,7 +73,7 @@ export function findInsertedLocation(oldSelection: Selection, newSelection: Sele
 export function getStateContext(
 	selection: Selection,
 	payload: AnalyticsEventPayload,
-	tr: Transaction,
+	tr?: Transaction,
 ): AnalyticsEventPayload {
 	if (!payload.attributes) {
 		return payload;
@@ -85,6 +85,7 @@ export function getStateContext(
 	}
 	const insertLocation = findInsertLocation(selection);
 	if (
+		tr &&
 		payload.action === ACTION.INSERTED &&
 		payload.actionSubject !== ACTION_SUBJECT.ANNOTATION &&
 		payload.actionSubject !== ACTION_SUBJECT.EDITOR_PLUGIN_AI

@@ -1,7 +1,11 @@
-import { ReactUFOPayload } from '../../src/common/react-ufo-payload-schema';
+import {
+	PostInteractionLogPayload,
+	ReactUFOPayload,
+} from '../../src/common/react-ufo-payload-schema';
 
 export type WindowWithReactUFOTestGlobals = typeof window & {
 	__websiteReactUfoShadowMode: Array<ReactUFOPayload>;
+	__websiteReactUfoPostInteraction: Array<PostInteractionLogPayload>;
 	__websiteReactUfo: Array<ReactUFOPayload>;
 	// Best way to found out when a DOM was "rendered"
 	// We are adding a Mutation Observer inside the `./fixtures.ts`

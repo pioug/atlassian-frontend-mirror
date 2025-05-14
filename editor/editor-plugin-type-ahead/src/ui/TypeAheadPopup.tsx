@@ -14,7 +14,10 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
@@ -23,6 +26,7 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
@@ -112,6 +116,21 @@ const Highlight = ({ state, triggerHandler }: HighlightProps) => {
 };
 
 const OFFSET = [0, 8];
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
+		const moreElementsInQuickInsertView = useSharedPluginStateSelector(
+			api,
+			'featureFlags.moreElementsInQuickInsertView',
+		);
+		return { moreElementsInQuickInsertView };
+	},
+	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
+		const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+		return { moreElementsInQuickInsertView: featureFlagsState?.moreElementsInQuickInsertView };
+	},
+);
+
 export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const {
 		editorView,
@@ -131,10 +150,9 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	} = props;
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
-	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+	const { moreElementsInQuickInsertView } = useSharedState(api);
 	const moreElementsInQuickInsertViewEnabled =
-		featureFlagsState?.moreElementsInQuickInsertView &&
-		triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
+		moreElementsInQuickInsertView && triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
 	const isEditorControlsPatch2Enabled =
 		editorExperiment('platform_editor_controls', 'variant1') &&
 		fg('platform_editor_controls_patch_2');

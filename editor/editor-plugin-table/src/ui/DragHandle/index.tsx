@@ -8,7 +8,10 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -16,7 +19,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable, TableMap } from '@atlaskit/editor-tables';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
@@ -311,6 +313,25 @@ const DragHandleComponent = ({
 	);
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const hoveredColumns = useInternalTablePluginStateSelector(api, 'hoveredColumns');
+		const hoveredRows = useInternalTablePluginStateSelector(api, 'hoveredRows');
+		return {
+			hoveredColumns,
+			hoveredRows,
+		};
+	},
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const { tableState } = useSharedPluginState(api, ['table']);
+		const tableStateInternal = tableState as TableSharedStateInternal;
+		return {
+			hoveredColumns: tableStateInternal?.hoveredColumns,
+			hoveredRows: tableStateInternal?.hoveredRows,
+		};
+	},
+);
+
 const DragHandleComponentWithSharedState = ({
 	isDragMenuTarget,
 	tableLocalId,
@@ -329,28 +350,7 @@ const DragHandleComponentWithSharedState = ({
 	intl,
 	api,
 }: DragHandleWithSharedStateProps & WrappedComponentProps) => {
-	const { tableState } = useSharedPluginState(api, ['table'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	}) as {
-		tableState?: TableSharedStateInternal;
-	};
-
-	// hoveredColumns
-	const hoveredColumnsSelector = useInternalTablePluginStateSelector(api, 'hoveredColumns', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const hoveredColumns = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? hoveredColumnsSelector
-		: tableState?.hoveredColumns;
-
-	// hoveredRows
-	const hoveredRowsSelector = useInternalTablePluginStateSelector(api, 'hoveredRows', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const hoveredRows = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? hoveredRowsSelector
-		: tableState?.hoveredRows;
-
+	const { hoveredColumns, hoveredRows } = useSharedState(api);
 	return (
 		<DragHandleComponent
 			isDragMenuTarget={isDragMenuTarget}

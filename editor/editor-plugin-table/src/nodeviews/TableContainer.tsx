@@ -9,7 +9,10 @@ import {
 	type TableEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -71,6 +74,32 @@ type AlignmentTableContainerProps = {
 	editorView?: EditorView;
 };
 
+const useAlignmentStableContainerSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
+		const isFullWidthModeEnabled = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'table.isFullWidthModeEnabled',
+		);
+		const wasFullWidthModeEnabled = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'table.wasFullWidthModeEnabled',
+		);
+		return {
+			tableState: undefined,
+			isFullWidthModeEnabled,
+			wasFullWidthModeEnabled,
+		};
+	},
+	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
+		const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
+		return {
+			tableState,
+			isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
+			wasFullWidthModeEnabled: tableState?.wasFullWidthModeEnabled,
+		};
+	},
+);
+
 const AlignmentTableContainer = ({
 	node,
 	children,
@@ -79,39 +108,8 @@ const AlignmentTableContainer = ({
 	editorView,
 }: PropsWithChildren<AlignmentTableContainerProps>) => {
 	const alignment = node.attrs.layout !== ALIGN_START ? ALIGN_CENTER : ALIGN_START;
-	const { tableState } = useSharedPluginState(pluginInjectionApi, ['table'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-
-	// isFullWidthModeEnabled
-	const isTableFullWidthModeEnabledSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'table.isFullWidthModeEnabled',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const isFullWidthModeEnabled = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? isTableFullWidthModeEnabledSelector
-		: tableState?.isFullWidthModeEnabled;
-
-	// wasFullWidthModeEnabled
-	const wasFullWidthModeEnabledSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'table.wasFullWidthModeEnabled',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const wasFullWidthModeEnabled = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? wasFullWidthModeEnabledSelector
-		: tableState?.wasFullWidthModeEnabled;
+	const { tableState, isFullWidthModeEnabled, wasFullWidthModeEnabled } =
+		useAlignmentStableContainerSharedState(pluginInjectionApi);
 
 	useEffect(() => {
 		if (!tableState && editorExperiment('platform_editor_usesharedpluginstateselector', false)) {
@@ -216,6 +214,30 @@ type ResizableTableContainerProps = {
 	isCommentEditor?: boolean;
 };
 
+const useResizeableTableContainerSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
+		const isFullWidthModeEnabled = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'table.isFullWidthModeEnabled',
+		);
+		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		return {
+			isFullWidthModeEnabled,
+			mode,
+		};
+	},
+	(pluginInjectionApi: PluginInjectionAPI | undefined) => {
+		const { tableState, editorViewModeState } = useSharedPluginState(pluginInjectionApi, [
+			'table',
+			'editorViewMode',
+		]);
+		return {
+			isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
+			mode: editorViewModeState?.mode,
+		};
+	},
+);
+
 export const ResizableTableContainer = React.memo(
 	({
 		children,
@@ -240,24 +262,8 @@ export const ResizableTableContainer = React.memo(
 		const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
 		const [resizing, setIsResizing] = useState(false);
 
-		const { tableState } = useSharedPluginState(pluginInjectionApi, ['table'], {
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-		});
-
-		// isFullWidthModeEnabled
-		const isFullWidthModeEnabledSelector = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'table.isFullWidthModeEnabled',
-			{
-				disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-			},
-		);
-		const isFullWidthModeEnabled = editorExperiment(
-			'platform_editor_usesharedpluginstateselector',
-			true,
-		)
-			? isFullWidthModeEnabledSelector
-			: tableState?.isFullWidthModeEnabled;
+		const { isFullWidthModeEnabled, mode } =
+			useResizeableTableContainerSharedState(pluginInjectionApi);
 
 		const updateContainerHeight = useCallback((height: number | 'auto') => {
 			// current StickyHeader State is not stable to be fetch.
@@ -331,17 +337,6 @@ export const ResizableTableContainer = React.memo(
 		);
 
 		const tableWidth = getTableContainerWidth(node);
-		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode'], {
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-		});
-
-		// mode
-		const modeSelector = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode', {
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		});
-		const mode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-			? modeSelector
-			: editorViewModeState?.mode;
 
 		let responsiveContainerWidth = 0;
 		const resizeHandleSpacing = 12;
@@ -405,10 +400,7 @@ export const ResizableTableContainer = React.memo(
 			isCommentEditor,
 		};
 
-		const isLivePageViewMode =
-			(editorExperiment('platform_editor_usesharedpluginstateselector', true)
-				? mode
-				: editorViewModeState?.mode) === 'view';
+		const isLivePageViewMode = mode === 'view';
 
 		return (
 			<AlignmentTableContainerWrapper

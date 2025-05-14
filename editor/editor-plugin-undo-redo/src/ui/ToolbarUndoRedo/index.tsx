@@ -7,7 +7,10 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
 	redo,
@@ -24,6 +27,7 @@ import {
 } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import RedoIcon from '@atlaskit/icon/core/migration/redo';
 import UndoIcon from '@atlaskit/icon/core/migration/undo';
@@ -47,6 +51,21 @@ export interface Props {
 	api: ExtractInjectionAPI<UndoRedoPlugin> | undefined;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) => {
+		const canUndo = useSharedPluginStateSelector(api, 'history.canUndo');
+		const canRedo = useSharedPluginStateSelector(api, 'history.canRedo');
+		return { canUndo, canRedo };
+	},
+	(api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) => {
+		const { historyState } = useSharedPluginState(api, ['history']);
+		return {
+			canUndo: historyState?.canUndo,
+			canRedo: historyState?.canRedo,
+		};
+	},
+);
+
 export const ToolbarUndoRedo = ({
 	disabled,
 	isReducedSpacing,
@@ -54,7 +73,7 @@ export const ToolbarUndoRedo = ({
 	api,
 	intl: { formatMessage },
 }: Props & WrappedComponentProps) => {
-	const { historyState } = useSharedPluginState(api, ['history']);
+	const { canUndo, canRedo } = useSharedState(api);
 
 	const handleUndo = () => {
 		if (fg('platform_editor_controls_patch_analytics')) {
@@ -73,8 +92,6 @@ export const ToolbarUndoRedo = ({
 	};
 	const labelUndo = formatMessage(undoRedoMessages.undo);
 	const labelRedo = formatMessage(undoRedoMessages.redo);
-
-	const { canUndo, canRedo } = historyState ?? {};
 
 	const redoKeymap = fg('platform_editor_cmd_y_mac_redo_shortcut') ? redoAlt : redo;
 

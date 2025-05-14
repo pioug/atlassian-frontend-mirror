@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 9.0.0
+
+### Major Changes
+
+- [#152125](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152125)
+  [`cb3d519da67b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb3d519da67b6) -
+  Remove deprecated LinkingPlatformFeatureFlags as per ENGHEALTH-30338
+
 ## 8.1.1
 
 ### Patch Changes

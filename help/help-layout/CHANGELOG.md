@@ -1,5 +1,13 @@
 # @atlaskit/help-layout
 
+## 6.2.2
+
+### Patch Changes
+
+- [#153983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153983)
+  [`f9c637ec4160b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9c637ec4160b) -
+  [ux] UI bug fixes when AI enabled
+
 ## 6.2.1
 
 ### Patch Changes

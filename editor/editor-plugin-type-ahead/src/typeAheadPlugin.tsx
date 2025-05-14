@@ -9,13 +9,13 @@
 import React from 'react';
 
 import { typeAheadQuery } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { Command, TypeAheadItem } from '@atlaskit/editor-common/types';
@@ -54,13 +54,22 @@ const createOpenAtTransaction =
 			tr,
 		});
 
-		editorAnalyticsAPI?.attachAnalyticsEvent({
-			action: ACTION.INVOKED,
-			actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-			actionSubjectId: triggerHandler.id,
-			attributes: { inputMethod },
-			eventType: EVENT_TYPE.UI,
-		})(tr);
+		// This function is called from the editor-plugin-emoji and editor-plugin-type-ahead
+		// createOpenAtTransaction <- createOpenTypeAhead <- actions.open
+		// 	<- emoji-plugin (Not used)
+		//  <- type-ahead-plugin (Used)
+		// and this caused the analytics event to be fired twice, as other places are relying on the
+		// `onEditorViewStateUpdated` method to fire the analytics event
+		// We want to disable this event
+		if (!fg('platform_editor_controls_patch_analytics_3')) {
+			editorAnalyticsAPI?.attachAnalyticsEvent({
+				action: ACTION.INVOKED,
+				actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+				actionSubjectId: triggerHandler.id,
+				attributes: { inputMethod },
+				eventType: EVENT_TYPE.UI,
+			})(tr);
+		}
 
 		return true;
 	};
@@ -338,15 +347,35 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 					);
 
 				if (!isDuplicateInvokedEvent) {
-					api?.analytics?.actions?.fireAnalyticsEvent({
-						action: ACTION.INVOKED,
-						actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-						actionSubjectId: newTriggerHandler.id || 'not_set',
-						attributes: {
-							inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
-						},
-						eventType: EVENT_TYPE.UI,
-					});
+					if (fg('platform_editor_controls_patch_analytics_3')) {
+						api?.analytics?.actions?.fireAnalyticsEvent(
+							{
+								action: ACTION.INVOKED,
+								actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+								actionSubjectId: newTriggerHandler.id || 'not_set',
+								attributes: {
+									inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
+								},
+								eventType: EVENT_TYPE.UI,
+							},
+							undefined,
+							{
+								context: {
+									selection: newEditorState.selection,
+								},
+							},
+						);
+					} else {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.INVOKED,
+							actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+							actionSubjectId: newTriggerHandler.id || 'not_set',
+							attributes: {
+								inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
+							},
+							eventType: EVENT_TYPE.UI,
+						});
+					}
 				}
 			} else if (oldIsOpen && !newIsOpen && fg('platform_editor_ease_of_use_metrics')) {
 				api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());

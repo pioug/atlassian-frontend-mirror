@@ -25,7 +25,7 @@ export interface Props {
 const IFRAME_CONTAINER_ID = 'help-iframe-container';
 const IFRAME_ID = 'help-iframe';
 
-export const ArticleBody = (props: Props) => {
+export const ArticleBody = (props: Props): React.JSX.Element | null => {
 	/**
 	 * Set article height
 	 */

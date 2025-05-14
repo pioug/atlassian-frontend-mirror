@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.21
+
+### Patch Changes
+
+- [#153302](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153302)
+  [`9fc2b48677873`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fc2b48677873) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
 ## 10.9.20
 
 ### Patch Changes

@@ -270,6 +270,7 @@ export type LastInteractionFinishInfo = Pick<
 	| 'type'
 	| 'experimentalVC90'
 	| 'experimentalTTAI'
+	| 'errors'
 >;
 
 export type PostInteractionLogOutput = {

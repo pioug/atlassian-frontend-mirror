@@ -8,11 +8,7 @@ import uuid from 'uuid';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	type CardClient,
-	SmartCardProvider as Provider,
-	type ProviderProps,
-} from '@atlaskit/link-provider';
+import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
 import { ActionName, Card, TitleBlock } from '../../../index';
@@ -79,10 +75,9 @@ describe('actions', () => {
 
 	const setup = ({
 		props,
-		featureFlags,
+
 		response,
 	}: {
-		featureFlags?: Partial<ProviderProps['featureFlags']>;
 		props?: Partial<React.ComponentProps<typeof Card>>;
 		response?: JsonLd.Response;
 	}) => {
@@ -98,7 +93,7 @@ describe('actions', () => {
 
 		const renderResult = render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider client={mockClient} featureFlags={featureFlags}>
+				<Provider client={mockClient}>
 					<Card appearance="block" url={mockUrl} id="some-id" platform="web" {...props} />
 				</Provider>
 			</FabricAnalyticsListeners>,
@@ -162,13 +157,12 @@ describe('actions', () => {
 			componentName: string,
 			componentOptions: {
 				display: string;
-				featureFlags?: Partial<ProviderProps['featureFlags']>;
 				isFlexibleComponent?: boolean;
 				props?: Partial<React.ComponentProps<typeof Card>>;
 				resolvedTestId?: string;
 			},
 		) => {
-			const { display, featureFlags, isFlexibleComponent, props } = componentOptions;
+			const { display, isFlexibleComponent, props } = componentOptions;
 
 			describe.each([
 				[
@@ -226,7 +220,6 @@ describe('actions', () => {
 						);
 
 						const { findByTestId, mockAnalyticsClient } = setup({
-							featureFlags,
 							props,
 							response,
 						});
@@ -298,7 +291,6 @@ describe('actions', () => {
 							Promise.reject(new Error('something went wrong')),
 						);
 						const { findByTestId, mockAnalyticsClient } = setup({
-							featureFlags,
 							props,
 							response,
 						});

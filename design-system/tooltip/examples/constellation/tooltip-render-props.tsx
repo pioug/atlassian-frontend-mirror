@@ -78,7 +78,6 @@ export default function TooltipRenderPropsExample() {
 			<Tooltip content="Add content">
 				{(tooltipProps) => <IconButton icon={AddIcon} label="Add" testId="add" {...tooltipProps} />}
 			</Tooltip>
-
 			<p>Click to update</p>
 			<Tooltip
 				content={({ update }) => {
@@ -99,7 +98,6 @@ export default function TooltipRenderPropsExample() {
 					</Button>
 				)}
 			</Tooltip>
-
 			<p>Component in content</p>
 			<Tooltip component={CustomTooltip} content="Hello World">
 				{(tooltipProps) => (
@@ -108,11 +106,10 @@ export default function TooltipRenderPropsExample() {
 					</Button>
 				)}
 			</Tooltip>
-
 			<p>Position</p>
 			<div
 				style={{
-					padding: `${token('space.500', '40px')} ${token('space.500', '40px')}`,
+					padding: `${token('space.500')} ${token('space.500')}`,
 				}}
 			>
 				<Tooltip content={positionText} position={positionText}>

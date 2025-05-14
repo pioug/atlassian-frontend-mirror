@@ -5,7 +5,10 @@ import { injectIntl } from 'react-intl-next';
 
 import type { AnnotationMarkDefinition } from '@atlaskit/adf-schema';
 import { VIEW_METHOD } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import {
 	CommentBadge as CommentBadgeComponent,
 	CommentBadgeNext,
@@ -14,7 +17,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { getPosHandler } from '../../types';
@@ -29,6 +31,30 @@ type CommentBadgeProps = {
 	badgeOffsetRight?: string;
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const selectedAnnotations = useSharedPluginStateSelector(api, 'annotation.selectedAnnotations');
+		const isInlineCommentViewClosed = useSharedPluginStateSelector(
+			api,
+			'annotation.isInlineCommentViewClosed',
+		);
+		const annotations = useSharedPluginStateSelector(api, 'annotation.annotations');
+		return {
+			selectedAnnotations,
+			isInlineCommentViewClosed,
+			annotations,
+		};
+	},
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { annotationState } = useSharedPluginState(api, ['annotation']);
+		return {
+			selectedAnnotations: annotationState?.selectedAnnotations,
+			isInlineCommentViewClosed: annotationState?.isInlineCommentViewClosed,
+			annotations: annotationState?.annotations,
+		};
+	},
+);
+
 const CommentBadgeWrapper = ({
 	api,
 	mediaNode,
@@ -38,40 +64,8 @@ const CommentBadgeWrapper = ({
 	isDrafting,
 	badgeOffsetRight,
 }: CommentBadgeProps) => {
+	const { selectedAnnotations, isInlineCommentViewClosed, annotations } = useSharedState(api);
 	const [entered, setEntered] = useState(false);
-	const { annotationState } = useSharedPluginState(api, ['annotation'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const selectedAnnotationsSelector = useSharedPluginStateSelector(
-		api,
-		'annotation.selectedAnnotations',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const isInlineCommentViewClosedSelector = useSharedPluginStateSelector(
-		api,
-		'annotation.isInlineCommentViewClosed',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const annotationsSelector = useSharedPluginStateSelector(api, 'annotation.annotations', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-
-	const selectedAnnotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? selectedAnnotationsSelector
-		: annotationState?.selectedAnnotations;
-	const isInlineCommentViewClosed = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? isInlineCommentViewClosedSelector
-		: annotationState?.isInlineCommentViewClosed;
-	const annotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? annotationsSelector
-		: annotationState?.annotations;
 
 	const {
 		state: {
@@ -171,39 +165,7 @@ export const CommentBadgeNextWrapper = ({
 	isDrafting,
 }: CommentBadgeNextWrapperProps) => {
 	const [entered, setEntered] = useState(false);
-	const { annotationState } = useSharedPluginState(api, ['annotation'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const selectedAnnotationsSelector = useSharedPluginStateSelector(
-		api,
-		'annotation.selectedAnnotations',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const isInlineCommentViewClosedSelector = useSharedPluginStateSelector(
-		api,
-		'annotation.isInlineCommentViewClosed',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const annotationsSelector = useSharedPluginStateSelector(api, 'annotation.annotations', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-
-	const selectedAnnotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? selectedAnnotationsSelector
-		: annotationState?.selectedAnnotations;
-	const isInlineCommentViewClosed = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? isInlineCommentViewClosedSelector
-		: annotationState?.isInlineCommentViewClosed;
-	const annotations = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? annotationsSelector
-		: annotationState?.annotations;
+	const { selectedAnnotations, isInlineCommentViewClosed, annotations } = useSharedState(api);
 
 	const {
 		state: {

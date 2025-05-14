@@ -9,7 +9,10 @@ import { jsx } from '@emotion/react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -28,7 +31,6 @@ import type { FileIdentifier } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { isImage } from '../pm-plugins/utils/is-type';
@@ -214,6 +216,51 @@ type MediaInlineSharedStateProps = Omit<
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const viewMode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		const mediaProvider = useSharedPluginStateSelector(api, 'media.mediaProvider');
+		const handleMediaNodeMount = useSharedPluginStateSelector(api, 'media.handleMediaNodeMount');
+		const handleMediaNodeUnmount = useSharedPluginStateSelector(
+			api,
+			'media.handleMediaNodeUnmount',
+		);
+		const allowInlineImages = useSharedPluginStateSelector(api, 'media.allowInlineImages');
+		const addPendingTask = useSharedPluginStateSelector(api, 'media.addPendingTask');
+		const selectedMediaContainerNode = useSharedPluginStateSelector(
+			api,
+			'media.selectedMediaContainerNode',
+		);
+		const mediaClientConfig = useSharedPluginStateSelector(api, 'media.mediaClientConfig');
+		return {
+			viewMode,
+			mediaProvider,
+			handleMediaNodeMount,
+			handleMediaNodeUnmount,
+			allowInlineImages,
+			addPendingTask,
+			selectedMediaContainerNode,
+			mediaClientConfig,
+		};
+	},
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { editorViewModeState, mediaState } = useSharedPluginState(api, [
+			'editorViewMode',
+			'media',
+		]);
+		return {
+			viewMode: editorViewModeState?.mode,
+			mediaProvider: mediaState?.mediaProvider,
+			handleMediaNodeMount: mediaState?.handleMediaNodeMount,
+			handleMediaNodeUnmount: mediaState?.handleMediaNodeUnmount,
+			allowInlineImages: mediaState?.allowInlineImages,
+			addPendingTask: mediaState?.addPendingTask,
+			selectedMediaContainerNode: mediaState?.selectedMediaContainerNode,
+			mediaClientConfig: mediaState?.mediaClientConfig,
+		};
+	},
+);
+
 const MediaInlineSharedState = ({
 	identifier,
 	node,
@@ -223,83 +270,16 @@ const MediaInlineSharedState = ({
 	api,
 	view,
 }: MediaInlineSharedStateProps) => {
-	const { editorViewModeState, mediaState } = useSharedPluginState(
-		api,
-		['editorViewMode', 'media'],
-		{ disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true) },
-	);
-
-	const viewModeSelector = useSharedPluginStateSelector(api, 'editorViewMode.mode', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const mediaProviderSelector = useSharedPluginStateSelector(api, 'media.mediaProvider', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const handleMediaNodeMountSelector = useSharedPluginStateSelector(
-		api,
-		'media.handleMediaNodeMount',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const handleMediaNodeUnmountSelector = useSharedPluginStateSelector(
-		api,
-		'media.handleMediaNodeUnmount',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const allowInlineImagesSelector = useSharedPluginStateSelector(api, 'media.allowInlineImages', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const addPendingTaskSelector = useSharedPluginStateSelector(api, 'media.addPendingTask', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const selectedMediaContainerNodeSelector = useSharedPluginStateSelector(
-		api,
-		'media.selectedMediaContainerNode',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const mediaClientConfigSelector = useSharedPluginStateSelector(api, 'media.mediaClientConfig', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-
-	const viewMode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? viewModeSelector
-		: editorViewModeState?.mode;
-	const mediaProvider = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? mediaProviderSelector
-		: mediaState?.mediaProvider;
-	const handleMediaNodeMount = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? handleMediaNodeMountSelector
-		: mediaState?.handleMediaNodeMount;
-	const handleMediaNodeUnmount = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? handleMediaNodeUnmountSelector
-		: mediaState?.handleMediaNodeUnmount;
-	const allowInlineImages = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? allowInlineImagesSelector
-		: mediaState?.allowInlineImages;
-	const addPendingTask = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? addPendingTaskSelector
-		: mediaState?.addPendingTask;
-	const selectedMediaContainerNode = editorExperiment(
-		'platform_editor_usesharedpluginstateselector',
-		true,
-	)
-		? selectedMediaContainerNodeSelector
-		: mediaState?.selectedMediaContainerNode;
-	const mediaClientConfig = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? mediaClientConfigSelector
-		: mediaState?.mediaClientConfig;
-
+	const {
+		mediaProvider,
+		allowInlineImages,
+		handleMediaNodeMount,
+		handleMediaNodeUnmount,
+		addPendingTask,
+		selectedMediaContainerNode,
+		mediaClientConfig,
+		viewMode,
+	} = useSharedState(api);
 	const newMediaProvider = useMemo(
 		() => (mediaProvider ? Promise.resolve(mediaProvider) : undefined),
 		[mediaProvider],

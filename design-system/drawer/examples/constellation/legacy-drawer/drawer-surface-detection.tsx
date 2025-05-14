@@ -17,15 +17,15 @@ const wrapperStyles = css({
 });
 
 const contentStyles = css({
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 });
 
 const headerStyles = css({
-	padding: token('space.100', '8px'),
+	padding: token('space.100'),
 	position: 'sticky',
-	backgroundColor: token('utility.elevation.surface.current', '#FFFFFF'),
-	borderBlockEnd: `1px solid ${token('color.border', '#CCCCCC')}`,
-	boxShadow: token('elevation.shadow.overflow', '0px 0px 8px rgba(9, 30, 66, 0.16)'),
+	backgroundColor: token('utility.elevation.surface.current'),
+	borderBlockEnd: `1px solid ${token('color.border')}`,
+	boxShadow: token('elevation.shadow.overflow'),
 	insetBlockStart: 0,
 	insetInlineEnd: 0,
 	insetInlineStart: 0,

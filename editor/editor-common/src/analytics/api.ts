@@ -1,6 +1,14 @@
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction , Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticsEventPayload } from './types/events';
+
+
+export type FireAnalyticsEventOptions = {
+	immediate?: boolean;
+	context?: {
+		selection: Selection;
+	};
+};
 
 export type EditorAnalyticsAPI = {
 	/**
@@ -20,11 +28,13 @@ export type EditorAnalyticsAPI = {
 	 *
 	 * @param {AnalyticsEventPayload} payload - analytics payload
 	 * @param {string} [channel="editor"] - optional channel identifier
-	 * @param {object} [options] - optional options where immediate is true will fire event immediately
+	 * @param {object} [options] - optional options object
+	 * @param {boolean} [options.immediate] - if true, fire the event immediately
+	 * @param {object} [options.context] - optional context object will include the selection data.
 	 */
 	fireAnalyticsEvent: (
 		payload: AnalyticsEventPayload,
 		channel?: string,
-		options?: { immediate?: boolean },
+		options?: FireAnalyticsEventOptions,
 	) => void | undefined;
 };

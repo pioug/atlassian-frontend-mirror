@@ -1,9 +1,12 @@
 import React from 'react';
 
+import { cssMap, cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box as CompiledBox } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import relativeDate from '../../internal/relative-date';
@@ -59,6 +62,51 @@ const activeAccountStyles = xcss({
 	color: 'color.text.inverse',
 });
 
+const styles = cssMap({
+	detailedListWrapper: {
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+	},
+	fullNameLabel: {
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		font: token('font.body.large'),
+	},
+	noMetaLabel: {
+		// Using `&` twice to increase specificity
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&&': {
+			marginTop: token('space.400'),
+			marginBottom: token('space.150'),
+		},
+		marginRight: '0',
+		marginLeft: '0',
+	},
+	metaLabel: {
+		// Using `&` twice to increase specificity
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&&': {
+			marginTop: token('space.150'),
+		},
+		marginRight: '0',
+		marginBottom: '0',
+		marginLeft: '0',
+	},
+	disabledAccount: {
+		color: token('color.text'),
+	},
+	activeAccount: {
+		color: token('color.text.inverse'),
+	},
+});
+
 const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 	if (!fullName && !nickname) {
 		return null;
@@ -68,6 +116,23 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 	const shownNickname = ` (${nickname}) `;
 
 	const displayName = isNicknameRedundant ? fullName : `${fullName}${shownNickname}`;
+
+	if (fg('jfp-a11y-autodev-profile-card-name-heading')) {
+		return (
+			<CompiledBox
+				as="h2"
+				xcss={cx(
+					styles.fullNameLabel,
+					styles.activeAccount,
+					meta ? styles.metaLabel : styles.noMetaLabel,
+				)}
+				testId="profilecard-name"
+				id="profilecard-name-label"
+			>
+				{displayName}
+			</CompiledBox>
+		);
+	}
 
 	return (
 		<Box
@@ -155,13 +220,24 @@ const DisabledProfileCardDetails = (
 
 	return (
 		<DetailsGroup>
-			<Box
-				xcss={[fullNameLabelStyles, noMetaLabelStyles, disabledAccountStyles]}
-				testId="profilecard-name"
-				id="profilecard-name-label"
-			>
-				{name}
-			</Box>
+			{fg('jfp-a11y-autodev-profile-card-name-heading') ? (
+				<CompiledBox
+					as="h2"
+					xcss={cx(styles.fullNameLabel, styles.noMetaLabel, styles.disabledAccount)}
+					testId="profilecard-name"
+					id="profilecard-name-label"
+				>
+					{name}
+				</CompiledBox>
+			) : (
+				<Box
+					xcss={[fullNameLabelStyles, noMetaLabelStyles, disabledAccountStyles]}
+					testId="profilecard-name"
+					id="profilecard-name-label"
+				>
+					{name}
+				</Box>
+			)}
 
 			{hasDisabledAccountLozenge && (
 				<LozengeWrapper>
@@ -200,7 +276,14 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 			{renderName(props.nickname, props.fullName, meta)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
-			<Box as="dl" xcss={detailedListWrapperStyles}>
+			<Box
+				as="dl"
+				xcss={
+					fg('jfp-a11y-autodev-profile-card-name-heading')
+						? styles.detailedListWrapper
+						: detailedListWrapperStyles
+				}
+			>
 				<IconLabel icon="email" extraTopSpace={true}>
 					{props.email}
 				</IconLabel>

@@ -28,11 +28,11 @@ const verticalSpaceContainerStyles = xcss({
 });
 
 const portalContentStyles = css({
-	margin: `${token('space.0', '0')} ${token('space.200', '16px')} ${token('space.200', '16px')}`,
+	margin: `${token('space.0')} ${token('space.200')} ${token('space.200')}`,
 });
 
 const figureStyles = css({
-	margin: token('space.0', '0'),
+	margin: token('space.0'),
 });
 
 const PortalEventExample = () => {

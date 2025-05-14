@@ -1,4 +1,4 @@
-import React, { type ReactElement, useCallback, useState } from 'react';
+import React, { type ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { IconButton, TooltipLinkList, WithTooltip } from '@storybook/components';
 import {
@@ -9,7 +9,7 @@ import {
 	MirrorIcon,
 	SidebarIcon,
 } from '@storybook/icons';
-import { useGlobals } from '@storybook/manager-api';
+import { useGlobals, useParameter } from '@storybook/manager-api';
 
 import { TOOL_ID } from './constants';
 import { type Themes } from './types';
@@ -36,7 +36,12 @@ const themeOptions: ThemeOption[] = [
  */
 const Tool = () => {
 	const [isVisible, setIsVisible] = useState(false);
-	const [{ adsTheme }, updateGlobals] = useGlobals();
+	const [{ adsTheme: originalAdsTheme }, updateGlobals] = useGlobals();
+	const adsTheme = useParameter('adsTheme', originalAdsTheme || 'auto');
+
+	useEffect(() => {
+		updateGlobals({ adsTheme });
+	}, [adsTheme, updateGlobals]);
 
 	const setTheme = useCallback(
 		(theme: Themes) => updateGlobals({ adsTheme: theme }),

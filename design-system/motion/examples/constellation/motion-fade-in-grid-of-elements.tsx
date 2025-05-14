@@ -97,10 +97,10 @@ const logos = [
 const buttonContainerStyles = css({
 	textAlign: 'center',
 	'> *': {
-		marginBlockEnd: token('space.025', '2px'),
-		marginBlockStart: token('space.025', '2px'),
-		marginInlineEnd: token('space.025', '2px'),
-		marginInlineStart: token('space.025', '2px'),
+		marginBlockEnd: token('space.025'),
+		marginBlockStart: token('space.025'),
+		marginInlineEnd: token('space.025'),
+		marginInlineStart: token('space.025'),
 	},
 });
 
@@ -109,32 +109,32 @@ const listStyles = css({
 	maxWidth: '474px',
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
-	marginBlockEnd: token('space.200', '16px'),
-	marginBlockStart: token('space.200', '16px'),
-	marginInlineEnd: token('space.200', '16px'),
-	marginInlineStart: token('space.200', '16px'),
-	paddingBlockEnd: token('space.0', '0px'),
-	paddingBlockStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingInlineStart: token('space.0', '0px'),
+	marginBlockEnd: token('space.200'),
+	marginBlockStart: token('space.200'),
+	marginInlineEnd: token('space.200'),
+	marginInlineStart: token('space.200'),
+	paddingBlockEnd: token('space.0'),
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.0'),
+	paddingInlineStart: token('space.0'),
 	div: {
-		marginBlockEnd: token('space.0', '0px'),
-		marginBlockStart: token('space.0', '0px'),
-		marginInlineEnd: token('space.0', '0px'),
-		marginInlineStart: token('space.0', '0px'),
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
 	},
 });
 
 const listItemStyles = css({
 	display: 'block',
-	marginBlockEnd: token('space.050', '4px'),
-	marginBlockStart: token('space.050', '4px'),
-	marginInlineEnd: token('space.050', '4px'),
-	marginInlineStart: token('space.050', '4px'),
-	paddingBlockEnd: token('space.0', '0px'),
-	paddingBlockStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingInlineStart: token('space.0', '0px'),
+	marginBlockEnd: token('space.050'),
+	marginBlockStart: token('space.050'),
+	marginInlineEnd: token('space.050'),
+	marginInlineStart: token('space.050'),
+	paddingBlockEnd: token('space.0'),
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.0'),
+	paddingInlineStart: token('space.0'),
 });
 
 export default MotionFadeInGridOfElementsExample;

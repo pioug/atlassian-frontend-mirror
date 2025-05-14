@@ -41,7 +41,7 @@ const containerStyles = css({
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
-		marginInlineEnd: token('space.025', '2px'),
+		marginInlineEnd: token('space.025'),
 	},
 });
 
@@ -50,18 +50,18 @@ const centeredContainerStyles = css({
 	maxWidth: '500px',
 	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.overlay'),
-	marginBlockEnd: token('space.800', '56px'),
-	paddingBlockEnd: token('space.100', '8px'),
+	marginBlockEnd: token('space.800'),
+	paddingBlockEnd: token('space.100'),
 });
 
 const logoContainerStyles = css({
 	display: 'flex',
 	fontSize: '16px',
-	fontWeight: token('font.weight.medium', '500'),
-	paddingBlockEnd: token('space.200', '16px'),
-	paddingBlockStart: token('space.200', '16px'),
-	paddingInlineEnd: token('space.200', '16px'),
-	paddingInlineStart: token('space.200', '16px'),
+	fontWeight: token('font.weight.medium'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 	'&:hover': {
 		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
@@ -69,14 +69,14 @@ const logoContainerStyles = css({
 
 const headerStyles = css({
 	fontWeight: 300,
-	marginBlockEnd: token('space.0', '0px'),
-	marginBlockStart: token('space.0', '0px'),
-	marginInlineEnd: token('space.0', '0px'),
-	marginInlineStart: token('space.100', '8px'),
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
+	marginInlineEnd: token('space.0'),
+	marginInlineStart: token('space.100'),
 });
 
 const inputContainerStyles = css({
-	marginBlockStart: token('space.300', '24px'),
+	marginBlockStart: token('space.300'),
 	textAlign: 'start',
 });
 

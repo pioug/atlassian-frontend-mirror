@@ -1,60 +1,110 @@
 import React from 'react';
 
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
+import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
+import { MediaClientConfig } from '@atlaskit/media-core';
 import type { DropzoneConfig } from '@atlaskit/media-picker';
 import { Dropzone } from '@atlaskit/media-picker';
 
-import type { MediaPluginState } from '../../pm-plugins/types';
+import { MediaNextEditorPluginType } from '../../mediaPluginType';
+import PickerFacade from '../../pm-plugins/picker-facade';
 
 import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
-	mediaState: MediaPluginState;
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	isActive: boolean;
 	featureFlags?: MediaFeatureFlags;
 	editorDomElement: Element;
 	appearance: EditorAppearance;
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const options = useSharedPluginStateSelector(api, 'media.options');
+		const handleDrag = useSharedPluginStateSelector(api, 'media.handleDrag');
+		return {
+			options,
+			handleDrag,
+		};
+	},
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { mediaState } = useSharedPluginState(api, ['media']);
+		return {
+			options: mediaState?.options,
+			handleDrag: mediaState?.handleDrag,
+		};
+	},
+);
+
+type DropzoneWrapperInternalProps = Props & {
+	mediaClientConfig: MediaClientConfig;
+	config: DropzoneConfig;
+	pickerFacadeInstance: PickerFacade;
+};
+
+const DropzoneWrapperInternal = ({
+	api,
+	isActive,
+	featureFlags,
+	editorDomElement,
+	appearance,
+	mediaClientConfig,
+	config,
+	pickerFacadeInstance,
+}: DropzoneWrapperInternalProps) => {
+	const { options, handleDrag } = useSharedState(api);
+	const { customDropzoneContainer } = options || {};
+
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
+	const editorHtmlElement = editorDomElement as HTMLElement;
+	const scrollParent = appearance === 'full-page' && findOverflowScrollParent(editorHtmlElement);
+	const container = customDropzoneContainer || (scrollParent ? scrollParent : editorHtmlElement);
+	const dropzoneConfig: DropzoneConfig = {
+		...config,
+		container,
+	};
+
+	return isActive ? (
+		<Dropzone
+			mediaClientConfig={mediaClientConfig}
+			config={dropzoneConfig}
+			onError={pickerFacadeInstance.handleUploadError}
+			onPreviewUpdate={pickerFacadeInstance.handleUploadPreviewUpdate}
+			onEnd={pickerFacadeInstance.handleReady}
+			onDragEnter={() => handleDrag?.('enter')}
+			onDragLeave={() => handleDrag?.('leave')}
+			featureFlags={featureFlags}
+		/>
+	) : null;
+};
+
 export const DropzoneWrapper = ({
-	mediaState,
+	api,
 	isActive,
 	featureFlags,
 	editorDomElement,
 	appearance,
 }: Props) => (
-	<PickerFacadeProvider mediaState={mediaState} analyticsName="dropzone">
-		{({ mediaClientConfig, config, pickerFacadeInstance }) => {
-			const {
-				options: { customDropzoneContainer },
-				handleDrag,
-			} = mediaState;
-			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			const editorHtmlElement = editorDomElement as HTMLElement;
-			const scrollParent =
-				appearance === 'full-page' && findOverflowScrollParent(editorHtmlElement);
-			const container =
-				customDropzoneContainer || (scrollParent ? scrollParent : editorHtmlElement);
-			const dropzoneConfig: DropzoneConfig = {
-				...config,
-				container,
-			};
-
-			return isActive ? (
-				<Dropzone
-					mediaClientConfig={mediaClientConfig}
-					config={dropzoneConfig}
-					onError={pickerFacadeInstance.handleUploadError}
-					onPreviewUpdate={pickerFacadeInstance.handleUploadPreviewUpdate}
-					onEnd={pickerFacadeInstance.handleReady}
-					onDragEnter={() => handleDrag('enter')}
-					onDragLeave={() => handleDrag('leave')}
-					featureFlags={featureFlags}
-				/>
-			) : null;
-		}}
+	<PickerFacadeProvider api={api} analyticsName="dropzone">
+		{({ mediaClientConfig, config, pickerFacadeInstance }) => (
+			<DropzoneWrapperInternal
+				api={api}
+				isActive={isActive}
+				featureFlags={featureFlags}
+				editorDomElement={editorDomElement}
+				appearance={appearance}
+				mediaClientConfig={mediaClientConfig}
+				config={config}
+				pickerFacadeInstance={pickerFacadeInstance}
+			/>
+		)}
 	</PickerFacadeProvider>
 );

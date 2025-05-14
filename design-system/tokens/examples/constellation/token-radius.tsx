@@ -25,9 +25,9 @@ const RadiusCard = ({
 	children?: ReactNode;
 }) => {
 	const radiusMap = {
-		'border.radius.300': token('border.radius.300', '4px'),
-		'border.radius.200': token('border.radius.200', '4px'),
-		'border.radius': token('border.radius', '4px'),
+		'border.radius.300': token('border.radius.300'),
+		'border.radius.200': token('border.radius.200'),
+		'border.radius': token('border.radius'),
 	};
 
 	return (

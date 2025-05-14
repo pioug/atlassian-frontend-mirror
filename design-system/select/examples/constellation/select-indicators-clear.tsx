@@ -16,10 +16,10 @@ import { cities } from '../common/data';
 const clearIndicatorStyles = cssMap({
 	default: {
 		paddingInline: token('space.050'),
-		color: token('color.text', 'black'),
+		color: token('color.text'),
 	},
 	focus: {
-		color: token('color.text.brand', 'blue'),
+		color: token('color.text.brand'),
 	},
 });
 

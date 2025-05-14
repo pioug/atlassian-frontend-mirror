@@ -21,7 +21,7 @@ marginInline: token('space.negative.200', '-16px'),
 const containerStyles = css({
 	width: 300,
 	height: 200,
-	padding: token('space.200', '16px'),
+	padding: token('space.200'),
 	backgroundColor: token('elevation.surface.overlay'),
 	boxShadow: token('elevation.shadow.overlay'),
 });

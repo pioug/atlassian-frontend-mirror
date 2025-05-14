@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "8.4.27",
+	"version": "8.5.2",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -125,6 +125,7 @@
 		"./undo-redo": "./src/undo-redo/index.ts",
 		"./unsupported-content": "./src/unsupported-content/index.ts",
 		"./user-intent": "./src/user-intent/index.ts",
+		"./user-preferences": "./src/user-preferences/index.ts",
 		"./width": "./src/width/index.ts"
 	},
 	"exports": {
@@ -227,6 +228,7 @@
 		"./undo-redo": "./src/undo-redo/index.ts",
 		"./unsupported-content": "./src/unsupported-content/index.ts",
 		"./user-intent": "./src/user-intent/index.ts",
+		"./user-preferences": "./src/user-preferences/index.ts",
 		"./width": "./src/width/index.ts"
 	},
 	"scripts": {
@@ -320,6 +322,7 @@
 		"@atlaskit/editor-plugin-undo-redo": "workspace:*",
 		"@atlaskit/editor-plugin-unsupported-content": "workspace:*",
 		"@atlaskit/editor-plugin-user-intent": "workspace:*",
+		"@atlaskit/editor-plugin-user-preferences": "workspace:*",
 		"@atlaskit/editor-plugin-width": "workspace:*",
 		"@babel/runtime": "^7.0.0"
 	},

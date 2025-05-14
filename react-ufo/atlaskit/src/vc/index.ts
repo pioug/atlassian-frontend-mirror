@@ -12,7 +12,7 @@ declare global {
 	var __vcObserver: VCObserverInterface;
 }
 
-class VCObserverWrapper implements VCObserverInterface {
+export class VCObserverWrapper implements VCObserverInterface {
 	private oldVCObserver: VCObserver | null;
 	private newVCObserver: VCObserverNew | null;
 

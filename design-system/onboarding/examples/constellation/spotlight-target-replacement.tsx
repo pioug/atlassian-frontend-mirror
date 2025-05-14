@@ -47,18 +47,15 @@ const SpotlightTargetReplacementExample = () => {
 		<SpotlightManager>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<img alt="hidden" src={logoInverted} style={{ display: 'none' }} />
-
 			<SpotlightTarget name="target-replacement-example">
 				<Image alt="I will be replaced..." src={logo} />
 			</SpotlightTarget>
-
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ marginTop: token('space.200', '16px') }}>
+			<div style={{ marginTop: token('space.200') }}>
 				<Button appearance="primary" onClick={() => start()}>
 					Show example spotlight
 				</Button>
 			</div>
-
 			<SpotlightTransition>
 				{isSpotlightActive && (
 					<Spotlight

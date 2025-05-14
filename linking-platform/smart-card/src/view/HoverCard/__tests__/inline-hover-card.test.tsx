@@ -103,35 +103,6 @@ describe('HoverCard', () => {
 			expect(previewButton).toHaveTextContent('Open preview');
 		});
 
-		describe('hover preview feature flag:', () => {
-			const cases: ['should' | 'should not', boolean | undefined, boolean | undefined][] = [
-				['should not', undefined, undefined],
-				['should', true, undefined],
-				['should not', false, undefined],
-				['should', undefined, true],
-				['should', true, true],
-				['should', false, true],
-				['should not', undefined, false],
-				['should not', true, false],
-				['should not', false, false],
-			];
-			test.each(cases)(
-				'hover card %p render when prop is %p on provider and %p on card',
-				async (outcome, providerFF, cardFF) => {
-					const renderedComponent = await setup({
-						featureFlags: { showHoverPreview: providerFF },
-						extraCardProps: { showHoverPreview: cardFF },
-					});
-					if (outcome === 'should') {
-						renderedComponent;
-						expect(await screen.findByTestId('hover-card')).toBeDefined();
-					} else {
-						expect(screen.queryByTestId('hover-card')).toBeNull();
-					}
-				},
-			);
-		});
-
 		describe('event propagation', () => {
 			it('does not propagate event to parent when clicking inside hover card content', async () => {
 				const mockOnClick = jest.fn();

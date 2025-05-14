@@ -3,13 +3,15 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { toolbarMediaMessages } from '@atlaskit/editor-common/media';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import AttachmentIcon from '@atlaskit/icon/core/migration/attachment--editor-attachment';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 
@@ -24,29 +26,31 @@ const onClickMediaButton = (showMediaPicker: () => void) => () => {
 	return true;
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const allowsUploads = useSharedPluginStateSelector(api, 'media.allowsUploads');
+		const showMediaPicker = useSharedPluginStateSelector(api, 'media.showMediaPicker');
+		return {
+			allowsUploads,
+			showMediaPicker,
+		};
+	},
+	(api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { mediaState } = useSharedPluginState(api, ['media']);
+		return {
+			allowsUploads: mediaState?.allowsUploads,
+			showMediaPicker: mediaState?.showMediaPicker,
+		};
+	},
+);
+
 const ToolbarMedia = ({
 	isDisabled,
 	isReducedSpacing,
 	intl,
 	api,
 }: Props & WrappedComponentProps) => {
-	const { mediaState } = useSharedPluginState(api, ['media'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const allowsUploadsSelector = useSharedPluginStateSelector(api, 'media.allowsUploads', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const showMediaPickerSelector = useSharedPluginStateSelector(api, 'media.showMediaPicker', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-
-	const allowsUploads = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? allowsUploadsSelector
-		: mediaState?.allowsUploads;
-	const showMediaPicker = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? showMediaPickerSelector
-		: mediaState?.showMediaPicker;
-
+	const { allowsUploads, showMediaPicker } = useSharedState(api);
 	if (!allowsUploads || !showMediaPicker) {
 		return null;
 	}

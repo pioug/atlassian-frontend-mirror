@@ -17,7 +17,10 @@ import type {
 } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { captionMessages } from '@atlaskit/editor-common/media';
 import {
 	calcMediaSinglePixelWidth,
@@ -53,7 +56,6 @@ import type { CardEvent } from '@atlaskit/media-card';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -581,6 +583,58 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 	};
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const mediaProviderPromise = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'media.mediaProvider',
+		);
+		const addPendingTask = useSharedPluginStateSelector(pluginInjectionApi, 'media.addPendingTask');
+		const isDrafting = useSharedPluginStateSelector(pluginInjectionApi, 'annotation.isDrafting');
+		const targetNodeId = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'annotation.targetNodeId',
+		);
+		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
+		const lineLength = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength');
+		const editorDisabled = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'editorDisabled.editorDisabled',
+		);
+		const viewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		return {
+			mediaProviderPromise,
+			addPendingTask,
+			isDrafting,
+			targetNodeId,
+			width,
+			lineLength,
+			editorDisabled,
+			viewMode,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { widthState, mediaState, annotationState, editorDisabledState, editorViewModeState } =
+			useSharedPluginState(pluginInjectionApi, [
+				'width',
+				'media',
+				'annotation',
+				'editorDisabled',
+				'editorViewMode',
+			]);
+		return {
+			mediaProviderPromise: mediaState?.mediaProvider,
+			addPendingTask: mediaState?.addPendingTask,
+			isDrafting: annotationState?.isDrafting,
+			targetNodeId: annotationState?.targetNodeId,
+			width: widthState?.width,
+			lineLength: widthState?.lineLength,
+			editorDisabled: editorDisabledState?.editorDisabled,
+			viewMode: editorViewModeState?.mode,
+		};
+	},
+);
+
 const MediaSingleNodeWrapper = ({
 	pluginInjectionApi,
 	contextIdentifierProvider,
@@ -603,90 +657,23 @@ const MediaSingleNodeWrapper = ({
 	| 'editorDisabled'
 	| 'editorViewMode'
 >) => {
-	const { widthState, mediaState, annotationState, editorDisabledState, editorViewModeState } =
-		useSharedPluginState(
-			pluginInjectionApi,
-			['width', 'media', 'annotation', 'editorDisabled', 'editorViewMode'],
-			{ disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true) },
-		);
-
-	const mediaProviderSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'media.mediaProvider',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const addPendingTaskSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'media.addPendingTask',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const isDraftingSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'annotation.isDrafting',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const targetNodeIdSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'annotation.targetNodeId',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const widthSelector = useSharedPluginStateSelector(pluginInjectionApi, 'width.width', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const lineLengthSelector = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const editorDisabledSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'editorDisabled.editorDisabled',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const viewModeSelector = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-
-	const mediaProviderState = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? mediaProviderSelector
-		: mediaState?.mediaProvider;
-	const addPendingTask = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? addPendingTaskSelector
-		: mediaState?.addPendingTask;
-	const isDrafting = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? isDraftingSelector
-		: annotationState?.isDrafting;
-	const targetNodeId = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? targetNodeIdSelector
-		: annotationState?.targetNodeId;
-	const width = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? widthSelector
-		: widthState?.width;
-	const lineLength = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? lineLengthSelector
-		: widthState?.lineLength;
-	const editorDisabled = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? editorDisabledSelector
-		: editorDisabledState?.editorDisabled;
-	const viewMode = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? viewModeSelector
-		: editorViewModeState?.mode;
-
+	const {
+		mediaProviderPromise,
+		addPendingTask,
+		isDrafting,
+		targetNodeId,
+		width,
+		lineLength,
+		editorDisabled,
+		viewMode,
+	} = useSharedState(pluginInjectionApi);
 	const hasHadInteraction = useSharedPluginStateSelector(
 		pluginInjectionApi,
 		'interaction.hasHadInteraction',
 	);
 	const mediaProvider = useMemo(
-		() => (mediaProviderState ? Promise.resolve(mediaProviderState) : undefined),
-		[mediaProviderState],
+		() => (mediaProviderPromise ? Promise.resolve(mediaProviderPromise) : undefined),
+		[mediaProviderPromise],
 	);
 
 	const isSelectedAndInteracted = useCallback(

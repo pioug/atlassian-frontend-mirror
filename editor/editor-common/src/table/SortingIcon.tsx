@@ -7,7 +7,6 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -205,9 +204,7 @@ const SortingIcon = ({
 				tabIndex={isSortingAllowed ? 0 : -1}
 				aria-label={ariaLabel}
 				aria-disabled={!isSortingAllowed}
-				aria-hidden={
-					fg('platform_renderer_table_sort_btn_aria_hidden') ? !isSortingAllowed : undefined
-				}
+				aria-hidden={!isSortingAllowed}
 				onClick={handleClick}
 				onKeyDown={handleKeyDown}
 			>

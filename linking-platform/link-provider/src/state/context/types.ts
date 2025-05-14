@@ -1,10 +1,5 @@
 import { type Store } from 'redux';
-import {
-	type CardAppearance,
-	type CardStore,
-	type LinkingPlatformFeatureFlags,
-	type ProductType,
-} from '@atlaskit/linking-common';
+import { type CardAppearance, type CardStore, type ProductType } from '@atlaskit/linking-common';
 import { type LinkPreview, type CardPlatform } from '@atlaskit/link-extractors';
 import type CardClient from '../../client';
 import { type CardConnections } from '../store/types';
@@ -23,32 +18,14 @@ export interface CardContext {
 	store: Store<CardStore>;
 	prefetchStore: Record<string, boolean>;
 	connections: CardConnections;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
-	 * Remove any usages of this type or value. It is dead code
-	 */
-	config: CardProviderCacheOpts & CardAuthFlowOpts;
+	config: CardAuthFlowOpts;
 	extractors: {
 		getPreview: (url: string, platform?: CardPlatform) => LinkPreview | undefined;
 	};
 	renderers?: CardProviderRenderers;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
-	 * Remove any usages of this type or value. It is dead code
-	 */
-	featureFlags?: LinkingPlatformFeatureFlags;
 	isAdminHubAIEnabled?: boolean;
 	product?: ProductType;
 	shouldControlDataExport?: boolean;
-}
-
-/**
- * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
- * Remove any usages of this type or value. It is dead code
- */
-export interface CardProviderCacheOpts {
-	maxAge?: number;
-	maxLoadingDelay?: number;
 }
 
 export interface CardProviderStoreOpts {
@@ -67,11 +44,6 @@ export type CardProviderProps = {
 	 */
 	client?: CardClient;
 	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
-	 * Remove any usages of this type or value. It is dead code
-	 */
-	cacheOptions?: CardProviderCacheOpts;
-	/**
 	 * The options for redux store that contains linking data.
 	 * `initialState` can be used to set linking data and prevent card client to make a request to resolve the url.
 	 */
@@ -85,11 +57,6 @@ export type CardProviderProps = {
 	 * `emoji` is used to render Smart Link icon for Confluence emoji.
 	 */
 	renderers?: CardProviderRenderers;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-30338 Internal documentation for deprecation (no external access)}
-	 * Remove any usages of this type or value. It is dead code
-	 */
-	featureFlags?: LinkingPlatformFeatureFlags & { [flag: string]: unknown };
 	/**
 	 * Flag indicated whether AI feature is enabled in AdminHub.
 	 * This is required for AI summary in Smart Links.

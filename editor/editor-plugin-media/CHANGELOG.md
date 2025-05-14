@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 3.0.4
+
+### Patch Changes
+
+- [#153009](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153009)
+  [`c8a0f30534d85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8a0f30534d85) -
+  Refactor to use sharedPluginStateHookMigratorFactory
+- Updated dependencies
+
 ## 3.0.3
 
 ### Patch Changes

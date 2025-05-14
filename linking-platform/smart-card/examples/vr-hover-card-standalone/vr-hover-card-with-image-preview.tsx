@@ -15,10 +15,7 @@ class CustomClient extends Client {
 
 export default () => (
 	<VRTestWrapper>
-		<Provider
-			client={new CustomClient('staging')}
-			featureFlags={{ enableImprovedPreviewAction: true }}
-		>
+		<Provider client={new CustomClient('staging')}>
 			<HoverCardComponent url="https://www.mockurl.com" noFadeDelay={true}>
 				<button>Hover over me!</button>
 			</HoverCardComponent>

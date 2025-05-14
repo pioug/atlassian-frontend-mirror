@@ -184,7 +184,7 @@ export type {
 
 export type { ViewInlineCommentsButtonEventAEP, ViewEventPayload } from './types/view-events';
 
-export type { EditorAnalyticsAPI } from './api';
+export type { EditorAnalyticsAPI, FireAnalyticsEventOptions } from './api';
 
 export { editorAnalyticsChannel, fireAnalyticsEvent } from './fire-analytics-event';
 

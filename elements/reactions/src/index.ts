@@ -20,10 +20,22 @@ import {
 	sampledReactionsRendered,
 } from './ufo';
 
+import { ReactionPicker as ReactionPickerLegacy } from './components/ReactionPicker';
+import { ReactionPicker as ReactionPickerNew } from './components/ReactionPickerNew';
+
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
+
+const ReactionPicker = componentWithFG(
+	'platform_editor_reactions_picker_fix',
+	ReactionPickerNew,
+	ReactionPickerLegacy,
+);
+
 export { ReactionServiceClient } from './client';
 
 export { Reaction } from './components/Reaction';
-export { ReactionPicker } from './components/ReactionPicker';
+export { ReactionPicker };
+
 export { Reactions } from './components/Reactions';
 
 export { useCloseManager } from './hooks/useCloseManager';

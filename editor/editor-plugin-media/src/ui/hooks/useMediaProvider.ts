@@ -1,29 +1,33 @@
 import { useMemo } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const mediaProvider = useSharedPluginStateSelector(pluginInjectionApi, 'media.mediaProvider');
+		return {
+			mediaProvider,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined) => {
+		const { mediaState } = useSharedPluginState(pluginInjectionApi, ['media']);
+		return {
+			mediaProvider: mediaState?.mediaProvider,
+		};
+	},
+);
 
 export const useMediaProvider = (
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ) => {
-	const { mediaState } = useSharedPluginState(pluginInjectionApi, ['media'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const mediaProviderSelector = useSharedPluginStateSelector(
-		pluginInjectionApi,
-		'media.mediaProvider',
-		{
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-		},
-	);
-	const mediaProvider = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? mediaProviderSelector
-		: mediaState?.mediaProvider;
-
+	const { mediaProvider } = useSharedState(pluginInjectionApi);
 	const provider = useMemo(() => {
 		return mediaProvider;
 	}, [mediaProvider]);

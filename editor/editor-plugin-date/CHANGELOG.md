@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-date
 
+## 4.3.5
+
+### Patch Changes
+
+- [#153359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153359)
+  [`e55e93f0bddf8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e55e93f0bddf8) -
+  NOISSUE: fix whitepace after date node
+- Updated dependencies
+
 ## 4.3.4
 
 ### Patch Changes

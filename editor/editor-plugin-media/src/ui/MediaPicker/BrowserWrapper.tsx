@@ -1,22 +1,23 @@
 import React from 'react';
 
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { Browser } from '@atlaskit/media-picker';
 import type { BrowserConfig } from '@atlaskit/media-picker/types';
 
-import type { MediaPluginState } from '../../pm-plugins/types';
+import { MediaNextEditorPluginType } from '../../mediaPluginType';
 
 import PickerFacadeProvider from './PickerFacadeProvider';
 
 type Props = {
-	mediaState: MediaPluginState;
+	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	isOpen?: boolean;
 	onBrowseFn: (browse: () => void) => void;
 	featureFlags?: MediaFeatureFlags;
 };
 
-export const BrowserWrapper = ({ mediaState, isOpen, onBrowseFn, featureFlags }: Props) => (
-	<PickerFacadeProvider mediaState={mediaState} analyticsName="browser">
+export const BrowserWrapper = ({ api, isOpen, onBrowseFn, featureFlags }: Props) => (
+	<PickerFacadeProvider api={api} analyticsName="browser">
 		{({ mediaClientConfig, config, pickerFacadeInstance }) => {
 			const browserConfig: BrowserConfig = {
 				...config,

@@ -126,14 +126,8 @@ export const factoryDecorations = ({
 				nodeViewPortalProviderAPI.render(
 					() => (
 						<IntlProvider
-							defaultLocale={
-								fg('platform_editor_update_type_ahead_locale')
-									? intl.defaultLocale || 'en-US'
-									: undefined
-							}
-							locale={
-								intl.locale || (fg('platform_editor_update_type_ahead_locale') ? 'en-US' : 'en')
-							}
+							defaultLocale={intl.defaultLocale || 'en-US'}
+							locale={intl.locale || 'en-US'}
 							messages={intl.messages}
 							formats={intl.formats}
 						>

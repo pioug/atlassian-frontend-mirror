@@ -3,7 +3,10 @@ import { useLayoutEffect } from 'react';
 import type { AnalyticsWithChannel } from '@atlaskit/adf-schema/steps';
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload,
+	FireAnalyticsEventOptions,
+} from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	EVENT_TYPE,
@@ -18,6 +21,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticsPlugin, AnalyticsPluginOptions } from './analyticsPluginType';
 import { createAttachPayloadIntoTransaction } from './pm-plugins/analytics-api/attach-payload-into-transaction';
+import { getStateContext } from './pm-plugins/analytics-api/editor-state-context';
 import { editorAnalyticsChannel } from './pm-plugins/consts';
 import { analyticsPluginKey } from './pm-plugins/plugin-key';
 import { generateUndoRedoInputSoucePayload } from './pm-plugins/undo-redo-input-source';
@@ -143,9 +147,14 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 			fireAnalyticsEvent: (
 				payload: AnalyticsEventPayload,
 				channel: string = editorAnalyticsChannel,
-				options?: { immediate?: boolean },
+				options?: FireAnalyticsEventOptions,
 			) => {
 				const { createAnalyticsEvent } = api?.analytics?.sharedState.currentState() ?? {};
+
+				if (options?.context) {
+					payload = getStateContext(options.context.selection, payload);
+				}
+
 				if (!createAnalyticsEvent) {
 					analyticsEventPropQueue.add({ payload, channel });
 					return;

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.11.1
+
+### Patch Changes
+
+- [#154164](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154164)
+  [`59249901f5291`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59249901f5291) -
+  align logic for UFO events and watchdog event
+
 ## 3.11.0
 
 ### Minor Changes

@@ -27,7 +27,6 @@ const MotionFadeOutListOfElementsExample = () => {
 		<div css={retryContainerStyles}>
 			<Button onClick={() => setItems((list) => randRemove(list))}>Random remove</Button>
 			<Button onClick={() => setItems(logos)}>Reset</Button>
-
 			<ul css={listStyles}>
 				<StaggeredEntrance>
 					<ExitingPersistence appear>
@@ -79,40 +78,40 @@ const retryContainerStyles = css({
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
-		marginInlineEnd: token('space.050', '4px'),
+		marginInlineEnd: token('space.050'),
 	},
 });
 
 const listStyles = css({
 	maxWidth: '474px',
 	height: '328px',
-	marginBlockEnd: token('space.200', '16px'),
-	marginBlockStart: token('space.200', '16px'),
-	marginInlineEnd: token('space.200', '16px'),
-	marginInlineStart: token('space.200', '16px'),
-	paddingBlockEnd: token('space.0', '0px'),
-	paddingBlockStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingInlineStart: token('space.0', '0px'),
+	marginBlockEnd: token('space.200'),
+	marginBlockStart: token('space.200'),
+	marginInlineEnd: token('space.200'),
+	marginInlineStart: token('space.200'),
+	paddingBlockEnd: token('space.0'),
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.0'),
+	paddingInlineStart: token('space.0'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	div: {
-		marginBlockEnd: token('space.0', '0px'),
-		marginBlockStart: token('space.0', '0px'),
-		marginInlineEnd: token('space.0', '0px'),
-		marginInlineStart: token('space.0', '0px'),
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
 	},
 });
 
 const listItemStyles = css({
 	display: 'block',
-	marginBlockEnd: token('space.100', '8px'),
-	marginBlockStart: token('space.100', '8px'),
-	marginInlineEnd: token('space.100', '8px'),
-	marginInlineStart: token('space.100', '8px'),
-	paddingBlockEnd: token('space.0', '0px'),
-	paddingBlockStart: token('space.0', '0px'),
-	paddingInlineEnd: token('space.0', '0px'),
-	paddingInlineStart: token('space.0', '0px'),
+	marginBlockEnd: token('space.100'),
+	marginBlockStart: token('space.100'),
+	marginInlineEnd: token('space.100'),
+	marginInlineStart: token('space.100'),
+	paddingBlockEnd: token('space.0'),
+	paddingBlockStart: token('space.0'),
+	paddingInlineEnd: token('space.0'),
+	paddingInlineStart: token('space.0'),
 });
 
 const blockStyles = css({
@@ -125,15 +124,15 @@ const logoContainerStyles = css({
 	display: 'flex',
 	width: '100%',
 	alignItems: 'center',
-	paddingInlineStart: token('space.100', '8px'),
+	paddingInlineStart: token('space.100'),
 });
 
 const headerStyles = css({
 	fontWeight: 300,
-	marginBlockEnd: token('space.0', '0px'),
-	marginBlockStart: token('space.0', '0px'),
-	marginInlineEnd: token('space.0', '0px'),
-	marginInlineStart: token('space.100', '8px'),
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.0'),
+	marginInlineEnd: token('space.0'),
+	marginInlineStart: token('space.100'),
 });
 
 export default MotionFadeOutListOfElementsExample;

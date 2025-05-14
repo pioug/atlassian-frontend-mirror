@@ -2,7 +2,10 @@
 import type { MouseEvent } from 'react';
 import React, { useCallback, useMemo, useRef } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -12,7 +15,6 @@ import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	clearHoverSelection,
@@ -60,6 +62,21 @@ const getSelectedColumns = (selection: Selection) => {
 	return [];
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const selection = useSharedPluginStateSelector(api, 'selection.selection');
+		return {
+			selection,
+		};
+	},
+	(api: ExtractInjectionAPI<TablePlugin> | undefined) => {
+		const { selectionState } = useSharedPluginState(api, ['selection']);
+		return {
+			selection: selectionState?.selection,
+		};
+	},
+);
+
 export const ColumnControls = ({
 	editorView,
 	tableActive,
@@ -78,17 +95,7 @@ export const ColumnControls = ({
 	api,
 }: ColumnControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
 	const columnControlsRef = useRef<HTMLDivElement>(null);
-
-	// selection
-	const { selectionState } = useSharedPluginState(api, ['selection'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
-	});
-	const selectionsSelector = useSharedPluginStateSelector(api, 'selection.selection', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
-	});
-	const selection = editorExperiment('platform_editor_usesharedpluginstateselector', true)
-		? selectionsSelector
-		: selectionState?.selection;
+	const { selection } = useSharedState(api);
 
 	const widths =
 		colWidths
@@ -107,7 +114,7 @@ export const ColumnControls = ({
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;
 
 	const rowControlStickyTop = 45;
-	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowControlStickyTop ?? 0 : 0;
+	const marginTop = hasHeaderRow && stickyTop !== undefined ? (rowControlStickyTop ?? 0) : 0;
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {

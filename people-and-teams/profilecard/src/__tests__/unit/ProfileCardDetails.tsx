@@ -3,6 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
 import { type LozengeProps } from '../../types';
 
@@ -16,6 +18,11 @@ jest.mock('react-intl-next', () => {
 		}),
 	};
 });
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
+}));
 
 type Props = Parameters<typeof ProfileCardDetails>[0];
 
@@ -75,6 +82,18 @@ describe('ProfileCardDetails', () => {
 				});
 				const component = queryByTestId('profilecard-name');
 				expect(component).toBeNull();
+			});
+
+			it('should render name as a heading', () => {
+				(fg as jest.Mock).mockReturnValue(true);
+				const { getByRole } = renderComponent({
+					isBot,
+					fullName: 'Same name',
+					nickname: 'Same name',
+				});
+				const component = getByRole('heading', { level: 2 });
+				expect(component).toBeVisible();
+				expect(component).toHaveTextContent('Same name');
 			});
 		});
 
@@ -175,6 +194,17 @@ describe('ProfileCardDetails', () => {
 					expect(
 						queryByText(`Account ${status === 'closed' ? 'deleted' : 'deactivated'}`),
 					).toBeNull();
+				});
+
+				it('should render name as a heading', () => {
+					(fg as jest.Mock).mockReturnValue(true);
+					const { getByRole } = renderComponent({
+						fullName: 'Same name',
+						nickname: 'Same name',
+					});
+					const component = getByRole('heading', { level: 2 });
+					expect(component).toBeVisible();
+					expect(component).toHaveTextContent('Same name');
 				});
 			},
 		);

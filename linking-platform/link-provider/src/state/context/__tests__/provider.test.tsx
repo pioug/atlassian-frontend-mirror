@@ -156,7 +156,6 @@ describe('Provider', () => {
 
 	const initialState = {};
 	it.each<[string, Partial<CardProviderProps>, Partial<CardProviderProps>]>([
-		['feature flags are', {}, { featureFlags: { showHoverPreview: false } }],
 		['card client is', {}, { client: new CardClient() }],
 		['auth flow is', {}, { authFlow: 'disabled' }],
 		['renderers are', {}, { renderers: {} }],

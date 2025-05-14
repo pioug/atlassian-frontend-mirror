@@ -84,6 +84,8 @@ export enum ACTION {
 	MATCHED = 'matched',
 	MEDIA_LINK_TRANSFORMED = 'mediaLinkTransformed',
 	NODE_CONTENT_SANITIZED = 'nodeContentSanitized',
+	OFFLINE_STORAGE_TOO_MANY_RETRIES_ERROR = 'offlineStorageTooManyRetriesError',
+	OFFLINE_STORAGE_STEPS_DATABASE_ERROR = 'offlineStorageStepsDatabaseError',
 	OPENED = 'opened',
 	OUTDENTED = 'outdented',
 	PASTED = 'pasted',
@@ -309,6 +311,7 @@ export enum ACTION_SUBJECT {
 	AI_DEFINITIONS = 'aiDefinitions',
 	USER_PREFERENCES = 'userPreferences',
 	ALIGNMENT = 'alignment',
+	OFFLINE_EDITING = 'offlineEditing',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -397,6 +400,7 @@ export enum ACTION_SUBJECT_ID {
 	NESTED_EXPAND = 'nestedExpand',
 	NODE = 'node',
 	OPEN_LINK = 'openLink',
+	OFFLINE_EDITING = 'offlineEditing',
 	PANEL = 'panel',
 	PASTE_BLOCK_CARD = 'blockCard',
 	PASTE_BLOCKQUOTE = 'blockQuote',

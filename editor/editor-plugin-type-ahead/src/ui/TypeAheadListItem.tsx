@@ -8,7 +8,10 @@ import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
 import {
@@ -16,6 +19,7 @@ import {
 	type TypeAheadItem,
 	type TypeAheadItemRenderProps,
 } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
@@ -218,6 +222,17 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 	);
 });
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
+		const connectivityMode = useSharedPluginStateSelector(api, 'connectivity.mode');
+		return { connectivityMode };
+	},
+	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
+		const { connectivityState } = useSharedPluginState(api, ['connectivity']);
+		return { connectivityMode: connectivityState?.mode };
+	},
+);
+
 export const TypeAheadListItem = React.memo(
 	({
 		item,
@@ -230,12 +245,12 @@ export const TypeAheadListItem = React.memo(
 		api,
 		firstOnlineSupportedIndex,
 	}: TypeAheadListItemProps) => {
-		const { connectivityState } = useSharedPluginState(api, ['connectivity']);
+		const { connectivityMode } = useSharedState(api);
 		const isItemDisabled = (item: TypeAheadItem | undefined) =>
-			connectivityState?.mode === 'offline' && (item?.isDisabledOffline ?? false);
+			connectivityMode === 'offline' && (item?.isDisabledOffline ?? false);
 		const itemIsDisabled = isItemDisabled(item);
 		const isFirstEnabledIndex =
-			connectivityState?.mode === 'offline' &&
+			connectivityMode === 'offline' &&
 			itemIndex === firstOnlineSupportedIndex &&
 			selectedIndex === -1;
 
@@ -245,7 +260,7 @@ export const TypeAheadListItem = React.memo(
 		 */
 		let isSelected = false;
 		// Feature gated - connectivity is only available on desktop and behind a feature gate on full page mode
-		if (connectivityState === undefined) {
+		if (connectivityMode === undefined) {
 			isSelected = itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
 		} else {
 			isSelected =

@@ -14,10 +14,10 @@ const popupStyles = css({
 	backgroundColor: token('elevation.surface.overlay'),
 	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.raised'),
-	paddingBlockEnd: token('space.100', '8px'),
-	paddingBlockStart: token('space.100', '8px'),
-	paddingInlineEnd: token('space.100', '8px'),
-	paddingInlineStart: token('space.100', '8px'),
+	paddingBlockEnd: token('space.100'),
+	paddingBlockStart: token('space.100'),
+	paddingInlineEnd: token('space.100'),
+	paddingInlineStart: token('space.100'),
 });
 
 const popupHiddenStyles = css({
@@ -57,7 +57,7 @@ const containerStyles = css({
 	borderColor: 'black',
 	borderStyle: 'solid',
 	borderWidth: '1px',
-	marginBlockStart: token('space.250', '20px'),
+	marginBlockStart: token('space.250'),
 	overflow: 'auto',
 });
 
@@ -66,10 +66,10 @@ const innerStyles = css({
 	width: '300%',
 	height: '250%',
 	backgroundColor: token('elevation.surface'),
-	paddingBlockEnd: token('space.200', '16px'),
-	paddingBlockStart: token('space.200', '16px'),
-	paddingInlineEnd: token('space.200', '16px'),
-	paddingInlineStart: token('space.200', '16px'),
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 const popperWrapperStyles = css({
@@ -79,7 +79,7 @@ const popperWrapperStyles = css({
 
 const instructionStyles = css({
 	display: 'block',
-	marginBlockEnd: token('space.400', '2rem'),
+	marginBlockEnd: token('space.400'),
 });
 
 const ScrollContainerExample = () => (

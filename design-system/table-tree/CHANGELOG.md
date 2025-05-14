@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 12.1.2
+
+### Patch Changes
+
+- [#153593](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153593)
+  [`b88120ead0a0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b88120ead0a0e) -
+  Fix `className` prop not working with `Cell`.
+
 ## 12.1.1
 
 ### Patch Changes

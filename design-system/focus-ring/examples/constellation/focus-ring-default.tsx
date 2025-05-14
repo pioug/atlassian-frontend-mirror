@@ -13,8 +13,8 @@ import { token } from '@atlaskit/tokens';
 
 const buttonStyles = css({
 	display: 'block',
-	margin: `${token('space.150', '12px')} 0`,
-	padding: token('space.100', '8px'),
+	margin: `${token('space.150')} 0`,
+	padding: token('space.100'),
 	border: 'none',
 	borderRadius: '3px',
 });

@@ -4,7 +4,7 @@ import {
 	extractSmartLinkProvider,
 	isEntityPresent,
 } from '@atlaskit/link-extractors';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { InternalActionName, SmartLinkStatus } from '../../constants';

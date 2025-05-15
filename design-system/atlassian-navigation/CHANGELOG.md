@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 5.1.10
+
+### Patch Changes
+
+- [#148599](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148599)
+  [`6fdb42d9282af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fdb42d9282af) -
+  Refreshed "issue" terminology.
+
 ## 5.1.9
 
 ### Patch Changes

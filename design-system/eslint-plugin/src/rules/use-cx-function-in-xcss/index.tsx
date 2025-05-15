@@ -1,5 +1,9 @@
 import type { Rule } from 'eslint';
-import { ImportDeclaration, isNodeOfType, JSXExpressionContainer } from 'eslint-codemod-utils';
+import {
+	type ImportDeclaration,
+	isNodeOfType,
+	type JSXExpressionContainer,
+} from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 

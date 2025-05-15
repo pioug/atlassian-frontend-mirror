@@ -16,7 +16,10 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -32,6 +35,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
 import { Popup } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -246,6 +250,95 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 	};
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
+		// floatingToolbar
+		const configWithNodeInfo = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'floatingToolbar.configWithNodeInfo',
+		);
+		const floatingToolbarData = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'floatingToolbar.floatingToolbarData',
+		);
+
+		// editorDisabled
+		const editorDisabledState = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'editorDisabled.editorDisabled',
+		);
+
+		// editorViewMode
+		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		const contentMode = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'editorViewMode.contentMode',
+		);
+		const isConsumption = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'editorViewMode.isConsumption',
+		);
+
+		// userIntent
+		const currentUserIntent = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'userIntent.currentUserIntent',
+		);
+
+		// blockControls
+		const isDragging = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
+			'blockControls.isDragging',
+		);
+		// isMenuOpen
+		const isMenuOpen = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
+			'blockControls.isMenuOpen',
+		);
+		return {
+			configWithNodeInfo,
+			floatingToolbarData,
+			editorDisabled: editorDisabledState,
+			mode,
+			contentMode,
+			isConsumption,
+			currentUserIntent,
+			isDragging,
+			isMenuOpen,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
+		const {
+			floatingToolbarState,
+			editorDisabledState,
+			editorViewModeState,
+			userIntentState,
+			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
+			blockControlsState,
+		} = useSharedPluginState(pluginInjectionApi, [
+			'floatingToolbar',
+			'editorDisabled',
+			'editorViewMode',
+			'userIntent',
+			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
+			'blockControls',
+		]);
+		return {
+			configWithNodeInfo: floatingToolbarState?.configWithNodeInfo,
+			floatingToolbarData: floatingToolbarState?.floatingToolbarData,
+			editorDisabled: editorDisabledState?.editorDisabled,
+			mode: editorViewModeState?.mode,
+			contentMode: editorViewModeState?.contentMode,
+			isConsumption: editorViewModeState?.isConsumption,
+			currentUserIntent: userIntentState?.currentUserIntent,
+			isDragging: blockControlsState?.isDragging,
+			isMenuOpen: blockControlsState?.isMenuOpen,
+		};
+	},
+);
+
 export function ContentComponent({
 	pluginInjectionApi,
 	editorView,
@@ -266,22 +359,16 @@ export function ContentComponent({
 	pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 }) {
 	const {
-		floatingToolbarState,
-		editorDisabledState,
-		editorViewModeState,
-		userIntentState,
-		// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-		blockControlsState,
-	} = useSharedPluginState(pluginInjectionApi, [
-		'floatingToolbar',
-		'editorDisabled',
-		'editorViewMode',
-		'userIntent',
-		// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-		'blockControls',
-	]);
-
-	const { configWithNodeInfo, floatingToolbarData } = floatingToolbarState ?? {};
+		configWithNodeInfo,
+		contentMode,
+		currentUserIntent,
+		editorDisabled,
+		floatingToolbarData,
+		isConsumption,
+		isDragging,
+		isMenuOpen,
+		mode,
+	} = useSharedState(pluginInjectionApi);
 
 	if (
 		!configWithNodeInfo ||
@@ -293,7 +380,7 @@ export function ContentComponent({
 	}
 
 	if (fg('platform_editor_user_intent_plugin')) {
-		if (userIntentState?.currentUserIntent === 'dragging') {
+		if (currentUserIntent === 'dragging') {
 			return null;
 		}
 
@@ -302,14 +389,11 @@ export function ContentComponent({
 		// 	return null;
 		// }
 	} else {
-		if (blockControlsState?.isDragging) {
+		if (isDragging) {
 			return null;
 		}
 
-		if (
-			blockControlsState?.isMenuOpen &&
-			editorExperiment('platform_editor_controls', 'variant1')
-		) {
+		if (isMenuOpen && editorExperiment('platform_editor_controls', 'variant1')) {
 			return null;
 		}
 	}
@@ -336,9 +420,8 @@ export function ContentComponent({
 	} = config;
 	const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
-	const isEditorDisabled = editorDisabledState && editorDisabledState.editorDisabled;
-	const isInViewMode = editorViewModeState?.mode === 'view';
-	if (!targetRef || (isEditorDisabled && !isInViewMode)) {
+	const isInViewMode = mode === 'view';
+	if (!targetRef || (editorDisabled && !isInViewMode)) {
 		return null;
 	}
 
@@ -398,7 +481,7 @@ export function ContentComponent({
 	);
 
 	if (!editorExperiment('live_pages_graceful_edit', 'control') && viewModeToolbarEntry !== 'none') {
-		if (editorViewModeState?.contentMode === 'live-edit' && editorViewModeState?.isConsumption) {
+		if (contentMode === 'live-edit' && isConsumption) {
 			const hasOtherToolbarItems = toolbarItems && toolbarItems.length !== 0;
 			const shouldAddToolbarItems =
 				viewModeToolbarEntry === 'expand-existing-only' ? hasOtherToolbarItems : true;

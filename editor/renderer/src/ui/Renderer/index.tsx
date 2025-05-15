@@ -150,6 +150,9 @@ const handleMouseTripleClickInTables = (event: MouseEvent) => {
  * link, call the onUnhandledClick eventHandler (which in Jira for example, may switch the
  * renderer out for the editor).
  * @param event Click event anywhere inside renderer
+ * @param props
+ * @param mouseDownSelection
+ * @example
  */
 const handleWrapperOnClick = (
 	event: React.MouseEvent,
@@ -614,6 +617,11 @@ const getRendererComponent = (nodeComponents: RendererProps['nodeComponents']) =
 	return RendererFunctionalComponent;
 };
 
+/**
+ *
+ * @param props
+ * @example
+ */
 export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
@@ -807,7 +815,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	// Only apply container-type = inline-size when having a known width in full-page/full-width/comment mode.
 	// Otherwise when appearance is unspecified the renderer size is decided by the content.
 	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
-	return appearance === 'comment' &&
+	return (appearance === 'full-page' || appearance === 'full-width' || appearance === 'comment') &&
 		// In case of having excerpt-include on page there are multiple renderers nested.
 		// Make sure only the root renderer is set to be query container.
 		isTopLevelRenderer &&

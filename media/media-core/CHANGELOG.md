@@ -1,5 +1,14 @@
 # @atlaskit/media-core
 
+## 36.1.0
+
+### Minor Changes
+
+- [#151188](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151188)
+  [`1da6cb417676a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1da6cb417676a) -
+  Extends AuthContext interface specifiying access claims for the ongoing request. Review
+  documentation at https://hello.atlassian.net/wiki/x/bKKtOQE
+
 ## 36.0.0
 
 ### Major Changes

@@ -52,7 +52,7 @@ export type ToolbarFormattingProps = {
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
-	textFormattingState: TextFormattingState | undefined;
+	textFormattingState: TextFormattingState;
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
 	toolbarType: ToolbarType;
 };
@@ -73,17 +73,19 @@ const ToolbarFormatting = ({
 	toolbarType,
 }: ToolbarFormattingProps & WrappedComponentProps) => {
 	const [message, setMessage] = useState('');
+	const { formattingIsPresent, ...formattingIconState } = textFormattingState;
 
 	const defaultIcons = useFormattingIcons({
 		schema: editorView.state.schema,
 		intl,
 		isToolbarDisabled,
 		editorAnalyticsAPI,
-		textFormattingState,
+		textFormattingState: formattingIconState,
 		toolbarType,
 	});
 	const clearIcon = useClearIcon({
-		textFormattingState,
+		formattingPluginInitialised: textFormattingState.isInitialised,
+		formattingIsPresent,
 		intl,
 		editorAnalyticsAPI,
 		toolbarType,

@@ -3,7 +3,7 @@ import { toUserId } from '../../common/utils/user-ari';
 import { type ClientConfig } from '../base-client';
 import { DEFAULT_CONFIG } from '../constants';
 import { BaseGraphQlClient } from '../graphql-client';
-import { TeamMember, TeamWithMemberships } from '../types';
+import type { TeamMember, TeamWithMemberships } from '../types';
 
 import {
 	UnlinkContainerMutation,
@@ -12,8 +12,8 @@ import {
 } from './utils/mutations/unlink-container-mutation';
 import {
 	NumberOfTeamConnectedToContainerQuery,
-	NumberOfTeamConnectedToContainerQueryResponse,
-	NumberOfTeamConnectedToContainerQueryVariables,
+	type NumberOfTeamConnectedToContainerQueryResponse,
+	type NumberOfTeamConnectedToContainerQueryVariables,
 } from './utils/queries/number-of-team-connected-to-container-query';
 import {
 	TeamConnectedToContainerQuery,

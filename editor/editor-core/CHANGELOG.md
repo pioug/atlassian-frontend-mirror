@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 207.0.1
+
+### Patch Changes
+
+- [#154152](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154152)
+  [`e67025e3b6a04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e67025e3b6a04) -
+  Clean-up platform_editor_lcm_styling_uplift feature gate
+- [#154340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154340)
+  [`982623fd6523f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/982623fd6523f) -
+  [ux] [EDITOR-325] Clean up nested tables feature gate
+  `platform_editor_nested_tables_bodied_extension_fix`
+- Updated dependencies
+
 ## 207.0.0
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import Avatar from '@atlaskit/avatar';
 import { cssMap } from '@atlaskit/css';
 import { LinkItem } from '@atlaskit/menu';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -74,6 +75,62 @@ export const TeamConnections = ({
 					{icon}
 				</Box>
 			</Inline>
+		</LinkItem>
+	);
+};
+
+export const NewTeamConnections = ({
+	containerType,
+	title,
+	containerIcon,
+	link,
+}: LinkedContainerCardProps) => {
+	const { description, icon, containerTypeText } = getContainerProperties(containerType, 'medium');
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const onClick = useCallback(() => {
+		fireEvent(createAnalyticsEvent, {
+			action: 'clicked',
+			actionSubject: 'teamConnectionItem',
+			actionSubjectId: 'teamProfileCard',
+			attributes: { container: containerType },
+		});
+	}, [containerType, createAnalyticsEvent]);
+
+	return (
+		<LinkItem
+			href={link}
+			onClick={onClick}
+			description={
+				<Inline space="space.050">
+					<Text size="small" color="color.text.subtlest">
+						{description}
+					</Text>
+					<Text size="small" color="color.text.subtlest">
+						{containerTypeText}
+					</Text>
+				</Inline>
+			}
+			iconBefore={
+				<Avatar
+					size="small"
+					appearance="square"
+					src={containerIcon}
+					testId="linked-container-icon"
+				/>
+			}
+			iconAfter={
+				<Box
+					backgroundColor={'color.background.neutral.subtle'}
+					xcss={styles.containerTypeIconButtonStyles}
+					testId="container-type-icon"
+				>
+					{icon}
+				</Box>
+			}
+		>
+			<Text maxLines={1} color="color.text">
+				{title}
+			</Text>
 		</LinkItem>
 	);
 };

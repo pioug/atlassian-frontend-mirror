@@ -7,7 +7,7 @@ import { type FC, type ReactNode, useCallback, useState } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button';
-import InlineDialog from '@atlaskit/inline-dialog';
+import InlineDialog, { type InlineDialogProps } from '@atlaskit/inline-dialog';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -15,7 +15,7 @@ import { token } from '@atlaskit/tokens';
 import type { IconAppearance, InlineDialogPlacement } from '../../types';
 import MessageIcon from '../message-icon';
 
-interface InlineMessageProps {
+interface InlineMessageProps extends Pick<InlineDialogProps, 'fallbackPlacements'> {
 	/**
 	 * The elements to be displayed by the inline dialog.
 	 */
@@ -123,6 +123,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 	children,
 	testId,
 	iconLabel,
+	fallbackPlacements,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -140,6 +141,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 				isOpen={isOpen}
 				placement={placement}
 				testId={testId && `${testId}--inline-dialog`}
+				fallbackPlacements={fallbackPlacements}
 			>
 				<Button
 					data-ds--inline-message--button

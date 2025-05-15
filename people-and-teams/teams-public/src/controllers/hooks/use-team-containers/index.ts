@@ -9,7 +9,7 @@ import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/util
 import { teamsClient } from '../../../services';
 import {
 	type TeamContainers,
-	TeamWithMemberships,
+	type TeamWithMemberships,
 	type UnlinkContainerMutationError,
 } from '../../../services/types';
 

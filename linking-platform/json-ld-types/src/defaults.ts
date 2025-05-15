@@ -1,4 +1,4 @@
-import { JsonLd } from './jsonld';
+import type { JsonLd } from './jsonld';
 
 interface JsonLdDefaults {
 	meta: {

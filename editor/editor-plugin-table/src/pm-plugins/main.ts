@@ -308,19 +308,11 @@ export const createPlugin = (
 
 				// transformSliceToRemoveOpenTable() transforms based on the depth of the root node, assuming that the tables will be at the root
 				// Bodied extensions will contribute to the depth of the table selection so we need to remove them first
-				if (fg('platform_editor_nested_tables_bodied_extension_fix')) {
-					/** If a partial paste of bodied extension, paste only text */
-					slice = transformSliceToRemoveOpenBodiedExtension(slice, schema);
+				/** If a partial paste of bodied extension, paste only text */
+				slice = transformSliceToRemoveOpenBodiedExtension(slice, schema);
 
-					/** If a partial paste of table, paste only table's content */
-					slice = transformSliceToRemoveOpenTable(slice, schema);
-				} else {
-					/** If a partial paste of table, paste only table's content */
-					slice = transformSliceToRemoveOpenTable(slice, schema);
-
-					/** If a partial paste of bodied extension, paste only text */
-					slice = transformSliceToRemoveOpenBodiedExtension(slice, schema);
-				}
+				/** If a partial paste of table, paste only table's content */
+				slice = transformSliceToRemoveOpenTable(slice, schema);
 
 				/** If a partial paste of multi bodied extension, paste only children */
 				slice = transformSliceToRemoveOpenMultiBodiedExtension(slice, schema);

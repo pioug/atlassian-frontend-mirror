@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 69.2.0
+
+### Minor Changes
+
+- [#152199](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152199)
+  [`08298b62373b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08298b62373b8) -
+  Updating scripts to explicitly use yarn start:webpack since yarn start doesn't currently support
+  the --proxy flag when rspack is used as a bundler
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 69.1.4
 
 ### Patch Changes

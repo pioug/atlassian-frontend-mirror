@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { clearFormatting as clearFormattingKeymap, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import type { Command, TextFormattingState } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -21,18 +21,20 @@ import type { IconHookProps, MenuIconItem, ToolbarType } from '../types';
 
 interface ClearIconHookProps extends IconHookProps {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	textFormattingState: TextFormattingState | undefined;
+	formattingPluginInitialised: boolean | undefined;
+	formattingIsPresent: boolean | undefined;
 	toolbarType: ToolbarType;
 }
 
 export const useClearIcon = ({
 	intl,
-	textFormattingState,
+	formattingPluginInitialised,
+	formattingIsPresent: formattingPresent,
 	editorAnalyticsAPI,
 	toolbarType,
 }: ClearIconHookProps): MenuIconItem | null => {
-	const isPluginAvailable = Boolean(textFormattingState);
-	const formattingIsPresent = Boolean(textFormattingState?.formattingIsPresent);
+	const isPluginAvailable = Boolean(formattingPluginInitialised);
+	const formattingIsPresent = Boolean(formattingPresent);
 	const clearFormattingLabel = intl.formatMessage(toolbarMessages.clearFormatting);
 
 	const clearFormattingToolbar: Command = useCallback(

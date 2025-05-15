@@ -1,4 +1,4 @@
-import React, { type FC, memo, type Ref, useCallback, useEffect, useRef } from 'react';
+import React, { type FC, memo, type Ref, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { bind } from 'bind-event-listener';
 
@@ -69,6 +69,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 	testId,
 	content,
 	children,
+	fallbackPlacements,
 }) {
 	const containerRef = useRef<HTMLElement | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -137,8 +138,29 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 		[handleCloseRequest, containerRef, triggerRef],
 	);
 
+	/**
+	 * Auto-flip is enabled by default in `@atlaskit/popper` and
+	 * the `InlineDialog` API does not allow disabling it.
+	 *
+	 * We only need to override it if there are `fallbackPlacements` specified.
+	 */
+	const modifiers = useMemo(
+		() =>
+			fallbackPlacements
+				? [
+						{
+							name: 'flip',
+							options: {
+								fallbackPlacements,
+							},
+						},
+					]
+				: [],
+		[fallbackPlacements],
+	);
+
 	const popper = isOpen ? (
-		<Popper placement={placement} strategy={strategy}>
+		<Popper placement={placement} strategy={strategy} modifiers={modifiers}>
 			{({ ref, style }) => (
 				<Container
 					onBlur={onContentBlur}

@@ -1,8 +1,8 @@
 // Remove when cleaning up fg `platform-smart-card-remove-legacy-button`
 
-import { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
 
-import { IconProp } from '@atlaskit/button/new';
+import type { IconProp } from '@atlaskit/button/new';
 
 // EDM-12433
 export type OldLinkInfoButtonProps = {

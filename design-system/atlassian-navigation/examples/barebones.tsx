@@ -69,7 +69,7 @@ export default () => (
 	>
 		<AtlassianNavigation
 			label="site"
-			primaryItems={[<PrimaryButton>Issues</PrimaryButton>, <ExploreDropdown />]}
+			primaryItems={[<PrimaryButton>Work items</PrimaryButton>, <ExploreDropdown />]}
 			renderProductHome={ProductHomeExample}
 		/>
 

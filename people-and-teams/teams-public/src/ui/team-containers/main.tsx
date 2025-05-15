@@ -44,6 +44,7 @@ export const TeamContainers = ({
 	cloudId,
 	filterContainerId,
 	isDisplayedOnProfileCard,
+	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
 }: TeamContainerProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
@@ -78,10 +79,7 @@ export const TeamContainers = ({
 	}, [isDisplayedOnProfileCard, filterContainerId, teamContainers]);
 
 	useEffect(() => {
-		if (
-			filteredTeamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW ||
-			isDisplayedOnProfileCard
-		) {
+		if (filteredTeamContainers.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
 			setShowAddContainer({ Jira: false, Confluence: false, Loom: false });
 		} else {
 			const hasJiraProject = filteredTeamContainers.some(
@@ -109,7 +107,12 @@ export const TeamContainers = ({
 					!!hasProductPermission(productPermissions, 'loom'),
 			});
 		}
-	}, [isDisplayedOnProfileCard, productPermissions, filteredTeamContainers]);
+	}, [
+		isDisplayedOnProfileCard,
+		productPermissions,
+		filteredTeamContainers,
+		maxNumberOfContainersToShow,
+	]);
 
 	const handleShowMore = () => {
 		setShowMore(!showMore);
@@ -171,9 +174,7 @@ export const TeamContainers = ({
 		components?.TeamContainersSkeleton || TeamContainersSkeleton;
 
 	if (loading || productPermissionIsLoading) {
-		return (
-			<TeamContainersSkeletonComponent numberOfContainers={MAX_NUMBER_OF_CONTAINERS_TO_SHOW} />
-		);
+		return <TeamContainersSkeletonComponent numberOfContainers={maxNumberOfContainersToShow} />;
 	}
 
 	if (
@@ -197,7 +198,7 @@ export const TeamContainers = ({
 					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
 					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
 				>
-					{filteredTeamContainers.slice(0, MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
+					{filteredTeamContainers.slice(0, maxNumberOfContainersToShow).map((container) => {
 						return (
 							<LinkedContainerCardComponent
 								key={container.id}
@@ -236,7 +237,7 @@ export const TeamContainers = ({
 						/>
 					)}
 					{showMore &&
-						filteredTeamContainers.slice(MAX_NUMBER_OF_CONTAINERS_TO_SHOW).map((container) => {
+						filteredTeamContainers.slice(maxNumberOfContainersToShow).map((container) => {
 							return (
 								<LinkedContainerCardComponent
 									key={container.id}
@@ -257,7 +258,7 @@ export const TeamContainers = ({
 							);
 						})}
 				</Grid>
-				{filteredTeamContainers.length > MAX_NUMBER_OF_CONTAINERS_TO_SHOW && (
+				{filteredTeamContainers.length > maxNumberOfContainersToShow && (
 					<Inline>
 						<Button appearance="subtle" onClick={handleShowMore}>
 							{showMore ? (

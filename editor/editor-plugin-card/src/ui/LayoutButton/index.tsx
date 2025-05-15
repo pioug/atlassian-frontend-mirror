@@ -9,9 +9,14 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 import GrowHorizontalIcon from '@atlaskit/icon/core/migration/grow-horizontal--editor-expand';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/migration/shrink-horizontal--editor-collapse';
@@ -19,6 +24,7 @@ import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { cardPlugin } from '../../cardPlugin';
 import { setCardLayout } from '../../pm-plugins/actions';
 import { isDatasourceNode } from '../../pm-plugins/utils';
 
@@ -87,6 +93,27 @@ export const LayoutButton = ({
 	);
 };
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const layout = useSharedPluginStateSelector(pluginInjectionApi, 'card.layout');
+		const datasourceTableRef = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'card.datasourceTableRef',
+		);
+		return {
+			layout,
+			datasourceTableRef,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const { cardState } = useSharedPluginState(pluginInjectionApi, ['card']);
+		return {
+			layout: cardState?.layout,
+			datasourceTableRef: cardState?.datasourceTableRef,
+		};
+	},
+);
+
 const LayoutButtonWrapper = ({
 	editorView,
 	mountPoint,
@@ -95,18 +122,13 @@ const LayoutButtonWrapper = ({
 	intl,
 	api,
 }: LayoutButtonWrapperProps & WrappedComponentProps) => {
-	const { cardState } = useSharedPluginState(api, ['card']);
 	const { node, pos } = getDatasource(editorView);
-
+	const { layout = node?.attrs?.layout || undefined, datasourceTableRef } = useSharedState(api);
 	const isDatasource = isDatasourceNode(node);
 
 	if (!isDatasource) {
 		return null;
 	}
-
-	//  If layout doesn't exist in ADF it returns null, we want to change to undefined
-	//  which results in default parameter value being used in LayoutButton.
-	const { datasourceTableRef, layout = node?.attrs?.layout || undefined } = cardState ?? {};
 
 	const onLayoutChange = (layout: DatasourceTableLayout) => {
 		if (pos === undefined) {

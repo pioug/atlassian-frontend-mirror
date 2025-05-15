@@ -13,6 +13,11 @@ import type { ConflictChanges } from '@atlaskit/editor-common/collab';
 
 const positionExists = (position: number | undefined): boolean => typeof position === 'number';
 
+type Pos = {
+	from: number;
+	to: number;
+};
+
 export class Editor {
 	private view: EditorView;
 
@@ -92,6 +97,12 @@ export class Editor {
 			this.sync(tr.delete(selection.from - 1, selection.from));
 		}
 		return this;
+	}
+
+	move(before: Pos, after: Pick<Pos, 'from'>) {
+		const { tr } = this.view.state;
+		const slice = tr.doc.slice(before.from, before.to);
+		this.sync(tr.delete(before.from, before.to).replace(after.from, undefined, slice));
 	}
 
 	rebaseWithRemoteSteps(remoteSteps: readonly Step[] | undefined) {

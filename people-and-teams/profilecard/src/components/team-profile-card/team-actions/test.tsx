@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MessageDescriptor } from 'react-intl-next';
 
-import { ButtonSection } from './index';
+import { TeamActions } from './index';
 
 jest.mock('react-intl-next', () => ({
 	...jest.requireActual('react-intl-next'),
@@ -21,37 +21,22 @@ jest.mock('@atlaskit/give-kudos', () => ({
 }));
 
 describe('ButtonSection', () => {
-	const teamProfileUrl =
-		'https://test-prod-issue-create.atlassian.net/wiki/people/team/8ee37950-7de7-41ec-aee2-2c02c95949f4';
 	const cloudId = 'test-cloud-id';
 	const teamId = 'test-team-id';
 
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(
-			<ButtonSection teamProfileUrl={teamProfileUrl} cloudId={cloudId} teamId={teamId} />,
-		);
+		const { container } = render(<TeamActions cloudId={cloudId} teamId={teamId} />);
 		await expect(container).toBeAccessible();
 	});
 
-	it('should not render the team profile button if the url is not provided', () => {
-		render(<ButtonSection cloudId={cloudId} teamId={teamId} />);
-		expect(screen.queryByRole('link', { name: /View profile*/ })).not.toBeInTheDocument();
-	});
-
-	it('should render the team profile button', () => {
-		render(<ButtonSection teamProfileUrl={teamProfileUrl} cloudId={cloudId} teamId={teamId} />);
-		expect(screen.getByRole('link', { name: /View profile*/ })).toBeVisible();
-	});
-
 	it('should not render the show more button if no other actions are provided', () => {
-		render(<ButtonSection teamProfileUrl={teamProfileUrl} cloudId={cloudId} teamId={teamId} />);
+		render(<TeamActions cloudId={cloudId} teamId={teamId} />);
 		expect(screen.queryByRole('button', { name: 'Show more' })).not.toBeInTheDocument();
 	});
 
 	it('should render the show more button if other actions are provided', () => {
 		render(
-			<ButtonSection
-				teamProfileUrl={teamProfileUrl}
+			<TeamActions
 				cloudId={cloudId}
 				teamId={teamId}
 				otherActions={[
@@ -65,8 +50,7 @@ describe('ButtonSection', () => {
 
 	it('should render the kudos button if the team has kudos enabled and show more button is clicked', async () => {
 		render(
-			<ButtonSection
-				teamProfileUrl={teamProfileUrl}
+			<TeamActions
 				isKudosEnabled
 				cloudId={cloudId}
 				teamCentralBaseUrl="test-team-central-base-url"
@@ -83,8 +67,7 @@ describe('ButtonSection', () => {
 
 	it('should launch the kudos drawer when the kudos button is clicked', async () => {
 		render(
-			<ButtonSection
-				teamProfileUrl={teamProfileUrl}
+			<TeamActions
 				isKudosEnabled
 				cloudId={cloudId}
 				teamCentralBaseUrl="test-team-central-base-url"
@@ -102,8 +85,7 @@ describe('ButtonSection', () => {
 
 	it('should render other actions if provided and show more button is clicked', async () => {
 		render(
-			<ButtonSection
-				teamProfileUrl={teamProfileUrl}
+			<TeamActions
 				cloudId={cloudId}
 				teamId={teamId}
 				otherActions={[

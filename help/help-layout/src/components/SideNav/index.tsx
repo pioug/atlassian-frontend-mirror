@@ -106,7 +106,7 @@ export const SideNav = ({ sideNavTabs }: SideNavProps) => {
 					onNewChatButtonClick={sideNavTabs[activeIndex].header.onNewChatButtonClick}
 					newChatButtonDisabled={sideNavTabs[activeIndex].header.newChatButtonDisabled}
 				/>
-				{sideNavTabs[activeIndex].content}
+				{sideNavTabs[activeIndex].contentRender()}
 			</Flex>
 		</Flex>
 	);

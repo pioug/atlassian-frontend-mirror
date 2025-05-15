@@ -1,7 +1,13 @@
 import React from 'react';
 
-import { ACTION_SUBJECT, DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
+import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
 import {
 	ExtractInjectionAPI,
 	GetEditorContainerWidth,
@@ -9,6 +15,7 @@ import {
 } from '@atlaskit/editor-common/types';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { TablePlugin, TablePluginOptions } from '../tablePluginType';
 
@@ -22,6 +29,7 @@ import FloatingInsertButton from './FloatingInsertButton';
 import { FloatingToolbarLabel } from './FloatingToolbarLabel/FloatingToolbarLabel';
 import { GlobalStylesWrapper } from './global-styles';
 import { useInternalTablePluginStateSelector } from './hooks/useInternalTablePluginStateSelector';
+import { SizeSelector } from './SizeSelector';
 import { FullWidthDisplay } from './TableFullWidthLabel';
 
 export type ContentComponentProps = {
@@ -32,6 +40,7 @@ export type ContentComponentProps = {
 	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
+	isTableSelectorEnabled: boolean | undefined;
 	defaultGetEditorContainerWidth: GetEditorContainerWidth;
 	defaultGetEditorFeatureFlags: GetEditorFeatureFlags;
 };
@@ -44,6 +53,7 @@ const ContentComponentInternal = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
+	isTableSelectorEnabled,
 	defaultGetEditorContainerWidth,
 	defaultGetEditorFeatureFlags,
 }: ContentComponentProps) => {
@@ -82,6 +92,9 @@ const ContentComponentInternal = ({
 	const dragMenuDirection = useInternalTablePluginStateSelector(api, 'dragMenuDirection');
 	const dragMenuIndex = useInternalTablePluginStateSelector(api, 'dragMenuIndex');
 	const isDragMenuOpen = useInternalTablePluginStateSelector(api, 'isDragMenuOpen');
+
+	const isSizeSelectorOpen = useInternalTablePluginStateSelector(api, 'isSizeSelectorOpen');
+	const sizeSelectorTargetRef = useInternalTablePluginStateSelector(api, 'sizeSelectorTargetRef');
 
 	return (
 		<>
@@ -189,7 +202,13 @@ const ContentComponentInternal = ({
 				widthToWidest[resizingTableLocalId] && (
 					<FloatingToolbarLabel
 						target={resizingTableRef}
-						content={<FullWidthDisplay />}
+						content={
+							editorExperiment('single_column_layouts', true) ? (
+								<ResizerBreakoutModeLabel layout="full-width" />
+							) : (
+								<FullWidthDisplay />
+							)
+						}
 						alignX={'center'}
 						alignY={'bottom'}
 						stick={true}
@@ -198,6 +217,24 @@ const ContentComponentInternal = ({
 						offset={[0, 10]}
 					/>
 				)}
+
+			{isTableSelectorEnabled && isSizeSelectorOpen && (
+				<SizeSelector
+					api={api}
+					isOpenedByKeyboard={false}
+					popupsMountPoint={popupsMountPoint}
+					target={
+						sizeSelectorTargetRef ??
+						getDomRefFromSelection(
+							editorView,
+							ACTION_SUBJECT_ID.PICKER_TABLE_SIZE,
+							api?.analytics?.actions,
+						)
+					}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsScrollableElement={popupsScrollableElement}
+				/>
+			)}
 		</>
 	);
 };
@@ -210,6 +247,7 @@ export const ContentComponent = ({
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
+	isTableSelectorEnabled,
 	defaultGetEditorContainerWidth,
 	defaultGetEditorFeatureFlags,
 }: ContentComponentProps) => {
@@ -232,6 +270,7 @@ export const ContentComponent = ({
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
+				isTableSelectorEnabled={isTableSelectorEnabled}
 				defaultGetEditorContainerWidth={defaultGetEditorContainerWidth}
 				defaultGetEditorFeatureFlags={defaultGetEditorFeatureFlags}
 			/>

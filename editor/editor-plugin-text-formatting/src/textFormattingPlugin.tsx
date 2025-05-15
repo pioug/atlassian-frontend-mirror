@@ -119,9 +119,11 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 			if (!editorState) {
 				return undefined;
 			}
+			const textFormattingState = textFormattingPluginKey.getState(editorState);
 			return {
-				...textFormattingPluginKey.getState(editorState),
+				...textFormattingState,
 				formattingIsPresent: clearFormattingPluginKey.getState(editorState)?.formattingIsPresent,
+				isInitialised: !!textFormattingState?.isInitialised,
 			};
 		},
 

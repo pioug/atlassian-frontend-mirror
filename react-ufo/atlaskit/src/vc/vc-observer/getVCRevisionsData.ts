@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { InteractionMetrics } from '../../common/common/types';
-import { RevisionPayload } from '../../common/vc/types';
+import type { InteractionMetrics } from '../../common/common/types';
+import type { RevisionPayload } from '../../common/vc/types';
 import { isVCRevisionEnabled } from '../../config';
 import { getPageVisibilityState } from '../../hidden-timing';
 

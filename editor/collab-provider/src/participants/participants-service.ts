@@ -17,17 +17,20 @@ import type {
 	StepJson,
 	UserPermitType,
 } from '@atlaskit/editor-common/collab';
-import type { GetUserType } from './participants-helper';
+import type { BatchProps, GetUserType } from './participants-helper';
 import {
 	createParticipantFromPayload as enrichParticipant,
+	fetchParticipants,
 	PARTICIPANT_UPDATE_INTERVAL,
 } from './participants-helper';
-import { ParticipantsState } from './participants-state';
+import { ParticipantFilter, ParticipantsState } from './participants-state';
 import { createLogger, isAIProviderID } from '../helpers/utils';
 
 const logger = createLogger('PresenceService', 'pink');
 
 const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
+const DEFAULT_FETCH_USERS_INTERVAL = 500; // 0.5 second
+const UNIDENTIFIED = 'unidentified';
 
 /**
  * This service is responsible for handling presence and participant events, as well as sending them on to the editor or NCS.
@@ -41,6 +44,8 @@ const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
 export class ParticipantsService {
 	private participantUpdateTimeout: number | undefined;
 	private presenceUpdateTimeout: number | undefined;
+	private presenceFetchTimeout: number | undefined;
+	private currentlyPollingFetchUsers: boolean = true;
 
 	constructor(
 		private analyticsHelper: AnalyticsHelper | undefined,
@@ -54,6 +59,7 @@ export class ParticipantsService {
 				| CollabPresenceActivityChangePayload,
 		) => void,
 		private getUser: GetUserType,
+		private batchProps: BatchProps | undefined,
 		private channelBroadcast: <K extends keyof ChannelEvent>(
 			type: K,
 			data: Omit<ChannelEvent[K], 'timestamp'>,
@@ -135,9 +141,8 @@ export class ParticipantsService {
 	/**
 	 * Carries out 3 things: 1) enriches the participant with user data, 2) updates the participantsState, 3) emits the presence event
 	 * @param payload Payload from incoming socket event
-	 * @returns Awaitable Promise, due to getUser
 	 */
-	onParticipantUpdated = async (payload: PresencePayload): Promise<void> => {
+	private updateParticipantEager = async (payload: PresencePayload) => {
 		const { userId } = payload;
 
 		// If userId does not exist, does nothing here to prevent duplication.
@@ -181,6 +186,76 @@ export class ParticipantsService {
 
 		// Only emit the joined presence event if this is a new participant
 		this.emitPresence({ joined: [participant] }, 'handling participant updated event');
+	};
+
+	/**
+	 * Will update participant state without attempting to hydrate the participant, which is handled in {@link #batchFetchUsers}
+	 * Here's the TLDR of what this method handles
+	 *
+	 * 1. If participant that joined is anonymous, update state, emit event and return
+	 * 2. If incoming participant is new, update state and emit event
+	 * 3. If incoming participant is not new, update previous state with new values (timestamp, activity)
+	 *
+	 * @param payload Payload from incoming socket event
+	 */
+	private updateParticipantLazy = (payload: PresencePayload) => {
+		const { userId, sessionId } = payload;
+
+		// anonymous users always skip hydration
+		if (!userId || userId === UNIDENTIFIED) {
+			const participant = {
+				...payload,
+				lastActive: payload.timestamp,
+				name: '',
+				avatar: '',
+				email: '',
+				userId: UNIDENTIFIED,
+				isHydrated: true,
+			};
+			this.participantsState.setBySessionId(sessionId, participant);
+			this.emitPresence({ joined: [participant] }, 'handling updated anonymous participant lazy');
+			return;
+		}
+
+		const previousParticipant = this.participantsState.getBySessionId(sessionId);
+		if (!previousParticipant) {
+			const participant = {
+				...payload,
+				lastActive: payload.timestamp,
+				name: '',
+				avatar: '',
+				email: '',
+				userId,
+			};
+			this.participantsState.setBySessionId(sessionId, participant);
+			this.emitPresence({ joined: [participant] }, 'handling updated new participant lazy');
+			// prevent running multiple debounces concurrently
+			if (!this.currentlyPollingFetchUsers) {
+				void this.batchFetchUsers();
+			}
+			return;
+		}
+
+		// would handle activity and lastActive changes
+		const participant = {
+			...previousParticipant,
+			presenceActivity: payload.presenceActivity,
+			lastActive: payload.timestamp,
+		};
+		this.participantsState.setBySessionId(sessionId, participant);
+		this.emitPresence({ joined: [participant] }, 'handling updated previous participant event');
+		// prevent running multiple debounces concurrently
+		if (!this.currentlyPollingFetchUsers) {
+			void this.batchFetchUsers();
+		}
+	};
+
+	onParticipantUpdated = async (payload: PresencePayload) => {
+		if (this.batchProps) {
+			this.updateParticipantLazy(payload);
+		} else {
+			await this.updateParticipantEager(payload);
+		}
 	};
 
 	/**
@@ -308,6 +383,74 @@ export class ParticipantsService {
 		);
 	};
 
+	enrichParticipants = async (props: BatchProps) => {
+		try {
+			const participants = await fetchParticipants(this.participantsState, props);
+			if (participants.length) {
+				this.emitPresence({ joined: participants }, 'handling participant updated event');
+			}
+		} catch (err) {
+			props.onError?.(err);
+			this.analyticsHelper?.sendErrorEvent(err, 'Failed while fetching participants');
+		}
+	};
+
+	/**
+	 * a debounce so we can wait until participants join before hydrating the user and perform batch calls in a timely manner.
+	 *
+	 * if {@link BatchProps#participantsLimit} is supplied
+	 *  1. Fetch users until we've reached the participantsLimit
+	 *  2. If there are no more participants to hydrate and we haven't reached the participantsLimit, stop polling
+	 *  3. If we've reached our participantLimit, stop polling
+	 *
+	 * if no {@link BatchProps#participantsLimit} is supplied
+	 *  1. Fetch users until there are no more participants to hydrate
+	 */
+	batchFetchUsers = async () => {
+		if (!this.batchProps) {
+			return;
+		}
+
+		this.currentlyPollingFetchUsers = true;
+
+		clearTimeout(this.presenceFetchTimeout);
+		const { debounceTime, participantsLimit } = this.batchProps;
+
+		if (participantsLimit) {
+			const size = this.participantsState.getUniqueParticipants({ isHydrated: true }).length;
+			if (size < participantsLimit) {
+				await this.enrichParticipants({
+					...this.batchProps,
+					batchSize: participantsLimit,
+				});
+				this.currentlyPollingFetchUsers = this.participantsState.hasMoreParticipantsToHydrate();
+			} else {
+				this.currentlyPollingFetchUsers = false;
+			}
+		} else if (!participantsLimit) {
+			await this.enrichParticipants(this.batchProps);
+			this.currentlyPollingFetchUsers = this.participantsState.hasMoreParticipantsToHydrate();
+		}
+
+		if (this.currentlyPollingFetchUsers) {
+			this.presenceFetchTimeout = window.setTimeout(
+				() => this.batchFetchUsers(),
+				debounceTime ?? DEFAULT_FETCH_USERS_INTERVAL,
+			);
+		}
+	};
+
+	/**
+	 * We want to give some time for users to initially join before attempting to fetch users
+	 * otherwise we'll always make at least 2 calls if there's more than 1 participant
+	 */
+	batchFetchUsersWithDelay = async () => {
+		await new Promise((r) =>
+			window.setTimeout(r, this.batchProps?.debounceTime ?? DEFAULT_FETCH_USERS_INTERVAL),
+		);
+		void this.batchFetchUsers();
+	};
+
 	/**
 	 * Keep list of participants up to date. Filter out inactive users etc.
 	 */
@@ -378,6 +521,7 @@ export class ParticipantsService {
 	 */
 	clearTimers = () => {
 		clearTimeout(this.participantUpdateTimeout);
+		clearTimeout(this.presenceFetchTimeout);
 	};
 
 	private sendPresence = () => {
@@ -443,6 +587,14 @@ export class ParticipantsService {
 	 */
 	getParticipants = () => {
 		return this.participantsState.getParticipants();
+	};
+
+	getUniqueParticipantSize = () => {
+		return this.participantsState.getUniqueParticipantSize();
+	};
+
+	getUniqueParticipants = (filter: ParticipantFilter) => {
+		return this.participantsState.getUniqueParticipants(filter);
 	};
 
 	getAIProviderParticipants = () => {

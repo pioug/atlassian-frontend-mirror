@@ -1,7 +1,7 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import type { PresencePayload } from '../../types';
-import type { ParticipantsMap } from '../participants-helper';
+import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
@@ -49,20 +49,21 @@ const agentPayload: PresencePayload = {
 
 const participantsServiceConstructor = (deps: {
 	analyticsHelper?: AnalyticsHelper;
-	participants?: ParticipantsState;
+	participantsState?: ParticipantsState;
 	emit?: any;
 	getUser?: any;
 	broadcast?: any;
 	sendPresenceJoined?: any;
 	getPresenceData?: any;
 	setUserId?: any;
+	batchProps?: BatchProps;
 }): ParticipantsService =>
 	new ParticipantsService(
 		deps.analyticsHelper,
-		// @ts-ignore
-		deps.participants,
+		deps.participantsState ?? new ParticipantsState(),
 		deps.emit || jest.fn(),
 		deps.getUser || jest.fn(),
+		deps.batchProps || undefined,
 		deps.broadcast || jest.fn(),
 		deps.sendPresenceJoined || jest.fn(),
 		deps.getPresenceData || jest.fn().mockReturnValue(payload),
@@ -73,13 +74,13 @@ describe('removeInactiveParticipants', () => {
 	it('Should not throw when filterInactive throws an error', () => {
 		const participantsService = participantsServiceConstructor({});
 		jest.useFakeTimers({ legacyFakeTimers: true });
-		expect(setTimeout).not.toBeCalled();
+		expect(setTimeout).not.toHaveBeenCalled();
 		// @ts-ignore
 		participantsService.filterInactive = jest.fn().mockImplementation(() => {
 			throw new Error('Mock Error');
 		});
 		participantsService.startInactiveRemover(undefined);
-		expect(setTimeout).toBeCalledWith(expect.any(Function), PARTICIPANT_UPDATE_INTERVAL);
+		expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), PARTICIPANT_UPDATE_INTERVAL);
 	});
 });
 
@@ -94,7 +95,7 @@ describe('onParticipantLeft', () => {
 
 		const participantsService = participantsServiceConstructor({
 			analyticsHelper,
-			participants,
+			participantsState: participants,
 			emit,
 		});
 
@@ -109,16 +110,16 @@ describe('onParticipantLeft', () => {
 		});
 
 		it('should call emitPresence', () => {
-			expect(emitPresenceSpy).toBeCalledTimes(1);
-			expect(emitPresenceSpy).toBeCalledWith(
+			expect(emitPresenceSpy).toHaveBeenCalledTimes(1);
+			expect(emitPresenceSpy).toHaveBeenCalledWith(
 				{ left: [{ sessionId: activeUser.sessionId }] },
 				'participant leaving',
 			);
 		});
 
 		it('should call emit with participant', () => {
-			expect(emit).toBeCalledTimes(1);
-			expect(emit).toBeCalledWith('presence', {
+			expect(emit).toHaveBeenCalledTimes(1);
+			expect(emit).toHaveBeenCalledWith('presence', {
 				left: [{ sessionId: activeUser.sessionId }],
 			});
 		});
@@ -141,13 +142,12 @@ describe('onParticipantLeft', () => {
 			.set(activeUser.sessionId, activeUser)
 			.set(activeAgent.sessionId, activeAgent);
 
-		const participants: ParticipantsState = new ParticipantsState(participantsMap);
 		const analyticsHelper = new AnalyticsHelper('fakeDocumentAri');
 		const sendActionEvent = jest.spyOn(analyticsHelper, 'sendActionEvent');
 
 		const participantsService = participantsServiceConstructor({
 			analyticsHelper,
-			participants,
+			participantsState: new ParticipantsState(participantsMap),
 			emit,
 		});
 
@@ -196,13 +196,12 @@ describe('onParticipantLeft', () => {
 			.set(activeUser.sessionId, activeUser)
 			.set(activeAgent.sessionId, activeAgent);
 
-		const participants: ParticipantsState = new ParticipantsState(participantsMap);
 		const analyticsHelper = new AnalyticsHelper('fakeDocumentAri');
 		const sendActionEvent = jest.spyOn(analyticsHelper, 'sendActionEvent');
 
 		const participantsService = participantsServiceConstructor({
 			analyticsHelper,
-			participants,
+			participantsState: new ParticipantsState(participantsMap),
 			emit,
 		});
 
@@ -253,10 +252,9 @@ describe('onParticipantLeft', () => {
 		const analyticsHelper = new AnalyticsHelper('fakeDocumentAri');
 		const sendErrorEventSpy = jest.spyOn(analyticsHelper, 'sendErrorEvent');
 		const participantsMap: ParticipantsMap = new Map().set(activeUser.sessionId, activeUser);
-		const participants: ParticipantsState = new ParticipantsState(participantsMap);
 		const participantsService = participantsServiceConstructor({
 			analyticsHelper,
-			participants,
+			participantsState: new ParticipantsState(participantsMap),
 			emit,
 		});
 
@@ -272,9 +270,10 @@ describe('onParticipantLeft', () => {
 describe('getCollabMode', () => {
 	it('should return collab mode for single user correctly', () => {
 		const participantsMap: ParticipantsMap = new Map().set(activeUser.sessionId, activeUser);
-		const participants: ParticipantsState = new ParticipantsState(participantsMap);
 
-		const participantsService = participantsServiceConstructor({ participants });
+		const participantsService = participantsServiceConstructor({
+			participantsState: new ParticipantsState(participantsMap),
+		});
 
 		const collabMode = participantsService.getCollabMode();
 		expect(collabMode).toBe('single');
@@ -284,11 +283,182 @@ describe('getCollabMode', () => {
 		const participantsMap: ParticipantsMap = new Map();
 		participantsMap.set(activeUser.sessionId, activeUser);
 		participantsMap.set(activeAgent.sessionId, activeAgent);
-		const participants: ParticipantsState = new ParticipantsState(participantsMap);
 
-		const participantsService = participantsServiceConstructor({ participants });
+		const participantsService = participantsServiceConstructor({
+			participantsState: new ParticipantsState(participantsMap),
+		});
 
 		const collabMode = participantsService.getCollabMode();
 		expect(collabMode).toBe('collab');
+	});
+});
+
+describe('batchFetchUsers', () => {
+	const mockGetUsers = jest.fn().mockReturnValue([
+		{
+			...activeUser,
+			isHydrated: true,
+		},
+	]);
+
+	const defaultBatchProps: BatchProps = {
+		getUsers: mockGetUsers,
+	};
+
+	afterEach(() => {
+		jest.clearAllMocks();
+		jest.useRealTimers();
+	});
+
+	it('Should clear timers', async () => {
+		const participantsService = participantsServiceConstructor({});
+		//once for inactiveTimer and once for batch timer
+		jest.useFakeTimers({ legacyFakeTimers: true });
+
+		participantsService.clearTimers();
+		expect(clearTimeout).toHaveBeenCalledTimes(2);
+	});
+
+	it('Should do nothing with no batchProps', async () => {
+		const participantsService = participantsServiceConstructor({});
+		// @ts-ignore private variable
+		expect(participantsService.currentlyPollingFetchUsers).toBeTruthy();
+		await participantsService.batchFetchUsers();
+
+		// @ts-ignore private variable
+		expect(participantsService.currentlyPollingFetchUsers).toBeTruthy();
+		expect(mockGetUsers).not.toHaveBeenCalled();
+	});
+
+	it.each([['default'], [1000]])(
+		'Should delay and fetch correctly with delay of %s',
+		async (customDelay) => {
+			const participantsState = new ParticipantsState();
+			participantsState.setBySessionId(activeUser.sessionId, activeUser);
+			const participantsService = participantsServiceConstructor({
+				participantsState,
+				batchProps:
+					customDelay === 'default'
+						? defaultBatchProps
+						: {
+								...defaultBatchProps,
+								debounceTime: customDelay as number,
+							},
+			});
+
+			// 500 is DEFAULT_FETCH_USERS_INTERVAL
+			const timeout = customDelay === 'default' ? 500 : (customDelay as number);
+
+			// @ts-ignore private variable
+			expect(participantsService.currentlyPollingFetchUsers).toBeTruthy();
+
+			jest.useFakeTimers({ legacyFakeTimers: true });
+			expect(setTimeout).not.toHaveBeenCalled();
+			const delay = participantsService.batchFetchUsersWithDelay();
+
+			expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), timeout);
+
+			jest.advanceTimersByTime(200);
+			// @ts-ignore private variable
+			expect(participantsService.currentlyPollingFetchUsers).toBeTruthy();
+
+			jest.advanceTimersByTime(timeout + 100);
+			await delay;
+
+			expect(mockGetUsers).toHaveBeenCalled();
+			// don't want to await batchFetchUsers in service, so wait for promises resovled
+			await new Promise(process.nextTick);
+			// @ts-ignore private variable
+			expect(participantsService.currentlyPollingFetchUsers).toBeFalsy();
+		},
+	);
+
+	it('Should handle error', async () => {
+		const analyticsHelper = new AnalyticsHelper('fakeDocumentAri');
+		const sendErrorEventSpy = jest.spyOn(analyticsHelper, 'sendErrorEvent');
+		const mockOnError = jest.fn();
+
+		const participantsState = new ParticipantsState();
+		participantsState.setBySessionId(activeUser.sessionId, activeUser);
+
+		const participantsService = participantsServiceConstructor({
+			analyticsHelper,
+			participantsState,
+			batchProps: {
+				...defaultBatchProps,
+				getUsers: jest.fn().mockImplementation(() => {
+					throw error;
+				}),
+				onError: mockOnError,
+			},
+		});
+
+		jest.useFakeTimers({ legacyFakeTimers: true });
+		expect(setTimeout).not.toHaveBeenCalled();
+
+		const error = new Error('Mock Error');
+		await participantsService.batchFetchUsers();
+
+		expect(mockOnError).toHaveBeenCalledWith(error);
+
+		expect(sendErrorEventSpy).toHaveBeenCalledWith(error, 'Failed while fetching participants');
+	});
+
+	it('Should call timeout with custom debounceTime', async () => {
+		const participantsState = new ParticipantsState();
+		participantsState.setBySessionId(activeUser.sessionId, activeUser);
+
+		const participantsService = participantsServiceConstructor({
+			participantsState,
+			batchProps: {
+				debounceTime: 35,
+			},
+		});
+		jest.useFakeTimers({ legacyFakeTimers: true });
+		expect(setTimeout).not.toHaveBeenCalled();
+
+		await participantsService.batchFetchUsers();
+
+		expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 35);
+	});
+
+	it('Should enrich participants if no restriction on maxIntervalFetchSize', async () => {
+		const participantsState = new ParticipantsState();
+		participantsState.setBySessionId(activeUser.sessionId, activeUser);
+
+		const participantsService = participantsServiceConstructor({
+			participantsState,
+			batchProps: defaultBatchProps,
+		});
+		jest.useFakeTimers({ legacyFakeTimers: true });
+		expect(setTimeout).not.toHaveBeenCalled();
+
+		await participantsService.batchFetchUsers();
+
+		expect(setTimeout).toHaveBeenCalledTimes(0);
+		expect(mockGetUsers).toHaveBeenCalledTimes(1);
+	});
+
+	it('Should not enrich participants if participantsLimit reached', async () => {
+		const participantsState = new ParticipantsState();
+		participantsState.setBySessionId(activeUser.sessionId, {
+			...activeUser,
+			isHydrated: true,
+		});
+
+		const participantsService = participantsServiceConstructor({
+			participantsState,
+			batchProps: {
+				...defaultBatchProps,
+				participantsLimit: 1,
+			},
+		});
+		jest.useFakeTimers({ legacyFakeTimers: true });
+		expect(setTimeout).not.toHaveBeenCalled();
+
+		await participantsService.batchFetchUsers();
+
+		expect(setTimeout).toHaveBeenCalledTimes(0);
+		expect(mockGetUsers).toHaveBeenCalledTimes(0);
 	});
 });

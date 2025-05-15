@@ -8,7 +8,7 @@ export default () => (
 		renderProductHome={() => null}
 		primaryItems={[
 			<PrimaryButton>Explore</PrimaryButton>,
-			<PrimaryButton>Issues</PrimaryButton>,
+			<PrimaryButton>Work items</PrimaryButton>,
 			<PrimaryButton>Services</PrimaryButton>,
 		]}
 	/>

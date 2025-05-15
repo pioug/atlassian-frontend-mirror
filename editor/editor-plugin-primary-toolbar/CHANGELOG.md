@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 3.2.6
+
+### Patch Changes
+
+- [#153512](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153512)
+  [`795799207e556`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/795799207e556) -
+  ED-27817 Hide find button on primary toolbar when contextualFormattingEnabled option is false
+
 ## 3.2.5
 
 ### Patch Changes

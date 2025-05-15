@@ -15,7 +15,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { EditorAnalyticsAPI } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import { type BreakoutEventPayload } from '../analytics/types/breakout-events';
-import { GuidelineConfig } from '../guideline';
+import { type GuidelineConfig } from '../guideline';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
 import { type EditorContainerWidth, type getPosHandlerNode } from '../types';
 import { browser } from '../utils/browser';
@@ -118,6 +118,19 @@ type BreakoutResizerProps = {
  * correct ADF support.
  *
  * use experiment platform_editor_advanced_layouts
+ * @param root0
+ * @param root0.editorView
+ * @param root0.nodeType
+ * @param root0.getPos
+ * @param root0.getRef
+ * @param root0.disabled
+ * @param root0.getEditorWidth
+ * @param root0.parentRef
+ * @param root0.displayGuidelines
+ * @param root0.editorAnalyticsApi
+ * @param root0.displayGapCursor
+ * @param root0.onResizeStart
+ * @example
  */
 const BreakoutResizer = ({
 	editorView,

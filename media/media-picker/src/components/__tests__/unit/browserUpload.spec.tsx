@@ -1,11 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { waitFor } from '@testing-library/react';
 
-import {
-	expectFunctionToHaveBeenCalledWith,
-	fakeMediaClient,
-	flushPromises,
-} from '@atlaskit/media-test-helpers';
+import { expectFunctionToHaveBeenCalledWith, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { Browser } from '../../browser/browser';
 import {
 	type TouchFileDescriptor,
@@ -61,20 +58,20 @@ describe('Browser upload phases', () => {
 
 		browser.find('input').simulate('change', { target: { files: [file] } });
 
-		await flushPromises();
-
-		expect(onUploadsStart).toHaveBeenCalledWith({
-			files: [
-				{
-					creationDate: Date.now(),
-					id: uuidRegexMatcher,
-					name: undefined,
-					occurrenceKey: uuidRegexMatcher,
-					size: 13,
-					type: 'text/plain',
-				},
-			],
-			traceContext: { traceId: expect.any(String) },
+		await waitFor(() => {
+			expect(onUploadsStart).toHaveBeenCalledWith({
+				files: [
+					{
+						creationDate: Date.now(),
+						id: uuidRegexMatcher,
+						name: undefined,
+						occurrenceKey: uuidRegexMatcher,
+						size: 13,
+						type: 'text/plain',
+					},
+				],
+				traceContext: { traceId: expect.any(String) },
+			});
 		});
 	});
 
@@ -90,16 +87,22 @@ describe('Browser upload phases', () => {
 				});
 			},
 		);
+		const onUploadsStart = jest.fn();
 		const onEnd = jest.fn();
 		const browser = mount(
-			<Browser mediaClient={mediaClient} config={browseConfig} onEnd={onEnd} />,
+			<Browser
+				mediaClient={mediaClient}
+				config={browseConfig}
+				onUploadsStart={onUploadsStart}
+				onEnd={onEnd}
+			/>,
 		);
 		const fileContents = 'file contents';
 		const file = new Blob([fileContents], { type: 'text/plain' });
 
 		browser.find('input').simulate('change', { target: { files: [file] } });
 
-		await flushPromises();
+		await waitFor(() => expect(onUploadsStart).toHaveBeenCalled());
 
 		fileStateObservable.next({
 			id: 'file id',
@@ -110,16 +113,18 @@ describe('Browser upload phases', () => {
 			status: 'processing',
 		});
 
-		expect(onEnd).toHaveBeenCalledWith({
-			file: {
-				creationDate: Date.now(),
-				id: uuidRegexMatcher,
-				name: undefined,
-				occurrenceKey: uuidRegexMatcher,
-				size: 13,
-				type: 'text/plain',
-			},
-			traceContext: { traceId: expect.any(String) },
+		await waitFor(() => {
+			expect(onEnd).toHaveBeenCalledWith({
+				file: {
+					creationDate: Date.now(),
+					id: uuidRegexMatcher,
+					name: undefined,
+					occurrenceKey: uuidRegexMatcher,
+					size: 13,
+					type: 'text/plain',
+				},
+				traceContext: { traceId: expect.any(String) },
+			});
 		});
 	});
 
@@ -144,21 +149,21 @@ describe('Browser upload phases', () => {
 
 		browser.find('input').simulate('change', { target: { files: [file] } });
 
-		await flushPromises();
-
 		fileStateObservable.error(error);
 
-		expectFunctionToHaveBeenCalledWith(onError, [
-			{
-				error: {
-					description: 'oops',
+		await waitFor(() => {
+			expectFunctionToHaveBeenCalledWith(onError, [
+				{
+					error: {
+						description: 'oops',
+						fileId: uuidRegexMatcher,
+						name: 'upload_fail',
+						rawError: error,
+					},
 					fileId: uuidRegexMatcher,
-					name: 'upload_fail',
-					rawError: error,
+					traceContext: { traceId: expect.any(String) },
 				},
-				fileId: uuidRegexMatcher,
-				traceContext: { traceId: expect.any(String) },
-			},
-		]);
+			]);
+		});
 	});
 });

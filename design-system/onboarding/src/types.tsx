@@ -1,4 +1,4 @@
-import { type ComponentType, type MouseEvent, type ReactNode } from 'react';
+import { type ComponentType, type MouseEvent, type ReactNode, type Ref } from 'react';
 
 import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 
@@ -119,4 +119,70 @@ export interface SpotlightProps {
 	 * Usage of either this, or the `label` prop is strongly recommended to improve accessibility.
 	 */
 	titleId?: string;
+}
+
+export interface SpotlightCardProps {
+	/**
+	 * Buttons to render in the footer.
+	 */
+	actions?: Actions;
+	/**
+	 * An optional element rendered to the left of the footer actions.
+	 */
+	actionsBeforeElement?: ReactNode;
+	/**
+	 * The content of the card.
+	 */
+	children?: ReactNode;
+	/**
+	 * The container elements rendered by the component.
+	 */
+	components?: {
+		Header?: ComponentType<any>;
+		Footer?: ComponentType<any>;
+	};
+	/**
+	 * The heading to be rendered above the body content.
+	 */
+	heading?: ReactNode;
+	/**
+	 * Specifies the heading level in the document structure.
+	 * If not specified, level 4 will be applied by default.
+	 */
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+	/**
+	 * An optional element rendered to the right of the heading, usually used to number steps in a multi-step flow.
+	 */
+	headingAfterElement?: ReactNode;
+	/**
+	 * The image src to render above the heading.
+	 */
+	image?: string | ReactNode;
+	/**
+	 * Removes elevation styles if set.
+	 */
+	isFlat?: boolean;
+
+	/**
+	 * Specifies the width of the card component. Accepts either a number or the string '100%'.
+	 * When a number is provided, the width is set in pixels. When '100%' is provided, the width
+	 * is set to occupy 100% of the parent container's width. Regardless of whether `width` is set,
+	 * the width is constrained to a minimum width of 160px and a maximum width of 600px.
+	 */
+	width?: number | '100%';
+	/**
+	 * @deprecated
+	 * Use `ref` instead.
+	 */
+	innerRef?: Ref<HTMLDivElement> | null;
+	/**
+	 * A `testId` prop is provided for specified elements,
+	 * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
+	/**
+	 * The ID of heading.
+	 */
+	headingId?: string;
 }

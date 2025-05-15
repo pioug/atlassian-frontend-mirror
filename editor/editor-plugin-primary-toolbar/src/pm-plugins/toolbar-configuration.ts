@@ -25,7 +25,10 @@ export const getToolbarComponents = ({
 		const shouldShowUndoRedoGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
 		configuration = toolbarConfigurationV2(shouldShowInsertBlock, shouldShowUndoRedoGroup);
 	} else {
-		configuration = toolbarConfiguration;
+		const shouldShowFindGroup = !(
+			!contextualFormattingEnabled && fg('platform_editor_controls_fix_toolbar_config_embeds')
+		);
+		configuration = toolbarConfiguration(shouldShowFindGroup);
 	}
 
 	return configuration
@@ -150,13 +153,28 @@ const others: ToolbarElementConfig[] = [
 		name: 'loom',
 	},
 ];
+const othersGroupNoFind: ToolbarElementConfig[] = [
+	{
+		name: 'beforePrimaryToolbar',
+	},
+	{
+		name: 'avatarGroup',
+	},
+	{
+		// TODO: ED-26962 - Should likely be split into three: spelling & grammar, separator, and AI trigger
+		name: 'aiExperience',
+	},
+	{
+		name: 'loom',
+	},
+];
 const findGroup: ToolbarElementConfig[] = [
 	{
 		name: 'findReplace',
 	},
 ];
 
-const toolbarConfiguration: ToolbarElementConfig[] = [
+const toolbarConfiguration = (shouldShowFindGroup: boolean): ToolbarElementConfig[] => [
 	...undoRedoGroup,
 	...spellCheckGroup,
 	...blockTypeGroup,
@@ -165,7 +183,7 @@ const toolbarConfiguration: ToolbarElementConfig[] = [
 	...textColorGroup,
 	...listFormattingGroup,
 	...insertBlockGroup,
-	...others,
+	...(shouldShowFindGroup ? others : othersGroupNoFind),
 ];
 
 const toolbarConfigurationV2 = (

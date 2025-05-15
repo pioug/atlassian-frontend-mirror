@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.6.7
+
+### Patch Changes
+
+- [#154163](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154163)
+  [`82b017a2d9588`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82b017a2d9588) -
+  Add error handling if offline editing to refresh the emoji node when returning online.
+
 ## 3.6.6
 
 ### Patch Changes

@@ -16,7 +16,7 @@ import type { AIEventPayload } from './ai-events';
 import type { AIInlineSuggestionPayload } from './ai-inline-suggestion-events';
 import type { AIProactiveEventPayload } from './ai-proactive-events';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
-import { AlignmentEventPayload } from './alignment-events';
+import type { AlignmentEventPayload } from './alignment-events';
 import type { AvatarEventPayload } from './avatar';
 import { type BreakoutEventPayload } from './breakout-events';
 import type { TextColorEventPayload } from './color-events';

@@ -1,5 +1,18 @@
 # @atlaskit/dropdown-menu
 
+## 14.2.0
+
+### Minor Changes
+
+- [#154745](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154745)
+  [`7618d9837e247`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7618d9837e247) -
+  Tidy up design-system-closed-all-when-click-outside and sibling-dropdown-close-issue to provide
+  better keyboard navigation.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.4
 
 ### Patch Changes

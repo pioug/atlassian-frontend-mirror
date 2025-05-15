@@ -1,5 +1,27 @@
 # @atlaskit/reactions
 
+## 31.12.0
+
+### Minor Changes
+
+- [#152199](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152199)
+  [`08298b62373b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08298b62373b8) -
+  Updating scripts to explicitly use yarn start:webpack since yarn start doesn't currently support
+  the --proxy flag when rspack is used as a bundler
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.11.0
+
+### Minor Changes
+
+- [#153904](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153904)
+  [`881d29f1df066`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/881d29f1df066) -
+  [ux] Updates the vertical positioning of the reactions counter for updated byline page reactions
+  styles
+
 ## 31.10.0
 
 ### Minor Changes

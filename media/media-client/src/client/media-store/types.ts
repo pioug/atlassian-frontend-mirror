@@ -203,6 +203,20 @@ export interface EmptyFile {
 	readonly createdAt: number;
 }
 
+export type GetArtifactBinaryOptions = {
+	collectionName?: string;
+	abortController?: AbortController;
+	maxAge?: number;
+	traceContext?: MediaTraceContext;
+};
+
+export type UploadArtifactCaptionsParams = {
+	type: 'caption';
+	language: string;
+};
+
+export type UploadArtifactParams = UploadArtifactCaptionsParams;
+
 export interface MediaApi {
 	removeCollectionFile: (
 		id: string,
@@ -268,6 +282,20 @@ export interface MediaApi {
 		artifactName: keyof MediaFileArtifacts,
 		collectionName?: string,
 	) => Promise<string>;
+
+	getArtifactBinary(
+		artifacts: MediaFileArtifacts,
+		artifactName: keyof MediaFileArtifacts,
+		options: GetArtifactBinaryOptions,
+	): Promise<Blob>;
+
+	uploadArtifact(
+		id: string,
+		file: File,
+		params: UploadArtifactParams,
+		collectionName?: string,
+		traceContext?: MediaTraceContext,
+	): Promise<MediaStoreResponse<MediaItemDetails>>;
 
 	getImage: (
 		id: string,

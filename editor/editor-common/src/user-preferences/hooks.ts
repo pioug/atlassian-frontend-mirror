@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { ResolvedUserPreferences } from './user-preferences';
+import { type ResolvedUserPreferences } from './user-preferences';
 import { UserPreferencesProvider } from './user-preferences-provider';
 
+/**
+ *
+ * @param userPreferencesProvider
+ * @example
+ */
 export function useResolvedUserPreferences(userPreferencesProvider: UserPreferencesProvider) {
 	const [resolvedUserPreferences, setResolvedUserPreferences] = useState<ResolvedUserPreferences>(
 		userPreferencesProvider.getPreferences(),

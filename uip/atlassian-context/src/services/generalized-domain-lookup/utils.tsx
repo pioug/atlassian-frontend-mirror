@@ -1,4 +1,4 @@
-import { EnvironmentType, PRODUCTION, STAGING } from '../../common/constants';
+import { type EnvironmentType, PRODUCTION, STAGING } from '../../common/constants';
 
 export function _getEnvironmentFromDomain(): EnvironmentType {
 	const hostname = globalThis.location?.hostname;

@@ -1,5 +1,14 @@
 # @atlaskit/prosemirror-collab
 
+## 0.16.3
+
+### Patch Changes
+
+- [#144227](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144227)
+  [`6da190d8e3a24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da190d8e3a24) -
+  Add ability to rebase drag and drop content
+- Updated dependencies
+
 ## 0.16.2
 
 ### Patch Changes

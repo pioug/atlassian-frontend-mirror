@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-table
 
+## 10.9.24
+
+### Patch Changes
+
+- [#154343](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154343)
+  [`65a57af636614`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65a57af636614) -
+  [ux] ED-27894: add platform_editor_table_fw_numcol_overflow_fix to stop first-paint flash and
+  overflow on full-width numbered-column tables when refreshing page
+
+## 10.9.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.9.22
+
+### Patch Changes
+
+- [#154546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154546)
+  [`11d9e46f3caaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11d9e46f3caaa) -
+  Fix tables insertion when platform_editor_usesharedpluginstateselector experiment is enabled
+- [#154340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154340)
+  [`982623fd6523f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/982623fd6523f) -
+  [ux] [EDITOR-325] Clean up nested tables feature gate
+  `platform_editor_nested_tables_bodied_extension_fix`
+
 ## 10.9.21
 
 ### Patch Changes

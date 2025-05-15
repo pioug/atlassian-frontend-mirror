@@ -33,15 +33,11 @@ export const useCloseManager = ({
 
 		const closePopup = (event: Event | React.MouseEvent | React.KeyboardEvent) => {
 			if (onClose) {
-				if (fg('sibling-dropdown-close-issue')) {
-					let currentLevel = null;
-					if (event.target instanceof HTMLElement) {
-						currentLevel = event.target.closest(`[data-ds--level]`)?.getAttribute('data-ds--level');
-					}
-					currentLevel ? onClose(event, Number(currentLevel)) : onClose(event);
-				} else {
-					onClose(event);
+				let currentLevel = null;
+				if (event.target instanceof HTMLElement) {
+					currentLevel = event.target.closest(`[data-ds--level]`)?.getAttribute('data-ds--level');
 				}
+				currentLevel ? onClose(event, Number(currentLevel)) : onClose(event);
 			}
 
 			if (shouldDisableFocusTrap && fg('platform_dst_popup-disable-focuslock')) {
@@ -72,24 +68,20 @@ export const useCloseManager = ({
 			}
 
 			if (isLayerDisabled()) {
-				if (fg('design-system-closed-all-when-click-outside')) {
-					if (target instanceof HTMLElement) {
-						const layeredElement = target.closest?.(`[data-ds--level]`);
-						if (layeredElement) {
-							const closeType = layeredElement.getAttribute('[data-ds--close--type]');
-							if (closeType === 'single') {
-								// if the close type is single, we won't close other disabled layers when clicking outside
-								return;
-							}
-							const levelOfClickedLayer = layeredElement.getAttribute('data-ds--level');
-							if (levelOfClickedLayer && Number(levelOfClickedLayer) > currentLevel) {
-								// won't trigger onClick event when we click in a higher layer.
-								return;
-							}
+				if (target instanceof HTMLElement) {
+					const layeredElement = target.closest?.(`[data-ds--level]`);
+					if (layeredElement) {
+						const closeType = layeredElement.getAttribute('[data-ds--close--type]');
+						if (closeType === 'single') {
+							// if the close type is single, we won't close other disabled layers when clicking outside
+							return;
+						}
+						const levelOfClickedLayer = layeredElement.getAttribute('data-ds--level');
+						if (levelOfClickedLayer && Number(levelOfClickedLayer) > currentLevel) {
+							// won't trigger onClick event when we click in a higher layer.
+							return;
 						}
 					}
-				} else {
-					return;
 				}
 			}
 

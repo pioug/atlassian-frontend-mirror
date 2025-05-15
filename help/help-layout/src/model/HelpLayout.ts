@@ -36,7 +36,7 @@ export interface HeaderContent {
 export interface SideNavTab {
 	icon: React.ReactNode;
 	label: string;
-	content: React.ReactNode;
+	contentRender: () => React.ReactNode;
 	onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 	header: HeaderContent;
 }

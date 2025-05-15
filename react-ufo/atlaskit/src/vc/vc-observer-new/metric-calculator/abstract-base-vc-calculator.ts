@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
+import type { RevisionPayloadEntry, VCAbortReason } from '../../../common/vc/types';
 import type { VCObserverEntry } from '../types';
 
 import calculateTTVCPercentiles from './percentile-calc';

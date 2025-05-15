@@ -2,7 +2,7 @@ import type { VCObserverEntry } from '../../../types';
 import isViewportEntryData from '../../utils/is-viewport-entry-data';
 import taskYield from '../../utils/task-yield';
 
-import {
+import type {
 	DOMSelector,
 	HeatmapCheckpointMetrics,
 	HeatmapEntry,

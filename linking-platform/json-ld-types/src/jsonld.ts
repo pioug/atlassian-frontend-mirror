@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace, import/export */
-import {
+import type {
 	Action as ActionSchema,
 	AssignAction,
 	CommentAction,

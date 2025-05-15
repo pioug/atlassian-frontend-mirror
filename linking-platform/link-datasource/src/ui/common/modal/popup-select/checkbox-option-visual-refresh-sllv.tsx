@@ -4,11 +4,11 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { OptionProps } from '@atlaskit/react-select';
+import { type OptionProps } from '@atlaskit/react-select';
 import { CheckboxOption } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import { SelectOption } from './types';
+import type { SelectOption } from './types';
 
 const checkboxStyles = css({
 	boxShadow: 'none',

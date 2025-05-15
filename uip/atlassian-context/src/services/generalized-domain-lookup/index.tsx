@@ -1,15 +1,15 @@
 import {
 	COMMERCIAL,
-	EnvironmentType,
+	type EnvironmentType,
 	ISOLATED_CLOUD_PERIMETERS,
-	IsolatedCloudPerimeterType,
+	type IsolatedCloudPerimeterType,
 	NON_ISOLATED_CLOUD_PERIMETERS,
-	NonIsolatedCloudPerimeterType,
+	type NonIsolatedCloudPerimeterType,
 	PRODUCTION,
 } from '../../common/constants';
 import { fullDomainOverride } from '../../common/constants/domains';
-import { AllowedDomains, DomainKey } from '../../common/types';
-import { AtlContextCookie, parseAtlCtxCookie } from '../perimeter/utils';
+import { AllowedDomains, type DomainKey } from '../../common/types';
+import { type AtlContextCookie, parseAtlCtxCookie } from '../perimeter/utils';
 
 import {
 	AtlDomainMapping,

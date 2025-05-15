@@ -138,10 +138,10 @@ export const bitbucketPrimaryItems = [
 	</NavigationButton>,
 	<NavigationButton
 		onClick={(...args: any[]) => {
-			console.log('Issues click', ...args);
+			console.log('Work items click', ...args);
 		}}
 	>
-		Issues
+		Work items
 	</NavigationButton>,
 ];
 
@@ -194,7 +194,7 @@ export const jiraPrimaryItems = [
 	<PrimaryDropdown content={ProjectsContent} text="Projects" />,
 	<NavigationButton
 		onClick={(...args: any[]) => {
-			console.log('Issues click', ...args);
+			console.log('Work items click', ...args);
 		}}
 		isHighlighted
 	>
@@ -248,7 +248,7 @@ export const jiraPrimaryItemsGerman = [
 	<PrimaryDropdown content={ProjectsContent} text="Projekte" />,
 	<NavigationButton
 		onClick={(...args: any[]) => {
-			console.log('Issues click', ...args);
+			console.log('Work items click', ...args);
 		}}
 		isHighlighted
 	>
@@ -302,7 +302,7 @@ export const jiraPrimaryItemsSpanish = [
 	<PrimaryDropdown content={ProjectsContent} text="Projects" />,
 	<NavigationButton
 		onClick={(...args: any[]) => {
-			console.log('Issues click', ...args);
+			console.log('Work items click', ...args);
 		}}
 		isHighlighted
 	>
@@ -356,7 +356,7 @@ export const jiraPrimaryItemsTurkish = [
 	<PrimaryDropdown content={ProjectsContent} text="Projeler" />,
 	<NavigationButton
 		onClick={(...args: any[]) => {
-			console.log('Issues click', ...args);
+			console.log('Work items click', ...args);
 		}}
 		isHighlighted
 	>
@@ -410,7 +410,7 @@ export const jiraPrimaryItemsJapanese = [
 	<PrimaryDropdown content={ProjectsContent} text="プロジェクト" />,
 	<NavigationButton
 		onClick={(...args: any[]) => {
-			console.log('Issues click', ...args);
+			console.log('Work items click', ...args);
 		}}
 		isHighlighted
 	>

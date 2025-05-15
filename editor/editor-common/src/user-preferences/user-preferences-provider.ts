@@ -1,8 +1,11 @@
-import { PersistenceAPI } from './persistence-api';
-import { ResolvedUserPreferences, UserPreferences } from './user-preferences';
+import { type PersistenceAPI } from './persistence-api';
+import { type ResolvedUserPreferences, type UserPreferences } from './user-preferences';
 
 type UpdateCallback = (userPreferences: UserPreferences) => void;
 
+/**
+ *
+ */
 export class UserPreferencesProvider {
 	private callbacks: Array<UpdateCallback> = [];
 	private userPreferences: UserPreferences = {};
@@ -15,6 +18,7 @@ export class UserPreferencesProvider {
 	 * @param persistenceAPI - The persistence API to use for loading and updating user preferences
 	 * @param defaultPreferences - The default user preferences to use
 	 * @param initialUserPreferences - The initial user preferences to use (optional)
+	 * @example
 	 */
 	constructor(persistenceAPI: PersistenceAPI, defaultPreferences: ResolvedUserPreferences) {
 		this.persistenceAPI = persistenceAPI;
@@ -29,6 +33,9 @@ export class UserPreferencesProvider {
 		}
 	}
 
+	/**
+	 *
+	 */
 	get isInitialized() {
 		return this.initialized;
 	}
@@ -37,6 +44,7 @@ export class UserPreferencesProvider {
 	 * This method fetches the latest user preferences
 	 * @returns a promise that resolves with the user preferences, or rejects if error occurs
 	 * @throws Error if there is an error loading user preferences
+	 * @example
 	 */
 	public async loadPreferences(): Promise<void> {
 		const userPreferences = await this.persistenceAPI.loadUserPreferences();
@@ -49,6 +57,7 @@ export class UserPreferencesProvider {
 	 * @param value
 	 * @returns a promise that resolves when the user preference is updated
 	 * @throws Error if there is an error updating user preferences
+	 * @example
 	 */
 	public async updatePreference<K extends keyof UserPreferences>(
 		key: K,
@@ -62,6 +71,7 @@ export class UserPreferencesProvider {
 	 * get a user preference, Note that this function is a not async function,
 	 * meaning that consumers should prefetch the user preference and make it available initially
 	 * @param key
+	 * @example
 	 */
 	getPreference<K extends keyof ResolvedUserPreferences>(key: K): ResolvedUserPreferences[K] {
 		return this.resolvedUserPreferences[key];
@@ -69,6 +79,7 @@ export class UserPreferencesProvider {
 
 	/**
 	 * get all user preferences
+	 * @example
 	 */
 	getPreferences(): ResolvedUserPreferences {
 		return this.resolvedUserPreferences;
@@ -76,7 +87,9 @@ export class UserPreferencesProvider {
 
 	/**
 	 * This method fetches the latest user preferences
+	 * @param onUpdate
 	 * @returns a function to unsubscribe from the updates
+	 * @example
 	 */
 	public onUpdate(onUpdate: UpdateCallback): () => void {
 		this.callbacks.push(onUpdate);
@@ -92,6 +105,7 @@ export class UserPreferencesProvider {
 	 * setting the default user preferences will also trigger an update
 	 * This is useful when the default user preferences dynamically based on the context
 	 * @param preferences
+	 * @example
 	 */
 	setDefaultPreferences(preferences: ResolvedUserPreferences) {
 		this.defaultPreferences = preferences;
@@ -112,6 +126,10 @@ export class UserPreferencesProvider {
 		}
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	notifyUserPreferencesUpdated() {
 		this.callbacks.forEach((callback) => {
 			callback(this.resolvedUserPreferences);
@@ -123,6 +141,7 @@ export class UserPreferencesProvider {
 	 * with the user preferences and filtering out any undefined or null values
 	 * to avoid overwriting default preferences with null values
 	 * @returns true if the user preferences were updated, false otherwise
+	 * @example
 	 */
 	private resolveUserPreferences(): boolean {
 		// Merge default preferences with user preferences

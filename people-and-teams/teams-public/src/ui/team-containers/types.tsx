@@ -35,6 +35,10 @@ export interface TeamContainerProps {
 	 * The container id to filter out from the list
 	 */
 	isDisplayedOnProfileCard?: boolean;
+	/**
+	 * The maximum number of containers to show
+	 */
+	maxNumberOfContainersToShow?: number;
 }
 
 export interface TeamContainersComponent {

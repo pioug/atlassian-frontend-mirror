@@ -15,7 +15,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
-import { CommonAnchorProps, type CommonLinkVariantProps } from '../types';
+import type { CommonAnchorProps, CommonLinkVariantProps } from '../types';
 
 import { type CommonIconButtonProps } from './types';
 

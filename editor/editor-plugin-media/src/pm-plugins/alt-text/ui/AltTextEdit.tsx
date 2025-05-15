@@ -314,7 +314,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		) {
 			this.closeMediaAltTextMenuAndSetFocus();
 		} else {
-			this.closeMediaAltTextMenu(); // Why do we close the menu on blur? Is it a bug?
+			this.closeMediaAltTextMenu();
 		}
 	};
 

@@ -1,4 +1,4 @@
-import { RevisionPayloadEntry } from '../../common/vc/types';
+import { type RevisionPayloadEntry } from '../../common/vc/types';
 
 import EntriesTimeline from './entries-timeline';
 import getElementName, { type SelectorConfig } from './get-element-name';

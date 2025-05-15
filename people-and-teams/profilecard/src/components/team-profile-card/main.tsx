@@ -10,16 +10,18 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import LinkItem from '@atlaskit/menu/link-item';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { Box, Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Pressable, Stack, Text } from '@atlaskit/primitives/compiled';
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
 
 import { fireEvent } from '../../util/analytics';
+import TeamAppTile from '../common/assets/TeamAppTile.svg';
 
-import { ButtonSection, ButtonSectionProps } from './team-actions';
-import { TeamConnections } from './team-connections/main';
+import { TeamActions, TeamActionsProps } from './team-actions';
+import { NewTeamConnections, TeamConnections } from './team-connections/main';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
 
 const noop = () => {};
@@ -48,6 +50,12 @@ const styles = cssMap({
 		height: '100px',
 		width: '100%',
 	},
+	newHeaderImageStyles: {
+		objectFit: 'cover',
+		verticalAlign: 'top',
+		height: '50px',
+		width: '100%',
+	},
 	teamInformationStyles: {
 		marginLeft: token('space.300'),
 		marginTop: token('space.100'),
@@ -60,16 +68,29 @@ const styles = cssMap({
 		overflowY: 'auto',
 	},
 	teamConnectionContainerStyles: {
-		marginLeft: token('space.300'),
-		marginRight: token('space.300'),
+		marginLeft: token('space.100'),
+		marginRight: token('space.100'),
+	},
+	teamConnectionStyles: {
+		marginLeft: token('space.100'),
+		marginRight: token('space.100'),
+	},
+	teamConnectionItemsStyles: {
+		maxHeight: '265px',
+		overflowY: 'auto',
 	},
 	connectionTitleStyles: {
 		marginLeft: token('space.200'),
-		marginTop: token('space.200'),
+		marginTop: token('space.050'),
 		marginRight: token('space.200'),
 		marginBottom: token('space.075'),
 		color: token('color.text.subtle'),
 		font: token('font.heading.xxsmall'),
+	},
+	teamAppTileStyles: {
+		marginLeft: 'auto',
+		height: '16px',
+		width: '16px',
 	},
 	viewProfileContainerStyles: {
 		alignItems: 'center',
@@ -122,7 +143,7 @@ type TeamProfileCardProps = {
 	userId: string;
 	isVerified?: boolean;
 	teamProfileUrl?: string;
-} & ButtonSectionProps;
+} & TeamActionsProps;
 
 export const TeamProfileCard = ({
 	containerId,
@@ -149,6 +170,9 @@ export const TeamProfileCard = ({
 		[containerId, teamContainers],
 	);
 
+	// TODO: set isNewLayout to be true when clean up 'team-bi-directional-container-connection' experiment
+	const isNewLayout = Boolean(props.isKudosEnabled || props.otherActions);
+
 	const onClick = useCallback(() => {
 		if (createAnalyticsEvent) {
 			fireEvent(createAnalyticsEvent, {
@@ -158,8 +182,108 @@ export const TeamProfileCard = ({
 				attributes: {},
 			});
 		}
-		window.open(teamProfileUrl, '_blank');
-	}, [createAnalyticsEvent, teamProfileUrl]);
+		if (!isNewLayout) {
+			window.open(teamProfileUrl, '_blank');
+		}
+	}, [createAnalyticsEvent, teamProfileUrl, isNewLayout]);
+
+	if (isNewLayout) {
+		return (
+			<Box xcss={styles.wrapperStyles} testId={`team-card-${teamId}`}>
+				<Box
+					as="img"
+					src={headerImageUrl}
+					xcss={styles.newHeaderImageStyles}
+					testId="profile-header-image"
+					alt="team-header-image"
+				/>
+				<Stack space="space.200" xcss={styles.containerStyles}>
+					<Inline spread="space-between" alignBlock="center">
+						<Box xcss={styles.avatarImageStyles}>
+							<TeamAvatar size="medium" src={avatarImageUrl} />
+						</Box>
+					</Inline>
+
+					<Stack xcss={styles.teamInformationStyles} space="space.200">
+						<Flex justifyContent="space-between">
+							<Stack space="space.050">
+								<Inline alignBlock="center">
+									<Heading size="medium">{displayName}</Heading>
+									{isVerified && <VerifiedTeamIcon showTooltip />}
+								</Inline>
+								<Text color="color.text.subtlest">
+									<FormattedMessage
+										defaultMessage="Contributing team &bull; {count, plural, one {# member} other {# members}}"
+										values={{ count: memberCount }}
+										id="people-and-teams.team-profile-card.member-count"
+									/>
+								</Text>
+							</Stack>
+							<TeamActions cloudId={cloudId} teamId={teamId} {...props} />
+						</Flex>
+						<Inline>
+							<AvatarGroup appearance="stack" data={memberAvatars} />
+						</Inline>
+						{description && (
+							<Text color="color.text" maxLines={3}>
+								{description}
+							</Text>
+						)}
+					</Stack>
+					<Box xcss={styles.teamConnectionStyles}>
+						<Box xcss={styles.connectionTitleStyles}>
+							<FormattedMessage
+								defaultMessage="Team links"
+								id="people-and-teams.team-profile-card.team-connections"
+							/>
+						</Box>
+						<Box xcss={styles.teamConnectionItemsStyles}>
+							<LinkItem
+								href={teamProfileUrl}
+								target="_blank"
+								onClick={onClick}
+								description={
+									<FormattedMessage
+										defaultMessage="Team profile"
+										id="people-and-teams.team-profile-card.team-profile-description"
+									/>
+								}
+								iconBefore={<TeamAvatar size="small" src={avatarImageUrl} />}
+								iconAfter={
+									<Box
+										as="img"
+										src={TeamAppTile}
+										testId="team-app-tile"
+										alt="team-app-tile"
+										xcss={styles.teamAppTileStyles}
+									/>
+								}
+							>
+								<Text maxLines={1} color="color.text">
+									{displayName}
+								</Text>
+							</LinkItem>
+							{(loading || hasOtherTeamConnections) && (
+								<TeamContainers
+									teamId={teamId}
+									onAddAContainerClick={noop}
+									userId={userId}
+									cloudId={cloudId}
+									components={{
+										ContainerCard: NewTeamConnections,
+										TeamContainersSkeleton: TeamContainersSkeleton,
+									}}
+									filterContainerId={containerId}
+									isDisplayedOnProfileCard
+									maxNumberOfContainersToShow={3}
+								/>
+							)}
+						</Box>
+					</Box>
+				</Stack>
+			</Box>
+		);
+	}
 
 	return (
 		<TeamCardWrapper id={teamId}>
@@ -206,7 +330,7 @@ export const TeamProfileCard = ({
 							<Box xcss={styles.connectionTitleStyles}>
 								<FormattedMessage
 									defaultMessage="Where we work"
-									id="people-and-teams.team-profile-card.team-connections"
+									id="people-and-teams.team-profile-card.team-connections-header"
 								/>
 							</Box>
 						)}
@@ -224,30 +348,19 @@ export const TeamProfileCard = ({
 						/>
 					</Box>
 				)}
-				{props.isKudosEnabled || props.otherActions ? (
-					<ButtonSection
-						teamProfileUrl={teamProfileUrl}
-						cloudId={cloudId}
-						teamId={teamId}
-						loading={loading}
-						{...props}
-					/>
-				) : (
-					teamProfileUrl && (
-						// TODO: Remove this when clean up 'team-bi-directional-container-connection' experiment
-						<Stack xcss={styles.viewProfileContainerStyles}>
-							<Pressable
-								onClick={onClick}
-								xcss={styles.viewProfileButtonStyles}
-								testId="view-profile-button"
-							>
-								<FormattedMessage
-									defaultMessage="View profile"
-									id="people-and-teams.team-profile-card.view-profile"
-								/>
-							</Pressable>
-						</Stack>
-					)
+				{teamProfileUrl && (
+					<Stack xcss={styles.viewProfileContainerStyles}>
+						<Pressable
+							onClick={onClick}
+							xcss={styles.viewProfileButtonStyles}
+							testId="view-profile-button"
+						>
+							<FormattedMessage
+								defaultMessage="View profile"
+								id="people-and-teams.team-profile-card.view-profile"
+							/>
+						</Pressable>
+					</Stack>
 				)}
 			</Stack>
 		</TeamCardWrapper>

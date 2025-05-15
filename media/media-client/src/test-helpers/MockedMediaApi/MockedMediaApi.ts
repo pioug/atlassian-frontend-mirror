@@ -99,6 +99,18 @@ const getMediaApi = ({ getItem }: { setItems: SetItems; getItem: GetItem }): Med
 		}
 		return artifactUrl;
 	},
+	getArtifactBinary: async (artifacts, artifactName) => {
+		const artifactUrl = artifacts[artifactName]?.url || artifacts[artifactName]?.cdnUrl;
+		if (!artifactUrl) {
+			throw new Error(
+				`404 - MockedMediaApi.getArtifactBinary: artifact ${artifactName} URL not found`,
+			);
+		}
+		return new Blob();
+	},
+	uploadArtifact: async () => {
+		throw new Error('500 - MockedMediaApi.uploadArtifact: method not implemented');
+	},
 
 	// --------------------------------------------------------
 	// BINARY ENDPOINTS

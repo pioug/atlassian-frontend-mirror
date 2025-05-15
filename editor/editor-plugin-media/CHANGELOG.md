@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 3.0.5
+
+### Patch Changes
+
+- [#154892](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154892)
+  [`406f074dcf056`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/406f074dcf056) -
+  [ux] When media's floating toolbar option's popups for "Alt text", "Add link" or "Resize" are
+  closed by space key press, the focus should be set on "View more" button.
+
 ## 3.0.4
 
 ### Patch Changes

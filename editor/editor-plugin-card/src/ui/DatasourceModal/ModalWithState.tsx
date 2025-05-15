@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { DatasourceModalType, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
@@ -15,6 +19,7 @@ import type { ConfigModalProps } from '@atlaskit/link-datasource';
 import { EditorSmartCardProviderValueGuard, useSmartLinkContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../../cardPlugin';
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
@@ -25,14 +30,40 @@ type ModalWithStateProps = {
 	api: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	editorView: EditorView;
 };
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const showDatasourceModal = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'card.showDatasourceModal',
+		);
+		const datasourceModalType = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'card.datasourceModalType',
+		);
+		return {
+			cardState: undefined,
+			showDatasourceModal,
+			datasourceModalType,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const { cardState } = useSharedPluginState(pluginInjectionApi, ['card']);
+		return {
+			cardState,
+			showDatasourceModal: cardState?.showDatasourceModal,
+			datasourceModalType: cardState?.datasourceModalType,
+		};
+	},
+);
+
 const ModalWithState = ({ api, editorView }: ModalWithStateProps) => {
 	const cardContext = useSmartLinkContext();
-	const { cardState } = useSharedPluginState(api, ['card']);
-	if (!cardState) {
+	const { cardState, showDatasourceModal, datasourceModalType } = useSharedState(api);
+	if (!cardState && editorExperiment('platform_editor_usesharedpluginstateselector', false)) {
 		return null;
 	}
 
-	const { showDatasourceModal, datasourceModalType } = cardState;
 	if (!showDatasourceModal || !datasourceModalType) {
 		return null;
 	}

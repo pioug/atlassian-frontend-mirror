@@ -19,6 +19,7 @@ import type {
 	EmojiProvider,
 	EmojiRepresentation,
 } from '@atlaskit/emoji/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EmojiPlugin } from '../emojiPluginType';
 
@@ -29,11 +30,30 @@ interface Params {
 	api: ExtractInjectionAPI<EmojiPlugin> | undefined;
 }
 
+/**
+ * Check if we can nicely fallback to the nodes text
+ *
+ * @param fallbackText string of the nodes fallback text
+ *
+ * @example
+ * isSingleEmoji('😀') // true
+ */
+export function isSingleEmoji(fallbackText: string): boolean {
+	// Regular expression to match a single emoji character
+	const emojiRegex =
+		/^(\p{Emoji_Presentation}|\p{Extended_Pictographic}\u{FE0F}?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
+	return emojiRegex.test(fallbackText);
+}
+
+/**
+ * Emoji node view for renderering emoji nodes
+ */
 export class EmojiNodeView implements NodeView {
 	dom: Node;
 	domElement: HTMLElement | undefined;
 	private readonly node: PMNode;
 	private readonly intl: IntlShape;
+	private renderingFallback: boolean = false;
 
 	readonly destroy = () => {};
 
@@ -43,6 +63,18 @@ export class EmojiNodeView implements NodeView {
 		});
 	}
 
+	/**
+	 * Prosemirror node view for rendering emoji nodes. This class is responsible for
+	 * rendering emoji nodes in the editor, handling updates, and managing fallback rendering.
+	 *
+	 * @param node - The ProseMirror node representing the emoji.
+	 * @param extraProps - An object containing additional parameters.
+	 * @param extraProps.intl - The internationalization object for formatting messages.
+	 * @param extraProps.api - The editor API for accessing shared state and connectivity features.
+	 *
+	 * @example
+	 * const emojiNodeView = new EmojiNodeView(node, { intl, api });
+	 */
 	constructor(node: PMNode, { intl, api }: Params) {
 		this.node = node;
 		this.intl = intl;
@@ -80,8 +112,23 @@ export class EmojiNodeView implements NodeView {
 			void this.updateDom(emojiProvider);
 		});
 
+		// Refresh emojis if we go back online
+		const subscribeToConnection = api?.connectivity?.sharedState.onChange(
+			({ prevSharedState, nextSharedState }) => {
+				if (
+					prevSharedState?.mode === 'offline' &&
+					nextSharedState?.mode === 'online' &&
+					this.renderingFallback &&
+					editorExperiment('platform_editor_offline_editing_web', true)
+				) {
+					this.updateDom(sharedState.currentState()?.emojiProvider);
+				}
+			},
+		);
+
 		this.destroy = () => {
 			unsubscribe();
+			subscribeToConnection?.();
 		};
 	}
 
@@ -148,6 +195,7 @@ export class EmojiNodeView implements NodeView {
 	}
 
 	private renderFallback() {
+		this.renderingFallback = true;
 		this.cleanUpAndRenderCommonAttributes();
 
 		const fallbackElement = document.createElement('span');
@@ -162,6 +210,7 @@ export class EmojiNodeView implements NodeView {
 		description: EmojiDescription,
 		representation: Exclude<EmojiRepresentation, undefined>,
 	) {
+		this.renderingFallback = false;
 		this.cleanUpAndRenderCommonAttributes();
 
 		const emojiType = 'sprite' in representation ? 'sprite' : 'image';
@@ -228,6 +277,19 @@ export class EmojiNodeView implements NodeView {
 				'width',
 				`${(defaultEmojiHeight / representation.height) * representation.width}`,
 			);
+		}
+
+		if (editorExperiment('platform_editor_offline_editing_web', true)) {
+			// If there's an error (ie. offline) render the ascii fallback if possible, otherwise
+			// mark the node to refresh when returning online.
+			imageElement.onerror = () => {
+				// Create a check that confirms if this.node.attrs.text if an ascii emoji
+				if (isSingleEmoji(this.node.attrs.text)) {
+					this.renderFallback();
+				} else {
+					this.renderingFallback = true;
+				}
+			};
 		}
 
 		return imageElement;

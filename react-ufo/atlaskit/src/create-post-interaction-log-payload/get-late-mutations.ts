@@ -1,7 +1,7 @@
-import { LastInteractionFinishInfo } from '../common';
-import { RevisionPayloadVCDetails } from '../common/vc/types';
+import type { LastInteractionFinishInfo } from '../common';
+import type { RevisionPayloadVCDetails } from '../common/vc/types';
 
-import { LateMutation } from './types';
+import type { LateMutation } from './types';
 
 function getLateMutations(
 	vcDetails: RevisionPayloadVCDetails,

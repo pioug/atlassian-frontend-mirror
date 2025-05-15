@@ -52,7 +52,7 @@ const getTextFormattingState = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): TextFormattingState => {
 	const { em, code, strike, strong, subsup, underline } = editorState.schema.marks;
-	const state: TextFormattingState = {};
+	const state: TextFormattingState = { isInitialised: true };
 
 	if (code) {
 		state.codeActive = anyMarkActive(editorState, code.create());

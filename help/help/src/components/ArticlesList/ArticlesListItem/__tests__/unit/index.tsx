@@ -61,6 +61,16 @@ describe('ArticlesListItem', () => {
 	//   expect(TypeHelpArticleElm).not.toBeNull();
 	// });
 
+	it('should render the title as a level 3 heading', () => {
+		const { getByRole } = render(
+			<ArticlesListItem intl={intl} {...mockArticleItem} onClick={mockOnClick} />,
+		);
+
+		const heading = getByRole('heading', { level: 3 });
+		expect(heading).toBeVisible();
+		expect(heading).toHaveTextContent(mockArticleItem.title);
+	});
+
 	it(`mockOnClick should be executed when the user clicks in the component`, () => {
 		const { queryByRole } = render(
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>

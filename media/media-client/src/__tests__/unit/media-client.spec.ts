@@ -2,11 +2,7 @@ jest.mock('../../uploader');
 
 import uuid from 'uuid/v4';
 import { type AuthProvider, type Auth } from '@atlaskit/media-core';
-import {
-	asMockFunction,
-	asMockFunctionResolvedValue,
-	flushPromises,
-} from '@atlaskit/media-common/test-helpers';
+import { asMockFunction, asMockFunctionResolvedValue } from '@atlaskit/media-common/test-helpers';
 import { Subscription } from 'rxjs/Subscription';
 
 import {
@@ -332,7 +328,7 @@ describe('MediaClient', () => {
 
 			mediaClient.file.upload(file, controller, uploadableFileUpfrontIds).subscribe({ next });
 
-			await flushPromises();
+			// await flushPromises();
 
 			expect(next).toHaveBeenCalledTimes(1);
 			const expectedState = {

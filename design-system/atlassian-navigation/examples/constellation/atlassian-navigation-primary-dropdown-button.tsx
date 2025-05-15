@@ -8,7 +8,7 @@ const PrimaryDropdownExample = () => (
 		renderProductHome={() => null}
 		primaryItems={[
 			<PrimaryDropdownButton>Explore</PrimaryDropdownButton>,
-			<PrimaryDropdownButton>Issues</PrimaryDropdownButton>,
+			<PrimaryDropdownButton>Work items</PrimaryDropdownButton>,
 			<PrimaryDropdownButton>Services</PrimaryDropdownButton>,
 		]}
 	/>

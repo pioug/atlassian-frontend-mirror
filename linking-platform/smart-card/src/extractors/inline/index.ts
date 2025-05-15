@@ -11,7 +11,7 @@ import {
 	isEntityPresent,
 } from '@atlaskit/link-extractors';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';

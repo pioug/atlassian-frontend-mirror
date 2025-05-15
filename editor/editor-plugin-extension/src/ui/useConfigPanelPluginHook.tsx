@@ -4,8 +4,12 @@ import {
 	type ExtensionProvider,
 	getExtensionKeyAndNodeKey,
 } from '@atlaskit/editor-common/extensions';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -22,6 +26,30 @@ import HeaderIcon from './ConfigPanel/Header/HeaderIcon';
 import { onChangeAction } from './context-panel';
 import { SaveIndicator } from './SaveIndicator/SaveIndicator';
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
+		const showContextPanel = useSharedPluginStateSelector(api, 'extension.showContextPanel');
+		const extensionProvider = useSharedPluginStateSelector(api, 'extension.extensionProvider');
+		const processParametersAfter = useSharedPluginStateSelector(
+			api,
+			'extension.processParametersAfter',
+		);
+		return {
+			showContextPanel,
+			extensionProvider,
+			processParametersAfter,
+		};
+	},
+	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
+		const { extensionState } = useSharedPluginState(api, ['extension']);
+		return {
+			showContextPanel: extensionState?.showContextPanel,
+			extensionProvider: extensionState?.extensionProvider,
+			processParametersAfter: extensionState?.processParametersAfter,
+		};
+	},
+);
+
 export function useConfigPanelPluginHook({
 	editorView,
 	api,
@@ -30,30 +58,27 @@ export function useConfigPanelPluginHook({
 	api?: ExtractInjectionAPI<ExtensionPlugin>;
 }) {
 	const editorState = editorView.state;
-	const { extensionState } = useSharedPluginState(api, ['extension']);
+	const { showContextPanel, extensionProvider, processParametersAfter } = useSharedState(api);
 
 	useEffect(() => {
 		const nodeWithPos = getSelectedExtension(editorState, true);
 		// Adding checks to bail out early
-		if (!nodeWithPos || !extensionState) {
+		if (!nodeWithPos) {
 			hideConfigPanel(api);
 			return;
 		}
 
-		if (extensionState) {
-			const { showContextPanel, extensionProvider, processParametersAfter } = extensionState;
-			if (showContextPanel && extensionProvider && processParametersAfter) {
-				showConfigPanel({
-					api,
-					editorView,
-					extensionProvider,
-					nodeWithPos,
-				});
-			} else {
-				hideConfigPanel(api);
-			}
+		if (showContextPanel && extensionProvider && processParametersAfter) {
+			showConfigPanel({
+				api,
+				editorView,
+				extensionProvider,
+				nodeWithPos,
+			});
+		} else {
+			hideConfigPanel(api);
 		}
-	}, [api, editorState, editorView, extensionState]);
+	}, [api, editorState, editorView, showContextPanel, extensionProvider, processParametersAfter]);
 
 	useEffect(() => {
 		return () => {

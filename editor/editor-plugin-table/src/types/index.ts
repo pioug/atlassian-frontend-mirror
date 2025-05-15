@@ -79,6 +79,8 @@ export type TableSharedStateInternal = Pick<
 	dragMenuDirection?: TableDirection;
 	dragMenuIndex?: number;
 	isDragMenuOpen?: boolean;
+	isSizeSelectorOpen?: boolean;
+	sizeSelectorTargetRef?: HTMLElement;
 };
 
 export type TableSharedState = Pick<

@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.21.1
+
+### Patch Changes
+
+- [#153577](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153577)
+  [`2d3375a7a48b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d3375a7a48b1) -
+  [EDF-2259] Update usage of next media plugin behind fg 'platform_editor_ai_next_media_plugin'
+  instead of experiment 'platform_editor_markdown_next_media_plugin_exp'
+
 ## 4.21.0
 
 ### Minor Changes

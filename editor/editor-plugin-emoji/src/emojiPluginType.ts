@@ -12,6 +12,7 @@ import type {
 	InlineCommentMap,
 } from '@atlaskit/editor-plugin-annotation';
 import type { BasePlugin } from '@atlaskit/editor-plugin-base';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
@@ -84,6 +85,7 @@ export type EmojiPluginDependencies = [
 	OptionalPlugin<EditorViewModePluginType>,
 	OptionalPlugin<BasePlugin>,
 	OptionalPlugin<MetricsPlugin>,
+	OptionalPlugin<ConnectivityPlugin>,
 ];
 
 export type EmojiPlugin = NextEditorPlugin<

@@ -166,7 +166,7 @@ describe('Help Layout with Side Nav', () => {
 		{
 			icon: <QuestionCircleIcon label={'help tab'} />,
 			label: 'help',
-			content: <div>Help Tab Content</div>,
+			contentRender: () => <div>Help Tab Content</div>,
 			header: {
 				title: 'Help',
 			},
@@ -174,7 +174,7 @@ describe('Help Layout with Side Nav', () => {
 		{
 			icon: <QuestionCircleIcon label={'search tab'} />,
 			label: 'search',
-			content: <div>Search Tab Content</div>,
+			contentRender: () => <div>Search Tab Content</div>,
 			header: {
 				title: 'Search',
 			},

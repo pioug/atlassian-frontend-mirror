@@ -1,7 +1,7 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { extractEntityIcon, isEntityPresent } from '@atlaskit/link-extractors';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { IconType, SmartLinkStatus } from '../../../constants';
 

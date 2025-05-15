@@ -1,4 +1,4 @@
-import { RevisionPayloadEntry } from '../../../common/vc/types';
+import type { RevisionPayloadEntry } from '../../../common/vc/types';
 import type { VCObserverEntry } from '../types';
 
 export type VCCalculatorParam = {

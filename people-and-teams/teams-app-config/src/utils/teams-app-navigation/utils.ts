@@ -5,7 +5,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { hostname, openInNewTab, redirect } from '../../common/utils';
 
-import { NavigationAction, NavigationActionCommon } from './types';
+import type { NavigationAction, NavigationActionCommon } from './types';
 
 export function generatePath(
 	path: string,
@@ -25,7 +25,6 @@ export function generatePath(
 		if (isFedRamp()) {
 			// We can't use getATLContextUrl here as the URL doesn't yet exist in commercial. When it does, we should properly define it there.
 			return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov.com/${path}?${query.toString()}`;
-
 		}
 
 		return `${getATLContextUrl('home')}/o/${config.orgId}/people/${path}?${query.toString()}`;
@@ -84,7 +83,6 @@ export function getPathAndQuery(action: NavigationAction): PathAndQuery {
 			return { path: '' };
 	}
 }
-
 
 /**
  * @deprecated

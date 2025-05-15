@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 

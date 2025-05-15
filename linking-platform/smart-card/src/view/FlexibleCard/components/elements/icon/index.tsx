@@ -17,7 +17,7 @@ import { token } from '@atlaskit/tokens';
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
-import { ImageIconProps } from '../../common/image-icon/types';
+import { type ImageIconProps } from '../../common/image-icon/types';
 import { getIconWidth } from '../../utils';
 
 import { type IconProps } from './types';

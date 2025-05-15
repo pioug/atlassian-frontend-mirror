@@ -212,6 +212,9 @@ export class DocumentService implements DocumentServiceInterface {
 			const latency = new Date().getTime() - start;
 			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.FAILURE, {
 				latency,
+				reason,
+				unconfirmedStepsLength: reconnectionMetadata?.unconfirmedStepsLength,
+				disconnectionPeriodSeconds: reconnectionMetadata?.disconnectionPeriodSeconds,
 			});
 		} finally {
 			this.stepQueue.resumeQueue();

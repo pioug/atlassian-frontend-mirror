@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-status
 
+## 3.1.17
+
+### Patch Changes
+
+- [#154961](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154961)
+  [`766001ae63324`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/766001ae63324) -
+  NOISSUE: fix bad ssr render on vanilla status node
+- Updated dependencies
+
 ## 3.1.16
 
 ### Patch Changes

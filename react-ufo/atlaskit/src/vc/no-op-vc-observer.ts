@@ -1,4 +1,4 @@
-import { VCResult } from '../common/vc/types';
+import type { VCResult } from '../common/vc/types';
 
 import type { GetVCResultType, VCObserverInterface } from './types';
 

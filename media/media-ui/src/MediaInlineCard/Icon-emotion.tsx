@@ -20,6 +20,10 @@ export const Icon = styled.img({
 	transform: 'translate(-50%, -50%)',
 });
 
+Icon.defaultProps = {
+	alt: 'icon',
+};
+
 // Used for 'untrue' icons which claim to be 16x16 but
 // are less than that in height/width.
 // TODO: Replace this override with proper AtlasKit solution.

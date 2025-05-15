@@ -10,8 +10,8 @@ import {
 	extractPersonUpdatedBy,
 	extractProvider,
 	extractTitle,
-	LinkTypeCreated,
-	LinkTypeUpdatedBy,
+	type LinkTypeCreated,
+	type LinkTypeUpdatedBy,
 } from '../common';
 import {
 	type EmbedIframeUrlType,

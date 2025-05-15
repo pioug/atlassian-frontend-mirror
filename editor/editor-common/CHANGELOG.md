@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 105.2.4
+
+### Patch Changes
+
+- [#154988](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154988)
+  [`76019734ff982`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76019734ff982) -
+  [ED-27560] Adds `isInitialised` state variable to text-formatting plugin and migrates it to
+  useSharedPluginStateSelector
+- Updated dependencies
+
+## 105.2.3
+
+### Patch Changes
+
+- [#154955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154955)
+  [`c3e2886584424`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3e2886584424) -
+  Add SSR safeguard to imageLoader
+- [#154955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154955)
+  [`39c7daa4f2da7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39c7daa4f2da7) -
+  Ensure no subscription for image events on SSR
+- Updated dependencies
+
 ## 105.2.2
 
 ### Patch Changes

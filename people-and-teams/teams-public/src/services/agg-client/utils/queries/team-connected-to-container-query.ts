@@ -8,7 +8,7 @@ import type {
 	TeamState,
 	UserARI,
 } from '../../../../common/types';
-import { AGGPageInfo } from '../../types';
+import type { AGGPageInfo } from '../../types';
 
 export const TeamConnectedToContainerQuery = print(gql`
 	query getTeamsForContainer($containerId: ID!) {

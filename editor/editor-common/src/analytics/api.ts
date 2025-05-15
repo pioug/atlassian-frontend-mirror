@@ -1,7 +1,6 @@
-import type { Transaction , Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction, Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticsEventPayload } from './types/events';
-
 
 export type FireAnalyticsEventOptions = {
 	immediate?: boolean;

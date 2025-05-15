@@ -13,7 +13,15 @@ export default function TeamProfileCardExample() {
 	return (
 		<>
 			<ExampleWrapper>
-				<TeamProfileCard cloudId={''} userId={''} containerId={'6'} {...mockProfileData} />
+				<TeamProfileCard
+					cloudId={''}
+					userId={''}
+					containerId={'6'}
+					{...mockProfileData}
+					isKudosEnabled
+					teamCentralBaseUrl="/"
+					analyticsSource="example"
+				/>
 			</ExampleWrapper>
 		</>
 	);

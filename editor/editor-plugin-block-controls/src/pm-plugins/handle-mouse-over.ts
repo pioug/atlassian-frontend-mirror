@@ -1,5 +1,6 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockControlsPlugin } from '../blockControlsPluginType';
@@ -57,7 +58,25 @@ export const handleMouseOver = (
 
 		if (editorExperiment('advanced_layouts', true)) {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
-			if (parentElement && (parentElementType === 'table' || parentElementType === 'tableRow')) {
+			if (fg('platform_editor_table_drag_handle_shift_fix')) {
+				if (parentElement && parentElementType === 'table') {
+					rootElement = parentElement;
+				} else if (parentElement && parentElementType === 'tableRow') {
+					const grandparentElement = parentElement?.parentElement?.closest(
+						'[data-drag-handler-anchor-name]',
+					);
+					const grandparentElementType = grandparentElement?.getAttribute(
+						'data-drag-handler-node-type',
+					);
+
+					if (grandparentElement && grandparentElementType === 'table') {
+						rootElement = grandparentElement;
+					}
+				}
+			} else if (
+				parentElement &&
+				(parentElementType === 'table' || parentElementType === 'tableRow')
+			) {
 				rootElement = parentElement;
 			}
 		} else {

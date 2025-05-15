@@ -29,7 +29,6 @@ export default function ReactRenderer({
 			key: `code-segment${i}`,
 		}),
 	);
-
 	return (
 		<span {...containerProps}>
 			<code {...codeTagProps}>{renderedRows}</code>

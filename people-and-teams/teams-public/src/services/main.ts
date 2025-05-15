@@ -1,5 +1,5 @@
 import { aggClient } from './agg-client';
-import { type ClientContextProps, type TeamContainers, TeamWithMemberships } from './types';
+import { type ClientContextProps, type TeamContainers, type TeamWithMemberships } from './types';
 
 type AwaitedReturn<T extends (...args: any) => any> = Awaited<ReturnType<T>>;
 

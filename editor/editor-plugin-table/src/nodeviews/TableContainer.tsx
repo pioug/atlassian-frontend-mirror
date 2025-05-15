@@ -352,6 +352,23 @@ export const ResizableTableContainer = React.memo(
 			responsiveContainerWidth = isTableScalingEnabled
 				? lineLength
 				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
+
+			// platform_editor_table_fw_numcol_overflow_fix:
+			// lineLength is undefined on first paint → width: NaN → wrapper expands to page
+			// width. rAF col-sizing then runs before the number-column padding and
+			// the final shrink, so column widths are locked in wrong.
+			// With the flag ON, if the value isn’t finite we fall back to gutterWidth
+			// for that first frame—no flash, no premature rAF.
+			//
+			// Type clean-up comes later:
+			// 1) ship this runtime guard (quick fix, no breakage);
+			// 2) TODO: widen lineLength to `number|undefined` and remove this block.
+			if (fg('platform_editor_table_fw_numcol_overflow_fix')) {
+				if (isTableScalingEnabled && !Number.isFinite(responsiveContainerWidth)) {
+					responsiveContainerWidth =
+						containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
+				}
+			}
 		} else if (isCommentEditor) {
 			responsiveContainerWidth = containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR;
 		} else {

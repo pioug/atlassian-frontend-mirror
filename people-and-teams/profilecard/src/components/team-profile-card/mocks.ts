@@ -145,6 +145,29 @@ export const mockTeamContainersQueries = () => {
 										},
 									},
 								},
+								{
+									node: {
+										from: {
+											id: '1',
+										},
+										to: {
+											id: '4',
+											data: {
+												__typename: 'ConfluenceSpace',
+												id: '2',
+												confluenceSpaceName: 'Confluence Space',
+												type: 'confluence',
+												createdDate: '2021-01-01',
+												links: {
+													webUi: 'https://example.com/confluence',
+												},
+												icon: {
+													path: 'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/712020:2981defd-17f1-440e-a377-8c7657b72a6f/4b5b0d55-614b-4e75-858f-9da3d0c7e3f8/128',
+												},
+											},
+										},
+									},
+								},
 							],
 						},
 					},

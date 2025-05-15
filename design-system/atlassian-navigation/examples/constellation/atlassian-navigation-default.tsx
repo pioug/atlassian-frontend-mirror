@@ -11,7 +11,7 @@ const DefaultExample = () => (
 		label="site"
 		primaryItems={[
 			<PrimaryButton>Your work</PrimaryButton>,
-			<PrimaryDropdownButton>Issues</PrimaryDropdownButton>,
+			<PrimaryDropdownButton>Work items</PrimaryDropdownButton>,
 			<PrimaryDropdownButton>Projects</PrimaryDropdownButton>,
 			<PrimaryButton>Repositories</PrimaryButton>,
 		]}

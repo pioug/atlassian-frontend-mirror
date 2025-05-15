@@ -13,7 +13,6 @@ export type DatePluginDependencies = [
 	OptionalPlugin<EditorViewModePlugin>,
 ];
 
-
 export type DatePlugin = NextEditorPlugin<
 	'date',
 	{

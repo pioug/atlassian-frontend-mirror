@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 38.1.1
+
+### Patch Changes
+
+- [#154969](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154969)
+  [`b495a5c681f5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b495a5c681f5b) -
+  Update flexible card extractor to allow noun support
+
+## 38.1.0
+
+### Minor Changes
+
+- [#154319](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154319)
+  [`f9f36cfaadb03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9f36cfaadb03) -
+  Add color props to elements to override the default color
+
 ## 38.0.0
 
 ### Major Changes

@@ -10,7 +10,7 @@ import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
 
 import getLateMutations from './get-late-mutations';
-import { LateMutation } from './types';
+import type { LateMutation } from './types';
 
 function getParentStack(labelStack: LabelStack | null | undefined) {
 	if (!labelStack || labelStack.length <= 1) {

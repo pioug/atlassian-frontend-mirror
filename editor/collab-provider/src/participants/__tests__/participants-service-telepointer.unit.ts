@@ -5,7 +5,7 @@ import type {
 	StepJson,
 	CollabEventTelepointerData,
 } from '@atlaskit/editor-common/collab';
-import type { ParticipantsMap } from '../participants-helper';
+import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 
@@ -37,20 +37,21 @@ const payload: PresencePayload = {
 
 const participantsServiceConstructor = (deps: {
 	analyticsHelper?: AnalyticsHelper;
-	participants?: ParticipantsState;
+	participantsState?: ParticipantsState;
 	emit?: any;
 	getUser?: any;
 	broadcast?: any;
 	sendPresenceJoined?: any;
 	getPresenceData?: any;
 	setUserId?: any;
+	batchProps?: BatchProps;
 }): ParticipantsService =>
 	new ParticipantsService(
 		deps.analyticsHelper,
-		// @ts-ignore
-		deps.participants,
+		deps.participantsState ?? new ParticipantsState(),
 		deps.emit || jest.fn(),
 		deps.getUser || jest.fn(),
+		deps.batchProps || undefined,
 		deps.broadcast || jest.fn(),
 		deps.sendPresenceJoined || jest.fn(),
 		deps.getPresenceData || jest.fn().mockReturnValue(payload),
@@ -84,13 +85,13 @@ describe('emitTelepointersFromSteps', () => {
 	beforeEach(jest.clearAllMocks);
 
 	const participantsMap: ParticipantsMap = new Map().set(activeUser.sessionId, activeUser);
-	const participants: ParticipantsState = new ParticipantsState(participantsMap);
+	const participantsState: ParticipantsState = new ParticipantsState(participantsMap);
 
 	describe('on success', () => {
 		const emit = jest.fn();
 
 		const participantsService = participantsServiceConstructor({
-			participants,
+			participantsState,
 			emit,
 		});
 		const expectedData: CollabEventTelepointerData = {
@@ -105,12 +106,12 @@ describe('emitTelepointersFromSteps', () => {
 
 		it('should call emit with telepointer', () => {
 			participantsService.emitTelepointersFromSteps(fakeSteps);
-			expect(emit).toBeCalledWith('telepointer', expectedData);
+			expect(emit).toHaveBeenCalledWith('telepointer', expectedData);
 		});
 
 		it('should not emit when a telepointer can not be created from a step', () => {
 			participantsService.emitTelepointersFromSteps([{} as any]);
-			expect(emit).not.toBeCalled();
+			expect(emit).not.toHaveBeenCalled();
 		});
 	});
 
@@ -125,7 +126,7 @@ describe('emitTelepointersFromSteps', () => {
 
 		const participantsService = participantsServiceConstructor({
 			analyticsHelper,
-			participants,
+			participantsState,
 			emit,
 		});
 
@@ -135,8 +136,8 @@ describe('emitTelepointersFromSteps', () => {
 
 		it('should send error to analytics', () => {
 			participantsService.emitTelepointersFromSteps(fakeSteps);
-			expect(analyticsHelper.sendErrorEvent).toBeCalledTimes(1);
-			expect(analyticsHelper.sendErrorEvent).toBeCalledWith(
+			expect(analyticsHelper.sendErrorEvent).toHaveBeenCalledTimes(1);
+			expect(analyticsHelper.sendErrorEvent).toHaveBeenCalledWith(
 				fakeError,
 				'Error while emitting telepointers from steps',
 			);

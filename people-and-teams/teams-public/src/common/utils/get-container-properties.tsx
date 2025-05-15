@@ -102,16 +102,19 @@ const getJiraIcon = (containerSubTypes?: string) => {
 	}
 };
 
-const getJiraContainerProperties = (containerTypeProperties?: {
-	subType?: ContainerSubTypes;
-	name?: string;
-}): ContainerProperties => {
+const getJiraContainerProperties = (
+	containerTypeProperties?: {
+		subType?: ContainerSubTypes;
+		name?: string;
+	},
+	iconSize: IconSize = 'small',
+): ContainerProperties => {
 	const { subType, name } = containerTypeProperties || {};
 	const Comp = fg('enable_card_alignment_fix') ? Flex : Box;
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
 		icon: (
-			<Comp xcss={styles.iconWrapper}>
+			<Comp xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
 			</Comp>
 		),
@@ -165,7 +168,7 @@ export const getContainerProperties = (
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'JiraProject':
-			return getJiraContainerProperties(containerTypeProperties);
+			return getJiraContainerProperties(containerTypeProperties, iconSize);
 		case 'WebLink':
 			return {
 				description: (

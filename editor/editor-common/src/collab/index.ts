@@ -492,6 +492,7 @@ export interface CollabParticipant {
 	isGuest?: boolean;
 	presenceId?: string;
 	presenceActivity?: PresenceActivity;
+	isHydrated?: boolean;
 }
 
 export type ProviderParticipant = CollabParticipant & {

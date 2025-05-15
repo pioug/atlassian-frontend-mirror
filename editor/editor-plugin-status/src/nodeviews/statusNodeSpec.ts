@@ -98,6 +98,7 @@ const isAndroidChromium =
  * Wrapper for ADF status node spec to augment toDOM implementation
  * with fallback UI for lazy node view rendering / window virtualization
  * @returns
+ * @example
  */
 export const statusNodeSpec = () => {
 	if (isSSR) {
@@ -134,6 +135,7 @@ export const statusNodeSpec = () => {
 				class: 'status-lozenge-span',
 				'aria-busy': 'true',
 				'data-node-type': 'status',
+				'data-prosemirror-node-name': 'status',
 				'data-color': color,
 				'data-style': style,
 			};
@@ -259,6 +261,7 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		class: 'statusView-content-wrap inlineNodeView',
 		'data-testid': 'statusContainerView',
 		'data-prosemirror-node-view-type': 'vanilla',
+		'data-prosemirror-node-name': 'status',
 		'local-id': localId,
 	};
 

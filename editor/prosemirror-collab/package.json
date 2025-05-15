@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/prosemirror-collab",
-	"version": "0.16.2",
+	"version": "0.16.3",
 	"description": "Collaborative editing for ProseMirror - Atlassian Fork",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

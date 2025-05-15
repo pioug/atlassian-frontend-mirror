@@ -16,6 +16,7 @@ import {
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 
 import type { HyperlinkToolbarAppearanceProps } from './HyperlinkToolbarAppearance';
@@ -95,7 +96,12 @@ const CustomHyperlinkDropdown = (
 	}
 
 	const dispatchCommand = (fn?: Function) => {
-		fn && fn(editorView && editorView.state, editorView && editorView.dispatch);
+		fn &&
+			fn(
+				editorView && editorView.state,
+				editorView && editorView.dispatch,
+				fg('platform_editor_controls_patch_9') ? editorView : undefined,
+			);
 		// Refocus the view to ensure the editor has focus
 		if (editorView && !editorView.hasFocus()) {
 			editorView.focus();

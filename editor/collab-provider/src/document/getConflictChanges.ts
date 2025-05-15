@@ -4,9 +4,10 @@ import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform'
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ConflictChange, ConflictChanges } from '@atlaskit/editor-common/collab';
+import { rebaseSteps as collabRebaseSteps, Rebaseable } from '@atlaskit/prosemirror-collab';
 
 interface Options {
-	localSteps: readonly { inverted: ProseMirrorStep; step: ProseMirrorStep }[];
+	localSteps: readonly Rebaseable[];
 	remoteSteps: ProseMirrorStep[];
 	tr: Transaction;
 }
@@ -92,34 +93,31 @@ const getConflicts = ({
 };
 
 /**
- * Almost a copy of the rebaseSteps in the collab algorithm (which gets called
- * synchronously after this).
- *
- * This also tracks the intermediate documents so we can generate the changesets
- * to use for finding any overlapping regions.
+ * This runs a collab rebase (that is run synchronously after this)
+ * and extracts the local doc (before changes), remote doc and the
+ * mapping to determine any conflicts.
  * See: `packages/editor/prosemirror-collab/src/index.ts`
  */
 const rebaseSteps = ({ localSteps, remoteSteps, tr }: Options) => {
-	for (let i = localSteps?.length - 1; i >= 0; i--) {
-		tr.step(localSteps[i].inverted);
-	}
-	const originalDoc = tr.doc;
-	const mapStart = tr.mapping.maps?.length;
+	const originalMapsLength = tr.mapping.maps?.length;
+	const originalDocsLength = tr.docs.length;
+	collabRebaseSteps(localSteps, remoteSteps, tr);
+	/**
+	 * `tr.docs` contains the documents before each change.
+	 *
+	 * To get "originalDoc" we need to get the document immediately after the local steps are inverted
+	 * which is the equal to the number of local steps. If there are no remote steps this will be undefined and
+	 * the most current document is appropriate
+	 *
+	 * To get the "remoteDoc" we need to get the document immediately after the local steps have been inverted
+	 * and the remote steps re-applied. If there are no local steps or they are all lost in rebase this will be
+	 * undefined and the most current document is appropriate
+	 *
+	 */
+	const originalDoc = tr.docs[originalDocsLength + localSteps.length] ?? tr.doc;
+	const remoteDoc = tr.docs[originalDocsLength + localSteps.length + remoteSteps.length] ?? tr.doc;
+	const mapStart = originalMapsLength + localSteps.length;
 
-	for (let i = 0; i < remoteSteps.length; i++) {
-		tr.step(remoteSteps[i]);
-	}
-	const remoteDoc = tr.doc;
-
-	for (let i = 0, mapFrom = localSteps.length; i < localSteps.length; i++) {
-		const mapped = localSteps[i].step.map(tr.mapping.slice(mapFrom));
-		mapFrom--;
-		if (mapped && !tr.maybeStep(mapped).failed) {
-			// Open ticket for setMirror https://github.com/ProseMirror/prosemirror/issues/869
-			// @ts-expect-error
-			tr.mapping.setMirror(mapFrom, tr.steps.length - 1);
-		}
-	}
 	return {
 		mapStart,
 		originalDoc,

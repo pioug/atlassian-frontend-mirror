@@ -1,6 +1,11 @@
-import { COMMERCIAL, EnvironmentType, FEDRAMP_MODERATE, STAGING } from '../../common/constants';
-
 import {
+	COMMERCIAL,
+	type EnvironmentType,
+	FEDRAMP_MODERATE,
+	STAGING,
+} from '../../common/constants';
+
+import type {
 	IsolatedCloudDomainPatternMap,
 	IsolatedCloudDomainTypeEnumeration,
 	NonIsolatedCloudDomainPatternMap,

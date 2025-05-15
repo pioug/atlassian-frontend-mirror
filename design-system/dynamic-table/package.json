@@ -110,9 +110,6 @@
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
 			"type": "boolean"
-		},
-		"eax-1131_fix_a11y_issues_global_issues_settings": {
-			"type": "boolean"
 		}
 	}
 }

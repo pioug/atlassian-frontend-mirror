@@ -317,7 +317,42 @@ describe('Provider', () => {
 
 			provider.initialize(() => editorState);
 			channel.emit('connected', { sid: 'sid-123' });
-			expect(participantsService.startInactiveRemover).toBeCalledWith('sid-123');
+			expect(participantsService.startInactiveRemover).toHaveBeenCalledWith('sid-123');
+		});
+
+		it('Should start delay when batchProps are supplied', () => {
+			const provider = createSocketIOCollabProvider({
+				...testProviderConfig,
+				batchProps: {
+					getUsers: jest.fn(),
+				},
+			});
+			// @ts-ignore - Spy on private member for test
+			const participantsService = provider.participantsService;
+			jest.spyOn(participantsService, 'batchFetchUsersWithDelay');
+
+			provider.initialize(() => editorState);
+			channel.emit('connected', { sid: 'sid-123' });
+			expect(participantsService.batchFetchUsersWithDelay).toHaveBeenCalled();
+		});
+
+		it('Should throw error when batchProps and getUser is supplied', () => {
+			const provider = createSocketIOCollabProvider({
+				...testProviderConfig,
+				batchProps: {
+					getUsers: jest.fn(),
+				},
+				getUser: jest.fn(),
+			});
+
+			try {
+				provider.initialize(() => editorState);
+				channel.emit('connected', { sid: 'sid-123' });
+			} catch (err) {
+				expect(err).toEqual(
+					new ProviderInitialisationError('Cannot supply getUser and batchProps together'),
+				);
+			}
 		});
 
 		it("Should emit 'connecting' when the connection is being established", (done) => {
@@ -876,6 +911,9 @@ describe('Provider', () => {
 			expect(sendActionEventSpy).toHaveBeenCalledTimes(17);
 			expect(sendActionEventSpy).toHaveBeenNthCalledWith(17, 'catchup', 'FAILURE', {
 				latency: 0,
+				reason: 'onStepsRejected',
+				unconfirmedStepsLength: undefined,
+				disconnectionPeriodSeconds: undefined,
 			});
 			channel.emit('error', stepRejectedError);
 

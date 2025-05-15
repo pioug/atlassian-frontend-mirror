@@ -900,9 +900,12 @@ export class VCObserver implements VCObserverInterface {
 	};
 
 	private detachAbortListeners() {
-		if (Array.isArray(this.unbind)) {
-			this.unbind.forEach((fn) => fn());
-			this.unbind = [];
+		if (this.unbind) {
+			const { unbind } = this;
+			for (let i = 0; i < unbind.length; i++) {
+				unbind[i]();
+			}
+			this.unbind.length = 0;
 		}
 	}
 

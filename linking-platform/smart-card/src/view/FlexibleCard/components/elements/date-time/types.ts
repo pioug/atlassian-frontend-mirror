@@ -22,4 +22,9 @@ export type DateTimeProps = ElementProps & {
 	 * Hide the date prefix (e.g. "Created on", "Modified on", "Sent on")
 	 */
 	hideDatePrefix?: boolean;
+
+	/**
+	 * Color of the text
+	 */
+	color?: string;
 };

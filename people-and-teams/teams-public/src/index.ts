@@ -7,3 +7,4 @@ export type { TeamContainer, ContainerSubTypes } from './common/types';
 export { useProductPermissions } from './controllers/hooks/use-product-permission';
 export { hasProductPermission } from './controllers/product-permission/utils';
 export { getContainerProperties } from './common/utils/get-container-properties';
+export { ConfluenceIcon, JiraIcon, LoomIcon } from './common/assets';

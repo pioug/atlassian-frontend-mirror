@@ -41,9 +41,13 @@ const Highlight = memo(function Highlight({
 	const generatorClassName = 'prismjs';
 	const containerProps = {
 		...rest,
+		ref: rest.scrollRef,
 		'data-testid': testId,
 		className: rest.className ? `${generatorClassName} ${rest.className}` : generatorClassName,
 	};
+	if (containerProps.hasOwnProperty('scrollRef')) {
+		delete containerProps['scrollRef' as keyof typeof containerProps];
+	}
 	if (shouldWrapLongLines) {
 		codeTagProps.style = {
 			whiteSpace: 'pre-wrap',

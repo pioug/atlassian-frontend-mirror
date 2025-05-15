@@ -28,7 +28,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { calcTableColumnWidths, getColumnWidths } from '@atlaskit/editor-common/utils';
+import { getColumnWidths } from '@atlaskit/editor-common/utils';
 import { getText } from '../utils';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -526,13 +526,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return {
 			...this.getProps(node),
 			allowColumnSorting: this.allowColumnSorting,
-			columnWidths:
-				// When allowTableResizing is enabled, the number of columns is required to render
-				// the same scaling logic as editor. Some tables can have unequal rows, so the entire
-				// table needs to be scanned.
-				this.allowTableResizing && fg('platform_editor_table_col_calculation_fix')
-					? getColumnWidths(node)
-					: calcTableColumnWidths(node),
+			columnWidths: getColumnWidths(node),
 			tableNode: node,
 			stickyHeaders,
 			isInsideOfBlockNode,

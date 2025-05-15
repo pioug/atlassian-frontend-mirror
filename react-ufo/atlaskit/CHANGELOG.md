@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.11.2
+
+### Patch Changes
+
+- [#153697](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153697)
+  [`e513d2cda4042`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e513d2cda4042) -
+  AFO-3823 improve VCObserver stop() performance
+
 ## 3.11.1
 
 ### Patch Changes

@@ -19,7 +19,7 @@ import {
 	RequestError,
 } from '@atlaskit/media-client';
 import uuidV4 from 'uuid/v4';
-import { asMock, fakeMediaClient, flushPromises } from '@atlaskit/media-test-helpers';
+import { asMock, fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { UploadServiceImpl } from '../../uploadServiceImpl';
 import * as getPreviewModule from '../../../util/getPreviewFromBlob';
 import * as getPreviewFromImage from '../../../util/getPreviewFromImage';
@@ -30,6 +30,7 @@ import {
 	type UploadsStartEventPayload,
 } from '../../../types';
 import { LocalFileSource, type LocalFileWithSource } from '../../../service/types';
+import { waitFor } from '@testing-library/react';
 
 describe('UploadService', () => {
 	const baseUrl = 'some-api-url';
@@ -116,7 +117,7 @@ describe('UploadService', () => {
 	beforeEach(() => {
 		(getPreviewModule.getPreviewFromBlob as any).mockReset();
 		(getPreviewModule.getPreviewFromBlob as any).mockReturnValue(Promise.resolve());
-		(uuidV4 as unknown as jest.Mock<{}>)
+		(uuidV4 as unknown as jest.Mock)
 			.mockReturnValueOnce('uuid1')
 			.mockReturnValueOnce('uuid2')
 			.mockReturnValueOnce('uuid3')
@@ -149,7 +150,7 @@ describe('UploadService', () => {
 
 	describe('addFiles', () => {
 		it('should emit file-preview-update for video files', async () => {
-			const { uploadService, filesAddedPromise } = setup();
+			const { uploadService } = setup();
 
 			const callback = jest.fn();
 			uploadService.on('file-preview-update', callback);
@@ -158,8 +159,11 @@ describe('UploadService', () => {
 			(getPreviewModule.getPreviewFromBlob as any).mockReturnValue(Promise.resolve(previewObject));
 
 			uploadService.addFiles([file]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadPreviewUpdateEventPayload = {
 				file: {
 					creationDate: expect.any(Number),
@@ -175,15 +179,18 @@ describe('UploadService', () => {
 		});
 
 		it('should emit file-preview-update for image files', async () => {
-			const { uploadService, filesAddedPromise } = setup();
+			const { uploadService } = setup();
 			const file = { size: 100, name: 'some-filename', type: 'image/png' };
 
 			const callback = jest.fn();
 			uploadService.on('file-preview-update', callback);
 
 			uploadService.addFiles([file as File]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadPreviewUpdateEventPayload = {
 				file: {
 					creationDate: expect.any(Number),
@@ -199,14 +206,18 @@ describe('UploadService', () => {
 		});
 
 		it('should emit empty file-preview-update for non native files', async () => {
-			const { uploadService, filesAddedPromise } = setup();
+			const { uploadService } = setup();
 			const file = { size: 100, name: 'some-filename', type: 'video/3gpp' };
 
 			const callback = jest.fn();
 			uploadService.on('file-preview-update', callback);
 
 			uploadService.addFiles([file as File]);
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadPreviewUpdateEventPayload = {
 				file: {
 					creationDate: expect.any(Number),
@@ -249,7 +260,7 @@ describe('UploadService', () => {
 		});
 
 		it('should use getPreviewFromBlob for non-image files when emitting preview', async () => {
-			const { uploadService, filesAddedPromise } = setup();
+			const { uploadService } = setup();
 			const file = { size: 100, name: 'some-filename', type: 'video/mp4' };
 
 			const callback = jest.fn();
@@ -260,9 +271,10 @@ describe('UploadService', () => {
 			);
 
 			uploadService.addFiles([file as File]);
-			await filesAddedPromise;
 
-			expect(getPreviewModule.getPreviewFromBlob).toHaveBeenCalledWith('video', file);
+			await waitFor(() => {
+				expect(getPreviewModule.getPreviewFromBlob).toHaveBeenCalledWith('video', file);
+			});
 		});
 
 		it('should not emit files-added if files is empty list', () => {
@@ -286,7 +298,11 @@ describe('UploadService', () => {
 			uploadService.on('files-added', filesAddedCallback);
 
 			uploadService.addFiles([file, file2]);
-			await flushPromises();
+
+			await waitFor(() => {
+				expect(filesAddedCallback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadsStartEventPayload = {
 				files: [
 					{
@@ -330,8 +346,6 @@ describe('UploadService', () => {
 				collection: 'some-collection',
 			});
 			uploadService.addFiles([file, file2]);
-			await flushPromises();
-			expect(mediaClient.file.upload).toHaveBeenCalledTimes(2);
 			const expectedUploadableFile2: UploadableFile = {
 				collection: 'some-collection',
 				content: file2,
@@ -347,8 +361,10 @@ describe('UploadService', () => {
 				size: 100,
 			};
 
+			await waitFor(() => {
+				expect(mediaClient.file.upload).toHaveBeenCalledTimes(2);
+			});
 			expect(asMock(mediaClient.file.upload).mock.calls[0][0]).toEqual(expectedUploadableFile1);
-
 			expect(asMock(mediaClient.file.upload).mock.calls[1][0]).toEqual(expectedUploadableFile2);
 		});
 
@@ -384,8 +400,9 @@ describe('UploadService', () => {
 
 			uploadService.addFiles([file, file2, file3, file4]);
 
-			await flushPromises();
-			expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(2);
+			await waitFor(() => {
+				expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(2);
+			});
 
 			const inputDescriptors0 = asMock(mediaClient.file.touchFiles).mock.calls[0][0];
 			expect(inputDescriptors0).toHaveLength(3);
@@ -469,8 +486,9 @@ describe('UploadService', () => {
 				})),
 			);
 
-			await flushPromises();
-			expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(2);
+			await waitFor(() => {
+				expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(2);
+			});
 
 			const inputDescriptors0 = asMock(mediaClient.file.touchFiles).mock.calls[0][0];
 			expect(inputDescriptors0).toHaveLength(3);
@@ -527,7 +545,10 @@ describe('UploadService', () => {
 				const fileConvertingCallback = jest.fn();
 				uploadService.on('file-converting', fileConvertingCallback);
 				uploadService.addFiles([file]);
-				await flushPromises();
+
+				const filesAddedCallback = jest.fn();
+				uploadService.on('files-added', filesAddedCallback);
+				await waitFor(() => expect(filesAddedCallback).toHaveBeenCalled());
 
 				fileStateObservable.next({
 					status: status,
@@ -541,6 +562,7 @@ describe('UploadService', () => {
 				} as FileState);
 
 				expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
+
 				expect(fileConvertingCallback).toHaveBeenCalledWith({
 					file: {
 						id: expect.any(String),
@@ -563,7 +585,6 @@ describe('UploadService', () => {
 			const fileConvertingCallback = jest.fn();
 			uploadService.on('file-upload-error', fileConvertingCallback);
 			uploadService.addFiles([file]);
-			await flushPromises();
 
 			fileStateObservable.next({
 				status: 'error',
@@ -571,7 +592,9 @@ describe('UploadService', () => {
 				id: 'public-file-id',
 			} as FileState);
 
-			expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
+			});
 			expect(fileConvertingCallback).toHaveBeenCalledWith({
 				fileId: 'uuid1',
 				error: {
@@ -593,61 +616,60 @@ describe('UploadService', () => {
 			uploadService.on('file-upload-error', fileUploadErrorCallback);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
 
 			fileStateObservable.error(error);
 
-			expect(fileUploadErrorCallback).toHaveBeenCalledWith({
-				fileId: 'uuid1',
-				error: {
+			await waitFor(() => {
+				expect(fileUploadErrorCallback).toHaveBeenCalledWith({
 					fileId: 'uuid1',
-					name: 'upload_fail',
-					description: 'Some reason',
-					rawError: error,
-				},
-				traceContext: expect.any(Object),
+					error: {
+						fileId: 'uuid1',
+						name: 'upload_fail',
+						description: 'Some reason',
+						rawError: error,
+					},
+					traceContext: expect.any(Object),
+				});
 			});
 		});
 
 		it('should not call the file rejection handler when all uploads are successful', async () => {
-			const { uploadService, filesAddedPromise } = setup();
+			const { uploadService } = setup();
 
 			const callback = jest.fn();
 			uploadService.onFileRejection(callback);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
-			await filesAddedPromise;
 
 			expect(callback).not.toHaveBeenCalled();
 		});
 
 		it('should not call the file empty handler when all uploads are successful', async () => {
-			const { uploadService, filesAddedPromise } = setup();
+			const { uploadService } = setup();
 
 			const callback = jest.fn();
 			uploadService.onFileEmpty(callback);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
-			await filesAddedPromise;
 
 			expect(callback).not.toHaveBeenCalled();
 		});
 
 		it('should set deferredUploadId to correctly when a batch of upload sessions are successfully created', async () => {
-			const { mediaClient, uploadService, filesAddedPromise } = setup();
+			const { mediaClient, uploadService } = setup();
 
 			uploadService.addFiles([file]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(mediaClient.file.upload).toHaveBeenCalled();
+			});
 
 			const uploadId = await asMock(mediaClient.file.upload).mock.calls[0][2].deferredUploadId;
 			expect(uploadId).toEqual('some-upload-id-uuid1');
 		});
 
 		it('should set deferredUploadId to the ID of a manually created upload session when an conflict error occurrs', async () => {
-			const { mediaClient, uploadService, filesAddedPromise } = setup();
+			const { mediaClient, uploadService } = setup();
 
 			asMock(mediaClient.file.touchFiles).mockRejectedValueOnce(
 				new RequestError('serverUnexpectedError', { statusCode: 409 }),
@@ -662,8 +684,10 @@ describe('UploadService', () => {
 			} as any);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(mediaClient.file.upload).toHaveBeenCalled();
+			});
 
 			const uploadId = await asMock(mediaClient.file.upload).mock.calls[0][2].deferredUploadId;
 			expect(uploadId).toEqual('manually-created-upload-id');
@@ -684,11 +708,12 @@ describe('UploadService', () => {
 			);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
 
-			await expect(
-				asMock(mediaClient.file.upload).mock.calls[0][2].deferredUploadId,
-			).rejects.toThrow(error);
+			await waitFor(async () => {
+				await expect(
+					asMock(mediaClient.file.upload).mock.calls[0][2].deferredUploadId,
+				).rejects.toThrow(error);
+			});
 		});
 	});
 
@@ -728,7 +753,7 @@ describe('UploadService', () => {
 					},
 				],
 			};
-			const { mediaClient, uploadService, filesAddedPromise } = setup();
+			const { mediaClient, uploadService } = setup();
 			asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
 
 			const callback = jest.fn();
@@ -754,8 +779,11 @@ describe('UploadService', () => {
 			} as File;
 
 			uploadService.addFiles([file, file2, file3, file4]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadPreviewUpdateEventPayload = {
 				file: {
 					creationDate: expect.any(Number),
@@ -838,7 +866,7 @@ describe('UploadService', () => {
 					},
 				],
 			};
-			const { mediaClient, uploadService, filesAddedPromise } = setup();
+			const { mediaClient, uploadService } = setup();
 			asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
 
 			const callback = jest.fn();
@@ -850,8 +878,11 @@ describe('UploadService', () => {
 			(getPreviewModule.getPreviewFromBlob as any).mockReturnValue(Promise.resolve(previewObject));
 
 			uploadService.addFiles([file, file, file, file]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(rejectionCallback).toHaveBeenCalled();
+			});
+
 			expect(rejectionCallback).toHaveBeenNthCalledWith(1, {
 				reason: 'fileSizeLimitExceeded',
 				fileName: 'some-filename',
@@ -882,7 +913,6 @@ describe('UploadService', () => {
 			uploadService.onFileRejection(rejectionCallback);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
 
 			expect(rejectionCallback).not.toHaveBeenCalled();
 		});
@@ -929,7 +959,6 @@ describe('UploadService', () => {
 			uploadService.on('file-upload-error', fileUploadErrorCallback);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
 
 			expect(fileUploadErrorCallback).not.toHaveBeenCalled();
 		});
@@ -985,7 +1014,11 @@ describe('UploadService', () => {
 			uploadService.on('files-added', filesAddedCallback);
 
 			uploadService.addFiles([file, file2, fileOverSize]);
-			await flushPromises();
+
+			await waitFor(() => {
+				expect(filesAddedCallback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadsStartEventPayload = {
 				files: [
 					{
@@ -1049,9 +1082,10 @@ describe('UploadService', () => {
 			uploadService.on('files-added', filesAddedCallback);
 
 			uploadService.addFiles([file, file2, fileOverSize]);
-			try {
-				await flushPromises();
-			} catch (err) {}
+
+			await waitFor(() => {
+				expect(filesAddedCallback).toHaveBeenCalled();
+			});
 
 			const expectedPayload: UploadsStartEventPayload = {
 				files: [
@@ -1119,7 +1153,7 @@ describe('UploadService', () => {
 		};
 
 		it('should emit file-preview-update only for successfully created files', async () => {
-			const { mediaClient, uploadService, filesAddedPromise } = setup();
+			const { mediaClient, uploadService } = setup();
 
 			asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
 
@@ -1130,8 +1164,11 @@ describe('UploadService', () => {
 			(getPreviewModule.getPreviewFromBlob as any).mockReturnValue(Promise.resolve(previewObject));
 
 			uploadService.addFiles([file, emptyFile]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadPreviewUpdateEventPayload = {
 				file: {
 					creationDate: expect.any(Number),
@@ -1158,14 +1195,17 @@ describe('UploadService', () => {
 		});
 
 		it('should call file empty handler when file is empty i.e., zero bytes', async () => {
-			const { uploadService, filesAddedPromise } = setup();
+			const { uploadService } = setup();
 
 			const callback = jest.fn();
 			uploadService.onFileEmpty(callback);
 
 			uploadService.addFiles([emptyFile]);
-			await flushPromises();
-			await filesAddedPromise;
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
+
 			expect(callback).toHaveBeenNthCalledWith(1, {
 				reason: 'fileEmpty',
 				fileName: 'emptyFile-name',
@@ -1190,7 +1230,6 @@ describe('UploadService', () => {
 			uploadService.onFileEmpty(callback);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
 
 			expect(callback).not.toHaveBeenCalled();
 		});
@@ -1202,7 +1241,6 @@ describe('UploadService', () => {
 			uploadService.on('file-upload-error', callback);
 
 			uploadService.addFiles([emptyFile]);
-			await flushPromises();
 
 			expect(callback).not.toHaveBeenCalled();
 		});
@@ -1224,7 +1262,11 @@ describe('UploadService', () => {
 			uploadService.on('files-added', callback);
 
 			uploadService.addFiles([file, emptyFile]);
-			await flushPromises();
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
+
 			const expectedPayload: UploadsStartEventPayload = {
 				files: [
 					{
@@ -1269,9 +1311,10 @@ describe('UploadService', () => {
 			uploadService.on('files-added', callback);
 
 			uploadService.addFiles([file, emptyFile, fileOverSize]);
-			try {
-				await flushPromises();
-			} catch (err) {}
+
+			await waitFor(() => {
+				expect(callback).toHaveBeenCalled();
+			});
 
 			const expectedPayload: UploadsStartEventPayload = {
 				files: [
@@ -1313,7 +1356,10 @@ describe('UploadService', () => {
 
 			await uploadService.addFilesWithSource([localFileWithSource]);
 
-			expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(mediaClient.file.touchFiles).toHaveBeenCalled();
+			});
+
 			expect(asMock(mediaClient.file.touchFiles).mock.calls[0][0]).toEqual([
 				{
 					collection: '',
@@ -1342,9 +1388,11 @@ describe('UploadService', () => {
 			);
 
 			await uploadService.addFilesWithSource([localFileWithSource]);
-			await flushPromises();
 
-			expect(mediaClient.mediaStore.createUpload).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(mediaClient.mediaStore.createUpload).toHaveBeenCalled();
+			});
+
 			expect(createUploadMock.mock.calls[0][2]).toEqual({
 				traceId: expect.any(String),
 			});
@@ -1356,7 +1404,11 @@ describe('UploadService', () => {
 			uploadService.on('files-added', filesAddedCallback);
 
 			await uploadService.addFilesWithSource([localFileWithSource]);
-			expect(filesAddedCallback).toHaveBeenCalledTimes(1);
+
+			await waitFor(() => {
+				expect(filesAddedCallback).toHaveBeenCalled();
+			});
+
 			expect(filesAddedCallback.mock.calls[0][0]).toEqual(
 				expect.objectContaining({
 					traceContext: { traceId: expect.any(String) },
@@ -1381,7 +1433,10 @@ describe('UploadService', () => {
 				id: 'public-file-id',
 			} as ProcessingFileState);
 
-			expect(fileConvertingCallback).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(fileConvertingCallback).toHaveBeenCalled();
+			});
+
 			expect(fileConvertingCallback.mock.calls[0][0]).toEqual(
 				expect.objectContaining({
 					traceContext: { traceId: expect.any(String) },
@@ -1399,7 +1454,10 @@ describe('UploadService', () => {
 
 			fileStateObservable.error(error);
 
-			expect(fileUploadErrorCallback).toHaveBeenCalledTimes(1);
+			await waitFor(() => {
+				expect(fileUploadErrorCallback).toHaveBeenCalled();
+			});
+
 			expect(fileUploadErrorCallback.mock.calls[0][0]).toEqual(
 				expect.objectContaining({
 					traceContext: { traceId: expect.any(String) },
@@ -1423,7 +1481,10 @@ describe('UploadService', () => {
 			uploadService.on('files-added', filesAddedCallback);
 
 			uploadService.addFiles([file]);
-			await flushPromises();
+
+			await waitFor(() => {
+				expect(filesAddedCallback).toHaveBeenCalled();
+			});
 
 			const generatedId = filesAddedCallback.mock.calls[0][0].files[0].id;
 			uploadService.cancel(generatedId);
@@ -1449,7 +1510,11 @@ describe('UploadService', () => {
 
 			uploadService.on('files-added', filesAddedCallback);
 			uploadService.addFiles([file1, file2]);
-			await flushPromises();
+
+			await waitFor(() => {
+				expect(filesAddedCallback).toHaveBeenCalled();
+			});
+
 			uploadService.cancel();
 			expect(createUploadController).toHaveBeenCalledTimes(2);
 		});
@@ -1469,7 +1534,10 @@ describe('UploadService', () => {
 
 			const error = new Error('Some reason');
 			uploadService.addFiles([file]);
-			await flushPromises();
+
+			await waitFor(() => {
+				expect(filesAddedCallback).toHaveBeenCalled();
+			});
 
 			expect(Object.keys((uploadService as any).cancellableFilesUploads)).toHaveLength(1);
 

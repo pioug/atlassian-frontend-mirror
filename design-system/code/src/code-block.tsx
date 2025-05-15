@@ -4,9 +4,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
+import rafSchedule from 'raf-schd';
 
 import { token } from '@atlaskit/tokens';
 
@@ -264,10 +266,31 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 	codeBidiWarningLabel,
 	codeBidiWarningTooltipEnabled = true,
 	shouldWrapLongLines = false,
+	label = 'Scrollable content',
 }) {
+	const scrollableRef = useRef<HTMLSpanElement>(null);
+	const [showContentFocus, setShowContentFocus] = useState(false);
 	const numLines =
 		(text || '').split('\n').length + (firstLineNumber > 0 ? firstLineNumber : 1) - 1;
 	const lineNumberWidth = numLines ? getLineNumWidth(numLines) : 0;
+
+	// Schedule a content focus on the target element
+	// WARNING: In theory, `target` may not be available when `rafSchedule` hits in concurrent rendering
+	useEffect(() => {
+		const schedule = rafSchedule(() => {
+			const target = scrollableRef.current;
+			target && setShowContentFocus(target.scrollWidth > target.clientWidth);
+		});
+
+		schedule();
+
+		const unbindWindowEvent = bind(window, {
+			type: 'resize',
+			listener: schedule,
+		});
+
+		return unbindWindowEvent;
+	}, [scrollableRef]);
 
 	const { getHighlightStyles, highlightedLines } = useHighlightLines({
 		highlight,
@@ -316,10 +339,12 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 			codeBidiWarningLabel={codeBidiWarningLabel}
 			codeBidiWarningTooltipEnabled={codeBidiWarningTooltipEnabled}
 			text={text}
+			tabIndex={showContentFocus ? '0' : undefined}
+			aria-label={showContentFocus ? label : undefined}
+			role={showContentFocus ? 'region' : undefined}
+			scrollRef={scrollableRef}
 		/>
 	);
 });
-
-CodeBlock.displayName = 'CodeBlock';
 
 export default CodeBlock;

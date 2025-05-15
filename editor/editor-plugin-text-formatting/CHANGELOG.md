@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.6
+
+### Patch Changes
+
+- [#154988](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154988)
+  [`76019734ff982`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76019734ff982) -
+  [ED-27560] Adds `isInitialised` state variable to text-formatting plugin and migrates it to
+  useSharedPluginStateSelector
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

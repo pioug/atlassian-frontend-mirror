@@ -16,7 +16,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 	let provider: Provider;
 	const documentAri = 'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230';
 	const collabProviderUrl = 'http://localhost/ccollab'; // Not important but preparing this for a good E2E test
-	const getUserMock = jest.fn();
+	const getUserMock = jest.fn().mockReturnValue('test-user');
 	const analyticsWebClientMock: AnalyticsWebClient = {
 		sendUIEvent: jest.fn(),
 		sendOperationalEvent: jest.fn(),
@@ -234,6 +234,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 								isPermittedToView: true,
 								isPermittedToComment: true,
 							},
+							isHydrated: true,
 						},
 					],
 				});

@@ -28,4 +28,9 @@ export type BadgeProps = ElementProps & {
 	 * The text to display for the badge.
 	 */
 	label?: string;
+
+	/**
+	 * Color of the text and badge
+	 */
+	color?: string;
 };

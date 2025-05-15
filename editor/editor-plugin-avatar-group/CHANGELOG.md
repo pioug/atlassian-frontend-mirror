@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 3.1.7
+
+### Patch Changes
+
+- [#153340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153340)
+  [`c498fc22dd152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c498fc22dd152) -
+  [ux] EDITOR-702: Audit participants usage, remove platform_editor_avatars_sort_error_fix FG and
+  add safe type-correct handling by default
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

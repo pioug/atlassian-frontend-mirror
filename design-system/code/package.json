@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "17.1.2",
+	"version": "17.2.0",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,9 @@
 		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
+		"bind-event-listener": "^3.0.0",
 		"memoize-one": "^6.0.0",
+		"raf-schd": "^4.0.3",
 		"refractor": "^3.6.0"
 	},
 	"peerDependencies": {

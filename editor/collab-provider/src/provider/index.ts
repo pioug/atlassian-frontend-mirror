@@ -162,6 +162,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			undefined,
 			this.emitCallback,
 			this.config.getUser,
+			this.config.batchProps,
 			this.channel.broadcast,
 			this.channel.sendPresenceJoined,
 			this.getPresenceData,
@@ -245,6 +246,12 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					});
 				}
 				this.participantsService.startInactiveRemover(this.sessionId);
+				if (this.config.batchProps) {
+					if (this.config.getUser) {
+						throw new ProviderInitialisationError('Cannot supply getUser and batchProps together');
+					}
+					this.participantsService.batchFetchUsersWithDelay();
+				}
 				this.disconnectedAt = undefined;
 			})
 			.on('init', ({ doc, version, metadata }) => {
@@ -748,8 +755,30 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		return this.participantsService.getParticipants();
 	};
 
+	getUniqueParticipantSize = () => {
+		return this.participantsService.getUniqueParticipantSize();
+	};
+
+	getUniqueParticipants = () => {
+		return this.participantsService.getUniqueParticipants({ isHydrated: false });
+	};
+
+	getUniqueHydratedParticipants = () => {
+		return this.participantsService.getUniqueParticipants({ isHydrated: true });
+	};
+
 	getAIProviderParticipants = () => {
 		return this.participantsService.getAIProviderParticipants();
+	};
+
+	fetchMore = async (props?: { fetchSize?: number }) => {
+		if (this.config.batchProps) {
+			await this.participantsService.enrichParticipants({
+				...this.config.batchProps,
+				batchSize: props?.fetchSize ?? this.config.batchProps.batchSize,
+			});
+		}
+		throw new Error('Must provide batch properties to use fetchMore');
 	};
 
 	getSessionId = () => {

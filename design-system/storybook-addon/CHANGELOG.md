@@ -1,5 +1,14 @@
 # @atlaskit/storybook-addon-design-system
 
+## 3.1.0
+
+### Minor Changes
+
+- [#154276](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154276)
+  [`917104b6edd11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/917104b6edd11) -
+  Introduced `adsTheme` parameter for customizing the theme in preview.js that allows overriding the
+  theme with custom values 'light' or 'dark'.
+
 ## 3.0.0
 
 ### Major Changes

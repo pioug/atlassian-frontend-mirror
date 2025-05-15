@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 6.0.2
+
+### Patch Changes
+
+- [#154277](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154277)
+  [`84e1566863396`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84e1566863396) -
+  [ux] ED-27809 Update edit button for datasource link toolbars so users can update search query
+- Updated dependencies
+
+## 6.0.1
+
+### Patch Changes
+
+- [#147070](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147070)
+  [`9fec1cb4ec861`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9fec1cb4ec861) -
+  Migrate Card plugin to use useSharedPluginStateSelector
+- Updated dependencies
+
 ## 6.0.0
 
 ### Patch Changes

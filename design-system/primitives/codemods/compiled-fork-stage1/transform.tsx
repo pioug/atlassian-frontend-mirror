@@ -35,6 +35,14 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 		return file.source;
 	}
 
+	// Has @atlaskit/primitives import?
+	const hasPrimitivesImport =
+		root.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } }).length > 0;
+
+	if (!hasPrimitivesImport) {
+		return file.source;
+	}
+
 	// Find all import declarations from '@atlaskit/primitives'
 	root.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } }).forEach((path) => {
 		// Change the import to '@atlaskit/primitives/compiled'
@@ -175,7 +183,7 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 			);
 	}
 
-	return root.toSource();
+	return root.toSource({ quote: 'single' });
 }
 
 export default transform;

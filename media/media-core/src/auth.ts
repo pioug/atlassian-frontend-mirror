@@ -52,7 +52,20 @@ export interface MediaClientConfig {
 	readonly enforceDataSecurityPolicy?: boolean;
 }
 
+type MediaAccessUrn =
+	| { type: 'clients'; actions: Array<'create'> }
+	| { type: 'files'; actions: Array<'create'> }
+	| { type: 'file'; id: string; actions: Array<'read' | 'update' | 'delete'> }
+	| { type: 'chunk'; actions: Array<'create' | 'read'> }
+	| { type: 'chunk'; eTag: string; actions: Array<'create' | 'read'> }
+	| { type: 'uploads'; actions: Array<'create'> }
+	| { type: 'upload'; id: string; actions: Array<'read' | 'update'> }
+	| { type: 'collections'; actions: Array<'create'> }
+	| { type: 'collection'; name: string; access: Array<'read' | 'update' | 'insert' | 'delete'> };
+
 export interface AuthContext {
+	readonly access?: MediaAccessUrn[];
+	/** @deprecated Use access `type: 'collection'` instead */
 	readonly collectionName?: string;
 }
 

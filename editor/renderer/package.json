@@ -178,9 +178,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_table_col_calculation_fix": {
-			"type": "boolean"
-		},
 		"platform_editor_accessible_heading_copy_link": {
 			"type": "boolean"
 		},

@@ -1,4 +1,4 @@
-import { VCAbortReason } from '../../../../common/vc/types';
+import type { VCAbortReason } from '../../../../common/vc/types';
 import type {
 	VCObserverEntry,
 	VCObserverEntryType,

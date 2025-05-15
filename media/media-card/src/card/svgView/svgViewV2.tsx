@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 import { MediaCardError, type SvgPrimaryReason } from '../../errors';
 
 import { useResolveSvg, MediaSVGError, type MediaSVGErrorReason } from '@atlaskit/media-svg';
-import { SvgViewProps } from './types';
+import type { SvgViewProps } from './types';
 import { ImageRenderer } from '../ui/imageRenderer/imageRendererV2';
 
 const getErrorReason = (svgReason: MediaSVGErrorReason): SvgPrimaryReason => {

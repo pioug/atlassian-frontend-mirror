@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.1.11
+
+### Patch Changes
+
+- [#154816](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154816)
+  [`f8fc8091682c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8fc8091682c7) -
+  Added alt text to MediaInlineCard icon
+
 ## 28.1.10
 
 ### Patch Changes

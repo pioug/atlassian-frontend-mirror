@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import { ExperimentConfigValue } from './types';
+import type { ExperimentConfigValue } from './types';
 import { createBooleanExperiment, createMultivariateExperiment } from './experiment-builders';
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
@@ -221,14 +221,6 @@ export const editorExperimentsConfig = {
 	platform_editor_offline_editing_web: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_offline_editing_web',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-03-26
-	platform_editor_markdown_next_media_plugin_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_markdown_next_media_plugin_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

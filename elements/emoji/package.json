@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "69.1.4",
+	"version": "69.2.0",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -158,7 +158,7 @@
 		"start": "cd ../../ && yarn start emoji",
 		"test": "cd ../../ && yarn test emoji",
 		"typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/emoji",
-		"start:dev": "cd ../../ && yarn start emoji --proxy ./packages/elements/emoji/proxy.ts",
-		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start emoji --proxy ./packages/elements/emoji/proxy.ts"
+		"start:dev": "cd ../../ && yarn start:webpack emoji --proxy ./packages/elements/emoji/proxy.ts",
+		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start:webpack emoji --proxy ./packages/elements/emoji/proxy.ts"
 	}
 }

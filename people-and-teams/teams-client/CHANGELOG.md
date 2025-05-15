@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.2.0
+
+### Minor Changes
+
+- [#154460](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154460)
+  [`0fe18096b12c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fe18096b12c4) -
+  [PTC-11909]: Restrict renaming managed teams to org admin only
+
 ## 4.1.0
 
 ### Minor Changes

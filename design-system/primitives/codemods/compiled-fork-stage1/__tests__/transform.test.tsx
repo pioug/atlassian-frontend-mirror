@@ -13,7 +13,7 @@ describe('transform', () => {
 		const input = `import { Box } from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
 
-		expect(output).toEqual(`import { Box } from "@atlaskit/primitives/compiled";`);
+		expect(output).toEqual(`import { Box } from '@atlaskit/primitives/compiled';`);
 	});
 
 	it('should transform multiple imports from @atlaskit/primitives', async () => {
@@ -22,14 +22,14 @@ import { Box } from '@atlaskit/primitives';
 import { Stack } from '@atlaskit/primitives';
 		`;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Box } from "@atlaskit/primitives/compiled";
-import { Stack } from "@atlaskit/primitives/compiled";`);
+		expect(output).toEqual(`import { Box } from '@atlaskit/primitives/compiled';
+import { Stack } from '@atlaskit/primitives/compiled';`);
 	});
 
 	it('should transform named imports with multiple specifiers', async () => {
 		const input = `import { Box, Stack, Inline } from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Box, Stack, Inline } from "@atlaskit/primitives/compiled";`);
+		expect(output).toEqual(`import { Box, Stack, Inline } from '@atlaskit/primitives/compiled';`);
 	});
 
 	it('should NOT transform when xcss is imported', async () => {
@@ -67,28 +67,28 @@ import { something } from '@atlaskit/other-package';
 import { Stack } from '@atlaskit/primitives';
 		`;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Box } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { Box } from '@atlaskit/primitives/compiled';
 import { something } from '@atlaskit/other-package';
-import { Stack } from "@atlaskit/primitives/compiled";`);
+import { Stack } from '@atlaskit/primitives/compiled';`);
 	});
 
 	it('should handle empty imports', async () => {
 		const input = `import {} from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import {} from "@atlaskit/primitives/compiled";`);
+		expect(output).toEqual(`import {} from '@atlaskit/primitives/compiled';`);
 	});
 
 	it('should transform aliased named imports', async () => {
 		const input = `import { Box as AtlaskitBox } from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Box as AtlaskitBox } from "@atlaskit/primitives/compiled";`);
+		expect(output).toEqual(`import { Box as AtlaskitBox } from '@atlaskit/primitives/compiled';`);
 	});
 
 	it('should transform multiple aliased named imports', async () => {
 		const input = `import { Box as AtlaskitBox, Stack as AtlaskitStack } from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
 		expect(output).toEqual(
-			`import { Box as AtlaskitBox, Stack as AtlaskitStack } from "@atlaskit/primitives/compiled";`,
+			`import { Box as AtlaskitBox, Stack as AtlaskitStack } from '@atlaskit/primitives/compiled';`,
 		);
 	});
 
@@ -96,7 +96,7 @@ import { Stack } from "@atlaskit/primitives/compiled";`);
 		const input = `import { Box as AtlaskitBox, Stack, Inline as AtlaskitInline } from '@atlaskit/primitives';`;
 		const output = await applyTransform(transform, input);
 		expect(output).toEqual(
-			`import { Box as AtlaskitBox, Stack, Inline as AtlaskitInline } from "@atlaskit/primitives/compiled";`,
+			`import { Box as AtlaskitBox, Stack, Inline as AtlaskitInline } from '@atlaskit/primitives/compiled';`,
 		);
 	});
 
@@ -117,8 +117,8 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
-import { Grid } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+import { Grid } from '@atlaskit/primitives/compiled';
 
 const gridStyles = cssMap({
     root: {
@@ -141,8 +141,8 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
-import { Anchor } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+import { Anchor } from '@atlaskit/primitives/compiled';
 
 const anchorStyles = cssMap({
     root: {
@@ -166,8 +166,8 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
-import { Pressable } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+import { Pressable } from '@atlaskit/primitives/compiled';
 
 const pressableStyles = cssMap({
     root: {
@@ -191,8 +191,8 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
-import { Grid } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+import { Grid } from '@atlaskit/primitives/compiled';
 
 const gridStyles = cssMap({
     root: {
@@ -215,7 +215,7 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Grid } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { Grid } from '@atlaskit/primitives/compiled';
 import { cssMap } from '@atlaskit/css';
 
 const gridStyles = cssMap({
@@ -239,7 +239,7 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { Grid } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { Grid } from '@atlaskit/primitives/compiled';
 import { cssMap as emotionCssMap } from '@atlaskit/css';
 
 const gridStyles = emotionCssMap({
@@ -278,8 +278,8 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
-import { Grid, Anchor } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+import { Grid, Anchor } from '@atlaskit/primitives/compiled';
 
 const gridStyles = cssMap({
     root: {
@@ -320,8 +320,8 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
-import { Grid, Anchor } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+import { Grid, Anchor } from '@atlaskit/primitives/compiled';
 
 const gridStyles = cssMap({
     root: {
@@ -352,8 +352,8 @@ const MyComponent = () => (
 );
 `;
 		const output = await applyTransform(transform, input);
-		expect(output).toEqual(`import { cssMap } from "@atlaskit/css";
-import { Grid } from "@atlaskit/primitives/compiled";
+		expect(output).toEqual(`import { cssMap } from '@atlaskit/css';
+import { Grid } from '@atlaskit/primitives/compiled';
 
 const gridStyles = cssMap({
 	root: {

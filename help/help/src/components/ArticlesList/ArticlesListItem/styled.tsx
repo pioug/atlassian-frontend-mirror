@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { css, jsx } from '@compiled/react';
+import Heading from '@atlaskit/heading';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 import { B100, B50, N200, N30, N400, N400A, N800, Y100 } from '@atlaskit/theme/colors';
@@ -97,8 +98,11 @@ const articlesListItemTitleTextStyles = css({
 });
 
 export const ArticlesListItemTitleText = ({ children }: { children: React.ReactNode }) => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
-	<p css={articlesListItemTitleTextStyles}>{children}</p>
+	<div css={articlesListItemTitleTextStyles}>
+		<Heading size="xsmall" as="h3">
+			{children}
+		</Heading>
+	</div>
 );
 
 const articlesListItemDescriptionStyles = css({

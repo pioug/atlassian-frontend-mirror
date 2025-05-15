@@ -48,6 +48,66 @@ describe('get functions', () => {
 		});
 	});
 
+	describe('getUniqueParticipants', () => {
+		it('should only return unique participants', () => {
+			const duplicateUser: ProviderParticipant = {
+				...activeUser,
+				sessionId: '1',
+				lastActive: 1,
+			};
+
+			participantsState.setBySessionId(duplicateUser.sessionId, duplicateUser);
+			const hydratedParticipants = participantsState.getUniqueParticipants({ isHydrated: false });
+			expect(participantsState.size()).toEqual(3);
+
+			expect(hydratedParticipants.length).toEqual(1);
+			// last user added wins
+			expect(hydratedParticipants).toEqual([duplicateUser]);
+			expect(participantsState.getUniqueParticipantSize()).toEqual(1);
+		});
+
+		it('should filter for hydrated users only', () => {
+			const hydratedUser: ProviderParticipant = {
+				userId: '1',
+				clientId: 'unused2',
+				sessionId: '1',
+				lastActive: 999,
+				name: 'User 2',
+				avatar: 'www.jamescameron.com/image.png',
+				email: 'fake.user@email.com',
+				isHydrated: true,
+			};
+
+			participantsState.setBySessionId(hydratedUser.sessionId, hydratedUser);
+			const hydratedParticipants = participantsState.getUniqueParticipants({ isHydrated: true });
+			expect(participantsState.size()).toEqual(3);
+
+			expect(hydratedParticipants.length).toEqual(1);
+			expect(hydratedParticipants).toEqual([hydratedUser]);
+			expect(participantsState.getUniqueParticipantSize()).toEqual(2);
+		});
+
+		it('should filter for non hydrated users only', () => {
+			const hydratedUser: ProviderParticipant = {
+				userId: '1',
+				clientId: 'unused2',
+				sessionId: '1',
+				lastActive: 999,
+				name: 'User 2',
+				avatar: 'www.jamescameron.com/image.png',
+				email: 'fake.user@email.com',
+			};
+
+			participantsState.setBySessionId(hydratedUser.sessionId, hydratedUser);
+			const hydratedParticipants = participantsState.getUniqueParticipants({ isHydrated: false });
+			expect(participantsState.size()).toEqual(3);
+
+			expect(hydratedParticipants.length).toEqual(2);
+			expect(hydratedParticipants).toEqual([activeUser, hydratedUser]);
+			expect(participantsState.getUniqueParticipantSize()).toEqual(2);
+		});
+	});
+
 	describe('getAIProviderParticipants', () => {
 		const copy = participantsState.getAIProviderParticipants();
 

@@ -49,6 +49,7 @@ const Text = ({
 	className,
 	testId = 'smart-element-text',
 	hideFormat = false,
+	color,
 }: TextProps) => {
 	if (!message && !content) {
 		return null;
@@ -74,6 +75,10 @@ const Text = ({
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				dynamicCss,
 			]}
+			style={{
+				color:
+					color && fg('platform-linking-additional-flexible-element-props') ? color : undefined,
+			}}
 			data-separator
 			data-smart-element={name}
 			data-smart-element-text

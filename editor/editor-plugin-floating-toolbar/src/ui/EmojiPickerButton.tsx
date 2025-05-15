@@ -8,7 +8,10 @@ import React, { useCallback, useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -16,6 +19,7 @@ import {
 	OutsideClickTargetRefContext,
 	withReactEditorViewOuterListeners,
 } from '@atlaskit/editor-common/ui-react';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
@@ -66,13 +70,20 @@ type EmojiPickerWithProviderProps = {
 	updateEmoji: (emoji: EmojiId) => void;
 };
 
-const EmojiPickerWithProvider = (props: EmojiPickerWithProviderProps) => {
-	const { emojiState } = useSharedPluginState(props.pluginInjectionApi, ['emoji']);
-	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
+const useEmojiProvider = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
+		const emojiProvider = useSharedPluginStateSelector(api, 'emoji.emojiProvider');
+		return emojiProvider ? Promise.resolve(emojiProvider) : undefined;
+	},
+	(api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
+		const { emojiState } = useSharedPluginState(api, ['emoji']);
+		return emojiState?.emojiProvider ? Promise.resolve(emojiState.emojiProvider) : undefined;
+	},
+);
 
-	const emojiProvider = emojiState?.emojiProvider
-		? Promise.resolve(emojiState?.emojiProvider)
-		: undefined;
+const EmojiPickerWithProvider = (props: EmojiPickerWithProviderProps) => {
+	const emojiProvider = useEmojiProvider(props.pluginInjectionApi);
+	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 
 	if (!emojiProvider) {
 		return null;

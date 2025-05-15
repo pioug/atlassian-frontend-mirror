@@ -134,6 +134,7 @@ type StickyTableProps = {
 	tableNode?: PMNode;
 	rendererAppearance: RendererAppearance;
 	allowTableResizing?: boolean;
+	fixTableSSRResizing?: boolean;
 } & OverflowShadowProps;
 
 export const StickyTable = ({
@@ -153,6 +154,7 @@ export const StickyTable = ({
 	tableNode,
 	rendererAppearance,
 	allowTableResizing,
+	fixTableSSRResizing = false,
 }: StickyTableProps) => {
 	let styles;
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
@@ -189,6 +191,8 @@ export const StickyTable = ({
 					data-layout={layout}
 					style={{
 						width: tableWidth,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						marginBottom: fixTableSSRResizing ? 0 : '',
 					}}
 				>
 					<div
@@ -227,6 +231,9 @@ export const StickyTable = ({
 
 /**
  * Traverse DOM Tree upwards looking for table parents with "overflow: scroll".
+ * @param table
+ * @param defaultScrollRootId
+ * @example
  */
 function findHorizontalOverflowScrollParent(
 	table: HTMLElement | null,
@@ -256,21 +263,36 @@ function findHorizontalOverflowScrollParent(
 	return null;
 }
 
+/**
+ *
+ */
 export class OverflowParent {
 	private constructor(private ref: HTMLElement | Window) {
 		this.ref = ref;
 	}
 
+	/**
+	 *
+	 * @param el
+	 * @param defaultScrollRootId
+	 * @example
+	 */
 	static fromElement(el: HTMLElement | null, defaultScrollRootId?: string) {
 		return new OverflowParent(
 			findHorizontalOverflowScrollParent(el, defaultScrollRootId) || window,
 		);
 	}
 
+	/**
+	 *
+	 */
 	get isElement() {
 		return this.ref instanceof HTMLElement;
 	}
 
+	/**
+	 *
+	 */
 	get id() {
 		if (this.ref instanceof HTMLElement) {
 			return this.ref.id;
@@ -279,6 +301,9 @@ export class OverflowParent {
 		return '';
 	}
 
+	/**
+	 *
+	 */
 	get top() {
 		if (this.ref instanceof HTMLElement) {
 			return this.ref.getBoundingClientRect().top;
@@ -287,6 +312,13 @@ export class OverflowParent {
 		return 0;
 	}
 
+	/**
+	 *
+	 * @param type
+	 * @param cb
+	 * @param {...any} args
+	 * @example
+	 */
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public addEventListener(type: string, cb: EventListenerOrEventListenerObject, ...args: any[]) {
@@ -295,6 +327,13 @@ export class OverflowParent {
 		this.ref.addEventListener(type, cb, ...args);
 	}
 
+	/**
+	 *
+	 * @param type
+	 * @param cb
+	 * @param {...any} args
+	 * @example
+	 */
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public removeEventListener(type: string, cb: EventListenerOrEventListenerObject, ...args: any[]) {

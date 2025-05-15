@@ -30,7 +30,7 @@ import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
 import type { EditorAnalyticsAPI } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
 import { insideTable } from '../../core-utils';
-import { Keymap, alignCenter, alignLeft, alignRight, tooltip } from '../../keymaps';
+import { type Keymap, alignCenter, alignLeft, alignRight, tooltip } from '../../keymaps';
 import commonMessages, { mediaAndEmbedToolbarMessages as toolbarMessages } from '../../messages';
 import type {
 	Command,

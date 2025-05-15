@@ -1663,6 +1663,7 @@ describe('MediaStore', () => {
 									'video_640.mp4': {
 										processingStatus: 'succeeded',
 										url: '/sd-video',
+										cdnUrl: 'backend-provided-cdn-url',
 									},
 								},
 								'video_640.mp4',
@@ -1684,7 +1685,7 @@ describe('MediaStore', () => {
 							);
 							expect(url).toEqual(nonCdnURL);
 
-							// Test against commercial micros perimeter and hostname, should return cdn url
+							// Test against commercial micros perimeter and hostname, without provided backend cdn url, should return cdn url
 							global.MICROS_PERIMETER = 'commercial';
 							window.location.hostname = 'hello.atlassian.net';
 
@@ -1700,6 +1701,21 @@ describe('MediaStore', () => {
 							);
 
 							expect(url).toEqual(cdnURL);
+
+							// Test against commercial micros perimeter and hostname, with provided backend cdn url, should return provided backend cdn url
+							url = await mediaStore.getArtifactURL(
+								{
+									'video_640.mp4': {
+										processingStatus: 'succeeded',
+										url: '/sd-video',
+										cdnUrl: 'backend-provided-cdn-url',
+									},
+								},
+								'video_640.mp4',
+								'some-collection',
+							);
+
+							expect(url).toEqual('backend-provided-cdn-url');
 						},
 						async () => {
 							const url = await mediaStore.getArtifactURL(
@@ -1731,6 +1747,85 @@ describe('MediaStore', () => {
 				);
 				await expect(mediaStore.getArtifactURL(artifacts, 'audio.mp3')).rejects.toThrow(
 					'artifact audio.mp3 not found',
+				);
+			});
+		});
+
+		describe('getArtifactBinary', () => {
+			it('should return artifact binary from getArtifactURL', async () => {
+				const getArtifactURLSpy = jest.spyOn(mediaStore, 'getArtifactURL');
+				getArtifactURLSpy.mockResolvedValue('http://some-artifact-url');
+
+				let response = await mediaStore.getArtifactBinary(
+					{
+						'video_640.mp4': {
+							processingStatus: 'succeeded',
+							url: '/sd-video',
+							cdnUrl: 'backend-provided-cdn-url',
+						},
+					},
+					'video_640.mp4',
+					{ collectionName: 'some-collection-name' },
+				);
+
+				expect(fetchMock).toHaveBeenCalledWith(`http://some-artifact-url/`, {
+					method: 'GET',
+				});
+
+				expect(response).toEqual(expect.any(Blob));
+			});
+		});
+
+		describe('uploadArtifact', () => {
+			it('should upload artifact', async () => {
+				const dataResponse = { data: { id: 'some-file-id' } };
+				fetchMock.once(JSON.stringify(dataResponse), {
+					status: 200,
+					statusText: 'OK',
+				});
+
+				const response = await mediaStore.uploadArtifact(
+					'some-file-id',
+					new File(['some-file-content'], 'some-file-name', { type: 'text/vtt' }),
+					{ type: 'caption', language: 'en-AU' },
+					'some-collection-name',
+					{ traceId: 'some-trace-id' },
+				);
+
+				expect(response).toEqual(dataResponse);
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName: 'some-collection-name',
+						access: [{ type: 'file', id: 'some-file-id', actions: ['update'] }],
+					},
+					undefined,
+				);
+				expect(requestModuleMock).toHaveBeenCalledWith(
+					`${baseUrl}/file/some-file-id/artifact/binary`,
+					expect.objectContaining({
+						method: 'POST',
+						headers: expect.objectContaining({
+							'Content-Type': 'text/vtt',
+							Accept: 'application/json',
+						}),
+						auth: {
+							baseUrl: 'http://some-host',
+							clientId: 'some-client-id',
+							token: 'some-token',
+						},
+						params: {
+							type: 'caption',
+							language: 'en-AU',
+							name: 'some-file-name',
+						},
+						traceContext: {
+							traceId: 'some-trace-id',
+							spanId: expect.any(String),
+						},
+						endpoint: '/file/{fileId}/artifact/binary',
+					}),
+					undefined,
 				);
 			});
 		});

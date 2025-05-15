@@ -1,5 +1,25 @@
 # @atlaskit/media-client
 
+## 33.1.1
+
+### Patch Changes
+
+- [#154915](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154915)
+  [`f5aa2998ecd93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5aa2998ecd93) -
+  Fixing internal type import
+
+## 33.1.0
+
+### Minor Changes
+
+- [#151188](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151188)
+  [`0701e2ec739df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0701e2ec739df) -
+  Exposed methods to fetch and upload file artifact binaries
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.0
 
 ### Patch Changes

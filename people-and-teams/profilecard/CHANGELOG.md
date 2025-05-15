@@ -1,5 +1,47 @@
 # @atlaskit/profilecard
 
+## 23.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.13.0
+
+### Minor Changes
+
+- [#153632](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153632)
+  [`b3c90207ec3e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3c90207ec3e4) -
+  [ux] update the TeamProfileCardWithContainer layout
+
+## 23.12.0
+
+### Minor Changes
+
+- [#140885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140885)
+  [`e8f0bc1586879`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8f0bc1586879) -
+  Cleanup FF rovo_use_agent_permissions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.11.2
+
+### Patch Changes
+
+- [#154380](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154380)
+  [`d9b89b5a507e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9b89b5a507e5) -
+  Migrate rovo endpoints away from assistant-service
+
+## 23.11.1
+
+### Patch Changes
+
+- [#150331](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150331)
+  [`7730aa59c3905`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7730aa59c3905) -
+  Heading element for Full Name in profile card
+
 ## 23.11.0
 
 ### Minor Changes

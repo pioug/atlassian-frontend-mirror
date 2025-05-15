@@ -108,7 +108,7 @@ const CustomProductHomeExample = () => (
 const skeletonPrimaryItems = [
 	<SkeletonPrimaryButton>Home</SkeletonPrimaryButton>,
 	<SkeletonPrimaryButton isDropdownButton text="Projects" />,
-	<SkeletonPrimaryButton isDropdownButton isHighlighted text="Filters &amp; issues" />,
+	<SkeletonPrimaryButton isDropdownButton isHighlighted text="Filters &amp; work items" />,
 	<SkeletonPrimaryButton isDropdownButton text="Dashboards" />,
 	<SkeletonPrimaryButton isDropdownButton text="Apps" testId="apps-skeleton" />,
 ];

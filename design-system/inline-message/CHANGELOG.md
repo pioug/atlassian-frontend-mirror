@@ -1,5 +1,18 @@
 # @atlaskit/inline-message
 
+## 15.1.0
+
+### Minor Changes
+
+- [#152852](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152852)
+  [`ae720e711e4d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae720e711e4d2) -
+  Adds `fallbackPlacements` prop for specifying a list of backup placements to try when the main
+  `placement` does not have enough space. This matches the API of `Popup`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.1
 
 ### Patch Changes

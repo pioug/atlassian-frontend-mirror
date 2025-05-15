@@ -1,14 +1,11 @@
 import React from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { browser } from '@atlaskit/editor-common/browser';
-
 import type { TableLayout, UrlType } from '@atlaskit/adf-schema';
 import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common/styles';
 import { WidthConsumer, overflowShadow } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	createCompareNodes,
 	convertProsemirrorTableNodeToArrayOfRows,
@@ -42,8 +39,6 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
-
-import { TableProcessorWithContainerStyles } from './tableNew';
 
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
@@ -195,7 +190,9 @@ export interface TableState {
 	wrapperWidth: number;
 	headerRowHeight: number;
 }
-
+/**
+ * Class for Tables in Renderer
+ */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class TableContainer extends React.Component<
@@ -244,6 +241,10 @@ export class TableContainer extends React.Component<
 		}
 	};
 
+	/**
+	 *
+	 * @example
+	 */
 	componentDidMount() {
 		this.resizeObserver = new ResizeObserver(this.applyResizerChange);
 		if (this.wrapperRef.current) {
@@ -268,6 +269,12 @@ export class TableContainer extends React.Component<
 		}
 	}
 
+	/**
+	 *
+	 * @param prevProps
+	 * @param prevState
+	 * @example
+	 */
 	componentDidUpdate(prevProps: TableProps, prevState: TableState) {
 		// toggling sticky headers visiblity
 		if (this.props.stickyHeaders && !this.overflowParent) {
@@ -365,6 +372,9 @@ export class TableContainer extends React.Component<
 		}
 	};
 
+	/**
+	 *
+	 */
 	get pinTop() {
 		if (!this.tableRef.current || !this.stickyHeaderRef.current) {
 			return;
@@ -378,6 +388,9 @@ export class TableContainer extends React.Component<
 		);
 	}
 
+	/**
+	 *
+	 */
 	get shouldAddOverflowParentOffsetTop_DO_NOT_USE() {
 		// IF the StickyHeaderConfig specifies that the default scroll root offsetTop should be added
 		// AND the StickyHeaderConfig specifies a default scroll root id
@@ -392,6 +405,9 @@ export class TableContainer extends React.Component<
 		);
 	}
 
+	/**
+	 *
+	 */
 	get stickyTop() {
 		switch (this.state.stickyMode) {
 			case 'pin-bottom':
@@ -409,6 +425,10 @@ export class TableContainer extends React.Component<
 		}
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	render() {
 		const {
 			isNumberColumnEnabled,
@@ -499,7 +519,7 @@ export class TableContainer extends React.Component<
 				? renderWidthCSS
 				: `${lineLengthFixedWidth}px`;
 
-		const fixTableSSRResizing = fg('platform-fix-table-ssr-resizing');
+		const fixTableSSRResizing = fg('platform-ssr-table-resize');
 		const tableWidthNew = fixTableSSRResizing ? getTableContainerWidth(tableNode) : tableWidth;
 		const shouldCalculateLeftForAlignment =
 			!isInsideOfBlockNode &&
@@ -643,6 +663,7 @@ export class TableContainer extends React.Component<
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
 							allowTableResizing={allowTableResizing}
+							fixTableSSRResizing={fixTableSSRResizing}
 						>
 							{[children && children[0]]}
 						</StickyTable>
@@ -729,6 +750,9 @@ type TableProcessorState = {
 	tableOrderStatus?: TableOrderStatus;
 };
 
+/**
+ *
+ */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class TableProcessor extends React.Component<
@@ -739,6 +763,10 @@ export class TableProcessor extends React.Component<
 		tableOrderStatus: undefined,
 	};
 
+	/**
+	 *
+	 * @example
+	 */
 	render() {
 		const { children } = this.props;
 		if (!children) {
@@ -803,20 +831,6 @@ export class TableProcessor extends React.Component<
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TableWithShadowsAndContainerStyles: React.PropsWithChildren<any> = overflowShadow(
-	TableProcessorWithContainerStyles,
-	{
-		/**
-		 * The :scope is in reference to table container and we are selecting only
-		 * direct children that match the table node wrapper selector, not their
-		 * descendants.
-		 */
-		overflowSelector: `:scope > .${TableSharedCssClassName.TABLE_NODE_WRAPPER}`,
-		useShadowObserver: true,
-	},
-);
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TableWithShadows: React.PropsWithChildren<any> = overflowShadow(TableProcessor, {
 	/**
 	 * The :scope is in reference to table container and we are selecting only
@@ -827,76 +841,35 @@ const TableWithShadows: React.PropsWithChildren<any> = overflowShadow(TableProce
 	useShadowObserver: true,
 });
 
-// Legacy tables have only one of the three layouts and do not have a width attribute
-const isLegacyTable = (layout: string) => {
-	return Boolean(['default', 'wide', 'full-width'].includes(layout));
-};
-
-const shouldRenderTableWithCSSWidth = (layout: string, width: number | undefined) => {
-	// The CSS width optimization is currently only in place when the table node
-	// has a defined width and is not a legacy table
-
-	// the optimization is also skipped for Safari due to browser limitations with container styles
-	if (browser.safari || !width || isLegacyTable(layout)) {
-		return false;
-	}
-	return true;
-};
-
 const TableWithWidth = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	props: React.PropsWithChildren<any>,
 ) => {
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	if (
-		(shouldRenderTableWithCSSWidth(
-			props.tableNode?.attrs?.layout ?? '',
-			props.tableNode?.attrs?.width,
-		) ||
-			props.rendererAppearance === 'comment') &&
-		fg('platform-ssr-table-resize')
-	) {
-		const colWidthsSum =
-			props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
-		if (colWidthsSum || props.allowTableResizing) {
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			return <TableWithShadowsAndContainerStyles {...props} />;
-		}
-		return (
-			<TableProcessorWithContainerStyles
-				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...props}
-			/>
-		);
-	} else {
-		return (
-			<WidthConsumer>
-				{({ width }) => {
-					const renderWidth =
-						props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
-					const colWidthsSum =
-						props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
+	return (
+		<WidthConsumer>
+			{({ width }) => {
+				const renderWidth =
+					props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
+				const colWidthsSum =
+					props.columnWidths?.reduce((total: number, val: number) => total + val, 0) || 0;
 
-					if (colWidthsSum || props.allowTableResizing) {
+				if (colWidthsSum || props.allowTableResizing) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					return <TableWithShadows renderWidth={renderWidth} {...props} />;
+				}
+				// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
+				return (
+					<TableProcessor
+						renderWidth={renderWidth}
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
-						return <TableWithShadows renderWidth={renderWidth} {...props} />;
-					}
-					// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
-					return (
-						<TableProcessor
-							renderWidth={renderWidth}
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...props}
-						/>
-					);
-				}}
-			</WidthConsumer>
-		);
-	}
+						{...props}
+					/>
+				);
+			}}
+		</WidthConsumer>
+	);
 };
 
 export default withSmartCardStorage(TableWithWidth);

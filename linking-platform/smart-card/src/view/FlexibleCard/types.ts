@@ -2,7 +2,7 @@ import { type MessageDescriptor } from 'react-intl-next';
 
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { type SmartLinkSize, type SmartLinkStatus, type SmartLinkTheme } from '../../constants';

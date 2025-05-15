@@ -5,7 +5,7 @@
 import { jsx, css } from '@compiled/react';
 import React, { useState, useRef, useEffect } from 'react';
 import { calculateDimensions, calculateInitialDimensions } from './helpers';
-import { ImageRendererProps } from './types';
+import type { ImageRendererProps } from './types';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 import { ImageRendererWrapper } from './wrapper';
 import { isFileIdentifier } from '@atlaskit/media-client';

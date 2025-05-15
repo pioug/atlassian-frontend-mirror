@@ -22,7 +22,11 @@ import {
 	mapMediaFileToFileState,
 	mapMediaItemToFileState,
 } from '../../models/file-state';
-import { isNotFoundMediaItemDetails, type MediaFile } from '../../models/media';
+import {
+	isNotFoundMediaItemDetails,
+	type MediaItemDetails,
+	type MediaFile,
+} from '../../models/media';
 import { FileFetcherError } from './error';
 import { type UploadableFile, type UploadableFileUpfrontIds, uploadFile } from '../../uploader';
 import { type UploadController } from '../../upload-controller';
@@ -66,6 +70,7 @@ import {
 	fromCommonMediaClientError,
 	type MediaClientErrorReason,
 } from '../../models/errors';
+import { type UploadArtifactParams } from '../media-store/types';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './error';
 export { isFileFetcherError, FileFetcherError } from './error';
@@ -144,6 +149,13 @@ export interface FileFetcher {
 	): Promise<MediaFile>;
 	getFileBinaryURL(id: string, collectionName?: string, maxAge?: number): Promise<string>;
 	registerCopyIntent(id: string, collectionName?: string): Promise<void>;
+	uploadArtifact(
+		id: string,
+		file: File,
+		params: UploadArtifactParams,
+		collectionName?: string,
+		traceContext?: MediaTraceContext,
+	): Promise<MediaItemDetails>;
 }
 
 export class FileFetcherImpl implements FileFetcher {
@@ -767,4 +779,29 @@ export class FileFetcherImpl implements FileFetcher {
 			throw error;
 		}
 	}
+
+	public uploadArtifact: FileFetcher['uploadArtifact'] = async (
+		id,
+		file,
+		params,
+		collectionName,
+		traceContext,
+	) => {
+		const { data } = await this.mediaApi.uploadArtifact(
+			id,
+			file,
+			params,
+			collectionName,
+			traceContext,
+		);
+
+		/* TEMPORARYLY PULLING NEW METADATA till the endpoint is fixed */
+		const { data: altData } = await this.mediaApi.getItems([id], collectionName, traceContext);
+		const itemDetails = altData.items[0].details;
+		// ------------------------------------------------------------
+
+		this.setFileState(id, mapMediaItemToFileState(id, itemDetails));
+
+		return data;
+	};
 }

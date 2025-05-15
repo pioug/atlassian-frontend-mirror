@@ -26,9 +26,13 @@ import type {
 	TabGroupField,
 } from '@atlaskit/editor-common/extensions';
 import { isTabGroup, configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import Form, { FormFooter } from '@atlaskit/form';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -538,6 +542,24 @@ class ConfigPanel extends React.Component<Props, State> {
 	}
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
+		const contextIdentifierProvider = useSharedPluginStateSelector(
+			api,
+			'contextIdentifier.contextIdentifierProvider',
+		);
+		return {
+			contextIdentifierProvider,
+		};
+	},
+	(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) => {
+		const { contextIdentifierState } = useSharedPluginState(api, ['contextIdentifier']);
+		return {
+			contextIdentifierProvider: contextIdentifierState?.contextIdentifierProvider,
+		};
+	},
+);
+
 function ConfigFormIntlWithBoundary({
 	api,
 	fields,
@@ -569,9 +591,7 @@ function ConfigFormIntlWithBoundary({
 	errorMessage: string | null;
 	disableFields?: boolean;
 }) {
-	const { contextIdentifierState } = useSharedPluginState(api, ['contextIdentifier']);
-	const { contextIdentifierProvider } = contextIdentifierState ?? {};
-
+	const { contextIdentifierProvider } = useSharedState(api);
 	return (
 		<FormErrorBoundary
 			contextIdentifierProvider={contextIdentifierProvider}

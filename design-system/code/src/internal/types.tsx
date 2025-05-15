@@ -79,6 +79,11 @@ export interface CodeBlockProps {
 	 * @default false
 	 */
 	shouldWrapLongLines?: boolean;
+	/**
+	 * Text used to describe that the content of the code block is scrollable.
+	 * Set only if the code block is scrollable. Defaults to 'Scrollable content'.
+	 */
+	label?: string;
 }
 
 export type { SupportedLanguages, LanguageAlias, Language } from '../constants';

@@ -118,7 +118,7 @@ const FiltersContent = () => (
 			<ButtonItem>Engineering Leadership</ButtonItem>
 			<ButtonItem>Viewed recently</ButtonItem>
 			<ButtonItem>Resolved recently</ButtonItem>
-			<ButtonItem>Done issues</ButtonItem>
+			<ButtonItem>Tasks done</ButtonItem>
 		</Section>
 		<Section hasSeparator>
 			<ButtonItem>View all filters</ButtonItem>
@@ -235,7 +235,7 @@ const primaryItems = [
 		Home
 	</PrimaryButton>,
 	<PrimaryDropdown content={ProjectsContent} text="Projects" />,
-	<PrimaryDropdown isHighlighted content={FiltersContent} text="Filters &amp; issues" />,
+	<PrimaryDropdown isHighlighted content={FiltersContent} text="Filters &amp; work items" />,
 	<PrimaryDropdown content={DashboardsContent} text="Dashboards" />,
 	<PrimaryDropdown content={AppsContent} text="Apps" />,
 ];

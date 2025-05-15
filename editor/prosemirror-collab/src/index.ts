@@ -8,7 +8,9 @@ import type {
 } from '@atlaskit/editor-prosemirror/transform';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-class Rebaseable {
+import { mapStep } from './movedContent';
+
+export class Rebaseable {
 	constructor(
 		readonly step: ProseMirrorStep,
 		readonly inverted: ProseMirrorStep,
@@ -16,8 +18,6 @@ class Rebaseable {
 	) {}
 }
 
-/// Undo a given set of steps, apply a set of other steps, and then
-/// redo them @internal
 export function rebaseSteps(
 	steps: readonly Rebaseable[],
 	over: readonly ProseMirrorStep[],
@@ -32,6 +32,11 @@ export function rebaseSteps(
 	const result = [];
 	for (let i = 0, mapFrom = steps.length; i < steps.length; i++) {
 		const mapped = steps[i].step.map(transform.mapping.slice(mapFrom));
+
+		const movedStep = editorExperiment('platform_editor_offline_editing_web', true)
+			? mapStep(steps, transform, i, mapped)
+			: undefined;
+
 		mapFrom--;
 		if (mapped && !transform.maybeStep(mapped).failed) {
 			// Open ticket for setMirror https://github.com/ProseMirror/prosemirror/issues/869
@@ -44,6 +49,19 @@ export function rebaseSteps(
 					steps[i].origin,
 				),
 			);
+		}
+
+		// If the step is a "move" step - apply the additional step
+		if (editorExperiment('platform_editor_offline_editing_web', true)) {
+			if (movedStep && !transform.maybeStep(movedStep).failed) {
+				result.push(
+					new Rebaseable(
+						movedStep,
+						movedStep.invert(transform.docs[transform.docs.length - 1]),
+						transform,
+					),
+				);
+			}
 		}
 	}
 	return result;

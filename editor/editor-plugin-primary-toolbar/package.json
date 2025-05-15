@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-primary-toolbar",
-	"version": "3.2.5",
+	"version": "3.2.6",
 	"description": "Primary toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -95,6 +95,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_undo_redo_find_on_primary_toolbar": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_fix_toolbar_config_embeds": {
 			"type": "boolean"
 		}
 	}

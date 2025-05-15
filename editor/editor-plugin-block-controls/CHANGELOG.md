@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.13.11
+
+### Patch Changes
+
+- [#152853](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152853)
+  [`73092ef06444a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73092ef06444a) -
+  [ux] ED-27602 fix drag handle shifting above table when hovering in top cell
+- Updated dependencies
+
 ## 3.13.10
 
 ### Patch Changes

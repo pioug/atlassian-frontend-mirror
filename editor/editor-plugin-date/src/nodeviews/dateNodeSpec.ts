@@ -99,11 +99,11 @@ export const dateToDOM = (
 		],
 		['span', wrapperAttrs, ['span', attrs, displayString]],
 		browser.android
-		? [
-				'span',
-				{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
-				['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
-			]
-		: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ''],
+			? [
+					'span',
+					{ class: 'zeroWidthSpaceContainer', contentEditable: 'false' },
+					['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ZERO_WIDTH_SPACE],
+				]
+			: ['span', { class: 'inlineNodeViewAddZeroWidthSpace' }, ''],
 	] satisfies DOMOutputSpec;
 };

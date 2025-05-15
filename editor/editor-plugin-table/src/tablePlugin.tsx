@@ -166,6 +166,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 				: undefined;
 
 			const dragAndDropState = dragAndDropPluginKey.getState(editorState);
+			const sizeSelectorPluginState = sizeSelectorPluginKey.getState(editorState);
 
 			const sharedStateInternal: TableSharedStateInternal = {
 				isFullWidthModeEnabled: !!options?.fullWidthEnabled,
@@ -203,6 +204,8 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 				dragMenuDirection: dragAndDropState?.dragMenuDirection,
 				dragMenuIndex: dragAndDropState?.dragMenuIndex,
 				isDragMenuOpen: dragAndDropState?.isDragMenuOpen,
+				isSizeSelectorOpen: sizeSelectorPluginState?.isSelectorOpen,
+				sizeSelectorTargetRef: sizeSelectorPluginState?.targetRef,
 			};
 
 			return sharedStateInternal;
@@ -589,6 +592,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 						popupsScrollableElement={popupsScrollableElement}
 						defaultGetEditorContainerWidth={defaultGetEditorContainerWidth}
 						defaultGetEditorFeatureFlags={defaultGetEditorFeatureFlags}
+						isTableSelectorEnabled={isTableSelectorEnabled}
 					/>
 				);
 			}
@@ -622,6 +626,8 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 							dragAndDropState,
 							sizeSelectorPluginState,
 						}) => {
+							// Any changes made inside `<WithPluginState>` need to be reflected in the
+							// `<ContentComponent>` as well.
 							const isColumnResizing = resizingPluginState?.dragging;
 							const isTableResizing = tableWidthPluginState?.resizing;
 							const resizingTableLocalId = tableWidthPluginState?.tableLocalId;

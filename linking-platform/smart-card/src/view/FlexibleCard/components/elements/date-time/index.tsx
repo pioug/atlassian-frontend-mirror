@@ -76,6 +76,7 @@ const DateTime = ({
 	testId = 'smart-element-date-time',
 	text,
 	hideDatePrefix = false,
+	color,
 }: DateTimeProps) => {
 	const { formatRelativeTime, formatDate } = useIntl();
 	if (!type || !date) {
@@ -114,6 +115,10 @@ const DateTime = ({
 				!fg('platform-linking-visual-refresh-v1') && stylesOld,
 				fg('platform-linking-visual-refresh-v1') && styles,
 			]}
+			style={{
+				color:
+					color && fg('platform-linking-additional-flexible-element-props') ? color : undefined,
+			}}
 			data-separator
 			data-smart-element={name}
 			data-smart-element-date-time

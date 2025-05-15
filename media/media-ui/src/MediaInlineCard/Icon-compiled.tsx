@@ -26,7 +26,7 @@ export const Icon = ({
 	alt,
 	...props
 }: React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) => (
-	<img css={iconStyles} alt={alt || ''} {...props} />
+	<img css={iconStyles} alt={alt || 'icon'} {...props} />
 );
 
 // Used for 'untrue' icons which claim to be 16x16 but

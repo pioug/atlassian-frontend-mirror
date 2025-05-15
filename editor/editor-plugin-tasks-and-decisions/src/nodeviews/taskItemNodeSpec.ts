@@ -12,6 +12,7 @@ type HTMLInputElementAttrs = { type: 'checkbox'; checked?: 'true'; id: string; n
  * with fallback UI for lazy node view rendering / window virtualization
  * @nodeSpecException:toDOM patch
  * @returns
+ * @example
  */
 export const taskItemNodeSpec = () => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
@@ -24,6 +25,12 @@ export const taskItemNodeSpec = () => {
 	};
 };
 
+/**
+ *
+ * @param node
+ * @param placeholder
+ * @example
+ */
 export function taskItemToDom(node: PMNode, placeholder: string): DOMOutputSpec {
 	const checked = node.attrs.state === 'DONE';
 	const inputAttrs: HTMLInputElementAttrs = {
@@ -41,6 +48,8 @@ export function taskItemToDom(node: PMNode, placeholder: string): DOMOutputSpec 
 		'data-prosemirror-node-view-type': 'vanilla',
 		'data-prosemirror-node-name': 'taskItem',
 	};
+
+	const contentDomDataAttrs = node.content.childCount > 0 ? {} : { 'data-empty': 'true' };
 
 	return [
 		'div',
@@ -142,6 +151,7 @@ export function taskItemToDom(node: PMNode, placeholder: string): DOMOutputSpec 
 					'div',
 					{
 						class: TaskDecisionSharedCssClassName.TASK_ITEM,
+						...contentDomDataAttrs,
 					},
 					0,
 				],

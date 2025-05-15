@@ -1,11 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
+import { defineMessages, useIntl } from 'react-intl-next';
 
-import Button, { IconButton } from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
-import { fg } from '@atlaskit/platform-feature-flags';
+import Button from '@atlaskit/button/new';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { AgentDropdownMenu, ChatPillIcon } from '@atlaskit/rovo-agent-components';
 
@@ -24,14 +21,6 @@ type AgentActionsProps = {
 	onViewFullProfileClick: () => void;
 	resourceClient: ProfileClient;
 };
-
-interface ActionMenuItem {
-	text: React.ReactNode;
-
-	onClick?: () => void;
-
-	isDisabled?: boolean;
-}
 
 const chatToAgentButtonContainer = xcss({
 	width: '100%',
@@ -66,52 +55,6 @@ const actionsWrapperStyles = xcss({
 	color: 'color.text',
 });
 
-const buildAgentActions = ({
-	onDuplicateAgent,
-	onCopyAgent,
-	isForgeAgent,
-}: {
-	onCopyAgent: () => void;
-	onDuplicateAgent: () => void;
-	isForgeAgent: boolean;
-}): ActionMenuItem[] => {
-	return isForgeAgent
-		? [
-				{
-					text: <FormattedMessage {...messages.actionCopyLink} />,
-					onClick: onCopyAgent,
-				},
-			]
-		: [
-				{
-					text: <FormattedMessage {...messages.actionDuplicate} />,
-					onClick: onDuplicateAgent,
-				},
-				{
-					text: <FormattedMessage {...messages.actionCopyLink} />,
-					onClick: onCopyAgent,
-				},
-			];
-};
-const buildAgentSettings = ({
-	onEditAgent,
-	onDeleteAgent,
-}: {
-	onEditAgent: () => void;
-	onDeleteAgent: () => void;
-}): ActionMenuItem[] => {
-	return [
-		{
-			text: <FormattedMessage {...messages.actionEdit} />,
-			onClick: onEditAgent,
-		},
-		{
-			text: <FormattedMessage {...messages.actionDelete} />,
-			onClick: onDeleteAgent,
-		},
-	];
-};
-
 export const AgentActions = ({
 	isAgentCreatedByCurrentUser,
 	onEditAgent,
@@ -138,18 +81,6 @@ export const AgentActions = ({
 		};
 	}, [agent.id, resourceClient]);
 
-	const agentActions = buildAgentActions({
-		onDuplicateAgent,
-		onCopyAgent,
-		isForgeAgent: agent.creator_type === 'FORGE' || agent.creator_type === 'THIRD_PARTY',
-	});
-	const agentSetting = buildAgentSettings({
-		onEditAgent,
-		onDeleteAgent: () => {
-			setIsDeleteModalOpen(true);
-		},
-	});
-
 	return (
 		<>
 			<Inline space="space.100" xcss={actionsWrapperStyles}>
@@ -172,73 +103,20 @@ export const AgentActions = ({
 					</Button>
 				</Box>
 
-				{fg('rovo_use_agent_permissions') ? (
-					<AgentDropdownMenu
-						agentId={agent.id}
-						isAgentCreatedByUser={isAgentCreatedByCurrentUser ?? false}
-						onDeleteAgent={() => setIsDeleteModalOpen(true)}
-						onEditAgent={onEditAgent}
-						onDuplicateAgent={onDuplicateAgent}
-						onCopyAgent={onCopyAgent}
-						isForgeAgent={isForgeAgent}
-						loadAgentPermissions={loadAgentPermissions}
-						loadPermissionsOnMount
-						onViewAgentFullProfileClick={onViewFullProfileClick}
-						doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
-						shouldTriggerStopPropagation
-					/>
-				) : (
-					<DropdownMenu<HTMLButtonElement>
-						trigger={({ triggerRef, ...props }) => (
-							<Box>
-								<IconButton
-									{...props}
-									icon={MoreIcon}
-									label="more"
-									ref={triggerRef}
-									onClick={(e) => {
-										e.stopPropagation();
-										props.onClick?.(e);
-									}}
-								/>
-							</Box>
-						)}
-						placement="bottom-end"
-					>
-						<DropdownItemGroup>
-							{agentActions.map(({ text, onClick }, idx) => {
-								return (
-									<DropdownItem
-										key={idx}
-										onClick={(e) => {
-											e.stopPropagation();
-											onClick?.();
-										}}
-									>
-										{text}
-									</DropdownItem>
-								);
-							})}
-						</DropdownItemGroup>
-						{isAgentCreatedByCurrentUser && (
-							<DropdownItemGroup hasSeparator>
-								{agentSetting.map(({ text, onClick }, idx) => {
-									return (
-										<DropdownItem
-											key={idx}
-											onClick={(e) => {
-												e.stopPropagation();
-												onClick?.();
-											}}
-										>
-											{text}
-										</DropdownItem>
-									);
-								})}
-							</DropdownItemGroup>
-						)}
-					</DropdownMenu>
-				)}
+				<AgentDropdownMenu
+					agentId={agent.id}
+					isAgentCreatedByUser={isAgentCreatedByCurrentUser ?? false}
+					onDeleteAgent={() => setIsDeleteModalOpen(true)}
+					onEditAgent={onEditAgent}
+					onDuplicateAgent={onDuplicateAgent}
+					onCopyAgent={onCopyAgent}
+					isForgeAgent={isForgeAgent}
+					loadAgentPermissions={loadAgentPermissions}
+					loadPermissionsOnMount
+					onViewAgentFullProfileClick={onViewFullProfileClick}
+					doesAgentHaveIdentityAccountId={!!agent.identity_account_id}
+					shouldTriggerStopPropagation
+				/>
 			</Inline>
 			<AgentDeleteConfirmationModal
 				isOpen={isDeleteModalOpen}
@@ -258,25 +136,5 @@ const messages = defineMessages({
 		id: 'ptc-directory.agent-profile.action.dropdown.chat-to-agent.nonfinal',
 		defaultMessage: 'Chat to Agent',
 		description: 'Text for the "chat to agent" action to chat to the agent',
-	},
-	actionDelete: {
-		id: 'ptc-directory.agent-profile.action.dropdown.delete.nonfinal',
-		defaultMessage: 'Delete Agent',
-		description: 'Text for the "Delete" action to delete an agent',
-	},
-	actionEdit: {
-		id: 'ptc-directory.agent-profile.action.dropdown.edit.nonfinal',
-		defaultMessage: 'Edit Agent',
-		description: 'Text for the "Edit" action to edit an agent',
-	},
-	actionCopyLink: {
-		id: 'ptc-directory.agent-profile.action.dropdown.copy-link.nonfinal',
-		defaultMessage: 'Copy link',
-		description: 'Text for the Copy link of an agent',
-	},
-	actionDuplicate: {
-		id: 'ptc-directory.agent-profile.action.dropdown.duplicate.nonfinal',
-		defaultMessage: 'Duplicate Agent',
-		description: 'Text for the Duplicate Agent action to create a duplicate',
 	},
 });

@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.28.0
+
+### Minor Changes
+
+- [#153501](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153501)
+  [`daab8878af268`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/daab8878af268) -
+  [ux] PTC-11529 Build teams conatiners dropdown list & modify team web link modal; Classfied icons
+  by size.
+
 ## 0.27.1
 
 ### Patch Changes

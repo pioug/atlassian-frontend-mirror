@@ -56,6 +56,7 @@ import {
 	ViewCount,
 	VoteCount,
 } from './components/elements';
+import { type BadgeProps } from './components/elements/badge/types';
 import { type DateTimeProps } from './components/elements/date-time/types';
 import { type IconProps } from './components/elements/icon/types';
 import { type LinkProps } from './components/elements/link/types';
@@ -69,7 +70,15 @@ export const AttachmentCountElement = () => <AttachmentCount />;
 export const AuthorGroupElement = () => <AuthorGroup />;
 export const ChecklistProgressElement = () => <ChecklistProgress />;
 export const CollaboratorGroupElement = () => <CollaboratorGroup />;
-export const CommentCountElement = () => <CommentCount />;
+
+type CommentCountElementProps = Pick<BadgeProps, 'color'>;
+export const CommentCountElement = (props?: CommentCountElementProps) => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return <CommentCount color={props?.color} />;
+	}
+	return <CommentCount />;
+};
+
 export const CreatedOnElement = () => <CreatedOn />;
 export const CreatedByElement = () => <CreatedBy />;
 export const DueOnElement = () => <DueOn />;
@@ -93,18 +102,18 @@ export const LinkIconElement = (props?: LinkIconElementProps) => {
 export const LocationElement = () => <Location />;
 export const ModifiedByElement = () => <ModifiedBy />;
 
-type ModifiedOnElementProps = Pick<DateTimeProps, 'hideDatePrefix'>;
+type ModifiedOnElementProps = Pick<DateTimeProps, 'hideDatePrefix' | 'color'>;
 export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <ModifiedOn hideDatePrefix={props?.hideDatePrefix} />;
+		return <ModifiedOn hideDatePrefix={props?.hideDatePrefix} color={props?.color} />;
 	}
 	return <ModifiedOn />;
 };
 
-type OwnedByElementProps = Pick<TextProps, 'hideFormat'>;
+type OwnedByElementProps = Pick<TextProps, 'hideFormat' | 'color'>;
 export const OwnedByElement = (props?: OwnedByElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <OwnedBy hideFormat={props?.hideFormat} />;
+		return <OwnedBy hideFormat={props?.hideFormat} color={props?.color} />;
 	}
 	return <OwnedBy />;
 };
@@ -124,7 +133,15 @@ export const PreviewElement = (props?: PreviewElementProps) => {
 export const PriorityElement = () => <Priority />;
 export const ProgrammingLanguageElement = () => <ProgrammingLanguage />;
 export const ProviderElement = () => <Provider />;
-export const ReactCountElement = () => <ReactCount />;
+
+type ReactCountElementProps = Pick<BadgeProps, 'color'>;
+export const ReactCountElement = (props?: ReactCountElementProps) => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return <ReactCount color={props?.color} />;
+	}
+	return <ReactCount />;
+};
+
 export const ReadTimeElement = () => <ReadTime />;
 export const SentOnElement = () => <SentOn />;
 

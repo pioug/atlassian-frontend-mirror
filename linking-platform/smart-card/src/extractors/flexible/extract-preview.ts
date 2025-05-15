@@ -5,7 +5,7 @@ import {
 	extractImage,
 	isEntityPresent,
 } from '@atlaskit/link-extractors';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { MediaType } from '../../constants';
 import { type Media } from '../../state/flexible-ui-context/types';

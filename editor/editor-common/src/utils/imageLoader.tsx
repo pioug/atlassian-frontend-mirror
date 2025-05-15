@@ -25,10 +25,19 @@ export const withImageLoaderOld = <P extends Object>(
 
 		img?: HTMLImageElement | null;
 
+		/**
+		 *
+		 * @example
+		 */
 		componentDidMount() {
 			this.fetchImage(this.props);
 		}
 
+		/**
+		 *
+		 * @param nextProps
+		 * @example
+		 */
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/no-unsafe
 		UNSAFE_componentWillReceiveProps(nextProps: ImageLoaderProps) {
@@ -40,28 +49,43 @@ export const withImageLoaderOld = <P extends Object>(
 			}
 		}
 
+		/**
+		 *
+		 * @example
+		 */
 		componentWillUnmount() {
 			if (this.img) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				this.img.removeEventListener('load', this.onLoad);
-				// Ignored via go/ees005
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				this.img.removeEventListener('error', this.onError);
-				this.img = null;
+				if (!process.env.REACT_SSR) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					this.img.removeEventListener('load', this.onLoad);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					this.img.removeEventListener('error', this.onError);
+					this.img = null;
+				}
 			}
 		}
 
+		/**
+		 *
+		 * @param root0
+		 * @param root0.url
+		 * @example
+		 */
 		fetchImage({ url }: ImageLoaderProps) {
 			if (url) {
 				if (!this.img) {
 					this.img = new Image();
-					// Ignored via go/ees005
-					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-					this.img.addEventListener('load', this.onLoad);
-					// Ignored via go/ees005
-					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-					this.img.addEventListener('error', this.onError);
+
+					if (!process.env.REACT_SSR) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						this.img.addEventListener('load', this.onLoad);
+						// Ignored via go/ees005
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						this.img.addEventListener('error', this.onError);
+					}
 				}
 
 				this.img.src = url;
@@ -88,6 +112,10 @@ export const withImageLoaderOld = <P extends Object>(
 			});
 		};
 
+		/**
+		 *
+		 * @example
+		 */
 		render() {
 			const { imageStatus } = this.state;
 			// Ignored via go/ees005
@@ -121,12 +149,15 @@ const withImageLoaderNew = <P extends Object>(
 
 		componentWillUnmount() {
 			if (this.img) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				this.img.removeEventListener('load', this.onLoad);
-				// Ignored via go/ees005
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				this.img.removeEventListener('error', this.onError);
+				if (!process.env.REACT_SSR) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					this.img.removeEventListener('load', this.onLoad);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					this.img.removeEventListener('error', this.onError);
+				}
+
 				this.img = null;
 			}
 		}
@@ -135,12 +166,15 @@ const withImageLoaderNew = <P extends Object>(
 			if (url) {
 				if (!this.img) {
 					this.img = new Image();
-					// Ignored via go/ees005
-					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-					this.img.addEventListener('load', this.onLoad);
-					// Ignored via go/ees005
-					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-					this.img.addEventListener('error', this.onError);
+
+					if (!process.env.REACT_SSR) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						this.img.addEventListener('load', this.onLoad);
+						// Ignored via go/ees005
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						this.img.addEventListener('error', this.onError);
+					}
 				}
 
 				this.img.src = url;

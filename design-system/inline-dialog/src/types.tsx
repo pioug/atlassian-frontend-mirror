@@ -62,4 +62,11 @@ export interface InlineDialogProps extends WithAnalyticsEventsProps {
 	 * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
 	 */
 	testId?: string;
+	/**
+	 * This is a list of backup placements to try.
+	 * When the preferred placement doesn't have enough space,
+	 * the modifier will test the ones provided in the list, and use the first suitable one.
+	 * If no fallback placements are suitable, it reverts back to the original placement.
+	 */
+	fallbackPlacements?: Placement[];
 }

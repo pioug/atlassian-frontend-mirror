@@ -90,7 +90,7 @@ export function createUrl(url: string, { params, auth }: CreateUrlOptions): stri
 	Object.entries(paramsToAppend)
 		.filter(([_, value]) => value != null)
 		.forEach((pair) => {
-			parsedUrl.searchParams.append(...pair);
+			parsedUrl.searchParams.set(...pair);
 		});
 	parsedUrl.searchParams.sort();
 	return parsedUrl.toString();

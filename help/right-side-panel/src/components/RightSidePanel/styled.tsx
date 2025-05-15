@@ -6,7 +6,7 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { TransitionStatus } from '.';
+import { type TransitionStatus } from '.';
 import { N30 } from '@atlaskit/theme/colors';
 
 const PANEL_WIDTH = 368;

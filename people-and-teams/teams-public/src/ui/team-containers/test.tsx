@@ -88,6 +88,7 @@ describe('TeamContainers', () => {
 		filterContainerId?: string,
 		isDisplayedOnProfileCard?: boolean,
 		components?: TeamContainersComponent,
+		maxNumberOfContainersToShow?: number,
 	) => {
 		return renderWithIntl(
 			<TeamContainers
@@ -98,6 +99,7 @@ describe('TeamContainers', () => {
 				filterContainerId={filterContainerId}
 				isDisplayedOnProfileCard={isDisplayedOnProfileCard}
 				components={components}
+				maxNumberOfContainersToShow={maxNumberOfContainersToShow}
 			/>,
 		);
 	};
@@ -245,6 +247,23 @@ describe('TeamContainers', () => {
 		const theFifthContainer = await screen.findByText('Confluence Space Name 4');
 		expect(showLessButton).toBeInTheDocument();
 		expect(theFifthContainer).toBeInTheDocument();
+	});
+
+	it('should only render three containers if maxNumberOfContainersToShow is 3', () => {
+		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
+			id: index.toString(),
+			type: 'ConfluenceSpace',
+			name: `Confluence Space Name ${index}`,
+			icon: 'icon',
+			link: 'link',
+		}));
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers,
+		});
+		renderTeamContainers(teamId, '', true, undefined, 3);
+
+		expect(screen.getAllByRole('link')).toHaveLength(3);
+		expect(screen.getByText('Show more')).toBeInTheDocument();
 	});
 
 	it('should filter the team container if filterContainerId and isDisplayedOnProfileCard props is provided', async () => {

@@ -202,6 +202,7 @@ describe('participantsService integration tests', () => {
 				},
 				userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
 				email: '',
+				isHydrated: true,
 			});
 		});
 	});

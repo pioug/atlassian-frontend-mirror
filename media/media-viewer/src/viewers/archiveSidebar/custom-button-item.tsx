@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { ButtonItem, ButtonItemProps } from '@atlaskit/side-navigation';
+import { ButtonItem, type ButtonItemProps } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
 import { DN500 } from '@atlaskit/theme/colors';
 

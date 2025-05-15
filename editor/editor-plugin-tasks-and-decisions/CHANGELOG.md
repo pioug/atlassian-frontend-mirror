@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.7
+
+### Patch Changes
+
+- [#155113](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155113)
+  [`ffa6a5dcea79b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffa6a5dcea79b) -
+  fix task placehoder on ssr
+- Updated dependencies
+
 ## 5.1.6
 
 ### Patch Changes

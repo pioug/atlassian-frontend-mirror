@@ -1,4 +1,4 @@
-import { GeneralizedPerimeterType } from '../../common/constants';
+import type { GeneralizedPerimeterType } from '../../common/constants';
 
 export type AtlContextCookie = {
 	perimeter: GeneralizedPerimeterType;

@@ -1,5 +1,5 @@
 import { createPayloads } from '../create-payload';
-import { LabelStack } from '../interaction-context';
+import { type LabelStack } from '../interaction-context';
 import { VCObserver } from '../vc/vc-observer';
 
 import type {

@@ -90,36 +90,18 @@ describe('Popup', () => {
 		),
 	};
 
-	describe('should close nested popup correctly', () => {
-		ffTest(
-			'design-system-closed-all-when-click-outside',
-			async () => {
-				render(<PopupNested />);
+	it('should close nested popup correctly', async () => {
+		render(<PopupNested />);
 
-				const popupTrigger = screen.getByTestId('popup-trigger');
-				await userEvent.click(popupTrigger);
-				const popupTrigger0 = screen.getByTestId('popup-trigger-0');
-				await userEvent.click(popupTrigger0);
-				const popupTrigger1 = screen.getByTestId('popup-trigger-1');
-				await userEvent.click(popupTrigger1);
-				expect(screen.getByTestId('popup-trigger-2')).toBeInTheDocument();
-				await userEvent.click(document.body);
-				expect(popupTrigger0).not.toBeInTheDocument();
-			},
-			async () => {
-				render(<PopupNested />);
-
-				const popupTrigger = screen.getByTestId('popup-trigger');
-				await userEvent.click(popupTrigger);
-				const popupTrigger0 = screen.getByTestId('popup-trigger-0');
-				await userEvent.click(popupTrigger0);
-				const popupTrigger1 = screen.getByTestId('popup-trigger-1');
-				expect(popupTrigger1).toBeInTheDocument();
-				await userEvent.click(document.body);
-				expect(popupTrigger0).toBeInTheDocument();
-				expect(popupTrigger1).not.toBeInTheDocument();
-			},
-		);
+		const popupTrigger = screen.getByTestId('popup-trigger');
+		await userEvent.click(popupTrigger);
+		const popupTrigger0 = screen.getByTestId('popup-trigger-0');
+		await userEvent.click(popupTrigger0);
+		const popupTrigger1 = screen.getByTestId('popup-trigger-1');
+		await userEvent.click(popupTrigger1);
+		expect(screen.getByTestId('popup-trigger-2')).toBeInTheDocument();
+		await userEvent.click(document.body);
+		expect(popupTrigger0).not.toBeInTheDocument();
 	});
 
 	describe('with iframe', () => {

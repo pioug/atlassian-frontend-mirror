@@ -130,8 +130,8 @@ export class Observers implements BrowserObservers {
 		this.mutationObserver?.disconnect();
 		this.intersectionObserver?.disconnect();
 		this.observedMutations = new WeakMap();
-		this.elementsInView = new Set();
-		this.callbacks = new Set();
+		this.elementsInView.clear();
+		this.callbacks.clear();
 		this.ssr.reactRootElement = null;
 		this.ssrPlaceholderHandler.clear();
 	}

@@ -6,7 +6,6 @@ import { BrokenTable, TableWithParagraph } from './table.fixture';
 snapshotInformational(BrokenTable, {
 	description: 'should render table with correct columns',
 	featureFlags: {
-		platform_editor_table_col_calculation_fix: true,
 		'platform-ssr-table-resize': [true, false],
 	},
 });

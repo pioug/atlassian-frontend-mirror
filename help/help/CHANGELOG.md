@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 9.0.3
+
+### Patch Changes
+
+- [#153058](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153058)
+  [`e4f9b9ad1122c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4f9b9ad1122c) -
+  Change help panel article title to be a heading element instead of paragraph
+
 ## 9.0.2
 
 ### Patch Changes

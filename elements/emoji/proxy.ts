@@ -4,8 +4,8 @@
  * Reference: https://webpack.js.org/configuration/dev-server/#devserverproxy
  *
  * @example
- * localhost under root: yarn start emoji --proxy ./packages/elements/emoji/proxy.ts
- * staging under root: PROXY_TARGET_ENV=stg yarn start emoji --proxy ./packages/elements/emoji/proxy.ts
+ * localhost under root: yarn start:webpack emoji --proxy ./packages/elements/emoji/proxy.ts
+ * staging under root: PROXY_TARGET_ENV=stg yarn start:webpack emoji --proxy ./packages/elements/emoji/proxy.ts
  * localhost under root: yarn start-dev
  * localhost under package: yarn start-stg
  *

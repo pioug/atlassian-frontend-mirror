@@ -16,6 +16,7 @@ export interface TextFormattingOptions {
 }
 
 export interface TextFormattingState {
+	isInitialised: boolean;
 	emActive?: boolean;
 	emDisabled?: boolean;
 	emHidden?: boolean;

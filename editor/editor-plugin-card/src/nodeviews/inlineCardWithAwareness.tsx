@@ -1,10 +1,16 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { cardPlugin } from '../cardPlugin';
 import { registerRemoveOverlay } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';
@@ -18,6 +24,21 @@ export type InlineCardWithAwarenessProps = {
 	isOverlayEnabled?: boolean;
 	isSelected?: boolean;
 };
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
+		return {
+			mode: editorViewModeState?.mode,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		return {
+			mode,
+		};
+	},
+);
 
 export const InlineCardWithAwareness = memo(
 	({
@@ -71,7 +92,8 @@ export const InlineCardWithAwareness = memo(
 			},
 			[isOverlayEnabled],
 		);
-		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
+
+		const { mode } = useSharedState(pluginInjectionApi);
 
 		const innerCardWithOpenButtonOverlay = useMemo(
 			() => (
@@ -147,12 +169,12 @@ export const InlineCardWithAwareness = memo(
 				editorAppearance === 'chromeless' && fg('platform_editor_controls_patch_8');
 
 			return (
-				(editorViewModeState?.mode === 'edit' ||
+				(mode === 'edit' ||
 					(editorAppearance === 'comment' && fg('platform_editor_controls_patch_6')) ||
 					shouldShowOpenButtonOverlayInChomeless) &&
 				editorExperiment('platform_editor_controls', 'variant1')
 			);
-		}, [editorViewModeState?.mode, editorAppearance]);
+		}, [mode, editorAppearance]);
 
 		const innerCard = shouldShowOpenButtonOverlay
 			? innerCardWithOpenButtonOverlay

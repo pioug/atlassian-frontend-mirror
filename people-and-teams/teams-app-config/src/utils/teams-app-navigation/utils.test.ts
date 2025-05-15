@@ -149,7 +149,6 @@ describe('teams app navigation utils', () => {
 					const expectedPath = `https://teams.stg.atlassian-us-gov.com/${path}?cloudId=${config.cloudId}`;
 					expect(generatePath(path, config)).toEqual(expectedPath);
 				});
-
 			});
 		});
 	});

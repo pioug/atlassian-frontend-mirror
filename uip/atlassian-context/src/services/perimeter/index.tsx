@@ -1,11 +1,11 @@
 import {
 	FEDRAMP_MODERATE,
-	GeneralizedPerimeterType,
+	type GeneralizedPerimeterType,
 	ISOLATED_CLOUD_PERIMETERS,
-	IsolatedCloudPerimeterType,
+	type IsolatedCloudPerimeterType,
 } from '../../common/constants';
 
-import { AtlContextCookie, parseAtlCtxCookie } from './utils';
+import { type AtlContextCookie, parseAtlCtxCookie } from './utils';
 
 /**
  * WARNING: This function depends on the availability of the `atl-ctx` cookie, which is to be set by Isolated Cloud GlobalEdge.

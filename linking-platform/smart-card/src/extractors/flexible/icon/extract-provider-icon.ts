@@ -5,7 +5,7 @@ import {
 	extractTitle,
 	isEntityPresent,
 } from '@atlaskit/link-extractors';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { IconType } from '../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../constants';

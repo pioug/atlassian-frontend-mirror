@@ -92,4 +92,32 @@ describe('catchupv2 trigged in document service', () => {
 		expect(service.processQueue).toBeCalled();
 		expect(service.sendStepsFromCurrentState).toBeCalled();
 	});
+
+	it('Logs action event with reconnection reason and metadata when catching up after reconnection', async () => {
+		const { service, analyticsHelperMock, stepQueue } = createMockService();
+		(catchupv2 as jest.Mock).mockRejectedValueOnce('Err');
+		// @ts-expect-error
+		jest.spyOn(service, 'processQueue');
+		jest.spyOn(service, 'sendStepsFromCurrentState');
+
+		const reconnectionMetadata = {
+			unconfirmedStepsLength: 5,
+			disconnectionPeriodSeconds: 60,
+		};
+
+		// @ts-ignore - testing private function
+		await service.catchupv2('RECONNECTED', reconnectionMetadata);
+		expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'FAILURE', {
+			latency: 0,
+			reason: 'RECONNECTED',
+			unconfirmedStepsLength: 5,
+			disconnectionPeriodSeconds: 60,
+		});
+
+		// The service must continue processing even if catchup throws an exception
+		expect(stepQueue.isPaused()).toEqual(false);
+		// @ts-expect-error
+		expect(service.processQueue).toBeCalled();
+		expect(service.sendStepsFromCurrentState).toBeCalled();
+	});
 });

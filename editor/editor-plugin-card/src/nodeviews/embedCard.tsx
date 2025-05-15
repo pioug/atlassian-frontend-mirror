@@ -7,7 +7,10 @@ import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type {
@@ -21,6 +24,7 @@ import {
 	MediaSingle as RichMediaWrapper,
 	UnsupportedBlock,
 } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
@@ -63,6 +67,33 @@ interface CardInnerProps {
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const lineLength = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength');
+		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
+		const editorDisabled = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'editorDisabled.editorDisabled',
+		);
+		return {
+			widthStateLineLength: lineLength || 0,
+			widthStateWidth: width || 0,
+			editorDisabled,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const { widthState, editorDisabledState } = useSharedPluginState(pluginInjectionApi, [
+			'width',
+			'editorDisabled',
+		]);
+		return {
+			widthStateLineLength: widthState?.lineLength || 0,
+			widthStateWidth: widthState?.width || 0,
+			editorDisabled: editorDisabledState?.editorDisabled,
+		};
+	},
+);
+
 const CardInner = ({
 	pluginInjectionApi,
 	getPosSafely,
@@ -79,13 +110,8 @@ const CardInner = ({
 	cardProps,
 	dispatchAnalyticsEvent,
 }: CardInnerProps) => {
-	const { widthState, editorDisabledState } = useSharedPluginState(pluginInjectionApi, [
-		'width',
-		'editorDisabled',
-	]);
-
-	const widthStateLineLength = widthState?.lineLength || 0;
-	const widthStateWidth = widthState?.width || 0;
+	const { widthStateLineLength, widthStateWidth, editorDisabled } =
+		useSharedState(pluginInjectionApi);
 
 	const pos = getPosSafely();
 	if (pos === undefined) {
@@ -149,7 +175,7 @@ const CardInner = ({
 			displayGrid={displayGrid}
 			updateSize={updateSize}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-			isResizeDisabled={editorDisabledState?.editorDisabled}
+			isResizeDisabled={editorDisabled}
 		>
 			{smartCard}
 		</ResizableEmbedCard>

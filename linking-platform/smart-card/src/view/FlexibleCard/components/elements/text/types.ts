@@ -23,4 +23,9 @@ export type TextProps = ElementProps & {
 	 * If true, content will be displayed instead of the formatted message.
 	 */
 	hideFormat?: boolean;
+
+	/**
+	 * Text color to override the default text color.
+	 */
+	color?: string;
 };

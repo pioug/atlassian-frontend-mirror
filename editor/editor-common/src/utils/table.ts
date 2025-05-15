@@ -3,10 +3,9 @@ import type { Node as PmNode, ResolvedPos, Schema } from '@atlaskit/editor-prose
 import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
- * Looks at every table row to find the correct number of columns for table, which
- * accounts for tables with uneven rows.
+ * Returns an array of column widths (0 if column width is undefined) of a given table node by scanning the **entire table**.
  *
- * Returns an array of column widths if defined otherwise 0, positions respect table order.
+ * Warning: the entire table is scanned and should only be used if where the table can be in a broken state such that rows have different number of cells (e.g. in **renderer**).
  */
 export function getColumnWidths(node: PmNode): number[] {
 	let tableColumnWidths: Array<number> = [];
@@ -34,10 +33,14 @@ export function getColumnWidths(node: PmNode): number[] {
 	return tableColumnWidths;
 }
 
+/**
+ * Returns an array of column widths (0 if column width is undefined) of a given table node by scanning the **first row**.
+ *
+ * Warning: is preferred and should be used if the table is not in a broken state (e.g. in **editor**).
+ */
 export function calcTableColumnWidths(node: PmNode): number[] {
 	// Ignored via go/ees007
 	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-	// TODO: replaced with getColumnWidths, which correctly scans entire table for column widths
 	if (fg('platform_editor_table_row_span_fix')) {
 		const firstRow = node.firstChild;
 		const tableColumnWidths: Array<number> = [];

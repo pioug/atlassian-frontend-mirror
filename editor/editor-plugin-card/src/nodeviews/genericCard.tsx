@@ -6,10 +6,14 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { getPosHandler, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -63,6 +67,19 @@ export interface SmartCardProps extends CardProps {
 	isPageSSRed?: boolean;
 }
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		return { mode };
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
+		return {
+			mode: editorViewModeState?.mode,
+		};
+	},
+);
+
 const WithClickHandler = ({
 	pluginInjectionApi,
 	url,
@@ -78,8 +95,7 @@ const WithClickHandler = ({
 	}) => React.ReactNode;
 	__livePage?: boolean;
 }) => {
-	const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
-
+	const { mode } = useSharedState(pluginInjectionApi);
 	const onClick = useCallback(
 		(event: React.MouseEvent<HTMLAnchorElement>) => {
 			if (typeof onClickCallback === 'function') {
@@ -117,7 +133,7 @@ const WithClickHandler = ({
 
 	// Setting `onClick` to `undefined` ensures clicks on smartcards navigate to the URL.
 	// If in view mode and not overriding with onClickCallback option, then allow smartlinks to navigate on click.
-	const allowNavigation = editorViewModeState?.mode === 'view' && !onClickCallback;
+	const allowNavigation = mode === 'view' && !onClickCallback;
 	return (
 		<>
 			{children({

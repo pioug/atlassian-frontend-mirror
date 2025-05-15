@@ -3,13 +3,18 @@ import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from '
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import { handleNavigation } from '@atlaskit/editor-common/link';
 import type {
 	InlineNodeViewComponentProps,
 	getInlineNodeViewProducer,
 } from '@atlaskit/editor-common/react-node-view';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -18,6 +23,7 @@ import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
 import OverlayWrapper from '../ui/ConfigureOverlay';
@@ -185,6 +191,27 @@ export type InlineCardNodeViewProps = Pick<
 	| 'isPageSSRed'
 >;
 
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		const selection = useSharedPluginStateSelector(pluginInjectionApi, 'selection.selection');
+		return {
+			mode,
+			selection,
+		};
+	},
+	(pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined) => {
+		const { selectionState, editorViewModeState } = useSharedPluginState(pluginInjectionApi, [
+			'selection',
+			'editorViewMode',
+		]);
+		return {
+			mode: editorViewModeState?.mode,
+			selection: selectionState?.selection,
+		};
+	},
+);
+
 export function InlineCardNodeView(
 	props: InlineNodeViewComponentProps & InlineCardNodeViewProps & InlineCardWithAwarenessProps,
 ) {
@@ -204,14 +231,9 @@ export function InlineCardNodeView(
 	} = props;
 
 	const [isOverlayHovered, setIsOverlayHovered] = useState(false);
+	const { mode, selection } = useSharedState(pluginInjectionApi);
 
-	const { editorViewModeState, selectionState } = useSharedPluginState(pluginInjectionApi, [
-		'selection',
-		'editorViewMode',
-	]);
-
-	const floatingToolbarNode =
-		selectionState?.selection instanceof NodeSelection && selectionState?.selection.node;
+	const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
 
 	if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
 		const showHoverPreview = floatingToolbarNode !== node;
@@ -232,7 +254,7 @@ export function InlineCardNodeView(
 			/>
 		);
 
-		return editorViewModeState?.mode === 'view' ? (
+		return mode === 'view' ? (
 			inlineCard
 		) : (
 			<OverlayWrapper
@@ -272,9 +294,7 @@ export function InlineCardNodeView(
 					getPos,
 					allowEmbeds,
 					allowBlockCards,
-					!editorExperiment('live_pages_graceful_edit', 'control')
-						? true
-						: editorViewModeState?.mode === 'view',
+					!editorExperiment('live_pages_graceful_edit', 'control') ? true : mode === 'view',
 				))}
 		/>
 	);

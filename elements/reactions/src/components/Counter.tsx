@@ -41,7 +41,7 @@ const darkerFontStyle = css({
 });
 
 const updatedStyles = css({
-	marginTop: token('space.050'),
+	marginTop: token('space.025'),
 });
 
 /**

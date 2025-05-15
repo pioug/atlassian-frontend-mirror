@@ -1,4 +1,4 @@
-import { ClientConfig } from '../base-client';
+import { type ClientConfig } from '../base-client';
 import { DEFAULT_CONFIG } from '../constants';
 import { BaseGraphQlClient } from '../graphql-client';
 import { logException } from '../sentry/main';

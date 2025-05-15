@@ -151,31 +151,33 @@ describe('FileFetcher', () => {
 			},
 		});
 
-		const mediaStore = {
-			...mediaClient.mediaStore,
-			getFileBinaryURL: asMockFunctionResolvedValue(
-				mediaClient.mediaStore.getFileBinaryURL,
-				binaryUrl,
-			),
-			getItems: asMockFunctionResolvedValue(mediaClient.mediaStore.getItems, {
-				data: {
-					items,
-				},
-			}),
-			touchFiles,
-		} as jest.Mocked<MediaStore>;
+		const mockAuthProvider: jest.Mocked<AuthProvider> = jest.fn().mockResolvedValue({
+			clientId: 'some-client-id',
+			token: 'some-token',
+			baseUrl: 'some-service-host',
+		});
+
+		const mediaStore = new MockMediaStoreConstructor({
+			authProvider: mockAuthProvider,
+		}) as jest.Mocked<MediaStore>;
+
+		mediaStore.getFileBinaryURL = asMockFunctionResolvedValue(
+			mediaClient.mediaStore.getFileBinaryURL,
+			binaryUrl,
+		);
+		mediaStore.getItems = asMockFunctionResolvedValue(mediaClient.mediaStore.getItems, {
+			data: {
+				items,
+			},
+		});
+		mediaStore.touchFiles = touchFiles;
+		mediaStore.uploadArtifact = jest.fn();
 
 		const fileFetcher = new FileFetcherImpl(mediaStore, fileStateStore);
 
 		(fileFetcher as any).generateUploadableFileUpfrontIds = jest.fn().mockReturnValue({
 			id: 'upfront-id',
 			occurrenceKey: 'upfront-occurrence-key',
-		});
-
-		const mockAuthProvider: jest.Mocked<AuthProvider> = jest.fn().mockResolvedValue({
-			clientId: 'some-client-id',
-			token: 'some-token',
-			baseUrl: 'some-service-host',
 		});
 
 		return {
@@ -1659,6 +1661,88 @@ describe('FileFetcher', () => {
 				collectionName: 'collectionName',
 				occurrenceKey: 'occurrenceKey',
 			});
+		});
+	});
+
+	describe('uploadArtifact', () => {
+		it('should call mediaApi.uploadArtifact and return data', async () => {
+			const { fileFetcher, mediaStore } = setup();
+			const fileId = 'test-file-id';
+			const file = new File(['test content'], 'test.txt', { type: 'text/plain' });
+			const params = {
+				type: 'caption' as const,
+				language: 'en',
+			};
+			const collectionName = 'test-collection';
+			const traceContext = {
+				traceId: 'test-trace-id',
+				spanId: 'test-span-id',
+			};
+
+			const expectedResponse = {
+				id: fileId,
+				name: 'test.txt',
+				mimeType: 'text/plain',
+				processingStatus: 'succeeded',
+				artifacts: {
+					'test-artifact': {
+						url: 'https://test-url.com/artifact',
+					},
+				},
+				representations: {},
+				size: 12,
+			};
+
+			(mediaStore.uploadArtifact as jest.Mock).mockResolvedValue({
+				data: expectedResponse,
+			});
+
+			const result = await fileFetcher.uploadArtifact(
+				fileId,
+				file,
+				params,
+				collectionName,
+				traceContext,
+			);
+
+			expect(mediaStore.uploadArtifact).toHaveBeenCalledWith(
+				fileId,
+				file,
+				params,
+				collectionName,
+				traceContext,
+			);
+			expect(result).toEqual(expectedResponse);
+		});
+
+		it('should handle errors from mediaApi.uploadArtifact', async () => {
+			const { fileFetcher, mediaStore } = setup();
+			const fileId = 'test-file-id';
+			const file = new File(['test content'], 'test.txt', { type: 'text/plain' });
+			const params = {
+				type: 'caption' as const,
+				language: 'en',
+			};
+			const collectionName = 'test-collection';
+			const traceContext = {
+				traceId: 'test-trace-id',
+				spanId: 'test-span-id',
+			};
+
+			const error = new Error('Upload failed');
+			(mediaStore.uploadArtifact as jest.Mock).mockRejectedValue(error);
+
+			await expect(
+				fileFetcher.uploadArtifact(fileId, file, params, collectionName, traceContext),
+			).rejects.toThrow('Upload failed');
+
+			expect(mediaStore.uploadArtifact).toHaveBeenCalledWith(
+				fileId,
+				file,
+				params,
+				collectionName,
+				traceContext,
+			);
 		});
 	});
 });

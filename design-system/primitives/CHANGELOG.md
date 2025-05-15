@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 14.7.3
+
+### Patch Changes
+
+- [#154215](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154215)
+  [`eccacf87bc9e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eccacf87bc9e5) -
+  Tweaks formatting behaviour of the stage1 compiled codemod
+
 ## 14.7.2
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/collab-provider
 
+## 10.14.4
+
+### Patch Changes
+
+- [#144227](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144227)
+  [`6da190d8e3a24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6da190d8e3a24) -
+  Add ability to rebase drag and drop content
+- [#155123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155123)
+  [`51d32b995a851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51d32b995a851) -
+  ED-27636 Offline Editing: Add catchup reason and other metadata to catchup failure error log in
+  collab provider.
+- Updated dependencies
+
 ## 10.14.3
 
 ### Patch Changes

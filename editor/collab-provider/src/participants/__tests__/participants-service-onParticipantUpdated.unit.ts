@@ -1,6 +1,6 @@
 import type { PresencePayload } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
-import type { ParticipantsMap } from '../participants-helper';
+import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
@@ -9,7 +9,7 @@ const baseTime = 1676863793756;
 
 const sessionId = 'vXrOwZ7OIyXq17jdB2jh';
 
-const activeUser: ProviderParticipant = {
+const hydratedParticipant: ProviderParticipant = {
 	userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
 	clientId: '328374441',
 	sessionId: sessionId,
@@ -25,50 +25,52 @@ const activeUser: ProviderParticipant = {
 	isGuest: undefined,
 	presenceId: 'mockPresenceId',
 	presenceActivity: undefined,
+	isHydrated: true,
 };
 
 const payload: PresencePayload = {
-	sessionId: activeUser.sessionId,
-	userId: activeUser.userId,
-	clientId: activeUser.clientId,
+	sessionId: hydratedParticipant.sessionId,
+	userId: hydratedParticipant.userId,
+	clientId: hydratedParticipant.clientId,
 	timestamp: baseTime,
 	permit: {
 		isPermittedToComment: false,
 		isPermittedToEdit: false,
 		isPermittedToView: true,
 	},
-	presenceId: activeUser.presenceId,
-	presenceActivity: activeUser.presenceActivity,
+	presenceId: hydratedParticipant.presenceId,
+	presenceActivity: hydratedParticipant.presenceActivity,
 };
 
 const participantsServiceConstructor = (deps: {
 	analyticsHelper?: AnalyticsHelper;
-	participants?: ParticipantsState;
+	participantsState?: ParticipantsState;
 	emit?: any;
 	getUser?: any;
 	broadcast?: any;
 	sendPresenceJoined?: any;
 	getPresenceData?: any;
 	setUserId?: any;
+	batchProps?: BatchProps;
 }): ParticipantsService =>
 	new ParticipantsService(
 		deps.analyticsHelper,
-		// @ts-ignore
-		deps.participants,
+		deps.participantsState ?? new ParticipantsState(),
 		deps.emit || jest.fn(),
 		deps.getUser || jest.fn(),
+		deps.batchProps || undefined,
 		deps.broadcast || jest.fn(),
 		deps.sendPresenceJoined || jest.fn(),
 		deps.getPresenceData || jest.fn().mockReturnValue(payload),
 		deps.setUserId || jest.fn(),
 	);
 
-describe('onParticpantUpdated', () => {
+describe('onParticpantUpdated updateParticipantEager', () => {
 	const getUser = jest.fn().mockReturnValue({
-		name: activeUser.name,
-		avatar: activeUser.avatar,
-		email: activeUser.email,
-		isGuest: activeUser.isGuest,
+		name: hydratedParticipant.name,
+		avatar: hydratedParticipant.avatar,
+		email: hydratedParticipant.email,
+		isGuest: hydratedParticipant.isGuest,
 	});
 
 	const emit = jest.fn();
@@ -83,15 +85,17 @@ describe('onParticpantUpdated', () => {
 
 		it('should call emit with participant', async () => {
 			await participantsService.onParticipantUpdated(payload);
-			expect(emit).toBeCalledWith('presence', { joined: [activeUser] });
+			expect(emit).toHaveBeenCalledWith('presence', { joined: [hydratedParticipant] });
 		});
 	});
 
 	describe('when participant already exists', () => {
-		const participantsMap: ParticipantsMap = new Map().set(activeUser.sessionId, activeUser);
-		const participants: ParticipantsState = new ParticipantsState(participantsMap);
+		const participantsMap: ParticipantsMap = new Map().set(
+			hydratedParticipant.sessionId,
+			hydratedParticipant,
+		);
 		const participantsService = participantsServiceConstructor({
-			participants,
+			participantsState: new ParticipantsState(participantsMap),
 			emit,
 		});
 
@@ -167,4 +171,123 @@ describe('onParticpantUpdated', () => {
 			expect(emit).not.toBeCalled();
 		});
 	});
+});
+
+describe('onParticpantUpdated updateParticipantLazy', () => {
+	const mockGetUsers = jest.fn().mockReturnValue([
+		{
+			name: hydratedParticipant.name,
+			avatar: hydratedParticipant.avatar,
+			email: hydratedParticipant.email,
+			isGuest: hydratedParticipant.isGuest,
+		},
+	]);
+
+	const defaultBatchProps: BatchProps = {
+		getUsers: mockGetUsers,
+	};
+
+	const emit = jest.fn();
+
+	afterEach(() => jest.clearAllMocks());
+
+	describe.each([[true], [false]])(
+		'when participant is new and currentlyPollingFetchUsers=%s',
+		(isCurrentlyPollingFetchUsers) => {
+			it('should call emit with no previous participant', async () => {
+				const participantsService = participantsServiceConstructor({
+					emit,
+					batchProps: defaultBatchProps,
+				});
+
+				// @ts-ignore private variable
+				participantsService.currentlyPollingFetchUsers = isCurrentlyPollingFetchUsers;
+				const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
+
+				await participantsService.onParticipantUpdated(payload);
+				expect(emit).toHaveBeenCalledWith('presence', {
+					joined: [
+						{
+							...payload,
+							lastActive: payload.timestamp,
+							name: '',
+							avatar: '',
+							email: '',
+						},
+					],
+				});
+
+				if (!isCurrentlyPollingFetchUsers) {
+					expect(spyBatchFetchUsers).toHaveBeenCalled();
+				} else {
+					expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+				}
+			});
+
+			it('should call emit with previous participant', async () => {
+				const participantsState: ParticipantsState = new ParticipantsState();
+				participantsState.setBySessionId(hydratedParticipant.sessionId, hydratedParticipant);
+
+				const participantsService = participantsServiceConstructor({
+					participantsState,
+					emit,
+					batchProps: defaultBatchProps,
+				});
+
+				// @ts-ignore private variable
+				participantsService.currentlyPollingFetchUsers = isCurrentlyPollingFetchUsers;
+				const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
+
+				await participantsService.onParticipantUpdated({
+					...payload,
+					presenceActivity: 'editor',
+				});
+
+				expect(emit).toHaveBeenCalledWith('presence', {
+					joined: [
+						{
+							...hydratedParticipant,
+							presenceActivity: 'editor',
+						},
+					],
+				});
+
+				if (!isCurrentlyPollingFetchUsers) {
+					expect(spyBatchFetchUsers).toHaveBeenCalled();
+				} else {
+					expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+				}
+			});
+
+			test.each([['unidentified'], [undefined]])(
+				'should call emit for anonymous with userId=%s',
+				async (userId) => {
+					const participantsService = participantsServiceConstructor({
+						emit,
+						batchProps: defaultBatchProps,
+					});
+					const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
+
+					await participantsService.onParticipantUpdated({
+						...payload,
+						userId,
+					});
+					expect(emit).toHaveBeenCalledWith('presence', {
+						joined: [
+							{
+								...payload,
+								lastActive: payload.timestamp,
+								name: '',
+								avatar: '',
+								email: '',
+								userId: 'unidentified',
+								isHydrated: true,
+							},
+						],
+					});
+					expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+				},
+			);
+		},
+	);
 });

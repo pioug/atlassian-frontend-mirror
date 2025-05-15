@@ -1,4 +1,5 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AgentIdType, AgentPermissions, ProfileClientOptions, RovoAgent } from '../types';
 import { agentRequestAnalytics } from '../util/analytics';
@@ -29,12 +30,18 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 		this.options = options;
 	}
 
+	private basePath() {
+		return fg('pt-deprecate-assistance-service')
+			? '/gateway/api/assist/rovo/v1/agents'
+			: '/gateway/api/assist/agents/v1';
+	}
+
 	makeRequest(id: AgentIdType, cloudId: string): Promise<RovoAgent> {
 		const product = this.options.productIdentifier || 'rovo';
 		const headers = createHeaders(product, this.options.cloudId);
 		if (id.type === 'identity') {
 			return fetch(
-				new Request(`/gateway/api/assist/agents/v1/accountid/${id.value}`, {
+				new Request(`${this.basePath()}/accountid/${id.value}`, {
 					method: 'GET',
 					credentials: 'include',
 					mode: 'cors',
@@ -43,7 +50,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			).then((response) => response.json());
 		}
 		return fetch(
-			new Request(`/gateway/api/assist/agents/v1/${id.value}`, {
+			new Request(`${this.basePath()}/${id.value}`, {
 				method: 'GET',
 				credentials: 'include',
 				mode: 'cors',
@@ -123,7 +130,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			const headers = createHeaders(product, this.options.cloudId);
 
 			fetch(
-				new Request(`/gateway/api/assist/agents/v1/${agentId}`, {
+				new Request(`${this.basePath()}/${agentId}`, {
 					method: 'DELETE',
 					credentials: 'include',
 					mode: 'cors',
@@ -179,7 +186,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 			const headers = createHeaders(product, this.options.cloudId);
 
 			await fetch(
-				new Request(`/gateway/api/assist/agents/v1/${agentId}/favourite`, {
+				new Request(`${this.basePath()}/${agentId}/favourite`, {
 					method: requestMethod,
 					credentials: 'include',
 					mode: 'cors',

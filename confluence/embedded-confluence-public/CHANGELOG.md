@@ -1,5 +1,22 @@
 # @atlaskit/embedded-confluence
 
+## 4.0.2
+
+### Patch Changes
+
+- [#154829](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154829)
+  [`fb330b0a798ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb330b0a798ab) -
+  add data tag to wrapper around LinkButton in Embedded Confluence ErrorScreen so that it can be
+  targeted for exclution from global css styles.
+
+## 4.0.1
+
+### Patch Changes
+
+- [#153504](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153504)
+  [`bdc3a1f957274`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdc3a1f957274) -
+  [ux] Update styling from ErrorScreen component to match LoginPage component
+
 ## 4.0.0
 
 ### Major Changes

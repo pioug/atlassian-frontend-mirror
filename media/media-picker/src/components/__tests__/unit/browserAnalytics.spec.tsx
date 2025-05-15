@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { waitFor } from '@testing-library/react';
 
-import { fakeMediaClient, flushPromises } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 import {
@@ -72,40 +73,40 @@ describe('Browser analytics instrumentation', () => {
 
 		browser.find('input').simulate('change', { target: { files: [file] } });
 
-		await flushPromises();
-
-		expect(onEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				context: [
-					{
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						componentName: 'browser',
-						component: 'browser',
-						[MEDIA_CONTEXT]: {
-							featureFlags: undefined,
+		await waitFor(() => {
+			expect(onEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					context: [
+						{
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							componentName: 'browser',
+							component: 'browser',
+							[MEDIA_CONTEXT]: {
+								featureFlags: undefined,
+							},
+						},
+					],
+					payload: {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaUpload',
+						actionSubjectId: 'localMedia',
+						attributes: {
+							sourceType: 'local',
+							fileAttributes: {
+								fileId: expect.any(String),
+								fileMimetype: 'text/plain',
+								fileSize: 13,
+							},
+							serviceName: 'upload',
+							traceContext: { traceId: expect.any(String) },
 						},
 					},
-				],
-				payload: {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaUpload',
-					actionSubjectId: 'localMedia',
-					attributes: {
-						sourceType: 'local',
-						fileAttributes: {
-							fileId: expect.any(String),
-							fileMimetype: 'text/plain',
-							fileSize: 13,
-						},
-						serviceName: 'upload',
-						traceContext: { traceId: expect.any(String) },
-					},
-				},
-			}),
-			ANALYTICS_MEDIA_CHANNEL,
-		);
+				}),
+				ANALYTICS_MEDIA_CHANNEL,
+			);
+		});
 		expect(mockstartMediaUploadUfoExperience).toBeCalledTimes(1);
 		expect(mockstartMediaUploadUfoExperience).toBeCalledWith(expect.any(String), 'browser');
 	});
@@ -132,41 +133,41 @@ describe('Browser analytics instrumentation', () => {
 
 		browser.find('input').simulate('change', { target: { files: [file] } });
 
-		await flushPromises();
-
-		expect(onEvent).toHaveBeenNthCalledWith(
-			1,
-			expect.objectContaining({
-				context: [
-					{
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						componentName: 'browser',
-						component: 'browser',
-						[MEDIA_CONTEXT]: {
-							featureFlags: undefined,
+		await waitFor(() => {
+			expect(onEvent).toHaveBeenNthCalledWith(
+				1,
+				expect.objectContaining({
+					context: [
+						{
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							componentName: 'browser',
+							component: 'browser',
+							[MEDIA_CONTEXT]: {
+								featureFlags: undefined,
+							},
+						},
+					],
+					payload: {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaUpload',
+						actionSubjectId: 'localMedia',
+						attributes: {
+							sourceType: 'local',
+							fileAttributes: {
+								fileId: expect.any(String),
+								fileMimetype: 'text/plain',
+								fileSize: 13,
+							},
+							serviceName: 'upload',
+							traceContext: { traceId: expect.any(String) },
 						},
 					},
-				],
-				payload: {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaUpload',
-					actionSubjectId: 'localMedia',
-					attributes: {
-						sourceType: 'local',
-						fileAttributes: {
-							fileId: expect.any(String),
-							fileMimetype: 'text/plain',
-							fileSize: 13,
-						},
-						serviceName: 'upload',
-						traceContext: { traceId: expect.any(String) },
-					},
-				},
-			}),
-			ANALYTICS_MEDIA_CHANNEL,
-		);
+				}),
+				ANALYTICS_MEDIA_CHANNEL,
+			);
+		});
 
 		fileStateObservable.next({
 			id: 'file id',
@@ -242,41 +243,41 @@ describe('Browser analytics instrumentation', () => {
 
 		browser.find('input').simulate('change', { target: { files: [file] } });
 
-		await flushPromises();
-
-		expect(onEvent).toHaveBeenNthCalledWith(
-			1,
-			expect.objectContaining({
-				context: [
-					{
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						componentName: 'browser',
-						component: 'browser',
-						[MEDIA_CONTEXT]: {
-							featureFlags: undefined,
+		await waitFor(() => {
+			expect(onEvent).toHaveBeenNthCalledWith(
+				1,
+				expect.objectContaining({
+					context: [
+						{
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							componentName: 'browser',
+							component: 'browser',
+							[MEDIA_CONTEXT]: {
+								featureFlags: undefined,
+							},
+						},
+					],
+					payload: {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaUpload',
+						actionSubjectId: 'localMedia',
+						attributes: {
+							sourceType: 'local',
+							fileAttributes: {
+								fileId: expect.any(String),
+								fileMimetype: 'text/plain',
+								fileSize: 13,
+							},
+							serviceName: 'upload',
+							traceContext: { traceId: expect.any(String) },
 						},
 					},
-				],
-				payload: {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaUpload',
-					actionSubjectId: 'localMedia',
-					attributes: {
-						sourceType: 'local',
-						fileAttributes: {
-							fileId: expect.any(String),
-							fileMimetype: 'text/plain',
-							fileSize: 13,
-						},
-						serviceName: 'upload',
-						traceContext: { traceId: expect.any(String) },
-					},
-				},
-			}),
-			ANALYTICS_MEDIA_CHANNEL,
-		);
+				}),
+				ANALYTICS_MEDIA_CHANNEL,
+			);
+		});
 
 		fileStateObservable.error(
 			new RequestError('serverBadGateway', {
@@ -367,41 +368,41 @@ describe('Browser analytics instrumentation', () => {
 
 		browser.find('input').simulate('change', { target: { files: [file] } });
 
-		await flushPromises();
-
-		expect(onEvent).toHaveBeenNthCalledWith(
-			1,
-			expect.objectContaining({
-				context: [
-					{
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						componentName: 'browser',
-						component: 'browser',
-						[MEDIA_CONTEXT]: {
-							featureFlags: undefined,
+		await waitFor(() => {
+			expect(onEvent).toHaveBeenNthCalledWith(
+				1,
+				expect.objectContaining({
+					context: [
+						{
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							componentName: 'browser',
+							component: 'browser',
+							[MEDIA_CONTEXT]: {
+								featureFlags: undefined,
+							},
+						},
+					],
+					payload: {
+						eventType: 'operational',
+						action: 'commenced',
+						actionSubject: 'mediaUpload',
+						actionSubjectId: 'localMedia',
+						attributes: {
+							sourceType: 'local',
+							fileAttributes: {
+								fileId: expect.any(String),
+								fileMimetype: 'text/plain',
+								fileSize: 13,
+							},
+							serviceName: 'upload',
+							traceContext: { traceId: expect.any(String) },
 						},
 					},
-				],
-				payload: {
-					eventType: 'operational',
-					action: 'commenced',
-					actionSubject: 'mediaUpload',
-					actionSubjectId: 'localMedia',
-					attributes: {
-						sourceType: 'local',
-						fileAttributes: {
-							fileId: expect.any(String),
-							fileMimetype: 'text/plain',
-							fileSize: 13,
-						},
-						serviceName: 'upload',
-						traceContext: { traceId: expect.any(String) },
-					},
-				},
-			}),
-			ANALYTICS_MEDIA_CHANNEL,
-		);
+				}),
+				ANALYTICS_MEDIA_CHANNEL,
+			);
+		});
 
 		fileStateObservable.next({
 			id: '123',

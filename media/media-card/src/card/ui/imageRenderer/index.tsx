@@ -2,7 +2,7 @@ import React from 'react';
 import { ImageRenderer as ImageRendererV1 } from './imageRenderer';
 import { ImageRenderer as ImageRendererV2 } from './imageRendererV2';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { ImageRendererProps } from './types';
+import type { ImageRendererProps } from './types';
 
 export const ImageRenderer = (props: ImageRendererProps) => {
 	return fg('platform_media_card_image_render') ? (

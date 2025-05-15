@@ -1,13 +1,13 @@
-import { JsonLd } from '@atlaskit/json-ld-types';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
 	extractEntityProvider,
 	extractProvider,
 	extractProviderIcon,
 	extractUrlFromIconJsonLd,
 	isEntityPresent,
-	LinkProvider,
+	type LinkProvider,
 } from '@atlaskit/link-extractors';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { prioritiseIcon } from '../icon/prioritiseIcon';
 

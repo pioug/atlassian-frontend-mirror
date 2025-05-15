@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "31.10.0",
+	"version": "31.12.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -120,8 +120,8 @@
 		"start": "cd ../../ && yarn start reactions",
 		"test": "cd ../../ && yarn test reactions",
 		"typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/reactions",
-		"start:dev": "cd ../../ && yarn start reactions --proxy ./packages/elements/reactions/proxy.ts",
-		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start reactions --proxy ./packages/elements/reactions/proxy.ts"
+		"start:dev": "cd ../../ && yarn start:webpack reactions --proxy ./packages/elements/reactions/proxy.ts",
+		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start:webpack reactions --proxy ./packages/elements/reactions/proxy.ts"
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {

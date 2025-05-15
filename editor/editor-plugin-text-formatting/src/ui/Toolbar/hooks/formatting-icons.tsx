@@ -208,7 +208,7 @@ const buildMenuIconState =
 		schema,
 		textFormattingState,
 	}: Pick<BuildIconProps, 'schema' | 'textFormattingState'>): MenuIconState => {
-		const hasPluginState = Boolean(Object.keys(textFormattingState || {}).length);
+		const hasPluginState = Boolean(textFormattingState?.isInitialised);
 		const markSchema = IconsMarkSchema[iconMark];
 		const hasSchemaMark = Boolean(schema.marks[markSchema]);
 
@@ -326,7 +326,7 @@ type Props = {
 };
 export const useHasFormattingActived = ({ iconTypeList, textFormattingState }: Props) => {
 	const hasActiveFormatting = useMemo(() => {
-		if (!textFormattingState) {
+		if (!textFormattingState?.isInitialised) {
 			return false;
 		}
 

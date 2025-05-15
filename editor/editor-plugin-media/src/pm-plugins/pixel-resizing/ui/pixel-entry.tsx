@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-tag-names */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -14,6 +15,7 @@ import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import Form, { Field } from '@atlaskit/form';
 import CloseIcon from '@atlaskit/icon/core/close';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives
 import { Inline, Box, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -338,6 +340,32 @@ export const PixelEntryComponentNext = ({
 		[computedWidth, computedHeight, handleCloseAndSave],
 	);
 
+	const handleCloseButtonKeyDown = useCallback(
+		(event: React.KeyboardEvent<HTMLButtonElement>) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+
+				const shouldSetFocus = true;
+				handleCloseAndSave(
+					{ inputWidth: computedWidth, inputHeight: computedHeight },
+					shouldSetFocus,
+				);
+			}
+		},
+		[computedWidth, computedHeight, handleCloseAndSave],
+	);
+
+	const getButtonKeyDownHandler = () => {
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		if (fg('platform_editor_controls_patch_8') && !fg('platform_editor_controls_patch_9')) {
+			return handleKeyDown;
+		} else if (fg('platform_editor_controls_patch_9')) {
+			return handleCloseButtonKeyDown;
+		} else {
+			return undefined;
+		}
+	};
+
 	return (
 		<Box xcss={[pixelEntryWrapperStyles, isViewMode && pixelEntryWrapperViewModeStyles]}>
 			<Inline alignBlock="center" spread="space-between">
@@ -397,7 +425,7 @@ export const PixelEntryComponentNext = ({
 							onClick={() => {
 								handleCloseAndSave({ inputWidth: computedWidth, inputHeight: computedHeight });
 							}}
-							onKeyDown={fg('platform_editor_controls_patch_8') ? handleKeyDown : undefined}
+							onKeyDown={getButtonKeyDownHandler()}
 						/>
 					</Fragment>
 				)}

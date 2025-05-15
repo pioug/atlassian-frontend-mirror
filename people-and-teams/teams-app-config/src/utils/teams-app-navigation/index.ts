@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { NavigationAction, NavigationResult } from './types';
+import type { NavigationAction, NavigationResult } from './types';
 import { generatePath, getPathAndQuery, onNavigateBase } from './utils';
 
 /**

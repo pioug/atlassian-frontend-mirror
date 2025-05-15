@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.1.5
+
+### Patch Changes
+
+- [#147357](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/147357)
+  [`1eab8cfeaf029`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eab8cfeaf029) -
+  Migrate extensions and floating toolbar plugins to use useSharedPluginStateSelector hook
+- Updated dependencies
+
 ## 4.1.4
 
 ### Patch Changes

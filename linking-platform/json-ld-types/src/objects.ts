@@ -1,4 +1,4 @@
-import { JsonLd } from './jsonld';
+import type { JsonLd } from './jsonld';
 
 export interface JsonLdBlogPostDocument {
 	meta: JsonLd.Meta.BaseMeta;

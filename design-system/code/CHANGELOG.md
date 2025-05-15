@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 17.2.0
+
+### Minor Changes
+
+- [#153642](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153642)
+  [`dca85557e83b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dca85557e83b9) -
+  Adds a label prop for when code block is scrollable. Fixes the code block scrollablity bug.
+
 ## 17.1.2
 
 ### Patch Changes

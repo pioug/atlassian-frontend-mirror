@@ -6,7 +6,7 @@ import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { breakoutMessages as messages } from '../messages';
-import { BreakoutMode } from '../types';
+import type { BreakoutMode } from '../types';
 
 const fullWidthLabelWrapperStyles = xcss({
 	height: token('space.400', '32px'),

@@ -158,6 +158,7 @@ const BadgeRefreshNew = forwardRef(
 			name,
 			testId = 'smart-element-badge',
 			url,
+			color,
 		}: BadgeProps,
 		ref: React.Ref<HTMLElement>,
 	) => {
@@ -174,6 +175,10 @@ const BadgeRefreshNew = forwardRef(
 				data-testid={testId}
 				css={[styles.container, colorMap[appearance]]}
 				ref={ref}
+				style={{
+					color:
+						color && fg('platform-linking-additional-flexible-element-props') ? color : undefined,
+				}}
 			>
 				{!hideIcon && (
 					<Box as="span" xcss={styles.icon}>

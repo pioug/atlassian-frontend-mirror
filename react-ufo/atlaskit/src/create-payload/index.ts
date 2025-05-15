@@ -5,7 +5,7 @@ import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
-import { ResourceTiming } from '../common/react-ufo-payload-schema';
+import { type ResourceTiming } from '../common/react-ufo-payload-schema';
 import { getConfig, getExperimentalInteractionRate, getUfoNameOverrides } from '../config';
 import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
 import { getBm3Timings } from '../custom-timings';

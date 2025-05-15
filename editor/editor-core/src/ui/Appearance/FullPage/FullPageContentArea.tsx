@@ -187,11 +187,7 @@ const Content = React.forwardRef<
 								}),
 							]}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-							className={
-								fg('platform_editor_lcm_styling_uplift')
-									? 'ak-editor-content-area-region'
-									: undefined
-							}
+							className="ak-editor-content-area-region"
 							data-editor-editable-content
 							data-editor-primary-toolbar-hidden={
 								props.isEditorToolbarHidden &&

@@ -1,5 +1,5 @@
 import { getEventCategory } from '../dom';
-import { getElementName, SelectorConfig } from '../getElementName';
+import { getElementName, type SelectorConfig } from '../getElementName';
 import type { TimelineClock } from '../timelineInterfaces';
 
 import { InputEventsObserver } from './InputEventsObserver';
@@ -26,6 +26,9 @@ function createPerformanceObserver(props: CreatePerformanceObserverProps) {
 	return observer;
 }
 
+/**
+ *
+ */
 export class UserLatencyObservers {
 	private static instance: UserLatencyObservers | null = null;
 
@@ -34,6 +37,11 @@ export class UserLatencyObservers {
 	private inputEventsObserver!: InputEventsObserver;
 	private isObserving: boolean = false;
 
+	/**
+	 *
+	 * @param timeline
+	 * @example
+	 */
 	constructor(timeline: TimelineClock) {
 		if (UserLatencyObservers.instance) {
 			return UserLatencyObservers.instance;
@@ -90,6 +98,10 @@ export class UserLatencyObservers {
 		UserLatencyObservers.instance = this;
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	observe() {
 		if (this.isObserving) {
 			return;
@@ -101,6 +113,10 @@ export class UserLatencyObservers {
 		this.isObserving = true;
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	disconnect() {
 		if (!this.isObserving) {
 			return;
@@ -112,6 +128,10 @@ export class UserLatencyObservers {
 		this.isObserving = false;
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	public static resetInstance(): void {
 		if (UserLatencyObservers.instance) {
 			UserLatencyObservers.instance.disconnect();

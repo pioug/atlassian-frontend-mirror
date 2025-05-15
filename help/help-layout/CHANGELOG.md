@@ -1,5 +1,13 @@
 # @atlaskit/help-layout
 
+## 6.2.3
+
+### Patch Changes
+
+- [#154681](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154681)
+  [`fb0a99c10712e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb0a99c10712e) -
+  Renamed contentRender prop for AI enabled feature
+
 ## 6.2.2
 
 ### Patch Changes

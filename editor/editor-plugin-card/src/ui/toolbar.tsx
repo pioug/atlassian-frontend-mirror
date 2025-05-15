@@ -533,6 +533,38 @@ const generateToolbarItems =
 				? INPUT_METHOD.FLOATING_TB
 				: INPUT_METHOD.TOOLBAR;
 
+			const editButtonItems: Array<FloatingToolbarItem<Command>> =
+				cardOptions.allowDatasource && fg('platform_editor_controls_patch_9')
+					? [
+							{
+								type: 'custom',
+								fallback: [],
+								render: (editorView) => (
+									<EditToolbarButton
+										key="edit-toolbar-item"
+										url={url}
+										intl={intl}
+										editorAnalyticsApi={editorAnalyticsApi}
+										editorView={editorView}
+										onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
+										currentAppearance={currentAppearance}
+									/>
+								),
+							},
+						]
+					: [
+							{
+								id: 'editor.link.edit',
+								type: 'button',
+								selected: false,
+								metadata: metadata,
+								title: intl.formatMessage(linkToolbarMessages.editLink),
+								icon: EditIcon,
+								testId: 'link-toolbar-edit-link-button',
+								onClick: getEditLinkCallback(editorAnalyticsApi, true),
+							},
+						];
+
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = editorExperiment(
 				'platform_editor_controls',
 				'control',
@@ -585,16 +617,7 @@ const generateToolbarItems =
 						},
 					]
 				: [
-						{
-							id: 'editor.link.edit',
-							type: 'button',
-							selected: false,
-							metadata: metadata,
-							title: intl.formatMessage(linkToolbarMessages.editLink),
-							icon: EditIcon,
-							testId: 'link-toolbar-edit-link-button',
-							onClick: getEditLinkCallback(editorAnalyticsApi, true),
-						},
+						...editButtonItems,
 						...(fg('platform_editor_controls_patch_6')
 							? []
 							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),

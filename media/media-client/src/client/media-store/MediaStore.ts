@@ -42,6 +42,7 @@ import {
 	type RequestHeaders,
 	type RequestMetadata,
 	type CreateUrlOptions,
+	type RequestOptions,
 } from '../../utils/request/types';
 import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';
@@ -71,10 +72,8 @@ const jsonHeaders = {
 
 const cdnFeatureFlag = (endpoint: string) => {
 	let result = endpoint;
-	if (fg('platform_media_cdn_delivery')) {
-		if (isCommercial()) {
-			result += '/cdn';
-		}
+	if (isCommercial() && fg('platform_media_cdn_delivery')) {
+		result += '/cdn';
 	}
 	return result;
 };
@@ -343,7 +342,17 @@ export class MediaStore implements MediaApi {
 		artifacts: MediaFileArtifacts,
 		artifactName: keyof MediaFileArtifacts,
 		collectionName?: string,
+		maxAge: number = FILE_CACHE_MAX_AGE,
 	): Promise<string> {
+		// getArtifactURL returns a constructed url PATH, not the full Media/CDN Url.
+		// We use the provided cdnUrl from metadata first.
+		if (isCommercial() && fg('platform_media_cdn_delivery')) {
+			const cdnUrl = artifacts[artifactName]?.cdnUrl;
+			if (cdnUrl) {
+				return cdnUrl;
+			}
+		}
+
 		const artifactUrl = getArtifactUrl(artifacts, artifactName);
 		if (!artifactUrl) {
 			throw new Error(`artifact ${artifactName} not found`);
@@ -354,13 +363,75 @@ export class MediaStore implements MediaApi {
 		const options: CreateUrlOptions = {
 			params: {
 				collection: collectionName,
-				'max-age': FILE_CACHE_MAX_AGE,
+				'max-age': maxAge,
 			},
 			auth,
 		};
 
 		return createUrl(mapToMediaCdnUrl(artifactUrl, auth.token), options);
 	}
+
+	getArtifactBinary: MediaApi['getArtifactBinary'] = async (
+		artifacts,
+		artifactName,
+		{ collectionName, abortController, maxAge = FILE_CACHE_MAX_AGE, traceContext },
+	) => {
+		const metadata: RequestMetadata = {
+			method: 'GET',
+			endpoint: `artifact-cdn-url`,
+		};
+
+		const extendedTraceContext = extendTraceContext(traceContext);
+
+		const options: RequestOptions = {
+			...metadata,
+			traceContext: extendedTraceContext,
+		};
+
+		const artifactUrl = await this.getArtifactURL(artifacts, artifactName, collectionName, maxAge);
+		return request(artifactUrl, options, abortController).then(createMapResponseToBlob(metadata));
+	};
+
+	uploadArtifact: MediaApi['uploadArtifact'] = async (
+		id,
+		file,
+		params,
+		collectionName,
+		traceContext,
+	) => {
+		const metadata: RequestMetadata = {
+			method: 'POST',
+			endpoint: '/file/{fileId}/artifact/binary',
+		};
+
+		const headers: RequestHeaders = {
+			Accept: 'application/json',
+			'Content-Type': file.type,
+		};
+
+		const extendedParams = {
+			...params,
+			name: file.name,
+		};
+
+		const authContext: AuthContext = {
+			collectionName,
+			access: [{ type: 'file', id, actions: ['update'] }],
+		};
+
+		const options: MediaStoreRequestOptions = {
+			...metadata,
+			authContext,
+			headers,
+			params: extendedParams,
+			body: file,
+			traceContext,
+		};
+
+		return this.request(`/file/${id}/artifact/binary`, options).then(
+			createMapResponseToJson(metadata),
+		);
+	};
 
 	async getImage(
 		id: string,

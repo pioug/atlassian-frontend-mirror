@@ -1,6 +1,8 @@
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import type { PresencePayload } from '../../types';
+import { BatchProps } from '../participants-helper';
 import { ParticipantsService } from '../participants-service';
+import { ParticipantsState } from '../participants-state';
 
 describe('participants-service-presence', () => {
 	let broadcast: any;
@@ -14,6 +16,7 @@ describe('participants-service-presence', () => {
 	let analyticsSpy: any;
 	let participantsService: ParticipantsService;
 	let payload: PresencePayload;
+	const batchProps: BatchProps | undefined = undefined;
 
 	beforeEach(() => {
 		broadcast = jest.fn();
@@ -33,10 +36,10 @@ describe('participants-service-presence', () => {
 		};
 		participantsService = new ParticipantsService(
 			analyticsHelper,
-			// @ts-ignore
-			undefined,
+			new ParticipantsState(),
 			emit,
 			getUser,
+			batchProps,
 			broadcast,
 			sendPresenceJoined,
 			getPresenceData,
@@ -53,14 +56,14 @@ describe('participants-service-presence', () => {
 				participantsService.onPresence(payload);
 			});
 			it('should set userId', () => {
-				expect(setUserId).toBeCalledTimes(1);
-				expect(setUserId).toBeCalledWith(payload.userId);
+				expect(setUserId).toHaveBeenCalledTimes(1);
+				expect(setUserId).toHaveBeenCalledWith(payload.userId);
 			});
 
 			it('should broadcast presence', () => {
-				expect(broadcast).toBeCalledTimes(2);
-				expect(broadcast).toBeCalledWith('participant:updated', payload);
-				expect(broadcast).toBeCalledWith('participant:updated', {
+				expect(broadcast).toHaveBeenCalledTimes(2);
+				expect(broadcast).toHaveBeenCalledWith('participant:updated', payload);
+				expect(broadcast).toHaveBeenCalledWith('participant:updated', {
 					clientId: 'abc::666',
 					permit: {
 						isPermittedToComment: false,
@@ -74,8 +77,8 @@ describe('participants-service-presence', () => {
 			});
 
 			it('should call sendPresenceJoined', () => {
-				expect(sendPresenceJoined).toBeCalledTimes(1);
-				expect(sendPresenceJoined).toBeCalledWith();
+				expect(sendPresenceJoined).toHaveBeenCalledTimes(1);
+				expect(sendPresenceJoined).toHaveBeenCalledWith();
 			});
 		});
 
@@ -89,8 +92,8 @@ describe('participants-service-presence', () => {
 			});
 
 			it('should catch error and send analytics', () => {
-				expect(analyticsSpy).toBeCalledTimes(1);
-				expect(analyticsSpy).toBeCalledWith(error, 'Error while receiving presence');
+				expect(analyticsSpy).toHaveBeenCalledTimes(1);
+				expect(analyticsSpy).toHaveBeenCalledWith(error, 'Error while receiving presence');
 			});
 		});
 	});
@@ -98,9 +101,9 @@ describe('participants-service-presence', () => {
 	describe('onPresenceJoined', () => {
 		it('should broadcast presence', () => {
 			participantsService.onPresenceJoined(payload);
-			expect(broadcast).toBeCalledTimes(2);
-			expect(broadcast).toBeCalledWith('participant:updated', payload);
-			expect(broadcast).toBeCalledWith('participant:updated', {
+			expect(broadcast).toHaveBeenCalledTimes(2);
+			expect(broadcast).toHaveBeenCalledWith('participant:updated', payload);
+			expect(broadcast).toHaveBeenCalledWith('participant:updated', {
 				clientId: 'abc::666',
 				permit: {
 					isPermittedToComment: false,
@@ -122,8 +125,8 @@ describe('participants-service-presence', () => {
 			});
 			participantsService.onPresenceJoined(payload);
 
-			expect(analyticsSpy).toBeCalledTimes(1);
-			expect(analyticsSpy).toBeCalledWith(fakeError, 'Error while joining presence');
+			expect(analyticsSpy).toHaveBeenCalledTimes(1);
+			expect(analyticsSpy).toHaveBeenCalledWith(fakeError, 'Error while joining presence');
 		});
 	});
 
@@ -138,14 +141,14 @@ describe('participants-service-presence', () => {
 			it('should get Presence data from provider', () => {
 				// This is called twice because getAIProviderActiveIds also uses getPresenceData
 				// to combine AI Provider info with the user's presence data
-				expect(getPresenceData).toBeCalledTimes(2);
-				expect(getAIProviderActiveIds).toBeCalledTimes(1);
+				expect(getPresenceData).toHaveBeenCalledTimes(2);
+				expect(getAIProviderActiveIds).toHaveBeenCalledTimes(1);
 			});
 
 			it('should broadcast presence', () => {
-				expect(broadcast).toBeCalledTimes(2);
-				expect(broadcast).toBeCalledWith('participant:updated', payload);
-				expect(broadcast).toBeCalledWith('participant:updated', {
+				expect(broadcast).toHaveBeenCalledTimes(2);
+				expect(broadcast).toHaveBeenCalledWith('participant:updated', payload);
+				expect(broadcast).toHaveBeenCalledWith('participant:updated', {
 					clientId: 'abc::666',
 					permit: {
 						isPermittedToComment: false,
@@ -161,8 +164,8 @@ describe('participants-service-presence', () => {
 			it('should set timeout', () => {
 				// @ts-expect-error private variable
 				expect(participantsService.presenceUpdateTimeout).toBeDefined();
-				expect(window.setTimeout).toBeCalledTimes(1);
-				expect(window.setTimeout).toBeCalledWith(expect.any(Function), 150000);
+				expect(window.setTimeout).toHaveBeenCalledTimes(1);
+				expect(window.setTimeout).toHaveBeenCalledWith(expect.any(Function), 150000);
 			});
 		});
 
@@ -177,8 +180,8 @@ describe('participants-service-presence', () => {
 			});
 
 			it('should catch error and send analytics', () => {
-				expect(analyticsSpy).toBeCalledTimes(1);
-				expect(analyticsSpy).toBeCalledWith(error, 'Error while sending presence');
+				expect(analyticsSpy).toHaveBeenCalledTimes(1);
+				expect(analyticsSpy).toHaveBeenCalledWith(error, 'Error while sending presence');
 			});
 		});
 	});

@@ -6,7 +6,7 @@ import { IntlProvider, type MessageDescriptor } from 'react-intl-next';
 
 import { useTeamContainers } from '@atlaskit/teams-public';
 
-import { TeamProfileCard } from './main';
+import { TeamProfileCard, TeamProfileCardProps } from './main';
 import { mockProfileData } from './mocks';
 
 jest.mock('@atlaskit/teams-public', () => ({
@@ -177,7 +177,7 @@ describe('TeamProfileCard', () => {
 	});
 
 	describe('new layout', () => {
-		const renderComponent = () =>
+		const renderComponent = (props: Partial<TeamProfileCardProps> = {}) =>
 			render(
 				<IntlProvider locale="en">
 					<TeamProfileCard
@@ -192,6 +192,7 @@ describe('TeamProfileCard', () => {
 							{ id: '1', item: <button>Action 1 </button> },
 							{ id: '2', item: <button>Action 2 </button> },
 						]}
+						{...props}
 					/>
 				</IntlProvider>,
 			);
@@ -217,6 +218,11 @@ describe('TeamProfileCard', () => {
 			);
 			expect(memberCount).toBeVisible();
 			expect(screen.getByText(mockProfileData.description)).toBeVisible();
+		});
+
+		it('should render member count as 100+ if the member count is string', () => {
+			renderComponent({ memberCount: '100+' });
+			expect(screen.getByText('Contributing team • 100+ members')).toBeVisible();
 		});
 
 		it('should render team links', () => {

@@ -2,6 +2,7 @@ export type {
 	MediaFileProcessingStatus,
 	MediaRepresentations,
 	MediaFileArtifact,
+	MediaUserArtifact,
 	FileState,
 	MediaFileArtifacts,
 	FilePreview,

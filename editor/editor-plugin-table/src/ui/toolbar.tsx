@@ -1144,8 +1144,9 @@ const isLayoutOptionDisabled = (
 
 	// table may be scaled, use the scale percent to calculate the table width
 	if (editorView) {
-		const tableWrapper = getDomRef(editorView);
-		const tableWrapperWidth = tableWrapper?.clientWidth || tableContainerWidth;
+		const tableWrapperWidth = fg('platform_editor_remove_slow_table_transactions')
+			? tableContainerWidth
+			: getDomRef(editorView)?.clientWidth || tableContainerWidth;
 		const scalePercent = getStaticTableScalingPercent(
 			selectedNode,
 			tableWrapperWidth,

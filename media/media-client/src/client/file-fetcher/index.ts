@@ -156,6 +156,10 @@ export interface FileFetcher {
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
 	): Promise<MediaItemDetails>;
+	/** @exprimental This is exprimental for the purposes of COMMIT-18082 and is prone to breaking changes */
+	getVideoDurations(
+		files: Array<{ id: string; collectionName?: string }>,
+	): Promise<{ [key: string]: number }>;
 }
 
 export class FileFetcherImpl implements FileFetcher {
@@ -803,5 +807,101 @@ export class FileFetcherImpl implements FileFetcher {
 		this.setFileState(id, mapMediaItemToFileState(id, itemDetails));
 
 		return data;
+	};
+
+	private getOrFetchFileState = async (id: string, collectionName?: string) => {
+		let fileState = this.store.getState().files[id];
+		return fileState ?? (await this.getCurrentState(id, { collectionName }));
+	};
+
+	private getDurationOfVideo = async (id: string, collectionName?: string) => {
+		const fileState = await this.getOrFetchFileState(id, collectionName);
+		if (
+			fileState.status !== 'processed' ||
+			fileState.mediaType !== 'video' ||
+			!fileState.artifacts['video.mp4']
+		) {
+			throw new Error('File is not a video');
+		}
+
+		const aritfactUrl = await this.getArtifactURL(fileState.artifacts, 'video.mp4');
+
+		const artifactPath = new URL(aritfactUrl).pathname;
+		const res = await this.mediaApi.request(artifactPath, {
+			headers: {
+				Range: 'bytes=0-199',
+			},
+		});
+
+		// Get the response as ArrayBuffer
+		const arrayBuffer = await res.arrayBuffer();
+		const uint8Array = new Uint8Array(arrayBuffer);
+
+		const mvhdBytes = new Uint8Array([109, 118, 104, 100]); // "mvhd" in ASCII
+
+		let mvhdIndex = -1;
+		for (let i = 0; i <= uint8Array.length - mvhdBytes.length; i++) {
+			mvhdIndex = i;
+			for (let j = 0; j < mvhdBytes.length; j++) {
+				if (uint8Array[i + j] !== mvhdBytes[j]) {
+					mvhdIndex = -1;
+					break;
+				}
+			}
+			if (mvhdIndex !== -1) {
+				break;
+			}
+		}
+
+		if (mvhdIndex === -1) {
+			throw new Error('Unable to find mvhd bytes');
+		}
+
+		// Create DataView for reading big-endian integers
+		const dataView = new DataView(arrayBuffer);
+		const start = mvhdIndex + 16; // Skip atom header and version/flags
+
+		// Check if we have enough bytes to read timescale and duration
+		if (start + 8 > arrayBuffer.byteLength) {
+			return 0;
+		}
+
+		// flase as second parameter indicates big-endian 32-bit integers
+		const timeScale = dataView.getUint32(start, false);
+		const duration = dataView.getUint32(start + 4, false);
+
+		if (timeScale === 0) {
+			throw new Error('Timescale is invalid');
+		}
+
+		// get the video length in seconds
+		const videoLength = Math.floor(duration / timeScale);
+
+		return videoLength;
+	};
+
+	getVideoDurations = async (files: Array<{ id: string; collectionName?: string }>) => {
+		// get all the duration promises
+		const promises = files.map(async ({ id, collectionName }) => {
+			try {
+				return await this.getDurationOfVideo(id, collectionName);
+			} catch (_err) {
+				return -1;
+			}
+		});
+
+		const durations = await Promise.all(promises);
+
+		// only return the durations that are present;
+		return durations.reduce(
+			(acc, curr, i) => {
+				if (curr !== -1) {
+					const id = files[i].id;
+					acc[id] = curr;
+				}
+				return acc;
+			},
+			{} as Record<string, number>,
+		);
 	};
 }

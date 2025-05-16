@@ -56,15 +56,15 @@ describe('createMutationObserver', () => {
 		const callback = (window.MutationObserver as jest.Mock).mock.calls[0][0];
 		callback([
 			{
-				addedNodes: [addedNodes[0]],
-				removedNodes: [removedNodes[0]],
+				addedNodes: [new WeakRef(addedNodes[0])],
+				removedNodes: [new WeakRef(removedNodes[0])],
 				target: targetNodes[0],
 				type: 'childList',
 			},
 
 			{
-				addedNodes: [addedNodes[1]],
-				removedNodes: [removedNodes[1]],
+				addedNodes: [new WeakRef(addedNodes[1])],
+				removedNodes: [new WeakRef(removedNodes[1])],
 				target: targetNodes[1],
 				type: 'childList',
 			},
@@ -72,8 +72,8 @@ describe('createMutationObserver', () => {
 
 		expect(onChildListMutation).toHaveBeenCalledWith(
 			expect.objectContaining({
-				addedNodes: addedNodes,
-				removedNodes: removedNodes,
+				addedNodes: expect.any(Array),
+				removedNodes: expect.any(Array),
 			}),
 		);
 

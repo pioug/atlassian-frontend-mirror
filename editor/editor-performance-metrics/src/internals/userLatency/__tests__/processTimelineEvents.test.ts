@@ -6,7 +6,7 @@ import type {
 import type { UserEventCategory } from '../../types';
 import { processTimelineEvents } from '../processTimelineEvents';
 
-const createMockUserEvent = ({
+const createMockInputEvent = ({
 	startTime,
 	duration,
 	processingStart,
@@ -21,7 +21,7 @@ const createMockUserEvent = ({
 	entryType: UserEventCategory;
 	eventName: string;
 }): UserEvent => ({
-	type: 'user-event:mouse-movement',
+	type: `user-event:${entryType}`,
 	startTime: 0,
 	data: {
 		eventName,
@@ -70,12 +70,12 @@ const createMockPerfEvent = ({
 	},
 });
 
-const defaultInputEventMock: UserEvent = createMockUserEvent({
+const defaultInputEventMock: UserEvent = createMockInputEvent({
 	startTime: 143,
 	duration: 50,
 	processingStart: 150,
 	processingEnd: 200,
-	entryType: 'mouse-movement',
+	entryType: 'mouse-action',
 	eventName: 'click',
 });
 const defaultPerfEventMock: PerformanceLongAnimationFrameEvent = createMockPerfEvent({
@@ -96,14 +96,17 @@ describe('processTimelineEvents', () => {
 		expect(processTimelineEvents([])).toEqual([]);
 	});
 
-	it('should match a user event with a corresponding performance event if start time matches', () => {
+	it('should match a input event with a corresponding performance event if start time matches', () => {
 		const events: TimelineEvent[] = [defaultInputEventMock, defaultPerfEventMock];
 		const result = processTimelineEvents(events);
 
 		expect(result).toEqual([
 			{
 				name: 'click',
-				category: 'mouse-movement',
+				attribution: {
+					selector: 'div',
+				},
+				category: 'mouse-action',
 				firstInteraction: {
 					duration: 100,
 				},
@@ -111,14 +114,14 @@ describe('processTimelineEvents', () => {
 		]);
 	});
 
-	it('should match a user event with a corresponding performance event if input event is within frame', () => {
+	it('should match a input event with a corresponding performance event if input event is within frame', () => {
 		const inputEventProcessingStart = 150;
-		const inputEvent = createMockUserEvent({
+		const inputEvent = createMockInputEvent({
 			startTime: 143,
 			duration: 50,
 			processingStart: inputEventProcessingStart,
 			processingEnd: 200,
-			entryType: 'mouse-movement',
+			entryType: 'mouse-action',
 			eventName: 'click',
 		});
 		const prefEvent = createMockPerfEvent({
@@ -134,7 +137,10 @@ describe('processTimelineEvents', () => {
 		expect(result).toEqual([
 			{
 				name: 'click',
-				category: 'mouse-movement',
+				attribution: {
+					selector: 'div',
+				},
+				category: 'mouse-action',
 				firstInteraction: {
 					duration: 150,
 				},
@@ -142,30 +148,44 @@ describe('processTimelineEvents', () => {
 		]);
 	});
 
-	it('should not match a user event with an unrelated performance event', () => {
+	it('should not match a input event with an unrelated performance event', () => {
 		const events: TimelineEvent[] = [defaultInputEventMock, defaultUnrelatedPerfEventMock];
 		const result = processTimelineEvents(events);
 
 		expect(result).toEqual([]);
 	});
 
-	it('should handle multiple input/user events correctly', () => {
-		const anotherUserEvent: UserEvent = createMockUserEvent({
-			startTime: 143,
-			duration: 50,
-			processingStart: 300,
-			processingEnd: 200,
-			entryType: 'mouse-movement',
-			eventName: 'mouseover',
-		});
+	it('should only match the earliest started input event in frame to the matching long animation frame event', () => {
+		const anotherInputEvent: UserEvent = {
+			...defaultInputEventMock,
+			type: `user-event:mouse-movement`,
+			startTime: defaultInputEventMock.startTime + 2,
+			data: {
+				...defaultInputEventMock.data,
+				category: 'mouse-movement',
+				eventName: 'mouseover',
+				entry: {
+					...defaultInputEventMock.data.entry,
+					processingStart: defaultInputEventMock.data.entry!.processingStart + 2,
+				} as PerformanceEventTiming,
+				elementName: 'span',
+			},
+		};
 
-		const events: TimelineEvent[] = [defaultInputEventMock, anotherUserEvent, defaultPerfEventMock];
+		const events: TimelineEvent[] = [
+			defaultInputEventMock,
+			anotherInputEvent,
+			defaultPerfEventMock,
+		];
 		const result = processTimelineEvents(events);
 
 		expect(result).toEqual([
 			{
 				name: 'click',
-				category: 'mouse-movement',
+				attribution: {
+					selector: 'div',
+				},
+				category: 'mouse-action',
 				firstInteraction: {
 					duration: 100,
 				},
@@ -173,8 +193,8 @@ describe('processTimelineEvents', () => {
 		]);
 	});
 
-	it('should return an empty array if no user events match performance events', () => {
-		const events: TimelineEvent[] = [defaultUnrelatedPerfEventMock];
+	it('should return an empty array if no input events match performance events', () => {
+		const events: TimelineEvent[] = [defaultInputEventMock, defaultUnrelatedPerfEventMock];
 		const result = processTimelineEvents(events);
 
 		expect(result).toEqual([]);

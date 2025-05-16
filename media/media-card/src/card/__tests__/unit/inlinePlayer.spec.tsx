@@ -267,7 +267,7 @@ describe('<InlinePlayer />', () => {
 				},
 			};
 
-			expect(getPreferredVideoArtifact(state as FileState)).toEqual('video_1280.mp4');
+			expect(getPreferredVideoArtifact(state as unknown as FileState)).toEqual('video_1280.mp4');
 		});
 
 		it('should fallback to sd artifact if hd is not present', () => {
@@ -279,7 +279,7 @@ describe('<InlinePlayer />', () => {
 				},
 			};
 
-			expect(getPreferredVideoArtifact(state as FileState)).toEqual('video_640.mp4');
+			expect(getPreferredVideoArtifact(state as unknown as FileState)).toEqual('video_640.mp4');
 		});
 
 		it('should work with processing status', () => {
@@ -290,7 +290,7 @@ describe('<InlinePlayer />', () => {
 				},
 			};
 
-			expect(getPreferredVideoArtifact(state as FileState)).toEqual('video_1280.mp4');
+			expect(getPreferredVideoArtifact(state as unknown as FileState)).toEqual('video_1280.mp4');
 		});
 	});
 

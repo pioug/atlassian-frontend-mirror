@@ -18,6 +18,12 @@ export type NavigationActionCommon = {
 	 * If the traffic is not migrated, the default will be for the navigation to open in the same tab.
 	 */
 	shouldOpenInSameTab?: boolean;
+	/**
+	 * @deprecated this is only required until we remove the embedded directory.
+	 * Once traffic is fully migrated to the teams app, this can be removed.
+	 * Nav4 is a precondition to the Teams App migration.
+	 */
+	userHasNav4Enabled: boolean;
 };
 
 export type NavigationActionUser = {

@@ -47,6 +47,7 @@ export default class ConfigurableMentionPicker extends React.Component<Props, St
 					<label htmlFor="mention-urls">MentionResource config</label>
 				</Text>
 				<Text as="p">
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
 						id="mention-urls"
 						rows={15}

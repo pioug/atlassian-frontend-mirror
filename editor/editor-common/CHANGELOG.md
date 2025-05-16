@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 105.3.0
+
+### Minor Changes
+
+- [#155142](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155142)
+  [`50eb20003ad27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50eb20003ad27) -
+  Replace platform_editor_table_row_span_fix with platform_editor_table_row_span_fix_confluence
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 105.2.4
 
 ### Patch Changes

@@ -21,9 +21,8 @@ export const getToolbarComponents = ({
 		contextualFormattingEnabled &&
 		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 	) {
-		const shouldShowInsertBlock = fg('platform_editor_insert_button_on_primary_toolbar');
 		const shouldShowUndoRedoGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
-		configuration = toolbarConfigurationV2(shouldShowInsertBlock, shouldShowUndoRedoGroup);
+		configuration = toolbarConfigurationV2(true, shouldShowUndoRedoGroup);
 	} else {
 		const shouldShowFindGroup = !(
 			!contextualFormattingEnabled && fg('platform_editor_controls_fix_toolbar_config_embeds')

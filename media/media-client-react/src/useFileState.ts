@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import type { FileState } from '@atlaskit/media-state';
 
-import { useMediaClient } from './MediaClientProvider';
+import { useMediaClient } from './useMediaClient';
 import { useMediaStore } from './useMediaStore';
 
 export type UseFileStateResult = {

@@ -307,4 +307,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-05-15
+	confluence_p2m_style_recalc_and_expand_joint_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_p2m_style_recalc_and_expand_joint_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

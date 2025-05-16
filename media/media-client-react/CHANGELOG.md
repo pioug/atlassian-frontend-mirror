@@ -1,5 +1,18 @@
 # @atlaskit/media-client-react
 
+## 4.1.0
+
+### Minor Changes
+
+- [#152511](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152511)
+  [`c01c87a4eecc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c01c87a4eecc4) -
+  Exposes new MediaProvider which replaces MediaClientProvider. It generates a React context
+  suplying a MediaClient instance and a MediaParsedSettings object based on MediaSettings property.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

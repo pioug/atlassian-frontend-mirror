@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.12.1
+
+### Patch Changes
+
+- [#155148](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155148)
+  [`ae195d27027a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae195d27027a7) -
+  [HOT-117381] Remove circular dependency on HTMLElement by using an array of WeakRef
+
+## 3.12.0
+
+### Minor Changes
+
+- [#155304](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155304)
+  [`8208673d5be30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8208673d5be30) -
+  add CPU usage metrics as part of UFO payload
+
 ## 3.11.2
 
 ### Patch Changes

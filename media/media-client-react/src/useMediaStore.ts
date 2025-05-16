@@ -2,7 +2,7 @@ import { type StoreApi, useStore } from 'zustand';
 
 import type { Store } from '@atlaskit/media-state';
 
-import { useMediaClient } from './MediaClientProvider';
+import { useMediaClient } from './useMediaClient';
 
 type ExtractState<S> = S extends { getState: () => infer X } ? X : never;
 

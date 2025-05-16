@@ -21,6 +21,9 @@ interface TaskItemNodeViewOptions {
 	intl: IntlShape;
 }
 
+/**
+ *
+ */
 export class TaskItemNodeView implements NodeView {
 	dom: Node;
 	domElement: HTMLElement | undefined;
@@ -35,6 +38,17 @@ export class TaskItemNodeView implements NodeView {
 	private emptyContent: boolean | undefined;
 	private input?: HTMLInputElement;
 
+	/**
+	 *
+	 * @param node
+	 * @param view
+	 * @param getPos
+	 * @param root0
+	 * @param root0.api
+	 * @param root0.placeholder
+	 * @param root0.intl
+	 * @example
+	 */
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -67,7 +81,6 @@ export class TaskItemNodeView implements NodeView {
 			]);
 
 			this.objectId = this.getObjectAri();
-			this.updatePlaceholder(node);
 		}
 	}
 
@@ -149,6 +162,11 @@ export class TaskItemNodeView implements NodeView {
 		}
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @example
+	 */
 	update(node: PMNode) {
 		const isValidUpdate =
 			node.type === this.node.type && !!(node.attrs.state === this.node.attrs.state);
@@ -165,6 +183,11 @@ export class TaskItemNodeView implements NodeView {
 		return true;
 	}
 
+	/**
+	 *
+	 * @param mutation
+	 * @example
+	 */
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		if (!this.contentDOM) {
 			return true;
@@ -172,6 +195,10 @@ export class TaskItemNodeView implements NodeView {
 		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	destroy() {
 		if (this.unbindInputDom) {
 			this.unbindInputDom();

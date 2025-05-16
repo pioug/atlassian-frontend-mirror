@@ -1,3 +1,4 @@
+import { insideTable } from '@atlaskit/editor-common/core-utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorState,
@@ -8,6 +9,8 @@ import type {
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey as tablePluginKey } from '../plugin-key';
 import { pluginKey as tableWidthPluginKey } from '../table-width';
@@ -29,7 +32,11 @@ export const handleDocOrSelectionChanged = (
 ): DecorationSet => {
 	const isResizing = tableWidthPluginKey.getState(newState)?.resizing;
 	const wasResizing = tableWidthPluginKey.getState(oldState)?.resizing;
-	const { isDragAndDropEnabled = false } = tablePluginKey.getState(newState) || {};
+	const {
+		isDragAndDropEnabled = false,
+		isInDanger,
+		isTableHovered,
+	} = tablePluginKey.getState(newState) || {};
 
 	const changedResizing = isResizing !== wasResizing;
 
@@ -51,6 +58,22 @@ export const handleDocOrSelectionChanged = (
 				decorationSet,
 				tr,
 			});
+		}
+		if (fg('platform_editor_remove_slow_table_transactions')) {
+			// We're exiting a table with an existing decorations so we should clean it up
+			if (
+				(isInDanger || isTableHovered) &&
+				(!insideTable(newState) ||
+					findTable(newState.selection)?.node !== findTable(oldState.selection)?.node)
+			) {
+				return buildColumnControlsDecorations({
+					decorationSet,
+					tr,
+					options: {
+						isDragAndDropEnabled,
+					},
+				});
+			}
 		}
 	}
 

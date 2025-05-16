@@ -6,6 +6,14 @@ import { fg } from '@atlaskit/platform-feature-flags';
  * Returns an array of column widths (0 if column width is undefined) of a given table node by scanning the **entire table**.
  *
  * Warning: the entire table is scanned and should only be used if where the table can be in a broken state such that rows have different number of cells (e.g. in **renderer**).
+ * @param node - Table node
+ * @example
+ * ```ts
+ * const columnWidths = getColumnWidths(tableNode);
+ * console.log(columnWidths);
+ * // Output: [100, 200, 300]
+ * ```
+ * @returns Array<number>
  */
 export function getColumnWidths(node: PmNode): number[] {
 	let tableColumnWidths: Array<number> = [];
@@ -37,11 +45,20 @@ export function getColumnWidths(node: PmNode): number[] {
  * Returns an array of column widths (0 if column width is undefined) of a given table node by scanning the **first row**.
  *
  * Warning: is preferred and should be used if the table is not in a broken state (e.g. in **editor**).
+ * @param node - Table node
+ * @example
+ * ```ts
+ * const columnWidths = calcTableColumnWidths(tableNode);
+ * console.log(columnWidths);
+ * // Output: [100, 200, 300]
+ * ```
+ * @returns Array<number>
  */
 export function calcTableColumnWidths(node: PmNode): number[] {
 	// Ignored via go/ees007
 	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-	if (fg('platform_editor_table_row_span_fix')) {
+	// TODO: replaced with getColumnWidths, which correctly scans entire table for column widths
+	if (fg('platform_editor_table_row_span_fix') || fg('platform_editor_table_row_span_fix_all')) {
 		const firstRow = node.firstChild;
 		const tableColumnWidths: Array<number> = [];
 
@@ -82,6 +99,11 @@ export function calcTableColumnWidths(node: PmNode): number[] {
 	return tableColumnWidths;
 }
 
+/**
+ *
+ * @param tableNode
+ * @example
+ */
 export function hasMergedCell(tableNode: PmNode): boolean {
 	let hasSpan = false;
 
@@ -102,6 +124,11 @@ export function hasMergedCell(tableNode: PmNode): boolean {
 	return hasSpan;
 }
 
+/**
+ *
+ * @param tableNode
+ * @example
+ */
 export function convertProsemirrorTableNodeToArrayOfRows(
 	tableNode: PmNode,
 ): Array<Array<PmNode | null>> {
@@ -122,6 +149,13 @@ export function convertProsemirrorTableNodeToArrayOfRows(
   isPositionNearTableRow()
   Returns true when a sibling node, or any  of the parent's sibling
   nodes are a tableRow
+ */
+/**
+ *
+ * @param pos
+ * @param schema
+ * @param direction
+ * @example
  */
 export function isPositionNearTableRow(
 	pos: ResolvedPos,

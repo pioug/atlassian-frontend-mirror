@@ -1,7 +1,6 @@
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
@@ -243,9 +242,7 @@ export const moveColumn =
 			const pos = table.start + rowTargetPosition;
 
 			const insertPos =
-				direction === 'end' ||
-				(tableMap.isCellMergedTopLeft(y, actualTargetIndex) &&
-					fg('platform_editor_table_fix_move_column'))
+				direction === 'end' || tableMap.isCellMergedTopLeft(y, actualTargetIndex)
 					? newTr.mapping.map(pos + node.nodeSize, 1)
 					: newTr.mapping.map(pos, -1);
 

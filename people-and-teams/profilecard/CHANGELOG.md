@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 23.15.0
+
+### Minor Changes
+
+- [#155740](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155740)
+  [`1afe23278a392`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1afe23278a392) -
+  Fix post build script for svg
+
+## 23.14.0
+
+### Minor Changes
+
+- [#154407](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154407)
+  [`9235741392c64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9235741392c64) -
+  [ux] handle if the members in one team is more than 100
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.13.1
 
 ### Patch Changes

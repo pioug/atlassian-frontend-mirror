@@ -1,18 +1,18 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import type { NavigationAction, NavigationResult } from './types';
-import { generatePath, getPathAndQuery, onNavigateBase } from './utils';
+import { NavigationAction, NavigationResult } from './types';
+import { generatePath, getPathAndQuery, isTeamsAppEnabled, onNavigateBase } from './utils';
 
 /**
  * This function generates a URL for navigating to the Teams app based on the provided action.
  * This is not intended to be used within the Teams app itself.
  */
 export const navigateToTeamsApp = (action: NavigationAction): NavigationResult => {
-	const { shouldOpenInSameTab = !fg('should-redirect-directory-to-teams-app') } = action;
-
+	const { shouldOpenInSameTab } = action;
 	const actionWithDefaults: NavigationAction = {
 		...action,
-		shouldOpenInSameTab,
+		/**
+		 * If teams app is enabled, default to opening in new tab.
+		 */
+		shouldOpenInSameTab: shouldOpenInSameTab === undefined ? !isTeamsAppEnabled(action) : shouldOpenInSameTab,
 	};
 
 	const { path, query } = getPathAndQuery(actionWithDefaults);

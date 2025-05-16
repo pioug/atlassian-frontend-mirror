@@ -80,6 +80,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 
 				<div>
 					<Heading size="medium">Default mention config</Heading>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
 						id="mention-urls"
 						rows={15}
@@ -93,6 +94,7 @@ export default class ConfigurableTeamMentionPicker extends React.Component<Props
 
 				<div>
 					<Heading size="medium">Team service config</Heading>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
 						id="mention-urls-team"
 						name="teamMentionConfig"

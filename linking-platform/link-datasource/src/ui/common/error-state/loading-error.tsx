@@ -31,7 +31,7 @@ const styles = cssMap({
 		display: 'grid',
 		gap: token('space.200', '16px'),
 		placeItems: 'center',
-		placeSelf: 'center',
+		marginInline: 'auto',
 		maxWidth: '400px',
 		textAlign: 'center',
 		paddingInline: token('space.600'),

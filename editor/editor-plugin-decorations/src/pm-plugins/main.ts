@@ -4,6 +4,7 @@ import { type Node, type NodeType } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const decorationStateKey = new PluginKey('decorationPlugin');
 
@@ -14,14 +15,27 @@ export enum ACTIONS {
 
 export const removeDecoration: Command = (state, dispatch) => {
 	const { tr } = state;
-	if (dispatch) {
-		dispatch(
-			tr.setMeta(decorationStateKey, {
-				action: ACTIONS.DECORATION_REMOVE,
-			}),
-		);
-		return true;
+	if (fg('platform_editor_remove_slow_table_transactions')) {
+		const { decoration } = decorationStateKey.getState(state) as DecorationState;
+		if (decoration && dispatch) {
+			dispatch(
+				tr.setMeta(decorationStateKey, {
+					action: ACTIONS.DECORATION_REMOVE,
+				}),
+			);
+			return true;
+		}
+	} else {
+		if (dispatch) {
+			dispatch(
+				tr.setMeta(decorationStateKey, {
+					action: ACTIONS.DECORATION_REMOVE,
+				}),
+			);
+			return true;
+		}
 	}
+
 	return false;
 };
 

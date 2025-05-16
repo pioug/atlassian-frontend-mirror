@@ -16,7 +16,7 @@ describe('MediaClientProvider', () => {
 		}
 
 		expect(() => render(<Page />)).toThrow(
-			'No MediaClient set, use MediaClientProvider to set one',
+			'No MediaClient set, use MediaClientProvider or MediaProvider to set one',
 		);
 
 		consoleMock.mockRestore();
@@ -37,7 +37,7 @@ describe('MediaClientProvider', () => {
 					<Page />
 				</MediaClientProvider>,
 			),
-		).not.toThrow('No MediaClient set, use MediaClientProvider to set one');
+		).not.toThrow('No MediaClient set, use MediaClientProvider or MediaProvider to set one');
 	});
 
 	it('should get the same mediaClient if the same mediaConfig is passed', () => {

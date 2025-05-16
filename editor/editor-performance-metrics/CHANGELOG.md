@@ -1,5 +1,14 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.3
+
+### Patch Changes
+
+- [#153233](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153233)
+  [`ca2744f95ca9b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca2744f95ca9b) -
+  PGXT-8016 fix multi attribution issue and add element attribution to data payload for user latency
+  api
+
 ## 2.1.2
 
 ### Patch Changes

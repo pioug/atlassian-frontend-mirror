@@ -129,7 +129,7 @@ const HeaderImage = ({ srcUrl }: { srcUrl: string }) => (
 	/>
 );
 
-type TeamProfileCardProps = {
+export type TeamProfileCardProps = {
 	containerId: string;
 	// this is Team Ari
 	teamId: string;
@@ -138,7 +138,7 @@ type TeamProfileCardProps = {
 	avatarImageUrl: string;
 	headerImageUrl: string;
 	memberAvatars: AvatarProps[];
-	memberCount: number;
+	memberCount: number | string;
 	cloudId: string;
 	userId: string;
 	isVerified?: boolean;
@@ -212,11 +212,19 @@ export const TeamProfileCard = ({
 									{isVerified && <VerifiedTeamIcon showTooltip />}
 								</Inline>
 								<Text color="color.text.subtlest">
-									<FormattedMessage
-										defaultMessage="Contributing team &bull; {count, plural, one {# member} other {# members}}"
-										values={{ count: memberCount }}
-										id="people-and-teams.team-profile-card.member-count"
-									/>
+									{typeof memberCount === 'string' ? (
+										<FormattedMessage
+											defaultMessage="Contributing team &bull; {memberCount} members"
+											values={{ memberCount }}
+											id="people-and-teams.team-profile-card.large-member-count"
+										/>
+									) : (
+										<FormattedMessage
+											defaultMessage="Contributing team &bull; {count, plural, one {# member} other {# members}}"
+											values={{ count: memberCount }}
+											id="people-and-teams.team-profile-card.member-count"
+										/>
+									)}
 								</Text>
 							</Stack>
 							<TeamActions cloudId={cloudId} teamId={teamId} {...props} />
@@ -302,11 +310,19 @@ export const TeamProfileCard = ({
 							{isVerified && <VerifiedTeamIcon showTooltip />}
 						</Inline>
 						<Text color="color.text.subtlest">
-							<FormattedMessage
-								defaultMessage="Contributing team &bull; {count, plural, one {# member} other {# members}}"
-								values={{ count: memberCount }}
-								id="people-and-teams.team-profile-card.member-count"
-							/>
+							{typeof memberCount === 'string' ? (
+								<FormattedMessage
+									defaultMessage="Contributing team &bull; {memberCount} members"
+									values={{ memberCount }}
+									id="people-and-teams.team-profile-card.large-member-count"
+								/>
+							) : (
+								<FormattedMessage
+									defaultMessage="Contributing team &bull; {count, plural, one {# member} other {# members}}"
+									values={{ count: memberCount }}
+									id="people-and-teams.team-profile-card.member-count"
+								/>
+							)}
 						</Text>
 					</Stack>
 					<Inline>

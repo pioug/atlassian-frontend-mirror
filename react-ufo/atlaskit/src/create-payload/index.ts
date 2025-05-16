@@ -1,5 +1,7 @@
 import Bowser from 'bowser-ultralight';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getLighthouseMetrics } from '../additional-payload';
 import { CHRReporter } from '../assets';
 import * as bundleEvalTiming from '../bundle-eval-timing';
@@ -14,6 +16,7 @@ import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
+import { createPressureStateReport } from '../machine-utilisation';
 import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
 import { filterResourceTimings } from '../resource-timing/common/utils/resource-timing-buffer';
@@ -930,6 +933,12 @@ async function createInteractionMetricsPayload(
 					? 'custom.experimental-interaction-metrics'
 					: 'custom.interaction-metrics',
 				'experience:name': newUFOName,
+
+				...(fg('platform_ufo_report_cpu_usage')
+					? {
+							'event:cpu:usage': createPressureStateReport(interaction.start, interaction.end),
+						}
+					: {}),
 
 				// root
 				...getBrowserMetadata(),

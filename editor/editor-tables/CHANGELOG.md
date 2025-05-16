@@ -1,5 +1,14 @@
 # @atlaskit/editor-tables
 
+## 2.9.4
+
+### Patch Changes
+
+- [#155329](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155329)
+  [`516452df3b2b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/516452df3b2b5) -
+  clean up platform_editor_table_fix_move_column
+- Updated dependencies
+
 ## 2.9.3
 
 ### Patch Changes

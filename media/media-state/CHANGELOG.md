@@ -1,5 +1,15 @@
 # @atlaskit/media-state
 
+## 1.6.0
+
+### Minor Changes
+
+- [#152511](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152511)
+  [`b0d33c6c86122`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0d33c6c86122) -
+  Extended type definition of MediaFileArtifacts. It no longer defines preset keys.
+  MediaFileArtifact now takes two different shapes: MediaSystemArtifact (system generated) and
+  MediaUserArtifact (user uploaded)
+
 ## 1.5.1
 
 ### Patch Changes

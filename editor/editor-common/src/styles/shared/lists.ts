@@ -43,6 +43,12 @@ export function getOrderedListInlineStyles(
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any>;
+/**
+ *
+ * @param itemCounterDigitsSize
+ * @param styleFormat
+ * @example
+ */
 export function getOrderedListInlineStyles(
 	itemCounterDigitsSize: number,
 	styleFormat: 'string' | 'object',
@@ -66,7 +72,6 @@ export const listsSharedStyles = css`
 	ol {
 		box-sizing: border-box;
 		padding-left: var(${CSS_VAR_NAMES.ITEM_COUNTER_PADDING}, ${listItemCounterPadding}px);
-
 		/*
     Firefox does not handle empty block element inside li tag.
     If there is not block element inside li tag,

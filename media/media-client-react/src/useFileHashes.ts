@@ -8,7 +8,7 @@ import {
 	type ProcessingFailedState,
 } from '@atlaskit/media-client';
 
-import { useMediaClient } from './MediaClientProvider';
+import { useMediaClient } from './useMediaClient';
 import { useMediaStore } from './useMediaStore';
 import { usePrevious } from './utils/usePrevious';
 

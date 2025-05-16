@@ -33,7 +33,7 @@ import { fakeMediaClient } from '../../test-helpers';
 import { fromObservable, toPromise } from '../../utils/mediaSubscribable';
 import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
 import type * as MediaStoreModule from '../../client/media-store';
-import { mediaStore as fileStateStore } from '@atlaskit/media-state';
+import { createMediaStore, mediaStore as fileStateStore } from '@atlaskit/media-state';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {
 	return {
@@ -1638,6 +1638,98 @@ describe('FileFetcher', () => {
 				traceContext,
 			);
 			expect(asMock(uploadFile).mock.calls[0][4]).toBe(traceContext);
+		});
+	});
+
+	describe('getVideoDurations()', () => {
+		const processedVideoState = {
+			id: 'some-id',
+			status: 'processed',
+			name: 'my video',
+			size: 11222,
+			mediaType: 'video',
+			mimeType: 'mp4',
+			artifacts: {
+				'video.mp4': {
+					url: '/video',
+					processingStatus: 'succeeded',
+				},
+			},
+			representations: {},
+		} as const;
+
+		const responseData =
+			'AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAUQbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAEh0AAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABDt0cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAEh0AAAAAAAAAAAAAAAA=';
+
+		it('should return duration of video when requested for valid video file', async () => {
+			const fileStateStore = createMediaStore({
+				files: { 'some-id': processedVideoState },
+			});
+
+			const mediaApi = createMockMediaStore(jest.fn());
+			mediaApi.getArtifactURL = async () => 'http://some-api/file/id?somep-param';
+
+			mediaApi.request = async () => {
+				const arrayBuffer = Uint8Array.from(atob(responseData), (c) => c.charCodeAt(0));
+				return new Response(arrayBuffer.buffer);
+			};
+
+			const fileFetcher = new FileFetcherImpl(mediaApi, fileStateStore);
+
+			const durations = await fileFetcher.getVideoDurations([{ id: 'some-id' }]);
+
+			expect(durations).toEqual({
+				'some-id': 4,
+			});
+		});
+
+		it.each([
+			['file is not a video', { ...processedVideoState, mediaType: 'unknown' } as const],
+			['file is not processed', { ...processedVideoState, status: 'processing' } as const],
+			[
+				'video does not have video.mp4 artifact',
+				{ ...processedVideoState, artifacts: {} } as const,
+			],
+		])('should not return the duration when %s', async (_title, fileState) => {
+			const fileStateStore = createMediaStore({
+				files: { 'some-id': fileState },
+			});
+
+			const mediaApi = createMockMediaStore(jest.fn());
+			mediaApi.getArtifactURL = async () => 'http://some-api/file/id?somep-param';
+
+			mediaApi.request = async () => {
+				const arrayBuffer = Uint8Array.from(atob(responseData), (c) => c.charCodeAt(0));
+				return new Response(arrayBuffer.buffer);
+			};
+
+			const fileFetcher = new FileFetcherImpl(mediaApi, fileStateStore);
+
+			const durations = await fileFetcher.getVideoDurations([{ id: 'some-id' }]);
+
+			expect(durations).toEqual({});
+		});
+
+		it('should not return the duration of a file that is not a video', async () => {
+			const fileStateStore = createMediaStore({
+				files: { 'some-id': { ...processedVideoState } },
+			});
+
+			const mediaApi = createMockMediaStore(jest.fn());
+			mediaApi.getArtifactURL = async () => 'http://some-api/file/id?somep-param';
+
+			mediaApi.request = async () => {
+				const arrayBuffer = Uint8Array.from(atob(responseData), (c) => c.charCodeAt(0));
+				return new Response(arrayBuffer.buffer);
+			};
+
+			const fileFetcher = new FileFetcherImpl(mediaApi, fileStateStore);
+
+			const durations = await fileFetcher.getVideoDurations([{ id: 'some-id' }]);
+
+			expect(durations).toEqual({
+				'some-id': 4,
+			});
 		});
 	});
 

@@ -203,6 +203,9 @@
 		"platform_editor_controls_table_picker": {
 			"type": "boolean"
 		},
+		"platform_editor_remove_slow_table_transactions": {
+			"type": "boolean"
+		},
 		"platform_editor_controls_patch_6": {
 			"type": "boolean"
 		},

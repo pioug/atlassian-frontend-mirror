@@ -6,6 +6,14 @@ export type MediaRepresentations = {
 	image?: object;
 };
 
+export type MediaUserArtifact = {
+	readonly createdAt?: number;
+	readonly url: string;
+	readonly mimeType?: string;
+	readonly cdnUrl?: string;
+	readonly size?: number;
+};
+
 export type MediaFileArtifact = {
 	readonly url: string;
 	readonly processingStatus: MediaFileProcessingStatus;
@@ -35,6 +43,7 @@ export interface MediaFileArtifacts {
 	'poster_640.jpg'?: MediaFileArtifact;
 	'poster_1280.jpg'?: MediaFileArtifact;
 	'poster_hd.jpg'?: MediaFileArtifact;
+	[key: `ugc_caption_${string}`]: MediaUserArtifact;
 }
 
 type BaseFileState = {

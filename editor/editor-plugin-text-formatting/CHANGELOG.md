@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.7
+
+### Patch Changes
+
+- [#155215](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155215)
+  [`7e8680d1d66be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8680d1d66be) -
+  Disallow default cmd+u shortcut behaviour when text formating is not allowed in editor
+
 ## 2.2.6
 
 ### Patch Changes

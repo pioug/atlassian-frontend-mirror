@@ -82,6 +82,7 @@ export {
 	isNonErrorFinalFileState,
 	mapMediaFileToFileState,
 	mapMediaItemToFileState,
+	hasArtifacts,
 } from './models/file-state';
 export type {
 	FileStatus,

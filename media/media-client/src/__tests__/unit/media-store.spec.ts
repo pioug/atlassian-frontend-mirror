@@ -1740,7 +1740,7 @@ describe('MediaStore', () => {
 			it('should throw if artifact cant be found', async () => {
 				const artifacts = {
 					'audio.mp3': {},
-				} as MediaFileArtifacts;
+				} as unknown as MediaFileArtifacts;
 
 				await expect(mediaStore.getArtifactURL(artifacts, 'video_640.mp4')).rejects.toThrow(
 					'artifact video_640.mp4 not found',

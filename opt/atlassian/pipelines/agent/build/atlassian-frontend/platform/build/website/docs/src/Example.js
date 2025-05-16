@@ -2,7 +2,8 @@
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
-import { colors, gridSize, themed } from '@atlaskit/theme';
+import { gridSize } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
 import CodeBlock from '@atlaskit/code/block';
 import ToggleIcon from '@atlaskit/icon/glyph/code';
 import ErrorBoundary from './ErrorBoundary';
@@ -93,34 +94,30 @@ export default class Example extends React.Component {
 
 const TRANSITION_DURATION = '200ms';
 
-const exampleBackgroundColor = {
-	open: themed('state', {
-		normal: { light: colors.N30, dark: colors.N700 },
-		hover: { light: colors.N40, dark: colors.N600 },
-	}),
-	closed: themed('state', {
-		normal: { light: colors.N20, dark: colors.DN50 },
-		hover: { light: colors.N40, dark: colors.DN60 },
-	}),
-};
-const toggleColor = themed('mode', {
-	closed: { light: colors.N600, dark: colors.DN100 },
-	open: { light: colors.N600, dark: colors.DN100 },
-});
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const Wrapper = styled.div((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: exampleBackgroundColor[props.mode](props),
+	backgroundColor:
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		props.mode === 'open'
+			? token('color.background.accent.gray.subtlest')
+			: token('color.background.neutral'),
 	borderRadius: '5px',
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: toggleColor(props),
+	color: token('color.text.subtle'),
 	marginTop: '20px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	padding: `0 ${gridSize()}px ${gridSize()}px`,
 	transition: `background-color ${TRANSITION_DURATION}`,
 	maxWidth: 'calc(100vw - 4rem)',
+	'&:hover': {
+		backgroundColor:
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			props.mode === 'open'
+				? token('color.background.accent.gray.subtlest.hovered')
+				: token('color.background.neutral.hovered'),
+	},
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
@@ -136,16 +133,15 @@ export const Toggle = styled.div({
 
 // NOTE: use of important necessary to override element targeted headings
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-export const ToggleTitle = styled.h4((props) => ({
+export const ToggleTitle = styled.h4(() => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: `${toggleColor(props)} !important`,
+	color: `${token('color.text.subtle')} !important`,
 	margin: 0,
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const Showcase = styled.div({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: colors.N0,
+	backgroundColor: token('color.background.neutral'),
 	borderRadius: '3px',
 	boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.1)',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

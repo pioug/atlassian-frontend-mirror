@@ -15,6 +15,7 @@ import {
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
 import { getPerformanceObserver } from '../interactions-performance-observer';
+import { initialisePressureObserver } from '../machine-utilisation';
 import { getVCObserver } from '../vc';
 
 import scheduleIdleCallback from './schedule-idle-callback';
@@ -147,7 +148,12 @@ export function init(
 		return;
 	}
 
+	if (fg('platform_ufo_report_cpu_usage')) {
+		initialisePressureObserver();
+	}
+
 	setUFOConfig(config);
+
 	if (config.vc?.enabled) {
 		const vcOptions = {
 			heatmapSize: config.vc.heatmapSize,

@@ -1,5 +1,9 @@
 import { type ResponseFileItem } from '@atlaskit/media-client';
-import type { MediaFileArtifact, MediaFileArtifacts } from '@atlaskit/media-state';
+import type {
+	MediaFileArtifact,
+	MediaFileArtifacts,
+	MediaUserArtifact,
+} from '@atlaskit/media-state';
 
 import { defaultArtifactsUris } from './artifactSets';
 import type { ArtifactsSet, ItemWithBinaries } from './types';
@@ -24,12 +28,12 @@ const setArtifactsUri = async (
 	artifacts: MediaFileArtifacts,
 	artifactsSet?: ArtifactsSet,
 ): Promise<MediaFileArtifacts> => {
-	const artifactsEntries = Object.entries<MediaFileArtifact>({
+	const artifactsEntries = Object.entries<MediaFileArtifact | MediaUserArtifact>({
 		...artifacts, // Spreading to make TS happy
 	});
 	const processedArtifactEntries = await Promise.all(
 		artifactsEntries.map(
-			async ([key, artifact]): Promise<[string, MediaFileArtifact]> => [
+			async ([key, artifact]): Promise<[string, MediaFileArtifact | MediaUserArtifact]> => [
 				key,
 				{
 					...artifact,

@@ -33,6 +33,7 @@ export interface Props {
 	onCountUpdating?: (param: ValueUpdatingParams) => ValueUpdatingResult;
 	onCountUpdated?: (param: ValueUpdatedParams) => void;
 	createAnalyticsEvent?: any;
+	ssrInitialValue?: number;
 }
 
 export interface State {
@@ -53,7 +54,7 @@ class NotificationIndicator extends Component<Props, State> {
 	};
 
 	state: State = {
-		count: null,
+		count: this.props.ssrInitialValue || null,
 	};
 
 	async componentDidMount() {

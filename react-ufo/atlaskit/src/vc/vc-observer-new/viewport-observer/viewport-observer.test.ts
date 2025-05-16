@@ -116,7 +116,7 @@ describe('ViewportObserver', () => {
 		describe('onChildListMutation', () => {
 			it('should handle added node', () => {
 				const node1 = document.createElement('div');
-				onChildListMutation({ addedNodes: [node1], removedNodes: [] });
+				onChildListMutation({ addedNodes: [new WeakRef(node1)], removedNodes: [] });
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					node1,
@@ -150,7 +150,10 @@ describe('ViewportObserver', () => {
 				const newNode = document.createElement('div');
 				newNode.id = 'id1'; // same id as old
 
-				onChildListMutation({ addedNodes: [newNode], removedNodes: [oldNode] });
+				onChildListMutation({
+					addedNodes: [new WeakRef(newNode)],
+					removedNodes: [new WeakRef(oldNode)],
+				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					newNode,
@@ -175,7 +178,10 @@ describe('ViewportObserver', () => {
 				newNode.id = 'new';
 				const newRect = new DOMRect(0, 0, 10, 10);
 
-				onChildListMutation({ addedNodes: [newNode], removedNodes: [oldNode] });
+				onChildListMutation({
+					addedNodes: [new WeakRef(newNode)],
+					removedNodes: [new WeakRef(oldNode)],
+				});
 
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					newNode,
@@ -196,7 +202,7 @@ describe('ViewportObserver', () => {
 			it('should handle media wrapper elements', () => {
 				const mediaNode = document.createElement('div');
 				(isContainedWithinMediaWrapper as jest.Mock).mockReturnValue(true);
-				onChildListMutation({ addedNodes: [mediaNode], removedNodes: [] });
+				onChildListMutation({ addedNodes: [new WeakRef(mediaNode)], removedNodes: [] });
 				expect(isContainedWithinMediaWrapper).toHaveBeenCalledWith(mediaNode);
 				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
 					mediaNode,

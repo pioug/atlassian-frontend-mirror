@@ -5,8 +5,6 @@ import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { MoveOptions } from '@atlaskit/editor-tables/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, tr as row, td, th } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line @atlaskit/platform/no-alias
-import * as ffPackage from '@atlaskit/platform-feature-flags';
 
 import {
 	c,
@@ -30,18 +28,6 @@ function move(
 }
 
 describe('table__moveColumn', () => {
-	let fgSpy: jest.SpyInstance;
-	beforeEach(() => {
-		// Need to manually mock this as I can't import fg test helpers as its a private package
-		fgSpy = jest.spyOn(ffPackage, 'fg').mockImplementation((flag) => {
-			return flag === 'platform_editor_table_fix_move_column';
-		});
-	});
-
-	afterEach(() => {
-		fgSpy.mockRestore();
-	});
-
 	describe('on a simple table', () => {
 		it('should move column right-to-left', () => {
 			const original = createTableWithDoc(
@@ -356,55 +342,6 @@ describe('table__moveColumn', () => {
 					row(td()(p('c1')), td()(p('c2'))),
 				),
 			);
-		});
-
-		// Test covering bug
-		describe('platform_editor_table_fix_move_column disabled', () => {
-			beforeEach(() => {
-				jest.spyOn(ffPackage, 'fg').mockImplementation(() => false);
-			});
-
-			it('should move column between column with merged row and regular columns bug', () => {
-				//
-				//        0      1      2
-				//     ______________________
-				//     |      |      |      |
-				//  0  |  A1  |  A2  |  A3  |
-				//     |______|______|______|
-				//     |      |      |      |
-				//  1  |  B1  |  B2  |  B3  |
-				//     |______|      |______|
-				//     |      |      |      |
-				//  2  |  C1  |      |  C2  |
-				//     |______|______|______|
-				const original = createTableWithDoc(
-					row(td()(p('a1')), td()(p('a2')), td()(p('a3'))),
-					row(td()(p('b1')), c(1, 2, p('b2')), td()(p('b3'))),
-					row(td()(p('c1')), td()(p('c2'))),
-				);
-
-				const newTr = move(original, [2], 1);
-
-				//
-				//        0      1      2
-				//     ______________________
-				//     |      |      |      |
-				//  0  |  A1  |  A3  |  A2  |
-				//     |______|______|______|
-				//     |      |      |      |
-				//  1  |  B1  |  B3  |  B2  |
-				//     |______|______|      |
-				//     |      |      |      |
-				//  2  |  C2  |  C1  |      |
-				//     |______|______|______|
-				expect(newTr.doc).toEqualDocument(
-					createTableWithDoc(
-						row(td()(p('a1')), td()(p('a3')), td()(p('a2'))),
-						row(td()(p('b1')), td()(p('b3')), c(1, 2, p('b2'))),
-						row(td()(p('c2')), td()(p('c1'))),
-					),
-				);
-			});
 		});
 	});
 

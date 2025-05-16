@@ -12,9 +12,11 @@ import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import type { MarkType } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
 // Ignored via go/ees005
@@ -112,6 +114,15 @@ export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAP
 					return commands.moveRight()(state, dispatch);
 				} else if (event.key === keymapMoveLeft.common && !event.metaKey) {
 					return commands.moveLeft()(state, dispatch);
+				} else if (
+					event.key === 'u' &&
+					event.metaKey &&
+					pluginKey.getState(state)?.underlineDisabled &&
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					fg('platform_editor_controls_patch_9')
+				) {
+					// This is a workaround for browser behaviour with cmd+u (in Chrome only) where the underline mark being applied around the selection
+					event.preventDefault();
 				}
 				return false;
 			},

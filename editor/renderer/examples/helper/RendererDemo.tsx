@@ -253,6 +253,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<fieldset style={{ marginBottom: token('space.250', '20px') }}>
 					<legend>Input</legend>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
 						id="renderer-value-input"
 						style={{

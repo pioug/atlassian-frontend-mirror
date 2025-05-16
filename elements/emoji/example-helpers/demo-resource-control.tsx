@@ -64,6 +64,7 @@ export const ResourcedEmojiControl = (props: React.PropsWithChildren<Props>) => 
 					<label htmlFor="emoji-urls">EmojiLoader config</label>
 				</Text>
 				<Text as="p">
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
 						id="emoji-urls"
 						rows={15}

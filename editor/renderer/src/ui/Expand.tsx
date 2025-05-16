@@ -22,6 +22,7 @@ import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import _uniqueId from 'lodash/uniqueId';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -327,7 +328,11 @@ function Expand({
 				<div className={`${nodeType}-content-wrapper`}>
 					<WidthProvider>
 						<div css={clearNextSiblingMarginTopStyle} />
-						{children}
+						{editorExperiment('confluence_p2m_style_recalc_and_expand_joint_exp', true, {
+							exposure: true,
+						})
+							? expanded && children
+							: children}
 					</WidthProvider>
 				</div>
 			</ContentContainer>

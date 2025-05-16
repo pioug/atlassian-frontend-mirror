@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "23.13.1",
+	"version": "23.15.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,6 +52,7 @@
 		".": "./src/index.ts"
 	},
 	"scripts": {
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg",
 		"lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
 		"test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
 		"test:watch": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard' --watch)",

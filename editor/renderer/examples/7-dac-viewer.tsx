@@ -111,6 +111,7 @@ export default class Example extends PureComponent<{}, State> {
 
 		return (
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 				<textarea
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

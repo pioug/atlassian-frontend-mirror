@@ -1,7 +1,5 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { NavigationAction, NavigationActionCommon } from './types';
-import { generatePath, getPathAndQuery } from './utils';
+import { generatePath, getPathAndQuery, isTeamsAppEnabled } from './utils';
 
 import { navigateToTeamsApp } from './index';
 
@@ -19,25 +17,26 @@ jest.mock('../../common/utils', () => ({
 	redirect: jest.fn(),
 }));
 
-jest.mock('./utils', () => ({
-	generatePath: jest.fn(),
-	onNavigateBase: jest.fn().mockReturnValue(jest.fn()),
-	getPathAndQuery: jest.fn(),
-}));
+jest.mock('./utils');
 
 const baseConfig: NavigationActionCommon = {
 	orgId: 'org123',
 	cloudId: 'cloud123',
 	push: jest.fn(),
 	hostProduct: 'jira',
+	userHasNav4Enabled: true,
 };
 
-describe('teams app navigation', () => {
-	beforeEach(() => {
-		jest.resetAllMocks();
-	});
 
-	ffTest.off('should-redirect-directory-to-teams-app', 'without Teams app redirect', () => {
+describe('teams app navigation', () => {
+
+	describe('without Teams app redirect', () => {
+		beforeAll(() => {
+			(isTeamsAppEnabled as jest.Mock).mockReturnValue(false);
+		});
+		afterAll(() => {
+			jest.resetAllMocks();
+		});
 		it('should set shouldOpenInSameTab to true by default', () => {
 			const action: NavigationAction = {
 				...baseConfig,
@@ -69,7 +68,13 @@ describe('teams app navigation', () => {
 		});
 	});
 
-	ffTest.on('should-redirect-directory-to-teams-app', 'with Teams app redirect', () => {
+	describe('with Teams app redirect', () => {
+		beforeAll(() => {
+			(isTeamsAppEnabled as jest.Mock).mockReturnValue(true);
+		});
+		afterAll(() => {
+			jest.resetAllMocks();
+		});
 		it('should set shouldOpenInSameTab to false by default', () => {
 			const action: NavigationAction = {
 				...baseConfig,

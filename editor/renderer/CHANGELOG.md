@@ -1,5 +1,55 @@
 # @atlaskit/renderer
 
+## 118.0.0
+
+### Major Changes
+
+- [#155804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155804)
+  [`5c9c24138fe0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c9c24138fe0d) -
+  ENGHEALTH-3649: Set useSpecBasedValidator renderer prop default to true in renderer, it is already
+  default to true in editor/editor
+
+  WHAT the breaking change is: Editor renderer package (editor view mode) has this
+  useSpecBasedValidator prop,
+
+  1. When set to true, it uses the validateADFEntity fn in
+     packages/editor/editor-core/src/utils/document.ts to validate a document using the ADF schema
+     dynamically
+  2. useSpecBasedValidator used to exist for Editor editor (editor edit mode), but it was removed
+     and default to use validateADFEntity at least before 14 Aug 2023.
+  3. This means any products that are using Editor editor, they have been using validateADFEntity fn
+     to validate documents for around 2 years. Any issues with it should be emerged aleady.
+
+  WHY the change was made
+
+  1. This useSpecBasedValidator is a deprecated prop for renderer, we already removed it for Editor
+     editor, we should do the same for renderer too
+  2. There was a situation around 20 April 2024, where a Jira renderer that didn’t have it enabled
+     actually caused some media bug in Jira. Thread here:
+     https://atlassian.slack.com/archives/CFG3PSQ9E/p1712719739079839
+
+  HOW a consumer should update their code
+
+  1. Consumer should not need to do anything other than update their renderer version
+  2. To be safe, this change is gated, if anything goes wrong, they can turn off the feature gate
+     platform_editor_renderer_rm_usespecbasedvalidator
+
+### Patch Changes
+
+- Updated dependencies
+
+## 117.1.0
+
+### Minor Changes
+
+- [#154858](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154858)
+  [`bf96267428ccd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf96267428ccd) -
+  Adds experiment to not render children of expand element until it gets expanded
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 117.0.1
 
 ### Patch Changes

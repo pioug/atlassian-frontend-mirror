@@ -4,7 +4,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { hostname, openInNewTab, redirect } from '../../common/utils';
 
 import { NavigationActionCommon } from './types';
-import { generatePath, onNavigateBase } from './utils';
+import { generatePath, isTeamsAppEnabled, onNavigateBase } from './utils';
 
 jest.mock('@atlaskit/atlassian-context', () => ({
 	getATLContextUrl: jest.fn((product: string) => {
@@ -28,6 +28,7 @@ const baseConfig: NavigationActionCommon = {
 	push: jest.fn(),
 	hostProduct: 'jira',
 	shouldOpenInSameTab: false,
+	userHasNav4Enabled: true,
 };
 
 describe('teams app navigation utils', () => {
@@ -235,6 +236,49 @@ describe('teams app navigation utils', () => {
 				onNavigate();
 
 				expect(openInNewTabMock).toHaveBeenCalledWith(href);
+			});
+		});
+	});
+	describe('isTeamsAppEnabled', () => {
+		ffTest.off('should-redirect-directory-to-teams-app', 'without Teams app redirect fg', () => {
+			it('should return false when the feature flag is off', () => {
+				const config = {
+					...baseConfig,
+					userHasNav4Enabled: true,
+				};
+				const result = isTeamsAppEnabled(config);
+				expect(result).toBe(false);
+			});
+		}
+		);
+		ffTest.on('should-redirect-directory-to-teams-app', 'with Teams app redirect fg', () => {
+			it('should return true when the feature flag is on & nav4 is enabled', () => {
+				const config = {
+					...baseConfig,
+					userHasNav4Enabled: true,
+				};
+				const result = isTeamsAppEnabled(config);
+				expect(result).toBe(true);
+			});
+
+			it('should return false when the feature flag is on & nav4 is disabled', () => {
+				const config = {
+					...baseConfig,
+					userHasNav4Enabled: false,
+				};
+				const result = isTeamsAppEnabled(config);
+				expect(result).toBe(false);
+			});
+
+			it('should return true when the feature flag is on & nav4 is disabled but user is in FedRamp', () => {
+				(isFedRamp as jest.Mock).mockReturnValue(true);
+				const config = {
+					...baseConfig,
+					userHasNav4Enabled: false,
+				};
+				const result = isTeamsAppEnabled(config);
+				expect(result).toBe(true);
+				(isFedRamp as jest.Mock).mockReturnValue(false);
 			});
 		});
 	});

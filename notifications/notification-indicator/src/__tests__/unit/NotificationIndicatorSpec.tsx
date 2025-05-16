@@ -86,6 +86,12 @@ describe('NotificationIndicator', () => {
 		jest.useRealTimers();
 	});
 
+	it('should render SSR placehoulder count if passed, even before the async data returns', () => {
+		render(<NotificationIndicator refreshOnHidden={true} ssrInitialValue={5} />);
+		const badge = screen.getByTestId('notification-indicator-badge');
+		expect(badge).toHaveTextContent('5');
+	});
+
 	it('Should render badge with correct count', async () => {
 		await renderNotificationIndicator(returnCount(5), {
 			max: 10,

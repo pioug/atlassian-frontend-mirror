@@ -242,6 +242,7 @@ export default function Example() {
 
 	return (
 		<Box padding="space.100">
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 			<textarea
 				value={legacyEditorValue}
 				rows={10}

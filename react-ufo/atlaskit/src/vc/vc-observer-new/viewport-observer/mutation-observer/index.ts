@@ -3,8 +3,8 @@ export type CreateMutationObserverProps = {
 
 	onMutationFinished?: (props: { targets: Array<HTMLElement> }) => void;
 	onChildListMutation: (props: {
-		addedNodes: ReadonlyArray<HTMLElement>;
-		removedNodes: ReadonlyArray<HTMLElement>;
+		addedNodes: ReadonlyArray<WeakRef<HTMLElement>>;
+		removedNodes: ReadonlyArray<WeakRef<HTMLElement>>;
 	}) => void;
 };
 
@@ -18,8 +18,8 @@ function createMutationObserver({
 	}
 
 	const mutationObserverCallback: MutationCallback = (mutations) => {
-		const addedNodes: Array<HTMLElement> = [];
-		const removedNodes: Array<HTMLElement> = [];
+		const addedNodes: Array<WeakRef<HTMLElement>> = [];
+		const removedNodes: Array<WeakRef<HTMLElement>> = [];
 		const targets: Array<HTMLElement> = [];
 
 		for (const mut of mutations) {
@@ -48,13 +48,13 @@ function createMutationObserver({
 			} else if (mut.type === 'childList') {
 				(mut.addedNodes ?? []).forEach((node: Node) => {
 					if (node instanceof HTMLElement) {
-						addedNodes.push(node);
+						addedNodes.push(new WeakRef(node));
 					}
 				});
 
 				(mut.removedNodes ?? []).forEach((node: Node) => {
 					if (node instanceof HTMLElement) {
-						removedNodes.push(node);
+						removedNodes.push(new WeakRef(node));
 					}
 				});
 			}

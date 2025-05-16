@@ -95,9 +95,7 @@ export const createProcessingFileItem = (
 	}
 
 	const artifactsKeys = Object.keys(fileItem.details.artifacts);
-	const artifactsEntries = Object.entries<MediaFileArtifact>({
-		...fileItem.details.artifacts, // Spreading to make TS happy
-	});
+	const artifactsEntries = Object.entries(fileItem.details.artifacts);
 
 	// Get a % of the total artifacts to be set as processed
 	const processedArtifactKeys = artifactsKeys.slice(0, Math.ceil(artifactsKeys.length * percent));

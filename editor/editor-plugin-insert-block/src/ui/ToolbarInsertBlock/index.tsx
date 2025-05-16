@@ -568,9 +568,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 					/>
 				</span>
 				{((!this.props.pluginInjectionApi?.primaryToolbar && this.props.showSeparator) ||
-					(isFullPageAppearance &&
-						editorExperiment('platform_editor_controls', 'variant1') &&
-						fg('platform_editor_insert_button_on_primary_toolbar'))) && (
+					(isFullPageAppearance && editorExperiment('platform_editor_controls', 'variant1'))) && (
 					/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<span css={separatorStyles} />

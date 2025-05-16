@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -71,6 +72,11 @@
 				"emotion",
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_remove_slow_table_transactions": {
+			"type": "boolean"
 		}
 	}
 }

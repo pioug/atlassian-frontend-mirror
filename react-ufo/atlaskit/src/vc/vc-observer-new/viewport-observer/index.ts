@@ -119,13 +119,34 @@ export default class ViewportObserver {
 		addedNodes,
 		removedNodes,
 	}: {
-		addedNodes: readonly HTMLElement[];
-		removedNodes: readonly HTMLElement[];
+		addedNodes: readonly WeakRef<HTMLElement>[];
+		removedNodes: readonly WeakRef<HTMLElement>[];
 	}) => {
-		const removedNodeRects = removedNodes.map((n) => this.mapVisibleNodeRects.get(n));
+		const removedNodeRects = removedNodes.map((ref) => {
+			const n = ref.deref();
 
-		addedNodes.forEach((addedNode) => {
-			const sameDeletedNode = removedNodes.find((n) => n.isEqualNode(addedNode));
+			if (!n) {
+				return;
+			}
+
+			return this.mapVisibleNodeRects.get(n);
+		});
+
+		addedNodes.forEach((addedNodeRef) => {
+			const addedNode = addedNodeRef.deref();
+			if (!addedNode) {
+				return;
+			}
+
+			const sameDeletedNode = removedNodes.find((ref) => {
+				const n = ref.deref();
+
+				if (!n || !addedNode) {
+					return false;
+				}
+
+				return n.isEqualNode(addedNode);
+			});
 
 			if (sameDeletedNode) {
 				this.intersectionObserver?.watchAndTag(addedNode, 'mutation:remount');

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { useMediaClient } from '../MediaClientProvider';
+import { useMediaClient } from '../useMediaClient';
 
 import { getCopyIntentErrorPayload, getCopyIntentSuccessPayload } from './copyIntentAnalytics';
 import { getDocument } from './getDocument';

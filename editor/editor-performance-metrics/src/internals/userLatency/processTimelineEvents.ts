@@ -8,6 +8,9 @@ import type {
 interface UserLatencyEvent {
 	name: string;
 	category: string;
+	attribution: {
+		selector: string;
+	};
 	firstInteraction: {
 		duration: number;
 	};
@@ -34,13 +37,20 @@ const organizeTimelineEvents = (events: Readonly<TimelineEvent[]>): TimelineEven
 		},
 	) as TimelineEventsMap;
 
-// Tries matching each input event with the loaf event with a script whose `startTime` matches the input event's processingStart time
+// Tries matching each input event with the correlated LoAF event.
 export const processTimelineEvents = (events: Readonly<TimelineEvent[]>): UserLatencyEvent[] => {
-	const matches: UserLatencyEvent[] = [];
+	const userLatencyEvents: UserLatencyEvent[] = [];
+	const matchedEvents = new Map<PerformanceLongAnimationFrameEvent, UserEvent>();
 
 	const { inputEvents, performanceLongAnimationFrameEvents } = organizeTimelineEvents(events);
 
-	// For each user event, try to find a matching performance event
+	/* For each user event, try to find a matching performance event
+	 *
+	 * TODO PGXT-8038 - `Pointer` and potentially `Keyboard` events, already calculate the correct duration because of Webvitals.
+	 * As result, this process adds the LoAF duration a 2nd time so the overall duration is incorrect.
+	 * Figure out if Webvitals is something that can be and will be "turned off" or will we need to exclude these events matching.
+	 *  https://product-fabric.atlassian.net/browse/PGXT-8038
+	 */
 	inputEvents.forEach((inputEvent: UserEvent) => {
 		const inputEventEntry = inputEvent.data.entry;
 
@@ -71,7 +81,7 @@ export const processTimelineEvents = (events: Readonly<TimelineEvent[]>): UserLa
 				// @ts-expect-error
 				return frameEvent.data.entry.scripts.some(
 					(script: { startTime: number; invokerType: string }) => {
-						if (!(script.invokerType === 'event-listener')) {
+						if (script.invokerType !== 'event-listener') {
 							return false;
 						}
 
@@ -88,10 +98,29 @@ export const processTimelineEvents = (events: Readonly<TimelineEvent[]>): UserLa
 				);
 			}) || null;
 
+		// We can have multiple input events within frame of a loaf event. This can lead to multiple matches for the same loaf event.
+		// This is not ideal because only the first input event within frame is the actual trigger for the loaf event. We do this by comparing
+		// `processingStartTimes` and only accept the first earliest starting input event within frame as a the match for the loaf event.
 		if (matchingLongAnimationFrameEvent) {
-			matches.push({
+			const previousMatchingInputEventStartTime = matchedEvents.get(matchingLongAnimationFrameEvent)
+				?.data?.entry?.processingStart;
+			const currentMatchingInputEventStartTime = inputEvent.data?.entry?.processingStart;
+
+			if (
+				previousMatchingInputEventStartTime &&
+				currentMatchingInputEventStartTime &&
+				currentMatchingInputEventStartTime > previousMatchingInputEventStartTime
+			) {
+				return;
+			}
+
+			matchedEvents.set(matchingLongAnimationFrameEvent, inputEvent);
+			userLatencyEvents.push({
 				name: inputEvent.data.eventName,
 				category: inputEvent.data.category,
+				attribution: {
+					selector: inputEvent.data.elementName,
+				},
 				firstInteraction: {
 					duration: inputEvent.data.duration + matchingLongAnimationFrameEvent.data.entry.duration,
 				},
@@ -99,5 +128,5 @@ export const processTimelineEvents = (events: Readonly<TimelineEvent[]>): UserLa
 		}
 	});
 
-	return matches;
+	return userLatencyEvents;
 };

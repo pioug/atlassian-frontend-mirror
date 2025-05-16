@@ -52,6 +52,7 @@ const SectionContentOne = () => {
 	}, [content]);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-textarea
 		<textarea
 			data-testid={`type-me-textarea`}
 			css={niceBorderStyle}

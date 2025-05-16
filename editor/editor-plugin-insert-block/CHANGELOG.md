@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.2.8
+
+### Patch Changes
+
+- [#154313](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154313)
+  [`36c5067417688`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36c5067417688) -
+  Clean up platform_editor_insert_button_on_primary_toolbar feature gate
+- Updated dependencies
+
 ## 3.2.7
 
 ### Patch Changes

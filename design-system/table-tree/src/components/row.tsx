@@ -132,14 +132,10 @@ function Row<Item extends { id: string }>({
 	const [isExpandedState, setIsExpandedState] = useState(isDefaultExpanded || false);
 
 	useEffect(() => {
-		if (
-			isProvidedExpanded === undefined &&
-			isDefaultExpanded !== undefined &&
-			isExpandedState !== isDefaultExpanded
-		) {
+		if (isProvidedExpanded === undefined && isDefaultExpanded !== undefined) {
 			setIsExpandedState(isDefaultExpanded);
 		}
-	}, [isDefaultExpanded, isProvidedExpanded, isExpandedState]);
+	}, [isDefaultExpanded, isProvidedExpanded]);
 
 	const onExpand = usePlatformLeafEventHandler<Item>({
 		fn: (value) => providedOnExpand && providedOnExpand(value),

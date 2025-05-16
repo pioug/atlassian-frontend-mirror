@@ -1,5 +1,26 @@
 # @atlaskit/media-client
 
+## 33.3.0
+
+### Minor Changes
+
+- [#152511](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152511)
+  [`c5dbe965a1abe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5dbe965a1abe) -
+  Exported hasArtifacts utility
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.2.0
+
+### Minor Changes
+
+- [#155553](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155553)
+  [`2b6532a540dc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b6532a540dc5) -
+  Added a new experimental getVideoDurations function in mediaViewer to unblock experimentation for
+  COMMIT-18082
+
 ## 33.1.1
 
 ### Patch Changes

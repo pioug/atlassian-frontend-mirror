@@ -57,6 +57,7 @@ class Example extends React.PureComponent<{}, State> {
 	render() {
 		return (
 			<div css={container}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 				<textarea id="source" onChange={this.handleChange} />
 				<pre id="output">{JSON.stringify(getADF(this.state.source), null, 2)}</pre>
 			</div>

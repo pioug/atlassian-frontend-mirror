@@ -56,22 +56,9 @@ const iconDOM = [
 	],
 ] satisfies DOMOutputSpec;
 
-// This value can be a fixed constant as it doesn't depend on runtime values or arguments.
-const contentDOM = [
-	'div',
-	{
-		'data-component': 'content',
-	},
-	[
-		'div',
-		{
-			class: 'decision-item',
-		},
-		0,
-	],
-] satisfies DOMOutputSpec;
-
 export const decisionItemToDOM = (node: PMNode, intl: IntlShape) => {
+	const contentDomDataAttrs = node.childCount > 0 ? {} : { 'data-empty': 'true' };
+
 	return [
 		'li',
 		{
@@ -98,7 +85,20 @@ export const decisionItemToDOM = (node: PMNode, intl: IntlShape) => {
 				},
 				intl.formatMessage(tasksAndDecisionsMessages.decisionPlaceholder),
 			],
-			contentDOM,
+			[
+				'div',
+				{
+					'data-component': 'content',
+				},
+				[
+					'div',
+					{
+						class: 'decision-item',
+						...contentDomDataAttrs,
+					},
+					0,
+				],
+			],
 		],
 	] satisfies DOMOutputSpec;
 };

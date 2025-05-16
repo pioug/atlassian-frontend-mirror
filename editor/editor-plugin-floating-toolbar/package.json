@@ -140,6 +140,9 @@
 		"platform_editor_no_selection_until_interaction": {
 			"type": "boolean"
 		},
+		"platform_editor_remove_slow_table_transactions": {
+			"type": "boolean"
+		},
 		"platform_editor_user_intent_plugin": {
 			"type": "boolean"
 		},

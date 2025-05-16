@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 4.10.2
+
+### Patch Changes
+
+- [#153511](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153511)
+  [`cd4838fb19b00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd4838fb19b00) -
+  [ux] Ensures loading error empty state is centered
+
 ## 4.10.1
 
 ### Patch Changes

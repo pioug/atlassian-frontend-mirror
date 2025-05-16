@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.22.0
+
+### Minor Changes
+
+- [#154858](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154858)
+  [`bf96267428ccd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf96267428ccd) -
+  Adds experiment to not render children of expand element until it gets expanded
+
 ## 4.21.1
 
 ### Patch Changes

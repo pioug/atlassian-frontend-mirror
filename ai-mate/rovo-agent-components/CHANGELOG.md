@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 2.9.0
+
+### Minor Changes
+
+- [#154958](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154958)
+  [`21f93614739fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21f93614739fd) -
+  Patch to respect agent avatar size prop when fixing squished avatar bug
+
 ## 2.8.2
 
 ### Patch Changes

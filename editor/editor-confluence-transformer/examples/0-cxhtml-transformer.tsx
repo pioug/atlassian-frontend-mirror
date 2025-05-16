@@ -124,6 +124,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 					}}
 				>
 					<legend>Input</legend>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 					<textarea
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

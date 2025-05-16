@@ -23,7 +23,6 @@ import type {
 import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -40,7 +39,6 @@ import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
 import { toolbarButtonsPlugin } from './pm-plugins/toolbar-buttons';
-import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 import { getToolbarConfig } from './ui/toolbar/Toolbar';
 
 const getPosFromActiveLinkMark = (state: LinkToolbarState) => {
@@ -64,20 +62,6 @@ const selectionToolbarLinkButtonTestId = 'ak-editor-selection-toolbar-link-butto
  */
 export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) => {
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
-
-	if (
-		editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
-		!fg('platform_editor_insert_button_on_primary_toolbar')
-	) {
-		primaryToolbarComponent = () => (
-			<PrimaryToolbarComponent api={api} editorAnalyticsAPI={api?.analytics?.actions} />
-		);
-
-		api?.primaryToolbar?.actions.registerComponent({
-			name: 'hyperlink',
-			component: primaryToolbarComponent,
-		});
-	}
 
 	return {
 		name: 'hyperlink',

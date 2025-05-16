@@ -10,6 +10,7 @@ import {
 	type ProcessingFileState,
 	type ProcessedFileState,
 	type ProcessingFailedState,
+	type MediaFileArtifacts,
 } from '@atlaskit/media-state';
 
 export type FileStatus = CommonFileStatus;
@@ -55,6 +56,11 @@ export const isNonErrorFinalFileState = (
 	fileState: FileState,
 ): fileState is ProcessedFileState | ProcessingFailedState =>
 	['processed', 'failed-processing'].includes(fileState.status);
+
+export const hasArtifacts = (
+	fileState: FileState,
+): fileState is FileState & { artifacts: MediaFileArtifacts } =>
+	'artifacts' in fileState && fileState.artifacts !== undefined;
 
 export const isImageRepresentationReady = (fileState: FileState): boolean => {
 	switch (fileState.status) {

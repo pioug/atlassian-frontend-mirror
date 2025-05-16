@@ -1,9 +1,6 @@
-export {
-	MediaClientContext,
-	MediaClientProvider,
-	useMediaClient,
-	getMediaClient,
-} from './MediaClientProvider';
+export { MediaClientContext, MediaClientProvider } from './MediaClientProvider';
+export { useMediaClient } from './useMediaClient';
+export { getMediaClient } from './getMediaClient';
 
 export { useFileState } from './useFileState';
 export { useMediaStore } from './useMediaStore';
@@ -27,3 +24,14 @@ export {
 export { useFileHashes } from './useFileHashes';
 
 export { useCopyIntent } from './copyIntent/useCopyIntent';
+
+export { MediaProvider } from './MediaProvider';
+
+export {
+	type MediaSettings,
+	type MediaParsedSettings,
+	type MediaUserPreferences,
+	type UserPreferences,
+} from './mediaSettings';
+export { useMediaSettings } from './useMediaSettings';
+export { withMediaClientAndSettings } from './withMediaClientAndSettings';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.8
+
+### Patch Changes
+
+- [#155371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155371)
+  [`aa4cc4f8ecc24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4cc4f8ecc24) -
+  remove redundant placeholder update in task and decision node view's constructor
+
 ## 5.1.7
 
 ### Patch Changes

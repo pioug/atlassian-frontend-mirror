@@ -328,6 +328,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_table_row_span_fix_all": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_disable_context_panel_animation": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -353,10 +357,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_axe_leading_paragraph_from_media": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_table_fix_move_column": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

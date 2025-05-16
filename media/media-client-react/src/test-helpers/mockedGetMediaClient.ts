@@ -1,6 +1,6 @@
 import { MediaClient, type MediaClientConfig, type MediaStore } from '@atlaskit/media-client';
 
-import { mediaClientsMap } from '../MediaClientProvider';
+import { mediaClientsMap } from '../getMediaClient';
 
 export const mockedGetMediaClient = (
 	mediaClientConfig: MediaClientConfig,

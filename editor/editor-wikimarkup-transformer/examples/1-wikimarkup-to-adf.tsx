@@ -129,6 +129,7 @@ class Example extends React.PureComponent<{}, State> {
 		const doc = this.state.source ? getADF(this.state.source) : ('' as DocNode);
 		return (
 			<div css={container}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-textarea */}
 				<textarea id="source" onChange={this.handleChange} />
 				<div id="output">
 					<ReactRenderer

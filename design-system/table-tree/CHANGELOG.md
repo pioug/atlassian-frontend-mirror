@@ -1,5 +1,13 @@
 # @atlaskit/table-tree
 
+## 12.1.3
+
+### Patch Changes
+
+- [#154904](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154904)
+  [`44926dab289a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44926dab289a0) -
+  Fixed default expanded option preventing expanding/collapsing row
+
 ## 12.1.2
 
 ### Patch Changes

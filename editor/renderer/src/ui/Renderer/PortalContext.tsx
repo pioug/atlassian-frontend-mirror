@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { RendererProps } from '../renderer-props';
+import type { RendererProps } from '../renderer-props';
 
 export const PortalContext = React.createContext<RendererProps['portal']>(undefined);
 

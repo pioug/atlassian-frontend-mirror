@@ -17,7 +17,7 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';

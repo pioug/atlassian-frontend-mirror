@@ -6,7 +6,7 @@
 import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { TransitionStatus } from '../../constants';
+import type { TransitionStatus } from '../../constants';
 import { N200, N500 } from '@atlaskit/theme/colors';
 
 export const FADEIN_OVERLAY_TRANSITION_DURATION_MS = 440;

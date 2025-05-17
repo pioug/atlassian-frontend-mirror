@@ -1,5 +1,5 @@
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
-import { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 

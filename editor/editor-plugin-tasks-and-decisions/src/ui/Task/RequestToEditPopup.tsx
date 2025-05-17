@@ -22,7 +22,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
 	OutsideClickTargetRefContext,

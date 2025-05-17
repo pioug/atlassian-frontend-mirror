@@ -4,7 +4,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { BlockControlsPlugin } from '../blockControlsPluginType';
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 interface VisibilityContainerProps {
 	api?: ExtractInjectionAPI<BlockControlsPlugin>;

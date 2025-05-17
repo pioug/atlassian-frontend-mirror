@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.4.9
+
+### Patch Changes
+
+- [#156309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156309)
+  [`684b2b1960644`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/684b2b1960644) -
+  Remove all possible CSS selector patterns that would be invalid in inline styles
+
 ## 2.4.8
 
 ### Patch Changes

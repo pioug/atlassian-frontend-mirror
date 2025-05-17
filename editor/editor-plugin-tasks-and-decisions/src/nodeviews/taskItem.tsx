@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 
 import { css as cssUnbounded } from '@compiled/react';
-import { IntlShape, useIntl } from 'react-intl-next';
+import { type IntlShape, useIntl } from 'react-intl-next';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -378,6 +378,8 @@ class Task extends ReactNodeView<Props> {
 	 * This node view will have not rerendered for those changes, so
 	 * cannot render the position and listSize into the
 	 * AnalyticsContext at initial render time.
+	 * @param event
+	 * @example
 	 */
 	private addListAnalyticsData = (event: UIAnalyticsEvent) => {
 		try {
@@ -480,6 +482,16 @@ class Task extends ReactNodeView<Props> {
 	}
 }
 
+/**
+ *
+ * @param portalProviderAPI
+ * @param eventDispatcher
+ * @param providerFactory
+ * @param api
+ * @param intl
+ * @param placeholder
+ * @example
+ */
 export function taskItemNodeViewFactory(
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,

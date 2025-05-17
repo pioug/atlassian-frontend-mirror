@@ -1,4 +1,4 @@
-import { ACTION, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { ACTION, type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 
 import { attachInputMeta, attachInputMetaWithAnalytics } from './attach-input-meta';

@@ -1,4 +1,4 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';

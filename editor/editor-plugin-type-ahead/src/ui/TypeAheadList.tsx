@@ -24,7 +24,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import { InputMethodType } from '../pm-plugins/analytics';
+import { type InputMethodType } from '../pm-plugins/analytics';
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
@@ -260,6 +260,7 @@ const TypeAheadListComponent = React.memo(
 			/**
 			 * To handle the key events on the list
 			 * @param event
+			 * @example
 			 */
 			const handleKeyDown = (event: KeyboardEvent): void => {
 				if (isNavigationKey(event)) {

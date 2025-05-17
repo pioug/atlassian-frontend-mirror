@@ -2,7 +2,7 @@ import { closeBrackets } from '@codemirror/autocomplete';
 import { syntaxHighlighting, bracketMatching } from '@codemirror/language';
 import {
 	Compartment,
-	Extension,
+	type Extension,
 	EditorSelection,
 	Facet,
 	EditorState as CodeMirrorState,
@@ -17,7 +17,7 @@ import type {
 	ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
-import { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
+import { type EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -236,6 +236,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	 * Updates a facet which stores information on the prosemirror decorations
 	 *
 	 * This then gets translated to codemirror decorations in `prosemirrorDecorationPlugin`
+	 * @param decorationSource
+	 * @example
 	 */
 	private updateProseMirrorDecorations(decorationSource: DecorationSource) {
 		this.updating = true;

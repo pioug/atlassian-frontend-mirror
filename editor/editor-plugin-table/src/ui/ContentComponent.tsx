@@ -3,21 +3,21 @@ import React from 'react';
 import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	DispatchAnalyticsEvent,
+	type DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { getDomRefFromSelection } from '@atlaskit/editor-common/get-dom-ref-from-selection';
 import { ResizerBreakoutModeLabel } from '@atlaskit/editor-common/resizer';
 import {
-	ExtractInjectionAPI,
-	GetEditorContainerWidth,
-	GetEditorFeatureFlags,
+	type ExtractInjectionAPI,
+	type GetEditorContainerWidth,
+	type GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { TablePlugin, TablePluginOptions } from '../tablePluginType';
+import { type TablePlugin, type TablePluginOptions } from '../tablePluginType';
 
 import FloatingContextualButton from './FloatingContextualButton';
 import FloatingContextualMenu from './FloatingContextualMenu';

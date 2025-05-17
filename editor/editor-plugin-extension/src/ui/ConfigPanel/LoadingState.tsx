@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { IntlShape, injectIntl } from 'react-intl-next';
+import { type IntlShape, injectIntl } from 'react-intl-next';
 import type { LoadingComponentProps } from 'react-loadable';
 
 import { messages } from '@atlaskit/editor-common/extensions';

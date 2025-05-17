@@ -1,6 +1,6 @@
-import React, { type ReactNode, useEffect, useRef, MouseEventHandler } from 'react';
+import React, { type ReactNode, useEffect, useRef, type MouseEventHandler } from 'react';
 
-import { ListRowProps } from 'react-virtualized';
+import { type ListRowProps } from 'react-virtualized';
 
 type Props = {
 	measure: () => void;
@@ -9,6 +9,19 @@ type Props = {
 	children: ReactNode;
 } & Pick<ListRowProps, 'index' | 'style' | 'isScrolling' | 'isVisible'>;
 
+/**
+ *
+ * @param root0
+ * @param root0.children
+ * @param root0.registerChild
+ * @param root0.measure
+ * @param root0.index
+ * @param root0.style
+ * @param root0.isVisible
+ * @param root0.isScrolling
+ * @param root0.onMouseMove
+ * @example
+ */
 export function ListRow({
 	children,
 	registerChild,

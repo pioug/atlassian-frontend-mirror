@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { PureComponent, ReactNode } from 'react';
+import React, { PureComponent, type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { fg } from '@atlaskit/platform-feature-flags';

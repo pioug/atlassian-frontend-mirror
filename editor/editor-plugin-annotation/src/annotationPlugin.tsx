@@ -21,7 +21,7 @@ import {
 	buildToolbar,
 	shouldSuppressFloatingToolbar,
 } from './pm-plugins/toolbar';
-import { InlineCommentPluginState } from './pm-plugins/types';
+import type { InlineCommentPluginState } from './pm-plugins/types';
 import {
 	getPluginState,
 	hasAnyUnResolvedAnnotationInPage,

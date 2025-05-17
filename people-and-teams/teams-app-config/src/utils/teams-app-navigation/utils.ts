@@ -12,11 +12,7 @@ export function generatePath(
 	config: Pick<NavigationActionCommon, 'orgId' | 'cloudId' | 'hostProduct' | 'userHasNav4Enabled'>,
 	query: URLSearchParams = new URLSearchParams(),
 ) {
-	if (
-		isTeamsAppEnabled(config) ||
-		config.hostProduct === 'home' ||
-		!config.hostProduct
-	) {
+	if (isTeamsAppEnabled(config) || config.hostProduct === 'home' || !config.hostProduct) {
 		query.set('cloudId', config.cloudId);
 
 		// Home & therefore the Teams app, is not deployed to FedRamp, instead we have deployed Standalone directory.
@@ -34,32 +30,32 @@ export function generatePath(
 
 export const onNavigateBase =
 	(href: string, config: NavigationActionCommon) =>
-		(e?: React.MouseEvent | React.KeyboardEvent) => {
-			if (e) {
-				e.preventDefault();
-			}
+	(e?: React.MouseEvent | React.KeyboardEvent) => {
+		if (e) {
+			e.preventDefault();
+		}
 
-			if (isTeamsAppEnabled(config)) {
-				if (config.shouldOpenInSameTab) {
-					redirect(href);
+		if (isTeamsAppEnabled(config)) {
+			if (config.shouldOpenInSameTab) {
+				redirect(href);
+				return;
+			}
+			openInNewTab(href);
+			return;
+		} else {
+			if (config.shouldOpenInSameTab) {
+				if (config.push) {
+					config.push(href);
 					return;
 				}
-				openInNewTab(href);
+				redirect(href);
 				return;
 			} else {
-				if (config.shouldOpenInSameTab) {
-					if (config.push) {
-						config.push(href);
-						return;
-					}
-					redirect(href);
-					return;
-				} else {
-					openInNewTab(href);
-					return;
-				}
+				openInNewTab(href);
+				return;
 			}
-		};
+		}
+	};
 
 type PathAndQuery = {
 	path: string;

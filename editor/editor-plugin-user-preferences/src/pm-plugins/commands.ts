@@ -2,17 +2,17 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	EditorAnalyticsAPI,
+	type EditorAnalyticsAPI,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import {
-	ResolvedUserPreferences,
+	type ResolvedUserPreferences,
 	UserPreferencesProvider,
 } from '@atlaskit/editor-common/user-preferences';
 
-import { PrefKey } from '../userPreferencesPluginType';
+import type { PrefKey } from '../userPreferencesPluginType';
 
 import { userPreferencesPluginKey } from './main';
 

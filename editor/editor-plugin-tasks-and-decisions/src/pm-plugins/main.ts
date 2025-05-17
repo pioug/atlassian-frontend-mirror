@@ -1,9 +1,9 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
+import { type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -58,6 +58,21 @@ function nodesBetweenChanged(
 	tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
 }
 
+/**
+ *
+ * @param portalProviderAPI
+ * @param eventDispatcher
+ * @param providerFactory
+ * @param dispatch
+ * @param api
+ * @param getIntl
+ * @param useLongPressSelection
+ * @param hasEditPermission
+ * @param hasRequestedEditPermission
+ * @param requestToEditContent
+ * @param taskPlaceholder
+ * @example
+ */
 export function createPlugin(
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,

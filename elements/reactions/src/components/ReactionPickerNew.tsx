@@ -215,6 +215,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		useState(false);
 	const [isHoveringTrigger, setIsHoveringTrigger] = useState(false);
 	const [isHoveringPopup, setIsHoveringPopup] = useState(false);
+	const [isTriggerClicked, setIsTriggerClicked] = useState(false);
 	const [isPopupTrayOpen, setIsPopupTrayOpen] = useDelayedState<boolean>(
 		false,
 		hoverableReactionPickerDelay,
@@ -284,7 +285,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	 */
 	const close = useCallback(
 		(_id?: string) => {
-			setIsPopupTrayOpen(false);
+			setIsPopupTrayOpen(false, true);
 			// ufo abort reaction experience
 			PickerRender.abort({
 				metadata: {
@@ -295,9 +296,19 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			});
 			if (hoverableReactionPicker) {
 				setIsHoverableReactionPickerEmojiPickerOpen(false);
+				setIsTriggerClicked(false);
+				setIsHoveringTrigger(false);
+				setIsHoveringPopup(false);
 			}
 		},
-		[setIsPopupTrayOpen, setIsHoverableReactionPickerEmojiPickerOpen, hoverableReactionPicker],
+		[
+			setIsPopupTrayOpen,
+			setIsHoverableReactionPickerEmojiPickerOpen,
+			hoverableReactionPicker,
+			setIsTriggerClicked,
+			setIsHoveringTrigger,
+			setIsHoveringPopup,
+		],
 	);
 
 	/**
@@ -314,6 +325,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			setIsPopupTrayOpen(true);
 			if (hoverableReactionPicker) {
 				setIsHoverableReactionPickerEmojiPickerOpen(!isHoverableReactionPickerEmojiPickerOpen);
+				setIsTriggerClicked(false);
 			}
 			onShowMore();
 		},
@@ -369,8 +381,23 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		});
 
 		if (hoverableReactionPicker) {
-			setIsHoverableReactionPickerEmojiPickerOpen(!isHoverableReactionPickerEmojiPickerOpen);
-			setIsPopupTrayOpen(!isHoverableReactionPickerEmojiPickerOpen || !isPopupTrayOpen);
+			if (isTriggerClicked) {
+				// if the button was previously clicked, close the popup and reset the state
+				setIsTriggerClicked(false);
+				setIsPopupTrayOpen(false, true);
+			} else {
+				if (isHoverableReactionPickerEmojiPickerOpen) {
+					// if the emoji picker is open, close the popup and reset the state
+					setIsTriggerClicked(false);
+					setIsPopupTrayOpen(false, true);
+				} else {
+					// if the button was not previously clicked, open the popup and set the state
+					setIsTriggerClicked(true);
+					setIsPopupTrayOpen(true, true);
+				}
+			}
+			// close the emoji picker
+			setIsHoverableReactionPickerEmojiPickerOpen(false);
 		} else {
 			setIsPopupTrayOpen(!isPopupTrayOpen);
 		}
@@ -382,6 +409,8 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		hoverableReactionPicker,
 		isPopupTrayOpen,
 		setIsPopupTrayOpen,
+		isTriggerClicked,
+		setIsTriggerClicked,
 		isHoverableReactionPickerEmojiPickerOpen,
 		onOpen,
 		settings,
@@ -400,7 +429,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	const handleTriggerMouseLeave = useCallback(() => {
 		if (hoverableReactionPicker) {
 			setIsHoveringTrigger(false);
-			if (!isHoveringPopup && !isHoverableReactionPickerEmojiPickerOpen) {
+			if (!isHoveringPopup && !isHoverableReactionPickerEmojiPickerOpen && !isTriggerClicked) {
 				setIsPopupTrayOpen(false);
 			}
 		}
@@ -409,6 +438,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		isHoveringPopup,
 		isHoverableReactionPickerEmojiPickerOpen,
 		setIsPopupTrayOpen,
+		isTriggerClicked,
 	]);
 
 	const handlePopupMouseEnter = useCallback(() => {
@@ -423,7 +453,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 	const handlePopupMouseLeave = useCallback(() => {
 		if (hoverableReactionPicker) {
 			setIsHoveringPopup(false);
-			if (!isHoveringTrigger && !isHoverableReactionPickerEmojiPickerOpen) {
+			if (!isHoveringTrigger && !isHoverableReactionPickerEmojiPickerOpen && !isTriggerClicked) {
 				setIsPopupTrayOpen(false);
 			}
 		}
@@ -432,6 +462,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		isHoveringTrigger,
 		isHoverableReactionPickerEmojiPickerOpen,
 		setIsPopupTrayOpen,
+		isTriggerClicked,
 	]);
 
 	const wrapperClassName = ` ${isPopupTrayOpen ? 'isOpen' : ''} ${

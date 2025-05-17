@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { type GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
 	useSharedPluginState,
 	sharedPluginStateHookMigratorFactory,
@@ -159,11 +159,26 @@ const toDOM = () =>
 		['div', { 'data-layout-section': true }, 0],
 	] as DOMOutputSpec;
 
+/**
+ *
+ */
 export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	options: LayoutPluginOptions;
 	layoutDOM?: HTMLElement;
 	isEmpty?: boolean;
 
+	/**
+	 *
+	 * @param props
+	 * @param props.node
+	 * @param props.view
+	 * @param props.getPos
+	 * @param props.portalProviderAPI
+	 * @param props.eventDispatcher
+	 * @param props.pluginInjectionApi
+	 * @param props.options
+	 * @example
+	 */
 	constructor(props: {
 		node: PMNode;
 		view: EditorView;
@@ -185,6 +200,10 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		this.options = props.options;
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	getContentDOM() {
 		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM()) as {
 			dom: HTMLElement;
@@ -200,12 +219,24 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		return { dom: container, contentDOM };
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @param element
+	 * @example
+	 */
 	setDomAttrs(node: PMNode, element: HTMLElement): void {
 		if (this.layoutDOM) {
 			this.layoutDOM.setAttribute('data-column-rule-style', node.attrs.columnRuleStyle);
 		}
 	}
 
+	/**
+	 *
+	 * @param props
+	 * @param forwardRef
+	 * @example
+	 */
 	render(props: LayoutSectionViewProps, forwardRef: ForwardRef) {
 		this.isEmpty = isEmptyLayout(this.node);
 		if (this.layoutDOM) {
@@ -223,6 +254,11 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 		);
 	}
 
+	/**
+	 *
+	 * @param mutation
+	 * @example
+	 */
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		return ignoreResizerMutations(mutation);
 	}

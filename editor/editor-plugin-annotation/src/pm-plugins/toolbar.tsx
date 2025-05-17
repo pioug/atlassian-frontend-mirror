@@ -26,14 +26,14 @@ import {
 	getRangeInlineNodeNames,
 } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import { SelectionBookmark, type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type SelectionBookmark, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../annotationPluginType';
 import { setInlineCommentDraftState } from '../editor-commands';
-import { AnnotationProviders, AnnotationSelectionType, AnnotationTestIds } from '../types';
+import { type AnnotationProviders, AnnotationSelectionType, AnnotationTestIds } from '../types';
 
 import { getPluginState, isSelectionValid, resolveDraftBookmark } from './utils';
 
@@ -71,6 +71,10 @@ type ShouldSuppressFloatingToolbarOptions = {
  * This only applies when the selection range exactly matches the bookmark range
  * which should be the case immediately after the comment button is clicked
  * if the user creates a different selection range, the floating toolbar should still be shown
+ * @param root0
+ * @param root0.state
+ * @param root0.bookmark
+ * @example
  */
 export const shouldSuppressFloatingToolbar = ({
 	state,

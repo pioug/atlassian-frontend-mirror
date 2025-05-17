@@ -10,7 +10,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import {
-	ResolvedUserPreferences,
+	type ResolvedUserPreferences,
 	useResolvedUserPreferences,
 } from '@atlaskit/editor-common/user-preferences';
 import { fg } from '@atlaskit/platform-feature-flags';

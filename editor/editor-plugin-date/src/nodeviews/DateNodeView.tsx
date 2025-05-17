@@ -1,4 +1,4 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
@@ -10,6 +10,9 @@ import { setDatePickerAt } from '../pm-plugins/actions';
 
 import { dateToDOM } from './dateNodeSpec';
 
+/**
+ *
+ */
 export class DateNodeView implements NodeView {
 	dom: Node;
 	private node: PMNode;
@@ -18,6 +21,15 @@ export class DateNodeView implements NodeView {
 	private readonly getPos: getPosHandlerNode;
 	private parentTaskState: string = '';
 
+	/**
+	 *
+	 * @param node
+	 * @param view
+	 * @param getPos
+	 * @param intl
+	 * @param decorations
+	 * @example
+	 */
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -41,6 +53,12 @@ export class DateNodeView implements NodeView {
 		});
 		this.parentTaskState = DateNodeView.getParentTaskState(decorations);
 	}
+	/**
+	 *
+	 * @param node
+	 * @param decorations
+	 * @example
+	 */
 	update(node: PMNode, decorations: ReadonlyArray<Decoration>) {
 		// we're only interested in two scenarios to trigger a DOM update:
 		// 		1. the date value (timestamp) has changed

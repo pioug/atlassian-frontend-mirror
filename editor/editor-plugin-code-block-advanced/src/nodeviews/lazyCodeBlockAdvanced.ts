@@ -1,4 +1,4 @@
-import { Extension } from '@codemirror/state';
+import { type Extension } from '@codemirror/state';
 
 import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';

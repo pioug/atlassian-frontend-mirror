@@ -1,7 +1,7 @@
 import type React from 'react';
 
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	AnnotationUpdateEmitter,

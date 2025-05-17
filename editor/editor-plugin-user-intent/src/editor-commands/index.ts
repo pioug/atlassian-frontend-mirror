@@ -1,4 +1,4 @@
-import { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 import { userIntentPluginKey } from '../pm-plugins/main';
 import type { UserIntent } from '../pm-plugins/types';

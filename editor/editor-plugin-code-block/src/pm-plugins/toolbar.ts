@@ -36,7 +36,7 @@ import {
 	createLanguageList,
 	DEFAULT_LANGUAGES,
 	getLanguageIdentifier,
-	Language,
+	type Language,
 } from './language-list';
 import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
@@ -191,6 +191,9 @@ export const getToolbarConfig =
 
 /**
  * Filters language list based on both name and alias properties.
+ * @param option
+ * @param rawInput
+ * @example
  */
 export const languageListFilter = (option: SelectOption, rawInput: string) => {
 	// Ignored via go/ees005

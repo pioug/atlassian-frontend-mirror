@@ -36,9 +36,9 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import {
-	CloseActionType,
+	type CloseActionType,
 	fireTypeAheadClosedAnalyticsEvent,
-	InputMethodType,
+	type InputMethodType,
 } from '../pm-plugins/analytics';
 import { closeTypeAhead } from '../pm-plugins/commands/close-type-ahead';
 import {

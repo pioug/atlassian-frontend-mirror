@@ -17,7 +17,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { getChildrenInfo, getNodeName, isReferencedSource } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -323,6 +323,11 @@ const editButton = (
 
 /**
  * Calculates the position for the toolbar when dealing with nested extensions
+ * @param editorView
+ * @param nextPos
+ * @param state
+ * @param extensionNode
+ * @example
  */
 const calculateToolbarPosition = (
 	editorView: EditorView,

@@ -1,6 +1,6 @@
 import { defaultKeymap, indentWithTab } from '@codemirror/commands';
-import { Extension } from '@codemirror/state';
-import { KeyBinding, keymap as cmKeymap } from '@codemirror/view';
+import { type Extension } from '@codemirror/state';
+import { type KeyBinding, keymap as cmKeymap } from '@codemirror/view';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';

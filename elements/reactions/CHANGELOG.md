@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 31.13.0
+
+### Minor Changes
+
+- [#156164](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156164)
+  [`f0d8ffc2480b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0d8ffc2480b7) -
+  [ux] Changes the behavior for the hoverable summary button and empty reactions trigger
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.12.0
 
 ### Minor Changes

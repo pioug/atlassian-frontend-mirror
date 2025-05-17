@@ -12,7 +12,8 @@ export const navigateToTeamsApp = (action: NavigationAction): NavigationResult =
 		/**
 		 * If teams app is enabled, default to opening in new tab.
 		 */
-		shouldOpenInSameTab: shouldOpenInSameTab === undefined ? !isTeamsAppEnabled(action) : shouldOpenInSameTab,
+		shouldOpenInSameTab:
+			shouldOpenInSameTab === undefined ? !isTeamsAppEnabled(action) : shouldOpenInSameTab,
 	};
 
 	const { path, query } = getPathAndQuery(actionWithDefaults);

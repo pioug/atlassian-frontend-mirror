@@ -11,7 +11,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TableSelectorPopup, type TableSelectorPopupProps } from '@atlaskit/editor-common/ui';
 
 import { pluginKey } from '../../pm-plugins/table-size-selector';
-import { TablePlugin } from '../../tablePluginType';
+import type { TablePlugin } from '../../tablePluginType';
 
 interface SizeSelectorProps
 	extends Omit<TableSelectorPopupProps, 'handleClickOutside' | 'onSelection' | 'unUnmount'> {

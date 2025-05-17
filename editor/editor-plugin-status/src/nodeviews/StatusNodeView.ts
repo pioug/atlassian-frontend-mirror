@@ -1,4 +1,4 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { statusMessages as messages } from '@atlaskit/editor-common/messages';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
@@ -7,6 +7,9 @@ import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import { statusToDOM } from './statusNodeSpec';
 
+/**
+ *
+ */
 export class StatusNodeView implements NodeView {
 	dom: Node;
 	domElement: HTMLElement | undefined;
@@ -15,6 +18,12 @@ export class StatusNodeView implements NodeView {
 	private node: PMNode;
 	private intl: IntlShape;
 
+	/**
+	 *
+	 * @param node
+	 * @param intl
+	 * @example
+	 */
 	constructor(node: PMNode, intl: IntlShape) {
 		this.node = node;
 		this.intl = intl;
@@ -39,6 +48,11 @@ export class StatusNodeView implements NodeView {
 		}
 	}
 
+	/**
+	 *
+	 * @param node
+	 * @example
+	 */
 	update(node: PMNode) {
 		if (node.type !== this.node.type) {
 			return false;

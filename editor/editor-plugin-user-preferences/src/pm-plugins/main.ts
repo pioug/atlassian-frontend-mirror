@@ -1,9 +1,9 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { Config, UserPreferencesPlugin } from '../userPreferencesPluginType';
+import type { Config, UserPreferencesPlugin } from '../userPreferencesPluginType';
 
 export const userPreferencesPluginKey = new PluginKey('userPreferencesPlugin');
 

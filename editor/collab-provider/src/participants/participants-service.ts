@@ -23,7 +23,7 @@ import {
 	fetchParticipants,
 	PARTICIPANT_UPDATE_INTERVAL,
 } from './participants-helper';
-import { ParticipantFilter, ParticipantsState } from './participants-state';
+import { type ParticipantFilter, ParticipantsState } from './participants-state';
 import { createLogger, isAIProviderID } from '../helpers/utils';
 
 const logger = createLogger('PresenceService', 'pink');
@@ -47,6 +47,20 @@ export class ParticipantsService {
 	private presenceFetchTimeout: number | undefined;
 	private currentlyPollingFetchUsers: boolean = true;
 
+	/**
+	 *
+	 * @param analyticsHelper
+	 * @param participantsState
+	 * @param emit
+	 * @param getUser
+	 * @param batchProps
+	 * @param channelBroadcast
+	 * @param sendPresenceJoined
+	 * @param getPresenceData
+	 * @param setUserId
+	 * @param getAIProviderActiveIds
+	 * @example
+	 */
 	constructor(
 		private analyticsHelper: AnalyticsHelper | undefined,
 		private participantsState: ParticipantsState = new ParticipantsState(),
@@ -141,6 +155,7 @@ export class ParticipantsService {
 	/**
 	 * Carries out 3 things: 1) enriches the participant with user data, 2) updates the participantsState, 3) emits the presence event
 	 * @param payload Payload from incoming socket event
+	 * @example
 	 */
 	private updateParticipantEager = async (payload: PresencePayload) => {
 		const { userId } = payload;
@@ -197,6 +212,7 @@ export class ParticipantsService {
 	 * 3. If incoming participant is not new, update previous state with new values (timestamp, activity)
 	 *
 	 * @param payload Payload from incoming socket event
+	 * @example
 	 */
 	private updateParticipantLazy = (payload: PresencePayload) => {
 		const { userId, sessionId } = payload;
@@ -261,6 +277,8 @@ export class ParticipantsService {
 	/**
 	 * Called when a participant leaves the session.
 	 * We emit the `presence` event to update the active avatars in the editor.
+	 * @param payload
+	 * @example
 	 */
 	onParticipantLeft = (payload: PresencePayload): void => {
 		let sessionId = payload.sessionId;
@@ -313,6 +331,7 @@ export class ParticipantsService {
 	/**
 	 * Updates when users were last active
 	 * @param userIds Users in most recent steps
+	 * @example
 	 */
 	updateLastActive = (userIds: string[] = []) =>
 		this.participantsState.updateLastActive(Date.now(), userIds);
@@ -320,6 +339,7 @@ export class ParticipantsService {
 	/**
 	 * Called on receiving steps, emits each step's telepointer
 	 * @param steps Steps to extract telepointers from
+	 * @example
 	 */
 	emitTelepointersFromSteps(steps: StepJson[]) {
 		steps.forEach((step) => {
@@ -333,6 +353,9 @@ export class ParticipantsService {
 	/**
 	 * Called when we receive a telepointer update from another
 	 * participant.
+	 * @param payload
+	 * @param thisSessionId
+	 * @example
 	 */
 	onParticipantTelepointer = (
 		payload: TelepointerPayload,
@@ -367,6 +390,7 @@ export class ParticipantsService {
 	 * Every 5 minutes (PARTICIPANT_UPDATE_INTERVAL), removes inactive participants and emits the update to other participants.
 	 * Needs to be kicked off in the Provider.
 	 * @param sessionId SessionId from provider's connection
+	 * @example
 	 */
 	startInactiveRemover = (sessionId: string | undefined) => {
 		clearTimeout(this.participantUpdateTimeout);
@@ -405,6 +429,7 @@ export class ParticipantsService {
 	 *
 	 * if no {@link BatchProps#participantsLimit} is supplied
 	 *  1. Fetch users until there are no more participants to hydrate
+	 * @example
 	 */
 	batchFetchUsers = async () => {
 		if (!this.batchProps) {
@@ -443,6 +468,7 @@ export class ParticipantsService {
 	/**
 	 * We want to give some time for users to initially join before attempting to fetch users
 	 * otherwise we'll always make at least 2 calls if there's more than 1 participant
+	 * @example
 	 */
 	batchFetchUsersWithDelay = async () => {
 		await new Promise((r) =>
@@ -453,6 +479,8 @@ export class ParticipantsService {
 
 	/**
 	 * Keep list of participants up to date. Filter out inactive users etc.
+	 * @param sessionId
+	 * @example
 	 */
 	private filterInactive = (sessionId: string | undefined): void => {
 		const now: number = Date.now();
@@ -470,6 +498,8 @@ export class ParticipantsService {
 	 * Wrapper function to emit with error handling and analytics
 	 * @param data Data to emit
 	 * @param emit Emit function from Provider
+	 * @param errorMessage
+	 * @example
 	 */
 	private emitPresence = (data: CollabEventPresenceData, errorMessage: string): void => {
 		try {
@@ -489,6 +519,8 @@ export class ParticipantsService {
 	 * Wrapper function to emit with error handling and analytics
 	 * @param data Data to emit
 	 * @param emit Emit function from Provider
+	 * @param errorMessage
+	 * @example
 	 */
 	private emitTelepointer = (data: CollabTelepointerPayload, errorMessage: string): void => {
 		try {
@@ -503,6 +535,7 @@ export class ParticipantsService {
 	 * Wrapper function to emit with error handling and analytics
 	 * @param data Data to emit
 	 * @param errorMessage Error message for analytics
+	 * @example
 	 */
 	private emitPresenceActivityChange(
 		data: CollabPresenceActivityChangePayload,
@@ -518,6 +551,7 @@ export class ParticipantsService {
 
 	/**
 	 * Used when the provider is disconnected or destroyed to prevent perpetual timers from continuously running
+	 * @example
 	 */
 	clearTimers = () => {
 		clearTimeout(this.participantUpdateTimeout);
@@ -550,6 +584,8 @@ export class ParticipantsService {
 	 * We keep track of participants internally, and emit the `presence` event to update
 	 * the active avatars in the editor.
 	 * This method will be triggered from backend to notify all participants to exchange presence
+	 * @param payload
+	 * @example
 	 */
 	onPresenceJoined = (payload: PresencePayload) => {
 		try {
@@ -567,6 +603,8 @@ export class ParticipantsService {
 	 *
 	 * This will send both a 'presence' event and a 'participant:updated' event.
 	 * This updates both the avatars and the participants list.
+	 * @param payload
+	 * @example
 	 */
 	onPresence = (payload: PresencePayload) => {
 		try {
@@ -584,6 +622,7 @@ export class ParticipantsService {
 
 	/**
 	 *
+	 * @example
 	 */
 	getParticipants = () => {
 		return this.participantsState.getParticipants();

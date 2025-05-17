@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.12.2
+
+### Patch Changes
+
+- [#152526](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152526)
+  [`418c1f18e4a6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/418c1f18e4a6e) -
+  FG cleanup for platform_ufo_set_event_failed_status_in_client and
+  platform_ufo_ignore_bm3_tti_event_status
+
 ## 3.12.1
 
 ### Patch Changes

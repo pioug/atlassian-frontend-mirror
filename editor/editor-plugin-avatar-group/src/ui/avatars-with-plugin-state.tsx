@@ -14,8 +14,8 @@ import messages from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
-	CollabEditPluginSharedState,
-	ReadOnlyParticipants,
+	type CollabEditPluginSharedState,
+	type ReadOnlyParticipants,
 } from '@atlaskit/editor-plugin-collab-edit';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

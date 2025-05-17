@@ -4,8 +4,8 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import {
-	ResolvedUserPreferences,
-	UserPreferences,
+	type ResolvedUserPreferences,
+	type UserPreferences,
 	UserPreferencesProvider,
 } from '@atlaskit/editor-common/user-preferences';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';

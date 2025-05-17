@@ -3,7 +3,7 @@
  * @jsx jsx
  * @jsxFrag
  */
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { jsx } from '@atlaskit/css';
 import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';

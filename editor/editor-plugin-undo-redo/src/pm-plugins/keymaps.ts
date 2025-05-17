@@ -7,12 +7,12 @@ import {
 	undo,
 } from '@atlaskit/editor-common/keymaps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { UndoRedoPlugin } from '../undoRedoPluginType';
+import type { UndoRedoPlugin } from '../undoRedoPluginType';
 
 import {
 	redoFromKeyboard,
@@ -21,6 +21,11 @@ import {
 	undoFromKeyboardWithAnalytics,
 } from './commands';
 
+/**
+ *
+ * @param api
+ * @example
+ */
 export function keymapPlugin(api?: ExtractInjectionAPI<UndoRedoPlugin>): SafePlugin {
 	const list = {};
 

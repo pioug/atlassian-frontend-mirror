@@ -7,7 +7,7 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { N10, N30 } from '@atlaskit/theme/colors';
-import { TransitionStatus } from './constants';
+import type { TransitionStatus } from './constants';
 
 const helpBodyContainerStyles = css({
 	flexGrow: 1,

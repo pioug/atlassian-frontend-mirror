@@ -4,7 +4,7 @@ import type { IntlShape } from 'react-intl-next';
 import { date } from '@atlaskit/adf-schema';
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
-import { getPosHandlerNode } from '@atlaskit/editor-common/types';
+import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { browser, timestampToString } from '@atlaskit/editor-common/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -21,6 +21,7 @@ let intlRef: ReturnType<typeof createIntl> | undefined;
  * with fallback UI for lazy node view rendering / window virtualization
  * @nodeSpecException:toDOM patch
  * @returns
+ * @example
  */
 export const dateNodeSpec = () => {
 	if (isSSR()) {

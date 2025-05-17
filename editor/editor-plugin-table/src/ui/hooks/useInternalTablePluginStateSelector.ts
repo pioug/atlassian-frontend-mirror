@@ -1,8 +1,8 @@
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
-import { TablePlugin } from '../../tablePluginType';
-import { TableSharedStateInternal } from '../../types';
+import type { TablePlugin } from '../../tablePluginType';
+import type { TableSharedStateInternal } from '../../types';
 
 type Options = {
 	disabled?: boolean;
@@ -18,7 +18,9 @@ type Options = {
  *
  * @param api The editor API
  * @param key Key of TableSharedStateInternal to select
+ * @param options
  * @returns
+ * @example
  */
 export const useInternalTablePluginStateSelector = <K extends keyof TableSharedStateInternal>(
 	api: ExtractInjectionAPI<TablePlugin> | undefined,

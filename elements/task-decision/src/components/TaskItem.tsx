@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo, useRef, Ref, RefObject } from 'react';
+import React, { useMemo, useRef, type Ref, type RefObject } from 'react';
 
 import { css, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points

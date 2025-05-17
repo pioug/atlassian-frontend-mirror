@@ -1,8 +1,8 @@
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { BlockControlsPlugin } from '../blockControlsPluginType';
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 export const handleMouseDown =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>) => (view: EditorView, event: MouseEvent) => {

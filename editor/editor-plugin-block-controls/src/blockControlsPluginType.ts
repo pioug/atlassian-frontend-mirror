@@ -10,7 +10,7 @@ import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibi
 import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
-import { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';

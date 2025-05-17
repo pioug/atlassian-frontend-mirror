@@ -1,5 +1,5 @@
-import { Listener, UnbindFn, bindAll } from 'bind-event-listener';
-import { IntlShape } from 'react-intl-next';
+import { type Listener, type UnbindFn, bindAll } from 'bind-event-listener';
+import { type IntlShape } from 'react-intl-next';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
@@ -10,8 +10,8 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import { openRequestEditPopupAt } from '../pm-plugins/helpers';
-import { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
-import { TaskAndDecisionsSharedState, TaskItemInfoMeta, TaskItemState } from '../types';
+import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
+import type { TaskAndDecisionsSharedState, TaskItemInfoMeta, TaskItemState } from '../types';
 
 import { taskItemToDom } from './taskItemNodeSpec';
 

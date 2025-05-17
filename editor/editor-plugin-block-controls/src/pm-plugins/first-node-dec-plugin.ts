@@ -1,7 +1,15 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	EditorState,
+	PluginKey,
+	type ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
-import { DecorationSet, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
+import {
+	DecorationSet,
+	Decoration,
+	type DecorationSource,
+} from '@atlaskit/editor-prosemirror/view';
 
 export const firstNodeDecPluginKey = new PluginKey<DecorationSet>('firstNodeDec');
 

@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import React, { CSSProperties, useCallback, useEffect, useState } from 'react';
+import React, { type CSSProperties, useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';

@@ -9,20 +9,15 @@ import { Popper } from '@atlaskit/popper';
 
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { DefaultReactions } from '../shared/constants';
-import { ReactionPicker } from './ReactionPicker';
 import { RENDER_BUTTON_TESTID } from './EmojiButton';
 import { RENDER_TRIGGER_BUTTON_TESTID, RENDER_LIST_ITEM_WRAPPER_TESTID } from './Trigger';
 import {
 	RENDER_REACTIONPICKERPANEL_TESTID,
 	PopperWrapper,
 	PopperWrapperProps,
+	ReactionPicker,
 } from './ReactionPickerNew';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
-
-jest.mock('@atlaskit/emoji/picker', () => ({
-	...jest.requireActual('@atlaskit/emoji/picker'),
-	EmojiPicker: () => <div>EmojiPicker</div>,
-}));
 
 jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),
@@ -107,13 +102,15 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		expect(selectorButtons[0]).not.toHaveFocus();
 	});
 
-	it('should render the emoji picker when hoverableReactionPicker is true and reaction trigger is clicked', async () => {
+	it('should render the hoverable selector when hoverableReactionPicker is true and reaction trigger is clicked', async () => {
 		renderWithIntl(renderPicker(() => {}, false, jest.fn(), true, true));
 		const triggerPickerButton = await screen.findByLabelText('Add reaction');
 		expect(triggerPickerButton).toBeInTheDocument();
 		user.click(triggerPickerButton);
-		const emojiPicker = await screen.findByText('EmojiPicker');
-		expect(emojiPicker).toBeInTheDocument();
+		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+		expect(selectorButtons).toBeDefined();
+		expect(selectorButtons.length).toEqual(DefaultReactions.length);
+		expect(selectorButtons[0]).not.toHaveFocus();
 	});
 
 	it('should call "onSelection" when an emoji is seleted', async () => {

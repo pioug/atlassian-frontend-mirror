@@ -1,7 +1,7 @@
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { UndoRedoPlugin } from '../undoRedoPluginType';
+import type { UndoRedoPlugin } from '../undoRedoPluginType';
 
 export const closeTypeAheadAndRunCommand =
 	(editorView: EditorView, api: ExtractInjectionAPI<UndoRedoPlugin> | undefined) =>

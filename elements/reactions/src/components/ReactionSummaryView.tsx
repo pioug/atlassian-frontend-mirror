@@ -149,6 +149,7 @@ export const ReactionSummaryView = ({
 	);
 	const [isHoveringSummaryView, setIsHoveringSummaryView] = useState<boolean>(false);
 	const [isSummaryViewButtonHovered, setIsSummaryViewButtonHovered] = useState<boolean>(false);
+	const [isSummaryViewButtonClicked, setIsSummaryViewButtonClicked] = useState<boolean>(false);
 	const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false);
 
 	/**
@@ -183,9 +184,18 @@ export const ReactionSummaryView = ({
 	);
 
 	const handlePopupClose = useCallback(() => {
-		setSummaryPopupOpen(false);
+		setSummaryPopupOpen(false, true);
 		setIsEmojiPickerOpen(false);
-	}, [setSummaryPopupOpen]);
+		setIsSummaryViewButtonClicked(false);
+		setIsSummaryViewButtonHovered(false);
+		setIsHoveringSummaryView(false);
+	}, [
+		setSummaryPopupOpen,
+		setIsEmojiPickerOpen,
+		setIsSummaryViewButtonClicked,
+		setIsSummaryViewButtonHovered,
+		setIsHoveringSummaryView,
+	]);
 
 	const openEmojiPicker = useCallback(() => {
 		// ufo start reactions picker open experience
@@ -199,16 +209,32 @@ export const ReactionSummaryView = ({
 	const handleEmojiPickerTriggerClick = useCallback(() => {
 		openEmojiPicker();
 		setSummaryPopupOpen(false, true);
+		setIsSummaryViewButtonClicked(false);
+		setIsSummaryViewButtonHovered(false);
+		setIsHoveringSummaryView(false);
 	}, [openEmojiPicker, setSummaryPopupOpen]);
 
 	const handleSummaryClick = useCallback(() => {
 		if (hoverableSummaryView) {
-			if (isEmojiPickerOpen) {
-				setIsEmojiPickerOpen(false);
+			setIsHoveringSummaryView(false);
+			setIsSummaryViewButtonHovered(false);
+			if (isSummaryViewButtonClicked) {
+				// if the button was previously clicked, close the popup and reset the state
+				setSummaryPopupOpen(false, true);
+				setIsSummaryViewButtonClicked(false);
 			} else {
-				openEmojiPicker();
+				if (isEmojiPickerOpen) {
+					// if the emoji picker is open, close the popup and reset the state
+					setSummaryPopupOpen(false, true);
+					setIsSummaryViewButtonClicked(false);
+				} else {
+					// if the button was not previously clicked, open the popup and set the state
+					setSummaryPopupOpen(true, true);
+					setIsSummaryViewButtonClicked(true);
+				}
 			}
-			setSummaryPopupOpen(false);
+			// close the emoji picker
+			setIsEmojiPickerOpen(false);
 		} else {
 			if (isSummaryPopupOpen) {
 				handlePopupClose();
@@ -219,10 +245,11 @@ export const ReactionSummaryView = ({
 	}, [
 		hoverableSummaryView,
 		isEmojiPickerOpen,
-		openEmojiPicker,
 		setSummaryPopupOpen,
 		isSummaryPopupOpen,
 		handlePopupClose,
+		isSummaryViewButtonClicked,
+		setIsSummaryViewButtonClicked,
 	]);
 
 	const handleButtonMouseEnter = useCallback(() => {
@@ -234,7 +261,7 @@ export const ReactionSummaryView = ({
 
 	const handleButtonMouseLeave = useCallback(() => {
 		setIsSummaryViewButtonHovered(false);
-		if (hoverableSummaryView && !isHoveringSummaryView) {
+		if (hoverableSummaryView && !isHoveringSummaryView && !isSummaryViewButtonClicked) {
 			setSummaryPopupOpen(false);
 		}
 	}, [
@@ -242,6 +269,7 @@ export const ReactionSummaryView = ({
 		isHoveringSummaryView,
 		setSummaryPopupOpen,
 		setIsSummaryViewButtonHovered,
+		isSummaryViewButtonClicked,
 	]);
 
 	const handleSummaryViewTrayMouseEnter = useCallback(() => {
@@ -253,7 +281,7 @@ export const ReactionSummaryView = ({
 
 	const handleSummaryViewTrayMouseLeave = useCallback(() => {
 		setIsHoveringSummaryView(false);
-		if (hoverableSummaryView && !isSummaryViewButtonHovered) {
+		if (hoverableSummaryView && !isSummaryViewButtonHovered && !isSummaryViewButtonClicked) {
 			setSummaryPopupOpen(false);
 		}
 	}, [
@@ -261,6 +289,7 @@ export const ReactionSummaryView = ({
 		isSummaryViewButtonHovered,
 		setIsHoveringSummaryView,
 		setSummaryPopupOpen,
+		isSummaryViewButtonClicked,
 	]);
 
 	return (

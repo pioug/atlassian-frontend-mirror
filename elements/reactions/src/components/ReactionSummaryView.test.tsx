@@ -38,6 +38,7 @@ describe('ReactionSummaryView', () => {
 					onReactionClick={jest.fn()}
 					onSelection={jest.fn()}
 					tooltipContent="hello"
+					reactionPickerTriggerText="Add new"
 					{...extraProps}
 				/>
 			</IntlProvider>,
@@ -144,28 +145,31 @@ describe('ReactionSummaryView', () => {
 	});
 
 	describe('hover functionality', () => {
-		it('should open the emoji picker when the summary button is clicked with hoverableSummaryView', async () => {
-			renderComponent({ hoverableSummaryView: true });
+		it('should open the emoji picker when the trigger within summary button is clicked with hoverableSummaryView', async () => {
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.click(reactionSummaryButton);
-
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+			const addNewButton = await screen.findByText('Add new');
+			await userEvent.click(addNewButton);
 			const emojiPicker = await screen.findByText('EmojiPicker');
 			expect(emojiPicker).toBeInTheDocument();
 		});
 
-		it('should close the emoji picker when the summary button is clicked for a second time', async () => {
-			renderComponent({ hoverableSummaryView: true });
+		it('should close the popup when the summary button is clicked for a second time', async () => {
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 			await userEvent.click(reactionSummaryButton);
-			const emojiPicker = await screen.findByText('EmojiPicker');
-			expect(emojiPicker).toBeInTheDocument();
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
 
 			await userEvent.click(reactionSummaryButton);
-			expect(emojiPicker).not.toBeInTheDocument();
+			expect(summaryViewPopup).not.toBeInTheDocument();
 		});
 
 		it('should open popup when hovering the summary button if hoverableSummaryView is true', async () => {
-			renderComponent({ hoverableSummaryView: true });
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 
 			await userEvent.hover(reactionSummaryButton);
@@ -173,8 +177,17 @@ describe('ReactionSummaryView', () => {
 			expect(summaryViewPopup).toBeInTheDocument();
 		});
 
+		it('should open popup when clicking the summary button if hoverableSummaryView is true', async () => {
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			await userEvent.click(reactionSummaryButton);
+			const summaryViewPopup = await screen.findByTestId(RENDER_SUMMARY_VIEW_POPUP_TESTID);
+			expect(summaryViewPopup).toBeInTheDocument();
+		});
+
 		it('should not open popup when hovering the summary button if hoverableSummaryView is false', async () => {
-			renderComponent({ hoverableSummaryView: false });
+			renderComponent({ hoverableSummaryView: false, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 
 			await userEvent.hover(reactionSummaryButton);
@@ -183,7 +196,7 @@ describe('ReactionSummaryView', () => {
 		});
 
 		it('should keep popup open when moving from button to summary view', async () => {
-			renderComponent({ hoverableSummaryView: true });
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 
 			await userEvent.hover(reactionSummaryButton);
@@ -198,7 +211,7 @@ describe('ReactionSummaryView', () => {
 		});
 
 		it('should close popup when mouse leaves both button and summary view', async () => {
-			renderComponent({ hoverableSummaryView: true });
+			renderComponent({ hoverableSummaryView: true, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 
 			await userEvent.hover(reactionSummaryButton);
@@ -212,7 +225,7 @@ describe('ReactionSummaryView', () => {
 		});
 
 		it('should keep popup open when clicking summary button if hoverableSummaryView is false', async () => {
-			renderComponent({ hoverableSummaryView: false });
+			renderComponent({ hoverableSummaryView: false, allowSelectFromSummaryView: true });
 			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 
 			await userEvent.click(reactionSummaryButton);

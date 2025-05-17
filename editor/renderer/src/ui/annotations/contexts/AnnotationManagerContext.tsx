@@ -15,9 +15,9 @@ import type {
 } from '@atlaskit/editor-common/annotation';
 import {
 	AnnotationUpdateEvent,
-	AnnotationUpdateEventPayloads,
+	type AnnotationUpdateEventPayloads,
 	AnnotationUpdateEmitter,
-	OnAnnotationClickPayload,
+	type OnAnnotationClickPayload,
 } from '@atlaskit/editor-common/types';
 
 interface AnnotationState {

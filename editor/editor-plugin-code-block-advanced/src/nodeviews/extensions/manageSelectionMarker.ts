@@ -1,15 +1,16 @@
-import { Extension } from '@codemirror/state';
+import { type Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { CodeBlockAdvancedPlugin } from '../../codeBlockAdvancedPluginType';
+import type { CodeBlockAdvancedPlugin } from '../../codeBlockAdvancedPluginType';
 
 /**
  * Hides selection marker decoration when focused on codemirror editor and re-enables on blur
  *
  * @param api
  * @returns CodeMirror Extension
+ * @example
  */
 export const manageSelectionMarker = (
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined,

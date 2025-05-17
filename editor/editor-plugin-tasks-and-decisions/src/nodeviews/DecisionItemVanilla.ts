@@ -1,7 +1,7 @@
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { DOMSerializer, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { type NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import { decisionItemToDOM } from './decisionItemNodeSpec';
 

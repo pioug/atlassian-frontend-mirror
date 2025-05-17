@@ -8,7 +8,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
-import { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';

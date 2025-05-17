@@ -12,7 +12,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { setInlineCommentDraftState, createAnnotation } from '../editor-commands';
 import { AnnotationSelectionType } from '../types';
 
-import { InlineCommentPluginOptions } from './types';
+import type { InlineCommentPluginOptions } from './types';
 import { inlineCommentPluginKey, isSelectionValid } from './utils';
 
 const ERROR_REASON_DRAFT_NOT_STARTED = 'draft-not-started';

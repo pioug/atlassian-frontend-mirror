@@ -5,11 +5,11 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { TypeAheadPlugin } from '../typeAheadPluginType';
-import { TypeAheadInputMethod } from '../types';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
+import type { TypeAheadInputMethod } from '../types';
 
 export type CloseActionType = ACTION.INSERTED | ACTION.CANCELLED | ACTION.VIEW_MORE;
 export type InputMethodType = INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE;

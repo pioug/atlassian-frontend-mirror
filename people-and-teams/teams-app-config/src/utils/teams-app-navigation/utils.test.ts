@@ -249,8 +249,7 @@ describe('teams app navigation utils', () => {
 				const result = isTeamsAppEnabled(config);
 				expect(result).toBe(false);
 			});
-		}
-		);
+		});
 		ffTest.on('should-redirect-directory-to-teams-app', 'with Teams app redirect fg', () => {
 			it('should return true when the feature flag is on & nav4 is enabled', () => {
 				const config = {

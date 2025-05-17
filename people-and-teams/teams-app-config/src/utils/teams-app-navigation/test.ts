@@ -27,9 +27,7 @@ const baseConfig: NavigationActionCommon = {
 	userHasNav4Enabled: true,
 };
 
-
 describe('teams app navigation', () => {
-
 	describe('without Teams app redirect', () => {
 		beforeAll(() => {
 			(isTeamsAppEnabled as jest.Mock).mockReturnValue(false);

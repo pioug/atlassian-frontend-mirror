@@ -1,5 +1,13 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.7.3
+
+### Patch Changes
+
+- [#155897](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155897)
+  [`b2d56c87853af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2d56c87853af) -
+  Added LICENSE file
+
 ## 0.7.2
 
 ### Patch Changes

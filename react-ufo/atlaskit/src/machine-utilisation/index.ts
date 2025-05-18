@@ -21,41 +21,45 @@ export function removeOldBufferRecords(filter: DOMHighResTimeStamp) {
 }
 
 export function createPressureStateReport(start: DOMHighResTimeStamp, end: DOMHighResTimeStamp) {
-	// To differentiate between the API not available, vs no PressureRecords added
-	if (!('PressureObserver' in globalThis)) {
+	try {
+		// To differentiate between the API not available, vs no PressureRecords added
+		if (!('PressureObserver' in globalThis)) {
+			return null;
+		}
+
+		const pressureStateCount = pressureRecordBuffer.reduce(
+			(pressureReport, { time, state }) => {
+				if (time >= start && time <= end) {
+					pressureReport[state] += 1;
+				}
+
+				return pressureReport;
+			},
+			{
+				nominal: 0,
+				fair: 0,
+				serious: 0,
+				critical: 0,
+			},
+		);
+
+		const pressureStateTotal =
+			Object.values(pressureStateCount).reduce((total, count) => total + count) || 1;
+
+		removeOldBufferRecords(end);
+
+		return {
+			count: pressureStateCount,
+			percentage: {
+				nominal: Math.round((pressureStateCount.nominal / pressureStateTotal) * 100),
+				fair: Math.round((pressureStateCount.fair / pressureStateTotal) * 100),
+				serious: Math.round((pressureStateCount.serious / pressureStateTotal) * 100),
+				critical: Math.round((pressureStateCount.critical / pressureStateTotal) * 100),
+			},
+		};
+	} catch {
 		return null;
 	}
-
-	const pressureStateCount = pressureRecordBuffer.reduce(
-		(pressureReport, { time, state }) => {
-			if (time >= start && time <= end) {
-				pressureReport[state] += 1;
-			}
-
-			return pressureReport;
-		},
-		{
-			nominal: 0,
-			fair: 0,
-			serious: 0,
-			critical: 0,
-		},
-	);
-
-	const pressureStateTotal =
-		Object.values(pressureStateCount).reduce((total, count) => total + count) || 1;
-
-	removeOldBufferRecords(end);
-
-	return {
-		count: pressureStateCount,
-		percentage: {
-			nominal: Math.round((pressureStateCount.nominal / pressureStateTotal) * 100),
-			fair: Math.round((pressureStateCount.fair / pressureStateTotal) * 100),
-			serious: Math.round((pressureStateCount.serious / pressureStateTotal) * 100),
-			critical: Math.round((pressureStateCount.critical / pressureStateTotal) * 100),
-		},
-	};
 }
 
 export function initialisePressureObserver() {
@@ -67,7 +71,7 @@ export function initialisePressureObserver() {
 				}
 			});
 
-			pressureObserver.observe('cpu', { sampleInterval: 100 });
+			pressureObserver.observe('cpu', { sampleInterval: 100 })?.catch();
 		}
 	} catch (err) {
 		/* do nothing, this is a best efforts metric */

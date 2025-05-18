@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/temp-nav-app-icons",
-	"version": "0.7.2",
+	"version": "0.7.3",
 	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

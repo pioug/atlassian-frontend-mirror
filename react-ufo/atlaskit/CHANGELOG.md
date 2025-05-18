@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.12.3
+
+### Patch Changes
+
+- [#155959](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155959)
+  [`eeaa8485061ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eeaa8485061ce) -
+  Add further error handling to CPU monitoring logic
+
 ## 3.12.2
 
 ### Patch Changes

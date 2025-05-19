@@ -150,6 +150,12 @@ export const overviewMessages = defineMessages({
 		description:
 			'Examples of what constitutes as created content. Appears when the user hovers over the info icon',
 	},
+	inlineDialogContentCreatedAdminissuetermrefresh: {
+		id: 'focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin',
+		defaultMessage: "For example, pages, work items, and comments they've created in products.",
+		description:
+			'Examples of what constitutes as created content. Appears when the user hovers over the info icon',
+	},
 	inlineDialogContentCreatedSelf: {
 		id: 'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self',
 		defaultMessage: "For example, pages, issues, and comments you've created in products.",

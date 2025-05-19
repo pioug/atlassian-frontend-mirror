@@ -19,7 +19,7 @@ import { JiraLogo, JiraIcon } from '@atlaskit/temp-nav-app-icons/jira';
 
 ### Appearance
 
-`appearance` controls the color of a given app icon. By deafult, it is set to `brand`; the
+`appearance` controls the color of a given app icon. By default, it is set to `brand`; the
 `"legacy"` appearance change the tile background to the Atlassian blue.
 
 ### Size
@@ -34,3 +34,11 @@ Icon components support three sizes:
 
 If other sizes are required, please wait for future updates to `@atlaskit/logo`, or reach out to
 Design System Team.
+
+### Encoded Icons
+
+The `encoded-icons.tsx` file contains a list of all the app icons in the package, encoded as base64
+data URLs. This is useful for situations where you need to set the favicon.
+
+Some code-generation logic may be required to use these strings in the templated files returned from
+your back-end service, or HTML templates.

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	type LastInteractionFinishInfo,
 	type PostInteractionLogOutput,
@@ -10,7 +8,6 @@ import { getConfig } from '../config';
 import type { LabelStack } from '../interaction-context';
 import { VCObserverWrapper } from '../vc';
 import type { VCObserverInterface, VCObserverOptions } from '../vc/types';
-import { VCObserver } from '../vc/vc-observer';
 
 const POST_INTERACTION_LOG_SEND_DEFAULT_TIMEOUT = 3000;
 
@@ -42,11 +39,7 @@ export default class PostInteractionLog {
 	lastInteractionFinishVCResult?: VCResult;
 
 	initializeVCObserver(options: VCObserverOptions) {
-		if (fg('platform_ufo_vc_align_revisions_on_watchdog_event')) {
-			this.vcObserver = new VCObserverWrapper({ ...options, isPostInteraction: true });
-		} else if (this.vcObserver === null) {
-			this.vcObserver = new VCObserver({ ...options, isPostInteraction: true });
-		}
+		this.vcObserver = new VCObserverWrapper({ ...options, isPostInteraction: true });
 	}
 
 	startVCObserver({ startTime }: { startTime: number }) {

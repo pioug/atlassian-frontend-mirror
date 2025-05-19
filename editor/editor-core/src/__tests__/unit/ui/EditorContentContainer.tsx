@@ -56,7 +56,7 @@ describe('Editor Content styles', () => {
 
 			const results = screen.getByTestId('editor-content-container');
 			expect(results).toBeInTheDocument();
-			expect(results).toMatchSnapshot();
+			expect(results).toMatchSnapshot('new styles');
 		});
 
 		// legacy editor content styles

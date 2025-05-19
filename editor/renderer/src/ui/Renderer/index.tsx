@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import React, {
+	ComponentProps,
 	Fragment,
 	useCallback,
 	useContext,
@@ -583,7 +584,7 @@ export const RendererFunctionalComponent = (
 const RendererFunctionalComponentMemoized = React.memo(RendererFunctionalComponent);
 
 const RendererFunctionalComponentWithPortalContext = (
-	props: RendererProps & { startPos?: number; skipValidation?: boolean },
+	props: ComponentProps<typeof RendererFunctionalComponent>,
 ) => {
 	const { portal, ...propsWithoutPortal } = props;
 

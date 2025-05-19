@@ -14,7 +14,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
-import { useSharedPluginState } from '../../../hooks';
+import { sharedPluginStateHookMigratorFactory, useSharedPluginState } from '../../../hooks';
+import { useSharedPluginStateSelector } from '../../../hooks/useSharedPluginStateSelector/useSharedPluginStateSelector';
 import type { ProsemirrorGetPosHandler } from '../../../react-node-view';
 import type { EditorAppearance, EditorContainerWidth } from '../../../types';
 import { overflowShadow } from '../../../ui';
@@ -57,14 +58,14 @@ export interface Props {
 	isLivePageViewMode?: boolean;
 }
 
-type WidthStateProps = { widthState?: EditorContainerWidth };
+type WidthStateProps = { widthState: EditorContainerWidth };
 interface ExtensionWithPluginStateProps extends Props, OverflowShadowProps, WidthStateProps {}
 function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	const {
 		node,
 		handleContentDOMRef,
 		children,
-		widthState = { width: 0 },
+		widthState,
 		handleRef,
 		shadowClassNames,
 		hideFrame,
@@ -281,9 +282,30 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 	);
 }
 
+const useExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
+	{ widthState: { width: number; lineLength?: number } },
+	ExtensionsPluginInjectionAPI
+>(
+	(pluginInjectionApi) => {
+		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+		return { widthState: { width: widthState?.width ?? 0, lineLength: widthState?.lineLength } };
+	},
+	(pluginInjectionApi) => {
+		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
+		const lineLength = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength');
+
+		return {
+			widthState: {
+				width: width ?? 0,
+				lineLength,
+			},
+		};
+	},
+);
+
 const Extension = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
-	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+	const { widthState } = useExtensionSharedPluginState(pluginInjectionApi);
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line react/jsx-props-no-spreading

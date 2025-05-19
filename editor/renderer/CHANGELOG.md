@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 118.1.0
+
+### Minor Changes
+
+- [#154702](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154702)
+  [`a44461b56d840`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a44461b56d840) -
+  Prop type update for clarity and maintainability
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 118.0.0
 
 ### Major Changes

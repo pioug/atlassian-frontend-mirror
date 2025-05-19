@@ -122,6 +122,7 @@ export type CardPluginOptions = CardOptions & {
 	disableFloatingToolbar?: boolean;
 	onClickCallback?: OnClickCallback;
 	isPageSSRed?: boolean;
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string }>;
 };
 
 // actions

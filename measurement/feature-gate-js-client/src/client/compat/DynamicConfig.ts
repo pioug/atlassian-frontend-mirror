@@ -1,6 +1,6 @@
 import type { Experiment } from '@statsig/js-client';
 
-import { migrateEvaluationDetails } from '../utils';
+import { migrateEvaluationDetails, migrateSecondaryExposures } from '../utils';
 
 import type { EvaluationDetails } from './types';
 
@@ -19,7 +19,7 @@ export class DynamicConfig {
 			experiment.value,
 			experiment.ruleID,
 			migrateEvaluationDetails(experiment.details),
-			experiment.__evaluation?.secondary_exposures,
+			migrateSecondaryExposures(experiment.__evaluation?.secondary_exposures ?? []),
 			experiment.groupName ?? undefined,
 		);
 		config.experiment = experiment;
@@ -30,6 +30,7 @@ export class DynamicConfig {
 
 	readonly _name: string;
 	readonly _ruleID: string;
+	/** @deprecated - do not use, this is still exported for backwards compatibility but will be removed in the next major version  */
 	readonly _secondaryExposures: Record<string, string>[];
 	readonly _allocatedExperimentName: string;
 	readonly _evaluationDetails: EvaluationDetails;

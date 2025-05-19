@@ -80,6 +80,7 @@ export const createPlugin =
 			// @ts-ignore Temporary solution to check for Live Page editor.
 			__livePage,
 			isPageSSRed,
+			CompetitorPrompt,
 		} = options;
 
 		const enableInlineUpgradeFeatures = !!showUpgradeDiscoverability;
@@ -97,6 +98,7 @@ export const createPlugin =
 				onClickCallback,
 				__livePage,
 				isPageSSRed,
+				CompetitorPrompt,
 			},
 			...(__livePage &&
 				fg('linking_platform_smart_links_in_live_pages') && {

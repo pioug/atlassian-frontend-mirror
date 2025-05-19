@@ -107,7 +107,7 @@ type ComponentProps = EditorAppearanceComponentProps<
 >;
 
 const EditorContainer = componentWithCondition(
-	() => editorExperiment('platform_editor_core_static_emotion', true),
+	() => editorExperiment('platform_editor_core_static_emotion', true, { exposure: true }),
 	EditorContentContainer,
 	ContentArea,
 );

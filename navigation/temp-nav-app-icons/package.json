@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/temp-nav-app-icons",
-	"version": "0.7.3",
+	"version": "0.7.4",
 	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -23,16 +23,18 @@
 		"*.compiled.css"
 	],
 	"atlassian": {
-		"team": "ADS: nav4",
+		"team": "Design System Team",
 		"runReact18": true,
 		"website": {
 			"name": "Legacy logos",
+			"category": "Navigation",
 			"deprecated": "Please use @atlaskit/logo instead."
 		}
 	},
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
 		"./types": "./src/entry-points/types.tsx",
+		"./raw-icons": "./src/raw-icons/index.tsx",
 		"./admin": "./src/entry-points/admin.tsx",
 		"./align": "./src/entry-points/align.tsx",
 		"./analytics": "./src/entry-points/analytics.tsx",
@@ -67,6 +69,7 @@
 	},
 	"exports": {
 		"./types": "./src/entry-points/types.tsx",
+		"./raw-icons": "./src/raw-icons/index.tsx",
 		"./admin": "./src/entry-points/admin.tsx",
 		"./align": "./src/entry-points/align.tsx",
 		"./analytics": "./src/entry-points/analytics.tsx",

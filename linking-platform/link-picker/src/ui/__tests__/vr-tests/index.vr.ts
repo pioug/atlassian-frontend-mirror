@@ -5,7 +5,9 @@ import {
 	CustomEmptyStateWithAdaptiveHeightExample,
 	DefaultExample,
 	DisableWidth300Example,
+	DisableWidth300ExampleWithPlugins,
 	DisableWidth500Example,
+	DisableWidth500ExampleWithPlugins,
 	DisableWidthExample,
 	DisableWidthWithPluginsExample,
 	ErrorBoundaryExample,
@@ -183,6 +185,18 @@ snapshot(DisableWidth500Example, {
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
+snapshot(DisableWidth500ExampleWithPlugins, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+	},
+});
+snapshot(DisableWidth500ExampleWithPlugins, {
+	description:
+		'DisableWidth500ExampleWithPlugins - OLD remove when cleaning platform-linking-visual-refresh-v1',
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': false,
+	},
+});
 snapshot(DisableWidth300Example, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': true,
@@ -191,6 +205,18 @@ snapshot(DisableWidth300Example, {
 snapshot(DisableWidth300Example, {
 	description:
 		'DisableWidth300Example - OLD remove when cleaning platform-linking-visual-refresh-v1',
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': false,
+	},
+});
+snapshot(DisableWidth300ExampleWithPlugins, {
+	featureFlags: {
+		'platform-linking-visual-refresh-v1': true,
+	},
+});
+snapshot(DisableWidth300ExampleWithPlugins, {
+	description:
+		'DisableWidth300ExampleWithPlugins - OLD remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': false,
 	},

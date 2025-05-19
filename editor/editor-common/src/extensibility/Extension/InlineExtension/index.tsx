@@ -11,7 +11,8 @@ import classnames from 'classnames';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 
-import { useSharedPluginState } from '../../../hooks';
+import { sharedPluginStateHookMigratorFactory, useSharedPluginState } from '../../../hooks';
+import { useSharedPluginStateSelector } from '../../../hooks/useSharedPluginStateSelector/useSharedPluginStateSelector';
 import { createWidthContext, WidthContext } from '../../../ui';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import ExtensionLozenge from '../Lozenge';
@@ -30,6 +31,23 @@ export interface Props {
 	isLivePageViewMode?: boolean;
 }
 
+const useInlineExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
+	{ widthState: { width?: number } },
+	ExtensionsPluginInjectionAPI
+>(
+	(pluginInjectionApi) => {
+		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+		return { widthState: { width: widthState?.width } };
+	},
+	(pluginInjectionApi) => {
+		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
+
+		return {
+			widthState: { width },
+		};
+	},
+);
+
 const InlineExtension = (props: Props) => {
 	const {
 		node,
@@ -43,7 +61,7 @@ const InlineExtension = (props: Props) => {
 	} = props;
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 
-	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+	const { widthState } = useInlineExtensionSharedPluginState(pluginInjectionApi);
 
 	const hasChildren = !!children;
 
@@ -54,7 +72,7 @@ const InlineExtension = (props: Props) => {
 		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
 	});
 
-	const rendererContainerWidth = widthState
+	const rendererContainerWidth = widthState.width
 		? widthState.width - akEditorGutterPaddingDynamic() * 2
 		: 0;
 

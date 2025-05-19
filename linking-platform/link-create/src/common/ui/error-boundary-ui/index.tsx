@@ -25,6 +25,7 @@ export const ErrorBoundaryUI = () => {
 			maxImageWidth={82}
 			testId={'link-create-error-boundary-ui'}
 			header={intl.formatMessage(commonMessages.genericErrorMessage)}
+			headingLevel={2}
 			description={
 				<FormattedMessage
 					{...messages.description}

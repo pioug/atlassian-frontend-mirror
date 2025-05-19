@@ -152,14 +152,13 @@ function createPostInteractionLogPayload({
 
 	// Align post-interaction-logs closer to UFO event behaviour,
 	// e.g. also check for aborted or failed events
-	if (fg('platform_ufo_vc_align_revisions_on_watchdog_event')) {
-		if (lastInteractionFinish.abortReason) {
-			return null;
-		}
 
-		if (lastInteractionFinish.errors.length > 0) {
-			return null;
-		}
+	if (lastInteractionFinish.abortReason) {
+		return null;
+	}
+
+	if (lastInteractionFinish.errors.length > 0) {
+		return null;
 	}
 
 	const maxEndTimeFromProfiler = reactProfilerTimings

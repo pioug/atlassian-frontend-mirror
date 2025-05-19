@@ -98,7 +98,7 @@ const ScrollContainer = createEditorContentStyle(scrollStyles);
 ScrollContainer.displayName = 'ScrollContainer';
 
 const EditorContainer = componentWithCondition(
-	() => editorExperiment('platform_editor_core_static_emotion', true),
+	() => editorExperiment('platform_editor_core_static_emotion', true, { exposure: true }),
 	EditorContentContainer,
 	ScrollContainer,
 );

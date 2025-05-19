@@ -548,7 +548,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	!fg('platform-visual-refresh-icons') &&
 	vanillaDecisionIconWithoutVisualRefresh}
   ${statusStyles}
-  ${editorExperiment('platform_editor_vanilla_dom', true) ? vanillaStatusStyles : null}
+  ${editorExperiment('platform_editor_vanilla_dom', true) ? vanillaStatusStyles() : null}
   ${annotationSharedStyles()}
   ${smartCardStyles()}
   ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
@@ -632,6 +632,14 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 
 type Props = ContentStylesProps & React.HTMLProps<HTMLDivElement>;
 
+const listLayoutShiftFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror ul, .ProseMirror ol': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '10px',
+	},
+});
+
 export const createEditorContentStyle = (styles?: SerializedStyles) => {
 	return React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 		const { className, children, featureFlags } = props;
@@ -669,7 +677,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				ref={ref}
-				css={[memoizedStyle, styles]}
+				css={[memoizedStyle, styles, fg('platform_editor_ssr_fix_lists') && listLayoutShiftFix]}
 				data-testid="editor-content-container"
 			>
 				{children}

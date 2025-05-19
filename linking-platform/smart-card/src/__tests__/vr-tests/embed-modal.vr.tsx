@@ -9,6 +9,7 @@ snapshot(EmbedModal, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-linking-fix-a11y-in-smart-card': true,
 	},
 });
 
@@ -17,6 +18,7 @@ snapshot(EmbedModalWithFlexibleUiIcon, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-linking-fix-a11y-in-smart-card': true,
 	},
 });
 
@@ -25,5 +27,6 @@ snapshot(EmbedModalConfluence, {
 	featureFlags: {
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-smart-card-remove-legacy-button': [true, false],
+		'platform-linking-fix-a11y-in-smart-card': true,
 	},
 });

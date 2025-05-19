@@ -95,6 +95,15 @@ export const DisableWidth500Example = () => {
 			<Heading size="xlarge">Width: 500</Heading>
 			<Heading size="large">Without plugins</Heading>
 			<DisableWidthExample />
+		</div>
+	);
+};
+
+export const DisableWidth500ExampleWithPlugins = () => {
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ width: 500 }}>
+			<Heading size="xlarge">Width: 500</Heading>
 			<Heading size="large">With plugins</Heading>
 			<DisableWidthWithPluginsExample />
 		</div>
@@ -108,6 +117,15 @@ export const DisableWidth300Example = () => {
 			<Heading size="xlarge">Width: 300</Heading>
 			<Heading size="large">Without plugins</Heading>
 			<DisableWidthExample />
+		</div>
+	);
+};
+
+export const DisableWidth300ExampleWithPlugins = () => {
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ width: 300 }}>
+			<Heading size="xlarge">Width: 300</Heading>
 			<Heading size="large">With plugins</Heading>
 			<DisableWidthWithPluginsExample />
 		</div>

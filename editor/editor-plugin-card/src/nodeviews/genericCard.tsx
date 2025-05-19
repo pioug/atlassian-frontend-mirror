@@ -65,6 +65,7 @@ export interface SmartCardProps extends CardProps {
 	allowBlockCards?: boolean;
 	enableInlineUpgradeFeatures?: boolean;
 	isPageSSRed?: boolean;
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string }>;
 }
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
@@ -143,6 +144,12 @@ const WithClickHandler = ({
 	);
 };
 
+/**
+ *
+ * @param SmartCardComponent
+ * @param UnsupportedComponent
+ * @example
+ */
 export function Card(
 	SmartCardComponent: React.ComponentType<
 		React.PropsWithChildren<SmartCardProps & { id?: string }>

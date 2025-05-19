@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 11.0.14
+
+### Patch Changes
+
+- [#155339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155339)
+  [`4e0fe53072701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e0fe53072701) -
+  Clean up verified-team-in-user-picker
+
 ## 11.0.13
 
 ### Patch Changes

@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 105.5.0
+
+### Minor Changes
+
+- [#151988](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151988)
+  [`40cc12e3c4d9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40cc12e3c4d9a) -
+  [ux] Add optional CompetitorPrompt component for experiment
+
+### Patch Changes
+
+- [#155743](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155743)
+  [`88ca860d48692`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88ca860d48692) -
+  fix list layout shift on ssr
+- Updated dependencies
+
+## 105.4.0
+
+### Minor Changes
+
+- [#155913](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155913)
+  [`5ec1fdc17a7ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ec1fdc17a7ae) -
+  refactor: migrate to useSharedPluginStateSelector in editor-common
+
 ## 105.3.0
 
 ### Minor Changes

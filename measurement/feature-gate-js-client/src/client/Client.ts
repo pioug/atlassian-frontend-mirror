@@ -1,6 +1,7 @@
 import {
 	_makeExperiment,
 	_makeLayer,
+	StableID,
 	StatsigClient,
 	type StatsigOptions,
 	type StatsigUser,
@@ -54,7 +55,6 @@ export class Client {
 	private initOptions?: OptionsWithDefaults<
 		BaseClientOptions | ClientOptions | FromValuesClientOptions
 	>;
-	private sdkKey?: string;
 	private initPromise: Promise<void> | null = null;
 	/** True if an initialize method was called and completed successfully. */
 	private initCompleted = false;
@@ -959,8 +959,7 @@ export class Client {
 			...restClientOptions
 		} = newClientOptions;
 
-		this.sdkKey = sdkKey;
-		this.user = toStatsigUser(identifiers, customAttributes, this.sdkKey);
+		this.user = toStatsigUser(identifiers, customAttributes);
 
 		const statsigOptions: StatsigOptions = {
 			...restClientOptions,
@@ -971,6 +970,14 @@ export class Client {
 			dataAdapter: this.dataAdapter,
 			overrideAdapter: this.overrideAdapter,
 		};
+
+		// Statsig validates the provided stableId against their own cookie, so we either need
+		// to update the cookie to match, or disable the validation completely.
+		if (identifiers.stableId) {
+			StableID.setOverride(identifiers.stableId, sdkKey);
+		} else {
+			statsigOptions.disableStableID = true;
+		}
 
 		try {
 			this.statsigClient = new StatsigClient(sdkKey, this.user, statsigOptions);
@@ -1073,7 +1080,7 @@ export class Client {
 		let initializeValues, user;
 		try {
 			initializeValues = await initializeValuesPromise;
-			user = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch, this.sdkKey);
+			user = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch);
 		} catch (err) {
 			// Make sure the updateUserCompletionCallback is called for any errors in our custom code.
 			// This is not necessary for the updateUserWithValues call, because the Statsig client will

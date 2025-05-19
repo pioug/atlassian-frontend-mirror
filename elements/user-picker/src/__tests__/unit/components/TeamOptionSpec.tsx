@@ -5,11 +5,9 @@ import { render, screen } from '@testing-library/react';
 import React, { type ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { AvatarItemOption, textWrapper } from '../../../components/AvatarItemOption';
-import { HighlightText } from '../../../components/HighlightText';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { TeamOption, type TeamOptionProps } from '../../../components/TeamOption/main';
 import { type Team } from '../../../types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../components/AvatarItemOption', () => ({
 	...(jest.requireActual('../../../components/AvatarItemOption') as any),
@@ -45,21 +43,8 @@ describe('Team Option', () => {
 	};
 
 	it('should not render byline if member count is undefined', () => {
-		const component = shallowOption({ isSelected: true }, buildTeam({ includesYou: true }));
-		const avatarOptionProps = component.find(AvatarItemOption);
-		expect(mockTextWrapper).toHaveBeenCalledWith(token('color.text.selected', colors.B400));
-
-		const primaryText = avatarOptionProps.props().primaryText as ReactElement[];
-
-		expect(avatarOptionProps.props().avatar).toEqual(
-			<SizeableAvatar
-				appearance="big"
-				src="https://avatars.atlassian.com/team-1.png"
-				type="team"
-			/>,
-		);
-		expect(primaryText[0].key).toEqual('name');
-		expect(primaryText[0].props.children).toEqual(<HighlightText>Team-1</HighlightText>);
+		render(<TeamOption team={buildTeam({ includesYou: true })} isSelected={true} />);
+		expect(screen.queryByTestId('user-picker-team-secondary-text')).not.toBeInTheDocument();
 	});
 
 	it('should render correct byline if includesYou is undefined and memberCount <= 50', () => {
@@ -224,22 +209,13 @@ describe('Team Option', () => {
 		expect(secondaryText.props.children).toEqual(customByline);
 	});
 
-	ffTest.off('verified-team-in-user-picker', 'with verified team in user picker flag off', () => {
-		it('should not render the verified team icon if the team is verified', () => {
-			render(<TeamOption team={buildTeam({ verified: true })} isSelected={false} />);
-			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
-		});
+	it('should render the verified team icon if the team is verified', () => {
+		render(<TeamOption team={buildTeam({ verified: true })} isSelected={false} />);
+		expect(screen.getByText('VerifiedTeamIcon')).toBeInTheDocument();
 	});
 
-	ffTest.on('verified-team-in-user-picker', 'with verified team in user picker flag on', () => {
-		it('should render the verified team icon if the team is verified', () => {
-			render(<TeamOption team={buildTeam({ verified: true })} isSelected={false} />);
-			expect(screen.getByText('VerifiedTeamIcon')).toBeInTheDocument();
-		});
-
-		it('should not render the verified team icon if the team is not verified', () => {
-			render(<TeamOption team={buildTeam({ verified: false })} isSelected={false} />);
-			expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
-		});
+	it('should not render the verified team icon if the team is not verified', () => {
+		render(<TeamOption team={buildTeam({ verified: false })} isSelected={false} />);
+		expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
 	});
 });

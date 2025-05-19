@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 38.1.2
+
+### Patch Changes
+
+- [#155167](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155167)
+  [`8ccab6d9c7f91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ccab6d9c7f91) -
+  [ux] EDM-12327 fixing all a11y violations for links and titles in smart-card
+
 ## 38.1.1
 
 ### Patch Changes

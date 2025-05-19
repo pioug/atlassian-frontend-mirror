@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 4.0.13
+
+### Patch Changes
+
+- [#155005](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155005)
+  [`bb18fc47c1bac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb18fc47c1bac) -
+  EDM-12330 adding heading level declaration to empty state to fix a11y error
+
 ## 4.0.12
 
 ### Patch Changes

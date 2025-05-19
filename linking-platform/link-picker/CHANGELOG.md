@@ -1,5 +1,18 @@
 # @atlaskit/link-picker
 
+## 3.3.0
+
+### Minor Changes
+
+- [#152919](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152919)
+  [`c64fbd4c5d651`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c64fbd4c5d651) -
+  [ux] New prop previewableLinksOnly for link picker that prevents link picker from submitting a URL
+  that does not have a preview available and gives an error message
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.4
 
 ### Patch Changes

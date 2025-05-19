@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 6.1.0
+
+### Minor Changes
+
+- [#151988](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151988)
+  [`40cc12e3c4d9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40cc12e3c4d9a) -
+  [ux] Add optional CompetitorPrompt component for experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

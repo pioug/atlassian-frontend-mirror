@@ -25,6 +25,7 @@ export type Identifiers = {
 	msTeamsTenantId?: string;
 	productIntegrationsVendorId?: string;
 	randomizationId?: string;
+	stableId?: string;
 	tenantId?: string;
 	transactionAccountId?: string;
 	trelloUserId?: string;

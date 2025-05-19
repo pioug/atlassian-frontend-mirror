@@ -71,7 +71,7 @@ export const InlineCardIcons = (props: { CardComponent?: typeof Card | typeof Ca
 	<>
 		{iconGroups.map(([title, icons], index) => (
 			<Box key={index} xcss={style}>
-				<h3>{title}</h3>
+				<h5>{title}</h5>
 				<Flex wrap="wrap">
 					{icons.map((icon, index2) => (
 						<Box key={index2} xcss={style}>

@@ -6,10 +6,7 @@ import { expect, test, viewports } from './fixtures';
 test.describe('UFO Blindspot Watchdog', () => {
 	test.use({
 		examplePage: 'basic-with-blindspot', // 10 sections, but last section is missing a UFO Hold
-		featureFlags: [
-			'platform_ufo_post_interaction_use_vc_rev',
-			'platform_ufo_vc_align_revisions_on_watchdog_event',
-		],
+		featureFlags: ['platform_ufo_post_interaction_use_vc_rev'],
 	});
 
 	for (const viewport of viewports) {

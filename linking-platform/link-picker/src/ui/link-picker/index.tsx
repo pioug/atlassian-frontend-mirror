@@ -21,10 +21,12 @@ import uuid from 'uuid';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import { HelperMessage } from '@atlaskit/form';
+import { CardClient } from '@atlaskit/link-provider';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
+import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -108,6 +110,7 @@ const initState: PickerState = {
 	invalidUrl: false,
 	activeTab: 0,
 	preventHidingRecents: false,
+	hasPreview: true,
 };
 
 function reducer(state: PickerState, payload: Partial<PickerState>): PickerState {
@@ -115,6 +118,7 @@ function reducer(state: PickerState, payload: Partial<PickerState>): PickerState
 		return {
 			...state,
 			invalidUrl: false,
+			hasPreview: true,
 			selectedIndex: isSafeUrl(payload.url) && payload.url.length ? -1 : state.selectedIndex,
 			...payload,
 		};
@@ -140,6 +144,8 @@ const LinkInputField = withInputFieldTracking(TextInput, 'link', (event, attribu
 
 const DisplayTextInputField = withInputFieldTracking(TextInput, 'displayText');
 
+const client = new CardClient();
+
 export const LinkPicker = withLinkPickerAnalyticsContext(
 	memo(
 		({
@@ -157,6 +163,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			adaptiveHeight = false,
 			moveSubmitButton = false,
 			inputRef,
+			previewableLinksOnly = false,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -166,7 +173,8 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				displayText: initDisplayText || '',
 			});
 
-			const { activeIndex, selectedIndex, url, displayText, invalidUrl, activeTab } = state;
+			const { activeIndex, selectedIndex, url, displayText, invalidUrl, activeTab, hasPreview } =
+				state;
 
 			const intl = useIntl();
 			const queryState = useSearchQuery(state);
@@ -185,6 +193,8 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			const isEditing = !!initUrl;
 			const selectedItem: LinkSearchListItemData | undefined = items?.[selectedIndex];
 			const isSelectedItem = selectedItem?.url === url;
+			const previewableOnly =
+				fg('platform-linking-link-picker-previewable-only') && previewableLinksOnly;
 
 			const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
 
@@ -229,6 +239,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						activeIndex: -1,
 						selectedIndex: -1,
 						[field]: '',
+						hasPreview: true,
 					});
 				},
 				[dispatch],
@@ -306,27 +317,44 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			);
 
 			const handleSubmit = useCallback(
-				(event?: FormEvent<HTMLFormElement>): void => {
+				async (event?: FormEvent<HTMLFormElement>): Promise<void> => {
 					event?.preventDefault();
 					if (isSubmitting) {
 						// Prevent submit while submitting
 						return;
 					}
-
 					if (isSelectedItem && selectedItem) {
 						return handleInsert(selectedItem.url, selectedItem.name, 'typeAhead');
 					}
 
 					const normalized = normalizeUrl(url);
 					if (normalized) {
-						return handleInsert(normalized, null, 'manual');
+						if (previewableOnly) {
+							try {
+								const urlResponse = await client.fetchData(normalized);
+								const responseObject = urlResponse?.data;
+								if (responseObject && 'preview' in responseObject) {
+									return handleInsert(normalized, null, 'manual');
+								} else {
+									return dispatch({
+										invalidUrl: true,
+										hasPreview: false,
+									});
+								}
+							} catch (error) {
+								return dispatch({
+									invalidUrl: true,
+								});
+							}
+						} else {
+							return handleInsert(normalized, null, 'manual');
+						}
 					}
-
 					return dispatch({
 						invalidUrl: true,
 					});
 				},
-				[dispatch, handleInsert, isSelectedItem, selectedItem, url, isSubmitting],
+				[dispatch, handleInsert, isSelectedItem, selectedItem, url, isSubmitting, previewableOnly],
 			);
 
 			const handleTabChange = useCallback(
@@ -340,6 +368,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						// We don't want recents to be hidden, even though we don't have a selection
 						preventHidingRecents: true,
 						invalidUrl: false,
+						hasPreview: true,
 						activeTab,
 					});
 					trackAttribute('tab', plugins?.[activeTab]?.tabKey ?? null);
@@ -367,6 +396,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 							selectedIndex: index,
 							url: item.url,
 							invalidUrl: false,
+							hasPreview: true,
 						});
 					}
 				}
@@ -405,6 +435,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 							selectedIndex: updatedIndex,
 							url: item.url,
 							invalidUrl: false,
+							hasPreview: true,
 						});
 					}
 				},
@@ -448,6 +479,23 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			const customSubmitButtonLabel = customMessages?.submitButtonLabel
 				? customMessages.submitButtonLabel
 				: undefined;
+
+			const errorMessage = invalidUrl ? (
+				previewableOnly && !hasPreview ? (
+					<FormattedMessage
+						{...formMessages.noEmbedAvailable}
+						values={{
+							a: (chunk) => (
+								<LinkUrl href="https://support.atlassian.com/platform-experiences/docs/smart-links-from-jira-and-other-products/">
+									{chunk}
+								</LinkUrl>
+							),
+						}}
+					/>
+				) : (
+					intl.formatMessage(formMessages.linkInvalid)
+				)
+			) : null;
 
 			return (
 				<form
@@ -496,7 +544,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						value={url}
 						autoFocus
 						clearLabel={intl.formatMessage(formMessages.clearLink)}
-						error={invalidUrl ? intl.formatMessage(formMessages.linkInvalid) : null}
+						error={errorMessage}
 						spotlightTargetName="link-picker-search-field-spotlight-target"
 						aria-readonly={isSubmitting}
 						{...a11yList}

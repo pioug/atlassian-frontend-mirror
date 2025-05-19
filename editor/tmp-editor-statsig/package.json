@@ -13,7 +13,10 @@
 			"name": "EditorStatsigTmp",
 			"category": "Components"
 		},
-		"runReact18": true
+		"runReact18": true,
+		"prTasks": [
+			"New experiments added to tmp-editor-statsig configuration have been marked as a MINOR change"
+		]
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.0.1",
+	"version": "207.0.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -665,6 +665,9 @@
 			"referenceOnly": true
 		},
 		"confluence_team_presence_scroll_to_pointer": {
+			"type": "boolean"
+		},
+		"platform_editor_ssr_fix_lists": {
 			"type": "boolean"
 		}
 	},

@@ -3,4 +3,5 @@ export type EmbedProps = {
 	name: string;
 	src?: string;
 	testId?: string;
+	ariaLabel?: string;
 };

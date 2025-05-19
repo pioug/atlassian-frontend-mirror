@@ -11,6 +11,7 @@ describe('useSearchQuery', () => {
 		activeIndex: -1,
 		selectedIndex: -1,
 		invalidUrl: false,
+		hasPreview: true,
 		activeTab: 0,
 		preventHidingRecents: false,
 	};

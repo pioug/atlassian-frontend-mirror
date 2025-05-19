@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.1.1",
+	"version": "38.1.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -247,6 +247,9 @@
 			"showOnWebsiteForTransitiveDependencies": true
 		},
 		"platform-linking-additional-flexible-element-props": {
+			"type": "boolean"
+		},
+		"platform-linking-fix-a11y-in-smart-card": {
 			"type": "boolean"
 		}
 	}

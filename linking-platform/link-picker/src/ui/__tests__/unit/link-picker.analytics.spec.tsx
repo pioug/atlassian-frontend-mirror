@@ -48,12 +48,30 @@ jest.mock('use-debounce', () => ({
 	useDebounce: <T extends unknown>(val: T) => [val],
 }));
 
+let shouldReturnEmptyResponse = false;
+
+jest.mock('@atlaskit/link-provider', () => ({
+	CardClient: jest.fn().mockImplementation(() => ({
+		fetchData: jest.fn().mockImplementation(async (url, force) => {
+			if (shouldReturnEmptyResponse) {
+				return { data: {} }; // Return an empty object for the first test
+			}
+			const mockResponse = { data: { preview: { type: 'link' } }, status: 200 };
+			return mockResponse;
+		}),
+	})),
+}));
+
 expect.extend(jestExtendedMatchers);
 
 interface LinkPickerTestProps extends Partial<LinkPickerProps> {
 	spy: jest.Mock<any, any>;
 	onSubmit: jest.Mock<any, any>;
 }
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
 
 describe('LinkPicker analytics', () => {
 	let user: ReturnType<typeof userEvent.setup>;
@@ -68,11 +86,21 @@ describe('LinkPicker analytics', () => {
 		jest.clearAllMocks();
 	});
 
-	const setupLinkPicker = ({ url = '', plugins }: Partial<LinkPickerProps> = {}) => {
+	const setupLinkPicker = ({
+		url = '',
+		plugins,
+		previewableLinksOnly = false,
+	}: Partial<LinkPickerProps> = {}) => {
 		const spy = jest.fn();
 		const onSubmit = jest.fn();
 
-		const linkPickerDom = ({ url, plugins, spy, onSubmit }: LinkPickerTestProps) => (
+		const linkPickerDom = ({
+			url,
+			plugins,
+			spy,
+			onSubmit,
+			previewableLinksOnly,
+		}: LinkPickerTestProps) => (
 			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
 				<LinkPicker
 					url={url}
@@ -80,15 +108,26 @@ describe('LinkPicker analytics', () => {
 					plugins={plugins ?? []}
 					onCancel={jest.fn()}
 					onContentResize={jest.fn()}
+					previewableLinksOnly={previewableLinksOnly}
 				/>
 			</AnalyticsListener>
 		);
 
-		const wrappedLinkPicker = render(linkPickerDom({ url, plugins, spy, onSubmit }));
+		const wrappedLinkPicker = render(
+			linkPickerDom({ url, plugins, spy, onSubmit, previewableLinksOnly }),
+		);
 
-		const rerenderLinkPicker = ({ url, plugins, spy, onSubmit }: LinkPickerTestProps) => {
+		const rerenderLinkPicker = ({
+			url,
+			plugins,
+			spy,
+			onSubmit,
+			previewableLinksOnly,
+		}: LinkPickerTestProps) => {
 			wrappedLinkPicker.rerender(
-				<IntlProvider locale="en">{linkPickerDom({ url, plugins, spy, onSubmit })}</IntlProvider>,
+				<IntlProvider locale="en">
+					{linkPickerDom({ url, plugins, spy, onSubmit, previewableLinksOnly })}
+				</IntlProvider>,
 			);
 		};
 
@@ -1130,6 +1169,33 @@ describe('LinkPicker analytics', () => {
 					},
 				});
 			});
+		});
+	});
+
+	describe('LinkPicker previewableLinksOnly prop', () => {
+		beforeEach(() => {
+			const fg = require('@atlaskit/platform-feature-flags').fg;
+			fg.mockReturnValue(true);
+		});
+		it('should reject links without previews when previewableLinksOnly is true', async () => {
+			const { urlField, onSubmit } = setupLinkPicker({
+				previewableLinksOnly: true,
+			});
+			shouldReturnEmptyResponse = true;
+			await user.type(await urlField(), 'https://www.atlassian.com');
+			const insertButton = screen.getByTestId('link-picker-insert-button');
+			await user.click(insertButton);
+			expect(onSubmit).not.toHaveBeenCalled();
+		});
+		it('should accept links with previews when previewableLinksOnly is true', async () => {
+			const { urlField, onSubmit } = setupLinkPicker({
+				previewableLinksOnly: true,
+			});
+			shouldReturnEmptyResponse = false;
+			await user.type(await urlField(), 'https://www.atlassian.com/hasEmbedPreview');
+			const insertButton = screen.getByTestId('link-picker-insert-button');
+			await user.click(insertButton);
+			expect(onSubmit).toHaveBeenCalled();
 		});
 	});
 

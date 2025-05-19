@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.3.1
+
+### Patch Changes
+
+- [#140470](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/140470)
+  [`2303643503772`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2303643503772) -
+  Bump Statsig client to v3.16.0
+
 ## 5.3.0
 
 ### Minor Changes

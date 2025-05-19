@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 207.0.3
+
+### Patch Changes
+
+- [#154083](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154083)
+  [`4895d110ee4b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4895d110ee4b8) -
+  refactor content styles in editor core to be more static
+- Updated dependencies
+
+## 207.0.2
+
+### Patch Changes
+
+- [#156033](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156033)
+  [`54e0c25ba33f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54e0c25ba33f3) -
+  fix: make vanilla status styles not use fg at module level
+
 ## 207.0.1
 
 ### Patch Changes

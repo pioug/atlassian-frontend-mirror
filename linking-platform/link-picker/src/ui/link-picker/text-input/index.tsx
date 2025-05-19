@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
+import React, {
 	Fragment,
 	type KeyboardEvent,
 	type MouseEvent,
@@ -74,7 +74,7 @@ export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
 		onRedo?: Function;
 		onClear?: (name: string) => void;
 		clearLabel?: string;
-		error?: string | null;
+		error?: React.ReactNode;
 		/** Ref to the link picker search input. */
 		inputRef?: Ref<HTMLInputElement>;
 	};

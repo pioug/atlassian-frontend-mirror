@@ -1,6 +1,6 @@
 import {
 	type EvaluationDetails as NewEvaluationDetails,
-	StableID,
+	SecondaryExposure,
 	type StatsigUser,
 } from '@statsig/js-client';
 
@@ -66,13 +66,9 @@ export const shallowEquals = (objectA?: object, objectB?: object): boolean => {
 export const toStatsigUser = (
 	identifiers: Identifiers,
 	customAttributes?: CustomAttributes,
-	sdkKey?: string,
 ): StatsigUser => {
 	const user: StatsigUser = {
-		customIDs:
-			!customAttributes?.stableID && sdkKey
-				? { stableID: StableID.get(sdkKey), ...identifiers }
-				: identifiers,
+		customIDs: identifiers,
 		custom: customAttributes,
 	};
 
@@ -134,6 +130,7 @@ export const migrateInitializationOptions = <T extends FeatureGateOptions>(
 const evaluationReasonMappings = Object.entries(EvaluationReason).map<[string, EvaluationReason]>(
 	([key, value]) => [key.toLowerCase(), value],
 );
+
 export const migrateEvaluationDetails = (details: NewEvaluationDetails): EvaluationDetails => {
 	const reasonLower = details.reason.toLowerCase();
 	return {
@@ -142,4 +139,20 @@ export const migrateEvaluationDetails = (details: NewEvaluationDetails): Evaluat
 			EvaluationReason.Unknown,
 		time: details.receivedAt ?? Date.now(),
 	};
+};
+
+export const migrateSecondaryExposures = (
+	secondaryExposures: SecondaryExposure[] | string[],
+): Record<string, string>[] => {
+	return secondaryExposures.map((exposure) => {
+		if (typeof exposure === 'string') {
+			// This should ideally have gateValue and ruleID fields too, but it's not possible for us
+			// to determine the correct values for these.
+			return {
+				gate: exposure,
+			};
+		}
+
+		return exposure;
+	});
 };

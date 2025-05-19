@@ -47,6 +47,12 @@ export const formMessages = defineMessages({
 		defaultMessage: 'Clear',
 		description: 'Tooltip message for link input clear button',
 	},
+	noEmbedAvailable: {
+		id: 'fabric.linkPicker.noEmbed',
+		defaultMessage:
+			"Embed view isn't supported for this link. <a>More about why some Smart Links don't display content.</a>",
+		description: 'Error message shown for links without embeds',
+	},
 });
 
 export const linkTextMessages = defineMessages({

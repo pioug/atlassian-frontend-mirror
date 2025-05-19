@@ -1,5 +1,13 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.7.4
+
+### Patch Changes
+
+- [#156820](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156820)
+  [`59779a02f98cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59779a02f98cf) -
+  Added encoded icon export
+
 ## 0.7.3
 
 ### Patch Changes

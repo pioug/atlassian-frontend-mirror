@@ -189,6 +189,7 @@ export type InlineCardNodeViewProps = Pick<
 	| 'onClickCallback'
 	| '__livePage'
 	| 'isPageSSRed'
+	| 'CompetitorPrompt'
 >;
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
@@ -212,6 +213,11 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 	},
 );
 
+/**
+ *
+ * @param props
+ * @example
+ */
 export function InlineCardNodeView(
 	props: InlineNodeViewComponentProps & InlineCardNodeViewProps & InlineCardWithAwarenessProps,
 ) {
@@ -228,12 +234,17 @@ export function InlineCardNodeView(
 		onClickCallback,
 		__livePage,
 		isPageSSRed,
+		CompetitorPrompt,
 	} = props;
 
 	const [isOverlayHovered, setIsOverlayHovered] = useState(false);
 	const { mode, selection } = useSharedState(pluginInjectionApi);
 
 	const floatingToolbarNode = selection instanceof NodeSelection && selection.node;
+
+	const url = node.attrs.url;
+	const CompetitorPromptComponent =
+		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} /> : null;
 
 	if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
 		const showHoverPreview = floatingToolbarNode !== node;
@@ -257,46 +268,52 @@ export function InlineCardNodeView(
 		return mode === 'view' ? (
 			inlineCard
 		) : (
-			<OverlayWrapper
-				targetElementPos={getPos()}
-				view={view}
-				isHoveredCallback={setIsOverlayHovered}
-				onOpenLinkClick={(event) => {
-					handleNavigation({
-						fireAnalyticsEvent: pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
-						onClickCallback,
-						url: node.attrs.url,
-						event,
-					});
-				}}
-			>
-				{inlineCard}
-			</OverlayWrapper>
+			<>
+				<OverlayWrapper
+					targetElementPos={getPos()}
+					view={view}
+					isHoveredCallback={setIsOverlayHovered}
+					onOpenLinkClick={(event) => {
+						handleNavigation({
+							fireAnalyticsEvent: pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
+							onClickCallback,
+							url,
+							event,
+						});
+					}}
+				>
+					{inlineCard}
+				</OverlayWrapper>
+				{fg('prompt_whiteboard_competitor_link_gate') && CompetitorPromptComponent}
+			</>
 		);
 	}
 
 	return (
-		<WrappedInlineCardWithAwareness
-			node={node}
-			view={view}
-			getPos={getPos}
-			actionOptions={actionOptions}
-			useAlternativePreloader={useAlternativePreloader}
-			pluginInjectionApi={pluginInjectionApi}
-			onClickCallback={onClickCallback}
-			isPageSSRed={isPageSSRed}
-			appearance="inline"
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...(enableInlineUpgradeFeatures &&
-				getAwarenessProps(
-					view.state,
-					getPos,
-					allowEmbeds,
-					allowBlockCards,
-					!editorExperiment('live_pages_graceful_edit', 'control') ? true : mode === 'view',
-				))}
-		/>
+		<>
+			<WrappedInlineCardWithAwareness
+				node={node}
+				view={view}
+				getPos={getPos}
+				actionOptions={actionOptions}
+				useAlternativePreloader={useAlternativePreloader}
+				pluginInjectionApi={pluginInjectionApi}
+				onClickCallback={onClickCallback}
+				isPageSSRed={isPageSSRed}
+				appearance="inline"
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...(enableInlineUpgradeFeatures &&
+					getAwarenessProps(
+						view.state,
+						getPos,
+						allowEmbeds,
+						allowBlockCards,
+						!editorExperiment('live_pages_graceful_edit', 'control') ? true : mode === 'view',
+					))}
+			/>
+			{fg('prompt_whiteboard_competitor_link_gate') && CompetitorPromptComponent}
+		</>
 	);
 }
 

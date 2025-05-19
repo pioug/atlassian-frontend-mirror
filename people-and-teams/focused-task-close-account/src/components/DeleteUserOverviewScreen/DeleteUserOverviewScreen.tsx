@@ -12,6 +12,7 @@ import { type DeleteUserOverviewScreenProps } from './types';
 import * as Styled from './styled';
 import { DropdownList } from '../DropdownList';
 import MessagesIntlProvider from '../MessagesIntlProvider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverviewScreenProps> {
 	static defaultProps: Partial<DeleteUserOverviewScreenProps> = {
@@ -175,7 +176,9 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 						content={
 							<FormattedMessage
 								{...this.selectAdminOrSelfCopy(
-									overviewMessages.inlineDialogContentCreatedAdmin,
+									fg('issue_to_workitem_termrefresh')
+										? overviewMessages.inlineDialogContentCreatedAdminissuetermrefresh
+										: overviewMessages.inlineDialogContentCreatedAdmin,
 									overviewMessages.inlineDialogContentCreatedSelf,
 								)}
 							/>

@@ -179,6 +179,7 @@ describe('FileOverrideAdapter', () => {
 		provider.setOverrides({ gates: { foo: true } });
 		const result = provider.getGateOverride(
 			{
+				idType: 'atlassianAccountId',
 				name: _DJB2('foo'),
 				value: false,
 				ruleID: 'asdf',

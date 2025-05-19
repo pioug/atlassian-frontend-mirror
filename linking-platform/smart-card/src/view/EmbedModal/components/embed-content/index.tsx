@@ -5,6 +5,8 @@
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getIframeSandboxAttribute } from '../../../../utils';
 import { IFrame } from '../../../EmbedCard/components/IFrame';
 
@@ -15,7 +17,7 @@ const iframeCss = css({
 	height: 'calc(100vh - 208px)',
 });
 
-const EmbedContent = ({ isTrusted, name, src, testId }: EmbedProps) => {
+const EmbedContent = ({ isTrusted, name, src, testId, ariaLabel }: EmbedProps) => {
 	di(IFrame);
 	const sandbox = getIframeSandboxAttribute(isTrusted);
 	const props = {
@@ -25,7 +27,15 @@ const EmbedContent = ({ isTrusted, name, src, testId }: EmbedProps) => {
 		src,
 		'data-testid': `${testId}-embed`,
 	};
-	return <IFrame css={iframeCss} {...props} />;
+	return (
+		<IFrame
+			css={iframeCss}
+			{...(fg('platform-linking-fix-a11y-in-smart-card')
+				? { 'aria-label': ariaLabel ?? `${testId}-embed` }
+				: {})}
+			{...props}
+		/>
+	);
 };
 
 export default EmbedContent;

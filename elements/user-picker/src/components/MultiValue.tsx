@@ -15,7 +15,6 @@ import PeopleIcon from '@atlaskit/icon/core/migration/people-group--people';
 import { type MultiValueProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const scrollToValue = (valueContainer: HTMLDivElement, control: HTMLElement) => {
 	const { top, height } = valueContainer.getBoundingClientRect();
@@ -120,7 +119,7 @@ export class MultiValue extends React.Component<Props> {
 			<SizeableAvatar
 				appearance="multi"
 				src={getAvatarUrl(data)}
-				type={isTeam(data) && fg('verified-team-in-user-picker') ? 'team' : 'person'}
+				type={isTeam(data) ? 'team' : 'person'}
 			/>
 		);
 	};
@@ -129,7 +128,7 @@ export class MultiValue extends React.Component<Props> {
 		const {
 			data: { data },
 		} = this.props;
-		if (isTeam(data) && data.verified && fg('verified-team-in-user-picker')) {
+		if (isTeam(data) && data.verified) {
 			return <VerifiedTeamIcon />;
 		}
 		return null;

@@ -1,6 +1,6 @@
 import type { Layer as NewLayer } from '@statsig/js-client';
 
-import { migrateEvaluationDetails } from '../utils';
+import { migrateEvaluationDetails, migrateSecondaryExposures } from '../utils';
 
 import type { EvaluationDetails } from './types';
 
@@ -15,8 +15,8 @@ export class Layer {
 			layer.ruleID,
 			migrateEvaluationDetails(layer.details),
 			(_layer, parameterName) => layer.get(parameterName),
-			layer.__evaluation?.secondary_exposures,
-			layer.__evaluation?.undelegated_secondary_exposures,
+			migrateSecondaryExposures(layer.__evaluation?.secondary_exposures ?? []),
+			migrateSecondaryExposures(layer.__evaluation?.undelegated_secondary_exposures ?? []),
 			layer.__evaluation?.allocated_experiment_name,
 			layer.__evaluation?.explicit_parameters,
 		);
@@ -26,7 +26,9 @@ export class Layer {
 	readonly _name: string;
 	readonly _value: Record<string, any>;
 	readonly _ruleID: string;
+	/** @deprecated - do not use, this is still exported for backwards compatibility but will be removed in the next major version  */
 	readonly _secondaryExposures: Record<string, string>[];
+	/** @deprecated - do not use, this is still exported for backwards compatibility but will be removed in the next major version  */
 	readonly _undelegatedSecondaryExposures: Record<string, string>[];
 	readonly _allocatedExperimentName: string;
 	readonly _explicitParameters: string[];

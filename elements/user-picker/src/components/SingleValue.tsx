@@ -9,7 +9,6 @@ import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isTeam } from './utils';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
@@ -61,19 +60,17 @@ export const SingleValue = (props: Props) => {
 				<SizeableAvatar
 					src={getAvatarUrl(data)}
 					appearance={appearance}
-					type={isTeam(data) && fg('verified-team-in-user-picker') ? 'team' : 'person'}
+					type={isTeam(data) ? 'team' : 'person'}
 				/>
 				<Box xcss={styles.avatarItem}>
 					<div css={styles.avatarItemTextWrapper}>
 						<Box xcss={styles.avatarItemText}>
-							{fg('verified-team-in-user-picker') ? (
+							{
 								<Inline alignBlock="center">
 									{label}
 									<ElementAfter {...props} />
 								</Inline>
-							) : (
-								label
-							)}
+							}
 						</Box>
 					</div>
 				</Box>

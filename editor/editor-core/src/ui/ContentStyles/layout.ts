@@ -1,3 +1,10 @@
+/**
+ * TODO ED-26957 - remove legacy styles when static emotion refactor is complete
+ * We are moving this to new location under FF: platform_editor_core_static_emotion
+ * New location: packages/editor/editor-core/src/ui/EditorContentContainer.tsx
+ * If you are making updates to this file, please updates in new location as well.
+ */
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 

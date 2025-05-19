@@ -61,11 +61,15 @@ type AppearanceProps = EditorAppearanceComponentProps<
 >;
 
 const EditorContainer = componentWithCondition(
-	() => editorExperiment('platform_editor_core_static_emotion', true),
+	() => editorExperiment('platform_editor_core_static_emotion', true, { exposure: true }),
 	EditorContentContainer,
 	ContentArea,
 );
 
+/**
+ * Render the editor in a chromeless appearance.
+ * Example use is the inline comment editor, which doesn't have editor toolbar
+ */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Editor extends React.Component<AppearanceProps> {
@@ -153,6 +157,10 @@ export default class Editor extends React.Component<AppearanceProps> {
 		);
 	};
 
+	/**
+	 *
+	 * @example
+	 */
 	render() {
 		return (
 			<RenderWithPluginState editorAPI={this.props.editorAPI} renderChrome={this.renderChrome} />

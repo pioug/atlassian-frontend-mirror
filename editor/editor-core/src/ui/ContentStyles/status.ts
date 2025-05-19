@@ -177,7 +177,7 @@ const baseVanillaStatusStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const vanillaStatusStyles = css`
+export const vanillaStatusStyles = () => css`
 	${baseVanillaStatusStyles}
 	${getStatusColors()}
 `;

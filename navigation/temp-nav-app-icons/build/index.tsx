@@ -3,6 +3,7 @@ import pkgDir from 'pkg-dir';
 import generateComponents from './generators/generate-components';
 import generateEntrypoint from './generators/generate-entrypoint';
 import generateExample from './generators/generate-example';
+import generateRawIcons from './generators/generate-raw-icons';
 
 const root = pkgDir.sync();
 
@@ -23,6 +24,9 @@ if (!root) {
 
 	// Generate list for use in examples
 	generateExample(assets, root);
+
+	// Generate raw export
+	generateRawIcons(root, rawDirectory, '');
 }
 
 console.log('Done!');

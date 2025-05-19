@@ -286,7 +286,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 					custom: {},
 				},
@@ -324,7 +323,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 					custom: {},
 				},
@@ -377,7 +375,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -415,7 +412,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -454,7 +450,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -514,7 +509,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -572,7 +566,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -658,7 +651,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 					custom: {},
 				},
@@ -813,7 +805,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 					custom: {},
 				},
@@ -848,7 +839,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 					custom: {},
 				},
@@ -890,7 +880,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -945,7 +934,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -990,7 +978,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -1044,7 +1031,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -1091,7 +1077,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -1176,7 +1161,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 					custom: {},
 				},
@@ -1265,7 +1249,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -1301,7 +1284,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -1345,7 +1327,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -1389,7 +1370,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -1428,7 +1408,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -1466,7 +1445,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -1542,7 +1520,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -1571,7 +1548,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 						tenantId: 'cloud-id-123',
 						atlassianOrgId: 'org-id-123',
 					},
@@ -1644,7 +1620,6 @@ describe('FeatureGate client', () => {
 					userID: 'abc-123',
 					customIDs: {
 						atlassianAccountId: 'abc-123',
-						stableID: expect.any(String),
 					},
 				},
 				expect.objectContaining({
@@ -2090,7 +2065,6 @@ describe('FeatureGate client', () => {
 				userID: 'abc-456',
 				customIDs: {
 					atlassianAccountId: 'abc-456',
-					stableID: expect.any(String),
 				},
 				custom: {},
 			});
@@ -2232,7 +2206,6 @@ describe('FeatureGate client', () => {
 				userID: 'abc-456',
 				customIDs: {
 					atlassianAccountId: 'abc-456',
-					stableID: expect.any(String),
 				},
 				custom: {},
 			});

@@ -16,7 +16,8 @@ import EditorFileIcon from '@atlaskit/icon/core/migration/file--editor-file';
 
 import type { EventDispatcher } from '../../event-dispatcher';
 import type { MultiBodiedExtensionActions } from '../../extensions';
-import { useSharedPluginState } from '../../hooks';
+import { sharedPluginStateHookMigratorFactory, useSharedPluginState } from '../../hooks';
+import { useSharedPluginStateSelector } from '../../hooks/useSharedPluginStateSelector/useSharedPluginStateSelector';
 import type { EditorAppearance, EditorContainerWidth } from '../../types';
 import type { OverflowShadowProps } from '../../ui';
 import {
@@ -329,9 +330,27 @@ const MultiBodiedExtensionWithWidth = ({
 	);
 };
 
+const useMultiBodyExtensionSharedPluginState = sharedPluginStateHookMigratorFactory<
+	{ widthState: { width: number; lineLength?: number } | undefined },
+	ExtensionsPluginInjectionAPI
+>(
+	(pluginInjectionApi) => {
+		const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+		return { widthState };
+	},
+	(pluginInjectionApi) => {
+		const width = useSharedPluginStateSelector(pluginInjectionApi, 'width.width');
+		const lineLength = useSharedPluginStateSelector(pluginInjectionApi, 'width.lineLength');
+
+		return {
+			widthState: width === undefined ? undefined : { width, lineLength },
+		};
+	},
+);
+
 const MultiBodiedExtension = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
-	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+	const { widthState } = useMultiBodyExtensionSharedPluginState(pluginInjectionApi);
 	// Ignored via go/ees005
 	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <MultiBodiedExtensionWithWidth widthState={widthState} {...props} />;

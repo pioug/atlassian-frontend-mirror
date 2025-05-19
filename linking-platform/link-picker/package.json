@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.2.4",
+	"version": "3.3.0",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -45,6 +45,9 @@
 		"platform-linking-visual-refresh-v1": {
 			"type": "boolean"
 		},
+		"platform-linking-link-picker-previewable-only": {
+			"type": "boolean"
+		},
 		"bandicoots-a11y-link-picker-styling": {
 			"type": "boolean"
 		},
@@ -81,10 +84,12 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/intl-messages-provider": "workspace:^",
 		"@atlaskit/link": "workspace:^",
+		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/onboarding": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tabs": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
@@ -111,7 +116,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
-		"@atlaskit/link-provider": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",

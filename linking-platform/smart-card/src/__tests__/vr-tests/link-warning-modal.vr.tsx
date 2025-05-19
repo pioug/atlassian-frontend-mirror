@@ -5,4 +5,7 @@ import LinkWarningModal from '../../../examples/vr-link-safety-modal/vr-link-saf
 snapshot(LinkWarningModal, {
 	description: 'link safety warning modal renders correctly',
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-linking-fix-a11y-in-smart-card': true,
+	},
 });

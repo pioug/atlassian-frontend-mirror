@@ -43,12 +43,7 @@ export function getOrderedListInlineStyles(
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any>;
-/**
- *
- * @param itemCounterDigitsSize
- * @param styleFormat
- * @example
- */
+
 export function getOrderedListInlineStyles(
 	itemCounterDigitsSize: number,
 	styleFormat: 'string' | 'object',

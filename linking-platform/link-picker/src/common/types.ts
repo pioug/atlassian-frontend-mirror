@@ -94,6 +94,7 @@ export interface PickerState {
 	activeTab: number;
 	/** When true, even if the selected index is -1, don't hide the recents. */
 	preventHidingRecents: boolean;
+	hasPreview: boolean;
 }
 
 interface Meta {
@@ -168,6 +169,8 @@ export interface LinkPickerProps {
 	moveSubmitButton?: boolean;
 	/** Ref to the link picker search input. */
 	inputRef?: Ref<HTMLInputElement>;
+	/**Disables URLs that do not have an embeddable preview */
+	previewableLinksOnly?: boolean;
 }
 
 type CustomLinkPickerMessages = {

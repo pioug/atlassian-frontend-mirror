@@ -37,7 +37,9 @@ export const EmptyState = ({ testId, header, description, renderImage }: EmptySt
 	return (
 		<Box xcss={styles.emptyState} testId={testId}>
 			{renderImage?.()}
-			<Heading size="small">{header}</Heading>
+			<Heading size="small" as="h2">
+				{header}
+			</Heading>
 			{description && (
 				<Box as="p" xcss={styles.description}>
 					{description}

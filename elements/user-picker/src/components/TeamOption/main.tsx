@@ -4,7 +4,6 @@
  */
 import { B400, N800, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -36,14 +35,12 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 					this.props.isSelected ? token('color.text.selected', B400) : token('color.text', N800),
 				)}
 			>
-				{fg('verified-team-in-user-picker') ? (
+				{
 					<Inline alignBlock="center">
 						<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>
 						{verified && <VerifiedTeamIcon />}
 					</Inline>
-				) : (
-					<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>
-				)}
+				}
 			</span>,
 		];
 	};

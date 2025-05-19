@@ -40,7 +40,7 @@ const noLegacyAppearance = [
 /**
  * SVGO optimisation configuration for logos.
  */
-export const svgoConfig = {
+export const baseSvgoConfig = {
 	multipass: true,
 	plugins: [
 		{
@@ -56,10 +56,13 @@ export const svgoConfig = {
 		},
 		{ name: 'removeTitle' },
 		{ name: 'removeDesc', params: { removeAny: true } },
-		{ name: 'removeXMLNS' },
-		{ name: 'removeXlink' },
 	],
 	js2svg: { pretty: true },
+};
+
+export const svgoConfig = {
+	...baseSvgoConfig,
+	plugins: [...baseSvgoConfig.plugins, { name: 'removeXMLNS' }, { name: 'removeXlink' }],
 };
 
 // Adjust SVG

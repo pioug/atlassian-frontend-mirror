@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../constants';
@@ -96,6 +97,7 @@ const EmbedModal = ({
 					onOpenComplete={handleOnOpenComplete}
 					testId={testId}
 					width={width}
+					{...(fg('platform-linking-fix-a11y-in-smart-card') ? { label: title } : {})}
 				>
 					<LinkInfo
 						icon={
@@ -118,6 +120,7 @@ const EmbedModal = ({
 							name={iframeName}
 							src={previewUrl}
 							testId={testId}
+							ariaLabel={title}
 						/>
 					</ModalBody>
 				</ModalDialog>

@@ -11,6 +11,7 @@ import {
 } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import Link from '@atlaskit/link';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -18,6 +19,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../../messages';
 
@@ -53,11 +55,16 @@ const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 									{...messages.link_safety_warning_message}
 									values={{
 										unsafeLinkText: unsafeLinkText,
-										a: () => (
-											<a href={url} target="_blank" rel="noopener noreferrer">
-												{url}
-											</a>
-										),
+										a: () =>
+											fg('platform-linking-fix-a11y-in-smart-card') ? (
+												<Link href={url} target="_blank" rel="noopener noreferrer">
+													{url}
+												</Link>
+											) : (
+												<a href={url} target="_blank" rel="noopener noreferrer">
+													{url}
+												</a>
+											),
 									}}
 								/>
 							)}

@@ -1,5 +1,15 @@
 # @atlaskit/color-picker
 
+## 5.1.3
+
+### Patch Changes
+
+- [#155681](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155681)
+  [`679a437d9a866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/679a437d9a866) -
+  Internal refactors to support a feature flag being cleaned up in `@atlaskit/select` and
+  `@atlaskit/react-select`.
+- Updated dependencies
+
 ## 5.1.2
 
 ### Patch Changes

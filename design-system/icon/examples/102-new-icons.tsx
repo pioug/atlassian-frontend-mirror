@@ -41,6 +41,9 @@ const IconSizeExample = () => {
 					<AppIcon label="" spacing="none" />
 				</IconContainer>
 				<IconContainer>
+					<AppIcon label="" spacing="compact" />
+				</IconContainer>
+				<IconContainer>
 					<AppIcon label="" spacing="spacious" />
 				</IconContainer>
 				New icons

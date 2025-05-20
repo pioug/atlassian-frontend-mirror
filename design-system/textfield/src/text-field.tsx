@@ -15,7 +15,8 @@ import { type TextfieldProps } from './types';
 const containerMedia = cssMap({
 	invalid: {
 		'@media screen and (-ms-high-contrast: active)': {
-			'&:focus-within': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:has(input:focus)': {
 				borderColor: 'Highlight',
 			},
 		},
@@ -66,7 +67,8 @@ const invalidStyle = css({
 		borderColor: token('color.border.danger'),
 		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.danger')}`,
 	},
-	'&:focus-within': {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:has(input:focus)': {
 		backgroundColor: token('color.background.input.pressed'),
 	},
 });
@@ -74,7 +76,7 @@ const invalidStyle = css({
 const focusWithinStyle = cssMap({
 	standard: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-		'&&:focus-within': {
+		'&&:has(input:focus)': {
 			backgroundColor: token('color.background.input.pressed'),
 			borderColor: token('color.border.focused'),
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
@@ -82,7 +84,7 @@ const focusWithinStyle = cssMap({
 	},
 	subtle: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-		'&&:focus-within': {
+		'&&:has(input:focus)': {
 			backgroundColor: token('color.background.input.pressed'),
 			borderColor: token('color.border.focused'),
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
@@ -90,7 +92,7 @@ const focusWithinStyle = cssMap({
 	},
 	none: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-		'&&:focus-within': {
+		'&&:has(input:focus)': {
 			backgroundColor: 'transparent',
 			borderColor: 'transparent',
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} transparent`,
@@ -128,7 +130,8 @@ const getContainerTextBgAndBorderColor = cssMap({
 		backgroundColor: token('color.background.input'),
 
 		'@media screen and (-ms-high-contrast: active)': {
-			'&:focus-within': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:has(input:focus)': {
 				borderColor: 'Highlight',
 			},
 		},
@@ -143,7 +146,8 @@ const getContainerTextBgAndBorderColor = cssMap({
 			backgroundColor: 'transparent',
 		},
 		'@media screen and (-ms-high-contrast: active)': {
-			'&:focus-within': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:has(input:focus)': {
 				borderColor: 'Highlight',
 			},
 		},
@@ -158,7 +162,8 @@ const getContainerTextBgAndBorderColor = cssMap({
 		color: token('color.text'),
 		cursor: 'text',
 		'@media screen and (-ms-high-contrast: active)': {
-			'&:focus-within': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			'&:has(input:focus)': {
 				borderColor: 'Highlight',
 			},
 		},
@@ -449,6 +454,8 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
 			className={className}
 		>
 			{elemBeforeInput}
+
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-text-input */}
 			<input
 				{...spreadProps}
 				aria-invalid={isInvalid ? isInvalid : undefined}

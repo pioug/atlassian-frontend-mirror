@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-import { deprecatedCore as deprecatedIconLabCore } from '@atlaskit/icon-lab/deprecated-map';
+import {
+	deprecatedCore as deprecatedIconLabCore,
+	deprecatedUtility as deprecatedIconLabUtility,
+} from '@atlaskit/icon-lab/deprecated-map';
 import {
 	deprecatedCore as deprecatedIconCore,
 	deprecatedUtility as deprecatedIconUtility,
@@ -21,6 +24,7 @@ export const getConfig = (specifier: DeprecatedCategories): DeprecatedConfig => 
 			...deprecatedIconCore,
 			...deprecatedIconUtility,
 			...deprecatedIconLabCore,
+			...deprecatedIconLabUtility,
 		},
 	};
 

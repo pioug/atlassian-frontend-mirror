@@ -49,6 +49,7 @@ async function getVCMetrics(
 		vc: interaction.vc,
 		isEventAborted: interactionStatus.originalInteractionStatus !== 'SUCCEEDED',
 		experienceKey: interaction.ufoName,
+		interactionId: interaction.id,
 		...ssr,
 	});
 

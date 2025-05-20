@@ -29,7 +29,6 @@ import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
 import measurements from '../utils/performance/measure-enum';
 import { name, version } from '../version-wrapper';
 
-import { EditorUFOBridge, EditorPerformanceMetrics } from './core-performance-metrics';
 import { EditorINPMetrics } from './editor-inp-metrics';
 import { EditorInternal } from './editor-internal';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
@@ -41,6 +40,8 @@ import sendDurationAnalytics from './utils/sendDurationAnalytics';
 
 /**
  * Editor wrapper that deals with the lifecycle logic of the editor
+ * @param passedProps
+ * @example
  */
 function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceComponent) {
 	const propsRef = useRef(passedProps);
@@ -139,10 +140,6 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 
 	return (
 		<Fragment>
-			{isFullPageApperance && fg('platform_editor_fe--ufo-bridge') ? <EditorUFOBridge /> : null}
-			{isFullPageApperance && fg('platform_editor_fe--performance_metrics') ? (
-				<EditorPerformanceMetrics />
-			) : null}
 			{isFullPageApperance && fg('platform_editor_fe--inp-metrics') ? <EditorINPMetrics /> : null}
 			<EditorInternal
 				props={props}
@@ -170,6 +167,11 @@ const useMemoEditorFeatureFlags = (featureFlags?: { [featureFlag: string]: strin
 	return ffRef.current;
 };
 
+/**
+ *
+ * @param props
+ * @example
+ */
 export function CoreEditor(props: EditorNextProps & WithAppearanceComponent) {
 	const editorSessionId = useRef(uuid());
 	const data = useMemo(() => {

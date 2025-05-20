@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "4.12.1",
+	"version": "4.13.0",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

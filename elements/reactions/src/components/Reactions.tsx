@@ -253,6 +253,10 @@ export interface ReactionsProps
 	 */
 	isListItem?: boolean;
 	/**
+	 * Optional prop to optimistically render the image URL for a given emoji id. Typically used in SSR before the emoji Provider resolves & the real image is loaded.
+	 */
+	summaryGetOptimisticImageURL?: (emojiId: string) => string;
+	/**
 	 *  Optional prop to change the placement of the reaction picker popup
 	 */
 	reactionPickerPlacement?: Placement;
@@ -330,6 +334,7 @@ export const Reactions = React.memo(
 		reactionPickerTriggerText,
 		hoverableSummaryView = false,
 		isListItem = false,
+		summaryGetOptimisticImageURL,
 		reactionPickerPlacement,
 		summaryButtonIconAfter,
 	}: ReactionsProps) => {
@@ -554,6 +559,7 @@ export const Reactions = React.memo(
 									useButtonAlignmentStyling={useButtonAlignmentStyling}
 									reactionPickerTriggerText={reactionPickerTriggerText}
 									hoverableSummaryView={hoverableSummaryView}
+									summaryGetOptimisticImageURL={summaryGetOptimisticImageURL}
 									summaryButtonIconAfter={summaryButtonIconAfter}
 								/>
 							</div>

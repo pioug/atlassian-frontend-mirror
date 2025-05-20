@@ -29,9 +29,7 @@ export type {
 	SkeletonItemProps,
 	Dimension,
 	MenuItemProps as BaseItemProps,
-	Overrides,
 	MenuGroupSizing,
 	RenderFunction,
 	SectionProps as SectionBaseProps,
-	TitleOverrides,
 } from './types';

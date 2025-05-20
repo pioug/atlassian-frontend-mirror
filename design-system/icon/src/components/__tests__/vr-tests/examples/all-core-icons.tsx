@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::9139c1d9811dfa32789037883efebd52>>
+ * @codegen <<SignedSource::08ca1ed4ad1b6c1d3e6619e8ae53230d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -80,6 +80,12 @@ import CheckMarkIcon from '../../../../../core/check-mark';
 import CheckboxCheckedIcon from '../../../../../core/checkbox-checked';
 import CheckboxIndeterminateIcon from '../../../../../core/checkbox-indeterminate';
 import CheckboxUncheckedIcon from '../../../../../core/checkbox-unchecked';
+import ChevronDoubleLeftIcon from '../../../../../core/chevron-double-left';
+import ChevronDoubleRightIcon from '../../../../../core/chevron-double-right';
+import ChevronDownIcon from '../../../../../core/chevron-down';
+import ChevronLeftIcon from '../../../../../core/chevron-left';
+import ChevronRightIcon from '../../../../../core/chevron-right';
+import ChevronUpIcon from '../../../../../core/chevron-up';
 import ChildIssuesIcon from '../../../../../core/child-issues';
 import ChildWorkItemsIcon from '../../../../../core/child-work-items';
 import ClipboardIcon from '../../../../../core/clipboard';
@@ -380,6 +386,7 @@ import WorkItemIcon from '../../../../../core/work-item';
 import WorkItemsIcon from '../../../../../core/work-items';
 import ZoomInIcon from '../../../../../core/zoom-in';
 import ZoomOutIcon from '../../../../../core/zoom-out';
+import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
 	ShortcutIcon,
@@ -746,63 +753,115 @@ const Icons = [
 	SidebarLeftIcon,
 	SidebarRightIcon,
 	SummarizeIcon,
+	ChevronUpIcon,
+	ChevronRightIcon,
+	ChevronDownIcon,
+	ChevronLeftIcon,
+	ChevronDoubleLeftIcon,
+	ChevronDoubleRightIcon,
 ];
 
 const groupSize = 20;
 const IconWrapperStyles = css({ width: 304 });
 
-const allExamples: React.ComponentType<any>[] = [];
+function createIconGroupComponent(
+	IconGroup: React.ComponentType<NewCoreIconProps>[],
+	iconProps: Partial<NewCoreIconProps> = {},
+) {
+	return () => (
+		<div css={IconWrapperStyles}>
+			<Inline space="space.200" alignInline="start" shouldWrap={true}>
+				{IconGroup.map((Icon, index) => (
+					<Icon label="" key={index} {...iconProps} />
+				))}
+			</Inline>
+		</div>
+	);
+}
+
+const allMediumExamples = [];
+const allSmallExamples = [];
 
 for (let i = 0; i < Icons.length; i += groupSize) {
 	const IconGroup = Icons.slice(i, i + groupSize);
-	allExamples.push(() => {
-		return (
-			<div css={IconWrapperStyles}>
-				<Inline space="space.200" alignInline="start" shouldWrap={true}>
-					{IconGroup.map((Icon, index) => (
-						<Icon label="" key={index} />
-					))}
-				</Inline>
-			</div>
-		);
-	});
+	allMediumExamples.push(createIconGroupComponent(IconGroup));
+	allSmallExamples.push(createIconGroupComponent(IconGroup, { size: 'small' }));
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup0 = allExamples[0];
+export const MediumIconGroup0 = allMediumExamples[0];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup1 = allExamples[1];
+export const MediumIconGroup1 = allMediumExamples[1];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup2 = allExamples[2];
+export const MediumIconGroup2 = allMediumExamples[2];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup3 = allExamples[3];
+export const MediumIconGroup3 = allMediumExamples[3];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup4 = allExamples[4];
+export const MediumIconGroup4 = allMediumExamples[4];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup5 = allExamples[5];
+export const MediumIconGroup5 = allMediumExamples[5];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup6 = allExamples[6];
+export const MediumIconGroup6 = allMediumExamples[6];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup7 = allExamples[7];
+export const MediumIconGroup7 = allMediumExamples[7];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup8 = allExamples[8];
+export const MediumIconGroup8 = allMediumExamples[8];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup9 = allExamples[9];
+export const MediumIconGroup9 = allMediumExamples[9];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup10 = allExamples[10];
+export const MediumIconGroup10 = allMediumExamples[10];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup11 = allExamples[11];
+export const MediumIconGroup11 = allMediumExamples[11];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup12 = allExamples[12];
+export const MediumIconGroup12 = allMediumExamples[12];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup13 = allExamples[13];
+export const MediumIconGroup13 = allMediumExamples[13];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup14 = allExamples[14];
+export const MediumIconGroup14 = allMediumExamples[14];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup15 = allExamples[15];
+export const MediumIconGroup15 = allMediumExamples[15];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup16 = allExamples[16];
+export const MediumIconGroup16 = allMediumExamples[16];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup17 = allExamples[17];
+export const MediumIconGroup17 = allMediumExamples[17];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup18 = allExamples[18];
+export const MediumIconGroup18 = allMediumExamples[18];
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup0 = allSmallExamples[0];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup1 = allSmallExamples[1];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup2 = allSmallExamples[2];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup3 = allSmallExamples[3];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup4 = allSmallExamples[4];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup5 = allSmallExamples[5];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup6 = allSmallExamples[6];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup7 = allSmallExamples[7];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup8 = allSmallExamples[8];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup9 = allSmallExamples[9];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup10 = allSmallExamples[10];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup11 = allSmallExamples[11];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup12 = allSmallExamples[12];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup13 = allSmallExamples[13];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup14 = allSmallExamples[14];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup15 = allSmallExamples[15];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup16 = allSmallExamples[16];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup17 = allSmallExamples[17];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup18 = allSmallExamples[18];

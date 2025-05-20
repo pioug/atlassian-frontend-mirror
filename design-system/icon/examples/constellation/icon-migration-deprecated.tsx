@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 import { RowHeader } from './utils';
 
-const IconDefaultExample = () => {
+const IconSecondaryColorExample = () => {
 	return (
 		<Stack space="space.100">
 			<Inline space="space.100">
@@ -37,4 +37,4 @@ const IconDefaultExample = () => {
 	);
 };
 
-export default IconDefaultExample;
+export default IconSecondaryColorExample;

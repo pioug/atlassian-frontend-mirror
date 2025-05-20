@@ -95,6 +95,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 				? await this.newVCObserver?.getVCResult({
 						start: param.start,
 						stop: param.stop,
+						interactionId: param.interactionId,
 					})
 				: [];
 
@@ -114,6 +115,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			const newResult = await this.newVCObserver?.getVCResult({
 				start: param.start,
 				stop: param.stop,
+				interactionId: param.interactionId,
 			});
 
 			if (oldResult && !newResult) {

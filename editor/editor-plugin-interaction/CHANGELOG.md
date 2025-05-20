@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-interaction
 
+## 1.1.0
+
+### Minor Changes
+
+- [#156585](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156585)
+  [`a63da8fac528b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a63da8fac528b) -
+  [ux] [ED-27962] Code block will now trigger interaction state
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.4
 
 ### Patch Changes

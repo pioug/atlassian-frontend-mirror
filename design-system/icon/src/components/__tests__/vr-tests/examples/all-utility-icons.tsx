@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::664fa87e1653ae16032056a3c3ad1821>>
+ * @codegen <<SignedSource::618adb49946ea95b2d48b271147e05b8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -45,6 +45,7 @@ import StarStarredIcon from '../../../../../utility/star-starred';
 import StarUnstarredIcon from '../../../../../utility/star-unstarred';
 import SuccessIcon from '../../../../../utility/success';
 import WarningIcon from '../../../../../utility/warning';
+import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
 	ErrorIcon,
@@ -81,24 +82,31 @@ const Icons = [
 const groupSize = 20;
 const IconWrapperStyles = css({ width: 304 });
 
-const allExamples: React.ComponentType<any>[] = [];
+function createIconGroupComponent(
+	IconGroup: React.ComponentType<NewCoreIconProps>[],
+	iconProps: Partial<NewCoreIconProps> = {},
+) {
+	return () => (
+		<div css={IconWrapperStyles}>
+			<Inline space="space.200" alignInline="start" shouldWrap={true}>
+				{IconGroup.map((Icon, index) => (
+					<Icon label="" key={index} {...iconProps} />
+				))}
+			</Inline>
+		</div>
+	);
+}
+
+const allMediumExamples = [];
+const allSmallExamples = [];
 
 for (let i = 0; i < Icons.length; i += groupSize) {
 	const IconGroup = Icons.slice(i, i + groupSize);
-	allExamples.push(() => {
-		return (
-			<div css={IconWrapperStyles}>
-				<Inline space="space.200" alignInline="start" shouldWrap={true}>
-					{IconGroup.map((Icon, index) => (
-						<Icon label="" key={index} />
-					))}
-				</Inline>
-			</div>
-		);
-	});
+	allMediumExamples.push(createIconGroupComponent(IconGroup));
+	allSmallExamples.push(createIconGroupComponent(IconGroup, { size: 'small' }));
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup0 = allExamples[0];
+export const MediumIconGroup0 = allMediumExamples[0];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup1 = allExamples[1];
+export const MediumIconGroup1 = allMediumExamples[1];

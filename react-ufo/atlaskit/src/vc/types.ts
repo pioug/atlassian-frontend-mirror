@@ -9,6 +9,7 @@ export type GetVCResultType = {
 	ssr?: number;
 	vc?: VCRawDataType | null;
 	experienceKey: string;
+	interactionId?: string;
 };
 
 export type SelectorConfig = {
@@ -25,6 +26,7 @@ export type VCObserverOptions = {
 	devToolsEnabled?: boolean | undefined;
 	selectorConfig?: SelectorConfig | undefined;
 	isPostInteraction?: boolean;
+	ssrEnablePageLayoutPlaceholder?: boolean;
 };
 
 export interface VCObserverInterface {

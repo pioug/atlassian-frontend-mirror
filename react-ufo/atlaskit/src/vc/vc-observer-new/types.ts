@@ -14,24 +14,28 @@ export type VCObserverEntryType =
 	| 'unknown';
 
 export type ViewportEntryData = {
+	readonly type: VCObserverEntryType;
 	readonly elementName: string;
 	readonly rect: DOMRect;
 	readonly previousRect?: DOMRect | undefined;
 	readonly visible: boolean;
 	readonly attributeName?: string | null | undefined;
+	readonly oldValue?: string | null | undefined;
+	readonly newValue?: string | null | undefined;
 };
 
 export type WindowEventEntryData = {
+	readonly type: VCObserverEntryType;
 	readonly eventType: ObservedWindowEvent;
 };
 
 export type VCObserverEntry = {
 	readonly time: DOMHighResTimeStamp;
-	readonly type: VCObserverEntryType;
 	readonly data: ViewportEntryData | WindowEventEntryData;
 };
 
 export type VCObserverGetVCResultParam = {
 	start: number;
 	stop: number;
+	interactionId?: string;
 };

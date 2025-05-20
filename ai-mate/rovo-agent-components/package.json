@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "2.9.0",
+	"version": "2.10.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -47,6 +47,7 @@
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/legacy-custom-icons": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -114,6 +115,9 @@
 	},
 	"platform-feature-flags": {
 		"rovo_chat_bugfix_agent_avatar_squish": {
+			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__ai-mate": {
 			"type": "boolean"
 		}
 	}

@@ -1,5 +1,18 @@
 # @atlaskit/teams-public
 
+## 0.29.0
+
+### Minor Changes
+
+- [#156784](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156784)
+  [`a614e25bb80c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a614e25bb80c9) -
+  PTC-11532 Add useTeamWebLink in teams-public, allow get/delete/update team web links in
+  teams-public
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.28.0
 
 ### Minor Changes

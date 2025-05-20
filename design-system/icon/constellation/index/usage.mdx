@@ -2,6 +2,9 @@
 order: 3
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+import PremiumIcon from '@atlaskit/icon/core/premium';
+
 import settingsDo from './images/settings-do.png';
 import settingsDont from './images/settings-dont.png';
 import menuDo from './images/menu-do.png';
@@ -125,7 +128,7 @@ caution when composing custom selectable elements with icons.
 Our icons were designed to work in harmony with the typography and spacing systems across Atlassian
 products. Don't scale or resize the icons. Instead, use existing sizes and components.
 
-### Core 16px icons (default)
+### Medium 16px icons (default)
 
 The majority of icons in products are 16 by 16px.
 
@@ -134,12 +137,25 @@ between icons and other elements. Use center-alignment to position icons in larg
 
 ![Icon with padding around it.](./images/icon-spacing.png)
 
+### Small 12px icons
+
+<SectionMessage appearance="discovery" title="New" icon={PremiumIcon}>
+	Small icons are now available, providing a fully downscaled set of icons. <strong>These replace utility icons</strong>, which will soon be deprecated.
+</SectionMessage>
+
+Icons are also available at a smaller size for visual alignment in small spaces. Because the
+size is smaller and harder to read, they should be used sparingly, such as for chevrons in buttons and menus.
+
+![Diagram of 12 pixel small icons in components. The X that indicates clearing a field and the drag handle dots icon are both 12 px.](./images/small-icons.png)
+
 ### Utility 12px icons
+
+<SectionMessage appearance="warning" title="Soon to be deprecated">
+	Utility icons are being deprecated in favor of core icons, which will now support a new <inlineCode>size</inlineCode> prop set to <inlineCode>small</inlineCode>. This change aligns with design requirements for a greater variety of smaller-sized icons. Consequently, <strong>all icons will now be available in this smaller size</strong> instead of a limited selection.
+</SectionMessage>
 
 A select few icons are available at a smaller size for visual alignment in small spaces. Because the
 size is smaller and harder to read, we only offer certain system icons at this size.
-
-![Diagram of 12 pixel utility icons in components. The X that indicates clearing a field and the drag handle dots icon are both 12 px.](./images/utility-icons.png)
 
 ### Larger than 16px icons — consider icon tile
 
@@ -165,5 +181,3 @@ For all new features, we recommend using [Atlassian Design System](/components/)
   [contribute an icon](/foundations/iconography#contribution-and-adding-new-icons).
 - For icons with colored backgrounds, use [icon tile](/components/icon/icon-tile/).
 - For buttons with icons, use [icon button](/components/button/icon-button).
-
-<!-- todo: Add icon lab and contribution links when those are ready -->

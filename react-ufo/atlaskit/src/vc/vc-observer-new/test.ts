@@ -101,8 +101,8 @@ describe('VCObserverNew', () => {
 
 			expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
 				time: 100,
-				type: 'mutation:element',
 				data: {
+					type: 'mutation:element',
 					elementName: 'test-element',
 					rect: expect.any(DOMRect),
 					previousRect: undefined,
@@ -125,8 +125,8 @@ describe('VCObserverNew', () => {
 
 			expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
 				time: 200,
-				type: 'window:event',
 				data: {
+					type: 'window:event',
 					eventType: 'scroll',
 				},
 			});
@@ -138,8 +138,8 @@ describe('VCObserverNew', () => {
 			const mockEntries: VCObserverEntry[] = [
 				{
 					time: 100,
-					type: 'mutation:element',
 					data: {
+						type: 'mutation:element',
 						elementName: 'element1',
 						rect: new DOMRect(0, 0, 10, 10),
 						visible: true,
@@ -151,7 +151,11 @@ describe('VCObserverNew', () => {
 			mockEntriesTimeline.getOrderedEntries.mockReturnValue(mockEntries);
 			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(mockResult);
 
-			const result = await vcObserver.getVCResult({ start: 0, stop: 1000 });
+			const result = await vcObserver.getVCResult({
+				start: 0,
+				stop: 1000,
+				interactionId: 'test-interaction-id',
+			});
 
 			expect(mockEntriesTimeline.getOrderedEntries).toHaveBeenCalledWith({
 				start: 0,
@@ -161,6 +165,8 @@ describe('VCObserverNew', () => {
 				orderedEntries: mockEntries,
 				startTime: 0,
 				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
 			});
 			expect(result).toEqual([mockResult]);
 		});
@@ -169,7 +175,11 @@ describe('VCObserverNew', () => {
 			mockEntriesTimeline.getOrderedEntries.mockReturnValue([]);
 			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue(undefined);
 
-			const result = await vcObserver.getVCResult({ start: 0, stop: 1000 });
+			const result = await vcObserver.getVCResult({
+				start: 0,
+				stop: 1000,
+				interactionId: 'test-interaction-id',
+			});
 
 			expect(result).toEqual([]);
 		});

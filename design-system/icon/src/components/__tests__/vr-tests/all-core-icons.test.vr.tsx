@@ -3,217 +3,427 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::2cb06874e0c72b72a42ba781acd2ee06>>
+ * @codegen <<SignedSource::134a06e43bb890a55a642b329b81e2cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import { snapshot } from '@af/visual-regression';
 
 import {
-	IconGroup0,
-	IconGroup1,
-	IconGroup10,
-	IconGroup11,
-	IconGroup12,
-	IconGroup13,
-	IconGroup14,
-	IconGroup15,
-	IconGroup16,
-	IconGroup17,
-	IconGroup18,
-	IconGroup2,
-	IconGroup3,
-	IconGroup4,
-	IconGroup5,
-	IconGroup6,
-	IconGroup7,
-	IconGroup8,
-	IconGroup9,
+	MediumIconGroup0,
+	MediumIconGroup1,
+	MediumIconGroup2,
+	MediumIconGroup3,
+	MediumIconGroup4,
+	MediumIconGroup5,
+	MediumIconGroup6,
+	MediumIconGroup7,
+	MediumIconGroup8,
+	MediumIconGroup9,
+	MediumIconGroup10,
+	MediumIconGroup11,
+	MediumIconGroup12,
+	MediumIconGroup13,
+	MediumIconGroup14,
+	MediumIconGroup15,
+	MediumIconGroup16,
+	MediumIconGroup17,
+	MediumIconGroup18,
+	SmallIconGroup0,
+	SmallIconGroup1,
+	SmallIconGroup2,
+	SmallIconGroup3,
+	SmallIconGroup4,
+	SmallIconGroup5,
+	SmallIconGroup6,
+	SmallIconGroup7,
+	SmallIconGroup8,
+	SmallIconGroup9,
+	SmallIconGroup10,
+	SmallIconGroup11,
+	SmallIconGroup12,
+	SmallIconGroup13,
+	SmallIconGroup14,
+	SmallIconGroup15,
+	SmallIconGroup16,
+	SmallIconGroup17,
+	SmallIconGroup18,
 } from './examples/all-core-icons';
 
-snapshot(IconGroup0, {
+snapshot(MediumIconGroup0, {
 	variants: [
 		{
-			name: 'Group 0',
+			name: 'Medium Group 0',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup1, {
+snapshot(MediumIconGroup1, {
 	variants: [
 		{
-			name: 'Group 1',
+			name: 'Medium Group 1',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup2, {
+snapshot(MediumIconGroup2, {
 	variants: [
 		{
-			name: 'Group 2',
+			name: 'Medium Group 2',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup3, {
+snapshot(MediumIconGroup3, {
 	variants: [
 		{
-			name: 'Group 3',
+			name: 'Medium Group 3',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup4, {
+snapshot(MediumIconGroup4, {
 	variants: [
 		{
-			name: 'Group 4',
+			name: 'Medium Group 4',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup5, {
+snapshot(MediumIconGroup5, {
 	variants: [
 		{
-			name: 'Group 5',
+			name: 'Medium Group 5',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup6, {
+snapshot(MediumIconGroup6, {
 	variants: [
 		{
-			name: 'Group 6',
+			name: 'Medium Group 6',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup7, {
+snapshot(MediumIconGroup7, {
 	variants: [
 		{
-			name: 'Group 7',
+			name: 'Medium Group 7',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup8, {
+snapshot(MediumIconGroup8, {
 	variants: [
 		{
-			name: 'Group 8',
+			name: 'Medium Group 8',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup9, {
+snapshot(MediumIconGroup9, {
 	variants: [
 		{
-			name: 'Group 9',
+			name: 'Medium Group 9',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup10, {
+snapshot(MediumIconGroup10, {
 	variants: [
 		{
-			name: 'Group 10',
+			name: 'Medium Group 10',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup11, {
+snapshot(MediumIconGroup11, {
 	variants: [
 		{
-			name: 'Group 11',
+			name: 'Medium Group 11',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup12, {
+snapshot(MediumIconGroup12, {
 	variants: [
 		{
-			name: 'Group 12',
+			name: 'Medium Group 12',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup13, {
+snapshot(MediumIconGroup13, {
 	variants: [
 		{
-			name: 'Group 13',
+			name: 'Medium Group 13',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup14, {
+snapshot(MediumIconGroup14, {
 	variants: [
 		{
-			name: 'Group 14',
+			name: 'Medium Group 14',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup15, {
+snapshot(MediumIconGroup15, {
 	variants: [
 		{
-			name: 'Group 15',
+			name: 'Medium Group 15',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup16, {
+snapshot(MediumIconGroup16, {
 	variants: [
 		{
-			name: 'Group 16',
+			name: 'Medium Group 16',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup17, {
+snapshot(MediumIconGroup17, {
 	variants: [
 		{
-			name: 'Group 17',
+			name: 'Medium Group 17',
 			environment: {
 				colorScheme: 'light',
 			},
 		},
 	],
 });
-snapshot(IconGroup18, {
+snapshot(MediumIconGroup18, {
 	variants: [
 		{
-			name: 'Group 18',
+			name: 'Medium Group 18',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+
+snapshot(SmallIconGroup0, {
+	variants: [
+		{
+			name: 'Small Group 0',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup1, {
+	variants: [
+		{
+			name: 'Small Group 1',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup2, {
+	variants: [
+		{
+			name: 'Small Group 2',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup3, {
+	variants: [
+		{
+			name: 'Small Group 3',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup4, {
+	variants: [
+		{
+			name: 'Small Group 4',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup5, {
+	variants: [
+		{
+			name: 'Small Group 5',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup6, {
+	variants: [
+		{
+			name: 'Small Group 6',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup7, {
+	variants: [
+		{
+			name: 'Small Group 7',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup8, {
+	variants: [
+		{
+			name: 'Small Group 8',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup9, {
+	variants: [
+		{
+			name: 'Small Group 9',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup10, {
+	variants: [
+		{
+			name: 'Small Group 10',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup11, {
+	variants: [
+		{
+			name: 'Small Group 11',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup12, {
+	variants: [
+		{
+			name: 'Small Group 12',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup13, {
+	variants: [
+		{
+			name: 'Small Group 13',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup14, {
+	variants: [
+		{
+			name: 'Small Group 14',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup15, {
+	variants: [
+		{
+			name: 'Small Group 15',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup16, {
+	variants: [
+		{
+			name: 'Small Group 16',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup17, {
+	variants: [
+		{
+			name: 'Small Group 17',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup18, {
+	variants: [
+		{
+			name: 'Small Group 18',
 			environment: {
 				colorScheme: 'light',
 			},

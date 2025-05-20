@@ -4,6 +4,7 @@ order: 4
 
 import IconMigration from '../../examples/constellation/icon-migration.tsx';
 import IconMigrationDeprecated from '../../examples/constellation/icon-migration-deprecated.tsx';
+import IconMigrationSize from '../../examples/constellation/icon-migration-size.tsx';
 import IconMigrationColor from '../../examples/constellation/icon-migration-color.tsx';
 import IconMigrationMargin from '../../examples/constellation/icon-migration-margin.tsx';
 
@@ -48,21 +49,29 @@ manual changes or design decisions. Review the code migration guide to get start
 Atlassian products can feature flag between the new icon components, and the legacy icons, via the
 `migration` entrypoint - or manually via the `LEGACY_fallbackIcon` prop.
 
-<Example Component={IconMigration} packageName="@atlaskit/icon" />
+<Example Component={IconMigration} packageName="@atlaskit/icon" disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]} />
 
-#### Deprecated props: `LEGACY_size` and `LEGACY_secondaryColor`
+#### Deprecated prop: `LEGACY_secondaryColor`
 
-Some props from the legacy icons are no longer available in the new icons, such as `size` and
-`secondaryColor`. To control these, use `LEGACY_size` and `LEGACY_secondaryColor` props:
+The legacy icon prop `secondaryColor` is no longer available in the new icons. To control this, use the `LEGACY_secondaryColor` prop:
 
-<Example Component={IconMigrationDeprecated} packageName="@atlaskit/icon" />
+<Example Component={IconMigrationDeprecated} packageName="@atlaskit/icon" disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]} />
 
 #### Migrating icon colors with `LEGACY_primaryColor`
 
 New icons have a type-safe `color` prop, which replaces the `primaryColor` prop on legacy icons. To
 provide a different color to the legacy icon than the new icon, use the `LEGACY_primaryColor` prop:
 
-<Example Component={IconMigrationColor} packageName="@atlaskit/icon" />
+<Example Component={IconMigrationColor} packageName="@atlaskit/icon" disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]} />
+
+#### Updated prop: `LEGACY_size`
+
+The `size` prop for new icons no longer includes `large` and `xlarge` from legacy icons. Note the dimensions of `medium` and `small` icons have changed to 16px and 12px, as they do not contain padding.
+Use the `LEGACY_size` prop to set the size of the old icon to be set to a different value.
+
+For visual balance, prefer `medium` new icons over `small` and migrate `small` legacy icons to `medium` new icons when possible. For `large` or `xlarge` legacy icons, see [the usage page](/components/icon/usage#larger-than-16px-icons--consider-icon-tile).
+
+<Example Component={IconMigrationSize} packageName="@atlaskit/icon" disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]} />
 
 #### Setting custom margins with `LEGACY_margin`
 
@@ -71,7 +80,7 @@ We recommend optimizing spacing inside components for icons with `spacing="none"
 parity during migration, you can use the `LEGACY_margin` prop to apply custom margins or other
 adjustments to the legacy icons.
 
-<Example Component={IconMigrationMargin} packageName="@atlaskit/icon" />
+<Example Component={IconMigrationMargin} packageName="@atlaskit/icon" disableCodeTransforms={[CODE_TRANSFORM_ID_MIGRATION_ICONS]} />
 
 ### Marketplace partners and app developers
 

@@ -94,6 +94,7 @@ export type Config = {
 		readonly selectorConfig?: SelectorConfig;
 		readonly ssr?: boolean;
 		readonly ssrWhitelist?: string[];
+		readonly ssrEnablePageLayoutPlaceholder?: boolean;
 		readonly stopVCAtInteractionFinish?: boolean;
 		/**
 		 * The revisions of TTVC that will be calculated

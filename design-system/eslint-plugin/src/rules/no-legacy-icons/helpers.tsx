@@ -93,13 +93,10 @@ const getIconKey = (iconPackage: string) => {
 /**
  * Checks if a new icon can be auto-migrated based on guidance from the migration map
  */
-export const canAutoMigrateNewIconBasedOnSize = (guidance?: string) => {
-	return [
-		'swap',
-		'swap-slight-visual-change',
-		'swap-visual-change',
-		'swap-size-shift-utility',
-	].includes(guidance || '');
+export const canAutoMigrateNewIconBasedOnSize = (guidance?: IconMigrationSizeGuidance) => {
+	return guidance
+		? ['swap', 'swap-slight-visual-change', 'swap-visual-change'].includes(guidance)
+		: false;
 };
 
 /**
@@ -137,14 +134,18 @@ const getNewIconNameAndImportPath = (
 export const createGuidance = ({
 	iconPackage,
 	insideNewButton,
-	size,
+	size: initialSize,
 	shouldUseMigrationPath,
+	shouldForceSmallIcon,
 }: {
 	iconPackage: string;
 	insideNewButton?: boolean;
 	size?: Size;
 	shouldUseMigrationPath?: boolean;
+	shouldForceSmallIcon?: boolean;
 }) => {
+	const size = shouldForceSmallIcon ? 'small' : initialSize;
+
 	const migrationMapObject = getMigrationMapObject(iconPackage);
 	const upcomingIcon = getUpcomingIcons(iconPackage);
 	if (upcomingIcon) {
@@ -214,9 +215,22 @@ export const createGuidance = ({
 		}
 		if (insideNewButton) {
 			guidance += buttonGuidanceStr;
-		} else if (size && size === 'medium') {
+		} else if (size === 'medium') {
 			guidance +=
-				"Setting the spacing property to 'spacious' will maintain the icon's box dimensions - but consider setting spacing='none' as it allows for easier control of spacing by parent elements.\n";
+				"Setting the spacing='spacious' will maintain the icon's box dimensions - but consider setting spacing='none' as it allows for easier control of spacing by parent elements.\n";
+		} else if (size === 'small') {
+			if (initialSize !== 'small' && shouldForceSmallIcon) {
+				guidance +=
+					"For this icon, it's recommended to use a smaller size using size='small'. Alternatively, for special cases where a larger version is needed size='medium' can be used, but it is generally discouraged for this icon.\n";
+			} else if (initialSize === 'small') {
+				if (shouldForceSmallIcon) {
+					guidance +=
+						"Setting spacing='compact' will maintain the icon's box dimensions - but consider setting spacing='none' as it allows for easier control of spacing by parent elements.\n";
+				} else {
+					guidance +=
+						"It's recommended to upscale to a medium icon with no spacing. Alternatively for special cases where smaller icons are required, the original icon size and dimensions can be maintained by using size='small' and spacing='compact'.\n";
+				}
+			}
 		} else if (size) {
 			guidance += "In the new icon, please use spacing='none'.\n";
 		}
@@ -390,6 +404,7 @@ export const createAutoMigrationError = ({
 	errors,
 	spacing,
 	insideNewButton,
+	shouldForceSmallIcon,
 }: {
 	node: Node;
 	importSource: string;
@@ -397,6 +412,7 @@ export const createAutoMigrationError = ({
 	errors: ErrorListAuto;
 	spacing?: string;
 	insideNewButton?: boolean;
+	shouldForceSmallIcon?: boolean;
 }) => {
 	const myError: IconMigrationError = {
 		node,
@@ -407,6 +423,7 @@ export const createAutoMigrationError = ({
 			spacing: spacing ?? '',
 			// value type need to be a string in Rule.ReportDescriptor
 			insideNewButton: String(insideNewButton),
+			shouldForceSmallIcon: String(shouldForceSmallIcon),
 		},
 	};
 	errors[locToString(node)] = myError;
@@ -634,9 +651,7 @@ const getNewIconNameForRenaming = (
 
 	if (isInManualArray) {
 		newIconName = getNewIconNameAndImportPath(importSource).iconName;
-		const keyToName = newIconName
-			? newIconName[0].toUpperCase() + newIconName.slice(1) + 'Icon'
-			: undefined;
+		const keyToName = newIconName ? getComponentName(newIconName) : undefined;
 		newIconName = keyToName;
 
 		if (newIconName === undefined || importSpecifier === keyToName) {
@@ -644,6 +659,14 @@ const getNewIconNameForRenaming = (
 		}
 	}
 	return newIconName;
+};
+
+export const getComponentName = (name: string) => {
+	return name
+		.split(/\W/)
+		.map((part) => `${part[0].toUpperCase()}${part.slice(1)}`)
+		.join('')
+		.concat('Icon');
 };
 
 /**
@@ -713,7 +736,6 @@ const createImportFix = ({
 			fixes.push(fixer.replaceText(migrationImportNode.source, `'${literal(importPath)}'`));
 		}
 	}
-
 	return fixes;
 };
 
@@ -738,7 +760,7 @@ const createPropFixes = ({
 }: {
 	node: Node;
 	fixer: Rule.RuleFixer;
-	metadata: { importSource: string; spacing: string; insideNewButton: string };
+	metadata: { importSource: string; spacing: string; insideNewButton: string; size?: string };
 	legacyImportNode?: ImportDeclaration;
 	shouldUseMigrationPath: boolean;
 	migrationImportNode?: ImportDeclaration;
@@ -746,7 +768,7 @@ const createPropFixes = ({
 }) => {
 	const fixes: Rule.Fix[] = [];
 
-	const { spacing } = metadata;
+	const { spacing, size } = metadata;
 	if (shouldUseMigrationPath && !legacyImportNode) {
 		return fixes;
 	}
@@ -767,27 +789,32 @@ const createPropFixes = ({
 			fixes.push(fixer.replaceText(primaryColor.name, 'color'));
 		}
 
-		// rename or remove size prop based on shouldUseMigrationPath,
-		// add spacing="spacious" if
-		// 1. it's in error metadata, which means size is medium
-		// 2. no existing spacing prop
-		// 3. iconType is "core"
-		// 4. icon is not imported from migration entrypoint
 		const sizeProp = findProp(attributes, 'size');
 		const spacingProp = findProp(attributes, 'spacing');
 
-		if (spacing && !spacingProp && !migrationImportNode) {
-			fixes.push(fixer.insertTextAfter(sizeProp || openingElement.name, ` spacing="${spacing}"`));
+		if (sizeProp && sizeProp.type === 'JSXAttribute') {
+			if (shouldUseMigrationPath) {
+				// Rename existing size prop to LEGACY_size and add new size prop if applicable
+				fixes.push(fixer.replaceText(sizeProp.name, 'LEGACY_size'));
+				if (size) {
+					fixes.push(fixer.insertTextAfter(sizeProp, ` size="${size}"`));
+				}
+			} else {
+				if (size && sizeProp.value) {
+					// update size prop with new replacement size
+					fixes.push(fixer.replaceText(sizeProp.value, `"${size}"`));
+				} else {
+					// remove size prop if no new replacement size is specified
+					fixes.push(fixer.remove(sizeProp));
+				}
+			}
+		} else if (size) {
+			fixes.push(fixer.insertTextAfter(openingElement.name, ` size="${size}"`));
 		}
 
-		if (sizeProp && sizeProp.type === 'JSXAttribute') {
-			fixes.push(
-				shouldUseMigrationPath
-					? // replace size prop with LEGACY_size,
-						fixer.replaceText(sizeProp.name, 'LEGACY_size')
-					: // remove size prop if shouldUseMigrationPath is false
-						fixer.remove(sizeProp),
-			);
+		// Add spacing prop if no existing spacing prop and icon is not imported from migration entrypoint
+		if (spacing && spacing !== 'none' && !spacingProp && !migrationImportNode) {
+			fixes.push(fixer.insertTextAfter(sizeProp || openingElement.name, ` spacing="${spacing}"`));
 		}
 
 		// rename or remove secondaryColor prop based on shouldUseMigrationPath
@@ -894,6 +921,7 @@ export const throwManualErrors = ({
 export const throwAutoErrors = ({
 	errorsManual,
 	errorsAuto,
+	iconSizesInfo,
 	legacyIconImports,
 	guidance,
 	migrationIconImports,
@@ -902,6 +930,13 @@ export const throwAutoErrors = ({
 }: {
 	errorsManual: ErrorListManual;
 	errorsAuto: ErrorListAuto;
+	iconSizesInfo: Record<
+		string,
+		{
+			small: string[]; // List of locations where the icon is used with small size
+			usageCount: number; // Total number of usages of this icon
+		}
+	>;
 	legacyIconImports: LegacyIconImportList;
 	guidance: GuidanceList;
 	migrationIconImports: MigrationIconImportList;
@@ -963,9 +998,23 @@ export const throwAutoErrors = ({
 			// If that is the case we'll need to provide a suggestion instead of auto-fixing as the suggestion will
 			// add another import without removing the old import and this needs to be validated
 			const isInManualArray = allManualErrorSources.has(importSource);
+
+			// Check if the icon has size of small, if so it cannot be automatically migrated. Two suggestions will be provided
+			// 1. Use core icon with no spacing
+			// 2. Use utility icon with compact spacing
+			const isSizeSmall = iconSizesInfo[importSource]?.small.includes(key);
+			const isMixedSizeUsage =
+				iconSizesInfo[importSource]?.small.length > 0 &&
+				iconSizesInfo[importSource]?.small.length < iconSizesInfo[importSource].usageCount;
+
+			// Icon should be renamed
+			// 1. If the icon is in the manual array OR
+			// 2. If there is mixed size usages of this icon with size small
+			const shouldRenameIcon = isInManualArray || isMixedSizeUsage;
+
 			// New icon name for renaming if the icon is in the manual array
 			const newIconName = getNewIconNameForRenaming(
-				isInManualArray,
+				shouldRenameIcon,
 				importSource,
 				errorList[0].data
 					? legacyIconImports[errorList[0].data.iconName]?.importSpecifier
@@ -979,31 +1028,70 @@ export const throwAutoErrors = ({
 			if (Object.keys(error).includes('data') && error.data) {
 				error.data.guidance = guidanceMessage;
 			}
+			const shouldForceSmallIcon = error.data?.shouldForceSmallIcon === 'true';
+
 			const fixArguments = error.data
 				? {
-						metadata: error.data as {
+						metadata: {
+							...error.data,
+							spacing: error.data.isInNewButton ? 'none' : error.data.spacing,
+							size: shouldForceSmallIcon ? 'small' : error.data.size,
+						} as {
 							importSource: string;
 							spacing: string;
+							size: string;
 							insideNewButton: string;
 						},
 						legacyImportNode: legacyIconImports[error.data.iconName]?.importNode,
 						migrationImportNode: migrationIconImports[error.data.iconName]?.importNode,
 						shouldUseMigrationPath,
-						newIconName: isInManualArray ? newIconName : undefined,
+						newIconName: shouldRenameIcon ? newIconName : undefined,
 					}
 				: null;
+
 			if (!error.data || (shouldUseMigrationPath && !checkIfNewIconExist(error)) || !fixArguments) {
 				continue;
 			}
-			if (isInManualArray) {
-				// provide suggestion if there is a manual error for the same import source and thus the legacy import can't be removed
+
+			const isInNewButton = fixArguments.metadata.insideNewButton === 'true';
+
+			if (isSizeSmall && !shouldForceSmallIcon) {
 				error.suggest = [
 					{
-						desc: 'Rename icon import, import from the new package, and update props.',
+						desc: isInNewButton
+							? 'Replace with medium core icon (Recommended)'
+							: 'Replace with medium core icon and no spacing (Recommended)',
 						fix: (fixer) => {
 							return [
 								...createPropFixes({
 									...fixArguments,
+									metadata: {
+										...fixArguments.metadata,
+										spacing: 'none',
+									},
+									node,
+									fixer,
+								}),
+								...createImportFix({
+									...fixArguments,
+									fixer,
+								}),
+							];
+						},
+					},
+					{
+						desc: isInNewButton
+							? 'Replace with small core icon'
+							: 'Replace with small core icon and compact spacing',
+						fix: (fixer) => {
+							return [
+								...createPropFixes({
+									...fixArguments,
+									metadata: {
+										...fixArguments.metadata,
+										spacing: 'compact',
+										size: 'small',
+									},
 									node,
 									fixer,
 								}),
@@ -1016,29 +1104,51 @@ export const throwAutoErrors = ({
 					},
 				];
 			} else {
-				// Update Guidance message for auto-fixing
-				if (error.data) {
-					error.data.guidance =
-						error.data.guidance +
-						`\nTo automatically fix this icon, run the auto-fixer attached to the first use of ${importSource} in this file - either manually, or by saving this file.`;
-				}
-				// There should only be 1 import fix for each import source and thus only add this at the start of the list
-				if (autoFixers.length === 0) {
+				if (isInManualArray) {
+					// provide suggestion if there is a manual error for the same import source and thus the legacy import can't be removed
+					error.suggest = [
+						{
+							desc: 'Rename icon import, import from the new package, and update props.',
+							fix: (fixer) => {
+								return [
+									...createPropFixes({
+										...fixArguments,
+										node,
+										fixer,
+									}),
+									...createImportFix({
+										...fixArguments,
+										fixer,
+									}),
+								];
+							},
+						},
+					];
+				} else {
+					// Update Guidance message for auto-fixing
+					if (error.data) {
+						error.data.guidance =
+							error.data.guidance +
+							`\nTo automatically fix this icon, run the auto-fixer attached to the first use of ${importSource} in this file - either manually, or by saving this file.`;
+					}
+					// There should only be 1 import fix for each import source and thus only add this at the start of the list
+					if (autoFixers.length === 0) {
+						autoFixers.push((fixer) =>
+							createImportFix({
+								...fixArguments,
+								fixer,
+							}),
+						);
+					}
+					// Push the prop fix regardless
 					autoFixers.push((fixer) =>
-						createImportFix({
+						createPropFixes({
 							...fixArguments,
+							node,
 							fixer,
 						}),
 					);
 				}
-				// Push the prop fix regardless
-				autoFixers.push((fixer) =>
-					createPropFixes({
-						...fixArguments,
-						node,
-						fixer,
-					}),
-				);
 			}
 			// Add the error to the appliedErrorsForImport, ready to be thrown later
 			appliedErrorsForImport.push(error);

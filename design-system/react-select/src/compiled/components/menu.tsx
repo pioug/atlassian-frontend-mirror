@@ -592,6 +592,19 @@ interface ComputedPosition {
 	rect: { left: number; width: number };
 }
 
+const menuPortalStyles = cssMap({
+	root: {
+		zIndex: 9999,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+		left: 'var(--menu-left)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		position: 'var(--menu-position)' as MenuPosition,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+		top: 'var(--menu-top)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+		width: 'var(--menu-width)',
+	},
+});
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MenuPortal = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuPortalProps<Option, IsMulti, Group>,
@@ -689,19 +702,21 @@ export const MenuPortal = <Option, IsMulti extends boolean, Group extends GroupB
 	// same wrapper element whether fixed or portalled
 	const menuWrapper = (
 		<div
+			css={menuPortalStyles.root}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-MenuPortal')}
 			ref={setMenuPortalElement}
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				zIndex: 9999,
-				left: computedPosition.rect.left,
-				position: menuPosition,
-				top: computedPosition.offset,
-				width: computedPosition.rect.width,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				...(css as CSSProperties),
-			}}
+			style={
+				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					'--menu-left': `${computedPosition.rect.left}px`,
+					'--menu-position': menuPosition,
+					'--menu-top': `${computedPosition.offset}px`,
+					'--menu-width': `${computedPosition.rect.width}px`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...(css as CSSProperties),
+				} as React.CSSProperties
+			}
 			{...innerProps}
 		>
 			{children}

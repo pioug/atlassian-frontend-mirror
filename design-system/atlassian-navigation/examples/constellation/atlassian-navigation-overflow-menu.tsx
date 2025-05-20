@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 
 import {
@@ -29,14 +29,7 @@ const ResponsivePrimaryDropdownButton = (props: PrimaryDropdownButtonProps) => {
 	return overflowStatus.isVisible ? (
 		<PrimaryDropdownButton>{props.children}</PrimaryDropdownButton>
 	) : (
-		<ButtonItem
-			iconAfter={
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<span style={{ opacity: 0.51 }}>
-					<ChevronDownIcon label="" />
-				</span>
-			}
-		>
+		<ButtonItem iconAfter={<ChevronDownIcon label="" size="small" spacing="spacious" />}>
 			{props.children}
 		</ButtonItem>
 	);

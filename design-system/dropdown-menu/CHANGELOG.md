@@ -1,5 +1,35 @@
 # @atlaskit/dropdown-menu
 
+## 15.1.0
+
+### Minor Changes
+
+- [#149822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149822)
+  [`f9ab0e846ae21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9ab0e846ae21) -
+  Updated to support `size` prop for new icons from `@atlaskit/icon`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.0.0
+
+### Major Changes
+
+- [#148607](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148607)
+  [`30eff9d58e797`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30eff9d58e797) -
+  Removed `overrides` prop from DropdownMenuItemGroup.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

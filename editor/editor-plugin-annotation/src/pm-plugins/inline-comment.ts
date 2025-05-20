@@ -245,30 +245,27 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
 			return {
 				update(view: EditorView, _prevState: EditorState) {
-					if (fg('confluence_comments_select_comment_experience')) {
-						const { selectedAnnotations, annotations } = getPluginState(view.state) || {};
-						const { selectedAnnotations: prevSelectedAnnotations } =
-							getPluginState(_prevState) || {};
+					const { selectedAnnotations, annotations } = getPluginState(view.state) || {};
+					const { selectedAnnotations: prevSelectedAnnotations } = getPluginState(_prevState) || {};
 
-						const selectedAnnotationId =
-							selectedAnnotations && selectedAnnotations.length !== 0 && selectedAnnotations[0].id
-								? selectedAnnotations[0].id
-								: undefined;
-						// If the new state has an unresolved selected annotation, and it's different from
-						// the previous one then we mark the select annotation experience as complete.
-						if (
-							//This checks the selected annotation is different from the previous one
-							selectedAnnotationId &&
-							selectedAnnotationId !== prevSelectedAnnotations?.[0]?.id &&
-							// This ensures that the selected annotation is unresolved
-							annotations &&
-							annotations[selectedAnnotationId] === false
-						) {
-							// Under the confluence_comments_select_comment_experience feature flag, the selectComponentExperience is using a simplified object, which is why it's type asserted.
-							(
-								options.selectCommentExperience as SimpleSelectInlineCommentCompoundExperience
-							)?.selectAnnotation.complete(selectedAnnotationId);
-						}
+					const selectedAnnotationId =
+						selectedAnnotations && selectedAnnotations.length !== 0 && selectedAnnotations[0].id
+							? selectedAnnotations[0].id
+							: undefined;
+					// If the new state has an unresolved selected annotation, and it's different from
+					// the previous one then we mark the select annotation experience as complete.
+					if (
+						//This checks the selected annotation is different from the previous one
+						selectedAnnotationId &&
+						selectedAnnotationId !== prevSelectedAnnotations?.[0]?.id &&
+						// This ensures that the selected annotation is unresolved
+						annotations &&
+						annotations[selectedAnnotationId] === false
+					) {
+						// The selectComponentExperience is using a simplified object, which is why it's type asserted.
+						(
+							options.selectCommentExperience as SimpleSelectInlineCommentCompoundExperience
+						)?.selectAnnotation.complete(selectedAnnotationId);
 					}
 
 					const { dirtyAnnotations } = getPluginState(view.state) || {};

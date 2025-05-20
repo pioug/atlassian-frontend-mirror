@@ -4,6 +4,8 @@ export type MutationRecordWithTimestamp = MutationRecord & {
 
 export type AttributeMutationData = {
 	attributeName: string;
+	oldValue?: string | undefined | null;
+	newValue?: string | undefined | null;
 };
 
 /**

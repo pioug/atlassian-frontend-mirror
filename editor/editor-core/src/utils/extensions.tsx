@@ -107,43 +107,11 @@ export async function extensionProviderToQuickInsertProvider(
 						isDisabledOffline: true,
 						action: (insert, state, source) => {
 							if (typeof item.node === 'function') {
-								if (fg('platform_editor_add_extension_api_to_quick_insert')) {
-									const extensionAPI = apiRef?.current?.extension?.actions?.api();
-									// While this should only run when the extension some setups of editor
-									// may not have the extension API
-									if (extensionAPI) {
-										resolveImport(item.node(extensionAPI)).then((node) => {
-											sendExtensionQuickInsertAnalytics(
-												item,
-												state.selection,
-												createAnalyticsEvent,
-												source,
-											);
-
-											if (node) {
-												editorActions.replaceSelection(node);
-											}
-										});
-									} else {
-										// Originally it was understood we could only use this if we were using the extension plugin
-										// However there are some edge cases where this is not true (ie. in jira)
-										// Since making it optional now would be a breaking change - instead we can just pass a dummy
-										// extension API to consumers that warns them of using the methods.
-										resolveImport(item.node(dummyExtensionAPI)).then((node) => {
-											sendExtensionQuickInsertAnalytics(
-												item,
-												state.selection,
-												createAnalyticsEvent,
-												source,
-											);
-											if (node) {
-												editorActions.replaceSelection(node);
-											}
-										});
-									}
-								} else {
-									// @ts-expect-error No longer supported without extension API - this will be removed once we cleanup the FG.
-									resolveImport(item.node()).then((node) => {
+								const extensionAPI = apiRef?.current?.extension?.actions?.api();
+								// While this should only run when the extension some setups of editor
+								// may not have the extension API
+								if (extensionAPI) {
+									resolveImport(item.node(extensionAPI)).then((node) => {
 										sendExtensionQuickInsertAnalytics(
 											item,
 											state.selection,
@@ -151,6 +119,22 @@ export async function extensionProviderToQuickInsertProvider(
 											source,
 										);
 
+										if (node) {
+											editorActions.replaceSelection(node);
+										}
+									});
+								} else {
+									// Originally it was understood we could only use this if we were using the extension plugin
+									// However there are some edge cases where this is not true (ie. in jira)
+									// Since making it optional now would be a breaking change - instead we can just pass a dummy
+									// extension API to consumers that warns them of using the methods.
+									resolveImport(item.node(dummyExtensionAPI)).then((node) => {
+										sendExtensionQuickInsertAnalytics(
+											item,
+											state.selection,
+											createAnalyticsEvent,
+											source,
+										);
 										if (node) {
 											editorActions.replaceSelection(node);
 										}

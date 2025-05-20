@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 import { RowHeader } from './utils';
 
-const IconDefaultExample = () => {
+const IconMigrationColorExample = () => {
 	return (
 		<Stack space="space.100">
 			<Inline space="space.100">
@@ -23,6 +23,7 @@ const IconDefaultExample = () => {
 				<StarIconMigration
 					color={token('color.icon.accent.orange')}
 					LEGACY_primaryColor={token('color.background.accent.yellow.subtle')}
+					spacing="spacious"
 					label="Starred"
 				/>
 			</Inline>
@@ -34,4 +35,4 @@ const IconDefaultExample = () => {
 	);
 };
 
-export default IconDefaultExample;
+export default IconMigrationColorExample;

@@ -15,13 +15,23 @@ export type TeamContainer = {
 	type: ContainerTypes;
 	name: string;
 	icon?: string | null;
-	createdDate: Date;
+	createdDate?: Date;
 	link?: string | null;
 	containerTypeProperties?: {
 		subType?: ContainerSubTypes;
 		name?: string;
 	};
 };
+
+export interface TeamWebLink {
+	contentTitle: string;
+	description: string;
+	linkUri: string;
+	linkId: string;
+	teamId?: string;
+}
+
+export type NewTeamWebLink = Omit<TeamWebLink, 'linkId'>;
 
 export const USER_ARI_PREFIX = 'ari:cloud:identity::user/' as const;
 export type UserARI = `${typeof USER_ARI_PREFIX}${string}`;

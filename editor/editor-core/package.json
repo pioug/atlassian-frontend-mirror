@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.0.3",
+	"version": "207.0.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -156,12 +156,6 @@
 		"platform_editor_reduce_scroll_jump_on_editor_start": {
 			"type": "boolean"
 		},
-		"platform_editor_fe--performance_metrics": {
-			"type": "boolean"
-		},
-		"platform_editor_fe--ufo-bridge": {
-			"type": "boolean"
-		},
 		"platform_editor_fe--inp-metrics": {
 			"type": "boolean"
 		},
@@ -276,9 +270,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_disable_rerender_tracking_jira": {
-			"type": "boolean"
-		},
-		"platform_editor_add_extension_api_to_quick_insert": {
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {

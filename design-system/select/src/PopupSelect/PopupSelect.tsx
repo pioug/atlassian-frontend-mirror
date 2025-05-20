@@ -681,10 +681,6 @@ export default class PopupSelect<
 	};
 
 	handleOpenLayerObserverCloseSignal = () => {
-		if (!fg('platform_dst_layer_observer_select')) {
-			return;
-		}
-
 		this.close();
 	};
 
@@ -717,7 +713,7 @@ export default class PopupSelect<
 					)}
 				</IdProvider>
 				<NotifyOpenLayerObserver
-					isOpen={fg('platform_dst_layer_observer_select') && this.state.isOpen}
+					isOpen={this.state.isOpen}
 					onClose={this.handleOpenLayerObserverCloseSignal}
 				/>
 			</Manager>

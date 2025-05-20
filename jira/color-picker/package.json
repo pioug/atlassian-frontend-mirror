@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/color-picker",
-	"version": "5.1.2",
+	"version": "5.1.3",
 	"description": "Jira Color Picker Component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -85,9 +85,6 @@
 			"type": "boolean"
 		},
 		"one_event_rules_them_all_fg": {
-			"type": "boolean"
-		},
-		"platform_dst_layer_observer_select": {
 			"type": "boolean"
 		}
 	},

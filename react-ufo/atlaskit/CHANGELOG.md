@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.0
+
+### Minor Changes
+
+- [#156673](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156673)
+  [`27ecf5244d858`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27ecf5244d858) -
+  Added API to account for page layout in VC calculation
+
+## 3.12.5
+
+### Patch Changes
+
+- [#156815](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156815)
+  [`a6856b45ef58f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6856b45ef58f) -
+  make ttvc v3 more debugable
+
 ## 3.12.4
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { type ComponentType, type PropsWithChildren, type ReactNode, type Ref } from 'react';
+import { type ComponentType, type PropsWithChildren, type Ref } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
@@ -7,24 +7,6 @@ import type { SpacingMode } from './internal/components/menu-context';
 
 export interface RenderFunction<TProps = {}> {
 	(Component: ComponentType | string, props: TProps): React.ReactNode;
-}
-
-/**
- * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
- */
-export interface TitleOverrides {
-	render?: RenderFunction<{
-		className?: string;
-		children: ReactNode;
-		'data-item-title': boolean;
-	}>;
-}
-
-/**
- * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
- */
-export interface Overrides {
-	Title?: TitleOverrides;
 }
 
 export type Dimension = string | number;
@@ -121,21 +103,6 @@ export interface SectionProps {
 	testId?: string;
 
 	/**
-	 * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	overrides?: {
-		HeadingItem?: {
-			/**
-			 * A function that overrides the styles of the component.
-			 * It receives the current styles and state and expects a styles object.
-			 */
-			// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-			cssFn?: StatelessCSSFn;
-		};
-	};
-
-	/**
 	 * The text passed into the internal `HeadingItem`. If a title isn't provided,
 	 * the `HeadingItem` won't be rendered, and this component will act as a regular `Section`.
 	 */
@@ -151,6 +118,12 @@ export interface SectionProps {
 	 * If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.
 	 */
 	isList?: boolean;
+
+	/**
+	 * When `true`, section header inline padding is reduced.
+	 * @deprecated This API exists to support functionality in `@atlaskit/side-navigation` and should not be used. Once the new navigation is fully rolled out, this prop will be removed.
+	 */
+	isSideNavSection?: boolean;
 }
 
 export interface MenuItemPrimitiveProps {
@@ -421,15 +394,6 @@ export interface SkeletonItemProps {
 }
 
 export interface HeadingItemProps {
-	/**
-	 * A function that overrides the styles.
-	 * It receives the current styles and returns a customized styles object.
-	 *
-	 * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	cssFn?: StatelessCSSFn;
-
 	/**
 	 * The text of the heading.
 	 */

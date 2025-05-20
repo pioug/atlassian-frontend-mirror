@@ -1,5 +1,50 @@
 # @atlaskit/editor-common
 
+## 105.6.0
+
+### Minor Changes
+
+- [#149822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149822)
+  [`f9ab0e846ae21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9ab0e846ae21) -
+  Updated to support `size` prop for new icons from `@atlaskit/icon`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 105.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 105.5.3
+
+### Patch Changes
+
+- [#155765](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155765)
+  [`dac294edbbb31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dac294edbbb31) -
+  [ux] Set correct a11y role on dropdown's options.
+- [#156039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156039)
+  [`78d82dd184edd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78d82dd184edd) -
+  Wrap mention FC component with a React.memo
+- Updated dependencies
+
+## 105.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 105.5.1
+
+### Patch Changes
+
+- [#152467](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152467)
+  [`83f421efea76c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83f421efea76c) -
+  Add isPageSSRed card options in confluence presets
+- Updated dependencies
+
 ## 105.5.0
 
 ### Minor Changes

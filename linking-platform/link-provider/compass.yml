@@ -1,0 +1,38 @@
+name: '@atlaskit/link-provider'
+description: This package supplies a React context provider—most notably the SmartCardProvider—for anything link-related, including Smart Links. It is used to inject link resolution clients and configuration into the React component tree, enabling components like @atlaskit/smart-card to access the necessary context for resolving and rendering rich link previews (Smart Links).
+configVersion: 1
+typeId: LIBRARY
+ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+labels:
+  - atlassian-platform
+links:
+  - name: Bandicoots
+    type: PROJECT
+    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/EDM/boards/5176'
+  - name: '#help-twg-linking-platform'
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'
+  - name: 'On-Call Schedule'
+    type: ON_CALL
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b9c8b313-dd6d-4a41-8eeb-d7a9df55be9d'
+  - name: source code
+    type: REPOSITORY
+    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/linking-platform/link-provider'
+customFields:
+  - name: 'FinOps_COGS_Cost_Center'
+    type: single_select
+    value: 'a681c808-9c58-45e5-9b3a-b5cc330c4b3a'
+  - name: 'FinOps_R&D_Cost_Center'
+    type: single_select
+    value: 'd9c71b12-1c77-4c68-a769-ba0e26bc8cac'
+  - name: 'FinOps_Service_Group'
+    type: single_select
+    value: '9120e03c-440b-489d-ac42-07903a2c611d'
+  - name: 'business-unit'
+    type: text
+    value: 'Eng - X Product Collab'
+relationships: {}

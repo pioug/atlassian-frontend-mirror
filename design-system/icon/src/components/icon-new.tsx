@@ -74,12 +74,30 @@ const scaleSize = css({
 	height: 'inherit',
 });
 
-const coreSizes = cssMap({
+const coreSizeMedium = cssMap({
 	none: {
 		width: token('space.200'),
 		height: token('space.200'),
 	},
-	compact: {},
+	compact: {
+		width: token('space.300'),
+		height: token('space.300'),
+	},
+	spacious: {
+		width: token('space.300'),
+		height: token('space.300'),
+	},
+});
+
+const coreSizeSmall = cssMap({
+	none: {
+		width: token('space.150'),
+		height: token('space.150'),
+	},
+	compact: {
+		width: token('space.200'),
+		height: token('space.200'),
+	},
 	spacious: {
 		width: token('space.300'),
 		height: token('space.300'),
@@ -108,13 +126,28 @@ const baseSizeMap = {
 
 const paddingMap = {
 	core: {
-		none: 0,
-		spacious: 4,
+		medium: {
+			none: 0,
+			compact: 4,
+			spacious: 4,
+		},
+		small: {
+			none: 0,
+			compact: 2.66,
+			spacious: 8,
+		},
 	},
 	utility: {
-		none: 0,
-		compact: 2,
-		spacious: 6,
+		medium: {
+			none: 0,
+			compact: 2,
+			spacious: 6,
+		},
+		small: {
+			none: 0,
+			compact: 2,
+			spacious: 6,
+		},
 	},
 } as const;
 
@@ -141,6 +174,7 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		// Used with iconTile to scale icon up and down
 		shouldScale,
 		LEGACY_margin,
+		spacing = 'none',
 	} = props as InternalIconPropsNew;
 
 	const dangerouslySetInnerHTML = dangerouslySetGlyph
@@ -166,15 +200,19 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 		);
 	}
 
-	const baseSize = baseSizeMap[props.type ?? 'core'];
+	const type: 'core' | 'utility' = props.type ?? 'core';
+	const size: 'medium' | 'small' =
+		'size' in props &&
+		props.size !== undefined &&
+		// This prevents invalid sizes being passed in, which is required
+		// for handling unsupported legacy icon sizes which can
+		// cause errors.
+		(props.size === 'small' || props.size === 'medium')
+			? props.size
+			: 'medium';
 
-	let viewBoxPadding: number;
-	if (props.type === 'utility') {
-		viewBoxPadding = paddingMap[props.type][props.spacing ?? 'none'];
-	} else {
-		viewBoxPadding = paddingMap['core'][props.spacing ?? 'none'];
-	}
-
+	const baseSize = baseSizeMap[type];
+	const viewBoxPadding = paddingMap[type][size][spacing];
 	const viewBoxSize = baseSize + 2 * viewBoxPadding;
 
 	return (
@@ -188,7 +226,7 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 				iconStyles,
 				baseHcmStyles,
 				shouldScale && scaleStyles,
-				props.type === 'utility' && utilityIconStyles,
+				(type === 'utility' || size === 'small') && utilityIconStyles,
 			]}
 		>
 			<svg
@@ -201,9 +239,11 @@ export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 					svgStyles,
 					shouldScale
 						? scaleSize
-						: props.type === 'utility'
-							? utilSizes[props.spacing ?? 'none']
-							: coreSizes[props.spacing ?? 'none'],
+						: type === 'utility'
+							? utilSizes[spacing]
+							: size === 'small'
+								? coreSizeSmall[spacing]
+								: coreSizeMedium[spacing],
 				]}
 				dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 			/>

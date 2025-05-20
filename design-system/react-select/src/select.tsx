@@ -2474,10 +2474,6 @@ export default class Select<
 	}
 
 	handleOpenLayerObserverCloseSignal = () => {
-		if (!fg('platform_dst_layer_observer_select')) {
-			return;
-		}
-
 		this.onMenuClose();
 	};
 
@@ -2569,7 +2565,7 @@ export default class Select<
 				{this.renderMenu()}
 				{this.renderFormField()}
 				<NotifyOpenLayerObserver
-					isOpen={fg('platform_dst_layer_observer_select') && this.props.menuIsOpen}
+					isOpen={this.props.menuIsOpen}
 					onClose={this.handleOpenLayerObserverCloseSignal}
 				/>
 			</SelectContainer>

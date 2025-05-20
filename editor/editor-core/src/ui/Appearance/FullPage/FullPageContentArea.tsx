@@ -39,7 +39,7 @@ import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
 import { createEditorContentStyle } from '../../ContentStyles';
 import { ContextPanel } from '../../ContextPanel';
-import EditorContentContainer from '../../EditorContentContainer';
+import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
 
 import {

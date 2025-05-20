@@ -48,7 +48,17 @@ export const createPlugin = ({
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
 	decorations?: DecorationSet;
 }) => {
-	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
+	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = fg(
+		'platform_editor_interaction_on_code_blocks',
+	)
+		? {
+				click: () => {
+					// Set hasHadInteraction to true on any click of code blocks, as clicks
+					// on code blocks to not propagate to editor-level click handlers
+					api?.core?.actions.execute(api?.interaction?.commands.handleInteraction);
+				},
+			}
+		: {};
 
 	// ME-1599: Composition on mobile was causing the DOM observer to mutate the code block
 	// incorrecly and lose content when pressing enter in the middle of a code block line.

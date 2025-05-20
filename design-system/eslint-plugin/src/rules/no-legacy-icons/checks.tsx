@@ -69,6 +69,13 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 
 	const errorsManual: ErrorListManual = {};
 	const errorsAuto: ErrorListAuto = {};
+	const iconSizesInfo: Record<
+		string,
+		{
+			small: string[]; // List of locations where the icon is used with small size
+			usageCount: number; // Total number of usages of this icon
+		}
+	> = {}; //Import source key, locations as value
 
 	let guidance: GuidanceList = {};
 
@@ -632,7 +639,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			);
 
 			// Add spacing if:
-			// 1. size is medium for core/utility icons or small for utility icons, or not set (default is medium for core and small for utility icons)
+			// 1. size is medium for core/utility icons or not set (default is medium for core and small for utility icons)
 			// 2. not inside a new or legacy button (except for icon-only legacy buttons)
 			const sizeProp = node.openingElement.attributes.find(
 				(attribute) =>
@@ -645,13 +652,32 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				if (sizeProp && sizeProp.type === 'JSXAttribute' && sizeProp.value?.type === 'Literal') {
 					if (sizeProp.value.value === 'medium') {
 						spacing = 'spacious';
-					} else if (sizeProp.value.value === 'small' && newIcon?.type === 'utility') {
-						spacing = 'compact';
 					}
 				} else if (!sizeProp) {
 					spacing = 'spacious';
 				}
 			}
+
+			if (!iconSizesInfo[legacyIconImports[name].packageName]) {
+				iconSizesInfo[legacyIconImports[name].packageName] = {
+					small: [],
+					usageCount: 0,
+				};
+			}
+
+			// Do not automatically migration if size is small as we cannot determine if a core icon or a scaled down utility icon should be used
+			if (
+				sizeProp &&
+				sizeProp.type === 'JSXAttribute' &&
+				sizeProp.value?.type === 'Literal' &&
+				sizeProp.value.value === 'small'
+			) {
+				iconSizesInfo[legacyIconImports[name].packageName].small.push(locToString(node));
+			}
+
+			iconSizesInfo[legacyIconImports[name].packageName].usageCount++;
+
+			const shouldForceSmallIcon = newIcon?.shouldForceSmallIcon;
 
 			if (
 				shouldUseSafeMigrationMode &&
@@ -673,6 +699,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					errors: errorsAuto,
 					spacing,
 					insideNewButton,
+					shouldForceSmallIcon,
 				});
 			} else if (((!newIcon && !upcomingIcon) || !isNewIconMigratable) && size) {
 				createCantFindSuitableReplacementError(
@@ -689,6 +716,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				insideNewButton,
 				size: size && isSize(size) ? size : undefined,
 				shouldUseMigrationPath,
+				shouldForceSmallIcon,
 			});
 		}
 	};
@@ -734,6 +762,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			throwAutoErrors({
 				errorsManual,
 				errorsAuto,
+				iconSizesInfo,
 				legacyIconImports,
 				guidance,
 				migrationIconImports,

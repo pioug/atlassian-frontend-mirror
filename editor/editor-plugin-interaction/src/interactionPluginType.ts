@@ -1,5 +1,12 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorCommand, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 import { type InteractionState } from './types';
 
-export type InteractionPlugin = NextEditorPlugin<'interaction', { sharedState: InteractionState }>;
+type InteractionCommands = {
+	handleInteraction: EditorCommand;
+};
+
+export type InteractionPlugin = NextEditorPlugin<
+	'interaction',
+	{ sharedState: InteractionState; commands: InteractionCommands }
+>;

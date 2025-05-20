@@ -6,6 +6,7 @@ import {
 	EditorSelection,
 	Facet,
 	EditorState as CodeMirrorState,
+	StateEffect,
 } from '@codemirror/state';
 import { EditorView as CodeMirror, lineNumbers, ViewUpdate, gutters } from '@codemirror/view';
 
@@ -33,7 +34,7 @@ import { highlightStyle } from '../ui/syntaxHighlightingTheme';
 import { cmTheme } from '../ui/theme';
 
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
-import { updateCMSelection } from './codemirrorSync/updateCMSelection';
+import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { keymapExtension } from './extensions/keymap';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
@@ -90,9 +91,11 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			doc: this.node.textContent,
 			extensions: [
 				...config.extensions,
-				this.lineWrappingCompartment.of([]),
+				this.lineWrappingCompartment.of(
+					isCodeBlockWordWrapEnabled(node) ? CodeMirror.lineWrapping : [],
+				),
 				this.languageCompartment.of([]),
-				this.pmDecorationsCompartment.of([]),
+				this.pmDecorationsCompartment.of(this.pmFacet.compute([], () => innerDecorations)),
 				keymapExtension({
 					view,
 					getPos,
@@ -133,8 +136,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// inner editor
 		this.updating = false;
 		this.updateLanguage();
-		this.updateWordWrap(node);
-		this.updateProseMirrorDecorations(innerDecorations);
+		this.wordWrappingEnabled = isCodeBlockWordWrapEnabled(node);
 	}
 
 	destroy() {
@@ -194,19 +196,14 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 	private wordWrappingEnabled = false;
 
-	private updateWordWrap(node: PMNode) {
+	private getWordWrapEffects(node: PMNode) {
 		if (this.wordWrappingEnabled !== isCodeBlockWordWrapEnabled(node)) {
-			this.updating = true;
-			this.cm.dispatch({
-				effects: [
-					this.lineWrappingCompartment.reconfigure(
-						isCodeBlockWordWrapEnabled(node) ? CodeMirror.lineWrapping : [],
-					),
-				],
-			});
-			this.updating = false;
 			this.wordWrappingEnabled = !this.wordWrappingEnabled;
+			return this.lineWrappingCompartment.reconfigure(
+				isCodeBlockWordWrapEnabled(node) ? CodeMirror.lineWrapping : [],
+			);
 		}
+		return undefined;
 	}
 
 	update(node: PMNode, _: readonly Decoration[], innerDecorations: DecorationSource) {
@@ -215,7 +212,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		if (node.type !== this.node.type) {
 			return false;
 		}
-		this.updateWordWrap(node);
 		this.node = node;
 		if (this.updating) {
 			return true;
@@ -223,12 +219,21 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.updateLanguage();
 		const newText = node.textContent,
 			curText = this.cm.state.doc.toString();
-		updateCMSelection(curText, newText, (tr) => {
+
+		// Updates bundled for performance (to avoid multiple-dispatches)
+		const changes = getCMSelectionChanges(curText, newText);
+		const wordWrapEffect = this.getWordWrapEffects(node);
+		const prosemirrorDecorationsEffect = this.getProseMirrorDecorationEffects(innerDecorations);
+		if (changes || wordWrapEffect || prosemirrorDecorationsEffect) {
 			this.updating = true;
-			this.cm.dispatch(tr);
+			this.cm.dispatch({
+				effects: [wordWrapEffect, prosemirrorDecorationsEffect].filter(
+					(effect): effect is StateEffect<unknown> => !!effect,
+				),
+				changes,
+			});
 			this.updating = false;
-		});
-		this.updateProseMirrorDecorations(innerDecorations);
+		}
 		return true;
 	}
 
@@ -239,13 +244,9 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	 * @param decorationSource
 	 * @example
 	 */
-	private updateProseMirrorDecorations(decorationSource: DecorationSource) {
-		this.updating = true;
+	private getProseMirrorDecorationEffects(decorationSource: DecorationSource) {
 		const computedFacet = this.pmFacet.compute([], () => decorationSource);
-		this.cm.dispatch({
-			effects: this.pmDecorationsCompartment.reconfigure(computedFacet),
-		});
-		this.updating = false;
+		return this.pmDecorationsCompartment.reconfigure(computedFacet);
 	}
 
 	private clearProseMirrorDecorations() {

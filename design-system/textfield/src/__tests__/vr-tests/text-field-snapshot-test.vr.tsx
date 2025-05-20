@@ -43,6 +43,7 @@ snapshot(Variations, {
 });
 
 snapshot(ElementsBeforeAndAfter, {
+	states: [{ state: 'focused', selector: { byRole: 'button' } }],
 	variants: [
 		{
 			name: 'Light',

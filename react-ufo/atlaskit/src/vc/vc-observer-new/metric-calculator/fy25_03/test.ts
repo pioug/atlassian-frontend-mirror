@@ -14,8 +14,8 @@ describe('VCCalculator_FY25_03', () => {
 		it('should return false for non-considered entry types', () => {
 			const entry: VCObserverEntry = {
 				time: 0,
-				type: 'unknown',
 				data: {
+					type: 'unknown',
 					elementName: 'div',
 					rect: new DOMRect(),
 					visible: true,
@@ -27,8 +27,8 @@ describe('VCCalculator_FY25_03', () => {
 		it('should return true for valid mutation:attribute entries', () => {
 			const entry: VCObserverEntry = {
 				time: 0,
-				type: 'mutation:attribute',
 				data: {
+					type: 'mutation:attribute',
 					elementName: 'div',
 					rect: new DOMRect(),
 					visible: true,
@@ -41,8 +41,8 @@ describe('VCCalculator_FY25_03', () => {
 		it('should return false for mutation:attribute entries without attributeName', () => {
 			const entry: VCObserverEntry = {
 				time: 0,
-				type: 'mutation:attribute',
 				data: {
+					type: 'mutation:attribute',
 					elementName: 'div',
 					rect: new DOMRect(),
 					visible: true,
@@ -54,8 +54,8 @@ describe('VCCalculator_FY25_03', () => {
 		it('should return false for invisible viewport entries', () => {
 			const entry: VCObserverEntry = {
 				time: 0,
-				type: 'mutation:element',
 				data: {
+					type: 'mutation:element',
 					elementName: 'div',
 					rect: new DOMRect(),
 					visible: false,
@@ -67,8 +67,8 @@ describe('VCCalculator_FY25_03', () => {
 		it('should return true for visible viewport entries', () => {
 			const entry: VCObserverEntry = {
 				time: 0,
-				type: 'mutation:element',
 				data: {
+					type: 'mutation:element',
 					elementName: 'div',
 					rect: new DOMRect(),
 					visible: true,
@@ -83,8 +83,8 @@ describe('VCCalculator_FY25_03', () => {
 				it('should return false', () => {
 					const entry: VCObserverEntry = {
 						time: 0,
-						type: 'mutation:attribute',
 						data: {
+							type: 'mutation:attribute',
 							elementName: 'div',
 							rect: new DOMRect(),
 							visible: true,
@@ -102,8 +102,8 @@ describe('VCCalculator_FY25_03', () => {
 			const entries: VCObserverEntry[] = [
 				{
 					time: 0,
-					type: 'window:event',
 					data: {
+						type: 'window:event',
 						eventType: 'scroll',
 					} as WindowEventEntryData,
 				},
@@ -115,8 +115,8 @@ describe('VCCalculator_FY25_03', () => {
 			const entries: VCObserverEntry[] = [
 				{
 					time: 0,
-					type: 'window:event',
 					data: {
+						type: 'window:event',
 						eventType: 'click',
 					} as unknown as WindowEventEntryData,
 				},

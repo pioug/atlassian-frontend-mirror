@@ -57,6 +57,9 @@
             "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../teams-client/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/theme/afm-cc/tsconfig.json"
         },
         {

@@ -8,7 +8,9 @@ import { useIntl } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import Link from '@atlaskit/link';
 import { AtlassianIcon, RovoIcon } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
@@ -116,7 +118,18 @@ export const AgentProfileCreator = ({
 
 		if (creator.type === 'CUSTOMER') {
 			return formatMessage(messages.agentCreatedBy, {
-				creatorNameWithLink: (
+				creatorNameWithLink: fg('dst-a11y__replace-anchor-with-link__ai-mate') ? (
+					<Link
+						aria-label={creator.name || formatMessage(messages.creatorLabel)}
+						href={creator.profileLink}
+						onClick={() => onCreatorLinkClick()}
+						target="_blank"
+					>
+						{creator.name}{' '}
+						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
+					</Link>
+				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 					<a
 						aria-label={creator.name || formatMessage(messages.creatorLabel)}
 						href={creator.profileLink}

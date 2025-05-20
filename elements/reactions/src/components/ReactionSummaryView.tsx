@@ -111,6 +111,10 @@ interface ReactionSummaryViewProps
 	 */
 	hoverableSummaryViewDelay?: number;
 	/**
+	 * Optional prop for the optimistic image URL
+	 */
+	summaryGetOptimisticImageURL?: (emojiId: string) => string;
+	/**
 	 * Optional prop to control if the side picker is shown
 	 */
 	summaryButtonIconAfter?: React.ReactNode;
@@ -141,6 +145,7 @@ export const ReactionSummaryView = ({
 	reactionPickerTriggerText,
 	hoverableSummaryView = false,
 	hoverableSummaryViewDelay = 300,
+	summaryGetOptimisticImageURL,
 	summaryButtonIconAfter,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useDelayedState<boolean>(
@@ -354,6 +359,7 @@ export const ReactionSummaryView = ({
 					showOpaqueBackground={showOpaqueBackground}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 					useButtonAlignmentStyling={useButtonAlignmentStyling}
+					summaryGetOptimisticImageURL={summaryGetOptimisticImageURL}
 					summaryButtonIconAfter={summaryButtonIconAfter}
 				/>
 			)}

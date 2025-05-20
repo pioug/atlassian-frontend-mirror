@@ -17,6 +17,12 @@ export const interactionPlugin: InteractionPlugin = ({ api }) => {
 			};
 		},
 
+		commands: {
+			handleInteraction: ({ tr }) => {
+				return tr.setMeta(key, { hasHadInteraction: true });
+			},
+		},
+
 		pmPlugins() {
 			return [
 				{

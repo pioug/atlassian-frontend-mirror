@@ -11,7 +11,7 @@ import AlignTextRightIcon from '@atlaskit/icon/core/migration/align-text-right--
 
 const iconAndMessageMap: {
 	[key: string]: {
-		Component: React.ComponentType<React.PropsWithChildren<GlyphProps | NewCoreIconProps>>;
+		Component: React.ComponentType<GlyphProps> | React.ComponentType<NewCoreIconProps>;
 		label: MessageDescriptor;
 	};
 } = {

@@ -26,7 +26,6 @@ const DropdownItemCheckboxGroup = ({
 	id,
 	isList,
 	isScrollable,
-	overrides,
 	testId,
 	title,
 	// DSP-13312 TODO: remove spread props in future major release
@@ -42,8 +41,6 @@ const DropdownItemCheckboxGroup = ({
 				id={id}
 				isList={isList}
 				isScrollable={isScrollable}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-				overrides={overrides}
 				testId={testId}
 				titleId={title ? titleId : undefined}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

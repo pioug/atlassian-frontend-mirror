@@ -1,5 +1,14 @@
 # @atlassian/give-kudos
 
+## 4.1.3
+
+### Patch Changes
+
+- [#156675](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156675)
+  [`961628fddd7d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/961628fddd7d8) -
+  Internal change to move towards Compiled CSS-in-JS styling solution.
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

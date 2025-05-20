@@ -21,7 +21,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../types';
 import { createEditorContentStyle } from '../ContentStyles';
-import EditorContentContainer from '../EditorContentContainer';
+import EditorContentContainer from '../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
 

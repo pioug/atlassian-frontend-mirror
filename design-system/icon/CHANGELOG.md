@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 26.1.0
+
+### Minor Changes
+
+- [#149822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149822)
+  [`5f950e40b46c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f950e40b46c5) -
+  New icons now support a `size` prop with `medium` and `small` options. This replaces utility
+  icons, which will soon be deprecated. See the
+  [migration guide](https://atlassian.design/components/icon/migration-guide) for more information.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.0
 
 ### Major Changes

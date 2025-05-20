@@ -7,7 +7,7 @@ import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles'
 import { setGlobalTheme } from '@atlaskit/tokens';
 
 import { ContentArea } from '../../../ui/Appearance/Chromeless';
-import EditorContentContainer from '../../../ui/EditorContentContainer';
+import EditorContentContainer from '../../../ui/EditorContentContainer/EditorContentContainer';
 
 // jest doesn't support @container styles in css
 // so we need to mock the css function to remove them

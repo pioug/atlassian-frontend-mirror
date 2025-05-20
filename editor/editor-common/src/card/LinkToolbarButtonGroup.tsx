@@ -8,7 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import type { NewCoreIconProps } from '@atlaskit/icon/types';
+import type { NewCoreIconProps, IconProps } from '@atlaskit/icon/types';
 
 import { FloatingToolbarButton as Button } from '../ui';
 
@@ -51,7 +51,7 @@ export interface ButtonOptionProps {
 	tooltipContent?: string | null;
 	onClick: () => void;
 	icon: (props: NewCoreIconProps) => JSX.Element;
-	iconFallback: (props: NewCoreIconProps) => JSX.Element;
+	iconFallback: (props: IconProps) => JSX.Element;
 }
 
 export interface LinkToolbarButtonGroupProps {

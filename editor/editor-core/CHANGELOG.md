@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 207.0.6
+
+### Patch Changes
+
+- [#155774](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155774)
+  [`763f7a1fe5157`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/763f7a1fe5157) -
+  [ED-27991] Clean up: platform_editor_fe--ufo-bridge
+- Updated dependencies
+
+## 207.0.5
+
+### Patch Changes
+
+- [#156533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156533)
+  [`4d7cbea3fea55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d7cbea3fea55) -
+  [ux] ED-28033: Fixed layout not in the centre of resize container
+- Updated dependencies
+
+## 207.0.4
+
+### Patch Changes
+
+- [#156947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156947)
+  [`177aaf68cb7af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/177aaf68cb7af) -
+  Cleanup feature flag - adding extension api to quick insert
+- Updated dependencies
+
 ## 207.0.3
 
 ### Patch Changes

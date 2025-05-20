@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.10
+
+### Patch Changes
+
+- [#156937](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156937)
+  [`0a144ecb9fd2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a144ecb9fd2b) -
+  [ux] Improve the syntax highlighting for diff language.
+- Updated dependencies
+
+## 2.2.9
+
+### Patch Changes
+
+- [#156363](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156363)
+  [`fa74bacdec758`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa74bacdec758) -
+  Reduce number of codemirror transactions fired for performance.
+- Updated dependencies
+
 ## 2.2.8
 
 ### Patch Changes

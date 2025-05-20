@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { type Appearance } from '@atlaskit/button';
 import { cssMap, cx } from '@atlaskit/css';
-import { type IconProps } from '@atlaskit/icon';
+import { type NewCoreIconProps } from '@atlaskit/icon';
 import ShareIcon from '@atlaskit/icon/core/migration/share';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
@@ -446,7 +446,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 		} = this.props;
 
 		let button: React.ReactNode;
-		const ShareButtonIcon: React.ComponentType<IconProps> = triggerButtonIcon || IconShare;
+		const ShareButtonIcon: React.ComponentType<NewCoreIconProps> = triggerButtonIcon || IconShare;
 
 		// Render a custom or standard button.
 		if (renderCustomTriggerButton) {

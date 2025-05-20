@@ -1,5 +1,26 @@
 # @atlaskit/react-select
 
+## 2.5.0
+
+### Minor Changes
+
+- [#155681](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155681)
+  [`679a437d9a866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/679a437d9a866) -
+  The feature flag for registering `Select` and `PopupSelect` with the experimental open layer
+  observer has now been cleaned up.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.10
+
+### Patch Changes
+
+- [#157159](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157159)
+  [`8da004db78761`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8da004db78761) -
+  Migrate menuPortal inline styles to compiled styles
+
 ## 2.4.9
 
 ### Patch Changes

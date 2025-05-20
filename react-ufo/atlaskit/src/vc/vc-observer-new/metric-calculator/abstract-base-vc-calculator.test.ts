@@ -1,11 +1,10 @@
 // abstract-base-vc-calculator.test.ts
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { VCAbortReason } from '../../../common/vc/types';
 import { VCObserverEntry } from '../types';
 
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
-import * as calculateTTVCPercentiles from './percentile-calc';
+import * as percentileCalc from './percentile-calc';
 import * as getViewportHeight from './utils/get-viewport-height';
 import * as getViewportWidth from './utils/get-viewport-width';
 
@@ -27,13 +26,19 @@ class TestVCCalculator extends AbstractVCCalculatorBase {
 	}
 }
 
-describe('AbstractVCCalculatorBase', () => {
+describe('AbstractVCCalculatorBase V1', () => {
 	let calculator: TestVCCalculator;
 
 	beforeEach(() => {
 		calculator = new TestVCCalculator('test-revision');
 		jest.spyOn(getViewportWidth, 'default').mockReturnValue(1024);
 		jest.spyOn(getViewportHeight, 'default').mockReturnValue(768);
+		mockFg.mockImplementation((key) => {
+			if (key === 'platform_ufo_ttvc_v3_devtool') {
+				return false;
+			}
+			return false;
+		});
 	});
 
 	afterEach(() => {
@@ -59,66 +64,36 @@ describe('AbstractVCCalculatorBase', () => {
 			orderedEntries: [],
 			startTime: 0,
 			stopTime: 1000,
+			interactionId: 'test-interaction-id',
+			isPostInteraction: false,
 		});
 
 		expect(result).toEqual({
 			revision: 'test-revision',
 			'metric:vc90': null,
 			clean: false,
-		});
-	});
-
-	it('should return unclean result when getVCCleanStatus returns isVCClean=false and a dirtyReason', async () => {
-		mockFg.mockImplementationOnce((key) => {
-			if (key === 'platform_ufo_add_vc_abort_reason_by_revisions') {
-				return true;
-			}
-
-			return false;
-		});
-
-		const mockCalculator = new (class extends AbstractVCCalculatorBase {
-			protected isEntryIncluded() {
-				return true;
-			}
-			protected isVCClean() {
-				return false;
-			}
-			protected getVCCleanStatus() {
-				return {
-					isVCClean: false,
-					dirtyReason: 'scroll' as VCAbortReason,
-				};
-			}
-		})('test-revision');
-
-		const result = await mockCalculator.calculate({
-			orderedEntries: [],
-			startTime: 0,
-			stopTime: 1000,
-		});
-
-		expect(result).toEqual({
-			revision: 'test-revision',
-			'metric:vc90': null,
-			clean: false,
-			abortReason: 'scroll',
 		});
 	});
 
 	it('should calculate metrics when entries are valid', async () => {
-		const mockPercentileResult = {
-			'90': { t: 100, e: [] },
-			'25': { t: 25, e: [] },
-			'50': { t: 50, e: [] },
+		const mockCalcResult = {
+			'25': { t: 100, e: ['div1', 'div2'] },
+			'50': { t: 100, e: ['div1', 'div2'] },
+			'75': { t: 100, e: ['div1', 'div2'] },
+			'80': { t: 100, e: ['div1', 'div2'] },
+			'85': { t: 100, e: ['div1', 'div2'] },
+			'90': { t: 100, e: ['div1', 'div2'] },
+			'95': { t: 200, e: ['div3'] },
+			'98': { t: 200, e: ['div3'] },
+			'99': { t: 200, e: ['div3'] },
 		};
 
-		jest.spyOn(calculateTTVCPercentiles, 'default').mockResolvedValue(mockPercentileResult);
+		jest.spyOn(percentileCalc, 'calculateTTVCPercentiles').mockResolvedValue(mockCalcResult);
 
 		const mockEntry: VCObserverEntry = {
 			time: 0,
-			type: 'mutation:element',
 			data: {
+				type: 'mutation:element',
 				elementName: 'div',
 				rect: new DOMRect(),
 				visible: true,
@@ -129,20 +104,22 @@ describe('AbstractVCCalculatorBase', () => {
 			orderedEntries: [mockEntry],
 			startTime: 0,
 			stopTime: 1000,
+			interactionId: 'test-interaction-id',
+			isPostInteraction: false,
 		});
 
 		expect(result).toEqual({
 			revision: 'test-revision',
 			clean: true,
 			'metric:vc90': 100,
-			vcDetails: mockPercentileResult,
+			vcDetails: mockCalcResult,
 		});
 	});
 
 	it('should filter entries using isEntryIncluded', async () => {
 		const mockCalculator = new (class extends AbstractVCCalculatorBase {
 			protected isEntryIncluded(entry: VCObserverEntry) {
-				return entry.type === 'mutation:element';
+				return 'type' in entry.data && entry.data.type === 'mutation:element';
 			}
 			protected isVCClean() {
 				return true;
@@ -157,8 +134,8 @@ describe('AbstractVCCalculatorBase', () => {
 		const entries: VCObserverEntry[] = [
 			{
 				time: 0,
-				type: 'mutation:element',
 				data: {
+					type: 'mutation:element',
 					elementName: 'div',
 					rect: new DOMRect(),
 					visible: true,
@@ -166,16 +143,22 @@ describe('AbstractVCCalculatorBase', () => {
 			},
 			{
 				time: 1,
-				type: 'window:event',
 				data: {
+					type: 'window:event',
 					eventType: 'scroll',
 				},
 			},
 		];
 
-		await mockCalculator.calculate({ orderedEntries: entries, startTime: 0, stopTime: 1000 });
+		await mockCalculator.calculate({
+			orderedEntries: entries,
+			startTime: 0,
+			stopTime: 1000,
+			interactionId: 'test-interaction-id',
+			isPostInteraction: false,
+		});
 
-		expect(calculateTTVCPercentiles.default).toHaveBeenCalledWith(
+		expect(percentileCalc.calculateTTVCPercentiles).toHaveBeenCalledWith(
 			expect.objectContaining({
 				orderedEntries: [entries[0]],
 			}),

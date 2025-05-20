@@ -42,10 +42,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';
-import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
-import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
-import EditorBackgroundColorIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
-import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
+import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
 import TableCellClearIcon from '@atlaskit/icon/core/table-cell-clear';
 import TableCellMergeIcon from '@atlaskit/icon/core/table-cell-merge';
 import TableCellSplitIcon from '@atlaskit/icon/core/table-cell-split';
@@ -54,6 +51,8 @@ import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
+import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
+import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -254,7 +253,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 							color="currentColor"
 							spacing="spacious"
 							label={formatMessage(messages.backgroundColor)}
-							LEGACY_fallbackIcon={EditorBackgroundColorIcon}
 						/>
 					</Box>
 				) : undefined,

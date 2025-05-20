@@ -32,7 +32,7 @@ import type { EditorAppearanceComponentProps } from '../../../types';
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
 import { createEditorContentStyle } from '../../ContentStyles';
-import EditorContentContainer from '../../EditorContentContainer';
+import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 import WithFlash from '../../WithFlash';

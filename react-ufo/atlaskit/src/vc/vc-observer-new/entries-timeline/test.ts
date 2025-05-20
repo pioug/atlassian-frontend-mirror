@@ -12,8 +12,8 @@ describe('EntryTimeline', () => {
 	const createEntry = (time: number, name: string): VCObserverEntry => {
 		return {
 			time,
-			type: 'mutation:element',
 			data: {
+				type: 'mutation:element',
 				elementName: name,
 				rect: new DOMRect(0, 0, 10, 10),
 				visible: true,

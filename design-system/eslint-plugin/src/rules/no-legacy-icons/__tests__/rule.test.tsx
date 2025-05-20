@@ -177,20 +177,33 @@ describe('no-legacy-icons', () => {
 
 			{
 				options: [{ shouldUseMigrationPath: false }],
-				name: 'Basic, auto-migratable small icon, import from the final core path',
+				name: 'Basic, small icon only, suggestion - no fix, import from the final core path',
 				code: `
-				import AddIcon from '@atlaskit/icon/glyph/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
 
-				<AddIcon label="" size="small" />
-				`,
-				output: `
-				import AddIcon from '@atlaskit/icon/core/add';
-
-				<AddIcon label=""  />
-				`,
+<AddIcon label="" size="small" />
+`,
 				errors: [
 					{
 						messageId: 'noLegacyIconsAutoMigration',
+						suggestions: [
+							{
+								desc: 'Replace with medium core icon and no spacing (Recommended)',
+								output: `
+import AddIcon from '@atlaskit/icon/core/add';
+
+<AddIcon label=""  />
+`,
+							},
+							{
+								desc: 'Replace with small core icon and compact spacing',
+								output: `
+import AddIcon from '@atlaskit/icon/core/add';
+
+<AddIcon label="" size="small" spacing="compact" />
+`,
+							},
+						],
 					},
 				],
 			},
@@ -215,16 +228,16 @@ describe('no-legacy-icons', () => {
 			},
 			{
 				options: [{ shouldUseMigrationPath: false }],
-				name: 'Basic, auto-migratable icon, import from the final utility path',
+				name: 'Basic, auto-migratable icon, import from the final core path',
 				code: `
 				import ChevronLeftIcon from '@atlaskit/icon/glyph/chevron-left';
 
 				<ChevronLeftIcon label="" size="medium" />
 				`,
 				output: `
-				import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
+				import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 
-				<ChevronLeftIcon label=""  spacing="spacious" />
+				<ChevronLeftIcon label="" size="small" spacing="spacious" />
 				`,
 				errors: [
 					{
@@ -253,22 +266,37 @@ describe('no-legacy-icons', () => {
 			{
 				name: 'Upcoming Icons small size',
 				code: `
-				// Icon Tile usage
-				import { IconTile } from '@atlaskit/icon';
-				import ReposIcon from '@atlaskit/icon/glyph/bitbucket/repos';
+// Icon Tile usage
+import { IconTile } from '@atlaskit/icon';
+import ReposIcon from '@atlaskit/icon/glyph/bitbucket/repos';
 
-				<ReposIcon size="small" label="" />
-				`,
-				output: `
-				// Icon Tile usage
-				import { IconTile } from '@atlaskit/icon';
-				import ReposIcon from '@atlaskit/icon/core/migration/angle-brackets--bitbucket-repos';
-
-				<ReposIcon LEGACY_size="small" label="" />
-				`,
+<ReposIcon size="small" label="" />
+`,
 				errors: [
 					{
 						messageId: 'noLegacyIconsAutoMigration',
+						suggestions: [
+							{
+								desc: 'Replace with medium core icon and no spacing (Recommended)',
+								output: `
+// Icon Tile usage
+import { IconTile } from '@atlaskit/icon';
+import ReposIcon from '@atlaskit/icon/core/migration/angle-brackets--bitbucket-repos';
+
+<ReposIcon LEGACY_size="small" label="" />
+`,
+							},
+							{
+								desc: 'Replace with small core icon and compact spacing',
+								output: `
+// Icon Tile usage
+import { IconTile } from '@atlaskit/icon';
+import ReposIcon from '@atlaskit/icon/core/migration/angle-brackets--bitbucket-repos';
+
+<ReposIcon LEGACY_size="small" size="small" spacing="compact" label="" />
+`,
+							},
+						],
 					},
 				],
 			},
@@ -298,9 +326,9 @@ describe('no-legacy-icons', () => {
 				<ChevronDownIcon label="" />
 				`,
 				output: `
-				import {default as ChevronDownIcon} from '@atlaskit/icon/utility/migration/chevron-down';
+				import {default as ChevronDownIcon} from '@atlaskit/icon/core/migration/chevron-down';
 
-				<ChevronDownIcon spacing="spacious" label="" />
+				<ChevronDownIcon size="small" spacing="spacious" label="" />
 				`,
 				errors: [
 					{

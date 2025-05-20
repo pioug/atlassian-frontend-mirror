@@ -13,17 +13,7 @@ import GroupTitle from './internal/components/group-title';
  */
 const DropdownMenuItemGroup = forwardRef<HTMLElement, SectionProps>(
 	(
-		{
-			children,
-			id,
-			isList,
-			isScrollable,
-			title,
-			testId,
-			hasSeparator,
-			overrides,
-			...rest
-		}: SectionProps,
+		{ children, id, isList, isScrollable, title, testId, hasSeparator, ...rest }: SectionProps,
 		ref,
 	) => {
 		const uid = useId();
@@ -38,8 +28,6 @@ const DropdownMenuItemGroup = forwardRef<HTMLElement, SectionProps>(
 				hasSeparator={hasSeparator}
 				testId={testId}
 				titleId={title ? titleId : undefined}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
-				overrides={overrides}
 				{...rest}
 			>
 				{title && <GroupTitle id={titleId} title={title} />}

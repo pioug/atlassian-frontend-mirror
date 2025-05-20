@@ -73,6 +73,11 @@ interface ReactionSummaryButtonProps
 	onMouseLeave?: () => void;
 
 	/**
+	 * Optional prop for the optimistic image URL
+	 */
+	summaryGetOptimisticImageURL?: (emojiId: string) => string;
+
+	/**
 	 * Optional prop to add an icon to the end of the summary button
 	 */
 	summaryButtonIconAfter?: React.ReactNode;
@@ -101,6 +106,7 @@ export const ReactionSummaryButton = forwardRef(
 			useButtonAlignmentStyling = false,
 			onMouseEnter,
 			onMouseLeave,
+			summaryGetOptimisticImageURL,
 			summaryButtonIconAfter,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
@@ -149,6 +155,7 @@ export const ReactionSummaryButton = forwardRef(
 									emojiProvider={emojiProvider}
 									emojiId={{ id: reaction.emojiId, shortName: '' }}
 									fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
+									optimisticImageURL={summaryGetOptimisticImageURL?.(reaction.emojiId)}
 								/>
 							</Box>
 						))}

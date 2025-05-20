@@ -9,7 +9,10 @@ import type { Conversation as ConversationType } from '../src/model/Conversation
 import type { User } from '../src/model/User';
 import type { State } from '../src/internal/store';
 import { MOCK_USERS } from './MockData';
+
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const DUMMY_CODE = `
 class Main() {
@@ -134,9 +137,17 @@ class File extends React.Component<FileProps, { addAt?: number }> {
 				<Line key={index}>
 					<LineNumber>
 						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-						<a href="#" onClick={(evt) => this.onLineClick(evt, index)}>
-							{index}
-						</a>
+						{fg('dst-a11y__replace-anchor-with-link__bitbucket-core') ? (
+							// eslint-disable-next-line jsx-a11y/anchor-is-valid
+							<Link href="#" onClick={(evt) => this.onLineClick(evt, index)}>
+								{index}
+							</Link>
+						) : (
+							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-is-valid
+							<a href="#" onClick={(evt) => this.onLineClick(evt, index)}>
+								{index}
+							</a>
+						)}
 					</LineNumber>
 					<Code>
 						<pre>{line}</pre>

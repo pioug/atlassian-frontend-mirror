@@ -1,5 +1,14 @@
 # @atlaskit/textfield
 
+## 8.0.5
+
+### Patch Changes
+
+- [#156306](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156306)
+  [`fce9f0b8cd381`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fce9f0b8cd381) -
+  [ux] Applies visible focus only when the text input is actively focused, instead of any focusable
+  elements rendered via elemBeforeInput or elemAfterInput.
+
 ## 8.0.4
 
 ### Patch Changes

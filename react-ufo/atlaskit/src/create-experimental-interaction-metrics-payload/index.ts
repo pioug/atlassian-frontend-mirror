@@ -81,6 +81,7 @@ export async function getExperimentalVCMetrics(interaction: InteractionMetrics) 
 			prefix,
 			vc: interaction.vc,
 			experienceKey: interaction.ufoName,
+			interactionId: interaction.id,
 		});
 
 		const VC = result?.['metrics:vc'] as {

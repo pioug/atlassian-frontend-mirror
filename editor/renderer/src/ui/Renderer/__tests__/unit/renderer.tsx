@@ -1,5 +1,5 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
+import { act } from '@testing-library/react';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
@@ -12,9 +12,10 @@ import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
 
 import {
 	SEVERITY,
-	stopMeasure,
 	UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common/utils';
+
+import { stopMeasure } from '@atlaskit/editor-common/performance-measures';
 
 import type { CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import RendererDefaultComponent, {
@@ -39,9 +40,9 @@ jest.mock('@atlaskit/editor-common/ui', () => {
 	};
 });
 
-jest.mock('@atlaskit/editor-common/utils', () => {
+jest.mock('@atlaskit/editor-common/performance-measures', () => {
 	return {
-		...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+		...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
 		stopMeasure: jest.fn(),
 	};
 });

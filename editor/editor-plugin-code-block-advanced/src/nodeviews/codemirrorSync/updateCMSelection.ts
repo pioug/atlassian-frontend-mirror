@@ -1,4 +1,4 @@
-import { TransactionSpec as CMTransactionSpec } from '@codemirror/state';
+import { ChangeSpec } from '@codemirror/state';
 
 /**
  *
@@ -7,13 +7,9 @@ import { TransactionSpec as CMTransactionSpec } from '@codemirror/state';
  *
  * @param curText string - the current CodeMirror text
  * @param newText string - the new CodeMirror text
- * @param updateCallback Callback to process the CodeMirror transaction
+ * @returns The changes or undefined if no change
  */
-export const updateCMSelection = (
-	curText: string,
-	newText: string,
-	updateCallback: (value: CMTransactionSpec) => void,
-) => {
+export const getCMSelectionChanges = (curText: string, newText: string): ChangeSpec | undefined => {
 	if (newText !== curText) {
 		let start = 0,
 			curEnd = curText.length,
@@ -29,12 +25,10 @@ export const updateCMSelection = (
 			curEnd--;
 			newEnd--;
 		}
-		updateCallback({
-			changes: {
-				from: start,
-				to: curEnd,
-				insert: newText.slice(start, newEnd),
-			},
-		});
+		return {
+			from: start,
+			to: curEnd,
+			insert: newText.slice(start, newEnd),
+		};
 	}
 };

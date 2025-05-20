@@ -1,8 +1,8 @@
 import React from 'react';
 
+import ChevronIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronIconMigration from '@atlaskit/icon/core/migration/chevron-down';
 import LegacyChevronIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronIcon from '@atlaskit/icon/utility/chevron-down';
-import ChevronIconMigration from '@atlaskit/icon/utility/migration/chevron-down';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -10,7 +10,7 @@ import { IconContainer, RowHeader } from './utils';
 
 const negativeMarginStyles = xcss({ marginInline: 'space.negative.075' });
 
-const IconDefaultExample = () => {
+const IconMarginExample = () => {
 	return (
 		<Stack space="space.100">
 			<Inline space="space.100">
@@ -24,17 +24,21 @@ const IconDefaultExample = () => {
 			<Inline space="space.100">
 				<RowHeader>Feature flagged</RowHeader>
 				<IconContainer>
-					<ChevronIconMigration label="" LEGACY_margin={`0 ${token('space.negative.075')}`} />
+					<ChevronIconMigration
+						label=""
+						LEGACY_margin={`0 ${token('space.negative.075')}`}
+						size="small"
+					/>
 				</IconContainer>
 			</Inline>
 			<Inline space="space.100">
 				<RowHeader>New icon</RowHeader>
 				<IconContainer>
-					<ChevronIcon label="" />
+					<ChevronIcon label="" size="small" />
 				</IconContainer>
 			</Inline>
 		</Stack>
 	);
 };
 
-export default IconDefaultExample;
+export default IconMarginExample;

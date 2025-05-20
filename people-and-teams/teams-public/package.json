@@ -46,6 +46,7 @@
 		"@atlaskit/people-teams-ui-public": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/teams-client": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
@@ -111,7 +112,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.28.0",
+	"version": "0.29.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

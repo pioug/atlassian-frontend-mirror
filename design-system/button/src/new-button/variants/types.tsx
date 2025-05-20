@@ -29,7 +29,9 @@ export type IconButtonSpacing = 'compact' | 'default';
 
 export type Spacing = ButtonSpacing | IconButtonSpacing;
 
-export type IconProp = React.ComponentType<IconProps | Omit<NewIconProps, 'spacing'>>;
+export type IconProp = React.ComponentType<
+	Omit<IconProps, 'size'> | Omit<NewIconProps, 'spacing' | 'size'>
+>;
 
 export type IconSize = 'small' | 'large' | 'xlarge';
 

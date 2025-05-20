@@ -1,5 +1,30 @@
 # @atlaskit/select
 
+## 20.6.0
+
+### Minor Changes
+
+- [#149822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149822)
+  [`f9ab0e846ae21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9ab0e846ae21) -
+  Updated to support `size` prop for new icons from `@atlaskit/icon`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.5.0
+
+### Minor Changes
+
+- [#155681](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155681)
+  [`679a437d9a866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/679a437d9a866) -
+  The feature flag for registering `Select` and `PopupSelect` with the experimental open layer
+  observer has now been cleaned up.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.4.1
 
 ### Patch Changes

@@ -329,35 +329,22 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			const isTextSelected = window.getSelection()?.type === 'Range';
 
 			if (fg('platform_editor_legacy_content_macro_typeahead_fix')) {
-				// Check if new focus point is inside the current editor. If it is not we
-				// want to close the typeahead popup regardless of text selection state
-				const currentFocus = window.getSelection()?.focusNode; // the focusNode is either TextNode, ElementNode
-				// if currentFocus is not HTMLElement, take its parent node as focusNode
-				const focusNode =
-					currentFocus instanceof HTMLElement ? currentFocus : currentFocus?.parentNode;
+				const innerEditor = anchorElement.closest('.extension-editable-area');
 
-				if (focusNode instanceof HTMLElement) {
-					const innerEditor = focusNode.closest('.extension-editable-area');
-					if (innerEditor) {
-						// When there is no related target, we default to not closing the popup
-						let newFocusInsideCurrentEditor = !relatedTarget;
-						if (relatedTarget instanceof HTMLElement) {
-							if (innerEditor) {
-								// check if the new focus is inside inner editor, keep popup opens
-								newFocusInsideCurrentEditor = innerEditor.contains(relatedTarget);
-							} else {
-								// if the new focus contains current focus node, the popup won't close
-								newFocusInsideCurrentEditor = relatedTarget.contains(focusNode);
-							}
-						}
-						if (!isTextSelected && newFocusInsideCurrentEditor) {
-							return;
-						}
-					} else {
-						// if the current focus in outer editor, keep the existing behaviour, do not close the pop up if text is not selected
-						if (!isTextSelected) {
-							return;
-						}
+				if (innerEditor) {
+					// When there is no related target, we default to not closing the popup
+					let newFocusInsideCurrentEditor = !relatedTarget;
+					if (relatedTarget instanceof HTMLElement) {
+						// check if the new focus is inside inner editor, keep popup opens
+						newFocusInsideCurrentEditor = innerEditor.contains(relatedTarget);
+					}
+					if (!isTextSelected && newFocusInsideCurrentEditor) {
+						return;
+					}
+				} else {
+					// if the current focus in outer editor, keep the existing behaviour, do not close the pop up if text is not selected
+					if (!isTextSelected) {
+						return;
 					}
 				}
 			} else {
@@ -376,12 +363,13 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		element?.addEventListener('focusout', focusOut);
+
 		return () => {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('focusout', focusOut);
 		};
-	}, [ref, cancel, editorView.state, isEditorControlsPatch2Enabled]);
+	}, [ref, cancel, editorView.state, isEditorControlsPatch2Enabled, anchorElement]);
 
 	// TODO: ED-17443 - When you press escape on typeahead panel, it should remove focus and close the panel
 	// This is the expected keyboard behaviour advised by the Accessibility team

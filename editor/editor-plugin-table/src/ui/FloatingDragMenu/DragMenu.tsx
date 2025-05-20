@@ -41,8 +41,7 @@ import {
 	getSelectionRect,
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
-import EditorBackgroundColorIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
-import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
+import PaintBucketIcon from '@atlaskit/icon/core/migration/paint-bucket--editor-background-color';
 import { Box, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
@@ -367,7 +366,6 @@ const DragMenu = React.memo(
 							color="currentColor"
 							spacing="spacious"
 							label={formatMessage(messages.backgroundColor)}
-							LEGACY_fallbackIcon={EditorBackgroundColorIcon}
 						/>
 					</Box>
 				),

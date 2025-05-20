@@ -24,7 +24,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Portal from '@atlaskit/portal';
-import { Inline } from '@atlaskit/primitives';
+import { Inline } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 

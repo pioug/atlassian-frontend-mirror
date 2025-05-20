@@ -130,6 +130,8 @@ describe('createMutationObserver', () => {
 		expect(onAttributeMutation).toHaveBeenCalledWith({
 			target,
 			attributeName: 'data-testid',
+			newValue: 'new-value',
+			oldValue: 'old-value',
 		});
 	});
 });

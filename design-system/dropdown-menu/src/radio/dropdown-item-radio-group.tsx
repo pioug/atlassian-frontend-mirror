@@ -39,7 +39,6 @@ const DropdownItemRadioGroup = ({
 	id,
 	isList,
 	isScrollable,
-	overrides,
 	testId,
 	title,
 	// DSP-13312 TODO: remove spread props in future major release
@@ -72,8 +71,6 @@ const DropdownItemRadioGroup = ({
 				id={id}
 				isList={isList}
 				isScrollable={isScrollable}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
-				overrides={overrides}
 				testId={testId}
 				titleId={title ? titleId : undefined}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

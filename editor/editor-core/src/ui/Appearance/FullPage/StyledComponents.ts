@@ -18,6 +18,7 @@ import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
 const getTotalPadding = () => akEditorGutterPaddingDynamic() * 2;
+const akNestedDndGutterOffset = 8;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const fullPageEditorWrapper = css({
@@ -124,7 +125,7 @@ const editorContentAreaContainerStyle = () =>
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'[data-layout-section]': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				maxWidth: `calc(100% + ${akLayoutGutterOffset * 2}px)`,
+				maxWidth: `calc(100% + ${(akLayoutGutterOffset + (fg('platform_editor_nested_dnd_styles_changes') ? akNestedDndGutterOffset : 0)) * 2}px)`,
 			},
 		},
 	});

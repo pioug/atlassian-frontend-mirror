@@ -18,14 +18,16 @@ export class LanguageLoader {
 		) => void,
 	) {}
 
-	updateLanguage(languageName: string) {
+	async updateLanguage(languageName: string) {
 		if (languageName === this.languageName) {
 			return;
 		}
 		const language = mapLanguageToCodeMirror(languageName);
 
 		const configureEmpty = () => {
-			this.updateLanguageCompartment([]);
+			if (this.languageName) {
+				this.updateLanguageCompartment([]);
+			}
 			this.languageName = '';
 		};
 
@@ -34,23 +36,22 @@ export class LanguageLoader {
 			return;
 		}
 
-		language
-			.load()
-			.then((lang) => {
-				if (lang) {
-					const styling = languageStyling(lang.language);
-					if (styling) {
-						this.updateLanguageCompartment([lang, syntaxHighlighting(styling)]);
-					} else {
-						this.updateLanguageCompartment(lang);
-					}
-					this.languageName = languageName;
+		try {
+			const lang = await language.load();
+
+			if (lang) {
+				const styling = languageStyling(lang.language);
+				if (styling) {
+					this.updateLanguageCompartment([lang, syntaxHighlighting(styling)]);
 				} else {
-					configureEmpty();
+					this.updateLanguageCompartment(lang);
 				}
-			})
-			.catch(() => {
+				this.languageName = languageName;
+			} else {
 				configureEmpty();
-			});
+			}
+		} catch (e) {
+			configureEmpty();
+		}
 	}
 }

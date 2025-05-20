@@ -12,6 +12,8 @@ import type {
 import type { Identifier } from '@atlaskit/media-client';
 import type { MediaProps } from './media';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface MediaGroupProps {
 	children?: React.ReactNode;
@@ -40,6 +42,10 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 		const numChildren = React.Children.count(this.props.children);
 
 		let content;
+		const mediaGroupProps = fg('platform_editor_fix_vc90_bug_with_files')
+			? VcMediaWrapperProps
+			: {};
+
 		if (numChildren === 1) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,8 +63,15 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 		} else {
 			content = this.renderStrip();
 		}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		return <div className="MediaGroup">{content}</div>;
+
+		return (
+			<>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, react/jsx-props-no-spreading  -- Ignored via go/DSP-18766 */}
+				<div className="MediaGroup" {...mediaGroupProps}>
+					{content}
+				</div>
+			</>
+		);
 	}
 
 	renderSingleFile(child: ReactElement<MediaProps>) {

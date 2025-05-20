@@ -1,5 +1,5 @@
 import type { IconButtonProps } from '@atlaskit/button/new';
-import type { IconProps } from '@atlaskit/icon';
+import type { NewCoreIconProps } from '@atlaskit/icon';
 import type {
 	LoadOptions,
 	Props as SmartUserPickerProps,
@@ -123,7 +123,7 @@ export type ShareDialogContainerProps = {
 	/** Appearance of the share modal trigger button  */
 	triggerButtonAppearance?: IconButtonProps['appearance'];
 	/** Share button Icon */
-	triggerButtonIcon?: React.ComponentType<IconProps>;
+	triggerButtonIcon?: React.ComponentType<NewCoreIconProps>;
 	/** Style of the share modal trigger button. */
 	triggerButtonStyle?: ShareButtonStyle;
 	/** Position of the tooltip on share modal trigger button. */

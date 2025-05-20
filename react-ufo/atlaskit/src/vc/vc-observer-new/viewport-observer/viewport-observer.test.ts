@@ -1,4 +1,5 @@
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
+import type { VCObserverEntryType } from '../types';
 
 import {
 	createIntersectionObserver,
@@ -237,6 +238,79 @@ describe('ViewportObserver', () => {
 				}
 				expect(taggedMutationType?.type).toEqual('mutation:attribute');
 				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+			});
+
+			it('should handle attribute mutation with oldValue and newValue', () => {
+				const target = document.createElement('div');
+
+				onAttributeMutation({
+					target,
+					attributeName: 'style',
+					oldValue: 'color: red',
+					newValue: 'color: blue',
+				});
+
+				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+					target,
+					expect.any(Function),
+				);
+
+				const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+				if (typeof tagFn !== 'function') {
+					throw new Error('unexpected error');
+				}
+				const taggedMutationType = tagFn({ target, rect: new DOMRect(0, 0, 10, 10) });
+				expect(typeof taggedMutationType).toEqual('object');
+				if (typeof taggedMutationType !== 'object') {
+					throw new Error('unexpected error');
+				}
+				expect(taggedMutationType?.type).toEqual('mutation:attribute' as VCObserverEntryType);
+				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+				expect(taggedMutationType?.mutationData.oldValue).toEqual('color: red');
+				expect(taggedMutationType?.mutationData.newValue).toEqual('color: blue');
+			});
+
+			it('should handle attribute mutation with no layout shift and oldValue/newValue', () => {
+				const target = document.createElement('div');
+
+				const rect = new DOMRect(0, 0, 10, 10);
+				intersectionOnEntry({
+					target,
+					rect,
+					time: 100,
+					type: 'mutation:element' as VCObserverEntryType,
+					mutationData: null,
+				});
+
+				onAttributeMutation({
+					target,
+					attributeName: 'style',
+					oldValue: 'color: red',
+					newValue: 'color: blue',
+				});
+
+				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+					target,
+					expect.any(Function),
+				);
+
+				const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+				if (typeof tagFn !== 'function') {
+					throw new Error('unexpected error');
+				}
+				const taggedMutationType = tagFn({ target, rect });
+				expect(typeof taggedMutationType).toEqual('object');
+				if (typeof taggedMutationType !== 'object') {
+					throw new Error('unexpected error');
+				}
+				expect(taggedMutationType?.type).toEqual(
+					'mutation:attribute:no-layout-shift' as VCObserverEntryType,
+				);
+				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+				expect(taggedMutationType?.mutationData.oldValue).toEqual('color: red');
+				expect(taggedMutationType?.mutationData.newValue).toEqual('color: blue');
 			});
 
 			it('should handle attribute with no layout shift', () => {

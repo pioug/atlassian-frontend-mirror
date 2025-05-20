@@ -95,6 +95,9 @@
 	"platform-feature-flags": {
 		"platform.proforma-form-builder-feedback_hupaz": {
 			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__belugas-feedba": {
+			"type": "boolean"
 		}
 	}
 }

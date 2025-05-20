@@ -21,6 +21,9 @@
             "path": "../../app-provider/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../css/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../ds-lib/afm-cc/tsconfig.json"
         },
         {

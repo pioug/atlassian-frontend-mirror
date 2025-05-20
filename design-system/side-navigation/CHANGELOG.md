@@ -1,5 +1,34 @@
 # @atlaskit/side-navigation
 
+## 10.0.0
+
+### Major Changes
+
+- [#156707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156707)
+  [`84d702274b2dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84d702274b2dd) -
+  Migrated `HeadingItem` and `Section` components from @emotion/react to @compiled/react in order to
+  improve performance, align with the rest of the Atlaskit techstack, and support React 18 Streaming
+  SSR.
+
+  Removed the deprecated `cssFn` prop from the `HeadingItem` component, as this is not supported
+  with @compiled/react.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.2.0
+
+### Minor Changes
+
+- [#148607](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148607)
+  [`96c3ed72d55bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96c3ed72d55bf) -
+  Internal change to Section component to remove deprecated APIs.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.1
 
 ### Patch Changes

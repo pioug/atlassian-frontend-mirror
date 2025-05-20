@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 4.9.0
+
+### Minor Changes
+
+- [#156778](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156778)
+  [`d137f762d8efc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d137f762d8efc) -
+  Expand `@atlaskit/css` `borderRadius` API to include `{number}px` and `{number}rem` values.
+
 ## 4.8.2
 
 ### Patch Changes

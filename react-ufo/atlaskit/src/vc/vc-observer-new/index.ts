@@ -9,6 +9,7 @@ import WindowEventObserver from './window-event-observer';
 
 export type VCObserverNewConfig = {
 	selectorConfig?: SelectorConfig;
+	isPostInteraction?: boolean;
 };
 
 const DEFAULT_SELECTOR_CONFIG = {
@@ -25,9 +26,11 @@ export default class VCObserverNew {
 	private windowEventObserver: WindowEventObserver | null = null;
 
 	private entriesTimeline: EntriesTimeline;
+	private isPostInteraction: boolean;
 
 	constructor(config: VCObserverNewConfig) {
 		this.entriesTimeline = new EntriesTimeline();
+		this.isPostInteraction = config.isPostInteraction ?? false;
 
 		this.selectorConfig = config.selectorConfig ?? DEFAULT_SELECTOR_CONFIG;
 
@@ -43,13 +46,15 @@ export default class VCObserverNew {
 
 				this.entriesTimeline.push({
 					time,
-					type,
 					data: {
+						type,
 						elementName,
 						rect,
 						previousRect,
 						visible,
 						attributeName: mutationData?.attributeName,
+						oldValue: mutationData?.oldValue,
+						newValue: mutationData?.newValue,
 					},
 				});
 			},
@@ -59,8 +64,8 @@ export default class VCObserverNew {
 			onEvent: ({ time, type }) => {
 				this.entriesTimeline.push({
 					time,
-					type: 'window:event',
 					data: {
+						type: 'window:event',
 						eventType: type,
 					},
 				});
@@ -80,7 +85,7 @@ export default class VCObserverNew {
 	}
 
 	async getVCResult(param: VCObserverGetVCResultParam) {
-		const { start, stop } = param;
+		const { start, stop, interactionId } = param;
 		const results: RevisionPayloadEntry[] = [];
 
 		const calculator_fy25_03 = new VCCalculator_FY25_03();
@@ -90,6 +95,8 @@ export default class VCObserverNew {
 			orderedEntries,
 			startTime: start,
 			stopTime: stop,
+			interactionId,
+			isPostInteraction: this.isPostInteraction,
 		});
 		if (fy25_03) {
 			results.push(fy25_03);

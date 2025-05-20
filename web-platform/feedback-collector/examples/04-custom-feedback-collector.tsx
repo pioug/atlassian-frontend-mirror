@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { FlagGroup } from '@atlaskit/flag';
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';
 
@@ -17,9 +19,16 @@ const FeedbackPreamble = () => {
 			<p>Your thoughts are valuable in helping improve our products.</p>
 			<p>
 				If you're looking to get help or want to report a bug,{' '}
-				<a href={linkToSupport} target="_blank" rel="noopener noreferrer">
-					visit our support site.
-				</a>
+				{fg('dst-a11y__replace-anchor-with-link__belugas-feedba') ? (
+					<Link href={linkToSupport} target="_blank" rel="noopener noreferrer">
+						visit our support site.
+					</Link>
+				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+					<a href={linkToSupport} target="_blank" rel="noopener noreferrer">
+						visit our support site.
+					</a>
+				)}
 			</p>
 		</>
 	);
@@ -31,9 +40,16 @@ const CanContactLabel = () => {
 	return (
 		<p>
 			Atlassian can contact me about this feedback. See our{' '}
-			<a href={linkToSupport} target="_blank" rel="noopener noreferrer">
-				privacy policy
-			</a>
+			{fg('dst-a11y__replace-anchor-with-link__belugas-feedba') ? (
+				<Link href={linkToSupport} target="_blank" rel="noopener noreferrer">
+					privacy policy
+				</Link>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+				<a href={linkToSupport} target="_blank" rel="noopener noreferrer">
+					privacy policy
+				</a>
+			)}
 		</p>
 	);
 };
@@ -44,9 +60,16 @@ const EnrolLabel = () => {
 	return (
 		<p>
 			I'd like to help improve Atlassian products by joining the{' '}
-			<a href={linkToSupport} target="_blank" rel="noopener noreferrer">
-				Atlassian Research Group
-			</a>
+			{fg('dst-a11y__replace-anchor-with-link__belugas-feedba') ? (
+				<Link href={linkToSupport} target="_blank" rel="noopener noreferrer">
+					Atlassian Research Group
+				</Link>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+				<a href={linkToSupport} target="_blank" rel="noopener noreferrer">
+					Atlassian Research Group
+				</a>
+			)}
 		</p>
 	);
 };

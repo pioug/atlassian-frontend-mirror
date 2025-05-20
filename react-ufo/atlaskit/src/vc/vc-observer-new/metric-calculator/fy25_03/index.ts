@@ -34,10 +34,10 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	}
 
 	protected isEntryIncluded(entry: VCObserverEntry): boolean {
-		if (!CONSIDERED_ENTRY_TYPE.includes(entry.type)) {
+		if (!CONSIDERED_ENTRY_TYPE.includes(entry.data.type)) {
 			return false;
 		}
-		if (entry.type === 'mutation:attribute') {
+		if (entry.data.type === 'mutation:attribute') {
 			const entryData = entry.data as ViewportEntryData;
 			const attributeName = entryData.attributeName;
 			if (
@@ -57,7 +57,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 
 	protected isVCClean(filteredEntries: readonly VCObserverEntry[]): boolean {
 		const hasAbortEvent = filteredEntries.some((entry) => {
-			if (entry.type === 'window:event') {
+			if (entry.data.type === 'window:event') {
 				const data = entry.data as WindowEventEntryData;
 				if (ABORTING_WINDOW_EVENT.includes(data.eventType)) {
 					return true;
@@ -71,7 +71,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]) {
 		let dirtyReason: VCAbortReason | '' = '';
 		const hasAbortEvent = filteredEntries.some((entry) => {
-			if (entry.type === 'window:event') {
+			if (entry.data.type === 'window:event') {
 				const data = entry.data as WindowEventEntryData;
 				if (ABORTING_WINDOW_EVENT.includes(data.eventType)) {
 					dirtyReason = data.eventType === 'keydown' ? 'keypress' : data.eventType;

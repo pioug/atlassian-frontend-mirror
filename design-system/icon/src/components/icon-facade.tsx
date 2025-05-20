@@ -31,19 +31,20 @@ const sizeSpacingMap = {
  */
 export const IconFacade = memo(function IconFacade({
 	dangerouslySetGlyph,
+	size,
 	...props
 }: IconFacadeProps) {
 	const NewIcon = props.newIcon;
 
 	// By default, the icon size will be medium for core icons and small for utility icons
-	const size: IconFacadeProps['size'] = props.size ?? 'medium';
+	const iconSize: IconFacadeProps['size'] = size ?? 'medium';
 
 	const useNewIcon =
 		!props.isFacadeDisabled &&
 		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		fg('platform-visual-refresh-icons-legacy-facade');
 
-	if (useNewIcon && NewIcon && (size === 'small' || size === 'medium')) {
+	if (useNewIcon && NewIcon && (iconSize === 'small' || iconSize === 'medium')) {
 		if (props.iconType === 'utility') {
 			const Icon = NewIcon as React.ComponentType<UNSAFE_NewUtilityGlyphProps>;
 			return (
@@ -51,7 +52,7 @@ export const IconFacade = memo(function IconFacade({
 					{...props}
 					spacing={
 						fg('platform-visual-refresh-icons-facade-button-fix')
-							? sizeSpacingMap['utility'][size]
+							? sizeSpacingMap['utility'][iconSize]
 							: 'none'
 					}
 					color={(props.primaryColor as any) || 'currentColor'}
@@ -63,7 +64,8 @@ export const IconFacade = memo(function IconFacade({
 			return (
 				<Icon
 					{...props}
-					spacing={sizeSpacingMap['core'][size]}
+					size={iconSize}
+					spacing={sizeSpacingMap['core'][iconSize]}
 					color={(props.primaryColor as any) || 'currentColor'}
 					type={props.iconType}
 				/>
@@ -71,5 +73,5 @@ export const IconFacade = memo(function IconFacade({
 		}
 	}
 
-	return <LegacyIcon dangerouslySetGlyph={dangerouslySetGlyph} {...props} />;
+	return <LegacyIcon dangerouslySetGlyph={dangerouslySetGlyph} size={size} {...props} />;
 });

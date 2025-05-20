@@ -168,9 +168,13 @@ export default class ViewportObserver {
 	private handleAttributeMutation = ({
 		target,
 		attributeName,
+		oldValue,
+		newValue,
 	}: {
 		target: HTMLElement;
 		attributeName: string;
+		oldValue?: string | undefined | null;
+		newValue?: string | undefined | null;
 	}) => {
 		this.intersectionObserver?.watchAndTag(target, ({ target, rect }) => {
 			if (isContainedWithinMediaWrapper(target)) {
@@ -178,6 +182,8 @@ export default class ViewportObserver {
 					type: 'mutation:media',
 					mutationData: {
 						attributeName,
+						oldValue,
+						newValue,
 					},
 				};
 			}
@@ -187,6 +193,8 @@ export default class ViewportObserver {
 					type: 'mutation:attribute:non-visual-style',
 					mutationData: {
 						attributeName,
+						oldValue,
+						newValue,
 					},
 				};
 			}
@@ -197,6 +205,8 @@ export default class ViewportObserver {
 					type: 'mutation:attribute:no-layout-shift',
 					mutationData: {
 						attributeName,
+						oldValue,
+						newValue,
 					},
 				};
 			}
@@ -205,6 +215,8 @@ export default class ViewportObserver {
 				type: 'mutation:attribute',
 				mutationData: {
 					attributeName,
+					oldValue,
+					newValue,
 				},
 			};
 		});

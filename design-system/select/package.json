@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "20.4.1",
+	"version": "20.6.0",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,9 +124,6 @@
 			"type": "boolean"
 		},
 		"platform_design_system_team_safari_input_fix": {
-			"type": "boolean"
-		},
-		"platform_dst_layer_observer_select": {
 			"type": "boolean"
 		}
 	},

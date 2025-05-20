@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 31.14.0
+
+### Minor Changes
+
+- [#152437](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152437)
+  [`94e3e53ca794c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94e3e53ca794c) -
+  Adds a passthrough prop to enable optimistic emoji rendering for the reactions summary in SSR
+
 ## 31.13.0
 
 ### Minor Changes

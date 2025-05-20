@@ -9,8 +9,10 @@ import type {
 
 export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
-export type IconSpacing = 'none' | 'spacious';
-type UtilityIconSpacing = 'none' | 'spacious' | 'compact';
+export type NewCoreIconSize = 'small' | 'medium';
+
+export type IconSpacing = 'none' | 'spacious' | 'compact';
+export type IconSize = 'small' | 'medium';
 
 export interface CustomGlyphProps extends ReactSVGProps<SVGSVGElement> {
 	/**
@@ -72,9 +74,10 @@ interface GlyphSizeProps {
 
 interface NewCoreGlyphSpacingProps {
 	/**
-	 * Core Icons have only one available size, but can be displayed with additional spacing.
-	 * "none" is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
-	 * "spacious" provides accessible spacing between the icon and other elements.
+	 * Core Icons can be displayed with additional spacing.
+	 * - `none` is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
+	 * - `compact` provides accessible compact spacing between the icon and other elements. **Only available for small icons.**
+	 * - `spacious` provides accessible spacing between the icon and other elements.
 	 */
 	spacing?: IconSpacing;
 }
@@ -86,7 +89,16 @@ interface NewUtilityGlyphSpacingProps {
 	 * "compact" provides accessible compact spacing between the icon and other elements.
 	 * "spacious" provides accessible spacing between the icon and other elements.
 	 */
-	spacing?: UtilityIconSpacing;
+	spacing?: IconSpacing;
+}
+
+interface NewCoreGlyphSizeProps {
+	/**
+	 * There are two icon sizes available:
+	 * - `medium` - 16px. (default).
+	 * - `small` - 12px.
+	 */
+	size?: IconSize;
 }
 
 interface OtherGlyphProps {
@@ -145,7 +157,11 @@ interface IconInternalGlyphProps {
 
 export interface GlyphProps extends LegacyOtherGlyphProps, GlyphSizeProps, GlyphColorProps {}
 
-interface NewCoreGlyphProps extends OtherGlyphProps, NewCoreGlyphSpacingProps, NewGlyphColorProps {}
+interface NewCoreGlyphProps
+	extends OtherGlyphProps,
+		NewCoreGlyphSpacingProps,
+		NewCoreGlyphSizeProps,
+		NewGlyphColorProps {}
 interface NewUtilityGlyphProps
 	extends OtherGlyphProps,
 		NewUtilityGlyphSpacingProps,
@@ -189,6 +205,7 @@ export interface UNSAFE_NewCoreGlyphProps
 		NewCoreGlyphProps,
 		IconInternalGlyphProps {
 	type?: 'core';
+	size?: NewCoreIconSize;
 }
 
 export interface UNSAFE_NewUtilityGlyphProps
@@ -304,6 +321,12 @@ type IconMigrationResult = {
 		type: string;
 		package: string;
 		isMigrationUnsafe?: boolean;
+		/**
+		 * Forces the new icon to be `size="small"`, even if the legacy icon was not a small icon.
+		 *
+		 * E.g. used for chevron icons.
+		 */
+		shouldForceSmallIcon?: boolean;
 	};
 	/**
 	 * Alternative new icon that the legacy icon can be migrated to
@@ -328,7 +351,6 @@ export type IconMigrationSizeGuidance =
 	| 'swap'
 	| 'swap-slight-visual-change'
 	| 'swap-visual-change'
-	| 'swap-size-shift-utility'
 	| 'product-icon'
 	| 'not-recommended'
 	| 'icon-tile'

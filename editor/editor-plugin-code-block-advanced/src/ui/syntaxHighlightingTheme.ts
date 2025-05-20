@@ -34,10 +34,17 @@ export const highlightStyle = HighlightStyle.define([
 		color: token('color.text.accent.blue'),
 	},
 	{
-		tag: [tags.literal, tags.inserted],
+		tag: [tags.literal],
 		color: token('color.text.accent.blue'),
 	},
-	{ tag: [tags.string, tags.deleted], color: token('color.text.accent.green') },
+	{
+		tag: tags.inserted,
+		color: token('color.text.accent.green')
+	},
+	{ tag: [tags.string], color: token('color.text.accent.green') },
+	{
+		tag: [tags.deleted], color: token('color.text.accent.red')
+	},
 	{
 		tag: [tags.special(tags.string)],
 		color: token('color.text.accent.green'),

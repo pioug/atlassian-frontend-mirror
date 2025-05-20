@@ -325,7 +325,7 @@ const DefaultIcon = AddIcon;
 		output: `
            // Basic, auto-migratable new Button
            import AddIcon from '@atlaskit/icon/core/migration/add';
-        import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
+        import ChevronDown from '@atlaskit/icon/core/migration/chevron-down';
         import Button from '@atlaskit/button/new';
 
            <Button iconBefore={AddIcon} iconAfter={ChevronDown}>Add</Button>
@@ -434,33 +434,33 @@ export const oldButtonTests = [
 	{
 		name: 'Icon rendered in legacy buttons',
 		code: `
-        import AddIcon from '@atlaskit/icon/glyph/add';
-        import Button from '@atlaskit/button';
-        import StandardButton from '@atlaskit/button/standard-button';
-        import LoadingButton from '@atlaskit/button/loading-button';
-        import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+	    import AddIcon from '@atlaskit/icon/glyph/add';
+	    import Button from '@atlaskit/button';
+	    import StandardButton from '@atlaskit/button/standard-button';
+	    import LoadingButton from '@atlaskit/button/loading-button';
+	    import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 
-        <div>
-            <Button iconBefore={<AddIcon label="" />} > Add </Button>
-            <StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
-            <LoadingButton iconAfter={<AddIcon label="" />} > Add </LoadingButton>
-            <CustomThemeButton iconAfter={<AddIcon label="" />} > Add </CustomThemeButton>
-        </div>
-        `,
+	    <div>
+	        <Button iconBefore={<AddIcon label="" />} > Add </Button>
+	        <StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
+	        <LoadingButton iconAfter={<AddIcon label="" />} > Add </LoadingButton>
+	        <CustomThemeButton iconAfter={<AddIcon label="" />} > Add </CustomThemeButton>
+	    </div>
+	    `,
 		output: `
-        import AddIcon from '@atlaskit/icon/core/migration/add';
-        import Button from '@atlaskit/button';
-        import StandardButton from '@atlaskit/button/standard-button';
-        import LoadingButton from '@atlaskit/button/loading-button';
-        import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+	    import AddIcon from '@atlaskit/icon/core/migration/add';
+	    import Button from '@atlaskit/button';
+	    import StandardButton from '@atlaskit/button/standard-button';
+	    import LoadingButton from '@atlaskit/button/loading-button';
+	    import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 
-        <div>
-            <Button iconBefore={<AddIcon label="" />} > Add </Button>
-            <StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
-            <LoadingButton iconAfter={<AddIcon label="" />} > Add </LoadingButton>
-            <CustomThemeButton iconAfter={<AddIcon label="" />} > Add </CustomThemeButton>
-        </div>
-        `,
+	    <div>
+	        <Button iconBefore={<AddIcon label="" />} > Add </Button>
+	        <StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
+	        <LoadingButton iconAfter={<AddIcon label="" />} > Add </LoadingButton>
+	        <CustomThemeButton iconAfter={<AddIcon label="" />} > Add </CustomThemeButton>
+	    </div>
+	    `,
 		errors: Array(4).fill({
 			messageId: 'noLegacyIconsAutoMigration',
 		}),
@@ -468,75 +468,173 @@ export const oldButtonTests = [
 	{
 		name: 'Icon rendered in legacy icon-only buttons',
 		code: `
-        import AddIcon from '@atlaskit/icon/glyph/add';
-        import Button from '@atlaskit/button';
+	    import AddIcon from '@atlaskit/icon/glyph/add';
+	    import Button from '@atlaskit/button';
 
-        <div>
-            <Button iconBefore={<AddIcon label="" />} />
-            <Button iconAfter={<AddIcon size="small" label="" />} />
-            <Button>
-                <AddIcon label="" />
-            </Button>
-            <Button iconBefore={<AddIcon label="" />} iconAfter={<AddIcon label="" />} />
-            <Button iconBefore={<AddIcon label="" />} > Add </Button>
-        </div>
-        `,
+	    <div>
+	        <Button iconBefore={<AddIcon label="" />} />
+	        <Button iconAfter={<AddIcon size="medium" label="" />} />
+	        <Button>
+	            <AddIcon label="" />
+	        </Button>
+	        <Button iconBefore={<AddIcon label="" />} iconAfter={<AddIcon label="" />} />
+	        <Button iconBefore={<AddIcon label="" />} > Add </Button>
+	    </div>
+	    `,
 		output: `
-        import AddIcon from '@atlaskit/icon/core/migration/add';
-        import Button from '@atlaskit/button';
+	    import AddIcon from '@atlaskit/icon/core/migration/add';
+	    import Button from '@atlaskit/button';
 
-        <div>
-            <Button iconBefore={<AddIcon spacing="spacious" label="" />} />
-            <Button iconAfter={<AddIcon LEGACY_size="small" label="" />} />
-            <Button>
-                <AddIcon spacing="spacious" label="" />
-            </Button>
-            <Button iconBefore={<AddIcon label="" />} iconAfter={<AddIcon label="" />} />
-            <Button iconBefore={<AddIcon label="" />} > Add </Button>
-        </div>
-        `,
+	    <div>
+	        <Button iconBefore={<AddIcon spacing="spacious" label="" />} />
+	        <Button iconAfter={<AddIcon LEGACY_size="medium" spacing="spacious" label="" />} />
+	        <Button>
+	            <AddIcon spacing="spacious" label="" />
+	        </Button>
+	        <Button iconBefore={<AddIcon label="" />} iconAfter={<AddIcon label="" />} />
+	        <Button iconBefore={<AddIcon label="" />} > Add </Button>
+	    </div>
+	    `,
 		errors: Array(6).fill({
 			messageId: 'noLegacyIconsAutoMigration',
 		}),
 	},
 	{
-		name: 'Utilty icon rendered in legacy icon-only buttons',
+		name: 'Chevron rendered in legacy icon-only buttons',
 		code: `
-        import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-        import Button from '@atlaskit/button';
+	    import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+	    import Button from '@atlaskit/button';
 
-        <div>
-            <Button iconBefore={<ChevronDownIcon size="small" label="" />} />
-            <Button iconAfter={<ChevronDownIcon size="medium" label="" />} />
-        </div>
-        `,
+	    <div>
+	        <Button iconAfter={<ChevronDownIcon size="medium" label="" />} />
+	    </div>
+	    `,
 		output: `
-        import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-        import Button from '@atlaskit/button';
+	    import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+	    import Button from '@atlaskit/button';
 
-        <div>
-            <Button iconBefore={<ChevronDownIcon LEGACY_size="small" spacing="compact" label="" />} />
-            <Button iconAfter={<ChevronDownIcon LEGACY_size="medium" spacing="spacious" label="" />} />
-        </div>
-        `,
-		errors: Array(2).fill({
-			messageId: 'noLegacyIconsAutoMigration',
-		}),
+	    <div>
+	        <Button iconAfter={<ChevronDownIcon LEGACY_size="medium" size="small" spacing="spacious" label="" />} />
+	    </div>
+	    `,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		name: 'Chevron small size rendered in legacy icon-only buttons, suggestions only - no fix',
+		code: `
+	    import AddIcon from '@atlaskit/icon/glyph/add';
+	    import Button from '@atlaskit/button';
+
+	    <div>
+	        <Button iconBefore={<AddIcon size="small" label="" />} />
+	    </div>
+	    `,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+				suggestions: [
+					{
+						desc: 'Replace with medium core icon and no spacing (Recommended)',
+						output: `
+	    import AddIcon from '@atlaskit/icon/core/migration/add';
+	    import Button from '@atlaskit/button';
+
+	    <div>
+	        <Button iconBefore={<AddIcon LEGACY_size="small" label="" />} />
+	    </div>
+	    `,
+					},
+					{
+						desc: 'Replace with small core icon and compact spacing',
+						output: `
+	    import AddIcon from '@atlaskit/icon/core/migration/add';
+	    import Button from '@atlaskit/button';
+
+	    <div>
+	        <Button iconBefore={<AddIcon LEGACY_size="small" size="small" spacing="compact" label="" />} />
+	    </div>
+	    `,
+					},
+				],
+			},
+		],
+	},
+	{
+		name: 'Icon multiple sizes rendered in legacy icon-only buttons',
+		code: `
+import AddIcon from '@atlaskit/icon/glyph/add';
+import Button from '@atlaskit/button';
+
+<div>
+		<Button iconBefore={<AddIcon size="small" label="" />} />
+		<Button iconAfter={<AddIcon size="medium" label="" />} />
+</div>
+`,
+		output: `
+import AddIconNew from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
+import Button from '@atlaskit/button';
+
+<div>
+		<Button iconBefore={<AddIcon size="small" label="" />} />
+		<Button iconAfter={<AddIconNew LEGACY_size="medium" spacing="spacious" label="" />} />
+</div>
+`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+				suggestions: [
+					{
+						desc: 'Replace with medium core icon and no spacing (Recommended)',
+						output: `
+import AddIconNew from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
+import Button from '@atlaskit/button';
+
+<div>
+		<Button iconBefore={<AddIconNew LEGACY_size="small" label="" />} />
+		<Button iconAfter={<AddIcon size="medium" label="" />} />
+</div>
+`,
+					},
+					{
+						desc: 'Replace with small core icon and compact spacing',
+						output: `
+import AddIconNew from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
+import Button from '@atlaskit/button';
+
+<div>
+		<Button iconBefore={<AddIconNew LEGACY_size="small" size="small" spacing="compact" label="" />} />
+		<Button iconAfter={<AddIcon size="medium" label="" />} />
+</div>
+`,
+					},
+				],
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
 	},
 	{
 		name: 'Icon rendered in old button with medium size',
 		code: `
-        import AddIcon from '@atlaskit/icon/glyph/add';
-        import Button from '@atlaskit/button';
+	    import AddIcon from '@atlaskit/icon/glyph/add';
+	    import Button from '@atlaskit/button';
 
-        <Button iconBefore={<AddIcon label="" size="medium" />}>Add</Button>
-        `,
+	    <Button iconBefore={<AddIcon label="" size="medium" />}>Add</Button>
+	    `,
 		output: `
-        import AddIcon from '@atlaskit/icon/core/migration/add';
-        import Button from '@atlaskit/button';
+	    import AddIcon from '@atlaskit/icon/core/migration/add';
+	    import Button from '@atlaskit/button';
 
-        <Button iconBefore={<AddIcon label="" LEGACY_size="medium" />}>Add</Button>
-        `,
+	    <Button iconBefore={<AddIcon label="" LEGACY_size="medium" />}>Add</Button>
+	    `,
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
@@ -688,13 +786,12 @@ export const sizeTests = [
 		],
 	},
 	{
-		name: 'Different sizes for core icon',
+		name: 'Different auto migratable sizes for core icon',
 		code: `
         import AddIcon from '@atlaskit/icon/glyph/add';
         () =>
             <div>
                 <AddIcon label="" />
-                <AddIcon size="small" label="" />
                 <AddIcon size="medium" label="" />
             </div>
           `,
@@ -703,35 +800,189 @@ export const sizeTests = [
         () =>
             <div>
                 <AddIcon spacing="spacious" label="" />
-                <AddIcon LEGACY_size="small" label="" />
                 <AddIcon LEGACY_size="medium" spacing="spacious" label="" />
             </div>
           `,
-		errors: Array(3).fill({
+		errors: Array(2).fill({
 			messageId: 'noLegacyIconsAutoMigration',
 		}),
 	},
 	{
-		name: 'Different sizes for utility icon',
+		name: 'Provides suggestions for small size icons',
+		code: `
+import AddIcon from '@atlaskit/icon/glyph/add';
+() =>
+		<div>
+				<AddIcon size="small" label="" />
+		</div>
+`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+				suggestions: [
+					{
+						desc: 'Replace with medium core icon and no spacing (Recommended)',
+						output: `
+import AddIcon from '@atlaskit/icon/core/migration/add';
+() =>
+		<div>
+				<AddIcon LEGACY_size="small" label="" />
+		</div>
+`,
+					},
+					{
+						desc: 'Replace with small core icon and compact spacing',
+						output: `
+import AddIcon from '@atlaskit/icon/core/migration/add';
+() =>
+		<div>
+				<AddIcon LEGACY_size="small" size="small" spacing="compact" label="" />
+		</div>
+`,
+					},
+				],
+			},
+		],
+	},
+	{
+		name: 'Fixes medium chevrons to small',
+		code: `
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+() =>
+		<div>
+				<ChevronDownIcon label="" />
+		</div>
+`,
+		output: `
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+() =>
+		<div>
+				<ChevronDownIcon size="small" spacing="spacious" label="" />
+		</div>
+`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		name: 'Keeps small chevrons small, provides no suggestions for medium',
+		code: `
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+() =>
+		<div>
+				<ChevronDownIcon size="small" label="" />
+		</div>
+`,
+		output: `
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+() =>
+		<div>
+				<ChevronDownIcon LEGACY_size="small" size="small" label="" />
+		</div>
+`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		name: 'Fixes medium chevron circles to small chevrons',
+		code: `
+import ChevronLeftCircleIcon from '@atlaskit/icon/glyph/chevron-left-circle';
+() =>
+		<div>
+				<ChevronLeftCircleIcon label="" />
+		</div>
+`,
+		output: `
+import ChevronLeftCircleIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-circle';
+() =>
+		<div>
+				<ChevronLeftCircleIcon size="small" spacing="spacious" label="" />
+		</div>
+`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		name: 'Different icon sizes for icon. Fixes medium icons, provides suggestions for small icons',
+		code: `
+import AddIcon from '@atlaskit/icon/glyph/add';
+() =>
+		<div>
+				<AddIcon size="small" label="" />
+				<AddIcon label="" />
+		</div>
+`,
+		output: `
+import AddIconNew from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
+() =>
+		<div>
+				<AddIcon size="small" label="" />
+				<AddIconNew spacing="spacious" label="" />
+		</div>
+`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+				suggestions: [
+					{
+						desc: 'Replace with medium core icon and no spacing (Recommended)',
+						output: `
+import AddIconNew from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
+() =>
+		<div>
+				<AddIconNew LEGACY_size="small" label="" />
+				<AddIcon label="" />
+		</div>
+`,
+					},
+					{
+						desc: 'Replace with small core icon and compact spacing',
+						output: `
+import AddIconNew from '@atlaskit/icon/core/migration/add';
+import AddIcon from '@atlaskit/icon/glyph/add';
+() =>
+		<div>
+				<AddIconNew LEGACY_size="small" size="small" spacing="compact" label="" />
+				<AddIcon label="" />
+		</div>
+`,
+					},
+				],
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
+		name: 'Different auto migratable sizes for chevrons',
 		code: `
         import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
         () =>
             <div>
                 <ChevronDown label="" />
-                <ChevronDown size="small" label="" />
                 <ChevronDown size="medium" label="" />
             </div>
           `,
 		output: `
-        import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
+        import ChevronDown from '@atlaskit/icon/core/migration/chevron-down';
         () =>
             <div>
-                <ChevronDown spacing="spacious" label="" />
-                <ChevronDown LEGACY_size="small" spacing="compact" label="" />
-                <ChevronDown LEGACY_size="medium" spacing="spacious" label="" />
+                <ChevronDown size="small" spacing="spacious" label="" />
+                <ChevronDown LEGACY_size="medium" size="small" spacing="spacious" label="" />
             </div>
           `,
-		errors: Array(3).fill({
+		errors: Array(2).fill({
 			messageId: 'noLegacyIconsAutoMigration',
 		}),
 	},
@@ -954,7 +1205,7 @@ import ActivityIcon from '@atlaskit/icon/glyph/activity';
 import {token} from '@atlaskit/tokens';
 const iconProps = {};
 <div>
-    <ActivityIcon label="" size="small" />
+    <ActivityIcon label="" />
     <AddIconCombination
         label=""
         {...iconProps}
@@ -977,7 +1228,7 @@ import ActivityIcon from '@atlaskit/icon/core/migration/dashboard--activity';
 import {token} from '@atlaskit/tokens';
 const iconProps = {};
 <div>
-    <ActivityIcon label="" LEGACY_size="small" />
+    <ActivityIcon spacing="spacious" label="" />
     <AddIconCombination
         label=""
         {...iconProps}
@@ -1010,7 +1261,7 @@ import ActivityIcon from '@atlaskit/icon/glyph/activity';
 import {token} from '@atlaskit/tokens';
 const iconProps = {};
 <div>
-    <ActivityIcon label="" size="small" />
+    <ActivityIcon label="" />
     <AddIcon
         label=""
         {...iconProps}

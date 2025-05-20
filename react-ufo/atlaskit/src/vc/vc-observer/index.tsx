@@ -16,8 +16,10 @@ import type {
 import { isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
+import { PercentileCalcResult } from '../vc-observer-new/metric-calculator/percentile-calc/types';
 
 import { attachAbortListeners } from './attachAbortListeners';
+import { getVCRevisionDebugDetails } from './getVCRevisionDebugDetails';
 import { getVCRevisionsData } from './getVCRevisionsData';
 import { getViewportHeight, getViewportWidth } from './getViewport';
 import { MultiRevisionHeatmap } from './heatmap/heatmap';
@@ -59,6 +61,16 @@ function filterComponentsLog(log: ComponentsLogType) {
 			}),
 		]),
 	);
+}
+
+interface WindowWithUFORevisionDebugging extends Window {
+	__ufo_devtool_onVCRevisionReady__?: (debugInfo: {
+		revision: string;
+		isClean: boolean;
+		abortReason?: string | null;
+		vcLogs: PercentileCalcResult | null;
+		interactionId?: string;
+	}) => void;
 }
 
 export class VCObserver implements VCObserverInterface {
@@ -119,6 +131,9 @@ export class VCObserver implements VCObserverInterface {
 		this.arraySize = options.heatmapSize || 200;
 		this.devToolsEnabled = options.devToolsEnabled || false;
 		this.oldDomUpdatesEnabled = options.oldDomUpdates || false;
+
+		const { ssrEnablePageLayoutPlaceholder } = options;
+
 		this.observers = new Observers({
 			selectorConfig: options.selectorConfig || {
 				id: false,
@@ -127,6 +142,7 @@ export class VCObserver implements VCObserverInterface {
 				className: true,
 				dataVC: true,
 			},
+			SSRConfig: { enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false }
 		});
 
 		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();
@@ -212,6 +228,7 @@ export class VCObserver implements VCObserverInterface {
 		vc,
 		isEventAborted,
 		experienceKey,
+		interactionId,
 	}: GetVCResultType): Promise<VCResult> => {
 		const startTime = performance.now();
 		// add local measurement
@@ -418,6 +435,39 @@ export class VCObserver implements VCObserverInterface {
 						},
 					}),
 				);
+
+				// Add devtool callback for both v1 and v2
+				if (
+					typeof (window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__ ===
+						'function' &&
+					fg('platform_ufo_ttvc_v3_devtool')
+				) {
+					// Handle v1 if not disabled
+					if (!isTTVCv1Disabled) {
+						(window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__?.(
+							getVCRevisionDebugDetails({
+								revision: 'fy25.01',
+								isClean: !abortReasonInfo,
+								abortReason: abortReason.reason,
+								VCEntries: VCEntries.rel,
+								componentsLog,
+								interactionId,
+							}),
+						);
+					}
+
+					// Handle v2
+					(window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__?.(
+						getVCRevisionDebugDetails({
+							revision: 'fy25.02',
+							isClean: !abortReasonInfo,
+							abortReason: abortReason.reason,
+							VCEntries: vcNext.VCEntries.rel,
+							componentsLog,
+							interactionId,
+						}),
+					);
+				}
 			}
 		} catch (e) {
 			/*  do nothing */

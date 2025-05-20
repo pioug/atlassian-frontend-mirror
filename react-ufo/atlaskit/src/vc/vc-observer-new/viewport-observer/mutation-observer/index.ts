@@ -1,5 +1,10 @@
 export type CreateMutationObserverProps = {
-	onAttributeMutation: (props: { target: HTMLElement; attributeName: string }) => void;
+	onAttributeMutation: (props: {
+		target: HTMLElement;
+		attributeName: string;
+		oldValue?: string | undefined | null;
+		newValue?: string | undefined | null;
+	}) => void;
 
 	onMutationFinished?: (props: { targets: Array<HTMLElement> }) => void;
 	onChildListMutation: (props: {
@@ -41,6 +46,8 @@ function createMutationObserver({
 					onAttributeMutation({
 						target: mut.target,
 						attributeName: mut.attributeName ?? 'unknown',
+						oldValue,
+						newValue,
 					});
 				}
 

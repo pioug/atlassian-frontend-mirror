@@ -1,5 +1,34 @@
 # @atlaskit/menu
 
+## 7.0.0
+
+### Major Changes
+
+- [#156707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156707)
+  [`84d702274b2dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84d702274b2dd) -
+  Migrated `HeadingItem` and `Section` components from @emotion/react to @compiled/react in order to
+  improve performance, align with the rest of the Atlaskit techstack, and support React 18 Streaming
+  SSR.
+
+  Removed the deprecated `cssFn` prop from the `HeadingItem` component, as this is not supported
+  with @compiled/react.
+
+## 6.0.0
+
+### Major Changes
+
+- [#148607](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148607)
+  [`474e66c7b2f54`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/474e66c7b2f54) -
+  Removed deprecated `overrides` prop from Section. Introduced `isSideNavSection` prop on Section
+  which when true renders headings with reduced padding. This prop was added exclusively to support
+  existing functionality in `@atlaskit/side-navigation` and will be removed once the new navigation
+  system fully rolls out. It should not be used outside of the Side Navigation component. Removed
+  deprecated `Overrides` and `TitleOverrides` types.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

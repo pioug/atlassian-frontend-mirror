@@ -103,4 +103,12 @@ export interface CardOptions {
 	 * Component: link toolbar
 	 */
 	userPreferencesLink?: string;
+	/**
+	 * A flag to determine whether page is SSRed. Directly render card if page is SSRed
+	 * with resolved data and skip lazy load process.
+	 * Default is false.
+	 *
+	 * Component: inline
+	 */
+	isPageSSRed?: boolean;
 }

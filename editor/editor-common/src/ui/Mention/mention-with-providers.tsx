@@ -25,64 +25,68 @@ export interface State {
 const GENERIC_USER_IDS = ['HipChat', 'all', 'here'];
 const noop = () => {};
 
-export const MentionWithProviders = ({
-	accessLevel,
-	eventHandlers,
-	id,
-	mentionProvider,
-	profilecardProvider: profilecardProviderResolver,
-	text,
-	localId,
-}: Props) => {
-	const [profilecardProvider, setProfilecardProvider] = useState<ProfilecardProvider | null>(null);
-	const mountedRef = useRef(true);
+export const MentionWithProviders = React.memo(
+	({
+		accessLevel,
+		eventHandlers,
+		id,
+		mentionProvider,
+		profilecardProvider: profilecardProviderResolver,
+		text,
+		localId,
+	}: Props) => {
+		const [profilecardProvider, setProfilecardProvider] = useState<ProfilecardProvider | null>(
+			null,
+		);
+		const mountedRef = useRef(true);
 
-	useLayoutEffect(() => {
-		mountedRef.current = true;
-		return () => {
-			mountedRef.current = false;
-		};
-	}, []);
+		useLayoutEffect(() => {
+			mountedRef.current = true;
+			return () => {
+				mountedRef.current = false;
+			};
+		}, []);
 
-	useLayoutEffect(() => {
-		// We are not using async/await here to avoid having an intermediate Promise
-		// introduced by the transpiler.
-		// This will allow consumer to use a SynchronousPromise.resolve and avoid useless
-		// rerendering
-		profilecardProviderResolver
-			?.then((result) => {
-				if (mountedRef.current) {
-					setProfilecardProvider(result);
-				}
-			})
-			.catch(() => {
-				if (mountedRef.current) {
-					setProfilecardProvider(null);
-				}
-			});
-	}, [profilecardProviderResolver]);
+		useLayoutEffect(() => {
+			// We are not using async/await here to avoid having an intermediate Promise
+			// introduced by the transpiler.
+			// This will allow consumer to use a SynchronousPromise.resolve and avoid useless
+			// rerendering
+			profilecardProviderResolver
+				?.then((result) => {
+					if (mountedRef.current) {
+						setProfilecardProvider(result);
+					}
+				})
+				.catch(() => {
+					if (mountedRef.current) {
+						setProfilecardProvider(null);
+					}
+				});
+		}, [profilecardProviderResolver]);
 
-	const MentionComponent =
-		profilecardProvider && profilecardProviderResolver && GENERIC_USER_IDS.indexOf(id) === -1
-			? ResourcedMentionWithProfilecard
-			: ResourcedMention;
+		const MentionComponent =
+			profilecardProvider && profilecardProviderResolver && GENERIC_USER_IDS.indexOf(id) === -1
+				? ResourcedMentionWithProfilecard
+				: ResourcedMention;
 
-	return (
-		<MentionComponent
-			id={id}
-			text={text}
-			accessLevel={accessLevel}
-			localId={localId}
-			mentionProvider={mentionProvider}
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			profilecardProvider={profilecardProvider!}
-			onClick={eventHandlers?.onClick}
-			onMouseEnter={eventHandlers?.onMouseEnter}
-			onMouseLeave={eventHandlers?.onMouseLeave}
-		/>
-	);
-};
+		return (
+			<MentionComponent
+				id={id}
+				text={text}
+				accessLevel={accessLevel}
+				localId={localId}
+				mentionProvider={mentionProvider}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				profilecardProvider={profilecardProvider!}
+				onClick={eventHandlers?.onClick}
+				onMouseEnter={eventHandlers?.onMouseEnter}
+				onMouseLeave={eventHandlers?.onMouseLeave}
+			/>
+		);
+	},
+);
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class MentionWithProvidersOld extends PureComponent<Props, State> {

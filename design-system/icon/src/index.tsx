@@ -7,6 +7,7 @@ export { default as IconTile } from './components/icon-tile';
 
 export type {
 	Size,
+	NewCoreIconSize,
 	SkeletonProps,
 	IconProps,
 	GlyphProps,

@@ -7,11 +7,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } fr
 import { cssMap, jsx } from '@compiled/react';
 
 import ArrowRightIcon from '@atlaskit/icon/core/migration/arrow-right--arrow-right-circle';
-import {
-	type ButtonItemProps,
-	type CustomItemComponentProps,
-	type Overrides,
-} from '@atlaskit/menu';
+import { type ButtonItemProps, type CustomItemComponentProps } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { N10 } from '@atlaskit/theme/colors';
@@ -46,7 +42,7 @@ const styles = cssMap({
 	},
 });
 
-interface NestingItemOverrides extends Overrides {
+interface NestingItemOverrides {
 	/**
 	 * Use this to override the back button displayed when navigation is nested.
 	 * You'll want to import the [go back item](/packages/navigation/side-navigation/docs/go-back-item) component and use it here.

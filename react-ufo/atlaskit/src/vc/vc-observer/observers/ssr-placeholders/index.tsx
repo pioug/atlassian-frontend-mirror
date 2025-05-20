@@ -1,4 +1,5 @@
 const ANCESTOR_LOOKUP_LIMIT = 10;
+const PAGE_LAYOUT_ID = 'page-layout.root';
 
 type Rect = {
 	x: number;
@@ -14,8 +15,9 @@ export class SSRPlaceholderHandlers {
 	private reactValidateCallbacks = new Map<string, (resolve: boolean) => void>();
 	private intersectionObserver: IntersectionObserver | undefined;
 	private EQUALITY_THRESHOLD = 1;
+	private enablePageLayoutPlaceholder;
 
-	constructor() {
+	constructor(enablePageLayoutPlaceholder = false) {
 		if (typeof IntersectionObserver === 'function') {
 			// Only instantiate the IntersectionObserver if it's supported
 			this.intersectionObserver = new IntersectionObserver((entries) =>
@@ -25,24 +27,28 @@ export class SSRPlaceholderHandlers {
 			);
 		}
 
+		this.enablePageLayoutPlaceholder = enablePageLayoutPlaceholder;
+
 		if (window.document) {
 			try {
-				const existingElements = document.querySelectorAll('[data-ssr-placeholder]');
+				const selector = this.enablePageLayoutPlaceholder ? '[data-ssr-placeholder],[data-testid="page-layout.root"]' : '[data-ssr-placeholder]'
+				const existingElements = document.querySelectorAll(selector);
 				existingElements.forEach((el) => {
-					if (el instanceof HTMLElement && el?.dataset?.ssrPlaceholder) {
+					const placeholderId = el instanceof HTMLElement && this.getPlaceholderId(el);
+					if (placeholderId) {
 						let width = -1;
 						let height = -1;
 						let x = -1;
 						let y = -1;
 						const boundingClientRect =
-							window.__SSR_PLACEHOLDERS_DIMENSIONS__?.[el.dataset.ssrPlaceholder];
+							window.__SSR_PLACEHOLDERS_DIMENSIONS__?.[placeholderId];
 						if (boundingClientRect) {
 							width = boundingClientRect.width;
 							height = boundingClientRect.height;
 							x = boundingClientRect.x;
 							y = boundingClientRect.y;
 						}
-						this.staticPlaceholders.set(el.dataset.ssrPlaceholder, {
+						this.staticPlaceholders.set(placeholderId, {
 							width,
 							height,
 							x,
@@ -58,6 +64,28 @@ export class SSRPlaceholderHandlers {
 		}
 	}
 
+	private getPlaceholderId = (el?: HTMLElement): string => {
+		const ssrPlaceholderId = el?.dataset?.ssrPlaceholder;
+		if (!!ssrPlaceholderId) {
+			return ssrPlaceholderId;
+		}
+		if (this.enablePageLayoutPlaceholder && el?.dataset.testid === PAGE_LAYOUT_ID) {
+			return PAGE_LAYOUT_ID;
+		}
+		return '';
+	}
+
+	private getPlaceholderReplacementId = (el?: HTMLElement): string => {
+		const ssrPlaceholderReplaceId = el?.dataset?.ssrPlaceholderReplace;
+		if (!!ssrPlaceholderReplaceId) {
+			return ssrPlaceholderReplaceId;
+		}
+		if (this.enablePageLayoutPlaceholder && el?.dataset.testid === PAGE_LAYOUT_ID) {
+			return PAGE_LAYOUT_ID;
+		}
+		return '';
+	}
+
 	clear() {
 		this.staticPlaceholders = new Map();
 		this.callbacks = new Map();
@@ -66,11 +94,11 @@ export class SSRPlaceholderHandlers {
 	}
 
 	isPlaceholder(element: HTMLElement) {
-		return Boolean(element.dataset.ssrPlaceholder);
+		return Boolean(this.getPlaceholderId(element));
 	}
 
 	isPlaceholderReplacement(element: HTMLElement) {
-		return Boolean(element.dataset.ssrPlaceholderReplace);
+		return Boolean(this.getPlaceholderReplacementId(element));
 	}
 
 	isPlaceholderIgnored(element: HTMLElement) {
@@ -97,7 +125,7 @@ export class SSRPlaceholderHandlers {
 
 	checkIfExistedAndSizeMatching(el: HTMLElement) {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
-		const id = el.dataset.ssrPlaceholder || '';
+		const id = this.getPlaceholderId(el);
 		return new Promise((resolve) => {
 			if (!this.staticPlaceholders.has(id)) {
 				resolve(false);
@@ -111,14 +139,14 @@ export class SSRPlaceholderHandlers {
 
 	getSize(el: HTMLElement): Promise<Rect> {
 		return new Promise((resolve) => {
-			this.getSizeCallbacks.set(el.dataset.ssrPlaceholder || '', resolve);
+			this.getSizeCallbacks.set(this.getPlaceholderId(el), resolve);
 			this.intersectionObserver?.observe(el);
 		});
 	}
 
 	validateReactComponentMatchToPlaceholder(el: HTMLElement) {
 		el = this.findNearestPlaceholderContainerIfIgnored(el);
-		const id = el.dataset.ssrPlaceholderReplace || '';
+		const id = this.getPlaceholderReplacementId(el);
 		return new Promise((resolve) => {
 			if (!this.staticPlaceholders.has(id)) {
 				resolve(false);
@@ -151,7 +179,7 @@ export class SSRPlaceholderHandlers {
 			// impossible case - keep typescript healthy
 			return;
 		}
-		const staticKey = target.dataset.ssrPlaceholder || '';
+		const staticKey = this.getPlaceholderId(target);
 		if (staticKey) {
 			if (this.staticPlaceholders.has(staticKey) && this.callbacks.has(staticKey)) {
 				// validation
@@ -176,7 +204,7 @@ export class SSRPlaceholderHandlers {
 				this.callbacks.delete(staticKey);
 			}
 		} else {
-			const key = target.dataset.ssrPlaceholderReplace || '';
+			const key = this.getPlaceholderReplacementId(target);
 
 			const resolve = this.reactValidateCallbacks.get(key);
 			if (!resolve) {

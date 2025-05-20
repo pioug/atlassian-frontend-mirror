@@ -118,9 +118,6 @@
 		"platform_editor_listen_for_focussed_query_param": {
 			"type": "boolean"
 		},
-		"confluence_comments_select_comment_experience": {
-			"type": "boolean"
-		},
 		"confluence_frontend_handle_annotation_error": {
 			"type": "boolean"
 		},

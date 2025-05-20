@@ -1,5 +1,29 @@
 # @atlaskit/share
 
+## 6.4.0
+
+### Minor Changes
+
+- [#149822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/149822)
+  [`f9ab0e846ae21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9ab0e846ae21) -
+  Updated to support `size` prop for new icons from `@atlaskit/icon`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.0
 
 ### Minor Changes

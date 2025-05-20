@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.7.5
+
+### Patch Changes
+
+- [#154311](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154311)
+  [`a9aff3b749e22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9aff3b749e22) -
+  [ux] EDITOR-730 Fix bug with typeaheads and legacy content extension that resulted in typeahead
+  text remaining in the inserted element
+- Updated dependencies
+
+## 2.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.2
 
 ### Patch Changes

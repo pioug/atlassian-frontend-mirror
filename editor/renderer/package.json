@@ -185,6 +185,9 @@
 		"platform_editor_accessible_heading_copy_link": {
 			"type": "boolean"
 		},
+		"platform_editor_fix_vc90_bug_with_files": {
+			"type": "boolean"
+		},
 		"editor_a11y_status_renderer_description": {
 			"type": "boolean"
 		},

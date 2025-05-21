@@ -4,7 +4,7 @@ import {
 	WidgetType,
 	Decoration as CodeMirrorDecoration,
 	EditorView as CodeMirror,
-	DecorationSet,
+	type DecorationSet,
 	ViewUpdate,
 } from '@codemirror/view';
 

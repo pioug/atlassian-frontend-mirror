@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { Team } from '../types';
 
 import { AGGQuery } from './graphqlUtils';
@@ -88,7 +86,7 @@ type TeamQueryVariables = { teamId: string; siteId?: string };
 export const buildGatewayQuery = ({ teamId, siteId }: TeamQueryVariables) => ({
 	query: GATEWAY_QUERY_V2,
 	variables: {
-		teamId: fg('team_id_to_ari_safe') ? idToAriSafe(teamId) : idToAri(teamId),
+		teamId: idToAriSafe(teamId),
 		siteId: siteId || 'None',
 	},
 });

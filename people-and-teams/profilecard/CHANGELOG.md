@@ -1,5 +1,23 @@
 # @atlaskit/profilecard
 
+## 23.16.0
+
+### Minor Changes
+
+- [#157098](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157098)
+  [`2165b00523da6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2165b00523da6) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+## 23.15.3
+
+### Patch Changes
+
+- [#157715](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157715)
+  [`8dd35b6f12e0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dd35b6f12e0d) -
+  NO-ISSUE clean up team_id_to_ari_safe
+- Updated dependencies
+
 ## 23.15.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "31.14.0",
+	"version": "31.15.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -131,6 +132,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_reactions_picker_fix": {
+			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__editor-collabo": {
 			"type": "boolean"
 		}
 	},

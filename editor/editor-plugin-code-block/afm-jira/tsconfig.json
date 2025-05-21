@@ -36,7 +36,7 @@
 			"path": "../../editor-plugin-editor-disabled/afm-jira/tsconfig.json"
 		},
 		{
-			 "path": "../../editor-plugin-interaction/afm-jira/tsconfig.json"
+			"path": "../../editor-plugin-interaction/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"

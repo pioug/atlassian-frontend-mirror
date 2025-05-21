@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/new';
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import InlineDialog from '../../../index';
 
@@ -89,7 +91,12 @@ describe('inline-dialog', () => {
 	describe('onContentFocus', () => {
 		it('should be triggered when an element in the content is focused', () => {
 			const spy = jest.fn();
-			const dummyLink = (
+			const dummyLink = fg('dst-a11y__replace-anchor-with-link__design-system-') ? (
+				<Link data-testid="dummy-link" href="/test">
+					This is a dummy link
+				</Link>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 				<a data-testid="dummy-link" href="/test">
 					This is a dummy link
 				</a>
@@ -110,7 +117,12 @@ describe('inline-dialog', () => {
 	describe('onContentBlur', () => {
 		it('should be triggered when an element in the content is blurred', () => {
 			const spy = jest.fn();
-			const dummyLink = (
+			const dummyLink = fg('dst-a11y__replace-anchor-with-link__design-system-') ? (
+				<Link data-testid="dummy-link" href="/test">
+					This is a dummy link
+				</Link>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 				<a data-testid="dummy-link" href="/test">
 					This is a dummy link
 				</a>

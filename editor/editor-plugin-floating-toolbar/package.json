@@ -154,6 +154,9 @@
 		},
 		"platform_editor_controls_patch_8": {
 			"type": "boolean"
+		},
+		"platform_editor_interaction_api_refactor": {
+			"type": "boolean"
 		}
 	}
 }

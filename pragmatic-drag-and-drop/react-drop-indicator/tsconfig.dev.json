@@ -47,6 +47,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../core/tsconfig.app.json"
+		},
+		{
 			"path": "../hitbox/tsconfig.app.json"
 		},
 		{

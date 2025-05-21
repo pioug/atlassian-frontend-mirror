@@ -10,7 +10,7 @@ const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>((props: CustomProp
 	const { children, ...rest } = props;
 	return (
 		<>
-			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-html-anchor */}
 			<a ref={ref} {...rest} onClick={(e) => e.preventDefault()}>
 				{children}
 			</a>

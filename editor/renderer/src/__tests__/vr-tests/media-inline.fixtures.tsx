@@ -7,7 +7,7 @@ import { mediaInlineAdf } from '../visual-regression/media/__fixtures__/media-in
 import { mediaInlineInParagraphAdf } from '../visual-regression/media/__fixtures__/media-inline-in-paragraph.adf';
 import { mediaInlineMultipleInParagraphAdf } from '../visual-regression/media/__fixtures__/media-inline-multiple-in-paragraph.adf';
 import type { DocNode } from '@atlaskit/adf-schema';
-import { RendererProps } from '../../ui/renderer-props';
+import type { RendererProps } from '../../ui/renderer-props';
 import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 
 const Media = ({

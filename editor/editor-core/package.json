@@ -584,10 +584,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_yellow_text_highlight_shortcut": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_controls_widget_visibility": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -656,6 +652,9 @@
 			"referenceOnly": true
 		},
 		"confluence_team_presence_scroll_to_pointer": {
+			"type": "boolean"
+		},
+		"platform_editor_interaction_api_refactor": {
 			"type": "boolean"
 		},
 		"platform_editor_ssr_fix_lists": {

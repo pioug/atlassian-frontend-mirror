@@ -850,8 +850,10 @@ export function ReactEditorView(props: EditorViewProps) {
 		[props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy],
 	);
 
-	// Render tracking firing too many events for the legacy content macro. We're aware of the re-render issue, but disabling this for now. See - https://product-fabric.atlassian.net/browse/ED-26650
-	const renderTrackingEnabled = !featureFlags.lcmPreventRenderTracking;
+	// Render tracking is firing too many events in Jira so we are disabling them for now. See - https://product-fabric.atlassian.net/browse/ED-25616
+	// Also firing too many events for the legacy content macro, so disabling for now. See - https://product-fabric.atlassian.net/browse/ED-26650
+	const renderTrackingEnabled =
+		!fg('platform_editor_disable_rerender_tracking_jira') && !featureFlags.lcmPreventRenderTracking;
 
 	return (
 		<ReactEditorViewContext.Provider

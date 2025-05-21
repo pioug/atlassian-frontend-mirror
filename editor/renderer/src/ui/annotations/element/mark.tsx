@@ -14,10 +14,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { useIntl } from 'react-intl-next';
 import { inlineCommentMessages } from '../../../messages';
 import { token } from '@atlaskit/tokens';
-import {
-	useAnnotationManagerDispatch,
-	useAnnotationManagerState,
-} from '../contexts/AnnotationManagerContext';
 
 const markStyles = css({
 	color: 'inherit',
@@ -164,22 +160,6 @@ export const MarkComponent = ({
 		() => [...new Set([...annotationParentIds, id])],
 		[id, annotationParentIds],
 	);
-	const { dispatch } = useAnnotationManagerDispatch();
-	const { currentSelectedAnnotationId } = useAnnotationManagerState();
-
-	const markRef = useCallback(
-		(node: HTMLElement | null) => {
-			if (id === currentSelectedAnnotationId && node) {
-				dispatch({
-					type: 'setSelectedMarkRef',
-					data: {
-						markRef: node,
-					},
-				});
-			}
-		},
-		[dispatch, id, currentSelectedAnnotationId],
-	);
 
 	const onMarkClick = useCallback(
 		(event: MouseEvent | KeyboardEvent) => {
@@ -213,9 +193,16 @@ export const MarkComponent = ({
 				event.preventDefault();
 			}
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @atlaskit/editor/no-as-casting
-			onClick({ eventTarget: event.target as HTMLElement, annotationIds });
+			if (fg('platform_editor_comments_api_manager')) {
+				// currentTarget is the right element if there are multiple overlapping annotations
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				onClick({ eventTarget: event.currentTarget as HTMLElement, annotationIds });
+			} else {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				onClick({ eventTarget: event.target as HTMLElement, annotationIds });
+			}
 		},
 		[annotationIds, onClick, state],
 	);
@@ -257,7 +244,6 @@ export const MarkComponent = ({
 	return jsx(
 		useBlockLevel ? 'div' : 'mark',
 		{
-			ref: id === currentSelectedAnnotationId ? markRef : undefined,
 			id,
 			[fg('editor_inline_comments_on_inline_nodes') ? 'onClickCapture' : 'onClick']: onMarkClick,
 			...accessibility,

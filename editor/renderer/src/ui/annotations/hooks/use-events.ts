@@ -262,7 +262,7 @@ export const useAnnotationClickEvent = (
 	}, [updateSubscriber, createAnalyticsEvent, isNestedRender]);
 
 	if (fg('platform_editor_comments_api_manager')) {
-		return selectedAnnotation;
+		return isNestedRender ? null : selectedAnnotation;
 	} else {
 		return annotationClickEvent;
 	}

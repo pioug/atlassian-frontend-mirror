@@ -1,7 +1,7 @@
 import {
 	type MediaClientConfig,
 	type MediaApi,
-	FileIdentifier,
+	type FileIdentifier,
 	getFileStreamsCache,
 } from '@atlaskit/media-client';
 import { type GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers';

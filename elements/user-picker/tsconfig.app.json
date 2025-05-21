@@ -60,6 +60,9 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/react-select/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{

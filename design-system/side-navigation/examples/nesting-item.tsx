@@ -41,6 +41,7 @@ const CustomNestingItem = forwardRef(
 		ref: React.Ref<HTMLAnchorElement>,
 	) => {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			<a href={href} {...props} ref={ref}>
 				{children}
 			</a>

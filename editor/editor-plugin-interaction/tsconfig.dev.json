@@ -33,15 +33,6 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-common/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

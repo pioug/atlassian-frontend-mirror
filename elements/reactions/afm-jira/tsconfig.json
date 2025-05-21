@@ -45,6 +45,9 @@
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
 		},
 		{
@@ -61,6 +64,9 @@
 		},
 		{
 			"path": "../../../design-system/popup/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"

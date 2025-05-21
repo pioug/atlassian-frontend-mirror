@@ -605,17 +605,10 @@ const getRendererComponent = (nodeComponents: RendererProps['nodeComponents']) =
 	// and use context instead because at this time we cannot guarantee that existing
 	// consumers of Atlaskit Renderer will update to use the new portal context.
 	if (!Boolean(nodeComponents) && fg('cc_complexit_reduce_portal_rerenders')) {
-		if (fg('cc_perf_reduce_rerenders')) {
-			return RendererFunctionalComponentWithPortalContextMemoized;
-		}
-		return RendererFunctionalComponentWithPortalContext;
+		return RendererFunctionalComponentWithPortalContextMemoized;
 	}
 
-	if (fg('cc_perf_reduce_rerenders')) {
-		return RendererFunctionalComponentMemoized;
-	}
-
-	return RendererFunctionalComponent;
+	return RendererFunctionalComponentMemoized;
 };
 
 /**

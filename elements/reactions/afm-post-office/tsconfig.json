@@ -45,6 +45,9 @@
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/modal-dialog/afm-post-office/tsconfig.json"
 		},
 		{
@@ -61,6 +64,9 @@
 		},
 		{
 			"path": "../../../design-system/popup/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/portal/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"

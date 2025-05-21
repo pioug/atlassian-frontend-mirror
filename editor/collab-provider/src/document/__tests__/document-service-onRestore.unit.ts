@@ -1,7 +1,7 @@
 import { Provider } from '../..';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',

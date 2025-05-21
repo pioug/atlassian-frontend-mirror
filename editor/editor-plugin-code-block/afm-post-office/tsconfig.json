@@ -36,6 +36,9 @@
 			"path": "../../editor-plugin-editor-disabled/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-interaction/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{

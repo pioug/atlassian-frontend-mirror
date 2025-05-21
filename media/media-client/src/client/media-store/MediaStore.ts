@@ -344,14 +344,18 @@ export class MediaStore implements MediaApi {
 		collectionName?: string,
 		maxAge: number = FILE_CACHE_MAX_AGE,
 	): Promise<string> {
+		// ----- WARNING ----------
+		// DO NOT USE!!!!!
+		// artifact.cdnUrl fails in Jira.
+		// ----------------------------------
 		// getArtifactURL returns a constructed url PATH, not the full Media/CDN Url.
 		// We use the provided cdnUrl from metadata first.
-		if (isCommercial() && fg('platform_media_cdn_delivery')) {
+		/* if (isCommercial() && fg('platform_media_cdn_delivery')) {
 			const cdnUrl = artifacts[artifactName]?.cdnUrl;
 			if (cdnUrl) {
 				return cdnUrl;
 			}
-		}
+		} */
 
 		const artifactUrl = getArtifactUrl(artifacts, artifactName);
 		if (!artifactUrl) {

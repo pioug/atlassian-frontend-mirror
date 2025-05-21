@@ -191,6 +191,9 @@
 			"path": "../editor-plugin-insert-block/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-interaction/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-layout/tsconfig.app.json"
 		},
 		{
@@ -288,6 +291,12 @@
 		},
 		{
 			"path": "../editor-plugin-unsupported-content/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-user-intent/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-user-preferences/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-width/tsconfig.app.json"

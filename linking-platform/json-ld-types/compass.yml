@@ -1,5 +1,11 @@
 name: '@atlaskit/json-ld-types'
-description: This library provides type definitions for the [Atlassian Object Vocabulary](https://product-fabric.atlassian.net/wiki/spaces/SL/pages/460753040/Atlassian+Object+Vocabulary+JSON-LD) in JSON-LD format. It defines the standard structure and fields for JSON-LD data objects used across Atlassian's Smart Links and Linking Platform. These types ensure consistency and type safety when working with linked data objects, such as those rendered by Smart Links in Jira, Confluence, and other Atlassian products.
+description:
+  This library provides type definitions for the [Atlassian Object
+  Vocabulary](https://product-fabric.atlassian.net/wiki/spaces/SL/pages/460753040/Atlassian+Object+Vocabulary+JSON-LD)
+  in JSON-LD format. It defines the standard structure and fields for JSON-LD data objects used
+  across Atlassian's Smart Links and Linking Platform. These types ensure consistency and type
+  safety when working with linked data objects, such as those rendered by Smart Links in Jira,
+  Confluence, and other Atlassian products.
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

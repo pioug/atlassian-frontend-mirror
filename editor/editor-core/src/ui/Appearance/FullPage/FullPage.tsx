@@ -13,7 +13,7 @@ import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
-import { InteractionPlugin } from '@atlaskit/editor-plugins/interaction';
+import { type InteractionPlugin } from '@atlaskit/editor-plugins/interaction';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -99,6 +99,9 @@ export const FullPageEditor = (props: ComponentProps) => {
 		['editorViewMode', 'primaryToolbar', 'interaction'],
 	);
 	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
+	const hasHadInteraction = fg('platform_editor_interaction_api_refactor')
+		? interactionState?.interactionState !== 'hasNotHadInteraction'
+		: Boolean(interactionState?.hasHadInteraction);
 
 	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking');
 
@@ -258,7 +261,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 					featureFlags={props.featureFlags}
 					isEditorToolbarHidden={isEditorToolbarHidden}
 					viewMode={editorViewModeState?.mode}
-					hasHadInteraction={interactionState?.hasHadInteraction}
+					hasHadInteraction={hasHadInteraction}
 				/>
 			</div>
 		</ContextPanelWidthProvider>

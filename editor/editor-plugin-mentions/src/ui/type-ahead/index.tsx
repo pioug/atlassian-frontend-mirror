@@ -248,6 +248,7 @@ type Props = {
 			localId: string;
 			id: string;
 			taskLocalId?: string;
+			method?: 'pasted' | 'typed';
 		}[],
 	) => void;
 };
@@ -413,10 +414,16 @@ export const createTypeAheadConfig = ({
 			if (handleMentionsChanged) {
 				if (taskItemId) {
 					handleMentionsChanged([
-						{ type: 'added', localId: mentionLocalId, id, taskLocalId: taskItemId },
+						{
+							type: 'added',
+							localId: mentionLocalId,
+							id,
+							taskLocalId: taskItemId,
+							method: 'typed',
+						},
 					]);
 				} else {
-					handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id }]);
+					handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id, method: 'typed' }]);
 				}
 			}
 

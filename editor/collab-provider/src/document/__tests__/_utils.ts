@@ -1,4 +1,4 @@
-import { DocBuilder } from '@atlaskit/editor-common/types';
+import { type DocBuilder } from '@atlaskit/editor-common/types';
 import { EditorState, Transaction, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Step } from '@atlaskit/editor-prosemirror/transform';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';

@@ -12,7 +12,7 @@ import type {
 	InlineNodeViewComponentProps,
 	getInlineNodeViewProducer,
 } from '@atlaskit/editor-common/react-node-view';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';

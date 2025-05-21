@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css-reset",
-	"version": "7.2.0",
+	"version": "7.3.0",
 	"description": "A base stylesheet for the Atlassian Design System.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,6 +26,8 @@
 		"build-css": "run-ts build/js-to-css.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/link": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0"
@@ -37,7 +39,6 @@
 		"@af/formatting": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
-		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"mkdirp": "^0.5.1",
@@ -93,5 +94,10 @@
 		"./tables": "./src/tables.tsx",
 		"./utils": "./src/utils.tsx"
 	},
-	"homepage": "https://atlassian.design/components/css-reset"
+	"homepage": "https://atlassian.design/components/css-reset",
+	"platform-feature-flags": {
+		"dst-a11y__replace-anchor-with-link__design-system-": {
+			"type": "boolean"
+		}
+	}
 }

@@ -1,5 +1,9 @@
 name: '@atlaskit/link-client-extension'
-description: This is a package that provides a common client for making network requests to upstream services, such as resolving or interacting with Smart Links and datasources. It acts as a foundational utility for other packages and features that need to communicate with backend services to fetch, resolve, or manipulate link-related data
+description:
+  This is a package that provides a common client for making network requests to upstream services,
+  such as resolving or interacting with Smart Links and datasources. It acts as a foundational
+  utility for other packages and features that need to communicate with backend services to fetch,
+  resolve, or manipulate link-related data
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

@@ -6,6 +6,7 @@ import CheckIcon from '@atlaskit/icon/glyph/check';
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
 const CustomComponent = forwardRef<HTMLAnchorElement, React.PropsWithChildren<{}>>(
 	({ children, ...props }, ref) => (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a {...props} ref={ref}>
 			{children}
 		</a>

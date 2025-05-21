@@ -47,7 +47,7 @@
 			"path": "../editor-palette/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-block-controls/tsconfig.app.json"
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-context-panel/tsconfig.app.json"
@@ -74,7 +74,13 @@
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-interaction/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-table/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-user-intent/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/emoji/tsconfig.app.json"

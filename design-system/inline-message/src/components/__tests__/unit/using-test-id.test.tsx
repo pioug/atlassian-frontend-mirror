@@ -3,16 +3,23 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import InlineMessage from '../../../index';
+
+const LinkComponent = (props: any) =>
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-has-content, @repo/internal/react/no-unsafe-spread-props
+	fg('dst-a11y__replace-anchor-with-link__design-system-') ? <Link {...props} /> : <a {...props} />;
 
 const MessageContent = (
 	<div>
 		<h4>It is so great to use data-testid</h4>
 		<span>
 			Visit{' '}
-			<a href="https://hello.atlassian.net/wiki/spaces/AF/pages/2634728893/Testing+in+Atlassian+Frontend">
+			<LinkComponent href="https://hello.atlassian.net/wiki/spaces/AF/pages/2634728893/Testing+in+Atlassian+Frontend">
 				our testing website
-			</a>{' '}
+			</LinkComponent>{' '}
 			for more information
 		</span>
 	</div>

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import {
-	FloatingToolbarConfig,
-	FloatingToolbarOverflowDropdownOptions,
-	Command,
+	type FloatingToolbarConfig,
+	type FloatingToolbarOverflowDropdownOptions,
+	type Command,
 } from '@atlaskit/editor-common/types';
 import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -16,9 +16,9 @@ import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { openPixelEditor } from '../../pm-plugins/pixel-resizing/commands';
-import { Props, PixelEntry } from '../../pm-plugins/pixel-resizing/ui';
+import { type Props, PixelEntry } from '../../pm-plugins/pixel-resizing/ui';
 import { PIXEL_RESIZING_TOOLBAR_WIDTH } from '../../pm-plugins/pixel-resizing/ui/constants';
-import { MediaOptions, MediaToolbarBaseConfig } from '../../types';
+import type { MediaOptions, MediaToolbarBaseConfig } from '../../types';
 
 import { getSelectedMediaSingle } from './utils';
 

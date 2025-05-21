@@ -142,7 +142,7 @@ export class VCObserver implements VCObserverInterface {
 				className: true,
 				dataVC: true,
 			},
-			SSRConfig: { enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false }
+			SSRConfig: { enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false },
 		});
 
 		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();

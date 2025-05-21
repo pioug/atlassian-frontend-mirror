@@ -71,6 +71,9 @@
 			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../popper/tsconfig.app.json"
 		},
 		{

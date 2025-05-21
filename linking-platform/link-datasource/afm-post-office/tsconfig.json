@@ -84,6 +84,9 @@
 			"path": "../../../design-system/layering/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../link-client-extension/afm-post-office/tsconfig.json"
 		},
 		{

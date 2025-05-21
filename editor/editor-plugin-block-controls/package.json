@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.13.11",
+	"version": "3.14.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -52,6 +52,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
@@ -191,6 +192,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_drag_handle_shift_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_interaction_api_refactor": {
+			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__editor-jenga": {
 			"type": "boolean"
 		}
 	}

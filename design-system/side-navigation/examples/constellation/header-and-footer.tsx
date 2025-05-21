@@ -23,6 +23,7 @@ const Example = () => {
 					<Header
 						component={({ children, ...props }) => (
 							<>
+								{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 								<a href="https://atlassian.design/" {...props}>
 									{children}
 								</a>

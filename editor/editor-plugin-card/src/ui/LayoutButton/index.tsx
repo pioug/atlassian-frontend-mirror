@@ -13,7 +13,7 @@ import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
 } from '@atlaskit/editor-common/hooks';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';

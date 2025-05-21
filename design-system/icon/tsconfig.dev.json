@@ -75,6 +75,9 @@
 			"path": "../logo/tsconfig.app.json"
 		},
 		{
+			"path": "../lozenge/tsconfig.app.json"
+		},
+		{
 			"path": "../menu/tsconfig.app.json"
 		},
 		{

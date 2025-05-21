@@ -1,14 +1,27 @@
-import React, { useMemo } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
+import { useMemo } from 'react';
 
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { IconButton } from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import RetryIcon from '@atlaskit/icon/core/retry';
-import { Inline } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import { BrowseAgentsPill, ChatPill } from '../../common/ui/chat-pill';
 
 import { messages } from './messages';
+
+const styles = cssMap({
+	conversationStartersList: {
+		listStyle: 'none',
+		padding: 0,
+	},
+});
 
 export type ConversationStarter = { message: string; type: ConversationStarterType };
 
@@ -114,18 +127,20 @@ export const ConversationStarters = ({
 	onBrowseAgentsClick,
 }: ConversationStartersProps) => {
 	return (
-		<>
+		<Stack as="ul" space="space.050" xcss={styles.conversationStartersList}>
 			{starters.map((starter, index) => {
 				const isLastStarter = index === starters.length - 1;
 
 				const chatPill = (
-					<ChatPill
-						testId="conversation-starter"
-						key={starter.message}
-						onClick={() => onConversationStarterClick(starter)}
-					>
-						{starter.message}
-					</ChatPill>
+					<Box as="li" key={starter.message}>
+						<ChatPill
+							testId="conversation-starter"
+							key={starter.message}
+							onClick={() => onConversationStarterClick(starter)}
+						>
+							{starter.message}
+						</ChatPill>
+					</Box>
 				);
 
 				return isLastStarter && showReloadButton ? (
@@ -143,7 +158,11 @@ export const ConversationStarters = ({
 				);
 			})}
 
-			{!!onBrowseAgentsClick && <BrowseAgentsPill onClick={onBrowseAgentsClick} />}
-		</>
+			{!!onBrowseAgentsClick && (
+				<Box as="li">
+					<BrowseAgentsPill onClick={onBrowseAgentsClick} />
+				</Box>
+			)}
+		</Stack>
 	);
 };

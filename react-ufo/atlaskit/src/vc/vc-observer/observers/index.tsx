@@ -46,7 +46,7 @@ type ConstructorOptions = {
 	selectorConfig: SelectorConfig;
 	SSRConfig?: {
 		enablePageLayoutPlaceholder: boolean;
-	}
+	};
 };
 
 function isElementVisible(target: Element): boolean {
@@ -102,7 +102,9 @@ export class Observers implements BrowserObservers {
 		};
 		this.intersectionObserver = this.getIntersectionObserver();
 		this.mutationObserver = this.getMutationObserver();
-		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers(opts.SSRConfig?.enablePageLayoutPlaceholder);
+		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers(
+			opts.SSRConfig?.enablePageLayoutPlaceholder,
+		);
 	}
 
 	isBrowserSupported() {

@@ -28,17 +28,14 @@
 	],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@af__teams-app-config/app"
+		"outDir": "../../../tsDist/@atlaskit__teams-app-config/app"
 	},
 	"references": [
 		{
-			"path": "../../design-system/css/tsconfig.app.json"
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/primitives/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tokens/tsconfig.app.json"
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	],
 	"files": []

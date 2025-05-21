@@ -21,6 +21,9 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/link/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {

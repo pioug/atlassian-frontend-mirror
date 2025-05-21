@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import { SelectionExtensionPluginState, SelectionExtensionActionTypes } from '../types';
+import { type SelectionExtensionPluginState, SelectionExtensionActionTypes } from '../types';
 
 export const selectionExtensionPluginKey = new PluginKey<SelectionExtensionPluginState>(
 	'selectionExtensionPlugin',

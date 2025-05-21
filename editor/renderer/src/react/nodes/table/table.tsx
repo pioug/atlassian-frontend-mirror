@@ -10,6 +10,7 @@ type TableProps = SharedTableProps & {
 	innerRef?: React.RefObject<HTMLTableElement>;
 	children: React.ReactNode[];
 	isPresentational?: boolean;
+	fixTableSSRResizing?: boolean;
 };
 
 export const Table = React.memo(
@@ -27,6 +28,7 @@ export const Table = React.memo(
 		isinsideMultiBodiedExtension,
 		allowTableResizing,
 		isPresentational,
+		fixTableSSRResizing = false,
 	}: TableProps) => {
 		let tableWidth: number | 'inherit' = tableNode
 			? getTableContainerWidth(tableNode)
@@ -64,6 +66,7 @@ export const Table = React.memo(
 				data-layout={tableLayout}
 				data-table-display-mode={tableDisplayMode}
 				ref={innerRef}
+				style={{ marginTop: fixTableSSRResizing ? '0px' : '' }}
 			>
 				<Colgroup
 					columnWidths={columnWidths}

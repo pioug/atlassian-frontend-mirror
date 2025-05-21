@@ -96,9 +96,6 @@
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/side-navigation/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{

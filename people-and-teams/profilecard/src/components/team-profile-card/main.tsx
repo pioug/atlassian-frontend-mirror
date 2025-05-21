@@ -20,7 +20,7 @@ import { token } from '@atlaskit/tokens';
 import { fireEvent } from '../../util/analytics';
 import TeamAppTile from '../common/assets/TeamAppTile.svg';
 
-import { TeamActions, TeamActionsProps } from './team-actions';
+import { TeamActions, type TeamActionsProps } from './team-actions';
 import { NewTeamConnections, TeamConnections } from './team-connections/main';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
 

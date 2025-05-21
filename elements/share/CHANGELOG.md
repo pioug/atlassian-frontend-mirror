@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 6.5.0
+
+### Minor Changes
+
+- [#157098](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157098)
+  [`2165b00523da6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2165b00523da6) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 6.4.0
 
 ### Minor Changes

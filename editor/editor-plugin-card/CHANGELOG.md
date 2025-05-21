@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-card
 
+## 6.2.0
+
+### Minor Changes
+
+- [#158037](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158037)
+  [`f217faa73de90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f217faa73de90) -
+  [ux] ENGHEALTH-30614 updating legacy icon imports for iconography uplift migration linking
+  platform
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.3
+
+### Patch Changes
+
+- [#150558](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150558)
+  [`2b8be3c33b348`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b8be3c33b348) -
+  ED-27612: prevent infinite loop on card delete
+- Updated dependencies
+
 ## 6.1.2
 
 ### Patch Changes

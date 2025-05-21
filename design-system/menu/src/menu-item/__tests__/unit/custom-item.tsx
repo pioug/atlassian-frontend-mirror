@@ -169,13 +169,14 @@ describe('<CustomItem />', () => {
 	});
 
 	it('should pass through extra props to the component', () => {
-		const Link = ({
-			children,
-			...props
-		}: CustomItemComponentProps & {
-			href: string;
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		}) => <a {...props}>{children}</a>;
+		const Link = (
+			{
+				children,
+				...props
+			}: CustomItemComponentProps & {
+				href: string;
+			}, // eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @repo/internal/react/no-unsafe-spread-props
+		) => <a {...props}>{children}</a>;
 
 		render(
 			<CustomItem href="/my-details" component={Link} testId="target">
@@ -389,13 +390,14 @@ describe('<CustomItem />', () => {
 			});
 
 			it('should pass through extra props to the component', () => {
-				const Link = ({
-					children,
-					...props
-				}: CustomItemComponentProps & {
-					href: string;
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				}) => <a {...props}>{children}</a>;
+				const Link = (
+					{
+						children,
+						...props
+					}: CustomItemComponentProps & {
+						href: string;
+					}, // eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @repo/internal/react/no-unsafe-spread-props
+				) => <a {...props}>{children}</a>;
 
 				render(
 					<CustomItem href="/my-details" component={Link} testId="target">

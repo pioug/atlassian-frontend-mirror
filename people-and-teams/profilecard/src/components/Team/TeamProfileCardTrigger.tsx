@@ -416,6 +416,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		return (
 			<>
 				{this.renderKudosLauncher()}
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 				<a
 					data-testid="team-profilecard-trigger-wrapper"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

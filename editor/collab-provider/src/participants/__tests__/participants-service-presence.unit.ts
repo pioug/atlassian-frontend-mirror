@@ -1,6 +1,6 @@
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import type { PresencePayload } from '../../types';
-import { BatchProps } from '../participants-helper';
+import { type BatchProps } from '../participants-helper';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 

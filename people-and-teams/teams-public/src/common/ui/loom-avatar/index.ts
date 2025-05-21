@@ -1,0 +1,1 @@
+export { LoomSpaceAvatar } from './main';

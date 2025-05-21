@@ -304,10 +304,16 @@ function createPasteAnalyticsPayloadBySelection(
 				id: string;
 				localId: string;
 				taskLocalId?: string;
+				method?: 'pasted' | 'typed';
 			}[] = [];
 			slice.content.descendants((node) => {
 				if (node.type.name === 'mention') {
-					mentionsInserted.push({ type: 'added', id: node.attrs.id, localId: node.attrs.localId });
+					mentionsInserted.push({
+						type: 'added',
+						id: node.attrs.id,
+						localId: node.attrs.localId,
+						method: 'pasted',
+					});
 				}
 				if (node.type.name === 'taskItem') {
 					node.content.forEach((nodeContent) => {
@@ -317,6 +323,7 @@ function createPasteAnalyticsPayloadBySelection(
 								localId: nodeContent.attrs.localId,
 								id: nodeContent.attrs.id,
 								taskLocalId: node.attrs.localId,
+								method: 'pasted',
 							});
 						}
 					});

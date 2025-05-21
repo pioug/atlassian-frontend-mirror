@@ -44,7 +44,13 @@
 			"path": "../editor-plugin-base/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-connectivity/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-metrics/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"

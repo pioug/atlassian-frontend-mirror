@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useContext, useLayoutEffect, useMemo, useState } from 'react';
 import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { useProviderLayout, useProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { useProviderLayout } from '@atlaskit/editor-common/provider-factory';
 
 import type { MediaSSR } from '../../types/mediaOptions';
 
@@ -12,14 +11,13 @@ export const EditorMediaClientProvider = ({
 }: React.PropsWithChildren<{ ssr?: MediaSSR }>) => {
 	const [mediaClientConfig, setMediaClientConfig] = useState<MediaClientConfig | undefined>();
 
-	const oldMediaProvider = useProvider('mediaProvider');
 	const mediaProvider = useProviderLayout('mediaProvider');
 
 	/**
 	 * If a mediaClientConfig is provided then we will force
 	 * skip the mediaClient from context
 	 */
-	const shouldSkipContext = Boolean(ssr?.config || oldMediaProvider || mediaProvider);
+	const shouldSkipContext = Boolean(ssr?.config || mediaProvider);
 
 	const contextMediaClient = useContext(MediaClientContext);
 
@@ -35,27 +33,14 @@ export const EditorMediaClientProvider = ({
 	// by not providing both SSR config and mediaProvider,
 	// and provide a top level mediaClient context
 	// This is useful for testing and creating examples.
-	useEffect(() => {
-		if (!fg('platform_editor_speedup_media_client')) {
-			if (ssr?.config) {
-				setMediaClientConfig(ssr.config);
-			} else if (oldMediaProvider) {
-				oldMediaProvider.then((provider) => {
-					setMediaClientConfig(provider.viewMediaClientConfig);
-				});
-			}
-		}
-	}, [oldMediaProvider, ssr]);
 
 	useLayoutEffect(() => {
-		if (fg('platform_editor_speedup_media_client')) {
-			if (ssr?.config) {
-				setMediaClientConfig(ssr.config);
-			} else if (mediaProvider) {
-				mediaProvider.then((provider) => {
-					setMediaClientConfig(provider.viewMediaClientConfig);
-				});
-			}
+		if (ssr?.config) {
+			setMediaClientConfig(ssr.config);
+		} else if (mediaProvider) {
+			mediaProvider.then((provider) => {
+				setMediaClientConfig(provider.viewMediaClientConfig);
+			});
 		}
 	}, [mediaProvider, ssr]);
 

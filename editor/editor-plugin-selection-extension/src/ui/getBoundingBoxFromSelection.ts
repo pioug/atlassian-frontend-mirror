@@ -1,6 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { SelectionExtensionCoords } from '../types';
+import type { SelectionExtensionCoords } from '../types';
 
 /**
  * Calculates the bounding box coordinates of a text selection within an editor view.

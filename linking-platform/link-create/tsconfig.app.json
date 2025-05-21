@@ -65,10 +65,16 @@
 			"path": "../../design-system/layering/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

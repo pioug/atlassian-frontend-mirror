@@ -33,6 +33,6 @@
 	"references": [
 		{
 			"path": "../editor-common/tsconfig.app.json"
-		},
+		}
 	]
 }

@@ -130,6 +130,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/popper/tsconfig.app.json"
 		},
 		{
@@ -137,6 +140,9 @@
 		},
 		{
 			"path": "../../people-and-teams/profilecard/tsconfig.app.json"
+		},
+		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
@@ -155,6 +161,9 @@
 		},
 		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/theme/tsconfig.app.json"
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"

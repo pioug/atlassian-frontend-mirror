@@ -211,6 +211,7 @@ export const StickyTable = ({
 							renderWidth={renderWidth}
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
+							fixTableSSRResizing={fixTableSSRResizing}
 						>
 							{
 								/**

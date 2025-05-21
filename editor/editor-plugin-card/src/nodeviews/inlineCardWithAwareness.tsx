@@ -4,7 +4,7 @@ import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
 } from '@atlaskit/editor-common/hooks';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';

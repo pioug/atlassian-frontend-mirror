@@ -59,9 +59,6 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
-			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{

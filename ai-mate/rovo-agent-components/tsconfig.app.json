@@ -56,6 +56,9 @@
 			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/logo/tsconfig.app.json"
 		},
 		{

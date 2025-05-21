@@ -147,7 +147,7 @@ export type InsertPromptPayload = PayloadCore<
 		/**
 		 * Overrides the default placeholder type
 		 */
-		placeholderType?: 'person' | 'link' | 'generic';
+		placeholderType?: 'person' | 'link' | 'generic' | 'highlight-action';
 	}
 >;
 

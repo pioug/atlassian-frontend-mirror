@@ -1,5 +1,9 @@
 name: '@atlaskit/link-provider'
-description: This package supplies a React context provider—most notably the SmartCardProvider—for anything link-related, including Smart Links. It is used to inject link resolution clients and configuration into the React component tree, enabling components like @atlaskit/smart-card to access the necessary context for resolving and rendering rich link previews (Smart Links).
+description:
+  This package supplies a React context provider—most notably the SmartCardProvider—for anything
+  link-related, including Smart Links. It is used to inject link resolution clients and
+  configuration into the React component tree, enabling components like @atlaskit/smart-card to
+  access the necessary context for resolving and rendering rich link previews (Smart Links).
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

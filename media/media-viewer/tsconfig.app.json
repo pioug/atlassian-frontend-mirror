@@ -45,10 +45,16 @@
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../icon-file-type/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		},
 		{
 			"path": "../media-client/tsconfig.app.json"

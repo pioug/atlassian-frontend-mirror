@@ -31,6 +31,11 @@ export interface HeaderContent {
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
 	newChatButtonDisabled?: boolean;
+	onGoBackToHistoryList?(
+		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		analyticsEvent: UIAnalyticsEvent,
+	): void;
+	isBackButtonVisible?: boolean;
 }
 
 export interface SideNavTab {

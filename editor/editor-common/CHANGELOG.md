@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 105.6.2
+
+### Patch Changes
+
+- [#155231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155231)
+  [`6fe1356da03dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fe1356da03dd) -
+  Cleanup FG platform_editor_speedup_media_client
+
+## 105.6.1
+
+### Patch Changes
+
+- [#156661](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156661)
+  [`aca6ec92a0d8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aca6ec92a0d8e) -
+  ED-27636: Adding more analytics types for offline editing.
+
 ## 105.6.0
 
 ### Minor Changes

@@ -6,6 +6,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { TableLayout, UrlType } from '@atlaskit/adf-schema';
 import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { FullPagePadding } from '../../ui/Renderer/style';
 
 import {
 	createCompareNodes,
@@ -14,7 +16,10 @@ import {
 	compose,
 } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorDefaultLayoutWidth,
+	akEditorFullWidthLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { RendererAppearance, StickyHeaderConfig } from '../../ui/Renderer/types';
@@ -26,30 +31,15 @@ import { StickyTable, tableStickyPadding, OverflowParent } from './table/sticky'
 import { Table } from './table/table';
 import type { SharedTableProps } from './table/types';
 
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-
-import { isCommentAppearance, isFullWidthOrFullPageAppearance } from '../utils/appearance';
+import {
+	isCommentAppearance,
+	isFullWidthOrFullPageAppearance,
+	isFullWidthAppearance,
+	isFullPageAppearance,
+} from '../utils/appearance';
 import { token } from '@atlaskit/tokens';
 
 import { TableStickyScrollbar } from './TableStickyScrollbar';
-
-const getResizerMinWidth = (node: PMNode) => {
-	const currentColumnCount = getColgroupChildrenLength(node);
-	const minColumnWidth = Math.min(3, currentColumnCount) * COLUMN_MIN_WIDTH;
-	// add an extra pixel as the scale table logic will scale columns to be tableContainerWidth - 1
-	// the table can't scale past its min-width, so instead restrict table container min width to avoid that situation
-	return minColumnWidth + 1;
-};
-
-const getColgroupChildrenLength = (table: PMNode): number => {
-	const map = TableMap.get(table);
-	return map.width;
-};
-
-const gutterPadding = akEditorGutterPaddingDynamic() * 2;
-
-const TABLE_MAX_WIDTH = 1800;
-const COLUMN_MIN_WIDTH = 48;
 
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
@@ -202,6 +192,9 @@ export interface TableState {
 	headerRowHeight: number;
 }
 
+/**
+ * TableContainer renders tables using only CSS-based rules
+ */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class TableContainer extends React.Component<
@@ -251,6 +244,10 @@ export class TableContainer extends React.Component<
 		}
 	};
 
+	/**
+	 *
+	 * @example
+	 */
 	componentDidMount() {
 		this.resizeObserver = new ResizeObserver(this.applyResizerChange);
 		if (this.wrapperRef.current) {
@@ -275,6 +272,12 @@ export class TableContainer extends React.Component<
 		}
 	}
 
+	/**
+	 *
+	 * @param prevProps
+	 * @param prevState
+	 * @example
+	 */
 	componentDidUpdate(prevProps: TableProps, prevState: TableState) {
 		// toggling sticky headers visiblity
 		if (this.props.stickyHeaders && !this.overflowParent) {
@@ -372,6 +375,9 @@ export class TableContainer extends React.Component<
 		}
 	};
 
+	/**
+	 *
+	 */
 	get pinTop() {
 		if (!this.tableRef.current || !this.stickyHeaderRef.current) {
 			return;
@@ -385,6 +391,9 @@ export class TableContainer extends React.Component<
 		);
 	}
 
+	/**
+	 *
+	 */
 	get shouldAddOverflowParentOffsetTop_DO_NOT_USE() {
 		// IF the StickyHeaderConfig specifies that the default scroll root offsetTop should be added
 		// AND the StickyHeaderConfig specifies a default scroll root id
@@ -399,6 +408,9 @@ export class TableContainer extends React.Component<
 		);
 	}
 
+	/**
+	 *
+	 */
 	get stickyTop() {
 		switch (this.state.stickyMode) {
 			case 'pin-bottom':
@@ -416,6 +428,10 @@ export class TableContainer extends React.Component<
 		}
 	}
 
+	/**
+	 *
+	 * @example
+	 */
 	render() {
 		const {
 			isNumberColumnEnabled,
@@ -427,223 +443,243 @@ export class TableContainer extends React.Component<
 			isInsideOfBlockNode,
 			isInsideOfTable,
 			isinsideMultiBodiedExtension,
+			allowTableAlignment,
 			allowTableResizing,
 			isPresentational,
 		} = this.props;
 
 		const { stickyMode } = this.state;
 
-		const getTableWidthAttribute = () => {
-			// this scenario occurs when there is a full width table within the full width renderer,
-			// in which case the parent container is already the correct size
-			if (rendererAppearance === 'full-width' && tableNode?.attrs.width === TABLE_MAX_WIDTH) {
-				return `100%`;
-			}
-			// this scenario occurs when there is a full width table nested within a component (expand, column layout). In these cases
-			// the table should inherit the width of its parent component
-			if (
-				rendererAppearance === 'full-page' &&
-				tableNode?.attrs.width === TABLE_MAX_WIDTH &&
-				layout === 'align-start'
+		const lineLengthFixedWidth = akEditorDefaultLayoutWidth;
+		let updatedLayout: TableLayout | 'custom';
+
+		const renderWidthCSS =
+			rendererAppearance === 'full-page' ? `100cqw - ${FullPagePadding}px * 2` : `100cqw`;
+
+		const calcDefaultLayoutWidthByAppearance = (
+			rendererAppearance: RendererAppearance,
+			tableNode?: PMNode,
+		): string => {
+			if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
+				return `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
+			} else if (
+				rendererAppearance === 'comment' &&
+				allowTableResizing &&
+				!tableNode?.attrs.width
 			) {
-				return `100%`;
+				return renderWidthCSS;
+			} else {
+				// custom width, or width mapped to breakpoint
+				const tableContainerWidth = getTableContainerWidth(tableNode);
+				return `min(${tableContainerWidth}px, ${renderWidthCSS})`;
 			}
-			return `${tableNode?.attrs.width}px`;
 		};
 
-		const tableWidthAttribute = getTableWidthAttribute();
-		const children = React.Children.toArray(this.props.children);
+		const tableWidthCSS = calcDefaultLayoutWidthByAppearance(rendererAppearance, tableNode);
 
-		let tableMinWidth;
-		if (tableNode) {
-			tableMinWidth = getResizerMinWidth(tableNode);
+		// Logic for table alignment in renderer
+		const isTableAlignStart =
+			tableNode &&
+			tableNode.attrs &&
+			tableNode.attrs.layout === 'align-start' &&
+			allowTableAlignment;
+
+		const fullWidthLineLengthCSS = `min(${akEditorFullWidthLayoutWidth}px, ${renderWidthCSS})`;
+		const isCommentAppearanceAndTableAlignmentEnabled =
+			isCommentAppearance(rendererAppearance) && allowTableAlignment;
+		const lineLengthCSS = isFullWidthAppearance(rendererAppearance)
+			? fullWidthLineLengthCSS
+			: isCommentAppearanceAndTableAlignmentEnabled
+				? renderWidthCSS
+				: `${lineLengthFixedWidth}px`;
+
+		const tableWidthNew = getTableContainerWidth(tableNode);
+		const shouldCalculateLeftForAlignment =
+			!isInsideOfBlockNode &&
+			!isInsideOfTable &&
+			isTableAlignStart &&
+			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
+				isFullWidthAppearance(rendererAppearance) ||
+				isCommentAppearanceAndTableAlignmentEnabled);
+
+		let leftCSS: string | undefined;
+		if (shouldCalculateLeftForAlignment) {
+			leftCSS = `(${tableWidthCSS} - ${lineLengthCSS}) / 2`;
 		}
+
+		if (!shouldCalculateLeftForAlignment && isFullPageAppearance(rendererAppearance)) {
+			// Note tableWidthCSS here is the renderer width
+			// When the screen is super wide we want table to break out.
+			// However if screen is smaller than 760px. We want table align to left.
+			leftCSS = `min(0px, ${lineLengthCSS} - ${tableWidthCSS}) / 2`;
+		}
+
+		const children = React.Children.toArray(this.props.children);
 
 		// Historically, tables in the full-width renderer had their layout set to 'default' which is deceiving.
 		// This check caters for those tables and helps with SSR logic
-		const isFullWidth = rendererAppearance === 'full-width' && layout !== 'full-width';
+		const isFullWidth =
+			!tableNode?.attrs.width && rendererAppearance === 'full-width' && layout !== 'full-width';
 
 		if (isFullWidth) {
-			this.updatedLayout = 'full-width';
+			updatedLayout = 'full-width';
 			// if table has width explicity set, ensure SSR is handled
 		} else if (tableNode?.attrs.width) {
-			this.updatedLayout = 'custom';
+			updatedLayout = 'custom';
 		} else {
-			this.updatedLayout = layout;
+			updatedLayout = layout;
 		}
 
-		// defined in colgroup.tsx:
-		// appearance == comment && allowTableResizing && means it is a comment
-		// appearance == comment && !allowTableResizing && means it is a inline comment
-		// for inline comments, the table should inherit the width of the parent component rather than maintain its own size
-		const isInsideInlineComment = rendererAppearance === 'comment' && !allowTableResizing;
+		let finalTableContainerWidth = allowTableResizing ? tableWidthNew : 'inherit';
 
-		// These styling removes extra padding for `comment` rendererAppearance.
-		// This is especially relevant for Jira which only uses `comment` appearance and does not need padding.
-		const resizerContainerPadding = rendererAppearance === 'comment' ? 0 : gutterPadding;
-		const resizerItemMaxWidth =
-			rendererAppearance === 'comment'
-				? isInsideInlineComment
-					? 'inherit'
-					: `min(100cqw, var(--ak-editor-table-max-width))`
-				: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), var(--ak-editor-table-max-width))`;
-		const resizerItemWidth =
-			rendererAppearance === 'comment'
-				? isInsideInlineComment
-					? 'inherit'
-					: `min(100cqw, ${tableWidthAttribute})`
-				: `min(calc(100cqw - var(--ak-editor-table-gutter-padding)), ${tableWidthAttribute})`;
+		// We can only use CSS to determine the width when we have a known width in container.
+		// When appearance is full-page, full-width or comment we use CSS based width calculation.
+		// Otherwise it's fixed table width (customized width) or inherit.
+		if (rendererAppearance === 'full-page' || rendererAppearance === 'full-width') {
+			finalTableContainerWidth = allowTableResizing ? `calc(${tableWidthCSS})` : 'inherit';
+		}
 
-		// full width tables can have either left-aligned or centered layout despite looking centered in the renderer.
-		// in these cases, keep the alignment unset
-		const getTableAlignment = () => {
-			return isFullWidth && tableNode?.attrs.width === TABLE_MAX_WIDTH
-				? ''
-				: tableNode?.attrs.layout;
+		if (rendererAppearance === 'comment' && allowTableResizing && !allowTableAlignment) {
+			// If table alignment is disabled and table width is akEditorDefaultLayoutWidth = 760,
+			// it is most likely a table created before "Support Table in Comments" FF was enabled
+			// and we would see a bug ED-24795. A table created before "Support Table in Comments",
+			// should inhirit the width of the renderer container.
+
+			// !NOTE: it a table resized to 760 is copied from 'full-page' editor and pasted in comment editor
+			// where (allowTableResizing && !allowTableAlignment), the table will loose 760px width.
+			finalTableContainerWidth =
+				tableNode?.attrs.width && tableNode?.attrs.width !== akEditorDefaultLayoutWidth
+					? `calc(${tableWidthCSS})`
+					: 'inherit';
+		}
+
+		if (rendererAppearance === 'comment' && allowTableResizing && allowTableAlignment) {
+			// If table alignment is enabled and layout is not 'align-start' or 'center', we are loading a table that was
+			// created before "Support Table in Comments" FF was enabled. So the table should have the same width as renderer container
+			// instead of 760 that was set on tableNode when the table had been published.
+			finalTableContainerWidth =
+				(tableNode?.attrs.layout === 'align-start' || tableNode?.attrs.layout === 'center') &&
+				tableNode?.attrs.width
+					? `calc(${tableWidthCSS})`
+					: 'inherit';
+		}
+
+		const style = {
+			width: finalTableContainerWidth,
+			left: leftCSS ? `calc(${leftCSS})` : undefined,
+			marginLeft:
+				shouldCalculateLeftForAlignment && leftCSS !== undefined
+					? `calc(-1 * (${leftCSS}))`
+					: undefined,
 		};
 
 		return (
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				className="table-alignment-container"
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-				style={{ display: 'flex', justifyContent: getTableAlignment() }}
-			>
+			<>
 				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
+						this.props.shadowClassNames || ''
+					}`}
+					data-layout={updatedLayout}
+					data-testid="table-container"
+					ref={this.props.handleRef}
+					style={style}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					className="pm-table-resizer-container"
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={{
-						width: isInsideInlineComment
-							? '100%'
-							: `min(calc(100cqw - ${resizerContainerPadding}px), ${tableWidthAttribute})`,
-					}}
 				>
+					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
+							data-testid="sticky-scrollbar-sentinel-top"
+						/>
+					)}
+					{stickyHeaders && tableNode && tableCanBeSticky(tableNode, children) && (
+						<StickyTable
+							isNumberColumnEnabled={isNumberColumnEnabled}
+							tableWidth="inherit"
+							renderWidth={0}
+							layout={layout}
+							handleRef={this.props.handleRef}
+							shadowClassNames={this.props.shadowClassNames}
+							top={this.stickyTop}
+							mode={stickyMode}
+							innerRef={this.stickyWrapperRef}
+							wrapperWidth={this.state.wrapperWidth}
+							columnWidths={columnWidths}
+							rowHeight={this.state.headerRowHeight}
+							tableNode={tableNode}
+							rendererAppearance={rendererAppearance}
+							allowTableResizing={allowTableResizing}
+							fixTableSSRResizing
+						>
+							{[children && children[0]]}
+						</StickyTable>
+					)}
 					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						className="resizer-item display-handle"
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							position: 'relative',
-							userSelect: 'auto',
-							boxSizing: 'border-box',
-							['--ak-editor-table-gutter-padding' as string]: `${gutterPadding}px`,
-							['--ak-editor-table-max-width' as string]: `${TABLE_MAX_WIDTH}px`,
-							['--ak-editor-table-min-width' as string]: `${tableMinWidth}px`,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							minWidth: 'var(--ak-editor-table-min-width)',
-							maxWidth: resizerItemMaxWidth,
-							width: resizerItemWidth,
-						}}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
+						ref={this.wrapperRef}
+						data-number-column={tableNode?.attrs.isNumberColumnEnabled}
+						data-layout={tableNode?.attrs.layout}
+						data-autosize={tableNode?.attrs.__autoSize}
+						data-table-local-id={tableNode?.attrs.localId}
+						data-table-width={tableNode?.attrs.width}
+						data-vc="table-node-wrapper"
+						onScroll={this.props.stickyHeaders && this.onWrapperScrolled}
 					>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop  */}
-						<span className="resizer-hover-zone">
-							<div
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
-									this.props.shadowClassNames || ''
-								}`}
-								data-layout={this.updatedLayout}
-								data-testid="table-container"
-								ref={this.props.handleRef}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							>
-								{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
-									<div
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-										className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP}
-										data-testid="sticky-scrollbar-sentinel-top"
-									/>
-								)}
-								{stickyHeaders && tableNode && tableCanBeSticky(tableNode, children) && (
-									<StickyTable
-										isNumberColumnEnabled={isNumberColumnEnabled}
-										renderWidth={0}
-										tableWidth="inherit"
-										layout={layout}
-										handleRef={this.props.handleRef}
-										shadowClassNames={this.props.shadowClassNames}
-										top={this.stickyTop}
-										mode={stickyMode}
-										innerRef={this.stickyWrapperRef}
-										wrapperWidth={this.state.wrapperWidth}
-										columnWidths={columnWidths}
-										rowHeight={this.state.headerRowHeight}
-										tableNode={tableNode}
-										rendererAppearance={rendererAppearance}
-										allowTableResizing={allowTableResizing}
-									>
-										{[children && children[0]]}
-									</StickyTable>
-								)}
-								<div
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-									className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
-									ref={this.wrapperRef}
-									data-number-column={tableNode?.attrs.isNumberColumnEnabled}
-									data-layout={tableNode?.attrs.layout}
-									data-autosize={tableNode?.attrs.__autoSize}
-									data-table-local-id={tableNode?.attrs.localId}
-									data-table-width={tableNode?.attrs.width}
-									data-vc="table-node-wrapper"
-									onScroll={this.props.stickyHeaders && this.onWrapperScrolled}
-								>
-									<Table
-										innerRef={this.tableRef}
-										columnWidths={columnWidths}
-										layout={layout}
-										isNumberColumnEnabled={isNumberColumnEnabled}
-										renderWidth={0}
-										tableNode={tableNode}
-										rendererAppearance={rendererAppearance}
-										isInsideOfBlockNode={isInsideOfBlockNode}
-										isInsideOfTable={isInsideOfTable}
-										isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
-										allowTableResizing={allowTableResizing}
-										isPresentational={isPresentational}
-									>
-										{this.grabFirstRowRef(children)}
-									</Table>
-								</div>
-
-								{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
-									<div
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-										className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
-										ref={this.stickyScrollbarRef}
-										data-vc="table-sticky-scrollbar-container"
-										style={{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
-											// Follow editor to hide by default so it does not show empty gap in SSR
-											// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											display: 'block',
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-											width: '100%',
-										}}
-									>
-										<div
-											style={{
-												width: this.tableRef.current?.clientWidth,
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-												height: '100%',
-											}}
-										/>
-									</div>
-								)}
-								{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
-									<div
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-										className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
-										data-testid="sticky-scrollbar-sentinel-bottom"
-									/>
-								)}
-							</div>
-						</span>
+						<Table
+							innerRef={this.tableRef}
+							columnWidths={columnWidths}
+							layout={layout}
+							renderWidth={0}
+							isNumberColumnEnabled={isNumberColumnEnabled}
+							tableNode={tableNode}
+							rendererAppearance={rendererAppearance}
+							isInsideOfBlockNode={isInsideOfBlockNode}
+							isInsideOfTable={isInsideOfTable}
+							isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
+							allowTableResizing={allowTableResizing}
+							isPresentational={isPresentational}
+						>
+							{this.grabFirstRowRef(children)}
+						</Table>
 					</div>
+
+					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+							ref={this.stickyScrollbarRef}
+							data-vc="table-sticky-scrollbar-container"
+							style={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+								// Follow editor to hide by default so it does not show empty gap in SSR
+								// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								display: 'block',
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+								width: '100%',
+							}}
+						>
+							<div
+								style={{
+									width: this.tableRef.current?.clientWidth,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									height: '100%',
+								}}
+							/>
+						</div>
+					)}
+					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
+						<div
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM}
+							data-testid="sticky-scrollbar-sentinel-bottom"
+						/>
+					)}
 				</div>
-			</div>
+			</>
 		);
 	}
 
@@ -668,6 +704,9 @@ type TableProcessorState = {
 	tableOrderStatus?: TableOrderStatus;
 };
 
+/**
+ *
+ */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class TableProcessorWithContainerStyles extends React.Component<
@@ -678,6 +717,10 @@ export class TableProcessorWithContainerStyles extends React.Component<
 		tableOrderStatus: undefined,
 	};
 
+	/**
+	 *
+	 * @example
+	 */
 	render() {
 		const { children } = this.props;
 		if (!children) {

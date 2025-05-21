@@ -36,9 +36,6 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../editor-examples-helpers/tsconfig.app.json"
-		},
-		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
@@ -64,6 +61,9 @@
 		},
 		{
 			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/checkbox/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/code/tsconfig.app.json"
@@ -142,6 +142,9 @@
 		},
 		{
 			"path": "../../elements/mention/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/modal-dialog/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"

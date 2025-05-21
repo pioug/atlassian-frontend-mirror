@@ -14,6 +14,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../common/types';
+import { LoomSpaceAvatar } from '../../../common/ui/loom-avatar';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
@@ -114,6 +115,15 @@ const LinkedCardWrapper = ({
 	);
 };
 
+const getContainerIcon = (containerType: ContainerTypes, title: string, containerIcon?: string) => {
+	if (containerType === 'LoomSpace') {
+		return <LoomSpaceAvatar spaceName={title} size={'large'} />;
+	}
+	return (
+		<Avatar appearance="square" size="medium" src={containerIcon} testId="linked-container-icon" />
+	);
+};
+
 export const LinkedContainerCard = ({
 	containerType,
 	title,
@@ -143,12 +153,8 @@ export const LinkedContainerCard = ({
 			containerId={containerId}
 		>
 			<Inline space="space.100" xcss={styles.card}>
-				<Avatar
-					appearance="square"
-					size="medium"
-					src={containerIcon}
-					testId="linked-container-icon"
-				/>
+				{getContainerIcon(containerType, title, containerIcon)}
+
 				<Stack>
 					<Text maxLines={1} weight="medium" color="color.text">
 						{title}

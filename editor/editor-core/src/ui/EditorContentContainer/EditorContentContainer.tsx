@@ -1269,9 +1269,9 @@ const contentStyles = () => css`
 		: telepointerStyleWithInitialOnly}
   ${gapCursorStyles};
 
-  ${panelStyles()}
+	${panelStyles()}
 
-  ${mentionsStyles}
+	${mentionsStyles}
 
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	vanillaMentionsStyles}

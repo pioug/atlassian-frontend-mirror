@@ -25,8 +25,8 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { Text } from '@atlaskit/primitives/compiled';
 
-import { MediaNextEditorPluginType } from '../../../mediaPluginType';
-import { MediaPluginState } from '../../../types';
+import type { MediaNextEditorPluginType } from '../../../mediaPluginType';
+import type { MediaPluginState } from '../../../types';
 import { updateMediaSingleWidthTr } from '../../../ui/toolbar/commands';
 import { getPixelWidthOfElement, calcNewLayout } from '../../../ui/toolbar/utils';
 import { isVideo } from '../../utils/media-single';
@@ -34,7 +34,7 @@ import { closePixelEditorAndSave } from '../commands';
 
 import { PixelEntryComponent } from './pixel-entry';
 import { pixelSizingFullWidthLabelStyles } from './styles';
-import { PixelEntryValidation } from './types';
+import type { PixelEntryValidation } from './types';
 
 export type Props = {
 	editorView: EditorView;

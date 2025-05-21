@@ -32,7 +32,7 @@ jest.mock('pdfjs-dist/legacy/web/pdf_viewer', () => ({
 }));
 
 import React from 'react';
-import { MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
+import { type MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import EditorPanelIcon from '@atlaskit/icon/core/migration/information--editor-panel';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';

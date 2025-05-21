@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor
 
+## 5.3.0
+
+### Minor Changes
+
+- [#157088](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157088)
+  [`0d5045c49d85a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d5045c49d85a) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 5.2.2
 
 ### Patch Changes

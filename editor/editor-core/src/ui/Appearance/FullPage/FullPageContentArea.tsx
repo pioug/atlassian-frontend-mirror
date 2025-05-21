@@ -70,10 +70,10 @@ interface FullPageEditorContentAreaProps {
 	popupsScrollableElement: HTMLElement | undefined;
 	providerFactory: ProviderFactory;
 	wrapperElement: HTMLElement | null;
+	hasHadInteraction: boolean;
 	featureFlags?: FeatureFlags;
 	viewMode: ViewMode | undefined;
 	isEditorToolbarHidden?: boolean;
-	hasHadInteraction?: boolean;
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
@@ -130,10 +130,7 @@ const Content = React.forwardRef<
 	);
 
 	let interactionClassName: string | undefined;
-	if (
-		props.hasHadInteraction !== undefined &&
-		fg('platform_editor_no_selection_until_interaction')
-	) {
+	if (props.hasHadInteraction && fg('platform_editor_no_selection_until_interaction')) {
 		interactionClassName = props.hasHadInteraction
 			? 'ak-editor-has-interaction'
 			: 'ak-editor-no-interaction';

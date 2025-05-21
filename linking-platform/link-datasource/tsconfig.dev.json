@@ -78,6 +78,9 @@
 			"path": "../json-ld-types/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../link-client-extension/tsconfig.app.json"
 		},
 		{
@@ -111,9 +114,6 @@
 			"path": "../../design-system/radio/tsconfig.app.json"
 		},
 		{
-			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
-		},
-		{
 			"path": "../smart-card/tsconfig.app.json"
 		},
 		{
@@ -139,9 +139,6 @@
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
-		},
-		{
-			"path": "../../monorepo-tooling/gemini/tsconfig.app.json"
 		}
 	]
 }

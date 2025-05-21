@@ -16,5 +16,12 @@
         "../src/**/test.*",
         "../src/**/examples.*"
     ],
-    "references": []
+    "references": [
+        {
+            "path": "../../../design-system/link/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        }
+    ]
 }

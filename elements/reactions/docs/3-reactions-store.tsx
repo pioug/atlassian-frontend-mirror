@@ -1,7 +1,13 @@
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { md, code, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import { Text } from '@atlaskit/primitives/compiled';
+
+const LinkComponent = (props: any) =>
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-has-content
+	fg('dst-a11y__replace-anchor-with-link__editor-collabo') ? <Link {...props} /> : <a {...props} />;
 
 export default md`
 
@@ -16,13 +22,13 @@ export default md`
 				<Text as="strong">MemoryReactionsStore</Text> class object that contains all logic required
 				to communicate with the store. It provides all the methods to interact with the store and
 				the API calls to the server, including logging
-				<a
+				<LinkComponent
 					target="_blank"
 					rel="noopener noreferrer"
 					href="https://developer.atlassian.com/platform/ufo/"
 				>
 					UFO
-				</a>
+				</LinkComponent>
 				.
 				<br />
 			</SectionMessage>

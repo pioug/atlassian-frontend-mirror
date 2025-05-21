@@ -99,6 +99,9 @@
 			"path": "../../design-system/layering/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../link-client-extension/tsconfig.app.json"
 		},
 		{

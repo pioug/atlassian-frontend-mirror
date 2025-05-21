@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.4.0
+
+### Minor Changes
+
+- [#157075](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157075)
+  [`bd3036802949a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd3036802949a) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 5.3.8
 
 ### Patch Changes

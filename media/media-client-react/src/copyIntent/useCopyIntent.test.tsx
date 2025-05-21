@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { MediaApi } from '@atlaskit/media-client';
+import { type MediaApi } from '@atlaskit/media-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { MockedMediaClientProvider } from '../test-helpers';

@@ -48,6 +48,9 @@
 			"path": "../../../design-system/link/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../link-provider/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../linking-common/afm-jira/tsconfig.json"
 		},
 		{
@@ -58,6 +61,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../smart-card/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"

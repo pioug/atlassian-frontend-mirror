@@ -183,8 +183,8 @@ export const AgentProfileInfo = ({
 	return (
 		<Stack space="space.100" xcss={styles.wrapper}>
 			<Inline xcss={styles.name} space="space.100" alignBlock="center">
-				<Box xcss={styles.headingWrapper}>
-					<Heading as="span" size="xlarge">
+				<Inline xcss={styles.headingWrapper} alignBlock="end">
+					<Heading as="h2" size="xlarge">
 						{agentName}
 					</Heading>
 					{isHidden && (
@@ -194,7 +194,7 @@ export const AgentProfileInfo = ({
 							</Tooltip>
 						</Box>
 					)}
-				</Box>
+				</Inline>
 				<StarIconButton isStarred={isStarred} handleToggle={onStarToggle} />
 			</Inline>
 			{creatorRender}

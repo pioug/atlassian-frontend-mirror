@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-save-on-enter
 
+## 2.1.0
+
+### Minor Changes
+
+- [#157077](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157077)
+  [`3f70de906f4b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f70de906f4b0) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 2.0.5
 
 ### Patch Changes

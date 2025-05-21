@@ -6,7 +6,7 @@ import { IntlProvider, type MessageDescriptor } from 'react-intl-next';
 
 import { useTeamContainers } from '@atlaskit/teams-public';
 
-import { TeamProfileCard, TeamProfileCardProps } from './main';
+import { TeamProfileCard, type TeamProfileCardProps } from './main';
 import { mockProfileData } from './mocks';
 
 jest.mock('@atlaskit/teams-public', () => ({

@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 2.12.0
+
+### Minor Changes
+
+- [#153961](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153961)
+  [`0c9bdadc81cb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c9bdadc81cb7) -
+  Added support for highlight action placeholder to be inserted into editor when clicking Chat from
+  highlight actions menu
+
 ## 2.11.0
 
 ### Minor Changes

@@ -275,6 +275,14 @@ export const editorExperimentsConfig = {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
+	// Added 2025-05-08
+	editor_ai_converge_free_gen_on_rovo: createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_ai_converge_free_gen_on_rovo',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-05-07
 	editor_ai_cmd_palette_remove_retry: createBooleanExperiment({
 		productKeys: {
@@ -287,14 +295,6 @@ export const editorExperimentsConfig = {
 	platform_editor_core_static_emotion: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_core_static_emotion',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-05-08
-	editor_ai_converge_free_gen_on_rovo: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_ai_converge_free_gen_on_rovo',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

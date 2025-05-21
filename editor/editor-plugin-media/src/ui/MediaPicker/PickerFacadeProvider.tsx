@@ -8,13 +8,13 @@ import {
 	useSharedPluginState,
 } from '@atlaskit/editor-common/hooks';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { BrowserConfig, ClipboardConfig, DropzoneConfig } from '@atlaskit/media-picker/types';
 
-import { MediaNextEditorPluginType } from '../../mediaPluginType';
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import PickerFacade from '../../pm-plugins/picker-facade';
 import type { CustomMediaPicker } from '../../types';
 

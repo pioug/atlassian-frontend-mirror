@@ -18,7 +18,7 @@ type LinkProps = CustomItemComponentProps & {
 
 const Link = ({ children, href, className, onClick, tabIndex }: LinkProps) => {
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-html-anchor -- Ignored via go/DSP-18766
 		<a href={href} className={className} onClick={onClick} tabIndex={tabIndex}>
 			{children}
 		</a>
@@ -45,7 +45,6 @@ export default function Example() {
 					</CustomItem>
 				</Section>
 			</MenuGroup>
-
 			<MenuGroup maxWidth={300}>
 				<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
 					<Section>

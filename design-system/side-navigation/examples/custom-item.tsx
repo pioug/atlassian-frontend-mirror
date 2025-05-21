@@ -11,6 +11,7 @@ type CustomProps = CustomItemComponentProps & { href: string };
 const CustomLink = forwardRef<HTMLAnchorElement, CustomProps>((props: CustomProps, ref) => {
 	const { children, href, ...rest } = props;
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a href={href || '/spa-link'} ref={ref} {...rest}>
 			{children}
 		</a>
@@ -58,7 +59,6 @@ const Example = () => (
 		>
 			Custom create article
 		</CustomItem>
-
 		<CustomItem
 			href="/create-article-8"
 			component={CustomLink}

@@ -35,9 +35,6 @@
 			"path": "../adf-utils/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/button/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{

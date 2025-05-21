@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { bind } from 'bind-event-listener';
 
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { ExtractInjectionAPI, UserPreferencesProvider } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, UserPreferencesProvider } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
+import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
 export const PageVisibilityWatcher = ({
 	api,

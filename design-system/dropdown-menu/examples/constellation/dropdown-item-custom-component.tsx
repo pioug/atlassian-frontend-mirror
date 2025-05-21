@@ -5,6 +5,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
 const CustomComponentLink = forwardRef<HTMLAnchorElement, React.PropsWithChildren<{}>>(
 	({ children, ...props }, ref) => (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a {...props} ref={ref}>
 			{children}
 		</a>

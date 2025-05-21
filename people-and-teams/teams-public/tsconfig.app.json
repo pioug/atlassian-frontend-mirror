@@ -62,7 +62,13 @@
 			"path": "../people-teams-ui-public/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../teams-client/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/theme/tsconfig.app.json"

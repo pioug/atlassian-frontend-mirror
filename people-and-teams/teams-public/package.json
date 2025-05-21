@@ -26,11 +26,13 @@
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
-		"./team-containers": "./src/ui/team-containers/index.ts"
+		"./team-containers": "./src/ui/team-containers/index.ts",
+		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./team-containers": "./src/ui/team-containers/index.ts"
+		"./team-containers": "./src/ui/team-containers/index.ts",
+		"./loom-avatar": "./src/common/ui/loom-avatar/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
@@ -52,12 +54,14 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
+		"@types/string-hash": "^1.1.3",
 		"graphql": "^15.8.0",
 		"graphql-tag": "^2.10.1",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-loosely-lazy": "^1.0.0",
 		"react-router-dom": "^6.28.0",
-		"react-sweet-state": "^2.6.5"
+		"react-sweet-state": "^2.6.5",
+		"string-hash": "1.1.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"

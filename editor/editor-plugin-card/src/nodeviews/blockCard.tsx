@@ -12,6 +12,7 @@ import { browser, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { Datasource } from '../nodeviews/datasource';
@@ -183,7 +184,13 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 		this.removeCard();
 	}
 
+	private removeCardDispatched = false;
+
 	private removeCard() {
+		if (this.removeCardDispatched && fg('platform_editor_cards_maxcallstackfix')) {
+			return;
+		}
+		this.removeCardDispatched = true;
 		const { tr } = this.view.state;
 		removeCard({ id: this.id })(tr);
 		this.view.dispatch(tr);

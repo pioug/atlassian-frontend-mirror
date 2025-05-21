@@ -114,7 +114,7 @@ describe('<NestingItem />', () => {
 
 	it('should pass through extra props to the component', () => {
 		const Link = ({ children, ...props }: CustomItemComponentProps & { href: string }) => (
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-html-anchor
 			<a {...props}>{children}</a>
 		);
 

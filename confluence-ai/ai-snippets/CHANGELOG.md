@@ -1,1 +1,0 @@
-# @atlaskit/ai-snippets

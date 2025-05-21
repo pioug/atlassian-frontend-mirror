@@ -41,9 +41,6 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/theme/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	],

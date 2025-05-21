@@ -667,9 +667,15 @@ const MediaSingleNodeWrapper = ({
 		editorDisabled,
 		viewMode,
 	} = useSharedState(pluginInjectionApi);
+
 	const hasHadInteraction = useSharedPluginStateSelector(
 		pluginInjectionApi,
 		'interaction.hasHadInteraction',
+	);
+
+	const interactionState = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'interaction.interactionState',
 	);
 	const mediaProvider = useMemo(
 		() => (mediaProviderPromise ? Promise.resolve(mediaProviderPromise) : undefined),
@@ -677,8 +683,14 @@ const MediaSingleNodeWrapper = ({
 	);
 
 	const isSelectedAndInteracted = useCallback(
-		() => Boolean(selected() && hasHadInteraction !== false),
-		[hasHadInteraction, selected],
+		() =>
+			Boolean(
+				selected() &&
+					(fg('platform_editor_interaction_api_refactor')
+						? interactionState !== 'hasNotHadInteraction'
+						: hasHadInteraction !== false),
+			),
+		[hasHadInteraction, interactionState, selected],
 	);
 
 	if (

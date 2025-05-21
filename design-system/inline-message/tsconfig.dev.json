@@ -59,10 +59,16 @@
 			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"

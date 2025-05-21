@@ -48,7 +48,7 @@ describe('ComposableEditor', () => {
 
 			render(<ComposableEditor preset={preset} />);
 
-			expect(RenderTracking).toHaveBeenCalledTimes(2);
+			expect(RenderTracking).toHaveBeenCalledTimes(0);
 			expect(RenderTracking).not.toHaveBeenCalledWith(
 				expect.objectContaining({
 					actionSubject: 'editor',

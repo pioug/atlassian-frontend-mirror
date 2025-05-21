@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 118.1.2
+
+### Patch Changes
+
+- [#155231](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155231)
+  [`6fe1356da03dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fe1356da03dd) -
+  Cleanup FG platform_editor_speedup_media_client
+- Updated dependencies
+
+## 118.1.1
+
+### Patch Changes
+
+- [#156190](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156190)
+  [`f62c2d1edf517`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62c2d1edf517) -
+  CCP-6498 Cleanup FG cc_perf_reduce_rerenders
+- [#157481](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157481)
+  [`c8bf1b901208a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8bf1b901208a) -
+  EDITOR-677 - Renderer - Selecting another annotation with unsaved draft/reply results in multiple
+  discard prompts
+
 ## 118.1.0
 
 ### Minor Changes

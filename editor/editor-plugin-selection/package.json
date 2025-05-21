@@ -97,6 +97,9 @@
 		},
 		"platform_editor_no_selection_decorations": {
 			"type": "boolean"
+		},
+		"platform_editor_interaction_api_refactor": {
+			"type": "boolean"
 		}
 	}
 }

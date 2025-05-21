@@ -13,6 +13,7 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
 import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
+import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
@@ -303,14 +304,27 @@ const IntegrationContent = (props: ContentProps) => {
 		<>
 			<div>Share to Integration form</div>
 			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-			<a
-				href="#"
-				onClick={() => {
-					props?.changeTab?.(0);
-				}}
-			>
-				Change tab
-			</a>
+			{fg('dst-a11y__replace-anchor-with-link__people-and-tea') ? (
+				// eslint-disable-next-line jsx-a11y/anchor-is-valid
+				<Link
+					href="#"
+					onClick={() => {
+						props?.changeTab?.(0);
+					}}
+				>
+					Change tab
+				</Link>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-is-valid
+				<a
+					href="#"
+					onClick={() => {
+						props?.changeTab?.(0);
+					}}
+				>
+					Change tab
+				</a>
+			)}
 		</>
 	);
 };
@@ -319,14 +333,27 @@ const AdditionalTabContent = (props: ContentProps) => (
 	<>
 		<div>This is a custom tab in the share dialog</div>
 		{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-		<a
-			href="#"
-			onClick={() => {
-				props?.changeTab?.(0);
-			}}
-		>
-			Change tab
-		</a>
+		{fg('dst-a11y__replace-anchor-with-link__people-and-tea') ? (
+			// eslint-disable-next-line jsx-a11y/anchor-is-valid
+			<Link
+				href="#"
+				onClick={() => {
+					props?.changeTab?.(0);
+				}}
+			>
+				Change tab
+			</Link>
+		) : (
+			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-is-valid
+			<a
+				href="#"
+				onClick={() => {
+					props?.changeTab?.(0);
+				}}
+			>
+				Change tab
+			</a>
+		)}
 	</>
 );
 

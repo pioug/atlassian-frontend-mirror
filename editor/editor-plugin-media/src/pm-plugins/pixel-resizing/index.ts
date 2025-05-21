@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 

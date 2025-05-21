@@ -1,4 +1,4 @@
-import { type MediaClientConfig, type MediaApi, FileIdentifier } from '@atlaskit/media-client';
+import { type MediaClientConfig, type MediaApi, type FileIdentifier } from '@atlaskit/media-client';
 import { type GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers';
 import { type MediaStore, createMediaStore } from '@atlaskit/media-state';
 // TODO: these types should be exported from here (the public package), and imported in test-data

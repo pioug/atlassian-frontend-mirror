@@ -50,10 +50,16 @@
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{
+			"path": "../linking-types/tsconfig.app.json"
+		},
+		{
 			"path": "../../media/media-test-helpers/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

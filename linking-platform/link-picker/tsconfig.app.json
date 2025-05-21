@@ -63,6 +63,12 @@
 			"path": "../../helpers/intl-messages-provider/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
+			"path": "../link-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../linking-common/tsconfig.app.json"
 		},
 		{
@@ -73,6 +79,9 @@
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../smart-card/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/spinner/tsconfig.app.json"

@@ -6,7 +6,7 @@ import DecisionIcon from '@atlaskit/icon/core/decision';
 import TaskIcon from '@atlaskit/icon/core/task';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { QuickInsertPanelItem } from '../src/types';
+import type { QuickInsertPanelItem } from '../src/types';
 import { SideInsertPanel } from '../src/ui/SideInsertPanel';
 
 const outerBoxContainerStyles = xcss({

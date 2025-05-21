@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.4.0",
+	"version": "6.5.0",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -144,6 +144,9 @@
 			"type": "boolean"
 		},
 		"share-header-accessibility": {
+			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__people-and-tea": {
 			"type": "boolean"
 		}
 	},

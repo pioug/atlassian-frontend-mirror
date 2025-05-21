@@ -1,6 +1,10 @@
 id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/499f4b5a-fe41-4a10-86fc-78bcfb4064f6'
 name: '@atlaskit/link-create'
-description: This is the core driver component for the Link Create experience. It provides the main UI and logic for enabling users to create new objects — such as Jira issues or Confluence pages—directly from their current context (like an editor or application), and then automatically insert or link to the newly created object
+description:
+  This is the core driver component for the Link Create experience. It provides the main UI and
+  logic for enabling users to create new objects — such as Jira issues or Confluence pages—directly
+  from their current context (like an editor or application), and then automatically insert or link
+  to the newly created object
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

@@ -205,7 +205,6 @@ export type StartAttributes =
 				SelectInlineCommentCompoundExperienceEntryPoint,
 				'keyboard-navigation' | 'comment-navigation'
 			>;
-			linkedCompoundTaskId?: string;
 	  }
 	| {
 			pageClass: 'editor' | 'renderer';
@@ -216,7 +215,6 @@ export type StartAttributes =
 			commentType?: 'block' | 'inline';
 			blockType?: 'media';
 			entryPoint: 'keyboard-navigation' | 'comment-navigation';
-			linkedCompoundTaskId?: string;
 	  };
 
 type ExperienceDebugFunction = (params: {
@@ -265,13 +263,15 @@ export type InlineCommentCompoundExperience = {
 export type SelectInlineCommentCompoundExperience = {
 	_start: (startAttributes: StartAttributes) => void;
 	addCommonAttributes: (additionalCommonAttributes: {
-		[key: string]: string | number | boolean;
+		[key: string]: boolean | null | number | string | undefined | Array<number | string>;
 	}) => void;
 	abort: (params: { abortReason: 'test abort' }) => void;
 	selectAnnotation: {
 		debug: ExperienceDebugFunction;
 		start: (startAttributes: StartAttributes) => void;
-		abort: (params: { abortReason: 'Comment navigation when only one comment' }) => void;
+		abort: (params: {
+			abortReason: 'Comment navigation when only one comment' | 'Navigating to general comment';
+		}) => void;
 		complete: (startAttributes: StartAttributes) => void;
 	};
 	showComment: {
@@ -282,7 +282,10 @@ export type SelectInlineCommentCompoundExperience = {
 		) => void;
 		start: (startAttributes: StartAttributes & { annotationId: string }) => void;
 		abort: (params: {
-			abortReason: 'Non inline comment being shown' | 'Comment sidebar dismissed';
+			abortReason:
+				| 'Non inline comment being shown'
+				| 'Comment sidebar dismissed'
+				| 'InlineComment component unmounted';
 		}) => void;
 		fail: (error: Error, extraAttributes?: { misalignedBy: number }) => void;
 		complete: () => void;

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.14.0
+
+### Minor Changes
+
+- [#157076](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157076)
+  [`474f9d0d4dbd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/474f9d0d4dbd0) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 3.13.11
 
 ### Patch Changes

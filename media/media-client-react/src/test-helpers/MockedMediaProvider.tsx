@@ -8,7 +8,7 @@ import {
 import { createMediaStore, type MediaStore } from '@atlaskit/media-state';
 
 import { MediaContext } from '../MediaProvider';
-import { MediaSettings, useMediaParsedSettings } from '../mediaSettings';
+import { type MediaSettings, useMediaParsedSettings } from '../mediaSettings';
 
 export interface MockedMediaProviderProps {
 	children: React.ReactNode;

@@ -1,5 +1,9 @@
 name: '@atlaskit/link-analytics'
-description: This is a package that provides common analytics utilities and hooks for instrumenting link-related components and features. Its primary purpose is to help track and fire analytics events—such as creation, update, or deletion of Smart Links—outside of the editor context, enabling consistent event reporting across Atlassian products like Jira and Confluence.
+description:
+  This is a package that provides common analytics utilities and hooks for instrumenting
+  link-related components and features. Its primary purpose is to help track and fire analytics
+  events—such as creation, update, or deletion of Smart Links—outside of the editor context,
+  enabling consistent event reporting across Atlassian products like Jira and Confluence.
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

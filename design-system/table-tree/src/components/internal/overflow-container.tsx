@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { FC, HTMLAttributes, ReactNode } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 

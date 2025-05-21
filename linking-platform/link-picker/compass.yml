@@ -1,6 +1,9 @@
 id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/85cec322-aa6f-4e16-800d-8ee284f6195b'
 name: '@atlaskit/link-picker'
-description: This package provider the Link Picker, a standalone React component from Atlassian’s Atlaskit design system that provides a user interface for inserting and editing links without leaving the current context — commonly accessed via the Cmd+K shortcut or an editor toolbar icon.
+description:
+  This package provider the Link Picker, a standalone React component from Atlassian’s Atlaskit
+  design system that provides a user interface for inserting and editing links without leaving the
+  current context — commonly accessed via the Cmd+K shortcut or an editor toolbar icon.
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

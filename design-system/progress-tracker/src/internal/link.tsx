@@ -20,6 +20,7 @@ const linkStyles = css({
  * __Progress tracker link__
  */
 const Link: FC<Stage & { testId?: string }> = ({ href, onClick, label, testId }) => (
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 	<a css={linkStyles} href={href} onClick={onClick} data-testid={testId}>
 		{label}
 	</a>

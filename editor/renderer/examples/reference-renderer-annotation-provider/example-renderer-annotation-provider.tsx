@@ -5,7 +5,7 @@ import uuid from 'uuid/v4';
 
 import { AnnotationMarkStates, AnnotationTypes, type DocNode } from '@atlaskit/adf-schema';
 import {
-	AnnotationManager,
+	type AnnotationManager,
 	AnnotationUpdateEmitter,
 	createAnnotationManager,
 } from '@atlaskit/editor-common/annotation';

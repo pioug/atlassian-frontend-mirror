@@ -207,15 +207,18 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 				return undefined;
 			}
 
-			const hasHadInteraction = api?.interaction?.sharedState.currentState()?.hasHadInteraction;
+			const _hasHadInteraction = api?.interaction?.sharedState.currentState()?.hasHadInteraction;
+			const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
 
 			let configWithNodeInfo: ConfigWithNodeInfo | undefined;
 
 			if (fg('platform_editor_no_selection_until_interaction')) {
-				configWithNodeInfo =
-					hasHadInteraction !== false
-						? pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined
-						: undefined;
+				const hasHadInteraction = fg('platform_editor_interaction_api_refactor')
+					? interactionState !== 'hasNotHadInteraction'
+					: _hasHadInteraction !== false;
+				configWithNodeInfo = hasHadInteraction
+					? pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined
+					: undefined;
 			} else {
 				configWithNodeInfo =
 					pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined;

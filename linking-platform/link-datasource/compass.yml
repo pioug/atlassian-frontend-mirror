@@ -1,6 +1,10 @@
 id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/2833bb40-a2e4-4b79-b74b-147d0d23fdb1'
 name: '@atlaskit/link-datasource'
-description: This library provides UI components and utilities for displaying and configuring Smart Link List Views (datasources). Its primary purpose is to help users source, collate, and display lists of objects—such as Jira issues, Confluence pages, or assets — within Atlassian products, supporting use cases like stakeholder visibility, reporting, and project management
+description:
+  This library provides UI components and utilities for displaying and configuring Smart Link List
+  Views (datasources). Its primary purpose is to help users source, collate, and display lists of
+  objects—such as Jira issues, Confluence pages, or assets — within Atlassian products, supporting
+  use cases like stakeholder visibility, reporting, and project management
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

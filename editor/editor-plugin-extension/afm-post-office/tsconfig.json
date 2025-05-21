@@ -45,6 +45,9 @@
 			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-connectivity/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-context-identifier/afm-post-office/tsconfig.json"
 		},
 		{
@@ -76,6 +79,9 @@
 		},
 		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"

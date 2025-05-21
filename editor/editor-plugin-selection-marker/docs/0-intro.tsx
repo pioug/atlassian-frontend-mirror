@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
@@ -26,7 +28,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Selection Marker', [
 ---
 
 The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\` of the plugin are defined
-below:  
+below:
 
 ${code`
 type SelectionMarkerPlugin = NextEditorPlugin<
@@ -57,7 +59,14 @@ function AlternativePackagesMessage({
 	if (alternatePackages.length === 1) {
 		return (
 			<p>
-				Consider using <a href={alternatePackages[0].link}>{alternatePackages[0].name}</a> instead.
+				Consider using{' '}
+				{fg('dst-a11y__replace-anchor-with-link__editor-lego') ? (
+					<Link href={alternatePackages[0].link}>{alternatePackages[0].name}</Link>
+				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+					<a href={alternatePackages[0].link}>{alternatePackages[0].name}</a>
+				)}
+				instead.
 			</p>
 		);
 	}
@@ -69,7 +78,12 @@ function AlternativePackagesMessage({
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-key
 					<li>
-						<a href={p.link}>{p.name}</a>
+						{fg('dst-a11y__replace-anchor-with-link__editor-lego') ? (
+							<Link href={p.link}>{p.name}</Link>
+						) : (
+							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+							<a href={p.link}>{p.name}</a>
+						)}
 					</li>
 				))}
 			</ul>

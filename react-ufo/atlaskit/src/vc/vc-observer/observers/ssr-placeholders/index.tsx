@@ -31,7 +31,9 @@ export class SSRPlaceholderHandlers {
 
 		if (window.document) {
 			try {
-				const selector = this.enablePageLayoutPlaceholder ? '[data-ssr-placeholder],[data-testid="page-layout.root"]' : '[data-ssr-placeholder]'
+				const selector = this.enablePageLayoutPlaceholder
+					? '[data-ssr-placeholder],[data-testid="page-layout.root"]'
+					: '[data-ssr-placeholder]';
 				const existingElements = document.querySelectorAll(selector);
 				existingElements.forEach((el) => {
 					const placeholderId = el instanceof HTMLElement && this.getPlaceholderId(el);
@@ -40,8 +42,7 @@ export class SSRPlaceholderHandlers {
 						let height = -1;
 						let x = -1;
 						let y = -1;
-						const boundingClientRect =
-							window.__SSR_PLACEHOLDERS_DIMENSIONS__?.[placeholderId];
+						const boundingClientRect = window.__SSR_PLACEHOLDERS_DIMENSIONS__?.[placeholderId];
 						if (boundingClientRect) {
 							width = boundingClientRect.width;
 							height = boundingClientRect.height;
@@ -73,7 +74,7 @@ export class SSRPlaceholderHandlers {
 			return PAGE_LAYOUT_ID;
 		}
 		return '';
-	}
+	};
 
 	private getPlaceholderReplacementId = (el?: HTMLElement): string => {
 		const ssrPlaceholderReplaceId = el?.dataset?.ssrPlaceholderReplace;
@@ -84,7 +85,7 @@ export class SSRPlaceholderHandlers {
 			return PAGE_LAYOUT_ID;
 		}
 		return '';
-	}
+	};
 
 	clear() {
 		this.staticPlaceholders = new Map();

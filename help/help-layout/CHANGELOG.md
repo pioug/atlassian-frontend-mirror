@@ -1,5 +1,17 @@
 # @atlaskit/help-layout
 
+## 6.3.0
+
+### Minor Changes
+
+- [#157993](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157993)
+  [`c12accd6f87ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c12accd6f87ad) -
+  [ux] Adding back button for ai chat history
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.3
 
 ### Patch Changes

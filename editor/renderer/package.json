@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "118.1.0",
+	"version": "118.1.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -132,16 +132,10 @@
 		"cc_complexit_reduce_portal_rerenders": {
 			"type": "boolean"
 		},
-		"cc_perf_reduce_rerenders": {
-			"type": "boolean"
-		},
 		"cc_complexit_fe_reduce_fragment_serialization": {
 			"type": "boolean"
 		},
 		"platform_renderer_annotations_create_debug_logging": {
-			"type": "boolean"
-		},
-		"platform_editor_speedup_media_client": {
 			"type": "boolean"
 		},
 		"platform_editor_annotation_position_comment_nodes": {

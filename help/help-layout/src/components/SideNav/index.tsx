@@ -105,6 +105,8 @@ export const SideNav = ({ sideNavTabs }: SideNavProps) => {
 					onCloseButtonClick={sideNavTabs[activeIndex].header.onCloseButtonClick}
 					onNewChatButtonClick={sideNavTabs[activeIndex].header.onNewChatButtonClick}
 					newChatButtonDisabled={sideNavTabs[activeIndex].header.newChatButtonDisabled}
+					onGoBackToHistoryList={sideNavTabs[activeIndex].header.onGoBackToHistoryList}
+					isBackButtonVisible={sideNavTabs[activeIndex].header.isBackButtonVisible}
 				/>
 				{sideNavTabs[activeIndex].contentRender()}
 			</Flex>

@@ -41,6 +41,9 @@
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-block-controls/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{

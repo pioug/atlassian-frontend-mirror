@@ -33,6 +33,9 @@
 			"path": "../../editor-palette/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-context-panel/afm-post-office/tsconfig.json"
 		},
 		{
@@ -52,6 +55,9 @@
 		},
 		{
 			"path": "../../editor-plugin-extension/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-interaction/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-table/afm-post-office/tsconfig.json"

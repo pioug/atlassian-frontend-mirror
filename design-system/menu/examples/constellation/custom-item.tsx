@@ -17,7 +17,7 @@ type CustomComponentWithHrefProps = CustomItemComponentProps & {
 
 const CustomComponent = ({ children, href, ...props }: CustomComponentWithHrefProps) => {
 	return (
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-html-anchor
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props, @atlaskit/design-system/no-html-anchor, @atlaskit/design-system/no-html-anchor
 		<a href={href} {...props}>
 			{children}
 		</a>

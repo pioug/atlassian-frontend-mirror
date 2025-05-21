@@ -26,7 +26,8 @@ Spotlights can also guide people through tasks that require multiple steps to co
 
 ### Pulse
 
-The spotlight target can have a pulse animation to draw attention to the focused area.
+The spotlight target can have a pulse animation to draw attention to the focused area. As they can
+be very distracting and increase cognitive load, limit the number of pulses per spotlight.
 
 ## Best practices
 
@@ -43,18 +44,22 @@ The spotlight target can have a pulse animation to draw attention to the focused
 
 ## Accessibility
 
-- When heading is specified, it's value is referenced as the accessible name of the spotlight
-  dialog. If you need to add/reference another accessible name, consider either
+- When there's a heading, its value is referenced as the accessible name of the spotlight dialog. If
+  you need to add/reference another accessible name, consider either
   [label](/components/onboarding/code#Spotlight-label) or
-  [titleId](/components/onboarding/code#Spotlight-titleId) prop. Make sure to avoid using these
-  props at the same time.
+  [titleId](/components/onboarding/code#Spotlight-titleId) prop. Avoid using both of these props at
+  the same time.
+- The pulse animation can be very disruptive for some users. Like with the spotlight itself, limit
+  the pulse animation to one spotlight at a time and limit the number of pulses.
+- If the spotlight opens upon page entry, avoid a pulse animation as the attention is already on the
+  spotlight.
 
 ## Content guidelines
 
 ### Headings
 
-- Use the heading to communicate the main benefit to the user. For example, "Manage your issues"
-  instead of "Issue types".
+- Use the heading to communicate the main benefit to the user. For example, "Manage your work items"
+  instead of "Work items".
 - Write headings in sentence case.
 - Limit headings to just a few words. Personalize where you can, for example, “Your room”.
 
@@ -233,4 +238,4 @@ repeating the action multiple times and suggest, using a spotlight, a way to aut
 
 - For a more flexible, standalone spotlight message, see
   [spotlight card](/components/onboarding/spotlight-card/usage).
-- For an onboarding modal, see [benefits modal](/components/onboarding/benefits-modal/usage).
+- For an onboarding modal, see [custom modal dialog](/components/modal-dialog/examples).

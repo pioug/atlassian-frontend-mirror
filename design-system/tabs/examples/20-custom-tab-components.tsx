@@ -41,6 +41,7 @@ const LinkTab = ({ label, href }: { label: string; href: string }) => {
 	const { onKeyDown, tabIndex, ...tabAttributes } = useTab();
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a href={href} css={lintTabStyles} {...tabAttributes}>
 			{label}
 		</a>

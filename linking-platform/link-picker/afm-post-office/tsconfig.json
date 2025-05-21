@@ -45,6 +45,12 @@
 			"path": "../../../helpers/intl-messages-provider/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../linking-common/afm-post-office/tsconfig.json"
 		},
 		{
@@ -55,6 +61,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../smart-card/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/spinner/afm-post-office/tsconfig.json"

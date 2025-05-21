@@ -59,7 +59,13 @@
 			"path": "../emoji/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/motion/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/popper/tsconfig.app.json"

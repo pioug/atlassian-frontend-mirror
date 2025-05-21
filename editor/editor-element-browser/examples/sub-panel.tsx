@@ -7,7 +7,7 @@ import TaskIcon from '@atlaskit/icon/core/task';
 import Table from '@atlaskit/icon/glyph/table';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
-import { ItemData } from '../src/ui/ItemType';
+import { type ItemData } from '../src/ui/ItemType';
 import { ListButtonGroup } from '../src/ui/ListButtonGroup';
 import { SubPanelWithBackButton } from '../src/ui/SubPanel';
 

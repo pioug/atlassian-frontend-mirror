@@ -1,4 +1,4 @@
-import { BitbucketTransformer, AdditionalParseOptions } from '../..';
+import { BitbucketTransformer, type AdditionalParseOptions } from '../..';
 import { uuid } from '@atlaskit/adf-schema';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import {

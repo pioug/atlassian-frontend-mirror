@@ -113,9 +113,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform_editor_yellow_text_highlight_shortcut": {
-			"type": "boolean"
-		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		}

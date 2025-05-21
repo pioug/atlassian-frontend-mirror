@@ -45,6 +45,7 @@ const MyRouterLinkComponent = forwardRef(
 
 		if (typeof href === 'string') {
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 				<a ref={ref} data-test-link-type="simple" href={href} {...rest}>
 					{label}
 				</a>
@@ -52,6 +53,7 @@ const MyRouterLinkComponent = forwardRef(
 		}
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			<a
 				ref={ref}
 				data-test-link-type="advanced"

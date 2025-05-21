@@ -7,9 +7,9 @@ import {
 	keymap,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { AlignmentPlugin } from '../alignmentPluginType';
+import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
 
 export function keymapPlugin(api?: ExtractInjectionAPI<AlignmentPlugin>): SafePlugin {

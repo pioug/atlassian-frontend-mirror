@@ -1,5 +1,9 @@
 name: '@atlaskit/link-extractors'
-description: This is a utility package that provides functions for safely extracting properties from JSON-LD data structures. These extractor functions are commonly used in Atlassian’s linking platform to retrieve information such as URLs, titles, dates, and people from Smart Link responses and other JSON-LD-based data sources.
+description:
+  This is a utility package that provides functions for safely extracting properties from JSON-LD
+  data structures. These extractor functions are commonly used in Atlassian’s linking platform to
+  retrieve information such as URLs, titles, dates, and people from Smart Link responses and other
+  JSON-LD-based data sources.
 configVersion: 1
 typeId: LIBRARY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'

@@ -2,7 +2,7 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
-	EditorAnalyticsAPI,
+	type EditorAnalyticsAPI,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, UserPreferencesProvider } from '@atlaskit/editor-common/types';

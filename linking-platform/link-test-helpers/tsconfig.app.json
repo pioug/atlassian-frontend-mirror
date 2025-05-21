@@ -39,9 +39,6 @@
 		},
 		{
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
-		},
-		{
-			"path": "../../monorepo-tooling/gemini/tsconfig.app.json"
 		}
 	]
 }

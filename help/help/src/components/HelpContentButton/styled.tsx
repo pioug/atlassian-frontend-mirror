@@ -67,8 +67,8 @@ export const HelpContentButtonContainer = ({
 }: HelpContentButtonContainerProps) => {
 	if (href) {
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			<li css={parentListItemHelpContentButtonContainerStyles}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 				<a
 					onClick={onClick}
 					onKeyDown={onKeyDown}
@@ -85,7 +85,6 @@ export const HelpContentButtonContainer = ({
 	}
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<li css={parentListItemHelpContentButtonContainerStyles}>
 			<button
 				onClick={onClick}

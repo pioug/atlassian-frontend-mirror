@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 /**
  * By default the Atlaskit website includes css-reset in examples
  * when implementing css-reset in your application,
@@ -35,13 +38,27 @@ export default () => (
 		</h2>
 		<p>
 			These elements
-			<a href=".">
-				<sup>1</sup>
-			</a>{' '}
+			{fg('dst-a11y__replace-anchor-with-link__design-system-') ? (
+				<Link href=".">
+					<sup>1</sup>
+				</Link>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+				<a href=".">
+					<sup>1</sup>
+				</a>
+			)}{' '}
 			should still
-			<a href=".">
-				<sub>2</sub>
-			</a>{' '}
+			{fg('dst-a11y__replace-anchor-with-link__design-system-') ? (
+				<Link href=".">
+					<sub>2</sub>
+				</Link>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+				<a href=".">
+					<sub>2</sub>
+				</a>
+			)}{' '}
 			have default styling<sup>3</sup> as well<sub>4</sub>
 		</p>
 		<h2>Keyboard commands with {`<kbd>`}</h2>

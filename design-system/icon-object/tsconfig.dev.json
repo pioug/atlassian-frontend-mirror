@@ -41,6 +41,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{

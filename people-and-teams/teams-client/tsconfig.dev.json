@@ -31,7 +31,7 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@atlassian__teams-client/dev"
+		"outDir": "../../../tsDist/@atlaskit__teams-client/dev"
 	},
 	"references": [
 		{

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-save-on-enter",
-	"version": "2.0.5",
+	"version": "2.1.0",
 	"description": "Save-on-enter plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,6 +36,8 @@
 	"dependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/link": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -83,6 +85,11 @@
 	"stricter": {
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
+		}
+	},
+	"platform-feature-flags": {
+		"dst-a11y__replace-anchor-with-link__editor-lego": {
+			"type": "boolean"
 		}
 	}
 }

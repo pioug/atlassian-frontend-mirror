@@ -51,6 +51,9 @@
 			"path": "../../../design-system/layering/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../linking-common/afm-jira/tsconfig.json"
 		},
 		{

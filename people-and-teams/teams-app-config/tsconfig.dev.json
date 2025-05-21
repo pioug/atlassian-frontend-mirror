@@ -28,23 +28,17 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "../../../tsDist/@af__teams-app-config/dev"
+		"outDir": "../../../tsDist/@atlaskit__teams-app-config/dev"
 	},
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
 		},
 		{
-			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

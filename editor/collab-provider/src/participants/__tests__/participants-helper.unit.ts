@@ -1,6 +1,6 @@
 import type { ProviderParticipant, PresenceActivity } from '@atlaskit/editor-common/collab';
 import {
-	BatchProps,
+	type BatchProps,
 	createParticipantFromPayload,
 	fetchParticipants,
 	PARTICIPANT_UPDATE_INTERVAL,

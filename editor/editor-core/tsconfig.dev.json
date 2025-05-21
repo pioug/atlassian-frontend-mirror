@@ -94,13 +94,13 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-performance-metrics/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-annotation/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-card/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-code-block/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-code-block-advanced/tsconfig.app.json"
@@ -109,10 +109,22 @@
 			"path": "../editor-plugin-collab-edit/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-composition/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-content-insertion/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-context-panel/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-copy-button/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-decorations/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-editor-disabled/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
@@ -121,10 +133,16 @@
 			"path": "../editor-plugin-extension/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-floating-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-grid/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-guideline/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-insert-block/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-list/tsconfig.app.json"
@@ -133,7 +151,13 @@
 			"path": "../editor-plugin-media/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-media-insert/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-paste/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-selection/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-selection-extension/tsconfig.app.json"
@@ -220,9 +244,6 @@
 			"path": "../../design-system/radio/tsconfig.app.json"
 		},
 		{
-			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
-		},
-		{
 			"path": "../renderer/tsconfig.app.json"
 		},
 		{
@@ -269,6 +290,9 @@
 		},
 		{
 			"path": "../../design-system/width-detector/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 2.2.6
+
+### Patch Changes
+
+- [#157241](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157241)
+  [`bc8b7d4982174`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc8b7d4982174) -
+  When fetching position ensure the matching editor view is used with editor state to avoid position
+  mismatches
+
 ## 2.2.5
 
 ### Patch Changes

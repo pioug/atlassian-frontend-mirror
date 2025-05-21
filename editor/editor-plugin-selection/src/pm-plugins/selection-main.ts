@@ -90,17 +90,18 @@ export const createPlugin = (
 		props: {
 			createSelectionBetween: onCreateSelectionBetween,
 			decorations(state) {
-				// TODO: ED-27865 - This has to be explicitly checked against false to ensure that
-				// we don't change behaviour when hasHadInteraction is undefined.
 				const hasHadInteraction =
 					api?.interaction?.sharedState.currentState()?.hasHadInteraction !== false;
+				const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
 
 				// Do not show selection decorations for live pages where the user has not
 				// interacted with the page. We do not show cursor until interaction and we do not
 				// want to show selections either.
 				if (
 					options.__livePage &&
-					!hasHadInteraction &&
+					(fg('platform_editor_interaction_api_refactor')
+						? interactionState === 'hasNotHadInteraction'
+						: !hasHadInteraction) &&
 					fg('platform_editor_no_selection_decorations')
 				) {
 					return DecorationSet.empty;

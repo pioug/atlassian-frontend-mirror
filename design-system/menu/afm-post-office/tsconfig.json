@@ -21,6 +21,9 @@
 			"path": "../../app-provider/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-post-office/tsconfig.json"
 		},
 		{

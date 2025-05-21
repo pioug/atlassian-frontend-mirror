@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { Clipboard } from '@atlaskit/media-picker';
 import type { ClipboardConfig } from '@atlaskit/media-picker/types';
 
-import { MediaNextEditorPluginType } from '../../mediaPluginType';
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 
 import PickerFacadeProvider from './PickerFacadeProvider';
 

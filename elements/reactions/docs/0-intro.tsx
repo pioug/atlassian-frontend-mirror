@@ -1,9 +1,15 @@
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { md, Example, Props, code, AtlassianInternalWarning } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import ReactionsExample from '../examples/01-connected-reactions-view';
+
+const LinkComponent = (props: any) =>
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-has-content
+	fg('dst-a11y__replace-anchor-with-link__editor-collabo') ? <Link {...props} /> : <a {...props} />;
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -126,13 +132,13 @@ export default md`
 			<br />
 			<SectionMessage appearance="information">
 				<Text as="p">EmojiResource object implements the EmojiProvider interface.</Text>
-				<a
+				<LinkComponent
 					href="https://atlaskit.atlassian.com/packages/elements/emoji/docs/emoji-provider"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
 					See here for information on EmojiProvider.
-				</a>
+				</LinkComponent>
 			</SectionMessage>
 		</>
 	)}

@@ -19,6 +19,7 @@ const MyRouterLinkComponent = forwardRef(
 		// A simple link by passing a string as the `href` prop
 		if (typeof href === 'string') {
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 				<a ref={ref} data-test-link-type="simple" href={href} {...rest}>
 					{label}
 				</a>
@@ -27,6 +28,7 @@ const MyRouterLinkComponent = forwardRef(
 
 		// A configured link by passing an object as the `href` prop
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			<a
 				ref={ref}
 				data-test-link-type="advanced"

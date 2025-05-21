@@ -60,6 +60,9 @@
 			"path": "../../design-system/drawer/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../link-picker/tsconfig.app.json"
 		},
 		{

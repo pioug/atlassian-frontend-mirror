@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { bind, UnbindFn } from 'bind-event-listener';
+import { bind, type UnbindFn } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 import type { IntlShape } from 'react-intl-next';
 

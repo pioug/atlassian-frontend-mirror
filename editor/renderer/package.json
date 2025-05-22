@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "118.1.2",
+	"version": "118.2.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-datasource": "workspace:^",
 		"@atlaskit/media-card": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
@@ -176,9 +177,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_accessible_heading_copy_link": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_vc90_bug_with_files": {
 			"type": "boolean"
 		},
@@ -262,6 +260,9 @@
 			"type": "boolean"
 		},
 		"smartcard_avatar_margin_fix": {
+			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__editor": {
 			"type": "boolean"
 		}
 	},

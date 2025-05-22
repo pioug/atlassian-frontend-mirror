@@ -66,6 +66,9 @@
 			"path": "../../design-system/inline-message/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../media-client/tsconfig.app.json"
 		},
 		{
@@ -94,6 +97,9 @@
 		},
 		{
 			"path": "../media-ui/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

@@ -1,5 +1,21 @@
 # @atlaskit/media-card
 
+## 79.3.0
+
+### Minor Changes
+
+- [#153282](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153282)
+  [`b271b4820aef9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b271b4820aef9) -
+  Added support for Video Captions (experimental)
+- [#157095](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157095)
+  [`ec7b5d3268aaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec7b5d3268aaf) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 79.2.5
 
 ### Patch Changes

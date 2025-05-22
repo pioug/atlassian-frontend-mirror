@@ -3,7 +3,8 @@ import React from 'react';
 import { Label } from '@atlaskit/form';
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { Box, Flex, Grid, Stack, Text } from '@atlaskit/primitives';
+import { Grid } from '@atlaskit/primitives';
+import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 
 import {

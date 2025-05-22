@@ -217,7 +217,9 @@ export class ParticipantsService {
 	private updateParticipantLazy = (payload: PresencePayload) => {
 		const { userId, sessionId } = payload;
 
-		// anonymous users always skip hydration
+		// anonymous users always skip hydration but are marked as hydrated since we don't want to attempt to fetch data
+		// this can cause interesting behavior if batchProps.participantsLimit exists
+		// for example if limit = 5 and we've hydrated 5 real users and 2 anonymous users join, it'll look like we've hydrated 7 users
 		if (!userId || userId === UNIDENTIFIED) {
 			const participant = {
 				...payload,
@@ -260,10 +262,6 @@ export class ParticipantsService {
 		};
 		this.participantsState.setBySessionId(sessionId, participant);
 		this.emitPresence({ joined: [participant] }, 'handling updated previous participant event');
-		// prevent running multiple debounces concurrently
-		if (!this.currentlyPollingFetchUsers) {
-			void this.batchFetchUsers();
-		}
 	};
 
 	onParticipantUpdated = async (payload: PresencePayload) => {
@@ -470,7 +468,7 @@ export class ParticipantsService {
 	 * otherwise we'll always make at least 2 calls if there's more than 1 participant
 	 * @example
 	 */
-	batchFetchUsersWithDelay = async () => {
+	initializeFirstBatchFetchUsers = async () => {
 		await new Promise((r) =>
 			window.setTimeout(r, this.batchProps?.debounceTime ?? DEFAULT_FETCH_USERS_INTERVAL),
 		);
@@ -620,10 +618,6 @@ export class ParticipantsService {
 		}
 	};
 
-	/**
-	 *
-	 * @example
-	 */
 	getParticipants = () => {
 		return this.participantsState.getParticipants();
 	};

@@ -1,5 +1,60 @@
 # @atlaskit/editor-core
 
+## 207.2.0
+
+### Minor Changes
+
+- [#159179](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159179)
+  [`ab55bb0d0d3c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab55bb0d0d3c1) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor background color
+  CSS in static emotion
+
+## 207.1.2
+
+### Patch Changes
+
+- [#158351](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158351)
+  [`33c33e91149a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33c33e91149a1) -
+  Cleaned up platform_editor_controls_shadow
+- Updated dependencies
+
+## 207.1.1
+
+### Patch Changes
+
+- [#156743](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156743)
+  [`170609348890d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/170609348890d) -
+  Add new breakout resizing experience under experiment platform_editor_breakout_resizing
+- [#157322](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157322)
+  [`0e61040734cef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e61040734cef) -
+  [ED-27842] Consolidate extraneous no_cursor flags into one flag for full rollout
+- [#158294](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158294)
+  [`c017b7dd6fc06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c017b7dd6fc06) -
+  NOISSUE - Add platform_editor_enable_table_lnv feature flag to re-enable lazy node view for
+  tables.
+- Updated dependencies
+
+## 207.1.0
+
+### Minor Changes
+
+- [#157072](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157072)
+  [`cc6bc0b7cd8b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc6bc0b7cd8b4) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.0.7
+
+### Patch Changes
+
+- [#158563](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158563)
+  [`6b110fbea6e0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b110fbea6e0e) -
+  Disable all render tracking on Jira
+
 ## 207.0.6
 
 ### Patch Changes

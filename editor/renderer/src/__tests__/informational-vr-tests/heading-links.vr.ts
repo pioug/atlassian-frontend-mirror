@@ -15,7 +15,7 @@ snapshotInformational(HeadingInsidePanel, {
 	},
 	prepare: async (page: Page, component: Locator) => {
 		const heading = page.getByRole('heading');
-		const copyLink = page.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await heading.hover({
 			position: {
@@ -49,7 +49,7 @@ snapshotInformational(HeadingInsideExpand, {
 	prepare: async (page: Page, component: Locator) => {
 		const expand = page.getByLabel('Expand content').first();
 		const heading = page.getByRole('heading', { name: 'Heading 1' });
-		const copyLink = heading.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await expand.click();
 		await heading.hover({
@@ -84,7 +84,7 @@ snapshotInformational(HeadingInsideExpand, {
 	prepare: async (page: Page, component: Locator) => {
 		const expand = page.getByLabel('Expand content').nth(1);
 		const heading = page.getByRole('heading', { name: 'Heading 2' });
-		const copyLink = heading.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await expand.click();
 		await heading.hover({
@@ -110,7 +110,7 @@ snapshotInformational(HeadingInsideTable, {
 		const heading = page.getByRole('heading', {
 			name: 'Table Heading 4',
 		});
-		const copyLink = heading.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await heading.hover({
 			position: {
@@ -135,7 +135,7 @@ snapshotInformational(HeadingInsideTable, {
 		const heading = page.getByRole('heading', {
 			name: 'Multiline heading that wraps',
 		});
-		const copyLink = heading.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await heading.hover({
 			position: {
@@ -164,7 +164,7 @@ snapshotInformational(HeadingInsideTable, {
 		const heading = page.getByRole('heading', {
 			name: 'Multiline heading that wraps',
 		});
-		const copyLink = heading.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await heading.hover({
 			position: {
@@ -195,7 +195,7 @@ snapshotInformational(HeadingInsideLayout, {
 			level: 4,
 			name: 'LC Heading L',
 		});
-		const copyLink = heading.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await heading.hover({
 			position: {
@@ -226,7 +226,7 @@ snapshotInformational(HeadingInsideLayout, {
 			level: 4,
 			name: 'RC Heading L',
 		});
-		const copyLink = heading.getByLabel('Copy link to heading');
+		const copyLink = heading.getByTestId('anchor-button');
 
 		await heading.hover({
 			position: {

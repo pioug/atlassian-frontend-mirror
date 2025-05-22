@@ -329,11 +329,11 @@ describe('Provider', () => {
 			});
 			// @ts-ignore - Spy on private member for test
 			const participantsService = provider.participantsService;
-			jest.spyOn(participantsService, 'batchFetchUsersWithDelay');
+			jest.spyOn(participantsService, 'initializeFirstBatchFetchUsers');
 
 			provider.initialize(() => editorState);
 			channel.emit('connected', { sid: 'sid-123' });
-			expect(participantsService.batchFetchUsersWithDelay).toHaveBeenCalled();
+			expect(participantsService.initializeFirstBatchFetchUsers).toHaveBeenCalled();
 		});
 
 		it('Should throw error when batchProps and getUser is supplied', () => {
@@ -352,6 +352,51 @@ describe('Provider', () => {
 				expect(err).toEqual(
 					new ProviderInitialisationError('Cannot supply getUser and batchProps together'),
 				);
+			}
+		});
+
+		test.each([
+			{ fetchSize: undefined, batchSize: 25 },
+			{ fetchSize: 2, batchSize: undefined },
+			{ fetchSize: 2, batchSize: 25 },
+		])(
+			'Should call fetchMore with correct fetchSize when batchProps are supplied',
+			async ({ fetchSize, batchSize }) => {
+				const expectedSize = fetchSize ?? batchSize;
+				const batchProps = {
+					getUsers: jest.fn(),
+					...(batchSize && { batchSize: batchSize }),
+				};
+				const provider = createSocketIOCollabProvider({
+					...testProviderConfig,
+					batchProps,
+				});
+				// @ts-ignore - Spy on private member for test
+				const participantsService = provider.participantsService;
+				jest.spyOn(participantsService, 'enrichParticipants');
+
+				provider.initialize(() => editorState);
+				await provider.fetchMore(fetchSize ? { fetchSize } : undefined);
+				expect(participantsService.enrichParticipants).toHaveBeenCalledWith({
+					...batchProps,
+					batchSize: expectedSize,
+				});
+			},
+		);
+
+		it('Should throw error when fetchMore is called with no batchProps', async () => {
+			const provider = createSocketIOCollabProvider({
+				...testProviderConfig,
+			});
+			// @ts-ignore - Spy on private member for test
+			const participantsService = provider.participantsService;
+			jest.spyOn(participantsService, 'enrichParticipants');
+
+			provider.initialize(() => editorState);
+			try {
+				await provider.fetchMore();
+			} catch (err) {
+				expect(participantsService.enrichParticipants).not.toHaveBeenCalled();
 			}
 		});
 

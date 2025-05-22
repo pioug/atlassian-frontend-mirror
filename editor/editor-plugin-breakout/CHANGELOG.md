@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.2.5
+
+### Patch Changes
+
+- [#156743](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156743)
+  [`170609348890d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/170609348890d) -
+  Add new breakout resizing experience under experiment platform_editor_breakout_resizing
+- Updated dependencies
+
 ## 2.2.4
 
 ### Patch Changes

@@ -1,14 +1,39 @@
-import { ElementName } from '../../../../constants';
+import { ElementName, type SmartLinkSize } from '../../../../constants';
 
-import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
-import { type AvatarGroupProps } from './avatar-group/types';
-import { type BadgeProps } from './badge/types';
-import { type DateTimeProps } from './date-time/types';
-import { type IconProps } from './icon/types';
-import { type LinkProps } from './link/types';
-import { type LozengeProps } from './lozenge/types';
-import { type TextProps } from './text/types';
+import { AtlaskitBadgeElementProps } from './atlaskit-badge-element';
+import {
+	type BaseAvatarGroupElementProps,
+	type BaseBadgeElementProps,
+	type BaseDateTimeProps,
+	type BaseLinkElementProps,
+	type BaseLozengeElementProps,
+	type BaseTextElementProps,
+} from './common';
+import { type IconElementProps } from './icon-element';
 import { createElement } from './utils';
+
+export type ElementProps = {
+	/**
+	 * Name of the element, can be used as a selector.
+	 * E.g. [data-smart-element="Provider"]
+	 * @internal
+	 */
+	name?: ElementName;
+	/**
+	 * For compiled css
+	 */
+	className?: string;
+	/**
+	 * The size of the element to display.
+	 */
+	size?: SmartLinkSize;
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests
+	 */
+	testId?: string;
+};
 
 // Attention: Keep the export name and element name the same.
 // This will help reducing the code for mapping elements inside
@@ -17,121 +42,129 @@ import { createElement } from './utils';
  * Creates a AssignedTo text element using the data from AssignedTo in the Flexible UI Context.
  * @see Text
  */
-export const AssignedTo = createElement<TextProps>(ElementName.AssignedTo);
+export const AssignedTo = createElement<BaseTextElementProps>(ElementName.AssignedTo);
 /**
  * An AvatarGroup element using the data from AssignedToGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const AssignedToGroup = createElement<AvatarGroupProps>(ElementName.AssignedToGroup);
+export const AssignedToGroup = createElement<BaseAvatarGroupElementProps>(
+	ElementName.AssignedToGroup,
+);
 /**
  * Creates a AttachmentCount Badge element using the data from AttachmentCount in the Flexible UI Context.
  * @see Badge
  */
-export const AttachmentCount = createElement<BadgeProps>(ElementName.AttachmentCount);
+export const AttachmentCount = createElement<BaseBadgeElementProps>(ElementName.AttachmentCount);
 /**
  * An AvatarGroup element using the data from AuthorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const AuthorGroup = createElement<AvatarGroupProps>(ElementName.AuthorGroup);
+export const AuthorGroup = createElement<BaseAvatarGroupElementProps>(ElementName.AuthorGroup);
 /**
  * Creates a Checklist Badge element using the data from ChecklistProgress in the Flexible UI Context.
  * @see Badge
  */
-export const ChecklistProgress = createElement<BadgeProps>(ElementName.ChecklistProgress);
+export const ChecklistProgress = createElement<BaseBadgeElementProps>(
+	ElementName.ChecklistProgress,
+);
 /**
  * An AvatarGroup element using the data from CollaboratorGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const CollaboratorGroup = createElement<AvatarGroupProps>(ElementName.CollaboratorGroup);
+export const CollaboratorGroup = createElement<BaseAvatarGroupElementProps>(
+	ElementName.CollaboratorGroup,
+);
 /**
  * Creates a CommentCount Badge element using the data from CommentCount in the Flexible UI Context.
  * @see Badge
  */
-export const CommentCount = createElement<BadgeProps>(ElementName.CommentCount);
+export const CommentCount = createElement<BaseBadgeElementProps>(ElementName.CommentCount);
 /**
  * Creates a CreatedOn DateTime element using the data from CreatedOn in the Flexible UI Context.
  * @see DateTime
  */
-export const CreatedOn = createElement<DateTimeProps>(ElementName.CreatedOn);
+export const CreatedOn = createElement<BaseDateTimeProps>(ElementName.CreatedOn);
 /**
  * Creates a CreatedBy text element using the data from CreatedBy in the Flexible UI Context.
  * @see Text
  */
-export const CreatedBy = createElement<TextProps>(ElementName.CreatedBy);
+export const CreatedBy = createElement<BaseTextElementProps>(ElementName.CreatedBy);
 /**
  * Creates a DueOn Lozenge element using the data from dueOn in the Flexible UI Context.
  * @see Lozenge
  */
-export const DueOn = createElement<LozengeProps>(ElementName.DueOn);
+export const DueOn = createElement<BaseLozengeElementProps>(ElementName.DueOn);
 /**
  * Creates an element that contains Last Commit hash
  */
-export const LatestCommit = createElement<BadgeProps>(ElementName.LatestCommit);
+export const LatestCommit = createElement<BaseBadgeElementProps>(ElementName.LatestCommit);
 /**
  * Creates a LinkIcon Icon element using the data from LinkIcon in the Flexible UI Context.
  * @see Icon
  */
-export const LinkIcon = createElement<IconProps>(ElementName.LinkIcon);
+export const LinkIcon = createElement<IconElementProps>(ElementName.LinkIcon);
 /**
  * Creates a Location Link element.
  * This represents the location or container of the resource.
  * @see Link
  */
-export const Location = createElement<LinkProps>(ElementName.Location);
+export const Location = createElement<BaseLinkElementProps>(ElementName.Location);
 /**
  * Creates a ModifiedBy Text element using the data from ModifiedBy in the Flexible UI Context.
  * @see Text
  */
-export const ModifiedBy = createElement<TextProps>(ElementName.ModifiedBy);
+export const ModifiedBy = createElement<BaseTextElementProps>(ElementName.ModifiedBy);
 /**
  * Creates a ModifiedOn DateTime element using the data from ModifiedOn in the Flexible UI Context.
  * @see DateTime
  */
-export const ModifiedOn = createElement<DateTimeProps>(ElementName.ModifiedOn);
+export const ModifiedOn = createElement<BaseDateTimeProps>(ElementName.ModifiedOn);
 /**
  * Creates a OwnedBy text element using the data from OwnedBy in the Flexible UI Context.
  * @see Text
  */
-export const OwnedBy = createElement<TextProps>(ElementName.OwnedBy);
+export const OwnedBy = createElement<BaseTextElementProps>(ElementName.OwnedBy);
 /**
  * An AvatarGroup element using the data from OwnedByGroup in the Flexible UI Context.
  * @see AvatarGroup
  */
-export const OwnedByGroup = createElement<AvatarGroupProps>(ElementName.OwnedByGroup);
+export const OwnedByGroup = createElement<BaseAvatarGroupElementProps>(ElementName.OwnedByGroup);
 /**
  * Creates a Preview element using the data from Preview in the Flexible UI Context.
  * @see Preview
  */
-export { default as Preview } from './preview';
+export { default as Preview } from './preview-element';
 /**
  * Creates a Priority Badge element using the data from Priority in the Flexible UI Context.
  * @see Badge
  */
-export const Priority = createElement<BadgeProps>(ElementName.Priority);
+export const Priority = createElement<BaseBadgeElementProps>(ElementName.Priority);
 /**
  * Creates a ProgrammingLanguage Badge element using the data from ProgrammingLanguage in the Flexible UI Context.
  * @see Badge
  */
-export const ProgrammingLanguage = createElement<BadgeProps>(ElementName.ProgrammingLanguage);
+export const ProgrammingLanguage = createElement<BaseBadgeElementProps>(
+	ElementName.ProgrammingLanguage,
+);
 /**
  * Creates a Provider Badge element using the data from Provider in the Flexible UI Context.
  * @see Badge
  */
-export const Provider = createElement<BadgeProps>(ElementName.Provider);
+export const Provider = createElement<BaseBadgeElementProps>(ElementName.Provider);
 /**
  * Creates a ReactCount Badge element using the data from ReactCount in the Flexible UI Context.
  * @see Badge
  */
-export const ReactCount = createElement<BadgeProps>(ElementName.ReactCount);
+export const ReactCount = createElement<BaseBadgeElementProps>(ElementName.ReactCount);
 /**
  * Creates a ReadTime Text element using the data from readTime in the Flexible UI Context
  */
-export const ReadTime = createElement<TextProps>(ElementName.ReadTime);
+export const ReadTime = createElement<BaseTextElementProps>(ElementName.ReadTime);
 /**
  * Creates a SentOn DateTime element using the data from SentOn in the Flexible UI Context.
  * @see DateTime
  */
-export const SentOn = createElement<DateTimeProps>(ElementName.SentOn);
+export const SentOn = createElement<BaseDateTimeProps>(ElementName.SentOn);
 /**
  * Creates a Snippet element using the data from Snippet in the Flexible UI Context.
  * @see Text
@@ -141,47 +174,47 @@ export { default as Snippet } from './snippet-element';
  * Creates a SourceBranch Text element using the data from sourceBranch in the Flexible UI Context.
  * @see Text
  */
-export const SourceBranch = createElement<TextProps>(ElementName.SourceBranch);
+export const SourceBranch = createElement<BaseTextElementProps>(ElementName.SourceBranch);
 /**
  * Creates a State Lozenge element using the data from State in the Flexible UI Context.
  * @see Lozenge
  */
-export const State = createElement<LozengeProps>(ElementName.State);
+export const State = createElement<BaseLozengeElementProps>(ElementName.State);
 /**
  * Creates a SubscriberCount Badge element using the data from SubscriberCount in the Flexible UI Context.
  * @see Badge
  */
-export const SubscriberCount = createElement<BadgeProps>(ElementName.SubscriberCount);
+export const SubscriberCount = createElement<BaseBadgeElementProps>(ElementName.SubscriberCount);
 /**
  * Create a SubTasks Badge element using the data from subTasks in the Flexible UI Context.
  * @see Badge
  */
-export const SubTasksProgress = createElement<BadgeProps>(ElementName.SubTasksProgress);
+export const SubTasksProgress = createElement<BaseBadgeElementProps>(ElementName.SubTasksProgress);
 /**
  * Create a StoryPoints Badge element using the data from storyPoints in the Flexible UI Context.
  * @see AtlaskitBadge
  */
-export const StoryPoints = createElement<AtlaskitBadgeProps>(ElementName.StoryPoints);
+export const StoryPoints = createElement<AtlaskitBadgeElementProps>(ElementName.StoryPoints);
 /**
  * Creates a TargetBranch Text element using the data from targetBranch in the Flexible UI Context.
  * @see Text
  */
-export const TargetBranch = createElement<TextProps>(ElementName.TargetBranch);
+export const TargetBranch = createElement<BaseTextElementProps>(ElementName.TargetBranch);
 /**
  * Creates a Title Link element using the data from Title in the Flexible UI Context.
  * This represents the main link text within the Smart Link.
  * @see Link
  */
-export const Title = createElement<LinkProps>(ElementName.Title);
+export const Title = createElement<BaseLinkElementProps>(ElementName.Title);
 /**
  * Creates a ViewCount Badge element using the data from ViewCount in the Flexible UI Context.
  * @see Badge
  */
-export const ViewCount = createElement<BadgeProps>(ElementName.ViewCount);
+export const ViewCount = createElement<BaseBadgeElementProps>(ElementName.ViewCount);
 /**
  * Creates a VoteCount Badge element using the data from VoteCount in the Flexible UI Context.
  * @see Badge
  */
-export const VoteCount = createElement<BadgeProps>(ElementName.VoteCount);
+export const VoteCount = createElement<BaseBadgeElementProps>(ElementName.VoteCount);
 
-export { default as AppliedToComponentsCount } from './applied-to-components-count';
+export { default as AppliedToComponentsCount } from './applied-to-components-count-element';

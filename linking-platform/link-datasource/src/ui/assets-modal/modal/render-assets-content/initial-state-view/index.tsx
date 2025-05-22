@@ -94,6 +94,7 @@ export const InitialStateView = () => {
 						{formatMessage(initialStateViewMessages.learnMoreLink)}
 					</Link>
 				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 					<a href={AQLSupportDocumentLink} target="_blank">
 						{formatMessage(initialStateViewMessages.learnMoreLinkOld)}
 					</a>

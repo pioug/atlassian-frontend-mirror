@@ -1,7 +1,6 @@
 import { type ComponentType, type PropsWithChildren, type Ref } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type CSSObject } from '@emotion/react';
+import { StrictXCSSProp } from '@atlaskit/css';
 
 import type { SpacingMode } from './internal/components/menu-context';
 
@@ -386,11 +385,24 @@ export interface SkeletonItemProps {
 	isShimmering?: boolean;
 
 	/**
-	 * A function that overrides the styles of this component.
-	 * It receives the current styles and returns a customized styles object.
+	 * When `true`, the size/spacing of the skeleton size/spacing is adjusted to match the side navigation menu item.
+	 * @deprecated This API exists to support functionality in `@atlaskit/side-navigation` and should not be used. Once the new navigation is fully rolled out, this prop will be removed.
 	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	cssFn?: StatelessCSSFn;
+	isSideNavSkeleton?: boolean;
+
+	/**
+	 * Bounded style overrides.
+	 */
+	xcss?: StrictXCSSProp<
+		| 'minHeight'
+		| 'paddingBlock'
+		| 'paddingInline'
+		| 'paddingBlockStart'
+		| 'paddingBlockEnd'
+		| 'paddingInlineStart'
+		| 'paddingInlineEnd',
+		never
+	>;
 }
 
 export interface HeadingItemProps {
@@ -440,30 +452,15 @@ export interface SkeletonHeadingItemProps {
 	isShimmering?: boolean;
 
 	/**
-	 * A function that overrides the styles of this component.
-	 * It receives the current styles and returns a customized styles object.
-	 *
-	 * @deprecated This API is deprecated and will be removed in a future release. See DSP-2676 for more information.
+	 * Bounded style overrides.
 	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	cssFn?: StatelessCSSFn;
+	xcss?: StrictXCSSProp<
+		| 'paddingBlock'
+		| 'paddingInline'
+		| 'paddingBlockStart'
+		| 'paddingBlockEnd'
+		| 'paddingInlineStart'
+		| 'paddingInlineEnd',
+		never
+	>;
 }
-
-export type ItemState = { isSelected: boolean; isDisabled: boolean };
-
-/**
- * A function that overrides the styles of
- * menu components. It receives the current state
- * and should return a CSSObject.
- *
- * @see @atlaskit/menu/docs/85-overriding-item-styles
- * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
- */
-export interface CSSFn<TState = ItemState extends void ? void : ItemState> {
-	(currentState: TState): CSSObject | CSSObject[];
-}
-
-/**
- * @deprecated This type is deprecated and will be removed in a future release. See DSP-2676 for more information.
- */
-export type StatelessCSSFn = CSSFn<void>;

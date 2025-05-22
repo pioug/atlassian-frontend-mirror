@@ -1,14 +1,21 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import {
 	SkeletonHeadingItem as MenuSkeletonHeadingItem,
 	type SkeletonHeadingItemProps,
 } from '@atlaskit/menu';
+import { token } from '@atlaskit/tokens';
 
-import { sectionHeaderSpacingStyles } from '../../common/styles';
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
 
 export type { SkeletonHeadingItemProps } from '@atlaskit/menu';
+
+const styles = cssMap({
+	root: {
+		paddingInline: token('space.100', '8px'),
+	},
+});
 
 /**
  * __Skeleton heading item__
@@ -25,10 +32,7 @@ const SkeletonHeadingItem = (props: SkeletonHeadingItemProps) => {
 
 	return (
 		<MenuSkeletonHeadingItem
-			// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
-			cssFn={() => ({
-				...sectionHeaderSpacingStyles(),
-			})}
+			xcss={styles.root}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...props}
 		/>

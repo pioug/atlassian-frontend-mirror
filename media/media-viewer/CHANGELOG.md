@@ -1,5 +1,23 @@
 # @atlaskit/media-viewer
 
+## 52.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.1.0
+
+### Minor Changes
+
+- [#153282](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153282)
+  [`b271b4820aef9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b271b4820aef9) -
+  Added support for Video Captions (experimental)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.0.16
 
 ### Patch Changes

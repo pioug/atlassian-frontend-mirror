@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "6.2.0",
+	"version": "6.3.1",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -55,6 +55,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/frontend-utilities": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-analytics": "workspace:^",
 		"@atlaskit/link-client-extension": "workspace:^",
 		"@atlaskit/link-datasource": "workspace:^",
@@ -159,6 +160,9 @@
 			"type": "boolean"
 		},
 		"prompt_whiteboard_competitor_link_gate": {
+			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__linking-platfo": {
 			"type": "boolean"
 		},
 		"platform_editor_cards_maxcallstackfix": {

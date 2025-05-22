@@ -158,6 +158,11 @@ export type MessageKey =
 	| 'image_cropper_zoom_out'
 	| 'image_cropper_zoom_in'
 	| 'image_cropper_zoom_slider'
+	| 'video_captions_enable'
+	| 'video_captions_select_captions'
+	| 'video_captions_upload_captions_form_header'
+	| 'video_captions_upload_captions_form_language_picker'
+	| 'video_settings'
 	| RequestAccessMessageKey;
 
 type Messages = {
@@ -799,6 +804,32 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Playback speed',
 		description:
 			'In the context of a video player, it allows user to switch the speed of the video',
+	},
+	video_captions_enable: {
+		id: 'fabric.media.video_captions_enable',
+		defaultMessage: 'Closed Captions',
+		description: 'In the context of a video player, it allows user to switch on/off captions',
+	},
+	video_captions_select_captions: {
+		id: 'fabric.media.video_captions_select_captions',
+		defaultMessage: 'Select Captions',
+		description: 'In the context of a video player, it allows user to select captions',
+	},
+	video_captions_upload_captions_form_header: {
+		id: 'fabric.media.video_captions_upload_captions_form_header',
+		defaultMessage: 'Upload Captions',
+		description: 'In the context of a video player, it allows user to upload captions',
+	},
+	video_captions_upload_captions_form_language_picker: {
+		id: 'fabric.media.video_captions_upload_captions_form_language_picker',
+		defaultMessage: 'Select the file language',
+		description:
+			'In the context of a video player, it allows user to select the language of the uploading captions',
+	},
+	video_settings: {
+		id: 'fabric.media.video_settings',
+		defaultMessage: 'Video Settings',
+		description: 'In the context of a video player, it allows user to manage video settings',
 	},
 	skipBackward: {
 		id: 'fabric.media.skip_backward',

@@ -31,7 +31,7 @@ export default () => (
 				<br />
 				<LinkUrl href="https://www.atlassian.com/solutions/devops">
 					<p>Help</p>
-					{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-is-valid */}
 					<a>https://www.atlassian.com/solutions/devops</a>
 				</LinkUrl>
 			</li>

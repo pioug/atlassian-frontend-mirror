@@ -1,3 +1,5 @@
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import SectionMessage from '@atlaskit/section-message';
 
@@ -30,9 +32,16 @@ export function createSingletonNotice(componentName: string) {
 			<p>
 				If you have any questions or need assistance in consuming this package correctly, please
 				reach out to the{' '}
-				<a href="https://atlassian.slack.com/archives/C020CGJDJ3A" target="_blank">
-					#help-media-platform
-				</a>{' '}
+				{fg('dst-a11y__replace-anchor-with-link__media-exif') ? (
+					<Link href="https://atlassian.slack.com/archives/C020CGJDJ3A" target="_blank">
+						#help-media-platform
+					</Link>
+				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+					<a href="https://atlassian.slack.com/archives/C020CGJDJ3A" target="_blank">
+						#help-media-platform
+					</a>
+				)}{' '}
 				channel.
 			</p>
 		</SectionMessage>

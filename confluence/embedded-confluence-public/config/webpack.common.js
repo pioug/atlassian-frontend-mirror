@@ -43,19 +43,27 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(t|j)sx?$/,
-				use: {
-					loader: require.resolve('babel-loader'),
-					options: {
-						envName: 'production:es2019',
-						cacheDirectory: false,
-						presets: [
-							'@babel/preset-env',
-							'@babel/preset-flow',
-							'@babel/preset-react',
-							'@babel/preset-typescript',
-						],
+				use: [
+					{
+						loader: require.resolve('babel-loader'),
+						options: {
+							envName: 'production:es2019',
+							cacheDirectory: false,
+							presets: [
+								'@babel/preset-env',
+								'@babel/preset-flow',
+								'@babel/preset-react',
+								'@babel/preset-typescript',
+							],
+						},
 					},
-				},
+					{
+						loader: '@compiled/webpack-loader',
+						options: {
+							transformerBabelPlugins: ['@atlaskit/tokens/babel-plugin'],
+						},
+					},
+				],
 				exclude: /node_modules/,
 			},
 		],

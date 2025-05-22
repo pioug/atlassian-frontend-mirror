@@ -1,3 +1,4 @@
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
@@ -102,9 +103,24 @@ type Pos = {
 	to: number;
 };
 
-function move(tr: Transform, before: Pos, after: Pick<Pos, 'from'>) {
+function move(
+	tr: Transform,
+	before: Pos,
+	after: Pick<Pos, 'from'>,
+	options: { addAnalyticsSteps: number } = { addAnalyticsSteps: 0 },
+) {
 	const slice = tr.doc.slice(before.from, before.to);
-	return tr.delete(before.from, before.to).replace(after.from, undefined, slice);
+	tr.delete(before.from, before.to);
+	if (options.addAnalyticsSteps) {
+		for (let i = 0; i < options.addAnalyticsSteps; i++) {
+			addAnalytics(tr);
+		}
+	}
+	return tr.replace(after.from, undefined, slice);
+}
+
+function addAnalytics(tr: Transform) {
+	return tr.step(new AnalyticsStep([], [], 1));
 }
 
 describe('rebaseSteps', () => {
@@ -446,6 +462,57 @@ describe('rebaseSteps', () => {
 						{ from: 0 },
 					),
 				doc(p('firtparagraph'), p('seconxoxod paragraph'))(schema),
+			);
+		});
+
+		it('[analytics steps] preserves deleting content (by both) before multiple moves down + up (by local) with typing', () => {
+			rebase(
+				doc(p('first paragraph'), p('second paragraph'))(schema),
+				(tr) => tr.delete(4, 5),
+				(tr) =>
+					move(
+						type(move(tr.delete(6, 7), { from: 0, to: 16 }, { from: 18 }), 6, 'xoxo'),
+						{ from: 22, to: 38 },
+						{ from: 0 },
+						{ addAnalyticsSteps: 4 },
+					),
+				doc(p('firtparagraph'), p('seconxoxod paragraph'))(schema),
+			);
+		});
+
+		it('[analytics steps] preserves marks modified (by remote) before a move (by local)', () => {
+			rebase(
+				doc(p('first paragraph'), p('second paragraph'))(schema),
+				(tr) => tr.addMark(7, 16, schema.marks.strong.create({})),
+				(tr) => move(tr, { from: 0, to: 17 }, { from: 18 }, { addAnalyticsSteps: 1 }),
+				doc(p('second paragraph'), p('first ', strong('paragraph')))(schema),
+			);
+		});
+
+		it('[analytics steps between and before] preserves marks modified (by remote) before a move (by local)', () => {
+			rebase(
+				doc(p('first paragraph'), p('second paragraph'))(schema),
+				(tr) => tr.addMark(7, 16, schema.marks.strong.create({})),
+				(tr) => move(addAnalytics(tr), { from: 0, to: 17 }, { from: 18 }, { addAnalyticsSteps: 2 }),
+				doc(p('second paragraph'), p('first ', strong('paragraph')))(schema),
+			);
+		});
+
+		it('[analytics-before] preserves marks modified (by remote) before a move (by local)', () => {
+			rebase(
+				doc(p('first paragraph'), p('second paragraph'))(schema),
+				(tr) => tr.addMark(7, 16, schema.marks.strong.create({})),
+				(tr) => move(addAnalytics(tr), { from: 0, to: 17 }, { from: 18 }, { addAnalyticsSteps: 0 }),
+				doc(p('second paragraph'), p('first ', strong('paragraph')))(schema),
+			);
+		});
+
+		it('[analytics-after] preserves marks modified (by remote) before a move (by local)', () => {
+			rebase(
+				doc(p('first paragraph'), p('second paragraph'))(schema),
+				(tr) => tr.addMark(7, 16, schema.marks.strong.create({})),
+				(tr) => addAnalytics(move(tr, { from: 0, to: 17 }, { from: 18 }, { addAnalyticsSteps: 0 })),
+				doc(p('second paragraph'), p('first ', strong('paragraph')))(schema),
 			);
 		});
 	});

@@ -4,9 +4,11 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
+import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { ActionName, SmartLinkDirection, SmartLinkSize } from '../../../../../../constants';
-import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { Title } from '../../../elements';
 import ActionGroup from '../../action-group';
 import ElementGroup from '../../element-group';
@@ -83,36 +85,36 @@ describe('Block', () => {
 		});
 
 		describe('element', () => {
-			it('renders element with its size', async () => {
-				render(
-					<FlexibleUiContext.Provider value={context}>
+			ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
+				it('renders element with its size', async () => {
+					render(
 						<Block size={SmartLinkSize.Small} testId={testId}>
 							<Title />
-						</Block>
-					</FlexibleUiContext.Provider>,
-				);
+						</Block>,
+						{ wrapper: getFlexibleCardTestWrapper(context) },
+					);
 
-				const element = await screen.findByTestId('smart-element-link');
+					const element = await screen.findByTestId('smart-element-link');
 
-				expect(element).toHaveStyle(
-					'font: var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
-				);
-			});
+					expect(element).toHaveStyle(
+						'font: var(--ds-font-body-UNSAFE_small,normal 400 9pt/1pc ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
+					);
+				});
 
-			it('does not override element size', async () => {
-				render(
-					<FlexibleUiContext.Provider value={context}>
+				it('does not override element size', async () => {
+					render(
 						<Block size={SmartLinkSize.Small} testId={testId}>
 							<Title size={SmartLinkSize.Large} />
-						</Block>
-					</FlexibleUiContext.Provider>,
-				);
+						</Block>,
+						{ wrapper: getFlexibleCardTestWrapper(context) },
+					);
 
-				const element = await screen.findByTestId('smart-element-link');
+					const element = await screen.findByTestId('smart-element-link');
 
-				expect(element).toHaveStyle(
-					'font: var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
-				);
+					expect(element).toHaveStyle(
+						'font: var(--ds-font-body,normal 400 14px/20px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif);',
+					);
+				});
 			});
 		});
 

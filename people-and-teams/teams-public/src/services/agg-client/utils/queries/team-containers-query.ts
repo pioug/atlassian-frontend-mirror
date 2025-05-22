@@ -39,6 +39,11 @@ export const TeamContainersQuery = print(gql`
 									projectType
 									projectTypeName
 								}
+								... on LoomSpace {
+									id
+									loomSpaceName: name
+									url
+								}
 							}
 						}
 					}
@@ -61,7 +66,7 @@ export type TeamContainersQueryResponse = {
 				};
 				to: {
 					id: string;
-					data: JiraProject | ConfluenceSpace;
+					data: JiraProject | ConfluenceSpace | LoomSpace;
 				};
 			};
 		}>;
@@ -94,4 +99,11 @@ type ConfluenceSpace = {
 	icon: {
 		path: string;
 	};
+};
+
+type LoomSpace = {
+	__typename: 'LoomSpace';
+	id: string;
+	loomSpaceName: string;
+	url: string;
 };

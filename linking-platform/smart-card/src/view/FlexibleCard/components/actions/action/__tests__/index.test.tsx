@@ -12,8 +12,8 @@ import TestIcon from '@atlaskit/icon/core/migration/dashboard--activity';
 import { token } from '@atlaskit/tokens';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkSize } from '../../../../../../constants';
-import { FlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
 import { type InternalFlexibleUiOptions } from '../../../../types';
 import Action from '../index';
 import type { ActionProps } from '../types';
@@ -43,9 +43,7 @@ describe('Action', () => {
 	describe('as button', () => {
 		const setup = (props?: Partial<ActionProps>, ui?: InternalFlexibleUiOptions) =>
 			render(<Action onClick={() => {}} testId={testId} {...props} />, {
-				wrapper: ({ children }) => (
-					<FlexibleUiOptionContext.Provider value={ui}>{children}</FlexibleUiOptionContext.Provider>
-				),
+				wrapper: getFlexibleCardTestWrapper(undefined, ui),
 			});
 
 		const runTest = (ui?: InternalFlexibleUiOptions) => {
@@ -79,9 +77,8 @@ describe('Action', () => {
 				});
 				const testId = 'css';
 				render(
-					<FlexibleUiOptionContext.Provider value={ui}>
-						<Action content="spaghetti" onClick={() => {}} css={overrideCss} testId={testId} />
-					</FlexibleUiOptionContext.Provider>,
+					<Action content="spaghetti" onClick={() => {}} css={overrideCss} testId={testId} />,
+					{ wrapper: getFlexibleCardTestWrapper(undefined, ui) },
 				);
 				const action = await screen.findByTestId(`${testId}-button-wrapper`);
 				expect(action).toHaveStyle('font-style: italic');
@@ -136,38 +133,40 @@ describe('Action', () => {
 			});
 		};
 
-		ffTest.both('platform-linking-visual-refresh-v1', 'with fg', () => {
-			describe.each([true, false])('with ui.hideLegacyButton %s', (hideLegacyButton: boolean) => {
-				runTest({ hideLegacyButton });
+		ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
+			ffTest.both('platform-linking-visual-refresh-v1', 'with fg', () => {
+				describe.each([true, false])('with ui.hideLegacyButton %s', (hideLegacyButton: boolean) => {
+					runTest({ hideLegacyButton });
+				});
 			});
-		});
 
-		ffTest.on('platform-linking-visual-refresh-v1', 'with fg', () => {
-			ffTest.both('platform-linking-flexible-card-openness', 'with fg', () => {
-				describe.each([true, false])(
-					'with ui.removeBlockRestriction %s',
-					(removeBlockRestriction: boolean) => {
-						runTest({ removeBlockRestriction });
-					},
-				);
+			ffTest.on('platform-linking-visual-refresh-v1', 'with fg', () => {
+				ffTest.both('platform-linking-flexible-card-openness', 'with fg', () => {
+					describe.each([true, false])(
+						'with ui.removeBlockRestriction %s',
+						(removeBlockRestriction: boolean) => {
+							runTest({ removeBlockRestriction });
+						},
+					);
+				});
 			});
-		});
 
-		ffTest.off('platform-linking-visual-refresh-v1', 'with fg', () => {
-			describe('size', () => {
-				it.each([
-					[SmartLinkSize.XLarge, '1.5rem'],
-					[SmartLinkSize.Large, '1.5rem'],
-					[SmartLinkSize.Medium, '1rem'],
-					[SmartLinkSize.Small, '1rem'],
-				])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
-					const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
-					render(<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />);
+			ffTest.off('platform-linking-visual-refresh-v1', 'with fg', () => {
+				describe('size', () => {
+					it.each([
+						[SmartLinkSize.XLarge, '1.5rem'],
+						[SmartLinkSize.Large, '1.5rem'],
+						[SmartLinkSize.Medium, '1rem'],
+						[SmartLinkSize.Small, '1rem'],
+					])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
+						const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
+						render(<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />);
 
-					const element = await screen.findByTestId(`${testId}-icon`);
+						const element = await screen.findByTestId(`${testId}-icon`);
 
-					expect(element).toHaveStyle(`height: ${expectedSize}`);
-					expect(element).toHaveStyle(`width: ${expectedSize}`);
+						expect(element).toHaveStyle(`height: ${expectedSize}`);
+						expect(element).toHaveStyle(`width: ${expectedSize}`);
+					});
 				});
 			});
 		});

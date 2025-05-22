@@ -191,6 +191,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 现在，您可以在提示中粘贴指向 Jira 和 Confluence 内容的链接 🔗。',
   'fabric.editor.ai.experience.footerRightText.agents': '由 Rovo 提供技术支持',
+  'fabric.editor.ai.experience.generatingAiResponse': '正在生成',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence 无法处理您的请求，因为您的内容中包含指向 HIPAA 受限内容的链接。请移除这些链接，然后重试。',
   'fabric.editor.ai.experience.inputTooShortError': '内容太短，无法总结。请添加更多内容，然后重试。',
@@ -612,6 +613,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': '请尝试重新加载该页面。',
   'fabric.editor.offlineErrorFallbackHeading': '出错了！',
   'fabric.editor.on': '{formattingType}已开启',
+  'fabric.editor.openButtonTitle': '打开',
   'fabric.editor.openCellOptions': '打开单元格选项',
   'fabric.editor.openLink': '在新选项卡打开链接',
   'fabric.editor.orderedList': '有序列表',

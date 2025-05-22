@@ -36,6 +36,7 @@ export default {
   'fabric.editor.ai.atlas-prebuilt.atlasSummarizePageConfigItemDescription': 'Oppsummerer oppdateringens innhold',
   'fabric.editor.ai.commandPalette.promptBuilderForm.buttons.submit': 'Generer',
   'fabric.editor.ai.commandPalette.promptBuilderForm.generateContent.ariaLabel': 'Spør Atlassian Intelligence',
+  'fabric.editor.ai.config.item.action.edit': 'Rediger',
   'fabric.editor.ai.config.item.action.insert': 'Sett inn',
   'fabric.editor.ai.config.item.action.insertAtTop': 'Sett inn øverst',
   'fabric.editor.ai.config.item.action.insertBelow': 'Sett inn under',
@@ -204,6 +205,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Du kan nå lime inn koblinger 🔗 til Jira- og Confluence-innhold i ledetekstene.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Levert av Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Genererer',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence kan ikke behandle forespørselen din ettersom innholdet ditt inneholder koblinger til HIPAA-begrenset innhold. Fjern disse koblingene og prøv igjen.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -308,6 +310,7 @@ export default {
   'fabric.editor.codeblock.description': 'Vis kode med syntaksutheving',
   'fabric.editor.collapseNode': 'Minimer innhold',
   'fabric.editor.collapseTable': 'Minimer tabell',
+  'fabric.editor.colorPicker.menuLabel': 'Fargevelgermeny',
   'fabric.editor.columnDragHandle': 'Kolonnealternativer',
   'fabric.editor.columnMovedLeft': 'Kolonnen ble flyttet til venstre til {index} av {total}',
   'fabric.editor.columnMovedRight': 'Kolonnen ble flyttet til høyre til {index} av {total}',
@@ -640,6 +643,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Prøv å laste inn siden på nytt.',
   'fabric.editor.offlineErrorFallbackHeading': 'Noe gikk galt!',
   'fabric.editor.on': '{formattingType} på',
+  'fabric.editor.openButtonTitle': 'Åpen',
   'fabric.editor.openCellOptions': 'Åpne cellealternativer',
   'fabric.editor.openLink': 'Åpne kobling i en ny fane',
   'fabric.editor.orderedList': 'Nummerert liste',
@@ -709,6 +713,7 @@ export default {
   'fabric.editor.splitCell': 'Del celle',
   'fabric.editor.status': 'Status',
   'fabric.editor.status.description': 'Legg til en egendefinert statusetikett',
+  'fabric.editor.statusEditorLabel': 'Redigeringsmodul for status',
   'fabric.editor.statusPickerOpenedAlert':
     'Pop-up for å redigere status er åpnet. Trykk på Tab for å gå til pop-up-vinduet',
   'fabric.editor.statusPlaceholder': 'Angi en status',
@@ -813,6 +818,7 @@ export default {
   'fabric.editor.viewAndAddCommentsOnMedia': 'Vis og legg til kommentarer',
   'fabric.editor.viewCommentOnMedia': 'Vis kommentarer',
   'fabric.editor.viewMore': 'Vis mer',
+  'fabric.editor.viewMoreAriaLabel': 'Vis alle elementer',
   'fabric.editor.visit': 'Åpne koblingen i et nytt vindu',
   'fabric.editor.warning': 'Advarsel',
   'fabric.editor.warningPanel': 'Advarselspanel',

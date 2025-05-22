@@ -4,8 +4,10 @@ import {
 	type MediaClient,
 	type FileState,
 	globalMediaEventEmitter,
+	type Identifier,
+	isFileIdentifier,
 } from '@atlaskit/media-client';
-import { CustomMediaPlayer, type WithShowControlMethodProp } from '@atlaskit/media-ui';
+import { CustomMediaPlayer, MediaPlayer, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { Outcome } from '../domain';
 import { MediaViewerError } from '../errors';
 import { Video, CustomVideoPlayerWrapper } from '../styleWrappers';
@@ -17,6 +19,7 @@ import { type MediaTraceContext } from '@atlaskit/media-common';
 
 export type Props = Readonly<
 	{
+		identifier: Identifier;
 		item: FileState;
 		mediaClient: MediaClient;
 		collectionName?: string;
@@ -74,7 +77,7 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 
 	protected renderSuccessful(content: string) {
 		const { isHDActive } = this.state;
-		const { item, showControls, previewCount } = this.props;
+		const { item, showControls, previewCount, identifier } = this.props;
 		const useCustomVideoPlayer = !isIE();
 		const isAutoPlay = previewCount === 0;
 
@@ -84,22 +87,41 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 			: isHDActive;
 		return useCustomVideoPlayer ? (
 			<CustomVideoPlayerWrapper data-testid="media-viewer-video-content">
-				<CustomMediaPlayer
-					type="video"
-					isAutoPlay={isAutoPlay}
-					onHDToggleClick={this.onHDChange}
-					showControls={showControls}
-					src={content}
-					fileId={item.id}
-					isHDActive={hdActiveOverride}
-					isHDAvailable={hdAvailable}
-					isShortcutEnabled={true}
-					onFirstPlay={this.onFirstPlay}
-					onError={this.onError}
-					lastWatchTimeConfig={{
-						contentId: item.id,
-					}}
-				/>
+				{isFileIdentifier(identifier) && fg('platform_media_video_captions') ? (
+					<MediaPlayer
+						identifier={identifier}
+						type="video"
+						isAutoPlay={isAutoPlay}
+						onHDToggleClick={this.onHDChange}
+						showControls={showControls}
+						src={content}
+						isHDActive={hdActiveOverride}
+						isHDAvailable={hdAvailable}
+						isShortcutEnabled={true}
+						onFirstPlay={this.onFirstPlay}
+						onError={this.onError}
+						lastWatchTimeConfig={{
+							contentId: item.id,
+						}}
+					/>
+				) : (
+					<CustomMediaPlayer
+						type="video"
+						isAutoPlay={isAutoPlay}
+						onHDToggleClick={this.onHDChange}
+						showControls={showControls}
+						src={content}
+						fileId={item.id}
+						isHDActive={hdActiveOverride}
+						isHDAvailable={hdAvailable}
+						isShortcutEnabled={true}
+						onFirstPlay={this.onFirstPlay}
+						onError={this.onError}
+						lastWatchTimeConfig={{
+							contentId: item.id,
+						}}
+					/>
+				)}
 			</CustomVideoPlayerWrapper>
 		) : (
 			<Video autoPlay={isAutoPlay} controls src={content} />

@@ -36,6 +36,7 @@ export default {
   'fabric.editor.ai.atlas-prebuilt.atlasSummarizePageConfigItemDescription': '最新情報を要約します',
   'fabric.editor.ai.commandPalette.promptBuilderForm.buttons.submit': '生成',
   'fabric.editor.ai.commandPalette.promptBuilderForm.generateContent.ariaLabel': 'Atlassian Intelligence に質問する',
+  'fabric.editor.ai.config.item.action.edit': '編集',
   'fabric.editor.ai.config.item.action.insert': '挿入',
   'fabric.editor.ai.config.item.action.insertAtTop': '最上部に挿入',
   'fabric.editor.ai.config.item.action.insertBelow': '下に挿入',
@@ -202,6 +203,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Jira と Confluence のコンテンツへのリンク 🔗 をプロンプトに貼り付けられるようになりました。',
   'fabric.editor.ai.experience.footerRightText.agents': 'Rovo を使用',
+  'fabric.editor.ai.experience.generatingAiResponse': '生成しています',
   'fabric.editor.ai.experience.hipaaContentError':
     'HIPAA の制限対象となるコンテンツへのリンクが含まれているため、Atlassian Intelligence はリクエストを処理できませんでした。これらのリンクを削除して、もう一度お試しください。',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -307,6 +309,7 @@ export default {
   'fabric.editor.codeblock.description': '構文をハイライトしてコードを表示',
   'fabric.editor.collapseNode': 'コンテンツを折りたたむ',
   'fabric.editor.collapseTable': 'テーブルを折りたたむ',
+  'fabric.editor.colorPicker.menuLabel': 'カラー ピッカー メニュー',
   'fabric.editor.columnDragHandle': '列オプション',
   'fabric.editor.columnMovedLeft': '列を左に移動しました。現在、全 {total} 列中 {index} 列目です',
   'fabric.editor.columnMovedRight': '列を右に移動しました。現在、全 {total} 列中 {index} 列目です',
@@ -638,6 +641,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'ページを再読み込みしてください。',
   'fabric.editor.offlineErrorFallbackHeading': 'エラーが発生しました。',
   'fabric.editor.on': '{formattingType}オン',
+  'fabric.editor.openButtonTitle': 'オープン',
   'fabric.editor.openCellOptions': 'セルのオプションを開く',
   'fabric.editor.openLink': 'リンクを新しいタブで開く',
   'fabric.editor.orderedList': '番号付きリスト',
@@ -707,6 +711,7 @@ export default {
   'fabric.editor.splitCell': 'セルを分割',
   'fabric.editor.status': 'ステータス',
   'fabric.editor.status.description': 'カスタム ステータス ラベルを追加',
+  'fabric.editor.statusEditorLabel': 'ステータス エディター',
   'fabric.editor.statusPickerOpenedAlert':
     'ステータス エディターのポップアップが開きました。Tab キーを押してポップアップにアクセスしてください',
   'fabric.editor.statusPlaceholder': 'ステータスを設定',
@@ -811,6 +816,7 @@ export default {
   'fabric.editor.viewAndAddCommentsOnMedia': 'コメントを表示および追加',
   'fabric.editor.viewCommentOnMedia': 'コメントを見る',
   'fabric.editor.viewMore': 'さらに表示',
+  'fabric.editor.viewMoreAriaLabel': 'すべての要素を表示',
   'fabric.editor.visit': 'リンクを新しいウィンドウで開く',
   'fabric.editor.warning': '警告',
   'fabric.editor.warningPanel': '警告パネル',

@@ -55,6 +55,7 @@ const LayeredLink = ({ onClick, target, testId, text, url }: LayeredLinkProps) =
 	const onMouseDown = useMouseDownEvent();
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="layered-link"

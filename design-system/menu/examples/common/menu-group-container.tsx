@@ -2,23 +2,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const baseStyles = xcss({
-	backgroundColor: 'elevation.surface.overlay',
-	boxShadow: 'elevation.shadow.overlay',
-	borderRadius: 'border.radius',
-	marginBlock: 'space.050',
-	marginInline: 'auto',
-	maxWidth: '320px',
-});
-
-const growingStyles = xcss({
-	minWidth: '320px',
-	maxWidth: '100%',
+const styles = cssMap({
+	base: {
+		backgroundColor: token('elevation.surface.overlay'),
+		boxShadow: token('elevation.shadow.overlay'),
+		borderRadius: token('border.radius'),
+		marginBlock: token('space.050'),
+		marginInline: 'auto',
+		maxWidth: '320px',
+	},
+	growing: {
+		minWidth: '320px',
+		maxWidth: '100%',
+	},
 });
 
 type MenuGroupContainer = {
@@ -27,7 +28,7 @@ type MenuGroupContainer = {
 };
 
 const MenuGroupContainer = ({ children, growing }: MenuGroupContainer) => {
-	return <Box xcss={[baseStyles, growing && growingStyles]}>{children}</Box>;
+	return <Box xcss={cx(styles.base, growing && styles.growing)}>{children}</Box>;
 };
 
 export default MenuGroupContainer;

@@ -192,6 +192,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Bạn hiện có thể dán liên kết 🔗 tới nội dung Jira và Confluence vào lời nhắc của mình.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Được hỗ trợ bởi Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Đang tạo',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence không thể xử lý yêu cầu của bạn vì nội dung của bạn có chứa các liên kết đến nội dung bị hạn chế của HIPAA. Vui lòng xóa những liên kết này và thử lại.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -631,6 +632,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Hãy thử tải lại trang.',
   'fabric.editor.offlineErrorFallbackHeading': 'Đã xảy ra lỗi!',
   'fabric.editor.on': '{formattingType} đang bật',
+  'fabric.editor.openButtonTitle': 'Mở',
   'fabric.editor.openCellOptions': 'Mở tùy chọn ô',
   'fabric.editor.openLink': 'Mở liên kết trong tab mới',
   'fabric.editor.orderedList': 'Danh sách được đánh số',

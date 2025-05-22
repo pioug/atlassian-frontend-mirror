@@ -657,6 +657,8 @@ const telepointerColorStyle = (backgroundColor: string, textColor: string, index
 };
 
 export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
+export const TELEPOINTER_PULSE_CLASS = 'telepointer-pulse-animate';
+export const TELEPOINTER_DATA_SESSION_ID_ATTR = 'data-telepointer-sessionid';
 
 // ED-22557: Safely convert to object styling
 // Disable top: -14px since it is necessary to align to cursor
@@ -699,6 +701,37 @@ export const telepointerStyleWithInitialOnly = css`
 // Disable top: -14px since it is necessary to align to cursor
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const telepointerStyle = css`
+	@keyframes pulseIn {
+		0%,
+		100% {
+			transform: scaleX(0);
+			opacity: 0;
+		}
+		13% {
+			transform: scaleX(1.4) scaleY(1.4);
+			opacity: 1;
+		}
+		20%,
+		85% {
+			transform: scaleX(1) scaleY(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes pulseOut {
+		0%,
+		90%,
+		100% {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+		10%,
+		80% {
+			transform: scaleX(0);
+			opacity: 0;
+		}
+	}
+
 	.ProseMirror .telepointer {
 		position: relative;
 		transition: opacity 200ms;
@@ -733,10 +766,20 @@ export const telepointerStyle = css`
 			.telepointer-fullname {
 				opacity: 0;
 				transform: scaleX(0);
-				transform-origin: left;
+				transform-origin: top left;
 				transition:
 					transform 0.15s ease-out,
 					opacity 0.15s ease-out;
+			}
+		}
+
+		&.${TELEPOINTER_PULSE_CLASS} {
+			.telepointer-initial {
+				animation: pulseOut 2s ease-in-out;
+			}
+
+			.telepointer-fullname {
+				animation: pulseIn 2s ease-in-out;
 			}
 		}
 
@@ -747,7 +790,7 @@ export const telepointerStyle = css`
 			}
 
 			.telepointer-fullname {
-				transform: scaleX(100%);
+				transform: scaleX(1);
 				opacity: 1;
 				z-index: 1;
 			}

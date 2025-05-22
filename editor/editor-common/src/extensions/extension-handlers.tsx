@@ -3,29 +3,35 @@ import React from 'react';
 import type { LoadingComponentProps } from 'react-loadable';
 import Loadable from 'react-loadable';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import type {
 	ExtensionParams,
 	MultiBodiedExtensionActions,
 	ReferenceEntity,
 } from './types/extension-handler';
-import type { ExtensionKey, ExtensionType } from './types/extension-manifest';
+import type {
+	ExtensionKey,
+	ExtensionManifest,
+	ExtensionModuleNode,
+	ExtensionType,
+	PreloadableExtensionModuleNode,
+} from './types/extension-manifest';
 import type { Parameters } from './types/extension-parameters';
 import type { ExtensionProvider } from './types/extension-provider';
 
-export async function getExtensionModuleNode(
-	extensionProvider: ExtensionProvider,
+function getNodeFromManifest(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	manifest: ExtensionManifest<any> | undefined,
+	extKey: string,
+	nodeKey: string,
 	extensionType: ExtensionType,
 	extensionKey: ExtensionKey,
 ) {
-	const [extKey, nodeKey] = getExtensionKeyAndNodeKey(extensionKey, extensionType);
-
-	const manifest = await extensionProvider.getExtension(extensionType, extKey);
-
 	if (!manifest) {
 		throw new Error(`Extension with key "${extKey}" and type "${extensionType}" not found!`);
 	}
-
 	if (!manifest.modules.nodes) {
 		throw new Error(
 			`Couldn't find any node for extension type "${extensionType}" and key "${extensionKey}"!`,
@@ -33,14 +39,41 @@ export async function getExtensionModuleNode(
 	}
 
 	const node = manifest.modules.nodes[nodeKey];
-
 	if (!node) {
 		throw new Error(
 			`Node with key "${extensionKey}" not found on manifest for extension type "${extensionType}" and key "${extensionKey}"!`,
 		);
 	}
-
 	return node;
+}
+
+export async function getExtensionModuleNode(
+	extensionProvider: ExtensionProvider,
+	extensionType: ExtensionType,
+	extensionKey: ExtensionKey,
+) {
+	const [extKey, nodeKey] = getExtensionKeyAndNodeKey(extensionKey, extensionType);
+	const manifest = await extensionProvider.getExtension(extensionType, extKey);
+	return getNodeFromManifest(manifest, extKey, nodeKey, extensionType, extensionKey);
+}
+
+export function getExtensionModuleNodeMaybePreloaded(
+	extensionProvider: ExtensionProvider,
+	extensionType: ExtensionType,
+	extensionKey: ExtensionKey,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<ExtensionModuleNode<any>> | ExtensionModuleNode<any> {
+	const [extKey, nodeKey] = getExtensionKeyAndNodeKey(extensionKey, extensionType);
+	const manifest = extensionProvider?.getPreloadedExtension?.(extensionType, extKey);
+	if (manifest) {
+		return getNodeFromManifest(manifest, extKey, nodeKey, extensionType, extensionKey);
+	} else {
+		return extensionProvider
+			.getExtension(extensionType, extKey)
+			.then((manifest) =>
+				getNodeFromManifest(manifest, extKey, nodeKey, extensionType, extensionKey),
+			);
+	}
 }
 
 /**
@@ -95,9 +128,28 @@ export function getNodeRenderer<T extends Parameters>(
 		any
 	>({
 		loader: () => {
-			return getExtensionModuleNode(extensionProvider, extensionType, extensionKey).then((node) =>
-				resolveImport(node.render()),
-			);
+			if (fg('confluence_preload_extension_providers')) {
+				// Logic here is specific to Confluence because it doesn't use the original react-loadable.
+				// The library is replaced with a custom one that supports synchronous return value from loader.
+				const maybePromise = getExtensionModuleNodeMaybePreloaded(
+					extensionProvider,
+					extensionType,
+					extensionKey,
+				);
+				if (maybePromise instanceof Promise) {
+					return maybePromise.then((node) => resolveImport(node.render()));
+				} else {
+					// maybePromise is sync here
+					const preloaded = (maybePromise as PreloadableExtensionModuleNode)?.renderSync?.();
+					// Note resolveImport is still async but we are not waiting on a already-fulfilled value.
+					// It is fast enough to not flip back to loading.
+					return resolveImport(preloaded ? preloaded : maybePromise.render());
+				}
+			} else {
+				return getExtensionModuleNode(extensionProvider, extensionType, extensionKey).then((node) =>
+					resolveImport(node.render()),
+				);
+			}
 		},
 		loading: ExtensionLoading,
 	});

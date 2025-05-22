@@ -504,6 +504,20 @@ describe('ShareDialogContainer', () => {
 				expect(err).toEqual('error');
 			}
 		});
+
+		it('should call props.onSubmit if provided with extra custom field values', () => {
+			const mockOnSubmit = jest.fn();
+			const wrapper = getWrapper({ onSubmit: mockOnSubmit });
+			const mockDialogContentState = {
+				users: mockUsers,
+				comment: mockComment,
+				userRole: 'viewer',
+			};
+			wrapper.instance().handleSubmitShare(mockDialogContentState);
+			wrapper.instance().forceUpdate();
+			expect(mockOnSubmit).toHaveBeenCalledTimes(1);
+			expect(mockOnSubmit).toHaveBeenCalledWith(mockDialogContentState);
+		});
 	});
 
 	describe('url shortening', () => {

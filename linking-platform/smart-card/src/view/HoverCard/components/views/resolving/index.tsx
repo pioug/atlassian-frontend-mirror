@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
 import { LoadingSkeleton } from '../../../../FlexibleCard/components/common/loading-skeleton';
-import Icon from '../../../../FlexibleCard/components/elements/icon';
+import IconElement from '../../../../FlexibleCard/components/elements/icon-element';
 import { CARD_WIDTH_REM } from '../../../styled';
 
 import { type HoverCardLoadingViewProps } from './types';
@@ -61,7 +61,7 @@ const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) =>
 		<div css={loadingViewContainer} data-testid={testId}>
 			<div css={skeletonContainer}>
 				<CustomBlock {...titleBlockProps} css={titleBlockStyles} testId={`${testId}-title-block`}>
-					<Icon render={() => <LoadingSkeleton />} size={size} />
+					<IconElement render={() => <LoadingSkeleton />} size={size} />
 					<span css={titleStyle} data-testid={`${testId}-title`}>
 						<LoadingSkeleton height={`${lineHeightRem}rem`} />
 					</span>

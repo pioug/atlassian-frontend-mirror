@@ -206,6 +206,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Nyní můžete do výzev vkládat odkazy 🔗 na obsah Jira a Confluence.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Využívá technologii Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Generuje se',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence nedokázala zpracovat vaši žádost, protože váš obsah obsahuje odkazy na obsah omezený HIPAA. Odeberte tyto odkazy a zkuste to znovu.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -650,6 +651,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Zkuste stránku načíst znovu.',
   'fabric.editor.offlineErrorFallbackHeading': 'Něco se pokazilo',
   'fabric.editor.on': '{formattingType} zapnuto',
+  'fabric.editor.openButtonTitle': 'Otevřený',
   'fabric.editor.openCellOptions': 'Otevřít možnosti buňky',
   'fabric.editor.openLink': 'Otevřít odkaz na nové kartě',
   'fabric.editor.orderedList': 'Číslovaný seznam',

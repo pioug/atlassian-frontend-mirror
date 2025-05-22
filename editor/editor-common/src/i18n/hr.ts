@@ -544,7 +544,7 @@ export default {
   'fabric.editor.expandNode': 'Proširi sadržaj',
   'fabric.editor.expandPlaceholder': 'Dodijeli naslov ovom proširenju...',
   'fabric.editor.extension.confirmDeleteLinkedModalMessage':
-    'Brisanje {nodeName} prekinit će sve što je povezano s njim.',
+    'Brisanje {nodeName} prekinut će sve što je povezano s njim.',
   'fabric.editor.extension.confirmDeleteLinkedModalMessagePrefix': 'Brisanje',
   'fabric.editor.extension.confirmDeleteLinkedModalOKButton': 'Izbriši',
   'fabric.editor.extension.deleteElementTitle': 'Izbriši element',

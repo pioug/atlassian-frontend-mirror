@@ -214,6 +214,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Ora puoi incollare link 🔗 ai contenuti di Jira e Confluence nei tuoi prompt.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Con tecnologia Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Generazione in corso',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence non ha potuto elaborare la tua richiesta in quanto nel contenuto sono presenti link a contenuti soggetti a restrizioni HIPAA. Rimuovi questi link e riprova.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -663,6 +664,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Prova a ricaricare la pagina.',
   'fabric.editor.offlineErrorFallbackHeading': 'Si è verificato un problema.',
   'fabric.editor.on': '{formattingType} attiva',
+  'fabric.editor.openButtonTitle': 'Apri',
   'fabric.editor.openCellOptions': 'Apri opzioni cella',
   'fabric.editor.openLink': 'Apri link in una nuova scheda',
   'fabric.editor.orderedList': 'Elenco numerato',

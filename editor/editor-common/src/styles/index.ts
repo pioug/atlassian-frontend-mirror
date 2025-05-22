@@ -75,6 +75,7 @@ export {
 	resizerHandleClassName,
 	resizerHandleTrackClassName,
 	resizerHandleThumbClassName,
+	pragmaticResizerStyles,
 } from './shared/resizer';
 export { gridStyles, GRID_GUTTER } from './shared/grid';
 export {

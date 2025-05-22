@@ -381,20 +381,14 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		});
 
 		if (hoverableReactionPicker) {
-			if (isTriggerClicked) {
-				// if the button was previously clicked, close the popup and reset the state
+			if (isHoverableReactionPickerEmojiPickerOpen || isTriggerClicked) {
+				// if either the emoji picker is open or the trigger was clicked, close the popup and reset the state
 				setIsTriggerClicked(false);
 				setIsPopupTrayOpen(false, true);
 			} else {
-				if (isHoverableReactionPickerEmojiPickerOpen) {
-					// if the emoji picker is open, close the popup and reset the state
-					setIsTriggerClicked(false);
-					setIsPopupTrayOpen(false, true);
-				} else {
-					// if the button was not previously clicked, open the popup and set the state
-					setIsTriggerClicked(true);
-					setIsPopupTrayOpen(true, true);
-				}
+				// if neither condition is true, open the popup and set the state
+				setIsTriggerClicked(true);
+				setIsPopupTrayOpen(true, true);
 			}
 			// close the emoji picker
 			setIsHoverableReactionPickerEmojiPickerOpen(false);

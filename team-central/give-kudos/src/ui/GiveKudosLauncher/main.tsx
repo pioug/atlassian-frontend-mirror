@@ -291,9 +291,12 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const recipientParam = props.recipient
 		? `&type=${props.recipient.type}&recipientId=${props.recipient.recipientId}`
 		: '';
+	const populateRecipientsViaParam = props.prepopulateRecipientsVia
+		? `&entityType=${props.prepopulateRecipientsVia.entityType}&entityARI=${props.prepopulateRecipientsVia.entityARI}`
+		: '';
 	const giveKudosUrl = `${props.teamCentralBaseUrl}/give-kudos?cloudId=${
 		props.cloudId
-	}${recipientParam}&unsavedMessage=${intl.formatMessage(messages.unsavedKudosWarning)}`;
+	}${recipientParam}${populateRecipientsViaParam}&unsavedMessage=${intl.formatMessage(messages.unsavedKudosWarning)}`;
 
 	const renderDrawer = useMemo(() => {
 		if (props.isOpen) {

@@ -3,11 +3,13 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import Link from '@atlaskit/link';
 import {
 	CardClient as Client,
 	type EnvironmentsKeys,
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -79,12 +81,22 @@ export const SmartLinksShowcase = () => {
 						<p>
 							We know it's not a usual "log in" but we need to acquire ASAP-signed JWT token through
 							a micros static server for our Atlaskit examples.{' '}
-							<a
-								href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
-								target="_blank"
-							>
-								Read more about that here.
-							</a>
+							{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+								<Link
+									href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
+									target="_blank"
+								>
+									Read more about that here.
+								</Link>
+							) : (
+								// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+								<a
+									href="https://product-fabric.atlassian.net/wiki/spaces/MEX/pages/3057025945"
+									target="_blank"
+								>
+									Read more about that here.
+								</a>
+							)}
 						</p>
 						<p>
 							To access the links login to start. Atlassian products' production links including
@@ -94,6 +106,7 @@ export const SmartLinksShowcase = () => {
 				}
 			>
 				{(tooltipProps) => (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 					<a href={envUrl} target="_blank" {...tooltipProps}>
 						To load links, please login to start
 					</a>

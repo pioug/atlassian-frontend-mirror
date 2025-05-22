@@ -15,6 +15,7 @@ import { type IconButtonProps } from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { CheckboxField, Field, useFormState } from '@atlaskit/form';
 import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import Select, { ValueType } from '@atlaskit/select';
@@ -239,6 +240,8 @@ const options: SelectOption[] = [
 const AdditionalUserFields = () => {
 	const formData = useFormState<ShareFormProps>();
 
+	const [currentOption, setCurrentOption] = useState<SelectOption>(options[0]);
+
 	if (
 		formData?.values &&
 		'userAccessLevel' in formData.values &&
@@ -250,10 +253,17 @@ const AdditionalUserFields = () => {
 	return (
 		<Box xcss={styles}>
 			<Field<ValueType<SelectOption>> name="userRole">
-				{({ fieldProps }) => (
+				{({ fieldProps: { onChange, ...rest } }) => (
 					<Select<SelectOption>
-						{...fieldProps}
-						value={options[0]}
+						{...rest}
+						onChange={(e) => {
+							if (!e) {
+								return;
+							}
+							setCurrentOption(e);
+							onChange(e);
+						}}
+						value={currentOption}
 						options={options}
 						styles={{
 							control: (css: any) => {
@@ -353,6 +363,8 @@ const Globe = () => <WorldIcon color="currentColor" spacing="spacious" label="" 
 export default function Example() {
 	const [state, _setState] = useState<State>(defaultProps);
 
+	setBooleanFeatureFlagResolver((name: string) => name === 'share-compiled-migration');
+
 	const share = (
 		_content: Content,
 		_users: User[],
@@ -438,6 +450,9 @@ export default function Example() {
 									isBrowseUsersDisabled={state.isBrowseUsersDisabled}
 									isExtendedShareDialogEnabled
 									additionalUserFields={<AdditionalUserFields />}
+									onSubmit={(formValues) => {
+										console.log(formValues);
+									}}
 								/>
 							</WrapperWithMarginTop>
 						</>

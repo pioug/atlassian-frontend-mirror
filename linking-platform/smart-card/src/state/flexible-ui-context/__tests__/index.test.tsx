@@ -1,43 +1,50 @@
-import React from 'react';
+import { renderHook } from '@testing-library/react-hooks';
 
-import { renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { SmartLinkSize } from '../../../constants';
-import {
-	FlexibleUiContext,
-	FlexibleUiOptionContext,
-	useFlexibleUiContext,
-	useFlexibleUiOptionContext,
-} from '../index';
+import { getFlexibleCardTestWrapper } from '../../../__tests__/__utils__/unit-testing-library-helpers';
+import { SmartLinkSize, SmartLinkStatus } from '../../../constants';
+import { useFlexibleCardContext, useFlexibleUiContext, useFlexibleUiOptionContext } from '../index';
+
+describe('useFlexibleCardContext', () => {
+	ffTest.on('platform-linking-flexible-card-context', 'with fg', () => {
+		it('provides correct context to consumer', () => {
+			const data = { title: 'This is title.' };
+			const status = SmartLinkStatus.Resolved;
+			const ui = { size: SmartLinkSize.Small, zIndex: 20 };
+			const { current } = renderHook(() => useFlexibleCardContext(), {
+				wrapper: getFlexibleCardTestWrapper(data, ui),
+			}).result;
+
+			expect(current?.data).toEqual(data);
+			expect(current?.status).toEqual(status);
+			expect(current?.ui).toEqual(ui);
+		});
+	});
+});
 
 describe('useFlexibleUiContext', () => {
-	it('provides correct context to consumer', () => {
-		const context = { title: 'This is title.' };
-		const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
-			<FlexibleUiContext.Provider value={context}>{children}</FlexibleUiContext.Provider>
-		);
+	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
+		it('provides correct context to consumer', () => {
+			const context = { title: 'This is title.' };
+			const { current } = renderHook(() => useFlexibleUiContext(), {
+				wrapper: getFlexibleCardTestWrapper(context),
+			}).result;
 
-		const { current } = renderHook(() => useFlexibleUiContext(), {
-			wrapper,
-		}).result;
-
-		expect(current).toEqual(context);
+			expect(current).toEqual(context);
+		});
 	});
 });
 
 describe('useFlexibleUiOptionContext', () => {
-	it('provides correct context to consumer', () => {
-		const context = { size: SmartLinkSize.Small, zIndex: 20 };
-		const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
-			<FlexibleUiOptionContext.Provider value={context}>
-				{children}
-			</FlexibleUiOptionContext.Provider>
-		);
+	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
+		it('provides correct context to consumer', () => {
+			const ui = { size: SmartLinkSize.Small, zIndex: 20 };
+			const { current } = renderHook(() => useFlexibleUiOptionContext(), {
+				wrapper: getFlexibleCardTestWrapper(undefined, ui),
+			}).result;
 
-		const { current } = renderHook(() => useFlexibleUiOptionContext(), {
-			wrapper,
-		}).result;
-
-		expect(current).toEqual(context);
+			expect(current).toEqual(ui);
+		});
 	});
 });

@@ -53,51 +53,53 @@ describe('ForbiddenView', () => {
 		};
 	};
 
-	ffTest.both('smart_links_noun_support', 'with noun support', () => {
-		it('fires analytics event when button is clicked and access type is REQUEST_ACCESS', async () => {
-			const { findByTestId, onEventMock } = setup();
+	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
+		ffTest.both('smart_links_noun_support', 'with noun support', () => {
+			it('fires analytics event when button is clicked and access type is REQUEST_ACCESS', async () => {
+				const { findByTestId, onEventMock } = setup();
 
-			userEvent.setup();
-			const button = await findByTestId('smart-action-connect-other-account');
-			await userEvent.click(button);
+				userEvent.setup();
+				const button = await findByTestId('smart-action-connect-other-account');
+				await userEvent.click(button);
 
-			expect(onEventMock).toBeFiredWithAnalyticEventOnce({
-				payload: {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'requestAccess',
-					eventType: 'ui',
-				},
+				expect(onEventMock).toBeFiredWithAnalyticEventOnce({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'requestAccess',
+						eventType: 'ui',
+					},
+				});
 			});
-		});
 
-		it('fires analytics event when button is clicked and access type is DIRECT_ACCESS', async () => {
-			const { findByTestId, onEventMock } = setup({
-				cardState: {
-					...baseCardState,
-					details: {
-						...mocks.forbidden,
-						meta: {
-							...mocks.forbidden.meta,
-							requestAccess: {
-								accessType: 'DIRECT_ACCESS',
+			it('fires analytics event when button is clicked and access type is DIRECT_ACCESS', async () => {
+				const { findByTestId, onEventMock } = setup({
+					cardState: {
+						...baseCardState,
+						details: {
+							...mocks.forbidden,
+							meta: {
+								...mocks.forbidden.meta,
+								requestAccess: {
+									accessType: 'DIRECT_ACCESS',
+								},
 							},
 						},
 					},
-				},
-			});
+				});
 
-			userEvent.setup();
-			const button = await findByTestId('smart-action-connect-other-account');
-			await userEvent.click(button);
+				userEvent.setup();
+				const button = await findByTestId('smart-action-connect-other-account');
+				await userEvent.click(button);
 
-			expect(onEventMock).toBeFiredWithAnalyticEventOnce({
-				payload: {
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'crossJoin',
-					eventType: 'ui',
-				},
+				expect(onEventMock).toBeFiredWithAnalyticEventOnce({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'crossJoin',
+						eventType: 'ui',
+					},
+				});
 			});
 		});
 	});

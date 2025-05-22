@@ -114,6 +114,7 @@ describe('smart-card: card', () => {
 						onResolve={() => {
 							throw new Error('unexpected error');
 						}}
+						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 						fallbackComponent={() => <a>Hello I am fallback component</a>}
 					/>
 				</Provider>,

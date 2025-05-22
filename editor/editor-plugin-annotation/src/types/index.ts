@@ -260,17 +260,25 @@ export type InlineCommentCompoundExperience = {
 	};
 };
 
+export type SelectAbortReasons = 'test abort' | 'Comment being resolved';
+export type SelectParentAbortReasons =
+	| 'Parent experience aborting with reason: test abort'
+	| 'Parent experience aborting with reason: Comment being resolved';
+
 export type SelectInlineCommentCompoundExperience = {
 	_start: (startAttributes: StartAttributes) => void;
 	addCommonAttributes: (additionalCommonAttributes: {
 		[key: string]: boolean | null | number | string | undefined | Array<number | string>;
 	}) => void;
-	abort: (params: { abortReason: 'test abort' }) => void;
+	abort: (params: { abortReason: SelectAbortReasons; abortSubexperiences?: boolean }) => void;
 	selectAnnotation: {
 		debug: ExperienceDebugFunction;
 		start: (startAttributes: StartAttributes) => void;
 		abort: (params: {
-			abortReason: 'Comment navigation when only one comment' | 'Navigating to general comment';
+			abortReason:
+				| 'Comment navigation when only one comment'
+				| 'Navigating to general comment'
+				| SelectParentAbortReasons;
 		}) => void;
 		complete: (startAttributes: StartAttributes) => void;
 	};
@@ -285,7 +293,8 @@ export type SelectInlineCommentCompoundExperience = {
 			abortReason:
 				| 'Non inline comment being shown'
 				| 'Comment sidebar dismissed'
-				| 'InlineComment component unmounted';
+				| 'InlineComment component unmounted'
+				| SelectParentAbortReasons;
 		}) => void;
 		fail: (error: Error, extraAttributes?: { misalignedBy: number }) => void;
 		complete: () => void;

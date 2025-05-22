@@ -709,7 +709,7 @@ const MediaSingleNodeWrapper = ({
 				view={view}
 				fullWidthMode={fullWidthMode}
 				selected={
-					fg('platform_editor_no_selection_until_interaction') ? isSelectedAndInteracted : selected
+					fg('platform_editor_no_cursor_on_live_doc_init') ? isSelectedAndInteracted : selected
 				}
 				eventDispatcher={eventDispatcher}
 				addPendingTask={addPendingTask}
@@ -737,7 +737,7 @@ const MediaSingleNodeWrapper = ({
 			view={view}
 			fullWidthMode={fullWidthMode}
 			selected={
-				fg('platform_editor_no_selection_until_interaction') ? isSelectedAndInteracted : selected
+				fg('platform_editor_no_cursor_on_live_doc_init') ? isSelectedAndInteracted : selected
 			}
 			eventDispatcher={eventDispatcher}
 			addPendingTask={addPendingTask}

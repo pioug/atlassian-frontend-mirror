@@ -2,26 +2,20 @@ import React from 'react';
 
 import { render, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import '@atlaskit/link-test-helpers/jest';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import type { AISummaryState } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import AISummaryAction from '../index';
 import type { AISummaryActionProps } from '../types';
-
-jest.mock('../../../../../../state/flexible-ui-context', () => ({
-	...jest.requireActual('../../../../../../state/flexible-ui-context'),
-	useFlexibleUiContext: jest.fn(),
-}));
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn(),
@@ -39,8 +33,6 @@ describe('AISummaryAction', () => {
 		const mockSummariseUrl = jest.fn();
 		const mockAISummaryState: AISummaryState = { status: 'ready', content: '' };
 
-		jest.mocked(useFlexibleUiContext).mockImplementation(() => overrideContext || mockContext);
-
 		jest.mocked(useAISummary).mockImplementation((_props) => ({
 			state: overrideAiSummaryState || mockAISummaryState,
 			summariseUrl: mockSummariseUrl.mockResolvedValue(
@@ -50,238 +42,237 @@ describe('AISummaryAction', () => {
 
 		const renderResult = render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
-				<IntlProvider locale="en">
-					<SmartCardProvider>
-						<AISummaryAction {...props} as="stack-item" testId={testId} />
-					</SmartCardProvider>
-				</IntlProvider>
+				<AISummaryAction {...props} as="stack-item" testId={testId} />
 			</AnalyticsListener>,
+			{ wrapper: getFlexibleCardTestWrapper(overrideContext || mockContext) },
 		);
 
 		return { ...renderResult, onEvent, mockSummariseUrl };
 	};
 
-	it('renders AI summary action if action data is present', async () => {
-		const { findByTestId } = setup({ as: 'stack-item' });
+	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
+		it('renders AI summary action if action data is present', async () => {
+			const { findByTestId } = setup({ as: 'stack-item' });
 
-		const element = await findByTestId(`${testId}-summarise-action`);
+			const element = await findByTestId(`${testId}-summarise-action`);
 
-		expect(element).toBeInTheDocument();
-		expect(element).toHaveTextContent('Summarize with AI');
-	});
-
-	it('does not render AI summary action if action data is not present', async () => {
-		const { queryByTestId } = setup(
-			{},
-			{
-				...mockContext,
-				actions: { ...mockContext.actions, AISummaryAction: undefined },
-			},
-		);
-
-		expect(queryByTestId(`${testId}--summarise-action`)).toBeNull();
-	});
-
-	it('invokes the onClick callback when the action is clicked', async () => {
-		const onClick = jest.fn();
-		const { getByTestId } = setup({ onClick });
-
-		getByTestId(`${testId}-summarise-action`).click();
-
-		expect(onClick).toHaveBeenCalledTimes(1);
-	});
-
-	it('does not invoke the onClick callback when the action is clicked and status is loading', async () => {
-		const onClick = jest.fn();
-		const { getByTestId } = setup({ onClick }, undefined, {
-			status: 'loading',
-			content: 'some partial content',
+			expect(element).toBeInTheDocument();
+			expect(element).toHaveTextContent('Summarize with AI');
 		});
 
-		getByTestId(`${testId}-summarise-action`).click();
+		it('does not render AI summary action if action data is not present', async () => {
+			const { queryByTestId } = setup(
+				{},
+				{
+					...mockContext,
+					actions: { ...mockContext.actions, AISummaryAction: undefined },
+				},
+			);
 
-		expect(onClick).not.toHaveBeenCalled();
-	});
-
-	it('invokes the summariseUrl function when the action is clicked', async () => {
-		const { getByTestId, mockSummariseUrl } = setup();
-
-		getByTestId(`${testId}-summarise-action`).click();
-
-		expect(mockSummariseUrl).toHaveBeenCalledTimes(1);
-	});
-
-	it('does not invoke the summariseUrl function when the action is clicked and status is loading', async () => {
-		const { getByTestId, mockSummariseUrl } = setup({}, undefined, {
-			status: 'loading',
-			content: 'some partial content',
+			expect(queryByTestId(`${testId}--summarise-action`)).toBeNull();
 		});
 
-		getByTestId(`${testId}-summarise-action`).click();
-
-		expect(mockSummariseUrl).not.toHaveBeenCalled();
-	});
-
-	it('calls onErrorCallback on error', async () => {
-		const user = userEvent.setup();
-
-		const onError = jest.fn();
-
-		const { findByTestId } = setup({ as: 'stack-item', onError }, undefined, {
-			status: 'error',
-			content: '',
-			error: 'NETWORK_ERROR',
-		});
-
-		const element = await findByTestId(`${testId}-summarise-action`);
-
-		await user.click(element);
-
-		expect(onError).toHaveBeenCalledTimes(1);
-		expect(onError).toHaveBeenCalledWith(
-			expect.objectContaining({
-				appearance: 'error',
-				title: expect.any(Object),
-			}),
-		);
-	});
-
-	it('fires expected analytics event when clicked', async () => {
-		const { onEvent, getByTestId } = setup();
-
-		await userEvent.click(getByTestId(`${testId}-summarise-action`));
-
-		expect(onEvent).toBeFiredWithAnalyticEventOnce({
-			payload: {
-				action: 'clicked',
-				actionSubject: 'button',
-				eventType: 'ui',
-				actionSubjectId: 'aiSummary',
-			},
-		});
-	});
-
-	it('invokes onLoadingChange callback when status changes', async () => {
-		const onLoadingChange = jest.fn();
-
-		setup({ onLoadingChange }, undefined, { status: 'loading', content: '' });
-
-		expect(onLoadingChange).toHaveBeenCalledTimes(1);
-		expect(onLoadingChange).toHaveBeenCalledWith(true);
-	});
-
-	describe('Copy Summary action', () => {
-		it('renders copy summary action if summary generation is complete', async () => {
-			const { queryByTestId } = setup({}, undefined, {
-				status: 'done',
-				content: 'some fake content',
-			});
-
-			expect(queryByTestId(`${testId}-copy-summary-action`)).toBeInTheDocument();
-		});
-
-		it('copies summary if copy summary action is clicked', async () => {
-			userEvent.setup();
-
-			const testContent = 'some test content';
-
-			const { getByTestId } = setup(undefined, undefined, {
-				status: 'done',
-				content: testContent,
-			});
-
-			await userEvent.click(getByTestId(`${testId}-copy-summary-action`));
-
-			const text = await navigator.clipboard.readText();
-
-			expect(text).toBe(testContent);
-		});
-
-		it('invokes callback if copy summary action is clicked', async () => {
+		it('invokes the onClick callback when the action is clicked', async () => {
 			const onClick = jest.fn();
+			const { getByTestId } = setup({ onClick });
 
-			const { getByTestId } = setup({ onClick }, undefined, {
-				status: 'done',
-				content: 'some fake content',
-			});
-
-			await userEvent.click(getByTestId(`${testId}-copy-summary-action`));
+			getByTestId(`${testId}-summarise-action`).click();
 
 			expect(onClick).toHaveBeenCalledTimes(1);
 		});
 
-		it('renders expected tooltip', async () => {
-			userEvent.setup();
-
-			const { getByTestId, findByRole } = setup(undefined, undefined, {
-				status: 'done',
-				content: 'some fake content',
+		it('does not invoke the onClick callback when the action is clicked and status is loading', async () => {
+			const onClick = jest.fn();
+			const { getByTestId } = setup({ onClick }, undefined, {
+				status: 'loading',
+				content: 'some partial content',
 			});
 
-			const element = getByTestId(`${testId}-copy-summary-action`);
+			getByTestId(`${testId}-summarise-action`).click();
 
-			await userEvent.hover(element);
-
-			const tooltip = await findByRole('tooltip');
-			expect(tooltip).toHaveTextContent('Copy summary');
+			expect(onClick).not.toHaveBeenCalled();
 		});
 
-		it('renders updated tooltip after click', async () => {
-			userEvent.setup();
+		it('invokes the summariseUrl function when the action is clicked', async () => {
+			const { getByTestId, mockSummariseUrl } = setup();
 
-			const { getByTestId, findByRole } = setup(undefined, undefined, {
-				status: 'done',
-				content: 'some fake content',
-			});
+			getByTestId(`${testId}-summarise-action`).click();
 
-			const element = getByTestId(`${testId}-copy-summary-action`);
-
-			await userEvent.click(element);
-			await userEvent.hover(element);
-
-			const tooltip = await findByRole('tooltip');
-			expect(tooltip).toHaveTextContent('Copied summary to clipboard');
+			expect(mockSummariseUrl).toHaveBeenCalledTimes(1);
 		});
 
-		it('resets tooltip message after tooltip hides', async () => {
-			userEvent.setup();
-
-			const { findAllByText, queryAllByText, getByTestId } = setup(undefined, undefined, {
-				status: 'done',
-				content: 'some fake content',
+		it('does not invoke the summariseUrl function when the action is clicked and status is loading', async () => {
+			const { getByTestId, mockSummariseUrl } = setup({}, undefined, {
+				status: 'loading',
+				content: 'some partial content',
 			});
 
-			const element = getByTestId(`${testId}-copy-summary-action`);
+			getByTestId(`${testId}-summarise-action`).click();
 
-			await userEvent.click(element);
-			await findAllByText('Copied summary to clipboard');
+			expect(mockSummariseUrl).not.toHaveBeenCalled();
+		});
 
-			await userEvent.unhover(element);
-			await waitForElementToBeRemoved(() => queryAllByText(`Copied summary to clipboard`));
+		it('calls onErrorCallback on error', async () => {
+			const user = userEvent.setup();
 
-			await userEvent.hover(element);
+			const onError = jest.fn();
 
-			const tooltip = await findAllByText('Copy summary');
-			expect(tooltip).toBeTruthy();
+			const { findByTestId } = setup({ as: 'stack-item', onError }, undefined, {
+				status: 'error',
+				content: '',
+				error: 'NETWORK_ERROR',
+			});
+
+			const element = await findByTestId(`${testId}-summarise-action`);
+
+			await user.click(element);
+
+			expect(onError).toHaveBeenCalledTimes(1);
+			expect(onError).toHaveBeenCalledWith(
+				expect.objectContaining({
+					appearance: 'error',
+					title: expect.any(Object),
+				}),
+			);
 		});
 
 		it('fires expected analytics event when clicked', async () => {
-			userEvent.setup();
+			const { onEvent, getByTestId } = setup();
 
-			const { onEvent, getByTestId } = setup(undefined, undefined, {
-				status: 'done',
-				content: 'some test content',
-			});
-
-			await userEvent.click(getByTestId(`${testId}-copy-summary-action`));
+			await userEvent.click(getByTestId(`${testId}-summarise-action`));
 
 			expect(onEvent).toBeFiredWithAnalyticEventOnce({
 				payload: {
 					action: 'clicked',
 					actionSubject: 'button',
 					eventType: 'ui',
-					actionSubjectId: 'copySummary',
+					actionSubjectId: 'aiSummary',
 				},
+			});
+		});
+
+		it('invokes onLoadingChange callback when status changes', async () => {
+			const onLoadingChange = jest.fn();
+
+			setup({ onLoadingChange }, undefined, { status: 'loading', content: '' });
+
+			expect(onLoadingChange).toHaveBeenCalledTimes(1);
+			expect(onLoadingChange).toHaveBeenCalledWith(true);
+		});
+
+		describe('Copy Summary action', () => {
+			it('renders copy summary action if summary generation is complete', async () => {
+				const { queryByTestId } = setup({}, undefined, {
+					status: 'done',
+					content: 'some fake content',
+				});
+
+				expect(queryByTestId(`${testId}-copy-summary-action`)).toBeInTheDocument();
+			});
+
+			it('copies summary if copy summary action is clicked', async () => {
+				userEvent.setup();
+
+				const testContent = 'some test content';
+
+				const { getByTestId } = setup(undefined, undefined, {
+					status: 'done',
+					content: testContent,
+				});
+
+				await userEvent.click(getByTestId(`${testId}-copy-summary-action`));
+
+				const text = await navigator.clipboard.readText();
+
+				expect(text).toBe(testContent);
+			});
+
+			it('invokes callback if copy summary action is clicked', async () => {
+				const onClick = jest.fn();
+
+				const { getByTestId } = setup({ onClick }, undefined, {
+					status: 'done',
+					content: 'some fake content',
+				});
+
+				await userEvent.click(getByTestId(`${testId}-copy-summary-action`));
+
+				expect(onClick).toHaveBeenCalledTimes(1);
+			});
+
+			it('renders expected tooltip', async () => {
+				userEvent.setup();
+
+				const { getByTestId, findByRole } = setup(undefined, undefined, {
+					status: 'done',
+					content: 'some fake content',
+				});
+
+				const element = getByTestId(`${testId}-copy-summary-action`);
+
+				await userEvent.hover(element);
+
+				const tooltip = await findByRole('tooltip');
+				expect(tooltip).toHaveTextContent('Copy summary');
+			});
+
+			it('renders updated tooltip after click', async () => {
+				userEvent.setup();
+
+				const { getByTestId, findByRole } = setup(undefined, undefined, {
+					status: 'done',
+					content: 'some fake content',
+				});
+
+				const element = getByTestId(`${testId}-copy-summary-action`);
+
+				await userEvent.click(element);
+				await userEvent.hover(element);
+
+				const tooltip = await findByRole('tooltip');
+				expect(tooltip).toHaveTextContent('Copied summary to clipboard');
+			});
+
+			it('resets tooltip message after tooltip hides', async () => {
+				userEvent.setup();
+
+				const { findAllByText, queryAllByText, getByTestId } = setup(undefined, undefined, {
+					status: 'done',
+					content: 'some fake content',
+				});
+
+				const element = getByTestId(`${testId}-copy-summary-action`);
+
+				await userEvent.click(element);
+				await findAllByText('Copied summary to clipboard');
+
+				await userEvent.unhover(element);
+				await waitForElementToBeRemoved(() => queryAllByText(`Copied summary to clipboard`));
+
+				await userEvent.hover(element);
+
+				const tooltip = await findAllByText('Copy summary');
+				expect(tooltip).toBeTruthy();
+			});
+
+			it('fires expected analytics event when clicked', async () => {
+				userEvent.setup();
+
+				const { onEvent, getByTestId } = setup(undefined, undefined, {
+					status: 'done',
+					content: 'some test content',
+				});
+
+				await userEvent.click(getByTestId(`${testId}-copy-summary-action`));
+
+				expect(onEvent).toBeFiredWithAnalyticEventOnce({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'button',
+						eventType: 'ui',
+						actionSubjectId: 'copySummary',
+					},
+				});
 			});
 		});
 	});

@@ -103,7 +103,7 @@ export const commitStepQueue = ({
 	// - doesn't impact any indexes,
 	// - is setup for last write wins,
 	// - and is just a boolean -- so no real risk of data loss.
-	if (__livePage && fg('platform.editor.live-pages-expand-divergence')) {
+	if (__livePage) {
 		stepsWithClientAndUserId = stepsWithClientAndUserId.map((step: StepJson) => {
 			if (isExpandChangeStep(step)) {
 				// The title is also updated via this step, which we do want to send to the server.

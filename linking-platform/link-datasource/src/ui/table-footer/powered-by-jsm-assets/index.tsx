@@ -31,6 +31,7 @@ export const PoweredByJSMAssets = (props: { text: string }) => {
 
 	return (
 		<Box xcss={styles.jsmContainerStyles} padding="space.150">
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 			<a
 				data-testid={'powered-by-jsm-assets-link'}
 				onClick={() =>

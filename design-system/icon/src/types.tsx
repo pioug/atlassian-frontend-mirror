@@ -206,6 +206,7 @@ export interface UNSAFE_NewCoreGlyphProps
 		IconInternalGlyphProps {
 	type?: 'core';
 	size?: NewCoreIconSize;
+	shouldRecommendSmallIcon?: boolean;
 }
 
 export interface UNSAFE_NewUtilityGlyphProps

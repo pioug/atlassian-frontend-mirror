@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import LozengeActionTrigger from '../../src/view/FlexibleCard/components/elements/lozenge/lozenge-action/lozenge-action-trigger';
+import LozengeActionTrigger from '../../src/view/FlexibleCard/components/elements/common/base-lozenge-element/lozenge-action/lozenge-action-trigger';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 export default () => {

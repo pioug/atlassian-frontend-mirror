@@ -959,7 +959,7 @@ const smartCardStyles = css({
 });
 
 const smartCardStylesAvatarFix = css({
-	[`.${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
+	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
 		/* EDM-11991: Fix list plugin adding padding to ADS AvatarGroup start */
 		'ul, ol': {
 			paddingLeft: 'inherit',
@@ -969,7 +969,7 @@ const smartCardStylesAvatarFix = css({
 });
 
 const smartCardStylesAvatarMarginFix = css({
-	[`.${SmartCardSharedCssClassName.LOADER_WRAPPER}`]: {
+	[`.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}`]: {
 		'ul, ol': {
 			marginRight: 'inherit',
 		},

@@ -38,6 +38,7 @@ import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { keymapExtension } from './extensions/keymap';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
+import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension';
 import { LanguageLoader } from './languages/loader';
 
 interface ConfigProps {
@@ -120,6 +121,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				CodeMirror.editorAttributes.of({ class: 'code-block' }),
 				manageSelectionMarker(config.api),
 				prosemirrorDecorationPlugin(this.pmFacet, view, getPos),
+				tripleClickSelectAllExtension(),
 			],
 		});
 

@@ -175,6 +175,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 			integrationMode={integrationMode}
 			isMenuItemSelected={isMenuItemSelected}
 			shouldShowTitle={false}
+			isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 		>
 			{showIntegrationForm && selectedIntegration !== null ? (
 				<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>

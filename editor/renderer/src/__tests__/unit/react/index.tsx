@@ -41,7 +41,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { screen, waitFor, within } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
 const docFromSchema = schema.nodeFromJSON(doc);
@@ -765,44 +765,18 @@ describe('Renderer - ReactSerializer', () => {
 			});
 
 			it('should not have a heading anchor within a table', () => {
-				const heading1 = screen.getByRole('heading', {
-					name: 'Col1',
-				});
-				expect(within(heading1).queryByRole('button')).not.toBeInTheDocument();
-				const heading2 = screen.getByRole('heading', {
-					name: 'Col 2',
-				});
-				expect(within(heading2).queryByRole('button')).not.toBeInTheDocument();
-				const heading3 = screen.getByRole('heading', {
-					name: 'Col3',
-				});
-				expect(within(heading3).queryByRole('button')).not.toBeInTheDocument();
+				expect(screen.queryByLabelText('Col 1')).not.toBeInTheDocument();
+				expect(screen.queryByLabelText('Col 2')).not.toBeInTheDocument();
+				expect(screen.queryByLabelText('Col 3')).not.toBeInTheDocument();
 			});
 
 			it('should have heading anchor within a layout', () => {
-				const heading1 = screen.getByRole('heading', {
-					name: 'Header inside Layout Copy',
-				});
-				expect(
-					within(heading1).getByRole('button', {
-						name: 'Copy link to heading',
-					}),
-				).toBeEnabled(); // we've got the legacy support this already
-				const heading2 = screen.getByRole('heading', {
-					name: 'Header inside Layout 2 Copy',
-				});
-				expect(
-					within(heading2).getByRole('button', {
-						name: 'Copy link to heading',
-					}),
-				).toBeEnabled(); // we've got the legacy support this already
+				expect(screen.getByLabelText('Header inside Layout')).toBeEnabled();
+				expect(screen.getByLabelText('Header inside Layout 2')).toBeEnabled();
 			});
 
 			it('should not have heading anchor within a panel', () => {
-				const heading = screen.getByRole('heading', {
-					name: 'Header in a Panel',
-				});
-				expect(within(heading).queryByRole('button')).not.toBeInTheDocument();
+				expect(screen.queryByLabelText('Header in a Panel')).not.toBeInTheDocument();
 			});
 		});
 	});

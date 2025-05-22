@@ -51,6 +51,9 @@
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../media-client/tsconfig.app.json"
 		},
 		{
@@ -64,6 +67,9 @@
 		},
 		{
 			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

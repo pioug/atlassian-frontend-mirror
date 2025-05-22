@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.24.0
+
+### Minor Changes
+
+- [#158351](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158351)
+  [`33c33e91149a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33c33e91149a1) -
+  Cleaned up platform_editor_controls_shadow
+
+## 4.23.0
+
+### Minor Changes
+
+- [#151439](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/151439)
+  [`a5631e9713381`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5631e9713381) -
+  [EDITOR-724] Editor ai experiment set up + spike feature for quickstart command
+- [#156743](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156743)
+  [`1aa78352ee4a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aa78352ee4a9) -
+  Add platform_editor_breakout_resizing experiment
+
 ## 4.22.0
 
 ### Minor Changes

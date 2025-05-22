@@ -37,6 +37,7 @@
 		"@atlaskit/focus-ring": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -104,6 +105,9 @@
 	"platform-feature-flags": {
 		"team-avatar-in-mention-picker": {
 			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__search-platfor": {
+			"type": "boolean"
 		}
 	},
 	"publishConfig": {
@@ -131,5 +135,5 @@
 			]
 		}
 	},
-	"version": "24.1.5"
+	"version": "24.2.0"
 }

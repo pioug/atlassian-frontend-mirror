@@ -250,7 +250,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					if (this.config.getUser) {
 						throw new ProviderInitialisationError('Cannot supply getUser and batchProps together');
 					}
-					this.participantsService.batchFetchUsersWithDelay();
+					this.participantsService.initializeFirstBatchFetchUsers();
 				}
 				this.disconnectedAt = undefined;
 			})
@@ -323,8 +323,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	/**
 	 * Initialisation logic, called by the editor in the collab-edit plugin.
 	 *
-	 * @param {Object} options ...
 	 * @param {Function} options.getState Function that returns the editor state, used to retrieve collab-edit properties and to interact with prosemirror-collab
+	 * @param options.editorApi
 	 * @param {SyncUpErrorFunction} options.onSyncUpError (Optional) Function that gets called when the sync of steps fails after retrying 30 times, used by Editor to log to analytics
 	 * @throws {ProviderInitialisationError} Something went wrong during provider initialisation
 	 */
@@ -748,9 +748,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		this.participantsService.clearTimers();
 	};
 
-	/**
-	 *
-	 */
 	getParticipants = () => {
 		return this.participantsService.getParticipants();
 	};
@@ -777,8 +774,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 				...this.config.batchProps,
 				batchSize: props?.fetchSize ?? this.config.batchProps.batchSize,
 			});
+		} else {
+			throw new Error('Must provide batch properties to use fetchMore');
 		}
-		throw new Error('Must provide batch properties to use fetchMore');
 	};
 
 	getSessionId = () => {

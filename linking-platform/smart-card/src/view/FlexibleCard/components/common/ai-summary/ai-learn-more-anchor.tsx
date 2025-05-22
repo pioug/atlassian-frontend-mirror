@@ -14,6 +14,7 @@ const AILearnMoreAnchor = ({
 			{children}
 		</Link>
 	) : (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a href={CONTENT_URL_AI} target="_blank" rel="noopener noreferrer" {...props}>
 			{children}
 		</a>

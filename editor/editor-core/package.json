@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.0.6",
+	"version": "207.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,6 +55,7 @@
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/link": "workspace:^",
 		"@atlaskit/media-card": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -166,10 +167,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.live-pages-expand-divergence": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -228,6 +225,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_disable_table_lnv": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_enable_table_lnv": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -518,9 +519,6 @@
 		"platform_editor_no_cursor_on_live_doc_init": {
 			"type": "boolean"
 		},
-		"platform_editor_no_selection_until_interaction": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_no_toolbar_space": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -658,6 +656,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_ssr_fix_lists": {
+			"type": "boolean"
+		},
+		"dst-a11y__replace-anchor-with-link__editor": {
 			"type": "boolean"
 		}
 	},

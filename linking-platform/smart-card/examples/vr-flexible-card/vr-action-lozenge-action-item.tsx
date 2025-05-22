@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import LozengeActionItem from '../../src/view/FlexibleCard/components/elements/lozenge/lozenge-action/lozenge-action-item';
+import LozengeActionItem from '../../src/view/FlexibleCard/components/elements/common/base-lozenge-element/lozenge-action/lozenge-action-item';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 export default () => (

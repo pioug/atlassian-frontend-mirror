@@ -6,111 +6,121 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ElementName, IconType, SmartLinkInternalTheme } from '../../../../constants';
 import { messages } from '../../../../messages';
-import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
+import { FlexibleUiContext, useFlexibleUiContext } from '../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { isProfileType } from '../../../../utils';
 
-import AppliedToComponentsCount from './applied-to-components-count';
-import AtlaskitBadge from './atlaskit-badge';
-import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
-import AvatarGroup from './avatar-group';
-import { type AvatarGroupProps, type AvatarItemProps } from './avatar-group/types';
-import Badge from './badge';
-import { type BadgeProps } from './badge/types';
-import DateTime from './date-time';
-import { type DateTimeProps } from './date-time/types';
-import Icon from './icon';
-import Link from './link';
-import { type LinkProps } from './link/types';
-import Lozenge from './lozenge';
-import { type LozengeProps } from './lozenge/types';
-import Media from './media';
-import Text from './text';
-import { type TextProps } from './text/types';
+import AppliedToComponentsCount from './applied-to-components-count-element';
+import AtlaskitElementBadge, { type AtlaskitBadgeElementProps } from './atlaskit-badge-element';
+import {
+	BaseAvatarGroupElement,
+	type BaseAvatarGroupElementProps,
+	type BaseAvatarItemProps,
+	BaseBadgeElement,
+	type BaseBadgeElementProps,
+	BaseDateTimeElement,
+	type BaseDateTimeProps,
+	BaseLinkElement,
+	type BaseLinkElementProps,
+	BaseLozengeElement,
+	type BaseLozengeElementProps,
+	BaseTextElement,
+	type BaseTextElementProps,
+} from './common';
+import IconElement from './icon-element';
+import MediaElement from './media-element';
 
-const elementMappings: {
+type ElementMapping = {
 	[key in ElementName]?: { component: React.ComponentType<any> | undefined; props?: any };
-} = {
+};
+
+const elementMappings: ElementMapping = {
 	[ElementName.AppliedToComponentsCount]: {
 		component: AppliedToComponentsCount,
 		props: { icon: IconType.Component },
 	},
 	[ElementName.AttachmentCount]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.Attachment },
 	},
-	[ElementName.AuthorGroup]: { component: AvatarGroup },
+	[ElementName.AuthorGroup]: { component: BaseAvatarGroupElement },
 	[ElementName.ChecklistProgress]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.CheckItem },
 	},
-	[ElementName.CollaboratorGroup]: { component: AvatarGroup },
+	[ElementName.CollaboratorGroup]: { component: BaseAvatarGroupElement },
 	[ElementName.CommentCount]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.Comment },
 	},
 	[ElementName.ViewCount]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.View },
 	},
 	[ElementName.ReactCount]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.React },
 	},
 	[ElementName.VoteCount]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.Vote },
 	},
-	[ElementName.CreatedBy]: { component: Text },
-	[ElementName.OwnedBy]: { component: Text },
-	[ElementName.AssignedTo]: { component: Text },
-	[ElementName.AssignedToGroup]: { component: AvatarGroup },
-	[ElementName.OwnedByGroup]: { component: AvatarGroup },
-	[ElementName.CreatedOn]: { component: DateTime },
-	[ElementName.DueOn]: { component: Lozenge },
+	[ElementName.CreatedBy]: { component: BaseTextElement },
+	[ElementName.OwnedBy]: { component: BaseTextElement },
+	[ElementName.AssignedTo]: { component: BaseTextElement },
+	[ElementName.AssignedToGroup]: { component: BaseAvatarGroupElement },
+	[ElementName.OwnedByGroup]: { component: BaseAvatarGroupElement },
+	[ElementName.CreatedOn]: { component: BaseDateTimeElement },
+	[ElementName.DueOn]: { component: BaseLozengeElement },
 	[ElementName.LatestCommit]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.Commit },
 	},
-	[ElementName.LinkIcon]: { component: Icon },
-	[ElementName.ModifiedBy]: { component: Text },
-	[ElementName.ModifiedOn]: { component: DateTime },
-	[ElementName.Preview]: { component: Media },
-	[ElementName.Priority]: { component: Badge },
+	[ElementName.LinkIcon]: { component: IconElement },
+	[ElementName.ModifiedBy]: { component: BaseTextElement },
+	[ElementName.ModifiedOn]: { component: BaseDateTimeElement },
+	[ElementName.Preview]: { component: MediaElement },
+	[ElementName.Priority]: { component: BaseBadgeElement },
 	[ElementName.ProgrammingLanguage]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.ProgrammingLanguage },
 	},
-	[ElementName.Provider]: { component: Badge },
-	[ElementName.ReadTime]: { component: Text },
-	[ElementName.SentOn]: { component: DateTime },
-	[ElementName.SourceBranch]: { component: Text },
-	[ElementName.State]: { component: Lozenge },
+	[ElementName.Provider]: { component: BaseBadgeElement },
+	[ElementName.ReadTime]: { component: BaseTextElement },
+	[ElementName.SentOn]: { component: BaseDateTimeElement },
+	[ElementName.SourceBranch]: { component: BaseTextElement },
+	[ElementName.State]: { component: BaseLozengeElement },
 	[ElementName.SubscriberCount]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.Subscriber },
 	},
 	[ElementName.SubTasksProgress]: {
-		component: Badge,
+		component: BaseBadgeElement,
 		props: { icon: IconType.SubTasksProgress },
 	},
 	[ElementName.StoryPoints]: {
-		component: AtlaskitBadge,
+		component: AtlaskitElementBadge,
 	},
-	[ElementName.TargetBranch]: { component: Text },
-	[ElementName.Title]: { component: Link },
+	[ElementName.TargetBranch]: { component: BaseTextElement },
+	[ElementName.Title]: { component: BaseLinkElement },
 	[ElementName.Location]: {
-		component: Link,
+		component: BaseLinkElement,
 		props: { theme: SmartLinkInternalTheme.Grey },
 	},
 };
 
+/**
+ * @deprecated
+ */
 const getContextKey = (name: ElementName) => {
 	// Attempt to predict context prop name in advance to reduce the amount of
 	// code run during runtime
 	return name.length > 0 ? name.charAt(0).toLowerCase() + name.slice(1) : undefined;
 };
 
+/**
+ * @deprecated
+ */
 const getData = (
 	elementName: ElementName,
 	contextKey?: string,
@@ -129,7 +139,7 @@ const getData = (
 		case ElementName.OwnedByGroup:
 			const AvatarGroupsWithFallback = [ElementName.AssignedToGroup];
 			const showFallbackAvatar = AvatarGroupsWithFallback.includes(elementName);
-			return toAvatarGroupProps(data as AvatarItemProps[], showFallbackAvatar);
+			return toAvatarGroupProps(data as BaseAvatarItemProps[], showFallbackAvatar);
 		case ElementName.AppliedToComponentsCount:
 		case ElementName.AttachmentCount:
 		case ElementName.ChecklistProgress:
@@ -178,21 +188,21 @@ const getData = (
 };
 
 const toAvatarGroupProps = (
-	items?: AvatarItemProps[],
+	items?: BaseAvatarItemProps[],
 	showFallbackAvatar?: boolean,
-): Partial<AvatarGroupProps> | undefined => {
+): Partial<BaseAvatarGroupElementProps> | undefined => {
 	return items ? { items } : showFallbackAvatar ? { items: [] } : undefined;
 };
 
-const toBadgeProps = (label?: string): Partial<BadgeProps> | undefined => {
+const toBadgeProps = (label?: string): Partial<BaseBadgeElementProps> | undefined => {
 	return label ? { label } : undefined;
 };
 
-const toAtlaskitBadgeProps = (value?: number): Partial<AtlaskitBadgeProps> | undefined => {
+const toAtlaskitBadgeProps = (value?: number): Partial<AtlaskitBadgeElementProps> | undefined => {
 	return value ? { value } : undefined;
 };
 
-const toDateLozengeProps = (dateString?: string): Partial<LozengeProps> | undefined => {
+const toDateLozengeProps = (dateString?: string): Partial<BaseLozengeElementProps> | undefined => {
 	if (dateString) {
 		const text = Date.parse(dateString) ? (
 			<FormattedDate
@@ -212,25 +222,25 @@ const toDateLozengeProps = (dateString?: string): Partial<LozengeProps> | undefi
 const toDateTimeProps = (
 	type: 'created' | 'modified' | 'sent',
 	dateString?: string,
-): Partial<DateTimeProps> | undefined => {
+): Partial<BaseDateTimeProps> | undefined => {
 	return dateString ? { date: new Date(dateString), type } : undefined;
 };
 
 const toFormattedTextProps = (
 	descriptor: MessageDescriptor,
 	context?: string,
-): Partial<TextProps> | undefined => {
+): Partial<BaseTextElementProps> | undefined => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return context ? { message: { descriptor, values: { context } }, content: context } : undefined;
 	}
 	return context ? { message: { descriptor, values: { context } } } : undefined;
 };
 
-const toLinkProps = (text?: string, url?: string): Partial<LinkProps> | undefined => {
+const toLinkProps = (text?: string, url?: string): Partial<BaseLinkElementProps> | undefined => {
 	return text ? { text, url } : undefined;
 };
 
-const toTextProps = (content?: string): Partial<TextProps> | undefined => {
+const toTextProps = (content?: string): Partial<BaseTextElementProps> | undefined => {
 	return content ? { content } : undefined;
 };
 
@@ -251,6 +261,9 @@ const toLinkIconProps = (
 	return { ...data, appearance: isImageRound ? 'round' : 'square' };
 };
 
+/**
+ * @deprecated
+ */
 export const createElement = <P extends {}>(name: ElementName): React.ComponentType<P> => {
 	const { component: BaseElement, props } = elementMappings[name] || {};
 	const contextKey = getContextKey(name);
@@ -260,7 +273,11 @@ export const createElement = <P extends {}>(name: ElementName): React.ComponentT
 	}
 
 	return (overrides: P) => {
-		const context = useContext(FlexibleUiContext);
+		const context = fg('platform-linking-flexible-card-context')
+			? // eslint-disable-next-line react-hooks/rules-of-hooks
+				useFlexibleUiContext()
+			: // eslint-disable-next-line react-hooks/rules-of-hooks
+				useContext(FlexibleUiContext);
 		const data = getData(name, contextKey, context);
 		return data ? <BaseElement {...props} {...data} {...overrides} name={name} /> : null;
 	};

@@ -1,7 +1,9 @@
 import React, { type SyntheticEvent, useState } from 'react';
 
+import Link from '@atlaskit/link';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import {
 	type LinkPickerPluginsConfiguration,
@@ -76,9 +78,16 @@ function LinkPickerPlugins() {
 			</PageHeader>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ paddingBottom: token('space.250', '20px') }}>
-				<a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
-					{link.displayText || link.url}
-				</a>
+				{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+					<Link id="test-link" href={link.url} target="_blank" onClick={handleClick}>
+						{link.displayText || link.url}
+					</Link>
+				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+					<a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
+						{link.displayText || link.url}
+					</a>
+				)}
 			</div>
 			{linkPicker}
 		</PageWrapper>

@@ -1,5 +1,13 @@
 # @atlassian/give-kudos
 
+## 4.2.0
+
+### Minor Changes
+
+- [#157474](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157474)
+  [`836751d5b664b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/836751d5b664b) -
+  Adding new mixed kudos to types
+
 ## 4.1.3
 
 ### Patch Changes

@@ -17,6 +17,9 @@ const styles = cssMap({
 	default: {
 		width: '352px',
 	},
+	extendedDefault: {
+		width: '452px',
+	},
 	inlineDialogContentWrapper: {
 		paddingTop: token('space.200', '16px'),
 		paddingRight: token('space.300', '24px'),
@@ -29,9 +32,11 @@ export const InlineDialogFormWrapper = ({
 	children,
 	integrationMode,
 	isMenuItemSelected,
+	isExtendedShareDialogEnabled,
 }: React.PropsWithChildren<{
 	integrationMode?: IntegrationMode;
 	isMenuItemSelected?: boolean;
+	isExtendedShareDialogEnabled?: boolean;
 }>) => {
 	if (!isMenuItemSelected && integrationMode === 'menu') {
 		return <Box xcss={cx(styles.menuNotSelectedAndMenuIntegration)}>{children}</Box>;
@@ -43,7 +48,11 @@ export const InlineDialogFormWrapper = ({
 		}
 	}
 
-	return <Box xcss={cx(styles.default)}>{children}</Box>;
+	return (
+		<Box xcss={cx(isExtendedShareDialogEnabled ? styles.extendedDefault : styles.default)}>
+			{children}
+		</Box>
+	);
 };
 
 export const InlineDialogContentWrapper = ({

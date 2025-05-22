@@ -212,7 +212,7 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 
 			let configWithNodeInfo: ConfigWithNodeInfo | undefined;
 
-			if (fg('platform_editor_no_selection_until_interaction')) {
+			if (fg('platform_editor_no_cursor_on_live_doc_init')) {
 				const hasHadInteraction = fg('platform_editor_interaction_api_refactor')
 					? interactionState !== 'hasNotHadInteraction'
 					: _hasHadInteraction !== false;

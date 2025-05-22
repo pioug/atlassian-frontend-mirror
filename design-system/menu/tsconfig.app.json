@@ -38,9 +38,6 @@
 			"path": "../css/tsconfig.app.json"
 		},
 		{
-			"path": "../ds-lib/tsconfig.app.json"
-		},
-		{
 			"path": "../../observability/interaction-context/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 33.3.1
+
+### Patch Changes
+
+- [#159106](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159106)
+  [`aee0b27cf6dd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aee0b27cf6dd2) -
+  Fixed getVideoDurations to correctly use the full URL for the artifacts
+
 ## 33.3.0
 
 ### Minor Changes

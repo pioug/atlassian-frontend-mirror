@@ -6,7 +6,7 @@
 
 - [#158127](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158127)
   [`b7989ac128aef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7989ac128aef) -
-  Added "shouldOmitDefaultDescription" prop for <Select> to omit default description being set for
+  Added "shouldOmitDefaultDescription" prop for `Select` to omit default description being set for
   "aria-describedby" attribute
 
 ## 2.5.0

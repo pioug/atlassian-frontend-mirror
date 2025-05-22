@@ -205,6 +205,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Nu kan du klistra in länkar 🔗 till Jira- och Confluence-innehåll i dina uppmaningar.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Drivs av Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Genererar',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence kunde inte behandla din förfrågan eftersom innehållet innehåller länkar till HIPAA-begränsat innehåll. Ta bort länkarna och försök igen.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -645,6 +646,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Försök uppdatera sidan.',
   'fabric.editor.offlineErrorFallbackHeading': 'Något gick fel!',
   'fabric.editor.on': '{formattingType} på',
+  'fabric.editor.openButtonTitle': 'Öppen',
   'fabric.editor.openCellOptions': 'Öppna cellalternativ',
   'fabric.editor.openLink': 'Öppna länk i en ny flik',
   'fabric.editor.orderedList': 'Numrerad lista',

@@ -22,11 +22,13 @@ import { menuWrapperWidth } from '../ShareMenuItem';
 const calculateFormWrapperWidth = ({
 	integrationMode,
 	isMenuItemSelected,
+	isExtendedShareDialogEnabled,
 }: {
 	integrationMode?: IntegrationMode;
 	isMenuItemSelected?: boolean;
+	isExtendedShareDialogEnabled?: boolean;
 }) => {
-	const formWidth = `${8 * 44}px`;
+	const formWidth = `${isExtendedShareDialogEnabled ? 452 : 8 * 44}px`;
 
 	if (!isMenuItemSelected && integrationMode === 'menu') {
 		return menuWrapperWidth;
@@ -45,14 +47,17 @@ export const InlineDialogFormWrapper = ({
 	children,
 	integrationMode,
 	isMenuItemSelected,
+	isExtendedShareDialogEnabled,
 }: PropsWithChildren<{
 	integrationMode?: IntegrationMode;
 	isMenuItemSelected?: boolean;
+	isExtendedShareDialogEnabled?: boolean;
 }>) => {
 	const styles = {
 		width: calculateFormWrapperWidth({
 			integrationMode,
 			isMenuItemSelected,
+			isExtendedShareDialogEnabled,
 		}),
 	};
 

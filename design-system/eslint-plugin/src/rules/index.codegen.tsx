@@ -1,12 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d42e0ce93d45d02a5c30dcfdb7110c17>>
+ * @codegen <<SignedSource::056ec12b954ac3e98112951f11fb055e>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
 import ensureDesignTokenUsage from './ensure-design-token-usage';
 import ensureDesignTokenUsagePreview from './ensure-design-token-usage-preview';
 import ensureIconColor from './ensure-icon-color';
+import ensureProperXcssUsage from './ensure-proper-xcss-usage';
 import iconLabel from './icon-label';
 import noBannedImports from './no-banned-imports';
 import noBooleanAutofocusOnModalDialog from './no-boolean-autofocus-on-modal-dialog';
@@ -70,6 +71,7 @@ export const rules = {
 	'ensure-design-token-usage': ensureDesignTokenUsage,
 	'ensure-design-token-usage/preview': ensureDesignTokenUsagePreview,
 	'ensure-icon-color': ensureIconColor,
+	'ensure-proper-xcss-usage': ensureProperXcssUsage,
 	'icon-label': iconLabel,
 	'no-banned-imports': noBannedImports,
 	'no-boolean-autofocus-on-modal-dialog': noBooleanAutofocusOnModalDialog,

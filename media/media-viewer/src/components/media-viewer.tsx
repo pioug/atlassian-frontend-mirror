@@ -4,8 +4,9 @@ import { MediaViewer as MediaViewerNextGen } from '../media-viewer';
 import { type MediaMessage, type MediaViewerProps } from './types';
 import { isSameIdentifier } from '../utils';
 import { isFileIdentifier } from '@atlaskit/media-client';
-import { withMediaClient } from '@atlaskit/media-client-react';
+import { withMediaClient, withMediaClientAndSettings } from '@atlaskit/media-client-react';
 import type { MediaViewerWithMediaClientConfigProps } from './types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const ensureCollectionName = (identifier: Identifier, collectionName: string) =>
 	isFileIdentifier(identifier)
@@ -96,6 +97,9 @@ export const MediaViewerBase = ({
 // export const MediaViewerWithMediaClient = withMediaClient(MediaViewerBase)
 export const MediaViewerWithMediaClient = (props: MediaViewerWithMediaClientConfigProps) => {
 	const ViewerComponent = React.useMemo(() => {
+		if (fg('platform_media_video_captions')) {
+			return withMediaClientAndSettings(MediaViewerBase);
+		}
 		return withMediaClient(MediaViewerBase);
 	}, []);
 

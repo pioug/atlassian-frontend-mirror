@@ -68,6 +68,7 @@ export type {
 	ExtensionModuleActionObject,
 	ExtensionModuleNode,
 	ExtensionModuleNodes,
+	PreloadableExtensionModuleNode,
 	ExtensionModules,
 	ExtensionQuickInsertModule,
 	ExtensionType,
@@ -77,6 +78,8 @@ export type {
 	UserFieldContextProvider,
 	DynamicFieldDefinitions,
 } from './extensions/types/extension-manifest';
+
+export type { MaybeESModule } from './extensions/types/extension-manifest-common';
 
 export type { ExtensionProvider } from './extensions/types/extension-provider';
 

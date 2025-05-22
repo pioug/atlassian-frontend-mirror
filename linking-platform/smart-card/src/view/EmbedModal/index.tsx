@@ -7,7 +7,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 import { SmartLinkSize } from '../../constants';
 import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
 import { getPreviewUrlWithTheme } from '../../utils';
-import Icon from '../FlexibleCard/components/elements/icon';
+import IconElement from '../FlexibleCard/components/elements/icon-element';
 
 import withAnalytics from './components/analytics';
 import EmbedContent from './components/embed-content';
@@ -102,7 +102,7 @@ const EmbedModal = ({
 					<LinkInfo
 						icon={
 							linkIcon && {
-								icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
+								icon: <IconElement {...linkIcon} size={SmartLinkSize.Large} />,
 								isFlexibleUi: true,
 							}
 						}

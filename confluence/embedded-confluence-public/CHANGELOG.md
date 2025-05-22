@@ -1,5 +1,14 @@
 # @atlaskit/embedded-confluence
 
+## 4.0.3
+
+### Patch Changes
+
+- [#158401](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158401)
+  [`ef9ed1664a6ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef9ed1664a6ab) -
+  Update webpack config for the public package to handle CSS transformations for @compiled/react
+  CSS-In-JS code while building the package and generating embedded-confluence-bundle.js
+
 ## 4.0.2
 
 ### Patch Changes

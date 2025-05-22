@@ -208,6 +208,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Artık bağlantıları 🔗 istemlerinizdeki Jira ve Confluence içeriğine yapıştırabilirsiniz.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Rovo tarafından desteklenir',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Oluşturuluyor',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence, içeriğiniz HIPAA kısıtlı içeriklere giden bağlantılar içerdiğinden talebinizi işleyemedi. Lütfen bu bağlantıları kaldırın ve yeniden deneyin.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -644,6 +645,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Sayfayı yeniden yüklemeyi deneyin.',
   'fabric.editor.offlineErrorFallbackHeading': 'Bir hata oluştu!',
   'fabric.editor.on': '{formattingType} Açık',
+  'fabric.editor.openButtonTitle': 'Açık',
   'fabric.editor.openCellOptions': 'Hücre seçeneklerini aç',
   'fabric.editor.openLink': 'Bağlantıyı yeni sekmede açın',
   'fabric.editor.orderedList': 'Numaralı liste',

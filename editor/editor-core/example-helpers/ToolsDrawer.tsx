@@ -22,8 +22,10 @@ import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock'
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { EmojiResource } from '@atlaskit/emoji/resource';
+import Link from '@atlaskit/link';
 import { MentionResource } from '@atlaskit/mention/resource';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
@@ -258,9 +260,20 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 								️️️⚠️ Atlassians, for Media integration to work in non-mocked state, make sure
 								you're logged into // Ignored via go/ees005 // eslint-disable-next-line
 								react/jsx-no-target-blank
-								<a href="https://id.stg.internal.atlassian.com" target="_blank" rel="noreferrer">
-									staging Identity server.
-								</a>
+								{fg('dst-a11y__replace-anchor-with-link__editor') ? (
+									<Link
+										href="https://id.stg.internal.atlassian.com"
+										target="_blank"
+										rel="noreferrer"
+									>
+										staging Identity server.
+									</Link>
+								) : (
+									// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+									<a href="https://id.stg.internal.atlassian.com" target="_blank" rel="noreferrer">
+										staging Identity server.
+									</a>
+								)}
 							</div>
 							{reloadEditor
 								? ''

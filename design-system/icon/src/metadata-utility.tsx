@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::0a9bbc9e058d3b90ee6b8b82cf2f9830>>
+ * @codegen <<SignedSource::d968f0d4e1bd5bc5e728353f8fdcc101>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -68,6 +68,11 @@ interface metadata {
 		type: 'core' | 'utility';
 		location: '@atlaskit/icon' | '@atlaskit/icon-lab' | '@atlassian/icon-private';
 	};
+
+	/**
+	 * Whether the icon should be recommended as a small icon
+	 */
+	shouldRecommendSmallIcon?: boolean;
 }
 
 const metadata: Record<string, metadata> = {

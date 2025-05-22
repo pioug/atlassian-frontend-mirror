@@ -5,7 +5,7 @@ import { findParentByClassname } from '../util';
 import { InactivityDetectorWrapper } from './styled';
 
 export interface InactivityDetectorProps {
-	children: (triggerActivityCallback: () => void) => ReactElement;
+	children: (triggerActivityCallback: () => void, controlsAreVisible: boolean) => ReactElement;
 }
 
 export interface InactivityDetectorState {
@@ -91,7 +91,7 @@ export class InactivityDetector extends Component<
 				onClick={this.checkMouseMovement}
 				data-testid="inactivity-detector-wrapper"
 			>
-				{children(this.checkMouseMovement)}
+				{children(this.checkMouseMovement, controlsAreVisible)}
 			</InactivityDetectorWrapper>
 		);
 	}

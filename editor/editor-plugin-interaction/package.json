@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -37,6 +38,11 @@
 	},
 	"devDependencies": {
 		"typescript": "~5.4.2"
+	},
+	"platform-feature-flags": {
+		"platform_editor_interaction_api_refactor": {
+			"type": "boolean"
+		}
 	},
 	"techstack": {
 		"@atlassian/frontend": {

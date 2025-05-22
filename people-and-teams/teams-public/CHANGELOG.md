@@ -1,5 +1,21 @@
 # @atlaskit/teams-public
 
+## 0.31.0
+
+### Minor Changes
+
+- [#158256](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158256)
+  [`a2388f933a091`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2388f933a091) -
+  Add loom space support to team containers
+
+## 0.30.0
+
+### Minor Changes
+
+- [#158122](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158122)
+  [`cacbe1d41fcc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cacbe1d41fcc6) -
+  [ux] Add loom space avatar
+
 ## 0.29.0
 
 ### Minor Changes

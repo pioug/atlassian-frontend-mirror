@@ -86,6 +86,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../../linking-platform/link-analytics/tsconfig.app.json"
 		},
 		{

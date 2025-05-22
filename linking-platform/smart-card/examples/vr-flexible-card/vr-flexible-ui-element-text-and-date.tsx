@@ -6,7 +6,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import {
 	AssignedTo,
 	CreatedBy,
@@ -46,26 +46,29 @@ const context = getContext({
 export default () => {
 	return (
 		<VRTestWrapper>
-			<FlexibleUiContext.Provider value={context}>
-				<CreatedBy testId="vr-test-text" />
-				<OwnedBy />
-				<ModifiedBy />
-				<CreatedOn />
-				<ModifiedOn />
-				<SentOn />
-				<AssignedTo />
-				<Snippet />
-				<SourceBranch />
-				<TargetBranch />
-				<ReadTime />
-				<h5>Override CSS</h5>
-				<CreatedBy css={overrideCss} />
-				<OwnedBy css={overrideCss} />
-				<CreatedOn css={overrideCss} />
-				<h5>Override 'Created On/Modified On' text</h5>
-				<CreatedOn text="First commit on" />
-				<ModifiedOn text="Last commit on" />
-			</FlexibleUiContext.Provider>
+			<FlexibleCardContext.Provider value={{ data: context }}>
+				{/* Remove FlexibleUiContext on cleanup of platform-linking-flexible-card-context */}
+				<FlexibleUiContext.Provider value={context}>
+					<CreatedBy testId="vr-test-text" />
+					<OwnedBy />
+					<ModifiedBy />
+					<CreatedOn />
+					<ModifiedOn />
+					<SentOn />
+					<AssignedTo />
+					<Snippet />
+					<SourceBranch />
+					<TargetBranch />
+					<ReadTime />
+					<h5>Override CSS</h5>
+					<CreatedBy css={overrideCss} />
+					<OwnedBy css={overrideCss} />
+					<CreatedOn css={overrideCss} />
+					<h5>Override 'Created On/Modified On' text</h5>
+					<CreatedOn text="First commit on" />
+					<ModifiedOn text="Last commit on" />
+				</FlexibleUiContext.Provider>
+			</FlexibleCardContext.Provider>
 		</VRTestWrapper>
 	);
 };

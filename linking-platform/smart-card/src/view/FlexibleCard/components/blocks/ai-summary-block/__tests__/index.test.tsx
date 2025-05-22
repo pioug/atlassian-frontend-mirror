@@ -7,10 +7,14 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';
-import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import {
+	FlexibleCardContext,
+	FlexibleUiContext,
+} from '../../../../../../state/flexible-ui-context';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import AISummaryBlock from '../index';
@@ -20,17 +24,33 @@ jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
 }));
 
-const TestComponent = (props: Partial<AISummaryBlockProps> & { spy: jest.Mock }) => (
-	<AnalyticsListener onEvent={props.spy} channel={ANALYTICS_CHANNEL}>
-		<SmartCardProvider>
-			<IntlProvider locale="en">
-				<FlexibleUiContext.Provider value={context}>
-					<AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
-				</FlexibleUiContext.Provider>
-			</IntlProvider>
-		</SmartCardProvider>
-	</AnalyticsListener>
-);
+const TestComponent = (props: Partial<AISummaryBlockProps> & { spy: jest.Mock }) => {
+	if (fg('platform-linking-flexible-card-context')) {
+		return (
+			<AnalyticsListener onEvent={props.spy} channel={ANALYTICS_CHANNEL}>
+				<SmartCardProvider>
+					<IntlProvider locale="en">
+						<FlexibleCardContext.Provider value={{ data: context }}>
+							<AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
+						</FlexibleCardContext.Provider>
+					</IntlProvider>
+				</SmartCardProvider>
+			</AnalyticsListener>
+		);
+	}
+
+	return (
+		<AnalyticsListener onEvent={props.spy} channel={ANALYTICS_CHANNEL}>
+			<SmartCardProvider>
+				<IntlProvider locale="en">
+					<FlexibleUiContext.Provider value={context}>
+						<AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
+					</FlexibleUiContext.Provider>
+				</IntlProvider>
+			</SmartCardProvider>
+		</AnalyticsListener>
+	);
+};
 
 describe('AISummaryBlock', () => {
 	const testIdBase = 'some-test-id';

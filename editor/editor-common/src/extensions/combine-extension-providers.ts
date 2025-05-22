@@ -10,11 +10,34 @@ import type { ExtensionProvider } from './types/extension-provider';
 export default (
 	extensionProviders: (ExtensionProvider | Promise<ExtensionProvider>)[],
 ): ExtensionProvider => {
+	let providersCache = [] as ExtensionProvider[];
 	const { invokeSingle, invokeList } = combineProviders<ExtensionProvider>(extensionProviders);
 
 	return {
 		getExtensions() {
 			return invokeList('getExtensions');
+		},
+
+		async preload() {
+			if (providersCache.length === 0) {
+				providersCache = await Promise.all(
+					extensionProviders.map((provider) => Promise.resolve(provider)),
+				);
+			}
+			await Promise.all(providersCache.map((provider) => provider?.preload?.()));
+		},
+
+		getPreloadedExtension(type: ExtensionType, key: ExtensionKey) {
+			if (providersCache.length === 0) {
+				// preload() has not been called yet
+				return;
+			}
+			for (const provider of providersCache) {
+				const result = provider?.getPreloadedExtension?.(type, key);
+				if (result) {
+					return result;
+				}
+			}
 		},
 
 		getExtension(type: ExtensionType, key: ExtensionKey) {

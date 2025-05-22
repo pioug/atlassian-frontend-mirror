@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::ddf97866ab3e12660c9c9f8e4a34f107>>
+ * @codegen <<SignedSource::60ca5eb1312bd9cabe699f3be0937d0f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -68,6 +68,11 @@ interface metadata {
 		type: 'core' | 'utility';
 		location: '@atlaskit/icon' | '@atlaskit/icon-lab' | '@atlassian/icon-private';
 	};
+
+	/**
+	 * Whether the icon should be recommended as a small icon
+	 */
+	shouldRecommendSmallIcon?: boolean;
 }
 
 const metadata: Record<string, metadata> = {
@@ -1038,6 +1043,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'ChevronDoubleLeftIcon',
 		package: '@atlaskit/icon/core/chevron-double-left',
+		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
 		team: 'Design System Team',
@@ -1056,6 +1062,7 @@ const metadata: Record<string, metadata> = {
 		],
 		componentName: 'ChevronDoubleRightIcon',
 		package: '@atlaskit/icon/core/chevron-double-right',
+		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
 		team: 'Design System Team',
@@ -1078,6 +1085,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'ChevronDownIcon',
 		package: '@atlaskit/icon/core/chevron-down',
 		oldName: ['chevron-down', 'chevron-down-circle', 'hipchat/chevron-down'],
+		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
 		team: 'Design System Team',
@@ -1098,6 +1106,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'ChevronLeftIcon',
 		package: '@atlaskit/icon/core/chevron-left',
 		oldName: ['chevron-left-circle', 'chevron-left', 'chevron-left-large'],
+		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
 		team: 'Design System Team',
@@ -1119,6 +1128,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'ChevronRightIcon',
 		package: '@atlaskit/icon/core/chevron-right',
 		oldName: ['chevron-right-circle', 'chevron-right', 'chevron-right-large'],
+		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
 		team: 'Design System Team',
@@ -1140,6 +1150,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'ChevronUpIcon',
 		package: '@atlaskit/icon/core/chevron-up',
 		oldName: ['chevron-up-circle', 'hipchat/chevron-up', 'chevron-up'],
+		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
 		team: 'Design System Team',

@@ -226,6 +226,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Ahora puedes pegar los enlaces 🔗 al contenido de Jira y Confluence en tus indicaciones.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Con tecnología de Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Generando',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence no ha podido procesar tu solicitud porque tu contenido contiene enlaces a contenido restringido por la HIPAA. Elimina estos enlaces e inténtalo de nuevo.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -671,6 +672,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Prueba volviendo a cargar la página.',
   'fabric.editor.offlineErrorFallbackHeading': 'Algo ha ido mal.',
   'fabric.editor.on': '{formattingType} activado',
+  'fabric.editor.openButtonTitle': 'Abrir',
   'fabric.editor.openCellOptions': 'Abrir opciones de celda',
   'fabric.editor.openLink': 'Abrir el enlace en otra pestaña',
   'fabric.editor.orderedList': 'Lista numerada',

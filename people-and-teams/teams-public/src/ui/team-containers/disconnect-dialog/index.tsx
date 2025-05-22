@@ -81,7 +81,14 @@ export const DisconnectDialog = ({
 					<Box>
 						<FormattedMessage
 							{...messages.disconnectDialogDescription}
-							values={{ containerName: <b>{containerName}</b>, containerType: description }}
+							values={{
+								containerName: <b>{containerName}</b>,
+								containerType: (
+									<>
+										{description} {containerTypeText}
+									</>
+								),
+							}}
 						/>
 					</Box>
 					<FormattedMessage

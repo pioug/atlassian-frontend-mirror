@@ -297,6 +297,7 @@ export const ItemViewerBase = ({
 			case 'video':
 				return (
 					<VideoViewer
+						identifier={identifier}
 						showControls={showControls}
 						onCanPlay={onSuccess}
 						onError={onLoadFail}

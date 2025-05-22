@@ -269,6 +269,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '⁣⁢🚀 You can now paste links 🔗 to Jira and Confluence content in your prompts.⁪؜⁮‌⁡‍⁠⁫؜⁫⁮؜⁠⁯؜⁡؜⁮⁡⁫؜⁭⁯⁣⁤',
   'fabric.editor.ai.experience.footerRightText.agents': '⁣⁢Powered by Rovo‍⁫⁮⁫⁪⁭⁬‌⁭⁯‍⁭⁯⁬⁯⁠‌⁡؜⁮⁫؜⁣⁤',
+  'fabric.editor.ai.experience.generatingAiResponse': '⁣⁢Generating‌⁬⁡‌⁡‍؜؜⁭‍⁪⁡؜⁬⁠⁫⁯؜⁡⁪⁯⁪⁣⁤',
   'fabric.editor.ai.experience.hipaaContentError':
     '⁣⁢Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content. Please remove these links and try again.⁪‌⁫⁪؜⁠⁫⁬⁫⁬⁮‍⁮⁯⁡⁪⁬⁣⁤',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -857,6 +858,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': '⁣⁢Try reloading the page.⁪⁡⁡⁭‍‌‍‌⁪؜‌⁡⁯⁫‌⁯⁬⁮؜⁫⁠⁡؜⁣⁤',
   'fabric.editor.offlineErrorFallbackHeading': '⁣⁢Something went wrong!‍⁠⁭⁮⁬⁬‌⁪⁭⁪‌؜⁫⁪⁬⁬⁬⁭‌⁡⁫⁭⁣⁤',
   'fabric.editor.on': '⁣⁢{formattingType} On⁠⁪⁫⁮⁭‌⁫⁮‌⁡‍⁬‍⁡⁮؜⁮⁠⁬⁯⁯⁣⁤',
+  'fabric.editor.openButtonTitle': '⁣⁢Open⁭⁡⁭⁬⁯‌⁠⁬⁯⁬⁭⁭⁬‌‌‍⁮‌⁮⁭؜⁮‌⁣⁤',
   'fabric.editor.openCellOptions': '⁣⁢Open cell options⁫؜⁮‌⁮⁫‍⁫‌⁫⁯⁡⁠‍⁠⁪⁮⁭⁣⁤',
   'fabric.editor.openLink': '⁣⁢Open link in a new tab⁮⁫⁭⁠⁡⁡‌⁫⁮⁫‍⁯‌⁠⁫⁪⁭‌‌⁡⁯⁡⁣⁤',
   'fabric.editor.orderedList': '⁣⁢Numbered list⁮⁭⁯‍⁡؜؜⁯⁬⁡⁪⁪⁪⁯؜⁡⁬⁬⁮⁮‍؜⁣⁤',

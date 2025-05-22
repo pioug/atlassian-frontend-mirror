@@ -1,4 +1,8 @@
-import * as React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React from 'react';
 import {
 	Component,
 	type ReactElement,
@@ -9,6 +13,8 @@ import {
 } from 'react';
 import { type VideoTextTracks, type VideoTextTrackKind, getVideoTextTrackId } from './text';
 import { requestFullScreen } from './utils';
+import { TextTracks } from './track';
+import { jsx } from '@atlaskit/css';
 
 export type VideoStatus = 'playing' | 'paused' | 'errored';
 export type VideoError = MediaError | null;
@@ -62,6 +68,7 @@ export interface VideoProps {
 	poster?: string;
 	crossOrigin?: MediaHTMLAttributes<HTMLVideoElement & HTMLAudioElement>['crossOrigin'];
 	textTracks?: VideoTextTracks;
+	textTracksPosition?: number;
 	onCanPlay?: (event: SyntheticEvent<SourceElement>) => void;
 	onError?: (event: SyntheticEvent<SourceElement>) => void;
 	onTimeChange?: (time: number, duration: number) => void;
@@ -335,37 +342,20 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 		this.setState({ isLoading: true });
 	};
 
-	private renderTracks = (kind: VideoTextTrackKind) => {
-		const { textTracks } = this.props;
-
-		if (textTracks && Array.isArray(textTracks[kind]?.tracks)) {
-			const tracks = textTracks[kind]?.tracks;
-			const selectedIndex = textTracks[kind]?.selectedTrackIndex;
-
-			return (
-				<>
-					{tracks?.map(({ src, lang, label }, index) => (
-						<track
-							key={index}
-							id={getVideoTextTrackId(kind, lang)}
-							kind={kind}
-							src={src}
-							srcLang={lang}
-							label={label}
-							default={index === selectedIndex}
-						/>
-					))}
-				</>
-			);
-		}
-
-		return null;
-	};
-
 	render() {
 		const { videoState, actions } = this;
-		const { sourceType, poster, src, children, autoPlay, controls, preload, crossOrigin } =
-			this.props;
+		const {
+			sourceType,
+			poster,
+			src,
+			children,
+			autoPlay,
+			controls,
+			preload,
+			crossOrigin,
+			textTracks,
+			textTracksPosition,
+		} = this.props;
 
 		const props: Partial<MediaHTMLAttributes<HTMLVideoElement & HTMLAudioElement>> = {
 			src,
@@ -388,11 +378,9 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 			return children(
 				// eslint-disable-next-line jsx-a11y/media-has-caption
 				<video ref={this.videoRef} poster={poster} {...props}>
-					{this.renderTracks('subtitles')}
-					{this.renderTracks('captions')}
-					{this.renderTracks('descriptions')}
-					{this.renderTracks('chapters')}
-					{this.renderTracks('metadata')}
+					{textTracks && (
+						<TextTracks videoTextTracks={textTracks} textTracksPosition={textTracksPosition} />
+					)}
 				</video>,
 				videoState,
 				actions,

@@ -17,7 +17,6 @@ import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { isInTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import { deleteExpand, focusIcon, focusTitle } from '../commands';
@@ -133,10 +132,7 @@ export function expandKeymap(
 				nodeBefore &&
 				(nodeBefore.type === schema.nodes.expand ||
 					nodeBefore.type === schema.nodes.nestedExpand) &&
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				(fg('platform.editor.live-pages-expand-divergence') && options.__livePage
-					? nodeBefore.attrs.__expanded
-					: !nodeBefore.attrs.__expanded)
+				(options.__livePage ? nodeBefore.attrs.__expanded : !nodeBefore.attrs.__expanded)
 			) {
 				const { $from } = selection;
 				return focusTitle(Math.max($from.pos - 1, 0))(state, dispatch, editorView);
@@ -166,8 +162,7 @@ export function expandKeymap(
 				if (sel && expandBefore) {
 					// moving cursor from outside of an expand to the title when it is collapsed
 					if (
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						fg('platform.editor.live-pages-expand-divergence') && options.__livePage
+						options.__livePage
 							? expandBefore.node.attrs.__expanded
 							: !expandBefore.node.attrs.__expanded
 					) {
@@ -203,10 +198,7 @@ export function expandKeymap(
 				selection.side === Side.LEFT &&
 				nodeAfter &&
 				(nodeAfter.type === expand || nodeAfter.type === nestedExpand) &&
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				(fg('platform.editor.live-pages-expand-divergence') && options.__livePage
-					? nodeAfter.attrs.__expanded
-					: !nodeAfter.attrs.__expanded)
+				(options.__livePage ? nodeAfter.attrs.__expanded : !nodeAfter.attrs.__expanded)
 			) {
 				const { $from } = selection;
 				return focusTitle($from.pos + 1)(state, dispatch, editorView);
@@ -250,8 +242,7 @@ export function expandKeymap(
 				if (
 					expandBefore &&
 					(expandBefore.node.type === expand || expandBefore.node.type === nestedExpand) &&
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-					(fg('platform.editor.live-pages-expand-divergence') && options.__livePage
+					(options.__livePage
 						? expandBefore.node.attrs.__expanded
 						: !expandBefore.node.attrs.__expanded)
 				) {

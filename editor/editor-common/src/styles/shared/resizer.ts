@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 
 import { akEditorDeleteIconColor } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 /*
@@ -228,3 +229,64 @@ export const resizerStyles = css`
 		left: unset;
 	}
 `;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const pragmaticResizerStyles = () => {
+	if (editorExperiment('platform_editor_breakout_resizing', false)) {
+		return;
+	}
+
+	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-breakout-resize-handle': {
+			position: 'relative',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
+
+			height: '100%',
+			width: 7,
+
+			alignSelf: 'center',
+			gridRow: 1,
+			gridColumn: 1,
+
+			cursor: 'col-resize',
+
+			borderRadius: 4,
+			transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
+
+			'&:hover': {
+				background: token('color.background.selected'),
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.pm-breakout-resize-handle-inner': {
+					background: token('color.border.focused'),
+				},
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-breakout-resize-handle-left': {
+			justifySelf: 'start',
+			left: -20,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-breakout-resize-handle-right': {
+			justifySelf: 'end',
+			right: -20,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-breakout-resize-handle-inner': {
+			minWidth: 3,
+			// copied from resizeStyles.clamped
+			height: 'clamp(27px, calc(100% - 32px), 96px)',
+			background: token('color.border'),
+			borderRadius: 6,
+
+			// sticky styles
+			position: 'sticky',
+			top: token('space.150', '12px'),
+			bottom: token('space.150', '12px'),
+		},
+	});
+};

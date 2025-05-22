@@ -1,5 +1,22 @@
 # @atlaskit/reactions
 
+## 31.17.0
+
+### Minor Changes
+
+- [#157885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157885)
+  [`8c821941d9bda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c821941d9bda) -
+  [ux] Modify reactions hoverclick behavior for old reactions picker
+
+## 31.16.0
+
+### Minor Changes
+
+- [#158089](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158089)
+  [`8bd7992c5148d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bd7992c5148d) -
+  force recalculate the reactionSummaryView popup when going from summary view to emoji picker.
+  Should stop the emoji picker from rendering off screen.
+
 ## 31.15.0
 
 ### Minor Changes

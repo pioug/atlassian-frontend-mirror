@@ -228,6 +228,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Теперь вы можете вставлять в запросы ссылки 🔗 на контент Jira и Confluence.',
   'fabric.editor.ai.experience.footerRightText.agents': 'На базе Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Выполняется генерация',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence не удалось обработать запрос, так как в контенте содержатся ссылки на содержимое, доступ к которому ограничен в соответствии с требованиями HIPAA. Удалите эти ссылки и повторите попытку.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -678,6 +679,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Попробуйте перезагрузить страницу.',
   'fabric.editor.offlineErrorFallbackHeading': 'Произошла ошибка.',
   'fabric.editor.on': '{formattingType} вкл.',
+  'fabric.editor.openButtonTitle': 'Открыть',
   'fabric.editor.openCellOptions': 'Открыть параметры ячейки',
   'fabric.editor.openLink': 'Открыть ссылку на новой вкладке',
   'fabric.editor.orderedList': 'Нумерованный список',

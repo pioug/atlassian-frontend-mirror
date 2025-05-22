@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 28.2.0
+
+### Minor Changes
+
+- [#152568](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/152568)
+  [`f7e270ccfd27c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7e270ccfd27c) -
+  Exposes new MediaPlayer component with support for upload and display Captions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.1.11
 
 ### Patch Changes

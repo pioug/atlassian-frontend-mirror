@@ -21,6 +21,9 @@
 			"path": "../../../design-system/css/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../media-client/afm-jira/tsconfig.json"
 		},
 		{

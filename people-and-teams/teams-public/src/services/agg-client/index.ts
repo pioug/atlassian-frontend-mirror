@@ -3,7 +3,7 @@ import { toUserId } from '../../common/utils/user-ari';
 import { type ClientConfig } from '../base-client';
 import { DEFAULT_CONFIG } from '../constants';
 import { BaseGraphQlClient } from '../graphql-client';
-import type { TeamMember, TeamWithMemberships } from '../types';
+import type { TeamContainers, TeamMember, TeamWithMemberships } from '../types';
 
 import {
 	UnlinkContainerMutation,
@@ -53,36 +53,47 @@ export class AGGClient extends BaseGraphQlClient {
 			},
 		);
 
-		const containersResult = response.graphStore.cypherQuery.edges.map((edge) => ({
-			id: edge.node.to.id,
-			type: edge.node.to.data.__typename,
-			name:
-				edge.node.to.data.__typename === 'ConfluenceSpace'
-					? edge.node.to.data.confluenceSpaceName || ''
-					: edge.node.to.data.jiraProjectName,
-			icon:
-				edge.node.to.data.__typename === 'ConfluenceSpace'
-					? `${edge.node.to.data.links.base}${edge.node.to.data.icon.path}`
-					: edge.node.to.data.avatar.medium,
-			createdDate:
-				edge.node.to.data.__typename === 'ConfluenceSpace'
-					? new Date(edge.node.to.data.createdDate)
-					: new Date(edge.node.to.data.created),
-			link:
-				edge.node.to.data.__typename === 'ConfluenceSpace'
-					? `${edge.node.to.data.links.base}${edge.node.to.data.links.webUi}`
-					: edge.node.to.data.webUrl,
-			containerTypeProperties: {
-				subType:
-					edge.node.to.data.__typename === 'JiraProject'
-						? edge.node.to.data.projectType || ''
-						: undefined,
-				name:
-					edge.node.to.data.__typename === 'JiraProject'
-						? edge.node.to.data.projectTypeName || ''
-						: undefined,
+		const containersResult = response.graphStore.cypherQuery.edges.reduce<TeamContainers>(
+			(containers, edge) => {
+				if (edge.node.to.data.__typename === 'ConfluenceSpace') {
+					containers.push({
+						id: edge.node.to.id,
+						type: edge.node.to.data.__typename,
+						name: edge.node.to.data.confluenceSpaceName || '',
+						icon: `${edge.node.to.data.links.base}${edge.node.to.data.icon.path}`,
+						createdDate: new Date(edge.node.to.data.createdDate),
+						link: `${edge.node.to.data.links.base}${edge.node.to.data.links.webUi}`,
+						containerTypeProperties: {
+							subType: undefined,
+							name: undefined,
+						},
+					});
+				} else if (edge.node.to.data.__typename === 'JiraProject') {
+					containers.push({
+						id: edge.node.to.id,
+						type: edge.node.to.data.__typename,
+						name: edge.node.to.data.jiraProjectName,
+						icon: edge.node.to.data.avatar.medium,
+						createdDate: new Date(edge.node.to.data.created),
+						link: edge.node.to.data.webUrl,
+						containerTypeProperties: {
+							subType: edge.node.to.data.projectType || '',
+							name: edge.node.to.data.projectTypeName || '',
+						},
+					});
+				} else if (edge.node.to.data.__typename === 'LoomSpace') {
+					containers.push({
+						id: edge.node.to.id,
+						type: edge.node.to.data.__typename,
+						name: edge.node.to.data.loomSpaceName,
+						icon: '',
+						link: edge.node.to.data.url,
+					});
+				}
+				return containers;
 			},
-		}));
+			[],
+		);
 
 		return containersResult;
 	}

@@ -112,7 +112,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add(focusPlugin)
 		.maybeAdd(
 			interactionPlugin,
-			Boolean(options?.__livePage) && fg('platform_editor_no_selection_until_interaction'),
+			Boolean(options?.__livePage) && fg('platform_editor_no_cursor_on_live_doc_init'),
 		)
 		.add(compositionPlugin)
 		.add([

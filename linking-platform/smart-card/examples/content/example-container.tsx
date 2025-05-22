@@ -3,7 +3,7 @@ import React, { type PropsWithChildren } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import { ActionName, IconType, MediaType, SmartLinkStatus } from '../../src/constants';
-import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { isFlexibleUiBlock } from '../../src/utils/flexible';
 import avatar1 from '../images/avatar-1.svg';
 import avatar2 from '../images/avatar-2.svg';
@@ -64,6 +64,8 @@ const context = getContext({
 	latestCommit: '64862f5',
 });
 
+const flexibleCardContext = { data: context };
+
 const renderChildren = (children: React.ReactNode): React.ReactNode =>
 	React.Children.map(children, (child) => {
 		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
@@ -76,9 +78,12 @@ const renderChildren = (children: React.ReactNode): React.ReactNode =>
 
 const ExampleContainer = ({ children }: PropsWithChildren<{}>) => (
 	<IntlProvider locale="en">
-		<FlexibleUiContext.Provider value={context}>
-			{renderChildren(children)}
-		</FlexibleUiContext.Provider>
+		<FlexibleCardContext.Provider value={flexibleCardContext}>
+			{/* Remove FlexibleUiContext on cleanup of platform-linking-flexible-card-context */}
+			<FlexibleUiContext.Provider value={context}>
+				{renderChildren(children)}
+			</FlexibleUiContext.Provider>
+		</FlexibleCardContext.Provider>
 	</IntlProvider>
 );
 

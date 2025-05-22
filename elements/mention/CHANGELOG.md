@@ -1,5 +1,14 @@
 # @atlaskit/mention
 
+## 24.2.0
+
+### Minor Changes
+
+- [#157101](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157101)
+  [`22968df0284f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22968df0284f0) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 24.1.5
 
 ### Patch Changes

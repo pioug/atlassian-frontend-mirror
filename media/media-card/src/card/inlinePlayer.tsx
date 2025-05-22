@@ -6,7 +6,7 @@ import {
 	globalMediaEventEmitter,
 } from '@atlaskit/media-client';
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
-import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
+import { CustomMediaPlayer, MediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
 import { type CardDimensions } from '../types';
 import { defaultImageCardDimensions } from '../utils';
 import { CardLoading } from '../utils/lightCards/cardLoading';
@@ -17,6 +17,7 @@ import type { CardPreview } from '../types';
 import { InlinePlayerWrapper } from './inlinePlayerWrapper';
 import { useBreakpoint } from './useBreakpoint';
 import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface InlinePlayerOwnProps {
 	identifier: FileIdentifier;
@@ -164,32 +165,60 @@ export const InlinePlayerBase = ({
 			dimensions={dimensions}
 		>
 			<InactivityDetector>
-				{(checkMouseMovement) => (
-					<CustomMediaPlayer
-						type="video"
-						src={fileSrc}
-						onFullscreenChange={onFullscreenChange}
-						fileId={id}
-						isAutoPlay={autoplay}
-						isHDAvailable={false}
-						onDownloadClick={() => {
-							mediaClient.file.downloadBinary(id, undefined, collectionName);
-						}}
-						onFirstPlay={() => {
-							globalMediaEventEmitter.emit('media-viewed', {
-								fileId: id,
-								viewingLevel: 'full',
-							});
-						}}
-						lastWatchTimeConfig={{
-							contentId: id,
-						}}
-						originalDimensions={originalDimensions}
-						showControls={checkMouseMovement}
-						poster={cardPreview?.dataURI}
-						videoControlsWrapperRef={videoControlsWrapperRef}
-					/>
-				)}
+				{(checkMouseMovement, controlsAreVisible) =>
+					fg('platform_media_video_captions') ? (
+						<MediaPlayer
+							identifier={identifier}
+							type="video"
+							src={fileSrc}
+							onFullscreenChange={onFullscreenChange}
+							isAutoPlay={autoplay}
+							isHDAvailable={false}
+							onDownloadClick={() => {
+								mediaClient.file.downloadBinary(id, undefined, collectionName);
+							}}
+							onFirstPlay={() => {
+								globalMediaEventEmitter.emit('media-viewed', {
+									fileId: id,
+									viewingLevel: 'full',
+								});
+							}}
+							lastWatchTimeConfig={{
+								contentId: id,
+							}}
+							originalDimensions={originalDimensions}
+							showControls={checkMouseMovement}
+							poster={cardPreview?.dataURI}
+							videoControlsWrapperRef={videoControlsWrapperRef}
+							areControlsVisible={controlsAreVisible}
+						/>
+					) : (
+						<CustomMediaPlayer
+							type="video"
+							src={fileSrc}
+							onFullscreenChange={onFullscreenChange}
+							fileId={id}
+							isAutoPlay={autoplay}
+							isHDAvailable={false}
+							onDownloadClick={() => {
+								mediaClient.file.downloadBinary(id, undefined, collectionName);
+							}}
+							onFirstPlay={() => {
+								globalMediaEventEmitter.emit('media-viewed', {
+									fileId: id,
+									viewingLevel: 'full',
+								});
+							}}
+							lastWatchTimeConfig={{
+								contentId: id,
+							}}
+							originalDimensions={originalDimensions}
+							showControls={checkMouseMovement}
+							poster={cardPreview?.dataURI}
+							videoControlsWrapperRef={videoControlsWrapperRef}
+						/>
+					)
+				}
 			</InactivityDetector>
 			{isUploading && (
 				<ProgressBar progress={progress} breakpoint={breakpoint} positionBottom showOnTop />

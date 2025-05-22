@@ -259,6 +259,7 @@ const InlineCardOverlay = ({
 					<span aria-hidden="true" className={OVERLAY_MARKER_CLASSNAME}>
 						{ZERO_WIDTH_JOINER}
 					</span>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 					<a
 						css={[overlayStyles, showOverlay && showOverlayStyles]}
 						style={{

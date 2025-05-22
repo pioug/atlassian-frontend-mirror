@@ -1,5 +1,21 @@
 # @atlaskit/menu
 
+## 8.0.0
+
+### Major Changes
+
+- [#157531](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157531)
+  [`dd1068010784d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd1068010784d) -
+  Migrated `SkeletonItem` and `SkeletonHeadingItem` components from @emotion/react to
+  @compiled/react in order toimprove performance, align with the rest of the Atlaskit techstack, and
+  support React 18 StreamingSSR.
+
+  Removed the `cssFn` prop from the `SkeletonItem` and `SkeletonHeadingItem` components.
+  Customization can now be applied via the new `xcss` prop. This allows for safe/bounded style
+  overrides.
+
+  Removed the following types related to the `cssFn` prop: `CSSFn`, `StatelessCSSFn`, `ItemState`.
+
 ## 7.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 10.1.2
+
+### Patch Changes
+
+- [#158339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158339)
+  [`ef6ac832a7616`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef6ac832a7616) -
+  Removes redundant usage of jsx pragma from @emotion/react
+
 ## 10.1.1
 
 ### Patch Changes

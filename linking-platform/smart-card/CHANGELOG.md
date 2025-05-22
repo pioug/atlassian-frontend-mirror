@@ -1,5 +1,44 @@
 # @atlaskit/smart-card
 
+## 38.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.4.2
+
+### Patch Changes
+
+- [#159004](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159004)
+  [`350a4ab0a5375`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/350a4ab0a5375) -
+  Refactor FlexibleCard context, merge into one context
+
+## 38.4.1
+
+### Patch Changes
+
+- [#159077](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159077)
+  [`6b2c9fe5e676b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b2c9fe5e676b) -
+  Add anchor ref to smartlink link component
+
+## 38.4.0
+
+### Minor Changes
+
+- [#157647](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157647)
+  [`dad03e6a309bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dad03e6a309bb) -
+  Refactor FlexibleCard element directory
+
+## 38.3.0
+
+### Minor Changes
+
+- [#157092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157092)
+  [`87491e7b53b65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87491e7b53b65) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 38.2.0
 
 ### Minor Changes

@@ -64,13 +64,19 @@ export type DynamicFieldDefinitions<T> = (parameters: T) => FieldDefinition[];
 
 export type ExtensionModuleNode<T extends Parameters = Parameters> = {
 	type: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
-
 	render: () => ExtensionComponentModule<T>;
 	update?: UpdateExtension<T>;
 	getFieldsDefinition?: (
 		extensionParameters: T,
 	) => Promise<FieldDefinition[] | DynamicFieldDefinitions<T>>;
 };
+
+export type PreloadableExtensionModuleNode<T extends Parameters = Parameters> =
+	ExtensionModuleNode<T> & {
+		preloadRender: () => Promise<void>;
+		// sync version of render. call after preloadRender()
+		renderSync: () => MaybeESModule<ExtensionComponent<T>>;
+	};
 
 export type ExtensionModuleNodes<T extends Parameters = Parameters> = {
 	[key: string]: ExtensionModuleNode<T>;

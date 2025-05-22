@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.8.2
+
+### Patch Changes
+
+- [#156246](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156246)
+  [`66ad86018032f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66ad86018032f) -
+  Expand types for selectInlineCommentExperience tracking
+- Updated dependencies
+
 ## 2.8.1
 
 ### Patch Changes

@@ -171,15 +171,6 @@ export const editorExperimentsConfig = {
 		values: ['control', 'variant1'],
 		defaultValue: 'control',
 	}),
-	// Added 2025-04-14
-	platform_editor_controls_shadow: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_controls_shadow',
-		},
-		param: 'cohort',
-		values: ['control', 'variant1'],
-		defaultValue: 'control',
-	}),
 	// Added 28-02-2025
 	platform_editor_insertion: createMultivariateExperiment({
 		productKeys: {
@@ -311,6 +302,22 @@ export const editorExperimentsConfig = {
 	confluence_p2m_style_recalc_and_expand_joint_exp: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_p2m_style_recalc_and_expand_joint_exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-05-15
+	platform_editor_breakout_resizing: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_breakout_resizing',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-05-07
+	platform_editor_ai_quickstart_command: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_quickstart_command',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

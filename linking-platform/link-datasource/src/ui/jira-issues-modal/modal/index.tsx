@@ -358,7 +358,13 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 							<FormattedMessage
 								{...modalMessages.checkConnectionWithSource}
 								values={{
-									a: (urlText: React.ReactNode[]) => <a href={jqlUrl}>{urlText}</a>,
+									a: (urlText: React.ReactNode[]) =>
+										fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+											<LinkComponent href={jqlUrl}>{urlText}</LinkComponent>
+										) : (
+											// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+											<a href={jqlUrl}>{urlText}</a>
+										),
 								}}
 							/>
 						) : undefined

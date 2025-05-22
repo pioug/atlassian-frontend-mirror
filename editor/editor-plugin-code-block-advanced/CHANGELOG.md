@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.2.11
+
+### Patch Changes
+
+- [#158523](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158523)
+  [`3fe5dff3f49a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fe5dff3f49a5) -
+  Triple click should select entire code block.
+- Updated dependencies
+
 ## 2.2.10
 
 ### Patch Changes

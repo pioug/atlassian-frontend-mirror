@@ -18,4 +18,5 @@ export type ShareError = {
 export type ShareData = {
 	users: OptionData[];
 	comment: Comment;
+	[key: string]: unknown;
 };

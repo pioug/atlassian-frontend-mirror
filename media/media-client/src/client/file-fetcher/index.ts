@@ -824,9 +824,10 @@ export class FileFetcherImpl implements FileFetcher {
 			throw new Error('File is not a video');
 		}
 
-		const aritfactUrl = await this.getArtifactURL(fileState.artifacts, 'video.mp4');
+		const artifactUrlString = await this.getArtifactURL(fileState.artifacts, 'video.mp4');
+		const artifactUrl = new URL(artifactUrlString);
 
-		const artifactPath = new URL(aritfactUrl).pathname;
+		const artifactPath = `${artifactUrl.pathname}${artifactUrl.search}`;
 		const res = await this.mediaApi.request(artifactPath, {
 			headers: {
 				Range: 'bytes=0-199',

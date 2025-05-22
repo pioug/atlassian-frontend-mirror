@@ -45,6 +45,9 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/link/tsconfig.app.json"
+		},
+		{
 			"path": "../media-card/tsconfig.app.json"
 		},
 		{
@@ -61,6 +64,9 @@
 		},
 		{
 			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/radio/tsconfig.app.json"

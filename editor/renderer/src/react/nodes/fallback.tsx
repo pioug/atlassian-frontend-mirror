@@ -1,3 +1,5 @@
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { InlineCard } from './';
 import { isSafeUrl } from '@atlaskit/adf-schema';
@@ -46,7 +48,12 @@ export class CardErrorBoundary extends React.PureComponent<
 				datasourceId,
 			} = this.props;
 			if (url) {
-				const fallback = (
+				const fallback = fg('dst-a11y__replace-anchor-with-link__editor') ? (
+					<Link href={url} onClick={this.onClickFallback}>
+						{url}
+					</Link>
+				) : (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 					<a href={url} onClick={this.onClickFallback}>
 						{url}
 					</a>

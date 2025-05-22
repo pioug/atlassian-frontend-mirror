@@ -109,9 +109,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.live-pages-expand-divergence": {
-			"type": "boolean"
-		},
 		"platform-editor-single-player-expand": {
 			"type": "boolean"
 		},

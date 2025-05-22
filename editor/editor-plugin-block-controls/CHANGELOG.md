@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.14.1
+
+### Patch Changes
+
+- [#157322](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157322)
+  [`0e61040734cef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e61040734cef) -
+  [ED-27842] Consolidate extraneous no_cursor flags into one flag for full rollout
+- Updated dependencies
+
 ## 3.14.0
 
 ### Minor Changes

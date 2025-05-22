@@ -1,4 +1,8 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
@@ -45,6 +49,9 @@ export type CollabEditPlugin = NextEditorPlugin<
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			validatePMJSONDocument: (doc: any) => boolean;
+		};
+		commands: {
+			nudgeTelepointer: (sessionId: string) => EditorCommand;
 		};
 	}
 >;

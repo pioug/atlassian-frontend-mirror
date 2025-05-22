@@ -15,7 +15,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import Text from '../../FlexibleCard/components/elements/text';
+import Text from '../../FlexibleCard/components/elements/common/base-text-element';
 
 import { type FlexibleBlockCardProps } from './types';
 import UnresolvedView from './unresolved-view';

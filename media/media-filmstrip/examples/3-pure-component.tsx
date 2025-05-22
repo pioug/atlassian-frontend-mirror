@@ -1,3 +1,5 @@
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { FilmstripView } from '../src/filmstripView';
 import { type FilmstripState } from '../src';
@@ -28,7 +30,13 @@ export class Story extends React.PureComponent<StoryProps, StoryState> {
 					This story renders a filmstrip inside a React.PureComponent to assert that the state
 					updates correctly. There once was a bug in filmstrip that resulted in the smart-card not
 					displaying the arrows. See{' '}
-					<a href="https://product-fabric.atlassian.net/browse/MSW-181">MSW-181</a>.
+					{fg('dst-a11y__replace-anchor-with-link__media-exif') ? (
+						<Link href="https://product-fabric.atlassian.net/browse/MSW-181">MSW-181</Link>
+					) : (
+						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+						<a href="https://product-fabric.atlassian.net/browse/MSW-181">MSW-181</a>
+					)}
+					.
 				</p>
 				<FilmstripView
 					animate={animate}

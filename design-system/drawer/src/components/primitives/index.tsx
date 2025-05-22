@@ -1,12 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-
-import { useCallback, useRef } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useCallback, useRef } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';

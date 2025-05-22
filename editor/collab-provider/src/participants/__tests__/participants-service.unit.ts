@@ -354,7 +354,7 @@ describe('batchFetchUsers', () => {
 
 			jest.useFakeTimers({ legacyFakeTimers: true });
 			expect(setTimeout).not.toHaveBeenCalled();
-			const delay = participantsService.batchFetchUsersWithDelay();
+			const delay = participantsService.initializeFirstBatchFetchUsers();
 
 			expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), timeout);
 

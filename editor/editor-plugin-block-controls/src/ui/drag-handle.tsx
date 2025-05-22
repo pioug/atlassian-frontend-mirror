@@ -990,7 +990,7 @@ export const DragHandle = ({
 	};
 
 	const hasHadInteraction =
-		!fg('platform_editor_no_selection_until_interaction') ||
+		!fg('platform_editor_no_cursor_on_live_doc_init') ||
 		(fg('platform_editor_interaction_api_refactor')
 			? interactionState !== 'hasNotHadInteraction'
 			: _hasHadInteraction !== false);

@@ -228,6 +228,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Vous pouvez désormais coller des liens 🔗 vers du contenu Jira et Confluence dans vos prompts.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Optimisé par Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Génération',
   'fabric.editor.ai.experience.hipaaContentError':
     "Atlassian Intelligence n'a pas pu traiter votre demande, car votre contenu comprend des liens vers du contenu soumis à des restrictions HIPAA. Veuillez supprimer ces liens, puis réessayer.",
   'fabric.editor.ai.experience.inputTooShortError':
@@ -680,6 +681,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Essayez de recharger la page.',
   'fabric.editor.offlineErrorFallbackHeading': "Une erreur s'est produite.",
   'fabric.editor.on': '{formattingType} activé',
+  'fabric.editor.openButtonTitle': 'Ouvrir',
   'fabric.editor.openCellOptions': 'Ouvrir les options des cellules',
   'fabric.editor.openLink': 'Ouvrir le lien dans un nouvel onglet',
   'fabric.editor.orderedList': 'Liste numérotée',

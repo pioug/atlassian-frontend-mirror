@@ -106,7 +106,7 @@ export const updateExpandTitle =
 		if (node && node.type === nodeType && dispatch) {
 			const { tr } = state;
 
-			if (__livePage && fg('platform.editor.live-pages-expand-divergence')) {
+			if (__livePage) {
 				tr.step(
 					new SetAttrsStep(pos, {
 						...node.attrs,
@@ -147,7 +147,7 @@ export const toggleExpandExpanded =
 			const { tr } = state;
 			const isExpandedNext = !node.attrs.__expanded;
 
-			if (__livePage && fg('platform.editor.live-pages-expand-divergence')) {
+			if (__livePage) {
 				tr.step(
 					new SetAttrsStep(pos, {
 						...node.attrs,
@@ -169,11 +169,7 @@ export const toggleExpandExpanded =
 			// If we're going to collapse the expand and our cursor is currently inside
 			// Move to a right gap cursor, if the toolbar is interacted (or an API),
 			// it will insert below rather than inside (which will be invisible).
-			if (
-				__livePage && fg('platform.editor.live-pages-expand-divergence')
-					? isExpandedNext === true
-					: isExpandedNext === false && findExpand(state)
-			) {
+			if (__livePage ? isExpandedNext === true : isExpandedNext === false && findExpand(state)) {
 				tr.setSelection(new GapCursorSelection(tr.doc.resolve(pos + node.nodeSize), Side.RIGHT));
 			}
 
@@ -188,10 +184,7 @@ export const toggleExpandExpanded =
 				attributes: {
 					platform: PLATFORMS.WEB,
 					mode: MODE.EDITOR,
-					expanded:
-						__livePage && fg('platform.editor.live-pages-expand-divergence')
-							? !isExpandedNext
-							: isExpandedNext,
+					expanded: __livePage ? !isExpandedNext : isExpandedNext,
 				},
 				eventType: EVENT_TYPE.TRACK,
 			};

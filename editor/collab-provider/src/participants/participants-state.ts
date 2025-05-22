@@ -34,8 +34,8 @@ export class ParticipantsState {
 	/**
 	 * A user may contain multiple sessions, only return the unique users based on aaid.
 	 * If multiple participants with same aaid exist, will return the most recent entry
-	 * @param param0
-	 * @returns
+	 * @param filter additional filter to narrow down results
+	 * @param filter.isHydrated
 	 */
 	getUniqueParticipants = ({ isHydrated = false }: ParticipantFilter): ProviderParticipant[] => {
 		const uniqueParticipants = new Map<string, ProviderParticipant>();
@@ -48,7 +48,9 @@ export class ParticipantsState {
 					previous
 						? {
 								...previous,
-								...p,
+								lastActive: p.lastActive,
+								sessionId: p.sessionId,
+								presenceActivity: p.presenceActivity,
 							}
 						: p,
 				);

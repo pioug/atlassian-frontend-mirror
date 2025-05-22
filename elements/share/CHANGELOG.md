@@ -1,5 +1,20 @@
 # @atlaskit/share
 
+## 6.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.6.0
+
+### Minor Changes
+
+- [#155111](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155111)
+  [`e186c31dcd9a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e186c31dcd9a3) -
+  [ux] Added a new `onSubmit` prop to handle custom form field values, also increased the width of
+  the container to 500px when the extended dialog is enabled
+
 ## 6.5.0
 
 ### Minor Changes

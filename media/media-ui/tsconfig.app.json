@@ -45,6 +45,12 @@
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -60,7 +66,16 @@
 			"path": "../../design-system/locale/tsconfig.app.json"
 		},
 		{
+			"path": "../media-client/tsconfig.app.json"
+		},
+		{
+			"path": "../media-client-react/tsconfig.app.json"
+		},
+		{
 			"path": "../media-common/tsconfig.app.json"
+		},
+		{
+			"path": "../media-state/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/modal-dialog/tsconfig.app.json"

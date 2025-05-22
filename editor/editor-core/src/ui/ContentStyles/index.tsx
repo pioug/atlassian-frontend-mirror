@@ -37,6 +37,7 @@ import {
 	listsSharedStyles,
 	paragraphSharedStyles,
 	resizerStyles,
+	pragmaticResizerStyles,
 	ruleSharedStyles,
 	shadowSharedStyle,
 	smartCardSharedStyles,
@@ -372,6 +373,7 @@ const firstBlockNodeStylesNew = css`
 
 /**
  * fix layout issue of first block node
+ * @example
  */
 export const fixBlockControlStylesSSR = () => {
 	if (fg('platform_editor_element_dnd_nested_fix_patch_6')) {
@@ -557,6 +559,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${embedCardStyles()}
   ${unsupportedStyles}
   ${resizerStyles}
+  ${pragmaticResizerStyles()}
   ${aiPanelStyles(props.colorMode)}
   ${fixBlockControlStylesSSR()}
 

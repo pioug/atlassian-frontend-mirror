@@ -21,7 +21,7 @@ import { messages } from '../../../messages';
 import { toMessage } from '../../../utils/intl-utils';
 import { getForbiddenJsonLd } from '../../../utils/jsonld';
 import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
-import Text from '../../FlexibleCard/components/elements/text';
+import Text from '../../FlexibleCard/components/elements/common/base-text-element';
 import { ForbiddenAction } from '../actions/ForbiddenAction';
 
 import { type FlexibleBlockCardProps } from './types';

@@ -3,6 +3,8 @@ import React, { useCallback, useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { IntlProvider } from 'react-intl-next';
 
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';
@@ -59,14 +61,28 @@ const CardExample = ({
 			<h6>Flexible</h6>
 			<ul>
 				<li>
-					<a href="http://go/flexible-smart-links-docs" target="_blank">
-						go/flexible-smart-links-docs
-					</a>
+					{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+						<Link href="http://go/flexible-smart-links-docs" target="_blank">
+							go/flexible-smart-links-docs
+						</Link>
+					) : (
+						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+						<a href="http://go/flexible-smart-links-docs" target="_blank">
+							go/flexible-smart-links-docs
+						</a>
+					)}
 				</li>
 				<li>
-					<a href="https://go/flexible-smart-links-builder" target="_blank">
-						go/flexible-smart-links-builder
-					</a>
+					{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+						<Link href="https://go/flexible-smart-links-builder" target="_blank">
+							go/flexible-smart-links-builder
+						</Link>
+					) : (
+						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+						<a href="https://go/flexible-smart-links-builder" target="_blank">
+							go/flexible-smart-links-builder
+						</a>
+					)}
 				</li>
 			</ul>
 		</Stack>

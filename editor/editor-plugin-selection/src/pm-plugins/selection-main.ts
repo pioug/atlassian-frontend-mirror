@@ -102,7 +102,7 @@ export const createPlugin = (
 					(fg('platform_editor_interaction_api_refactor')
 						? interactionState === 'hasNotHadInteraction'
 						: !hasHadInteraction) &&
-					fg('platform_editor_no_selection_decorations')
+					fg('platform_editor_no_cursor_on_live_doc_init')
 				) {
 					return DecorationSet.empty;
 				}

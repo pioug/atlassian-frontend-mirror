@@ -9,7 +9,7 @@ import { smallImage, wideImage } from '@atlaskit/media-test-helpers';
 import { token } from '@atlaskit/tokens';
 
 import { MediaType } from '../../src/constants';
-import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
+import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { Preview } from '../../src/view/FlexibleCard/components/elements';
 import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
@@ -34,19 +34,22 @@ const overrideCss = css({
 export default () => {
 	return (
 		<VRTestWrapper>
-			<FlexibleUiContext.Provider value={context}>
-				<h5>Media type: Image</h5>
-				<div css={containerStyles}>
-					<Preview testId="vr-test-media" />
-				</div>
-				<div css={containerStyles}>
-					<Preview overrideUrl={wideImage} />
-				</div>
-				<h5>Override CSS</h5>
-				<div css={containerStyles}>
-					<Preview css={overrideCss} />
-				</div>
-			</FlexibleUiContext.Provider>
+			<FlexibleCardContext.Provider value={{ data: context }}>
+				{/* Remove FlexibleUiContext on cleanup of platform-linking-flexible-card-context */}
+				<FlexibleUiContext.Provider value={context}>
+					<h5>Media type: Image</h5>
+					<div css={containerStyles}>
+						<Preview testId="vr-test-media" />
+					</div>
+					<div css={containerStyles}>
+						<Preview overrideUrl={wideImage} />
+					</div>
+					<h5>Override CSS</h5>
+					<div css={containerStyles}>
+						<Preview css={overrideCss} />
+					</div>
+				</FlexibleUiContext.Provider>
+			</FlexibleCardContext.Provider>
 		</VRTestWrapper>
 	);
 };

@@ -73,6 +73,7 @@ const UnauthorisedViewContent = ({
 					<FormattedMessage {...learnMoreMessage} />
 				</Anchor>
 			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 				<a
 					href={
 						isProductIntegrationSupported

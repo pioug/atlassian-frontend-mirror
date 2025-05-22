@@ -35,6 +35,7 @@ export default {
   'fabric.editor.ai.atlas-prebuilt.atlasSummarizePageConfigItemDescription': '업데이트의 콘텐츠를 요약합니다',
   'fabric.editor.ai.commandPalette.promptBuilderForm.buttons.submit': '생성',
   'fabric.editor.ai.commandPalette.promptBuilderForm.generateContent.ariaLabel': 'Atlassian Intelligence에 물어보기',
+  'fabric.editor.ai.config.item.action.edit': '편집',
   'fabric.editor.ai.config.item.action.insert': '삽입',
   'fabric.editor.ai.config.item.action.insertAtTop': '맨 위에 삽입',
   'fabric.editor.ai.config.item.action.insertBelow': '아래에 삽입',
@@ -198,6 +199,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 이제 프롬프트에 Jira 및 Confluence 콘텐츠 링크🔗를 붙여넣을 수 있습니다.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Rovo에서 제공',
+  'fabric.editor.ai.experience.generatingAiResponse': '생성 중',
   'fabric.editor.ai.experience.hipaaContentError':
     '콘텐츠에 HIPAA 제한 콘텐츠 링크가 포함되어 있으므로 Atlassian Intelligence에서 요청을 처리할 수 없습니다. 이 링크를 제거하고 다시 시도하세요.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -301,6 +303,7 @@ export default {
   'fabric.editor.codeblock.description': '구문 강조 기능 포함하여 코드 표시',
   'fabric.editor.collapseNode': '콘텐츠 접기',
   'fabric.editor.collapseTable': '표 축소',
+  'fabric.editor.colorPicker.menuLabel': '색상 선택기 메뉴',
   'fabric.editor.columnDragHandle': '열 옵션',
   'fabric.editor.columnMovedLeft': '열이 {index}/{total}열로 왼쪽으로 이동',
   'fabric.editor.columnMovedRight': '열이 {index}/{total}열로 오른쪽으로 이동',
@@ -629,6 +632,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': '페이지를 다시 로드해 보세요.',
   'fabric.editor.offlineErrorFallbackHeading': '문제가 발생했습니다!',
   'fabric.editor.on': '{formattingType} 켜짐',
+  'fabric.editor.openButtonTitle': '미해결',
   'fabric.editor.openCellOptions': '셀 옵션 열기',
   'fabric.editor.openLink': '새 탭에서 링크 열기',
   'fabric.editor.orderedList': '번호 목록',
@@ -698,6 +702,7 @@ export default {
   'fabric.editor.splitCell': '셀 나누기',
   'fabric.editor.status': '상태',
   'fabric.editor.status.description': '사용자 정의 상태 레이블 추가',
+  'fabric.editor.statusEditorLabel': '상태 편집기',
   'fabric.editor.statusPickerOpenedAlert': '상태 편집기 팝업이 열렸습니다. Tab 키를 눌러 팝업에 액세스하세요',
   'fabric.editor.statusPlaceholder': '상태 설정',
   'fabric.editor.story': '스토리',
@@ -798,6 +803,7 @@ export default {
   'fabric.editor.viewAndAddCommentsOnMedia': '댓글 확인 및 추가',
   'fabric.editor.viewCommentOnMedia': '댓글 보기',
   'fabric.editor.viewMore': '더 보기',
+  'fabric.editor.viewMoreAriaLabel': '모든 요소 보기',
   'fabric.editor.visit': '새 창에서 링크 열기',
   'fabric.editor.warning': '경고',
   'fabric.editor.warningPanel': '경고 패널',

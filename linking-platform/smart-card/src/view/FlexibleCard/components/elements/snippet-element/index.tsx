@@ -9,9 +9,8 @@ import { css, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import Text from '../text';
-import { type TextProps } from '../text/types';
+import { FlexibleUiContext, useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { BaseTextElement, type BaseTextElementProps } from '../common';
 
 const SNIPPET_DEFAULT_MAX_LINES = 3;
 
@@ -33,17 +32,23 @@ const snippetBaseStyle = css({
 	userSelect: 'text',
 });
 
-const SnippetElement = (props: TextProps) => {
+export type SnippetElementProps = BaseTextElementProps;
+
+const SnippetElement = (props: SnippetElementProps) => {
 	const {
 		content: overrideContent,
 		maxLines = SNIPPET_DEFAULT_MAX_LINES,
 		className,
 		...restOfProps
 	} = props ?? {};
-	const context = useContext(FlexibleUiContext);
+	const context = fg('platform-linking-flexible-card-context')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleUiContext()
+		: // eslint-disable-next-line react-hooks/rules-of-hooks
+			useContext(FlexibleUiContext);
 
 	return (
-		<Text
+		<BaseTextElement
 			content={overrideContent ?? context?.snippet}
 			maxLines={maxLines}
 			css={[

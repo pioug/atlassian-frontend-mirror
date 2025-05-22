@@ -128,34 +128,17 @@ describe('commitStepQueue', () => {
 		expect(readyToCommit).toBe(true);
 	});
 
-	describe('Handles expand state steps for __livePages', () => {
+	it('Handles expand state steps for __livePages', () => {
 		const fakeStep = new SetAttrsStep(1, { __expanded: true, title: 'any' });
-		ffTest(
-			'platform.editor.live-pages-expand-divergence',
-			() => {
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-					__livePage: true,
-					hasRecovered: false,
-				});
-				expect(broadcastSpy).toBeCalledTimes(1);
-				// When feature flag on and __livePages on -- we strip out the __expanded attribute from the step.
-				expect((broadcastSpy.mock.calls[0][1] as any).steps[0].attrs).toStrictEqual({
-					title: 'any',
-				});
-			},
-			() => {
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
-					__livePage: true,
-					hasRecovered: false,
-				});
-				expect(broadcastSpy).toBeCalledTimes(1);
-				// When feature flag is off and __livePages on -- we don't change the __expanded attribute on the step.
-				expect((broadcastSpy.mock.calls[0][1] as any).steps[0].attrs).toStrictEqual({
-					title: 'any',
-					__expanded: true,
-				});
-			},
-		);
+		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+			__livePage: true,
+			hasRecovered: false,
+		});
+		expect(broadcastSpy).toBeCalledTimes(1);
+		// When feature flag on and __livePages on -- we strip out the __expanded attribute from the step.
+		expect((broadcastSpy.mock.calls[0][1] as any).steps[0].attrs).toStrictEqual({
+			title: 'any',
+		});
 	});
 
 	it('Adds cliendIds and userIds to steps before broadcast', () => {

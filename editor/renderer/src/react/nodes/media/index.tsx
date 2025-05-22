@@ -149,6 +149,7 @@ const MediaLink = ({
 	const linkHref = mark?.attrs.href;
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a
 			href={linkHref}
 			rel="noreferrer noopener"

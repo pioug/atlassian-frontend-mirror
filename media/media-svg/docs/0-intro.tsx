@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { Example, md, Props } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
+
+const LinkComponent = (props: any) =>
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-has-content
+	fg('dst-a11y__replace-anchor-with-link__media-exif') ? <Link {...props} /> : <a {...props} />;
 
 export default md`
 
@@ -13,9 +19,12 @@ ${(
 		<p>
 			This package is under development. If you intend to use it, please reach out to Core
 			Experiences Team in{' '}
-			<a href="https://atlassian.enterprise.slack.com/archives/C05J5GNHPLN" target="_blank">
+			<LinkComponent
+				href="https://atlassian.enterprise.slack.com/archives/C05J5GNHPLN"
+				target="_blank"
+			>
 				#help-media-platform
-			</a>
+			</LinkComponent>
 		</p>
 	</SectionMessage>
 )}

@@ -1,5 +1,14 @@
 # @atlaskit/link-create
 
+## 4.1.0
+
+### Minor Changes
+
+- [#157092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157092)
+  [`87491e7b53b65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87491e7b53b65) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 4.0.13
 
 ### Patch Changes

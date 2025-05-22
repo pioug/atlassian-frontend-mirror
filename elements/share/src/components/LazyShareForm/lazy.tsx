@@ -33,7 +33,12 @@ const LazyShareFormLazy = lazy<FunctionComponent<LazyShareFormProps>>(
 
 type LoadingDialog = Pick<
 	LazyShareFormProps,
-	'shareFormTitle' | 'showTitle' | 'setIsLoading' | 'integrationMode' | 'isMenuItemSelected'
+	| 'shareFormTitle'
+	| 'showTitle'
+	| 'setIsLoading'
+	| 'integrationMode'
+	| 'isMenuItemSelected'
+	| 'isExtendedShareDialogEnabled'
 >;
 
 const LoadingDialog: React.FC<LoadingDialog> = ({
@@ -42,6 +47,7 @@ const LoadingDialog: React.FC<LoadingDialog> = ({
 	setIsLoading,
 	integrationMode,
 	isMenuItemSelected,
+	isExtendedShareDialogEnabled,
 }) => {
 	React.useEffect(() => {
 		setIsLoading(true);
@@ -54,6 +60,7 @@ const LoadingDialog: React.FC<LoadingDialog> = ({
 			isMenuItemSelected={isMenuItemSelected}
 			// if `showTitle` is passed, we use it. Otherwise, we will show title for loading dialog.
 			shouldShowTitle={typeof showTitle === 'boolean' ? showTitle : true}
+			isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 		>
 			<div css={spinnerWrapperStyles}>
 				<Spinner />
@@ -74,6 +81,7 @@ export default (props: LazyShareFormProps) =>
 					setIsLoading={props.setIsLoading}
 					integrationMode={props.integrationMode}
 					isMenuItemSelected={props.isMenuItemSelected}
+					isExtendedShareDialogEnabled={props.isExtendedShareDialogEnabled}
 				/>
 			}
 		>

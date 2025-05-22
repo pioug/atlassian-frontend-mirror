@@ -27,10 +27,11 @@ type TableViewOptions = {
 };
 
 export const lazyTableView = (options: TableViewOptions) => {
-	// LNV tables are broken in concurrent mode - temporarily disable to unblock concurrent mode
+	// LNV tables were broken in concurrent mode - they were temporarily disabled to unblock concurrent mode.
+	// Enabling them again via the platform_editor_enable_table_lnv flag.
 	if (
 		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		fg('platform_editor_disable_table_lnv')
+		(!fg('platform_editor_enable_table_lnv') && fg('platform_editor_disable_table_lnv'))
 	) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return createTableView(
@@ -102,10 +103,11 @@ type TableCellViewOptions = {
 	pluginInjectionApi?: PluginInjectionAPI;
 };
 export const lazyTableCellView = (options: TableCellViewOptions) => {
-	// LNV tables are broken in concurrent mode - temporarily disable to unblock concurrent mode
+	// LNV tables were broken in concurrent mode - they were temporarily disabled to unblock concurrent mode.
+	// Enabling them again via the platform_editor_enable_table_lnv flag.
 	if (
 		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		fg('platform_editor_disable_table_lnv')
+		(!fg('platform_editor_enable_table_lnv') && fg('platform_editor_disable_table_lnv'))
 	) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return new TableCell(
@@ -153,10 +155,11 @@ export const lazyTableCellView = (options: TableCellViewOptions) => {
 };
 
 export const lazyTableHeaderView = (options: TableCellViewOptions) => {
-	// LNV tables are broken in concurrent mode - temporarily disable to unblock concurrent mode
+	// LNV tables were broken in concurrent mode - they were temporarily disabled to unblock concurrent mode.
+	// Enabling them again via the platform_editor_enable_table_lnv flag.
 	if (
 		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		fg('platform_editor_disable_table_lnv')
+		(!fg('platform_editor_enable_table_lnv') && fg('platform_editor_disable_table_lnv'))
 	) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return new TableCell(
@@ -204,10 +207,11 @@ export const lazyTableHeaderView = (options: TableCellViewOptions) => {
 };
 
 export const lazyTableRowView = (options: TableCellViewOptions) => {
-	// LNV tables are broken in concurrent mode - temporarily disable to unblock concurrent mode
+	// LNV tables were broken in concurrent mode - they were temporarily disabled to unblock concurrent mode.
+	// Enabling them again via the platform_editor_enable_table_lnv flag.
 	if (
 		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		fg('platform_editor_disable_table_lnv')
+		(!fg('platform_editor_enable_table_lnv') && fg('platform_editor_disable_table_lnv'))
 	) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 			return new TableRow(node, view, getPos, options.eventDispatcher);

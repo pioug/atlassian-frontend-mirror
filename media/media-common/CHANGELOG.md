@@ -1,5 +1,14 @@
 # @atlaskit/media-common
 
+## 12.1.0
+
+### Minor Changes
+
+- [#157095](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157095)
+  [`ec7b5d3268aaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec7b5d3268aaf) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 12.0.0
 
 ### Major Changes

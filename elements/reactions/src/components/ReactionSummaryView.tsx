@@ -223,20 +223,14 @@ export const ReactionSummaryView = ({
 		if (hoverableSummaryView) {
 			setIsHoveringSummaryView(false);
 			setIsSummaryViewButtonHovered(false);
-			if (isSummaryViewButtonClicked) {
-				// if the button was previously clicked, close the popup and reset the state
+			if (isEmojiPickerOpen || isSummaryViewButtonClicked) {
+				// if either the emoji picker is open or the button was clicked, close the popup and reset the state
 				setSummaryPopupOpen(false, true);
 				setIsSummaryViewButtonClicked(false);
 			} else {
-				if (isEmojiPickerOpen) {
-					// if the emoji picker is open, close the popup and reset the state
-					setSummaryPopupOpen(false, true);
-					setIsSummaryViewButtonClicked(false);
-				} else {
-					// if the button was not previously clicked, open the popup and set the state
-					setSummaryPopupOpen(true, true);
-					setIsSummaryViewButtonClicked(true);
-				}
+				// if neither condition is true, open the popup and set the state
+				setSummaryPopupOpen(true, true);
+				setIsSummaryViewButtonClicked(true);
 			}
 			// close the emoji picker
 			setIsEmojiPickerOpen(false);
@@ -300,7 +294,7 @@ export const ReactionSummaryView = ({
 	return (
 		<Popup
 			placement={placement}
-			content={() =>
+			content={({ update: recalculatePopupPosition }) =>
 				isEmojiPickerOpen ? (
 					<EmojiPicker
 						emojiProvider={emojiProvider}
@@ -319,7 +313,10 @@ export const ReactionSummaryView = ({
 									disabled={disabled}
 									reactionPickerTriggerIcon={reactionPickerTriggerIcon}
 									tooltipContent={tooltipContent}
-									onClick={handleEmojiPickerTriggerClick}
+									onClick={() => {
+										handleEmojiPickerTriggerClick();
+										recalculatePopupPosition();
+									}}
 									showAddReactionText
 									reactionPickerTriggerText={reactionPickerTriggerText}
 									fullWidthSummaryViewReactionPickerTrigger

@@ -56,7 +56,7 @@ export const sendTransaction =
 			sessionId &&
 			viewMode === 'edit' &&
 			((selectionChanged && !docChangedTransaction) ||
-				(fg('platform_editor_no_telecursor_on_live_doc_init')
+				(fg('platform_editor_no_cursor_on_live_doc_init')
 					? participantsChanged && !hideTelecursorOnLoad
 					: participantsChanged))
 		) {

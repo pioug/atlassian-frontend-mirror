@@ -1,5 +1,11 @@
 # @atlaskit/editor-element-browser
 
+## 0.1.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.21
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type {
@@ -6,6 +7,15 @@ import type {
 } from '@atlaskit/editor-prosemirror/transform';
 
 import type { Rebaseable } from './index';
+
+// Iterate from the specified starting index down to 0
+const findPreviousStepInverseIndex = (steps: ProseMirrorStep[], startIndex = steps.length - 1) => {
+	for (let i = startIndex; i >= 0; i--) {
+		if (!(steps[i] instanceof AnalyticsStep)) {
+			return i;
+		}
+	}
+};
 
 export const mapStep = (
 	steps: readonly Rebaseable[],
@@ -17,22 +27,28 @@ export const mapStep = (
 		return undefined;
 	}
 
-	const previousRebaseableStep = steps[index - 1];
+	const previousRebaseableStepIndex = findPreviousStepInverseIndex(
+		steps.map((s) => s.step),
+		index - 1,
+	);
 
+	// This checks the local steps are a "move" sequence
 	if (
-		// This checks the local steps are a "move" sequence
-		isMoveSequence(
-			previousRebaseableStep.step,
-			steps[index].step,
-			// Used to get the document prior to step changes
-			previousRebaseableStep,
-		)
+		previousRebaseableStepIndex !== undefined &&
+		isMoveSequence(steps[previousRebaseableStepIndex], steps[index].step)
 	) {
-		const previousStep = transform.steps[transform.steps.length - 1];
+		const previousStepInverseIndex = findPreviousStepInverseIndex(transform.steps);
+
 		// Creates a new step based on the "current" steps (partially through the rebase)
-		return createMoveMapStep(mapped, previousStep, transform);
+		if (previousStepInverseIndex !== undefined) {
+			return createMoveMapStep(
+				mapped,
+				transform.steps[previousStepInverseIndex],
+				transform,
+				previousStepInverseIndex,
+			);
+		}
 	}
-	return undefined;
 };
 
 // Only consider ReplaceStep (ReplaceAroundStep do not occur for moves)
@@ -48,25 +64,30 @@ const isReplaceTypeStep = (step: ProseMirrorStep): step is ReplaceStep =>
  * @param currentStep
  * @param previousRebaseable
  */
-const isMoveSequence = (
-	previousStep: ProseMirrorStep,
+export const isMoveSequence = (
+	previousRebaseableStep: Rebaseable,
 	currentStep: ProseMirrorStep,
-	previousRebaseable: Rebaseable,
 ) => {
 	if (
 		// The both steps are replace
-		isReplaceTypeStep(previousStep) &&
+		isReplaceTypeStep(previousRebaseableStep.step) &&
 		isReplaceTypeStep(currentStep) &&
 		// The current step is a deletion
-		previousStep.slice.size === 0 &&
+		previousRebaseableStep.step.slice.size === 0 &&
 		// The following step is an insertion with the same length that was deleted by the current step
-		Math.abs(previousStep.to - previousStep.from) === currentStep.slice.size
+		Math.abs(previousRebaseableStep.step.to - previousRebaseableStep.step.from) ===
+			currentStep.slice.size
 	) {
 		// Ensure we're getting the doc before our step changes so we can compare node contents
-		const originStepIndex = previousRebaseable.origin.steps.findIndex((s) => s === previousStep);
-		const originalDoc = previousRebaseable.origin.docs[originStepIndex];
+		const originStepIndex = previousRebaseableStep.origin.steps.findIndex(
+			(s) => s === previousRebaseableStep.step,
+		);
+		const originalDoc = previousRebaseableStep.origin.docs[originStepIndex];
 
-		const currentSlice = originalDoc.slice(previousStep.from, previousStep.to);
+		const currentSlice = originalDoc.slice(
+			previousRebaseableStep.step.from,
+			previousRebaseableStep.step.to,
+		);
 		// The content from the deleted + inserted slice is exactly the same (cut + paste or drag + drop)
 		if (currentSlice.eq(currentStep.slice)) {
 			return true;
@@ -84,18 +105,16 @@ const isMoveSequence = (
  * @param transform
  * @returns Step to apply missing changes
  */
-const createMoveMapStep = (
+export const createMoveMapStep = (
 	mapped: ProseMirrorStep | null,
 	previousStep: ProseMirrorStep,
 	transform: ProseMirrorTransform,
+	previousStepIndex: number,
 ) => {
 	if (!isReplaceTypeStep(previousStep) || (mapped && !isReplaceTypeStep(mapped)) || !mapped) {
 		return undefined;
 	}
-	const newSlice = transform.docs[transform.docs.length - 1].slice(
-		previousStep?.from,
-		previousStep?.to,
-	);
+	const newSlice = transform.docs[previousStepIndex].slice(previousStep?.from, previousStep?.to);
 	const diff = getDiffRange(mapped.slice.content, newSlice.content);
 	if (diff === undefined) {
 		return undefined;
@@ -118,7 +137,7 @@ const createMoveMapStep = (
 	return new ReplaceStep(
 		start,
 		start + offset,
-		transform.docs[transform.docs.length - 1].slice(
+		transform.docs[previousStepIndex].slice(
 			previousStep?.from + diff.start,
 			previousStep?.from + diff.end,
 		),

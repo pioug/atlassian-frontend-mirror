@@ -10,6 +10,8 @@ import { type Parameters } from './extension-parameters';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ExtensionProvider<T extends Parameters = any> {
 	getExtensions(): Promise<ExtensionManifest<T>[]>;
+	preload?(): Promise<void>;
+	getPreloadedExtension?(type: ExtensionType, key: ExtensionKey): ExtensionManifest<T> | undefined;
 	getExtension(type: ExtensionType, key: ExtensionKey): Promise<ExtensionManifest<T> | undefined>;
 	search(keyword: string): Promise<ExtensionManifest<T>[]>;
 	getAutoConverter(): Promise<ExtensionAutoConvertHandler[]>;

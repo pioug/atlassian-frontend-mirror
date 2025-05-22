@@ -8,6 +8,7 @@ import type {
 
 import type { ShortenRequest, UrlShortenerClient } from '../clients/AtlassianUrlShortenerClient';
 import type { ShareClient } from '../clients/ShareServiceClient';
+import type { ShareData } from '../types';
 
 import type { Flag } from './Flag';
 import type { OriginTracing, OriginTracingFactory } from './OriginTracing';
@@ -190,4 +191,6 @@ export type ShareDialogContainerProps = {
 	isExtendedShareDialogEnabled?: boolean;
 	/* Additional user fields to be displayed alongside the user picker */
 	additionalUserFields?: React.ReactNode;
+	/* Callback function to be called on share submit in the share form, this does not override the default share action. */
+	onSubmit?: (formValues: ShareData) => void | Promise<void>;
 };

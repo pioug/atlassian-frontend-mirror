@@ -19,6 +19,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin, BreakoutPluginState } from './breakoutPluginType';
 import { pluginKey } from './pm-plugins/plugin-key';
+import { createResizingPlugin } from './pm-plugins/resizing-plugin';
 import { findSupportedNodeForBreakout } from './pm-plugins/utils/find-breakout-node';
 import type { Props as LayoutButtonProps } from './ui/LayoutButton';
 import LayoutButton from './ui/LayoutButton';
@@ -207,6 +208,15 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 	name: 'breakout',
 
 	pmPlugins() {
+		if (editorExperiment('platform_editor_breakout_resizing', true)) {
+			return [
+				{
+					name: 'breakout-resizing',
+					plugin: () => createResizingPlugin(),
+				},
+			];
+		}
+
 		return [
 			{
 				name: 'breakout',

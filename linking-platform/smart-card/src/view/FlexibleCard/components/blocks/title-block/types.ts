@@ -122,6 +122,10 @@ export type TitleBlockProps = {
 	 * Determines whether TitleBlock will hide the Link Icon.
 	 */
 	hideIcon?: boolean;
+	/**
+	 * Ref passed into the link <a> element
+	 */
+	anchorRef?: React.Ref<HTMLAnchorElement>;
 } & BlockProps;
 
 export type TitleBlockViewProps = TitleBlockProps & {

@@ -4,6 +4,7 @@ import type {
 	ExtensionKey,
 	ExtensionManifest,
 	ExtensionType,
+	PreloadableExtensionModuleNode,
 } from './types/extension-manifest';
 import type { Parameters } from './types/extension-parameters';
 import type { ExtensionProvider } from './types/extension-provider';
@@ -12,6 +13,7 @@ export default class DefaultExtensionProvider<T extends Parameters>
 	implements ExtensionProvider<T>
 {
 	protected manifestsPromise: Promise<ExtensionManifest<T>[]>;
+	protected manifestsCache: ExtensionManifest<T>[] = [];
 	protected autoConvertHandlers?: ExtensionAutoConvertHandler[];
 
 	constructor(
@@ -32,15 +34,40 @@ export default class DefaultExtensionProvider<T extends Parameters>
 		return this.manifestsPromise;
 	}
 
-	async getExtension(type: ExtensionType, key: ExtensionKey) {
-		const extension = (await this.manifestsPromise).find(
-			(manifest) => manifest.type === type && manifest.key === key,
-		);
+	async preload(): Promise<void> {
+		this.manifestsCache = await this.manifestsPromise;
+		const preloadCalls = [] as (Promise<void> | undefined)[];
+		for (const manifest of this.manifestsCache) {
+			const nodes = manifest?.modules?.nodes;
+			if (nodes) {
+				Object.values(nodes).forEach((node) => {
+					preloadCalls.push((node as PreloadableExtensionModuleNode)?.preloadRender?.());
+				});
+			}
+		}
+		await Promise.allSettled(preloadCalls);
+	}
 
+	getPreloadedExtension(type: ExtensionType, key: ExtensionKey) {
+		if (!this.manifestsCache) {
+			return;
+		}
+		return this.getExtensionFromManifest(this.manifestsCache, type, key);
+	}
+
+	async getExtension(type: ExtensionType, key: ExtensionKey) {
+		return this.getExtensionFromManifest(await this.manifestsPromise, type, key);
+	}
+
+	private getExtensionFromManifest(
+		manifests: ExtensionManifest<T>[],
+		type: ExtensionType,
+		key: ExtensionKey,
+	) {
+		const extension = manifests.find((manifest) => manifest.type === type && manifest.key === key);
 		if (!extension) {
 			throw new Error(`Extension with type "${type}" and key "${key}" not found!`);
 		}
-
 		return extension;
 	}
 

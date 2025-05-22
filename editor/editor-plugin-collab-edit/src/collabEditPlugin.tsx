@@ -1,6 +1,6 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { type CollabEditProvider } from '@atlaskit/editor-common/collab';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
@@ -295,6 +295,15 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					});
 				},
 			});
+		},
+
+		commands: {
+			nudgeTelepointer:
+				(sessionId) =>
+				({ tr }) => {
+					tr.setMeta('nudgeTelepointer', { sessionId });
+					return tr;
+				},
 		},
 	};
 };

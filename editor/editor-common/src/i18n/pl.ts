@@ -222,6 +222,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Możesz teraz wklejać łącza 🔗 do zawartości Jiry i Confluence w swoich poleceniach.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Obsługiwane przez Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Generowanie',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence nie może przetworzyć Twojego żądania, ponieważ treść zawiera łącza do zawartości podlegających ograniczeniom przepisów HIPAA. Usuń te łącza i spróbuj ponownie.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -670,6 +671,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Spróbuj załadować stronę ponownie.',
   'fabric.editor.offlineErrorFallbackHeading': 'Coś poszło nie tak',
   'fabric.editor.on': '{formattingType} wł.',
+  'fabric.editor.openButtonTitle': 'Otwórz',
   'fabric.editor.openCellOptions': 'Otwórz opcje komórki',
   'fabric.editor.openLink': 'Otwórz łącze na nowej karcie',
   'fabric.editor.orderedList': 'Lista numerowana',

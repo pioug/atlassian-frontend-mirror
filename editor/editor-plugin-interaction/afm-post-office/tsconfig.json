@@ -21,6 +21,9 @@
 			"path": "../../editor-common/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
 		}
 	]

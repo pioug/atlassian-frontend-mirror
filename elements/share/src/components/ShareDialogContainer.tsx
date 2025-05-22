@@ -167,7 +167,7 @@ export class ShareDialogContainerInternal extends React.Component<
 		);
 	};
 
-	handleSubmitShare = ({ users, comment }: ShareData): Promise<void> => {
+	handleSubmitShare = ({ users, comment, ...rest }: ShareData): Promise<void> => {
 		const shareLink = this.getFormShareLink();
 		const { productId, shareAri, shareContentType, shareTitle, shareeAction, workspaceAri } =
 			this.props;
@@ -183,6 +183,8 @@ export class ShareDialogContainerInternal extends React.Component<
 			atlOriginId: this.getFormShareOriginTracing().id,
 			shareeAction,
 		};
+
+		this.props.onSubmit?.({ users, comment, ...rest });
 
 		return this.shareClient.share(content, optionDataToUsers(users), metaData, comment).then(() => {
 			if (!this._isMounted) {

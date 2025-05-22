@@ -207,6 +207,7 @@ class Example extends React.Component<{}, ExampleState> {
 				</Grid>
 				<Grid>
 					<GridColumn>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-range */}
 						<input
 							type="range"
 							min="0"
@@ -263,6 +264,7 @@ class Example extends React.Component<{}, ExampleState> {
 		return (
 			<label css={labelStyles}>
 				<span>{displayTitle}:</span>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-range */}
 				<input
 					type="range"
 					min={min}

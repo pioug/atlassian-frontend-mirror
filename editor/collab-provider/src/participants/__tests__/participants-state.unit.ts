@@ -57,12 +57,12 @@ describe('get functions', () => {
 			};
 
 			participantsState.setBySessionId(duplicateUser.sessionId, duplicateUser);
-			const hydratedParticipants = participantsState.getUniqueParticipants({ isHydrated: false });
+			const participantsToHydrate = participantsState.getUniqueParticipants({ isHydrated: false });
 			expect(participantsState.size()).toEqual(3);
 
-			expect(hydratedParticipants.length).toEqual(1);
+			expect(participantsToHydrate.length).toEqual(1);
 			// last user added wins
-			expect(hydratedParticipants).toEqual([duplicateUser]);
+			expect(participantsToHydrate).toEqual([duplicateUser]);
 			expect(participantsState.getUniqueParticipantSize()).toEqual(1);
 		});
 

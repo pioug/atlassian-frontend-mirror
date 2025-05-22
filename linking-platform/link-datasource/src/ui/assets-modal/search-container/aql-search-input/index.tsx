@@ -128,6 +128,7 @@ export const AqlSearchInput = ({
 										content={formatMessage(searchInputMessages.helpTooltipText)}
 										position="bottom"
 									>
+										{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 										<a href={AQLSupportDocumentLink} target="_blank" css={buttonBaseStyles}>
 											<QuestionCircleIcon
 												label="label"

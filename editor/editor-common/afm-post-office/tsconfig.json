@@ -75,6 +75,9 @@
 			"path": "../../../design-system/icon-object/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/link/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/link-datasource/afm-post-office/tsconfig.json"
 		},
 		{

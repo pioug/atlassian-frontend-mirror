@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 118.2.1
+
+### Patch Changes
+
+- [#158353](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158353)
+  [`f2bde4220539c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2bde4220539c) -
+  Fix smart card avatar override with padding and margin
+- [#148691](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/148691)
+  [`8c8fad20db912`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c8fad20db912) -
+  Cleanup FG platform_editor_accessible_heading_copy_link
+- Updated dependencies
+
+## 118.2.0
+
+### Minor Changes
+
+- [#157072](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157072)
+  [`cc6bc0b7cd8b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc6bc0b7cd8b4) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 118.1.2
 
 ### Patch Changes

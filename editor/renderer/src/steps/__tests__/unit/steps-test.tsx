@@ -20,6 +20,16 @@ import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClientProvider } from '@atlaskit/media-client-react';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+/*
+ * NOTE: This will interfere with the ability to test the compiled styles,
+ * eg. you cannot do `expect(component).toHaveCompiledCss(…);` in tests that import this util.
+ */
+jest.mock('@compiled/react/runtime', () => ({
+	...jest.requireActual('@compiled/react/runtime'),
+	// Mock `<CS>` out so it doesn't generate `<style>` tags!
+	CS: () => null,
+}));
+
 describe('steps', () => {
 	const DOC_ROOT_OFFSET = 1;
 

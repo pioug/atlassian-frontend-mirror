@@ -207,6 +207,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Voit nyt liittää linkkejä 🔗 Jira- ja Confluence-sisältöön kehotteissa.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Palvelun tarjoaa Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Luodaan',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence ei pystynyt käsittelemään pyyntöäsi, koska sisältösi sisältää linkkejä HIPAA-rajoitettuun sisältöön. Poista nämä linkit ja yritä uudelleen.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -644,6 +645,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Yritä ladata sivu uudelleen.',
   'fabric.editor.offlineErrorFallbackHeading': 'Jotain meni vikaan!',
   'fabric.editor.on': '{formattingType} käytössä',
+  'fabric.editor.openButtonTitle': 'Avaa',
   'fabric.editor.openCellOptions': 'Avaa soluvalinnat',
   'fabric.editor.openLink': 'Avaa linkki uudessa välilehdessä',
   'fabric.editor.orderedList': 'Numeroitu luettelo',

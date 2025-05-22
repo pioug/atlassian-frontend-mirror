@@ -6,16 +6,15 @@ import type { Ref } from 'react';
 import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { N200, N500, B400 } from '@atlaskit/theme/colors';
-import { fg } from '@atlaskit/platform-feature-flags';
-import LinkIcon from '@atlaskit/icon/core/migration/link';
-import Tooltip from '@atlaskit/tooltip';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
+
+import LinkIcon from '@atlaskit/icon/core/migration/link';
+import Tooltip from '@atlaskit/tooltip';
+import { token } from '@atlaskit/tokens';
+
 import { headingAnchorLinkMessages } from '../../messages';
 import type { MessageDescriptor } from '../../types/i18n';
-
-import { token } from '@atlaskit/tokens';
 
 export const HeadingAnchorWrapperClassName = 'heading-anchor-wrapper';
 
@@ -42,7 +41,7 @@ const copyAnchorButtonStyles = css({
 	outline: 'none',
 	backgroundColor: 'transparent',
 	border: 'none',
-	color: token('color.icon', N500),
+	color: token('color.icon'),
 	cursor: 'pointer',
 	right: 0,
 });
@@ -106,23 +105,13 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 				aria-hidden={hideFromScreenReader}
 				tabIndex={hideFromScreenReader ? undefined : -1}
 				aria-label={hideFromScreenReader ? undefined : this.state.tooltipMessage}
-				aria-labelledby={
-					fg('platform_editor_accessible_heading_copy_link')
-						? hideFromScreenReader
-							? undefined
-							: headingId
-						: undefined
-				}
+				aria-labelledby={hideFromScreenReader ? undefined : headingId}
 				type="button"
 			>
 				<LinkIcon
 					label={this.getCopyAriaLabel()}
 					LEGACY_size={this.props.level > 3 ? 'small' : 'medium'}
-					color={
-						this.state.isClicked
-							? token('color.icon.selected', B400)
-							: token('color.icon.subtle', N200)
-					}
+					color={this.state.isClicked ? token('color.icon.selected') : token('color.icon.subtle')}
 				/>
 			</button>
 		);

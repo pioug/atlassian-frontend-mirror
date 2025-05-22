@@ -75,6 +75,7 @@ const TitleBlock = ({
 	metadataPosition,
 	hideIcon = false,
 	className,
+	anchorRef,
 	...props
 }: TitleBlockProps) => {
 	if (!fg('platform-linking-flexible-card-unresolved-action')) {
@@ -110,6 +111,7 @@ const TitleBlock = ({
 			onMouseDown={onMouseDown}
 			target={anchorTarget}
 			theme={theme}
+			anchorRef={anchorRef}
 			{...overrideText}
 		/>
 	);

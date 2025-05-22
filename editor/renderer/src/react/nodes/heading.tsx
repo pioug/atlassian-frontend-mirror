@@ -1,16 +1,15 @@
 import React from 'react';
+
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
-
-import HeadingAnchor from './heading-anchor';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { type NodeProps } from '../types';
@@ -18,6 +17,8 @@ import {
 	type HeadingAnchorLinksProps,
 	type HeadingAnchorLinksConfig,
 } from '../../ui/Renderer/types';
+
+import HeadingAnchor from './heading-anchor';
 
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -113,7 +114,7 @@ function Heading(
 							level={props.level}
 							enableNestedHeaderLinks={enableNestedHeaderLinks}
 							headingId={headingId}
-							hideFromScreenReader={fg('platform_editor_accessible_heading_copy_link')}
+							hideFromScreenReader
 						/>
 					)}
 					{props.children}
@@ -122,22 +123,20 @@ function Heading(
 							level={props.level}
 							enableNestedHeaderLinks={enableNestedHeaderLinks}
 							headingId={headingId}
-							hideFromScreenReader={fg('platform_editor_accessible_heading_copy_link')}
+							hideFromScreenReader
 						/>
 					)}
 				</>
 			</HX>
-			{fg('platform_editor_accessible_heading_copy_link') && (
-				<VisuallyHidden testId="visually-hidden-heading-anchor">
-					{showAnchorLink && headingId && (
-						<WrappedHeadingAnchor
-							level={props.level}
-							enableNestedHeaderLinks={enableNestedHeaderLinks}
-							headingId={headingId}
-						/>
-					)}
-				</VisuallyHidden>
-			)}
+			<VisuallyHidden testId="visually-hidden-heading-anchor">
+				{showAnchorLink && headingId && (
+					<WrappedHeadingAnchor
+						level={props.level}
+						enableNestedHeaderLinks={enableNestedHeaderLinks}
+						headingId={headingId}
+					/>
+				)}
+			</VisuallyHidden>
 		</>
 	);
 }

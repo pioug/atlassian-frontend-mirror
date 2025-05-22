@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "3.0.5",
+	"version": "3.0.6",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -188,7 +188,7 @@
 		"platform_editor_fix_image_size_diff_during_ssr": {
 			"type": "boolean"
 		},
-		"platform_editor_no_selection_until_interaction": {
+		"platform_editor_no_cursor_on_live_doc_init": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_7": {

@@ -1,7 +1,9 @@
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import Link from '@atlaskit/link';
 import { LinkPicker } from '@atlaskit/link-picker';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
 
@@ -59,9 +61,16 @@ const LinkPickerCreate = () => {
 			{link && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<div style={{ marginBottom: token('space.200', '1rem') }}>
-					<a href={link} target="_blank" rel="noopener noreferrer nofollow">
-						{link}
-					</a>
+					{fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+						<Link href={link} target="_blank" rel="noopener noreferrer nofollow">
+							{link}
+						</Link>
+					) : (
+						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+						<a href={link} target="_blank" rel="noopener noreferrer nofollow">
+							{link}
+						</a>
+					)}
 				</div>
 			)}
 			<Popup

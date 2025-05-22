@@ -53,6 +53,7 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 	) => {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
+			// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 			<a
 				href={href}
 				css={[

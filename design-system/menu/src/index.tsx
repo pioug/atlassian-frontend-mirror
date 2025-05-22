@@ -16,12 +16,9 @@ export { default as PopupMenuGroup } from './menu-section/popup-menu-group';
 
 export type {
 	ButtonItemProps,
-	CSSFn,
-	StatelessCSSFn,
 	CustomItemComponentProps,
 	CustomItemProps,
 	HeadingItemProps,
-	ItemState,
 	LinkItemProps,
 	MenuGroupProps,
 	SectionProps,

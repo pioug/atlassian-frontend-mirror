@@ -82,6 +82,7 @@ function setup(options: SetupOptions = {}) {
 	const el = render(
 		<IntlProvider locale="en">
 			<VideoViewer
+				identifier={props?.identifier || { id: 'some-id', mediaItemType: 'file' }}
 				onCanPlay={() => {}}
 				onError={() => {}}
 				mediaClient={mediaClient}

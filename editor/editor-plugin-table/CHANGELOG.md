@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 10.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.10.2
+
+### Patch Changes
+
+- [#158294](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158294)
+  [`c017b7dd6fc06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c017b7dd6fc06) -
+  NOISSUE - Add platform_editor_enable_table_lnv feature flag to re-enable lazy node view for
+  tables.
+- Updated dependencies
+
 ## 10.10.1
 
 ### Patch Changes

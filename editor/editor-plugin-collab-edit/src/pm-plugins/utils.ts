@@ -1,7 +1,11 @@
 import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
+import {
+	TELEPOINTER_DATA_SESSION_ID_ATTR,
+	type CollabEditOptions,
+	type CollabParticipant,
+} from '@atlaskit/editor-common/collab';
 import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -87,6 +91,8 @@ export const createTelepointers = (
 	cursor.setAttribute('data-initial', initial);
 
 	if (fg('confluence_team_presence_scroll_to_pointer')) {
+		cursor.setAttribute(TELEPOINTER_DATA_SESSION_ID_ATTR, sessionId);
+
 		const fullNameEl = document.createElement('span');
 		fullNameEl.textContent = fullName;
 		fullNameEl.className = 'telepointer-fullname';

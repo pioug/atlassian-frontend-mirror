@@ -17,6 +17,7 @@ import coreIconMetadata from '../icons_raw/metadata-core';
 import utilityIconMetadata from '../icons_raw/metadata-utility';
 import legacyMetadata from '../src/metadata';
 import migrationMap from '../src/migration-map';
+import { recommendedSmallIcons } from '../src/recommended-small';
 import synonyms from '../utils/synonyms';
 
 async function main() {
@@ -76,6 +77,7 @@ async function main() {
 			['icon', 'core'],
 			coreIconMetadata,
 			migrationMap,
+			recommendedSmallIcons,
 		);
 
 		fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);

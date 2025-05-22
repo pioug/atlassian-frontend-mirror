@@ -16,17 +16,21 @@ import Heading from '../../../../react/nodes/heading';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 import { fireEvent } from '@testing-library/react';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import HeadingAnchor from '../../../../react/nodes/heading-anchor';
 import ReactSerializer from '../../../../react';
+import userEvent from '@testing-library/user-event';
 
 describe('<Heading />', () => {
 	let heading: any;
 	const serialiser = new ReactSerializer({});
 	const fireAnalyticsEvent = jest.fn();
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 
 	test.each([1, 2, 3, 4, 5, 6])('should wrap content with <h%s>-tag', (headingLevel) => {
 		heading = mountWithIntl(
@@ -75,8 +79,8 @@ describe('<Heading />', () => {
 		});
 	});
 
-	const renderHeadingWithAnchor = () => {
-		return mountWithIntl(
+	const HeadingWithAnchorNext = () => {
+		return (
 			<AnalyticsContext.Provider
 				value={{
 					fireAnalyticsEvent: fireAnalyticsEvent,
@@ -95,19 +99,19 @@ describe('<Heading />', () => {
 				>
 					This is a Heading 1
 				</Heading>
-			</AnalyticsContext.Provider>,
+			</AnalyticsContext.Provider>
 		);
 	};
 
 	describe('When click on copy anchor link button', () => {
 		afterEach(() => {
 			mockCopyTextToClipboard.mockClear();
-			heading.unmount();
 		});
 
-		it('should call "fireAnalyticsEvent" with correct event data', () => {
-			heading = renderHeadingWithAnchor();
-			heading.find('button').simulate('click');
+		it('should call "fireAnalyticsEvent" with correct event data', async () => {
+			const screen = renderWithIntl(<HeadingWithAnchorNext />);
+			const headingAnchors = screen.getAllByTestId('anchor-button');
+			await userEvent.click(headingAnchors[0]);
 			expect(fireAnalyticsEvent).toHaveBeenCalledWith({
 				action: 'clicked',
 				actionSubject: 'button',
@@ -116,63 +120,44 @@ describe('<Heading />', () => {
 			});
 		});
 
-		it('Should call "copyTextToClipboard" with correct param', () => {
-			heading = renderHeadingWithAnchor();
-			heading.find('button').simulate('click');
+		it('Should call "copyTextToClipboard" with correct param', async () => {
+			const screen = renderWithIntl(<HeadingWithAnchorNext />);
+			const headingAnchors = screen.getAllByTestId('anchor-button');
+			await userEvent.click(headingAnchors[0]);
 			expect(mockCopyTextToClipboard).toHaveBeenCalledWith('http://localhost/#This-is-a-Heading-1');
 		});
 
-		it('Should call "copyTextToClipboard" with correct hash replaced and query params cleared', () => {
+		it('Should call "copyTextToClipboard" with correct hash replaced and query params cleared', async () => {
 			jsdom.reconfigure({
 				url: 'http://localhost/some-path?focusedCommentId=123#some-other-link',
 			});
-			heading = renderHeadingWithAnchor();
-			heading.find('button').simulate('click');
+			const screen = renderWithIntl(<HeadingWithAnchorNext />);
+			const headingAnchors = screen.getAllByTestId('anchor-button');
+			await userEvent.click(headingAnchors[0]);
 			expect(mockCopyTextToClipboard).toHaveBeenCalledWith(
 				'http://localhost/some-path#This-is-a-Heading-1',
 			);
 		});
 	});
 
-	ffTest.on('platform_editor_accessible_heading_copy_link', 'Accessible heading link', () => {
-		it('renders an aria hidden and visually hidden heading anchor when showAnchorLink is true and headingId is provided', () => {
-			const reactSerializer = new ReactSerializer({});
-			const screen = renderWithIntl(
-				<Heading
-					level={1}
-					headingId="heading-id"
-					showAnchorLink
-					dataAttributes={{ 'data-renderer-start-pos': 1 }}
-					marks={[]}
-					nodeType=""
-					serializer={reactSerializer}
-				/>,
-			);
+	it('renders an aria hidden and visually hidden heading anchor when showAnchorLink is true and headingId is provided', () => {
+		const reactSerializer = new ReactSerializer({});
+		const screen = renderWithIntl(
+			<Heading
+				level={1}
+				headingId="heading-id"
+				showAnchorLink
+				dataAttributes={{ 'data-renderer-start-pos': 1 }}
+				marks={[]}
+				nodeType=""
+				serializer={reactSerializer}
+			/>,
+		);
 
-			const headingAnchors = screen.getAllByTestId('anchor-button');
-			expect(headingAnchors.length).toBe(2);
-			expect(headingAnchors[0]).toHaveAttribute('aria-hidden', 'true');
-			expect(screen.getByTestId('visually-hidden-heading-anchor')).toBeInTheDocument();
-		});
-	});
-
-	ffTest.off('platform_editor_accessible_heading_copy_link', 'Accessible heading link', () => {
-		it('renders one heading anchor when showAnchorLink is true and headingId is provided', () => {
-			const reactSerializer = new ReactSerializer({});
-			const screen = renderWithIntl(
-				<Heading
-					level={1}
-					headingId="heading-id"
-					showAnchorLink
-					dataAttributes={{ 'data-renderer-start-pos': 1 }}
-					marks={[]}
-					nodeType=""
-					serializer={reactSerializer}
-				/>,
-			);
-			const headingAnchors = screen.getAllByTestId('anchor-button');
-			expect(headingAnchors.length).toBe(1);
-		});
+		const headingAnchors = screen.getAllByTestId('anchor-button');
+		expect(headingAnchors.length).toBe(2);
+		expect(headingAnchors[0]).toHaveAttribute('aria-hidden', 'true');
+		expect(screen.getByTestId('visually-hidden-heading-anchor')).toBeInTheDocument();
 	});
 
 	it('should fire AbortAll function, if user hover over the heading', async () => {

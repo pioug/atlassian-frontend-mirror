@@ -53,7 +53,7 @@ export {
 	getMimeIcon,
 } from './util';
 export { MimeTypeIcon } from './mime-type-icon';
-export { CustomMediaPlayer } from './customMediaPlayer/index';
+export { CustomMediaPlayer } from './customMediaPlayer';
 export { TimeRange } from './customMediaPlayer/timeRange';
 export type { TimeRangeProps, TimeRangeState } from './customMediaPlayer/timeRange';
 export { hideControlsClassName } from './classNames';
@@ -70,3 +70,5 @@ export { Truncate } from './truncateText';
 export type { TruncateProps } from './truncateText-compiled';
 export { errorIcon } from './errorIcon';
 export { formatDate } from './formatDate';
+
+export { MediaPlayer, type MediaPlayerProps } from './customMediaPlayer/mediaPlayer';

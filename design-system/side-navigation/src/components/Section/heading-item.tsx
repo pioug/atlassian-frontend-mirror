@@ -23,17 +23,15 @@ const styles = cssMap({
  * Available for advanced use cases, for most situations providing a `title` to `section` should be enough.
  *
  */
-const HeadingItem = ({
-	// @ts-expect-error
-	// Although this isn't defined on props it is available because we've used
-	// Spread props below and on the jsx element in MenuHeadingItem.
-	className: UNSAFE_className,
-	...props
-}: HeadingItemProps) => {
+const HeadingItem = (props: HeadingItemProps) => {
 	const { shouldRender } = useShouldNestedElementRender();
 	if (!shouldRender) {
 		return null;
 	}
+
+	// @ts-expect-error - Although this isn't defined on props it is available because we've used
+	// spread props below and on the jsx element in MenuHeadingItem.
+	const UNSAFE_className = props.className;
 
 	return (
 		<MenuHeadingItem

@@ -56,12 +56,14 @@ import {
 	ViewCount,
 	VoteCount,
 } from './components/elements';
-import { type BadgeProps } from './components/elements/badge/types';
-import { type DateTimeProps } from './components/elements/date-time/types';
-import { type IconProps } from './components/elements/icon/types';
-import { type LinkProps } from './components/elements/link/types';
-import { type PreviewProps } from './components/elements/preview/types';
-import { type TextProps } from './components/elements/text/types';
+import {
+	type BaseBadgeElementProps,
+	type BaseDateTimeProps,
+	type BaseLinkElementProps,
+	type BaseTextElementProps,
+} from './components/elements/common';
+import { type IconElementProps } from './components/elements/icon-element';
+import { PreviewElementProps } from './components/elements/preview-element';
 
 // ---- EXPORTED METADATA COMPONENT ---- //
 export const AssignedToElement = () => <AssignedTo />;
@@ -71,7 +73,7 @@ export const AuthorGroupElement = () => <AuthorGroup />;
 export const ChecklistProgressElement = () => <ChecklistProgress />;
 export const CollaboratorGroupElement = () => <CollaboratorGroup />;
 
-type CommentCountElementProps = Pick<BadgeProps, 'color'>;
+type CommentCountElementProps = Pick<BaseBadgeElementProps, 'color'>;
 export const CommentCountElement = (props?: CommentCountElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <CommentCount color={props?.color} />;
@@ -84,7 +86,7 @@ export const CreatedByElement = () => <CreatedBy />;
 export const DueOnElement = () => <DueOn />;
 export const LatestCommitElement = () => <LatestCommit />;
 
-type LinkIconElementProps = Pick<IconProps, 'render'> & {
+type LinkIconElementProps = Pick<IconElementProps, 'render'> & {
 	iconTileSize?: 16 | 24;
 };
 export const LinkIconElement = (props?: LinkIconElementProps) => {
@@ -102,7 +104,7 @@ export const LinkIconElement = (props?: LinkIconElementProps) => {
 export const LocationElement = () => <Location />;
 export const ModifiedByElement = () => <ModifiedBy />;
 
-type ModifiedOnElementProps = Pick<DateTimeProps, 'hideDatePrefix' | 'color'>;
+type ModifiedOnElementProps = Pick<BaseDateTimeProps, 'hideDatePrefix' | 'color'>;
 export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <ModifiedOn hideDatePrefix={props?.hideDatePrefix} color={props?.color} />;
@@ -110,7 +112,7 @@ export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	return <ModifiedOn />;
 };
 
-type OwnedByElementProps = Pick<TextProps, 'hideFormat' | 'color'>;
+type OwnedByElementProps = Pick<BaseTextElementProps, 'hideFormat' | 'color'>;
 export const OwnedByElement = (props?: OwnedByElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <OwnedBy hideFormat={props?.hideFormat} color={props?.color} />;
@@ -120,10 +122,11 @@ export const OwnedByElement = (props?: OwnedByElementProps) => {
 
 export const OwnedByGroupElement = () => <OwnedByGroup />;
 
-type PreviewElementProps = {
-	url?: PreviewProps['overrideUrl'];
-};
-export const PreviewElement = (props?: PreviewElementProps) => {
+export const PreviewElement = (
+	props: Omit<PreviewElementProps, 'overrideUrl'> & {
+		url?: PreviewElementProps['overrideUrl'];
+	},
+) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <Preview overrideUrl={props?.url} />;
 	}
@@ -134,7 +137,7 @@ export const PriorityElement = () => <Priority />;
 export const ProgrammingLanguageElement = () => <ProgrammingLanguage />;
 export const ProviderElement = () => <Provider />;
 
-type ReactCountElementProps = Pick<BadgeProps, 'color'>;
+type ReactCountElementProps = Pick<BaseBadgeElementProps, 'color'>;
 export const ReactCountElement = (props?: ReactCountElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <ReactCount color={props?.color} />;
@@ -145,7 +148,9 @@ export const ReactCountElement = (props?: ReactCountElementProps) => {
 export const ReadTimeElement = () => <ReadTime />;
 export const SentOnElement = () => <SentOn />;
 
-export type SnippetElementProps = Pick<TextProps, 'maxLines'> & { text?: TextProps['content'] };
+export type SnippetElementProps = Pick<BaseTextElementProps, 'maxLines'> & {
+	text?: BaseTextElementProps['content'];
+};
 export const SnippetElement = (props: SnippetElementProps) => (
 	<Snippet maxLines={props.maxLines} content={props.text} />
 );
@@ -157,7 +162,10 @@ export const SubscriberCountElement = () => <SubscriberCount />;
 export const SubTasksProgressElement = () => <SubTasksProgress />;
 export const TargetBranchElement = () => <TargetBranch />;
 
-export type TitleElementProps = Pick<LinkProps, 'hideTooltip' | 'maxLines' | 'target' | 'text'>;
+export type TitleElementProps = Pick<
+	BaseLinkElementProps,
+	'hideTooltip' | 'maxLines' | 'target' | 'text'
+>;
 export const TitleElement = (props: TitleElementProps) => (
 	<Title
 		hideTooltip={props?.hideTooltip}

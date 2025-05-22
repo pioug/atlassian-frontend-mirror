@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "8.5.18",
+	"version": "8.5.22",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -382,10 +382,6 @@
 			"referenceOnly": true
 		},
 		"platform-editor-single-player-expand": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform.editor.live-pages-expand-divergence": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

@@ -78,9 +78,6 @@
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {
-		"platform.editor.live-pages-expand-divergence": {
-			"type": "boolean"
-		},
 		"platform_collab_provider_tracingheaders": {
 			"type": "boolean"
 		},

@@ -61,6 +61,7 @@ const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 													{url}
 												</Link>
 											) : (
+												// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 												<a href={url} target="_blank" rel="noopener noreferrer">
 													{url}
 												</a>

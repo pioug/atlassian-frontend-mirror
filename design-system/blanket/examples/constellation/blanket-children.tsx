@@ -49,7 +49,7 @@ const BlanketWithChildrenExample = () => {
 				shouldAllowClickThrough={shouldAllowClickThrough}
 				testId="blanket-with-children"
 			>
-				<Box xcss={blanketChildStyles}>
+				<Box xcss={blanketChildStyles.root}>
 					Click "Show blanket" button to open the blanket & click the blanket to dismiss it.
 				</Box>
 			</Blanket>

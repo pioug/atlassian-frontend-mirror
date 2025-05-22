@@ -1,6 +1,7 @@
 export enum KudosType {
 	INDIVIDUAL = 'individual',
 	TEAM = 'team',
+	MIXED = 'mixed',
 }
 
 export enum FlagEventType {
@@ -41,6 +42,14 @@ export interface KudosRecipient {
 	recipientId: string;
 }
 
+// The kudos user picker can be prepopulated with
+// contributors from a project or
+// members of contributing teams from a goal
+export interface PrepopulateRecipientsVia {
+	entityType: 'PROJECT' | 'GOAL';
+	entityARI: string;
+}
+
 export interface FlagEvent {
 	eventType: FlagEventType;
 	kudosUuid?: string;
@@ -54,6 +63,7 @@ export interface GiveKudosDrawerProps {
 	onClose: () => void;
 	analyticsSource: string;
 	recipient?: KudosRecipient;
+	prepopulateRecipientsVia?: PrepopulateRecipientsVia;
 	teamCentralBaseUrl: string;
 	cloudId: string;
 	addFlag?: (flag: any) => void;

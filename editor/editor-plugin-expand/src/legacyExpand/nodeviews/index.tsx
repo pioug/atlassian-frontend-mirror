@@ -23,7 +23,6 @@ import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { ExpandPlugin } from '../../types';
@@ -53,7 +52,7 @@ const toDOM = (
 		// prettier-ignore
 		'class': buildExpandClassName(
       node.type.name,
-        __livePage && fg('platform.editor.live-pages-expand-divergence')
+        __livePage
         ? !node.attrs.__expanded
         : node.attrs.__expanded,
     ),
@@ -271,11 +270,7 @@ export class ExpandNodeView implements NodeView {
 				<ExpandIconButton
 					intl={intl}
 					allowInteractiveExpand={this.allowInteractiveExpand}
-					expanded={
-						this.__livePage && fg('platform.editor.live-pages-expand-divergence')
-							? !__expanded
-							: __expanded
-					}
+					expanded={this.__livePage ? !__expanded : __expanded}
 				></ExpandIconButton>
 			),
 			this.icon,
@@ -463,7 +458,7 @@ export class ExpandNodeView implements NodeView {
 	};
 
 	private isCollapsed = () => {
-		if (this.__livePage && fg('platform.editor.live-pages-expand-divergence')) {
+		if (this.__livePage) {
 			return this.node.attrs.__expanded;
 		}
 		return !this.node.attrs.__expanded;
@@ -582,10 +577,7 @@ export class ExpandNodeView implements NodeView {
 	};
 
 	private getContentEditable = (node: PmNode): boolean => {
-		const contentEditable =
-			this.__livePage && fg('platform.editor.live-pages-expand-divergence')
-				? !node.attrs.__expanded
-				: node.attrs.__expanded;
+		const contentEditable = this.__livePage ? !node.attrs.__expanded : node.attrs.__expanded;
 		if (this.api && this.api.editorDisabled) {
 			return !this.api.editorDisabled.sharedState.currentState()?.editorDisabled && contentEditable;
 		}

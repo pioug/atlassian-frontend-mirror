@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 4.11.0
+
+### Minor Changes
+
+- [#157092](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157092)
+  [`87491e7b53b65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87491e7b53b65) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.10.4
+
+### Patch Changes
+
+- [#158026](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158026)
+  [`59815a4e02d08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59815a4e02d08) -
+  Migrate getStyles to compiled styles
+
 ## 4.10.3
 
 ### Patch Changes

@@ -205,6 +205,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Тепер ви можете вставляти посилання 🔗 на вміст Jira й Confluence у своїх запитах.',
   'fabric.editor.ai.experience.footerRightText.agents': 'На платформі Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Триває створення вмісту',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence не вдалось обробити запит, оскільки ваші матеріали містять посилання на контент, на який поширюються обмеження HIPAA. Видаліть ці посилання та повторіть спробу.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -655,6 +656,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Спробуйте перезавантажити сторінку.',
   'fabric.editor.offlineErrorFallbackHeading': 'Сталася помилка',
   'fabric.editor.on': '{formattingType} увімкнуто',
+  'fabric.editor.openButtonTitle': 'Відкрити',
   'fabric.editor.openCellOptions': 'Відкрити параметри клітинки',
   'fabric.editor.openLink': 'Відкрити посилання в новій вкладці',
   'fabric.editor.orderedList': 'Нумерований список',

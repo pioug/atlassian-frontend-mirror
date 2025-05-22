@@ -224,7 +224,7 @@ describe('onParticpantUpdated updateParticipantLazy', () => {
 				}
 			});
 
-			it('should call emit with previous participant', async () => {
+			it('should not call emit with previous participant', async () => {
 				const participantsState: ParticipantsState = new ParticipantsState();
 				participantsState.setBySessionId(hydratedParticipant.sessionId, hydratedParticipant);
 
@@ -252,11 +252,8 @@ describe('onParticpantUpdated updateParticipantLazy', () => {
 					],
 				});
 
-				if (!isCurrentlyPollingFetchUsers) {
-					expect(spyBatchFetchUsers).toHaveBeenCalled();
-				} else {
-					expect(spyBatchFetchUsers).not.toHaveBeenCalled();
-				}
+				// we should never call if we participant isn't new, otherwise we'll make unecessary network calls
+				expect(spyBatchFetchUsers).not.toHaveBeenCalled();
 			});
 
 			test.each([['unidentified'], [undefined]])(

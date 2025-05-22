@@ -52,12 +52,23 @@ export const createParticipantFromPayload = async (
 	return participant;
 };
 
+/**
+ * Will use the getUsers callback from batchProps to fetch users
+ *
+ * 1. Determine all the participants that need to be hydrated
+ * 2. Only fetch a subset of those participants based on batchSize
+ * 3. Of the users fetched, find all of those users' sessions and mark those entries as hydrated
+ *
+ * @param participantsState
+ * @param batchProps
+ * @returns
+ * @example
+ */
 export const fetchParticipants = async (
-	// userId must be defined, unlike in PresencePayload
 	participantsState: ParticipantsState,
 	batchProps: BatchProps,
 ): Promise<ProviderParticipant[]> => {
-	const { batchSize = batchProps.batchSize || DEFAULT_BATCH_FETCH_SIZE, getUsers } = batchProps;
+	const { batchSize = DEFAULT_BATCH_FETCH_SIZE, getUsers } = batchProps;
 	const participantsToHydrate = participantsState.getUniqueParticipants({
 		isHydrated: false,
 	});
@@ -82,26 +93,23 @@ export const fetchParticipants = async (
 			.filter((p) => p.userId === user.userId)
 			.forEach((participant) => {
 				const { sessionId } = participant;
+				const hydratedParticipant = {
+					name: user.name,
+					avatar: user.avatar,
+					email: user.email,
+					userId: user.userId,
+					isGuest: user.isGuest,
+					sessionId,
+					lastActive: participant.lastActive,
+					clientId: participant.clientId,
+					permit: participant.permit,
+					presenceId: participant.presenceId,
+					presenceActivity: participant.presenceActivity,
+					isHydrated: true,
+				};
 
-				if (participant && sessionId) {
-					const hydratedParticipant = {
-						name: user?.name || '',
-						avatar: user?.avatar || '',
-						email: user?.email || '',
-						sessionId,
-						lastActive: participant.lastActive,
-						userId: user.userId,
-						clientId: participant.clientId,
-						permit: participant.permit,
-						isGuest: user?.isGuest,
-						presenceId: participant.presenceId,
-						presenceActivity: participant.presenceActivity,
-						isHydrated: true,
-					};
-
-					participantsState.setBySessionId(sessionId, hydratedParticipant);
-					hydratedParticipants.push(hydratedParticipant);
-				}
+				participantsState.setBySessionId(sessionId, hydratedParticipant);
+				hydratedParticipants.push(hydratedParticipant);
 			});
 	});
 

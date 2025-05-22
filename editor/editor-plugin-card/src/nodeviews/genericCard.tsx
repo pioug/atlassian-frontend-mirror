@@ -18,6 +18,7 @@ import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import Link from '@atlaskit/link';
 import { type CardContext } from '@atlaskit/link-provider';
 import type { APIError } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -171,7 +172,17 @@ export function Card(
 
 			if (this.state.isError) {
 				if (url) {
-					return (
+					return fg('dst-a11y__replace-anchor-with-link__linking-platfo') ? (
+						<Link
+							href={url}
+							onClick={(e) => {
+								e.preventDefault();
+							}}
+						>
+							{url}
+						</Link>
+					) : (
+						// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 						<a
 							href={url}
 							onClick={(e) => {

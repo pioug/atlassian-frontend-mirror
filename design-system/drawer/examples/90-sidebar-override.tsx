@@ -1,12 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-
-import { Component, type FC, type ReactNode, type SyntheticEvent } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { Component, type FC, type ReactNode, type SyntheticEvent } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Drawer from '@atlaskit/drawer';

@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 105.8.1
+
+### Patch Changes
+
+- [#159107](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159107)
+  [`d1effcf832537`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1effcf832537) -
+  [EDITOR-786] Fixed placeholder text + added experimental tooltip + selection based opening the
+- [#158624](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158624)
+  [`8c86d5ce564ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c86d5ce564ac) -
+  Allow extension provider and manifest node to be preloaded and called synchronously
+- Updated dependencies
+
+## 105.8.0
+
+### Minor Changes
+
+- [#157183](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157183)
+  [`0e8b7956c0e3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e8b7956c0e3d) -
+  [ux] The telepointer pulse animation and a plugin action to access it have been added. This will
+  help users locate telepointers more easily on screen.
+
+### Patch Changes
+
+- [#156743](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156743)
+  [`170609348890d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/170609348890d) -
+  Add new breakout resizing experience under experiment platform_editor_breakout_resizing
+- Updated dependencies
+
+## 105.7.0
+
+### Minor Changes
+
+- [#157072](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157072)
+  [`cc6bc0b7cd8b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc6bc0b7cd8b4) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 105.6.2
 
 ### Patch Changes

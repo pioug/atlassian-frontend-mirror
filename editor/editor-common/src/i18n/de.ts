@@ -233,6 +233,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Sie können in Ihren Prompts jetzt Links 🔗 in Jira- oder Confluence-Inhalte einfügen.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Bereitgestellt von Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Wird erstellt',
   'fabric.editor.ai.experience.hipaaContentError':
     'Atlassian Intelligence konnte Ihre Anfrage nicht bearbeiten, da sie Links zu HIPAA-beschränkten Inhalten enthält. Bitte entfernen Sie diese Links und versuchen Sie es erneut.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -683,6 +684,7 @@ export default {
   'fabric.editor.offlineErrorFallbackDescription': 'Versuchen Sie, die Seite neu zu laden.',
   'fabric.editor.offlineErrorFallbackHeading': 'Etwas ist schiefgelaufen!',
   'fabric.editor.on': '{formattingType} ein',
+  'fabric.editor.openButtonTitle': 'Öffnen',
   'fabric.editor.openCellOptions': 'Zellenoptionen öffnen',
   'fabric.editor.openLink': 'Link in neuer Registerkarte öffnen',
   'fabric.editor.orderedList': 'Nummerierte Liste',

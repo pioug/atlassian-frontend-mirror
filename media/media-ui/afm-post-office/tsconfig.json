@@ -30,6 +30,12 @@
 			"path": "../../../design-system/css/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/dropdown-menu/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
 		},
 		{
@@ -45,7 +51,16 @@
 			"path": "../../../design-system/locale/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../media-client/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../media-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../media-state/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/modal-dialog/afm-post-office/tsconfig.json"

@@ -19,7 +19,7 @@ import {
 	type SmartLinkStatus,
 	SmartLinkTheme,
 } from '../../../../constants';
-import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
+import { FlexibleUiContext, useFlexibleUiContext } from '../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
 import {
@@ -450,7 +450,11 @@ const Container = ({
 		: getPadding(size);
 	const gap = getGap(size);
 
-	const context = useContext(FlexibleUiContext);
+	const context = fg('platform-linking-flexible-card-context')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleUiContext()
+		: // eslint-disable-next-line react-hooks/rules-of-hooks
+			useContext(FlexibleUiContext);
 	const { previewOnLeft, previewOnRight } = getChildrenOptions(children, context);
 	const canShowHoverPreview = showHoverPreview && status === 'resolved';
 	// `retry` object contains action that can be performed on

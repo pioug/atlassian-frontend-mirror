@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.7.0
+
+### Minor Changes
+
+- [#157183](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157183)
+  [`0e8b7956c0e3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e8b7956c0e3d) -
+  [ux] The telepointer pulse animation and a plugin action to access it have been added. This will
+  help users locate telepointers more easily on screen.
+
+### Patch Changes
+
+- [#157322](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157322)
+  [`0e61040734cef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e61040734cef) -
+  [ED-27842] Consolidate extraneous no_cursor flags into one flag for full rollout
+- Updated dependencies
+
 ## 3.6.1
 
 ### Patch Changes

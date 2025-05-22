@@ -86,6 +86,7 @@ const LoadLinkForm = ({
 				}
 			>
 				{(tooltipProps) => (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 					<a href="https://pug.jira-dev.com" target="_blank" {...tooltipProps}>
 						To load link, please log in to staging environment (required VPN).
 					</a>

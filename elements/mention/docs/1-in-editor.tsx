@@ -1,9 +1,15 @@
+import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
 import { Text } from '@atlaskit/primitives/compiled';
 import { md, Example, code, AtlassianInternalWarning } from '@atlaskit/docs';
 
 import MentionWithEditorExample from '../examples/14-mention-with-editor-extending-abstract-mention-resource';
 const MentionWithEditorExampleSource = require('!!raw-loader!../examples/14-mention-with-editor-extending-abstract-mention-resource');
+
+const LinkComponent = (props: any) =>
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, jsx-a11y/anchor-has-content
+	fg('dst-a11y__replace-anchor-with-link__search-platfor') ? <Link {...props} /> : <a {...props} />;
 
 export default md`
   ${(<AtlassianInternalWarning />)}
@@ -13,7 +19,8 @@ export default md`
   ${(
 		<>
 			<Text as="p">
-				To use Mention in <a href="/packages/editor/editor-core">@atlaskit/editor-core</a>
+				To use Mention in{' '}
+				<LinkComponent href="/packages/editor/editor-core">@atlaskit/editor-core</LinkComponent>
 				{', '}
 				check the 'Editor with mentions' section in editor-core, then follow these steps for a more
 				involved tutorial:

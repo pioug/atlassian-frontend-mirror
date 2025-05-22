@@ -1,5 +1,5 @@
 import { browser } from '@atlaskit/editor-common/browser';
-import { TELEPOINTER_DIM_CLASS } from '@atlaskit/editor-common/collab';
+import { TELEPOINTER_DIM_CLASS, TELEPOINTER_PULSE_CLASS } from '@atlaskit/editor-common/collab';
 import type {
 	CollabEventConnectionData,
 	CollabEventPresenceData,
@@ -97,6 +97,7 @@ export class PluginState {
 
 		const presenceData = tr.getMeta('presence') as CollabEventPresenceData;
 		const telepointerData = tr.getMeta('telepointer') as CollabTelepointerPayload;
+		const nudgeTelepointerData = tr.getMeta('nudgeTelepointer') as { sessionId: string };
 		const sessionIdData = tr.getMeta('sessionId') as CollabEventConnectionData;
 		let collabInitialised = tr.getMeta('collabInitialised');
 
@@ -279,6 +280,26 @@ export class PluginState {
 				}
 			}
 		});
+
+		if (nudgeTelepointerData && fg('confluence_team_presence_scroll_to_pointer')) {
+			const nudgeSessionId = nudgeTelepointerData?.sessionId;
+
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			this.decorationSet.find().forEach((deco: any) => {
+				if (
+					deco.type.toDOM &&
+					participants.get(nudgeSessionId) &&
+					deco.spec?.pointer?.sessionId === nudgeSessionId &&
+					deco.spec?.key === `telepointer-${nudgeSessionId}`
+				) {
+					// Restart animation by removing and re-adding the class
+					deco.type.toDOM.classList.remove(TELEPOINTER_PULSE_CLASS);
+					void deco.type.toDOM.offsetWidth; // Force reflow
+					deco.type.toDOM.classList.add(TELEPOINTER_PULSE_CLASS);
+				}
+			});
+		}
 
 		if (remove.length) {
 			this.decorationSet = this.decorationSet.remove(remove);

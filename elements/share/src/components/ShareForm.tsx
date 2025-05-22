@@ -337,6 +337,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 			additionalTabs,
 			builtInTabContentWidth,
 			handleCloseDialog,
+			isExtendedShareDialogEnabled,
 		} = this.props;
 
 		const { selectedMenuItem } = this.state;
@@ -393,7 +394,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 			}
 
 			if (integrationMode === 'tabs') {
-				const DEFAULT_TAB_CONTENT_WIDTH = 304;
+				const DEFAULT_TAB_CONTENT_WIDTH = isExtendedShareDialogEnabled ? 452 : 304;
 
 				return (
 					<Tabs
@@ -498,7 +499,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 		}
 
 		if (integrationMode === 'tabs') {
-			const DEFAULT_TAB_CONTENT_WIDTH = 304;
+			const DEFAULT_TAB_CONTENT_WIDTH = isExtendedShareDialogEnabled ? 452 : 304;
 
 			return (
 				<Tabs

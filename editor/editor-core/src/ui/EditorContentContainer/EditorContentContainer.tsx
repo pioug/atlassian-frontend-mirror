@@ -24,7 +24,6 @@ import {
 	MediaSharedClassNames,
 	SmartCardSharedCssClassName,
 	annotationSharedStyles,
-	backgroundColorStyles,
 	blockMarksSharedStyles,
 	codeBlockInListSafariFix,
 	codeMarkSharedStyles,
@@ -38,6 +37,7 @@ import {
 	listsSharedStyles,
 	paragraphSharedStyles,
 	resizerStyles,
+	pragmaticResizerStyles,
 	ruleSharedStyles,
 	shadowSharedStyle,
 	smartCardSharedStyles,
@@ -96,6 +96,8 @@ import {
 	vanillaTaskDecisionStyles as vanillaDecisionStyles,
 	vanillaTaskItemStyles,
 } from '../ContentStyles/tasks-and-decisions';
+
+import { backgroundColorStyles } from './styles/backgroundColorStyles';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const linkStyles = css`
@@ -1256,7 +1258,7 @@ const contentStyles = () => css`
 
   ${textColorStyles}
 
-  ${backgroundColorStyles()}
+  ${backgroundColorStyles}
 
   ${listsStyles}
 
@@ -1339,6 +1341,8 @@ const contentStyles = () => css`
   ${unsupportedStyles}
 
   ${resizerStyles}
+
+  ${pragmaticResizerStyles()}
 
   ${fixBlockControlStylesSSR()}
 

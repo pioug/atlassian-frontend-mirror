@@ -14,6 +14,8 @@ export type {
 	InlineCommentInputMethod,
 	InlineCommentState,
 	InlineCommentViewComponentProps,
+	SelectAbortReasons,
+	SelectParentAbortReasons,
 	SelectInlineCommentCompoundExperience,
 	SelectInlineCommentCompoundExperienceEntryPoint,
 	SimpleSelectInlineCommentCompoundExperience,

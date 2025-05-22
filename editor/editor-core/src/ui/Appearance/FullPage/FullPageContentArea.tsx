@@ -130,7 +130,7 @@ const Content = React.forwardRef<
 	);
 
 	let interactionClassName: string | undefined;
-	if (props.hasHadInteraction && fg('platform_editor_no_selection_until_interaction')) {
+	if (props.hasHadInteraction && fg('platform_editor_no_cursor_on_live_doc_init')) {
 		interactionClassName = props.hasHadInteraction
 			? 'ak-editor-has-interaction'
 			: 'ak-editor-no-interaction';
@@ -201,7 +201,7 @@ const Content = React.forwardRef<
 								css={editorContentGutterStyle()}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={
-									fg('platform_editor_no_selection_until_interaction')
+									fg('platform_editor_no_cursor_on_live_doc_init')
 										? classnames(
 												'ak-editor-content-area',
 												'appearance-full-page',

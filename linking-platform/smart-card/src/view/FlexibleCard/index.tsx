@@ -4,7 +4,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
-import { FlexibleUiContext, FlexibleUiOptionContext } from '../../state/flexible-ui-context';
+import {
+	FlexibleCardContext,
+	FlexibleUiContext,
+	FlexibleUiOptionContext,
+} from '../../state/flexible-ui-context';
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
 import useResolve from '../../state/hooks/use-resolve';
 
@@ -75,6 +79,11 @@ const FlexibleCard = ({
 			url,
 		],
 	);
+	const flexibleCardContext = fg('platform-linking-flexible-card-context')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useMemo(() => ({ data: context, status, ui }), [context, status, ui])
+		: undefined;
+
 	const retry = fg('platform-linking-flexible-card-unresolved-action')
 		? undefined
 		: getRetryOptions(url, status, details, onAuthorize);
@@ -99,6 +108,25 @@ const FlexibleCard = ({
 				break;
 		}
 	}, [onError, onResolve, status, title, url]);
+
+	if (fg('platform-linking-flexible-card-context')) {
+		return (
+			<FlexibleCardContext.Provider value={flexibleCardContext}>
+				<Container
+					testId={testId}
+					{...ui}
+					onClick={onClick}
+					retry={retry}
+					showHoverPreview={showHoverPreview}
+					hoverPreviewOptions={hoverPreviewOptions}
+					actionOptions={actionOptions}
+					status={status}
+				>
+					{children}
+				</Container>
+			</FlexibleCardContext.Provider>
+		);
+	}
 
 	return (
 		<FlexibleUiOptionContext.Provider value={ui}>

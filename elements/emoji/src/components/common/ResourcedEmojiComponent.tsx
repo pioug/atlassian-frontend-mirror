@@ -261,6 +261,8 @@ export const ResourcedEmojiComponent = (props: Props) => {
 				data-emoji-id={id}
 				data-emoji-short-name={shortName}
 				data-emoji-text={fallback || shortName}
+				data-ssr-placeholder={`emoji-${id ?? shortName}`}
+				data-ssr-placeholder-replace={`emoji-${id ?? shortName}`}
 			>
 				{emojiRenderState === ResourcedEmojiComponentRenderStatesEnum.INITIAL && (
 					<EmojiPlaceholder

@@ -6,11 +6,11 @@ import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 export default () => (
 	<div data-testid="sizes">
 		<div>
-			<Code>xsmall</Code>
+			<Code>xxsmall</Code>
 		</div>
 		<div>
-			<ConfluenceIcon size="xsmall" />
-			<ConfluenceLogo size="xsmall" />
+			<ConfluenceIcon size="xxsmall" />
+			<ConfluenceLogo size="xxsmall" />
 		</div>
 		<div>
 			<Code>small</Code>

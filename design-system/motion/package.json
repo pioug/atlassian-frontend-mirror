@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "5.1.2",
+	"version": "5.1.3",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -116,9 +116,5 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/motion/",
-	"platform-feature-flags": {
-		"platform_design_system_motion_on_finish_fix": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

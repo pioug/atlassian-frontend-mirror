@@ -98,6 +98,11 @@ describe('getVCMetrics', () => {
 	});
 
 	it('should process page_load interaction correctly', async () => {
+		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
+			typeof getMostRecentVCRevision
+		>;
+		mockGetMostRecentVCRevision.mockReturnValue('fy25.02');
+
 		const interaction: InteractionMetrics = {
 			type: 'page_load',
 			start: 0,
@@ -117,13 +122,10 @@ describe('getVCMetrics', () => {
 	});
 
 	it('should process page_load interaction correctly when fy25.01 is disabled', async () => {
-		mockGetConfig.mockReturnValue({
-			vc: {
-				enabled: true,
-				enabledVCRevisions: ['fy25.02'],
-			},
-			experimentalInteractionMetrics: { enabled: false },
-		} as unknown as ReturnType<typeof getConfig>);
+		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
+			typeof getMostRecentVCRevision
+		>;
+		mockGetMostRecentVCRevision.mockReturnValue('fy25.02');
 
 		const interaction: InteractionMetrics = {
 			type: 'page_load',

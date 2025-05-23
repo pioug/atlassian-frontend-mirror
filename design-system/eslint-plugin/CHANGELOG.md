@@ -1,5 +1,25 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.16.1
+
+### Patch Changes
+
+- [#159753](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159753)
+  [`756c84e9b07d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/756c84e9b07d1) -
+  Update no-utility-icons rule to add more robust fixes for new buttons cases.
+
+## 13.16.0
+
+### Minor Changes
+
+- [#157767](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157767)
+  [`f3d552d85708a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3d552d85708a) -
+  Introduces new ESLint rule to identify, discourage, and, where possible, fix use of utility icons.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.15.0
 
 ### Minor Changes

@@ -70,5 +70,6 @@
 		"platform_bandicoots-smartlink-unresolved-error-key": {
 			"type": "boolean"
 		}
-	}
+	},
+	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/45a8b914-598a-4e83-8736-36fd63d23fca"
 }

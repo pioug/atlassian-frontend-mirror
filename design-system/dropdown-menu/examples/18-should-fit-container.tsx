@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const spacerStyles = xcss({
-	margin: 'space.800',
+const styles = cssMap({
+	spacer: {
+		marginTop: token('space.800', '64px'),
+		marginRight: token('space.800', '64px'),
+		marginBottom: token('space.800', '64px'),
+		marginLeft: token('space.800', '64px'),
+	},
 });
 
 type ExampleProps = {
@@ -16,7 +23,7 @@ const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
 	const [isOpen, setIsOpen] = useState(isOpenInitial);
 
 	return (
-		<Box xcss={spacerStyles}>
+		<Box xcss={styles.spacer}>
 			<DropdownMenu<HTMLButtonElement>
 				trigger={({ triggerRef, ...triggerProps }) => (
 					<Button ref={triggerRef} {...triggerProps} shouldFitContainer>

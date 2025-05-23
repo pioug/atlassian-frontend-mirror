@@ -1,5 +1,22 @@
 # @atlaskit/user-picker
 
+## 11.1.2
+
+### Patch Changes
+
+- [#154600](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154600)
+  [`0b06dde976fe0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b06dde976fe0) -
+  Internal updates to logo component usage
+- Updated dependencies
+
+## 11.1.1
+
+### Patch Changes
+
+- [#158576](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158576)
+  [`2cc60c8e1d9c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2cc60c8e1d9c9) -
+  NO-ISSUE Clean up FG pass-aria-describedby-to-baseuserpicker
+
 ## 11.1.0
 
 ### Minor Changes

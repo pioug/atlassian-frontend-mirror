@@ -372,6 +372,24 @@ export class EmbedCardComponent extends React.PureComponent<
 		}
 	};
 
+	componentWillUnmount(): void {
+		if (fg('platform_editor_fix_advanced_code_crash')) {
+			this.removeCard();
+		}
+	}
+
+	private removeCardDispatched = false;
+
+	private removeCard() {
+		if (this.removeCardDispatched && fg('platform_editor_cards_maxcallstackfix')) {
+			return;
+		}
+		this.removeCardDispatched = true;
+		const { tr } = this.props.view.state;
+		removeCard({ id: this.props.id })(tr);
+		this.props.view.dispatch(tr);
+	}
+
 	render() {
 		const {
 			node,
@@ -524,7 +542,11 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 	destroy() {
 		this.unsubscribe?.();
-		this.removeCard();
+		if (fg('platform_editor_fix_advanced_code_crash')) {
+			super.destroy();
+		} else {
+			this.removeCard();
+		}
 	}
 
 	private removeCardDispatched = false;

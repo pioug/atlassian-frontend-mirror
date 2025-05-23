@@ -53,7 +53,7 @@ export const PoweredByJSMAssets = (props: { text: string }) => {
 				{fg('assets_as_an_app_v2') ? (
 					<AssetsIcon size="24" />
 				) : (
-					<JiraServiceManagementIcon size="xsmall" appearance="brand" label={props.text} />
+					<JiraServiceManagementIcon size="xxsmall" appearance="brand" label={props.text} />
 				)}
 				<Box
 					xcss={styles.jsmTextStyles}

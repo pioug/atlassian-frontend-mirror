@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 3.2.12
+
+### Patch Changes
+
+- [#159403](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159403)
+  [`8db235c23c369`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8db235c23c369) -
+  ENGHEALTH-28082:Added aria label to expand button
+- Updated dependencies
+
 ## 3.2.11
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/profilecard
 
+## 23.16.5
+
+### Patch Changes
+
+- [#156607](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156607)
+  [`88044bfdf186f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88044bfdf186f) -
+  Splits styles for the profilecard triggers into separate files from the main card styles in order
+  to reduce the bundle size of the triggers, allowing more code to be loaded async
+- Updated dependencies
+
+## 23.16.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.16.3
 
 ### Patch Changes

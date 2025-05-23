@@ -6,7 +6,6 @@ import userEvent from '@testing-library/user-event';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { width } from '../../internal/utils';
 import ModalBody from '../../modal-body';
@@ -367,22 +366,20 @@ describe('<ModalDialog />', () => {
 			await waitFor(() => expect(spy).toHaveBeenCalledTimes(1));
 		});
 
-		ffTest.on('platform_design_system_motion_on_finish_fix', 'reduced motion fix', () => {
-			it('should be invoked immediately if reduced motion is enabled', () => {
-				const cleanupEmulateReducedMotion = emulateReducedMotion();
+		it('should be invoked immediately if reduced motion is enabled', () => {
+			const cleanupEmulateReducedMotion = emulateReducedMotion();
 
-				const onOpenComplete = jest.fn();
+			const onOpenComplete = jest.fn();
 
-				render(
-					createModal({
-						onOpenComplete,
-					}),
-				);
+			render(
+				createModal({
+					onOpenComplete,
+				}),
+			);
 
-				expect(onOpenComplete).toHaveBeenCalledTimes(1);
+			expect(onOpenComplete).toHaveBeenCalledTimes(1);
 
-				cleanupEmulateReducedMotion();
-			});
+			cleanupEmulateReducedMotion();
 		});
 	});
 
@@ -415,24 +412,22 @@ describe('<ModalDialog />', () => {
 			await waitFor(() => expect(spy).toHaveBeenCalledTimes(1));
 		});
 
-		ffTest.on('platform_design_system_motion_on_finish_fix', 'reduced motion fix', () => {
-			it('should be invoked immediately if reduced motion is enabled', () => {
-				const cleanupEmulateReducedMotion = emulateReducedMotion();
+		it('should be invoked immediately if reduced motion is enabled', () => {
+			const cleanupEmulateReducedMotion = emulateReducedMotion();
 
-				const onCloseComplete = jest.fn();
+			const onCloseComplete = jest.fn();
 
-				const ModalWithTransition = ({ isOpen }: { isOpen: boolean }) => (
-					<ModalTransition>{isOpen && createModal({ onCloseComplete })}</ModalTransition>
-				);
+			const ModalWithTransition = ({ isOpen }: { isOpen: boolean }) => (
+				<ModalTransition>{isOpen && createModal({ onCloseComplete })}</ModalTransition>
+			);
 
-				const { rerender } = render(<ModalWithTransition isOpen />);
+			const { rerender } = render(<ModalWithTransition isOpen />);
 
-				rerender(<ModalWithTransition isOpen={false} />);
+			rerender(<ModalWithTransition isOpen={false} />);
 
-				expect(onCloseComplete).toHaveBeenCalledTimes(1);
+			expect(onCloseComplete).toHaveBeenCalledTimes(1);
 
-				cleanupEmulateReducedMotion();
-			});
+			cleanupEmulateReducedMotion();
 		});
 	});
 

@@ -24,12 +24,12 @@ export const SingleToolbarButtons = React.memo(
 		items,
 		isReducedSpacing,
 		editorView,
-		shouldUnselect,
+		hasMultiplePartsWithFormattingSelected,
 	}: {
 		items: MenuIconItem[];
 		isReducedSpacing: boolean;
 		editorView: EditorView;
-		shouldUnselect?: boolean;
+		hasMultiplePartsWithFormattingSelected?: boolean;
 	}) => {
 		const onClick = useCallback(
 			(command: Command) => {
@@ -61,9 +61,11 @@ export const SingleToolbarButtons = React.memo(
 						spacing={isReducedSpacing ? 'none' : 'default'}
 						onClick={onClick(item.command)}
 						selected={
-							shouldUnselect &&
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							hasMultiplePartsWithFormattingSelected &&
 							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_7')
+							fg('platform_editor_controls_patch_7') &&
+							!fg('platform_editor_controls_patch_10')
 								? false
 								: item.isActive
 						}
@@ -71,9 +73,11 @@ export const SingleToolbarButtons = React.memo(
 						title={item.tooltipElement}
 						iconBefore={item.iconElement}
 						aria-pressed={
-							shouldUnselect &&
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							hasMultiplePartsWithFormattingSelected &&
 							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_7')
+							fg('platform_editor_controls_patch_7') &&
+							!fg('platform_editor_controls_patch_10')
 								? false
 								: item.isActive
 						}

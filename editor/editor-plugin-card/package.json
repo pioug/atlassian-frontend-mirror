@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "6.3.1",
+	"version": "6.3.2",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -156,6 +156,9 @@
 		"smart_link_editor_update_toolbar_open_link": {
 			"type": "boolean"
 		},
+		"platform_editor_fix_advanced_code_crash": {
+			"type": "boolean"
+		},
 		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		},
@@ -173,5 +176,6 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
-	}
+	},
+	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/44b8f355-366d-4e0c-a22a-1ba5a6106330"
 }

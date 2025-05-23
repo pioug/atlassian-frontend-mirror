@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 14.2.1
+
+### Patch Changes
+
+- [#155827](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155827)
+  [`f6f4f5a8a8ae8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6f4f5a8a8ae8) -
+  Cleans up the `platform_design_system_motion_on_finish_fix` feature gate.
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

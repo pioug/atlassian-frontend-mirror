@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import Spinner from '@atlaskit/spinner';
 
-import { CardContent, CardHeader, CardWrapper, LoadingWrapper } from '../../styled/TeamCard';
+import { CardContent, CardHeader, CardWrapper, LoadingWrapper } from '../../styled/TeamTrigger';
 import { type AnalyticsFunction } from '../../types';
 import { profileCardRendered } from '../../util/analytics';
 

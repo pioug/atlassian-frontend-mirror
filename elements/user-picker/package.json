@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.1.0",
+	"version": "11.1.2",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -117,9 +117,6 @@
 		"ui"
 	],
 	"platform-feature-flags": {
-		"pass-aria-describedby-to-baseuserpicker": {
-			"type": "boolean"
-		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},

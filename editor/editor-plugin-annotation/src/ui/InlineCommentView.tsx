@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type {
@@ -130,6 +130,7 @@ export function InlineCommentView({
 	// As inlineComment is the only annotation present, this function is not generic
 	const { inlineComment: inlineCommentProvider } = providers;
 	const { state, dispatch } = editorView;
+	const lastSelectedAnnotationId = useRef<string>();
 
 	const { createComponent: CreateComponent, viewComponent: ViewComponent } = inlineCommentProvider;
 	const {
@@ -187,6 +188,15 @@ export function InlineCommentView({
 			return null;
 		}
 
+		const currentlySelectedAnnotation = selectedAnnotations?.[0]?.id;
+		const isAnnotationSelectionChanged =
+			currentlySelectedAnnotation !== lastSelectedAnnotationId.current;
+
+		// Update the last selected annotation ID if the selection was updated
+		if (isAnnotationSelectionChanged) {
+			lastSelectedAnnotationId.current = currentlySelectedAnnotation;
+		}
+
 		const inlineNodeTypes = getRangeInlineNodeNames({ doc: state.doc, pos: selection });
 
 		//getting all text between bookmarked positions
@@ -196,6 +206,7 @@ export function InlineCommentView({
 				<CreateComponent
 					dom={dom}
 					textSelection={textSelection}
+					wasNewAnnotationSelected={!!currentlySelectedAnnotation && isAnnotationSelectionChanged}
 					onCreate={(id) => {
 						if (!fg('platform_editor_comments_api_manager')) {
 							const createAnnotationResult = createAnnotation(editorAnalyticsAPI, editorAPI)(

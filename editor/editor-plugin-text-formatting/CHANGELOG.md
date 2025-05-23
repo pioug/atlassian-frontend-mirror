@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.8
+
+### Patch Changes
+
+- [#159038](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159038)
+  [`939f37dbeeb94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/939f37dbeeb94) -
+  [ux] Highlight the common formatting mark button when selection has mixed style but share a common
+  one
+
 ## 2.2.7
 
 ### Patch Changes

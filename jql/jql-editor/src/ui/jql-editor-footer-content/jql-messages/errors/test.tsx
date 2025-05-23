@@ -8,6 +8,7 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import { JQLParseError, JQLSyntaxError } from '@atlaskit/jql-ast';
 
 import { mockIntl } from '../../../../../mocks';
+import { JQL_EDITOR_VALIDATION_ID } from '../../../../common/constants';
 import { commonMessages } from '../../../../common/messages';
 import { useEditorViewIsInvalid } from '../../../../hooks/use-editor-view-is-invalid';
 import {
@@ -130,9 +131,7 @@ describe('ErrorMessages', () => {
 			expect(CustomErrorMessage).toHaveBeenCalled();
 			expect(screen.queryByTestId('jql-editor-validation')).toBeInTheDocument();
 			expect(screen.queryByText(syntaxError.message, { exact: false })).toBeInTheDocument();
-			expect(screen.queryByRole('alert')?.getAttribute('aria-describedby')).toEqual(
-				expect.any(String),
-			);
+			expect(screen.queryByRole('alert')?.getAttribute('id')).toContain(JQL_EDITOR_VALIDATION_ID);
 		});
 
 		it('Does not use the custom component when errorMessage is empty', () => {

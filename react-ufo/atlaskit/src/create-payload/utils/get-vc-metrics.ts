@@ -2,7 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
-import { getConfig, getMostRecentVCRevision, isVCRevisionEnabled } from '../../config';
+import { getConfig, getMostRecentVCRevision } from '../../config';
 import { postInteractionLog } from '../../interaction-metrics';
 import { getVCObserver } from '../../vc';
 
@@ -59,55 +59,19 @@ async function getVCMetrics(
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
-	if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
-		const mostRecentVCRevision = getMostRecentVCRevision(interaction.ufoName);
-		const mostRecentVCRevisionPayload = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
-			({ revision }) => revision === mostRecentVCRevision,
-		);
+	const mostRecentVCRevision = getMostRecentVCRevision(interaction.ufoName);
+	const mostRecentVCRevisionPayload = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
+		({ revision }) => revision === mostRecentVCRevision,
+	);
 
-		if (!shouldReportVCMetrics || !mostRecentVCRevisionPayload?.clean) {
-			return result;
-		}
-
-		return {
-			...result,
-			'metric:vc90': mostRecentVCRevisionPayload['metric:vc90'],
-		};
-	} else {
-		if (!isVCRevisionEnabled('fy25.01')) {
-			const ttvcV2Revision = (result?.['ufo:vc:rev'] as RevisionPayload)?.find(
-				({ revision }) => revision === 'fy25.02',
-			);
-			if (!ttvcV2Revision?.clean) {
-				return result;
-			}
-
-			return {
-				...result,
-				'metric:vc90': ttvcV2Revision['metric:vc90'],
-			};
-		} else {
-			const VC = result?.['metrics:vc'] as {
-				[key: string]: number | null;
-			};
-
-			if (!VC || !result?.[`${prefix}:vc:clean`]) {
-				return result;
-			}
-
-			if (
-				interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
-				pageVisibilityUpToTTAI !== 'visible'
-			) {
-				return result;
-			}
-
-			return {
-				...result,
-				'metric:vc90': VC['90'],
-			};
-		}
+	if (!shouldReportVCMetrics || !mostRecentVCRevisionPayload?.clean) {
+		return result;
 	}
+
+	return {
+		...result,
+		'metric:vc90': mostRecentVCRevisionPayload['metric:vc90'],
+	};
 }
 
 export default getVCMetrics;

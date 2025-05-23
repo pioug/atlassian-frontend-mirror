@@ -42,10 +42,10 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 	let providerIcon;
 	switch (id) {
 		case CONFLUENCE_GENERATOR_ID:
-			providerIcon = <ConfluenceIcon appearance="brand" size="xsmall" />;
+			providerIcon = <ConfluenceIcon appearance="brand" size="xxsmall" />;
 			break;
 		case JIRA_GENERATOR_ID:
-			providerIcon = <JiraIcon appearance="brand" size="xsmall" />;
+			providerIcon = <JiraIcon appearance="brand" size="xxsmall" />;
 			break;
 		default:
 			providerIcon = icon.url;

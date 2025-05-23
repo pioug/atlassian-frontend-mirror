@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const headingStyles = xcss({
-	color: 'color.text.subtle',
-	font: 'font.heading.xxsmall',
-	paddingBlock: 'space.0',
-	paddingInline: 'space.200',
+const styles = cssMap({
+	heading: {
+		color: token('color.text.subtle'),
+		font: token('font.heading.xxsmall'),
+		paddingBlock: token('space.0', '0px'),
+		paddingInline: token('space.200', '16px'),
+	},
 });
 
 /**
@@ -17,7 +21,7 @@ const headingStyles = xcss({
  * @internal
  */
 const GroupTitle = ({ id, title }: { id: string; title: string }) => (
-	<Box data-ds--menu--heading-item role="menuitem" id={id} aria-hidden="true" xcss={headingStyles}>
+	<Box data-ds--menu--heading-item role="menuitem" id={id} aria-hidden="true" xcss={styles.heading}>
 		{title}
 	</Box>
 );

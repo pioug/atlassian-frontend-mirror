@@ -2,8 +2,6 @@ import React from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import StaggeredEntrance from '../../../entering/staggered-entrance';
@@ -466,9 +464,7 @@ describe('<KeyframesMotion />', () => {
 			);
 		});
 	});
-});
 
-ffTest.on('platform_design_system_motion_on_finish_fix', '<KeyframesMotion />', () => {
 	it('should call onFinish correctly if reduced motion is preferred', () => {
 		(isReducedMotion as jest.Mock).mockReturnValue(true);
 

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 6.3.2
+
+### Patch Changes
+
+- [#159351](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159351)
+  [`8932459025c73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8932459025c73) -
+  Move card removal to unmounting of component.
+- Updated dependencies
+
 ## 6.3.1
 
 ### Patch Changes

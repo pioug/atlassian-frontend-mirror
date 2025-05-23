@@ -17,7 +17,7 @@ export type IsolatedCloudDomainPatterns = {
  * Type for collection of domain endings for non-isolated cloud perimeters
  */
 export type NonIsolatedCloudDomainPatterns = {
-	defaultDomainEnding: (subdomain: string, env: EnvironmentType) => string;
+	defaultDomainEnding: (subdomain: string, envType: EnvironmentType) => string;
 };
 
 /**

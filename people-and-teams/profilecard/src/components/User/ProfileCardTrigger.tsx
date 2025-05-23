@@ -10,7 +10,7 @@ import { layers } from '@atlaskit/theme/constants';
 
 import filterActionsInner from '../../internal/filterActions';
 import getLabelMessage from '../../internal/getLabelMessage';
-import { CardWrapper } from '../../styled/Card';
+import { CardWrapper } from '../../styled/UserTrigger';
 import {
 	type AgentActionsType,
 	type Flag,

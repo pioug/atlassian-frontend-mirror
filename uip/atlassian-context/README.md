@@ -13,6 +13,8 @@ npm install @atlaskit/atlassian-context --save
 
 ## Prerequisites
 
+> **_NOTE:_** Skip these pre-requisites if onboarding onto library for the first time in May 2025 onwards. These pre-requisites are for the original `configure()`, `getATLContextDomain()`, `getATLContextUrl()`, and `isFedRamp()` functions, which be will be deprecated in the nearish future.
+
 In order for `@atlaskit/atlassian-context` to work correctly `window.ATL_CONTEXT_DOMAIN` has to be
 set on the page. Products must either have the data already on window or call `configure()`, before
 calling any get\*() calls. Otherwise `getATLContextDomain()` and `getATLContextUrl()` will use
@@ -23,6 +25,8 @@ If using the deprecated `isFedRamp()` method, also
 Otherwise, you could potentially serve environments with code that it is not relevant to them.
 
 ## Setup
+
+> **_NOTE:_** Skip this setup if onboarding onto library for the first time in May 2025 onwards. Access to `window.ATL_CONTEXT_DOMAIN` and `window.UNSAFE_ATL_CONTEXT_BOUNDARY` is only required for the `configure()`, `getATLContextDomain()`, `getATLContextUrl()`, and `isFedRamp()` functions, which be will be deprecated in the nearish future.
 
 This library must be initialised in order to return the correct results. How it gets initialised
 will depend on your service. The configuration data may be loaded by any Micros service from
@@ -88,9 +92,14 @@ invoke the `configure()` function with the provided data.
 
 ### configure()
 
+_Disclaimer:_ This does not need to be invoked for the `isFedrampModerate()`, `isIsolatedCloud()`, `isolatedCloudDomain()`, `getDomainInContext(...)`, and `getUrlForDomainInContext(...)` functions.
+
 Takes the data, and stores in `window.ATL_CONTEXT_DOMAIN` for later use.
 
 ### getATLContextDomain()
+
+
+_Disclaimer:_ Please use `getDomainInContext(subdomain, environment)` instead of this function, as the deprecation process for this function will begin in the near future.
 
 Returns the domain for a given Atlassian service. It relies on `window.ATL_CONTEXT_DOMAIN` be
 present on the page, in case `window.ATL_CONTEXT_DOMAIN` is undefined `getATLContextDomain()` will
@@ -108,6 +117,9 @@ getATLContextDomain('admin'); // admin.atlassian.com OR admin.atlassian-fex.com
 
 ### getATLContextUrl()
 
+
+_Disclaimer:_ Please use `getUrlForDomainInContext(subdomain, environment)` instead of this function, as the deprecation process for this function will begin in the near future.
+
 Returns the full `url` for a given Atlassian service. Being based off `getATLContextDomain`, it
 relies on `window.ATL_CONTEXT_DOMAIN` be present on the page, otherwise `getATLContextDomain` will
 try to retrieve the value from a list of hardcoded domains, which could be not up to date and
@@ -124,6 +136,8 @@ getATLContextUrl('admin'); // https://admin.atlassian.com OR https://admin.atlas
 ```
 
 ### isFedRamp()
+
+_Disclaimer:_ Please use `isFedrampModerate()` instead of this function, as the deprecation process for this function will begin in the near future.
 
 _Caution: Consider Alternatives_ Use of this function is not recommended as a long term solution, as
 it creates an assumption there are no other isolated environments than just FedRAMP Moderate. You
@@ -148,20 +162,12 @@ if (isFedRamp()) {
 ### isFedrampModerate()
 Returns true if the current perimeter is in FedRAMP-Moderate. 
 
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
-
-But when available, note that this should be used instead of isFedramp(), as the deprecation process for the latter will begin in the near future.
-
-
 ### isIsolatedCloud()
 Returns true if the current perimeter is in Isolated Cloud. 
 
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
-
 ### isolatedCloudDomain()
-Returns the current `ic_domain`.
+Returns the current `ic_domain`. If the current perimeter is not an L2 IC (ex. the current fedramp-moderate or regular commercial), then undefined is returned.
 
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
 
 
 ### getDomainInContext(subdomain, environment)
@@ -169,20 +175,19 @@ Returns the full domain (including support for Isolation Cloud) for a given Atla
 
 Important: Note that the library currently does NOT guarantee that the requested domain exists! It is assumed that when a user requests the full domain for a specific service, they already know the domain exists.
 
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
-
-But when available, this should be used instead of `getATLContextDomain()`, as the deprecation process for the latter will begin in the near future.
 
 Parameters:
+
 * `subdomain` is a required parameter. This should be the service or Atlassian experience for which the full domain is being requested.
-* `environment` should be one of `dev`, `stg`, or `prod`. If this parameter is not provided, the library will inspect the hostname to try to determine the environment.
+
+* `environment` is a required parameter. This should be one of `dev`, `staging`, or `prod`.
 
 
 #### Non-Isolated Cloud Details:
 
 For Non-Isolated Cloud (ex. fedramp-moderate and regular commercial), the perimeter and environment values will be used to create and return the expected domain.
 
-Exceptions to this are stored in the [fullDomainOverride](./src/common/constants/domains.tsx) definitions.
+Exceptions to this are stored in the [fullDomainOverride](./src/common/constants/domains.tsx) definitions. If you require a URL Mapping that is inconsistent between perimeters and environments, then you should add an entry to `domains.tsx`.
 
 Examples:
 When called in fedramp-moderate:
@@ -190,8 +195,9 @@ When called in fedramp-moderate:
 ```js
 import { getDomainInContext } from '@atlaskit/atlassian-context';
 
-getDomainInContext('id', 'stg') // returns "id.stg.atlassian-us-gov-mod.com"
-getDomainInContext('analytics', 'stg') // returns "analytics.atlassian.com" because `analytics` has a `fullDomainOverride` entry
+getDomainInContext('id', 'staging') // returns "id.stg.atlassian-us-gov-mod.com" (id has a full domain override)
+getDomainInContext('analytics', 'staging') // returns "analytics.atlassian.com" because `analytics` is a non-varying global domain
+getDomainInContext('nonexistent-service', 'staging') // returns "nonexistent-service.stg.atlassian-us-gov-mod.com"
 ```
 
 When called in (non-isolated) commercial:
@@ -200,7 +206,7 @@ When called in (non-isolated) commercial:
 import { getDomainInContext } from '@atlaskit/atlassian-context';
 
 getDomainInContext('id', 'prod') // returns "id.atlassian.com"
-getDomainInContext('analytics', 'prod') // returns "analytics.atlassian.com" because `analytics` has a `fullDomainOverride` entry
+getDomainInContext('analytics', 'prod') // returns "analytics.atlassian.com"
 ```
 
 
@@ -224,16 +230,11 @@ getDomainInContext('packages') // returns "packages.atl.<icLabel>.<baseDomain>"
 getDomainInContext('new-service') // returns "new-service.services.<icLabel>.<baseDomain>"
 ```
 
-### getUrlForDomainInContext()
-Returns the full url a given Atlassian service (including support for Isolation Cloud) by appending the current URL scheme.
+### getUrlForDomainInContext(subdomain, environment)
+Returns the full url a given Atlassian service (including support for Isolation Cloud) by appending the current URL scheme to the result of `getDomainInContext(subdomain, environment)`.
 
 ```js
 import { getUrlForDomainInContext } from '@atlaskit/atlassian-context';
 
-getUrlForDomainInContext('design', STAGING) // --> returns "https://design.atlassian.com"
+getUrlForDomainInContext('design', 'staging') // --> returns "https://design.atlassian.com"
 ```
-
-
-_Disclaimer:_ The implementation of this relies on the availability of the `atl-ctx` [cookie](https://dogfooding.atlassian-us-gov-mod.net/wiki/spaces/IP1/pages/130187649/LDR+Information+about+Isolation+Context+will+propagate+to+fronted+through+Cookie) being set. This README will be updated once it's been confirmed that this cookie is being set by Isolated Cloud GlobalEdge.
-
-But when available, this should be used instead of `getATLContextUrl()`, as the deprecation process for the latter will begin in the near future.

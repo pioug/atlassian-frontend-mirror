@@ -24,10 +24,12 @@ export const useIconList = ({ icons, iconTypeList, shouldUnselect }: UseIconsPar
 					return acc;
 				}
 				if (
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 					shouldUnselect &&
 					icon.isActive &&
 					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_7')
+					fg('platform_editor_controls_patch_7') &&
+					!fg('platform_editor_controls_patch_10')
 				) {
 					icon.isActive = false;
 				}

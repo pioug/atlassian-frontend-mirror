@@ -1,14 +1,11 @@
 export const FEDRAMP_MODERATE = 'fedramp-moderate';
 export const COMMERCIAL = 'commercial';
-export const FEDRAMP_FEDEX = 'fedramp-fedex';
 
-export const STAGING = 'stg';
+export const STAGING = 'staging';
 export const PRODUCTION = 'prod';
 export const DEV = 'dev';
 
 export type EnvironmentType = typeof STAGING | typeof PRODUCTION | typeof DEV;
-type PerimeterType = typeof FEDRAMP_MODERATE | typeof COMMERCIAL | typeof FEDRAMP_FEDEX;
-export type EnvironmentLookupResult = [EnvironmentType, PerimeterType];
 
 export const ISOLATED_CLOUD_PERIMETERS = [COMMERCIAL] as const;
 export type IsolatedCloudPerimeterType = (typeof ISOLATED_CLOUD_PERIMETERS)[number];
@@ -17,3 +14,12 @@ export const NON_ISOLATED_CLOUD_PERIMETERS = [COMMERCIAL, FEDRAMP_MODERATE] as c
 export type NonIsolatedCloudPerimeterType = (typeof NON_ISOLATED_CLOUD_PERIMETERS)[number];
 
 export type GeneralizedPerimeterType = IsolatedCloudPerimeterType | NonIsolatedCloudPerimeterType;
+
+export const ATL_CTX_PERIMETER = 'Atl-Ctx-Perimeter';
+export const ATL_CTX_ISOLATION_CONTEXT_DOMAIN = 'Atl-Ctx-Isolation-Context-Domain';
+export const ATL_CTX_ISOLATION_CONTEXT_ID = 'Atl-Ctx-Isolation-Context-Id';
+
+export type AtlCtxCookieName =
+	| typeof ATL_CTX_PERIMETER
+	| typeof ATL_CTX_ISOLATION_CONTEXT_DOMAIN
+	| typeof ATL_CTX_ISOLATION_CONTEXT_ID;

@@ -5,12 +5,15 @@ globalThis.document = mockDocument;
 
 describe('Perimeter Detection', () => {
 	afterEach(() => {
-		global.document.cookie = 'atl-ctx=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+		global.document.cookie = 'Atl-Ctx-Perimeter=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+		global.document.cookie =
+			'Atl-Ctx-Isolation-Context-Domain=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+		global.document.cookie = 'Atl-Ctx-Isolation-Context-Id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 	});
 
 	describe('Cookie-based perimeter detection', () => {
-		it('returns FedRAMP Moderate from atl-ctx cookie', () => {
-			globalThis.document.cookie = `atl-ctx={"perimeter":"fedramp-moderate", "ic_domain":null}`;
+		it('returns FedRAMP Moderate from Atl-Ctx-Perimeter cookie', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=fedramp-moderate';
 
 			expect(isFedrampModerate()).toBe(true);
 			expect(isIsolatedCloud()).toBe(false);
@@ -21,55 +24,38 @@ describe('Perimeter Detection', () => {
 			expect(isIsolatedCloud()).toBe(false);
 		});
 
-		it('returns not FedRAMP Moderate if cookie parsing fails', () => {
-			globalThis.document.cookie = 'atl-ctx=invalid-json';
-
-			expect(isFedrampModerate()).toBe(false);
-			expect(isIsolatedCloud()).toBe(false);
-		});
-
-		it('returns Isolated Cloud from atl-ctx cookie', () => {
+		it('returns Isolated Cloud from cookies', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
 			globalThis.document.cookie =
-				'atl-ctx={"perimeter":"commercial", "ic_domain":"simcity.atlassian-isolated.net"}';
+				'Atl-Ctx-Isolation-Context-Domain=simcity.atlassian-isolated.net';
 
 			expect(isFedrampModerate()).toBe(false);
 			expect(isIsolatedCloud()).toBe(true);
 		});
 
-		it('returns not Isolated Cloud if cookie is missing', () => {
-			globalThis.document.cookie = 'other-cookie={"k":"v""}';
+		it('returns not Isolated Cloud if cookies are missing', () => {
+			globalThis.document.cookie = 'other-cookie=value';
 
 			expect(isFedrampModerate()).toBe(false);
 			expect(isIsolatedCloud()).toBe(false);
-			global.document.cookie = 'other-cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-		});
-
-		it('returns not Isolated Cloud if cookie parsing fails', () => {
-			globalThis.document.cookie = 'atl-ctx=invalid-json';
-
-			expect(isFedrampModerate()).toBe(false);
-			expect(isIsolatedCloud()).toBe(false);
+			global.document.cookie = 'other-cookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT'; // clear cookie
 		});
 	});
 
 	describe('Get isolatedCloudDomain', () => {
 		it('returns domain for isolated cloud environments', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=commercial';
 			globalThis.document.cookie =
-				'atl-ctx={"perimeter":"commercial", "ic_domain":"simcity.atlassian-isolated.net"}';
+				'Atl-Ctx-Isolation-Context-Domain=simcity.atlassian-isolated.net';
 			expect(isolatedCloudDomain()).toBe('simcity.atlassian-isolated.net');
 		});
 
-		it('returns undefined for non-isolated cloud environments', () => {
-			globalThis.document.cookie = `atl-ctx={"perimeter":"fedramp-moderate", "ic_domain":null"}`;
+		it('returns undefined for non-isolated cloud environments (fedramp)', () => {
+			globalThis.document.cookie = 'Atl-Ctx-Perimeter=fedramp-moderate';
 			expect(isolatedCloudDomain()).toBeUndefined();
 		});
 
-		it('returns undefined when cookie is missing', () => {
-			expect(isolatedCloudDomain()).toBeUndefined();
-		});
-
-		it('returns undefined when cookie parsing fails', () => {
-			globalThis.document.cookie = 'atl-ctx=invalid-json';
+		it('returns undefined for non-isolated cloud environments (commercial)', () => {
 			expect(isolatedCloudDomain()).toBeUndefined();
 		});
 	});

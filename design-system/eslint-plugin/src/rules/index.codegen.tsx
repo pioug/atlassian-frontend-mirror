@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::056ec12b954ac3e98112951f11fb055e>>
+ * @codegen <<SignedSource::3de5d5b44aa01faabdb840bc7fb43d04>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -44,6 +44,7 @@ import noStyledTaggedTemplateExpression from './no-styled-tagged-template-expres
 import noUnsafeDesignTokenUsage from './no-unsafe-design-token-usage';
 import noUnsafeStyleOverrides from './no-unsafe-style-overrides';
 import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-libraries';
+import noUtilityIcons from './no-utility-icons';
 import preferPrimitives from './prefer-primitives';
 import useButtonGroupLabel from './use-button-group-label';
 import useCxFunctionInXcss from './use-cx-function-in-xcss';
@@ -108,6 +109,7 @@ export const rules = {
 	'no-unsafe-design-token-usage': noUnsafeDesignTokenUsage,
 	'no-unsafe-style-overrides': noUnsafeStyleOverrides,
 	'no-unsupported-drag-and-drop-libraries': noUnsupportedDragAndDropLibraries,
+	'no-utility-icons': noUtilityIcons,
 	'prefer-primitives': preferPrimitives,
 	'use-button-group-label': useButtonGroupLabel,
 	'use-cx-function-in-xcss': useCxFunctionInXcss,

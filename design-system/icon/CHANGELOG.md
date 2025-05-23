@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 26.1.1
+
+### Patch Changes
+
+- [#158890](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158890)
+  [`a8e4b409426ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8e4b409426ca) -
+  Added guidance for chevron icons to inform makers to use 12px variant to maintain uniformity
+
 ## 26.1.0
 
 ### Minor Changes

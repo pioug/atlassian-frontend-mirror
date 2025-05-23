@@ -1,7 +1,9 @@
 import {
 	COMMERCIAL,
+	DEV,
 	type EnvironmentType,
 	FEDRAMP_MODERATE,
+	PRODUCTION,
 	STAGING,
 } from '../../common/constants';
 
@@ -16,7 +18,7 @@ import type {
  * For Oasis EAP, reserved names are assumed to exist in every IC.
  */
 export const ReservedNameMapping: IsolatedCloudDomainTypeEnumeration = {
-	[COMMERCIAL]: ['id', 'admin', 'api'],
+	[COMMERCIAL]: ['home', 'start', 'id', 'api', 'admin', 'auth', 'bitbucket'],
 };
 
 /**
@@ -45,13 +47,35 @@ export const isolatedCloudFunctions: IsolatedCloudDomainPatternMap = {
  */
 export const nonIsolatedCloudFunctions: NonIsolatedCloudDomainPatternMap = {
 	[COMMERCIAL]: {
-		defaultDomainEnding: (subdomain: string, env: EnvironmentType) =>
-			env === STAGING ? `${subdomain}.stg.atlassian.com` : `${subdomain}.atlassian.com`,
+		defaultDomainEnding: (subdomain: string, envType: EnvironmentType) => {
+			switch (envType) {
+				case PRODUCTION:
+					return `${subdomain}.atlassian.com`;
+				case STAGING:
+					return `${subdomain}.stg.atlassian.com`;
+				case DEV:
+					return `${subdomain}.dev.atlassian.com`;
+				default:
+					console.warn(
+						`Cannot get non-isolated commercial domain for provided environment, ${envType} is unsupported`,
+					);
+					return '';
+			}
+		},
 	},
 	[FEDRAMP_MODERATE]: {
-		defaultDomainEnding: (subdomain: string, env: EnvironmentType) =>
-			env === STAGING
-				? `${subdomain}.stg.atlassian-us-gov-mod.com`
-				: `${subdomain}.atlassian-us-gov-mod.com`,
+		defaultDomainEnding: (subdomain: string, envType: EnvironmentType) => {
+			switch (envType) {
+				case PRODUCTION:
+					return `${subdomain}.atlassian-us-gov-mod.com`;
+				case STAGING:
+					return `${subdomain}.stg.atlassian-us-gov-mod.com`;
+				default:
+					console.warn(
+						`Cannot get fedramp-moderate domain for provided environment, ${envType} is unsupported`,
+					);
+					return '';
+			}
+		},
 	},
 };

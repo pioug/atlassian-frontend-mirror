@@ -32,17 +32,17 @@ type RenderableSource = {
 const SUPPORTED_SOURCES: RenderableSource[] = [
 	{
 		sourceType: 'jira',
-		icon: <JiraIcon size={'xsmall'} />,
+		icon: <JiraIcon size={'xxsmall'} />,
 		label: messages.jiraSource,
 	},
 	{
 		sourceType: 'confluence',
-		icon: <ConfluenceIcon size={'xsmall'} />,
+		icon: <ConfluenceIcon size={'xxsmall'} />,
 		label: messages.confluenceSource,
 	},
 	{
 		sourceType: 'other-atlassian',
-		icon: <AtlassianIcon size={'xsmall'} />,
+		icon: <AtlassianIcon size={'xxsmall'} />,
 		label: messages.otherAtlassianSource,
 	},
 	{ sourceType: 'slack', icon: <SlackIcon />, label: messages.slackProvider },

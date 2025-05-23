@@ -58,6 +58,7 @@ export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
 	 * Indicates whether we're opening the media comment box from the media toolbar so we can scroll the media into view
 	 */
 	isOpeningMediaCommentFromToolbar?: boolean;
+	wasNewAnnotationSelected?: boolean;
 };
 
 export type InlineCommentViewComponentProps = AnnotationComponentProps & {

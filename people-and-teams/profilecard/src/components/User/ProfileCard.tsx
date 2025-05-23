@@ -20,11 +20,10 @@ import {
 	AnimationWrapper,
 	CardContainer,
 	CardContent,
-	CardWrapper,
 	KudosBlobAnimation,
 	ProfileImage,
-	SpinnerContainer,
 } from '../../styled/Card';
+import { CardWrapper, SpinnerContainer } from '../../styled/UserTrigger';
 import {
 	type AnalyticsFromDuration,
 	type AnalyticsProps,

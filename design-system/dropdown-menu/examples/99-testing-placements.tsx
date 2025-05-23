@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { type Placement } from '@atlaskit/dropdown-menu/types';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Grid, Text } from '@atlaskit/primitives/compiled';
 
-const gridStyles = xcss({
-	display: 'grid',
-	height: '100vh',
-	gridTemplateColumns: 'repeat(3, 1fr)',
+const styles = cssMap({
+	grid: {
+		height: '100vh',
+		gridTemplateColumns: 'repeat(3, 1fr)',
+	},
 });
 
 const ExampleDropdown = ({
@@ -35,7 +37,7 @@ const ExampleDropdown = ({
 
 const DropdownMenuDefaultExample = () => {
 	return (
-		<Box xcss={gridStyles}>
+		<Grid xcss={styles.grid}>
 			<ExampleDropdown
 				description={
 					<Fragment>
@@ -89,7 +91,7 @@ const DropdownMenuDefaultExample = () => {
 				description="auto places the popup on the side with the most space available"
 				placement="auto"
 			/>
-		</Box>
+		</Grid>
 	);
 };
 

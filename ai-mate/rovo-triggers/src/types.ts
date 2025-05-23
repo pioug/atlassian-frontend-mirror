@@ -75,6 +75,10 @@ export type BrowserContextPayloadData = {
 		| undefined;
 };
 
+export type WorkflowContextPayloadData = {
+	currentWorkflowDocument?: Record<string, unknown>;
+};
+
 // Not using the PayloadCore because the `data: type | undefined` is necessary
 // but `| undefined` will cause `data` to be removed by PayloadCore
 export type EditorContextPayload = PayloadCore<'editor-context-payload'> & {
@@ -223,7 +227,8 @@ export type JiraWorkflowWizardAction =
 export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	'jira-workflow-wizard-actions',
 	{
-		operations: JiraWorkflowWizardAction[];
+		operations?: JiraWorkflowWizardAction[];
+		currentWorkflowDocument?: Record<string, unknown>;
 	}
 >;
 

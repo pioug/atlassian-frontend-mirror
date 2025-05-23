@@ -29,11 +29,11 @@ export default () => (
 		<hr role="presentation" />
 		<div data-testid="defensive-styling">
 			<div css={inlineStyles}>
-				<ConfluenceIcon size="xsmall" appearance="brand" />
+				<ConfluenceIcon size="xxsmall" appearance="brand" />
 				<span>Confluence</span>
 			</div>
 			<div css={inlineStyles}>
-				<JiraIcon size="xsmall" appearance="brand" />
+				<JiraIcon size="xxsmall" appearance="brand" />
 				<span>Jira</span>
 			</div>
 		</div>

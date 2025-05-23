@@ -34,6 +34,8 @@ type LayoutSectionViewProps = {
 	options: LayoutPluginOptions;
 };
 
+const layoutDynamicFullWidthGuidelineOffset = 16;
+
 const isEmptyParagraph = (node?: PMNode | null): boolean => {
 	return !!node && node.type.name === 'paragraph' && !node.childCount;
 };
@@ -146,6 +148,7 @@ const LayoutBreakoutResizer = ({
 			onResizeStart={() => {
 				selectIntoCurrentLayout();
 			}}
+			dynamicFullWidthGuidelineOffset={layoutDynamicFullWidthGuidelineOffset}
 		/>
 	);
 };
@@ -168,7 +171,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	isEmpty?: boolean;
 
 	/**
-	 *
+	 * constructor
 	 * @param props
 	 * @param props.node
 	 * @param props.view
@@ -201,8 +204,9 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	}
 
 	/**
-	 *
+	 * getContentDOM
 	 * @example
+	 * @returns
 	 */
 	getContentDOM() {
 		const { dom: container, contentDOM } = DOMSerializer.renderSpec(document, toDOM()) as {
@@ -220,7 +224,7 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	}
 
 	/**
-	 *
+	 * setDomAttrs
 	 * @param node
 	 * @param element
 	 * @example
@@ -232,10 +236,11 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	}
 
 	/**
-	 *
+	 * render
 	 * @param props
 	 * @param forwardRef
 	 * @example
+	 * @returns
 	 */
 	render(props: LayoutSectionViewProps, forwardRef: ForwardRef) {
 		this.isEmpty = isEmptyLayout(this.node);
@@ -255,9 +260,10 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	}
 
 	/**
-	 *
+	 * ignoreMutation
 	 * @param mutation
 	 * @example
+	 * @returns
 	 */
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		return ignoreResizerMutations(mutation);

@@ -25,6 +25,7 @@ type ConnectedTeams = {
 type State = {
 	teamContainers: TeamContainers;
 	loading: boolean;
+	hasLoaded: boolean;
 	error: Error | null;
 	unlinkError: UnlinkContainerMutationError | null;
 	teamId: string | null;
@@ -53,6 +54,7 @@ const initialConnectedTeamsState = {
 const initialState: State = {
 	teamContainers: [],
 	loading: true,
+	hasLoaded: false,
 	error: null,
 	unlinkError: null,
 	teamId: null,
@@ -70,14 +72,14 @@ const actions = {
 			if (currentTeamId === teamId) {
 				return;
 			}
-			setState({ loading: true, error: null, teamContainers: [], teamId });
+			setState({ loading: true, error: null, teamContainers: [], teamId, hasLoaded: false });
 			try {
 				const containers = await teamsClient.getTeamContainers(teamId);
 				fireAnalytics(AnalyticsAction.SUCCEEDED, 'fetchTeamContainers');
-				setState({ teamContainers: containers, loading: false, error: null });
+				setState({ teamContainers: containers, loading: false, error: null, hasLoaded: true });
 			} catch (err) {
 				fireAnalytics(AnalyticsAction.FAILED, 'fetchTeamContainers', err as Error);
-				setState({ teamContainers: [], error: err as Error, loading: false });
+				setState({ teamContainers: [], error: err as Error, loading: false, hasLoaded: true });
 			}
 		},
 	fetchNumberOfConnectedTeams:
@@ -270,7 +272,12 @@ export const useTeamContainers = (teamId: string, enable = true) => {
 		}
 	}, [teamId, actions, enable, fireOperationalAnalytics]);
 
-	return { ...state, addTeamContainer: actions.addTeamContainer };
+	return {
+		...state,
+		addTeamContainer: actions.addTeamContainer,
+		unlinkTeamContainers: (containerId: string) =>
+			actions.unlinkTeamContainers(teamId, containerId),
+	};
 };
 
 export const useConnectedTeams = () => {

@@ -44,7 +44,9 @@ const controlStyles = cssMap({
 			backgroundColor: token('color.background.input.hovered'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'.fabric-user-picker__clear-indicator': {
-				opacity: 1,
+				// TODO: remove !important once the Select styles props is removed https://product-fabric.atlassian.net/browse/DSP-22497
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				opacity: '1 !important',
 			},
 		},
 		padding: 0,

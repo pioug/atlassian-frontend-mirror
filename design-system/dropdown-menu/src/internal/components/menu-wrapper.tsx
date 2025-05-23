@@ -4,12 +4,11 @@
  */
 import { type KeyboardEvent, type MouseEvent, useContext, useEffect, useLayoutEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
+import { cssMap, jsx } from '@atlaskit/css';
 import MenuGroup from '@atlaskit/menu/menu-group';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 
 import { type FocusableElementRef, type MenuWrapperProps } from '../../types';
 import isCheckboxItem from '../utils/is-checkbox-item';
@@ -17,11 +16,16 @@ import isRadioItem from '../utils/is-radio-item';
 
 import { FocusManagerContext } from './focus-manager';
 
-const spinnerContainerStyles = xcss({
-	display: 'flex',
-	minWidth: '160px',
-	padding: 'space.250',
-	justifyContent: 'center',
+const styles = cssMap({
+	spinnerContainer: {
+		display: 'flex',
+		minWidth: '160px',
+		justifyContent: 'center',
+		paddingTop: token('space.250', '20px'),
+		paddingRight: token('space.250', '20px'),
+		paddingBottom: token('space.250', '20px'),
+		paddingLeft: token('space.250', '20px'),
+	},
 });
 
 const LoadingIndicator = ({
@@ -31,7 +35,7 @@ const LoadingIndicator = ({
 	statusLabel: MenuWrapperProps['statusLabel'];
 	testId?: string;
 }) => (
-	<Box xcss={spinnerContainerStyles} role="menuitem">
+	<Box xcss={styles.spinnerContainer} role="menuitem">
 		<Spinner size="small" label={statusLabel} testId={testId} />
 	</Box>
 );

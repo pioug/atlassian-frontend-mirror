@@ -1,9 +1,20 @@
 import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	container: {
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
+	},
+});
 
 export default () => {
 	return (
@@ -12,7 +23,7 @@ export default () => {
 				focus will go to trigger when dropdown is closed with Esc or Shift+Tab
 			</Heading>
 
-			<Box padding="space.100">
+			<Box xcss={styles.container}>
 				<Inline space="space.300">
 					<DropdownMenu
 						trigger="Actions"

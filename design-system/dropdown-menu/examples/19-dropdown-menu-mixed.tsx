@@ -3,6 +3,7 @@ import React, { type KeyboardEvent, useState } from 'react';
 import { useOverflowStatus } from '@atlaskit/atlassian-navigation';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import EditorAddIcon from '@atlaskit/icon/glyph/add';
@@ -10,8 +11,9 @@ import EditorPeopleIcon from '@atlaskit/icon/glyph/people-group';
 import { ButtonItem, HeadingItem, MenuGroup } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
 interface SearchDropdownItemProps {
 	setFilteredOptions: React.Dispatch<React.SetStateAction<{ label: string; value: string }[]>>;
@@ -141,13 +143,19 @@ const OptionsContent = () => (
 	</MenuGroup>
 );
 
-const jiraItemStyles = xcss({
-	display: 'flex',
-	alignItems: 'flex-start',
+const styles = cssMap({
+	container: {
+		display: 'flex',
+		alignItems: 'flex-start',
+		paddingTop: token('space.200', '16px'),
+		paddingRight: token('space.200', '16px'),
+		paddingBottom: token('space.200', '16px'),
+		paddingLeft: token('space.200', '16px'),
+	},
 });
 
 const CustomDropdownMenu = () => (
-	<Box xcss={jiraItemStyles} padding="space.200">
+	<Box xcss={styles.container}>
 		<PrimaryDropdown content={OptionsContent} text="Mixed item" />
 	</Box>
 );

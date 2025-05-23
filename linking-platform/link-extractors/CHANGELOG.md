@@ -1,5 +1,14 @@
 # @atlaskit/link-extractors
 
+## 2.3.3
+
+### Patch Changes
+
+- [#154600](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154600)
+  [`0b06dde976fe0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b06dde976fe0) -
+  Internal updates to logo component usage
+- Updated dependencies
+
 ## 2.3.2
 
 ### Patch Changes

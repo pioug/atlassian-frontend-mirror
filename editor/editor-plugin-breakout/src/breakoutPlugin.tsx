@@ -97,7 +97,7 @@ function shouldPluginStateUpdate(
 }
 
 function createPlugin(
-	pluginInjectionApi: ExtractInjectionAPI<typeof breakoutPlugin> | undefined,
+	api: ExtractInjectionAPI<BreakoutPlugin> | undefined,
 	{ dispatch }: PMPluginFactoryParams,
 ) {
 	return new SafePlugin({
@@ -212,7 +212,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 			return [
 				{
 					name: 'breakout-resizing',
-					plugin: () => createResizingPlugin(),
+					plugin: () => createResizingPlugin(api, options),
 				},
 			];
 		}

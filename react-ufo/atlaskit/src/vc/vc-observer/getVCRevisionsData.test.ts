@@ -25,7 +25,6 @@ describe('getVCRevisionsData', () => {
 		expect(
 			getVCRevisionsData({
 				experienceKey: 'test',
-				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
 					start: 0,
@@ -181,7 +180,6 @@ describe('getVCRevisionsData', () => {
 		expect(
 			getVCRevisionsData({
 				experienceKey: 'test',
-				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
 					start: 0,
@@ -291,7 +289,6 @@ describe('getVCRevisionsData', () => {
 		expect(
 			getVCRevisionsData({
 				experienceKey: 'test',
-				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
 					start: 0,
@@ -370,7 +367,6 @@ describe('getVCRevisionsData', () => {
 		expect(
 			getVCRevisionsData({
 				experienceKey: 'test',
-				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
 					start: 0,
@@ -451,7 +447,6 @@ describe('getVCRevisionsData', () => {
 		expect(
 			getVCRevisionsData({
 				experienceKey: 'test',
-				multiHeatmap: null,
 				fullPrefix: 'ufo:',
 				interaction: {
 					start: 0,

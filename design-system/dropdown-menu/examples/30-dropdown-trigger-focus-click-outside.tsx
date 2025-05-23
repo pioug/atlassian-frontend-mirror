@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
-import { Flex, Stack } from '@atlaskit/primitives';
+import { Flex, Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 
 const DropdownMenuDefaultExample = () => {

@@ -33,7 +33,7 @@ ${code`
 type CodeBlockPlugin = NextEditorPlugin<
   'codeBlock',
   {
-    pluginConfiguration: CodeBlockOptions;
+    pluginConfiguration: CodeBlockPluginOptions;
     dependencies: [
       typeof decorationsPlugin,
       typeof compositionPlugin,

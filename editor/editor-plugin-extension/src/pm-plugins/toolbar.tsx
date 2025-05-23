@@ -491,9 +491,16 @@ export const getToolbarConfig =
 							{
 								id: 'editor.extension.delete',
 								type: 'button',
-								icon: () => (
-									<DeleteIcon label={formatMessage(commonMessages.remove)} spacing="spacious" />
-								),
+								icon:
+									editorExperiment('platform_editor_controls', 'variant1') &&
+									fg('platform_editor_controls_patch_10')
+										? DeleteIcon
+										: () => (
+												<DeleteIcon
+													label={formatMessage(commonMessages.remove)}
+													spacing="spacious"
+												/>
+											),
 								iconFallback: DeleteIcon,
 								appearance: 'danger',
 								onClick: removeExtension(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),

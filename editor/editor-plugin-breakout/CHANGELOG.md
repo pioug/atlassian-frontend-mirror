@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.3.0
+
+### Minor Changes
+
+- [#158239](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158239)
+  [`c2caa0af876e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2caa0af876e0) -
+  [ux] ED-28028 add breakout mark to expands, codeblocks and layouts for new resizing experience
+  behind the platform_editor_breakout_resizing experiment
+
+### Patch Changes
+
+- [#159213](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159213)
+  [`75e3b93e94f8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75e3b93e94f8c) -
+  [ED-28069] this change is retaining the breakout mode when setting the breakout width when using
+  the new resizing experience behind the platform_editor_breakout_resizing experiment.
+- Updated dependencies
+
+## 2.2.6
+
+### Patch Changes
+
+- [#157540](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157540)
+  [`16b7448512972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16b7448512972) -
+  [ux] [ED-28038] this change adds the drag callbacks to the new resizing experience behind the
+  platform_editor_breakout_resizing experiment.
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

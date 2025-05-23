@@ -68,7 +68,7 @@ const rule: Rule.RuleModule = {
 		},
 		messages: {
 			useConfig:
-				'Do not precondition gates or experiments with another gate. Configure this in Statsig instead to reduce unnecessary code and simplify cleanup.',
+				'Do not precondition gates or experiments with another gate. Configure this in Statsig instead to reduce unnecessary code, simplify cleanup and to ensure accurate exposures in Statsig.',
 			incorrectExposure:
 				'Evaluate gates or experiments at the end of your logical expression to ensure exposure is tracked correctly.',
 		},

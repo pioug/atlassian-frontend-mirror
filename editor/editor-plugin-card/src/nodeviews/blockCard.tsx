@@ -61,6 +61,24 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 		})();
 	};
 
+	componentWillUnmount(): void {
+		if (fg('platform_editor_fix_advanced_code_crash')) {
+			this.removeCard();
+		}
+	}
+
+	private removeCardDispatched = false;
+
+	private removeCard() {
+		if (this.removeCardDispatched && fg('platform_editor_cards_maxcallstackfix')) {
+			return;
+		}
+		this.removeCardDispatched = true;
+		const { tr } = this.props.view.state;
+		removeCard({ id: this.props.id })(tr);
+		this.props.view.dispatch(tr);
+	}
+
 	gapCursorSpan = () => {
 		// Don't render in EdgeHTMl version <= 18 (Edge version 44)
 		// as it forces the edit popup to render 24px lower than it should
@@ -181,7 +199,11 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 
 	destroy() {
 		this.unsubscribe?.();
-		this.removeCard();
+		if (fg('platform_editor_fix_advanced_code_crash')) {
+			super.destroy();
+		} else {
+			this.removeCard();
+		}
 	}
 
 	private removeCardDispatched = false;

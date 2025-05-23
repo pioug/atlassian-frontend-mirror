@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { VCAbortReason } from '../../../../common/vc/types';
 import type {
 	VCObserverEntry,
@@ -46,6 +48,14 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			) {
 				return false;
 			}
+
+			if (
+				attributeName === 'data-aui-version' &&
+				fg('platform_ufo_filter_out_aui_attribute_changes')
+			) {
+				return false;
+			}
+
 			return true;
 		}
 		if (isViewportEntryData(entry.data) && !entry.data.visible) {

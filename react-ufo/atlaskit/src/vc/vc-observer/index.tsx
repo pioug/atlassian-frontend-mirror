@@ -22,25 +22,11 @@ import { attachAbortListeners } from './attachAbortListeners';
 import { getVCRevisionDebugDetails } from './getVCRevisionDebugDetails';
 import { getVCRevisionsData } from './getVCRevisionsData';
 import { getViewportHeight, getViewportWidth } from './getViewport';
-import { MultiRevisionHeatmap } from './heatmap/heatmap';
 import { type ObservedMutationType, Observers } from './observers';
-import { getRevisions } from './revisions/revisions';
 
 type PixelsToMap = { l: number; t: number; r: number; b: number };
 
 type AbortReasonEnum = { [key: string]: VCAbortReason };
-
-type onUpdateArgs = {
-	timestamp: number;
-	intersectionRect: DOMRectReadOnly;
-	targetName: string;
-	element: HTMLElement;
-	type: ObservedMutationType;
-	ignoreReason?: VCIgnoreReason;
-	attributeName?: string | null;
-	oldValue?: string | null;
-	newValue?: string | null;
-};
 
 const abortReason: AbortReasonEnum = {
 	scroll: 'scroll',
@@ -99,8 +85,6 @@ export class VCObserver implements VCObserverInterface {
 
 	heatmapNext: number[][];
 
-	multiHeatmap: MultiRevisionHeatmap | null = null;
-
 	componentsLog: ComponentsLogType = {};
 
 	vcRatios: VCRatioType = {};
@@ -148,11 +132,6 @@ export class VCObserver implements VCObserverInterface {
 		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();
 
 		this.heatmapNext = this.getCleanHeatmap();
-		this.multiHeatmap = new MultiRevisionHeatmap({
-			viewport: this.viewport,
-			revisions: getRevisions(),
-			devToolsEnabled: this.devToolsEnabled,
-		});
 		this.isPostInteraction = options.isPostInteraction || false;
 	}
 
@@ -201,7 +180,6 @@ export class VCObserver implements VCObserverInterface {
 			abortReason: { ...this.abortReason },
 			heatmap: this.heatmap,
 			heatmapNext: this.heatmapNext,
-			multiHeatmap: this.multiHeatmap,
 			outOfBoundaryInfo: this.outOfBoundaryInfo,
 			totalTime: Math.round(this.totalTime + this.observers.getTotalTime()),
 			componentsLog: { ...this.componentsLog },
@@ -250,12 +228,9 @@ export class VCObserver implements VCObserverInterface {
 			viewport,
 			devToolsEnabled,
 			ratios,
-			multiHeatmap,
 		} = rawData;
 
-		const isTTVCv1Disabled = fg('platform_ufo_vc_enable_revisions_by_experience')
-			? !isVCRevisionEnabled('fy25.01', experienceKey)
-			: !isVCRevisionEnabled('fy25.01');
+		const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01', experienceKey);
 
 		// NOTE: as part of platform_ufo_add_vc_abort_reason_by_revisions feature,
 		// we want to report abort by scroll events the same way as other abort reasons
@@ -482,8 +457,6 @@ export class VCObserver implements VCObserverInterface {
 				end: stop,
 			},
 			isVCClean,
-			multiHeatmap,
-			ssr,
 			calculatedVC: { VC, VCBox },
 			calculatedVCNext: { VC: vcNext.VC, VCBox: vcNext.VCBox },
 			isEventAborted,
@@ -507,9 +480,7 @@ export class VCObserver implements VCObserverInterface {
 			};
 		}
 
-		const isTTVCv3Enabled = fg('platform_ufo_vc_enable_revisions_by_experience')
-			? isVCRevisionEnabled('fy25.03', experienceKey)
-			: isVCRevisionEnabled('fy25.03');
+		const isTTVCv3Enabled = isVCRevisionEnabled('fy25.03', experienceKey);
 
 		return {
 			'metrics:vc': VC,
@@ -669,55 +640,6 @@ export class VCObserver implements VCObserverInterface {
 		oldValue?: string | null,
 		newValue?: string | null,
 	) => {
-		this.measureStart();
-
-		this.legacyHandleUpdate(
-			rawTime,
-			intersectionRect,
-			targetName,
-			element,
-			type,
-			ignoreReason,
-			attributeName,
-			oldValue,
-			newValue,
-		);
-
-		let isTTVCv3Disabled = !isVCRevisionEnabled('fy25.03');
-
-		if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
-			const interaction = getActiveInteraction();
-			isTTVCv3Disabled = !isVCRevisionEnabled('fy25.03', interaction?.ufoName);
-		}
-
-		if (isTTVCv3Disabled) {
-			this.onViewportChangeDetected({
-				timestamp: rawTime,
-				intersectionRect,
-				targetName,
-				element,
-				type,
-				ignoreReason,
-				attributeName,
-				oldValue,
-				newValue,
-			});
-		}
-
-		this.measureStop();
-	};
-
-	private legacyHandleUpdate = (
-		rawTime: number,
-		intersectionRect: DOMRectReadOnly,
-		targetName: string,
-		element: HTMLElement,
-		type: ObservedMutationType,
-		ignoreReason?: VCIgnoreReason,
-		attributeName?: string | null,
-		oldValue?: string | null,
-		newValue?: string | null,
-	) => {
 		if (this.abortReason.reason === null || this.abortReason.blocking === false) {
 			const time = Math.round(rawTime - this.startTime);
 			const mappedValues = this.mapPixelsToHeatmap(
@@ -732,12 +654,8 @@ export class VCObserver implements VCObserverInterface {
 				this.applyChangesToHeatMap(mappedValues, time, this.heatmapNext);
 			}
 
-			let isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01');
-
-			if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
-				const interaction = getActiveInteraction();
-				isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01', interaction?.ufoName);
-			}
+			const interaction = getActiveInteraction();
+			const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01', interaction?.ufoName);
 
 			if (
 				!isTTVCv1Disabled &&
@@ -764,48 +682,6 @@ export class VCObserver implements VCObserverInterface {
 		}
 	};
 
-	private onViewportChangeDetected = ({
-		element,
-		type,
-		ignoreReason,
-		timestamp,
-		targetName,
-		intersectionRect,
-		attributeName,
-		oldValue,
-		newValue,
-	}: onUpdateArgs) => {
-		if (this.multiHeatmap === null) {
-			return;
-		}
-		// @todo add abort reason handling
-		const time = Math.round(timestamp - this.startTime);
-
-		const revisions = getRevisions();
-		const revisionsClassification = revisions.map<boolean>((revision) => {
-			return revision.classifier.classifyUpdate({
-				element,
-				type,
-				ignoreReason,
-			});
-		}, []);
-
-		this.multiHeatmap.handleUpdate({
-			time,
-			targetName,
-			intersectionRect,
-			type,
-			element,
-			classification: revisionsClassification,
-			onError: (error) => {
-				this.setAbortReason(abortReason.error, error.time, error.error);
-			},
-			attributeName,
-			oldValue,
-			newValue,
-		});
-	};
-
 	private setAbortReason(abort: VCAbortReason, timestamp: number, info = '') {
 		if (this.abortReason.reason === null || this.abortReason.blocking === false) {
 			this.abortReason.reason = abort;
@@ -828,11 +704,6 @@ export class VCObserver implements VCObserverInterface {
 		this.detachAbortListeners();
 		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();
 		this.heatmapNext = this.getCleanHeatmap();
-		this.multiHeatmap = new MultiRevisionHeatmap({
-			viewport: this.viewport,
-			revisions: getRevisions(),
-			devToolsEnabled: this.devToolsEnabled,
-		});
 		this.totalTime = 0;
 		this.componentsLog = {};
 		this.vcRatios = {};
@@ -943,8 +814,6 @@ export class VCObserver implements VCObserverInterface {
 					this.abortReasonCallback(key, time);
 				}
 			});
-			unbinds = unbinds.concat(window.__SSR_ABORT_LISTENERS__.unbinds);
-			delete window?.__SSR_ABORT_LISTENERS__;
 		}
 		this.unbind = unbinds;
 	};

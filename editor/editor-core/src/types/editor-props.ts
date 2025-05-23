@@ -22,23 +22,23 @@ import type {
 	LinkingOptions,
 	PerformanceTracking,
 	QuickInsertOptions,
-	TextFormattingOptions,
 	Transformer,
 } from '@atlaskit/editor-common/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
-import type { CodeBlockOptions } from '@atlaskit/editor-plugins/code-block';
+import type { CodeBlockPluginOptions } from '@atlaskit/editor-plugins/code-block';
 import type { DatePluginOptions } from '@atlaskit/editor-plugins/date';
 import type { FindReplaceOptions } from '@atlaskit/editor-plugins/find-replace';
 import type { LayoutPluginOptions } from '@atlaskit/editor-plugins/layout';
-import type { MediaOptions, MediaState } from '@atlaskit/editor-plugins/media/types';
+import type { MediaPluginOptions, MediaState } from '@atlaskit/editor-plugins/media/types';
 import type { MentionPluginConfig } from '@atlaskit/editor-plugins/mentions';
 import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
-import type { PlaceholderTextOptions } from '@atlaskit/editor-plugins/placeholder-text';
+import type { PlaceholderTextPluginOptions } from '@atlaskit/editor-plugins/placeholder-text';
 import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugins/table/types';
 import type { TextColorPluginConfig } from '@atlaskit/editor-plugins/text-color';
+import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention/resource';
@@ -285,7 +285,7 @@ export interface EditorNextProps
 	 * Example:
 	 * ```ts
 	 * // In preset creation you can pass the props passed to the editor like this:
-	 * preset.add([mediaPlugin, mediaOptions])
+	 * preset.add([mediaPlugin, MediaPluginOptions])
 	 * ```
 	 *
 	 * Note: Props you pass to the media plugin via the preset do not re-render like in React.
@@ -298,7 +298,7 @@ export interface EditorNextProps
 	 * editorApi?.media.actions.setProvider(mediaProvider);
 	 * ```
 	 */
-	media?: MediaOptions;
+	media?: MediaPluginOptions;
 
 	// Editor assitive describedby. Set aria-describedby to make the editor announcement to include the information
 	// the associated component's content
@@ -378,7 +378,7 @@ export interface EditorPluginFeatureProps {
 	// Placeholder text is an inline text element that is removed when a user clicks on it.
 	// You can also disable the inserts for this feature so users can never insert such placeholder
 	// elements in the editor but you could load the initial content in the editor with them.
-	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
+	allowTemplatePlaceholders?: boolean | PlaceholderTextPluginOptions;
 
 	// Enable dates. You will most likely need backend ADF storage for this feature.
 	// Can use true/false to enable/disable default or can pass in DatePluginOptions object to configure weekStartDay
@@ -481,12 +481,12 @@ export interface EditorPluginFeatureProps {
 
 	allowAnalyticsGASV3?: boolean;
 
-	codeBlock?: CodeBlockOptions;
+	codeBlock?: CodeBlockPluginOptions;
 
 	// Set to disable text formatting styles. If not specified, they will be all enabled by default. Code here refers to inline code.
 	// Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.
 	// This should only be disabled if the user has an OS setting that disables this.
-	textFormatting?: TextFormattingOptions;
+	textFormatting?: TextFormattingPluginOptions;
 
 	// Default placeholder text to be displayed if the document content is empty. e.g. 'Add a comment...'
 	placeholder?: string;
@@ -501,5 +501,5 @@ export interface EditorPluginFeatureProps {
 
 	// Set to configure media features. Media single refers to the embedded version of media,
 	// which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
-	media?: MediaOptions;
+	media?: MediaPluginOptions;
 }

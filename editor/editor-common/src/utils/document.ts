@@ -5,6 +5,7 @@ import type {
 	TextSelection,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 import { isEmptyParagraph } from './editor-core-utils';
 
@@ -149,3 +150,40 @@ export function getChangedNodes(
 		doc: tr.doc,
 	});
 }
+
+type __ReplaceStep = ReplaceStep & {
+	// Properties `to` and `from` are private attributes of ReplaceStep.
+	to: number;
+	from: number;
+};
+
+// When document first load in Confluence, initially it is an empty document
+// and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
+// isReplaceDocumentOperation is checking if the transaction is the one that replace the empty document with the real document
+export const isReplaceDocOperation = (
+	transactions: readonly Transaction[],
+	oldState: EditorState,
+) => {
+	return transactions.some((tr) => {
+		if (tr.getMeta('replaceDocument')) {
+			return true;
+		}
+
+		const hasStepReplacingEntireDocument = tr.steps.some((step) => {
+			if (!(step instanceof ReplaceStep)) {
+				return false;
+			}
+
+			const isStepReplacingFromDocStart = (step as __ReplaceStep).from === 0;
+			const isStepReplacingUntilTheEndOfDocument =
+				(step as __ReplaceStep).to === oldState.doc.content.size;
+
+			if (!isStepReplacingFromDocStart || !isStepReplacingUntilTheEndOfDocument) {
+				return false;
+			}
+			return true;
+		});
+
+		return hasStepReplacingEntireDocument;
+	});
+};

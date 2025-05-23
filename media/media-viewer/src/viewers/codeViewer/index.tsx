@@ -15,6 +15,8 @@ import { DEFAULT_LANGUAGE, normaliseLineBreaks } from './util';
 import { getLanguageType, getExtension } from '@atlaskit/media-ui/codeViewer';
 import { msgToText } from './msg-parser';
 import { type MediaTraceContext } from '@atlaskit/media-common';
+import { CodeRendererAdvanced } from './CodeRendererAdvanced/CodeRendererAdvanced';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const moduleLoader = () =>
 	import(/* webpackChunkName: "@atlaskit-internal_media-code-viewer" */ './codeViewerRenderer');
@@ -111,6 +113,18 @@ export class CodeViewer extends BaseViewer<string, Props> {
 
 		if (!CodeViewerComponent) {
 			return <Spinner />;
+		}
+
+		if (fg('media_advanced_text_viewer')) {
+			return (
+				<CodeRendererAdvanced
+					item={item}
+					src={content}
+					onSuccess={onSuccess}
+					onError={onError}
+					onClose={onClose}
+				/>
+			);
 		}
 
 		return (

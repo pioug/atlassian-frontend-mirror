@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.32.0
+
+### Minor Changes
+
+- [#158233](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158233)
+  [`e23647a437f46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e23647a437f46) -
+  PTC-11755 Build useTeamLinksAndContainers to retrieve all containers data
+
 ## 0.31.0
 
 ### Minor Changes

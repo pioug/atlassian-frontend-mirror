@@ -54,7 +54,7 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
 };
 
 export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
-	const { allowInteractiveExpand, expanded } = props;
+	const { allowInteractiveExpand, expanded, intl } = props;
 	const useTheme = useCallback(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -75,6 +75,9 @@ export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
 		[props],
 	);
 
+	const label = expanded ? expandMessages.collapseNode : expandMessages.expandNode;
+	const labelIntl = intl ? intl.formatMessage(label) : label.defaultMessage;
+
 	return (
 		<Button
 			appearance="subtle"
@@ -83,6 +86,7 @@ export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
 			iconBefore={<ChevronRightIcon label={''} LEGACY_fallbackIcon={ChevronRightIconLegacy} />}
 			shouldFitContainer
 			theme={useTheme}
+			aria-label={labelIntl}
 			aria-expanded={expanded}
 			isDisabled={!allowInteractiveExpand}
 		></Button>

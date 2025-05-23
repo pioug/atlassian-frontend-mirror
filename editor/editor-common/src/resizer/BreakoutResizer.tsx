@@ -111,6 +111,7 @@ type BreakoutResizerProps = {
 	displayGuidelines?: (guidelines: GuidelineConfig[]) => void;
 	displayGapCursor: (toggle: boolean) => boolean;
 	onResizeStart?: () => void;
+	dynamicFullWidthGuidelineOffset?: number;
 };
 
 /**
@@ -130,6 +131,8 @@ type BreakoutResizerProps = {
  * @param root0.editorAnalyticsApi
  * @param root0.displayGapCursor
  * @param root0.onResizeStart
+ * @param root0.dynamicFullWidthGuidelineOffset
+ * @returns BreakoutResizer component
  * @example
  */
 const BreakoutResizer = ({
@@ -144,6 +147,7 @@ const BreakoutResizer = ({
 	editorAnalyticsApi,
 	displayGapCursor,
 	onResizeStart,
+	dynamicFullWidthGuidelineOffset,
 }: BreakoutResizerProps) => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
 		minWidth: undefined,
@@ -157,6 +161,7 @@ const BreakoutResizer = ({
 	const { snaps, currentLayout, guidelines, setCurrentWidth } = useBreakoutGuidelines(
 		getEditorWidth,
 		isResizing && editorExperiment('single_column_layouts', true),
+		dynamicFullWidthGuidelineOffset,
 	);
 
 	useEffect(() => {

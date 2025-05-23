@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	Config,
 	getAwaitBM3TTIList,
@@ -19,10 +17,6 @@ import {
 	isVCRevisionEnabled,
 	setUFOConfig,
 } from './index';
-
-jest.mock('@atlaskit/platform-feature-flags');
-
-const mockFg = fg as jest.Mock;
 
 describe('UFO Configuration Module', () => {
 	beforeEach(() => {
@@ -51,14 +45,6 @@ describe('UFO Configuration Module', () => {
 		});
 
 		it('should return revisions based on experienceKey when config is set', () => {
-			mockFg.mockImplementation((key) => {
-				if (key === 'platform_ufo_vc_enable_revisions_by_experience') {
-					return true;
-				}
-
-				return false;
-			});
-
 			const config: Config = {
 				product: 'testProduct',
 				region: 'testRegion',
@@ -74,8 +60,6 @@ describe('UFO Configuration Module', () => {
 			};
 			setUFOConfig(config);
 			expect(getEnabledVCRevisions('exp1')).toEqual(['fy25.01']);
-
-			mockFg.mockClear();
 		});
 	});
 

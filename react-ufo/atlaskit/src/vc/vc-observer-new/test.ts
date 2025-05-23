@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import EntriesTimeline from './entries-timeline';
 import * as getElementNameModule from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
@@ -13,16 +15,31 @@ jest.mock('./window-event-observer');
 jest.mock('./entries-timeline');
 jest.mock('./metric-calculator/fy25_03');
 jest.mock('./get-element-name');
+jest.mock('@atlaskit/platform-feature-flags');
 
 describe('VCObserverNew', () => {
 	let vcObserver: VCObserverNew;
 	let mockViewportObserver: jest.Mocked<ViewportObserver>;
 	let mockWindowEventObserver: jest.Mocked<WindowEventObserver>;
 	let mockEntriesTimeline: jest.Mocked<EntriesTimeline>;
+	// Save original window property
+	let originalSsrAbortListeners: any;
 
 	beforeEach(() => {
 		// Clear all mocks
 		jest.clearAllMocks();
+
+		// Default feature flag to be enabled
+		(fg as jest.Mock).mockImplementation((flag: string) => {
+			if (flag === 'platform_ufo_vc_observer_new_ssr_abort_listener') {
+				return true;
+			}
+			return false;
+		});
+
+		// Save and clear window.__SSR_ABORT_LISTENERS__ if it exists
+		originalSsrAbortListeners = window.__SSR_ABORT_LISTENERS__;
+		delete window.__SSR_ABORT_LISTENERS__;
 
 		// Create instance with default config
 		const config: VCObserverNewConfig = {};
@@ -32,6 +49,15 @@ describe('VCObserverNew', () => {
 		mockViewportObserver = ViewportObserver as unknown as jest.Mocked<ViewportObserver>;
 		mockWindowEventObserver = WindowEventObserver as unknown as jest.Mocked<WindowEventObserver>;
 		mockEntriesTimeline = EntriesTimeline.prototype as jest.Mocked<EntriesTimeline>;
+	});
+
+	afterEach(() => {
+		// Restore window.__SSR_ABORT_LISTENERS__
+		if (originalSsrAbortListeners !== undefined) {
+			window.__SSR_ABORT_LISTENERS__ = originalSsrAbortListeners;
+		} else {
+			delete window.__SSR_ABORT_LISTENERS__;
+		}
 	});
 
 	describe('constructor', () => {
@@ -76,6 +102,98 @@ describe('VCObserverNew', () => {
 			expect(mockViewportObserver.prototype.stop).toHaveBeenCalled();
 			// @ts-expect-error
 			expect(mockWindowEventObserver.prototype.stop).toHaveBeenCalled();
+		});
+
+		it('should process abort events when window.__SSR_ABORT_LISTENERS__ exists but not unbind or delete it', () => {
+			// Ensure feature flag is enabled
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_vc_observer_new_ssr_abort_listener') {
+					return true;
+				}
+				return false;
+			});
+
+			// Mock the window.__SSR_ABORT_LISTENERS__ object
+			const mockUnbind = jest.fn();
+			const aborts = {
+				wheel: 50,
+				keydown: 75,
+			};
+
+			window.__SSR_ABORT_LISTENERS__ = {
+				unbinds: [mockUnbind],
+				aborts,
+			};
+
+			// Call start
+			vcObserver.start({ startTime: 100 });
+
+			// Verify the unbind was NOT called (this is now the responsibility of VCObserverWrapper)
+			expect(mockUnbind).not.toHaveBeenCalled();
+
+			// Verify abort events were added to the timeline
+			expect(mockEntriesTimeline.push).toHaveBeenCalledTimes(2);
+			expect(mockEntriesTimeline.push).toHaveBeenNthCalledWith(1, {
+				time: 50,
+				data: {
+					type: 'window:event',
+					eventType: 'wheel',
+				},
+			});
+			expect(mockEntriesTimeline.push).toHaveBeenNthCalledWith(2, {
+				time: 75,
+				data: {
+					type: 'window:event',
+					eventType: 'keydown',
+				},
+			});
+
+			// Verify window.__SSR_ABORT_LISTENERS__ was NOT deleted
+			expect(window.__SSR_ABORT_LISTENERS__).toBeDefined();
+		});
+
+		it('should handle empty aborts object in window.__SSR_ABORT_LISTENERS__ without unbinding or deleting it', () => {
+			// Ensure feature flag is enabled
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_vc_observer_new_ssr_abort_listener') {
+					return true;
+				}
+				return false;
+			});
+
+			// Mock the window.__SSR_ABORT_LISTENERS__ object with empty aborts
+			const mockUnbind = jest.fn();
+			window.__SSR_ABORT_LISTENERS__ = {
+				unbinds: [mockUnbind],
+				aborts: {},
+			};
+
+			// Call start
+			vcObserver.start({ startTime: 100 });
+
+			// Verify the unbind was NOT called
+			expect(mockUnbind).not.toHaveBeenCalled();
+
+			// Verify no entries were pushed to the timeline
+			expect(mockEntriesTimeline.push).not.toHaveBeenCalled();
+
+			// Verify window.__SSR_ABORT_LISTENERS__ was NOT deleted
+			expect(window.__SSR_ABORT_LISTENERS__).toBeDefined();
+		});
+
+		it('should work correctly when window.__SSR_ABORT_LISTENERS__ does not exist', () => {
+			// Ensure window.__SSR_ABORT_LISTENERS__ is undefined
+			delete window.__SSR_ABORT_LISTENERS__;
+
+			// Call start
+			vcObserver.start({ startTime: 100 });
+
+			// Verify the timeline's push method was not called
+			expect(mockEntriesTimeline.push).not.toHaveBeenCalled();
+
+			// The windowEventObserver.start() method should still be called
+			// @ts-expect-error
+			expect(mockWindowEventObserver.prototype.start).toHaveBeenCalled();
 		});
 	});
 
@@ -194,6 +312,90 @@ describe('VCObserverNew', () => {
 				vcObserver['selectorConfig'],
 				mockElement,
 			);
+		});
+	});
+
+	describe('start/stop methods with feature gate', () => {
+		it('should process abort events when feature flag is enabled', () => {
+			// Mock the window.__SSR_ABORT_LISTENERS__ object
+			const mockUnbind = jest.fn();
+			const aborts = {
+				wheel: 50,
+				keydown: 75,
+			};
+
+			window.__SSR_ABORT_LISTENERS__ = {
+				unbinds: [mockUnbind],
+				aborts,
+			};
+
+			// Ensure feature flag is enabled
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_vc_observer_new_ssr_abort_listener') {
+					return true;
+				}
+				return false;
+			});
+
+			// Call start
+			vcObserver.start({ startTime: 100 });
+
+			// Verify the unbind was NOT called
+			expect(mockUnbind).not.toHaveBeenCalled();
+
+			// Verify abort events were added to the timeline
+			expect(mockEntriesTimeline.push).toHaveBeenCalledTimes(2);
+			expect(mockEntriesTimeline.push).toHaveBeenNthCalledWith(1, {
+				time: 50,
+				data: {
+					type: 'window:event',
+					eventType: 'wheel',
+				},
+			});
+			expect(mockEntriesTimeline.push).toHaveBeenNthCalledWith(2, {
+				time: 75,
+				data: {
+					type: 'window:event',
+					eventType: 'keydown',
+				},
+			});
+
+			// Verify window.__SSR_ABORT_LISTENERS__ was NOT deleted
+			expect(window.__SSR_ABORT_LISTENERS__).toBeDefined();
+		});
+
+		it('should NOT process abort events when feature flag is disabled', () => {
+			// Mock the window.__SSR_ABORT_LISTENERS__ object
+			const mockUnbind = jest.fn();
+			const aborts = {
+				wheel: 50,
+				keydown: 75,
+			};
+
+			window.__SSR_ABORT_LISTENERS__ = {
+				unbinds: [mockUnbind],
+				aborts,
+			};
+
+			// Disable the feature flag
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_vc_observer_new_ssr_abort_listener') {
+					return false;
+				}
+				return false;
+			});
+
+			// Call start
+			vcObserver.start({ startTime: 100 });
+
+			// Verify the unbind was NOT called
+			expect(mockUnbind).not.toHaveBeenCalled();
+
+			// Verify NO abort events were added to the timeline
+			expect(mockEntriesTimeline.push).not.toHaveBeenCalled();
+
+			// Verify window.__SSR_ABORT_LISTENERS__ was NOT deleted and still exists
+			expect(window.__SSR_ABORT_LISTENERS__).toBeDefined();
 		});
 	});
 });

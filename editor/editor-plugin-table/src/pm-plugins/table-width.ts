@@ -8,8 +8,8 @@ import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { isReplaceDocOperation } from '@atlaskit/editor-common/utils/document';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
@@ -18,12 +18,6 @@ import {
 
 import { TABLE_MAX_WIDTH } from './table-resizing/utils/consts';
 import { ALIGN_START } from './utils/alignment';
-
-type __ReplaceStep = ReplaceStep & {
-	// Properties `to` and `from` are private attributes of ReplaceStep.
-	to: number;
-	from: number;
-};
 
 type TableWidthPluginState = {
 	resizing: boolean;
@@ -75,28 +69,7 @@ const createPlugin = (
 			// and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
 			// what we need to do is to add width attr to all tables in the real document
 			// isReplaceDocumentOperation is checking if the transaction is the one that replace the empty document with the real document
-			const isReplaceDocumentOperation = transactions.some((tr) => {
-				if (tr.getMeta('replaceDocument')) {
-					return true;
-				}
-
-				const hasStepReplacingEntireDocument = tr.steps.some((step) => {
-					if (!(step instanceof ReplaceStep)) {
-						return false;
-					}
-
-					const isStepReplacingFromDocStart = (step as __ReplaceStep).from === 0;
-					const isStepReplacingUntilTheEndOfDocument =
-						(step as __ReplaceStep).to === oldState.doc.content.size;
-
-					if (!isStepReplacingFromDocStart || !isStepReplacingUntilTheEndOfDocument) {
-						return false;
-					}
-					return true;
-				});
-
-				return hasStepReplacingEntireDocument;
-			});
+			const isReplaceDocumentOperation = isReplaceDocOperation(transactions, oldState);
 
 			const referentialityTr = transactions.find((tr) => tr.getMeta('referentialityTableInserted'));
 

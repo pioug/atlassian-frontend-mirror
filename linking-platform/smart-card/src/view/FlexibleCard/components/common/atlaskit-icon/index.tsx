@@ -52,7 +52,7 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 				<ConfluenceIcon
 					appearance="brand"
 					testId={testId}
-					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xsmall'}
+					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
 				/>
 			);
 		case IconType.Jira:
@@ -60,7 +60,7 @@ const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: Atla
 				<JiraIcon
 					appearance="brand"
 					testId={testId}
-					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xsmall'}
+					size={size === SmartLinkSize.Large || size === SmartLinkSize.XLarge ? 'small' : 'xxsmall'}
 				/>
 			);
 		case IconType.Error:

@@ -47,9 +47,9 @@ export const extractProviderIcon = (
 ): React.ReactNode | undefined => {
 	if (id) {
 		if (id === CONFLUENCE_GENERATOR_ID) {
-			return <ConfluenceIcon appearance="brand" size="xsmall" />;
+			return <ConfluenceIcon appearance="brand" size="xxsmall" />;
 		} else if (id === JIRA_GENERATOR_ID) {
-			return <JiraIcon appearance="brand" size="xsmall" />;
+			return <JiraIcon appearance="brand" size="xxsmall" />;
 		}
 	}
 	if (icon) {

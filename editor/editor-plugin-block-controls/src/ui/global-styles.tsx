@@ -307,7 +307,6 @@ export const GlobalStylesWrapper = () => {
 					: withRelativePosStyleLegacy,
 				topLevelNodeMarginStyles,
 				withAnchorNameZindexStyle,
-				,
 			]}
 		/>
 	);

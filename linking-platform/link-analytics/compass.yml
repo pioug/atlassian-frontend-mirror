@@ -1,3 +1,4 @@
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/27e8ffab-42db-4c16-9afb-9eefd72d02ec'
 name: '@atlaskit/link-analytics'
 description:
   This is a package that provides common analytics utilities and hooks for instrumenting
@@ -20,11 +21,11 @@ links:
   - name: '#help-twg-linking-platform'
     type: CHAT_CHANNEL
     url: 'https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'
-  - name: null
+  - name: ''
     type: ON_CALL
     url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b9c8b313-dd6d-4a41-8eeb-d7a9df55be9d'
   - name: source code
     type: REPOSITORY
-    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/linking-platform/link-analytics'
+    url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/linking-platform/link-analytics'
 customFields: []
 relationships: {}

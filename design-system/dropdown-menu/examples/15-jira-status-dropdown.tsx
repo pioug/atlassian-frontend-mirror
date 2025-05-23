@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Arrow from '@atlaskit/icon/glyph/arrow-right';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const jiraItemStyles = xcss({
-	width: 'size.600',
-	alignItems: 'center',
+const styles = cssMap({
+	item: {
+		width: '6rem',
+		alignItems: 'center',
+	},
 });
 
 export default () => (
@@ -15,7 +18,7 @@ export default () => (
 		<DropdownItemGroup>
 			<DropdownItem
 				elemAfter={
-					<Box xcss={jiraItemStyles}>
+					<Box xcss={styles.item}>
 						<Arrow label="" size="small" />
 						<Lozenge appearance="inprogress">in progress</Lozenge>
 					</Box>
@@ -25,7 +28,7 @@ export default () => (
 			</DropdownItem>
 			<DropdownItem
 				elemAfter={
-					<Box xcss={jiraItemStyles}>
+					<Box xcss={styles.item}>
 						<Arrow label="" size="small" />
 						<Lozenge appearance="success">Done</Lozenge>
 					</Box>

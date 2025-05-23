@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ChangeEventHandler, type FC, memo, useCallback, useMemo } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { type ChangeEventHandler, type FC, memo, useCallback, useMemo } from 'react';
 
 import Checkbox from '@atlaskit/checkbox';
 import VisuallyHidden from '@atlaskit/visually-hidden';

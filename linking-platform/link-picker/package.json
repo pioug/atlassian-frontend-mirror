@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "3.4.0",
+	"version": "3.4.1",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -70,6 +70,9 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {
+			"type": "boolean"
+		},
+		"platform-link-picker-a11y-label": {
 			"type": "boolean"
 		}
 	},
@@ -170,5 +173,6 @@
 		"stricter": [
 			"@atlassian/tangerine/project-structure"
 		]
-	}
+	},
+	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/e22d6eec-79d6-4015-a147-0ad8a1887e29"
 }

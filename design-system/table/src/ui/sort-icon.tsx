@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type FC, memo } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { type FC, memo } from 'react';
 
 import ArrowDownIcon from '@atlaskit/icon/utility/migration/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/utility/migration/arrow-up';

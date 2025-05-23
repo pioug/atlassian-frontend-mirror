@@ -23,9 +23,6 @@ import { ErrorWrapper, TeamErrorText } from '../../styled/Error';
 import {
 	ActionButtons,
 	AvatarSection,
-	CardContent,
-	CardHeader,
-	CardWrapper,
 	Description,
 	DescriptionWrapper,
 	MemberCount,
@@ -33,6 +30,7 @@ import {
 	TeamName,
 	WrappedButton,
 } from '../../styled/TeamCard';
+import { CardContent, CardHeader, CardWrapper } from '../../styled/TeamTrigger';
 import type { AnalyticsFunction, ProfileCardAction, Team, TeamProfilecardProps } from '../../types';
 import {
 	actionClicked,

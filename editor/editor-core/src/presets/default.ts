@@ -6,10 +6,7 @@ import type { SelectionPluginOptions } from '@atlaskit/editor-common/selection';
 import type {
 	EditorAppearance,
 	FeatureFlags,
-	HyperlinkPluginOptions,
 	PerformanceTracking,
-	QuickInsertPluginOptions,
-	TextFormattingOptions,
 } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
@@ -19,7 +16,7 @@ import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { clearMarksOnEmptyDocPlugin } from '@atlaskit/editor-plugins/clear-marks-on-empty-doc';
 import { clipboardPlugin } from '@atlaskit/editor-plugins/clipboard';
-import type { CodeBlockOptions } from '@atlaskit/editor-plugins/code-block';
+import type { CodeBlockPluginOptions } from '@atlaskit/editor-plugins/code-block';
 import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugins/composition';
 import { contextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
@@ -30,7 +27,7 @@ import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { historyPlugin } from '@atlaskit/editor-plugins/history';
-import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
+import { hyperlinkPlugin, type HyperlinkPluginOptions } from '@atlaskit/editor-plugins/hyperlink';
 import { interactionPlugin } from '@atlaskit/editor-plugins/interaction';
 import type { PastePluginOptions } from '@atlaskit/editor-plugins/paste';
 import { pastePlugin } from '@atlaskit/editor-plugins/paste';
@@ -38,10 +35,12 @@ import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugins/placehol
 import { placeholderPlugin } from '@atlaskit/editor-plugins/placeholder';
 import { primaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
+import type { QuickInsertPluginOptions } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { submitEditorPlugin } from '@atlaskit/editor-plugins/submit-editor';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
+import type { TextFormattingPluginOptions } from '@atlaskit/editor-plugins/text-formatting';
 import type { TypeAheadPluginOptions } from '@atlaskit/editor-plugins/type-ahead';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
@@ -60,10 +59,10 @@ export type DefaultPresetPluginOptions = {
 	base?: BasePluginOptions;
 	blockType?: BlockTypePluginOptions;
 	placeholder?: PlaceholderPluginOptions;
-	textFormatting?: TextFormattingOptions;
+	textFormatting?: TextFormattingPluginOptions;
 	submitEditor?: (editorView: EditorView) => void;
 	quickInsert?: QuickInsertPluginOptions;
-	codeBlock?: CodeBlockOptions;
+	codeBlock?: CodeBlockPluginOptions;
 	selection?: SelectionPluginOptions;
 	hyperlinkOptions?: HyperlinkPluginOptions;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -90,6 +89,8 @@ export type DefaultPresetPluginOptions = {
 /**
  * Note: The order that presets are added determines
  * their placement in the editor toolbar
+ * @param options
+ * @example
  */
 export function createDefaultPreset(options: DefaultPresetPluginOptions): DefaultPresetBuilder {
 	const isFullPage = fullPageCheck(options.appearance);
@@ -163,6 +164,11 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 	return preset;
 }
 
+/**
+ *
+ * @param props
+ * @example
+ */
 export function useDefaultPreset(props: DefaultPresetPluginOptions) {
 	const preset = createDefaultPreset(props);
 	return [preset];

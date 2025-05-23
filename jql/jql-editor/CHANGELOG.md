@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 5.3.1
+
+### Patch Changes
+
+- [#159778](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159778)
+  [`24eb0515f7011`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24eb0515f7011) -
+  Clean up old code path for accessibility fix in error messages section
+
 ## 5.3.0
 
 ### Minor Changes

@@ -1,7 +1,5 @@
 import type { UnbindFn } from 'bind-event-listener';
 
-import { MultiRevisionHeatmap } from '../../vc/vc-observer/heatmap/heatmap';
-
 export const AbortEvent = {
 	wheel: 'wheel',
 	keydown: 'keydown',
@@ -40,7 +38,6 @@ export type VCRawDataType = {
 	oldDomUpdatesEnabled: boolean;
 	devToolsEnabled: boolean;
 	ratios: VCRatioType;
-	multiHeatmap: MultiRevisionHeatmap | null;
 };
 
 export type VCEntryType = {

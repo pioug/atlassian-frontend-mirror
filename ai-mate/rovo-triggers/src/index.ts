@@ -3,6 +3,7 @@ export type {
 	Payload,
 	Callback,
 	Topic,
+	WorkflowContextPayloadData,
 	EditorContextPayloadData,
 	BrowserContextPayloadData,
 	AddNewTransitionRovoPayload,

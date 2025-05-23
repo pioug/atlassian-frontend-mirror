@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 3.4.1
+
+### Patch Changes
+
+- [#157284](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157284)
+  [`1c31f276600fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c31f276600fd) -
+  EDM-12326 add role, aria-modal and aria-label to link-picker wrapper for a11y
+
 ## 3.4.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @atlaskit/dropdown-menu
 
+## 16.0.0
+
+### Major Changes
+
+- [#158490](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158490)
+  [`71137cb330a17`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71137cb330a17) -
+  Migrated from @emotion/react to @compiled/react in order to improve performance, align with the
+  rest of the Atlaskit techstack, and support React 18 Streaming SSR.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.1
 
 ### Patch Changes

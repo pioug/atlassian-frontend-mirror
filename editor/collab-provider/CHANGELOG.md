@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 10.15.0
+
+### Minor Changes
+
+- [#157909](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157909)
+  [`384136c930190`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/384136c930190) -
+  Add support for initializing collab-provider with presenceActivity
+
 ## 10.14.4
 
 ### Patch Changes

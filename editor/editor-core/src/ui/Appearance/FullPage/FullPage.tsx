@@ -8,13 +8,22 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
+import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
-import { type InteractionPlugin } from '@atlaskit/editor-plugins/interaction';
-import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
+import type {
+	EditorViewModePlugin,
+	EditorViewModePluginState,
+} from '@atlaskit/editor-plugins/editor-viewmode';
+import type { InteractionPlugin } from '@atlaskit/editor-plugins/interaction';
+import type {
+	PrimaryToolbarPlugin,
+	PrimaryToolbarPluginState,
+} from '@atlaskit/editor-plugins/primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -89,15 +98,78 @@ const hasCustomComponents = (components?: PrimaryToolbarComponents) => {
 	return true;
 };
 
+const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
+	{
+		primaryToolbarState: PrimaryToolbarPluginState | undefined;
+		editorViewModeState:
+			| Pick<EditorViewModePluginState, 'mode' | '_showTopToolbar'>
+			| undefined
+			| null;
+		interactionState:
+			| {
+					// Clean up with platform_editor_interaction_api_refactor
+					hasHadInteraction: boolean;
+					interactionState: null | 'hasNotHadInteraction';
+			  }
+			| undefined;
+	},
+	| PublicPluginAPI<
+			[
+				OptionalPlugin<EditorViewModePlugin>,
+				OptionalPlugin<PrimaryToolbarPlugin>,
+				OptionalPlugin<InteractionPlugin>,
+			]
+	  >
+	| undefined
+>(
+	(pluginInjectionApi) => {
+		return useSharedPluginState(pluginInjectionApi, [
+			'editorViewMode',
+			'primaryToolbar',
+			'interaction',
+		]);
+	},
+	(pluginInjectionApi) => {
+		const primaryToolbarComponents = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'primaryToolbar.components',
+		);
+		const editorViewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+		const showTopToolbar = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'editorViewMode._showTopToolbar',
+		);
+		const hasHadInteraction = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'interaction.hasHadInteraction',
+		);
+		const interactionState = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'interaction.interactionState',
+		);
+
+		return {
+			primaryToolbarState: !primaryToolbarComponents
+				? undefined
+				: { components: primaryToolbarComponents },
+			editorViewModeState: !editorViewMode
+				? undefined
+				: { mode: editorViewMode, _showTopToolbar: showTopToolbar },
+			interactionState:
+				hasHadInteraction === undefined || interactionState === undefined
+					? undefined
+					: { hasHadInteraction, interactionState },
+		};
+	},
+);
+
 export const FullPageEditor = (props: ComponentProps) => {
 	const wrapperElementRef = useMemo(() => props.innerRef, [props.innerRef]);
 	const scrollContentContainerRef = useRef<ScrollContainerRefs | null>(null);
 	const showKeyline = useShowKeyline(scrollContentContainerRef);
 	const editorAPI = props.editorAPI;
-	const { editorViewModeState, primaryToolbarState, interactionState } = useSharedPluginState(
-		editorAPI,
-		['editorViewMode', 'primaryToolbar', 'interaction'],
-	);
+	const { editorViewModeState, primaryToolbarState, interactionState } =
+		useFullPageEditorPluginsStates(editorAPI);
 	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
 	const hasHadInteraction = fg('platform_editor_interaction_api_refactor')
 		? interactionState?.interactionState !== 'hasNotHadInteraction'

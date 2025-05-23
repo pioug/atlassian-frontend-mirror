@@ -2722,44 +2722,7 @@ describe('vc-observer', () => {
 							clean: false, // this is an implicit abort by scroll, because currently scroll data is not recorded
 							'metric:vc90': null,
 							revision: 'fy25.02',
-							vcDetails: {
-								'25': {
-									e: [],
-									t: 0,
-								},
-								'50': {
-									e: [],
-									t: 0,
-								},
-								'75': {
-									e: [],
-									t: 0,
-								},
-								'80': {
-									e: [],
-									t: 0,
-								},
-								'85': {
-									e: [],
-									t: 0,
-								},
-								'90': {
-									e: [],
-									t: 0,
-								},
-								'95': {
-									e: [],
-									t: 0,
-								},
-								'98': {
-									e: [],
-									t: 0,
-								},
-								'99': {
-									e: [],
-									t: 0,
-								},
-							},
+							vcDetails: {},
 						},
 					],
 					'vc:size': {

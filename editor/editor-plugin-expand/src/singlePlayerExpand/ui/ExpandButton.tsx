@@ -67,6 +67,9 @@ export const ExpandButtonInner = (props: ExpandIconButtonWithLabelProps) => {
 		},
 		[props],
 	);
+	const { intl, expanded } = props;
+	const label = expanded ? expandMessages.collapseNode : expandMessages.expandNode;
+	const labelIntl = intl ? intl.formatMessage(label) : label.defaultMessage;
 
 	return (
 		<Button
@@ -76,6 +79,7 @@ export const ExpandButtonInner = (props: ExpandIconButtonWithLabelProps) => {
 			iconBefore={<ChevronRightIcon label={''} LEGACY_fallbackIcon={ChevronRightIconLegacy} />}
 			shouldFitContainer
 			theme={useTheme}
+			aria-label={labelIntl}
 			aria-expanded={props.expanded}
 			isDisabled={!props.allowInteractiveExpand}
 		/>

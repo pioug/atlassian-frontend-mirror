@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type FC, memo, type ReactNode, useMemo } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { type FC, memo, type ReactNode, useMemo } from 'react';
 
 import { useSelection } from './hooks/selection-provider';
 import useExpand from './hooks/use-expand';

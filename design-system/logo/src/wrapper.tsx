@@ -32,6 +32,7 @@ const styles = cssMapUnbound({
 			stopColor: 'currentColor',
 		},
 	},
+	xxsmall: { height: '16px' },
 	xsmall: { height: '16px' },
 	small: { height: '24px' },
 	medium: { height: '32px' },

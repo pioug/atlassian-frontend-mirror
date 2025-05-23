@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.4.1
+
+### Patch Changes
+
+- [#159307](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159307)
+  [`5d1aacb58cf0b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d1aacb58cf0b) -
+  [ED-27898] Fix a bug where delete button for extension nodes sometimes does not delete the node
+  when clicked
+
 ## 5.4.0
 
 ### Minor Changes

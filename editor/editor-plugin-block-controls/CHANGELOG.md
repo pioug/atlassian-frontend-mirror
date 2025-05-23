@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.14.2
+
+### Patch Changes
+
+- [#157540](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157540)
+  [`814a82c86a98b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/814a82c86a98b) -
+  [ED-28038] remove extra comma from global-styles.tsx file
+
 ## 3.14.1
 
 ### Patch Changes

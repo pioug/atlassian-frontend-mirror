@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 5.1.3
+
+### Patch Changes
+
+- [#155827](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155827)
+  [`f6f4f5a8a8ae8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6f4f5a8a8ae8) -
+  Cleans up the `platform_design_system_motion_on_finish_fix` feature gate.
+
 ## 5.1.2
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 10.10.5
+
+### Patch Changes
+
+- [#158239](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158239)
+  [`c2caa0af876e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2caa0af876e0) -
+  [ux] ED-28028 add breakout mark to expands, codeblocks and layouts for new resizing experience
+  behind the platform_editor_breakout_resizing experiment
+- Updated dependencies
+
+## 10.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.10.3
 
 ### Patch Changes

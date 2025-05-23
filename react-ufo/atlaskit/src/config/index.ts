@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { AssetsClassification, InteractionMetrics, InteractionType } from '../common';
 
 let config: Config | undefined;
@@ -131,30 +129,26 @@ export type Config = {
 };
 
 export function setUFOConfig(newConfig: Config) {
-	if (fg('platform_ufo_vc_enable_revisions_by_experience')) {
-		// Handle edge cases with `enabledVCRevisions`
-		const { enabledVCRevisions } = newConfig?.vc ?? {};
-		if (typeof enabledVCRevisions?.byExperience === 'object') {
-			config = {
-				...newConfig,
-				vc: {
-					...newConfig.vc,
-					enabledVCRevisions: {
-						// enforce axiom about `enabledVCRevisions.all` config
-						all: Array.from(
-							new Set([
-								DEFAULT_TTVC_REVISION,
-								...enabledVCRevisions?.all,
-								...Object.values(enabledVCRevisions?.byExperience).flat(),
-							]),
-						),
-						byExperience: { ...enabledVCRevisions?.byExperience },
-					},
+	// Handle edge cases with `enabledVCRevisions`
+	const { enabledVCRevisions } = newConfig?.vc ?? {};
+	if (typeof enabledVCRevisions?.byExperience === 'object') {
+		config = {
+			...newConfig,
+			vc: {
+				...newConfig.vc,
+				enabledVCRevisions: {
+					// enforce axiom about `enabledVCRevisions.all` config
+					all: Array.from(
+						new Set([
+							DEFAULT_TTVC_REVISION,
+							...enabledVCRevisions?.all,
+							...Object.values(enabledVCRevisions?.byExperience).flat(),
+						]),
+					),
+					byExperience: { ...enabledVCRevisions?.byExperience },
 				},
-			};
-		} else {
-			config = newConfig;
-		}
+			},
+		};
 	} else {
 		config = newConfig;
 	}
@@ -177,10 +171,7 @@ export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVC
 		if (config.vc?.enabled) {
 			const { enabledVCRevisions } = config.vc ?? {};
 
-			if (
-				isValidConfigArray(enabledVCRevisions?.byExperience?.[experienceKey]) &&
-				fg('platform_ufo_vc_enable_revisions_by_experience')
-			) {
+			if (isValidConfigArray(enabledVCRevisions?.byExperience?.[experienceKey])) {
 				return enabledVCRevisions.byExperience?.[experienceKey];
 			}
 

@@ -8,9 +8,13 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import Transition from 'react-transition-group/Transition';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -204,10 +208,22 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 	}
 }
 
-export function ContextPanel(props: Props) {
-	const { contextPanelState } = useSharedPluginState(props.editorAPI, ['contextPanel']);
+const useContextPanelSharedState = sharedPluginStateHookMigratorFactory<
+	React.ReactNode[] | undefined,
+	PublicPluginAPI<[ContextPanelPlugin]> | undefined
+>(
+	(pluginInjectionApi) => {
+		const { contextPanelState } = useSharedPluginState(pluginInjectionApi, ['contextPanel']);
+		return contextPanelState?.contents;
+	},
+	(pluginInjectionApi) => {
+		return useSharedPluginStateSelector(pluginInjectionApi, 'contextPanel.contents');
+	},
+);
 
-	const firstContent = contextPanelState && contextPanelState?.contents?.find(Boolean);
+export function ContextPanel(props: Props) {
+	const contextPanelContents = useContextPanelSharedState(props.editorAPI);
+	const firstContent = contextPanelContents && contextPanelContents.find(Boolean);
 
 	return (
 		// Ignored via go/ees005

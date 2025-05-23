@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 52.2.0
+
+### Minor Changes
+
+- [#158891](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158891)
+  [`4c1ee82119da8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c1ee82119da8) -
+  Added a new code viewer experience based on codemirror to better handle larger text files
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.1.1
 
 ### Patch Changes

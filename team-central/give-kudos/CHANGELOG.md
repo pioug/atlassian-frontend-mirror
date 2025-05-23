@@ -1,5 +1,17 @@
 # @atlassian/give-kudos
 
+## 4.3.0
+
+### Minor Changes
+
+- [#158114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158114)
+  [`68a4a8356d5bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68a4a8356d5bf) -
+  New prop for prepopulating kudos user picker via project key or goal key
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

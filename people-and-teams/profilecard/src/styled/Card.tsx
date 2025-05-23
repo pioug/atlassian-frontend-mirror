@@ -17,7 +17,6 @@ import { token } from '@atlaskit/tokens';
 import {
 	appLabelBgColor,
 	appLabelTextColor,
-	bgColor,
 	headerBgColor,
 	headerBgColorDisabledUser,
 	headerTextColor,
@@ -35,10 +34,6 @@ const kudosButtonAnimationTransformationCompiled = keyframescompiled({
 });
 
 const styles = cssMap({
-	cardWrapper: {
-		borderRadius: token('border.radius'),
-		width: '360px',
-	},
 	profileImage: {
 		position: 'absolute',
 		top: token('space.300'),
@@ -113,13 +108,6 @@ const styles = cssMap({
 		flexWrap: 'wrap',
 		justifyContent: 'flex-start',
 		marginTop: token('space.150'),
-	},
-	spinnerContainer: {
-		alignItems: 'center',
-		display: 'flex',
-		height: '96px',
-		justifyContent: 'center',
-		position: 'relative',
 	},
 	cardContainer: {
 		position: 'relative',
@@ -203,39 +191,6 @@ const styles = cssMap({
 		marginRight: token('space.0'),
 	},
 });
-
-export const CardWrapper = ({
-	children,
-	role,
-	testId,
-	labelledBy,
-}: {
-	children: ReactNode;
-	role?: string;
-	testId?: string;
-	labelledBy?: string;
-}) =>
-	fg('compiled-migration-profilecard') ? (
-		<Box
-			xcss={cx(styles.cardWrapper)}
-			backgroundColor={'elevation.surface.overlay'}
-			role={role}
-			testId={testId}
-			aria-labelledby={labelledBy}
-		>
-			{children}
-		</Box>
-	) : (
-		<CardWrapperLegacy data-testid={testId} role={role} aria-labelledby={labelledBy}>
-			{children}
-		</CardWrapperLegacy>
-	);
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-const CardWrapperLegacy = styled.div`
-	background-color: ${bgColor};
-	border-radius: ${token('border.radius', '3px')};
-	width: 360px;
-`;
 
 export const ProfileImage = ({ children }: { children: ReactNode }) =>
 	fg('compiled-migration-profilecard') ? (
@@ -538,23 +493,6 @@ const AppTitleLabelLegacy = styled.span`
 
 	font: ${token('font.body.UNSAFE_small')};
 	margin: ${token('space.050', '4px')} 0 ${token('space.150', '12px')} 0;
-`;
-
-export const SpinnerContainer = ({ children, testId }: { children: ReactNode; testId?: string }) =>
-	fg('compiled-migration-profilecard') ? (
-		<Box testId={testId} xcss={cx(styles.spinnerContainer)}>
-			{children}
-		</Box>
-	) : (
-		<SpinnerContainerLegacy data-testid={testId}>{children}</SpinnerContainerLegacy>
-	);
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-const SpinnerContainerLegacy = styled.div`
-	align-items: center;
-	display: flex;
-	height: 96px;
-	justify-content: center;
-	position: relative;
 `;
 
 interface CardContainerProps {

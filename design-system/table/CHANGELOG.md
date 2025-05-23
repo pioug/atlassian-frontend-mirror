@@ -1,5 +1,17 @@
 # @atlaskit/table
 
+## 0.12.0
+
+### Minor Changes
+
+- [#158320](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158320)
+  [`5804c07613c4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5804c07613c4f) -
+  Migrates table to compiled css-in-js.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.11.7
 
 ### Patch Changes

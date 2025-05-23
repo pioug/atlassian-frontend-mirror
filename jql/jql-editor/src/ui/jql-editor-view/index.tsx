@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef } f
 
 import throttle from 'lodash/throttle';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	JQL_EDITOR_AUTOCOMPLETE_ID,
 	JQL_EDITOR_HELP_CONTENT_ID,
@@ -112,11 +110,7 @@ const JQLEditorView = ({ inputRef }: { inputRef?: React.Ref<{ focus: () => void 
 			'aria-label': intl.formatMessage(messages.inputLabel),
 			'aria-controls': autocompleteId,
 			'aria-owns': autocompleteId,
-			'aria-describedby': fg('jql_editor_a11y')
-				? editorViewIsInvalid
-					? validationId
-					: helpContentId
-				: helpContentId,
+			'aria-describedby': editorViewIsInvalid ? validationId : helpContentId,
 			...(selectedOptionId && {
 				'aria-activedescendant': selectedOptionId,
 			}),

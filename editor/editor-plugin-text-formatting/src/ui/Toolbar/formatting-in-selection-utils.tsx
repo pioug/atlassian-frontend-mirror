@@ -30,3 +30,20 @@ export const hasMultiplePartsWithFormattingInSelection = ({
 
 	return marks.length > 1;
 };
+
+export const getCommonActiveMarks = ({ selectedContent }: { selectedContent?: PMNode[] }) => {
+	if (!selectedContent) {
+		return [];
+	}
+	// filter out fragment node contains only spaces
+	const filteredSelectedContent = selectedContent.filter((child) => child.text?.trim() !== '');
+
+	// find the active mark type in first part
+	const firstPartMarks = selectedContent[0].marks.map((mark) => mark.type.name);
+
+	// check if all other parts have the same mark type as the first part and return the common mark types
+	const commonMarkTypes = firstPartMarks.filter((mark) =>
+		filteredSelectedContent.every((child) => child.marks.some((m) => m.type.name === mark)),
+	);
+	return commonMarkTypes;
+};

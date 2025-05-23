@@ -1,8 +1,8 @@
 type Appearance = 'brand' | 'neutral' | 'inverse';
 
-type Size = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type Size = 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
-export type LogoProps = {
+type BaseLogoProps = {
 	/**
 	 * The size of the icon, uses the same sizing scheme as in `@atlaskit/icon`.
 	 */
@@ -29,6 +29,17 @@ export type LogoProps = {
 	 */
 	testId?: string;
 };
+
+export type LogoProps = BaseLogoProps;
+
+// TODO: Remove this once we've caught all the type errors
+// export type LogoProps = BaseLogoProps & {
+// 	// Deprecated size
+// 	/**
+// 	 * @deprecated `xsmall` is being shifted to `xxsmall`, please adjust your usage accordingly
+// 	 */
+// 	size?: 'xsmall';
+// };
 
 /**
  * Utility type to make an optional property required.

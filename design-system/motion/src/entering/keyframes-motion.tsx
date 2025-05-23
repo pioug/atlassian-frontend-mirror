@@ -3,8 +3,6 @@ import React, { type Ref, useEffect, useState } from 'react';
 import { ClassNames, keyframes } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { isReducedMotion } from '../utils/accessibility';
 import { type Durations, durations, exitingDurations } from '../utils/durations';
 import { useSetTimeout } from '../utils/timer-hooks';
@@ -266,7 +264,7 @@ const EnteringMotion = ({
 			onFinishMotion?.(state);
 		};
 
-		if (isReducedMotion() && fg('platform_design_system_motion_on_finish_fix')) {
+		if (isReducedMotion()) {
 			// If there is reduced motion there is no exit animation, so call this immediately
 			onAnimationEnd();
 			return;

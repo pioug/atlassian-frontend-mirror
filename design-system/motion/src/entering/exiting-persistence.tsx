@@ -8,10 +8,6 @@ import React, {
 	useState,
 } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { isReducedMotion } from '../utils/accessibility';
-
 /**
  * Internally we will be playing with an element that will always have a key defined.
  */
@@ -185,14 +181,6 @@ const ExitingPersistence = memo(
 			}
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, []);
-
-		if (isReducedMotion() && !fg('platform_design_system_motion_on_finish_fix')) {
-			/**
-			 * We still want to use the `ExitingPersistence` with reduced motion,
-			 * otherwise the exiting `onFinish` is not called.
-			 */
-			return children;
-		}
 
 		/**
 		 * NOTE: This is a workaround for the test case written in Jira where the stateChildren is a boolean value because

@@ -7,9 +7,17 @@ import React, { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
-import { type EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
+import {
+	sharedPluginStateHookMigratorFactory,
+	useSharedPluginState,
+} from '@atlaskit/editor-common/hooks';
+import type {
+	EditorAppearance,
+	OptionalPlugin,
+	PublicPluginAPI,
+} from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { ViewMode, type EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
@@ -66,6 +74,19 @@ const EditorContainer = componentWithCondition(
 	ContentArea,
 );
 
+const useEditorViewModePluginState = sharedPluginStateHookMigratorFactory<
+	ViewMode | undefined,
+	PublicPluginAPI<OptionalPlugin<EditorViewModePlugin>> | undefined
+>(
+	(pluginInjectionApi) => {
+		const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
+		return editorViewModeState?.mode;
+	},
+	(pluginInjectionApi) => {
+		return useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
+	},
+);
+
 /**
  * Render the editor in a chromeless appearance.
  * Example use is the inline comment editor, which doesn't have editor toolbar
@@ -99,7 +120,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 		} = this.props;
 		const maxContentSizeReached = Boolean(maxContentSize?.maxContentSizeReached);
 
-		const { editorViewModeState } = useSharedPluginState(this.props.editorAPI, ['editorViewMode']);
+		const editorViewMode = useEditorViewModePluginState(this.props.editorAPI);
 
 		return (
 			<WithFlash animate={maxContentSizeReached}>
@@ -125,7 +146,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className="ak-editor-content-area"
 						featureFlags={featureFlags}
-						viewMode={editorViewModeState?.mode}
+						viewMode={editorViewMode}
 						appearance={this.appearance}
 					>
 						{customContentComponents && 'before' in customContentComponents
@@ -157,10 +178,6 @@ export default class Editor extends React.Component<AppearanceProps> {
 		);
 	};
 
-	/**
-	 *
-	 * @example
-	 */
 	render() {
 		return (
 			<RenderWithPluginState editorAPI={this.props.editorAPI} renderChrome={this.renderChrome} />
@@ -176,8 +193,28 @@ interface RenderChromeProps extends Pick<AppearanceProps, 'editorAPI'> {
 	renderChrome: (props: PluginStates) => React.ReactNode;
 }
 
+const useMaxContentSizePluginState = sharedPluginStateHookMigratorFactory<
+	{ maxContentSizeState: MaxContentSizePluginState | undefined },
+	PublicPluginAPI<OptionalPlugin<MaxContentSizePlugin>> | undefined
+>(
+	(pluginInjectionApi) => {
+		const { maxContentSizeState } = useSharedPluginState(pluginInjectionApi, ['maxContentSize']);
+		return { maxContentSizeState };
+	},
+	(pluginInjectionApi) => {
+		const maxContentSizeReached = useSharedPluginStateSelector(
+			pluginInjectionApi,
+			'maxContentSize.maxContentSizeReached',
+		);
+		return {
+			maxContentSizeState:
+				maxContentSizeReached === undefined ? undefined : { maxContentSizeReached },
+		};
+	},
+);
+
 function RenderWithPluginState({ renderChrome, editorAPI }: RenderChromeProps) {
-	const { maxContentSizeState } = useSharedPluginState(editorAPI, ['maxContentSize']);
+	const { maxContentSizeState } = useMaxContentSizePluginState(editorAPI);
 
 	return <Fragment>{renderChrome({ maxContentSize: maxContentSizeState })}</Fragment>;
 }

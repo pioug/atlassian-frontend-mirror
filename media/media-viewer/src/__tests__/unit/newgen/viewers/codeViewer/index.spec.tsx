@@ -24,6 +24,12 @@ import {
 import { MediaViewerError } from '../../../../../errors';
 import { CodeViewer, type Props } from '../../../../../viewers/codeViewer/index';
 import { msgToText } from '../../../../../viewers/codeViewer/msg-parser';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+jest.mock('@codemirror/language-data', () => {
+	return {
+		languages: [],
+	};
+});
 
 jest.mock('../../../../../viewers/codeViewer/msg-parser', () => ({
 	__esModule: true,
@@ -210,6 +216,32 @@ describe('EmailViewer', () => {
 			);
 			expect(screen.getByText('sample email message here')).toBeInTheDocument();
 		});
+	});
+
+	describe('Code Viewer Advanced', () => {
+		ffTest(
+			'media_advanced_text_viewer',
+			async () => {
+				const fetchPromise = Promise.resolve();
+				const { onSuccess } = createFixture(fetchPromise, codeItem);
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expect(onSuccess).toHaveBeenCalled();
+				expect(screen.getByText('some-src')).toBeInTheDocument();
+			},
+			async () => {
+				const fetchPromise = Promise.resolve();
+				const { onSuccess } = createFixture(fetchPromise, codeItem);
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expect(onSuccess).toHaveBeenCalled();
+				expect(screen.getByText('some')).toBeInTheDocument();
+			},
+		);
 	});
 
 	//TODO, test error handling (i.e when email cannot be parsed)

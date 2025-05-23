@@ -113,6 +113,14 @@ export interface Config {
 	 * multiple websocket connections, the presenceId is used to correlate the two.
 	 */
 	presenceId?: string;
+
+	/**
+	 * Configure the provider to pass along a default activity during presence events. This activity will be used
+	 * to display a user's activity, such as 'viewer' or 'editor'.
+	 *
+	 * This activity can be updated later on by the participants-service.
+	 */
+	presenceActivity?: PresenceActivity;
 }
 
 export interface InitAndAuthData {

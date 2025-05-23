@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 105.8.4
+
+### Patch Changes
+
+- [#158239](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158239)
+  [`c2caa0af876e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2caa0af876e0) -
+  [ux] ED-28028 add breakout mark to expands, codeblocks and layouts for new resizing experience
+  behind the platform_editor_breakout_resizing experiment
+- Updated dependencies
+
+## 105.8.3
+
+### Patch Changes
+
+- [#158601](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158601)
+  [`7dfac59b4421f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7dfac59b4421f) -
+  ED-27401: Updated layout guidelines
+- Updated dependencies
+
+## 105.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 105.8.1
 
 ### Patch Changes

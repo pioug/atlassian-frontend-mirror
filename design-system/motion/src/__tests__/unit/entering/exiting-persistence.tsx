@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import KeyframesMotion from '../../../entering/keyframes-motion';
 import { isReducedMotion } from '../../../utils/accessibility';
@@ -25,7 +23,7 @@ const Motion = ({ id, color, onRender }: { id: string; color?: string; onRender?
 	);
 };
 
-ffTest.both('platform_design_system_motion_on_finish_fix', '<ExitingPersistence />', () => {
+describe('<ExitingPersistence />', () => {
 	beforeEach(() => {
 		(isReducedMotion as jest.Mock).mockReturnValue(false);
 	});

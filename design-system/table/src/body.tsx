@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { Children, type ReactElement, useEffect, useMemo } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { Children, type ReactElement, useEffect, useMemo } from 'react';
 
 import { useSelection } from './hooks/selection-provider';
 import { RowProvider } from './hooks/use-row-id';

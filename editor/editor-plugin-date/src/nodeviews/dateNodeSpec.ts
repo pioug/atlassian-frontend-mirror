@@ -83,12 +83,10 @@ export const dateToDOM = (
 		'data-timestamp': timestamp,
 	};
 
-	const attrs =
-		color === undefined
-			? {}
-			: {
-					class: `date-node-color-${color}`,
-				};
+	const attrs = {
+		class: !color ? '' : `date-node-color-${color}`,
+		style: `white-space: unset`,
+	};
 
 	return [
 		'span',

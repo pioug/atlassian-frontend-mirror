@@ -1,17 +1,38 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import {
+	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 
-import type { GuidelineConfig } from '../guideline';
+import { type GuidelineConfig } from '../guideline';
 import type { BreakoutMode, EditorContainerWidth } from '../types';
 
 import type { Snap } from './types';
 
 export const SNAP_GAP = 8;
+
+type SnappingWidths = {
+	[key: string]: number;
+};
+
+type SnappingWidthsKeyMapping = {
+	[key: string]: string;
+};
+
+const GUIDELINE_KEYS: SnappingWidthsKeyMapping = {
+	lineLength: 'grid',
+	wide: 'wide',
+	fullWidth: 'full_width',
+};
+
+const CURRENT_LAYOUT_KEYS: SnappingWidthsKeyMapping = {
+	lineLength: 'center',
+	wide: 'wide',
+	fullWidth: 'full-width',
+};
 
 const roundToNearest = (value: number, interval: number = 0.5): number =>
 	Math.round(value / interval) * interval;
@@ -19,6 +40,7 @@ const roundToNearest = (value: number, interval: number = 0.5): number =>
 export function useBreakoutGuidelines(
 	getEditorWidth: () => EditorContainerWidth | undefined,
 	isResizing: boolean,
+	dynamicFullWidthGuidelineOffset: number = 0,
 ) {
 	const widthState = getEditorWidth();
 
@@ -29,83 +51,68 @@ export function useBreakoutGuidelines(
 
 		const { width, lineLength } = widthState || {};
 		const wide = lineLength ? Math.round(lineLength * breakoutWideScaleRatio) : undefined;
-		const fullWidth = width ? Math.min(width - akEditorGutterPaddingDynamic() * 2) : undefined;
+		const layoutCalculatedWidth = width
+			? width - (akEditorGutterPaddingDynamic() + dynamicFullWidthGuidelineOffset) * 2
+			: undefined;
+		const fullWidth =
+			width && layoutCalculatedWidth
+				? Math.min(layoutCalculatedWidth, akEditorFullWidthLayoutWidth)
+				: undefined;
 		return {
 			wide,
 			fullWidth,
 			lineLength,
 		};
-	}, [widthState, isResizing]);
+	}, [widthState, isResizing, dynamicFullWidthGuidelineOffset]);
+
+	// calculate snapping width
+	const defaultSnappingWidths: SnappingWidths | null = useMemo(() => {
+		if (!fullWidth || !wide || !lineLength || fullWidth <= lineLength) {
+			return null;
+		}
+		if (fullWidth - wide > SNAP_GAP) {
+			return { lineLength, wide, fullWidth } as SnappingWidths;
+		}
+		if (fullWidth <= wide && fullWidth - lineLength > SNAP_GAP) {
+			return { lineLength, fullWidth } as SnappingWidths;
+		}
+		return null;
+	}, [fullWidth, lineLength, wide]);
 
 	const snaps: Snap | null = useMemo(() => {
-		if (!isResizing) {
+		if (!isResizing || !defaultSnappingWidths) {
 			return null;
 		}
 
-		const xSnaps: number[] = [];
-		if (typeof lineLength === 'number') {
-			xSnaps.push(lineLength);
-		}
-		if (typeof wide === 'number') {
-			xSnaps.push(wide);
-		}
-		if (typeof fullWidth === 'number') {
-			xSnaps.push(fullWidth - akEditorGutterPadding);
-		}
-
 		return {
-			x: xSnaps,
+			x: Object.values(defaultSnappingWidths),
 		} as Snap;
-	}, [isResizing, wide, fullWidth, lineLength]);
+	}, [defaultSnappingWidths, isResizing]);
 
+	// calculate guidelines, and calculate which lines are active
 	const [currentLayout, setCurrentLayout] = useState<BreakoutMode | null>(null);
-
 	const guidelines = useMemo(() => {
 		const guidelines: GuidelineConfig[] = [];
-
-		if (!isResizing) {
+		if (!defaultSnappingWidths) {
 			return guidelines;
 		}
 
-		if (lineLength) {
-			guidelines.push({
-				key: 'grid_left',
-				position: { x: -roundToNearest(lineLength / 2) },
-				active: currentLayout === 'center',
-			});
-			guidelines.push({
-				key: 'grid_right',
-				position: { x: roundToNearest(lineLength / 2) },
-				active: currentLayout === 'center',
-			});
-		}
-
-		if (wide) {
-			guidelines.push({
-				key: 'wide_left',
-				position: { x: -roundToNearest(wide / 2) },
-				active: currentLayout === 'wide',
-			});
-			guidelines.push({
-				key: 'wide_right',
-				position: { x: roundToNearest(wide / 2) },
-				active: currentLayout === 'wide',
-			});
-		}
-		if (fullWidth) {
-			guidelines.push({
-				key: 'full_width_left',
-				position: { x: -roundToNearest(fullWidth / 2) },
-				active: currentLayout === 'full-width',
-			});
-			guidelines.push({
-				key: 'full_width_right',
-				position: { x: roundToNearest(fullWidth) / 2 },
-				active: currentLayout === 'full-width',
-			});
-		}
+		Object.entries(defaultSnappingWidths).map(([key, value]) => {
+			if (value) {
+				guidelines.push({
+					key: `${GUIDELINE_KEYS[key]}_left`,
+					position: { x: -roundToNearest(value / 2) },
+					active: currentLayout === CURRENT_LAYOUT_KEYS[key],
+				});
+				guidelines.push({
+					key: `${GUIDELINE_KEYS[key]}_right`,
+					position: { x: roundToNearest(value / 2) },
+					active: currentLayout === CURRENT_LAYOUT_KEYS[key],
+				});
+			}
+		});
 		return guidelines;
-	}, [isResizing, lineLength, wide, fullWidth, currentLayout]);
+	}, [defaultSnappingWidths, currentLayout]);
 
 	const setCurrentWidth = useCallback(
 		(newWidth: number | null) => {

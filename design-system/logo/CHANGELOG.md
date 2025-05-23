@@ -1,5 +1,15 @@
 # @atlaskit/logo
 
+## 18.1.0
+
+### Minor Changes
+
+- [#154600](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154600)
+  [`d573e939cabe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d573e939cabe3) -
+  Adds 'xxsmall' size to Logo, that maps to the same size as 'xsmall'. In a future major bump of
+  this component, the 'xsmall' size will be updated to render logos at 20px height; please migrate
+  any usages before then.
+
 ## 18.0.0
 
 ### Major Changes

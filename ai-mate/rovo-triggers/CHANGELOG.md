@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.13.0
+
+### Minor Changes
+
+- [#155265](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155265)
+  [`39e13851ab159`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39e13851ab159) -
+  Add the ability to take in and store workflow context from jira for the workflow builder agent
+
 ## 2.12.0
 
 ### Minor Changes

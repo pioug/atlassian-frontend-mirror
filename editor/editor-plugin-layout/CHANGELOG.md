@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.7.4
+
+### Patch Changes
+
+- [#158601](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158601)
+  [`7dfac59b4421f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7dfac59b4421f) -
+  ED-27401: Updated layout guidelines
+- Updated dependencies
+
 ## 2.7.3
 
 ### Patch Changes

@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.3
+
+### Patch Changes
+
+- [#159817](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159817)
+  [`b0c2c870bc291`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0c2c870bc291) -
+  [HOT-117391] Ignore mutations from data-aui-version
+
+## 3.13.2
+
+### Patch Changes
+
+- [#159297](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159297)
+  [`9669e0bb8bda1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9669e0bb8bda1) -
+  Make VCObserverNew (TTVC v3) listens to abort events from ssr mark
+
+## 3.13.1
+
+### Patch Changes
+
+- [#156888](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156888)
+  [`42a74b76ffd2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42a74b76ffd2b) -
+  FG cleanup - platform_ufo_vc_enable_revisions_by_experience
+
 ## 3.13.0
 
 ### Minor Changes

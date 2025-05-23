@@ -8,7 +8,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { CodeBlockOptions } from './types';
+import type { CodeBlockPluginOptions } from './types';
 
 type CodeBlockDependencies = [
 	DecorationsPlugin,
@@ -22,7 +22,7 @@ type CodeBlockDependencies = [
 export type CodeBlockPlugin = NextEditorPlugin<
 	'codeBlock',
 	{
-		pluginConfiguration: CodeBlockOptions | undefined;
+		pluginConfiguration: CodeBlockPluginOptions | undefined;
 		dependencies: CodeBlockDependencies;
 		sharedState:
 			| {

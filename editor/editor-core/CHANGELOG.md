@@ -1,5 +1,47 @@
 # @atlaskit/editor-core
 
+## 207.4.0
+
+### Minor Changes
+
+- [#158380](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158380)
+  [`6f655038684d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f655038684d2) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor media CSS in
+  static emotion
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.3.0
+
+### Minor Changes
+
+- [#157548](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157548)
+  [`586b29cfecfb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/586b29cfecfb2) -
+  refactor: editor-core appearances to useSharedPluginStateSelector
+- [#159163](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159163)
+  [`aa05b5f45ce2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa05b5f45ce2a) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor annotation CSS
+  in static emotion
+- [#159754](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159754)
+  [`4906474d30373`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4906474d30373) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor embed card CSS
+  in static emotion
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.2.1
+
+### Patch Changes
+
+- [#159359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159359)
+  [`c3b98323f50a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3b98323f50a2) -
+  refactor link and rule styles
+- Updated dependencies
+
 ## 207.2.0
 
 ### Minor Changes

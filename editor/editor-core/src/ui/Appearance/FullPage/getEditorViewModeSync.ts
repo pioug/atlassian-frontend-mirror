@@ -24,7 +24,7 @@ const getViewModeSync = (preset: ComponentProps['preset']) => {
 // Temporary to ensure view mode is always set synchronously
 // TODO: ED-27194 - Make editorAPI be set synchronously and we can remove this code
 export const getEditorViewMode = (
-	editorViewModeState: EditorViewModePluginState | undefined | null,
+	editorViewModeState: Pick<EditorViewModePluginState, 'mode'> | undefined | null,
 	preset: ComponentProps['preset'],
 ): ViewMode => {
 	if (!editorViewModeState?.mode) {

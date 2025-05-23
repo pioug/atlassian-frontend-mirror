@@ -1,15 +1,22 @@
 import React, { Fragment, useState } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	width: 'size.1000',
-	height: 'size.1000',
-	padding: 'space.100',
+const styles = cssMap({
+	container: {
+		width: '12rem',
+		height: '12rem',
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
+	},
 });
 
 export default () => {
@@ -25,7 +32,7 @@ export default () => {
 				placement="bottom-start"
 				zIndex={600}
 				content={() => (
-					<Box xcss={containerStyles}>
+					<Box xcss={styles.container}>
 						<DropdownMenu
 							trigger="Page actions"
 							zIndex={610}

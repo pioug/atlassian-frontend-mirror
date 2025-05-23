@@ -4,7 +4,7 @@ import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analy
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 
 import filterActions from '../../internal/filterActions';
-import { CardWrapper } from '../../styled/Card';
+import { CardWrapper } from '../../styled/UserTrigger';
 import {
 	type AnalyticsProps,
 	type ProfileCardAction,

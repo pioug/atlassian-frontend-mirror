@@ -33,7 +33,7 @@ ${code`
 type TextFormattingPlugin = NextEditorPlugin<
   'textFormatting',
   {
-    pluginConfiguration: TextFormattingOptions | undefined;
+    pluginConfiguration: TextFormattingPluginOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
     commands: {
       toggleSuperscript: ToggleMarkEditorCommand;

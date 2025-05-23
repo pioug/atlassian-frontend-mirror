@@ -25,7 +25,10 @@ import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
 import { DefaultFloatingToolbarButtonsNext } from './Toolbar/constants';
 import { FormattingTextDropdownMenu } from './Toolbar/dropdown-menu';
-import { hasMultiplePartsWithFormattingInSelection } from './Toolbar/formatting-in-selection-utils';
+import {
+	getCommonActiveMarks,
+	hasMultiplePartsWithFormattingInSelection,
+} from './Toolbar/formatting-in-selection-utils';
 import { useClearIcon } from './Toolbar/hooks/clear-formatting-icon';
 import { useFormattingIcons } from './Toolbar/hooks/formatting-icons';
 import { useIconList } from './Toolbar/hooks/use-icon-list';
@@ -145,16 +148,8 @@ const FloatingToolbarTextFormat = ({
 	const textFormattingState = useSharedState(api);
 	const { formattingIsPresent, ...formattingIconState } = textFormattingState;
 
-	const defaultIcons = useFormattingIcons({
-		schema: editorView.state.schema,
-		intl,
-		isToolbarDisabled: FloatingToolbarSettings.disabled,
-		editorAnalyticsAPI,
-		textFormattingState: formattingIconState,
-		toolbarType: FloatingToolbarSettings.toolbarType,
-	});
-
 	let hasMultiplePartsWithFormattingSelected;
+	let commonActiveMarks: string[] = [];
 	if (
 		editorExperiment('platform_editor_controls', 'variant1') &&
 		fg('platform_editor_controls_patch_7')
@@ -168,7 +163,29 @@ const FloatingToolbarTextFormat = ({
 		hasMultiplePartsWithFormattingSelected = hasMultiplePartsWithFormattingInSelection({
 			selectedContent,
 		});
+		if (fg('platform_editor_controls_patch_10')) {
+			commonActiveMarks = getCommonActiveMarks({ selectedContent });
+		}
 	}
+
+	const defaultIcons = useFormattingIcons({
+		schema: editorView.state.schema,
+		intl,
+		isToolbarDisabled: FloatingToolbarSettings.disabled,
+		editorAnalyticsAPI,
+		textFormattingState: formattingIconState,
+		toolbarType: FloatingToolbarSettings.toolbarType,
+		hasMultiplePartsWithFormattingSelected:
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_10')
+				? hasMultiplePartsWithFormattingSelected
+				: undefined,
+		commonActiveMarks:
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_10')
+				? commonActiveMarks
+				: undefined,
+	});
 
 	const { dropdownItems, singleItems } = useIconList({
 		icons: defaultIcons,
@@ -198,7 +215,7 @@ const FloatingToolbarTextFormat = ({
 				items={singleItems}
 				editorView={editorView}
 				isReducedSpacing={false}
-				shouldUnselect={hasMultiplePartsWithFormattingSelected}
+				hasMultiplePartsWithFormattingSelected={hasMultiplePartsWithFormattingSelected}
 			/>
 			<FormattingTextDropdownMenu
 				editorView={editorView}
@@ -217,7 +234,7 @@ const FloatingToolbarTextFormat = ({
 				hasMoreButton={FloatingToolbarSettings.hasMoreButton}
 				intl={intl}
 				toolbarType={FloatingToolbarSettings.toolbarType}
-				shouldUnselect={hasMultiplePartsWithFormattingSelected}
+				hasMultiplePartsWithFormattingSelected={hasMultiplePartsWithFormattingSelected}
 			/>
 		</React.Fragment>
 	);

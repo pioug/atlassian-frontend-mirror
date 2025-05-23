@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type RevisionPayloadEntry } from '../../common/vc/types';
 
 import EntriesTimeline from './entries-timeline';
@@ -75,6 +77,26 @@ export default class VCObserverNew {
 
 	start({ startTime }: { startTime: DOMHighResTimeStamp }) {
 		this.viewportObserver?.start();
+
+		if (window?.__SSR_ABORT_LISTENERS__ && fg('platform_ufo_vc_observer_new_ssr_abort_listener')) {
+			const abortListeners = window.__SSR_ABORT_LISTENERS__;
+
+			const aborts = abortListeners.aborts;
+			if (aborts && typeof aborts === 'object') {
+				Object.entries(aborts).forEach(([key, time]) => {
+					if (typeof time === 'number') {
+						this.entriesTimeline.push({
+							time,
+							data: {
+								type: 'window:event',
+								eventType: key as 'wheel' | 'keydown' | 'resize',
+							},
+						});
+					}
+				});
+			}
+		}
+
 		this.windowEventObserver?.start();
 		this.entriesTimeline.clear();
 	}

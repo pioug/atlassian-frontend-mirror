@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-extractors",
-	"version": "2.3.2",
+	"version": "2.3.3",
 	"description": "Functions for extracting props from JSON-LD",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -87,5 +87,6 @@
 				"emotion"
 			]
 		}
-	}
+	},
+	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/dcf7e590-7b64-4a7a-ade5-124e1a0d85dd"
 }

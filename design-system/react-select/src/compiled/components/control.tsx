@@ -119,6 +119,7 @@ border-color 200ms ease-in-out`,
 	focused: {
 		backgroundColor: token('color.background.input.pressed'),
 		borderColor: token('color.border.focused'),
+		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
 		'&:focus-within': {
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.focused')}`,
 		},

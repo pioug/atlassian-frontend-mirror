@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import AkSpinner from '@atlaskit/spinner';
 
-import { SpinnerContainer } from '../../styled/Card';
+import { SpinnerContainer } from '../../styled/UserTrigger';
 import { type ProfileType } from '../../types';
 import { profileCardRendered } from '../../util/analytics';
 

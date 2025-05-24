@@ -1,5 +1,16 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.4
+
+### Patch Changes
+
+- [#159955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159955)
+  [`1d25081acf6c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d25081acf6c5) -
+  ignore non visual attribute changes
+- [#159937](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159937)
+  [`d0801dd8e4ef8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0801dd8e4ef8) -
+  pass interactionID correctly
+
 ## 3.13.3
 
 ### Patch Changes

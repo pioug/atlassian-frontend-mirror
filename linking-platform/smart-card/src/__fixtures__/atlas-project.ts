@@ -8,6 +8,8 @@ export default {
 		visibility: 'restricted',
 		access: 'granted',
 		key: 'watermelon-object-provider',
+		objectId: 'project-id',
+		tenantId: 'atlas-tenant',
 	},
 	data: {
 		'@context': {

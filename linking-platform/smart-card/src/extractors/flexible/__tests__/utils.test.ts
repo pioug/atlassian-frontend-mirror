@@ -17,6 +17,9 @@ import {
 	extractCreatedBy,
 	extractDueOn,
 	extractLocation,
+	extractMetaObjectId,
+	extractMetaResourceType,
+	extractMetaTenantId,
 	extractModifiedBy,
 	extractOwnedBy,
 	extractPersonAssignedToAsArray,
@@ -412,5 +415,41 @@ describe('extractStoryPoints', () => {
 		} as JsonLd.Data.Task);
 		expect(value).toBeDefined();
 		expect(value).toBe(3);
+	});
+});
+
+describe('extractMetaObjectId', () => {
+	it('returns undefined when no objectId present', () => {
+		expect(extractMetaObjectId({} as JsonLd.Meta.BaseMeta)).toBe(undefined);
+	});
+
+	it('returns objectId when present', () => {
+		const value = extractMetaObjectId({ objectId: '123' } as JsonLd.Meta.BaseMeta);
+		expect(value).toBeDefined();
+		expect(value).toBe('123');
+	});
+});
+
+describe('extractMetaResourceType', () => {
+	it('returns undefined when no resourceType present', () => {
+		expect(extractMetaResourceType({} as JsonLd.Meta.BaseMeta)).toBe(undefined);
+	});
+
+	it('returns resourceType when present', () => {
+		const value = extractMetaResourceType({ resourceType: 'document' } as JsonLd.Meta.BaseMeta);
+		expect(value).toBeDefined();
+		expect(value).toBe('document');
+	});
+});
+
+describe('extractMetaTenantId', () => {
+	it('returns undefined when no tenantId present', () => {
+		expect(extractMetaTenantId({} as JsonLd.Meta.BaseMeta)).toBe(undefined);
+	});
+
+	it('returns tenantId when present', () => {
+		const value = extractMetaTenantId({ tenantId: 'tenant-123' } as JsonLd.Meta.BaseMeta);
+		expect(value).toBeDefined();
+		expect(value).toBe('tenant-123');
 	});
 });

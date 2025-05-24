@@ -24,7 +24,9 @@ export default {
 		access: 'granted',
 		auth: [],
 		definitionId: 'confluence-object-provider',
+		objectId: 'template-id',
 		resourceType: 'template',
+		tenantId: 'confluence-tenant',
 		visibility: 'restricted',
 	},
 };

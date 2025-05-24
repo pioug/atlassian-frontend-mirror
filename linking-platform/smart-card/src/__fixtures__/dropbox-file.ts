@@ -13,7 +13,9 @@ export default {
 		],
 		definitionId: '9c3e33e4-be06-437f-80fb-26c38acd215d',
 		key: 'dropbox-object-provider',
+		objectId: 'file-id',
 		resourceType: 'sharedFile',
+		tenantId: 'dropbox-tenant',
 		version: '2.5.10',
 	},
 	data: {

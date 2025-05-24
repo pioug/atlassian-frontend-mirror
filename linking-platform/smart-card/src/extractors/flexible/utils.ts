@@ -172,3 +172,10 @@ export const extractSentOn = (data: JsonLd.Data.BaseData): string | undefined =>
 export const extractStoryPoints = (data: JsonLd.Data.BaseData): number | undefined => {
 	return extractValue<JsonLd.Data.Task, number>(data, 'atlassian:storyPoints');
 };
+
+export const extractMetaObjectId = (meta: JsonLd.Meta.BaseMeta): string | undefined =>
+	meta.objectId;
+export const extractMetaResourceType = (meta: JsonLd.Meta.BaseMeta): string | undefined =>
+	meta.resourceType;
+export const extractMetaTenantId = (meta: JsonLd.Meta.BaseMeta): string | undefined =>
+	meta.tenantId;

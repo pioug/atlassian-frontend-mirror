@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "31.17.0",
+	"version": "31.18.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -129,6 +129,9 @@
 			"type": "boolean"
 		},
 		"platform-make-accessible-close-button": {
+			"type": "boolean"
+		},
+		"platform-reactions-offset-based-popper": {
 			"type": "boolean"
 		},
 		"platform_editor_reactions_picker_fix": {

@@ -97,6 +97,7 @@ export class VCObserverWrapper implements VCObserverInterface {
 			? await this.newVCObserver?.getVCResult({
 					start: param.start,
 					stop: param.stop,
+					interactionId: param.interactionId,
 				})
 			: [];
 

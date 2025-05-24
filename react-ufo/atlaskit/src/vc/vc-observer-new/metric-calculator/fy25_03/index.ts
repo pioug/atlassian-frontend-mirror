@@ -30,6 +30,24 @@ export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
 	'draggable',
 ];
 
+// Common aria attributes that don't cause visual layout shifts
+export const NON_VISUAL_ARIA_ATTRIBUTES: string[] = [
+	'aria-label',
+	'aria-labelledby',
+	'aria-describedby',
+	'aria-hidden',
+	'aria-expanded',
+	'aria-controls',
+	'aria-selected',
+	'aria-checked',
+	'aria-disabled',
+	'aria-required',
+	'aria-current',
+	'aria-haspopup',
+	'aria-pressed',
+	'aria-live',
+];
+
 export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	constructor() {
 		super(REVISION_NO);
@@ -52,6 +70,19 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			if (
 				attributeName === 'data-aui-version' &&
 				fg('platform_ufo_filter_out_aui_attribute_changes')
+			) {
+				return false;
+			}
+
+			if (
+				(attributeName === 'data-testid' ||
+					attributeName === 'data-vc' ||
+					attributeName === 'data-ssr-placeholder' ||
+					attributeName === 'data-ssr-placeholder-replace' ||
+					attributeName === 'data-vc-nvs' ||
+					attributeName === 'data-media-vc-wrapper' ||
+					NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName)) &&
+				fg('platform_ufo_ignore_non_vis_attributes')
 			) {
 				return false;
 			}

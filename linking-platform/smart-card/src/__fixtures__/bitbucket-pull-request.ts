@@ -4,6 +4,8 @@ export default {
 		access: 'granted',
 		resourceType: 'pull',
 		key: 'native-bitbucket-object-provider',
+		objectId: 'pull-id',
+		tenantId: 'bitbucket-tenant',
 	},
 	data: {
 		'@id': 'https://pull-request-url/61',

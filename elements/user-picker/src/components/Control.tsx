@@ -38,6 +38,10 @@ const controlStyles = cssMap({
 	root: {
 		borderColor: token('color.border.input'),
 		backgroundColor: token('color.background.input'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.-IndicatorsContainer': {
+			opacity: 0,
+		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:hover': {
 			borderColor: token('color.border.input'),

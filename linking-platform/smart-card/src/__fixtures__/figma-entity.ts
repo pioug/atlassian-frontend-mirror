@@ -11,7 +11,9 @@ export default {
 		],
 		definitionId: '19ec1155-f5d8-45d3-ab2a-3f4a3d9d060e',
 		key: 'figma-object-provider',
+		objectId: 'figma-id',
 		resourceType: 'file',
+		tenantId: 'figma-tenant',
 		version: '1.1.4',
 	},
 	data: {

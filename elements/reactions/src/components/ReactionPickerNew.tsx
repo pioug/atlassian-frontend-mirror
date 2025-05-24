@@ -25,6 +25,7 @@ import {
 } from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
 import { Box } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useCloseManagerV2 } from '../hooks/useCloseManager';
 import { useDelayedState } from '../hooks/useDelayedState';
@@ -63,8 +64,13 @@ const popupStyle = css({
 	'&> div': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		boxShadow: undefined,
-		marginTop: token('space.050', '4px'),
 		marginBottom: token('space.050', '4px'),
+	},
+});
+const popupStyleWithMarginTop = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&> div': {
+		marginTop: token('space.050', '4px'),
 	},
 });
 
@@ -245,7 +251,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 			name: 'offset',
 			enabled: true,
 			options: {
-				offset: [0, 0],
+				offset: [0, fg('platform-reactions-offset-based-popper') ? 4 : 0],
 			},
 		},
 		{
@@ -617,7 +623,14 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 						tabIndex={0}
 					>
 						<RepositionOnUpdate update={update} settings={settings}>
-							<div css={popupStyle}>{children}</div>
+							<div
+								css={[
+									popupStyle,
+									!fg('platform-reactions-offset-based-popper') && popupStyleWithMarginTop,
+								]}
+							>
+								{children}
+							</div>
 						</RepositionOnUpdate>
 					</div>
 				);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 105.8.5
+
+### Patch Changes
+
+- [#160276](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160276)
+  [`52a350ed32172`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52a350ed32172) -
+  Fallback to async loading in manifest provider when not preloaded in production
+
 ## 105.8.4
 
 ### Patch Changes

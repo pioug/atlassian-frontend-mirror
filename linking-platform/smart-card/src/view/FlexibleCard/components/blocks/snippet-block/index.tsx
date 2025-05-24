@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { SmartLinkStatus } from '../../../../../constants';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useSmartLinkRenderers } from '../../../../../state/renderers';
 import { Snippet } from '../../elements';
 import { getMaxLines } from '../../utils';
 import Block from '../block';
@@ -24,9 +28,20 @@ const SnippetBlock = ({
 	text,
 	...blockProps
 }: SnippetBlockProps) => {
+	const context = fg('cc-ai-linking-platform-snippet-renderer')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleUiContext()
+		: undefined;
+
+	const renderers = fg('cc-ai-linking-platform-snippet-renderer')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useSmartLinkRenderers()
+		: undefined;
+
 	if (status !== SmartLinkStatus.Resolved && !text) {
 		return null;
 	}
+
 	const snippetMaxLines = getMaxLines(
 		maxLines,
 		DEFAULT_MAX_LINES,
@@ -35,9 +50,32 @@ const SnippetBlock = ({
 	);
 	const statusTestId = !text ? 'resolved' : 'non-resolved';
 
+	const snippet = <Snippet maxLines={snippetMaxLines} content={text} />;
+
+	if (!fg('cc-ai-linking-platform-snippet-renderer')) {
+		return (
+			<Block {...blockProps} testId={`${testId}-${statusTestId}-view`}>
+				{snippet}
+			</Block>
+		);
+	}
+
+	const SnippetReplacement = renderers?.snippet;
+
 	return (
 		<Block {...blockProps} testId={`${testId}-${statusTestId}-view`}>
-			<Snippet maxLines={snippetMaxLines} content={text} />
+			{SnippetReplacement ? (
+				<SnippetReplacement
+					fallbackText={(text || context?.snippet) ?? ''}
+					fallbackComponent={snippet}
+					contentId={context?.meta?.objectId ?? ''}
+					contentType={context?.meta?.resourceType ?? ''}
+					cloudId={context?.meta?.tenantId ?? ''}
+					maxLines={snippetMaxLines}
+				/>
+			) : (
+				snippet
+			)}
 		</Block>
 	);
 };

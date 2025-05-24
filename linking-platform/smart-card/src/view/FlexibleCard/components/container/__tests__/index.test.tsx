@@ -14,6 +14,10 @@ import { messages } from '../../../../../messages';
 import { SnippetBlock, TitleBlock } from '../../blocks';
 import Container from '../index';
 
+jest.mock('../../../../../state/renderers', () => ({
+	useSmartLinkRenderers: jest.fn(),
+}));
+
 describe('Container', () => {
 	const testId = 'smart-links-container';
 	const url = 'https://www.link-url.com';

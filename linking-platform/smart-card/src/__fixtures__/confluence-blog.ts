@@ -6,6 +6,8 @@ export default {
 		access: 'granted',
 		resourceType: 'blog',
 		key: 'confluence-object-provider',
+		objectId: 'blog-id',
+		tenantId: 'confluence-tenant',
 	},
 	data: {
 		'@context': {

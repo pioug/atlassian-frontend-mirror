@@ -6,6 +6,8 @@ export default {
 		access: 'granted',
 		resourceType: 'page',
 		key: 'confluence-object-provider',
+		objectId: 'page-id',
+		tenantId: 'confluence-tenant',
 	},
 	data: {
 		'@context': {

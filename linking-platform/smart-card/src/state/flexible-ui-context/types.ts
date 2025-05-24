@@ -247,6 +247,14 @@ export type FlexibleUiDataContext = {
 	 * @type string
 	 */
 	type?: string[];
+	/**
+	 * Contains metadata about the linked resource.
+	 */
+	meta?: {
+		objectId?: string;
+		resourceType?: string;
+		tenantId?: string;
+	};
 };
 
 export type Icon = {

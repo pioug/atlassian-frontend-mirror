@@ -35,6 +35,7 @@ export interface CardProviderStoreOpts {
 export interface CardProviderRenderers {
 	adf?: (adf: string) => React.ReactNode;
 	emoji?: (emoji?: string, parentComponent?: CardAppearance) => React.ReactNode;
+	snippet?: <T extends SnippetRendererProps>(props: T) => React.ReactNode;
 }
 
 export type CardProviderProps = {
@@ -73,3 +74,15 @@ export type CardProviderProps = {
 	 */
 	shouldControlDataExport?: boolean;
 } & CardAuthFlowOpts;
+``;
+export type SnippetRendererProps = AISnippetRendererProps | Record<string, never>;
+export type BaseSnippetRendererProps = {
+	fallbackText: string;
+	fallbackComponent: React.ReactNode;
+	maxLines: number;
+};
+export type AISnippetRendererProps = BaseSnippetRendererProps & {
+	contentId: string;
+	contentType: string;
+	cloudId: string;
+};

@@ -6,6 +6,8 @@ export default {
 		access: 'granted',
 		resourceType: 'roadmap',
 		key: 'jira-object-provider',
+		objectId: 'timeline-id',
+		tenantId: 'jira-tenant',
 	},
 	data: {
 		'@context': {

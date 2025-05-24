@@ -35,7 +35,7 @@ export default class DefaultExtensionProvider<T extends Parameters>
 	}
 
 	async preload(): Promise<void> {
-		this.manifestsCache = await this.manifestsPromise;
+		this.manifestsCache = await this.getExtensions();
 		const preloadCalls = [] as (Promise<void> | undefined)[];
 		for (const manifest of this.manifestsCache) {
 			const nodes = manifest?.modules?.nodes;

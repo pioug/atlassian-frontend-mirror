@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.4.5",
+	"version": "38.5.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -259,6 +259,9 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__linking-platfo": {
+			"type": "boolean"
+		},
+		"cc-ai-linking-platform-snippet-renderer": {
 			"type": "boolean"
 		}
 	},

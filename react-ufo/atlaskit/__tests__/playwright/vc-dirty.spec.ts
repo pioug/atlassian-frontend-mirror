@@ -52,6 +52,7 @@ test.describe('TTVC Dirty Scenarios', () => {
 				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoVCRev).toEqual([
 					{ abortReason: 'resize', clean: false, 'metric:vc90': null, revision: 'fy25.02' },
+					{ abortReason: 'resize', clean: false, 'metric:vc90': null, revision: 'fy25.03' },
 				]);
 			});
 
@@ -74,6 +75,7 @@ test.describe('TTVC Dirty Scenarios', () => {
 				const ufoVCRev = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoVCRev).toEqual([
 					{ abortReason: 'keypress', clean: false, 'metric:vc90': null, revision: 'fy25.02' },
+					{ abortReason: 'keypress', clean: false, 'metric:vc90': null, revision: 'fy25.03' },
 				]);
 			});
 		});

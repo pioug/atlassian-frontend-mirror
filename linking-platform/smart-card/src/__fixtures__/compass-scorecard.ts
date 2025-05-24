@@ -5,6 +5,8 @@ export default {
 		product: 'COMPASS',
 		resourceType: 'scorecard-v2',
 		key: 'dragonfruit-object-provider',
+		objectId: 'scorecard-id',
+		tenantId: 'compass-tenant',
 	},
 	data: {
 		'@context': {

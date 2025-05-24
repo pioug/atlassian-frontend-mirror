@@ -68,6 +68,11 @@ const context: FlexibleUiDataContext = {
 		text: 'Location title',
 		url: 'https://www.locationMcLocationton.com/foo',
 	},
+	meta: {
+		objectId: '123',
+		resourceType: 'page',
+		tenantId: 'tenant-123',
+	},
 	modifiedBy: 'Tony Stark',
 	modifiedOn: '2022-01-12T12:40:12.353+0800',
 	ownedBy: 'Bruce Banner',

@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 3.1.0
+
+### Minor Changes
+
+- [#158715](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158715)
+  [`baf5cca2f83aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/baf5cca2f83aa) -
+  Adds an optional snippet renderer method to SmardCardProvider context for overriding the default
+  snippet component on smart cards
+
 ## 3.0.0
 
 ### Major Changes

@@ -5,7 +5,9 @@ export default {
 		auth: [],
 		definitionId: 'dc00272f-0cdd-43e1-92a9-c0ab00807c1a',
 		key: 'iframely-object-provider',
+		objectId: 'video-id',
 		resourceType: 'youtube',
+		tenantId: 'youtube-tenant',
 	},
 	data: {
 		'@type': 'Object',

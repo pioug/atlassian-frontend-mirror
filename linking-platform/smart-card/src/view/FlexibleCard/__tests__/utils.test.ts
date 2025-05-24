@@ -29,135 +29,142 @@ describe('getContextByStatus', () => {
 
 	ffTest.both('smart_links_noun_support', '', () => {
 		ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-			it('return context for Resolved status', () => {
-				const context = getContextByStatus({
-					url,
-					status: SmartLinkStatus.Resolved,
-					response: {
-						meta: {
-							auth: [],
-							definitionId: 'confluence-object-provider',
-							visibility: 'restricted',
-							access: 'granted',
-							resourceType: 'page',
-							key: 'confluence-object-provider',
-						},
-						data: {
-							'@context': {
-								'@vocab': 'https://www.w3.org/ns/activitystreams#',
-								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-								schema: 'http://schema.org/',
-							},
-							generator: {
-								'@type': 'Application',
-								'@id': 'https://www.atlassian.com/#Confluence',
-								name: 'Confluence',
-							},
-							'@type': ['Document', 'schema:TextDigitalDocument'],
-							url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-							name: 'Everything you need to know about ShipIt53!',
-							summary: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
-						},
-					},
-				});
-				expect(context).toEqual({
-					actions: {
-						CopyLinkAction: {
-							invokeAction: {
-								actionFn: expect.any(Function),
-								actionSubjectId: 'copyLink',
-								actionType: 'CopyLinkAction',
+			ffTest.both('cc-ai-linking-platform-snippet-renderer', '', () => {
+				it('return context for Resolved status', () => {
+					const context = getContextByStatus({
+						url,
+						status: SmartLinkStatus.Resolved,
+						response: {
+							meta: {
+								auth: [],
 								definitionId: 'confluence-object-provider',
-								display: undefined,
-								extensionKey: 'confluence-object-provider',
-								id: undefined,
+								visibility: 'restricted',
+								access: 'granted',
+								resourceType: 'page',
+								key: 'confluence-object-provider',
+							},
+							data: {
+								'@context': {
+									'@vocab': 'https://www.w3.org/ns/activitystreams#',
+									atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+									schema: 'http://schema.org/',
+								},
+								generator: {
+									'@type': 'Application',
+									'@id': 'https://www.atlassian.com/#Confluence',
+									name: 'Confluence',
+								},
+								'@type': ['Document', 'schema:TextDigitalDocument'],
+								url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+								name: 'Everything you need to know about ShipIt53!',
+								summary: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
+							},
+						},
+					});
+					expect(context).toEqual({
+						actions: {
+							CopyLinkAction: {
+								invokeAction: {
+									actionFn: expect.any(Function),
+									actionSubjectId: 'copyLink',
+									actionType: 'CopyLinkAction',
+									definitionId: 'confluence-object-provider',
+									display: undefined,
+									extensionKey: 'confluence-object-provider',
+									id: undefined,
+									resourceType: 'page',
+								},
+							},
+							DownloadAction: undefined,
+							FollowAction: undefined,
+							PreviewAction: undefined,
+							AutomationAction: undefined,
+							AISummaryAction: undefined,
+							ViewRelatedLinksAction: undefined,
+						},
+						linkIcon: {
+							icon: 'FileType:Document',
+							label: 'Everything you need to know about ShipIt53!',
+							render: undefined,
+						},
+						provider: { icon: 'Provider:Confluence', label: 'Confluence' },
+						snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
+						title: 'Everything you need to know about ShipIt53!',
+						url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+						...(fg('platform-linking-visual-refresh-v2') && {
+							type: ['schema:TextDigitalDocument', 'Document'],
+						}),
+						...(fg('cc-ai-linking-platform-snippet-renderer') && {
+							meta: {
 								resourceType: 'page',
 							},
-						},
-						DownloadAction: undefined,
-						FollowAction: undefined,
-						PreviewAction: undefined,
-						AutomationAction: undefined,
-						AISummaryAction: undefined,
-						ViewRelatedLinksAction: undefined,
-					},
-					linkIcon: {
-						icon: 'FileType:Document',
-						label: 'Everything you need to know about ShipIt53!',
-						render: undefined,
-					},
-					provider: { icon: 'Provider:Confluence', label: 'Confluence' },
-					snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
-					title: 'Everything you need to know about ShipIt53!',
-					url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-					...(fg('platform-linking-visual-refresh-v2') && {
-						type: ['schema:TextDigitalDocument', 'Document'],
-					}),
-				});
-			});
-
-			it('return context for Unauthorized status', () => {
-				const context = getContextByStatus({
-					url,
-					status: SmartLinkStatus.Unauthorized,
+						}),
+					});
 				});
 
-				expect(context).toEqual({
-					linkIcon: { icon: IconType.Forbidden },
-					title: url,
-					url,
-				});
-			});
+				it('return context for Unauthorized status', () => {
+					const context = getContextByStatus({
+						url,
+						status: SmartLinkStatus.Unauthorized,
+					});
 
-			it('return context for Forbidden status', () => {
-				const context = getContextByStatus({
-					url,
-					status: SmartLinkStatus.Forbidden,
-				});
-
-				expect(context).toEqual({
-					linkIcon: { icon: IconType.Forbidden },
-					title: url,
-					url,
-				});
-			});
-
-			it('return context for NotFound status', () => {
-				const context = getContextByStatus({
-					url,
-					status: SmartLinkStatus.NotFound,
+					expect(context).toEqual({
+						linkIcon: { icon: IconType.Forbidden },
+						title: url,
+						url,
+					});
 				});
 
-				expect(context).toEqual({
-					linkIcon: { icon: IconType.Error },
-					title: url,
-					url,
-				});
-			});
+				it('return context for Forbidden status', () => {
+					const context = getContextByStatus({
+						url,
+						status: SmartLinkStatus.Forbidden,
+					});
 
-			it('return context for Errored status', () => {
-				const context = getContextByStatus({
-					url,
-					status: SmartLinkStatus.Errored,
-				});
-
-				expect(context).toEqual({
-					linkIcon: { icon: IconType.Default },
-					title: url,
-					url,
-				});
-			});
-
-			it('return context for Fallback status', () => {
-				const context = getContextByStatus({
-					url,
-					status: SmartLinkStatus.Fallback,
+					expect(context).toEqual({
+						linkIcon: { icon: IconType.Forbidden },
+						title: url,
+						url,
+					});
 				});
 
-				expect(context).toEqual({
-					linkIcon: { icon: IconType.Default },
-					title: url,
-					url,
+				it('return context for NotFound status', () => {
+					const context = getContextByStatus({
+						url,
+						status: SmartLinkStatus.NotFound,
+					});
+
+					expect(context).toEqual({
+						linkIcon: { icon: IconType.Error },
+						title: url,
+						url,
+					});
+				});
+
+				it('return context for Errored status', () => {
+					const context = getContextByStatus({
+						url,
+						status: SmartLinkStatus.Errored,
+					});
+
+					expect(context).toEqual({
+						linkIcon: { icon: IconType.Default },
+						title: url,
+						url,
+					});
+				});
+
+				it('return context for Fallback status', () => {
+					const context = getContextByStatus({
+						url,
+						status: SmartLinkStatus.Fallback,
+					});
+
+					expect(context).toEqual({
+						linkIcon: { icon: IconType.Default },
+						title: url,
+						url,
+					});
 				});
 			});
 		});

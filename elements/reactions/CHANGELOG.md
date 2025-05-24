@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 31.18.0
+
+### Minor Changes
+
+- [#157154](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157154)
+  [`d78707903f424`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d78707903f424) -
+  change reactionPicker popup content to use "offset" instead of "margin" for spacing
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.17.0
 
 ### Minor Changes

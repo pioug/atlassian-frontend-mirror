@@ -6,6 +6,8 @@ export default {
 		access: 'granted',
 		resourceType: 'space',
 		key: 'confluence-object-provider',
+		objectId: 'space-id',
+		tenantId: 'confluence-tenant',
 	},
 	data: {
 		'@context': {

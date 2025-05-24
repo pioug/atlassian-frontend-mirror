@@ -8,6 +8,8 @@ export default {
 		access: 'granted',
 		resourceType: 'issue',
 		key: 'jira-object-provider',
+		objectId: 'task-id',
+		tenantId: 'jira-tenant',
 	},
 	data: {
 		'@context': {

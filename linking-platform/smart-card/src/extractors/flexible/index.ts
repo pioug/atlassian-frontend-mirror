@@ -40,6 +40,9 @@ import {
 	extractCreatedBy,
 	extractDueOn,
 	extractLocation,
+	extractMetaObjectId,
+	extractMetaResourceType,
+	extractMetaTenantId,
 	extractModifiedBy,
 	extractOwnedBy,
 	extractPersonAssignedToAsArray,
@@ -72,6 +75,7 @@ const extractFlexibleUiContext = ({
 		return undefined;
 	}
 	const data = response.data as JsonLd.Data.BaseData;
+	const meta = response.meta as JsonLd.Meta.BaseMeta;
 
 	const url = fg('smart_links_noun_support') ? extractSmartLinkUrl(response) : extractLink(data);
 
@@ -143,6 +147,13 @@ const extractFlexibleUiContext = ({
 		ari: fg('smart_links_noun_support') ? extractSmartLinkAri(response) : extractAri(data),
 		...(fg('platform-linking-visual-refresh-v2') && {
 			type: extractType(data),
+		}),
+		...(fg('cc-ai-linking-platform-snippet-renderer') && {
+			meta: {
+				objectId: extractMetaObjectId(meta),
+				resourceType: extractMetaResourceType(meta),
+				tenantId: extractMetaTenantId(meta),
+			},
 		}),
 	};
 };

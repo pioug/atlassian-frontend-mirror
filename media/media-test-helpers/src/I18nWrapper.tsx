@@ -3,6 +3,7 @@ import { IntlProvider } from 'react-intl-next';
 import LocaleSelect, { type Locale, defaultLocales } from '@atlaskit/locale/LocaleSelect';
 import { locales } from '@atlaskit/media-ui/locales';
 import { Box, xcss } from '@atlaskit/primitives';
+import { Label } from '@atlaskit/form';
 
 function getMessages(localeValue: string) {
 	const lang = localeValue.substring(0, 2);
@@ -33,7 +34,12 @@ export const I18NWrapper = ({ children }: I18NWrapperProps) => {
 	return (
 		<>
 			<Box xcss={localeBoxStyles}>
-				<LocaleSelect onLocaleChange={setLocale} locales={selectableLocales} />
+				<Label htmlFor="media-locale-select">Language</Label>
+				<LocaleSelect
+					id="media-locale-select"
+					onLocaleChange={setLocale}
+					locales={selectableLocales}
+				/>
 			</Box>
 			<IntlProvider
 				locale={lang}

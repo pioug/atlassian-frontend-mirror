@@ -1,5 +1,13 @@
 # @atlaskit/media-test-helpers
 
+## 36.0.2
+
+### Patch Changes
+
+- [#154812](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154812)
+  [`41f303d60f195`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41f303d60f195) -
+  Added label to I18nWrapper
+
 ## 36.0.1
 
 ### Patch Changes

@@ -24,6 +24,9 @@
 			"path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/form/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{

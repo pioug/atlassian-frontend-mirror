@@ -12,6 +12,7 @@ import {
 	getClickUrl,
 	getDefinitionId,
 	getExtensionKey,
+	getObjectAri,
 	getResourceType,
 	getServices,
 	isFinalState,
@@ -59,7 +60,11 @@ function Component({
 	const { fireEvent } = useAnalyticsEvents();
 
 	// Get state, actions for this card.
-	const { state, actions, config, renderers, error } = useSmartLink(id, url);
+	const { state, actions, config, renderers, error, isGlancePanelAvailable, openGlancePanel } =
+		useSmartLink(id, url);
+	const ari = fg('fun-1765_wire_up_glance_panel_to_smart_cards')
+		? getObjectAri(state.details)
+		: undefined;
 	const definitionId = getDefinitionId(state.details);
 	const extensionKey = getExtensionKey(state.details);
 	const resourceType = getResourceType(state.details);
@@ -80,6 +85,12 @@ function Component({
 	const handleClickWrapper = useCallback(
 		(event: MouseEvent) => {
 			const isModifierKeyPressed = isSpecialEvent(event);
+			// Ctrl+left click on mac typically doesn't trigger onClick
+			// The event could have potentially had `e.preventDefault()` called on it by now
+			// event by smart card internally
+			// If it has been called then only then can `isModifierKeyPressed` be true.
+			const target = isModifierKeyPressed ? '_blank' : '_self';
+
 			fireEvent('ui.smartLink.clicked', {
 				id,
 				display: isFlexibleUi ? CardDisplay.Flexible : appearance,
@@ -87,13 +98,26 @@ function Component({
 				isModifierKeyPressed,
 			});
 
-			if (!onClick && !isFlexibleUi) {
+			// If glance panel is available and the user clicked on the link,
+			// delegate the click to the glance panel handler
+			if (
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+				fg('fun-1765_wire_up_glance_panel_to_smart_cards') &&
+				target !== '_blank' &&
+				ari &&
+				isGlancePanelAvailable?.({ url, ari }) &&
+				openGlancePanel
+			) {
+				openGlancePanel({ url, ari });
+
+				fireLinkClickedEvent(createAnalyticsEvent)(event, {
+					attributes: {
+						clickOutcome: 'glancePanel',
+					},
+				});
+			} else if (!onClick && !isFlexibleUi) {
 				const clickUrl = getClickUrl(url, state.details);
-				// Ctrl+left click on mac typically doesn't trigger onClick
-				// The event could have potentially had `e.preventDefault()` called on it by now
-				// event by smart card internally
-				// If it has been called then only then can `isModifierKeyPressed` be true.
-				const target = isModifierKeyPressed ? '_blank' : '_self';
+
 				window.open(clickUrl, target);
 
 				fireLinkClickedEvent(createAnalyticsEvent)(event, {
@@ -109,15 +133,18 @@ function Component({
 			}
 		},
 		[
+			fireEvent,
 			id,
-			url,
-			state.details,
+			isFlexibleUi,
 			appearance,
 			definitionId,
 			onClick,
-			isFlexibleUi,
+			url,
+			state.details,
+			ari,
+			isGlancePanelAvailable,
+			openGlancePanel,
 			createAnalyticsEvent,
-			fireEvent,
 		],
 	);
 	const handleAuthorize = useCallback(() => actions.authorize(appearance), [actions, appearance]);

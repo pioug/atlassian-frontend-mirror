@@ -27,6 +27,7 @@ const transformNestedTableExtension = (nestedTableExtension: ADFEntity): ADFEnti
 	}
 };
 
+// TODO: EDITOR-806 - Remove when cleaning feature gate platform_editor_nested_table_extension_comment_fix
 function isInsideBodiedExtension(parent: EntityParent) {
 	if (parent.node === undefined) {
 		return false;
@@ -45,7 +46,8 @@ function isInsideBodiedExtension(parent: EntityParent) {
 
 export const transformNestedTablesIncomingDocument = (
 	adf: ADFEntity,
-	options: { environment?: 'renderer' | 'editor' } = {},
+	// TODO: EDITOR-806 - Remove options when cleaning feature gate platform_editor_nested_table_extension_comment_fix as no longer needed
+	options: { environment?: 'renderer' | 'editor'; disableNestedRendererTreatment?: boolean } = {},
 ): {
 	transformedAdf: ADFEntity;
 	isTransformed: boolean;
@@ -55,11 +57,16 @@ export const transformNestedTablesIncomingDocument = (
 	const transformedAdf = traverse(adf, {
 		extension: (node, parent) => {
 			if (isNestedTableExtension(node)) {
+				// TODO: EDITOR-806 - Remove this block when cleaning feature gate platform_editor_nested_table_extension_comment_fix
 				// Bodied extensions in renderer use their own nested renderer to render the content.
 				// This results in the document being validated/transformed twice, once with untransformed content and again with transformed content.
 				// Since the untransformed content is valid ADF (table as extension in table) but the transformed content is not valid ADF, (table in table)
 				// we need to skip transforming nested tables inside bodied extensions in renderer on the first pass or else it will fail validation and render an unsupported block.
-				if (options.environment === 'renderer' && isInsideBodiedExtension(parent)) {
+				if (
+					options.environment === 'renderer' &&
+					isInsideBodiedExtension(parent) &&
+					!options.disableNestedRendererTreatment
+				) {
 					return undefined;
 				}
 

@@ -284,10 +284,11 @@ describe('Renderer', () => {
 				jest.clearAllMocks();
 			});
 
-			describe('should transform nested tables', () => {
-				ffTest(
-					'platform_editor_use_nested_table_pm_nodes',
-					() => {
+			ffTest.on(
+				'platform_editor_use_nested_table_pm_nodes',
+				'with nested table nodes enabled',
+				() => {
+					it('should transform nested tables', () => {
 						const document = {
 							type: 'doc',
 							version: 1,
@@ -314,53 +315,16 @@ describe('Renderer', () => {
 
 						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
 							environment: 'renderer',
+							disableNestedRendererTreatment: undefined,
 						});
 						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
 							action: 'nestedTableTransformed',
 							actionSubject: 'renderer',
 							eventType: 'operational',
 						});
-					},
-					() => {
-						const document = {
-							type: 'doc',
-							version: 1,
-							content: [
-								{
-									attrs: {
-										localId: null,
-									},
-									type: 'paragraph',
-									content: [{ type: 'text', text: 'B' }],
-								},
-							],
-						};
+					});
 
-						renderDocument(
-							document,
-							serializer,
-							schema,
-							undefined,
-							true,
-							undefined,
-							mockDispatchAnalyticsEvent,
-						);
-						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document, {
-							environment: 'renderer',
-						});
-						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
-							action: 'nestedTableTransformed',
-							actionSubject: 'renderer',
-							eventType: 'operational',
-						});
-					},
-				);
-			});
-
-			describe('should fire analytics event when failing to transform nested tables', () => {
-				ffTest(
-					'platform_editor_use_nested_table_pm_nodes',
-					() => {
+					it('should fire analytics event when failing to transform nested tables', () => {
 						// Prevent console.error from showing in the test output
 						jest.spyOn(console, 'error').mockImplementationOnce(jest.fn());
 
@@ -397,6 +361,7 @@ describe('Renderer', () => {
 						);
 						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
 							environment: 'renderer',
+							disableNestedRendererTreatment: undefined,
 						});
 						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
 							action: 'invalidProsemirrorDocument',
@@ -407,8 +372,87 @@ describe('Renderer', () => {
 								errorStack: expect.any(String),
 							},
 						});
-					},
-					() => {
+					});
+
+					ffTest.on(
+						'platform_editor_nested_table_extension_comment_fix',
+						'bodied extension comment fix enabled',
+						() => {
+							it('should pass disableNestedRendererTreatment as true', () => {
+								const document = {
+									type: 'doc',
+									version: 1,
+									content: [
+										{
+											attrs: {
+												localId: null,
+											},
+											type: 'paragraph',
+											content: [{ type: 'text', text: 'A' }],
+										},
+									],
+								};
+
+								renderDocument(
+									document,
+									serializer,
+									schema,
+									undefined,
+									true,
+									undefined,
+									mockDispatchAnalyticsEvent,
+								);
+
+								expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
+									environment: 'renderer',
+									disableNestedRendererTreatment: true,
+								});
+							});
+						},
+					);
+				},
+			);
+
+			ffTest.off(
+				'platform_editor_use_nested_table_pm_nodes',
+				'with nested table nodes disabled',
+				() => {
+					it('should not transform nested tables', () => {
+						const document = {
+							type: 'doc',
+							version: 1,
+							content: [
+								{
+									attrs: {
+										localId: null,
+									},
+									type: 'paragraph',
+									content: [{ type: 'text', text: 'B' }],
+								},
+							],
+						};
+
+						renderDocument(
+							document,
+							serializer,
+							schema,
+							undefined,
+							true,
+							undefined,
+							mockDispatchAnalyticsEvent,
+						);
+						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document, {
+							environment: 'renderer',
+							disableNestedRendererTreatment: undefined,
+						});
+						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
+							action: 'nestedTableTransformed',
+							actionSubject: 'renderer',
+							eventType: 'operational',
+						});
+					});
+
+					it('should not fire analytics event when failing to transform nested tables', () => {
 						const document = {
 							type: 'doc',
 							version: 1,
@@ -434,6 +478,7 @@ describe('Renderer', () => {
 						);
 						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document, {
 							environment: 'renderer',
+							disableNestedRendererTreatment: undefined,
 						});
 						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
 							action: 'invalidProsemirrorDocument',
@@ -444,9 +489,9 @@ describe('Renderer', () => {
 								errorStack: expect.any(String),
 							},
 						});
-					},
-				);
-			});
+					});
+				},
+			);
 		});
 	});
 });

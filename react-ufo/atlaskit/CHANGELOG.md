@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.5
+
+### Patch Changes
+
+- [#160658](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160658)
+  [`de856e19257ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de856e19257ac) -
+  AFO-3905 exclude data-auto-scrollable from ttvc v3
+
 ## 3.13.4
 
 ### Patch Changes

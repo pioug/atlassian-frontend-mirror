@@ -63,7 +63,13 @@ async function main() {
 		fs.outputFile(path.resolve(root, 'src/deprecated-core.tsx'), deprecatedDocs);
 
 		// Generate VR tests
-		const [vrExampleCore, vrTestCore] = createVRTest(coreIconMetadata, '../../../..', 20, 'core');
+		const [vrExampleCore, vrTestCore] = createVRTest(
+			coreIconMetadata,
+			'../../../..',
+			20,
+			'core',
+			true,
+		);
 		fs.outputFile(
 			path.resolve(root, 'src/__tests__/vr-tests/examples/all-core-icons.tsx'),
 			vrExampleCore,
@@ -121,6 +127,7 @@ async function main() {
 				'../../../..',
 				20,
 				'utility',
+				true,
 			);
 			fs.outputFile(
 				path.resolve(root, 'src/__tests__/vr-tests/examples/all-utility-icons.tsx'),

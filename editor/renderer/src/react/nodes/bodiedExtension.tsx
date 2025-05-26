@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext, ExtensionViewportSize } from '../types';
 import type { Serializer } from '../../serializer';
@@ -12,6 +12,8 @@ import ExtensionRenderer from '../../ui/ExtensionRenderer';
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import { AnnotationsPositionContext } from '../../ui/annotations';
+import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {
 	// Ignored via go/ees005
@@ -38,6 +40,25 @@ interface Props {
 	startPos: number;
 	extensionViewportSizes?: ExtensionViewportSize[];
 }
+
+const ValidationContextWrapper = ({ children }: { children: React.ReactNode }) => {
+	// We override validation of nested tables in nested renderers as invalid ADF (but valid Prosemirror)
+	// may have been introduced in the parent renderer's render and subsequent transformations.
+	// For example - nested tables which are transformed from an extension node in ADF
+	// to native Prosemirror nested table nodes in and this is invalid ADF.
+	const validationContextValue = useMemo<{ allowNestedTables: boolean }>(
+		() => ({ allowNestedTables: true }),
+		[],
+	);
+
+	if (!fg('platform_editor_nested_table_extension_comment_fix')) {
+		return children;
+	}
+
+	return (
+		<ValidationContextProvider value={validationContextValue}>{children}</ValidationContextProvider>
+	);
+};
 
 const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 	const {
@@ -68,45 +89,47 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 			 * that the annotations positions can be calculated correctly.
 			 */}
 			<AnnotationsPositionContext.Provider value={{ startPos: props.startPos + 1 }}>
-				<ExtensionRenderer
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...props}
-					type="bodiedExtension"
-				>
-					{({ result }) => {
-						try {
-							if (result && React.isValidElement(result)) {
-								// Return the content directly if it's a valid JSX.Element
-								return renderExtension(
-									result,
-									layout,
-									{
-										isTopLevel: path.length < 1,
-									},
-									removeOverflow,
-									parameters?.extensionId,
-									extensionViewportSizes,
-								);
+				<ValidationContextWrapper>
+					<ExtensionRenderer
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+						type="bodiedExtension"
+					>
+						{({ result }) => {
+							try {
+								if (result && React.isValidElement(result)) {
+									// Return the content directly if it's a valid JSX.Element
+									return renderExtension(
+										result,
+										layout,
+										{
+											isTopLevel: path.length < 1,
+										},
+										removeOverflow,
+										parameters?.extensionId,
+										extensionViewportSizes,
+									);
+								}
+							} catch (e) {
+								/** We don't want this error to block renderer */
+								/** We keep rendering the default content */
 							}
-						} catch (e) {
-							/** We don't want this error to block renderer */
-							/** We keep rendering the default content */
-						}
 
-						// Always return default content if anything goes wrong
-						return renderExtension(
-							children,
-							layout,
-							{
-								isTopLevel: path.length < 1,
-							},
-							removeOverflow,
-							parameters?.extensionId,
-							extensionViewportSizes,
-						);
-					}}
-				</ExtensionRenderer>
+							// Always return default content if anything goes wrong
+							return renderExtension(
+								children,
+								layout,
+								{
+									isTopLevel: path.length < 1,
+								},
+								removeOverflow,
+								parameters?.extensionId,
+								extensionViewportSizes,
+							);
+						}}
+					</ExtensionRenderer>
+				</ValidationContextWrapper>
 			</AnnotationsPositionContext.Provider>
 		</ErrorBoundary>
 	);

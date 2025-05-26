@@ -212,7 +212,11 @@ const handleWrapperOnClick = (
 };
 
 export const RendererFunctionalComponent = (
-	props: RendererProps & { startPos?: number; skipValidation?: boolean },
+	props: RendererProps & {
+		startPos?: number;
+		skipValidation?: boolean;
+		validationOverrides?: { allowNestedTables?: boolean };
+	},
 ) => {
 	const { createAnalyticsEvent } = props;
 	const mouseDownSelection = useRef<string | undefined>(undefined);
@@ -492,6 +496,7 @@ export const RendererFunctionalComponent = (
 			props.appearance,
 			props.includeNodesCountInStats,
 			props.skipValidation,
+			props.validationOverrides,
 		);
 		if (props.onComplete) {
 			props.onComplete(stat);
@@ -619,7 +624,7 @@ const getRendererComponent = (nodeComponents: RendererProps['nodeComponents']) =
 export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
-	const { skipValidation } = useContext(ValidationContext) || {};
+	const { skipValidation, allowNestedTables } = useContext(ValidationContext) || {};
 
 	const RendererComponent = getRendererComponent(props.nodeComponents);
 
@@ -631,6 +636,7 @@ export function Renderer(props: RendererProps) {
 			startPos={startPos}
 			isTopLevelRenderer={isTopLevelRenderer}
 			skipValidation={skipValidation}
+			validationOverrides={{ allowNestedTables }}
 		/>
 	);
 }

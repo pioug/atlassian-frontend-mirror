@@ -1,5 +1,17 @@
 # @atlaskit/adf-utils
 
+## 19.20.0
+
+### Minor Changes
+
+- [#160422](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160422)
+  [`83606959c73cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83606959c73cd) -
+  EDITOR-719 Overrides adf validation of nested tables for nested renderers inside bodied extensions
+  and reverts a previous change to transformNestedTablesIncomingDocument which prevented nested
+  tables inside bodied extensions from being transformed by their parent renderer. This was due to a
+  bug with comment positions of nested tables inside bodied extensions which meant their positions
+  were not being calculated correctly due to not being transformed in the parent renderer.
+
 ## 19.19.0
 
 ### Minor Changes

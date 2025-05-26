@@ -1,8 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
-import { type RevisionPayload, type VCEntryType } from '../common/vc/types';
+import { type RevisionPayload } from '../common/vc/types';
 import { getConfig, getPostInteractionRate } from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
@@ -177,25 +175,15 @@ function createPostInteractionLogPayload({
 	let lastInteractionFinishVC90: number | null = null;
 	let lastInteractionFinishVCClean: boolean = false;
 
-	if (fg('platform_ufo_post_interaction_use_vc_rev')) {
-		const lastInteractionFinishVCRev = lastInteractionFinishVCResult?.[
-			'ufo:vc:rev'
-		] as RevisionPayload;
-		const lastInteractionFinishRevision = lastInteractionFinishVCRev?.find(
-			({ revision }) => revision === 'fy25.02',
-		);
-		if (lastInteractionFinishRevision?.clean) {
-			lastInteractionFinishVCClean = true;
-			lastInteractionFinishVC90 = lastInteractionFinishRevision['metric:vc90'] ?? null;
-		}
-	} else {
-		if (lastInteractionFinishVCResult?.['ufo:vc:state']) {
-			lastInteractionFinishVCClean = true;
-			const lastInteractionFinishVCMetrics = lastInteractionFinishVCResult?.[
-				'metrics:vc'
-			] as Record<number, number>;
-			lastInteractionFinishVC90 = lastInteractionFinishVCMetrics[90] ?? null;
-		}
+	const lastInteractionFinishVCRev = lastInteractionFinishVCResult?.[
+		'ufo:vc:rev'
+	] as RevisionPayload;
+	const lastInteractionFinishRevision = lastInteractionFinishVCRev?.find(
+		({ revision }) => revision === 'fy25.02',
+	);
+	if (lastInteractionFinishRevision?.clean) {
+		lastInteractionFinishVCClean = true;
+		lastInteractionFinishVC90 = lastInteractionFinishRevision['metric:vc90'] ?? null;
 	}
 
 	let postInteractionFinishVCRatios: Record<string, number> = {};
@@ -203,64 +191,31 @@ function createPostInteractionLogPayload({
 	let revisedVC90: number | null = null;
 	let lateMutations: LateMutation[] = [];
 
-	if (fg('platform_ufo_post_interaction_use_vc_rev')) {
-		const postInteractionFinishVCRev = postInteractionFinishVCResult?.[
-			'ufo:vc:rev'
-		] as RevisionPayload;
-		const postInteractionFinishRevision = postInteractionFinishVCRev?.find(
-			({ revision }) => revision === 'fy25.02',
-		);
+	const postInteractionFinishVCRev = postInteractionFinishVCResult?.[
+		'ufo:vc:rev'
+	] as RevisionPayload;
+	const postInteractionFinishRevision = postInteractionFinishVCRev?.find(
+		({ revision }) => revision === 'fy25.02',
+	);
 
-		if (postInteractionFinishRevision?.clean) {
-			postInteractionFinishVCClean = true;
-			postInteractionFinishVCRatios = postInteractionFinishVCResult?.['ufo:vc:ratios'] as Record<
-				string,
-				number
-			>;
+	if (postInteractionFinishRevision?.clean) {
+		postInteractionFinishVCClean = true;
+		postInteractionFinishVCRatios = postInteractionFinishVCResult?.['ufo:vc:ratios'] as Record<
+			string,
+			number
+		>;
 
-			if (typeof lastInteractionFinishVC90 === 'number') {
-				revisedVC90 = postInteractionFinishRevision['metric:vc90'] ?? null;
-			}
-
-			const vcDetails = postInteractionFinishRevision.vcDetails;
-			if (vcDetails) {
-				lateMutations = getLateMutations(
-					vcDetails,
-					lastInteractionFinish,
-					postInteractionFinishVCRatios,
-				);
-			}
+		if (typeof lastInteractionFinishVC90 === 'number') {
+			revisedVC90 = postInteractionFinishRevision['metric:vc90'] ?? null;
 		}
-	} else {
-		if (postInteractionFinishVCResult?.['ufo:vc:state']) {
-			postInteractionFinishVCClean = true;
-			postInteractionFinishVCRatios = postInteractionFinishVCResult?.['ufo:vc:ratios'] as Record<
-				string,
-				number
-			>;
 
-			const postInteractionFinishVCUpdates = postInteractionFinishVCResult?.[
-				'ufo:vc:updates'
-			] as VCEntryType[];
-
-			const postInteractionFinishVCMetrics = postInteractionFinishVCResult?.[
-				'metrics:vc'
-			] as Record<number, number>;
-			if (typeof lastInteractionFinishVC90 === 'number') {
-				revisedVC90 = postInteractionFinishVCMetrics[90] ?? null;
-			}
-
-			lateMutations = postInteractionFinishVCUpdates
-				? postInteractionFinishVCUpdates
-						.filter((entry) => entry.time > lastInteractionFinish.end)
-						.flatMap(({ time, elements }) =>
-							Array.from(new Set(elements)).map((element) => ({
-								time,
-								element,
-								viewportHeatmapPercentage: postInteractionFinishVCRatios[element],
-							})),
-						)
-				: [];
+		const vcDetails = postInteractionFinishRevision.vcDetails;
+		if (vcDetails) {
+			lateMutations = getLateMutations(
+				vcDetails,
+				lastInteractionFinish,
+				postInteractionFinishVCRatios,
+			);
 		}
 	}
 

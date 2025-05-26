@@ -1,15 +1,15 @@
 import { ElementName, type SmartLinkSize } from '../../../../constants';
 
-import { AtlaskitBadgeElementProps } from './atlaskit-badge-element';
 import {
+	type BaseAtlaskitBadgeElementProps,
 	type BaseAvatarGroupElementProps,
 	type BaseBadgeElementProps,
-	type BaseDateTimeProps,
+	type BaseDateTimeElementProps,
+	type BaseIconElementProps,
 	type BaseLinkElementProps,
 	type BaseLozengeElementProps,
 	type BaseTextElementProps,
 } from './common';
-import { type IconElementProps } from './icon-element';
 import { createElement } from './utils';
 
 export type ElementProps = {
@@ -35,6 +35,13 @@ export type ElementProps = {
 	testId?: string;
 };
 
+/**
+ * @note The intention is to replace all the exports below with an import from
+ * the direct files when `createElement` is deleted.
+ * This changes should be made when FG platform-linking-flexible-card-elements-refactor
+ * is cleaned up
+ */
+
 // Attention: Keep the export name and element name the same.
 // This will help reducing the code for mapping elements inside
 // createElement and renderElementItems
@@ -43,6 +50,9 @@ export type ElementProps = {
  * @see Text
  */
 export const AssignedTo = createElement<BaseTextElementProps>(ElementName.AssignedTo);
+// For example, this should be replaced with
+// export { default * AssignedTo } from "./assigned-to-element"
+
 /**
  * An AvatarGroup element using the data from AssignedToGroup in the Flexible UI Context.
  * @see AvatarGroup
@@ -83,7 +93,7 @@ export const CommentCount = createElement<BaseBadgeElementProps>(ElementName.Com
  * Creates a CreatedOn DateTime element using the data from CreatedOn in the Flexible UI Context.
  * @see DateTime
  */
-export const CreatedOn = createElement<BaseDateTimeProps>(ElementName.CreatedOn);
+export const CreatedOn = createElement<BaseDateTimeElementProps>(ElementName.CreatedOn);
 /**
  * Creates a CreatedBy text element using the data from CreatedBy in the Flexible UI Context.
  * @see Text
@@ -102,7 +112,7 @@ export const LatestCommit = createElement<BaseBadgeElementProps>(ElementName.Lat
  * Creates a LinkIcon Icon element using the data from LinkIcon in the Flexible UI Context.
  * @see Icon
  */
-export const LinkIcon = createElement<IconElementProps>(ElementName.LinkIcon);
+export const LinkIcon = createElement<BaseIconElementProps>(ElementName.LinkIcon);
 /**
  * Creates a Location Link element.
  * This represents the location or container of the resource.
@@ -118,7 +128,7 @@ export const ModifiedBy = createElement<BaseTextElementProps>(ElementName.Modifi
  * Creates a ModifiedOn DateTime element using the data from ModifiedOn in the Flexible UI Context.
  * @see DateTime
  */
-export const ModifiedOn = createElement<BaseDateTimeProps>(ElementName.ModifiedOn);
+export const ModifiedOn = createElement<BaseDateTimeElementProps>(ElementName.ModifiedOn);
 /**
  * Creates a OwnedBy text element using the data from OwnedBy in the Flexible UI Context.
  * @see Text
@@ -164,7 +174,7 @@ export const ReadTime = createElement<BaseTextElementProps>(ElementName.ReadTime
  * Creates a SentOn DateTime element using the data from SentOn in the Flexible UI Context.
  * @see DateTime
  */
-export const SentOn = createElement<BaseDateTimeProps>(ElementName.SentOn);
+export const SentOn = createElement<BaseDateTimeElementProps>(ElementName.SentOn);
 /**
  * Creates a Snippet element using the data from Snippet in the Flexible UI Context.
  * @see Text
@@ -194,7 +204,7 @@ export const SubTasksProgress = createElement<BaseBadgeElementProps>(ElementName
  * Create a StoryPoints Badge element using the data from storyPoints in the Flexible UI Context.
  * @see AtlaskitBadge
  */
-export const StoryPoints = createElement<AtlaskitBadgeElementProps>(ElementName.StoryPoints);
+export const StoryPoints = createElement<BaseAtlaskitBadgeElementProps>(ElementName.StoryPoints);
 /**
  * Creates a TargetBranch Text element using the data from targetBranch in the Flexible UI Context.
  * @see Text

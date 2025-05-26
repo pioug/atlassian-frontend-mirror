@@ -276,3 +276,11 @@ export default withFeatureFlaggedComponent(
 	BaseBadgeElementRefreshNewWithOverrideCss,
 	() => fg('platform-linking-visual-refresh-v1'),
 );
+
+export const toBadgeProps = (label?: string): Partial<BaseBadgeElementProps> | undefined => {
+	if (fg('platform-linking-flexible-card-elements-refactor')) {
+		// Don't render the element if its 0
+		return label !== '0' && label ? { label } : undefined;
+	}
+	return label ? { label } : undefined;
+};

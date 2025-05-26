@@ -37,6 +37,8 @@ import { INTERNAL_ERROR_CODE } from './errors/internal-errors';
 import { NCS_ERROR_CODE } from './errors/ncs-errors';
 import { NotConnectedError, NotInitializedError } from './errors/custom-errors';
 import type { Metadata, UserPermitType } from '@atlaskit/editor-common/collab';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { bind } from 'bind-event-listener';
 
 const logger = createLogger('Channel', 'green');
 
@@ -54,6 +56,7 @@ export class Channel extends Emitter<ChannelEvent> {
 	private initExperience?: UFOExperience;
 	private token?: string;
 	private network: Network | null = null;
+	private disconnectTimer?: ReturnType<typeof setTimeout>;
 
 	private readonly rateLimitWindowDurationMs: number = 60000;
 	private rateLimitWindowStartMs: number = 0;
@@ -257,6 +260,10 @@ export class Channel extends Emitter<ChannelEvent> {
 		this.reconnectHelper = new ReconnectHelper();
 		// Fired upon a reconnection attempt error (from Socket.IO Manager)
 		this.socket.io.on('reconnect_error', this.onReconnectError);
+
+		// Automatic disconnect on tab background with delay, to keep presence UX accurate
+		// and reduce wasted connections. Reconnects upon tab becoming active again
+		this.addVisiblityListener();
 	}
 
 	// Ignored via go/ees005
@@ -597,8 +604,72 @@ export class Channel extends Emitter<ChannelEvent> {
 		}
 	};
 
+	/**
+	 * Unbinds event listeners and timers used when handling connection auto-close when tab is hidden
+	 */
+	private cleanupAutoDisconnect = () => {
+		this.unbindVisibilityListener();
+		if (this.disconnectTimer) {
+			clearTimeout(this.disconnectTimer);
+			this.disconnectTimer = undefined;
+		}
+	};
+
+	/**
+	 * Cleanup the visiblitychange listener upon Collab Provider destroy
+	 * Value set when the listener is binded in addVisiblityListener
+	 */
+	private unbindVisibilityListener = () => {};
+
+	/**
+	 * Adds an event listener for visibilitychange events to handle auto-disconnection if tab is in background
+	 */
+	private addVisiblityListener() {
+		const disconnectDelay: number =
+			FeatureGates.getExperimentValue(
+				'platform_editor_connection_auto_disconnect_delay',
+				'delay',
+				-1,
+			) ?? -1;
+		const isAutoDisconnectEnabled: boolean = disconnectDelay >= 0;
+
+		if (isAutoDisconnectEnabled && this.config.isPresenceOnly) {
+			this.unbindVisibilityListener = bind(document, {
+				type: 'visibilitychange',
+				listener: () => {
+					this.disconnectTimer = this.autoDisconnect(this.disconnectTimer, disconnectDelay);
+				},
+			});
+		}
+	}
+
+	autoDisconnect = (
+		disconnectTimer: ReturnType<typeof setTimeout> | undefined,
+		disconnectDelay: number,
+	) => {
+		if (document.hidden) {
+			logger('visibilitychange: hidden');
+			return setTimeout(
+				() => {
+					logger('visibilitychange: closing connection');
+					this.socket?.close();
+				},
+				disconnectDelay || disconnectDelay === 0 ? disconnectDelay * 1000 : 60 * 1000,
+			);
+		} else {
+			logger('visibilitychange: visible');
+			if (disconnectTimer) {
+				clearTimeout(disconnectTimer);
+			}
+			logger('visibilitychange: re-connecting');
+			this.socket?.connect();
+			return;
+		}
+	};
+
 	disconnect() {
 		this.unsubscribeAll();
+		this.cleanupAutoDisconnect();
 		this.network?.destroy();
 		this.network = null;
 

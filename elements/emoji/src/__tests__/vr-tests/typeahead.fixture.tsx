@@ -25,6 +25,7 @@ export function StandardEmojiTypeAhead() {
 		<div style={{ padding: '10px' }}>
 			<input
 				id={id}
+				aria-label="Demo Input"
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					height: '20px',
@@ -32,7 +33,6 @@ export function StandardEmojiTypeAhead() {
 					margin: '10px',
 				}}
 			/>
-
 			<EmojiTypeAhead
 				target={`#${id}`}
 				position={position}

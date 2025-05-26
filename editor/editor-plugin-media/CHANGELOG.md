@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 3.0.7
+
+### Patch Changes
+
+- [#159390](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159390)
+  [`cc1d530fb6ed2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc1d530fb6ed2) -
+  [ux] [ED-28074] Fix media selection state and remove css-based targeting
+- Updated dependencies
+
 ## 3.0.6
 
 ### Patch Changes

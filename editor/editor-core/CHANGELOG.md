@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 207.6.1
+
+### Patch Changes
+
+- [#159390](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159390)
+  [`cc1d530fb6ed2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc1d530fb6ed2) -
+  [ux] [ED-28074] Fix media selection state and remove css-based targeting
+- Updated dependencies
+
+## 207.6.0
+
+### Minor Changes
+
+- [#159258](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159258)
+  [`875b7fcf43475`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/875b7fcf43475) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor code mark CSS in
+  static emotion
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.5.0
+
+### Minor Changes
+
+- [#159938](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159938)
+  [`b89d348f570a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b89d348f570a5) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor resizer CSS in
+  static emotion
+
+### Patch Changes
+
+- [#159418](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159418)
+  [`5f1c8497e044e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f1c8497e044e) -
+  [ux] ED-27103 improved method for applying the correct offline banner toolbar position when editor
+  toolbar is either docked to top or contextual
+
 ## 207.4.0
 
 ### Minor Changes

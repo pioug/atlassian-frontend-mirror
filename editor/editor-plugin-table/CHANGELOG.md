@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 10.10.6
+
+### Patch Changes
+
+- [#160340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160340)
+  [`4abcfffdd3620`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4abcfffdd3620) -
+  Re-render TableComponentWithSharedState when `targetCellPosition` changes so that table controls
+  re-renders
+- Updated dependencies
+
 ## 10.10.5
 
 ### Patch Changes

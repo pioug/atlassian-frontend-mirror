@@ -33,6 +33,7 @@ import {
 	ArticleFeedbackText,
 	ArticleFeedbackAnswerWrapper,
 } from './styled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const FEEDBACK_REASON_TEXT_MAX_LENGTH = '16000';
 const ANALYTICS_CONTEXT_DATA = {
@@ -197,7 +198,11 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 						<ArticleFeedbackText paddingRight={token('space.100', '8px')}>
 							{formatMessage(messages.help_article_rating_title)}
 						</ArticleFeedbackText>
-						<ButtonGroup>
+						<ButtonGroup
+							{...(fg('jfp_a11y_fix_sr_accessibility_for_button_group')
+								? { label: formatMessage(messages.help_article_rating_title) }
+								: {})}
+						>
 							{handleArticleWasHelpfulYesButtonClick && (
 								<ArticleWasHelpfulYesButton
 									onClick={handleArticleWasHelpfulYesButtonClick}

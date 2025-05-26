@@ -11,7 +11,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { SmartLinkSize, SmartLinkTheme } from '../../../../../../constants';
+import { SmartLinkInternalTheme, SmartLinkSize, SmartLinkTheme } from '../../../../../../constants';
 import { useMouseDownEvent } from '../../../../../../state/analytics/useLinkClicked';
 import type { ElementProps } from '../../../../components/elements';
 import type { AnchorTarget } from '../../../../components/types';
@@ -204,7 +204,7 @@ export type BaseLinkElementProps = ElementProps & {
 	/**
 	 * The theme of the link. Can be Black, or Link (default blue URL).
 	 */
-	theme?: SmartLinkTheme;
+	theme?: SmartLinkTheme | SmartLinkInternalTheme;
 	/**
 	 * The url that the Smart Link should be based upon.
 	 */
@@ -281,3 +281,10 @@ const BaseLinkElement = ({
 };
 
 export default BaseLinkElement;
+
+export const toLinkProps = (
+	text?: string,
+	url?: string,
+): Partial<BaseLinkElementProps> | undefined => {
+	return text ? { text, url } : undefined;
+};

@@ -171,9 +171,19 @@ export const FullPageEditor = (props: ComponentProps) => {
 	const { editorViewModeState, primaryToolbarState, interactionState } =
 		useFullPageEditorPluginsStates(editorAPI);
 	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
-	const hasHadInteraction = fg('platform_editor_interaction_api_refactor')
-		? interactionState?.interactionState !== 'hasNotHadInteraction'
-		: Boolean(interactionState?.hasHadInteraction);
+
+	// Remove all this logic when platform_editor_interaction_api_refactor is cleaned up
+	let hasHadInteraction: boolean | undefined;
+	if (fg('platform_editor_interaction_api_refactor')) {
+		// Warning: this logic is a cluster-f but `hasHadInteraction` depends on undefined being allowed
+		// in which case no class will be rendered at all. In this way we only set `hasHadInteraction to
+		// boolean when interactionState is not undefined.
+		if (interactionState) {
+			hasHadInteraction = interactionState.interactionState !== 'hasNotHadInteraction';
+		}
+	} else {
+		hasHadInteraction = interactionState?.hasHadInteraction;
+	}
 
 	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking');
 

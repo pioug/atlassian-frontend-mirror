@@ -6,9 +6,6 @@ Atlassians wrapper for the Statsig js-lite client.
 
 `import FeatureGateJsClient from '@atlaskit/feature-gate-js-client';`
 
-Detailed docs and example usage can be found
-[here](https://atlaskit.atlassian.com/packages/measurement/feature-gate-js-client).
-
 ## What is this repository for?
 
 The js-client covers frontend feature gate use cases. This client is modelled around bootstrapping

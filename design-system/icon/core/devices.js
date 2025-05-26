@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2964e1db519faefbac1fd16fc06b650e>>
+ * @codegen <<SignedSource::86996f811d99ced9816a8bb7c5f9ffb2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DevicesIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3.5 2.5A.5.5 0 0 0 3 3v7h5v1.5H1.5v.5a.5.5 0 0 0 .5.5h6V14H2a2 2 0 0 1-2-2v-1.25A.75.75 0 0 1 .75 10h.75V3a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1.5H13V3a.5.5 0 0 0-.5-.5zm6 5.5a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2.5a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5V8a.5.5 0 0 0-.5-.5z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M14.5 8a.5.5 0 0 0-.5-.5h-2.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5zM13 3a.5.5 0 0 0-.5-.5h-9A.5.5 0 0 0 3 3v7h5v1.5H1.5v.5a.5.5 0 0 0 .5.5h6V14H2a2 2 0 0 1-2-2v-1.25l.004-.077A.75.75 0 0 1 .75 10h.75V3a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1.5H13zm3 11a2 2 0 0 1-2 2h-2.5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DevicesIcon.displayName = 'DevicesIcon';

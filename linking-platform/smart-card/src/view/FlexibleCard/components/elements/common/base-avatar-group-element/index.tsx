@@ -191,3 +191,10 @@ const BaseAvatarGroup = ({
 };
 
 export default BaseAvatarGroup;
+
+export const toAvatarGroupProps = (
+	items?: BaseAvatarItemProps[],
+	showFallbackAvatar?: boolean,
+): Partial<BaseAvatarGroupElementProps> | undefined => {
+	return items ? { items } : showFallbackAvatar ? { items: [] } : undefined;
+};

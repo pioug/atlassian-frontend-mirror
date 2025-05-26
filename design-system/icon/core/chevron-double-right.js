@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::efa862c3c428395b18b265911f386760>>
+ * @codegen <<SignedSource::a70faad39a1700c3cb50a44f6bcc1a4e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,6 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ChevronDoubleRight".
  * Category: multi-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: Known uses: Navigate to next year in calendar/date picker
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

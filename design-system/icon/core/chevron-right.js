@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6d99c40083bd8ba17abae11f3e4c84cb>>
+ * @codegen <<SignedSource::dc9b5ca0894f9a89607a0f553a633e25>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,6 +16,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ChevronRight".
  * Category: multi-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.
+Known uses: Next page of pagination results, collapsed tree item, expand tree item
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

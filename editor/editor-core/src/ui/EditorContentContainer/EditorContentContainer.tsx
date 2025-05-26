@@ -10,28 +10,19 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, useTheme } from '@emotion/react';
 
-import { browser } from '@atlaskit/editor-common/browser';
 import { telepointerStyle, telepointerStyleWithInitialOnly } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName, defaultEmojiHeight } from '@atlaskit/editor-common/emoji';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
-import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import {
-	CodeBlockSharedCssClassName,
 	GRID_GUTTER,
-	SmartCardSharedCssClassName,
 	blockMarksSharedStyles,
-	codeBlockInListSafariFix,
-	codeMarkSharedStyles,
 	dateSharedStyle,
-	expandClassNames,
 	getSmartCardSharedStyles,
 	gridStyles,
 	indentationSharedStyles,
 	listsSharedStyles,
 	paragraphSharedStyles,
-	resizerStyles,
-	pragmaticResizerStyles,
 	shadowSharedStyle,
 	smartCardSharedStyles,
 	smartCardStyles,
@@ -68,7 +59,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
-import { codeBlockStyles } from '../ContentStyles/code-block';
 import { dateStyles, dateVanillaStyles } from '../ContentStyles/date';
 import { expandStyles } from '../ContentStyles/expand';
 import { extensionStyles } from '../ContentStyles/extension';
@@ -85,10 +75,18 @@ import {
 import { aiPanelBaseStyles, aiPanelDarkStyles } from './styles/ai-panel';
 import { annotationStyles } from './styles/annotationStyles';
 import { backgroundColorStyles } from './styles/backgroundColorStyles';
+import {
+	codeBlockStyles,
+	firstCodeBlockWithNoMargin,
+	firstCodeBlockWithNoMarginOld,
+} from './styles/codeBlockStyles';
+import { codeMarkStyles } from './styles/codeMarkStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
+import { firstBlockNodeStyles, firstBlockNodeStylesOld } from './styles/firstBlockNodeStyles';
 import { layoutBaseStyles, layoutViewStyles } from './styles/layout';
 import { linkStyles, linkStylesOld } from './styles/link';
 import { mediaStyles } from './styles/mediaStyles';
+import { resizerStyles, pragmaticResizerStyles } from './styles/resizerStyles';
 import { ruleStyles } from './styles/rule';
 
 const vanillaMentionsStyles = css({
@@ -201,12 +199,6 @@ const listsStyles = css`
 				margin-top: ${blockNodesVerticalMargin};
 			}
 		}
-
-		&:not([data-node-type='decisionList']) > li,
-	// This prevents https://product-fabric.atlassian.net/browse/ED-20924
-	&:not(.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER}) > li {
-			${browser.safari ? codeBlockInListSafariFix : ''}
-		}
 	}
 `;
 
@@ -292,53 +284,6 @@ const placeholderWrapStyles = css({
 		whiteSpace: 'nowrap',
 	},
 });
-
-const firstBlockNodeStyles = css`
-	.ProseMirror {
-		> .${PanelSharedCssClassName.prefix},
-			> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER},
-			> .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER},
-			> div[data-task-list-local-id],
-		> div[data-layout-section],
-		> .${expandClassNames.prefix} {
-			&:first-child {
-				margin-top: 0;
-			}
-		}
-
-		> hr:first-of-type {
-			margin-top: 0;
-		}
-	}
-`;
-
-const firstBlockNodeStylesNew = css`
-	.ProseMirror {
-		> .${PanelSharedCssClassName.prefix},
-			> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER},
-			> .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER},
-			> div[data-task-list-local-id],
-		> div[data-layout-section],
-		> .${expandClassNames.prefix} {
-			&:first-child {
-				margin-top: 0;
-			}
-		}
-
-		> hr:first-child,
-		> .ProseMirror-widget:first-child + hr {
-			margin-top: 0;
-		}
-	}
-`;
-
-export const fixBlockControlStylesSSR = () => {
-	if (fg('platform_editor_element_dnd_nested_fix_patch_6')) {
-		return firstBlockNodeStylesNew;
-	}
-
-	return firstBlockNodeStyles;
-};
 
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
@@ -467,11 +412,11 @@ const contentStyles = () => css`
 		? placeholderWrapStyles
 		: null}
 
-  ${codeBlockStyles()}
+  ${codeBlockStyles}
 
   ${blocktypeStyles()}
 
-  ${codeMarkSharedStyles()}
+  ${codeMarkStyles}
 
   ${textColorStyles}
 
@@ -556,10 +501,6 @@ const contentStyles = () => css`
   ${unsupportedStyles}
 
   ${resizerStyles}
-
-  ${pragmaticResizerStyles()}
-
-  ${fixBlockControlStylesSSR()}
 
   .panelView-content-wrap {
 		box-sizing: border-box;
@@ -716,6 +657,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_hyperlink_underline') ? linkStyles : linkStylesOld,
+					editorExperiment('platform_editor_breakout_resizing', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticResizerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					aiPanelBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -725,6 +669,16 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					isComment && commentEditorStyles,
 					isFullPage && fullPageEditorStyles,
 					fg('platform_editor_ssr_fix_lists') && listLayoutShiftFix,
+					fg('platform_editor_nested_dnd_styles_changes')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							firstCodeBlockWithNoMargin
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							firstCodeBlockWithNoMarginOld,
+					fg('platform_editor_element_dnd_nested_fix_patch_6')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							firstBlockNodeStyles
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							firstBlockNodeStylesOld,
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}
 				data-testid="editor-content-container"

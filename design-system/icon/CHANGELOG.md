@@ -1,5 +1,47 @@
 # @atlaskit/icon
 
+## 26.2.0
+
+### Minor Changes
+
+- [#160457](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160457)
+  [`9b2c186eb964f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b2c186eb964f) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `attachment`
+  - `check-circle`
+  - `chevron-right`
+  - `clock`
+  - `defect`
+  - `devices`
+  - `exclamation-square`
+  - `list-checklist`
+  - `minus-square`
+  - `pen`
+  - `pin-filled`
+  - `pin`
+  - `plus-square`
+  - `priority-blocker`
+  - `priority-critical`
+  - `priority-high`
+  - `priority-highest`
+  - `priority-low`
+  - `priority-lowest`
+  - `priority-major`
+  - `priority-medium`
+  - `priority-minor`
+  - `priority-trivial`
+  - `problem`
+  - `story`
+  - `subtasks`
+  - `tools`
+  - `work-item`
+  - `work-items`
+
 ## 26.1.1
 
 ### Patch Changes

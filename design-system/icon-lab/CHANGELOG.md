@@ -1,5 +1,40 @@
 # @atlaskit/icon-lab
 
+## 4.15.0
+
+### Minor Changes
+
+- [#160457](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160457)
+  [`9b2c186eb964f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b2c186eb964f) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `initiative`
+  - `space`
+  - `speedometer-up`
+  - `work-item-add`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.14.0
+
+### Minor Changes
+
+- [#158911](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158911)
+  [`1f9bc8b04ac0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f9bc8b04ac0a) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `spaces`
+
 ## 4.13.0
 
 ### Minor Changes

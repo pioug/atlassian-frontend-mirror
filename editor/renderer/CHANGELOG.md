@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 118.3.0
+
+### Minor Changes
+
+- [#160422](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160422)
+  [`83606959c73cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83606959c73cd) -
+  EDITOR-719 Overrides adf validation of nested tables for nested renderers inside bodied extensions
+  and reverts a previous change to transformNestedTablesIncomingDocument which prevented nested
+  tables inside bodied extensions from being transformed by their parent renderer. This was due to a
+  bug with comment positions of nested tables inside bodied extensions which meant their positions
+  were not being calculated correctly due to not being transformed in the parent renderer.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 118.2.2
+
+### Patch Changes
+
+- [#160385](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160385)
+  [`48d95956a007a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48d95956a007a) -
+  EDITOR-788 - Renderer comment creation process is broken
+- Updated dependencies
+
 ## 118.2.1
 
 ### Patch Changes

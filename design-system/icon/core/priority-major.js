@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::343e44709f6a682c0d72b738b09d8ee9>>
+ * @codegen <<SignedSource::021a5f6eb4669c508f33a5d268dcf27b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PriorityMajorIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="m7.587 10.124-5.5 3.624.826 1.253L8 11.648l5.087 3.353.826-1.252-5.5-3.626a.75.75 0 0 0-.826 0m0-4.5-5.5 3.625.826 1.252L8 7.148l5.087 3.353.826-1.252-5.5-3.625a.75.75 0 0 0-.826 0m0-4.5-5.5 3.625L2.913 6 8 2.648l5.087 3.353.826-1.252-5.5-3.625a.75.75 0 0 0-.826 0" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="m13.913 4.75-5.5-3.626a.75.75 0 0 0-.826 0l-5.5 3.625.826 1.252L8 2.65 13.087 6zm0 4.5-5.5-3.626a.75.75 0 0 0-.826 0l-5.5 3.625.826 1.252L8 7.15l5.087 3.352zm0 4.5-5.5-3.626a.75.75 0 0 0-.826 0l-5.5 3.625.826 1.252L8 11.65 13.087 15z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PriorityMajorIcon.displayName = 'PriorityMajorIcon';

@@ -58,11 +58,11 @@ import {
 } from './components/elements';
 import {
 	type BaseBadgeElementProps,
-	type BaseDateTimeProps,
+	type BaseDateTimeElementProps,
+	type BaseIconElementProps,
 	type BaseLinkElementProps,
 	type BaseTextElementProps,
 } from './components/elements/common';
-import { type IconElementProps } from './components/elements/icon-element';
 import { PreviewElementProps } from './components/elements/preview-element';
 
 // ---- EXPORTED METADATA COMPONENT ---- //
@@ -86,7 +86,7 @@ export const CreatedByElement = () => <CreatedBy />;
 export const DueOnElement = () => <DueOn />;
 export const LatestCommitElement = () => <LatestCommit />;
 
-type LinkIconElementProps = Pick<IconElementProps, 'render'> & {
+type LinkIconElementProps = Pick<BaseIconElementProps, 'render'> & {
 	iconTileSize?: 16 | 24;
 };
 export const LinkIconElement = (props?: LinkIconElementProps) => {
@@ -104,7 +104,7 @@ export const LinkIconElement = (props?: LinkIconElementProps) => {
 export const LocationElement = () => <Location />;
 export const ModifiedByElement = () => <ModifiedBy />;
 
-type ModifiedOnElementProps = Pick<BaseDateTimeProps, 'hideDatePrefix' | 'color'>;
+type ModifiedOnElementProps = Pick<BaseDateTimeElementProps, 'hideDatePrefix' | 'color'>;
 export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <ModifiedOn hideDatePrefix={props?.hideDatePrefix} color={props?.color} />;

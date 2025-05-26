@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::08ca1ed4ad1b6c1d3e6619e8ae53230d>>
+ * @codegen <<SignedSource::5ad25e5579edcb4b3f1a3c3cfaa493c9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -753,12 +753,12 @@ const Icons = [
 	SidebarLeftIcon,
 	SidebarRightIcon,
 	SummarizeIcon,
-	ChevronUpIcon,
-	ChevronRightIcon,
-	ChevronDownIcon,
-	ChevronLeftIcon,
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
+	ChevronDownIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	ChevronUpIcon,
 ];
 
 const groupSize = 20;

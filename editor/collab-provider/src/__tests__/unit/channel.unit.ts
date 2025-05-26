@@ -8,6 +8,10 @@ jest.mock('@atlaskit/util-service-support', () => {
 	};
 });
 
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	getExperimentValue: jest.fn(),
+}));
+
 import { utils } from '@atlaskit/util-service-support';
 import { Channel } from '../../channel';
 import type {
@@ -31,6 +35,7 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import Network from '../../connectivity/network';
 import type { InternalError } from '../../errors/internal-errors';
 import { NotConnectedError, NotInitializedError } from '../../errors/custom-errors';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 const expectValidChannel = (channel: Channel): void => {
 	expect(channel).toBeDefined();
@@ -68,6 +73,10 @@ const testChannelConfig: Config = {
 	documentAri: fakeDocumentAri,
 	createSocket: createSocketIOSocket,
 	analyticsClient: fakeAnalyticsWebClient,
+};
+const testPresenceChannelConfig: Config = {
+	...testChannelConfig,
+	isPresenceOnly: true,
 };
 
 const GET_CHANNEL_ASSERTION_COUNT = 4;
@@ -1113,6 +1122,74 @@ describe('Channel unit tests', () => {
 				// @ts-ignore
 				expect(channel.network).toBeNull();
 			});
+		});
+	});
+
+	describe('Auto-disconnect on visibilitychange for Presence', () => {
+		let originalHidden: PropertyDescriptor | undefined;
+
+		beforeEach(() => {
+			jest.useFakeTimers({ legacyFakeTimers: true });
+			originalHidden = Object.getOwnPropertyDescriptor(document, 'hidden');
+		});
+
+		afterEach(() => {
+			if (originalHidden) {
+				Object.defineProperty(document, 'hidden', originalHidden);
+			}
+			jest.runOnlyPendingTimers();
+			jest.useRealTimers();
+		});
+
+		it.each([0, 1, 30, 60])(
+			'Should close websocket connection after %s second delay when tab backgrounded',
+			(disconnectDelay) => {
+				Object.defineProperty(document, 'hidden', {
+					configurable: true,
+					get: () => true,
+				});
+				(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(disconnectDelay);
+
+				const channel = getChannel(testPresenceChannelConfig);
+				jest.spyOn(channel, 'autoDisconnect');
+
+				channel.getSocket()!.emit('connect');
+				expect(channel.getConnected()).toBe(true);
+
+				window.document.dispatchEvent(new Event('visibilitychange'));
+
+				expect(channel.autoDisconnect).toHaveBeenCalled();
+				jest.advanceTimersByTime(disconnectDelay * 1000);
+
+				expect(channel.getSocket()?.connect).toHaveBeenCalledTimes(0);
+				expect(channel.getSocket()?.close).toHaveBeenCalledTimes(1);
+			},
+		);
+
+		it('Should reconnect after visibilitychange', () => {
+			Object.defineProperty(document, 'hidden', {
+				configurable: true,
+				get: () => true,
+			});
+			const disconnectDelay = 1;
+			(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(disconnectDelay);
+
+			const channel = getChannel(testPresenceChannelConfig);
+			jest.spyOn(channel, 'autoDisconnect');
+
+			channel.getSocket()!.emit('connect');
+			window.document.dispatchEvent(new Event('visibilitychange'));
+
+			jest.advanceTimersByTime(disconnectDelay * 1000);
+			expect(channel.getSocket()?.close).toHaveBeenCalledTimes(1);
+
+			Object.defineProperty(document, 'hidden', {
+				configurable: true,
+				get: () => false,
+			});
+			window.document.dispatchEvent(new Event('visibilitychange'));
+
+			expect(channel.getSocket()?.connect).toHaveBeenCalledTimes(1);
 		});
 	});
 });

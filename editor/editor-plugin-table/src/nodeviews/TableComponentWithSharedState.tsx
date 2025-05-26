@@ -52,6 +52,8 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 		const hoveredRows = useInternalTablePluginStateSelector(api, 'hoveredRows');
 		const isTableHovered = useInternalTablePluginStateSelector(api, 'isTableHovered');
 		const isWholeTableInDanger = useInternalTablePluginStateSelector(api, 'isWholeTableInDanger');
+		// Required so that table controls re-renders
+		useInternalTablePluginStateSelector(api, 'targetCellPosition');
 
 		// mediaState
 		const isFullscreen = useSharedPluginStateSelector(api, 'media.isFullscreen');

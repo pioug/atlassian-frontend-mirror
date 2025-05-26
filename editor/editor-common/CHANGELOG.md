@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 105.9.0
+
+### Minor Changes
+
+- [#160422](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160422)
+  [`83606959c73cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83606959c73cd) -
+  EDITOR-719 Overrides adf validation of nested tables for nested renderers inside bodied extensions
+  and reverts a previous change to transformNestedTablesIncomingDocument which prevented nested
+  tables inside bodied extensions from being transformed by their parent renderer. This was due to a
+  bug with comment positions of nested tables inside bodied extensions which meant their positions
+  were not being calculated correctly due to not being transformed in the parent renderer.
+
+### Patch Changes
+
+- [#159390](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159390)
+  [`cc1d530fb6ed2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc1d530fb6ed2) -
+  [ux] [ED-28074] Fix media selection state and remove css-based targeting
+- Updated dependencies
+
 ## 105.8.5
 
 ### Patch Changes

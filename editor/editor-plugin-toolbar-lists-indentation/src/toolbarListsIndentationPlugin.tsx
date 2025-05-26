@@ -135,6 +135,8 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 		);
 		const indentDisabled = useSharedPluginStateSelector(api, 'indentation.indentDisabled');
 		const outdentDisabled = useSharedPluginStateSelector(api, 'indentation.outdentDisabled');
+		// decorationSet is required to re-render PrimaryToolbarComponent component, so that the toolbar states updates regularly
+		useSharedPluginStateSelector(api, 'list.decorationSet');
 		return {
 			bulletListActive,
 			bulletListDisabled,

@@ -1,6 +1,6 @@
 import { type ComponentType, type PropsWithChildren, type Ref } from 'react';
 
-import { StrictXCSSProp } from '@atlaskit/css';
+import { type StrictXCSSProp } from '@atlaskit/css';
 
 import type { SpacingMode } from './internal/components/menu-context';
 

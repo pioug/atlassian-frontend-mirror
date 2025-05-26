@@ -63,6 +63,7 @@ export interface ValidatorSpecAttrs {
 
 export interface ValidatorSpec {
 	props?: {
+		type?: { type: 'enum'; values: Array<string> };
 		attrs?: ValidatorSpecAttrs;
 		content?: ValidatorContent;
 		text?: AttributesSpec;
@@ -87,7 +88,9 @@ export interface ValidationErrorMap {
 	REDUNDANT_MARKS: { marks: Array<string> };
 	INVALID_TYPE: never;
 	INVALID_TEXT: never;
-	INVALID_CONTENT: never;
+	INVALID_CONTENT: {
+		parentType?: string;
+	};
 	INVALID_CONTENT_LENGTH: {
 		length: number;
 		requiredLength: number;
@@ -143,6 +146,7 @@ export interface ErrorCallbackOptions {
 	isMark?: any;
 	allowUnsupportedBlock?: boolean;
 	allowUnsupportedInline?: boolean;
+	allowNestedTables?: boolean;
 }
 
 export type Validate = (

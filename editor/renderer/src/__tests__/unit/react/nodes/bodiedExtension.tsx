@@ -14,6 +14,9 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import Loadable from 'react-loadable';
 import { act } from 'react-dom/test-utils';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { render, screen } from '@testing-library/react';
+import { adfNestedTableData } from '../../../__fixtures__/nested-tables';
 
 describe('Renderer - React/Nodes/BodiedExtension', () => {
 	const providerFactory = ProviderFactory.create({});
@@ -329,5 +332,82 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 
 			extension.unmount();
 		});
+	});
+
+	describe('bodiedExtension nested renderer validation', () => {
+		const testRendererContext = { ...rendererContext, adDoc: adfNestedTableData };
+		ffTest.on(
+			'platform_editor_nested_table_extension_comment_fix',
+			'nested tables in nested renderers fix is enabled',
+			() => {
+				it('should allow nested tables in nested renderers', () => {
+					const providerFactory = ProviderFactory.create({});
+					const extensionHandlers: ExtensionHandlers = {
+						'fake.confluence': (ext) => {
+							return (
+								<ReactRenderer
+									adfStage="stage0"
+									document={{ type: 'doc', version: 1, content: ext.content as any }}
+									allowAnnotations={false}
+									useSpecBasedValidator
+								/>
+							);
+						},
+					};
+					render(
+						<BodiedExtension
+							providers={providerFactory}
+							serializer={serializer}
+							extensionHandlers={extensionHandlers}
+							rendererContext={testRendererContext}
+							extensionType="fake.confluence"
+							extensionKey="expand"
+							content={adfNestedTableData.content}
+							localId="c145e554-f571-4208-a0f1-2170e1987722"
+							startPos={1}
+						/>,
+					);
+					expect(screen.getAllByRole('table')).toHaveLength(2);
+				});
+			},
+		);
+		ffTest.off(
+			'platform_editor_nested_table_extension_comment_fix',
+			'nested tables in nested renderers fix is enabled',
+			() => {
+				it('should not allow nested tables in nested renderers', async () => {
+					const providerFactory = ProviderFactory.create({});
+					const extensionHandlers: ExtensionHandlers = {
+						'fake.confluence': (ext) => {
+							return (
+								<ReactRenderer
+									adfStage="stage0"
+									document={{ type: 'doc', version: 1, content: ext.content as any }}
+									allowAnnotations={false}
+									useSpecBasedValidator
+								/>
+							);
+						},
+					};
+					render(
+						<BodiedExtension
+							providers={providerFactory}
+							serializer={serializer}
+							extensionHandlers={extensionHandlers}
+							rendererContext={testRendererContext}
+							extensionType="fake.confluence"
+							extensionKey="expand"
+							content={adfNestedTableData.content}
+							localId="c145e554-f571-4208-a0f1-2170e1987722"
+							startPos={1}
+						/>,
+					);
+					expect(screen.getAllByRole('table')).toHaveLength(1);
+					expect(
+						screen.getByText('This editor does not support displaying this content: table'),
+					).toBeInTheDocument();
+				});
+			},
+		);
 	});
 });

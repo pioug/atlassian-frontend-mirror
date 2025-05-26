@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::384cf900fa5e1e265919ad6f422b5c61>>
+ * @codegen <<SignedSource::186cfd732e4641b5fdb3f2d7a456f10c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,6 +16,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ChevronUp".
  * Category: multi-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.
+Known uses: Close dropdown menu
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

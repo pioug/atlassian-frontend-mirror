@@ -106,6 +106,9 @@
 	"platform-feature-flags": {
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
+		},
+		"jfp_a11y_fix_sr_accessibility_for_button_group": {
+			"type": "boolean"
 		}
 	}
 }

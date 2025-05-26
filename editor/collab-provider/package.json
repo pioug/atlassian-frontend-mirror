@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "10.15.0",
+	"version": "10.16.0",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,6 +52,7 @@
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
 		"@babel/runtime": "^7.0.0",
+		"bind-event-listener": "^3.0.0",
 		"eventemitter2": "^4.1.0",
 		"lodash": "^4.17.21",
 		"prosemirror-changeset": "^2.2.1",

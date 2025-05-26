@@ -61,7 +61,7 @@ const typeToDescriptorMap: Record<DateTimeType, Record<DateTypeVariation, Messag
 	},
 };
 
-export type BaseDateTimeProps = ElementProps & {
+export type BaseDateTimeElementProps = ElementProps & {
 	/**
 	 * Whether the date time element text should contain "Modified" or "Created" or "sent"
 	 */
@@ -87,7 +87,7 @@ export type BaseDateTimeProps = ElementProps & {
 /**
  * A base element that displays an ISO Timestamp in text.
  * @internal
- * @param {BaseDateTimeProps} BaseDateTimeProps - The props necessary for the DateTime element.
+ * @param {BaseDateTimeElementProps} BaseDateTimeElementProps - The props necessary for the DateTime element.
  * @see CreatedOn
  * @see ModifiedOn
  * @see SentOn
@@ -101,7 +101,7 @@ const BaseDateTimeElement = ({
 	text,
 	hideDatePrefix = false,
 	color,
-}: BaseDateTimeProps) => {
+}: BaseDateTimeElementProps) => {
 	const { formatRelativeTime, formatDate } = useIntl();
 	if (!type || !date) {
 		return null;
@@ -156,3 +156,10 @@ const BaseDateTimeElement = ({
 };
 
 export default BaseDateTimeElement;
+
+export const toDateTimeProps = (
+	type: 'created' | 'modified' | 'sent',
+	dateString?: string,
+): Partial<BaseDateTimeElementProps> | undefined => {
+	return dateString ? { date: new Date(dateString), type } : undefined;
+};

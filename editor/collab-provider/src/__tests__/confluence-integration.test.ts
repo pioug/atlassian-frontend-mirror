@@ -1,3 +1,7 @@
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	getExperimentValue: jest.fn(),
+}));
+
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -11,9 +15,11 @@ import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-s
 import SocketIOClient from 'socket.io-client';
 import type { Provider } from '../provider';
 import { mockIo } from './jest_mocks/socket.io-client.mock';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 describe('Collab Provider Integration Tests - Confluence', () => {
 	let provider: Provider;
+	let presenceOnlyProvider: Provider;
 	const documentAri = 'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230';
 	const collabProviderUrl = 'http://localhost/ccollab'; // Not important but preparing this for a good E2E test
 	const getUserMock = jest.fn().mockReturnValue('test-user');
@@ -36,6 +42,10 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 		},
 		permissionTokenRefresh: permissionTokenRefreshMock,
 	};
+	const providerWithPresenceOnlyConfig: Omit<Config, 'createSocket'> = {
+		...providerConfig,
+		isPresenceOnly: true,
+	};
 
 	// Create fake EditorState with Collab Plugin
 	const editorState = createEditorState(
@@ -47,6 +57,9 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 	beforeEach(() => {
 		provider = createSocketIOCollabProvider(providerConfig);
 		provider.on('error', () => {}); // Noop error handler so the mock throwing errors doesn't cause issues
+
+		presenceOnlyProvider = createSocketIOCollabProvider(providerWithPresenceOnlyConfig);
+		presenceOnlyProvider.on('error', () => {});
 
 		// Mock out the Socket IO client
 		// @ts-expect-error this is some weird mocking type stuff
@@ -703,6 +716,50 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
 			// The namespace should remain unlocked
 			expect(provider.getIsNamespaceLocked()).toBe(false);
+		});
+	});
+
+	describe('auto disconnect', () => {
+		let originalHidden: PropertyDescriptor | undefined;
+
+		beforeEach(() => {
+			originalHidden = Object.getOwnPropertyDescriptor(document, 'hidden');
+		});
+
+		afterEach(() => {
+			if (originalHidden) {
+				Object.defineProperty(document, 'hidden', originalHidden);
+			}
+		});
+
+		it('should setup event listener and trigger auto disconnect if presence only', () => {
+			(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(1);
+			Object.defineProperty(document, 'hidden', {
+				configurable: true,
+				get: () => true,
+			});
+			// @ts-ignore accessing private method for testing purposes
+			const autoDisconnectSpy = jest.spyOn(provider.channel, 'autoDisconnect');
+			// @ts-ignore accessing private method for testing purposes
+			const autoDisconnectPresenceSpy = jest.spyOn(presenceOnlyProvider.channel, 'autoDisconnect');
+
+			provider.initialize(getStateMock);
+			presenceOnlyProvider.initialize(getStateMock);
+
+			window.document.dispatchEvent(new Event('visibilitychange'));
+
+			expect(autoDisconnectSpy).toHaveBeenCalledTimes(0);
+			expect(autoDisconnectPresenceSpy).toHaveBeenCalledTimes(1);
+		});
+
+		it('should cleanup event listener on provider destroy', () => {
+			// @ts-ignore accessing private method for testing purposes
+			const unbindVisibilityListenerSpy = jest.spyOn(provider.channel, 'unbindVisibilityListener');
+
+			provider.initialize(getStateMock);
+			provider.destroy();
+
+			expect(unbindVisibilityListenerSpy).toHaveBeenCalledTimes(1);
 		});
 	});
 });

@@ -53,7 +53,9 @@ export const PageVisibilityWatcher = ({
 			}
 		};
 
-		refreshPrefrerence();
+		if (!fg('platform_disable_docking_preference_request')) {
+			refreshPrefrerence();
+		}
 
 		return bind(document, {
 			type: 'visibilitychange',

@@ -31,6 +31,7 @@ interface Props {
 	searchTerm?: string;
 	items: QuickInsertItem[];
 	selectedItemIndex?: number;
+	ariaControlsId?: string;
 }
 
 function ElementSearch({
@@ -43,6 +44,7 @@ function ElementSearch({
 	searchTerm,
 	items,
 	selectedItemIndex,
+	ariaControlsId,
 }: Props & WrappedComponentProps): JSX.Element {
 	const ref = useFocus(focus);
 	const assistiveTextRef = useRef<HTMLDivElement>(null);
@@ -134,6 +136,8 @@ function ElementSearch({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="js-search-input"
 				role="combobox"
+				aria-expanded="true"
+				aria-controls={ariaControlsId}
 				aria-activedescendant={ariaActiveDescendant}
 				value={searchTerm}
 			/>

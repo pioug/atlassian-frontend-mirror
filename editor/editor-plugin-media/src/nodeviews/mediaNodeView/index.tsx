@@ -21,9 +21,11 @@ import type {
 	EditorContainerWidth as WidthPluginState,
 } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { SharedInteractionState } from '@atlaskit/editor-plugin-interaction';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
@@ -38,6 +40,7 @@ import MediaNode from './media';
 interface MediaNodeWithPluginStateComponentProps {
 	width?: WidthPluginState;
 	mediaProvider?: Promise<MediaProvider>;
+	interactionState?: SharedInteractionState['interactionState'];
 }
 
 interface MediaNodeWithProvidersProps {
@@ -67,9 +70,14 @@ const MediaNodeWithProviders = ({
 	innerComponent,
 }: MediaNodeWithProvidersProps) => {
 	const { mediaProvider, widthState } = useSharedState(pluginInjectionApi);
+	const interactionState = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'interaction.interactionState',
+	);
 	return innerComponent({
 		width: widthState, // Remove when platform_editor_usesharedpluginstateselector is cleaned up
 		mediaProvider: mediaProvider ? Promise.resolve(mediaProvider) : undefined,
+		interactionState,
 	});
 };
 
@@ -154,7 +162,11 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 	};
 
 	renderMediaNodeWithState = (contextIdentifierProvider?: Promise<ContextIdentifierProvider>) => {
-		return ({ width: editorWidth, mediaProvider }: MediaNodeWithPluginStateComponentProps) => {
+		return ({
+			width: editorWidth,
+			mediaProvider,
+			interactionState,
+		}: MediaNodeWithPluginStateComponentProps) => {
 			const getPos = this.getPos as getPosHandlerNode;
 			const { mediaOptions } = this.reactComponentProps;
 
@@ -184,12 +196,17 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 				height,
 			};
 
+			const isSelectedAndInteracted =
+				this.nodeInsideSelection() &&
+				(!fg('platform_editor_interaction_api_refactor') ||
+					interactionState !== 'hasNotHadInteraction');
+
 			return (
 				<MediaNode
 					view={this.view}
 					node={this.node}
 					getPos={getPos}
-					selected={this.nodeInsideSelection()}
+					selected={isSelectedAndInteracted}
 					originalDimensions={originalDimensions}
 					maxDimensions={maxDimensions}
 					url={url}

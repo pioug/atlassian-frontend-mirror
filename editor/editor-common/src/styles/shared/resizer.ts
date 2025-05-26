@@ -205,6 +205,7 @@ export const resizerStyles = css`
 		}
 	}
 
+	// Remove when cleaning up platform_editor_interaction_api_refactor
 	.ak-editor-no-interaction
 		.${akEditorSelectedNodeClassName}
 		.${resizerHandleClassName}:not(:hover)

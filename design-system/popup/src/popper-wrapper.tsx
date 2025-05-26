@@ -84,6 +84,7 @@ const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((p
 		children,
 		appearance,
 		className,
+		isReferenceHidden,
 		...htmlAttributes
 	} = props;
 
@@ -189,7 +190,7 @@ function PopperWrapper({
 			strategy={strategy}
 			shouldFitViewport={shouldFitViewport}
 		>
-			{({ ref, style, placement, update }) => {
+			{({ ref, style, placement, update, isReferenceHidden }) => {
 				const popupContainer = (
 					<PopupContainer
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -226,6 +227,7 @@ function PopperWrapper({
 						tabIndex={autoFocus ? 0 : undefined}
 						shouldRenderToParent={shouldRenderToParent}
 						shouldFitContainer={shouldFitContainer}
+						isReferenceHidden={isReferenceHidden}
 					>
 						<RepositionOnUpdate update={update}>
 							{content({

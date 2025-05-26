@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.6.6
+
+### Patch Changes
+
+- [#159043](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159043)
+  [`686cfbea13d47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/686cfbea13d47) -
+  ED-28050 [Performance] Disable unnecessary docking preference request on PageVisibilityWatcher
+- Updated dependencies
+
 ## 3.6.5
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 4.25.0
+
+### Minor Changes
+
+- [#159149](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159149)
+  [`ba8a35f91cb65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba8a35f91cb65) -
+  [ux] EDITOR-717: Implement MVP of in-editor AI response streaming. This is behind the
+  editor_ai_in_editor_streaming Statsig experiment.
+
 ## 4.24.0
 
 ### Minor Changes

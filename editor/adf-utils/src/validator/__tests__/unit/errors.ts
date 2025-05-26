@@ -120,4 +120,30 @@ describe('Validator Errors', () => {
 			code: 'INVALID_TYPE',
 		});
 	});
+
+	it('INVALID_CONTENT - should include parent node type', async () => {
+		const error = await validateAndGetError({
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'hello' }],
+						},
+					],
+				},
+			],
+		});
+
+		expect(error).toMatchObject({
+			code: 'INVALID_CONTENT',
+			meta: {
+				parentType: 'doc',
+			},
+		});
+	});
 });

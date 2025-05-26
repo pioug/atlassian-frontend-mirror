@@ -2,14 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useContext } from 'react';
-
 import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { FlexibleUiContext, useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { BaseTextElement, type BaseTextElementProps } from '../common';
 
 const SNIPPET_DEFAULT_MAX_LINES = 3;
@@ -41,11 +39,7 @@ const SnippetElement = (props: SnippetElementProps) => {
 		className,
 		...restOfProps
 	} = props ?? {};
-	const context = fg('platform-linking-flexible-card-context')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useFlexibleUiContext()
-		: // eslint-disable-next-line react-hooks/rules-of-hooks
-			useContext(FlexibleUiContext);
+	const context = useFlexibleUiContext();
 
 	return (
 		<BaseTextElement

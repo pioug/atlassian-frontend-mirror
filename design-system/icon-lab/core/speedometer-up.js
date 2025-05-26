@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::22d7526bb5b6d232a23996d0b4f5f20e>>
+ * @codegen <<SignedSource::46461c1b0089b14b6e22594456113822>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -21,7 +21,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SpeedometerUpIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" d="M5.25 3.11a6.5 6.5 0 0 0-1.732 10.597l-1.036 1.086A8.004 8.004 0 0 1 5.25 1.484zm5.5-1.626a8.004 8.004 0 0 1 2.768 13.309l-1.036-1.086A6.5 6.5 0 0 0 10.75 3.109zM8 1q.38 0 .75.035v6.08A2.501 2.501 0 0 1 8 12a2.5 2.5 0 0 1-.75-4.886V1.035Q7.62 1 8 1m0 7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M1.5 9a6.5 6.5 0 0 1 3.75-5.891V1.485a8.003 8.003 0 0 0-2.767 13.308l1.034-1.086A6.48 6.48 0 0 1 1.5 9"/><path fill="currentcolor" fill-rule="evenodd" d="M8.75 1.035v6.08a2.501 2.501 0 1 1-1.5 0v-6.08a8 8 0 0 1 1.5 0M7 9.5a1 1 0 1 1 2 0 1 1 0 0 1-2 0" clip-rule="evenodd"/><path fill="currentcolor" d="M10.75 1.485V3.11a6.5 6.5 0 0 1 1.733 10.598l1.034 1.086A8.003 8.003 0 0 0 10.75 1.485"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SpeedometerUpIcon.displayName = 'SpeedometerUpIcon';

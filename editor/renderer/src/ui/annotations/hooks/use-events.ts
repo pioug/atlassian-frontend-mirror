@@ -177,6 +177,11 @@ type AnnotationsWithClickTarget = Pick<
 	'annotations' | 'clickElementTarget'
 > | null;
 
+const NO_ANNOTATION_SELECTED = {
+	annotations: [] as InlineCommentViewComponentProps['annotations'],
+	clickElementTarget: undefined,
+} as const;
+
 export const useAnnotationClickEvent = (
 	props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent' | 'isNestedRender'>,
 ): AnnotationsWithClickTarget => {
@@ -196,10 +201,10 @@ export const useAnnotationClickEvent = (
 					],
 					clickElementTarget: currentSelectedMarkRef,
 				}
-			: {
-					annotations: [],
-					clickElementTarget: undefined,
-				};
+			: // This is a constant to represent the case when no annotation is selected.
+				// When creating a new annotation, currentSelectedAnnotationId and currentSelectedMarkRef will be set one after another,
+				// if this isn't a const, it will cause useMemo to return two different "empty" objects and causes infinite re-renders.
+				NO_ANNOTATION_SELECTED;
 	}, [currentSelectedAnnotationId, currentSelectedMarkRef]);
 
 	useLayoutEffect(() => {

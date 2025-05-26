@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugins
 
+## 8.5.28
+
+### Patch Changes
+
+- [#159390](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159390)
+  [`cc1d530fb6ed2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc1d530fb6ed2) -
+  [ux] [ED-28074] Fix media selection state and remove css-based targeting
+- Updated dependencies
+
+## 8.5.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.26
 
 ### Patch Changes

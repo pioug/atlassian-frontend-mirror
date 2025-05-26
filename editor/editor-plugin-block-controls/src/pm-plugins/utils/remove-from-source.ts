@@ -22,13 +22,22 @@ export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: numbe
 		return tr;
 	}
 
-	if (isLayoutColumn) {
+	/**
+	 * This logic is used to handle the case when a user tries to delete a layout column
+	 * that contains only 2 child node, and single column layouts are not enabled.
+	 * In this case, we delete the layout column and replace it with its content.
+	 */
+	if (isLayoutColumn && !editorExperiment('single_column_layouts', true)) {
 		const sourceParent = $from.parent;
+
 		if (sourceParent.childCount === MIN_LAYOUT_COLUMN) {
+			// Only delete the layout content, but keep the layout column itself
+			// This logic should be remove when we clean up the code for single column layouts.
+			// since this step has no effect on the layout column, because the parent node is removed in the later step.
 			tr.delete($from.pos + 1, sourceNodeEndPos - 1);
 
-			// Currently, we assume that the MIN_LAYOUT_COLUMN is set to 2.
-			// This value may require an update when we introduce support for a single-column layout.
+			// This check should be remove when clean up the code for single column layouts.
+			// since it has been checked in the previous step.
 			if (sourceParent.childCount === 2) {
 				const layoutContentFragment =
 					$from.parentOffset === 0

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::73c63d2f299dfa1c3f4f2deb74ad8fd5>>
+ * @codegen <<SignedSource::35e11ccb97e0d586e61a9d73f9190646>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,6 +19,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  *
  * Category: multi-purpose
  * Location: @atlaskit/icon
+ * Usage guidance: Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.
+Known uses: Navigate back, show previous page of pagination results
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

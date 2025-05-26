@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+import { MessageDescriptor } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -117,3 +118,17 @@ export const BaseTextElement = ({
 };
 
 export default BaseTextElement;
+
+export const toFormattedTextProps = (
+	descriptor: MessageDescriptor,
+	context?: string,
+): Partial<BaseTextElementProps> | undefined => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return context ? { message: { descriptor, values: { context } }, content: context } : undefined;
+	}
+	return context ? { message: { descriptor, values: { context } } } : undefined;
+};
+
+export const toTextProps = (content?: string): Partial<BaseTextElementProps> | undefined => {
+	return content ? { content } : undefined;
+};

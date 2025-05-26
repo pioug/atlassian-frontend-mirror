@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.0
+
+### Minor Changes
+
+- [#159884](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159884)
+  [`3acc7898e70eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3acc7898e70eb) -
+  ED-27222 update drag layout column behaviour
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.14.2
 
 ### Patch Changes

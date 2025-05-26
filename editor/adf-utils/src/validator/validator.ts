@@ -308,6 +308,7 @@ const invalidChildContent = (
 			{
 				code: 'INVALID_CONTENT',
 				message,
+				meta: { parentType: parentSpec?.props?.type?.values[0] },
 			},
 			getUnsupportedOptions(parentSpec),
 		);
@@ -956,7 +957,11 @@ export function validator(
 		const [, missingProps] = partitionObject(validatorSpec.props, (k, v) => {
 			// if the validator is an array, then check
 			// if the `required` field contains the key.
-			const isOptional = Array.isArray(v) ? !validatorSpec.required?.includes(k) : v.optional;
+			const isOptional = Array.isArray(v)
+				? !validatorSpec.required?.includes(k)
+				: typeof v === 'object' && v !== null && 'optional' in v
+					? (v as { optional?: boolean }).optional
+					: false;
 			return isOptional || isDefined(prevEntity[k]);
 		});
 

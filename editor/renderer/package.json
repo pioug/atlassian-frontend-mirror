@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "118.2.1",
+	"version": "118.3.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -260,6 +260,9 @@
 			"type": "boolean"
 		},
 		"smartcard_avatar_margin_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_nested_table_extension_comment_fix": {
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__editor": {

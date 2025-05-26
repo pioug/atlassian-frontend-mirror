@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.16.0
+
+### Minor Changes
+
+- [#158254](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158254)
+  [`9ce9448c0e11a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ce9448c0e11a) -
+  Add auto-close for Presence connections when window is in background
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.15.0
 
 ### Minor Changes

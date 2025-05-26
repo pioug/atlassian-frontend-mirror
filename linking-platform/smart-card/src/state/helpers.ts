@@ -32,6 +32,9 @@ export const getDefinitionId = (details?: JsonLd.Response): string | undefined =
 export const getExtensionKey = (details?: JsonLd.Response): string | undefined =>
 	details?.meta?.key;
 
+export const getObjectAri = (details?: JsonLd.Response): string | undefined =>
+	(details?.data && 'atlassian:ari' in details.data && details.data['atlassian:ari']) || undefined;
+
 export const getResourceType = (details?: JsonLd.Response): string | undefined =>
 	details?.meta?.resourceType;
 

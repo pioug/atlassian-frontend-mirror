@@ -221,6 +221,16 @@ function removeNonEditorPluginDeps(currentDeps: Record<string, string>): Record<
 	return filteredDeps;
 }
 
+function mapToWorkspaceVersions(workspaceDeps: Record<string, string>): Record<string, string> {
+	const updatedDeps: Record<string, string> = {};
+
+	Object.keys(workspaceDeps).forEach((key) => {
+		updatedDeps[key] = 'workspace:*'; // Use workspace version for editor plugins
+	});
+
+	return updatedDeps;
+}
+
 // Function to remove Atlaskit editor plugin dependencies
 function removeEditorPluginDeps(currentDeps: Record<string, string>): Record<string, string> {
 	const filteredDeps: Record<string, string> = {};
@@ -436,10 +446,8 @@ async function run() {
 		}
 
 		const currentEditorPluginDeps = removeNonEditorPluginDeps(currentDeps);
-		const newEditorPluginsDepsWithOldVersions = preferOlderVersions(
-			currentEditorPluginDeps,
-			newEditorPluginsDeps,
-			argv['force-versions'],
+		const newEditorPluginsDepsWithOldVersions = mapToWorkspaceVersions(
+			preferOlderVersions(currentEditorPluginDeps, newEditorPluginsDeps, argv['force-versions']),
 		);
 		const diff = generateDependenciesDiff(
 			currentEditorPluginDeps,

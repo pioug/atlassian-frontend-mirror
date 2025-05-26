@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 38.5.1
+
+### Patch Changes
+
+- [#159249](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159249)
+  [`1459101430d1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1459101430d1e) -
+  Add new Flexible Card UI elements creation jsx functions behind a FG
+
 ## 38.5.0
 
 ### Minor Changes

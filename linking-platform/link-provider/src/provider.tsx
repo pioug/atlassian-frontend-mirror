@@ -23,6 +23,8 @@ export function SmartCardProvider({
 	isAdminHubAIEnabled,
 	product,
 	shouldControlDataExport,
+	isGlancePanelAvailable,
+	openGlancePanel,
 }: CardProviderProps) {
 	const parentContext = useContext(SmartCardContext);
 
@@ -71,14 +73,18 @@ export function SmartCardProvider({
 			isAdminHubAIEnabled,
 			product,
 			shouldControlDataExport,
+			isGlancePanelAvailable,
+			openGlancePanel,
 		};
 	}, [
-		customClient,
 		customAuthFlow,
+		customClient,
 		isAdminHubAIEnabled,
+		isGlancePanelAvailable,
+		openGlancePanel,
 		product,
-		shouldControlDataExport,
 		renderers,
+		shouldControlDataExport,
 		store,
 	]);
 

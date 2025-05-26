@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 4.3.0
+
+### Minor Changes
+
+- [#160438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160438)
+  [`b68b92230b3a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b68b92230b3a3) -
+  Pass isReferenceHidden prop from the Popper component to the Popup to allow Popup to determine if
+  it's trigger is hidden.
+
 ## 4.2.0
 
 ### Minor Changes

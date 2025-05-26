@@ -1383,6 +1383,18 @@ const metadata: IconMetadata = {
 			'Reserved for use for Jira Projects for now. This will replace the Jira rocket. \n\nMore context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
 		slackChannel: '#jira-design-system-figma-libraries',
 	},
+	spaces: {
+		keywords: ['space', 'spaces', 'projects'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Jira',
+		type: 'core',
+		status: 'published',
+		id: '40759:3077',
+		usage:
+			'Reserved for use for Jira Projects for now. This will replace the Jira rocket. \n\nMore context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
+		slackChannel: '#jira-design-system-figma-libraries',
+	},
 	speedometer: {
 		keywords: ['speed', 'performance', 'dial', 'fast'],
 		categorization: 'multi-purpose',

@@ -67,6 +67,7 @@ const _validation = (
 	useSpecBasedValidator: boolean,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	skipValidation?: boolean,
+	validationOverrides?: { allowNestedTables?: boolean },
 ) => {
 	let result;
 
@@ -84,7 +85,12 @@ const _validation = (
 
 		result = skipValidation
 			? transformedAdf || doc
-			: validateADFEntity(schema, transformedAdf || doc, dispatchAnalyticsEvent);
+			: validateADFEntity(
+					schema,
+					transformedAdf || doc,
+					dispatchAnalyticsEvent,
+					validationOverrides,
+				);
 	} else {
 		result = getValidDocument(doc, schema, adfStage);
 	}
@@ -113,6 +119,7 @@ const _validation = (
 		try {
 			const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(result, {
 				environment: 'renderer',
+				disableNestedRendererTreatment: fg('platform_editor_nested_table_extension_comment_fix'),
 			});
 
 			if (isTransformed) {
@@ -152,6 +159,7 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 			useSpecValidator: boolean,
 			DispatchAnalyticsEvent?: DispatchAnalyticsEvent | undefined,
 			skipValidation?: boolean | undefined,
+			validationOverrides?: { allowNestedTables?: boolean },
 		];
 
 		const [
@@ -162,6 +170,7 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 			,
 			// ignoring dispatchAnalyticsEvent
 			newSkipValidation,
+			newValidationOverrides,
 		]: ValidationArgsType = newArgs;
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -173,6 +182,7 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 			,
 			// ignoring dispatchAnalyticsEvent
 			oldSkipValidation,
+			oldValidationOverrides,
 		]: ValidationArgsType = lastArgs;
 
 		result =
@@ -180,21 +190,39 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 			newSchema === oldSchema &&
 			newADFStage === oldADFStage &&
 			newUseSpecValidator === oldUseSpecValidator &&
-			newSkipValidation === oldSkipValidation;
+			newSkipValidation === oldSkipValidation &&
+			newValidationOverrides === oldValidationOverrides;
 	} else {
 		// This path has a bug and it will wrongfully assign dispatchAnalyticsEvent to skipValidation/oldSkipValidation
 		// instead of ignoring it as it does not skip it when unpacking the array.
-		// This results the fucntion returning false when it should return true
+		// This results the function returning false when it should return true
 		// and causing extra re-renders. see https://hello.jira.atlassian.cloud/browse/COMPLEXIT-161.
 
-		const [newDoc, newSchema, newADFStage, newUseSpecValidator, skipValidation] = newArgs;
-		const [oldDoc, oldSchema, oldADFStage, oldUseSpecValidator, oldSkipValidation] = lastArgs;
+		const [
+			newDoc,
+			newSchema,
+			newADFStage,
+			newUseSpecValidator,
+			,
+			skipValidation,
+			newValidationOverrides,
+		] = newArgs;
+		const [
+			oldDoc,
+			oldSchema,
+			oldADFStage,
+			oldUseSpecValidator,
+			,
+			oldSkipValidation,
+			oldValidationOverrides,
+		] = lastArgs;
 		result =
 			areDocsEqual(newDoc, oldDoc) &&
 			newSchema === oldSchema &&
 			newADFStage === oldADFStage &&
 			newUseSpecValidator === oldUseSpecValidator &&
-			skipValidation === oldSkipValidation;
+			skipValidation === oldSkipValidation &&
+			newValidationOverrides === oldValidationOverrides;
 	}
 
 	return result;
@@ -277,6 +305,7 @@ export const renderDocument = <T>(
 	appearance?: RendererAppearance,
 	includeNodesCountInStats?: boolean,
 	skipValidation?: boolean,
+	validationOverrides?: { allowNestedTables?: boolean },
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 
@@ -293,6 +322,7 @@ export const renderDocument = <T>(
 			useSpecBasedValidator,
 			dispatchAnalyticsEvent,
 			skipValidation,
+			validationOverrides,
 		);
 	});
 

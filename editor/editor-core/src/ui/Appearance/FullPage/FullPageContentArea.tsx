@@ -70,7 +70,7 @@ interface FullPageEditorContentAreaProps {
 	popupsScrollableElement: HTMLElement | undefined;
 	providerFactory: ProviderFactory;
 	wrapperElement: HTMLElement | null;
-	hasHadInteraction: boolean;
+	hasHadInteraction?: boolean;
 	featureFlags?: FeatureFlags;
 	viewMode: ViewMode | undefined;
 	isEditorToolbarHidden?: boolean;
@@ -129,12 +129,31 @@ const Content = React.forwardRef<
 		[],
 	);
 
+	// Remove entire `hasHadInteraction` logic and prop when 'platform_editor_interaction_api_refactor' is cleaned up
 	let interactionClassName: string | undefined;
-	if (props.hasHadInteraction && fg('platform_editor_no_cursor_on_live_doc_init')) {
+	if (fg('platform_editor_interaction_api_refactor')) {
+		// no-op and do not add any classes
+	} else if (
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		props.hasHadInteraction !== undefined &&
+		fg('platform_editor_no_cursor_on_live_doc_init')
+	) {
 		interactionClassName = props.hasHadInteraction
 			? 'ak-editor-has-interaction'
 			: 'ak-editor-no-interaction';
 	}
+
+	const shouldSetHiddenDataAttribute = () => {
+		// When platform_editor_offline_banner_toolbar_position is enabled we use a different method to
+		// determine if the toolbar is hidden from outside of the editor, which doesn't require setting
+		// data-editor-primary-toolbar-hidden on the content area
+		// NOTE: When tidying, this function and the data attribute can be removed
+		if (!props.isEditorToolbarHidden || fg('platform_editor_offline_banner_toolbar_position')) {
+			return false;
+		}
+
+		return editorExperiment('platform_editor_controls', 'variant1');
+	};
 
 	return (
 		<div
@@ -187,10 +206,7 @@ const Content = React.forwardRef<
 							className="ak-editor-content-area-region"
 							data-editor-editable-content
 							data-editor-primary-toolbar-hidden={
-								props.isEditorToolbarHidden &&
-								editorExperiment('platform_editor_controls', 'variant1')
-									? 'true'
-									: undefined
+								shouldSetHiddenDataAttribute() ? 'true' : undefined
 							}
 							role="region"
 							aria-label={props.intl.formatMessage(messages.editableContentLabel)}

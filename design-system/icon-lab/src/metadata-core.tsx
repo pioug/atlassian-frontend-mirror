@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::387613d0091d2d93fa0251f67bd4f50e>>
+ * @codegen <<SignedSource::a4efd214c6f1d8cddb68a15f5d6525cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -68,6 +68,11 @@ interface metadata {
 		type: 'core' | 'utility';
 		location: '@atlaskit/icon' | '@atlaskit/icon-lab' | '@atlassian/icon-private';
 	};
+
+	/**
+	 * Whether the icon should be recommended as a small icon
+	 */
+	shouldRecommendSmallIcon?: boolean;
 }
 
 const metadata: Record<string, metadata> = {
@@ -2380,6 +2385,18 @@ const metadata: Record<string, metadata> = {
 		keywords: ['space', 'icon', 'icon-lab', 'core'],
 		componentName: 'SpaceIcon',
 		package: '@atlaskit/icon-lab/core/space',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for use for Jira Projects for now. This will replace the Jira rocket.   More context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
+		team: 'Jira',
+		status: 'published',
+		slackChannel: '#jira-design-system-figma-libraries',
+	},
+	spaces: {
+		keywords: ['spaces', 'icon', 'icon-lab', 'core', 'space', 'spaces', 'projects'],
+		componentName: 'SpacesIcon',
+		package: '@atlaskit/icon-lab/core/spaces',
 		type: 'core',
 		categorization: 'single-purpose',
 		usage:

@@ -12,11 +12,11 @@ import { type FlexibleUiDataContext } from '../../../../../state/flexible-ui-con
 import { createElement } from '../utils';
 
 const iconAppearanceTestId = 'mock-appearance-icon';
-jest.mock('../icon-element', () => ({
-	...jest.requireActual('../icon-element'),
+jest.mock('../common/base-icon-element', () => ({
+	...jest.requireActual('../common/base-icon-element'),
 	__esModule: true,
 	default: jest.fn((props) => {
-		const Icon = jest.requireActual('../icon-element').default;
+		const Icon = jest.requireActual('../common/base-icon-element').default;
 
 		return (
 			<div>

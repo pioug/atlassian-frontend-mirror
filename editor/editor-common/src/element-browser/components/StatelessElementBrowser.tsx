@@ -521,6 +521,9 @@ function DesktopBrowser({
 							searchTerm={searchTerm}
 							items={items}
 							selectedItemIndex={selectedItemIndex}
+							ariaControlsId={
+								selectedCategory ? `browse-category-${selectedCategory}-tab` : 'browse-category-tab'
+							}
 						/>
 					</div>
 				)}

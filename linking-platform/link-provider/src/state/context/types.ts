@@ -26,6 +26,8 @@ export interface CardContext {
 	isAdminHubAIEnabled?: boolean;
 	product?: ProductType;
 	shouldControlDataExport?: boolean;
+	isGlancePanelAvailable?: (props: GlancePanelProps) => boolean;
+	openGlancePanel?: (props: GlancePanelProps) => void;
 }
 
 export interface CardProviderStoreOpts {
@@ -36,6 +38,11 @@ export interface CardProviderRenderers {
 	adf?: (adf: string) => React.ReactNode;
 	emoji?: (emoji?: string, parentComponent?: CardAppearance) => React.ReactNode;
 	snippet?: <T extends SnippetRendererProps>(props: T) => React.ReactNode;
+}
+
+export interface GlancePanelProps {
+	url: string;
+	ari: string;
 }
 
 export type CardProviderProps = {
@@ -73,6 +80,16 @@ export type CardProviderProps = {
 	 * This controls whether or not the link data should be blocked for data export during certain features, such as PDF export in Confluence.
 	 */
 	shouldControlDataExport?: boolean;
+	/**
+	 * Optional callback establishing whether the glance panel is available in the host application for the given linked resource.
+	 * Required to be defined to add support for glance panel handling.
+	 */
+	isGlancePanelAvailable?: (props: GlancePanelProps) => boolean;
+	/**
+	 * Optional callback enabling the host application to open a glance panel for compatible links.
+	 * Required to be defined to add support for glance panel handling.
+	 */
+	openGlancePanel?: (props: GlancePanelProps) => void;
 } & CardAuthFlowOpts;
 ``;
 export type SnippetRendererProps = AISnippetRendererProps | Record<string, never>;

@@ -11,9 +11,9 @@ export default md`
   ${(
 		<Example
 			packageName="@atlaskit/charlie-hierarchy"
-			Component={require('../examples/basic').default}
+			Component={require('../examples/01-basic').default}
 			title="Basic example"
-			source={require('!!raw-loader!../examples/basic')}
+			source={require('!!raw-loader!../examples/01-basic')}
 		/>
 	)}
 

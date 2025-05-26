@@ -908,4 +908,36 @@ describe('ValidationContext', () => {
 			wrapper.unmount();
 		});
 	});
+
+	describe('allowNestedTables', () => {
+		it('it should render nested tables if allowNestedTables is enabled', () => {
+			const wrapper = mount(
+				<ValidationContextProvider value={{ allowNestedTables: true }}>
+					<IntlProvider locale="en">
+						<RendererDefaultComponent
+							document={adfNestedTableData as DocNode}
+							useSpecBasedValidator={true}
+						/>
+					</IntlProvider>
+				</ValidationContextProvider>,
+			);
+			expect(wrapper.find('table')).toHaveLength(2);
+			wrapper.unmount();
+		});
+
+		it('it should not render nested tables if allowNestedTables is enabled', () => {
+			const wrapper = mount(
+				<ValidationContextProvider value={{ allowNestedTables: false }}>
+					<IntlProvider locale="en">
+						<RendererDefaultComponent
+							document={adfNestedTableData as DocNode}
+							useSpecBasedValidator={true}
+						/>
+					</IntlProvider>
+				</ValidationContextProvider>,
+			);
+			expect(wrapper.find(UnsupportedBlock)).toHaveLength(1);
+			wrapper.unmount();
+		});
+	});
 });

@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+import { FormattedDate } from 'react-intl-next';
 
 import AtlaskitLozenge, { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -105,3 +106,22 @@ const BaseLozengeElement = ({
 };
 
 export default BaseLozengeElement;
+
+export const toDateLozengeProps = (
+	dateString?: string,
+): Partial<BaseLozengeElementProps> | undefined => {
+	if (dateString) {
+		const text = Date.parse(dateString) ? (
+			<FormattedDate
+				value={new Date(dateString)}
+				year="numeric"
+				month="short"
+				day="numeric"
+				formatMatcher="best fit"
+			/>
+		) : (
+			dateString
+		);
+		return { text };
+	}
+};

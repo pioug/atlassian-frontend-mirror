@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::0c90ae75bcdd7001a47d7b55bd06564c>>
+ * @codegen <<SignedSource::9425a303268075ca54d6a0393a775309>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -14,6 +14,7 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import type { NewCoreIconProps } from '@atlaskit/icon';
 import { Inline } from '@atlaskit/primitives';
 
 import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
@@ -150,6 +151,7 @@ import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted'
 import SignatureIcon from '../../../../core/signature';
 import SortOptionsIcon from '../../../../core/sort-options';
 import SpaceIcon from '../../../../core/space';
+import SpacesIcon from '../../../../core/spaces';
 import SpeedometerIcon from '../../../../core/speedometer';
 import SpeedometerLeftIcon from '../../../../core/speedometer-left';
 import SpeedometerRightIcon from '../../../../core/speedometer-right';
@@ -363,6 +365,7 @@ const Icons = [
 	TextBoldUnderlineStrikethroughIcon,
 	TextItalicUnderlineStrikethroughIcon,
 	SpaceIcon,
+	SpacesIcon,
 	JiraAddIcon,
 	JiraUploadIcon,
 	AssetsGraphIcon,
@@ -463,42 +466,76 @@ const Icons = [
 const groupSize = 20;
 const IconWrapperStyles = css({ width: 304 });
 
-const allExamples: React.ComponentType<any>[] = [];
+function createIconGroupComponent(
+	IconGroup: React.ComponentType<NewCoreIconProps>[],
+	iconProps: Partial<NewCoreIconProps> = {},
+) {
+	return () => (
+		<div css={IconWrapperStyles}>
+			<Inline space="space.200" alignInline="start" shouldWrap={true}>
+				{IconGroup.map((Icon, index) => (
+					<Icon label="" key={index} {...iconProps} />
+				))}
+			</Inline>
+		</div>
+	);
+}
+
+const allMediumExamples = [];
+const allSmallExamples = [];
 
 for (let i = 0; i < Icons.length; i += groupSize) {
 	const IconGroup = Icons.slice(i, i + groupSize);
-	allExamples.push(() => {
-		return (
-			<div css={IconWrapperStyles}>
-				<Inline space="space.200" alignInline="start" shouldWrap={true}>
-					{IconGroup.map((Icon, index) => (
-						<Icon label="" key={index} />
-					))}
-				</Inline>
-			</div>
-		);
-	});
+	allMediumExamples.push(createIconGroupComponent(IconGroup));
+	allSmallExamples.push(createIconGroupComponent(IconGroup, { size: 'small' }));
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup0 = allExamples[0];
+export const MediumIconGroup0 = allMediumExamples[0];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup1 = allExamples[1];
+export const MediumIconGroup1 = allMediumExamples[1];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup2 = allExamples[2];
+export const MediumIconGroup2 = allMediumExamples[2];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup3 = allExamples[3];
+export const MediumIconGroup3 = allMediumExamples[3];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup4 = allExamples[4];
+export const MediumIconGroup4 = allMediumExamples[4];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup5 = allExamples[5];
+export const MediumIconGroup5 = allMediumExamples[5];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup6 = allExamples[6];
+export const MediumIconGroup6 = allMediumExamples[6];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup7 = allExamples[7];
+export const MediumIconGroup7 = allMediumExamples[7];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup8 = allExamples[8];
+export const MediumIconGroup8 = allMediumExamples[8];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup9 = allExamples[9];
+export const MediumIconGroup9 = allMediumExamples[9];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IconGroup10 = allExamples[10];
+export const MediumIconGroup10 = allMediumExamples[10];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup11 = allMediumExamples[11];
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup0 = allSmallExamples[0];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup1 = allSmallExamples[1];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup2 = allSmallExamples[2];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup3 = allSmallExamples[3];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup4 = allSmallExamples[4];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup5 = allSmallExamples[5];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup6 = allSmallExamples[6];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup7 = allSmallExamples[7];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup8 = allSmallExamples[8];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup9 = allSmallExamples[9];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup10 = allSmallExamples[10];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup11 = allSmallExamples[11];

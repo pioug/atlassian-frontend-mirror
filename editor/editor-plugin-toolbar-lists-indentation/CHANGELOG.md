@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 3.2.6
+
+### Patch Changes
+
+- [#160568](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160568)
+  [`d0ada9a83d2ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0ada9a83d2ed) -
+  Re-render PrimaryToolbarComponent when decorationSet changes so the toolbar states updates
+  regularly
+- Updated dependencies
+
 ## 3.2.5
 
 ### Patch Changes

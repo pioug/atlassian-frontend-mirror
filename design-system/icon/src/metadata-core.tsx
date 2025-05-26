@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::60ca5eb1312bd9cabe699f3be0937d0f>>
+ * @codegen <<SignedSource::36bf23d1966a06c9de1168524e5a2747>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1038,16 +1038,17 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'double chevron',
-			'left',
 			'previous year',
+			'left',
 		],
 		componentName: 'ChevronDoubleLeftIcon',
 		package: '@atlaskit/icon/core/chevron-double-left',
 		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
+		usage: 'Known uses: Navigate to previous year in calendar/date picker',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'chevron-double-right': {
@@ -1065,8 +1066,9 @@ const metadata: Record<string, metadata> = {
 		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
+		usage: 'Known uses: Navigate to next year in calendar/date picker',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'chevron-down': {
@@ -1078,9 +1080,8 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'chevron down',
-			'open dropdown menu',
-			'expanded tree item',
-			'collapse tree item',
+			'expand',
+			'open',
 		],
 		componentName: 'ChevronDownIcon',
 		package: '@atlaskit/icon/core/chevron-down',
@@ -1088,8 +1089,10 @@ const metadata: Record<string, metadata> = {
 		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
+		usage:
+			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Open dropdown menu, expanded tree item, collapse tree item',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'chevron-left': {
@@ -1102,6 +1105,7 @@ const metadata: Record<string, metadata> = {
 			'core',
 			'chevron left',
 			'back',
+			'previous',
 		],
 		componentName: 'ChevronLeftIcon',
 		package: '@atlaskit/icon/core/chevron-left',
@@ -1109,8 +1113,10 @@ const metadata: Record<string, metadata> = {
 		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
+		usage:
+			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Navigate back, show previous page of pagination results',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'chevron-right': {
@@ -1122,8 +1128,10 @@ const metadata: Record<string, metadata> = {
 			'icon',
 			'core',
 			'chevron right',
+			'next',
 			'collapsed',
-			'expand tree item',
+			'expand',
+			'show children',
 		],
 		componentName: 'ChevronRightIcon',
 		package: '@atlaskit/icon/core/chevron-right',
@@ -1131,8 +1139,10 @@ const metadata: Record<string, metadata> = {
 		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
+		usage:
+			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Next page of pagination results, collapsed tree item, expand tree item',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'chevron-up': {
@@ -1153,8 +1163,10 @@ const metadata: Record<string, metadata> = {
 		shouldRecommendSmallIcon: true,
 		type: 'core',
 		categorization: 'multi-purpose',
+		usage:
+			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons. Known uses: Close dropdown menu',
 		team: 'Design System Team',
-		status: 'ready-to-publish',
+		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
 	'child-issues': {

@@ -114,6 +114,11 @@ export interface PopupComponentProps {
 	 * Class name to apply to the popup container element.
 	 */
 	className?: string;
+
+	/**
+	 * Boolean to indicate if the reference element is hidden.
+	 */
+	isReferenceHidden?: boolean;
 }
 
 interface BaseProps {

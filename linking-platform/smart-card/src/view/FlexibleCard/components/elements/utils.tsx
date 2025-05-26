@@ -1,39 +1,82 @@
 import React, { useContext } from 'react';
 
-import { FormattedDate, type MessageDescriptor } from 'react-intl-next';
-
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ElementName, IconType, SmartLinkInternalTheme } from '../../../../constants';
 import { messages } from '../../../../messages';
 import { FlexibleUiContext, useFlexibleUiContext } from '../../../../state/flexible-ui-context';
 import { type FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
-import { isProfileType } from '../../../../utils';
 
 import AppliedToComponentsCount from './applied-to-components-count-element';
-import AtlaskitElementBadge, { type AtlaskitBadgeElementProps } from './atlaskit-badge-element';
+import assignedToElement from './assigned-to-element';
+import assignedToGroupElement from './assigned-to-group-element';
+import attachmentCountElement from './attachment-count-element';
+import authorGroupElement from './author-group-element';
+import checklistProgressElement from './checklist-progress-element';
+import collaboratorGroupElement from './collaborator-group-element';
+import commentCountElement from './comment-count-element';
 import {
+	BaseAtlaskitBadgeElement,
 	BaseAvatarGroupElement,
-	type BaseAvatarGroupElementProps,
 	type BaseAvatarItemProps,
 	BaseBadgeElement,
-	type BaseBadgeElementProps,
 	BaseDateTimeElement,
-	type BaseDateTimeProps,
+	BaseIconElement,
 	BaseLinkElement,
-	type BaseLinkElementProps,
 	BaseLozengeElement,
-	type BaseLozengeElementProps,
 	BaseTextElement,
-	type BaseTextElementProps,
+	toAtlaskitBadgeProps,
+	toAvatarGroupProps,
+	toBadgeProps,
+	toDateLozengeProps,
+	toDateTimeProps,
+	toFormattedTextProps,
+	toLinkIconProps,
+	toLinkProps,
+	toTextProps,
 } from './common';
-import IconElement from './icon-element';
+import createdByElement from './created-by-element';
+import createdOnElement from './created-on-element';
+import dueOnElement from './due-on-element';
+import latestCommitElement from './latest-commit-element';
+import linkIconElement from './link-icon-element';
+import locationElement from './location-element';
 import MediaElement from './media-element';
+import modifiedByElement from './modified-by-element';
+import modifiedOnElement from './modified-on-element';
+import ownedByElement from './owned-by-element';
+import ownedByGroupElement from './owned-by-group-element';
+import previewElement from './preview-element';
+import priorityElement from './priority-element';
+import programmingLanguageElement from './programming-language-element';
+import providerElement from './provider-element';
+import reactCountElement from './react-count-element';
+import readTimeElement from './read-time-element';
+import sentOnElement from './sent-on-element';
+import sourceBranchElement from './source-branch-element';
+import stateElement from './state-element';
+import storyPointsElement from './story-points-element';
+import subTasksProgressElement from './sub-tasks-progress-element';
+import subscriberCountElement from './subscriber-count-element';
+import targetBranchElement from './target-branch-element';
+import titleElement from './title-element';
+import viewCountElement from './view-count-element';
+import voteCountElement from './vote-count-element';
 
+/**
+ * @deprecated remove on FG clean up platform-linking-flexible-card-elements-refactor
+ */
 type ElementMapping = {
-	[key in ElementName]?: { component: React.ComponentType<any> | undefined; props?: any };
+	[key in ElementName]?: {
+		component: React.ComponentType<any> | undefined;
+		props?: any;
+		newComponent?: React.ComponentType<any>;
+	};
 };
 
+/**
+ * @deprecated remove on FG clean up platform-linking-flexible-card-elements-refactor
+ */
 const elementMappings: ElementMapping = {
 	[ElementName.AppliedToComponentsCount]: {
 		component: AppliedToComponentsCount,
@@ -42,75 +85,99 @@ const elementMappings: ElementMapping = {
 	[ElementName.AttachmentCount]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.Attachment },
+		newComponent: attachmentCountElement,
 	},
-	[ElementName.AuthorGroup]: { component: BaseAvatarGroupElement },
+	[ElementName.AuthorGroup]: {
+		component: BaseAvatarGroupElement,
+		newComponent: authorGroupElement,
+	},
 	[ElementName.ChecklistProgress]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.CheckItem },
+		newComponent: checklistProgressElement,
 	},
-	[ElementName.CollaboratorGroup]: { component: BaseAvatarGroupElement },
+	[ElementName.CollaboratorGroup]: {
+		component: BaseAvatarGroupElement,
+		newComponent: collaboratorGroupElement,
+	},
 	[ElementName.CommentCount]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.Comment },
+		newComponent: commentCountElement,
 	},
 	[ElementName.ViewCount]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.View },
+		newComponent: viewCountElement,
 	},
 	[ElementName.ReactCount]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.React },
+		newComponent: reactCountElement,
 	},
 	[ElementName.VoteCount]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.Vote },
+		newComponent: voteCountElement,
 	},
-	[ElementName.CreatedBy]: { component: BaseTextElement },
-	[ElementName.OwnedBy]: { component: BaseTextElement },
-	[ElementName.AssignedTo]: { component: BaseTextElement },
-	[ElementName.AssignedToGroup]: { component: BaseAvatarGroupElement },
-	[ElementName.OwnedByGroup]: { component: BaseAvatarGroupElement },
-	[ElementName.CreatedOn]: { component: BaseDateTimeElement },
-	[ElementName.DueOn]: { component: BaseLozengeElement },
+	[ElementName.CreatedBy]: { component: BaseTextElement, newComponent: createdByElement },
+	[ElementName.OwnedBy]: { component: BaseTextElement, newComponent: ownedByElement },
+	[ElementName.AssignedTo]: { component: BaseTextElement, newComponent: assignedToElement },
+	[ElementName.AssignedToGroup]: {
+		component: BaseAvatarGroupElement,
+		newComponent: assignedToGroupElement,
+	},
+	[ElementName.OwnedByGroup]: {
+		component: BaseAvatarGroupElement,
+		newComponent: ownedByGroupElement,
+	},
+	[ElementName.CreatedOn]: { component: BaseDateTimeElement, newComponent: createdOnElement },
+	[ElementName.DueOn]: { component: BaseLozengeElement, newComponent: dueOnElement },
 	[ElementName.LatestCommit]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.Commit },
+		newComponent: latestCommitElement,
 	},
-	[ElementName.LinkIcon]: { component: IconElement },
-	[ElementName.ModifiedBy]: { component: BaseTextElement },
-	[ElementName.ModifiedOn]: { component: BaseDateTimeElement },
-	[ElementName.Preview]: { component: MediaElement },
-	[ElementName.Priority]: { component: BaseBadgeElement },
+	[ElementName.LinkIcon]: { component: BaseIconElement, newComponent: linkIconElement },
+	[ElementName.ModifiedBy]: { component: BaseTextElement, newComponent: modifiedByElement },
+	[ElementName.ModifiedOn]: { component: BaseDateTimeElement, newComponent: modifiedOnElement },
+	[ElementName.Preview]: { component: MediaElement, newComponent: previewElement },
+	[ElementName.Priority]: { component: BaseBadgeElement, newComponent: priorityElement },
 	[ElementName.ProgrammingLanguage]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.ProgrammingLanguage },
+		newComponent: programmingLanguageElement,
 	},
-	[ElementName.Provider]: { component: BaseBadgeElement },
-	[ElementName.ReadTime]: { component: BaseTextElement },
-	[ElementName.SentOn]: { component: BaseDateTimeElement },
-	[ElementName.SourceBranch]: { component: BaseTextElement },
-	[ElementName.State]: { component: BaseLozengeElement },
+	[ElementName.Provider]: { component: BaseBadgeElement, newComponent: providerElement },
+	[ElementName.ReadTime]: { component: BaseTextElement, newComponent: readTimeElement },
+	[ElementName.SentOn]: { component: BaseDateTimeElement, newComponent: sentOnElement },
+	[ElementName.SourceBranch]: { component: BaseTextElement, newComponent: sourceBranchElement },
+	[ElementName.State]: { component: BaseLozengeElement, newComponent: stateElement },
 	[ElementName.SubscriberCount]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.Subscriber },
+		newComponent: subscriberCountElement,
 	},
 	[ElementName.SubTasksProgress]: {
 		component: BaseBadgeElement,
 		props: { icon: IconType.SubTasksProgress },
+		newComponent: subTasksProgressElement,
 	},
 	[ElementName.StoryPoints]: {
-		component: AtlaskitElementBadge,
+		component: BaseAtlaskitBadgeElement,
+		newComponent: storyPointsElement,
 	},
-	[ElementName.TargetBranch]: { component: BaseTextElement },
-	[ElementName.Title]: { component: BaseLinkElement },
+	[ElementName.TargetBranch]: { component: BaseTextElement, newComponent: targetBranchElement },
+	[ElementName.Title]: { component: BaseLinkElement, newComponent: titleElement },
 	[ElementName.Location]: {
 		component: BaseLinkElement,
 		props: { theme: SmartLinkInternalTheme.Grey },
+		newComponent: locationElement,
 	},
 };
 
 /**
- * @deprecated
+ * @deprecated remove on FG clean up platform-linking-flexible-card-elements-refactor
  */
 const getContextKey = (name: ElementName) => {
 	// Attempt to predict context prop name in advance to reduce the amount of
@@ -119,7 +186,7 @@ const getContextKey = (name: ElementName) => {
 };
 
 /**
- * @deprecated
+ * @deprecated remove on FG clean up platform-linking-flexible-card-elements-refactor
  */
 const getData = (
 	elementName: ElementName,
@@ -187,85 +254,16 @@ const getData = (
 	}
 };
 
-const toAvatarGroupProps = (
-	items?: BaseAvatarItemProps[],
-	showFallbackAvatar?: boolean,
-): Partial<BaseAvatarGroupElementProps> | undefined => {
-	return items ? { items } : showFallbackAvatar ? { items: [] } : undefined;
-};
-
-const toBadgeProps = (label?: string): Partial<BaseBadgeElementProps> | undefined => {
-	return label ? { label } : undefined;
-};
-
-const toAtlaskitBadgeProps = (value?: number): Partial<AtlaskitBadgeElementProps> | undefined => {
-	return value ? { value } : undefined;
-};
-
-const toDateLozengeProps = (dateString?: string): Partial<BaseLozengeElementProps> | undefined => {
-	if (dateString) {
-		const text = Date.parse(dateString) ? (
-			<FormattedDate
-				value={new Date(dateString)}
-				year="numeric"
-				month="short"
-				day="numeric"
-				formatMatcher="best fit"
-			/>
-		) : (
-			dateString
-		);
-		return { text };
-	}
-};
-
-const toDateTimeProps = (
-	type: 'created' | 'modified' | 'sent',
-	dateString?: string,
-): Partial<BaseDateTimeProps> | undefined => {
-	return dateString ? { date: new Date(dateString), type } : undefined;
-};
-
-const toFormattedTextProps = (
-	descriptor: MessageDescriptor,
-	context?: string,
-): Partial<BaseTextElementProps> | undefined => {
-	if (fg('platform-linking-additional-flexible-element-props')) {
-		return context ? { message: { descriptor, values: { context } }, content: context } : undefined;
-	}
-	return context ? { message: { descriptor, values: { context } } } : undefined;
-};
-
-const toLinkProps = (text?: string, url?: string): Partial<BaseLinkElementProps> | undefined => {
-	return text ? { text, url } : undefined;
-};
-
-const toTextProps = (content?: string): Partial<BaseTextElementProps> | undefined => {
-	return content ? { content } : undefined;
-};
-
-const toLinkIconProps = (
-	data: FlexibleUiDataContext[keyof FlexibleUiDataContext] | undefined,
-	type: FlexibleUiDataContext['type'],
-) => {
-	const isDataLinkIcon = (_data: typeof data): _data is FlexibleUiDataContext['linkIcon'] => {
-		return typeof _data === 'object' && _data !== null && ('icon' in _data || 'url' in _data);
-	};
-
-	if (!isDataLinkIcon(data)) {
-		return typeof data === 'object' ? data : undefined;
-	}
-
-	const isImageRound = isProfileType(type);
-
-	return { ...data, appearance: isImageRound ? 'round' : 'square' };
-};
-
 /**
- * @deprecated
+ * @deprecated remove on FG platform-linking-flexible-card-elements-refactor clean up
  */
 export const createElement = <P extends {}>(name: ElementName): React.ComponentType<P> => {
-	const { component: BaseElement, props } = elementMappings[name] || {};
+	const { component: BaseElement, props, newComponent } = elementMappings[name] || {};
+
+	if (newComponent && fg('platform-linking-flexible-card-elements-refactor')) {
+		return newComponent;
+	}
+
 	const contextKey = getContextKey(name);
 
 	if (!BaseElement) {

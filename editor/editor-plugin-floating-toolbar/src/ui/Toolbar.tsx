@@ -772,6 +772,11 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 		event.preventDefault();
 	};
 
+	private isShortcutToFocusToolbar = (event: KeyboardEvent) => {
+		//Alt + F10 to reach first element in this floating toolbar
+		return event.altKey && (event.key === 'F10' || event.keyCode === 121);
+	};
+
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
 		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
@@ -795,7 +800,11 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 					handleEscape={this.handleEscape}
 					disableArrowKeyNavigation={!this.shouldHandleArrowKeys()}
 					childComponentSelector={"[data-testid='editor-floating-toolbar']"}
-					isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+					isShortcutToFocusToolbar={
+						fg('platform_editor_toolbar_rerender_optimization')
+							? this.isShortcutToFocusToolbar
+							: isShortcutToFocusToolbar
+					}
 					intl={intl}
 				>
 					<div

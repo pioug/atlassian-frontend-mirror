@@ -42,6 +42,7 @@ export type BlockProps = {
 	 * The status of the Smart Link. Used to conditionally render different blocks
 	 * when Smart Link is in different states.
 	 * @internal
+	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
 	 */
 	status?: SmartLinkStatus;
 

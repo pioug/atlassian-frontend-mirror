@@ -20,6 +20,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
+import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
 import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
@@ -55,6 +56,7 @@ import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemir
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorProps } from '../types';
@@ -673,6 +675,11 @@ export function ReactEditorView(props: EditorViewProps) {
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
 			if (!viewRef.current && node) {
+				// make sure this doesn't expose the experiment
+				if (editorExperiment('platform_editor_nodevisibility', true, { exposure: false })) {
+					nodeVisibilityManager(node).initialiseNodeObserver();
+				}
+
 				const view = createEditorView(node);
 
 				if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
@@ -769,6 +776,10 @@ export function ReactEditorView(props: EditorViewProps) {
 					eventDispatcher.off(analyticsEventKey, handleAnalyticsEvent);
 				} else {
 					viewRef.current.destroy(); // Destroys the dom node & all node views
+				}
+
+				if (editorExperiment('platform_editor_nodevisibility', true)) {
+					nodeVisibilityManager(viewRef.current.dom).disconnect();
 				}
 
 				viewRef.current = undefined;

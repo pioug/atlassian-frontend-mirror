@@ -1451,6 +1451,12 @@ const tableRendererHeaderStylesForTableCellOnly = css({
 	},
 });
 
+const tableRendererNestedPanelStyles = css({
+	[`.${TableSharedCssClassName.TABLE_CONTAINER} .ak-editor-panel`]: {
+		border: `${token('border.width', '1px')} solid ${token('color.border', '#d9dbea')}`,
+	},
+});
+
 const tableStylesBackGroundClipForGeckoForTableCellOnly = css({
 	[`.${TableSharedCssClassName.TABLE_CONTAINER} > table,
 		.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
@@ -2082,6 +2088,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				mediaSingleSharedStyle,
 				tableSharedStyle,
 				tableRendererHeaderStylesForTableCellOnly,
+				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,
 				isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,
 				fg('platform_editor_nested_dnd_styles_changes')
 					? firstNodeWithNotMarginTopWithNestedDnD

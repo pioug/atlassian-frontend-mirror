@@ -19,7 +19,6 @@ import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence
 import AppIcon from '@atlaskit/icon/core/app';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
@@ -143,18 +142,13 @@ function ComposableEditorPage() {
 	// Memoise the preset otherwise we will re-render the editor too often
 	const { preset, editorApi } = usePreset(() => {
 		return universalPreset
-			.add([
-				editorViewModePlugin,
-				editorExperiment('live_pages_graceful_edit', 'control')
-					? { mode: 'edit' }
-					: { initialContentMode: 'live-edit' },
-			])
+			.add([editorViewModePlugin, { mode: 'edit' }])
 			.add(selectionMarkerPlugin)
 			.add(codeBlockAdvancedPlugin)
 			.add([
 				selectionExtensionPlugin,
 				{
-					pageModes: ['view', 'live-view', 'edit', 'live-edit'],
+					pageModes: ['view', 'edit'],
 					extensions: {
 						firstParty: [
 							{
@@ -220,15 +214,6 @@ function ComposableEditorPage() {
 								? 'view'
 								: 'edit',
 						),
-					);
-					editorApi?.core?.actions.execute(
-						editorApi?.editorViewMode?.commands.updateContentMode({
-							type: 'switch-content-mode',
-							contentMode:
-								editorApi?.editorViewMode.sharedState.currentState()?.contentMode === 'live-edit'
-									? 'live-view'
-									: 'live-edit',
-						}),
 					);
 				}}
 			/>

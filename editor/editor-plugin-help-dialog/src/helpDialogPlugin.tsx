@@ -11,7 +11,7 @@ import { openHelp, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 
-import { type HelpDialogPlugin } from './helpDialogPluginType';
+import type { HelpDialogPlugin, HelpDialogPluginOptions } from './helpDialogPluginType';
 import { closeHelpAction, openHelpAction } from './pm-plugins/actions';
 import { openHelpCommand } from './pm-plugins/commands';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -19,74 +19,94 @@ import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { HelpDialogLoader } from './ui/HelpDialogLoader';
 
-export const helpDialogPlugin: HelpDialogPlugin = ({
-	config: imageUploadProviderExists = false,
-	api,
-}) => ({
-	name: 'helpDialog',
+/**
+ * Normalise the caller-supplied config into a single, predictable shape.
+ * – Boolean → "image uploads on/off", AI always off
+ * – Object  → pick the two feature flags with sane defaults (both false)
+ */
+function parseFeatureConfig(config: HelpDialogPluginOptions) {
+	if (typeof config === 'boolean') {
+		return {
+			imageUploadProviderExists: config,
+			aiEnabled: false,
+		};
+	}
 
-	pmPlugins() {
-		return [
-			{
-				name: 'helpDialog',
-				plugin: ({ dispatch }) => createPlugin(dispatch, imageUploadProviderExists),
-			},
-			{
-				name: 'helpDialogKeymap',
-				plugin: () => keymapPlugin(api?.analytics?.actions),
-			},
-		];
-	},
+	// Object path – ensure we never return undefined
+	const { imageUploadProviderExists = false, aiEnabled = false } = config ?? {};
 
-	pluginsOptions: {
-		quickInsert: ({ formatMessage }) => [
-			{
-				id: 'helpdialog',
-				title: formatMessage(messages.help),
-				description: formatMessage(messages.helpDescription),
-				keywords: ['?'],
-				priority: 4000,
-				keyshortcut: tooltip(openHelp),
-				icon: () => <QuestionCircleIcon label="" color="currentColor" spacing="spacious" />,
-				action(insert) {
-					const tr = insert('');
-					openHelpCommand(tr);
-					api?.analytics?.actions.attachAnalyticsEvent({
-						action: ACTION.HELP_OPENED,
-						actionSubject: ACTION_SUBJECT.HELP,
-						actionSubjectId: ACTION_SUBJECT_ID.HELP_QUICK_INSERT,
-						attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
-						eventType: EVENT_TYPE.UI,
-					})(tr);
-					return tr;
+	return { imageUploadProviderExists, aiEnabled };
+}
+
+export const helpDialogPlugin: HelpDialogPlugin = ({ config, api }) => {
+	const { imageUploadProviderExists, aiEnabled } = parseFeatureConfig(config);
+
+	return {
+		name: 'helpDialog',
+
+		pmPlugins() {
+			return [
+				{
+					name: 'helpDialog',
+					plugin: ({ dispatch }) => createPlugin(dispatch, imageUploadProviderExists, aiEnabled),
 				},
+				{
+					name: 'helpDialogKeymap',
+					plugin: () => keymapPlugin(api?.analytics?.actions),
+				},
+			];
+		},
+
+		pluginsOptions: {
+			quickInsert: ({ formatMessage }) => [
+				{
+					id: 'helpdialog',
+					title: formatMessage(messages.help),
+					description: formatMessage(messages.helpDescription),
+					keywords: ['?'],
+					priority: 4000,
+					keyshortcut: tooltip(openHelp),
+					icon: () => <QuestionCircleIcon label="" color="currentColor" spacing="spacious" />,
+					action(insert) {
+						const tr = insert('');
+						openHelpCommand(tr);
+						api?.analytics?.actions.attachAnalyticsEvent({
+							action: ACTION.HELP_OPENED,
+							actionSubject: ACTION_SUBJECT.HELP,
+							actionSubjectId: ACTION_SUBJECT_ID.HELP_QUICK_INSERT,
+							attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+							eventType: EVENT_TYPE.UI,
+						})(tr);
+						return tr;
+					},
+				},
+			],
+		},
+
+		contentComponent({ editorView }) {
+			return (
+				<HelpDialogLoader
+					pluginInjectionApi={api}
+					editorView={editorView}
+					quickInsertEnabled={!!api?.quickInsert}
+				/>
+			);
+		},
+
+		getSharedState(editorState) {
+			if (!editorState) {
+				return null;
+			}
+			return pluginKey.getState(editorState) || null;
+		},
+
+		actions: {
+			openHelp: () => {
+				return api?.core.actions.execute(({ tr }) => openHelpAction(tr));
 			},
-		],
-	},
-
-	contentComponent({ editorView }) {
-		return (
-			<HelpDialogLoader
-				pluginInjectionApi={api}
-				editorView={editorView}
-				quickInsertEnabled={!!api?.quickInsert}
-			/>
-		);
-	},
-
-	getSharedState(editorState) {
-		if (!editorState) {
-			return null;
-		}
-		return pluginKey.getState(editorState) || null;
-	},
-
-	actions: {
-		openHelp: () => {
-			return api?.core.actions.execute(({ tr }) => openHelpAction(tr));
+			closeHelp: () => {
+				return api?.core.actions.execute(({ tr }) => closeHelpAction(tr));
+			},
 		},
-		closeHelp: () => {
-			return api?.core.actions.execute(({ tr }) => closeHelpAction(tr));
-		},
-	},
-});
+	};
+};

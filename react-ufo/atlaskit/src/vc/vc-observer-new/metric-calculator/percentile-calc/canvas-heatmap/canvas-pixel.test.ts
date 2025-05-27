@@ -1,14 +1,8 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { calculateDrawnPixelsRaw, getRGBComponents, ViewportCanvas } from './canvas-pixel';
 
 jest.mock('../../utils/task-yield', () => {
 	return jest.fn(() => Promise.resolve());
 });
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
 
 // Mock canvas and context
 const mockGetContext = jest.fn();
@@ -61,7 +55,6 @@ describe('ViewportCanvas', () => {
 		// Reset all mocks before each test
 		jest.clearAllMocks();
 		mockGetContext.mockReturnValue(mockContext);
-		(fg as jest.Mock).mockReturnValue(false); // Default to feature flag disabled
 		mockContext.imageSmoothingEnabled = true; // Reset to default
 	});
 
@@ -71,8 +64,7 @@ describe('ViewportCanvas', () => {
 			(global as any).OffscreenCanvas = mockOffscreenCanvas;
 		});
 
-		test('should create instance with OffscreenCanvas and disable image smoothing when feature flag is enabled', () => {
-			(fg as jest.Mock).mockReturnValue(true);
+		test('should create instance with OffscreenCanvas and disable image smoothing', () => {
 			const viewport = { width: 200, height: 150 };
 			const scaleFactor = 0.5;
 			const canvas = new ViewportCanvas(viewport, scaleFactor);
@@ -80,35 +72,6 @@ describe('ViewportCanvas', () => {
 			expect(mockOffscreenCanvas).toHaveBeenCalled();
 			expect(mockCreateElement).not.toHaveBeenCalled();
 			expect(mockContext.imageSmoothingEnabled).toBe(false);
-
-			const scaledDimensions = canvas.getScaledDimensions();
-			expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));
-			expect(scaledDimensions.height).toBe(Math.ceil(viewport.height * scaleFactor));
-		});
-
-		test('should create instance with HTMLCanvasElement and keep image smoothing enabled when feature flag is disabled', () => {
-			(fg as jest.Mock).mockReturnValue(false);
-			const viewport = { width: 200, height: 150 };
-			const scaleFactor = 0.5;
-			const canvas = new ViewportCanvas(viewport, scaleFactor);
-
-			expect(mockCreateElement).toHaveBeenCalledWith('canvas');
-			expect(mockCreateElement).toHaveBeenCalledTimes(1);
-			expect(mockContext.imageSmoothingEnabled).toBe(true);
-
-			const scaledDimensions = canvas.getScaledDimensions();
-			expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));
-			expect(scaledDimensions.height).toBe(Math.ceil(viewport.height * scaleFactor));
-		});
-
-		test('should fallback to HTMLCanvasElement when feature flag is disabled', () => {
-			(fg as jest.Mock).mockReturnValue(false);
-			const viewport = { width: 200, height: 150 };
-			const scaleFactor = 0.5;
-			const canvas = new ViewportCanvas(viewport, scaleFactor);
-
-			expect(mockCreateElement).toHaveBeenCalledWith('canvas');
-			expect(mockCreateElement).toHaveBeenCalledTimes(1);
 
 			const scaledDimensions = canvas.getScaledDimensions();
 			expect(scaledDimensions.width).toBe(Math.ceil(viewport.width * scaleFactor));

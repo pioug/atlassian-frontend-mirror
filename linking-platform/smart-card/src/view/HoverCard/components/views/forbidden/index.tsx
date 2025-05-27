@@ -104,19 +104,25 @@ const HoverCardForbiddenView = ({
 				ignoreContainerPadding={true}
 				css={[fg('platform-linking-visual-refresh-v1') ? basePreviewStyles : basePreviewStylesOld]}
 				testId={testId}
-				status={SmartLinkStatus.Forbidden}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Forbidden })}
 			/>
 			<CustomBlock
 				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockStyles : titleBlockStylesOld]}
 				testId={`${testId}-title`}
-				status={SmartLinkStatus.Forbidden}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Forbidden })}
 			>
 				<FormattedMessage {...messages[titleMessageKey]} values={{ product }} />
 			</CustomBlock>
 			<CustomBlock
 				css={[fg('platform-linking-visual-refresh-v1') ? mainTextStyles : mainTextStylesOld]}
 				testId={`${testId}-content`}
-				status={SmartLinkStatus.Forbidden}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Forbidden })}
 			>
 				<FormattedMessage {...messages[descriptiveMessageKey]} values={{ product, hostname }} />
 			</CustomBlock>
@@ -126,7 +132,9 @@ const HoverCardForbiddenView = ({
 					css={[
 						fg('platform-linking-visual-refresh-v1') ? connectButtonStyles : connectButtonStylesOld,
 					]}
-					status={SmartLinkStatus.Forbidden}
+					{...(fg('platform-linking-flexible-card-context')
+						? undefined
+						: { status: SmartLinkStatus.Forbidden })}
 				>
 					<ButtonComponent
 						testId={`${testId}-button`}

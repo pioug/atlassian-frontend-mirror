@@ -64,6 +64,10 @@ const context: FlexibleUiDataContext = {
 		icon: 'BitBucket:Project' as IconType,
 		label: 'Link icon',
 	},
+	linkTitle: {
+		text: 'Link title',
+		url: 'https://www.link-url.com',
+	},
 	location: {
 		text: 'Location title',
 		url: 'https://www.locationMcLocationton.com/foo',

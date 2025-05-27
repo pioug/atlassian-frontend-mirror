@@ -5,7 +5,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import {
@@ -101,10 +101,7 @@ const hasCustomComponents = (components?: PrimaryToolbarComponents) => {
 const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 	{
 		primaryToolbarState: PrimaryToolbarPluginState | undefined;
-		editorViewModeState:
-			| Pick<EditorViewModePluginState, 'mode' | '_showTopToolbar'>
-			| undefined
-			| null;
+		editorViewModeState: Pick<EditorViewModePluginState, 'mode'> | undefined | null;
 		interactionState:
 			| {
 					// Clean up with platform_editor_interaction_api_refactor
@@ -135,10 +132,6 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 			'primaryToolbar.components',
 		);
 		const editorViewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		const showTopToolbar = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'editorViewMode._showTopToolbar',
-		);
 		const hasHadInteraction = useSharedPluginStateSelector(
 			pluginInjectionApi,
 			'interaction.hasHadInteraction',
@@ -152,9 +145,7 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 			primaryToolbarState: !primaryToolbarComponents
 				? undefined
 				: { components: primaryToolbarComponents },
-			editorViewModeState: !editorViewMode
-				? undefined
-				: { mode: editorViewMode, _showTopToolbar: showTopToolbar },
+			editorViewModeState: !editorViewMode ? undefined : { mode: editorViewMode },
 			interactionState:
 				hasHadInteraction === undefined || interactionState === undefined
 					? undefined
@@ -206,24 +197,6 @@ export const FullPageEditor = (props: ComponentProps) => {
 		? viewMode === 'view'
 		: editorViewModeState?.mode === 'view';
 
-	if (props.__livePage && !editorExperiment('live_pages_graceful_edit', 'control')) {
-		// the custom toolbar logic should only be applied when the experiment cohort is not control,
-		// and the editor is in live page mode.
-		if (!editorViewModeState) {
-			// when first loading the editor, the toolbar should be hidden for all content modes
-			// the editorViewMode plugin state is not able to be relied as it will not be setup when
-			// the appearance component is being rendered.
-			// In this case we set the toolbar to be hidden by default.
-			isEditorToolbarHidden = true;
-		} else {
-			if (editorExperiment('live_pages_graceful_edit', 'initially-hide-toolbar')) {
-				// for the initially-hide-toolbar variant, the toolbar should be hidden based on
-				// a separate flag in the editorViewMode plugin state.
-				isEditorToolbarHidden = !editorViewModeState._showTopToolbar || false;
-			}
-		}
-	}
-
 	const { customPrimaryToolbarComponents } = props;
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
@@ -261,37 +234,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 				className="akEditor"
 				ref={wrapperElementRef}
 			>
-				{!editorExperiment('live_pages_graceful_edit', 'control') && (
-					<div css={hiddenStyle} data-hidden={isEditorToolbarHidden}>
-						<FullPageToolbar
-							appearance={props.appearance}
-							editorAPI={editorAPI}
-							beforeIcon={props.primaryToolbarIconBefore}
-							collabEdit={props.collabEdit}
-							containerElement={scrollContentContainerRef.current?.scrollContainer ?? null}
-							customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
-							disabled={!!props.disabled}
-							dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-							editorActions={props.editorActions}
-							editorDOMElement={props.editorDOMElement}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							editorView={props.editorView!}
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							eventDispatcher={props.eventDispatcher!}
-							hasMinWidth={props.enableToolbarMinWidth}
-							popupsBoundariesElement={props.popupsBoundariesElement}
-							popupsMountPoint={props.popupsMountPoint}
-							popupsScrollableElement={props.popupsScrollableElement}
-							primaryToolbarComponents={primaryToolbarComponents}
-							providerFactory={props.providerFactory}
-							showKeyline={showKeyline}
-							featureFlags={props.featureFlags}
-						/>
-					</div>
-				)}
-				{editorExperiment('live_pages_graceful_edit', 'control') && !isEditorToolbarHidden && (
+				{!isEditorToolbarHidden && (
 					<FullPageToolbar
 						appearance={props.appearance}
 						editorAPI={editorAPI}
@@ -349,17 +292,3 @@ export const FullPageEditor = (props: ComponentProps) => {
 		</ContextPanelWidthProvider>
 	);
 };
-
-const hiddenStyle = css({
-	visibility: 'visible',
-	opacity: 1,
-	transition: '200ms opacity, 200ms visibility, 200ms transform',
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'&[data-hidden="true"]': {
-		height: 0,
-		visibility: 'hidden',
-		opacity: 0,
-		// transition: '0ms opacity, 0ms visibility, 0ms transform',
-	},
-});

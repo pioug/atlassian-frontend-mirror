@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import taskYield from '../../utils/task-yield';
 
 type RGBColor = `rgb(${number}, ${number}, ${number})`; // 24-bit color value
@@ -74,19 +72,16 @@ export class ViewportCanvas {
 
 		this.ctx = ctx;
 		this.ctx.globalCompositeOperation = 'source-over';
-		if (fg('platform_ufo_use_offscreen_canvas')) {
-			this.ctx.imageSmoothingEnabled = false; // Disable image smoothing for better performance
-		}
+		this.ctx.imageSmoothingEnabled = false; // Disable image smoothing for better performance
 
 		this.clear();
 	}
 
 	/**
 	 * Creates a canvas instance, falling back to HTMLCanvasElement if OffscreenCanvas is not available
-	 * or if the feature flag is disabled
 	 */
 	private createCanvas(width: number, height: number): CanvasType {
-		if (typeof OffscreenCanvas !== 'undefined' && fg('platform_ufo_use_offscreen_canvas')) {
+		if (typeof OffscreenCanvas !== 'undefined') {
 			return new OffscreenCanvas(width, height);
 		}
 		const canvas = document.createElement('canvas');

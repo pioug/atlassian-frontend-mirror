@@ -18,6 +18,7 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type LayoutPlugin } from '../layoutPluginType';
@@ -95,6 +96,10 @@ const LayoutBreakoutResizer = ({
 	parentRef?: HTMLElement;
 }) => {
 	const { editorDisabled } = useSharedState(pluginInjectionApi);
+	const interactionState = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'interaction.interactionState',
+	);
 
 	const getEditorWidth = () => {
 		return pluginInjectionApi?.width?.sharedState.currentState();
@@ -130,6 +135,13 @@ const LayoutBreakoutResizer = ({
 		// put the selection into the first column of the layout
 		selectIntoLayout(view, pos, 0);
 	}, [getPos, view]);
+
+	if (
+		interactionState === 'hasNotHadInteraction' &&
+		fg('platform_editor_hide_expand_selection_states')
+	) {
+		return null;
+	}
 
 	return (
 		<BreakoutResizer

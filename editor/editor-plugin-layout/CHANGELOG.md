@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.8.0
+
+### Minor Changes
+
+- [#160582](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160582)
+  [`63a34f82a6b4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63a34f82a6b4c) -
+  ED-25466 add icons to layout dropdown
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.6
+
+### Patch Changes
+
+- [#159070](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159070)
+  [`9857b771c1da1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9857b771c1da1) -
+  [ux] [ED-27778] Fix selection state hiding for tables, breakout buttons and layout
+- Updated dependencies
+
+## 2.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.4
 
 ### Patch Changes

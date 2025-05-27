@@ -251,6 +251,34 @@ describe('VCCalculator_FY25_03', () => {
 				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 			});
 
+			it('should return false for id attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'id',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should return false for tabindex attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'tabindex',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
 			describe.each(NON_VISUAL_ARIA_ATTRIBUTES)('when entry is a %s attribute', (att) => {
 				it('should return false', () => {
 					const entry: VCObserverEntry = {

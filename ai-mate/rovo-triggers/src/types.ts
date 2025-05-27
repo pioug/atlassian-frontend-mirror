@@ -232,6 +232,16 @@ export type JiraWorkflowWizardActionsPayload = PayloadCore<
 	}
 >;
 
+export type DashboardInsightsActionsPayload = PayloadCore<'dashboard-insights-actions'> & {
+	data?: DashboardInsightsActionsPayloadData;
+};
+
+export type DashboardInsightsActionsPayloadData =
+	| {
+			content: string;
+	  }
+	| undefined;
+
 type ChildIssues = {
 	summary: string;
 	description: string;
@@ -265,7 +275,8 @@ export type Payload =
 	| ForgeAppAuthFailure
 	| JiraWorkflowWizardActionsPayload
 	| InsertPromptPayload
-	| JiraIssueWorkBreakdownActionPayload;
+	| JiraIssueWorkBreakdownActionPayload
+	| DashboardInsightsActionsPayload;
 
 export type Callback = (payload: Payload) => void;
 

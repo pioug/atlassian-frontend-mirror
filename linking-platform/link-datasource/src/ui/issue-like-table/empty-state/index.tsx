@@ -118,7 +118,7 @@ export interface Props {
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled
-const TableHeading = styled.th({
+const TableHeading = styled.td({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.pm-table-wrapper > table thead &, .ProseMirror .pm-table-wrapper > table thead &, &': {
 		border: 0,

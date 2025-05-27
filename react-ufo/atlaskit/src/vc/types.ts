@@ -10,6 +10,7 @@ export type GetVCResultType = {
 	vc?: VCRawDataType | null;
 	experienceKey: string;
 	interactionId?: string;
+	includeSSRRatio?: boolean;
 };
 
 export type SelectorConfig = {

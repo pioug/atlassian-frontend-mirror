@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { SmartLinkSize, SmartLinkTheme } from '../../src/constants';
+import { SmartLinkSize, SmartLinkStatus, SmartLinkTheme } from '../../src/constants';
 import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { Title } from '../../src/view/FlexibleCard/components/elements';
 import { getContext } from '../utils/flexible-ui';
@@ -26,7 +26,7 @@ const renderTitle = (maxLines = 2, size = SmartLinkSize.Medium, theme = SmartLin
 export default () => {
 	return (
 		<VRTestWrapper>
-			<FlexibleCardContext.Provider value={{ data: context }}>
+			<FlexibleCardContext.Provider value={{ data: context, status: SmartLinkStatus.Resolved }}>
 				{/* Remove FlexibleUiContext on cleanup of platform-linking-flexible-card-context */}
 				<FlexibleUiContext.Provider value={context}>
 					{Object.values(SmartLinkSize).map((size, idx) => (

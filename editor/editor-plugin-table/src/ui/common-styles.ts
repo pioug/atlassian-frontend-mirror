@@ -475,17 +475,15 @@ export const baseTableStyles = (props: {
 		padding-bottom: ${tableToolbarSize}px;
 	}
 
-	${fg('nested_table_control_padding_with_css')
-		? `
-		.tableView-content-wrap:has(.tableView-content-wrap):has(.${ClassName.NESTED_TABLE_WITH_CONTROLS}) {
-			padding-left: unset;
-		}
+	.tableView-content-wrap:has(.tableView-content-wrap):has(
+			.${ClassName.NESTED_TABLE_WITH_CONTROLS}
+		) {
+		padding-left: unset;
+	}
 
-		.tableView-content-wrap:has(.${ClassName.NESTED_TABLE_WITH_CONTROLS}) {
-			padding-left: 15px;
-		}
-		`
-		: ''}
+	.tableView-content-wrap:has(.${ClassName.NESTED_TABLE_WITH_CONTROLS}) {
+		padding-left: 15px;
+	}
 
 	tr.sticky th {
 		border-bottom: ${stickyHeaderBorderBottomWidth}px solid ${tableBorderColor};

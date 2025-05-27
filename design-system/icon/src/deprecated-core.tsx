@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createDeprecatedIconDocs` in icon-build-process/src/create-deprecated-icon-docs.tsx.
  *
- * @codegen <<SignedSource::c2c64d32be380c3e7cc94588fb166f0e>>
+ * @codegen <<SignedSource::7c22ff7738ef2148e1812d19e3326ba2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {
@@ -55,11 +55,11 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 	},
 	'@atlaskit/icon/core/sidebar-left': {
 		message:
-			'The icon "sidebar-left" is deprecated in favour of "drawer-left" from “@atlaskit/icon/core”',
+			'The icon "sidebar-left" is deprecated in favour of "panel-left" from “@atlaskit/icon/core”',
 	},
 	'@atlaskit/icon/core/sidebar-right': {
 		message:
-			'The icon "sidebar-right" is deprecated in favour of "drawer-right" from “@atlaskit/icon/core”',
+			'The icon "sidebar-right" is deprecated in favour of "panel-right" from “@atlaskit/icon/core”',
 	},
 	'@atlaskit/icon/core/migration/align-center--editor-align-center': {
 		message:

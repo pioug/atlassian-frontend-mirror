@@ -24,7 +24,7 @@ export const borderSelectionStyles = css({
 	// Fixes ED-15246: Trello card is visible through a border of a table border
 	'&::after': {
 		height: '100%',
-		content: '"\\00a0"',
+		content: "'\\00a0'",
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,@atlaskit/ui-styling-standard/no-unsafe-values
 		background: token('color.border.selected'),
 		position: 'absolute',

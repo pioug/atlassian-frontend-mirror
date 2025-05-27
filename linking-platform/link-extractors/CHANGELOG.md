@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 2.3.4
+
+### Patch Changes
+
+- [#160330](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160330)
+  [`f1c0f21f646c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c0f21f646c9) -
+  Check for nullable jsonLd object on extractLink and extractTitle
+
 ## 2.3.3
 
 ### Patch Changes

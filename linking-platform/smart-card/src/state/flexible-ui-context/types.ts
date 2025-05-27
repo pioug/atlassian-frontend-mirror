@@ -133,6 +133,10 @@ export type FlexibleUiDataContext = {
 	 */
 	linkIcon?: Icon;
 	/**
+	 * Contains the link text and url
+	 */
+	linkTitle?: LinkTitle;
+	/**
 	 * Contains the name of the entity that last modified the resource.
 	 * @type string
 	 * @see ModifiedBy
@@ -222,6 +226,7 @@ export type FlexibleUiDataContext = {
 	 * Contains the Title of the linked resource.
 	 * @type string
 	 * @see Title
+	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
 	 */
 	title?: string;
 	/**
@@ -255,6 +260,12 @@ export type FlexibleUiDataContext = {
 		resourceType?: string;
 		tenantId?: string;
 	};
+};
+
+export type LinkTitle = {
+	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
+	text?: string;
+	url?: string;
 };
 
 export type Icon = {

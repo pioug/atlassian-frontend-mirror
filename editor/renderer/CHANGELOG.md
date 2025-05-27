@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 118.4.0
+
+### Minor Changes
+
+- [#160500](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160500)
+  [`c359a92c058b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c359a92c058b0) -
+  [ux] EDITOR-713 Add borders to panel when they are nested in table
+
+### Patch Changes
+
+- Updated dependencies
+
+## 118.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 118.3.0
 
 ### Minor Changes

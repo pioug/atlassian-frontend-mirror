@@ -33,6 +33,9 @@
             "path": "../../editor-plugin-guideline/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-interaction/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-selection/afm-cc/tsconfig.json"
         },
         {
@@ -43,6 +46,9 @@
         },
         {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/icon-lab/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"

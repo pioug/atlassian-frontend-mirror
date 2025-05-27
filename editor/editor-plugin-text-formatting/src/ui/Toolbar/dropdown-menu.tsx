@@ -28,6 +28,7 @@ type DropdownMenuProps = {
 	hasMoreButton: boolean;
 	toolbarType: ToolbarType;
 	hasMultiplePartsWithFormattingSelected?: boolean;
+	isDisabled?: boolean;
 } & WrappedComponentProps;
 
 export const FormattingTextDropdownMenu = React.memo(
@@ -44,6 +45,7 @@ export const FormattingTextDropdownMenu = React.memo(
 		intl,
 		toolbarType,
 		hasMultiplePartsWithFormattingSelected,
+		isDisabled,
 	}: DropdownMenuProps) => {
 		const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
 		const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
@@ -125,7 +127,7 @@ export const FormattingTextDropdownMenu = React.memo(
 				) : (
 					<DropdownToolbarButton
 						isReducedSpacing={isReducedSpacing}
-						isDisabled={false}
+						isDisabled={Boolean(isDisabled)}
 						isSelected={isMenuOpen}
 						label={intl.formatMessage(toolbarMessages.textFormat)}
 						aria-expanded={isMenuOpen}

@@ -1,0 +1,11 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Integration test
+- Integration tests: Start dev server with `yarn start:rspack react-ufo`, then run `yarn test:integration packages/react-ufo/atlaskit/__tests__/ --retries 0 --reporter list --reuse-dev-server --project=desktop-chromium --max-failures=0`
+- integration test cases are located in `packages/react-ufo/atlaskit/__tests__`
+- There are test helper in `packages/react-ufo/atlaskit/__tests__/fixtures.ts`
+- Integration test run examples page in a browser using playwright then execute the test cases scenarios
+- To determine which example page is run `test.use({ examplePage: 'exapmle-page-name' });`, which corresponds to file in `packages/react-ufo/atlaskit/examples`

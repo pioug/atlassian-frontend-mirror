@@ -1,5 +1,20 @@
 # @atlaskit/icon
 
+## 26.3.0
+
+### Minor Changes
+
+- [#160927](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160927)
+  [`70494296070b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70494296070b5) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `panel-left`
+  - `panel-right`
+
 ## 26.2.0
 
 ### Minor Changes

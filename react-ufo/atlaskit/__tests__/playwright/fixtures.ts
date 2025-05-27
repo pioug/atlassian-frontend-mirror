@@ -241,8 +241,9 @@ export const test = base.extend<{
 							if (payloads.length < 1) {
 								return Promise.resolve(null);
 							}
+							const firstPayload = payloads.shift() ?? null;
 
-							return Promise.resolve(payloads[0]);
+							return Promise.resolve(firstPayload);
 						});
 
 						reactUFOPayload = value;
@@ -408,19 +409,21 @@ const customMatchers = {
 		const expectedInSeconds = Math.round(timestampExpected!) / 1000;
 
 		let pass: boolean;
-		let matcherResult: any;
 		try {
 			baseExpect(receivedInSeconds).toBeCloseTo(expectedInSeconds, 1);
 			pass = true;
 		} catch (e: any) {
-			matcherResult = e.matcherResult;
 			pass = false;
 		}
 
 		return {
 			pass,
 			message: () => {
-				return !pass ? matcherResult.message : '';
+				if (pass) {
+					return `Expected timestamp ${timestampReceived} (${receivedInSeconds}s) not to match ${timestampExpected} (${expectedInSeconds}s)`;
+				} else {
+					return `Expected timestamp ${timestampReceived} (${receivedInSeconds}s) to match ${timestampExpected} (${expectedInSeconds}s)\n\nReceived: ${receivedInSeconds}s\nExpected: ${expectedInSeconds}s (within 0.1s precision)`;
+				}
 			},
 		};
 	},

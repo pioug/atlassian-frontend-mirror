@@ -17,6 +17,7 @@ snapshot(VRIssueLikeTable, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
+		fix_a11y_issues_inline_edit: true,
 	},
 });
 
@@ -31,8 +32,9 @@ snapshot(IssueLikeTableReadonly, {
 		},
 	],
 	featureFlags: {
-		'platform-component-visual-refresh': [true, false],
+		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-sllv': [true, false],
+		fix_a11y_issues_inline_edit: true,
 	},
 });
 
@@ -49,5 +51,6 @@ snapshot(IssueLikeTableCustomColumns, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-sllv': [true, false],
+		fix_a11y_issues_inline_edit: true,
 	},
 });

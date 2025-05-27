@@ -1,5 +1,5 @@
 import { type MenuItem } from '@atlaskit/editor-common/ui-menu';
-import type { ContentMode, ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 
 export type MenuItemsType = Array<{
 	items: MenuItem[];
@@ -41,7 +41,7 @@ export type SelectionExtensions = {
 	external?: SelectionExtension[];
 };
 
-type SelectionExtensionModes = ViewMode | ContentMode;
+type SelectionExtensionModes = ViewMode;
 
 export type SelectionExtensionPluginOptions = {
 	pageModes?: SelectionExtensionModes | SelectionExtensionModes[];

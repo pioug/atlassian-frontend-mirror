@@ -11,6 +11,10 @@ export const extractTitle = (
 	jsonLd: JsonLd.Data.BaseData,
 	removeTextHighlightingFromTitle?: boolean,
 ): string | undefined => {
+	if (!jsonLd) {
+		return undefined;
+	}
+
 	const name = jsonLd.name?.replace(/[\r\n]+/g, '');
 	const id = jsonLd['@id'] || '';
 

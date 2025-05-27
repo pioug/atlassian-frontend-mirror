@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "10.10.6",
+	"version": "10.11.1",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-plugin-extension": "workspace:*",
 		"@atlaskit/editor-plugin-guideline": "workspace:^",
+		"@atlaskit/editor-plugin-interaction": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
@@ -225,6 +226,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_fw_numcol_overflow_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_hide_expand_selection_states": {
 			"type": "boolean"
 		}
 	}

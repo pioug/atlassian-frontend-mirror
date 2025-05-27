@@ -127,6 +127,13 @@ const tableSharedStyle = () => css`
 		margin: ${token('space.300', '24px')} ${token('space.100', '8px')} 0 0;
 	}
 
+	/* support panel nested in table */
+	${fg('platform_editor_bordered_panel_nested_in_table')
+		? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} .ak-editor-panel {
+			border: ${token('border.width', '1px')} solid ${token('color.border', '#d9dbea')};
+		}`
+		: ''}
+
 	/* avoid applying styles to nested tables (possible via extensions) */
 	.${TableSharedCssClassName.TABLE_CONTAINER} > table,
 	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,

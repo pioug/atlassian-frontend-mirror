@@ -14,6 +14,7 @@ import type { BlockType } from '@atlaskit/editor-plugin-block-type';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	action,
@@ -54,6 +55,9 @@ export interface CreateItemsConfig {
 	linkSupported?: boolean;
 	linkDisabled?: boolean;
 	emojiDisabled?: boolean;
+	hasEmojiPlugin?: boolean;
+	hasMentionsPlugin?: boolean;
+	hasMediaPlugin?: boolean;
 	nativeStatusSupported?: boolean;
 	dateEnabled?: boolean;
 	placeholderTextEnabled?: boolean;
@@ -111,6 +115,9 @@ const createInsertBlockItems = (
 		linkDisabled,
 		emojiDisabled,
 		emojiProvider,
+		hasEmojiPlugin,
+		hasMentionsPlugin,
+		hasMediaPlugin,
 		nativeStatusSupported,
 		insertMenuItems,
 		dateEnabled,
@@ -149,45 +156,86 @@ const createInsertBlockItems = (
 		);
 	}
 
-	if (mediaSupported && mediaUploadsEnabled) {
-		items.push(
-			media({
-				content: formatMessage(messages.addMediaFiles),
-				tooltipDescription: formatMessage(messages.mediaFilesDescription),
-				disabled: isOffline,
-			}),
-		);
-	}
+	if (editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true)) {
+		if (imageUploadSupported) {
+			items.push(
+				imageUpload({
+					content: formatMessage(messages.image),
+					disabled: !imageUploadEnabled || isOffline,
+				}),
+			);
+		} else if (hasMediaPlugin) {
+			items.push(
+				media({
+					content: formatMessage(messages.addMediaFiles),
+					tooltipDescription: formatMessage(messages.mediaFilesDescription),
+					disabled: isOffline || !mediaSupported || !mediaUploadsEnabled,
+				}),
+			);
+		}
 
-	if (imageUploadSupported) {
-		items.push(
-			imageUpload({
-				content: formatMessage(messages.image),
-				disabled: !imageUploadEnabled || isOffline,
-			}),
-		);
-	}
+		if (hasMentionsPlugin) {
+			items.push(
+				mention({
+					content: formatMessage(messages.mention),
+					tooltipDescription: formatMessage(messages.mentionDescription),
+					disabled: !isTypeAheadAllowed || !!mentionsDisabled || !mentionsSupported,
+					'aria-haspopup': 'listbox',
+				}),
+			);
+		}
 
-	if (mentionsSupported) {
-		items.push(
-			mention({
-				content: formatMessage(messages.mention),
-				tooltipDescription: formatMessage(messages.mentionDescription),
-				disabled: !isTypeAheadAllowed || !!mentionsDisabled,
-				'aria-haspopup': 'listbox',
-			}),
-		);
-	}
+		if (hasEmojiPlugin) {
+			items.push(
+				emoji({
+					content: formatMessage(messages.emoji),
+					tooltipDescription: formatMessage(messages.emojiDescription),
+					disabled: emojiDisabled || !isTypeAheadAllowed || !emojiProvider,
+					'aria-haspopup': 'dialog',
+				}),
+			);
+		}
+	} else {
+		if (mediaSupported && mediaUploadsEnabled) {
+			items.push(
+				media({
+					content: formatMessage(messages.addMediaFiles),
+					tooltipDescription: formatMessage(messages.mediaFilesDescription),
+					disabled: isOffline,
+				}),
+			);
+		}
 
-	if (emojiProvider) {
-		items.push(
-			emoji({
-				content: formatMessage(messages.emoji),
-				tooltipDescription: formatMessage(messages.emojiDescription),
-				disabled: emojiDisabled || !isTypeAheadAllowed,
-				'aria-haspopup': 'dialog',
-			}),
-		);
+		if (imageUploadSupported) {
+			items.push(
+				imageUpload({
+					content: formatMessage(messages.image),
+					disabled: !imageUploadEnabled || isOffline,
+				}),
+			);
+		}
+
+		if (mentionsSupported) {
+			items.push(
+				mention({
+					content: formatMessage(messages.mention),
+					tooltipDescription: formatMessage(messages.mentionDescription),
+					disabled: !isTypeAheadAllowed || !!mentionsDisabled,
+					'aria-haspopup': 'listbox',
+				}),
+			);
+		}
+
+		if (emojiProvider) {
+			items.push(
+				emoji({
+					content: formatMessage(messages.emoji),
+					tooltipDescription: formatMessage(messages.emojiDescription),
+					disabled: emojiDisabled || !isTypeAheadAllowed,
+					'aria-haspopup': 'dialog',
+				}),
+			);
+		}
 	}
 
 	if (tableSupported) {

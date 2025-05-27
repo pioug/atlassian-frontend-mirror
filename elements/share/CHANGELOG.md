@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 6.6.3
+
+### Patch Changes
+
+- [#160514](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160514)
+  [`106f4550f0e10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/106f4550f0e10) -
+  clean outgoing mail fix feature gate
+- Updated dependencies
+
 ## 6.6.2
 
 ### Patch Changes

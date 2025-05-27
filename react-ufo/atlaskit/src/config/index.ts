@@ -94,6 +94,7 @@ export type Config = {
 		readonly ssrWhitelist?: string[];
 		readonly ssrEnablePageLayoutPlaceholder?: boolean;
 		readonly stopVCAtInteractionFinish?: boolean;
+		readonly includeSSRRatio?: boolean;
 		/**
 		 * The revisions of TTVC that will be calculated
 		 * - `all` is the TTVC revisions that are used on a product level

@@ -35,13 +35,15 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
 		const isVisible = useSharedPluginStateSelector(api, 'helpDialog.isVisible');
 		const imageEnabled = useSharedPluginStateSelector(api, 'helpDialog.imageEnabled');
-		return { isVisible, imageEnabled };
+		const aiEnabled = useSharedPluginStateSelector(api, 'helpDialog.aiEnabled');
+		return { isVisible, imageEnabled, aiEnabled };
 	},
 	(api: ExtractInjectionAPI<HelpDialogPlugin> | undefined) => {
 		const { helpDialogState } = useSharedPluginState(api, ['helpDialog']);
 		return {
 			isVisible: helpDialogState?.isVisible,
 			imageEnabled: helpDialogState?.imageEnabled,
+			aiEnabled: helpDialogState?.aiEnabled,
 		};
 	},
 );
@@ -52,7 +54,7 @@ const HelpDialog = ({
 	quickInsertEnabled,
 	intl,
 }: HelpDialogProps & WrappedComponentProps) => {
-	const { isVisible, imageEnabled } = useSharedState(pluginInjectionApi);
+	const { isVisible, imageEnabled, aiEnabled } = useSharedState(pluginInjectionApi);
 
 	const closeDialog = useCallback(() => {
 		const {
@@ -88,6 +90,7 @@ const HelpDialog = ({
 		intl,
 		imageEnabled,
 		quickInsertEnabled,
+		aiEnabled,
 	);
 
 	return (

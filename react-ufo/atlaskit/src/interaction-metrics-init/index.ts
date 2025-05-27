@@ -160,6 +160,7 @@ export function init(
 			oldDomUpdates: config.vc.oldDomUpdates,
 			devToolsEnabled: config.vc.devToolsEnabled,
 			selectorConfig: config.vc.selectorConfig,
+			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
 		};
 
 		getVCObserver(vcOptions).start({ startTime: 0 });

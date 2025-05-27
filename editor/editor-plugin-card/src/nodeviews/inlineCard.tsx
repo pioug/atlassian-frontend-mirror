@@ -21,7 +21,6 @@ import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -304,13 +303,7 @@ export function InlineCardNodeView(
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...(enableInlineUpgradeFeatures &&
-					getAwarenessProps(
-						view.state,
-						getPos,
-						allowEmbeds,
-						allowBlockCards,
-						!editorExperiment('live_pages_graceful_edit', 'control') ? true : mode === 'view',
-					))}
+					getAwarenessProps(view.state, getPos, allowEmbeds, allowBlockCards, mode === 'view'))}
 			/>
 			{fg('prompt_whiteboard_competitor_link_gate') && CompetitorPromptComponent}
 		</>

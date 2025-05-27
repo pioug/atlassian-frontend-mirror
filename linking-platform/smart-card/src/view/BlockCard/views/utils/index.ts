@@ -144,9 +144,18 @@ type SimulatedMetadata = {
 	bottomMetadata?: ElementItem[];
 };
 
+/**
+ * @deprecated Remove on platform-linking-flexible-card-context cleanup
+ */
+export const FlexibleCardUiOptionsOld: InternalFlexibleUiOptions = {
+	hideElevation: true,
+	hideLegacyButton: true,
+};
+
 export const FlexibleCardUiOptions: InternalFlexibleUiOptions = {
 	hideElevation: true,
 	hideLegacyButton: true,
+	removeBlockRestriction: true,
 };
 
 export const titleBlockOptions: Partial<TitleBlockProps> = {

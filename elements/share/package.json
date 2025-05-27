@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.6.2",
+	"version": "6.6.3",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -129,9 +129,6 @@
 			"type": "boolean"
 		},
 		"smart_links_for_plans_platform": {
-			"type": "boolean"
-		},
-		"plans_outgoing_mail_fix": {
 			"type": "boolean"
 		},
 		"jira-issue-terminology-refresh-m3": {

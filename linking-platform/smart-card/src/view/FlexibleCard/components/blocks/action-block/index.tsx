@@ -140,14 +140,24 @@ const ActionBlock = ({
 					onClick={() => onClick(name)}
 					onError={onError}
 					onLoadingChange={onLoadingChange}
-					size={size}
+					size={fg('platform-linking-flexible-card-context') ? size || ui?.size : size}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/no-unsafe-design-token-usage
 					style={padding && { paddingInline: padding }}
 					hideTooltip={isLoading}
 				/>
 			) : null;
 		});
-	}, [context?.actions, onClick, onError, padding, size, spaceInline, isLoading, onLoadingChange]);
+	}, [
+		context?.actions,
+		spaceInline,
+		onError,
+		onLoadingChange,
+		size,
+		ui?.size,
+		padding,
+		isLoading,
+		onClick,
+	]);
 
 	return actions ? (
 		<div

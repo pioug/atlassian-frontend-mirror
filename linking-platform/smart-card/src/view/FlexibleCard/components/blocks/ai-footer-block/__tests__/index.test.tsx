@@ -13,7 +13,7 @@ import { SmartLinkStatus } from '../../../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { type AISummaryStatus } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
-import FooterBlock from '../index';
+import AIFooterBlock from '../index';
 import type { AIFooterBlockProps } from '../types';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
@@ -26,14 +26,14 @@ describe('AIFooterBlock', () => {
 	const renderAIFooterBlock = (
 		props?: AIFooterBlockProps,
 		overrideContext?: FlexibleUiDataContext,
+		overrideStatus?: SmartLinkStatus,
 	) => {
-		return render(
-			<FooterBlock status={SmartLinkStatus.Resolved} {...props} testId={testIdBase} />,
-			{ wrapper: getFlexibleCardTestWrapper(overrideContext || context) },
-		);
+		return render(<AIFooterBlock {...props} testId={testIdBase} />, {
+			wrapper: getFlexibleCardTestWrapper(overrideContext || context, undefined, overrideStatus),
+		});
 	};
 
-	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
+	ffTest.on('platform-linking-flexible-card-context', 'with fg', () => {
 		it('should render non-empty block when status is resolved', () => {
 			jest.mocked(useAISummary).mockReturnValue({
 				state: { status: 'done', content: '' },
@@ -55,7 +55,7 @@ describe('AIFooterBlock', () => {
 			[SmartLinkStatus.Unauthorized],
 			[SmartLinkStatus.Fallback],
 		])('should render null when status is %s', (status: SmartLinkStatus) => {
-			renderAIFooterBlock({ status });
+			renderAIFooterBlock(undefined, undefined, status);
 
 			const resolvedView = screen.queryByTestId(`${testIdBase}-resolved-view`);
 
@@ -79,10 +79,9 @@ describe('AIFooterBlock', () => {
 				backgroundColor: 'blue',
 			});
 
-			render(
-				<FooterBlock status={SmartLinkStatus.Resolved} testId={testIdBase} css={overrideCss} />,
-				{ wrapper: getFlexibleCardTestWrapper(context) },
-			);
+			render(<AIFooterBlock testId={testIdBase} css={overrideCss} />, {
+				wrapper: getFlexibleCardTestWrapper(context),
+			});
 
 			const block = await screen.findByTestId(`${testIdBase}-resolved-view`);
 
@@ -126,6 +125,107 @@ describe('AIFooterBlock', () => {
 				};
 
 				renderAIFooterBlock({}, contextWithNoAiSummaryAction);
+
+				const aiMetadata = screen.queryByTestId(`${testIdBase}-ai-metadata`);
+
+				expect(aiMetadata).toBeNull();
+			});
+		});
+	});
+
+	ffTest.off('platform-linking-flexible-card-context', 'with fg', () => {
+		it('should render non-empty block when status is resolved', () => {
+			jest.mocked(useAISummary).mockReturnValue({
+				state: { status: 'done', content: '' },
+				summariseUrl: jest.fn(),
+			});
+
+			renderAIFooterBlock({ status: SmartLinkStatus.Resolved });
+
+			const resolvedView = screen.getByTestId(`${testIdBase}-resolved-view`);
+
+			expect(resolvedView).toBeInTheDocument();
+		});
+
+		it.each([
+			[SmartLinkStatus.Resolving],
+			[SmartLinkStatus.Forbidden],
+			[SmartLinkStatus.Errored],
+			[SmartLinkStatus.NotFound],
+			[SmartLinkStatus.Unauthorized],
+			[SmartLinkStatus.Fallback],
+		])('should render null when status is %s', (status: SmartLinkStatus) => {
+			renderAIFooterBlock({ status });
+
+			const resolvedView = screen.queryByTestId(`${testIdBase}-resolved-view`);
+
+			expect(resolvedView).toBeNull();
+		});
+
+		it('should render provider', async () => {
+			renderAIFooterBlock({ status: SmartLinkStatus.Resolved });
+
+			const provider = await screen.findByTestId(`${testIdBase}-provider`);
+
+			expect(provider).toBeDefined();
+
+			const providerLabel = await screen.findByTestId(`${testIdBase}-provider-label`);
+
+			expect(providerLabel).toHaveTextContent('Confluence');
+		});
+
+		it('renders with override css', async () => {
+			const overrideCss = css({
+				backgroundColor: 'blue',
+			});
+
+			render(
+				<AIFooterBlock status={SmartLinkStatus.Resolved} testId={testIdBase} css={overrideCss} />,
+				{ wrapper: getFlexibleCardTestWrapper(context) },
+			);
+
+			const block = await screen.findByTestId(`${testIdBase}-resolved-view`);
+
+			expect(block).toHaveCompiledCss('background-color', 'blue');
+		});
+
+		describe('AI Metadata', () => {
+			it('should render AI metadata when AI action is available', async () => {
+				jest.mocked(useAISummary).mockReturnValue({
+					state: { status: 'done', content: '' },
+					summariseUrl: jest.fn(),
+				});
+
+				renderAIFooterBlock({ status: SmartLinkStatus.Resolved });
+
+				const aiMetadata = await screen.findByTestId(`${testIdBase}-ai-metadata`);
+
+				expect(aiMetadata).toBeDefined();
+			});
+
+			it.each<[AISummaryStatus]>([['ready'], ['error'], ['loading']])(
+				'should not render AI metadata when AI summary is in state %s',
+				async (status) => {
+					jest.mocked(useAISummary).mockReturnValue({
+						state: { status, content: '' },
+						summariseUrl: jest.fn(),
+					});
+
+					renderAIFooterBlock({ status: SmartLinkStatus.Resolved });
+
+					const aiMetadata = screen.queryByTestId(`${testIdBase}-ai-metadata`);
+
+					expect(aiMetadata).toBeNull();
+				},
+			);
+
+			it('should not render AI metadata when AI action is not available', async () => {
+				const contextWithNoAiSummaryAction = {
+					...context,
+					actions: { ...context.actions, AISummaryAction: undefined },
+				};
+
+				renderAIFooterBlock({ status: SmartLinkStatus.Resolved }, contextWithNoAiSummaryAction);
 
 				const aiMetadata = screen.queryByTestId(`${testIdBase}-ai-metadata`);
 

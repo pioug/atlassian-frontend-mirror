@@ -59,6 +59,18 @@ export const getChildrenOptions = (
 	return options;
 };
 
+const filterChildren = (children: React.ReactNode, removeBlockRestriction?: boolean) => {
+	if (fg('platform-linking-flexible-card-openness')) {
+		if (removeBlockRestriction) {
+			return children;
+		}
+	}
+
+	return React.Children.map(children, (child) =>
+		React.isValidElement(child) && isFlexibleUiBlock(child) ? child : undefined,
+	);
+};
+
 const renderChildren = (
 	children: React.ReactNode,
 	containerSize: SmartLinkSize,
@@ -92,6 +104,7 @@ const renderChildren = (
 					});
 				}
 			}
+
 			const { size: blockSize } = child.props;
 			const size = blockSize || containerSize;
 			if (isStyleCacheProvider(child)) {
@@ -443,6 +456,7 @@ const Container = ({
 	theme = SmartLinkTheme.Link,
 }: ContainerProps) => {
 	di(HoverCardControl);
+
 	const padding = hidePadding
 		? fg('platform-linking-visual-refresh-v1')
 			? '0px'
@@ -455,6 +469,7 @@ const Container = ({
 			useFlexibleUiContext()
 		: // eslint-disable-next-line react-hooks/rules-of-hooks
 			useContext(FlexibleUiContext);
+
 	const { previewOnLeft, previewOnRight } = getChildrenOptions(children, context);
 	const canShowHoverPreview = showHoverPreview && status === 'resolved';
 	// `retry` object contains action that can be performed on
@@ -485,7 +500,9 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
-			{renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
+			{fg('platform-linking-flexible-card-context')
+				? filterChildren(children, removeBlockRestriction)
+				: renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
 		</div>
 	) : (
 		<div
@@ -503,7 +520,9 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer ? getLayeredLink(testId, context, children, onClick) : null}
-			{renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
+			{fg('platform-linking-flexible-card-context')
+				? filterChildren(children, removeBlockRestriction)
+				: renderChildren(children, size, theme, status, retry, onClick, removeBlockRestriction)}
 		</div>
 	);
 

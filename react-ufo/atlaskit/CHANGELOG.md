@@ -1,5 +1,48 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.10
+
+### Patch Changes
+
+- [#160800](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160800)
+  [`3763aa7aadc8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3763aa7aadc8c) -
+  AFO-3913 fix transitio VC v3 not reaching 100 in VC Chart
+
+## 3.13.9
+
+### Patch Changes
+
+- [#161064](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161064)
+  [`26461e98f0825`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26461e98f0825) -
+  Fix enabling marking page-layour as a SSR placeholder
+- [#161052](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161052)
+  [`a16bd256e0ae6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a16bd256e0ae6) -
+  Clean up fg platform_ufo_use_offscreen_canvas
+
+## 3.13.8
+
+### Patch Changes
+
+- [#160478](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160478)
+  [`e79a796bb3b5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e79a796bb3b5a) -
+  Add id to ttvc v3 attribute ignore list
+
+## 3.13.7
+
+### Patch Changes
+
+- [#160483](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160483)
+  [`b814d89d571f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b814d89d571f0) -
+  Extending VC to report how much SSR contributes to VC
+
+## 3.13.6
+
+### Patch Changes
+
+- [#160721](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160721)
+  [`5116c586702ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5116c586702ba) -
+  FG cleanup - platform_ufo_post_interaction_use_vc_rev
+
 ## 3.13.5
 
 ### Patch Changes

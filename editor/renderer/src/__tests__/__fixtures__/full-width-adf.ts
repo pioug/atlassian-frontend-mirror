@@ -969,6 +969,141 @@ export const panelNodeAdf: DocNode = {
 	],
 };
 
+export const panelNodeNestedInTableAdf: DocNode = {
+	content: [
+		{
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+				localId: '08f1718e-c8dd-443b-b320-591c638a2fbe',
+				width: 760,
+			},
+			content: [
+				{
+					content: [
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableHeader',
+						},
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableHeader',
+						},
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableHeader',
+						},
+					],
+					type: 'tableRow',
+				},
+				{
+					content: [
+						{
+							attrs: {},
+							content: [
+								{
+									attrs: {
+										panelType: PanelType.INFO,
+									},
+									content: [
+										{
+											content: [],
+											type: 'paragraph',
+										},
+									],
+									type: 'panel',
+								},
+							],
+							type: 'tableCell',
+						},
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableCell',
+						},
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableCell',
+						},
+					],
+					type: 'tableRow',
+				},
+				{
+					content: [
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableCell',
+						},
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableCell',
+						},
+						{
+							attrs: {},
+							content: [
+								{
+									content: [],
+									type: 'paragraph',
+								},
+							],
+							type: 'tableCell',
+						},
+					],
+					type: 'tableRow',
+				},
+			],
+			type: 'table',
+		},
+		{
+			content: [],
+			type: 'paragraph',
+		},
+	],
+	type: 'doc',
+	version: 1,
+};
+
 export const ruleNodeAdf: DocNode = {
 	version: 1,
 	type: 'doc',

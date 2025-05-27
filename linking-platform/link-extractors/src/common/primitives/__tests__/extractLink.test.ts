@@ -19,4 +19,9 @@ describe('extractors.primitives.link', () => {
 		data.url = [TEST_LINK];
 		expect(extractLink(TEST_BASE_DATA)).toBe(TEST_URL);
 	});
+
+	it('should return undefined if data is not available', () => {
+		// @ts-ignore For testing purpose
+		expect(extractLink()).toBeUndefined();
+	});
 });

@@ -1,5 +1,105 @@
 # @atlaskit/editor-core
 
+## 207.10.1
+
+### Patch Changes
+
+- [#160084](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160084)
+  [`ad90a6f9f245d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad90a6f9f245d) -
+  refactor emotion styles for list
+- [#160454](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160454)
+  [`e09cbdb2a1f3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e09cbdb2a1f3c) -
+  Cleaned up INP feature gate
+- Updated dependencies
+
+## 207.10.0
+
+### Minor Changes
+
+- [#160678](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160678)
+  [`9454f60883904`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9454f60883904) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor shadow, text
+  color and unsupported CSS in static emotion
+- [#160532](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160532)
+  [`0997882c2118b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0997882c2118b) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor date CSS in
+  static emotion
+
+### Patch Changes
+
+- [#159090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159090)
+  [`9cbae97c20f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cbae97c20f84) -
+  Reduces rerenders of text formatting options and the toolbar when it is docked to top.
+- Updated dependencies
+
+## 207.9.0
+
+### Minor Changes
+
+- [#160567](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160567)
+  [`2088abf31e988`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2088abf31e988) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor block marks CSS
+  in static emotion
+- [#156919](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156919)
+  [`379f5c27f4939`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379f5c27f4939) -
+  delay table sticky headers until table is in viewport
+- [#160638](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160638)
+  [`73485f1de1b41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73485f1de1b41) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor grid,
+  indentation, whitespace CSS in static emotion
+
+### Patch Changes
+
+- [#159655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159655)
+  [`24f8c627d50f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24f8c627d50f2) - ##
+  WHAT? Remove experimental graceful edit mode from view mode plugin and associated props.
+
+  ## WHY?
+
+  This experiment is being cleaned up and we are no longer proceeding in this direction.
+
+  ## HOW to adjust?
+
+  This experiment was only enabled for Confluence and should not have been enabled in other places.
+  If for some reason any of the following props/state/methdos were used please remove them:
+
+  - isConsumption
+  - contentMode
+  - initialContentMode
+  - updateContentMode
+
+- Updated dependencies
+
+## 207.8.0
+
+### Minor Changes
+
+- [#160606](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160606)
+  [`cd15d7ce813fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd15d7ce813fb) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor paragraph CSS in
+  static emotion
+- [#160652](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160652)
+  [`907e9afb86169`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/907e9afb86169) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor tasks and
+  decisions CSS in static emotion
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.7.0
+
+### Minor Changes
+
+- [#157354](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157354)
+  [`5d67631c09a7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d67631c09a7f) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor code block CSS
+  in static emotion
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 207.6.1
 
 ### Patch Changes

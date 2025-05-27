@@ -1,27 +1,34 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import EmptyState from '../empty-state';
 
 describe('EmptyState', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<EmptyState />);
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render as expected with 11 rows (10 including header) and 9 columns with no props', () => {
-		const { getAllByRole } = render(<EmptyState />);
-		expect(getAllByRole('row').length).toEqual(11);
-		expect(getAllByRole('columnheader').length).toEqual(9);
+		render(<EmptyState />);
+		const rows = screen.getAllByRole('row');
+		expect(rows.length).toEqual(11);
+		expect(within(rows[0]).getAllByRole('cell').length).toEqual(9);
 	});
 
 	it('should render 14 rows and 6 columns in compact mode', () => {
-		const { getAllByRole } = render(<EmptyState isCompact />);
+		render(<EmptyState isCompact />);
+		const rows = screen.getAllByRole('row');
 
-		expect(getAllByRole('row').length).toEqual(15);
-		expect(getAllByRole('columnheader').length).toEqual(6);
+		expect(rows.length).toEqual(15);
+		expect(within(rows[0]).getAllByRole('cell').length).toEqual(6);
 	});
 
 	it('should render variable long width if header is summary', () => {
-		const { getAllByTestId } = render(<EmptyState />);
+		render(<EmptyState />);
 
-		getAllByTestId('summary-empty-state-skeleton').forEach((skeleton) => {
+		screen.getAllByTestId('summary-empty-state-skeleton').forEach((skeleton) => {
 			const style = window.getComputedStyle(skeleton);
 			if (style && style.width && style.width.includes('px')) {
 				const width = parseFloat(style.width.replace('px', ''));
@@ -33,9 +40,9 @@ describe('EmptyState', () => {
 	});
 
 	it('should render variable short width if header is status', () => {
-		const { getAllByTestId } = render(<EmptyState />);
+		render(<EmptyState />);
 
-		getAllByTestId('status-empty-state-skeleton').forEach((skeleton) => {
+		screen.getAllByTestId('status-empty-state-skeleton').forEach((skeleton) => {
 			const style = window.getComputedStyle(skeleton);
 			if (style && style.width && style.width.includes('px')) {
 				const width = parseFloat(style.width.replace('px', ''));

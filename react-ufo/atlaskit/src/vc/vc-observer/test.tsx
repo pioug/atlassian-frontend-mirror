@@ -1743,6 +1743,7 @@ describe('vc-observer', () => {
 						},
 					},
 				],
+				'vc:ssrRatio': 50,
 			});
 		});
 	});
@@ -2628,6 +2629,93 @@ describe('vc-observer', () => {
 						},
 					},
 				],
+				'vc:ssrRatio': 50,
+			});
+		});
+
+		test('applies SSR (small number) timings properly', async () => {
+			vc.start({ startTime: 0 });
+			callbacks.forEach((fn: Callback) => {
+				fn(
+					10,
+					mockBox({
+						top: 0,
+						left: 0,
+						width: VIEWPORT_WIDTH,
+						height: (VIEWPORT_HEIGHT / 100) * 95,
+					}),
+					'div#b',
+					document.createElement('div'),
+					'html',
+				);
+			});
+			const result = await vc.getVCResult({
+				start: 0,
+				stop: 100,
+				tti: 3,
+				prefix: '',
+				ssr: 3,
+				isEventAborted: false,
+				experienceKey: 'test',
+			});
+			expect(result).toEqual({
+				'ufo:next:speedIndex': 10,
+				'ufo:speedIndex': 10,
+				'vc:ratios': {
+					'div#b': 0.95,
+				},
+				'vc:size': {
+					w: VIEWPORT_WIDTH,
+					h: VIEWPORT_HEIGHT,
+				},
+				'vc:time': expect.any(Number),
+				'vc:ignored': [],
+				'vc:rev': [
+					{
+						clean: true,
+						'metric:vc90': 10,
+						revision: 'fy25.02',
+						vcDetails: {
+							'25': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'50': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'75': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'80': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'85': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'90': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'95': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'98': {
+								e: ['div#b'],
+								t: 10,
+							},
+							'99': {
+								e: ['div#b'],
+								t: 10,
+							},
+						},
+					},
+				],
+				'vc:ssrRatio': 5,
 			});
 		});
 	});

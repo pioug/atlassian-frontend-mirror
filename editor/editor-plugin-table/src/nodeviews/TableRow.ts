@@ -3,11 +3,13 @@ import throttle from 'lodash/throttle';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
+import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -44,6 +46,8 @@ const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
 const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 
 export default class TableRow extends TableNodeView<HTMLTableRowElement> implements NodeView {
+	private nodeVisibilityObserverCleanupFn?: () => void;
+
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -66,10 +70,28 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 
 		if (this.isHeaderRow) {
-			this.dom.setAttribute('data-header-row', 'true');
-			if (this.isStickyHeaderEnabled) {
-				this.subscribe();
+			if (editorExperiment('platform_editor_nodevisibility', false)) {
+				this.subscribeWhenRowVisible();
+			} else {
+				const { observe } = nodeVisibilityManager(view.dom);
+				this.nodeVisibilityObserverCleanupFn = observe({
+					element: this.contentDOM,
+					onFirstVisible: () => {
+						this.subscribeWhenRowVisible();
+					},
+				});
 			}
+		}
+	}
+
+	subscribeWhenRowVisible() {
+		if (this.listening) {
+			return;
+		}
+
+		this.dom.setAttribute('data-header-row', 'true');
+		if (this.isStickyHeaderEnabled) {
+			this.subscribe();
 		}
 	}
 
@@ -150,6 +172,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 	destroy() {
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
+
+			this.nodeVisibilityObserverCleanupFn && this.nodeVisibilityObserverCleanupFn();
 
 			const tree = getTree(this.dom);
 			if (tree) {
@@ -608,19 +632,6 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const isTableInsideLayout =
 			parentContainer && parentContainer.getAttribute('data-layout-content');
 
-		const isNestedTable =
-			parentContainer &&
-			(parentContainer.className === 'pm-table-header-content-wrap' ||
-				parentContainer.className === 'pm-table-cell-content-wrap');
-
-		const isNestedDataTable =
-			parentContainer &&
-			parentContainer.getAttribute('data-mark-type') === 'fragment' &&
-			(parentContainer.parentElement?.className === 'pm-table-header-content-wrap' ||
-				parentContainer.parentElement?.className === 'pm-table-cell-content-wrap');
-
-		const isTableInsideTable = isNestedTable || isNestedDataTable;
-
 		if (tableContentWrapper) {
 			if (isCurrentTableSelected) {
 				this.colControlsOffset = tableControlsSpacing;
@@ -629,17 +640,11 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				// to provide spacing for table controls
 				if (isTableInsideLayout) {
 					tableContentWrapper.style.paddingLeft = '11px';
-				} else if (isTableInsideTable && !fg('nested_table_control_padding_with_css')) {
-					tableContentWrapper.style.paddingLeft = '15px';
-					tableContentWrapper.style.paddingRight = '4px';
 				}
 			} else {
 				this.colControlsOffset = 0;
 				if (isTableInsideLayout) {
 					tableContentWrapper.style.removeProperty('padding-left');
-				} else if (isTableInsideTable && !fg('nested_table_control_padding_with_css')) {
-					tableContentWrapper.style.removeProperty('padding-left');
-					tableContentWrapper.style.removeProperty('padding-right');
 				}
 			}
 		}
@@ -677,9 +682,6 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 	private makeHeaderRowSticky(tree: TableDOMElements, scrollTop?: number) {
 		// If header row height is more than 50% of viewport height don't do this
-		// TODO: ED-26961 - When cleaning up 'nested_table_control_padding_with_css' FG
-		// move this check to the constructor of the TableRow so that we don't subscribe to
-		// clicks and scrolls for nested tables.
 		if (
 			this.isSticky ||
 			(this.stickyRowHeight && this.stickyRowHeight > window.innerHeight / 2) ||

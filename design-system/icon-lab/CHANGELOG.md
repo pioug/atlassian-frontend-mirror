@@ -1,5 +1,30 @@
 # @atlaskit/icon-lab
 
+## 4.16.0
+
+### Minor Changes
+
+- [#160927](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160927)
+  [`70494296070b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70494296070b5) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `compare`
+  - `generative-date`
+  - `generative-indicator`
+  - `image-strikethrough`
+  - `milestone-complete`
+  - `milestone-incomplete`
+  - `milestone-multiple`
+  - `milestone-overdue`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.15.0
 
 ### Minor Changes

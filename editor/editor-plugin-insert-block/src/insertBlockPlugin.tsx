@@ -21,6 +21,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertBlockPlugin } from './insertBlockPluginType';
 import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
@@ -146,7 +147,26 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				/>
 			);
 		};
-
+		if (editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true)) {
+			return (
+				<ToolbarInsertBlockWithInjectionApi
+					pluginInjectionApi={api}
+					editorView={editorView}
+					editorActions={editorActions}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					providerFactory={providerFactory}
+					popupsMountPoint={popupsMountPoint}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsScrollableElement={popupsScrollableElement}
+					toolbarSize={toolbarSize}
+					disabled={disabled}
+					isToolbarReducedSpacing={isToolbarReducedSpacing}
+					isLastItem={isLastItem}
+					options={options}
+					appearance={options.appearance}
+				/>
+			);
+		}
 		return (
 			<WithProviders
 				providerFactory={providerFactory}
@@ -221,7 +241,7 @@ interface ToolbarInsertBlockWithInjectionApiProps
 		ToolbarUiComponentFactoryParams,
 		'eventDispatcher' | 'appearance' | 'containerElement' | 'wrapperElement'
 	> {
-	providers: Providers;
+	providers?: Providers;
 	pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
 	options: InsertBlockOptions;
 	appearance: EditorAppearance | undefined;
@@ -229,7 +249,9 @@ interface ToolbarInsertBlockWithInjectionApiProps
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined) => {
-		const emojiProviderSelector = useSharedPluginStateSelector(api, 'emoji.emojiProvider');
+		const emojiProviderSelector = useSharedPluginStateSelector(api, 'emoji.emojiProvider', {
+			disabled: editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true),
+		});
 		const showMediaPicker = useSharedPluginStateSelector(api, 'media.showMediaPicker');
 		const mediaAllowsUploads = useSharedPluginStateSelector(api, 'media.allowsUploads');
 		const showElementBrowser = useSharedPluginStateSelector(api, 'insertBlock.showElementBrowser');
@@ -346,6 +368,13 @@ function ToolbarInsertBlockWithInjectionApi({
 		canInsertLink,
 		activeLinkMark,
 	} = useSharedState(pluginInjectionApi);
+	const emojiProviderPromise = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'emoji.emojiProviderPromise',
+		{
+			disabled: !editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true),
+		},
+	);
 
 	const getEmojiProvider = () => {
 		if (emojiProviderSelector) {
@@ -353,7 +382,11 @@ function ToolbarInsertBlockWithInjectionApi({
 		}
 	};
 
-	const emojiProvider = getEmojiProvider();
+	const emojiProvider = editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true, {
+		exposure: true,
+	})
+		? emojiProviderPromise
+		: getEmojiProvider();
 
 	const onShowMediaPicker = (mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement }) => {
 		if (!showMediaPicker) {

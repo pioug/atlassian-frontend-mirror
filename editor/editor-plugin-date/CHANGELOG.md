@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-date
 
+## 4.3.7
+
+### Patch Changes
+
+- [#160577](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160577)
+  [`bd533bfddae0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd533bfddae0c) -
+  Cleaned up popup fg
+- Updated dependencies
+
+## 4.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.5
 
 ### Patch Changes

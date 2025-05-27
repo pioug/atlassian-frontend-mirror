@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.3.2
+
+### Patch Changes
+
+- [#159070](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159070)
+  [`9857b771c1da1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9857b771c1da1) -
+  [ux] [ED-27778] Fix selection state hiding for tables, breakout buttons and layout
+- Updated dependencies
+
+## 2.3.1
+
+### Patch Changes
+
+- [#160619](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160619)
+  [`6e034b31d6c9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e034b31d6c9c) -
+  ED-28096 fix nested nodes getting breakout mark
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

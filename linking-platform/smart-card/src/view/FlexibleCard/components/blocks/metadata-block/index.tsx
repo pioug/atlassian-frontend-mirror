@@ -14,9 +14,11 @@ import {
 	SmartLinkStatus,
 	SmartLinkWidth,
 } from '../../../../../constants';
+import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import Block from '../block';
 import ElementGroup from '../element-group';
-import { renderElementItems } from '../utils';
+import { type ElementItem } from '../types';
+import { ElementDisplaySchemaType, renderElementItems } from '../utils';
 
 import { type MetadataBlockProps } from './types';
 
@@ -105,6 +107,40 @@ const getMaxLines = (maxLines: number): 2 | 1 => {
 	return maxLines as 2 | 1;
 };
 
+const ElementItemRenderer = ({
+	align = SmartLinkAlignment.Left,
+	items = [],
+	display = 'inline',
+	size = SmartLinkSize.Medium,
+	maxLines = DEFAULT_MAX_LINES,
+}: {
+	align?: SmartLinkAlignment;
+	items?: ElementItem[];
+	display?: ElementDisplaySchemaType;
+	size?: SmartLinkSize;
+	maxLines?: 1 | 2;
+}) => {
+	const elements = renderElementItems(items, display);
+
+	return (
+		elements && (
+			<ElementGroup
+				align={align}
+				direction={SmartLinkDirection.Horizontal}
+				width={SmartLinkWidth.Flexible}
+				css={[
+					truncateStyles[maxLines],
+					!fg('platform-linking-visual-refresh-v1') && sizeStylesOld[size],
+					fg('platform-linking-visual-refresh-v1') && sizeStyles[size],
+				]}
+				size={size}
+			>
+				{elements}
+			</ElementGroup>
+		)
+	);
+};
+
 /**
  * Represents a MetadataBlock, designed to contain groups of metadata in the form of elements.
  * Accepts an array of elements to be shown either primary (left hand side) or secondary (right hand side).
@@ -120,15 +156,48 @@ const MetadataBlock = ({
 	secondary = [],
 	...blockProps
 }: MetadataBlockProps) => {
-	if ((primary.length === 0 && secondary.length === 0) || status !== SmartLinkStatus.Resolved) {
-		return null;
+	const cardContext = fg('platform-linking-flexible-card-context')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleCardContext()
+		: undefined;
+
+	if (fg('platform-linking-flexible-card-context')) {
+		if (
+			(primary.length === 0 && secondary.length === 0) ||
+			cardContext?.status !== SmartLinkStatus.Resolved
+		) {
+			return null;
+		}
+	} else {
+		if ((primary.length === 0 && secondary.length === 0) || status !== SmartLinkStatus.Resolved) {
+			return null;
+		}
+	}
+
+	const { size: sizeProp = SmartLinkSize.Medium } = blockProps;
+	const size = fg('platform-linking-flexible-card-context')
+		? blockProps?.size ?? cardContext?.ui?.size ?? SmartLinkSize.Medium
+		: sizeProp;
+
+	const maxLinesTotal = getMaxLines(maxLines);
+
+	if (fg('platform-linking-flexible-card-context')) {
+		return (
+			<Block {...blockProps} size={size} testId={`${testId}-resolved-view`}>
+				<ElementItemRenderer items={primary} size={size} maxLines={maxLinesTotal} />
+				<ElementItemRenderer
+					align={SmartLinkAlignment.Right}
+					items={secondary}
+					size={size}
+					maxLines={maxLinesTotal}
+				/>
+			</Block>
+		);
 	}
 
 	const primaryElements = renderElementItems(primary);
 	const secondaryElements = renderElementItems(secondary);
 
-	const { size = SmartLinkSize.Medium } = blockProps;
-	const maxLinesTotal = getMaxLines(maxLines);
 	return (
 		<Block {...blockProps} testId={`${testId}-resolved-view`}>
 			{primaryElements && (

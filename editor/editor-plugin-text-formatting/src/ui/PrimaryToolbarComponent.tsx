@@ -137,3 +137,5 @@ export function PrimaryToolbarComponent({
 		/>
 	);
 }
+
+export const PrimaryToolbarComponentMemoized = React.memo(PrimaryToolbarComponent);

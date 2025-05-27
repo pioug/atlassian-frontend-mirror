@@ -184,7 +184,7 @@ export type RetryOptions = {
 
 export type ExtractFlexibleUiDataContextParams = Pick<
 	FlexibleCardProps,
-	'appearance' | 'id' | 'actionOptions' | 'origin' | 'onAuthorize' | 'renderers' | 'url'
+	'appearance' | 'id' | 'actionOptions' | 'origin' | 'onAuthorize' | 'onClick' | 'renderers' | 'url'
 > & {
 	fireEvent?: FireEventFunction;
 	status?: SmartLinkStatus;

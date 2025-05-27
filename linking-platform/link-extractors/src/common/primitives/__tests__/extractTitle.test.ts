@@ -79,4 +79,9 @@ describe('extractors.primitives.title', () => {
 	it("removes text highlighting if 'removeTextHighlightingFromTitle' is true", () => {
 		expect(extractTitle(TEST_BASE_DATA_WITH_HIGHLIGHTING, true)).toBe(TEST_NAME);
 	});
+
+	it('should return undefined if data is not available', () => {
+		// @ts-ignore For testing purpose
+		expect(extractTitle()).toBeUndefined();
+	});
 });

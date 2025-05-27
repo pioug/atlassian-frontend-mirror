@@ -25,6 +25,7 @@ import type { ActionItem } from '../../FlexibleCard/components/blocks/types';
 import { type FlexibleBlockCardProps } from './types';
 import {
 	FlexibleCardUiOptions,
+	FlexibleCardUiOptionsOld,
 	getSimulatedBetterMetadata,
 	PreviewBlockOptions,
 	titleBlockOptions,
@@ -138,7 +139,11 @@ const ResolvedView = ({
 			origin="smartLinkCard"
 			actionOptions={actionOptions}
 			testId={testId}
-			ui={FlexibleCardUiOptions}
+			ui={
+				fg('platform-linking-flexible-card-context')
+					? FlexibleCardUiOptions
+					: FlexibleCardUiOptionsOld
+			}
 			url={url}
 		>
 			<TitleBlock
@@ -147,20 +152,24 @@ const ResolvedView = ({
 				subtitle={[{ name: ElementName.Location }]}
 				metadataPosition={SmartLinkPosition.Top}
 				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
-				status={status}
+				{...(fg('platform-linking-flexible-card-context') ? undefined : { status })}
 			/>
 			<MetadataBlock
 				primary={topMetadata}
 				maxLines={1}
 				css={[!fg('platform-linking-visual-refresh-v1') && metadataBlockCssOld]}
-				status={SmartLinkStatus.Resolved}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Resolved })}
 			/>
 			<SnippetBlock />
 			<MetadataBlock
 				primary={bottomMetadata}
 				maxLines={1}
 				css={[!fg('platform-linking-visual-refresh-v1') && metadataBlockCssOld]}
-				status={SmartLinkStatus.Resolved}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Resolved })}
 			/>
 			{!isPreviewBlockErrored ? (
 				<PreviewBlock
@@ -168,7 +177,9 @@ const ResolvedView = ({
 					onError={() => {
 						setIsPreviewBlockErrored(true);
 					}}
-					status={SmartLinkStatus.Resolved}
+					{...(fg('platform-linking-flexible-card-context')
+						? undefined
+						: { status: SmartLinkStatus.Resolved })}
 				/>
 			) : null}
 			<FooterBlock
@@ -177,7 +188,9 @@ const ResolvedView = ({
 					safari && fg('platform-linking-visual-refresh-v2') && footerBlockSafariStyles,
 				]}
 				actions={footerActions}
-				status={SmartLinkStatus.Resolved}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Resolved })}
 			/>
 		</FlexibleCard>
 	);

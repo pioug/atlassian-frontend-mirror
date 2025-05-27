@@ -22,6 +22,7 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -231,6 +232,12 @@ export const TableResizer = ({
 	const isResizing = useRef(false);
 	const areResizeMetaKeysPressed = useRef(false);
 	const resizerRef = useRef<ResizerNextHandler>(null);
+
+	const interactionState = useSharedPluginStateSelector(
+		pluginInjectionApi,
+		'interaction.interactionState',
+	);
+
 	const { widthToWidest } = useSharedState(pluginInjectionApi);
 
 	// used to reposition tooltip when table is resizing via keyboard
@@ -250,6 +257,13 @@ export const TableResizer = ({
 			return false;
 		}
 
+		if (
+			interactionState === 'hasNotHadInteraction' &&
+			fg('platform_editor_hide_expand_selection_states')
+		) {
+			return false;
+		}
+
 		let currentNodePosition: number | undefined;
 		try {
 			// The React Table and the ProseMirror can endup out-of-sync
@@ -263,7 +277,7 @@ export const TableResizer = ({
 		}
 
 		return tableFromSelectionPosition === currentNodePosition;
-	}, [tableFromSelectionPosition, getPos]);
+	}, [tableFromSelectionPosition, interactionState, getPos]);
 
 	const resizerMinWidth = getResizerMinWidth(node);
 	const handleSize = getResizerHandleHeight(tableRef);

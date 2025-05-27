@@ -1,15 +1,12 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import {
-	extractProvider,
-	extractSmartLinkProvider,
-	isEntityPresent,
-} from '@atlaskit/link-extractors';
+import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { InternalActionName, SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context';
 import extractFlexibleUiContext from '../../extractors/flexible';
+import extractLinkTitle from '../../extractors/flexible/extract-link-title';
 import extractPreview, {
 	extractSmartLinkPreviewImage,
 } from '../../extractors/flexible/extract-preview';
@@ -27,11 +24,13 @@ import { type ExtractFlexibleUiDataContextParams, type RetryOptions } from './ty
 export const getContextByStatus = (
 	params: ExtractFlexibleUiDataContextParams,
 ): FlexibleUiDataContext | undefined => {
-	const { response, status, url } = params ?? {};
+	const { onClick, response, status, url } = params ?? {};
 	switch (status) {
 		case SmartLinkStatus.Pending:
 		case SmartLinkStatus.Resolving:
-			return { title: url, url };
+			return fg('platform-linking-flexible-card-context')
+				? { linkTitle: extractLinkTitle(status, url, response, onClick), url }
+				: { title: url, url };
 		case SmartLinkStatus.Resolved:
 			return extractFlexibleUiContext(params);
 		case SmartLinkStatus.Unauthorized:
@@ -40,37 +39,29 @@ export const getContextByStatus = (
 		case SmartLinkStatus.Errored:
 		case SmartLinkStatus.Fallback:
 		default:
-			const actions = fg('platform-linking-flexible-card-unresolved-action')
-				? {
-						[InternalActionName.UnresolvedAction]: getRetryOptions(
-							url,
-							status,
-							response,
-							params.onAuthorize,
-						),
-					}
-				: undefined;
-
-			if (fg('smart_links_noun_support')) {
-				if (isEntityPresent(response)) {
-					return {
-						url,
-						title: url,
-						linkIcon: extractErrorIcon(response, status),
-						preview: extractSmartLinkPreviewImage(response),
-						provider: extractSmartLinkProviderIcon(response),
-						actions,
-					};
-				}
-			}
-
 			return {
 				url,
-				title: url,
+				title: fg('platform-linking-flexible-card-context') ? undefined : url,
 				linkIcon: extractErrorIcon(response, status),
-				preview: extractPreview(response?.data as JsonLd.Data.BaseData),
-				provider: extractProviderIcon(response?.data as JsonLd.Data.BaseData),
-				actions,
+				linkTitle: fg('platform-linking-flexible-card-context')
+					? extractLinkTitle(status, url, response, onClick)
+					: undefined,
+				preview: fg('smart_links_noun_support')
+					? extractSmartLinkPreviewImage(response)
+					: extractPreview(response?.data as JsonLd.Data.BaseData),
+				provider: fg('smart_links_noun_support')
+					? extractSmartLinkProviderIcon(response)
+					: extractProviderIcon(response?.data as JsonLd.Data.BaseData),
+				actions: fg('platform-linking-flexible-card-unresolved-action')
+					? {
+							[InternalActionName.UnresolvedAction]: getRetryOptions(
+								url,
+								status,
+								response,
+								params.onAuthorize,
+							),
+						}
+					: undefined,
 			};
 	}
 };

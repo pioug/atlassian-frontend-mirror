@@ -6,6 +6,7 @@ import { type DatasourceResolveResponse } from '@atlaskit/link-client-extension'
 import { type CardState, type CardType } from '@atlaskit/linking-common';
 
 import { ActionName, ElementName } from '../../src';
+import { SmartLinkStatus } from '../../src/constants';
 import extractFlexibleUiContext from '../../src/extractors/flexible';
 import { type FlexibleUiDataContext } from '../../src/state/flexible-ui-context/types';
 import {
@@ -74,7 +75,10 @@ export const getContext = (
 	override: Partial<FlexibleUiDataContext> = {},
 ): FlexibleUiDataContext => {
 	const cardState = getCardState();
-	const context = extractFlexibleUiContext({ response: cardState.details });
+	const context = extractFlexibleUiContext({
+		response: cardState.details,
+		status: SmartLinkStatus.Resolved,
+	});
 	return {
 		...context,
 		...override,

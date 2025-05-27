@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugins
 
+## 9.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.0
+
+### Major Changes
+
+- [#159655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159655)
+  [`24f8c627d50f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24f8c627d50f2) - ##
+  WHAT? Remove experimental graceful edit mode from view mode plugin and associated props.
+
+  ## WHY?
+
+  This experiment is being cleaned up and we are no longer proceeding in this direction.
+
+  ## HOW to adjust?
+
+  This experiment was only enabled for Confluence and should not have been enabled in other places.
+  If for some reason any of the following props/state/methdos were used please remove them:
+
+  - isConsumption
+  - contentMode
+  - initialContentMode
+  - updateContentMode
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.29
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.28
 
 ### Patch Changes

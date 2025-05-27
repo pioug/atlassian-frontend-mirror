@@ -267,8 +267,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 		const formSendLabel = messages.formShare;
 		const sendLabel = isPublicLink ? formPublicLabel : formSendLabel;
 		const buttonLabel = isRetryableError ? messages.formRetry : sendLabel;
-		const buttonDisabled =
-			isDisabled || isNonRetryableError || (isSubmitShareDisabled && fg('plans_outgoing_mail_fix'));
+		const buttonDisabled = isDisabled || isNonRetryableError || isSubmitShareDisabled;
 		const ButtonLabelWrapper = buttonAppearance === 'warning' ? 'strong' : React.Fragment;
 
 		return (
@@ -342,160 +341,54 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
 		const { selectedMenuItem } = this.state;
 
-		if (fg('plans_outgoing_mail_fix')) {
-			const hasShareIntegrations = shareIntegrations && shareIntegrations.length;
-			const hasAdditionalTabs = additionalTabs && additionalTabs.length;
+		const hasShareIntegrations = shareIntegrations && shareIntegrations.length;
+		const hasAdditionalTabs = additionalTabs && additionalTabs.length;
 
-			if (integrationMode === 'off' || (!hasShareIntegrations && !hasAdditionalTabs)) {
-				return this.renderShareForm();
-			}
-
-			if (selectedMenuItem === 'default') {
-				return this.renderShareForm();
-			}
-
-			if (hasShareIntegrations) {
-				const firstIntegration = shareIntegrations[0];
-
-				if (selectedMenuItem === 'Slack') {
-					return (
-						<IntegrationForm
-							Content={firstIntegration.Content}
-							onIntegrationClose={() => handleCloseDialog?.()}
-						/>
-					);
-				}
-
-				if (integrationMode === 'menu') {
-					return (
-						<Box xcss={menuGroupContainerStyles}>
-							<MenuGroup>
-								<ShareMenuItem
-									iconName={<firstIntegration.Icon />}
-									labelId={messages.slackMenuItemText}
-									onClickHandler={() => this.changeMenuItem('Slack')}
-								/>
-								<ShareMenuItem
-									iconName={
-										<EmailIcon
-											color="currentColor"
-											label=""
-											LEGACY_size="medium"
-											spacing="spacious"
-										/>
-									}
-									labelId={messages.emailMenuItemText}
-									onClickHandler={() => this.changeMenuItem('default')}
-								/>
-							</MenuGroup>
-						</Box>
-					);
-				}
-			}
-
-			if (integrationMode === 'tabs') {
-				const DEFAULT_TAB_CONTENT_WIDTH = isExtendedShareDialogEnabled ? 452 : 304;
-
-				return (
-					<Tabs
-						id="ShareForm-Tabs-Integrations"
-						onChange={this.changeTab}
-						selected={this.state.selectedTab}
-					>
-						<TabList>
-							<Tab key={`share-tab-default`}>{this.renderMainTabTitle()}</Tab>
-							{shareIntegrations?.map((integration) => (
-								<Tab key={`share-tab-${integration.type}`}>
-									<div css={integrationWrapperStyles}>
-										<span css={integrationIconWrapperStyles}>
-											<integration.Icon />
-										</span>
-										{integrationTabText(integration.type)}
-									</div>
-								</Tab>
-							))}
-							{fg('smart_links_for_plans_platform') &&
-								additionalTabs?.map((tab) => <Tab key={`share-tab-${tab.label}`}>{tab.label}</Tab>)}
-						</TabList>
-						<TabPanel key={`share-tabPanel-default`}>
-							<div css={formWrapperStyles}>
-								<div style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}>
-									{this.renderShareForm()}
-								</div>
-							</div>
-						</TabPanel>
-						{shareIntegrations?.map((integration) => (
-							<TabPanel key={`share-tabPanel-integration`}>
-								<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
-									<div css={formWrapperStyles}>
-										<div
-											style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}
-										>
-											<IntegrationForm
-												Content={integration.Content}
-												onIntegrationClose={() => handleCloseDialog?.()}
-												changeTab={this.changeTab}
-											/>
-										</div>
-									</div>
-								</AnalyticsContext>
-							</TabPanel>
-						))}
-						{fg('smart_links_for_plans_platform') &&
-							additionalTabs?.map((tab) => (
-								<TabPanel key={`share-tabPanel-${tab.label}`}>
-									<div css={formWrapperStyles}>
-										<IntegrationForm
-											Content={tab.Content}
-											onIntegrationClose={() => handleCloseDialog?.()}
-											changeTab={this.changeTab}
-										/>
-									</div>
-								</TabPanel>
-							))}
-					</Tabs>
-				);
-			}
-		}
-
-		if (integrationMode === 'off' || !shareIntegrations || !shareIntegrations.length) {
+		if (integrationMode === 'off' || (!hasShareIntegrations && !hasAdditionalTabs)) {
 			return this.renderShareForm();
 		}
-
-		const firstIntegration = shareIntegrations[0];
 
 		if (selectedMenuItem === 'default') {
 			return this.renderShareForm();
 		}
 
-		if (selectedMenuItem === 'Slack') {
-			return (
-				<IntegrationForm
-					Content={firstIntegration.Content}
-					onIntegrationClose={() => handleCloseDialog?.()}
-				/>
-			);
-		}
+		if (hasShareIntegrations) {
+			const firstIntegration = shareIntegrations[0];
 
-		if (integrationMode === 'menu') {
-			return (
-				<Box xcss={menuGroupContainerStyles}>
-					<MenuGroup>
-						<ShareMenuItem
-							iconName={<firstIntegration.Icon />}
-							labelId={messages.slackMenuItemText}
-							onClickHandler={() => this.changeMenuItem('Slack')}
-						/>
-						<ShareMenuItem
-							iconName={
-								<EmailIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
-							}
-							labelId={messages.emailMenuItemText}
-							onClickHandler={() => this.changeMenuItem('default')}
-						/>
-					</MenuGroup>
-				</Box>
-			);
+			if (selectedMenuItem === 'Slack') {
+				return (
+					<IntegrationForm
+						Content={firstIntegration.Content}
+						onIntegrationClose={() => handleCloseDialog?.()}
+					/>
+				);
+			}
+
+			if (integrationMode === 'menu') {
+				return (
+					<Box xcss={menuGroupContainerStyles}>
+						<MenuGroup>
+							<ShareMenuItem
+								iconName={<firstIntegration.Icon />}
+								labelId={messages.slackMenuItemText}
+								onClickHandler={() => this.changeMenuItem('Slack')}
+							/>
+							<ShareMenuItem
+								iconName={
+									<EmailIcon
+										color="currentColor"
+										label=""
+										LEGACY_size="medium"
+										spacing="spacious"
+									/>
+								}
+								labelId={messages.emailMenuItemText}
+								onClickHandler={() => this.changeMenuItem('default')}
+							/>
+						</MenuGroup>
+					</Box>
+				);
+			}
 		}
 
 		if (integrationMode === 'tabs') {
@@ -509,14 +402,16 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 				>
 					<TabList>
 						<Tab key={`share-tab-default`}>{this.renderMainTabTitle()}</Tab>
-						<Tab key={`share-tab-${firstIntegration.type}`}>
-							<div css={integrationWrapperStyles}>
-								<span css={integrationIconWrapperStyles}>
-									<firstIntegration.Icon />
-								</span>
-								{integrationTabText(firstIntegration.type)}
-							</div>
-						</Tab>
+						{shareIntegrations?.map((integration) => (
+							<Tab key={`share-tab-${integration.type}`}>
+								<div css={integrationWrapperStyles}>
+									<span css={integrationIconWrapperStyles}>
+										<integration.Icon />
+									</span>
+									{integrationTabText(integration.type)}
+								</div>
+							</Tab>
+						))}
 						{fg('smart_links_for_plans_platform') &&
 							additionalTabs?.map((tab) => <Tab key={`share-tab-${tab.label}`}>{tab.label}</Tab>)}
 					</TabList>
@@ -527,19 +422,23 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							</div>
 						</div>
 					</TabPanel>
-					<TabPanel key={`share-tabPanel-integration`}>
-						<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
-							<div css={formWrapperStyles}>
-								<div style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}>
-									<IntegrationForm
-										Content={firstIntegration.Content}
-										onIntegrationClose={() => handleCloseDialog?.()}
-										changeTab={this.changeTab}
-									/>
+					{shareIntegrations?.map((integration) => (
+						<TabPanel key={`share-tabPanel-integration`}>
+							<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
+								<div css={formWrapperStyles}>
+									<div
+										style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}
+									>
+										<IntegrationForm
+											Content={integration.Content}
+											onIntegrationClose={() => handleCloseDialog?.()}
+											changeTab={this.changeTab}
+										/>
+									</div>
 								</div>
-							</div>
-						</AnalyticsContext>
-					</TabPanel>
+							</AnalyticsContext>
+						</TabPanel>
+					))}
 					{fg('smart_links_for_plans_platform') &&
 						additionalTabs?.map((tab) => (
 							<TabPanel key={`share-tabPanel-${tab.label}`}>

@@ -6,6 +6,7 @@ import type {
 	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -30,7 +31,10 @@ import { pluginKey as textFormattingPluginKey } from './pm-plugins/plugin-key';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import type { TextFormattingPlugin } from './textFormattingPluginType';
 import { FloatingToolbarTextFormalWithIntl as FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
-import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
+import {
+	PrimaryToolbarComponent,
+	PrimaryToolbarComponentMemoized,
+} from './ui/PrimaryToolbarComponent';
 
 /**
  * Text formatting plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -45,6 +49,21 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 		toolbarSize,
 		disabled,
 	}) => {
+		if (fg('platform_editor_toolbar_rerender_optimization')) {
+			return (
+				<PrimaryToolbarComponentMemoized
+					api={api}
+					popupsMountPoint={popupsMountPoint}
+					popupsScrollableElement={popupsScrollableElement}
+					toolbarSize={toolbarSize}
+					isReducedSpacing={isToolbarReducedSpacing}
+					editorView={editorView}
+					disabled={disabled}
+					shouldUseResponsiveToolbar={Boolean(options?.responsiveToolbarMenu)}
+				/>
+			);
+		}
+
 		return (
 			<PrimaryToolbarComponent
 				api={api}

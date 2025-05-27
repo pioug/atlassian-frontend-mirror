@@ -1,5 +1,14 @@
 # @atlaskit/editor-extension-dropbox
 
+## 0.5.15
+
+### Patch Changes
+
+- [#161022](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161022)
+  [`9bad6e5a140fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bad6e5a140fc) -
+  ENGHEALTH-30572:Updated dropbox icon to be a svg, and wrap it in span to be consistent with before
+- Updated dependencies
+
 ## 0.5.14
 
 ### Patch Changes

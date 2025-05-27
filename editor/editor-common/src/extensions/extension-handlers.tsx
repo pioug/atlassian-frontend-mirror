@@ -5,7 +5,7 @@ import Loadable from 'react-loadable';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
+import { getExtensionKeyAndNodeKey, resolveImport, resolveImportSync } from './manifest-helpers';
 import type {
 	ExtensionParams,
 	MultiBodiedExtensionActions,
@@ -129,8 +129,6 @@ export function getNodeRenderer<T extends Parameters>(
 	>({
 		loader: () => {
 			if (fg('confluence_preload_extension_providers')) {
-				// Logic here is specific to Confluence because it doesn't use the original react-loadable.
-				// The library is replaced with a custom one that supports synchronous return value from loader.
 				const maybePromise = getExtensionModuleNodeMaybePreloaded(
 					extensionProvider,
 					extensionType,
@@ -139,11 +137,13 @@ export function getNodeRenderer<T extends Parameters>(
 				if (maybePromise instanceof Promise) {
 					return maybePromise.then((node) => resolveImport(node.render()));
 				} else {
-					// maybePromise is sync here
 					const preloaded = (maybePromise as PreloadableExtensionModuleNode)?.renderSync?.();
-					// Note resolveImport is still async but we are not waiting on a already-fulfilled value.
-					// It is fast enough to not flip back to loading.
-					return resolveImport(preloaded ? preloaded : maybePromise.render());
+					// Only product implemented preloading will return sync result
+					// However the out-of-box won't handle this. Confluence uses a custom implementation
+					return preloaded
+						? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+							(resolveImportSync(preloaded) as any)
+						: resolveImport(maybePromise.render());
 				}
 			} else {
 				return getExtensionModuleNode(extensionProvider, extensionType, extensionKey).then((node) =>

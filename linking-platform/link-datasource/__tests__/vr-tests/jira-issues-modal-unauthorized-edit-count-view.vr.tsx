@@ -6,7 +6,7 @@ snapshot(JiraIssuesConfigModalUnauthorizedEditCountViewState, {
 	description: 'Jira issues config modal unauthorized edit count view',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': [false, true],
 	},
 });

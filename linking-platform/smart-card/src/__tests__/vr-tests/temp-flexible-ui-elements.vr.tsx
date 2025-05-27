@@ -97,6 +97,8 @@ import RelatedLinksResolvedViewWithEmptyList from '../../../examples/vr-related-
 snapshot(BlockCardSSR, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 	},
 });
 
@@ -109,6 +111,8 @@ snapshot(BlockCardSSR, {
 snapshot(VRInlineProfileCard, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 	drawsOutsideBounds: true,
@@ -124,6 +128,8 @@ snapshot(VRInlineProfileCard, {
 	description: 'inline profile card with platform-linking-visual-refresh-v2 false',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 	drawsOutsideBounds: true,
@@ -161,6 +167,8 @@ snapshot(RelatedLinksResolvedView, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -185,6 +193,8 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -198,6 +208,8 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -212,6 +224,8 @@ snapshot(FlexUiDateTimeTextView, {
 snapshot(FlexUiAtlaskitBadgeView, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -226,12 +240,16 @@ snapshot(FlexUiAtlaskitBadgeView, {
 snapshot(EmbedCardResolvedViewNoPreview, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(EmbedCardResolvingView, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -241,6 +259,8 @@ snapshot(EmbedCardResolvedViewNoPreview, {
 		'EmbedCardResolvedViewNoPreview OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -249,6 +269,8 @@ snapshot(EmbedCardResolvingView, {
 		'EmbedCardResolvingView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
@@ -265,6 +287,8 @@ snapshot(HoverCard, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -275,6 +299,8 @@ snapshot(HoverCardWithPreview, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -285,6 +311,8 @@ snapshot(HoverCardForSlackMessage, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -295,6 +323,8 @@ snapshot(HoverCardConfluence, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -305,6 +335,8 @@ snapshot(HoverCardAssignedJiraIssue, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
@@ -316,6 +348,8 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
@@ -327,6 +361,8 @@ snapshot(HoverCardJiraProject, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -342,6 +378,8 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
@@ -358,6 +396,8 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
@@ -374,6 +414,8 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -389,6 +431,8 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -405,6 +449,8 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -421,6 +467,8 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
@@ -432,6 +480,8 @@ snapshot(HoverCardForbiddenJira, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -460,6 +510,8 @@ snapshot(HoverCard, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -483,6 +535,8 @@ snapshot(HoverCardWithNouns, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		smart_links_noun_support: true,
 	},
 });
@@ -498,6 +552,8 @@ snapshot(HoverCardActions, {
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
@@ -514,6 +570,8 @@ snapshot(HoverCardActions, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
@@ -529,6 +587,8 @@ snapshot(HoverCardUnauthorised, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
@@ -546,6 +606,8 @@ snapshot(HoverCardUnauthorised, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
@@ -561,6 +623,8 @@ snapshot(HoverCardSSRLoading, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -575,6 +639,8 @@ snapshot(HoverCardSSRError, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -590,6 +656,8 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -605,6 +673,8 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -620,6 +690,8 @@ snapshot(HoverCardPositioning, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -634,6 +706,8 @@ snapshot(HoverCardPositioning, {
 snapshot(FlexibleUiOptions, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -649,6 +723,8 @@ snapshot(FlexibleUiComposition, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -665,6 +741,8 @@ snapshot(FlexibleUiBlock, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -679,6 +757,8 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -694,10 +774,11 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-unresolved-action': [true, false],
+		'platform-linking-flexible-card-unresolved-action': true,
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -719,6 +800,8 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -742,6 +825,8 @@ snapshot(FlexibleUiBlockTitle, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -756,6 +841,8 @@ snapshot(FlexibleUiBlockMetadata, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -763,6 +850,8 @@ snapshot(FlexibleUiBlockMetadata, {
 snapshot(FlexibleUiBlockSnippet, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -770,6 +859,8 @@ snapshot(FlexibleUiBlockSnippet, {
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -777,6 +868,8 @@ snapshot(FlexibleUiBlockFooter, {
 snapshot(FlexibleUiBlockPreviewXLarge, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -784,6 +877,8 @@ snapshot(FlexibleUiBlockPreviewXLarge, {
 snapshot(FlexibleUiBlockPreviewLarge, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -791,6 +886,8 @@ snapshot(FlexibleUiBlockPreviewLarge, {
 snapshot(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -798,6 +895,8 @@ snapshot(FlexibleUiBlockPreviewMedium, {
 snapshot(FlexibleUiBlockPreviewSmall, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -805,6 +904,8 @@ snapshot(FlexibleUiBlockPreviewSmall, {
 snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -812,6 +913,8 @@ snapshot(FlexibleUiBlockPreviewMixedPadding, {
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -821,6 +924,8 @@ snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 snapshot(FlexibleUiElementLink, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -830,6 +935,8 @@ snapshot(FlexibleUiElementLozenge, {
 		'FlexibleUiElementLozenge Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
@@ -847,6 +954,8 @@ snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
@@ -870,6 +979,8 @@ snapshot(FlexibleUiElementBadge, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -877,6 +988,8 @@ snapshot(FlexibleUiElementBadge, {
 snapshot(FlexibleUiElementAppliedToComponentsCount, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -884,6 +997,8 @@ snapshot(FlexibleUiElementAppliedToComponentsCount, {
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -891,6 +1006,8 @@ snapshot(FlexibleUiElementAvatarGroup, {
 snapshot(FlexibleUiElementMedia, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -910,6 +1027,8 @@ snapshot(FlexibleUiHoverCard, {
 	description: 'FlexibleUiHoverCard Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
@@ -928,6 +1047,8 @@ snapshot(FlexibleUiHoverCard, {
 	description: 'FlexibleUiHoverCard',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
@@ -945,6 +1066,8 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -963,6 +1086,8 @@ snapshot(FlexibleUiAccessibility, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -980,6 +1105,8 @@ snapshot(FlexibleUiAccessibility, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -996,6 +1123,8 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -1012,6 +1141,8 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -1029,10 +1160,11 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-flexible-card-unresolved-action': [true, false],
+		'platform-linking-flexible-card-unresolved-action': true,
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -1047,6 +1179,8 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 	],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -1056,6 +1190,8 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
@@ -1066,6 +1202,8 @@ snapshot(FlexibleUiBlockNouns, {
 	ignoredErrors: [],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		smart_links_noun_support: true,
 	},
 });
@@ -1080,6 +1218,8 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
@@ -1088,6 +1228,8 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF only',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': [true, false],
 	},
 });
@@ -1095,6 +1237,8 @@ snapshot(BlockCardErrorView, {
 	description: 'block card error view',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -1102,6 +1246,8 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
@@ -1110,6 +1256,8 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF only',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': [true, false],
 	},
 });
@@ -1117,6 +1265,8 @@ snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -1125,6 +1275,8 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
@@ -1133,6 +1285,8 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF only',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': [true, false],
 	},
 });
@@ -1140,18 +1294,24 @@ snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardNotFoundSiteAccessExists, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardUnauthorisedView, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
@@ -1160,18 +1320,24 @@ snapshot(BlockCardUnauthorisedView, {
 		'BlockCardUnauthorisedView Old - remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
 	},
 });
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
@@ -1179,30 +1345,40 @@ snapshot(BlockCardJira, {
 snapshot(BlockCardConfluence, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
 snapshot(BlockCardForbiddenViews, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
 	},
 });
@@ -1210,6 +1386,8 @@ snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1218,6 +1396,8 @@ snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1226,6 +1406,8 @@ snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1234,6 +1416,8 @@ snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1242,6 +1426,8 @@ snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1250,6 +1436,8 @@ snapshot(BlockCardLazyIcon6, {
 	description: `block card with lazy load icons, slice 6`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1258,6 +1446,8 @@ snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1266,6 +1456,8 @@ snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1274,6 +1466,8 @@ snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1282,6 +1476,8 @@ snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
 		'icon-object-migration': true,
 	},
@@ -1290,6 +1486,8 @@ snapshot(BlockCardNouns, {
 	description: `block card with noun support`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		smart_links_noun_support: true,
 	},
 });
@@ -1297,6 +1495,8 @@ snapshot(BlockCardNouns, {
 snapshot(VRBlockProfileCard, {
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -1305,6 +1505,8 @@ snapshot(VRBlockProfileCard, {
 	description: 'block profile card with platform-linking-visual-refresh-v2 false',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 });
@@ -1329,6 +1531,8 @@ snapshot(FlexUiBlockAiSummaryReady, {
 		'FlexUiBlockAiSummaryReady Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
@@ -1347,6 +1551,8 @@ snapshot(FlexUiBlockAiSummaryReady, {
 	description: 'FlexUiBlockAiSummaryReady',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
@@ -1367,6 +1573,8 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 		'FlexUiBlockAiSummaryLoading Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
@@ -1385,6 +1593,8 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 	description: 'FlexUiBlockAiSummaryLoading',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
@@ -1405,6 +1615,8 @@ snapshot(FlexUiBlockAiSummaryDone, {
 		'FlexUiBlockAiSummaryDone Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
@@ -1424,6 +1636,8 @@ snapshot(FlexUiBlockAiSummaryDone, {
 	description: 'FlexUiBlockAiSummaryDone',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
@@ -1444,6 +1658,8 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 		'FlexUiBlockAiSummaryDoneOnMount Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
@@ -1462,6 +1678,8 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	description: 'FlexUiBlockAiSummaryDoneOnMount',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
@@ -1482,6 +1700,8 @@ snapshot(FlexUiBlockAiSummaryError, {
 		'FlexUiBlockAiSummaryError Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
@@ -1501,6 +1721,8 @@ snapshot(FlexUiBlockAiSummaryError, {
 	description: 'FlexUiBlockAiSummaryError',
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,

@@ -3,7 +3,7 @@ import React from 'react';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
-import { editorViewModeWithGracefulEditPlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { cardPlugin } from '@atlaskit/editor-plugins/card';
 import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
@@ -44,9 +44,9 @@ const createPreset = () =>
 			},
 		])
 		.add([
-			editorViewModeWithGracefulEditPlugin,
+			editorViewModePlugin,
 			{
-				initialContentMode: 'live-view',
+				mode: 'view',
 			},
 		])
 		.add(alignmentPlugin)

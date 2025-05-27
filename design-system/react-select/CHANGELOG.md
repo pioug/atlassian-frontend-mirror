@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.6.1
+
+### Patch Changes
+
+- [#159414](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159414)
+  [`51ab2e7b0a12d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51ab2e7b0a12d) -
+  Added aria label for options dialog
+
 ## 2.6.0
 
 ### Minor Changes

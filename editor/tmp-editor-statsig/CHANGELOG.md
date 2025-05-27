@@ -1,5 +1,44 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.1.0
+
+### Minor Changes
+
+- [#159894](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159894)
+  [`98f3c43ca93c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98f3c43ca93c5) -
+  Avoid unnecessary reflows in the width plugin.
+
+## 5.0.0
+
+### Major Changes
+
+- [#159655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159655)
+  [`24f8c627d50f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24f8c627d50f2) - ##
+  WHAT? Remove experimental graceful edit mode from view mode plugin and associated props.
+
+  ## WHY?
+
+  This experiment is being cleaned up and we are no longer proceeding in this direction.
+
+  ## HOW to adjust?
+
+  This experiment was only enabled for Confluence and should not have been enabled in other places.
+  If for some reason any of the following props/state/methdos were used please remove them:
+
+  - isConsumption
+  - contentMode
+  - initialContentMode
+  - updateContentMode
+
+### Minor Changes
+
+- [#160575](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160575)
+  [`c340cf0e2d6c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c340cf0e2d6c2) -
+  Expose emoji provider promise to initialise in the toolbar earlier.
+- [#156919](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156919)
+  [`379f5c27f4939`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379f5c27f4939) -
+  delay table sticky headers until table is in viewport
+
 ## 4.25.0
 
 ### Minor Changes

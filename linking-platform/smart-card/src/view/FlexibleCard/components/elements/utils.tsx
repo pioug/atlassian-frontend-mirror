@@ -243,6 +243,9 @@ const getData = (
 		case ElementName.TargetBranch:
 			return toTextProps(data as string | undefined);
 		case ElementName.Title:
+			if (fg('platform-linking-flexible-card-context')) {
+				return context.linkTitle;
+			}
 			return toLinkProps(context.title, context.url);
 		case ElementName.LinkIcon:
 			if (fg('platform-linking-visual-refresh-v2')) {

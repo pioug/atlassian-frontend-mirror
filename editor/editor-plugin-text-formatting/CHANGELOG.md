@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.12
+
+### Patch Changes
+
+- [#161143](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161143)
+  [`6247656fbff10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6247656fbff10) -
+  [ED-28106] Fix toolbar pinning from table cell selections breaking the toolbar
+- Updated dependencies
+
+## 2.2.11
+
+### Patch Changes
+
+- [#159090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159090)
+  [`9cbae97c20f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cbae97c20f84) -
+  Reduces rerenders of text formatting options and the toolbar when it is docked to top.
+- Updated dependencies
+
+## 2.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.9
+
+### Patch Changes
+
+- [#160862](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160862)
+  [`3f27efcc909bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f27efcc909bd) -
+  Fix disabled state of text formatting overflow menu with controls experiment enabled.
+- Updated dependencies
+
 ## 2.2.8
 
 ### Patch Changes

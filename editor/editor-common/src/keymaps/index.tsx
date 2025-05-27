@@ -18,6 +18,7 @@ import { browser } from '../utils';
 export const addAltText = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
 export const navToEditorToolbar = makeKeyMapWithCommon('Navigate to editor toolbar', 'Alt-F9');
 export const navToFloatingToolbar = makeKeyMapWithCommon('Navigate to floating toolbar', 'Alt-F10');
+export const askAIQuickInsert = makeKeyMapWithCommon('Ask AI', "Mod-'");
 export const toggleBold = makeKeyMapWithCommon('Bold', 'Mod-b');
 export const toggleItalic = makeKeyMapWithCommon('Italic', 'Mod-i');
 export const toggleUnderline = makeKeyMapWithCommon('Underline', 'Mod-u');

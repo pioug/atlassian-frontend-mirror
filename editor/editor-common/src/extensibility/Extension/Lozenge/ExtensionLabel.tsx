@@ -11,7 +11,6 @@ import { FormattedMessage, defineMessages } from 'react-intl-next';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { Box, xcss } from '@atlaskit/primitives';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -196,21 +195,6 @@ export const ExtensionLabel = ({
 			}}
 			onMouseLeave={() => {
 				setIsNodeHovered?.(false);
-			}}
-			onClick={() => {
-				if (
-					editorExperiment('live_pages_graceful_edit', 'text-click-delayed') ||
-					editorExperiment('live_pages_graceful_edit', 'text-click-no-delay')
-				) {
-					pluginInjectionApi?.core?.actions?.execute(
-						// Extensions are not yet using the new plugin architecture, and the use of the pluginInjectionApi
-						// is not type safe in editor-common.
-						// @ts-ignore
-						pluginInjectionApi?.editorViewMode?.commands.updateContentMode({
-							type: 'intent-to-edit',
-						}),
-					);
-				}
 			}}
 			data-testid="new-lozenge-container"
 			contentEditable={false}

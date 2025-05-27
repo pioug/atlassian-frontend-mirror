@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.1.12
+
+### Patch Changes
+
+- [#160940](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160940)
+  [`d63ae1c3f13d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d63ae1c3f13d9) -
+  Hide loading of floating toolbar in SSR environment
+- Updated dependencies
+
+## 4.1.11
+
+### Patch Changes
+
+- [#159090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159090)
+  [`9cbae97c20f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cbae97c20f84) -
+  Reduces rerenders of text formatting options and the toolbar when it is docked to top.
+- Updated dependencies
+
+## 4.1.10
+
+### Patch Changes
+
+- [#159655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159655)
+  [`24f8c627d50f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24f8c627d50f2) - ##
+  WHAT? Remove experimental graceful edit mode from view mode plugin and associated props.
+
+  ## WHY?
+
+  This experiment is being cleaned up and we are no longer proceeding in this direction.
+
+  ## HOW to adjust?
+
+  This experiment was only enabled for Confluence and should not have been enabled in other places.
+  If for some reason any of the following props/state/methdos were used please remove them:
+
+  - isConsumption
+  - contentMode
+  - initialContentMode
+  - updateContentMode
+
+- Updated dependencies
+
 ## 4.1.9
 
 ### Patch Changes

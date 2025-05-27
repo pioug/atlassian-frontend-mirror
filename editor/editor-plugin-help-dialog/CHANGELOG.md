@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 2.1.6
+
+### Patch Changes
+
+- [#159336](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159336)
+  [`0f0a3a5e7e218`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f0a3a5e7e218) -
+  [EDITOR-793] Added changes to reflect experiment quickstart command
+- Updated dependencies
+
 ## 2.1.5
 
 ### Patch Changes

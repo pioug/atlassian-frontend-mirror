@@ -162,7 +162,9 @@ const HoverCardResolvedView = ({
 
 	const snippet = imagePreview ? null : (
 		<SnippetBlock
-			status={SmartLinkStatus.Resolved}
+			{...(fg('platform-linking-flexible-card-context')
+				? undefined
+				: { status: SmartLinkStatus.Resolved })}
 			css={[fg('platform-linking-visual-refresh-v1') && snippetBlockCss]}
 		/>
 	);
@@ -174,7 +176,9 @@ const HoverCardResolvedView = ({
 			<TitleBlock
 				{...titleBlockProps}
 				metadataPosition={SmartLinkPosition.Top}
-				status={SmartLinkStatus.Resolved}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Resolved })}
 				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockStyles : titleBlockStyleOld]}
 			/>
 			<MetadataBlock
@@ -183,13 +187,17 @@ const HoverCardResolvedView = ({
 				css={[!fg('platform-linking-visual-refresh-v1') && metadataBlockCssOld]}
 				maxLines={1}
 				size={SmartLinkSize.Medium}
-				status={SmartLinkStatus.Resolved}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Resolved })}
 			/>
 			{isAISummaryEnabled ? (
 				<AISummaryBlock
 					aiSummaryMinHeight={aiSummaryMinHeight}
 					placeholder={snippet}
-					status={SmartLinkStatus.Resolved}
+					{...(fg('platform-linking-flexible-card-context')
+						? undefined
+						: { status: SmartLinkStatus.Resolved })}
 				/>
 			) : (
 				snippet
@@ -199,7 +207,9 @@ const HoverCardResolvedView = ({
 				onRender={onSnippetRender}
 				blockRef={snippetBlockRef}
 				css={hiddenSnippetStyles}
-				status={SmartLinkStatus.Resolved}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: SmartLinkStatus.Resolved })}
 			/>
 			<ActionBlock
 				onClick={onActionClick}

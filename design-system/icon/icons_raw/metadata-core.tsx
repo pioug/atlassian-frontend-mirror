@@ -688,7 +688,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '45680:8536',
+		id: '45680:8535',
 		usage: 'Known uses: Navigate to previous year in calendar/date picker',
 		slackChannel: '#icon-contributions',
 	},
@@ -699,7 +699,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '45680:8994',
+		id: '45680:8993',
 		usage: 'Known uses: Navigate to next year in calendar/date picker',
 		slackChannel: '#icon-contributions',
 	},
@@ -710,7 +710,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '45680:9385',
+		id: '45680:9384',
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Open dropdown menu, expanded tree item, collapse tree item',
 		slackChannel: '#icon-contributions',
@@ -722,7 +722,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '45680:9772',
+		id: '45680:9771',
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Navigate back, show previous page of pagination results',
 		slackChannel: '#icon-contributions',
@@ -734,7 +734,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '45680:15491',
+		id: '45680:15490',
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Next page of pagination results, collapsed tree item, expand tree item',
 		slackChannel: '#icon-contributions',
@@ -746,7 +746,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '45680:16559',
+		id: '45680:16558',
 		usage:
 			'Do not use 16px chevrons within buttons, icon buttons, or dropdowns to maintain visual cohesion with ADS which uses 12px chevrons.\nKnown uses: Close dropdown menu',
 		slackChannel: '#icon-contributions',
@@ -1685,7 +1685,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '7594:13850',
+		id: '20952:185371',
 		usage: 'Multi purpose - Known uses: images, image upload.',
 	},
 	'image-fullscreen': {
@@ -2288,6 +2288,28 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '14151:11257',
 		usage: 'Multi purpose - Known usages: Customize.',
+	},
+	'panel-left': {
+		keywords: ['detail view', 'left rail', 'drawer', 'preview panel', 'sidebar'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		id: '22087:7529',
+		usage:
+			'Reserved for opening a preview panel to the left of the viewport edge. Use for right-to-left languages which invert the navigational chrome.',
+	},
+	'panel-right': {
+		keywords: ['detail view', 'right rail', 'drawer', 'preview panel', 'sidebar'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon',
+		team: 'Design System Team',
+		type: 'core',
+		status: 'published',
+		id: '22087:7211',
+		usage:
+			'Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.',
 	},
 	pen: {
 		keywords: ['pen tool', 'nib', 'fountain pen', 'design', 'work type'],
@@ -2920,7 +2942,7 @@ const metadata: IconMetadata = {
 		id: '41484:8594',
 		usage: 'Reserved for opening a drawer or sidebar to the left of the viewport edge.',
 		replacement: {
-			name: 'drawer-left',
+			name: 'panel-left',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},
@@ -2935,7 +2957,7 @@ const metadata: IconMetadata = {
 		id: '41484:9397',
 		usage: 'Reserved for opening a drawer or sidebar to the right of the viewport edge.',
 		replacement: {
-			name: 'drawer-right',
+			name: 'panel-right',
 			type: 'core',
 			location: '@atlaskit/icon',
 		},

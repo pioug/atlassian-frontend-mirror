@@ -183,6 +183,9 @@ export const AqlSearchInput = ({
 							}
 							placeholder={formatMessage(searchInputMessages.placeholder)}
 							testId={testId}
+							{...(fg('fix_a11y_issues_inline_edit') && {
+								'aria-label': formatMessage(searchInputMessages.placeholder),
+							})}
 						/>
 						{lastValidationResult.type === 'invalid' && lastValidationResult.error && (
 							<ErrorMessage>{lastValidationResult.error}</ErrorMessage>

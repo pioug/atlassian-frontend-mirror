@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.1.21
+
+### Patch Changes
+
+- [#161023](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161023)
+  [`e7a5bec40dfc3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7a5bec40dfc3) -
+  Fix block type icon when disabled.
+- Updated dependencies
+
+## 5.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.19
 
 ### Patch Changes

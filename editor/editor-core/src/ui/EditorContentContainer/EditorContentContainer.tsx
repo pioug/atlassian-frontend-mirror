@@ -10,26 +10,17 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, useTheme } from '@emotion/react';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { telepointerStyle, telepointerStyleWithInitialOnly } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName, defaultEmojiHeight } from '@atlaskit/editor-common/emoji';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import {
 	GRID_GUTTER,
-	blockMarksSharedStyles,
-	dateSharedStyle,
 	getSmartCardSharedStyles,
-	gridStyles,
-	indentationSharedStyles,
 	listsSharedStyles,
-	paragraphSharedStyles,
-	shadowSharedStyle,
 	smartCardSharedStyles,
 	smartCardStyles,
-	tasksAndDecisionsStyles,
-	textColorStyles,
-	unsupportedStyles,
-	whitespaceSharedStyles,
 } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
@@ -49,7 +40,6 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorSelectedBorderSize,
 	akEditorSelectedNodeClassName,
-	blockNodesVerticalMargin,
 	editorFontSize,
 	getSelectionStyles,
 } from '@atlaskit/editor-shared-styles';
@@ -59,7 +49,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
-import { dateStyles, dateVanillaStyles } from '../ContentStyles/date';
 import { expandStyles } from '../ContentStyles/expand';
 import { extensionStyles } from '../ContentStyles/extension';
 import { panelStyles } from '../ContentStyles/panel';
@@ -72,22 +61,45 @@ import {
 	vanillaTaskItemStyles,
 } from '../ContentStyles/tasks-and-decisions';
 
-import { aiPanelBaseStyles, aiPanelDarkStyles } from './styles/ai-panel';
+import {
+	aiPanelBaseFirefoxStyles,
+	aiPanelBaseStyles,
+	aiPanelDarkFirefoxStyles,
+	aiPanelDarkStyles,
+} from './styles/aiPanel';
 import { annotationStyles } from './styles/annotationStyles';
 import { backgroundColorStyles } from './styles/backgroundColorStyles';
+import { blockMarksStyles } from './styles/blockMarksStyles';
 import {
 	codeBlockStyles,
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
 } from './styles/codeBlockStyles';
 import { codeMarkStyles } from './styles/codeMarkStyles';
+import { dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
 import { firstBlockNodeStyles, firstBlockNodeStylesOld } from './styles/firstBlockNodeStyles';
+import { gridStyles } from './styles/gridStyles';
+import { indentationStyles } from './styles/indentationStyles';
 import { layoutBaseStyles, layoutViewStyles } from './styles/layout';
 import { linkStyles, linkStylesOld } from './styles/link';
+import { listsStyles, listsStylesSafariFix } from './styles/list';
 import { mediaStyles } from './styles/mediaStyles';
+import {
+	paragraphStylesOld,
+	paragraphStylesUGCModernized,
+	paragraphStylesUGCRefreshed,
+} from './styles/paragraphStyles';
 import { resizerStyles, pragmaticResizerStyles } from './styles/resizerStyles';
 import { ruleStyles } from './styles/rule';
+import { shadowStyles } from './styles/shadowStyles';
+import { tasksAndDecisionsStyles } from './styles/tasksAndDecisionsStyles';
+import { textColorStyles } from './styles/textColorStyles';
+import { unsupportedStyles } from './styles/unsupportedStyles';
+import { whitespaceStyles } from './styles/whitespaceStyles';
+
+export const isFirefox: boolean =
+	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 const vanillaMentionsStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -179,25 +191,6 @@ const mentionsStyles = css`
 		.${MentionSharedCssClassName.MENTION_CONTAINER} > span > span > span {
 			background-color: ${token('color.background.neutral')};
 			color: ${token('color.text.subtle')};
-		}
-	}
-`;
-
-const listsStyles = css`
-	.ProseMirror {
-		li {
-			position: relative;
-
-			> p:not(:first-child) {
-				margin: ${token('space.050', '4px')} 0 0 0;
-			}
-
-			// In SSR the above rule will apply to all p tags because first-child would be a style tag.
-			// The following rule resets the first p tag back to its original margin
-			// defined in packages/editor/editor-common/src/styles/shared/paragraph.ts
-			> style:first-child + p {
-				margin-top: ${blockNodesVerticalMargin};
-			}
 		}
 	}
 `;
@@ -332,15 +325,13 @@ const contentStyles = () => css`
 		outline: none;
 		font-size: var(--ak-editor-base-font-size);
 
-		${whitespaceSharedStyles};
-
-		${paragraphSharedStyles()};
+		${whitespaceStyles};
 
 		${listsSharedStyles};
 
-		${indentationSharedStyles};
+		${indentationStyles};
 
-		${shadowSharedStyle};
+		${shadowStyles};
 
 		${InlineNodeViewSharedStyles};
 	}
@@ -453,9 +444,9 @@ const contentStyles = () => css`
 
   ${gridStyles}
 
-  ${blockMarksSharedStyles}
+  ${blockMarksStyles}
 
-  ${dateSharedStyle}
+  ${dateStyles}
 
   ${extensionStyles}
 
@@ -491,10 +482,6 @@ const contentStyles = () => css`
   ${smartCardStyles()}
 
   ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
-
-  ${editorExperiment('platform_editor_vanilla_dom', true) ? dateVanillaStyles : null}
-
-	${dateStyles}
 
   ${embedCardStyles}
 
@@ -654,16 +641,34 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					contentStyles(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					layoutBaseStyles(),
-
+					editorExperiment('platform_editor_vanilla_dom', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						dateVanillaStyles,
+					fg('platform_editor_typography_ugc')
+						? fg('platform-dst-jira-web-fonts') ||
+							fg('confluence_typography_refreshed') ||
+							fg('atlas_editor_typography_refreshed')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								paragraphStylesUGCRefreshed
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								paragraphStylesUGCModernized
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							paragraphStylesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_hyperlink_underline') ? linkStyles : linkStylesOld,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					browser.safari && listsStylesSafariFix,
 					editorExperiment('platform_editor_breakout_resizing', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					aiPanelBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					isFirefox && aiPanelBaseFirefoxStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					colorMode === 'dark' && aiPanelDarkStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					colorMode === 'dark' && isFirefox && aiPanelDarkFirefoxStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					viewMode === 'view' && layoutViewStyles,
 					isComment && commentEditorStyles,

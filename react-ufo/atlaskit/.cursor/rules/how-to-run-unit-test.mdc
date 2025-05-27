@@ -1,0 +1,10 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+## Running Tests
+- Unit tests: `cd platform && yarn test packages/react-ufo`
+- Integration tests: Start dev server with `yarn start:rspack react-ufo`, then run `yarn test:integration packages/react-ufo/atlaskit/__tests__/ --retries 0 --reporter list --reuse-dev-server --project=desktop-chromium --max-failures=0`
+- Specific test file: `yarn test <path-to-test-file>`
+- Clear Jest cache if compilation issues: `yarn test <path> --clearCache`

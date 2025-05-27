@@ -208,7 +208,11 @@ const ToolbarFormatting = ({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage
 					css={wrapperStyle}
 				>
-					{isToolbarDisabled ? (
+					{isToolbarDisabled &&
+					!(
+						editorExperiment('platform_editor_controls', 'variant1') &&
+						fg('platform_editor_controls_patch_10')
+					) ? (
 						<div>
 							<MoreButton
 								label={moreFormattingButtonLabel}
@@ -237,6 +241,12 @@ const ToolbarFormatting = ({
 							items={items}
 							intl={intl}
 							toolbarType={toolbarType}
+							isDisabled={
+								editorExperiment('platform_editor_controls', 'variant1') &&
+								fg('platform_editor_controls_patch_10')
+									? isToolbarDisabled
+									: false
+							}
 						/>
 					)}
 				</span>

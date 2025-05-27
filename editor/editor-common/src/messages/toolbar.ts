@@ -109,4 +109,9 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Navigate to floating toolbar',
 		description: 'Navigate to a floating toolbar for relevant nodes (e.g. tables or panels).',
 	},
+	askAI: {
+		id: 'fabric.editor.navigate.toolbar.askAI',
+		defaultMessage: 'Ask AI',
+		description: 'Open the AI panel to ask a question or generate content.',
+	},
 });

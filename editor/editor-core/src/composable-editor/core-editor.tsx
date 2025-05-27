@@ -18,7 +18,6 @@ import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-m
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import EditorActions from '../actions';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
@@ -139,7 +138,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 
 	return (
 		<Fragment>
-			{isFullPageApperance && fg('platform_editor_fe--inp-metrics') ? <EditorINPMetrics /> : null}
+			{isFullPageApperance ? <EditorINPMetrics /> : null}
 			<EditorInternal
 				props={props}
 				handleAnalyticsEvent={handleAnalyticsEvent}

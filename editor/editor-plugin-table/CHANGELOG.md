@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-table
 
+## 10.11.1
+
+### Patch Changes
+
+- [#159070](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159070)
+  [`9857b771c1da1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9857b771c1da1) -
+  [ux] [ED-27778] Fix selection state hiding for tables, breakout buttons and layout
+- Updated dependencies
+
+## 10.11.0
+
+### Minor Changes
+
+- [#156919](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156919)
+  [`379f5c27f4939`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379f5c27f4939) -
+  delay table sticky headers until table is in viewport
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.10.7
+
+### Patch Changes
+
+- [#160596](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160596)
+  [`82f60cca2f17b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82f60cca2f17b) -
+  EDITOR-338 Clean up nested table feature gate `nested_table_control_padding_with_css`
+- Updated dependencies
+
 ## 10.10.6
 
 ### Patch Changes

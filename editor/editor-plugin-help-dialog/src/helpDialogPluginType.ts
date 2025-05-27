@@ -5,6 +5,7 @@ import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 export interface HelpDialogSharedState {
 	isVisible: boolean;
 	imageEnabled: boolean;
+	aiEnabled: boolean;
 }
 
 export type HelpDialogDependencies = [
@@ -12,7 +13,9 @@ export type HelpDialogDependencies = [
 	OptionalPlugin<QuickInsertPlugin>,
 ];
 
-export type HelpDialogPluginOptions = boolean;
+export type HelpDialogPluginOptions =
+	| boolean
+	| { imageUploadProviderExists?: boolean; aiEnabled?: boolean };
 
 export type HelpDialogPlugin = NextEditorPlugin<
 	'helpDialog',

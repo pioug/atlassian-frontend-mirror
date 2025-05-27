@@ -25,6 +25,7 @@ import { extractSummary } from '../common/primitives';
 
 import { extractFlexibleCardActions } from './actions';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
+import extractLinkTitle from './extract-link-title';
 import extractPreview, { extractSmartLinkPreviewImage } from './extract-preview';
 import extractPriority from './extract-priority';
 import extractState from './extract-state';
@@ -63,11 +64,13 @@ const extractFlexibleUiContext = ({
 	appearance,
 	fireEvent,
 	id,
+	onClick,
 	origin,
 	renderers,
 	resolve,
 	actionOptions,
 	response,
+	status,
 	aiSummaryConfig,
 	...props
 }: Partial<ExtractFlexibleUiDataContextParams> = {}): FlexibleUiDataContext | undefined => {
@@ -116,6 +119,9 @@ const extractFlexibleUiContext = ({
 		linkIcon: fg('smart_links_noun_support')
 			? extractSmartLinkIcon(response)
 			: extractLinkIcon(response, renderers),
+		...(fg('platform-linking-flexible-card-context') && {
+			linkTitle: extractLinkTitle(status, props.url, response, onClick),
+		}),
 		location: extractLocation(data),
 		modifiedBy: fg('smart_links_noun_support')
 			? extractSmartLinkModifiedBy(response)
@@ -140,9 +146,13 @@ const extractFlexibleUiContext = ({
 		subTasksProgress: extractSubTasksProgress(data),
 		storyPoints: extractStoryPoints(data),
 		targetBranch: extractTargetBranch(data as JsonLd.Data.SourceCodePullRequest),
-		title: fg('smart_links_noun_support')
-			? extractSmartLinkTitle(response) || url
-			: extractTitle(data) || url,
+		...(fg('platform-linking-flexible-card-context')
+			? undefined
+			: {
+					title: fg('smart_links_noun_support')
+						? extractSmartLinkTitle(response) || url
+						: extractTitle(data) || url,
+				}),
 		url,
 		ari: fg('smart_links_noun_support') ? extractSmartLinkAri(response) : extractAri(data),
 		...(fg('platform-linking-visual-refresh-v2') && {

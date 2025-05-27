@@ -15,6 +15,7 @@ import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin, BreakoutPluginState } from './breakoutPluginType';
@@ -183,6 +184,14 @@ const LayoutButtonWrapper = ({
 	mountPoint,
 }: LayoutButtonWrapperProps) => {
 	const { breakoutNode, isDragging, isPMDragging, mode, editorDisabled } = useSharedState(api);
+	const interactionState = useSharedPluginStateSelector(api, 'interaction.interactionState');
+
+	if (
+		interactionState === 'hasNotHadInteraction' &&
+		fg('platform_editor_hide_expand_selection_states')
+	) {
+		return null;
+	}
 
 	if (isDragging || isPMDragging) {
 		if (editorExperiment('advanced_layouts', true)) {

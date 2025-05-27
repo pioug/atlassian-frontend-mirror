@@ -161,19 +161,12 @@ const Content = React.forwardRef<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				contentArea,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				editorExperiment('live_pages_graceful_edit', 'control') &&
-					props.isEditorToolbarHidden &&
+				props.isEditorToolbarHidden &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					contentAreaHeightNoToolbar,
 			]}
 			data-testid={CONTENT_AREA_TEST_ID}
 			ref={containerRef}
-			// eslint-disable-next-line  @atlaskit/ui-styling-standard/no-classname-prop
-			className={
-				!editorExperiment('live_pages_graceful_edit', 'control') && props.isEditorToolbarHidden
-					? 'ak-editor-content-area-no-toolbar'
-					: undefined
-			}
 		>
 			<div
 				css={

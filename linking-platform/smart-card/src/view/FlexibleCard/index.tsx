@@ -57,6 +57,7 @@ const FlexibleCard = ({
 				response: details,
 				id,
 				onAuthorize,
+				onClick,
 				origin,
 				renderers,
 				resolve,
@@ -67,14 +68,15 @@ const FlexibleCard = ({
 		[
 			aiSummaryConfig,
 			appearance,
-			details,
 			fireEvent,
+			details,
 			id,
 			onAuthorize,
+			onClick,
 			origin,
 			renderers,
-			actionOptions,
 			resolve,
+			actionOptions,
 			status,
 			url,
 		],
@@ -88,7 +90,8 @@ const FlexibleCard = ({
 		? undefined
 		: getRetryOptions(url, status, details, onAuthorize);
 
-	const { title } = context || {};
+	const { linkTitle, title: titleOld } = context || {};
+	const title = fg('platform-linking-flexible-card-context') ? linkTitle?.text : titleOld;
 
 	useEffect(() => {
 		switch (status) {

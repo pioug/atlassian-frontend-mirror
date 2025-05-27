@@ -11,4 +11,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Wide',
 		description: 'Resize current element to wide mode',
 	},
+	resizeHandle: {
+		id: 'fabric.editor.resizeHandle',
+		defaultMessage: 'Resize handle',
+		description: 'Resize handle',
+	},
 });

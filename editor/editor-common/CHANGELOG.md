@@ -1,5 +1,77 @@
 # @atlaskit/editor-common
 
+## 105.11.0
+
+### Minor Changes
+
+- [#160500](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160500)
+  [`c359a92c058b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c359a92c058b0) -
+  [ux] EDITOR-713 Add borders to panel when they are nested in table
+
+### Patch Changes
+
+- [#160017](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160017)
+  [`c0ea9c5a5156b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0ea9c5a5156b) -
+  ED-27999 - Offline Editing, update type for analytics payload.
+- [#159336](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159336)
+  [`0f0a3a5e7e218`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f0a3a5e7e218) -
+  [EDITOR-793] Added changes to reflect experiment quickstart command
+- [#161016](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161016)
+  [`5edd5fccf1a76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5edd5fccf1a76) -
+  ENGHEALTH-28085: Added aria label for resize handle
+- Updated dependencies
+
+## 105.10.1
+
+### Patch Changes
+
+- [#159090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159090)
+  [`9cbae97c20f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cbae97c20f84) -
+  Reduces rerenders of text formatting options and the toolbar when it is docked to top.
+- Updated dependencies
+
+## 105.10.0
+
+### Minor Changes
+
+- [#156919](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156919)
+  [`379f5c27f4939`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/379f5c27f4939) -
+  delay table sticky headers until table is in viewport
+
+### Patch Changes
+
+- [#160973](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160973)
+  [`9f2837a46dd98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f2837a46dd98) -
+  Ignore error thrown from getPreloadedExtension fallback to sync method
+- [#159655](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159655)
+  [`24f8c627d50f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24f8c627d50f2) - ##
+  WHAT? Remove experimental graceful edit mode from view mode plugin and associated props.
+
+  ## WHY?
+
+  This experiment is being cleaned up and we are no longer proceeding in this direction.
+
+  ## HOW to adjust?
+
+  This experiment was only enabled for Confluence and should not have been enabled in other places.
+  If for some reason any of the following props/state/methdos were used please remove them:
+
+  - isConsumption
+  - contentMode
+  - initialContentMode
+  - updateContentMode
+
+- Updated dependencies
+
+## 105.9.1
+
+### Patch Changes
+
+- [#159910](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159910)
+  [`795f5ed29ca14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/795f5ed29ca14) -
+  Make getNodeRenderer synchronous so loading state never appear in Confluence
+- Updated dependencies
+
 ## 105.9.0
 
 ### Minor Changes

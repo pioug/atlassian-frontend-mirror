@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 38.5.2
+
+### Patch Changes
+
+- [#160330](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160330)
+  [`f1c0f21f646c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c0f21f646c9) -
+  Remove renderChildren prop pass through (behind platform-linking-flexible-card-context)
+- Updated dependencies
+
 ## 38.5.1
 
 ### Patch Changes

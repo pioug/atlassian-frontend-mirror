@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.6.1",
+	"version": "207.10.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -155,9 +155,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_reduce_scroll_jump_on_editor_start": {
-			"type": "boolean"
-		},
-		"platform_editor_fe--inp-metrics": {
 			"type": "boolean"
 		},
 		"platform_editor_sync_editor_view_mode_state": {
@@ -637,15 +634,15 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_bordered_panel_nested_in_table": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_controls_toolbar_ssr_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"platform_editor_controls_patch_analytics": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_ed-27630_date_popup_deleted_node": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -663,6 +660,18 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__editor": {
+			"type": "boolean"
+		},
+		"platform-dst-jira-web-fonts": {
+			"type": "boolean"
+		},
+		"confluence_typography_refreshed": {
+			"type": "boolean"
+		},
+		"atlas_editor_typography_refreshed": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_rerender_optimization": {
 			"type": "boolean"
 		}
 	},

@@ -32,7 +32,7 @@ export const hasMultiplePartsWithFormattingInSelection = ({
 };
 
 export const getCommonActiveMarks = ({ selectedContent }: { selectedContent?: PMNode[] }) => {
-	if (!selectedContent) {
+	if (!selectedContent || selectedContent.length === 0) {
 		return [];
 	}
 	// filter out fragment node contains only spaces

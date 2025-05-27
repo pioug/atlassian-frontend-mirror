@@ -2371,6 +2371,9 @@ export default class Select<
 									}}
 									innerProps={{
 										role: this.props['UNSAFE_is_experimental_generic'] ? 'dialog' : 'listbox',
+										'aria-label': this.props['UNSAFE_is_experimental_generic']
+											? `${this.props['aria-label'] || label}-dialog`
+											: null,
 										'aria-multiselectable':
 											((this.isVoiceOver || !commonProps.isMulti) &&
 												fg('design_system_select-a11y-improvement')) ||

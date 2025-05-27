@@ -13,6 +13,7 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
+import { nodeVisibilityManager } from '@atlaskit/editor-common/node-visibility';
 import { getParentNodeWidth, getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableMarginSides } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
@@ -28,6 +29,7 @@ import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
@@ -180,6 +182,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	private updateColGroupFromFullWidthChange?: boolean;
 
 	private dragAndDropCleanupFn?: CleanupFn;
+	private nodeVisibilityObserverCleanupFn?: CleanupFn;
 
 	constructor(props: ComponentProps) {
 		super(props);
@@ -189,12 +192,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const tablePos = props.getPos();
 
-		this.isNestedInTable =
-			tablePos && fg('nested_table_control_padding_with_css')
-				? getParentOfTypeCount(props.view.state.schema.nodes.table)(
-						props.view.state.doc.resolve(tablePos),
-					) > 0
-				: false;
+		this.isNestedInTable = tablePos
+			? getParentOfTypeCount(props.view.state.schema.nodes.table)(
+					props.view.state.doc.resolve(tablePos),
+				) > 0
+			: false;
 
 		this.isInitialOverflowSent = false;
 
@@ -250,6 +252,23 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	};
 
 	componentDidMount() {
+		if (editorExperiment('platform_editor_nodevisibility', false)) {
+			this.initialiseEventListenersAfterMount();
+			return;
+		}
+
+		const { observe } = nodeVisibilityManager(this.props.view.dom);
+		if (this.table) {
+			this.nodeVisibilityObserverCleanupFn = observe({
+				element: this.table,
+				onFirstVisible: () => {
+					this.initialiseEventListenersAfterMount();
+				},
+			});
+		}
+	}
+
+	initialiseEventListenersAfterMount() {
 		const {
 			allowColumnResizing,
 			allowTableResizing,
@@ -365,6 +384,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		if (isDragAndDropEnabled && this.dragAndDropCleanupFn) {
 			this.dragAndDropCleanupFn();
+		}
+
+		if (this.nodeVisibilityObserverCleanupFn) {
+			this.nodeVisibilityObserverCleanupFn();
 		}
 
 		this.resizeObserver?.disconnect();

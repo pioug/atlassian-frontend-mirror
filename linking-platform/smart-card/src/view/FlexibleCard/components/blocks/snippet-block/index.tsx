@@ -3,7 +3,10 @@ import React from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../../../../constants';
-import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import {
+	useFlexibleCardContext,
+	useFlexibleUiContext,
+} from '../../../../../state/flexible-ui-context';
 import { useSmartLinkRenderers } from '../../../../../state/renderers';
 import { Snippet } from '../../elements';
 import { getMaxLines } from '../../utils';
@@ -38,8 +41,18 @@ const SnippetBlock = ({
 			useSmartLinkRenderers()
 		: undefined;
 
-	if (status !== SmartLinkStatus.Resolved && !text) {
-		return null;
+	const cardContext = fg('platform-linking-flexible-card-context')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleCardContext()
+		: undefined;
+	if (fg('platform-linking-flexible-card-context')) {
+		if (cardContext?.status !== SmartLinkStatus.Resolved && !text) {
+			return null;
+		}
+	} else {
+		if (status !== SmartLinkStatus.Resolved && !text) {
+			return null;
+		}
 	}
 
 	const snippetMaxLines = getMaxLines(
@@ -54,16 +67,27 @@ const SnippetBlock = ({
 
 	if (!fg('cc-ai-linking-platform-snippet-renderer')) {
 		return (
-			<Block {...blockProps} testId={`${testId}-${statusTestId}-view`}>
+			<Block
+				{...blockProps}
+				{...(fg('platform-linking-flexible-card-context')
+					? { size: blockProps.size ?? cardContext?.ui?.size }
+					: undefined)}
+				testId={`${testId}-${statusTestId}-view`}
+			>
 				{snippet}
 			</Block>
 		);
 	}
 
 	const SnippetReplacement = renderers?.snippet;
-
 	return (
-		<Block {...blockProps} testId={`${testId}-${statusTestId}-view`}>
+		<Block
+			{...blockProps}
+			{...(fg('platform-linking-flexible-card-context')
+				? { size: blockProps.size ?? cardContext?.ui?.size }
+				: undefined)}
+			testId={`${testId}-${statusTestId}-view`}
+		>
 			{SnippetReplacement ? (
 				<SnippetReplacement
 					fallbackText={(text || context?.snippet) ?? ''}

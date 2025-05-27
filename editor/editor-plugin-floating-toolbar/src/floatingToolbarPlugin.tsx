@@ -15,6 +15,7 @@ import {
 	CONTENT_COMPONENT,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import {
 	sharedPluginStateHookMigratorFactory,
@@ -42,10 +43,7 @@ import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	editorExperiment,
-	unstable_editorExperimentParam,
-} from '@atlaskit/tmp-editor-statsig/experiments';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
 	ConfigWithNodeInfo,
@@ -59,7 +57,6 @@ import { createPlugin as floatingToolbarDataPluginFactory } from './pm-plugins/t
 import { pluginKey as dataPluginKey } from './pm-plugins/toolbar-data/plugin-key';
 import { findNode } from './pm-plugins/utils';
 import { ConfirmationModal } from './ui/ConfirmationModal';
-import { ExpandButton } from './ui/ExpandButton';
 import { ToolbarLoader } from './ui/ToolbarLoader';
 import { consolidateOverflowDropdownItems } from './ui/utils';
 
@@ -273,14 +270,6 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 
 		// editorViewMode
 		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		const contentMode = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'editorViewMode.contentMode',
-		);
-		const isConsumption = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'editorViewMode.isConsumption',
-		);
 
 		// userIntent
 		const currentUserIntent = useSharedPluginStateSelector(
@@ -305,8 +294,6 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 			floatingToolbarData,
 			editorDisabled: editorDisabledState,
 			mode,
-			contentMode,
-			isConsumption,
 			currentUserIntent,
 			isDragging,
 			isMenuOpen,
@@ -333,8 +320,6 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 			floatingToolbarData: floatingToolbarState?.floatingToolbarData,
 			editorDisabled: editorDisabledState?.editorDisabled,
 			mode: editorViewModeState?.mode,
-			contentMode: editorViewModeState?.contentMode,
-			isConsumption: editorViewModeState?.isConsumption,
 			currentUserIntent: userIntentState?.currentUserIntent,
 			isDragging: blockControlsState?.isDragging,
 			isMenuOpen: blockControlsState?.isMenuOpen,
@@ -363,15 +348,20 @@ export function ContentComponent({
 }) {
 	const {
 		configWithNodeInfo,
-		contentMode,
 		currentUserIntent,
 		editorDisabled,
 		floatingToolbarData,
-		isConsumption,
 		isDragging,
 		isMenuOpen,
 		mode,
 	} = useSharedState(pluginInjectionApi);
+
+	if (
+		isSSR() &&
+		editorExperiment('platform_editor_hide_floating_toolbar_in_ssr', true, { exposure: true })
+	) {
+		return null;
+	}
 
 	if (
 		!configWithNodeInfo ||
@@ -472,44 +462,6 @@ export function ContentComponent({
 		Array.isArray(items) ? items : items(node),
 		pluginInjectionApi?.decorations?.actions.hoverDecoration,
 	);
-
-	const viewModeToolbarEntry = unstable_editorExperimentParam(
-		'live_pages_graceful_edit',
-		'toolbar-entry',
-		{
-			defaultValue: 'none',
-			typeGuard: (value: unknown): value is 'none' | 'expand' | 'expand-existing-only' =>
-				typeof value === 'string' && ['text', 'nodes'].includes(value),
-		},
-	);
-
-	if (!editorExperiment('live_pages_graceful_edit', 'control') && viewModeToolbarEntry !== 'none') {
-		if (contentMode === 'live-edit' && isConsumption) {
-			const hasOtherToolbarItems = toolbarItems && toolbarItems.length !== 0;
-			const shouldAddToolbarItems =
-				viewModeToolbarEntry === 'expand-existing-only' ? hasOtherToolbarItems : true;
-
-			if (shouldAddToolbarItems) {
-				if (toolbarItems && toolbarItems.length > 0) {
-					toolbarItems.unshift({ type: 'separator' });
-				}
-
-				toolbarItems?.unshift({
-					type: 'button',
-					title: 'Edit',
-					onClick: () => {
-						pluginInjectionApi?.core?.actions?.execute(
-							pluginInjectionApi?.editorViewMode?.commands.updateContentMode({
-								type: 'intent-to-edit',
-							}),
-						);
-						return false;
-					},
-					icon: () => <ExpandButton />,
-				});
-			}
-		}
-	}
 
 	if (onPositionCalculated) {
 		customPositionCalculation = (nextPos: Position): Position => {

@@ -60,6 +60,12 @@ export type EmojiPluginState = {
 	emojiResourceConfig?: EmojiResourceConfig;
 	asciiMap?: Map<string, EmojiDescription>;
 	inlineEmojiPopupOpen?: boolean;
+	/**
+	 * Occassionally it may be more convenient to deal with the
+	 * promise version of the emoji provider. This is available
+	 * immediately if used for the initial configuration
+	 */
+	emojiProviderPromise?: Promise<EmojiProvider>;
 };
 
 export type EmojiPluginSharedState = EmojiPluginState & {

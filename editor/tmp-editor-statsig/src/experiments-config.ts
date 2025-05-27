@@ -62,6 +62,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-05-26
+	platform_editor_prevent_toolbar_layout_shifts: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_prevent_toolbar_layout_shifts',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2024-10-01
 	comment_on_bodied_extensions: createBooleanExperiment({
 		productKeys: {
@@ -144,15 +152,6 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-01-16
-	live_pages_graceful_edit: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'live_pages_graceful_edit',
-		},
-		param: 'cohort',
-		values: ['control', 'text-click-delayed', 'text-click-no-delay', 'initially-hide-toolbar'],
-		defaultValue: 'control',
 	}),
 	// Added 2025-01-19
 	platform_editor_ai_edit_response_in_preview: createBooleanExperiment({
@@ -282,6 +281,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-05-26
+	platform_editor_stop_width_reflows: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_stop_width_reflows',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-05-08
 	platform_editor_core_static_emotion: createBooleanExperiment({
 		productKeys: {
@@ -306,6 +313,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-05-21
+	platform_editor_nodevisibility: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_nodevisibility',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-05-15
 	platform_editor_breakout_resizing: createBooleanExperiment({
 		productKeys: {
@@ -326,6 +341,13 @@ export const editorExperimentsConfig = {
 	editor_ai_in_editor_streaming: createBooleanExperiment({
 		productKeys: {
 			confluence: 'editor_ai_in_editor_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_hide_floating_toolbar_in_ssr: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_hide_floating_toolbar_in_ssr',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

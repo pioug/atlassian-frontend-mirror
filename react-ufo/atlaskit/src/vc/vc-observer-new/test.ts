@@ -398,4 +398,185 @@ describe('VCObserverNew', () => {
 			expect(window.__SSR_ABORT_LISTENERS__).toBeDefined();
 		});
 	});
+
+	describe('addStartEntry feature gate', () => {
+		it('should add START entry when platform_ufo_v3_add_start_entry feature flag is enabled', async () => {
+			// Enable the feature flag
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_v3_add_start_entry') {
+					return true;
+				}
+				return false;
+			});
+
+			const startTime = 123.456;
+			const stopTime = 500;
+
+			// Mock calculator to return a result
+			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+				revision: 'fy25.03',
+				clean: true,
+				'metric:vc90': 100,
+			});
+
+			await vcObserver.getVCResult({
+				start: startTime,
+				stop: stopTime,
+				interactionId: 'test-interaction-id',
+			});
+
+			// Verify START entry was added to the timeline
+			expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
+				time: startTime,
+				data: {
+					type: 'mutation:element',
+					elementName: 'START',
+					visible: true,
+					rect: {
+						x: 0,
+						y: 0,
+						width: window.innerWidth,
+						height: window.innerHeight,
+						top: 0,
+						left: 0,
+						bottom: window.innerHeight,
+						right: window.innerWidth,
+						toJSON: expect.any(Function),
+					},
+				},
+			});
+		});
+
+		it('should NOT add START entry when platform_ufo_v3_add_start_entry feature flag is disabled', async () => {
+			// Disable the feature flag
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_v3_add_start_entry') {
+					return false;
+				}
+				return false;
+			});
+
+			const startTime = 123.456;
+			const stopTime = 500;
+
+			// Mock calculator to return a result
+			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+				revision: 'fy25.03',
+				clean: true,
+				'metric:vc90': 100,
+			});
+
+			await vcObserver.getVCResult({
+				start: startTime,
+				stop: stopTime,
+				interactionId: 'test-interaction-id',
+			});
+
+			// Verify NO START entry was added to the timeline
+			expect(mockEntriesTimeline.push).not.toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						elementName: 'START',
+					}),
+				}),
+			);
+		});
+
+		it('should create START entry with correct DOMRect structure', async () => {
+			// Enable the feature flag
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_v3_add_start_entry') {
+					return true;
+				}
+				return false;
+			});
+
+			// Mock window dimensions
+			Object.defineProperty(window, 'innerWidth', { value: 1920, writable: true });
+			Object.defineProperty(window, 'innerHeight', { value: 1080, writable: true });
+
+			const startTime = 100;
+			const stopTime = 500;
+
+			// Mock calculator to return a result
+			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+				revision: 'fy25.03',
+				clean: true,
+				'metric:vc90': 100,
+			});
+
+			await vcObserver.getVCResult({
+				start: startTime,
+				stop: stopTime,
+				interactionId: 'test-interaction-id',
+			});
+
+			// Get the call arguments
+			const pushCall = mockEntriesTimeline.push.mock.calls.find(
+				(call) => 'elementName' in call[0].data && call[0].data.elementName === 'START',
+			);
+
+			expect(pushCall).toBeDefined();
+			const rectData = (pushCall as any)[0].data.rect;
+
+			// Verify rect structure
+			expect(rectData).toEqual({
+				x: 0,
+				y: 0,
+				width: 1920,
+				height: 1080,
+				top: 0,
+				left: 0,
+				bottom: 1080,
+				right: 1920,
+				toJSON: expect.any(Function),
+			});
+
+			// Verify toJSON function works correctly
+			const jsonResult = rectData.toJSON();
+			expect(jsonResult).toEqual({
+				x: 0,
+				y: 0,
+				width: 1920,
+				height: 1080,
+				top: 0,
+				left: 0,
+				bottom: 1080,
+				right: 1920,
+			});
+		});
+
+		it('should add START entry before getOrderedEntries is called', async () => {
+			// Enable the feature flag
+			(fg as jest.Mock).mockImplementation((flag: string) => {
+				if (flag === 'platform_ufo_v3_add_start_entry') {
+					return true;
+				}
+				return false;
+			});
+
+			const startTime = 100;
+			const stopTime = 500;
+
+			// Mock calculator to return a result
+			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
+				revision: 'fy25.03',
+				clean: true,
+				'metric:vc90': 100,
+			});
+
+			await vcObserver.getVCResult({
+				start: startTime,
+				stop: stopTime,
+				interactionId: 'test-interaction-id',
+			});
+
+			// Verify that push was called before getOrderedEntries
+			const pushCallIndex = mockEntriesTimeline.push.mock.invocationCallOrder[0];
+			const getOrderedEntriesCallIndex =
+				mockEntriesTimeline.getOrderedEntries.mock.invocationCallOrder[0];
+
+			expect(pushCallIndex).toBeLessThan(getOrderedEntriesCallIndex);
+		});
+	});
 });

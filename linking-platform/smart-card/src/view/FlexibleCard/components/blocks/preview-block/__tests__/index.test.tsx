@@ -16,10 +16,14 @@ import { type PreviewBlockProps } from '../types';
 
 const testId = 'test-smart-block-preview';
 
-const renderPreviewBlock = (props?: PreviewBlockProps, customContext?: FlexibleUiDataContext) => {
+const renderPreviewBlock = (
+	props?: PreviewBlockProps,
+	customContext?: FlexibleUiDataContext,
+	status?: SmartLinkStatus,
+) => {
 	const ctx = customContext || context;
-	return render(<PreviewBlock status={SmartLinkStatus.Resolved} {...props} />, {
-		wrapper: getFlexibleCardTestWrapper(ctx),
+	return render(<PreviewBlock {...props} />, {
+		wrapper: getFlexibleCardTestWrapper(ctx, undefined, status),
 	});
 };
 
@@ -72,32 +76,6 @@ describe('PreviewBlock', () => {
 			});
 		});
 
-		describe('with specific status', () => {
-			it('renders PreviewBlock when status is resolved', async () => {
-				renderPreviewBlock();
-
-				const block = await screen.findByTestId('smart-block-preview-resolved-view');
-
-				expect(block).toBeDefined();
-			});
-
-			it.each([
-				[SmartLinkStatus.Resolving],
-				[SmartLinkStatus.Forbidden],
-				[SmartLinkStatus.Errored],
-				[SmartLinkStatus.NotFound],
-				[SmartLinkStatus.Unauthorized],
-				[SmartLinkStatus.Fallback],
-			])('renders PreviewBlock when status is %s', async (status: SmartLinkStatus) => {
-				renderPreviewBlock({
-					status,
-				});
-				const block = await screen.findByTestId('smart-block-preview-resolved-view');
-
-				expect(block).toBeDefined();
-			});
-		});
-
 		it('renders with override css', async () => {
 			const overrideCss = css({
 				backgroundColor: 'blue',
@@ -107,6 +85,48 @@ describe('PreviewBlock', () => {
 			});
 			const block = await screen.findByTestId('test-smart-block-preview-resolved-view');
 			expect(block).toHaveCompiledCss('backgroundColor', 'blue');
+		});
+	});
+
+	describe('with specific status', () => {
+		it('renders PreviewBlock when status is resolved', async () => {
+			renderPreviewBlock();
+
+			const block = await screen.findByTestId('smart-block-preview-resolved-view');
+
+			expect(block).toBeDefined();
+		});
+
+		ffTest.on('platform-linking-flexible-card-context', 'with fg', () => {
+			it.each([
+				[SmartLinkStatus.Resolving],
+				[SmartLinkStatus.Forbidden],
+				[SmartLinkStatus.Errored],
+				[SmartLinkStatus.NotFound],
+				[SmartLinkStatus.Unauthorized],
+				[SmartLinkStatus.Fallback],
+			])('renders PreviewBlock when status is %s', async (status: SmartLinkStatus) => {
+				renderPreviewBlock(undefined, undefined, status);
+				const block = await screen.findByTestId('smart-block-preview-resolved-view');
+
+				expect(block).toBeDefined();
+			});
+		});
+
+		ffTest.off('platform-linking-flexible-card-context', 'with fg', () => {
+			it.each([
+				[SmartLinkStatus.Resolving],
+				[SmartLinkStatus.Forbidden],
+				[SmartLinkStatus.Errored],
+				[SmartLinkStatus.NotFound],
+				[SmartLinkStatus.Unauthorized],
+				[SmartLinkStatus.Fallback],
+			])('renders PreviewBlock when status is %s', async (status: SmartLinkStatus) => {
+				renderPreviewBlock({ status });
+				const block = await screen.findByTestId('smart-block-preview-resolved-view');
+
+				expect(block).toBeDefined();
+			});
 		});
 	});
 });

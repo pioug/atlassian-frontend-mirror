@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type { ReactElement } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -167,18 +167,37 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		}
 	});
 
-	const isShortcutToFocusToolbar = (event: KeyboardEvent) => {
+	const isShortcutToFocusToolbarRaw = (event: KeyboardEvent) => {
 		//Alt + F9 to reach first element in this main toolbar
 		return event.altKey && (event.key === 'F9' || event.keyCode === 120);
 	};
+	const isShortcutToFocusToolbarMemoized = useCallback(isShortcutToFocusToolbarRaw, []);
+	const isShortcutToFocusToolbar = fg('platform_editor_toolbar_rerender_optimization')
+		? isShortcutToFocusToolbarMemoized
+		: isShortcutToFocusToolbarRaw;
 
-	const handleEscape = (event: KeyboardEvent) => {
+	const handleEscapeRaw = (event: KeyboardEvent) => {
 		if (!props.editorView?.hasFocus()) {
 			props.editorView?.focus();
 		}
 		event.preventDefault();
 		event.stopPropagation();
 	};
+
+	const handleEscapeMemoized = useCallback(
+		(event: KeyboardEvent) => {
+			if (!props.editorView?.hasFocus()) {
+				props.editorView?.focus();
+			}
+			event.preventDefault();
+			event.stopPropagation();
+		},
+		[props.editorView],
+	);
+
+	const handleEscape = fg('platform_editor_toolbar_rerender_optimization')
+		? handleEscapeMemoized
+		: handleEscapeRaw;
 
 	return (
 		<ContextPanelConsumer>
@@ -216,6 +235,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 							>
 								{shouldSplitToolbar ? nonCustomToolbar : customToolbar}
 							</div>
+
 							<ToolbarPortalMountPoint />
 						</div>
 					</ToolbarPortal>

@@ -14,6 +14,7 @@ type OfflineEditingAEP = TrackAEP<
 		stepsCount?: number;
 		status?: string;
 		retryCount?: number;
+		disabled?: string | boolean;
 		retrySource?: string;
 		healthy?: boolean;
 	},

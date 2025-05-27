@@ -19,7 +19,12 @@ import {
 	PreviewBlock,
 	TitleBlock,
 } from '../../../FlexibleCard/components/blocks';
-import { FlexibleCardUiOptions, PreviewBlockOptions, titleBlockOptions } from '../utils';
+import {
+	FlexibleCardUiOptions,
+	FlexibleCardUiOptionsOld,
+	PreviewBlockOptions,
+	titleBlockOptions,
+} from '../utils';
 
 import { type UnresolvedViewProps } from './types';
 
@@ -106,7 +111,11 @@ const UnresolvedView = ({
 			onError={onError}
 			origin="smartLinkCard"
 			testId={testId}
-			ui={FlexibleCardUiOptions}
+			ui={
+				fg('platform-linking-flexible-card-context')
+					? FlexibleCardUiOptions
+					: FlexibleCardUiOptionsOld
+			}
 			url={url}
 		>
 			<TitleBlock
@@ -114,16 +123,25 @@ const UnresolvedView = ({
 				hideIcon={!!title}
 				text={title}
 				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
-				status={cardState.status as SmartLinkStatus}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: cardState.status as SmartLinkStatus })}
 			/>
 			<CustomBlock
 				css={[fg('platform-linking-visual-refresh-v1') ? customBlockStyles : customBlockStylesOld]}
-				status={cardState.status as SmartLinkStatus}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: cardState.status as SmartLinkStatus })}
 			>
 				{children}
 			</CustomBlock>
 			{showPreview && (
-				<PreviewBlock {...PreviewBlockOptions} status={cardState.status as SmartLinkStatus} />
+				<PreviewBlock
+					{...PreviewBlockOptions}
+					{...(fg('platform-linking-flexible-card-context')
+						? undefined
+						: { status: cardState.status as SmartLinkStatus })}
+				/>
 			)}
 			<InternalFooterBlock
 				css={[
@@ -132,7 +150,9 @@ const UnresolvedView = ({
 				]}
 				actions={actions}
 				testId="smart-block-card-footer"
-				status={cardState.status as SmartLinkStatus}
+				{...(fg('platform-linking-flexible-card-context')
+					? undefined
+					: { status: cardState.status as SmartLinkStatus })}
 			/>
 		</FlexibleCard>
 	);

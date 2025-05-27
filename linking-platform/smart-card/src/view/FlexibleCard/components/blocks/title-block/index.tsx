@@ -10,6 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../../../../constants';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
+import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import { Title } from '../../elements';
 import ActionGroup from '../action-group';
 
@@ -65,7 +66,7 @@ const TitleBlock = ({
 	maxLines,
 	onActionMenuOpenChange,
 	onClick,
-	status = SmartLinkStatus.Fallback,
+	status: statusProp = SmartLinkStatus.Fallback,
 	showActionOnHover,
 	testId = 'smart-block-title',
 	text,
@@ -78,6 +79,12 @@ const TitleBlock = ({
 	anchorRef,
 	...props
 }: TitleBlockProps) => {
+	const cardContext = fg('platform-linking-flexible-card-context')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleCardContext()
+		: undefined;
+	const { status = SmartLinkStatus.Fallback, ui } = cardContext || {};
+
 	if (!fg('platform-linking-flexible-card-unresolved-action')) {
 		if (hideRetry && props.retry) {
 			delete props.retry;
@@ -107,16 +114,18 @@ const TitleBlock = ({
 		<Title
 			hideTooltip={hideTitleTooltip}
 			maxLines={maxLines}
-			onClick={onClick}
+			{...(fg('platform-linking-flexible-card-context') ? undefined : { onClick })}
 			onMouseDown={onMouseDown}
 			target={anchorTarget}
-			theme={theme}
+			theme={fg('platform-linking-flexible-card-context') ? ui?.theme : theme}
 			anchorRef={anchorRef}
 			{...overrideText}
 		/>
 	);
 
-	const Component = getTitleBlockViewComponent(status);
+	const Component = getTitleBlockViewComponent(
+		fg('platform-linking-flexible-card-context') ? status : statusProp,
+	);
 
 	return (
 		<Component
@@ -131,8 +140,8 @@ const TitleBlock = ({
 			hideIcon={hideIcon}
 			{...(fg('platform-linking-flexible-card-unresolved-action') ? { hideRetry } : undefined)}
 			icon={icon}
-			size={props.size}
-			theme={theme}
+			size={fg('platform-linking-flexible-card-context') ? props.size ?? ui?.size : props?.size}
+			{...(fg('platform-linking-flexible-card-context') ? undefined : { theme })}
 		/>
 	);
 };

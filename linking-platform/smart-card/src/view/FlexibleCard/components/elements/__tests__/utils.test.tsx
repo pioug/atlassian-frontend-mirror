@@ -225,6 +225,52 @@ describe('createElement', () => {
 			expect(container.children.length).toEqual(0);
 		});
 
+		it('allows overrides of preset props and data', async () => {
+			const expectedTextContent = 'Override title';
+			const Component = createElement(ElementName.Title);
+			renderComponent(Component, context, testId, {
+				text: expectedTextContent,
+				theme: SmartLinkTheme.Black,
+			});
+
+			const element = await screen.findByTestId(testId);
+
+			expect(element).toHaveTextContent(expectedTextContent);
+			expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
+		});
+	});
+
+	ffTest.on('platform-linking-flexible-card-context', 'with fg', () => {
+		describe('when data is not available', () => {
+			it.each([
+				[ElementName.AuthorGroup, 'authorGroup'],
+				[ElementName.ChecklistProgress, 'checklistProgress'],
+				[ElementName.CollaboratorGroup, 'collaboratorGroup'],
+				[ElementName.CommentCount, 'commentCount'],
+				[ElementName.ViewCount, 'viewCount'],
+				[ElementName.ReactCount, 'reactCount'],
+				[ElementName.VoteCount, 'voteCount'],
+				[ElementName.OwnedBy, 'ownedBy'],
+				[ElementName.CreatedBy, 'createdBy'],
+				[ElementName.CreatedOn, 'createdOn'],
+				[ElementName.LinkIcon, 'linkIcon'],
+				[ElementName.ModifiedBy, 'modifiedBy'],
+				[ElementName.ModifiedOn, 'modifiedOn'],
+				[ElementName.Priority, 'priority'],
+				[ElementName.ProgrammingLanguage, 'programmingLanguage'],
+				[ElementName.State, 'state'],
+				[ElementName.SubscriberCount, 'subscriberCount'],
+				[ElementName.Title, 'linkTitle'],
+				[ElementName.LatestCommit, 'latestCommit'],
+			])('returns null on render %s', async (name: ElementName, key: string) => {
+				const Component = createElement(name);
+				renderComponent(Component, { ...context, [key]: undefined }, testId);
+				expect(screen.queryByTestId(testId)).toBeNull();
+			});
+		});
+	});
+
+	ffTest.off('platform-linking-flexible-card-context', 'with fg', () => {
 		describe('when data is not available', () => {
 			it.each([
 				[ElementName.AuthorGroup, 'authorGroup'],
@@ -251,20 +297,6 @@ describe('createElement', () => {
 				renderComponent(Component, { ...context, [key]: undefined }, testId);
 				expect(screen.queryByTestId(testId)).toBeNull();
 			});
-		});
-
-		it('allows overrides of preset props and data', async () => {
-			const expectedTextContent = 'Override title';
-			const Component = createElement(ElementName.Title);
-			renderComponent(Component, context, testId, {
-				text: expectedTextContent,
-				theme: SmartLinkTheme.Black,
-			});
-
-			const element = await screen.findByTestId(testId);
-
-			expect(element).toHaveTextContent(expectedTextContent);
-			expect(element).toHaveCompiledCss('color', 'var(--ds-text-subtle,#44546f)');
 		});
 	});
 });

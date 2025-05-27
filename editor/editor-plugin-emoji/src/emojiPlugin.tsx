@@ -288,14 +288,20 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			if (!editorState) {
 				return undefined;
 			}
-			const { emojiResourceConfig, asciiMap, emojiProvider, inlineEmojiPopupOpen } =
-				emojiPluginKey.getState(editorState) ?? {};
+			const {
+				emojiResourceConfig,
+				asciiMap,
+				emojiProvider,
+				inlineEmojiPopupOpen,
+				emojiProviderPromise,
+			} = emojiPluginKey.getState(editorState) ?? {};
 
 			return {
 				emojiResourceConfig,
 				asciiMap,
 				typeAheadHandler: typeAhead,
 				emojiProvider,
+				emojiProviderPromise,
 				inlineEmojiPopupOpen,
 			};
 		},
@@ -543,6 +549,14 @@ export function createEmojiPlugin(
 		key: emojiPluginKey,
 		state: {
 			init() {
+				if (
+					options?.emojiProvider &&
+					editorExperiment('platform_editor_prevent_toolbar_layout_shifts', true)
+				) {
+					return {
+						emojiProviderPromise: options.emojiProvider,
+					};
+				}
 				return {};
 			},
 			apply(tr, pluginState) {
@@ -558,6 +572,12 @@ export function createEmojiPlugin(
 						newPluginState = {
 							...pluginState,
 							emojiProvider: params.provider,
+							emojiProviderPromise: editorExperiment(
+								'platform_editor_prevent_toolbar_layout_shifts',
+								true,
+							)
+								? Promise.resolve(params.provider)
+								: undefined,
 						};
 						pmPluginFactoryParams.dispatch(emojiPluginKey, newPluginState);
 						return newPluginState;

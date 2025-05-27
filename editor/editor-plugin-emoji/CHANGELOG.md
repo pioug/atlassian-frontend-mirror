@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.7.0
+
+### Minor Changes
+
+- [#160575](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160575)
+  [`c340cf0e2d6c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c340cf0e2d6c2) -
+  Expose emoji provider promise to initialise in the toolbar earlier.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.7
 
 ### Patch Changes

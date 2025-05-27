@@ -1,6 +1,5 @@
 import type { ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatePluginMeta, DatePluginState } from './types';
 
@@ -30,23 +29,13 @@ export function mapping(tr: ReadonlyTransaction, pluginState: DatePluginState): 
 	}
 
 	const { pos, deleted } = tr.mapping.mapResult(pluginState.showDatePickerAt);
-	if (fg('platform_editor_ed-27630_date_popup_deleted_node')) {
-		return {
-			showDatePickerAt: deleted ? null : pos,
-			isNew: pluginState.isNew,
-			isDateEmpty: pluginState.isDateEmpty,
-			focusDateInput: pluginState.focusDateInput,
-			isInitialised: pluginState.isInitialised,
-		};
-	} else {
-		return {
-			showDatePickerAt: pos,
-			isNew: pluginState.isNew,
-			isDateEmpty: pluginState.isDateEmpty,
-			focusDateInput: pluginState.focusDateInput,
-			isInitialised: pluginState.isInitialised,
-		};
-	}
+	return {
+		showDatePickerAt: deleted ? null : pos,
+		isNew: pluginState.isNew,
+		isDateEmpty: pluginState.isDateEmpty,
+		focusDateInput: pluginState.focusDateInput,
+		isInitialised: pluginState.isInitialised,
+	};
 }
 
 export function onSelectionChanged(

@@ -14,6 +14,7 @@ import {
 	alignCenter,
 	alignLeft,
 	alignRight,
+	askAIQuickInsert,
 	clearFormatting,
 	decreaseMediaSize,
 	focusTableResizer,
@@ -59,6 +60,7 @@ import {
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import type { Format } from './Format';
@@ -447,6 +449,12 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 	},
 ];
 
+const quickInsertAskAI: (intl: IntlShape) => Format = ({ formatMessage }) => ({
+	name: formatMessage(toolbarMessages.askAI),
+	type: 'AI',
+	keymap: () => askAIQuickInsert,
+});
+
 const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 	{
 		name: formatMessage(toolbarMessages.clearFormatting),
@@ -761,12 +769,16 @@ export const getSupportedFormatting = (
 	intl: IntlShape,
 	imageEnabled?: boolean,
 	quickInsertEnabled?: boolean,
+	aiEnabled?: boolean,
 ): Format[] => {
 	const supportedBySchema = formatting(intl).filter(
 		(format) => schema.nodes[format.type] || schema.marks[format.type],
 	);
 
 	return [
+		...(aiEnabled && editorExperiment('platform_editor_ai_quickstart_command', true)
+			? [quickInsertAskAI(intl)]
+			: []),
 		...navigationKeymaps(intl),
 		...otherFormatting(intl),
 		...supportedBySchema,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "105.9.0",
+	"version": "105.11.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -77,6 +77,7 @@
 		"./media-single": "./src/media-single/index.ts",
 		"./media": "./src/media/index.ts",
 		"./monitoring": "./src/monitoring/index.ts",
+		"./node-visibility": "./src/node-visibility/node-visibility-manager.ts",
 		"./paste": "./src/paste/index.ts",
 		"./resizer": "./src/resizer/index.ts",
 		"./editor-analytics": "./src/editor-analytics/index.ts",
@@ -167,6 +168,7 @@
 		"./media-single": "./src/media-single/index.ts",
 		"./media": "./src/media/index.ts",
 		"./monitoring": "./src/monitoring/index.ts",
+		"./node-visibility": "./src/node-visibility/node-visibility-manager.ts",
 		"./paste": "./src/paste/index.ts",
 		"./resizer": "./src/resizer/index.ts",
 		"./editor-analytics": "./src/editor-analytics/index.ts",
@@ -463,6 +465,9 @@
 		"platform_editor_add_border_for_nested_panel": {
 			"type": "boolean"
 		},
+		"platform_editor_bordered_panel_nested_in_table": {
+			"type": "boolean"
+		},
 		"platform_editor_fix_code_block_bg_color_in_macro": {
 			"type": "boolean"
 		},
@@ -479,6 +484,9 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__editor": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_rerender_optimization": {
 			"type": "boolean"
 		}
 	}

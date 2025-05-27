@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::9425a303268075ca54d6a0393a775309>>
+ * @codegen <<SignedSource::1b9a45b5b58368b3c27793a9a82cb5e9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -48,6 +48,7 @@ import CloudOfflineIcon from '../../../../core/cloud-offline';
 import CloudSavedIcon from '../../../../core/cloud-saved';
 import CoinsIcon from '../../../../core/coins';
 import ColourNoneIcon from '../../../../core/colour-none';
+import CompareIcon from '../../../../core/compare';
 import CompassHingedIcon from '../../../../core/compass-hinged';
 import ContinueWhenIcon from '../../../../core/continue-when';
 import CrossOctagonIcon from '../../../../core/cross-octagon';
@@ -67,6 +68,8 @@ import ExpandElementIcon from '../../../../core/expand-element';
 import EyedropperIcon from '../../../../core/eyedropper';
 import FieldTextIcon from '../../../../core/field-text';
 import FolderSharedIcon from '../../../../core/folder-shared';
+import GenerativeDateIcon from '../../../../core/generative-date';
+import GenerativeIndicatorIcon from '../../../../core/generative-indicator';
 import GiftIcon from '../../../../core/gift';
 import GlobeStrikethroughIcon from '../../../../core/globe-strikethrough';
 import GroupSelectionIcon from '../../../../core/group-selection';
@@ -78,6 +81,7 @@ import HourglassIcon from '../../../../core/hourglass';
 import IfElseIcon from '../../../../core/if-else';
 import ImageAltTextIcon from '../../../../core/image-alt-text';
 import ImageCropIcon from '../../../../core/image-crop';
+import ImageStrikethroughIcon from '../../../../core/image-strikethrough';
 import IncognitoIcon from '../../../../core/incognito';
 import InitiativeIcon from '../../../../core/initiative';
 import JiraIcon from '../../../../core/jira';
@@ -91,6 +95,10 @@ import LayoutThreeColumnsSidebarsRightIcon from '../../../../core/layout-three-c
 import LinkRestrictedAccessIcon from '../../../../core/link-restricted-access';
 import LozengeIcon from '../../../../core/lozenge';
 import MicrophoneStrikethroughIcon from '../../../../core/microphone-strikethrough';
+import MilestoneCompleteIcon from '../../../../core/milestone-complete';
+import MilestoneIncompleteIcon from '../../../../core/milestone-incomplete';
+import MilestoneMultipleIcon from '../../../../core/milestone-multiple';
+import MilestoneOverdueIcon from '../../../../core/milestone-overdue';
 import NodeParallelBottomLeftIcon from '../../../../core/node-parallel-bottom-left';
 import NodeParallelBottomRightIcon from '../../../../core/node-parallel-bottom-right';
 import NodeParallelTopLeftIcon from '../../../../core/node-parallel-top-left';
@@ -461,6 +469,14 @@ const Icons = [
 	ShapeSummingJunctionCrossIcon,
 	ShapeSummingJunctionPlusIcon,
 	HandClenchedIcon,
+	CompareIcon,
+	GenerativeIndicatorIcon,
+	GenerativeDateIcon,
+	MilestoneMultipleIcon,
+	MilestoneOverdueIcon,
+	MilestoneCompleteIcon,
+	MilestoneIncompleteIcon,
+	ImageStrikethroughIcon,
 ];
 
 const groupSize = 20;

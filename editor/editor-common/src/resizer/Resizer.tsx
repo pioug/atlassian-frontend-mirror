@@ -11,6 +11,7 @@ import type { CSSProperties, ForwardRefRenderFunction, PropsWithChildren } from 
 import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
+import { useIntl } from 'react-intl-next';
 
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -18,6 +19,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
+import { messages } from '../messages/breakout';
 import {
 	handleWrapperClass,
 	resizerDangerClassName,
@@ -309,6 +311,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		[resizerExtendedZone]: needExtendedResizeZone,
 	});
 
+	const { formatMessage } = useIntl();
 	const handleComponent = useMemo(() => {
 		return SUPPORTED_HANDLES.reduce<HandleComponent>((result, position) => {
 			const thumb = (
@@ -316,6 +319,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={resizerHandleThumbClassName}
 					data-testid={`resizer-handle-${position}-thumb`}
+					aria-label={formatMessage(messages.resizeHandle)}
 					contentEditable={false}
 					ref={resizeHandleThumbRef}
 					type="button"
@@ -372,7 +376,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 				),
 			};
 		}, {});
-	}, [handleHighlight, handleTooltipContent]);
+	}, [handleHighlight, handleTooltipContent, formatMessage]);
 
 	// snapGap is usually a constant, if snap.x?.length is 0 and snapGap has a value resizer cannot be resized
 	const snapGapActual = useMemo(() => {

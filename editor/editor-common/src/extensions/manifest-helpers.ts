@@ -63,12 +63,16 @@ type Extension = {
 	};
 };
 
-export const resolveImport = async <T extends Parameters>(importPromise: Module<T>) => {
-	const importedModule = await importPromise;
-
+export const resolveImportSync = <T extends Parameters>(importedModule: Module<T>) => {
 	return importedModule && (importedModule as ESModule<T>).__esModule
 		? (importedModule as ESModule<T>).default
 		: (importedModule as T);
+};
+
+export const resolveImport = async <T extends Parameters>(
+	importPromise: Promise<Module<T>> | Module<T>,
+) => {
+	return resolveImportSync(await importPromise);
 };
 
 export function buildNode<T extends Parameters>(

@@ -14,6 +14,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
@@ -82,6 +83,7 @@ export type TablePluginDependencies = [
 	OptionalPlugin<EditorViewModePlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<ExtensionPlugin>,
+	OptionalPlugin<InteractionPlugin>,
 ];
 
 export type TablePlugin = NextEditorPlugin<

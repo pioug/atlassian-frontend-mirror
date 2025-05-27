@@ -21,7 +21,13 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+            "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../tmp-editor-statsig/afm-cc/tsconfig.json"
         }
     ]
 }

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::36bf23d1966a06c9de1168524e5a2747>>
+ * @codegen <<SignedSource::205e7286912020521b2f575b3086483f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -3446,6 +3446,48 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 		status: 'published',
 	},
+	'panel-left': {
+		keywords: [
+			'panel-left',
+			'panelleft',
+			'icon',
+			'core',
+			'detail view',
+			'left rail',
+			'drawer',
+			'preview panel',
+			'sidebar',
+		],
+		componentName: 'PanelLeftIcon',
+		package: '@atlaskit/icon/core/panel-left',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for opening a preview panel to the left of the viewport edge. Use for right-to-left languages which invert the navigational chrome.',
+		team: 'Design System Team',
+		status: 'published',
+	},
+	'panel-right': {
+		keywords: [
+			'panel-right',
+			'panelright',
+			'icon',
+			'core',
+			'detail view',
+			'right rail',
+			'drawer',
+			'preview panel',
+			'sidebar',
+		],
+		componentName: 'PanelRightIcon',
+		package: '@atlaskit/icon/core/panel-right',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.',
+		team: 'Design System Team',
+		status: 'published',
+	},
 	pen: {
 		keywords: ['pen', 'icon', 'core', 'pen tool', 'nib', 'fountain pen', 'design', 'work type'],
 		componentName: 'PenIcon',
@@ -4323,7 +4365,7 @@ const metadata: Record<string, metadata> = {
 		componentName: 'SidebarLeftIcon',
 		package: '@atlaskit/icon/core/sidebar-left',
 		type: 'core',
-		replacement: { name: 'drawer-left', type: 'core', location: '@atlaskit/icon' },
+		replacement: { name: 'panel-left', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
 		usage: 'Reserved for opening a drawer or sidebar to the left of the viewport edge.',
 		team: 'Design System Team',
@@ -4344,7 +4386,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/sidebar-right',
 		oldName: ['detail-view', 'room-menu'],
 		type: 'core',
-		replacement: { name: 'drawer-right', type: 'core', location: '@atlaskit/icon' },
+		replacement: { name: 'panel-right', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
 		usage: 'Reserved for opening a drawer or sidebar to the right of the viewport edge.',
 		team: 'Design System Team',

@@ -11,6 +11,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
@@ -68,6 +69,9 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 		const width = useSharedPluginStateSelector(api, 'width.width');
 		const lineLength = useSharedPluginStateSelector(api, 'width.lineLength');
 
+		// interactionState
+		const interaction = useSharedPluginStateSelector(api, 'interaction.interactionState');
+
 		return {
 			tableState: undefined,
 			widthState: undefined,
@@ -86,11 +90,25 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 			mode,
 			width,
 			lineLength,
+			interaction,
 		};
 	},
 	(api: PluginInjectionAPI | undefined) => {
-		const { widthState, tableState, mediaState, selectionState, editorViewModeState } =
-			useSharedPluginState(api, ['width', 'table', 'media', 'selection', 'editorViewMode']);
+		const {
+			widthState,
+			tableState,
+			mediaState,
+			selectionState,
+			editorViewModeState,
+			interactionState,
+		} = useSharedPluginState(api, [
+			'width',
+			'table',
+			'media',
+			'selection',
+			'editorViewMode',
+			'interaction',
+		]);
 		const tableStateInternal = tableState as TableSharedStateInternal | undefined;
 
 		return {
@@ -111,6 +129,7 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 			mode: editorViewModeState?.mode,
 			width: widthState?.width,
 			lineLength: widthState?.lineLength,
+			interaction: interactionState?.interactionState,
 		};
 	},
 );
@@ -151,7 +170,9 @@ export const TableComponentWithSharedState = ({
 		ordering,
 		selection,
 		width,
+		interaction,
 	} = useSharedState(api);
+
 	const isLivePageViewMode = mode === 'view';
 
 	if (editorExperiment('platform_editor_usesharedpluginstateselector', false) && !tableState) {
@@ -195,7 +216,12 @@ export const TableComponentWithSharedState = ({
 			isTableScalingEnabled={options?.isTableScalingEnabled}
 			allowTableAlignment={allowTableAlignment}
 			allowTableResizing={allowTableResizing}
-			tableActive={tableActive && !isLivePageViewMode}
+			tableActive={
+				tableActive &&
+				!isLivePageViewMode &&
+				(interaction !== 'hasNotHadInteraction' ||
+					!fg('platform_editor_hide_expand_selection_states'))
+			}
 			ordering={ordering}
 			isResizing={isResizing}
 			getNode={getNode}

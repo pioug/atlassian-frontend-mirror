@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.14.0
+
+### Minor Changes
+
+- [#159942](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159942)
+  [`96479556c8a49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96479556c8a49) -
+  DXAI-477: Add new dashboard-insights-actions payload event to Rovo pubsub"
+
 ## 2.13.0
 
 ### Minor Changes

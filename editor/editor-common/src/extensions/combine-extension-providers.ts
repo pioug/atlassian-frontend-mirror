@@ -33,26 +33,18 @@ export default (
 				return;
 			}
 
-			let error: Error | undefined;
 			for (const provider of providersCache) {
-				// Similar to invokeSingle. We are returning the first result that not throwing an error.
-				// It's OK to get exception here because we have a lot of providers.
-				// The current provider may not have the extension type we are looking for.
 				try {
 					const result = provider?.getPreloadedExtension?.(type, key);
 					if (result) {
 						return result;
 					}
-				} catch (e) {
-					error = e instanceof Error ? e : new Error(String(e));
+				} catch {
+					// Not every provider will implement this method.
+					// In that case we would get error from other providers in the loop
+					// and undefined from that particular provider.
+					// We can safely ignore it and fallback to the async getExtension when nothing was found.
 				}
-			}
-
-			// If we exhausted all providers and none of them returned a result, we throw the last error.
-			// However as a extra precaution, we only throw in the dev environment.
-			// In production we will return undefined and getExtensionModuleNodeMaybePreloaded will fallback to regular getExtension call.
-			if (error && process.env.NODE_ENV !== 'production') {
-				throw error;
 			}
 		},
 

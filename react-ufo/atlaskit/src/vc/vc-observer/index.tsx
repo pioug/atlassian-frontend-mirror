@@ -197,6 +197,20 @@ export class VCObserver implements VCObserverInterface {
 			.map(({ targetName, ignoreReason }) => ({ targetName, ignoreReason }));
 	}
 
+	static getSSRRatio(entries: VCEntryType[], ssr?: number) {
+		if (ssr === undefined || entries.length === 0) {
+			return undefined;
+		}
+
+		const maybeSSR = entries[0];
+
+		if (maybeSSR.elements[0] === 'SSR') {
+			return maybeSSR.vc;
+		}
+
+		return 0;
+	}
+
 	getVCResult = async ({
 		start,
 		stop,
@@ -207,6 +221,7 @@ export class VCObserver implements VCObserverInterface {
 		isEventAborted,
 		experienceKey,
 		interactionId,
+		includeSSRRatio,
 	}: GetVCResultType): Promise<VCResult> => {
 		const startTime = performance.now();
 		// add local measurement
@@ -298,6 +313,7 @@ export class VCObserver implements VCObserverInterface {
 					ssr,
 					componentsLog: { ...componentsLog },
 					viewport,
+					fixSSRAttribution: includeSSRRatio,
 				});
 
 		const { VC, VCBox, VCEntries, totalPainted } = ttvcV1Result;
@@ -315,6 +331,7 @@ export class VCObserver implements VCObserverInterface {
 			ssr,
 			componentsLog: _componentsLog,
 			viewport,
+			fixSSRAttribution: includeSSRRatio,
 		});
 
 		try {
@@ -468,6 +485,16 @@ export class VCObserver implements VCObserverInterface {
 			[`ufo:next:speedIndex`]: vcNext.VCEntries.speedIndex,
 		};
 
+		const SSRRatio = VCObserver.getSSRRatio(VCEntries.rel, ssr);
+		const SSRRatioNext = VCObserver.getSSRRatio(vcNext.VCEntries.rel, ssr);
+
+		const SSRRatioPayload = includeSSRRatio
+			? {
+					[`${fullPrefix}vc:ssrRatio`]: isTTVCv1Disabled ? SSRRatioNext : SSRRatio,
+					[`${fullPrefix}vc:next:ssrRatio`]: SSRRatioNext,
+				}
+			: {};
+
 		if (isTTVCv1Disabled) {
 			return {
 				[`${fullPrefix}vc:size`]: viewport,
@@ -475,6 +502,8 @@ export class VCObserver implements VCObserverInterface {
 				[`${fullPrefix}vc:ratios`]: ratios,
 				...outOfBoundary,
 				[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
+				...SSRRatioPayload,
+				[`${fullPrefix}vc:ssrRatio`]: SSRRatioNext,
 				...revisionsData,
 				...speedIndex,
 			};
@@ -492,12 +521,14 @@ export class VCObserver implements VCObserverInterface {
 			[`${fullPrefix}vc:time`]: Math.round(totalTime + (stopTime - startTime)),
 			[`${fullPrefix}vc:total`]: totalPainted,
 			[`${fullPrefix}vc:ratios`]: ratios,
+			[`${fullPrefix}vc:ssrRatio`]: SSRRatio,
 			...outOfBoundary,
 			[`${fullPrefix}vc:next`]: vcNext.VC,
 			[`${fullPrefix}vc:next:updates`]: isTTVCv3Enabled
 				? undefined
 				: vcNext.VCEntries.rel.slice(0, 50), // max 50
 			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
+			...SSRRatioPayload,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 			...revisionsData,
 			...speedIndex,
@@ -509,16 +540,20 @@ export class VCObserver implements VCObserverInterface {
 		ssr = UNUSED_SECTOR,
 		componentsLog,
 		viewport,
+		fixSSRAttribution,
 	}: {
 		heatmap: number[][];
 		ssr?: number;
 		componentsLog: ComponentsLogType;
 		viewport: { w: number; h: number };
+		fixSSRAttribution?: boolean;
 	}) {
 		const lastUpdate: { [key: string]: number } = {};
 		let totalPainted = 0;
 
-		if (ssr !== UNUSED_SECTOR) {
+		const ssrTime = fixSSRAttribution ? Math.floor(ssr) : ssr;
+
+		if (ssrTime !== UNUSED_SECTOR) {
 			const element = {
 				__debug__element: new WeakRef<HTMLElement>(window.document?.body),
 				intersectionRect: {
@@ -536,15 +571,18 @@ export class VCObserver implements VCObserverInterface {
 				},
 				targetName: 'SSR',
 			};
-			if (!componentsLog[ssr]) {
-				componentsLog[ssr] = [];
+
+			if (!componentsLog[ssrTime]) {
+				componentsLog[ssrTime] = [];
 			}
-			componentsLog[ssr].push(element);
+			componentsLog[ssrTime].push(element);
 		}
 
 		heatmap.forEach((line) => {
 			line.forEach((entry) => {
-				const rounded = Math.floor(entry === UNUSED_SECTOR && ssr !== UNUSED_SECTOR ? ssr : entry);
+				const rounded = Math.floor(
+					entry === UNUSED_SECTOR && ssrTime !== UNUSED_SECTOR ? ssrTime : entry,
+				);
 				totalPainted += rounded !== UNUSED_SECTOR ? 1 : 0;
 				if (rounded !== UNUSED_SECTOR) {
 					lastUpdate[rounded] = lastUpdate[rounded] ? lastUpdate[rounded] + 1 : 1;

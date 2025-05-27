@@ -110,6 +110,10 @@ export default class VCObserverNew {
 		const { start, stop, interactionId } = param;
 		const results: RevisionPayloadEntry[] = [];
 
+		if (fg('platform_ufo_v3_add_start_entry')) {
+			this.addStartEntry(start);
+		}
+
 		const calculator_fy25_03 = new VCCalculator_FY25_03();
 
 		const orderedEntries = this.entriesTimeline.getOrderedEntries({ start, stop });
@@ -125,6 +129,39 @@ export default class VCObserverNew {
 		}
 
 		return results;
+	}
+
+	private addStartEntry(startTime: DOMHighResTimeStamp) {
+		this.entriesTimeline.push({
+			time: startTime,
+			data: {
+				type: 'mutation:element',
+				elementName: 'START',
+				visible: true,
+				rect: {
+					x: 0,
+					y: 0,
+					width: window.innerWidth,
+					height: window.innerHeight,
+					top: 0,
+					left: 0,
+					bottom: window.innerHeight,
+					right: window.innerWidth,
+					toJSON: function () {
+						return {
+							x: this.x,
+							y: this.y,
+							width: this.width,
+							height: this.height,
+							top: this.top,
+							left: this.left,
+							bottom: this.bottom,
+							right: this.right,
+						};
+					},
+				} as DOMRect,
+			},
+		});
 	}
 
 	private getElementName(element: HTMLElement) {

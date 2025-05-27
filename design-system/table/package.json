@@ -14,8 +14,8 @@
 			"name": "Table",
 			"category": "Text and data display",
 			"status": {
-				"type": "alpha",
-				"description": "This package is an experiment, and is currently deprioritised. It is not recommended for use in production, and we are not providing support for it at this time. Consider using [@atlaskit/dynamic-table](/components/dynamic-table) instead."
+				"type": "intent-to-deprecate",
+				"description": "This package was an experiment, and is currently deprioritized. It is not recommended for use in production, and we are not providing support for it at this time. Consider using [@atlaskit/dynamic-table](/components/dynamic-table) instead."
 			}
 		},
 		"runReact18": true

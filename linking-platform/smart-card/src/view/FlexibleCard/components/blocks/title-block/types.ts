@@ -62,6 +62,7 @@ export type TitleBlockProps = {
 	/**
 	 * Determines the onClick behaviour of the Link. By default used for analytics.
 	 * @internal
+	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
 	 */
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 
@@ -109,6 +110,7 @@ export type TitleBlockProps = {
 	/**
 	 * The theme of the link text. Can be Black or Link (default URL blue)
 	 * @internal
+	 * @deprecated Remove on platform-linking-flexible-card-context cleanup
 	 */
 	theme?: SmartLinkTheme;
 

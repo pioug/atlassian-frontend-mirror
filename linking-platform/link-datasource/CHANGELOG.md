@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.11.3
+
+### Patch Changes
+
+- [#160622](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160622)
+  [`05cddd227d5d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05cddd227d5d8) -
+  EDM-12325 fixing all level a11y violations in link-datasource
+- Updated dependencies
+
 ## 4.11.2
 
 ### Patch Changes

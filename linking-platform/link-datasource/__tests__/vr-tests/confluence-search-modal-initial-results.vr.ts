@@ -6,7 +6,7 @@ snapshot(ConfluenceSearchConfigModalInitialResults, {
 	description: 'Confluence search config modal initial results view',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-sllv': [true, false],
+		'platform-linking-visual-refresh-sllv': true,
 		'replace-legacy-button-in-sllv': [false, true],
 	},
 });

@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
@@ -14,7 +15,7 @@ import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
-import { flexibleUiOptions } from '../styled';
+import { flexibleUiOptions, flexibleUiOptionsOld } from '../styled';
 import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
 
@@ -126,7 +127,7 @@ const HoverCardContent = ({
 		origin: 'smartLinkPreviewHoverCard',
 		renderers: renderers,
 		actionOptions,
-		ui: flexibleUiOptions,
+		ui: fg('platform-linking-flexible-card-context') ? flexibleUiOptions : flexibleUiOptionsOld,
 		url: url,
 		children: null,
 	};

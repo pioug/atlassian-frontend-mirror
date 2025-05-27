@@ -37,6 +37,10 @@ import type { LayoutPlugin } from '../index';
 import { deleteActiveLayoutNode, getPresetLayout, setPresetLayout } from '../pm-plugins/actions';
 import type { PresetLayout } from '../types';
 
+import {
+	EditorLayoutFiveColumnsIcon,
+	EditorLayoutFourColumnsIcon,
+} from './icons/LayoutColumnsIcon';
 import { LayoutThreeWithLeftSidebarsIcon } from './icons/LayoutThreeWithLeftSidebars';
 import { LayoutThreeWithRightSidebarsIcon } from './icons/LayoutThreeWithRightSidebars';
 
@@ -166,6 +170,27 @@ export const layoutToolbarTitle = 'Layout floating controls';
 
 const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: ED-25466 - Replace with proper icon
 
+const getLayoutColumnsIcons = (colCount: number) => {
+	if (!editorExperiment('single_column_layouts', true)) {
+		return undefined;
+	}
+
+	switch (colCount) {
+		case 1:
+			return <LayoutOneColumnIcon label="" />;
+		case 2:
+			return <LayoutTwoColumnsIcon label="" />;
+		case 3:
+			return <LayoutThreeColumnsIcon label="" />;
+		case 4:
+			return <EditorLayoutFourColumnsIcon />;
+		case 5:
+			return <EditorLayoutFiveColumnsIcon />;
+		default:
+			return undefined;
+	}
+};
+
 const getAdvancedLayoutItems = ({
 	addSidebarLayouts,
 	intl,
@@ -201,25 +226,25 @@ const getAdvancedLayoutItems = ({
 	const columnOptions: DropdownOptions<Command> = [
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 2 }), //'2-columns',
-			icon: iconPlaceholder,
+			icon: getLayoutColumnsIcons(2) || iconPlaceholder,
 			onClick: setPresetLayout(editorAnalyticsAPI)('two_equal'),
 			selected: numberOfColumns === 2,
 		},
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 3 }), //'3-columns'
-			icon: iconPlaceholder,
+			icon: getLayoutColumnsIcons(3) || iconPlaceholder,
 			onClick: setPresetLayout(editorAnalyticsAPI)('three_equal'),
 			selected: numberOfColumns === 3,
 		},
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 4 }), //'4-columns'
-			icon: iconPlaceholder,
+			icon: getLayoutColumnsIcons(4) || iconPlaceholder,
 			onClick: setPresetLayout(editorAnalyticsAPI)('four_equal'),
 			selected: numberOfColumns === 4,
 		},
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 5 }), //'5-columns'
-			icon: iconPlaceholder,
+			icon: getLayoutColumnsIcons(5) || iconPlaceholder,
 			onClick: setPresetLayout(editorAnalyticsAPI)('five_equal'),
 			selected: numberOfColumns === 5,
 		},
@@ -228,7 +253,7 @@ const getAdvancedLayoutItems = ({
 	const singleColumnOption = allowAdvancedSingleColumnLayout
 		? {
 				title: intl.formatMessage(layoutMessages.columnOption, { count: 1 }), //'1-columns',
-				icon: iconPlaceholder,
+				icon: getLayoutColumnsIcons(1) || iconPlaceholder,
 				onClick: setPresetLayout(editorAnalyticsAPI)('single'),
 				selected: numberOfColumns === 1,
 			}

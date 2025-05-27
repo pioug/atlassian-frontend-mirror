@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 9.1.1
+
+### Patch Changes
+
+- [#159947](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159947)
+  [`2edcd9534843e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2edcd9534843e) -
+  Did patch to improve accessibility
+
 ## 9.1.0
 
 ### Minor Changes

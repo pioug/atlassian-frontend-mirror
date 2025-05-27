@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::5ad25e5579edcb4b3f1a3c3cfaa493c9>>
+ * @codegen <<SignedSource::21ca7d8d54e1b5bfb5ec1ab0514536b9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -231,6 +231,8 @@ import PageIcon from '../../../../../core/page';
 import PagesIcon from '../../../../../core/pages';
 import PaintBucketIcon from '../../../../../core/paint-bucket';
 import PaintPaletteIcon from '../../../../../core/paint-palette';
+import PanelLeftIcon from '../../../../../core/panel-left';
+import PanelRightIcon from '../../../../../core/panel-right';
 import PenIcon from '../../../../../core/pen';
 import PeopleGroupIcon from '../../../../../core/people-group';
 import PersonIcon from '../../../../../core/person';
@@ -472,7 +474,6 @@ const Icons = [
 	HashtagIcon,
 	HeadphonesIcon,
 	HomeIcon,
-	ImageIcon,
 	IncidentIcon,
 	InformationIcon,
 	WorkItemIcon,
@@ -663,6 +664,7 @@ const Icons = [
 	SmartLinkEmbedIcon,
 	SmartLinkListIcon,
 	KeyResultIcon,
+	ImageIcon,
 	TableCellMergeIcon,
 	TableCellSplitIcon,
 	TableCellClearIcon,
@@ -712,7 +714,9 @@ const Icons = [
 	FormIcon,
 	FieldDropdownIcon,
 	DrawerRightIcon,
+	PanelRightIcon,
 	DrawerLeftIcon,
+	PanelLeftIcon,
 	SmartLinkIcon,
 	VideoSkipForwardTenIcon,
 	VideoSkipBackwardTenIcon,

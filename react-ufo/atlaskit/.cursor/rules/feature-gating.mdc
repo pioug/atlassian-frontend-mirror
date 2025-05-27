@@ -1,0 +1,12 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Feature Flagging
+- Feature Gate is synonymous to feature flag
+- To do fetaure gating first need to import `import { fg } from '@atlaskit/platform-feature-flags';`
+- to evaluate fature gate: `fg('fg-name')` it returns boolean
+- if fg is used in if, put the fg check as last condition of the if statement e.g. `if (a===b && fg('my_fg'))`
+- feature gates need to be registered in [package.json](mdc:platform/packages/react-ufo/atlaskit/package.json)
+

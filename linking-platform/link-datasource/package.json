@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.11.2",
+	"version": "4.11.3",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -201,6 +201,9 @@
 			"type": "boolean"
 		},
 		"compiled-react-select": {
+			"type": "boolean"
+		},
+		"fix_a11y_issues_inline_edit": {
 			"type": "boolean"
 		}
 	},

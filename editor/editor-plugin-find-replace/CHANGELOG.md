@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.2.5
+
+### Patch Changes
+
+- [#159912](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159912)
+  [`64c9284623ad5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64c9284623ad5) -
+  [ED-27785] Migrate find-replace plugin to custom non-debounced version of
+  useSharedPluginStateSelector
+- Updated dependencies
+
+## 2.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.3
 
 ### Patch Changes

@@ -97,7 +97,7 @@
 		]
 	},
 	"name": "@atlaskit/charlie-hierarchy",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Add a description here.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

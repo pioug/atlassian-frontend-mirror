@@ -38,7 +38,10 @@ const addBreakoutToResizableNode = ({
 	let updatedDocChanged = false;
 	let updatedTr = newTr;
 
-	if (breakoutResizableNodes.has(node.type)) {
+	const $pos = newState.doc.resolve(pos);
+	const isTopLevelNode = $pos?.depth === 0;
+
+	if (breakoutResizableNodes.has(node.type) && isTopLevelNode) {
 		const { breakout } = newState.schema.marks;
 		const breakoutMark = node.marks.find((mark) => mark.type === breakout);
 

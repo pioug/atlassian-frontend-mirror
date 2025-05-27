@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-width
 
+## 3.0.6
+
+### Patch Changes
+
+- [#159894](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159894)
+  [`98f3c43ca93c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98f3c43ca93c5) -
+  Avoid unnecessary reflows in the width plugin.
+- Updated dependencies
+
 ## 3.0.5
 
 ### Patch Changes

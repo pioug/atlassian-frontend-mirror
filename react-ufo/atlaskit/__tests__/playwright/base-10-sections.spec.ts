@@ -4,10 +4,7 @@
 import { expect, test, viewports } from './fixtures';
 
 test.describe('TTVC: basic page (10 congruent sections)', () => {
-	const requiredFeatureFlags = [
-		'ufo_payload_use_idle_callback',
-		'platform_ufo_use_offscreen_canvas',
-	];
+	const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
 	const featureFlagsCombos = [
 		[...requiredFeatureFlags],
 		[...requiredFeatureFlags, 'platform_ufo_ttvc_v3_devtool'],

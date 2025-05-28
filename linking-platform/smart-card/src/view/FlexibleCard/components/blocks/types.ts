@@ -69,6 +69,11 @@ export type BlockProps = {
 	 * @internal
 	 */
 	onTransitionEnd?: () => void;
+
+	/**
+	 * A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.
+	 */
+	placeholderId?: string;
 };
 
 /**

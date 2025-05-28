@@ -244,8 +244,8 @@ const AdditionalUserFields = () => {
 
 	if (
 		formData?.values &&
-		'userAccessLevel' in formData.values &&
-		(formData.values['userAccessLevel'] as string[]).length === 0
+		'projectAccessLevel' in formData.values &&
+		(formData.values['projectAccessLevel'] as string[]).length === 0
 	) {
 		return undefined;
 	}
@@ -284,7 +284,7 @@ const AdditionalUserFields = () => {
 
 const ShareFieldsFooter = () => (
 	<>
-		<CheckboxField name="userAccessLevel" value="limited">
+		<CheckboxField name="projectAccessLevel" value="limited">
 			{({ fieldProps }) => <Checkbox {...fieldProps} label="Limited access level" />}
 		</CheckboxField>
 		<FieldsFooterWrapper>
@@ -380,7 +380,7 @@ export default function Example() {
 			...rest,
 		});
 
-		return new Promise<ShareResponse>((resolve) => {
+		return new Promise<ShareResponse>((resolve, reject) => {
 			setTimeout(
 				() =>
 					resolve({

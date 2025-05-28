@@ -201,6 +201,9 @@
             "path": "../../editor-plugin-metrics/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-ncs-step-metrics/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-panel/afm-cc/tsconfig.json"
         },
         {

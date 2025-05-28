@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from '@atlaskit/prosemirror-input-rules';
 
 import type { ScrollIntoViewPlugin } from './scrollIntoViewPluginType';
@@ -50,12 +49,8 @@ const createPlugin = () =>
 
 			const tr = transactions[0] as TransactionWithScroll;
 
-			const hasChanges = fg('platform_editor_scroll_into_view_tr_steps')
-				? hasRelevantChanges(tr)
-				: tr.docChanged;
-
 			if (
-				(hasChanges || tr.storedMarksSet) &&
+				(hasRelevantChanges(tr) || tr.storedMarksSet) &&
 				!tr.scrolledIntoView &&
 				tr.getMeta('scrollIntoView') !== false &&
 				// ignore anything we would not want to undo

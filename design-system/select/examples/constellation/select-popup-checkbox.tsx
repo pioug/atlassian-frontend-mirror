@@ -5,7 +5,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { CheckboxOption, PopupSelect } from '@atlaskit/select';
 const options = [
 	{
-		label: 'Standard issue types',
+		label: 'Standard work types',
 		options: [
 			{ label: 'Epic', value: 'epic' },
 			{ label: 'Initiative', value: 'initiative' },
@@ -13,7 +13,7 @@ const options = [
 		],
 	},
 	{
-		label: 'Sub-task issue types',
+		label: 'Sub-task work types',
 		options: [
 			{ label: 'Feature', value: 'feature' },
 			{ label: 'Bug', value: 'bug' },
@@ -29,8 +29,8 @@ const PopupSelectExample = () => {
 			closeMenuOnSelect={false}
 			hideSelectedOptions={false}
 			isMulti
-			label="Filter issue types"
-			placeholder="Filter issue types..."
+			label="Filter work types"
+			placeholder="Filter work types..."
 			target={({ isOpen, ...triggerProps }) => (
 				<Button {...triggerProps} isSelected={isOpen} iconAfter={ChevronDownIcon}>
 					Type

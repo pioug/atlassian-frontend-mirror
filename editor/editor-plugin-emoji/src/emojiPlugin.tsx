@@ -53,7 +53,7 @@ import {
 	setProvider as setProviderAction,
 } from './pm-plugins/actions';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
-import { InlineEmojiPopup } from './ui/InlineEmojiPopup';
+import { InlineEmojiPopup, InlineEmojiPopupOld } from './ui/InlineEmojiPopup';
 
 export const emojiToTypeaheadItem = (
 	emoji: EmojiDescription,
@@ -333,6 +333,19 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				return null;
 			}
 
+			if (!fg('platform_editor_controls_perf_tbt_fix')) {
+				return (
+					<InlineEmojiPopupOld
+						api={api}
+						editorView={editorView}
+						popupsBoundariesElement={popupsBoundariesElement}
+						popupsMountPoint={popupsMountPoint}
+						popupsScrollableElement={popupsScrollableElement}
+						onClose={() => editorView.dispatch(setInlineEmojiPopupOpen(false)(editorView.state.tr))}
+					/>
+				);
+			}
+
 			return (
 				<InlineEmojiPopup
 					api={api}
@@ -340,9 +353,6 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					popupsBoundariesElement={popupsBoundariesElement}
 					popupsMountPoint={popupsMountPoint}
 					popupsScrollableElement={popupsScrollableElement}
-					onClose={() => {
-						editorView.dispatch(setInlineEmojiPopupOpen(false)(editorView.state.tr));
-					}}
 				/>
 			);
 		},

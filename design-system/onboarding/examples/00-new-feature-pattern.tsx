@@ -60,7 +60,8 @@ const NewFeature = () => {
 								},
 							]}
 						>
-							It is now easier to create an issue. Click on the plus button to create a new issue.
+							It is now easier to create a work item. Click on the plus button to create a new work
+							item.
 						</Spotlight>
 					)}
 				</SpotlightTransition>

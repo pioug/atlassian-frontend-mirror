@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 6.7.0
+
+### Minor Changes
+
+- [#159242](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159242)
+  [`d465c0632984c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d465c0632984c) -
+  [ux] Exposing a new `CustomSubmitButton` prop to control behaviour of share form submit button.
+  This is only used when the extended share dialog is enabled.
+
 ## 6.6.3
 
 ### Patch Changes

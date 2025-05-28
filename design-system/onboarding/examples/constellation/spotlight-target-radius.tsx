@@ -36,7 +36,7 @@ const SpotlightTargetRadius = () => {
 				key="comment"
 				targetBgColor={N0}
 			>
-				Quickly add a comment to the issue.
+				Quickly add a comment to the work item.
 			</Spotlight>,
 			<Spotlight
 				targetRadius={3}

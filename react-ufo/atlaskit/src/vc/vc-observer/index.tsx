@@ -247,10 +247,7 @@ export class VCObserver implements VCObserverInterface {
 
 		const isTTVCv1Disabled = !isVCRevisionEnabled('fy25.01', experienceKey);
 
-		// NOTE: as part of platform_ufo_add_vc_abort_reason_by_revisions feature,
-		// we want to report abort by scroll events the same way as other abort reasons
-		// i.e. not have the concept of `abortReason.blocking` anymore
-		if (abortReasonInfo !== null && fg('platform_ufo_add_vc_abort_reason_by_revisions')) {
+		if (abortReasonInfo !== null) {
 			// exposing data to devtools
 			try {
 				if (devToolsEnabled && !this.isPostInteraction) {
@@ -282,19 +279,6 @@ export class VCObserver implements VCObserverInterface {
 			}
 
 			return vcAbortedResultWithRevisions;
-		} else if (abortReasonInfo !== null && abortReason.blocking) {
-			// exposing data to devtools
-			try {
-				if (devToolsEnabled && !this.isPostInteraction) {
-					window.__vcNotAvailableReason = abortReasonInfo;
-				}
-			} catch (e) {}
-
-			return {
-				[`${fullPrefix}vc:state`]: false,
-				[`${fullPrefix}vc:abort:reason`]: abortReasonInfo,
-				[`${fullPrefix}vc:abort:timestamp`]: abortReason.timestamp,
-			};
 		}
 
 		const ttvcV1Result = isTTVCv1Disabled

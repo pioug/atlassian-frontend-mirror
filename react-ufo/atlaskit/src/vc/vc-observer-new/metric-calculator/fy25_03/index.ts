@@ -99,19 +99,6 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 		return true;
 	}
 
-	protected isVCClean(filteredEntries: readonly VCObserverEntry[]): boolean {
-		const hasAbortEvent = filteredEntries.some((entry) => {
-			if (entry.data.type === 'window:event') {
-				const data = entry.data as WindowEventEntryData;
-				if (ABORTING_WINDOW_EVENT.includes(data.eventType)) {
-					return true;
-				}
-			}
-			return false;
-		});
-		return !hasAbortEvent;
-	}
-
 	protected getVCCleanStatus(filteredEntries: readonly VCObserverEntry[]) {
 		let dirtyReason: VCAbortReason | '' = '';
 		const hasAbortEvent = filteredEntries.some((entry) => {

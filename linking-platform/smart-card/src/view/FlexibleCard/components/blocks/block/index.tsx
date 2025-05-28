@@ -164,10 +164,18 @@ const Block = ({
 	onRender,
 	onTransitionEnd,
 	style,
+	placeholderId,
 }: BlockProps) => {
 	useEffect(() => {
 		onRender && onRender();
 	}, [onRender]);
+
+	const ssrPlacholderProps = fg('cc_shortcut_ssr_placeholder')
+		? {
+				'data-ssr-placeholder': placeholderId,
+				'data-ssr-placeholder-replace': placeholderId,
+			}
+		: {};
 
 	return (
 		<div
@@ -187,6 +195,7 @@ const Block = ({
 			ref={blockRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}
+			{...ssrPlacholderProps}
 		>
 			{renderChildren(children, size)}
 		</div>

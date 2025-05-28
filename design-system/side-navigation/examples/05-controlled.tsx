@@ -139,18 +139,18 @@ const ControlledExample = () => {
 							iconBefore={<FilterIcon label="" />}
 						>
 							<Section>
-								<ButtonItem>Search issues</ButtonItem>
+								<ButtonItem>Search work items</ButtonItem>
 							</Section>
 							<Section>
 								<HeadingItem>Starred</HeadingItem>
 								<ButtonItem>Everything me</ButtonItem>
-								<ButtonItem>My open issues</ButtonItem>
+								<ButtonItem>My open work items</ButtonItem>
 								<ButtonItem>Reported by me</ButtonItem>
 							</Section>
 							<Section hasSeparator>
 								<HeadingItem>Other</HeadingItem>
-								<ButtonItem>All issues</ButtonItem>
-								<ButtonItem>Open issues</ButtonItem>
+								<ButtonItem>All work items</ButtonItem>
+								<ButtonItem>Open work items</ButtonItem>
 								<ButtonItem>Created recently</ButtonItem>
 								<ButtonItem>Resolved recently</ButtonItem>
 							</Section>

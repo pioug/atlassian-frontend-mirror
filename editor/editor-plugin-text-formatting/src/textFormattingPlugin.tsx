@@ -6,7 +6,6 @@ import type {
 	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -49,7 +48,11 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 		toolbarSize,
 		disabled,
 	}) => {
-		if (fg('platform_editor_toolbar_rerender_optimization')) {
+		if (
+			editorExperiment('platform_editor_toolbar_rerender_optimization_exp', true, {
+				exposure: true,
+			})
+		) {
 			return (
 				<PrimaryToolbarComponentMemoized
 					api={api}

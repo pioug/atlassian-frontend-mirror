@@ -50,6 +50,9 @@ export default (
 				...(fg('platform_editor_annotation_selected_annotation') && {
 					selectedAnnotations: [],
 				}),
+				...(fg('platform_editor_comments_api_manager_select') && {
+					selectedAnnotations: [],
+				}),
 			};
 		case ACTIONS.ADD_INLINE_COMMENT:
 			const updatedPluginState = getNewDraftState(
@@ -69,6 +72,9 @@ export default (
 				},
 				isInlineCommentViewClosed: false,
 				selectAnnotationMethod: undefined,
+				...(fg('platform_editor_comments_api_manager_select') && {
+					skipSelectionHandling: true,
+				}),
 			};
 		case ACTIONS.INLINE_COMMENT_SET_VISIBLE:
 			const { isVisible } = action.data;
@@ -94,6 +100,24 @@ export default (
 			return {
 				...pluginState,
 				hoveredAnnotations: [...action.data.hoveredAnnotations],
+				skipSelectionHandling: true,
+				isInlineCommentViewClosed: false,
+			};
+		case ACTIONS.FLUSH_PENDING_SELECTIONS:
+			return {
+				...pluginState,
+				selectedAnnotations: action.data.canSetAsSelectedAnnotations
+					? [...pluginState.pendingSelectedAnnotations]
+					: pluginState.selectedAnnotations,
+				pendingSelectedAnnotations: [],
+				isInlineCommentViewClosed: false,
+			};
+		case ACTIONS.SET_PENDING_SELECTIONS:
+			return {
+				...pluginState,
+				pendingSelectedAnnotations: [...action.data.selectedAnnotations],
+				pendingSelectedAnnotationsUpdateCount:
+					pluginState.pendingSelectedAnnotationsUpdateCount + 1,
 				skipSelectionHandling: true,
 				isInlineCommentViewClosed: false,
 			};

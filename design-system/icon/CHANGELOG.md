@@ -1,5 +1,32 @@
 # @atlaskit/icon
 
+## 26.4.0
+
+### Minor Changes
+
+- [#161328](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161328)
+  [`76f53eb3bc586`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76f53eb3bc586) -
+  This release updates and deprecates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `image`
+
+  ### Deprecated:
+
+  **`@atlaskit/icon/core`**
+
+  - `child-issues`
+  - `drawer-left`
+  - `drawer-right`
+  - `summarize`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.3.0
 
 ### Minor Changes

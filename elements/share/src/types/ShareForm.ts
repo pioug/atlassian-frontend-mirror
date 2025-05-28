@@ -25,6 +25,7 @@ export type ShareFormProps = Pick<
 	| 'productAttributes'
 	| 'additionalUserFields'
 	| 'isExtendedShareDialogEnabled'
+	| 'CustomSubmitButton'
 > & {
 	config?: ConfigResponse;
 	isFetchingConfig?: boolean;
@@ -53,3 +54,14 @@ export type ShareFormProps = Pick<
 	handleCloseDialog?: () => void;
 	isSubmitShareDisabled?: boolean;
 };
+
+export type RenderCustomSubmitButtonProps = Pick<
+	ShareFormProps,
+	| 'isSharing'
+	| 'isDisabled'
+	| 'isSubmitShareDisabled'
+	| 'isPublicLink'
+	| 'shareError'
+	| 'integrationMode'
+	| 'submitButtonLabel'
+>;

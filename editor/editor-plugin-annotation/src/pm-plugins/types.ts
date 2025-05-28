@@ -23,6 +23,8 @@ export enum ACTIONS {
 	CLOSE_COMPONENT,
 	SET_SELECTED_ANNOTATION,
 	SET_HOVERED_ANNOTATION,
+	FLUSH_PENDING_SELECTIONS,
+	SET_PENDING_SELECTIONS,
 }
 
 export interface InlineCommentPluginOptions {
@@ -86,6 +88,18 @@ export type InlineCommentAction =
 			data: {
 				hoveredAnnotations: AnnotationInfo[];
 				selectAnnotationMethod?: VIEW_METHOD;
+			};
+	  }
+	| {
+			type: ACTIONS.FLUSH_PENDING_SELECTIONS;
+			data: {
+				canSetAsSelectedAnnotations: boolean;
+			};
+	  }
+	| {
+			type: ACTIONS.SET_PENDING_SELECTIONS;
+			data: {
+				selectedAnnotations: AnnotationInfo[];
 			};
 	  };
 
@@ -156,4 +170,19 @@ export type InlineCommentPluginState = {
 	isOpeningMediaCommentFromToolbar?: boolean;
 
 	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
+
+	/**
+	 * This is a list of annotations which are to be selected. This is updated all the time when the selection changes, and
+	 * are periodically flushed to selectedAnnotations. This flush event results in the annotations being selected in the editor.
+	 * This functionality has come about due to the fact that the editor can select annotations in 3 different ways. And the fact
+	 * that we need to introduce a preemptive gate check which is async and can block annotations from being selected before they're
+	 * selected.
+	 */
+	pendingSelectedAnnotations: AnnotationInfo[];
+
+	/**
+	 * This is a count of the number of times the pendingSelectedAnnotations has been updated. This can be used to determine
+	 * if the pendingSelectedAnnotations has been updated since the last time it was flushed to selectedAnnotations.
+	 */
+	pendingSelectedAnnotationsUpdateCount: number;
 };

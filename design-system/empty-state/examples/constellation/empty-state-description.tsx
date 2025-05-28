@@ -5,8 +5,8 @@ import EmptyState from '@atlaskit/empty-state';
 const EmptyStateDescriptionExample = () => {
 	return (
 		<EmptyState
-			header="You don't have access to this issue"
-			description="Make sure the issue exists in this project. If it does, ask a project admin for permission to see the project's issues."
+			header="You don't have access to this work item"
+			description="Make sure the work item exists in this project. If it does, ask a project admin for permission to see the project's work items."
 		/>
 	);
 };

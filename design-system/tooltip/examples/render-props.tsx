@@ -31,7 +31,7 @@ const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	paddingLeft: token('space.150', '12px'),
 });
 
-export default () => {
+export default function RenderPropsExample() {
 	const [message, setMessage] = React.useState(shortMessage);
 	const [position, setPosition] = useState(0);
 
@@ -113,4 +113,4 @@ export default () => {
 			</Tooltip>
 		</Fragment>
 	);
-};
+}

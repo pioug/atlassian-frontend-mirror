@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type PositionType } from '@atlaskit/tooltip';
@@ -11,7 +11,7 @@ interface Props {
 	color: Color;
 }
 
-const PositionExample: FC<Props> = ({ color = 'blue' }) => {
+export default function PositionExample({ color = 'blue' }: Props) {
 	const [position, setPosition] = useState(0);
 
 	const changeDirection = () => {
@@ -36,6 +36,4 @@ const PositionExample: FC<Props> = ({ color = 'blue' }) => {
 			</Tooltip>
 		</div>
 	);
-};
-
-export default PositionExample;
+}

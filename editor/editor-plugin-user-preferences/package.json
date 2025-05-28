@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-user-preferences",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "UserPreferences plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

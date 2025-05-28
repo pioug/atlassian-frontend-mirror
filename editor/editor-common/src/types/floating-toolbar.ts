@@ -429,12 +429,6 @@ export interface FloatingToolbarConfig {
 	mediaAssistiveMessage?: string;
 	stick?: boolean;
 
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-	/**
-	 * @deprecated Unused property to support collapse/expand feature for editor controls
-	 * @see clean up ticket ED-26803
-	 */
-	forceStaticToolbar?: boolean;
 	/**
 	 * For internal use only, we will be depricating this API soon.
 	 * If any config has __suppressAllToolbars set to true, no floating toolbar will be rendered.

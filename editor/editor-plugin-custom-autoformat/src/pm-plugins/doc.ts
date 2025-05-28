@@ -2,7 +2,6 @@ import type { AutoformatHandler } from '@atlaskit/editor-common/provider-factory
 import { processRawValue } from '@atlaskit/editor-common/utils';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CustomAutoformatState } from '../types';
 
@@ -87,9 +86,7 @@ export const completeReplacements = (view: EditorView, state: CustomAutoformatSt
 			// get the current document text, adding # or | if we cross node boundaries
 			const docText = view.state.doc.textBetween(start, matchEndPos, '#', '|');
 
-			const canAutoformatAfterSoftbreak =
-				isSoftBreakMatch(docText, match) &&
-				fg('platform_editor_autoformat_object_replacement_char');
+			const canAutoformatAfterSoftbreak = isSoftBreakMatch(docText, match);
 
 			// only replace if text still remains the same as when typed at the start
 			if (docText === match[0] || canAutoformatAfterSoftbreak) {

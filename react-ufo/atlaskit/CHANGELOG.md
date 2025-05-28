@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.12
+
+### Patch Changes
+
+- [#161803](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161803)
+  [`71ce852a73a06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71ce852a73a06) -
+  AFO-3919 make DefaultInteractionID global singleton
+
+## 3.13.11
+
+### Patch Changes
+
+- [#161290](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161290)
+  [`26388d9d5e089`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26388d9d5e089) -
+  AFO-3919 fix pre-existing UFOLoadHold not registering to new interaction
+
 ## 3.13.10
 
 ### Patch Changes

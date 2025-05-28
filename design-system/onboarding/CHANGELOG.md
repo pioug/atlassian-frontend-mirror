@@ -1,5 +1,21 @@
 # @atlaskit/onboarding
 
+## 14.2.0
+
+### Minor Changes
+
+- [#161229](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161229)
+  [`37873d53dbc22`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37873d53dbc22) -
+  Adds `platform_dst_onboarding_react_transition_group` feature gate. When enabled
+  `@atlaskit/motion` will be used for transitions instead of `react-transition-group`.
+
+### Patch Changes
+
+- [#155802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155802)
+  [`08019848e3eab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08019848e3eab) -
+  Refreshed "issue" terminology.
+- Updated dependencies
+
 ## 14.1.1
 
 ### Patch Changes

@@ -325,7 +325,7 @@ describe('VCCalculator_FY25_03', () => {
 		});
 	});
 
-	describe('isVCClean', () => {
+	describe('getVCCleanStatus', () => {
 		it('should return false when aborting window events are present', () => {
 			const entries: VCObserverEntry[] = [
 				{
@@ -336,7 +336,10 @@ describe('VCCalculator_FY25_03', () => {
 					} as WindowEventEntryData,
 				},
 			];
-			expect(calculator['isVCClean'](entries)).toBeFalsy();
+			expect(calculator['getVCCleanStatus'](entries)).toEqual({
+				isVCClean: false,
+				dirtyReason: 'scroll',
+			});
 		});
 
 		it('should return true when no aborting window events are present', () => {
@@ -349,11 +352,11 @@ describe('VCCalculator_FY25_03', () => {
 					} as unknown as WindowEventEntryData,
 				},
 			];
-			expect(calculator['isVCClean'](entries)).toBeTruthy();
+			expect(calculator['getVCCleanStatus'](entries)).toEqual({ isVCClean: true });
 		});
 
 		it('should return true for empty entries', () => {
-			expect(calculator['isVCClean']([])).toBeTruthy();
+			expect(calculator['getVCCleanStatus']([])).toEqual({ isVCClean: true });
 		});
 	});
 });

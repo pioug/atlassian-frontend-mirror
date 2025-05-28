@@ -6,7 +6,7 @@ const SpotlightCardRichTextExample = () => {
 	return (
 		<SpotlightCard>
 			<div>
-				All your <strong>Projects</strong> and <strong>Issues</strong>, including the ones you've
+				All your <strong>projects</strong> and <strong>tasks</strong>, including the ones you've
 				just created can be found in the sidebar.
 			</div>
 		</SpotlightCard>

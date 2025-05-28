@@ -4,7 +4,6 @@ import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-c
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import Link from '@atlaskit/link';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import Toggle from '@atlaskit/toggle';
 
@@ -82,50 +81,26 @@ export function Example(doc?: string | Object) {
 				<SectionMessage title="Smart Cards in Confluence Editor">
 					<p>
 						Make sure you're logged into{' '}
-						{fg('dst-a11y__replace-anchor-with-link__editor') ? (
-							<Link
-								href="https://pug.jira-dev.com"
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-no-target-blank
-								target="_blank"
-								rel="noreferrer"
-							>
-								Atlassian Cloud on Staging
-							</Link>
-						) : (
-							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-							<a
-								href="https://pug.jira-dev.com"
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-no-target-blank
-								target="_blank"
-								rel="noreferrer"
-							>
-								Atlassian Cloud on Staging
-							</a>
-						)}
+						<Link
+							href="https://pug.jira-dev.com"
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-no-target-blank
+							target="_blank"
+							rel="noreferrer"
+						>
+							Atlassian Cloud on Staging
+						</Link>
 						. Try pasting URLs to Hello, Google Drive, Asana, Dropbox, Trello etc. Links pasted in
 						empty paragraphs will create a bigger, block card. Links pasted inside other elements
 						(like lists, tables, panels) will be converted to a smaller, inline version of card. A
 						gallery of available types of cards{' '}
-						{fg('dst-a11y__replace-anchor-with-link__editor') ? (
-							<Link href="/packages/linking-platform/smart-card/example/gallery">
-								can be found here
-							</Link>
-						) : (
-							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-							<a href="/packages/linking-platform/smart-card/example/gallery">can be found here</a>
-						)}
+						<Link href="/packages/linking-platform/smart-card/example/gallery">
+							can be found here
+						</Link>
 					</p>
 					<p>
 						The mock macro provider will replace any JDOG issue link (e.g.
-						{fg('dst-a11y__replace-anchor-with-link__editor') ? (
-							<Link href={jdogURL}>{jdogURL}</Link>
-						) : (
-							// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-							<a href={jdogURL}>{jdogURL}</a>
-						)}
-						) with a "jira" macro.
+						<Link href={jdogURL}>{jdogURL}</Link>) with a "jira" macro.
 					</p>
 				</SectionMessage>
 				<FullPageWithFF doc={doc} />

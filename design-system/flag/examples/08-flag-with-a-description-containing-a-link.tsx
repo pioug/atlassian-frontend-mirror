@@ -13,7 +13,7 @@ export default () => (
 			<Flag
 				description={
 					<Text>
-						My favourite issue is{' '}
+						My favourite task is{' '}
 						<Link href="https://ecosystem.atlassian.net/browse/AK-90210">AK-90210</Link>
 					</Text>
 				}

@@ -161,7 +161,7 @@ export const ValueContainer = <Option, IsMulti extends boolean, Group extends Gr
 				isCompact && valueContainerStyles.compact,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss, '-ValueContainer')}
+			className={cx(className as any, xcss, '-value-container')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}

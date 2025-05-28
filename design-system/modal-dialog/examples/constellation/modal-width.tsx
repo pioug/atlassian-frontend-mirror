@@ -63,8 +63,8 @@ export default function Example() {
 							<ModalTitle>Set up your own projects</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							We simplified the way you set up issue types, workflows, fields, and screens. Check
-							out the new, independent project experience to see it in action.
+							We simplified the way you set up work items, workflows, fields, and screens. Check out
+							the new, independent project experience to see it in action.
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="subtle">Skip</Button>

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.1
+
+### Patch Changes
+
+- [#161565](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161565)
+  [`78560d0f96f90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78560d0f96f90) -
+  Disable layout resizer when platform_editor_breakout_resizer is enabled
+- Updated dependencies
+
 ## 2.8.0
 
 ### Minor Changes

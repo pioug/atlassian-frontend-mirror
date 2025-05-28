@@ -5,7 +5,7 @@
 import { useIntl } from 'react-intl-next';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import StarIcon from '@atlaskit/icon/utility/migration/star-unstarred--star';
+import StarIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
 import { Box } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
@@ -43,6 +43,7 @@ export const AgentStarCount = ({
 				color="currentColor"
 				label=""
 				LEGACY_size="small"
+				size="small"
 			/>
 			{isLoading ? (
 				<Skeleton

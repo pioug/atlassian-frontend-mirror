@@ -1,5 +1,23 @@
 # @atlaskit/tooltip
 
+## 20.2.0
+
+### Minor Changes
+
+- [#161767](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161767)
+  [`de4f10b4e30ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de4f10b4e30ab) -
+  Replaces usage of `@emotion/react` with `@compiled/react` in `TooltipPrimitive`, removing the last
+  usage of `@emotion/react` in this package.
+
+## 20.1.0
+
+### Minor Changes
+
+- [#161235](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161235)
+  [`cfa80fa55b0d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfa80fa55b0d6) -
+  The `truncate` prop has been marked as deprecated, as it is inaccessible. It will be be removed in
+  a future release.
+
 ## 20.0.6
 
 ### Patch Changes

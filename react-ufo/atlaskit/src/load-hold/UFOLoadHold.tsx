@@ -1,8 +1,40 @@
-import React, { type ReactNode, useContext, useEffect, useLayoutEffect } from 'react';
+import React, { type ReactNode, useContext, useEffect, useLayoutEffect, useState } from 'react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import UFOInteractionContext from '../interaction-context';
+import UFOInteractionIDContext, {
+	subscribeToInteractionIdChanges,
+} from '../interaction-id-context';
 
 const useLayoutEffectSAFE = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
+/**
+ * Custom hook to track changes to the interaction ID.
+ * Uses a subscription system when feature flag is enabled, otherwise returns the current value.
+ */
+function useInteractionIdValue() {
+	const interactionId = useContext(UFOInteractionIDContext);
+	const [currentId, setCurrentId] = useState(interactionId?.current || null);
+
+	useLayoutEffectSAFE(() => {
+		if (fg('platform_ufo_hold_cross_interaction')) {
+			// New subscription-based approach
+			setCurrentId(interactionId?.current || null);
+
+			const unsubscribe = subscribeToInteractionIdChanges((newId) => {
+				setCurrentId(newId);
+			});
+
+			return unsubscribe;
+		} else {
+			// Legacy behavior - just return the current value without subscription
+			setCurrentId(interactionId?.current || null);
+		}
+	}, [interactionId]);
+
+	return currentId;
+}
 
 /**
  * Render this whenever you're loading.
@@ -56,6 +88,8 @@ type Props = {
 };
 
 export default function UFOLoadHold({ children, name, hold = true, experimental = false }: Props) {
+	const currentInteractionId = useInteractionIdValue();
+
 	// react-18: useId instead
 	const context = useContext(UFOInteractionContext);
 
@@ -66,7 +100,7 @@ export default function UFOLoadHold({ children, name, hold = true, experimental 
 			}
 			return context.hold(name);
 		}
-	}, [hold, context, name]);
+	}, [hold, context, name, currentInteractionId]);
 
 	// react-18: can return children directly
 	return children != null ? <>{children}</> : null;

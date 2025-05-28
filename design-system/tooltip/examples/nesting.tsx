@@ -14,7 +14,7 @@ const Icon = () => (
 	</Tooltip>
 );
 
-function Example() {
+export default function NestingExample() {
 	return (
 		<Tooltip content="Outer tooltip" testId="outer-nesting-tooltip">
 			{(tooltipProps) => (
@@ -25,5 +25,3 @@ function Example() {
 		</Tooltip>
 	);
 }
-
-export default () => <Example />;

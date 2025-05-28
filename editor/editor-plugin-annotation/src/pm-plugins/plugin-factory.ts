@@ -7,6 +7,7 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import reducer from './reducer';
 import type { InlineCommentPluginState } from './types';
@@ -33,6 +34,10 @@ const handleDocChanged = (
  * We clear bookmark on the following conditions:
  * 1. if current selection is an empty selection, or
  * 2. if the current selection and bookmark selection are different
+ * @param tr
+ * @param editorState
+ * @param bookmark
+ * @example
  */
 export const shouldClearBookMarkCheck = (
 	tr: ReadonlyTransaction | Transaction,
@@ -64,7 +69,7 @@ export const shouldClearBookMarkCheck = (
 	return true;
 };
 
-const getSelectionChangedHandler =
+const getSelectionChangeHandlerOld =
 	(reopenCommentView: boolean) =>
 	(tr: ReadonlyTransaction, pluginState: InlineCommentPluginState): InlineCommentPluginState => {
 		if (pluginState.skipSelectionHandling) {
@@ -76,7 +81,6 @@ const getSelectionChangedHandler =
 				}),
 			};
 		}
-
 		if (
 			// If pluginState.selectedAnnotations is annotations of block node, i.e. when a new comment is created,
 			// we keep it as it is so that we can show comment view component with the newly created comment
@@ -91,7 +95,6 @@ const getSelectionChangedHandler =
 		}
 
 		const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);
-
 		if (selectedAnnotations.length === 0) {
 			return {
 				...pluginState,
@@ -119,6 +122,63 @@ const getSelectionChangedHandler =
 			selectAnnotationMethod: undefined,
 		};
 	};
+
+const getSelectionChangeHandlerNew =
+	(reopenCommentView: boolean) =>
+	(tr: ReadonlyTransaction, pluginState: InlineCommentPluginState): InlineCommentPluginState => {
+		if (pluginState.skipSelectionHandling) {
+			return {
+				...pluginState,
+				skipSelectionHandling: false,
+				...(reopenCommentView && {
+					isInlineCommentViewClosed: false,
+				}),
+			};
+		}
+
+		const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);
+
+		// NOTE: I've left this commented code here as a reference that the previous old code would reset the selected annotations
+		// if the selection is empty. If this is no longer needed, we can remove this code.
+		// clean up with platform_editor_comments_api_manager_select
+		// if (selectedAnnotations.length === 0) {
+		// 	return {
+		// 		...pluginState,
+		// 		pendingSelectedAnnotations: selectedAnnotations,
+		// 		pendingSelectedAnnotationsUpdateCount:
+		// 			pluginState.pendingSelectedAnnotationsUpdateCount + 1,
+		// 		isInlineCommentViewClosed: true,
+		// 		selectAnnotationMethod: undefined,
+		// 	};
+		// }
+
+		if (isSelectedAnnotationsChanged(selectedAnnotations, pluginState.pendingSelectedAnnotations)) {
+			return {
+				...pluginState,
+				pendingSelectedAnnotations: selectedAnnotations,
+				pendingSelectedAnnotationsUpdateCount:
+					pluginState.pendingSelectedAnnotationsUpdateCount + 1,
+				...(reopenCommentView && {
+					isInlineCommentViewClosed: false,
+				}),
+			};
+		}
+
+		return {
+			...pluginState,
+			...(reopenCommentView && {
+				isInlineCommentViewClosed: false,
+			}),
+			selectAnnotationMethod: undefined,
+		};
+	};
+
+const getSelectionChangedHandler =
+	(reopenCommentView: boolean) =>
+	(tr: ReadonlyTransaction, pluginState: InlineCommentPluginState): InlineCommentPluginState =>
+		fg('platform_editor_comments_api_manager_select')
+			? getSelectionChangeHandlerNew(reopenCommentView)(tr, pluginState)
+			: getSelectionChangeHandlerOld(reopenCommentView)(tr, pluginState);
 
 export const { createPluginState, createCommand } = pluginFactory(inlineCommentPluginKey, reducer, {
 	onSelectionChanged: getSelectionChangedHandler(true),

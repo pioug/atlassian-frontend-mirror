@@ -181,7 +181,11 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	strategy?: 'fixed' | 'absolute';
 	/** Override default behavior and show the clear indicator. */
 	showClearIndicator?: boolean;
+	/** Ref to the underlying select */
+	forwardedRef?: React.ForwardedRef<UserPickerRef>;
 };
+
+export type UserPickerRef = { focus: () => void; blur: () => void };
 
 export type PopupUserPickerProps = UserPickerProps & {
 	/** Whether to use the popup version of the single picker */

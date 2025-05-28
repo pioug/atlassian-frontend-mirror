@@ -393,6 +393,7 @@ export class ShareDialogContainerInternal extends React.Component<
 			isSubmitShareDisabled,
 			additionalUserFields,
 			isExtendedShareDialogEnabled,
+			CustomSubmitButton,
 		} = this.props;
 		const { config, isFetchingConfig } = this.state;
 
@@ -454,6 +455,7 @@ export class ShareDialogContainerInternal extends React.Component<
 						isSubmitShareDisabled={isSubmitShareDisabled}
 						additionalUserFields={additionalUserFields}
 						isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
+						CustomSubmitButton={CustomSubmitButton}
 					/>
 				</MessagesIntlProvider>
 			</ErrorBoundary>

@@ -7,28 +7,52 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	useSharedPluginState,
+	sharedPluginStateHookMigratorFactory,
+} from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
 import type { SelectionExtensionComponentProps } from '../../types';
 
 type SelectionExtensionComponentWrapperProps = {
-	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined;
+	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined | null;
 	editorView: EditorView;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 };
+
+const useSharedState = sharedPluginStateHookMigratorFactory(
+	(api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined | null) => {
+		const activeExtension = useSharedPluginStateSelector(api, 'selectionExtension.activeExtension');
+		const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
+		return {
+			editorViewModeState: undefined,
+			mode,
+			activeExtension,
+		};
+	},
+	(api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined | null) => {
+		const { selectionExtensionState, editorViewModeState } = useSharedPluginState(api, [
+			'selectionExtension',
+			'editorViewMode',
+		]);
+		return {
+			editorViewModeState,
+			mode: editorViewModeState?.mode,
+			activeExtension: selectionExtensionState?.activeExtension,
+		};
+	},
+);
 
 export const SelectionExtensionComponentWrapper = ({
 	api,
 	editorAnalyticsAPI,
 }: SelectionExtensionComponentWrapperProps) => {
 	const componentRef = useRef<React.ComponentType<SelectionExtensionComponentProps>>();
-	const { selectionExtensionState, editorViewModeState } = useSharedPluginState(api, [
-		'selectionExtension',
-		'editorViewMode',
-	]);
+	const { editorViewModeState, activeExtension, mode } = useSharedState(api);
 
 	// Closed from active extension
 	const handleOnClose = useCallback(() => {
@@ -50,13 +74,13 @@ export const SelectionExtensionComponentWrapper = ({
 		if (componentRef.current !== undefined) {
 			handleOnClose();
 		}
-	}, [handleOnClose, editorViewModeState]);
+	}, [handleOnClose, editorViewModeState, mode]);
 
 	// Viewed analytics event for component mount
 	useEffect(() => {
 		if (
-			componentRef.current !== selectionExtensionState?.activeExtension?.extension.component &&
-			selectionExtensionState?.activeExtension?.extension.component !== undefined
+			componentRef.current !== activeExtension?.extension.component &&
+			activeExtension?.extension.component !== undefined
 		) {
 			if (editorAnalyticsAPI) {
 				editorAnalyticsAPI.fireAnalyticsEvent({
@@ -67,19 +91,16 @@ export const SelectionExtensionComponentWrapper = ({
 				});
 			}
 			// Sets reference to active component
-			componentRef.current = selectionExtensionState?.activeExtension?.extension.component;
+			componentRef.current = activeExtension?.extension.component;
 		}
-	}, [selectionExtensionState, editorAnalyticsAPI]);
+	}, [activeExtension, editorAnalyticsAPI]);
 
-	if (!selectionExtensionState?.activeExtension?.extension.component) {
+	if (!activeExtension?.extension.component) {
 		return null;
 	}
 
-	const ExtensionComponent = selectionExtensionState.activeExtension.extension.component;
+	const ExtensionComponent = activeExtension.extension.component;
 	return (
-		<ExtensionComponent
-			closeExtension={handleOnClose}
-			selection={selectionExtensionState.activeExtension.selection}
-		/>
+		<ExtensionComponent closeExtension={handleOnClose} selection={activeExtension.selection} />
 	);
 };

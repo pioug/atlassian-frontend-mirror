@@ -69,6 +69,22 @@ export const clearDirtyMark = (): Command =>
 		type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK,
 	});
 
+export const flushPendingSelections = (canSetAsSelectedAnnotations: boolean): Command =>
+	createCommand({
+		type: ACTIONS.FLUSH_PENDING_SELECTIONS,
+		data: {
+			canSetAsSelectedAnnotations,
+		},
+	});
+
+export const setPendingSelectedAnnotation = (id: string): Command =>
+	createCommand({
+		type: ACTIONS.SET_PENDING_SELECTIONS,
+		data: {
+			selectedAnnotations: [{ id, type: AnnotationTypes.INLINE_COMMENT }],
+		},
+	});
+
 const removeInlineCommentFromNode = (
 	id: string,
 	supportedBlockNodes: string[] = [],
@@ -153,6 +169,39 @@ export const removeInlineCommentNearSelection =
 		return true;
 	};
 
+export const removeInlineCommentFromDoc =
+	(id: string, supportedNodes: string[] = []): Command =>
+	(state, dispatch): boolean => {
+		const { tr } = state;
+
+		state.doc.descendants((node: PMNode, pos: number) => {
+			// Inline comment on mediaInline is not supported as part of comments on media project
+			// Thus, we skip the decoration for mediaInline node
+			if (node.type.name === 'mediaInline') {
+				return false;
+			}
+
+			const isSupportedBlockNode = node.isBlock && supportedNodes?.includes(node.type.name);
+
+			node.marks
+				.filter((mark) => mark.type === state.schema.marks.annotation && mark.attrs.id === id)
+				.forEach((mark) => {
+					if (isSupportedBlockNode) {
+						tr.removeNodeMark(pos, mark);
+					} else {
+						tr.removeMark(pos, pos + node.nodeSize, mark);
+					}
+				});
+		});
+
+		if (dispatch) {
+			dispatch(tr);
+			return true;
+		}
+
+		return false;
+	};
+
 const getDraftCommandAction: (
 	drafting: boolean,
 	targetType: TargetType,
@@ -189,6 +238,8 @@ const getDraftCommandAction: (
 /**
  * Show active inline comments for a given block node, otherwise,
  * return false if the node has no comments or no unresolved comments.
+ * @param supportedBlockNodes
+ * @example
  */
 export const showInlineCommentForBlockNode =
 	(supportedBlockNodes: string[] = []) =>

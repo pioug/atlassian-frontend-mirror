@@ -2721,229 +2721,115 @@ describe('vc-observer', () => {
 	});
 
 	describe('VC dirty (aborted) scenarios', () => {
-		describe('FG disabled - platform_ufo_add_vc_abort_reason_by_revisions', () => {
-			test('abort scenario - resize', async () => {
-				const mockUnbindFn = jest.fn();
-				const abortReasonCallback = jest.fn();
-				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
-					abortReasonCallback.mockImplementation(callback);
-					return [mockUnbindFn];
-				});
-				vc.start({ startTime: 0 });
+		test('abort scenario - resize', async () => {
+			const mockUnbindFn = jest.fn();
+			const abortReasonCallback = jest.fn();
+			mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+				abortReasonCallback.mockImplementation(callback);
+				return [mockUnbindFn];
+			});
+			vc.start({ startTime: 0 });
 
-				abortReasonCallback('resize', 0);
+			abortReasonCallback('resize', 0);
 
-				const result = await vc.getVCResult({
-					start: 0,
-					stop: 100,
-					tti: 3,
-					prefix: '',
-					isEventAborted: false,
-					experienceKey: 'test',
-				});
-
-				expect(result).toEqual({
-					'vc:state': false,
-					'vc:abort:reason': 'resize',
-					'vc:abort:timestamp': 0,
-				});
-
-				expect(mockUnbindFn).toHaveBeenCalled();
+			const result = await vc.getVCResult({
+				start: 0,
+				stop: 100,
+				tti: 3,
+				prefix: '',
+				isEventAborted: false,
+				experienceKey: 'test',
 			});
 
-			test('abort scenario - keypress', async () => {
-				const mockUnbindFn = jest.fn();
-				const abortReasonCallback = jest.fn();
-				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
-					abortReasonCallback.mockImplementation(callback);
-					return [mockUnbindFn];
-				});
-				vc.start({ startTime: 0 });
-
-				abortReasonCallback('keydown', 0);
-
-				const result = await vc.getVCResult({
-					start: 0,
-					stop: 100,
-					tti: 3,
-					prefix: '',
-					isEventAborted: false,
-					experienceKey: 'test',
-				});
-
-				expect(result).toEqual({
-					'vc:state': false,
-					'vc:abort:reason': 'keypress',
-					'vc:abort:timestamp': 0,
-				});
-
-				expect(mockUnbindFn).toHaveBeenCalled();
-			});
-
-			test('abort scenario - wheel', async () => {
-				const mockUnbindFn = jest.fn();
-				const abortReasonCallback = jest.fn();
-				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
-					abortReasonCallback.mockImplementation(callback);
-					return [mockUnbindFn];
-				});
-				vc.start({ startTime: 0 });
-
-				abortReasonCallback('wheel', 0);
-
-				const result = await vc.getVCResult({
-					start: 0,
-					stop: 100,
-					tti: 3,
-					prefix: '',
-					isEventAborted: false,
-					experienceKey: 'test',
-				});
-
-				expect(result).toEqual({
-					'ufo:next:speedIndex': 0,
-					'ufo:speedIndex': 0,
-					'vc:ignored': [],
-					'vc:ratios': {},
-					'vc:rev': [
-						{
-							clean: false, // this is an implicit abort by scroll, because currently scroll data is not recorded
-							'metric:vc90': null,
-							revision: 'fy25.02',
-							vcDetails: {},
-						},
-					],
-					'vc:size': {
-						h: 500,
-						w: 1000,
+			expect(result).toEqual({
+				'vc:state': false,
+				'vc:abort:reason': 'resize',
+				'vc:abort:timestamp': 0,
+				'vc:rev': [
+					{
+						abortReason: 'resize',
+						clean: false,
+						'metric:vc90': null,
+						revision: 'fy25.02',
 					},
-					'vc:time': 1,
-				});
-
-				expect(mockUnbindFn).toHaveBeenCalled();
+				],
 			});
+
+			expect(mockUnbindFn).toHaveBeenCalled();
 		});
-		describe('FG enabled - platform_ufo_add_vc_abort_reason_by_revisions', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation((key) => {
-					if (key === 'platform_ufo_add_vc_abort_reason_by_revisions') {
-						return true;
-					}
 
-					return false;
-				});
+		test('abort scenario - keypress', async () => {
+			const mockUnbindFn = jest.fn();
+			const abortReasonCallback = jest.fn();
+			mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+				abortReasonCallback.mockImplementation(callback);
+				return [mockUnbindFn];
+			});
+			vc.start({ startTime: 0 });
+
+			abortReasonCallback('keydown', 0);
+
+			const result = await vc.getVCResult({
+				start: 0,
+				stop: 100,
+				tti: 3,
+				prefix: '',
+				isEventAborted: false,
+				experienceKey: 'test',
 			});
 
-			test('abort scenario - resize', async () => {
-				const mockUnbindFn = jest.fn();
-				const abortReasonCallback = jest.fn();
-				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
-					abortReasonCallback.mockImplementation(callback);
-					return [mockUnbindFn];
-				});
-				vc.start({ startTime: 0 });
-
-				abortReasonCallback('resize', 0);
-
-				const result = await vc.getVCResult({
-					start: 0,
-					stop: 100,
-					tti: 3,
-					prefix: '',
-					isEventAborted: false,
-					experienceKey: 'test',
-				});
-
-				expect(result).toEqual({
-					'vc:state': false,
-					'vc:abort:reason': 'resize',
-					'vc:abort:timestamp': 0,
-					'vc:rev': [
-						{
-							abortReason: 'resize',
-							clean: false,
-							'metric:vc90': null,
-							revision: 'fy25.02',
-						},
-					],
-				});
-
-				expect(mockUnbindFn).toHaveBeenCalled();
+			expect(result).toEqual({
+				'vc:state': false,
+				'vc:abort:reason': 'keypress',
+				'vc:abort:timestamp': 0,
+				'vc:rev': [
+					{
+						abortReason: 'keypress',
+						clean: false,
+						'metric:vc90': null,
+						revision: 'fy25.02',
+					},
+				],
 			});
 
-			test('abort scenario - keypress', async () => {
-				const mockUnbindFn = jest.fn();
-				const abortReasonCallback = jest.fn();
-				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
-					abortReasonCallback.mockImplementation(callback);
-					return [mockUnbindFn];
-				});
-				vc.start({ startTime: 0 });
+			expect(mockUnbindFn).toHaveBeenCalled();
+		});
 
-				abortReasonCallback('keydown', 0);
+		test('abort scenario - wheel', async () => {
+			const mockUnbindFn = jest.fn();
+			const abortReasonCallback = jest.fn();
+			mockAttachAbortListeners.mockImplementation((_, __, callback) => {
+				abortReasonCallback.mockImplementation(callback);
+				return [mockUnbindFn];
+			});
+			vc.start({ startTime: 0 });
 
-				const result = await vc.getVCResult({
-					start: 0,
-					stop: 100,
-					tti: 3,
-					prefix: '',
-					isEventAborted: false,
-					experienceKey: 'test',
-				});
+			abortReasonCallback('wheel', 0);
 
-				expect(result).toEqual({
-					'vc:state': false,
-					'vc:abort:reason': 'keypress',
-					'vc:abort:timestamp': 0,
-					'vc:rev': [
-						{
-							abortReason: 'keypress',
-							clean: false,
-							'metric:vc90': null,
-							revision: 'fy25.02',
-						},
-					],
-				});
-
-				expect(mockUnbindFn).toHaveBeenCalled();
+			const result = await vc.getVCResult({
+				start: 0,
+				stop: 100,
+				tti: 3,
+				prefix: '',
+				isEventAborted: false,
+				experienceKey: 'test',
 			});
 
-			test('abort scenario - wheel', async () => {
-				const mockUnbindFn = jest.fn();
-				const abortReasonCallback = jest.fn();
-				mockAttachAbortListeners.mockImplementation((_, __, callback) => {
-					abortReasonCallback.mockImplementation(callback);
-					return [mockUnbindFn];
-				});
-				vc.start({ startTime: 0 });
-
-				abortReasonCallback('wheel', 0);
-
-				const result = await vc.getVCResult({
-					start: 0,
-					stop: 100,
-					tti: 3,
-					prefix: '',
-					isEventAborted: false,
-					experienceKey: 'test',
-				});
-
-				expect(result).toEqual({
-					'vc:state': false,
-					'vc:abort:reason': 'scroll',
-					'vc:abort:timestamp': 0,
-					'vc:rev': [
-						{
-							abortReason: 'scroll',
-							clean: false,
-							'metric:vc90': null,
-							revision: 'fy25.02',
-						},
-					],
-				});
-
-				expect(mockUnbindFn).toHaveBeenCalled();
+			expect(result).toEqual({
+				'vc:abort:reason': 'scroll',
+				'vc:abort:timestamp': 0,
+				'vc:rev': [
+					{
+						abortReason: 'scroll',
+						clean: false,
+						'metric:vc90': null,
+						revision: 'fy25.02',
+					},
+				],
+				'vc:state': false,
 			});
+
+			expect(mockUnbindFn).toHaveBeenCalled();
 		});
 	});
 

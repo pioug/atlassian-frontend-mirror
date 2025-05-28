@@ -27,4 +27,8 @@ links:
     type: REPOSITORY
     url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/linking-platform/link-picker'
 customFields: []
-relationships: {}
+relationships:
+  DEPENDS_ON:
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/18157dad-b7fb-4cde-8b74-e905b5757611' # link-provider
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/3d229125-4f9d-4091-a303-84ae4eb643fb' # linking-common
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/c9898540-33b1-4cd4-9399-16e575bcedae' # smart-card

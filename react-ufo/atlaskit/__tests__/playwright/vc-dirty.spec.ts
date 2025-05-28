@@ -3,7 +3,6 @@ import { expect, test, viewports } from './fixtures';
 test.describe('TTVC Dirty Scenarios', () => {
 	test.use({
 		examplePage: 'basic-section-below-viewport',
-		featureFlags: ['platform_ufo_add_vc_abort_reason_by_revisions'],
 	});
 
 	for (const viewport of viewports) {

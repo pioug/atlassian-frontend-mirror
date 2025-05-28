@@ -62,20 +62,20 @@ const BuildStory = (props: ButtonProps) => {
 	return (
 		<div data-testid="combinations" css={{ padding: '10px' }}>
 			<div css={styles.sample}>
-				<Button appearance={appearance}>Create Issue</Button>
+				<Button appearance={appearance}>Create work item</Button>
 				<span>no extra attrs</span>
 			</div>
 
 			<div css={styles.sample}>
 				<Button appearance={appearance} href="//www.atlassian.com">
-					Create Issue
+					Create work item
 				</Button>
 				<span>with href attribute</span>
 			</div>
 
 			<div css={styles.sample}>
 				<Button appearance={appearance} href="//www.atlassian.com">
-					Create Issue
+					Create work item
 				</Button>
 				<span>with href attribute + no target</span>
 			</div>
@@ -84,7 +84,7 @@ const BuildStory = (props: ButtonProps) => {
 				<span>
 					text
 					<Button appearance={appearance} onClick={() => console.log('clicking the Component')}>
-						Create Issue
+						Create work item
 					</Button>
 					text
 				</span>
@@ -258,14 +258,14 @@ const BuildStory = (props: ButtonProps) => {
 
 			<div css={styles.sample}>
 				<Button appearance={appearance} spacing="compact">
-					Create Issue
+					Create work item
 				</Button>
 				<Button
 					appearance={appearance}
 					spacing="compact"
-					iconBefore={<Page label="">create issue</Page>}
+					iconBefore={<Page label="">create work item</Page>}
 				>
-					Create Issue
+					Create work item
 				</Button>
 				<span>compact</span>
 			</div>
@@ -291,7 +291,7 @@ const BuildStory = (props: ButtonProps) => {
 
 			<div css={styles.sample}>
 				<Button appearance={appearance} shouldFitContainer>
-					Create Issue
+					Create work item
 				</Button>
 				<span>shouldFitContainer</span>
 			</div>

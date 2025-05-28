@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "7.1.1",
+	"version": "7.1.2",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

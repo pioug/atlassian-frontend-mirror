@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-copy-button",
-	"version": "2.0.8",
+	"version": "2.0.9",
 	"description": "editor-plugin-copy-button for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

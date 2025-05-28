@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::1b9a45b5b58368b3c27793a9a82cb5e9>>
+ * @codegen <<SignedSource::5e7beaa068671c0846a99ee3cf194f40>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -372,7 +372,6 @@ const Icons = [
 	TextBoldItalicUnderlineStrikethroughIcon,
 	TextBoldUnderlineStrikethroughIcon,
 	TextItalicUnderlineStrikethroughIcon,
-	SpaceIcon,
 	SpacesIcon,
 	JiraAddIcon,
 	JiraUploadIcon,
@@ -469,6 +468,7 @@ const Icons = [
 	ShapeSummingJunctionCrossIcon,
 	ShapeSummingJunctionPlusIcon,
 	HandClenchedIcon,
+	SpaceIcon,
 	CompareIcon,
 	GenerativeIndicatorIcon,
 	GenerativeDateIcon,

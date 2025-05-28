@@ -48,68 +48,70 @@ const shimStyles = cssMap({
 	},
 });
 
-export default () => (
-	<Box>
-		<Box
-			backgroundColor="elevation.surface.sunken"
-			xcss={cx(parentBaseStyles.root, parentScrollStyles.horizontal)}
-		>
-			<Box xcss={shimStyles.horizontal}>
-				<p>
-					Horizontal &mdash; scroll <strong>right</strong> to see the target.
-				</p>
-				<Tooltip content={'Scroll "horizontal"'}>
-					{(tooltipProps) => (
-						<Target color="green" {...tooltipProps}>
-							Horizontal
-						</Target>
-					)}
-				</Tooltip>
+export default function ScrollExample() {
+	return (
+		<Box>
+			<Box
+				backgroundColor="elevation.surface.sunken"
+				xcss={cx(parentBaseStyles.root, parentScrollStyles.horizontal)}
+			>
+				<Box xcss={shimStyles.horizontal}>
+					<p>
+						Horizontal &mdash; scroll <strong>right</strong> to see the target.
+					</p>
+					<Tooltip content={'Scroll "horizontal"'}>
+						{(tooltipProps) => (
+							<Target color="green" {...tooltipProps}>
+								Horizontal
+							</Target>
+						)}
+					</Tooltip>
+				</Box>
 			</Box>
-		</Box>
-		<Box
-			backgroundColor="elevation.surface.sunken"
-			xcss={cx(parentBaseStyles.root, parentScrollStyles.vertical)}
-		>
-			<Box xcss={shimStyles.vertical}>
-				<p>
-					Vertical &mdash; scroll <strong>down</strong> to see the target.
-				</p>
-				<Tooltip content={'Scroll "vertical"'}>
-					{(tooltipProps) => (
-						<Target color="yellow" {...tooltipProps}>
-							Vertical
-						</Target>
-					)}
-				</Tooltip>
+			<Box
+				backgroundColor="elevation.surface.sunken"
+				xcss={cx(parentBaseStyles.root, parentScrollStyles.vertical)}
+			>
+				<Box xcss={shimStyles.vertical}>
+					<p>
+						Vertical &mdash; scroll <strong>down</strong> to see the target.
+					</p>
+					<Tooltip content={'Scroll "vertical"'}>
+						{(tooltipProps) => (
+							<Target color="yellow" {...tooltipProps}>
+								Vertical
+							</Target>
+						)}
+					</Tooltip>
+				</Box>
 			</Box>
-		</Box>
-		<Box
-			backgroundColor="elevation.surface.sunken"
-			xcss={cx(parentBaseStyles.root, parentScrollStyles.horizontal)}
-		>
-			<Box xcss={shimStyles.horizontal}>
-				<p>
-					Nested &mdash; scroll <strong>right</strong> to see the target.
-				</p>
-				<Box
-					backgroundColor="elevation.surface.overlay"
-					xcss={cx(parentBaseStyles.root, parentScrollStyles.vertical)}
-				>
-					<Box xcss={shimStyles.vertical}>
-						<p>
-							Scroll <strong>down</strong> to see the target.
-						</p>
-						<Tooltip content={'Scroll "nested"'}>
-							{(tooltipProps) => (
-								<Target color="red" {...tooltipProps}>
-									Nested
-								</Target>
-							)}
-						</Tooltip>
+			<Box
+				backgroundColor="elevation.surface.sunken"
+				xcss={cx(parentBaseStyles.root, parentScrollStyles.horizontal)}
+			>
+				<Box xcss={shimStyles.horizontal}>
+					<p>
+						Nested &mdash; scroll <strong>right</strong> to see the target.
+					</p>
+					<Box
+						backgroundColor="elevation.surface.overlay"
+						xcss={cx(parentBaseStyles.root, parentScrollStyles.vertical)}
+					>
+						<Box xcss={shimStyles.vertical}>
+							<p>
+								Scroll <strong>down</strong> to see the target.
+							</p>
+							<Tooltip content={'Scroll "nested"'}>
+								{(tooltipProps) => (
+									<Target color="red" {...tooltipProps}>
+										Nested
+									</Target>
+								)}
+							</Tooltip>
+						</Box>
 					</Box>
 				</Box>
 			</Box>
 		</Box>
-	</Box>
-);
+	);
+}

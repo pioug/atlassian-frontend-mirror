@@ -103,6 +103,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 					<ExusUserSourceProvider fetchUserSource={loadUserSource}>
 						<BaseUserPickerWithoutAnalytics
 							{...this.props}
+							forwardedRef={this.props.forwardedRef}
 							width={width}
 							SelectComponent={SelectComponent}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

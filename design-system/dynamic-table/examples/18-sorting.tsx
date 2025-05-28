@@ -2,7 +2,7 @@ import React, { type FC } from 'react';
 
 import DynamicTable from '@atlaskit/dynamic-table';
 
-const caption = 'Example issue with DynamicTable';
+const caption = 'Example sorting with DynamicTable';
 
 const head = {
 	cells: [

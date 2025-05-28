@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createDeprecatedIconDocs` in icon-build-process/src/create-deprecated-icon-docs.tsx.
  *
- * @codegen <<SignedSource::7c22ff7738ef2148e1812d19e3326ba2>>
+ * @codegen <<SignedSource::3ab215e5b6736f728bfeeaa0c615bcb0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {
@@ -31,6 +31,10 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 		message:
 			'The icon "border-weight-thin" is deprecated in favour of "stroke-weight-small" from “@atlaskit/icon/core”',
 	},
+	'@atlaskit/icon/core/child-issues': {
+		message:
+			'The icon "child-issues" is deprecated in favour of "child-work-items" from “@atlaskit/icon/core”',
+	},
 	'@atlaskit/icon/core/content-align-center': {
 		message:
 			'The icon "content-align-center" is deprecated in favour of "align-image-center" from “@atlaskit/icon/core”',
@@ -47,6 +51,14 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 		message:
 			'The icon "drag-handle" is deprecated in favour of "drag-handle-vertical" from “@atlaskit/icon/core”',
 	},
+	'@atlaskit/icon/core/drawer-left': {
+		message:
+			'The icon "drawer-left" is deprecated in favour of "panel-left" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/drawer-right': {
+		message:
+			'The icon "drawer-right" is deprecated in favour of "panel-right" from “@atlaskit/icon/core”',
+	},
 	'@atlaskit/icon/core/issue': {
 		message: 'The icon "issue" is deprecated in favour of "work-item" from “@atlaskit/icon/core”',
 	},
@@ -60,6 +72,10 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 	'@atlaskit/icon/core/sidebar-right': {
 		message:
 			'The icon "sidebar-right" is deprecated in favour of "panel-right" from “@atlaskit/icon/core”',
+	},
+	'@atlaskit/icon/core/summarize': {
+		message:
+			'The icon "summarize" is deprecated in favour of "ai-generative-text-summary" from “@atlaskit/icon/core”',
 	},
 	'@atlaskit/icon/core/migration/align-center--editor-align-center': {
 		message:

@@ -210,7 +210,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 
 				if (fg('platform_editor_comments_api_manager')) {
 					if (!annotationManager) {
-						// TODO: EDITOR-188 - If we've reached here and the manager is not initialized, we should
+						// TODO: EDITOR-595 - If we've reached here and the manager is not initialized, we should
 						// dispatch an analytics event to indicate that the user has clicked the button but
 						// the action was not completed.
 						return false;
@@ -228,16 +228,20 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 								});
 								createCommentExperience?.initExperience.start();
 
-								const { success } = annotationManager.startDraft();
-								if (!success) {
-									// TODO: EDITOR-188 - Report start draft attempt failed.
+								const result = annotationManager.startDraft();
+								if (result.success) {
+									// TODO: EDITOR-595 - Ensure and anlytic is fired to indicate that the user has started a draft.
+								} else {
+									// TODO: EDITOR-595 - Fire an analytics event to indicate that the user has clicked the button
+									// but the action was not completed, the result should contain a reason.
 								}
 							} else {
-								// TODO: EDITOR-188 - Dispatch analytics event
+								// TODO: EDITOR-595 - Track the toolbar comment button was clicked but the preemptive gate
+								// check returned false and the draft cannot be started.
 							}
 						})
 						.catch(() => {
-							// TODO: EDITOR-188 - Handle preemptive gate check error and dispatch analytics event
+							// TODO: EDITOR-595 - Handle preemptive gate check error. Something went very wrong in the gate.
 						});
 					return true;
 				} else {

@@ -1,7 +1,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test('Tooltip should pass basic aXe audit', async ({ page }) => {
-	await page.visitExample('design-system', 'tooltip', 'default-tooltip-wrapped', {
+	await page.visitExample('design-system', 'tooltip', 'default-tooltip', {
 		'react-18-mode': 'legacy',
 	});
 

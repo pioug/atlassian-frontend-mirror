@@ -8,7 +8,7 @@ import {
 	PRODUCTION,
 } from '../../common/constants';
 import { fullDomainOverride, globalDomains } from '../../common/constants/domains';
-import { AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-lookup';
+import { type AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-lookup';
 
 import {
 	AtlDomainMapping,

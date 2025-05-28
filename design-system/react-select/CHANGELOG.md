@@ -1,5 +1,21 @@
 # @atlaskit/react-select
 
+## 2.6.3
+
+### Patch Changes
+
+- [#161473](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161473)
+  [`fe691319dea70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe691319dea70) -
+  Update value container class name to -value-container
+
+## 2.6.2
+
+### Patch Changes
+
+- [#161448](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161448)
+  [`7926a078306bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7926a078306bf) -
+  Update accessibility for description
+
 ## 2.6.1
 
 ### Patch Changes

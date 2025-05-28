@@ -15,6 +15,7 @@ import { cardMessages } from '@atlaskit/editor-common/messages';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { visitCardLinkAnalyticsOnly } from '../toolbar';
@@ -93,23 +94,28 @@ const OpenButtonOverlay = ({
 	const hiddenTextRef = useRef<HTMLDivElement>(null);
 	const [showLabel, setShowLabel] = useState(true);
 	const [isHovered, setHovered] = useState(false);
-	const openTextWidthRef = useRef(DEFAULT_OPEN_TEXT_WIDTH);
+	const openTextWidthRef = useRef<number | null>(null);
 
 	useLayoutEffect(() => {
-		const hiddenText = hiddenTextRef.current;
-		if (!hiddenText) {
-			return;
+		if (
+			editorExperiment('platform_editor_smart_card_open_overlay_perf', false, { exposure: true })
+		) {
+			const hiddenText = hiddenTextRef.current;
+			if (!hiddenText) {
+				openTextWidthRef.current = DEFAULT_OPEN_TEXT_WIDTH;
+				return;
+			}
+			// Measure the width of the hidden text
+			// Temporarily make the element visible to measure its width
+			hiddenText.style.visibility = 'hidden';
+			hiddenText.style.display = 'inline';
+
+			openTextWidthRef.current = hiddenText.offsetWidth;
+
+			// Reset the hiddenText's display property
+			hiddenText.style.display = 'none';
+			hiddenText.style.visibility = 'inherit';
 		}
-		// Measure the width of the hidden text
-		// Temporarily make the element visible to measure its width
-		hiddenText.style.visibility = 'hidden';
-		hiddenText.style.display = 'inline';
-
-		openTextWidthRef.current = hiddenText.offsetWidth;
-
-		// Reset the hiddenText's display property
-		hiddenText.style.display = 'none';
-		hiddenText.style.visibility = 'inherit';
 	}, []);
 
 	useLayoutEffect(() => {
@@ -119,14 +125,39 @@ const OpenButtonOverlay = ({
 		const cardWidth = containerRef.current?.offsetWidth;
 		const openButtonWidth = openButtonRef.current?.offsetWidth;
 
+		// Get the hidden text width
+		if (
+			editorExperiment('platform_editor_smart_card_open_overlay_perf', true, { exposure: true })
+		) {
+			if (!openTextWidthRef.current) {
+				const hiddenText = hiddenTextRef.current;
+				if (hiddenText) {
+					// Measure the width of the hidden text
+					// Temporarily make the element visible to measure its width
+					hiddenText.style.visibility = 'hidden';
+					hiddenText.style.display = 'inline';
+
+					openTextWidthRef.current = hiddenText.offsetWidth;
+
+					// Reset the hiddenText's display property
+					hiddenText.style.display = 'none';
+					hiddenText.style.visibility = 'inherit';
+				} else {
+					openTextWidthRef.current = DEFAULT_OPEN_TEXT_WIDTH;
+				}
+			}
+		}
+
 		if (!cardWidth || !openButtonWidth) {
 			return;
 		}
 
+		const openTextWidth = openTextWidthRef.current || DEFAULT_OPEN_TEXT_WIDTH;
+
 		let canShowLabel = true;
 		if (fg('platform_editor_controls_patch_2')) {
 			canShowLabel =
-				cardWidth - openTextWidthRef.current > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY + ICON_WIDTH;
+				cardWidth - openTextWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY + ICON_WIDTH;
 		} else {
 			canShowLabel = cardWidth - openButtonWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY;
 		}

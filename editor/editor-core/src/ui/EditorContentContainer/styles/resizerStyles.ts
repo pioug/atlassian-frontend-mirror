@@ -243,6 +243,58 @@ export const resizerStyles = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-breakout-mark': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="codeBlock"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-left': {
+				left: '-12px',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-right': {
+				right: '-12px',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle': {
+				height: 'calc(100% - 12px)',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> .pm-breakout-resize-handle-left': {
+					left: '-32px',
+				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> .pm-breakout-resize-handle-right': {
+					right: '-32px',
+				},
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="expand"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle': {
+				height: 'calc(100% - 4px)',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has([data-prosemirror-node-name="layoutSection"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle': {
+				height: 'calc(100% - 8px)',
+			},
+		},
+		// the first node in the document always has margin-top = 0
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(.first-node-in-document)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle': {
+				height: '100%',
+			},
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle': {
 		position: 'relative',
 		display: 'flex',
@@ -250,7 +302,7 @@ export const pragmaticResizerStyles = css({
 		justifyContent: 'center',
 		height: '100%',
 		width: 7,
-		alignSelf: 'center',
+		alignSelf: 'end',
 		gridRow: 1,
 		gridColumn: 1,
 		cursor: 'col-resize',
@@ -266,19 +318,14 @@ export const pragmaticResizerStyles = css({
 			},
 		},
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle-left': {
 		justifySelf: 'start',
-		left: -20,
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle-right': {
 		justifySelf: 'end',
-		right: -20,
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle-inner': {
 		minWidth: 3,

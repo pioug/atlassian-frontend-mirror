@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.3.0
+
+### Minor Changes
+
+- [#161914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161914)
+  [`b1a7ef0ae8d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1a7ef0ae8d44) -
+  Switches text formatting options optimisation from FG to Experiment flag
+
+## 5.2.0
+
+### Minor Changes
+
+- [#161266](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161266)
+  [`6d9c690526ff6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d9c690526ff6) -
+  Added experiment for smart links open button
+
 ## 5.1.0
 
 ### Minor Changes

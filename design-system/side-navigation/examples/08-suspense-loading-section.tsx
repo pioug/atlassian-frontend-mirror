@@ -41,7 +41,7 @@ const LazySettingsSectionItems = makeLazy(() => {
 		<Section title="Project settings">
 			<ButtonItem>Details</ButtonItem>
 			<ButtonItem>Access</ButtonItem>
-			<ButtonItem>Issue types</ButtonItem>
+			<ButtonItem>Work types</ButtonItem>
 			<ButtonItem>Features</ButtonItem>
 			<ButtonItem>Apps</ButtonItem>
 		</Section>

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::45cbe14b5a4b3f189e33031f485ff882>>
+ * @codegen <<SignedSource::4fe72ce65f03ddd87bd63fa47d6665f7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2533,15 +2533,16 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	space: {
-		keywords: ['space', 'icon', 'icon-lab', 'core'],
+		keywords: ['space', 'icon', 'icon-lab', 'core', 'space', 'spaces', 'projects'],
 		componentName: 'SpaceIcon',
 		package: '@atlaskit/icon-lab/core/space',
 		type: 'core',
+		replacement: { name: 'spaces', type: 'core', location: '@atlaskit/icon-lab' },
 		categorization: 'single-purpose',
 		usage:
 			'Reserved for use for Jira Projects for now. This will replace the Jira rocket.   More context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
 		team: 'Jira',
-		status: 'published',
+		status: 'deprecated',
 		slackChannel: '#jira-design-system-figma-libraries',
 	},
 	spaces: {

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [#150885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/150885)
+  [`59498013981c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59498013981c5) -
+  Used plugin selector conditionally behind feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.7
 
 ### Patch Changes

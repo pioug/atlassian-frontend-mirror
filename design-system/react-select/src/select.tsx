@@ -501,10 +501,6 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	// temp fix to support unofficial props.
 	[key: string]: any;
 	UNSAFE_is_experimental_generic?: boolean;
-	/**
-	 * omit default description being set for "aria-describedby" attribute
-	 */
-	shouldOmitDefaultDescription?: boolean;
 }
 
 export const defaultProps = {
@@ -550,7 +546,6 @@ export const defaultProps = {
 	tabIndex: 0,
 	tabSelectsValue: true,
 	UNSAFE_is_experimental_generic: false,
-	shouldOmitDefaultDescription: false,
 };
 
 interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
@@ -1419,7 +1414,7 @@ export default class Select<
 	}
 	calculateDescription(action?: String) {
 		const descriptionProp = this.props['aria-describedby'] || this.props['descriptionId'];
-		const { isMulti, shouldOmitDefaultDescription } = this.props;
+		const { isMulti } = this.props;
 		const { selectValue } = this.state;
 		const defaultDescription = selectValue.length
 			? this.getElementId('live-region')
@@ -1433,13 +1428,9 @@ export default class Select<
 			const multiMessage = this.getElementId('multi-message');
 
 			return {
-				'aria-describedby': [
-					descriptionProp,
-					!shouldOmitDefaultDescription && defaultDescription,
-					multiMessage,
-				]
-					.filter(Boolean)
-					.join(' '),
+				'aria-describedby': descriptionProp
+					? [descriptionProp, defaultDescription, multiMessage].join(' ')
+					: [defaultDescription, multiMessage].join(' '),
 			};
 		} else {
 			return {

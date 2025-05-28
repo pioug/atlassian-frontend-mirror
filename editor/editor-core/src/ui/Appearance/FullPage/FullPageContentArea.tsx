@@ -144,11 +144,14 @@ const Content = React.forwardRef<
 	}
 
 	const shouldSetHiddenDataAttribute = () => {
-		// When platform_editor_offline_banner_toolbar_position is enabled we use a different method to
+		// When platform_editor_controls_performance_fixes is enabled we use a different method to
 		// determine if the toolbar is hidden from outside of the editor, which doesn't require setting
 		// data-editor-primary-toolbar-hidden on the content area
 		// NOTE: When tidying, this function and the data attribute can be removed
-		if (!props.isEditorToolbarHidden || fg('platform_editor_offline_banner_toolbar_position')) {
+		if (
+			!props.isEditorToolbarHidden ||
+			editorExperiment('platform_editor_controls_performance_fixes', true)
+		) {
 			return false;
 		}
 

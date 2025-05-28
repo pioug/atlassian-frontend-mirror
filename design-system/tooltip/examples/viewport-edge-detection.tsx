@@ -69,7 +69,7 @@ function getTooltipContent(position: PositionTypeBase, index: number) {
 
 const tooltipSize = ['small', 'medium', 'large', 'long words'];
 
-const PositionExample = () => {
+export default function ViewportEdgeDetectionExample() {
 	// store the direction as an index and pull it from the list above,
 	// just to simplify the `changeDirection` logic
 	const [state, setState] = useState({
@@ -164,6 +164,4 @@ const PositionExample = () => {
 			</div>
 		</ContainerDiv>
 	);
-};
-
-export default PositionExample;
+}

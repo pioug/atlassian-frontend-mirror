@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.7.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.8
+
+### Patch Changes
+
+- [#161707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161707)
+  [`e43a999ba12ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e43a999ba12ab) -
+  [ED-28087] Fix typeahead pre-emptively selecting from menu when pressing space
+- Updated dependencies
+
 ## 2.7.7
 
 ### Patch Changes

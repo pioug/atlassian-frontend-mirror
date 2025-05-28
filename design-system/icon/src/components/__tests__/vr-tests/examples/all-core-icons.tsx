@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::21ca7d8d54e1b5bfb5ec1ab0514536b9>>
+ * @codegen <<SignedSource::8b012f29393c18a6148dbcae57658c79>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -425,7 +425,6 @@ const Icons = [
 	CheckboxCheckedIcon,
 	CheckboxIndeterminateIcon,
 	CheckboxUncheckedIcon,
-	ChildIssuesIcon,
 	ChildWorkItemsIcon,
 	ClockIcon,
 	CloudArrowUpIcon,
@@ -713,9 +712,7 @@ const Icons = [
 	FieldAlertIcon,
 	FormIcon,
 	FieldDropdownIcon,
-	DrawerRightIcon,
 	PanelRightIcon,
-	DrawerLeftIcon,
 	PanelLeftIcon,
 	SmartLinkIcon,
 	VideoSkipForwardTenIcon,
@@ -757,12 +754,15 @@ const Icons = [
 	SidebarLeftIcon,
 	SidebarRightIcon,
 	SummarizeIcon,
+	ChildIssuesIcon,
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
 	ChevronDownIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 	ChevronUpIcon,
+	DrawerLeftIcon,
+	DrawerRightIcon,
 ];
 
 const groupSize = 20;

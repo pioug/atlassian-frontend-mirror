@@ -12,7 +12,7 @@ import Popup, { ContentProps, TriggerProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
-function Example() {
+export default function InsidePopupExample() {
 	setBooleanFeatureFlagResolver((key) => key === 'platform-tooltip-focus-visible');
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -48,5 +48,3 @@ const wrapperStyles = xcss({
 	paddingInlineEnd: 'space.100',
 	paddingInlineStart: 'space.100',
 });
-
-export default () => <Example />;

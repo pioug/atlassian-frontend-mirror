@@ -41,7 +41,7 @@ const SpotlightBlanketIsTintedExample = () => {
 						targetRadius={3}
 						targetBgColor={N0}
 					>
-						Quickly add a comment to the issue.
+						Quickly add a comment to the work item.
 					</Spotlight>
 				)}
 			</SpotlightTransition>

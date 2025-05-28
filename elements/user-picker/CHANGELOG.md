@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 11.2.0
+
+### Minor Changes
+
+- [#157545](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157545)
+  [`77c40a08f071f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77c40a08f071f) -
+  [ux] give keyboard focus to invalid selects in the invite people form
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.2
 
 ### Patch Changes

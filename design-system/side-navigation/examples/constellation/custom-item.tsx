@@ -23,11 +23,11 @@ const ButtonItemExample = () => {
 		<div>
 			<Section>
 				<CustomItem
-					href="/create-issue"
+					href="/create-work-item"
 					component={CustomLink}
 					iconAfter={<ArrowUpRightIcon label="" />}
 				>
-					Create external issue
+					Create external work item
 				</CustomItem>
 			</Section>
 		</div>

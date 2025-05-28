@@ -1,5 +1,23 @@
 # @atlaskit/icon-lab
 
+## 4.17.0
+
+### Minor Changes
+
+- [#161328](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161328)
+  [`76f53eb3bc586`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76f53eb3bc586) -
+  This release deprecates icons in `@atlaskit/icon-lab`.
+
+  ### Deprecated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `space`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.16.0
 
 ### Minor Changes

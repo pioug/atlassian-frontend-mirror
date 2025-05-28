@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-composition",
-	"version": "1.3.6",
+	"version": "1.3.7",
 	"description": "Composition plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

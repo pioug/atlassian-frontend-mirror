@@ -40,7 +40,7 @@ export default () => {
 										ref={triggerRef}
 										{...triggerProps}
 										icon={ChevronDownIcon}
-										label="Open link issue options"
+										label="Open link work item options"
 									/>
 								)}
 							>
@@ -213,8 +213,8 @@ export default () => {
 					<ConfluenceEditorTopBarExample />
 				</Stack>
 				<Stack space="space.150">
-					<Heading size="medium">Jira issue view actions</Heading>
-					<JiraIssueViewActionsExample />
+					<Heading size="medium">Jira work item view actions</Heading>
+					<JiraWorkItemViewActionsExample />
 				</Stack>
 				<Stack space="space.150">
 					<Heading size="medium">With wrappers example</Heading>
@@ -310,13 +310,13 @@ const ConfluenceEditorTopBarExample = () => {
 	);
 };
 
-const JiraIssueViewActionsExample = () => {
+const JiraWorkItemViewActionsExample = () => {
 	return (
 		<Inline space="space.100">
 			<Button>Attach</Button>
-			<Button>Create issue in epic</Button>
+			<Button>Create task in epic</Button>
 			<SplitButton appearance="default">
-				<Button iconBefore={LinkIcon}>Link issue</Button>
+				<Button iconBefore={LinkIcon}>Link task</Button>
 				<DropdownMenu<HTMLButtonElement>
 					shouldRenderToParent
 					trigger={({ triggerRef, ...triggerProps }) => (
@@ -324,7 +324,7 @@ const JiraIssueViewActionsExample = () => {
 							ref={triggerRef}
 							{...triggerProps}
 							icon={ChevronDownIcon}
-							label="Open link issue options"
+							label="Open link task options"
 						/>
 					)}
 					placement="bottom-end"
@@ -344,7 +344,7 @@ const WithWrappersExample = () => {
 		<Inline space="space.100">
 			<SplitButton appearance="default">
 				<div>
-					<Button iconBefore={LinkIcon}>Link issue</Button>
+					<Button iconBefore={LinkIcon}>Link task</Button>
 				</div>
 				<div>
 					<DropdownMenu<HTMLButtonElement>
@@ -354,7 +354,7 @@ const WithWrappersExample = () => {
 								ref={triggerRef}
 								{...triggerProps}
 								icon={ChevronDownIcon}
-								label="Open link issue options"
+								label="Open link task options"
 							/>
 						)}
 						placement="bottom-end"
@@ -371,7 +371,7 @@ const WithWrappersExample = () => {
 					<div>
 						<span>
 							<div>
-								<Button iconBefore={LinkIcon}>Link issue</Button>
+								<Button iconBefore={LinkIcon}>Link task</Button>
 							</div>
 						</span>
 					</div>
@@ -385,7 +385,7 @@ const WithWrappersExample = () => {
 									ref={triggerRef}
 									{...triggerProps}
 									icon={ChevronDownIcon}
-									label="Open link issue options"
+									label="Open link task options"
 								/>
 							)}
 							placement="bottom-end"

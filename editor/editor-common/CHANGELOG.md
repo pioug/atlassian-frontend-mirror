@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 106.0.1
+
+### Patch Changes
+
+- [#161914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161914)
+  [`b1a7ef0ae8d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1a7ef0ae8d44) -
+  Switches text formatting options optimisation from FG to Experiment flag
+- Updated dependencies
+
+## 106.0.0
+
+### Major Changes
+
+- [#160492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160492)
+  [`dde2fef8d316f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dde2fef8d316f) -
+  [ED-26803] Remove deprecated config `forceStaticToolbar`
+
+## 105.11.2
+
+### Patch Changes
+
+- [#160456](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160456)
+  [`f1c9353c46649`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c9353c46649) -
+  [ux] ED-28026 fix resize handle styles for pragmatic-dnd resizer
+- Updated dependencies
+
+## 105.11.1
+
+### Patch Changes
+
+- [#157348](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157348)
+  [`2745ba38d05fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2745ba38d05fd) -
+  Implemented the new manager set selection and hover APIs. This will allow anyone with access to
+  the annotations manager the ability to control when/what annotation is selected/hovered.
+- Updated dependencies
+
 ## 105.11.0
 
 ### Minor Changes

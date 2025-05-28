@@ -41,4 +41,5 @@ export type {
 	AdditionalTab,
 	Integration,
 	ContentProps,
+	RenderCustomSubmitButtonProps,
 } from './types';

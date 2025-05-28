@@ -1,5 +1,14 @@
 # @atlaskit/flag
 
+## 17.1.5
+
+### Patch Changes
+
+- [#155802](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155802)
+  [`08019848e3eab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08019848e3eab) -
+  Refreshed "issue" terminology.
+- Updated dependencies
+
 ## 17.1.4
 
 ### Patch Changes

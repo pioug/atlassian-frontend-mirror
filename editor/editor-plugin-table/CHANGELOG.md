@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 10.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.11.2
+
+### Patch Changes
+
+- [#161309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161309)
+  [`ec4edba1f5f2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec4edba1f5f2d) -
+  Fix selection colour bug after deleting a column or row
+- Updated dependencies
+
 ## 10.11.1
 
 ### Patch Changes

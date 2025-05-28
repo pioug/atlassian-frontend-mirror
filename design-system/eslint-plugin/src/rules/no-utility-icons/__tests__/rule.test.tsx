@@ -17,6 +17,7 @@ tester.run('no-utility-icons', rule, {
 	invalid: [
 		{
 			name: 'utility import',
+			options: [{ enableAutoFixer: true }],
 			code: `import AddIcon from '@atlaskit/icon/utility/add';
 				<AddIcon label=""/>`,
 			output: `import AddIcon from '@atlaskit/icon/core/add';
@@ -30,6 +31,7 @@ tester.run('no-utility-icons', rule, {
 		},
 		{
 			name: 'utility import in migration entry point',
+			options: [{ enableAutoFixer: true }],
 			code: `import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 				<ChevronDownIcon label="expand" LEGACY_size="medium" spacing="spacious" />`,
 			output: `import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
@@ -43,6 +45,7 @@ tester.run('no-utility-icons', rule, {
 		},
 		{
 			name: 'utility import spread props',
+			options: [{ enableAutoFixer: true }],
 			code: `import AddIcon from '@atlaskit/icon/utility/add';
 				const props = {label: ''};
 				<AddIcon {...props} />`,
@@ -58,6 +61,7 @@ tester.run('no-utility-icons', rule, {
 		},
 		{
 			name: 'new core import exists',
+			options: [{ enableAutoFixer: true }],
 			code: `import AddIcon from '@atlaskit/icon/utility/add';
 				import AddIconLarge from '@atlaskit/icon/core/add';
 				<>
@@ -78,6 +82,7 @@ tester.run('no-utility-icons', rule, {
 		},
 		{
 			name: 'utility icons exported',
+			options: [{ enableAutoFixer: true }],
 			code: `import AddIcon from '@atlaskit/icon/utility/add';
 				export const iconMap = {
 					add: AddIcon,
@@ -90,6 +95,7 @@ tester.run('no-utility-icons', rule, {
 		},
 		{
 			name: 'partial fix',
+			options: [{ enableAutoFixer: true }],
 			code: `
 				import AddIcon from '@atlaskit/icon/utility/add';
 				<AddIcon label=""/>
@@ -110,6 +116,7 @@ tester.run('no-utility-icons', rule, {
 		},
 		{
 			name: 'Icon in new Button',
+			options: [{ enableAutoFixer: true }],
 			code: `import AddIcon from '@atlaskit/icon/utility/add';
 				import Button, { IconButton as IButton } from '@atlaskit/button/new';
 				<>
@@ -137,6 +144,7 @@ tester.run('no-utility-icons', rule, {
 		},
 		{
 			name: 'Icon rendered in old buttons',
+			options: [{ enableAutoFixer: true }],
 			code: `import AddIcon from '@atlaskit/icon/utility/add';
 			import Button from '@atlaskit/button';
 			import StandardButton from '@atlaskit/button/standard-button';
@@ -155,6 +163,37 @@ tester.run('no-utility-icons', rule, {
 				<Button iconBefore={<AddIcon label="" size="small"/>} > Add </Button>
 				<StandardButton iconBefore={<AddIcon label="" size="small"/>} > Add </StandardButton>
 				<LoadingButton iconAfter={<AddIcon label="" size="small"/>} > Add </LoadingButton>
+			</div>`,
+			errors: Array(3).fill({
+				messageId: 'noUtilityIconsJSXElement',
+			}),
+		},
+		{
+			name: 'Icon rendered in old buttons - DO NOT FIX IF enableAutoFixer is false',
+			options: [{ enableAutoFixer: false }],
+			code: `import AddIcon from '@atlaskit/icon/utility/add';
+			import Button from '@atlaskit/button';
+			import StandardButton from '@atlaskit/button/standard-button';
+			import LoadingButton from '@atlaskit/button/loading-button';
+			<div>
+				<Button iconBefore={<AddIcon label="" />} > Add </Button>
+				<StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
+				<LoadingButton iconAfter={<AddIcon label="" />} > Add </LoadingButton>
+			</div>`,
+			errors: Array(3).fill({
+				messageId: 'noUtilityIconsJSXElement',
+			}),
+		},
+		{
+			name: 'Icon rendered in old buttons - DO NOT FIX IF enableAutoFixer is not passed in',
+			code: `import AddIcon from '@atlaskit/icon/utility/add';
+			import Button from '@atlaskit/button';
+			import StandardButton from '@atlaskit/button/standard-button';
+			import LoadingButton from '@atlaskit/button/loading-button';
+			<div>
+				<Button iconBefore={<AddIcon label="" />} > Add </Button>
+				<StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
+				<LoadingButton iconAfter={<AddIcon label="" />} > Add </LoadingButton>
 			</div>`,
 			errors: Array(3).fill({
 				messageId: 'noUtilityIconsJSXElement',

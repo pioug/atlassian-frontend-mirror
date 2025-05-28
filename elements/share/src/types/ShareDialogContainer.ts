@@ -16,6 +16,7 @@ import type { ProductId, ProductName } from './Products';
 import type { ShareButtonStyle, TooltipPosition } from './ShareButton';
 import type { DialogPlacement, RenderCustomTriggerButton } from './ShareDialogWithTrigger';
 import type { AdditionalTab, Integration, IntegrationMode } from './ShareEntities';
+import { RenderCustomSubmitButtonProps } from './ShareForm';
 import type { UserPickerOptions } from './UserPickerOptions';
 
 export type ShareDialogContainerProps = {
@@ -193,4 +194,6 @@ export type ShareDialogContainerProps = {
 	additionalUserFields?: React.ReactNode;
 	/* Callback function to be called on share submit in the share form, this does not override the default share action. */
 	onSubmit?: (formValues: ShareData) => void | Promise<void>;
+	/* Custom Share Dialog Submit Button. */
+	CustomSubmitButton?: React.FC<RenderCustomSubmitButtonProps>;
 };

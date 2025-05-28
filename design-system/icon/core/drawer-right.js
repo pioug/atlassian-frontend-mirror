@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63a1f44437aa60176f53be742bda56ec>>
+ * @codegen <<SignedSource::fd2c77c72df580ec76edf4672a0944dd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "DrawerRight".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Reserved for opening a drawer or sidebar to the right of the viewport edge.
+ * Usage guidance: Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

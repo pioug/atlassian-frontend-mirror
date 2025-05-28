@@ -1453,16 +1453,21 @@ const metadata: IconMetadata = {
 		usage: 'Reserved for accessing sorting options.',
 	},
 	space: {
-		keywords: [],
+		keywords: ['space', 'spaces', 'projects'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon-lab',
 		team: 'Jira',
 		type: 'core',
-		status: 'published',
-		id: '40759:3075',
+		status: 'deprecated',
+		id: '45538:34528',
 		usage:
 			'Reserved for use for Jira Projects for now. This will replace the Jira rocket. \n\nMore context: Later, it will eventually replace the Confluence Spaces icon later when Jira Projects -> Jira Spaces. This is a planned phased rollout.',
 		slackChannel: '#jira-design-system-figma-libraries',
+		replacement: {
+			name: 'spaces',
+			type: 'core',
+			location: '@atlaskit/icon-lab',
+		},
 	},
 	spaces: {
 		keywords: ['space', 'spaces', 'projects'],

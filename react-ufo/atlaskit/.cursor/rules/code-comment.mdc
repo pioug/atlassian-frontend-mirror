@@ -1,0 +1,20 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+## Code Comments Rule
+
+When adding comments to code, ensure comments explain the code's purpose and behavior within the context of the codebase, not the context of the current change request or prompt. Comments should be written as if they were part of the original codebase and should be suitable for committing directly without any reference to the specific modification being made.
+
+**Good examples:**
+- "Ensures a single instance exists across the entire application"
+- "Returns existing instance if already initialized"
+- "Handles edge case where network request fails"
+**Avoid:**
+- "I will change this to use globalThis"
+- "Moving this from local variable to global"
+- "As requested, updating the implementation"
+- References to "this change" or "this modification"
+
+Comments should focus on explaining WHY the code exists and WHAT it does, not HOW it came to be implemented during the current session.

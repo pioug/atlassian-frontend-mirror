@@ -121,9 +121,6 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 
 	it('should handle unclean status with abort reason', async () => {
 		mockFg.mockImplementation((key) => {
-			if (key === 'platform_ufo_add_vc_abort_reason_by_revisions') {
-				return true;
-			}
 			if (key === 'platform_ufo_ttvc_v3_devtool') {
 				return true;
 			}

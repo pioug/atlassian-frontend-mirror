@@ -1,15 +1,29 @@
 import { type AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import type {
 	ApplyDraftResult,
+	ClearAnnotationResult,
 	ClearDraftResult,
 	GetDraftResult,
+	HoverAnnotationResult,
+	SelectAnnotationResult,
 	StartDraftResult,
 } from '@atlaskit/editor-common/annotation';
-import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
+import {
+	getAnnotationInlineNodeTypes,
+	getRangeInlineNodeNames,
+} from '@atlaskit/editor-common/utils';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { setInlineCommentDraftState, createAnnotation } from '../editor-commands';
+import {
+	setInlineCommentDraftState,
+	createAnnotation,
+	setSelectedAnnotation,
+	closeComponent,
+	setHoveredAnnotation,
+	removeInlineCommentFromDoc,
+} from '../editor-commands';
 import { AnnotationSelectionType } from '../types';
 
 import type { InlineCommentPluginOptions } from './types';
@@ -19,6 +33,7 @@ const ERROR_REASON_DRAFT_NOT_STARTED = 'draft-not-started';
 const ERROR_REASON_DRAFT_IN_PROGRESS = 'draft-in-progress';
 const ERROR_REASON_RANGE_MISSING = 'range-no-longer-exists';
 const ERROR_REASON_RANGE_INVALID = 'invalid-range';
+const ERROR_REASON_ID_INVALID = 'id-not-valid';
 
 const domRefFromPos = (view: EditorView, position: number) => {
 	let dom: HTMLElement | undefined;
@@ -55,13 +70,32 @@ export const allowAnnotation =
 
 export const startDraft =
 	(editorView: EditorView, options: InlineCommentPluginOptions) => (): StartDraftResult => {
-		const { isDrafting } = inlineCommentPluginKey.getState(editorView.state) || {};
+		const { isDrafting, selectedAnnotations } =
+			inlineCommentPluginKey.getState(editorView.state) || {};
 
 		if (isDrafting) {
 			return {
 				success: false,
 				reason: ERROR_REASON_DRAFT_IN_PROGRESS,
 			};
+		}
+
+		if (!!selectedAnnotations?.length && fg('platform_editor_comments_api_manager_select')) {
+			// if there are selected annotations when starting a draft, we need to clear the selected annotations
+			// before we start the draft.
+			closeComponent()(editorView.state, editorView.dispatch);
+
+			// not only that but we need to also deselect any other annotations that are currently selected.
+			selectedAnnotations?.forEach((annotation) => {
+				options.annotationManager?.emit({
+					name: 'annotationSelectionChanged',
+					data: {
+						annotationId: annotation.id,
+						isSelected: false,
+						inlineNodeTypes: getAnnotationInlineNodeTypes(editorView.state, annotation.id) ?? [],
+					},
+				});
+			});
 		}
 
 		setInlineCommentDraftState(options.editorAnalyticsAPI)(true)(
@@ -176,6 +210,17 @@ export const applyDraft =
 		// This is because the new annotation will be created at the same position as the draft decoration.
 		const targetElement = domRefFromPos(editorView, from);
 
+		// When a draft is applied it is automatically selected, so we need to set the selected annotation.
+		// emit the event for the selected annotation.
+		options.annotationManager?.emit({
+			name: 'annotationSelectionChanged',
+			data: {
+				annotationId: id,
+				isSelected: true,
+				inlineNodeTypes: getAnnotationInlineNodeTypes(editorView.state, id) ?? [],
+			},
+		});
+
 		return {
 			success: true,
 			// Get the dom element from the newly created annotation and return it here.
@@ -218,6 +263,141 @@ export const getDraft =
 			success: true,
 			inlineNodeTypes,
 			targetElement,
+			actionResult: undefined,
+		};
+	};
+
+export const setIsAnnotationSelected =
+	(editorView: EditorView, options: InlineCommentPluginOptions) =>
+	(id: AnnotationId, isSelected: boolean): SelectAnnotationResult => {
+		const { annotations, isDrafting, selectedAnnotations } =
+			inlineCommentPluginKey.getState(editorView.state) || {};
+
+		if (isDrafting) {
+			return {
+				success: false,
+				reason: ERROR_REASON_DRAFT_IN_PROGRESS,
+			};
+		}
+
+		// If there is no annotation state with this id then we can assume the annotation is invalid.
+		if (!annotations?.hasOwnProperty(id)) {
+			return {
+				success: false,
+				reason: ERROR_REASON_ID_INVALID,
+			};
+		}
+
+		const isCurrentlySelectedIndex =
+			selectedAnnotations?.findIndex((annotation) => annotation.id === id) ?? -1;
+		const isCurrentlySelected = isCurrentlySelectedIndex !== -1;
+
+		if (isSelected !== isCurrentlySelected) {
+			// the annotation is selection is changing.
+			if (isCurrentlySelected && !isSelected) {
+				// the selected annotaion is being unselected, so we need to close the view.
+				closeComponent()(editorView.state, editorView.dispatch);
+
+				options.annotationManager?.emit({
+					name: 'annotationSelectionChanged',
+					data: {
+						annotationId: id,
+						isSelected: false,
+						inlineNodeTypes: getAnnotationInlineNodeTypes(editorView.state, id) ?? [],
+					},
+				});
+			} else if (!isCurrentlySelected && isSelected) {
+				// the annotation is currently not selected and is being selected, so we need to open the view.
+				setSelectedAnnotation(id)(editorView.state, editorView.dispatch);
+
+				// the current annotations are going to be unselected. So we need to notify listeners of this change also.
+				selectedAnnotations?.forEach((annotation) => {
+					if (annotation.id !== id) {
+						options.annotationManager?.emit({
+							name: 'annotationSelectionChanged',
+							data: {
+								annotationId: annotation.id,
+								isSelected: false,
+								inlineNodeTypes:
+									getAnnotationInlineNodeTypes(editorView.state, annotation.id) ?? [],
+							},
+						});
+					}
+				});
+
+				// Lastly we need to emit the event for the selected annotation.
+				options.annotationManager?.emit({
+					name: 'annotationSelectionChanged',
+					data: {
+						annotationId: id,
+						isSelected: true,
+						inlineNodeTypes: getAnnotationInlineNodeTypes(editorView.state, id) ?? [],
+					},
+				});
+			}
+		}
+
+		return {
+			success: true,
+			isSelected,
+		};
+	};
+
+export const setIsAnnotationHovered =
+	(editorView: EditorView, options: InlineCommentPluginOptions) =>
+	(id: AnnotationId, isHovered: boolean): HoverAnnotationResult => {
+		const { annotations, hoveredAnnotations } =
+			inlineCommentPluginKey.getState(editorView.state) || {};
+
+		// If there is no annotation state with this id then we can assume the annotation is invalid.
+		if (!annotations?.hasOwnProperty(id)) {
+			return {
+				success: false,
+				reason: ERROR_REASON_ID_INVALID,
+			};
+		}
+
+		const isCurrentlyHoveredIndex =
+			hoveredAnnotations?.findIndex((annotation) => annotation.id === id) ?? -1;
+		const isCurrentlyHovered = isCurrentlyHoveredIndex !== -1;
+
+		if (isHovered !== isCurrentlyHovered) {
+			// the annotation in hovered is changing.
+			if (isCurrentlyHovered && !isHovered) {
+				// the hovered annotaion is being unhovered, so we should remove the hover state.
+				setHoveredAnnotation('')(editorView.state, editorView.dispatch);
+			} else if (!isCurrentlyHovered && isHovered) {
+				// the annotation is currently not hovered and is being hovered.
+				setHoveredAnnotation(id)(editorView.state, editorView.dispatch);
+			}
+		}
+
+		return {
+			success: true,
+			isHovered,
+		};
+	};
+
+export const clearAnnotation =
+	(editorView: EditorView, options: InlineCommentPluginOptions) =>
+	(id: AnnotationId): ClearAnnotationResult => {
+		const { annotations } = inlineCommentPluginKey.getState(editorView.state) || {};
+
+		// If there is no annotation state with this id then we can assume the annotation is invalid.
+		if (!annotations?.hasOwnProperty(id)) {
+			return {
+				success: false,
+				reason: ERROR_REASON_ID_INVALID,
+			};
+		}
+
+		removeInlineCommentFromDoc(id, options.provider.supportedBlockNodes)(
+			editorView.state,
+			editorView.dispatch,
+		);
+
+		return {
+			success: true,
 			actionResult: undefined,
 		};
 	};

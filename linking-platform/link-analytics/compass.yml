@@ -28,4 +28,10 @@ links:
     type: REPOSITORY
     url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/linking-platform/link-analytics'
 customFields: []
-relationships: {}
+relationships:
+  DEPENDS_ON:
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/1ae351ab-13bb-4886-8e48-1bbd835fc8ff' # json-ld-types
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/37dc08cd-d81c-4bbb-9b26-5d6d8a417ea3' # link-client-extension
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/85cec322-aa6f-4e16-800d-8ee284f6195b' # link-picker
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/18157dad-b7fb-4cde-8b74-e905b5757611' # link-provider
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/3d229125-4f9d-4091-a303-84ae4eb643fb' # linking-common

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-scroll-into-view
 
+## 2.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.1
+
+### Patch Changes
+
+- [#160548](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160548)
+  [`a7454479287b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7454479287b6) -
+  Cleaned up feature gate for using tr replace steps to determine should scroll
+
 ## 2.2.0
 
 ### Minor Changes

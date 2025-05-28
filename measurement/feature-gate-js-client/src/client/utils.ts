@@ -1,6 +1,6 @@
 import {
 	type EvaluationDetails as NewEvaluationDetails,
-	SecondaryExposure,
+	type SecondaryExposure,
 	type StatsigUser,
 } from '@statsig/js-client';
 

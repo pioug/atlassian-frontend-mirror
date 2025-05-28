@@ -20,3 +20,12 @@ import AddIcon from '@atlaskit/icon/core/add';
 
 <AddIcon label="" size="small" />;
 ```
+
+## Options
+
+This rule comes with an option to configure whether autofixes are provided
+
+### enableAutoFixer
+
+Enables/disables autofixes for icons that are able to be automatically migrated. Defaults to `false`
+to reduce noise.

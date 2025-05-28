@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugins
 
+## 9.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [#160537](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160537)
+  [`dfcf43297ec3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfcf43297ec3e) -
+  [EDITOR-813] Add editor-plugin-ncs-step-metrics
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.2
 
 ### Patch Changes

@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { ELEMENT_BROWSER_ID } from '../../element-browser';
 import { fullPageMessages } from '../../messages';
@@ -167,7 +167,10 @@ export const ToolbarArrowKeyNavigationProvider = ({
 		[handleArrowLeftMemoized, handleArrowRightMemoized, handleTabMemoized],
 	);
 
-	const submenuKeydownHandleContext = fg('platform_editor_toolbar_rerender_optimization')
+	const submenuKeydownHandleContext = editorExperiment(
+		'platform_editor_toolbar_rerender_optimization_exp',
+		true,
+	)
 		? submenuKeydownHandleContextMemoized
 		: submenuKeydownHandleContextRaw;
 

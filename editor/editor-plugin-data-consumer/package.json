@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-data-consumer",
-	"version": "2.1.5",
+	"version": "2.1.6",
 	"description": "Data consumer plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

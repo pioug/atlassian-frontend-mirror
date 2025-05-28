@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.15.2
+
+### Patch Changes
+
+- [#160456](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160456)
+  [`f1c9353c46649`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c9353c46649) -
+  [ux] ED-28026 fix resize handle styles for pragmatic-dnd resizer
+- Updated dependencies
+
 ## 3.15.1
 
 ### Patch Changes

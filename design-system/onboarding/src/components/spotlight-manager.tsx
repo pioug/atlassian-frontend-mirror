@@ -9,6 +9,7 @@ import React, {
 import memoizeOne from 'memoize-one';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 
@@ -164,22 +165,47 @@ export default class SpotlightManager extends PureComponent<
 
 	render() {
 		const { blanketIsTinted, children, component: Tag, onBlanketClicked } = this.props;
+
+		const isActive = this.state.spotlightCount > 0;
+
 		return (
 			<SpotlightStateProvider value={this.getStateProviderValue(this.state.targets)}>
 				<TargetProvider value={this.getTargetRef}>
 					<Container component={Tag || React.Fragment}>
-						<Fade hasEntered={this.state.spotlightCount > 0}>
-							{(animationStyles) => (
-								<Portal zIndex={700}>
-									<Blanket
-										/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */
-										style={animationStyles}
-										isTinted={blanketIsTinted}
-										onBlanketClicked={onBlanketClicked}
-									/>
-								</Portal>
-							)}
-						</Fade>
+						{fg('platform_dst_onboarding_react_transition_group') ? (
+							<ExitingPersistence>
+								{isActive && (
+									<FadeIn duration="medium">
+										{({ ref, className, style }) => (
+											<Portal zIndex={700}>
+												<Blanket
+													ref={ref}
+													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+													className={className}
+													/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */
+													style={style}
+													isTinted={blanketIsTinted}
+													onBlanketClicked={onBlanketClicked}
+												/>
+											</Portal>
+										)}
+									</FadeIn>
+								)}
+							</ExitingPersistence>
+						) : (
+							<Fade hasEntered={isActive}>
+								{(animationStyles) => (
+									<Portal zIndex={700}>
+										<Blanket
+											/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */
+											style={animationStyles}
+											isTinted={blanketIsTinted}
+											onBlanketClicked={onBlanketClicked}
+										/>
+									</Portal>
+								)}
+							</Fade>
+						)}
 						{children}
 					</Container>
 				</TargetProvider>

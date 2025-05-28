@@ -190,7 +190,7 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
 	/**
 	 * If you don’t use a caption, then you’ll need to use label to describe the table for assistive technologies.
 	 * Avoid using both at the same time as they may conflict.
-	 * Rather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira Issues table".
+	 * Rather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira work items table".
 	 */
 	label?: string;
 }
@@ -234,7 +234,7 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
 
 	/**
 	 * Use this to set a label for assistive technology that describes the loading state.
-	 * The default label is "Loading table". You can customize this to be more specific to your table, for example “Loading issue table”.
+	 * The default label is "Loading table". You can customize this to be more specific to your table, for example “Loading work items table”.
 	 */
 	loadingLabel?: string;
 
@@ -349,7 +349,7 @@ export interface StatefulProps extends WithAnalyticsEventsProps {
 	/**
 	 * If you don’t use a caption, then you’ll need to use label to describe the table for assistive technologies.
 	 * Avoid using both at the same time as they may conflict.
-	 * Rather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira Issues table".
+	 * Rather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira work items table".
 	 */
 	label?: string;
 }

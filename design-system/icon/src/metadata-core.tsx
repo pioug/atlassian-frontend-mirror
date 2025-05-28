@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::205e7286912020521b2f575b3086483f>>
+ * @codegen <<SignedSource::9e09756c3df3b5d2b29ea6fe6fe67ccc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1170,15 +1170,25 @@ const metadata: Record<string, metadata> = {
 		slackChannel: '#icon-contributions',
 	},
 	'child-issues': {
-		keywords: ['child-issues', 'childissues', 'icon', 'core'],
+		keywords: [
+			'child-issues',
+			'childissues',
+			'icon',
+			'core',
+			'children',
+			'child',
+			'related',
+			'work items',
+		],
 		componentName: 'ChildIssuesIcon',
 		package: '@atlaskit/icon/core/child-issues',
 		oldName: ['child-issues'],
 		type: 'core',
+		replacement: { name: 'child-work-items', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for child issues in Jira.',
+		usage: 'Reserved for child work items.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'child-work-items': {
 		keywords: [
@@ -1829,18 +1839,21 @@ const metadata: Record<string, metadata> = {
 			'drawerleft',
 			'icon',
 			'core',
-			'sidebar',
 			'detail view',
 			'left rail',
 			'drawer',
+			'preview panel',
+			'sidebar',
 		],
 		componentName: 'DrawerLeftIcon',
 		package: '@atlaskit/icon/core/drawer-left',
 		type: 'core',
+		replacement: { name: 'panel-left', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Reserved for opening a drawer or sidebar to the left of the viewport edge.',
+		usage:
+			'Reserved for opening a preview panel to the left of the viewport edge. Use only for right-to-left languages which invert the navigational chrome.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'drawer-right': {
 		keywords: [
@@ -1848,18 +1861,21 @@ const metadata: Record<string, metadata> = {
 			'drawerright',
 			'icon',
 			'core',
-			'sidebar',
 			'detail view',
 			'right rail',
 			'drawer',
+			'preview panel',
+			'sidebar',
 		],
 		componentName: 'DrawerRightIcon',
 		package: '@atlaskit/icon/core/drawer-right',
 		type: 'core',
+		replacement: { name: 'panel-right', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Reserved for opening a drawer or sidebar to the right of the viewport edge.',
+		usage:
+			'Reserved for opening a preview panel to the right of the viewport edge. Use only for left-to-right languages.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	edit: {
 		keywords: ['edit', 'pencil', 'write', 'icon', 'core', 'pencil', 'pencil on page'],
@@ -4714,10 +4730,11 @@ const metadata: Record<string, metadata> = {
 		componentName: 'SummarizeIcon',
 		package: '@atlaskit/icon/core/summarize',
 		type: 'core',
+		replacement: { name: 'ai-generative-text-summary', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
 		usage: 'Reserved for summarizing content with Atlassian Intelligence & Loom',
 		team: 'Atlassian Intelligence & Loom',
-		status: 'published',
+		status: 'deprecated',
 		slackChannel: '#feedback-loom-vizrefresh',
 	},
 	support: {

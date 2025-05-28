@@ -4,8 +4,8 @@ import { ProgressTracker, type Stages } from '@atlaskit/progress-tracker';
 
 const items: Stages = [
 	{
-		id: 'move-issues',
-		label: 'Move issues',
+		id: 'move-work-items',
+		label: 'Move work items',
 		percentageComplete: 100,
 		status: 'disabled',
 		href: '#',

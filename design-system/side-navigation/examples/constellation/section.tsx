@@ -10,7 +10,7 @@ const SectionExample = () => {
 			</Section>
 			<Section aria-labelledby="actions" hasSeparator>
 				<HeadingItem id="actions">Actions</HeadingItem>
-				<ButtonItem>Create issue</ButtonItem>
+				<ButtonItem>Create work item</ButtonItem>
 			</Section>
 		</div>
 	);

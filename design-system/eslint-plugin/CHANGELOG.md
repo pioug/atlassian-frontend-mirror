@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.17.0
+
+### Minor Changes
+
+- [#161015](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161015)
+  [`c15d225be602e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c15d225be602e) -
+  Adds a `enableAutoFixer` flag in the no-utility-rule config to allow more flexibility for
+  developers.
+
 ## 13.16.1
 
 ### Patch Changes

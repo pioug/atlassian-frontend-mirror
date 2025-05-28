@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::359c101bebeaae075dd3e3e9a50caec7>>
+ * @codegen <<SignedSource::0a33c20b0e9684239e470bd9fc395b3e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ChildIssues".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for child issues in Jira.
+ * Usage guidance: Reserved for child work items.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

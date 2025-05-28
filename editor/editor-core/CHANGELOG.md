@@ -1,5 +1,62 @@
 # @atlaskit/editor-core
 
+## 207.12.1
+
+### Patch Changes
+
+- [#161914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161914)
+  [`b1a7ef0ae8d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1a7ef0ae8d44) -
+  Switches text formatting options optimisation from FG to Experiment flag
+- Updated dependencies
+
+## 207.12.0
+
+### Minor Changes
+
+- [#161680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161680)
+  [`8d9e4eea33298`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d9e4eea33298) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor lists CSS in
+  static emotion
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.11.2
+
+### Patch Changes
+
+- [#160456](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160456)
+  [`f1c9353c46649`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1c9353c46649) -
+  [ux] ED-28026 fix resize handle styles for pragmatic-dnd resizer
+- Updated dependencies
+
+## 207.11.1
+
+### Patch Changes
+
+- [#159712](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159712)
+  [`ed0d352587eaf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed0d352587eaf) -
+  refactor emotion styles for emoji and mentions
+- [#157348](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157348)
+  [`2745ba38d05fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2745ba38d05fd) -
+  Implemented the new manager set selection and hover APIs. This will allow anyone with access to
+  the annotations manager the ability to control when/what annotation is selected/hovered.
+- Updated dependencies
+
+## 207.11.0
+
+### Minor Changes
+
+- [#159906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159906)
+  [`022ee65a8f41a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/022ee65a8f41a) -
+  [https://product-fabric.atlassian.net/browse/ED-27746](ED-27746) - rewrite editor smart card CSS
+  in static emotion
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 207.10.1
 
 ### Patch Changes

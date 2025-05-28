@@ -118,7 +118,7 @@ export type ClearAnnotationResult =
 	  };
 
 export type SelectAnnotationResult =
-	| { success: false; reason: ManagerFailureReasons | 'id-not-valid' }
+	| { success: false; reason: ManagerFailureReasons | 'id-not-valid' | 'draft-in-progress' }
 	| {
 			success: true;
 			isSelected: boolean;
@@ -201,6 +201,9 @@ export type AnnotationManager = AnnotationManagerMethods & {
 					data: AnnotationDraftStartedData;
 			  }
 			| {
+					name: 'draftAnnotationCleared';
+			  }
+			| {
 					name: 'annotationSelectionChanged';
 					data: AnnotationSelectedChangeData;
 			  },
@@ -227,6 +230,12 @@ export type AnnotationManager = AnnotationManagerMethods & {
 	): AnnotationManager;
 };
 
+/**
+ * This is a factory method which creates a new instance of the AnnotationManager.
+ *
+ * @example
+ * const annotationManager: AnnotationManager = createAnnotationManager();
+ */
 export function createAnnotationManager(): AnnotationManager {
 	return new SharedAnnotationManager();
 }

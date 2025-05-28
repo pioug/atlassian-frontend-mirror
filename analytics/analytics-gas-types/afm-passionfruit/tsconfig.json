@@ -1,0 +1,24 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__analytics-gas-types/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../analytics-next/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

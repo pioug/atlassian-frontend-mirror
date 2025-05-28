@@ -5,6 +5,7 @@ import ScrollLock from 'react-scrolllock';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
 import { Layering } from '@atlaskit/layering';
+import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 
@@ -116,6 +117,36 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		};
 	};
 
+	/**
+	 * Only exists to avoid duplication with the `platform_dst_onboarding_react_transition_group` flag.
+	 *
+	 * TODO: Make this inline in `render` when cleaning up `platform_dst_onboarding_react_transition_group`.
+	 */
+	renderSpotlightDialog({ animationStyles }: { animationStyles: React.CSSProperties }) {
+		const { targetNode, testId } = this.props;
+		const { replacementElement } = this.state;
+
+		return (
+			<SpotlightDialog
+				testId={`${testId}--dialog`}
+				actions={this.props.actions}
+				actionsBeforeElement={this.props.actionsBeforeElement}
+				children={this.props.children}
+				dialogPlacement={this.props.dialogPlacement}
+				dialogWidth={this.props.dialogWidth}
+				footer={this.props.footer}
+				header={this.props.header}
+				heading={this.props.heading}
+				titleId={this.props.titleId}
+				label={this.props.label}
+				headingAfterElement={this.props.headingAfterElement}
+				image={this.props.image}
+				targetNode={replacementElement || targetNode}
+				animationStyles={animationStyles}
+			/>
+		);
+	}
+
 	render() {
 		const {
 			pulse,
@@ -173,29 +204,36 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 							</ElementBox>
 						)}
 						{TargetReplacement && !replacementElement ? null : (
-							<Fade hasEntered={isOpen} onExited={onExited}>
-								{(animationStyles) => (
-									<Layering isDisabled={false}>
-										<SpotlightDialog
-											testId={`${testId}--dialog`}
-											actions={this.props.actions}
-											actionsBeforeElement={this.props.actionsBeforeElement}
-											children={this.props.children}
-											dialogPlacement={this.props.dialogPlacement}
-											dialogWidth={this.props.dialogWidth}
-											footer={this.props.footer}
-											header={this.props.header}
-											heading={this.props.heading}
-											titleId={this.props.titleId}
-											label={this.props.label}
-											headingAfterElement={this.props.headingAfterElement}
-											image={this.props.image}
-											targetNode={replacementElement || targetNode}
-											animationStyles={animationStyles}
-										/>
-									</Layering>
+							<Layering isDisabled={false}>
+								{fg('platform_dst_onboarding_react_transition_group') ? (
+									<ExitingPersistence appear>
+										{isOpen && (
+											<FadeIn
+												onFinish={(state) => {
+													state === 'exiting' && onExited();
+												}}
+												duration="medium"
+											>
+												{({ ref, className, style }) => (
+													<div
+														ref={ref}
+														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+														className={className}
+														// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+														style={style}
+													>
+														{this.renderSpotlightDialog({ animationStyles: {} })}
+													</div>
+												)}
+											</FadeIn>
+										)}
+									</ExitingPersistence>
+								) : (
+									<Fade hasEntered={isOpen} onExited={onExited}>
+										{(animationStyles) => this.renderSpotlightDialog({ animationStyles })}
+									</Fade>
 								)}
-							</Fade>
+							</Layering>
 						)}
 						<ScrollLock />
 					</Portal>

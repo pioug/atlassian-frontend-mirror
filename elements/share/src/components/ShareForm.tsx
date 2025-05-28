@@ -164,6 +164,9 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 			productAttributes,
 			additionalUserFields,
 			isExtendedShareDialogEnabled,
+			isSharing,
+			isSubmitShareDisabled,
+			CustomSubmitButton,
 		} = this.props;
 
 		return (
@@ -239,7 +242,17 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							)}
 							copiedToClipboardText={formatMessage(messages.copiedToClipboardMessage)}
 						/>
-						{this.renderSubmitButton()}
+						{isExtendedShareDialogEnabled && CustomSubmitButton ? (
+							<CustomSubmitButton
+								shareError={shareError}
+								isSharing={isSharing}
+								isDisabled={isDisabled}
+								isSubmitShareDisabled={isSubmitShareDisabled}
+								isPublicLink={isPublicLink}
+							/>
+						) : (
+							this.renderSubmitButton()
+						)}
 					</div>
 				</form>
 			</AnalyticsContext>

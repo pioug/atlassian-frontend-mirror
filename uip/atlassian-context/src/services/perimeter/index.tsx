@@ -3,7 +3,7 @@ import {
 	ISOLATED_CLOUD_PERIMETERS,
 	type IsolatedCloudPerimeterType,
 } from '../../common/constants';
-import { AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-lookup';
+import { type AtlCtxCookieValues, parseAtlCtxCookies } from '../atl-cookies-lookup';
 
 /**
  * Determines if the current perimeter is an Isolated Cloud L2 perimeter

@@ -10,6 +10,17 @@ const rule = createLintRule({
 		fixable: 'code',
 		hasSuggestions: true,
 		type: 'problem',
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					enableAutoFixer: {
+						type: 'boolean',
+					},
+				},
+				additionalProperties: false,
+			},
+		],
 		docs: {
 			description:
 				'Disallow use of deprecated utility icons, in favor of core icons with `size="small"`.',

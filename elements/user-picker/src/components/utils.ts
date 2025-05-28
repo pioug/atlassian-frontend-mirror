@@ -76,7 +76,7 @@ export const extractOptionValue = (value: AtlaskitSelectValue) => {
 };
 
 export const isIterable = (a: any): a is Iterable<Promisable<OptionData | OptionData[]>> =>
-	typeof a[Symbol.iterator] === 'function';
+	typeof a?.[Symbol.iterator] === 'function';
 
 export const getOptions = memoizeOne((options: OptionData[]) =>
 	options.map(optionToSelectableOption),

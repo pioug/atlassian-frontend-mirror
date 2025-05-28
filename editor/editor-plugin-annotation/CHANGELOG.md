@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.0
+
+### Minor Changes
+
+- [#157348](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157348)
+  [`2745ba38d05fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2745ba38d05fd) -
+  Implemented the new manager set selection and hover APIs. This will allow anyone with access to
+  the annotations manager the ability to control when/what annotation is selected/hovered.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.3
 
 ### Patch Changes

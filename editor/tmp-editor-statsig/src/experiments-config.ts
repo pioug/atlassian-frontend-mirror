@@ -1,8 +1,8 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import type { ExperimentConfigValue } from './types';
 import { createBooleanExperiment, createMultivariateExperiment } from './experiment-builders';
+import type { ExperimentConfigValue } from './types';
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 
@@ -58,6 +58,14 @@ export const editorExperimentsConfig = {
 	platform_renderer_table_sticky_scrollbar: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_renderer_table_sticky_scrollbar',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-05-28
+	platform_editor_controls_performance_fixes: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_controls_performance_fixes',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -348,6 +356,21 @@ export const editorExperimentsConfig = {
 	platform_editor_hide_floating_toolbar_in_ssr: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_hide_floating_toolbar_in_ssr',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	platform_editor_smart_card_open_overlay_perf: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_smart_card_open_overlay_perf',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-05-28
+	platform_editor_toolbar_rerender_optimization_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_toolbar_rerender_optimization_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

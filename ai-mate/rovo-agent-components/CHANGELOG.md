@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 2.11.2
+
+### Patch Changes
+
+- [#160753](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160753)
+  [`617b50b189e84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/617b50b189e84) -
+  Migrated utility icon usages to core icons with size small
+- Updated dependencies
+
 ## 2.11.1
 
 ### Patch Changes

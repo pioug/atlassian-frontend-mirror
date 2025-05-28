@@ -22,7 +22,7 @@ const textStyles = cssMap({
 /**
  * __Comment__
  *
- * Comments enable discussions on an entity such as a page, blog post, issue or pull request.
+ * Comments enable discussions on an entity such as a page, blog post, work item, or pull request.
  */
 const Comment: FC<CommentProps> = ({
 	actions = [],

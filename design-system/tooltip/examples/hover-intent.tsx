@@ -7,7 +7,7 @@ import { Target } from './styled';
 
 const colors = ['teal', 'blue', 'purple'];
 
-const HoverIntent = () => {
+export default function HoverIntentExample() {
 	const [position, setPosition] = useState<PositionType>('bottom');
 
 	return (
@@ -36,6 +36,4 @@ const HoverIntent = () => {
 			</div>
 		</React.Fragment>
 	);
-};
-
-export default HoverIntent;
+}

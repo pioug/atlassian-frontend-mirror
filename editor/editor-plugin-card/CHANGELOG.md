@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-card
 
+## 6.4.1
+
+### Patch Changes
+
+- [#161870](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161870)
+  [`f2008aed97498`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2008aed97498) -
+  Set default value of open text to null
+- Updated dependencies
+
+## 6.4.0
+
+### Minor Changes
+
+- [#161266](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161266)
+  [`3eb1f4c974f21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3eb1f4c974f21) -
+  Improved load performance by moving recalculate logic on interaction
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.3.3
 
 ### Patch Changes

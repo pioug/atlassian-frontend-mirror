@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.14
+
+### Patch Changes
+
+- [#161914](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161914)
+  [`b1a7ef0ae8d44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1a7ef0ae8d44) -
+  Switches text formatting options optimisation from FG to Experiment flag
+- Updated dependencies
+
+## 2.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.12
 
 ### Patch Changes

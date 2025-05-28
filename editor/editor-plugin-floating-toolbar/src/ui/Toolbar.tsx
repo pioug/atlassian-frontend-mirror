@@ -801,7 +801,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 					disableArrowKeyNavigation={!this.shouldHandleArrowKeys()}
 					childComponentSelector={"[data-testid='editor-floating-toolbar']"}
 					isShortcutToFocusToolbar={
-						fg('platform_editor_toolbar_rerender_optimization')
+						editorExperiment('platform_editor_toolbar_rerender_optimization_exp', true)
 							? this.isShortcutToFocusToolbar
 							: isShortcutToFocusToolbar
 					}

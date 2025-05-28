@@ -11,7 +11,7 @@ const ActionsMenu = () => (
 	<DropdownMenu shouldRenderToParent trigger="Actions">
 		<DropdownItemGroup>
 			<DropdownItem>Edit</DropdownItem>
-			<DropdownItem>Clone issue</DropdownItem>
+			<DropdownItem>Clone work item</DropdownItem>
 		</DropdownItemGroup>
 	</DropdownMenu>
 );
@@ -20,7 +20,7 @@ export default function Example() {
 	return (
 		<Inline alignBlock="center" spread="space-between">
 			<Inline space="space.100" alignBlock="center">
-				<StoryIcon label="Issue type: Story" />
+				<StoryIcon label="Work type: Story" />
 				<Heading size="large">Create a backlog</Heading>
 			</Inline>
 			<Inline alignBlock="center" space="space.050">

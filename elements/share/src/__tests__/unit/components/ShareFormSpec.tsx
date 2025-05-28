@@ -45,7 +45,7 @@ describe('ShareForm', () => {
 		${true}      | ${undefined}
 		${true}      | ${'Invite'}
 	`(
-		'should render From with fields (allowComment $allowComment, submitButton $submitButtonLabel)',
+		'should render Form with fields (allowComment $allowComment, submitButton $submitButtonLabel)',
 		({ allowComment, submitButtonLabel }) => {
 			const mockLink = 'link';
 			const loadOptions = jest.fn();

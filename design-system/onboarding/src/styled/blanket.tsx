@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { forwardRef } from 'react';
+
 import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
@@ -19,6 +21,7 @@ type BlanketProps = {
 	isTinted?: boolean;
 	style?: React.CSSProperties;
 	onBlanketClicked?: () => void;
+	className?: string;
 };
 
 /**
@@ -32,22 +35,30 @@ type BlanketProps = {
  *
  * @internal
  */
-const Blanket = ({ isTinted, onBlanketClicked, style }: BlanketProps) => {
-	return (
-		// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
-		<div
-			role="presentation"
-			css={blanketStyles}
-			style={
-				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Pass-through style props are not allowed
-					...style,
-					backgroundColor: isTinted ? token('color.blanket') : 'transparent',
-				} as React.CSSProperties
-			}
-			onClick={onBlanketClicked}
-		/>
-	);
-};
+const Blanket = forwardRef(
+	(
+		{ isTinted, onBlanketClicked, style, className }: BlanketProps,
+		ref: React.ForwardedRef<HTMLDivElement>,
+	) => {
+		return (
+			// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
+			<div
+				ref={ref}
+				role="presentation"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
+				css={blanketStyles}
+				style={
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Pass-through style props are not allowed
+						...style,
+						backgroundColor: isTinted ? token('color.blanket') : 'transparent',
+					} as React.CSSProperties
+				}
+				onClick={onBlanketClicked}
+			/>
+		);
+	},
+);
 
 export default Blanket;

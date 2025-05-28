@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-tracker",
-	"version": "10.1.0",
+	"version": "10.1.1",
 	"description": "A progress tracker displays the steps and progress through a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

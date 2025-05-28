@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.10.1",
+	"version": "207.12.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -103,6 +103,7 @@
 		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/synchrony-test-helpers": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
@@ -150,10 +151,6 @@
 		"cc_complexit_fe_improve_node_validation": {
 			"type": "boolean"
 		},
-		"platform_editor_scroll_into_view_tr_steps": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_reduce_scroll_jump_on_editor_start": {
 			"type": "boolean"
 		},
@@ -199,10 +196,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_element_drag_and_drop_ed_23873": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_offline_banner_toolbar_position": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -563,6 +556,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_comments_api_manager_select": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_elements_dnd_multi_select_patch_3": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -669,9 +666,6 @@
 			"type": "boolean"
 		},
 		"atlas_editor_typography_refreshed": {
-			"type": "boolean"
-		},
-		"platform_editor_toolbar_rerender_optimization": {
 			"type": "boolean"
 		}
 	},

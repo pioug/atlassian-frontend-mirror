@@ -5,6 +5,7 @@ import { bind } from 'bind-event-listener';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI, UserPreferencesProvider } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -53,7 +54,7 @@ export const PageVisibilityWatcher = ({
 			}
 		};
 
-		if (!fg('platform_disable_docking_preference_request')) {
+		if (editorExperiment('platform_editor_controls_performance_fixes', false)) {
 			refreshPrefrerence();
 		}
 

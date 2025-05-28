@@ -150,7 +150,11 @@ const LayoutBreakoutResizer = ({
 			editorView={view}
 			nodeType="layoutSection"
 			getEditorWidth={getEditorWidth}
-			disabled={editorDisabled === true || !isBreakoutAvailable(view.state.schema)}
+			disabled={
+				editorExperiment('platform_editor_breakout_resizing', true)
+					? true
+					: editorDisabled === true || !isBreakoutAvailable(view.state.schema)
+			}
 			parentRef={parentRef}
 			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 			displayGuidelines={

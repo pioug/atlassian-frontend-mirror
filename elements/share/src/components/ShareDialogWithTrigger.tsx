@@ -605,6 +605,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 			isSubmitShareDisabled,
 			additionalUserFields,
 			isExtendedShareDialogEnabled,
+			CustomSubmitButton,
 		} = this.props;
 
 		const style =
@@ -675,6 +676,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 								userPickerOptions={userPickerOptions}
 								additionalUserFields={additionalUserFields}
 								isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
+								CustomSubmitButton={CustomSubmitButton}
 							/>
 						</div>
 					)}

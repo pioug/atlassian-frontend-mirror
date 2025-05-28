@@ -586,6 +586,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			isSubmitShareDisabled,
 			additionalUserFields,
 			isExtendedShareDialogEnabled,
+			CustomSubmitButton,
 		} = this.props;
 
 		const footer = resolveShareFooter(integrationMode, this.state.tabIndex, customFooter);
@@ -654,6 +655,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 								userPickerOptions={userPickerOptions}
 								additionalUserFields={additionalUserFields}
 								isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
+								CustomSubmitButton={CustomSubmitButton}
 							/>
 						</div>
 					)}

@@ -11,17 +11,8 @@ import React from 'react';
 import { css, jsx, useTheme } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { telepointerStyle, telepointerStyleWithInitialOnly } from '@atlaskit/editor-common/collab';
-import { EmojiSharedCssClassName, defaultEmojiHeight } from '@atlaskit/editor-common/emoji';
-import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
-import {
-	GRID_GUTTER,
-	getSmartCardSharedStyles,
-	listsSharedStyles,
-	smartCardSharedStyles,
-	smartCardStyles,
-} from '@atlaskit/editor-common/styles';
+import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
@@ -29,19 +20,13 @@ import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolb
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import {
-	SelectionStyle,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 	akEditorDefaultLayoutWidth,
-	akEditorDeleteBackgroundWithOpacity,
-	akEditorDeleteBorder,
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
-	akEditorSelectedBorderSize,
-	akEditorSelectedNodeClassName,
 	editorFontSize,
-	getSelectionStyles,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -78,6 +63,7 @@ import {
 import { codeMarkStyles } from './styles/codeMarkStyles';
 import { dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
+import { reactEmojiStyles, vanillaEmojiStyles } from './styles/emoji';
 import { firstBlockNodeStyles, firstBlockNodeStylesOld } from './styles/firstBlockNodeStyles';
 import { gridStyles } from './styles/gridStyles';
 import { indentationStyles } from './styles/indentationStyles';
@@ -86,6 +72,11 @@ import { linkStyles, linkStylesOld } from './styles/link';
 import { listsStyles, listsStylesSafariFix } from './styles/list';
 import { mediaStyles } from './styles/mediaStyles';
 import {
+	mentionsStyles,
+	vanillaMentionsStyles,
+	vanillaMentionsSelectionStyles,
+} from './styles/mentions';
+import {
 	paragraphStylesOld,
 	paragraphStylesUGCModernized,
 	paragraphStylesUGCRefreshed,
@@ -93,154 +84,24 @@ import {
 import { resizerStyles, pragmaticResizerStyles } from './styles/resizerStyles';
 import { ruleStyles } from './styles/rule';
 import { shadowStyles } from './styles/shadowStyles';
+import {
+	linkingVisualRefreshV1Styles,
+	smartCardStyles,
+	smartLinksInLivePagesStyles,
+	smartLinksInLivePagesStylesOld,
+} from './styles/smartCardStyles';
 import { tasksAndDecisionsStyles } from './styles/tasksAndDecisionsStyles';
+import {
+	telepointerColorAndCommonStyle,
+	telepointerStyle,
+	telepointerStyleWithInitialOnly,
+} from './styles/telepointerStyles';
 import { textColorStyles } from './styles/textColorStyles';
 import { unsupportedStyles } from './styles/unsupportedStyles';
 import { whitespaceStyles } from './styles/whitespaceStyles';
 
-export const isFirefox: boolean =
+const isFirefox: boolean =
 	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-
-const vanillaMentionsStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.editor-mention-primitive': {
-		display: 'inline',
-		borderRadius: '20px',
-		cursor: 'pointer',
-		padding: '0 0.3em 2px 0.23em',
-		fontWeight: token('font.weight.regular'),
-		wordBreak: 'break-word',
-		background: token('color.background.neutral'),
-		border: '1px solid transparent',
-		color: token('color.text.subtle'),
-
-		'&:hover': {
-			background: token('color.background.neutral.hovered'),
-		},
-		'&:active': {
-			background: token('color.background.neutral.pressed'),
-		},
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.editor-mention-primitive.mention-restricted': {
-		background: 'transparent',
-		border: `1px solid ${token('color.border.bold')}`,
-		color: token('color.text'),
-
-		'&:hover': {
-			background: 'transparent',
-		},
-		'&:active': {
-			background: 'transparent',
-		},
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.editor-mention-primitive.mention-self': {
-		background: token('color.background.brand.bold'),
-		border: '1px solid transparent',
-		color: token('color.text.inverse'),
-
-		'&:hover': {
-			background: token('color.background.brand.bold.hovered'),
-		},
-		'&:active': {
-			background: token('color.background.brand.bold.pressed'),
-		},
-	},
-});
-
-const vanillaSelectionStyles = css`
-	.danger {
-		.editor-mention-primitive {
-			box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
-			background-color: ${token('color.background.danger', akEditorDeleteBackgroundWithOpacity)};
-		}
-	}
-
-	.${akEditorSelectedNodeClassName} > .editor-mention-primitive,
-	.${akEditorSelectedNodeClassName} > .editor-mention-primitive.mention-self,
-	.${akEditorSelectedNodeClassName} > .editor-mention-primitive.mention-restricted {
-		${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Background])}
-		/* need to specify dark text colour because personal mentions
-		   (in dark blue) have white text by default */
-		color: ${token('color.text.subtle')}
-	}
-`;
-
-const mentionsStyles = css`
-	.${MentionSharedCssClassName.MENTION_CONTAINER} {
-		&.${akEditorSelectedNodeClassName} [data-mention-id] > span {
-			${getSelectionStyles([SelectionStyle.BoxShadow, SelectionStyle.Background])}
-
-			/* need to specify dark text colour because personal mentions
-		 (in dark blue) have white text by default */
-	  color: ${token('color.text.subtle')};
-		}
-	}
-
-	.danger {
-		.${MentionSharedCssClassName.MENTION_CONTAINER}.${akEditorSelectedNodeClassName}
-			> span
-			> span
-			> span {
-			box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${akEditorDeleteBorder};
-			background-color: ${token('color.background.danger', akEditorDeleteBackgroundWithOpacity)};
-		}
-		.${MentionSharedCssClassName.MENTION_CONTAINER} > span > span > span {
-			background-color: ${token('color.background.neutral')};
-			color: ${token('color.text.subtle')};
-		}
-	}
-`;
-
-const reactEmojiStyles = css`
-	.${EmojiSharedCssClassName.EMOJI_CONTAINER} {
-		display: inline-block;
-
-		.${EmojiSharedCssClassName.EMOJI_NODE} {
-			cursor: pointer;
-
-			&.${EmojiSharedCssClassName.EMOJI_IMAGE} > span {
-				/** needed for selection style to cover custom emoji image properly */
-				display: flex;
-			}
-		}
-
-		&.${akEditorSelectedNodeClassName} {
-			.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-				border-radius: 2px;
-				${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
-			}
-		}
-	}
-`;
-
-const emojiStyles = css`
-	[data-prosemirror-node-view-type='vanilla'] {
-		.${EmojiSharedCssClassName.EMOJI_CONTAINER} {
-			display: inline-block;
-		}
-
-		.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-			background: no-repeat transparent;
-			display: inline-block;
-			height: ${defaultEmojiHeight}px;
-			max-height: ${defaultEmojiHeight}px;
-			cursor: pointer;
-			vertical-align: middle;
-			user-select: all;
-		}
-
-		&.${akEditorSelectedNodeClassName} {
-			.${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_IMAGE} {
-				border-radius: 2px;
-				${getSelectionStyles([SelectionStyle.Blanket, SelectionStyle.BoxShadow])}
-			}
-		}
-	}
-`;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const placeholderStyles = css({
@@ -326,8 +187,6 @@ const contentStyles = () => css`
 		font-size: var(--ak-editor-base-font-size);
 
 		${whitespaceStyles};
-
-		${listsSharedStyles};
 
 		${indentationStyles};
 
@@ -422,23 +281,15 @@ const contentStyles = () => css`
   ${fg('confluence_team_presence_scroll_to_pointer')
 		? telepointerStyle
 		: telepointerStyleWithInitialOnly}
+
+  /* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
+  ${telepointerColorAndCommonStyle}
+
   ${gapCursorStyles};
 
 	${panelStyles()}
 
 	${mentionsStyles}
-
-  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	vanillaMentionsStyles}
-
-  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	vanillaSelectionStyles}
-
-  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
-		? emojiStyles
-		: reactEmojiStyles}
-
-  ${emojiStyles}
 
   ${tasksAndDecisionsStyles}
 
@@ -479,9 +330,7 @@ const contentStyles = () => css`
 
   ${annotationStyles}
 
-  ${smartCardStyles()}
-
-  ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
+  ${smartCardStyles}
 
   ${embedCardStyles}
 
@@ -489,7 +338,7 @@ const contentStyles = () => css`
 
   ${resizerStyles}
 
-  .panelView-content-wrap {
+	.panelView-content-wrap {
 		box-sizing: border-box;
 	}
 
@@ -641,6 +490,14 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					contentStyles(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					layoutBaseStyles(),
+					fg('linking_platform_smart_links_in_live_pages')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							smartLinksInLivePagesStyles
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							smartLinksInLivePagesStylesOld,
+					fg('platform-linking-visual-refresh-v1') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						linkingVisualRefreshV1Styles,
 					editorExperiment('platform_editor_vanilla_dom', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						dateVanillaStyles,
@@ -684,6 +541,17 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							firstBlockNodeStyles
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							firstBlockNodeStylesOld,
+					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						vanillaMentionsStyles,
+					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						vanillaMentionsSelectionStyles,
+					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							vanillaEmojiStyles
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							reactEmojiStyles,
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}
 				data-testid="editor-content-container"

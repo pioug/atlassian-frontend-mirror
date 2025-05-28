@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 38.5.3
+
+### Patch Changes
+
+- [#160142](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160142)
+  [`70707418f5391`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70707418f5391) -
+  CCP-6429 Fix VC offender - shortcut smartlink
+
 ## 38.5.2
 
 ### Patch Changes

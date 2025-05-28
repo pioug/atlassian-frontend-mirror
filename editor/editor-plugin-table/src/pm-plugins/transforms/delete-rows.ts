@@ -5,6 +5,9 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { pluginKey } from '../plugin-key';
 
 import { mergeEmptyColumns } from './merge';
 
@@ -126,6 +129,17 @@ export const deleteRows =
 			return tr;
 		}
 		const cursorPos = getNextCursorPos(newTable, rowsToDelete);
+
+		// If we delete a row we should also clean up the hover selection
+		if (fg('platform_editor_remove_slow_table_transactions')) {
+			tr.setMeta(pluginKey, {
+				type: 'CLEAR_HOVER_SELECTION',
+				data: {
+					isInDanger: false,
+					isWholeTableInDanger: false,
+				},
+			});
+		}
 
 		return (
 			tr

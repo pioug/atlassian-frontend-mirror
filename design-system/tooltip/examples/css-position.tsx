@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, type FC, forwardRef, ReactNode, useRef, useState } from 'react';
+import { type CSSProperties, forwardRef, ReactNode, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
@@ -72,7 +72,7 @@ const positionExampleStyles = css({
 	insetInlineEnd: token('space.100', '8px'),
 });
 
-const PositionExample: FC = () => {
+export default function CssPositionExample() {
 	const panel = useRef<HTMLDivElement>(null);
 	const [pinned, setPinned] = useState(false);
 	const [top, setTop] = useState(0);
@@ -105,6 +105,4 @@ const PositionExample: FC = () => {
 			</Position>
 		</div>
 	);
-};
-
-export default PositionExample;
+}

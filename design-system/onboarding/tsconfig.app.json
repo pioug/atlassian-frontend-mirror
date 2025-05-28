@@ -50,6 +50,9 @@
 			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../motion/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

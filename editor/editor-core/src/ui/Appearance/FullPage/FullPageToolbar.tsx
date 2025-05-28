@@ -172,7 +172,10 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		return event.altKey && (event.key === 'F9' || event.keyCode === 120);
 	};
 	const isShortcutToFocusToolbarMemoized = useCallback(isShortcutToFocusToolbarRaw, []);
-	const isShortcutToFocusToolbar = fg('platform_editor_toolbar_rerender_optimization')
+	const isShortcutToFocusToolbar = editorExperiment(
+		'platform_editor_toolbar_rerender_optimization_exp',
+		true,
+	)
 		? isShortcutToFocusToolbarMemoized
 		: isShortcutToFocusToolbarRaw;
 
@@ -195,7 +198,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 		[props.editorView],
 	);
 
-	const handleEscape = fg('platform_editor_toolbar_rerender_optimization')
+	const handleEscape = editorExperiment('platform_editor_toolbar_rerender_optimization_exp', true)
 		? handleEscapeMemoized
 		: handleEscapeRaw;
 

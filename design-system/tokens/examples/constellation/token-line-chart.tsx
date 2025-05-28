@@ -51,7 +51,7 @@ export const TokenLineChart = () => {
 
 	const chartOptions = {
 		title: {
-			text: 'Resolved issues',
+			text: 'Resolved work items',
 			textStyle: {
 				color: getTokenValue('color.text'),
 				fontSize: 16,

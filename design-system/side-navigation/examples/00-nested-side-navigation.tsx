@@ -66,16 +66,16 @@ const BasicExample = () => {
 							iconAfter={<LightbulbIcon label="" />}
 						>
 							<Section>
-								<ButtonItem>Search issues</ButtonItem>
+								<ButtonItem>Search work items</ButtonItem>
 							</Section>
 							<Section title="Starred" isList>
 								<ButtonItem>Everything for me</ButtonItem>
-								<ButtonItem>My open issues</ButtonItem>
+								<ButtonItem>My open work items</ButtonItem>
 								<ButtonItem>Reported by me</ButtonItem>
 							</Section>
 							<Section hasSeparator title="Other" isList>
-								<ButtonItem>All issues</ButtonItem>
-								<ButtonItem>Open issues</ButtonItem>
+								<ButtonItem>All work items</ButtonItem>
+								<ButtonItem>Open work items</ButtonItem>
 								<ButtonItem>Created recently</ButtonItem>
 								<ButtonItem>Resolved recently</ButtonItem>
 							</Section>

@@ -123,6 +123,15 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		};
 		this.optionsShownUfoExperienceInstance =
 			userPickerOptionsShownUfoExperience.getInstance(uuidv4());
+
+		if (this.props.forwardedRef) {
+			const refValue = { focus: this.focus, blur: this.blur };
+			if (typeof this.props.forwardedRef === 'function') {
+				this.props.forwardedRef(refValue);
+			} else {
+				this.props.forwardedRef.current = refValue;
+			}
+		}
 	}
 
 	private getSessionId = () => (this.session && this.session.id ? this.session.id : undefined);

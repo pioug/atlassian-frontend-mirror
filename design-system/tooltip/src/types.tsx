@@ -130,7 +130,11 @@ export interface TooltipProps {
 		  >;
 
 	/**
-	 * Use this to show only one line of text, and truncate the text when it's too long. We no longer support truncating text in the tooltip as it's inaccessible, and this will be removed in a future release.
+	 * Use this to show only one line of text, and truncate the text when it's too long.
+	 *
+	 * We no longer support truncating text in the tooltip as it's inaccessible, and this prop will be removed in a future release.
+	 *
+	 * @deprecated
 	 */
 	truncate?: boolean;
 

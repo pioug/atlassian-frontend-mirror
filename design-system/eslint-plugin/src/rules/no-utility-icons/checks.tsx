@@ -31,6 +31,26 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		}[];
 	} = {};
 
+	/**
+	 * Gets the value of a boolean configuration flag
+	 * @param key the key of the configuration flag
+	 * @param defaultValue The default value of the configuration flag
+	 * @returns defaultValue if the configuration flag is not set, the defaultValue of the configuration flag otherwise
+	 */
+	const getConfigFlag = (key: string, defaultValue: boolean) => {
+		if (
+			context.options &&
+			context.options.length > 0 &&
+			context.options[0] &&
+			context.options[0].hasOwnProperty(key)
+		) {
+			return (context.options[0] as { [key: string]: any })[key] === !defaultValue
+				? !defaultValue
+				: defaultValue;
+		}
+		return defaultValue;
+	};
+
 	const checkImportDeclarations = (node: ImportDeclaration): void => {
 		const moduleSource = node.source.value;
 
@@ -144,6 +164,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	 * Throws the relevant errors in the correct order.
 	 */
 	const throwErrors = (): void => {
+		const shouldAutoFix = getConfigFlag('enableAutoFixer', false);
 		for (const utilityIcon of Object.keys(errors)) {
 			const allFixable = errors[utilityIcon].every((x) => x.fixable); // Check if ALL errors for a giving import are fixable
 			const originalImportNode = importStatementsUtility[utilityIcon];
@@ -161,7 +182,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					: `${utilityIcon}Core`;
 			let importFixAdded = false;
 			for (const [index, error] of errors[utilityIcon].entries()) {
-				if (error.fixable) {
+				if (error.fixable && shouldAutoFix) {
 					context.report({
 						node: error.node,
 						messageId: error.messageId,

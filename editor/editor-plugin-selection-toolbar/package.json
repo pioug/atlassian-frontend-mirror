@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-toolbar",
-	"version": "3.6.7",
+	"version": "3.6.8",
 	"description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -114,9 +114,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_8": {
-			"type": "boolean"
-		},
-		"platform_disable_docking_preference_request": {
 			"type": "boolean"
 		}
 	}

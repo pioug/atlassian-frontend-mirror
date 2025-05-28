@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import DynamicTable from '../../../index';
 
-const caption = 'Example issue with DynamicTable';
+const caption = 'Example sorting with DynamicTable';
 const head = {
 	cells: [
 		{

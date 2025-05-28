@@ -75,6 +75,7 @@ export type ShareDialogWithTriggerProps = Pick<
 	| 'isSubmitShareDisabled'
 	| 'additionalUserFields'
 	| 'isExtendedShareDialogEnabled'
+	| 'CustomSubmitButton'
 > & {
 	config?: ConfigResponse;
 	isFetchingConfig?: boolean;

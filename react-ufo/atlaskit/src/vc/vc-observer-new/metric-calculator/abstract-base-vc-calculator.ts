@@ -30,8 +30,6 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	}
 	protected abstract isEntryIncluded(entry: VCObserverEntry): boolean;
 
-	protected abstract isVCClean(filteredEntries: ReadonlyArray<VCObserverEntry>): boolean;
-
 	protected abstract getVCCleanStatus(filteredEntries: ReadonlyArray<VCObserverEntry>): {
 		isVCClean: boolean;
 		dirtyReason?: VCAbortReason;
@@ -175,29 +173,17 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 
 		let isVCClean: boolean;
 		let dirtyReason: VCAbortReason | undefined;
-		if (fg('platform_ufo_add_vc_abort_reason_by_revisions')) {
-			const getVCCleanStatusResult = this.getVCCleanStatus(filteredEntries);
-			isVCClean = getVCCleanStatusResult.isVCClean;
-			dirtyReason = getVCCleanStatusResult.dirtyReason;
+		const getVCCleanStatusResult = this.getVCCleanStatus(filteredEntries);
+		isVCClean = getVCCleanStatusResult.isVCClean;
+		dirtyReason = getVCCleanStatusResult.dirtyReason;
 
-			if (!isVCClean) {
-				return {
-					revision: this.revisionNo,
-					'metric:vc90': null,
-					clean: false,
-					abortReason: dirtyReason,
-				};
-			}
-		} else {
-			isVCClean = this.isVCClean(filteredEntries);
-
-			if (!isVCClean) {
-				return {
-					revision: this.revisionNo,
-					'metric:vc90': null,
-					clean: false,
-				};
-			}
+		if (!isVCClean) {
+			return {
+				revision: this.revisionNo,
+				'metric:vc90': null,
+				clean: false,
+				abortReason: dirtyReason,
+			};
 		}
 
 		const useDebugInfo = fg('platform_ufo_ttvc_v3_devtool');

@@ -16,7 +16,7 @@ export default () => (
 			shouldRenderToParent
 		>
 			<DropdownItemGroup>
-				<DropdownItem>Copy issue link</DropdownItem>
+				<DropdownItem>Copy task link</DropdownItem>
 				<DropdownItem>Add flag</DropdownItem>
 				<DropdownItem>Add label</DropdownItem>
 				<DropdownItem>Add parent</DropdownItem>
@@ -33,7 +33,7 @@ export default () => (
 		</DropdownMenu>
 		<DropdownMenu shouldRenderToParent trigger="Cozy density" testId="dropdown">
 			<DropdownItemGroup>
-				<DropdownItem>Copy issue link</DropdownItem>
+				<DropdownItem>Copy task link</DropdownItem>
 				<DropdownItem>Add flag</DropdownItem>
 				<DropdownItem>Add label</DropdownItem>
 				<DropdownItem>Add parent</DropdownItem>

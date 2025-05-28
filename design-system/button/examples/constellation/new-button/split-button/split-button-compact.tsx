@@ -7,7 +7,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 const SplitButtonPrimaryExample = () => {
 	return (
 		<SplitButton spacing="compact">
-			<Button>Link issue</Button>
+			<Button>Link work item</Button>
 			<DropdownMenu<HTMLButtonElement>
 				shouldRenderToParent
 				trigger={({ triggerRef, ...triggerProps }) => (
@@ -15,7 +15,7 @@ const SplitButtonPrimaryExample = () => {
 						ref={triggerRef}
 						{...triggerProps}
 						icon={ChevronDownIcon}
-						label="More link issue options"
+						label="More link work item options"
 					/>
 				)}
 			>

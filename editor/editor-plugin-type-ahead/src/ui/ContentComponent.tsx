@@ -25,12 +25,12 @@ interface ContentComponentProps {
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<TypeAheadPlugin> | undefined) => {
 		const triggerHandler = useSharedPluginStateSelector(api, 'typeAhead.triggerHandler');
-		const items = useSharedPluginStateSelector(api, 'typeAhead.items');
 		const errorInfo = useSharedPluginStateSelector(api, 'typeAhead.errorInfo');
 		const decorationElement = useSharedPluginStateSelector(api, 'typeAhead.decorationElement');
 		const decorationSet = useSharedPluginStateSelector(api, 'typeAhead.decorationSet');
 		const query = useSharedPluginStateSelector(api, 'typeAhead.query');
 		const selectedIndex = useSharedPluginStateSelector(api, 'typeAhead.selectedIndex');
+		const items = useSharedPluginStateSelector(api, 'typeAhead.items');
 		return {
 			triggerHandler,
 			items,

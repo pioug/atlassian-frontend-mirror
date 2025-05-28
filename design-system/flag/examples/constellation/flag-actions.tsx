@@ -17,10 +17,10 @@ const FlagActionsExample = () => {
 			}
 			id="1"
 			key="1"
-			title="Issue START-42 was created successfully"
+			title="Task START-42 was created successfully"
 			actions={[
 				{
-					content: 'View issue',
+					content: 'View task',
 					onClick: () => {
 						console.log('flag action clicked');
 					},

@@ -75,7 +75,8 @@ export const selectIntoLayoutSection = (tr: Transaction) => {
 
 export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 	const allowAdvancedSingleColumnLayout =
-		editorExperiment('advanced_layouts', true) && editorExperiment('single_column_layouts', true);
+		editorExperiment('advanced_layouts', true) &&
+		editorExperiment('single_column_layouts', true, { exposure: true });
 
 	return {
 		name: 'layout',

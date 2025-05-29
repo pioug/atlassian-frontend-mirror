@@ -1,4 +1,10 @@
 /**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::bcfd429aa42c3014898ab46ce935cb1d>>
+ * @codegenCommand yarn workspace @atlaskit/logo generate:examples
+ */
+
+/**
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -11,7 +17,7 @@ const tableStyle = css({
 	width: '415px',
 });
 
-const LogoStatusPage = () => {
+const LogoStatuspage = () => {
 	return (
 		<div>
 			<table>
@@ -36,4 +42,4 @@ const LogoStatusPage = () => {
 	);
 };
 
-export default LogoStatusPage;
+export default LogoStatuspage;

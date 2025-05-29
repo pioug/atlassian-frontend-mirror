@@ -21,9 +21,32 @@ import { parsePx } from './dom';
  * TODO: Clean this up after: https://product-fabric.atlassian.net/browse/ED-8942
  *
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const breakoutConsts: any = {
+type BreakoutConstsType = {
+	padding: number;
+	defaultLayoutWidth: number;
+	wideScaleRatio: number;
+	fullWidthLayoutWidth: number;
+	wideLayoutWidth: number;
+	mapBreakpointToLayoutMaxWidth: typeof mapBreakpointToLayoutMaxWidth;
+	getBreakpoint: typeof getBreakpoint;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	calcBreakoutWidth: any;
+	calcBreakoutWithCustomWidth: (
+		mode: 'full-width' | 'wide',
+		width: number | null,
+		editorContainerWidth: number,
+	) => string;
+	calcLineLength: () => number;
+	calcWideWidth: (
+		containerWidth?: number,
+		maxWidth?: number,
+		fallback?: string,
+		padding?: number,
+	) => string;
+};
+
+const breakoutConsts: BreakoutConstsType = {
 	padding: akEditorBreakoutPadding,
 	defaultLayoutWidth: akEditorDefaultLayoutWidth,
 	wideScaleRatio: breakoutWideScaleRatio,
@@ -92,7 +115,7 @@ const breakoutConsts: any = {
 		);
 		return layoutMaxWidth > wideWidth ? fallback : `${Math.min(maxWidth, wideWidth)}px`;
 	},
-} as const;
+};
 
 export const absoluteBreakoutWidth = (
 	layout: 'full-width' | 'wide' | string,
@@ -185,7 +208,7 @@ export function calcBreakoutWidthPx(
 	widthStateWidth?: number,
 	padding?: number,
 ) {
-	return parsePx(calcBreakoutWidth(mode, widthStateWidth, padding)) as number;
+	return parsePx(calcBreakoutWidth(mode, widthStateWidth, padding));
 }
 
 export const getNextBreakoutMode = (currentMode?: BreakoutMode): BreakoutMode => {

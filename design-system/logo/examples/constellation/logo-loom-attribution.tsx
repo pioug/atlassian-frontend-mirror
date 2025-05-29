@@ -1,4 +1,10 @@
 /**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::a7374926189f4c9f528b40edf2487bb6>>
+ * @codegenCommand yarn workspace @atlaskit/logo generate:examples
+ */
+
+/**
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -11,7 +17,7 @@ const tableStyle = css({
 	width: '415px',
 });
 
-const LogoLoom = () => {
+const LogoLoomAttribution = () => {
 	return (
 		<div>
 			<table>
@@ -36,4 +42,4 @@ const LogoLoom = () => {
 	);
 };
 
-export default LogoLoom;
+export default LogoLoomAttribution;

@@ -5,7 +5,7 @@ import type { PropsDifference, ShallowPropsDifference } from '../../utils';
 import type { SEVERITY } from '../../utils/analytics';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { AnnotationAEP } from './inline-comment-events';
+import type { AnnotationAEP, AnnotationErrorAEP } from './inline-comment-events';
 import type { OperationalAEP, OperationalAEPWithObjectId, TrackAEP, UIAEP } from './utils';
 
 export enum PLATFORMS {
@@ -488,6 +488,7 @@ type CopyLinkToAnchorButtonAEP = ButtonAEP<
 export type GeneralEventPayload<T = void> =
 	| AnnotateButtonAEP
 	| AnnotationAEP
+	| AnnotationErrorAEP
 	| BrowserFreezePayload
 	| ButtonFeedbackAEP
 	| ButtonHelpAEP

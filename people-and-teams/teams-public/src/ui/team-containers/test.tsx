@@ -4,16 +4,25 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
 import { usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
-import { getContainerProperties, messages } from '../../common/utils/get-container-properties';
+import { messages } from '../../common/utils/get-container-properties';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import {
 	useTeamContainers,
 	useTeamContainersHook,
 } from '../../controllers/hooks/use-team-containers';
+import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 
 import { TeamContainers } from './main';
 import { TeamContainersComponent } from './types';
+
+jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	getExperimentValue: jest.fn(),
+	initializeCompleted: jest.fn(),
+}));
 
 jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
@@ -23,6 +32,10 @@ jest.mock('../../controllers/hooks/use-team-containers', () => ({
 
 jest.mock('../../controllers/hooks/use-product-permission', () => ({
 	useProductPermissions: jest.fn(),
+}));
+
+jest.mock('../../controllers/hooks/use-team-links-and-containers', () => ({
+	useTeamLinksAndContainers: jest.fn(),
 }));
 
 jest.mock('../../common/utils/analytics', () => ({
@@ -43,28 +56,8 @@ const mockFireOperationalEvent = jest.fn();
 const mockFireUIEvent = jest.fn();
 
 const mockOnAddAContainerClick = jest.fn();
-
-describe('getContainerProperties', () => {
-	it('should return correct properties for confluence container type', () => {
-		const properties = getContainerProperties('ConfluenceSpace');
-		renderWithIntl(properties.description);
-		expect(
-			screen.getByText(messages.confluenceContainerDescription.defaultMessage),
-		).toBeInTheDocument();
-		expect(properties.icon).toBeTruthy();
-		const { getByText: getByTextTitle } = renderWithIntl(properties.title);
-		expect(getByTextTitle(messages.addConfluenceContainerTitle.defaultMessage)).toBeInTheDocument();
-	});
-
-	it('should return correct properties for jira container type', () => {
-		const properties = getContainerProperties('JiraProject');
-		renderWithIntl(properties.description);
-		expect(screen.getByText(messages.jiraProjectDescription.defaultMessage)).toBeInTheDocument();
-		expect(properties.icon).toBeTruthy();
-		const { getByText: getByTextTitle } = renderWithIntl(properties.title);
-		expect(getByTextTitle(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
-	});
-});
+const mockGetExperimentValue = FeatureGates.getExperimentValue as jest.Mock;
+const mockInitializeCompleted = FeatureGates.initializeCompleted as jest.Mock;
 
 describe('TeamContainers', () => {
 	const teamId = 'teamId';
@@ -105,6 +98,13 @@ describe('TeamContainers', () => {
 	};
 
 	beforeEach(() => {
+		mockInitializeCompleted.mockReturnValue(true);
+		mockGetExperimentValue.mockReturnValue(false);
+
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [],
+		});
+
 		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
 			fireTrackEvent: mockFireTrackEvent,
 			fireOperationalEvent: mockFireOperationalEvent,
@@ -424,5 +424,145 @@ describe('TeamContainers', () => {
 		const { container } = renderTeamContainers(teamId);
 
 		await expect(container).toBeAccessible();
+	});
+});
+
+describe('TeamLinks', () => {
+	const teamId = 'teamId';
+	const WebLinks = {
+		id: 'link-1',
+		type: 'WebLink',
+		name: 'Google Docs',
+		icon: null,
+		link: 'https://docs.google.com',
+	};
+	const JiraProject = {
+		id: 'id-1',
+		type: 'JiraProject',
+		name: 'Jira Project Name',
+		icon: 'icon',
+		link: 'link',
+	};
+	const ConfluenceSpace = {
+		id: 'id-2',
+		type: 'ConfluenceSpace',
+		name: 'Confluence Space Name',
+		icon: 'icon',
+		link: 'link',
+	};
+
+	const renderTeamContainers = (
+		teamId: string,
+		filterContainerId?: string,
+		isDisplayedOnProfileCard?: boolean,
+		components?: TeamContainersComponent,
+		maxNumberOfContainersToShow?: number,
+	) => {
+		return renderWithIntl(
+			<TeamContainers
+				teamId={teamId}
+				onAddAContainerClick={mockOnAddAContainerClick}
+				userId={'test-user-id'}
+				cloudId={'test-cloud-id'}
+				filterContainerId={filterContainerId}
+				isDisplayedOnProfileCard={isDisplayedOnProfileCard}
+				components={components}
+				maxNumberOfContainersToShow={maxNumberOfContainersToShow}
+			/>,
+		);
+	};
+
+	beforeEach(() => {
+		mockInitializeCompleted.mockReturnValue(true);
+		mockGetExperimentValue.mockReturnValue(true);
+		(useTeamContainers as jest.Mock).mockReturnValue({
+			teamContainers: [],
+			loading: false,
+			unlinkError: null,
+		});
+
+		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({
+			fireTrackEvent: mockFireTrackEvent,
+			fireOperationalEvent: mockFireOperationalEvent,
+			fireUIEvent: mockFireUIEvent,
+		});
+		(useProductPermissions as jest.Mock).mockReturnValue({
+			loading: false,
+			data: {
+				jira: { manage: true },
+				confluence: { manage: true },
+			},
+			error: null,
+		});
+	});
+	it('should render add Jira, Confluence, Web link card when the team has no Jira project, Confluence space and Web links and has product access', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [],
+			isLoading: false,
+			hasLoaded: true,
+			hasError: false,
+			containersError: false,
+			webLinksError: false,
+			canAddMoreLink: true,
+			addTeamLink: jest.fn(),
+			updateTeamLink: jest.fn(),
+			removeTeamLink: jest.fn(),
+		});
+		renderTeamContainers(teamId);
+
+		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+	});
+
+	it('should render add Jira container and web link card when the team has no Jira project and web link, and render linked Confluence space', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [ConfluenceSpace],
+		});
+		renderTeamContainers(teamId);
+
+		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
+		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+	});
+
+	it('should render add Confluence container and web link card when the team has no Confluence space and web link, and render linked Jira project', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject],
+		});
+		renderTeamContainers(teamId);
+
+		expect(
+			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
+		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+	});
+
+	it('should render linked containers when jira project, confluence space and web links have linked data', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace, WebLinks],
+		});
+		renderTeamContainers(teamId);
+
+		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
+		expect(screen.queryByText(messages.emptyWebLinkContainerDescription.defaultMessage)).toBeNull();
+		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
+		expect(screen.getByText(WebLinks.name)).toBeInTheDocument();
+		expect(
+			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
 	});
 });

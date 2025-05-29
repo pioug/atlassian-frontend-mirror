@@ -1,11 +1,17 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
+import { css, jsx } from '@compiled/react';
 import kebabCase from 'lodash/kebabCase';
 
-import { logosAndIcons } from './utils/list';
+import { legacyOnlyLogosAndIcons, newOnlyLogosAndIcons, sharedLogosAndIcons } from './utils/list';
 
-export default () => (
-	<div>
+const styles = css({ marginBlockEnd: '2rem' });
+const LogoTable = ({ title, logos }: { title: string; logos: typeof legacyOnlyLogosAndIcons }) => (
+	<div css={styles}>
+		<h3>{title}</h3>
 		<table>
 			<thead>
 				<tr>
@@ -14,7 +20,7 @@ export default () => (
 				</tr>
 			</thead>
 			<tbody>
-				{logosAndIcons.map(({ name, logo: Logo, icon: Icon }) => {
+				{logos.map(({ name, logo: Logo, icon: Icon }) => {
 					const kebabName = kebabCase(name);
 
 					return (
@@ -23,7 +29,7 @@ export default () => (
 								<Logo testId={`${kebabName}-logo`} />
 							</td>
 							<td>
-								<Icon testId={`${kebabName}-icon`} />
+								<Icon size="small" testId={`${kebabName}-icon`} />
 							</td>
 						</tr>
 					);
@@ -32,3 +38,13 @@ export default () => (
 		</table>
 	</div>
 );
+
+export default () => {
+	return (
+		<div>
+			<LogoTable title="Legacy-only Logos" logos={legacyOnlyLogosAndIcons} />
+			<LogoTable title="Shared Logos (Feature Flagged)" logos={sharedLogosAndIcons} />
+			<LogoTable title="New-only Logos" logos={newOnlyLogosAndIcons} />
+		</div>
+	);
+};

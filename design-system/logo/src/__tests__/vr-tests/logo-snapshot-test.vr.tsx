@@ -1,11 +1,13 @@
 import { snapshot } from '@af/visual-regression';
 
+// Import all examples
 import Basic from '../../../examples/0-basic';
 import Appearance from '../../../examples/1-appearance';
 import Sizes from '../../../examples/5-sizes';
 import DefensiveStyling from '../../../examples/6-defensive-styling';
 
-snapshot(Basic);
-snapshot(Appearance);
-snapshot(Sizes);
-snapshot(DefensiveStyling);
+// Test basic examples
+snapshot(Basic, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
+snapshot(Appearance, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
+snapshot(Sizes, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
+snapshot(DefensiveStyling, { featureFlags: { 'platform-logo-rebrand': [false, true] } });

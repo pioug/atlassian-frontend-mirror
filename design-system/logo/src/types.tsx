@@ -1,6 +1,6 @@
 type Appearance = 'brand' | 'neutral' | 'inverse';
 
-type Size = 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+type Size = 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
 type BaseLogoProps = {
 	/**

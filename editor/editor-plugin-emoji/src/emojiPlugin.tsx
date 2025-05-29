@@ -333,7 +333,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				return null;
 			}
 
-			if (!fg('platform_editor_controls_perf_tbt_fix')) {
+			if (!editorExperiment('platform_editor_controls_performance_fixes', true)) {
 				return (
 					<InlineEmojiPopupOld
 						api={api}

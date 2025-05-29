@@ -1,13 +1,12 @@
 import React from 'react';
 import { screen, render, fireEvent, act, waitFor, renderHook } from '@testing-library/react';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
-import { AnnotationsDraftContext } from '../../../context';
 import type { Position } from '../../../types';
 import { useUserSelectionRange } from '../../user-selection';
 import * as utils from '../../utils';
 import { isRangeInsideOfRendererContainer } from '../../utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.useFakeTimers();
 
@@ -126,7 +125,6 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		let rendererDOM: HTMLElement;
 		let fakeRef: React.RefObject<HTMLDivElement>;
 		let myFakeValidRange: Range;
-		const myFakePosition: Position = { from: 1, to: 10 };
 
 		type Props = {
 			rendererRef: React.RefObject<HTMLDivElement>;
@@ -149,9 +147,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		) => {
 			render(
 				<AnnotationRangeProvider>
-					<AnnotationsDraftContext.Provider value={myFakePosition}>
-						<DummyComponent rendererRef={fakeRef} fakeFunction={fakeFunction} />
-					</AnnotationsDraftContext.Provider>
+					<DummyComponent rendererRef={fakeRef} fakeFunction={fakeFunction} />
 				</AnnotationRangeProvider>,
 			);
 		};
@@ -181,72 +177,19 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		});
 
 		describe('when the selection changes', () => {
-			ffTest.off('platform_renderer_annotation_draft_position_fix', '', () => {
-				it('should change the range value when annotation draft is not happening', async () => {
-					const fakeFunction = jest.fn();
-
-					expect(fakeFunction).toHaveBeenCalledTimes(0);
-					expect(document.getSelection).toHaveBeenCalledTimes(0);
-
-					renderDummyComponentWithDraftContext(myFakePosition, fakeFunction);
-
-					expect(fakeFunction).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledWith([null, null, null, expect.any(Function)]);
-
-					fakeFunction.mockClear();
-					dispatchSelectionChange();
-					jest.runAllTimers();
-
-					expect(document.getSelection).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledTimes(2);
+			it('should change the range value when a selection is performed', async () => {
+				const { result } = renderHook(() => useUserSelectionRange({ rendererRef: fakeRef }), {
+					wrapper,
 				});
 
-				it('should change the range value when annotation draft is happening', async () => {
-					const fakeFunction = jest.fn();
+				expect(result.current).toEqual([null, null, null, expect.any(Function)]);
 
-					expect(fakeFunction).toHaveBeenCalledTimes(0);
-					expect(document.getSelection).toHaveBeenCalledTimes(0);
+				dispatchSelectionChange();
+				jest.runAllTimers();
 
-					renderDummyComponentWithDraftContext(null, fakeFunction);
+				expect(document.getSelection).toHaveBeenCalledTimes(1);
 
-					expect(fakeFunction).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledWith([null, null, null, expect.any(Function)]);
-
-					fakeFunction.mockClear();
-					dispatchSelectionChange();
-					jest.runAllTimers();
-
-					expect(document.getSelection).toHaveBeenCalledTimes(1);
-					expect(fakeFunction).toHaveBeenCalledTimes(2);
-					expect(fakeFunction).toHaveBeenCalledWith([
-						'selection',
-						myFakeValidRange,
-						null,
-						expect.any(Function),
-					]);
-				});
-			});
-
-			ffTest.on('platform_renderer_annotation_draft_position_fix', '', () => {
-				it('should change the range value when a selection is performed', async () => {
-					const { result } = renderHook(() => useUserSelectionRange({ rendererRef: fakeRef }), {
-						wrapper,
-					});
-
-					expect(result.current).toEqual([null, null, null, expect.any(Function)]);
-
-					dispatchSelectionChange();
-					jest.runAllTimers();
-
-					expect(document.getSelection).toHaveBeenCalledTimes(1);
-
-					expect(result.current).toEqual([
-						'selection',
-						myFakeValidRange,
-						null,
-						expect.any(Function),
-					]);
-				});
+				expect(result.current).toEqual(['selection', myFakeValidRange, null, expect.any(Function)]);
 			});
 		});
 
@@ -444,9 +387,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				jest.spyOn(document, 'addEventListener');
 				render(
 					<AnnotationRangeProvider>
-						<AnnotationsDraftContext.Provider value={myFakePosition}>
-							<DummyComponent rendererRef={fakeRef} fakeFunction={jest.fn()} />
-						</AnnotationsDraftContext.Provider>
+						<DummyComponent rendererRef={fakeRef} fakeFunction={jest.fn()} />
 					</AnnotationRangeProvider>,
 				);
 				expect(document.addEventListener).toHaveBeenCalledWith(
@@ -459,9 +400,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				jest.spyOn(document, 'removeEventListener');
 				const { unmount } = render(
 					<AnnotationRangeProvider>
-						<AnnotationsDraftContext.Provider value={myFakePosition}>
-							<DummyComponent rendererRef={fakeRef} fakeFunction={jest.fn()} />
-						</AnnotationsDraftContext.Provider>
+						<DummyComponent rendererRef={fakeRef} fakeFunction={jest.fn()} />
 					</AnnotationRangeProvider>,
 				);
 

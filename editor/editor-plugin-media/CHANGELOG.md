@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 3.0.10
+
+### Patch Changes
+
+- [#161063](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161063)
+  [`1a976ba4cbdc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a976ba4cbdc4) -
+  [ED-26871] Remove icon fallback for toolbar icons and create an utility function that returns size
+  option dropdown config for inline and block node types
+- Updated dependencies
+
 ## 3.0.9
 
 ### Patch Changes

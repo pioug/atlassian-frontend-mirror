@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fdfb8863e0f63e79e9b498e13d2a8308>>
+ * @codegen <<SignedSource::12faf0521301ad7bb41213cb0841ca85>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -28,9 +28,9 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function CustomerServiceManagementIcon({
+	iconColor,
 	size,
 	appearance = 'brand',
-	iconColor,
 	label,
 	testId,
 }: ThemedIconProps) {
@@ -38,10 +38,10 @@ export function CustomerServiceManagementIcon({
 		<IconWrapper
 			svg={svg}
 			customThemeSvg={customThemeSvg}
-			size={size}
-			appearance={appearance}
 			iconColor={iconColor}
 			label={label || 'Customer Service Management'}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>
 	);

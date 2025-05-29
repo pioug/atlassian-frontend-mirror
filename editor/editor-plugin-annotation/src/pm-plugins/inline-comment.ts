@@ -352,7 +352,10 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 										}
 
 										// Flush the pending selections into the selected annotations list.
-										flushPendingSelections(true)(view.state, view.dispatch);
+										flushPendingSelections(options.editorAnalyticsAPI)(true)(
+											view.state,
+											view.dispatch,
+										);
 
 										latestSelectedAnnotations
 											?.filter(
@@ -388,14 +391,18 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 										// Clears the pending selections if the preemptive gate returns false.
 										// We should need to worry about dispatching change events here because the pending selections
 										// are being aborted and the selections will remain unchanged.
-										flushPendingSelections(false)(view.state, view.dispatch);
+										flushPendingSelections(options.editorAnalyticsAPI)(false)(
+											view.state,
+											view.dispatch,
+										);
 									}
 								})
 								.catch((error) => {
-									// TODO: EDITOR-595 - Ensure and anlytic is fired to indicate which reports on the error.
-
 									// If an error has occured we will clear any pending selections to avoid accidentally setting the wrong thing.
-									flushPendingSelections(false)(view.state, view.dispatch);
+									flushPendingSelections(options.editorAnalyticsAPI)(
+										false,
+										'pending-selection-preemptive-gate-error',
+									)(view.state, view.dispatch);
 								})
 								.finally(() => {
 									isPreemptiveGateActive = false;

@@ -276,7 +276,7 @@ export default class RendererActions
 		let from: number | undefined;
 		let to: number | undefined;
 		let nodePos: number | undefined;
-		let step: Step | undefined;
+		let step: RemoveNodeMarkStep | RemoveMarkStep | undefined;
 
 		this.doc.descendants((node, pos) => {
 			const found = mark.isInSet(node.marks);

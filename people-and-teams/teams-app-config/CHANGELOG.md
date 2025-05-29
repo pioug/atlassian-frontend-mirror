@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.3.0
+
+### Minor Changes
+
+- [#162527](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162527)
+  [`dd84caf6bd9dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd84caf6bd9dc) -
+  Add target to nav result
+
 ## 1.2.0
 
 ### Minor Changes

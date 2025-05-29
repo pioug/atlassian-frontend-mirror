@@ -6,7 +6,7 @@ import { UserLatencyObservers } from '../UserLatencyOberservers';
 // Mock the TimelineController class
 jest.mock('../../timeline', () => ({
 	TimelineController: jest.fn().mockImplementation(() => ({
-		onNextIdle: jest.fn((callback) => callback({})),
+		onIdleBufferFlush: jest.fn((callback) => callback({})),
 		getEvents: jest.fn().mockReturnValue([]),
 	})),
 }));
@@ -30,9 +30,7 @@ describe('User Latency Module', () => {
 		it('should create a new TimelineController if one does not exist', () => {
 			onUserLatency(mockCallback);
 			expect(TimelineController).toHaveBeenCalledWith({
-				cleanup: {
-					eventsThreshold: 10,
-				},
+				shouldIdleOnPageVisibilityChange: true,
 			});
 		});
 
@@ -57,12 +55,12 @@ describe('User Latency Module', () => {
 			).toHaveBeenCalled();
 		});
 
-		it('should set up onNextIdle callback', () => {
+		it('should set up onIdleBufferFlush callback', () => {
 			onUserLatency(mockCallback);
 
 			const timelineInstance = (global as any).__editor_performance_user_latency_timeline;
 
-			expect(timelineInstance.onNextIdle).toHaveBeenCalled();
+			expect(timelineInstance.onIdleBufferFlush).toHaveBeenCalled();
 		});
 
 		it('should store timeline in global object', () => {

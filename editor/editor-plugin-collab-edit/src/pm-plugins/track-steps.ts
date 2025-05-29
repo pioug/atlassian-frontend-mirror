@@ -1,4 +1,5 @@
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	AddMarkStep,
@@ -9,7 +10,12 @@ import {
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { sendableSteps } from '@atlaskit/prosemirror-collab';
+
+import { CollabEditPlugin } from '../collabEditPluginType';
+
+import { updateStepSessionMetrics } from './track-step-metrics';
 
 function groupBy<T>(array: T[], keyGetter: (item: T) => string): Record<string, T[]> {
 	// Check group by exists, and that it's a function. If so, use the native browser code
@@ -153,6 +159,7 @@ export type CacheType = Map<
 const stepsSentCache: CacheType = new Map();
 
 type TrackProps = {
+	api: ExtractInjectionAPI<CollabEditPlugin> | undefined;
 	newEditorState: EditorState;
 	transactions: Readonly<Transaction[]>;
 	onTrackDataProcessed: (data: StepMetadataAnalytics[]) => void;
@@ -193,11 +200,12 @@ const getScheduler = (
  * This is a non-critical code. If the browser doesn't support the Scheduler API https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/
  *
  * @param {TrackProps} props - The properties required for tracking steps.
+ * @param {ExtractInjectionAPI<CollabEditPlugin> | undefined} props.api - The API for the CollabEdit plugin.
  * @param {EditorState} props.newEditorState - The new editor state.
  * @param {Readonly<Transaction[]>} props.transactions - The transactions that contain the steps.
  * @param {(data: StepMetadataAnalytics[]) => void} props.onTrackDataProcessed - Callback function to be called with the processed data.
  */
-export const track = ({ newEditorState, transactions, onTrackDataProcessed }: TrackProps) => {
+export const track = ({ api, newEditorState, transactions, onTrackDataProcessed }: TrackProps) => {
 	const newSteps = transactions.flatMap((t) => t.steps);
 	const collabState = sendableSteps(newEditorState);
 	const scheduler = getScheduler(window);
@@ -217,8 +225,17 @@ export const track = ({ newEditorState, transactions, onTrackDataProcessed }: Tr
 		endedAt,
 		steps,
 	});
-	scheduler.postTask(() => task(stepsSentCache, onTrackDataProcessed), {
-		priority: 'background',
-		delay: LOW_PRIORITY_DELAY,
-	});
+
+	scheduler.postTask(
+		() => {
+			if (fg('platform_enable_ncs_step_metrics')) {
+				updateStepSessionMetrics({ api, steps: newSteps });
+			}
+			task(stepsSentCache, onTrackDataProcessed);
+		},
+		{
+			priority: 'background',
+			delay: LOW_PRIORITY_DELAY,
+		},
+	);
 };

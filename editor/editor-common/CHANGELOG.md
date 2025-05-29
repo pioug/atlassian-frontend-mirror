@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 106.1.1
+
+### Patch Changes
+
+- [#158451](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158451)
+  [`b1235f9180ac5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1235f9180ac5) -
+  EDITOR-586 - Implement Select Annotation APIs for Renderer and integrate with CCFE
+
+## 106.1.0
+
+### Minor Changes
+
+- [#157313](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157313)
+  [`8f3a2416f23fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f3a2416f23fe) -
+  [ux] Added a reserved height to the extension NodeWrapper in the editor. An array of
+  ExtensionViewportSize is sent from Confluence editor through the plugins into the nodeviews and
+  used there. Depending on the array values, a minimum height is set.
+- [#162505](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162505)
+  [`2fb5a885dc719`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fb5a885dc719) -
+  clean up platform_editor_table_row_span_fix_all and platform_editor_table_row_span_fix fgs
+
+## 106.0.2
+
+### Patch Changes
+
+- [#162493](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162493)
+  [`e2fed6abf826b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2fed6abf826b) -
+  Added some error reporting anayltics for the new annotation manager
+- [#161848](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161848)
+  [`d6626ea1a06a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6626ea1a06a1) -
+  [ux] ED-27701 Update canLinkBeCreatedInRange function to check if selection includes inlineCard
+- Updated dependencies
+
 ## 106.0.1
 
 ### Patch Changes

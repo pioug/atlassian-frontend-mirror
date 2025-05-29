@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext, useMemo, useEffect } from 'react';
+import React, { useCallback, useContext, useMemo, useEffect } from 'react';
 
 import uuid from 'uuid/v4';
 
@@ -44,18 +44,6 @@ type Props = {
 	isAnnotationAllowed: boolean;
 	onClose: () => void;
 	applyAnnotation: ApplyAnnotation;
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 */
-	applyAnnotationDraftAt?: (position: Position) => void;
-
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 */
-	clearAnnotationDraft?: () => void;
-
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
 };
@@ -68,20 +56,14 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 		isAnnotationAllowed,
 		wrapperDOM,
 		onClose: onCloseProps,
-		clearAnnotationDraft,
-		applyAnnotationDraftAt,
 		documentPosition,
 		applyAnnotation,
 		createAnalyticsEvent,
 		generateIndexMatch,
 	} = props;
 
-	// if platform_renderer_annotation_draft_position_fix is enabled; then
 	const { promoteSelectionToDraft, clearSelectionDraft } = useAnnotationRangeDispatch();
 	const { selectionDraftDocumentPosition } = useAnnotationRangeState();
-	// else;
-	const [draftDocumentPosition, setDraftDocumentPosition] = useState<Position | null>();
-	// end-if
 
 	const actions = useContext(ActionsContext);
 	const { isDrafting, draftId } = useAnnotationManagerState();
@@ -117,9 +99,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 		(annotationId: string) => {
 			// We want to support creation on a documentPosition if the user is only using ranges
 			// but we want to prioritize draft positions if they are being used by consumers
-			const positionToAnnotate = fg('platform_renderer_annotation_draft_position_fix')
-				? selectionDraftDocumentPosition || documentPosition
-				: draftDocumentPosition || documentPosition;
+			const positionToAnnotate = selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation) {
 				// TODO: EDITOR-595 - This analytic event is temporary and should be removed once the following issue
@@ -131,12 +111,10 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 						actionSubjectId: 'inlineCommentFailureReason',
 						attributes: {
 							reason: 'Annotation Position invalid',
-							draftDocumentPosition: fg('platform_renderer_annotation_draft_position_fix')
-								? selectionDraftDocumentPosition
-								: draftDocumentPosition,
+							draftDocumentPosition: selectionDraftDocumentPosition,
 							documentPosition,
 							applyAnnotation: !!applyAnnotation,
-							isDraftPositionFixEnabled: fg('platform_renderer_annotation_draft_position_fix'),
+							isDraftPositionFixEnabled: true,
 						},
 						eventType: EVENT_TYPE.OPERATIONAL,
 					}).fire(FabricChannel.editor);
@@ -184,7 +162,6 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			actions,
 			documentPosition,
 			applyAnnotation,
-			draftDocumentPosition,
 			createAnalyticsEvent,
 			inlineNodeTypes,
 			selectionDraftDocumentPosition,
@@ -220,12 +197,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				return false;
 			}
 
-			if (fg('platform_renderer_annotation_draft_position_fix')) {
-				promoteSelectionToDraft(documentPosition);
-			} else {
-				setDraftDocumentPosition(documentPosition);
-				applyAnnotationDraftAt && applyAnnotationDraftAt(documentPosition);
-			}
+			promoteSelectionToDraft(documentPosition);
 
 			if (createAnalyticsEvent) {
 				const uniqueAnnotationsInRange = range ? actions.getAnnotationsByPosition(range) : [];
@@ -253,9 +225,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				}
 			});
 
-			const positionToAnnotate = fg('platform_renderer_annotation_draft_position_fix')
-				? selectionDraftDocumentPosition || documentPosition
-				: draftDocumentPosition || documentPosition;
+			const positionToAnnotate = selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
 				return false;
@@ -271,10 +241,8 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 		[
 			documentPosition,
 			isAnnotationAllowed,
-			applyAnnotationDraftAt,
 			createAnalyticsEvent,
 			applyAnnotation,
-			draftDocumentPosition,
 			actions,
 			range,
 			inlineNodeTypes,
@@ -284,18 +252,13 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	);
 
 	const removeDraftModeCallback = useCallback(() => {
-		if (fg('platform_renderer_annotation_draft_position_fix')) {
-			clearSelectionDraft();
-		} else {
-			clearAnnotationDraft && clearAnnotationDraft();
-			setDraftDocumentPosition(null);
-		}
+		clearSelectionDraft();
 
 		const sel = window.getSelection();
 		if (sel) {
 			sel.removeAllRanges();
 		}
-	}, [clearAnnotationDraft, clearSelectionDraft]);
+	}, [clearSelectionDraft]);
 
 	const onCloseCallback = useCallback(() => {
 		if (createAnalyticsEvent) {
@@ -336,13 +299,6 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 					return {
 						success: false,
 						reason: 'draft-in-progress',
-					};
-				}
-
-				if (!actions.isValidAnnotationRange(range)) {
-					return {
-						success: false,
-						reason: 'invalid-range',
 					};
 				}
 

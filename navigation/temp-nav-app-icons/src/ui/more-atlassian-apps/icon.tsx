@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::74b908aec892fc3a7ee4c61136e96a61>>
+ * @codegen <<SignedSource::66d437bcbdce31d7c168e4e13a18bfe8>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -26,11 +26,10 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 export function MoreAtlassianAppsIcon({
 	size,
 	appearance = 'brand',
-
 	label,
 	testId,
 }: UtilityIconProps) {
 	return (
-		<IconWrapper svg={svg} size={size} appearance={appearance} label={label} testId={testId} />
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

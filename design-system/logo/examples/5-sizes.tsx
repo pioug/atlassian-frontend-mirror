@@ -13,6 +13,13 @@ export default () => (
 			<ConfluenceLogo size="xxsmall" />
 		</div>
 		<div>
+			<Code>xsmall</Code>
+		</div>
+		<div>
+			<ConfluenceIcon size="xsmall" />
+			<ConfluenceLogo size="xsmall" />
+		</div>
+		<div>
 			<Code>small</Code>
 		</div>
 		<div>

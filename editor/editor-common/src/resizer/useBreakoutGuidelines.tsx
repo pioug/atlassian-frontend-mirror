@@ -127,8 +127,8 @@ export function useBreakoutGuidelines(
 				setCurrentLayout('wide');
 			} else if (
 				fullWidth &&
-				(Math.abs(newWidth - fullWidth + akEditorGutterPadding) < SNAP_GAP / 2 ||
-					newWidth >= fullWidth)
+				// we only allow snap from one side, so we don't use Math.abs here
+				(fullWidth + akEditorGutterPadding - newWidth < SNAP_GAP / 2 || newWidth >= fullWidth)
 			) {
 				setCurrentLayout('full-width');
 			} else {

@@ -36,7 +36,7 @@ describe('Annotations: RangeValidator', () => {
 	});
 
 	it('should call the Mounter with the positions calculated by the actions', () => {
-		let ref: React.RefObject<HTMLDivElement> = React.createRef();
+		const ref: React.RefObject<HTMLDivElement> = React.createRef();
 		const spy = jest.spyOn(MounterMock, 'Mounter');
 		const documentPosition = { from: 0, to: 10 };
 		const applyAnnotation = () => {};
@@ -66,12 +66,7 @@ describe('Annotations: RangeValidator', () => {
 									<small className="end-selection">morango</small>
 								</div>
 							</div>
-							<RangeValidator
-								rendererRef={ref}
-								component={Component}
-								applyAnnotationDraftAt={jest.fn()}
-								clearAnnotationDraft={jest.fn()}
-							/>
+							<RangeValidator rendererRef={ref} component={Component} />
 						</div>
 					</RendererContext.Provider>,
 				);
@@ -90,12 +85,7 @@ describe('Annotations: RangeValidator', () => {
 									<small className="end-selection">morango</small>
 								</div>
 							</div>
-							<RangeValidator
-								rendererRef={ref}
-								component={Component}
-								applyAnnotationDraftAt={jest.fn()}
-								clearAnnotationDraft={jest.fn()}
-							/>
+							<RangeValidator rendererRef={ref} component={Component} />
 						</div>
 					</RendererContext.Provider>,
 					container,

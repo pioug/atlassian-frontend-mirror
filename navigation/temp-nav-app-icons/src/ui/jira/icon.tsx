@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6ed28081978a6c48a565a9d868180d1c>>
+ * @codegen <<SignedSource::e37aba516b7cebea69cb0cb5f4be950b>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -28,9 +28,9 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function JiraIcon({
+	iconColor,
 	size,
 	appearance = 'brand',
-	iconColor,
 	label,
 	testId,
 }: ThemedIconProps) {
@@ -38,10 +38,10 @@ export function JiraIcon({
 		<IconWrapper
 			svg={svg}
 			customThemeSvg={customThemeSvg}
-			size={size}
-			appearance={appearance}
 			iconColor={iconColor}
 			label={label || 'Jira'}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>
 	);

@@ -185,6 +185,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 				this.analyticsHelper,
 				this.channel.fetchCatchupv2,
 				this.channel.fetchReconcile,
+				this.channel.fetchGeneratedDiffSteps,
 				this.emitCallback,
 				this.channel.broadcast,
 				() => this.userId,

@@ -46,6 +46,7 @@ export class ParticipantsService {
 	private presenceUpdateTimeout: number | undefined;
 	private presenceFetchTimeout: number | undefined;
 	private currentlyPollingFetchUsers: boolean = true;
+	private hasBatchFetchError: boolean = false;
 
 	/**
 	 *
@@ -413,6 +414,8 @@ export class ParticipantsService {
 			}
 		} catch (err) {
 			props.onError?.(err);
+			this.hasBatchFetchError = true;
+
 			this.analyticsHelper?.sendErrorEvent(err, 'Failed while fetching participants');
 		}
 	};
@@ -431,6 +434,12 @@ export class ParticipantsService {
 	 */
 	batchFetchUsers = async () => {
 		if (!this.batchProps) {
+			return;
+		}
+		if (this.hasBatchFetchError) {
+			// no retry logic yet
+			logger('Cannot continue to fetch users due to fetch error');
+			clearTimeout(this.presenceFetchTimeout);
 			return;
 		}
 

@@ -62,7 +62,7 @@ export const DisconnectDialog = ({
 		await onDisconnect();
 		setIsDisconnecting(false);
 	};
-	const { containerTypeText, description } = getContainerProperties(containerType);
+	const { containerTypeText, description } = getContainerProperties({ containerType });
 
 	return (
 		<ModalDialog

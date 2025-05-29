@@ -136,6 +136,7 @@ export type {
 	AnnotationAEPAttributes,
 	AnnotationDraftAEPAttributes,
 	AnnotationResolvedAEPAttributes,
+	AnnotationErrorAEP,
 } from './types/inline-comment-events';
 
 export { RESOLVE_METHOD, VIEW_METHOD } from './types/inline-comment-events';

@@ -39,6 +39,7 @@
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/image": "workspace:^",
@@ -116,7 +117,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.32.0",
+	"version": "0.33.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

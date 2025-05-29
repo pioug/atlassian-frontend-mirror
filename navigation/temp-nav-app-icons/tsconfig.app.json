@@ -35,9 +35,6 @@
 			"path": "../../../build/formatting/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/css/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{

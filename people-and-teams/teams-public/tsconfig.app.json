@@ -44,6 +44,9 @@
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{

@@ -195,27 +195,18 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 				}
 			},
 			onClick: (state, dispatch) => {
-				if (editorAnalyticsAPI) {
-					editorAnalyticsAPI.fireAnalyticsEvent({
-						action: ACTION.CLICKED,
-						actionSubject: ACTION_SUBJECT.BUTTON,
-						actionSubjectId: ACTION_SUBJECT_ID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
-						eventType: EVENT_TYPE.UI,
-						attributes: {
-							source: 'highlightActionsMenu',
-							pageMode: 'edit',
-						},
-					});
-				}
+				editorAnalyticsAPI?.fireAnalyticsEvent({
+					action: ACTION.CLICKED,
+					actionSubject: ACTION_SUBJECT.BUTTON,
+					actionSubjectId: ACTION_SUBJECT_ID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
+					eventType: EVENT_TYPE.UI,
+					attributes: {
+						source: 'highlightActionsMenu',
+						pageMode: 'edit',
+					},
+				});
 
-				if (fg('platform_editor_comments_api_manager')) {
-					if (!annotationManager) {
-						// TODO: EDITOR-595 - If we've reached here and the manager is not initialized, we should
-						// dispatch an analytics event to indicate that the user has clicked the button but
-						// the action was not completed.
-						return false;
-					}
-
+				if (annotationManager && fg('platform_editor_comments_api_manager')) {
 					annotationManager
 						.checkPreemptiveGate()
 						.then((canStartDraft) => {
@@ -229,19 +220,31 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 								createCommentExperience?.initExperience.start();
 
 								const result = annotationManager.startDraft();
-								if (result.success) {
-									// TODO: EDITOR-595 - Ensure and anlytic is fired to indicate that the user has started a draft.
-								} else {
-									// TODO: EDITOR-595 - Fire an analytics event to indicate that the user has clicked the button
+								if (!result.success) {
+									// Fire an analytics event to indicate that the user has clicked the button
 									// but the action was not completed, the result should contain a reason.
+									editorAnalyticsAPI?.fireAnalyticsEvent({
+										action: ACTION.ERROR,
+										actionSubject: ACTION_SUBJECT.ANNOTATION,
+										actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+										eventType: EVENT_TYPE.OPERATIONAL,
+										attributes: {
+											errorReason: `toolbar-start-draft-failed/${result.reason}`,
+										},
+									});
 								}
-							} else {
-								// TODO: EDITOR-595 - Track the toolbar comment button was clicked but the preemptive gate
-								// check returned false and the draft cannot be started.
 							}
 						})
 						.catch(() => {
-							// TODO: EDITOR-595 - Handle preemptive gate check error. Something went very wrong in the gate.
+							editorAnalyticsAPI?.fireAnalyticsEvent({
+								action: ACTION.ERROR,
+								actionSubject: ACTION_SUBJECT.ANNOTATION,
+								actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+								eventType: EVENT_TYPE.OPERATIONAL,
+								attributes: {
+									errorReason: `toolbar-start-draft-preemptive-gate-error`,
+								},
+							});
 						});
 					return true;
 				} else {

@@ -7,15 +7,8 @@
 		"rootDir": "../",
 		"composite": true
 	},
-	"include": [
-		"../src/**/*.ts",
-		"../src/**/*.tsx"
-	],
-	"exclude": [
-		"../src/**/__tests__/*",
-		"../src/**/*.test.*",
-		"../src/**/test.*"
-	],
+	"include": ["../src/**/*.ts", "../src/**/*.tsx"],
+	"exclude": ["../src/**/__tests__/*", "../src/**/*.test.*", "../src/**/test.*"],
 	"references": [
 		{
 			"path": "../../ds-lib/afm-passionfruit/tsconfig.json"
@@ -25,6 +18,9 @@
 		},
 		{
 			"path": "../../tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/temp-nav-app-icons/afm-passionfruit/tsconfig.json"
 		}
 	]
 }

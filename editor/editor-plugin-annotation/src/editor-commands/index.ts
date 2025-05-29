@@ -69,13 +69,24 @@ export const clearDirtyMark = (): Command =>
 		type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK,
 	});
 
-export const flushPendingSelections = (canSetAsSelectedAnnotations: boolean): Command =>
-	createCommand({
-		type: ACTIONS.FLUSH_PENDING_SELECTIONS,
-		data: {
-			canSetAsSelectedAnnotations,
-		},
-	});
+export const flushPendingSelections =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(canSetAsSelectedAnnotations: boolean, errorReason?: string): Command => {
+		const command: InlineCommentAction = {
+			type: ACTIONS.FLUSH_PENDING_SELECTIONS,
+			data: {
+				canSetAsSelectedAnnotations,
+			},
+		};
+
+		if (!!errorReason) {
+			return createCommand(command, (tr: Transaction, state: EditorState) =>
+				transform.addPreemptiveGateErrorAnalytics(editorAnalyticsAPI)(errorReason)(tr, state),
+			);
+		}
+
+		return createCommand(command);
+	};
 
 export const setPendingSelectedAnnotation = (id: string): Command =>
 	createCommand({
@@ -170,6 +181,7 @@ export const removeInlineCommentNearSelection =
 	};
 
 export const removeInlineCommentFromDoc =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(id: string, supportedNodes: string[] = []): Command =>
 	(state, dispatch): boolean => {
 		const { tr } = state;
@@ -195,7 +207,7 @@ export const removeInlineCommentFromDoc =
 		});
 
 		if (dispatch) {
-			dispatch(tr);
+			dispatch(transform.addDeleteAnalytics(editorAnalyticsAPI)(tr, state));
 			return true;
 		}
 

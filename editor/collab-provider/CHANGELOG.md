@@ -1,5 +1,21 @@
 # @atlaskit/collab-provider
 
+## 10.17.0
+
+### Minor Changes
+
+- [#153673](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/153673)
+  [`32e178390aff5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32e178390aff5) -
+  Update to onRestore to use generatedSteps from fetchReconcile: allows the client to recover by
+  applying just the necessary changes rather than replacing the entire document state, which is more
+  efficient and should preserve more of the user's local context.
+
+## 10.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.16.2
 
 ### Patch Changes

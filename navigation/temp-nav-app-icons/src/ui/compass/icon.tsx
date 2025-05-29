@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::47230916c8ace4e66464ab0a154a2cc3>>
+ * @codegen <<SignedSource::4a38db27be8b23378822aab42e29bd2d>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -24,19 +24,13 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
-export function CompassIcon({
-	size,
-	appearance = 'brand',
-
-	label,
-	testId,
-}: AppIconProps) {
+export function CompassIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (
 		<IconWrapper
 			svg={svg}
-			size={size}
-			appearance={appearance}
 			label={label || 'Compass'}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>
 	);

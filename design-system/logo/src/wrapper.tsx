@@ -33,7 +33,7 @@ const styles = cssMapUnbound({
 		},
 	},
 	xxsmall: { height: '16px' },
-	xsmall: { height: '16px' },
+	xsmall: { height: '20px' },
 	small: { height: '24px' },
 	medium: { height: '32px' },
 	large: { height: '40px' },

@@ -1,4 +1,10 @@
 /**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::2a6dc40b7d5ddeb44c6266627cc46222>>
+ * @codegenCommand yarn workspace @atlaskit/logo generate:examples
+ */
+
+/**
  * @jsxRuntime classic
  * @jsx jsx
  */

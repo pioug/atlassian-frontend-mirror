@@ -1,3 +1,6 @@
+import { bind } from 'bind-event-listener';
+import type { UnbindFn } from 'bind-event-listener';
+
 import { type AbortableTask, backgroundTask } from './backgroundTasks';
 import type {
 	Cleanable,
@@ -118,6 +121,7 @@ export class TimelineController
 	idleBuffer: TimelineIdleBuffer;
 	private allSubscribersCleanedCallback: (() => void) | null = null;
 	private holdStartTimes: Map<string, DOMHighResTimeStamp>;
+	private unBindVisibilityChangeHandler?: UnbindFn;
 
 	constructor(givenOptions?: Partial<TimelineOptions>) {
 		this.holdStartTimes = new Map();
@@ -132,6 +136,17 @@ export class TimelineController
 			unorderedEvents: [],
 			eventsPerType: new Map(),
 		};
+
+		if (this.options.shouldIdleOnPageVisibilityChange) {
+			this.unBindVisibilityChangeHandler = bind(document, {
+				type: 'visibilitychange',
+				listener: () => {
+					if (document.hidden) {
+						this.scheduleNextIdle();
+					}
+				},
+			});
+		}
 	}
 
 	attemptCleanup() {
@@ -200,6 +215,8 @@ export class TimelineController
 		this.onNextIdleCallbacks.clear();
 
 		this.checkAllSubscribersCleared();
+
+		this.unBindVisibilityChangeHandler?.();
 	}
 
 	private addEventInternal(event: TimelineEvent) {
@@ -339,6 +356,13 @@ export class TimelineController
 		if (this.holdStartTimes.size > 0) {
 			return;
 		}
+
+		if (this.options.shouldIdleOnPageVisibilityChange) {
+			if (!document.hidden) {
+				return;
+			}
+		}
+
 		const idleTimeEvent: IdleTimeEvent = {
 			type: 'idle-time',
 			startTime: performance.now(),

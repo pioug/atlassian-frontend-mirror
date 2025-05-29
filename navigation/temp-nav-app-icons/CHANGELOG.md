@@ -1,5 +1,13 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.8.0
+
+### Minor Changes
+
+- [#159181](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159181)
+  [`c6e0c0ea860f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6e0c0ea860f1) -
+  Added appearance and size variants for icons and logos
+
 ## 0.7.5
 
 ### Patch Changes

@@ -140,6 +140,7 @@ export type TimelineOptions = {
 	 * The maximum duration (in milliseconds) to hold an idle event before timing out.
 	 */
 	maxHoldDuration: number;
+	shouldIdleOnPageVisibilityChange?: boolean;
 };
 
 export type ExtractEventTypes<T, N extends string> = T extends { type: N } ? T : never;

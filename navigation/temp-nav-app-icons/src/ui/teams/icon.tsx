@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bd9106694d7b58995aa8188c7ae50b4e>>
+ * @codegen <<SignedSource::dbcee8679f77a0d1a7605b46001d9e5a>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,19 +23,13 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
-export function TeamsIcon({
-	size,
-	appearance = 'brand',
-
-	label,
-	testId,
-}: AppIconProps) {
+export function TeamsIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (
 		<IconWrapper
 			svg={svg}
-			size={size}
-			appearance={appearance}
 			label={label || 'Teams'}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>
 	);

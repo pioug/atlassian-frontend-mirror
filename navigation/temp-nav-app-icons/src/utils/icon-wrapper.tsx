@@ -3,9 +3,10 @@
  * @jsx jsx
  */
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, jsx } from '@compiled/react';
 
-import { CSS_VAR_ICON, CSS_VAR_THEMED_ICON, CSS_VAR_TILE } from './constants';
+import { token } from '@atlaskit/tokens';
+
 import type { IconSize } from './types';
 
 const styles = cssMap({
@@ -14,7 +15,49 @@ const styles = cssMap({
 	},
 });
 
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const appearanceMap = cssMap({
+	brand: {
+		'--icon-color': 'initial',
+		'--tile-color': 'initial',
+	},
+	neutral: {
+		'--icon-color': token('color.text.inverse'),
+		'--tile-color': token('color.text'),
+	},
+	inverse: {
+		'--icon-color': token('color.text'),
+		'--tile-color': token('color.text.inverse'),
+	},
+	// The 'legacy' appearance replaces icon colors with a blue tile and white icon, controlled via CSS variables
+	legacy: {
+		'--icon-color': 'white',
+		'--tile-color': '#1868DB',
+	},
+});
+/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-enable @atlaskit/ui-styling-standard/no-unsafe-values */
+
 const sizeMap = cssMap({
+	xxsmall: {
+		height: '16px',
+	},
+	xsmall: {
+		height: '20px',
+	},
+	small: {
+		height: '24px',
+	},
+	medium: {
+		height: '32px',
+	},
+	large: {
+		height: '40px',
+	},
+	xlarge: {
+		height: '48px',
+	},
 	'12': {
 		height: '12px',
 	},
@@ -26,12 +69,6 @@ const sizeMap = cssMap({
 	},
 	'24': {
 		height: '24px',
-	},
-	small: {
-		height: '24px',
-	},
-	medium: {
-		height: '32px',
 	},
 	'32': {
 		height: '32px',
@@ -55,26 +92,21 @@ export function IconWrapper({
 	customThemeSvg,
 	testId: userDefinedTestId,
 	appearance = 'brand',
-	iconColor,
+	iconColor: customIconColor,
 }: IconWrapperProps) {
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 
-	const isCustomThemed = customThemeSvg && iconColor;
+	const isCustomThemed = customThemeSvg && customIconColor;
 
 	return (
 		// Role and testID behavior copied directly from `@atlaskit/logo` to maintain consistency.
 		<span
-			css={[styles.root, sizeMap[size]]}
+			css={[styles.root, sizeMap[size], appearanceMap[appearance]]}
 			data-testid={testId}
 			style={
 				{
-					// The 'legacy' appearance replaces icon colors with a blue tile and white icon, controlled via CSS variables
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					[CSS_VAR_ICON]: appearance === 'legacy' ? 'white' : 'initial',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					[CSS_VAR_TILE]: appearance === 'legacy' ? '#1868DB' : 'initial',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					[CSS_VAR_THEMED_ICON]: iconColor || 'initial',
+					'--themed-icon-color': customIconColor || 'initial',
 				} as React.CSSProperties
 			}
 			// In some icons (such as the app switcher specific icons), the label is a consumer prop.

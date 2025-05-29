@@ -22,6 +22,7 @@ export const navigateToTeamsApp = (action: NavigationAction): NavigationResult =
 	const result: NavigationResult = {
 		onNavigate,
 		href,
+		target: actionWithDefaults.shouldOpenInSameTab ? '_self' : '_blank',
 	};
 	return result;
 };

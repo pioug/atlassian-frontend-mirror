@@ -205,9 +205,9 @@ function isImageAligned(layout: MediaSingleLayout): string {
  * @returns Reduced CSS width value where px value given, or otherwise the original value
  * @example
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function roundToClosestEvenPxValue(widthValue: any) {
+
+// widthValue could be a string in px, rem or percentage, e.g. "800px", "100%", etc.
+export function roundToClosestEvenPxValue(widthValue: string) {
 	try {
 		if (widthValue.endsWith('px')) {
 			const pxWidth = parseInt(widthValue.slice(0, -2));

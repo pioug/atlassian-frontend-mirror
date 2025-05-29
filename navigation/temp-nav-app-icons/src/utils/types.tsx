@@ -1,16 +1,32 @@
 /**
  * We are following a similar API to [IconTile](https://atlassian.design/components/icon/icon-tile/examples).
- * Semantic names aren't appropriate at this stage, as these sizes aren't part of a standard scale yet.
  *
- * For backwards compatibility, the 'medium' size is equivalent to '24', and 'small' is equivalent to '32'.
+ * As we move to @atlaskit/log, the old semantic sizes are supported
  */
-export type IconSize = '12' | '16' | '20' | '24' | '32' | 'small' | 'medium';
+export type IconSize =
+	| '12'
+	| '16'
+	| '20'
+	| '24'
+	| '32'
+	| 'xxsmall'
+	| 'xsmall'
+	| 'small'
+	| 'medium'
+	| 'large'
+	| 'xlarge';
+
+/**
+ * Logos in the nav are only ever 24px
+ * However, for this spike, we're adding the old semantic sizes to simulate the Charlie sans versions of the logos
+ */
+export type LogoSize = 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 
 type SharedProps = {
 	/**
-	 * The size of the icon tile, in pixels. Defaults to "20".
+	 * The appearance of the logo. Defaults to "brand".
 	 */
-	size?: IconSize;
+	appearance?: 'brand' | 'legacy' | 'neutral' | 'inverse';
 
 	/**
 	 * Test ID applied to the parent 'span' element.
@@ -34,11 +50,6 @@ export type AppIconProps = SharedProps & {
 	 * The size of the icon tile, in pixels. Defaults to "20".
 	 */
 	size?: IconSize;
-
-	/**
-	 * The appearance of the icon. Defaults to "brand".
-	 */
-	appearance?: 'brand' | 'legacy';
 };
 
 export type UtilityIconProps = AppIconProps & {
@@ -51,7 +62,12 @@ export type UtilityIconProps = AppIconProps & {
 	label: string;
 };
 
-export type AppLogoProps = SharedProps;
+export type AppLogoProps = SharedProps & {
+	/**
+	 * The size of the icon tile, in pixels. Defaults to "20".
+	 */
+	size?: LogoSize;
+};
 
 export type ThemedIconProps = AppIconProps & {
 	/**

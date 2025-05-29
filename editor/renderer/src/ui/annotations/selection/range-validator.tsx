@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import type { Position } from '../types';
 import { useUserSelectionRange } from '../hooks/user-selection';
 import { SelectionInlineCommentMounter } from './mounter';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
@@ -11,27 +10,11 @@ type Props = {
 		React.PropsWithChildren<InlineCommentSelectionComponentProps>
 	>;
 	rendererRef: React.RefObject<HTMLDivElement>;
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 */
-	applyAnnotationDraftAt?: (position: Position) => void;
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 */
-	clearAnnotationDraft?: () => void;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 export const SelectionRangeValidator = (props: Props) => {
-	const {
-		selectionComponent,
-		rendererRef,
-		applyAnnotationDraftAt,
-		clearAnnotationDraft,
-		createAnalyticsEvent,
-	} = props;
+	const { selectionComponent, rendererRef, createAnalyticsEvent } = props;
 	const actions = useContext(ActionsContext);
 	const [type, range, draftRange, clearRange] = useUserSelectionRange({
 		rendererRef,
@@ -63,9 +46,7 @@ export const SelectionRangeValidator = (props: Props) => {
 			documentPosition={documentPosition}
 			isAnnotationAllowed={isAnnotationAllowedOnRange}
 			applyAnnotation={actions.applyAnnotation.bind(actions)}
-			applyAnnotationDraftAt={applyAnnotationDraftAt}
 			generateIndexMatch={actions.generateAnnotationIndexMatch.bind(actions)}
-			clearAnnotationDraft={clearAnnotationDraft}
 			createAnalyticsEvent={createAnalyticsEvent}
 		/>
 	);

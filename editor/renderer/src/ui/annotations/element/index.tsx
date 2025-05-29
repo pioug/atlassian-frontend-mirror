@@ -49,7 +49,7 @@ const MarkElement = ({
 
 			const { eventTarget, annotationIds } = props;
 
-			if (fg('platform_editor_comments_api_manager')) {
+			if (fg('platform_editor_comments_api_manager_select')) {
 				if (hasFocus) {
 					return;
 				}
@@ -58,6 +58,11 @@ const MarkElement = ({
 					?.checkPreemptiveGate()
 					.then((canSelect) => {
 						if (canSelect) {
+							// if there is a draft, clear it first
+							annotationManager?.clearDraft();
+
+							// use setIsAnnotationSelected won't work here if there is a draft in progress
+							// so we need to use dispatch to update the state directly
 							dispatch({
 								type: 'updateAnnotation',
 								data: {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ce5b9fbd7811d07687572e8e6bbfb3e8>>
+ * @codegen <<SignedSource::33273be5800a76008256021251d285d4>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -28,9 +28,9 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function TrelloIcon({
+	iconColor,
 	size,
 	appearance = 'brand',
-	iconColor,
 	label,
 	testId,
 }: ThemedIconProps) {
@@ -38,10 +38,10 @@ export function TrelloIcon({
 		<IconWrapper
 			svg={svg}
 			customThemeSvg={customThemeSvg}
-			size={size}
-			appearance={appearance}
 			iconColor={iconColor}
 			label={label || 'Trello'}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>
 	);

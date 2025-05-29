@@ -4,6 +4,11 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import type { NcsStepMetricsPlugin } from './ncsStepMetricsPluginType';
 
+// import { StorageClient } from '@atlaskit/frontend-utilities';
+
+// const STORAGE_CLIENT_KEY = 'ncs-step-metrics-storage';
+// const storageClient = new StorageClient(STORAGE_CLIENT_KEY);
+
 /**
  * Metrics plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
@@ -18,9 +23,13 @@ export const ncsStepMetricsPlugin: NcsStepMetricsPlugin = () => ({
 					new SafePlugin({
 						view: () => {
 							// Will check for any unsent analytics events and send them
-
+							// have a list of active sessions, if the session stored in the browser is still active do not send the event
+							// const currentStepMetrics = storageClient.getItem('ncsStepSessionMetrics') || {};
+							// const currentActiveSession = storageClient.getItem('ncsActiveSessions') || {};
 							let analyticsEventSent = false;
 							const sendAnalyticsEvent = () => {
+								// Get the current step session metrics from storage
+								// This is a failsafe to ensure that we only send the analytics event once
 								if (analyticsEventSent) {
 									return;
 								}

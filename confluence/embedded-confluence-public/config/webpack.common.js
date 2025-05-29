@@ -60,7 +60,9 @@ module.exports = {
 					{
 						loader: '@compiled/webpack-loader',
 						options: {
-							transformerBabelPlugins: ['@atlaskit/tokens/babel-plugin'],
+							transformerBabelPlugins: [
+								['@atlaskit/tokens/babel-plugin', { shouldForceAutoFallback: false }],
+							],
 						},
 					},
 				],

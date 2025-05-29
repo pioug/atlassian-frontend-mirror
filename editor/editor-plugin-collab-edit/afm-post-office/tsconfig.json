@@ -42,6 +42,9 @@
 			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/frontend-utilities/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{

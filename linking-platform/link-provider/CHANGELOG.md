@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 3.2.0
+
+### Minor Changes
+
+- [#161542](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161542)
+  [`dcc9722d5f3f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dcc9722d5f3f8) -
+  Type updates for linking provider and ai-snippet. No currently used changes. Simplyfying and
+  adding product typings
+
 ## 3.1.0
 
 ### Minor Changes

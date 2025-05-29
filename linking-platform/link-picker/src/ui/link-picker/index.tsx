@@ -164,6 +164,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			moveSubmitButton = false,
 			inputRef,
 			previewableLinksOnly = false,
+			additionalError,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -480,13 +481,18 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 				? customMessages.submitButtonLabel
 				: undefined;
 
+			const additionalErrorMessage =
+				fg('platform-linking-link-picker-previewable-only') && additionalError;
 			const errorMessage = invalidUrl ? (
 				previewableOnly && !hasPreview ? (
 					<FormattedMessage
 						{...formMessages.noEmbedAvailable}
 						values={{
 							a: (chunk) => (
-								<LinkUrl href="https://support.atlassian.com/platform-experiences/docs/smart-links-from-jira-and-other-products/">
+								<LinkUrl
+									target="_blank"
+									href="https://support.atlassian.com/platform-experiences/docs/smart-links-from-jira-and-other-products/"
+								>
 									{chunk}
 								</LinkUrl>
 							),
@@ -544,7 +550,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						value={url}
 						autoFocus
 						clearLabel={intl.formatMessage(formMessages.clearLink)}
-						error={errorMessage}
+						error={errorMessage || additionalErrorMessage}
 						spotlightTargetName="link-picker-search-field-spotlight-target"
 						aria-readonly={isSubmitting}
 						{...a11yList}

@@ -36,6 +36,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../editor-examples-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
@@ -67,6 +70,9 @@
 		},
 		{
 			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
@@ -153,6 +159,9 @@
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../people-and-teams/profilecard/tsconfig.app.json"
 		},
 		{
@@ -163,6 +172,9 @@
 		},
 		{
 			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
 			"path": "../../linking-platform/smart-card/tsconfig.app.json"
@@ -178,6 +190,9 @@
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/toggle/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

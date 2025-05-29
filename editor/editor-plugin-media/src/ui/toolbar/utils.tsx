@@ -1,9 +1,19 @@
+import React from 'react';
+
 import memoizeOne from 'memoize-one';
+import { IntlShape } from 'react-intl-next';
 
 import type { ExternalMediaAttributes, MediaADFAttrs, RichMediaLayout } from '@atlaskit/adf-schema';
 import type { LayoutIcon } from '@atlaskit/editor-common/card';
 import { wrappedLayouts } from '@atlaskit/editor-common/media-single';
-import type { Command, FloatingToolbarItem } from '@atlaskit/editor-common/types';
+import { mediaAndEmbedToolbarMessages } from '@atlaskit/editor-common/messages';
+import type {
+	Command,
+	FloatingToolbarItem,
+	FloatingToolbarDropdown,
+	DropdownOptionT,
+	ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import { nonWrappedLayouts } from '@atlaskit/editor-common/utils';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -15,10 +25,16 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
+import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
+import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import { getMediaClient } from '@atlaskit/media-client-react';
+import { messages } from '@atlaskit/media-ui';
 
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import { isVideo } from '../../pm-plugins/utils/media-single';
+
+import { changeMediaInlineToMediaSingle, changeMediaSingleToMediaInline } from './commands';
 
 export const isExternalMedia = (attrs: MediaADFAttrs): attrs is ExternalMediaAttributes => {
 	return attrs.type === 'external';
@@ -196,4 +212,75 @@ export const updateToFullHeightSeparator = (items: FloatingToolbarItem<Command>[
 	} else if (items.length) {
 		items.push({ type: 'separator', fullHeight: true });
 	}
+};
+
+export const getMediaSingleAndMediaInlineSwitcherDropdown = (
+	nodeType: 'inline' | 'block',
+	intl: IntlShape,
+	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+	hasCaption: boolean = false,
+): FloatingToolbarDropdown<Command> => {
+	const mediaInlineImageTitle = intl.formatMessage(
+		mediaAndEmbedToolbarMessages.changeToMediaInlineImage,
+	);
+	const mediaSingleTitle = intl.formatMessage(mediaAndEmbedToolbarMessages.changeToMediaSingle);
+	const inlineSwitcherTitle = intl.formatMessage(
+		hasCaption
+			? mediaAndEmbedToolbarMessages.changeToMediaInlineImageCaptionWarning
+			: mediaAndEmbedToolbarMessages.changeToMediaInlineImage,
+	);
+
+	const InlineIcon = () => <ImageInlineIcon color="currentColor" spacing="spacious" label="" />;
+	const BlockIcon = () => <MaximizeIcon color="currentColor" spacing="spacious" label="" />;
+
+	const dropdownConfig = {
+		inline: {
+			handleInlineButtonClick: () => {
+				return true;
+			},
+			handleBlockButtonClick: changeMediaInlineToMediaSingle(
+				pluginInjectionApi?.analytics?.actions,
+				pluginInjectionApi?.width.sharedState.currentState(),
+			),
+			id: 'media-inline-to-block-toolbar-item',
+			icon: InlineIcon,
+		},
+		block: {
+			handleInlineButtonClick: changeMediaSingleToMediaInline(
+				pluginInjectionApi?.analytics?.actions,
+			),
+			handleBlockButtonClick: () => {
+				return true;
+			},
+			id: 'media-block-to-inline-toolbar-item',
+			icon: BlockIcon,
+		},
+	};
+
+	const options: DropdownOptionT<Command>[] = [
+		{
+			id: 'editor.media.convert.mediainline',
+			title: mediaInlineImageTitle,
+			onClick: dropdownConfig[nodeType].handleInlineButtonClick,
+			selected: nodeType === 'inline',
+			icon: <InlineIcon />,
+			tooltip: hasCaption ? inlineSwitcherTitle : undefined,
+		},
+		{
+			id: 'editor.media.convert.mediasingle',
+			title: mediaSingleTitle,
+			onClick: dropdownConfig[nodeType].handleBlockButtonClick,
+			selected: nodeType === 'block',
+			icon: <BlockIcon />,
+		},
+	];
+
+	return {
+		id: dropdownConfig[nodeType].id,
+		testId: 'media-inline-to-block-dropdown',
+		title: intl.formatMessage(messages.sizeOptions),
+		type: 'dropdown',
+		options,
+		icon: dropdownConfig[nodeType].icon,
+	};
 };

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.13
+
+### Patch Changes
+
+- [#162094](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162094)
+  [`c755719e1423d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c755719e1423d) -
+  FG cleanup - platform_ufo_add_vc_abort_reason_by_revisions
+
 ## 3.13.12
 
 ### Patch Changes

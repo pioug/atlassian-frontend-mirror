@@ -16,7 +16,11 @@ import { addSynchronyErrorAnalytics } from './pm-plugins/analytics';
 import { sendTransaction } from './pm-plugins/events/send-transaction';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey as mainPluginKey } from './pm-plugins/main/plugin-key';
-import { mergeUnconfirmedSteps } from './pm-plugins/mergeUnconfirmed';
+import {
+	filterAnalyticsSteps,
+	LockableRebaseable,
+	mergeUnconfirmedSteps,
+} from './pm-plugins/mergeUnconfirmed';
 import { nativeCollabProviderPlugin } from './pm-plugins/native-collab-provider-plugin';
 import {
 	sanitizeFilteredStep,
@@ -182,6 +186,19 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 		pmPlugins() {
 			const { useNativePlugin = false, userId = null } = options || {};
 
+			const transformUnconfirmed = (steps: LockableRebaseable[]) => {
+				let transformed = steps;
+
+				if (editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)) {
+					transformed = filterAnalyticsSteps(transformed);
+				}
+
+				if (editorExperiment('platform_editor_offline_editing_web', true)) {
+					transformed = mergeUnconfirmedSteps(transformed, api);
+				}
+				return transformed;
+			};
+
 			const plugins = [
 				...(useNativePlugin
 					? [
@@ -190,12 +207,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 								plugin: () =>
 									collab({
 										clientID: userId,
-										transformUnconfirmed: editorExperiment(
-											'platform_editor_offline_editing_web',
-											true,
-										)
-											? (steps) => mergeUnconfirmedSteps(steps, api)
-											: undefined,
+										transformUnconfirmed,
 									}) as SafePlugin,
 							},
 							{
@@ -283,6 +295,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			);
 
 			track({
+				api,
 				...props,
 				onTrackDataProcessed: (steps) => {
 					api?.analytics?.actions?.fireAnalyticsEvent({

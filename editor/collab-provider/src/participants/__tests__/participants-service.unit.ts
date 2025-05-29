@@ -330,6 +330,26 @@ describe('batchFetchUsers', () => {
 		expect(mockGetUsers).not.toHaveBeenCalled();
 	});
 
+	it('Should do nothing if hasBatchFetchError', async () => {
+		const participantsService = participantsServiceConstructor({
+			batchProps: defaultBatchProps,
+		});
+
+		jest.useFakeTimers({ legacyFakeTimers: true });
+
+		// @ts-ignore private variable
+		expect(participantsService.hasBatchFetchError).toEqual(false);
+		// @ts-ignore private variable
+		participantsService.hasBatchFetchError = true;
+		await participantsService.batchFetchUsers();
+
+		// @ts-ignore private variable
+		expect(participantsService.hasBatchFetchError).toEqual(true);
+		expect(mockGetUsers).not.toHaveBeenCalled();
+
+		expect(clearTimeout).toHaveBeenCalledTimes(1);
+	});
+
 	it.each([['default'], [1000]])(
 		'Should delay and fetch correctly with delay of %s',
 		async (customDelay) => {
@@ -400,6 +420,8 @@ describe('batchFetchUsers', () => {
 		await participantsService.batchFetchUsers();
 
 		expect(mockOnError).toHaveBeenCalledWith(error);
+		// @ts-ignore private variable
+		expect(participantsService.hasBatchFetchError).toEqual(true);
 
 		expect(sendErrorEventSpy).toHaveBeenCalledWith(error, 'Failed while fetching participants');
 	});

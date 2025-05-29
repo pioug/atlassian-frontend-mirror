@@ -6,7 +6,9 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import CrossIcon from '@atlaskit/icon/utility/cross';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+import CrossIcon from '@atlaskit/icon/core/close';
+import LinkIcon from '@atlaskit/icon/core/link';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -47,6 +49,17 @@ const styles = cssMap({
 		justifyContent: 'flex-end',
 		marginLeft: 'auto',
 	},
+	linkIconWrapper: {
+		width: '34px',
+		height: '34px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: token('border.radius.100', '8px'),
+		outlineColor: token('color.border'),
+		outlineStyle: 'solid',
+		backgroundColor: token('elevation.surface.sunken'),
+	},
 });
 
 export interface LinkedContainerCardProps {
@@ -68,6 +81,10 @@ interface CustomItemComponentPropsWithHref {
 	handleMouseLeave: () => void;
 	children: React.ReactNode;
 }
+
+const isSupportingAddWebLink =
+	FeatureGates.initializeCompleted() &&
+	FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
 
 const LinkedCardWrapper = ({
 	children,
@@ -119,6 +136,13 @@ const getContainerIcon = (containerType: ContainerTypes, title: string, containe
 	if (containerType === 'LoomSpace') {
 		return <LoomSpaceAvatar spaceName={title} size={'large'} />;
 	}
+	if (isSupportingAddWebLink && containerType === 'WebLink') {
+		return (
+			<Box xcss={styles.linkIconWrapper}>
+				<LinkIcon label="" />
+			</Box>
+		);
+	}
 	return (
 		<Avatar appearance="square" size="medium" src={containerIcon} testId="linked-container-icon" />
 	);
@@ -134,11 +158,11 @@ export const LinkedContainerCard = ({
 	onDisconnectButtonClick,
 }: LinkedContainerCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { description, icon, containerTypeText } = getContainerProperties(
+	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
-		'small',
+		iconSize: 'small',
 		containerTypeProperties,
-	);
+	});
 
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
 	const { formatMessage } = useIntl();
@@ -180,7 +204,7 @@ export const LinkedContainerCard = ({
 							<IconButton
 								label={`disconnect the container ${title}`}
 								appearance="subtle"
-								icon={CrossIcon}
+								icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
 								spacing="compact"
 								onClick={(e) => {
 									e.preventDefault();

@@ -11,6 +11,7 @@ export enum INTERNAL_ERROR_CODE {
 	ADD_STEPS_ERROR = 'ADD_STEPS_ERROR',
 	DOCUMENT_UPDATE_ERROR = 'DOCUMENT_UPDATE_ERROR',
 	VIEW_ONLY_STEPS_ERROR = 'VIEW_ONLY_STEPS_ERROR',
+	OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT = 'OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT',
 }
 
 type DocumentRecoveryError = {
@@ -25,6 +26,16 @@ type AddStepsError = {
 	data: {
 		code: INTERNAL_ERROR_CODE.ADD_STEPS_ERROR;
 		status: number; // 500
+	};
+};
+
+type OutOfSyncClientDatalossEvent = {
+	message: string;
+	data: {
+		meta: {
+			reason?: string;
+		};
+		code: INTERNAL_ERROR_CODE.OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT;
 	};
 };
 
@@ -114,7 +125,8 @@ export type InternalError =
 	| ConnectionError
 	| ReconnectionNetworkError
 	| DocumentNotFoundError
-	| InternalDocumentUpdateFailure;
+	| InternalDocumentUpdateFailure
+	| OutOfSyncClientDatalossEvent;
 
 /*
  * This is what a generic ProviderError type would look like:

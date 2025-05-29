@@ -152,16 +152,16 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function ${componentName}({
-		${type === 'icon' ? 'size, appearance = "brand", ' : ''}
 		${customThemeSvg ? 'iconColor, ' : ''}
-		${customThemeSvg && type === 'logo' ? 'textColor,' : ''} label, testId
+		${customThemeSvg && type === 'logo' ? 'textColor,' : ''} size, appearance = "brand", label, testId
 	}: ${propType}) {
 	return <${WrapperName}
 			svg={svg} ${customThemeSvg ? 'customThemeSvg={customThemeSvg}' : ''}
-			${type === 'icon' ? 'size={size} appearance={appearance}' : ''}
 			${customThemeSvg ? 'iconColor={iconColor}' : ''}
 			${customThemeSvg && type === 'logo' ? 'textColor={textColor}' : ''}
 			${utilityIcons.includes(name) ? 'label={label}' : `label={label || "${productLabel}"}`}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>;
 }

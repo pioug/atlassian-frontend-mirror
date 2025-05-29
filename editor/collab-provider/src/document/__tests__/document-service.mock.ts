@@ -15,6 +15,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
 
 	const fetchCatchupv2Mock = jest.fn();
 	const fetchReconcileMock = jest.fn();
+	const fetchGeneratedDiffStepsMock = jest.fn();
 	const providerEmitCallbackMock = jest.fn();
 	const sendMetadataMock = jest.fn();
 	const broadcastMock = jest.fn();
@@ -30,6 +31,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		new AnalyticsHelper(),
 		fetchCatchupv2Mock,
 		fetchReconcileMock,
+		fetchGeneratedDiffStepsMock,
 		providerEmitCallbackMock,
 		broadcastMock,
 		getUserIdMock,
@@ -52,6 +54,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		participantsServiceMock,
 		fetchCatchupv2Mock,
 		fetchReconcileMock,
+		fetchGeneratedDiffStepsMock,
 		providerEmitCallbackMock,
 		sendMetadataMock,
 		broadcastMock,

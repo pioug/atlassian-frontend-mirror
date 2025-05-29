@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.9.2
+
+### Patch Changes
+
+- [#162493](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162493)
+  [`e2fed6abf826b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2fed6abf826b) -
+  Added some error reporting anayltics for the new annotation manager
+- Updated dependencies
+
 ## 2.9.1
 
 ### Patch Changes

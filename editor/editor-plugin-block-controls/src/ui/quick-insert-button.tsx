@@ -16,7 +16,7 @@ import { tableControlsSpacing } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/utility/add';
@@ -287,7 +287,13 @@ export const TypeAheadControl = ({
 				api.core.actions.execute(createNewLine(start));
 			}
 
-			if (isSelectionInsideNode) {
+			const { codeBlock } = view.state.schema.nodes;
+			const { selection } = view.state;
+			const codeBlockParentNode = findParentNodeOfType(codeBlock)(selection);
+			if (codeBlockParentNode && fg('platform_editor_controls_patch_11')) {
+				// Slash command is not meant to be triggered inside code block, hence always insert slash in a new line following
+				api.core.actions.execute(createNewLine(codeBlockParentNode.pos));
+			} else if (isSelectionInsideNode) {
 				// text or element with be deselected and the / added immediately after the paragraph
 				// unless the selection is empty
 				const currentSelection = view.state.selection;

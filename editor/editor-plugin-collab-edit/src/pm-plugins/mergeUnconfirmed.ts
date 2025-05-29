@@ -1,3 +1,4 @@
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
@@ -6,7 +7,7 @@ import type { Transform as ProseMirrorTransform } from '@atlaskit/editor-prosemi
 import type { CollabEditPlugin } from '../collabEditPluginType';
 
 // Based on: `packages/editor/prosemirror-collab/src/index.ts`
-class LockableRebaseable {
+export class LockableRebaseable {
 	constructor(
 		readonly step: ProseMirrorStep,
 		readonly inverted: ProseMirrorStep,
@@ -71,4 +72,23 @@ export function mergeUnconfirmedSteps(
 		);
 	}, [] as LockableRebaseable[]);
 	return mergedSteps;
+}
+
+/**
+ * Filter out AnalyticsStep from the steps.
+ *
+ * @param steps Rebaseable steps
+ * @returns Rebaseable steps
+ * @example
+ */
+export function filterAnalyticsSteps(steps: LockableRebaseable[]): LockableRebaseable[] {
+	const filteredSteps = steps.reduce((acc, rebaseable) => {
+		if (rebaseable.step instanceof AnalyticsStep) {
+			return acc;
+		}
+		return acc.concat(
+			new LockableRebaseable(rebaseable.step, rebaseable.inverted, rebaseable.origin),
+		);
+	}, [] as LockableRebaseable[]);
+	return filteredSteps;
 }

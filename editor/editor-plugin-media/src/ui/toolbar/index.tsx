@@ -14,9 +14,6 @@ import {
 	alignmentIcons,
 	buildLayoutButtons,
 	buildLayoutDropdown,
-	IconCard,
-	IconEmbed,
-	IconInline,
 	layoutToMessages,
 	wrappingIcons,
 } from '@atlaskit/editor-common/card';
@@ -55,7 +52,6 @@ import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
-import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
@@ -101,6 +97,7 @@ import {
 	canShowSwitchButtons,
 	downloadMedia,
 	getMaxToolbarWidth,
+	getMediaSingleAndMediaInlineSwitcherDropdown,
 	getSelectedLayoutIcon,
 	getSelectedMediaSingle,
 	getSelectedNearestMediaContainerNodeAttrs,
@@ -211,7 +208,6 @@ const generateMediaCardFloatingToolbar = (
 		icon: editorExperiment('platform_editor_controls', 'variant1')
 			? GrowDiagonalIcon
 			: MaximizeIcon,
-		iconFallback: MaximizeIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -246,7 +242,6 @@ const generateMediaCardFloatingToolbar = (
 				id: 'editor.media.view.switcher.inline',
 				type: 'button',
 				icon: ImageInlineIcon,
-				iconFallback: IconInline,
 				selected: false,
 				focusEditoronEnter: true,
 				disabled: false,
@@ -259,7 +254,6 @@ const generateMediaCardFloatingToolbar = (
 				id: 'editor.media.view.switcher.thumbnail',
 				type: 'button',
 				icon: SmartLinkCardIcon,
-				iconFallback: IconCard,
 				selected: true,
 				disabled: false,
 				focusEditoronEnter: true,
@@ -291,7 +285,6 @@ const generateMediaCardFloatingToolbar = (
 				appearance: 'danger',
 				focusEditoronEnter: true,
 				icon: DeleteIcon,
-				iconFallback: RemoveIcon,
 				onMouseEnter: hoverDecoration?.(mediaGroup, true),
 				onMouseLeave: hoverDecoration?.(mediaGroup, false),
 				onFocus: hoverDecoration?.(mediaGroup, true),
@@ -538,8 +531,6 @@ const generateMediaSingleFloatingToolbar = (
 									color="currentColor"
 									spacing="spacious"
 									label={inlineSwitcherTitle}
-									LEGACY_size="medium"
-									LEGACY_fallbackIcon={IconInline}
 								/>
 							),
 							onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
@@ -554,8 +545,6 @@ const generateMediaSingleFloatingToolbar = (
 									color="currentColor"
 									spacing="spacious"
 									label={floatingSwitcherTitle}
-									LEGACY_size="medium"
-									LEGACY_fallbackIcon={IconEmbed}
 								/>
 							),
 							onClick: () => {
@@ -580,8 +569,6 @@ const generateMediaSingleFloatingToolbar = (
 									color="currentColor"
 									spacing="spacious"
 									label={fg('platform_editor_controls_patch_7') ? '' : inlineTitle}
-									LEGACY_size="medium"
-									LEGACY_fallbackIcon={IconInline}
 								/>
 							),
 							tooltip: hasCaption ? inlineSwitcherTitle : undefined,
@@ -600,36 +587,43 @@ const generateMediaSingleFloatingToolbar = (
 									color="currentColor"
 									spacing="spacious"
 									label={fg('platform_editor_controls_patch_7') ? '' : floatingSwitcherTitle}
-									LEGACY_size="medium"
-									LEGACY_fallbackIcon={IconEmbed}
 								/>
 							),
 						},
 					];
 
-					const switchFromBlockToInline: FloatingToolbarDropdown<Command> = {
-						id: 'media-block-to-inline-toolbar-item',
-						testId: 'media-inline-to-block-dropdown',
-						type: 'dropdown',
-						options: options,
-						title: intl.formatMessage(messages.sizeOptions),
-						icon: () =>
-							fg('platform_editor_controls_patch_7') ? (
-								<MaximizeIcon
-									color="currentColor"
-									spacing="spacious"
-									label={intl.formatMessage(messages.sizeOptions)}
-								/>
-							) : (
-								<ImageFullscreenIcon
-									color="currentColor"
-									spacing="spacious"
-									label={intl.formatMessage(messages.sizeOptions)}
-									LEGACY_size="medium"
-									LEGACY_fallbackIcon={IconEmbed}
-								/>
-							),
-					};
+					let switchFromBlockToInline: FloatingToolbarDropdown<Command>;
+
+					if (fg('platform_editor_controls_patch_11')) {
+						switchFromBlockToInline = getMediaSingleAndMediaInlineSwitcherDropdown(
+							'block',
+							intl,
+							pluginInjectionApi,
+							hasCaption,
+						);
+					} else {
+						switchFromBlockToInline = {
+							id: 'media-block-to-inline-toolbar-item',
+							testId: 'media-inline-to-block-dropdown',
+							type: 'dropdown',
+							options: options,
+							title: intl.formatMessage(messages.sizeOptions),
+							icon: () =>
+								fg('platform_editor_controls_patch_7') ? (
+									<MaximizeIcon
+										color="currentColor"
+										spacing="spacious"
+										label={intl.formatMessage(messages.sizeOptions)}
+									/>
+								) : (
+									<ImageFullscreenIcon
+										color="currentColor"
+										spacing="spacious"
+										label={intl.formatMessage(messages.sizeOptions)}
+									/>
+								),
+						};
+					}
 
 					toolbarButtons.push(switchFromBlockToInline, {
 						type: 'separator',
@@ -761,7 +755,6 @@ const generateMediaSingleFloatingToolbar = (
 							icon: editorExperiment('platform_editor_controls', 'variant1')
 								? GrowDiagonalIcon
 								: MaximizeIcon,
-							iconFallback: MaximizeIcon,
 							title: intl.formatMessage(messages.preview),
 							onClick: () => {
 								return (
@@ -815,7 +808,6 @@ const generateMediaSingleFloatingToolbar = (
 			appearance: 'danger',
 			focusEditoronEnter: true,
 			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
 			onMouseEnter: hoverDecoration?.(mediaSingle, true),
 			onMouseLeave: hoverDecoration?.(mediaSingle, false),
 			onFocus: hoverDecoration?.(mediaSingle, true),
@@ -860,7 +852,6 @@ const generateMediaSingleFloatingToolbar = (
 						icon: editorExperiment('platform_editor_controls', 'variant1')
 							? GrowDiagonalIcon
 							: MaximizeIcon,
-						iconFallback: MaximizeIcon,
 						title: intl.formatMessage(messages.preview),
 						onClick: () => {
 							return (

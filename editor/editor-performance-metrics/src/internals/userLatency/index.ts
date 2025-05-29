@@ -1,5 +1,7 @@
 import { TimelineController } from '../timeline';
 
+import { processTimelineEvents } from './processTimelineEvents';
+import type { UserLatencyEvent } from './processTimelineEvents';
 import { UserLatencyObservers } from './UserLatencyOberservers';
 
 interface WindowWithEditorPerformance extends Window {
@@ -15,11 +17,7 @@ const getGlobalUserLatencyTimeline = (): TimelineController => {
 	}
 
 	timeline = new TimelineController({
-		cleanup: {
-			// TODO: PGXT-7918 - Remove threshold. Set threshold to 10 events for debugging purposes
-			// https://product-fabric.atlassian.net/browse/PGXT-7918
-			eventsThreshold: 10,
-		},
+		shouldIdleOnPageVisibilityChange: true,
 	});
 
 	(
@@ -31,12 +29,15 @@ const getGlobalUserLatencyTimeline = (): TimelineController => {
 
 /* TODO: PGXT-7952 - develop user latency event interface and update callback accordingly
    https://product-fabric.atlassian.net/browse/PGXT-7952 */
-export const onUserLatency = (_callback: () => void) => {
+export const onUserLatency = (
+	handleUserLatencyEvents: (userLatencyEvents: UserLatencyEvent[]) => void,
+) => {
 	const timeline = getGlobalUserLatencyTimeline();
 	const observers = new UserLatencyObservers(timeline);
 
 	observers.observe();
 
-	// TODO: PGXT-7918 - https://product-fabric.atlassian.net/browse/PGXT-7918
-	timeline.onNextIdle(({}) => {});
+	timeline.onIdleBufferFlush(() => {
+		handleUserLatencyEvents(processTimelineEvents(timeline.getEvents()));
+	});
 };

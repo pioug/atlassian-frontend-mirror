@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.5.0
+
+### Minor Changes
+
+- [#154562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154562)
+  [`9a3495cb72638`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a3495cb72638) -
+  Support AnalyticsStep filtering for collab
+
+## 5.4.0
+
+### Minor Changes
+
+- [#161893](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161893)
+  [`432e1c30874a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/432e1c30874a0) -
+  controls performance gating switch to experiment
+
 ## 5.3.0
 
 ### Minor Changes

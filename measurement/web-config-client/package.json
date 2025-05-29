@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/web-config-client",
-	"version": "0.7.0",
+	"version": "0.7.1",
 	"description": "JavaScript Frontend Web Client for Dynamic Configuration.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,7 +49,6 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
-		"@atlassian/experiment-feature-gates": "^6.0.0",
 		"@testing-library/react": "^13.4.0",
 		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",

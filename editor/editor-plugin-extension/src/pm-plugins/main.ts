@@ -17,6 +17,7 @@ import {
 } from '@atlaskit/editor-common/selection';
 import type {
 	EditorAppearance,
+	ExtensionViewportSize,
 	ExtractInjectionAPI,
 	FeatureFlags,
 } from '@atlaskit/editor-common/types';
@@ -178,6 +179,7 @@ export const createPlugin = (
 	useLongPressSelection: boolean = false,
 	options: {
 		appearance?: EditorAppearance;
+		extensionViewportSizes?: ExtensionViewportSize[];
 	} = {},
 	featureFlags?: FeatureFlags,
 	__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'],
@@ -189,6 +191,7 @@ export const createPlugin = (
 
 	const extensionNodeViewOptions = {
 		appearance: options.appearance,
+		extensionViewportSizes: options.extensionViewportSizes,
 	};
 
 	const macroInteractionDesignFeatureFlags = {

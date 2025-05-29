@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 23.16.7
+
+### Patch Changes
+
+- [#160653](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160653)
+  [`9e0f4bc934a62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e0f4bc934a62) -
+  [ux] PTC-11533 Render team web link card && update where we work section title to Team links
+- Updated dependencies
+
+## 23.16.6
+
+### Patch Changes
+
+- [#161702](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161702)
+  [`f4e1432bdb902`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4e1432bdb902) -
+  Update the formatting of the local time in the user card to use am/pm over midnight/noon
+
 ## 23.16.5
 
 ### Patch Changes

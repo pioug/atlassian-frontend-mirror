@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 13.17.1
+
+### Patch Changes
+
+- [#162714](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162714)
+  [`e92912cc20871`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e92912cc20871) -
+  Fixes the import order bug in the no-utility-icons eslint rule.
+
 ## 13.17.0
 
 ### Minor Changes

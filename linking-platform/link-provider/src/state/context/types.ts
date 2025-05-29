@@ -37,7 +37,7 @@ export interface CardProviderStoreOpts {
 export interface CardProviderRenderers {
 	adf?: (adf: string) => React.ReactNode;
 	emoji?: (emoji?: string, parentComponent?: CardAppearance) => React.ReactNode;
-	snippet?: <T extends SnippetRendererProps>(props: T) => React.ReactNode;
+	snippet?: (props: SnippetRendererProps) => React.ReactNode;
 }
 
 export interface GlancePanelProps {
@@ -91,8 +91,9 @@ export type CardProviderProps = {
 	 */
 	openGlancePanel?: (props: GlancePanelProps) => void;
 } & CardAuthFlowOpts;
-``;
+
 export type SnippetRendererProps = AISnippetRendererProps | Record<string, never>;
+
 export type BaseSnippetRendererProps = {
 	fallbackText: string;
 	fallbackComponent: React.ReactNode;

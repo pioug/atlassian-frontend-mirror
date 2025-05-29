@@ -2046,7 +2046,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 			}
 			css={[
 				baseStyles,
-				fg('platform_hide_heading_anchor_wrapper_before_hover') && hideHeadingCopyLinkWrapperStyles,
+				hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' && rendererFullPageStyles,
 				appearance === 'full-width' && rendererFullWidthStyles,
 				appearance === 'full-width' &&

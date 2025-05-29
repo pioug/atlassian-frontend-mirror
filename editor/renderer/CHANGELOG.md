@@ -1,5 +1,39 @@
 # @atlaskit/renderer
 
+## 118.6.0
+
+### Minor Changes
+
+- [#158451](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158451)
+  [`b1235f9180ac5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1235f9180ac5) -
+  EDITOR-586 - Implement Select Annotation APIs for Renderer and integrate with CCFE
+
+### Patch Changes
+
+- Updated dependencies
+
+## 118.5.1
+
+### Patch Changes
+
+- [#161072](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161072)
+  [`a0c4a3b5661b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0c4a3b5661b9) -
+  EDITOR-775 - Could not create new comment on extension Excerpt in renderer
+- Updated dependencies
+
+## 118.5.0
+
+### Minor Changes
+
+- [#158238](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158238)
+  [`6e8934b998a34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e8934b998a34) -
+  Cleanup FG platform_renderer_annotation_draft_position_fix and removed all deprecated code as it
+  no longer needed since this gate is rolled out
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 118.4.1
 
 ### Patch Changes

@@ -19,7 +19,7 @@ export const useUserSelectionRange = (
 		rendererRef: { current: rendererDOM },
 	} = props;
 	const selectionTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
-	const { clearRange, clearSelectionRange, setSelectionRange } = useAnnotationRangeDispatch();
+	const { clearSelectionRange, setSelectionRange } = useAnnotationRangeDispatch();
 	const { range, type, selectionDraftRange } = useAnnotationRangeState();
 	const lastRangeRef = useRef<Range | null>(null);
 
@@ -140,18 +140,9 @@ export const useUserSelectionRange = (
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('selectionchange', onSelectionChange);
-			if (fg('platform_renderer_annotation_draft_position_fix')) {
-				clearSelectionRange();
-			} else {
-				clearRange();
-			}
+			clearSelectionRange();
 		};
-	}, [rendererDOM, onSelectionChange, clearSelectionRange, clearRange]);
+	}, [rendererDOM, onSelectionChange, clearSelectionRange]);
 
-	return [
-		type,
-		range,
-		selectionDraftRange,
-		fg('platform_renderer_annotation_draft_position_fix') ? clearSelectionRange : clearRange,
-	];
+	return [type, range, selectionDraftRange, clearSelectionRange];
 };

@@ -191,7 +191,9 @@ export const useAnnotationClickEvent = (
 
 	const { currentSelectedAnnotationId, currentSelectedMarkRef } = useAnnotationManagerState();
 	const selectedAnnotation = useMemo(() => {
-		return currentSelectedAnnotationId && currentSelectedMarkRef
+		return currentSelectedAnnotationId &&
+			currentSelectedMarkRef &&
+			currentSelectedMarkRef.id === currentSelectedAnnotationId
 			? {
 					annotations: [
 						{

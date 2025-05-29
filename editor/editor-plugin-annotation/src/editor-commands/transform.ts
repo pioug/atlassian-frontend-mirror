@@ -9,6 +9,7 @@ import {
 import type {
 	AnalyticsEventPayload,
 	AnnotationAEP,
+	AnnotationErrorAEP,
 	EditorAnalyticsAPI,
 	RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
@@ -164,6 +165,37 @@ const addResolveAnalytics =
 		return transaction;
 	};
 
+const addPreemptiveGateErrorAnalytics =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(errorReason?: string) =>
+	(transaction: Transaction, state: EditorState) => {
+		const analyticsEvent: AnnotationErrorAEP = {
+			action: ACTION.ERROR,
+			actionSubject: ACTION_SUBJECT.ANNOTATION,
+			actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+			eventType: EVENT_TYPE.OPERATIONAL,
+			attributes: {
+				errorReason,
+			},
+		};
+		editorAnalyticsAPI?.attachAnalyticsEvent(analyticsEvent)(transaction);
+		return transaction;
+	};
+
+const addDeleteAnalytics =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(transaction: Transaction, state: EditorState) => {
+		const analyticsEvent: AnnotationAEP = {
+			action: ACTION.DELETED,
+			actionSubject: ACTION_SUBJECT.ANNOTATION,
+			actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+			eventType: EVENT_TYPE.TRACK,
+			attributes: {},
+		};
+		editorAnalyticsAPI?.attachAnalyticsEvent(analyticsEvent)(transaction);
+		return transaction;
+	};
+
 export default {
 	addAnnotationMark,
 	addInlineComment,
@@ -171,4 +203,6 @@ export default {
 	addOpenCloseAnalytics,
 	addInsertAnalytics,
 	addResolveAnalytics,
+	addPreemptiveGateErrorAnalytics,
+	addDeleteAnalytics,
 };

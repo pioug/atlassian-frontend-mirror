@@ -33,7 +33,10 @@ export const TeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const { description, icon, containerTypeText } = getContainerProperties(containerType, 'medium');
+	const { description, icon, containerTypeText } = getContainerProperties({
+		containerType,
+		iconSize: 'medium',
+	});
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const onClick = useCallback(() => {
 		fireEvent(createAnalyticsEvent, {
@@ -85,7 +88,10 @@ export const NewTeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const { description, icon, containerTypeText } = getContainerProperties(containerType, 'medium');
+	const { description, icon, containerTypeText } = getContainerProperties({
+		containerType,
+		iconSize: 'medium',
+	});
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const onClick = useCallback(() => {
 		fireEvent(createAnalyticsEvent, {

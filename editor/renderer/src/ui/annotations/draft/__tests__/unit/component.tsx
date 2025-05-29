@@ -1,13 +1,16 @@
 import React from 'react';
+
+import { render } from '@testing-library/react';
+
 import {
 	applyAnnotationOnText,
 	TextWithAnnotationDraft,
 	AnnotationDraft,
 	getAnnotationIndex,
 } from '../../component';
-import { AnnotationsDraftContext } from '../../../context';
 import TestRenderer, { type ReactTestInstance } from 'react-test-renderer';
 import { InsertDraftPosition, type Position } from '../../../types';
+import { AnnotationRangeStateContext } from '../../../contexts/AnnotationRangeContext';
 
 describe('Annotations: draft/component', () => {
 	describe('#getAnnotationIndex', () => {
@@ -38,123 +41,97 @@ describe('Annotations: draft/component', () => {
 	});
 
 	describe('#TextWithAnnotationDraft', () => {
-		describe('when the child is a react node', () => {
-			it('should create the AnnotationMark at the start of the text', () => {
-				const textPosition = {
-					startPos: 20,
-					endPos: 35,
-				};
-				const draftSelection = { from: 1, to: 25 };
+		function renderTextWithAnnotationDraft(
+			textPos: {
+				startPos: number;
+				endPos: number;
+			},
+			draftSelection: Position,
+		) {
+			return render(
+				<AnnotationRangeStateContext.Provider
+					value={{
+						range: null,
+						type: null,
+						selectionDraftRange: null,
+						hoverDraftRange: null,
+						hoverDraftDocumentPosition: null,
+						selectionDraftDocumentPosition: draftSelection,
+					}}
+				>
+					<TextWithAnnotationDraft startPos={textPos.startPos} endPos={textPos.endPos}>
+						Martin Luther King
+					</TextWithAnnotationDraft>
+				</AnnotationRangeStateContext.Provider>,
+			);
+		}
 
-				const result = TestRenderer.create(
-					<AnnotationsDraftContext.Provider value={draftSelection}>
-						<TextWithAnnotationDraft {...textPosition}>Martin Luther King</TextWithAnnotationDraft>
-					</AnnotationsDraftContext.Provider>,
-				);
-
-				expect(result.root.children).toHaveLength(2);
-				expect(result.root.children[1]).toEqual('uther King');
-				expect((result.root.children[0] as ReactTestInstance).type).toEqual(AnnotationDraft);
-			});
-		});
-
-		describe.each<[string, Position]>([
+		it.each<[string, Position]>([
 			['before', { from: 1, to: 10 }],
 			['after', { from: 36, to: 100 }],
-		])('when the draft selection is %s the component', (type, draftSelection) => {
-			const textPosition = {
-				startPos: 20,
-				endPos: 35,
-			};
-
-			it('should not create the AnnotationMark', () => {
-				const result = TestRenderer.create(
-					<AnnotationsDraftContext.Provider value={draftSelection}>
-						<TextWithAnnotationDraft {...textPosition}>Martin Luther King</TextWithAnnotationDraft>
-					</AnnotationsDraftContext.Provider>,
-				);
-
-				expect(result.root.children).toHaveLength(1);
-				expect(result.root.children[0]).toEqual('Martin Luther King');
-			});
-		});
-
-		describe('when the draft selection is ending at the component', () => {
-			it('should create the AnnotationMark at the start of the text', () => {
+		])(
+			'should not create the AnnotationMark when the draft selection is %s the component',
+			(type, draftSelection) => {
 				const textPosition = {
 					startPos: 20,
 					endPos: 35,
 				};
-				const draftSelection = { from: 1, to: 25 };
+				const result = renderTextWithAnnotationDraft(textPosition, draftSelection);
 
-				const result = TestRenderer.create(
-					<AnnotationsDraftContext.Provider value={draftSelection}>
-						<TextWithAnnotationDraft {...textPosition}>Martin Luther King</TextWithAnnotationDraft>
-					</AnnotationsDraftContext.Provider>,
-				);
+				expect(result.queryByRole('mark')).toBeNull();
+			},
+		);
 
-				expect(result.root.children).toHaveLength(2);
-				expect((result.root.children[0] as ReactTestInstance).type).toEqual(AnnotationDraft);
-				expect(result.root.children[1]).toEqual('uther King');
-			});
-		});
-
-		describe('when the draft selection is starting at the component', () => {
-			it('should create the AnnotationMark at the end of the text', () => {
-				const textPosition = {
+		it.each<
+			[
+				string,
+				{
+					startPos: number;
+					endPos: number;
+				},
+				Position,
+				string,
+			]
+		>([
+			[
+				'should create the AnnotationMark at the start of the text',
+				{
+					startPos: 20,
+					endPos: 35,
+				},
+				{ from: 1, to: 25 },
+				'Martin L',
+			],
+			[
+				'should not create the AnnotationMark when the draft selection is before the component',
+				{
 					startPos: 1,
 					endPos: 10,
-				};
-				const draftSelection = { from: 5, to: 30 };
-
-				const result = TestRenderer.create(
-					<AnnotationsDraftContext.Provider value={draftSelection}>
-						<TextWithAnnotationDraft {...textPosition}>Martin Luther King</TextWithAnnotationDraft>
-					</AnnotationsDraftContext.Provider>,
-				);
-
-				expect(result.root.children).toHaveLength(2);
-				expect(result.root.children[0]).toEqual('Mart');
-				expect((result.root.children[1] as ReactTestInstance).type).toEqual(AnnotationDraft);
-			});
-		});
-
-		describe('when the draft selection is surrounding the component', () => {
-			it('should create the AnnotationMark around the text', () => {
-				const textPosition = {
+				},
+				{ from: 5, to: 30 },
+				'in Luther King',
+			],
+			[
+				'should create the AnnotationMark around the text when the draft selection is surrounding the component',
+				{
 					startPos: 10,
 					endPos: 30,
-				};
-				const draftSelection = { from: 1, to: 40 };
-
-				const result = TestRenderer.create(
-					<AnnotationsDraftContext.Provider value={draftSelection}>
-						<TextWithAnnotationDraft {...textPosition}>Martin Luther King</TextWithAnnotationDraft>
-					</AnnotationsDraftContext.Provider>,
-				);
-
-				expect(result.root.children).toHaveLength(1);
-				expect((result.root.children[0] as ReactTestInstance).type).toEqual(AnnotationDraft);
-			});
-		});
-
-		describe('when the draft selection is the same position from the text', () => {
-			it('should create the AnnotationMark around the text', () => {
-				const textPosition = {
+				},
+				{ from: 1, to: 40 },
+				'Martin Luther King',
+			],
+			[
+				'should create the AnnotationMark around the text when the draft selection is the same position from the text',
+				{
 					startPos: 10,
 					endPos: 30,
-				};
-				const draftSelection = { from: 10, to: 30 };
-
-				const result = TestRenderer.create(
-					<AnnotationsDraftContext.Provider value={draftSelection}>
-						<TextWithAnnotationDraft {...textPosition}>Martin Luther King</TextWithAnnotationDraft>
-					</AnnotationsDraftContext.Provider>,
-				);
-
-				expect(result.root.children).toHaveLength(1);
-				expect((result.root.children[0] as ReactTestInstance).type).toEqual(AnnotationDraft);
-			});
+				},
+				{ from: 10, to: 30 },
+				'Martin Luther King',
+			],
+		])('%s', (type, textPosition, draftSelection, output) => {
+			const result = renderTextWithAnnotationDraft(textPosition, draftSelection);
+			expect(result.getByRole('mark').textContent).toEqual(output);
 		});
 	});
 

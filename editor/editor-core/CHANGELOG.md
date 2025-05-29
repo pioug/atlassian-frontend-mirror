@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 207.12.3
+
+### Patch Changes
+
+- [#162501](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162501)
+  [`3240f17895dd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3240f17895dd6) -
+  add exposure point to platform_editor_nodevisibility experiment
+- Updated dependencies
+
+## 207.12.2
+
+### Patch Changes
+
+- [#161893](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161893)
+  [`432e1c30874a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/432e1c30874a0) -
+  controls performance gating switch to experiment
+- Updated dependencies
+
 ## 207.12.1
 
 ### Patch Changes

@@ -18,7 +18,7 @@ browser settings.
 
 - 3rd party platform needs to be able to support `React` and `iframes`.
 
-  - _Recommended `React` version(s): **v16.8.0** to **v17.0.0**_
+  - _Recommended `React` version(s): **v16.8.0** to **v18.2.0**_
 
 - 3rd party must already have a tenant properly allocated with Atlassian and have x amount of
   published pages that exist within their tenant that they want to display.

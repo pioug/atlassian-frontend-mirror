@@ -193,8 +193,8 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 							if (!existingImport && !importFixAdded) {
 								importFixAdded = true;
 								fixes.push(
-									fixer.insertTextBeforeRange(
-										[0, 0],
+									fixer.insertTextBefore(
+										originalImportNode,
 										`import ${replacementImportName} from '${newImportName}';\n`,
 									),
 								);

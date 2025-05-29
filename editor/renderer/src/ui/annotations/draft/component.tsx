@@ -8,11 +8,9 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Position } from '../types';
 import { InsertDraftPosition } from '../types';
-import { AnnotationsDraftContext } from '../context';
 import { splitText, calcTextSplitOffset, findTextString } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
@@ -158,12 +156,7 @@ export const TextWithAnnotationDraft = ({
 		}),
 		[endPos, startPos],
 	);
-	const nextDraftPositionOld = React.useContext(AnnotationsDraftContext);
-	const { selectionDraftDocumentPosition } = useAnnotationRangeState();
-
-	const nextDraftPosition = fg('platform_renderer_annotation_draft_position_fix')
-		? selectionDraftDocumentPosition
-		: nextDraftPositionOld;
+	const { selectionDraftDocumentPosition: nextDraftPosition } = useAnnotationRangeState();
 
 	const shouldApplyAnnotationAt = React.useMemo(() => {
 		if (!nextDraftPosition) {

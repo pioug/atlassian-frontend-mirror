@@ -1,5 +1,5 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { TrackAEP } from './utils';
+import type { OperationalAEP, TrackAEP } from './utils';
 
 export type AnnotationActionType =
 	| ACTION.INSERTED
@@ -9,6 +9,15 @@ export type AnnotationActionType =
 	| ACTION.OPENED
 	| ACTION.RESOLVED
 	| ACTION.VIEWED;
+
+export type AnnotationErrorAEP = OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.ANNOTATION,
+	ACTION_SUBJECT_ID.INLINE_COMMENT,
+	{
+		errorReason?: string;
+	}
+>;
 
 export type AnnotationAEP = TrackAEP<
 	AnnotationActionType,

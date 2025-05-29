@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 2.1.4
+
+### Patch Changes
+
+- [#158013](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158013)
+  [`bdee0a497a10d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bdee0a497a10d) -
+  PGXT-7918 update timeline to schedule idle check on page hidden
+
 ## 2.1.3
 
 ### Patch Changes

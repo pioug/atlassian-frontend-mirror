@@ -171,6 +171,8 @@ export interface LinkPickerProps {
 	inputRef?: Ref<HTMLInputElement>;
 	/**Disables URLs that do not have an embeddable preview */
 	previewableLinksOnly?: boolean;
+	/**This prop passes one additional error that is secondary to component errors */
+	additionalError?: React.ReactNode;
 }
 
 type CustomLinkPickerMessages = {

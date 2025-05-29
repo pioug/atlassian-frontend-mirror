@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.6
+
+### Patch Changes
+
+- [#161993](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161993)
+  [`bd93cafe79061`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd93cafe79061) -
+  [ED-27277] When quick insert is triggered by quick insert button and the selection is in code
+  block node, place slash in a new line after the node
+- Updated dependencies
+
+## 3.15.5
+
+### Patch Changes
+
+- [#162451](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162451)
+  [`ef8e2f1c70087`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef8e2f1c70087) -
+  Switching tbt performance fixes in inlineEmojiPopup and BlockMenu to experiment flag
+- Updated dependencies
+
+## 3.15.4
+
+### Patch Changes
+
+- [#160398](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160398)
+  [`4e5ae0ab20a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e5ae0ab20a60) -
+  ED-28049 optimise inline emoji popup
+- Updated dependencies
+
 ## 3.15.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::14eb3f225fbad52e87a8d60eac11ccca>>
+ * @codegen <<SignedSource::acd1c4594664a494fed4e891c6a97bca>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -28,9 +28,9 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function ConfluenceIcon({
+	iconColor,
 	size,
 	appearance = 'brand',
-	iconColor,
 	label,
 	testId,
 }: ThemedIconProps) {
@@ -38,10 +38,10 @@ export function ConfluenceIcon({
 		<IconWrapper
 			svg={svg}
 			customThemeSvg={customThemeSvg}
-			size={size}
-			appearance={appearance}
 			iconColor={iconColor}
 			label={label || 'Confluence'}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>
 	);

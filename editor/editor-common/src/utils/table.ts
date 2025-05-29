@@ -1,6 +1,5 @@
 import type { CellAttributes } from '@atlaskit/adf-schema';
 import type { Node as PmNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Returns an array of column widths (0 if column width is undefined) of a given table node by scanning the **entire table**.
@@ -55,47 +54,24 @@ export function getColumnWidths(node: PmNode): number[] {
  * @returns Array<number>
  */
 export function calcTableColumnWidths(node: PmNode): number[] {
-	// Ignored via go/ees007
-	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-	// TODO: replaced with getColumnWidths, which correctly scans entire table for column widths
-	if (fg('platform_editor_table_row_span_fix') || fg('platform_editor_table_row_span_fix_all')) {
-		const firstRow = node.firstChild;
-		const tableColumnWidths: Array<number> = [];
-
-		if (firstRow) {
-			firstRow.forEach((cell) => {
-				const { colspan, colwidth } = cell.attrs;
-				// column has been resized, colWidth will be an array, can safely take values even if cell is merged
-				if (Array.isArray(colwidth)) {
-					tableColumnWidths.push(...colwidth);
-					// table has merged cells but no colWidth, so columns haven't been resized, default to 0
-				} else if (colspan > 1) {
-					tableColumnWidths.push(...Array(colspan).fill(0));
-					// no merged cells, no column resized, default to 0
-				} else {
-					tableColumnWidths.push(0);
-				}
-			});
-		}
-		return tableColumnWidths;
-	}
-
-	let tableColumnWidths: Array<number> = [];
 	const firstRow = node.firstChild;
+	const tableColumnWidths: Array<number> = [];
 
 	if (firstRow) {
-		// Sanity validation, but it should always have a first row
-		// Iterate for the cells in the first row
-		firstRow.forEach((colNode) => {
-			const colwidth = colNode.attrs.colwidth || [0];
-
-			// If we have colwidth, we added it
-			if (colwidth) {
-				tableColumnWidths = [...tableColumnWidths, ...colwidth];
+		firstRow.forEach((cell) => {
+			const { colspan, colwidth } = cell.attrs;
+			// column has been resized, colWidth will be an array, can safely take values even if cell is merged
+			if (Array.isArray(colwidth)) {
+				tableColumnWidths.push(...colwidth);
+				// table has merged cells but no colWidth, so columns haven't been resized, default to 0
+			} else if (colspan > 1) {
+				tableColumnWidths.push(...Array(colspan).fill(0));
+				// no merged cells, no column resized, default to 0
+			} else {
+				tableColumnWidths.push(0);
 			}
 		});
 	}
-
 	return tableColumnWidths;
 }
 

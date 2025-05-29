@@ -40,7 +40,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
 import AnnotationComponent from '../../marks/annotation';
-import { AnnotationsDraftContext } from '../../../ui/annotations/context';
 import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
 import {
 	CommentBadge as CommentBadgeComponent,
@@ -531,12 +530,7 @@ class Media extends PureComponent<MediaProps, Object> {
 }
 
 const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
-	const draftPositionOld = React.useContext(AnnotationsDraftContext);
-	const { hoverDraftDocumentPosition } = useAnnotationRangeState();
-
-	const draftPosition = fg('platform_renderer_annotation_draft_position_fix')
-		? hoverDraftDocumentPosition
-		: draftPositionOld;
+	const { hoverDraftDocumentPosition: draftPosition } = useAnnotationRangeState();
 
 	const { dataAttributes } = props;
 	const pos = dataAttributes && dataAttributes['data-renderer-start-pos'];

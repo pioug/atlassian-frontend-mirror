@@ -5,6 +5,7 @@ import React, {
 	useEffect,
 	useMemo,
 	useReducer,
+	useRef,
 } from 'react';
 
 import { type AnnotationId, AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
@@ -12,6 +13,9 @@ import type {
 	AnnotationManager,
 	GetDraftResult,
 	ActionResult,
+	ClearAnnotationResult,
+	HoverAnnotationResult,
+	SelectAnnotationResult,
 } from '@atlaskit/editor-common/annotation';
 import {
 	AnnotationUpdateEvent,
@@ -19,6 +23,8 @@ import {
 	AnnotationUpdateEmitter,
 	type OnAnnotationClickPayload,
 } from '@atlaskit/editor-common/types';
+
+import { RendererContext } from '../../../ui/RendererActionsContext';
 
 interface AnnotationState {
 	id: AnnotationId;
@@ -317,6 +323,7 @@ export const AnnotationManagerProvider = ({
 	updateSubscriber?: AnnotationUpdateEmitter;
 }) => {
 	const [state, dispatch] = useReducer(reducer, initState);
+	const actionContext = useContext(RendererContext);
 
 	useEffect(() => {
 		const getDraft = (): GetDraftResult => {
@@ -386,49 +393,164 @@ export const AnnotationManagerProvider = ({
 		state.draftActionResult,
 	]);
 
-	// useEffect(() => {
-	// 	const setIsAnnotationSelected = (id: AnnotationId, isSelected: boolean): SelectAnnotationResult => {
-	// 		if (!state.annotations?.[id]) {
-	// 			return {
-	// 				success: false,
-	// 				reason: 'id-not-valid',
-	// 			};
-	// 		}
+	useEffect(() => {
+		const setIsAnnotationSelected = (
+			id: AnnotationId,
+			isSelected: boolean,
+		): SelectAnnotationResult => {
+			if (state.isDrafting) {
+				return {
+					success: false,
+					reason: 'draft-in-progress',
+				};
+			}
 
-	// 		dispatch({
-	// 			type: 'updateAnnotation',
-	// 			data: {
-	// 				id,
-	// 				selected: isSelected,
-	// 			},
-	// 		})
+			if (!state.annotations?.[id]) {
+				return {
+					success: false,
+					reason: 'id-not-valid',
+				};
+			}
 
-	// 		return {
-	// 			success: true,
-	// 			isSelected,
-	// 		};
-	// 	};
+			// the annotation is currently not selected and is being selected
+			if (id !== state.currentSelectedAnnotationId && isSelected) {
+				dispatch({
+					type: 'updateAnnotation',
+					data: {
+						id,
+						selected: true,
+					},
+				});
 
-	// 	annotationManager?.hook('setIsAnnotationSelected', setIsAnnotationSelected);
-	// 	return () => {
-	// 		annotationManager?.unhook('setIsAnnotationSelected', setIsAnnotationSelected);
-	// 	};
-	// }, [state.annotations]);
+				dispatch({
+					type: 'setSelectedMarkRef',
+					data: {
+						markRef: document.getElementById(id) || undefined,
+					},
+				});
+			}
+			// the annotation is currently selected and is being unselected
+			else if (id === state.currentSelectedAnnotationId && !isSelected) {
+				dispatch({
+					type: 'resetSelectedAnnotation',
+				});
+			}
 
-	// useEffect(() => {
-	// 	console.log('annotationsSelectedChanged', state.annotationsSelectedChanged);
+			return {
+				success: true,
+				isSelected,
+			};
+		};
 
-	// 	// if (state.isDrafting && state.currentDraftId && state.draftMarkRef) {
-	// 	// 	annotationManager?.emit({
-	// 	// 		name: 'annotationSelectionChanged',
-	// 	// 		data: {
-	// 	// 			annotationId: state.currentDraftId,
-	// 	// 			inlineNodeTypes: [],
-	// 	// 			isSelected: true,
-	// 	// 		},
-	// 	// 	});
-	// 	// }
-	// }, [annotationManager, state.annotationsSelectedChanged]);
+		annotationManager?.hook('setIsAnnotationSelected', setIsAnnotationSelected);
+		return () => {
+			annotationManager?.unhook('setIsAnnotationSelected', setIsAnnotationSelected);
+		};
+	}, [
+		annotationManager,
+		state.isDrafting,
+		state.annotations,
+		state.currentSelectedAnnotationId,
+		state.currentSelectedMarkRef,
+	]);
+
+	const prevSelectedAnnotationId = useRef<AnnotationId | undefined>(undefined);
+	useEffect(() => {
+		if (prevSelectedAnnotationId.current) {
+			annotationManager?.emit({
+				name: 'annotationSelectionChanged',
+				data: {
+					annotationId: prevSelectedAnnotationId.current,
+					isSelected: false,
+					inlineNodeTypes: [],
+				},
+			});
+		}
+
+		prevSelectedAnnotationId.current = state.currentSelectedAnnotationId;
+	}, [state.currentSelectedAnnotationId, annotationManager]);
+
+	useEffect(() => {
+		if (
+			state.currentSelectedAnnotationId &&
+			state.currentSelectedMarkRef &&
+			state.currentSelectedMarkRef.id === state.currentSelectedAnnotationId
+		) {
+			annotationManager?.emit({
+				name: 'annotationSelectionChanged',
+				data: {
+					annotationId: state.currentSelectedAnnotationId,
+					isSelected: true,
+					inlineNodeTypes: [],
+				},
+			});
+		}
+	}, [annotationManager, state.currentSelectedAnnotationId, state.currentSelectedMarkRef]);
+
+	useEffect(() => {
+		const setIsAnnotationHovered = (
+			id: AnnotationId,
+			isHovered: boolean,
+		): HoverAnnotationResult => {
+			if (!state.annotations?.[id]) {
+				return {
+					success: false,
+					reason: 'id-not-valid',
+				};
+			}
+
+			dispatch({
+				type: 'updateAnnotation',
+				data: {
+					id,
+					hovered: isHovered,
+				},
+			});
+
+			return {
+				success: true,
+				isHovered,
+			};
+		};
+
+		annotationManager?.hook('setIsAnnotationHovered', setIsAnnotationHovered);
+		return () => {
+			annotationManager?.unhook('setIsAnnotationHovered', setIsAnnotationHovered);
+		};
+	}, [annotationManager, state.annotations]);
+
+	useEffect(() => {
+		const clearAnnotation = (id: AnnotationId): ClearAnnotationResult => {
+			if (!state.annotations?.[id]) {
+				return {
+					success: false,
+					reason: 'id-not-valid',
+				};
+			}
+
+			const result = actionContext.deleteAnnotation(id, AnnotationTypes.INLINE_COMMENT);
+			if (!result) {
+				return {
+					success: false,
+					reason: 'clear-failed',
+				};
+			}
+
+			const { step, doc } = result;
+			return {
+				success: true,
+				actionResult: {
+					step,
+					doc,
+				},
+			};
+		};
+
+		annotationManager?.hook('clearAnnotation', clearAnnotation);
+		return () => {
+			annotationManager?.unhook('clearAnnotation', clearAnnotation);
+		};
+	}, [annotationManager, state.annotations, actionContext]);
 
 	/**
 	 * This is a temporary solution to ensure that the annotation manager state is in sync with the
@@ -443,11 +565,7 @@ export const AnnotationManagerProvider = ({
 				return;
 			}
 			Object.values(payload).forEach((annotation) => {
-				if (
-					annotation.id &&
-					annotation.annotationType === AnnotationTypes.INLINE_COMMENT &&
-					!annotation.state
-				) {
+				if (annotation.id && annotation.annotationType === AnnotationTypes.INLINE_COMMENT) {
 					dispatch({
 						type: 'updateAnnotation',
 						data: {

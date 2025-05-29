@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop */
+/* eslint-disable @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop, @repo/internal/react/no-class-components */
 import React from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -8,6 +8,7 @@ import { TableSharedCssClassName, tableMarginTop } from '@atlaskit/editor-common
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { FullPagePadding } from '../../ui/Renderer/style';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createCompareNodes,
@@ -44,6 +45,24 @@ import { TableStickyScrollbar } from './TableStickyScrollbar';
 export type TableArrayMapped = {
 	rowNodes: Array<PMNode | null>;
 	rowReact: React.ReactElement;
+};
+
+const stickyContainerBaseStyles = {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
+	// Follow editor to hide by default so it does not show empty gap in SSR
+	// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+	display: 'block',
+	width: '100%',
+};
+
+const stickyContainerAdditionalStyles = {
+	visibility: 'hidden',
+	overflowX: 'auto',
+	position: 'sticky',
+	bottom: token('space.0', '0px'),
+	zIndex: 1,
 };
 
 export const isTableResizingEnabled = (appearance: RendererAppearance) =>
@@ -197,6 +216,9 @@ export interface TableState {
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
+/**
+ *
+ */
 export class TableContainer extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,
 	TableState
@@ -648,23 +670,20 @@ export class TableContainer extends React.Component<
 					{isStickyScrollbarEnabled(this.props.rendererAppearance) && (
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
+							className={`${TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}${fg('confluence_frontend_table_scrollbar_ttvc_fix') ? '-view-page' : ''}`}
 							ref={this.stickyScrollbarRef}
 							data-vc="table-sticky-scrollbar-container"
-							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
-								// Follow editor to hide by default so it does not show empty gap in SSR
-								// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/editor-plugin-table/src/nodeviews/TableComponent.tsx#957
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								display: 'block',
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								width: '100%',
-							}}
+							style={
+								fg('confluence_frontend_table_scrollbar_ttvc_fix')
+									? { ...stickyContainerBaseStyles, ...stickyContainerAdditionalStyles }
+									: stickyContainerBaseStyles
+							}
 						>
 							<div
 								style={{
-									width: this.tableRef.current?.clientWidth,
+									width: fg('confluence_frontend_table_scrollbar_ttvc_fix')
+										? '100%'
+										: this.tableRef.current?.clientWidth,
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									height: '100%',
 								}}
@@ -709,6 +728,9 @@ type TableProcessorState = {
  */
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
+/**
+ *
+ */
 export class TableProcessorWithContainerStyles extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,
 	TableProcessorState

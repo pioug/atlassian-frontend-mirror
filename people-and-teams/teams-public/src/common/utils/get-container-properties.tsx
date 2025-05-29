@@ -3,9 +3,11 @@ import React, { type ReactNode } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
+import GlobeIcon from '@atlaskit/icon/core/globe';
 import Image from '@atlaskit/image';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import ConfluenceIcon from '../assets/ConfluenceIcon.svg';
 import JiraIcon from '../assets/JiraIcon.svg';
@@ -19,6 +21,7 @@ interface ContainerProperties {
 	icon: ReactNode;
 	title?: ReactNode;
 	containerTypeText: ReactNode;
+	isEmptyContainer?: boolean;
 }
 
 type IconSize = 'small' | 'medium';
@@ -30,6 +33,16 @@ const styles = cssMap({
 	mediumIconWrapper: {
 		width: '16px',
 		height: '16px',
+	},
+	globeIconWrapper: {
+		width: '16px',
+		height: '16px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: token('border.radius', '3px'),
+		outlineColor: token('color.border'),
+		outlineStyle: 'solid',
 	},
 });
 
@@ -84,10 +97,15 @@ export const messages = defineMessages({
 		defaultMessage: 'space',
 		description: 'Text for space type containers',
 	},
-	webLinkContainerTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.webLink-container-text.non-final',
+	emptyWebLinkContainerDescription: {
+		id: 'platform.teams.containers.empty-web-link-description.non-final',
 		defaultMessage: 'Add any web link',
-		description: 'Description of the card to add a web link to a team',
+		description: 'Description displayed on the empty card for adding a web link to a team',
+	},
+	webLinkContainerDescription: {
+		id: 'platform.teams.containers.web-link-title-description.non-final',
+		defaultMessage: 'Web link',
+		description: 'Description displayed for web link containers in team profile',
 	},
 });
 
@@ -102,13 +120,18 @@ const getJiraIcon = (containerSubTypes?: string) => {
 	}
 };
 
-const getJiraContainerProperties = (
+interface GetJiraContainerPropertiesParams {
 	containerTypeProperties?: {
 		subType?: ContainerSubTypes;
 		name?: string;
-	},
-	iconSize: IconSize = 'small',
-): ContainerProperties => {
+	};
+	iconSize?: IconSize;
+}
+
+const getJiraContainerProperties = ({
+	containerTypeProperties,
+	iconSize = 'small',
+}: GetJiraContainerPropertiesParams): ContainerProperties => {
 	const { subType, name } = containerTypeProperties || {};
 	const Comp = fg('enable_card_alignment_fix') ? Flex : Box;
 	const baseProperties = {
@@ -135,14 +158,47 @@ const getJiraContainerProperties = (
 	}
 };
 
-export const getContainerProperties = (
-	containerType: ContainerTypes,
-	iconSize: IconSize = 'small',
+interface GetWebLinkContainerEmptyStatePropertiesParams {
+	isEmptyContainer?: boolean;
+}
+
+const getWebLinkContainerEmptyStateProperties = ({
+	isEmptyContainer,
+}: GetWebLinkContainerEmptyStatePropertiesParams) => {
+	return {
+		description: isEmptyContainer ? (
+			<Text size="medium" weight="medium">
+				<FormattedMessage {...messages.emptyWebLinkContainerDescription} />
+			</Text>
+		) : (
+			<FormattedMessage {...messages.webLinkContainerDescription} />
+		),
+		icon: isEmptyContainer ? null : (
+			<Box xcss={styles.globeIconWrapper} testId="team-link-card-globe-icon">
+				<GlobeIcon label="" size="small" />
+			</Box>
+		),
+		title: null,
+		containerTypeText: null,
+	};
+};
+
+interface GetContainerPropertiesParams {
+	containerType: ContainerTypes;
+	iconSize?: IconSize;
 	containerTypeProperties?: {
 		subType?: ContainerSubTypes;
 		name?: string;
-	},
-): ContainerProperties => {
+	};
+	isEmptyContainer?: boolean;
+}
+
+export const getContainerProperties = ({
+	containerType,
+	iconSize = 'small',
+	containerTypeProperties,
+	isEmptyContainer,
+}: GetContainerPropertiesParams): ContainerProperties => {
 	const Comp = fg('enable_card_alignment_fix') ? Flex : Box;
 	switch (containerType) {
 		case 'ConfluenceSpace':
@@ -168,18 +224,14 @@ export const getContainerProperties = (
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'JiraProject':
-			return getJiraContainerProperties(containerTypeProperties, iconSize);
+			return getJiraContainerProperties({
+				containerTypeProperties,
+				iconSize,
+			});
 		case 'WebLink':
-			return {
-				description: (
-					<Text size="medium" weight="medium">
-						<FormattedMessage {...messages.webLinkContainerTitle} />
-					</Text>
-				),
-				icon: null,
-				title: null,
-				containerTypeText: null,
-			};
+			return getWebLinkContainerEmptyStateProperties({
+				isEmptyContainer,
+			});
 		default:
 			return {
 				description: null,

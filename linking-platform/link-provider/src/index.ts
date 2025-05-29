@@ -16,6 +16,7 @@ export type {
 	CardAuthFlowOpts,
 	CardProviderStoreOpts,
 	AISnippetRendererProps,
+	SnippetRendererProps,
 } from './state/context/types';
 /** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-661 Internal documentation for deprecation (no external access)} */
 export { editorCardProvider, EditorCardProvider } from './editor';

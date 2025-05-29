@@ -5,7 +5,7 @@ import type {
 } from '../timelineTypes';
 
 // TODO: PGXT-7952 - develop user latency event interface more and consider moving this defintion https://product-fabric.atlassian.net/browse/PGXT-7952
-interface UserLatencyEvent {
+export interface UserLatencyEvent {
 	name: string;
 	category: string;
 	attribution: {

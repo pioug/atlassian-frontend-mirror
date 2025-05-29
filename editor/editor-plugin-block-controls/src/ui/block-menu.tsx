@@ -14,7 +14,7 @@ import { ArrowKeyNavigationType, DropdownMenu } from '@atlaskit/editor-common/ui
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -134,7 +134,7 @@ const BlockMenu = ({
 		return null;
 	}
 
-	if (fg('platform_editor_controls_perf_tbt_fix')) {
+	if (editorExperiment('platform_editor_controls_performance_fixes', true)) {
 		if (!menuTriggerBy) {
 			return null;
 		}

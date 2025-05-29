@@ -9,7 +9,6 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { IconCard, IconEmbed, IconInline } from '@atlaskit/editor-common/card';
 import commonMessages, {
 	cardMessages,
 	mediaAndEmbedToolbarMessages,
@@ -30,7 +29,6 @@ import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
-import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { messages } from '@atlaskit/media-ui';
@@ -59,7 +57,7 @@ import {
 import { shouldShowImageBorder } from './imageBorder';
 import { getOpenLinkToolbarButtonOption, shouldShowMediaLinkToolbar } from './linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
-import { downloadMedia } from './utils';
+import { downloadMedia, getMediaSingleAndMediaInlineSwitcherDropdown } from './utils';
 
 import { handleShowMediaViewer } from './index';
 
@@ -102,8 +100,6 @@ export const generateMediaInlineFloatingToolbar = (
 		icon: editorExperiment('platform_editor_controls', 'variant1')
 			? GrowDiagonalIcon
 			: MaximizeIcon,
-		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-		iconFallback: MaximizeIcon,
 		title: intl.formatMessage(messages.preview),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -129,7 +125,6 @@ export const generateMediaInlineFloatingToolbar = (
 				id: 'editor.media.view.switcher.inline',
 				type: 'button',
 				icon: ImageInlineIcon,
-				iconFallback: IconInline,
 				selected: true,
 				disabled: false,
 				focusEditoronEnter: true,
@@ -142,7 +137,6 @@ export const generateMediaInlineFloatingToolbar = (
 				id: 'editor.media.view.switcher.thumbnail',
 				type: 'button',
 				icon: SmartLinkCardIcon,
-				iconFallback: IconCard,
 				selected: false,
 				disabled: false,
 				focusEditoronEnter: true,
@@ -176,7 +170,6 @@ export const generateMediaInlineFloatingToolbar = (
 				appearance: 'danger',
 				focusEditoronEnter: true,
 				icon: DeleteIcon,
-				iconFallback: RemoveIcon,
 				onMouseEnter: hoverDecoration?.(mediaInline, true),
 				onMouseLeave: hoverDecoration?.(mediaInline, false),
 				onFocus: hoverDecoration?.(mediaInline, true),
@@ -298,13 +291,7 @@ const getMediaInlineImageToolbar = (
 				type: 'button',
 				title: mediaInlineImageTitle,
 				icon: () => (
-					<ImageInlineIcon
-						color="currentColor"
-						spacing="spacious"
-						label={mediaInlineImageTitle}
-						LEGACY_size="medium"
-						LEGACY_fallbackIcon={IconInline}
-					/>
+					<ImageInlineIcon color="currentColor" spacing="spacious" label={mediaInlineImageTitle} />
 				),
 				onClick: () => {
 					return true;
@@ -316,13 +303,7 @@ const getMediaInlineImageToolbar = (
 				type: 'button',
 				title: mediaSingleTitle,
 				icon: () => (
-					<ImageFullscreenIcon
-						color="currentColor"
-						spacing="spacious"
-						label={mediaSingleTitle}
-						LEGACY_size="medium"
-						LEGACY_fallbackIcon={IconEmbed}
-					/>
+					<ImageFullscreenIcon color="currentColor" spacing="spacious" label={mediaSingleTitle} />
 				),
 				onClick: changeMediaInlineToMediaSingle(
 					editorAnalyticsAPI,
@@ -394,8 +375,6 @@ const getMediaInlineImageToolbar = (
 						color="currentColor"
 						spacing="spacious"
 						label={fg('platform_editor_controls_patch_7') ? '' : mediaInlineImageTitle}
-						LEGACY_size="medium"
-						LEGACY_fallbackIcon={IconInline}
 					/>
 				),
 			},
@@ -410,29 +389,30 @@ const getMediaInlineImageToolbar = (
 						color="currentColor"
 						spacing="spacious"
 						label={fg('platform_editor_controls_patch_7') ? '' : mediaSingleTitle}
-						LEGACY_size="medium"
-						LEGACY_fallbackIcon={IconEmbed}
 					/>
 				),
 			},
 		];
 
-		const switchFromInlineToBlock: FloatingToolbarDropdown<Command> = {
-			id: 'media-inline-to-block-toolbar-item',
-			testId: 'media-inline-to-block-dropdown',
-			type: 'dropdown',
-			options: options,
-			title: intl.formatMessage(messages.sizeOptions),
-			icon: () => (
-				<ImageInlineIcon
-					color="currentColor"
-					spacing="spacious"
-					label={mediaInlineImageTitle}
-					LEGACY_size="medium"
-					LEGACY_fallbackIcon={IconInline}
-				/>
-			),
-		};
+		let switchFromInlineToBlock: FloatingToolbarDropdown<Command>;
+		if (fg('platform_editor_controls_patch_11')) {
+			switchFromInlineToBlock = getMediaSingleAndMediaInlineSwitcherDropdown(
+				'inline',
+				intl,
+				pluginInjectionApi,
+			);
+		} else {
+			switchFromInlineToBlock = {
+				id: 'media-inline-to-block-toolbar-item',
+				testId: 'media-inline-to-block-dropdown',
+				type: 'dropdown',
+				options: options,
+				title: intl.formatMessage(messages.sizeOptions),
+				icon: () => (
+					<ImageInlineIcon color="currentColor" spacing="spacious" label={mediaInlineImageTitle} />
+				),
+			};
+		}
 
 		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator', fullHeight: true });
 
@@ -452,7 +432,6 @@ const getMediaInlineImageToolbar = (
 				testId: 'file-preview-toolbar-button',
 				type: 'button',
 				icon: isEditorControlsEnabled ? GrowDiagonalIcon : MaximizeIcon,
-				iconFallback: MaximizeIcon,
 				title: intl.formatMessage(messages.preview),
 				onClick: () => {
 					return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -515,7 +494,6 @@ const getMediaInlineImageToolbar = (
 			appearance: 'danger',
 			focusEditoronEnter: true,
 			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
 			onMouseEnter: hoverDecoration?.(mediaInline, true),
 			onMouseLeave: hoverDecoration?.(mediaInline, false),
 			onFocus: hoverDecoration?.(mediaInline, true),

@@ -1,5 +1,13 @@
 # @atlaskit/web-config-client
 
+## 0.7.1
+
+### Patch Changes
+
+- [#162439](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162439)
+  [`936317e51d1b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/936317e51d1b3) -
+  Removing @atlassian/experiment-feature-gates dependency and copying IdentifierEnum
+
 ## 0.7.0
 
 ### Minor Changes

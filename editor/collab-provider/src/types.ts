@@ -276,6 +276,14 @@ export interface ReconcileResponse {
 	ari?: string;
 	metadata?: Metadata;
 }
+// This is added as a part of CEPS-1660
+export type GenerateDiffStepsResponseBody = {
+	documentAri: string;
+	generatedSteps: StepJson[];
+	latestDocument?: string;
+	userId: string;
+	message?: string;
+};
 
 // CatchupV2
 export interface Catchupv2Options {

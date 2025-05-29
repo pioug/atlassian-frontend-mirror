@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::530fc3b1534a0773e9ce61bb3e3a4cd4>>
+ * @codegen <<SignedSource::9fdb5990b147587d6d24e469e3d0dd71>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -29,9 +29,9 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function AssetsIcon({
+	iconColor,
 	size,
 	appearance = 'brand',
-	iconColor,
 	label,
 	testId,
 }: ThemedIconProps) {
@@ -39,10 +39,10 @@ export function AssetsIcon({
 		<IconWrapper
 			svg={svg}
 			customThemeSvg={customThemeSvg}
-			size={size}
-			appearance={appearance}
 			iconColor={iconColor}
 			label={label || 'Assets'}
+			appearance={appearance}
+			size={size}
 			testId={testId}
 		/>
 	);

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.5.0
+
+### Minor Changes
+
+- [#157313](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157313)
+  [`8f3a2416f23fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f3a2416f23fe) -
+  [ux] Added a reserved height to the extension NodeWrapper in the editor. An array of
+  ExtensionViewportSize is sent from Confluence editor through the plugins into the nodeviews and
+  used there. Depending on the array values, a minimum height is set.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.3
 
 ### Patch Changes

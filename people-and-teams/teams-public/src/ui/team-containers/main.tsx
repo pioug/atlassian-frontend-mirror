@@ -4,6 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
@@ -18,6 +19,7 @@ import {
 	useTeamContainers,
 	useTeamContainersHook,
 } from '../../controllers/hooks/use-team-containers';
+import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 
 import { AddContainerCard } from './add-container-card';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
@@ -46,8 +48,13 @@ export const TeamContainers = ({
 	isDisplayedOnProfileCard,
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
 }: TeamContainerProps) => {
+	const isSupportingAddWebLink =
+		FeatureGates.initializeCompleted() &&
+		FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
+
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
+	const { teamLinks } = useTeamLinksAndContainers(teamId, true);
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
@@ -55,10 +62,13 @@ export const TeamContainers = ({
 		SelectedContainerDetails | undefined
 	>();
 	const [filteredTeamContainers, setFilteredTeamContainers] = useState(teamContainers);
+	const [filteredTeamLinks, setFilteredTeamLinks] = useState(teamLinks);
+
 	const [showAddContainer, setShowAddContainer] = useState({
 		Jira: false,
 		Confluence: false,
 		Loom: false,
+		WebLink: false,
 	});
 
 	const { fireOperationalEvent, fireTrackEvent } = usePeopleAndTeamAnalytics();
@@ -69,28 +79,42 @@ export const TeamContainers = ({
 	});
 
 	useEffect(() => {
-		if (isDisplayedOnProfileCard && filterContainerId) {
-			setFilteredTeamContainers(
-				teamContainers.filter((container) => container.id !== filterContainerId),
-			);
+		if (isSupportingAddWebLink) {
+			if (isDisplayedOnProfileCard && filterContainerId) {
+				setFilteredTeamLinks(teamLinks.filter((container) => container.id !== filterContainerId));
+			} else {
+				setFilteredTeamLinks(teamLinks);
+			}
 		} else {
-			setFilteredTeamContainers(teamContainers);
+			if (isDisplayedOnProfileCard && filterContainerId) {
+				setFilteredTeamContainers(
+					teamContainers.filter((container) => container.id !== filterContainerId),
+				);
+			} else {
+				setFilteredTeamContainers(teamContainers);
+			}
 		}
-	}, [isDisplayedOnProfileCard, filterContainerId, teamContainers]);
+	}, [
+		teamLinks,
+		teamContainers,
+		isSupportingAddWebLink,
+		isDisplayedOnProfileCard,
+		filterContainerId,
+	]);
 
 	useEffect(() => {
-		if (filteredTeamContainers.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
-			setShowAddContainer({ Jira: false, Confluence: false, Loom: false });
+		const containersToCheck = isSupportingAddWebLink ? filteredTeamLinks : filteredTeamContainers;
+		if (containersToCheck.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
+			setShowAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
 		} else {
-			const hasJiraProject = filteredTeamContainers.some(
+			const hasJiraProject = containersToCheck.some(
 				(container) => container.type === 'JiraProject',
 			);
-			const hasConfluenceSpace = filteredTeamContainers.some(
+			const hasConfluenceSpace = containersToCheck.some(
 				(container) => container.type === 'ConfluenceSpace',
 			);
-			const hasLoomSpace = filteredTeamContainers.some(
-				(container) => container.type === 'LoomSpace',
-			);
+			const hasLoomSpace = containersToCheck.some((container) => container.type === 'LoomSpace');
+			const hasWebLink = containersToCheck.some((container) => container.type === 'WebLink');
 
 			setShowAddContainer({
 				Jira:
@@ -105,12 +129,15 @@ export const TeamContainers = ({
 					!hasLoomSpace &&
 					!!productPermissions &&
 					!!hasProductPermission(productPermissions, 'loom'),
+				WebLink: !hasWebLink,
 			});
 		}
 	}, [
 		isDisplayedOnProfileCard,
 		productPermissions,
+		isSupportingAddWebLink,
 		filteredTeamContainers,
+		filteredTeamLinks,
 		maxNumberOfContainersToShow,
 	]);
 
@@ -178,7 +205,9 @@ export const TeamContainers = ({
 	}
 
 	if (
-		filteredTeamContainers.length === 0 &&
+		(isSupportingAddWebLink
+			? filteredTeamLinks.length === 0
+			: filteredTeamContainers.length === 0) &&
 		!isDisplayedOnProfileCard &&
 		(!productPermissions ||
 			!(
@@ -198,26 +227,47 @@ export const TeamContainers = ({
 					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
 					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
 				>
-					{filteredTeamContainers.slice(0, maxNumberOfContainersToShow).map((container) => {
-						return (
-							<LinkedContainerCardComponent
-								key={container.id}
-								containerType={container.type}
-								containerTypeProperties={container.containerTypeProperties}
-								title={container.name}
-								containerIcon={container.icon || undefined}
-								link={container.link || undefined}
-								containerId={container.id}
-								onDisconnectButtonClick={() =>
-									handleOpenDisconnectDialog({
-										containerId: container.id,
-										containerType: container.type,
-										containerName: container.name,
-									})
-								}
-							/>
-						);
-					})}
+					{isSupportingAddWebLink
+						? filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
+								return (
+									<LinkedContainerCardComponent
+										key={container.id}
+										containerType={container.type}
+										containerTypeProperties={container.containerTypeProperties}
+										title={container.name}
+										containerIcon={container.icon || undefined}
+										link={container.link || undefined}
+										containerId={container.id}
+										onDisconnectButtonClick={() =>
+											handleOpenDisconnectDialog({
+												containerId: container.id,
+												containerType: container.type,
+												containerName: container.name,
+											})
+										}
+									/>
+								);
+							})
+						: filteredTeamContainers.slice(0, maxNumberOfContainersToShow).map((container) => {
+								return (
+									<LinkedContainerCardComponent
+										key={container.id}
+										containerType={container.type}
+										containerTypeProperties={container.containerTypeProperties}
+										title={container.name}
+										containerIcon={container.icon || undefined}
+										link={container.link || undefined}
+										containerId={container.id}
+										onDisconnectButtonClick={() =>
+											handleOpenDisconnectDialog({
+												containerId: container.id,
+												containerType: container.type,
+												containerName: container.name,
+											})
+										}
+									/>
+								);
+							})}
 					{showAddContainer.Jira && (
 						<AddContainerCard
 							onAddAContainerClick={(e) => onAddAContainerClick(e, 'Jira')}
@@ -236,29 +286,54 @@ export const TeamContainers = ({
 							containerType="LoomSpace"
 						/>
 					)}
-					{showMore &&
-						filteredTeamContainers.slice(maxNumberOfContainersToShow).map((container) => {
-							return (
-								<LinkedContainerCardComponent
-									key={container.id}
-									containerType={container.type}
-									containerTypeProperties={container.containerTypeProperties}
-									title={container.name}
-									containerId={container.id}
-									containerIcon={container.icon || undefined}
-									link={container.link || undefined}
-									onDisconnectButtonClick={() =>
-										handleOpenDisconnectDialog({
-											containerId: container.id,
-											containerType: container.type,
-											containerName: container.name,
-										})
-									}
-								/>
-							);
-						})}
+					{isSupportingAddWebLink && showAddContainer.WebLink && (
+						<AddContainerCard onAddAContainerClick={() => {}} containerType="WebLink" />
+					)}
+					{showMore && isSupportingAddWebLink
+						? filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
+								return (
+									<LinkedContainerCardComponent
+										key={container.id}
+										containerType={container.type}
+										containerTypeProperties={container.containerTypeProperties}
+										title={container.name}
+										containerId={container.id}
+										containerIcon={container.icon || undefined}
+										link={container.link || undefined}
+										onDisconnectButtonClick={() =>
+											handleOpenDisconnectDialog({
+												containerId: container.id,
+												containerType: container.type,
+												containerName: container.name,
+											})
+										}
+									/>
+								);
+							})
+						: showMore &&
+							filteredTeamContainers.slice(maxNumberOfContainersToShow).map((container) => {
+								return (
+									<LinkedContainerCardComponent
+										key={container.id}
+										containerType={container.type}
+										containerTypeProperties={container.containerTypeProperties}
+										title={container.name}
+										containerId={container.id}
+										containerIcon={container.icon || undefined}
+										link={container.link || undefined}
+										onDisconnectButtonClick={() =>
+											handleOpenDisconnectDialog({
+												containerId: container.id,
+												containerType: container.type,
+												containerName: container.name,
+											})
+										}
+									/>
+								);
+							})}
 				</Grid>
-				{filteredTeamContainers.length > maxNumberOfContainersToShow && (
+				{(isSupportingAddWebLink ? filteredTeamLinks.length : filteredTeamContainers.length) >
+					maxNumberOfContainersToShow && (
 					<Inline>
 						<Button appearance="subtle" onClick={handleShowMore}>
 							{showMore ? (

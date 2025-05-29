@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.33.0
+
+### Minor Changes
+
+- [#160653](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160653)
+  [`9e0f4bc934a62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e0f4bc934a62) -
+  [ux] PTC-11533 Render team web link card && update where we work section title to Team links
+
 ## 0.32.0
 
 ### Minor Changes

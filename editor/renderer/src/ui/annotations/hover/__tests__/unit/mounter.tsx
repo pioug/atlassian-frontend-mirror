@@ -25,7 +25,6 @@ jest.mock('../../../draft/component');
 describe('Annotations: Mounter', () => {
 	const fakeApplyAnnotation: jest.Mock = jest.fn().mockReturnValue({});
 	const fakeOnCloseProp: jest.Mock = jest.fn();
-	const fakeClearAnnotationDraft: jest.Mock = jest.fn();
 	const fakeCreateAnalyticsEvent = createAnalyticsEventMock();
 	let container: HTMLElement | null;
 	let createRangeMock: jest.SpyInstance;
@@ -58,9 +57,7 @@ describe('Annotations: Mounter', () => {
 				documentPosition={fakeDocumentPosition}
 				isAnnotationAllowed={isAnnotationAllowed}
 				applyAnnotation={fakeApplyAnnotation as ApplyAnnotation}
-				applyAnnotationDraftAt={jest.fn()}
 				createAnalyticsEvent={fakeCreateAnalyticsEvent}
-				clearAnnotationDraft={fakeClearAnnotationDraft}
 			/>,
 			{ container: container! },
 		);
@@ -265,7 +262,6 @@ describe('Annotations: Mounter', () => {
 
 		it('clears draft annotation', () => {
 			expect(fakeOnCloseProp).toHaveBeenCalled();
-			expect(fakeClearAnnotationDraft).toHaveBeenCalled();
 		});
 
 		it('calls on annotation close analytics event', () => {

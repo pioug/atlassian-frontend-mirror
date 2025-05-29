@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react';
 import React, { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { Position } from '../types';
 
 export type RangeType = 'selection' | 'hover' | null;
@@ -33,31 +31,10 @@ interface AnnotationRangeStateContext {
 	hoverDraftDocumentPosition: Position | null;
 }
 interface AnnotationRangeDispatchContext {
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 * Please use clearSelectionRange or clearHoverRange instead.
-	 */
-	clearRange: () => void;
 	clearSelectionRange: () => void;
-
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 * Please use clearSelectionDraft or clearHoverDraft instead.
-	 */
-	clearDraftRange: (type: RangeType) => void;
 	clearHoverRange: () => void;
 	setSelectionRange: (range: Range) => void;
-
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 * Please use promoteSelectionToDraft or promoteHoverToDraft instead.
-	 */
-	setDraftRange: (draftRange: Range | null, type: RangeType) => void;
 	setHoverTarget?: (target: HTMLElement) => void;
-
 	promoteSelectionToDraft: (position: Position | null) => void;
 	promoteHoverToDraft: (position: Position | null) => void;
 	clearSelectionDraft: () => void;
@@ -66,22 +43,15 @@ interface AnnotationRangeDispatchContext {
 
 type State = {
 	type: RangeType;
-	// if platform_renderer_annotation_draft_position_fix is off; then
-	range: Range | null;
-	draftRange: Range | null;
-	// else-if platform_renderer_annotation_draft_position_fix is on; then
 	selectionRange: Range | null;
 	hoverRange: Range | null;
 	selectionDraftRange: Range | null;
 	hoverDraftRange: Range | null;
 	selectionDraftDocumentPosition: Position | null;
 	hoverDraftDocumentPosition: Position | null;
-	// end-if
 };
 
 const initialState: State = {
-	range: null,
-	draftRange: null,
 	type: null,
 	selectionRange: null,
 	hoverRange: null,
@@ -92,72 +62,17 @@ const initialState: State = {
 };
 
 type Action =
-	| { type: 'clear' }
 	| { type: 'clearSelection' }
-	| { type: 'clearDraftSelection' }
 	| { type: 'clearHover' }
 	| { type: 'setSelection'; range: Range }
-	| { type: 'setDraftSelection'; draftRange: Range | null }
 	| { type: 'setHover'; range: Range }
-	| { type: 'setDraftHover'; draftRange: Range | null }
-	| { type: 'clearDraftHover' }
 	| { type: 'promoteSelectionToDraft'; position: Position | null }
 	| { type: 'promoteHoverToDraft'; position: Position | null }
 	| { type: 'clearSelectionDraft' }
 	| { type: 'clearHoverDraft' };
 
-function reducerOld(state: State, action: Action): State {
+function reducer(state: State, action: Action): State {
 	switch (action.type) {
-		case 'clear':
-			return initialState;
-		case 'clearSelection':
-			if (state.type === 'selection') {
-				return { ...state, range: null, type: null };
-			}
-			return state;
-		case 'clearDraftSelection':
-			if (state.type === 'selection') {
-				return { ...state, draftRange: null };
-			}
-			return state;
-		case 'clearDraftHover':
-			if (state.type === 'hover') {
-				return { ...state, draftRange: null };
-			}
-			return state;
-		case 'clearHover':
-			if (state.type === 'hover') {
-				return { ...state, range: null, draftRange: null, type: null };
-			}
-			return state;
-		case 'setSelection':
-			if (state.range !== action.range || state.type !== 'selection') {
-				return { ...state, range: action.range, type: 'selection' };
-			}
-			return state;
-		case 'setHover':
-			if (state.range !== action.range || state.type !== 'hover') {
-				return { ...state, range: action.range, type: 'hover' };
-			}
-			return state;
-		case 'setDraftSelection':
-			if (state.draftRange !== action.draftRange || state.type !== 'selection') {
-				return { ...state, range: null, draftRange: action.draftRange, type: null };
-			}
-			return state;
-		case 'setDraftHover':
-			if (state.draftRange !== action.draftRange || state.type !== 'hover') {
-				return { ...state, draftRange: action.draftRange };
-			}
-			return state;
-	}
-	return state;
-}
-
-function reducerNew(state: State, action: Action): State {
-	switch (action.type) {
-		case 'clear':
-			return initialState;
 		case 'clearSelection':
 			if (state.selectionRange !== null) {
 				return {
@@ -225,10 +140,9 @@ function reducerNew(state: State, action: Action): State {
 			}
 			return state;
 	}
-	return state;
 }
 
-const AnnotationRangeStateContext = createContext<AnnotationRangeStateContext>({
+export const AnnotationRangeStateContext = createContext<AnnotationRangeStateContext>({
 	range: null,
 	type: null,
 	selectionDraftRange: null,
@@ -237,23 +151,14 @@ const AnnotationRangeStateContext = createContext<AnnotationRangeStateContext>({
 	hoverDraftDocumentPosition: null,
 });
 
-const AnnotationRangeDispatchContext = createContext<AnnotationRangeDispatchContext>({
-	clearRange: () => {},
+export const AnnotationRangeDispatchContext = createContext<AnnotationRangeDispatchContext>({
 	clearSelectionRange: () => {},
 	clearHoverRange: () => {},
 	setSelectionRange: () => {},
-
-	// if platform_renderer_annotation_draft_position_fix is off; then
-	setDraftRange: () => {},
-	clearDraftRange: () => {},
-	// end-if
-
-	// if platform_renderer_annotation_draft_position_fix is on; then
 	promoteSelectionToDraft: () => {},
 	promoteHoverToDraft: () => {},
 	clearSelectionDraft: () => {},
 	clearHoverDraft: () => {},
-	// end-if
 });
 
 export const AnnotationRangeProviderInner = ({
@@ -265,8 +170,6 @@ export const AnnotationRangeProviderInner = ({
 }) => {
 	const [
 		{
-			range,
-			draftRange,
 			selectionRange,
 			hoverRange,
 			type,
@@ -276,34 +179,15 @@ export const AnnotationRangeProviderInner = ({
 			hoverDraftDocumentPosition,
 		},
 		dispatch,
-	] = useReducer(
-		fg('platform_renderer_annotation_draft_position_fix') ? reducerNew : reducerOld,
-		initialState,
-	);
+	] = useReducer(reducer, initialState);
 
-	const clearRange = useCallback(() => dispatch({ type: 'clear' }), []);
 	const clearSelectionRange = useCallback(() => dispatch({ type: 'clearSelection' }), []);
-	const clearDraftRange = useCallback((type: RangeType) => {
-		if (type === 'hover') {
-			dispatch({ type: 'clearDraftHover' });
-			return;
-		}
-		dispatch({ type: 'clearDraftSelection' });
-	}, []);
 	const clearHoverRange = useCallback(() => dispatch({ type: 'clearHover' }), []);
 
 	const setSelectionRange = useCallback(
 		(range: Range) => dispatch({ type: 'setSelection', range }),
 		[],
 	);
-
-	const setDraftRange = useCallback((range: Range | null, type: RangeType) => {
-		if (type === 'hover') {
-			dispatch({ type: 'setDraftHover', draftRange: range });
-			return;
-		}
-		dispatch({ type: 'setDraftSelection', draftRange: range });
-	}, []);
 
 	const setHoverTarget = useCallback((target: HTMLElement) => {
 		// the HoverComponent expects an element deeply nested inside media, these classes work with the current implementation
@@ -334,33 +218,17 @@ export const AnnotationRangeProviderInner = ({
 	}, []);
 
 	const stateData = useMemo(() => {
-		if (fg('platform_renderer_annotation_draft_position_fix')) {
-			return {
-				// We techinically have two ranges, however we only want to expose one of them at a time, because only one draft
-				// can be active at a time. The type of range is used to determine which range is active.
-				range: type === 'selection' ? selectionRange : hoverRange,
-				type,
-				selectionDraftRange,
-				hoverDraftRange,
-				selectionDraftDocumentPosition,
-				hoverDraftDocumentPosition,
-			};
-		} else {
-			return {
-				range,
-				draftRange,
-				type,
-				// I've updated some refs to use the new selectionDraftRange, this is being add here to be fowards compatible
-				// with the new changes coming in platform_renderer_annotation_draft_position_fix.
-				selectionDraftRange: draftRange,
-				hoverDraftRange: draftRange,
-				selectionDraftDocumentPosition: null,
-				hoverDraftDocumentPosition: null,
-			};
-		}
+		return {
+			// We techinically have two ranges, however we only want to expose one of them at a time, because only one draft
+			// can be active at a time. The type of range is used to determine which range is active.
+			range: type === 'selection' ? selectionRange : hoverRange,
+			type,
+			selectionDraftRange,
+			hoverDraftRange,
+			selectionDraftDocumentPosition,
+			hoverDraftDocumentPosition,
+		};
 	}, [
-		range,
-		draftRange,
 		selectionRange,
 		hoverRange,
 		type,
@@ -372,12 +240,9 @@ export const AnnotationRangeProviderInner = ({
 
 	const dispatchData = useMemo(
 		() => ({
-			clearRange,
 			clearSelectionRange,
-			clearDraftRange,
 			clearHoverRange,
 			setSelectionRange,
-			setDraftRange,
 			setHoverTarget: !!allowCommentsOnMedia ? setHoverTarget : undefined,
 			promoteSelectionToDraft,
 			promoteHoverToDraft,
@@ -386,12 +251,9 @@ export const AnnotationRangeProviderInner = ({
 		}),
 		[
 			allowCommentsOnMedia,
-			clearRange,
 			clearSelectionRange,
-			clearDraftRange,
 			clearHoverRange,
 			setSelectionRange,
-			setDraftRange,
 			setHoverTarget,
 			promoteSelectionToDraft,
 			promoteHoverToDraft,
@@ -418,26 +280,18 @@ export const AnnotationRangeProvider = ({
 	allowCommentsOnMedia?: boolean;
 	isNestedRender?: boolean;
 }) => {
-	if (fg('platform_renderer_annotation_draft_position_fix')) {
-		/*
-		 * If this is a nested render, we do not provide the context
-		 * because it has already been provided higher up the component tree
-		 * and we need the original context to create annotations on extensions.
-		 */
-		return isNestedRender ? (
-			<>{children}</>
-		) : (
-			<AnnotationRangeProviderInner allowCommentsOnMedia={allowCommentsOnMedia}>
-				{children}
-			</AnnotationRangeProviderInner>
-		);
-	} else {
-		return (
-			<AnnotationRangeProviderInner allowCommentsOnMedia={allowCommentsOnMedia}>
-				{children}
-			</AnnotationRangeProviderInner>
-		);
-	}
+	/*
+	 * If this is a nested render, we do not provide the context
+	 * because it has already been provided higher up the component tree
+	 * and we need the original context to create annotations on extensions.
+	 */
+	return isNestedRender ? (
+		<>{children}</>
+	) : (
+		<AnnotationRangeProviderInner allowCommentsOnMedia={allowCommentsOnMedia}>
+			{children}
+		</AnnotationRangeProviderInner>
+	);
 };
 
 export const useAnnotationRangeState = () => {

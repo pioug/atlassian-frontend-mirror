@@ -32,13 +32,25 @@
 	},
 	"references": [
 		{
+			"path": "../../../build/formatting/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../navigation/temp-nav-app-icons/tsconfig.app.json"
 		},
 		{
 			"path": "../theme/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../codegen/tsconfig.app.json"
 		}
 	],
 	"files": []

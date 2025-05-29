@@ -70,7 +70,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 
 		if (this.isHeaderRow) {
-			if (editorExperiment('platform_editor_nodevisibility', false)) {
+			if (editorExperiment('platform_editor_nodevisibility', false, { exposure: true })) {
 				this.subscribeWhenRowVisible();
 			} else {
 				const { observe } = nodeVisibilityManager(view.dom);

@@ -10,6 +10,7 @@ describe('UserLatencyObservers', () => {
 	beforeEach(() => {
 		mockTimeline = {
 			markEvent: jest.fn(),
+			cleanupSubscribers: jest.fn(),
 		} as unknown as jest.Mocked<TimelineClock>;
 
 		mockPerformanceObserver = jest.fn().mockImplementation((callback) => ({
@@ -47,6 +48,7 @@ describe('UserLatencyObservers', () => {
 
 		expect(instance['inputEventsObserver'].disconnect).toHaveBeenCalled();
 		expect(instance['performance']?.disconnect).toHaveBeenCalled();
+		expect(mockTimeline.cleanupSubscribers).toHaveBeenCalled();
 	});
 
 	it('should handle performance observer entries correctly', () => {

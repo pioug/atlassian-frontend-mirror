@@ -97,14 +97,18 @@ tester.run('no-utility-icons', rule, {
 			name: 'partial fix',
 			options: [{ enableAutoFixer: true }],
 			code: `
-				import AddIcon from '@atlaskit/icon/utility/add';
-				<AddIcon label=""/>
-				export { AddIcon as AddIconExported };`,
-			output: `import AddIconCore from '@atlaskit/icon/core/add';
+import React from 'react';
 
-				import AddIcon from '@atlaskit/icon/utility/add';
-				<AddIconCore label="" size="small"/>
-				export { AddIcon as AddIconExported };`,
+import AddIcon from '@atlaskit/icon/utility/add';
+<AddIcon label=""/>
+export { AddIcon as AddIconExported };`,
+			output: `
+import React from 'react';
+
+import AddIconCore from '@atlaskit/icon/core/add';
+import AddIcon from '@atlaskit/icon/utility/add';
+<AddIconCore label="" size="small"/>
+export { AddIcon as AddIconExported };`,
 			errors: [
 				{
 					messageId: 'noUtilityIconsJSXElement',

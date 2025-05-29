@@ -20,7 +20,7 @@ jest.mock('@atlaskit/atlassian-context', () => ({
 	isFedRamp: jest.fn(),
 }));
 
-describe('Profilecard', () => {
+describe('ProfileCard', () => {
 	describe('UserProfileCardClient', () => {
 		const mockIsFedRamp = isFedRamp as jest.Mock;
 

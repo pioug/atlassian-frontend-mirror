@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-emoji
 
+## 3.7.3
+
+### Patch Changes
+
+- [#162451](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162451)
+  [`ef8e2f1c70087`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef8e2f1c70087) -
+  Switching tbt performance fixes in inlineEmojiPopup and BlockMenu to experiment flag
+- Updated dependencies
+
+## 3.7.2
+
+### Patch Changes
+
+- [#160398](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160398)
+  [`4e5ae0ab20a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e5ae0ab20a60) -
+  ED-28049 optimise inline emoji popup
+- Updated dependencies
+
 ## 3.7.1
 
 ### Patch Changes

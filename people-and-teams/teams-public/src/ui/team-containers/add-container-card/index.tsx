@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import AddIcon from '@atlaskit/icon/utility/add';
+import AddIcon from '@atlaskit/icon/core/add';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -71,7 +71,10 @@ export const AddContainerCard = ({
 	containerType,
 	onAddAContainerClick,
 }: AddContainerCardProps) => {
-	const { description, icon, title } = getContainerProperties(containerType);
+	const { description, icon, title } = getContainerProperties({
+		containerType,
+		isEmptyContainer: true,
+	});
 
 	return (
 		<AddContainerCardWrapper onClick={onAddAContainerClick}>
@@ -80,7 +83,7 @@ export const AddContainerCard = ({
 					<IconButton
 						label="Add a container"
 						appearance="subtle"
-						icon={AddIcon}
+						icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
 						testId="add-icon"
 						onClick={(e) => {
 							onAddAContainerClick(e);

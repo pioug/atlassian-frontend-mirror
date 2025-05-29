@@ -12,6 +12,7 @@ import type {
 	AuthCallback,
 	BroadcastIncomingPayload,
 	ReconcileResponse,
+	GenerateDiffStepsResponseBody,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import { MEASURE_NAME, startMeasure, stopMeasure } from './analytics/performance';
@@ -545,6 +546,48 @@ export class Channel extends Emitter<ChannelEvent> {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while fetching reconciled document');
+			throw error;
+		}
+	};
+
+	/**
+	 * Fetch generated diff steps from the back-end service
+	 * @param currentStateDoc - The current state document
+	 * @param reason - The reason for generating diff steps
+	 * @returns {Promise<GenerateDiffStepsResponseBody>} - The generated diff steps response body
+	 */
+	fetchGeneratedDiffSteps = async (
+		currentStateDoc: string,
+		reason: string,
+	): Promise<GenerateDiffStepsResponseBody> => {
+		try {
+			const reqBody = JSON.stringify({
+				doc: currentStateDoc,
+				productId: 'ccollab',
+				reason,
+			});
+			const reconcileResponse = await utils.requestService<GenerateDiffStepsResponseBody>(
+				this.config,
+				{
+					path: `document/${encodeURIComponent(this.config.documentAri)}/generate-diff-steps`,
+					requestInit: {
+						headers: {
+							...(await this.commonHeaders()),
+							'Content-Type': 'application/json',
+						},
+						method: 'POST',
+						body: reqBody,
+					},
+				},
+			);
+			return reconcileResponse;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			this.analyticsHelper?.sendErrorEvent(
+				error,
+				'Error while fetching generated steps from the BE server',
+			);
 			throw error;
 		}
 	};

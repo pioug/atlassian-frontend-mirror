@@ -36,7 +36,6 @@ type InlineEmojiPopupProps = Pick<
 > & {
 	api: ExtractInjectionAPI<EmojiPlugin>;
 	editorView: EditorView;
-	onClose?: () => void;
 };
 
 export const InlineEmojiPopupOld = ({
@@ -46,12 +45,11 @@ export const InlineEmojiPopupOld = ({
 	popupsScrollableElement,
 	editorView,
 	onClose,
-}: InlineEmojiPopupProps) => {
+}: InlineEmojiPopupProps & { onClose: () => void }) => {
 	const { emojiProvider, inlineEmojiPopupOpen: isOpen } =
 		useSharedPluginState(api, ['emoji'])?.emojiState ?? {};
 
 	const intl = useIntl();
-
 	useEffect(() => {
 		if (isOpen && fg('platform_editor_ease_of_use_metrics')) {
 			api?.core.actions.execute(

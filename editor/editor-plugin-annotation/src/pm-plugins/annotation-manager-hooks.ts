@@ -391,10 +391,10 @@ export const clearAnnotation =
 			};
 		}
 
-		removeInlineCommentFromDoc(id, options.provider.supportedBlockNodes)(
-			editorView.state,
-			editorView.dispatch,
-		);
+		removeInlineCommentFromDoc(options.editorAnalyticsAPI)(
+			id,
+			options.provider.supportedBlockNodes,
+		)(editorView.state, editorView.dispatch);
 
 		return {
 			success: true,

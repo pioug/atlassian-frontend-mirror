@@ -1,4 +1,12 @@
 import {
+	AdminIcon,
+	AdminLogo,
+	AlignIcon,
+	AlignLogo,
+	AnalyticsIcon,
+	AnalyticsLogo,
+	AssetsIcon,
+	AssetsLogo,
 	AtlassianAccessIcon,
 	AtlassianAccessLogo,
 	AtlassianAdminIcon,
@@ -13,14 +21,24 @@ import {
 	AtlassianMarketplaceLogo,
 	BitbucketIcon,
 	BitbucketLogo,
+	ChatIcon,
+	ChatLogo,
+	CompanyHubIcon,
+	CompanyHubLogo,
 	CompassIcon,
 	CompassLogo,
 	ConfluenceIcon,
 	ConfluenceLogo,
 	FocusIcon,
 	FocusLogo,
+	GoalsIcon,
+	GoalsLogo,
+	GuardDetectIcon,
+	GuardDetectLogo,
 	GuardIcon,
 	GuardLogo,
+	HomeIcon,
+	HomeLogo,
 	JiraAlignIcon,
 	JiraAlignLogo,
 	JiraIcon,
@@ -40,10 +58,20 @@ import {
 	LoomLogo,
 	OpsgenieIcon,
 	OpsgenieLogo,
+	ProjectsIcon,
+	ProjectsLogo,
 	RovoIcon,
 	RovoLogo,
+	SearchIcon,
+	SearchLogo,
 	StatuspageIcon,
 	StatuspageLogo,
+	StudioIcon,
+	StudioLogo,
+	TalentIcon,
+	TalentLogo,
+	TeamsIcon,
+	TeamsLogo,
 	TrelloIcon,
 	TrelloLogo,
 } from '@atlaskit/logo';
@@ -100,7 +128,8 @@ export const icons = [
 	TrelloIcon,
 ];
 
-export const logosAndIcons = [
+export const legacyOnlyLogosAndIcons = [
+	{ name: 'Atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
 	{ name: 'Atlassian Access', logo: AtlassianAccessLogo, icon: AtlassianAccessIcon },
 	{
 		name: 'Atlassian Administration',
@@ -109,14 +138,19 @@ export const logosAndIcons = [
 	},
 	{ name: 'Atlassian Admin', logo: AtlassianAdminLogo, icon: AtlassianAdminIcon },
 	{ name: 'Atlassian Analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
-	{ name: 'Atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
 	{ name: 'Atlassian Marketplace', logo: AtlassianMarketplaceLogo, icon: AtlassianMarketplaceIcon },
+	{ name: 'Jira Software', logo: JiraSoftwareLogo, icon: JiraSoftwareIcon },
+	{ name: 'Jira Align', logo: JiraAlignLogo, icon: JiraAlignIcon },
+	{ name: 'Jira Work Management', logo: JiraWorkManagementLogo, icon: JiraWorkManagementIcon },
+	{ name: 'Loom Attribution', logo: LoomAttributionLogo, icon: LoomAttributionIcon },
+];
+
+export const sharedLogosAndIcons = [
 	{ name: 'Bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
 	{ name: 'Compass', logo: CompassLogo, icon: CompassIcon },
 	{ name: 'Confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },
 	{ name: 'Focus', logo: FocusLogo, icon: FocusIcon },
 	{ name: 'Guard', logo: GuardLogo, icon: GuardIcon },
-	{ name: 'Jira Align', logo: JiraAlignLogo, icon: JiraAlignIcon },
 	{ name: 'Jira', logo: JiraLogo, icon: JiraIcon },
 	{
 		name: 'Jira Product Discovery',
@@ -128,14 +162,34 @@ export const logosAndIcons = [
 		logo: JiraServiceManagementLogo,
 		icon: JiraServiceManagementIcon,
 	},
-	{ name: 'Jira Software', logo: JiraSoftwareLogo, icon: JiraSoftwareIcon },
-	{ name: 'Jira Work Management', logo: JiraWorkManagementLogo, icon: JiraWorkManagementIcon },
-	{ name: 'Loom Attribution', logo: LoomAttributionLogo, icon: LoomAttributionIcon },
 	{ name: 'Loom', logo: LoomLogo, icon: LoomIcon },
 	{ name: 'Opsgenie', logo: OpsgenieLogo, icon: OpsgenieIcon },
 	{ name: 'Rovo', logo: RovoLogo, icon: RovoIcon },
 	{ name: 'Statuspage', logo: StatuspageLogo, icon: StatuspageIcon },
 	{ name: 'Trello', logo: TrelloLogo, icon: TrelloIcon },
+];
+
+export const newOnlyLogosAndIcons = [
+	{ name: 'Admin', logo: AdminLogo, icon: AdminIcon },
+	{ name: 'Align', logo: AlignLogo, icon: AlignIcon },
+	{ name: 'Analytics', logo: AnalyticsLogo, icon: AnalyticsIcon },
+	{ name: 'Assets', logo: AssetsLogo, icon: AssetsIcon },
+	{ name: 'Chat', logo: ChatLogo, icon: ChatIcon },
+	{ name: 'Company Hub', logo: CompanyHubLogo, icon: CompanyHubIcon },
+	{ name: 'Goals', logo: GoalsLogo, icon: GoalsIcon },
+	{ name: 'Guard Detect', logo: GuardDetectLogo, icon: GuardDetectIcon },
+	{ name: 'Home', logo: HomeLogo, icon: HomeIcon },
+	{ name: 'Projects', logo: ProjectsLogo, icon: ProjectsIcon },
+	{ name: 'Search', logo: SearchLogo, icon: SearchIcon },
+	{ name: 'Studio', logo: StudioLogo, icon: StudioIcon },
+	{ name: 'Talent', logo: TalentLogo, icon: TalentIcon },
+	{ name: 'Teams', logo: TeamsLogo, icon: TeamsIcon },
+];
+
+export const logosAndIcons = [
+	...legacyOnlyLogosAndIcons,
+	...sharedLogosAndIcons,
+	...newOnlyLogosAndIcons,
 ];
 
 export const appearances: LogoProps['appearance'][] = ['brand', 'neutral', 'inverse'];

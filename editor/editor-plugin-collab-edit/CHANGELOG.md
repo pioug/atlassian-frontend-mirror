@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.9.0
+
+### Minor Changes
+
+- [#159232](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159232)
+  [`3edd7f2ef67fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3edd7f2ef67fa) -
+  [EDITOR-752] Add updateSessionMetrics to collab plugin, this will track and store the steps in a
+  single collab session
+
+## 3.8.0
+
+### Minor Changes
+
+- [#154562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154562)
+  [`9a3495cb72638`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a3495cb72638) -
+  Support AnalyticsStep filtering for collab
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.2
 
 ### Patch Changes

@@ -2,7 +2,12 @@ import { EventEmitter } from 'events';
 
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { AddNodeMarkStep, AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import type {
+	AddNodeMarkStep,
+	AddMarkStep,
+	RemoveNodeMarkStep,
+	RemoveMarkStep,
+} from '@atlaskit/editor-prosemirror/transform';
 
 import { SharedAnnotationManager } from './manager';
 
@@ -48,6 +53,11 @@ export type ActionResult = {
 	targetNodeType?: string;
 } & AnnotationByMatches;
 // | false;
+
+export type ClearAnnotationActionResult = {
+	step: RemoveMarkStep | RemoveNodeMarkStep;
+	doc: JSONDocNode;
+};
 
 // ### Events
 export type AnnotationDraftStartedData = {
@@ -111,10 +121,10 @@ export type GetDraftResult =
 	| ({ success: true } & AnnotationDraftStartedData);
 
 export type ClearAnnotationResult =
-	| { success: false; reason: ManagerFailureReasons | 'id-not-valid' }
+	| { success: false; reason: ManagerFailureReasons | 'id-not-valid' | 'clear-failed' }
 	| {
 			success: true;
-			actionResult: ActionResult | undefined;
+			actionResult: ClearAnnotationActionResult | undefined;
 	  };
 
 export type SelectAnnotationResult =

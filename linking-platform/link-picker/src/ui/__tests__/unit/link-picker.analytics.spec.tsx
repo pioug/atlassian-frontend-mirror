@@ -90,6 +90,7 @@ describe('LinkPicker analytics', () => {
 		url = '',
 		plugins,
 		previewableLinksOnly = false,
+		additionalError,
 	}: Partial<LinkPickerProps> = {}) => {
 		const spy = jest.fn();
 		const onSubmit = jest.fn();
@@ -100,6 +101,7 @@ describe('LinkPicker analytics', () => {
 			spy,
 			onSubmit,
 			previewableLinksOnly,
+			additionalError,
 		}: LinkPickerTestProps) => (
 			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
 				<LinkPicker
@@ -109,12 +111,13 @@ describe('LinkPicker analytics', () => {
 					onCancel={jest.fn()}
 					onContentResize={jest.fn()}
 					previewableLinksOnly={previewableLinksOnly}
+					additionalError={additionalError}
 				/>
 			</AnalyticsListener>
 		);
 
 		const wrappedLinkPicker = render(
-			linkPickerDom({ url, plugins, spy, onSubmit, previewableLinksOnly }),
+			linkPickerDom({ url, plugins, spy, onSubmit, previewableLinksOnly, additionalError }),
 		);
 
 		const rerenderLinkPicker = ({
@@ -123,10 +126,11 @@ describe('LinkPicker analytics', () => {
 			spy,
 			onSubmit,
 			previewableLinksOnly,
+			additionalError,
 		}: LinkPickerTestProps) => {
 			wrappedLinkPicker.rerender(
 				<IntlProvider locale="en">
-					{linkPickerDom({ url, plugins, spy, onSubmit, previewableLinksOnly })}
+					{linkPickerDom({ url, plugins, spy, onSubmit, previewableLinksOnly, additionalError })}
 				</IntlProvider>,
 			);
 		};
@@ -1172,7 +1176,7 @@ describe('LinkPicker analytics', () => {
 		});
 	});
 
-	describe('LinkPicker previewableLinksOnly prop', () => {
+	describe('additional error handling', () => {
 		beforeEach(() => {
 			const fg = require('@atlaskit/platform-feature-flags').fg;
 			fg.mockReturnValue(true);
@@ -1192,10 +1196,27 @@ describe('LinkPicker analytics', () => {
 				previewableLinksOnly: true,
 			});
 			shouldReturnEmptyResponse = false;
+			expect(screen.queryByTestId('link-error')).not.toBeInTheDocument();
 			await user.type(await urlField(), 'https://www.atlassian.com/hasEmbedPreview');
 			const insertButton = screen.getByTestId('link-picker-insert-button');
 			await user.click(insertButton);
 			expect(onSubmit).toHaveBeenCalled();
+		});
+		it('should show error from additionalError unless built in error message is triggered', async () => {
+			const { urlField, onSubmit } = setupLinkPicker({
+				previewableLinksOnly: true,
+				additionalError: 'Form is invalid',
+			});
+			expect(screen.queryByTestId('link-error')).toBeInTheDocument();
+			expect(screen.getByText('Form is invalid')).toBeInTheDocument();
+			const insertButton = screen.getByTestId('link-picker-insert-button');
+			await user.click(insertButton);
+			expect(onSubmit).not.toHaveBeenCalled();
+			shouldReturnEmptyResponse = true;
+			await user.type(await urlField(), 'https://www.atlassian.com');
+			await user.click(insertButton);
+			expect(screen.getByText("Embed view isn't supported for this link.")).toBeInTheDocument();
+			expect(screen.queryByText('Form is invalid')).not.toBeInTheDocument();
 		});
 	});
 

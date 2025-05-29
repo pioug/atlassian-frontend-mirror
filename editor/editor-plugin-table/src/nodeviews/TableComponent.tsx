@@ -252,7 +252,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	};
 
 	componentDidMount() {
-		if (editorExperiment('platform_editor_nodevisibility', false)) {
+		if (editorExperiment('platform_editor_nodevisibility', false, { exposure: true })) {
 			this.initialiseEventListenersAfterMount();
 			return;
 		}

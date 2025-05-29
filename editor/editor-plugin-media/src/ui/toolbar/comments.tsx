@@ -19,7 +19,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 
-import { CommentWithDotIcon } from './assets/commentWithDotIcon';
 import { getSelectedMediaSingle } from './utils';
 
 export const commentButton = (
@@ -74,7 +73,6 @@ export const commentButton = (
 		type: 'button',
 		testId: 'add-comment-media-button',
 		icon: CommentIcon,
-		iconFallback: hasActiveComments ? CommentWithDotIcon : CommentIcon,
 		title: editorExperiment('platform_editor_controls', 'control') ? title : buttonLabel,
 		showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
 		onClick: onClickHandler,

@@ -82,7 +82,11 @@ const SectionContentOne = () => {
 };
 
 export default function Example() {
-	onUserLatency(() => {});
+	onUserLatency((userLatencyEvents) => {
+		console.log({
+			userLatencyEvents,
+		});
+	});
 
 	return (
 		<main id="app-main" css={mainStyles}>

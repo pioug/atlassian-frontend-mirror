@@ -12,6 +12,14 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
  * existing experiments.
  */
 export const editorExperimentsConfig = {
+	// Added 2025-05-27
+	platform_editor_reduce_noisy_steps_ncs: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_reduce_noisy_steps_ncs',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2024-08-08
 	'example-boolean': createBooleanExperiment({
 		productKeys: {

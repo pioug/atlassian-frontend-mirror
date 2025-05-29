@@ -1,5 +1,17 @@
 # @atlaskit/prosemirror-collab
 
+## 0.17.0
+
+### Minor Changes
+
+- [#154562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/154562)
+  [`9a3495cb72638`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a3495cb72638) -
+  Support AnalyticsStep filtering for collab
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.16.4
 
 ### Patch Changes

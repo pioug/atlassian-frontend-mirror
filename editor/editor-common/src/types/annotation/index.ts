@@ -1,6 +1,11 @@
 import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { AddNodeMarkStep, AddMarkStep, Step } from '@atlaskit/editor-prosemirror/transform';
+import type {
+	AddNodeMarkStep,
+	AddMarkStep,
+	RemoveMarkStep,
+	RemoveNodeMarkStep,
+} from '@atlaskit/editor-prosemirror/transform';
 
 import type { AnnotationManager } from '../../annotation';
 
@@ -14,7 +19,7 @@ export type AnnotationByMatches = {
 	isAnnotationAllowed?: boolean;
 };
 
-type ActionResult = { step: Step; doc: JSONDocNode } | false;
+type ActionResult = { step: RemoveMarkStep | RemoveNodeMarkStep; doc: JSONDocNode } | false;
 export type AnnotationActionResult =
 	| ({
 			step: AddMarkStep | AddNodeMarkStep;

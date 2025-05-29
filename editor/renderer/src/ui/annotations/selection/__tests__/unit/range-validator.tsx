@@ -66,12 +66,7 @@ describe('Annotations: SelectionRangeValidator', () => {
 									<small className="end-selection">morango</small>
 								</div>
 							</div>
-							<SelectionRangeValidator
-								rendererRef={ref}
-								selectionComponent={selectionComponent}
-								applyAnnotationDraftAt={jest.fn()}
-								clearAnnotationDraft={jest.fn()}
-							/>
+							<SelectionRangeValidator rendererRef={ref} selectionComponent={selectionComponent} />
 						</div>
 						,
 					</RendererContext.Provider>,
@@ -91,12 +86,7 @@ describe('Annotations: SelectionRangeValidator', () => {
 									<small className="end-selection">morango</small>
 								</div>
 							</div>
-							<SelectionRangeValidator
-								rendererRef={ref}
-								selectionComponent={selectionComponent}
-								applyAnnotationDraftAt={jest.fn()}
-								clearAnnotationDraft={jest.fn()}
-							/>
+							<SelectionRangeValidator rendererRef={ref} selectionComponent={selectionComponent} />
 						</div>
 						,
 					</RendererContext.Provider>,

@@ -1,9 +1,5 @@
 export type Assets = Record<string, { logo: boolean; icon: boolean }>;
 
-import { token } from '@atlaskit/tokens';
-
-import { CSS_VAR_ICON, CSS_VAR_THEMED_ICON, CSS_VAR_THEMED_TEXT } from '../src/utils/constants';
-
 const collectionColors = {
 	strategy: '#FB9700',
 	service: '#FFC716',
@@ -75,13 +71,13 @@ export const transformSVG = (
 	let updatedSvg = svg;
 
 	updatedSvg = updatedSvg.replace('fill="none"', '');
-	updatedSvg = updatedSvg.replace('width="24"', '');
-	updatedSvg = updatedSvg.replace('height="24"', '');
+	updatedSvg = updatedSvg.replace(/width="\d+"/, '');
+	updatedSvg = updatedSvg.replace(/height="\d+"/, '');
 
 	if (isThemable) {
 		updatedSvg = updatedSvg
-			.replace(/fill="#292A2E"/, `fill="var(${CSS_VAR_THEMED_ICON}, currentColor)"`)
-			.replace(/fill="#292A2E"/g, `fill="var(${CSS_VAR_THEMED_TEXT}, currentColor)"`);
+			.replace(/fill="#292A2E"/, `fill="var(--themed-icon-color, currentColor)"`)
+			.replace(/fill="#292A2E"/g, `fill="var(--themed-text-color, currentColor)"`);
 	} else {
 		if (!noLegacyAppearance.includes(name)) {
 			// Allow icons to be customised for App Switcher until Team '25
@@ -90,16 +86,17 @@ export const transformSVG = (
 					const cssVar = `var(--tile-color,${hex})`;
 					return acc.replace(new RegExp(`${hex}`, 'g'), cssVar);
 				}, updatedSvg)
-				.replace(/fill="#101214"/g, `fill="var(${CSS_VAR_ICON}, #101214)"`)
-				.replace(/fill="white"/g, `fill="var(${CSS_VAR_ICON}, white)"`);
+				.replace(/fill="#101214"/g, `fill="var(--icon-color, #101214)"`)
+				.replace(/fill="white"/g, `fill="var(--icon-color, white)"`);
 		}
 	}
 
+	// Insert 'height: 100%;' into the <svg> tag
+	updatedSvg = updatedSvg.replace(/<svg/, '<svg height="100%"');
+
 	if (type === 'logo') {
-		updatedSvg = updatedSvg.replace(/fill="#292A2E"/g, `fill="${token('color.text', '#292A2E')}"`);
-	} else {
-		// Insert 'height: 100%;' into the <svg> tag
-		updatedSvg = updatedSvg.replace(/<svg/, '<svg height="100%"');
+		updatedSvg = updatedSvg.replace(/fill="#292A2E"/g, `fill="var(--text-color, #292A2E)"`);
 	}
+
 	return updatedSvg;
 };

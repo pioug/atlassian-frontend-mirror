@@ -65,4 +65,5 @@ export type NavigationAction = NavigationActionCommon &
 export type NavigationResult = {
 	onNavigate: (e?: React.MouseEvent | React.KeyboardEvent) => void;
 	href: string;
+	target: '_blank' | '_self';
 };

@@ -1,0 +1,27 @@
+{
+	"extends": "../../../../tsconfig.entry-points.jira.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../tsDist/@atlaskit__feature-gate-single-fetch-provider/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../feature-gate-fetcher/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../feature-gate-js-client/afm-jira/tsconfig.json"
+		}
+	]
+}

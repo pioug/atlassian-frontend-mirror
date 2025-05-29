@@ -1,10 +1,9 @@
-import React, { useCallback, useState, useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type {
 	AnnotationByMatches,
 	InlineCommentHoverComponentProps,
 } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft/dom';
 import type { Position } from '../types';
@@ -31,16 +30,6 @@ type Props = {
 	isAnnotationAllowed: boolean;
 	onClose: () => void;
 	applyAnnotation: ApplyAnnotation;
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 */
-	applyAnnotationDraftAt?: (position: Position) => void;
-	/**
-	 * @private
-	 * @deprecated This prop is deprecated as of platform_renderer_annotation_draft_position_fix and will be removed in the future.
-	 */
-	clearAnnotationDraft?: () => void;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
 };
@@ -53,28 +42,20 @@ export const Mounter = React.memo((props: Props) => {
 		isAnnotationAllowed,
 		wrapperDOM,
 		onClose: onCloseProps,
-		clearAnnotationDraft,
-		applyAnnotationDraftAt,
 		documentPosition,
 		applyAnnotation,
 		createAnalyticsEvent,
 		generateIndexMatch,
 	} = props;
 
-	// if platform_renderer_annotation_draft_position_fix is enabled; then
 	const { promoteHoverToDraft, clearHoverDraft } = useAnnotationRangeDispatch();
 	const { hoverDraftDocumentPosition } = useAnnotationRangeState();
-	// else;
-	const [draftDocumentPosition, setDraftDocumentPosition] = useState<Position | null>();
-	// end-if
 
 	const actions = useContext(ActionsContext);
 
 	const onCreateCallback = useCallback(
 		(annotationId: string) => {
-			const positionToAnnotate = fg('platform_renderer_annotation_draft_position_fix')
-				? hoverDraftDocumentPosition || documentPosition
-				: draftDocumentPosition || documentPosition;
+			const positionToAnnotate = hoverDraftDocumentPosition || documentPosition;
 
 			if (!isAnnotationAllowed || !positionToAnnotate || !applyAnnotation) {
 				return false;
@@ -101,7 +82,6 @@ export const Mounter = React.memo((props: Props) => {
 			isAnnotationAllowed,
 			documentPosition,
 			applyAnnotation,
-			draftDocumentPosition,
 			createAnalyticsEvent,
 			hoverDraftDocumentPosition,
 		],
@@ -135,12 +115,7 @@ export const Mounter = React.memo((props: Props) => {
 				return false;
 			}
 
-			if (fg('platform_renderer_annotation_draft_position_fix')) {
-				promoteHoverToDraft(documentPosition);
-			} else {
-				setDraftDocumentPosition(documentPosition);
-				applyAnnotationDraftAt && applyAnnotationDraftAt(documentPosition);
-			}
+			promoteHoverToDraft(documentPosition);
 
 			if (createAnalyticsEvent) {
 				const uniqueAnnotationsInRange = actions.getAnnotationsByPosition(range);
@@ -166,9 +141,7 @@ export const Mounter = React.memo((props: Props) => {
 				}
 			});
 
-			const positionToAnnotate = fg('platform_renderer_annotation_draft_position_fix')
-				? hoverDraftDocumentPosition || documentPosition
-				: draftDocumentPosition || documentPosition;
+			const positionToAnnotate = hoverDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
 				return false;
@@ -184,10 +157,8 @@ export const Mounter = React.memo((props: Props) => {
 		[
 			documentPosition,
 			isAnnotationAllowed,
-			applyAnnotationDraftAt,
 			createAnalyticsEvent,
 			applyAnnotation,
-			draftDocumentPosition,
 			actions,
 			range,
 			promoteHoverToDraft,
@@ -196,18 +167,13 @@ export const Mounter = React.memo((props: Props) => {
 	);
 
 	const removeDraftModeCallback = useCallback(() => {
-		if (fg('platform_renderer_annotation_draft_position_fix')) {
-			clearHoverDraft();
-		} else {
-			clearAnnotationDraft && clearAnnotationDraft();
-			setDraftDocumentPosition(null);
-		}
+		clearHoverDraft();
 
 		const sel = window.getSelection();
 		if (sel) {
 			sel.removeAllRanges();
 		}
-	}, [clearAnnotationDraft, clearHoverDraft]);
+	}, [clearHoverDraft]);
 
 	const onCloseCallback = useCallback(() => {
 		if (createAnalyticsEvent) {

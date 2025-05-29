@@ -124,6 +124,7 @@ export class UserLatencyObservers {
 
 		this.performance?.disconnect();
 		this.inputEventsObserver.disconnect();
+		this.timeline.cleanupSubscribers();
 
 		this.isObserving = false;
 	}

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.6.9
+
+### Patch Changes
+
+- [#161893](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161893)
+  [`432e1c30874a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/432e1c30874a0) -
+  controls performance gating switch to experiment
+- Updated dependencies
+
 ## 3.6.8
 
 ### Patch Changes

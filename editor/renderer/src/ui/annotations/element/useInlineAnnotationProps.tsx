@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { AnnotationsDraftContext } from '../context';
 import { useAnnotationRangeState } from '../contexts/AnnotationRangeContext';
 
 export type MarkDataAttributes = {
@@ -11,11 +9,7 @@ export type MarkDataAttributes = {
 };
 
 export function useInlineAnnotationProps(props: MarkDataAttributes) {
-	const draftPositionOld = useContext(AnnotationsDraftContext);
-	const { selectionDraftDocumentPosition } = useAnnotationRangeState();
-	const draftPosition = fg('platform_renderer_annotation_draft_position_fix')
-		? selectionDraftDocumentPosition
-		: draftPositionOld;
+	const { selectionDraftDocumentPosition: draftPosition } = useAnnotationRangeState();
 
 	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return {};

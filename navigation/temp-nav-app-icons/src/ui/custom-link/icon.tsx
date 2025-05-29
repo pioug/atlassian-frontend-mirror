@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::28795512290f2fee749dadfc168b3abe>>
+ * @codegen <<SignedSource::eedf12e568f51882b78e374bb00841bf>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -23,14 +23,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
  *
  * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
-export function CustomLinkIcon({
-	size,
-	appearance = 'brand',
-
-	label,
-	testId,
-}: UtilityIconProps) {
+export function CustomLinkIcon({ size, appearance = 'brand', label, testId }: UtilityIconProps) {
 	return (
-		<IconWrapper svg={svg} size={size} appearance={appearance} label={label} testId={testId} />
+		<IconWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
 	);
 }

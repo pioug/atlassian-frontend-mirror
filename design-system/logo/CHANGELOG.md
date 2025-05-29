@@ -1,5 +1,17 @@
 # @atlaskit/logo
 
+## 18.2.0
+
+### Minor Changes
+
+- [#159181](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159181)
+  [`11df1e34c5d4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11df1e34c5d4f) -
+  New logo designs have been added behind a feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.0
 
 ### Minor Changes

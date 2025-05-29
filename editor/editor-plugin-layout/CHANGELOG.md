@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.9.0
+
+### Minor Changes
+
+- [#162136](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162136)
+  [`356ae4cb21dae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/356ae4cb21dae) -
+  ED-28129 Fix multiple activation point for the full-width guideline
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.2
 
 ### Patch Changes

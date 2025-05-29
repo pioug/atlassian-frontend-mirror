@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.5.0
+
+### Minor Changes
+
+- [#158005](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158005)
+  [`760f73c576c67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/760f73c576c67) -
+  [ux] Allow the passing of an outside of form error to link picker through a new prop , set error
+  message link to open in new tab on click
+
 ## 3.4.1
 
 ### Patch Changes

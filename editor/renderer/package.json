@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "118.4.1",
+	"version": "118.6.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,6 +124,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"confluence_frontend_table_scrollbar_ttvc_fix": {
+			"type": "boolean"
+		},
 		"platform-ssr-table-resize": {
 			"type": "boolean"
 		},
@@ -168,14 +171,6 @@
 		},
 		"confluence-frontend-comments-panel": {
 			"type": "boolean"
-		},
-		"platform_editor_table_row_span_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_table_row_span_fix_all": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_fix_vc90_bug_with_files": {
 			"type": "boolean"
@@ -253,13 +248,7 @@
 		"platform_editor_bordered_panel_nested_in_table": {
 			"type": "boolean"
 		},
-		"platform_renderer_annotation_draft_position_fix": {
-			"type": "boolean"
-		},
 		"platform_editor_fix_image_size_diff_during_ssr": {
-			"type": "boolean"
-		},
-		"platform_hide_heading_anchor_wrapper_before_hover": {
 			"type": "boolean"
 		},
 		"smartcard_avatar_margin_fix": {

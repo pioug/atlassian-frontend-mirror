@@ -60,7 +60,12 @@ export type RenderCallback = (
 export interface VideoProps {
 	src: string;
 	children: RenderCallback;
-	defaultTime: number;
+	/**
+	 * `defaultTime` is a getter function to ensure we're always
+	 * getting the latest value from TimeSaver even if a render hasn't
+	 * occurred to provide the latest value from the parent component.
+	 */
+	defaultTime: () => number;
 	sourceType: 'video' | 'audio';
 	controls: boolean;
 	autoPlay: boolean;
@@ -119,7 +124,7 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 	};
 
 	static defaultProps = {
-		defaultTime: 0,
+		defaultTime: () => 0,
 		sourceType: 'video',
 		autoPlay: false,
 		controls: false,
@@ -129,7 +134,7 @@ export class Video extends Component<VideoProps, VideoComponentState> {
 	onLoadedData = () => {
 		const { defaultTime } = this.props;
 		if (this.currentElement) {
-			this.currentElement.currentTime = defaultTime;
+			this.currentElement.currentTime = defaultTime();
 		}
 	};
 

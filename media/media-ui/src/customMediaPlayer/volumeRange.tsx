@@ -157,6 +157,7 @@ const VolumeRange = (props: VolumeRangeProps) => {
 			onMouseDown={onThumbMouseDown}
 			onKeyDown={onThumbKeyDown}
 			ref={wrapperElement}
+			data-testid="volume-range"
 		>
 			<Range
 				tabIndex={0}
@@ -176,6 +177,7 @@ const VolumeRange = (props: VolumeRangeProps) => {
 			onMouseDown={onThumbMouseDown}
 			onKeyDown={onThumbKeyDown}
 			ref={wrapperElement}
+			data-testid="volume-range"
 		>
 			<Range
 				tabIndex={0}

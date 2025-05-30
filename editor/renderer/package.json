@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "118.6.0",
+	"version": "118.6.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -257,6 +257,9 @@
 		"platform_editor_nested_table_extension_comment_fix": {
 			"type": "boolean"
 		},
+		"platform_editor__renderer_indentation_text_margin": {
+			"type": "boolean"
+		},
 		"dst-a11y__replace-anchor-with-link__editor": {
 			"type": "boolean"
 		}
@@ -272,6 +275,9 @@
 		"./text-serializer": "./src/text-serializer.ts",
 		"./use-feature-flags": "./src/use-feature-flags.ts",
 		"./utils": "./src/utils.ts",
+		"./experimental-sync-custom-nodes/cards": "./src/entry-points/experimental-sync-custom-nodes/cards.ts",
+		"./experimental-sync-custom-nodes/media": "./src/entry-points/experimental-sync-custom-nodes/media.ts",
+		"./experimental-sync-custom-nodes/small-nodes": "./src/entry-points/experimental-sync-custom-nodes/small-nodes.ts",
 		"./custom-nodes": "./src/custom-nodes.ts"
 	},
 	"exports": {
@@ -287,6 +293,9 @@
 		"./use-feature-flags": "./src/use-feature-flags.ts",
 		"./utils": "./src/utils.ts",
 		"./custom-nodes": "./src/custom-nodes.ts",
+		"./experimental-sync-custom-nodes/cards": "./src/entry-points/experimental-sync-custom-nodes/cards.ts",
+		"./experimental-sync-custom-nodes/media": "./src/entry-points/experimental-sync-custom-nodes/media.ts",
+		"./experimental-sync-custom-nodes/small-nodes": "./src/entry-points/experimental-sync-custom-nodes/small-nodes.ts",
 		"./package.json": "./package.json"
 	}
 }

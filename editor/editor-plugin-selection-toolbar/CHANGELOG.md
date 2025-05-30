@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.6.10
+
+### Patch Changes
+
+- [#162560](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162560)
+  [`2f1b203a00ccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f1b203a00ccf) -
+  [ux] Removes docking options from the overflow menu and converts them into pin/unpin button.
+- Updated dependencies
+
 ## 3.6.9
 
 ### Patch Changes

@@ -56,6 +56,9 @@ const noop = () => {};
 
 const logger = createLogger('documentService', 'red');
 
+/**
+ *
+ */
 export class DocumentService implements DocumentServiceInterface {
 	private getState: (() => EditorState) | undefined;
 	// Fires analytics to editor when collab editor cannot sync up
@@ -84,8 +87,12 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param getUserId - Callback to fetch the current user's ID
 	 * @param onErrorHandled - Callback to handle
 	 * @param metadataService
+	 * @param isNameSpaceLocked
 	 * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
+	 * @param options.__livePage
+	 * @param options
 	 * @param getConnected - if the channel is currently connected
+	 * @example
 	 */
 	constructor(
 		private participantsService: ParticipantsService,
@@ -138,6 +145,8 @@ export class DocumentService implements DocumentServiceInterface {
 	 * Updates the number of commits sent since connect/reconnect
 	 * This is used to track the number of commits sent to the server.
 	 * currently we are validating the first steps from a user after connect/reconnect - CEPS-710
+	 * @param steps
+	 * @example
 	 */
 	setNumberOfCommitsSent = (steps: number) => {
 		this.numberOfStepCommitsSent = steps;
@@ -148,6 +157,8 @@ export class DocumentService implements DocumentServiceInterface {
 	 *   * session established(offline -> online)
 	 *   * try to accept steps but version is behind.
 	 * @param reason - optional reason to attach.
+	 * @param reconnectionMetadata
+	 * @example
 	 */
 	private catchupv2 = async (
 		reason?: CatchupEventReason,
@@ -271,6 +282,8 @@ export class DocumentService implements DocumentServiceInterface {
 	 * notify the editor that we have a potential conflict to resolve on the frontend.
 	 *
 	 * @param data remote steps payload
+	 * @param steps
+	 * @example
 	 */
 	private notifyReconnectionConflict(steps: StepsPayload['steps']) {
 		if (editorExperiment('platform_editor_offline_editing_web', false)) {
@@ -462,6 +475,8 @@ export class DocumentService implements DocumentServiceInterface {
 
 	/**
 	 * Called when we receive steps from the service
+	 * @param data
+	 * @example
 	 */
 	onStepsAdded = (data: StepsPayload) => {
 		logger(`Received steps`, { steps: data.steps, version: data.version });
@@ -471,6 +486,7 @@ export class DocumentService implements DocumentServiceInterface {
 			return;
 		}
 
+		const ADD_STEPS_PROVIDER_ERROR_MSG = 'Error while adding steps in the provider';
 		try {
 			const currentVersion = this.getCurrentPmVersion();
 			const expectedVersion = currentVersion + data.steps.length;
@@ -488,17 +504,16 @@ export class DocumentService implements DocumentServiceInterface {
 			}
 			this.participantsService.updateLastActive(data.steps.map(({ userId }: StepJson) => userId));
 		} catch (stepsAddedError) {
-			this.analyticsHelper?.sendErrorEvent(
-				stepsAddedError,
-				'Error while adding steps in the provider',
-			);
+			this.analyticsHelper?.sendErrorEvent(stepsAddedError, ADD_STEPS_PROVIDER_ERROR_MSG);
 			this.onErrorHandled({
-				message: 'Error while adding steps in the provider',
+				message: ADD_STEPS_PROVIDER_ERROR_MSG,
 				data: {
 					status: 500, // Meaningless, remove when we review error structure
 					code: INTERNAL_ERROR_CODE.ADD_STEPS_ERROR,
 				},
 			});
+			// eslint-disable-next-line no-console
+			console.error(ADD_STEPS_PROVIDER_ERROR_MSG);
 		}
 	};
 
@@ -724,6 +739,10 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
+	/**
+	 *
+	 * @example
+	 */
 	getIsNamespaceLocked(): boolean {
 		return this.isNameSpaceLocked();
 	}
@@ -817,7 +836,9 @@ export class DocumentService implements DocumentServiceInterface {
 
 	/**
 	 * Commit the unconfirmed local steps to the back-end service
+	 * @param reason
 	 * @throws {Error} Couldn't sync the steps after retrying 30 times
+	 * @example
 	 */
 	commitUnconfirmedSteps = async (reason: GetResolvedEditorStateReason) => {
 		const unconfirmedSteps = this.getUnconfirmedSteps();
@@ -912,6 +933,14 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
+	/**
+	 *
+	 * @param root0
+	 * @param root0.getState
+	 * @param root0.onSyncUpError
+	 * @param root0.clientId
+	 * @example
+	 */
 	setup({
 		getState,
 		onSyncUpError,
@@ -933,6 +962,9 @@ export class DocumentService implements DocumentServiceInterface {
 	 *
 	 * The getState function will return the current EditorState
 	 * from the EditorView.
+	 * @param sendAnalyticsEvent
+	 * @param reason
+	 * @example
 	 */
 	sendStepsFromCurrentState(sendAnalyticsEvent?: boolean, reason?: GetResolvedEditorStateReason) {
 		const state = this.getState?.();
@@ -979,6 +1011,12 @@ export class DocumentService implements DocumentServiceInterface {
 	/**
 	 * Send steps from transaction to other participants
 	 * It needs the superfluous arguments because we keep the interface of the send API the same as the Synchrony plugin
+	 * @param tr
+	 * @param _oldState
+	 * @param newState
+	 * @param sendAnalyticsEvent
+	 * @param reason
+	 * @example
 	 */
 	send(
 		tr: Transaction | null,

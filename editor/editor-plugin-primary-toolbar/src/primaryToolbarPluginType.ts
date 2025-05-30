@@ -42,7 +42,8 @@ export type ToolbarElementNames =
 	| 'aiSimplified'
 	| 'loom'
 	| 'spellCheck'
-	| 'overflowMenu';
+	| 'overflowMenu'
+	| 'pinToolbar';
 
 export type ToolbarElementConfig = {
 	name: ToolbarElementNames;

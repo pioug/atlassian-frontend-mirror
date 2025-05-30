@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 118.6.2
+
+### Patch Changes
+
+- [#163399](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163399)
+  [`dfe79188f0956`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfe79188f0956) -
+  [ux] Fix indent text margin issue in Renderer
+
+## 118.6.1
+
+### Patch Changes
+
+- [#162889](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162889)
+  [`18bda49e04df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18bda49e04df4) -
+  Export InlineNodeRendererWrapper for consumption in Confluence
+
 ## 118.6.0
 
 ### Minor Changes

@@ -1,11 +1,11 @@
+import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Mark } from '@atlaskit/editor-prosemirror/model';
+import { Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,
 } from '@atlaskit/editor-shared-styles';
-import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import {
 	BaseEventPayload,
 	DragLocationHistory,
@@ -15,10 +15,11 @@ import {
 import { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
 
+import { getGuidelines } from './get-guidelines';
 import { LOCAL_RESIZE_PROPERTY } from './resizing-mark-view';
 
 const RESIZE_RATIO = 2;
-const WIDTHS = {
+export const WIDTHS = {
 	MIN: 760,
 	MAX: 1800,
 };
@@ -61,35 +62,42 @@ export function createResizerCallbacks({
 	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
 } {
+	let node: Node | null = null;
+	const getEditorWidth = () => {
+		return api?.width?.sharedState.currentState();
+	};
 	return {
 		onDragStart: () => {
-			requestAnimationFrame(() => {
-				// TODO: ED-28027 - add guidelines
-				api?.core.actions.execute(api.userIntent?.commands.setCurrentUserIntent('dragging'));
-			});
-
+			api?.core.actions.execute(api.userIntent?.commands.setCurrentUserIntent('dragging'));
 			view.dispatch(view.state.tr.setMeta('is-resizer-resizing', true));
+			const pos = view.posAtDOM(dom, 0);
+			node = view.state.doc.nodeAt(pos);
 		},
 		onDrag: ({ location }) => {
 			const initialWidth = mark.attrs.width;
 			const newWidth = getProposedWidth({ initialWidth, location, api });
+
+			const guidelines: GuidelineConfig[] = getGuidelines(
+				true,
+				newWidth,
+				getEditorWidth,
+				node?.type,
+			);
+			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
+
 			contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
 		},
 		onDrop({ location }) {
-			// TODO: ED-28027 - remove guidelines
-			preventUnhandled.stop();
-			const pos = view.posAtDOM(dom, 0);
-			if (pos === undefined) {
-				return;
-			}
+			const guidelines: GuidelineConfig[] = getGuidelines(false, 0, getEditorWidth);
+			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
 
+			const pos = view.posAtDOM(dom, 0);
 			const mode = mark.attrs.mode;
 			const initialWidth = mark.attrs.width;
 			const newWidth = getProposedWidth({ initialWidth, location, api });
-
 			setBreakoutWidth(newWidth, mode, pos)(view.state, view.dispatch);
-			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
 
+			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
 			view.dispatch(
 				view.state.tr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false),
 			);

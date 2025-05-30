@@ -112,6 +112,28 @@ describe('teams app navigation utils', () => {
 				expect(generatePath(path, config)).toEqual(expectedPath);
 			});
 
+			it('should generate a path for without cloudId', () => {
+				const config: NavigationActionCommon = {
+					...baseConfig,
+					orgId: 'org123',
+					cloudId: undefined,
+				};
+				const path = 'somepath';
+				const expectedPath = `https://home.atlassian.com/o/${config.orgId}/people/${path}`;
+				expect(generatePath(path, config)).toEqual(expectedPath);
+			});
+
+			it('should generate a path for without orgId', () => {
+				const config: NavigationActionCommon = {
+					...baseConfig,
+					cloudId: 'cloud123',
+					orgId: undefined,
+				};
+				const path = 'somepath';
+				const expectedPath = `https://home.atlassian.com/people/${path}?cloudId=${config.cloudId}`;
+				expect(generatePath(path, config)).toEqual(expectedPath);
+			});
+
 			describe('FedRamp', () => {
 				beforeEach(() => {
 					(isFedRamp as jest.Mock).mockReturnValue(true);

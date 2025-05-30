@@ -1,8 +1,27 @@
 export type HostProduct = 'jira' | 'confluence' | 'home';
 
-export type NavigationActionCommon = {
-	orgId: string;
-	cloudId: string;
+// Require at least one of orgId or cloudId
+type RequireOrgIdOrCloudId =
+	| {
+			orgId: string;
+			/**
+			 * Optional, but should always be provided if possible.
+			 * Without some or both of the Org and Cloud IDs, there are no guarantees
+			 * that the user will land in the teams app in the correct context.
+			 */
+			cloudId?: string;
+	  }
+	| {
+			/**
+			 * Optional, but should always be provided if possible.
+			 * Without some or both of the Org and Cloud IDs, there are no guarantees
+			 * that the user will land in the teams app in the correct context.
+			 */
+			orgId?: string;
+			cloudId: string;
+	  };
+
+export type NavigationActionCommon = RequireOrgIdOrCloudId & {
 	/**
 	 * @deprecated this will only be used until we remove the embedded directory.
 	 * Once traffic is fully migrated to the teams app, this can be removed.

@@ -3802,6 +3802,14 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   --ak-editor--breakout-full-page-guttering-padding: calc(
 		var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding)
 	);
+  --editor-font-ugc-token-heading-h1: normal 500 1.71429em/1.16667 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  --editor-font-ugc-token-heading-h2: normal 500 1.42857em/1.2 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  --editor-font-ugc-token-heading-h3: normal 600 1.14286em/1.25 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  --editor-font-ugc-token-heading-h4: normal 600 1em/1.14286 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  --editor-font-ugc-token-heading-h5: normal 600 0.857143em/1.33333 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  --editor-font-ugc-token-heading-h6: normal 700 0.785714em/1.45455 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  --editor-font-ugc-token-body: normal 400 1em/1.714 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
+  --editor-font-ugc-token-weight-heading-bold: 700;
 }
 
 .emotion-0 .fabric-editor--full-width-mode {
@@ -4308,12 +4316,14 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   width: 100%;
   display: inline-block;
   padding-left: var(--ds-space-200, 16px);
-  border-left: 2px solid var(--ds-border, var(--ds-border));
+  border-left-width: 2px;
+  border-left-style: solid;
+  border-left-color: var(--ds-border, #091E4224);
   margin: 0.75rem 0 0 0;
   margin-right: 0;
 }
 
-[dir='rtl'] .emotion-0 .ProseMirror blockquote {
+[dir="rtl"] .emotion-0 .ProseMirror blockquote {
   padding-left: 0;
   padding-right: var(--ds-space-200, 16px);
 }
@@ -4349,69 +4359,6 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   display: block;
 }
 
-.emotion-0 .ProseMirror h1 {
-  font-size: 1.7142857142857142em;
-  font-style: inherit;
-  line-height: 1.1666666666666667;
-  color: var(--ds-text, #172B4D);
-  font-weight: var(--ds-font-weight-medium, 500);
-  letter-spacing: -0.01em;
-  margin-bottom: 0;
-  margin-top: 1.667em;
-}
-
-.emotion-0 .ProseMirror h2 {
-  font-size: 1.4285714285714286em;
-  font-style: inherit;
-  line-height: 1.2;
-  color: var(--ds-text, #172B4D);
-  font-weight: var(--ds-font-weight-medium, 500);
-  letter-spacing: -0.008em;
-  margin-top: 1.8em;
-  margin-bottom: 0;
-}
-
-.emotion-0 .ProseMirror h3 {
-  font-size: 1.1428571428571428em;
-  font-style: inherit;
-  line-height: 1.25;
-  color: var(--ds-text, #172B4D);
-  font-weight: var(--ds-font-weight-semibold, 600);
-  letter-spacing: -0.006em;
-  margin-top: 2em;
-  margin-bottom: 0;
-}
-
-.emotion-0 .ProseMirror h4 {
-  font-size: 1em;
-  font-style: inherit;
-  line-height: 1.1428571428571428;
-  color: var(--ds-text, #172B4D);
-  font-weight: var(--ds-font-weight-semibold, 600);
-  letter-spacing: -0.003em;
-  margin-top: 1.357em;
-}
-
-.emotion-0 .ProseMirror h5 {
-  font-size: 0.8571428571428571em;
-  font-style: inherit;
-  line-height: 1.3333333333333333;
-  color: var(--ds-text, #172B4D);
-  font-weight: var(--ds-font-weight-semibold, 600);
-  margin-top: 1.667em;
-  text-transform: none;
-}
-
-.emotion-0 .ProseMirror h6 {
-  font-size: 0.7857142857142857em;
-  font-style: inherit;
-  line-height: 1.4545454545454546;
-  color: var(--ds-text-subtlest, #626F86);
-  font-weight: var(--ds-font-weight-bold, 700);
-  margin-top: 1.455em;
-  text-transform: none;
-}
-
 
 
 .emotion-0 .ProseMirror .fabric-editor-block-mark.fabric-editor-alignment:not(:first-child) >h1:first-child {
@@ -4444,6 +4391,71 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .ProseMirror .ProseMirror-widget:first-child+.fabric-editor-block-mark.fabric-editor-alignment >:is(h1, h2, h3, h4, h5, h6):first-child,
 .emotion-0 .ProseMirror .ProseMirror-widget:first-child+.ProseMirror-widget:nth-child(2)+.fabric-editor-block-mark.fabric-editor-alignment >:is(h1, h2, h3, h4, h5, h6):first-child {
   margin-top: 0;
+}
+
+
+
+.emotion-0 .ProseMirror h1 {
+  font-size: calc(24em / 14);
+  font-style: inherit;
+  line-height: calc(28 / 24);
+  color: var(--ds-text, #172B4D);
+  font-weight: var(--ds-font-weight-medium, 500);
+  letter-spacing: -0.01em;
+  margin-bottom: 0;
+  margin-top: 1.667em;
+}
+
+.emotion-0 .ProseMirror h2 {
+  font-size: calc(20em / 14);
+  font-style: inherit;
+  line-height: calc(24 / 20);
+  color: var(--ds-text, #172B4D);
+  font-weight: var(--ds-font-weight-medium, 500);
+  letter-spacing: -0.008em;
+  margin-top: 1.8em;
+  margin-bottom: 0;
+}
+
+.emotion-0 .ProseMirror h3 {
+  font-size: calc(16em / 14);
+  font-style: inherit;
+  line-height: calc(20 / 16);
+  color: var(--ds-text, #172B4D);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  letter-spacing: -0.006em;
+  margin-top: 2em;
+  margin-bottom: 0;
+}
+
+.emotion-0 .ProseMirror h4 {
+  font-size: calc(14em / 14);
+  font-style: inherit;
+  line-height: calc(16 / 14);
+  color: var(--ds-text, #172B4D);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  letter-spacing: -0.003em;
+  margin-top: 1.357em;
+}
+
+.emotion-0 .ProseMirror h5 {
+  font-size: calc(12em / 14);
+  font-style: inherit;
+  line-height: calc(16 / 12);
+  color: var(--ds-text, #172B4D);
+  font-weight: var(--ds-font-weight-semibold, 600);
+  margin-top: 1.667em;
+  text-transform: none;
+}
+
+.emotion-0 .ProseMirror h6 {
+  font-size: calc(11em / 14);
+  font-style: inherit;
+  line-height: calc(16 / 11);
+  color: var(--ds-text-subtlest, #626F86);
+  font-weight: var(--ds-font-weight-bold, 700);
+  margin-top: 1.455em;
+  text-transform: none;
 }
 
 .emotion-0 .code {

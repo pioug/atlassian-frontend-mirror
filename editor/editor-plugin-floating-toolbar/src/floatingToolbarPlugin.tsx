@@ -357,8 +357,8 @@ export function ContentComponent({
 	} = useSharedState(pluginInjectionApi);
 
 	if (
-		isSSR() &&
-		editorExperiment('platform_editor_hide_floating_toolbar_in_ssr', true, { exposure: true })
+		editorExperiment('platform_editor_hide_floating_toolbar_in_ssr', true, { exposure: true }) &&
+		isSSR()
 	) {
 		return null;
 	}

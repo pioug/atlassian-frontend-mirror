@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.2.7
+
+### Patch Changes
+
+- [#163309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163309)
+  [`23a8b88475991`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23a8b88475991) -
+  Clean up of FG platform_editor_fix_drag_and_drop_lists
+
 ## 2.2.6
 
 ### Patch Changes

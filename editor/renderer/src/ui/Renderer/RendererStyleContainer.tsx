@@ -753,6 +753,16 @@ const indentationSharedStyles = css({
 		},
 	},
 });
+const indentationSharedStylesWithMarginFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.fabric-editor-indentation-mark': {
+		// Prevent marginTop of p:first-child overrode by batch.css
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'p:first-child': {
+			marginTop: blockNodesVerticalMargin,
+		},
+	},
+});
 
 const blockMarksSharedStyles = css({
 	/**
@@ -2066,6 +2076,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				indentationSharedStyles,
+				fg('platform_editor__renderer_indentation_text_margin') &&
+					indentationSharedStylesWithMarginFix,
 				blockMarksSharedStyles,
 				codeMarkSharedStyles,
 				shadowSharedStyle,

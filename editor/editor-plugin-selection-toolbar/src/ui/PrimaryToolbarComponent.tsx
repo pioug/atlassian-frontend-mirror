@@ -1,8 +1,8 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
+
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
@@ -15,7 +15,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { addLink, getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
-import messages from '@atlaskit/editor-common/messages';
+import messages, { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	ArrowKeyNavigationType,
@@ -23,6 +23,9 @@ import {
 	ToolbarButton,
 	type MenuItem,
 } from '@atlaskit/editor-common/ui-menu';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import PinIcon from '@atlaskit/icon/core/pin';
+import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
@@ -47,6 +50,14 @@ type Props = {
 	popupsScrollableElement?: HTMLElement;
 };
 
+type PrimaryToolbarComponentNewProps = {
+	api?: ExtractInjectionAPI<SelectionToolbarPlugin>;
+	disabled?: boolean;
+};
+/**
+ * A component used to renderer a dropdown with
+ * toolbar docking options.
+ */
 export function PrimaryToolbarComponent({
 	api,
 	popupsBoundariesElement,
@@ -107,3 +118,43 @@ export function PrimaryToolbarComponent({
 		</DropdownMenu>
 	);
 }
+
+/**
+ * A component used to renderer a pin/unpin
+ * button to the toolbar to the or make it in-line.
+ */
+export const PrimaryToolbarComponentNew = ({ api, disabled }: PrimaryToolbarComponentNewProps) => {
+	const intl = useIntl();
+	const mode = useSharedPluginStateSelector(api, 'connectivity.mode');
+	const isOffline = mode === 'offline' || false;
+	const isDockedToTop = api?.selectionToolbar.sharedState.currentState()?.toolbarDocking === 'top';
+	if (isDockedToTop) {
+		return (
+			<ToolbarButton
+				aria-label={intl.formatMessage(selectionToolbarMessages.toolbarPositionPinedAtTop)}
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
+				css={buttonStyles}
+				disabled={disabled || isOffline}
+				iconBefore={<PinFilledIcon label="" spacing="spacious" />}
+				onClick={() => {
+					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
+				}}
+				title={intl.formatMessage(selectionToolbarMessages.toolbarPositionPinedAtTop)}
+			/>
+		);
+	}
+
+	return (
+		<ToolbarButton
+			aria-label={intl.formatMessage(selectionToolbarMessages.toolbarPositionUnpined)}
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
+			css={buttonStyles}
+			disabled={disabled || isOffline}
+			iconBefore={<PinIcon label="" spacing="spacious" />}
+			onClick={() => {
+				return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
+			}}
+			title={intl.formatMessage(selectionToolbarMessages.toolbarPositionUnpined)}
+		/>
+	);
+};

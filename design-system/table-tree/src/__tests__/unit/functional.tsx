@@ -474,6 +474,51 @@ describe('expanding and collapsing', () => {
 		expect(row).toHaveAttribute('aria-expanded', 'true');
 		expect(expandButton).toHaveAttribute('aria-controls');
 	});
+
+	test('should collapse and expand the row when isDefaultExpanded is true', async () => {
+		const user = userEvent.setup();
+
+		const nestedData = [c('Top row', [c('Nested row')])];
+
+		render(
+			<TableTree>
+				<Rows
+					items={nestedData}
+					render={({ title, children = [] }) => (
+						<Row
+							itemId={title}
+							items={children}
+							hasChildren={children.length > 0}
+							isDefaultExpanded
+						>
+							<Cell>{title}</Cell>
+						</Row>
+					)}
+				/>
+			</TableTree>,
+		);
+
+		expect(screen.getByRole('row', { name: /Top row/i })).toBeVisible();
+		expect(screen.getByRole('row', { name: /Nested row/i })).toBeVisible();
+
+		// Collapse the top row
+		const collapseButton = screen.getByRole('button', {
+			name: /collapse/i,
+		});
+		await user.click(collapseButton);
+
+		expect(screen.getByRole('row', { name: /Top row/i })).toBeVisible();
+		expect(screen.queryByRole('row', { name: /Nested row/i })).not.toBeInTheDocument();
+
+		// Expand the top row
+		const expandButton = screen.getByRole('button', {
+			name: /expand/i,
+		});
+		await user.click(expandButton);
+
+		expect(screen.getByRole('row', { name: /Top row/i })).toBeVisible();
+		expect(screen.getByRole('row', { name: /Nested row/i })).toBeVisible();
+	});
 });
 
 test('with isDefaultExpanded property', async () => {

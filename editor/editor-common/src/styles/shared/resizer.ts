@@ -23,6 +23,7 @@ const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const handleWrapperClass = 'resizer-handle-wrapper';
 
+export const resizerHandleThumbWidth = 3;
 export const resizerHandleZIndex = 1;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, Seems perfectly safe to autofix, but comments would be lost…
@@ -328,7 +329,7 @@ export const pragmaticResizerStyles = () => {
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.pm-breakout-resize-handle-inner': {
-			minWidth: 3,
+			minWidth: resizerHandleThumbWidth,
 			// copied from resizeStyles.clamped
 			height: 'clamp(27px, calc(100% - 32px), 96px)',
 			background: token('color.border'),

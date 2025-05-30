@@ -13,19 +13,27 @@ export function generatePath(
 	query: URLSearchParams = new URLSearchParams(),
 ) {
 	if (isTeamsAppEnabled(config) || config.hostProduct === 'home' || !config.hostProduct) {
-		query.set('cloudId', config.cloudId);
+		if (config.cloudId) {
+			query.set('cloudId', config.cloudId);
+		}
+
+		// URLSearchParams.size doesn't work in jest
+		const queryString = [...new Set(query.keys())].length > 0 ? `?${query.toString()}` : '';
 
 		// Home & therefore the Teams app, is not deployed to FedRamp, instead we have deployed Standalone directory.
 		// At some point, likely both Commercial & FedRamp will follow the same URL convention and we can remove this,
 		// but for now, we need to generate a different URL for FedRamp.
 		if (isFedRamp()) {
 			// We can't use getATLContextUrl here as the URL doesn't yet exist in commercial. When it does, we should properly define it there.
-			return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov.com/${path}?${query.toString()}`;
+			return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov.com/${path}${queryString}`;
 		}
 
-		return `${getATLContextUrl('home')}/o/${config.orgId}/people/${path}?${query.toString()}`;
+		const orgIdString = config.orgId ? `/o/${config.orgId}` : '';
+
+		return `${getATLContextUrl('home')}${orgIdString}/people/${path}${queryString}`;
 	}
-	return `${getATLContextUrl(config.hostProduct)}/people/${path}${query.size > 0 ? `?${query.toString()}` : ''}`;
+	const queryString = [...new Set(query.keys())].length > 0 ? `?${query.toString()}` : '';
+	return `${getATLContextUrl(config.hostProduct)}/people/${path}${queryString}`;
 }
 
 export const onNavigateBase =

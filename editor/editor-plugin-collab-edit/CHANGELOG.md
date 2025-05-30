@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.9.1
+
+### Patch Changes
+
+- [#161924](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161924)
+  [`ff6dfb15ac9cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff6dfb15ac9cf) -
+  [EDITOR 752] Add Tests
+- Updated dependencies
+
 ## 3.9.0
 
 ### Minor Changes

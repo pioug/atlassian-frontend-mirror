@@ -45,7 +45,6 @@ export class ResizingMarkView implements NodeView {
 		dom.style.transform = 'none';
 		dom.style.display = 'grid';
 		dom.style.justifyContent = 'center';
-		dom.style.position = 'relative';
 
 		// contentDOM - styles
 		contentDOM.style.gridRow = '1';

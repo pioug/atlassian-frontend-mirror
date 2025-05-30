@@ -8,6 +8,7 @@ export class StoryBookAuthProvider {
 	static create(
 		isAsapEnvironment: boolean,
 		access?: { [resourceUrn: string]: string[] },
+		expiresIn = 600,
 	): AuthProvider {
 		const loadTenatAuth = async (collectionName: string): Promise<Auth> => {
 			const environment = isAsapEnvironment ? 'asap' : '';
@@ -17,7 +18,7 @@ export class StoryBookAuthProvider {
 			const config: RequestInit = {
 				method: 'POST',
 				headers,
-				body: access ? JSON.stringify({ access }) : undefined,
+				body: access ? JSON.stringify({ access, expiresIn }) : undefined,
 			};
 			const url = `${MEDIA_PLAYGROUND_BASE_URL}/token/tenant?collection=${collectionName}&environment=${environment}`;
 			const response = fetch(url, config);
@@ -33,6 +34,12 @@ export class StoryBookAuthProvider {
 
 			if (!cachedAuths[cacheKey]) {
 				cachedAuths[cacheKey] = loadTenatAuth(collectionName);
+				setInterval(
+					() => {
+						cachedAuths[cacheKey] = loadTenatAuth(collectionName);
+					},
+					(expiresIn * 1000) / 2,
+				);
 			}
 			return cachedAuths[cacheKey];
 		};

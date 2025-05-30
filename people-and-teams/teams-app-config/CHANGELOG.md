@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.4.0
+
+### Minor Changes
+
+- [#163195](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163195)
+  [`68e8e51bec6c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68e8e51bec6c1) -
+  Only enforce one of org or cloud ids to be provided to the nav function
+
 ## 1.3.0
 
 ### Minor Changes

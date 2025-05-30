@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 10.17.1
+
+### Patch Changes
+
+- [#162445](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162445)
+  [`92f2644f74083`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92f2644f74083) -
+  ED-27831: Throw collab sync error in console
+- Updated dependencies
+
 ## 10.17.0
 
 ### Minor Changes

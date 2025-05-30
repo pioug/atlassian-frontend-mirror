@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.7
+
+### Patch Changes
+
+- [#163125](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163125)
+  [`d0ae2ab52765d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0ae2ab52765d) -
+  [ux] ED-28034 fix block controls positioning for new resizing experience behind
+  platform_editor_breakout_resizing
+- Updated dependencies
+
 ## 3.15.6
 
 ### Patch Changes

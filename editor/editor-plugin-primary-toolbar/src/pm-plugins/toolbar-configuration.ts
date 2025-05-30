@@ -185,6 +185,18 @@ const toolbarConfiguration = (shouldShowFindGroup: boolean): ToolbarElementConfi
 	...(shouldShowFindGroup ? others : othersGroupNoFind),
 ];
 
+const overflowMenu: ToolbarElementConfig[] = [
+	{
+		name: 'overflowMenu',
+	},
+];
+
+const pinToolbar: ToolbarElementConfig[] = [
+	{
+		name: 'pinToolbar',
+	},
+];
+
 const toolbarConfigurationV2 = (
 	shouldShowInsertBlock: boolean,
 	shouldShowUndoRedoGroup: boolean,
@@ -198,9 +210,9 @@ const toolbarConfigurationV2 = (
 	...listFormattingGroup,
 	...hyperlinkGroup,
 	...(shouldShowInsertBlock ? insertBlockGroup : []),
-	{
-		name: 'overflowMenu',
-	},
+	...(editorExperiment('platform_editor_controls_toolbar_pinning_exp', true, { exposure: true })
+		? pinToolbar
+		: overflowMenu),
 	{
 		name: 'beforePrimaryToolbar',
 	},

@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/media-client';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
 import { InlinePlayer, getPreferredVideoArtifact } from '../../inlinePlayer';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
 import { IntlProvider } from 'react-intl-next';
@@ -18,15 +18,125 @@ import {
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
+const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
 
 describe('<InlinePlayer />', () => {
 	// Media Client Mock
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');
+		HTMLMediaElement.prototype.play = () => Promise.resolve();
+		HTMLMediaElement.prototype.pause = () => Promise.resolve();
 	});
 
 	afterEach(() => {
+		HTMLMediaElement.prototype.play = HTMLMediaElement_play;
+		HTMLMediaElement.prototype.pause = HTMLMediaElement_pause;
 		jest.restoreAllMocks();
+	});
+
+	ffTest.on('platform_media_resume_video_on_token_expiry', '', () => {
+		const setup = {
+			processed() {
+				const [fileItem_, identifier_] = generateSampleFileItem.workingVideo();
+				const fileItem = fileItem_;
+				const identifier = identifier_;
+				return [fileItem, identifier] as const;
+			},
+			processing() {
+				const [fileItem_, identifier_] = generateSampleFileItem.failedVideo();
+				const fileItem = createProcessingFileItem(fileItem_, 0.5);
+				const identifier = identifier_;
+				return [fileItem, identifier] as const;
+			},
+		} as const;
+
+		it.each([
+			{
+				status: 'processed',
+				trigger: 'resuming playback',
+			},
+			{
+				status: 'processing',
+				trigger: 'resuming playback',
+			},
+			{
+				status: 'processed',
+				trigger: 'seeking',
+			},
+			{
+				status: 'processing',
+				trigger: 'seeking',
+			},
+		] as const)(
+			'should use the latest cached token when $trigger ($status)',
+			async ({ status, trigger }) => {
+				let token = 'apple';
+				let [fileItem, identifier] = setup[status]();
+
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				const getArtifactURLMock = jest.fn(
+					async () => `/file/${fileItem.id}/artifact/video_1280.mp4/binary?token=${token}`,
+				);
+				const getFileBinaryURLMock = jest.fn(
+					async () => `/file/${fileItem.id}/binary?token=${token}`,
+				);
+				mediaApi.getArtifactURL = getArtifactURLMock;
+				mediaApi.getFileBinaryURL = getFileBinaryURLMock;
+
+				const app = () => (
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<InlinePlayer
+								autoplay={true}
+								identifier={identifier}
+								cardPreview={{ dataURI: 'some-data-uri', source: 'remote' }}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>
+				);
+				const screen = render(app());
+				fireEvent.load(await screen.findByTestId(inlinePlayerTestId));
+
+				const videoElement = screen.container.querySelector('video')! as HTMLVideoElement;
+				const togglePlaybackBtn = screen.getByTestId('custom-media-player-play-toggle-button');
+				await act(async () => fireEvent.click(togglePlaybackBtn)); // pause
+				token = 'banana';
+				getFileBinaryURLMock.mockClear();
+				getArtifactURLMock.mockClear();
+				if (trigger === 'resuming playback') {
+					await act(async () => fireEvent.click(togglePlaybackBtn)); // play
+				} else if (trigger === 'seeking') {
+					const sliderEl = screen.getByLabelText('Seek slider');
+					await act(async () =>
+						fireEvent.keyDown(sliderEl, { key: 'ArrowRight', code: 'ArrowRight', shiftKey: true }),
+					);
+				}
+
+				await waitFor(() => {
+					expect(new URL(videoElement.src).searchParams.get('token')).toEqual('banana');
+				});
+
+				if (status === 'processing') {
+					await waitFor(() => {
+						expect(mediaApi.getFileBinaryURL).toHaveBeenCalled();
+						expect(videoElement.getAttribute('src')).toEqual(
+							`/file/${fileItem.id}/binary?token=banana`,
+						);
+					});
+				} else {
+					await waitFor(() => {
+						expect(mediaApi.getArtifactURL).toHaveBeenCalled();
+						expect(videoElement.getAttribute('src')).toEqual(
+							`/file/${fileItem.id}/artifact/video_1280.mp4/binary?token=banana`,
+						);
+					});
+				}
+			},
+		);
 	});
 
 	it('should render loading component when the video src is not ready', () => {
@@ -337,10 +447,10 @@ describe('<InlinePlayer />', () => {
 		expect(playButton).toBeInTheDocument();
 
 		/*
-      After the component has completed its initial rendering process, it requires waiting period for at least 2000 milliseconds before the video control bars become hidden.
+	  After the component has completed its initial rendering process, it requires waiting period for at least 2000 milliseconds before the video control bars become hidden.
 
-      Reference: mouseMovementDelay variable in packages/media/media-ui/src/inactivityDetector/inactivityDetector.tsx
-    */
+	  Reference: mouseMovementDelay variable in packages/media/media-ui/src/inactivityDetector/inactivityDetector.tsx
+	*/
 
 		await waitFor(
 			() => {
@@ -350,8 +460,8 @@ describe('<InlinePlayer />', () => {
 		);
 
 		/*
-      Afterwards, the inline player area needs to detect any mouse movement in order to re-activate the video control bars.
-    */
+	  Afterwards, the inline player area needs to detect any mouse movement in order to re-activate the video control bars.
+	*/
 
 		await user.hover(playButton);
 

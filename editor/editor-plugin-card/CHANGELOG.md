@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 6.4.2
+
+### Patch Changes
+
+- [#163183](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163183)
+  [`90c987607095d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90c987607095d) -
+  Disable lazy node view behind an experiment
+- Updated dependencies
+
 ## 6.4.1
 
 ### Patch Changes

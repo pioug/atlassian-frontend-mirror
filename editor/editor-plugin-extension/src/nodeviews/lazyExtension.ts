@@ -6,7 +6,10 @@ export function lazyExtensionNodeView(
 	nodeName: string,
 	...params: Parameters<typeof ExtensionNodeView>
 ) {
-	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
+	if (
+		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
+		editorExperiment('platform_editor_exp_disable_lnv', true, { exposure: true })
+	) {
 		return ExtensionNodeView(...params);
 	}
 

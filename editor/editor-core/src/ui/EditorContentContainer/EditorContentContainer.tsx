@@ -14,7 +14,6 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
-import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
@@ -56,12 +55,23 @@ import { annotationStyles } from './styles/annotationStyles';
 import { backgroundColorStyles } from './styles/backgroundColorStyles';
 import { blockMarksStyles } from './styles/blockMarksStyles';
 import {
+	blocktypeStyles,
+	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
+	blocktypeStyles_fg_platform_editor_typography_ugc,
+	blocktypeStyles_without_fg_platform_editor_typography_ugc,
+} from './styles/blockTypeStyles';
+import {
 	codeBlockStyles,
 	firstCodeBlockWithNoMargin,
 	firstCodeBlockWithNoMarginOld,
 } from './styles/codeBlockStyles';
 import { codeMarkStyles } from './styles/codeMarkStyles';
 import { dateStyles, dateVanillaStyles } from './styles/dateStyles';
+import {
+	editorUGCTokensDefault,
+	editorUGCTokensModernized,
+	editorUGCTokensRefreshed,
+} from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
 import { reactEmojiStyles, vanillaEmojiStyles } from './styles/emoji';
 import { firstBlockNodeStyles, firstBlockNodeStylesOld } from './styles/firstBlockNodeStyles';
@@ -262,9 +272,41 @@ const contentStyles = () => css`
 		? placeholderWrapStyles
 		: null}
 
-  ${codeBlockStyles}
+	${codeBlockStyles}
 
-  ${blocktypeStyles()}
+	${!fg('platform_editor_typography_ugc') && editorUGCTokensDefault}
+	${
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform_editor_typography_ugc') &&
+		/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
+		(fg('platform-dst-jira-web-fonts') ||
+			fg('confluence_typography_refreshed') ||
+			fg('atlas_editor_typography_refreshed')) &&
+		editorUGCTokensRefreshed
+		/* eslint-enable @atlaskit/platform/ensure-feature-flag-prefix */
+	}
+  	${
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform_editor_typography_ugc') &&
+		/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
+		!(
+			fg('platform-dst-jira-web-fonts') ||
+			fg('confluence_typography_refreshed') ||
+			fg('atlas_editor_typography_refreshed')
+		) &&
+		editorUGCTokensModernized
+		/* eslint-enable @atlaskit/platform/ensure-feature-flag-prefix */
+	}
+
+
+  	${blocktypeStyles}
+
+	${fg('platform_editor_typography_ugc') && blocktypeStyles_fg_platform_editor_typography_ugc}
+	${!fg('platform_editor_typography_ugc') &&
+	blocktypeStyles_without_fg_platform_editor_typography_ugc}
+
+	${fg('platform_editor_nested_dnd_styles_changes') &&
+	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes}
 
   ${codeMarkStyles}
 

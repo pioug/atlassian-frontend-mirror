@@ -1,5 +1,23 @@
 # @atlaskit/media-test-helpers
 
+## 36.0.3
+
+### Patch Changes
+
+- [#134528](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/134528)
+  [`61165836daa36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61165836daa36) -
+  [ux] Use latest media token on video resume or seek
+
+  Previously when resuming a video after the current token had expired the video player would fail
+  to load and would show an error boundary page.
+
+  The same bug would occur when seeking to a new `currentTime` after the token expired.
+
+  Now both the dedicated and inline player will update their `src` to a new URL with the latest
+  cached token.
+
+- Updated dependencies
+
 ## 36.0.2
 
 ### Patch Changes

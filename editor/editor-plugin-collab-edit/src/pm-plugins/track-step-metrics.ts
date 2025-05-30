@@ -1,5 +1,5 @@
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { StorageClient } from '@atlaskit/frontend-utilities';
 
 import { CollabEditPlugin } from '../collabEditPluginType';
@@ -26,7 +26,7 @@ const storageClient = new StorageClient(STORAGE_CLIENT_KEY);
  * @param steps - The steps to calculate the metrics from.
  * @returns The updated step session metrics for the given session ID.
  */
-const getStepSessionMetrics = (
+export const getStepSessionMetrics = (
 	metrics: { [sessionId: string]: StepSessionMetrics },
 	sessionId: string,
 	steps: Step[],
@@ -59,8 +59,8 @@ const getStepSessionMetrics = (
  * @param sessionId - The session ID to check or update in local storage.
  * @returns void
  */
-const updateActiveSessions = (sessionId: string) => {
-	const currentActiveSessions = JSON.parse(storageClient.getItem('activeSessions') || '{}');
+export const updateActiveSessions = (sessionId: string) => {
+	const currentActiveSessions = JSON.parse(storageClient.getItem('ncsActiveSessions') || '{}');
 
 	if (!currentActiveSessions[sessionId]) {
 		storageClient.setItemWithExpiry(

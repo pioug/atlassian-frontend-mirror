@@ -2,6 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import { type BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import { type EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -22,6 +23,7 @@ export type BreakoutPluginDependencies = [
 	OptionalPlugin<BlockControlsPlugin>,
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
+	OptionalPlugin<GuidelinePlugin>,
 ];
 
 export type BreakoutPlugin = NextEditorPlugin<

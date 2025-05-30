@@ -16,4 +16,14 @@ export const selectionToolbarMessages = defineMessages({
 		defaultMessage: 'Fixed at top',
 		description: 'Label for fixed at top toolbar position option',
 	},
+	toolbarPositionUnpined: {
+		id: 'fabric.editor.toolbarPositionUnpined',
+		defaultMessage: 'Pin the toolbar at the top',
+		description: 'Label for in-line toolbar position option',
+	},
+	toolbarPositionPinedAtTop: {
+		id: 'fabric.editor.toolbarPositionPinedAtTop',
+		defaultMessage: 'Unpin the toolbar',
+		description: 'Label for fixed at top toolbar position option',
+	},
 });

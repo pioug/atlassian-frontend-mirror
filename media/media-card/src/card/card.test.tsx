@@ -91,6 +91,9 @@ const setGlobalSSRData = (id: string, data: any) => {
 	window[GLOBAL_MEDIA_NAMESPACE] = { [GLOBAL_MEDIA_CARD_SSR]: { [id]: data } };
 };
 
+const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
+const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
+
 describe('Card ', () => {
 	let currentObserver: any;
 	const intersectionObserver = new MockIntersectionObserver();
@@ -138,6 +141,8 @@ describe('Card ', () => {
 		getFileStreamsCache().removeAll();
 
 		intersectionObserver.cleanup();
+		// @ts-ignore
+		document.fullscreenElement = undefined;
 	});
 
 	describe('should manage lazy loading', () => {
@@ -5812,6 +5817,127 @@ describe('Card ', () => {
 			// expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
 			expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 				traceContext: { traceId: 'traceid', spanId: 'spanid' },
+			});
+		});
+	});
+
+	ffTest.on('platform_media_resume_video_on_token_expiry', '', () => {
+		// Media Client Mock
+		beforeEach(() => {
+			HTMLMediaElement.prototype.play = function () {
+				fireEvent.play(this);
+				return Promise.resolve();
+			};
+			HTMLMediaElement.prototype.pause = function () {
+				fireEvent.pause(this);
+				return Promise.resolve();
+			};
+		});
+
+		afterEach(() => {
+			HTMLMediaElement.prototype.play = HTMLMediaElement_play;
+			HTMLMediaElement.prototype.pause = HTMLMediaElement_pause;
+		});
+
+		it('should use the latest cached token when resuming playback', async () => {
+			let token = 'apple';
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const user = userEvent.setup();
+
+			const getArtifactURLMock = jest.fn(
+				async () => `/file/${fileItem.id}/artifact/video_1280.mp4/binary?token=${token}`,
+			);
+			mediaApi.getArtifactURL = getArtifactURLMock;
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						testId="media-token-test"
+						shouldOpenMediaViewer
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			// simulate that the file has been fully loaded by the browser
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+			await simulateImageLoadDelay();
+			fireEvent.load(img);
+
+			// card should completely process the file
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
+			);
+
+			const playBtn = screen.getByLabelText('play');
+			await act(async () => user.click(playBtn));
+			await waitFor(() => expect(document.querySelector('video')).toBeInTheDocument());
+			const videoElement = document.querySelector('video')! as HTMLVideoElement;
+			const togglePlaybackBtn = screen.getByTestId('custom-media-player-play-toggle-button');
+			token = 'banana';
+			await act(async () => user.click(togglePlaybackBtn));
+			await waitFor(() => {
+				expect(new URL(videoElement.src).searchParams.get('token')).toEqual('banana');
+			});
+		});
+
+		it('should use the latest cached token when seeking', async () => {
+			let token = 'apple';
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const user = userEvent.setup();
+
+			const getArtifactURLMock = jest.fn(
+				async () => `/file/${fileItem.id}/artifact/video_1280.mp4/binary?token=${token}`,
+			);
+			mediaApi.getArtifactURL = getArtifactURLMock;
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						testId="media-token-test"
+						shouldOpenMediaViewer
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			// simulate that the file has been fully loaded by the browser
+			const img = await screen.findByTestId(imgTestId, undefined);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+			await simulateImageLoadDelay();
+			fireEvent.load(img);
+
+			// card should completely process the file
+			await waitFor(async () =>
+				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+					'data-test-status',
+					'complete',
+				),
+			);
+
+			const playBtn = screen.getByLabelText('play');
+			await user.click(playBtn);
+			await waitFor(() => expect(document.querySelector('video')).toBeInTheDocument());
+			const videoElement = document.querySelector('video')! as HTMLVideoElement;
+			const videoWrapperEl = screen.getByTestId('custom-media-player');
+			// @ts-ignore
+			document.fullscreenElement = videoWrapperEl;
+			fireEvent(videoWrapperEl, new Event('fullscreenchange'));
+			token = 'banana';
+			expect(new URL(videoElement.src).searchParams.get('token')).toEqual('apple');
+			await user.type(videoElement, '{shift}{arrowRight}');
+			await waitFor(() => {
+				expect(new URL(videoElement.src).searchParams.get('token')).toEqual('banana');
 			});
 		});
 	});

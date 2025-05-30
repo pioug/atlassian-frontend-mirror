@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import {
 	type FileIdentifier,
 	type FileState,
@@ -88,6 +88,51 @@ export const InlinePlayerBase = ({
 	const mediaClient = useMediaClient();
 	const { fileState } = useFileState(id, { collectionName, occurrenceKey });
 
+	const init = useCallback(
+		async (fileState: FileState) => {
+			if (!(fileState.status === 'processed' || fileState.status === 'processing')) {
+				return;
+			}
+			const artifactName = getPreferredVideoArtifact(fileState);
+			const { artifacts } = fileState;
+			if (!artifactName || !artifacts) {
+				// Tries to use the binary artifact to provide something to play while the video is still processing
+				try {
+					const newFileSrc = await mediaClient.file.getFileBinaryURL(id, collectionName);
+
+					setFileSrc(newFileSrc);
+				} catch (error) {
+					if (onErrorRef.current && error instanceof Error) {
+						onErrorRef.current(error);
+					}
+				}
+				return;
+			}
+
+			try {
+				const newFileSrc = await mediaClient.file.getArtifactURL(
+					artifacts,
+					artifactName,
+					collectionName,
+				);
+				setFileSrc(newFileSrc);
+			} catch (error) {
+				if (onErrorRef.current && error instanceof Error) {
+					onErrorRef.current(error);
+				}
+			}
+		},
+		[collectionName, id, mediaClient.file],
+	);
+
+	const onPlay = () => {
+		if (fg('platform_media_resume_video_on_token_expiry')) {
+			fileState && init(fileState);
+		}
+	};
+
+	const onTimeChanged = onPlay;
+
 	useEffect(() => {
 		const subscribeFileState = async (fileState: FileState) => {
 			if (fileState.status === 'uploading') {
@@ -112,41 +157,14 @@ export const InlinePlayerBase = ({
 				}
 			}
 			if (fileState.status === 'processed' || fileState.status === 'processing') {
-				const artifactName = getPreferredVideoArtifact(fileState);
-				const { artifacts } = fileState;
-				if (!artifactName || !artifacts) {
-					// Tries to use the binary artifact to provide something to play while the video is still processing
-					try {
-						const newFileSrc = await mediaClient.file.getFileBinaryURL(id, collectionName);
-
-						setFileSrc(newFileSrc);
-					} catch (error) {
-						if (onErrorRef.current && error instanceof Error) {
-							onErrorRef.current(error);
-						}
-					}
-					return;
-				}
-
-				try {
-					const newFileSrc = await mediaClient.file.getArtifactURL(
-						artifacts,
-						artifactName,
-						collectionName,
-					);
-					setFileSrc(newFileSrc);
-				} catch (error) {
-					if (onErrorRef.current && error instanceof Error) {
-						onErrorRef.current(error);
-					}
-				}
+				init(fileState);
 			}
 		};
 
 		if (fileState) {
 			subscribeFileState(fileState);
 		}
-	}, [fileState, collectionName, fileSrc, id, mediaClient]);
+	}, [fileState, collectionName, fileSrc, id, mediaClient, init]);
 
 	useEffect(() => {
 		return () => {
@@ -183,6 +201,8 @@ export const InlinePlayerBase = ({
 									viewingLevel: 'full',
 								});
 							}}
+							onPlay={onPlay}
+							onTimeChanged={onTimeChanged}
 							lastWatchTimeConfig={{
 								contentId: id,
 							}}
@@ -209,6 +229,8 @@ export const InlinePlayerBase = ({
 									viewingLevel: 'full',
 								});
 							}}
+							onPlay={onPlay}
+							onTimeChanged={onTimeChanged}
 							lastWatchTimeConfig={{
 								contentId: id,
 							}}

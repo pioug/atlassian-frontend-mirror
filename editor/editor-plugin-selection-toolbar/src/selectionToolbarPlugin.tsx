@@ -39,7 +39,8 @@ import type { SelectionToolbarPlugin } from './selectionToolbarPluginType';
 import type { ToolbarDocking } from './types';
 import { getOverflowFloatingToolbarConfig } from './ui/overflow-toolbar-config';
 import { PageVisibilityWatcher } from './ui/PageVisibilityWatcher';
-import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
+import { getPinOptionToolbarConfig } from './ui/pin-toolbar-config';
+import { PrimaryToolbarComponent, PrimaryToolbarComponentNew } from './ui/PrimaryToolbarComponent';
 
 type SelectionToolbarPluginState = {
 	selectionStable: boolean;
@@ -64,23 +65,34 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 	const { userPreferencesProvider, contextualFormattingEnabled } = config;
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		primaryToolbarComponent = ({
-			popupsBoundariesElement,
-			popupsMountPoint,
-			popupsScrollableElement,
-		}) => (
-			<PrimaryToolbarComponent
-				api={api}
-				popupsBoundariesElement={popupsBoundariesElement}
-				popupsMountPoint={popupsMountPoint}
-				popupsScrollableElement={popupsScrollableElement}
-			/>
-		);
+		if (editorExperiment('platform_editor_controls_toolbar_pinning_exp', true)) {
+			primaryToolbarComponent = ({ disabled }) => {
+				return <PrimaryToolbarComponentNew api={api} disabled={disabled} />;
+			};
 
-		api?.primaryToolbar?.actions.registerComponent({
-			name: 'overflowMenu',
-			component: primaryToolbarComponent,
-		});
+			api?.primaryToolbar?.actions.registerComponent({
+				name: 'pinToolbar',
+				component: primaryToolbarComponent,
+			});
+		} else {
+			primaryToolbarComponent = ({
+				popupsBoundariesElement,
+				popupsMountPoint,
+				popupsScrollableElement,
+			}) => (
+				<PrimaryToolbarComponent
+					api={api}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsMountPoint={popupsMountPoint}
+					popupsScrollableElement={popupsScrollableElement}
+				/>
+			);
+
+			api?.primaryToolbar?.actions.registerComponent({
+				name: 'overflowMenu',
+				component: primaryToolbarComponent,
+			});
+		}
 	}
 
 	let previousToolbarDocking: ToolbarDocking | null =
@@ -374,7 +386,11 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				}
 
 				if (items.length > 0 && contextualFormattingEnabled && isEditorControlsEnabled) {
-					items.push(...getOverflowFloatingToolbarConfig({ api, toolbarDocking, intl }));
+					if (editorExperiment('platform_editor_controls_toolbar_pinning_exp', true)) {
+						items.push(...getPinOptionToolbarConfig({ api, toolbarDocking, intl }));
+					} else {
+						items.push(...getOverflowFloatingToolbarConfig({ api, toolbarDocking, intl }));
+					}
 				}
 
 				let onPositionCalculated;

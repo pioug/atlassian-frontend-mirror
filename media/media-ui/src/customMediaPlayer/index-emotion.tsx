@@ -13,6 +13,7 @@ import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
 import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives
 import { xcss, Box, Flex } from '@atlaskit/primitives';
 
 import MediaButton from '../MediaButton';
@@ -172,6 +173,7 @@ export class CustomMediaPlayerBase extends Component<
 				this.wasPlayedOnce = true;
 				onFirstPlay();
 			}
+			this.props?.onPlay?.();
 		}
 	}
 
@@ -225,6 +227,7 @@ export class CustomMediaPlayerBase extends Component<
 
 	private onTimeChanged = () => {
 		this.createAndFireUIEvent('timeRangeNavigate', 'time');
+		this.props?.onTimeChanged?.();
 	};
 
 	private onVolumeChanged = () => {
@@ -232,15 +235,23 @@ export class CustomMediaPlayerBase extends Component<
 	};
 
 	private onCurrentTimeChange = (currentTime: number, duration: number) => {
-		if (duration - currentTime > MINIMUM_DURATION_BEFORE_SAVING_TIME) {
+		// We rely on the saved time when switching to the new source URL
+		// so we need to save it irrespective of elapsed time or video length
+		if (fg('platform_media_resume_video_on_token_expiry')) {
+			this.timeSaver.defaultTime = currentTime;
+		} else if (duration - currentTime > MINIMUM_DURATION_BEFORE_SAVING_TIME) {
 			this.timeSaver.defaultTime = currentTime;
 		} else {
 			this.timeSaver.defaultTime = 0;
 		}
 	};
 
+	private getDefaultTime = () => {
+		return this.timeSaver.defaultTime;
+	};
+
 	private renderCurrentTime = ({ currentTime, duration }: VideoState) => (
-		<CurrentTime draggable={false}>
+		<CurrentTime draggable={false} data-testid="current-time">
 			{formatDuration(currentTime)} / {formatDuration(duration)}
 		</CurrentTime>
 	);
@@ -309,7 +320,7 @@ export class CustomMediaPlayerBase extends Component<
 				/>
 			</VolumeToggleWrapper>
 			{showSlider && (
-				<VolumeTimeRangeWrapper>
+				<VolumeTimeRangeWrapper data-testid="volume-time-range-wrapper">
 					<VolumeRange
 						onChange={actions.setVolume}
 						currentVolume={videoState.volume}
@@ -505,6 +516,7 @@ export class CustomMediaPlayerBase extends Component<
 
 	private renderSpinner = () => (
 		<Flex
+			testId="spinner"
 			direction="column"
 			alignItems="center"
 			justifyContent="center"
@@ -526,10 +538,11 @@ export class CustomMediaPlayerBase extends Component<
 		if (this.actions) {
 			this.actions.pause();
 		}
+		this.props?.onPause?.();
 	};
 
 	private play = () => {
-		const { onFirstPlay } = this.props;
+		const { onFirstPlay, onPlay } = this.props;
 		if (this.actions) {
 			this.actions.play();
 		}
@@ -539,6 +552,7 @@ export class CustomMediaPlayerBase extends Component<
 			this.wasPlayedOnce = true;
 			onFirstPlay();
 		}
+		onPlay?.();
 	};
 
 	private getMediaButtonClickHandler = (action: Action, buttonType: string) => () => {
@@ -692,10 +706,11 @@ export class CustomMediaPlayerBase extends Component<
 					src={src}
 					autoPlay={isAutoPlay}
 					onCanPlay={onCanPlay}
-					defaultTime={this.timeSaver.defaultTime}
+					defaultTime={this.getDefaultTime}
 					onTimeChange={this.onCurrentTimeChange}
 					onError={onError}
 					poster={poster}
+					data-testid="media-player"
 				>
 					{(video, videoState, actions) => {
 						this.onViewed(videoState);
@@ -713,11 +728,13 @@ export class CustomMediaPlayerBase extends Component<
 						const skipBackward = (skipAmount = defaultSkipAmount) => {
 							const newTime = videoState.currentTime - skipAmount;
 							actions.navigate(Math.max(newTime, 0));
+							this.props?.onTimeChanged?.();
 						};
 
 						const skipForward = (skipAmount = defaultSkipAmount) => {
 							const newTime = videoState.currentTime + skipAmount;
 							actions.navigate(Math.min(newTime, videoState.duration));
+							this.props?.onTimeChanged?.();
 						};
 
 						const shortcuts = this.renderShortcuts({

@@ -123,6 +123,8 @@ export const commitStepQueue = ({
 	}
 
 	const start = new Date().getTime();
+	const ADD_STEPS_ACKNOWLEDGEMENT_ERROR_MSG = 'Error while adding steps - Invalid Acknowledgement';
+	const ADD_STEPS_BROADCAST_ERROR_MSG = 'Error while adding steps - Broadcast threw exception';
 	emit('commit-status', { status: 'attempt', version });
 	try {
 		const n =
@@ -172,13 +174,17 @@ export const commitStepQueue = ({
 					onErrorHandled(response.error);
 					sendFailureAnalytics(response, latency, analyticsHelper);
 					emit('commit-status', { status: 'failure', version });
+					// eslint-disable-next-line no-console
+					console.error(ADD_STEPS_ACKNOWLEDGEMENT_ERROR_MSG);
 				} else {
 					analyticsHelper?.sendErrorEvent(
 						// @ts-expect-error We didn't type the invalid type case
 						new Error(`Response type: ${response?.type || 'No response type'}`),
-						'Error while adding steps - Invalid Acknowledgement',
+						ADD_STEPS_ACKNOWLEDGEMENT_ERROR_MSG,
 					);
 					emit('commit-status', { status: 'failure', version });
+					// eslint-disable-next-line no-console
+					console.error(ADD_STEPS_ACKNOWLEDGEMENT_ERROR_MSG);
 				}
 			},
 		);
@@ -189,8 +195,10 @@ export const commitStepQueue = ({
 	} catch (error) {
 		// if the broadcast failed for any reason, we shouldn't keep the queue locked as the BE has not recieved any message
 		readyToCommit = true;
-		analyticsHelper?.sendErrorEvent(error, 'Error while adding steps - Broadcast threw exception');
+		analyticsHelper?.sendErrorEvent(error, ADD_STEPS_BROADCAST_ERROR_MSG);
 		emit('commit-status', { status: 'failure', version });
+		// eslint-disable-next-line no-console
+		console.error(ADD_STEPS_BROADCAST_ERROR_MSG);
 	}
 };
 

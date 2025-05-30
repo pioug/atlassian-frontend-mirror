@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.4.1
+
+### Patch Changes
+
+- [#163125](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163125)
+  [`d0ae2ab52765d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0ae2ab52765d) -
+  [ux] ED-28034 fix block controls positioning for new resizing experience behind
+  platform_editor_breakout_resizing
+- Updated dependencies
+
+## 2.4.0
+
+### Minor Changes
+
+- [#159900](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159900)
+  [`d70a10b069ade`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d70a10b069ade) -
+  [ux] [ED-28027] add guidelines while resizing under the new experience behind the
+  platform_editor_breakout_resizing experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.3
 
 ### Patch Changes

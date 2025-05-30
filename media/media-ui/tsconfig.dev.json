@@ -52,9 +52,6 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon-lab/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{
@@ -67,9 +64,6 @@
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/spinner/tsconfig.app.json"
-		},
-		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
 		},
 		{
@@ -77,9 +71,6 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tooltip/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"

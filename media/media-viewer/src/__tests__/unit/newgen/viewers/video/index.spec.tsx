@@ -3,7 +3,7 @@ jest.mock('../../../../../utils/isIE', () => ({
 }));
 
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import {
@@ -307,8 +307,13 @@ describe('Video viewer', () => {
 			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
 		});
 
-		expect(global.localStorage.getItem).toHaveBeenLastCalledWith('time-saver-default-time-some-id');
+		let videoEl: HTMLVideoElement;
+		waitFor(() => {
+			expect((videoEl = document.querySelector('video')!)).toBeInTheDocument();
+		});
 
+		await act(async () => fireEvent.loadedData(videoEl));
+		expect(global.localStorage.getItem).toHaveBeenLastCalledWith('time-saver-default-time-some-id');
 		global.localStorage = originLocalStorage;
 	});
 });

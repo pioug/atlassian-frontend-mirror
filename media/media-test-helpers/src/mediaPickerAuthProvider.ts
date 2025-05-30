@@ -30,10 +30,13 @@ const requestAuthProvider = async (
 	authEnvironment: string,
 	collectionName: string,
 	env: MediaEnv = 'staging',
+	expiresIn = 600,
 ): Promise<Auth> => {
 	const url = `https://media-playground.${env}.atl-paas.net/token/tenant?environment=${authEnvironment}`;
+
 	const body = JSON.stringify({
 		access: accessUrns[collectionName] || {},
+		expiresIn,
 	});
 	const headers = new Headers();
 
@@ -51,7 +54,7 @@ const requestAuthProvider = async (
 };
 
 export const mediaPickerAuthProvider =
-	(authEnvironment: string = 'asap', env: MediaEnv = 'staging') =>
+	(authEnvironment: string = 'asap', env: MediaEnv = 'staging', expiresIn = 600) =>
 	(context?: AuthContext) => {
 		const collectionName = (context && context.collectionName) || defaultCollectionName;
 		authEnvironment = authEnvironment === 'asap' ? 'asap' : '';
@@ -59,6 +62,12 @@ export const mediaPickerAuthProvider =
 
 		if (!cachedAuths[cacheKey]) {
 			cachedAuths[cacheKey] = requestAuthProvider(authEnvironment, collectionName, env);
+			setInterval(
+				() => {
+					cachedAuths[cacheKey] = requestAuthProvider(authEnvironment, collectionName, env);
+				},
+				(expiresIn * 1000) / 2,
+			);
 		}
 		return cachedAuths[cacheKey];
 	};

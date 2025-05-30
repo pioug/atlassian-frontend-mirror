@@ -92,6 +92,9 @@ export interface MediaPlayerBaseProps extends WithPlaybackProps, WithShowControl
 	readonly isShortcutEnabled?: boolean;
 	readonly lastWatchTimeConfig?: TimeSaverConfig;
 	readonly onCanPlay?: () => void;
+	readonly onPlay?: () => void;
+	readonly onPause?: () => void;
+	readonly onTimeChanged?: () => void;
 	readonly onError?: () => void;
 	readonly onDownloadClick?: () => void;
 	readonly onFirstPlay?: () => void;
@@ -283,6 +286,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 				this.wasPlayedOnce = true;
 				onFirstPlay();
 			}
+			this.props.onPlay?.();
 		}
 	}
 
@@ -336,14 +340,23 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 
 	private onTimeChanged = () => {
 		this.createAndFireUIEvent('timeRangeNavigate', 'time');
+		this.props.onTimeChanged?.();
 	};
 
 	private onVolumeChanged = () => {
 		this.createAndFireUIEvent('volumeRangeNavigate', 'volume');
 	};
 
+	private getDefaultTime = () => {
+		return this.timeSaver.defaultTime;
+	};
+
 	private onCurrentTimeChange = (currentTime: number, duration: number) => {
-		if (duration - currentTime > MINIMUM_DURATION_BEFORE_SAVING_TIME) {
+		// We rely on the saved time when switching to the new source URL
+		// so we need to save it irrespective of elapsed time or video length
+		if (fg('platform_media_resume_video_on_token_expiry')) {
+			this.timeSaver.defaultTime = currentTime;
+		} else if (duration - currentTime > MINIMUM_DURATION_BEFORE_SAVING_TIME) {
 			this.timeSaver.defaultTime = currentTime;
 		} else {
 			this.timeSaver.defaultTime = 0;
@@ -637,6 +650,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		if (this.actions) {
 			this.actions.pause();
 		}
+		this.props.onPause?.();
 	};
 
 	private play = () => {
@@ -855,7 +869,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					src={src}
 					autoPlay={isAutoPlay}
 					onCanPlay={onCanPlay}
-					defaultTime={this.timeSaver.defaultTime}
+					defaultTime={this.getDefaultTime}
 					onTimeChange={this.onCurrentTimeChange}
 					onError={onError}
 					poster={poster}
@@ -878,11 +892,13 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 						const skipBackward = (skipAmount = defaultSkipAmount) => {
 							const newTime = videoState.currentTime - skipAmount;
 							actions.navigate(Math.max(newTime, 0));
+							this.props.onTimeChanged?.();
 						};
 
 						const skipForward = (skipAmount = defaultSkipAmount) => {
 							const newTime = videoState.currentTime + skipAmount;
 							actions.navigate(Math.min(newTime, videoState.duration));
+							this.props.onTimeChanged?.();
 						};
 
 						const shortcuts = this.renderShortcuts({

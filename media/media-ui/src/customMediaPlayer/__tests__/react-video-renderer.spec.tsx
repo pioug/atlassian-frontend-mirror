@@ -115,7 +115,7 @@ describe('VideoRenderer', () => {
 		it.each(['video', 'audio'] as const)(
 			'should start playing from defaultTime point if provided for %s',
 			(sourceType) => {
-				const { ref, elem } = setup({ defaultTime: 10, sourceType });
+				const { ref, elem } = setup({ defaultTime: () => 10, sourceType });
 
 				fireEvent.loadedData(elem);
 

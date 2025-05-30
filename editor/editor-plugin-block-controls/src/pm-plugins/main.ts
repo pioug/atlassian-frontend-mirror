@@ -314,6 +314,8 @@ export const apply = (
 
 	const resizerMeta = tr.getMeta('is-resizer-resizing');
 	isResizerResizing = resizerMeta ?? isResizerResizing;
+	const hasJustFinishedResizing = resizerMeta === false;
+
 	multiSelectDnD = meta?.multiSelectDnD ?? multiSelectDnD;
 
 	if (multiSelectDnD && flags.isMultiSelectEnabled) {
@@ -333,7 +335,10 @@ export const apply = (
 
 	// Re-create node decorations
 	const isDecSetEmpty = decorations === DecorationSet.empty;
-	const isNodeDecsMissing = isDecSetEmpty || maybeNodeCountChanged;
+	const isNodeDecsMissing =
+		isDecSetEmpty ||
+		maybeNodeCountChanged ||
+		(editorExperiment('platform_editor_breakout_resizing', true) && hasJustFinishedResizing);
 	const shouldRedrawNodeDecs = !isResizerResizing && (isNodeDecsMissing || meta?.isDragging);
 
 	let isActiveNodeModified = false;

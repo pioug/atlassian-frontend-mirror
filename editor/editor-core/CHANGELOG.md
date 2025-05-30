@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 207.13.0
+
+### Minor Changes
+
+- [#163416](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163416)
+  [`e114a02395774`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e114a02395774) -
+  [ux] Migrate blocktype styles to static emotion
+
+### Patch Changes
+
+- [#163309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163309)
+  [`23a8b88475991`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/23a8b88475991) -
+  Clean up of FG platform_editor_fix_drag_and_drop_lists
+- Updated dependencies
+
+## 207.12.4
+
+### Patch Changes
+
+- [#159900](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159900)
+  [`53152be74d401`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53152be74d401) -
+  [ux] [ED-28027] add guidelines while resizing under the new experience behind
+  theplatform_editor_breakout_resizing experiment
+- Updated dependencies
+
 ## 207.12.3
 
 ### Patch Changes

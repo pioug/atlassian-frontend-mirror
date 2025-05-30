@@ -36,18 +36,27 @@ export const QUICK_INSERT_DIMENSIONS = { width: QUICK_INSERT_WIDTH, height: QUIC
 export const QUICK_INSERT_LEFT_OFFSET = 16;
 
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
+const breakoutResizableNodes = ['expand', 'layoutSection', 'codeBlock'];
 
 export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
+	if (parentNodeType && parentNodeType !== 'doc') {
+		return DRAG_HANDLE_NARROW_GAP;
+	}
+
+	if (
+		editorExperiment('platform_editor_breakout_resizing', true) &&
+		breakoutResizableNodes.includes(nodeType)
+	) {
+		if (nodeType === 'layoutSection') {
+			return DRAG_HANDLE_MAX_GAP + 20;
+		} else {
+			return DRAG_HANDLE_MAX_GAP;
+		}
+	}
 	if (nodeType === 'layoutSection') {
 		return DRAG_HANDLE_DEFAULT_GAP + 20;
 	}
 
-	if (parentNodeType && parentNodeType !== 'doc') {
-		return DRAG_HANDLE_NARROW_GAP;
-	}
-	if (nodeType === 'layoutSection' && editorExperiment('advanced_layouts', true)) {
-		return DRAG_HANDLE_MAX_GAP + 12;
-	}
 	if (nodeTypeExcludeList.includes(nodeType)) {
 		return DRAG_HANDLE_MAX_GAP;
 	}
@@ -57,8 +66,16 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 
 // use for returning hap only for root level elements
 export const rootElementGap = (nodeType: string) => {
-	if (nodeTypeExcludeList.includes(nodeType)) {
-		return DRAG_HANDLE_MAX_GAP;
+	if (
+		nodeTypeExcludeList.includes(nodeType) ||
+		(editorExperiment('platform_editor_breakout_resizing', true) &&
+			breakoutResizableNodes.includes(nodeType))
+	) {
+		if (nodeType === 'layoutSection') {
+			return DRAG_HANDLE_MAX_GAP + 20;
+		} else {
+			return DRAG_HANDLE_MAX_GAP;
+		}
 	}
 
 	if (nodeType === 'layoutSection') {

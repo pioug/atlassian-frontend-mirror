@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 106.1.3
+
+### Patch Changes
+
+- [#159900](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159900)
+  [`53152be74d401`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53152be74d401) -
+  [ux] [ED-28027] add guidelines while resizing under the new experience behind
+  theplatform_editor_breakout_resizing experiment
+
+## 106.1.2
+
+### Patch Changes
+
+- [#162560](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162560)
+  [`2f1b203a00ccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f1b203a00ccf) -
+  [ux] Removes docking options from the overflow menu and converts them into pin/unpin button.
+
 ## 106.1.1
 
 ### Patch Changes

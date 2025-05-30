@@ -11,6 +11,7 @@ export const resizerHandleTrackClassName = `${resizerHandleClassName}-track`;
 export const resizerHandleThumbClassName = `${resizerHandleClassName}-thumb`;
 export const resizerDangerClassName = `${resizerHandleClassName}-danger`;
 
+export const resizerHandleThumbWidth = 3;
 export const handleWrapperClass = 'resizer-handle-wrapper';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, Seems perfectly safe to autofix, but comments would be lost…
@@ -328,7 +329,7 @@ export const pragmaticResizerStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-breakout-resize-handle-inner': {
-		minWidth: 3,
+		minWidth: `${resizerHandleThumbWidth}px`,
 		// copied from resizeStyles.clamped
 		height: 'clamp(27px, calc(100% - 32px), 96px)',
 		background: token('color.border'),

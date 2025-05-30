@@ -70,6 +70,18 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		onCanPlay && onCanPlay();
 	};
 
+	private onPlay = () => {
+		if (fg('platform_media_resume_video_on_token_expiry')) {
+			this.init();
+		}
+	};
+
+	private onTimeChanged = () => {
+		if (fg('platform_media_resume_video_on_token_expiry')) {
+			this.init();
+		}
+	};
+
 	private onError = () => {
 		const { onError } = this.props;
 		onError && onError(new MediaViewerError('videoviewer-playback'));
@@ -100,6 +112,8 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 						isShortcutEnabled={true}
 						onFirstPlay={this.onFirstPlay}
 						onError={this.onError}
+						onPlay={this.onPlay}
+						onTimeChanged={this.onTimeChanged}
 						lastWatchTimeConfig={{
 							contentId: item.id,
 						}}
@@ -117,6 +131,8 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 						isShortcutEnabled={true}
 						onFirstPlay={this.onFirstPlay}
 						onError={this.onError}
+						onPlay={this.onPlay}
+						onTimeChanged={this.onTimeChanged}
 						lastWatchTimeConfig={{
 							contentId: item.id,
 						}}

@@ -21,7 +21,9 @@ const clearIndicatorStyles = cssMap({
 	root: {
 		opacity: 1,
 		'@media (hover: hover) and (pointer: fine)': {
-			opacity: 0,
+			// TODO: remove !important once the Select styles props is removed https://product-fabric.atlassian.net/browse/DSP-22497
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			opacity: '0 !important',
 		},
 		transition: 'color 150ms, opacity 150ms',
 		paddingTop: token('space.0'),

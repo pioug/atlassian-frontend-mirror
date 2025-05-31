@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 3.2.11
+
+### Patch Changes
+
+- [#163573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163573)
+  [`21e93839ec382`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21e93839ec382) -
+  Convert platform_editor_controls_toolbar_pinning fg to
+  platform_editor_controls_toolbar_pinning_exp experiment
+- Updated dependencies
+
 ## 3.2.10
 
 ### Patch Changes

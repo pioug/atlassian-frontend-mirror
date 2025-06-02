@@ -24,12 +24,6 @@
 			"path": "../../css/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../ds-lib/afm-post-office/tsconfig.json"
-		},
-		{
-			"path": "../../focus-ring/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../../observability/interaction-context/afm-post-office/tsconfig.json"
 		},
 		{

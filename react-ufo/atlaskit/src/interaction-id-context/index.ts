@@ -1,7 +1,5 @@
 import { createContext } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 // Same structure as react's useRef.
 // This allows modals to use a ref to scope their value
 // const id = useRef(null);
@@ -26,8 +24,8 @@ class ObservableInteractionID implements InteractionIDContextType {
 		const oldId = this._current;
 		this._current = newId;
 
-		// Notify all listeners if the ID actually changed and feature flag is enabled
-		if (oldId !== newId && fg('platform_ufo_hold_cross_interaction')) {
+		// Notify all listeners if the ID actually changed
+		if (oldId !== newId) {
 			listeners.forEach((listener) => listener(newId));
 		}
 	}
@@ -59,11 +57,6 @@ export const DefaultInteractionID: InteractionIDContextType =
 
 // Subscription functions
 export const subscribeToInteractionIdChanges = (listener: InteractionIDListener): (() => void) => {
-	if (!fg('platform_ufo_hold_cross_interaction')) {
-		// Return a no-op unsubscribe function when feature flag is disabled
-		return () => {};
-	}
-
 	listeners.add(listener);
 	return () => {
 		listeners.delete(listener);

@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': '⁣⁢Text to display⁬‌⁠⁫⁯⁬⁡⁫⁬؜⁪⁠‌⁠‌⁯⁠؜‌⁫⁬⁫‌‍‌⁬⁬‍⁣⁤',
   'fabric.linkPicker.listTitle.recentlyViewed': '⁣⁢Recently Viewed⁭⁡⁡‌⁠⁭⁮⁡‍⁪؜⁫⁠⁠⁯؜⁭⁮؜⁫‍‌‌⁠⁣⁤',
   'fabric.linkPicker.listTitle.results': '⁣⁢Results⁬⁭⁬⁬‌⁪⁮‌⁡⁠⁯⁠⁪‌؜⁯⁭⁮⁫⁮⁭‍⁭⁠‍⁣⁤',
+  'fabric.linkPicker.noEmbed':
+    "⁣⁢Embed view isn't supported for this link. <a>More about why some Smart Links don't display content.</a>⁠‍⁠؜‌؜‌⁠⁪؜⁪⁡؜⁫⁬⁯⁪؜⁭⁮‌⁣⁤",
   'fabric.linkPicker.search.error.description':
     '⁣⁢Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.‌؜‌⁭‍⁮⁡⁪⁭⁯⁬⁮⁭؜⁠⁭⁬؜‍⁭⁣⁤',
   'fabric.linkPicker.search.error.heading': '⁣⁢We’re having trouble loading data.⁬⁬‌⁭‍⁫⁠⁭⁠‌⁬⁮‍⁯⁡⁠‍⁯⁫‍⁣⁤',

@@ -143,6 +143,7 @@ export default {
   'fabric.linking.read_time': '{context} min czytania',
   'fabric.linking.related': 'Powiązane',
   'fabric.linking.related_links_found_in': 'Znaleziono w',
+  'fabric.linking.related_links_found_in_v2': 'Znaleziono w',
   'fabric.linking.related_links_includes_links_to': 'Obejmuje łącza do',
   'fabric.linking.related_links_includes_links_to_v2': 'Obejmuje łącza do',
   'fabric.linking.related_links_modal_error_description':

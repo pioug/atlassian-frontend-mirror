@@ -26,8 +26,13 @@ export interface CardContext {
 	isAdminHubAIEnabled?: boolean;
 	product?: ProductType;
 	shouldControlDataExport?: boolean;
-	isGlancePanelAvailable?: (props: GlancePanelProps) => boolean;
-	openGlancePanel?: (props: GlancePanelProps) => void;
+	isGlancePanelAvailable?: (props: { ari: string }) => boolean;
+	openGlancePanel?: (props: {
+		url: string;
+		ari: string;
+		name: string | undefined;
+		iconUrl: string | undefined;
+	}) => void;
 }
 
 export interface CardProviderStoreOpts {
@@ -38,11 +43,6 @@ export interface CardProviderRenderers {
 	adf?: (adf: string) => React.ReactNode;
 	emoji?: (emoji?: string, parentComponent?: CardAppearance) => React.ReactNode;
 	snippet?: (props: SnippetRendererProps) => React.ReactNode;
-}
-
-export interface GlancePanelProps {
-	url: string;
-	ari: string;
 }
 
 export type CardProviderProps = {
@@ -84,12 +84,17 @@ export type CardProviderProps = {
 	 * Optional callback establishing whether the glance panel is available in the host application for the given linked resource.
 	 * Required to be defined to add support for glance panel handling.
 	 */
-	isGlancePanelAvailable?: (props: GlancePanelProps) => boolean;
+	isGlancePanelAvailable?: (props: { ari: string }) => boolean;
 	/**
 	 * Optional callback enabling the host application to open a glance panel for compatible links.
 	 * Required to be defined to add support for glance panel handling.
 	 */
-	openGlancePanel?: (props: GlancePanelProps) => void;
+	openGlancePanel?: (props: {
+		url: string;
+		ari: string;
+		name: string | undefined;
+		iconUrl: string | undefined;
+	}) => void;
 } & CardAuthFlowOpts;
 
 export type SnippetRendererProps = AISnippetRendererProps | Record<string, never>;

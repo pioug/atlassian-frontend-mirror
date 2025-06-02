@@ -46,6 +46,16 @@ interface State {
 	extensionProvider?: ExtensionProvider | null;
 }
 
+// When running on server-side emotion will generate style tags before elements.
+// This caused packages/editor/editor-common/src/styles/shared/block-marks.ts to override the margin-top.
+// However as soon as the styles are extracted to <head> it adds back the margin.
+// The timing is tricky as it happens to be when UFO collects the dimension for the placeholder for TTVC calculation.
+// This resulted 1px mismatch on the image. Further cause everything on page to shift by 1px.
+const forceMarginTopStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	marginTop: `1px !important`,
+});
+
 const inlineExtensionStyle = css({
 	display: 'inline-block',
 	maxWidth: '100%',
@@ -180,10 +190,16 @@ export default function ExtensionRenderer(props: Props) {
 	);
 }
 
-export const InlineNodeRendererWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
+export const InlineNodeRendererWrapper = ({
+	forceMarginTop = false,
+	children,
+}: React.PropsWithChildren<{ forceMarginTop?: boolean }>) => {
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<div className="inline-extension-renderer" css={inlineExtensionStyle}>
+		<div
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className="inline-extension-renderer"
+			css={[inlineExtensionStyle, forceMarginTop && forceMarginTopStyle]}
+		>
 			{children}
 		</div>
 	);

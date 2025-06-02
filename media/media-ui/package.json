@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "28.2.2",
+	"version": "28.2.3",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -93,6 +93,9 @@
 			"type": "boolean"
 		},
 		"platform_media_compiled": {
+			"type": "boolean"
+		},
+		"platform_media_add_ufo_custom_data": {
 			"type": "boolean"
 		},
 		"platform_exclude_media_offender_from_vc": {

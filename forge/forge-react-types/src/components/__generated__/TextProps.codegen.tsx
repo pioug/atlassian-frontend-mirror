@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TextProps
  *
- * @codegen <<SignedSource::c90b3120290d482160619bb4fea7e76e>>
+ * @codegen <<SignedSource::2cf1d1a11c89b10fdc65f27c51e6c7b4>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/text/__generated__/index.partial.tsx <<SignedSource::c49669a7876b51b4a88645a51f7a1451>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/text/__generated__/index.partial.tsx <<SignedSource::45fcbf413ecc09a9102dc482b4fc9d70>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

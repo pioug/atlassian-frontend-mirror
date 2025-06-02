@@ -25,6 +25,7 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': '待显示的文本',
   'fabric.linkPicker.listTitle.recentlyViewed': '最近查看',
   'fabric.linkPicker.listTitle.results': '结果',
+  'fabric.linkPicker.noEmbed': '此链接不支持嵌入视图。<a>详细了解某些智能链接不显示内容的原因</a>。',
   'fabric.linkPicker.search.error.description': '如果此问题依然存在，请刷新页面或联系 <a>Atlassian 支持团队</a>。',
   'fabric.linkPicker.search.error.heading': '加载数据时出现问题。',
   'fabric.linkPicker.search.error.retry': '刷新',

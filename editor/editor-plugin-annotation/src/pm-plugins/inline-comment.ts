@@ -93,6 +93,7 @@ const fetchState = async (
 const initialState = (
 	disallowOnWhitespace: boolean = false,
 	featureFlagsPluginState?: FeatureFlags,
+	isAnnotationManagerEnabled: boolean = false,
 ): InlineCommentPluginState => {
 	return {
 		annotations: {},
@@ -109,6 +110,7 @@ const initialState = (
 		isDrafting: false,
 		pendingSelectedAnnotations: [],
 		pendingSelectedAnnotationsUpdateCount: 0,
+		isAnnotationManagerEnabled,
 	};
 };
 
@@ -164,7 +166,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 		key: inlineCommentPluginKey,
 		state: createPluginState(
 			options.dispatch,
-			initialState(provider.disallowOnWhitespace, featureFlagsPluginState),
+			initialState(provider.disallowOnWhitespace, featureFlagsPluginState, !!annotationManager),
 		),
 
 		view(editorView: EditorView) {
@@ -177,27 +179,24 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 			let setIsAnnotationHoveredFn: AnnotationManager['setIsAnnotationHovered'];
 			let clearAnnotationFn: AnnotationManager['clearAnnotation'];
 
-			if (annotationManager && fg('platform_editor_comments_api_manager')) {
+			if (annotationManager) {
 				allowAnnotationFn = allowAnnotation(editorView, options);
 				startDraftFn = startDraft(editorView, options);
 				clearDraftFn = clearDraft(editorView, options);
 				applyDraftFn = applyDraft(editorView, options);
 				getDraftFn = getDraft(editorView, options);
+				setIsAnnotationSelectedFn = setIsAnnotationSelected(editorView, options);
+				setIsAnnotationHoveredFn = setIsAnnotationHovered(editorView, options);
+				clearAnnotationFn = clearAnnotation(editorView, options);
 
 				annotationManager.hook('allowAnnotation', allowAnnotationFn);
 				annotationManager.hook('startDraft', startDraftFn);
 				annotationManager.hook('clearDraft', clearDraftFn);
 				annotationManager.hook('applyDraft', applyDraftFn);
 				annotationManager.hook('getDraft', getDraftFn);
-
-				if (fg('platform_editor_comments_api_manager_select')) {
-					setIsAnnotationSelectedFn = setIsAnnotationSelected(editorView, options);
-					setIsAnnotationHoveredFn = setIsAnnotationHovered(editorView, options);
-					clearAnnotationFn = clearAnnotation(editorView, options);
-					annotationManager.hook('setIsAnnotationSelected', setIsAnnotationSelectedFn);
-					annotationManager.hook('setIsAnnotationHovered', setIsAnnotationHoveredFn);
-					annotationManager.hook('clearAnnotation', clearAnnotationFn);
-				}
+				annotationManager.hook('setIsAnnotationSelected', setIsAnnotationSelectedFn);
+				annotationManager.hook('setIsAnnotationHovered', setIsAnnotationHoveredFn);
+				annotationManager.hook('clearAnnotation', clearAnnotationFn);
 			}
 			// Get initial state
 			// Need to pass `editorView` to mitigate editor state going stale
@@ -309,7 +308,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 						)?.selectAnnotation.complete(selectedAnnotationId);
 					}
 
-					if (fg('platform_editor_comments_api_manager_select')) {
+					if (annotationManager) {
 						// In the Editor, Annotations can be selected in three ways:
 						// 1. By clicking on the annotation in the editor
 						// 2. By using the annotation manager to select the annotation
@@ -333,7 +332,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 							// when the preemptive gate is complete.
 							isPreemptiveGateActive = true;
 							annotationManager
-								?.checkPreemptiveGate()
+								.checkPreemptiveGate()
 								.then((canSelectAnnotation) => {
 									const {
 										isDrafting,
@@ -365,7 +364,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 													) === -1,
 											)
 											.forEach((annotation) => {
-												options.annotationManager?.emit({
+												annotationManager.emit({
 													name: 'annotationSelectionChanged',
 													data: {
 														annotationId: annotation.id,
@@ -378,7 +377,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
 										// Notify the annotation manager that the pending selection has changed.
 										latestPendingSelectedAnnotations?.forEach(({ id }) => {
-											options.annotationManager?.emit({
+											annotationManager.emit({
 												name: 'annotationSelectionChanged',
 												data: {
 													annotationId: id,
@@ -435,7 +434,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 							.off('closeinlinecomment', closeInlineCommentFn);
 					}
 
-					if (annotationManager && fg('platform_editor_comments_api_manager')) {
+					if (annotationManager) {
 						annotationManager.unhook('allowAnnotation', allowAnnotationFn);
 						annotationManager.unhook('startDraft', startDraftFn);
 						annotationManager.unhook('clearDraft', clearDraftFn);
@@ -494,7 +493,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 						return false;
 					}
 
-					if (fg('platform_editor_comments_api_manager_select')) {
+					if (annotationManager) {
 						// The manager disable setting the selected annotation on click because in the editor this is already
 						// handled by the selection update handler. When the manager is enabled, and a selection changes it's pushed into
 						// the pendingSelectedAnnotations array. This is then used to update the selection when the preemptive gate

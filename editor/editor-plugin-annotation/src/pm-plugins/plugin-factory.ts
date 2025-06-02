@@ -7,7 +7,6 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import reducer from './reducer';
 import type { InlineCommentPluginState } from './types';
@@ -140,7 +139,6 @@ const getSelectionChangeHandlerNew =
 
 		// NOTE: I've left this commented code here as a reference that the previous old code would reset the selected annotations
 		// if the selection is empty. If this is no longer needed, we can remove this code.
-		// clean up with platform_editor_comments_api_manager_select
 		// if (selectedAnnotations.length === 0) {
 		// 	return {
 		// 		...pluginState,
@@ -176,9 +174,11 @@ const getSelectionChangeHandlerNew =
 const getSelectionChangedHandler =
 	(reopenCommentView: boolean) =>
 	(tr: ReadonlyTransaction, pluginState: InlineCommentPluginState): InlineCommentPluginState =>
-		fg('platform_editor_comments_api_manager_select')
-			? getSelectionChangeHandlerNew(reopenCommentView)(tr, pluginState)
-			: getSelectionChangeHandlerOld(reopenCommentView)(tr, pluginState);
+		pluginState.isAnnotationManagerEnabled
+			? // if platform_editor_comments_api_manager == true
+				getSelectionChangeHandlerNew(reopenCommentView)(tr, pluginState)
+			: // else if platform_editor_comments_api_manager == false
+				getSelectionChangeHandlerOld(reopenCommentView)(tr, pluginState);
 
 export const { createPluginState, createCommand } = pluginFactory(inlineCommentPluginKey, reducer, {
 	onSelectionChanged: getSelectionChangedHandler(true),

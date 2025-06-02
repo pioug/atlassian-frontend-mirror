@@ -7,7 +7,14 @@ export { default as Bleed, type BleedProps } from './components/bleed';
 export { default as Text, type TextProps } from './components/text';
 export { default as Pressable, type PressableProps } from './components/pressable';
 export { default as Anchor, type AnchorProps } from './components/anchor';
-export { media, type Breakpoint, type MediaQuery, UNSAFE_useMediaQuery } from './responsive';
+export {
+	media,
+	type Breakpoint,
+	type MediaQuery,
+	UNSAFE_useMediaQuery,
+	Show,
+	Hide,
+} from './responsive';
 export { default as Focusable } from './components/focusable';
 export type { FocusableProps } from './components/focusable';
 

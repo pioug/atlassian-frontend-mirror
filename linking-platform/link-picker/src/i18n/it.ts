@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Testo da visualizzare',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Visualizzati di recente',
   'fabric.linkPicker.listTitle.results': 'Risultati',
+  'fabric.linkPicker.noEmbed':
+    'La visualizzazione incorporata non è supportata per questo link. <a>Scopri di più sul motivo per cui alcuni link intelligenti non visualizzano contenuti.</a>',
   'fabric.linkPicker.search.error.description':
     "Se il problema persiste, aggiorna la pagina o contatta l'<a>Assistenza Atlassian</a>.",
   'fabric.linkPicker.search.error.heading': 'Stiamo riscontrando problemi nel caricamento dei dati.',

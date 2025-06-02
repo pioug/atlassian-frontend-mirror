@@ -41,6 +41,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Message (optional)',
 		description: 'Label for the comment field in the Share form.',
 	},
+	extendedDialogCommentLabel: {
+		id: 'fabric.elements.share.form.extended.dialog.comment.label',
+		defaultMessage: 'Message',
+		description: 'Label for the comment field in the extended share dialog.',
+	},
 	commentPlaceholder: {
 		id: 'fabric.elements.share.form.comment.placeholder',
 		defaultMessage: 'Anything they should know?',

@@ -50,7 +50,7 @@ export default (
 				...(fg('platform_editor_annotation_selected_annotation') && {
 					selectedAnnotations: [],
 				}),
-				...(fg('platform_editor_comments_api_manager_select') && {
+				...(pluginState.isAnnotationManagerEnabled && {
 					selectedAnnotations: [],
 				}),
 			};
@@ -72,7 +72,7 @@ export default (
 				},
 				isInlineCommentViewClosed: false,
 				selectAnnotationMethod: undefined,
-				...(fg('platform_editor_comments_api_manager_select') && {
+				...(pluginState.isAnnotationManagerEnabled && {
 					skipSelectionHandling: true,
 				}),
 			};

@@ -34,8 +34,8 @@ export const getRendererAnnotationEventEmitter: AnnotationEventEmitterFn = () =>
 };
 
 let annotationManager: AnnotationManager | undefined;
-export const getRendererAnnotationManager: () => AnnotationManager = () => {
-	if (!annotationManager) {
+export const getRendererAnnotationManager: () => AnnotationManager | undefined = () => {
+	if (!annotationManager && fg('platform_editor_comments_api_manager')) {
 		annotationManager = createAnnotationManager();
 	}
 	return annotationManager;
@@ -129,7 +129,7 @@ function SelectionComponent({
 				Comment UI
 				<button
 					onClick={() => {
-						if (fg('platform_editor_comments_api_manager')) {
+						if (annotationManager) {
 							if (draft) {
 								// This is setting a new uuid for the annotation because this is currently how annotations
 								// behave in CCFE.
@@ -209,7 +209,7 @@ function SelectionComponent({
 				>
 					save comment
 				</button>
-				{fg('platform_editor_comments_api_manager') && (
+				{annotationManager && (
 					<button
 						onClick={() => {
 							if (draft) {
@@ -238,7 +238,7 @@ function SelectionComponent({
 						<button
 							onClick={() => {
 								const annotationId = uuid() as string;
-								if (fg('platform_editor_comments_api_manager')) {
+								if (annotationManager) {
 									annotationManager
 										.checkPreemptiveGate()
 										.then((canStartDraft) => {

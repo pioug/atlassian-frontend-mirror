@@ -206,7 +206,7 @@ export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) 
 					},
 				});
 
-				if (annotationManager && fg('platform_editor_comments_api_manager')) {
+				if (annotationManager) {
 					annotationManager
 						.checkPreemptiveGate()
 						.then((canStartDraft) => {

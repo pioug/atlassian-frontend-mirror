@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.9.3
+
+### Patch Changes
+
+- [#163361](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163361)
+  [`76c3619bccda1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76c3619bccda1) -
+  Changed the annotation manager feature gate to instead use the existance of the manager rather
+  then a gate
+- Updated dependencies
+
 ## 2.9.2
 
 ### Patch Changes

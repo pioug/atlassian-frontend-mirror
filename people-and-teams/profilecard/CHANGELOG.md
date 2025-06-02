@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 23.16.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.16.8
+
+### Patch Changes
+
+- [#160530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160530)
+  [`3d97095c489a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d97095c489a5) -
+  Internal change to align styling solutions.
+- Updated dependencies
+
 ## 23.16.7
 
 ### Patch Changes

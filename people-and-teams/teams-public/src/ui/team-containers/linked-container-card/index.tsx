@@ -10,7 +10,6 @@ import FeatureGates from '@atlaskit/feature-gate-js-client';
 import CrossIcon from '@atlaskit/icon/core/close';
 import LinkIcon from '@atlaskit/icon/core/link';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -19,6 +18,14 @@ import { type ContainerSubTypes, type ContainerTypes } from '../../../common/typ
 import { LoomSpaceAvatar } from '../../../common/ui/loom-avatar';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
+
+const messages = defineMessages({
+	disconnectTooltip: {
+		id: 'ptc-directory.team-containers.disconnect-button.tooltip',
+		defaultMessage: 'Disconnect',
+		description: 'Tooltip for the disconnect button',
+	},
+});
 
 const styles = cssMap({
 	container: {
@@ -183,10 +190,7 @@ export const LinkedContainerCard = ({
 					<Text maxLines={1} weight="medium" color="color.text">
 						{title}
 					</Text>
-					<Flex
-						gap="space.050"
-						{...(fg('enable_card_alignment_fix') ? { alignItems: 'center' } : {})}
-					>
+					<Flex gap="space.050" alignItems="center">
 						{icon}
 						<Inline space="space.050">
 							<Text size="small" color="color.text.subtle">
@@ -224,11 +228,3 @@ export const LinkedContainerCard = ({
 		</LinkedCardWrapper>
 	);
 };
-
-const messages = defineMessages({
-	disconnectTooltip: {
-		id: 'ptc-directory.team-containers.disconnect-button.tooltip',
-		defaultMessage: 'Disconnect',
-		description: 'Tooltip for the disconnect button',
-	},
-});

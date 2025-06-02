@@ -25,6 +25,7 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': '要顯示的文字',
   'fabric.linkPicker.listTitle.recentlyViewed': '最近檢視的項目',
   'fabric.linkPicker.listTitle.results': '結果',
+  'fabric.linkPicker.noEmbed': '此連結不支援內嵌檢視。<a>進一步了解某些智慧連結無法顯示內容的原因。</a>',
   'fabric.linkPicker.search.error.description': '請重新整理頁面，如果持續發生錯誤，請連絡 <a>Atlassian 支援人員</a>。',
   'fabric.linkPicker.search.error.heading': '我們在載入資料時遇到問題。',
   'fabric.linkPicker.search.error.retry': '重新整理',

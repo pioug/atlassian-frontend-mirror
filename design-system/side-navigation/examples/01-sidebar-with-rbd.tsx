@@ -32,7 +32,7 @@ import {
 	draggable,
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { Box, Grid } from '@atlaskit/primitives';
+import { Box, Grid } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -110,6 +110,11 @@ const styles = cssMap({
 		filter: 'brightness(1.15)',
 		transform: 'scale(1.1) rotate(8deg)',
 	},
+	grid: {
+		alignItems: 'center',
+		columnGap: token('space.050'),
+		gridTemplateColumns: 'auto 1fr auto',
+	},
 });
 
 type ItemState = 'idle' | 'dragging' | 'over';
@@ -168,7 +173,7 @@ function DraggableItem({
 		<Fragment>
 			<Box ref={ref} xcss={styles[state]}>
 				<Box xcss={styles.root}>
-					<Grid alignItems="center" columnGap="space.050" templateColumns="auto 1fr auto">
+					<Grid xcss={styles.grid}>
 						<DropdownMenu
 							shouldRenderToParent
 							trigger={({ triggerRef, ...triggerProps }) => (

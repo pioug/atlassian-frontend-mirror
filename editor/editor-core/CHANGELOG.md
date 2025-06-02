@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 207.14.0
+
+### Minor Changes
+
+- [#163502](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163502)
+  [`fa92ca013b030`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa92ca013b030) -
+  [https://product-fabric.atlassian.net/browse/ED-28120](ED-28120) - rewrite editor layout CSS
+  styles in object syntax
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.13.1
+
+### Patch Changes
+
+- [#163361](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163361)
+  [`76c3619bccda1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76c3619bccda1) -
+  Changed the annotation manager feature gate to instead use the existance of the manager rather
+  then a gate
+- Updated dependencies
+
 ## 207.13.0
 
 ### Minor Changes

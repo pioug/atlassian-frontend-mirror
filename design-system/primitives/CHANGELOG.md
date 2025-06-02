@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 14.8.2
+
+### Patch Changes
+
+- [#160530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160530)
+  [`6e9dfd5a51384`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e9dfd5a51384) -
+  Export `Show` and `Hide` responsive components from the `/compiled` entrypoint.
+
 ## 14.8.1
 
 ### Patch Changes

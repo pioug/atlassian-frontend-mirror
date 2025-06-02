@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.34.0
+
+### Minor Changes
+
+- [#160061](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160061)
+  [`0fdfe8b27fe82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fdfe8b27fe82) -
+  Clean up of feature gates - bug_fix_agent_card & enable_card_alignment_fix
+
 ## 0.33.0
 
 ### Minor Changes

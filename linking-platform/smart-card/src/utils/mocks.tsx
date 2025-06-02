@@ -74,6 +74,10 @@ const successfulResponseData = {
 	preview: {
 		href: 'https://www.ilovecheese.com',
 	},
+	icon: {
+		'@type': 'Image',
+		url: 'https://www.ilovecheese.com/icon.png',
+	},
 };
 
 const jsonLdResponse = {

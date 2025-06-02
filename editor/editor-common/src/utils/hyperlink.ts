@@ -224,8 +224,7 @@ export const canLinkBeCreatedInRange = (from: number, to: number) => (state: Edi
 				let allowed = true;
 				state.doc.nodesBetween(from, to, (node) => {
 					const hasInlineCard =
-						node.type.name === state.schema.nodes.inlineCard?.name &&
-						fg('platform_editor_controls_patch_11');
+						node.type === state.schema.nodes.inlineCard && fg('platform_editor_controls_patch_11');
 
 					allowed = allowed && !node.marks.some((m) => m.type.excludes(link)) && !hasInlineCard;
 					return allowed;

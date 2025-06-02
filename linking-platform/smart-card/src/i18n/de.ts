@@ -148,6 +148,7 @@ export default {
   'fabric.linking.read_time': 'Lesedauer: {context} Min.',
   'fabric.linking.related': 'Zugehörig',
   'fabric.linking.related_links_found_in': 'Gefunden in',
+  'fabric.linking.related_links_found_in_v2': 'Gefunden in',
   'fabric.linking.related_links_includes_links_to': 'Beinhaltet Links zu',
   'fabric.linking.related_links_includes_links_to_v2': 'Beinhaltet Links zu',
   'fabric.linking.related_links_modal_error_description':

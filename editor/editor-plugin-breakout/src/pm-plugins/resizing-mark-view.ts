@@ -2,20 +2,14 @@ import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
-import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
-import type { BaseEventPayload, ElementDragType } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { BreakoutPlugin } from '../breakoutPluginType';
 
+import { createPragmaticResizer } from './pragmatic-resizer';
 import { createResizerCallbacks } from './resizer-callbacks';
 
 export const LOCAL_RESIZE_PROPERTY = '--local-resizing-width';
 
-/**
- *
- */
 export class ResizingMarkView implements NodeView {
 	dom: HTMLElement;
 	contentDOM: HTMLElement;
@@ -76,79 +70,11 @@ export class ResizingMarkView implements NodeView {
 		this.destroyFn = destroy;
 	}
 
-	/**
-	 *
-	 * @example
-	 */
 	ignoreMutation() {
 		return true;
 	}
 
-	/**
-	 *
-	 * @example
-	 */
 	destroy() {
 		this.destroyFn();
 	}
 }
-
-const createPragmaticResizer = ({
-	onDragStart,
-	onDrag,
-	onDrop,
-}: {
-	onDragStart: () => void;
-	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
-	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
-}) => {
-	const registerHandle = (handleElement: HTMLElement) => {
-		return draggable({
-			element: handleElement,
-			onGenerateDragPreview: ({ nativeSetDragImage }) => {
-				disableNativeDragPreview({ nativeSetDragImage });
-				preventUnhandled.start();
-			},
-			onDragStart,
-			onDrag,
-			onDrop(args) {
-				preventUnhandled.stop();
-				onDrop(args);
-			},
-		});
-	};
-
-	const createHandle = (side: 'left' | 'right') => {
-		const handle = document.createElement('div');
-		handle.contentEditable = 'false';
-		handle.classList.add('pm-breakout-resize-handle');
-
-		if (side === 'left') {
-			handle.classList.add('pm-breakout-resize-handle-left');
-		} else {
-			handle.classList.add('pm-breakout-resize-handle-right');
-		}
-
-		const handleInner = document.createElement('div');
-		handleInner.classList.add('pm-breakout-resize-handle-inner');
-
-		handle.appendChild(handleInner);
-
-		return handle;
-	};
-
-	const rightHandle = createHandle('right');
-	const leftHandle = createHandle('left');
-
-	const rightHandleCleanup = registerHandle(rightHandle);
-	const leftHandleCleanup = registerHandle(leftHandle);
-
-	return {
-		rightHandle,
-		leftHandle,
-		destroy: () => {
-			rightHandleCleanup();
-			leftHandleCleanup();
-		},
-	};
-};

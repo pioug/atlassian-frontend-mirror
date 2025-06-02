@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Tekst do wyświetlenia',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Ostatnio wyświetlane',
   'fabric.linkPicker.listTitle.results': 'Wyniki',
+  'fabric.linkPicker.noEmbed':
+    'Widok osadzony nie jest obsługiwany dla tego łącza. <a>Więcej o tym, dlaczego niektóre inteligentne łącza nie wyświetlają treści.</a>',
   'fabric.linkPicker.search.error.description':
     'Odśwież stronę lub skontaktuj się z <a>działem wsparcia Atlassian</a>, jeśli sytuacja będzie się powtarzać.',
   'fabric.linkPicker.search.error.heading': 'Wystąpił problem podczas ładowania danych.',

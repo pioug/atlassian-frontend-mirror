@@ -148,11 +148,7 @@ describe('VCCalculator_FY25_03', () => {
 			});
 		});
 
-		describe('when feature flag platform_ufo_ignore_non_vis_attributes is enabled', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation((flag) => flag === 'platform_ufo_ignore_non_vis_attributes');
-			});
-
+		describe('should filter out non-visual attributes', () => {
 			it('should return false for data-testid attribute', () => {
 				const entry: VCObserverEntry = {
 					time: 0,

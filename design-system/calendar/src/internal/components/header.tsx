@@ -3,10 +3,10 @@ import React, { memo, useState } from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import Heading from '@atlaskit/heading';
-import ChevronDoubleLeftIcon from '@atlaskit/icon/utility/chevron-double-left';
-import ChevronDoubleRightIcon from '@atlaskit/icon/utility/chevron-double-right';
-import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
+import ChevronDoubleLeftIcon from '@atlaskit/icon/core/chevron-double-left';
+import ChevronDoubleRightIcon from '@atlaskit/icon/core/chevron-double-right';
+import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 import { type TabIndex } from '../../types';
@@ -99,7 +99,7 @@ const Header = memo<HeaderProps>(function Header({
 						tabIndex={tabIndex}
 						onClick={handlePrevYearInteraction}
 						testId={testId && `${testId}--previous-year`}
-						icon={ChevronDoubleLeftIcon}
+						icon={(iconProps) => <ChevronDoubleLeftIcon {...iconProps} size="small" />}
 						label={`${previousYearLabel}, ${previousYearHeading}`}
 					/>
 					<IconButton
@@ -108,7 +108,7 @@ const Header = memo<HeaderProps>(function Header({
 						tabIndex={tabIndex}
 						onClick={handlePrevMonthInteraction}
 						testId={testId && `${testId}--previous-month`}
-						icon={ChevronLeftIcon}
+						icon={(iconProps) => <ChevronLeftIcon {...iconProps} size="small" />}
 						label={`${previousMonthLabel}, ${previousMonthHeading}`}
 					/>
 				</Inline>
@@ -134,7 +134,7 @@ const Header = memo<HeaderProps>(function Header({
 						tabIndex={tabIndex}
 						onClick={handleNextMonthInteraction}
 						testId={testId && `${testId}--next-month`}
-						icon={ChevronRightIcon}
+						icon={(iconProps) => <ChevronRightIcon {...iconProps} size="small" />}
 						label={`${nextMonthLabel}, ${nextMonthHeading}`}
 					/>
 					<IconButton
@@ -143,7 +143,7 @@ const Header = memo<HeaderProps>(function Header({
 						tabIndex={tabIndex}
 						onClick={handleNextYearInteraction}
 						testId={testId && `${testId}--next-year`}
-						icon={ChevronDoubleRightIcon}
+						icon={(iconProps) => <ChevronDoubleRightIcon {...iconProps} size="small" />}
 						label={`${nextYearLabel}, ${nextYearHeading}`}
 					/>
 				</Inline>

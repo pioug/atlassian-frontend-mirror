@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
+import { cssMap } from '@atlaskit/css';
 
 function makeid(length = 12) {
 	let result = '';
@@ -16,7 +17,11 @@ function makeid(length = 12) {
 	return result;
 }
 
-const boxStyles = xcss({ textAlign: 'center' });
+const styles = cssMap({
+	centerText: {
+		textAlign: 'center',
+	},
+});
 
 export const ToggleBox = ({
 	label,
@@ -31,7 +36,7 @@ export const ToggleBox = ({
 	const [id] = useState(makeid());
 
 	return (
-		<Box xcss={centered && boxStyles}>
+		<Box xcss={centered && styles.centerText}>
 			<Label htmlFor={id}>{label}</Label>
 			<Toggle
 				onChange={(evt) => {

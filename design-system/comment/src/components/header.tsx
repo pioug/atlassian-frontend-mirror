@@ -6,8 +6,8 @@
 import { type FC, type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import LockFilledIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
-import LockFilledIcon from '@atlaskit/icon/utility/lock-locked';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
@@ -85,7 +85,7 @@ const Header: FC<HeaderProps> = ({
 							{fg('platform-visual-refresh-icons-legacy-facade') ||
 							fg('platform-visual-refresh-icons') ? (
 								<Box as="span" xcss={iconWrapperStyles.root}>
-									<LockFilledIcon color="currentColor" label="" />
+									<LockFilledIcon color="currentColor" label="" size="small" />
 								</Box>
 							) : (
 								<LegacyLockFilledIcon size="small" label="" />

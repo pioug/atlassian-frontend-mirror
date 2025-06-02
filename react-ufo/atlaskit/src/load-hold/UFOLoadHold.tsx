@@ -1,7 +1,5 @@
 import React, { type ReactNode, useContext, useEffect, useLayoutEffect, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import UFOInteractionContext from '../interaction-context';
 import UFOInteractionIDContext, {
 	subscribeToInteractionIdChanges,
@@ -11,26 +9,20 @@ const useLayoutEffectSAFE = typeof window === 'undefined' ? useEffect : useLayou
 
 /**
  * Custom hook to track changes to the interaction ID.
- * Uses a subscription system when feature flag is enabled, otherwise returns the current value.
+ * Uses a subscription system to automatically update when the interaction ID changes.
  */
 function useInteractionIdValue() {
 	const interactionId = useContext(UFOInteractionIDContext);
 	const [currentId, setCurrentId] = useState(interactionId?.current || null);
 
 	useLayoutEffectSAFE(() => {
-		if (fg('platform_ufo_hold_cross_interaction')) {
-			// New subscription-based approach
-			setCurrentId(interactionId?.current || null);
+		setCurrentId(interactionId?.current || null);
 
-			const unsubscribe = subscribeToInteractionIdChanges((newId) => {
-				setCurrentId(newId);
-			});
+		const unsubscribe = subscribeToInteractionIdChanges((newId) => {
+			setCurrentId(newId);
+		});
 
-			return unsubscribe;
-		} else {
-			// Legacy behavior - just return the current value without subscription
-			setCurrentId(interactionId?.current || null);
-		}
+		return unsubscribe;
 	}, [interactionId]);
 
 	return currentId;

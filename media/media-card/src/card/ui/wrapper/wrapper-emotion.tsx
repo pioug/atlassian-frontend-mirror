@@ -8,6 +8,8 @@ import { newFileExperienceClassName } from '../../cardConstants';
 import { wrapperStyles } from './styles';
 import { type WrapperProps } from './types';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+import UFOCustomData from '@atlaskit/react-ufo/custom-data';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const Wrapper = (props: WrapperProps) => {
 	const {
@@ -52,6 +54,9 @@ export const Wrapper = (props: WrapperProps) => {
 			onMouseEnter={onMouseEnter}
 			{...VcMediaWrapperProps}
 		>
+			{fg('platform_media_add_ufo_custom_data') ? (
+				<UFOCustomData data={{ hasMediaComponent: true }} />
+			) : null}
 			{props.children}
 		</div>
 	);

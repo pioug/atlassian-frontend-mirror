@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Texto que se debe mostrar',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Historial reciente',
   'fabric.linkPicker.listTitle.results': 'Resultados',
+  'fabric.linkPicker.noEmbed':
+    'La vista incrustada no es compatible con este enlace. <a>Se puede encontrar más información sobre por qué algunos enlaces inteligentes no muestran contenido aquí.</a>',
   'fabric.linkPicker.search.error.description':
     'Actualiza la página o ponte en contacto con el <a>soporte de Atlassian</a> si sigue ocurriendo.',
   'fabric.linkPicker.search.error.heading': 'Tenemos problemas para cargar los datos.',

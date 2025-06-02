@@ -13,6 +13,8 @@ import {
 	getDefinitionId,
 	getExtensionKey,
 	getObjectAri,
+	getObjectIconUrl,
+	getObjectName,
 	getResourceType,
 	getServices,
 	isFinalState,
@@ -105,10 +107,15 @@ function Component({
 				fg('fun-1765_wire_up_glance_panel_to_smart_cards') &&
 				target !== '_blank' &&
 				ari &&
-				isGlancePanelAvailable?.({ url, ari }) &&
+				isGlancePanelAvailable?.({ ari }) &&
 				openGlancePanel
 			) {
-				openGlancePanel({ url, ari });
+				openGlancePanel({
+					url,
+					ari,
+					name: getObjectName(state.details),
+					iconUrl: getObjectIconUrl(state.details),
+				});
 
 				fireLinkClickedEvent(createAnalyticsEvent)(event, {
 					attributes: {

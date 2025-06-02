@@ -10,20 +10,11 @@ import UFOInteractionIDContext, {
 	useInteractionId,
 } from '../index';
 
-// Mock the feature flag
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
-
-const { fg } = require('@atlaskit/platform-feature-flags');
-
 describe('InteractionIDContext', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		// Reset the default interaction ID
 		DefaultInteractionID.current = null;
-		// Enable feature flag by default
-		fg.mockReturnValue(true);
 	});
 
 	describe('DefaultInteractionID', () => {
@@ -49,11 +40,7 @@ describe('InteractionIDContext', () => {
 		});
 	});
 
-	describe('ObservableInteractionID with feature flag enabled', () => {
-		beforeEach(() => {
-			fg.mockReturnValue(true);
-		});
-
+	describe('ObservableInteractionID', () => {
 		it('should notify subscribers when value changes', () => {
 			const listener1 = jest.fn();
 			const listener2 = jest.fn();
@@ -151,47 +138,7 @@ describe('InteractionIDContext', () => {
 		});
 	});
 
-	describe('ObservableInteractionID with feature flag disabled', () => {
-		beforeEach(() => {
-			fg.mockReturnValue(false);
-		});
-
-		it('should still allow setting and getting values', () => {
-			DefaultInteractionID.current = 'test-without-flag';
-			expect(DefaultInteractionID.current).toBe('test-without-flag');
-		});
-
-		it('should not notify subscribers when feature flag is disabled', () => {
-			const listener = jest.fn();
-			const unsubscribe = subscribeToInteractionIdChanges(listener);
-
-			// Change the value
-			DefaultInteractionID.current = 'no-notification';
-
-			// Should not be called because feature flag is disabled
-			expect(listener).not.toHaveBeenCalled();
-
-			unsubscribe();
-		});
-
-		it('should return no-op unsubscribe function when feature flag is disabled', () => {
-			const listener = jest.fn();
-			const unsubscribe = subscribeToInteractionIdChanges(listener);
-
-			// Should not throw when calling unsubscribe
-			expect(() => unsubscribe()).not.toThrow();
-
-			// Multiple calls should also not throw
-			expect(() => unsubscribe()).not.toThrow();
-			expect(() => unsubscribe()).not.toThrow();
-		});
-	});
-
 	describe('subscribeToInteractionIdChanges', () => {
-		beforeEach(() => {
-			fg.mockReturnValue(true);
-		});
-
 		it('should return a function', () => {
 			const listener = jest.fn();
 			const unsubscribe = subscribeToInteractionIdChanges(listener);
@@ -301,10 +248,6 @@ describe('InteractionIDContext', () => {
 	});
 
 	describe('edge cases', () => {
-		beforeEach(() => {
-			fg.mockReturnValue(true);
-		});
-
 		it('should handle setting the same value multiple times', () => {
 			const listener = jest.fn();
 			const unsubscribe = subscribeToInteractionIdChanges(listener);
@@ -341,53 +284,6 @@ describe('InteractionIDContext', () => {
 			expect(DefaultInteractionID.current).toBe(specialValue);
 
 			unsubscribe();
-		});
-	});
-
-	describe('feature flag runtime behavior', () => {
-		it('should respect feature flag changes during runtime', () => {
-			const listener = jest.fn();
-
-			// Start with flag enabled
-			fg.mockReturnValue(true);
-			const unsubscribe = subscribeToInteractionIdChanges(listener);
-
-			DefaultInteractionID.current = 'flag-enabled';
-			expect(listener).toHaveBeenCalledWith('flag-enabled');
-
-			// Disable flag
-			fg.mockReturnValue(false);
-
-			// Should not notify when flag is disabled
-			DefaultInteractionID.current = 'flag-disabled';
-			expect(listener).toHaveBeenCalledTimes(1); // Should not increase
-
-			// Re-enable flag
-			fg.mockReturnValue(true);
-
-			// Should notify again when flag is re-enabled
-			DefaultInteractionID.current = 'flag-re-enabled';
-			expect(listener).toHaveBeenCalledWith('flag-re-enabled');
-			expect(listener).toHaveBeenCalledTimes(2);
-
-			unsubscribe();
-		});
-
-		it('should handle subscription when flag is disabled', () => {
-			fg.mockReturnValue(false);
-
-			const listener = jest.fn();
-			const unsubscribe = subscribeToInteractionIdChanges(listener);
-
-			// Should return a no-op function
-			expect(typeof unsubscribe).toBe('function');
-
-			// Should not throw when called
-			expect(() => unsubscribe()).not.toThrow();
-
-			// Value changes should not notify
-			DefaultInteractionID.current = 'no-flag-test';
-			expect(listener).not.toHaveBeenCalled();
 		});
 	});
 });

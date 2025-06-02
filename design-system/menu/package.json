@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "8.0.0",
+	"version": "8.0.1",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,8 +43,6 @@
 	"dependencies": {
 		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/css": "workspace:^",
-		"@atlaskit/ds-lib": "workspace:^",
-		"@atlaskit/focus-ring": "workspace:^",
 		"@atlaskit/interaction-context": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -63,6 +61,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-file-type": "workspace:^",
 		"@atlaskit/icon-object": "workspace:^",

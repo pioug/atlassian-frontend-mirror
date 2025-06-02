@@ -21,16 +21,10 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../css/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../ds-lib/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../layering/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../link/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"

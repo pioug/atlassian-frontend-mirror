@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Текст для відображення',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Нещодавно переглянуті',
   'fabric.linkPicker.listTitle.results': 'Результати',
+  'fabric.linkPicker.noEmbed':
+    'Це посилання не підтримує вбудоване подання. <a>Дізнайтеся більше про причини невідображення вмісту за певними смарт-посиланнями.</a>',
   'fabric.linkPicker.search.error.description':
     'Якщо помилка виникатиме знову, оновіть сторінку або зверніться до <a>служби підтримки Atlassian</a>.',
   'fabric.linkPicker.search.error.heading': 'Не вдається завантажити дані.',

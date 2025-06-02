@@ -134,6 +134,7 @@ export default {
   'fabric.linking.read_time': '阅读预计用时：{context} 分钟',
   'fabric.linking.related': '相关',
   'fabric.linking.related_links_found_in': '发现位置：',
+  'fabric.linking.related_links_found_in_v2': '发现位置：',
   'fabric.linking.related_links_includes_links_to': '包含以下链接：',
   'fabric.linking.related_links_includes_links_to_v2': '包含以下链接',
   'fabric.linking.related_links_modal_error_description': '请检查您的连接或刷新页面以重试',

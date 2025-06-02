@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Tekst om te tonen',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Recent bekeken',
   'fabric.linkPicker.listTitle.results': 'Resultaten',
+  'fabric.linkPicker.noEmbed':
+    'De insluitweergave wordt niet ondersteund voor deze link. <a>Meer informatie over waarom sommige Smart Links geen inhoud weergeven.</a>',
   'fabric.linkPicker.search.error.description':
     'Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.',
   'fabric.linkPicker.search.error.heading': 'Er zijn wat problemen met het laden van de gegevens.',

@@ -8,7 +8,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
-import ExpandIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ExpandIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -326,7 +326,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 							aria-expanded={ariaExpanded}
 							aria-haspopup={ariaHasPopup}
 							isSelected={isLocalOpen}
-							iconAfter={ExpandIcon}
+							iconAfter={(iconProps) => <ExpandIcon {...iconProps} size="small" />}
 							onClick={handleTriggerClicked}
 							testId={testId && `${testId}--trigger`}
 							aria-label={label}

@@ -13,6 +13,8 @@ import { token } from '@atlaskit/tokens';
 import { getDefaultCardDimensions } from '../../../utils/cardDimensions';
 import { getCSSUnitValue } from '../../../utils/getCSSUnitValue';
 import { type Breakpoint } from '../common';
+import { fg } from '@atlaskit/platform-feature-flags';
+import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 
 const LOCAL_WIDTH_VARIABLE = '--media-wrapper-width';
 const LOCAL_HEIGHT_VARIABLE = '--media-wrapper-height';
@@ -185,6 +187,9 @@ export const Wrapper = (props: WrapperProps) => {
 			onMouseEnter={onMouseEnter}
 			{...VcMediaWrapperProps}
 		>
+			{fg('platform_media_add_ufo_custom_data') ? (
+				<UFOCustomData data={{ hasMediaComponent: true }} />
+			) : null}
 			{props.children}
 		</div>
 	);

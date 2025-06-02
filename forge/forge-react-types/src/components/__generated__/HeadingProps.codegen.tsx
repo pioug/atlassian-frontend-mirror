@@ -3,21 +3,21 @@
  *
  * Extract component prop types from UIKit 2 components - HeadingProps
  *
- * @codegen <<SignedSource::c2e29c89ead70009a792cea03271e9c4>>
+ * @codegen <<SignedSource::0edc0326125b06e6a1280e81282d048d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/heading/__generated__/index.partial.tsx <<SignedSource::96b99b296364dce930bb91174b226eaa>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/heading/__generated__/index.partial.tsx <<SignedSource::c7fa27d57c7e5695728bcfa2ffa634f9>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
 import type { HeadingProps as PlatformHeadingProps } from '@atlaskit/heading';
 
 type Sizes = 'xxlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall' | 'xxsmall';
-type TemporaryColors = 'default' | 'inverse';
-type NewColors = 'color.text' | 'color.text.inverse' | 'color.text.warning.inverse';
 
-export type HeadingProps = Pick<PlatformHeadingProps, 'children' | 'id' | 'testId' | 'as'> & {
+export type HeadingProps = Pick<
+	PlatformHeadingProps,
+	'children' | 'id' | 'testId' | 'as' | 'color'
+> & {
 	size?: Sizes;
-	color?: NewColors | TemporaryColors;
 };
 
 /**

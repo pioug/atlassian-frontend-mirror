@@ -144,6 +144,7 @@ export default {
   'fabric.linking.read_time': 'Время чтения: {context} мин.',
   'fabric.linking.related': 'Связанное',
   'fabric.linking.related_links_found_in': 'Упоминается в:',
+  'fabric.linking.related_links_found_in_v2': 'Найдено в:',
   'fabric.linking.related_links_includes_links_to': 'Содержит ссылки на:',
   'fabric.linking.related_links_includes_links_to_v2': 'Содержит ссылки на:',
   'fabric.linking.related_links_modal_error_description':

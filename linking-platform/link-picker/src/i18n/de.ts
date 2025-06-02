@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Text zum Anzeigen',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Kürzlich angesehen',
   'fabric.linkPicker.listTitle.results': 'Ergebnisse',
+  'fabric.linkPicker.noEmbed':
+    'Die eingebettete Ansicht wird für diesen Link nicht unterstützt. <a>Weitere Informationen dazu, warum manche intelligente Links keinen Inhalt anzeigen</a>',
   'fabric.linkPicker.search.error.description':
     'Laden Sie die Seite erneut oder wenden Sie sich an den <a>Atlassian Support</a>, falls das Problem weiterhin besteht.',
   'fabric.linkPicker.search.error.heading': 'Beim Laden dieser Daten ist ein Problem aufgetreten.',

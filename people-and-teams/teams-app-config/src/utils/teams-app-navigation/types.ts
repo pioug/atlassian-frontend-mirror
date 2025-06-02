@@ -58,28 +58,28 @@ export type NavigationActionKudos = {
 	kudosId: string;
 };
 
-export type NavigationAction = NavigationActionCommon &
-	(
-		| {
-				type: 'LANDING' | 'DIRECTORY';
-		  }
-		| {
-				type: 'USER';
-				payload: NavigationActionUser;
-		  }
-		| {
-				type: 'TEAM';
-				payload: NavigationActionTeam;
-		  }
-		| {
-				type: 'AGENT';
-				payload: NavigationActionAgent;
-		  }
-		| {
-				type: 'KUDOS';
-				payload: NavigationActionKudos;
-		  }
-	);
+export type NavigationActionPayloadVariants =
+	| {
+			type: 'LANDING' | 'DIRECTORY';
+	  }
+	| {
+			type: 'USER';
+			payload: NavigationActionUser;
+	  }
+	| {
+			type: 'TEAM';
+			payload: NavigationActionTeam;
+	  }
+	| {
+			type: 'AGENT';
+			payload: NavigationActionAgent;
+	  }
+	| {
+			type: 'KUDOS';
+			payload: NavigationActionKudos;
+	  };
+
+export type NavigationAction = NavigationActionCommon & NavigationActionPayloadVariants;
 
 export type NavigationResult = {
 	onNavigate: (e?: React.MouseEvent | React.KeyboardEvent) => void;

@@ -146,10 +146,7 @@ export default function LoadHoldInteractionIdTrackingExample() {
 
 				<div css={infoStyle}>
 					<p>
-						This example demonstrates how UFOLoadHold components react to interaction ID changes
-						when the <code>platform_ufo_hold_cross_interaction</code> feature flag is enabled.
-					</p>
-					<p>
+						This example demonstrates how UFOLoadHold components react to interaction ID changes.
 						When a new UFO interaction is started using <code>traceUFOInteraction</code>,
 						UFOLoadHold components will automatically call their hold function again, ensuring they
 						participate in the new interaction.
@@ -184,11 +181,6 @@ export default function LoadHoldInteractionIdTrackingExample() {
 							Notice how UFOLoadHold components automatically participate in the new interaction
 						</li>
 					</ol>
-					<p>
-						<strong>Note:</strong> This behavior only works when the feature flag
-						<code>platform_ufo_hold_cross_interaction</code> is enabled. When disabled, UFOLoadHold
-						components will not react to interaction ID changes.
-					</p>
 				</div>
 			</div>
 		</UFOSegment>

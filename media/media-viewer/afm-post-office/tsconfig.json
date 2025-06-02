@@ -27,6 +27,9 @@
 			"path": "../../../design-system/code/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/form/afm-post-office/tsconfig.json"
 		},
 		{

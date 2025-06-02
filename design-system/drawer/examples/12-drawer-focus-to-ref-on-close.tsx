@@ -5,16 +5,19 @@
 
 import { type SyntheticEvent, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Drawer from '@atlaskit/drawer';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const containerStyles = css({
-	padding: token('space.200', '16px'),
+const containerStyles = cssMap({
+	root: {
+		paddingTop: token('space.200', '16px'),
+		paddingRight: token('space.200', '16px'),
+		paddingBottom: token('space.200', '16px'),
+		paddingLeft: token('space.200', '16px'),
+	},
 });
 
 export default () => {
@@ -35,7 +38,7 @@ export default () => {
 	const onOpenComplete = (args: any) => console.log('onOpenComplete', args);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<Drawer
 				onClose={onClose}
 				onCloseComplete={onCloseComplete}

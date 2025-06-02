@@ -12,7 +12,7 @@ import Form, {
 	FormSection,
 	RequiredAsterisk,
 } from '@atlaskit/form';
-import { Box, Flex } from '@atlaskit/primitives';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { RadioGroup } from '@atlaskit/radio';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';

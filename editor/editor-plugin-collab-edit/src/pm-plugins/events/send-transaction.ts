@@ -44,7 +44,9 @@ export const sendTransaction =
 			return;
 		}
 
-		const newTransaction = editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)
+		const newTransaction = editorExperiment('platform_editor_reduce_noisy_steps_ncs', true, {
+			exposure: true,
+		})
 			? trNoAnalytics
 			: docChangedTransaction;
 

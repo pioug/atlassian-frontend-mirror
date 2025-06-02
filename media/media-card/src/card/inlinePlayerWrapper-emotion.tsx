@@ -7,6 +7,8 @@ import { jsx } from '@emotion/react';
 import { type InlinePlayerWrapperProps } from './types';
 import { inlinePlayerWrapperStyles, inlinePlayerClassName } from './inlinePlayerWrapperStyles';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+import UFOCustomData from '@atlaskit/react-ufo/custom-data';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 	const { testId, selected, dimensions, onClick, innerRef } = props;
@@ -26,6 +28,9 @@ export const InlinePlayerWrapper = (props: InlinePlayerWrapperProps) => {
 			ref={innerRef}
 			{...VcMediaWrapperProps}
 		>
+			{fg('platform_media_add_ufo_custom_data') ? (
+				<UFOCustomData data={{ hasMediaComponent: true }} />
+			) : null}
 			{props.children}
 		</div>
 	);

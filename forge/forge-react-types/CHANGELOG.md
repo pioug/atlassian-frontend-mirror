@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.42.0
+
+### Minor Changes
+
+- [#163500](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163500)
+  [`130f9d3d1f5f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/130f9d3d1f5f0) -
+  Clean up color prop mapping in UI Kit Heading Component
+
 ## 0.41.25
 
 ### Patch Changes

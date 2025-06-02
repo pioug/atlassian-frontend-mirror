@@ -4,10 +4,11 @@ import type {
 	RevisionPayloadEntry,
 	RevisionPayloadVCDetails,
 	VCAbortReason,
+	VCRatioType,
 } from '../../../common/vc/types';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
 
-import { calculateTTVCPercentiles, calculateTTVCPercentilesWithDebugInfo } from './percentile-calc';
+import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc';
 import type { PercentileCalcResult } from './percentile-calc/types';
 import type { VCCalculator, VCCalculatorParam } from './types';
 import getViewportHeight from './utils/get-viewport-height';
@@ -43,25 +44,34 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		});
 	}
 
-	private async calculateBasic(
-		filteredEntries: ReadonlyArray<VCObserverEntry>,
-		startTime: number,
-		stopTime: number,
-	): Promise<RevisionPayloadVCDetails> {
-		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99];
-		const viewportEntries = this.filterViewportEntries(filteredEntries);
-		const vcLogs = await calculateTTVCPercentiles({
-			viewport: {
-				width: getViewportWidth(),
-				height: getViewportHeight(),
-			},
-			startTime,
-			stopTime,
-			orderedEntries: viewportEntries,
-			percentiles,
-		});
+	/**
+	 * Calculate ratios for each element based on their viewport coverage.
+	 */
+	private calculateRatios(filteredEntries: ReadonlyArray<VCObserverEntry>): VCRatioType {
+		const ratios: VCRatioType = {};
+		const viewportWidth = getViewportWidth();
+		const viewportHeight = getViewportHeight();
+		const totalViewportArea = viewportWidth * viewportHeight;
 
-		return vcLogs;
+		if (totalViewportArea === 0) {
+			return ratios;
+		}
+
+		const elementRects = new Map<string, DOMRect>();
+
+		for (const entry of filteredEntries) {
+			if ('rect' in entry.data) {
+				const viewportEntry = entry.data as ViewportEntryData;
+				elementRects.set(viewportEntry.elementName, viewportEntry.rect);
+			}
+		}
+
+		for (const [elementName, rect] of elementRects) {
+			const elementArea = rect.width * rect.height;
+			ratios[elementName] = elementArea / totalViewportArea;
+		}
+
+		return ratios;
 	}
 
 	private async calculateWithDebugInfo(
@@ -139,8 +149,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			!isPostInteraction &&
 			typeof window !== 'undefined' &&
 			typeof (window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__ ===
-				'function' &&
-			fg('platform_ufo_ttvc_v3_devtool')
+				'function'
 		) {
 			try {
 				(window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__?.({
@@ -186,24 +195,27 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			};
 		}
 
-		const useDebugInfo = fg('platform_ufo_ttvc_v3_devtool');
-		const vcDetails = useDebugInfo
-			? await this.calculateWithDebugInfo(
-					filteredEntries,
-					startTime,
-					stopTime,
-					isPostInteraction,
-					isVCClean,
-					interactionId,
-					dirtyReason,
-				)
-			: await this.calculateBasic(filteredEntries, startTime, stopTime);
+		const vcDetails = await this.calculateWithDebugInfo(
+			filteredEntries,
+			startTime,
+			stopTime,
+			isPostInteraction,
+			isVCClean,
+			interactionId,
+			dirtyReason,
+		);
 
-		return {
+		const result: RevisionPayloadEntry = {
 			revision: this.revisionNo,
 			clean: true,
 			'metric:vc90': vcDetails?.['90']?.t ?? null,
 			vcDetails: vcDetails ?? undefined,
 		};
+
+		if (fg('platform_ufo_rev_ratios')) {
+			result.ratios = this.calculateRatios(filteredEntries);
+		}
+
+		return result;
 	}
 }

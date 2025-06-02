@@ -1,13 +1,21 @@
 import React from 'react';
 
-import { mount } from 'enzyme';
+import { render, screen, within } from '@testing-library/react';
 
-import { Field } from '@atlaskit/form';
-import TextArea from '@atlaskit/textarea';
-
-import { CommentField, type Props } from '../../../components/CommentField';
+import { CommentField } from '../../../components/CommentField';
 import { messages } from '../../../i18n';
 import { type Comment } from '../../../types';
+
+const mockUseFormState = jest.fn().mockReturnValue({
+	values: {
+		users: [
+			{
+				id: 'user1',
+				name: 'User One',
+			},
+		],
+	},
+});
 
 jest.mock('react-intl-next', () => {
 	return {
@@ -18,38 +26,75 @@ jest.mock('react-intl-next', () => {
 	};
 });
 
-describe('CommentField', () => {
-	const buildCommentField = (props: Partial<Props> = {}) => {
-		const component = mount(<CommentField {...props} />);
-		const field = component.find(Field);
-		const textArea = field.find(TextArea);
-		return {
-			textArea,
-			field,
-			component,
-		};
+jest.mock('@atlaskit/form', () => {
+	return {
+		...(jest.requireActual('@atlaskit/form') as any),
+		useFormState: () => mockUseFormState(),
 	};
+});
 
+describe('CommentField', () => {
 	it('should render TextField', () => {
-		const { textArea } = buildCommentField();
+		render(<CommentField />);
 
-		expect(textArea).toHaveLength(1);
-		expect(textArea.prop('placeholder')).toEqual(messages.commentPlaceholder.defaultMessage);
-		expect(textArea.prop('onChange')).toBeInstanceOf(Function);
-		expect(textArea.prop('value')).toBe(undefined);
-		expect(textArea.prop('maxLength')).toBe(500);
+		const textArea = screen.getByRole('textbox', { name: messages.commentLabel.defaultMessage });
+
+		expect(textArea).toBeVisible();
+		expect(textArea).toHaveAttribute('placeholder', messages.commentPlaceholder.defaultMessage);
 	});
 
-	it('should set defaultValue and see the change in value for <FieldTextArea />', () => {
+	it('should set defaultValue in the comment field when provided', () => {
 		const defaultValue: Comment = {
 			format: 'plain_text',
 			value: 'some comment',
 		};
-		const { field, textArea } = buildCommentField({ defaultValue });
-		expect(field.props()).toMatchObject({
-			defaultValue,
-			name: 'comment',
+
+		render(<CommentField defaultValue={defaultValue} />);
+
+		const textArea = screen.getByRole('textbox', { name: messages.commentLabel.defaultMessage });
+		const value = within(textArea).getByText('some comment');
+
+		expect(value).toBeVisible();
+	});
+
+	it.each([true, false])(
+		'should render textarea if extended share dialog is disabled and hasUsers = %s',
+		(hasUsers) => {
+			// By default mockUseFormState returns a user
+			if (!hasUsers) {
+				mockUseFormState.mockReturnValueOnce({
+					values: {
+						users: [],
+					},
+				});
+			}
+			render(<CommentField isExtendedShareDialogEnabled={false} />);
+			const textArea = screen.getByRole('textbox', { name: messages.commentLabel.defaultMessage });
+			expect(textArea).toBeVisible();
+		},
+	);
+
+	it('should not render textarea if extended share dialog is enabled and no users are selected', () => {
+		mockUseFormState.mockReturnValueOnce({
+			values: {
+				users: [],
+			},
 		});
-		expect(textArea.prop('value')).toBe('some comment');
+
+		render(<CommentField isExtendedShareDialogEnabled />);
+
+		const textArea = screen.queryByRole('textbox');
+
+		expect(textArea).not.toBeInTheDocument();
+	});
+
+	it('should render textarea if extended share dialog is enabled and users are selected', () => {
+		render(<CommentField isExtendedShareDialogEnabled />);
+
+		const textArea = screen.getByRole('textbox', {
+			name: messages.extendedDialogCommentLabel.defaultMessage,
+		});
+
+		expect(textArea).toBeVisible();
 	});
 });

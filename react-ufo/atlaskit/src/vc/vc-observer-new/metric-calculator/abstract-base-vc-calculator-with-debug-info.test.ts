@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { VCAbortReason } from '../../../common/vc/types';
 import { VCObserverEntry, VCObserverEntryType } from '../types';
 
@@ -8,8 +6,14 @@ import * as calculateTTVCPercentiles from './percentile-calc';
 import * as getViewportHeight from './utils/get-viewport-height';
 import * as getViewportWidth from './utils/get-viewport-width';
 
-jest.mock('@atlaskit/platform-feature-flags');
-const mockFg = fg as jest.Mock;
+// Mock canvas functionality for tests
+jest.mock('./percentile-calc/canvas-heatmap/canvas-pixel', () => ({
+	ViewportCanvas: jest.fn().mockImplementation(() => ({
+		drawRect: jest.fn(),
+		getPixelCounts: jest.fn().mockResolvedValue(new Map()),
+		getScaledDimensions: jest.fn().mockReturnValue({ width: 100, height: 100 }),
+	})),
+}));
 
 // Create a concrete implementation for testing
 class TestVCCalculator extends AbstractVCCalculatorBase {
@@ -33,12 +37,6 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 		calculator = new TestVCCalculator('test-revision');
 		jest.spyOn(getViewportWidth, 'default').mockReturnValue(1024);
 		jest.spyOn(getViewportHeight, 'default').mockReturnValue(768);
-		mockFg.mockImplementation((key) => {
-			if (key === 'platform_ufo_ttvc_v3_devtool') {
-				return true;
-			}
-			return false;
-		});
 	});
 
 	afterEach(() => {
@@ -120,13 +118,6 @@ describe('AbstractVCCalculatorBase WithDebugInfo', () => {
 	});
 
 	it('should handle unclean status with abort reason', async () => {
-		mockFg.mockImplementation((key) => {
-			if (key === 'platform_ufo_ttvc_v3_devtool') {
-				return true;
-			}
-			return false;
-		});
-
 		const mockCalculator = new (class extends AbstractVCCalculatorBase {
 			protected isEntryIncluded() {
 				return true;

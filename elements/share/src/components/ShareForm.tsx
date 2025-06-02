@@ -173,10 +173,12 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 			<AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
 				<form {...formProps}>
 					{showTitle && <ShareHeader title={title} />}
-					<div css={requiredFieldInfoStyles}>
-						<FormattedMessage {...messages.requiredFieldSummary} />
-						<RequiredAsterisk />
-					</div>
+					{!isExtendedShareDialogEnabled && (
+						<div css={requiredFieldInfoStyles}>
+							<FormattedMessage {...messages.requiredFieldSummary} />
+							<RequiredAsterisk />
+						</div>
+					)}
 					<div css={formFieldStyles}>
 						{isExtendedShareDialogEnabled ? (
 							<Inline space="space.100">
@@ -200,6 +202,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 										shareError={shareError}
 										userPickerOptions={userPickerOptions}
 										productAttributes={productAttributes}
+										isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 									/>
 								</Box>
 								{additionalUserFields}
@@ -224,11 +227,15 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 								shareError={shareError}
 								userPickerOptions={userPickerOptions}
 								productAttributes={productAttributes}
+								isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 							/>
 						)}
 					</div>
 					<div css={formFieldStyles}>
-						<CommentField defaultValue={defaultValue && defaultValue.comment} />
+						<CommentField
+							defaultValue={defaultValue && defaultValue.comment}
+							isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
+						/>
 					</div>
 					{fieldsFooter}
 					<div css={formFooterStyles} data-testid="form-footer">

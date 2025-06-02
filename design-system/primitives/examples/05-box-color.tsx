@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const backgroundColors = [
 	'color.background.disabled',
@@ -36,9 +34,8 @@ const backgroundColorsInverse = [
 	'color.background.information.bold',
 ] as const;
 
-const styles = cssMap({
-	default: { color: token('color.text') },
-	inverse: { color: token('color.text.inverse') },
+const inverseStyles = xcss({
+	color: 'color.text.inverse',
 });
 
 export default () => {
@@ -53,7 +50,7 @@ export default () => {
 						</Box>
 					))}
 					{backgroundColorsInverse.map((color) => (
-						<Box key={color} backgroundColor={color} padding="space.400" xcss={styles.inverse}>
+						<Box key={color} backgroundColor={color} padding="space.400" xcss={inverseStyles}>
 							<Box>{color}</Box>
 						</Box>
 					))}

@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 79.3.3
+
+### Patch Changes
+
+- [#162842](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162842)
+  [`d51dcb8ef3350`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d51dcb8ef3350) -
+  Add UFOCustomData to indicate existence of media component in performance metrics
+- Updated dependencies
+
 ## 79.3.2
 
 ### Patch Changes

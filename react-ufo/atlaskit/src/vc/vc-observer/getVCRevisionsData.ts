@@ -1,5 +1,7 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { InteractionMetrics } from '../../common/common/types';
-import type { RevisionPayload } from '../../common/vc/types';
+import type { RevisionPayload, RevisionPayloadEntry, VCRatioType } from '../../common/vc/types';
 import { isVCRevisionEnabled } from '../../config';
 import { getPageVisibilityState } from '../../hidden-timing';
 
@@ -44,6 +46,7 @@ export function getVCRevisionsData({
 	calculatedVC,
 	calculatedVCNext,
 	experienceKey,
+	ratios,
 }: {
 	fullPrefix?: string;
 	interaction: Pick<InteractionMetrics, 'start' | 'end'>;
@@ -52,6 +55,7 @@ export function getVCRevisionsData({
 	calculatedVC: CalculatedVC;
 	calculatedVCNext: CalculatedVC;
 	experienceKey: string;
+	ratios: VCRatioType;
 }) {
 	const pageVisibilityUpToTTAI = getPageVisibilityState(interaction.start, interaction.end);
 	const isVisiblePageVisibleUpToTTAI = pageVisibilityUpToTTAI === 'visible';
@@ -60,21 +64,33 @@ export function getVCRevisionsData({
 	const availableVCRevisionPayloads: RevisionPayload = [];
 
 	if (isVCRevisionEnabled('fy25.01', experienceKey)) {
-		availableVCRevisionPayloads.push({
+		const revision: RevisionPayloadEntry = {
 			revision: 'fy25.01',
 			clean: isVCClean,
 			'metric:vc90': shouldHaveVCmetric ? calculatedVC.VC['90'] : null,
 			vcDetails: createVCDetails(calculatedVC, shouldHaveVCmetric),
-		});
+		};
+
+		if (shouldHaveVCmetric && fg('platform_ufo_rev_ratios')) {
+			revision.ratios = ratios;
+		}
+
+		availableVCRevisionPayloads.push(revision);
 	}
 
 	if (isVCRevisionEnabled('fy25.02', experienceKey)) {
-		availableVCRevisionPayloads.push({
+		const revision: RevisionPayloadEntry = {
 			revision: 'fy25.02',
 			clean: isVCClean,
 			'metric:vc90': shouldHaveVCmetric ? calculatedVCNext.VC['90'] : null,
 			vcDetails: createVCDetails(calculatedVCNext, shouldHaveVCmetric),
-		});
+		};
+
+		if (shouldHaveVCmetric && fg('platform_ufo_rev_ratios')) {
+			revision.ratios = ratios;
+		}
+
+		availableVCRevisionPayloads.push(revision);
 	}
 
 	return {

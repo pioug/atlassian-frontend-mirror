@@ -185,4 +185,9 @@ export type InlineCommentPluginState = {
 	 * if the pendingSelectedAnnotations has been updated since the last time it was flushed to selectedAnnotations.
 	 */
 	pendingSelectedAnnotationsUpdateCount: number;
+
+	/**
+	 * A simple toggle to indicate if the annotation manager is enabled.
+	 */
+	isAnnotationManagerEnabled: boolean;
 };

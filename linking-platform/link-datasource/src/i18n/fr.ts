@@ -9,7 +9,7 @@
 export default {
   'linkDataSource.accessInstructions': "Pour demander accès, contactez l'administrateur de votre site.",
   'linkDataSource.accessRequired': "Vous n'avez pas accès à ce contenu",
-  'linkDataSource.accessRequiredWithSite': "Vous n'avez pas accès au site suivant :",
+  'linkDataSource.accessRequiredWithSite': "Vous n'avez pas accès à",
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Aide syntaxique',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Rechercher via AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Sélectionner un schéma',
@@ -17,24 +17,38 @@ export default {
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Un schéma est requis',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
     'En savoir plus sur la recherche AQL',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLinkOld':
+    'En savoir plus sur la recherche AQL',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Commencez à taper ou à utiliser AQL pour effectuer une recherche.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': "Recherche d'objets",
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    "Rechercher des objets ou des types d'objet",
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': "Recherche d'objets",
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Insérer un objet} other {Insérer des objets}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Insérer des objets à partir de',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Mettre à jour le tableau',
   'linkDataSource.basic-filter.assignee.label': 'Assigné(e)',
+  'linkDataSource.basic-filter.assignee.searchPlaceholder': 'Rechercher une personne assignée',
   'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Non assigné',
   'linkDataSource.basic-filter.dropdown.select.placeholder': 'Rechercher',
-  'linkDataSource.basic-filter.error-message': 'Une erreur est survenue',
+  'linkDataSource.basic-filter.error-description': 'Vérifiez votre connexion et actualisez',
+  'linkDataSource.basic-filter.errorMessage': 'Nous avons rencontré un problème en essayant de charger les résultats',
+  'linkDataSource.basic-filter.errorMessageOld': "Une erreur s'est produite",
   'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} sur {totalCount}',
   'linkDataSource.basic-filter.loading-message': 'Chargement…',
-  'linkDataSource.basic-filter.no-options-message': 'Résultats introuvables',
+  'linkDataSource.basic-filter.no-options-description': 'Réessayez avec un autre terme.',
+  'linkDataSource.basic-filter.no-options-message':
+    "Nous n'avons trouvé aucun résultat correspondant à votre recherche",
+  'linkDataSource.basic-filter.no-options-message-old': 'Résultats introuvables',
   'linkDataSource.basic-filter.project.label': 'Projet',
+  'linkDataSource.basic-filter.project.searchPlaceholder': 'Rechercher des projets',
   'linkDataSource.basic-filter.showMoreButton': 'Afficher plus',
   'linkDataSource.basic-filter.status.label': 'État',
-  'linkDataSource.basic-filter.type.label': 'Type',
+  'linkDataSource.basic-filter.status.searchPlaceholder': 'Rechercher un état',
+  'linkDataSource.basic-filter.type.label': 'Type de ticket',
+  'linkDataSource.basic-filter.type.labelOld': 'Type',
+  'linkDataSource.basic-filter.type.searchPlaceholder': 'Rechercher un type de ticket',
   'linkDataSource.checkConnection': 'Vérifiez votre connexion et actualisez, ou réessayez plus tard.',
   'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Modifié ou créé par',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Votre recherche a renvoyé trop de résultats.',
@@ -44,6 +58,8 @@ export default {
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Rechercher des tickets par mot clé',
   'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Rechercher des tickets par mot clé',
   'linkDataSource.configmodal.cancelButtonText': 'Annuler',
+  'linkDataSource.confluence-search.checkConnectionWithSource':
+    'Vérifiez votre connexion et actualisez, ou <a>ouvrez ce projet dans Confluence</a> pour examen.',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annuler',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'après {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': "N'importe quand",
@@ -94,16 +110,25 @@ export default {
     'Nous rencontrons des difficultés pour récupérer les options',
   'linkDataSource.issue-line-table.unwrap-text': 'Ne pas revenir à la ligne',
   'linkDataSource.issue-line-table.wrap-text': 'Revenir à la ligne',
+  'linkDataSource.jira-issues.accessRequiredWithSiteOld': "Vous n'avez pas accès au site suivant :",
+  'linkDataSource.jira-issues.checkConnection.confluence':
+    'Vérifiez votre connexion et actualisez, ou <a>ouvrez cette recherche dans Confluence</a> pour examen.',
+  'linkDataSource.jira-issues.checkConnection.jira':
+    'Vérifiez votre connexion et actualisez, ou <a>ouvrez cette recherche dans Jira</a> pour examen.',
   'linkDataSource.checkConnectionWithSource':
     'Vérifiez votre connexion et actualisez, ou <a>ouvrez cette requête dans Jira</a> pour revue.',
+  'linkDataSource.jira-issues.checkConnectionWithSource.visual-refresh-sllv':
+    'Vérifiez votre connexion et actualisez, ou <a>ouvrez ce projet dans Jira</a> pour examen.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Vous ne pouvez pas passer en mode De base pour cette requête.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'De base',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Rechercher des tickets par mot clé',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Choisissez un site',
+  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Choisissez un site',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insérer des tickets',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Insérer des tickets',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Insérer les résultats',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insérer des tickets Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Insérer des tickets Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insérer des tickets Jira à partir de',
@@ -112,25 +137,37 @@ export default {
   'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### tickets',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Affichez le nombre de résultats de recherche sous forme de lien intelligent contextuel',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescriptionOld':
+    'Affichez le nombre de résultats de recherche sous forme de lien intelligent contextuel',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Lien contextuel',
   'linkDataSource.jira-issues.configmodal.viewModeListDescription':
+    'Affichez le nombre de résultats de recherche sous forme de liste',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescriptionOld':
     'Affichez les résultats de recherche sous forme de liste',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Liste',
-  'linkDataSource.jira-issues.learnMoreLink': 'En savoir plus sur la recherche avec JQL',
+  'linkDataSource.jira-issues.learnMoreLink': 'En savoir plus sur la recherche JQL',
   'linkDataSource.no.jira.sites.access.description': "Pour demander l'accès, contactez votre administrateur.",
   'linkDataSource.no.jira.sites.access.title': "Vous n'avez accès à aucun site Jira",
   'linkDataSource.noResultsFound': 'Résultat introuvable',
+  'linkDataSource.jira-issues.noResultsFound.description': 'Réessayez avec un autre terme.',
+  'linkDataSource.jira-issues.noResultsFoundOld': 'Résultat introuvable',
   'linkDataSource.refresh': 'Actualiser',
   'linkDataSource.jira-issues.searchDescription-basic': 'Recherchez des tickets à insérer par mot clé.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Utilisez JQL (Jira Query Language) pour rechercher des tickets.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Rechercher des tickets Jira',
   'linkDataSource.unableToLoadItems': 'Chargement de certains éléments impossible',
   'linkDataSource.unableToLoadResults': 'Impossible de charger les résultats',
+  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
+    'Nous avons rencontré un problème en essayant de récupérer les résultats',
+  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Impossible de charger les résultats',
   'linkDataSource.modal-initial-state.beta': 'Bêta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Rechercher des pages Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Rechercher des tickets Jira',
+  'linkDataSource.modal-initial-state.learnMoreLinkOld': 'En savoir plus sur la recherche avec JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Recherchez des tickets à insérer par mot clé.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+    'Commencez à taper ou à utiliser JQL pour effectuer une recherche.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Recherchez des pages à insérer par mot clé.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Utilisez JQL (Jira Query Language) pour rechercher des tickets.',

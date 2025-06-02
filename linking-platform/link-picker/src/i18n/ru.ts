@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Текст для отображения',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Недавно просмотренные',
   'fabric.linkPicker.listTitle.results': 'Результаты',
+  'fabric.linkPicker.noEmbed':
+    'Эта ссылка не поддерживает встроенное представление. <a>Подробнее о том, почему в некоторых интеллектуальных ссылках не отображается контент.</a>',
   'fabric.linkPicker.search.error.description':
     'Обновите страницу или обратитесь в <a>поддержку Atlassian</a>, если проблема возникнет снова.',
   'fabric.linkPicker.search.error.heading': 'При загрузке данных произошла ошибка.',

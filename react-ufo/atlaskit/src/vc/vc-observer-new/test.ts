@@ -399,16 +399,8 @@ describe('VCObserverNew', () => {
 		});
 	});
 
-	describe('addStartEntry feature gate', () => {
-		it('should add START entry when platform_ufo_v3_add_start_entry feature flag is enabled', async () => {
-			// Enable the feature flag
-			(fg as jest.Mock).mockImplementation((flag: string) => {
-				if (flag === 'platform_ufo_v3_add_start_entry') {
-					return true;
-				}
-				return false;
-			});
-
+	describe('addStartEntry', () => {
+		it('should add START entry', async () => {
 			const startTime = 123.456;
 			const stopTime = 500;
 
@@ -447,50 +439,7 @@ describe('VCObserverNew', () => {
 			});
 		});
 
-		it('should NOT add START entry when platform_ufo_v3_add_start_entry feature flag is disabled', async () => {
-			// Disable the feature flag
-			(fg as jest.Mock).mockImplementation((flag: string) => {
-				if (flag === 'platform_ufo_v3_add_start_entry') {
-					return false;
-				}
-				return false;
-			});
-
-			const startTime = 123.456;
-			const stopTime = 500;
-
-			// Mock calculator to return a result
-			(VCCalculator_FY25_03.prototype.calculate as jest.Mock).mockResolvedValue({
-				revision: 'fy25.03',
-				clean: true,
-				'metric:vc90': 100,
-			});
-
-			await vcObserver.getVCResult({
-				start: startTime,
-				stop: stopTime,
-				interactionId: 'test-interaction-id',
-			});
-
-			// Verify NO START entry was added to the timeline
-			expect(mockEntriesTimeline.push).not.toHaveBeenCalledWith(
-				expect.objectContaining({
-					data: expect.objectContaining({
-						elementName: 'START',
-					}),
-				}),
-			);
-		});
-
 		it('should create START entry with correct DOMRect structure', async () => {
-			// Enable the feature flag
-			(fg as jest.Mock).mockImplementation((flag: string) => {
-				if (flag === 'platform_ufo_v3_add_start_entry') {
-					return true;
-				}
-				return false;
-			});
-
 			// Mock window dimensions
 			Object.defineProperty(window, 'innerWidth', { value: 1920, writable: true });
 			Object.defineProperty(window, 'innerHeight', { value: 1080, writable: true });
@@ -547,14 +496,6 @@ describe('VCObserverNew', () => {
 		});
 
 		it('should add START entry before getOrderedEntries is called', async () => {
-			// Enable the feature flag
-			(fg as jest.Mock).mockImplementation((flag: string) => {
-				if (flag === 'platform_ufo_v3_add_start_entry') {
-					return true;
-				}
-				return false;
-			});
-
 			const startTime = 100;
 			const stopTime = 500;
 

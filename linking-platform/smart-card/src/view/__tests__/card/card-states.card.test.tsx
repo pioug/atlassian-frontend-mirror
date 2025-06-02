@@ -125,11 +125,12 @@ describe('smart-card: card states, block', () => {
 
 			expect(isGlancePanelAvailable).toHaveBeenCalledWith({
 				ari: 'ari:cloud:example:1234',
-				url: mockUrl,
 			});
 			expect(openGlancePanel).toHaveBeenCalledWith({
 				ari: 'ari:cloud:example:1234',
 				url: mockUrl,
+				name: 'I love cheese',
+				iconUrl: 'https://www.ilovecheese.com/icon.png',
 			});
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -170,7 +171,6 @@ describe('smart-card: card states, block', () => {
 
 			expect(isGlancePanelAvailable).toHaveBeenCalledWith({
 				ari: 'ari:cloud:example:1234',
-				url: mockUrl,
 			});
 			expect(openGlancePanel).not.toHaveBeenCalled();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
@@ -252,7 +252,6 @@ describe('smart-card: card states, block', () => {
 
 			expect(isGlancePanelAvailable).toHaveBeenCalledWith({
 				ari: 'ari:cloud:example:1234',
-				url: mockUrl,
 			});
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({

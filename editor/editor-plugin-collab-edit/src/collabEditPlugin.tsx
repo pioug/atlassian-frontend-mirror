@@ -189,7 +189,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			const transformUnconfirmed = (steps: LockableRebaseable[]) => {
 				let transformed = steps;
 
-				if (editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)) {
+				if (editorExperiment('platform_editor_reduce_noisy_steps_ncs', true, { exposure: true })) {
 					transformed = filterAnalyticsSteps(transformed);
 				}
 

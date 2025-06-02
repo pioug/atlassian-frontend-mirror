@@ -1,5 +1,35 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.16
+
+### Patch Changes
+
+- [#164300](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164300)
+  [`cd25a7f650fa4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd25a7f650fa4) -
+  AFO-3919 cleanup platform_ufo_hold_cross_interaction
+
+## 3.13.15
+
+### Patch Changes
+
+- [#164015](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164015)
+  [`80c4ba68b4085`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80c4ba68b4085) -
+  AFO-3362 cleanup platform_ufo_ttvc_v3_devtool fg
+- [#164070](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164070)
+  [`a5066408a954b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5066408a954b) -
+  AFO-3913 clean up platform_ufo_v3_add_start_entry
+
+## 3.13.14
+
+### Patch Changes
+
+- [#163414](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163414)
+  [`7d52256cb4dbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d52256cb4dbd) -
+  AFO-3910 ufo:vc:rev to have ratios
+- [#164039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164039)
+  [`94c4e7a609b45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94c4e7a609b45) -
+  AFO-3905 clean up fg platform_ufo_ignore_non_vis_attributes
+
 ## 3.13.13
 
 ### Patch Changes

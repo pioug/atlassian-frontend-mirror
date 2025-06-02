@@ -11,6 +11,15 @@ import * as getViewportWidth from './utils/get-viewport-width';
 jest.mock('@atlaskit/platform-feature-flags');
 const mockFg = fg as jest.Mock;
 
+// Mock canvas functionality for tests
+jest.mock('./percentile-calc/canvas-heatmap/canvas-pixel', () => ({
+	ViewportCanvas: jest.fn().mockImplementation(() => ({
+		drawRect: jest.fn(),
+		getPixelCounts: jest.fn().mockResolvedValue(new Map()),
+		getScaledDimensions: jest.fn().mockReturnValue({ width: 100, height: 100 }),
+	})),
+}));
+
 // Create a concrete implementation for testing
 class TestVCCalculator extends AbstractVCCalculatorBase {
 	protected isEntryIncluded(entry: VCObserverEntry): boolean {
@@ -33,12 +42,6 @@ describe('AbstractVCCalculatorBase V1', () => {
 		calculator = new TestVCCalculator('test-revision');
 		jest.spyOn(getViewportWidth, 'default').mockReturnValue(1024);
 		jest.spyOn(getViewportHeight, 'default').mockReturnValue(768);
-		mockFg.mockImplementation((key) => {
-			if (key === 'platform_ufo_ttvc_v3_devtool') {
-				return false;
-			}
-			return false;
-		});
 	});
 
 	afterEach(() => {
@@ -76,19 +79,42 @@ describe('AbstractVCCalculatorBase V1', () => {
 	});
 
 	it('should calculate metrics when entries are valid', async () => {
-		const mockCalcResult = {
-			'25': { t: 100, e: ['div1', 'div2'] },
-			'50': { t: 100, e: ['div1', 'div2'] },
-			'75': { t: 100, e: ['div1', 'div2'] },
-			'80': { t: 100, e: ['div1', 'div2'] },
-			'85': { t: 100, e: ['div1', 'div2'] },
-			'90': { t: 100, e: ['div1', 'div2'] },
-			'95': { t: 200, e: ['div3'] },
-			'98': { t: 200, e: ['div3'] },
-			'99': { t: 200, e: ['div3'] },
-		};
+		const mockCalcResult = [
+			{
+				time: 100,
+				viewportPercentage: 90,
+				entries: [
+					{
+						type: 'mutation:element' as const,
+						elementName: 'div1',
+						rect: new DOMRect(),
+						visible: true,
+					},
+					{
+						type: 'mutation:element' as const,
+						elementName: 'div2',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				],
+			},
+			{
+				time: 200,
+				viewportPercentage: 95,
+				entries: [
+					{
+						type: 'mutation:element' as const,
+						elementName: 'div3',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				],
+			},
+		];
 
-		jest.spyOn(percentileCalc, 'calculateTTVCPercentiles').mockResolvedValue(mockCalcResult);
+		jest
+			.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo')
+			.mockResolvedValue(mockCalcResult);
 
 		const mockEntry: VCObserverEntry = {
 			time: 0,
@@ -112,7 +138,17 @@ describe('AbstractVCCalculatorBase V1', () => {
 			revision: 'test-revision',
 			clean: true,
 			'metric:vc90': 100,
-			vcDetails: mockCalcResult,
+			vcDetails: {
+				'25': { t: 100, e: ['div1', 'div2'] },
+				'50': { t: 100, e: ['div1', 'div2'] },
+				'75': { t: 100, e: ['div1', 'div2'] },
+				'80': { t: 100, e: ['div1', 'div2'] },
+				'85': { t: 100, e: ['div1', 'div2'] },
+				'90': { t: 100, e: ['div1', 'div2'] },
+				'95': { t: 200, e: ['div3'] },
+				'98': { t: 200, e: ['div3'] },
+				'99': { t: 200, e: ['div3'] },
+			},
 		});
 	});
 
@@ -150,6 +186,9 @@ describe('AbstractVCCalculatorBase V1', () => {
 			},
 		];
 
+		// Mock the function to return empty result for testing filtering
+		jest.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo').mockResolvedValue([]);
+
 		await mockCalculator.calculate({
 			orderedEntries: entries,
 			startTime: 0,
@@ -158,10 +197,107 @@ describe('AbstractVCCalculatorBase V1', () => {
 			isPostInteraction: false,
 		});
 
-		expect(percentileCalc.calculateTTVCPercentiles).toHaveBeenCalledWith(
+		// Verify that calculateTTVCPercentilesWithDebugInfo was called with only the filtered entries
+		expect(percentileCalc.calculateTTVCPercentilesWithDebugInfo).toHaveBeenCalledWith(
 			expect.objectContaining({
-				orderedEntries: [entries[0]],
+				orderedEntries: [entries[0]], // Only the first entry should be included
 			}),
 		);
+	});
+
+	it('should include ratios when feature flag is enabled', async () => {
+		// Enable the ratios feature flag
+		mockFg.mockImplementation((key) => {
+			if (key === 'platform_ufo_rev_ratios') {
+				return true;
+			}
+			if (key === 'platform_ufo_ttvc_v3_devtool') {
+				return false;
+			}
+			return false;
+		});
+
+		// Mock successful VC calculation
+		jest.spyOn(percentileCalc, 'calculateTTVCPercentiles').mockResolvedValue({
+			'90': { t: 1000, e: ['element1'] },
+		});
+
+		const mockEntries: VCObserverEntry[] = [
+			{
+				time: 100,
+				data: {
+					type: 'mutation:element',
+					elementName: 'element1',
+					rect: { width: 100, height: 50, x: 0, y: 0 } as DOMRect,
+					visible: true,
+				},
+			},
+			{
+				time: 200,
+				data: {
+					type: 'mutation:element',
+					elementName: 'element2',
+					rect: { width: 200, height: 100, x: 0, y: 0 } as DOMRect,
+					visible: true,
+				},
+			},
+		];
+
+		const result = await calculator.calculate({
+			startTime: 0,
+			stopTime: 1000,
+			orderedEntries: mockEntries,
+			isPostInteraction: false,
+		});
+
+		expect(result).toBeDefined();
+		expect(result?.ratios).toBeDefined();
+
+		// Verify ratios are calculated correctly
+		// Total viewport area = 1024 * 768 = 786432
+		// element1 area = 100 * 50 = 5000, ratio = 5000/786432 ≈ 0.00636
+		// element2 area = 200 * 100 = 20000, ratio = 20000/786432 ≈ 0.02544
+		expect(result?.ratios?.element1).toBeCloseTo(5000 / (1024 * 768), 5);
+		expect(result?.ratios?.element2).toBeCloseTo(20000 / (1024 * 768), 5);
+	});
+
+	it('should not include ratios when feature flag is disabled', async () => {
+		// Disable the ratios feature flag
+		mockFg.mockImplementation((key) => {
+			if (key === 'platform_ufo_rev_ratios') {
+				return false;
+			}
+			if (key === 'platform_ufo_ttvc_v3_devtool') {
+				return false;
+			}
+			return false;
+		});
+
+		// Mock successful VC calculation
+		jest.spyOn(percentileCalc, 'calculateTTVCPercentiles').mockResolvedValue({
+			'90': { t: 1000, e: ['element1'] },
+		});
+
+		const mockEntries: VCObserverEntry[] = [
+			{
+				time: 100,
+				data: {
+					type: 'mutation:element',
+					elementName: 'element1',
+					rect: { width: 100, height: 50, x: 0, y: 0 } as DOMRect,
+					visible: true,
+				},
+			},
+		];
+
+		const result = await calculator.calculate({
+			startTime: 0,
+			stopTime: 1000,
+			orderedEntries: mockEntries,
+			isPostInteraction: false,
+		});
+
+		expect(result).toBeDefined();
+		expect(result?.ratios).toBeUndefined();
 	});
 });

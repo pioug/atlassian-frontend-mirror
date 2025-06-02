@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Görüntülenecek metin',
   'fabric.linkPicker.listTitle.recentlyViewed': 'En Son Görüntülenenler',
   'fabric.linkPicker.listTitle.results': 'Sonuçlar',
+  'fabric.linkPicker.noEmbed':
+    'Yerleştirme görünümü bu bağlantıda desteklenmez. <a>Bazı Akıllı Bağlantıların neden içerik göstermediğiyle ilgili daha fazla bilgi edinin.</a>',
   'fabric.linkPicker.search.error.description':
     'Sayfayı yenileyin veya sorun devam ederse <a>Atlassian Destek</a> ekibiyle iletişime geçin.',
   'fabric.linkPicker.search.error.heading': 'Veri yüklenirken bir sorunla karşılaşıldı.',

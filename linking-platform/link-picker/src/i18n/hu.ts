@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Megjelenítendő szöveg',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Nemrég megtekintett',
   'fabric.linkPicker.listTitle.results': 'Eredmény',
+  'fabric.linkPicker.noEmbed':
+    'A beágyazási nézet nem áll rendelkezésre ennél a linknél. <a>További információ arról, hogy egyes okoslinkek miért nem jelenítenek meg tartalmakat.</a>',
   'fabric.linkPicker.search.error.description':
     'Frissítsd az oldalt, vagy vedd fel a kapcsolatot az <a>Atlassian Támogatással</a>, ha ez a későbbiekben is megtörténik.',
   'fabric.linkPicker.search.error.heading': 'Probléma merült fel az adatok betöltése során.',

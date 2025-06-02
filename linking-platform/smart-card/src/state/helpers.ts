@@ -35,6 +35,23 @@ export const getExtensionKey = (details?: JsonLd.Response): string | undefined =
 export const getObjectAri = (details?: JsonLd.Response): string | undefined =>
 	(details?.data && 'atlassian:ari' in details.data && details.data['atlassian:ari']) || undefined;
 
+export const getObjectName = (details?: JsonLd.Response): string | undefined =>
+	(details?.data && 'name' in details.data && details.data.name) || undefined;
+
+export const getObjectIconUrl = (details?: JsonLd.Response): string | undefined => {
+	if (details?.data && 'icon' in details.data && details.data.icon) {
+		if (
+			typeof details.data.icon === 'object' &&
+			'url' in details.data.icon &&
+			details.data.icon.url &&
+			typeof details.data.icon.url === 'string'
+		) {
+			return details.data.icon.url;
+		}
+	}
+	return undefined;
+};
+
 export const getResourceType = (details?: JsonLd.Response): string | undefined =>
 	details?.meta?.resourceType;
 

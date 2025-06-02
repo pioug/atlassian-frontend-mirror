@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.9.1
+
+### Patch Changes
+
+- [#162718](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162718)
+  [`0258f5ac08bf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0258f5ac08bf9) -
+  ED-26960 Add logic so that layout column option dropdown shows icons like single_column_layouts
+- Updated dependencies
+
 ## 2.9.0
 
 ### Minor Changes

@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Văn bản cần hiển thị',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Đã xem gần đây',
   'fabric.linkPicker.listTitle.results': 'Kết quả',
+  'fabric.linkPicker.noEmbed':
+    'Không hỗ trợ chế độ xem nhúng cho liên kết này. <a>Tìm hiểu thêm về lý do tại sao một số Liên kết thông minh không hiển thị nội dung.</a>',
   'fabric.linkPicker.search.error.description':
     'Làm mới trang hoặc liên hệ với <a>Bộ phận hỗ trợ Atlassian</a> nếu sự cố vẫn tiếp diễn.',
   'fabric.linkPicker.search.error.heading': 'Chúng tôi gặp vấn đề khi tải dữ liệu.',

@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Näytettävä teksti',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Äskettäin katsotut',
   'fabric.linkPicker.listTitle.results': 'Tulokset',
+  'fabric.linkPicker.noEmbed':
+    'Upotusnäkymää ei tueta tälle linkille. <a>Lisätietoja siitä, miksi jotkin Smart Linkit eivät näytä sisältöä.</a>',
   'fabric.linkPicker.search.error.description':
     'Päivitä sivu tai ota yhteyttä <a>Atlassian-tukeen</a>, jos ongelmat jatkuvat.',
   'fabric.linkPicker.search.error.heading': 'Tietojen lataamisessa ilmeni ongelmia.',

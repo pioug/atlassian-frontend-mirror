@@ -1,7 +1,5 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type {
 	ComponentsLogType,
 	RevisionPayload,
@@ -415,8 +413,7 @@ export class VCObserver implements VCObserverInterface {
 				// Add devtool callback for both v1 and v2
 				if (
 					typeof (window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__ ===
-						'function' &&
-					fg('platform_ufo_ttvc_v3_devtool')
+					'function'
 				) {
 					// Handle v1 if not disabled
 					if (!isTTVCv1Disabled) {
@@ -462,6 +459,7 @@ export class VCObserver implements VCObserverInterface {
 			calculatedVCNext: { VC: vcNext.VC, VCBox: vcNext.VCBox },
 			isEventAborted,
 			experienceKey,
+			ratios,
 		});
 
 		const speedIndex = {

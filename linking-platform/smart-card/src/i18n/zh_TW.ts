@@ -134,6 +134,7 @@ export default {
   'fabric.linking.read_time': '{context} 分鐘閱讀時間',
   'fabric.linking.related': '相關',
   'fabric.linking.related_links_found_in': '找到的位置：',
+  'fabric.linking.related_links_found_in_v2': '找到的位置',
   'fabric.linking.related_links_includes_links_to': '將連結納入',
   'fabric.linking.related_links_includes_links_to_v2': '將連結納入',
   'fabric.linking.related_links_modal_error_description': '請檢查連線或重新整理頁面，然後再試一次',

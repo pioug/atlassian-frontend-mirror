@@ -171,7 +171,13 @@ export const layoutToolbarTitle = 'Layout floating controls';
 const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: ED-25466 - Replace with proper icon
 
 const getLayoutColumnsIcons = (colCount: number) => {
-	if (!editorExperiment('single_column_layouts', true)) {
+	if (
+		!editorExperiment('single_column_layouts', true) &&
+		!(
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_11')
+		)
+	) {
 		return undefined;
 	}
 

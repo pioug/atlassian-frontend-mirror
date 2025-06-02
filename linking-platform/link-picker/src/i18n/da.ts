@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Tekst, der skal vises',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Set for nylig',
   'fabric.linkPicker.listTitle.results': 'Resultater',
+  'fabric.linkPicker.noEmbed':
+    'Integreringsvisning understøttes ikke for dette link. <a>Flere oplysninger om, hvorfor nogle intelligente links ikke viser indhold.</a>',
   'fabric.linkPicker.search.error.description':
     'Opdater siden, eller kontakt <a>Atlassian-support</a>, hvis det bliver ved med at ske.',
   'fabric.linkPicker.search.error.heading': 'Vi har problemer med at indlæse data.',

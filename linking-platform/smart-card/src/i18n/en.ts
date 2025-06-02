@@ -21,6 +21,8 @@ export default {
   'automation-menu.modal.footer.ok-button': 'Ok',
   'automation-menu.modal.header.icon.label': 'Automation modal header icon',
   'automation-menu.success-state.message': 'Your automation is in progress',
+  'compass.applied_components_count.non-final':
+    'Applied to {numberOfComponents, plural, one {{numberOfComponents, number} component} other {{numberOfComponents, number} components}}',
   'fabric.linking.access_exists_description': 'Request access to view this content from {hostname}.',
   'fabric.linking.actions': 'Actions',
   'fabric.linking.add_account': 'Add account',

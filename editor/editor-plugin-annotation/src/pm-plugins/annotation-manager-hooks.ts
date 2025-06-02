@@ -14,7 +14,6 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	setInlineCommentDraftState,
@@ -80,7 +79,7 @@ export const startDraft =
 			};
 		}
 
-		if (!!selectedAnnotations?.length && fg('platform_editor_comments_api_manager_select')) {
+		if (!!selectedAnnotations?.length) {
 			// if there are selected annotations when starting a draft, we need to clear the selected annotations
 			// before we start the draft.
 			closeComponent()(editorView.state, editorView.dispatch);

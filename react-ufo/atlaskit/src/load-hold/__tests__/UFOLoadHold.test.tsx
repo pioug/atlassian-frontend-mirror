@@ -6,13 +6,6 @@ import UFOInteractionContext, { type UFOInteractionContextType } from '../../int
 import UFOInteractionIDContext, { DefaultInteractionID } from '../../interaction-id-context';
 import UFOLoadHold from '../UFOLoadHold';
 
-// Mock the feature flag
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
-
-const { fg } = require('@atlaskit/platform-feature-flags');
-
 // Mock functions to track calls
 const mockHold = jest.fn();
 const mockHoldExperimental = jest.fn();
@@ -39,8 +32,6 @@ describe('UFOLoadHold', () => {
 		jest.clearAllMocks();
 		// Reset the default interaction ID
 		DefaultInteractionID.current = null;
-		// Enable feature flag by default
-		fg.mockReturnValue(true);
 	});
 
 	describe('basic functionality', () => {
@@ -197,11 +188,7 @@ describe('UFOLoadHold', () => {
 		});
 	});
 
-	describe('interaction ID tracking with feature flag enabled', () => {
-		beforeEach(() => {
-			fg.mockReturnValue(true);
-		});
-
+	describe('interaction ID tracking', () => {
 		it('should call hold again when interaction ID changes', () => {
 			const mockContext = createMockContext();
 
@@ -301,53 +288,6 @@ describe('UFOLoadHold', () => {
 
 			// Should handle all changes (final count depends on React batching)
 			expect(holdCallCount).toBeGreaterThan(1);
-		});
-	});
-
-	describe('interaction ID tracking with feature flag disabled', () => {
-		beforeEach(() => {
-			fg.mockReturnValue(false);
-		});
-
-		it('should call hold when component mounts', () => {
-			const mockContext = createMockContext();
-
-			render(
-				<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
-					<UFOInteractionContext.Provider value={mockContext}>
-						<UFOLoadHold name="legacy-test" />
-					</UFOInteractionContext.Provider>
-				</UFOInteractionIDContext.Provider>,
-			);
-
-			expect(mockHold).toHaveBeenCalledWith('legacy-test');
-		});
-
-		it('should not react to interaction ID changes when feature flag is disabled', () => {
-			let holdCallCount = 0;
-			const trackingMockHold = jest.fn(() => {
-				holdCallCount++;
-			});
-			const trackingMockContext = createMockContext({ hold: trackingMockHold });
-
-			render(
-				<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
-					<UFOInteractionContext.Provider value={trackingMockContext}>
-						<UFOLoadHold name="legacy-subscription-test" />
-					</UFOInteractionContext.Provider>
-				</UFOInteractionIDContext.Provider>,
-			);
-
-			// Should be called once initially
-			expect(holdCallCount).toBe(1);
-
-			// Change interaction ID - without subscription, this should not trigger additional calls
-			act(() => {
-				DefaultInteractionID.current = 'legacy-test-1';
-			});
-
-			// Should still be 1 (no additional calls due to lack of subscription)
-			expect(holdCallCount).toBe(1);
 		});
 	});
 

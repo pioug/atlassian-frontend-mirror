@@ -1,10 +1,7 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
 import React from 'react';
 
-import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { type BackgroundColor, Box, Inline, type Space, Stack, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 const spacingValues: Space[] = [
 	'space.0',
@@ -32,10 +29,8 @@ const backgroundColors: BackgroundColor[] = [
 ];
 
 const layerContainerStyles = xcss({ position: 'relative' });
-const styles = cssMap({
-	inverse: { color: token('color.text.inverse') },
-	warningInverse: { color: token('color.text.warning.inverse') },
-});
+const inverseStyles = xcss({ color: 'color.text.inverse' });
+const warningInverseStyles = xcss({ color: 'color.text.warning.inverse' });
 const baseBorderStyles = xcss({
 	borderStyle: 'solid',
 	borderWidth: 'border.width',
@@ -96,7 +91,7 @@ export default () => {
 							key={backgroundColor}
 							backgroundColor={backgroundColor}
 							padding="space.400"
-							xcss={styles.inverse}
+							xcss={inverseStyles}
 						>
 							<Box>{backgroundColor}</Box>
 						</Box>
@@ -105,7 +100,7 @@ export default () => {
 					<Box
 						backgroundColor={'color.background.warning.bold'}
 						padding="space.400"
-						xcss={styles.warningInverse}
+						xcss={warningInverseStyles}
 					>
 						<Box>color.background.warning</Box>
 					</Box>
@@ -131,8 +126,9 @@ export default () => {
 							padding="space.400"
 							xcss={[
 								baseBorderStyles,
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 								xcss({
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 									borderColor: borderColor,
 								}),
 							]}
@@ -157,8 +153,9 @@ export default () => {
 							key={shadow}
 							backgroundColor="elevation.surface"
 							padding="space.400"
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 							xcss={xcss({
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 								boxShadow: shadow,
 							})}
 						>
@@ -189,7 +186,7 @@ export default () => {
 							key={zIndex}
 							backgroundColor="elevation.surface"
 							padding="space.400"
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							xcss={[elevationStyles, xcss({ zIndex })]}
 							style={{
 								insetBlockStart: index * 64,

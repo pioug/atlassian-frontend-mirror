@@ -110,9 +110,7 @@ export default class VCObserverNew {
 		const { start, stop, interactionId } = param;
 		const results: RevisionPayloadEntry[] = [];
 
-		if (fg('platform_ufo_v3_add_start_entry')) {
-			this.addStartEntry(start);
-		}
+		this.addStartEntry(start);
 
 		const calculator_fy25_03 = new VCCalculator_FY25_03();
 

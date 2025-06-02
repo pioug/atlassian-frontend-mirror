@@ -21,16 +21,10 @@
 			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../css/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../ds-lib/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../layering/afm-post-office/tsconfig.json"
-		},
-		{
-			"path": "../../link/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"

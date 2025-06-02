@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': '표시할 텍스트',
   'fabric.linkPicker.listTitle.recentlyViewed': '최근에 본 항목',
   'fabric.linkPicker.listTitle.results': '결과',
+  'fabric.linkPicker.noEmbed':
+    '이 링크에는 포함 보기가 지원되지 않습니다. <a>일부 스마트 링크가 콘텐츠를 표시하지 않는 이유에 대해 자세히 알아보세요.</a>',
   'fabric.linkPicker.search.error.description':
     '페이지를 새로 고치거나 문제가 계속 발생하는 경우 <a>Atlassian 고객 지원팀</a>에 문의하세요.',
   'fabric.linkPicker.search.error.heading': '데이터를 로드하는 동안 문제가 발생했습니다.',

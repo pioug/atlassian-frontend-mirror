@@ -1,5 +1,13 @@
 # @atlaskit/locale
 
+## 3.0.2
+
+### Patch Changes
+
+- [#164146](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164146)
+  [`cb9fe0058ed87`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb9fe0058ed87) -
+  Updates package.json direct dependencies to align with actual usage.
+
 ## 3.0.1
 
 ### Patch Changes

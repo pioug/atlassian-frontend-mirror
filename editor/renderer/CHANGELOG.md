@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 118.6.3
+
+### Patch Changes
+
+- [#163358](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163358)
+  [`a262d3094ad41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a262d3094ad41) -
+  [ux] Allow remove 1px margin top from inline macro wrapper that causing element shift in initial
+  load
+- [#163361](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163361)
+  [`76c3619bccda1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76c3619bccda1) -
+  Changed the annotation manager feature gate to instead use the existance of the manager rather
+  then a gate
+- Updated dependencies
+
 ## 118.6.2
 
 ### Patch Changes

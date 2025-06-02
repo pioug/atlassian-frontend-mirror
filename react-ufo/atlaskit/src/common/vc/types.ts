@@ -137,6 +137,7 @@ export type RevisionPayloadEntry = {
 	revision: string;
 	clean: boolean;
 	vcDetails?: RevisionPayloadVCDetails;
+	ratios?: VCRatioType;
 	abortReason?: VCAbortReason | null;
 };
 

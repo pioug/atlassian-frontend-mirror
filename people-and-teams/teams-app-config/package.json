@@ -25,10 +25,12 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
-		"./navigation": "./src/utils/teams-app-navigation/index.ts"
+		"./navigation": "./src/utils/teams-app-navigation/index.ts",
+		"./types": "./src/utils/teams-app-navigation/types.ts"
 	},
 	"exports": {
-		"./navigation": "./src/utils/teams-app-navigation/index.ts"
+		"./navigation": "./src/utils/teams-app-navigation/index.ts",
+		"./types": "./src/utils/teams-app-navigation/types.ts"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
@@ -91,7 +93,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

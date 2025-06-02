@@ -6,7 +6,6 @@ import {
 	type AnnotationTypes,
 } from '@atlaskit/adf-schema';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MarkComponent } from './mark';
 import { useInlineCommentsFilter } from '../hooks/use-inline-comments-filter';
@@ -49,13 +48,13 @@ const MarkElement = ({
 
 			const { eventTarget, annotationIds } = props;
 
-			if (fg('platform_editor_comments_api_manager_select')) {
+			if (annotationManager) {
 				if (hasFocus) {
 					return;
 				}
 
 				annotationManager
-					?.checkPreemptiveGate()
+					.checkPreemptiveGate()
 					.then((canSelect) => {
 						if (canSelect) {
 							// if there is a draft, clear it first

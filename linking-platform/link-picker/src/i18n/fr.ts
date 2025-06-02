@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Texte à afficher',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Récemment consultés',
   'fabric.linkPicker.listTitle.results': 'Résultats',
+  'fabric.linkPicker.noEmbed':
+    "La vue intégrée n'est pas prise en charge pour ce lien. <a>En savoir plus sur les raisons pour lesquelles certains liens intelligents n'affichent pas de contenu.</a>",
   'fabric.linkPicker.search.error.description':
     'Actualisez la page ou contactez le <a>support Atlassian</a> si le problème se reproduit.',
   'fabric.linkPicker.search.error.heading': 'Nous ne parvenons pas à charger les données.',

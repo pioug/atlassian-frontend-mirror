@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/locale",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Utility functions for handling localization",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,7 +41,6 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -54,10 +53,6 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"typescript": "~5.4.2"
 	},
-	"platform-feature-flags": {
-		"default_date_first_of_month": {
-			"type": "boolean"
-		}
-	},
+	"platform-feature-flags": {},
 	"homepage": "https://atlaskit.atlassian.com/packages/helpers/locale"
 }

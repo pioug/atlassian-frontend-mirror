@@ -6,8 +6,8 @@
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from 'react';
 
 import { css, cssMap, jsx } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/utility/migration/error';
-import SuccessIcon from '@atlaskit/icon/utility/migration/success--editor-success';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import SuccessIcon from '@atlaskit/icon/core/migration/success--editor-success';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -73,7 +73,13 @@ const IconWrapper = ({ children }: { children: ReactNode }) => (
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 	error: (
-		<ErrorIcon LEGACY_margin="0 -2px 0 0" color="currentColor" LEGACY_size="small" label="error" />
+		<ErrorIcon
+			LEGACY_margin="0 -2px 0 0"
+			color="currentColor"
+			LEGACY_size="small"
+			label="error"
+			size="small"
+		/>
 	),
 	valid: (
 		<SuccessIcon
@@ -81,6 +87,7 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 			color="currentColor"
 			LEGACY_size="small"
 			label="success"
+			size="small"
 		/>
 	),
 };

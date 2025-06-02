@@ -5,7 +5,6 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 import { cssMap } from '@atlaskit/css';
 import GlobeIcon from '@atlaskit/icon/core/globe';
 import Image from '@atlaskit/image';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -133,13 +132,12 @@ const getJiraContainerProperties = ({
 	iconSize = 'small',
 }: GetJiraContainerPropertiesParams): ContainerProperties => {
 	const { subType, name } = containerTypeProperties || {};
-	const Comp = fg('enable_card_alignment_fix') ? Flex : Box;
 	const baseProperties = {
 		description: <FormattedMessage {...messages.jiraProjectDescription} />,
 		icon: (
-			<Comp xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+			<Flex xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 				<Image src={getJiraIcon(subType)} alt="" testId="jira-project-container-icon" />
-			</Comp>
+			</Flex>
 		),
 		title: <FormattedMessage {...messages.addJiraProjectTitle} />,
 		containerTypeText: <FormattedMessage {...messages.projectContainerText} />,
@@ -199,15 +197,14 @@ export const getContainerProperties = ({
 	containerTypeProperties,
 	isEmptyContainer,
 }: GetContainerPropertiesParams): ContainerProperties => {
-	const Comp = fg('enable_card_alignment_fix') ? Flex : Box;
 	switch (containerType) {
 		case 'ConfluenceSpace':
 			return {
 				description: <FormattedMessage {...messages.confluenceContainerDescription} />,
 				icon: (
-					<Comp xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+					<Flex xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
-					</Comp>
+					</Flex>
 				),
 				title: <FormattedMessage {...messages.addLoomContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
@@ -216,9 +213,9 @@ export const getContainerProperties = ({
 			return {
 				description: <FormattedMessage {...messages.loomSpaceDescription} />,
 				icon: (
-					<Comp xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
+					<Flex xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
 						<Image src={LoomIcon} alt="" testId="confluence-space-container-icon" />
-					</Comp>
+					</Flex>
 				),
 				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,

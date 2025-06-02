@@ -24,12 +24,6 @@
 			"path": "../../css/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../ds-lib/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../focus-ring/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../observability/interaction-context/afm-jira/tsconfig.json"
 		},
 		{

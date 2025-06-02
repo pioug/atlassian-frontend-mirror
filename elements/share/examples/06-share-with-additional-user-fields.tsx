@@ -12,8 +12,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconButtonProps } from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
-import { CheckboxField, Field, useFormState } from '@atlaskit/form';
+import { Field } from '@atlaskit/form';
 import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -43,7 +42,6 @@ import {
 	type OriginTracing,
 	type ShareButtonStyle,
 	type ShareClient,
-	type ShareFormProps,
 	type ShareResponse,
 	type TooltipPosition,
 	type User,
@@ -238,17 +236,7 @@ const options: SelectOption[] = [
 ];
 
 const AdditionalUserFields = () => {
-	const formData = useFormState<ShareFormProps>();
-
 	const [currentOption, setCurrentOption] = useState<SelectOption>(options[0]);
-
-	if (
-		formData?.values &&
-		'projectAccessLevel' in formData.values &&
-		(formData.values['projectAccessLevel'] as string[]).length === 0
-	) {
-		return undefined;
-	}
 
 	return (
 		<Box xcss={styles}>
@@ -284,9 +272,6 @@ const AdditionalUserFields = () => {
 
 const ShareFieldsFooter = () => (
 	<>
-		<CheckboxField name="projectAccessLevel" value="limited">
-			{({ fieldProps }) => <Checkbox {...fieldProps} label="Limited access level" />}
-		</CheckboxField>
 		<FieldsFooterWrapper>
 			<SectionMessage appearance="warning">
 				<p>This is a sample fields footer for the Share form</p>
@@ -339,7 +324,7 @@ const defaultProps: State = {
 	triggerButtonAppearance: triggerButtonAppearanceOptions[0].value,
 	triggerButtonStyle: triggerButtonStyleOptions[0].value,
 	triggerButtonTooltipPosition: triggerButtonTooltipPositionOptions[0].value,
-	product: 'confluence',
+	product: 'jira',
 	hasHeader: false,
 	hasFooter: false,
 	enableSmartUserPicker: false,
@@ -421,7 +406,7 @@ export default function Example() {
 									dialogPlacement={state.dialogPlacement}
 									loadUserOptions={loadUserOptions}
 									originTracingFactory={originTracingFactory}
-									productId="confluence"
+									productId="jira-software"
 									shareAri="ari"
 									shareContentType="issue"
 									shareContentSubType="subtype"

@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.5.0
+
+### Minor Changes
+
+- [#161905](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161905)
+  [`09bdcf25996d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09bdcf25996d7) -
+  Export types
+
 ## 1.4.0
 
 ### Minor Changes

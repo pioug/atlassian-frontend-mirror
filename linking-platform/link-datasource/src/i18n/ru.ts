@@ -9,32 +9,45 @@
 export default {
   'linkDataSource.accessInstructions': 'Запросите доступ у администратора сайта.',
   'linkDataSource.accessRequired': 'У вас нет доступа к этому контенту',
-  'linkDataSource.accessRequiredWithSite': 'У вас нет доступа к следующему сайту:',
+  'linkDataSource.accessRequiredWithSite': 'У вас нет доступа к сайту',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Описание синтаксиса',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Поиск с помощью AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Выберите схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Выберите схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Укажите схему',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Подробнее о поиске с помощью AQL',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLinkOld':
     'Подробнее о поиске с помощью AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Начните вводить текст или используйте AQL для поиска.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Поиск объектов',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Поиск по объектам или типам объектов',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Поиск объектов',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Вставить объект} few {Вставить объекты} many {Вставить объекты} other {Вставить объекты}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставить объекты из',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Обновить таблицу',
   'linkDataSource.basic-filter.assignee.label': 'Исполнитель',
+  'linkDataSource.basic-filter.assignee.searchPlaceholder': 'Поиск исполнителя',
   'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Не назначено',
   'linkDataSource.basic-filter.dropdown.select.placeholder': 'Поиск',
-  'linkDataSource.basic-filter.error-message': 'Произошла ошибка',
+  'linkDataSource.basic-filter.error-description': 'Проверьте подключение и обновите страницу',
+  'linkDataSource.basic-filter.errorMessage': 'При попытке загрузить результаты произошла ошибка',
+  'linkDataSource.basic-filter.errorMessageOld': 'Произошла ошибка',
   'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} из {totalCount}',
   'linkDataSource.basic-filter.loading-message': 'Загрузка…',
-  'linkDataSource.basic-filter.no-options-message': 'Совпадения не найдены',
+  'linkDataSource.basic-filter.no-options-description': 'Попробуйте изменить запрос.',
+  'linkDataSource.basic-filter.no-options-message': 'Нет результатов',
+  'linkDataSource.basic-filter.no-options-message-old': 'Совпадения не найдены',
   'linkDataSource.basic-filter.project.label': 'Проект',
+  'linkDataSource.basic-filter.project.searchPlaceholder': 'Поиск проектов',
   'linkDataSource.basic-filter.showMoreButton': 'Развернуть',
   'linkDataSource.basic-filter.status.label': 'Статус',
-  'linkDataSource.basic-filter.type.label': 'Тип',
+  'linkDataSource.basic-filter.status.searchPlaceholder': 'Поиск статуса',
+  'linkDataSource.basic-filter.type.label': 'Тип задачи',
+  'linkDataSource.basic-filter.type.labelOld': 'Тип',
+  'linkDataSource.basic-filter.type.searchPlaceholder': 'Поиск типа задачи',
   'linkDataSource.checkConnection':
     'Проверьте подключение к Интернету и обновите страницу или повторите попытку позже.',
   'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Отредактировано или создано',
@@ -47,6 +60,8 @@ export default {
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Поиск задач по ключевому слову',
   'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Поиск задач по ключевому слову',
   'linkDataSource.configmodal.cancelButtonText': 'Отмена',
+  'linkDataSource.confluence-search.checkConnectionWithSource':
+    'Проверьте подключение и обновите страницу или <a>откройте этот проект в Confluence</a> для проверки.',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Отмена',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'после {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': 'В любое время',
@@ -94,41 +109,62 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'При получении вариантов произошла ошибка',
   'linkDataSource.issue-line-table.unwrap-text': 'Не переносить текст',
   'linkDataSource.issue-line-table.wrap-text': 'Переносить текст',
+  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'У вас нет доступа к следующему сайту:',
+  'linkDataSource.jira-issues.checkConnection.confluence':
+    'Проверьте подключение и обновите страницу или <a>откройте этот поиск в Confluence</a> для проверки.',
+  'linkDataSource.jira-issues.checkConnection.jira':
+    'Проверьте подключение и обновите страницу или <a>откройте этот поиск в Jira</a> для проверки.',
   'linkDataSource.checkConnectionWithSource':
     'Проверьте подключение к Интернету и обновите страницу или <a>откройте запрос в Jira</a> для проверки.',
+  'linkDataSource.jira-issues.checkConnectionWithSource.visual-refresh-sllv':
+    'Проверьте подключение и обновите страницу или <a>откройте этот проект в Jira</a> для проверки.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Для этого запроса невозможно переключиться на базовый режим поиска.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Базовый',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Поиск задач по ключевому слову',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Выберите сайт',
+  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Выберите сайт',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставить задачи',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Вставить задачи',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Вставить результаты',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставка задач Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Вставка задач Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставка задач Jira с сайта',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Вставка задач Jira с сайта',
   'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': 'Задач: ###',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
+    'Отображение количества результатов поиска или встроенной интеллектуальной ссылки',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescriptionOld':
     'Отображение количества результатов поиска в виде встроенной интеллектуальной ссылки',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Встроенная ссылка',
-  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Отображение результатов поиска в виде списка',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription':
+    'Отображение количества результатов поиска в виде списка',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescriptionOld': 'Отображение результатов поиска в виде списка',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Список',
   'linkDataSource.jira-issues.learnMoreLink': 'Подробнее о поиске с помощью JQL',
   'linkDataSource.no.jira.sites.access.description': 'Чтобы запросить доступ, обратитесь к администратору.',
   'linkDataSource.no.jira.sites.access.title': 'У вас нет доступа к сайтам Jira',
   'linkDataSource.noResultsFound': 'Ничего не найдено',
+  'linkDataSource.jira-issues.noResultsFound.description': 'Попробуйте изменить запрос.',
+  'linkDataSource.jira-issues.noResultsFoundOld': 'Ничего не найдено',
   'linkDataSource.refresh': 'Обновить',
   'linkDataSource.jira-issues.searchDescription-basic': 'Поиск задач для вставки по ключевым словам.',
   'linkDataSource.jira-issues.searchDescription-jql': 'Используйте JQL (Jira Query Language) для поиска задач.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Поиск задач Jira',
   'linkDataSource.unableToLoadItems': 'Не удалось загрузить элементы',
   'linkDataSource.unableToLoadResults': 'Не удалось загрузить результаты',
+  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
+    'При попытке получить результаты произошла ошибка',
+  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Не удалось загрузить результаты',
   'linkDataSource.modal-initial-state.beta': 'Бета-версия',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Поиск страниц Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Поиск задач Jira',
+  'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Подробнее о поиске с помощью JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Ищите задачи для вставки по ключевым словам.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+    'Начните вводить текст или используйте JQL для поиска.',
   'linkDataSource.modal-initial-state.searchDescription-confluence': 'Ищите страницы для вставки по ключевым словам.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':
     'Используйте JQL (Jira Query Language) для поиска задач.',

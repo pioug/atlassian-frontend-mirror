@@ -564,18 +564,30 @@ describe('ShareForm', () => {
 	});
 
 	it('should render helper text on top to explain asterisk', () => {
-		const { getByText } = render(
+		render(
+			<IntlProvider locale="en">
+				<ShareForm {...defaultProps} title="Share" copyLink="link" product="confluence" />
+			</IntlProvider>,
+		);
+		expect(screen.getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
+	});
+
+	it('should not render required fields helper text to explain asterisk when isExtendedShareDialogEnabled = true', () => {
+		render(
 			<IntlProvider locale="en">
 				<ShareForm
 					{...defaultProps}
 					title="Share"
-					showTitle={false}
 					copyLink="link"
-					product="confluence"
+					product="jira"
+					isExtendedShareDialogEnabled={true}
 				/>
 			</IntlProvider>,
 		);
-		expect(getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
+
+		expect(
+			screen.queryByText('Required fields are marked with an asterisk'),
+		).not.toBeInTheDocument();
 	});
 
 	describe('additionalTabs', () => {

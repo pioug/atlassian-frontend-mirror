@@ -9,6 +9,8 @@ import type { ImageRendererProps } from './types';
 import { useCurrentValueRef } from '../../../utils/useCurrentValueRef';
 import { ImageRendererWrapper } from './wrapper';
 import { isFileIdentifier } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
+import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 const baseStyles = css({
 	objectFit: 'contain',
 });
@@ -65,6 +67,9 @@ export const ImageRenderer = ({
 
 	return cardPreview ? (
 		<ImageRendererWrapper>
+			{fg('platform_media_add_ufo_custom_data') ? (
+				<UFOCustomData data={{ hasMediaComponent: true }} />
+			) : null}
 			<img
 				ref={imgRef}
 				data-testid={testId}

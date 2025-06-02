@@ -1,5 +1,14 @@
 # @atlaskit/side-navigation
 
+## 11.0.2
+
+### Patch Changes
+
+- [#160530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160530)
+  [`3d97095c489a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d97095c489a5) -
+  Internal change to align styling solutions.
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'ข้อความที่จะแสดง',
   'fabric.linkPicker.listTitle.recentlyViewed': 'ดูล่าสุด',
   'fabric.linkPicker.listTitle.results': 'ผลลัพธ์',
+  'fabric.linkPicker.noEmbed':
+    'ไม่รองรับมุมมองแบบฝังสำหรับลิงก์นี้ <a>ข้อมูลเพิ่มเติมเกี่ยวกับเหตุผลที่ Smart Links บางส่วนไม่แสดงเนื้อหา</a>',
   'fabric.linkPicker.search.error.description':
     'รีเฟรชหน้าข้อมูล หรือติดต่อฝ่าย <a>สนับสนุน Atlassian</a> หากยังคงมีปัญหานี้เกิดขึ้น',
   'fabric.linkPicker.search.error.heading': 'เรากำลังมีปัญหาในการโหลดข้อมูล',

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import ErrorIcon from '@atlaskit/icon/utility/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
@@ -37,6 +37,17 @@ const compactStyles = cssMap({
 	},
 });
 
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
+/**
+ * __Inline editable textfield__
+ *
+ * An inline editable textfield {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
 const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
 	const {
 		isCompact = false,
@@ -75,6 +86,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
 										label="error"
 										LEGACY_primaryColor={token('color.icon.danger', R400)}
 										color={token('color.icon.danger')}
+										size="small"
 									/>
 								</Box>
 							)

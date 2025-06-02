@@ -31,9 +31,6 @@
 			"path": "../../motion/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../primitives/afm-post-office/tsconfig.json"
 		},
 		{

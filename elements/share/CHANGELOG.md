@@ -1,5 +1,18 @@
 # @atlaskit/share
 
+## 6.8.0
+
+### Minor Changes
+
+- [#162630](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162630)
+  [`ad2faae60e9a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad2faae60e9a2) -
+  [ux] Mark all form fields as optional when extended share dialog is enabled, hide Comment field
+  when no users are selected
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.0
 
 ### Minor Changes

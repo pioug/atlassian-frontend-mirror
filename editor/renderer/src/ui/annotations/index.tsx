@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { AnnotationView } from './view';
 import { AnnotationsContextWrapper } from './wrapper';
@@ -81,7 +80,7 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 	const { children, annotationProvider, rendererRef, adfDocument, isNestedRender, onLoadComplete } =
 		props;
 
-	if (!isNestedRender && fg('platform_editor_comments_api_manager')) {
+	if (!isNestedRender && annotationProvider?.annotationManager) {
 		// We need to ensure there is a single instance of the annotation manager for the whole document
 		// and that it is the same instance for all annotations.
 		// This is because the annotation manager is responsible for managing the state of ALL annotations.
@@ -89,7 +88,7 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 		return (
 			<ProvidersContext.Provider value={annotationProvider}>
 				<AnnotationManagerProvider
-					annotationManager={annotationProvider?.annotationManager}
+					annotationManager={annotationProvider.annotationManager}
 					updateSubscriber={annotationProvider?.inlineComment?.updateSubscriber ?? undefined}
 				>
 					<AnnotationsWrapperInner

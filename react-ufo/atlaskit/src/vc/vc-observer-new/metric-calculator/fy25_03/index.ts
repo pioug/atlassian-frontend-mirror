@@ -75,17 +75,16 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			}
 
 			if (
-				(attributeName === 'data-testid' ||
-					attributeName === 'data-vc' ||
-					attributeName === 'data-ssr-placeholder' ||
-					attributeName === 'data-ssr-placeholder-replace' ||
-					attributeName === 'data-vc-nvs' ||
-					attributeName === 'data-media-vc-wrapper' ||
-					attributeName === 'data-auto-scrollable' ||
-					attributeName === 'id' ||
-					attributeName === 'tabindex' ||
-					NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName)) &&
-				fg('platform_ufo_ignore_non_vis_attributes')
+				attributeName === 'data-testid' ||
+				attributeName === 'data-vc' ||
+				attributeName === 'data-ssr-placeholder' ||
+				attributeName === 'data-ssr-placeholder-replace' ||
+				attributeName === 'data-vc-nvs' ||
+				attributeName === 'data-media-vc-wrapper' ||
+				attributeName === 'data-auto-scrollable' ||
+				attributeName === 'id' ||
+				attributeName === 'tabindex' ||
+				NON_VISUAL_ARIA_ATTRIBUTES.includes(attributeName)
 			) {
 				return false;
 			}

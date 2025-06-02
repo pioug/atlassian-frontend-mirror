@@ -16,7 +16,7 @@ import ModalDialog, {
 	ModalTransition,
 	useModal,
 } from '@atlaskit/modal-dialog';
-import { Box, Flex, Inline } from '@atlaskit/primitives';
+import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 

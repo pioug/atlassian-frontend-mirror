@@ -6,10 +6,11 @@ jest.mock('../../../components/utils', () => ({
 import React from 'react';
 
 import { render as renderRTL, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mount, shallow } from 'enzyme';
 import { FormattedMessage, IntlProvider, type MessageDescriptor } from 'react-intl-next';
 
-import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import SmartUserPicker, { type OptionData } from '@atlaskit/smart-user-picker';
 import UserPicker, { type ExternalUser, type Team, type User } from '@atlaskit/user-picker';
 
@@ -319,6 +320,54 @@ describe('UserPickerField', () => {
 		expect(userPicker).toHaveLength(1);
 		userPicker.simulate('loadOptions', '');
 		expect(loadOptions).not.toHaveBeenCalled();
+	});
+
+	describe('when extended share dialog is enabled', () => {
+		it('should not be a required field', () => {
+			renderUserPickerRTL({
+				isExtendedShareDialogEnabled: true,
+				product: 'jira',
+			});
+
+			const asterisk = screen.queryByTitle('Required');
+			const userPicker = screen.getByRole('combobox');
+
+			expect(asterisk).not.toBeInTheDocument();
+			expect(userPicker).not.toBeRequired();
+		});
+
+		it('should render user field without helper message when extended share dialog is enabled', () => {
+			renderUserPickerRTL({
+				isExtendedShareDialogEnabled: true,
+				helperMessage: 'helper message',
+				product: 'jira',
+			});
+
+			expect(screen.queryByText('helper message')).not.toBeInTheDocument();
+		});
+
+		it('should not throw validation errors when the field is empty', async () => {
+			renderRTL(
+				<IntlProvider locale="en">
+					<Form onSubmit={jest.fn}>
+						{({ formProps }) => (
+							<form {...formProps}>
+								<UserPickerField product="jira" isExtendedShareDialogEnabled />
+							</form>
+						)}
+					</Form>
+				</IntlProvider>,
+			);
+
+			const userPicker = screen.getByRole('combobox');
+
+			await userEvent.click(userPicker);
+			await userEvent.tab();
+
+			expect(
+				screen.queryByText(messages.userPickerRequiredMessageJira.defaultMessage),
+			).not.toBeInTheDocument();
+		});
 	});
 
 	describe('smart user picker enabled', () => {

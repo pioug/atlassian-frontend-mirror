@@ -59,6 +59,7 @@ export type Props = {
 	shareError?: ShareError;
 	userPickerOptions?: UserPickerOptions;
 	productAttributes?: SmartUserPickerProps['productAttributes'];
+	isExtendedShareDialogEnabled?: boolean;
 };
 
 type GetMessageDescriptor = (
@@ -73,7 +74,7 @@ type GetNoOptionMessageDescriptor = (
 	allowEmail?: boolean,
 ) => MessageDescriptor;
 
-type GetNoOptionMessage = (params: { inputValue: string }) => any;
+type GetNoOptionMessage = (params: { inputValue: string }) => string | React.ReactNode | null;
 
 const getNoOptionsMessageDescriptor: GetNoOptionMessageDescriptor = (
 	emailValidity: EmailValidationResponse,
@@ -90,9 +91,9 @@ const getNoOptionsMessage =
 	(
 		isPublicLink?: boolean,
 		allowEmail?: boolean,
-		noOptionsMessageHandler?: any,
+		noOptionsMessageHandler?: UserPickerOptions['noOptionsMessageHandler'],
 	): GetNoOptionMessage =>
-	({ inputValue }: { inputValue: string }): GetNoOptionMessage => {
+	({ inputValue }: { inputValue: string }) => {
 		if (noOptionsMessageHandler) {
 			return noOptionsMessageHandler({ inputValue, isPublicLink, allowEmail });
 		}
@@ -298,6 +299,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 			isBrowseUsersDisabled,
 			shareError,
 			userPickerOptions,
+			isExtendedShareDialogEnabled,
 		} = this.props;
 
 		const smartUserPickerProps: Partial<SmartUserPickerProps> = this.getSmartUserPickerProps();
@@ -352,10 +354,10 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 					</Text>
 				}
 				name="users"
-				validate={validate}
+				validate={!isExtendedShareDialogEnabled ? validate : undefined}
 				defaultValue={defaultValue}
 				transform={this.handleUserPickerTransform}
-				isRequired
+				isRequired={!isExtendedShareDialogEnabled}
 			>
 				{({ fieldProps, error: fieldValidationError, meta: { valid: fieldValid } }) => {
 					const helperMessage = this.getHelperMessageOrDefault();
@@ -372,7 +374,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 								{...commonPickerProps}
 								{...smartUserPickerProps}
 								aria-labelledby={USER_PICKER_ARIA_LABEL}
-								required={true}
+								required={!isExtendedShareDialogEnabled}
 								addMoreMessage={addMoreMessage}
 								placeholder={
 									<Text id={USER_PICKER_FIELD_PLACEHOLDER}>
@@ -384,7 +386,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 								menuPortalTarget={menuPortalTarget}
 								inputId={fieldProps.id}
 							/>
-							{helperMessage && !wasValidationOrShareError && (
+							{helperMessage && !wasValidationOrShareError && !isExtendedShareDialogEnabled && (
 								<HelperMessage testId="user-picker">{helperMessage}</HelperMessage>
 							)}
 							{!fieldValid && fieldValidationError === REQUIRED && (

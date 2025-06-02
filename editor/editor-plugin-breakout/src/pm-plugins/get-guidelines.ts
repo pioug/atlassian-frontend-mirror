@@ -6,9 +6,14 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,
 	akEditorCalculatedWideLayoutWidth,
+	akEditorFullWidthLayoutWidth,
+	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { WIDTHS } from './resizer-callbacks';
+const WIDTHS = {
+	MIN: akEditorDefaultLayoutWidth,
+	MAX: akEditorFullWidthLayoutWidth,
+};
 
 const GUIDELINE_KEYS = {
 	lineLength: 'grid',

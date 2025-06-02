@@ -7,7 +7,7 @@ import { forwardRef, type Ref } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import ChevronIconMigration from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronIconMigration from '@atlaskit/icon/core/migration/chevron-down';
 import { token } from '@atlaskit/tokens';
 
 import { PrimaryButton } from '../PrimaryButton';
@@ -34,6 +34,7 @@ export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButt
 						LEGACY_margin={`0 ${token('space.negative.050')} 0 ${token('space.negative.100')}`}
 						color="currentColor"
 						label=""
+						size="small"
 					/>
 				}
 				isHighlighted={isHighlighted}

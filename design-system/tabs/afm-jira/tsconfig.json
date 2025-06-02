@@ -21,12 +21,6 @@
 			"path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../../monorepo-tooling/codemod-utils/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../css/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../focus-ring/afm-jira/tsconfig.json"
 		},
 		{

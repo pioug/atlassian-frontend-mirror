@@ -42,9 +42,6 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/checkbox/tsconfig.app.json"
-		},
-		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
@@ -88,9 +85,6 @@
 		},
 		{
 			"path": "../../design-system/tabs/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/textarea/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/theme/tsconfig.app.json"

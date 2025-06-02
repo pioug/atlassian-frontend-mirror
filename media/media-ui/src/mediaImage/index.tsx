@@ -2,6 +2,7 @@ import React, { type Ref, forwardRef, useCallback, useRef, useState } from 'reac
 import { type CSSProperties } from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { VcMediaWrapperProps } from '@atlaskit/react-ufo/vc-media';
+import UFOCustomData from '@atlaskit/react-ufo/custom-data';
 
 import { ImageComponent } from './styled';
 import { getCssFromImageOrientation, isRotated } from '../imageMetaData';
@@ -429,21 +430,26 @@ export const MediaImage = forwardRef(
 			style.transform += ` ${transform}`;
 		}
 		return (
-			<ImageComponent
-				loading={loading}
-				data-testid="media-image"
-				data-vc="media-image"
-				draggable={false}
-				alt={alt}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={style}
-				onLoad={imageLoadHandler}
-				onError={onImageError}
-				imageRef={mergedRef}
-				src={dataURI}
-				crossOrigin={crossOrigin}
-				{...(fg('platform_exclude_media_offender_from_vc') && VcMediaWrapperProps)}
-			/>
+			<>
+				{fg('platform_media_add_ufo_custom_data') ? (
+					<UFOCustomData data={{ hasMediaComponent: true }} />
+				) : null}
+				<ImageComponent
+					loading={loading}
+					data-testid="media-image"
+					data-vc="media-image"
+					draggable={false}
+					alt={alt}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={style}
+					onLoad={imageLoadHandler}
+					onError={onImageError}
+					imageRef={mergedRef}
+					src={dataURI}
+					crossOrigin={crossOrigin}
+					{...(fg('platform_exclude_media_offender_from_vc') && VcMediaWrapperProps)}
+				/>
+			</>
 		);
 	},
 );

@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': '表示するテキスト',
   'fabric.linkPicker.listTitle.recentlyViewed': '最近の表示履歴',
   'fabric.linkPicker.listTitle.results': '結果',
+  'fabric.linkPicker.noEmbed':
+    'このリンクでは埋め込みビューがサポートされていません。<a>一部のスマート リンクでコンテンツが表示されない理由をご確認ください。</a>',
   'fabric.linkPicker.search.error.description':
     'ページを更新してください。問題が解決しない場合は<a>アトラシアン サポート</a>にお問い合わせください。',
   'fabric.linkPicker.search.error.heading': 'データの読み込み中に問題が発生しました。',

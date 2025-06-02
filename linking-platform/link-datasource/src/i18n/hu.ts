@@ -9,7 +9,7 @@
 export default {
   'linkDataSource.accessInstructions': 'Hozzáférés igényléséhez fordulj a webhely-adminisztrátorodhoz.',
   'linkDataSource.accessRequired': 'Nincs hozzáférésed ehhez a tartalomhoz',
-  'linkDataSource.accessRequiredWithSite': 'Nincs hozzáférésed az alábbi webhelyhez:',
+  'linkDataSource.accessRequiredWithSite': 'Nincs hozzáférésed a következőhöz:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Szintaxis súgó',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Keresés az AQL-lel',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Séma kiválasztása',
@@ -17,24 +17,37 @@ export default {
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'A séma megadása kötelező',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
     'További információ az AQL-lel történő keresésről',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLinkOld':
+    'További információ az AQL-lel történő keresésről',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'A kereséshez kezdj el gépelni vagy használj AQL-t.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Objektumok keresése',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Objektumok vagy objektumtípusok keresése',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Objektumok keresése',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Objektum beszúrása} other {Objektumok beszúrása}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objektumok beszúrása innen:',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Táblázat frissítése',
   'linkDataSource.basic-filter.assignee.label': 'Hozzárendelt személy',
+  'linkDataSource.basic-filter.assignee.searchPlaceholder': 'Hozzárendelt személy keresése',
   'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Nincs hozzárendelve',
   'linkDataSource.basic-filter.dropdown.select.placeholder': 'Keresés',
-  'linkDataSource.basic-filter.error-message': 'Hiba történt',
+  'linkDataSource.basic-filter.error-description': 'Ellenőrizd a kapcsolatodat, és frissíts',
+  'linkDataSource.basic-filter.errorMessage': 'Hibába ütköztünk, amikor megpróbáltuk betölteni a találatokat',
+  'linkDataSource.basic-filter.errorMessageOld': 'Hiba történt',
   'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount}/{totalCount}',
   'linkDataSource.basic-filter.loading-message': 'Betöltés…',
-  'linkDataSource.basic-filter.no-options-message': 'Nincs egyezés',
+  'linkDataSource.basic-filter.no-options-description': 'Próbálkozz újra egy másik kifejezéssel.',
+  'linkDataSource.basic-filter.no-options-message': 'Nincs találat a keresésre',
+  'linkDataSource.basic-filter.no-options-message-old': 'Nincs egyezés',
   'linkDataSource.basic-filter.project.label': 'Projekt',
+  'linkDataSource.basic-filter.project.searchPlaceholder': 'Projektek keresése',
   'linkDataSource.basic-filter.showMoreButton': 'Több megjelenítése',
   'linkDataSource.basic-filter.status.label': 'Állapot',
-  'linkDataSource.basic-filter.type.label': 'Típus',
+  'linkDataSource.basic-filter.status.searchPlaceholder': 'Állapot keresése',
+  'linkDataSource.basic-filter.type.label': 'Ügytípus',
+  'linkDataSource.basic-filter.type.labelOld': 'Típus',
+  'linkDataSource.basic-filter.type.searchPlaceholder': 'Ügytípus keresése',
   'linkDataSource.checkConnection': 'Ellenőrizd a kapcsolatot, majd frissíts, vagy próbáld újra később.',
   'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Szerkesztette vagy létrehozta',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'A keresés túl sok találatot adott.',
@@ -44,6 +57,8 @@ export default {
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Ügyek keresése kulcsszavak alapján',
   'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh': 'Ügyek keresése kulcsszavak alapján',
   'linkDataSource.configmodal.cancelButtonText': 'Mégse',
+  'linkDataSource.confluence-search.checkConnectionWithSource':
+    'Ellenőrizd a kapcsolatot, majd frissíts, vagy <a>nyisd meg ezt a projektet a Confluence-ben</a>, és ellenőrizd.',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Mégse',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': '{date} után',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': 'Bármikor',
@@ -94,41 +109,62 @@ export default {
     'Problémába ütköztünk a beállítások lekérése során',
   'linkDataSource.issue-line-table.unwrap-text': 'Szöveg több sorba rendezésének kikapcsolása',
   'linkDataSource.issue-line-table.wrap-text': 'Szöveg több sorba rendezése sortöréssel',
+  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Nincs hozzáférésed az alábbi webhelyhez:',
+  'linkDataSource.jira-issues.checkConnection.confluence':
+    'Ellenőrizd a kapcsolatot, majd frissíts, vagy <a>nyisd meg ezt a keresést a Confluence-ben</a>, és ellenőrizd.',
+  'linkDataSource.jira-issues.checkConnection.jira':
+    'Ellenőrizd a kapcsolatot, majd frissíts, vagy <a>nyisd meg ezt a keresést a Jirában</a>, és ellenőrizd.',
   'linkDataSource.checkConnectionWithSource':
     'Ellenőrizd a kapcsolatot, majd frissíts, vagy <a>nyisd meg ezt a lekérdezést a Jirában</a>, és ellenőrizd.',
+  'linkDataSource.jira-issues.checkConnectionWithSource.visual-refresh-sllv':
+    'Ellenőrizd a kapcsolatot, majd frissíts, vagy <a>nyisd meg ezt a projektet a Jirában</a>, és ellenőrizd.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Ennél a lekérdezésnél nem válthatsz normál módra.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Normál',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Ügyek keresése kulcsszavak alapján',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Webhely kiválasztása',
+  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Webhely kiválasztása',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Ügyek beszúrása',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Találatok beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Jira-ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-ügyek beszúrása innen:',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh': 'Jira-ügyek beszúrása innen:',
   'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### ügy',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
+    'Keresési eredmények számának megjelenítése beágyazott okoslinkként',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescriptionOld':
     'Keresési találatok számának beágyazott okoslinkként való megjelenítése',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Beágyazott link',
-  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Keresési találatok megjelenítése listaként',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription':
+    'Keresési találatok számának megjelenítése listaként',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescriptionOld': 'Keresési találatok megjelenítése listaként',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Lista',
-  'linkDataSource.jira-issues.learnMoreLink': 'Ismerd meg, hogyan végezhetsz keresést a JQL-lel',
+  'linkDataSource.jira-issues.learnMoreLink': 'További információ a JQL-lel történő keresésről',
   'linkDataSource.no.jira.sites.access.description': 'Hozzáférés igényléséhez fordulj az adminisztrátorodhoz.',
   'linkDataSource.no.jira.sites.access.title': 'Semmilyen Jira-webhelyhez nincs hozzáférésed',
   'linkDataSource.noResultsFound': 'Nincs találat',
+  'linkDataSource.jira-issues.noResultsFound.description': 'Próbálkozz újra egy másik kifejezéssel.',
+  'linkDataSource.jira-issues.noResultsFoundOld': 'Nincs találat',
   'linkDataSource.refresh': 'Frissítés',
   'linkDataSource.jira-issues.searchDescription-basic': 'Keresd meg kulcsszó alapján a beszúrni kívánt ügyeket.',
   'linkDataSource.jira-issues.searchDescription-jql': 'JQL (Jira Query Language) használata az ügyek keresésére.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Jira-ügyek keresése',
   'linkDataSource.unableToLoadItems': 'Nem sikerült betölteni a tételeket',
   'linkDataSource.unableToLoadResults': 'Nem lehet betölteni a találatokat',
+  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
+    'Hibába ütköztünk, amikor megpróbáltuk lekérni a találatokat',
+  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Nem lehet betölteni a találatokat',
   'linkDataSource.modal-initial-state.beta': 'Béta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Confluence-oldalak keresése',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Jira-ügyek keresése',
+  'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Ismerd meg, hogyan végezhetsz keresést a JQL-lel',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Keresd meg kulcsszó alapján a beszúrni kívánt ügyeket.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+    'A kereséshez kezdj el gépelni vagy használj JQL-t.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Keresd meg kulcsszó alapján a beszúrni kívánt oldalakat.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':

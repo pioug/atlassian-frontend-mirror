@@ -5,6 +5,8 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPadding,
+	akEditorDefaultLayoutWidth,
+	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import {
 	BaseEventPayload,
@@ -19,12 +21,13 @@ import { getGuidelines } from './get-guidelines';
 import { LOCAL_RESIZE_PROPERTY } from './resizing-mark-view';
 
 const RESIZE_RATIO = 2;
-export const WIDTHS = {
-	MIN: 760,
-	MAX: 1800,
+
+const WIDTHS = {
+	MIN: akEditorDefaultLayoutWidth,
+	MAX: akEditorFullWidthLayoutWidth,
 };
 
-function getProposedWidth({
+export function getProposedWidth({
 	initialWidth,
 	location,
 	api,

@@ -1,24 +1,44 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { Field } from '@atlaskit/form';
+import { Field, useFormState } from '@atlaskit/form';
 import TextArea from '@atlaskit/textarea';
 
 import { messages } from '../i18n';
-import { type Comment } from '../types';
+import { type Comment, type ShareData } from '../types';
 
 export type Props = {
 	defaultValue?: Comment;
+	isExtendedShareDialogEnabled?: boolean;
 };
 
-export const CommentField: React.FunctionComponent<Props> = ({ defaultValue }) => {
+export const CommentField: React.FunctionComponent<Props> = ({
+	defaultValue,
+	isExtendedShareDialogEnabled,
+}) => {
 	const intl = useIntl();
+
+	const formData = useFormState<ShareData>();
+
+	const shouldShowCommentField = useMemo(
+		() =>
+			!isExtendedShareDialogEnabled ||
+			(formData?.values.users && formData?.values.users.length > 0),
+		[formData?.values.users, isExtendedShareDialogEnabled],
+	);
+
+	if (!shouldShowCommentField) {
+		return null;
+	}
+
 	return (
 		<Field<Comment>
 			name="comment"
 			defaultValue={defaultValue}
-			label={intl.formatMessage(messages.commentLabel)}
+			label={intl.formatMessage(
+				isExtendedShareDialogEnabled ? messages.extendedDialogCommentLabel : messages.commentLabel,
+			)}
 		>
 			{({ fieldProps }) => (
 				<TextArea

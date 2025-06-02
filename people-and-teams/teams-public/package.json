@@ -117,7 +117,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.33.0",
+	"version": "0.34.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -128,9 +128,6 @@
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg"
 	},
 	"platform-feature-flags": {
-		"enable_card_alignment_fix": {
-			"type": "boolean"
-		},
 		"loom_tab_in_container_linker_team_profile_page": {
 			"type": "boolean"
 		}

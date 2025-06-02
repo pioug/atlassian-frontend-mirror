@@ -39,9 +39,6 @@
 			"path": "../../popup/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../primitives/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../theme/afm-post-office/tsconfig.json"
 		},
 		{

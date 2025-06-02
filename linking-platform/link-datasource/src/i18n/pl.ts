@@ -9,32 +9,46 @@
 export default {
   'linkDataSource.accessInstructions': 'Aby poprosić o dostęp, skontaktuj się z administratorem witryny.',
   'linkDataSource.accessRequired': 'Nie masz dostępu do tej treści',
-  'linkDataSource.accessRequiredWithSite': 'Nie masz dostępu do następującej witryny:',
+  'linkDataSource.accessRequiredWithSite': 'Nie masz dostępu do witryny',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Pomoc dotycząca składni',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Wyszukaj za pomocą AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Wybierz schemat',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Wybierz schemat',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Schemat jest wymagany',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Dowiedz się więcej o wyszukiwaniu przy użyciu zapytań AQL',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLinkOld':
     'Dowiedz się więcej o wyszukiwaniu przy użyciu zapytań AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Zacznij wpisywać lub użyj języka AQL, aby wyszukać.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Wyszukaj obiekty',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Wyszukaj obiekty lub typy obiektów',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Wyszukaj obiekty',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Wstaw obiekt} few {Wstaw obiekty} many {Wstaw obiekty} other {Wstaw obiekty}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Wstawianie obiektów z',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Aktualizuj tabelę',
   'linkDataSource.basic-filter.assignee.label': 'Osoba przypisana',
+  'linkDataSource.basic-filter.assignee.searchPlaceholder': 'Wyszukaj osobę przypisaną',
   'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Nie przypisano',
   'linkDataSource.basic-filter.dropdown.select.placeholder': 'Szukaj',
-  'linkDataSource.basic-filter.error-message': 'Coś poszło nie tak',
+  'linkDataSource.basic-filter.error-description': 'Sprawdź połączenie i odśwież',
+  'linkDataSource.basic-filter.errorMessage': 'Wystąpił problem podczas próby ładowania wyników',
+  'linkDataSource.basic-filter.errorMessageOld': 'Coś poszło nie tak',
   'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} z {totalCount}',
   'linkDataSource.basic-filter.loading-message': 'Ładowanie...',
-  'linkDataSource.basic-filter.no-options-message': 'Nie znaleziono dopasowań',
+  'linkDataSource.basic-filter.no-options-description': 'Spróbuj ponownie, wybierając inne wyrażenie.',
+  'linkDataSource.basic-filter.no-options-message':
+    'Nie znaleziono żadnych filtrów pasujących do kryteriów wyszukiwania',
+  'linkDataSource.basic-filter.no-options-message-old': 'Nie znaleziono dopasowań',
   'linkDataSource.basic-filter.project.label': 'Projekt',
+  'linkDataSource.basic-filter.project.searchPlaceholder': 'Wyszukaj projekty',
   'linkDataSource.basic-filter.showMoreButton': 'Pokaż więcej',
   'linkDataSource.basic-filter.status.label': 'Status',
-  'linkDataSource.basic-filter.type.label': 'Typ',
+  'linkDataSource.basic-filter.status.searchPlaceholder': 'Wyszukaj status',
+  'linkDataSource.basic-filter.type.label': 'Typ zadania',
+  'linkDataSource.basic-filter.type.labelOld': 'Typ',
+  'linkDataSource.basic-filter.type.searchPlaceholder': 'Wyszukaj typ zgłoszenia',
   'linkDataSource.checkConnection': 'Sprawdź połączenie i odśwież stronę lub spróbuj ponownie później.',
   'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Edytowane lub utworzone przez',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Wyszukiwanie zwróciło zbyt wiele wyników.',
@@ -46,6 +60,8 @@ export default {
   'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Wyszukaj zgłoszenia według słów kluczowych',
   'linkDataSource.configmodal.cancelButtonText': 'Anuluj',
+  'linkDataSource.confluence-search.checkConnectionWithSource':
+    'Sprawdź połączenie i odśwież lub <a>otwórz ten projekt w Confluence</a>, aby go przejrzeć.',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Anuluj',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'po {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': 'Kiedykolwiek',
@@ -94,16 +110,25 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Wystąpił problem podczas pobierania opcji',
   'linkDataSource.issue-line-table.unwrap-text': 'Cofnij zawijanie tekstu',
   'linkDataSource.issue-line-table.wrap-text': 'Zawijaj tekst',
+  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'Nie masz dostępu do następującej witryny:',
+  'linkDataSource.jira-issues.checkConnection.confluence':
+    'Sprawdź połączenie i odśwież lub <a>otwórz to wyszukiwanie w Confluence</a>, aby je przejrzeć.',
+  'linkDataSource.jira-issues.checkConnection.jira':
+    'Sprawdź połączenie i odśwież lub <a>otwórz to wyszukiwanie w Jirze</a>, aby je przejrzeć.',
   'linkDataSource.checkConnectionWithSource':
     'Sprawdź i odśwież połączenie lub <a>otwórz to zapytanie w systemie Jira</a>, aby je przejrzeć.',
+  'linkDataSource.jira-issues.checkConnectionWithSource.visual-refresh-sllv':
+    'Sprawdź połączenie i odśwież lub <a>otwórz ten projekt w Jirze</a>, aby go przejrzeć.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Nie można przełączyć na tryb podstawowy w przypadku tego zapytania.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Podstawowe',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Wyszukaj zgłoszenia według słów kluczowych',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Wybierz witrynę',
+  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Wybierz witrynę',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Wstaw zgłoszenia',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Wstaw zgłoszenia',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Wstaw wyniki',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Wstaw zgłoszenia Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Wstaw zgłoszenia Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Wstaw zgłoszenia Jira z witryny',
@@ -112,13 +137,18 @@ export default {
   'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': 'Zgłoszenia (###)',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Wyświetl liczbę wyników wyszukiwania jako śródwierszowe inteligentne łącze',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescriptionOld':
+    'Wyświetl liczbę wyników wyszukiwania jako śródwierszowe inteligentne łącze',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Łącze śródwierszowe',
-  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Wyświetl wyniki wyszukiwania w formie listy',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Wyświetl liczbę wyników wyszukiwania jako listę',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescriptionOld': 'Wyświetl wyniki wyszukiwania w formie listy',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Lista',
-  'linkDataSource.jira-issues.learnMoreLink': 'Dowiedz się, jak wyszukiwać przy użyciu zapytań JQL',
+  'linkDataSource.jira-issues.learnMoreLink': 'Dowiedz się więcej o wyszukiwaniu przy użyciu zapytań JQL',
   'linkDataSource.no.jira.sites.access.description': 'Aby poprosić o dostęp, skontaktuj się z administratorem.',
   'linkDataSource.no.jira.sites.access.title': 'Nie masz dostępu do żadnej witryny Jira',
   'linkDataSource.noResultsFound': 'Nie znaleziono wyników',
+  'linkDataSource.jira-issues.noResultsFound.description': 'Spróbuj ponownie, wybierając inne wyrażenie.',
+  'linkDataSource.jira-issues.noResultsFoundOld': 'Nie znaleziono wyników',
   'linkDataSource.refresh': 'Odśwież',
   'linkDataSource.jira-issues.searchDescription-basic': 'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
   'linkDataSource.jira-issues.searchDescription-jql':
@@ -126,11 +156,17 @@ export default {
   'linkDataSource.jira-issues.searchJiraTitle': 'Wyszukaj zgłoszenia Jira',
   'linkDataSource.unableToLoadItems': 'Nie można załadować elementów',
   'linkDataSource.unableToLoadResults': 'Nie można załadować wyników',
+  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
+    'Napotkaliśmy problem podczas próby pobrania wyników',
+  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Nie można załadować wyników',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Wyszukaj strony Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Wyszukaj zgłoszenia Jira',
+  'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Dowiedz się, jak wyszukiwać przy użyciu zapytań JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+    'Zacznij wpisywać lub użyj języka JQL, aby wyszukać.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Wyszukaj strony do wstawienia według słowa kluczowego.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':

@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Text k zobrazení',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Nedávno zobrazeno',
   'fabric.linkPicker.listTitle.results': 'Výsledky',
+  'fabric.linkPicker.noEmbed':
+    'Pro tento odkaz není podporováno vložené zobrazení. <a>Další informace o tom, proč některé chytré odkazy nezobrazují obsah</a>',
   'fabric.linkPicker.search.error.description':
     'Obnovte stránku nebo, pokud problém přetrvává, kontaktujte <a>podporu Atlassian</a>.',
   'fabric.linkPicker.search.error.heading': 'Při načítání dat se vyskytly problémy.',

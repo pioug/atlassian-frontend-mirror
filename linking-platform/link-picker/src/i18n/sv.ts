@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Text att visa',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Nyligen visade',
   'fabric.linkPicker.listTitle.results': 'Resultat',
+  'fabric.linkPicker.noEmbed':
+    'Inbäddningsvyn stöds inte för den här länken. <a>Mer om varför vissa smarta länkar inte visar innehåll.</a>',
   'fabric.linkPicker.search.error.description':
     'Uppdatera sidan eller kontakta <a>Atlassians support</a> om problemet kvarstår.',
   'fabric.linkPicker.search.error.heading': 'Vi kan inte läsa in data.',

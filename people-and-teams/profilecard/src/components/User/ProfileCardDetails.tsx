@@ -276,21 +276,26 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 			{renderName(props.nickname, props.fullName, meta)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
-			<Box
-				as="dl"
-				xcss={
-					fg('jfp-a11y-autodev-profile-card-name-heading')
-						? styles.detailedListWrapper
-						: detailedListWrapperStyles
-				}
-			>
-				<IconLabel icon="email" extraTopSpace={true}>
-					{props.email}
-				</IconLabel>
-				<IconLabel icon="time">{props.timestring}</IconLabel>
-				<IconLabel icon="companyName">{props.companyName}</IconLabel>
-				<IconLabel icon="location">{props.location}</IconLabel>
-			</Box>
+			{fg('jfp-a11y-autodev-profile-card-name-heading') ? (
+				<CompiledBox as="dl" xcss={styles.detailedListWrapper}>
+					<IconLabel icon="email" extraTopSpace={true}>
+						{props.email}
+					</IconLabel>
+					<IconLabel icon="time">{props.timestring}</IconLabel>
+					<IconLabel icon="companyName">{props.companyName}</IconLabel>
+					<IconLabel icon="location">{props.location}</IconLabel>
+				</CompiledBox>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/ensure-proper-xcss-usage
+				<Box as="dl" xcss={detailedListWrapperStyles}>
+					<IconLabel icon="email" extraTopSpace={true}>
+						{props.email}
+					</IconLabel>
+					<IconLabel icon="time">{props.timestring}</IconLabel>
+					<IconLabel icon="companyName">{props.companyName}</IconLabel>
+					<IconLabel icon="location">{props.location}</IconLabel>
+				</Box>
+			)}
 
 			<ReportingLinesDetails
 				reportingLines={props.reportingLines}

@@ -9,32 +9,45 @@
 export default {
   'linkDataSource.accessInstructions': 'Щоб надіслати запит на доступ, зверніться до адміністратора сайту.',
   'linkDataSource.accessRequired': 'У вас немає доступу до цього вмісту',
-  'linkDataSource.accessRequiredWithSite': 'У вас немає доступу до цього сайту:',
+  'linkDataSource.accessRequiredWithSite': 'У вас немає доступу до',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Довідка із синтаксису',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Пошук через AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Вибрати схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Виберіть схему',
   'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Необхідно вибрати схему',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    'Докладніше про пошук засобами AQL',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLinkOld':
     'Докладніше про пошук засобами AQL.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Почніть вводити запит або скористайтесь AQL для пошуку.',
-  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Пошук об’єктів',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    "Пошук об’єктів або типів об'єктів",
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitleOld': 'Пошук об’єктів',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Вставити об’єкт(-и)} few {Вставити об’єкти} many {Вставити об’єкти} other {Вставити об’єкти}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставка об’єктів з',
   'linkDataSource.assets.configmodal.updateObjectsButtonText': 'Оновити таблицю',
   'linkDataSource.basic-filter.assignee.label': 'Виконавець',
+  'linkDataSource.basic-filter.assignee.searchPlaceholder': 'Пошук виконавця',
   'linkDataSource.basic-filter.dropdown.select.assignee.unassigned': 'Не призначено',
   'linkDataSource.basic-filter.dropdown.select.placeholder': 'Пошук',
-  'linkDataSource.basic-filter.error-message': 'Щось пішло не так',
+  'linkDataSource.basic-filter.error-description': 'Перевірте з’єднання та оновіть сторінку',
+  'linkDataSource.basic-filter.errorMessage': 'Під час спроби завантажити результати сталася помилка',
+  'linkDataSource.basic-filter.errorMessageOld': 'Сталася помилка',
   'linkDataSource.basic-filter.footer.pagination-details': '{currentDisplayCount} з {totalCount}',
   'linkDataSource.basic-filter.loading-message': 'Завантаження...',
-  'linkDataSource.basic-filter.no-options-message': 'Нічого не знайдено',
+  'linkDataSource.basic-filter.no-options-description': 'Повторіть спробу, увівши інший запит.',
+  'linkDataSource.basic-filter.no-options-message': 'Не знайдено результатів за вашим запитом',
+  'linkDataSource.basic-filter.no-options-message-old': 'Нічого не знайдено',
   'linkDataSource.basic-filter.project.label': 'Проєкт',
+  'linkDataSource.basic-filter.project.searchPlaceholder': 'Пошук проєктів',
   'linkDataSource.basic-filter.showMoreButton': 'Показати більше',
   'linkDataSource.basic-filter.status.label': 'Стан',
-  'linkDataSource.basic-filter.type.label': 'Тип',
+  'linkDataSource.basic-filter.status.searchPlaceholder': 'Пошук стану',
+  'linkDataSource.basic-filter.type.label': 'Тип завдання',
+  'linkDataSource.basic-filter.type.labelOld': 'Тип',
+  'linkDataSource.basic-filter.type.searchPlaceholder': 'Пошук типу завдання',
   'linkDataSource.checkConnection': 'Перевірте з’єднання та оновіть сторінку або повторіть спробу пізніше.',
   'linkDataSource.clol-basic-filter.editedOrCreatedBy.label': 'Хто редагував/створив',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1':
@@ -47,6 +60,8 @@ export default {
   'linkDataSource.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Пошук елементів завдань за ключовим словом',
   'linkDataSource.configmodal.cancelButtonText': 'Скасувати',
+  'linkDataSource.confluence-search.checkConnectionWithSource':
+    'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей проєкт у Confluence</a>.',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Скасувати',
   'linkDataSource.confluence-search.configmodal.date.range.after.label': 'після {date}',
   'linkDataSource.confluence-search.configmodal.date.range.any.time': 'Будь-коли',
@@ -95,16 +110,25 @@ export default {
   'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Не вдається отримати варіанти',
   'linkDataSource.issue-line-table.unwrap-text': 'Розгорнути текст',
   'linkDataSource.issue-line-table.wrap-text': 'Згорнути текст',
+  'linkDataSource.jira-issues.accessRequiredWithSiteOld': 'У вас немає доступу до цього сайту:',
+  'linkDataSource.jira-issues.checkConnection.confluence':
+    'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей пошуковий запит у Confluence</a>.',
+  'linkDataSource.jira-issues.checkConnection.jira':
+    'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей пошуковий запит у Jira</a>.',
   'linkDataSource.checkConnectionWithSource':
     'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей запит у Jira</a>.',
+  'linkDataSource.jira-issues.checkConnectionWithSource.visual-refresh-sllv':
+    'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей проєкт у Jira</a>.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Ви не можете перейти на базовий режим для цього запиту.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Простий',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder-issue-term-refresh':
     'Пошук елементів завдань за ключовим словом',
   'linkDataSource.site-selector.configmodal.chooseSite': 'Вибрати сайт',
+  'linkDataSource.jira-issues.configmodal.chooseSiteOld': 'Вибрати сайт',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставити завдання',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh': 'Вставити елементи завдань',
+  'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-sllv': 'Вставити результати',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставте завдання Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh': 'Вставте елементи завдань Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставте завдання Jira з:',
@@ -113,13 +137,20 @@ export default {
   'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh': '### елем. завдання',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Відображення кількості результатів пошуку у вигляді вбудованого смарт-посилання',
+  'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescriptionOld':
+    'Відображення кількості результатів пошуку у вигляді вбудованого смарт-посилання',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Вбудоване посилання',
-  'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Відображення результатів пошуку у вигляді списку',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescription':
+    'Відображення кількості результатів пошуку у вигляді списку',
+  'linkDataSource.jira-issues.configmodal.viewModeListDescriptionOld':
+    'Відображення результатів пошуку у вигляді списку',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Список',
-  'linkDataSource.jira-issues.learnMoreLink': 'Дізнайтеся, як виконувати пошук засобами JQL',
+  'linkDataSource.jira-issues.learnMoreLink': 'Докладніше про пошук засобами JQL',
   'linkDataSource.no.jira.sites.access.description': 'Щоб запитати доступ, зверніться до адміністратора.',
   'linkDataSource.no.jira.sites.access.title': 'У вас немає доступу до жодного сайту Jira',
   'linkDataSource.noResultsFound': 'Немає результатів',
+  'linkDataSource.jira-issues.noResultsFound.description': 'Повторіть спробу, увівши інший запит.',
+  'linkDataSource.jira-issues.noResultsFoundOld': 'Немає результатів',
   'linkDataSource.refresh': 'Оновити',
   'linkDataSource.jira-issues.searchDescription-basic':
     'Використовуйте ключове слово для пошуку завдань, які потрібно вставити.',
@@ -127,11 +158,17 @@ export default {
   'linkDataSource.jira-issues.searchJiraTitle': 'Пошук завдань Jira',
   'linkDataSource.unableToLoadItems': 'Не вдалося завантажити елементи',
   'linkDataSource.unableToLoadResults': 'Не вдалося завантажити результати',
+  'linkDataSource.jira-issues.unableToLoadResults.visual-refresh-sllv':
+    'Під час спроби отримати результати сталася помилка',
+  'linkDataSource.jira-issues.unableToLoadResultsOld': 'Не вдалося завантажити результати',
   'linkDataSource.modal-initial-state.beta': 'Бета-версія',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Пошук сторінок Confluence',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Пошук завдань Jira',
+  'linkDataSource.modal-initial-state.learnMoreLinkOld': 'Дізнайтеся, як виконувати пошук засобами JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh':
     'Шукайте елементи завдання, які потрібно вставити, за ключовим словом.',
+  'linkDataSource.modal-initial-state.searchDescription-basic.visualRefreshSllv':
+    'Почніть вводити запит або скористайтеся JQL для пошуку.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Шукайте сторінки, які потрібно вставити, за ключовим словом.',
   'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh':

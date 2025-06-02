@@ -25,6 +25,8 @@ export default {
   'fabric.linkPicker.linkTextPlaceholder': 'Tekst som skal vises',
   'fabric.linkPicker.listTitle.recentlyViewed': 'Nylig vist',
   'fabric.linkPicker.listTitle.results': 'Resultater',
+  'fabric.linkPicker.noEmbed':
+    'Innebygd visning støttes ikke for denne koblingen. <a>Mer om hvorfor noen smartkoblinger ikke viser innhold.</a>',
   'fabric.linkPicker.search.error.description':
     'Oppdater siden, eller kontakt <a>Atlassian-støtte</a> hvis dette fortsetter å skje.',
   'fabric.linkPicker.search.error.heading': 'Vi har problemer med å laste inn dataene.',

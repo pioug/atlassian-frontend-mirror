@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 10.11.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.11.7
+
+### Patch Changes
+
+- [#164047](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164047)
+  [`823d00b1d1429`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/823d00b1d1429) -
+  ED-27604: Fixed table drag menu flickers when hover background color menu
+- Updated dependencies
+
+## 10.11.6
+
+### Patch Changes
+
+- [#162726](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162726)
+  [`05c3aa3d6cd0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05c3aa3d6cd0c) -
+  NOISSUE - Remove lazy node view for tables. Includes cleaning up the feature gates:
+  platform_editor_disable_table_lnv & platform_editor_enable_table_lnv.
+
 ## 10.11.5
 
 ### Patch Changes

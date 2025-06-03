@@ -51,7 +51,7 @@ describe('Forbidden Hover Card', () => {
 	};
 
 	//
-	ffTest.both('smart_links_noun_support', 'noun support', () => {
+	ffTest.both('smart_links_noun_support', 'entity support', () => {
 		it('renders forbidden hover card content', async () => {
 			await setUpHoverCard();
 			await screen.findByTestId(forbiddenViewTestId);

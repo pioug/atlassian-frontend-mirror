@@ -41,7 +41,7 @@ const extractSmartLinkInlineIcon = (response?: SmartLinkResponse, showLabel = tr
 			return provider.icon;
 		}
 		// We don't need this for design entities,
-		// but we can add it back when we support more nouns
+		// but we can add it back when we support more entities
 		// it requires extractInlineIcon to be moved to the smart link extractor package.
 		// see: https://product-fabric.atlassian.net/browse/EDM-12375
 		// return extractSmartLinkIcon(response);
@@ -63,7 +63,7 @@ export const extractInlineProps = (
 			link: extractSmartLinkUrl(response),
 			title: extractSmartLinkTitle(response, removeTextHighlightingFromTitle),
 			icon: extractSmartLinkInlineIcon(response, showLabel),
-			// As we migrate to support more nouns we can incorporate these fields
+			// As we migrate to support more entities we can incorporate these fields
 			lozenge: extractLozenge(jsonLd),
 			titleTextColor: extractTitleTextColor(jsonLd),
 			titlePrefix: extractTitlePrefix(jsonLd, renderers, 'inline'),

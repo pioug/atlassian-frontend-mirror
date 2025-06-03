@@ -78,6 +78,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 							editorAnalyticsAPI: api?.analytics?.actions,
 							featureFlagsPluginState: featureFlags,
 							selectCommentExperience: annotationProviders.selectCommentExperience,
+							viewInlineCommentTraceUFOPress: annotationProviders.viewInlineCommentTraceUFOPress,
 							annotationManager: annotationProviders.annotationManager,
 							api,
 						});

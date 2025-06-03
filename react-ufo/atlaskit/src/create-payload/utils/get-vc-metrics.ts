@@ -46,6 +46,7 @@ async function getVCMetrics(
 		stop: interaction.end,
 		tti,
 		prefix,
+		includeSSRInV3: config.vc?.includeSSRInV3,
 		vc: interaction.vc,
 		isEventAborted: interactionStatus.originalInteractionStatus !== 'SUCCEEDED',
 		experienceKey: interaction.ufoName,

@@ -186,51 +186,39 @@ export const ExtensionsPlaceholder = (props: Props) => {
 			item.disabled = true;
 		}
 
-		if (fg('forge-ui-macro-autoconvert')) {
-			if ('type' in item && item.type === 'dropdown') {
-				children.push(
-					<Dropdown
-						key={item.id}
-						title={item.title}
-						icon={item.icon}
-						dispatchCommand={dispatchCommand || (() => {})}
-						options={item.options}
-						disabled={item.disabled}
-						tooltip={item.tooltip}
-						hideExpandIcon={item.hideExpandIcon}
-						mountPoint={popupsMountPoint}
-						boundariesElement={popupsBoundariesElement}
-						scrollableElement={popupsScrollableElement}
-						dropdownWidth={item.dropdownWidth}
-						showSelected={item.showSelected}
-						buttonTestId={item.testId}
-						editorView={editorView}
-						setDisableParentScroll={scrollable ? setDisableScroll : undefined}
-						dropdownListId={item?.id && `${item.id}-dropdownList`}
-						alignDropdownWithToolbar={alignDropdownWithToolbar}
-						onToggle={item.onToggle}
-						footer={item.footer}
-						onMount={item.onMount}
-						onClick={item.onClick}
-						pulse={item.pulse}
-					/>,
-				);
-			} else {
-				children.push(
-					<ExtensionButton
-						node={node}
-						item={item as ExtensionToolbarButton}
-						editorView={editorView}
-						applyChangeToContextPanel={applyChangeToContextPanel}
-						extensionApi={extensionApi}
-					/>,
-				);
-			}
+		if ('type' in item && item.type === 'dropdown') {
+			children.push(
+				<Dropdown
+					key={item.id}
+					title={item.title}
+					icon={item.icon}
+					dispatchCommand={dispatchCommand || (() => {})}
+					options={item.options}
+					disabled={item.disabled}
+					tooltip={item.tooltip}
+					hideExpandIcon={item.hideExpandIcon}
+					mountPoint={popupsMountPoint}
+					boundariesElement={popupsBoundariesElement}
+					scrollableElement={popupsScrollableElement}
+					dropdownWidth={item.dropdownWidth}
+					showSelected={item.showSelected}
+					buttonTestId={item.testId}
+					editorView={editorView}
+					setDisableParentScroll={scrollable ? setDisableScroll : undefined}
+					dropdownListId={item?.id && `${item.id}-dropdownList`}
+					alignDropdownWithToolbar={alignDropdownWithToolbar}
+					onToggle={item.onToggle}
+					footer={item.footer}
+					onMount={item.onMount}
+					onClick={item.onClick}
+					pulse={item.pulse}
+				/>,
+			);
 		} else {
 			children.push(
 				<ExtensionButton
 					node={node}
-					item={item}
+					item={item as ExtensionToolbarButton}
 					editorView={editorView}
 					applyChangeToContextPanel={applyChangeToContextPanel}
 					extensionApi={extensionApi}

@@ -7,6 +7,7 @@ export type GetVCResultType = {
 	isEventAborted: boolean;
 	prefix?: string;
 	ssr?: number;
+	includeSSRInV3?: boolean;
 	vc?: VCRawDataType | null;
 	experienceKey: string;
 	interactionId?: string;

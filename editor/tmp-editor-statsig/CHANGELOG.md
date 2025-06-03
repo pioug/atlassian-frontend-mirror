@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.8.0
+
+### Minor Changes
+
+- [#163510](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163510)
+  [`82ae25a1f9aaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82ae25a1f9aaa) -
+  Adds expValEquals and expValEqualsNoExposure methods
+
 ## 5.7.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.5.3
+
+### Patch Changes
+
+- [#162483](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162483)
+  [`ad07dec30b65c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad07dec30b65c) -
+  EDITOR-817 Extension right rail not opening when Legacy Content Extension is in page bug fixed.
+- Updated dependencies
+
+## 5.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.5.1
 
 ### Patch Changes

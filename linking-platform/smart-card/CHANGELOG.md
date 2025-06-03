@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 38.5.5
+
+### Patch Changes
+
+- [#164735](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164735)
+  [`e775157fd06b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e775157fd06b8) -
+  Rename nounData to entityData. Fg smart_links_noun_support
+- Updated dependencies
+
+## 38.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.5.3
 
 ### Patch Changes

@@ -20,16 +20,12 @@ const styles = cssMap({
 		height: '1.5rem',
 	},
 	oldFooter: {
-		// Need to increase specificity here until CustomItem is updated to use @compiled/react
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&&': {
-			userSelect: 'auto',
-			display: 'block',
-			textAlign: 'center',
-			minHeight: '24px',
-			alignItems: 'center',
-			width: '100%',
-		},
+		userSelect: 'auto',
+		display: 'block',
+		textAlign: 'center',
+		minHeight: '24px',
+		alignItems: 'center',
+		width: '100%',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-item-elem-before]': {
 			marginRight: token('space.0', '0px'),

@@ -209,6 +209,7 @@ type InvalidTransactionErrorAEP = OperationalAEP<
 	{
 		analyticsEventPayloads: AnalyticsEventPayloadWithChannel[];
 		invalidNodes: (SimplifiedNode | string)[];
+		isRemoteReplaceDocumentTransaction?: boolean;
 	}
 >;
 

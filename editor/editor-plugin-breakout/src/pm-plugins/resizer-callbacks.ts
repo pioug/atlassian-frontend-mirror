@@ -37,7 +37,6 @@ export function getProposedWidth({
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
 }): number {
 	const diffX = (location.current.input.clientX - location.initial.input.clientX) * RESIZE_RATIO;
-	const proposedWidth = initialWidth + diffX;
 
 	// TODO: ED-28024 - add snapping logic
 
@@ -45,6 +44,10 @@ export function getProposedWidth({
 		(api?.width.sharedState?.currentState()?.width || 0) -
 		2 * akEditorGutterPaddingDynamic() -
 		akEditorGutterPadding;
+
+	// the node width may be greater than the container width so we resize using the smaller value
+	const proposedWidth = Math.min(initialWidth, containerWidth) + diffX;
+
 	return Math.min(Math.max(WIDTHS.MIN, Math.min(proposedWidth, containerWidth)), WIDTHS.MAX);
 }
 
@@ -66,6 +69,7 @@ export function createResizerCallbacks({
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
 } {
 	let node: Node | null = null;
+	let guidelines: GuidelineConfig[] = [];
 	const getEditorWidth = () => {
 		return api?.width?.sharedState.currentState();
 	};
@@ -80,24 +84,25 @@ export function createResizerCallbacks({
 			const initialWidth = mark.attrs.width;
 			const newWidth = getProposedWidth({ initialWidth, location, api });
 
-			const guidelines: GuidelineConfig[] = getGuidelines(
-				true,
-				newWidth,
-				getEditorWidth,
-				node?.type,
-			);
+			guidelines = getGuidelines(true, newWidth, getEditorWidth, node?.type);
 			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
 
 			contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
 		},
 		onDrop({ location }) {
-			const guidelines: GuidelineConfig[] = getGuidelines(false, 0, getEditorWidth);
+			const isResizedToFullWidth = !!guidelines.find(
+				(guideline) => guideline.key.includes('full_width') && guideline.active,
+			);
+
+			guidelines = getGuidelines(false, 0, getEditorWidth);
 			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
 
 			const pos = view.posAtDOM(dom, 0);
 			const mode = mark.attrs.mode;
 			const initialWidth = mark.attrs.width;
-			const newWidth = getProposedWidth({ initialWidth, location, api });
+			const newWidth = isResizedToFullWidth
+				? WIDTHS.MAX
+				: getProposedWidth({ initialWidth, location, api });
 			setBreakoutWidth(newWidth, mode, pos)(view.state, view.dispatch);
 
 			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);

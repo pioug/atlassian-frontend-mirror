@@ -118,6 +118,10 @@ interface ReactionSummaryViewProps
 	 * Optional prop to control if the side picker is shown
 	 */
 	summaryButtonIconAfter?: React.ReactNode;
+	/**
+	 * Optional prop to set the most recently clicked id
+	 */
+	summaryViewParticleEffectEmojiId?: { id: string; shortName: string } | null;
 }
 
 export const ReactionSummaryView = ({
@@ -147,6 +151,7 @@ export const ReactionSummaryView = ({
 	hoverableSummaryViewDelay = 300,
 	summaryGetOptimisticImageURL,
 	summaryButtonIconAfter,
+	summaryViewParticleEffectEmojiId,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useDelayedState<boolean>(
 		false,
@@ -172,6 +177,7 @@ export const ReactionSummaryView = ({
 			},
 		});
 	}, []);
+
 	/**
 	 * Event callback when an emoji icon is selected
 	 * @param item selected item
@@ -358,6 +364,7 @@ export const ReactionSummaryView = ({
 					useButtonAlignmentStyling={useButtonAlignmentStyling}
 					summaryGetOptimisticImageURL={summaryGetOptimisticImageURL}
 					summaryButtonIconAfter={summaryButtonIconAfter}
+					summaryViewParticleEffectEmojiId={summaryViewParticleEffectEmojiId}
 				/>
 			)}
 		/>

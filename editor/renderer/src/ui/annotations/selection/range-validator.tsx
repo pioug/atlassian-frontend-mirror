@@ -22,6 +22,7 @@ export const SelectionRangeValidator = (props: Props) => {
 
 	const selectionRange = type === 'selection' ? range : null;
 
+	// !!! the draft range will become invalid after the mark DOM is inserted
 	if (!selectionRange && !draftRange) {
 		return null;
 	}

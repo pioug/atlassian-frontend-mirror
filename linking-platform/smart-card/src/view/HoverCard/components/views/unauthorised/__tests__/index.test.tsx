@@ -76,7 +76,7 @@ describe('Unauthorised Hover Card', () => {
 		render(<TestComponent propOverrides={propOverrides} />);
 	};
 
-	ffTest.both('smart_links_noun_support', 'noun support', () => {
+	ffTest.both('smart_links_noun_support', 'entity support', () => {
 		it('renders Unauthorised hover card content', () => {
 			setUpHoverCard();
 			const iconElement = screen.getByTestId('smart-element-icon');

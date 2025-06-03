@@ -30,7 +30,7 @@ const markStyles = css({
 		borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&:focus, &[data-has-focus="true"]': {
+		'&[data-has-focus="true"]': {
 			background: token('color.background.accent.yellow.subtler'),
 			borderBottom: `2px solid ${token('color.border.accent.yellow')}`,
 			// TODO: DSP-4147 - Annotation shadow
@@ -49,7 +49,7 @@ const markStylesLayeringFix = css({
 			backgroundColor: 'transparent',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.fabric-background-color-mark &[data-has-focus="true"], &:focus, &[data-has-focus="true"]': {
+		'.fabric-background-color-mark &[data-has-focus="true"], &[data-has-focus="true"]': {
 			background: token('color.background.accent.yellow.subtlest.pressed'),
 			borderBottomColor: token('color.border.accent.yellow'),
 			boxShadow: token('elevation.shadow.raised'),
@@ -61,7 +61,7 @@ const markStylesWithUpdatedShadow = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&:focus, &[data-has-focus="true"]': {
+		'&[data-has-focus="true"]': {
 			background: token('color.background.accent.yellow.subtlest.pressed'),
 			borderBottomColor: token('color.border.accent.yellow'),
 			boxShadow: token('elevation.shadow.raised'),
@@ -92,7 +92,7 @@ const markStylesWithInlineComments = css({
 		borderBottomColor: token('color.border.accent.yellow'),
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&:focus, &[data-has-focus="true"]': {
+		'&[data-has-focus="true"]': {
 			background: token('color.background.accent.yellow.subtlest.pressed'),
 			borderBottomColor: token('color.border.accent.yellow'),
 			boxShadow: token('elevation.shadow.overlay'),

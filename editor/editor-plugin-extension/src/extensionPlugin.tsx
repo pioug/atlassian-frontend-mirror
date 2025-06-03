@@ -1,3 +1,5 @@
+import uuid from 'uuid/v4';
+
 import {
 	extension,
 	extensionFrame,
@@ -26,10 +28,12 @@ import { bodiedExtensionSpecWithFixedToDOM } from './pm-plugins/toDOM-fixes/bodi
 import { getToolbarConfig } from './pm-plugins/toolbar';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 // Remove below line when cleaning up platform_editor_ai_object_sidebar_injection feature flag
+import { CONFIG_PANEL_ID } from './ui/ConfigPanel/constants';
 import { getContextPanel } from './ui/context-panel';
 import { useConfigPanelPluginHook } from './ui/useConfigPanelPluginHook';
 
 export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
+	const configPanelId = `${CONFIG_PANEL_ID}-${uuid()}`;
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	//Note: This is a hack to get the editor view reference in the plugin. Copied from table plugin.
 	//This is needed to get the current selection in the editor
@@ -209,7 +213,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 		usePluginHook:
 			showContextPanel && fg('platform_editor_ai_object_sidebar_injection')
 				? ({ editorView }) => {
-						useConfigPanelPluginHook({ editorView, api });
+						useConfigPanelPluginHook({ api, configPanelId, editorView });
 					}
 				: undefined,
 	};

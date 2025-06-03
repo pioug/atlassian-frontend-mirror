@@ -99,6 +99,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 		(annotationId: string) => {
 			// We want to support creation on a documentPosition if the user is only using ranges
 			// but we want to prioritize draft positions if they are being used by consumers
+			// !!! at this point, the documentPosition can be the wrong position if the user select something else
 			const positionToAnnotate = selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation) {
@@ -225,7 +226,13 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				}
 			});
 
-			const positionToAnnotate = selectionDraftDocumentPosition || documentPosition;
+			// at this point, the documentPosition is the position that the user has selected,
+			// not the selectionDraftDocumentPosition
+			// because the documentPosition is not promoted to selectionDraftDocumentPosition yet
+			// use platform_editor_comments_api_manager here so we can clear the code path when the flag is removed
+			const positionToAnnotate = fg('platform_editor_comments_api_manager')
+				? documentPosition
+				: selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
 				return false;
@@ -295,12 +302,8 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	useEffect(() => {
 		if (annotationManager) {
 			const startDraft = (): StartDraftResult => {
-				if (isDrafting) {
-					return {
-						success: false,
-						reason: 'draft-in-progress',
-					};
-				}
+				// if there is a draft in progress, we ignore it and start a new draft
+				// this is because clearing the draft will remove the mark node from the DOM, which will cause the selection range to be invalid
 
 				const id = uuid();
 				const result = applyDraftModeCallback({

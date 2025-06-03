@@ -20,7 +20,7 @@ import { getPluginState } from '../pm-plugins/plugin-factory';
 import { getSelectedExtension } from '../pm-plugins/utils';
 
 import ConfigPanelLoader from './ConfigPanel/ConfigPanelLoader';
-import { CONFIG_PANEL_ID, CONFIG_PANEL_WIDTH } from './ConfigPanel/constants';
+import { CONFIG_PANEL_WIDTH } from './ConfigPanel/constants';
 import HeaderAfterIconElement from './ConfigPanel/Header/HeaderAfterIconElement';
 import HeaderIcon from './ConfigPanel/Header/HeaderIcon';
 import { onChangeAction } from './context-panel';
@@ -52,9 +52,11 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 
 export function useConfigPanelPluginHook({
 	editorView,
+	configPanelId,
 	api,
 }: {
 	editorView: EditorView;
+	configPanelId: string;
 	api?: ExtractInjectionAPI<ExtensionPlugin>;
 }) {
 	const editorState = editorView.state;
@@ -64,43 +66,57 @@ export function useConfigPanelPluginHook({
 		const nodeWithPos = getSelectedExtension(editorState, true);
 		// Adding checks to bail out early
 		if (!nodeWithPos) {
-			hideConfigPanel(api);
+			hideConfigPanel(configPanelId, api);
 			return;
 		}
 
 		if (showContextPanel && extensionProvider && processParametersAfter) {
 			showConfigPanel({
 				api,
+				configPanelId,
 				editorView,
 				extensionProvider,
 				nodeWithPos,
 			});
 		} else {
-			hideConfigPanel(api);
+			hideConfigPanel(configPanelId, api);
 		}
-	}, [api, editorState, editorView, showContextPanel, extensionProvider, processParametersAfter]);
+	}, [
+		api,
+		configPanelId,
+		editorState,
+		editorView,
+		showContextPanel,
+		extensionProvider,
+		processParametersAfter,
+	]);
 
 	useEffect(() => {
 		return () => {
-			hideConfigPanel(api);
+			hideConfigPanel(configPanelId, api);
 		};
-	}, [api]);
+	}, [api, configPanelId]);
 }
 
-export function hideConfigPanel(api: ExtractInjectionAPI<ExtensionPlugin> | undefined) {
+export function hideConfigPanel(
+	configPanelId: string,
+	api: ExtractInjectionAPI<ExtensionPlugin> | undefined,
+) {
 	const closePanelById = api?.contextPanel?.actions?.closePanelById;
 	if (closePanelById) {
-		closePanelById(CONFIG_PANEL_ID);
+		closePanelById(configPanelId);
 	}
 }
 
 export function showConfigPanel({
 	api,
+	configPanelId,
 	editorView,
 	extensionProvider,
 	nodeWithPos,
 }: {
 	api: ExtractInjectionAPI<ExtensionPlugin> | undefined;
+	configPanelId: string;
 	editorView: EditorView;
 	extensionProvider: ExtensionProvider;
 	nodeWithPos: ContentNodeWithPos;
@@ -145,7 +161,7 @@ export function showConfigPanel({
 		});
 		showContextPanel(
 			{
-				id: CONFIG_PANEL_ID,
+				id: configPanelId,
 				headerComponentElements: {
 					HeaderIcon: HeadeIconWrapper,
 					HeaderAfterIconElement: HeaderAfterIconElementWrapper,

@@ -68,6 +68,12 @@ describe('IntlMessagesProvider', () => {
 		jest.restoreAllMocks();
 	});
 
+	it('should have no a11y violations', async () => {
+		const { container } = setup(props);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Should display translated messages after loaded', async () => {
 		setup(props);
 

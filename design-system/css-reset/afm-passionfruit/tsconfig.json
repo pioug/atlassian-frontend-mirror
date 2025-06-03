@@ -22,12 +22,6 @@
 	},
 	"references": [
 		{
-			"path": "../../link/afm-passionfruit/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
-		},
-		{
 			"path": "../../theme/afm-passionfruit/tsconfig.json"
 		},
 		{

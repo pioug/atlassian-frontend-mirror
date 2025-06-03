@@ -24,12 +24,6 @@
 			"path": "../../css/afm-passionfruit/tsconfig.json"
 		},
 		{
-			"path": "../../ds-lib/afm-passionfruit/tsconfig.json"
-		},
-		{
-			"path": "../../focus-ring/afm-passionfruit/tsconfig.json"
-		},
-		{
 			"path": "../../../observability/interaction-context/afm-passionfruit/tsconfig.json"
 		},
 		{

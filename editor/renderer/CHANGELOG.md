@@ -1,5 +1,35 @@
 # @atlaskit/renderer
 
+## 118.6.6
+
+### Patch Changes
+
+- [#163587](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163587)
+  [`59a3ee21507aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59a3ee21507aa) -
+  EDITOR-835 - Can not start another draft after starting a draft in renderer
+- Updated dependencies
+
+## 118.6.5
+
+### Patch Changes
+
+- [#164058](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164058)
+  [`0d27c81dc4607`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d27c81dc4607) -
+  [ux] EDITOR-843 - remove focus style for renderer annotation comment mark element
+- [#164607](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164607)
+  [`e0b155ba0f97c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0b155ba0f97c) -
+  EDITOR-857 - Click a selected comment should deselect it in renderer
+- [#163939](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163939)
+  [`c8320043adccd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8320043adccd) -
+  Reducing children validation in RendererActions behind an FG and sending track analytics event
+- Updated dependencies
+
+## 118.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 118.6.3
 
 ### Patch Changes

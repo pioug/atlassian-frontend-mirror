@@ -35,6 +35,9 @@ export const useUserSelectionRange = (
 
 					if (!sel || sel.type !== 'Range' || sel.rangeCount !== 1) {
 						lastRangeRef.current = null; // Clear last range if selection is invalid
+						if (fg('platform_editor_comments_api_manager')) {
+							clearSelectionRange();
+						}
 						return;
 					}
 
@@ -83,6 +86,9 @@ export const useUserSelectionRange = (
 					const sel = document.getSelection();
 
 					if (!sel || sel.type !== 'Range' || sel.rangeCount !== 1) {
+						if (fg('platform_editor_comments_api_manager')) {
+							clearSelectionRange();
+						}
 						return;
 					}
 
@@ -125,7 +131,7 @@ export const useUserSelectionRange = (
 				}, 250);
 			}
 		},
-		[rendererDOM, setSelectionRange],
+		[rendererDOM, setSelectionRange, clearSelectionRange],
 	);
 
 	useEffect(() => {

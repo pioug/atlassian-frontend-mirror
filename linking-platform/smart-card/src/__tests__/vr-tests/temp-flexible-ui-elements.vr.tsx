@@ -26,8 +26,8 @@ import { BlockCardNotFoundSiteAccessExists } from '../../../examples/vr-block-ca
 import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
 import { BlockCardBitbucket } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
 import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
+import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities';
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
-import { BlockCardNouns } from '../../../examples/vr-block-card/vr-block-card-resolved-nouns';
 import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
 import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
@@ -45,9 +45,9 @@ import FlexUiBlockAiSummaryError from '../../../examples/vr-flexible-card/vr-fle
 import FlexUiBlockAiSummaryLoading from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-loading';
 import FlexUiBlockAiSummaryReady from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-ready';
 import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states';
+import FlexibleUiBlockEntities from '../../../examples/vr-flexible-card/vr-flexible-ui-block-entities';
 import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
 import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
-import FlexibleUiBlockNouns from '../../../examples/vr-flexible-card/vr-flexible-ui-block-nouns';
 import {
 	FlexibleUiBlockPreviewLarge,
 	FlexibleUiBlockPreviewMedium,
@@ -80,7 +80,7 @@ import HoverCardWithPreview from '../../../examples/vr-hover-card-standalone/vr-
 import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-actions';
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
-import HoverCardWithNouns from '../../../examples/vr-hover-card/vr-hover-cards-nouns';
+import HoverCardWithEntities from '../../../examples/vr-hover-card/vr-hover-cards-entities';
 import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
 import HoverCardSSRLoading from '../../../examples/vr-hover-card/vr-hover-cards-ssr-loading';
 import HoverCardUnauthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards';
@@ -516,8 +516,8 @@ snapshot(HoverCard, {
 	},
 });
 
-snapshot(HoverCardWithNouns, {
-	description: 'hover-card: Nouns support',
+snapshot(HoverCardWithEntities, {
+	description: 'hover-card: Entities support',
 	drawsOutsideBounds: true,
 	states: [
 		{
@@ -1198,7 +1198,7 @@ snapshot(FlexibleUiBlockCardErroredStates, {
 });
 
 // Nouns
-snapshot(FlexibleUiBlockNouns, {
+snapshot(FlexibleUiBlockEntities, {
 	ignoredErrors: [],
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
@@ -1482,8 +1482,8 @@ snapshot(BlockCardLazyIconsFileType4, {
 		'icon-object-migration': true,
 	},
 });
-snapshot(BlockCardNouns, {
-	description: `block card with noun support`,
+snapshot(BlockCardEntities, {
+	description: `block card with entity support`,
 	featureFlags: {
 		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,

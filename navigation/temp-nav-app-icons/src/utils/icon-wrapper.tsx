@@ -5,7 +5,7 @@
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens';
 
 import type { IconSize } from './types';
 
@@ -17,18 +17,39 @@ const styles = cssMap({
 
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
-const appearanceMap = cssMap({
+const lightAppearanceMap = cssMap({
 	brand: {
 		'--icon-color': 'initial',
 		'--tile-color': 'initial',
 	},
 	neutral: {
-		'--icon-color': token('color.text.inverse'),
-		'--tile-color': token('color.text'),
+		'--icon-color': '#505258',
+		'--tile-color': '#DDDEE1',
 	},
 	inverse: {
-		'--icon-color': token('color.text'),
-		'--tile-color': token('color.text.inverse'),
+		'--icon-color': '#1E1F21',
+		'--tile-color': '#FFFFFF',
+	},
+	// The 'legacy' appearance replaces icon colors with a blue tile and white icon, controlled via CSS variables
+	legacy: {
+		'--icon-color': 'white',
+		'--tile-color': '#1868DB',
+	},
+});
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const darkAppearanceMap = cssMap({
+	brand: {
+		'--icon-color': 'initial',
+		'--tile-color': 'initial',
+	},
+	neutral: {
+		'--icon-color': '#A9ABAF',
+		'--tile-color': '#4B4D51',
+	},
+	inverse: {
+		'--icon-color': '#FFFFFF',
+		'--tile-color': '#1E1F21',
 	},
 	// The 'legacy' appearance replaces icon colors with a blue tile and white icon, controlled via CSS variables
 	legacy: {
@@ -98,10 +119,16 @@ export function IconWrapper({
 
 	const isCustomThemed = customThemeSvg && customIconColor;
 
+	const { colorMode } = useThemeObserver();
+
 	return (
 		// Role and testID behavior copied directly from `@atlaskit/logo` to maintain consistency.
 		<span
-			css={[styles.root, sizeMap[size], appearanceMap[appearance]]}
+			css={[
+				styles.root,
+				sizeMap[size],
+				colorMode === 'light' ? lightAppearanceMap[appearance] : darkAppearanceMap[appearance],
+			]}
 			data-testid={testId}
 			style={
 				{

@@ -1,5 +1,7 @@
 export const selectOptions = [
 	{ label: 'Brand', value: 'brand' },
+	{ label: 'Neutral', value: 'neutral' },
+	{ label: 'Inverse', value: 'inverse' },
 	{ label: 'Legacy', value: 'legacy' },
 ] as const;
 

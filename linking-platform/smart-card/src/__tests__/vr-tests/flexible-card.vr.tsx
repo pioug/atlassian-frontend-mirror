@@ -4,9 +4,9 @@ import FlexibleUiAccessibility from '../../../examples/vr-flexible-card/vr-flexi
 import FlexibleUiAccessibilityForbidden from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility-forbidden';
 import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block';
 import FlexibleUiBlockCardErroredStates from '../../../examples/vr-flexible-card/vr-flexible-ui-block-card-errored-states';
+import FlexibleUiBlockEntities from '../../../examples/vr-flexible-card/vr-flexible-ui-block-entities';
 import FlexibleUiBlockFooter from '../../../examples/vr-flexible-card/vr-flexible-ui-block-footer';
 import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
-import FlexibleUiBlockNouns from '../../../examples/vr-flexible-card/vr-flexible-ui-block-nouns';
 import {
 	FlexibleUiBlockPreviewLarge,
 	FlexibleUiBlockPreviewMedium,
@@ -427,7 +427,7 @@ snapshot(FlexibleUiBlockCardErroredStates, {
 });
 
 // Nouns
-snapshot(FlexibleUiBlockNouns, {
+snapshot(FlexibleUiBlockEntities, {
 	ignoredErrors: [],
 	featureFlags: {
 		smart_links_noun_support: true,

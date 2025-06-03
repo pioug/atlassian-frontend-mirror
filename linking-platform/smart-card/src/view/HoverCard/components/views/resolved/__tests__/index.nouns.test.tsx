@@ -72,7 +72,7 @@ describe('HoverCardResolvedView', () => {
 	);
 
 	const TestComponent = ({
-		mockResponse = mocks.nounDataSuccess,
+		mockResponse = mocks.entityDataSuccess,
 		isAISummaryEnabled,
 		cardState,
 	}: {
@@ -104,7 +104,7 @@ describe('HoverCardResolvedView', () => {
 	});
 
 	const setup = ({
-		mockResponse = mocks.nounDataSuccess,
+		mockResponse = mocks.entityDataSuccess,
 		isAISummaryEnabled,
 	}: {
 		mockResponse?: SmartLinkResponse;
@@ -137,7 +137,7 @@ describe('HoverCardResolvedView', () => {
 		return { ...renderResult, rerenderTestComponent };
 	};
 
-	ffTest.on('smart_links_noun_support', 'noun support', () => {
+	ffTest.on('smart_links_noun_support', 'entity support', () => {
 		it('renders hover card blocks', async () => {
 			const { findAllByTestId, findByTestId } = setup();
 			act(() => {

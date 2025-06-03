@@ -19,6 +19,10 @@ import {
 	type SoftDeletedTeamResponse,
 	type TeamsPermissionFromApi,
 } from '../../types/team';
+import {
+	type ApiTeamContainerCreationPayload,
+	type ApiTeamContainerResponse,
+} from '../../types/team-container';
 import { type UserInSiteUserbase } from '../../types/user';
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
@@ -166,6 +170,8 @@ export interface LegionClient {
 	getPermissions(): Promise<TeamsPermissionFromApi>;
 
 	restoreTeamToSyncedGroup(teamId: string, externalReference: ExternalReference): Promise<void>;
+
+	createTeamContainers(payload: ApiTeamContainerCreationPayload): Promise<ApiTeamContainerResponse>;
 }
 
 const v3UrlPath = `/v3/teams`;
@@ -643,6 +649,12 @@ export class LegionClient extends RestClient implements LegionClient {
 			externalReference: externalReference,
 			siteId,
 		});
+	}
+
+	async createTeamContainers(
+		payload: ApiTeamContainerCreationPayload,
+	): Promise<ApiTeamContainerResponse> {
+		return this.postResource<ApiTeamContainerResponse>(`${v4UrlPath}/containers`, { ...payload });
 	}
 
 	// some Legion APIs return team id with the team ARI

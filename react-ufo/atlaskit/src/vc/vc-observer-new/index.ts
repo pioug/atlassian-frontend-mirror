@@ -5,6 +5,8 @@ import { type RevisionPayloadEntry } from '../../common/vc/types';
 import EntriesTimeline from './entries-timeline';
 import getElementName, { type SelectorConfig } from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
+import getViewportHeight from './metric-calculator/utils/get-viewport-height';
+import getViewportWidth from './metric-calculator/utils/get-viewport-width';
 import type { VCObserverGetVCResultParam } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
@@ -106,6 +108,30 @@ export default class VCObserverNew {
 		this.windowEventObserver?.stop();
 	}
 
+	addSSR(ssr: number) {
+		this.entriesTimeline.push({
+			time: ssr,
+			data: {
+				elementName: 'SSR',
+				type: 'mutation:element',
+				rect: {
+					height: getViewportHeight(),
+					width: getViewportWidth(),
+					left: 0,
+					top: 0,
+					x: 0,
+					y: 0,
+					bottom: getViewportHeight(),
+					right: getViewportWidth(),
+					toJSON() {
+						return null;
+					},
+				},
+				visible: true,
+			},
+		});
+	}
+
 	async getVCResult(param: VCObserverGetVCResultParam) {
 		const { start, stop, interactionId } = param;
 		const results: RevisionPayloadEntry[] = [];
@@ -113,6 +139,10 @@ export default class VCObserverNew {
 		this.addStartEntry(start);
 
 		const calculator_fy25_03 = new VCCalculator_FY25_03();
+
+		if (param.ssr) {
+			this.addSSR(param.ssr);
+		}
 
 		const orderedEntries = this.entriesTimeline.getOrderedEntries({ start, stop });
 		const fy25_03 = await calculator_fy25_03.calculate({

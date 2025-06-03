@@ -423,6 +423,17 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Create containers for a team
+	 */
+	async createTeamContainers(
+		...args: Parameters<typeof defaultLegionClient.createTeamContainers>
+	): Promise<AwaitedReturn<typeof defaultLegionClient.createTeamContainers>> {
+		return this.measurePerformance('createTeamContainers', () =>
+			this._legionClient.createTeamContainers(...args),
+		);
+	}
+
+	/**
 	 * Create a external team
 	 * @param {string} groupDescription - The description of the group, which will be used as the team description. The group name will be fetched from the identity service, so it does not need to be provided.
 	 * @param {ExternalReference} externalReference

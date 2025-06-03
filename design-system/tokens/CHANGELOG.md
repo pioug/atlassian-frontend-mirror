@@ -1,5 +1,22 @@
 # @atlaskit/tokens
 
+## 5.0.0
+
+### Major Changes
+
+- [#164028](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164028)
+  [`fe8647c2f54c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe8647c2f54c6) -
+  The shouldForceAutoFallback option is now set to true by default. Please be aware that upgrading
+  to this major version will cause all explicitly set fallback values (the values in the second
+  argument of token function) in your codebase to be ignored. Instead, these values will be
+  automatically replaced with default values that correspond to the default theme during build time.
+  As a result, the UI may change if certain themes are not yet enabled. If some themes are not ready
+  for this change, you can use the forceAutoFallbackExemptions option to prevent automatic
+  replacement for them during build time. Also, this update might lead to test failures if your
+  tests are designed to verify explicit fallback values. You can explicitly set this value to false
+  if you wish to keep all your current fallback values intact. Read more:
+  https://atlassian.design/tokens/use-tokens-in-code#migration-to-tokens
+
 ## 4.9.1
 
 ### Patch Changes

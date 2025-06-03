@@ -89,6 +89,9 @@ export default function plugin() {
 							 * @default true
 							 */
 							shouldUseAutoFallback?: boolean;
+							/**
+							 * @default true
+							 */
 							shouldForceAutoFallback?: boolean;
 							forceAutoFallbackExemptions?: string[];
 							defaultTheme?: DefaultColorTheme;
@@ -149,7 +152,7 @@ export default function plugin() {
 
 							// Handle fallbacks
 							const fallback =
-								state.opts.shouldForceAutoFallback &&
+								state.opts.shouldForceAutoFallback !== false &&
 								!isExempted(tokenName, forceAutoFallbackExemptions)
 									? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme))
 									: path.node.arguments[1];

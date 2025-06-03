@@ -1,5 +1,18 @@
 # @atlaskit/analytics-viewer
 
+## 0.9.0
+
+### Minor Changes
+
+- [#157108](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157108)
+  [`ad595df3d2ec0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad595df3d2ec0) -
+  We are testing the migration to the ADS Link component behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.1
 
 ### Patch Changes

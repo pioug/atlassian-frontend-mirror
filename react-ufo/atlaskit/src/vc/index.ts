@@ -93,11 +93,13 @@ export class VCObserverWrapper implements VCObserverInterface {
 			isVCRevisionEnabled('fy25.01', experienceKey) || isVCRevisionEnabled('fy25.02', experienceKey)
 				? await this.oldVCObserver?.getVCResult(param)
 				: {};
+
 		const v3Result = isVCRevisionEnabled('fy25.03', experienceKey)
 			? await this.newVCObserver?.getVCResult({
 					start: param.start,
 					stop: param.stop,
 					interactionId: param.interactionId,
+					ssr: param.includeSSRInV3 ? param.ssr : undefined,
 				})
 			: [];
 

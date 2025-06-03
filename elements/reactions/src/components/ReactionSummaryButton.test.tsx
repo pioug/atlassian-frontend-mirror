@@ -15,6 +15,12 @@ import { messages } from '../shared/i18n';
 import { type ReactionSummary } from '../types';
 import { RENDER_COUNTER_TESTID } from './Counter';
 
+jest.mock('./ReactionParticleEffect', () => {
+	return {
+		ReactionParticleEffect: () => <>ReactionParticleEffect</>,
+	};
+});
+
 /**
  * Pre defined selected emoji ids
  */
@@ -163,5 +169,17 @@ describe('ReactionSummaryButton', () => {
 		renderComponent();
 		const summaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 		expect(summaryButton).toHaveCompiledCss('height', '24px');
+	});
+
+	it('should render the particle effect when summaryViewParticleEffectEmojiId is passed in', async () => {
+		renderComponent({ summaryViewParticleEffectEmojiId: { id: '1f44f', shortName: '1f44f' } });
+		const particleEffect = await screen.findByText('ReactionParticleEffect');
+		expect(particleEffect).toBeInTheDocument();
+	});
+
+	it('should not render the particle effect when summaryViewParticleEffectEmojiId is not passed in', async () => {
+		renderComponent();
+		await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+		expect(screen.queryByText('ReactionParticleEffect')).not.toBeInTheDocument();
 	});
 });

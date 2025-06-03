@@ -1,5 +1,46 @@
 # @atlaskit/editor-core
 
+## 207.14.4
+
+### Patch Changes
+
+- [#163360](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163360)
+  [`5166e50d3a4d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5166e50d3a4d8) -
+  EDITOR-367 cleans up feature gate `platform_editor_transaction_skip_validation`
+- Updated dependencies
+
+## 207.14.3
+
+### Patch Changes
+
+- [#163976](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163976)
+  [`e1f24a28eb731`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1f24a28eb731) -
+  [ED-28113] add integration test for resizing to the fullwidth guideline in the
+  platform_editor_breakout_resizing resizing experience
+- [#163378](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163378)
+  [`8d7ed16b4071a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d7ed16b4071a) -
+  Cleanup of FG editor_request_to_edit_task
+- Updated dependencies
+
+## 207.14.2
+
+### Patch Changes
+
+- [#164239](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164239)
+  [`c60b974cf14cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c60b974cf14cf) -
+  tidy up hr styles fix for first block node
+- Updated dependencies
+
+## 207.14.1
+
+### Patch Changes
+
+- [#162726](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162726)
+  [`05c3aa3d6cd0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05c3aa3d6cd0c) -
+  NOISSUE - Remove lazy node view for tables. Includes cleaning up the feature gates:
+  platform_editor_disable_table_lnv & platform_editor_enable_table_lnv.
+- Updated dependencies
+
 ## 207.14.0
 
 ### Minor Changes

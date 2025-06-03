@@ -1,5 +1,14 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.8.1
+
+### Patch Changes
+
+- [#163522](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163522)
+  [`76358104532e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76358104532e5) -
+  Changes to analytics and custom-link svgs to fix appearances
+- Updated dependencies
+
 ## 0.8.0
 
 ### Minor Changes

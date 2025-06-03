@@ -9,6 +9,7 @@ import {
 	type TeamWithMemberships,
 } from '../../types';
 import { type ExternalReference } from '../../types/team';
+import { ContainerType } from '../../types/team-container';
 import { RestClient } from '../rest-client';
 
 import {
@@ -886,6 +887,66 @@ describe('legion-client', () => {
 				`/v4/teams/org/${orgId}/premium/eligibility`,
 			);
 			expect(response).toEqual(mockResponse);
+		});
+	});
+
+	describe('createTeamContainers', () => {
+		it('should create team containers with correct payload', async () => {
+			const mockPayload = {
+				teamId: 'test-team-id',
+				containers: [
+					{
+						type: ContainerType.CONFLUENCE_SPACE,
+						containerSiteId: 'test-site-id',
+					},
+				],
+			};
+
+			const mockResponse = {
+				teamId: 'test-team-id',
+				containersNotCreated: [],
+				containerDetails: [
+					{
+						containerId: 'test-container-id',
+						containerName: 'test-container',
+						containerUrl: 'https://test.com',
+						containerSiteId: 'test-site-id',
+						type: ContainerType.CONFLUENCE_SPACE,
+					},
+				],
+			};
+
+			mockPostResource.mockReturnValue(Promise.resolve(mockResponse));
+
+			const result = await legionClient.createTeamContainers(mockPayload);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/containers`, mockPayload);
+			expect(result).toEqual(mockResponse);
+		});
+
+		it('should handle containers not created', async () => {
+			const mockPayload = {
+				teamId: 'test-team-id',
+				containers: [
+					{
+						type: ContainerType.CONFLUENCE_SPACE,
+						containerSiteId: 'test-site-id',
+					},
+				],
+			};
+
+			const mockResponse = {
+				teamId: 'test-team-id',
+				containersNotCreated: [ContainerType.CONFLUENCE_SPACE],
+				containerDetails: [],
+			};
+
+			mockPostResource.mockReturnValue(Promise.resolve(mockResponse));
+
+			const result = await legionClient.createTeamContainers(mockPayload);
+
+			expect(mockPostResource).toHaveBeenCalledWith(`${v4UrlPath}/containers`, mockPayload);
+			expect(result).toEqual(mockResponse);
 		});
 	});
 });

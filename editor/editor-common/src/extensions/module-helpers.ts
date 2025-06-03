@@ -1,5 +1,4 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Command, FloatingToolbarDropdown } from '../types';
 
@@ -233,15 +232,11 @@ export const getContextualToolbarItemsFromModule = (
 					})
 					.flatMap((toolbarItems) =>
 						toolbarItems.map((toolbarItem) => {
-							if (fg('forge-ui-macro-autoconvert')) {
-								if (isToolbarButton(toolbarItem)) {
-									return toolbarItemToButtonConfig(toolbarItem as ToolbarButton, extension.key);
-								}
-
-								return toolbarItem as FloatingToolbarDropdown<Command>;
-							} else {
+							if (isToolbarButton(toolbarItem)) {
 								return toolbarItemToButtonConfig(toolbarItem as ToolbarButton, extension.key);
 							}
+
+							return toolbarItem as FloatingToolbarDropdown<Command>;
 						}),
 					);
 			}

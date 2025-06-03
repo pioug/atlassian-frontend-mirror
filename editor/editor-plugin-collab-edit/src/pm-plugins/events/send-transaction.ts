@@ -31,14 +31,13 @@ export const sendTransaction =
 	(provider: CollabEditProvider) => {
 		const docChangedTransaction = transactions.find((tr) => tr.docChanged);
 		const currentPluginState = pluginKey.getState(newEditorState);
+		const trNoAnalytics = oldEditorState.tr;
 
-		const tr = oldEditorState.tr;
-		const trNoAnalytics = docChangedTransaction?.steps.reduce((nextTr, step) => {
+		docChangedTransaction?.steps.forEach((step) => {
 			if (!(step instanceof AnalyticsStep)) {
-				return nextTr.step(step);
+				trNoAnalytics.step(step);
 			}
-			return nextTr;
-		}, tr);
+		});
 
 		if (!currentPluginState?.isReady) {
 			return;

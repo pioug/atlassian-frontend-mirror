@@ -32,7 +32,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
-import { fg } from '@atlaskit/platform-feature-flags';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import Popup from '@atlaskit/popup';
@@ -186,13 +185,11 @@ const TaskItemWrapper = ({
 	const { formatMessage } = useIntl();
 
 	useEffect(() => {
-		if (fg('editor_request_to_edit_task')) {
-			setRequested(hasRequestedEditPermission);
-		}
+		setRequested(hasRequestedEditPermission);
 	}, [hasRequestedEditPermission]);
 
 	useEffect(() => {
-		if (!tryingRequest && fg('editor_request_to_edit_task')) {
+		if (!tryingRequest) {
 			const timout = setTimeout(() => {
 				setTryingRequest(false);
 			}, TRYING_REQUEST_TIMEOUT);
@@ -209,27 +206,25 @@ const TaskItemWrapper = ({
 	});
 
 	const onHandleEdit = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
-		if (fg('editor_request_to_edit_task')) {
-			setTryingRequest(true);
-			const { tr } = editorView.state;
-			const nodePos = (getPos as getPosHandlerNode)();
+		setTryingRequest(true);
+		const { tr } = editorView.state;
+		const nodePos = (getPos as getPosHandlerNode)();
 
-			if (typeof nodePos !== 'number') {
-				return;
-			}
-
-			tr.setMeta('scrollIntoView', false);
-
-			if (!api?.taskDecision?.sharedState.currentState()?.hasEditPermission) {
-				const requestToEdit = api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
-				if (requestToEdit) {
-					requestToEdit();
-				}
-			}
-
-			editorAnalyticsAPI?.attachAnalyticsEvent(anaylyticsEventPayload(ACTION.REQUEST_TO_EDIT))(tr);
-			editorView.dispatch(tr);
+		if (typeof nodePos !== 'number') {
+			return;
 		}
+
+		tr.setMeta('scrollIntoView', false);
+
+		if (!api?.taskDecision?.sharedState.currentState()?.hasEditPermission) {
+			const requestToEdit = api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
+			if (requestToEdit) {
+				requestToEdit();
+			}
+		}
+
+		editorAnalyticsAPI?.attachAnalyticsEvent(anaylyticsEventPayload(ACTION.REQUEST_TO_EDIT))(tr);
+		editorView.dispatch(tr);
 	};
 
 	const onHandleDismiss = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
@@ -238,26 +233,8 @@ const TaskItemWrapper = ({
 	};
 
 	const onHandleClick = () => {
-		if (fg('editor_request_to_edit_task')) {
-			setIsOpen(true);
-		}
+		setIsOpen(true);
 	};
-
-	if (!fg('editor_request_to_edit_task')) {
-		return (
-			<TaskItem
-				taskId={localId}
-				contentRef={forwardRef}
-				isDone={isDone}
-				onChange={onChange}
-				isFocused={isFocused}
-				showPlaceholder={showPlaceholder}
-				placeholder={placeholder}
-				providers={providerFactory}
-				api={api}
-			/>
-		);
-	}
 
 	return (
 		<Popup
@@ -356,10 +333,7 @@ class Task extends ReactNodeView<Props> {
 		 * This will eventially be handled by https://product-fabric.atlassian.net/browse/ED-24773
 		 * to connect up the correct user action
 		 */
-		if (
-			!this.api?.taskDecision?.sharedState.currentState()?.hasEditPermission &&
-			fg('editor_request_to_edit_task')
-		) {
+		if (!this.api?.taskDecision?.sharedState.currentState()?.hasEditPermission) {
 			const requestToEdit =
 				this.api?.taskDecision?.sharedState.currentState()?.requestToEditContent;
 			if (requestToEdit) {
@@ -406,10 +380,8 @@ class Task extends ReactNodeView<Props> {
 						position,
 						listSize,
 						listLocalId,
-						...(fg('editor_request_to_edit_task') && {
-							hasEditPermission:
-								this.api?.taskDecision?.sharedState.currentState()?.hasEditPermission,
-						}),
+						hasEditPermission:
+							this.api?.taskDecision?.sharedState.currentState()?.hasEditPermission,
 					},
 				};
 			});

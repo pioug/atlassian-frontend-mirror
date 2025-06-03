@@ -47,6 +47,15 @@
 			"path": "../editor-core/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-grid/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-media/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugins/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{

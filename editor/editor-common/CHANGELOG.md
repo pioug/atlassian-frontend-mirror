@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 106.1.8
+
+### Patch Changes
+
+- [#163360](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163360)
+  [`5166e50d3a4d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5166e50d3a4d8) -
+  EDITOR-367 cleans up feature gate `platform_editor_transaction_skip_validation`
+
+## 106.1.7
+
+### Patch Changes
+
+- [#163976](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163976)
+  [`668e81e097994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/668e81e097994) -
+  [ED-28113] this change uses a constant to set the expand container padding
+- Updated dependencies
+
+## 106.1.6
+
+### Patch Changes
+
+- [#156549](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156549)
+  [`82ccacbc259a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82ccacbc259a8) -
+  Remove autoconvert feature flagged code
+- Updated dependencies
+
+## 106.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 106.1.4
 
 ### Patch Changes

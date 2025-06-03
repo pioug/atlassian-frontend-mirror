@@ -16,7 +16,7 @@ import { Card } from '../../Card';
 mockSimpleIntersectionObserver();
 
 /**
- * When migrating to full Noun support, delete this Block.
+ * When migrating to full entity support, delete this Block.
  * Some tests cases do not meet the FF criteria and were not copied over.
  */
 
@@ -32,7 +32,7 @@ describe('smart-card: card states, inline', () => {
 	} satisfies AnalyticsWebClient;
 
 	beforeEach(() => {
-		mockFetch = jest.fn(() => Promise.resolve(mocks.nounDataSuccess));
+		mockFetch = jest.fn(() => Promise.resolve(mocks.entityDataSuccess));
 		mockClient = new (fakeFactory(mockFetch))();
 		mockUrl = 'https://some.url';
 	});
@@ -41,7 +41,7 @@ describe('smart-card: card states, inline', () => {
 		jest.clearAllMocks();
 	});
 
-	ffTest.on('smart_links_noun_support', 'nouns supported', () => {
+	ffTest.on('smart_links_noun_support', 'entity support', () => {
 		describe('> state: resolved', () => {
 			it('inline: should render with metadata when resolved', async () => {
 				render(

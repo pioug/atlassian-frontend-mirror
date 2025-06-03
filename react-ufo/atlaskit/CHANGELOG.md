@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.17
+
+### Patch Changes
+
+- [#160542](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160542)
+  [`eadf6fec0762d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eadf6fec0762d) -
+  Added extension to VC v3 to include SSR
+
 ## 3.13.16
 
 ### Patch Changes

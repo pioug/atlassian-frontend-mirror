@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { breakout } from '@atlaskit/adf-schema';
@@ -8,7 +8,12 @@ import {
 } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type {
+	BreakoutMode,
+	ExtractInjectionAPI,
+	PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
+import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
@@ -22,6 +27,7 @@ import type { BreakoutPlugin, BreakoutPluginState } from './breakoutPluginType';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { createResizingPlugin } from './pm-plugins/resizing-plugin';
 import { findSupportedNodeForBreakout } from './pm-plugins/utils/find-breakout-node';
+import { getBreakoutMode } from './pm-plugins/utils/get-breakout-mode';
 import type { Props as LayoutButtonProps } from './ui/LayoutButton';
 import LayoutButton from './ui/LayoutButton';
 
@@ -161,13 +167,12 @@ const useOldHook = (api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined)
 	};
 };
 const useNewHook = (api: ExtractInjectionAPI<typeof breakoutPlugin> | undefined) => {
-	const breakoutNode = useSharedPluginStateSelector(api, 'breakout.breakoutNode');
 	const isDragging = useSharedPluginStateSelector(api, 'blockControls.isDragging');
 	const isPMDragging = useSharedPluginStateSelector(api, 'blockControls.isPMDragging');
 	const mode = useSharedPluginStateSelector(api, 'editorViewMode.mode');
 	const editorDisabled = useSharedPluginStateSelector(api, 'editorDisabled.editorDisabled');
 	return {
-		breakoutNode,
+		breakoutNode: undefined,
 		isDragging,
 		isPMDragging,
 		mode,
@@ -184,6 +189,24 @@ const LayoutButtonWrapper = ({
 	mountPoint,
 }: LayoutButtonWrapperProps) => {
 	const { breakoutNode, isDragging, isPMDragging, mode, editorDisabled } = useSharedState(api);
+	const [breakoutNodePresent, setBreakoutNodePresent] = useState(false);
+	const [breakoutMode, setBreakoutMode] = useState<BreakoutMode | undefined>(
+		getBreakoutMode(editorView.state),
+	);
+
+	usePluginStateEffect(api, ['breakout'], ({ breakoutState }) => {
+		if (breakoutState?.breakoutNode && !breakoutNodePresent) {
+			setBreakoutNodePresent(true);
+		}
+		if (!breakoutState?.breakoutNode && breakoutNodePresent) {
+			setBreakoutNodePresent(false);
+		}
+		const nextBreakoutMode = getBreakoutMode(editorView.state);
+		if (nextBreakoutMode !== breakoutMode) {
+			setBreakoutMode(nextBreakoutMode);
+		}
+	});
+
 	const interactionState = useSharedPluginStateSelector(api, 'interaction.interactionState');
 
 	if (
@@ -209,6 +232,8 @@ const LayoutButtonWrapper = ({
 			scrollableElement={scrollableElement}
 			node={breakoutNode?.node ?? null}
 			isLivePage={isEditMode}
+			isBreakoutNodePresent={breakoutNodePresent}
+			breakoutMode={breakoutMode}
 		/>
 	) : null;
 };

@@ -845,8 +845,8 @@ describe('extractFlexibleUiContext', () => {
 
 	ffTest.on('smart_links_noun_support', '', () => {
 		ffTest.both('platform-linking-visual-refresh-v2', '', () => {
-			describe('with noun support', () => {
-				it('returns flexible ui context for Figma document with noun support', () => {
+			describe('with entity support', () => {
+				it('returns flexible ui context for Figma document with entity support', () => {
 					const data = extractFlexibleUiContext({
 						response: FigmaEntity as SmartLinkResponse,
 					});

@@ -26,8 +26,8 @@ import EmbedCardNotFoundView from '../../../examples/vr-embed-card/vr-embed-card
 import EmbedCardNotFoundViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-not-found-frame-hide';
 import EmbedCardNotFoundSiteAccessExists from '../../../examples/vr-embed-card/vr-embed-card-not-found-site-access-exists';
 import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved';
+import EmbedCardResolvedViewEntities from '../../../examples/vr-embed-card/vr-embed-card-resolved-entities';
 import EmbedCardResolvedViewNoPreview from '../../../examples/vr-embed-card/vr-embed-card-resolved-no-preview';
-import EmbedCardResolvedViewNouns from '../../../examples/vr-embed-card/vr-embed-card-resolved-nouns';
 import EmbedCardResolvedSmall from '../../../examples/vr-embed-card/vr-embed-card-resolved-small';
 import EmbedCardResolvingView from '../../../examples/vr-embed-card/vr-embed-card-resolving';
 import EmbedCardSelected from '../../../examples/vr-embed-card/vr-embed-card-selected';
@@ -256,7 +256,7 @@ snapshot(EmbedCardUnauthorisedViewFrameHide, {
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
-snapshot(EmbedCardResolvedViewNouns, {
+snapshot(EmbedCardResolvedViewEntities, {
 	featureFlags: {
 		smart_links_noun_support: true,
 	},

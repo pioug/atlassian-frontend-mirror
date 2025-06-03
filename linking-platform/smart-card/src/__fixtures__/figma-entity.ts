@@ -43,7 +43,7 @@ export default {
 			href: 'https://preview-url',
 		},
 	},
-	nounData: {
+	entityData: {
 		id: 'Figma',
 		displayName: 'Flexible Links',
 		url: 'https://figma-url/Flexible-Links?node-id=node-id',

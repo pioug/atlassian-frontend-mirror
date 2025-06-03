@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.12
+
+### Patch Changes
+
+- [#163378](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163378)
+  [`8d7ed16b4071a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d7ed16b4071a) -
+  Cleanup of FG editor_request_to_edit_task
+- Updated dependencies
+
+## 5.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.10
 
 ### Patch Changes

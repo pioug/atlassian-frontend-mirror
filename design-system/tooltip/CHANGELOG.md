@@ -1,5 +1,19 @@
 # @atlaskit/tooltip
 
+## 20.2.2
+
+### Patch Changes
+
+- [#162734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162734)
+  [`eb727b523d74b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb727b523d74b) -
+  Removes internal dead code related to `z-index` setting.
+
+## 20.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.2.0
 
 ### Minor Changes

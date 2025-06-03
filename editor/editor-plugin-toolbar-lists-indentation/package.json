@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar-lists-indentation",
-	"version": "3.2.8",
+	"version": "3.2.9",
 	"description": "Toolbar lists and indentation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

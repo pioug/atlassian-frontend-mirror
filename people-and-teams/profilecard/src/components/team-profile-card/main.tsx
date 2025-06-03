@@ -283,7 +283,7 @@ export const TeamProfileCard = ({
 									}}
 									filterContainerId={containerId}
 									isDisplayedOnProfileCard
-									maxNumberOfContainersToShow={3}
+									maxNumberOfContainersToShow={loading ? 0 : 9}
 								/>
 							)}
 						</Box>

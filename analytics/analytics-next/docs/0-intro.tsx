@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 
 export default md`
@@ -14,13 +15,13 @@ ${(
 		currently being accepted and no known breaking changes will be approved in the PR process.{' '}
 		<br />
 		Please refer to this
-		<a
+		<Link
 			href="https://hello.atlassian.net/wiki/spaces/APD/pages/2470435075/DACI+analytics-next+in+a+maintenance+mode"
 			target="_blank"
 		>
 			{' '}
 			DACI{' '}
-		</a>{' '}
+		</Link>{' '}
 		for more details.
 	</SectionMessage>
 )}

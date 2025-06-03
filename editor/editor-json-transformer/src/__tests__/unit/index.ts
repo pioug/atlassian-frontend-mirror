@@ -51,6 +51,8 @@ import {
 	underline,
 	unsupportedMark,
 	unsupportedNodeAttribute,
+	layoutSection,
+	layoutColumn,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { JSONTransformer, SchemaStage } from '../../index';
@@ -855,6 +857,90 @@ describe('JSONTransformer:', () => {
 			const hardBreak = schema.nodes.hardBreak.createChecked();
 
 			expect(transformer.encodeNode(hardBreak as PMNode).attrs).toBeUndefined();
+		});
+
+		it('should encode a layout with a single column', () => {
+			const schema = AdfSchemaDefault.getSchemaBasedOnStage();
+			const node = schema.nodes.layoutSection.createChecked(null, [
+				schema.nodes.layoutColumn.createChecked({ width: 50 }, [
+					schema.nodes.paragraph.createChecked(null, [schema.text('Column 1')]),
+				]),
+			]);
+
+			expect(transformer.encodeNode(node as PMNode)).toEqual({
+				type: 'layoutSection',
+				content: [
+					{
+						type: 'layoutColumn',
+						attrs: {
+							width: 50,
+						},
+						content: [
+							{
+								type: 'paragraph',
+								content: [
+									{
+										type: 'text',
+										text: 'Column 1',
+									},
+								],
+							},
+						],
+					},
+				],
+			});
+		});
+
+		it('should encode a layout with two columns', () => {
+			const schema = AdfSchemaDefault.getSchemaBasedOnStage();
+			const node = schema.nodes.layoutSection.createChecked(null, [
+				schema.nodes.layoutColumn.createChecked({ width: 50 }, [
+					schema.nodes.paragraph.createChecked(null, [schema.text('Column 1')]),
+				]),
+				schema.nodes.layoutColumn.createChecked({ width: 50 }, [
+					schema.nodes.paragraph.createChecked(null, [schema.text('Column 2')]),
+				]),
+			]);
+
+			expect(transformer.encodeNode(node as PMNode)).toEqual({
+				type: 'layoutSection',
+				content: [
+					{
+						type: 'layoutColumn',
+						attrs: {
+							width: 50,
+						},
+						content: [
+							{
+								type: 'paragraph',
+								content: [
+									{
+										type: 'text',
+										text: 'Column 1',
+									},
+								],
+							},
+						],
+					},
+					{
+						type: 'layoutColumn',
+						attrs: {
+							width: 50,
+						},
+						content: [
+							{
+								type: 'paragraph',
+								content: [
+									{
+										type: 'text',
+										text: 'Column 2',
+									},
+								],
+							},
+						],
+					},
+				],
+			});
 		});
 
 		describe('unsupported mark', () => {
@@ -1986,6 +2072,98 @@ describe('JSONTransformer:', () => {
 			};
 
 			expect(parseJSON(adf)).toEqualDocument(doc(p()));
+		});
+
+		it('should create standard prose mirror for a single column layout', () => {
+			const adf: JSONDocNode = {
+				version: 1,
+				type: 'doc',
+				content: [
+					{
+						type: 'layoutSection',
+						content: [
+							{
+								type: 'layoutColumn',
+								attrs: {
+									width: 50,
+								},
+								content: [
+									{
+										type: 'paragraph',
+										content: [
+											{
+												type: 'text',
+												text: 'Test 1',
+											},
+										],
+									},
+								],
+							},
+						],
+					},
+				],
+			};
+
+			const expected = doc(layoutSection(layoutColumn({ width: 50 })(p('Test 1'))));
+
+			expect(parseJSON(adf)).toEqualDocument(expected);
+		});
+
+		it('should create standard prose mirror for a two column layout', () => {
+			const adf: JSONDocNode = {
+				version: 1,
+				type: 'doc',
+				content: [
+					{
+						type: 'layoutSection',
+						content: [
+							{
+								type: 'layoutColumn',
+								attrs: {
+									width: 50,
+								},
+								content: [
+									{
+										type: 'paragraph',
+										content: [
+											{
+												type: 'text',
+												text: 'Test 1',
+											},
+										],
+									},
+								],
+							},
+							{
+								type: 'layoutColumn',
+								attrs: {
+									width: 50,
+								},
+								content: [
+									{
+										type: 'paragraph',
+										content: [
+											{
+												type: 'text',
+												text: 'Test 2',
+											},
+										],
+									},
+								],
+							},
+						],
+					},
+				],
+			};
+
+			const expected = doc(
+				layoutSection(
+					layoutColumn({ width: 50 })(p('Test 1')),
+					layoutColumn({ width: 50 })(p('Test 2')),
+				),
+			);
+
+			expect(parseJSON(adf)).toEqualDocument(expected);
 		});
 
 		it('should convert ADF to PM representation', () => {

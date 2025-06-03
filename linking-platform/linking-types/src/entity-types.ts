@@ -178,7 +178,7 @@ export interface UnsupportedEntity extends BaseEntity {
 }
 
 /**
- * The shape of the response from Native Nouns supported by the Smart Link API.
+ * The shape of the response from Native entity support by the Smart Link API.
  */
 export type EntityType =
 	| BaseEntity

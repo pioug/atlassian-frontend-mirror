@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`#sendData log_obfuscated_steps_for_view_only is on Steps obfuscation logs the obfuscated steps 1`] = `
+exports[`#sendData logs the obfuscated steps 1`] = `
 {
   "collabService": "ncs",
   "documentAri": "ari:cloud:confluence:ABC:page/testpage",

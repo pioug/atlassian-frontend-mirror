@@ -79,14 +79,9 @@ export const SHARED_LOGOS = [
 
 // Logos that only exist in @atlaskit/temp-nav-app-icons
 export const NEW_ONLY_LOGOS = [
-	'admin',
-	'align',
-	'analytics',
 	'assets',
 	'chat',
-	'company-hub',
 	'goals',
-	'guard-detect',
 	'home',
 	'projects',
 	'search',

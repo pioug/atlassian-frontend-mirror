@@ -17,7 +17,7 @@ import { Card } from '../../Card';
 mockSimpleIntersectionObserver();
 
 /**
- * When migrating to full Noun support, delete this file and update the mock data.
+ * When migrating to full entity support, delete this file and update the mock data.
  * Many tests cases do not meet the FF criteria and were not copied over.
  */
 describe('smart-card: card states, embed', () => {
@@ -33,7 +33,7 @@ describe('smart-card: card states, embed', () => {
 	} satisfies AnalyticsWebClient;
 
 	beforeEach(() => {
-		mockFetch = jest.fn(() => Promise.resolve(mocks.nounDataSuccess));
+		mockFetch = jest.fn(() => Promise.resolve(mocks.entityDataSuccess));
 		mockClient = new (fakeFactory(mockFetch))();
 		mockUrl = 'https://some.url';
 	});
@@ -42,7 +42,7 @@ describe('smart-card: card states, embed', () => {
 		jest.clearAllMocks();
 	});
 
-	ffTest.on('smart_links_noun_support', 'nouns supported', () => {
+	ffTest.on('smart_links_noun_support', 'entity support', () => {
 		describe('render method: withUrl', () => {
 			describe('> state: resolved', () => {
 				it('embed: should render with metadata when resolved', async () => {
@@ -73,11 +73,11 @@ describe('smart-card: card states, embed', () => {
 
 				it('embed: should render with metadata when resolved as block card - no preview present', async () => {
 					const successWithoutPreview = {
-						...mocks.nounDataSuccess,
-						nounData: {
-							...mocks.nounDataSuccess.nounData,
+						...mocks.entityDataSuccess,
+						entityData: {
+							...mocks.entityDataSuccess.entityData,
 							['atlassian:design']: {
-								...((mocks.nounDataSuccess.nounData as DesignEntity)['atlassian:design'] ?? {}),
+								...((mocks.entityDataSuccess.entityData as DesignEntity)['atlassian:design'] ?? {}),
 								liveEmbedUrl: undefined,
 							},
 						},

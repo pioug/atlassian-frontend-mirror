@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.1.16
+
+### Patch Changes
+
+- [#156549](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/156549)
+  [`82ccacbc259a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82ccacbc259a8) -
+  Remove autoconvert feature flagged code
+- Updated dependencies
+
+## 4.1.15
+
+### Patch Changes
+
+- [#164168](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164168)
+  [`d8a91ac7d6399`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8a91ac7d6399) -
+  Revert to using useSharedPluginState in `floatingToolbarPlugin`
+- Updated dependencies
+
 ## 4.1.14
 
 ### Patch Changes

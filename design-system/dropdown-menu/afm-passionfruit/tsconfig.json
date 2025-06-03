@@ -21,9 +21,6 @@
 			"path": "../../button/afm-passionfruit/tsconfig.json"
 		},
 		{
-			"path": "../../../monorepo-tooling/codemod-utils/afm-passionfruit/tsconfig.json"
-		},
-		{
 			"path": "../../css/afm-passionfruit/tsconfig.json"
 		},
 		{

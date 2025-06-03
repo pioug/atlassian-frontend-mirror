@@ -399,4 +399,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-05-30
+	platform_editor_ai_iw_full_page_adf_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_iw_full_page_adf_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

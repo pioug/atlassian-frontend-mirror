@@ -24,10 +24,7 @@ import {
 	setInlineCommentDraftState,
 } from '../editor-commands';
 import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
-import type {
-	InlineCommentAnnotationProvider,
-	SimpleSelectInlineCommentCompoundExperience,
-} from '../types';
+import type { InlineCommentAnnotationProvider } from '../types';
 
 import {
 	allowAnnotation,
@@ -292,8 +289,9 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 						selectedAnnotations && selectedAnnotations.length !== 0 && selectedAnnotations[0].id
 							? selectedAnnotations[0].id
 							: undefined;
+
 					// If the new state has an unresolved selected annotation, and it's different from
-					// the previous one then we mark the select annotation experience as complete.
+					// the previous one then...
 					if (
 						//This checks the selected annotation is different from the previous one
 						selectedAnnotationId &&
@@ -302,10 +300,14 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 						annotations &&
 						annotations[selectedAnnotationId] === false
 					) {
+						// ...we mark the select annotation experience as complete.
 						// The selectComponentExperience is using a simplified object, which is why it's type asserted.
-						(
-							options.selectCommentExperience as SimpleSelectInlineCommentCompoundExperience
-						)?.selectAnnotation.complete(selectedAnnotationId);
+						options.selectCommentExperience?.selectAnnotation.complete(selectedAnnotationId);
+
+						if (fg('cc_comments_track_view_inline_comment_action')) {
+							// ...and start a new UFO press trace since the selected comment is changing
+							options.viewInlineCommentTraceUFOPress?.();
+						}
 					}
 
 					if (annotationManager) {

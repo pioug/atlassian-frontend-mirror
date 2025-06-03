@@ -103,7 +103,7 @@ describe('extractEmbedProps', () => {
 		});
 	});
 
-	ffTest.on('smart_links_noun_support', 'nouns supported', () => {
+	ffTest.on('smart_links_noun_support', 'entity support', () => {
 		ffTest.both('platform-linking-visual-refresh-v2', '', () => {
 			it('extracts embed props with provider details', () => {
 				const meta = {
@@ -115,7 +115,7 @@ describe('extractEmbedProps', () => {
 						},
 					},
 				};
-				const props = extractEmbedProps({ ...mocks.nounDataSuccess, meta }, 'web');
+				const props = extractEmbedProps({ ...mocks.entityDataSuccess, meta }, 'web');
 
 				expect(props).toEqual({
 					context: {
@@ -139,12 +139,12 @@ describe('extractEmbedProps', () => {
 
 		describe('embed icon behaviour with standardise flag on', () => {
 			it('returns object icon url when it exists', () => {
-				const props = extractEmbedProps(mocks.nounDataSuccess, 'web');
+				const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
 				expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
 			});
 
 			it(`returns provider icon if object icon url doesn't exist`, () => {
-				const props = extractEmbedProps(mocks.nounDataSuccess, 'web');
+				const props = extractEmbedProps(mocks.entityDataSuccess, 'web');
 				expect(props.context?.icon).toEqual('https://www.ilovecheese.com');
 			});
 		});

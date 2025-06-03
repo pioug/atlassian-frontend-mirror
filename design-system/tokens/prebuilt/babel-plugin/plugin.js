@@ -125,7 +125,7 @@ function plugin() {
               var forceAutoFallbackExemptions = ['border.radius'].concat((0, _toConsumableArray2.default)(state.opts.forceAutoFallbackExemptions || []));
 
               // Handle fallbacks
-              var fallback = state.opts.shouldForceAutoFallback && !isExempted(tokenName, forceAutoFallbackExemptions) ? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme)) : path.node.arguments[1];
+              var fallback = state.opts.shouldForceAutoFallback !== false && !isExempted(tokenName, forceAutoFallbackExemptions) ? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme)) : path.node.arguments[1];
               if (t.isStringLiteral(fallback)) {
                 // String literals can be concatenated into css variable call
                 // Empty string fallbacks are ignored. For now, as the user did specify a fallback, no default is inserted

@@ -1104,7 +1104,7 @@ describe('providers > editor', () => {
 			expect(adf).toEqual(expectedInlineAdf(url));
 		});
 
-		describe('With Noun entities', () => {
+		describe('With entities', () => {
 			ffTest.on('smart_links_noun_support', 'ff on', () => {
 				it('should return EmbedCard when defaultView specifies it', async () => {
 					const provider = new EditorCardProvider();
@@ -1121,7 +1121,7 @@ describe('providers > editor', () => {
 
 					// Mocking call to /resolve/batch
 					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.nounDataSuccess, status: 200 }],
+						json: async () => [{ body: mocks.entityDataSuccess, status: 200 }],
 						ok: true,
 					});
 

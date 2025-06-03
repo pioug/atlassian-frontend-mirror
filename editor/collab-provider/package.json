@@ -82,9 +82,6 @@
 		"platform_collab_provider_tracingheaders": {
 			"type": "boolean"
 		},
-		"log_obfuscated_steps_for_view_only": {
-			"type": "boolean"
-		},
 		"skip_collab_provider_delay_on_publish": {
 			"type": "boolean"
 		},

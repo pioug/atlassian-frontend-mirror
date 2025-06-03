@@ -31,6 +31,9 @@ export default function generateEntrypoints(
 			asset.logo
 				? `export { ${componentName}Logo } from '../${uiNewDirectory}/${name}/logo';\n`
 				: '\n',
+			asset['logo-cs']
+				? `export { ${componentName}LogoCS } from '../${uiNewDirectory}/${name}/logo-cs';\n`
+				: '\n',
 		]
 			.filter(Boolean)
 			.join('\n');

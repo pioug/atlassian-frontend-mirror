@@ -332,25 +332,6 @@ const placeholderWrapStyles = css({
 	},
 });
 
-const firstBlockNodeStyles = css`
-	.ProseMirror {
-		> .${PanelSharedCssClassName.prefix},
-			> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER},
-			> .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER},
-			> div[data-task-list-local-id],
-		> div[data-layout-section],
-		> .${expandClassNames.prefix} {
-			&:first-child {
-				margin-top: 0;
-			}
-		}
-
-		> hr:first-of-type {
-			margin-top: 0;
-		}
-	}
-`;
-
 const firstBlockNodeStylesNew = css`
 	.ProseMirror {
 		> .${PanelSharedCssClassName.prefix},
@@ -370,18 +351,6 @@ const firstBlockNodeStylesNew = css`
 		}
 	}
 `;
-
-/**
- * fix layout issue of first block node
- * @example
- */
-export const fixBlockControlStylesSSR = () => {
-	if (fg('platform_editor_element_dnd_nested_fix_patch_6')) {
-		return firstBlockNodeStylesNew;
-	}
-
-	return firstBlockNodeStyles;
-};
 
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
@@ -439,15 +408,6 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		${shadowSharedStyle};
 		${InlineNodeViewSharedStyles};
 	}
-
-	${fg('editor_request_to_edit_task')
-		? null
-		: css`
-				.ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
-					pointer-events: none;
-					opacity: 0.7;
-				}
-			`}
 
 	.ProseMirror-hideselection *::selection {
 		background: transparent;
@@ -561,7 +521,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${resizerStyles}
   ${pragmaticResizerStyles()}
   ${aiPanelStyles(props.colorMode)}
-  ${fixBlockControlStylesSSR()}
+  ${firstBlockNodeStylesNew}
 
   .panelView-content-wrap {
 		box-sizing: border-box;

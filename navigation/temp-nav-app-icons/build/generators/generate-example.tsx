@@ -24,6 +24,9 @@ ${Object.entries(assets)
 		if (asset.logo) {
 			imports.push(`${capitalisedName}Logo`);
 		}
+		if (asset['logo-cs']) {
+			imports.push(`${capitalisedName}LogoCS`);
+		}
 		return `import { ${imports.join(', ')} } from '@atlaskit/temp-nav-app-icons/${name}';`;
 	})
 	.join('\n')}
@@ -38,6 +41,7 @@ Icon20: React.ComponentType<AppIconProps>;
 Icon24: React.ComponentType<AppIconProps>;
 Icon32: React.ComponentType<AppIconProps>;
 Logo: React.ComponentType<AppLogoProps> | null;
+LogoCS: React.ComponentType<AppLogoProps> | null;
 }> = [
 ${Object.entries(assets)
 	.map(([name, asset]) => {
@@ -61,6 +65,7 @@ ${Object.entries(assets)
 	Icon24: (props) => <${capitalisedName}Icon {...props} size="24" ${labelProp} />,
 	Icon32: (props) => <${capitalisedName}Icon {...props} size="32" ${labelProp} />,
 	Logo: ${asset.logo ? `(props) => <${capitalisedName}Logo {...props} />` : 'null'},
+	LogoCS: ${asset['logo-cs'] ? `(props) => <${capitalisedName}LogoCS {...props} />` : 'null'},
 }`;
 	})
 	.join(',\n  ')}

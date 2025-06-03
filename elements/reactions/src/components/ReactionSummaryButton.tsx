@@ -11,8 +11,9 @@ import { type ReactionSummary } from '../types';
 import { Counter } from './Counter';
 import { ReactionButton } from './ReactionButton';
 import { type ReactionsProps } from './Reactions';
+import { ReactionParticleEffect } from './ReactionParticleEffect';
 
-import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { cssMap, jsx, cx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
@@ -37,6 +38,10 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+
+	particleEffectContainer: {
+		paddingRight: token('space.300'),
 	},
 });
 
@@ -81,6 +86,11 @@ interface ReactionSummaryButtonProps
 	 * Optional prop to add an icon to the end of the summary button
 	 */
 	summaryButtonIconAfter?: React.ReactNode;
+
+	/**
+	 * Optional prop to set the most recently clicked emoji id
+	 */
+	summaryViewParticleEffectEmojiId?: { id: string; shortName: string } | null;
 }
 
 /**
@@ -108,6 +118,7 @@ export const ReactionSummaryButton = forwardRef(
 			onMouseLeave,
 			summaryGetOptimisticImageURL,
 			summaryButtonIconAfter,
+			summaryViewParticleEffectEmojiId,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
@@ -131,44 +142,55 @@ export const ReactionSummaryButton = forwardRef(
 
 		return (
 			<Flex xcss={styles.container} ref={ref} alignItems="center" justifyContent="center">
-				<ReactionButton
-					onClick={onClick}
-					onMouseEnter={onMouseEnter}
-					onMouseLeave={onMouseLeave}
-					testId={RENDER_SUMMARY_BUTTON_TESTID}
-					ariaLabel={intl.formatMessage(messages.summary)}
-					showSubtleStyle={subtleReactionsSummaryAndPicker}
-					showOpaqueBackground={showOpaqueBackground}
-				>
-					<Inline space="space.050" xcss={cx(styles.button)} testId="reaction-summary-wrapper">
-						{topReactions.map((reaction) => (
-							<Box
-								xcss={styles.emoji}
-								testId={RENDER_SUMMARY_EMOJI_TESTID}
-								style={{
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
-									lineHeight: '12px',
-								}}
-							>
-								<ResourcedEmoji
-									key={reaction.emojiId}
-									emojiProvider={emojiProvider}
-									emojiId={{ id: reaction.emojiId, shortName: '' }}
-									fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
-									optimisticImageURL={summaryGetOptimisticImageURL?.(reaction.emojiId)}
-								/>
-							</Box>
-						))}
-					</Inline>
-					<Counter
-						value={totalReactionsCount}
-						useDarkerFont={useButtonAlignmentStyling}
-						useUpdatedStyles={useButtonAlignmentStyling}
-					/>
-					{summaryButtonIconAfter && (
-						<Box xcss={styles.summaryButtonIconAfter}>{summaryButtonIconAfter}</Box>
+				<Stack alignInline="center">
+					{summaryViewParticleEffectEmojiId && (
+						<Box xcss={styles.particleEffectContainer}>
+							<ReactionParticleEffect
+								key={summaryViewParticleEffectEmojiId.id}
+								emojiId={summaryViewParticleEffectEmojiId}
+								emojiProvider={emojiProvider}
+							/>
+						</Box>
 					)}
-				</ReactionButton>
+					<ReactionButton
+						onClick={onClick}
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
+						testId={RENDER_SUMMARY_BUTTON_TESTID}
+						ariaLabel={intl.formatMessage(messages.summary)}
+						showSubtleStyle={subtleReactionsSummaryAndPicker}
+						showOpaqueBackground={showOpaqueBackground}
+					>
+						<Inline space="space.050" xcss={cx(styles.button)} testId="reaction-summary-wrapper">
+							{topReactions.map((reaction) => (
+								<Box
+									xcss={styles.emoji}
+									testId={RENDER_SUMMARY_EMOJI_TESTID}
+									style={{
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography
+										lineHeight: '12px',
+									}}
+								>
+									<ResourcedEmoji
+										key={reaction.emojiId}
+										emojiProvider={emojiProvider}
+										emojiId={{ id: reaction.emojiId, shortName: '' }}
+										fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
+										optimisticImageURL={summaryGetOptimisticImageURL?.(reaction.emojiId)}
+									/>
+								</Box>
+							))}
+						</Inline>
+						<Counter
+							value={totalReactionsCount}
+							useDarkerFont={useButtonAlignmentStyling}
+							useUpdatedStyles={useButtonAlignmentStyling}
+						/>
+						{summaryButtonIconAfter && (
+							<Box xcss={styles.summaryButtonIconAfter}>{summaryButtonIconAfter}</Box>
+						)}
+					</ReactionButton>
+				</Stack>
 			</Flex>
 		);
 	},

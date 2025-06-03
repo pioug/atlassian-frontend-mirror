@@ -264,6 +264,10 @@ export interface ReactionsProps
 	 * Optional prop to add an icon to the end of the summary button
 	 */
 	summaryButtonIconAfter?: React.ReactNode;
+	/**
+	 * Optional prop to render the particle effect on the summary view
+	 */
+	renderParticleEffectOnSummaryView?: boolean;
 }
 
 export interface OpenReactionsDialogOptions {
@@ -337,8 +341,14 @@ export const Reactions = React.memo(
 		summaryGetOptimisticImageURL,
 		reactionPickerPlacement,
 		summaryButtonIconAfter,
+		renderParticleEffectOnSummaryView = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
+		const [summaryViewParticleEffectEmojiId, setSummaryViewParticleEffectEmojiId] = useState<{
+			id: string;
+			shortName: string;
+		} | null>(null);
+
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 
 		let openTime = useRef<number>();
@@ -394,6 +404,20 @@ export const Reactions = React.memo(
 			createAndFireSafe(createAnalyticsEvent, createPickerMoreClickedEvent, openTime.current);
 		}, [createAnalyticsEvent]);
 
+		const handleSetSummaryViewParticleEffectEmojiId = useCallback(
+			(emojiId: string) => {
+				// Find if this emoji is already in existing reactions
+				const existingReaction = reactions.find((reaction) => reaction.emojiId === emojiId);
+				// Only set mostRecentlyClickedId if user hasn't reacted with this emoji yet
+				if (!existingReaction?.reacted) {
+					setSummaryViewParticleEffectEmojiId({ id: emojiId, shortName: '' });
+				} else {
+					setSummaryViewParticleEffectEmojiId(null);
+				}
+			},
+			[reactions, setSummaryViewParticleEffectEmojiId],
+		);
+
 		const handleOnSelection = useCallback(
 			(emojiId: string, source: ReactionSource) => {
 				createAndFireSafe(
@@ -406,8 +430,17 @@ export const Reactions = React.memo(
 				);
 				openTime.current = undefined;
 				onSelection(emojiId);
+				handleSetSummaryViewParticleEffectEmojiId(emojiId);
 			},
-			[createAnalyticsEvent, onSelection, reactions],
+			[createAnalyticsEvent, onSelection, reactions, handleSetSummaryViewParticleEffectEmojiId],
+		);
+
+		const handleSummaryViewReactionClick = useCallback(
+			(emojiId: string, event: React.MouseEvent<HTMLButtonElement>) => {
+				onReactionClick(emojiId, event);
+				handleSetSummaryViewParticleEffectEmojiId(emojiId);
+			},
+			[onReactionClick, handleSetSummaryViewParticleEffectEmojiId],
 		);
 
 		const handleCloseReactionsDialog: OnCloseHandler = (
@@ -535,7 +568,7 @@ export const Reactions = React.memo(
 									flash={flash}
 									particleEffectByEmoji={particleEffectByEmoji}
 									onSelection={handleOnSelection}
-									onReactionClick={onReactionClick}
+									onReactionClick={handleSummaryViewReactionClick}
 									onReactionFocused={handleReactionFocused}
 									onReactionMouseEnter={handleReactionMouseEnter}
 									placement={summaryViewPlacement}
@@ -561,6 +594,9 @@ export const Reactions = React.memo(
 									hoverableSummaryView={hoverableSummaryView}
 									summaryGetOptimisticImageURL={summaryGetOptimisticImageURL}
 									summaryButtonIconAfter={summaryButtonIconAfter}
+									summaryViewParticleEffectEmojiId={
+										renderParticleEffectOnSummaryView ? summaryViewParticleEffectEmojiId : null
+									}
 								/>
 							</div>
 						) : (

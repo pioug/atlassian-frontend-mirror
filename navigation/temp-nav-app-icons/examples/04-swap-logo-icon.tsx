@@ -29,7 +29,7 @@ const wrapperStyles = cssMap({
 });
 
 export default function ShowcaseExample() {
-	const [appearance, setAppearance] = useState<'brand' | 'legacy'>('brand');
+	const [appearance, setAppearance] = useState<'brand' | 'neutral' | 'inverse' | 'legacy'>('brand');
 
 	const [showLogos, setShowLogos] = useState(false);
 	const [useCustomTheme, setUseCustomTheme] = useState(false);

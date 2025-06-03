@@ -19,9 +19,9 @@ Add the plugin to your babel configuration:
 		[
 			"@atlaskit/tokens/babel-plugin",
 			{
-				"shouldUseAutoFallback": false,
+				"shouldUseAutoFallback": true,
 				"defaultTheme": "light",
-				"shouldForceAutoFallback": false,
+				"shouldForceAutoFallback": true,
 				"forceAutoFallbackExemptions": []
 			}
 		]
@@ -38,7 +38,7 @@ Add the plugin to your babel configuration:
 - **`defaultTheme`** (string, default: `"light"`): Specifies the default theme to use for fetching
   token values. Supported values are `"light"` and `"legacy-light"`.
 
-- **`shouldForceAutoFallback`** (boolean, default: `false`): When enabled, the plugin will enforce
+- **`shouldForceAutoFallback`** (boolean, default: `true`): When enabled, the plugin will enforce
   fallback values for all tokens unless they are exempted.
 
 - **`forceAutoFallbackExemptions`** (array of strings, default: `[]`): A list of token name prefixes

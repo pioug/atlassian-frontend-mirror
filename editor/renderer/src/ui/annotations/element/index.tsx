@@ -50,6 +50,9 @@ const MarkElement = ({
 
 			if (annotationManager) {
 				if (hasFocus) {
+					dispatch({
+						type: 'resetSelectedAnnotation',
+					});
 					return;
 				}
 

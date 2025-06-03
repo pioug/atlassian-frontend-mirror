@@ -91,8 +91,8 @@ const jsonLdResponse = {
 	data: successfulResponseData,
 };
 
-const nounDataResponse = {
-	nounData: {
+const entityDataResponse = {
+	entityData: {
 		id: 'I love cheese',
 		displayName: 'I love cheese',
 		url: 'https://some.url',
@@ -113,7 +113,7 @@ export const mocks = {
 	success: {
 		...jsonLdResponse,
 	} as JsonLd.Response,
-	nounDataSuccess: {
+	entityDataSuccess: {
 		...jsonLdResponse,
 		data: {
 			...jsonLdResponse.data,
@@ -135,7 +135,7 @@ export const mocks = {
 				},
 			},
 		},
-		...nounDataResponse,
+		...entityDataResponse,
 	} as SmartLinkResponse,
 	notFound: {
 		meta: {

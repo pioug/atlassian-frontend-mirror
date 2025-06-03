@@ -30,7 +30,7 @@ export default function generateComponents(
 	fs.emptyDirSync(path.resolve(root!, 'src', targetDirectory));
 
 	// For each type of logo or icon, create a new JSX file
-	(['logo', 'icon'] as const).forEach((type) => {
+	(['logo-cs', 'logo', 'icon'] as const).forEach((type) => {
 		const glyphs = fs
 			.readdirSync(path.resolve(root!, rawDirectory, type))
 			.filter((fileName) => path.extname(fileName) === '.svg')
@@ -99,12 +99,17 @@ export default function generateComponents(
 /**
  *
  * @param name App name
- * @param type type (logo or icon)
+ * @param type type (logo, logo-cs, icon)
  * @param svg optimised/processed SVG to render by default
  * @param customThemeSvg optimised/processed SVG to render when custom icon/text colors are set
  * @returns
  */
-const getLogoJSX = (name: string, type: 'logo' | 'icon', svg: string, customThemeSvg?: string) => {
+const getLogoJSX = (
+	name: string,
+	type: 'logo' | 'icon' | 'logo-cs',
+	svg: string,
+	customThemeSvg?: string,
+) => {
 	const capitalisedName = name
 		.split('-')
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -120,9 +125,9 @@ const getLogoJSX = (name: string, type: 'logo' | 'icon', svg: string, customThem
 	}
 
 	// convert name to PascalCase from kebab-case
-	const componentName = `${capitalisedName}${type === 'icon' ? 'Icon' : 'Logo'}`;
+	const componentName = `${capitalisedName}${type === 'icon' ? 'Icon' : type === 'logo' ? 'Logo' : 'LogoCS'}`;
 
-	const WrapperName = `${type.charAt(0).toUpperCase() + type.slice(1)}Wrapper`;
+	const WrapperName = type === 'icon' ? 'IconWrapper' : 'LogoWrapper';
 
 	let propType = utilityIcons.includes(name)
 		? 'UtilityIconProps'
@@ -140,7 +145,7 @@ const getLogoJSX = (name: string, type: 'logo' | 'icon', svg: string, customThem
 
 import { ${WrapperName} } from '../../utils/${type === 'icon' ? 'icon-wrapper' : 'logo-wrapper'}';
 ${typeImport}
-// \`height\` is set to 100% to allow the SVG to scale with the parent element${type === 'logo' ? '\n// The text color is set to "currentColor" to allow the SVG to inherit the color set by the parent based on the theme.' : ''}
+// \`height\` is set to 100% to allow the SVG to scale with the parent element${type === 'logo' || type === 'logo-cs' ? '\n// The text color is set to "currentColor" to allow the SVG to inherit the color set by the parent based on the theme.' : ''}
 const svg = \`${svg}\`;
 ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
 /**
@@ -153,7 +158,7 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
  */
 export function ${componentName}({
 		${customThemeSvg ? 'iconColor, ' : ''}
-		${customThemeSvg && type === 'logo' ? 'textColor,' : ''} size, appearance = "brand", label, testId
+		${customThemeSvg && (type === 'logo' || type === 'logo-cs') ? 'textColor,' : ''} size, appearance = "brand", label, testId
 	}: ${propType}) {
 	return <${WrapperName}
 			svg={svg} ${customThemeSvg ? 'customThemeSvg={customThemeSvg}' : ''}

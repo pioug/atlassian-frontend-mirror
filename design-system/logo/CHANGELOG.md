@@ -1,5 +1,18 @@
 # @atlaskit/logo
 
+## 19.0.0
+
+### Major Changes
+
+- [#163522](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163522)
+  [`76358104532e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76358104532e5) -
+  Removed `admin`, `align`, `analytics`, `company-hub` and `guard-detect` logos. These logos have
+  been feature flagged behind existing entry points.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.2.0
 
 ### Minor Changes

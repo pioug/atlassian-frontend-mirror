@@ -51,7 +51,7 @@ describe('UnauthorisedView', () => {
 		);
 
 	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
-		ffTest.both('smart_links_noun_support', 'with noun support', () => {
+		ffTest.both('smart_links_noun_support', 'with entity support', () => {
 			it('renders unauthorised view', async () => {
 				renderComponent();
 

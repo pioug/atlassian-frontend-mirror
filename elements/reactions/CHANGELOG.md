@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 31.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.19.0
+
+### Minor Changes
+
+- [#162088](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162088)
+  [`0734bf6d32ef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0734bf6d32ef7) -
+  [ux] Adds the reaction particle effect to the summary view button
+
 ## 31.18.0
 
 ### Minor Changes

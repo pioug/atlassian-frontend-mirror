@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/temp-nav-app-icons",
-	"version": "0.8.0",
+	"version": "0.8.1",
 	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -52,6 +52,7 @@
 		"./guard": "./src/entry-points/guard.tsx",
 		"./guard-detect": "./src/entry-points/guard-detect.tsx",
 		"./home": "./src/entry-points/home.tsx",
+		"./hub": "./src/entry-points/hub.tsx",
 		"./jira-product-discovery": "./src/entry-points/jira-product-discovery.tsx",
 		"./jira-service-management": "./src/entry-points/jira-service-management.tsx",
 		"./jira": "./src/entry-points/jira.tsx",
@@ -87,6 +88,7 @@
 		"./guard": "./src/entry-points/guard.tsx",
 		"./guard-detect": "./src/entry-points/guard-detect.tsx",
 		"./home": "./src/entry-points/home.tsx",
+		"./hub": "./src/entry-points/hub.tsx",
 		"./jira-product-discovery": "./src/entry-points/jira-product-discovery.tsx",
 		"./jira-service-management": "./src/entry-points/jira-service-management.tsx",
 		"./jira": "./src/entry-points/jira.tsx",

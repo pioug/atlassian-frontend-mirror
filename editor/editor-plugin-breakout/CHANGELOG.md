@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.5.0
+
+### Minor Changes
+
+- [#163976](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163976)
+  [`668e81e097994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/668e81e097994) -
+  [ux] [ED-28113] this change saves the width as 1800 when resizing to the fullWidth guideline under
+  the new resizing experience behind platform_editor_breakout_resizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.3
+
+### Patch Changes
+
+- [#163965](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163965)
+  [`c08b8e623a378`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c08b8e623a378) -
+  [ED-28046] Reduce the number of times the layout button re-renders
+- [#164762](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164762)
+  [`e716071496267`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e716071496267) -
+  [ux] Fix for expands and codeblocks so they keep their settings after resize.
+- Updated dependencies
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.1
 
 ### Patch Changes

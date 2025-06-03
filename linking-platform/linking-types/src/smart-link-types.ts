@@ -20,5 +20,5 @@ export type SmartLinkResponse = JsonLd.Response & {
 	 * @experimental
 	 * Still under development. Use with caution.
 	 */
-	nounData?: EntityType;
+	entityData?: EntityType;
 };

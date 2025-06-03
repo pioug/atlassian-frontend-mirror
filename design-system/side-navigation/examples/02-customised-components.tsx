@@ -54,17 +54,13 @@ const containerStyles = css({
 });
 
 const customNestingItemStyles = css({
-	// Need to increase specificity here until @atlaskit/menu has been migrated to @compiled/react
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&&': {
+	color: token('color.text.success'),
+	'&:hover': {
+		backgroundColor: token('color.background.accent.green.subtle'),
 		color: token('color.text.success'),
-		'&:hover': {
-			backgroundColor: token('color.background.accent.green.subtle'),
-			color: token('color.text.success'),
-		},
-		'&:active': {
-			backgroundColor: token('color.background.accent.green.bolder'),
-		},
+	},
+	'&:active': {
+		backgroundColor: token('color.background.accent.green.bolder'),
 	},
 });
 

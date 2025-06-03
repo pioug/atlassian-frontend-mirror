@@ -766,70 +766,64 @@ describe('@atlaskit/editor-core', () => {
 			);
 		});
 
-		ffTest.on(
-			'platform_editor_transaction_skip_validation',
-			'should skip validation of a remote replaceDocument transaction if feature flag is enabled',
-			() => {
-				it('useDispatchTransaction should allow invalid nodes in the transaction when remote replaceDocument transaction is invoked', () => {
-					const onChange = jest.fn();
+		it('useDispatchTransaction should allow invalid nodes in the transaction when remote replaceDocument transaction is invoked', () => {
+			const onChange = jest.fn();
 
-					const { editorView } = createEditorFactory()({
-						doc: doc(p('hello world')),
-						editorProps: {
-							collabEdit: {},
-							allowLayouts: true,
-							onChange,
-						},
-					});
+			const { editorView } = createEditorFactory()({
+				doc: doc(p('hello world')),
+				editorProps: {
+					collabEdit: {},
+					allowLayouts: true,
+					onChange,
+				},
+			});
 
-					initializeCollab(editorView);
+			initializeCollab(editorView);
 
-					const mockDocument = {
-						type: 'doc',
+			const mockDocument = {
+				type: 'doc',
+				content: [
+					{
+						type: 'blockquote',
 						content: [
 							{
-								type: 'blockquote',
+								type: 'layoutSection',
 								content: [
 									{
-										type: 'layoutSection',
+										type: 'layoutColumn',
+										attrs: {
+											width: 33.33,
+										},
 										content: [
 											{
-												type: 'layoutColumn',
+												type: 'paragraph',
 												attrs: {
-													width: 33.33,
+													localId: null,
 												},
 												content: [
 													{
-														type: 'paragraph',
-														attrs: {
-															localId: null,
-														},
-														content: [
-															{
-																type: 'text',
-																text: 'This column is a 1/3rd.',
-															},
-														],
+														type: 'text',
+														text: 'This column is a 1/3rd.',
 													},
 												],
 											},
+										],
+									},
+									{
+										type: 'layoutColumn',
+										attrs: {
+											width: 66.66,
+										},
+										content: [
 											{
-												type: 'layoutColumn',
+												type: 'paragraph',
 												attrs: {
-													width: 66.66,
+													localId: null,
 												},
 												content: [
 													{
-														type: 'paragraph',
-														attrs: {
-															localId: null,
-														},
-														content: [
-															{
-																type: 'text',
-																text: 'This column is 2/3rds.',
-															},
-														],
+														type: 'text',
+														text: 'This column is 2/3rds.',
 													},
 												],
 											},
@@ -838,16 +832,16 @@ describe('@atlaskit/editor-core', () => {
 								],
 							},
 						],
-					};
+					},
+				],
+			};
 
-					const tr = replaceDocument(mockDocument, editorView.state);
-					tr.setMeta('isRemote', true);
-					editorView.dispatch(tr);
+			const tr = replaceDocument(mockDocument, editorView.state);
+			tr.setMeta('isRemote', true);
+			editorView.dispatch(tr);
 
-					expect(editorView.state.doc.toJSON()).toEqual(mockDocument);
-				});
-			},
-		);
+			expect(editorView.state.doc.toJSON()).toEqual(mockDocument);
+		});
 
 		it('useDispatchTransaction should not allow invalid nodes in the transaction if its not a remote replaceDocument transaction', () => {
 			const { editorView, editorAPI } = createEditorFactory()({
@@ -916,82 +910,5 @@ describe('@atlaskit/editor-core', () => {
 			editorAPI?.core.actions.replaceDocument(mockDocument, { skipValidation: true });
 			expect(editorView.state.doc.toJSON()).toEqual(doc(p('hello world'))(defaultSchema).toJSON());
 		});
-
-		ffTest.off(
-			'platform_editor_transaction_skip_validation',
-			'with skip validation for remote replaceDocument transactions flag disabled',
-			() => {
-				it('useDispatchTransaction does not allow invalid nodes in a remote replaceDocument transaction when collab edit plugin is in use', () => {
-					const { editorView, editorAPI } = createEditorFactory()({
-						doc: doc(p('hello world')),
-						editorProps: {
-							collabEdit: {},
-							allowLayouts: true,
-						},
-					});
-
-					initializeCollab(editorView);
-
-					const mockDocument = {
-						type: 'doc',
-						content: [
-							{
-								type: 'blockquote',
-								content: [
-									{
-										type: 'layoutSection',
-										content: [
-											{
-												type: 'layoutColumn',
-												attrs: {
-													width: 33.33,
-												},
-												content: [
-													{
-														type: 'paragraph',
-														attrs: {
-															localId: null,
-														},
-														content: [
-															{
-																type: 'text',
-																text: 'This column is a 1/3rd.',
-															},
-														],
-													},
-												],
-											},
-											{
-												type: 'layoutColumn',
-												attrs: {
-													width: 66.66,
-												},
-												content: [
-													{
-														type: 'paragraph',
-														attrs: {
-															localId: null,
-														},
-														content: [
-															{
-																type: 'text',
-																text: 'This column is 2/3rds.',
-															},
-														],
-													},
-												],
-											},
-										],
-									},
-								],
-							},
-						],
-					};
-
-					editorAPI?.core.actions.replaceDocument(mockDocument, { skipValidation: true });
-					expect(editorView.state.doc.toJSON()).toEqual(doc(p())(defaultSchema).toJSON());
-				});
-			},
-		);
 	});
 });

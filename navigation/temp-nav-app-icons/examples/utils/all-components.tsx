@@ -1,50 +1,70 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ffa58897897cfdf52c4e11c2d70e6556>>
+ * @codegen <<SignedSource::6c00ecda7cf62cdbbf7bec2e501852c8>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
 
 import { AdminIcon, AdminLogo } from '@atlaskit/temp-nav-app-icons/admin';
-import { AlignIcon, AlignLogo } from '@atlaskit/temp-nav-app-icons/align';
-import { AnalyticsIcon, AnalyticsLogo } from '@atlaskit/temp-nav-app-icons/analytics';
-import { AssetsIcon, AssetsLogo } from '@atlaskit/temp-nav-app-icons/assets';
-import { BitbucketIcon, BitbucketLogo } from '@atlaskit/temp-nav-app-icons/bitbucket';
-import { ChatIcon, ChatLogo } from '@atlaskit/temp-nav-app-icons/chat';
+import { AlignIcon, AlignLogo, AlignLogoCS } from '@atlaskit/temp-nav-app-icons/align';
+import {
+	AnalyticsIcon,
+	AnalyticsLogo,
+	AnalyticsLogoCS,
+} from '@atlaskit/temp-nav-app-icons/analytics';
+import { AssetsIcon, AssetsLogo, AssetsLogoCS } from '@atlaskit/temp-nav-app-icons/assets';
+import {
+	BitbucketIcon,
+	BitbucketLogo,
+	BitbucketLogoCS,
+} from '@atlaskit/temp-nav-app-icons/bitbucket';
+import { ChatIcon, ChatLogo, ChatLogoCS } from '@atlaskit/temp-nav-app-icons/chat';
 import { CompanyHubIcon, CompanyHubLogo } from '@atlaskit/temp-nav-app-icons/company-hub';
-import { CompassIcon, CompassLogo } from '@atlaskit/temp-nav-app-icons/compass';
-import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/temp-nav-app-icons/confluence';
+import { CompassIcon, CompassLogo, CompassLogoCS } from '@atlaskit/temp-nav-app-icons/compass';
+import {
+	ConfluenceIcon,
+	ConfluenceLogo,
+	ConfluenceLogoCS,
+} from '@atlaskit/temp-nav-app-icons/confluence';
 import { CustomLinkIcon } from '@atlaskit/temp-nav-app-icons/custom-link';
 import {
 	CustomerServiceManagementIcon,
 	CustomerServiceManagementLogo,
+	CustomerServiceManagementLogoCS,
 } from '@atlaskit/temp-nav-app-icons/customer-service-management';
-import { FocusIcon, FocusLogo } from '@atlaskit/temp-nav-app-icons/focus';
-import { GoalsIcon, GoalsLogo } from '@atlaskit/temp-nav-app-icons/goals';
-import { GuardIcon, GuardLogo } from '@atlaskit/temp-nav-app-icons/guard';
+import { FocusIcon, FocusLogo, FocusLogoCS } from '@atlaskit/temp-nav-app-icons/focus';
+import { GoalsIcon, GoalsLogo, GoalsLogoCS } from '@atlaskit/temp-nav-app-icons/goals';
+import { GuardIcon, GuardLogo, GuardLogoCS } from '@atlaskit/temp-nav-app-icons/guard';
 import { GuardDetectIcon, GuardDetectLogo } from '@atlaskit/temp-nav-app-icons/guard-detect';
-import { HomeIcon, HomeLogo } from '@atlaskit/temp-nav-app-icons/home';
-import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
+import { HomeIcon, HomeLogo, HomeLogoCS } from '@atlaskit/temp-nav-app-icons/home';
+import { HubIcon, HubLogoCS } from '@atlaskit/temp-nav-app-icons/hub';
+import { JiraIcon, JiraLogo, JiraLogoCS } from '@atlaskit/temp-nav-app-icons/jira';
 import {
 	JiraProductDiscoveryIcon,
 	JiraProductDiscoveryLogo,
+	JiraProductDiscoveryLogoCS,
 } from '@atlaskit/temp-nav-app-icons/jira-product-discovery';
 import {
 	JiraServiceManagementIcon,
 	JiraServiceManagementLogo,
+	JiraServiceManagementLogoCS,
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
-import { LoomIcon, LoomLogo } from '@atlaskit/temp-nav-app-icons/loom';
+import { LoomIcon, LoomLogo, LoomLogoCS } from '@atlaskit/temp-nav-app-icons/loom';
 import { LoomInternalIcon, LoomInternalLogo } from '@atlaskit/temp-nav-app-icons/loom-internal';
 import { MoreAtlassianAppsIcon } from '@atlaskit/temp-nav-app-icons/more-atlassian-apps';
-import { OpsgenieIcon, OpsgenieLogo } from '@atlaskit/temp-nav-app-icons/opsgenie';
-import { ProjectsIcon, ProjectsLogo } from '@atlaskit/temp-nav-app-icons/projects';
-import { RovoIcon, RovoLogo } from '@atlaskit/temp-nav-app-icons/rovo';
-import { SearchIcon, SearchLogo } from '@atlaskit/temp-nav-app-icons/search';
-import { StatuspageIcon, StatuspageLogo } from '@atlaskit/temp-nav-app-icons/statuspage';
-import { StudioIcon, StudioLogo } from '@atlaskit/temp-nav-app-icons/studio';
-import { TalentIcon, TalentLogo } from '@atlaskit/temp-nav-app-icons/talent';
-import { TeamsIcon, TeamsLogo } from '@atlaskit/temp-nav-app-icons/teams';
-import { TrelloIcon, TrelloLogo } from '@atlaskit/temp-nav-app-icons/trello';
+import { OpsgenieIcon, OpsgenieLogo, OpsgenieLogoCS } from '@atlaskit/temp-nav-app-icons/opsgenie';
+import { ProjectsIcon, ProjectsLogo, ProjectsLogoCS } from '@atlaskit/temp-nav-app-icons/projects';
+import { RovoIcon, RovoLogo, RovoLogoCS } from '@atlaskit/temp-nav-app-icons/rovo';
+import { SearchIcon, SearchLogo, SearchLogoCS } from '@atlaskit/temp-nav-app-icons/search';
+import {
+	StatuspageIcon,
+	StatuspageLogo,
+	StatuspageLogoCS,
+} from '@atlaskit/temp-nav-app-icons/statuspage';
+import { StudioIcon, StudioLogo, StudioLogoCS } from '@atlaskit/temp-nav-app-icons/studio';
+import { TalentIcon, TalentLogo, TalentLogoCS } from '@atlaskit/temp-nav-app-icons/talent';
+import { TeamsIcon, TeamsLogo, TeamsLogoCS } from '@atlaskit/temp-nav-app-icons/teams';
+import { TrelloIcon, TrelloLogo, TrelloLogoCS } from '@atlaskit/temp-nav-app-icons/trello';
 
 import { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
@@ -56,16 +76,8 @@ export const rows: Array<{
 	Icon24: React.ComponentType<AppIconProps>;
 	Icon32: React.ComponentType<AppIconProps>;
 	Logo: React.ComponentType<AppLogoProps> | null;
+	LogoCS: React.ComponentType<AppLogoProps> | null;
 }> = [
-	{
-		name: 'Admin',
-		Icon12: (props) => <AdminIcon {...props} size="12" />,
-		Icon16: (props) => <AdminIcon {...props} size="16" />,
-		Icon20: (props) => <AdminIcon {...props} size="20" />,
-		Icon24: (props) => <AdminIcon {...props} size="24" />,
-		Icon32: (props) => <AdminIcon {...props} size="32" />,
-		Logo: (props) => <AdminLogo {...props} />,
-	},
 	{
 		name: 'Align',
 		Icon12: (props) => <AlignIcon {...props} size="12" />,
@@ -74,6 +86,7 @@ export const rows: Array<{
 		Icon24: (props) => <AlignIcon {...props} size="24" />,
 		Icon32: (props) => <AlignIcon {...props} size="32" />,
 		Logo: (props) => <AlignLogo {...props} />,
+		LogoCS: (props) => <AlignLogoCS {...props} />,
 	},
 	{
 		name: 'Analytics',
@@ -83,6 +96,7 @@ export const rows: Array<{
 		Icon24: (props) => <AnalyticsIcon {...props} size="24" />,
 		Icon32: (props) => <AnalyticsIcon {...props} size="32" />,
 		Logo: (props) => <AnalyticsLogo {...props} />,
+		LogoCS: (props) => <AnalyticsLogoCS {...props} />,
 	},
 	{
 		name: 'Assets',
@@ -92,6 +106,7 @@ export const rows: Array<{
 		Icon24: (props) => <AssetsIcon {...props} size="24" />,
 		Icon32: (props) => <AssetsIcon {...props} size="32" />,
 		Logo: (props) => <AssetsLogo {...props} />,
+		LogoCS: (props) => <AssetsLogoCS {...props} />,
 	},
 	{
 		name: 'Bitbucket',
@@ -101,6 +116,7 @@ export const rows: Array<{
 		Icon24: (props) => <BitbucketIcon {...props} size="24" />,
 		Icon32: (props) => <BitbucketIcon {...props} size="32" />,
 		Logo: (props) => <BitbucketLogo {...props} />,
+		LogoCS: (props) => <BitbucketLogoCS {...props} />,
 	},
 	{
 		name: 'Chat',
@@ -110,15 +126,7 @@ export const rows: Array<{
 		Icon24: (props) => <ChatIcon {...props} size="24" />,
 		Icon32: (props) => <ChatIcon {...props} size="32" />,
 		Logo: (props) => <ChatLogo {...props} />,
-	},
-	{
-		name: 'Company Hub',
-		Icon12: (props) => <CompanyHubIcon {...props} size="12" />,
-		Icon16: (props) => <CompanyHubIcon {...props} size="16" />,
-		Icon20: (props) => <CompanyHubIcon {...props} size="20" />,
-		Icon24: (props) => <CompanyHubIcon {...props} size="24" />,
-		Icon32: (props) => <CompanyHubIcon {...props} size="32" />,
-		Logo: (props) => <CompanyHubLogo {...props} />,
+		LogoCS: (props) => <ChatLogoCS {...props} />,
 	},
 	{
 		name: 'Compass',
@@ -128,6 +136,7 @@ export const rows: Array<{
 		Icon24: (props) => <CompassIcon {...props} size="24" />,
 		Icon32: (props) => <CompassIcon {...props} size="32" />,
 		Logo: (props) => <CompassLogo {...props} />,
+		LogoCS: (props) => <CompassLogoCS {...props} />,
 	},
 	{
 		name: 'Confluence',
@@ -137,6 +146,7 @@ export const rows: Array<{
 		Icon24: (props) => <ConfluenceIcon {...props} size="24" />,
 		Icon32: (props) => <ConfluenceIcon {...props} size="32" />,
 		Logo: (props) => <ConfluenceLogo {...props} />,
+		LogoCS: (props) => <ConfluenceLogoCS {...props} />,
 	},
 	{
 		name: 'Customer Service Management',
@@ -146,6 +156,7 @@ export const rows: Array<{
 		Icon24: (props) => <CustomerServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <CustomerServiceManagementIcon {...props} size="32" />,
 		Logo: (props) => <CustomerServiceManagementLogo {...props} />,
+		LogoCS: (props) => <CustomerServiceManagementLogoCS {...props} />,
 	},
 	{
 		name: 'Focus',
@@ -155,6 +166,7 @@ export const rows: Array<{
 		Icon24: (props) => <FocusIcon {...props} size="24" />,
 		Icon32: (props) => <FocusIcon {...props} size="32" />,
 		Logo: (props) => <FocusLogo {...props} />,
+		LogoCS: (props) => <FocusLogoCS {...props} />,
 	},
 	{
 		name: 'Goals',
@@ -164,15 +176,7 @@ export const rows: Array<{
 		Icon24: (props) => <GoalsIcon {...props} size="24" />,
 		Icon32: (props) => <GoalsIcon {...props} size="32" />,
 		Logo: (props) => <GoalsLogo {...props} />,
-	},
-	{
-		name: 'Guard Detect',
-		Icon12: (props) => <GuardDetectIcon {...props} size="12" />,
-		Icon16: (props) => <GuardDetectIcon {...props} size="16" />,
-		Icon20: (props) => <GuardDetectIcon {...props} size="20" />,
-		Icon24: (props) => <GuardDetectIcon {...props} size="24" />,
-		Icon32: (props) => <GuardDetectIcon {...props} size="32" />,
-		Logo: (props) => <GuardDetectLogo {...props} />,
+		LogoCS: (props) => <GoalsLogoCS {...props} />,
 	},
 	{
 		name: 'Guard',
@@ -182,6 +186,7 @@ export const rows: Array<{
 		Icon24: (props) => <GuardIcon {...props} size="24" />,
 		Icon32: (props) => <GuardIcon {...props} size="32" />,
 		Logo: (props) => <GuardLogo {...props} />,
+		LogoCS: (props) => <GuardLogoCS {...props} />,
 	},
 	{
 		name: 'Home',
@@ -191,6 +196,17 @@ export const rows: Array<{
 		Icon24: (props) => <HomeIcon {...props} size="24" />,
 		Icon32: (props) => <HomeIcon {...props} size="32" />,
 		Logo: (props) => <HomeLogo {...props} />,
+		LogoCS: (props) => <HomeLogoCS {...props} />,
+	},
+	{
+		name: 'Hub',
+		Icon12: (props) => <HubIcon {...props} size="12" />,
+		Icon16: (props) => <HubIcon {...props} size="16" />,
+		Icon20: (props) => <HubIcon {...props} size="20" />,
+		Icon24: (props) => <HubIcon {...props} size="24" />,
+		Icon32: (props) => <HubIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <HubLogoCS {...props} />,
 	},
 	{
 		name: 'Jira Product Discovery',
@@ -200,6 +216,7 @@ export const rows: Array<{
 		Icon24: (props) => <JiraProductDiscoveryIcon {...props} size="24" />,
 		Icon32: (props) => <JiraProductDiscoveryIcon {...props} size="32" />,
 		Logo: (props) => <JiraProductDiscoveryLogo {...props} />,
+		LogoCS: (props) => <JiraProductDiscoveryLogoCS {...props} />,
 	},
 	{
 		name: 'Jira Service Management',
@@ -209,6 +226,7 @@ export const rows: Array<{
 		Icon24: (props) => <JiraServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <JiraServiceManagementIcon {...props} size="32" />,
 		Logo: (props) => <JiraServiceManagementLogo {...props} />,
+		LogoCS: (props) => <JiraServiceManagementLogoCS {...props} />,
 	},
 	{
 		name: 'Jira',
@@ -218,15 +236,7 @@ export const rows: Array<{
 		Icon24: (props) => <JiraIcon {...props} size="24" />,
 		Icon32: (props) => <JiraIcon {...props} size="32" />,
 		Logo: (props) => <JiraLogo {...props} />,
-	},
-	{
-		name: 'Loom Internal',
-		Icon12: (props) => <LoomInternalIcon {...props} size="12" />,
-		Icon16: (props) => <LoomInternalIcon {...props} size="16" />,
-		Icon20: (props) => <LoomInternalIcon {...props} size="20" />,
-		Icon24: (props) => <LoomInternalIcon {...props} size="24" />,
-		Icon32: (props) => <LoomInternalIcon {...props} size="32" />,
-		Logo: (props) => <LoomInternalLogo {...props} />,
+		LogoCS: (props) => <JiraLogoCS {...props} />,
 	},
 	{
 		name: 'Loom',
@@ -236,6 +246,7 @@ export const rows: Array<{
 		Icon24: (props) => <LoomIcon {...props} size="24" />,
 		Icon32: (props) => <LoomIcon {...props} size="32" />,
 		Logo: (props) => <LoomLogo {...props} />,
+		LogoCS: (props) => <LoomLogoCS {...props} />,
 	},
 	{
 		name: 'Opsgenie',
@@ -245,6 +256,7 @@ export const rows: Array<{
 		Icon24: (props) => <OpsgenieIcon {...props} size="24" />,
 		Icon32: (props) => <OpsgenieIcon {...props} size="32" />,
 		Logo: (props) => <OpsgenieLogo {...props} />,
+		LogoCS: (props) => <OpsgenieLogoCS {...props} />,
 	},
 	{
 		name: 'Projects',
@@ -254,6 +266,7 @@ export const rows: Array<{
 		Icon24: (props) => <ProjectsIcon {...props} size="24" />,
 		Icon32: (props) => <ProjectsIcon {...props} size="32" />,
 		Logo: (props) => <ProjectsLogo {...props} />,
+		LogoCS: (props) => <ProjectsLogoCS {...props} />,
 	},
 	{
 		name: 'Rovo',
@@ -263,6 +276,7 @@ export const rows: Array<{
 		Icon24: (props) => <RovoIcon {...props} size="24" />,
 		Icon32: (props) => <RovoIcon {...props} size="32" />,
 		Logo: (props) => <RovoLogo {...props} />,
+		LogoCS: (props) => <RovoLogoCS {...props} />,
 	},
 	{
 		name: 'Search',
@@ -272,6 +286,7 @@ export const rows: Array<{
 		Icon24: (props) => <SearchIcon {...props} size="24" />,
 		Icon32: (props) => <SearchIcon {...props} size="32" />,
 		Logo: (props) => <SearchLogo {...props} />,
+		LogoCS: (props) => <SearchLogoCS {...props} />,
 	},
 	{
 		name: 'Statuspage',
@@ -281,6 +296,7 @@ export const rows: Array<{
 		Icon24: (props) => <StatuspageIcon {...props} size="24" />,
 		Icon32: (props) => <StatuspageIcon {...props} size="32" />,
 		Logo: (props) => <StatuspageLogo {...props} />,
+		LogoCS: (props) => <StatuspageLogoCS {...props} />,
 	},
 	{
 		name: 'Studio',
@@ -290,6 +306,7 @@ export const rows: Array<{
 		Icon24: (props) => <StudioIcon {...props} size="24" />,
 		Icon32: (props) => <StudioIcon {...props} size="32" />,
 		Logo: (props) => <StudioLogo {...props} />,
+		LogoCS: (props) => <StudioLogoCS {...props} />,
 	},
 	{
 		name: 'Talent',
@@ -299,6 +316,7 @@ export const rows: Array<{
 		Icon24: (props) => <TalentIcon {...props} size="24" />,
 		Icon32: (props) => <TalentIcon {...props} size="32" />,
 		Logo: (props) => <TalentLogo {...props} />,
+		LogoCS: (props) => <TalentLogoCS {...props} />,
 	},
 	{
 		name: 'Teams',
@@ -308,6 +326,7 @@ export const rows: Array<{
 		Icon24: (props) => <TeamsIcon {...props} size="24" />,
 		Icon32: (props) => <TeamsIcon {...props} size="32" />,
 		Logo: (props) => <TeamsLogo {...props} />,
+		LogoCS: (props) => <TeamsLogoCS {...props} />,
 	},
 	{
 		name: 'Trello',
@@ -317,6 +336,47 @@ export const rows: Array<{
 		Icon24: (props) => <TrelloIcon {...props} size="24" />,
 		Icon32: (props) => <TrelloIcon {...props} size="32" />,
 		Logo: (props) => <TrelloLogo {...props} />,
+		LogoCS: (props) => <TrelloLogoCS {...props} />,
+	},
+	{
+		name: 'Admin',
+		Icon12: (props) => <AdminIcon {...props} size="12" />,
+		Icon16: (props) => <AdminIcon {...props} size="16" />,
+		Icon20: (props) => <AdminIcon {...props} size="20" />,
+		Icon24: (props) => <AdminIcon {...props} size="24" />,
+		Icon32: (props) => <AdminIcon {...props} size="32" />,
+		Logo: (props) => <AdminLogo {...props} />,
+		LogoCS: null,
+	},
+	{
+		name: 'Company Hub',
+		Icon12: (props) => <CompanyHubIcon {...props} size="12" />,
+		Icon16: (props) => <CompanyHubIcon {...props} size="16" />,
+		Icon20: (props) => <CompanyHubIcon {...props} size="20" />,
+		Icon24: (props) => <CompanyHubIcon {...props} size="24" />,
+		Icon32: (props) => <CompanyHubIcon {...props} size="32" />,
+		Logo: (props) => <CompanyHubLogo {...props} />,
+		LogoCS: null,
+	},
+	{
+		name: 'Guard Detect',
+		Icon12: (props) => <GuardDetectIcon {...props} size="12" />,
+		Icon16: (props) => <GuardDetectIcon {...props} size="16" />,
+		Icon20: (props) => <GuardDetectIcon {...props} size="20" />,
+		Icon24: (props) => <GuardDetectIcon {...props} size="24" />,
+		Icon32: (props) => <GuardDetectIcon {...props} size="32" />,
+		Logo: (props) => <GuardDetectLogo {...props} />,
+		LogoCS: null,
+	},
+	{
+		name: 'Loom Internal',
+		Icon12: (props) => <LoomInternalIcon {...props} size="12" />,
+		Icon16: (props) => <LoomInternalIcon {...props} size="16" />,
+		Icon20: (props) => <LoomInternalIcon {...props} size="20" />,
+		Icon24: (props) => <LoomInternalIcon {...props} size="24" />,
+		Icon32: (props) => <LoomInternalIcon {...props} size="32" />,
+		Logo: (props) => <LoomInternalLogo {...props} />,
+		LogoCS: null,
 	},
 	{
 		name: 'Custom Link',
@@ -326,6 +386,7 @@ export const rows: Array<{
 		Icon24: (props) => <CustomLinkIcon {...props} size="24" label="Custom Link" />,
 		Icon32: (props) => <CustomLinkIcon {...props} size="32" label="Custom Link" />,
 		Logo: null,
+		LogoCS: null,
 	},
 	{
 		name: 'More Atlassian Apps',
@@ -335,5 +396,6 @@ export const rows: Array<{
 		Icon24: (props) => <MoreAtlassianAppsIcon {...props} size="24" label="More Atlassian Apps" />,
 		Icon32: (props) => <MoreAtlassianAppsIcon {...props} size="32" label="More Atlassian Apps" />,
 		Logo: null,
+		LogoCS: null,
 	},
 ];

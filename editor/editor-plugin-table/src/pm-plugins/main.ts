@@ -28,11 +28,11 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
-	lazyTableCellView,
-	lazyTableHeaderView,
-	lazyTableRowView,
-	lazyTableView,
-} from '../nodeviews/lazy-node-views';
+	tableCellView,
+	tableHeaderView,
+	tableRowView,
+	tableView,
+} from '../nodeviews/table-node-views';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import type {
 	InvalidNodeAttr,
@@ -135,7 +135,7 @@ export const createPlugin = (
 		isSSR() && fg('platform_editor_table_fallback_to_dom_on_ssr')
 			? undefined
 			: {
-					table: lazyTableView({
+					table: tableView({
 						portalProviderAPI,
 						eventDispatcher,
 						getEditorContainerWidth,
@@ -145,9 +145,9 @@ export const createPlugin = (
 						isCommentEditor,
 						isChromelessEditor,
 					}),
-					tableRow: lazyTableRowView({ eventDispatcher }),
-					tableCell: lazyTableCellView({ eventDispatcher, pluginInjectionApi }),
-					tableHeader: lazyTableHeaderView({ eventDispatcher, pluginInjectionApi }),
+					tableRow: tableRowView({ eventDispatcher }),
+					tableCell: tableCellView({ eventDispatcher, pluginInjectionApi }),
+					tableHeader: tableHeaderView({ eventDispatcher, pluginInjectionApi }),
 				};
 	return new SafePlugin({
 		state: state,

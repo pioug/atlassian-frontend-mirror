@@ -82,14 +82,14 @@ describe('extractLinkTitle', () => {
 
 	ffTest.on('smart_links_noun_support', 'with fg', () => {
 		describe('with entity', () => {
-			const entityText = 'I love cheese'; // mocks.nounDataSuccess.nounData?.displayName
-			const entityUrl = 'https://some.url'; // mocks.nounDataSuccess.nounData?.url
+			const entityText = 'I love cheese'; // mocks.entityDataSuccess.entityData?.displayName
+			const entityUrl = 'https://some.url'; // mocks.entityDataSuccess.entityData?.url
 
 			it('should return link title data', () => {
 				const data = extractLinkTitle(
 					SmartLinkStatus.Resolved,
 					propUrl,
-					mocks.nounDataSuccess,
+					mocks.entityDataSuccess,
 					onClick,
 				);
 				expect(data).toEqual({ onClick, text: entityText, url: entityUrl });
@@ -100,8 +100,8 @@ describe('extractLinkTitle', () => {
 					SmartLinkStatus.Resolved,
 					propUrl,
 					{
-						...mocks.nounDataSuccess,
-						nounData: { ...mocks.nounDataSuccess.nounData, displayName: undefined },
+						...mocks.entityDataSuccess,
+						entityData: { ...mocks.entityDataSuccess.entityData, displayName: undefined },
 					} as unknown as SmartLinkResponse,
 					onClick,
 				);
@@ -113,8 +113,8 @@ describe('extractLinkTitle', () => {
 					SmartLinkStatus.Resolved,
 					propUrl,
 					{
-						...mocks.nounDataSuccess,
-						nounData: { ...mocks.nounDataSuccess.nounData, url: undefined },
+						...mocks.entityDataSuccess,
+						entityData: { ...mocks.entityDataSuccess.entityData, url: undefined },
 					} as unknown as SmartLinkResponse,
 					onClick,
 				);
@@ -126,8 +126,12 @@ describe('extractLinkTitle', () => {
 					SmartLinkStatus.Resolved,
 					propUrl,
 					{
-						...mocks.nounDataSuccess,
-						nounData: { ...mocks.nounDataSuccess.nounData, displayName: undefined, url: undefined },
+						...mocks.entityDataSuccess,
+						entityData: {
+							...mocks.entityDataSuccess.entityData,
+							displayName: undefined,
+							url: undefined,
+						},
 					} as unknown as SmartLinkResponse,
 					onClick,
 				);
@@ -147,7 +151,7 @@ describe('extractLinkTitle', () => {
 				SmartLinkStatus.Resolving,
 				SmartLinkStatus.Unauthorized,
 			])('should return prop url if status is not resolved', (status) => {
-				const data = extractLinkTitle(status, propUrl, mocks.nounDataSuccess, onClick);
+				const data = extractLinkTitle(status, propUrl, mocks.entityDataSuccess, onClick);
 				expect(data?.url).toEqual(propUrl);
 			});
 		});

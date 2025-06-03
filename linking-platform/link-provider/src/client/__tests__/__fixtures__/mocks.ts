@@ -39,8 +39,8 @@ const jsonLdResponse = {
 	},
 };
 
-const nounDataResponse = {
-	nounData: {
+const entityDataResponse = {
+	entityData: {
 		schemaVersion: '2.0',
 		id: 'frl3oZ39Cd6jr7WvWZUQPw',
 		updateSequenceNumber: 1736456473,
@@ -86,9 +86,9 @@ export const mocks = {
 			items: [{ ...jsonLdResponse.data }],
 		},
 	} as JsonLd.Response,
-	nounDataSuccess: {
+	entityDataSuccess: {
 		...jsonLdResponse,
-		...nounDataResponse,
+		...entityDataResponse,
 	} as SmartLinkResponse,
 	notFound: {
 		meta: {

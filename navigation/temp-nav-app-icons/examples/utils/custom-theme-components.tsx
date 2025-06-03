@@ -5,22 +5,29 @@
  */
 import React from 'react';
 
-import { AssetsIcon, AssetsLogo } from '@atlaskit/temp-nav-app-icons/assets';
-import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/temp-nav-app-icons/confluence';
+import { AssetsIcon, AssetsLogo, AssetsLogoCS } from '@atlaskit/temp-nav-app-icons/assets';
+import {
+	ConfluenceIcon,
+	ConfluenceLogo,
+	ConfluenceLogoCS,
+} from '@atlaskit/temp-nav-app-icons/confluence';
 import {
 	CustomerServiceManagementIcon,
 	CustomerServiceManagementLogo,
+	CustomerServiceManagementLogoCS,
 } from '@atlaskit/temp-nav-app-icons/customer-service-management';
-import { JiraIcon, JiraLogo } from '@atlaskit/temp-nav-app-icons/jira';
+import { JiraIcon, JiraLogo, JiraLogoCS } from '@atlaskit/temp-nav-app-icons/jira';
 import {
 	JiraProductDiscoveryIcon,
 	JiraProductDiscoveryLogo,
+	JiraProductDiscoveryLogoCS,
 } from '@atlaskit/temp-nav-app-icons/jira-product-discovery';
 import {
 	JiraServiceManagementIcon,
 	JiraServiceManagementLogo,
+	JiraServiceManagementLogoCS,
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
-import { TrelloIcon, TrelloLogo } from '@atlaskit/temp-nav-app-icons/trello';
+import { TrelloIcon, TrelloLogo, TrelloLogoCS } from '@atlaskit/temp-nav-app-icons/trello';
 
 import { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
@@ -32,6 +39,7 @@ export const customThemeApps: Array<{
 	Icon24: React.ComponentType<AppIconProps>;
 	Icon32: React.ComponentType<AppIconProps>;
 	Logo: React.ComponentType<AppLogoProps> | null;
+	LogoCS: React.ComponentType<AppLogoProps> | null;
 }> = [
 	{
 		name: 'Confluence',
@@ -41,6 +49,7 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <ConfluenceIcon {...props} size="24" />,
 		Icon32: (props) => <ConfluenceIcon {...props} size="32" />,
 		Logo: (props) => <ConfluenceLogo {...props} />,
+		LogoCS: (props) => <ConfluenceLogoCS {...props} />,
 	},
 	{
 		name: 'Jira Product Discovery',
@@ -50,6 +59,7 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <JiraProductDiscoveryIcon {...props} size="24" />,
 		Icon32: (props) => <JiraProductDiscoveryIcon {...props} size="32" />,
 		Logo: (props) => <JiraProductDiscoveryLogo {...props} />,
+		LogoCS: (props) => <JiraProductDiscoveryLogoCS {...props} />,
 	},
 	{
 		name: 'Jira Service Management',
@@ -59,6 +69,7 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <JiraServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <JiraServiceManagementIcon {...props} size="32" />,
 		Logo: (props) => <JiraServiceManagementLogo {...props} />,
+		LogoCS: (props) => <JiraServiceManagementLogoCS {...props} />,
 	},
 	{
 		name: 'Customer Service Management',
@@ -68,6 +79,7 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <CustomerServiceManagementIcon {...props} size="24" />,
 		Icon32: (props) => <CustomerServiceManagementIcon {...props} size="32" />,
 		Logo: (props) => <CustomerServiceManagementLogo {...props} />,
+		LogoCS: (props) => <CustomerServiceManagementLogoCS {...props} />,
 	},
 	{
 		name: 'Jira',
@@ -77,6 +89,7 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <JiraIcon {...props} size="24" />,
 		Icon32: (props) => <JiraIcon {...props} size="32" />,
 		Logo: (props) => <JiraLogo {...props} />,
+		LogoCS: (props) => <JiraLogoCS {...props} />,
 	},
 
 	{
@@ -87,6 +100,7 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <TrelloIcon {...props} size="24" />,
 		Icon32: (props) => <TrelloIcon {...props} size="32" />,
 		Logo: (props) => <TrelloLogo {...props} />,
+		LogoCS: (props) => <TrelloLogoCS {...props} />,
 	},
 	{
 		name: 'Assets',
@@ -96,5 +110,6 @@ export const customThemeApps: Array<{
 		Icon24: (props) => <AssetsIcon {...props} size="24" />,
 		Icon32: (props) => <AssetsIcon {...props} size="32" />,
 		Logo: (props) => <AssetsLogo {...props} />,
+		LogoCS: (props) => <AssetsLogoCS {...props} />,
 	},
 ];

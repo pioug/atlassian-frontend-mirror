@@ -28,7 +28,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 	} satisfies AnalyticsWebClient;
 
 	beforeEach(() => {
-		mockFetch = jest.fn(() => Promise.resolve(mocks.nounDataSuccess));
+		mockFetch = jest.fn(() => Promise.resolve(mocks.entityDataSuccess));
 		mockClient = new (fakeFactory(mockFetch))();
 		mockUrl = 'https://drive.google.com/drive/folders/test';
 	});
@@ -37,7 +37,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 		jest.clearAllMocks();
 	});
 
-	ffTest.on('smart_links_noun_support', 'nouns supported', () => {
+	ffTest.on('smart_links_noun_support', 'entity support', () => {
 		describe('> state: resolved', () => {
 			it('flexible block card: should render with metadata when resolved', async () => {
 				render(

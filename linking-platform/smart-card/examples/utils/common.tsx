@@ -52,7 +52,7 @@ const encodedContent = encodeURIComponent(content);
 export const overrideEmbedContent = `data:text/html;charset=utf-8,${encodedContent}`;
 
 export const mocks = {
-	nounDataSuccess: {
+	entityDataSuccess: {
 		meta: {
 			visibility: 'public',
 			access: 'granted',
@@ -91,7 +91,7 @@ export const mocks = {
 			},
 			url: 'https://some.url',
 		},
-		nounData: {
+		entityData: {
 			id: 'I love cheese',
 			displayName: 'I love cheese',
 			url: 'https://some.url',

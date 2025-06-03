@@ -77,11 +77,11 @@ describe('useResolve', () => {
 			);
 		});
 
-		it('should NOT call fetch when there is noun data in the store', async () => {
+		it('should NOT call fetch when there is entity data in the store', async () => {
 			mockState({
 				status: 'pending',
 				details: {
-					...mocks.nounDataSuccess,
+					...mocks.entityDataSuccess,
 					data: undefined,
 				},
 			});

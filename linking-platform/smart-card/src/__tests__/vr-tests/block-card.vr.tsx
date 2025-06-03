@@ -19,8 +19,8 @@ import { BlockCardNotFoundSiteAccessExists } from '../../../examples/vr-block-ca
 import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
 import { BlockCardBitbucket } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
 import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
+import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities';
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
-import { BlockCardNouns } from '../../../examples/vr-block-card/vr-block-card-resolved-nouns';
 import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview';
 import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-block-card-unauthorised';
 import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
@@ -208,8 +208,8 @@ snapshot(BlockCardLazyIconsFileType4, {
 		'icon-object-migration': true,
 	},
 });
-snapshot(BlockCardNouns, {
-	description: `block card with noun support`,
+snapshot(BlockCardEntities, {
+	description: `block card with entity support`,
 	featureFlags: {
 		smart_links_noun_support: true,
 	},

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "118.6.3",
+	"version": "118.6.6",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -258,6 +258,9 @@
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__editor": {
+			"type": "boolean"
+		},
+		"confluence_frontend_fix_view_page_slo": {
 			"type": "boolean"
 		}
 	},

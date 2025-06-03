@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.9
+
+### Patch Changes
+
+- [#163993](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163993)
+  [`1a5e31989fe1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a5e31989fe1d) -
+  clean up platform_editor_non_macros_copy_and_paste_fix
+- Updated dependencies
+
+## 3.15.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.15.7
 
 ### Patch Changes

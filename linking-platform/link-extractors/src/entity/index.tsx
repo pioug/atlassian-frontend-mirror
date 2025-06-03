@@ -13,10 +13,10 @@ import { type LinkProvider } from '../common';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../common/constants';
 
 export const isEntityPresent = (response?: SmartLinkResponse): boolean =>
-	Boolean(response?.nounData);
+	Boolean(response?.entityData);
 
 export const extractEntity = (response?: SmartLinkResponse): EntityType | undefined =>
-	response?.nounData;
+	response?.entityData;
 
 export const extractEntityEmbedUrl = (response?: SmartLinkResponse): string | undefined => {
 	const entity = extractEntity(response);

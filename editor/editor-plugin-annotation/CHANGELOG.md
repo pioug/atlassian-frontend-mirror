@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-annotation
 
+## 2.9.4
+
+### Patch Changes
+
+- [#144021](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/144021)
+  [`8357b7ad2daa6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8357b7ad2daa6) -
+  Added config option for starting viewInlineCommentTraceUFOPress for inline-comments
+  annotationPlugin
+- Updated dependencies
+
 ## 2.9.3
 
 ### Patch Changes

@@ -15,7 +15,8 @@
         "../src/**/__tests__/*",
         "../src/**/*.test.*",
         "../src/**/test.*",
-        "../src/performance/examples.tsx"
+        "../src/performance/examples.tsx",
+        "../docs/*"
     ],
     "references": [
         {

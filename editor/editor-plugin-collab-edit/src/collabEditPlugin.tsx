@@ -8,19 +8,16 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
+import { collab, getCollabState, Rebaseable, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CollabEditPlugin } from './collabEditPluginType';
 import { addSynchronyErrorAnalytics } from './pm-plugins/analytics';
 import { sendTransaction } from './pm-plugins/events/send-transaction';
+import { filterAnalyticsSteps } from './pm-plugins/filterAnalytics';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey as mainPluginKey } from './pm-plugins/main/plugin-key';
-import {
-	filterAnalyticsSteps,
-	LockableRebaseable,
-	mergeUnconfirmedSteps,
-} from './pm-plugins/mergeUnconfirmed';
+import { mergeUnconfirmedSteps } from './pm-plugins/mergeUnconfirmed';
 import { nativeCollabProviderPlugin } from './pm-plugins/native-collab-provider-plugin';
 import {
 	sanitizeFilteredStep,
@@ -186,7 +183,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 		pmPlugins() {
 			const { useNativePlugin = false, userId = null } = options || {};
 
-			const transformUnconfirmed = (steps: LockableRebaseable[]) => {
+			const transformUnconfirmed = (steps: Rebaseable[]) => {
 				let transformed = steps;
 
 				if (editorExperiment('platform_editor_reduce_noisy_steps_ncs', true, { exposure: true })) {

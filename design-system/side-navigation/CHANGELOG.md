@@ -1,5 +1,21 @@
 # @atlaskit/side-navigation
 
+## 11.0.4
+
+### Patch Changes
+
+- [#164701](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164701)
+  [`f83ed2799dd47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f83ed2799dd47) -
+  Internal refactor. This removes a temporary workaround to increase the specificity of some
+  Compiled styles. This is no longer needed now that this package has been completely migrated from
+  Emotion to Compiled.
+
+## 11.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.2
 
 ### Patch Changes

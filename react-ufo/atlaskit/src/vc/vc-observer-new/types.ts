@@ -38,4 +38,5 @@ export type VCObserverGetVCResultParam = {
 	start: number;
 	stop: number;
 	interactionId?: string;
+	ssr?: number;
 };

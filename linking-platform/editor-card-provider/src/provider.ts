@@ -332,7 +332,7 @@ export class EditorCardProvider implements CardProvider {
 		try {
 			const details = await this.cardClient.fetchData(url);
 
-			// Noun entities supported
+			// Entities supported
 			if (fg('smart_links_noun_support')) {
 				if (!details) {
 					return false;

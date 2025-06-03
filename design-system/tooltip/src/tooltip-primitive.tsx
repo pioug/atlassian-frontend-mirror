@@ -6,8 +6,6 @@ import { type CSSProperties, forwardRef, type ReactNode } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { layers } from '@atlaskit/theme/constants';
-
 import { type PositionType } from './types';
 
 export interface TooltipPrimitiveProps {
@@ -23,10 +21,7 @@ export interface TooltipPrimitiveProps {
 	id?: string;
 }
 
-const VAR_PRIMITIVE_ZINDEX = 'tooltipPrimitiveZindex';
-
 const primitiveStyles = css({
-	zindex: `var(${VAR_PRIMITIVE_ZINDEX})`,
 	cursor: `default`,
 });
 
@@ -38,15 +33,11 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
 		{ style, className, children, placement, testId, onMouseOut, onMouseOver, id },
 		ref,
 	) {
-		const styleWithZIndex = {
-			...style,
-			[VAR_PRIMITIVE_ZINDEX]: layers.tooltip(),
-		};
 		return (
 			<div
 				ref={ref}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={styleWithZIndex}
+				style={style}
 				data-testid={testId ? `${testId}--wrapper` : undefined}
 			>
 				{/* Re: non-interactive element interactions: Because we are creating a tooltip, we *need* these mouse handlers. */}

@@ -27,11 +27,13 @@ export default function ShowcaseExample({
 	textColor,
 }: {
 	apps?: typeof rows;
-	appearance?: 'brand' | 'legacy';
+	appearance?: 'brand' | 'legacy' | 'inverse' | 'neutral';
 	iconColor?: string;
 	textColor?: string;
 }) {
-	const [appearance, setAppearance] = useState<'brand' | 'legacy'>(providedAppearance);
+	const [appearance, setAppearance] = useState<'brand' | 'legacy' | 'inverse' | 'neutral'>(
+		providedAppearance,
+	);
 
 	const customisedProps = { appearance: appearance, iconColor: iconColor } as any;
 	const customisedPropsLogo = { textColor: textColor } as any;
@@ -59,7 +61,8 @@ export default function ShowcaseExample({
 						<HeadCell>20x20</HeadCell>
 						<HeadCell>24x24</HeadCell>
 						<HeadCell>32x32</HeadCell>
-						<HeadCell width="290px">Wordmark</HeadCell>
+						<HeadCell width="290px">Atlassian Sans Wordmark</HeadCell>
+						<HeadCell width="290px">Charlie Sans Wordmark</HeadCell>
 					</THead>
 					<TBody>
 						{/* Order rows based on appOrder */}
@@ -68,7 +71,7 @@ export default function ShowcaseExample({
 								(a: (typeof rows)[0], b: (typeof rows)[0]) =>
 									appOrder.indexOf(a.name) - appOrder.indexOf(b.name),
 							)
-							.map(({ name, Icon12, Icon16, Icon20, Icon24, Icon32, Logo }) => {
+							.map(({ name, Icon12, Icon16, Icon20, Icon24, Icon32, Logo, LogoCS }) => {
 								return (
 									<Row key={name}>
 										<Cell>{name}</Cell>
@@ -82,6 +85,13 @@ export default function ShowcaseExample({
 												'N/A'
 											) : (
 												<Logo {...customisedProps} {...customisedPropsLogo} />
+											)}
+										</Cell>
+										<Cell width="290px">
+											{LogoCS === null ? (
+												'N/A'
+											) : (
+												<LogoCS {...customisedProps} {...customisedPropsLogo} />
 											)}
 										</Cell>
 									</Row>

@@ -94,8 +94,8 @@ jest.mock('../../artifacts/tokens-raw/atlassian-typography-adg3', () => ({
 }));
 
 interface TransformConfig {
-	shouldUseAutoFallback?: boolean;
-	shouldForceAutoFallback?: boolean;
+	shouldUseAutoFallback?: boolean | null;
+	shouldForceAutoFallback?: boolean | null;
 	forceAutoFallbackExemptions?: string[];
 	transformTemplateLiterals?: boolean;
 	options?: TransformOptions;
@@ -112,17 +112,17 @@ const transform =
 		defaultTheme = 'light',
 	}: TransformConfig) =>
 	(code: TemplateStringsArray | string): string => {
-		const plugins: any = [
-			[
-				babelPlugin,
-				{
-					shouldUseAutoFallback: shouldUseAutoFallback,
-					shouldForceAutoFallback: shouldForceAutoFallback,
-					forceAutoFallbackExemptions: forceAutoFallbackExemptions,
-					defaultTheme: defaultTheme,
-				},
-			],
-		];
+		const pluginOptions: any = {
+			forceAutoFallbackExemptions,
+			defaultTheme,
+		};
+		if (shouldUseAutoFallback !== null) {
+			pluginOptions.shouldUseAutoFallback = shouldUseAutoFallback;
+		}
+		if (shouldForceAutoFallback !== null) {
+			pluginOptions.shouldForceAutoFallback = shouldForceAutoFallback;
+		}
+		const plugins: any = [[babelPlugin, pluginOptions]];
 		if (transformTemplateLiterals) {
 			plugins.push('@babel/plugin-transform-template-literals');
 		}
@@ -545,6 +545,28 @@ const getStyles = css => css\`
 			"var(--ds-border-radius-050, 2px)";
 			"var(--ds-font-heading-xlarge, \\"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Ubuntu, system-ui, \\"Helvetica Neue\\", sans-serif\\")";"
 		`);
+		});
+	});
+
+	describe('default option values', () => {
+		it('shouldUseAutoFallback: defaults to true when not specified', () => {
+			// null means the option is not passed to the underlying plugin
+			const actual = transform({ shouldUseAutoFallback: null })`
+				import { token } from '@atlaskit/tokens';
+				token('test-token');
+			`;
+			// shouldUseAutoFallback true means fallback is inserted
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
+		});
+
+		it('shouldForceAutoFallback: defaults to true when not specified', () => {
+			// null means the option is not passed to the underlying plugin
+			const actual = transform({ shouldForceAutoFallback: null })`
+				import { token } from '@atlaskit/tokens';
+				token('test-token', 'red');
+			`;
+			// shouldForceAutoFallback true means manual fallback is overridden
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
 		});
 	});
 });

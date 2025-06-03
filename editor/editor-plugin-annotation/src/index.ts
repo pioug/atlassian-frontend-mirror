@@ -9,17 +9,10 @@ export type {
 	AnnotationState,
 	AnnotationTypeProvider,
 	InlineCommentAnnotationProvider,
-	InlineCommentCompoundExperience,
 	InlineCommentCreateComponentProps,
 	InlineCommentInputMethod,
 	InlineCommentState,
 	InlineCommentViewComponentProps,
-	SelectAbortReasons,
-	SelectParentAbortReasons,
-	SelectInlineCommentCompoundExperience,
-	SelectInlineCommentCompoundExperienceEntryPoint,
-	SimpleSelectInlineCommentCompoundExperience,
-	StartAttributes,
 	TargetType,
 } from './types';
 export type {

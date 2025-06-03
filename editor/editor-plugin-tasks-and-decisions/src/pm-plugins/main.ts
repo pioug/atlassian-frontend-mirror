@@ -18,7 +18,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
@@ -299,18 +298,14 @@ export function createPlugin(
 				}
 
 				// Commands
-				if (metaData && 'hasEditPermission' in metaData && fg('editor_request_to_edit_task')) {
+				if (metaData && 'hasEditPermission' in metaData) {
 					newPluginState = {
 						...newPluginState,
 						hasEditPermission: metaData.hasEditPermission,
 					};
 				}
 
-				if (
-					metaData &&
-					'hasRequestedEditPermission' in metaData &&
-					fg('editor_request_to_edit_task')
-				) {
+				if (metaData && 'hasRequestedEditPermission' in metaData) {
 					newPluginState = {
 						...newPluginState,
 						hasRequestedEditPermission: metaData.hasRequestedEditPermission,

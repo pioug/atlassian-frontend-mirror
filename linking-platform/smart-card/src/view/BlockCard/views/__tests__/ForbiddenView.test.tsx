@@ -54,7 +54,7 @@ describe('ForbiddenView', () => {
 	};
 
 	ffTest.both('platform-linking-flexible-card-context', 'with fg', () => {
-		ffTest.both('smart_links_noun_support', 'with noun support', () => {
+		ffTest.both('smart_links_noun_support', 'with entity support', () => {
 			it('fires analytics event when button is clicked and access type is REQUEST_ACCESS', async () => {
 				const { findByTestId, onEventMock } = setup();
 

@@ -174,7 +174,7 @@ describe('getContextByStatus', () => {
 describe('getRetryOptions', () => {
 	const url = 'some-url';
 
-	ffTest.both('smart_links_noun_support', 'with noun support', () => {
+	ffTest.both('smart_links_noun_support', 'with entity support', () => {
 		describe('Forbidden status', () => {
 			const response = (accessType?: string) =>
 				({

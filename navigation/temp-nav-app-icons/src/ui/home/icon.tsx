@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c4d9909c8285ff05e2048bc2fece3498>>
+ * @codegen <<SignedSource::2860c989e0c8d8d851ff77c7e75968f8>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -10,8 +10,8 @@ import type { AppIconProps } from '../../utils/types';
 
 // `height` is set to 100% to allow the SVG to scale with the parent element
 const svg = `<svg height="100%" viewBox="0 0 24 24">
-    <path fill="#dddee1" d="M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z"/>
-    <path fill="#101214" d="M5.875 10.688v7.437h4.375V13.75h3.5v4.375h4.375v-7.437L12 5z"/>
+    <path fill="var(--tile-color,#dddee1)" d="M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z"/>
+    <path fill="var(--icon-color, #101214)" d="M5.875 10.688v7.437h4.375V13.75h3.5v4.375h4.375v-7.437L12 5z"/>
 </svg>
 `;
 

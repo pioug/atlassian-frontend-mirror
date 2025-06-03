@@ -1,21 +1,10 @@
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
-import type { Transform as ProseMirrorTransform } from '@atlaskit/editor-prosemirror/transform';
+import { Rebaseable } from '@atlaskit/prosemirror-collab';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
 
-// Based on: `packages/editor/prosemirror-collab/src/index.ts`
-export class LockableRebaseable {
-	constructor(
-		readonly step: ProseMirrorStep,
-		readonly inverted: ProseMirrorStep,
-		readonly origin: ProseMirrorTransform,
-	) {}
-}
-
-const isLocked = (step: LockableRebaseable) => {
+const isLocked = (step: Rebaseable) => {
 	if (step.origin instanceof Transaction) {
 		return step.origin.getMeta('mergeIsLocked');
 	}
@@ -33,9 +22,9 @@ const isLocked = (step: LockableRebaseable) => {
  * @returns Rebaseable steps
  */
 export function mergeUnconfirmedSteps(
-	steps: LockableRebaseable[],
+	steps: Rebaseable[],
 	api: ExtractInjectionAPI<CollabEditPlugin> | undefined,
-): LockableRebaseable[] {
+): Rebaseable[] {
 	const mergedSteps = steps.reduce((acc, rebaseable) => {
 		const lastStep = acc[acc.length - 1];
 		const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
@@ -50,7 +39,7 @@ export function mergeUnconfirmedSteps(
 			const origin = lastStep.origin;
 
 			if (mergedStep && inverted) {
-				acc[acc.length - 1] = new LockableRebaseable(
+				acc[acc.length - 1] = new Rebaseable(
 					mergedStep,
 					inverted,
 					origin instanceof Transaction ? origin.setMeta('isOffline', isOffline) : origin,
@@ -58,8 +47,8 @@ export function mergeUnconfirmedSteps(
 				return acc;
 			}
 		}
-		return acc.concat(
-			new LockableRebaseable(
+		acc.push(
+			new Rebaseable(
 				rebaseable.step,
 				rebaseable.inverted,
 				rebaseable.origin instanceof Transaction
@@ -70,25 +59,7 @@ export function mergeUnconfirmedSteps(
 					: rebaseable.origin,
 			),
 		);
-	}, [] as LockableRebaseable[]);
+		return acc;
+	}, [] as Rebaseable[]);
 	return mergedSteps;
-}
-
-/**
- * Filter out AnalyticsStep from the steps.
- *
- * @param steps Rebaseable steps
- * @returns Rebaseable steps
- * @example
- */
-export function filterAnalyticsSteps(steps: LockableRebaseable[]): LockableRebaseable[] {
-	const filteredSteps = steps.reduce((acc, rebaseable) => {
-		if (rebaseable.step instanceof AnalyticsStep) {
-			return acc;
-		}
-		return acc.concat(
-			new LockableRebaseable(rebaseable.step, rebaseable.inverted, rebaseable.origin),
-		);
-	}, [] as LockableRebaseable[]);
-	return filteredSteps;
 }

@@ -14,7 +14,6 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
-import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
@@ -74,7 +73,8 @@ import {
 } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
 import { reactEmojiStyles, vanillaEmojiStyles } from './styles/emoji';
-import { firstBlockNodeStyles, firstBlockNodeStylesOld } from './styles/firstBlockNodeStyles';
+import { findReplaceStyles } from './styles/findReplaceStyles';
+import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { gridStyles } from './styles/gridStyles';
 import { indentationStyles } from './styles/indentationStyles';
 import { layoutBaseStyles, layoutViewStyles } from './styles/layout';
@@ -204,15 +204,6 @@ const contentStyles = () => css`
 
 		${InlineNodeViewSharedStyles};
 	}
-
-	${fg('editor_request_to_edit_task')
-		? null
-		: css`
-				.ProseMirror[contenteditable='false'] .taskItemView-content-wrap {
-					pointer-events: none;
-					opacity: 0.7;
-				}
-			`}
 
 	.ProseMirror-hideselection *::selection {
 		background: transparent;
@@ -578,11 +569,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							firstCodeBlockWithNoMargin
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							firstCodeBlockWithNoMarginOld,
-					fg('platform_editor_element_dnd_nested_fix_patch_6')
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							firstBlockNodeStyles
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							firstBlockNodeStylesOld,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					firstBlockNodeStyles,
 					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						vanillaMentionsStyles,

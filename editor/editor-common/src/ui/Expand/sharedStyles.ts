@@ -19,6 +19,7 @@ const EXPAND_FOCUSED_BORDER_COLOR = token('color.border.focused');
 const EXPAND_COLLAPSED_BORDER_COLOR = 'transparent';
 const EXPAND_EXPANDED_BORDER_COLOR = token('color.border');
 
+export const EXPAND_CONTAINER_PADDING = 8;
 export interface StyleProps {
 	expanded?: boolean;
 	focused?: boolean;
@@ -54,7 +55,7 @@ const containerStyles = (styleProps: StyleProps) => {
 			margin: margin,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			transition: `background 0.3s ${akEditorSwoopCubicBezier}, border-color 0.3s ${akEditorSwoopCubicBezier}`,
-			padding: token('space.100', '8px'),
+			padding: token('space.100', `${EXPAND_CONTAINER_PADDING}px`),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'td > :not(style):first-child, td > style:first-child + *': {
 				marginTop: 0,

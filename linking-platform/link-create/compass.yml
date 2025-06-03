@@ -1,33 +1,80 @@
-id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/499f4b5a-fe41-4a10-86fc-78bcfb4064f6'
-name: '@atlaskit/link-create'
+name: Link Create
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/7176b5ef-2e54-4ab7-9607-b37d013abc41'
 description:
-  This is the core driver component for the Link Create experience. It provides the main UI and
-  logic for enabling users to create new objects — such as Jira issues or Confluence pages—directly
-  from their current context (like an editor or application), and then automatically insert or link
-  to the newly created object
+  Link Create is a funcitonality within Atlassian's ecosystem designed to streamline the process of
+  creating Jira & Confluence links across all Atlassian products.
 configVersion: 1
-typeId: LIBRARY
+typeId: CAPABILITY
 ownerId: 'ari:cloud:identity::team/9683a6ac-2d3f-44c8-a0fe-56128ca69e20'
 fields:
+  isMonorepoProject: false
   tier: 4
   lifecycle: Active
-  isMonorepoProject: true
-labels:
-  - atlassian-platform
 links:
-  - name: Bandicoots
+  - name: SignalFx - Link Create
+    type: DASHBOARD
+    url: 'https://atlassian.signalfx.com/#/dashboard/Fw3wdDxA0AE?groupId=Fcva05QA4AA&configId=Fw3wdQCAwAA&startTime=-1d&endTime=Now'
+  - name: ''
     type: PROJECT
     url: 'https://product-fabric.atlassian.net/jira/software/c/projects/EDM/boards/5176'
-  - name: '#help-twg-linking-platform'
+  - name: ''
     type: CHAT_CHANNEL
     url: 'https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'
   - name: ''
     type: ON_CALL
     url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b9c8b313-dd6d-4a41-8eeb-d7a9df55be9d'
-  - name: source code
-    type: REPOSITORY
-    url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/linking-platform/link-create'
-customFields: []
-relationships:
-  DEPENDS_ON:
-    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/3d229125-4f9d-4091-a303-84ae4eb643fb' # linking-common
+relationships: null
+labels: null
+customFields:
+  - name: Anomaly-Detection
+    type: text
+    value: null
+  - name: Compass Config-as-Code
+    type: boolean
+    value: true
+  - name: Data Domain
+    type: multi_select
+    value:
+      - 6abcbe4f-1063-4cf7-8b32-58ebd01078da
+  - name: Engineering Manager
+    type: user
+    value: 'ari:cloud:identity::user/712020:bc050a72-a59d-487f-8b54-73358ba67dd0'
+  - name: FFP per month
+    type: number
+    value: null
+  - name: Is renovate enabled?
+    type: boolean
+    value: false
+  - name: Lineage
+    type: text
+    value: null
+  - name: Maintenance Time (hours/week)
+    type: number
+    value: null
+  - name: Owner or Team Name
+    type: single_select
+    value: 1e93a963-fa64-4c3a-aebb-cc835e418a0a
+  - name: Perimeter
+    type: single_select
+    value: null
+  - name: Perimeter (string)
+    type: text
+    value: null
+  - name: Product Owner
+    type: user
+    value: null
+  - name: Tech Debt
+    type: text
+    value: null
+  - name: Technical Owner
+    type: user
+    value: null
+  - name: anomaly-detection
+    type: boolean
+    value: false
+  - name: forge_runtime_node
+    type: single_select
+    value: null
+  - name: statsig_target_application
+    type: text
+    value: null

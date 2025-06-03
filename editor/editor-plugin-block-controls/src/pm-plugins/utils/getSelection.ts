@@ -39,16 +39,6 @@ export const getInlineNodePos = (
 	return { inlineNodePos, inlineNodeEndPos };
 };
 
-const isNodeWithMedia = (tr: Transaction, start: number, nodeSize: number) => {
-	const $startPos = tr.doc.resolve(start);
-	let hasMedia = false;
-	tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n) => {
-		if (n.type.name === 'media') {
-			hasMedia = true;
-		}
-	});
-	return hasMedia;
-};
 const isNodeWithMediaOrExtension = (tr: Transaction, start: number, nodeSize: number) => {
 	const $startPos = tr.doc.resolve(start);
 	let hasMediaOrExtension = false;
@@ -66,7 +56,6 @@ const oldGetSelection = (tr: Transaction, start: number) => {
 	const nodeSize = node ? node.nodeSize : 1;
 	const $startPos = tr.doc.resolve(start);
 	const nodeName = node?.type.name;
-	const isBlockQuoteWithMedia = nodeName === 'blockquote' && isNodeWithMedia(tr, start, nodeSize);
 	const isBlockQuoteWithMediaOrExtension =
 		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
 	const isListWithMediaOrExtension =
@@ -75,10 +64,8 @@ const oldGetSelection = (tr: Transaction, start: number) => {
 
 	if (
 		(isNodeSelection && nodeName !== 'blockquote') ||
-		(isListWithMediaOrExtension && fg('platform_editor_non_macros_copy_and_paste_fix')) ||
-		(fg('platform_editor_non_macros_copy_and_paste_fix')
-			? isBlockQuoteWithMediaOrExtension
-			: isBlockQuoteWithMedia) ||
+		isListWithMediaOrExtension ||
+		isBlockQuoteWithMediaOrExtension ||
 		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
 		['decisionList', 'layoutColumn'].includes(nodeName || '')
 	) {
@@ -110,9 +97,6 @@ const newGetSelection = (tr: Transaction, start: number) => {
 	if (nodeName === 'paragraph' && tr.selection.empty && node?.childCount === 0) {
 		return false;
 	}
-
-	const isBlockQuoteWithMedia = nodeName === 'blockquote' && isNodeWithMedia(tr, start, nodeSize);
-
 	const isBlockQuoteWithMediaOrExtension =
 		nodeName === 'blockquote' && isNodeWithMediaOrExtension(tr, start, nodeSize);
 
@@ -122,10 +106,8 @@ const newGetSelection = (tr: Transaction, start: number) => {
 
 	if (
 		(isNodeSelection && nodeName !== 'blockquote') ||
-		(isListWithMediaOrExtension && fg('platform_editor_non_macros_copy_and_paste_fix')) ||
-		(fg('platform_editor_non_macros_copy_and_paste_fix')
-			? isBlockQuoteWithMediaOrExtension
-			: isBlockQuoteWithMedia) ||
+		isListWithMediaOrExtension ||
+		isBlockQuoteWithMediaOrExtension ||
 		// decisionList/layoutColumn node is not selectable, but we want to select the whole node not just text
 		['decisionList', 'layoutColumn'].includes(nodeName || '') ||
 		(nodeName === 'mediaGroup' && typeof node?.childCount === 'number' && node?.childCount > 1)

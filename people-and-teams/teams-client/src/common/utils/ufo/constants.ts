@@ -28,6 +28,7 @@ const TeamsClientExperienceKeyList = [
 	'deleteTeam',
 	'isSingleFullMemberTeam',
 	'createTeam',
+	'createTeamContainers',
 	'createExternalTeam',
 	'getProfileWithMutability',
 	'getIsSiteAdmin',

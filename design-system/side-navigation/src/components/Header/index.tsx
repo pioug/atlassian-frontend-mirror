@@ -14,11 +14,7 @@ import { CustomItem } from '../Item';
 
 const styles = cssMap({
 	header: {
-		// Need to increase specificity here until CustomItem is updated to use @compiled/react
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&&': {
-			userSelect: 'auto',
-		},
+		userSelect: 'auto',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-item-title]': {
 			font: token('font.heading.xsmall'),

@@ -3,7 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-actions';
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
-import HoverCardWithNouns from '../../../examples/vr-hover-card/vr-hover-cards-nouns';
+import HoverCardWithEntities from '../../../examples/vr-hover-card/vr-hover-cards-entities';
 import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
 import HoverCardSSRLoading from '../../../examples/vr-hover-card/vr-hover-cards-ssr-loading';
 import HoverCardUnauthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards';
@@ -29,8 +29,8 @@ snapshot(HoverCard, {
 	},
 });
 
-snapshot(HoverCardWithNouns, {
-	description: 'hover-card: Nouns support',
+snapshot(HoverCardWithEntities, {
+	description: 'hover-card: Entities support',
 	drawsOutsideBounds: true,
 	states: [
 		{

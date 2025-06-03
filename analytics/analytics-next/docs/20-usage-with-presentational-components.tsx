@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { code, md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
 
 export default md`
 This section will guide how to add analytics tracking to presentational and other
@@ -36,16 +37,16 @@ ${(
 		<tr>
 			<td>Class components</td>
 			<td>
-				You have only the <a href="#with-analytics-events">HOC option</a> available.
+				You have only the <Link href="#with-analytics-events">HOC option</Link>
 			</td>
 		</tr>
 		<tr>
 			<td>Atlaskit function components</td>
 			<td>
 				Use{' '}
-				<a href="#use-platform-leaf-event-handler">
+				<Link href="#use-platform-leaf-event-handler">
 					<code>usePlatformLeafEventHandler</code>
-				</a>
+				</Link>
 				.
 			</td>
 		</tr>
@@ -53,15 +54,15 @@ ${(
 			<td>Other function components</td>
 			<td>
 				Use{' '}
-				<a href="#use-callback-with-analytics">
+				<Link href="#use-callback-with-analytics">
 					<code>useCallbackWithAnalytics</code>
-				</a>{' '}
+				</Link>{' '}
 				if you want something basic.
 				<br />
 				Use{' '}
-				<a href="#use-analytics-events">
+				<Link href="#use-analytics-events">
 					<code>useAnalyticsEvents</code>
-				</a>{' '}
+				</Link>{' '}
 				if you want more control.
 			</td>
 		</tr>

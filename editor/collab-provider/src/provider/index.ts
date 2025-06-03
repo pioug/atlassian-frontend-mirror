@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
@@ -446,18 +445,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					},
 				};
 
-				if (fg('log_obfuscated_steps_for_view_only')) {
-					logObfuscatedSteps(_oldState, newState)
-						.then((attributes) => {
-							const stepAttributes = attributes instanceof CustomError ? {} : { ...attributes };
+				logObfuscatedSteps(_oldState, newState)
+					.then((attributes) => {
+						const stepAttributes = attributes instanceof CustomError ? {} : { ...attributes };
 
-							const stepsError = new CustomError(error.message, error, { ...stepAttributes });
-							this.analyticsHelper?.sendErrorEvent(stepsError, stepsError.message);
-						})
-						.catch((err: CustomError) => this.analyticsHelper?.sendErrorEvent(err, err.message));
-				} else {
-					this.analyticsHelper?.sendErrorEvent(error, error.message);
-				}
+						const stepsError = new CustomError(error.message, error, { ...stepAttributes });
+						this.analyticsHelper?.sendErrorEvent(stepsError, stepsError.message);
+					})
+					.catch((err: CustomError) => this.analyticsHelper?.sendErrorEvent(err, err.message));
 
 				return;
 			}

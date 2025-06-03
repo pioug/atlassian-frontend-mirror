@@ -24,13 +24,9 @@ const styles = cssMap({
 		height: '340px',
 	},
 	customItem: {
-		// Need to increase specificity here until @atlaskit/menu has been migrated to @compiled/react
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&&': {
-			color: 'red',
-			'&:hover': {
-				color: 'blue',
-			},
+		color: 'red',
+		'&:hover': {
+			color: 'blue',
 		},
 	},
 });

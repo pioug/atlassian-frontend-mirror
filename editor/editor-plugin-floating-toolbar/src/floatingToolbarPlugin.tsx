@@ -18,7 +18,7 @@ import {
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import {
-	sharedPluginStateHookMigratorFactory,
+	// Deprecated API - Look at removing this sometime in the future
 	useSharedPluginState,
 } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -36,7 +36,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -250,83 +249,6 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 	};
 };
 
-const useSharedState = sharedPluginStateHookMigratorFactory(
-	(pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
-		// floatingToolbar
-		const configWithNodeInfo = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'floatingToolbar.configWithNodeInfo',
-		);
-		const floatingToolbarData = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'floatingToolbar.floatingToolbarData',
-		);
-
-		// editorDisabled
-		const editorDisabledState = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'editorDisabled.editorDisabled',
-		);
-
-		// editorViewMode
-		const mode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-
-		// userIntent
-		const currentUserIntent = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'userIntent.currentUserIntent',
-		);
-
-		// blockControls
-		const isDragging = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-			'blockControls.isDragging',
-		);
-		// isMenuOpen
-		const isMenuOpen = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-			'blockControls.isMenuOpen',
-		);
-		return {
-			configWithNodeInfo,
-			floatingToolbarData,
-			editorDisabled: editorDisabledState,
-			mode,
-			currentUserIntent,
-			isDragging,
-			isMenuOpen,
-		};
-	},
-	(pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined) => {
-		const {
-			floatingToolbarState,
-			editorDisabledState,
-			editorViewModeState,
-			userIntentState,
-			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-			blockControlsState,
-		} = useSharedPluginState(pluginInjectionApi, [
-			'floatingToolbar',
-			'editorDisabled',
-			'editorViewMode',
-			'userIntent',
-			// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
-			'blockControls',
-		]);
-		return {
-			configWithNodeInfo: floatingToolbarState?.configWithNodeInfo,
-			floatingToolbarData: floatingToolbarState?.floatingToolbarData,
-			editorDisabled: editorDisabledState?.editorDisabled,
-			mode: editorViewModeState?.mode,
-			currentUserIntent: userIntentState?.currentUserIntent,
-			isDragging: blockControlsState?.isDragging,
-			isMenuOpen: blockControlsState?.isMenuOpen,
-		};
-	},
-);
-
 export function ContentComponent({
 	pluginInjectionApi,
 	editorView,
@@ -347,14 +269,22 @@ export function ContentComponent({
 	pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 }) {
 	const {
-		configWithNodeInfo,
-		currentUserIntent,
-		editorDisabled,
-		floatingToolbarData,
-		isDragging,
-		isMenuOpen,
-		mode,
-	} = useSharedState(pluginInjectionApi);
+		floatingToolbarState,
+		editorDisabledState,
+		editorViewModeState,
+		userIntentState,
+		// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
+		blockControlsState,
+	} = useSharedPluginState(pluginInjectionApi, [
+		'floatingToolbar',
+		'editorDisabled',
+		'editorViewMode',
+		'userIntent',
+		// @ts-expect-error - excluded from FloatingToolbarPlugin dependencies to avoid circular dependency
+		'blockControls',
+	]);
+
+	const { configWithNodeInfo, floatingToolbarData } = floatingToolbarState ?? {};
 
 	if (
 		editorExperiment('platform_editor_hide_floating_toolbar_in_ssr', true, { exposure: true }) &&
@@ -373,7 +303,7 @@ export function ContentComponent({
 	}
 
 	if (fg('platform_editor_user_intent_plugin')) {
-		if (currentUserIntent === 'dragging') {
+		if (userIntentState?.currentUserIntent === 'dragging') {
 			return null;
 		}
 
@@ -382,11 +312,14 @@ export function ContentComponent({
 		// 	return null;
 		// }
 	} else {
-		if (isDragging) {
+		if (blockControlsState?.isDragging) {
 			return null;
 		}
 
-		if (isMenuOpen && editorExperiment('platform_editor_controls', 'variant1')) {
+		if (
+			blockControlsState?.isMenuOpen &&
+			editorExperiment('platform_editor_controls', 'variant1')
+		) {
 			return null;
 		}
 	}
@@ -413,8 +346,9 @@ export function ContentComponent({
 	} = config;
 	const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
-	const isInViewMode = mode === 'view';
-	if (!targetRef || (editorDisabled && !isInViewMode)) {
+	const isEditorDisabled = editorDisabledState && editorDisabledState.editorDisabled;
+	const isInViewMode = editorViewModeState?.mode === 'view';
+	if (!targetRef || (isEditorDisabled && !isInViewMode)) {
 		return null;
 	}
 

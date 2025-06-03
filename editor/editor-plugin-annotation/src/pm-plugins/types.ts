@@ -33,6 +33,7 @@ export interface InlineCommentPluginOptions {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	featureFlagsPluginState?: FeatureFlags;
 	selectCommentExperience?: AnnotationProviders['selectCommentExperience'];
+	viewInlineCommentTraceUFOPress?: AnnotationProviders['viewInlineCommentTraceUFOPress'];
 	annotationManager?: AnnotationManager;
 	api?: AnnotationPluginInjectionAPI;
 }

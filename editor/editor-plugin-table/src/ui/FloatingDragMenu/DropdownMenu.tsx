@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { DropList, type DropListProps, Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
@@ -14,6 +14,7 @@ import {
 } from '@atlaskit/editor-common/ui-react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { MenuGroup, Section } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { dragMenuDropdownWidth } from '../consts';
 
@@ -123,6 +124,49 @@ export const DropdownMenu = ({
 		);
 	};
 
+	const onClose = useCallback(() => handleClose('handle'), [handleClose]);
+	const onSelection = useCallback(
+		(index: number) => {
+			const results = items.flatMap((item) => ('items' in item ? item.items : item));
+
+			// onSelection is called when any focusable element is 'activated'
+			// this is an issue as some menu items have toggles, which cause the index value
+			// in the callback to be outside of array length.
+			// The logic below normalises the index value based on the number
+			// of menu items with 2 focusable elements, and adjusts the index to ensure
+			// the correct menu item is sent in onItemActivated callback
+			const keys = ['row_numbers', 'header_row', 'header_column'];
+			let doubleItemCount = 0;
+
+			const firstIndex = results.findIndex((value) => {
+				const key = value.key;
+				return key !== undefined && keys.includes(key);
+			});
+
+			if (firstIndex === -1 || index <= firstIndex) {
+				onItemActivated && onItemActivated({ item: results[index] });
+				return;
+			}
+
+			for (let i = firstIndex; i < results.length; i += 1) {
+				const key = results[i].key;
+				if (key !== undefined && keys.includes(key)) {
+					doubleItemCount += 1;
+				}
+				if (firstIndex % 2 === 0 && index - doubleItemCount === i) {
+					onItemActivated && onItemActivated({ item: results[i] });
+					return;
+				}
+
+				if (firstIndex % 2 === 1 && index - doubleItemCount === i) {
+					onItemActivated && onItemActivated({ item: results[i] });
+					return;
+				}
+			}
+		},
+		[items, onItemActivated],
+	);
+
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		<div className="drag-dropdown-menu-wrapper">
@@ -144,51 +188,29 @@ export const DropdownMenu = ({
 				offset={[offsetX, offsetY]}
 				allowOutOfBounds // required as this popup is child of a parent popup, should be allowed to be out of bound of the parent popup, otherwise horizontal offset is not right
 			>
-				{disableKeyboardHandling ? (
+				{fg('platform_editor_table_drag_menu_flickers_fix') ? (
+					<ArrowKeyNavigationProvider
+						closeOnTab={!disableKeyboardHandling}
+						type={ArrowKeyNavigationType.MENU}
+						handleClose={onClose}
+						onSelection={onSelection}
+						// disableKeyboardHandling is linked with isSubmenuOpen in DragMenu
+						// When isSubmenuOpen is true, the background color picker palette is open, and the picker is a ColorPaletteArrowKeyNavigationProvider
+						// At the same time the MenuArrowKeyNavigationProvider are renderer too, as it is the wrapper for all other DragMenu items
+						// In this case we want the ColorPaletteArrowKeyNavigationProvider to handle the keyboard event, not the MenuArrowKeyNavigationProvider
+						// Hence set disableArrowKeyNavigation to true when disableKeyboardHandling is true
+						disableArrowKeyNavigation={disableKeyboardHandling}
+					>
+						{innerMenu()}
+					</ArrowKeyNavigationProvider>
+				) : disableKeyboardHandling ? (
 					innerMenu()
 				) : (
 					<ArrowKeyNavigationProvider
 						closeOnTab
 						type={ArrowKeyNavigationType.MENU}
-						handleClose={() => handleClose('handle')}
-						onSelection={(index) => {
-							const results = items.flatMap((item) => ('items' in item ? item.items : item));
-
-							// onSelection is called when any focusable element is 'activated'
-							// this is an issue as some menu items have toggles, which cause the index value
-							// in the callback to be outside of array length.
-							// The logic below normalises the index value based on the number
-							// of menu items with 2 focusable elements, and adjusts the index to ensure
-							// the correct menu item is sent in onItemActivated callback
-							const keys = ['row_numbers', 'header_row', 'header_column'];
-							let doubleItemCount = 0;
-
-							// Ignored via go/ees005
-							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-							const firstIndex = results.findIndex((value) => keys.includes(value.key!));
-
-							if (firstIndex === -1 || index <= firstIndex) {
-								onItemActivated && onItemActivated({ item: results[index] });
-								return;
-							}
-
-							for (let i = firstIndex; i < results.length; i += 1) {
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								if (keys.includes(results[i].key!)) {
-									doubleItemCount += 1;
-								}
-								if (firstIndex % 2 === 0 && index - doubleItemCount === i) {
-									onItemActivated && onItemActivated({ item: results[i] });
-									return;
-								}
-
-								if (firstIndex % 2 === 1 && index - doubleItemCount === i) {
-									onItemActivated && onItemActivated({ item: results[i] });
-									return;
-								}
-							}
-						}}
+						handleClose={onClose}
+						onSelection={onSelection}
 					>
 						{innerMenu()}
 					</ArrowKeyNavigationProvider>

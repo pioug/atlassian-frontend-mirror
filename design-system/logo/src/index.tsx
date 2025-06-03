@@ -1,112 +1,109 @@
 import {
-	AdminIcon as NewAdminIcon,
-	AdminLogo as NewAdminLogo,
-} from '@atlaskit/temp-nav-app-icons/admin';
-import {
 	AlignIcon as NewAlignIcon,
-	AlignLogo as NewAlignLogo,
+	AlignLogoCS as NewAlignLogo,
 } from '@atlaskit/temp-nav-app-icons/align';
 import {
 	AnalyticsIcon as NewAnalyticsIcon,
-	AnalyticsLogo as NewAnalyticsLogo,
+	AnalyticsLogoCS as NewAnalyticsLogo,
 } from '@atlaskit/temp-nav-app-icons/analytics';
 import {
 	AssetsIcon as NewAssetsIcon,
-	AssetsLogo as NewAssetsLogo,
+	AssetsLogoCS as NewAssetsLogo,
 } from '@atlaskit/temp-nav-app-icons/assets';
 import {
 	BitbucketIcon as NewBitbucketIcon,
-	BitbucketLogo as NewBitbucketLogo,
+	BitbucketLogoCS as NewBitbucketLogo,
 } from '@atlaskit/temp-nav-app-icons/bitbucket';
 import {
 	ChatIcon as NewChatIcon,
-	ChatLogo as NewChatLogo,
+	ChatLogoCS as NewChatLogo,
 } from '@atlaskit/temp-nav-app-icons/chat';
 import {
-	CompanyHubIcon as NewCompanyHubIcon,
-	CompanyHubLogo as NewCompanyHubLogo,
-} from '@atlaskit/temp-nav-app-icons/company-hub';
-import {
 	CompassIcon as NewCompassIcon,
-	CompassLogo as NewCompassLogo,
+	CompassLogoCS as NewCompassLogo,
 } from '@atlaskit/temp-nav-app-icons/compass';
 import {
 	ConfluenceIcon as NewConfluenceIcon,
-	ConfluenceLogo as NewConfluenceLogo,
+	ConfluenceLogoCS as NewConfluenceLogo,
 } from '@atlaskit/temp-nav-app-icons/confluence';
 import {
+	CustomerServiceManagementIcon as NewCustomerServiceManagementIcon,
+	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
+} from '@atlaskit/temp-nav-app-icons/customer-service-management';
+import {
 	FocusIcon as NewFocusIcon,
-	FocusLogo as NewFocusLogo,
+	FocusLogoCS as NewFocusLogo,
 } from '@atlaskit/temp-nav-app-icons/focus';
 import {
 	GoalsIcon as NewGoalsIcon,
-	GoalsLogo as NewGoalsLogo,
+	GoalsLogoCS as NewGoalsLogo,
 } from '@atlaskit/temp-nav-app-icons/goals';
 import {
 	GuardIcon as NewGuardIcon,
-	GuardLogo as NewGuardLogo,
+	GuardLogoCS as NewGuardLogo,
 } from '@atlaskit/temp-nav-app-icons/guard';
 import {
-	GuardDetectIcon as NewGuardDetectIcon,
-	GuardDetectLogo as NewGuardDetectLogo,
-} from '@atlaskit/temp-nav-app-icons/guard-detect';
-import {
 	HomeIcon as NewHomeIcon,
-	HomeLogo as NewHomeLogo,
+	HomeLogoCS as NewHomeLogo,
 } from '@atlaskit/temp-nav-app-icons/home';
+import { HubIcon as NewHubIcon, HubLogoCS as NewHubLogo } from '@atlaskit/temp-nav-app-icons/hub';
 import {
 	JiraIcon as NewJiraIcon,
-	JiraLogo as NewJiraLogo,
+	JiraLogoCS as NewJiraLogo,
 } from '@atlaskit/temp-nav-app-icons/jira';
 import {
 	JiraProductDiscoveryIcon as NewJPDIcon,
-	JiraProductDiscoveryLogo as NewJPDLogo,
+	JiraProductDiscoveryLogoCS as NewJPDLogo,
 } from '@atlaskit/temp-nav-app-icons/jira-product-discovery';
 import {
 	JiraServiceManagementIcon as NewJSMIcon,
-	JiraServiceManagementLogo as NewJSMLogo,
+	JiraServiceManagementLogoCS as NewJSMLogo,
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
 import {
 	LoomIcon as NewLoomIcon,
-	LoomLogo as NewLoomLogo,
+	LoomLogoCS as NewLoomLogo,
 } from '@atlaskit/temp-nav-app-icons/loom';
 import {
 	OpsgenieIcon as NewOpsgenieIcon,
-	OpsgenieLogo as NewOpsgenieLogo,
+	OpsgenieLogoCS as NewOpsgenieLogo,
 } from '@atlaskit/temp-nav-app-icons/opsgenie';
 import {
 	ProjectsIcon as NewProjectsIcon,
-	ProjectsLogo as NewProjectsLogo,
+	ProjectsLogoCS as NewProjectsLogo,
 } from '@atlaskit/temp-nav-app-icons/projects';
 import {
 	RovoIcon as NewRovoIcon,
-	RovoLogo as NewRovoLogo,
+	RovoLogoCS as NewRovoLogo,
 } from '@atlaskit/temp-nav-app-icons/rovo';
 import {
 	SearchIcon as NewSearchIcon,
-	SearchLogo as NewSearchLogo,
+	SearchLogoCS as NewSearchLogo,
 } from '@atlaskit/temp-nav-app-icons/search';
 import {
 	StatuspageIcon as NewStatuspageIcon,
-	StatuspageLogo as NewStatuspageLogo,
+	StatuspageLogoCS as NewStatuspageLogo,
 } from '@atlaskit/temp-nav-app-icons/statuspage';
 import {
 	StudioIcon as NewStudioIcon,
-	StudioLogo as NewStudioLogo,
+	StudioLogoCS as NewStudioLogo,
 } from '@atlaskit/temp-nav-app-icons/studio';
 import {
 	TalentIcon as NewTalentIcon,
-	TalentLogo as NewTalentLogo,
+	TalentLogoCS as NewTalentLogo,
 } from '@atlaskit/temp-nav-app-icons/talent';
 import {
 	TeamsIcon as NewTeamsIcon,
-	TeamsLogo as NewTeamsLogo,
+	TeamsLogoCS as NewTeamsLogo,
 } from '@atlaskit/temp-nav-app-icons/teams';
 import {
 	TrelloIcon as NewTrelloIcon,
-	TrelloLogo as NewTrelloLogo,
+	TrelloLogoCS as NewTrelloLogo,
 } from '@atlaskit/temp-nav-app-icons/trello';
 
+import {
+	AtlassianAnalyticsIcon as LegacyAtlassianAnalyticsIcon,
+	AtlassianAnalyticsLogo as LegacyAtlassianAnalyticsLogo,
+} from './legacy-logos/atlassian-analytics';
 import {
 	BitbucketIcon as LegacyBitbucketIcon,
 	BitbucketLogo as LegacyBitbucketLogo,
@@ -122,6 +119,10 @@ import {
 import { FocusIcon as LegacyFocusIcon, FocusLogo as LegacyFocusLogo } from './legacy-logos/focus';
 import { GuardIcon as LegacyGuardIcon, GuardLogo as LegacyGuardLogo } from './legacy-logos/guard';
 import { JiraIcon as LegacyJiraIcon, JiraLogo as LegacyJiraLogo } from './legacy-logos/jira';
+import {
+	JiraAlignIcon as LegacyJiraAlignIcon,
+	JiraAlignLogo as LegacyJiraAlignLogo,
+} from './legacy-logos/jira-align';
 import {
 	JiraProductDiscoveryIcon as LegacyJPDIcon,
 	JiraProductDiscoveryLogo as LegacyJPDLogo,
@@ -144,7 +145,6 @@ import {
 	TrelloIcon as LegacyTrelloIcon,
 	TrelloLogo as LegacyTrelloLogo,
 } from './legacy-logos/trello';
-export { AtlassianAnalyticsIcon, AtlassianAnalyticsLogo } from './legacy-logos/atlassian-analytics';
 export { AtlasIcon, AtlasLogo } from './legacy-logos/atlas';
 export {
 	AtlassianMarketplaceIcon,
@@ -156,7 +156,6 @@ export {
 	AtlassianAdministrationLogo,
 } from './legacy-logos/atlassian-administration';
 export { AtlassianAdminIcon, AtlassianAdminLogo } from './legacy-logos/atlassian-admin';
-export { JiraAlignIcon, JiraAlignLogo } from './legacy-logos/jira-align';
 export {
 	JiraWorkManagementLogo,
 	JiraWorkManagementIcon,
@@ -166,26 +165,6 @@ export { AtlassianIcon, AtlassianLogo } from './legacy-logos/atlassian';
 export { JiraSoftwareIcon, JiraSoftwareLogo } from './legacy-logos/jira-software';
 import { createFeatureFlaggedComponent, tempSizeWrapper } from './logo-config';
 
-/**
- * __Admin icon__
- *
- * An admin icon without an accompanying wordmark.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const AdminIcon = tempSizeWrapper(NewAdminIcon);
-/**
- * __Admin logo__
- *
- * An admin logo with both the wordmark and the icon combined.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const AdminLogo = tempSizeWrapper(NewAdminLogo);
 /**
  * __Assets icon__
  *
@@ -207,46 +186,6 @@ export const AssetsIcon = tempSizeWrapper(NewAssetsIcon);
  */
 export const AssetsLogo = tempSizeWrapper(NewAssetsLogo);
 /**
- * __Analytics icon__
- *
- * An analytics icon without an accompanying wordmark.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const AnalyticsIcon = tempSizeWrapper(NewAnalyticsIcon);
-/**
- * __Analytics logo__
- *
- * An analytics logo with both the wordmark and the icon combined.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const AnalyticsLogo = tempSizeWrapper(NewAnalyticsLogo);
-/**
- * __Align icon__
- *
- * An align icon without an accompanying wordmark.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const AlignIcon = tempSizeWrapper(NewAlignIcon);
-/**
- * __Align logo__
- *
- * An align logo with both the wordmark and the icon combined.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const AlignLogo = tempSizeWrapper(NewAlignLogo);
-/**
  * __Chat icon__
  *
  * A chat icon without an accompanying wordmark.
@@ -267,25 +206,25 @@ export const ChatIcon = tempSizeWrapper(NewChatIcon);
  */
 export const ChatLogo = tempSizeWrapper(NewChatLogo);
 /**
- * __Company hub icon__
+ * __Customer Service Management icon__
  *
- * A company hub icon without an accompanying wordmark.
+ * An customer service management icon without an accompanying wordmark.
  *
  * - [Examples](https://atlassian.design/components/{packageName}/examples)
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const CompanyHubIcon = tempSizeWrapper(NewCompanyHubIcon);
+export const CustomerServiceManagementIcon = tempSizeWrapper(NewCustomerServiceManagementIcon);
 /**
- * __Company hub logo__
+ * __Customer Service Management logo__
  *
- * A company hub logo with both the wordmark and the icon combined.
+ * A customer service management logo with both the wordmark and the icon combined.
  *
  * - [Examples](https://atlassian.design/components/{packageName}/examples)
  * - [Code](https://atlassian.design/components/{packageName}/code)
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
-export const CompanyHubLogo = tempSizeWrapper(NewCompanyHubLogo);
+export const CustomerServiceManagementLogo = tempSizeWrapper(NewCustomerServiceManagementLogo);
 /**
  * __Goals icon__
  *
@@ -307,26 +246,6 @@ export const GoalsIcon = tempSizeWrapper(NewGoalsIcon);
  */
 export const GoalsLogo = tempSizeWrapper(NewGoalsLogo);
 /**
- * __Guard detect icon__
- *
- * A guard detect icon without an accompanying wordmark.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const GuardDetectIcon = tempSizeWrapper(NewGuardDetectIcon);
-/**
- * __Guard detect logo__
- *
- * A guard detect logo with both the wordmark and the icon combined.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
-export const GuardDetectLogo = tempSizeWrapper(NewGuardDetectLogo);
-/**
  * __Home icon__
  *
  * A home icon without an accompanying wordmark.
@@ -346,6 +265,26 @@ export const HomeIcon = tempSizeWrapper(NewHomeIcon);
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 export const HomeLogo = tempSizeWrapper(NewHomeLogo);
+/**
+ * __Hub icon
+ *
+ * A hub icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const HubIcon = tempSizeWrapper(NewHubIcon);
+/**
+ * Hub logo__
+ *
+ * A hub logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const HubLogo = tempSizeWrapper(NewHubLogo);
 /**
  * __Projects icon__
  *
@@ -448,6 +387,32 @@ export const TeamsIcon = tempSizeWrapper(NewTeamsIcon);
 export const TeamsLogo = tempSizeWrapper(NewTeamsLogo);
 
 /**
+ * __Analytics icon__
+ *
+ * An analytics icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const AtlassianAnalyticsIcon = createFeatureFlaggedComponent(
+	LegacyAtlassianAnalyticsIcon,
+	NewAnalyticsIcon,
+);
+/**
+ * __Analytics logo__
+ *
+ * An analytics logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const AtlassianAnalyticsLogo = createFeatureFlaggedComponent(
+	LegacyAtlassianAnalyticsLogo,
+	NewAnalyticsLogo,
+);
+/**
  * __Bitbucket icon__
  *
  * The Bitbucket icon without an accompanying wordmark.
@@ -514,6 +479,26 @@ export const ConfluenceLogo = createFeatureFlaggedComponent(
 	LegacyConfluenceLogo,
 	NewConfluenceLogo,
 );
+/**
+ * __Align icon__
+ *
+ * An align icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const JiraAlignIcon = createFeatureFlaggedComponent(LegacyJiraAlignIcon, NewAlignIcon);
+/**
+ * __Align logo__
+ *
+ * An align logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const JiraAlignLogo = createFeatureFlaggedComponent(LegacyJiraAlignLogo, NewAlignLogo);
 /**
  * __Jira icon__
  *

@@ -196,7 +196,11 @@ export default function createUniversalPresetInternal({
 		)
 		.maybeAdd(
 			guidelinePlugin,
-			Boolean(!isComment && !isChromeless && (props.media || props.allowTables)),
+			Boolean(
+				(!isComment && !isChromeless && (props.media || props.allowTables)) ||
+					(editorExperiment('platform_editor_breakout_resizing', true, { exposure: true }) &&
+						(props.allowExpand || props.allowLayouts || props.codeBlock)),
+			),
 		)
 		.maybeAdd([gridPlugin, { shouldCalcBreakoutGridLines: isFullPage }], Boolean(props.media))
 		.maybeAdd([annotationPlugin, props.annotationProviders], Boolean(props.annotationProviders))

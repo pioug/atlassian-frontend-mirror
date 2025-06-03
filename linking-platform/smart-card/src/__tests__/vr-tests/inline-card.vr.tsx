@@ -1,8 +1,8 @@
 import { snapshot } from '@af/visual-regression';
 
 import VRInlineCardAllExamplesInText from '../../../examples/vr-inline-card/vr-inline-card-all-examples-in-text';
+import InlineCardDefaultWithEntities from '../../../examples/vr-inline-card/vr-inline-card-default-entities';
 import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-default-icon';
-import InlineCardDefaultWithNouns from '../../../examples/vr-inline-card/vr-inline-card-default-nouns';
 import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inline-card-default-truncate';
 import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
 import InlineCardErrorTruncate from '../../../examples/vr-inline-card/vr-inline-card-error-truncate';
@@ -51,8 +51,8 @@ snapshot(InlineCardDefault, {
 	],
 });
 
-snapshot(InlineCardDefaultWithNouns, {
-	description: 'inline card with Noun support',
+snapshot(InlineCardDefaultWithEntities, {
+	description: 'inline card with entity support',
 	featureFlags: {
 		smart_links_noun_support: true,
 	},

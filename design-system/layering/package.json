@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -78,9 +78,6 @@
 	},
 	"platform-feature-flags": {
 		"layering-top-level-use-array": {
-			"type": "boolean"
-		},
-		"platform_dst_open_layer_observer_close_layers": {
 			"type": "boolean"
 		}
 	}

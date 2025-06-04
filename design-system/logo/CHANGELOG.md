@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 19.0.1
+
+### Patch Changes
+
+- [#164618](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164618)
+  [`6085f82218cd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6085f82218cd6) -
+  Fixed headings not appearing correctly on atlassian.design docs
+
 ## 19.0.0
 
 ### Major Changes

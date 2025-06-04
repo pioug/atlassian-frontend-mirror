@@ -12,10 +12,10 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID as ACTION_SUBJECTID,
-	buildOpenedSettingsPayload,
-	buildVisitedNonHyperLinkPayload,
 	EVENT_TYPE,
 	INPUT_METHOD,
+	buildOpenedSettingsPayload,
+	buildVisitedNonHyperLinkPayload,
 } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import {
@@ -138,7 +138,7 @@ export const visitCardLink =
 		// EDM-12466:
 		// During smart_link_editor_update_toolbar_open_link clean up
 		// Consider updating the code to use visitCardLink or visitCardLinkAnalyticsOnly for all input methods:
-		// INPUT_METHOD.FLOATING_TB | INPUT_METHOD.TOOLBAR | NPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK
+		// INPUT_METHOD.FLOATING_TB | INPUT_METHOD.TOOLBAR | INPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK || INPUT_METHOD.META_CLICK
 		if (!fg('smart_link_editor_update_toolbar_open_link')) {
 			const { url } = titleUrlPairFromNode(state.selection.node);
 
@@ -167,7 +167,7 @@ export const visitCardLink =
 export const visitCardLinkAnalyticsOnly =
 	(
 		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-		inputMethod: INPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK,
+		inputMethod: INPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK | INPUT_METHOD.META_CLICK,
 	): Command =>
 	(state, dispatch) => {
 		if (!(state.selection instanceof NodeSelection)) {

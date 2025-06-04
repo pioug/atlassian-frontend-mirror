@@ -8,7 +8,7 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import Link from '@atlaskit/link';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';

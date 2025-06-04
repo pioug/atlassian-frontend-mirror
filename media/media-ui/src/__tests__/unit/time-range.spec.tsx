@@ -3,7 +3,7 @@ import { TimeRange, TimeRangeBase, type TimeRangeProps } from '../../customMedia
 import { CurrentTimeTooltip } from '../../customMediaPlayer/styled-emotion';
 import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';
 import type { IntlShape } from 'react-intl-next';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor, act } from '@testing-library/react';
 import { renderWithIntl } from '../../test-helpers';
 
 let mockedWidth = 100;
@@ -105,21 +105,18 @@ describe('<TimeRange />', () => {
 
 		const timeline = await screen.findByTestId('time-range-wrapper');
 
-		const event = new MouseEvent('mousedown', {
-			bubbles: true,
-			cancelable: true,
+		const customEvent = new Event('pointerdown', { bubbles: true });
+		Object.defineProperty(customEvent, 'offsetX', { value: 5 });
+		act(() => {
+			timeline.dispatchEvent(customEvent);
 		});
-
-		Object.defineProperty(event, 'offsetX', { get: () => 5 });
-
-		fireEvent(timeline, event);
 
 		expect(onChange).toHaveBeenCalledTimes(1);
 		expect(onChange).toHaveBeenLastCalledWith(1);
 
-		fireEvent.mouseMove(timeline);
+		fireEvent.pointerMove(timeline);
 
-		fireEvent.mouseUp(timeline);
+		fireEvent.pointerUp(timeline);
 
 		expect(onChanged).toHaveBeenCalledTimes(1);
 	});

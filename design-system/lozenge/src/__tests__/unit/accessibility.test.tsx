@@ -4,21 +4,17 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
-import LozengeCompiled from '../../compiled';
-import LozengeEmotion from '../../index';
+import Lozenge from '../../index';
 
-describe.each([
-	['emotion', LozengeEmotion],
-	['compiled', LozengeCompiled],
-])('variant=%p', (_variant, Component) => {
+describe('Lozenge', () => {
 	it('Default Lozenge should not fail basic aXe audit', async () => {
-		const { container } = render(<Component>Default</Component>);
+		const { container } = render(<Lozenge>Default</Lozenge>);
 
 		await axe(container);
 	});
 
 	it('Bold Lozenge should not fail basic aXe audit', async () => {
-		const { container } = render(<Component isBold>isBold</Component>);
+		const { container } = render(<Lozenge isBold>isBold</Lozenge>);
 
 		await axe(container);
 	});

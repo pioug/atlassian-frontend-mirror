@@ -94,7 +94,7 @@ describe('ResolvedView', () => {
 		const lozenge = await screen.findByTestId('inline-card-resolved-view-lozenge');
 		expect(lozenge).toHaveCompiledCss(
 			'background-color',
-			token('color.background.information.bold', '#0052CC'),
+			'var(--ds-background-information-bold,#0c66e4)',
 		);
 
 		expect(lozenge).toHaveStyle(`color: ${token('color.text.inverse', '#FFFFFF')}`);

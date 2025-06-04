@@ -15,6 +15,7 @@ import mutabilityClient from './mutability-client';
 import objectResolverClient from './object-resolver-client';
 import permsClient from './perms-client';
 import publicApiClient from './public-api-client';
+import replinesClient from './replines-client';
 import teamCentralClient from './team-central-client';
 import teamsInSlackClient from './teams-in-slack-client';
 import { type ClientContextProps } from './types';
@@ -45,6 +46,7 @@ export class TeamsClient {
 	private readonly _collaborationGraphClient = collaborationGraphClient;
 	private readonly _identityClient = identityClient;
 	private readonly _teamCentralClient = teamCentralClient;
+	private readonly _replinesClient = replinesClient;
 
 	constructor(
 		/**
@@ -96,6 +98,7 @@ export class TeamsClient {
 		this._mutabilityClient.setContext(context);
 		this._publicApiClient.setContext(context);
 		this._invitationsClient.setContext(context);
+		this._replinesClient.setContext(context);
 	}
 
 	setTeamCentralContext(baseUrl: string, context: ClientContextProps) {
@@ -725,6 +728,17 @@ export class TeamsClient {
 	}
 
 	/**
+	 * Fetch ARI from URL
+	 */
+	async getAriFromUrl(
+		...args: Parameters<typeof objectResolverClient.getAriFromUrl>
+	): Promise<AwaitedReturn<typeof objectResolverClient.getAriFromUrl>> {
+		return this.measurePerformance('getAriFromUrl', () =>
+			this._objectResolverClient.getAriFromUrl(...args),
+		);
+	}
+
+	/**
 	 * Fetch team in slack details
 	 */
 	async getTeamInSlack(
@@ -820,6 +834,14 @@ export class TeamsClient {
 		...args: Parameters<typeof teamCentralClient.deleteHelpPointer>
 	): Promise<AwaitedReturn<typeof teamCentralClient.deleteHelpPointer>> {
 		return this._teamCentralClient.deleteHelpPointer(...args);
+	}
+
+	async getUserTenure(
+		...args: Parameters<typeof replinesClient.getUserTenure>
+	): Promise<AwaitedReturn<typeof replinesClient.getUserTenure>> {
+		return this.measurePerformance('getUserTenure', () =>
+			this._replinesClient.getUserTenure(...args),
+		);
 	}
 }
 

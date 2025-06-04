@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 106.1.9
+
+### Patch Changes
+
+- [#164129](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164129)
+  [`ef34428363521`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef34428363521) -
+  [ux] ED-28058 fix left drag handle experience for new resizing under
+  platform_editor_breakout_resizing
+- [#163546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163546)
+  [`d3faab1b963ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3faab1b963ad) -
+  [ux] ED-28147 smart link support for cmd/ctrl click to open in new tab
+- Updated dependencies
+
 ## 106.1.8
 
 ### Patch Changes

@@ -36,7 +36,6 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-platform": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/link-client-extension": "workspace:^",

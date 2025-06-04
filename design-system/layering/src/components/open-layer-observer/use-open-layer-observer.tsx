@@ -2,8 +2,6 @@ import { useContext, useMemo } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { OpenLayerObserverContext } from './open-layer-observer-context';
 import { type OpenLayerObserverInternalAPI } from './types';
 
@@ -43,41 +41,6 @@ export function useOpenLayerObserver(): OpenLayerObserverPublicAPI {
 		}),
 		[context.getCount, context.onChange, context.closeLayers],
 	);
-
-	return publicAPI;
-}
-
-/**
- * **Note: this hook will be cleaned up with fg('platform_dst_open_layer_observer_close_layers'), and replaced by `useOpenLayerObserver`.**
- *
- * Variant of `useOpenLayerObserver()` that will _not_ throw an error if the hook is used outside of an `OpenLayerObserver`.
- * Instead, it will return `null`.
- *
- * This is to enable progressive rollout of fg('platform_dst_open_layer_observer_close_layers'), which moves the `OpenLayerObserver`
- * provider from the nav4 `SideNav` slot to the `Root`.
- *
- * A separate hook is required as we cannot conditionally call React hooks based on a feature flag value, and it is unsafe to call
- * `useOpenLayerObserver()` in components that are not rendered inside the SideNav - such as `PanelSplitter` components rendered
- * inside the `Aside` slot.
- */
-export function useOpenLayerObserverBehindFG(): OpenLayerObserverPublicAPI | null {
-	const context = useContext(OpenLayerObserverContext);
-
-	const publicAPI: OpenLayerObserverPublicAPI | null = useMemo(() => {
-		if (!fg('platform_dst_open_layer_observer_close_layers')) {
-			return null;
-		}
-
-		if (!context) {
-			return null;
-		}
-
-		return {
-			getCount: context.getCount,
-			onChange: context.onChange,
-			closeLayers: context.closeLayers,
-		};
-	}, [context]);
 
 	return publicAPI;
 }

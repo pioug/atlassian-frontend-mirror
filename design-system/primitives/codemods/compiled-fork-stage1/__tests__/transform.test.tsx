@@ -3,7 +3,7 @@ import transform from '../transform';
 const apply = require('jscodeshift/dist/testUtils').applyTransform;
 
 async function applyTransform(transform: any, input: string) {
-	const output = await apply(transform, { parser: 'tsx' }, { source: input });
+	const output = await apply(transform, {}, { source: input }, { parser: 'tsx' });
 
 	return output.trimEnd();
 }
@@ -60,6 +60,28 @@ const MyComponent = () => (
 );`);
 	});
 
+	it('should NOT transform  the file when media is imported', async () => {
+		const input = `import { media } from '@atlaskit/primitives';
+
+const imageStyles = css({
+	width: '100%',
+	[media.above.md]: {
+		width: '125%',
+	},
+});`;
+
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(input);
+	});
+
+	it('should NOT transform  the file when XCSS type is imported', async () => {
+		const input = `import { XCSS } from '@atlaskit/primitives';
+export interface Props { yo: XCSS; }`;
+
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(input);
+	});
+
 	it('should NOT transform other imports', async () => {
 		const input = `
 import { Box } from '@atlaskit/primitives';
@@ -70,6 +92,13 @@ import { Stack } from '@atlaskit/primitives';
 		expect(output).toEqual(`import { Box } from '@atlaskit/primitives/compiled';
 import { something } from '@atlaskit/other-package';
 import { Stack } from '@atlaskit/primitives/compiled';`);
+	});
+
+	it('should NOT transform Box primitives with spread props', async () => {
+		const input = `import { Box } from '@atlaskit/primitives';
+const MyComponent = (props: any) => <Box {...props} />`;
+		const output = await applyTransform(transform, input);
+		expect(output).toEqual(input);
 	});
 
 	it('should handle empty imports', async () => {

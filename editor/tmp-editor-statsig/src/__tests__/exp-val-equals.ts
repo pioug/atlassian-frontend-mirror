@@ -44,7 +44,7 @@ describe('expValEquals', () => {
 		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
-		expect(expValEquals('test-boolean', true)).toBe(true);
+		expect(expValEquals('test-boolean', 'isEnabled', true)).toBe(true);
 	});
 
 	test('expValEquals returns correct value for multivariate experiment', () => {
@@ -52,7 +52,7 @@ describe('expValEquals', () => {
 		mockGetExperimentValue.mockReturnValue('default value');
 
 		// @ts-expect-error
-		expect(expValEquals('test-multivariate', 'default value')).toBe(true);
+		expect(expValEquals('test-multivariate', 'variation', 'default value')).toBe(true);
 	});
 
 	test('expValEquals fires exposure', () => {
@@ -60,17 +60,29 @@ describe('expValEquals', () => {
 		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
-		expValEquals('test-boolean', true);
+		expValEquals('test-boolean', 'isEnabled', true);
 
-		expect(mockGetExperimentValue).toHaveBeenLastCalledWith(
-			'confluence_boolean_example',
-			'isEnabled',
-			false,
-			{
-				typeGuard: expect.any(Function),
-				fireExperimentExposure: true,
-			},
-		);
+		expect(mockGetExperimentValue).toHaveBeenLastCalledWith('test-boolean', 'isEnabled', null, {
+			fireExperimentExposure: true,
+		});
+	});
+
+	test('works with overrides', () => {
+		setupEditorExperiments('test', {
+			'test-boolean': false,
+			'test-multivariate': 'not default value',
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} as any);
+
+		// @ts-ignore
+		expect(expValEquals('test-boolean', 'isEnabled', true)).toBe(false);
+		// @ts-ignore
+		expect(expValEquals('test-boolean', 'isEnabled', false)).toBe(true);
+
+		// @ts-ignore
+		expect(expValEquals('test-multivariate', 'variation', 'default value')).toBe(false);
+		// @ts-ignore
+		expect(expValEquals('test-multivariate', 'variation', 'not default value')).toBe(true);
 	});
 });
 
@@ -86,7 +98,7 @@ describe('expValEqualsNoExposure', () => {
 		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
-		expect(expValEqualsNoExposure('test-boolean', true)).toBe(true);
+		expect(expValEqualsNoExposure('test-boolean', 'isEnabled', true)).toBe(true);
 	});
 
 	test('expValEqualsNoExposure returns correct value for multivariate experiment', () => {
@@ -94,24 +106,38 @@ describe('expValEqualsNoExposure', () => {
 		mockGetExperimentValue.mockReturnValue('default value');
 
 		// @ts-expect-error
-		expect(expValEqualsNoExposure('test-multivariate', 'default value')).toBe(true);
+		expect(expValEqualsNoExposure('test-multivariate', 'variation', 'default value')).toBe(true);
 	});
 
-	test('expValEqualsNoExposure fires exposure', () => {
+	test("expValEqualsNoExposure doesn't fire exposure", () => {
 		setupEditorExperiments('confluence');
 		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
-		expValEqualsNoExposure('test-boolean', true);
+		expValEqualsNoExposure('test-boolean', 'isEnabled', true);
 
-		expect(mockGetExperimentValue).toHaveBeenLastCalledWith(
-			'confluence_boolean_example',
-			'isEnabled',
-			false,
-			{
-				typeGuard: expect.any(Function),
-				fireExperimentExposure: false,
-			},
+		expect(mockGetExperimentValue).toHaveBeenLastCalledWith('test-boolean', 'isEnabled', null, {
+			fireExperimentExposure: false,
+		});
+	});
+
+	test('works with overrides', () => {
+		setupEditorExperiments('test', {
+			'test-boolean': false,
+			'test-multivariate': 'not default value',
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} as any);
+
+		// @ts-ignore
+		expect(expValEqualsNoExposure('test-boolean', 'isEnabled', true)).toBe(false);
+		// @ts-ignore
+		expect(expValEqualsNoExposure('test-boolean', 'isEnabled', false)).toBe(true);
+
+		// @ts-ignore
+		expect(expValEqualsNoExposure('test-multivariate', 'variation', 'default value')).toBe(false);
+		// @ts-ignore
+		expect(expValEqualsNoExposure('test-multivariate', 'variation', 'not default value')).toBe(
+			true,
 		);
 	});
 });

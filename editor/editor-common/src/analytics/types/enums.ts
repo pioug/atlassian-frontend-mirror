@@ -221,6 +221,7 @@ export enum INPUT_METHOD {
 	MOUSE = 'mouse',
 	BROWSER = 'browser',
 	DOUBLE_CLICK = 'doubleClick',
+	META_CLICK = 'metaClick',
 	INLINE_SUGGESTION_FLOATING_TB = 'inlineSuggestionFloatingToolbar',
 }
 

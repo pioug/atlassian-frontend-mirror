@@ -436,7 +436,7 @@ export default function Example() {
 									isExtendedShareDialogEnabled
 									additionalUserFields={<AdditionalUserFields />}
 									onSubmit={(formValues) => {
-										console.log(formValues);
+										console.log('formValues', formValues);
 									}}
 								/>
 							</WrapperWithMarginTop>

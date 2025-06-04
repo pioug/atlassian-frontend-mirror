@@ -61,19 +61,47 @@ export const actions = {
 			}
 		},
 
-	createTeamWebLink: (teamId: string, newLink: NewTeamWebLink) => async () => {
-		return await teamsClient.createTeamLink(teamId, newLink);
-	},
+	createTeamWebLink:
+		(teamId: string, newLink: NewTeamWebLink) =>
+		async ({ getState, setState }: StoreApi) => {
+			const result = await teamsClient.createTeamLink(teamId, newLink);
 
-	updateTeamWebLink: (teamId: string, linkId: string, newLink: NewTeamWebLink) => async () => {
-		return await teamsClient.updateTeamLink(teamId, linkId, newLink);
-	},
+			const currentState = getState();
+			if (currentState.teamId === teamId) {
+				setState({
+					links: [...currentState.links, result],
+				});
+			}
+
+			return result;
+		},
+
+	updateTeamWebLink:
+		(teamId: string, linkId: string, newLink: NewTeamWebLink) =>
+		async ({ getState, setState }: StoreApi) => {
+			const result = await teamsClient.updateTeamLink(teamId, linkId, newLink);
+
+			const currentState = getState();
+			if (currentState.teamId === teamId) {
+				setState({
+					links: currentState.links.map((link) => (link.linkId === linkId ? result : link)),
+				});
+			}
+
+			return result;
+		},
 
 	removeWebLink:
 		(teamId: string, linkId: string) =>
-		async ({ dispatch }: StoreApi) => {
+		async ({ getState, setState }: StoreApi) => {
 			await teamsClient.deleteTeamLink(teamId, linkId);
-			await dispatch(actions.getTeamWebLinks(teamId));
+
+			const currentState = getState();
+			if (currentState.teamId === teamId) {
+				setState({
+					links: currentState.links.filter((link) => link.linkId !== linkId),
+				});
+			}
 		},
 
 	initialState:

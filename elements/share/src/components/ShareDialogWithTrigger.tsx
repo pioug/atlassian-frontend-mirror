@@ -337,6 +337,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 			showFlags,
 			isPublicLink,
 			createAnalyticsEvent,
+			isExtendedShareDialogEnabled,
 		} = this.props;
 		if (!onShareSubmit) {
 			return;
@@ -378,9 +379,13 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 			.then(() => {
 				this.closeAndResetDialog();
 				this.setState({ isSharing: false });
-				showFlags(this.getFlags());
 
-				shareSubmitExp.success();
+				if (isExtendedShareDialogEnabled && data.users.length === 0) {
+					shareSubmitExp.abort();
+				} else {
+					showFlags(this.getFlags());
+					shareSubmitExp.success();
+				}
 			})
 			.catch(async (err: Error) => {
 				const shareError = await this.generateShareError(err).catch((errorGenFailed) => ({

@@ -210,6 +210,7 @@ const HoverCardResolvedView = ({
 				{...(fg('platform-linking-flexible-card-context')
 					? undefined
 					: { status: SmartLinkStatus.Resolved })}
+				isHidden={true}
 			/>
 			<ActionBlock
 				onClick={onActionClick}

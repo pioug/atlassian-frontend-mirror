@@ -1,5 +1,18 @@
 # @atlaskit/tooltip
 
+## 20.3.0
+
+### Minor Changes
+
+- [#157650](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157650)
+  [`3696befec09c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3696befec09c1) -
+  Minor refactor to the logic for marking a tooltip layer as "open" to the experimental open layer
+  observer. This change was previously behind a feature flag, which has now been cleaned up.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.2.2
 
 ### Patch Changes

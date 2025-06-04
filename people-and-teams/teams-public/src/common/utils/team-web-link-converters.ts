@@ -21,3 +21,9 @@ export const webLinkToContainer = (link: TeamWebLink): TeamContainer => {
 export const webLinksToContainers = (links: TeamWebLink[]): TeamContainer[] => {
 	return links.map(webLinkToContainer);
 };
+
+export const isNewTeamWebLink = (
+	input: TeamContainer | NewTeamWebLink,
+): input is NewTeamWebLink => {
+	return 'contentTitle' in input && 'linkUri' in input && !('type' in input) && !('id' in input);
+};

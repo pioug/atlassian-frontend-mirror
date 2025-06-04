@@ -8,7 +8,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -98,6 +98,11 @@ const useInlineCommentViewPluginState = sharedPluginStateHookMigratorFactory(
 			'annotation.selectAnnotationMethod',
 		);
 
+		const isAnnotationManagerEnabled = useSharedPluginStateSelector(
+			api,
+			'annotation.isAnnotationManagerEnabled',
+		);
+
 		return {
 			bookmark,
 			selectedAnnotations,
@@ -105,6 +110,7 @@ const useInlineCommentViewPluginState = sharedPluginStateHookMigratorFactory(
 			isInlineCommentViewClosed,
 			isOpeningMediaCommentFromToolbar,
 			selectAnnotationMethod,
+			isAnnotationManagerEnabled,
 		};
 	},
 	({ state }) => {
@@ -116,6 +122,7 @@ const useInlineCommentViewPluginState = sharedPluginStateHookMigratorFactory(
 			isInlineCommentViewClosed: inlineCommentState?.isInlineCommentViewClosed,
 			isOpeningMediaCommentFromToolbar: inlineCommentState?.isOpeningMediaCommentFromToolbar,
 			selectAnnotationMethod: inlineCommentState?.selectAnnotationMethod,
+			isAnnotationManagerEnabled: inlineCommentState?.isAnnotationManagerEnabled,
 		};
 	},
 );
@@ -140,6 +147,7 @@ export function InlineCommentView({
 		isOpeningMediaCommentFromToolbar,
 		selectAnnotationMethod,
 		selectedAnnotations,
+		isAnnotationManagerEnabled,
 	} = useInlineCommentViewPluginState({ api: editorAPI, state });
 
 	const annotationsList = getAllAnnotations(editorView.state.doc);
@@ -208,7 +216,7 @@ export function InlineCommentView({
 					textSelection={textSelection}
 					wasNewAnnotationSelected={!!currentlySelectedAnnotation && isAnnotationSelectionChanged}
 					onCreate={(id) => {
-						if (!fg('platform_editor_comments_api_manager')) {
+						if (!isAnnotationManagerEnabled) {
 							const createAnnotationResult = createAnnotation(editorAnalyticsAPI, editorAPI)(
 								id,
 								AnnotationTypes.INLINE_COMMENT,
@@ -222,7 +230,7 @@ export function InlineCommentView({
 						}
 					}}
 					onClose={() => {
-						if (!fg('platform_editor_comments_api_manager')) {
+						if (!isAnnotationManagerEnabled) {
 							setInlineCommentDraftState(editorAnalyticsAPI)(false)(
 								editorView.state,
 								editorView.dispatch,

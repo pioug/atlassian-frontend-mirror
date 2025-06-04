@@ -43,6 +43,7 @@ export class ResizingMarkView implements NodeView {
 		// contentDOM - styles
 		contentDOM.style.gridRow = '1';
 		contentDOM.style.gridColumn = '1';
+		contentDOM.style.zIndex = '1';
 
 		if (mark.attrs.width) {
 			contentDOM.style.minWidth = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
@@ -58,7 +59,11 @@ export class ResizingMarkView implements NodeView {
 		dom.appendChild(contentDOM);
 
 		const callbacks = createResizerCallbacks({ dom, contentDOM, view, mark, api });
-		const { leftHandle, rightHandle, destroy } = createPragmaticResizer(callbacks);
+
+		const { leftHandle, rightHandle, destroy } = createPragmaticResizer({
+			target: contentDOM,
+			...callbacks,
+		});
 
 		dom.prepend(leftHandle);
 		dom.appendChild(rightHandle);

@@ -35,24 +35,6 @@ export type OpenLayerObserverInternalAPI = {
 	) => CleanupFn;
 
 	/**
-	 * Increments the count of open layers.
-	 *
-	 * This will call all listeners that were added via `onChange`.
-	 *
-	 * Note: this internal function will be removed with fg('platform_dst_open_layer_observer_close_layers')
-	 */
-	increment: () => void;
-
-	/**
-	 * Decrements the count of open layers.
-	 *
-	 * This will call all listeners that were added via `onChange`.
-	 *
-	 * Note: this internal function will be removed with fg('platform_dst_open_layer_observer_close_layers')
-	 */
-	decrement: () => void;
-
-	/**
 	 * Adds a listener that will be called when all _open_ layers are closed through the `closeLayers`
 	 * function.
 	 *

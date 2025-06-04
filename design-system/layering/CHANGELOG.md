@@ -1,5 +1,17 @@
 # @atlaskit/layering
 
+## 2.2.0
+
+### Minor Changes
+
+- [#157650](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157650)
+  [`3696befec09c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3696befec09c1) -
+  The feature flag for updating the experimental OpenLayerObserver to support closing and grouping
+  layers has now been cleaned up.
+
+  The `useNotifyOpenLayerObserverBehindFG` hook has been removed along with it, as it was only
+  created to support the feature flag rollout.
+
 ## 2.1.1
 
 ### Patch Changes

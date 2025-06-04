@@ -8,7 +8,7 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import EditorAddIcon from '@atlaskit/icon/glyph/add';

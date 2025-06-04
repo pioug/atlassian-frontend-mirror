@@ -14,7 +14,6 @@ import {
 	hasParentNodeOfType,
 	setTextSelection,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 function findParentNode(selection: Selection, nodeType: NodeType): PMNode | null {
 	const parentPosition = findParentNodeOfType(nodeType)(selection);
@@ -70,8 +69,7 @@ export function keymapPlugin(): SafePlugin | undefined {
 				previousNodeType === bulletList || previousNodeType === orderedList;
 
 			// identifies if new position after backspace is at the start of a non-bodied extension node
-			const isPreviousPosAtExtension =
-				fg('platform_editor_nbm_backspace_fixes') && $previousPos.nodeAfter?.type === extension;
+			const isPreviousPosAtExtension = $previousPos.nodeAfter?.type === extension;
 
 			// Stops merging panels when deleting empty paragraph in between
 			// Stops merging blockquotes with panels when deleting from start of blockquote

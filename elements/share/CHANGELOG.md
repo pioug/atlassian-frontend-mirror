@@ -1,5 +1,18 @@
 # @atlaskit/share
 
+## 6.9.0
+
+### Minor Changes
+
+- [#164206](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164206)
+  [`1e5b8f5ecfe7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e5b8f5ecfe7a) -
+  [ux] Hiding the success flag when the extended share form is submitted without any recipients
+  selected, also skipping share API calls when no recipients are present.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.8.1
 
 ### Patch Changes

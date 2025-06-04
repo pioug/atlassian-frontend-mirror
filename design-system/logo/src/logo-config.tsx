@@ -48,13 +48,11 @@ export const tempSizeWrapper = (
 // Logos that only exist in @atlaskit/logo
 export const LEGACY_ONLY_LOGOS = [
 	'atlassian',
-	'atlassian-analytics',
 	'atlas',
 	'atlassian-marketplace',
 	'atlassian-access',
 	'atlassian-administration',
 	'atlassian-admin',
-	'jira-align',
 	'jira-software',
 	'jira-work-management',
 	'loom-attribution',
@@ -62,10 +60,12 @@ export const LEGACY_ONLY_LOGOS = [
 
 // Logos that exist in both packages
 export const SHARED_LOGOS = [
+	'atlassian-analytics',
 	'bitbucket',
 	'compass',
 	'confluence',
 	'jira',
+	'jira-align',
 	'jira-product-discovery',
 	'jira-service-management',
 	'loom',
@@ -81,8 +81,10 @@ export const SHARED_LOGOS = [
 export const NEW_ONLY_LOGOS = [
 	'assets',
 	'chat',
+	'customer-service-management',
 	'goals',
 	'home',
+	'hub',
 	'projects',
 	'search',
 	'studio',

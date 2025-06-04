@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.4.5
+
+### Patch Changes
+
+- [#164877](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164877)
+  [`a79ceac2fb271`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a79ceac2fb271) -
+  clean up clean-up-platform_editor_nbm_backspace_fixes
+- Updated dependencies
+
 ## 4.4.4
 
 ### Patch Changes

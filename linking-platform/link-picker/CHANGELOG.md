@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.5.2
+
+### Patch Changes
+
+- [#164824](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164824)
+  [`f7afa983e0938`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7afa983e0938) -
+  EDM-12146 cleaning up bandicoots-a11y-link-picker-styling feature flag
+- Updated dependencies
+
 ## 3.5.1
 
 ### Patch Changes

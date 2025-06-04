@@ -355,10 +355,7 @@ const deletePreviousEmptyListItem: Command = (state, dispatch) => {
 	}
 
 	const nodeBeforeIsExtension =
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform_editor_nbm_backspace_fixes') &&
-		$cut.nodeBefore.firstChild &&
-		$cut.nodeBefore.firstChild.type.name === 'extension';
+		$cut.nodeBefore.firstChild && $cut.nodeBefore.firstChild.type.name === 'extension';
 
 	const previousListItemEmpty =
 		// Ignored via go/ees005

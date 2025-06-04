@@ -18,7 +18,7 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 	let needsCssMapImport = false;
 
 	// Check if any import from '@atlaskit/primitives' contains 'xcss'
-	const hasXcssImport = root
+	const hasDescopedImport = root
 		.find(j.ImportDeclaration, { source: { value: '@atlaskit/primitives' } })
 		.some((path) => {
 			return path.node.specifiers!.some((specifier) => {
@@ -26,12 +26,25 @@ function transform(file: FileInfo, { jscodeshift: j }: API) {
 					return false;
 				}
 
-				return specifier.imported.name === 'xcss';
+				return ['xcss', 'media', 'XCSS'].includes(specifier.imported.name);
 			});
 		});
 
 	// If 'xcss' is imported, return the original source without transformations
-	if (hasXcssImport) {
+	if (hasDescopedImport) {
+		return file.source;
+	}
+
+	// If Box primitive is used with spread props, return the original source without transformations
+	const hasBoxPrimitiveWithSpreadProps = root
+		.find(j.JSXElement, { openingElement: { name: { name: 'Box' } } })
+		.some(
+			(path) =>
+				path.node.openingElement.attributes?.some((attr) => j.JSXSpreadAttribute.check(attr)) ??
+				false,
+		);
+
+	if (hasBoxPrimitiveWithSpreadProps) {
 		return file.source;
 	}
 

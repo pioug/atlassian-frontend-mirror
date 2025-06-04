@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 11.0.0
+
+### Major Changes
+
+- [#159325](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159325)
+  [`cb065192fe982`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb065192fe982) -
+  Removes Emotion variant of the Drawer and replaces contents with styles from Compiled CSS.
+
 ## 10.1.5
 
 ### Patch Changes
@@ -218,12 +226,7 @@
   Example of new compositional API:
 
   ```ts
-  import {
-  	Drawer,
-  	DrawerCloseButton,
-  	DrawerContent,
-  	DrawerSidebar,
-  } from '@atlaskit/drawer/compiled';
+  import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
   ```
 
   ```jsx

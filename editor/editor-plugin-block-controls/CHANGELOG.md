@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.10
+
+### Patch Changes
+
+- [#165562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165562)
+  [`59af663a32c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59af663a32c9a) -
+  Reduce block control re-renders under experiment
+- Updated dependencies
+
 ## 3.15.9
 
 ### Patch Changes

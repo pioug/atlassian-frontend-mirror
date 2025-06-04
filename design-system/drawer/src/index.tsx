@@ -1,19 +1,17 @@
-export { default } from './components';
+import { Drawer } from './drawer';
+export { DrawerContent } from './drawer-panel/drawer-content';
+export { DrawerSidebar } from './drawer-panel/drawer-sidebar';
+export { DrawerCloseButton } from './drawer-panel/drawer-close-button';
+
+export { Drawer, Drawer as default };
 
 export type {
 	BaseProps,
 	CloseTrigger,
-	ContentCSSProps,
-	ContentProps,
-	DefaultsType,
-	DrawerPrimitiveDefaults,
-	DrawerPrimitiveOverrides,
-	DrawerPrimitiveProps,
+	DrawerContentProps,
+	DrawerPanelProps,
 	DrawerProps,
 	DrawerWidth,
 	FocusLockProps,
-	OverridesType,
-	SidebarCSSProps,
-	SidebarProps,
-	Widths,
-} from './components/types';
+	DrawerSidebarProps,
+} from './types';

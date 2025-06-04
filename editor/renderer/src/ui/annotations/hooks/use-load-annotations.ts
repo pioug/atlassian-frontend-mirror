@@ -18,7 +18,8 @@ type Props = {
 export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete }: Props) => {
 	const actions = useContext(ActionsContext);
 	const providers = useContext(ProvidersContext);
-	const { dispatch } = useAnnotationManagerDispatch();
+	const { annotationManager, dispatch } = useAnnotationManagerDispatch();
+	const isAnnotationManagerEnabled = !!annotationManager;
 
 	useEffect(() => {
 		if (!providers) {
@@ -63,7 +64,7 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete
 				{},
 			);
 
-			if (fg('platform_editor_comments_api_manager')) {
+			if (isAnnotationManagerEnabled) {
 				dispatch({
 					type: 'loadAnnotation',
 					data: Object.keys(payload).map((id) => ({
@@ -82,5 +83,13 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete
 		};
 
 		inlineCommentGetState(ids, isNestedRender).then(cb);
-	}, [actions, providers, adfDocument, isNestedRender, onLoadComplete, dispatch]);
+	}, [
+		actions,
+		providers,
+		adfDocument,
+		isNestedRender,
+		onLoadComplete,
+		dispatch,
+		isAnnotationManagerEnabled,
+	]);
 };

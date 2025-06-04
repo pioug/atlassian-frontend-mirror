@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 14.8.4
+
+### Patch Changes
+
+- [#165533](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165533)
+  [`7c5aef443de8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c5aef443de8b) -
+  Updates codemod logic for the stage1 migration to account for various edge-cases
+
 ## 14.8.3
 
 ### Patch Changes

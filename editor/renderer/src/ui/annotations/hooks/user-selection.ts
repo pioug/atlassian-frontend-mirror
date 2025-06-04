@@ -7,6 +7,7 @@ import {
 import { isRangeInsideOfRendererContainer } from './utils';
 import { isRoot } from '../../../steps';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 
 type Props = {
 	rendererRef: React.RefObject<HTMLDivElement>;
@@ -21,7 +22,9 @@ export const useUserSelectionRange = (
 	const selectionTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 	const { clearSelectionRange, setSelectionRange } = useAnnotationRangeDispatch();
 	const { range, type, selectionDraftRange } = useAnnotationRangeState();
+	const { annotationManager } = useAnnotationManagerDispatch();
 	const lastRangeRef = useRef<Range | null>(null);
+	const isAnnotationManagerEnabled = !!annotationManager;
 
 	const onSelectionChange = useCallback(
 		(event: Event) => {
@@ -35,7 +38,7 @@ export const useUserSelectionRange = (
 
 					if (!sel || sel.type !== 'Range' || sel.rangeCount !== 1) {
 						lastRangeRef.current = null; // Clear last range if selection is invalid
-						if (fg('platform_editor_comments_api_manager')) {
+						if (isAnnotationManagerEnabled) {
 							clearSelectionRange();
 						}
 						return;
@@ -86,7 +89,7 @@ export const useUserSelectionRange = (
 					const sel = document.getSelection();
 
 					if (!sel || sel.type !== 'Range' || sel.rangeCount !== 1) {
-						if (fg('platform_editor_comments_api_manager')) {
+						if (isAnnotationManagerEnabled) {
 							clearSelectionRange();
 						}
 						return;
@@ -131,7 +134,7 @@ export const useUserSelectionRange = (
 				}, 250);
 			}
 		},
-		[rendererDOM, setSelectionRange, clearSelectionRange],
+		[rendererDOM, setSelectionRange, clearSelectionRange, isAnnotationManagerEnabled],
 	);
 
 	useEffect(() => {

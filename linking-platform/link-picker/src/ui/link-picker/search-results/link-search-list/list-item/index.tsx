@@ -9,7 +9,7 @@ import { type IntlShape, useIntl } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
-import { B100, B400, B50, N20, N200, N300, N400, N40A } from '@atlaskit/theme/colors';
+import { B100, B400, B50, N20, N300, N400, N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type LinkSearchListItemData } from '../../../../../common/types';
@@ -41,11 +41,6 @@ const listItemContextStyles = css({
 const listItemContainerStyles = css({
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
-});
-
-const listItemContainerInnerStyles = css({
-	color: token('color.text.subtlest', N200),
-	whiteSpace: 'nowrap',
 });
 
 const listItemContainerInnerStylesA11yRefresh = css({
@@ -115,24 +110,10 @@ const ListItemSubtitle = ({ items: [firstItem, secondItem] }: SubtitleProps) => 
 	return (
 		<div data-testid={`${testIds.searchResultItem}-subtitle`} css={listItemContextStyles}>
 			<div css={listItemContainerStyles}>
-				<span
-					css={[
-						fg('bandicoots-a11y-link-picker-styling')
-							? listItemContainerInnerStylesA11yRefresh
-							: listItemContainerInnerStyles,
-					]}
-				>
-					{firstItem}
-				</span>
+				<span css={[listItemContainerInnerStylesA11yRefresh]}>{firstItem}</span>
 			</div>
 			{secondItem && (
-				<div
-					css={[
-						fg('bandicoots-a11y-link-picker-styling')
-							? listItemContainerInnerStylesA11yRefresh
-							: listItemContainerInnerStyles,
-					]}
-				>
+				<div css={[listItemContainerInnerStylesA11yRefresh]}>
 					{fg('platform-linking-visual-refresh-link-picker') ? (
 						<span css={listItemContainerInnerStylesSeparatorLinkPickerRefresh}>
 							<Fragment>&nbsp; •&nbsp; </Fragment>

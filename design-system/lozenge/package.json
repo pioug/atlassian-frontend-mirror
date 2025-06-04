@@ -25,12 +25,10 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
-		".": "./src/index.tsx",
-		"./compiled": "./src/compiled/index.tsx"
+		".": "./src/index.tsx"
 	},
 	"exports": {
-		".": "./src/index.tsx",
-		"./compiled": "./src/compiled/index.tsx"
+		".": "./src/index.tsx"
 	},
 	"atlassian": {
 		"team": "Design System Team",
@@ -48,8 +46,7 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
-		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1"
+		"@compiled/react": "^0.18.3"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -79,8 +76,7 @@
 			"dom-events": "use-bind-event-listener",
 			"design-system": "v1",
 			"styling": [
-				"static",
-				"emotion"
+				"static"
 			],
 			"ui-components": [
 				"primitives",
@@ -102,9 +98,6 @@
 			"type": "boolean"
 		},
 		"platform-lozenge-custom-letterspacing": {
-			"type": "boolean"
-		},
-		"platform_dst_lozenge_fg": {
 			"type": "boolean"
 		}
 	},

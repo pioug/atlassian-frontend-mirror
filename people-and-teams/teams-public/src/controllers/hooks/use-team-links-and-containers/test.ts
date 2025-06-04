@@ -358,28 +358,18 @@ describe('useTeamLinksAndContainers', () => {
 		});
 	});
 
-	it('should update a WebLink container by converting it to a NewTeamWebLink', async () => {
+	it('should update a WebLink container by linkId using updateTeamLinkById', async () => {
 		const { result } = renderHook(() => useTeamLinksAndContainers(teamId));
 
-		const originalContainer: TeamContainer = {
-			id: 'test-78c8f78e',
-			type: 'WebLink',
-			name: 'Google slides',
-			icon: null,
-			link: 'https://docs.google.com/presentation/1',
-		};
-
-		const updatedContainer: TeamContainer = {
-			id: 'test-78c8f78e',
-			type: 'WebLink',
-			name: 'Updated Google Slides',
-			icon: null,
-			link: 'https://docs.google.com/presentation/3',
+		const linkId = 'test-78c8f78e';
+		const updatedFields = {
+			contentTitle: 'Updated Google Slides',
+			linkUri: 'https://docs.google.com/presentation/3',
 		};
 
 		mockUpdateTeamWebLink.mockResolvedValueOnce({ success: true });
 
-		result.current.updateTeamLink(originalContainer, updatedContainer);
+		result.current.updateTeamLinkById(linkId, updatedFields);
 
 		await waitFor(() => {
 			expect(mockUpdateTeamWebLink).toHaveBeenCalledWith(teamId, 'test-78c8f78e', {

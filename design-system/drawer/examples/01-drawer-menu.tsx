@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 
 export default () => {
@@ -14,7 +14,10 @@ export default () => {
 				isOpen={isOpen}
 				label="Navigation menu"
 			>
-				<div>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
 					<MenuGroup>
 						<Section title="Starred">
 							<ButtonItem description="Next-gen software project">Navigation System</ButtonItem>
@@ -27,12 +30,12 @@ export default () => {
 							<ButtonItem description="Classic service desk">Customer Feedback</ButtonItem>
 							<ButtonItem description="Classic software project">Design System</ButtonItem>
 						</Section>
-						<Section hasSeparator>
+						<Section title="Other" hasSeparator>
 							<ButtonItem>View all projects</ButtonItem>
 							<ButtonItem>Create project</ButtonItem>
 						</Section>
 					</MenuGroup>
-				</div>
+				</DrawerContent>
 			</Drawer>
 			<Button appearance="primary" onClick={() => setIsOpen(true)}>
 				Open drawer

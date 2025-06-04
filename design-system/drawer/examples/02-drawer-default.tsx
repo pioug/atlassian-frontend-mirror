@@ -1,29 +1,49 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
-import Lorem from 'react-lorem-component';
+import { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const DrawerDefaultExample = () => {
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+const styles = cssMap({
+	root: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
+});
+
+export default function DrawerExample() {
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ padding: '2rem' }}>
+		<Box xcss={styles.root}>
 			<Drawer
-				label="Default drawer"
+				isOpen={isDrawerOpen}
+				label="Basic drawer"
+				onClose={() => setIsDrawerOpen(false)}
 				testId="drawer-default"
-				onClose={() => setIsOpen(false)}
-				isOpen={isOpen}
 			>
-				<Lorem count={10} />
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>Drawer content</DrawerContent>
 			</Drawer>
-			<Button testId="drawer-trigger" type="button" onClick={() => setIsOpen(true)}>
+			<Button
+				id="open-drawer"
+				testId="drawer-trigger"
+				type="button"
+				onClick={() => setIsDrawerOpen(true)}
+			>
 				Open drawer
 			</Button>
-		</div>
+		</Box>
 	);
-};
-
-export default DrawerDefaultExample;
+}

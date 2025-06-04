@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/drawer",
-	"version": "10.1.5",
+	"version": "11.0.0",
 	"description": "A drawer is a panel that slides in from the left side of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,12 +26,10 @@
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
 		".": "./src/index.tsx",
-		"./compiled": "./src/entry-points/compiled.tsx",
 		"./constants": "./src/constants.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./compiled": "./src/entry-points/compiled.tsx",
 		"./constants": "./src/constants.tsx"
 	},
 	"homepage": "https://atlassian.design/components/drawer",
@@ -73,7 +71,6 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
 		"exenv": "^1.2.2",
 		"react-focus-lock": "^2.9.5",
@@ -120,8 +117,7 @@
 				"spacing"
 			],
 			"styling": [
-				"static",
-				"emotion"
+				"static"
 			],
 			"deprecation": "no-deprecated-imports",
 			"ui-components": [

@@ -1,7 +1,12 @@
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
 
-import { type IconItemFailure, type IconItemSuccess, type LinkIconData } from './types';
+import {
+	GetAriFromUrlResponse,
+	type IconItemFailure,
+	type IconItemSuccess,
+	type LinkIconData,
+} from './types';
 import { transformIconData } from './utils';
 
 const defaultConfig = {
@@ -19,6 +24,13 @@ export class ObjectResolverClient extends RestClient {
 			`/object-resolver/resolve/batch`,
 			JSON.stringify(requestBody),
 		).then(transformIconData);
+	}
+
+	async getAriFromUrl(url: string): Promise<string | undefined> {
+		return this.postResourceRaw<GetAriFromUrlResponse>(
+			`/object-resolver/converter/toAri`,
+			JSON.stringify({ resourceUrl: url }),
+		).then((response) => response?.data?.ari);
 	}
 }
 

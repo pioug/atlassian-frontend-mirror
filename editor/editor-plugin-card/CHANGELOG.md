@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 6.4.5
+
+### Patch Changes
+
+- [#163546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163546)
+  [`d3faab1b963ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3faab1b963ad) -
+  [ux] ED-28147 smart link support for cmd/ctrl click to open in new tab
+- Updated dependencies
+
 ## 6.4.4
 
 ### Patch Changes

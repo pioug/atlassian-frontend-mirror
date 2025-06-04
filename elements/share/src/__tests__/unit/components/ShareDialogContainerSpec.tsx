@@ -1,6 +1,9 @@
 import React from 'react';
 
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { shallow, type ShallowWrapper } from 'enzyme';
+import { IntlProvider } from 'react-intl-next';
 
 import { type OptionData } from '@atlaskit/smart-user-picker';
 
@@ -162,6 +165,40 @@ describe('ShareDialogContainer', () => {
 
 		return shallow(<ShareDialogContainerInternal {...props} />);
 	}
+
+	const renderRTL = (overrides: Partial<PropsOf<ShareDialogContainerInternal>> = {}) => {
+		const props: PropsOf<ShareDialogContainerInternal> = {
+			shareClient: mockShareClient,
+			urlShortenerClient: mockShortenerClient,
+			cloudId: mockCloudId,
+			orgId: mockOrgId,
+			dialogPlacement: mockDialogPlacement,
+			loadUserOptions: mockLoadUserOptions,
+			originTracingFactory: mockOriginTracingFactory,
+			productId: mockProductId,
+			renderCustomTriggerButton: mockRenderCustomTriggerButton,
+			shareAri: mockShareAri,
+			shareContentType: mockShareContentType,
+			shareLink: mockShareLink,
+			shareTitle: mockShareTitle,
+			showFlags: mockShowFlags,
+			formatCopyLink: mockFormatCopyLink,
+			shouldCloseOnEscapePress: mockShouldCloseOnEscapePress,
+			triggerButtonAppearance: mockTriggerButtonAppearance,
+			triggerButtonStyle: mockTriggerButtonStyle,
+			triggerButtonTooltipText: mockTriggerButtonTooltipText,
+			triggerButtonTooltipPosition: mockTriggerButtonTooltipPosition,
+			createAnalyticsEvent: mockCreateAnalyticsEvent,
+			userPickerOptions: mockUserPickerOptions,
+			...overrides,
+		};
+
+		return render(
+			<IntlProvider locale="en">
+				<ShareDialogContainerInternal {...props} />
+			</IntlProvider>,
+		);
+	};
 
 	function getShareDialogWithTrigger(wrapper: ReturnType<typeof getWrapper>) {
 		return wrapper.find(ShareDialogWithTrigger);
@@ -421,6 +458,18 @@ describe('ShareDialogContainer', () => {
 				},
 				mockComment,
 			);
+		});
+
+		it('should not call share action if no users are selected and extended dialog is enabled', async () => {
+			renderRTL({
+				renderCustomTriggerButton: (props) => <button {...props}>Open form</button>,
+				isExtendedShareDialogEnabled: true,
+			});
+
+			await userEvent.click(screen.getByRole('button', { name: 'Open form' }));
+			await userEvent.click(screen.getByRole('button', { name: 'Share' }));
+
+			expect(mockShare).not.toHaveBeenCalled();
 		});
 
 		it('should send shareeAction', () => {

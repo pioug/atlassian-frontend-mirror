@@ -164,8 +164,9 @@ export const MarkComponent = ({
 		() => [...new Set([...annotationParentIds, id])],
 		[id, annotationParentIds],
 	);
-	const { dispatch } = useAnnotationManagerDispatch();
+	const { annotationManager, dispatch } = useAnnotationManagerDispatch();
 	const { currentSelectedAnnotationId } = useAnnotationManagerState();
+	const isAnnotationManagerEnabled = !!annotationManager;
 
 	// after creating a new annotation, we need to set the markRef to the new mark
 	const markRef = useCallback(
@@ -214,7 +215,7 @@ export const MarkComponent = ({
 				event.preventDefault();
 			}
 
-			if (fg('platform_editor_comments_api_manager')) {
+			if (isAnnotationManagerEnabled) {
 				// currentTarget is the right element if there are multiple overlapping annotations
 				// Ignored via go/ees005
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -225,7 +226,7 @@ export const MarkComponent = ({
 				onClick({ eventTarget: event.target as HTMLElement, annotationIds });
 			}
 		},
-		[annotationIds, onClick, state],
+		[annotationIds, onClick, state, isAnnotationManagerEnabled],
 	);
 
 	const onMarkEnter = (evt: KeyboardEvent) => {

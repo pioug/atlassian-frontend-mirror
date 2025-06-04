@@ -1,7 +1,7 @@
 import React, { Component, type SyntheticEvent } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import Modal, { ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -48,7 +48,12 @@ export default class DrawersExample extends Component<{}, State> {
 						zIndex={layers.modal()}
 						label="Drawer layer precedence"
 					>
-						<code>Content</code>
+						<DrawerSidebar>
+							<DrawerCloseButton />
+						</DrawerSidebar>
+						<DrawerContent>
+							<code>Content</code>
+						</DrawerContent>
 					</Drawer>
 
 					<Button id="open-drawer" type="button" onClick={this.openDrawer}>

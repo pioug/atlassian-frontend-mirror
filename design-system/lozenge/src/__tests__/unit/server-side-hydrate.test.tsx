@@ -2,9 +2,9 @@ import React from 'react';
 
 import { doesHydrateWithSsr } from '@atlassian/ssr-tests';
 
-describe.each(['0-basic', '0-basic-compiled'])('variant=%p', (exampleName) => {
+describe('Server side hydration', () => {
 	test('should ssr then hydrate correctly', async () => {
-		const Example = require(`../../../examples/${exampleName}`).default;
+		const Example = require(`../../../examples/0-basic`).default;
 		expect(await doesHydrateWithSsr(<Example />)).toBe(true);
 	});
 });

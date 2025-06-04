@@ -12,7 +12,7 @@ import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import type { IconAppearance, InlineDialogPlacement } from '../../types';
+import type { IconAppearance, IconSpacing, InlineDialogPlacement } from '../../types';
 import MessageIcon from '../message-icon';
 
 interface InlineMessageProps extends Pick<InlineDialogProps, 'fallbackPlacements'> {
@@ -38,6 +38,10 @@ interface InlineMessageProps extends Pick<InlineDialogProps, 'fallbackPlacements
 	 * confirmation, info, warning, and error.
 	 */
 	appearance?: IconAppearance;
+	/**
+	 * The spacing of the underlying icon button. Options are: spacious and compact.
+	 */
+	spacing?: IconSpacing;
 	/**
 	 * A unique string that appears as a data attribute, `data-testid`,
 	 * in the rendered code. It is provided to serve as a hook for automated tests.
@@ -120,6 +124,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 	secondaryText = '',
 	title = '',
 	appearance = 'connectivity',
+	spacing = 'spacious',
 	children,
 	testId,
 	iconLabel,
@@ -152,7 +157,12 @@ const InlineMessage: FC<InlineMessageProps> = ({
 					aria-expanded={isOpen}
 				>
 					<Inline space="space.050" alignBlock="center">
-						<MessageIcon isOpen={isOpen} appearance={appearance} label={iconLabel} />
+						<MessageIcon
+							isOpen={isOpen}
+							appearance={appearance}
+							label={iconLabel}
+							spacing={spacing}
+						/>
 						<Inline space="space.100">
 							{title && (
 								<Text weight="medium" testId={testId && `${testId}--title`}>

@@ -60,7 +60,6 @@ export const InlineCardWithAwareness = memo(
 		const [isInserted, setIsInserted] = useState(false);
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 		const editorAppearance = pluginInjectionApi?.card.sharedState.currentState()?.editorAppearance;
-		const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
 
 		const onResolve = useCallback((tr: Transaction, title?: string): void => {
 			const metadata = tr.getMeta(pluginKey);
@@ -101,7 +100,7 @@ export const InlineCardWithAwareness = memo(
 					isVisible={isResolvedViewRendered}
 					url={node.attrs.url}
 					editorAppearance={editorAppearance}
-					editorAnalyticsApi={editorAnalyticsApi}
+					editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 					view={view}
 				>
 					<InlineCard
@@ -115,6 +114,7 @@ export const InlineCardWithAwareness = memo(
 						cardContext={cardContext}
 						isHovered={isHovered}
 						isPageSSRed={isPageSSRed}
+						pluginInjectionApi={pluginInjectionApi}
 					/>
 				</OpenButtonOverlay>
 			),
@@ -131,7 +131,7 @@ export const InlineCardWithAwareness = memo(
 				cardContext,
 				isHovered,
 				isPageSSRed,
-				editorAnalyticsApi,
+				pluginInjectionApi,
 			],
 		);
 
@@ -148,6 +148,7 @@ export const InlineCardWithAwareness = memo(
 					cardContext={cardContext}
 					isHovered={isHovered}
 					isPageSSRed={isPageSSRed}
+					pluginInjectionApi={pluginInjectionApi}
 				/>
 			),
 			[
@@ -161,6 +162,7 @@ export const InlineCardWithAwareness = memo(
 				useAlternativePreloader,
 				view,
 				isPageSSRed,
+				pluginInjectionApi,
 			],
 		);
 

@@ -11,6 +11,8 @@ export type IconAppearanceMap = Record<IconAppearance, Icon>;
 
 export type IconAppearance = 'connectivity' | 'confirmation' | 'info' | 'warning' | 'error';
 
+export type IconSpacing = 'spacious' | 'compact';
+
 // cannot import from flow types, should be removed after InlineDialog conversion
 export type InlineDialogPlacement =
 	| 'auto-start'

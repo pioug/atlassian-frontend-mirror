@@ -11,7 +11,7 @@ import { Grid, Inline, Stack } from '@atlaskit/primitives';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { type ContainerTypes } from '../../common/types';
+import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { hasProductPermission } from '../../controllers';
 import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
@@ -26,6 +26,7 @@ import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { LinkedContainerCard } from './linked-container-card';
 import { NoProductAccessState } from './no-product-access-empty-state';
 import { TeamContainersSkeleton } from './team-containers-skeleton';
+import { TeamLinkCard } from './team-link-card';
 import { type TeamContainerProps } from './types';
 
 export const ICON_BACKGROUND = token('color.icon.inverse', N0);
@@ -41,6 +42,7 @@ interface SelectedContainerDetails {
 export const TeamContainers = ({
 	teamId,
 	onAddAContainerClick,
+	onEditContainerClick,
 	components,
 	userId,
 	cloudId,
@@ -54,7 +56,7 @@ export const TeamContainers = ({
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
-	const { teamLinks } = useTeamLinksAndContainers(teamId, true);
+	const { teamLinks, removeTeamLink } = useTeamLinksAndContainers(teamId, true);
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
@@ -159,14 +161,30 @@ export const TeamContainers = ({
 		[createAnalyticsEvent, fireTrackEvent, teamId],
 	);
 
-	const LinkedContainerCardComponent = components?.ContainerCard || LinkedContainerCard;
+	const handleEditContainerClick = useCallback(
+		(container: TeamContainer) => {
+			if (container.type === 'WebLink' && onEditContainerClick) {
+				onEditContainerClick(container.id, container.link || '', container.name);
+			}
+		},
+		[onEditContainerClick],
+	);
+
+	const LinkedContainerCardComponent =
+		components?.ContainerCard || (isSupportingAddWebLink ? TeamLinkCard : LinkedContainerCard);
 
 	const handleDisconnect = useCallback(
 		async (containerId: string) => {
-			const removedContainer = filteredTeamContainers.find(
-				(container) => container.id === containerId,
-			);
-			await actions.unlinkTeamContainers(teamId, containerId);
+			const removedContainer = isSupportingAddWebLink
+				? filteredTeamLinks.find((container) => container.id === containerId)
+				: filteredTeamContainers.find((container) => container.id === containerId);
+
+			if (isSupportingAddWebLink && removedContainer) {
+				await removeTeamLink(removedContainer);
+			} else {
+				await actions.unlinkTeamContainers(teamId, containerId);
+			}
+
 			setIsDisconnectDialogOpen(false);
 			if (unlinkError) {
 				fireOperationalEvent(createAnalyticsEvent, {
@@ -192,6 +210,9 @@ export const TeamContainers = ({
 			createAnalyticsEvent,
 			fireOperationalEvent,
 			filteredTeamContainers,
+			filteredTeamLinks,
+			isSupportingAddWebLink,
+			removeTeamLink,
 			teamId,
 			unlinkError,
 		],
@@ -245,6 +266,7 @@ export const TeamContainers = ({
 												containerName: container.name,
 											})
 										}
+										onEditLinkClick={() => handleEditContainerClick(container)}
 									/>
 								);
 							})
@@ -287,7 +309,10 @@ export const TeamContainers = ({
 						/>
 					)}
 					{isSupportingAddWebLink && showAddContainer.WebLink && (
-						<AddContainerCard onAddAContainerClick={() => {}} containerType="WebLink" />
+						<AddContainerCard
+							onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
+							containerType="WebLink"
+						/>
 					)}
 					{showMore && isSupportingAddWebLink
 						? filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
@@ -307,6 +332,7 @@ export const TeamContainers = ({
 												containerName: container.name,
 											})
 										}
+										onEditLinkClick={() => handleEditContainerClick(container)}
 									/>
 								);
 							})

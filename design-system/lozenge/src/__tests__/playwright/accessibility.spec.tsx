@@ -1,11 +1,9 @@
 import { expect, test } from '@af/integration-testing';
 
-['basic', 'basic-compiled'].forEach((testName) => {
-	test(`should be rendered and pass basic aXe audit on ${testName}`, async ({ page }) => {
-		await page.visitExample('design-system', 'lozenge', testName);
+test('should be rendered and pass basic aXe audit on', async ({ page }) => {
+	await page.visitExample('design-system', 'lozenge', 'basic');
 
-		const subtleLozenge = page.locator("[data-testid='lozenge-subtle']").first();
+	const subtleLozenge = page.locator("[data-testid='lozenge-subtle']").first();
 
-		await expect(subtleLozenge).toBeVisible();
-	});
+	await expect(subtleLozenge).toBeVisible();
 });

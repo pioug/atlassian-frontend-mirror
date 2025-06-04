@@ -36,7 +36,7 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 	describe('ShareDialogWithTrigger', () => {
 		let mockCreateAnalyticsEvent: jest.Mock;
 		let mockOnShareSubmit: jest.Mock = jest.fn();
-		const mockLoadOptions = () => [];
+		const mockLoadOptions = jest.fn();
 		const mockShowFlags: jest.Mock = jest.fn();
 		const mockOnDialogOpen: jest.Mock = jest.fn();
 		const mockOnDialogClose: jest.Mock = jest.fn();
@@ -106,6 +106,38 @@ ffTest.both('share-compiled-migration', 'share-compiled-migration', () => {
 			await userEvent.click(trigger);
 			await userEvent.click(trigger);
 			expect(mockOnDialogClose).toHaveBeenCalledTimes(1);
+		});
+
+		it('should show flag on share submit success', async () => {
+			mockOnShareSubmit.mockResolvedValue(undefined);
+			renderShare({
+				submitButtonLabel: 'ShareInDialog',
+			});
+
+			const user = userEvent.setup();
+
+			await user.click(screen.getByRole('button', { name: 'Share' }));
+			await user.click(screen.getByRole('combobox'));
+			await user.keyboard('test@test.com[Enter]');
+
+			await user.click(screen.getByText('ShareInDialog'));
+
+			expect(mockShowFlags).toHaveBeenCalledTimes(1);
+		});
+
+		it('should not show flag on share submit with no recipients and extended share dialog enabled', async () => {
+			mockOnShareSubmit.mockResolvedValue(undefined);
+			renderShare({
+				submitButtonLabel: 'ShareInDialog',
+				isExtendedShareDialogEnabled: true,
+			});
+
+			const user = userEvent.setup();
+
+			await user.click(screen.getByRole('button', { name: 'Share' }));
+			await user.click(screen.getByText('ShareInDialog'));
+
+			expect(mockShowFlags).toHaveBeenCalledTimes(0);
 		});
 
 		describe('Share error handling', () => {

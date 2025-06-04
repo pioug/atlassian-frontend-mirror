@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import Flag, { FlagGroup, FlagsProvider, useFlags } from '@atlaskit/flag';
 import Info from '@atlaskit/icon/glyph/info';
 import { Box } from '@atlaskit/primitives/compiled';

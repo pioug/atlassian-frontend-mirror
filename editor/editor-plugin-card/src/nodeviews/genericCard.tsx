@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
 import type { EventHandler, KeyboardEvent, MouseEvent } from 'react';
+import React, { useCallback } from 'react';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -11,7 +11,7 @@ import {
 	useSharedPluginState,
 } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { getPosHandler, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
+import type { ReactComponentProps, getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';

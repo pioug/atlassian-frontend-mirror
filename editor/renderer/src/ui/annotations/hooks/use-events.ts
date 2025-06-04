@@ -18,7 +18,6 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	useAnnotationManagerDispatch,
 	useAnnotationManagerState,
@@ -40,8 +39,9 @@ export const useAnnotationStateByTypeEvent = ({
 	updateSubscriber,
 }: UseAnnotationUpdateSatteByEventProps) => {
 	const [states, setStates] = useState<Record<AnnotationId, AnnotationMarkStates | null>>({});
-	const { dispatch } = useAnnotationManagerDispatch();
+	const { annotationManager, dispatch } = useAnnotationManagerDispatch();
 	const { annotations } = useAnnotationManagerState();
+	const isAnnotationManagerEnabled = !!annotationManager;
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber) {
@@ -77,14 +77,14 @@ export const useAnnotationStateByTypeEvent = ({
 			});
 		};
 
-		if (!fg('platform_editor_comments_api_manager')) {
+		if (!isAnnotationManagerEnabled) {
 			updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_STATE, cb);
 
 			return () => {
 				updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_STATE, cb);
 			};
 		}
-	}, [states, type, updateSubscriber, dispatch]);
+	}, [states, type, updateSubscriber, dispatch, isAnnotationManagerEnabled]);
 
 	const annotationMarkStates = useMemo(() => {
 		return Object.values(annotations).reduce<Record<AnnotationId, AnnotationMarkStates | null>>(
@@ -98,7 +98,7 @@ export const useAnnotationStateByTypeEvent = ({
 		);
 	}, [annotations]);
 
-	if (fg('platform_editor_comments_api_manager')) {
+	if (isAnnotationManagerEnabled) {
 		return annotationMarkStates;
 	} else {
 		return states;
@@ -109,6 +109,8 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 	const [hasFocus, setHasFocus] = useState<boolean>(false);
 	const [isHovered, setIsHovered] = useState<boolean>(false);
 	const { currentSelectedAnnotationId, currentHoveredAnnotationId } = useAnnotationManagerState();
+	const { annotationManager } = useAnnotationManagerDispatch();
+	const isAnnotationManagerEnabled = !!annotationManager;
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber) {
@@ -141,7 +143,7 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 			}
 		};
 
-		if (!fg('platform_editor_comments_api_manager')) {
+		if (!isAnnotationManagerEnabled) {
 			updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
 			updateSubscriber.on(
 				AnnotationUpdateEvent.SET_ANNOTATION_HOVERED,
@@ -160,9 +162,9 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 				updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_HOVERED, removeHoverEffect);
 			};
 		}
-	}, [id, updateSubscriber]);
+	}, [id, updateSubscriber, isAnnotationManagerEnabled]);
 
-	if (fg('platform_editor_comments_api_manager')) {
+	if (isAnnotationManagerEnabled) {
 		return {
 			hasFocus: currentSelectedAnnotationId === id,
 			isHovered: currentHoveredAnnotationId === id,
@@ -188,7 +190,8 @@ export const useAnnotationClickEvent = (
 	const [annotationClickEvent, setAnnotationClickEvent] =
 		useState<AnnotationsWithClickTarget>(null);
 	const { updateSubscriber, createAnalyticsEvent, isNestedRender } = props;
-
+	const { annotationManager } = useAnnotationManagerDispatch();
+	const isAnnotationManagerEnabled = !!annotationManager;
 	const { currentSelectedAnnotationId, currentSelectedMarkRef } = useAnnotationManagerState();
 	const selectedAnnotation = useMemo(() => {
 		return currentSelectedAnnotationId &&
@@ -257,7 +260,7 @@ export const useAnnotationClickEvent = (
 			}
 		};
 
-		if (!fg('platform_editor_comments_api_manager')) {
+		if (!isAnnotationManagerEnabled) {
 			updateSubscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
 			updateSubscriber.on(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 
@@ -266,9 +269,9 @@ export const useAnnotationClickEvent = (
 				updateSubscriber.off(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 			};
 		}
-	}, [updateSubscriber, createAnalyticsEvent, isNestedRender]);
+	}, [updateSubscriber, createAnalyticsEvent, isNestedRender, isAnnotationManagerEnabled]);
 
-	if (fg('platform_editor_comments_api_manager')) {
+	if (isAnnotationManagerEnabled) {
 		return isNestedRender ? null : selectedAnnotation;
 	} else {
 		return annotationClickEvent;

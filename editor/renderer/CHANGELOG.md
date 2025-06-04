@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 118.6.7
+
+### Patch Changes
+
+- [#165439](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165439)
+  [`1b15e228a1e86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b15e228a1e86) -
+  Fixed an issue which meant the new annotation manager still realied on a FG to be enabled when in
+  fact it should be enabled if an instance of the manager is supplied. Thie removed all dependencies
+  relying on the FG.
+
 ## 118.6.6
 
 ### Patch Changes

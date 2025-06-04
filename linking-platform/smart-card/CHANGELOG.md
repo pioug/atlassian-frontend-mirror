@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 38.6.0
+
+### Minor Changes
+
+- [#164586](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164586)
+  [`ef096c9e7bd94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef096c9e7bd94) -
+  Adds analytics for AISnippet component. Updates SnippetBlock in smart-card to pass hidden
+  information to prevent logging of metrics in hidden cases
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.5.5
 
 ### Patch Changes

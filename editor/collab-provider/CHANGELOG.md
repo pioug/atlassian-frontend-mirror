@@ -1,5 +1,25 @@
 # @atlaskit/collab-provider
 
+## 10.19.0
+
+### Minor Changes
+
+- [#165804](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165804)
+  [`0480ffe1dfd8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0480ffe1dfd8e) -
+  Use WebSocket first, polling later strategy, eliminate the need of the cloudId check
+
+## 10.18.0
+
+### Minor Changes
+
+- [#165030](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165030)
+  [`ee08b24ec9d2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee08b24ec9d2a) -
+  Enable the polling fallback only for selected tenants
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.17.1
 
 ### Patch Changes

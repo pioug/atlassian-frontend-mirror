@@ -30,6 +30,9 @@
 			"path": "../../../design-system/css/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/dropdown-menu/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../measurement/feature-gate-js-client/afm-post-office/tsconfig.json"
 		},
 		{

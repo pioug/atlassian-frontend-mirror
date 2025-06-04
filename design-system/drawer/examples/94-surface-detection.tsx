@@ -4,28 +4,29 @@
  */
 import { Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { token } from '@atlaskit/tokens';
 
-const contentStyles = css({
-	padding: token('space.100', '8px'),
-	position: 'relative',
-});
-
-const headerStyles = css({
-	padding: token('space.100', '8px'),
-	position: 'absolute',
-	backgroundColor: token('utility.elevation.surface.current'),
-	borderBlockEnd: `1px solid ${token('color.border')}`,
-	boxShadow: token('elevation.shadow.overflow'),
-	insetBlockStart: 0,
-	insetInlineEnd: 0,
-	insetInlineStart: 0,
+const styles = cssMap({
+	content: {
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
+		position: 'relative',
+		backgroundColor: token('color.background.accent.blue.subtlest'),
+	},
+	header: {
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+		backgroundColor: token('utility.elevation.surface.current'),
+	},
 });
 
 const DrawerSurfaceDetectionExample = () => {
@@ -34,12 +35,17 @@ const DrawerSurfaceDetectionExample = () => {
 	return (
 		<Fragment>
 			<Drawer onClose={() => setOpen(false)} isOpen={open} label="Surface detection">
-				<div css={contentStyles}>
-					<div css={headerStyles}>
-						<h2>Header overlay</h2>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<div css={styles.content}>
+						<div css={styles.header}>
+							<h2>Current surface</h2>
+						</div>
+						<Lorem count={2} />
 					</div>
-					<Lorem count={2} />
-				</div>
+				</DrawerContent>
 			</Drawer>
 			<Button appearance="primary" onClick={() => setOpen(true)}>
 				Open drawer

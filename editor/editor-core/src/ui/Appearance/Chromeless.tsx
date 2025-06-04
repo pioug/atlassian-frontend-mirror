@@ -33,6 +33,31 @@ import EditorContentContainer from '../EditorContentContainer/EditorContentConta
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';
 
+const scrollbarStylesNew = css({
+	'-ms-overflow-style': '-ms-autohiding-scrollbar',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar': {
+		overflow: 'hidden',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar-corner': {
+		display: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar-thumb': {
+		backgroundColor: token('color.background.neutral.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:hover::-webkit-scrollbar-thumb': {
+		backgroundColor: token('color.background.neutral.bold'),
+		borderRadius: 8,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar-thumb:hover': {
+		backgroundColor: token('color.background.neutral.bold.hovered'),
+	},
+});
+
 const chromelessEditorStyles = css(
 	{
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -60,6 +85,28 @@ const chromelessEditorStyles = css(
 		},
 	},
 );
+
+const chromelessEditorStylesNew = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	lineHeight: '20px',
+	height: 'auto',
+	overflowX: 'hidden',
+	overflowY: 'auto',
+	maxWidth: 'inherit',
+	boxSizing: 'border-box',
+	wordWrap: 'break-word',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'div > .ProseMirror': {
+		outline: 'none',
+		whiteSpace: 'pre-wrap',
+		padding: 0,
+		margin: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'& > :last-child': {
+			paddingBottom: token('space.100', '0.5em'),
+		},
+	},
+});
 
 export const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
@@ -126,7 +173,11 @@ export default class Editor extends React.Component<AppearanceProps> {
 			<WithFlash animate={maxContentSizeReached}>
 				<div
 					css={[
-						chromelessEditorStyles,
+						editorExperiment('platform_editor_core_static_emotion', true, { exposure: true })
+							? chromelessEditorStylesNew
+							: chromelessEditorStyles,
+						editorExperiment('platform_editor_core_static_emotion', true, { exposure: true }) &&
+							scrollbarStylesNew,
 						maxHeight &&
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css({

@@ -1,5 +1,37 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.11.1
+
+### Patch Changes
+
+- [#165694](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165694)
+  [`2e1b7ff8a2e49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e1b7ff8a2e49) -
+  refactor: align expValEquals and expValEqualsNoExposure to jira and confluence APIs
+
+## 5.11.0
+
+### Minor Changes
+
+- [#165562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165562)
+  [`59af663a32c9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59af663a32c9a) -
+  Reduce block control re-renders under experiment
+
+## 5.10.0
+
+### Minor Changes
+
+- [#163546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163546)
+  [`d3faab1b963ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3faab1b963ad) -
+  [ux] ED-28147 smart link support for cmd/ctrl click to open in new tab
+
+## 5.9.0
+
+### Minor Changes
+
+- [#164680](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164680)
+  [`6e5063967bda1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e5063967bda1) -
+  EDITOR-759 Put improve writing on full page using ADF streaming behind experiment.
+
 ## 5.8.0
 
 ### Minor Changes

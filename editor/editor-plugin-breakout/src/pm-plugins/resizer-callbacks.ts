@@ -8,6 +8,7 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { ElementDragPayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import {
 	BaseEventPayload,
 	DragLocationHistory,
@@ -31,12 +32,18 @@ export function getProposedWidth({
 	initialWidth,
 	location,
 	api,
+	source,
 }: {
 	initialWidth: number;
 	location: DragLocationHistory;
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
+	source: ElementDragPayload;
 }): number {
-	const diffX = (location.current.input.clientX - location.initial.input.clientX) * RESIZE_RATIO;
+	const directionMultiplier = source.data.handleSide === 'left' ? -1 : 1;
+	const diffX =
+		(location.current.input.clientX - location.initial.input.clientX) *
+		RESIZE_RATIO *
+		directionMultiplier;
 
 	// TODO: ED-28024 - add snapping logic
 
@@ -80,16 +87,16 @@ export function createResizerCallbacks({
 			const pos = view.posAtDOM(dom, 0);
 			node = view.state.doc.nodeAt(pos);
 		},
-		onDrag: ({ location }) => {
+		onDrag: ({ location, source }) => {
 			const initialWidth = mark.attrs.width;
-			const newWidth = getProposedWidth({ initialWidth, location, api });
+			const newWidth = getProposedWidth({ initialWidth, location, api, source });
 
 			guidelines = getGuidelines(true, newWidth, getEditorWidth, node?.type);
 			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
 
 			contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
 		},
-		onDrop({ location }) {
+		onDrop({ location, source }) {
 			const isResizedToFullWidth = !!guidelines.find(
 				(guideline) => guideline.key.includes('full_width') && guideline.active,
 			);
@@ -102,7 +109,7 @@ export function createResizerCallbacks({
 			const initialWidth = mark.attrs.width;
 			const newWidth = isResizedToFullWidth
 				? WIDTHS.MAX
-				: getProposedWidth({ initialWidth, location, api });
+				: getProposedWidth({ initialWidth, location, api, source });
 			setBreakoutWidth(newWidth, mode, pos)(view.state, view.dispatch);
 
 			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);

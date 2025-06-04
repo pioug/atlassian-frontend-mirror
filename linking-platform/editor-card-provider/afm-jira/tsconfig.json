@@ -18,9 +18,6 @@
 	],
 	"references": [
 		{
-			"path": "../../../platform/eslint-plugin/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
 		},
 		{

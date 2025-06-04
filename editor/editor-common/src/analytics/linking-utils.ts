@@ -68,7 +68,8 @@ export const buildVisitedNonHyperLinkPayload = (
 		| INPUT_METHOD.TOOLBAR
 		| INPUT_METHOD.BUTTON
 		| INPUT_METHOD.DOUBLE_CLICK
-		| INPUT_METHOD.FLOATING_TB,
+		| INPUT_METHOD.FLOATING_TB
+		| INPUT_METHOD.META_CLICK,
 ): AnalyticsEventPayload => {
 	return {
 		action: ACTION.VISITED,

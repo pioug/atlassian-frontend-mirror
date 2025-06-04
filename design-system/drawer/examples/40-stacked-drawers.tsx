@@ -4,11 +4,10 @@
  */
 import { Component, type SyntheticEvent } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 
 interface State {
 	isDrawerOpen: boolean;
@@ -64,23 +63,33 @@ export default class DrawersExample extends Component<{}, State> {
 					width="narrow"
 					label="Drawer with nested drawer"
 				>
-					<code>Drawer contents</code>
-					<div css={spacingStyles}>
-						<Button id="open-drawer" type="button" onClick={this.openNestedDrawer}>
-							Open Nested drawer
-						</Button>
-					</div>
-					<div css={spacingStyles}>
-						<Drawer
-							onClose={this.onNestedClose}
-							onCloseComplete={this.onNestedCloseComplete}
-							isOpen={this.state.isNestedDrawerOpen}
-							width="extended"
-							label="Nested drawer"
-						>
-							<code>Nested Drawer Content</code>
-						</Drawer>
-					</div>
+					<DrawerSidebar>
+						<DrawerCloseButton />
+					</DrawerSidebar>
+					<DrawerContent>
+						<code>Drawer contents</code>
+						<div css={spacingStyles}>
+							<Button id="open-drawer" type="button" onClick={this.openNestedDrawer}>
+								Open Nested drawer
+							</Button>
+						</div>
+						<div css={spacingStyles}>
+							<Drawer
+								onClose={this.onNestedClose}
+								onCloseComplete={this.onNestedCloseComplete}
+								isOpen={this.state.isNestedDrawerOpen}
+								width="extended"
+								label="Nested drawer"
+							>
+								<DrawerSidebar>
+									<DrawerCloseButton />
+								</DrawerSidebar>
+								<DrawerContent>
+									<code>Nested Drawer Content</code>
+								</DrawerContent>
+							</Drawer>
+						</div>
+					</DrawerContent>
 				</Drawer>
 				<Button id="open-drawer" type="button" onClick={this.openDrawer}>
 					Open drawer

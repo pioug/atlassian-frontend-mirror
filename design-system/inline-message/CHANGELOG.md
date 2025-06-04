@@ -1,5 +1,16 @@
 # @atlaskit/inline-message
 
+## 15.3.0
+
+### Minor Changes
+
+- [#160675](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160675)
+  [`ec40f9de24066`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec40f9de24066) -
+  Adds `spacing` prop to allow compact spacing on the underlying icon button.
+- [#160675](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/160675)
+  [`5160a5ab2e887`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5160a5ab2e887) -
+  Adds `spacing` prop to allow compact spacing on the underlying icon button.
+
 ## 15.2.1
 
 ### Patch Changes

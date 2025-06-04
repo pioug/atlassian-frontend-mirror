@@ -103,6 +103,7 @@ export type BaseSnippetRendererProps = {
 	fallbackText: string;
 	fallbackComponent: React.ReactNode;
 	maxLines: number;
+	isHidden?: boolean;
 };
 export type AISnippetRendererProps = BaseSnippetRendererProps & {
 	contentId: string;

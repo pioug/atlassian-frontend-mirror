@@ -13,7 +13,15 @@ export interface TeamContainerProps {
 	 */
 	onAddAContainerClick: (
 		e: React.MouseEvent<HTMLButtonElement>,
-		containerType: 'Confluence' | 'Jira' | 'Loom',
+		containerType: 'Confluence' | 'Jira' | 'Loom' | 'WebLink',
+	) => void;
+	/**
+	 * The function to call when the edit container button is clicked
+	 */
+	onEditContainerClick?: (
+		containerId: string,
+		containerLink: string,
+		containerTitle: string,
 	) => void;
 	/**
 	 * The component to replace current components

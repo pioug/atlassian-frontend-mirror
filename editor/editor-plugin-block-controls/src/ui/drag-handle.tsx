@@ -2,8 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { DragEvent, KeyboardEvent, MouseEvent } from 'react';
-import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import type { CSSProperties, DragEvent, KeyboardEvent, MouseEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -37,8 +37,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
-import DragHandleVerticalIcon from '@atlaskit/icon/utility/drag-handle-vertical';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
@@ -366,35 +366,38 @@ export const DragHandle = ({
 	isTopLevelNode = true,
 	anchorRectCache,
 }: DragHandleProps) => {
-	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
-
-	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
-
+	const [blockCardWidth, setBlockCardWidth] = useState(768);
+	const [recalculatePosition, setRecalculatePosition] = useState<boolean>(false);
+	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
 	const { macroInteractionUpdates } = useDragHandlePluginState(api);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
 	const _hasHadInteraction =
 		useSharedPluginStateSelector(api, 'interaction.hasHadInteraction') !== false;
 	const interactionState = useSharedPluginStateSelector(api, 'interaction.interactionState');
+
+	const start = getPos();
 	const isLayoutColumn = nodeType === 'layoutColumn';
 	const isMultiSelect = editorExperiment('platform_editor_element_drag_and_drop_multiselect', true);
+
 	useEffect(() => {
+		if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
+			return;
+		}
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
 		if (nodeType === 'blockCard') {
 			const dom: HTMLElement | null = view.dom.querySelector(
 				`[data-drag-handler-anchor-name="${anchorName}"]`,
 			);
 			const container = dom?.querySelector('.datasourceView-content-inner-wrap');
-
 			if (container) {
 				const resizeObserver = new ResizeObserver((entries) => {
 					const width = entries[0].contentBoxSize[0].inlineSize;
 					setBlockCardWidth(width);
 				});
-
 				resizeObserver.observe(container);
 				return () => resizeObserver.unobserve(container);
 			}
@@ -701,7 +704,114 @@ export const DragHandle = ({
 		});
 	}, [anchorName, api, getPos, isMultiSelect, nodeType, start, view]);
 
-	const calculatePosition = useCallback(() => {
+	const positionStyles = useMemo(() => {
+		if (!editorExperiment('platform_editor_block_control_optimise_render', true)) {
+			return {};
+		}
+
+		// This is a no-op to allow recalculatePosition to be used as a dependency
+		if (recalculatePosition) {
+			setRecalculatePosition(recalculatePosition);
+		}
+
+		const pos = getPos();
+		const $pos = pos && view.state.doc.resolve(pos);
+		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
+		const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
+		const parentNodeType = node?.type.name;
+		const supportsAnchor =
+			CSS.supports('top', `anchor(${anchorName} start)`) &&
+			CSS.supports('left', `anchor(${anchorName} start)`);
+
+		const safeAnchorName =
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_2')
+				? refreshAnchorName({ getPos, view, anchorName })
+				: anchorName;
+
+		const dom: HTMLElement | null = view.dom.querySelector(
+			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
+		);
+
+		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
+		const isExtension =
+			nodeType === 'extension' ||
+			nodeType === 'bodiedExtension' ||
+			(nodeType === 'multiBodiedExtension' &&
+				fg('platform_editor_multi_body_extension_extensibility'));
+		const isBlockCard = nodeType === 'blockCard';
+
+		const isEmbedCard = nodeType === 'embedCard';
+
+		const isMacroInteractionUpdates = macroInteractionUpdates && isExtension;
+
+		let innerContainer: HTMLElement | null = null;
+		if (dom) {
+			if (isEmbedCard) {
+				innerContainer = dom.querySelector('.rich-media-item');
+			} else if (hasResizer) {
+				innerContainer = dom.querySelector('.resizer-item');
+			} else if (isExtension) {
+				innerContainer = dom.querySelector('.extension-container[data-layout]');
+			} else if (isBlockCard) {
+				//specific to datasource blockCard
+				innerContainer = dom.querySelector('.datasourceView-content-inner-wrap');
+			}
+		}
+
+		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
+		const isSticky = shouldBeSticky(nodeType);
+
+		if (supportsAnchor) {
+			const bottom = editorExperiment('platform_editor_controls', 'variant1')
+				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNode, isLayoutColumn)
+				: {};
+
+			return {
+				left: isEdgeCase
+					? `calc(anchor(${safeAnchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
+					: editorExperiment('advanced_layouts', true) && isLayoutColumn
+						? `calc((anchor(${safeAnchorName} right) + anchor(${safeAnchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
+						: `calc(anchor(${safeAnchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
+
+				top:
+					editorExperiment('advanced_layouts', true) && isLayoutColumn
+						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
+						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(nodeType)}px)`,
+
+				...bottom,
+			};
+		}
+
+		const height = editorExperiment('platform_editor_controls', 'variant1')
+			? getControlHeightCSSValue(
+					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
+					isSticky,
+					isTopLevelNode,
+					`${DRAG_HANDLE_HEIGHT}`,
+					isLayoutColumn,
+				)
+			: {};
+		return {
+			left: isEdgeCase
+				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
+				: getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType),
+			top: getTopPosition(dom, nodeType),
+			...height,
+		};
+	}, [
+		anchorName,
+		getPos,
+		view,
+		nodeType,
+		macroInteractionUpdates,
+		anchorRectCache,
+		isTopLevelNode,
+		isLayoutColumn,
+		recalculatePosition,
+	]);
+
+	const calculatePositionOld = useCallback(() => {
 		const pos = getPos();
 		const $pos = pos && view.state.doc.resolve(pos);
 		const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
@@ -798,9 +908,11 @@ export const DragHandle = ({
 		isLayoutColumn,
 	]);
 
-	const [positionStyles, setPositionStyles] = useState<CSSProperties>({ display: 'none' });
-
 	useEffect(() => {
+		if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
+			return;
+		}
+
 		let cleanUpTransitionListener: () => void;
 
 		if (nodeType === 'extension' || nodeType === 'embedCard') {
@@ -813,20 +925,46 @@ export const DragHandle = ({
 			cleanUpTransitionListener = bind(dom, {
 				type: 'transitionend',
 				listener: () => {
-					setPositionStyles(calculatePosition());
+					setPositionStylesOld(calculatePositionOld());
 				},
 			});
 		}
-
 		const calcPos = requestAnimationFrame(() => {
-			setPositionStyles(calculatePosition());
+			setPositionStylesOld(calculatePositionOld());
 		});
 
 		return () => {
 			cancelAnimationFrame(calcPos);
 			cleanUpTransitionListener?.();
 		};
-	}, [calculatePosition, view.dom, anchorName, nodeType]);
+	}, [calculatePositionOld, view.dom, anchorName, nodeType]);
+
+	useEffect(() => {
+		if (!editorExperiment('platform_editor_block_control_optimise_render', true)) {
+			return;
+		}
+
+		let cleanUpTransitionListener: () => void;
+
+		if (nodeType === 'extension' || nodeType === 'embedCard') {
+			const dom: HTMLElement | null = view.dom.querySelector(
+				`[data-drag-handler-anchor-name="${anchorName}"]`,
+			);
+			if (!dom) {
+				return;
+			}
+			cleanUpTransitionListener = bind(dom, {
+				type: 'transitionend',
+				listener: () => {
+					setRecalculatePosition(!recalculatePosition);
+				},
+			});
+		}
+
+		return () => {
+			cleanUpTransitionListener?.();
+		};
+	}, [view, anchorName, nodeType, recalculatePosition]);
 
 	useEffect(() => {
 		if (
@@ -839,7 +977,9 @@ export const DragHandle = ({
 			});
 			return () => {
 				cancelAnimationFrame(id);
-				view.focus();
+				if (!editorExperiment('platform_editor_block_control_optimise_render', true)) {
+					view.focus();
+				}
 			};
 		}
 	}, [buttonRef, handleOptions?.isFocused, view]);
@@ -850,7 +990,7 @@ export const DragHandle = ({
 		}
 
 		setDragHandleSelected(isHandleCorrelatedToSelection(view.state, selection, start));
-	}, [start, selection, view.state, isMultiSelect]);
+	}, [start, selection, view, isMultiSelect]);
 
 	useEffect(() => {
 		if (
@@ -874,14 +1014,7 @@ export const DragHandle = ({
 		} else {
 			setDragHandleDisabled(false);
 		}
-	}, [
-		api?.blockControls.sharedState,
-		isMultiSelect,
-		isShiftDown,
-		isTopLevelNode,
-		view.state.doc,
-		view.state.selection,
-	]);
+	}, [api?.blockControls.sharedState, isMultiSelect, isShiftDown, isTopLevelNode, view]);
 
 	let helpDescriptors = isTopLevelNode
 		? [
@@ -1016,7 +1149,13 @@ export const DragHandle = ({
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={(!editorExperiment('platform_editor_controls', 'variant1') && positionStyles) || {}}
+			style={
+				!editorExperiment('platform_editor_controls', 'variant1')
+					? editorExperiment('platform_editor_block_control_optimise_render', true)
+						? positionStyles
+						: positionStylesOld
+					: {}
+			}
 			onClick={handleOnClick}
 			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}
@@ -1036,6 +1175,7 @@ export const DragHandle = ({
 					label=""
 					LEGACY_fallbackIcon={DragHandlerIcon}
 					LEGACY_size="medium"
+					size="small"
 				/>
 			</Box>
 		</button>
@@ -1044,7 +1184,11 @@ export const DragHandle = ({
 	const stickyWithTooltip = () => (
 		<Box
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={positionStyles}
+			style={
+				editorExperiment('platform_editor_block_control_optimise_render', true)
+					? positionStyles
+					: positionStylesOld
+			}
 			xcss={[dragHandleContainerStyles]}
 			as="span"
 			testId="block-ctrl-drag-handle-container"
@@ -1077,7 +1221,11 @@ export const DragHandle = ({
 	const stickyWithoutTooltip = () => (
 		<Box
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={positionStyles}
+			style={
+				editorExperiment('platform_editor_block_control_optimise_render', true)
+					? positionStyles
+					: positionStylesOld
+			}
 			xcss={[dragHandleContainerStyles]}
 			as="span"
 			testId="block-ctrl-drag-handle-container"
@@ -1124,6 +1272,7 @@ export const DragHandleWithVisibility = ({
 	getPos,
 	anchorName,
 	nodeType,
+	handleOptions,
 	anchorRectCache,
 }: DragHandleProps) => {
 	return (
@@ -1135,6 +1284,7 @@ export const DragHandleWithVisibility = ({
 				getPos={getPos}
 				anchorName={anchorName}
 				nodeType={nodeType}
+				handleOptions={handleOptions}
 				anchorRectCache={anchorRectCache}
 			/>
 		</VisibilityContainer>

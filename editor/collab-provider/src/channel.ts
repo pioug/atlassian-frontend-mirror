@@ -165,6 +165,7 @@ export class Channel extends Emitter<ChannelEvent> {
 			`${url}/session/${documentAri}`,
 			auth,
 			this.config.productInfo,
+			this.config.isPresenceOnly,
 		) as Socket;
 
 		// Due to https://github.com/socketio/socket.io-client/issues/1473,

@@ -7,7 +7,7 @@ import {
 	DrawerContent,
 	DrawerSidebar,
 	type DrawerWidth,
-} from '@atlaskit/drawer/compiled';
+} from '@atlaskit/drawer';
 import { widths } from '@atlaskit/drawer/constants';
 
 const DrawerWidths = () => {

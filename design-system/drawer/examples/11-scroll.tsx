@@ -5,12 +5,11 @@
 
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -19,11 +18,14 @@ import { token } from '@atlaskit/tokens';
 const containerStyles = css({
 	display: 'flex',
 	height: '200%',
-	padding: token('space.200', '16px'),
 	justifyContent: 'flex-end',
+	paddingBlockEnd: token('space.200', '16px'),
+	paddingBlockStart: token('space.200', '16px'),
+	paddingInlineEnd: token('space.200', '16px'),
+	paddingInlineStart: token('space.200', '16px'),
 });
 
-const DrawersExample = () => {
+export default function DrawerExample() {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const openDrawer = useCallback(() => setIsOpen(true), []);
 	const closeDrawer = useCallback(() => setIsOpen(false), []);
@@ -43,18 +45,16 @@ const DrawersExample = () => {
 				</Button>
 			</div>
 
-			<Drawer
-				onClose={closeDrawer}
-				isOpen={isOpen}
-				label="Drawer with scrollable content"
-				scrollContentLabel="Scrollable drawer"
-			>
-				{/* Strictly used to target the content drawer for programmatic scrolling… */}
-				<div data-testid="content-inner" />
-				<Lorem count={100} />
+			<Drawer onClose={closeDrawer} isOpen={isOpen} label="Drawer with scrollable content">
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent scrollContentLabel="Scrollable drawer">
+					{/* Strictly used to target the content drawer for programmatic scrolling… */}
+					<div data-testid="content-inner" />
+					<Lorem count={100} />
+				</DrawerContent>
 			</Drawer>
 		</div>
 	);
-};
-
-export default DrawersExample;
+}

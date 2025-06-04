@@ -3,6 +3,7 @@ import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from '
 import rafSchedule from 'raf-schd';
 import uuid from 'uuid/v4';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
@@ -13,7 +14,7 @@ import type {
 	getInlineNodeViewProducer,
 } from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { UnsupportedInline, findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -21,11 +22,13 @@ import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
 import OverlayWrapper from '../ui/ConfigureOverlay';
+import { visitCardLinkAnalyticsOnly } from '../ui/toolbar';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
@@ -48,6 +51,7 @@ export const InlineCard = memo(
 		showHoverPreview,
 		hoverPreviewOptions,
 		isPageSSRed,
+		pluginInjectionApi,
 	}: SmartCardProps) => {
 		const { url, data } = node.attrs;
 		const refId = useRef(uuid());
@@ -113,6 +117,30 @@ export const InlineCard = memo(
 			[onResolve],
 		);
 
+		const handleOnClick = useCallback(
+			(event: React.MouseEvent<HTMLSpanElement>) => {
+				onClick?.(event);
+
+				if (
+					editorExperiment('platform_editor_controls', 'variant1') &&
+					editorExperiment('platform_editor_smart_link_cmd_ctrl_click', true, { exposure: true })
+				) {
+					// open link in new tab when performing a cmd/ctrl + click
+					if (event.metaKey || event.ctrlKey) {
+						const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
+
+						visitCardLinkAnalyticsOnly(editorAnalyticsApi, INPUT_METHOD.META_CLICK)(
+							view.state,
+							view.dispatch,
+						);
+
+						window.open(url, '_blank');
+					}
+				}
+			},
+			[onClick, url, view, pluginInjectionApi],
+		);
+
 		const card = useMemo(() => {
 			if (isPageSSRed && url && fg('platform_ssr_smartlinks_editor')) {
 				return (
@@ -120,7 +148,7 @@ export const InlineCard = memo(
 						key={url}
 						url={url}
 						appearance="inline"
-						onClick={onClick}
+						onClick={handleOnClick}
 						container={scrollContainer}
 						onResolve={onResolve}
 						onError={onError}
@@ -138,7 +166,7 @@ export const InlineCard = memo(
 					key={url}
 					url={url ?? data.url}
 					appearance="inline"
-					onClick={onClick}
+					onClick={handleOnClick}
 					container={scrollContainer}
 					onResolve={onResolve}
 					onError={onError}
@@ -152,7 +180,7 @@ export const InlineCard = memo(
 		}, [
 			url,
 			data,
-			onClick,
+			handleOnClick,
 			scrollContainer,
 			onResolve,
 			onError,

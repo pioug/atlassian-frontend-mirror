@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.3.0
+
+### Minor Changes
+
+- [#159073](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/159073)
+  [`e4bb0c8422102`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4bb0c8422102) -
+  [ux] Implemented tenure information to the user profile
+
 ## 4.2.0
 
 ### Minor Changes

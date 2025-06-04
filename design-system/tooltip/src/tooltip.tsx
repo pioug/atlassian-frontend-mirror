@@ -429,9 +429,7 @@ function Tooltip({
 
 	useNotifyOpenLayerObserver({
 		// Layer is only visually open if both the tooltip popup (container) and children are rendered.
-		isOpen:
-			shouldRenderTooltipPopup &&
-			(fg('platform_dst_open_layer_observer_close_layers') ? shouldRenderTooltipChildren : true),
+		isOpen: shouldRenderTooltipPopup && shouldRenderTooltipChildren,
 		/**
 		 * We don't strictly need to provide an onClose callback at this time, as there is
 		 * already code that handles hiding the tooltip when a drag is started (and the only

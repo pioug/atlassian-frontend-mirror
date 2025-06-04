@@ -1,67 +1,71 @@
-import React, { Component } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
+import { useState } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { token } from '@atlaskit/tokens';
 
-interface State {
-	isDrawerOpen: boolean;
-}
+const styles = cssMap({
+	root: {
+		paddingTop: token('space.400'),
+		paddingRight: token('space.400'),
+		paddingBottom: token('space.400'),
+		paddingLeft: token('space.400'),
+	},
+	menu: {
+		position: 'fixed',
+		insetInlineStart: 100,
+		insetBlockStart: 200,
+	},
+});
 
-export default class DrawersExample extends Component<{}, State> {
-	state = {
-		isDrawerOpen: true,
-	};
+export default function DrawerExample() {
+	const [isDrawerOpen, setIsDrawerOpen] = useState(true);
 
-	openDrawer = () =>
-		this.setState({
-			isDrawerOpen: true,
-		});
-
-	closeDrawer = () =>
-		this.setState({
-			isDrawerOpen: false,
-		});
-
-	render() {
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div style={{ padding: '2rem' }}>
-				<Drawer
-					onClose={this.closeDrawer}
-					isOpen={this.state.isDrawerOpen}
-					width="wide"
-					label="Drawer with fixed contents"
-				>
-					<div id="drawer-contents">
-						<p id="paragraph">
-							The drawer should not set a new stacking context by using a transform CSS property as
-							this causes issues for fixed positioned elements such as @atlaskit/dropdown-menu.
-						</p>
-						{/* The position here is used by the withDropdown integration test. */}
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-						<div style={{ position: 'fixed', left: 100, top: 200 }}>
-							<DropdownMenu<HTMLButtonElement>
-								shouldRenderToParent
-								testId="dropdown"
-								trigger={({ triggerRef, ...providedProps }) => (
-									<Button id="trigger" ref={triggerRef} {...providedProps}>
-										Choices
-									</Button>
-								)}
-							>
-								<DropdownItemGroup>
-									<DropdownItem>Sydney</DropdownItem>
-									<DropdownItem>Melbourne</DropdownItem>
-								</DropdownItemGroup>
-							</DropdownMenu>
-						</div>
+	return (
+		<div css={styles.root}>
+			<Drawer
+				onClose={() => setIsDrawerOpen(false)}
+				isOpen={isDrawerOpen}
+				width="wide"
+				label="Drawer with fixed contents"
+			>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<p id="paragraph">
+						The drawer should not set a new stacking context by using a transform CSS property as
+						this causes issues for fixed positioned elements such as @atlaskit/dropdown-menu.
+					</p>
+					<div css={styles.menu}>
+						<DropdownMenu<HTMLButtonElement>
+							shouldRenderToParent
+							testId="dropdown"
+							trigger={({ triggerRef, ...providedProps }) => (
+								<Button id="trigger" ref={triggerRef} {...providedProps}>
+									Choices
+								</Button>
+							)}
+						>
+							<DropdownItemGroup>
+								<DropdownItem>Sydney</DropdownItem>
+								<DropdownItem>Melbourne</DropdownItem>
+							</DropdownItemGroup>
+						</DropdownMenu>
 					</div>
-				</Drawer>
-				<Button type="button" onClick={this.openDrawer}>
-					Open drawer
-				</Button>
-			</div>
-		);
-	}
+				</DrawerContent>
+			</Drawer>
+			<Button type="button" onClick={() => setIsDrawerOpen(true)}>
+				Open drawer
+			</Button>
+		</div>
+	);
 }

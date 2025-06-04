@@ -552,7 +552,6 @@ export function ComposableEditorWrapper() {
 						/>
 
 						<ComposableEditorPage
-							// contentComponents={contentComponents}
 							annotationProviders={{
 								...annotationProviders,
 								inlineComment: {
@@ -562,8 +561,8 @@ export function ComposableEditorWrapper() {
 									// to determine when to show the create or view components.
 									// This logic has been reimplemented above in the EditorAnnotationComponents
 									// to demonstrate the new API doesn't require the manager components to be passed in anymore.
-									createComponent: () => null,
-									viewComponent: () => null,
+									createComponent: undefined,
+									viewComponent: undefined,
 								},
 							}}
 						/>

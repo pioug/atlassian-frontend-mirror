@@ -11,7 +11,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer } from '@atlaskit/drawer/compiled';
+import { Drawer } from '@atlaskit/drawer';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';

@@ -10,12 +10,13 @@ import { B400, G300, P300, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { typesMapping } from '../../constants';
-import type { IconAppearance } from '../../types';
+import type { IconAppearance, IconSpacing } from '../../types';
 
 interface MessageIconProps {
 	appearance: IconAppearance;
 	isOpen: boolean;
 	label?: string;
+	spacing: IconSpacing;
 }
 
 const iconColor = cssMap({
@@ -53,7 +54,7 @@ const iconColorStyles = css({
  * The selected icon is used as the primary interactive element for the dialog.
  * Can be used with or without supporting text.
  */
-const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
+const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label, spacing }) => {
 	const {
 		[appearance]: { icon: Icon, defaultLabel },
 	} = typesMapping;
@@ -68,7 +69,7 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
 				label={label || defaultLabel}
 				color="currentColor"
 				LEGACY_size="medium"
-				spacing="spacious"
+				spacing={spacing}
 			/>
 		</span>
 	);

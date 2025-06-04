@@ -11,4 +11,9 @@ export type SnippetBlockProps = {
 	 * The text to display. Overrides the default link description.
 	 */
 	text?: string;
+
+	/**
+	 * The snippet block is rendered hidden at times, this just informs the component and the snippet renderer
+	 */
+	isHidden?: boolean;
 } & BlockProps;

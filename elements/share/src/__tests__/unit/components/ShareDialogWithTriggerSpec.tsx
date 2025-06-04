@@ -838,6 +838,19 @@ describe('ShareDialogWithTrigger', () => {
 			]);
 		});
 
+		it('should not show flag if no users are shared and extended dialog is enabled', async () => {
+			renderComponent({
+				isExtendedShareDialogEnabled: true,
+				renderCustomTriggerButton: (props) => <button {...props}>Open form</button>,
+				onShareSubmit: () => Promise.resolve(),
+			});
+
+			await userEvent.click(screen.getByRole('button', { name: 'Open form' }));
+			await userEvent.click(screen.getByRole('button', { name: 'Share' }));
+
+			expect(mockShowFlags).not.toHaveBeenCalled();
+		});
+
 		it('should set shareError when onShareSubmit fails', async () => {
 			// @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
 			//See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff

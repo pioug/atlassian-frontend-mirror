@@ -86,9 +86,6 @@
 			"path": "../motion/tsconfig.app.json"
 		},
 		{
-			"path": "../portal/tsconfig.app.json"
-		},
-		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

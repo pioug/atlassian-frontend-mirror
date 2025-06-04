@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 207.14.7
+
+### Patch Changes
+
+- [#165495](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165495)
+  [`519bee339c2b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/519bee339c2b0) -
+  refactor emotion styles for task and decisions
+- Updated dependencies
+
+## 207.14.6
+
+### Patch Changes
+
+- [#165439](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165439)
+  [`1b15e228a1e86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b15e228a1e86) -
+  Fixed an issue which meant the new annotation manager still realied on a FG to be enabled when in
+  fact it should be enabled if an instance of the manager is supplied. Thie removed all dependencies
+  relying on the FG.
+- Updated dependencies
+
+## 207.14.5
+
+### Patch Changes
+
+- [#164233](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164233)
+  [`4edd87321b895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4edd87321b895) -
+  refactor scrollbar styles
+- [#164129](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164129)
+  [`ef34428363521`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef34428363521) -
+  [ux] ED-28058 fix left drag handle experience for new resizing under
+  platform_editor_breakout_resizing
+- Updated dependencies
+
 ## 207.14.4
 
 ### Patch Changes

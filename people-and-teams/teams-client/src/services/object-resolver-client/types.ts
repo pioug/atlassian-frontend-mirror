@@ -42,3 +42,23 @@ export interface IconItemFailure {
 	};
 	status: number;
 }
+
+export type GetAriFromUrlErrorType =
+	| 'AuthError'
+	| 'UnsupportedError'
+	| 'TimeoutError'
+	| 'InternalServerError';
+export interface GetAriFromUrlResponse {
+	meta: Record<string, unknown>;
+	data: {
+		ari: string;
+		url: string;
+	};
+}
+export interface GetAriFromUrlError {
+	error: {
+		type: GetAriFromUrlErrorType;
+		message: string;
+		status: number;
+	};
+}

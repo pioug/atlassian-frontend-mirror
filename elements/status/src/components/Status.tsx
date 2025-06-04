@@ -4,7 +4,7 @@
  */
 import { PureComponent, type MouseEvent } from 'react';
 import { css, jsx } from '@compiled/react';
-import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge/compiled';
+import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import {
 	type WithAnalyticsEventsProps,
 	type CreateUIAnalyticsEvent,

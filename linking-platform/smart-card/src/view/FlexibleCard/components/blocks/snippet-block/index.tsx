@@ -29,6 +29,7 @@ const SnippetBlock = ({
 	status = SmartLinkStatus.Fallback,
 	testId = 'smart-block-snippet',
 	text,
+	isHidden = false,
 	...blockProps
 }: SnippetBlockProps) => {
 	const context = fg('cc-ai-linking-platform-snippet-renderer')
@@ -96,6 +97,7 @@ const SnippetBlock = ({
 					contentType={context?.meta?.resourceType ?? ''}
 					cloudId={context?.meta?.tenantId ?? ''}
 					maxLines={snippetMaxLines}
+					isHidden={isHidden}
 				/>
 			) : (
 				snippet

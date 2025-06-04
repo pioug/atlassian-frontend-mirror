@@ -900,6 +900,7 @@ describe('Channel unit tests', () => {
 				productInfo: {
 					product: 'confluence',
 				},
+				isPresenceOnly: false,
 			});
 
 			expect(createSocketMock).toHaveBeenCalledTimes(1);
@@ -907,6 +908,7 @@ describe('Channel unit tests', () => {
 				'https://localhost/ccollab/session/ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
 				expect.any(Function),
 				{ product: 'confluence' },
+				false,
 			);
 		});
 

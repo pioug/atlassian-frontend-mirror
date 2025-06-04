@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.35.0
+
+### Minor Changes
+
+- [#163866](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163866)
+  [`e15fce4142e99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e15fce4142e99) -
+  [ux] PTC-11966 Add actions of add/update/delete team link card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.34.1
 
 ### Patch Changes

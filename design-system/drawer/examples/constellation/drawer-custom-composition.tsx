@@ -10,7 +10,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import { Drawer, DrawerCloseButton, DrawerContent } from '@atlaskit/drawer/compiled';
+import { Drawer, DrawerCloseButton, DrawerContent } from '@atlaskit/drawer';
 import { Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 

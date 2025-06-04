@@ -1,7 +1,5 @@
 import { useContext, useEffect } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { OpenLayerObserverContext } from './open-layer-observer-context';
 import type { LayerCloseListenerFn } from './types';
 import { useOpenLayerObserverNamespace } from './use-open-layer-observer-namespace';
@@ -47,36 +45,9 @@ export function useNotifyOpenLayerObserver({
 	const namespace = useOpenLayerObserverNamespace();
 
 	useEffect(() => {
-		if (fg('platform_dst_open_layer_observer_close_layers')) {
-			return;
-		}
-		/**
-		 * Increments the layer count when the component mounts or becomes visible.
-		 *
-		 * Returns a cleanup function to decrement the layer count when the component unmounts or becomes hidden.
-		 */
-		if (context === null) {
-			return;
-		}
-
-		if (!isOpen) {
-			return;
-		}
-
-		context.increment();
-
-		return function cleanup() {
-			context.decrement();
-		};
-	}, [context, isOpen, namespace]);
-
-	useEffect(() => {
 		/**
 		 * Registers the `onClose` callback with the OpenLayerObserver.
 		 */
-		if (!fg('platform_dst_open_layer_observer_close_layers')) {
-			return;
-		}
 
 		if (context === null) {
 			return;

@@ -4,14 +4,13 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "01-drawer-menu.tsx",
-    "05-drawer-widths.tsx",
-    "11-scroll.tsx",
-    "42-drawer-stacking-contexts.tsx",
-    "92-blanket-testing.tsx",
-    "93-drawer-testing.tsx",
-    "94-surface-detection.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"01-drawer-menu.tsx",
+		"05-drawer-widths.tsx",
+		"11-scroll.tsx",
+		"42-drawer-stacking-contexts.tsx",
+		"92-blanket-testing.tsx",
+		"94-surface-detection.tsx",
+	],
+	"exampleDependencies": [],
 }

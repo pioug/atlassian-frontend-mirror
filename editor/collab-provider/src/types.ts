@@ -51,6 +51,7 @@ export interface Config {
 		path: string,
 		auth?: AuthCallback | InitAndAuthData,
 		productInfo?: ProductInformation,
+		isPresenceOnly?: boolean,
 	) => SocketIOSocket;
 	batchProps?: BatchProps;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883

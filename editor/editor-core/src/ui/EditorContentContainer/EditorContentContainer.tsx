@@ -14,7 +14,6 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
-import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import {
@@ -26,7 +25,6 @@ import {
 	akEditorGutterPaddingDynamic,
 	editorFontSize,
 } from '@atlaskit/editor-shared-styles';
-import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
@@ -36,13 +34,6 @@ import { expandStyles } from '../ContentStyles/expand';
 import { extensionStyles } from '../ContentStyles/extension';
 import { panelStyles } from '../ContentStyles/panel';
 import { statusStyles, vanillaStatusStyles } from '../ContentStyles/status';
-import {
-	taskDecisionStyles,
-	vanillaTaskDecisionIconWithoutVisualRefresh as vanillaDecisionIconWithoutVisualRefresh,
-	vanillaTaskDecisionIconWithVisualRefresh as vanillaDecisionIconWithVisualRefresh,
-	vanillaTaskDecisionStyles as vanillaDecisionStyles,
-	vanillaTaskItemStyles,
-} from '../ContentStyles/tasks-and-decisions';
 
 import {
 	aiPanelBaseFirefoxStyles,
@@ -100,13 +91,21 @@ import {
 	smartLinksInLivePagesStyles,
 	smartLinksInLivePagesStylesOld,
 } from './styles/smartCardStyles';
-import { tasksAndDecisionsStyles } from './styles/tasksAndDecisionsStyles';
+import {
+	decisionStyles,
+	tasksAndDecisionsStyles,
+	vanillaDecisionIconWithoutVisualRefresh,
+	vanillaDecisionIconWithVisualRefresh,
+	vanillaDecisionStyles,
+	vanillaTaskItemStyles,
+} from './styles/tasksAndDecisionsStyles';
 import {
 	telepointerColorAndCommonStyle,
 	telepointerStyle,
 	telepointerStyleWithInitialOnly,
 } from './styles/telepointerStyles';
 import { textColorStyles } from './styles/textColorStyles';
+import { textHighlightStyle } from './styles/textHighlightStyles';
 import { unsupportedStyles } from './styles/unsupportedStyles';
 import { whitespaceStyles } from './styles/whitespaceStyles';
 
@@ -340,7 +339,7 @@ const contentStyles = () => css`
 
   ${textHighlightStyle}
 
-  ${taskDecisionStyles}
+  ${decisionStyles}
 
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	vanillaTaskItemStyles}
@@ -476,19 +475,40 @@ const commentEditorStyles = css(
 );
 
 // Originally copied from scrollStyles in packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts
-const fullPageEditorStyles = css(
-	{
-		flexGrow: 1,
-		height: '100%',
-		overflowY: 'scroll',
-		position: 'relative',
-		display: 'flex',
-		flexDirection: 'column',
-		scrollBehavior: 'smooth',
+const fullPageEditorStyles = css({
+	flexGrow: 1,
+	height: '100%',
+	overflowY: 'scroll',
+	position: 'relative',
+	display: 'flex',
+	flexDirection: 'column',
+	scrollBehavior: 'smooth',
+});
+
+const scrollbarStyles = css({
+	'-ms-overflow-style': '-ms-autohiding-scrollbar',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar': {
+		overflow: 'hidden',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	scrollbarStyles,
-);
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar-corner': {
+		display: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar-thumb': {
+		backgroundColor: token('color.background.neutral.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:hover::-webkit-scrollbar-thumb': {
+		backgroundColor: token('color.background.neutral.bold'),
+		borderRadius: 8,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-scrollbar-thumb:hover': {
+		backgroundColor: token('color.background.neutral.bold.hovered'),
+	},
+});
 
 const listLayoutShiftFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -563,6 +583,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					viewMode === 'view' && layoutViewStyles,
 					isComment && commentEditorStyles,
 					isFullPage && fullPageEditorStyles,
+					isFullPage && scrollbarStyles,
 					fg('platform_editor_ssr_fix_lists') && listLayoutShiftFix,
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -1,55 +1,49 @@
-import React, { Component, type SyntheticEvent } from 'react';
+import React, { type SyntheticEvent, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { Code } from '@atlaskit/code';
+import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import InlineMessage from '@atlaskit/inline-message';
 
-interface State {
-	isDrawerOpen: boolean;
-}
-export default class DrawersExample extends Component<{}, State> {
-	state = {
-		isDrawerOpen: false,
-	};
-
-	openDrawer = () =>
-		this.setState({
-			isDrawerOpen: true,
-		});
-
-	onClose = (...args: [SyntheticEvent<HTMLElement>, any]) => {
+const DrawersExample = () => {
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const openDrawer = () => setIsDrawerOpen(true);
+	const onClose = (...args: [SyntheticEvent<HTMLElement>, any]) => {
 		console.log('onClose', args);
-		this.setState({
-			isDrawerOpen: false,
-		});
+		setIsDrawerOpen(false);
 	};
-
-	onCloseComplete = (args: any) => console.log('onCloseComplete', args);
-
-	onOpenComplete = (args: any) => console.log('onOpenComplete', args);
-
-	render() {
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div style={{ padding: '2rem' }}>
-				<Drawer
-					onClose={this.onClose}
-					onCloseComplete={this.onCloseComplete}
-					onOpenComplete={this.onOpenComplete}
-					isOpen={this.state.isDrawerOpen}
-					width="wide"
-					label="Basic drawer"
-				>
-					<code>Content</code>
+	const onCloseComplete = (args: any) => {
+		console.log('onCloseComplete', args);
+	};
+	const onOpenComplete = (args: any) => {
+		console.log('onOpenComplete', args);
+	};
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		<div style={{ padding: '2rem' }}>
+			<Drawer
+				onClose={onClose}
+				onCloseComplete={onCloseComplete}
+				onOpenComplete={onOpenComplete}
+				isOpen={isDrawerOpen}
+				width="wide"
+				label="Basic drawer"
+			>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<Code>Content</Code>
 					<br />
 					<InlineMessage title="Inline Message Title Example" secondaryText="Secondary Text">
 						<p>Primary and secondary text dialog</p>
 					</InlineMessage>
-				</Drawer>
-				<Button id="open-drawer" type="button" onClick={this.openDrawer}>
-					Open drawer
-				</Button>
-			</div>
-		);
-	}
-}
+				</DrawerContent>
+			</Drawer>
+			<Button id="open-drawer" type="button" onClick={openDrawer}>
+				Open drawer
+			</Button>
+		</div>
+	);
+};
+export default DrawersExample;

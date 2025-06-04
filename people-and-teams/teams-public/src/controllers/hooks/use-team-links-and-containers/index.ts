@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
-import { type TeamContainer } from '../../../common/types';
+import { type NewTeamWebLink, type TeamContainer } from '../../../common/types';
 import {
 	containerToNewWebLink,
+	isNewTeamWebLink,
 	webLinksToContainers,
 } from '../../../common/utils/team-web-link-converters';
 import { useTeamContainers } from '../use-team-containers';
@@ -18,8 +19,8 @@ export type UseTeamLinksAndContainersResult = {
 	hasLoaded: boolean;
 	teamLinks: TeamContainer[];
 	canAddMoreLink: boolean;
-	addTeamLink: (container: TeamContainer) => Promise<any>;
-	updateTeamLink: (container: TeamContainer, newContainer: TeamContainer) => Promise<any>;
+	addTeamLink: (containerOrWebLink: TeamContainer | NewTeamWebLink) => Promise<any>;
+	updateTeamLinkById: (linkId: string, updatedFields: Partial<NewTeamWebLink>) => Promise<any>;
 	removeTeamLink: (container: TeamContainer) => Promise<void>;
 };
 
@@ -59,26 +60,36 @@ export const useTeamLinksAndContainers = (
 	);
 
 	const addTeamLink = useCallback(
-		async (container: TeamContainer) => {
-			if (container.type === 'WebLink') {
-				const webLink = containerToNewWebLink(container);
-				return await createTeamWebLink(teamId, webLink);
+		async (containerOrWebLink: TeamContainer | NewTeamWebLink) => {
+			if (isNewTeamWebLink(containerOrWebLink)) {
+				return await createTeamWebLink(teamId, containerOrWebLink);
 			} else {
-				addTeamContainer(container);
-				return Promise.resolve(container);
+				if (containerOrWebLink.type === 'WebLink') {
+					const webLink = containerToNewWebLink(containerOrWebLink);
+					return await createTeamWebLink(teamId, webLink);
+				} else {
+					addTeamContainer(containerOrWebLink);
+					return Promise.resolve(containerOrWebLink);
+				}
 			}
 		},
 		[teamId, createTeamWebLink, addTeamContainer],
 	);
 
-	const updateTeamLink = useCallback(
-		async (container: TeamContainer, newContainer: TeamContainer) => {
+	const updateTeamLinkById = useCallback(
+		async (linkId: string, updatedFields: Partial<NewTeamWebLink>) => {
+			const container = allContainers.find((link) => link.id === linkId);
+			if (!container) {
+				return;
+			}
+
 			if (container.type === 'WebLink') {
-				const webLink = containerToNewWebLink(newContainer);
-				return await updateTeamWebLink(teamId, container.id, webLink);
+				const currentWebLink = containerToNewWebLink(container);
+				const updatedWebLink = { ...currentWebLink, ...updatedFields };
+				return await updateTeamWebLink(teamId, linkId, updatedWebLink);
 			}
 		},
-		[teamId, updateTeamWebLink],
+		[teamId, allContainers, updateTeamWebLink],
 	);
 
 	const removeTeamLink = useCallback(
@@ -103,7 +114,7 @@ export const useTeamLinksAndContainers = (
 		teamLinks: allContainers,
 		canAddMoreLink,
 		addTeamLink,
-		updateTeamLink,
+		updateTeamLinkById,
 		removeTeamLink,
 	};
 };

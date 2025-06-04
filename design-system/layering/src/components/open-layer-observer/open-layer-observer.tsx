@@ -2,8 +2,6 @@ import React, { useContext, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { OpenLayerObserverContext } from './open-layer-observer-context';
 import type {
 	CleanupFn,
@@ -58,18 +56,6 @@ function getListeners<T>({
  * exposes methods to get the current count, increment/decrement the count, and subscribe to changes.
  */
 function createInternalAPI(): OpenLayerObserverInternalAPI {
-	/**
-	 * The previous data structures are still used if fg('platform_dst_open_layer_observer_close_layers')
-	 * is disabled.
-	 */
-	let openLayerCountLegacy = 0;
-	const changeListenerRegistryLegacy = new Set<LayerCountChangeListenerFn>();
-
-	/**
-	 * These are the new data structures that will be used if fg('platform_dst_open_layer_observer_close_layers')
-	 * is enabled.
-	 */
-
 	/**
 	 * The layer count change listeners for each namespace.
 	 */
@@ -127,10 +113,6 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 	 * Otherwise, the sum of all namespace counts is returned.
 	 */
 	function getCount({ namespace }: { namespace?: string } = {}): number {
-		if (!fg('platform_dst_open_layer_observer_close_layers')) {
-			return openLayerCountLegacy;
-		}
-
 		if (namespace) {
 			return namespaceToLayerCloseListenerRegistry.get(namespace)?.size ?? 0;
 		}
@@ -157,14 +139,6 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 			listener(...args);
 		}
 
-		if (!fg('platform_dst_open_layer_observer_close_layers')) {
-			changeListenerRegistryLegacy.add(wrapped);
-
-			return function unsubscribe() {
-				changeListenerRegistryLegacy.delete(wrapped);
-			};
-		}
-
 		const namespace = providedNamespace ?? noNamespaceSymbol;
 
 		const listenersForNamespace = getListeners({
@@ -182,40 +156,6 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 				namespaceToChangeListenerRegistry.delete(namespace);
 			}
 		};
-	}
-
-	/**
-	 * This function will be removed with fg('platform_dst_open_layer_observer_close_layers')
-	 */
-	function increment(): void {
-		if (!fg('platform_dst_open_layer_observer_close_layers')) {
-			openLayerCountLegacy += 1;
-
-			// Using `Array.from` to ensure we iterate over a stable list - e.g. in case a listener adds to the registry while we are
-			// iterating over it.
-			Array.from(changeListenerRegistryLegacy).forEach((listener) =>
-				listener({ count: openLayerCountLegacy }),
-			);
-
-			return;
-		}
-	}
-
-	/**
-	 * This function will be removed with fg('platform_dst_open_layer_observer_close_layers')
-	 */
-	function decrement(): void {
-		if (!fg('platform_dst_open_layer_observer_close_layers')) {
-			openLayerCountLegacy -= 1;
-
-			// Using `Array.from` to ensure we iterate over a stable list - e.g. in case a listener adds to the registry while we are
-			// iterating over it.
-			Array.from(changeListenerRegistryLegacy).forEach((listener) =>
-				listener({ count: openLayerCountLegacy }),
-			);
-
-			return;
-		}
 	}
 
 	/**
@@ -282,8 +222,6 @@ function createInternalAPI(): OpenLayerObserverInternalAPI {
 	const internalAPI: OpenLayerObserverInternalAPI = {
 		getCount,
 		onChange,
-		increment,
-		decrement,
 		onClose,
 		closeLayers,
 	};

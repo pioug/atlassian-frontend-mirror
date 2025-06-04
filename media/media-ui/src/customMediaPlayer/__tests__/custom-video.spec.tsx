@@ -1258,14 +1258,6 @@ describe('<CustomMediaPlayer />', () => {
 			// Mock getBoundingClientRect to return a non-zero width for the time range
 			const mockGetBoundingClientRect = jest.fn(() => ({
 				width: 400,
-				height: 20,
-				top: 0,
-				left: 0,
-				bottom: 20,
-				right: 400,
-				x: 0,
-				y: 0,
-				toJSON: () => {},
 			}));
 
 			// The TimeRange component uses this.wrapperElement.current.getBoundingClientRect()
@@ -1280,10 +1272,10 @@ describe('<CustomMediaPlayer />', () => {
 			});
 
 			act(() => {
-				fireEvent.mouseDown(timeRange!, {
+				fireEvent.pointerDown(timeRange!, {
 					nativeEvent: { offsetX: 10, clientX: 10 },
 				});
-				fireEvent.mouseUp(timeRange!, {
+				fireEvent.pointerUp(timeRange!, {
 					nativeEvent: { offsetX: 11, clientX: 11 },
 				});
 			});

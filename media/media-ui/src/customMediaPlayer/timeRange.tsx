@@ -96,8 +96,8 @@ export class TimeRangeBase extends Component<
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('mousemove', this.onMouseMove);
-		document.removeEventListener('mouseup', this.onMouseUp);
+		document.removeEventListener('pointermove', this.onPointerMove);
+		document.removeEventListener('pointerup', this.onPointerUp);
 		window.removeEventListener('resize', this.setWrapperWidth);
 	}
 
@@ -109,11 +109,12 @@ export class TimeRangeBase extends Component<
 		this.wrapperElementWidth = this.wrapperElement.current.getBoundingClientRect().width;
 	};
 
-	onMouseMove = (e: MouseEvent) => {
+	onPointerMove = (e: PointerEvent) => {
 		const { isDragging, dragStartClientX } = this.state;
 		if (!isDragging) {
 			return;
 		}
+		e.preventDefault();
 		e.stopPropagation();
 
 		const { onChange, duration, currentTime } = this.props;
@@ -142,11 +143,11 @@ export class TimeRangeBase extends Component<
 		}
 	};
 
-	onMouseUp = () => {
+	onPointerUp = () => {
 		const { onChanged } = this.props;
 		// As soon as user finished dragging, we should clean up events.
-		document.removeEventListener('mouseup', this.onMouseUp);
-		document.removeEventListener('mousemove', this.onMouseMove);
+		document.removeEventListener('pointerup', this.onPointerUp);
+		document.removeEventListener('pointermove', this.onPointerMove);
 
 		if (onChanged) {
 			onChanged();
@@ -157,20 +158,20 @@ export class TimeRangeBase extends Component<
 		});
 	};
 
-	onThumbMouseDown = (e: React.SyntheticEvent<HTMLDivElement>) => {
+	onPointerDown = (e: React.SyntheticEvent<HTMLDivElement>) => {
 		e.preventDefault();
 
 		// We need to recalculate every time, because width can change (thanks, editor ;-)
 		this.setWrapperWidth();
 
-		// We are implementing drag and drop here. There is no reason to start listening for mouseUp or move
-		// before that. Also if we start listening for mouseup before that we could pick up someone else's event
+		// We are implementing drag and drop here. There is no reason to start listening for pointerUp or move
+		// before that. Also if we start listening for pointerup before that we could pick up someone else's event
 		// For example editors resizing of a inline video player.
-		document.addEventListener('mouseup', this.onMouseUp);
-		document.addEventListener('mousemove', this.onMouseMove);
+		document.addEventListener('pointerup', this.onPointerUp);
+		document.addEventListener('pointermove', this.onPointerMove);
 
 		const { duration, onChange } = this.props;
-		const event = e.nativeEvent as MouseEvent;
+		const event = e.nativeEvent as PointerEvent;
 		const x = event.offsetX;
 		const currentTime = (x * duration) / this.wrapperElementWidth;
 
@@ -285,16 +286,13 @@ export class TimeRangeBase extends Component<
 		);
 
 		return fg('platform_media_compiled') ? (
-			<CompiledTimeRangeWrapper
-				onMouseDown={this.onThumbMouseDown}
-				data-testid="time-range-wrapper"
-			>
+			<CompiledTimeRangeWrapper onPointerDown={this.onPointerDown} data-testid="time-range-wrapper">
 				{timeline}
 			</CompiledTimeRangeWrapper>
 		) : (
 			<EmotionTimeRangeWrapper
 				showAsActive={isAlwaysActive}
-				onMouseDown={this.onThumbMouseDown}
+				onPointerDown={this.onPointerDown}
 				data-testid="time-range-wrapper"
 			>
 				{timeline}

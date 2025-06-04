@@ -193,7 +193,7 @@ ${[...LEGACY_ONLY_LOGOS, ...SHARED_LOGOS]
 	.join('\n')}
 
 ${NEW_ONLY_LOGOS.map(
-	(name) => `### ${name
+	(name) => `\n### ${name
 		.split('-')
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join(' ')}

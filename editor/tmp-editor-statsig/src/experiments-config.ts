@@ -20,6 +20,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-06-02
+	platform_editor_block_control_optimise_render: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_block_control_optimise_render',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2024-08-08
 	'example-boolean': createBooleanExperiment({
 		productKeys: {
@@ -185,6 +193,14 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		values: ['control', 'variant1'],
 		defaultValue: 'control',
+	}),
+	// Added 2025-06-02
+	platform_editor_smart_link_cmd_ctrl_click: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_smart_link_cmd_ctrl_click',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 	// Added 28-02-2025
 	platform_editor_insertion: createMultivariateExperiment({

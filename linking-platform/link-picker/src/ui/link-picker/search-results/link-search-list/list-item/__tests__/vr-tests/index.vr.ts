@@ -15,9 +15,7 @@ snapshot(DefaultExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'bandicoots-a11y-link-picker-styling': true,
-	},
+	featureFlags: {},
 });
 snapshot(SelectedExample, {
 	variants: [
@@ -32,9 +30,7 @@ snapshot(SelectedExample, {
 			},
 		},
 	],
-	featureFlags: {
-		'bandicoots-a11y-link-picker-styling': true,
-	},
+	featureFlags: {},
 });
 
 snapshot(DefaultExample, {

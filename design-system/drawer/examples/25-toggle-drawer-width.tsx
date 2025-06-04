@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
-import Drawer, { type DrawerWidth } from '@atlaskit/drawer';
+import Drawer, {
+	DrawerCloseButton,
+	DrawerContent,
+	DrawerSidebar,
+	type DrawerWidth,
+} from '@atlaskit/drawer';
 import { widths } from '@atlaskit/drawer/constants';
 import { Label } from '@atlaskit/form';
 import { Box, Inline } from '@atlaskit/primitives';
@@ -25,20 +30,25 @@ const DrawersExample = () => {
 				width={width}
 				label={`Drawer ${width}`}
 			>
-				<Label htmlFor="select-drawer-width">Drawer width</Label>
-				<Box>
-					<select id="select-drawer-width" onChange={handleOnChange} value={width}>
-						{widths.map((w) => (
-							<option key={w} value={w}>
-								{w}
-							</option>
-						))}
-					</select>
-				</Box>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<Label htmlFor="select-drawer-width">Drawer width</Label>
+					<Box>
+						<select id="select-drawer-width" onChange={handleOnChange} value={width}>
+							{widths.map((w) => (
+								<option key={w} value={w}>
+									{w}
+								</option>
+							))}
+						</select>
+					</Box>
 
-				<Inline>
-					<Code id="drawerContents">{`width: ${width}`}</Code>
-				</Inline>
+					<Inline>
+						<Code id="drawerContents">{`width: ${width}`}</Code>
+					</Inline>
+				</DrawerContent>
 			</Drawer>
 		</Box>
 	);

@@ -14,8 +14,8 @@ replace `@atlaskit/drawer` in a future major version, but for now it's opt-in.
 
 ### Using the new compositional API
 
-The new components are available via the `@atlaskit/drawer/compiled` entry point. There are three
-new sub-components available:
+The new components are available via the `@atlaskit/drawer` entry point. There are three new
+sub-components available:
 
 - `DrawerContent`: Place the main content of the drawer inside this component.
 - `DrawerSidebar`: The sidebar sits next to the main content and is designed to contain the close
@@ -26,7 +26,7 @@ new sub-components available:
 
 ```diff
 -import Drawer from '@atlaskit/drawer';
-+import { Drawer, DrawerContent, DrawerCloseButton } from '@atlaskit/drawer/compiled';
++import { Drawer, DrawerContent, DrawerCloseButton } from '@atlaskit/drawer';
 
 export default MyDrawer = () => (
    <Drawer>

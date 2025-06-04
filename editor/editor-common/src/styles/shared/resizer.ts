@@ -244,15 +244,15 @@ export const pragmaticResizerStyles = () => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:has([data-prosemirror-node-name="codeBlock"])': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> .pm-breakout-resize-handle-left': {
+				'> .pm-breakout-resize-handle-container--left': {
 					left: '-12px',
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> .pm-breakout-resize-handle-right': {
+				'> .pm-breakout-resize-handle-container--right': {
 					right: '-12px',
 				},
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> .pm-breakout-resize-handle': {
+				'> .pm-breakout-resize-handle-container': {
 					height: 'calc(100% - 12px)',
 				},
 			},
@@ -260,25 +260,25 @@ export const pragmaticResizerStyles = () => {
 			'&:has([data-prosemirror-node-name="expand"]), &:has([data-prosemirror-node-name="layoutSection"])':
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-left': {
+					'> .pm-breakout-resize-handle-container--left': {
 						left: '-32px',
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-					'> .pm-breakout-resize-handle-right': {
+					'> .pm-breakout-resize-handle-container--right': {
 						right: '-32px',
 					},
 				},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:has([data-prosemirror-node-name="expand"])': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> .pm-breakout-resize-handle': {
+				'> .pm-breakout-resize-handle-container': {
 					height: 'calc(100% - 4px)',
 				},
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:has([data-prosemirror-node-name="layoutSection"])': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> .pm-breakout-resize-handle': {
+				'> .pm-breakout-resize-handle-container': {
 					height: 'calc(100% - 8px)',
 				},
 			},
@@ -286,49 +286,73 @@ export const pragmaticResizerStyles = () => {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:has(.first-node-in-document)': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'> .pm-breakout-resize-handle': {
+				'> .pm-breakout-resize-handle-container': {
 					height: '100%',
 				},
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.pm-breakout-resize-handle': {
+		'.pm-breakout-resize-handle-container': {
+			position: 'relative',
+			alignSelf: 'end',
+			gridRow: 1,
+			gridColumn: 1,
+			height: '100%',
+			width: 7,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-breakout-resize-handle-container--left': {
+			justifySelf: 'start',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-breakout-resize-handle-container--right': {
+			justifySelf: 'end',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-breakout-resize-handle-rail': {
 			position: 'relative',
 			display: 'flex',
 			alignItems: 'center',
 			justifyContent: 'center',
 
 			height: '100%',
-			width: 7,
-
-			alignSelf: 'end',
-			gridRow: 1,
-			gridColumn: 1,
 
 			cursor: 'col-resize',
 
 			borderRadius: 4,
 			transition: 'background-color 0.2s, visibility 0.2s, opacity 0.2s',
+			zIndex: 2,
+
+			opacity: 0,
 
 			'&:hover': {
 				background: token('color.background.selected'),
-
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.pm-breakout-resize-handle-inner': {
+				'.pm-breakout-resize-handle-thumb': {
 					background: token('color.border.focused'),
 				},
 			},
 		},
+		// same as 'hover' styles above
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.pm-breakout-resize-handle-left': {
-			justifySelf: 'start',
+		'.pm-breakout-resize-handle-container--active': {
+			background: token('color.background.selected'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.pm-breakout-resize-handle-thumb': {
+				background: token('color.border.focused'),
+			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.pm-breakout-resize-handle-right': {
-			justifySelf: 'end',
+		'.pm-breakout-resize-handle-hit-box': {
+			position: 'absolute',
+			top: 0,
+			bottom: 0,
+			left: -20,
+			right: -20,
+			zIndex: 0,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.pm-breakout-resize-handle-inner': {
+		'.pm-breakout-resize-handle-thumb': {
 			minWidth: resizerHandleThumbWidth,
 			// copied from resizeStyles.clamped
 			height: 'clamp(27px, calc(100% - 32px), 96px)',

@@ -7,7 +7,7 @@ import { type SyntheticEvent, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import Drawer from '@atlaskit/drawer';
+import Drawer, { DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -48,7 +48,12 @@ export default () => {
 				label="Basic drawer"
 				shouldReturnFocus={returnFocusRef}
 			>
-				<code>Content</code>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<code>Content</code>
+				</DrawerContent>
 			</Drawer>
 			<Inline space="space.200">
 				<Button appearance="primary" id="open-drawer" type="button" onClick={openDrawer}>

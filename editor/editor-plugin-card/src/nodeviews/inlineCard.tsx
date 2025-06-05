@@ -45,7 +45,7 @@ export const InlineCard = memo(
 		useAlternativePreloader,
 		view,
 		getPos,
-		onClick,
+		onClick: propsOnClick,
 		onResolve: onRes,
 		isHovered,
 		showHoverPreview,
@@ -119,27 +119,30 @@ export const InlineCard = memo(
 
 		const handleOnClick = useCallback(
 			(event: React.MouseEvent<HTMLSpanElement>) => {
-				onClick?.(event);
+				if (event.metaKey || event.ctrlKey) {
+					const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
 
-				if (
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					editorExperiment('platform_editor_smart_link_cmd_ctrl_click', true, { exposure: true })
-				) {
-					// open link in new tab when performing a cmd/ctrl + click
-					if (event.metaKey || event.ctrlKey) {
-						const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
+					visitCardLinkAnalyticsOnly(editorAnalyticsApi, INPUT_METHOD.META_CLICK)(
+						view.state,
+						view.dispatch,
+					);
 
-						visitCardLinkAnalyticsOnly(editorAnalyticsApi, INPUT_METHOD.META_CLICK)(
-							view.state,
-							view.dispatch,
-						);
-
-						window.open(url, '_blank');
-					}
+					window.open(url, '_blank');
+				} else {
+					// only trigger the provided onClick callback if the meta key or ctrl key is not pressed
+					propsOnClick?.(event);
 				}
 			},
-			[onClick, url, view, pluginInjectionApi],
+			[propsOnClick, url, view, pluginInjectionApi],
 		);
+
+		const onClick =
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			editorExperiment('platform_editor_smart_link_cmd_ctrl_click', true, {
+				exposure: true,
+			})
+				? handleOnClick
+				: propsOnClick;
 
 		const card = useMemo(() => {
 			if (isPageSSRed && url && fg('platform_ssr_smartlinks_editor')) {
@@ -148,7 +151,7 @@ export const InlineCard = memo(
 						key={url}
 						url={url}
 						appearance="inline"
-						onClick={handleOnClick}
+						onClick={onClick}
 						container={scrollContainer}
 						onResolve={onResolve}
 						onError={onError}
@@ -166,7 +169,7 @@ export const InlineCard = memo(
 					key={url}
 					url={url ?? data.url}
 					appearance="inline"
-					onClick={handleOnClick}
+					onClick={onClick}
 					container={scrollContainer}
 					onResolve={onResolve}
 					onError={onError}
@@ -180,7 +183,7 @@ export const InlineCard = memo(
 		}, [
 			url,
 			data,
-			handleOnClick,
+			onClick,
 			scrollContainer,
 			onResolve,
 			onError,

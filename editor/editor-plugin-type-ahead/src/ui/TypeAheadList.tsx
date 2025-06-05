@@ -25,6 +25,7 @@ import { Text, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type InputMethodType } from '../pm-plugins/analytics';
+import { closeTypeAhead } from '../pm-plugins/commands/close-type-ahead';
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
@@ -32,6 +33,7 @@ import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler } from '../types';
 
 import { ListRow } from './ListRow';
+import { MoreOptions } from './MoreOptions';
 import { TypeAheadListItem } from './TypeAheadListItem';
 import { ViewMore } from './ViewMore';
 
@@ -53,8 +55,8 @@ type TypeAheadListProps = {
 	triggerHandler?: TypeAheadHandler;
 	moreElementsInQuickInsertViewEnabled?: boolean;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
-	showViewMore?: boolean;
-	onViewMoreClick?: () => void;
+	showMoreOptionsButton?: boolean;
+	onMoreOptionsClicked?: () => void;
 } & WrappedComponentProps;
 
 const TypeaheadAssistiveTextPureComponent = React.memo(
@@ -85,8 +87,8 @@ const TypeAheadListComponent = React.memo(
 		triggerHandler,
 		moreElementsInQuickInsertViewEnabled,
 		api,
-		showViewMore,
-		onViewMoreClick,
+		showMoreOptionsButton,
+		onMoreOptionsClicked,
 	}: TypeAheadListProps) => {
 		const listRef = useRef<List>() as React.MutableRefObject<List>;
 		const listContainerRef = useRef<HTMLDivElement>(null);
@@ -98,7 +100,7 @@ const TypeAheadListComponent = React.memo(
 		});
 
 		// Exclude view more item from the count
-		const itemsLength = showViewMore ? items.length - 1 : items.length;
+		const itemsLength = showMoreOptionsButton ? Math.max(items.length - 1, 0) : items.length;
 
 		const estimatedHeight = itemsLength * LIST_ITEM_ESTIMATED_HEIGHT;
 
@@ -177,7 +179,7 @@ const TypeAheadListComponent = React.memo(
 				// to calculate each height. THen, we can schedule a new frame when this one finishs.
 				requestAnimationFrame(() => {
 					requestAnimationFrame(() => {
-						const isViewMoreSelected = showViewMore && selectedIndex === itemsLength;
+						const isViewMoreSelected = showMoreOptionsButton && selectedIndex === itemsLength;
 						const isSelectedItemVisible =
 							(selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex) ||
 							// view more is always visible, hence no scrolling
@@ -192,7 +194,13 @@ const TypeAheadListComponent = React.memo(
 					});
 				});
 			},
-			[selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex, itemsLength, showViewMore],
+			[
+				selectedIndex,
+				lastVisibleStartIndex,
+				lastVisibleStopIndex,
+				itemsLength,
+				showMoreOptionsButton,
+			],
 		);
 
 		const onMouseMove = (event: React.MouseEvent, index: number) => {
@@ -208,7 +216,7 @@ const TypeAheadListComponent = React.memo(
 			if (!listRef.current) {
 				return;
 			}
-			const isViewMoreSelected = showViewMore && selectedIndex === itemsLength;
+			const isViewMoreSelected = showMoreOptionsButton && selectedIndex === itemsLength;
 			const isSelectedItemVisible =
 				(selectedIndex >= lastVisibleStartIndex && selectedIndex <= lastVisibleStopIndex) ||
 				// view more is always visible, hence no scrolling
@@ -220,7 +228,13 @@ const TypeAheadListComponent = React.memo(
 			} else if (selectedIndex === -1) {
 				listRef.current.scrollToRow(0);
 			}
-		}, [selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex, itemsLength, showViewMore]);
+		}, [
+			selectedIndex,
+			lastVisibleStartIndex,
+			lastVisibleStopIndex,
+			itemsLength,
+			showMoreOptionsButton,
+		]);
 
 		useLayoutEffect(() => {
 			setCache(
@@ -242,7 +256,7 @@ const TypeAheadListComponent = React.memo(
 
 		useLayoutEffect(() => {
 			// Exclude view more item from the count
-			const itemsToRender = showViewMore ? items.slice(0, -1) : items;
+			const itemsToRender = showMoreOptionsButton ? items.slice(0, -1) : items;
 			const height = Math.min(
 				itemsToRender.reduce((prevValue, currentValue, index) => {
 					return prevValue + cache.rowHeight({ index: index });
@@ -250,7 +264,7 @@ const TypeAheadListComponent = React.memo(
 				fitHeight,
 			);
 			setHeight(height);
-		}, [items, cache, fitHeight, showViewMore]);
+		}, [items, cache, fitHeight, showMoreOptionsButton]);
 
 		useLayoutEffect(() => {
 			if (!listContainerRef.current) {
@@ -325,6 +339,20 @@ const TypeAheadListComponent = React.memo(
 		const firstOnlineSupportedRow = useMemo(() => {
 			return items.findIndex((item) => item.isDisabledOffline !== true);
 		}, [items]);
+
+		const config = triggerHandler?.getMoreOptionsButtonConfig?.(intl);
+		const handleClick = () => {
+			if (onMoreOptionsClicked) {
+				onMoreOptionsClicked();
+			}
+
+			api?.core.actions.execute(({ tr }) => {
+				closeTypeAhead(tr);
+				config?.onClick({ tr });
+
+				return tr;
+			});
+		};
 
 		const renderRow: ListRowRenderer = ({ index, key, style, parent, isScrolling, isVisible }) => {
 			const currentItem = items[index];
@@ -454,13 +482,29 @@ const TypeAheadListComponent = React.memo(
 				]}
 			/>
 		);
+
 		return (
 			<MenuGroup aria-label={popupAriaLabel} aria-relevant="additions removals">
 				<div id={menuGroupId} ref={listContainerRef}>
-					{!showViewMore || itemsLength ? ListContent : EmptyResultView}
-					{showViewMore && onViewMoreClick && (
-						<ViewMore onClick={onViewMoreClick} isFocused={selectedIndex === itemsLength} />
-					)}
+					{!showMoreOptionsButton || itemsLength ? ListContent : EmptyResultView}
+					{fg('platform_editor_controls_patch_12')
+						? showMoreOptionsButton &&
+							config && (
+								<MoreOptions
+									title={config.title}
+									ariaLabel={config.ariaLabel}
+									onClick={handleClick}
+									isFocused={selectedIndex === itemsLength}
+									iconBefore={config.iconBefore}
+								/>
+							)
+						: showMoreOptionsButton &&
+							onMoreOptionsClicked && (
+								<ViewMore
+									onClick={onMoreOptionsClicked}
+									isFocused={selectedIndex === itemsLength}
+								/>
+							)}
 					<TypeaheadAssistiveTextPureComponent numberOfResults={itemsLength.toString()} />
 				</div>
 			</MenuGroup>

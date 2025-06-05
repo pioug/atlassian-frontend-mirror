@@ -45,6 +45,7 @@
 		"@atlaskit/media-client-react": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/media-ui": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",

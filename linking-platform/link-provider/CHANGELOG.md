@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 3.3.1
+
+### Patch Changes
+
+- [#165007](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165007)
+  [`1f50b1c7072cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f50b1c7072cf) -
+  Remove atlassian:design and flattern the entity data
+- Updated dependencies
+
 ## 3.3.0
 
 ### Minor Changes

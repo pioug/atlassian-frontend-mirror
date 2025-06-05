@@ -133,6 +133,16 @@ export type TitleBlockProps = {
 	 * A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.
 	 */
 	placeholderId?: string;
+
+	/**
+	 * Competitor Prompt Component for Competitor link experiment
+	 */
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+
+	/**
+	 * The URL of the link for Competitor Prompt experiment
+	 */
+	url?: string;
 } & BlockProps;
 
 export type TitleBlockViewProps = TitleBlockProps & {

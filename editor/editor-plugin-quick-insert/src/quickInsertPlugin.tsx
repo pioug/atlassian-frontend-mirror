@@ -3,6 +3,7 @@ import React from 'react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
 	ProviderFactory,
 	QuickInsertItem,
@@ -20,6 +21,7 @@ import type {
 	QuickInsertPluginStateKeys,
 	TypeAheadHandler,
 } from '@atlaskit/editor-common/types';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -69,6 +71,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		// This is used by typeahead plugin to trigger element browser modal without introducing circular dependency.
 		// Given it's only temporarily needed to roll out toolbar&menus separate to quick insert/right rail change
 		// skip updating `TypeAheadHandler` to avoid unnecessary breaking change.
+		// Remove this when clean up platform_editor_controls_patch_12 as it's replaced by getMoreOptionsButtonConfig
 		openElementBrowserModal: options?.enableElementBrowser
 			? () => {
 					api?.core.actions.execute(({ tr }) => {
@@ -83,6 +86,15 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 					});
 				}
 			: undefined,
+
+		getMoreOptionsButtonConfig: ({ formatMessage }) => {
+			return {
+				title: formatMessage(messages.viewMore),
+				ariaLabel: formatMessage(messages.viewMoreAriaLabel),
+				onClick: openElementBrowserModal,
+				iconBefore: <ShowMoreHorizontalIcon label="" />,
+			};
+		},
 	};
 
 	let intl: IntlShape;

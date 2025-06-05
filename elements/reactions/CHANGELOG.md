@@ -1,5 +1,26 @@
 # @atlaskit/reactions
 
+## 32.0.0
+
+### Major Changes
+
+- [#166079](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166079)
+  [`938072fa984ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/938072fa984ec) -
+  [ux] Removes showRoundTrigger prop and related styling since it is no longer used
+
+## 31.20.0
+
+### Minor Changes
+
+- [#165300](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165300)
+  [`14a650aa14dfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14a650aa14dfb) -
+  [ux] add new optional xcss prop on EmojiPlaceholder to allow custom background colors on the
+  loading skeletons for emojis. Changes the ReactionSummaryButton to use a lighter shade of grey.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.19.1
 
 ### Patch Changes

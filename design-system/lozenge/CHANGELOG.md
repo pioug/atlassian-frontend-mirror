@@ -1,5 +1,17 @@
 # @atlaskit/lozenge
 
+## 13.0.0
+
+### Major Changes
+
+- [#157573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157573)
+  [`e9334c37a9e16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9334c37a9e16) -
+  Removes Emotion variant of the Lozenge and replaces contents with styles from Compiled CSS.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.5
 
 ### Patch Changes

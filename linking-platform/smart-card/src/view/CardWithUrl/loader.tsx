@@ -65,6 +65,7 @@ export function CardWithURLRenderer(props: CardProps) {
 		removeTextHighlightingFromTitle,
 		resolvingPlaceholder,
 		truncateInline,
+		CompetitorPrompt,
 	} = props;
 
 	const isFlexibleUi = isFlexibleUiCard(
@@ -147,6 +148,7 @@ export function CardWithURLRenderer(props: CardProps) {
 		removeTextHighlightingFromTitle,
 		resolvingPlaceholder,
 		truncateInline,
+		CompetitorPrompt,
 	};
 
 	return (

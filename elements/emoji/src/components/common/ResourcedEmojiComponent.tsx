@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import type { StrictXCSSProp } from '@atlaskit/css';
+
 import type { EmojiProvider } from '../../api/EmojiResource';
 import type { EmojiLoadSuccessCallback, EmojiLoadFailCallback } from '../../api/EmojiUtils';
 import { defaultEmojiHeight } from '../../util/constants';
@@ -54,6 +56,11 @@ export interface BaseResourcedEmojiProps {
 	 * This is acceptable in Editor -- as it uses another technique to announce the emoji nodes.
 	 */
 	editorEmoji?: true;
+
+	/**
+	 * allows custom styling to the placeholder component while the emoji is loading.
+	 */
+	placeholderXcss?: StrictXCSSProp<'backgroundColor', never>;
 }
 
 export interface Props extends BaseResourcedEmojiProps {
@@ -79,19 +86,19 @@ enum ResourcedEmojiComponentRenderStatesEnum {
 	EMOJI = 'EMOJI',
 }
 
-export const ResourcedEmojiComponent = (props: Props) => {
-	const {
-		emojiProvider,
-		emojiId,
-		showTooltip = false,
-		customFallback = undefined,
-		fitToHeight = defaultEmojiHeight,
-		optimistic = false,
-		optimisticImageURL = undefined,
-		editorEmoji,
-		onEmojiLoadSuccess,
-		onEmojiLoadFail,
-	} = props;
+export const ResourcedEmojiComponent = ({
+	emojiProvider,
+	emojiId,
+	showTooltip = false,
+	customFallback = undefined,
+	fitToHeight = defaultEmojiHeight,
+	optimistic = false,
+	optimisticImageURL = undefined,
+	editorEmoji,
+	placeholderXcss,
+	onEmojiLoadSuccess,
+	onEmojiLoadFail,
+}: Props) => {
 	const { shortName, id, fallback } = emojiId;
 	const [emoji, setEmoji] = useState<OptionalEmojiDescription>();
 	const [loaded, setLoaded] = useState(false);
@@ -270,6 +277,7 @@ export const ResourcedEmojiComponent = (props: Props) => {
 						showTooltip={showTooltip}
 						size={fitToHeight || defaultEmojiHeight}
 						loading
+						xcss={placeholderXcss}
 					/>
 				)}
 				{emojiRenderState === ResourcedEmojiComponentRenderStatesEnum.FALLBACK && (

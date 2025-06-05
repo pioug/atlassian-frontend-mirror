@@ -59,6 +59,7 @@ const CardView = ({
 	inheritDimensions,
 	truncateInline,
 	showHoverPreview,
+	CompetitorPrompt,
 }: CardViewProps) => (
 	<SmartCardProvider client={client}>
 		<EmbedCardWrapper inheritDimensions={inheritDimensions}>
@@ -71,6 +72,7 @@ const CardView = ({
 				inheritDimensions={inheritDimensions}
 				truncateInline={truncateInline}
 				showHoverPreview={showHoverPreview}
+				CompetitorPrompt={CompetitorPrompt}
 			/>
 		</EmbedCardWrapper>
 	</SmartCardProvider>

@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 69.3.0
+
+### Minor Changes
+
+- [#165300](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165300)
+  [`14a650aa14dfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14a650aa14dfb) -
+  [ux] add new optional xcss prop on EmojiPlaceholder to allow custom background colors on the
+  loading skeletons for emojis. Changes the ReactionSummaryButton to use a lighter shade of grey.
+
 ## 69.2.1
 
 ### Patch Changes

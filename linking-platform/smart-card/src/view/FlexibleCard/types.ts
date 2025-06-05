@@ -108,6 +108,11 @@ export type FlexibleCardProps = {
 	 * Configuration options for hover preview
 	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
+
+	/**
+	 * Competitor Prompt Component for Competitor link experiment
+	 */
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 };
 
 export type InternalFlexibleUiOptions = FlexibleUiOptions & {

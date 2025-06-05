@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 106.2.0
+
+### Minor Changes
+
+- [#164920](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164920)
+  [`bd64fb35bc619`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd64fb35bc619) -
+  [https://product-fabric.atlassian.net/browse/ED-28183](ED-28183) - fix a11y issue in editor link
+  search
+
+### Patch Changes
+
+- Updated dependencies
+
+## 106.1.10
+
+### Patch Changes
+
+- [#165189](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165189)
+  [`648000359d216`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/648000359d216) -
+  [ux] PGXT-8152 Add update to test fix for interactions with input elements inside of
+  extensions/macros in editor not working because the editor handles the events instead getting in
+  the way of the input elements interactions.
+
 ## 106.1.9
 
 ### Patch Changes

@@ -40,6 +40,10 @@ const styles = cssMap({
 		justifyContent: 'center',
 	},
 
+	emojiPlaceholderBackground: {
+		backgroundColor: token('color.skeleton'),
+	},
+
 	particleEffectContainer: {
 		paddingRight: token('space.300'),
 	},
@@ -177,6 +181,7 @@ export const ReactionSummaryButton = forwardRef(
 										emojiId={{ id: reaction.emojiId, shortName: '' }}
 										fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
 										optimisticImageURL={summaryGetOptimisticImageURL?.(reaction.emojiId)}
+										placeholderXcss={styles.emojiPlaceholderBackground}
 									/>
 								</Box>
 							))}

@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 118.6.8
+
+### Patch Changes
+
+- [#166323](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166323)
+  [`51519a7335b4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51519a7335b4d) -
+  [ux] Remove 1px margin top from inline macro wrapper that is causing hydration shift
+- Updated dependencies
+
 ## 118.6.7
 
 ### Patch Changes

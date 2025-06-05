@@ -66,7 +66,13 @@ export default class LinkSearchList extends PureComponent<Props, Object> {
 
 		if (items && items.length > 0) {
 			itemsContent = (
-				<ul css={linkSearchList} id={id} role={role} aria-controls={ariaControls}>
+				<ul
+					css={linkSearchList}
+					id={id}
+					role={role}
+					aria-controls={ariaControls}
+					data-testid={`${id}--items`}
+				>
 					{items.map((item, index) => (
 						<LinkSearchListItem
 							id={`link-search-list-item-${index}`}
@@ -86,7 +92,7 @@ export default class LinkSearchList extends PureComponent<Props, Object> {
 
 		if (isLoading) {
 			loadingContent = (
-				<div data-testid={`${id}-loading`} css={spinnerContainer}>
+				<div id={id} data-testid={`${id}--loading`} css={spinnerContainer}>
 					<Spinner size="medium" interactionName="link-search-spinner" />
 				</div>
 			);

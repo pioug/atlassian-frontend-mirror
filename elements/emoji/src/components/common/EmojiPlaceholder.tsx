@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx, keyframes } from '@compiled/react';
+import type { StrictXCSSProp } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N20A } from '@atlaskit/theme/colors';
@@ -52,6 +53,7 @@ export interface Props {
 	showTooltip?: boolean;
 	representation?: EmojiImageRepresentation;
 	loading?: boolean;
+	xcss?: StrictXCSSProp<'backgroundColor', never>;
 }
 
 export const emojiPlaceholderTestId = (shortName: string) => `emoji-placeholder-${shortName}`;
@@ -63,6 +65,7 @@ const EmojiPlaceholder = (props: Props) => {
 		showTooltip,
 		representation,
 		loading = false,
+		xcss,
 	} = props;
 
 	let scaledWidth;
@@ -91,7 +94,10 @@ const EmojiPlaceholder = (props: Props) => {
 			role="status"
 			aria-label={shortName}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={placeholder}
+			className={[
+				placeholder,
+				fg('platform_reactions_placeholder_custom_background') ? xcss : '',
+			].join(' ')}
 			css={[
 				placeholderContainer,
 				loading && !fg('cc_complexit_fe_remove_emoji_animation') && placeholderContainerAnimated,

@@ -27,6 +27,7 @@ export const BlockCard = ({
 	onError,
 	testId,
 	actionOptions,
+	CompetitorPrompt,
 }: BlockCardProps) => {
 	const { status } = cardState;
 
@@ -40,6 +41,7 @@ export const BlockCard = ({
 		onResolve,
 		renderers,
 		actionOptions,
+		CompetitorPrompt,
 	};
 
 	const { shouldControlDataExport = false } = useControlDataExportConfig();

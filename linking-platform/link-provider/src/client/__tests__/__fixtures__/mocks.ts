@@ -51,14 +51,12 @@ const entityDataResponse = {
 			externalUrl:
 				'https://s3-alpha.figma.com/thumbnails/67c42edb-8cf1-49b7-8866-452b8dc2bc19?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWCXHUIFXET%2F20250109%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250109T000000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=7e0174016982e5a3fa9c74725f28ca4ab19b7f39ae700553a0aaf0386c07494c',
 		},
-		'atlassian:design': {
-			liveEmbedUrl:
-				'https://www.figma.com/embed?embed_host=astra&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2Ffrl3oZ39Cd6jr7WvWZUQPw%2FRovo-GA-in-Admin-Hub',
-			status: 'UNKNOWN',
-			type: 'FILE',
-			inspectUrl: 'https://www.figma.com/design/frl3oZ39Cd6jr7WvWZUQPw/Rovo-GA-in-Admin-Hub?m=dev',
-			iconUrl: 'https://static.figma.com/app/icon/1/favicon.ico',
-		},
+		liveEmbedUrl:
+			'https://www.figma.com/embed?embed_host=astra&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2Ffrl3oZ39Cd6jr7WvWZUQPw%2FRovo-GA-in-Admin-Hub',
+		status: 'UNKNOWN',
+		type: 'FILE',
+		inspectUrl: 'https://www.figma.com/design/frl3oZ39Cd6jr7WvWZUQPw/Rovo-GA-in-Admin-Hub?m=dev',
+		iconUrl: 'https://static.figma.com/app/icon/1/favicon.ico',
 	},
 };
 

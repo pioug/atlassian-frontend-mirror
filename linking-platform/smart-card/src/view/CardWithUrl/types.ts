@@ -38,4 +38,5 @@ export type CardWithUrlContentProps = {
 	removeTextHighlightingFromTitle?: boolean;
 	resolvingPlaceholder?: string;
 	truncateInline?: boolean;
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 };

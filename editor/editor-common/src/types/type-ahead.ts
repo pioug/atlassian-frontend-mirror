@@ -1,10 +1,13 @@
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
+
+import { IntlShape } from 'react-intl-next';
 
 import { type Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { TypeAheadPayload } from '../analytics/types/type-ahead';
 import type { SelectItemMode, TypeAheadAvailableNodes } from '../type-ahead';
+import type { EditorCommand } from '../types';
 
 type TypeAheadForceSelectProps = {
 	query: string;
@@ -63,6 +66,13 @@ export type TypeAheadItem = {
 
 export type TypeAheadForceSelect = (props: TypeAheadForceSelectProps) => TypeAheadItem | undefined;
 
+export type MoreOptionsButtonConfig = {
+	title: string;
+	ariaLabel?: string;
+	onClick: EditorCommand;
+	iconBefore?: ReactNode;
+};
+
 export type TypeAheadHandler = {
 	id: TypeAheadAvailableNodes;
 
@@ -98,4 +108,6 @@ export type TypeAheadHandler = {
 	}) => void;
 
 	getHighlight?: (state: EditorState) => JSX.Element | null;
+
+	getMoreOptionsButtonConfig?: (intl: IntlShape) => MoreOptionsButtonConfig;
 };

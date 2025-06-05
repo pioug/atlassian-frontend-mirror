@@ -196,71 +196,41 @@ const breakoutWidthStyling = () => {
 };
 
 const viewModeSortStyles = () => {
-	return fg('platform_editor_nested_tables_view_mode_sort')
-		? css`
-				/* new styles */
-				th {
-					.${SORTING_ICON_CLASS_NAME} {
-						+ p {
-							margin-top: 0 !important;
-						}
-					}
-
-					> .${SORTING_ICON_CLASS_NAME} {
-						&:has(.is-active) {
-							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-								opacity: 1;
-							}
-						}
-					}
-
-					> .${SORTING_ICON_CLASS_NAME} {
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 0;
-							&:focus {
-								opacity: 1;
-							}
-						}
-					}
-
-					&:hover:not(:has(.${ClassName.TABLE_CONTAINER}:hover)) {
-						> .${SORTING_ICON_CLASS_NAME} {
-							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-								opacity: 1;
-							}
-						}
-					}
+	return css`
+		/* new styles */
+		th {
+			.${SORTING_ICON_CLASS_NAME} {
+				+ p {
+					margin-top: 0 !important;
 				}
-			`
-		: css`
-				/* old styles */
-				th {
-					.${SORTING_ICON_CLASS_NAME} {
-						+ p {
-							margin-top: 0 !important;
-						}
-					}
+			}
 
-					&:has(.is-active) {
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 1;
-						}
-					}
-
+			> .${SORTING_ICON_CLASS_NAME} {
+				&:has(.is-active) {
 					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-						opacity: 0;
-						&:focus {
-							opacity: 1;
-						}
-					}
-
-					&:hover {
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 1;
-						}
+						opacity: 1;
 					}
 				}
-			`;
+			}
+
+			> .${SORTING_ICON_CLASS_NAME} {
+				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+					opacity: 0;
+					&:focus {
+						opacity: 1;
+					}
+				}
+			}
+
+			&:hover:not(:has(.${ClassName.TABLE_CONTAINER}:hover)) {
+				> .${SORTING_ICON_CLASS_NAME} {
+					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+						opacity: 1;
+					}
+				}
+			}
+		}
+	`;
 };
 
 const tableBorderStyles = () => {

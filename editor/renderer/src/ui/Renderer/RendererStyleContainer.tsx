@@ -2017,6 +2017,7 @@ type RendererStyleContainerProps = Pick<
 	| 'allowTableResizing'
 	| 'innerRef'
 	| 'children'
+	| 'allowRendererContainerStyles'
 > & {
 	testId?: string;
 };

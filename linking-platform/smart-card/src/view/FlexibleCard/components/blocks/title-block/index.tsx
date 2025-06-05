@@ -77,6 +77,8 @@ const TitleBlock = ({
 	hideIcon = false,
 	className,
 	anchorRef,
+	CompetitorPrompt,
+	url,
 	...props
 }: TitleBlockProps) => {
 	const cardContext = fg('platform-linking-flexible-card-context')
@@ -142,6 +144,8 @@ const TitleBlock = ({
 			icon={icon}
 			size={fg('platform-linking-flexible-card-context') ? props.size ?? ui?.size : props?.size}
 			{...(fg('platform-linking-flexible-card-context') ? undefined : { theme })}
+			CompetitorPrompt={CompetitorPrompt}
+			url={url}
 		/>
 	);
 };

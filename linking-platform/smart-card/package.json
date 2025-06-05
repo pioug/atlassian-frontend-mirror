@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.6.0",
+	"version": "38.7.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -268,6 +268,9 @@
 			"type": "boolean"
 		},
 		"fun-1765_wire_up_glance_panel_to_smart_cards": {
+			"type": "boolean"
+		},
+		"prompt_whiteboard_competitor_link_gate": {
 			"type": "boolean"
 		}
 	},

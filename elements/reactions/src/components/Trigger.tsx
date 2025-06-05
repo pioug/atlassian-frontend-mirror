@@ -44,12 +44,6 @@ const styles = cssMap({
 		borderRadius: token('border.radius'),
 	},
 
-	roundTrigger: {
-		borderRadius: token('border.radius.circle'),
-		height: '2rem',
-		width: '2rem',
-	},
-
 	transparentEnabledTrigger: {
 		borderColor: token('color.border'),
 		backgroundColor: token('color.background.neutral.subtle'),
@@ -152,10 +146,6 @@ export interface TriggerProps {
 	 */
 	subtleReactionsSummaryAndPicker?: boolean;
 	/**
-	 * Optional prop for controlling if the picker hover border will be rounded
-	 */
-	showRoundTrigger?: boolean;
-	/**
 	 * Optional prop for controlling icon inside Trigger
 	 */
 	reactionPickerTriggerIcon?: React.ReactNode;
@@ -217,7 +207,6 @@ export const Trigger = React.forwardRef(
 			showOpaqueBackground = false,
 			showAddReactionText = false,
 			subtleReactionsSummaryAndPicker = false,
-			showRoundTrigger = false,
 			reactionPickerTriggerIcon,
 			reactionPickerTriggerText = formatMessage(i18n.addReaction),
 			fullWidthSummaryViewReactionPickerTrigger = false,
@@ -252,7 +241,6 @@ export const Trigger = React.forwardRef(
 					miniMode && styles.miniMode,
 					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					fg('platform-component-visual-refresh') && styles.triggerStylesRefresh,
-					showRoundTrigger && styles.roundTrigger,
 				)}
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography

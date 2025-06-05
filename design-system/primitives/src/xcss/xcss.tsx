@@ -276,6 +276,7 @@ type ChainedCSSPseudos =
 	| ':visited:hover'
 	| ':active:visited'
 	| ':hover::before'
+	| ':focus::before'
 	| ':hover::after'
 	| ':focus-visible::before'
 	| ':focus-visible::after'

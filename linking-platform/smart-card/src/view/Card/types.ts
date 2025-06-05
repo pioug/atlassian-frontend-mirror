@@ -112,6 +112,10 @@ export interface BaseCardProps {
 	 * The url link of the resource to be resolved and shown as Smart Link.
 	 */
 	url?: string;
+	/**
+	 * Competitor Prompt Component for Competitor link experiment
+	 */
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 
 export interface InlineProps extends HoverPreviewProps {

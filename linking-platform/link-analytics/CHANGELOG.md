@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

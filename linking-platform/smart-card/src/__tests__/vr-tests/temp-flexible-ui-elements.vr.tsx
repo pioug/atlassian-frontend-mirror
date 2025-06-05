@@ -25,6 +25,7 @@ import { BlockCardNotFoundView } from '../../../examples/vr-block-card/vr-block-
 import { BlockCardNotFoundSiteAccessExists } from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists';
 import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
 import { BlockCardBitbucket } from '../../../examples/vr-block-card/vr-block-card-resolved-bitbucket';
+import { BlockCardCompetitorPrompt } from '../../../examples/vr-block-card/vr-block-card-resolved-competitor-prompt';
 import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-card-resolved-confluence';
 import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities';
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira';
@@ -1727,5 +1728,17 @@ snapshot(FlexUiBlockAiSummaryError, {
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
 		'platform-linking-fix-a11y-in-smart-card': true,
+	},
+});
+
+snapshot(BlockCardCompetitorPrompt, {
+	description: 'Block Card with CompetitorPrompt',
+	featureFlags: {
+		prompt_whiteboard_competitor_link_gate: [true, false],
+		'platform-linking-flexible-card-context': true,
+		'platform-linking-flexible-card-unresolved-action': true,
+		'platform-component-visual-refresh': true,
+		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-visual-refresh-v2': true,
 	},
 });

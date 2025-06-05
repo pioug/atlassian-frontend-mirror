@@ -49,6 +49,8 @@ export type Match = {
 	start: number;
 	/** End position */
 	end: number;
+	/** Boolean for whether the match can be replaced */
+	canReplace?: boolean;
 };
 
 export type TextGrouping = {

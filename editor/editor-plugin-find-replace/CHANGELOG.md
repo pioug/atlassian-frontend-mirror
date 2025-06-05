@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.2.8
+
+### Patch Changes
+
+- [#165597](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165597)
+  [`7091d26926b74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7091d26926b74) -
+  [ED-28128] this change is adding an optional field to the Match type in the FindReplace plugin
+- Updated dependencies
+
 ## 2.2.7
 
 ### Patch Changes

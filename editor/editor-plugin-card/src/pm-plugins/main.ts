@@ -322,6 +322,7 @@ export const createPlugin =
 						onClickCallback,
 						allowDatasource: options.allowDatasource,
 						inlineCardViewProducer,
+						CompetitorPrompt: options.CompetitorPrompt,
 					}),
 					embedCard: lazyEmbedCardView({
 						allowResizing,

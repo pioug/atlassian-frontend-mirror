@@ -102,6 +102,7 @@ const ResolvedView = ({
 	actionOptions,
 	testId = 'smart-block-resolved-view',
 	url,
+	CompetitorPrompt,
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 
@@ -153,6 +154,8 @@ const ResolvedView = ({
 				metadataPosition={SmartLinkPosition.Top}
 				css={[fg('platform-linking-visual-refresh-v1') ? titleBlockCss : titleBlockCssOld]}
 				{...(fg('platform-linking-flexible-card-context') ? undefined : { status })}
+				CompetitorPrompt={CompetitorPrompt}
+				url={url}
 			/>
 			<MetadataBlock
 				primary={topMetadata}

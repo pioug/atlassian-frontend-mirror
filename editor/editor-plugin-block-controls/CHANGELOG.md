@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.11
+
+### Patch Changes
+
+- [#166480](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166480)
+  [`55d4dbd11d97d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55d4dbd11d97d) -
+  Add 'marks: []' to both widgets to ensure PM renders them at the top level document, not inside
+  sibling elements wrapped with marks
+- Updated dependencies
+
 ## 3.15.10
 
 ### Patch Changes

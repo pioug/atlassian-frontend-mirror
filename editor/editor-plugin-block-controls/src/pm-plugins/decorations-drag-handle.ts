@@ -62,6 +62,45 @@ export const dragHandleDecoration = (
 	let unbind: UnbindFn;
 	const key = uuid();
 
+	const widgetSpec = editorExperiment('platform_editor_breakout_resizing', true)
+		? {
+				side: -1,
+				type: TYPE_HANDLE_DEC,
+				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
+				/**
+				 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
+				 * Leaving this 'undefined' causes the widget to be wrapped in the mark before this position which creates
+				 * weird stacking context issues. Providing an empty array causes the widget to correctly render before
+				 * this exact position at the top of the DOM.
+				 */
+				marks: [],
+				destroy: (node: Node) => {
+					unbind && unbind();
+
+					if (
+						editorExperiment('platform_editor_block_control_optimise_render', true) &&
+						node instanceof HTMLElement
+					) {
+						ReactDOM.unmountComponentAtNode(node);
+					}
+				},
+			}
+		: {
+				side: -1,
+				type: TYPE_HANDLE_DEC,
+				testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
+				destroy: (node: Node) => {
+					unbind && unbind();
+
+					if (
+						editorExperiment('platform_editor_block_control_optimise_render', true) &&
+						node instanceof HTMLElement
+					) {
+						ReactDOM.unmountComponentAtNode(node);
+					}
+				},
+			};
+
 	return Decoration.widget(
 		pos,
 		(view, getPosUnsafe) => {
@@ -167,20 +206,6 @@ export const dragHandleDecoration = (
 
 			return element;
 		},
-		{
-			side: -1,
-			type: TYPE_HANDLE_DEC,
-			testid: `${TYPE_HANDLE_DEC}-${uuid()}`,
-			destroy: (node: Node) => {
-				unbind && unbind();
-
-				if (
-					editorExperiment('platform_editor_block_control_optimise_render', true) &&
-					node instanceof HTMLElement
-				) {
-					ReactDOM.unmountComponentAtNode(node);
-				}
-			},
-		},
+		widgetSpec,
 	);
 };

@@ -4,6 +4,9 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -22,6 +25,15 @@ const style = css({
 	gap: token('space.050'),
 });
 
+const styles = cssMap({
+	titleBox: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		width: '100%',
+	},
+});
+
 /**
  * This renders a fully resolved TitleBlock.
  * This should render when a Smart Link returns a valid response.
@@ -38,6 +50,8 @@ const TitleBlockResolvedView = ({
 	title,
 	metadataPosition,
 	hideIcon,
+	CompetitorPrompt,
+	url,
 	...blockProps
 }: TitleBlockViewProps) => {
 	const { size } = blockProps;
@@ -53,7 +67,14 @@ const TitleBlockResolvedView = ({
 				css={style}
 				size={blockProps.size}
 			>
-				{title}
+				{CompetitorPrompt && url && fg('prompt_whiteboard_competitor_link_gate') ? (
+					<Box xcss={styles.titleBox}>
+						{title}
+						<CompetitorPrompt sourceUrl={url} linkType={'card'} />
+					</Box>
+				) : (
+					title
+				)}
 				{subtitleElements && (
 					<ElementGroup direction={SmartLinkDirection.Horizontal}>{subtitleElements}</ElementGroup>
 				)}

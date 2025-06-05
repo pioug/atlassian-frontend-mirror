@@ -282,7 +282,7 @@ export class EditorCardProvider implements CardProvider {
 		}
 
 		let isJiraIssueNavigatorEvaluated;
-		if (fg('jira_nin_smart_link')) {
+		if (this.getExperimentValue('jsc_nin_smart_link', 'isEnabled', false)) {
 			isJiraIssueNavigatorEvaluated = isJiraIssueNavigator(url);
 		}
 

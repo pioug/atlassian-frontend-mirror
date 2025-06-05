@@ -86,9 +86,8 @@ type ActionsTarget = XOR<{ ari: string }, { url: string }, { id: string }>;
 
 type SupportedActionInputPrimitives = string | number | boolean;
 
-export interface AtomicActionExecuteRequest {
+export type AtomicActionExecuteRequest = {
 	integrationKey: string; // eg: jira
-	actionKey: string; // eg: atlassian:work-item:update:summary
 	parameters: {
 		inputs: {
 			[key: string]:
@@ -97,7 +96,16 @@ export interface AtomicActionExecuteRequest {
 		};
 		target: ActionsTarget;
 	};
-}
+} & (
+	| {
+			actionKey: string; // eg: atlassian:work-item:update:summary
+			actionId?: never;
+	  }
+	| {
+			actionId: string; // eg: 23432163-2d27-4d1b-9017-0207157d8e55
+			actionKey?: never;
+	  }
+);
 
 export enum ActionOperationStatus {
 	SUCCESS = 'SUCCESS',

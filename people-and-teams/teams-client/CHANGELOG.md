@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.4.0
+
+### Minor Changes
+
+- [#165980](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165980)
+  [`e7a1371658ecc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7a1371658ecc) -
+  Loom ARI
+
 ## 4.3.0
 
 ### Minor Changes

@@ -24,6 +24,7 @@ export type ChromelessEditorProps = Pick<
 	| 'contextIdentifierProvider'
 	| 'searchProvider'
 	| 'extensionProviders'
+	| 'popupsMountPoint'
 >;
 
 /**

@@ -12,4 +12,5 @@ export type FlexibleBlockCardProps = Pick<
 	| 'actionOptions'
 	| 'testId'
 	| 'url'
+	| 'CompetitorPrompt'
 >;

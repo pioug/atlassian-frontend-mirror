@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 38.7.1
+
+### Patch Changes
+
+- [#165007](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165007)
+  [`1f50b1c7072cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f50b1c7072cf) -
+  Remove atlassian:design and flattern the entity data
+- Updated dependencies
+
+## 38.7.0
+
+### Minor Changes
+
+- [#161907](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161907)
+  [`0f083a35b280f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f083a35b280f) -
+  [ux] Add optional CompetitorPrompt component to display for Smart Link card for experiment
+
+## 38.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.6.0
 
 ### Minor Changes

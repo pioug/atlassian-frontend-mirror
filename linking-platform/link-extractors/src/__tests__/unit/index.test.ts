@@ -125,7 +125,7 @@ describe('extractSmartLinkEmbed()', () => {
 		const response = {
 			meta: { visibility: 'public', access: 'granted' },
 			data: { '@type': 'Object', embedUrl: 'https://example.com/embed' },
-			entityData: { ['atlassian:design']: { liveEmbedUrl: 'https://example.com/embed' } },
+			entityData: { liveEmbedUrl: 'https://example.com/embed' },
 		} as unknown as SmartLinkResponse;
 
 		expect(extractSmartLinkEmbed(response)).toEqual({ src: 'https://example.com/embed' });
@@ -221,9 +221,7 @@ describe('extractEntityIcon()', () => {
 			data: { '@type': 'Object' },
 			entityData: {
 				displayName: 'Entity Title',
-				['atlassian:design']: {
-					iconUrl: url,
-				},
+				iconUrl: url,
 			},
 		} as SmartLinkResponse;
 
@@ -260,9 +258,7 @@ describe('extractSmartLinkProvider()', () => {
 			data: { '@type': 'Object' },
 			entityData: {
 				displayName: 'Entity Title',
-				['atlassian:design']: {
-					iconUrl: 'https://example.com/icon.png',
-				},
+				iconUrl: 'https://example.com/icon.png',
 			},
 		} as SmartLinkResponse;
 		expect(extractSmartLinkProvider(response)).toBeUndefined();

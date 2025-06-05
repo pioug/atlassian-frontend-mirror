@@ -5,6 +5,10 @@ import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags'
 import { EditorCardProvider } from '..';
 import { type LinkAppearance, type ProviderPattern, type UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+const mockGetExperimentValue = jest.fn();
+FeatureGates.getExperimentValue = mockGetExperimentValue;
 
 type PatternsProviderResponse = {
 	providers: Provider[];
@@ -175,8 +179,7 @@ describe('providers > editor', () => {
 			(flag) =>
 				flag === 'smart_links_for_plans_platform' ||
 				flag === 'smartlink_jira_software_form' ||
-				flag === 'plan_smart_link_base_url' ||
-				flag === 'jira_nin_smart_link',
+				flag === 'plan_smart_link_base_url',
 		);
 	});
 
@@ -600,6 +603,7 @@ describe('providers > editor', () => {
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
 		async (_, url) => {
+			mockGetExperimentValue.mockReturnValue(true);
 			const provider = new EditorCardProvider();
 			mockFetch.mockResolvedValueOnce({
 				json: async () => getMockProvidersResponse(),

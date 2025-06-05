@@ -1,33 +1,24 @@
 import React from 'react';
 
-import type {
-	DesignEntity,
-	EntityType,
-	ProviderGenerator,
-	SmartLinkResponse,
-} from '@atlaskit/linking-types';
+import type { EntityType, ProviderGenerator, SmartLinkResponse } from '@atlaskit/linking-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 
 import { type LinkProvider } from '../common';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../common/constants';
 
-export const isEntityPresent = (response?: SmartLinkResponse): boolean =>
-	Boolean(response?.entityData);
-
 export const extractEntity = (response?: SmartLinkResponse): EntityType | undefined =>
 	response?.entityData;
 
+export const isEntityPresent = (response?: SmartLinkResponse): boolean =>
+	Boolean(extractEntity(response));
+
 export const extractEntityEmbedUrl = (response?: SmartLinkResponse): string | undefined => {
 	const entity = extractEntity(response);
-	if (entity && instanceOfDesignEntity(entity)) {
-		return entity['atlassian:design'].liveEmbedUrl;
-	}
+	return entity && 'liveEmbedUrl' in entity && typeof entity?.liveEmbedUrl === 'string'
+		? entity?.liveEmbedUrl
+		: undefined;
 };
-
-export function instanceOfDesignEntity(object: unknown): object is DesignEntity {
-	return typeof object === 'object' && object !== null && 'atlassian:design' in object;
-}
 
 export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvider | undefined => {
 	if (!response?.meta?.generator) {
@@ -61,11 +52,11 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 
 export const extractEntityIcon = (response?: SmartLinkResponse) => {
 	const entity = extractEntity(response);
-	let url: string | undefined;
 
-	if (instanceOfDesignEntity(entity)) {
-		url = entity?.['atlassian:design'].iconUrl;
-	}
+	const url =
+		entity && 'iconUrl' in entity && typeof entity?.iconUrl === 'string'
+			? entity.iconUrl
+			: undefined;
 
 	return {
 		url,

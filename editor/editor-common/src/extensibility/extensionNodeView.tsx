@@ -3,6 +3,7 @@ import React from 'react';
 import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import type { ExtensionHandlers } from '../extensions';
@@ -36,6 +37,20 @@ export class ExtensionNode extends ReactNodeView {
 			this.node.type.isAtom ||
 			(mutation.type !== 'selection' && mutation.attributeName !== 'data-layout')
 		);
+	}
+
+	/**
+	 * When interacting with input elements inside an extension's body, the events
+	 * bubble up to the editor and get handled by it. This almost always gets in the way
+	 * of being able to actually interact with said input in the extension, i.e.
+	 * typing inside a text field (in an extension body) will print the text in the editor
+	 * content area instead. This change prevents the editor view from trying to handle these events,
+	 * when the target of the event is an input element, so the extension can.
+	 *
+	 * TODO: PGXT-8180 - write tests https://product-fabric.atlassian.net/browse/PGXT-8180
+	 */
+	stopEvent(event: Event) {
+		return event.target instanceof HTMLInputElement && fg('interactable_in_editor_inputs');
 	}
 
 	getContentDOM() {

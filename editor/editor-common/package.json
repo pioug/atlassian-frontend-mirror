@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "106.1.9",
+	"version": "106.2.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -484,6 +484,9 @@
 			"type": "boolean"
 		},
 		"confluence_preload_forge_viewport_heights_editor": {
+			"type": "boolean"
+		},
+		"interactable_in_editor_inputs": {
 			"type": "boolean"
 		}
 	}

@@ -3,6 +3,7 @@ import React from 'react';
 import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
@@ -90,16 +91,21 @@ export const TypeAheadMenu = React.memo(
 
 		// @ts-ignore
 		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
-		const showViewMore =
-			triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT &&
-			!!openElementBrowserModal &&
-			editorExperiment('platform_editor_controls', 'variant1');
+		let showMoreOptionsButton = false;
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			if (fg('platform_editor_controls_patch_12')) {
+				showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
+			} else {
+				showMoreOptionsButton =
+					triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT && !!openElementBrowserModal;
+			}
+		}
 
 		if (
 			!isOpen ||
 			!triggerHandler ||
 			!(decorationElement instanceof HTMLElement) ||
-			(!showViewMore && items.length === 0 && !errorInfo)
+			(!openElementBrowserModal && items.length === 0 && !errorInfo)
 		) {
 			return null;
 		}
@@ -121,7 +127,7 @@ export const TypeAheadMenu = React.memo(
 				isEmptyQuery={!query}
 				cancel={cancel}
 				api={api}
-				showViewMore={showViewMore}
+				showMoreOptionsButton={showMoreOptionsButton}
 			/>
 		);
 	},

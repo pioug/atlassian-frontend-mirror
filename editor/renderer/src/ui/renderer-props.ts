@@ -79,6 +79,7 @@ export interface RendererProps {
 	isInsideOfInlineExtension?: boolean;
 	isTopLevelRenderer?: boolean;
 	includeNodesCountInStats?: boolean;
+	allowRendererContainerStyles?: boolean;
 	// Removes the empty space, lines, hard breaks above and below the comment content
 	shouldRemoveEmptySpaceAroundContent?: boolean;
 	/**

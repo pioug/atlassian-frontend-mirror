@@ -51,11 +51,9 @@ export default {
 		thumbnail: {
 			externalUrl: 'https://image-url',
 		},
-		'atlassian:design': {
-			liveEmbedUrl: 'https://preview-url',
-			type: 'FILE',
-			inspectUrl: 'https://preview-url',
-			iconUrl: 'https://icon-url',
-		},
+		liveEmbedUrl: 'https://preview-url',
+		type: 'FILE',
+		inspectUrl: 'https://preview-url',
+		iconUrl: 'https://icon-url',
 	},
 };

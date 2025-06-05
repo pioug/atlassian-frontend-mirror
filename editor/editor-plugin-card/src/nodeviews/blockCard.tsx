@@ -98,7 +98,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 	};
 
 	render() {
-		const { node, cardContext, actionOptions, onClick } = this.props;
+		const { node, cardContext, actionOptions, onClick, CompetitorPrompt } = this.props;
 		const { url, data } = node.attrs;
 
 		const cardInner = (
@@ -113,6 +113,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps & { i
 					onError={this.onError}
 					platform={'web'}
 					actionOptions={actionOptions}
+					CompetitorPrompt={CompetitorPrompt}
 				/>
 				{this.gapCursorSpan()}
 			</>
@@ -135,7 +136,7 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<
 	SmartCardProps,
-	'actionOptions' | 'pluginInjectionApi' | 'onClickCallback'
+	'actionOptions' | 'pluginInjectionApi' | 'onClickCallback' | 'CompetitorPrompt'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -182,7 +183,8 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	}
 
 	render() {
-		const { actionOptions, pluginInjectionApi, onClickCallback } = this.reactComponentProps;
+		const { actionOptions, pluginInjectionApi, onClickCallback, CompetitorPrompt } =
+			this.reactComponentProps;
 
 		return (
 			<WrappedBlockCard
@@ -193,6 +195,7 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				pluginInjectionApi={pluginInjectionApi}
 				onClickCallback={onClickCallback}
 				id={this.id}
+				CompetitorPrompt={CompetitorPrompt}
 			/>
 		);
 	}
@@ -226,6 +229,7 @@ export interface BlockCardNodeViewProperties {
 	onClickCallback: BlockCardNodeViewProps['onClickCallback'];
 	allowDatasource: boolean | undefined;
 	inlineCardViewProducer: ReturnType<typeof getInlineNodeViewProducer>;
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 
 export const blockCardNodeView =
@@ -236,6 +240,7 @@ export const blockCardNodeView =
 		onClickCallback,
 		allowDatasource,
 		inlineCardViewProducer,
+		CompetitorPrompt,
 	}: BlockCardNodeViewProperties) =>
 	(
 		node: Node,
@@ -248,6 +253,7 @@ export const blockCardNodeView =
 			actionOptions,
 			pluginInjectionApi,
 			onClickCallback: onClickCallback,
+			CompetitorPrompt,
 		};
 		const isDatasource = isDatasourceNode(node);
 

@@ -100,12 +100,10 @@ const entityDataResponse = {
 		thumbnail: {
 			externalUrl: 'https://www.ilovecheese.com',
 		},
-		'atlassian:design': {
-			liveEmbedUrl: 'https://www.ilovecheese.com',
-			type: 'FILE',
-			inspectUrl: 'https://www.ilovecheese.com',
-			iconUrl: 'https://www.ilovecheese.com',
-		},
+		liveEmbedUrl: 'https://www.ilovecheese.com',
+		type: 'FILE',
+		inspectUrl: 'https://www.ilovecheese.com',
+		iconUrl: 'https://www.ilovecheese.com',
 	},
 };
 

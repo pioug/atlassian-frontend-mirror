@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.12.0
+
+### Minor Changes
+
+- [#165835](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165835)
+  [`b7143f7822214`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7143f7822214) -
+  Deprecate editorExperiments in favour of expValEquals
+
 ## 5.11.1
 
 ### Patch Changes

@@ -52,16 +52,21 @@ export const WrapperTypeAhead = React.memo(
 	}: WrapperProps) => {
 		// @ts-ignore
 		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
-		const showViewMore =
-			triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT &&
-			!!openElementBrowserModal &&
-			editorExperiment('platform_editor_controls', 'variant1');
+		let showMoreOptionsButton = false;
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
+			if (fg('platform_editor_controls_patch_12')) {
+				showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
+			} else {
+				showMoreOptionsButton =
+					triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT && !!openElementBrowserModal;
+			}
+		}
 
 		const [closed, setClosed] = useState(false);
 		const [query, setQuery] = useState<string>(reopenQuery || '');
 		const queryRef = useRef(query);
 		const editorViewRef = useRef(editorView);
-		const items = useLoadItems(triggerHandler, editorView, query, showViewMore);
+		const items = useLoadItems(triggerHandler, editorView, query, showMoreOptionsButton);
 
 		useEffect(() => {
 			if (!closed && fg('platform_editor_ease_of_use_metrics')) {

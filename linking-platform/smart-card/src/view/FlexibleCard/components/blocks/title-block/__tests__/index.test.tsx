@@ -9,6 +9,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
+import { Box } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
@@ -1203,6 +1204,40 @@ describe('TitleBlock', () => {
 					},
 					{},
 				);
+			});
+		});
+
+		describe('Competitor Prompt', () => {
+			const CompetitorPrompt = () => (
+				<Box testId="competitor-prompt" backgroundColor="color.background.discovery">
+					Prompt
+				</Box>
+			);
+
+			ffTest.on('prompt_whiteboard_competitor_link_gate', '', () => {
+				it('should render competitor prompt when component and url is provided', async () => {
+					renderTitleBlock({
+						status: SmartLinkStatus.Resolved,
+						url: 'https://www.example.com',
+						CompetitorPrompt,
+					});
+					const competitorPrompt = await screen.findByTestId('competitor-prompt');
+					expect(competitorPrompt).toBeInTheDocument();
+					expect(competitorPrompt).toHaveTextContent('Prompt');
+				});
+			});
+
+			ffTest.off('prompt_whiteboard_competitor_link_gate', '', () => {
+				it('should not render competitor prompt when component and url is provided when feature gate is off', async () => {
+					renderTitleBlock({
+						status: SmartLinkStatus.Resolved,
+						url: 'https://www.example.com',
+						CompetitorPrompt,
+					});
+					await screen.findByTestId('smart-block-title-resolved-view');
+					const competitorPrompt = screen.queryByTestId('competitor-prompt');
+					expect(competitorPrompt).not.toBeInTheDocument();
+				});
 			});
 		});
 	});

@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 11.0.0
+
+### Major Changes
+
+- [#165007](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165007)
+  [`1f50b1c7072cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f50b1c7072cf) -
+  Remove atlassian:design and flattern the entity data
+
 ## 10.0.0
 
 ### Major Changes

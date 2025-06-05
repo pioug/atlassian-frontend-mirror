@@ -7,6 +7,7 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { QuickInsertWithVisibility, TypeAheadControl } from '../ui/quick-insert-button';
@@ -35,6 +36,33 @@ export const quickInsertButtonDecoration = (
 	anchorRectCache?: AnchorRectCache,
 ) => {
 	const key = uuid();
+
+	const widgetSpec = editorExperiment('platform_editor_breakout_resizing', true)
+		? {
+				side: -2,
+				type: TYPE_QUICK_INSERT,
+				/**
+				 * sigh - `marks` influences the position that the widget is drawn (as described on the `side` property).
+				 * Leaving this 'undefined' causes the widget to be wrapped in the mark before this position which creates
+				 * weird stacking context issues. Providing an empty array causes the widget to correctly render before
+				 * this exact position at the top of the DOM.
+				 */
+				marks: [],
+				destroy: (_: Node) => {
+					if (fg('platform_editor_fix_widget_destroy')) {
+						nodeViewPortalProviderAPI.remove(key);
+					}
+				},
+			}
+		: {
+				side: -2,
+				type: TYPE_QUICK_INSERT,
+				destroy: (_: Node) => {
+					if (fg('platform_editor_fix_widget_destroy')) {
+						nodeViewPortalProviderAPI.remove(key);
+					}
+				},
+			};
 
 	return Decoration.widget(
 		rootPos,
@@ -83,14 +111,6 @@ export const quickInsertButtonDecoration = (
 
 			return element;
 		},
-		{
-			side: -2,
-			type: TYPE_QUICK_INSERT,
-			destroy: (_: Node) => {
-				if (fg('platform_editor_fix_widget_destroy')) {
-					nodeViewPortalProviderAPI.remove(key);
-				}
-			},
-		},
+		widgetSpec,
 	);
 };

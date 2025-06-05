@@ -36,6 +36,11 @@ export const aiConfigItemMessages = defineMessages({
 		defaultMessage: 'Insert below',
 		description: 'Inserts the response below the current location',
 	},
+	configActionInsertBelowOriginal: {
+		id: 'fabric.editor.ai.config.item.action.insertBelowOriginal',
+		defaultMessage: 'Insert below original',
+		description: 'Inserts the response below the original content',
+	},
 	configActionReplace: {
 		id: 'fabric.editor.ai.config.item.action.replace',
 		defaultMessage: 'Replace',
@@ -56,6 +61,11 @@ export const aiConfigItemMessages = defineMessages({
 		id: 'fabric.editor.ai.config.item.action.rovoAgents.continueInChatLabel',
 		defaultMessage: 'Open in Chat',
 		description: 'Tooltip and label for Open in Chat button',
+	},
+	configActionContinueChatLabel: {
+		id: 'fabric.editor.ai.config.item.action.rovoAgents.contineChatLabel',
+		defaultMessage: 'Continue in chat',
+		description: 'Tooltip and label for Continue in chat button',
 	},
 	configActionEdit: {
 		id: 'fabric.editor.ai.config.item.action.edit',

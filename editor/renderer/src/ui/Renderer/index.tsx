@@ -532,6 +532,7 @@ export const RendererFunctionalComponent = (
 									isInsideOfInlineExtension={props.isInsideOfInlineExtension}
 									isTopLevelRenderer={rendererContext.isTopLevelRenderer}
 									shouldRemoveEmptySpaceAroundContent={props.shouldRemoveEmptySpaceAroundContent}
+									allowRendererContainerStyles={props.allowRendererContainerStyles}
 								>
 									{props.enableSsrInlineScripts || props.noOpSSRInlineScript ? (
 										<BreakoutSSRInlineScript
@@ -579,6 +580,7 @@ export const RendererFunctionalComponent = (
 				addTelepointer={props.addTelepointer}
 				onClick={(event) => handleWrapperOnClick(event, props, mouseDownSelection)}
 				isTopLevelRenderer={rendererContext.isTopLevelRenderer}
+				allowRendererContainerStyles={props.allowRendererContainerStyles}
 			>
 				<UnsupportedBlock />
 			</RendererWrapper>
@@ -698,6 +700,7 @@ export type RendererWrapperProps = {
 	allowTableResizing?: boolean;
 	isTopLevelRenderer?: boolean;
 	shouldRemoveEmptySpaceAroundContent?: boolean;
+	allowRendererContainerStyles?: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {
@@ -715,6 +718,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		isInsideOfInlineExtension,
 		allowTableResizing,
 		isTopLevelRenderer,
+		allowRendererContainerStyles,
 	} = props;
 
 	const createTelepointer = () => {
@@ -800,6 +804,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 						useBlockRenderForCodeBlock={useBlockRenderForCodeBlock}
 						allowAnnotations={props.allowAnnotations}
 						allowTableResizing={allowTableResizing}
+						allowRendererContainerStyles={allowRendererContainerStyles}
 					>
 						{children}
 					</RendererStyleContainer>
@@ -811,14 +816,23 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 	// We can only make the wrapper div query container when we have a known width.
 	// This is also required for SSR to work correctly. As WidthProvider/WithConsumer will not have the correct width during SSR.
 	//
+
+	// allowRendererContainerStyles is not needed for comment container styling as container should always be set for comments
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	if (appearance === 'comment' && isTopLevelRenderer && fg('platform-ssr-table-resize')) {
+		return <div css={setAsQueryContainerStyles}>{renderer}</div>;
+	}
+
 	// We are setting this wrapper div as query container conditionally.
 	// Only apply container-type = inline-size when having a known width in full-page/full-width/comment mode.
 	// Otherwise when appearance is unspecified the renderer size is decided by the content.
 	// In this case we can't set the container-type = inline-size as it will collapse width to 0.
-	return (appearance === 'full-page' || appearance === 'full-width' || appearance === 'comment') &&
+	return (appearance === 'full-page' || appearance === 'full-width') &&
 		// In case of having excerpt-include on page there are multiple renderers nested.
 		// Make sure only the root renderer is set to be query container.
 		isTopLevelRenderer &&
+		allowRendererContainerStyles &&
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 		fg('platform-ssr-table-resize') ? (
 		<div css={setAsQueryContainerStyles}>{renderer}</div>
 	) : (

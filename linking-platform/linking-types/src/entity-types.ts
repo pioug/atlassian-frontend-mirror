@@ -153,9 +153,7 @@ export interface BaseEntity {
 	permissions?: Record<string, unknown>;
 }
 
-export interface DesignEntity extends BaseEntity {
-	'atlassian:design': DesignAttributes;
-}
+export interface DesignEntity extends BaseEntity, DesignAttributes {}
 
 export interface RemoteLinkEntity extends BaseEntity {
 	'atlassian:remote-link': RemoteLinkAttributes;

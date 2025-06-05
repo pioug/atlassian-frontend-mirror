@@ -42,6 +42,9 @@
 			"path": "../../media-ui/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/popup/afm-jira/tsconfig.json"
 		},
 		{

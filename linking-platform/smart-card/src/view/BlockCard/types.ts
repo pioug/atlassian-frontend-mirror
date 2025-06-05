@@ -17,4 +17,5 @@ export type BlockCardProps = {
 	testId?: string;
 	actionOptions?: CardActionOptions;
 	renderers?: CardProviderRenderers;
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 };

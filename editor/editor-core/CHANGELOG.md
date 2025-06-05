@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 207.15.0
+
+### Minor Changes
+
+- [#166191](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166191)
+  [`c1b6558e75802`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1b6558e75802) -
+  It contains popupsMountPoint as the type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 207.14.7
 
 ### Patch Changes

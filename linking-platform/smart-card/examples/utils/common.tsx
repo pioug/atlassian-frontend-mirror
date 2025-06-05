@@ -99,12 +99,10 @@ export const mocks = {
 			thumbnail: {
 				externalUrl: image1,
 			},
-			'atlassian:design': {
-				liveEmbedUrl: 'https://www.ilovecheese.com',
-				type: 'FILE',
-				inspectUrl: 'https://www.ilovecheese.com',
-				iconUrl: image2,
-			},
+			liveEmbedUrl: 'https://www.ilovecheese.com',
+			type: 'FILE',
+			inspectUrl: 'https://www.ilovecheese.com',
+			iconUrl: image2,
 		},
 	} as SmartLinkResponse,
 	notFound: {

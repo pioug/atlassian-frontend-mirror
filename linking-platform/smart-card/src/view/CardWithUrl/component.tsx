@@ -57,6 +57,7 @@ function Component({
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
 	truncateInline,
+	CompetitorPrompt,
 }: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
@@ -323,6 +324,7 @@ function Component({
 					onError={onError}
 					testId={testId}
 					actionOptions={actionOptions}
+					CompetitorPrompt={CompetitorPrompt}
 				/>
 			);
 		case 'embed':

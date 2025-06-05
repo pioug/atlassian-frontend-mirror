@@ -4,6 +4,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Match, TextGrouping } from '../../types';
 import { searchMatchClass, selectedSearchMatchClass } from '../../ui/styles';
@@ -61,7 +62,11 @@ export function findMatches(
 			// Find the next substring from the end of the first, so that they don't overlap
 			const end = index + searchTextLength;
 			// Add the substring index to the position of the node
-			matches.push({ start: pos + index, end: pos + end });
+			matches.push({
+				start: pos + index,
+				end: pos + end,
+				canReplace: fg('platform_editor_find_and_replace_1') ? true : undefined,
+			});
 			index = text.indexOf(searchText, end);
 		}
 	};

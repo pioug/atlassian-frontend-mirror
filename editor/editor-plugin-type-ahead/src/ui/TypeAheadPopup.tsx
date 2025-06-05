@@ -100,7 +100,7 @@ type TypeAheadPopupProps = {
 		forceFocusOnEditor: boolean;
 	}) => void;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
-	showViewMore?: boolean;
+	showMoreOptionsButton?: boolean;
 };
 
 type HighlightProps = {
@@ -146,7 +146,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		isEmptyQuery,
 		cancel,
 		api,
-		showViewMore,
+		showMoreOptionsButton,
 	} = props;
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
@@ -238,12 +238,12 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const [fitHeight, setFitHeight] = useState(defaultMenuHeight);
 
 	const fitHeightWithViewMore = useMemo(() => {
-		if (showViewMore) {
+		if (showMoreOptionsButton) {
 			return fitHeight - VIEWMORE_BUTTON_HEIGHT;
 		}
 
 		return fitHeight;
-	}, [fitHeight, showViewMore]);
+	}, [fitHeight, showMoreOptionsButton]);
 
 	const getFitHeight = useCallback(() => {
 		if (!anchorElement || !popupsMountPoint) {
@@ -409,13 +409,14 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		editorView.dispatch(tr);
 	};
 
-	const onViewMoreClick = useCallback(() => {
-		close(editorView);
-
+	const onMoreOptionsClicked = useCallback(() => {
 		if (
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 			openElementBrowserModal &&
 			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_4')
+			fg('platform_editor_controls_patch_4') &&
+			(!fg('platform_editor_controls_patch_12') ||
+				triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT)
 		) {
 			activityStateRef.current = {
 				inputMethod: INPUT_METHOD.MOUSE,
@@ -424,10 +425,11 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			};
 		}
 
-		// TODO: ED-26959 - when clean up, remove config in quick insert plugin
-		// platform/packages/editor/editor-plugin-quick-insert/src/quickInsertPlugin.tsx (typeAhead.openElementBrowserModal)
-		openElementBrowserModal?.();
-	}, [editorView, openElementBrowserModal]);
+		if (!fg('platform_editor_controls_patch_12')) {
+			close(editorView);
+			openElementBrowserModal?.();
+		}
+	}, [editorView, openElementBrowserModal, triggerHandler.id]);
 
 	return (
 		<Popup
@@ -470,7 +472,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 				css={[
 					typeAheadContent,
 					moreElementsInQuickInsertViewEnabled && typeAheadContentOverride,
-					showViewMore && typeAheadWrapperWithViewMoreOverride,
+					showMoreOptionsButton && typeAheadWrapperWithViewMoreOverride,
 				]}
 				// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 				tabIndex={0}
@@ -506,8 +508,8 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 							triggerHandler={triggerHandler}
 							moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
 							api={api}
-							showViewMore={showViewMore}
-							onViewMoreClick={onViewMoreClick}
+							showMoreOptionsButton={showMoreOptionsButton}
+							onMoreOptionsClicked={onMoreOptionsClicked}
 						/>
 					</React.Fragment>
 				)}

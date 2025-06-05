@@ -37,24 +37,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Drawer",
-			"category": "Overlays and layering",
-			"subPages": [
-				{
-					"title": "Drawer (legacy)",
-					"id": "drawer-legacy",
-					"status": {
-						"type": "intent-to-deprecate",
-						"description": "Legacy drawer will soon be deprecated. Please use the new [drawer](/components/drawer).",
-						"actions": [
-							{
-								"text": "View the migration guide",
-								"href": "/components/drawer/migration-guide"
-							}
-						]
-					},
-					"sortKey": 6
-				}
-			]
+			"category": "Overlays and layering"
 		},
 		"runReact18": true
 	},
@@ -66,6 +49,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",

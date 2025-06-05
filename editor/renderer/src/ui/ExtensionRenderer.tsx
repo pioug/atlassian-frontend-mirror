@@ -46,22 +46,18 @@ interface State {
 	extensionProvider?: ExtensionProvider | null;
 }
 
-// When running on server-side emotion will generate style tags before elements.
-// This caused packages/editor/editor-common/src/styles/shared/block-marks.ts to override the margin-top.
-// However as soon as the styles are extracted to <head> it adds back the margin.
-// The timing is tricky as it happens to be when UFO collects the dimension for the placeholder for TTVC calculation.
-// This resulted 1px mismatch on the image. Further cause everything on page to shift by 1px.
-const forceMarginTopStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-	marginTop: `1px !important`,
-});
-
 const inlineExtensionStyle = css({
 	display: 'inline-block',
 	maxWidth: '100%',
 	verticalAlign: 'middle',
+	// 0px margin top is important here.
+	// When running on server-side emotion will generate style tags before elements.
+	// This caused packages/editor/editor-common/src/styles/shared/block-marks.ts to override the margin-top.
+	// However as soon as the styles are extracted to <head> it adds back the margin.
+	// The timing is tricky as it happens to be when UFO collects the dimension for the placeholder for TTVC calculation.
+	// This resulted 1px mismatch on the image. Further cause everything on page to shift by 1px.
 	// es-lint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	margin: `1px 1px ${token('space.050', '4px')}`,
+	margin: `0px 1px ${token('space.050', '4px')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& .rich-media-item': {
 		maxWidth: '100%',
@@ -190,15 +186,12 @@ export default function ExtensionRenderer(props: Props) {
 	);
 }
 
-export const InlineNodeRendererWrapper = ({
-	forceMarginTop = false,
-	children,
-}: React.PropsWithChildren<{ forceMarginTop?: boolean }>) => {
+export const InlineNodeRendererWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="inline-extension-renderer"
-			css={[inlineExtensionStyle, forceMarginTop && forceMarginTopStyle]}
+			css={inlineExtensionStyle}
 		>
 			{children}
 		</div>

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-card
 
+## 6.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.5.1
+
+### Patch Changes
+
+- [#165822](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165822)
+  [`abe794a9fdd4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abe794a9fdd4f) -
+  ED-28147 fix exposure and gating for smart link cmd or ctrl click
+
+## 6.5.0
+
+### Minor Changes
+
+- [#161907](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161907)
+  [`0f083a35b280f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f083a35b280f) -
+  [ux] Add optional CompetitorPrompt component to display for Smart Link card for experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.5
 
 ### Patch Changes

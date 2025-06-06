@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.1.17
+
+### Patch Changes
+
+- [#165950](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165950)
+  [`39b41cc2930ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39b41cc2930ca) -
+  [ux] [ED-28185] Force panel emoji picker to go below toolbar when there isn't enough space above
+  or below to fit whole picker
+
 ## 4.1.16
 
 ### Patch Changes

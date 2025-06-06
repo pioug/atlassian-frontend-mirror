@@ -49,7 +49,6 @@ import { altTextButton } from './alt-text';
 import {
 	changeInlineToMediaCard,
 	changeMediaInlineToMediaSingle,
-	removeInlineCard,
 	removeInlineCardWithAnalytics,
 	setBorderMark,
 	toggleBorderMark,
@@ -175,9 +174,7 @@ export const generateMediaInlineFloatingToolbar = (
 				onFocus: hoverDecoration?.(mediaInline, true),
 				onBlur: hoverDecoration?.(mediaInline, false),
 				title: intl.formatMessage(commonMessages.remove),
-				onClick: fg('platform_editor_controls_patch_analytics_2')
-					? removeInlineCardWithAnalytics(editorAnalyticsAPI)
-					: removeInlineCard,
+				onClick: removeInlineCardWithAnalytics(editorAnalyticsAPI),
 				testId: 'media-toolbar-remove-button',
 			},
 		);
@@ -499,9 +496,7 @@ const getMediaInlineImageToolbar = (
 			onFocus: hoverDecoration?.(mediaInline, true),
 			onBlur: hoverDecoration?.(mediaInline, false),
 			title: intl.formatMessage(commonMessages.remove),
-			onClick: fg('platform_editor_controls_patch_analytics_2')
-				? removeInlineCardWithAnalytics(editorAnalyticsAPI)
-				: removeInlineCard,
+			onClick: removeInlineCardWithAnalytics(editorAnalyticsAPI),
 			testId: 'media-toolbar-remove-button',
 		});
 	}

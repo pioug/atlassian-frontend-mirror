@@ -52,7 +52,7 @@ test.describe('Scrollable Drawer', () => {
 		await page.getByTestId('open-drawer').click();
 
 		const drawerContainer = page.getByTestId('drawer-contents');
-		expect(page.getByRole('region')).toBeDefined();
+		await expect(page.getByRole('region')).toBeVisible();
 		await expect(drawerContainer).toHaveAttribute('aria-label', 'Scrollable drawer');
 	});
 });

@@ -98,6 +98,12 @@ const EmojiPickerWithProvider = (props: EmojiPickerWithProviderProps) => {
 	);
 };
 
+// Note: These are based on the height and width of the emoji picker at the time
+// of writing (2025-05-05). It is 100% prone to change but at least it's vaguely
+// written down.
+const EMOJI_PICKER_MAX_HEIGHT = 431;
+const EMOJI_PICKER_MAX_WIDTH = 352;
+
 const EmojiPickerWithListener = withReactEditorViewOuterListeners(EmojiPickerWithProvider);
 
 type EmojiPickerButtonReturnType = (props: {
@@ -109,6 +115,7 @@ type EmojiPickerButtonReturnType = (props: {
 	onChange?: (emoji: EmojiId) => void;
 	isSelected?: boolean;
 	mountPoint?: HTMLElement;
+	popupsBoundariesElement?: HTMLElement;
 	setDisableParentScroll?: (disable: boolean) => void;
 	pluginInjectionApi?: ExtractInjectionAPI<FloatingToolbarPlugin>;
 }) => JSX.Element;
@@ -169,14 +176,18 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				mountTo={props.setDisableParentScroll ? props.mountPoint : buttonRef.current.parentElement!}
-				fitHeight={350}
-				fitWidth={350}
+				fitHeight={fg('platform_editor_controls_patch_12') ? EMOJI_PICKER_MAX_HEIGHT : 350}
+				fitWidth={fg('platform_editor_controls_patch_12') ? EMOJI_PICKER_MAX_WIDTH : 350}
 				offset={[0, 10]}
 				// Confluence inline comment editor has z-index: 500
 				// if the toolbar is scrollable, this will be mounted in the root editor
 				// we need an index of > 500 to display over it
 				zIndex={props.setDisableParentScroll ? 600 : undefined}
 				focusTrap
+				preventOverflow={fg('platform_editor_controls_patch_12')}
+				boundariesElement={
+					fg('platform_editor_controls_patch_12') ? props.popupsBoundariesElement : undefined
+				}
 			>
 				<EmojiPickerWithListener
 					handleEscapeKeydown={handleEmojiPressEscape}

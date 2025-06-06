@@ -5,8 +5,10 @@ import { setupEditorExperiments } from '../setup';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
-const mockGetExperimentValue = jest.fn();
-FeatureGates.getExperimentValue = mockGetExperimentValue;
+const mockGetExperimentValue = jest.spyOn(FeatureGates, 'getExperimentValue').mockReturnValue(true);
+const mockInitializeCompleted = jest
+	.spyOn(FeatureGates, 'initializeCompleted')
+	.mockReturnValue(true);
 
 jest.mock('../experiments-config', () => {
 	return {
@@ -36,12 +38,10 @@ describe('expValEquals', () => {
 	afterEach(() => {
 		// @ts-ignore
 		setupEditorExperiments(undefined, {});
-		mockGetExperimentValue.mockReset();
 	});
 
 	test('expValEquals returns correct value for boolean experiment', () => {
 		setupEditorExperiments('confluence');
-		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
 		expect(expValEquals('test-boolean', 'isEnabled', true)).toBe(true);
@@ -49,7 +49,7 @@ describe('expValEquals', () => {
 
 	test('expValEquals returns correct value for multivariate experiment', () => {
 		setupEditorExperiments('confluence');
-		mockGetExperimentValue.mockReturnValue('default value');
+		mockGetExperimentValue.mockReturnValueOnce('default value');
 
 		// @ts-expect-error
 		expect(expValEquals('test-multivariate', 'variation', 'default value')).toBe(true);
@@ -57,7 +57,6 @@ describe('expValEquals', () => {
 
 	test('expValEquals fires exposure', () => {
 		setupEditorExperiments('confluence');
-		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
 		expValEquals('test-boolean', 'isEnabled', true);
@@ -90,12 +89,10 @@ describe('expValEqualsNoExposure', () => {
 	afterEach(() => {
 		// @ts-ignore
 		setupEditorExperiments(undefined, {});
-		mockGetExperimentValue.mockReset();
 	});
 
 	test('expValEqualsNoExposure returns correct value for boolean experiment', () => {
 		setupEditorExperiments('confluence');
-		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
 		expect(expValEqualsNoExposure('test-boolean', 'isEnabled', true)).toBe(true);
@@ -103,7 +100,7 @@ describe('expValEqualsNoExposure', () => {
 
 	test('expValEqualsNoExposure returns correct value for multivariate experiment', () => {
 		setupEditorExperiments('confluence');
-		mockGetExperimentValue.mockReturnValue('default value');
+		mockGetExperimentValue.mockReturnValueOnce('default value');
 
 		// @ts-expect-error
 		expect(expValEqualsNoExposure('test-multivariate', 'variation', 'default value')).toBe(true);
@@ -111,7 +108,6 @@ describe('expValEqualsNoExposure', () => {
 
 	test("expValEqualsNoExposure doesn't fire exposure", () => {
 		setupEditorExperiments('confluence');
-		mockGetExperimentValue.mockReturnValue(true);
 
 		// @ts-expect-error
 		expValEqualsNoExposure('test-boolean', 'isEnabled', true);
@@ -139,5 +135,13 @@ describe('expValEqualsNoExposure', () => {
 		expect(expValEqualsNoExposure('test-multivariate', 'variation', 'not default value')).toBe(
 			true,
 		);
+	});
+});
+
+describe('not initialised client', () => {
+	test('expValEquals returns default value if FeatureGates client not initialised', () => {
+		mockInitializeCompleted.mockReturnValueOnce(false);
+		// @ts-expect-error
+		expect(expValEquals('test-boolean', 'isEnabled', true)).toBe(false);
 	});
 });

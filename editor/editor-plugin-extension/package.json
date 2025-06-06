@@ -130,9 +130,6 @@
 		"platform_editor_controls_patch_2": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_analytics_2": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		},

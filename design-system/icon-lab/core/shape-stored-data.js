@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::762d5d4982bfe30c244ba748c8a774eb>>
+ * @codegen <<SignedSource::dce3fdc754235a5bb75ee6b4ebad2c07>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ShapeStoredData".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Creating a shape for stored data in whiteboards
+ * Usage guidance: Reserved for stored data diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

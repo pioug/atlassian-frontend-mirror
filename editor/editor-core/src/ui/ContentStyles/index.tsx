@@ -352,6 +352,14 @@ const firstBlockNodeStylesNew = css`
 	}
 `;
 
+// Make sure the first floating toolbar button has focus ring when focused via .focus()
+const firstFloatingToolbarButtonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'button.first-floating-toolbar-button:focus': {
+		outline: `2px solid ${token('color.border.focused', '#2684FF')}`,
+	},
+});
+
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx
 const akEditorBreakpointForSmallDevice = `1266px`;
 
@@ -456,6 +464,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		display: none;
 	}
 
+	${fg('platform_editor_fix_floating_toolbar_focus') ? firstFloatingToolbarButtonStyles : null}
 	${placeholderTextStyles}
 	${placeholderStyles}
 	${editorExperiment('platform_editor_controls', 'variant1') ? placeholderOverflowStyles : null}

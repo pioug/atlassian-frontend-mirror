@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3ce33b61d7e9b46d269824869480e5d6>>
+ * @codegen <<SignedSource::c5ec86d6ea5b9e508ce1bb88711fa0d6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ShapePreparationSymbol".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Creating a shape for preparing in whiteboards
+ * Usage guidance: Reserved for preparation diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

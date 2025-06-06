@@ -6,7 +6,6 @@ import { canRenderDatasource, hasDocAsParent } from '@atlaskit/editor-common/uti
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardAdf, DatasourceAdf } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Request } from '../../types';
 import { setProvider } from '../actions';
@@ -49,9 +48,7 @@ export const resolveWithProvider = (
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 ) => {
-	const isEmbedFriendlyLocation = fg('hardcoded-embeds-only-on-new-line')
-		? isFreshlyPastedOnNewLine(view)
-		: true;
+	const isEmbedFriendlyLocation = isFreshlyPastedOnNewLine(view);
 
 	// When user manually changes appearance from blue link to smart link, we should respect that,
 	const shouldForceAppearance =

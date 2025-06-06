@@ -718,6 +718,19 @@ const resizeInformationFormatting: (intl: IntlShape) => Format[] = ({ formatMess
 	},
 ];
 
+const newResizeInformationFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
+	{
+		name: formatMessage(messages.increaseElementSize),
+		type: 'media',
+		keymap: () => increaseMediaSize,
+	},
+	{
+		name: formatMessage(messages.decreaseElementSize),
+		type: 'media',
+		keymap: () => decreaseMediaSize,
+	},
+];
+
 const focusTableResizeHandleFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 	{
 		name: formatMessage(messages.focusTableResizeHandle),
@@ -785,7 +798,10 @@ export const getSupportedFormatting = (
 		...(imageEnabled ? [imageAutoFormat] : []),
 		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
 		...focusTableResizeHandleFormatting(intl),
-		...resizeInformationFormatting(intl),
+		...(editorExperiment('platform_editor_breakout_resizing', true) &&
+		fg('platform_editor_breakout_resizing_hello_release')
+			? newResizeInformationFormatting(intl)
+			: resizeInformationFormatting(intl)),
 		...openCellOptionsFormattingtoFormat(intl),
 	];
 };

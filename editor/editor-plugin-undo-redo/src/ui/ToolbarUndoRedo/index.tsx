@@ -34,9 +34,7 @@ import UndoIcon from '@atlaskit/icon/core/migration/undo';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
-	redoFromToolbar,
 	redoFromToolbarWithAnalytics,
-	undoFromToolbar,
 	undoFromToolbarWithAnalytics,
 } from '../../pm-plugins/commands';
 import { forceFocus } from '../../pm-plugins/utils';
@@ -76,19 +74,11 @@ export const ToolbarUndoRedo = ({
 	const { canUndo, canRedo } = useSharedState(api);
 
 	const handleUndo = () => {
-		if (fg('platform_editor_controls_patch_analytics')) {
-			forceFocus(editorView, api)(undoFromToolbarWithAnalytics(api?.analytics?.actions));
-		} else {
-			forceFocus(editorView, api)(undoFromToolbar);
-		}
+		forceFocus(editorView, api)(undoFromToolbarWithAnalytics(api?.analytics?.actions));
 	};
 
 	const handleRedo = () => {
-		if (fg('platform_editor_controls_patch_analytics')) {
-			forceFocus(editorView, api)(redoFromToolbarWithAnalytics(api?.analytics?.actions));
-		} else {
-			forceFocus(editorView, api)(redoFromToolbar);
-		}
+		forceFocus(editorView, api)(redoFromToolbarWithAnalytics(api?.analytics?.actions));
 	};
 	const labelUndo = formatMessage(undoRedoMessages.undo);
 	const labelRedo = formatMessage(undoRedoMessages.redo);

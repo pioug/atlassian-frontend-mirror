@@ -1,5 +1,47 @@
 # @atlaskit/editor-core
 
+## 207.17.0
+
+### Minor Changes
+
+- [#167295](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167295)
+  [`6c94765105520`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c94765105520) -
+  [https://product-fabric.atlassian.net/browse/ED-28212](ED-28212) - the `validNode()` function from
+  @atlaskit/editor-core package will use memoization
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.16.0
+
+### Minor Changes
+
+- [#165698](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165698)
+  [`e97682ca74f19`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e97682ca74f19) -
+  [ux] [ED-27954] this change is extending the Find algorithm to status nodes behind the
+  platform_editor_find_and_replace_1 flag
+
+### Patch Changes
+
+- [#166424](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166424)
+  [`5bfa5b37065b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bfa5b37065b1) -
+  [ED-27807] Fix a bug where first button in the floating toolbar is shown with focus ring when
+  pressing Option+F10
+- [#165803](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165803)
+  [`18e18ed9e9794`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18e18ed9e9794) -
+  [ux] Migrate expand styles to static emotion
+- Updated dependencies
+
+## 207.15.1
+
+### Patch Changes
+
+- [#166381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166381)
+  [`e7b0081a1b221`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7b0081a1b221) -
+  EDM-12154 cleaning up hardcoded embed only on new line feature flag
+- Updated dependencies
+
 ## 207.15.0
 
 ### Minor Changes

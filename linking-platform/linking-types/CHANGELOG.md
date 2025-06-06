@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 12.0.0
+
+### Major Changes
+
+- [#165780](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165780)
+  [`ae344bae27d60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae344bae27d60) -
+  Updated `AtomicActionExecuteRequest` to have either `actionKey` or `actionId` and not both.
+
 ## 11.0.0
 
 ### Major Changes

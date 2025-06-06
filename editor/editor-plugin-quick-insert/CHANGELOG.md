@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.5.5
+
+### Patch Changes
+
+- [#164625](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164625)
+  [`aac10c2d4c08d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aac10c2d4c08d) -
+  [ED-26900] Add a new config, getMoreOptionsButtonConfig, to TypeAheadHandler so that it can
+  support adding a more option button to typeahead list
+- Updated dependencies
+
 ## 2.5.4
 
 ### Patch Changes

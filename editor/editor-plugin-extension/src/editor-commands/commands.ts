@@ -25,7 +25,6 @@ import {
 	removeParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionAction, ExtensionState, RejectSave } from '../extensionPluginType';
 import { createCommand } from '../pm-plugins/plugin-factory';
@@ -162,7 +161,7 @@ export const removeSelectedNodeWithAnalytics = (
 					extensionType: node.attrs.extensionType,
 					extensionKey: node.attrs.extensionKey,
 					localId: node.attrs.localId,
-					inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
+					inputMethod: inputMethod,
 				},
 			})(tr);
 		}
@@ -194,7 +193,7 @@ export const checkAndRemoveExtensionNode = (
 					extensionKey: maybeMBENode.node.attrs.extensionKey,
 					localId: maybeMBENode.node.attrs.localId,
 					currentFramesCount: maybeMBENode.node.content.childCount,
-					inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
+					inputMethod,
 				},
 			})(tr);
 		}
@@ -214,7 +213,7 @@ export const checkAndRemoveExtensionNode = (
 					extensionType: bodiedExtensionNode.node.attrs.extensionType,
 					extensionKey: bodiedExtensionNode.node.attrs.extensionKey,
 					localId: bodiedExtensionNode.node.attrs.localId,
-					inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
+					inputMethod,
 				},
 			})(tr);
 		}

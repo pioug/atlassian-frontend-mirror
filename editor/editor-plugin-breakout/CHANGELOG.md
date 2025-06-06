@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.5.3
+
+### Patch Changes
+
+- [#167303](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167303)
+  [`da9bf8f3d80a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da9bf8f3d80a2) -
+  [ux] Prevents scroll after node was resized.
+- Updated dependencies
+
+## 2.5.2
+
+### Patch Changes
+
+- [#164895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164895)
+  [`e8158addf8fda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8158addf8fda) -
+  Add platform_editor_breakout_resizing_hello_release fg - add snapping logic for pragmatic resizer
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

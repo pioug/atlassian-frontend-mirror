@@ -14,7 +14,6 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
-import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import {
 	akEditorCalculatedWideLayoutWidth,
@@ -29,11 +28,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
-import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
-import { expandStyles } from '../ContentStyles/expand';
 import { extensionStyles } from '../ContentStyles/extension';
 import { panelStyles } from '../ContentStyles/panel';
-import { statusStyles, vanillaStatusStyles } from '../ContentStyles/status';
 
 import {
 	aiPanelBaseFirefoxStyles,
@@ -64,10 +60,17 @@ import {
 } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
 import { reactEmojiStyles, vanillaEmojiStyles } from './styles/emoji';
+import {
+	expandStyles,
+	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
+	expandStylesMixin_fg_platform_visual_refresh_icons,
+	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
+} from './styles/expandStyles';
 import { findReplaceStyles } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { gridStyles } from './styles/gridStyles';
 import { indentationStyles } from './styles/indentationStyles';
+import { InlineNodeViewSharedStyles } from './styles/inlineNodeViewSharedStyles';
 import { layoutBaseStyles, layoutViewStyles } from './styles/layout';
 import { linkStyles, linkStylesOld } from './styles/link';
 import { listsStyles, listsStylesSafariFix } from './styles/list';
@@ -82,6 +85,7 @@ import {
 	paragraphStylesUGCModernized,
 	paragraphStylesUGCRefreshed,
 } from './styles/paragraphStyles';
+import { placeholderTextStyles } from './styles/placeholderTextStyles';
 import { resizerStyles, pragmaticResizerStyles } from './styles/resizerStyles';
 import { ruleStyles } from './styles/rule';
 import { shadowStyles } from './styles/shadowStyles';
@@ -91,6 +95,14 @@ import {
 	smartLinksInLivePagesStyles,
 	smartLinksInLivePagesStylesOld,
 } from './styles/smartCardStyles';
+import {
+	statusStyles,
+	statusStylesMixin_fg_platform_component_visual_refresh,
+	statusStylesMixin_without_fg_platform_component_visual_refresh,
+	vanillaStatusStyles,
+	vanillaStatusStylesMixin_fg_platform_component_visual_refresh,
+	vanillaStatusStylesMixin_without_fg_platform_component_visual_refresh,
+} from './styles/statusStyles';
 import {
 	decisionStyles,
 	tasksAndDecisionsStyles,
@@ -333,7 +345,12 @@ const contentStyles = () => css`
 
   ${extensionStyles}
 
-  ${expandStyles()}
+  ${expandStyles}
+  ${fg('platform_editor_nested_dnd_styles_changes') &&
+	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes}
+  ${!fg('platform_editor_nested_dnd_styles_changes') &&
+	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes}
+  ${fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons}
 
   ${findReplaceStyles}
 
@@ -358,7 +375,20 @@ const contentStyles = () => css`
 
   ${statusStyles}
 
-  ${editorExperiment('platform_editor_vanilla_dom', true) ? vanillaStatusStyles() : null}
+  ${fg('platform-component-visual-refresh') &&
+	statusStylesMixin_fg_platform_component_visual_refresh}
+  ${!fg('platform-component-visual-refresh') &&
+	statusStylesMixin_without_fg_platform_component_visual_refresh}
+
+  ${editorExperiment('platform_editor_vanilla_dom', true) && vanillaStatusStyles}
+
+  ${editorExperiment('platform_editor_vanilla_dom', true) &&
+	fg('platform-component-visual-refresh') &&
+	vanillaStatusStylesMixin_fg_platform_component_visual_refresh}
+
+  ${editorExperiment('platform_editor_vanilla_dom', true) &&
+	!fg('platform-component-visual-refresh') &&
+	vanillaStatusStylesMixin_without_fg_platform_component_visual_refresh}
 
   ${annotationStyles}
 
@@ -518,6 +548,14 @@ const listLayoutShiftFix = css({
 	},
 });
 
+// Make sure the first floating toolbar button has focus ring when focused via .focus()
+const firstFloatingToolbarButtonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'button.first-floating-toolbar-button:focus': {
+		outline: `2px solid ${token('color.border.focused', '#2684FF')}`,
+	},
+});
+
 /**
  * EditorContentStyles is a wrapper component that applies styles to its children
  * based on the provided feature flags, view mode, and other props.
@@ -603,6 +641,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							vanillaEmojiStyles
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							reactEmojiStyles,
+
+					fg('platform_editor_fix_floating_toolbar_focus') && firstFloatingToolbarButtonStyles,
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}
 				data-testid="editor-content-container"

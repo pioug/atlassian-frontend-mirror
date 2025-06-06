@@ -4,8 +4,9 @@
  */
 import { type CSSProperties, forwardRef } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, B300, B400, N30, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -13,6 +14,10 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 	ref: React.Ref<HTMLInputElement>;
 	valuePercent: string;
 };
+
+const rangeHeight = 40; // Height of the range input, used for the track and thumb
+const trackHeight = 6; // Height of the track, used for the track and thumb
+const thumbSize = token('space.200'); // Size of the thumb, used for the thumb styles
 
 // Styles are split up to avoid edge-cases with TS implementations between `css` and `cssMap` with some
 // of these edge-case pseudo-selectors.
@@ -23,8 +28,8 @@ const webkitStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
 	'&::-webkit-slider-thumb': {
 		boxSizing: 'border-box',
-		width: 16,
-		height: 16,
+		width: thumbSize,
+		height: thumbSize,
 		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold', B400)})`,
 		border: 'none',
 		borderRadius: token('border.radius.circle', '50%'),
@@ -67,8 +72,8 @@ const firefoxStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this
 	'&::-moz-range-thumb': {
 		boxSizing: 'border-box',
-		width: 16,
-		height: 16,
+		width: thumbSize,
+		height: thumbSize,
 		backgroundColor: `var(--thumb-bg, ${token('color.background.neutral.bold', B400)})`,
 		border: 'none',
 		borderRadius: token('border.radius.circle', '50%'),
@@ -85,7 +90,7 @@ const firefoxStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
 	'&::-moz-range-progress': {
 		width: '100%',
-		height: 4,
+		height: trackHeight,
 		backgroundColor: 'var(--track-fg)',
 		border: 0,
 		borderRadius: 2,
@@ -102,21 +107,17 @@ const firefoxStyles = css({
 		cursor: 'pointer',
 		transition: 'background-color 0.2s ease-in-out',
 	},
-	'&:disabled': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
-		'&::-moz-range-thumb': { cursor: 'not-allowed' },
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
-		'&::-moz-range-progress': { cursor: 'not-allowed' },
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
-		'&::-moz-range-track': {
-			cursor: 'not-allowed',
-		},
-	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:disabled::-moz-range-thumb': { cursor: 'not-allowed' },
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
+	'&:disabled::-moz-range-progress': { cursor: 'not-allowed' },
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Required for this browser styling
+	'&:disabled::-moz-range-track': { cursor: 'not-allowed' },
 });
 
 const baseStyles = css({
 	width: '100%', // Has a fixed width by default
-	height: 40, // Otherwise thumb will collide with previous box element
+	height: rangeHeight, // Otherwise thumb will collide with previous box element
 	backgroundColor: 'transparent', // Otherwise white
 	'&:focus': {
 		outline: 'none',
@@ -146,6 +147,56 @@ const themeStyles = css({
 	},
 });
 
+const trackStyles = cssMap({
+	root: {
+		height: rangeHeight,
+		position: 'relative',
+		'&::after': {
+			display: 'block',
+			width: '4px',
+			height: '4px',
+			position: 'absolute',
+			backgroundColor: token('color.background.neutral.bold.pressed'),
+			borderRadius: token('border.radius.circle', '50%'),
+			content: '',
+			insetBlockStart: '50%',
+			insetInlineStart: 'calc(100% - 3px)',
+		},
+	},
+	disabled: {
+		'&::after': {
+			opacity: token('opacity.disabled', '0.4'),
+		},
+	},
+});
+
+const rangeA11yStyles = css({
+	'--thumb-bg': token('color.background.neutral.bold.pressed'),
+	'--track-bg': token('color.background.inverse.subtle'),
+	'--track-fg': token('color.background.neutral.bold.pressed'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-slider-thumb': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginBlockStart: '-5px',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-webkit-slider-runnable-track': {
+		height: trackHeight,
+		borderRadius: 3,
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&::-moz-range-progress': {
+		height: trackHeight,
+		borderRadius: 3,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:hover:not(:disabled)': {
+		'--track-bg': token('color.background.inverse.subtle.hovered'),
+	},
+});
+
 /**
  * __Input__
  * Internal-only styled input component.
@@ -153,7 +204,8 @@ const themeStyles = css({
 export const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElement>) => {
 	const { valuePercent, style, ...strippedProps } = props;
 
-	return (
+	const input = (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-text-input
 		<input
 			{...strippedProps}
 			style={
@@ -164,9 +216,23 @@ export const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElem
 				} as CSSProperties
 			}
 			ref={ref}
-			css={[baseStyles, webkitStyles, firefoxStyles, themeStyles]}
+			css={[
+				baseStyles,
+				webkitStyles,
+				firefoxStyles,
+				themeStyles,
+				fg('platform_dst_range_a11y') && rangeA11yStyles,
+			]}
 		/>
 	);
+
+	if (fg('platform_dst_range_a11y')) {
+		return (
+			<div css={[trackStyles.root, strippedProps.disabled && trackStyles.disabled]}>{input}</div>
+		);
+	}
+
+	return input;
 });
 
 Input.displayName = 'InputRange';

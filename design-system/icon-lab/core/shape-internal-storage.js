@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35ab3c1432bb68878c1cef3d5bb1a926>>
+ * @codegen <<SignedSource::5a2e53b2ee621f766bff46878c4505f4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ShapeInternalStorage".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Creating a shape for internal storage in Whiteboards
+ * Usage guidance: Reserved for internal storage diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

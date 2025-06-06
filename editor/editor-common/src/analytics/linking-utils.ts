@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE, INPUT_METHOD } from './types/enums';
@@ -76,9 +75,7 @@ export const buildVisitedNonHyperLinkPayload = (
 		actionSubject: ACTION_SUBJECT.SMART_LINK,
 		actionSubjectId: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
 		attributes: {
-			inputMethod: fg('platform_editor_controls_patch_analytics')
-				? inputMethod
-				: INPUT_METHOD.TOOLBAR,
+			inputMethod: inputMethod,
 		},
 		eventType: EVENT_TYPE.TRACK,
 	};

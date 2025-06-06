@@ -12,6 +12,7 @@ import type { SharedTableProps } from './types';
 import { useFeatureFlags } from '../../../use-feature-flags';
 import type { RendererContextProps } from '../../../renderer-context';
 import { useRendererContext } from '../../../renderer-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:
@@ -230,7 +231,11 @@ const renderScaleDownColgroup = (
 		scaleDownPercent = calcScalePercent({
 			renderWidth,
 			tableWidth,
-			maxScale: shouldTable100ScaleDown ? 1 : maxScalingPercent,
+			maxScale: fg('platform-ssr-table-resize')
+				? maxScalingPercent
+				: shouldTable100ScaleDown
+					? 1
+					: maxScalingPercent,
 			isNumberColumnEnabled: isNumberColumnEnabled,
 		});
 	}

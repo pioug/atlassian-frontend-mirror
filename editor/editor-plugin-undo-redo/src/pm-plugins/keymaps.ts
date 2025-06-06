@@ -14,12 +14,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { UndoRedoPlugin } from '../undoRedoPluginType';
 
-import {
-	redoFromKeyboard,
-	redoFromKeyboardWithAnalytics,
-	undoFromKeyboard,
-	undoFromKeyboardWithAnalytics,
-} from './commands';
+import { redoFromKeyboardWithAnalytics, undoFromKeyboardWithAnalytics } from './commands';
 
 /**
  *
@@ -33,9 +28,7 @@ export function keymapPlugin(api?: ExtractInjectionAPI<UndoRedoPlugin>): SafePlu
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findKeyMapForBrowser(redo)!,
-		fg('platform_editor_controls_patch_analytics')
-			? redoFromKeyboardWithAnalytics(api?.analytics?.actions)
-			: redoFromKeyboard,
+		redoFromKeyboardWithAnalytics(api?.analytics?.actions),
 		list,
 	);
 
@@ -43,9 +36,7 @@ export function keymapPlugin(api?: ExtractInjectionAPI<UndoRedoPlugin>): SafePlu
 		bindKeymapWithCommand(
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			findKeyMapForBrowser(redoAlt)!,
-			fg('platform_editor_controls_patch_analytics')
-				? redoFromKeyboardWithAnalytics(api?.analytics?.actions)
-				: redoFromKeyboard,
+			redoFromKeyboardWithAnalytics(api?.analytics?.actions),
 			list,
 		);
 	}
@@ -54,9 +45,7 @@ export function keymapPlugin(api?: ExtractInjectionAPI<UndoRedoPlugin>): SafePlu
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		undo.common!,
-		fg('platform_editor_controls_patch_analytics')
-			? undoFromKeyboardWithAnalytics(api?.analytics?.actions)
-			: undoFromKeyboard,
+		undoFromKeyboardWithAnalytics(api?.analytics?.actions),
 		list,
 	);
 

@@ -9,7 +9,6 @@ import { getSelectedNodeOrNodeParentByNodeType, toDOM } from '@atlaskit/editor-c
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const copyNode =
 	(
@@ -67,7 +66,7 @@ export const copyNode =
 			}
 		}
 
-		if (editorAnalyticsApi && fg('platform_editor_controls_patch_analytics_2')) {
+		if (editorAnalyticsApi) {
 			const analyticsPayload = getNodeCopiedAnalyticsPayload(contentNodeWithPos.node, inputMethod);
 			editorAnalyticsApi.attachAnalyticsEvent(analyticsPayload)(copyToClipboardTr);
 		}

@@ -59,7 +59,6 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
-		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/lozenge": "workspace:^",
 		"@atlaskit/people-teams-ui-public": "workspace:^",
@@ -121,9 +120,6 @@
 			"type": "boolean"
 		},
 		"user-picker-show-clear-indicator": {
-			"type": "boolean"
-		},
-		"dst-a11y__replace-anchor-with-link__search-platfor": {
 			"type": "boolean"
 		}
 	}

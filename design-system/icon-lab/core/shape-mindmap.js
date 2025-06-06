@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54872c1dac451fdc41aad8d6d32705d6>>
+ * @codegen <<SignedSource::fd4c95b79da91c168c83af4a80d96bc3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ShapeMindmap".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Creating a mind map shape in Whiteboards
+ * Usage guidance: Reserved for mind map diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

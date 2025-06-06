@@ -390,6 +390,7 @@ const ToolbarItems = React.memo(
 								isSelected={item.selected}
 								onChange={(selected) => dispatchCommand(item.onChange(selected))}
 								mountPoint={emojiAndColourPickerMountPoint}
+								popupsBoundariesElement={popupsBoundariesElement}
 								setDisableParentScroll={scrollable ? setDisableScroll : undefined}
 								pluginInjectionApi={api}
 							/>

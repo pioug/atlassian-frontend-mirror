@@ -105,9 +105,7 @@ export const removeCard = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): 
 				actionSubject: ACTION_SUBJECT.SMART_LINK,
 				actionSubjectId: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
 				attributes: {
-					inputMethod: fg('platform_editor_controls_patch_analytics_2')
-						? INPUT_METHOD.FLOATING_TB
-						: INPUT_METHOD.TOOLBAR,
+					inputMethod: INPUT_METHOD.FLOATING_TB,
 					displayMode: type as ACTION_SUBJECT_ID.CARD_INLINE | ACTION_SUBJECT_ID.CARD_BLOCK,
 				},
 				eventType: EVENT_TYPE.TRACK,
@@ -529,9 +527,7 @@ const generateToolbarItems =
 					]
 				: [];
 
-			const openLinkInputMethod = fg('platform_editor_controls_patch_analytics')
-				? INPUT_METHOD.FLOATING_TB
-				: INPUT_METHOD.TOOLBAR;
+			const openLinkInputMethod = INPUT_METHOD.FLOATING_TB;
 
 			const editButtonItems: Array<FloatingToolbarItem<Command>> =
 				cardOptions.allowDatasource && fg('platform_editor_controls_patch_9')
@@ -913,9 +909,7 @@ const getDatasourceButtonGroup = (
 		}
 	}
 
-	const openLinkInputMethod = fg('platform_editor_controls_patch_analytics')
-		? INPUT_METHOD.FLOATING_TB
-		: INPUT_METHOD.TOOLBAR;
+	const openLinkInputMethod = INPUT_METHOD.FLOATING_TB;
 
 	toolbarItems.push({
 		type: 'custom',

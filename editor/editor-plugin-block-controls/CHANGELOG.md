@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.15.12
+
+### Patch Changes
+
+- [#162142](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162142)
+  [`b92367d4d728b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b92367d4d728b) -
+  Migrating the quick insert decoration button to vanilla javascript to improve performance
+- Updated dependencies
+
 ## 3.15.11
 
 ### Patch Changes

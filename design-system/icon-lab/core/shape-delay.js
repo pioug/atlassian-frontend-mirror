@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ef6fe12d9d46c28d7ea9be4091e4872e>>
+ * @codegen <<SignedSource::c4ad9d2be4f3f71063ed622b97c0bef4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ShapeDelay".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Creating a shape for a delay in Whiteboards.
+ * Usage guidance: Reserved for delay diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

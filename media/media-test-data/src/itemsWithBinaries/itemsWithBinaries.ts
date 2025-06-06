@@ -83,6 +83,11 @@ const workingVideo = {
 		generateSampleFileItem.workingVideo,
 		artifactSets.videoFire,
 	),
+
+	videoCaptions: createItemWithBinariesGenerator(
+		generateSampleFileItem.videoCaptions,
+		artifactSets.videoCaptions,
+	),
 };
 
 const svg = {

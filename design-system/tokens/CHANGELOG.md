@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 5.1.0
+
+### Minor Changes
+
+- [#166633](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166633)
+  [`c146842d9f44f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c146842d9f44f) -
+  Adds an `@atlaskit/tokens/token-metadata` entrypoint to better share raw metadata across packages
+  for MCP server and similar code generation.
+
 ## 5.0.0
 
 ### Major Changes

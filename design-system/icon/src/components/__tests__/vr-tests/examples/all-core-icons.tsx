@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::8b012f29393c18a6148dbcae57658c79>>
+ * @codegen <<SignedSource::2c4af5cf732e90448900775466b672e2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -473,6 +473,7 @@ const Icons = [
 	HashtagIcon,
 	HeadphonesIcon,
 	HomeIcon,
+	ImageIcon,
 	IncidentIcon,
 	InformationIcon,
 	WorkItemIcon,
@@ -663,7 +664,6 @@ const Icons = [
 	SmartLinkEmbedIcon,
 	SmartLinkListIcon,
 	KeyResultIcon,
-	ImageIcon,
 	TableCellMergeIcon,
 	TableCellSplitIcon,
 	TableCellClearIcon,

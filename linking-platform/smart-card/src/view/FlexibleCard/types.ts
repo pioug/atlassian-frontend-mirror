@@ -165,6 +165,11 @@ export type FlexibleUiOptions = {
 	 * This is passed to the portal component.
 	 */
 	zIndex?: number;
+
+	/**
+	 * Flag to enable specific SmartCard components to directly enable or disable the SnippetRennderer override
+	 */
+	enableSnippetRenderer?: boolean;
 };
 
 /**

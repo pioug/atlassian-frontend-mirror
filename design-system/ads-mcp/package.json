@@ -1,0 +1,47 @@
+{
+	"name": "@atlaskit/ads-mcp",
+	"version": "0.1.0",
+	"description": "The official Atlassian Design System MCP server to develop apps and user interfaces matching the Atlassian style.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"homepage": "https://atlassian.design/llms.txt",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"runReact18": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"bin": "index.js",
+	"main": "index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <5.4": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx",
+		"./package.json": "./package.json"
+	},
+	"exports": {
+		".": "./index.js",
+		"./package.json": "./package.json"
+	},
+	"dependencies": {
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "^7.0.0",
+		"@modelcontextprotocol/sdk": "^1.8.0",
+		"zod": "^3.23.8",
+		"zod-to-json-schema": "^3.24.5"
+	},
+	"devDependencies": {
+		"typescript": "~5.4.2"
+	}
+}

@@ -158,42 +158,40 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 
-		contentComponent:
-			editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
-			fg('platform_editor_controls_move_actions')
-				? ({
-						editorView,
-						containerElement,
-						popupsMountPoint,
-						popupsBoundariesElement,
-						popupsScrollableElement,
-						wrapperElement,
-						dispatchAnalyticsEvent,
-					}) => {
-						if (toolbarButtonRegisteredExternally.current) {
-							return null;
-						}
-
-						const popupsMountPointEl =
-							popupsMountPoint ||
-							// eslint-disable-next-line @atlaskit/editor/no-as-casting
-							(wrapperElement?.querySelector("[data-editor-container='true']") as HTMLElement);
-
-						return (
-							<FindReplaceDropDownOrToolbarButtonWithState
-								popupsBoundariesElement={popupsBoundariesElement}
-								popupsMountPoint={popupsMountPointEl}
-								popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
-								isToolbarReducedSpacing={false}
-								editorView={editorView}
-								containerElement={containerElement}
-								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-								takeFullWidth={props?.takeFullWidth}
-								api={api}
-								doesNotHaveButton={true}
-							/>
-						);
+		contentComponent: editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
+			? ({
+					editorView,
+					containerElement,
+					popupsMountPoint,
+					popupsBoundariesElement,
+					popupsScrollableElement,
+					wrapperElement,
+					dispatchAnalyticsEvent,
+				}) => {
+					if (toolbarButtonRegisteredExternally.current) {
+						return null;
 					}
-				: undefined,
+
+					const popupsMountPointEl =
+						popupsMountPoint ||
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
+						(wrapperElement?.querySelector("[data-editor-container='true']") as HTMLElement);
+
+					return (
+						<FindReplaceDropDownOrToolbarButtonWithState
+							popupsBoundariesElement={popupsBoundariesElement}
+							popupsMountPoint={popupsMountPointEl}
+							popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
+							isToolbarReducedSpacing={false}
+							editorView={editorView}
+							containerElement={containerElement}
+							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+							takeFullWidth={props?.takeFullWidth}
+							api={api}
+							doesNotHaveButton={true}
+						/>
+					);
+				}
+			: undefined,
 	};
 };

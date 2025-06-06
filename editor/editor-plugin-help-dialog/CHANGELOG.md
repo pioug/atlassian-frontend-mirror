@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 2.1.9
+
+### Patch Changes
+
+- [#167027](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167027)
+  [`44639aaa2f7ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44639aaa2f7ae) -
+  ED-28191 add new description text for resizing shortcut now it applies to more elements behind
+  platform_editor_breakout_resizing experiment
+- Updated dependencies
+
 ## 2.1.8
 
 ### Patch Changes

@@ -67,9 +67,21 @@ export const helpDialogMessages = defineMessages({
 		description:
 			'The text is shown as an shortcut description in help dialog modal, when the user uses the described shortcut, he is able to increase the width of the selected element. Optimal characters less than 21.',
 	},
+	increaseElementSize: {
+		id: 'fabric.editor.increaseElementSize',
+		defaultMessage: 'Increase element size',
+		description:
+			'The text is shown as an shortcut description in help dialog modal, when the user uses the described shortcut, he is able to increase the width of the selected element. Optimal characters less than 21.',
+	},
 	decreaseSize: {
 		id: 'fabric.editor.decreaseSize',
 		defaultMessage: 'Decrease table or media size',
+		description:
+			'The text is shown as an shortcut description in help dialog modal, when the user uses the described shortcut, he is able to decrease the width of the selected element. Optimal characters less than 21.',
+	},
+	decreaseElementSize: {
+		id: 'fabric.editor.decreaseElementSize',
+		defaultMessage: 'Decrease element size',
 		description:
 			'The text is shown as an shortcut description in help dialog modal, when the user uses the described shortcut, he is able to decrease the width of the selected element. Optimal characters less than 21.',
 	},

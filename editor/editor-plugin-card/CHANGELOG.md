@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-card
 
+## 6.6.0
+
+### Minor Changes
+
+- [#166813](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166813)
+  [`31f2603b81531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31f2603b81531) -
+  [ux] Adjust optional CompetitorPrompt component type
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.5.4
+
+### Patch Changes
+
+- [#166381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166381)
+  [`e7b0081a1b221`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7b0081a1b221) -
+  EDM-12154 cleaning up hardcoded embed only on new line feature flag
+- Updated dependencies
+
+## 6.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.2
 
 ### Patch Changes

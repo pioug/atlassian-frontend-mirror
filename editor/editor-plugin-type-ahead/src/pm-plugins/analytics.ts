@@ -6,7 +6,6 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadInputMethod } from '../types';
@@ -21,12 +20,6 @@ export const fireTypeAheadClosedAnalyticsEvent = (
 	inputMethod: InputMethodType | null,
 	invocationMethod: TypeAheadInputMethod | null = null,
 ) => {
-	const additionalAttributes = fg('platform_editor_controls_patch_analytics')
-		? {
-				invocationMethod,
-			}
-		: {};
-
 	api?.analytics?.actions.fireAnalyticsEvent({
 		action: ACTION.CLOSED,
 		actionSubject: ACTION_SUBJECT.TYPEAHEAD,
@@ -35,7 +28,7 @@ export const fireTypeAheadClosedAnalyticsEvent = (
 			inputMethod,
 			closeAction,
 			hasQuery,
-			...additionalAttributes,
+			invocationMethod,
 		},
 		eventType: EVENT_TYPE.TRACK,
 	});

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f0fdddf262b27206f33da73df849308f>>
+ * @codegen <<SignedSource::d43311eafcb072d949c8baaf8cb0bea5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ShapeDatabase".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Creating a shape for databases in whiteboards
+ * Usage guidance: Reserved for database diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

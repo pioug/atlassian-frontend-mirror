@@ -113,9 +113,6 @@
 		"platform_editor_column_count_analytics": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_analytics_2": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		},

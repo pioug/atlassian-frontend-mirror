@@ -68,7 +68,6 @@ type HeadCellProps = TruncateStyleProps &
 	};
 
 const headCellBaseStyles = css({
-	boxSizing: 'border-box',
 	position: 'relative',
 	borderBlockEnd: `2px solid ${token('color.border', N40)}`,
 	borderBlockStart: `none`,

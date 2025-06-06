@@ -873,6 +873,104 @@ const csv = createGenerator({
 	},
 });
 
+const videoCaptions = createGenerator({
+	type: 'file',
+	id: '6643202c-6d5d-428a-9db1-69f98164f0f6',
+	collection: 'MediaServicesSample',
+	details: {
+		mediaType: 'video',
+		mimeType: 'video/mp4',
+		name: 'sagan-aliens.mp4',
+		size: 11534401,
+		processingStatus: 'succeeded',
+		artifacts: {
+			'poster_640.jpg': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/poster_640.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 1203,
+				mimeType: 'image/jpeg',
+				cdnUrl:
+					'https://media-cdn.stg.atlassian.com/us-east-1/v1/cdn/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/poster_640.jpg/binary?token=some-token',
+			},
+			'poster.jpg': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/poster_640.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 1203,
+				mimeType: 'image/jpeg',
+			},
+			'thumb_120.jpg': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 265,
+				mimeType: 'image/jpeg',
+				cdnUrl:
+					'https://media-cdn.stg.atlassian.com/us-east-1/v1/cdn/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/thumb_120.jpg/binary?token=some-token',
+			},
+			'thumb.jpg': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 265,
+				mimeType: 'image/jpeg',
+			},
+			'thumb_320.jpg': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 735,
+				mimeType: 'image/jpeg',
+			},
+			'thumb_large.jpg': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 735,
+				mimeType: 'image/jpeg',
+			},
+			'video_640.mp4': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/video_640.mp4/binary',
+				processingStatus: 'succeeded',
+				size: 8788834,
+				mimeType: 'video/mp4',
+				cdnUrl:
+					'https://media-cdn.stg.atlassian.com/us-east-1/v1/cdn/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/video_640.mp4/binary?token=some-token',
+			},
+			'video.mp4': {
+				url: '/file/6643202c-6d5d-428a-9db1-69f98164f0f6/artifact/video_640.mp4/binary',
+				processingStatus: 'succeeded',
+				size: 8788834,
+				mimeType: 'video/mp4',
+			},
+			ugc_caption_1111: {
+				createdAt: 1741056854208,
+				mimeType: 'text/vtt;l=en;n=sagan-aliens-en.vtt;f=Mate',
+				url: 'some-url',
+				cdnUrl: 'some-cdn-url',
+			},
+			ugc_caption_2222: {
+				createdAt: 1741056854208,
+				mimeType: 'text/vtt;l=es;n=sagan-aliens-es.vtt;f=Tapas',
+				url: 'some-url',
+				cdnUrl: 'some-cdn-url',
+			},
+			ugc_caption_3333: {
+				createdAt: 1741056854208,
+				mimeType: 'text/vtt;l=fr;n=sagan-aliens-fr.vtt;f=Croissant',
+				url: 'some-url',
+				cdnUrl: 'some-cdn-url',
+			},
+			ugc_caption_4444: {
+				createdAt: 1741056854208,
+				mimeType: 'text/vtt;l=zh;n=sagan-aliens-zh.vtt;f=Panda',
+				url: 'some-url',
+				cdnUrl: 'some-cdn-url',
+			},
+		},
+		representations: {
+			image: {},
+		},
+		hash: 'd76d10dd14f6c39de3d0d0ab0cb27c0bed0fb6ae',
+		createdAt: 1741056854208,
+	},
+});
+
 export const generateSampleFileItem = {
 	workingImgWithRemotePreview,
 	workingImgWithRemotePreviewInRecentsCollection,
@@ -902,4 +1000,5 @@ export const generateSampleFileItem = {
 	abusePdfNoPreview,
 	csv,
 	spreadsheet,
+	videoCaptions,
 };

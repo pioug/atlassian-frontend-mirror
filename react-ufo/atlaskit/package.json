@@ -206,6 +206,9 @@
 		},
 		"platform_ufo_rev_ratios": {
 			"type": "boolean"
+		},
+		"platform_ufo_ssr_size_field": {
+			"type": "boolean"
 		}
 	}
 }

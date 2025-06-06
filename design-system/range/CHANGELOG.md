@@ -1,5 +1,14 @@
 # @atlaskit/range
 
+## 9.1.0
+
+### Minor Changes
+
+- [#164510](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164510)
+  [`de265f5382075`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de265f5382075) -
+  [ux] Improves visibility for people with low vision by adding an indicator to better recognize the
+  range max. Also provides a darker background color and increases the track size from 4px to 6px.
+
 ## 9.0.4
 
 ### Patch Changes

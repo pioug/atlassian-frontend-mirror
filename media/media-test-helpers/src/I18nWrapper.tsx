@@ -11,12 +11,9 @@ function getMessages(localeValue: string) {
 	return locales[langWithRegion] || locales[lang];
 }
 
-const selectableLocales = defaultLocales.reduce((result, locale) => {
-	if (!getMessages(locale.value)) {
-		return result;
-	}
-	return [...result, locale];
-}, [] as Locale[]);
+const findLocale = (initialLocale: string | undefined) =>
+	defaultLocales.find((locale) => locale.value === initialLocale) ||
+	(initialLocale && defaultLocales.find((locale) => locale.value.includes(initialLocale)));
 
 export interface I18NWrapperState {
 	locale: Locale;
@@ -24,22 +21,21 @@ export interface I18NWrapperState {
 
 export interface I18NWrapperProps {
 	children: React.ReactNode;
+	initialLocale?: string;
 }
 
-export const I18NWrapper = ({ children }: I18NWrapperProps) => {
-	const [locale, setLocale] = useState({ label: 'en', value: 'en' });
+const defaultLocale = defaultLocales[0];
 
-	const lang = locale.value.substring(0, 2);
+export const I18NWrapper = ({ children, initialLocale }: I18NWrapperProps) => {
+	const [locale, setLocale] = useState<Locale>(findLocale(initialLocale) || defaultLocale);
+
+	const lang = locale.value;
 	const messages = getMessages(locale.value);
 	return (
 		<>
 			<Box xcss={localeBoxStyles}>
 				<Label htmlFor="media-locale-select">Language</Label>
-				<LocaleSelect
-					id="media-locale-select"
-					onLocaleChange={setLocale}
-					locales={selectableLocales}
-				/>
+				<LocaleSelect id="media-locale-select" onLocaleChange={setLocale} defaultLocale={locale} />
 			</Box>
 			<IntlProvider
 				locale={lang}

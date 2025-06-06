@@ -114,9 +114,6 @@
 		},
 		"platform_editor_disable_unnecessary_expand_renders": {
 			"type": "boolean"
-		},
-		"platform_editor_controls_patch_analytics_2": {
-			"type": "boolean"
 		}
 	}
 }

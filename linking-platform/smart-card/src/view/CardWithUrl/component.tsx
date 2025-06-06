@@ -111,6 +111,9 @@ function Component({
 				isGlancePanelAvailable?.({ ari }) &&
 				openGlancePanel
 			) {
+				event.preventDefault();
+				event.stopPropagation();
+
 				openGlancePanel({
 					url,
 					ari,

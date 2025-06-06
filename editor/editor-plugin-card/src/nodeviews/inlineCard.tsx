@@ -274,7 +274,7 @@ export function InlineCardNodeView(
 
 	const url = node.attrs.url;
 	const CompetitorPromptComponent =
-		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} /> : null;
+		CompetitorPrompt && url ? <CompetitorPrompt sourceUrl={url} linkType="inline" /> : null;
 
 	if (__livePage && fg('linking_platform_smart_links_in_live_pages')) {
 		const showHoverPreview = floatingToolbarNode !== node;

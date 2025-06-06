@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "4.1.16",
+	"version": "4.1.17",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -146,13 +146,13 @@
 		"platform_editor_controls_patch_6": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_analytics_2": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		},
 		"platform_editor_interaction_api_refactor": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_12": {
 			"type": "boolean"
 		}
 	}

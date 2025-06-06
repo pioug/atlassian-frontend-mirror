@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "5.0.0",
+	"version": "5.1.0",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -128,6 +128,7 @@
 		"./tokens-raw": "./src/entry-points/tokens-raw.tsx",
 		"./token-ids": "./src/entry-points/token-ids.tsx",
 		"./token-names": "./src/entry-points/token-names.tsx",
+		"./token-metadata": "./src/entry-points/token-metadata.codegen.tsx",
 		"./token-order": "./src/entry-points/token-order.tsx",
 		"./token-default-values": "./src/entry-points/token-default-values.tsx",
 		"./rename-mapping": "./src/entry-points/rename-mapping.tsx",
@@ -143,6 +144,7 @@
 		"./tokens-raw": "./src/entry-points/tokens-raw.tsx",
 		"./token-ids": "./src/entry-points/token-ids.tsx",
 		"./token-names": "./src/entry-points/token-names.tsx",
+		"./token-metadata": "./src/entry-points/token-metadata.codegen.tsx",
 		"./token-order": "./src/entry-points/token-order.tsx",
 		"./token-default-values": "./src/entry-points/token-default-values.tsx",
 		"./rename-mapping": "./src/entry-points/rename-mapping.tsx",

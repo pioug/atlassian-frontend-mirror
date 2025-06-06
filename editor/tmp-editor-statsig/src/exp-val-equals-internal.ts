@@ -2,7 +2,7 @@ import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { type EditorExperimentsConfig } from './experiments-config';
 
-import { _overrides } from './setup';
+import { _overrides, _product } from './setup';
 
 /**
  * Check the value if an editor experiment.
@@ -31,6 +31,11 @@ export function expValEqualsInternal<ExperimentName extends keyof EditorExperime
 		// This will be hit in the case of a test setting an override
 		// @ts-ignore need to loosen the type here to allow for any experiment name
 		return _overrides[experimentName] === experimentExpectedValue;
+	}
+
+	// If client is not initialized, we compare with the default value
+	if (!FeatureGates.initializeCompleted()) {
+		return experimentDefaultValue === experimentExpectedValue;
 	}
 
 	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils

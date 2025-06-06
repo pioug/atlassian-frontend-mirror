@@ -38,6 +38,7 @@ const setArtifactsUri = async (
 				{
 					...artifact,
 					url: await createArtifactUri(mediaType, key, artifactsSet),
+					cdnUrl: await createArtifactUri(mediaType, key, artifactsSet),
 				},
 			],
 		),

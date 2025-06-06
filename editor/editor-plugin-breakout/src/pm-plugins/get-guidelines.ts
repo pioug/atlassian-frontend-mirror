@@ -18,6 +18,7 @@ import {
 
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
+	WIDE: akEditorCalculatedWideLayoutWidth,
 	MAX: akEditorFullWidthLayoutWidth,
 };
 
@@ -59,7 +60,6 @@ export const getGuidelines = memoizeOne(
 		}
 		const { width, lineLength } = getEditorWidth() || {};
 		// TODO: ED-28109 - use breakoutWideScaleRatio to calculate wide guideline
-		const wide = akEditorCalculatedWideLayoutWidth;
 		const fullWidth = width
 			? Math.min(WIDTHS.MAX, width - 2 * akEditorGutterPaddingDynamic() - akEditorGutterPadding)
 			: undefined;
@@ -79,13 +79,13 @@ export const getGuidelines = memoizeOne(
 
 		guidelines.push({
 			key: `${GUIDELINE_KEYS.wide}_left`,
-			position: { x: -roundToNearest(wide / 2 + innerPaddingOffset) },
-			active: newWidth === wide,
+			position: { x: -roundToNearest(WIDTHS.WIDE / 2 + innerPaddingOffset) },
+			active: newWidth === WIDTHS.WIDE,
 		});
 		guidelines.push({
 			key: `${GUIDELINE_KEYS.wide}_right`,
-			position: { x: roundToNearest(wide / 2 + innerPaddingOffset) },
-			active: newWidth === wide,
+			position: { x: roundToNearest(WIDTHS.WIDE / 2 + innerPaddingOffset) },
+			active: newWidth === WIDTHS.WIDE,
 		});
 
 		if (fullWidth) {

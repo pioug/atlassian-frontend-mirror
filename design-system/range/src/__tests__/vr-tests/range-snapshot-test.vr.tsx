@@ -5,31 +5,17 @@ import DisabledDisplay from '../../../examples/02-disabled-display';
 import DifferentValues from '../../../examples/09-different-values';
 
 snapshot(BasicExampleUncontrolled, {
-	variants: [
-		{
-			name: 'Default',
-			environment: {},
-		},
-		{
-			name: 'Light',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
+	featureFlags: {
+		platform_dst_range_a11y: [true, false],
+	},
 });
 snapshot(DisabledDisplay, {
-	variants: [
-		{
-			name: 'Default',
-			environment: {},
-		},
-		{
-			name: 'Light',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
+	featureFlags: {
+		platform_dst_range_a11y: [true, false],
+	},
 });
-snapshot(DifferentValues);
+snapshot(DifferentValues, {
+	featureFlags: {
+		platform_dst_range_a11y: [true, false],
+	},
+});

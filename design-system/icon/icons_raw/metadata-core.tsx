@@ -1702,7 +1702,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:185371',
+		id: '7594:13850',
 		usage: 'Multi purpose - Known uses: images, image upload.',
 	},
 	'image-fullscreen': {

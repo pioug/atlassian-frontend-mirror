@@ -18,9 +18,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	changeLanguage,
-	copyContentToClipboard,
 	copyContentToClipboardWithAnalytics,
-	removeCodeBlock,
 	removeCodeBlockWithAnalytics,
 	resetCopiedState,
 	toggleWordWrapStateForCodeBlockNode,
@@ -115,11 +113,9 @@ export const getToolbarConfig =
 						supportsViewMode: true,
 						appearance: 'subtle',
 						icon: CopyIcon,
-						// note: copyContentToClipboard contains logic that also removes the
+						// note: copyContentToClipboardWithAnalytics contains logic that also removes the
 						// visual feedback for the copy button
-						onClick: fg('platform_editor_controls_patch_analytics_2')
-							? copyContentToClipboardWithAnalytics(editorAnalyticsAPI)
-							: copyContentToClipboard,
+						onClick: copyContentToClipboardWithAnalytics(editorAnalyticsAPI),
 						title: formatMessage(
 							codeBlockState.contentCopied
 								? codeBlockButtonMessages.copiedCodeToClipboard
@@ -148,9 +144,7 @@ export const getToolbarConfig =
 			onMouseLeave: hoverDecoration?.(nodeType, false),
 			onFocus: hoverDecoration?.(nodeType, true),
 			onBlur: hoverDecoration?.(nodeType, false),
-			onClick: fg('platform_editor_controls_patch_analytics_2')
-				? removeCodeBlockWithAnalytics(editorAnalyticsAPI)
-				: removeCodeBlock,
+			onClick: removeCodeBlockWithAnalytics(editorAnalyticsAPI),
 			title: formatMessage(commonMessages.remove),
 			tabIndex: null,
 		};

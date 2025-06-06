@@ -13,6 +13,7 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { QuickInsertWithVisibility, TypeAheadControl } from '../ui/quick-insert-button';
 
 import { AnchorRectCache } from './utils/anchor-utils';
+import { createVanillaButton } from './vanilla-quick-insert';
 
 const TYPE_QUICK_INSERT = 'INSERT_BUTTON';
 
@@ -36,6 +37,7 @@ export const quickInsertButtonDecoration = (
 	anchorRectCache?: AnchorRectCache,
 ) => {
 	const key = uuid();
+	const cleanupCallbacks: (() => void)[] = [];
 
 	const widgetSpec = editorExperiment('platform_editor_breakout_resizing', true)
 		? {
@@ -52,6 +54,9 @@ export const quickInsertButtonDecoration = (
 					if (fg('platform_editor_fix_widget_destroy')) {
 						nodeViewPortalProviderAPI.remove(key);
 					}
+					cleanupCallbacks.forEach((cb) => {
+						cb();
+					});
 				},
 			}
 		: {
@@ -61,6 +66,9 @@ export const quickInsertButtonDecoration = (
 					if (fg('platform_editor_fix_widget_destroy')) {
 						nodeViewPortalProviderAPI.remove(key);
 					}
+					cleanupCallbacks.forEach((cb) => {
+						cb();
+					});
 				},
 			};
 
@@ -71,6 +79,23 @@ export const quickInsertButtonDecoration = (
 			element.contentEditable = 'false';
 			element.setAttribute('data-blocks-quick-insert-container', 'true');
 			element.setAttribute('data-testid', 'block-ctrl-quick-insert-button');
+			if (
+				editorExperiment('platform_editor_block_control_optimise_render', true, { exposure: true })
+			) {
+				const vanillaElement = createVanillaButton({
+					formatMessage,
+					api,
+					view,
+					getPos,
+					cleanupCallbacks,
+					rootAnchorName: rootAnchorName ?? nodeType,
+					anchorName,
+					rootNodeType: rootNodeType ?? nodeType,
+					anchorRectCache,
+				});
+				element.appendChild(vanillaElement);
+				return element;
+			}
 
 			// all changes already under experiment
 			if (fg('platform_editor_controls_widget_visibility')) {

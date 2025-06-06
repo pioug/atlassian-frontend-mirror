@@ -6,6 +6,7 @@ import { SmartLinkStatus } from '../../../../../constants';
 import {
 	useFlexibleCardContext,
 	useFlexibleUiContext,
+	useFlexibleUiOptionContext,
 } from '../../../../../state/flexible-ui-context';
 import { useSmartLinkRenderers } from '../../../../../state/renderers';
 import { Snippet } from '../../elements';
@@ -42,6 +43,11 @@ const SnippetBlock = ({
 			useSmartLinkRenderers()
 		: undefined;
 
+	const enableSnippetRenderer = fg('cc-ai-linking-platform-snippet-renderer')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useFlexibleUiOptionContext()?.enableSnippetRenderer
+		: undefined;
+
 	const cardContext = fg('platform-linking-flexible-card-context')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
 			useFlexibleCardContext()
@@ -66,7 +72,7 @@ const SnippetBlock = ({
 
 	const snippet = <Snippet maxLines={snippetMaxLines} content={text} />;
 
-	if (!fg('cc-ai-linking-platform-snippet-renderer')) {
+	if (!fg('cc-ai-linking-platform-snippet-renderer') || !enableSnippetRenderer) {
 		return (
 			<Block
 				{...blockProps}

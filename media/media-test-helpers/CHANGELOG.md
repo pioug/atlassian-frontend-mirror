@@ -1,5 +1,13 @@
 # @atlaskit/media-test-helpers
 
+## 36.1.0
+
+### Minor Changes
+
+- [#164740](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164740)
+  [`45ff07eba6b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45ff07eba6b7f) -
+  Exposed new media item sample Video with Captions - I18Wrapper allows initial Locale as prop
+
 ## 36.0.4
 
 ### Patch Changes

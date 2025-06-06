@@ -23,6 +23,7 @@ import {
 	ElementName,
 	TitleBlock,
 } from '@atlaskit/smart-card';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { analyticsTests } from './common/analytics.test-utils';
 import { runCommonHoverCardTests, unauthorizedViewTests } from './common/common.test-utils';
@@ -233,6 +234,36 @@ describe('hover card over flexible smart links', () => {
 		analyticsTests((setupProps?: SetUpParams) => setupComponent(setupProps), {
 			display: 'flexible',
 			isAnalyticsContextResolvedOnHover: true,
+		});
+	});
+
+	describe('feature flags', () => {
+		ffTest.on('cc-ai-linking-platform-snippet-renderer', 'with fg', () => {
+			it('sets enableSnippetRenderer based on cc-ai-linking-platform-snippet-renderer flag', async () => {
+				const renderResult = await setupComponent({
+					extraCardProps: {
+						ui: { enableSnippetRenderer: true },
+					},
+				});
+				await renderResult.event.hover(renderResult.element);
+
+				const hoverCard = await screen.findByTestId(hoverCardTestId);
+				expect(hoverCard).toBeInTheDocument();
+			});
+		});
+
+		ffTest.off('cc-ai-linking-platform-snippet-renderer', 'without fg', () => {
+			it('does not set enableSnippetRenderer when flag is off', async () => {
+				const renderResult = await setupComponent({
+					extraCardProps: {
+						ui: { enableSnippetRenderer: false },
+					},
+				});
+				await renderResult.event.hover(renderResult.element);
+
+				const hoverCard = await screen.findByTestId(hoverCardTestId);
+				expect(hoverCard).toBeInTheDocument();
+			});
 		});
 	});
 });

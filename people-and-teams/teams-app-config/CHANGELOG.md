@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.6.0
+
+### Minor Changes
+
+- [#164093](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164093)
+  [`b385b1736cc52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b385b1736cc52) -
+  Adopt teams app config for navigating to teams app
+
 ## 1.5.1
 
 ### Patch Changes

@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { ELEMENT_BROWSER_ID } from '../../element-browser';
@@ -286,6 +287,17 @@ export const ToolbarArrowKeyNavigationProvider = ({
 			if (isShortcutToFocusToolbar!(event)) {
 				const filteredFocusableElements = getFilteredFocusableElements(wrapperRef?.current);
 				filteredFocusableElements[0]?.focus();
+
+				// Button component from DS removes focus ring when :focus:not(:focus-visible) is true
+				// Since here we programmatically focus the first button in the toolbar (as suppose to keyboard navigation), browser does not always force focus-visible to true
+				// which is why the first button in the toolbar is not shown with focus ring
+				// The workaround is add a new classname so we add back focus ring when the button is focused
+				if (
+					filteredFocusableElements[0]?.tagName === 'BUTTON' &&
+					fg('platform_editor_fix_floating_toolbar_focus')
+				) {
+					filteredFocusableElements[0].classList.add('first-floating-toolbar-button');
+				}
 				filteredFocusableElements[0]?.scrollIntoView({
 					behavior: 'smooth',
 					block: 'center',

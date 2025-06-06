@@ -1,11 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c4c0c5025440d0e95b92b83fd09089e1>>
+ * @codegen <<SignedSource::8d45a895b094e5b3aeda10d459693eda>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 
+/**
+ * @deprecated The icon "hand-clenched" is deprecated in favour of "hand-closed" from “@atlaskit/icon-lab/core”
+*/
 declare const HandClenchedIcon: {
   (props: NewCoreIconProps): JSX.Element;
   displayName: string;

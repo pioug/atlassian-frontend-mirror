@@ -1,0 +1,1 @@
+# @atlaskit/auto-upgrade-not-a-trial

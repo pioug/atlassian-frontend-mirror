@@ -119,6 +119,13 @@ const HoverCardContent = ({
 		subtitle: subtitle,
 	};
 
+	const uiOptions = fg('platform-linking-flexible-card-context')
+		? flexibleUiOptions
+		: flexibleUiOptionsOld;
+	if (fg('cc-ai-linking-platform-snippet-renderer')) {
+		uiOptions.enableSnippetRenderer = true;
+	}
+
 	const flexibleCardProps: FlexibleCardProps = {
 		appearance: CardDisplay.HoverCardPreview,
 		cardState: cardState,
@@ -127,7 +134,7 @@ const HoverCardContent = ({
 		origin: 'smartLinkPreviewHoverCard',
 		renderers: renderers,
 		actionOptions,
-		ui: fg('platform-linking-flexible-card-context') ? flexibleUiOptions : flexibleUiOptionsOld,
+		ui: uiOptions,
 		url: url,
 		children: null,
 	};

@@ -45,7 +45,7 @@ export function findMatches(
 
 	let textGrouping: TextGrouping = null;
 
-	const collectMatch = (textGrouping: TextGrouping) => {
+	const collectTextMatch = (textGrouping: TextGrouping) => {
 		if (!textGrouping) {
 			return;
 		}
@@ -71,6 +71,18 @@ export function findMatches(
 		}
 	};
 
+	const collectStatusMatch = (textGrouping: TextGrouping, nodeSize: number) => {
+		if (!textGrouping) {
+			return;
+		}
+		const { text, pos } = textGrouping;
+		const index = text.toLowerCase().indexOf(searchText.toLowerCase());
+		if (index !== -1) {
+			const start = pos;
+			matches.push({ start, end: start + nodeSize, canReplace: false });
+		}
+	};
+
 	if (searchTextLength > 0) {
 		content.descendants((node, pos) => {
 			if (node.isText) {
@@ -83,13 +95,28 @@ export function findMatches(
 					textGrouping.text = textGrouping.text + node.text;
 				}
 			} else {
-				collectMatch(textGrouping);
+				collectTextMatch(textGrouping);
 				textGrouping = null;
+				if (fg('platform_editor_find_and_replace_1')) {
+					switch (node.type.name) {
+						case 'status':
+							collectStatusMatch(
+								{
+									text: node.attrs.text as string,
+									pos,
+								},
+								node.nodeSize,
+							);
+							break;
+						default:
+							break;
+					}
+				}
 			}
 		});
-		// if there's a dangling text grouping and no non-text node to trigger collectMatch, manually collectMatch
+		// if there's a dangling text grouping and no non-text node to trigger collectTextMatch, manually collectTextMatch
 		if (textGrouping) {
-			collectMatch(textGrouping);
+			collectTextMatch(textGrouping);
 		}
 	}
 

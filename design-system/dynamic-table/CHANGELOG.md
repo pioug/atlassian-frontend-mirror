@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 18.2.0
+
+### Minor Changes
+
+- [#164968](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164968)
+  [`78aa9e650b3b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78aa9e650b3b7) -
+  Fix visually-refreshed DynamicTable headers being truncated.
+
 ## 18.1.4
 
 ### Patch Changes

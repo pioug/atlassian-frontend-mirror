@@ -32,7 +32,7 @@ describe('RangeField', () => {
 		);
 
 		expect(error).not.toHaveBeenCalled();
-		expect(warn).not.toHaveBeenCalled();
+		expect(warn).toHaveBeenCalledTimes(1);
 
 		warn.mockRestore();
 		error.mockRestore();

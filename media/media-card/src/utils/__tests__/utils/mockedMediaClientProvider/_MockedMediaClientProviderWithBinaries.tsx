@@ -4,7 +4,6 @@ import {
 	type FileIdentifier,
 	getFileStreamsCache,
 } from '@atlaskit/media-client';
-import { type GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers';
 import { type MediaStore, createMediaStore } from '@atlaskit/media-state';
 // TODO: these types should be exported from here (the public package), and imported in test-data
 import {
@@ -21,6 +20,7 @@ import {
 	type UploadHelper as UploadHelperBase,
 } from './_MockedMediaClientProvider';
 import { useEffect, useMemo, useState } from 'react';
+import { extendMediaApiWithBinaries } from './_MockedMediaApiWithBinaries';
 
 interface SetItems {
 	(itemsWithBinaries?: ItemWithBinaries | ItemWithBinaries[]): void;
@@ -87,52 +87,6 @@ export interface CreateMockedMediaClientProviderWithBinaries {
 		params: CreateMockedMediaClientProviderWithBinariesParams,
 	): CreateMockedMediaClientProviderWithBinariesResult;
 }
-
-const extendMediaApiWithBinaries = (
-	mediaApi: MediaApi,
-	getItemBase: GetItemBase,
-	getItemBinaries: GetItem,
-) => {
-	const baseMediaApi = { ...mediaApi };
-
-	mediaApi.getFileImageURL = async (fileId, ...args) => {
-		const baseResult = baseMediaApi.getFileImageURL(fileId, ...args);
-		const { image } = getItemBinaries(fileId) || {};
-		return image ? image : baseResult;
-	};
-
-	mediaApi.getFileImageURLSync = (fileId, ...args) => {
-		const baseResult = baseMediaApi.getFileImageURLSync(fileId, ...args);
-		const { image } = getItemBinaries(fileId) || {};
-		return image ? image : baseResult;
-	};
-
-	mediaApi.getFileBinaryURL = async (id, ...args) => {
-		const baseResult = await baseMediaApi.getFileBinaryURL(id, ...args);
-		const baseItem = getItemBase(id);
-
-		// File is still uploading:
-		if (baseItem?.details.size === 0) {
-			// TODO: Check error type returned by backend when the file is still uploading
-			return 'https://binary-not-found';
-		}
-
-		const { binaryUri } = getItemBinaries(id) || {};
-		return binaryUri || baseResult;
-	};
-
-	mediaApi.getFileBinary = async (fileId, ...args) => {
-		const baseResult = await baseMediaApi.getFileBinary(fileId, ...args);
-		const { binaryUri } = getItemBinaries(fileId) || {};
-		return binaryUri ? dataURItoBlob(binaryUri) : baseResult;
-	};
-
-	mediaApi.getImage = async (fileId, ...args) => {
-		const baseResult = await baseMediaApi.getImage(fileId, ...args);
-		const { image } = getItemBinaries(fileId) || {};
-		return image ? dataURItoBlob(image) : baseResult;
-	};
-};
 
 /**
  * Creates a MockedMediaClientProvider that handles Binaries to be used in examples.

@@ -290,9 +290,7 @@ const generateMediaCardFloatingToolbar = (
 				onFocus: hoverDecoration?.(mediaGroup, true),
 				onBlur: hoverDecoration?.(mediaGroup, false),
 				title: intl.formatMessage(commonMessages.remove),
-				onClick: fg('platform_editor_controls_patch_analytics_2')
-					? handleRemoveMediaGroupWithAnalytics(editorAnalyticsAPI)
-					: handleRemoveMediaGroup,
+				onClick: handleRemoveMediaGroupWithAnalytics(editorAnalyticsAPI),
 				testId: 'media-toolbar-remove-button',
 			},
 		);
@@ -813,9 +811,7 @@ const generateMediaSingleFloatingToolbar = (
 			onFocus: hoverDecoration?.(mediaSingle, true),
 			onBlur: hoverDecoration?.(mediaSingle, false),
 			title: intl.formatMessage(commonMessages.remove),
-			onClick: fg('platform_editor_controls_patch_analytics_2')
-				? removeWithAnalytics(pluginInjectionApi?.analytics?.actions)
-				: remove,
+			onClick: removeWithAnalytics(pluginInjectionApi?.analytics?.actions),
 			testId: 'media-toolbar-remove-button',
 			supportsViewMode: false,
 		};
@@ -1145,9 +1141,7 @@ export const floatingToolbar = (
 				},
 				{
 					title: intl?.formatMessage(commonMessages.delete),
-					onClick: fg('platform_editor_controls_patch_analytics_2')
-						? removeWithAnalytics(pluginInjectionApi?.analytics?.actions, selectedNodeType)
-						: remove,
+					onClick: removeWithAnalytics(pluginInjectionApi?.analytics?.actions, selectedNodeType),
 					icon: <DeleteIcon label="" />,
 					...hoverDecorationProps(nodeType),
 				},

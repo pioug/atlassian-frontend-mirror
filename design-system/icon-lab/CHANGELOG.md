@@ -1,5 +1,76 @@
 # @atlaskit/icon-lab
 
+## 4.18.0
+
+### Minor Changes
+
+- [#166301](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166301)
+  [`b6532ecf439a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6532ecf439a8) -
+  This release adds and deprecates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `diagram-symbol-action`
+  - `diagram-symbol-alternate-process`
+  - `diagram-symbol-collate`
+  - `diagram-symbol-comment-left`
+  - `diagram-symbol-comment-right`
+  - `diagram-symbol-connector-off-page`
+  - `diagram-symbol-connector-on-page`
+  - `diagram-symbol-database`
+  - `diagram-symbol-decision`
+  - `diagram-symbol-delay`
+  - `diagram-symbol-display`
+  - `diagram-symbol-document`
+  - `diagram-symbol-documents`
+  - `diagram-symbol-hard-disk`
+  - `diagram-symbol-input-output`
+  - `diagram-symbol-internal-storage`
+  - `diagram-symbol-loop-limit`
+  - `diagram-symbol-manual-input`
+  - `diagram-symbol-manual-operation`
+  - `diagram-symbol-merge`
+  - `diagram-symbol-mind-map`
+  - `diagram-symbol-or`
+  - `diagram-symbol-predefined-process`
+  - `diagram-symbol-preparation`
+  - `diagram-symbol-sort`
+  - `diagram-symbol-stored-data`
+  - `diagram-symbol-summing-junction`
+  - `diagram-symbol-terminator`
+  - `hand-closed`
+  - `hand-open`
+  - `hand-raised`
+  - `randomize`
+  - `text-adjust-length`
+
+  ### Deprecated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `hand-clenched`
+  - `shape-comment-left`
+  - `shape-comment-right`
+  - `shape-database`
+  - `shape-delay`
+  - `shape-display`
+  - `shape-document-symbol`
+  - `shape-hard-disk`
+  - `shape-internal-storage`
+  - `shape-manual-input`
+  - `shape-manual-operation-symbol`
+  - `shape-mindmap`
+  - `shape-multiple-documents`
+  - `shape-off-page`
+  - `shape-predefined-process`
+  - `shape-preparation-symbol`
+  - `shape-start-end`
+  - `shape-stored-data`
+  - `shape-summing-junction-cross`
+  - `shape-summing-junction-plus`
+
 ## 4.17.0
 
 ### Minor Changes

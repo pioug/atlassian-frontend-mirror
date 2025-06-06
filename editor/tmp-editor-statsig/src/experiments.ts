@@ -50,9 +50,9 @@ import { _overrides, _paramOverrides, _product } from './setup';
  *
  * @private
  * @deprecated This utility is deprecated in favour of using `expValEquals` from `@atlaskit/tmp-editor-statsig/exp-val-equals`.
- * ExpValEquals fires exposure events by default preventing cases when consumers of exitorExperiment forget to pass the `exposure` option.
- * It also closely aligns with similar utilities in other Atlassian products.
- * For no expisure option use `expValEqualsNoExposure` from `@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure`.
+ *             ExpValEquals fires exposure events by default preventing cases when consumers of exitorExperiment forget to pass the `exposure` option.
+ *             It also closely aligns with similar utilities in other Atlassian products.
+ *             For no exposure option use `expValEqualsNoExposure` from `@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure`.
  */
 export function editorExperiment<ExperimentName extends keyof EditorExperimentsConfig>(
 	experimentName: ExperimentName,

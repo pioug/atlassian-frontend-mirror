@@ -1,9 +1,13 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { type FC, type Ref, useCallback, useState } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+import { cssMap, jsx } from '@atlaskit/css';
 import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
-import { Box, Flex, Pressable, Text } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -59,6 +63,11 @@ const headCellStyles = cssMap({
 	headCellContainer: {
 		display: 'flex',
 		alignItems: 'center',
+	},
+	text: {
+		font: token('font.body.small'),
+		color: token('color.text.subtle'),
+		fontWeight: token('font.weight.bold'),
 	},
 });
 
@@ -145,9 +154,7 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 							isVisibleIconOnlyHeader ? styles.hideIconHeaderWrapper : styles.visibleHeaderWrapper
 						}
 					>
-						<Text size="small" color="color.text.subtle" weight="bold" maxLines={1}>
-							{content}
-						</Text>
+						<span css={headCellStyles.text}>{content}</span>
 					</Flex>
 					{shouldRenderSortIcon && (
 						<Flex

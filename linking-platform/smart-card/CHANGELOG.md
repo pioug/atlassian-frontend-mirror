@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 38.8.0
+
+### Minor Changes
+
+- [#166380](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166380)
+  [`769ada2231863`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/769ada2231863) -
+  Adds optional FlexibleUI property for enabling the SnippetRenderer
+
+## 38.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.7.1
 
 ### Patch Changes

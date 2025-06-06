@@ -130,6 +130,13 @@ const ResolvedView = ({
 
 	const status = cardState.status as SmartLinkStatus;
 
+	const uiOptions = fg('platform-linking-flexible-card-context')
+		? FlexibleCardUiOptions
+		: FlexibleCardUiOptionsOld;
+	if (fg('cc-ai-linking-platform-snippet-renderer')) {
+		uiOptions.enableSnippetRenderer = true;
+	}
+
 	return (
 		<FlexibleCard
 			appearance="block"
@@ -140,11 +147,7 @@ const ResolvedView = ({
 			origin="smartLinkCard"
 			actionOptions={actionOptions}
 			testId={testId}
-			ui={
-				fg('platform-linking-flexible-card-context')
-					? FlexibleCardUiOptions
-					: FlexibleCardUiOptionsOld
-			}
+			ui={uiOptions}
 			url={url}
 		>
 			<TitleBlock

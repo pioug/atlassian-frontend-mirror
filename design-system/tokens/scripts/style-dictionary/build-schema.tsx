@@ -16,6 +16,7 @@ import formatterTSCssTypeSchema from './formatters/typescript-css-type-schema';
 import formatterTSTokenDefaults from './formatters/typescript-token-defaults';
 import formatterTSGeneratedTypes from './formatters/typescript-token-generated-types';
 import formatterTSGeneratedTypesInternal from './formatters/typescript-token-generated-types-internal';
+import formatterTSMetadata from './formatters/typescript-token-metadata';
 import formatterTSTokenNames from './formatters/typescript-token-names';
 import formatterTSGeneratedPairings from './formatters/typescript-token-pairings';
 import boxShadowTransform from './transformers/box-shadow';
@@ -65,6 +66,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
 		'typescript/token-types-internal': formatterTSGeneratedTypesInternal as any,
 		'typescript/generate-recommended-pairs': formatterTSGeneratedPairings as any,
 		'typescript/css-type-schema': formatterTSCssTypeSchema as any,
+		'typescript/token-metadata': formatterTSMetadata as any,
 		'css/dynamic-import-map': formatterDynamicImportMap as any,
 	},
 	platforms: {
@@ -118,6 +120,10 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
 				{
 					format: 'typescript/css-type-schema',
 					destination: '../entry-points/css-type-schema.codegen.tsx',
+				},
+				{
+					format: 'typescript/token-metadata',
+					destination: '../entry-points/token-metadata.codegen.tsx',
 				},
 			],
 		},

@@ -7,6 +7,7 @@ import type { WithOutsideClickProps } from '../../ui-react/with-react-editor-vie
 import type { OpenChangedEvent } from '../../ui/DropList';
 import DropdownList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
+import { calculatePlacement } from '../../ui/Popup/utils';
 import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import type { ArrowKeyNavigationProviderOptions } from '../ArrowKeyNavigationProvider/types';
 
@@ -77,6 +78,26 @@ export class Dropdown extends PureComponent<Props, State> {
 			this.props.onOpenChange({ isOpen: false, event });
 		}
 	};
+
+	componentDidUpdate(prevProps: Readonly<Props>): void {
+		if (
+			!prevProps.isOpen &&
+			this.props.isOpen &&
+			this.state.target &&
+			fg('platform_editor_floating_toolbar_dropdown_flicker')
+		) {
+			const initialPlacement = calculatePlacement(
+				this.state.target,
+				this.props.boundariesElement || document.body,
+				this.props.fitWidth,
+				this.props.fitHeight,
+				this.props.alignX,
+				this.props.alignY,
+				this.props.forcePlacement,
+			);
+			this.setState({ popupPlacement: initialPlacement });
+		}
+	}
 
 	private renderDropdown() {
 		const { target, popupPlacement } = this.state;

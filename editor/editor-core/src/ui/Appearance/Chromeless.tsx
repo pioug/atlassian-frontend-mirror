@@ -191,6 +191,7 @@ export default class Editor extends React.Component<AppearanceProps> {
 						}),
 					]}
 					data-testid="chromeless-editor"
+					id="chromeless-editor"
 					ref={(ref: HTMLElement | null) => (this.containerElement = ref)}
 				>
 					<EditorContainer

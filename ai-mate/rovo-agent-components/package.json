@@ -119,6 +119,9 @@
 		},
 		"dst-a11y__replace-anchor-with-link__ai-mate": {
 			"type": "boolean"
+		},
+		"should-render-to-parent-should-be-true-ai-mate": {
+			"type": "boolean"
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c91634f86ef7c50ba6f12085b3db23fb>>
+ * @codegen <<SignedSource::69e86b890e4d2d62660b1c1fe24d4a3b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ShapeDocumentSymbol".
  * Category: single-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Creating a document shape in Whiteboards
+ * Usage guidance: Reserved for single document diagram symbol.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

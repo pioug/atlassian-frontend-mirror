@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.6.5
+
+### Patch Changes
+
+- [#166244](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166244)
+  [`be0b732d3b803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be0b732d3b803) -
+  Prepare changes for compiled react-select
+
 ## 2.6.4
 
 ### Patch Changes

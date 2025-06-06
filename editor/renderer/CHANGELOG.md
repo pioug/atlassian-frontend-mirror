@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 118.6.10
+
+### Patch Changes
+
+- [#165707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165707)
+  [`dc0945a65df05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc0945a65df05) -
+  [JIV-20854] Make sure that we always use maxScalingPercent for table width when fg
+  platform-ssr-table-resize is toggled on
+- Updated dependencies
+
+## 118.6.9
+
+### Patch Changes
+
+- [#164686](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164686)
+  [`4b2aaa6783398`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b2aaa6783398) -
+  Removed extra debug logging which was adding behind gate
+  platform_renderer_annotations_create_debug_logging
+- Updated dependencies
+
 ## 118.6.8
 
 ### Patch Changes

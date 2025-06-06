@@ -71,8 +71,6 @@ export default class RendererActions
 	private ref?: any;
 	private onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 
-	private debugAnalyticLoggingEnabled: boolean = false;
-
 	constructor(initFromContext: boolean = false) {
 		this.initFromContext = initFromContext;
 		this.transformer = new JSONTransformer();
@@ -110,156 +108,18 @@ export default class RendererActions
 	 */
 	_privateValidatePositionsForAnnotation(from: number, to: number): boolean {
 		if (!this.doc || !this.schema) {
-			if (
-				this.debugAnalyticLoggingEnabled &&
-				this.onAnalyticsEvent &&
-				fg('platform_renderer_annotations_create_debug_logging')
-			) {
-				this.onAnalyticsEvent({
-					// @ts-ignore
-					action: 'failed',
-					// @ts-ignore
-					actionSubject: 'applyAnnotation',
-					// @ts-ignore
-					actionSubjectId: 'inlineCommentFailureReason',
-					eventType: EVENT_TYPE.OPERATIONAL,
-					attributes: {
-						// @ts-ignore
-						reason: `Annotation Position validation failed - Missing doc or schema`,
-						commentsOnInlineNodesAllowed: fg('editor_inline_comments_on_inline_nodes'),
-						isDocValid: !!this.doc,
-						isSchemaValid: !!this.schema,
-					},
-				});
-			}
 			return false;
 		}
 
 		const currentSelection = TextSelection.create(this.doc, from, to);
 		if (isEmptyTextSelection(currentSelection, this.schema)) {
-			if (
-				this.debugAnalyticLoggingEnabled &&
-				this.onAnalyticsEvent &&
-				fg('platform_renderer_annotations_create_debug_logging')
-			) {
-				this.onAnalyticsEvent({
-					// @ts-ignore
-					action: 'failed',
-					// @ts-ignore
-					actionSubject: 'applyAnnotation',
-					// @ts-ignore
-					actionSubjectId: 'inlineCommentFailureReason',
-					eventType: EVENT_TYPE.OPERATIONAL,
-					attributes: {
-						// @ts-ignore
-						reason: `Annotation Position validation - Empty Text Selection`,
-						commentsOnInlineNodesAllowed: fg('editor_inline_comments_on_inline_nodes'),
-						from,
-						to,
-					},
-				});
-			}
 			return false;
 		}
 
 		const result = canApplyAnnotationOnRange({ from, to }, this.doc, this.schema);
-		if (
-			this.debugAnalyticLoggingEnabled &&
-			!result &&
-			this.onAnalyticsEvent &&
-			fg('platform_renderer_annotations_create_debug_logging')
-		) {
-			this.onAnalyticsEvent({
-				// @ts-ignore
-				action: 'failed',
-				// @ts-ignore
-				actionSubject: 'applyAnnotation',
-				// @ts-ignore
-				actionSubjectId: 'inlineCommentFailureReason',
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: {
-					// @ts-ignore
-					reason: `Annotation canApplyAnnotationOnRange failed`,
-					details: this._privateWhyCannotApplyAnnotationOnRange(
-						{ from, to },
-						this.doc,
-						this.schema,
-					),
-					commentsOnInlineNodesAllowed: fg('editor_inline_comments_on_inline_nodes'),
-					from,
-					to,
-				},
-			});
-		}
 
 		return result;
 	}
-
-	// TODO: EDITOR-595 - This method is temporary and should be removed once the following issue
-	// has been identified and fixed: https://atlassian.slack.com/archives/C08JK0WSCH5/p1745902609966999
-	// This is a copy of the original canApplyAnnotationOnRange. If that returns false this is run to figure out exactly why
-	// the annotation cannot be applied to the range.
-	_privateWhyCannotApplyAnnotationOnRange = (pos: Position, doc: Node, schema: Schema): string => {
-		const { from, to } = pos;
-		if (isNaN(from + to) || to - from <= 0 || to < 0 || from < 0) {
-			return 'position invalid';
-		}
-
-		const reasons: string[] = [];
-
-		doc.nodesBetween(from, to, (node, _pos, parent) => {
-			// Special exception for hardBreak nodes
-			if (schema.nodes.hardBreak === node.type) {
-				return false;
-			}
-
-			// For block elements or text nodes, we want to check
-			// if annotations are allowed inside this tree
-			// or if we're leaf and not text
-			if (fg('editor_inline_comments_on_inline_nodes')) {
-				const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
-					node.type.name,
-				);
-
-				if (node.isInline && !node.isText && !isAllowedInlineNode) {
-					reasons.push(
-						`Err 1 - type: ${node.type.name}, isInline: ${node.isInline}, isText: ${node.isText}, isLeaf: ${node.isLeaf}`,
-					);
-					return false;
-				} else if (node.isLeaf && !node.isText && !isAllowedInlineNode) {
-					reasons.push(
-						`Err 2 - type: ${node.type.name}, isInline: ${node.isInline}, isText: ${node.isText}, isLeaf: ${node.isLeaf}`,
-					);
-					return false;
-				} else if (node.isText && !parent?.type.allowsMarkType(schema.marks.annotation)) {
-					reasons.push(
-						`Err 3 - type: ${node.type.name}, isInline: ${node.isInline}, isText: ${node.isText}, isLeaf: ${node.isLeaf}, parent: ${parent?.type.name}`,
-					);
-					return false;
-				}
-			} else {
-				if (node.isInline && !node.isText) {
-					reasons.push(
-						`Err 4 - type: ${node.type.name}, isInline: ${node.isInline}, isText: ${node.isText}, isLeaf: ${node.isLeaf}`,
-					);
-					return false;
-				} else if (node.isLeaf && !node.isText) {
-					reasons.push(
-						`Err 5 - type: ${node.type.name}, isInline: ${node.isInline}, isText: ${node.isText}, isLeaf: ${node.isLeaf}`,
-					);
-					return false;
-				} else if (node.isText && !parent?.type.allowsMarkType(schema.marks.annotation)) {
-					reasons.push(
-						`Err 6 - type: ${node.type.name}, isInline: ${node.isInline}, isText: ${node.isText}, isLeaf: ${node.isLeaf}, parent: ${parent?.type.name}`,
-					);
-					return false;
-				}
-			}
-			return true;
-		});
-
-		return reasons.join(', ');
-	};
 
 	//#endregion
 
@@ -430,28 +290,6 @@ export default class RendererActions
 
 	isValidAnnotationPosition(pos: Position) {
 		if (!pos || !this.doc) {
-			if (
-				this.debugAnalyticLoggingEnabled &&
-				this.onAnalyticsEvent &&
-				fg('platform_renderer_annotations_create_debug_logging')
-			) {
-				this.onAnalyticsEvent({
-					// @ts-ignore
-					action: 'failed',
-					// @ts-ignore
-					actionSubject: 'applyAnnotation',
-					// @ts-ignore
-					actionSubjectId: 'inlineCommentFailureReason',
-					eventType: EVENT_TYPE.OPERATIONAL,
-					attributes: {
-						// @ts-ignore
-						reason: `Annotation Position validation failed - Missing doc or position`,
-						commentsOnInlineNodesAllowed: fg('editor_inline_comments_on_inline_nodes'),
-						isPosValid: !!pos,
-						isDocValid: !!this.doc,
-					},
-				});
-			}
 			return false;
 		}
 
@@ -517,25 +355,6 @@ export default class RendererActions
 
 	applyAnnotation(pos: Position, annotation: Annotation): AnnotationActionResult {
 		if (!this.doc || !pos || !this.schema) {
-			if (this.onAnalyticsEvent && fg('platform_renderer_annotations_create_debug_logging')) {
-				this.onAnalyticsEvent({
-					// @ts-ignore
-					action: 'failed',
-					// @ts-ignore
-					actionSubject: 'applyAnnotation',
-					// @ts-ignore
-					actionSubjectId: 'inlineCommentFailureReason',
-					eventType: EVENT_TYPE.OPERATIONAL,
-					attributes: {
-						// @ts-ignore
-						reason: `Annotation applyAnnotation failed - Missing doc, position or schema`,
-						commentsOnInlineNodesAllowed: fg('editor_inline_comments_on_inline_nodes'),
-						isPosValid: !!pos,
-						isDocValid: !!this.doc,
-						isSchemaValid: !!this.schema,
-					},
-				});
-			}
 			return false;
 		}
 		const { from, to } = pos;
@@ -570,22 +389,6 @@ export default class RendererActions
 		const { doc, failed } = step.apply(this.doc);
 
 		if (failed || !doc) {
-			if (this.onAnalyticsEvent && fg('platform_renderer_annotations_create_debug_logging')) {
-				this.onAnalyticsEvent({
-					// @ts-ignore
-					action: 'failed',
-					// @ts-ignore
-					actionSubject: 'applyAnnotation',
-					// @ts-ignore
-					actionSubjectId: 'inlineCommentFailureReason',
-					eventType: EVENT_TYPE.OPERATIONAL,
-					attributes: {
-						// @ts-ignore
-						reason: `Annotation applyAnnotation failed - ${failed}`,
-						commentsOnInlineNodesAllowed: fg('editor_inline_comments_on_inline_nodes'),
-					},
-				});
-			}
 			return false;
 		}
 
@@ -642,12 +445,5 @@ export default class RendererActions
 		}
 
 		return getAnnotationInlineNodeTypes({ doc: this.doc, schema: this.schema }, annotationId);
-	}
-
-	/**
-	 * This is a temporary method used for controlling when extra analytics shoulw be logged.
-	 */
-	_setDebugLogging(enabled: boolean) {
-		this.debugAnalyticLoggingEnabled = enabled;
 	}
 }

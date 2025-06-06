@@ -20,6 +20,13 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_memoized_node_check: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_memoized_node_check',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-06-02
 	platform_editor_block_control_optimise_render: createBooleanExperiment({
 		productKeys: {

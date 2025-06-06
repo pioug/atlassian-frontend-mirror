@@ -10,11 +10,17 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { SmartLinkStatus } from '../../../../../../constants';
+import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
 import { useSmartLinkRenderers } from '../../../../../../state/renderers';
 import SnippetBlock from '../index';
 
 jest.mock('../../../../../../state/renderers', () => ({
 	useSmartLinkRenderers: jest.fn(),
+}));
+
+jest.mock('../../../../../../state/flexible-ui-context', () => ({
+	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiOptionContext: jest.fn(),
 }));
 
 describe('SnippetBlock', () => {
@@ -140,9 +146,12 @@ describe('SnippetBlock', () => {
 					</div>
 				);
 
-				it('renders with replacement component', async () => {
+				it('renders with replacement component when enabled', async () => {
 					(useSmartLinkRenderers as jest.Mock).mockReturnValue({
 						snippet: MockReplacement,
+					});
+					(useFlexibleUiOptionContext as jest.Mock).mockReturnValue({
+						enableSnippetRenderer: true,
 					});
 
 					render(<SnippetBlock />, { wrapper: getFlexibleCardTestWrapper(context) });
@@ -150,6 +159,38 @@ describe('SnippetBlock', () => {
 					const replacement = await screen.findByTestId('mock-replacement');
 					expect(replacement).toHaveTextContent(
 						'Lorem ipsum dolor sit amet, consectetur adipiscing elit. - 123 - page - tenant-123',
+					);
+				});
+
+				it('renders fallback when renderer is disabled', async () => {
+					(useSmartLinkRenderers as jest.Mock).mockReturnValue({
+						snippet: MockReplacement,
+					});
+					(useFlexibleUiOptionContext as jest.Mock).mockReturnValue({
+						enableSnippetRenderer: false,
+					});
+
+					render(<SnippetBlock />, { wrapper: getFlexibleCardTestWrapper(context) });
+
+					const element = await screen.findByTestId('smart-element-text');
+					expect(element).toHaveTextContent(
+						'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+					);
+				});
+
+				it('renders fallback when renderer is undefined', async () => {
+					(useSmartLinkRenderers as jest.Mock).mockReturnValue({
+						snippet: MockReplacement,
+					});
+					(useFlexibleUiOptionContext as jest.Mock).mockReturnValue({
+						enableSnippetRenderer: undefined,
+					});
+
+					render(<SnippetBlock />, { wrapper: getFlexibleCardTestWrapper(context) });
+
+					const element = await screen.findByTestId('smart-element-text');
+					expect(element).toHaveTextContent(
+						'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 					);
 				});
 			});
@@ -286,6 +327,9 @@ describe('SnippetBlock', () => {
 					(useSmartLinkRenderers as jest.Mock).mockReturnValue({
 						snippet: MockReplacement,
 					});
+					(useFlexibleUiOptionContext as jest.Mock).mockReturnValue({
+						enableSnippetRenderer: true,
+					});
 
 					render(<SnippetBlock status={SmartLinkStatus.Resolved} />, {
 						wrapper: getFlexibleCardTestWrapper(context),
@@ -294,6 +338,42 @@ describe('SnippetBlock', () => {
 					const replacement = await screen.findByTestId('mock-replacement');
 					expect(replacement).toHaveTextContent(
 						'Lorem ipsum dolor sit amet, consectetur adipiscing elit. - 123 - page - tenant-123',
+					);
+				});
+
+				it('renders fallback when enableSnippetRenderer is disabled', async () => {
+					(useSmartLinkRenderers as jest.Mock).mockReturnValue({
+						snippet: MockReplacement,
+					});
+					(useFlexibleUiOptionContext as jest.Mock).mockReturnValue({
+						enableSnippetRenderer: false,
+					});
+
+					render(<SnippetBlock status={SmartLinkStatus.Resolved} />, {
+						wrapper: getFlexibleCardTestWrapper(context),
+					});
+
+					const element = await screen.findByTestId('smart-element-text');
+					expect(element).toHaveTextContent(
+						'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+					);
+				});
+
+				it('renders fallback when enableSnippetRenderer is undefined', async () => {
+					(useSmartLinkRenderers as jest.Mock).mockReturnValue({
+						snippet: MockReplacement,
+					});
+					(useFlexibleUiOptionContext as jest.Mock).mockReturnValue({
+						enableSnippetRenderer: undefined,
+					});
+
+					render(<SnippetBlock status={SmartLinkStatus.Resolved} />, {
+						wrapper: getFlexibleCardTestWrapper(context),
+					});
+
+					const element = await screen.findByTestId('smart-element-text');
+					expect(element).toHaveTextContent(
+						'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 					);
 				});
 			});

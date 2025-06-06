@@ -91,6 +91,36 @@ const videoTeacupPreview = () =>
 		/* webpackChunkName: "@atlaskit-internal_videoTeacupPreview" */ './videoTeacupPreview'
 	).then((mod) => mod.default);
 
+const videoWithCaptions = () =>
+	import(/* webpackChunkName: "@atlaskit-internal_videoCaptions" */ './videoWithCaptions').then(
+		(mod) => mod.default,
+	);
+
+const videoWithCaptionsPreview = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_videoCaptionsPreview" */ './videoWithCaptionsPreview'
+	).then((mod) => mod.default);
+
+const videoCaptionsEn = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_videoCaptionsCaptions" */ './videoCaptionsEn'
+	).then((mod) => mod.default);
+
+const videoCaptionsEs = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_videoCaptionsCaptionsEs" */ './videoCaptionsEs'
+	).then((mod) => mod.default);
+
+const videoCaptionsFr = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_videoCaptionsCaptionsFr" */ './videoCaptionsFr'
+	).then((mod) => mod.default);
+
+const videoCaptionsZh = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_videoCaptionsCaptionsZh" */ './videoCaptionsZh'
+	).then((mod) => mod.default);
+
 const jpgCat = () =>
 	import(/* webpackChunkName: "@atlaskit-internal_jpgCat" */ './jpgCat').then((mod) => mod.default);
 
@@ -115,4 +145,10 @@ export const sampleBinaries = {
 	svgAjDigitalCameraPreview,
 	svgAtom,
 	svgAtomPreview,
+	videoWithCaptions,
+	videoWithCaptionsPreview,
+	videoCaptionsEn,
+	videoCaptionsEs,
+	videoCaptionsFr,
+	videoCaptionsZh,
 };

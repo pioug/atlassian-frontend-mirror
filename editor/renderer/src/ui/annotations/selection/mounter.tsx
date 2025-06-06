@@ -103,28 +103,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			const positionToAnnotate = selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation) {
-				// TODO: EDITOR-595 - This analytic event is temporary and should be removed once the following issue
-				// has been identified and fixed: https://atlassian.slack.com/archives/C08JK0WSCH5/p1745902609966999
-				if (createAnalyticsEvent && fg('platform_renderer_annotations_create_debug_logging')) {
-					createAnalyticsEvent({
-						action: 'failed',
-						actionSubject: 'applyAnnotation',
-						actionSubjectId: 'inlineCommentFailureReason',
-						attributes: {
-							reason: 'Annotation Position invalid',
-							draftDocumentPosition: selectionDraftDocumentPosition,
-							documentPosition,
-							applyAnnotation: !!applyAnnotation,
-							isDraftPositionFixEnabled: true,
-						},
-						eventType: EVENT_TYPE.OPERATIONAL,
-					}).fire(FabricChannel.editor);
-				}
 				return false;
-			}
-
-			if (fg('platform_renderer_annotations_create_debug_logging')) {
-				actions._setDebugLogging(true);
 			}
 
 			// Evaluate position validity when the user commits the position to be annotated
@@ -151,13 +130,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				}).fire(FabricChannel.editor);
 			}
 
-			if (fg('platform_renderer_annotations_create_debug_logging')) {
-				const result = applyAnnotation(positionToAnnotate, annotation);
-				actions._setDebugLogging(false);
-				return result;
-			} else {
-				return applyAnnotation(positionToAnnotate, annotation);
-			}
+			return applyAnnotation(positionToAnnotate, annotation);
 		},
 		[
 			actions,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.15.0",
+	"version": "207.17.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -207,10 +207,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_media_batch_updates": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"hardcoded-embeds-only-on-new-line": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -534,10 +530,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_move_actions": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_undo_redo_find_on_primary_toolbar": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -567,6 +559,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_find_and_replace_duplication": {
+			"type": "boolean"
+		},
+		"platform_editor_find_and_replace_1": {
 			"type": "boolean"
 		},
 		"editor_a11y_aria_label_removal_popup": {
@@ -601,15 +596,14 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_patch_analytics": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_refactor_view_more": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"confluence_team_presence_scroll_to_pointer": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_table_width_inline_comment": {
 			"type": "boolean"
 		},
 		"platform_editor_interaction_api_refactor": {
@@ -624,10 +618,17 @@
 		"platform-dst-jira-web-fonts": {
 			"type": "boolean"
 		},
+		"platform_editor_breakout_resizing_hello_release": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"confluence_typography_refreshed": {
 			"type": "boolean"
 		},
 		"atlas_editor_typography_refreshed": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_floating_toolbar_focus": {
 			"type": "boolean"
 		}
 	},

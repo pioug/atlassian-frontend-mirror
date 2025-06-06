@@ -7,7 +7,9 @@ import {
 	akEditorGutterPadding,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { ElementDragPayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import {
 	BaseEventPayload,
@@ -22,9 +24,11 @@ import { getGuidelines } from './get-guidelines';
 import { LOCAL_RESIZE_PROPERTY } from './resizing-mark-view';
 
 const RESIZE_RATIO = 2;
+const SNAP_GAP = 10;
 
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
+	WIDE: akEditorCalculatedWideLayoutWidth,
 	MAX: akEditorFullWidthLayoutWidth,
 };
 
@@ -45,8 +49,6 @@ export function getProposedWidth({
 		RESIZE_RATIO *
 		directionMultiplier;
 
-	// TODO: ED-28024 - add snapping logic
-
 	const containerWidth =
 		(api?.width.sharedState?.currentState()?.width || 0) -
 		2 * akEditorGutterPaddingDynamic() -
@@ -54,6 +56,16 @@ export function getProposedWidth({
 
 	// the node width may be greater than the container width so we resize using the smaller value
 	const proposedWidth = Math.min(initialWidth, containerWidth) + diffX;
+
+	if (fg('platform_editor_breakout_resizing_hello_release')) {
+		const snapPoints = [WIDTHS.MIN, WIDTHS.WIDE, Math.min(containerWidth, WIDTHS.MAX)];
+
+		for (const snapPoint of snapPoints) {
+			if (snapPoint - SNAP_GAP < proposedWidth && snapPoint + SNAP_GAP > proposedWidth) {
+				return snapPoint;
+			}
+		}
+	}
 
 	return Math.min(Math.max(WIDTHS.MIN, Math.min(proposedWidth, containerWidth)), WIDTHS.MAX);
 }

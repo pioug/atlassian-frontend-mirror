@@ -595,7 +595,7 @@ export const deleteActiveLayoutNode =
 					actionSubject: ACTION_SUBJECT.LAYOUT,
 					attributes: {
 						layout: formatLayoutName(selectedLayout as PresetLayout),
-						inputMethod: fg('platform_editor_controls_patch_analytics_2') ? inputMethod : undefined,
+						inputMethod,
 					},
 					eventType: EVENT_TYPE.TRACK,
 				})(tr);

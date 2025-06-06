@@ -176,9 +176,7 @@ const OpenButtonOverlay = ({
 	};
 
 	const handleDoubleClick = () => {
-		if (fg('platform_editor_controls_patch_analytics')) {
-			sendVisitLinkAnalytics(INPUT_METHOD.DOUBLE_CLICK);
-		}
+		sendVisitLinkAnalytics(INPUT_METHOD.DOUBLE_CLICK);
 
 		// Double click opens the link in a new tab
 		window.open(url, '_blank');
@@ -220,7 +218,7 @@ const OpenButtonOverlay = ({
 								? '1px'
 								: token('space.025'),
 					}}
-					onClick={fg('platform_editor_controls_patch_analytics') ? handleClick : undefined}
+					onClick={handleClick}
 				>
 					<Box xcss={iconWrapperStyles} data-inlinecard-button-overlay="icon-wrapper-line-height">
 						<LinkExternalIcon label="" />

@@ -78,6 +78,7 @@ export {
 	emailFileId,
 	emailUnsupportedFileId,
 	htmlFileId,
+	videoMp4SaganAliensId,
 	vrVideoDetails,
 } from './exampleMediaItems';
 export { createMouseEvent } from './createMouseEvent';

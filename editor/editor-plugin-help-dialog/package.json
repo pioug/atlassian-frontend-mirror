@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-help-dialog",
-	"version": "2.1.8",
+	"version": "2.1.9",
 	"description": "Help Dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -95,6 +95,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_cmd_y_mac_redo_shortcut": {
+			"type": "boolean"
+		},
+		"platform_editor_breakout_resizing_hello_release": {
 			"type": "boolean"
 		}
 	}

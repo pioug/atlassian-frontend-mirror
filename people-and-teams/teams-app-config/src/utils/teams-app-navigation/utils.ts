@@ -115,5 +115,5 @@ export function isTeamsAppEnabled(config: Pick<NavigationActionCommon, 'userHasN
 	}
 
 	// We have a hard dependency on Nav4 being enabled in order to use the teams app
-	return config.userHasNav4Enabled;
+	return config.userHasNav4Enabled === undefined ? true : config.userHasNav4Enabled;
 }

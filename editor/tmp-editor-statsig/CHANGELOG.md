@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.14.0
+
+### Minor Changes
+
+- [#167295](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167295)
+  [`6c94765105520`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c94765105520) -
+  [https://product-fabric.atlassian.net/browse/ED-28212](ED-28212) - the `validNode()` function from
+  @atlaskit/editor-core package will use memoization
+
+## 5.13.0
+
+### Minor Changes
+
+- [#161626](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161626)
+  [`a614421730437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a614421730437) -
+  [ux] EDITOR-769: Implement first phase of new AI Palette redesigns for Preview modal behind fg
+  platform_editor_new_ai_palette
+
 ## 5.12.0
 
 ### Minor Changes

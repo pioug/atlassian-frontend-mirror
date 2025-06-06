@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::5e7beaa068671c0846a99ee3cf194f40>>
+ * @codegen <<SignedSource::257a0d149537ef0710607962ad6e7727>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /**
@@ -56,6 +56,34 @@ import CursorIcon from '../../../../core/cursor';
 import CursorStrikethroughIcon from '../../../../core/cursor-strikethrough';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
+import DiagramSymbolActionIcon from '../../../../core/diagram-symbol-action';
+import DiagramSymbolAlternateProcessIcon from '../../../../core/diagram-symbol-alternate-process';
+import DiagramSymbolCollateIcon from '../../../../core/diagram-symbol-collate';
+import DiagramSymbolCommentLeftIcon from '../../../../core/diagram-symbol-comment-left';
+import DiagramSymbolCommentRightIcon from '../../../../core/diagram-symbol-comment-right';
+import DiagramSymbolConnectorOffPageIcon from '../../../../core/diagram-symbol-connector-off-page';
+import DiagramSymbolConnectorOnPageIcon from '../../../../core/diagram-symbol-connector-on-page';
+import DiagramSymbolDatabaseIcon from '../../../../core/diagram-symbol-database';
+import DiagramSymbolDecisionIcon from '../../../../core/diagram-symbol-decision';
+import DiagramSymbolDelayIcon from '../../../../core/diagram-symbol-delay';
+import DiagramSymbolDisplayIcon from '../../../../core/diagram-symbol-display';
+import DiagramSymbolDocumentIcon from '../../../../core/diagram-symbol-document';
+import DiagramSymbolDocumentsIcon from '../../../../core/diagram-symbol-documents';
+import DiagramSymbolHardDiskIcon from '../../../../core/diagram-symbol-hard-disk';
+import DiagramSymbolInputOutputIcon from '../../../../core/diagram-symbol-input-output';
+import DiagramSymbolInternalStorageIcon from '../../../../core/diagram-symbol-internal-storage';
+import DiagramSymbolLoopLimitIcon from '../../../../core/diagram-symbol-loop-limit';
+import DiagramSymbolManualInputIcon from '../../../../core/diagram-symbol-manual-input';
+import DiagramSymbolManualOperationIcon from '../../../../core/diagram-symbol-manual-operation';
+import DiagramSymbolMergeIcon from '../../../../core/diagram-symbol-merge';
+import DiagramSymbolMindMapIcon from '../../../../core/diagram-symbol-mind-map';
+import DiagramSymbolOrIcon from '../../../../core/diagram-symbol-or';
+import DiagramSymbolPredefinedProcessIcon from '../../../../core/diagram-symbol-predefined-process';
+import DiagramSymbolPreparationIcon from '../../../../core/diagram-symbol-preparation';
+import DiagramSymbolSortIcon from '../../../../core/diagram-symbol-sort';
+import DiagramSymbolStoredDataIcon from '../../../../core/diagram-symbol-stored-data';
+import DiagramSymbolSummingJunctionIcon from '../../../../core/diagram-symbol-summing-junction';
+import DiagramSymbolTerminatorIcon from '../../../../core/diagram-symbol-terminator';
 import DistributeSpacingHorizontalIcon from '../../../../core/distribute-spacing-horizontal';
 import DistributeSpacingVerticalIcon from '../../../../core/distribute-spacing-vertical';
 import DividerElementIcon from '../../../../core/divider-element';
@@ -76,6 +104,9 @@ import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
 import HandIcon from '../../../../core/hand';
 import HandClenchedIcon from '../../../../core/hand-clenched';
+import HandClosedIcon from '../../../../core/hand-closed';
+import HandOpenIcon from '../../../../core/hand-open';
+import HandRaisedIcon from '../../../../core/hand-raised';
 import HistoryIcon from '../../../../core/history';
 import HourglassIcon from '../../../../core/hourglass';
 import IfElseIcon from '../../../../core/if-else';
@@ -119,6 +150,7 @@ import PowerIcon from '../../../../core/power';
 import QrCodeIcon from '../../../../core/qr-code';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
+import RandomizeIcon from '../../../../core/randomize';
 import RecurIcon from '../../../../core/recur';
 import RepeatIcon from '../../../../core/repeat';
 import ReplyLeftIcon from '../../../../core/reply-left';
@@ -185,6 +217,7 @@ import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TalentIcon from '../../../../core/talent';
 import TelescopeIcon from '../../../../core/telescope';
 import TemplateIcon from '../../../../core/template';
+import TextAdjustLengthIcon from '../../../../core/text-adjust-length';
 import TextAudioTranscriptIcon from '../../../../core/text-audio-transcript';
 import TextBoldItalicIcon from '../../../../core/text-bold-italic';
 import TextBoldItalicStrikethroughIcon from '../../../../core/text-bold-italic-strikethrough';
@@ -291,6 +324,7 @@ const Icons = [
 	StickerIcon,
 	StampIcon,
 	HandIcon,
+	HandRaisedIcon,
 	SectionIcon,
 	StrokeStyleSolidIcon,
 	SwapIcon,
@@ -448,25 +482,25 @@ const Icons = [
 	HourglassIcon,
 	TextSubscriptIcon,
 	TextSuperscriptIcon,
-	ShapeCommentLeftIcon,
-	ShapeCommentRightIcon,
-	ShapeDatabaseIcon,
-	ShapeDelayIcon,
-	ShapeDisplayIcon,
-	ShapeDocumentSymbolIcon,
-	ShapeHardDiskIcon,
-	ShapeInternalStorageIcon,
-	ShapeManualOperationSymbolIcon,
-	ShapeMindmapIcon,
-	ShapeMultipleDocumentsIcon,
-	ShapeOffPageIcon,
-	ShapePredefinedProcessIcon,
-	ShapePreparationSymbolIcon,
-	ShapeManualInputIcon,
-	ShapeStartEndIcon,
-	ShapeStoredDataIcon,
-	ShapeSummingJunctionCrossIcon,
-	ShapeSummingJunctionPlusIcon,
+	DiagramSymbolCommentLeftIcon,
+	DiagramSymbolCommentRightIcon,
+	DiagramSymbolDatabaseIcon,
+	DiagramSymbolDelayIcon,
+	DiagramSymbolDisplayIcon,
+	DiagramSymbolDocumentIcon,
+	DiagramSymbolHardDiskIcon,
+	DiagramSymbolInternalStorageIcon,
+	DiagramSymbolManualOperationIcon,
+	DiagramSymbolMindMapIcon,
+	DiagramSymbolDocumentsIcon,
+	DiagramSymbolConnectorOffPageIcon,
+	DiagramSymbolPredefinedProcessIcon,
+	DiagramSymbolPreparationIcon,
+	DiagramSymbolManualInputIcon,
+	DiagramSymbolTerminatorIcon,
+	DiagramSymbolStoredDataIcon,
+	DiagramSymbolSummingJunctionIcon,
+	DiagramSymbolOrIcon,
 	HandClenchedIcon,
 	SpaceIcon,
 	CompareIcon,
@@ -477,6 +511,38 @@ const Icons = [
 	MilestoneCompleteIcon,
 	MilestoneIncompleteIcon,
 	ImageStrikethroughIcon,
+	TextAdjustLengthIcon,
+	HandOpenIcon,
+	HandClosedIcon,
+	ShapeCommentLeftIcon,
+	ShapeCommentRightIcon,
+	ShapeDatabaseIcon,
+	ShapeDelayIcon,
+	ShapeDisplayIcon,
+	ShapeDocumentSymbolIcon,
+	ShapeHardDiskIcon,
+	ShapeInternalStorageIcon,
+	ShapeManualInputIcon,
+	ShapeManualOperationSymbolIcon,
+	ShapeMindmapIcon,
+	ShapeMultipleDocumentsIcon,
+	ShapeOffPageIcon,
+	ShapePredefinedProcessIcon,
+	ShapePreparationSymbolIcon,
+	ShapeStartEndIcon,
+	ShapeStoredDataIcon,
+	ShapeSummingJunctionCrossIcon,
+	ShapeSummingJunctionPlusIcon,
+	RandomizeIcon,
+	DiagramSymbolActionIcon,
+	DiagramSymbolAlternateProcessIcon,
+	DiagramSymbolDecisionIcon,
+	DiagramSymbolSortIcon,
+	DiagramSymbolInputOutputIcon,
+	DiagramSymbolCollateIcon,
+	DiagramSymbolMergeIcon,
+	DiagramSymbolLoopLimitIcon,
+	DiagramSymbolConnectorOnPageIcon,
 ];
 
 const groupSize = 20;
@@ -530,6 +596,10 @@ export const MediumIconGroup9 = allMediumExamples[9];
 export const MediumIconGroup10 = allMediumExamples[10];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup11 = allMediumExamples[11];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup12 = allMediumExamples[12];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup13 = allMediumExamples[13];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0 = allSmallExamples[0];
@@ -555,3 +625,7 @@ export const SmallIconGroup9 = allSmallExamples[9];
 export const SmallIconGroup10 = allSmallExamples[10];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup11 = allSmallExamples[11];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup12 = allSmallExamples[12];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup13 = allSmallExamples[13];

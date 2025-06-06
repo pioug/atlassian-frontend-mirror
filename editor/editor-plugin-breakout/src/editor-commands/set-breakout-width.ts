@@ -1,5 +1,6 @@
 import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
 import type { BreakoutMode, Command } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { updateExpandedStateNew } from '../pm-plugins/utils/single-player-expand';
 
@@ -27,6 +28,10 @@ export function setBreakoutWidth(
 			if (newNode) {
 				transferCodeBlockWrappedValue(oldNode, newNode);
 			}
+		}
+
+		if (fg('platform_editor_breakout_resizing_hello_release')) {
+			tr.setMeta('scrollIntoView', false);
 		}
 
 		if (dispatch) {

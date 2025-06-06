@@ -66,7 +66,7 @@ export interface SmartCardProps extends CardProps {
 	allowBlockCards?: boolean;
 	enableInlineUpgradeFeatures?: boolean;
 	isPageSSRed?: boolean;
-	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string }>;
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 
 const useSharedState = sharedPluginStateHookMigratorFactory(

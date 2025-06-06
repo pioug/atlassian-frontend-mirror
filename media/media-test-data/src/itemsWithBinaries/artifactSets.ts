@@ -41,6 +41,16 @@ export const artifactSets: ArtifactsSets = {
 		image: sampleBinaries.videoFirePreview,
 		video: sampleBinaries.videoFire1080p,
 	},
+	videoCaptions: {
+		binaryUri: sampleBinaries.videoWithCaptions,
+		image: sampleBinaries.videoWithCaptionsPreview,
+		video: sampleBinaries.videoWithCaptions,
+		// Should match with the specific caption key in the file item
+		ugc_caption_1111: sampleBinaries.videoCaptionsEn,
+		ugc_caption_2222: sampleBinaries.videoCaptionsEs,
+		ugc_caption_3333: sampleBinaries.videoCaptionsFr,
+		ugc_caption_4444: sampleBinaries.videoCaptionsZh,
+	},
 	mp3Sonata: {
 		binaryUri: sampleBinaries.mp3Sonata,
 		// Any audio* artifact

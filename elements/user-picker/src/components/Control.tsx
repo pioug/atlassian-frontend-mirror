@@ -6,6 +6,7 @@ import { components, type ControlProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import { cssMap, jsx, cx } from '@compiled/react';
+import type { UserPickerProps } from '../types';
 
 const controlStyles = cssMap({
 	invalid: {
@@ -39,8 +40,9 @@ const controlStyles = cssMap({
 		borderColor: token('color.border.input'),
 		backgroundColor: token('color.background.input'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.-IndicatorsContainer': {
-			opacity: 0,
+		'.fabric-user-picker__clear-indicator': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			opacity: '0 !important',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
 		'&:hover': {
@@ -56,14 +58,19 @@ const controlStyles = cssMap({
 		padding: 0,
 		maxWidth: '100%',
 	},
+	compact: {
+		minHeight: 'auto',
+	},
 });
 
-const Control = (props: ControlProps<any>) => {
+const Control = (props: ControlProps<any> & UserPickerProps) => {
+	const isCompact = props.appearance === 'compact';
 	return (
 		<components.Control
 			{...props}
 			xcss={cx(
 				controlStyles.root,
+				isCompact && controlStyles.compact,
 				(props.selectProps.subtle || props.selectProps.noBorder) && controlStyles.subtle,
 				props.isFocused && controlStyles.focused,
 				props.isInvalid && controlStyles.invalid,

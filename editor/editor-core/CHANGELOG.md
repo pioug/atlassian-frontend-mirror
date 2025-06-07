@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 207.17.1
+
+### Patch Changes
+
+- [#165113](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165113)
+  [`867bcb05452bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/867bcb05452bf) -
+  Cleaned up platform_editor_controls_patch_analytics and platform_editor_controls_patch_analytics_2
+- [#165779](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165779)
+  [`3d472e56bc200`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d472e56bc200) -
+  [ux] ED-27698: Fixed table width issue in inline comment table
+- [#167077](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167077)
+  [`a2fd3756690cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2fd3756690cc) -
+  [ux] Migrate statusStyles to static CSS
+- Updated dependencies
+
 ## 207.17.0
 
 ### Minor Changes

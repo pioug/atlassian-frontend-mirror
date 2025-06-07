@@ -68,7 +68,10 @@ const styles = cssMap({
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token('color.border.input')}`,
 		},
 		minHeight: 40,
-		padding: 0,
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
 		transition: `background-color 200ms ease-in-out,
 border-color 200ms ease-in-out`,
 		'&::-webkit-scrollbar': {

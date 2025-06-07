@@ -3,7 +3,7 @@
     "compilerOptions": {
         "target": "es5",
         "composite": true,
-        "outDir": "../dist",
+        "outDir": "../../../../../confluence/tsDist/@atlaskit__notification-log-client",
         "rootDir": "../"
     },
     "include": [

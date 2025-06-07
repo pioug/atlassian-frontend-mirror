@@ -127,9 +127,9 @@ const valueContainerStyles = cssMap({
 		display: 'flex',
 	},
 	compact: {
-		paddingTop: 0,
+		paddingTop: token('space.0'),
 		paddingRight: token('space.075'),
-		paddingBottom: 0,
+		paddingBottom: token('space.0'),
 		paddingLeft: token('space.075'),
 	},
 });
@@ -161,7 +161,7 @@ export const ValueContainer = <Option, IsMulti extends boolean, Group extends Gr
 				isCompact && valueContainerStyles.compact,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(className as any, xcss, '-value-container')}
+			className={cx(className as any, xcss, '-ValueContainer')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}

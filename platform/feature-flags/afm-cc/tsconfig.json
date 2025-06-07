@@ -10,7 +10,7 @@
     ],
     "compilerOptions": {
         "composite": true,
-        "outDir": "../dist",
+        "outDir": "../../../../../confluence/tsDist/@atlaskit__platform-feature-flags",
         "rootDir": "../"
     },
     "references": [

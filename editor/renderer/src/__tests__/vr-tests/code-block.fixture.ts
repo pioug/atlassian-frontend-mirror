@@ -1,4 +1,5 @@
 import * as codeBlockAdf from '../__fixtures__/code-block.adf.json';
+import * as codeBlockWithBreakoutAdf from '../__fixtures__/code-block-with-breakout.adf.json';
 import * as adfTrailingNewline from '../__fixtures__/code-block-trailing-newline.adf.json';
 import { overflowCodeblock } from '../__fixtures__/overflow.adf';
 import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
@@ -39,4 +40,9 @@ export const CodeBlockWithReactLooselyLazy = generateRendererComponent({
 	document: overflowCodeblock,
 	appearance: 'full-width',
 	nodeComponents: looselyLazyNodes,
+});
+
+export const CodeBlockRendererWithBreakout = generateRendererComponent({
+	document: codeBlockWithBreakoutAdf,
+	appearance: 'full-page',
 });

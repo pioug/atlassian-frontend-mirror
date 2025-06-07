@@ -1,0 +1,48 @@
+{
+    "version": 1,
+    "type": "doc",
+    "content": [
+        {
+            "type": "codeBlock",
+            "attrs": {
+                "language": "javascript"
+            },
+            "content": [
+                {
+                    "type": "text",
+                    "text": "// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);"
+                }
+            ],
+            "marks": [
+                {
+                    "type": "breakout",
+                    "attrs": {
+                        "mode": "wide",
+                        "width": null
+                    }
+                }
+            ]
+        },
+        {
+            "type": "codeBlock",
+            "attrs": {
+                "language": "perl"
+            },
+            "content": [
+                {
+                    "type": "text",
+                    "text": "perl -ne 'print if /example/' filename.txt"
+                }
+            ],
+            "marks": [
+                {
+                    "type": "breakout",
+                    "attrs": {
+                        "mode": "full-width",
+                        "width": null
+                    }
+                }
+            ]
+        }
+    ]
+}

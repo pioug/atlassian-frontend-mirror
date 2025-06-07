@@ -2,7 +2,7 @@
     "extends": "../../../../tsconfig.entry-points.confluence.json",
     "compilerOptions": {
         "target": "es5",
-        "outDir": "../dist",
+        "outDir": "../../../../../confluence/tsDist/@atlaskit__analytics",
         "rootDir": "../",
         "composite": true
     },

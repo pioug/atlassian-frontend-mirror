@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 5.14.1
+
+### Patch Changes
+
+- [#167332](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167332)
+  [`5d312dcfaa21a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d312dcfaa21a) -
+  Fix expValEquals should work when FeatureGate client is not initialised
+
 ## 5.14.0
 
 ### Minor Changes

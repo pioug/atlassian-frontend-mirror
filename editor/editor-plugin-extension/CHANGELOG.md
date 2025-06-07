@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.5.4
+
+### Patch Changes
+
+- [#165113](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165113)
+  [`867bcb05452bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/867bcb05452bf) -
+  Cleaned up platform_editor_controls_patch_analytics and platform_editor_controls_patch_analytics_2
+- Updated dependencies
+
 ## 5.5.3
 
 ### Patch Changes

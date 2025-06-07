@@ -6,6 +6,7 @@ import {
 	CodeBlockRendererWrap,
 	CodeBlockRendererOverflow,
 	CodeBlockWithReactLooselyLazy,
+	CodeBlockRendererWithBreakout,
 } from './code-block.fixture';
 
 snapshot(CodeBlockRendererCopy, {
@@ -35,4 +36,8 @@ snapshot(CodeBlockRendererOverflow, {
 snapshot(CodeBlockWithReactLooselyLazy, {
 	description: 'should render with react loosely lazy',
 	variants: [{ name: 'light', environment: { colorScheme: 'light' } }],
+});
+
+snapshot(CodeBlockRendererWithBreakout, {
+	description: 'should render code block with breakout',
 });

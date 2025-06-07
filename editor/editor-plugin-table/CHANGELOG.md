@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.11.10
+
+### Patch Changes
+
+- [#165779](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165779)
+  [`3d472e56bc200`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d472e56bc200) -
+  [ux] ED-27698: Fixed table width issue in inline comment table
+- Updated dependencies
+
 ## 10.11.9
 
 ### Patch Changes

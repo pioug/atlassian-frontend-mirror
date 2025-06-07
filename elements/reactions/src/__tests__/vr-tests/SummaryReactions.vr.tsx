@@ -5,6 +5,8 @@ import {
 	LoadedSummaryReactionsWithSubtleStyle,
 	LoadedSummaryReactionsAllowSelectionFromEmojiPicker,
 	LoadedSummaryReactionsViewOnly,
+	LoadedSummaryReactionsWithIconAfter,
+	LoadedSummaryReactionsAllowSelectionFromSummaryViewWithIconAfter,
 } from './SummaryReactions.fixtures';
 
 const featureFlags = {
@@ -28,5 +30,13 @@ snapshot(LoadedSummaryReactionsAllowSelectionFromEmojiPicker, {
 });
 
 snapshot(LoadedSummaryReactionsViewOnly, {
+	featureFlags,
+});
+
+snapshot(LoadedSummaryReactionsWithIconAfter, {
+	featureFlags,
+});
+
+snapshot(LoadedSummaryReactionsAllowSelectionFromSummaryViewWithIconAfter, {
 	featureFlags,
 });

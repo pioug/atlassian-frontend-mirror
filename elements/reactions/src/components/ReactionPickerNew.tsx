@@ -153,10 +153,6 @@ export interface ReactionPickerProps
 	 */
 	reactionPickerPlacement?: Placement;
 	/**
-	 * Optional prop for controlling the overflow of the reaction picker
-	 */
-	reactionsPickerPreventOverflowOptions?: Record<string, any>;
-	/**
 	 * Optional prop for controlling icon inside Trigger
 	 */
 	reactionPickerTriggerIcon?: React.ReactNode;
@@ -205,7 +201,6 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		reactionPickerTriggerIcon,
 		reactionPickerTriggerText,
 		reactionPickerPlacement,
-		reactionsPickerPreventOverflowOptions,
 		isListItem = false,
 		hoverableReactionPicker = false,
 		hoverableReactionPickerDelay = 0,
@@ -256,13 +251,6 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 				flipVariations: true,
 				boundariesElement: 'scrollParent',
 			},
-		},
-		{
-			name: 'preventOverflow',
-			enabled: true,
-			...(reactionsPickerPreventOverflowOptions && {
-				options: reactionsPickerPreventOverflowOptions,
-			}),
 		},
 	];
 

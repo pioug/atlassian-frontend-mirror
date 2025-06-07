@@ -124,6 +124,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_breakout_cls": {
+			"type": "boolean"
+		},
 		"confluence_frontend_table_scrollbar_ttvc_fix": {
 			"type": "boolean"
 		},

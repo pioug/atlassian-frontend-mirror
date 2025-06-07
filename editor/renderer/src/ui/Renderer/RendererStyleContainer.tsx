@@ -29,6 +29,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { RendererCssClassName } from '../../consts';
 import {
 	akEditorBlockquoteBorderColor,
+	akEditorCalculatedWideLayoutWidth,
+	akEditorCalculatedWideLayoutWidthSmallViewport,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 	akEditorLineHeight,
@@ -254,6 +256,17 @@ const baseStyles = css({
 
 	'& span[data-placeholder]': {
 		color: token('color.text.subtlest', N200),
+	},
+});
+
+const akEditorBreakpointForSmallDevice = '1266px';
+
+// Corresponds to the legacyContentStyles from `@atlaskit/editor-core` meant to introduce responsive breakout width.
+const responsiveBreakoutWidth = css({
+	'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidthSmallViewport}px`,
+
+	[`@media (min-width: ${akEditorBreakpointForSmallDevice})`]: {
+		'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidth}px`,
 	},
 });
 
@@ -2124,6 +2137,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
 				!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
 				browser.safari && codeBlockInListSafariFixStyles,
+				fg('platform_breakout_cls') ? responsiveBreakoutWidth : null,
 			]}
 			data-testid={testId}
 		>

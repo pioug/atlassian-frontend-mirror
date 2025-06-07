@@ -1,5 +1,22 @@
 # @atlaskit/reactions
 
+## 33.0.0
+
+### Major Changes
+
+- [#167562](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167562)
+  [`7716ba2e99acf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7716ba2e99acf) -
+  [ux] Removing prevent overflow options from the reactions picker component since it is no longer
+  being used
+
+## 32.0.1
+
+### Patch Changes
+
+- [#166885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166885)
+  [`51bd4b21a4845`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51bd4b21a4845) -
+  Adding vr tests for the summary view icon after prop
+
 ## 32.0.0
 
 ### Major Changes

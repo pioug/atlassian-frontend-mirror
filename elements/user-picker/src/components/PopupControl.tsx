@@ -9,6 +9,7 @@ import { type ControlProps } from '@atlaskit/select';
 import { css, jsx } from '@emotion/react';
 import { N200 } from '@atlaskit/theme/colors';
 import Control from './Control';
+import type { UserPickerProps } from '../types';
 
 const controlWrapper = css({
 	display: 'flex',
@@ -26,7 +27,7 @@ const labelStyle = css({
 	paddingTop: token('space.250', '20px'),
 });
 
-export class PopupControl extends React.PureComponent<ControlProps<any>> {
+export class PopupControl extends React.PureComponent<ControlProps<any> & UserPickerProps> {
 	render() {
 		const {
 			//@ts-ignore react-select unsupported props

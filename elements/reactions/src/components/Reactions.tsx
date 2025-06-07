@@ -111,7 +111,6 @@ export interface ReactionsProps
 			| 'miniMode'
 			| 'reactionPickerTriggerIcon'
 			| 'reactionPickerPlacement'
-			| 'reactionsPickerPreventOverflowOptions'
 		>,
 		Pick<SelectorProps, 'pickerQuickReactionEmojiIds'> {
 	/**

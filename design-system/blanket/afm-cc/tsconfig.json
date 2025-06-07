@@ -4,7 +4,7 @@
         "declaration": true,
         "target": "es5",
         "composite": true,
-        "outDir": "../dist",
+        "outDir": "../../../../../confluence/tsDist/@atlaskit__blanket",
         "rootDir": "../"
     },
     "include": [

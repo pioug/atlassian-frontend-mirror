@@ -1,5 +1,7 @@
 import { type UnbindFn } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type {
 	ComponentsLogType,
 	RevisionPayload,
@@ -14,10 +16,9 @@ import type {
 import { isVCRevisionEnabled } from '../../config';
 import { getActiveInteraction } from '../../interaction-metrics';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
-import { PercentileCalcResult } from '../vc-observer-new/metric-calculator/percentile-calc/types';
 
 import { attachAbortListeners } from './attachAbortListeners';
-import { getVCRevisionDebugDetails } from './getVCRevisionDebugDetails';
+import { getVCRevisionDebugDetails, VCRevisionDebugDetails } from './getVCRevisionDebugDetails';
 import { getVCRevisionsData } from './getVCRevisionsData';
 import { getViewportHeight, getViewportWidth } from './getViewport';
 import { type ObservedMutationType, Observers } from './observers';
@@ -47,14 +48,11 @@ function filterComponentsLog(log: ComponentsLogType) {
 	);
 }
 
-interface WindowWithUFORevisionDebugging extends Window {
-	__ufo_devtool_onVCRevisionReady__?: (debugInfo: {
-		revision: string;
-		isClean: boolean;
-		abortReason?: string | null;
-		vcLogs: PercentileCalcResult | null;
-		interactionId?: string;
-	}) => void;
+declare global {
+	interface Window {
+		__ufo_devtool_onVCRevisionReady__?: (debugInfo: VCRevisionDebugDetails) => void;
+		__on_ufo_vc_debug_data_ready?: (debugInfo: VCRevisionDebugDetails) => void;
+	}
 }
 
 export class VCObserver implements VCObserverInterface {
@@ -410,36 +408,44 @@ export class VCObserver implements VCObserverInterface {
 					}),
 				);
 
+				const v1RevisionDebugDetails = getVCRevisionDebugDetails({
+					revision: 'fy25.01',
+					isClean: !abortReasonInfo,
+					abortReason: abortReason.reason,
+					VCEntries: VCEntries.rel,
+					componentsLog,
+					interactionId,
+				});
+
+				const v2RevisionDebugDetails = getVCRevisionDebugDetails({
+					revision: 'fy25.02',
+					isClean: !abortReasonInfo,
+					abortReason: abortReason.reason,
+					VCEntries: vcNext.VCEntries.rel,
+					componentsLog,
+					interactionId,
+				});
+
 				// Add devtool callback for both v1 and v2
-				if (
-					typeof (window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__ ===
-					'function'
-				) {
+				if (typeof window.__ufo_devtool_onVCRevisionReady__ === 'function') {
 					// Handle v1 if not disabled
 					if (!isTTVCv1Disabled) {
-						(window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__?.(
-							getVCRevisionDebugDetails({
-								revision: 'fy25.01',
-								isClean: !abortReasonInfo,
-								abortReason: abortReason.reason,
-								VCEntries: VCEntries.rel,
-								componentsLog,
-								interactionId,
-							}),
-						);
+						window.__ufo_devtool_onVCRevisionReady__?.(v1RevisionDebugDetails);
 					}
 
 					// Handle v2
-					(window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__?.(
-						getVCRevisionDebugDetails({
-							revision: 'fy25.02',
-							isClean: !abortReasonInfo,
-							abortReason: abortReason.reason,
-							VCEntries: vcNext.VCEntries.rel,
-							componentsLog,
-							interactionId,
-						}),
-					);
+					window.__ufo_devtool_onVCRevisionReady__?.(v2RevisionDebugDetails);
+				}
+
+				if (
+					typeof window.__on_ufo_vc_debug_data_ready === 'function' &&
+					fg('platform_ufo_emit_vc_debug_data')
+				) {
+					if (!isTTVCv1Disabled) {
+						window.__on_ufo_vc_debug_data_ready?.(v1RevisionDebugDetails);
+					}
+
+					window.__on_ufo_vc_debug_data_ready?.(v2RevisionDebugDetails);
 				}
 			}
 		} catch (e) {

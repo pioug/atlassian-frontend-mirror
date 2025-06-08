@@ -6,22 +6,19 @@ import type {
 	VCAbortReason,
 	VCRatioType,
 } from '../../../common/vc/types';
+import { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
 
 import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc';
-import type { PercentileCalcResult } from './percentile-calc/types';
 import type { VCCalculator, VCCalculatorParam } from './types';
 import getViewportHeight from './utils/get-viewport-height';
 import getViewportWidth from './utils/get-viewport-width';
 
-interface WindowWithUFORevisionDebugging extends Window {
-	__ufo_devtool_onVCRevisionReady__?: (debugInfo: {
-		revision: string;
-		abortReason?: string | null;
-		isClean: boolean;
-		vcLogs: PercentileCalcResult | null;
-		interactionId?: string;
-	}) => void;
+declare global {
+	interface Window {
+		__ufo_devtool_onVCRevisionReady__?: (debugInfo: VCRevisionDebugDetails) => void;
+		__on_ufo_vc_debug_data_ready?: (debugInfo: VCRevisionDebugDetails) => void;
+	}
 }
 
 export default abstract class AbstractVCCalculatorBase implements VCCalculator {
@@ -144,23 +141,33 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			}
 		}
 
+		const v3RevisionDebugDetails = {
+			revision: this.revisionNo,
+			isClean: isVCClean,
+			abortReason: dirtyReason,
+			vcLogs,
+			interactionId,
+		};
+
 		// Handle devtool callback
-		if (
-			!isPostInteraction &&
-			typeof window !== 'undefined' &&
-			typeof (window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__ ===
-				'function'
-		) {
+		if (!isPostInteraction && typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function') {
 			try {
-				(window as WindowWithUFORevisionDebugging).__ufo_devtool_onVCRevisionReady__?.({
-					revision: this.revisionNo,
-					isClean: isVCClean,
-					abortReason: dirtyReason,
-					vcLogs,
-					interactionId,
-				});
+				window?.__ufo_devtool_onVCRevisionReady__?.(v3RevisionDebugDetails);
 			} catch (e) {
 				// if any error communicating with devtool, we don't want to break the app
+				// eslint-disable-next-line no-console
+				console.error('Error in onVCRevisionReady', e);
+			}
+		}
+
+		if (
+			!isPostInteraction &&
+			typeof window?.__on_ufo_vc_debug_data_ready === 'function' &&
+			fg('platform_ufo_emit_vc_debug_data')
+		) {
+			try {
+				window?.__on_ufo_vc_debug_data_ready?.(v3RevisionDebugDetails);
+			} catch (e) {
 				// eslint-disable-next-line no-console
 				console.error('Error in onVCRevisionReady', e);
 			}

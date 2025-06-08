@@ -1,10 +1,10 @@
-import type { ComponentsLogType, VCEntryType } from '../../common/vc/types';
+import type { ComponentsLogType, VCAbortReason, VCEntryType } from '../../common/vc/types';
 import type { VCObserverEntryType } from '../vc-observer-new/types';
 
-interface VCRevisionDebugDetails {
+export interface VCRevisionDebugDetails {
 	revision: string;
 	isClean: boolean;
-	abortReason: string | null;
+	abortReason?: VCAbortReason | null;
 	vcLogs: Array<{
 		time: number;
 		viewportPercentage: number;
@@ -31,7 +31,7 @@ export function getVCRevisionDebugDetails({
 }: {
 	revision: string;
 	isClean: boolean;
-	abortReason: string | null;
+	abortReason?: VCAbortReason | null;
 	VCEntries: VCEntryType[];
 	componentsLog: ComponentsLogType;
 	interactionId?: string;

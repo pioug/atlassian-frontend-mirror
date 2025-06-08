@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.18
+
+### Patch Changes
+
+- [#167243](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167243)
+  [`63819af8c6eca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63819af8c6eca) -
+  emit TTVC debug data from UFO
+
 ## 3.13.17
 
 ### Patch Changes

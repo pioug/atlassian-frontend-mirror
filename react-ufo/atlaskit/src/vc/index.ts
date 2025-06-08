@@ -6,6 +6,8 @@ import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './
 import { VCObserver } from './vc-observer';
 import VCObserverNew from './vc-observer-new';
 
+export type { VCRevisionDebugDetails } from './vc-observer/getVCRevisionDebugDetails';
+
 declare global {
 	var __vcObserver: VCObserverInterface;
 }

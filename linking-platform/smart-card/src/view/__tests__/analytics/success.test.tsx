@@ -16,7 +16,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CardAction, TitleBlock } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import { isSpecialEvent } from '../../../utils';
+import { isSpecialClick, isSpecialKey } from '../../../utils';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { shouldSample } from '../../../utils/shouldSample';
 import { Card, type CardAppearance } from '../../Card';
@@ -26,7 +26,8 @@ import '@atlaskit/link-test-helpers/jest';
 jest.mock('../../../utils', () => ({
 	...jest.requireActual('../../../utils'),
 	downloadUrl: jest.fn(),
-	isSpecialEvent: jest.fn(() => false),
+	isSpecialKey: jest.fn(() => false),
+	isSpecialClick: jest.fn(() => false),
 }));
 jest.mock('../../../utils/shouldSample');
 
@@ -216,7 +217,8 @@ describe('smart-card: success analytics', () => {
 				}),
 			);
 
-			asMock(isSpecialEvent).mockReturnValue(false);
+			asMock(isSpecialKey).mockReturnValue(false);
+			asMock(isSpecialClick).mockReturnValue(false);
 
 			await userEvent.click(resolvedCard);
 
@@ -240,8 +242,33 @@ describe('smart-card: success analytics', () => {
 			// With special key pressed
 			asMock(mockAnalyticsClient.sendUIEvent).mockReset();
 			mockWindowOpen.mockReset();
+			asMock(isSpecialKey).mockReturnValue(true);
+			asMock(isSpecialClick).mockReturnValue(false);
 
-			asMock(isSpecialEvent).mockReturnValue(true);
+			await userEvent.click(resolvedCard);
+
+			// ensure default onclick for renderer is not triggered
+			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'clicked',
+					attributes: expect.objectContaining({
+						id: 'some-uuid-1',
+						display: 'flexible',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: true,
+					}),
+				}),
+			);
+
+			// With special click
+			asMock(mockAnalyticsClient.sendUIEvent).mockReset();
+			mockWindowOpen.mockReset();
+			asMock(isSpecialKey).mockReturnValue(false);
+			asMock(isSpecialClick).mockReturnValue(true);
 
 			await userEvent.click(resolvedCard);
 
@@ -295,7 +322,8 @@ describe('smart-card: success analytics', () => {
 				}),
 			);
 
-			asMock(isSpecialEvent).mockReturnValue(false);
+			asMock(isSpecialKey).mockReturnValue(false);
+			asMock(isSpecialClick).mockReturnValue(false);
 
 			await userEvent.click(resolvedCard);
 			expect(mockWindowOpen).toHaveBeenCalledTimes(1);
@@ -317,7 +345,32 @@ describe('smart-card: success analytics', () => {
 			// With special key pressed
 			asMock(mockAnalyticsClient.sendUIEvent).mockReset();
 			mockWindowOpen.mockReset();
-			asMock(isSpecialEvent).mockReturnValue(true);
+			asMock(isSpecialKey).mockReturnValue(true);
+			asMock(isSpecialClick).mockReturnValue(false);
+
+			await userEvent.click(resolvedCard);
+
+			expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
+						id: 'some-uuid-1',
+						display: 'inline',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: true,
+					}),
+				}),
+			);
+
+			// With special click
+			asMock(mockAnalyticsClient.sendUIEvent).mockReset();
+			mockWindowOpen.mockReset();
+			asMock(isSpecialKey).mockReturnValue(false);
+			asMock(isSpecialClick).mockReturnValue(true);
 
 			await userEvent.click(resolvedCard);
 

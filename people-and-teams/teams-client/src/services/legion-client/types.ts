@@ -1,5 +1,6 @@
 import { type TeamMembership } from '../../types/membership';
 import {
+	ExternalReference,
 	type ScopeMode,
 	type TeamDiscoverability,
 	type TeamMembershipSettings,
@@ -51,6 +52,7 @@ export interface LegionTeamBaseResponseV4 {
 	permission?: TeamPermission;
 	scopeMode: ScopeMode;
 	isVerified?: boolean;
+	externalReference?: ExternalReference;
 }
 
 export type LegionTeamGetResponseV4 = LegionTeamBaseResponseV4 & Required<LegionTeamImagesResponse>;

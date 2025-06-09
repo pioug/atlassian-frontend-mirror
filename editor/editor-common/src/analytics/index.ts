@@ -222,3 +222,8 @@ export {
 } from './types/ai-inline-suggestion-events';
 
 export { type TelepointerClickPayload } from './types/telepointer-events';
+
+export {
+	type NcsSessionStepEventAEP,
+	type NcsSessionStepMetrics,
+} from './types/ncs-session-step-events';

@@ -8,9 +8,9 @@ import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWithCustomWidth, calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import {
-	akEditorBreakoutPadding,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorGutterPadding,
 	blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -26,7 +26,7 @@ const wrapperStyles = css({
 	transform: 'translateX(-50%)',
 });
 
-const CONTAINER_WITHOUT_GUTTER = `calc(100cqw - ${akEditorBreakoutPadding}px)`;
+const CONTAINER_WITHOUT_GUTTER = `calc(100cqw - ${akEditorGutterPadding}px * 2)`;
 
 const getWidth = (width: number | null, mode: BreakoutMode) => {
 	if (editorExperiment('advanced_layouts', true) && width) {

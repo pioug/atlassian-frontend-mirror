@@ -24,10 +24,9 @@ Add an entry to your `mcp.json` (eg. `~/.cursor/mcp.json` or wherever your MCP c
 
 ## Development
 
-Modify the usage instructions above, but replace `@atlaskit/ads-mcp` with a local path to the
-`index.js`:
+Modify the json above replacing `@atlaskit/ads-mcp` with a local path, eg.:
 
-```json
+```diff
 -"@atlaskit/ads-mcp"
 +"~/git/atlassian/atlassian-frontend-monorepo/platform/packages/design-system/ads-mcp"
 ```

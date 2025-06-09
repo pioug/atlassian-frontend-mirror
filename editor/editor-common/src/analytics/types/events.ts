@@ -54,6 +54,7 @@ import type { LoomEventPayload } from './loom-events';
 import type { MediaEventPayload } from './media-events';
 import { type MentionEventPayload } from './mention-events';
 import type { MoveContentEventPayload } from './move-content-events';
+import { NcsSessionStepEventAEP } from './ncs-session-step-events';
 import { type NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
 import type { OfflineEditingEventPayload } from './offline-editing-event';
@@ -140,7 +141,8 @@ export type AnalyticsEventPayload<T = void> =
 	| SelectionToolbarEventPayload
 	| AlignmentEventPayload
 	| UndoRedoAEP
-	| OfflineEditingEventPayload;
+	| OfflineEditingEventPayload
+	| NcsSessionStepEventAEP;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

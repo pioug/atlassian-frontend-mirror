@@ -118,7 +118,8 @@
 		"./UNSAFE_do_not_use_editor_context": "./src/ui/EditorContext/index.ts",
 		"./median": "./src/utils/median.ts",
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
-		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts"
+		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
+		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts"
 	},
 	"exports": {
 		"./prosemirror-dom-metadata": "./src/prosemirror-dom-metadata/index.ts",
@@ -210,7 +211,8 @@
 		"./UNSAFE_do_not_use_editor_context": "./src/ui/EditorContext/index.ts",
 		"./median": "./src/utils/median.ts",
 		"./ugc-tokens": "./src/ugc-tokens/index.ts",
-		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts"
+		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
+		"./ncs-step-metrics": "./src/ncs-step-metrics/index.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",

@@ -19,6 +19,15 @@
 	"references": [
 		{
 			"path": "../../editor-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-collab-edit/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-post-office/tsconfig.json"
 		}
 	]
 }

@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.1.1
+
+### Patch Changes
+
+- [#167791](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167791)
+  [`635dd73b1e1d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/635dd73b1e1d1) -
+  Fix @atlaskit/ads-mcp to not require @atlassian/ts-loader (a private package)
+
 ## 0.1.0
 
 ### Minor Changes

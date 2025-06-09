@@ -19,6 +19,15 @@
     "references": [
         {
             "path": "../../editor-common/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-collab-edit/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../helpers/frontend-utilities/afm-cc/tsconfig.json"
         }
     ]
 }

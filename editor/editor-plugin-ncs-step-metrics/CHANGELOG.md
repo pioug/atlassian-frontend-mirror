@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-ncs-step-metrics
 
+## 1.1.0
+
+### Minor Changes
+
+- [#161613](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161613)
+  [`081ebfcee0d82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/081ebfcee0d82) -
+  [EDITOR-752] Add ncsSessionStepMetrics analytics event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

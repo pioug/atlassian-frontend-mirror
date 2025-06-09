@@ -130,8 +130,8 @@ Use "defaultValue" or "value" happy days :-).
 		>
 			{!firstSelectionMade && (
 				<Fragment>
-					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
-					<label htmlFor={`${groupName}--empty`}></label>
+					{/* eslint-disable-next-line, jsx-a11y/label-has-for */}
+					<label htmlFor={`${groupName}--empty`}>Star Rating</label>
 					<VisuallyHidden testId={`input-container${actualValue === undefined ? '-checked' : ''}`}>
 						<input
 							id={`${groupName}--empty`}

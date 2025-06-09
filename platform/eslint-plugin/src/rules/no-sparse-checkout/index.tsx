@@ -7,7 +7,6 @@ import type { Property } from 'estree';
 const sparseCheckoutExceptions = [
 	'bitbucket-pipelines/pipelines/custom/run-issue-automat.ts',
 	'bitbucket-pipelines/pipelines/custom/marketplace/utils.ts',
-	'bitbucket-pipelines/pipelines/custom/jira/playwright-experimental.ts',
 	'bitbucket-pipelines/pipelines/custom/confluence/utils/index.ts',
 	'bitbucket-pipelines/pipelines/custom/afm-tools/upload-afm-dependency-graph-cache.ts',
 	'bitbucket-pipelines/pipelines/custom/afm-tools/default-afm-tools.ts',

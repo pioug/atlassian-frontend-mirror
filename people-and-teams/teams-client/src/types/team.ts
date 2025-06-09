@@ -70,6 +70,10 @@ export interface Team {
 	orgId?: string;
 	scopeMode?: ScopeMode;
 	isVerified?: boolean;
+	externalReference?: {
+		id: string;
+		source: ExternalReferenceSource;
+	};
 }
 
 /**
@@ -93,12 +97,14 @@ export interface SoftDeletedTeam {
  * @property {string} id - Group ID of source
  */
 export interface ExternalReference {
-	source: string;
+	source: ExternalReferenceSource;
 	id: string;
 	//group name
 	displayName?: string;
 	syncTeamName?: boolean;
 }
+
+export type ExternalReferenceSource = 'ATLASSIAN_GROUP' | 'HRIS';
 
 export type TeamsPermissionApi = 'CAN_CREATE_TEAMS' | 'CAN_VIEW_TEAMS' | 'CAN_ADMIN_TEAMS';
 

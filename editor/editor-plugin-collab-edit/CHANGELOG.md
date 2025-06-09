@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.9.2
+
+### Patch Changes
+
+- [#161613](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/161613)
+  [`081ebfcee0d82`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/081ebfcee0d82) -
+  [EDITOR-752] Add ncsSessionStepMetrics analytics event
+
 ## 3.9.1
 
 ### Patch Changes

@@ -15,7 +15,7 @@ import { sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import { CollabEditPlugin } from '../collabEditPluginType';
 
-import { updateStepSessionMetrics } from './track-step-metrics';
+import { updateNcsSessionStepMetrics } from './track-step-metrics';
 
 function groupBy<T>(array: T[], keyGetter: (item: T) => string): Record<string, T[]> {
 	// Check group by exists, and that it's a function. If so, use the native browser code
@@ -226,11 +226,12 @@ export const track = ({ api, newEditorState, transactions, onTrackDataProcessed 
 		steps,
 	});
 
+	if (fg('platform_enable_ncs_step_metrics')) {
+		updateNcsSessionStepMetrics({ api, steps: newSteps });
+	}
+
 	scheduler.postTask(
 		() => {
-			if (fg('platform_enable_ncs_step_metrics')) {
-				updateStepSessionMetrics({ api, steps: newSteps });
-			}
 			task(stepsSentCache, onTrackDataProcessed);
 		},
 		{

@@ -250,9 +250,7 @@ describe('smart-card: card states, block', () => {
 			const link = screen.getByRole('link');
 			await userEvent.click(link);
 
-			expect(isGlancePanelAvailable).toHaveBeenCalledWith({
-				ari: 'ari:cloud:example:1234',
-			});
+			expect(isGlancePanelAvailable).not.toHaveBeenCalled();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'clicked',

@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 4.5.0
+
+### Minor Changes
+
+- [#166837](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166837)
+  [`07f3669fe013f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07f3669fe013f) -
+  [ux] [PTC-12044]: Show connected group name in the teams settings dialog to org admins
+
 ## 4.4.0
 
 ### Minor Changes

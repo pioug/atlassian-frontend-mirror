@@ -695,6 +695,12 @@ export class LegionClient extends RestClient implements LegionClient {
 			largeAvatarImageUrl: teamResponse.largeAvatarImageUrl,
 			scopeMode: teamResponse.scopeMode,
 			isVerified: teamResponse.isVerified,
+			...(teamResponse.externalReference && {
+				externalReference: {
+					id: teamResponse.externalReference.id,
+					source: teamResponse.externalReference.source,
+				},
+			}),
 		};
 	}
 

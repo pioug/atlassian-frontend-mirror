@@ -1,68 +1,108 @@
 import { bind } from 'bind-event-listener';
 
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import type { NcsStepMetricsPlugin } from './ncsStepMetricsPluginType';
-
-// import { StorageClient } from '@atlaskit/frontend-utilities';
-
-// const STORAGE_CLIENT_KEY = 'ncs-step-metrics-storage';
-// const storageClient = new StorageClient(STORAGE_CLIENT_KEY);
+import { getPayload } from './pm-plugins/utils/analytics';
+import {
+	getNcsSessionStepMetrics,
+	clearNcsSessionStepMetrics,
+	clearNcsActiveSession,
+	checkForUnfinishedNcsSessions,
+} from './pm-plugins/utils/session';
 
 /**
- * Metrics plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
+ * NCS Session Step Metrics plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
  */
-export const ncsStepMetricsPlugin: NcsStepMetricsPlugin = () => ({
-	name: 'ncsStepMetrics',
-	pmPlugins() {
-		return [
-			{
-				name: 'ncsStepMetricsPlugin',
-				plugin: () =>
-					new SafePlugin({
-						view: () => {
-							// Will check for any unsent analytics events and send them
-							// have a list of active sessions, if the session stored in the browser is still active do not send the event
-							// const currentStepMetrics = storageClient.getItem('ncsStepSessionMetrics') || {};
-							// const currentActiveSession = storageClient.getItem('ncsActiveSessions') || {};
-							let analyticsEventSent = false;
-							const sendAnalyticsEvent = () => {
-								// Get the current step session metrics from storage
-								// This is a failsafe to ensure that we only send the analytics event once
-								if (analyticsEventSent) {
-									return;
-								}
+export const ncsStepMetricsPlugin: NcsStepMetricsPlugin = ({ api }) => {
+	let sessionId: string | undefined;
+	let createAnalyticsEvent: CreateUIAnalyticsEvent | undefined;
 
-								analyticsEventSent = true;
+	return {
+		name: 'ncsStepMetrics',
+		pmPlugins() {
+			return [
+				{
+					name: 'ncsStepMetricsPlugin',
+					plugin: () =>
+						new SafePlugin({
+							view: () => {
+								api?.collabEdit?.sharedState?.onChange(({ nextSharedState }) => {
+									if (
+										nextSharedState.sessionId !== undefined &&
+										sessionId !== nextSharedState.sessionId
+									) {
+										sessionId = nextSharedState.sessionId;
+										checkForUnfinishedNcsSessions(api);
+									}
+								});
 
-								// Send Analytics Event
-							};
+								const unsubscribeAnalytics = api?.analytics?.sharedState?.onChange(
+									({ nextSharedState }) => {
+										if (nextSharedState.createAnalyticsEvent) {
+											createAnalyticsEvent = nextSharedState.createAnalyticsEvent;
 
-							const handleBeforeUnload = () => {
-								sendAnalyticsEvent();
-							};
+											unsubscribeAnalytics?.();
+										}
+									},
+								);
 
-							// We need to ensure that the analytics event is sent when the user navigates away from the page
-							// This is not fool proof, but it will cover most cases
-							// We have a fallback to send the stored event on plugin initialization
-							const unbindBeforeUnload = bind(window, {
-								type: 'beforeunload',
-								listener: handleBeforeUnload,
-							});
+								let analyticsEventSent = false;
+								const sendAnalyticsEvent = () => {
+									if (analyticsEventSent || !createAnalyticsEvent || !sessionId) {
+										return;
+									}
+									analyticsEventSent = true;
 
-							return {
-								destroy() {
-									// This will send the analytics event when the plugin is destroyed
-									sendAnalyticsEvent();
+									const ncsSessionStepMetrics = getNcsSessionStepMetrics(sessionId);
+									if (!ncsSessionStepMetrics) {
+										return;
+									}
 
-									// Remove the beforeunload event listener
-									unbindBeforeUnload();
-								},
-							};
-						},
-					}),
-			},
-		];
-	},
-});
+									// At this point in the editor lifecycle, we no longer have access to the analytics api
+									// So we use the stored `createAnalyticsEvent` function to send the event
+									fireAnalyticsEvent(createAnalyticsEvent, {
+										immediate: true,
+									})({
+										payload: getPayload(ncsSessionStepMetrics),
+									});
+									clearNcsSessionStepMetrics(sessionId);
+								};
+
+								const handleBeforeUnload = () => {
+									// On beforeunload, we want to clear the active session
+									// So when the editor is re-initialized, it will send the stored analytics event
+									clearNcsActiveSession(sessionId);
+								};
+
+								const unbindBeforeUnload = bind(window, {
+									type: 'beforeunload',
+									listener: handleBeforeUnload,
+								});
+
+								return {
+									destroy() {
+										/**
+										 * We use requestAnimationFrame to ensure that the editor has been unmounted
+										 * before we send the analytics event.
+										 */
+										requestAnimationFrame(() => {
+											const akEditor = document.querySelector('.akEditor');
+											if (!akEditor) {
+												sendAnalyticsEvent();
+
+												unbindBeforeUnload();
+											}
+										});
+									},
+								};
+							},
+						}),
+				},
+			];
+		},
+	};
+};

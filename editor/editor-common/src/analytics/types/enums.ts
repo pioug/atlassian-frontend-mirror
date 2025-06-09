@@ -153,6 +153,7 @@ export enum ACTION {
 	SELECT_ALL_ESCAPED = 'selectAllEscaped',
 	SORT_COLUMN = 'sortedColumn',
 	SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
+	NCS_SESSION_STEP_METRICS = 'ncsSessionStepMetrics',
 	STEPS_TRACKED = 'stepsTracked',
 	STEPS_FILTERED = 'stepsFiltered',
 	CREATE_NOT_ALLOWED = 'createNotAllowed',

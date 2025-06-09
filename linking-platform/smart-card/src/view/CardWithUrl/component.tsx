@@ -20,7 +20,7 @@ import {
 	isFinalState,
 } from '../../state/helpers';
 import { SmartLinkModalProvider } from '../../state/modal';
-import { isSpecialEvent } from '../../utils';
+import { isSpecialClick, isSpecialEvent, isSpecialKey } from '../../utils';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
@@ -87,12 +87,7 @@ function Component({
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(
 		(event: MouseEvent) => {
-			const isModifierKeyPressed = isSpecialEvent(event);
-			// Ctrl+left click on mac typically doesn't trigger onClick
-			// The event could have potentially had `e.preventDefault()` called on it by now
-			// event by smart card internally
-			// If it has been called then only then can `isModifierKeyPressed` be true.
-			const target = isModifierKeyPressed ? '_blank' : '_self';
+			const isModifierKeyPressed = isSpecialKey(event) || isSpecialClick(event);
 
 			fireEvent('ui.smartLink.clicked', {
 				id,
@@ -106,10 +101,10 @@ function Component({
 			if (
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('fun-1765_wire_up_glance_panel_to_smart_cards') &&
-				target !== '_blank' &&
+				!isModifierKeyPressed &&
 				ari &&
-				isGlancePanelAvailable?.({ ari }) &&
-				openGlancePanel
+				openGlancePanel &&
+				isGlancePanelAvailable?.({ ari })
 			) {
 				event.preventDefault();
 				event.stopPropagation();
@@ -128,6 +123,12 @@ function Component({
 				});
 			} else if (!onClick && !isFlexibleUi) {
 				const clickUrl = getClickUrl(url, state.details);
+
+				// Ctrl+left click on mac typically doesn't trigger onClick
+				// The event could have potentially had `e.preventDefault()` called on it by now
+				// event by smart card internally
+				// If it has been called then only then can `isSpecialEvent` be true.
+				const target = isSpecialEvent(event) ? '_blank' : '_self';
 
 				window.open(clickUrl, target);
 

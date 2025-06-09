@@ -1,3 +1,4 @@
+import { NCS_STORAGE } from '@atlaskit/editor-common/ncs-step-metrics';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { StorageClient } from '@atlaskit/frontend-utilities';
@@ -11,9 +12,7 @@ type StepSessionMetrics = {
 	stepSizeSumForP90: number[];
 };
 
-const STORAGE_CLIENT_KEY = 'ncs-step-metrics-storage';
-
-const storageClient = new StorageClient(STORAGE_CLIENT_KEY);
+const storageClient = new StorageClient(NCS_STORAGE.NCS_STORAGE_CLIENT_KEY);
 
 /**
  * Gets the current step session metrics for a given session ID
@@ -26,12 +25,13 @@ const storageClient = new StorageClient(STORAGE_CLIENT_KEY);
  * @param steps - The steps to calculate the metrics from.
  * @returns The updated step session metrics for the given session ID.
  */
-export const getStepSessionMetrics = (
+export const getNcsSessionStepMetrics = (
 	metrics: { [sessionId: string]: StepSessionMetrics },
 	sessionId: string,
 	steps: Step[],
 ): StepSessionMetrics => {
 	const current: StepSessionMetrics = metrics[sessionId] ?? {
+		ncsSessionId: sessionId,
 		totalStepSize: 0,
 		numberOfSteps: 0,
 		maxStepSize: 0,
@@ -59,12 +59,14 @@ export const getStepSessionMetrics = (
  * @param sessionId - The session ID to check or update in local storage.
  * @returns void
  */
-export const updateActiveSessions = (sessionId: string) => {
-	const currentActiveSessions = JSON.parse(storageClient.getItem('ncsActiveSessions') || '{}');
+export const updateNcsActiveSessions = (sessionId: string) => {
+	const currentActiveSessions = JSON.parse(
+		storageClient.getItem(NCS_STORAGE.NCS_ACTIVE_SESSIONS) || '{}',
+	);
 
 	if (!currentActiveSessions[sessionId]) {
 		storageClient.setItemWithExpiry(
-			'ncsActiveSessions',
+			NCS_STORAGE.NCS_ACTIVE_SESSIONS,
 			JSON.stringify({
 				...currentActiveSessions,
 				[sessionId]: true,
@@ -73,7 +75,7 @@ export const updateActiveSessions = (sessionId: string) => {
 	}
 };
 
-type UpdateStepSessionMetricProps = {
+type UpdateNcsSessionStepMetricProps = {
 	api: ExtractInjectionAPI<CollabEditPlugin> | undefined;
 	steps: Step[];
 };
@@ -86,21 +88,23 @@ type UpdateStepSessionMetricProps = {
  * @param steps - The steps to calculate the metrics from.
  * @return void
  */
-export const updateStepSessionMetrics = ({ api, steps }: UpdateStepSessionMetricProps) => {
+export const updateNcsSessionStepMetrics = ({ api, steps }: UpdateNcsSessionStepMetricProps) => {
 	const sessionId = api?.collabEdit?.sharedState.currentState()?.sessionId;
 	if (!sessionId) {
 		return;
 	}
 
-	const existingMetrics = JSON.parse(storageClient.getItem('ncsStepSessionMetrics') || '{}');
-	const stepSessionMetrics = getStepSessionMetrics(existingMetrics, sessionId, steps);
+	const existingMetrics = JSON.parse(
+		storageClient.getItem(NCS_STORAGE.NCS_SESSION_STEP_METRICS) || '{}',
+	);
+	const ncsSessionStepMetrics = getNcsSessionStepMetrics(existingMetrics, sessionId, steps);
 	storageClient.setItemWithExpiry(
-		'ncsStepSessionMetrics',
+		NCS_STORAGE.NCS_SESSION_STEP_METRICS,
 		JSON.stringify({
 			...existingMetrics,
-			[sessionId]: stepSessionMetrics,
+			[sessionId]: ncsSessionStepMetrics,
 		}),
 	);
 
-	updateActiveSessions(sessionId);
+	updateNcsActiveSessions(sessionId);
 };

@@ -9,14 +9,13 @@ import { cssMap, jsx } from '@compiled/react';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import { Box } from '@atlaskit/primitives/compiled';
-
 import {
 	type CustomItemComponentProps,
 	GoBackItem,
 	NestableNavigationContent,
 	NestingItem,
 	Section,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 const styles = cssMap({
 	container: {
@@ -80,7 +79,7 @@ const BasicExample = () => {
 						iconBefore={<SettingsIcon label="" />}
 						title="Settings"
 						description="I have a custom back button"
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 						overrides={{
 							GoBackItem: {
 								render: (props) => (

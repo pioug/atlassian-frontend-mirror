@@ -5,8 +5,6 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import Async from '../../async';
 
 import { type Option, OPTIONS } from './constants.mock';
@@ -183,7 +181,7 @@ test.skip('in case of callbacks should handle an error by setting options to an 
 	expect(screen.getAllByRole('option').length).toBe(0);
 });
 
-describe('should announce NoOptionsMessage', () => {
+test('should announce NoOptionsMessage', async () => {
 	const loadOptions = (inputValue: string, callBack: (options: readonly Option[]) => void) => {
 		setTimeout(() => {
 			callBack([]);
@@ -200,27 +198,14 @@ describe('should announce NoOptionsMessage', () => {
 		const input = screen.getByTestId(`${testId}-select--input`);
 		await user.type(input, 'dddddddddd');
 	};
-	ffTest(
-		'design_system_select-a11y-improvement',
-		async () => {
-			render(<Async {...baseProps} />);
-			await setupAndTypeSearch();
-			await waitFor(() => {
-				expect(screen.getByRole('option', { name: noOptionsMessage })).toBeInTheDocument();
-			});
-			await waitFor(() => {
-				expect(screen.getByRole('status')).toHaveTextContent(noOptionsMessage);
-			});
-		},
-		async () => {
-			render(<Async {...baseProps} />);
-			await setupAndTypeSearch();
-			await waitFor(() => {
-				expect(screen.getByRole('option', { name: noOptionsMessage })).toBeInTheDocument();
-			});
-			await waitFor(() => {
-				expect(screen.getByRole('log')).toHaveTextContent(noOptionsMessage);
-			});
-		},
-	);
+
+	render(<Async {...baseProps} />);
+
+	await setupAndTypeSearch();
+	await waitFor(() => {
+		expect(screen.getByRole('option', { name: noOptionsMessage })).toBeInTheDocument();
+	});
+	await waitFor(() => {
+		expect(screen.getByRole('status')).toHaveTextContent(noOptionsMessage);
+	});
 });

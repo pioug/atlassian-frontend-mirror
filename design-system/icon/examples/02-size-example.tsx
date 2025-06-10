@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { type Size } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
 
 import ActivityIcon from '../glyph/activity';
@@ -22,7 +23,6 @@ import ArrowLeftCircleIcon from '../glyph/arrow-left-circle';
 import ArrowRightIcon from '../glyph/arrow-right';
 import ArrowUpIcon from '../glyph/arrow-up';
 import AppSwitcherIcon from '../glyph/menu';
-import { type Size } from '../src/types';
 
 const iconRowStyles = css({
 	display: 'flex',

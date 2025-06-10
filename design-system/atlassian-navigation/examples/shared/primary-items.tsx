@@ -1,11 +1,14 @@
 import React, { type KeyboardEvent, useState } from 'react';
 
+import {
+	PrimaryButton,
+	type PrimaryButtonProps,
+	PrimaryDropdownButton,
+	useOverflowStatus,
+} from '@atlaskit/atlassian-navigation';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
-
-import { PrimaryButton, type PrimaryButtonProps, PrimaryDropdownButton } from '../../src';
-import { useOverflowStatus } from '../../src/controllers/overflow';
 
 const NavigationButton = (props: PrimaryButtonProps) => {
 	const { isVisible } = useOverflowStatus();

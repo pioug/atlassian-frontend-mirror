@@ -7,8 +7,7 @@ import { useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-
-import { ExitingPersistence, FadeIn } from '../src';
+import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from './utils';
 

@@ -407,45 +407,54 @@ export class VCObserver implements VCObserverInterface {
 						},
 					}),
 				);
+			}
+			if (!this.isPostInteraction) {
+				// Only create revision debug details if callbacks exist
+				const shouldCreateDebugDetails =
+					typeof window.__ufo_devtool_onVCRevisionReady__ === 'function' ||
+					(typeof window.__on_ufo_vc_debug_data_ready === 'function' &&
+						fg('platform_ufo_emit_vc_debug_data'));
 
-				const v1RevisionDebugDetails = getVCRevisionDebugDetails({
-					revision: 'fy25.01',
-					isClean: !abortReasonInfo,
-					abortReason: abortReason.reason,
-					VCEntries: VCEntries.rel,
-					componentsLog,
-					interactionId,
-				});
+				if (shouldCreateDebugDetails) {
+					const v1RevisionDebugDetails = getVCRevisionDebugDetails({
+						revision: 'fy25.01',
+						isClean: !abortReasonInfo,
+						abortReason: abortReason.reason,
+						VCEntries: VCEntries.rel,
+						componentsLog,
+						interactionId,
+					});
 
-				const v2RevisionDebugDetails = getVCRevisionDebugDetails({
-					revision: 'fy25.02',
-					isClean: !abortReasonInfo,
-					abortReason: abortReason.reason,
-					VCEntries: vcNext.VCEntries.rel,
-					componentsLog,
-					interactionId,
-				});
+					const v2RevisionDebugDetails = getVCRevisionDebugDetails({
+						revision: 'fy25.02',
+						isClean: !abortReasonInfo,
+						abortReason: abortReason.reason,
+						VCEntries: vcNext.VCEntries.rel,
+						componentsLog,
+						interactionId,
+					});
 
-				// Add devtool callback for both v1 and v2
-				if (typeof window.__ufo_devtool_onVCRevisionReady__ === 'function') {
-					// Handle v1 if not disabled
-					if (!isTTVCv1Disabled) {
-						window.__ufo_devtool_onVCRevisionReady__?.(v1RevisionDebugDetails);
+					// Add devtool callback for both v1 and v2
+					if (typeof window.__ufo_devtool_onVCRevisionReady__ === 'function') {
+						// Handle v1 if not disabled
+						if (!isTTVCv1Disabled) {
+							window.__ufo_devtool_onVCRevisionReady__?.(v1RevisionDebugDetails);
+						}
+
+						// Handle v2
+						window.__ufo_devtool_onVCRevisionReady__?.(v2RevisionDebugDetails);
 					}
 
-					// Handle v2
-					window.__ufo_devtool_onVCRevisionReady__?.(v2RevisionDebugDetails);
-				}
+					if (
+						typeof window.__on_ufo_vc_debug_data_ready === 'function' &&
+						fg('platform_ufo_emit_vc_debug_data')
+					) {
+						if (!isTTVCv1Disabled) {
+							window.__on_ufo_vc_debug_data_ready?.(v1RevisionDebugDetails);
+						}
 
-				if (
-					typeof window.__on_ufo_vc_debug_data_ready === 'function' &&
-					fg('platform_ufo_emit_vc_debug_data')
-				) {
-					if (!isTTVCv1Disabled) {
-						window.__on_ufo_vc_debug_data_ready?.(v1RevisionDebugDetails);
+						window.__on_ufo_vc_debug_data_ready?.(v2RevisionDebugDetails);
 					}
-
-					window.__on_ufo_vc_debug_data_ready?.(v2RevisionDebugDetails);
 				}
 			}
 		} catch (e) {

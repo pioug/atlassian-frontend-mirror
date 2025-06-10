@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.19
+
+### Patch Changes
+
+- [#166738](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166738)
+  [`0a681029d17a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a681029d17a9) -
+  AFO-3998 TTVC ignore RLL hydration
+
 ## 3.13.18
 
 ### Patch Changes

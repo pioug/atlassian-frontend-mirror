@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
-
-import Select from '../src';
+import Select from '@atlaskit/react-select';
 
 import { cities } from './common/data';
 

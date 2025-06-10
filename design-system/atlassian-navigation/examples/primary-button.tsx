@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianNavigation, PrimaryButton } from '../src';
+import { AtlassianNavigation, PrimaryButton } from '@atlaskit/atlassian-navigation';
 
 export default () => (
 	<AtlassianNavigation

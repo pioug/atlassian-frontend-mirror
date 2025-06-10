@@ -59,6 +59,13 @@ import { getTrMetadata } from './utils/transactions';
 export const key = new PluginKey<PluginState>('blockControls');
 
 const EDITOR_BLOCKS_DRAG_INIT = 'Editor Blocks Drag Initialization Time';
+const EDITOR_BLOCKS_DROP_INIT = 'Editor Blocks Drop Initialization Time';
+
+const scheduleCallback = (cb: () => unknown, options?: IdleRequestOptions) => {
+	return 'requestIdleCallback' in window
+		? requestIdleCallback(cb, { timeout: 5000, ...options })
+		: requestAnimationFrame(cb);
+};
 
 type ElementDragSource = {
 	start: number;
@@ -87,24 +94,34 @@ const destroyFn = (
 		);
 	}
 
+	let dragInitializationDuration = 0;
+
 	cleanupFn.push(
 		monitorForElements({
 			canMonitor: ({ source }) => source.data.type === 'element',
 			onDrag: () => {
-				if (isMeasuring(EDITOR_BLOCKS_DRAG_INIT)) {
-					stopMeasure(EDITOR_BLOCKS_DRAG_INIT, (duration: number, startTime: number) => {
-						const { state } = editorView;
-						api?.analytics?.actions.fireAnalyticsEvent({
-							action: ACTION.BLOCKS_DRAG_INIT,
-							actionSubject: ACTION_SUBJECT.EDITOR,
-							eventType: EVENT_TYPE.OPERATIONAL,
-							attributes: {
-								duration,
-								startTime,
-								nodesCount: state.doc.nodeSize,
-							},
+				if (fg('platform_editor_drag_and_drop_perf_analytics')) {
+					if (isMeasuring(EDITOR_BLOCKS_DRAG_INIT)) {
+						stopMeasure(EDITOR_BLOCKS_DRAG_INIT, (duration: number) => {
+							dragInitializationDuration = duration;
 						});
-					});
+					}
+				} else {
+					if (isMeasuring(EDITOR_BLOCKS_DRAG_INIT)) {
+						stopMeasure(EDITOR_BLOCKS_DRAG_INIT, (duration: number, startTime: number) => {
+							const { state } = editorView;
+							api?.analytics?.actions.fireAnalyticsEvent({
+								action: ACTION.BLOCKS_DRAG_INIT,
+								actionSubject: ACTION_SUBJECT.EDITOR,
+								eventType: EVENT_TYPE.OPERATIONAL,
+								attributes: {
+									duration,
+									startTime,
+									nodesCount: state.doc.nodeSize,
+								},
+							});
+						});
+					}
 				}
 			},
 			onDragStart: () => {
@@ -115,6 +132,9 @@ const destroyFn = (
 			onDrop: ({ location, source }) => {
 				if (isHTMLElement(scrollable)) {
 					scrollable.style.setProperty('scroll-behavior', null);
+				}
+				if (fg('platform_editor_drag_and_drop_perf_analytics')) {
+					startMeasure(EDITOR_BLOCKS_DROP_INIT);
 				}
 
 				if (!api) {
@@ -199,6 +219,29 @@ const destroyFn = (
 						lastDragCancelled,
 					});
 				});
+
+				if (fg('platform_editor_drag_and_drop_perf_analytics')) {
+					// wait for the idle callback to ensure that the drag operation has completed
+					scheduleCallback(() => {
+						if (isMeasuring(EDITOR_BLOCKS_DROP_INIT)) {
+							stopMeasure(EDITOR_BLOCKS_DROP_INIT, (duration: number) => {
+								const isCancelled = location.current.dropTargets.length === 0;
+								api?.analytics?.actions.fireAnalyticsEvent({
+									action: ACTION.ENDED,
+									eventType: EVENT_TYPE.TRACK,
+									actionSubject: ACTION_SUBJECT.DRAG,
+									actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+									attributes: {
+										dragInitializationDuration,
+										dropProcessingDuration: duration,
+										isCancelled,
+										nodesCount: editorView.state.doc.nodeSize,
+									},
+								});
+							});
+						}
+					});
+				}
 			},
 		}),
 	);
@@ -758,6 +801,7 @@ export const createPlugin = (
 				},
 				mouseover: (view: EditorView, event: Event) => {
 					handleMouseOver(view, event, api);
+
 					return false;
 				},
 				mousedown:

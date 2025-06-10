@@ -150,6 +150,9 @@
 		"cc_complexit_fe_remove_emoji_animation": {
 			"type": "boolean"
 		},
+		"should-render-to-parent-should-be-true-editor-coll": {
+			"type": "boolean"
+		},
 		"platform_reactions_placeholder_custom_background": {
 			"type": "boolean"
 		}

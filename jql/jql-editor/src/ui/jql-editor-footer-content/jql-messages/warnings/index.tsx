@@ -3,8 +3,8 @@ import React, { type ReactNode, useCallback } from 'react';
 import { di } from 'react-magnetic-di';
 
 import { HelperMessage } from '@atlaskit/form';
+import WarningIcon from '@atlaskit/icon/core/warning';
 import LegacyWarningIcon from '@atlaskit/icon/glyph/warning';
-import WarningIcon from '@atlaskit/icon/utility/warning';
 import Link from '@atlaskit/link';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -153,6 +153,7 @@ export const WarningMessages = () => {
 						LEGACY_size="small"
 						LEGACY_fallbackIcon={LegacyWarningIcon}
 						LEGACY_margin="0 -4px 0 0"
+						size="small"
 					/>
 				</Box>
 				{warningMessage}

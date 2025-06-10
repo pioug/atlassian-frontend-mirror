@@ -1,7 +1,8 @@
 import React from 'react';
+
+import Icon from '@atlaskit/icon';
 import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
-import Icon from '../src/entry-points/base';
 
 function CanonicalGlyph({ role }: CustomGlyphProps) {
 	return (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-breakout",
-	"version": "2.5.3",
+	"version": "2.7.0",
 	"description": "Breakout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -53,10 +53,12 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
-		"memoize-one": "^6.0.0"
+		"memoize-one": "^6.0.0",
+		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",

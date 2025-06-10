@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Date as AKDate } from '@atlaskit/date';
 import SectionMessage from '@atlaskit/section-message';
-import VisuallyHidden from '@atlaskit/visually-hidden';
-
 import Table, {
 	Cell,
 	ExpandableCell,
@@ -13,7 +11,8 @@ import Table, {
 	Row,
 	TBody,
 	THead,
-} from '../src';
+} from '@atlaskit/table';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export default function SelectableAndExpandable() {
 	return (

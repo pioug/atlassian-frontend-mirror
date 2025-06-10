@@ -7,12 +7,6 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
-import { type PopupProps } from '@atlaskit/popup/types';
-
 import {
 	AtlassianNavigation,
 	PrimaryButton,
@@ -20,8 +14,13 @@ import {
 	ProductHome,
 	Search,
 	Settings,
-} from '../src';
-import { useOverflowStatus } from '../src/controllers/overflow';
+	useOverflowStatus,
+} from '@atlaskit/atlassian-navigation';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
+import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
+import Popup from '@atlaskit/popup';
+import { type PopupProps } from '@atlaskit/popup/types';
 
 import { DefaultCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

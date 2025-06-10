@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "4.7.3",
+	"version": "4.7.4",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

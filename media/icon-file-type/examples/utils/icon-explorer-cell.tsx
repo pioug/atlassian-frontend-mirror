@@ -4,10 +4,17 @@ import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';
 import Button from '@atlaskit/button/new';
-import Modal, { ModalTransition, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
+import Modal, {
+	ModalTransition,
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+} from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { Inline } from '@atlaskit/primitives';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconExplorerLink = styled.a({
@@ -23,15 +30,6 @@ const IconExplorerLink = styled.a({
 	'&:hover': {
 		background: token('color.background.neutral.hovered', N30A),
 	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const IconModalHeader = styled.h3({
-	display: 'flex',
-	padding: token('space.250', '20px'),
-	alignItems: 'center',
-	justifyContent: 'flex-start',
-	flexDirection: 'row',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -94,10 +92,14 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 
 	const modal = (
 		<Modal onClose={closeModal}>
-			<IconModalHeader>
-				<Icon label={componentName} size="medium" />
-				{componentName}
-			</IconModalHeader>
+			<ModalHeader hasCloseButton>
+				<ModalTitle>
+					<Inline space="space.100" alignBlock="center">
+						<Icon label={componentName} />
+						{componentName}
+					</Inline>
+				</ModalTitle>
+			</ModalHeader>
 			<ModalBody>
 				{/* eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable */}
 				<div onClick={() => inputEl && inputEl.current!.select()} role="presentation">
@@ -120,7 +122,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 			<Tooltip content={componentName}>
 				{/* eslint-disable-next-line styled-components-a11y/click-events-have-key-events, styled-components-a11y/no-static-element-interactions, styled-components-a11y/anchor-is-valid */}
 				<IconExplorerLink onClick={openModal}>
-					<Icon label={componentName} size="medium" />
+					<Icon label={componentName} />
 				</IconExplorerLink>
 			</Tooltip>
 			<ModalTransition>{isModalOpen ? modal : null}</ModalTransition>

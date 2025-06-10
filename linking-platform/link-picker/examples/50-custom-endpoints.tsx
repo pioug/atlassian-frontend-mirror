@@ -99,6 +99,7 @@ function CustomEndPoints() {
 					{isOpen ? '-' : '+'}
 				</Button>
 			)}
+			shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 		/>
 	);
 

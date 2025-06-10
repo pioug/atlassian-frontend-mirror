@@ -4,6 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { cssMap } from '@atlaskit/css';
 import GlobeIcon from '@atlaskit/icon/core/globe';
+import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import Image from '@atlaskit/image';
 import { Box, Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -156,13 +157,15 @@ const getJiraContainerProperties = ({
 	}
 };
 
-interface GetWebLinkContainerEmptyStatePropertiesParams {
+interface GetWebLinkContainerPropertiesParams {
 	isEmptyContainer?: boolean;
+	isDisplayedOnProfileCard?: boolean;
 }
 
-const getWebLinkContainerEmptyStateProperties = ({
+const getWebLinkContainerProperties = ({
 	isEmptyContainer,
-}: GetWebLinkContainerEmptyStatePropertiesParams) => {
+	isDisplayedOnProfileCard,
+}: GetWebLinkContainerPropertiesParams) => {
 	return {
 		description: isEmptyContainer ? (
 			<Text size="medium" weight="medium">
@@ -171,7 +174,9 @@ const getWebLinkContainerEmptyStateProperties = ({
 		) : (
 			<FormattedMessage {...messages.webLinkContainerDescription} />
 		),
-		icon: isEmptyContainer ? null : (
+		icon: isEmptyContainer ? null : isDisplayedOnProfileCard ? (
+			<LinkExternalIcon label="" size="small" testId="team-link-card-external-link-icon" />
+		) : (
 			<Box xcss={styles.globeIconWrapper} testId="team-link-card-globe-icon">
 				<GlobeIcon label="" size="small" />
 			</Box>
@@ -189,6 +194,7 @@ interface GetContainerPropertiesParams {
 		name?: string;
 	};
 	isEmptyContainer?: boolean;
+	isDisplayedOnProfileCard?: boolean;
 }
 
 export const getContainerProperties = ({
@@ -196,6 +202,7 @@ export const getContainerProperties = ({
 	iconSize = 'small',
 	containerTypeProperties,
 	isEmptyContainer,
+	isDisplayedOnProfileCard,
 }: GetContainerPropertiesParams): ContainerProperties => {
 	switch (containerType) {
 		case 'ConfluenceSpace':
@@ -206,7 +213,7 @@ export const getContainerProperties = ({
 						<Image src={ConfluenceIcon} alt="" testId="confluence-space-container-icon" />
 					</Flex>
 				),
-				title: <FormattedMessage {...messages.addLoomContainerTitle} />,
+				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'LoomSpace':
@@ -214,10 +221,10 @@ export const getContainerProperties = ({
 				description: <FormattedMessage {...messages.loomSpaceDescription} />,
 				icon: (
 					<Flex xcss={iconSize === 'medium' ? styles.mediumIconWrapper : styles.iconWrapper}>
-						<Image src={LoomIcon} alt="" testId="confluence-space-container-icon" />
+						<Image src={LoomIcon} alt="" testId="loom-space-container-icon" />
 					</Flex>
 				),
-				title: <FormattedMessage {...messages.addConfluenceContainerTitle} />,
+				title: <FormattedMessage {...messages.addLoomContainerTitle} />,
 				containerTypeText: <FormattedMessage {...messages.spaceContainerText} />,
 			};
 		case 'JiraProject':
@@ -226,8 +233,9 @@ export const getContainerProperties = ({
 				iconSize,
 			});
 		case 'WebLink':
-			return getWebLinkContainerEmptyStateProperties({
+			return getWebLinkContainerProperties({
 				isEmptyContainer,
+				isDisplayedOnProfileCard,
 			});
 		default:
 			return {

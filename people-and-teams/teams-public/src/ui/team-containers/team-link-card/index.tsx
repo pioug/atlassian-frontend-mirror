@@ -3,12 +3,10 @@ import React, { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import CrossIcon from '@atlaskit/icon/core/close';
-import LinkIcon from '@atlaskit/icon/core/link';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -16,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type ContainerSubTypes, type ContainerTypes } from '../../../common/types';
-import { LoomSpaceAvatar } from '../../../common/ui/loom-avatar';
+import { ContainerIcon } from '../../../common/ui/container-icon';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
@@ -55,17 +53,6 @@ const styles = cssMap({
 		justifyContent: 'flex-end',
 		marginLeft: 'auto',
 	},
-	linkIconWrapper: {
-		width: '34px',
-		height: '34px',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		borderRadius: token('border.radius.100', '8px'),
-		outlineColor: token('color.border'),
-		outlineStyle: 'solid',
-		backgroundColor: token('elevation.surface.sunken'),
-	},
 	linkableContent: {
 		flex: '1',
 	},
@@ -84,22 +71,6 @@ export interface TeamLinkCardProps {
 		name?: string;
 	};
 }
-
-const getContainerIcon = (containerType: ContainerTypes, title: string, containerIcon?: string) => {
-	if (containerType === 'LoomSpace') {
-		return <LoomSpaceAvatar spaceName={title} size={'large'} />;
-	}
-	if (containerType === 'WebLink') {
-		return (
-			<Box xcss={styles.linkIconWrapper}>
-				<LinkIcon label="" />
-			</Box>
-		);
-	}
-	return (
-		<Avatar appearance="square" size="medium" src={containerIcon} testId="linked-container-icon" />
-	);
-};
 
 export const TeamLinkCard = ({
 	containerType,
@@ -160,7 +131,12 @@ export const TeamLinkCard = ({
 			testId="team-link-card-inner"
 		>
 			<Inline space="space.100" xcss={styles.card}>
-				{getContainerIcon(containerType, title, containerIcon)}
+				<ContainerIcon
+					containerType={containerType}
+					title={title}
+					containerIcon={containerIcon}
+					size="medium"
+				/>
 				<Box xcss={styles.linkableContent} testId="team-link-card-linkable-content">
 					<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>
 						<Stack space="space.025">

@@ -19,8 +19,10 @@ describe('getContainerProperties', () => {
 			screen.getByText(messages.confluenceContainerDescription.defaultMessage),
 		).toBeInTheDocument();
 		expect(properties.icon).toBeTruthy();
-		const { getByText: getByTextTitle } = renderWithIntl(properties.title);
-		expect(getByTextTitle(messages.addConfluenceContainerTitle.defaultMessage)).toBeInTheDocument();
+		renderWithIntl(properties.title);
+		expect(
+			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+		).toBeInTheDocument();
 	});
 
 	it('should return correct properties for jira container type', () => {
@@ -30,8 +32,8 @@ describe('getContainerProperties', () => {
 		renderWithIntl(properties.description);
 		expect(screen.getByText(messages.jiraProjectDescription.defaultMessage)).toBeInTheDocument();
 		expect(properties.icon).toBeTruthy();
-		const { getByText: getByTextTitle } = renderWithIntl(properties.title);
-		expect(getByTextTitle(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+		renderWithIntl(properties.title);
+		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
 	});
 
 	it('should return correct properties for web link container type in empty state', () => {
@@ -53,5 +55,37 @@ describe('getContainerProperties', () => {
 		expect(
 			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
 		).toBeInTheDocument();
+	});
+
+	it('should return correct properties for web link container type when displayed on profile card', () => {
+		const properties = getContainerProperties({
+			containerType: 'WebLink',
+			isEmptyContainer: false,
+			isDisplayedOnProfileCard: true,
+		});
+		renderWithIntl(properties.description);
+		expect(
+			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+
+		renderWithIntl(properties.icon);
+		expect(screen.getByTestId('team-link-card-external-link-icon')).toBeInTheDocument();
+		expect(screen.queryByTestId('team-link-card-globe-icon')).not.toBeInTheDocument();
+	});
+
+	it('should return correct properties for web link container type when NOT displayed on profile card', () => {
+		const properties = getContainerProperties({
+			containerType: 'WebLink',
+			isEmptyContainer: false,
+			isDisplayedOnProfileCard: false,
+		});
+		renderWithIntl(properties.description);
+		expect(
+			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
+		).toBeInTheDocument();
+
+		renderWithIntl(properties.icon);
+		expect(screen.getByTestId('team-link-card-globe-icon')).toBeInTheDocument();
+		expect(screen.queryByTestId('team-link-card-external-link-icon')).not.toBeInTheDocument();
 	});
 });

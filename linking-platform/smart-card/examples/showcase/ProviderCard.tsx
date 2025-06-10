@@ -8,10 +8,10 @@ import { css, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
+import ExpandIcon from '@atlaskit/icon/core/chevron-down';
+import CollapseIcon from '@atlaskit/icon/core/chevron-up';
 import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
-import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
-import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import { N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -150,6 +150,7 @@ export const ProviderCard = ({
 								LEGACY_size="small"
 								label="collapse"
 								LEGACY_fallbackIcon={CollapseIconLegacy}
+								size="small"
 							/>
 						) : (
 							<ExpandIcon
@@ -157,6 +158,7 @@ export const ProviderCard = ({
 								LEGACY_size="small"
 								label="expand"
 								LEGACY_fallbackIcon={ExpandIconLegacy}
+								size="small"
 							/>
 						)
 					}

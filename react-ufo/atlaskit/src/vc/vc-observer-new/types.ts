@@ -9,6 +9,7 @@ export type VCObserverEntryType =
 	| 'mutation:attribute:non-visual-style'
 	| 'mutation:attribute'
 	| 'mutation:media'
+	| 'mutation:rll-placeholder'
 	| 'layout-shift'
 	| 'window:event'
 	| 'unknown';

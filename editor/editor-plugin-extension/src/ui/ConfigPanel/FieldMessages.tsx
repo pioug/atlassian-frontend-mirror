@@ -44,6 +44,7 @@ function makeMarkup(fragment: Node, key?: string) {
 				</Text>
 			);
 		case 'CODE':
+			// eslint-disable-next-line @atlaskit/design-system/no-html-code
 			return <code key={key}>{children}</code>;
 	}
 

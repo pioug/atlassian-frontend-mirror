@@ -1,4 +1,5 @@
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
+import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import type { VCObserverEntryType } from '../types';
 
 import {
@@ -17,6 +18,7 @@ jest.mock('../../vc-observer/media-wrapper/vc-utils', () => ({
 	isContainedWithinMediaWrapper: jest.fn(),
 }));
 
+jest.mock('../../vc-observer/observers/rll-placeholders');
 jest.mock('./intersection-observer');
 jest.mock('./mutation-observer');
 jest.mock('./performance-observer');
@@ -35,6 +37,7 @@ describe('ViewportObserver', () => {
 	let onLayoutShift: CreatePerformanceObserverArgs['onLayoutShift'];
 
 	let observer: ViewportObserver;
+	let mockIsRLLPlaceholderHydration: jest.Mock;
 
 	beforeEach(() => {
 		mockIntersectionObserver = {
@@ -53,6 +56,10 @@ describe('ViewportObserver', () => {
 			takeRecords: jest.fn(),
 		};
 		onChangeMock = jest.fn();
+		mockIsRLLPlaceholderHydration = jest.fn();
+		(RLLPlaceholderHandlers.getInstance as jest.Mock) = jest.fn().mockReturnValue({
+			isRLLPlaceholderHydration: mockIsRLLPlaceholderHydration,
+		});
 
 		(createIntersectionObserver as jest.Mock).mockImplementation(
 			(arg: IntersectionObserverArgs) => {
@@ -133,6 +140,29 @@ describe('ViewportObserver', () => {
 				}
 				const taggedMutationType = tagFn({ target: node1, rect: new DOMRect(0, 0, 10, 10) });
 				expect(taggedMutationType).toEqual('mutation:element');
+			});
+
+			it('should handle rll placeholder elements', () => {
+				const rllNode = document.createElement('div');
+				mockIsRLLPlaceholderHydration.mockReturnValue(true);
+				onChildListMutation({ addedNodes: [new WeakRef(rllNode)], removedNodes: [] });
+
+				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+					rllNode,
+					expect.any(Function),
+				);
+
+				const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+				if (typeof tagFn !== 'function') {
+					// should not come here assertion above already guarantee
+					// this block to make Typescript do type assertion
+					throw new Error('unexpected error');
+				}
+				const rect = new DOMRect(0, 0, 10, 10);
+				const taggedMutationType = tagFn({ target: rllNode, rect });
+				expect(taggedMutationType).toEqual('mutation:rll-placeholder');
+				expect(mockIsRLLPlaceholderHydration).toHaveBeenCalledWith(rect);
 			});
 
 			it('should handle element remount', () => {
@@ -238,6 +268,32 @@ describe('ViewportObserver', () => {
 				}
 				expect(taggedMutationType?.type).toEqual('mutation:attribute');
 				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+			});
+
+			it('should handle rll placeholder attribute mutations', () => {
+				const target = document.createElement('div');
+				mockIsRLLPlaceholderHydration.mockReturnValue(true);
+				onAttributeMutation({ target, attributeName: 'style' });
+
+				expect(mockIntersectionObserver.watchAndTag).toHaveBeenCalledWith(
+					target,
+					expect.any(Function),
+				);
+
+				const tagFn = mockIntersectionObserver.watchAndTag.mock.calls[0][1];
+
+				if (typeof tagFn !== 'function') {
+					throw new Error('unexpected error');
+				}
+				const rect = new DOMRect(0, 0, 10, 10);
+				const taggedMutationType = tagFn({ target, rect });
+				expect(typeof taggedMutationType).toEqual('object');
+				if (typeof taggedMutationType !== 'object') {
+					throw new Error('unexpected error');
+				}
+				expect(taggedMutationType?.type).toEqual('mutation:rll-placeholder');
+				expect(taggedMutationType?.mutationData.attributeName).toEqual('style');
+				expect(mockIsRLLPlaceholderHydration).toHaveBeenCalledWith(rect);
 			});
 
 			it('should handle attribute mutation with oldValue and newValue', () => {

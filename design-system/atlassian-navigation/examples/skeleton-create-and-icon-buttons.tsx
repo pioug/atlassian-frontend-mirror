@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { AtlassianNavigation } from '../src';
-import { SkeletonPrimaryButton } from '../src/skeleton';
-import { SkeletonSwitcherButton } from '../src/skeleton-switcher-button';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
+import { SkeletonPrimaryButton } from '@atlaskit/atlassian-navigation/skeleton';
+import { SkeletonSwitcherButton } from '@atlaskit/atlassian-navigation/skeleton-switcher-button';
 
 const skeletonPrimaryItems = [
 	<SkeletonPrimaryButton>Home</SkeletonPrimaryButton>,

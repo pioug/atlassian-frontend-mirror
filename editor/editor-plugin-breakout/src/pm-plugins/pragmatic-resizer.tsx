@@ -1,20 +1,78 @@
-import { bind } from 'bind-event-listener';
+import React, { useLayoutEffect, useState } from 'react';
 
+import { bind } from 'bind-event-listener';
+import type { IntlShape, MessageDescriptor } from 'react-intl-next';
+import uuid from 'uuid/v4';
+
+import { breakoutMessages as messages } from '@atlaskit/editor-common/messages';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import type { BaseEventPayload, ElementDragType } from '@atlaskit/pragmatic-drag-and-drop/types';
+import Tooltip from '@atlaskit/tooltip';
+
+const getNodeName = (nodeName?: string) => {
+	if (nodeName === 'layoutSection') {
+		return 'layout';
+	} else if (nodeName === 'codeBlock' || nodeName === 'expand') {
+		return nodeName;
+	} else {
+		return 'node';
+	}
+};
+
+export const resizeHandleMessage: Record<string, MessageDescriptor> = {
+	expand: messages.resizeExpand,
+	codeBlock: messages.resizeCodeBlock,
+	layout: messages.resizeLayout,
+	node: messages.resizeElement,
+};
+
+type Props = {
+	rail: HTMLElement;
+	target: HTMLElement;
+	intl: IntlShape;
+};
+const RailWithTooltip = ({ rail, target, intl }: Props) => {
+	const [nodeName, setNodeName] = useState('node');
+
+	useLayoutEffect(() => {
+		const node = target.querySelector<HTMLElement>('[data-prosemirror-node-name]');
+		const name = getNodeName(node?.dataset.prosemirrorNodeName);
+		setNodeName(name);
+	}, [target]);
+
+	return (
+		<Tooltip content={intl.formatMessage(resizeHandleMessage[nodeName])} position="mouse">
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="pm-breakout-resize-handle-rail-inside-tooltip"
+				ref={(el) => {
+					if (el && rail.parentNode !== el) {
+						el.appendChild(rail);
+					}
+				}}
+			/>
+		</Tooltip>
+	);
+};
 
 export const createPragmaticResizer = ({
 	target,
 	onDragStart,
 	onDrag,
 	onDrop,
+	intl,
+	nodeViewPortalProviderAPI,
 }: {
 	target: HTMLElement;
 	onDragStart: (args: BaseEventPayload<ElementDragType>) => void;
 	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
+	intl: IntlShape;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 }) => {
 	let state: 'default' | 'resizing' = 'default';
 
@@ -41,10 +99,32 @@ export const createPragmaticResizer = ({
 		thumb.classList.add('pm-breakout-resize-handle-thumb');
 
 		rail.appendChild(thumb);
-		handle.appendChild(rail);
-		handle.appendChild(handleHitBox);
 
-		return { handle, rail, handleHitBox };
+		if (fg('platform_editor_breakout_resizing_hello_release')) {
+			const tooltipContainer = document.createElement('div');
+			tooltipContainer.classList.add('pm-breakout-resize-handle-rail-wrapper');
+			handle.appendChild(tooltipContainer);
+			handle.appendChild(handleHitBox);
+
+			const key = uuid();
+
+			nodeViewPortalProviderAPI.render(
+				() => <RailWithTooltip rail={rail} target={target} intl={intl} />,
+				tooltipContainer,
+				key,
+			);
+
+			return {
+				handle,
+				rail,
+				handleHitBox,
+				destroyTooltip: () => nodeViewPortalProviderAPI.remove(key),
+			};
+		} else {
+			handle.appendChild(rail);
+			handle.appendChild(handleHitBox);
+			return { handle, rail, handleHitBox, destroyTooltip: () => {} };
+		}
 	};
 
 	const rightHandle = createHandle('right');
@@ -109,6 +189,9 @@ export const createPragmaticResizer = ({
 	const destroyFns = [
 		registerHandle(rightHandle.handle, 'right'),
 		registerHandle(leftHandle.handle, 'left'),
+		...(fg('platform_editor_breakout_resizing_hello_release')
+			? [rightHandle.destroyTooltip, leftHandle.destroyTooltip]
+			: []),
 	];
 
 	return {

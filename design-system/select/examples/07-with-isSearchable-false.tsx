@@ -1,7 +1,24 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import { type AriaLiveMessages, type GroupBase } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
+
+interface Option {
+	label: string;
+	value: string;
+}
+
+const ariaLiveMessages: AriaLiveMessages<Option, boolean, GroupBase<Option>> = {
+	onChange: (props) => {
+		const { action, isDisabled, label } = props;
+		if (action === 'select-option' && !isDisabled) {
+			return `CUSTOM: option ${label} is selected.`;
+		}
+		return '';
+	},
+};
 
 const SingleExample = () => (
 	<>
@@ -20,6 +37,8 @@ const SingleExample = () => (
 			]}
 			isSearchable={false}
 			placeholder="Choose a City"
+			ariaLiveMessages={ariaLiveMessages}
+			testId="react-select"
 		/>
 	</>
 );

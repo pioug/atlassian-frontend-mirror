@@ -7,6 +7,23 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import {
+	AtlassianNavigation,
+	PrimaryButton,
+	PrimaryDropdownButton,
+	ProductHome,
+	Settings,
+	useOverflowStatus,
+} from '@atlaskit/atlassian-navigation';
+import {
+	SkeletonCreateButton,
+	SkeletonIconButton,
+	SkeletonPrimaryButton,
+} from '@atlaskit/atlassian-navigation/skeleton';
+import { SkeletonHelpButton } from '@atlaskit/atlassian-navigation/skeleton-help-button';
+import { SkeletonNotificationButton } from '@atlaskit/atlassian-navigation/skeleton-notification-button';
+import { SkeletonSettingsButton } from '@atlaskit/atlassian-navigation/skeleton-settings-button';
+import { SkeletonSwitcherButton } from '@atlaskit/atlassian-navigation/skeleton-switcher-button';
 import Button from '@atlaskit/button/new';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import Link from '@atlaskit/link';
@@ -15,20 +32,6 @@ import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
-
-import {
-	AtlassianNavigation,
-	PrimaryButton,
-	PrimaryDropdownButton,
-	ProductHome,
-	Settings,
-} from '../src';
-import { useOverflowStatus } from '../src/controllers/overflow';
-import { SkeletonCreateButton, SkeletonIconButton, SkeletonPrimaryButton } from '../src/skeleton';
-import { SkeletonHelpButton } from '../src/skeleton-help-button';
-import { SkeletonNotificationButton } from '../src/skeleton-notification-button';
-import { SkeletonSettingsButton } from '../src/skeleton-settings-button';
-import { SkeletonSwitcherButton } from '../src/skeleton-switcher-button';
 
 import { DefaultCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

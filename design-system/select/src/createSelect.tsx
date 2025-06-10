@@ -8,23 +8,15 @@ import React, {
 	useRef,
 } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import {
-	type AriaOnFocusProps,
-	type GroupBase,
-	type OptionsOrGroups,
-} from '@atlaskit/react-select';
 import type BaseSelect from '@atlaskit/react-select/base';
 
 import {
 	type AsyncSelectProps,
 	type AtlaskitSelectRefType,
 	type CreatableSelectProps,
-	type GroupType,
 	type OptionType,
 	type SelectProps,
 } from './types';
-import { isOptionsGrouped, onFocus } from './utils/grouped-options-announcement';
 
 type AtlaskitSelectProps<Option extends unknown, IsMulti extends boolean> =
 	| SelectProps<Option, IsMulti>
@@ -66,20 +58,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 		return (
 			<WrappedComponent
 				ref={internalSelectRef}
-				aria-live={fg('design_system_select-a11y-improvement') ? undefined : 'assertive'}
-				ariaLiveMessages={
-					//TO DO: Still need live region for PopupSelect because of the menu being open by default
-					isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)
-						? {
-								onFocus: (data: AriaOnFocusProps<OptionType, GroupBase<OptionType>>) =>
-									onFocus(
-										data,
-										props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
-									),
-								...ariaLiveMessages,
-							}
-						: { ...ariaLiveMessages }
-				}
+				ariaLiveMessages={ariaLiveMessages}
 				tabSelectsValue={tabSelectsValue}
 				onClickPreventDefault={onClickPreventDefault}
 				isInvalid={isInvalid || validationState === 'error'}

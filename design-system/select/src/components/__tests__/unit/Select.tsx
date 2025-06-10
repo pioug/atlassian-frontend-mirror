@@ -1,7 +1,7 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
-import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 import selectEvent from 'react-select-event';
@@ -11,18 +11,6 @@ interface Option {
 	readonly label: string;
 	readonly value: string;
 }
-
-jest.mock('../../../utils/grouped-options-announcement', () => {
-	const originalModule = jest.requireActual<
-		typeof import('../../../utils/grouped-options-announcement')
-	>('../../../utils/grouped-options-announcement');
-
-	return {
-		__esModule: true,
-		...originalModule,
-		onFocus: () => 'overwrite native ariaLiveMessages onFocus method',
-	};
-});
 
 const user = userEvent.setup();
 
@@ -93,38 +81,6 @@ describe('Select', () => {
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
 	});
 
-	describe('Grouped value Select', () => {
-		it('should pass onFocus to react-select if options are grouped', async () => {
-			const groupedOptions = [
-				{
-					label: 'group',
-					options: [
-						{ value: 1, label: '1' },
-						{ value: 2, label: '2' },
-					],
-				},
-			];
-
-			const { rerender } = render(
-				<AtlaskitSelect options={groupedOptions} menuIsOpen label="Options" />,
-			);
-
-			selectEvent.openMenu(screen.getByText('Select...'));
-			const ele = screen.getByRole('combobox');
-			fireEvent.focus(ele);
-			expect(
-				screen.getByText(/overwrite native ariaLiveMessages onFocus method/),
-			).toBeInTheDocument();
-
-			rerender(<AtlaskitSelect options={OPTIONS} menuIsOpen label="Options" />);
-
-			await user.click(screen.getByText('Select...'));
-			expect(
-				screen.queryByText(/overwrite native ariaLiveMessages onFocus method/),
-			).not.toBeInTheDocument();
-		});
-	});
-
 	describe('single value select', () => {
 		it('should show the default AtlaskitSelected value', () => {
 			render(<AtlaskitSelect options={OPTIONS} value={OPTIONS[0]} label="Options" />);
@@ -139,7 +95,10 @@ describe('Select', () => {
 		it('should have no id aria-describedby', () => {
 			render(<AtlaskitSelect options={OPTIONS} value={OPTIONS[0]} label="Options" />);
 
-			expect(screen.getByRole('combobox')).not.toHaveAttribute('aria-describedby');
+			expect(screen.getByRole('combobox')).toHaveAttribute(
+				'aria-describedby',
+				expect.stringContaining('single-value'),
+			);
 		});
 
 		//default value is there, no placeholder, yes passed aria == yes aria describedby --> passed aria
@@ -153,7 +112,8 @@ describe('Select', () => {
 				/>,
 			);
 			const element = screen.getByRole('combobox').getAttribute('aria-describedby');
-			expect(element).toBe('descriptive-id');
+			expect(element).toContain('descriptive-id');
+			expect(element).toContain('single-value');
 		});
 
 		//default value is yes there, yes placeholder, yes passed aria == yes aria describedby --> passed aria
@@ -169,7 +129,8 @@ describe('Select', () => {
 			);
 
 			const element = screen.getByRole('combobox').getAttribute('aria-describedby');
-			expect(element).toBe('descriptive-id');
+			expect(element).toContain('descriptive-id');
+			expect(element).toContain('single-value');
 		});
 
 		//default value is not there, yes placeholder, yes passed aria == yes aria describedby --> passed aria, placeholder
@@ -502,7 +463,9 @@ describe('Select input', () => {
 			/>,
 		);
 
-		expect(screen.getByRole('combobox')).toHaveAttribute('aria-describedby', label);
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(`${label}`));
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining('single-value'));
 
 		rerender(
 			<AtlaskitSelect
@@ -518,7 +481,8 @@ describe('Select input', () => {
 		);
 
 		// It shouldn't contain the old aria-describedby
-		expect(screen.getByRole('combobox')).toHaveAttribute('aria-describedby', newLabel);
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(`${newLabel}`));
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining('single-value'));
 	});
 
 	it("should respect dynamically updated explicit aria-describedby when the placeholder's ID is passed to aria-describedby", () => {
@@ -538,7 +502,9 @@ describe('Select input', () => {
 			/>,
 		);
 
-		expect(screen.getByRole('combobox')).toHaveAttribute('aria-describedby', label);
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(`${label}`));
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining('single-value'));
 
 		rerender(
 			<AtlaskitSelect
@@ -553,7 +519,6 @@ describe('Select input', () => {
 			/>,
 		);
 
-		const input = screen.getByRole('combobox');
 		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(`${newLabel}`));
 		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining('placeholder'));
 	});

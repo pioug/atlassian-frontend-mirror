@@ -1,5 +1,50 @@
 # @atlaskit/editor-core
 
+## 207.19.1
+
+### Patch Changes
+
+- [#168476](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168476)
+  [`f06460f0a1cf5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f06460f0a1cf5) -
+  refactor emotion styles for gap cursor
+
+## 207.19.0
+
+### Minor Changes
+
+- [#167123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167123)
+  [`8baa50249f460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8baa50249f460) -
+  fix: stable class name for EditorView.dom
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.18.1
+
+### Patch Changes
+
+- [#167056](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167056)
+  [`2e67525f3e72c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e67525f3e72c) -
+  [ux] Migrate panelStyles
+- [#166490](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166490)
+  [`9f140155c14be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f140155c14be) -
+  [ux] Shows tooltip on the resize handle when it is hovered.
+- Updated dependencies
+
+## 207.18.0
+
+### Minor Changes
+
+- [#166502](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166502)
+  [`ea1ed63fc9615`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea1ed63fc9615) -
+  ED-28032 add keyboard shortcuts for new resizing experience behind
+  platform_editor_breakout_resizing
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 207.17.1
 
 ### Patch Changes

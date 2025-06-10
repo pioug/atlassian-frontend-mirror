@@ -9,6 +9,7 @@ import customMd from '../../utils/custom-md';
 
 const WarningMessage = (): JSX.Element => (
 	<SectionMessage appearance="information">
+		{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 		All Linking events are currently fired on the <code>media</code> channel which we share with
 		Media Platform, so we also share the Media Platform analytics listeners.
 	</SectionMessage>
@@ -49,6 +50,7 @@ const SmartEventLinks = () => {
 					return (
 						<tr>
 							<td>
+								{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 								<code>{item.event}</code>
 							</td>
 							<td>
@@ -93,6 +95,7 @@ const LinkLifeCycleTable = (): JSX.Element => {
 					return (
 						<tr>
 							<td>
+								{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 								<code>{item.event}</code>
 							</td>
 							<td>
@@ -112,6 +115,7 @@ const AllProductLocations = (): JSX.Element => {
 			{
 				surface: (
 					<Text>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 						Editor (<code>@atlaskit/editor-core</code>)
 					</Text>
 				),
@@ -126,6 +130,7 @@ const AllProductLocations = (): JSX.Element => {
 			{
 				surface: (
 					<span>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 						Renderer (<code>@atlaskit/renderer</code>)
 					</span>
 				),
@@ -151,6 +156,7 @@ const AllProductLocations = (): JSX.Element => {
 								{item.values.map((x, index) => {
 									return (
 										<>
+											{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 											<code>{x}</code>
 											{index < item.values.length - 1 ? ', ' : ''}
 										</>
@@ -192,6 +198,7 @@ const ConfluenceLocations = (): JSX.Element => {
 								{item.values.map((x, index) => {
 									return (
 										<>
+											{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 											<code>{x}</code>
 											{index < item.values.length - 1 ? ', ' : ''}
 										</>
@@ -237,6 +244,7 @@ const JiraLocations = () => {
 								{item.values.map((x, index) => {
 									return (
 										<>
+											{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 											<code>{x}</code>
 											{index < item.values.length - 1 ? ', ' : ''}
 										</>

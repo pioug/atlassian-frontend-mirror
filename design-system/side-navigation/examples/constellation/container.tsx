@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { SideNavigation } from '../../src';
+import { SideNavigation } from '@atlaskit/side-navigation';
+
 import AppFrame from '../common/app-frame';
 
 const ContainerExample = () => {

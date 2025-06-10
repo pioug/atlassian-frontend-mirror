@@ -11,7 +11,6 @@ import React from 'react';
 import { css, jsx, useTheme } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
-import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
@@ -29,7 +28,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { extensionStyles } from '../ContentStyles/extension';
-import { panelStyles } from '../ContentStyles/panel';
 
 import {
 	aiPanelBaseFirefoxStyles,
@@ -68,10 +66,29 @@ import {
 } from './styles/expandStyles';
 import { findReplaceStyles } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
+import { gapCursorStyles } from './styles/gapCursorStyles';
 import { gridStyles } from './styles/gridStyles';
 import { indentationStyles } from './styles/indentationStyles';
 import { InlineNodeViewSharedStyles } from './styles/inlineNodeViewSharedStyles';
-import { layoutBaseStyles, layoutViewStyles } from './styles/layout';
+import {
+	layoutColumnResponsiveStyles,
+	layoutBaseStyles,
+	layoutBaseStylesAdvanced,
+	layoutBaseStylesFixesUnderNestedDnDFG,
+	layoutSelectedStylesNotAdvanced,
+	layoutSelectedStylesForViewNotAdvanced,
+	layoutColumnMartinTopFixesNew,
+	layoutColumnMartinTopFixesOld,
+	layoutColumnStylesAdvanced,
+	layoutColumnStylesNotAdvanced,
+	layoutResponsiveBaseStyles,
+	layoutResponsiveStylesForView,
+	layoutSectionStylesAdvanced,
+	layoutSectionStylesNotAdvanced,
+	layoutStylesForView,
+	layoutSelectedStylesAdvanced,
+	layoutSelectedStylesForViewAdvanced,
+} from './styles/layout';
 import { linkStyles, linkStylesOld } from './styles/link';
 import { listsStyles, listsStylesSafariFix } from './styles/list';
 import { mediaStyles } from './styles/mediaStyles';
@@ -81,12 +98,23 @@ import {
 	vanillaMentionsSelectionStyles,
 } from './styles/mentions';
 import {
+	panelStyles,
+	panelStylesMixin_fg_platform_editor_add_border_for_nested_panel,
+	panelStylesMixin_fg_platform_editor_lcm_nested_panel_icon_fix,
+	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
+	panelStylesMixin_without_fg_platform_editor_lcm_nested_panel_icon_fix,
+} from './styles/panelStyles';
+import {
 	paragraphStylesOld,
 	paragraphStylesUGCModernized,
 	paragraphStylesUGCRefreshed,
 } from './styles/paragraphStyles';
 import { placeholderTextStyles } from './styles/placeholderTextStyles';
-import { resizerStyles, pragmaticResizerStyles } from './styles/resizerStyles';
+import {
+	resizerStyles,
+	pragmaticResizerStyles,
+	pragmaticResizerStylesForTooltip,
+} from './styles/resizerStyles';
 import { ruleStyles } from './styles/rule';
 import { shadowStyles } from './styles/shadowStyles';
 import {
@@ -331,7 +359,18 @@ const contentStyles = () => css`
 
   ${gapCursorStyles};
 
-	${panelStyles()}
+	${panelStyles}
+
+	${fg('platform_editor_add_border_for_nested_panel') &&
+	panelStylesMixin_fg_platform_editor_add_border_for_nested_panel}
+
+	${fg('platform_editor_nested_dnd_styles_changes') &&
+	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes}
+
+	${fg('platform_editor_lcm_nested_panel_icon_fix') &&
+	panelStylesMixin_fg_platform_editor_lcm_nested_panel_icon_fix}
+	${!fg('platform_editor_lcm_nested_panel_icon_fix') &&
+	panelStylesMixin_without_fg_platform_editor_lcm_nested_panel_icon_fix}
 
 	${mentionsStyles}
 
@@ -580,7 +619,37 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 				css={[
 					contentStyles(),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					layoutBaseStyles(),
+					layoutBaseStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorExperiment('advanced_layouts', true) && layoutBaseStylesAdvanced,
+					editorExperiment('advanced_layouts', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutSectionStylesAdvanced
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutSectionStylesNotAdvanced,
+					editorExperiment('advanced_layouts', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutColumnStylesAdvanced
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutColumnStylesNotAdvanced,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorExperiment('advanced_layouts', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutSelectedStylesAdvanced
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutSelectedStylesNotAdvanced,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorExperiment('advanced_layouts', true) && layoutColumnResponsiveStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					editorExperiment('advanced_layouts', true) && layoutResponsiveBaseStyles,
+					fg('platform_editor_nested_dnd_styles_changes') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutBaseStylesFixesUnderNestedDnDFG,
+					fg('platform_editor_nested_dnd_styles_changes')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutColumnMartinTopFixesNew
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							layoutColumnMartinTopFixesOld,
 					fg('linking_platform_smart_links_in_live_pages')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							smartLinksInLivePagesStyles
@@ -609,6 +678,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					editorExperiment('platform_editor_breakout_resizing', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStyles,
+					editorExperiment('platform_editor_breakout_resizing', true) &&
+						fg('platform_editor_breakout_resizing_hello_release') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticResizerStylesForTooltip,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					aiPanelBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -618,7 +691,20 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					colorMode === 'dark' && isFirefox && aiPanelDarkFirefoxStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					viewMode === 'view' && layoutViewStyles,
+					viewMode === 'view' && layoutStylesForView,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					viewMode === 'view' &&
+						editorExperiment('advanced_layouts', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutSelectedStylesForViewAdvanced,
+					viewMode === 'view' &&
+						editorExperiment('advanced_layouts', false) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutSelectedStylesForViewNotAdvanced,
+					viewMode === 'view' &&
+						editorExperiment('advanced_layouts', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutResponsiveStylesForView,
 					isComment && commentEditorStyles,
 					isFullPage && fullPageEditorStyles,
 					isFullPage && scrollbarStyles,

@@ -109,5 +109,10 @@
 	},
 	"sideEffects": [
 		"*.compiled.css"
-	]
+	],
+	"platform-feature-flags": {
+		"should-render-to-parent-should-be-true-media-exif": {
+			"type": "boolean"
+		}
+	}
 }

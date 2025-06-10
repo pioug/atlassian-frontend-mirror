@@ -23,7 +23,9 @@ export enum EVENT_ACTION {
 	HAS_UNCONFIRMED_STEPS = 'hasUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/56141
 	OUT_OF_SYNC = 'outOfSync', // https://data-portal.internal.atlassian.com/analytics/registry/74993
 	STEPS_REBASED = 'stepsRebased', // https://data-portal.internal.atlassian.com/analytics/registry/76616
+	POLLING_FALLBACK = 'pollingFallback',
 }
+
 export enum EVENT_STATUS {
 	SUCCESS = 'SUCCESS',
 	FAILURE = 'FAILURE',
@@ -329,6 +331,14 @@ type StepsRebasedAnalyticsEvent = {
 	} & BaseActionAnalyticsEventAttributes;
 };
 
+type PollingFallbackAnalyticsEvent = {
+	eventAction: EVENT_ACTION.POLLING_FALLBACK;
+	attributes: {
+		eventStatus: EVENT_STATUS.INFO;
+		url: 'string';
+	} & BaseActionAnalyticsEventAttributes;
+};
+
 export type ActionAnalyticsEvent =
 	| AddStepsSuccessAnalyticsEvent
 	| AddStepsFailureAnalyticsEvent
@@ -357,7 +367,8 @@ export type ActionAnalyticsEvent =
 	| UpdateDocumentAnalyticsEvent
 	| ReconnectionAnalyticsEvent
 	| OutOfSyncAnalyticsEvent
-	| StepsRebasedAnalyticsEvent;
+	| StepsRebasedAnalyticsEvent
+	| PollingFallbackAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;
 

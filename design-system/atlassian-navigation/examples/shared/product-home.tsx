@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { CustomProductHome, ProductHome } from '@atlaskit/atlassian-navigation';
 import {
 	BitbucketIcon,
 	BitbucketLogo,
@@ -33,8 +34,6 @@ import {
 	JiraServiceManagementIcon as JiraServiceManagementIconTemp,
 	JiraServiceManagementLogo as JiraServiceManagementLogoTemp,
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
-
-import { CustomProductHome, ProductHome } from '../../src';
 
 import atlassianIconUrl from './assets/atlassian-icon.png';
 import atlassianLogoUrl from './assets/atlassian-logo.png';

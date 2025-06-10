@@ -42,6 +42,9 @@
 			"path": "../../../design-system/empty-state/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/focus-ring/afm-post-office/tsconfig.json"
 		},
 		{

@@ -15,9 +15,8 @@ import {
 	OpsgenieIcon,
 	StatuspageIcon,
 } from '@atlaskit/logo';
+import { ExitingPersistence, FadeIn, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
-
-import { ExitingPersistence, FadeIn, StaggeredEntrance } from '../src';
 
 import { Block, RetryContainer } from './utils';
 

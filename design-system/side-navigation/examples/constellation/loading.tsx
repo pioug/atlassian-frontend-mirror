@@ -9,7 +9,8 @@ import {
 	Section,
 	SideNavigation,
 	SkeletonItem,
-} from '../../src';
+} from '@atlaskit/side-navigation';
+
 import AppFrame from '../common/app-frame';
 
 const LoadingExample = () => {

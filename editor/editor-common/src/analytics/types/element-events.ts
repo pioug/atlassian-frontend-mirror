@@ -34,6 +34,19 @@ type ElementDragAEP = UIAEP<
 	null
 >;
 
+type ElementDragEndAEP = TrackAEP<
+	ACTION.ENDED,
+	ACTION_SUBJECT.DRAG,
+	ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+	{
+		dragInitializationDuration: number;
+		dropProcessingDuration: number;
+		isCancelled: boolean;
+		nodesCount: number;
+	},
+	null
+>;
+
 type DragCancelledAEP = UIAEP<
 	ACTION.CANCELLED,
 	ACTION_SUBJECT.DRAG,
@@ -54,4 +67,5 @@ export type ElementEventPayload =
 	| ElementClickedAEP
 	| ElementMovedAEP
 	| ElementDragAEP
+	| ElementDragEndAEP
 	| DragCancelledAEP;

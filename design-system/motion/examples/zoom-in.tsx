@@ -7,8 +7,7 @@ import React, { useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-
-import { ExitingPersistence, StaggeredEntrance, ZoomIn } from '../src';
+import { ExitingPersistence, StaggeredEntrance, ZoomIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from './utils';
 

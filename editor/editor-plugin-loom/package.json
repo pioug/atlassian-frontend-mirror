@@ -108,5 +108,10 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
+	},
+	"platform-feature-flags": {
+		"should-render-to-parent-should-be-true-editor-lego": {
+			"type": "boolean"
+		}
 	}
 }

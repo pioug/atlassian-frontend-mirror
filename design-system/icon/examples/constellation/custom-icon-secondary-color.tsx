@@ -5,10 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
+import Icon, { type CustomGlyphProps } from '@atlaskit/icon';
 import { token } from '@atlaskit/tokens';
-
-import Icon from '../../src';
-import type { CustomGlyphProps } from '../../src/types';
 
 const stylesStyles = css({
 	backgroundColor: token('color.icon.warning'),

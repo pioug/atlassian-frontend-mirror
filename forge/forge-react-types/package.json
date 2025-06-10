@@ -79,5 +79,10 @@
 	},
 	"sideEffects": [
 		"*.compiled.css"
-	]
+	],
+	"platform-feature-flags": {
+		"should-render-to-parent-should-be-true-forge-ui": {
+			"type": "boolean"
+		}
+	}
 }

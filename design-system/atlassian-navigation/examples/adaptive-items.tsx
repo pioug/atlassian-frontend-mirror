@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
-import { ButtonItem } from '@atlaskit/menu';
-import { token } from '@atlaskit/tokens';
-
 import {
 	AtlassianNavigation,
 	Create,
 	PrimaryButton,
 	type PrimaryButtonProps,
 	useOverflowStatus,
-} from '../src';
+} from '@atlaskit/atlassian-navigation';
+import Button from '@atlaskit/button/new';
+import { ButtonItem } from '@atlaskit/menu';
+import { token } from '@atlaskit/tokens';
 
 const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {
 	const overflowStatus = useOverflowStatus();

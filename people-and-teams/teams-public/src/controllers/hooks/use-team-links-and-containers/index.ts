@@ -40,7 +40,13 @@ export const useTeamLinksAndContainers = (
 	} = useTeamContainers(teamId, enableContainers);
 
 	const [
-		{ links, isLoading: webLinksLoading, hasError: webLinksError, hasLoaded: webLinksHasLoaded },
+		{
+			links,
+			linkIcons,
+			isLoading: webLinksLoading,
+			hasError: webLinksError,
+			hasLoaded: webLinksHasLoaded,
+		},
 		{ getTeamWebLinks, createTeamWebLink, updateTeamWebLink, removeWebLink },
 	] = useTeamWebLinks();
 
@@ -48,7 +54,10 @@ export const useTeamLinksAndContainers = (
 		getTeamWebLinks(teamId);
 	}, [getTeamWebLinks, teamId]);
 
-	const webLinkContainers = useMemo(() => webLinksToContainers(links), [links]);
+	const webLinkContainers = useMemo(
+		() => webLinksToContainers(links, linkIcons),
+		[links, linkIcons],
+	);
 
 	const allContainers = useMemo(
 		() => [...teamContainers, ...webLinkContainers],

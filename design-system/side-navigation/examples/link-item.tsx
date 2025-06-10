@@ -3,8 +3,7 @@ import React, { type MouseEvent } from 'react';
 import BookIcon from '@atlaskit/icon/glyph/book';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { Box } from '@atlaskit/primitives';
-
-import { LinkItem } from '../src';
+import { LinkItem } from '@atlaskit/side-navigation';
 
 const Example = () => (
 	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable

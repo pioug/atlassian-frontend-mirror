@@ -130,6 +130,7 @@ export class CodeViewRenderer extends Component<Props, State> {
 
 		const codeViewer =
 			lineCount(src) > MAX_FORMATTED_LINES || fileSize > MAX_FILE_SIZE_USE_CODE_VIEWER ? (
+				// eslint-disable-next-line @atlaskit/design-system/no-html-code
 				<code css={codeViewerHTMLStyles} data-testid="code-block">
 					{src}
 				</code>

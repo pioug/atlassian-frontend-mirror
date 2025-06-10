@@ -7,6 +7,15 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import {
+	AtlassianNavigation,
+	PrimaryButton,
+	PrimaryDropdownButton,
+	ProductHome,
+	Search,
+	Settings,
+	useOverflowStatus,
+} from '@atlaskit/atlassian-navigation';
 import Avatar from '@atlaskit/avatar';
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
@@ -19,16 +28,6 @@ import Popup from '@atlaskit/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 import { Box } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-
-import {
-	AtlassianNavigation,
-	PrimaryButton,
-	PrimaryDropdownButton,
-	ProductHome,
-	Search,
-	Settings,
-} from '../src';
-import { useOverflowStatus } from '../src/controllers/overflow';
 
 import { DefaultCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

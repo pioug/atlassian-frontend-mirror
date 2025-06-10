@@ -8,9 +8,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Icon from '@atlaskit/icon';
 import { Anchor, Box } from '@atlaskit/primitives/compiled';
+import { Footer, NavigationFooter } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
-
-import { Footer, NavigationFooter } from '../src';
 
 import SampleIcon from './common/next-gen-project-icon';
 

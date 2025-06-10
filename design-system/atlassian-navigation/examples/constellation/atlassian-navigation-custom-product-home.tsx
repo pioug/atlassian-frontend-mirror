@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AtlassianNavigation, CustomProductHome } from '../../src';
+import { AtlassianNavigation, CustomProductHome } from '@atlaskit/atlassian-navigation';
+
 import customIcon from '../shared/assets/atlassian-icon.png';
 import customLogo from '../shared/assets/custom-logo-wide.png';
 

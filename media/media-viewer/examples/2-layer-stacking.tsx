@@ -1,6 +1,11 @@
 import React from 'react';
 import Button from '@atlaskit/button/new';
-import ModalDialog, { ModalBody } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+} from '@atlaskit/modal-dialog';
 import {
 	createStorybookMediaClientConfig,
 	defaultCollectionName,
@@ -14,24 +19,39 @@ const mediaClientConfig = createStorybookMediaClientConfig();
 
 export type State = {
 	selectedItem?: Identifier;
+	isModalOpen: boolean;
 };
 
 export default class Example extends React.Component<{}, State> {
-	state: State = { selectedItem: undefined };
+	state: State = { selectedItem: undefined, isModalOpen: true };
 	setItem = (selectedItem: Identifier) => () => {
 		this.setState({ selectedItem });
 	};
 
+	toggleModal = () => {
+		this.setState({ isModalOpen: !this.state.isModalOpen });
+	};
+
 	render() {
+		const { isModalOpen } = this.state;
+
 		return (
 			<MainWrapper>
-				<ModalDialog>
-					<ModalBody>
-						<h1>This is a modal dialog</h1>
-						<p>MediaViewer should open on top of the modal dialog</p>
-						<Button onClick={this.setItem(imageItem)}>Open MediaViewer</Button>
-					</ModalBody>
-				</ModalDialog>
+				<Button onClick={this.toggleModal}>Open Modal</Button>
+				{isModalOpen && (
+					<ModalDialog onClose={this.toggleModal}>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Example Modal Dialog</ModalTitle>
+						</ModalHeader>
+						<ModalBody>
+							<p>MediaViewer should open on top of the modal dialog</p>
+							<Button appearance="primary" onClick={this.setItem(imageItem)}>
+								Open MediaViewer
+							</Button>
+						</ModalBody>
+						<ModalFooter></ModalFooter>
+					</ModalDialog>
+				)}
 
 				{this.state.selectedItem && (
 					<MediaViewer

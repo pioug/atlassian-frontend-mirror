@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Page, { Grid, GridColumn } from '../../src';
+import Page, { Grid, GridColumn } from '@atlaskit/page';
+
 import { Dummy } from '../common/dummy';
 
 const PageBasicExample = () => {

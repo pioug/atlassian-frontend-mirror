@@ -1,6 +1,7 @@
 import React from 'react';
-import type { CustomGlyphProps } from '../src/types';
-import Icon from '../src';
+
+import Icon from '@atlaskit/icon';
+import type { CustomGlyphProps } from '@atlaskit/icon/types';
 
 const BeforePropGlyph = ({ role }: CustomGlyphProps) => (
 	<svg role={role} width={24} height={24} viewBox="0 0 24 24" data-random>

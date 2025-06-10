@@ -4,9 +4,8 @@ import React, { Component, type ComponentType, type FormEvent } from 'react';
 import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button/new';
+import metadata from '@atlaskit/icon-object/metadata';
 import TextField from '@atlaskit/textfield';
-
-import metadata from '../src/metadata';
 
 import IconExplorerCell from './utils/icon-explorer-cell';
 

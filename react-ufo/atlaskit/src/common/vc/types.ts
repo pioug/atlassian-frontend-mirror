@@ -46,7 +46,13 @@ export type VCEntryType = {
 	elements: string[];
 };
 
-export type VCIgnoreReason = 'image' | 'ssr-hydration' | 'not-visible' | 'non-visual-style' | '';
+export type VCIgnoreReason =
+	| 'image'
+	| 'ssr-hydration'
+	| 'not-visible'
+	| 'non-visual-style'
+	| 'rll-placeholder'
+	| '';
 
 export type ComponentsLogEntry = {
 	type?: string;

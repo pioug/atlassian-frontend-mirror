@@ -82,7 +82,13 @@ export const isMoveSequence = (
 		const originStepIndex = previousRebaseableStep.origin.steps.findIndex(
 			(s) => s === previousRebaseableStep.step,
 		);
+		if (originStepIndex === -1) {
+			return false;
+		}
 		const originalDoc = previousRebaseableStep.origin.docs[originStepIndex];
+		if (!originalDoc) {
+			return false;
+		}
 
 		const currentSlice = originalDoc.slice(
 			previousRebaseableStep.step.from,
@@ -111,7 +117,17 @@ export const createMoveMapStep = (
 	transform: ProseMirrorTransform,
 	previousStepIndex: number,
 ) => {
-	if (!isReplaceTypeStep(previousStep) || (mapped && !isReplaceTypeStep(mapped)) || !mapped) {
+	if (
+		!isReplaceTypeStep(previousStep) ||
+		(mapped && !isReplaceTypeStep(mapped)) ||
+		!mapped ||
+		// Ensure previous step index is valid
+		!(
+			previousStepIndex >= 0 &&
+			previousStepIndex < transform.docs.length &&
+			typeof previousStep?.from === 'number'
+		)
+	) {
 		return undefined;
 	}
 	const newSlice = transform.docs[previousStepIndex].slice(previousStep?.from, previousStep?.to);

@@ -1,5 +1,26 @@
 # @atlaskit/profilecard
 
+## 23.18.0
+
+### Minor Changes
+
+- [#165970](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165970)
+  [`2f04674b589a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f04674b589a3) -
+  [ux] PTC-11538 Render team web link card in team profile card && fetch team web link icons
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.17.0
+
+### Minor Changes
+
+- [#167224](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167224)
+  [`198e371fcf6c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/198e371fcf6c7) -
+  We are testing adding `shouldRenderToProp` to Design System dropdown menu and popup components to
+  improve accessibility. If this fix is successful it will be available in a later release.
+
 ## 23.16.12
 
 ### Patch Changes

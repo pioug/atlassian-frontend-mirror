@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Code } from '@atlaskit/code';
+import Page, { Grid, GridColumn } from '@atlaskit/page';
 
-import Page, { Grid, GridColumn } from '../../src';
 import { Dummy } from '../common/dummy';
 
 const columns = 12;

@@ -15,7 +15,8 @@ const createRebaseableStep = (
 ): Rebaseable => ({
 	step,
 	origin: origin as Transform,
-	inverted: step.invert(origin.docs[origin.docs.length - 1]),
+	// @ts-expect-error
+	inverted: origin.docs.length > 0 ? step.invert(origin.docs[origin.docs.length - 1]) : undefined,
 });
 
 const schema = new Schema({
@@ -113,6 +114,38 @@ describe('isMoveSequence', () => {
 		const previousRebaseableStep = createRebaseableStep(deletionStep, {
 			steps: [],
 			docs: [createDoc('Different origin')], // Mismatched original doc
+		});
+
+		const result = isMoveSequence(previousRebaseableStep, insertionStep);
+
+		expect(result).toBe(false);
+	});
+
+	it('returns false for no valid documents found in a move sequence', () => {
+		const originalDoc = createDoc('Hello world');
+
+		const deletionStep = createDeleteStep(0, 6);
+		const insertionStep = createReplaceStep(6, 6, originalDoc.slice(0, 6));
+
+		const previousRebaseableStep = createRebaseableStep(deletionStep, {
+			steps: [deletionStep],
+			docs: [],
+		});
+
+		const result = isMoveSequence(previousRebaseableStep, insertionStep);
+
+		expect(result).toBe(false);
+	});
+
+	it('returns false for a valid steps in sequence', () => {
+		const originalDoc = createDoc('Hello world');
+
+		const deletionStep = createDeleteStep(0, 6);
+		const insertionStep = createReplaceStep(6, 6, originalDoc.slice(0, 6));
+
+		const previousRebaseableStep = createRebaseableStep(deletionStep, {
+			steps: [],
+			docs: [originalDoc],
 		});
 
 		const result = isMoveSequence(previousRebaseableStep, insertionStep);

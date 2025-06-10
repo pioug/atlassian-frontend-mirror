@@ -95,7 +95,7 @@ export default function Example() {
 			<p style={lineStyle()}>
 				Paragraph <SampleEmojis />
 			</p>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-code, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<code style={lineStyle()}>
 				Code <SampleEmojis />
 			</code>

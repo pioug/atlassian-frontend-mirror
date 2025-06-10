@@ -56,6 +56,9 @@
 			"path": "../../design-system/empty-state/tsconfig.app.json"
 		},
 		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/focus-ring/tsconfig.app.json"
 		},
 		{

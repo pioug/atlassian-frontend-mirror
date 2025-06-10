@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import { SkeletonHeadingItem } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
-
-import { SkeletonHeadingItem } from '../src';
 
 const styles = cssMap({
 	customPadding: {

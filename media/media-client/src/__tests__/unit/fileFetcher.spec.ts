@@ -172,6 +172,7 @@ describe('FileFetcher', () => {
 		});
 		mediaStore.touchFiles = touchFiles;
 		mediaStore.uploadArtifact = jest.fn();
+		mediaStore.deleteArtifact = jest.fn();
 
 		const fileFetcher = new FileFetcherImpl(mediaStore, fileStateStore);
 
@@ -1835,6 +1836,93 @@ describe('FileFetcher', () => {
 				collectionName,
 				traceContext,
 			);
+		});
+	});
+
+	describe('deleteArtifact', () => {
+		it('should call mediaApi.deleteArtifact and update file state', async () => {
+			const { fileFetcher, mediaStore } = setup();
+			const fileId = 'test-file-id';
+			const params = {
+				artifactName: 'ugc_caption_en',
+			};
+			const collectionName = 'test-collection';
+			const traceContext = {
+				traceId: 'test-trace-id',
+				spanId: 'test-span-id',
+			};
+
+			// Mock initial file state with artifacts
+			const initialFileState = {
+				id: fileId,
+				status: 'processed' as const,
+				name: 'test-video.mp4',
+				size: 1000,
+				mediaType: 'video' as const,
+				mimeType: 'video/mp4',
+				artifacts: {
+					'video.mp4': {
+						url: 'https://test-url.com/video',
+						processingStatus: 'succeeded' as const,
+					},
+					ugc_caption_en: {
+						url: 'https://test-url.com/caption',
+						createdAt: 1234567890,
+						mimeType: 'text/vtt',
+					},
+				},
+			};
+
+			// Set initial state
+			fileFetcher['store'].setState(() => ({
+				files: {
+					[fileId]: initialFileState,
+				},
+			}));
+
+			(mediaStore.deleteArtifact as jest.Mock).mockResolvedValue(undefined);
+
+			await fileFetcher.deleteArtifact(fileId, params, collectionName, traceContext);
+
+			expect(mediaStore.deleteArtifact).toHaveBeenCalledWith(
+				fileId,
+				params,
+				collectionName,
+				traceContext,
+			);
+
+			// Verify that the artifact was removed from file state
+			const updatedFileState = fileFetcher['store'].getState().files[fileId];
+			expect(updatedFileState.status).toBe('processed');
+			if (updatedFileState.status === 'processed') {
+				expect(updatedFileState.artifacts).toEqual({
+					'video.mp4': {
+						url: 'https://test-url.com/video',
+						processingStatus: 'succeeded',
+					},
+				});
+				expect(updatedFileState.artifacts['ugc_caption_en']).toBeUndefined();
+			}
+		});
+
+		it('should handle errors from mediaApi.deleteArtifact', async () => {
+			const { fileFetcher, mediaStore } = setup();
+			const fileId = 'test-file-id';
+			const params = {
+				artifactName: 'ugc_caption_en',
+			};
+			const collectionName = 'test-collection';
+			const traceContext = {
+				traceId: 'test-trace-id',
+				spanId: 'test-span-id',
+			};
+
+			const error = new Error('Delete failed');
+			(mediaStore.deleteArtifact as jest.Mock).mockRejectedValue(error);
+
+			await expect(
+				fileFetcher.deleteArtifact(fileId, params, collectionName, traceContext),
+			).rejects.toThrow('Delete failed');
 		});
 	});
 });

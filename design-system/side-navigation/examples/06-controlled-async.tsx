@@ -10,7 +10,6 @@ import { Label } from '@atlaskit/form';
 import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
-
 import {
 	HeadingItem,
 	NavigationHeader,
@@ -19,7 +18,7 @@ import {
 	Section,
 	SideNavigation,
 	SkeletonItem,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';

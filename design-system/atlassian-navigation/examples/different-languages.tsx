@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
 import { Box, Stack } from '@atlaskit/primitives';
-
-import { AtlassianNavigation } from '../src';
 
 import {
 	DefaultCreate,

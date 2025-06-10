@@ -6,8 +6,6 @@ import { css, jsx } from '@compiled/react';
 
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import StarIcon from '@atlaskit/icon/glyph/star';
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	CustomItem,
@@ -17,7 +15,8 @@ import {
 	Section,
 	SkeletonHeadingItem,
 	SkeletonItem,
-} from '../src';
+} from '@atlaskit/menu';
+import { token } from '@atlaskit/tokens';
 
 const overrideStyles = css({
 	paddingBlockEnd: token('space.150', '12px'),

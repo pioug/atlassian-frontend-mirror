@@ -53,7 +53,7 @@ export const useTextTracks = (
 
 					const src = (baseUrl && URL.createObjectURL(baseUrl)) || '';
 					const { lang, label } = decodeMimetype(mimeType);
-					return { src, lang, label };
+					return { src, lang, label, artifactName };
 				}),
 			).then((tracks) => {
 				setTextTracks({

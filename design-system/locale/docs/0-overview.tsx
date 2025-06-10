@@ -1,5 +1,6 @@
 import React from 'react';
-import { md, Example, code } from '@atlaskit/docs';
+
+import { code, Example, md } from '@atlaskit/docs';
 
 export default md`
   Use \`LocaleProvider\` to format dates and times, get days of the week/months

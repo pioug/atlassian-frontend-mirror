@@ -44,3 +44,10 @@ export function useOpenLayerObserver(): OpenLayerObserverPublicAPI {
 
 	return publicAPI;
 }
+
+/**
+ * No-op hook used to resolved build errors with a breaking change that was released as minor version.
+ */
+export function useOpenLayerObserverBehindFG(): OpenLayerObserverPublicAPI | null {
+	return null;
+}

@@ -1,5 +1,18 @@
 # @atlaskit/select
 
+## 20.7.0
+
+### Minor Changes
+
+- [#155546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155546)
+  [`4133da7ce5d92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4133da7ce5d92) -
+  This cleans up the feature flag references for assistive technology improvements, making them
+  fully available to all people.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.6.2
 
 ### Patch Changes

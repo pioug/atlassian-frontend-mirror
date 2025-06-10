@@ -2,7 +2,7 @@ import React, { Suspense, useCallback, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { type Flag, GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import { ButtonItem } from '@atlaskit/menu';
 
 import { extractIdFromAri } from '../../../client/getTeamFromAGG';
@@ -23,6 +23,7 @@ type KudosEnabledProps = BaseTeamActionsProps & {
 	isKudosEnabled: true;
 	teamCentralBaseUrl: string;
 	analyticsSource: string;
+	showKudosFlag?: (flagConfig: Flag) => void;
 };
 
 type KudosDisabledProps = BaseTeamActionsProps & {
@@ -76,6 +77,7 @@ export const TeamActions = ({
 						analyticsSource={kudosProps.analyticsSource}
 						teamCentralBaseUrl={kudosProps.teamCentralBaseUrl}
 						cloudId={kudosProps.cloudId}
+						addFlag={kudosProps.showKudosFlag}
 					/>
 				</Suspense>
 			)}

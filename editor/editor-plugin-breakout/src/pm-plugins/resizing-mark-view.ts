@@ -1,3 +1,6 @@
+import type { IntlShape } from 'react-intl-next';
+
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
@@ -16,17 +19,27 @@ export class ResizingMarkView implements NodeView {
 	view: EditorView;
 	mark: Mark;
 	destroyFn: () => void;
+	intl: IntlShape;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 
 	/**
 	 * Wrap node view in a resizing mark view
 	 * @param {Mark} mark - The breakout mark to resize
 	 * @param {EditorView} view - The editor view
-	 * @param {ExtractInjectionAPI<BreakoutPlugin> | undefined} api - the pluginInjectionAPI
+	 * @param {ExtractInjectionAPI<BreakoutPlugin> | undefined} api - The pluginInjectionAPI
+	 * @param {Function} getIntl - () => IntlShape
+	 * @param {PortalProviderAPI} - The nodeViewPortalProviderAPI
 	 * @example
 	 * ```ts
 	 * ```
 	 */
-	constructor(mark: Mark, view: EditorView, api: ExtractInjectionAPI<BreakoutPlugin> | undefined) {
+	constructor(
+		mark: Mark,
+		view: EditorView,
+		api: ExtractInjectionAPI<BreakoutPlugin> | undefined,
+		getIntl: () => IntlShape,
+		nodeViewPortalProviderAPI: PortalProviderAPI,
+	) {
 		const dom = document.createElement('div');
 		const contentDOM = document.createElement('div');
 		contentDOM.className = BreakoutCssClassName.BREAKOUT_MARK_DOM;
@@ -44,7 +57,6 @@ export class ResizingMarkView implements NodeView {
 		contentDOM.style.gridRow = '1';
 		contentDOM.style.gridColumn = '1';
 		contentDOM.style.zIndex = '1';
-
 		if (mark.attrs.width) {
 			contentDOM.style.minWidth = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
 		} else {
@@ -59,10 +71,13 @@ export class ResizingMarkView implements NodeView {
 		dom.appendChild(contentDOM);
 
 		const callbacks = createResizerCallbacks({ dom, contentDOM, view, mark, api });
-
+		this.intl = getIntl();
+		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
 		const { leftHandle, rightHandle, destroy } = createPragmaticResizer({
 			target: contentDOM,
 			...callbacks,
+			intl: this.intl,
+			nodeViewPortalProviderAPI: this.nodeViewPortalProviderAPI,
 		});
 
 		dom.prepend(leftHandle);

@@ -1,5 +1,14 @@
 # @atlaskit/layering
 
+## 2.2.1
+
+### Patch Changes
+
+- [#168502](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168502)
+  [`9b40fe768e1a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b40fe768e1a6) -
+  The `useOpenLayerObserverBehindFG` hook has been reintroduced with a null return value to resolve
+  build issues. It will be removed in a following major release.
+
 ## 2.2.0
 
 ### Minor Changes

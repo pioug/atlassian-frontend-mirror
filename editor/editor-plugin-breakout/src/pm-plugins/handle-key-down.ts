@@ -1,0 +1,77 @@
+import { browser } from '@atlaskit/editor-common/browser';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+	akEditorDefaultLayoutWidth,
+	akEditorFullWidthLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
+
+const KEYBOARD_RESIZE_STEP = 10;
+
+const getAncestorResizableNode = (
+	view: EditorView,
+	breakoutResizableNodes: Set<NodeType>,
+): NodeWithPos | null => {
+	const selection = view.state.selection;
+
+	if (selection instanceof NodeSelection) {
+		const selectedNode = selection.node;
+		if (breakoutResizableNodes.has(selectedNode.type)) {
+			return { node: selectedNode, pos: selection.$from.pos };
+		}
+	} else if (selection instanceof TextSelection) {
+		let node = null;
+		let nodePos = null;
+
+		// only top level nodes are resizable
+		const resolvedPos = view.state.doc.resolve(selection.$from.pos);
+		const currentNode = resolvedPos.node(1);
+		if (breakoutResizableNodes.has(currentNode.type)) {
+			node = currentNode;
+			nodePos = resolvedPos.before(1);
+			return { node: node, pos: nodePos };
+		}
+	}
+
+	return null;
+};
+
+export const handleKeyDown = (view: EditorView, event: KeyboardEvent) => {
+	if (fg('platform_editor_breakout_resizing_hello_release')) {
+		const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
+		const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
+		if (metaKey && event.altKey && isBracketKey) {
+			const { expand, codeBlock, layoutSection } = view.state.schema.nodes;
+			const breakoutResizableNodes = new Set([expand, codeBlock, layoutSection]);
+
+			const result = getAncestorResizableNode(view, breakoutResizableNodes);
+			if (result) {
+				const { node, pos } = result;
+
+				const breakoutMark = node?.marks.find((mark) => mark.type.name === 'breakout');
+				if (breakoutMark) {
+					const step = event.code === 'BracketRight' ? KEYBOARD_RESIZE_STEP : -KEYBOARD_RESIZE_STEP;
+
+					const newWidth = breakoutMark.attrs.width + step;
+					if (newWidth < akEditorFullWidthLayoutWidth && newWidth > akEditorDefaultLayoutWidth) {
+						setBreakoutWidth(
+							breakoutMark.attrs.width + step,
+							breakoutMark.attrs.mode,
+							pos,
+						)(view.state, view.dispatch);
+						view.focus();
+					}
+
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+};

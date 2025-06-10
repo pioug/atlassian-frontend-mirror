@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.7.0
+
+### Minor Changes
+
+- [#166997](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166997)
+  [`826de0a17dc7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/826de0a17dc7e) -
+  Introduce new breakout oprational event in editor-common, export the type and use in
+  editor-plugin-breakout. Add performance measurement for FPS for resizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.1
+
+### Patch Changes
+
+- [#166490](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166490)
+  [`9f140155c14be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f140155c14be) -
+  [ux] Shows tooltip on the resize handle when it is hovered.
+- Updated dependencies
+
+## 2.6.0
+
+### Minor Changes
+
+- [#166502](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166502)
+  [`ea1ed63fc9615`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea1ed63fc9615) -
+  ED-28032 add keyboard shortcuts for new resizing experience behind
+  platform_editor_breakout_resizing
+
 ## 2.5.3
 
 ### Patch Changes

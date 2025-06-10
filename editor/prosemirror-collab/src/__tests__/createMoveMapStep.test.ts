@@ -116,4 +116,34 @@ describe('createMoveMapStep', () => {
 		expect(result?.to).toBe(13);
 		expect(result?.slice.content.size).toBe(0);
 	});
+
+	it('should return undefined for a delete step with invalid index (small)', () => {
+		const originalDoc = createDoc('Hello world');
+
+		const previousStep = createReplaceStep(1, 6, Slice.empty);
+		const mappedStep = createReplaceStep(7, 7, originalDoc.slice(1, 7));
+
+		const transform = new Transform(originalDoc);
+		transform.step(previousStep);
+		transform.step(mappedStep);
+
+		const result = createMoveMapStep(mappedStep, previousStep, transform, -1);
+
+		expect(result).toBe(undefined);
+	});
+
+	it('should return undefined for a delete step with invalid index (large)', () => {
+		const originalDoc = createDoc('Hello world');
+
+		const previousStep = createReplaceStep(1, 6, Slice.empty);
+		const mappedStep = createReplaceStep(7, 7, originalDoc.slice(1, 7));
+
+		const transform = new Transform(originalDoc);
+		transform.step(previousStep);
+		transform.step(mappedStep);
+
+		const result = createMoveMapStep(mappedStep, previousStep, transform, 99);
+
+		expect(result).toBe(undefined);
+	});
 });

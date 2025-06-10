@@ -1,7 +1,7 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e6b5961ba00371b4eb211e1e58703372>>
- * @codegenCommand yarn generate-artifacts
+ * @codegen <<SignedSource::d9ed4d8f8232e5466ad40a97c396575a>>
+ * @codegenCommand yarn workspace @atlaskit/legacy-custom-icons generate-artifacts
  */
 export { default as AirTableFilterIcon } from './ui/air-table-filter-icon';
 export { default as AirTableIcon } from './ui/air-table-icon';

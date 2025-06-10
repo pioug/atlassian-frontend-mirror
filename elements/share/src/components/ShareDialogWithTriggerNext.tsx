@@ -607,6 +607,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 				tabIndex={tabIndex}
 				onKeyDown={this.handleKeyDown}
 			>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 				<Popup
 					content={() => (
 						<div ref={this.containerRef}>

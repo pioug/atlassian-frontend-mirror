@@ -8,8 +8,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import ButtonOld from '@atlaskit/button';
 import { cssMap, jsx } from '@atlaskit/css';
-import ErrorIconCore from '@atlaskit/icon/core/migration/error';
-import ErrorIcon from '@atlaskit/icon/utility/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -52,7 +51,7 @@ export interface InlineCardErroredViewProps {
 const fallbackIcon = () => {
 	if (fg('platform-linking-visual-refresh-v1')) {
 		return (
-			<ErrorIconCore
+			<ErrorIcon
 				color={token('color.icon.danger')}
 				label="error"
 				LEGACY_size="small"
@@ -68,6 +67,7 @@ const fallbackIcon = () => {
 				label="error"
 				LEGACY_size="small"
 				testId="errored-view-default-icon"
+				size="small"
 			/>
 		</Box>
 	);

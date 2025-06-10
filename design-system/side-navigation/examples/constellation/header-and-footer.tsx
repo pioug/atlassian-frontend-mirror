@@ -2,7 +2,6 @@ import React from 'react';
 
 import Icon from '@atlaskit/icon';
 import Link from '@atlaskit/link';
-
 import {
 	Footer,
 	Header,
@@ -10,7 +9,8 @@ import {
 	NavigationFooter,
 	NavigationHeader,
 	SideNavigation,
-} from '../../src';
+} from '@atlaskit/side-navigation';
+
 import AppFrame from '../common/app-frame';
 import SampleIcon from '../common/next-gen-project-icon';
 import RocketIcon from '../common/sample-logo';

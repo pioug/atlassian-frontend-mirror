@@ -7,9 +7,8 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right';
+import { ButtonItem } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
-
-import { ButtonItem } from '../src';
 
 import ImgIcon from './common/img-icon';
 import koala from './icons/koala.png';

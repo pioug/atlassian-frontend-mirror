@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	CustomItem,
@@ -10,7 +8,8 @@ import {
 	MenuGroup,
 	Section,
 	SELECTION_STYLE_CONTEXT_DO_NOT_USE,
-} from '../src';
+} from '@atlaskit/menu';
+import { token } from '@atlaskit/tokens';
 
 type LinkProps = CustomItemComponentProps & {
 	href: string;

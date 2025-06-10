@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 106.5.0
+
+### Minor Changes
+
+- [#166997](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166997)
+  [`826de0a17dc7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/826de0a17dc7e) -
+  Introduce new breakout oprational event in editor-common, export the type and use in
+  editor-plugin-breakout. Add performance measurement for FPS for resizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 106.4.0
+
+### Minor Changes
+
+- [#164171](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164171)
+  [`6e761beb64a85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e761beb64a85) -
+  ED-28155 add dnd performance tracker
+
+### Patch Changes
+
+- [#166490](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166490)
+  [`9f140155c14be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f140155c14be) -
+  [ux] Shows tooltip on the resize handle when it is hovered.
+
 ## 106.3.3
 
 ### Patch Changes

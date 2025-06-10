@@ -38,6 +38,7 @@ import {
 	paragraphSharedStyles,
 	resizerStyles,
 	pragmaticResizerStyles,
+	pragmaticResizerStylesForTooltip,
 	ruleSharedStyles,
 	shadowSharedStyle,
 	smartCardSharedStyles,
@@ -529,6 +530,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${unsupportedStyles}
   ${resizerStyles}
   ${pragmaticResizerStyles()}
+  ${pragmaticResizerStylesForTooltip()}
   ${aiPanelStyles(props.colorMode)}
   ${firstBlockNodeStylesNew}
 

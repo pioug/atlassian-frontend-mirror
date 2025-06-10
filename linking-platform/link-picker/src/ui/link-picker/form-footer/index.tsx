@@ -9,8 +9,8 @@ import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import NewButton from '@atlaskit/button/new';
+import EditorAddIcon from '@atlaskit/icon/core/add';
 import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
-import EditorAddIcon from '@atlaskit/icon/utility/add';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -112,6 +112,7 @@ export const FormFooter = memo(
 							LEGACY_size="medium"
 							LEGACY_fallbackIcon={EditorAddIconLegacy}
 							color="currentColor"
+							size="small"
 						/>
 					)}
 					isDisabled={isSubmitting}
@@ -132,6 +133,7 @@ export const FormFooter = memo(
 							LEGACY_size="medium"
 							LEGACY_fallbackIcon={EditorAddIconLegacy}
 							color="currentColor"
+							size="small"
 						/>
 					}
 					isDisabled={isSubmitting}

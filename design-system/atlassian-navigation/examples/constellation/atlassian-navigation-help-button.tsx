@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianNavigation, Help } from '../../src';
+import { AtlassianNavigation, Help } from '@atlaskit/atlassian-navigation';
 
 const HelpButtonExample = () => (
 	<AtlassianNavigation

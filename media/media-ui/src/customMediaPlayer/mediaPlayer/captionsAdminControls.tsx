@@ -14,12 +14,14 @@ import { token } from '@atlaskit/tokens';
 export interface CaptionsAdminControlsProps {
 	textTracks?: VideoTextTracks;
 	onUpload: () => void;
+	onDelete: (artifactName: string) => void;
 }
 
 export const _CaptionsAdminControls = ({
 	intl,
 	textTracks = {},
 	onUpload,
+	onDelete,
 }: CaptionsAdminControlsProps & WrappedComponentProps) => {
 	const videoSettings = intl.formatMessage(messages.video_settings);
 	return (
@@ -42,8 +44,8 @@ export const _CaptionsAdminControls = ({
 				{textTracks.captions?.tracks.map((track, index) => (
 					<DropdownItem
 						key={`${track.lang}-${index}`}
-						onClick={() => {}}
-						elemBefore={
+						onClick={() => onDelete(track.artifactName)}
+						elemAfter={
 							<DeleteIcon spacing="spacious" label="" color={token('color.icon.danger')} />
 						}
 					>

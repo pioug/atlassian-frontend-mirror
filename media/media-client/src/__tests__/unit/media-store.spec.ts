@@ -1716,8 +1716,8 @@ describe('MediaStore', () => {
 								},
 								'video_640.mp4',
 								'some-collection',
-							); 
-							
+							);
+
 							expect(url).toEqual('backend-provided-cdn-url');
 							*/
 						},
@@ -1834,6 +1834,47 @@ describe('MediaStore', () => {
 			});
 		});
 
+		describe('deleteArtifact', () => {
+			it('should delete artifact', async () => {
+				fetchMock.once('', {
+					status: 204,
+					statusText: 'No Content',
+				});
+
+				await mediaStore.deleteArtifact(
+					'some-file-id',
+					{ artifactName: 'ugc_caption_en' },
+					'some-collection-name',
+					{ traceId: 'some-trace-id' },
+				);
+
+				expect(resolveAuth).toHaveBeenCalledWith(
+					authProvider,
+					{
+						collectionName: 'some-collection-name',
+						access: [{ type: 'file', id: 'some-file-id', actions: ['update'] }],
+					},
+					undefined,
+				);
+				expect(requestModuleMock).toHaveBeenCalledWith(
+					`${baseUrl}/file/some-file-id/artifact/ugc_caption_en`,
+					expect.objectContaining({
+						method: 'DELETE',
+						auth: {
+							baseUrl: 'http://some-host',
+							clientId: 'some-client-id',
+							token: 'some-token',
+						},
+						traceContext: {
+							traceId: 'some-trace-id',
+							spanId: expect.any(String),
+						},
+						endpoint: '/file/{fileId}/artifact/{artifactName}',
+					}),
+					undefined,
+				);
+			});
+		});
 		describe('copyFileWithToken', () => {
 			const body = {
 				sourceFile: {

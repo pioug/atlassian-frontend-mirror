@@ -8,7 +8,12 @@ import { cssMap } from '@atlaskit/css';
 
 import { token } from '@atlaskit/tokens';
 import { PureComponent } from 'react';
-import ModalDialog, { ModalFooter, ModalBody, useModal } from '@atlaskit/modal-dialog';
+import ModalDialog, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+} from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
 import {
 	FormattedMessage,
@@ -53,18 +58,6 @@ export const fixedCrop = {
 export type AvatarPickerDialogWithIntlProps = AvatarPickerDialogProps &
 	Partial<WrappedComponentProps>;
 
-const modalHeaderStyles = css({
-	// Using `&` twice to increase specificity
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&&': {
-		marginTop: token('space.200', '16px'),
-		marginRight: token('space.200', '16px'),
-		marginBottom: token('space.200', '16px'),
-		marginLeft: token('space.200', '16px'),
-		font: token('font.heading.medium'),
-	},
-});
-
 const formStyles = css({
 	margin: 0,
 });
@@ -78,12 +71,10 @@ const avatarPickerViewWrapperStyles = css({
 });
 
 const HeaderContent = ({ title }: { title?: string }) => {
-	const modal = useModal();
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/use-heading
-		<h1 data-testid="modal-header" css={modalHeaderStyles} id={modal.titleId}>
-			{title || <FormattedMessage {...messages.upload_an_avatar} />}
-		</h1>
+		<ModalHeader testId="modal-header" hasCloseButton>
+			<ModalTitle>{title || <FormattedMessage {...messages.upload_an_avatar} />}</ModalTitle>
+		</ModalHeader>
 	);
 };
 

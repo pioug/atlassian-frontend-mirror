@@ -1,4 +1,4 @@
-import { expect, test } from '@af/integration-testing';
+import { expect, type Locator, test } from '@af/integration-testing';
 
 test('TextArea should be able to be clicked by data-testid', async ({ page }) => {
 	await page.visitExample('design-system', 'textarea', 'testing');
@@ -6,6 +6,10 @@ test('TextArea should be able to be clicked by data-testid', async ({ page }) =>
 	await expect(textArea).toBeVisible();
 	await expect(textArea).toHaveValue('I have a data-testid');
 });
+
+function getOffsetHeight(locator: Locator): Promise<number> {
+	return locator.evaluate((el: HTMLElement) => el.offsetHeight);
+}
 
 test.describe('Resize', () => {
 	const docsText =
@@ -21,13 +25,13 @@ test.describe('Resize', () => {
 		const selector = '[data-testid="autoResizeTextArea"]';
 
 		const textArea = page.locator(selector);
-		const defaultHeight = await textArea.evaluate((el) => el.clientHeight);
+		const defaultHeight = await getOffsetHeight(textArea);
 
 		textArea.fill(docsText);
-		expect(await textArea.evaluate((el) => el.clientHeight)).toBe(defaultHeight);
+		await expect(textArea).toHaveHeight(defaultHeight);
 
 		textArea.clear();
-		expect(await textArea.evaluate((el) => el.clientHeight)).toBe(defaultHeight);
+		await expect(textArea).toHaveHeight(defaultHeight);
 	});
 
 	test('should auto increase/decrease height of resize:smart(default) textarea based on content', async ({
@@ -36,20 +40,20 @@ test.describe('Resize', () => {
 		const selector = '[data-testid="smartResizeTextArea"]';
 
 		const textArea = page.locator(selector);
-		const defaultHeight = await textArea.evaluate((el) => el.clientHeight);
+		const defaultHeight = await getOffsetHeight(textArea);
 
 		textArea.fill(docsText);
-		expect(await textArea.evaluate((el) => el.clientHeight)).toBeGreaterThan(defaultHeight);
+		expect(await getOffsetHeight(textArea)).toBeGreaterThan(defaultHeight);
 
 		textArea.clear();
-		expect(await textArea.evaluate((el) => el.clientHeight)).toBe(defaultHeight);
+		await expect(textArea).toHaveHeight(defaultHeight);
 
 		// ---- Value prop change
 		// Insert text
 		await page.click('[data-testid="insertTextButton"]');
-		expect(await textArea.evaluate((el) => el.clientHeight)).toBeGreaterThan(defaultHeight);
+		expect(await getOffsetHeight(textArea)).toBeGreaterThan(defaultHeight);
 
 		textArea.clear();
-		expect(await textArea.evaluate((el) => el.clientHeight)).toBe(defaultHeight);
+		await expect(textArea).toHaveHeight(defaultHeight);
 	});
 });

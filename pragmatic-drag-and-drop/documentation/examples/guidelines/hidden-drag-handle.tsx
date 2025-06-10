@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
-import DragHandleVerticalIcon from '@atlaskit/icon/utility/migration/drag-handle-vertical--drag-handler';
+import DragHandleVerticalIcon from '@atlaskit/icon/core/migration/drag-handle-vertical--drag-handler';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
@@ -103,9 +103,11 @@ export function HiddenDragHandle() {
 						spacing="spacious"
 						label="Drag list item"
 						color={token('color.icon')}
+						size="small"
 					/>
 				</Box>
 				<Box>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 					Drag handle visible on <code>:hover</code> and <code>:focus-within</code>
 				</Box>
 				<ActionMenu />

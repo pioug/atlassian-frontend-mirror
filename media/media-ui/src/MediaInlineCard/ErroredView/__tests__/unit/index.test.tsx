@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MediaInlineCardErroredView } from '../..';
 import { IntlProvider } from 'react-intl-next';
-import WarningIcon from '@atlaskit/icon/utility/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 
 describe('Errored view', () => {

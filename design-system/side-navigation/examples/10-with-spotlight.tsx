@@ -14,8 +14,6 @@ import {
 	SpotlightTransition,
 } from '@atlaskit/onboarding';
 import { Box, Inline, Text } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	LinkItem,
@@ -25,7 +23,8 @@ import {
 	NestingItem,
 	Section,
 	SideNavigation,
-} from '../src';
+} from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleFooter from './common/sample-footer';

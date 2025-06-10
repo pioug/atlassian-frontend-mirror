@@ -9,17 +9,15 @@ import { css, jsx } from '@compiled/react';
 
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
+import { IconTile } from '@atlaskit/icon';
 import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
+import metadata, { coreIconMetadata, utilityIconMetadata } from '@atlaskit/icon/metadata';
+import migrationMap from '@atlaskit/icon/migration-map';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 import FlaskIcon from '../core/flask';
-import { IconTile } from '../src';
-import metadata from '../src/entry-points/metadata';
-import migrationMap from '../src/entry-points/migration-map';
-import iconMetadata from '../src/metadata-core';
-import utilityIconMetadata from '../src/metadata-utility';
 
 import IconExplorerCell from './utils/new-icon-explorer-cell';
 // eslint-disable-next-line no-duplicate-imports
@@ -47,7 +45,7 @@ const legacyIconPackageMap = Object.keys(migrationMap).reduce(
 // them correctly
 
 const iconInfo = Promise.all(
-	Object.keys(iconMetadata).map(async (name: string) => {
+	Object.keys(coreIconMetadata).map(async (name: string) => {
 		const icon = await import(
 			/* webpackChunkName: "@atlaskit-internal_icon" */
 			`../core/${name}.js`
@@ -59,7 +57,7 @@ const iconInfo = Promise.all(
 		.map((importedIcon) => ({
 			[importedIcon.name]: {
 				component: importedIcon.icon,
-				...iconMetadata[importedIcon.name],
+				...coreIconMetadata[importedIcon.name],
 			},
 		}))
 		.reduce((acc, b) => ({ ...acc, ...b })),

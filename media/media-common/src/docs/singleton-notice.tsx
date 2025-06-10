@@ -20,7 +20,8 @@ export function createSingletonNotice(componentName: string) {
 					<li>
 						<b>A platform consumer</b> — i.e. you are using {componentName} directly in a npm
 						package, for instance in a monorepo. Define {componentName} in your package.json file as
-						a <code>peerDependency</code> and <code>devDependency</code> (for local testing).
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}a{' '}
+						<code>peerDependency</code> and <code>devDependency</code> (for local testing).
 					</li>
 					<li>
 						<b>A product consumer</b> — i.e. you are working directly into your application. Define{' '}

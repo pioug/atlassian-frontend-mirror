@@ -8,7 +8,8 @@ import {
 	NestingItem,
 	Section,
 	SideNavigation,
-} from '../../src';
+} from '@atlaskit/side-navigation';
+
 import AppFrame from '../common/app-frame';
 
 const NestedExample = () => {

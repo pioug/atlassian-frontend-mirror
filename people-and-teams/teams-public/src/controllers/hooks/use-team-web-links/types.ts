@@ -2,7 +2,11 @@ import { type StoreActionApi } from 'react-sweet-state';
 
 import { type TeamWebLink } from '../../../common/types';
 
-import { actions } from './index';
+export interface TeamLinkIconData {
+	linkUrl?: string;
+	iconUrl?: string;
+	productName?: string;
+}
 
 export interface TeamWebLinksState {
 	teamId: string;
@@ -12,7 +16,9 @@ export interface TeamWebLinksState {
 	errorType: Error | null;
 	shouldReload: boolean;
 	links: TeamWebLink[];
+	linkIcons: TeamLinkIconData[];
+	iconsLoading: boolean;
+	iconsError: boolean;
 }
 
 export type StoreApi = StoreActionApi<TeamWebLinksState>;
-export type Actions = typeof actions;

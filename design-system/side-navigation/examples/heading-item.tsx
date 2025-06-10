@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeadingItem } from '../src';
+import { HeadingItem } from '@atlaskit/side-navigation';
 
 const Example = () => <HeadingItem>Actions</HeadingItem>;
 

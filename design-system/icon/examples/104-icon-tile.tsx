@@ -1,11 +1,10 @@
 import React, { Fragment, type FunctionComponent, useEffect, useState } from 'react';
 
 import Heading from '@atlaskit/heading';
+import { IconTile } from '@atlaskit/icon';
+import AddIcon from '@atlaskit/icon/core/add';
+import { type NewCoreIconProps } from '@atlaskit/icon/types';
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
-
-import AddIcon from '../core/add';
-import { IconTile } from '../src';
-import { type NewCoreIconProps } from '../src/types';
 
 const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = () => {

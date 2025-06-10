@@ -4,9 +4,6 @@ import Button from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
 import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
 import StarUnstarredIcon from '@atlaskit/icon/core/migration/star-unstarred--star';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	type ButtonItemProps,
@@ -15,7 +12,10 @@ import {
 	Section,
 	SkeletonHeadingItem,
 	SkeletonItem,
-} from '../../src';
+} from '@atlaskit/menu';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
 import MenuGroupContainer from '../common/menu-group-container';
 import Invision from '../icons/invision';
 import Portfolio from '../icons/portfolio';

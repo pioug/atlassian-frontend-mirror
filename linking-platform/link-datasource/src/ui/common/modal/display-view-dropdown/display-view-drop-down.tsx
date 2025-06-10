@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -92,7 +92,7 @@ export const DisplayViewDropDown = ({ onViewModeChange, viewMode }: DisplayViewD
 					<Button
 						{...triggerProps}
 						ref={triggerRef}
-						iconAfter={() => <ChevronDownIcon label="" color="currentColor" />}
+						iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
 					>
 						{triggerText}
 					</Button>

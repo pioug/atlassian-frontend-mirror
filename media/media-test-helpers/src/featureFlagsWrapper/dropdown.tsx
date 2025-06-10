@@ -1,11 +1,12 @@
-import { Stack, xcss } from '@atlaskit/primitives';
 import React, { useState } from 'react';
 import Textfield from '@atlaskit/textfield';
 import { type MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import { getMediaFeatureFlags, clearAllLocalFeatureFlags, setLocalFeatureFlag } from './helpers';
 import SelectClearIcon from '@atlaskit/icon/core/migration/cross-circle--select-clear';
-import HipchatChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
+import HipchatChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import Button from '@atlaskit/button/standard-button';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -143,11 +144,19 @@ const MediaFeatureFlagsDropdown = ({ onFlagChanged }: MediaFeatureFlagsDropdownP
 						{...triggerProps}
 						isSelected={isOpen}
 						onClick={() => setIsOpen(!isOpen)}
-						iconAfter={<HipchatChevronDownIcon color="currentColor" label="" LEGACY_size="small" />}
+						iconAfter={
+							<HipchatChevronDownIcon
+								color="currentColor"
+								label=""
+								LEGACY_size="small"
+								size="small"
+							/>
+						}
 					>
 						Media Feature Flags
 					</Button>
 				)}
+				shouldRenderToParent={fg('should-render-to-parent-should-be-true-media-exif')}
 			/>
 			<Tooltip content="Reset all flags">
 				<Button

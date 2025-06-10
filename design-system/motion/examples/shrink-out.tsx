@@ -8,9 +8,8 @@ import { jsx } from '@compiled/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
-
-import { ExitingPersistence, ShrinkOut } from '../src';
 
 import { Block, Centered } from './utils';
 

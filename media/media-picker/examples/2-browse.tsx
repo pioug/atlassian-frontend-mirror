@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	MainWrapper,
 	UploadPreviews,
@@ -119,13 +120,19 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
 						<Button appearance="primary" onClick={this.onOpen}>
 							Open
 						</Button>
-						<DropdownMenu trigger={collectionName}>
+						<DropdownMenu
+							trigger={collectionName}
+							shouldRenderToParent={fg('should-render-to-parent-should-be-true-media-exif')}
+						>
 							<DropdownItem onClick={this.onCollectionChange}>
 								{defaultMediaPickerCollectionName}
 							</DropdownItem>
 							<DropdownItem onClick={this.onCollectionChange}>{defaultCollectionName}</DropdownItem>
 						</DropdownMenu>
-						<DropdownMenu trigger={authEnvironment}>
+						<DropdownMenu
+							trigger={authEnvironment}
+							shouldRenderToParent={fg('should-render-to-parent-should-be-true-media-exif')}
+						>
 							<DropdownItem onClick={this.onAuthTypeChange}>client</DropdownItem>
 							<DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>
 						</DropdownMenu>

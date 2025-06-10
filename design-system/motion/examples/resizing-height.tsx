@@ -16,9 +16,8 @@ import {
 	OpsgenieIcon,
 	StatuspageIcon,
 } from '@atlaskit/logo';
+import { FadeIn, StaggeredEntrance, useResizingHeight } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
-
-import { FadeIn, StaggeredEntrance, useResizingHeight } from '../src';
 
 import { Centered } from './utils';
 

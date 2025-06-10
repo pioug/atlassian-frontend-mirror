@@ -5,6 +5,7 @@ import { VCObserverNOOP } from './no-op-vc-observer';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from './types';
 import { VCObserver } from './vc-observer';
 import VCObserverNew from './vc-observer-new';
+import { RLLPlaceholderHandlers } from './vc-observer/observers/rll-placeholders';
 
 export type { VCRevisionDebugDetails } from './vc-observer/getVCRevisionDebugDetails';
 
@@ -82,6 +83,8 @@ export class VCObserverWrapper implements VCObserverInterface {
 		if (isVCRevisionEnabled('fy25.03', experienceKey)) {
 			this.newVCObserver?.stop();
 		}
+
+		RLLPlaceholderHandlers.getInstance().reset();
 	}
 
 	getVCRawData(): VCRawDataType | null {

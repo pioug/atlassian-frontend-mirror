@@ -3,7 +3,7 @@ import React, { type ComponentType } from 'react';
 import Heading from '@atlaskit/heading';
 import { Box, Grid, Stack, Text, xcss } from '@atlaskit/primitives';
 
-import componentList from './artifacts/icons';
+import * as componentList from './artifacts/icons';
 
 const iconTileStyles = xcss({
 	justifyContent: 'center',

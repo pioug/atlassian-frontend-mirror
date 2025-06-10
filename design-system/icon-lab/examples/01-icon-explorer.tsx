@@ -10,14 +10,13 @@ import { css, jsx } from '@emotion/react';
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { IconTile } from '@atlaskit/icon';
+import metadata from '@atlaskit/icon-lab/metadata';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points -- We can use this entrypoint here
+import migrationMap from '@atlaskit/icon-lab/migration-map';
 import FlaskIcon from '@atlaskit/icon/core/flask';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import coreIconLabMetadata from '../src/entry-points/metadata';
-import iconLabsMetadata from '../src/metadata-core';
-import migrationMap from '../src/migration-map';
 
 import IconExplorerCell from './utils/new-icon-explorer-cell';
 import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
@@ -27,11 +26,11 @@ type IconsList = Record<string, IconExplorerCellProps>;
 const legacyIconPackageMap = Object.keys(migrationMap).reduce(
 	(acc, iconName) => {
 		// Search for the icon key in metadata that has the matching componentName to the migration map keys
-		const metadataKey = Object.keys(coreIconLabMetadata).find(
-			(key) => coreIconLabMetadata[key].componentName === iconName,
+		const metadataKey = Object.keys(metadata).find(
+			(key) => metadata[key].componentName === iconName,
 		);
 		if (metadataKey) {
-			acc[iconName] = coreIconLabMetadata[metadataKey].package;
+			acc[iconName] = metadata[metadataKey].package;
 		}
 		return acc;
 	},
@@ -44,7 +43,7 @@ const legacyIconPackageMap = Object.keys(migrationMap).reduce(
 // them correctly
 
 const localIconInfo = Promise.all(
-	Object.keys(iconLabsMetadata).map(async (name: string) => {
+	Object.keys(metadata).map(async (name: string) => {
 		const icon = await import(
 			/* webpackChunkName: "@atlaskit-internal_icon-lab" */
 			`@atlaskit/icon-lab/core/${name}.js`
@@ -56,7 +55,7 @@ const localIconInfo = Promise.all(
 		.map((importedIcon) => ({
 			[importedIcon.name]: {
 				component: importedIcon.icon,
-				...iconLabsMetadata[importedIcon.name],
+				...metadata[importedIcon.name],
 			},
 		}))
 		.reduce((acc, b) => ({ ...acc, ...b })),

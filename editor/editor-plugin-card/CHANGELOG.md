@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 6.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.6.1
 
 ### Patch Changes

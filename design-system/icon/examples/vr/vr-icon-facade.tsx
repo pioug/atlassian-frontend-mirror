@@ -1,10 +1,9 @@
 import React, { type FC } from 'react';
 
+import { type Size } from '@atlaskit/icon';
+import { IconFacade } from '@atlaskit/icon/base';
 import DashboardIcon from '@atlaskit/icon/core/dashboard';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import { IconFacade } from '../../src/entry-points/base';
-import { type Size } from '../../src/types';
 
 const iconRowStyles = xcss({
 	padding: 'space.200',

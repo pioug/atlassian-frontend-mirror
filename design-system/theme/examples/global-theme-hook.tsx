@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useGlobalTheme } from '../src';
+import { useGlobalTheme } from '@atlaskit/theme';
 
 export default () => {
 	const tokens = useGlobalTheme();

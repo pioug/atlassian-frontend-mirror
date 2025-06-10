@@ -9,8 +9,6 @@ import PresenceActiveIcon from '@atlaskit/icon/glyph/presence-active';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	LinkItem,
@@ -19,7 +17,8 @@ import {
 	Section,
 	SkeletonHeadingItem,
 	SkeletonItem,
-} from '../src';
+} from '@atlaskit/menu';
+import { token } from '@atlaskit/tokens';
 
 export default () => {
 	return (

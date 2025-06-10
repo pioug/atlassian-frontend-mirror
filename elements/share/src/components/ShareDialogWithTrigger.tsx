@@ -628,6 +628,7 @@ export class ShareDialogWithTriggerInternalLegacy extends React.PureComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
 			>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 				<Popup
 					content={() => (
 						<div ref={this.containerRef}>

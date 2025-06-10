@@ -83,6 +83,7 @@ import {
 	setUserCaptionsEnabled,
 } from './captions';
 import { CaptionsUploaderBrowser } from './captions/artifactUploader';
+import CaptionDeleteConfirmationModal from './captions/captionDeleteConfirmationModal';
 
 export interface MediaPlayerBaseProps extends WithPlaybackProps, WithShowControlMethodProp {
 	readonly type: CustomMediaPlayerType;
@@ -112,6 +113,7 @@ export interface CustomMediaPlayerState extends WithMediaPlayerState {
 	selectedTracksIndex: number;
 	areCaptionsEnabled?: boolean;
 	isArtifactUploaderOpen: boolean;
+	artifactToDelete?: string;
 }
 
 export type Action = () => void;
@@ -193,6 +195,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		selectedTracksIndex: -1,
 		areCaptionsEnabled: false,
 		isArtifactUploaderOpen: false,
+		artifactToDelete: undefined,
 	};
 
 	constructor(props: MediaPlayerBaseProps & WrappedComponentProps & WithAnalyticsEventsProps) {
@@ -820,6 +823,15 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		this.setState({ areCaptionsEnabled });
 	};
 
+	private onCaptionDelete = (artifactName: string) => {
+		// Modal is not supported in fullscreen mode (as it uses portals which are not in the same DOM tree),
+		// So we need to exit fullscreen first
+		if (this.state.isFullScreenEnabled) {
+			this.toggleFullscreen();
+		}
+		this.setState({ artifactToDelete: artifactName });
+	};
+
 	resolveSelectedTracksIndex = () => {
 		const { areCaptionsEnabled, selectedTracksIndex } = this.state;
 		return areCaptionsEnabled ? (selectedTracksIndex > -1 ? selectedTracksIndex : 0) : -1;
@@ -856,7 +868,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			mediaSettings: { canUpdateVideoCaptions = false } = {},
 		} = this.props;
 
-		const { areCaptionsEnabled, isArtifactUploaderOpen } = this.state;
+		const { areCaptionsEnabled, isArtifactUploaderOpen, artifactToDelete } = this.state;
 
 		return (
 			<Box
@@ -967,6 +979,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 														<CaptionsAdminControls
 															textTracks={textTracks}
 															onUpload={() => this.setState({ isArtifactUploaderOpen: true })}
+															onDelete={this.onCaptionDelete}
 														/>
 														<CaptionsUploaderBrowser
 															identifier={identifier}
@@ -980,6 +993,18 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 															}}
 															onError={() => {
 																// console.log('xxx onError', error);
+															}}
+														/>
+														<CaptionDeleteConfirmationModal
+															identifier={identifier}
+															artifactName={artifactToDelete}
+															onClose={() => this.setState({ artifactToDelete: '' })}
+															onStart={() => {}}
+															onEnd={() => {
+																this.setState({ artifactToDelete: '' });
+															}}
+															onError={(e) => {
+																this.setState({ artifactToDelete: '' });
 															}}
 														/>
 													</>

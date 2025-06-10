@@ -205,6 +205,9 @@
 		},
 		"fix_a11y_issues_inline_edit": {
 			"type": "boolean"
+		},
+		"should-render-to-parent-should-be-true-linking-pla": {
+			"type": "boolean"
 		}
 	},
 	"compassUnitTestMetricSourceId": "ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:metric-source/c5751cc6-3513-4070-9deb-af31e86aed34/9c893299-a527-4457-9b46-f3bc4c828766"

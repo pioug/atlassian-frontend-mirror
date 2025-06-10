@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonItem, NavigationContent, Section, SideNavigation } from '../src';
+import { ButtonItem, NavigationContent, Section, SideNavigation } from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 

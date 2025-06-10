@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
+import { Help } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Popup from '@atlaskit/popup';
-
-import { Help } from '../../src';
 
 const HelpContent = () => (
 	<MenuGroup>

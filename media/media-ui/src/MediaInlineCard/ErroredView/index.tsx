@@ -1,12 +1,15 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { token } from '@atlaskit/tokens';
 import React from 'react';
-import { R300 } from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/utility/migration/warning';
+import { css, jsx } from '@compiled/react';
+import { R300, R400 } from '@atlaskit/theme/colors';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';
-import { NoLinkAppearance } from '../styled';
-
 export interface MediaInlineCardErroredViewProps {
 	/** The error message to display */
 	message: string;
@@ -21,13 +24,10 @@ export interface MediaInlineCardErroredViewProps {
 	innerRef?: React.Ref<HTMLSpanElement>;
 }
 
+const errorTitleStyles = css({
+	color: token('color.text.danger', R400),
+});
 export class MediaInlineCardErroredView extends React.Component<MediaInlineCardErroredViewProps> {
-	renderMessage = () => {
-		const { message } = this.props;
-		const errorMessage = <NoLinkAppearance>{message}</NoLinkAppearance>;
-		return <>{errorMessage}</>;
-	};
-
 	render() {
 		const {
 			onClick,
@@ -47,11 +47,12 @@ export class MediaInlineCardErroredView extends React.Component<MediaInlineCardE
 									label="error"
 									LEGACY_size="small"
 									color={token('color.icon.danger', R300)}
+									size="small"
 								/>
 							</AKIconWrapper>
 						)
 					}
-					title={this.renderMessage()}
+					title={<span css={errorTitleStyles}>{this.props.message}</span>}
 				/>
 			</Frame>
 		);

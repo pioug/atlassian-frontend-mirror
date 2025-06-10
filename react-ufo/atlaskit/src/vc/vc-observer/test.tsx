@@ -2941,4 +2941,186 @@ describe('vc-observer', () => {
 			expect(result['ufo:next:speedIndex']).toEqual(speedIndex);
 		});
 	});
+
+	describe('VC revision debug data', () => {
+		const enabledVCRevisions = ['fy25.01', 'fy25.02'];
+
+		let onVCRevisionReady: jest.Mock;
+		let onUfoVcDebugDataReady: jest.Mock;
+
+		beforeEach(() => {
+			onVCRevisionReady = jest.fn();
+			onUfoVcDebugDataReady = jest.fn();
+
+			// @ts-ignore
+			window.__ufo_devtool_onVCRevisionReady__ = onVCRevisionReady;
+			// @ts-ignore
+			window.__on_ufo_vc_debug_data_ready = onUfoVcDebugDataReady;
+
+			mockIsVCRevisionEnabled.mockImplementation((revision) =>
+				enabledVCRevisions.includes(revision),
+			);
+			mockFg.mockReturnValue(false);
+		});
+
+		afterEach(() => {
+			mockIsVCRevisionEnabled.mockClear();
+			mockFg.mockClear();
+			// @ts-ignore
+			delete window.__ufo_devtool_onVCRevisionReady__;
+			// @ts-ignore
+			delete window.__on_ufo_vc_debug_data_ready;
+		});
+
+		describe('__ufo_devtool_onVCRevisionReady__', () => {
+			test('should be called with v1 and v2 data when TTVC v1 is enabled', async () => {
+				vc.start({ startTime: 0 });
+				await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+				});
+
+				expect(onVCRevisionReady).toHaveBeenCalledTimes(2);
+				expect(onVCRevisionReady).toHaveBeenCalledWith(
+					expect.objectContaining({
+						revision: 'fy25.01',
+					}),
+				);
+				expect(onVCRevisionReady).toHaveBeenCalledWith(
+					expect.objectContaining({
+						revision: 'fy25.02',
+					}),
+				);
+			});
+
+			test('should be called with only v2 data when TTVC v1 is disabled', async () => {
+				mockIsVCRevisionEnabled.mockImplementation((revision) => revision === 'fy25.02');
+				vc.start({ startTime: 0 });
+				await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+				});
+
+				expect(onVCRevisionReady).toHaveBeenCalledTimes(1);
+				expect(onVCRevisionReady).toHaveBeenCalledWith(
+					expect.objectContaining({
+						revision: 'fy25.02',
+					}),
+				);
+			});
+		});
+
+		describe('__on_ufo_vc_debug_data_ready', () => {
+			test('should be called with v1 and v2 data when ff is enabled and TTVC v1 is enabled', async () => {
+				mockFg.mockImplementation((flag) => flag === 'platform_ufo_emit_vc_debug_data');
+				vc.start({ startTime: 0 });
+				await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+				});
+
+				expect(onUfoVcDebugDataReady).toHaveBeenCalledTimes(2);
+				expect(onUfoVcDebugDataReady).toHaveBeenCalledWith(
+					expect.objectContaining({
+						revision: 'fy25.01',
+					}),
+				);
+				expect(onUfoVcDebugDataReady).toHaveBeenCalledWith(
+					expect.objectContaining({
+						revision: 'fy25.02',
+					}),
+				);
+			});
+
+			test('should be called with only v2 data when ff is enabled and TTVC v1 is disabled', async () => {
+				mockIsVCRevisionEnabled.mockImplementation((revision) => revision === 'fy25.02');
+				mockFg.mockImplementation((flag) => flag === 'platform_ufo_emit_vc_debug_data');
+
+				vc.start({ startTime: 0 });
+				await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+				});
+
+				expect(onUfoVcDebugDataReady).toHaveBeenCalledTimes(1);
+				expect(onUfoVcDebugDataReady).toHaveBeenCalledWith(
+					expect.objectContaining({
+						revision: 'fy25.02',
+					}),
+				);
+			});
+
+			test('should not be called when ff is disabled', async () => {
+				vc.start({ startTime: 0 });
+				await vc.getVCResult({
+					start: 0,
+					stop: 100,
+					tti: 3,
+					prefix: '',
+					isEventAborted: false,
+					experienceKey: 'test',
+				});
+
+				expect(onUfoVcDebugDataReady).not.toHaveBeenCalled();
+			});
+		});
+
+		test('should not call any debug callbacks when isPostInteraction is true', async () => {
+			vc = new VCObserver({
+				heatmapSize: 100,
+				oldDomUpdates: true,
+				isPostInteraction: true,
+			});
+			mockFg.mockImplementation((flag) => flag === 'platform_ufo_emit_vc_debug_data');
+
+			vc.start({ startTime: 0 });
+			await vc.getVCResult({
+				start: 0,
+				stop: 100,
+				tti: 3,
+				prefix: '',
+				isEventAborted: false,
+				experienceKey: 'test',
+			});
+
+			expect(onVCRevisionReady).not.toHaveBeenCalled();
+			expect(onUfoVcDebugDataReady).not.toHaveBeenCalled();
+		});
+
+		test('should not call any debug callbacks if the functions are not defined on window', async () => {
+			// @ts-ignore
+			delete window.__ufo_devtool_onVCRevisionReady__;
+			// @ts-ignore
+			delete window.__on_ufo_vc_debug_data_ready;
+
+			vc.start({ startTime: 0 });
+			await vc.getVCResult({
+				start: 0,
+				stop: 100,
+				tti: 3,
+				prefix: '',
+				isEventAborted: false,
+				experienceKey: 'test',
+			});
+
+			expect(onVCRevisionReady).not.toHaveBeenCalled();
+			expect(onUfoVcDebugDataReady).not.toHaveBeenCalled();
+		});
+	});
 });

@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import Table, { Cell, HeadCell, Row, SortableColumn, TBody, THead } from '../src';
+import Table, { Cell, HeadCell, Row, SortableColumn, TBody, THead } from '@atlaskit/table';
 
 import { presidents } from './content/presidents';
 

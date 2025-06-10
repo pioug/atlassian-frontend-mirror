@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { colorPalettes } from '../src';
+import { colorPalettes } from '@atlaskit/theme';
 
 import { ColorPill, Heading } from './colors';
 

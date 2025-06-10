@@ -227,3 +227,5 @@ export {
 	type NcsSessionStepEventAEP,
 	type NcsSessionStepMetrics,
 } from './types/ncs-session-step-events';
+
+export type { BreakoutEventPayload } from './types/breakout-events';

@@ -1,4 +1,2 @@
-export {
-	CaptionsUploaderBrowser,
-	type CaptionsUploaderBrowserProps,
-} from './captionsUploaderBrowser';
+import CaptionsUploaderBrowser from './captionsUploaderBrowser';
+export { CaptionsUploaderBrowser };

@@ -6,9 +6,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import CrossIcon from '@atlaskit/icon/core/close';
-import LinkIcon from '@atlaskit/icon/core/link';
 import Link from '@atlaskit/link';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -89,10 +87,6 @@ interface CustomItemComponentPropsWithHref {
 	children: React.ReactNode;
 }
 
-const isSupportingAddWebLink =
-	FeatureGates.initializeCompleted() &&
-	FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
-
 const LinkedCardWrapper = ({
 	children,
 	href,
@@ -142,13 +136,6 @@ const LinkedCardWrapper = ({
 const getContainerIcon = (containerType: ContainerTypes, title: string, containerIcon?: string) => {
 	if (containerType === 'LoomSpace') {
 		return <LoomSpaceAvatar spaceName={title} size={'large'} />;
-	}
-	if (isSupportingAddWebLink && containerType === 'WebLink') {
-		return (
-			<Box xcss={styles.linkIconWrapper}>
-				<LinkIcon label="" />
-			</Box>
-		);
 	}
 	return (
 		<Avatar appearance="square" size="medium" src={containerIcon} testId="linked-container-icon" />

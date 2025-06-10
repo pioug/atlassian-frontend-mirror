@@ -9,9 +9,8 @@ import { cssMap, jsx } from '@compiled/react';
 import Icon from '@atlaskit/icon';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { Anchor } from '@atlaskit/primitives/compiled';
+import { Footer } from '@atlaskit/side-navigation';
 import { token } from '@atlaskit/tokens';
-
-import { Footer } from '../../src';
 
 import SampleIcon from './next-gen-project-icon';
 

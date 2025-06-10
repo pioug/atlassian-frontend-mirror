@@ -247,6 +247,7 @@ const LightWeightCodeBlock = forwardRef(
 						</div>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 						<div className={CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}>
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 							<code>{renderBidiWarnings(text)}</code>
 						</div>
 					</div>

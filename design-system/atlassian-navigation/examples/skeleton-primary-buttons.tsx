@@ -1,13 +1,12 @@
 import React from 'react';
 
+import { AtlassianNavigation, ProductHome } from '@atlaskit/atlassian-navigation';
+import { SkeletonCreateButton, SkeletonIconButton } from '@atlaskit/atlassian-navigation/skeleton';
+import { SkeletonHelpButton } from '@atlaskit/atlassian-navigation/skeleton-help-button';
+import { SkeletonNotificationButton } from '@atlaskit/atlassian-navigation/skeleton-notification-button';
+import { SkeletonSettingsButton } from '@atlaskit/atlassian-navigation/skeleton-settings-button';
+import { SkeletonSwitcherButton } from '@atlaskit/atlassian-navigation/skeleton-switcher-button';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-
-import { AtlassianNavigation, ProductHome } from '../src';
-import { SkeletonCreateButton, SkeletonIconButton } from '../src/skeleton';
-import { SkeletonHelpButton } from '../src/skeleton-help-button';
-import { SkeletonNotificationButton } from '../src/skeleton-notification-button';
-import { SkeletonSettingsButton } from '../src/skeleton-settings-button';
-import { SkeletonSwitcherButton } from '../src/skeleton-switcher-button';
 
 import { avatarUrl } from './shared/profile-popup';
 

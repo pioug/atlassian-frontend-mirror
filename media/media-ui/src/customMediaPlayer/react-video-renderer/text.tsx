@@ -15,6 +15,7 @@ export type VideoTextTrack = {
 	src: string;
 	lang: string;
 	label: string;
+	artifactName: string;
 };
 
 export type VideoTextTrackKind = keyof VideoTextTracks;

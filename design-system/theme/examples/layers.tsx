@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { layers } from '../src';
+import { layers } from '@atlaskit/theme';
 
 export default () => {
 	return (

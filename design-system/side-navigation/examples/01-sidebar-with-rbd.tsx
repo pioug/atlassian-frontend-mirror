@@ -33,8 +33,6 @@ import {
 	dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { Box, Grid } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	NavigationHeader,
@@ -42,7 +40,8 @@ import {
 	NestingItem,
 	Section,
 	SideNavigation,
-} from '../src';
+} from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';

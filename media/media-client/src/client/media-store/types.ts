@@ -217,6 +217,10 @@ export type UploadArtifactCaptionsParams = {
 
 export type UploadArtifactParams = UploadArtifactCaptionsParams;
 
+export type DeleteArtifactParams = {
+	artifactName: string;
+};
+
 export interface MediaApi {
 	removeCollectionFile: (
 		id: string,
@@ -296,6 +300,13 @@ export interface MediaApi {
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
 	): Promise<MediaStoreResponse<MediaItemDetails>>;
+
+	deleteArtifact(
+		id: string,
+		params: DeleteArtifactParams,
+		collectionName?: string,
+		traceContext?: MediaTraceContext,
+	): Promise<void>;
 
 	getImage: (
 		id: string,

@@ -8,7 +8,6 @@ import CustomerIcon from '@atlaskit/icon/glyph/person';
 import QueueIcon from '@atlaskit/icon/glyph/queues';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import LanguageIcon from '@atlaskit/icon/glyph/world';
-
 import {
 	ButtonItem,
 	LinkItem,
@@ -18,7 +17,7 @@ import {
 	NestingItem,
 	Section,
 	SideNavigation,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 import SampleFooter from './common/sample-footer';

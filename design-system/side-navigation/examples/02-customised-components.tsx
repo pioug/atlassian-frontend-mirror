@@ -8,9 +8,6 @@ import { css, jsx } from '@compiled/react';
 
 import NestIcon from '@atlaskit/icon/glyph/editor/number-list';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
-import { G400 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	GoBackItem,
@@ -18,7 +15,9 @@ import {
 	NestableNavigationContent,
 	NestingItem,
 	SideNavigation,
-} from '../src';
+} from '@atlaskit/side-navigation';
+import { G400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
@@ -80,7 +79,7 @@ const CustomisedExample = () => {
 			title={<div css={containerStyles}>Custom Title Component</div>}
 			css={customNestingItemStyles}
 			iconBefore={<NestIcon label="" />}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 			overrides={{
 				GoBackItem: {
 					render: (props) => <GoBackItem {...props}>Exit NestingItem 1-1</GoBackItem>,
@@ -97,7 +96,7 @@ const CustomisedExample = () => {
 			title="Styled using className"
 			iconBefore={<NestIcon label="" />}
 			css={customNestingItemStyles}
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 			overrides={{
 				GoBackItem: {
 					render: (props) => <GoBackItem {...props}>Exit NestingItem 1</GoBackItem>,
@@ -116,7 +115,7 @@ const CustomisedExample = () => {
 					<SampleHeader />
 				</NavigationHeader>
 				<NestableNavigationContent
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 					overrides={{
 						GoBackItem: {
 							render: (props) => <GoBackItem {...props}>Default Go Back</GoBackItem>,

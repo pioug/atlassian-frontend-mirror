@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SkeletonHeadingItem } from '../src';
+import { SkeletonHeadingItem } from '@atlaskit/side-navigation';
 
 const Example = () => (
 	<>

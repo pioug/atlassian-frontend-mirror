@@ -246,7 +246,8 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 			return [
 				{
 					name: 'breakout-resizing',
-					plugin: () => createResizingPlugin(api, options),
+					plugin: ({ getIntl, nodeViewPortalProviderAPI }) =>
+						createResizingPlugin(api, getIntl, nodeViewPortalProviderAPI, options),
 				},
 			];
 		}

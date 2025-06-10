@@ -142,6 +142,9 @@
 		},
 		"dst-a11y__replace-anchor-with-link__jira-platform-": {
 			"type": "boolean"
+		},
+		"should-render-to-parent-should-be-true-jira-platfo": {
+			"type": "boolean"
 		}
 	}
 }

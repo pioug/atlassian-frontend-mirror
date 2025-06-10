@@ -51,6 +51,7 @@ ${
 				<p>
 					The exact output of this function is an implementation detail only and should only be used
 					when rendering content to the user, on a client with a matching major version of{' '}
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 					<code>@atlaskit/tokens</code>.
 				</p>
 				<ul>

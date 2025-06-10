@@ -5,8 +5,8 @@ import { cssMap, styled } from '@compiled/react';
 import Badge from '@atlaskit/badge';
 import NewButton from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
-import ChevronDownIconOld from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronDownIconOld from '@atlaskit/icon/core/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
@@ -84,7 +84,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 					<NewButton
 						isSelected={isSelected || hasOptions}
 						isDisabled={isDisabled}
-						iconAfter={() => <ChevronDownIcon label="" color="currentColor" />}
+						iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
 						testId={`${triggerButtonTestId}--button`}
 					>
 						<Flex>
@@ -104,7 +104,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 						appearance="default"
 						isSelected={isSelected || hasOptions}
 						isDisabled={isDisabled}
-						iconAfter={<ChevronDownIconOld label="" color="currentColor" />}
+						iconAfter={<ChevronDownIconOld label="" color="currentColor" size="small" />}
 						testId={`${triggerButtonTestId}--button`}
 					>
 						<Flex>

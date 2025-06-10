@@ -77,6 +77,7 @@ export {
 	resizerHandleThumbClassName,
 	resizerHandleThumbWidth,
 	pragmaticResizerStyles,
+	pragmaticResizerStylesForTooltip,
 } from './shared/resizer';
 export { gridStyles, GRID_GUTTER } from './shared/grid';
 export {

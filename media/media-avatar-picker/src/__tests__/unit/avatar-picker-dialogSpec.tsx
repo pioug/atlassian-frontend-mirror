@@ -280,7 +280,7 @@ describe('Avatar Picker Dialog', () => {
 		);
 
 		const title = await screen.findByTestId('modal-header');
-		expect(title.textContent).toBe('Upload an avatar');
+		expect(title.textContent).toContain('Upload an avatar');
 	});
 
 	it('should be able to customise title', async () => {
@@ -296,7 +296,7 @@ describe('Avatar Picker Dialog', () => {
 		);
 
 		const title = await screen.findByTestId('modal-header');
-		expect(title.textContent).toBe('test-title');
+		expect(title.textContent).toContain('test-title');
 	});
 
 	it('should render default primary button text', async () => {
@@ -549,26 +549,6 @@ describe('Avatar Picker Dialog', () => {
 
 		const alertGone = screen.queryByRole('alert');
 		expect(alertGone).not.toBeInTheDocument();
-	});
-
-	it('should have h1 heading with id associated with modal', async () => {
-		render(
-			<AvatarPickerDialog
-				avatars={[]}
-				onAvatarPicked={jest.fn()}
-				onImagePicked={jest.fn()}
-				onImagePickedDataURI={jest.fn()}
-				onCancel={jest.fn()}
-			/>,
-		);
-
-		await waitFor(() => {
-			const modal = document.querySelector('section[role="dialog"]');
-			expect(modal).toBeInTheDocument();
-			const heading = screen.getByTestId('modal-header');
-			expect(heading).toBeInTheDocument();
-			expect(modal?.getAttribute('aria-labelledby')).toBe(heading?.getAttribute('id'));
-		});
 	});
 
 	describe('Alt text required', () => {

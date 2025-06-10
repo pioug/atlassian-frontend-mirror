@@ -1,8 +1,7 @@
 import React from 'react';
 
 import BookWithBookmarkIcon from '@atlaskit/icon/core/migration/book-with-bookmark--book';
-
-import { LinkItem, Section } from '../../src';
+import { LinkItem, Section } from '@atlaskit/side-navigation';
 
 const ButtonItemExample = () => {
 	return (

@@ -18,6 +18,7 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
 import ChevronUp from '@atlaskit/icon/utility/migration/chevron-up';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	attachClosestEdge,
 	type Edge,
@@ -461,6 +462,7 @@ export const DraggableTableHeading = ({
 						trigger={getTriggerButton}
 						onOpenChange={onDropdownOpenChange}
 						placement={'bottom'}
+						shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 					>
 						<DropdownItem
 							elemBefore={isWrapped ? <UnwrapTextIcon /> : <WrapTextIcon />}

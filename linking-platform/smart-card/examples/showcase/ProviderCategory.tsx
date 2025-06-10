@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import ExpandIcon from '@atlaskit/icon/core/chevron-down';
+import CollapseIcon from '@atlaskit/icon/core/chevron-up';
 import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
-import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
-import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -127,6 +127,7 @@ export const ProviderCategory = ({ category, examples, config }: ProviderCategor
 									label=""
 									LEGACY_fallbackIcon={CollapseIconLegacy}
 									color="currentColor"
+									size="small"
 								/>
 							}
 							onClick={handleCollapseAll}
@@ -141,6 +142,7 @@ export const ProviderCategory = ({ category, examples, config }: ProviderCategor
 									label=""
 									LEGACY_fallbackIcon={ExpandIconLegacy}
 									color="currentColor"
+									size="small"
 								/>
 							}
 							onClick={handleExpandAll}

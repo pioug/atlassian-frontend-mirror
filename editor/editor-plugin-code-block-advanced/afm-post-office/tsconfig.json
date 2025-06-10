@@ -36,6 +36,12 @@
 			"path": "../../editor-plugin-selection-marker/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
 		}
 	]

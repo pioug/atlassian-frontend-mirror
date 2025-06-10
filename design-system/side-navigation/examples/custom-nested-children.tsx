@@ -1,14 +1,13 @@
 import React from 'react';
 
 import { Box, Text } from '@atlaskit/primitives/compiled';
-
 import {
 	NestableNavigationContent,
 	NestingItem,
 	Section,
 	SideNavigation,
 	useShouldNestedElementRender,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 

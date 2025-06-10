@@ -5,7 +5,6 @@ import BoardIcon from '@atlaskit/icon/glyph/board';
 import GraphLineIcon from '@atlaskit/icon/glyph/graph-line';
 import RoadmapIcon from '@atlaskit/icon/glyph/roadmap';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
-
 import {
 	ButtonItem,
 	HeadingItem,
@@ -17,7 +16,7 @@ import {
 	SideNavigation,
 	SkeletonHeadingItem,
 	SkeletonItem,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';

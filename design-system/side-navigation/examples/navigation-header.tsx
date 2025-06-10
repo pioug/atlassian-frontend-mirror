@@ -1,8 +1,7 @@
 import React, { type MouseEvent } from 'react';
 
 import { Box } from '@atlaskit/primitives';
-
-import { Header, NavigationHeader } from '../src';
+import { Header, NavigationHeader } from '@atlaskit/side-navigation';
 
 import RocketIcon from './common/sample-logo';
 

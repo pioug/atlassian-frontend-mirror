@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
 import { Box } from '@atlaskit/primitives';
-
-import { AtlassianNavigation } from '../src';
 
 import { JapaneseCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

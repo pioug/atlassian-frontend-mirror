@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { HeadingItem, MenuGroup, Section } from '../../src';
+import { HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
+
 import MenuGroupContainer from '../common/menu-group-container';
 
 export default () => (

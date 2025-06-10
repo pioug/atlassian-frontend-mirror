@@ -15,11 +15,6 @@ export { default as CreatableSelect } from './entry-points/creatable-select';
 export { default as AsyncCreatableSelect } from './entry-points/async-creatable-select';
 
 export { isOptionsGrouped } from './utils/grouped-options-announcement';
-export {
-	isCountryOptionsGrouped,
-	onCountryOptionFocus,
-	type CountyGroupOptions,
-} from './utils/country-groups-announcement';
 
 export { default as CheckboxSelect } from './CheckboxSelect';
 export { default as CountrySelect } from './CountrySelect';

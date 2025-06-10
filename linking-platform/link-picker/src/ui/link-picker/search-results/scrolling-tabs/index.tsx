@@ -7,8 +7,8 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
-import ChevronLeftIcon from '@atlaskit/icon/utility/migration/chevron-left';
-import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
+import ChevronLeftIcon from '@atlaskit/icon/core/migration/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
 import { N0, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -197,7 +197,7 @@ export const ScrollingTabList = (props: ScrollingTabListProps): JSX.Element => {
 						data-test-id="back"
 						onClick={() => scrollBack(ref)}
 						label="back"
-						icon={ChevronLeftIcon}
+						icon={(iconProps) => <ChevronLeftIcon {...iconProps} size="small" />}
 						{...buttonProps}
 					/>
 				</div>
@@ -210,7 +210,7 @@ export const ScrollingTabList = (props: ScrollingTabListProps): JSX.Element => {
 						onClick={() => scrollForward(ref)}
 						{...buttonProps}
 						label="forward"
-						icon={ChevronRightIcon}
+						icon={(iconProps) => <ChevronRightIcon {...iconProps} size="small" />}
 					/>
 				</div>
 			)}

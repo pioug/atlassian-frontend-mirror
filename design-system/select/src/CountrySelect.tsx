@@ -5,17 +5,11 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { groupedCountries } from './data/countries';
 import Select from './Select';
 import { type FormatOptionLabelMeta, type SelectProps } from './types';
-import {
-	type CountyGroupOptions,
-	isCountryOptionsGrouped,
-	onCountryOptionFocus,
-} from './utils/country-groups-announcement';
 
 type Country = (typeof groupedCountries)[number]['options'][number];
 
@@ -62,7 +56,7 @@ const formatOptionLabel = (opt: Country, { context }: FormatOptionLabelMeta<Coun
 
 // put it all together
 const CountrySelect = (props: SelectProps<Country>) => {
-	const { ariaLiveMessages, options } = props;
+	const { options } = props;
 	const countryOptions = options || groupedCountries;
 
 	return (
@@ -73,18 +67,6 @@ const CountrySelect = (props: SelectProps<Country>) => {
 			getOptionValue={getOptionValue}
 			isMulti={false}
 			options={countryOptions}
-			ariaLiveMessages={
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-				fg('design_system_select-a11y-improvement')
-					? undefined
-					: isCountryOptionsGrouped(countryOptions)
-						? {
-								onFocus: (data) =>
-									onCountryOptionFocus(data, countryOptions as CountyGroupOptions[]),
-								...ariaLiveMessages,
-							}
-						: { ...ariaLiveMessages }
-			}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...props}
 		/>

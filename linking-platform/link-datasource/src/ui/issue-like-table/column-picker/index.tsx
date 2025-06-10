@@ -4,10 +4,10 @@ import { cssMap } from '@compiled/react';
 import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import BoardIcon from '@atlaskit/icon/core/migration/board';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
-import ChevronDownIconOld from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIconOld from '@atlaskit/icon/core/migration/chevron-down';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
@@ -171,9 +171,14 @@ export const ColumnPicker = ({
 										/>
 									)}
 									{fg('platform-linking-visual-refresh-sllv') ? (
-										<ChevronDownIcon label="down" />
+										<ChevronDownIcon label="down" size="small" />
 									) : (
-										<ChevronDownIconOld color="currentColor" label="down" LEGACY_size="medium" />
+										<ChevronDownIconOld
+											color="currentColor"
+											label="down"
+											LEGACY_size="medium"
+											size="small"
+										/>
 									)}
 								</Box>
 							)}

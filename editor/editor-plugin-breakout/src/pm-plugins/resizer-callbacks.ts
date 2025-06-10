@@ -1,6 +1,7 @@
+import type { BreakoutEventPayload } from '@atlaskit/editor-common/analytics';
 import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Mark, Node } from '@atlaskit/editor-prosemirror/model';
+import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorGutterPaddingDynamic,
@@ -22,6 +23,8 @@ import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
 
 import { getGuidelines } from './get-guidelines';
 import { LOCAL_RESIZE_PROPERTY } from './resizing-mark-view';
+import { generateResizeFrameRatePayloads } from './utils/analytics';
+import { measureFramerate, reduceResizeFrameRateSamples } from './utils/measure-framerate';
 
 const RESIZE_RATIO = 2;
 const SNAP_GAP = 10;
@@ -87,19 +90,33 @@ export function createResizerCallbacks({
 	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
 } {
-	let node: Node | null = null;
+	let node: PMNode | null = null;
 	let guidelines: GuidelineConfig[] = [];
+	const { startMeasure, endMeasure, countFrames } = measureFramerate();
+
 	const getEditorWidth = () => {
 		return api?.width?.sharedState.currentState();
 	};
+
 	return {
 		onDragStart: () => {
-			api?.core.actions.execute(api.userIntent?.commands.setCurrentUserIntent('dragging'));
-			view.dispatch(view.state.tr.setMeta('is-resizer-resizing', true));
+			if (fg('platform_editor_breakout_resizing_hello_release')) {
+				startMeasure();
+			}
+
+			api?.core.actions.execute(({ tr }) => {
+				api.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
+				tr.setMeta('is-resizer-resizing', true);
+				return tr;
+			});
+
 			const pos = view.posAtDOM(dom, 0);
 			node = view.state.doc.nodeAt(pos);
 		},
 		onDrag: ({ location, source }) => {
+			if (fg('platform_editor_breakout_resizing_hello_release')) {
+				countFrames();
+			}
 			const initialWidth = mark.attrs.width;
 			const newWidth = getProposedWidth({ initialWidth, location, api, source });
 
@@ -109,6 +126,17 @@ export function createResizerCallbacks({
 			contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
 		},
 		onDrop({ location, source }) {
+			let payloads: BreakoutEventPayload[] = [];
+
+			if (fg('platform_editor_breakout_resizing_hello_release')) {
+				const frameRateSamples = endMeasure();
+				payloads = generateResizeFrameRatePayloads({
+					docSize: view.state.doc.nodeSize,
+					frameRateSamples: reduceResizeFrameRateSamples(frameRateSamples),
+					originalNode: node as PMNode,
+				});
+			}
+
 			const isResizedToFullWidth = !!guidelines.find(
 				(guideline) => guideline.key.includes('full_width') && guideline.active,
 			);
@@ -122,13 +150,19 @@ export function createResizerCallbacks({
 			const newWidth = isResizedToFullWidth
 				? WIDTHS.MAX
 				: getProposedWidth({ initialWidth, location, api, source });
+
 			setBreakoutWidth(newWidth, mode, pos)(view.state, view.dispatch);
 
 			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
-			view.dispatch(
-				view.state.tr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false),
-			);
-			api?.core.actions.execute(api.userIntent?.commands.setCurrentUserIntent('default'));
+
+			api?.core.actions.execute(({ tr }) => {
+				api.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+				tr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
+				payloads.forEach((payload) => {
+					api.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
+				});
+				return tr;
+			});
 		},
 	};
 }

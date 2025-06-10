@@ -2000,27 +2000,6 @@ cases(
 );
 
 cases(
-	'accessibility > passes through aria-labelledby prop',
-	({ props = { ...BASIC_PROPS, labelId: 'testing' } }) => {
-		render(<Select {...props} />);
-		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAttribute(
-			'aria-labelledby',
-			'testing',
-		);
-	},
-	{
-		'single select > should pass aria-labelledby prop down to input': {},
-		'multi select > should pass aria-labelledby prop down to input': {
-			props: {
-				...BASIC_PROPS,
-				labelId: 'testing',
-				isMulti: true,
-			},
-		},
-	},
-);
-
-cases(
 	'accessibility > passes through labelId (aria-labelledby) prop',
 	({ props = { ...BASIC_PROPS, labelId: 'testing' } }) => {
 		render(<Select {...props} />);
@@ -2042,13 +2021,31 @@ cases(
 );
 
 cases(
+	'accessibility > has default aria-describedby referencing the placeholder',
+	({ props = { ...BASIC_PROPS } }) => {
+		render(<Select {...props} />);
+		const input = screen.getByTestId(`${testId}-select--input`);
+		const placeholder = screen.getByTestId(`${testId}-select--placeholder`);
+		expect(input!).toHaveAttribute('aria-describedby', expect.stringContaining(placeholder.id));
+	},
+	{
+		'single select > should pass descriptionId (aria-describedby) prop down to input': {},
+		'multi select > should pass descriptionId (aria-describedby) prop down to input': {
+			props: {
+				...BASIC_PROPS,
+				isMulti: true,
+			},
+		},
+	},
+);
+
+cases(
 	'accessibility > passes through descriptionId (aria-describedby) prop',
 	({ props = { ...BASIC_PROPS, descriptionId: 'testing' } }) => {
 		render(<Select {...props} />);
-		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAttribute(
-			'aria-describedby',
-			expect.stringContaining('testing'),
-		);
+		const input = screen.getByTestId(`${testId}-select--input`);
+		expect(input!).toHaveAttribute('aria-describedby', expect.stringContaining('testing'));
+		expect(input!).toHaveAttribute('aria-describedby', expect.stringContaining('placeholder'));
 	},
 	{
 		'single select > should pass descriptionId (aria-describedby) prop down to input': {},
@@ -2061,6 +2058,37 @@ cases(
 		},
 	},
 );
+
+describe('accessible description for the listbox', () => {
+	it('Default (non-safari) should not have an accessible description that references the input', () => {
+		render(<Select {...BASIC_PROPS} menuIsOpen />);
+		const listbox = screen.getByTestId(`${testId}-select--listbox`);
+		expect(listbox).not.toHaveAttribute('aria-describedby');
+	});
+
+	it('Safari should have have an accessible description that references the input', () => {
+		const orginalNavigator = window.navigator;
+		Object.defineProperty(
+			window.navigator,
+			'userAgent',
+			((value) => ({
+				get() {
+					return value;
+				},
+				set(v) {
+					value = v;
+				},
+				//@ts-ignore we need to override useragent for some tests
+			}))(window.navigator.userAgent),
+		);
+		window.navigator.userAgent = 'safari';
+		render(<Select {...BASIC_PROPS} menuIsOpen />);
+		const input = screen.getByTestId(`${testId}-select--input`);
+		const listbox = screen.getByTestId(`${testId}-select--listbox`);
+		expect(listbox).toHaveAttribute('aria-describedby', input.id);
+		window.navigator = orginalNavigator;
+	});
+});
 
 cases(
 	'accessibility > passes through isRequired (aria-required) prop',
@@ -2136,36 +2164,18 @@ cases(
 );
 
 cases(
-	'accessibility > passes through aria-label prop',
-	({ props = { ...BASIC_PROPS, label: 'testing' } }) => {
-		render(<Select {...props} />);
-		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAttribute('aria-label', 'testing');
-	},
-	{
-		'single select > should pass aria-labelledby prop down to input': {},
-		'multi select > should pass aria-labelledby prop down to input': {
-			props: {
-				...BASIC_PROPS,
-				label: 'testing',
-				isMulti: true,
-			},
-		},
-	},
-);
-
-cases(
 	'accessibility > passes through label (aria-label) prop',
 	({ props = { ...BASIC_PROPS, label: 'testing' } }) => {
 		render(<Select {...props} />);
-		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAttribute('aria-label', 'testing');
+		expect(screen.getByTestId(`${testId}-select--input`)!).toHaveAccessibleName('testing');
 	},
 	{
 		'single select > should pass label (aria-label) prop down to input': {},
 		'multi select > should pass label (aria-label) prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				label: 'testing',
 				isMulti: true,
+				label: 'testing',
 			},
 		},
 	},
@@ -2191,349 +2201,100 @@ cases(
 	},
 );
 
-describe('accessibility > options set aria-disabled properly', () => {
-	ffTest(
-		'design_system_select-a11y-improvement',
-		() => {
-			render(<Select {...BASIC_PROPS} menuIsOpen options={OPTIONS_DISABLED} />);
+test('accessibility > options set aria-disabled properly', () => {
+	render(<Select {...BASIC_PROPS} menuIsOpen options={OPTIONS_DISABLED} />);
 
-			expect(screen.getByRole('option', { name: '0' })).not.toHaveAttribute('aria-disabled');
-			expect(screen.getByRole('option', { name: '1' })).toHaveAttribute('aria-disabled');
-		},
-		() => {
-			render(<Select {...BASIC_PROPS} menuIsOpen options={OPTIONS_DISABLED} />);
-
-			screen.getAllByRole('option').forEach((option) => {
-				expect(option).toHaveAttribute('aria-disabled');
-			});
-			expect(screen.getByRole('option', { name: '0' })).toHaveAttribute('aria-disabled', 'false');
-			expect(screen.getByRole('option', { name: '1' })).toHaveAttribute('aria-disabled', 'true');
-		},
-	);
+	expect(screen.getByRole('option', { name: '0' })).not.toHaveAttribute('aria-disabled');
+	expect(screen.getByRole('option', { name: '1' })).toHaveAttribute('aria-disabled');
 });
 
-describe('accessibility > to show the number of options available in A11yText when the menu is Open', () => {
-	ffTest(
-		'design_system_select-a11y-improvement',
-		() => {
-			let { rerender } = render(<Select {...BASIC_PROPS} inputValue={''} menuIsOpen />);
-
-			let setInputValue = (val: string) => {
-				rerender(<Select {...BASIC_PROPS} menuIsOpen inputValue={val} />);
-			};
-
-			screen.getByTestId(`${testId}-select--input`)!.focus();
-
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-
-			setInputValue('0');
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-
-			setInputValue('10');
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-
-			setInputValue('100');
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-		},
-		async () => {
-			let { container, rerender } = render(<Select {...BASIC_PROPS} inputValue={''} menuIsOpen />);
-
-			let setInputValue = (val: string) => {
-				rerender(<Select {...BASIC_PROPS} menuIsOpen inputValue={val} />);
-			};
-
-			const liveRegionResultsId = '#aria-results';
-			const user = userEvent.setup();
-			await user.click(screen.getByTestId(`${testId}-select--input`)!);
-
-			expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(
-				/17 results available/,
-			);
-
-			setInputValue('0');
-			expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(
-				/2 results available/,
-			);
-
-			setInputValue('10');
-			expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(/1 result available/);
-
-			setInputValue('100');
-			expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(
-				/0 results available/,
-			);
-		},
-	);
-});
-
-describe('accessibility > interacting with disabled options shows correct A11yText', () => {
-	ffTest(
-		'design_system_select-a11y-improvement',
-		async () => {
-			render(<Select {...BASIC_PROPS} options={OPTIONS_DISABLED} inputValue={''} menuIsOpen />);
-
-			screen.getByTestId(`${testId}-select--input`)!.focus();
-
-			// navigate to disabled option
-			let menu = screen.getByTestId(`${testId}-select--listbox-container`);
-			const user = userEvent.setup();
-			await user.type(menu!, '{ArrowDown}{ArrowDown}');
-
-			await user.type(menu!, '{Enter}');
-
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-		},
-		async () => {
-			let { container } = render(
-				<Select {...BASIC_PROPS} options={OPTIONS_DISABLED} inputValue={''} menuIsOpen />,
-			);
-			const liveRegionEventId = '#aria-selection';
-			screen.getByTestId(`${testId}-select--input`)!.focus();
-
-			// navigate to disabled option
-			let menu = screen.getByTestId(`${testId}-select--listbox-container`);
-			const user = userEvent.setup();
-			await user.type(menu!, '{ArrowDown}{ArrowDown}');
-
-			await user.type(menu!, '{Enter}');
-
-			expect(container.querySelector(liveRegionEventId)!).toHaveTextContent(
-				/option 1 is disabled\. Select another option\./,
-			);
-		},
-	);
-});
-
-describe('accessibility > interacting with multi values options shows correct A11yText', () => {
-	ffTest(
-		'design_system_select-a11y-improvement',
-		async () => {
-			let renderProps = {
-				...BASIC_PROPS,
-				options: OPTIONS_DISABLED,
-				isMulti: true,
-				value: [OPTIONS_DISABLED[0], OPTIONS_DISABLED[1]],
-				hideSelectedOptions: false,
-			};
-
-			let { rerender } = render(<Select {...renderProps} />);
-
-			let openMenu = () => {
-				rerender(<Select {...renderProps} menuIsOpen />);
-			};
-
-			const user = userEvent.setup();
-
-			screen.getByTestId(`${testId}-select--input`)!.focus();
-
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-
-			await user.keyboard('[ArrowLeft]');
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-
-			await user.keyboard('[ArrowLeft]');
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-
-			openMenu();
-
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-		},
-		async () => {
-			let renderProps = {
-				...BASIC_PROPS,
-				options: OPTIONS_DISABLED,
-				isMulti: true,
-				value: [OPTIONS_DISABLED[0], OPTIONS_DISABLED[1]],
-				hideSelectedOptions: false,
-			};
-
-			let { container, rerender } = render(<Select {...renderProps} />);
-
-			let openMenu = () => {
-				rerender(<Select {...renderProps} menuIsOpen />);
-			};
-
-			const liveRegionGuidanceId = '#aria-guidance';
-			const liveRegionFocusedId = '#aria-focused';
-			let input = screen.getByTestId(`${testId}-select--input`)!;
-			const user = userEvent.setup();
-
-			await user.click(input);
-
-			expect(container.querySelector(liveRegionGuidanceId)!).toHaveTextContent(
-				'Select is focused ,type to refine list, press Down to open the menu, press left to focus selected values',
-			);
-
-			await user.keyboard('[ArrowLeft]');
-			expect(container.querySelector(liveRegionFocusedId)!).toHaveTextContent(
-				'value 1 focused, (2 of 2).',
-			);
-			expect(container.querySelector(liveRegionGuidanceId)!).toHaveTextContent(
-				/Use left and right to toggle between focused values, press Backspace to remove the currently focused value/,
-			);
-
-			await user.keyboard('[ArrowLeft]');
-			expect(container.querySelector(liveRegionFocusedId)!).toHaveTextContent(
-				'value 0 focused, (1 of 2).',
-			);
-			expect(container.querySelector(liveRegionGuidanceId)!).toHaveTextContent(
-				/Use left and right to toggle between focused values, press Backspace to remove the currently focused value/,
-			);
-
-			openMenu();
-
-			// user will be notified if option is disabled by screen reader because of correct aria-attributes, so this message will be announce only once after menu opens
-			expect(container.querySelector(liveRegionGuidanceId)!).toHaveTextContent(
-				/Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu, press Tab to select the option and exit the menu\./,
-			);
-		},
-	);
-});
-
-test('accessibility > screenReaderStatus function prop > to pass custom text to A11yText', async () => {
-	const screenReaderStatus = ({ count }: { count: number }) =>
-		`There are ${count} options available`;
-
-	const liveRegionResultsId = '#aria-results';
-	let { container, rerender } = render(
-		<Select {...BASIC_PROPS} inputValue={''} screenReaderStatus={screenReaderStatus} menuIsOpen />,
-	);
+test('accessibility > to show the number of options available in A11yText when the menu is Open', () => {
+	let { rerender } = render(<Select {...BASIC_PROPS} inputValue={''} menuIsOpen />);
 
 	let setInputValue = (val: string) => {
-		rerender(
-			<Select
-				{...BASIC_PROPS}
-				screenReaderStatus={screenReaderStatus}
-				menuIsOpen
-				inputValue={val}
-			/>,
-		);
+		rerender(<Select {...BASIC_PROPS} menuIsOpen inputValue={val} />);
+	};
+
+	screen.getByTestId(`${testId}-select--input`)!.focus();
+
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+
+	setInputValue('0');
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+
+	setInputValue('10');
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+
+	setInputValue('100');
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+});
+
+test('accessibility > interacting with disabled options shows correct A11yText', async () => {
+	render(<Select {...BASIC_PROPS} options={OPTIONS_DISABLED} inputValue={''} menuIsOpen />);
+
+	screen.getByTestId(`${testId}-select--input`)!.focus();
+
+	// navigate to disabled option
+	let menu = screen.getByTestId(`${testId}-select--listbox-container`);
+	const user = userEvent.setup();
+	await user.type(menu!, '{ArrowDown}{ArrowDown}');
+
+	await user.type(menu!, '{Enter}');
+
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+});
+
+test('accessibility > interacting with multi values options shows correct A11yText', async () => {
+	let renderProps = {
+		...BASIC_PROPS,
+		options: OPTIONS_DISABLED,
+		isMulti: true,
+		value: [OPTIONS_DISABLED[0], OPTIONS_DISABLED[1]],
+		hideSelectedOptions: false,
+	};
+
+	let { rerender } = render(<Select {...renderProps} />);
+
+	let openMenu = () => {
+		rerender(<Select {...renderProps} menuIsOpen />);
 	};
 
 	const user = userEvent.setup();
-	await user.click(screen.getByTestId(`${testId}-select--input`)!);
 
-	expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(
-		/There are 17 options available/,
-	);
+	screen.getByTestId(`${testId}-select--input`)!.focus();
 
-	setInputValue('0');
-	expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(
-		/There are 2 options available/,
-	);
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
 
-	setInputValue('10');
-	expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(
-		/There are 1 options available/,
-	);
+	await user.keyboard('[ArrowLeft]');
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
 
-	setInputValue('100');
-	expect(container.querySelector(liveRegionResultsId)!).toHaveTextContent(
-		/There are 0 options available/,
-	);
+	await user.keyboard('[ArrowLeft]');
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
+
+	openMenu();
+
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
 });
 
-test('accessibility > A11yTexts can be provided through ariaLiveMessages prop', () => {
-	const ariaLiveMessages: AriaLiveMessages<Option, boolean, GroupBase<Option>> = {
-		onChange: (props) => {
-			const { action, isDisabled, label } = props;
-			if (action === 'select-option' && !isDisabled) {
-				return `CUSTOM: option ${label} is selected.`;
-			}
-			return '';
-		},
-	};
+test('accessibility > announces already selected values when focused', () => {
+	render(<Select {...BASIC_PROPS} options={OPTIONS} value={OPTIONS[0]} />);
 
-	let { container } = render(
-		<Select
-			{...BASIC_PROPS}
-			ariaLiveMessages={ariaLiveMessages}
-			options={OPTIONS}
-			inputValue={''}
-			menuIsOpen
-		/>,
-	);
-	const liveRegionEventId = '#aria-selection';
+	screen.getByTestId(`${testId}-select--input`)!.focus();
 
-	expect(container.querySelector(liveRegionEventId)!).toBeNull();
-	fireEvent.focus(screen.getByTestId(`${testId}-select--input`)!);
-
-	let menu = screen.getByTestId(`${testId}-select--listbox-container`)!;
-	fireEvent.keyDown(menu, { keyCode: 40, key: 'ArrowDown' });
-	fireEvent.keyDown(menu, {
-		keyCode: 13,
-		key: 'Enter',
-	});
-
-	expect(container.querySelector(liveRegionEventId)!).toHaveTextContent(
-		/CUSTOM: option 0 is selected\./,
-	);
+	expect(screen.getByRole('status')!).not.toHaveTextContent();
 });
 
-describe('accessibility > announces already selected values when focused', () => {
-	ffTest(
-		'design_system_select-a11y-improvement',
-		() => {
-			render(<Select {...BASIC_PROPS} options={OPTIONS} value={OPTIONS[0]} />);
-
-			screen.getByTestId(`${testId}-select--input`)!.focus();
-
-			expect(screen.getByRole('status')!).not.toHaveTextContent();
-		},
-		async () => {
-			let { container } = render(<Select {...BASIC_PROPS} options={OPTIONS} value={OPTIONS[0]} />);
-			const liveRegionSelectionId = '#aria-selection';
-			const liveRegionContextId = '#aria-guidance';
-
-			// the live region should not be mounted yet
-			expect(container.querySelector(liveRegionSelectionId)!).toBeNull();
-
-			const user = userEvent.setup();
-			await user.click(screen.getByTestId(`${testId}-select--input`)!);
-
-			expect(container.querySelector(liveRegionContextId)!).toHaveTextContent(
-				'Select is focused ,type to refine list, press Down to open the menu,',
-			);
-			expect(container.querySelector(liveRegionSelectionId)!).toHaveTextContent(
-				/option 0, selected\./,
-			);
-		},
-	);
-});
-
-describe('accessibility > announces cleared values', () => {
-	ffTest(
-		'design_system_select-a11y-improvement',
-		async () => {
-			render(<Select {...BASIC_PROPS} options={OPTIONS} value={OPTIONS[0]} isClearable />);
-			/**
-			 * announce deselected value
-			 */
-			screen.getByTestId(`${testId}-select--input`)!.focus();
-			const user = userEvent.setup();
-			await user.click(screen.getByTestId(`${testId}-select--clear-indicator`)!);
-			expect(screen.getByRole('status')!).toHaveTextContent(
-				/All selected options have been cleared\./,
-			);
-		},
-		async () => {
-			let { container } = render(
-				<Select {...BASIC_PROPS} options={OPTIONS} value={OPTIONS[0]} isClearable />,
-			);
-			const liveRegionSelectionId = '#aria-selection';
-			/**
-			 * announce deselected value
-			 */
-			screen.getByTestId(`${testId}-select--input`)!.focus();
-			const user = userEvent.setup();
-			await user.click(screen.getByTestId(`${testId}-select--clear-indicator`)!);
-			expect(container.querySelector(liveRegionSelectionId)!).toHaveTextContent(
-				/All selected options have been cleared\./,
-			);
-		},
-	);
+test('accessibility > announces cleared values', async () => {
+	render(<Select {...BASIC_PROPS} options={OPTIONS} value={OPTIONS[0]} isClearable />);
+	/**
+	 * announce deselected value
+	 */
+	screen.getByTestId(`${testId}-select--input`)!.focus();
+	const user = userEvent.setup();
+	await user.click(screen.getByTestId(`${testId}-select--clear-indicator`)!);
+	expect(screen.getByRole('status')!).toHaveTextContent(/All selected options have been cleared\./);
 });
 
 describe('accessibility > multivalue', () => {
@@ -2548,7 +2309,7 @@ describe('accessibility > multivalue', () => {
 			set(v) {
 				value = v;
 			},
-			//@ts-ignore we need to override platform to macOS to test aria-live messages
+			//@ts-ignore we need to override platform for some tests
 		}))(window.navigator.userAgentData),
 	);
 

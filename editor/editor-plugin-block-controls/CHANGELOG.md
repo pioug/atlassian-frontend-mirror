@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.16.0
+
+### Minor Changes
+
+- [#164171](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164171)
+  [`6e761beb64a85`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e761beb64a85) -
+  ED-28155 add dnd performance tracker
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.15.12
 
 ### Patch Changes

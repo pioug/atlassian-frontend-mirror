@@ -5,7 +5,6 @@ import SelectedIcon from '@atlaskit/icon/glyph/check';
 import ButtonIcon from '@atlaskit/icon/glyph/checkbox-indeterminate';
 import CustomIcon from '@atlaskit/icon/glyph/discover';
 import LinkIcon from '@atlaskit/icon/glyph/link';
-
 import {
 	ButtonItem,
 	HeadingItem,
@@ -15,7 +14,7 @@ import {
 	NavigationHeader,
 	Section,
 	SideNavigation,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 import SampleFooter from './common/sample-footer';

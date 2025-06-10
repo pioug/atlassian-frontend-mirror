@@ -3,8 +3,7 @@ import React, { forwardRef, type MouseEvent } from 'react';
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { Box } from '@atlaskit/primitives/compiled';
-
-import { CustomItem, type CustomItemComponentProps } from '../src';
+import { CustomItem, type CustomItemComponentProps } from '@atlaskit/side-navigation';
 
 type CustomProps = CustomItemComponentProps & { href: string };
 

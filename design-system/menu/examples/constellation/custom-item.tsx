@@ -5,10 +5,10 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import Icon from '@atlaskit/icon';
+import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B100 } from '@atlaskit/theme/colors';
 
-import { CustomItem, type CustomItemComponentProps } from '../../src';
 import Slack from '../icons/slack';
 
 type CustomComponentWithHrefProps = CustomItemComponentProps & {

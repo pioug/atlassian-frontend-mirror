@@ -70,7 +70,7 @@ import {
 	fromCommonMediaClientError,
 	type MediaClientErrorReason,
 } from '../../models/errors';
-import { type UploadArtifactParams } from '../media-store/types';
+import { type UploadArtifactParams, type DeleteArtifactParams } from '../media-store/types';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './error';
 export { isFileFetcherError, FileFetcherError } from './error';
@@ -156,6 +156,12 @@ export interface FileFetcher {
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
 	): Promise<MediaItemDetails>;
+	deleteArtifact(
+		id: string,
+		params: DeleteArtifactParams,
+		collectionName?: string,
+		traceContext?: MediaTraceContext,
+	): Promise<void>;
 	/** @exprimental This is exprimental for the purposes of COMMIT-18082 and is prone to breaking changes */
 	getVideoDurations(
 		files: Array<{ id: string; collectionName?: string }>,
@@ -807,6 +813,32 @@ export class FileFetcherImpl implements FileFetcher {
 		this.setFileState(id, mapMediaItemToFileState(id, itemDetails));
 
 		return data;
+	};
+
+	public deleteArtifact: FileFetcher['deleteArtifact'] = async (
+		id,
+		params,
+		collectionName,
+		traceContext,
+	) => {
+		// TODO: Uncomment JEST check after endpoint is fixed
+		if (process.env.NODE_ENV === 'test') {
+			await this.mediaApi.deleteArtifact(id, params, collectionName, traceContext);
+		}
+
+		// Manually remove the artifact from file state instead of re-requesting the entire payload.
+		const file = this.store.getState().files[id];
+		if (file && file.status === 'processed' && file.artifacts) {
+			const updatedArtifacts = { ...file.artifacts };
+			delete updatedArtifacts[params.artifactName as keyof typeof updatedArtifacts];
+
+			const updatedFileState = {
+				...file,
+				artifacts: updatedArtifacts,
+			};
+
+			this.setFileState(id, updatedFileState);
+		}
 	};
 
 	private getOrFetchFileState = async (id: string, collectionName?: string) => {

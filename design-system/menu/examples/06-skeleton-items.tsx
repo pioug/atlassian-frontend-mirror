@@ -4,8 +4,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import UserAvatarCircleIcon from '@atlaskit/icon/glyph/user-avatar-circle';
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	HeadingItem,
@@ -13,7 +11,8 @@ import {
 	Section,
 	SkeletonHeadingItem,
 	SkeletonItem,
-} from '../src';
+} from '@atlaskit/menu';
+import { token } from '@atlaskit/tokens';
 
 const Item = ({ isLoading, ...props }: any) => {
 	if (isLoading) {

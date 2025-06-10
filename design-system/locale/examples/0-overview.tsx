@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 
 import { Label } from '@atlaskit/form';
-
-import { type LocalizationProvider, createLocalizationProvider } from '../src';
-import LocaleSelect, { type Locale } from '../src/LocaleSelect';
+import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 
 import DateParserExample from './1-date-parser';
 import FormatDateExample from './2-format-date';

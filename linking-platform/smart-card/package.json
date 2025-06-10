@@ -270,6 +270,9 @@
 		"fun-1765_wire_up_glance_panel_to_smart_cards": {
 			"type": "boolean"
 		},
+		"should-render-to-parent-should-be-true-linking-pla": {
+			"type": "boolean"
+		},
 		"prompt_whiteboard_competitor_link_gate": {
 			"type": "boolean"
 		}

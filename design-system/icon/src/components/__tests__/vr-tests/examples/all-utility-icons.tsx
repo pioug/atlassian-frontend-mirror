@@ -3,9 +3,10 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::618adb49946ea95b2d48b271147e05b8>>
+ * @codegen <<SignedSource::8e57fe95166708ae18ff2411ff7480c2>>
  * @codegenCommand yarn build:icon-glyphs
  */
+/* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -16,6 +17,7 @@ import { css, jsx } from '@compiled/react';
 
 import { Inline } from '@atlaskit/primitives';
 
+import type { NewCoreIconProps } from '../../../../../src/types';
 import AddIcon from '../../../../../utility/add';
 import ArrowDownIcon from '../../../../../utility/arrow-down';
 import ArrowLeftIcon from '../../../../../utility/arrow-left';
@@ -45,7 +47,6 @@ import StarStarredIcon from '../../../../../utility/star-starred';
 import StarUnstarredIcon from '../../../../../utility/star-unstarred';
 import SuccessIcon from '../../../../../utility/success';
 import WarningIcon from '../../../../../utility/warning';
-import type { NewCoreIconProps } from '../../../../../src/types';
 
 const Icons = [
 	ErrorIcon,

@@ -4,6 +4,7 @@ import type {
 	RevisionPayloadEntry,
 	RevisionPayloadVCDetails,
 	VCAbortReason,
+	VCIgnoreReason,
 	VCRatioType,
 } from '../../../common/vc/types';
 import { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
@@ -20,6 +21,16 @@ declare global {
 		__on_ufo_vc_debug_data_ready?: (debugInfo: VCRevisionDebugDetails) => void;
 	}
 }
+
+// Create comprehensive debug details including ignored entries
+type EnhancedViewportEntryData = ViewportEntryData & {
+	ignoreReason?: VCIgnoreReason;
+};
+type EnhancedVcLogEntry = {
+	time: number;
+	viewportPercentage: number | null;
+	entries: EnhancedViewportEntryData[];
+};
 
 export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 	private revisionNo: string;
@@ -79,6 +90,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		isVCClean: boolean,
 		interactionId?: string,
 		dirtyReason?: VCAbortReason,
+		allEntries?: ReadonlyArray<VCObserverEntry>,
 	): Promise<RevisionPayloadVCDetails> {
 		const percentiles = [25, 50, 75, 80, 85, 90, 95, 98, 99];
 		const viewportEntries = this.filterViewportEntries(filteredEntries);
@@ -141,16 +153,108 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			}
 		}
 
-		const v3RevisionDebugDetails = {
-			revision: this.revisionNo,
-			isClean: isVCClean,
-			abortReason: dirtyReason,
-			vcLogs,
-			interactionId,
-		};
+		let enhancedVcLogs: EnhancedVcLogEntry[] = vcLogs
+			? vcLogs.map((log) => ({
+					...log,
+					viewportPercentage: log.viewportPercentage as number | null,
+				}))
+			: [];
+
+		// Only calculate enhanced debug details if devtool callbacks exist
+		const shouldCalculateDebugDetails =
+			!isPostInteraction &&
+			(typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function' ||
+				(typeof window?.__on_ufo_vc_debug_data_ready === 'function' &&
+					fg('platform_ufo_emit_vc_debug_data')));
+
+		if (shouldCalculateDebugDetails && allEntries && vcLogs) {
+			// Pre-sort vcLogs by time for efficient lookups
+			const sortedVcLogs = [...vcLogs].sort((a, b) => a.time - b.time);
+
+			// Pre-calculate max viewport percentage up to each time for efficient lookups
+			const maxViewportPercentageAtTime = new Map<number, number>();
+			let maxSoFar = 0;
+			for (const log of sortedVcLogs) {
+				if (log.viewportPercentage !== null) {
+					maxSoFar = Math.max(maxSoFar, log.viewportPercentage);
+					maxViewportPercentageAtTime.set(log.time, maxSoFar);
+				}
+			}
+
+			// Helper function to find the biggest previous viewport percentage
+			const getBiggestPreviousViewportPercentage = (targetTime: number): number | null => {
+				// Binary search for the largest time <= targetTime
+				let left = 0;
+				let right = sortedVcLogs.length - 1;
+				let result = -1;
+
+				while (left <= right) {
+					const mid = Math.floor((left + right) / 2);
+					if (sortedVcLogs[mid].time <= targetTime) {
+						result = mid;
+						left = mid + 1;
+					} else {
+						right = mid - 1;
+					}
+				}
+
+				return result >= 0
+					? maxViewportPercentageAtTime.get(sortedVcLogs[result].time) || null
+					: null;
+			};
+
+			// Group ignored entries by timestamp
+			const ignoredEntriesByTime = new Map<number, EnhancedViewportEntryData[]>();
+
+			for (const entry of allEntries) {
+				if ('rect' in entry.data && !this.isEntryIncluded(entry)) {
+					const viewportData = entry.data as ViewportEntryData;
+					const timestamp = Math.round(entry.time);
+
+					if (!ignoredEntriesByTime.has(timestamp)) {
+						ignoredEntriesByTime.set(timestamp, []);
+					}
+
+					ignoredEntriesByTime.get(timestamp)?.push({
+						...viewportData,
+						ignoreReason: (viewportData.visible
+							? viewportData.type
+							: 'not-visible') as VCIgnoreReason,
+					});
+				}
+			}
+
+			// Add ignored entries to vcLogs
+			const additionalVcLogs: EnhancedVcLogEntry[] = [];
+			for (const [timestamp, ignoredEntries] of ignoredEntriesByTime) {
+				if (ignoredEntries.length > 0) {
+					const viewportPercentage = getBiggestPreviousViewportPercentage(timestamp);
+					additionalVcLogs.push({
+						time: timestamp,
+						viewportPercentage,
+						entries: ignoredEntries,
+					});
+				}
+			}
+
+			// Combine and sort all vcLogs
+			enhancedVcLogs = [...enhancedVcLogs, ...additionalVcLogs].sort((a, b) => a.time - b.time);
+		}
+
+		// Only create debug details if callbacks exist
+		let v3RevisionDebugDetails: VCRevisionDebugDetails | null = null;
+		if (shouldCalculateDebugDetails) {
+			v3RevisionDebugDetails = {
+				revision: this.revisionNo,
+				isClean: isVCClean,
+				abortReason: dirtyReason,
+				vcLogs: enhancedVcLogs,
+				interactionId,
+			};
+		}
 
 		// Handle devtool callback
-		if (!isPostInteraction && typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function') {
+		if (v3RevisionDebugDetails && typeof window?.__ufo_devtool_onVCRevisionReady__ === 'function') {
 			try {
 				window?.__ufo_devtool_onVCRevisionReady__?.(v3RevisionDebugDetails);
 			} catch (e) {
@@ -161,7 +265,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 		}
 
 		if (
-			!isPostInteraction &&
+			v3RevisionDebugDetails &&
 			typeof window?.__on_ufo_vc_debug_data_ready === 'function' &&
 			fg('platform_ufo_emit_vc_debug_data')
 		) {
@@ -210,6 +314,7 @@ export default abstract class AbstractVCCalculatorBase implements VCCalculator {
 			isVCClean,
 			interactionId,
 			dirtyReason,
+			orderedEntries,
 		);
 
 		const result: RevisionPayloadEntry = {

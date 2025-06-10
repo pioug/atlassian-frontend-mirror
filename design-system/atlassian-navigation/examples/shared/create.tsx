@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Create } from '@atlaskit/atlassian-navigation';
 import { token } from '@atlaskit/tokens';
-
-import { Create } from '../../src';
 
 const onClick = (...args: any[]) => {
 	console.log('create click', ...args);

@@ -5,7 +5,7 @@
 
 import { css, cssMap, jsx } from '@compiled/react';
 
-import ErrorIcon from '@atlaskit/icon/utility/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -73,6 +73,7 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 					LEGACY_size="small"
 					testId="action-error-icon"
 					LEGACY_margin={`0 ${token('space.negative.025')}`}
+					size="small"
 				/>
 			);
 		default:

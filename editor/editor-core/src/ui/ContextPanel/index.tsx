@@ -185,6 +185,7 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 							]}
 							data-testid="context-panel-panel"
 							aria-labelledby="context-panel-title"
+							aria-label="context-panel-panel"
 							role="dialog"
 						>
 							<div

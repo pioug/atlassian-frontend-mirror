@@ -7,7 +7,6 @@ import LightbulbIcon from '@atlaskit/icon/core/migration/lightbulb';
 import PagesIcon from '@atlaskit/icon/core/migration/pages--queues';
 import PersonIcon from '@atlaskit/icon/core/migration/person';
 import SettingsIcon from '@atlaskit/icon/core/migration/settings';
-
 import {
 	ButtonItem,
 	LinkItem,
@@ -17,7 +16,8 @@ import {
 	NestingItem,
 	Section,
 	SideNavigation,
-} from '../../src';
+} from '@atlaskit/side-navigation';
+
 import AppFrame from '../common/app-frame';
 import SampleFooter from '../common/sample-footer';
 import SampleHeader from '../common/sample-header';

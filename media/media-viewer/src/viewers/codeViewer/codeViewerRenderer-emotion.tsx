@@ -105,7 +105,7 @@ export class CodeViewRenderer extends Component<Props, State> {
 
 		const codeViewer =
 			lineCount(src) > MAX_FORMATTED_LINES || fileSize > MAX_FILE_SIZE_USE_CODE_VIEWER ? (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/design-system/no-html-code, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<code css={codeViewerHTMLStyles} data-testid="code-block">
 					{src}
 				</code>

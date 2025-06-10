@@ -11,7 +11,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { IconButton } from '@atlaskit/button/new';
 import { NewChatButton } from './NewChatButton';
-import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
 
 const styles = cssMap({
 	container: {
@@ -38,7 +38,7 @@ export const DynamicHeader = ({
 					<IconButton
 						appearance="subtle"
 						label="Back"
-						icon={ChevronLeftLargeIcon}
+						icon={(iconProps) => <ChevronLeftLargeIcon {...iconProps} size="small" />}
 						onClick={onGoBackToHistoryList}
 						testId="back-button-history-item"
 					/>

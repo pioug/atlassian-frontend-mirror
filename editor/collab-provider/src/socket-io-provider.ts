@@ -1,9 +1,11 @@
-import { Provider } from './provider';
 import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { Provider } from './provider';
+import type AnalyticsHelper from './analytics/analytics-helper';
 import type { Config, ProductInformation, InitAndAuthData, AuthCallback } from './types';
+import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
 import { getProduct, getSubProduct } from './helpers/utils';
 import { SOCKET_IO_OPTIONS } from './config';
 
@@ -12,6 +14,7 @@ export function createSocketIOSocket(
 	auth?: AuthCallback | InitAndAuthData,
 	productInfo?: ProductInformation,
 	isPresenceOnly?: boolean,
+	analyticsHelper?: AnalyticsHelper,
 ): Socket {
 	const { pathname } = new URL(url);
 	// Polling first
@@ -43,6 +46,9 @@ export function createSocketIOSocket(
 		client.on('connect_error', () => {
 			// revert to classic upgrade
 			client.io.opts.transports = ['polling', 'websocket'];
+			analyticsHelper?.sendActionEvent(EVENT_ACTION.POLLING_FALLBACK, EVENT_STATUS.INFO, {
+				url,
+			});
 		});
 	}
 

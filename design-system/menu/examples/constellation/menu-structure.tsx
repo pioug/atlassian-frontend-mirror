@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ButtonItem, HeadingItem, MenuGroup, Section } from '../../src';
+import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
+
 import ImgIcon from '../common/img-icon';
 import MenuGroupContainer from '../common/menu-group-container';
 import battery from '../icons/battery.png';

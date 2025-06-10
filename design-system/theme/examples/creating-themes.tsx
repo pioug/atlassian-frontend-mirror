@@ -2,7 +2,7 @@ import React from 'react';
 
 import color from 'color';
 
-import { createTheme } from '../src';
+import { createTheme } from '@atlaskit/theme';
 
 interface ThemeTokens {
 	backgroundColor?: string;

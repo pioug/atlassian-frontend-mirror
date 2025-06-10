@@ -3,7 +3,7 @@ import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 import { B300, R300, N30A, N900 } from '@atlaskit/theme/colors';
-import WarningIcon from '@atlaskit/icon/utility/migration/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { type AnalyticsErrorBoundaryInlinePayload, fireMediaCardEvent } from '../utils/analytics';
 export type MediaInlineAnalyticsErrorBoundaryProps = PropsWithChildren<
 	{
@@ -72,6 +72,7 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
 				label="error"
 				LEGACY_size="small"
 				color={token('color.icon.danger', R300)}
+				size="small"
 			/>
 			{message}
 		</span>

@@ -8,6 +8,8 @@ import { type ComponentType, type FC, useRef, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
+import { IconTile } from '@atlaskit/icon';
+import legacyIconMetadata, { type coreIconMetadata } from '@atlaskit/icon/metadata';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -18,10 +20,6 @@ import Modal, {
 import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
-
-import { IconTile } from '../../src';
-import legacyIconMetadata from '../../src/metadata';
-import type newIconMetadata from '../../src/metadata-core';
 
 const pressableStyles = xcss({
 	borderRadius: 'border.radius.100',
@@ -46,7 +44,7 @@ export type IconExplorerCellProps = {
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component: ComponentType<any>;
 	isNamedImport?: boolean;
-} & (typeof newIconMetadata)[string];
+} & (typeof coreIconMetadata)[string];
 
 const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	component: Icon,

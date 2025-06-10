@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import { FadeIn } from '../src';
+import { FadeIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from './utils';
 

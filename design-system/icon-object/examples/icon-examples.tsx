@@ -1,6 +1,6 @@
 import React from 'react';
 
-import metadata from '../src/metadata';
+import metadata from '@atlaskit/icon/metadata';
 
 const icons16 = Object.keys(metadata)
 	.map((name) => {

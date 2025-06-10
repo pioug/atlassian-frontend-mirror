@@ -9,8 +9,7 @@ import { jsx } from '@compiled/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
-
-import { ExitingPersistence, FadeIn } from '../src';
+import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { Block, Centered, RetryContainer } from './utils';
 

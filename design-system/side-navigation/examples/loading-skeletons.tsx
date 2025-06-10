@@ -1,7 +1,6 @@
 import React from 'react';
 
 import CustomerIcon from '@atlaskit/icon/glyph/person';
-
 import {
 	ButtonItem,
 	HeadingItem,
@@ -11,7 +10,7 @@ import {
 	SideNavigation,
 	SkeletonHeadingItem,
 	SkeletonItem,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';

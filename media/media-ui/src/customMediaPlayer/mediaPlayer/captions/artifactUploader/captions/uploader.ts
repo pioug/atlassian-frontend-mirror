@@ -1,11 +1,5 @@
 import type { MediaClient, FileIdentifier } from '@atlaskit/media-client';
-
-const parseError = (error: unknown) => {
-	if (error instanceof Error) {
-		return error;
-	}
-	return new Error(String(error));
-};
+import { parseError } from './util';
 
 const upladFile = async (
 	mediaClient: MediaClient,

@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+import {
+	AtlassianNavigation,
+	PrimaryButton,
+	PrimaryDropdownButton,
+	ProductHome,
+} from '@atlaskit/atlassian-navigation';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
 import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
@@ -7,8 +13,6 @@ import Popup from '@atlaskit/popup';
 // AFP-2532 TODO: Fix automatic suppressions below
 import { borderRadius } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
-
-import { AtlassianNavigation, PrimaryButton, PrimaryDropdownButton, ProductHome } from '../src';
 
 import appsSplash from './shared/assets/Apps4x.png';
 

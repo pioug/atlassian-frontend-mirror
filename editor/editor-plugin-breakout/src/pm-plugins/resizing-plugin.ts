@@ -1,3 +1,6 @@
+import type { IntlShape } from 'react-intl-next';
+
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { stepAddsOneOf } from '@atlaskit/editor-common/utils';
@@ -16,6 +19,7 @@ import {
 import { BreakoutPlugin } from '../breakoutPluginType';
 import type { BreakoutPluginOptions } from '../breakoutPluginType';
 
+import { handleKeyDown } from './handle-key-down';
 import { ResizingMarkView } from './resizing-mark-view';
 
 type AddBreakoutToResizableNodeProps = {
@@ -70,6 +74,8 @@ export const resizingPluginKey = new PluginKey('breakout-resizing');
 
 export const createResizingPlugin = (
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined,
+	getIntl: () => IntlShape,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	options?: BreakoutPluginOptions,
 ) => {
 	return new SafePlugin({
@@ -77,9 +83,10 @@ export const createResizingPlugin = (
 		props: {
 			markViews: {
 				breakout: (mark: Mark, view: EditorView) => {
-					return new ResizingMarkView(mark, view, api);
+					return new ResizingMarkView(mark, view, api, getIntl, nodeViewPortalProviderAPI);
 				},
 			},
+			handleKeyDown,
 		},
 		appendTransaction(
 			transactions: readonly Transaction[],

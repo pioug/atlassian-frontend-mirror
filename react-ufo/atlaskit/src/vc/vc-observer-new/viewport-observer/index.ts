@@ -1,5 +1,6 @@
 import { isContainedWithinMediaWrapper } from '../../vc-observer/media-wrapper/vc-utils';
 import isNonVisualStyleMutation from '../../vc-observer/observers/non-visual-styles/is-non-visual-style-mutation';
+import { RLLPlaceholderHandlers } from '../../vc-observer/observers/rll-placeholders';
 import { type VCObserverEntryType } from '../types';
 
 import { createIntersectionObserver, type VCIntersectionObserver } from './intersection-observer';
@@ -58,6 +59,11 @@ export type ViewPortObserverConstructorArgs = {
 const createElementMutationsWatcher =
 	(removedNodeRects: (DOMRect | undefined)[]) =>
 	({ rect }: { rect: DOMRectReadOnly }) => {
+		const isRLLPlaceholder = RLLPlaceholderHandlers.getInstance().isRLLPlaceholderHydration(rect);
+		if (isRLLPlaceholder) {
+			return 'mutation:rll-placeholder';
+		}
+
 		const wasDeleted = removedNodeRects.some((nr) => sameRectDimensions(nr, rect));
 		if (wasDeleted) {
 			return 'mutation:element-replacement';
@@ -191,6 +197,18 @@ export default class ViewportObserver {
 			if (isNonVisualStyleMutation({ target, attributeName, type: 'attributes' })) {
 				return {
 					type: 'mutation:attribute:non-visual-style',
+					mutationData: {
+						attributeName,
+						oldValue,
+						newValue,
+					},
+				};
+			}
+
+			const isRLLPlaceholder = RLLPlaceholderHandlers.getInstance().isRLLPlaceholderHydration(rect);
+			if (isRLLPlaceholder) {
+				return {
+					type: 'mutation:rll-placeholder',
 					mutationData: {
 						attributeName,
 						oldValue,

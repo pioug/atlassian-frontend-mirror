@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 10.19.2
+
+### Patch Changes
+
+- [#168445](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168445)
+  [`e794b0e5cc34e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e794b0e5cc34e) -
+  Add polling fallback log
+
+## 10.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.19.0
 
 ### Minor Changes

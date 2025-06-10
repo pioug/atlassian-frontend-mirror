@@ -1,6 +1,7 @@
 import React from 'react';
-import type { CustomGlyphProps } from '../src/types';
-import Icon from '../src';
+
+import Icon from '@atlaskit/icon';
+import type { CustomGlyphProps } from '@atlaskit/icon/types';
 
 const dangerFlow = `
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>

@@ -2,6 +2,7 @@ import { type VCIgnoreReason } from '../../../common/vc/types';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
 import isNonVisualStyleMutation from './non-visual-styles/is-non-visual-style-mutation';
+import { RLLPlaceholderHandlers } from './rll-placeholders';
 import { SSRPlaceholderHandlers } from './ssr-placeholders';
 import type {
 	BrowserObservers,
@@ -367,6 +368,10 @@ export class Observers implements BrowserObservers {
 
 					if (!isElementVisible(target)) {
 						data.ignoreReason = 'not-visible';
+					}
+
+					if (RLLPlaceholderHandlers.getInstance().isRLLPlaceholderHydration(ir)) {
+						data.ignoreReason = 'rll-placeholder';
 					}
 
 					this.callbacks.forEach((callback) => {

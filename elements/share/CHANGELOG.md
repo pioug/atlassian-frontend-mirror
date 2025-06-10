@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 6.10.0
+
+### Minor Changes
+
+- [#167224](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167224)
+  [`198e371fcf6c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/198e371fcf6c7) -
+  We are testing adding `shouldRenderToProp` to Design System dropdown menu and popup components to
+  improve accessibility. If this fix is successful it will be available in a later release.
+
 ## 6.9.0
 
 ### Minor Changes

@@ -18,9 +18,8 @@ import {
 	StatuspageIcon,
 	TrelloIcon,
 } from '@atlaskit/logo';
+import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
-
-import { FadeIn, StaggeredEntrance } from '../src';
 
 import { Block, RetryContainer } from './utils';
 

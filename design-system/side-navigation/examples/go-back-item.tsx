@@ -1,8 +1,7 @@
 import React from 'react';
 
 import BitbucketPipelinesIcon from '@atlaskit/icon/glyph/bitbucket/pipelines';
-
-import { GoBackItem } from '../src';
+import { GoBackItem } from '@atlaskit/side-navigation';
 
 const Example = () => (
 	<>

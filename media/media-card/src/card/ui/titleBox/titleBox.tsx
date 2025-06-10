@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
-import LockFilledIcon from '@atlaskit/icon/utility/migration/lock-locked--lock-filled';
+import LockFilledIcon from '@atlaskit/icon/core/migration/lock-locked--lock-filled';
 import { Truncate } from '@atlaskit/media-ui/truncateText';
 import { formatDate } from '@atlaskit/media-ui/formatDate';
 
@@ -38,7 +38,7 @@ export const TitleBox = injectIntl(
 			</TitleBoxFooter>
 			{titleBoxIcon === 'LockFilledIcon' && (
 				<TitleBoxIcon>
-					<LockFilledIcon color="currentColor" label="" LEGACY_size="small" />
+					<LockFilledIcon color="currentColor" label="" LEGACY_size="small" size="small" />
 				</TitleBoxIcon>
 			)}
 		</TitleBoxWrapper>

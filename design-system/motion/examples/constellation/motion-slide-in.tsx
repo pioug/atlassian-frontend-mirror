@@ -11,6 +11,7 @@ import Button from '@atlaskit/button/new';
 import { type Direction, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples -- Not exported
 import { type Fade } from '../../src/entering/types';
 import { Block, Centered, RetryContainer } from '../utils';
 

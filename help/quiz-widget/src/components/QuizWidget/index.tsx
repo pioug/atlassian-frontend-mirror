@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
 import CheckIcon from '@atlaskit/icon/core/migration/check-mark--check';
-import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-large';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { Radio } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
@@ -146,7 +146,12 @@ const QuizWidget = (props: Props) => {
 				>
 					<Flex alignItems="center">
 						<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
-							<ChevronLeftLargeIcon label="prev" color="currentColor" LEGACY_size="large" />
+							<ChevronLeftLargeIcon
+								label="prev"
+								color="currentColor"
+								LEGACY_size="large"
+								size="small"
+							/>
 						</Flex>
 						<NavAction>{isLastSlide && props.score ? 'Review' : 'Previous'}</NavAction>
 					</Flex>
@@ -160,7 +165,12 @@ const QuizWidget = (props: Props) => {
 						<Flex alignItems="center">
 							<NavAction>Learn More</NavAction>
 							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
-								<ChevronRightLargeIcon label="next" color="currentColor" LEGACY_size="large" />
+								<ChevronRightLargeIcon
+									label="next"
+									color="currentColor"
+									LEGACY_size="large"
+									size="small"
+								/>
 							</Flex>
 						</Flex>
 					</NavQuiz>
@@ -169,7 +179,12 @@ const QuizWidget = (props: Props) => {
 						<Flex alignItems="center">
 							<NavAction>Next</NavAction>
 							<Flex xcss={boxWrapperStyles} alignItems="center" justifyContent="center">
-								<ChevronRightLargeIcon label="next" color="currentColor" LEGACY_size="large" />
+								<ChevronRightLargeIcon
+									label="next"
+									color="currentColor"
+									LEGACY_size="large"
+									size="small"
+								/>
 							</Flex>
 						</Flex>
 					</NavQuiz>

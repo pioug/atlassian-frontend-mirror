@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, cx, jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { withFeatureFlaggedComponent } from '@atlaskit/linking-common';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -99,6 +99,7 @@ const LozengeActionTriggerOld = ({
 							label="options"
 							LEGACY_size="medium"
 							LEGACY_margin="-4px -8px -4px -7px"
+							size="small"
 						/>
 					</Box>
 				</span>
@@ -189,6 +190,7 @@ const LozengeActionTrigger = ({
 								label="options"
 								LEGACY_size="medium"
 								LEGACY_margin="-4px -8px -4px -7px"
+								size="small"
 							/>
 						</Box>
 					</span>

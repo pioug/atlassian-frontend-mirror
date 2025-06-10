@@ -437,6 +437,26 @@ export class MediaStore implements MediaApi {
 		);
 	};
 
+	deleteArtifact: MediaApi['deleteArtifact'] = async (id, params, collectionName, traceContext) => {
+		const metadata: RequestMetadata = {
+			method: 'DELETE',
+			endpoint: '/file/{fileId}/artifact/{artifactName}',
+		};
+
+		const authContext: AuthContext = {
+			collectionName,
+			access: [{ type: 'file', id, actions: ['update'] }],
+		};
+
+		const options: MediaStoreRequestOptions = {
+			...metadata,
+			authContext,
+			traceContext,
+		};
+
+		await this.request(`/file/${id}/artifact/${params.artifactName}`, options);
+	};
+
 	async getImage(
 		id: string,
 		params?: MediaStoreGetFileImageParams,

@@ -92,6 +92,7 @@ const WithIssueModal = ({
 			</Button>
 			<div>Generated ADF:</div>
 			<pre>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 				<code data-testid="generated-adf">{generatedAdf}</code>
 			</pre>
 			{showModal && (

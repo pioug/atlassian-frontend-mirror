@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Search } from '../../src';
+import { Search } from '@atlaskit/atlassian-navigation';
 
 const onClick = (...args: any[]) => {
 	console.log('search click', ...args);

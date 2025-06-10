@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { AtlassianNavigation, Create, ProductHome } from '@atlaskit/atlassian-navigation';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-
-import { AtlassianNavigation, Create, ProductHome } from '../../src';
 
 const CreateButton = () => (
 	<Create

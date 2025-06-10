@@ -45,6 +45,7 @@ ${(
 			<td>
 				Use{' '}
 				<Link href="#use-platform-leaf-event-handler">
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 					<code>usePlatformLeafEventHandler</code>
 				</Link>
 				.
@@ -55,12 +56,14 @@ ${(
 			<td>
 				Use{' '}
 				<Link href="#use-callback-with-analytics">
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 					<code>useCallbackWithAnalytics</code>
 				</Link>{' '}
 				if you want something basic.
 				<br />
 				Use{' '}
 				<Link href="#use-analytics-events">
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 					<code>useAnalyticsEvents</code>
 				</Link>{' '}
 				if you want more control.

@@ -4,8 +4,7 @@ import ArrowRightIcon from '@atlaskit/icon/core/arrow-right';
 import HeartIcon from '@atlaskit/icon/core/heart';
 import DepartmentIconLegacy from '@atlaskit/icon/glyph/department';
 import StarIconLegacy from '@atlaskit/icon/glyph/star';
-
-import { ButtonItem, HeadingItem, MenuGroup } from '../src';
+import { ButtonItem, HeadingItem, MenuGroup } from '@atlaskit/menu';
 
 const IconSizing = () => {
 	return (

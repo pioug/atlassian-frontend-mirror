@@ -4,8 +4,7 @@ import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import { Date as AKDate } from '@atlaskit/date';
 import Icon from '@atlaskit/icon/glyph/archive';
 import Lozenge from '@atlaskit/lozenge';
-
-import Table, { Cell, Row, TBody } from '../src';
+import Table, { Cell, Row, TBody } from '@atlaskit/table';
 
 import { userData } from './content/users';
 

@@ -7,11 +7,10 @@ import { useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
+import { createLocalizationProvider } from '@atlaskit/locale';
+import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
-
-import { createLocalizationProvider } from '../src';
-import LocaleSelect, { type Locale } from '../src/LocaleSelect';
 
 const wrapperStyles = xcss({ marginInlineStart: 'space.250' });
 

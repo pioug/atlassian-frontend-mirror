@@ -9,6 +9,8 @@ import { exitCode, selectAll } from '@atlaskit/editor-prosemirror/commands';
 import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { backspaceKeymap } from './backspace';
 import { maybeEscapeKeymap } from './maybeEscape';
@@ -162,6 +164,52 @@ const codeBlockKeymap = ({
 		{
 			key: 'Backspace',
 			run: (cm) => backspaceKeymap({ cm, view, getNode, getPos }),
+		},
+		{
+			key: 'Ctrl-Alt-]',
+			mac: 'Cmd-Alt-]',
+			run: () => {
+				// Pass synthetic event to prosemirror
+				if (
+					expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					fg('platform_editor_breakout_resizing_hello_release')
+				) {
+					view.dispatchEvent(
+						new KeyboardEvent('keydown', {
+							key: ']',
+							code: 'BracketRight',
+							metaKey: browser.mac ? true : false,
+							ctrlKey: browser.mac ? false : true,
+							altKey: true,
+						}),
+					);
+					return true;
+				}
+				return false;
+			},
+		},
+		{
+			key: 'Ctrl-Alt-[',
+			mac: 'Cmd-Alt-[',
+			run: () => {
+				// Pass synthetic event to prosemirror
+				if (
+					expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					fg('platform_editor_breakout_resizing_hello_release')
+				) {
+					view.dispatchEvent(
+						new KeyboardEvent('keydown', {
+							key: ']',
+							code: 'BracketLeft',
+							metaKey: browser.mac ? true : false,
+							ctrlKey: browser.mac ? false : true,
+							altKey: true,
+						}),
+					);
+					return true;
+				}
+				return false;
+			},
 		},
 		...defaultKeymap.concat(indentWithTab),
 	];

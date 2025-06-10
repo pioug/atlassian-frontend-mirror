@@ -8,6 +8,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { captureException } from '@atlaskit/linking-common/sentry';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
@@ -491,6 +492,7 @@ describe('Confirm dismiss dialog', () => {
 						/>
 					)}
 					trigger={(triggerProps) => <Button {...triggerProps}>Open</Button>}
+					shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 				/>
 			);
 		};

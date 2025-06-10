@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
+import { Profile } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-
-import { Profile } from '../../src';
 
 const onClick = (...args: any[]) => {
 	console.log('profile click', ...args);

@@ -15,7 +15,9 @@ import SectionMessage from '@atlaskit/section-message';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples -- This is not exported, intentionally
 import { metaDataWithPackageLoader as mainIconMetadata } from '../src/metadata';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples -- This is not exported, intentionally
 import { type LEGACY_Metadata } from '../src/types';
 import logoIcons from '../utils/logo-icons';
 

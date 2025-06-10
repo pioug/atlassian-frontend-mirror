@@ -3,9 +3,8 @@ import React from 'react';
 import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
-
-import { ButtonItem, MenuGroup, Section } from '../src';
 
 import MenuGroupContainer from './common/menu-group-container';
 import Invision from './icons/invision';

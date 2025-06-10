@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GoBackItem, Section } from '../../src';
+import { GoBackItem, Section } from '@atlaskit/side-navigation';
 
 const ButtonItemExample = () => {
 	return (

@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { IconTile } from '@atlaskit/icon';
+
 import AddIcon from '../../core/add';
 import AddIconOld from '../../glyph/add';
-import { IconTile } from '../../src';
 
 const IconSizeExample = () => {
 	return (

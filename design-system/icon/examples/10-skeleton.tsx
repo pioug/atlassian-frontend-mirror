@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Skeleton } from '@atlaskit/icon';
 import * as colors from '@atlaskit/theme/colors';
-
-import { Skeleton } from '../src';
 
 export default () => (
 	<div>

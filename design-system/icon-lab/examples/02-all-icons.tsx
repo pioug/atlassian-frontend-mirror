@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import coreIconLabMetadata from '../src/entry-points/metadata';
+import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
 
 type composedMetadata = (typeof coreIconLabMetadata)[string] & { component: any };
 

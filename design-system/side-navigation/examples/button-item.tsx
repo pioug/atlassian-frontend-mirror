@@ -2,8 +2,7 @@ import React from 'react';
 
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import OpenIcon from '@atlaskit/icon/glyph/open';
-
-import { ButtonItem } from '../src';
+import { ButtonItem } from '@atlaskit/side-navigation';
 
 const Example = () => (
 	<>

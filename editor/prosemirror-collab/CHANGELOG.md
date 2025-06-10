@@ -1,5 +1,14 @@
 # @atlaskit/prosemirror-collab
 
+## 0.17.1
+
+### Patch Changes
+
+- [#167366](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167366)
+  [`838a75dd75ffd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/838a75dd75ffd) -
+  Mitigate edge case in moved content which can cause a crash.
+- Updated dependencies
+
 ## 0.17.0
 
 ### Minor Changes

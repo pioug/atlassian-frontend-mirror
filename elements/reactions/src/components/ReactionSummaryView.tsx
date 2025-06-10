@@ -8,6 +8,7 @@ import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
 import { type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { EmojiPicker } from '@atlaskit/emoji/picker';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ReactionClick,
@@ -94,9 +95,10 @@ interface ReactionSummaryViewProps
 	/**
 	 * Optional function when the user wants to open the Reactions Dialog
 	 */
-	handleOpenReactionsDialog?: (options?: OpenReactionsDialogOptions) => void /**
+	handleOpenReactionsDialog?: (options?: OpenReactionsDialogOptions) => void;
+	/**
 	 * Optional prop for controlling if the reactions component is view only, disabling adding reactions
-	 */;
+	 */
 	isViewOnly?: boolean;
 	/**
 	 * Optional event handler when the emoji picker is opened
@@ -367,6 +369,7 @@ export const ReactionSummaryView = ({
 					summaryViewParticleEffectEmojiId={summaryViewParticleEffectEmojiId}
 				/>
 			)}
+			shouldRenderToParent={fg('should-render-to-parent-should-be-true-editor-coll')}
 		/>
 	);
 };

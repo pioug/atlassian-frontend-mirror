@@ -56,6 +56,7 @@ import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemir
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
@@ -802,7 +803,11 @@ export function ReactEditorView(props: EditorViewProps) {
 			return (
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={getUAPrefix()}
+					className={
+						(expValEquals('platform_editor_stable_editorview_classname', 'isEnabled', true)
+							? 'ProseMirror '
+							: '') + getUAPrefix()
+					}
 					key="ProseMirror"
 					ref={handleEditorViewRef}
 					aria-label={

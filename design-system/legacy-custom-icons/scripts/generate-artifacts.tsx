@@ -13,24 +13,21 @@ function generateArtifacts(iconDirs: string[]) {
 	const artifactsFile = resolve(currentDir, '../examples/artifacts/icons.tsx');
 
 	const listOfIcons = format(
-		`
-		${iconDirs
-			.map((dir) => {
-				return `import ${getPascalCase(dir)} from '../../src/ui/${dir}';`;
-			})
-			.join('')}
-
-		export default {
+		`export {
 			${iconDirs
 				.map((dir) => {
 					return getPascalCase(dir);
 				})
 				.join(',')}
-		}
+		} from '@atlaskit/legacy-custom-icons';
 	`,
 		'typescript',
 	);
-	const signedArtifact = createSignedArtifact(listOfIcons, 'yarn generate-artifacts');
+
+	const signedArtifact = createSignedArtifact(
+		listOfIcons,
+		'yarn workspace @atlaskit/legacy-custom-icons generate-artifacts',
+	);
 	outputFileSync(artifactsFile, signedArtifact);
 }
 
@@ -49,7 +46,10 @@ function generateIndex(iconDirs: string[]) {
 		'typescript',
 	);
 
-	const signedArtifact = createSignedArtifact(listOfIcons, 'yarn generate-artifacts');
+	const signedArtifact = createSignedArtifact(
+		listOfIcons,
+		'yarn workspace @atlaskit/legacy-custom-icons generate-artifacts',
+	);
 	outputFileSync(indexFile, signedArtifact);
 }
 

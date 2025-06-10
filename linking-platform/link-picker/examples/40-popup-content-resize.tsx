@@ -108,6 +108,7 @@ function TestContentResize() {
 						Toggle
 					</ButtonComponent>
 				)}
+				shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 			/>
 		</Fragment>
 	);

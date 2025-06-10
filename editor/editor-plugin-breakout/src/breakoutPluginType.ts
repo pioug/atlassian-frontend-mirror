@@ -1,4 +1,5 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { type BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import { type EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -24,6 +25,7 @@ export type BreakoutPluginDependencies = [
 	OptionalPlugin<InteractionPlugin>,
 	OptionalPlugin<UserIntentPlugin>,
 	OptionalPlugin<GuidelinePlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
 ];
 
 export type BreakoutPlugin = NextEditorPlugin<

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
+import { Settings } from '@atlaskit/atlassian-navigation';
 import { ButtonItem, HeadingItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-
-import { Settings } from '../../src';
 
 const SettingsContent = () => (
 	<MenuGroup>

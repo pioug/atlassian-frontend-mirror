@@ -21,6 +21,9 @@ export type MessageKey =
 	| 'drop_your_files'
 	| 'upload'
 	| 'cancel'
+	| 'delete'
+	| 'success'
+	| 'error'
 	| 'search_all_gifs'
 	| 'cant_retrieve_gifs'
 	| 'cant_retrieve_files'
@@ -162,6 +165,12 @@ export type MessageKey =
 	| 'video_captions_select_captions'
 	| 'video_captions_upload_captions_form_header'
 	| 'video_captions_upload_captions_form_language_picker'
+	| 'video_captions_upload_success_description'
+	| 'video_captions_upload_error_description'
+	| 'video_captions_delete_captions_confirmation_header'
+	| 'video_captions_delete_captions_confirmation_description'
+	| 'video_captions_delete_success_description'
+	| 'video_captions_delete_error_description'
 	| 'video_settings'
 	| RequestAccessMessageKey;
 
@@ -264,6 +273,21 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.cancel',
 		defaultMessage: 'Cancel',
 		description: 'cancel',
+	},
+	delete: {
+		id: 'fabric.media.delete',
+		defaultMessage: 'Delete',
+		description: 'delete',
+	},
+	success: {
+		id: 'fabric.media.success',
+		defaultMessage: 'Success',
+		description: 'success',
+	},
+	error: {
+		id: 'fabric.media.error',
+		defaultMessage: 'Error',
+		description: 'error',
 	},
 	search_all_gifs: {
 		id: 'fabric.media.search_all_gifs',
@@ -825,6 +849,42 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Select the file language',
 		description:
 			'In the context of a video player, it allows user to select the language of the uploading captions',
+	},
+	video_captions_upload_success_description: {
+		id: 'fabric.media.video_captions_upload_success_description',
+		defaultMessage: 'The caption was successfully uploaded for this video.',
+		description:
+			'In the context of a video player, it provides feedback when a caption was successfully uploadd',
+	},
+	video_captions_upload_error_description: {
+		id: 'fabric.media.video_captions_upload_error_description',
+		defaultMessage: 'The caption failed to upload.',
+		description:
+			'In the context of a video player, it provides feedback when a caption failed to upload',
+	},
+	video_captions_delete_captions_confirmation_header: {
+		id: 'fabric.media.video_captions_delete_captions_confirmation_header',
+		defaultMessage: 'Delete Caption',
+		description:
+			'In the context of a video player, it provides a confirmation header before deleting captions',
+	},
+	video_captions_delete_captions_confirmation_description: {
+		id: 'fabric.media.video_captions_delete_captions_confirmation_description',
+		defaultMessage: 'Please confirm that you want to delete this caption.',
+		description:
+			'In the context of a video player, it provides a confirmation description before deleting captions',
+	},
+	video_captions_delete_success_description: {
+		id: 'fabric.media.video_captions_delete_success_description',
+		defaultMessage: 'The caption was successfully removed from this video.',
+		description:
+			'In the context of a video player, it provides feedback when a caption was successfully deleted',
+	},
+	video_captions_delete_error_description: {
+		id: 'fabric.media.video_captions_delete_error_description',
+		defaultMessage: 'The caption failed to delete.',
+		description:
+			'In the context of a video player, it provides feedback when a caption failed to delete',
 	},
 	video_settings: {
 		id: 'fabric.media.video_settings',

@@ -4,8 +4,7 @@ import Banner from '@atlaskit/banner';
 import { Code } from '@atlaskit/code';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Link from '@atlaskit/link';
-
-import Page, { Grid, GridColumn } from '../src';
+import Page, { Grid, GridColumn } from '@atlaskit/page';
 
 import { Dummy } from './common/dummy';
 

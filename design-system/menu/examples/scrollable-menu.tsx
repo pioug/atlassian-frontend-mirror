@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonItem, MenuGroup, Section } from '../src';
+import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 
 import ImgIcon from './common/img-icon';
 import MenuGroupContainer from './common/menu-group-container';

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [#166502](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166502)
+  [`ea1ed63fc9615`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea1ed63fc9615) -
+  ED-28032 add keyboard shortcuts for new resizing experience behind
+  platform_editor_breakout_resizing
+
 ## 2.2.13
 
 ### Patch Changes

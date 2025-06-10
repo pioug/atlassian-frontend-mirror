@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { token } from '@atlaskit/tokens';
-
 import {
 	ButtonItem,
 	GoBackItem,
@@ -11,7 +9,8 @@ import {
 	NestingItem,
 	Section,
 	SideNavigation,
-} from '../src';
+} from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';
 
@@ -82,7 +81,7 @@ const BasicExample = () => {
 								<NestingItem
 									id="1-1"
 									title="Item A-1"
-									// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+									// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 									overrides={{
 										GoBackItem: {
 											render: (props) => (

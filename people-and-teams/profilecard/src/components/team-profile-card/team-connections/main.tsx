@@ -3,9 +3,14 @@ import React, { useCallback } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import { cssMap } from '@atlaskit/css';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { LinkItem } from '@atlaskit/menu';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { getContainerProperties, type LinkedContainerCardProps } from '@atlaskit/teams-public';
+import {
+	ContainerIcon,
+	getContainerProperties,
+	type LinkedContainerCardProps,
+} from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
 
 import { fireEvent } from '../../../util/analytics';
@@ -33,9 +38,13 @@ export const TeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
+	const isSupportingAddWebLink =
+		FeatureGates.initializeCompleted() &&
+		FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',
+		isDisplayedOnProfileCard: true,
 	});
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const onClick = useCallback(() => {
@@ -50,13 +59,22 @@ export const TeamConnections = ({
 	return (
 		<LinkItem href={link} onClick={onClick}>
 			<Inline space="space.100" xcss={styles.containerWrapperStyles}>
-				<Box
-					as="img"
-					src={containerIcon}
-					alt=""
-					testId="linked-container-icon"
-					xcss={styles.containerIconStyles}
-				/>
+				{isSupportingAddWebLink ? (
+					<ContainerIcon
+						containerType={containerType}
+						title={title}
+						containerIcon={containerIcon}
+						size="small"
+					/>
+				) : (
+					<Box
+						as="img"
+						src={containerIcon}
+						alt=""
+						testId="linked-container-icon"
+						xcss={styles.containerIconStyles}
+					/>
+				)}
 				<Stack>
 					<Text maxLines={1} color="color.text">
 						{title}
@@ -88,9 +106,13 @@ export const NewTeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
+	const isSupportingAddWebLink =
+		FeatureGates.initializeCompleted() &&
+		FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',
+		isDisplayedOnProfileCard: true,
 	});
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const onClick = useCallback(() => {
@@ -117,12 +139,21 @@ export const NewTeamConnections = ({
 				</Inline>
 			}
 			iconBefore={
-				<Avatar
-					size="small"
-					appearance="square"
-					src={containerIcon}
-					testId="linked-container-icon"
-				/>
+				isSupportingAddWebLink ? (
+					<ContainerIcon
+						containerType={containerType}
+						title={title}
+						containerIcon={containerIcon}
+						size="small"
+					/>
+				) : (
+					<Avatar
+						size="small"
+						appearance="square"
+						src={containerIcon}
+						testId="linked-container-icon"
+					/>
+				)
 			}
 			iconAfter={
 				<Box

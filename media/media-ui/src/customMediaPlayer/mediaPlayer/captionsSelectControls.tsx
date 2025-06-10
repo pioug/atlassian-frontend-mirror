@@ -4,7 +4,7 @@ import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
 import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { messages } from '../../messages';
 import { formatLocale } from './captions';
 
@@ -58,7 +58,7 @@ export const _CaptionsSelectControls = memo(
 							<IconButton
 								ref={triggerRef}
 								{...triggerProps}
-								icon={ChevronDownIcon}
+								icon={(iconProps) => <ChevronDownIcon {...iconProps} size="small" />}
 								label={selectCaptions}
 								appearance="subtle"
 							/>

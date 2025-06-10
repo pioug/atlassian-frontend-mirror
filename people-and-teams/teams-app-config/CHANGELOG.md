@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.7.0
+
+### Minor Changes
+
+- [#165553](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165553)
+  [`4f546430827dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f546430827dd) -
+  Added TEAMS_DIRECTORY type route
+
 ## 1.6.0
 
 ### Minor Changes

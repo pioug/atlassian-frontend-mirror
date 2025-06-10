@@ -9,13 +9,12 @@ import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
+import { UNSAFE_InteractionSurface as InteractionSurface } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import { UNSAFE_InteractionSurface as InteractionSurface } from '../src';
 
 const fieldsetStyles = xcss({
 	flex: '1 1 100%',

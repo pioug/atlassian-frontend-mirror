@@ -42,6 +42,10 @@ describe('AbstractVCCalculatorBase V1', () => {
 		calculator = new TestVCCalculator('test-revision');
 		jest.spyOn(getViewportWidth, 'default').mockReturnValue(1024);
 		jest.spyOn(getViewportHeight, 'default').mockReturnValue(768);
+
+		// Clear window callbacks
+		delete (window as any).__ufo_devtool_onVCRevisionReady__;
+		delete (window as any).__on_ufo_vc_debug_data_ready;
 	});
 
 	afterEach(() => {
@@ -299,5 +303,253 @@ describe('AbstractVCCalculatorBase V1', () => {
 
 		expect(result).toBeDefined();
 		expect(result?.ratios).toBeUndefined();
+	});
+
+	describe('Debug info calculation optimization', () => {
+		let mockDevToolCallback: jest.Mock;
+		let mockDebugDataCallback: jest.Mock;
+		let mockCalculator: TestVCCalculator;
+
+		beforeEach(() => {
+			mockDevToolCallback = jest.fn();
+			mockDebugDataCallback = jest.fn();
+			mockCalculator = new TestVCCalculator('test-revision');
+
+			// Mock percentile calculation
+			jest.spyOn(percentileCalc, 'calculateTTVCPercentilesWithDebugInfo').mockResolvedValue([
+				{
+					time: 100,
+					viewportPercentage: 90,
+					entries: [
+						{
+							type: 'mutation:element' as const,
+							elementName: 'div1',
+							rect: new DOMRect(),
+							visible: true,
+						},
+					],
+				},
+			]);
+		});
+
+		it('should not calculate debug details when no devtool callbacks exist', async () => {
+			// No devtool callbacks set
+			const allEntries: VCObserverEntry[] = [
+				{
+					time: 100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'included-div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				},
+				{
+					time: 200,
+					data: {
+						type: 'mutation:element',
+						elementName: 'ignored-div',
+						rect: new DOMRect(),
+						visible: false,
+					},
+				},
+			];
+
+			// Create calculator that excludes the second entry
+			const testCalculator = new (class extends AbstractVCCalculatorBase {
+				protected isEntryIncluded(entry: VCObserverEntry) {
+					return (
+						entry.data.type === 'mutation:element' &&
+						'visible' in entry.data &&
+						entry.data.visible === true
+					);
+				}
+				protected getVCCleanStatus() {
+					return { isVCClean: true };
+				}
+			})('test-revision');
+
+			await testCalculator.calculate({
+				orderedEntries: allEntries,
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
+			});
+
+			// Verify that devtools callbacks were not called (since they don't exist)
+			expect(mockDevToolCallback).not.toHaveBeenCalled();
+			expect(mockDebugDataCallback).not.toHaveBeenCalled();
+		});
+
+		it('should calculate debug details when __ufo_devtool_onVCRevisionReady__ exists', async () => {
+			// Set up devtool callback
+			(window as any).__ufo_devtool_onVCRevisionReady__ = mockDevToolCallback;
+
+			const allEntries: VCObserverEntry[] = [
+				{
+					time: 100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'included-div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				},
+				{
+					time: 200,
+					data: {
+						type: 'mutation:element',
+						elementName: 'ignored-div',
+						rect: new DOMRect(),
+						visible: false,
+					},
+				},
+			];
+
+			// Create calculator that excludes the second entry
+			const testCalculator = new (class extends AbstractVCCalculatorBase {
+				protected isEntryIncluded(entry: VCObserverEntry) {
+					return (
+						entry.data.type === 'mutation:element' &&
+						'visible' in entry.data &&
+						entry.data.visible === true
+					);
+				}
+				protected getVCCleanStatus() {
+					return { isVCClean: true };
+				}
+			})('test-revision');
+
+			await testCalculator.calculate({
+				orderedEntries: allEntries,
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
+			});
+
+			// Verify that devtools callback was called with debug details
+			expect(mockDevToolCallback).toHaveBeenCalledWith(
+				expect.objectContaining({
+					revision: 'test-revision',
+					isClean: true,
+					vcLogs: expect.arrayContaining([
+						expect.objectContaining({
+							time: 100,
+							viewportPercentage: 90,
+						}),
+						expect.objectContaining({
+							time: 200,
+							viewportPercentage: 90, // Ignored entry should get the biggest previous viewport percentage
+						}),
+					]),
+					interactionId: 'test-interaction-id',
+				}),
+			);
+		});
+
+		it('should calculate debug details when __on_ufo_vc_debug_data_ready exists with feature flag', async () => {
+			// Set up debug data callback and enable feature flag
+			(window as any).__on_ufo_vc_debug_data_ready = mockDebugDataCallback;
+			mockFg.mockImplementation((key) => {
+				if (key === 'platform_ufo_emit_vc_debug_data') {
+					return true;
+				}
+				return false;
+			});
+
+			const allEntries: VCObserverEntry[] = [
+				{
+					time: 100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'included-div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				},
+			];
+
+			await mockCalculator.calculate({
+				orderedEntries: allEntries,
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
+			});
+
+			// Verify that debug data callback was called
+			expect(mockDebugDataCallback).toHaveBeenCalledWith(
+				expect.objectContaining({
+					revision: 'test-revision',
+					isClean: true,
+					vcLogs: expect.any(Array),
+					interactionId: 'test-interaction-id',
+				}),
+			);
+		});
+
+		it('should not calculate debug details when __on_ufo_vc_debug_data_ready exists but feature flag is disabled', async () => {
+			// Set up debug data callback but disable feature flag
+			(window as any).__on_ufo_vc_debug_data_ready = mockDebugDataCallback;
+			mockFg.mockImplementation((key) => {
+				if (key === 'platform_ufo_emit_vc_debug_data') {
+					return false;
+				}
+				return false;
+			});
+
+			const allEntries: VCObserverEntry[] = [
+				{
+					time: 100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'included-div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				},
+			];
+
+			await mockCalculator.calculate({
+				orderedEntries: allEntries,
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: false,
+			});
+
+			// Verify that debug data callback was not called
+			expect(mockDebugDataCallback).not.toHaveBeenCalled();
+		});
+
+		it('should not calculate debug details for post-interaction scenarios', async () => {
+			// Set up devtool callback
+			(window as any).__ufo_devtool_onVCRevisionReady__ = mockDevToolCallback;
+
+			const allEntries: VCObserverEntry[] = [
+				{
+					time: 100,
+					data: {
+						type: 'mutation:element',
+						elementName: 'included-div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				},
+			];
+
+			await mockCalculator.calculate({
+				orderedEntries: allEntries,
+				startTime: 0,
+				stopTime: 1000,
+				interactionId: 'test-interaction-id',
+				isPostInteraction: true, // Post-interaction should skip debug details
+			});
+
+			// Verify that devtools callback was not called for post-interaction
+			expect(mockDevToolCallback).not.toHaveBeenCalled();
+		});
 	});
 });

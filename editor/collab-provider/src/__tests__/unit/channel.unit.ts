@@ -909,6 +909,7 @@ describe('Channel unit tests', () => {
 				expect.any(Function),
 				{ product: 'confluence' },
 				false,
+				expect.any(Object),
 			);
 		});
 

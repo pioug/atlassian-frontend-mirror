@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { AtlassianNavigation } from '../src';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation';
 
 import { DefaultCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

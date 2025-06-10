@@ -2,8 +2,8 @@ import React from 'react';
 
 import NewButton from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
-import ChevronDownIconOld from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronDownIconOld from '@atlaskit/icon/core/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { TriggerProps } from '@atlaskit/popup/types';
 
@@ -29,7 +29,7 @@ export const PopupTrigger = ({
 				testId={'confluence-search-modal--date-range-button'}
 				onClick={onClick}
 				isSelected={isSelected}
-				iconAfter={() => <ChevronDownIcon label="" color="currentColor" />}
+				iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
 			>
 				{labelPrefix}
 				{selectedLabel ? `: ${selectedLabel}` : ''}
@@ -46,7 +46,7 @@ export const PopupTrigger = ({
 			iconAfter={
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<span style={{ display: 'flex', alignItems: 'center' }}>
-					<ChevronDownIconOld LEGACY_size="medium" label="" color="currentColor" />
+					<ChevronDownIconOld LEGACY_size="medium" label="" color="currentColor" size="small" />
 				</span>
 			}
 		>

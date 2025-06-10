@@ -111,6 +111,9 @@ const getMediaApi = ({ getItem }: { setItems: SetItems; getItem: GetItem }): Med
 	uploadArtifact: async () => {
 		throw new Error('500 - MockedMediaApi.uploadArtifact: method not implemented');
 	},
+	deleteArtifact: async () => {
+		throw new Error('500 - MockedMediaApi.deleteArtifact: method not implemented');
+	},
 
 	// --------------------------------------------------------
 	// BINARY ENDPOINTS

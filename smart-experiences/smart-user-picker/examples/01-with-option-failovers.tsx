@@ -69,6 +69,7 @@ const Example = () => {
 	return (
 		<IntlProvider locale="en">
 			<p>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 				This example shows how the Smart User Picker <code>onError</code> prop can be used to
 				provide a fallback data source, to be called if the primary data source (User
 				Recommendations Service) fails.

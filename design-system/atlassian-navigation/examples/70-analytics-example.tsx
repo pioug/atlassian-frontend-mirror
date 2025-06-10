@@ -5,10 +5,6 @@ import {
 	AnalyticsListener,
 	useCallbackWithAnalytics,
 } from '@atlaskit/analytics-next';
-import Badge from '@atlaskit/badge';
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-import { ButtonItem } from '@atlaskit/menu';
-
 import {
 	AppSwitcher,
 	AtlassianNavigation,
@@ -21,8 +17,11 @@ import {
 	Profile,
 	Search,
 	Settings,
-} from '../src';
-import { useOverflowStatus } from '../src/controllers/overflow';
+	useOverflowStatus,
+} from '@atlaskit/atlassian-navigation';
+import Badge from '@atlaskit/badge';
+import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+import { ButtonItem } from '@atlaskit/menu';
 
 const useNavigationAnalytics = (subject: string) => {
 	return useCallbackWithAnalytics(

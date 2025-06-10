@@ -56,6 +56,7 @@ const Example = () => {
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Stack space="space.100">
 					<Heading size="medium">
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 						Standard user picker with <code>UNSAFE_hasDraggableParentComponent=true</code>
 					</Heading>
 					<PickerExamples id="basic" />
@@ -64,12 +65,15 @@ const Example = () => {
 						xcss={xcss({ border: '2px dashed gray', width: 'fit-content' })}
 						onMouseDownCapture={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
 					>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 						Parent with <code>onMouseDownCapture</code> preventing default
 						<PickerExamples id="mousedown-captured" />
 					</Box>
 				</Stack>
 				<Heading size="medium">
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 					User picker inside <code>react-beautiful-dnd</code> Draggable with{' '}
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 					<code>UNSAFE_hasDraggableParentComponent=true</code>
 				</Heading>
 				<Droppable droppableId="droppable">

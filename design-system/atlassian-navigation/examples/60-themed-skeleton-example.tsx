@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { NavigationSkeleton } from '../src/skeleton';
+import { NavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 
 import { themes } from './shared/themes';
 

@@ -1,8 +1,5 @@
 import React from 'react';
 
-import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
-import { ButtonItem } from '@atlaskit/menu';
-
 import {
 	AtlassianNavigation,
 	Create,
@@ -11,7 +8,9 @@ import {
 	PrimaryDropdownButton,
 	type PrimaryDropdownButtonProps,
 	useOverflowStatus,
-} from '../../src';
+} from '@atlaskit/atlassian-navigation';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import { ButtonItem } from '@atlaskit/menu';
 
 const ResponsivePrimaryButton = (props: PrimaryButtonProps) => {
 	const overflowStatus = useOverflowStatus();

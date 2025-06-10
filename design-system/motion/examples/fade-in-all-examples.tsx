@@ -9,9 +9,8 @@
 import { css, jsx } from '@compiled/react';
 
 import { md } from '@atlaskit/docs';
+import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
-
-import { FadeIn, StaggeredEntrance } from '../src';
 
 import { Block, Centered, RetryContainer } from './utils';
 

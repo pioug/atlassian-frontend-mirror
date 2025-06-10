@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonItem, NavigationContent, Section } from '../src';
+import { ButtonItem, NavigationContent, Section } from '@atlaskit/side-navigation';
 
 const Example = () => (
 	<NavigationContent testId="navigation-content-for-sections">

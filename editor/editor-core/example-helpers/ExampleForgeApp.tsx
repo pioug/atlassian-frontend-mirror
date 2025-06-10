@@ -7,6 +7,7 @@ import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { type SelectionExtensionComponentProps } from '@atlaskit/editor-plugin-selection-extension';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup';
 import { xcss, Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -67,6 +68,7 @@ export const ExampleForgeApp = ({
 					}}
 				></span>
 			)}
+			shouldRenderToParent={fg('should-render-to-parent-should-be-true-editor')}
 		></Popup>
 	);
 };

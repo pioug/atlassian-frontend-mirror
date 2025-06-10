@@ -13,7 +13,7 @@ import { xcss, Box, Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
-import ErrorIcon from '@atlaskit/icon/utility/migration/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 
 interface PDFPasswordInputProps {
 	onSubmit: OnSubmitHandler<{ password: string }>;
@@ -111,7 +111,7 @@ export const PDFPasswordInput = ({
 								/>
 								{formError && (
 									<div css={errorMessageWrapperStyle} id={`${fieldProps.id}-error`}>
-										<ErrorIcon color="currentColor" LEGACY_size="small" label="" />
+										<ErrorIcon color="currentColor" LEGACY_size="small" label="" size="small" />
 										{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 										<p css={errorMessageStyle}>
 											<FormattedMessage {...messages.incorrect_password} />

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 10.12.0
+
+### Minor Changes
+
+- [#167123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167123)
+  [`8baa50249f460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8baa50249f460) -
+  fix: stable class name for EditorView.dom
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.11.10
 
 ### Patch Changes

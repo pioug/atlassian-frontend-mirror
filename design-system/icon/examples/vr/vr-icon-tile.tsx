@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 
+import { IconTile } from '@atlaskit/icon';
+import { type NewCoreIconProps } from '@atlaskit/icon';
 import { Inline } from '@atlaskit/primitives';
 
 import AddIcon from '../../core/add';
-import { IconTile } from '../../src';
-import { type NewCoreIconProps } from '../../src/types';
 
 const IconSizeExample = () => {
 	const sizes = ['24', '32', '40', '48'] as const;

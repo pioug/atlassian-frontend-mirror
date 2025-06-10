@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "4.3.9",
+	"version": "4.3.10",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -7,8 +7,8 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import SuccessIcon from '@atlaskit/icon/utility/check-circle';
-import ErrorIcon from '@atlaskit/icon/utility/error';
+import SuccessIcon from '@atlaskit/icon/core/check-circle';
+import ErrorIcon from '@atlaskit/icon/core/error';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -55,8 +55,10 @@ const IconWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
-	error: <ErrorIcon color={token('color.text.danger', '#AE2A19')} label="error" />,
-	valid: <SuccessIcon color={token('color.text.success', '#216E4E')} label="success" />,
+	error: <ErrorIcon color={token('color.text.danger', '#AE2A19')} label="error" size="small" />,
+	valid: (
+		<SuccessIcon color={token('color.text.success', '#216E4E')} label="success" size="small" />
+	),
 };
 
 export const Message = ({ children, appearance = 'default', id, testId }: MessageProps) => {

@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 
 import { akEditorDeleteIconColor } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -231,6 +232,42 @@ export const resizerStyles = css`
 		left: unset;
 	}
 `;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const pragmaticResizerStylesForTooltip = () => {
+	if (
+		editorExperiment('platform_editor_breakout_resizing', true) &&
+		fg('platform_editor_breakout_resizing_hello_release')
+	) {
+		return css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.pm-breakout-resize-handle-rail-wrapper': {
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+
+				height: '100%',
+
+				cursor: 'col-resize',
+
+				borderRadius: 4,
+				zIndex: 2,
+
+				// Tootip element
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'[role="presentation"]': {
+					height: '100%',
+					width: '100%',
+				},
+
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'.pm-breakout-resize-handle-rail-inside-tooltip': {
+					height: '100%',
+				},
+			},
+		});
+	}
+};
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStyles = () => {

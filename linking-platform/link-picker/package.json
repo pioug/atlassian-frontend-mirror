@@ -71,6 +71,9 @@
 		},
 		"platform-link-picker-a11y-label": {
 			"type": "boolean"
+		},
+		"should-render-to-parent-should-be-true-linking-pla": {
+			"type": "boolean"
 		}
 	},
 	"scripts": {

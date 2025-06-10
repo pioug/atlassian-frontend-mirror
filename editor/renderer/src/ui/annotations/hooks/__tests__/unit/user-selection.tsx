@@ -200,6 +200,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 						<ol>
 							<li>
 								<p>
+									{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 									item 1<code>abc</code>
 								</p>
 							</li>

@@ -1,8 +1,6 @@
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import type { AriaAttributes } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	type ActionMeta,
 	type GroupBase,
@@ -151,75 +149,25 @@ export interface AriaLiveMessages<
 }
 
 export const defaultAriaLiveMessages = {
-	guidance: (props: AriaGuidanceProps) => {
-		const { isSearchable, isMulti, tabSelectsValue, context, isInitialFocus } = props;
-		switch (context) {
-			case 'menu':
-				return `Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu${
-					tabSelectsValue ? ', press Tab to select the option and exit the menu' : ''
-				}.`;
-			case 'input':
-				return isInitialFocus
-					? `${props['aria-label'] || 'Select'} is focused ${
-							isSearchable ? ',type to refine list' : ''
-						}, press Down to open the menu, ${
-							isMulti ? ' press left to focus selected values' : ''
-						}`
-					: '';
-			case 'value':
-				return 'Use left and right to toggle between focused values, press Backspace to remove the currently focused value';
-			default:
-				return '';
-		}
-	},
-
 	onChange: <Option, IsMulti extends boolean>(props: AriaOnChangeProps<Option, IsMulti>) => {
-		const { action, label = '', labels, isDisabled } = props;
+		const { action, label = '', isDisabled } = props;
+
 		switch (action) {
 			case 'deselect-option':
 			case 'pop-value':
 			case 'remove-value':
-				return (label.length && fg('design_system_select-a11y-improvement')) ||
-					!fg('design_system_select-a11y-improvement')
-					? `option ${label}, deselected`
-					: ''; // TODO: this should be handled on backspace|delete if no value, but doing it here first
+				return label.length ? `option ${label}, deselected` : '';
 			case 'clear':
 				return 'All selected options have been cleared.';
-			case 'initial-input-focus':
-				return (label.length && fg('design_system_select-a11y-improvement')) ||
-					!fg('design_system_select-a11y-improvement')
-					? `option${labels.length > 1 ? 's' : ''} ${labels.join(',')}, selected.`
-					: '';
 			case 'select-option':
-				return isDisabled
-					? `option ${label} is disabled. Select another option.`
-					: `option ${label}, selected.`;
+				return label.length && !isDisabled ? `option ${label}, selected.` : '';
 			default:
 				return '';
 		}
 	},
 
-	onFocus: <Option, Group extends GroupBase<Option>>(props: AriaOnFocusProps<Option, Group>) => {
-		const { context, focused, options, label = '', selectValue, isDisabled, isSelected } = props;
-
-		const getArrayIndex = (arr: OptionsOrGroups<Option, Group>, item: Option) =>
-			arr && arr.length ? `(${arr.indexOf(item) + 1} of ${arr.length})` : '';
-
-		if (context === 'value' && selectValue) {
-			return `value ${label} focused, ${getArrayIndex(selectValue, focused)}.`;
-		}
-
-		// No longer needed after fg('design_system_select-a11y-improvement') is cleaned up
-		if (context === 'menu' && !fg('design_system_select-a11y-improvement')) {
-			const disabled = isDisabled ? ' disabled' : '';
-			const status = `${isSelected ? ' selected' : ' not selected'}${disabled}`;
-			return `${label}${status}, ${getArrayIndex(options, focused)}, completion selected`;
-		}
-		return '';
-	},
-
 	onFilter: (props: AriaOnFilterProps) => {
 		const { inputValue, resultsMessage } = props;
-		return `${resultsMessage}${inputValue ? ' for search term ' + inputValue : ''}.`;
+		return inputValue ? `${resultsMessage} for search term ${inputValue}.` : '';
 	},
 };

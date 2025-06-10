@@ -7,18 +7,18 @@ import { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { JiraIcon, JiraLogo } from '@atlaskit/logo';
-
-import { AtlassianNavigation, ProductHome } from '../../src';
+import { AtlassianNavigation, ProductHome } from '@atlaskit/atlassian-navigation';
 import {
 	SkeletonCreateButton,
 	SkeletonIconButton,
 	SkeletonPrimaryButton,
-} from '../../src/skeleton';
-import { SkeletonHelpButton } from '../../src/skeleton-help-button';
-import { SkeletonNotificationButton } from '../../src/skeleton-notification-button';
-import { SkeletonSettingsButton } from '../../src/skeleton-settings-button';
-import { SkeletonSwitcherButton } from '../../src/skeleton-switcher-button';
+} from '@atlaskit/atlassian-navigation/skeleton';
+import { SkeletonHelpButton } from '@atlaskit/atlassian-navigation/skeleton-help-button';
+import { SkeletonNotificationButton } from '@atlaskit/atlassian-navigation/skeleton-notification-button';
+import { SkeletonSettingsButton } from '@atlaskit/atlassian-navigation/skeleton-settings-button';
+import { SkeletonSwitcherButton } from '@atlaskit/atlassian-navigation/skeleton-switcher-button';
+import { JiraIcon, JiraLogo } from '@atlaskit/logo';
+
 import { avatarUrl } from '../shared/profile-popup';
 
 const SkeletonCreate = () => <SkeletonCreateButton text="Create"></SkeletonCreateButton>;

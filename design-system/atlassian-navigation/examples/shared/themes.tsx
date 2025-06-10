@@ -1,6 +1,5 @@
+import { generateTheme } from '@atlaskit/atlassian-navigation';
 import { B400, G300, N0, N800, P300, R300, T300, Y300 } from '@atlaskit/theme/colors';
-
-import { generateTheme } from '../../src';
 
 export const theme = [
 	generateTheme({

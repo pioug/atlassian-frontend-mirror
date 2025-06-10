@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
@@ -43,6 +44,7 @@ export default function RootErrorBoundary() {
 						Toggle
 					</Button>
 				)}
+				shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 			/>
 		</PageWrapper>
 	);

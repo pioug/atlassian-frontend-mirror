@@ -3,8 +3,8 @@ import React, { type ReactNode } from 'react';
 import { di } from 'react-magnetic-di';
 
 import { HelperMessage } from '@atlaskit/form';
+import InfoIcon from '@atlaskit/icon/core/information';
 import LegacyInfoIcon from '@atlaskit/icon/glyph/info';
-import InfoIcon from '@atlaskit/icon/utility/information';
 import { Box } from '@atlaskit/primitives/compiled';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -41,6 +41,7 @@ export const InfoMessages = () => {
 						LEGACY_size="small"
 						LEGACY_fallbackIcon={LegacyInfoIcon}
 						LEGACY_margin="0 -4px 0 0"
+						size="small"
 					/>
 				</Box>
 				{infoMessage}

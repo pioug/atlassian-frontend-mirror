@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.17.1",
+	"version": "207.19.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -619,8 +619,7 @@
 			"type": "boolean"
 		},
 		"platform_editor_breakout_resizing_hello_release": {
-			"type": "boolean",
-			"referenceOnly": true
+			"type": "boolean"
 		},
 		"confluence_typography_refreshed": {
 			"type": "boolean"
@@ -628,8 +627,19 @@
 		"atlas_editor_typography_refreshed": {
 			"type": "boolean"
 		},
+		"should-render-to-parent-should-be-true-editor": {
+			"type": "boolean"
+		},
 		"platform_editor_fix_floating_toolbar_focus": {
 			"type": "boolean"
+		},
+		"platform_editor_add_border_for_nested_panel": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_lcm_nested_panel_icon_fix": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

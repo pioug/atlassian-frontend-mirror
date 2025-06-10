@@ -1,8 +1,11 @@
 import React from 'react';
 
+import {
+	AtlassianNavigation,
+	CustomProductHome,
+	ProductHome,
+} from '@atlaskit/atlassian-navigation';
 import { JiraServiceManagementIcon, JiraServiceManagementLogo } from '@atlaskit/logo';
-
-import { AtlassianNavigation, CustomProductHome, ProductHome } from '../src';
 
 import customIcon from './shared/assets/atlassian-icon.png';
 import customLogo from './shared/assets/custom-logo-wide.png';

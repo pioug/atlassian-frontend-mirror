@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { AtlassianNavigation, Search } from '../../src';
+import { AtlassianNavigation, Search } from '@atlaskit/atlassian-navigation';
 
 const SearchExample = () => {
 	const DefaultSearch = () => {

@@ -7,13 +7,13 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { AppSwitcher } from '@atlaskit/atlassian-navigation';
 import Popup from '@atlaskit/popup';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import AtlassianSwitcher from '@atlassian/switcher';
 import { mockEndpoints, REQUEST_FAST } from '@atlassian/switcher-test-utils';
 
-import { AppSwitcher } from '../../src';
 import { withAnalyticsLogger, withIntlProvider } from '../helpers';
 
 const spinnerStyles = css({

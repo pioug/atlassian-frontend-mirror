@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import React, {
 	type AriaAttributes,
 	Component,
@@ -11,7 +10,7 @@ import React, {
 	type TouchEventHandler,
 } from 'react';
 
-import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
+import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
@@ -504,9 +503,6 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 }
 
 export const defaultProps = {
-	// aria-live is by default with the live region so we don't need it
-	// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
-	'aria-live': fg('design_system_select-a11y-improvement') ? undefined : 'polite',
 	backspaceRemovesValue: true,
 	blurInputOnSelect: isTouchCapable(),
 	captureMenuScroll: !isTouchCapable(),
@@ -839,7 +835,6 @@ export default class Select<
 	openAfterFocus = false;
 	scrollToFocusedOptionOnUpdate = false;
 	userIsDragging?: boolean;
-	isVoiceOver = fg('design_system_select-a11y-improvement') && isAppleDevice();
 
 	// Refs
 	// ------------------------------
@@ -1082,6 +1077,8 @@ export default class Select<
 			}
 		}
 
+		const focusedOption = focusableOptions[openAtIndex];
+
 		// only scroll if the menu isn't already open
 		this.scrollToFocusedOptionOnUpdate = !(isFocused && this.menuListRef);
 
@@ -1089,11 +1086,62 @@ export default class Select<
 			{
 				inputIsHiddenAfterUpdate: false,
 				focusedValue: null,
-				focusedOption: focusableOptions[openAtIndex],
-				focusedOptionId: this.getFocusedOptionId(focusableOptions[openAtIndex]),
+				focusedOption: focusedOption,
+				focusedOptionId: this.getFocusedOptionId(focusedOption),
 			},
 			() => this.onMenuOpen(),
 		);
+
+		isSafari() &&
+			focusedOption &&
+			this.updateInputLabel(this.calculateInputLabel(focusedOption, openAtIndex));
+	}
+
+	updateInputLabel(inputLabel?: string) {
+		if (inputLabel) {
+			this.inputRef?.setAttribute('aria-label', inputLabel);
+			setTimeout(() => {
+				const normalizedLabel = this.props['aria-label'] || this.props.label;
+				if (normalizedLabel) {
+					this.inputRef?.setAttribute('aria-label', normalizedLabel);
+				} else {
+					this.inputRef?.removeAttribute('aria-label');
+				}
+			}, 500);
+		}
+	}
+
+	calculateInputLabel(focusedOption: Option, optionIndex: number) {
+		const { options } = this.props;
+
+		const isOptionsGrouped = options?.every(
+			(obj): obj is Group => typeof obj === 'object' && obj !== null && 'options' in obj,
+		);
+
+		let inputLabel = this.getOptionLabel(focusedOption);
+
+		const isOptionFocused = (option: Option) => {
+			return this.getOptionLabel(option) === inputLabel;
+		};
+
+		const groupData = options?.find((option): option is Group => {
+			const groupCandidate = option as Group;
+			return groupCandidate.options?.some(isOptionFocused) ?? false;
+		});
+
+		if (isOptionsGrouped) {
+			const groupOptionIndex = groupData?.options.findIndex(isOptionFocused) ?? 0;
+			const totalLength = options?.reduce((acc: number, currentGroup) => {
+				const group = currentGroup as Group;
+				acc += group?.options?.length;
+				return acc;
+			}, 0);
+			inputLabel = `${inputLabel}, ${groupData?.label} (${groupOptionIndex + 1} of ${totalLength})`;
+		} else {
+			inputLabel = `${inputLabel} (${optionIndex + 1} of ${options?.length})`;
+		}
+
+		return inputLabel;
 	}
 
 	focusValue(direction: 'previous' | 'next') {
@@ -1346,6 +1394,7 @@ export default class Select<
 			| 'placeholder'
 			| 'live-region'
 			| 'multi-message'
+			| 'single-value'
 			| 'selected-value',
 	) => {
 		return `${this.state.instancePrefix}-${element}`;
@@ -1412,33 +1461,37 @@ export default class Select<
 	formatGroupLabel(data: Group) {
 		return this.props.formatGroupLabel(data);
 	}
-	calculateDescription(action?: String) {
-		const descriptionProp = this.props['aria-describedby'] || this.props['descriptionId'];
+	calculateDescription() {
+		const descriptionProp = this.props['aria-describedby'] || this.props.descriptionId;
 		const { isMulti } = this.props;
-		const { selectValue } = this.state;
-		const defaultDescription = selectValue.length
-			? this.getElementId('live-region')
+		const hasValue = this.state.selectValue.length > 0;
+
+		// Determine base description based on selection state
+		const baseDescriptionId = hasValue
+			? isMulti
+				? ''
+				: this.getElementId('single-value')
 			: this.getElementId('placeholder');
 
-		if (!isMulti && selectValue.length && action !== 'initial-input-focus') {
-			return;
+		// Fast path for single select with no description prop
+		if (!isMulti && !descriptionProp) {
+			return { 'aria-describedby': baseDescriptionId };
 		}
 
+		// Build the describedby string efficiently
+		let describedBy = baseDescriptionId;
+		// Add description prop if it exists
+		if (descriptionProp) {
+			describedBy = describedBy ? `${descriptionProp} ${describedBy}` : descriptionProp;
+		}
+
+		// For multi-select, always add multi-message ID
 		if (isMulti) {
 			const multiMessage = this.getElementId('multi-message');
-
-			return {
-				'aria-describedby': descriptionProp
-					? [descriptionProp, defaultDescription, multiMessage].join(' ')
-					: [defaultDescription, multiMessage].join(' '),
-			};
-		} else {
-			return {
-				'aria-describedby': descriptionProp
-					? [descriptionProp, defaultDescription].join(' ')
-					: defaultDescription,
-			};
+			describedBy = describedBy ? `${describedBy} ${multiMessage}` : multiMessage;
 		}
+
+		return { 'aria-describedby': describedBy };
 	}
 
 	// ==============================
@@ -1907,7 +1960,6 @@ export default class Select<
 	// ==============================
 	renderInput() {
 		const {
-			descriptionId,
 			form,
 			inputId,
 			inputValue,
@@ -1923,7 +1975,7 @@ export default class Select<
 			testId,
 		} = this.props;
 		const { Input } = this.getComponents();
-		const { inputIsHidden, ariaSelection } = this.state;
+		const { inputIsHidden } = this.state;
 		const { commonProps } = this;
 
 		const id = inputId || this.getElementId('input');
@@ -1937,7 +1989,6 @@ export default class Select<
 			'aria-haspopup': this.props['UNSAFE_is_experimental_generic']
 				? ('dialog' as AriaAttributes['aria-haspopup'])
 				: ('listbox' as AriaAttributes['aria-haspopup']),
-			'aria-describedby': this.props['aria-describedby'] || descriptionId,
 			'aria-invalid': this.props['aria-invalid'] || isInvalid,
 			'aria-label': this.props['aria-label'] || label,
 			'aria-labelledby': this.props['aria-labelledby'] || labelId,
@@ -1953,7 +2004,7 @@ export default class Select<
 			...(!isSearchable && {
 				'aria-readonly': true,
 			}),
-			...this.calculateDescription(ariaSelection?.action),
+			...this.calculateDescription(),
 		};
 
 		if (!isSearchable) {
@@ -2080,7 +2131,12 @@ export default class Select<
 
 		const singleValue = selectValue[0];
 		return (
-			<SingleValue {...commonProps} data={singleValue} isDisabled={isDisabled}>
+			<SingleValue
+				{...commonProps}
+				data={singleValue}
+				isDisabled={isDisabled}
+				innerProps={{ id: this.getElementId('single-value') }}
+			>
 				{this.formatOptionLabel(singleValue, 'value')}
 			</SingleValue>
 		);
@@ -2196,8 +2252,6 @@ export default class Select<
 			noOptionsMessage,
 			onMenuScrollToTop,
 			onMenuScrollToBottom,
-			labelId,
-			label,
 			testId,
 		} = this.props;
 
@@ -2221,9 +2275,8 @@ export default class Select<
 				role: this.props['UNSAFE_is_experimental_generic'] ? 'listitem' : 'option',
 				'aria-selected': this.props['UNSAFE_is_experimental_generic'] ? undefined : isSelected,
 				// We don't want aria-disabled if it's false. It's just noisy.
-				'aria-disabled':
-					!isDisabled && fg('design_system_select-a11y-improvement') ? undefined : isDisabled,
-				'aria-describedby': fg('design_system_select-a11y-improvement') ? headingId : undefined,
+				'aria-disabled': !isDisabled ? undefined : isDisabled,
+				'aria-describedby': headingId,
 				...(testId && {
 					'data-testid': `${testId}-select--option-${id}`,
 				}),
@@ -2315,20 +2368,6 @@ export default class Select<
 			menuShouldScrollIntoView,
 		};
 
-		const calculateListboxLabel = () => {
-			// First in name calculation, overwrites aria-label
-			if (labelId) {
-				return { 'aria-labelledby': labelId };
-			}
-			// Second in name calcuation, overwrites everything else except aria-labelledby
-			if (label) {
-				return { 'aria-label': label };
-			}
-			// Fallback if no label or labelId is provided, might catch label via <label for> otherwise
-			// will most likely not have an accessible name
-			return { 'aria-labelledby': this.inputRef?.id || this.getElementId('input') };
-		};
-
 		const menuElement = (
 			<MenuPlacer {...commonProps} {...menuPlacementProps}>
 				{({ ref, placerProps: { placement, maxHeight } }) => (
@@ -2362,21 +2401,22 @@ export default class Select<
 									}}
 									innerProps={{
 										role: this.props['UNSAFE_is_experimental_generic'] ? 'dialog' : 'listbox',
-										'aria-label': this.props['UNSAFE_is_experimental_generic']
-											? `${this.props['aria-label'] || label}-dialog`
-											: null,
+										...(this.props['UNSAFE_is_experimental_generic'] && {
+											'aria-labelledby': this.inputRef?.id || this.getElementId('input'),
+										}),
 										'aria-multiselectable':
-											((this.isVoiceOver || !commonProps.isMulti) &&
-												fg('design_system_select-a11y-improvement')) ||
-											this.props['UNSAFE_is_experimental_generic']
+											!commonProps.isMulti || this.props['UNSAFE_is_experimental_generic']
 												? undefined
 												: commonProps.isMulti,
 										id: this.getElementId('listbox'),
 										...(testId && {
 											'data-testid': `${testId}-select--listbox`,
 										}),
-										// add aditional label on listbox when ff is on
-										...(fg('design_system_select-a11y-improvement') && calculateListboxLabel()),
+										// add aditional label on listbox for safari to announce first option
+										...(isSafari() &&
+											!this.props['UNSAFE_is_experimental_generic'] && {
+												'aria-describedby': this.inputRef?.id || this.getElementId('input'),
+											}),
 									}}
 									isLoading={isLoading}
 									maxHeight={maxHeight}
@@ -2448,7 +2488,7 @@ export default class Select<
 
 	renderLiveRegion() {
 		const { commonProps } = this;
-		const { ariaSelection, focusedOption, focusedValue, isFocused, selectValue } = this.state;
+		const { ariaSelection, isFocused, selectValue } = this.state;
 
 		const focusableOptions = this.getFocusableOptions();
 
@@ -2457,21 +2497,22 @@ export default class Select<
 				{...commonProps}
 				id={this.getElementId('live-region')}
 				ariaSelection={ariaSelection}
-				focusedOption={focusedOption}
-				focusedValue={focusedValue}
 				isFocused={isFocused}
 				selectValue={selectValue}
 				focusableOptions={focusableOptions}
-				isAppleDevice={this.isVoiceOver}
 			/>
 		);
 	}
 
 	renderMultiselectMessage() {
+		// In the future, when we actually support touch devices, we'll need to update this to not be keyboard specific.
+		// Also, since this is rendered onscreen, it should be transtlated automatically.
+		const msg = `, multiple selections available, ${this.state.selectValue.length ? 'Use left or right arrow keys to navigate selected items' : ''}`;
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+
 			<span id={this.getElementId('multi-message')} hidden>
-				, multiple selections available,
+				{msg}
 			</span>
 		);
 	}

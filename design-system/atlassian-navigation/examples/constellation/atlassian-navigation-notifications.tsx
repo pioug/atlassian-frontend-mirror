@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { AtlassianNavigation, Notifications } from '@atlaskit/atlassian-navigation';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
-
-import { AtlassianNavigation, Notifications } from '../../src';
 
 const NotificationsBadge = () => (
 	<NotificationIndicator

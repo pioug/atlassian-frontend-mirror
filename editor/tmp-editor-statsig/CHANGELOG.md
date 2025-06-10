@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 6.0.0
+
+### Major Changes
+
+- [#166402](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166402)
+  [`86b124543d340`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86b124543d340) -
+  NO-ISSUE: Convert from experiment (editor_ai_in_editor_streaming) to feature gate
+  (platform_editor_ai_in_editor_streaming)
+
+### Minor Changes
+
+- [#167123](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167123)
+  [`8baa50249f460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8baa50249f460) -
+  fix: stable class name for EditorView.dom
+
 ## 5.14.1
 
 ### Patch Changes

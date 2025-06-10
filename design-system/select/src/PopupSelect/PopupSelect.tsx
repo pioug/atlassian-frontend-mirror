@@ -9,13 +9,10 @@ import FocusLock from 'react-focus-lock';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
 import { shallowEqualObjects } from 'shallow-equal';
 
-import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type GroupBase,
 	mergeStyles,
-	type OptionsOrGroups,
 	type components as RSComponents,
 } from '@atlaskit/react-select';
 import { N80 } from '@atlaskit/theme/colors';
@@ -24,16 +21,13 @@ import { token } from '@atlaskit/tokens';
 import Select from '../Select';
 import {
 	type ActionMeta,
-	type AriaOnFocusProps,
 	type AtlaskitSelectRefType,
-	type GroupType,
 	type OptionType,
 	type ReactSelectProps,
 	type StylesConfig,
 	type ValidationState,
 	type ValueType,
 } from '../types';
-import { countAllOptions, isOptionsGrouped, onFocus } from '../utils/grouped-options-announcement';
 
 import { defaultComponents, DummyControl, MenuDialog } from './components';
 import { NotifyOpenLayerObserver } from './notify-open-layer-observer';
@@ -545,78 +539,6 @@ export default class PopupSelect<
 				return placeholder;
 			}
 		};
-		const providedAriaLabel = getLabel();
-
-		const updateInputAriaLabel = (ariaLabelText: string) => {
-			// Update aria-label to get first announcement when popup opened.
-			if (this.selectRef?.select?.inputRef) {
-				if (providedAriaLabel) {
-					// I might want to use a comma instead of a period here, when the feature flag is removed.
-					ariaLabelText = `${providedAriaLabel}. ${ariaLabelText}`;
-				}
-
-				this.selectRef?.select.inputRef?.setAttribute('aria-label', ariaLabelText);
-			}
-		};
-
-		const generateNoGroupsAriaText = (
-			onFocusProps: AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
-			ariaLabelSuffix: string,
-		) => {
-			const { focused } = onFocusProps;
-			const options = props?.options || [];
-			const totalLength = options?.length;
-			const optionIndex = options?.findIndex((option) => option === focused) ?? 0;
-			const optionName =
-				typeof props?.getOptionLabel === 'function'
-					? props.getOptionLabel(focused as Option)
-					: focused.label;
-
-			const ariaLabelText = fg('design_system_select-a11y-improvement')
-				? `${optionName}, (${optionIndex + 1} of ${totalLength})`
-				: `Option ${optionName} focused, ${optionIndex + 1} of ${totalLength}.
-			${totalLength} results available.
-			${ariaLabelSuffix}
-			`;
-			// Option LABEL focused, 1 of 8. 8 results available.
-			// Use Up and Down to choose options, press Enter to select the currently focused option,
-			// press Escape to exit the menu.
-			return ariaLabelText;
-		};
-
-		const onReactSelectFocus = (onFocusProps: AriaOnFocusProps<Option, GroupBase<Option>>) => {
-			const ariaLabelSuffix = fg('design_system_select-a11y-improvement')
-				? ''
-				: ' Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
-			let ariaLabelText = '';
-			let ariaLiveMessage = '';
-			if (props.options?.length) {
-				if (isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)) {
-					const totalLength = countAllOptions(props.options as readonly GroupBase<OptionType>[]);
-					ariaLiveMessage = onFocus(
-						onFocusProps as AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
-						props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
-					);
-					ariaLabelText = `${ariaLiveMessage} ${totalLength} results available. ${ariaLabelSuffix}`;
-				} else {
-					ariaLabelText = generateNoGroupsAriaText(
-						onFocusProps as AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
-						ariaLabelSuffix,
-					);
-					ariaLiveMessage = ariaLabelText;
-				}
-				// Safari still does not announce the first option when menu is opened, so forcing a change to the input label
-				// will include the first option in the initial announcement.
-				if (
-					!fg('design_system_select-a11y-improvement') ||
-					(isSafari() && fg('design_system_select-a11y-improvement'))
-				) {
-					updateInputAriaLabel(ariaLabelText);
-				}
-				return ariaLiveMessage;
-			}
-			return ariaLiveMessage;
-		};
 
 		const popper = (
 			<Popper
@@ -638,13 +560,7 @@ export default class PopupSelect<
 					>
 						<FocusLock disabled={!focusLockEnabled} returnFocus>
 							<Select<Option, IsMulti>
-								label={providedAriaLabel}
-								// TODO: Popup Select does not work well with active-descendant
-								aria-live={
-									isAppleDevice() && fg('design_system_select-a11y-improvement')
-										? 'assertive' // only needed on Apple products
-										: undefined
-								}
+								label={getLabel()}
 								backspaceRemovesValue={false}
 								controlShouldRenderValue={false}
 								isClearable={false}
@@ -659,11 +575,6 @@ export default class PopupSelect<
 								components={selectComponents}
 								onChange={this.handleSelectChange}
 								testId={testId}
-								ariaLiveMessages={{
-									// Overwriting ariaLiveMessages builtin onFocus method to announce selected option when popup has been opened
-									onFocus: onReactSelectFocus,
-									...props.ariaLiveMessages, // priority to use user handlers if provided
-								}}
 								// Note: We are intentionally not using `onMenuClose={this.close}` here, due to state management conflicts
 								// between PopupSelect's popup and the internal select menu. This can result in the PopupSelect closing
 								// or opening unexpectedly.

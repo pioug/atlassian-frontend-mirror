@@ -2,8 +2,7 @@ import React from 'react';
 
 import Icon from '@atlaskit/icon';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
-
-import { Header } from '../../src';
+import { Header } from '@atlaskit/side-navigation';
 
 import SampleIcon from './sample-logo';
 

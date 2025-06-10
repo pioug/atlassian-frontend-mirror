@@ -24,6 +24,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ExpandPlugin } from '../../types';
 import {
@@ -279,6 +280,27 @@ export class ExpandNodeView implements NodeView {
 		if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
 			this.handleUndoFromTitle(event);
 			return;
+		}
+
+		if (
+			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+			fg('platform_editor_breakout_resizing_hello_release')
+		) {
+			if (
+				(event.ctrlKey || event.metaKey) &&
+				event.altKey &&
+				(event.code === 'BracketLeft' || event.code === 'BracketRight')
+			) {
+				this.view.dispatchEvent(
+					new KeyboardEvent('keydown', {
+						key: event.key,
+						code: event.code,
+						metaKey: event.metaKey,
+						ctrlKey: event.ctrlKey,
+						altKey: event.altKey,
+					}),
+				);
+			}
 		}
 	};
 

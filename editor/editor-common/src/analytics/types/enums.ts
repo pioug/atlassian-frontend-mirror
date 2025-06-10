@@ -175,6 +175,7 @@ export enum ACTION {
 	UPLOAD_FAILED = 'uploadFailed',
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
 	RESIZED = 'resized',
+	RESIZED_PERF_SAMPLING = 'resizedPerfSampling',
 	BLOCKS_DRAG_INIT = 'blocksDragInit',
 	SINGLE_COL_LAYOUT_DETECTED = 'singleColumLayoutDetected',
 	VIEW_MORE = 'viewMore',

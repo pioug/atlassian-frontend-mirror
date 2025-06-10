@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type AriaOnFocusProps,
 	type GroupBase,
@@ -7,9 +6,7 @@ import {
 
 import { type GroupType, type OptionType } from '../types';
 
-// Used for overwriting ariaLiveMessages builtin onFocus method.
-// Returns custom built string while focusing each group option. This string is used for screen reader announcement.
-export function onFocus(
+export function generateGroupLabel(
 	onFocusProps: AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
 	defaultOptions?: OptionsOrGroups<OptionType, GroupType<OptionType>>,
 ) {
@@ -22,14 +19,9 @@ export function onFocus(
 	});
 
 	const groupOptionIndex = groupData?.options.findIndex(isOptionFocused) ?? 0;
+	const totalLength = countAllOptions(defaultOptions as readonly GroupType<OptionType>[]);
 
-	if (focused.label && groupData?.label && fg('design_system_select-a11y-improvement')) {
-		return `${focused.label}, ${groupData?.label}`;
-	}
-
-	return `Option ${focused.label}, ${groupData?.label} group, item ${
-		groupOptionIndex + 1
-	} out of ${groupData?.options.length}. All in all `;
+	return `${focused.label}, ${groupData?.label} (${groupOptionIndex + 1} of ${totalLength})`;
 }
 
 // Helper function which identifies if options are grouped.

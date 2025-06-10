@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
+import { LinkItem, type LinkItemProps } from '@atlaskit/menu';
 import { Box } from '@atlaskit/primitives';
-
-import { LinkItem, type LinkItemProps } from '../src';
 
 import ImgIcon from './common/img-icon';
 import koala from './icons/koala.png';

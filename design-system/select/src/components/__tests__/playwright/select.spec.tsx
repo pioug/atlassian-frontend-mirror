@@ -67,3 +67,12 @@ test(`Checkbox-select should display a menu once clicked and not throwing errors
 	await page.getByTestId(selectValueContainer).first().click();
 	await expect(page.getByTestId(selectValueContainer).first()).not.toHaveText('Choose a City');
 });
+
+test('A11yTexts can be provided through ariaLiveMessages prop', async ({ page }) => {
+	await page.visitExample('design-system', 'select', 'with-isSearchable-false');
+	await page.getByTestId(selectValueContainer).first().click();
+	await expect(page.getByTestId(selectMenu)).toBeVisible();
+	await page.getByTestId(selectAdelaide).first().click();
+	await expect(page.getByTestId(selectValueContainer)).not.toHaveText('Choose a City');
+	await expect(page.getByRole('status')).toHaveText('CUSTOM: option Adelaide is selected.');
+});

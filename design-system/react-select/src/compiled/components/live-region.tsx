@@ -1,6 +1,4 @@
-import React, { Fragment, type ReactNode, useMemo, useRef } from 'react';
-
-import { fg } from '@atlaskit/platform-feature-flags';
+import React, { Fragment, type ReactNode, useMemo } from 'react';
 
 import { type AriaSelection, defaultAriaLiveMessages } from '../../accessibility';
 import { type CommonProps, type GroupBase, type OnChangeValue, type Options } from '../../types';
@@ -18,8 +16,6 @@ interface LiveRegionProps<Option, IsMulti extends boolean, Group extends GroupBa
 	// Select state variables
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	ariaSelection: AriaSelection<Option, IsMulti>;
-	focusedOption: Option | null;
-	focusedValue: Option | null;
 	selectValue: Options<Option>;
 	focusableOptions: Options<Option>;
 	isFocused: boolean;
@@ -30,37 +26,19 @@ interface LiveRegionProps<Option, IsMulti extends boolean, Group extends GroupBa
 const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: LiveRegionProps<Option, IsMulti, Group>,
 ) => {
-	const {
-		ariaSelection,
-		focusedOption,
-		focusedValue,
-		focusableOptions,
-		isFocused,
-		selectValue,
-		selectProps,
-		id,
-		isAppleDevice,
-	} = props;
+	const { ariaSelection, focusableOptions, isFocused, selectValue, selectProps, id } = props;
 
 	const {
 		ariaLiveMessages,
 		getOptionLabel,
 		inputValue,
-		isMulti,
 		isOptionDisabled,
-		isSearchable,
-		label,
 		menuIsOpen,
 		options,
 		screenReaderStatus,
-		tabSelectsValue,
 		isLoading,
 	} = selectProps;
-	const ariaLabel = selectProps['aria-label'] || label;
 	const ariaLive = selectProps['aria-live'];
-
-	// for safari, we will use minimum support from aria-live region
-	const isA11yImprovementEnabled = fg('design_system_select-a11y-improvement') && !isAppleDevice;
 
 	// Update aria live message configuration when prop changes
 	const messages = useMemo(
@@ -74,7 +52,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	// Update aria live selected option when prop changes
 	const ariaSelected = useMemo(() => {
 		let message = '';
-		if (isA11yImprovementEnabled && menuIsOpen) {
+		if (menuIsOpen) {
 			// we don't need to have selected message when the menu is open
 			return '';
 		}
@@ -98,7 +76,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			const multiSelected = selectedOptions || removedValues || undefined;
 			const labels = multiSelected ? multiSelected.map(getOptionLabel) : [];
 
-			if (isA11yImprovementEnabled && !label && !labels.length) {
+			if (!label && !labels.length) {
 				// return empty string if no labels provided
 				return '';
 			}
@@ -115,56 +93,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			message = messages.onChange(onChangeProps);
 		}
 		return message;
-	}, [
-		ariaSelection,
-		messages,
-		isOptionDisabled,
-		selectValue,
-		getOptionLabel,
-		isA11yImprovementEnabled,
-		menuIsOpen,
-	]);
-
-	const prevInputValue = useRef('');
-
-	const ariaFocused = useMemo(() => {
-		let focusMsg = '';
-		const focused = focusedOption || focusedValue;
-		const isSelected = !!(focusedOption && selectValue && selectValue.includes(focusedOption));
-		if (inputValue === prevInputValue.current && isA11yImprovementEnabled) {
-			// only announce focus option when searching when ff is on and the input value changed
-			// for safari, we will announce for all
-			return '';
-		}
-		if (focused && messages.onFocus) {
-			const onFocusProps = {
-				focused,
-				label: getOptionLabel(focused),
-				isDisabled: isOptionDisabled(focused, selectValue),
-				isSelected,
-				options: focusableOptions,
-				context: focused === focusedOption ? ('menu' as const) : ('value' as const),
-				selectValue,
-				isMulti,
-			};
-
-			focusMsg = messages.onFocus(onFocusProps);
-		}
-		prevInputValue.current = inputValue;
-
-		return focusMsg;
-	}, [
-		inputValue,
-		focusedOption,
-		focusedValue,
-		getOptionLabel,
-		isOptionDisabled,
-		messages,
-		focusableOptions,
-		selectValue,
-		isA11yImprovementEnabled,
-		isMulti,
-	]);
+	}, [ariaSelection, messages, isOptionDisabled, selectValue, getOptionLabel, menuIsOpen]);
 
 	const ariaResults = useMemo(() => {
 		let resultsMsg = '';
@@ -187,49 +116,10 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 
 	const isInitialFocus = ariaSelection?.action === 'initial-input-focus';
 
-	const ariaGuidance = useMemo(() => {
-		if (fg('design_system_select-a11y-improvement')) {
-			// don't announce guidance at all when ff is on
-			return '';
-		}
-		let guidanceMsg = '';
-		if (messages.guidance) {
-			const context = focusedValue ? 'value' : menuIsOpen ? 'menu' : 'input';
-			guidanceMsg = messages.guidance({
-				'aria-label': ariaLabel,
-				context,
-				isDisabled: focusedOption && isOptionDisabled(focusedOption, selectValue),
-				isMulti,
-				isSearchable,
-				tabSelectsValue,
-				isInitialFocus,
-			});
-		}
-		return guidanceMsg;
-	}, [
-		ariaLabel,
-		focusedOption,
-		focusedValue,
-		isMulti,
-		isOptionDisabled,
-		isSearchable,
-		menuIsOpen,
-		messages,
-		selectValue,
-		tabSelectsValue,
-		isInitialFocus,
-	]);
-
 	const ScreenReaderText = (
 		<Fragment>
 			<span id="aria-selection">{ariaSelected}</span>
 			<span id="aria-results">{ariaResults}</span>
-			{!fg('design_system_select-a11y-improvement') && (
-				<>
-					<span id="aria-focused">{ariaFocused}</span>
-					<span id="aria-guidance">{ariaGuidance}</span>
-				</>
-			)}
 		</Fragment>
 	);
 
@@ -240,9 +130,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			<A11yText id={id}>{isInitialFocus && ScreenReaderText}</A11yText>
 			<A11yText
 				aria-live={ariaLive} // Should be undefined by default unless a specific use case requires it
-				aria-atomic={fg('design_system_select-a11y-improvement') ? undefined : 'false'}
-				aria-relevant={fg('design_system_select-a11y-improvement') ? undefined : 'additions text'}
-				role={fg('design_system_select-a11y-improvement') ? 'status' : 'log'}
+				role="status"
 			>
 				{isFocused && !isInitialFocus && ScreenReaderText}
 			</A11yText>

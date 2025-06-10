@@ -276,6 +276,7 @@ export const HoverCardComponent = ({
 			label={label}
 			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={CustomPopupContainer}
+			shouldRenderToParent={fg('should-render-to-parent-should-be-true-linking-pla')}
 		/>
 	);
 };

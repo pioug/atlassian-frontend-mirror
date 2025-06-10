@@ -44,6 +44,7 @@ describe('useTeamLinksAndContainers', () => {
 	];
 
 	const mockGetTeamWebLinks = jest.fn();
+	const mockGetTeamWebLinkIcons = jest.fn();
 	const mockCreateTeamWebLink = jest.fn();
 	const mockUpdateTeamWebLink = jest.fn();
 	const mockRemoveWebLink = jest.fn();
@@ -79,9 +80,13 @@ describe('useTeamLinksAndContainers', () => {
 				shouldReload: false,
 				errorType: null,
 				links: mockWebLinks,
+				linkIcons: [],
+				iconsLoading: false,
+				iconsError: false,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,
+				getTeamWebLinkIcons: mockGetTeamWebLinkIcons,
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,
@@ -198,16 +203,19 @@ describe('useTeamLinksAndContainers', () => {
 				shouldReload: false,
 				errorType: null,
 				links: mockWebLinks,
+				linkIcons: [],
+				iconsLoading: false,
+				iconsError: false,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,
+				getTeamWebLinkIcons: mockGetTeamWebLinkIcons,
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,
 				initialState: jest.fn(),
 			},
 		]);
-
 		const { result } = renderHook(() => useTeamLinksAndContainers(teamId));
 		expect(result.current.isLoading).toBe(true);
 		expect(result.current.hasLoaded).toBe(false);
@@ -249,9 +257,13 @@ describe('useTeamLinksAndContainers', () => {
 				shouldReload: false,
 				errorType: new Error('Link error'),
 				links: mockWebLinks,
+				linkIcons: [],
+				iconsLoading: false,
+				iconsError: false,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,
+				getTeamWebLinkIcons: mockGetTeamWebLinkIcons,
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,
@@ -300,9 +312,13 @@ describe('useTeamLinksAndContainers', () => {
 				shouldReload: false,
 				errorType: new Error('Link error'),
 				links: mockWebLinks,
+				linkIcons: [],
+				iconsLoading: false,
+				iconsError: false,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,
+				getTeamWebLinkIcons: mockGetTeamWebLinkIcons,
 				createTeamWebLink: mockCreateTeamWebLink,
 				updateTeamWebLink: mockUpdateTeamWebLink,
 				removeWebLink: mockRemoveWebLink,

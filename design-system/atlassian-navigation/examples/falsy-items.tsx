@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianNavigation, PrimaryButton } from '../src';
+import { AtlassianNavigation, PrimaryButton } from '@atlaskit/atlassian-navigation';
 
 import { DefaultCreate } from './shared/create';
 import { HelpPopup } from './shared/help-popup';

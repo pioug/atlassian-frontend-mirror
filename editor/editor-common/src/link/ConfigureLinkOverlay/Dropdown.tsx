@@ -18,6 +18,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import PreferencesIcon from '@atlaskit/icon/core/migration/customize--preferences';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { cardMessages as messages } from '../../messages';
 
@@ -106,6 +107,7 @@ const Dropdown = ({
 			)}
 			testId={`${testId}-dropdown`}
 			onOpenChange={onOpenChange}
+			shouldRenderToParent={fg('should-render-to-parent-should-be-true-editor')}
 		>
 			<DropdownItemGroup>
 				<DropdownItem

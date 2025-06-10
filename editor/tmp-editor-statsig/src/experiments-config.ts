@@ -85,6 +85,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_stable_editorview_classname: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_stable_editorview_classname',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2025-05-28
 	platform_editor_controls_performance_fixes: createBooleanExperiment({
 		productKeys: {
@@ -380,14 +388,6 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_quickstart_command: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_quickstart_command',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-05-22
-	editor_ai_in_editor_streaming: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_ai_in_editor_streaming',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

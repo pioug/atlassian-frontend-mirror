@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
-import EditorWarningIcon from '@atlaskit/icon/utility/migration/warning--editor-warning';
+import EditorWarningIcon from '@atlaskit/icon/core/migration/warning--editor-warning';
 import { messages } from '@atlaskit/media-ui';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -20,6 +20,7 @@ export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
 					LEGACY_size={'small'}
 					LEGACY_margin={`0 ${token('space.negative.025')}`}
 					color={token('color.text.danger', R300)}
+					size="small"
 				/>
 				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<span>

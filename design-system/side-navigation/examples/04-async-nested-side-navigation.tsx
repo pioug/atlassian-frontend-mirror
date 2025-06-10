@@ -3,7 +3,6 @@ import React, { type FC, useEffect, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import AsyncIcon from '@atlaskit/icon/glyph/emoji/frequent';
 import VidBackwardIcon from '@atlaskit/icon/glyph/vid-backward';
-
 import {
 	NavigationHeader,
 	NestableNavigationContent,
@@ -11,7 +10,7 @@ import {
 	Section,
 	SideNavigation,
 	SkeletonItem,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';

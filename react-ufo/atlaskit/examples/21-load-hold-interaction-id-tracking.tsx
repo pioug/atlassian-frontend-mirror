@@ -147,6 +147,7 @@ export default function LoadHoldInteractionIdTrackingExample() {
 				<div css={infoStyle}>
 					<p>
 						This example demonstrates how UFOLoadHold components react to interaction ID changes.
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 						When a new UFO interaction is started using <code>traceUFOInteraction</code>,
 						UFOLoadHold components will automatically call their hold function again, ensuring they
 						participate in the new interaction.
@@ -173,6 +174,7 @@ export default function LoadHoldInteractionIdTrackingExample() {
 					<ol>
 						<li>
 							Click "Start New Interaction" to trigger a new UFO interaction using{' '}
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-code */}
 							<code>traceUFOInteraction</code>
 						</li>
 						<li>Observe how the loading sections restart when the interaction ID changes</li>

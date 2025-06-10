@@ -139,6 +139,9 @@
 		},
 		"dst-a11y__replace-anchor-with-link__editor-collabo": {
 			"type": "boolean"
+		},
+		"should-render-to-parent-should-be-true-editor-coll": {
+			"type": "boolean"
 		}
 	},
 	"sideEffects": [

@@ -160,6 +160,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 					</div>
 				)}
 				<HiddenInput ref={this.inputRef} text={this.props.link} label={copiedToClipboardText} />
+				{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 				<Popup
 					zIndex={Z_INDEX}
 					autoFocus={false}

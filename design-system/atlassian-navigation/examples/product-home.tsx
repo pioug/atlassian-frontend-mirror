@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { AtlassianNavigation, ProductHome } from '@atlaskit/atlassian-navigation';
 import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
-
-import { AtlassianNavigation, ProductHome } from '../src';
 
 const Home = () => (
 	<ProductHome href="#" siteTitle="Hello" icon={AtlassianIcon} logo={AtlassianLogo} />

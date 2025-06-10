@@ -15,7 +15,6 @@ import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import LanguageIcon from '@atlaskit/icon/glyph/world';
 import { Box } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
-
 import {
 	ButtonItem,
 	HeadingItem,
@@ -25,7 +24,7 @@ import {
 	NestingItem,
 	Section,
 	SideNavigation,
-} from '../src';
+} from '@atlaskit/side-navigation';
 
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';

@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 207.19.3
+
+### Patch Changes
+
+- [#168742](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168742)
+  [`43b55fe50be89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43b55fe50be89) -
+  Add experiment to show no cursor on initial edit page
+- Updated dependencies
+
+## 207.19.2
+
+### Patch Changes
+
+- [#169135](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169135)
+  [`028b3051e55d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/028b3051e55d3) -
+  Migrate extensionStyles to static emotion CSS
+- [#169185](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169185)
+  [`4b4788179f7a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b4788179f7a2) -
+  refactor emotion styles for content styles
+- Updated dependencies
+
 ## 207.19.1
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 import { conditionalHooksFactory } from '@atlaskit/platform-feature-flags-react';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * **Warning: This hook is controlled by the `platform_editor_usesharedpluginstateselector` experiment.**
@@ -16,7 +16,7 @@ export function sharedPluginStateHookMigratorFactory<Result, A>(
 	oldHook: (...args: A[]) => Result,
 ): (...args: A[]) => Result {
 	return conditionalHooksFactory(
-		() => editorExperiment('platform_editor_usesharedpluginstateselector', true),
+		() => expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
 		newHook,
 		oldHook,
 	);

@@ -51,9 +51,6 @@
 			"path": "../editor-plugins/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../../elements/reactions/tsconfig.app.json"
 		},
 		{

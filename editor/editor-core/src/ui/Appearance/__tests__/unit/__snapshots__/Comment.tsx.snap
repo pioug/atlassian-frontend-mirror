@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comment editor fixed toolbar styles static emotion [false] platform-visual-refresh-icons is on visual refresh icons should render sticky toolbar with correct styles 1`] = `
+".css-1uwds6l-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);}
+.css-1uwds6l-FixedToolbar>div{}
+.css-1uwds6l-FixedToolbar>div >:first-child:not(style),.css-1uwds6l-FixedToolbar>div >style:first-child+*{margin-left:0;}
+.css-1uwds6l-FixedToolbar .block-type-btn{padding-left:0;}
+.css-150l8mi-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);}
+.css-150l8mi-FixedToolbar>div{}
+.css-150l8mi-FixedToolbar>div >:first-child:not(style),.css-150l8mi-FixedToolbar>div >style:first-child+*{margin-left:0;}
+@media (max-width: 490px){.css-150l8mi-FixedToolbar>div{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-align-items:end;-webkit-box-align:end;-ms-flex-align:end;align-items:end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;}}
+.css-150l8mi-FixedToolbar>div >*:nth-child(1){}
+@media (max-width: 490px){.css-150l8mi-FixedToolbar>div >*:nth-child(1) >div:nth-child(2){-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}}
+.css-150l8mi-FixedToolbar .block-type-btn{padding-left:0;}
+.css-150l8mi-FixedToolbar span svg{max-width:100%;}"
+`;
+
+exports[`comment editor fixed toolbar styles static emotion [true] platform-visual-refresh-icons is on visual refresh icons should render sticky toolbar with correct styles 1`] = `
+".css-1uwds6l-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);}
+.css-1uwds6l-FixedToolbar>div{}
+.css-1uwds6l-FixedToolbar>div >:first-child:not(style),.css-1uwds6l-FixedToolbar>div >style:first-child+*{margin-left:0;}
+.css-1uwds6l-FixedToolbar .block-type-btn{padding-left:0;}
+.css-150l8mi-FixedToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);}
+.css-150l8mi-FixedToolbar>div{}
+.css-150l8mi-FixedToolbar>div >:first-child:not(style),.css-150l8mi-FixedToolbar>div >style:first-child+*{margin-left:0;}
+@media (max-width: 490px){.css-150l8mi-FixedToolbar>div{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-align-items:end;-webkit-box-align:end;-ms-flex-align:end;align-items:end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;}}
+.css-150l8mi-FixedToolbar>div >*:nth-child(1){}
+@media (max-width: 490px){.css-150l8mi-FixedToolbar>div >*:nth-child(1) >div:nth-child(2){-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}}
+.css-150l8mi-FixedToolbar .block-type-btn{padding-left:0;}
+.css-150l8mi-FixedToolbar span svg{max-width:100%;}"
+`;
+
+exports[`comment editor sticky toolbar styles static emotion [false] platform-visual-refresh-icons is on visual refresh icons on should render sticky toolbar with correct styles 1`] = `
+".css-5u46hp-StickyToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);position:relative;position:-webkit-sticky;position:sticky;padding-bottom:var(--ds-space-100, 8px);z-index:500;-webkit-transition:box-shadow ease-in-out 0.2s;transition:box-shadow ease-in-out 0.2s;}
+.css-5u46hp-StickyToolbar>div{}
+.css-5u46hp-StickyToolbar>div >:first-child:not(style),.css-5u46hp-StickyToolbar>div >style:first-child+*{margin-left:0;}
+@media (max-width: 490px){.css-5u46hp-StickyToolbar>div{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-align-items:end;-webkit-box-align:end;-ms-flex-align:end;align-items:end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;}}
+.css-5u46hp-StickyToolbar>div >*:nth-child(1){}
+@media (max-width: 490px){.css-5u46hp-StickyToolbar>div >*:nth-child(1) >div:nth-child(2){-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}}
+.css-5u46hp-StickyToolbar .block-type-btn{padding-left:0;}
+.css-5u46hp-StickyToolbar span svg{max-width:100%;}
+.css-5u46hp-StickyToolbar.show-keyline{box-shadow:0 2px 0 0 var(--ds-background-accent-gray-subtlest, #F1F2F4);}"
+`;
+
+exports[`comment editor sticky toolbar styles static emotion [true] platform-visual-refresh-icons is on visual refresh icons on should render sticky toolbar with correct styles 1`] = `
+".css-5u46hp-StickyToolbar{position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:var(--ds-space-100, 8px) var(--ds-space-100, 8px) 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:auto;background-color:var(--ds-surface, white);box-shadow:none;padding-left:var(--ds-space-250, 20px);position:relative;position:-webkit-sticky;position:sticky;padding-bottom:var(--ds-space-100, 8px);z-index:500;-webkit-transition:box-shadow ease-in-out 0.2s;transition:box-shadow ease-in-out 0.2s;}
+.css-5u46hp-StickyToolbar>div{}
+.css-5u46hp-StickyToolbar>div >:first-child:not(style),.css-5u46hp-StickyToolbar>div >style:first-child+*{margin-left:0;}
+@media (max-width: 490px){.css-5u46hp-StickyToolbar>div{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-align-items:end;-webkit-box-align:end;-ms-flex-align:end;align-items:end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;}}
+.css-5u46hp-StickyToolbar>div >*:nth-child(1){}
+@media (max-width: 490px){.css-5u46hp-StickyToolbar>div >*:nth-child(1) >div:nth-child(2){-webkit-box-pack:end;-ms-flex-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}}
+.css-5u46hp-StickyToolbar .block-type-btn{padding-left:0;}
+.css-5u46hp-StickyToolbar span svg{max-width:100%;}
+.css-5u46hp-StickyToolbar.show-keyline{box-shadow:0 2px 0 0 var(--ds-background-accent-gray-subtlest, #F1F2F4);}"
+`;

@@ -66,3 +66,41 @@ export const placeholderTextStyles = css({
 		},
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const placeholderStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.ProseMirror .placeholder-decoration': {
+		color: token('color.text.subtlest'),
+		width: '100%',
+		pointerEvents: 'none',
+		userSelect: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.placeholder-android': {
+			pointerEvents: 'none',
+			outline: 'none',
+			userSelect: 'none',
+			position: 'absolute',
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const placeholderOverflowStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.ProseMirror p:has(.placeholder-decoration-hide-overflow)': {
+		overflow: 'hidden',
+		whiteSpace: 'nowrap',
+		textOverflow: 'ellipsis',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const placeholderWrapStyles = css({
+	// As part of controls work, we add placeholder `Search` to quick insert command
+	// This style is to prevent `/Search` being wrapped if it's triggered at the end of the line
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror mark[data-type-ahead-query="true"]:has(.placeholder-decoration-wrap)': {
+		whiteSpace: 'nowrap',
+	},
+});

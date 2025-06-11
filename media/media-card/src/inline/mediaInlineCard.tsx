@@ -29,6 +29,8 @@ import {
 	getSucceededStatusPayload,
 } from './mediaInlineCardAnalytics';
 import { useCopyIntent } from '@atlaskit/media-client-react';
+import { fg } from '@atlaskit/platform-feature-flags';
+import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 
 export interface MediaInlineCardProps {
 	identifier: FileIdentifier;
@@ -59,6 +61,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	const [isFailedEventSent, setIsFailedEventSent] = useState(false);
 	const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const pressTracing = usePressTracing('click-media-inline-card');
 
 	const fireFailedOperationalEvent = (
 		error: MediaCardError = new MediaCardError('missing-error-data'),
@@ -91,6 +94,11 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 
 		if (shouldOpenMediaViewer) {
 			setMediaViewerVisible(true);
+		}
+
+		// Abort VC when click media inline card
+		if (fg('platform_abort_vc_click_file_card')) {
+			pressTracing();
 		}
 	};
 

@@ -22,7 +22,8 @@ import { ruleStyles, wrapperPaddingStyles, wrapperStyles } from './ui-styles';
 export type FindReplaceProps = {
 	findText?: string;
 	replaceText?: string;
-	count: { index: number; total: number };
+	count: { index: number; total: number; totalReplaceable?: number };
+	isReplaceable?: boolean;
 	shouldFocus: boolean;
 	onFindBlur: () => void;
 	onFind: (findText?: string) => void;
@@ -138,6 +139,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		const {
 			findText,
 			count,
+			isReplaceable,
 			shouldFocus,
 			onFind,
 			onFindBlur,
@@ -181,7 +183,9 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 						on cleanup of editor_a11y_refactor_find_replace_style */}
 				{fg('editor_a11y_refactor_find_replace_style') ? (
 					<ReplaceNext
-						canReplace={count.total > 0}
+						canReplace={
+							fg('platform_editor_find_and_replace_1') ? !!isReplaceable : count.total > 0
+						}
 						replaceText={replaceText}
 						onReplace={onReplace}
 						onReplaceAll={onReplaceAll}
@@ -198,7 +202,9 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 					/>
 				) : (
 					<Replace
-						canReplace={count.total > 0}
+						canReplace={
+							fg('platform_editor_find_and_replace_1') ? !!isReplaceable : count.total > 0
+						}
 						replaceText={replaceText}
 						onReplace={onReplace}
 						onReplaceAll={onReplaceAll}

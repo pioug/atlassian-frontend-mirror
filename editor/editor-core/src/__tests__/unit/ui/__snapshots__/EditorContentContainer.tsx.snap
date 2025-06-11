@@ -8739,17 +8739,11 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 
 .emotion-0 {
   --ak-editor--default-gutter-padding: 32px;
-  --ak-editor--large-gutter-padding: 72px;
   --ak-editor--default-layout-width: 760px;
   --ak-editor--full-width-layout-width: 1800px;
-  --ak-editor--line-length: min(
-		calc(100cqw - var(--ak-editor--large-gutter-padding) * 2),
-		var(--ak-editor--default-layout-width)
-	);
+  --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--default-layout-width));
   --ak-editor--breakout-wide-layout-width: 905px;
-  --ak-editor--breakout-full-page-guttering-padding: calc(
-		var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding)
-	);
+  --ak-editor--breakout-full-page-guttering-padding: calc(var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding));
   --editor-font-ugc-token-heading-h1: normal 600 1.71429em/1.16667 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h2: normal 600 1.42857em/1.2 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h3: normal 600 1.14286em/1.25 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
@@ -8761,14 +8755,13 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 }
 
 .emotion-0 .fabric-editor--full-width-mode {
-  --ak-editor--line-length: min(
-			calc(100cqw - var(--ak-editor--large-gutter-padding) * 2),
-			var(--ak-editor--full-width-layout-width)
-		);
+  --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--full-width-layout-width));
 }
 
 .emotion-0 .ProseMirror {
   --ak-editor-max-container-width: calc(100cqw - var(--ak-editor--large-gutter-padding));
+  outline: none;
+  font-size: var(--ak-editor-base-font-size);
 }
 
 .emotion-0 .ProseMirror>div[data-prosemirror-node-block] [data-prosemirror-node-block] {
@@ -8776,11 +8769,11 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 }
 
 .emotion-0 .ProseMirror {
-  outline: none;
-  font-size: var(--ak-editor-base-font-size);
   word-wrap: break-word;
   white-space: pre-wrap;
 }
+
+
 
 
 
@@ -8807,6 +8800,8 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .ProseMirror .fabric-editor-indentation-mark[data-level='6'] {
   margin-left: 180px;
 }
+
+
 
 .emotion-0 .ProseMirror .right-shadow::before,
 .emotion-0 .ProseMirror .right-shadow::after,
@@ -8852,6 +8847,8 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   min-width: 0;
 }
 
+
+
 .emotion-0 .ProseMirror .inlineNodeView {
   display: inline;
   -webkit-user-select: all;
@@ -8894,6 +8891,8 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   content: '​';
 }
 
+
+
 .emotion-0 .ProseMirror-hideselection *::selection {
   background: transparent;
 }
@@ -8906,16 +8905,12 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   caret-color: transparent;
 }
 
-.emotion-0 .ProseMirror-hideselection {
-  caret-color: transparent;
-}
-
 .emotion-0 .ProseMirror-selectednode {
   outline: none;
 }
 
 .emotion-0 .ProseMirror-selectednode:empty {
-  outline: 2px solid var(--ds-border-focused, #8cf);
+  outline: 2px solid var(--ds-border-focused, #388BFF);
 }
 
 .emotion-0 .ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor) {
@@ -8924,6 +8919,10 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 
 .emotion-0 .ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor {
   display: none;
+}
+
+.emotion-0 button.first-floating-toolbar-button:focus {
+  outline: 2px solid var(--ds-border-focused, #388BFF);
 }
 
 .emotion-0 .ProseMirror span[data-placeholder] {
@@ -10719,8 +10718,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.multiBodiedExtension--container {
-  box-shadow: 0 0 0 1px var(--ds-border-danger, var(--ds-border-danger));
-  background-color: var(--ds-background-danger, var(--ds-background-danger));
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
 }
 
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>div>.extension-label {
@@ -10781,13 +10780,13 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.with-danger-overlay .multiBodiedExtension--overlay {
   opacity: 0.3;
-  background-color: var(--ds-background-danger-hovered, var(--ds-background-danger));
+  background-color: var(--ds-background-danger-hovered, #FFD5D2);
 }
 
 
 
 .emotion-0 .multiBodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.multiBodiedExtension--container {
-  box-shadow: 0 0 0 1px var(--ds-border-selected);
+  box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
   border-color: transparent;
   position: relative;
   -webkit-user-select: text;
@@ -10803,7 +10802,7 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
   width: 100%;
   pointer-events: none;
   z-index: 12;
-  background-color: var(--ds-blanket-selected);
+  background-color: var(--ds-blanket-selected, #388BFF14);
 }
 
 .emotion-0 .multiBodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.multiBodiedExtension--container::selection,
@@ -10824,8 +10823,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 
 .emotion-0 .inlineExtensionView-content-wrap.danger>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-danger, var(--ds-border-danger));
-  background-color: var(--ds-background-danger, var(--ds-background-danger));
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
 }
 
 .emotion-0 .inlineExtensionView-content-wrap.danger>span>.with-danger-overlay {
@@ -10834,13 +10833,13 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 .emotion-0 .inlineExtensionView-content-wrap.danger>span>.with-danger-overlay .extension-overlay {
   opacity: 0.3;
-  background-color: var(--ds-background-danger-hovered, var(--ds-background-danger));
+  background-color: var(--ds-background-danger-hovered, #FFD5D2);
 }
 
 
 
 .emotion-0 .inlineExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-selected);
+  box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
   border-color: transparent;
 }
 
@@ -10933,7 +10932,7 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 .emotion-0 .extensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container,
 .emotion-0 .multiBodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container,
 .emotion-0 .bodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-selected);
+  box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
   border-color: transparent;
 }
 
@@ -10958,8 +10957,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 .emotion-0 .extensionView-content-wrap.danger>span>.extension-container,
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.extension-container,
 .emotion-0 .bodiedExtensionView-content-wrap.danger>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-danger, var(--ds-border-danger));
-  background-color: var(--ds-background-danger, var(--ds-background-danger));
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
 }
 
 .emotion-0 .extensionView-content-wrap.danger>span>div>.extension-label,
@@ -11046,14 +11045,10 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.with-danger-overlay .extension-overlay,
 .emotion-0 .bodiedExtensionView-content-wrap.danger>span>.with-danger-overlay .extension-overlay {
   opacity: 0.3;
-  background-color: var(--ds-background-danger-hovered, var(--ds-background-danger));
+  background-color: var(--ds-background-danger-hovered, #FFD5D2);
 }
 
-.emotion-0 .extensionView-content-wrap.inline,
-.emotion-0 .multiBodiedExtensionView-content-wrap.inline,
-.emotion-0 .bodiedExtensionView-content-wrap.inline {
-  word-wrap: break-all;
-}
+
 
 .emotion-0 .extensionView-content-wrap .extension-container {
   overflow: hidden;
@@ -12387,56 +12382,6 @@ td>.emotion-0 .ak-editor-expand {
   left: unset;
 }
 
-.emotion-0 .panelView-content-wrap {
-  box-sizing: border-box;
-}
-
-.emotion-0 .mediaGroupView-content-wrap ul {
-  padding: 0;
-}
-
-.emotion-0 div.fabric-editor-block-mark[class^='fabric-editor-align'] {
-  clear: none!important;
-}
-
-.emotion-0 .fabric-editor-align-end {
-  text-align: right;
-}
-
-.emotion-0 .fabric-editor-align-start {
-  text-align: left;
-}
-
-.emotion-0 .fabric-editor-align-center {
-  text-align: center;
-}
-
-
-
-
-
-.emotion-0 .fabric-editor--full-width-mode .pm-table-container .code-block,
-.emotion-0 .fabric-editor--full-width-mode .pm-table-container .extension-container,
-.emotion-0 .fabric-editor--full-width-mode .pm-table-container .multiBodiedExtension--container {
-  max-width: 100%;
-}
-
-
-
-.emotion-0 .pm-table-header-content-wrap :not(.fabric-editor-alignment) p:first-of-type,
-.emotion-0 .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type,
-.emotion-0 .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type {
-  margin-top: 0;
-}
-
-.emotion-0 .pm-table-cell-content-wrap .mediaGroupView-content-wrap {
-  clear: both;
-}
-
-.emotion-0 .hyperlink-floating-toolbar {
-  padding: 0;
-}
-
 
 
 .emotion-0 .ProseMirror [data-layout-section] {
@@ -13224,15 +13169,61 @@ td>.emotion-0 .ak-editor-expand {
   background-color: transparent;
 }
 
-.emotion-0 button.first-floating-toolbar-button:focus {
-  outline: 2px solid var(--ds-border-focused, #2684FF);
+.emotion-0 .panelView-content-wrap {
+  box-sizing: border-box;
+}
+
+.emotion-0 .mediaGroupView-content-wrap ul {
+  padding: 0;
+}
+
+.emotion-0 .fabric-editor-block-mark[class^="fabric-editor-align"] {
+  clear: none;
+}
+
+.emotion-0 .fabric-editor-align-end {
+  text-align: right;
+}
+
+.emotion-0 .fabric-editor-align-start {
+  text-align: left;
+}
+
+.emotion-0 .fabric-editor-align-center {
+  text-align: center;
+}
+
+
+
+
+
+.emotion-0 .fabric-editor--full-width-mode .pm-table-container .code-block,
+.emotion-0 .fabric-editor--full-width-mode .pm-table-container .extension-container,
+.emotion-0 .fabric-editor--full-width-mode .pm-table-container .multiBodiedExtension--container {
+  max-width: 100%;
+}
+
+
+
+.emotion-0 .pm-table-header-content-wrap :not(.fabric-editor-alignment) p:first-of-type,
+.emotion-0 .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type,
+.emotion-0 .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type {
+  margin-top: 0;
+}
+
+.emotion-0 .pm-table-cell-content-wrap .mediaGroupView-content-wrap {
+  clear: both;
+}
+
+.emotion-0 .hyperlink-floating-toolbar {
+  padding: 0;
 }
 
 <div
   class="fabric-editor-popup-scroll-parent emotion-0"
   data-editor-scroll-container="true"
   data-testid="editor-content-container"
-  style="--ak-editor-base-font-size: 16px;"
+  style="--ak-editor-base-font-size: 16px; --ak-editor--large-gutter-padding: 72px;"
 >
   <div
     data-testid="child-component"
@@ -13373,17 +13364,11 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 
 .emotion-0 {
   --ak-editor--default-gutter-padding: 32px;
-  --ak-editor--large-gutter-padding: 52px;
   --ak-editor--default-layout-width: 760px;
   --ak-editor--full-width-layout-width: 1800px;
-  --ak-editor--line-length: min(
-		calc(100cqw - var(--ak-editor--large-gutter-padding) * 2),
-		var(--ak-editor--default-layout-width)
-	);
+  --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--default-layout-width));
   --ak-editor--breakout-wide-layout-width: 905px;
-  --ak-editor--breakout-full-page-guttering-padding: calc(
-		var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding)
-	);
+  --ak-editor--breakout-full-page-guttering-padding: calc(var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding));
   --editor-font-ugc-token-heading-h1: normal 600 1.71429em/1.16667 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h2: normal 600 1.42857em/1.2 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
   --editor-font-ugc-token-heading-h3: normal 600 1.14286em/1.25 "Atlassian Sans",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif;
@@ -13395,14 +13380,13 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 }
 
 .emotion-0 .fabric-editor--full-width-mode {
-  --ak-editor--line-length: min(
-			calc(100cqw - var(--ak-editor--large-gutter-padding) * 2),
-			var(--ak-editor--full-width-layout-width)
-		);
+  --ak-editor--line-length: min(calc(100cqw - var(--ak-editor--large-gutter-padding) * 2), var(--ak-editor--full-width-layout-width));
 }
 
 .emotion-0 .ProseMirror {
   --ak-editor-max-container-width: calc(100cqw - var(--ak-editor--large-gutter-padding));
+  outline: none;
+  font-size: var(--ak-editor-base-font-size);
 }
 
 .emotion-0 .ProseMirror>div[data-prosemirror-node-block] [data-prosemirror-node-block] {
@@ -13410,11 +13394,11 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 }
 
 .emotion-0 .ProseMirror {
-  outline: none;
-  font-size: var(--ak-editor-base-font-size);
   word-wrap: break-word;
   white-space: pre-wrap;
 }
+
+
 
 
 
@@ -13441,6 +13425,8 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 .emotion-0 .ProseMirror .fabric-editor-indentation-mark[data-level='6'] {
   margin-left: 180px;
 }
+
+
 
 .emotion-0 .ProseMirror .right-shadow::before,
 .emotion-0 .ProseMirror .right-shadow::after,
@@ -13486,6 +13472,8 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   min-width: 0;
 }
 
+
+
 .emotion-0 .ProseMirror .inlineNodeView {
   display: inline;
   -webkit-user-select: all;
@@ -13528,6 +13516,8 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
   content: '​';
 }
 
+
+
 .emotion-0 .ProseMirror-hideselection *::selection {
   background: transparent;
 }
@@ -13545,7 +13535,7 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 }
 
 .emotion-0 .ProseMirror-selectednode:empty {
-  outline: 2px solid var(--ds-border-focused, #8cf);
+  outline: 2px solid var(--ds-border-focused, #388BFF);
 }
 
 .emotion-0 .ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor) {
@@ -13554,6 +13544,10 @@ exports[`Editor Content styles chromeless editor renders correct styles for new 
 
 .emotion-0 .ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor {
   display: none;
+}
+
+.emotion-0 button.first-floating-toolbar-button:focus {
+  outline: 2px solid var(--ds-border-focused, #388BFF);
 }
 
 .emotion-0 .ProseMirror span[data-placeholder] {
@@ -15339,8 +15333,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.multiBodiedExtension--container {
-  box-shadow: 0 0 0 1px var(--ds-border-danger, var(--ds-border-danger));
-  background-color: var(--ds-background-danger, var(--ds-background-danger));
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
 }
 
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>div>.extension-label {
@@ -15401,13 +15395,13 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.with-danger-overlay .multiBodiedExtension--overlay {
   opacity: 0.3;
-  background-color: var(--ds-background-danger-hovered, var(--ds-background-danger));
+  background-color: var(--ds-background-danger-hovered, #FFD5D2);
 }
 
 
 
 .emotion-0 .multiBodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.multiBodiedExtension--container {
-  box-shadow: 0 0 0 1px var(--ds-border-selected);
+  box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
   border-color: transparent;
   position: relative;
   -webkit-user-select: text;
@@ -15423,7 +15417,7 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
   width: 100%;
   pointer-events: none;
   z-index: 12;
-  background-color: var(--ds-blanket-selected);
+  background-color: var(--ds-blanket-selected, #388BFF14);
 }
 
 .emotion-0 .multiBodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.multiBodiedExtension--container::selection,
@@ -15444,8 +15438,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 
 .emotion-0 .inlineExtensionView-content-wrap.danger>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-danger, var(--ds-border-danger));
-  background-color: var(--ds-background-danger, var(--ds-background-danger));
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
 }
 
 .emotion-0 .inlineExtensionView-content-wrap.danger>span>.with-danger-overlay {
@@ -15454,13 +15448,13 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 
 .emotion-0 .inlineExtensionView-content-wrap.danger>span>.with-danger-overlay .extension-overlay {
   opacity: 0.3;
-  background-color: var(--ds-background-danger-hovered, var(--ds-background-danger));
+  background-color: var(--ds-background-danger-hovered, #FFD5D2);
 }
 
 
 
 .emotion-0 .inlineExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-selected);
+  box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
   border-color: transparent;
 }
 
@@ -15553,7 +15547,7 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 .emotion-0 .extensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container,
 .emotion-0 .multiBodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container,
 .emotion-0 .bodiedExtensionView-content-wrap:not(.danger).ak-editor-selected-node>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-selected);
+  box-shadow: 0 0 0 1px var(--ds-border-selected, #0C66E4);
   border-color: transparent;
 }
 
@@ -15578,8 +15572,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 .emotion-0 .extensionView-content-wrap.danger>span>.extension-container,
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.extension-container,
 .emotion-0 .bodiedExtensionView-content-wrap.danger>span>.extension-container {
-  box-shadow: 0 0 0 1px var(--ds-border-danger, var(--ds-border-danger));
-  background-color: var(--ds-background-danger, var(--ds-background-danger));
+  box-shadow: 0 0 0 1px var(--ds-border-danger, #E2483D);
+  background-color: var(--ds-background-danger, #FFECEB);
 }
 
 .emotion-0 .extensionView-content-wrap.danger>span>div>.extension-label,
@@ -15666,14 +15660,10 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 .emotion-0 .multiBodiedExtensionView-content-wrap.danger>span>.with-danger-overlay .extension-overlay,
 .emotion-0 .bodiedExtensionView-content-wrap.danger>span>.with-danger-overlay .extension-overlay {
   opacity: 0.3;
-  background-color: var(--ds-background-danger-hovered, var(--ds-background-danger));
+  background-color: var(--ds-background-danger-hovered, #FFD5D2);
 }
 
-.emotion-0 .extensionView-content-wrap.inline,
-.emotion-0 .multiBodiedExtensionView-content-wrap.inline,
-.emotion-0 .bodiedExtensionView-content-wrap.inline {
-  word-wrap: break-all;
-}
+
 
 .emotion-0 .extensionView-content-wrap .extension-container {
   overflow: hidden;
@@ -16599,56 +16589,6 @@ td>.emotion-0 .ak-editor-expand {
   left: unset;
 }
 
-.emotion-0 .panelView-content-wrap {
-  box-sizing: border-box;
-}
-
-.emotion-0 .mediaGroupView-content-wrap ul {
-  padding: 0;
-}
-
-.emotion-0 div.fabric-editor-block-mark[class^='fabric-editor-align'] {
-  clear: none!important;
-}
-
-.emotion-0 .fabric-editor-align-end {
-  text-align: right;
-}
-
-.emotion-0 .fabric-editor-align-start {
-  text-align: left;
-}
-
-.emotion-0 .fabric-editor-align-center {
-  text-align: center;
-}
-
-
-
-
-
-.emotion-0 .fabric-editor--full-width-mode .pm-table-container .code-block,
-.emotion-0 .fabric-editor--full-width-mode .pm-table-container .extension-container,
-.emotion-0 .fabric-editor--full-width-mode .pm-table-container .multiBodiedExtension--container {
-  max-width: 100%;
-}
-
-
-
-.emotion-0 .pm-table-header-content-wrap :not(.fabric-editor-alignment) p:first-of-type,
-.emotion-0 .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type,
-.emotion-0 .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type {
-  margin-top: 0;
-}
-
-.emotion-0 .pm-table-cell-content-wrap .mediaGroupView-content-wrap {
-  clear: both;
-}
-
-.emotion-0 .hyperlink-floating-toolbar {
-  padding: 0;
-}
-
 
 
 .emotion-0 .ProseMirror [data-layout-section] {
@@ -17068,15 +17008,61 @@ td>.emotion-0 .ak-editor-expand {
   background-color: transparent;
 }
 
-.emotion-0 button.first-floating-toolbar-button:focus {
-  outline: 2px solid var(--ds-border-focused, #2684FF);
+.emotion-0 .panelView-content-wrap {
+  box-sizing: border-box;
+}
+
+.emotion-0 .mediaGroupView-content-wrap ul {
+  padding: 0;
+}
+
+.emotion-0 .fabric-editor-block-mark[class^="fabric-editor-align"] {
+  clear: none;
+}
+
+.emotion-0 .fabric-editor-align-end {
+  text-align: right;
+}
+
+.emotion-0 .fabric-editor-align-start {
+  text-align: left;
+}
+
+.emotion-0 .fabric-editor-align-center {
+  text-align: center;
+}
+
+
+
+
+
+.emotion-0 .fabric-editor--full-width-mode .pm-table-container .code-block,
+.emotion-0 .fabric-editor--full-width-mode .pm-table-container .extension-container,
+.emotion-0 .fabric-editor--full-width-mode .pm-table-container .multiBodiedExtension--container {
+  max-width: 100%;
+}
+
+
+
+.emotion-0 .pm-table-header-content-wrap :not(.fabric-editor-alignment) p:first-of-type,
+.emotion-0 .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type,
+.emotion-0 .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark)+div.fabric-editor-block-mark p:first-of-type {
+  margin-top: 0;
+}
+
+.emotion-0 .pm-table-cell-content-wrap .mediaGroupView-content-wrap {
+  clear: both;
+}
+
+.emotion-0 .hyperlink-floating-toolbar {
+  padding: 0;
 }
 
 <div
   class="fabric-editor-popup-scroll-parent emotion-0"
   data-editor-scroll-container="true"
   data-testid="editor-content-container"
-  style="--ak-editor-base-font-size: 16px;"
+  style="--ak-editor-base-font-size: 16px; --ak-editor--large-gutter-padding: 52px;"
 >
   <div
     data-testid="child-component"

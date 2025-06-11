@@ -1,5 +1,7 @@
 import { v4 as createUUID } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../coinflip';
 import type {
 	AbortReasonType,
@@ -882,7 +884,9 @@ export function addBrowserMetricEvent(event: BM3Event) {
 			(interaction.type === 'page_load' || interaction.type === 'transition') &&
 			event.config?.type === 'PAGE_LOAD'
 		) {
-			interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
+			if (!fg('platform_ufo_timeout_simplification')) {
+				interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
+			}
 			removeHoldByID(interaction.id, interaction.ufoName);
 		}
 	}
@@ -901,7 +905,9 @@ export function addApdexToAll(apdex: ApdexType) {
 			// do nothing
 		}
 		if (interaction.type === 'page_load' || interaction.type === 'transition') {
-			interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
+			if (!fg('platform_ufo_timeout_simplification')) {
+				interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
+			}
 			removeHoldByID(key, interaction.ufoName);
 		}
 	});
@@ -929,7 +935,9 @@ export function addApdex(
 			// do nothing
 		}
 		if (interaction.type === 'page_load' || interaction.type === 'transition') {
-			interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
+			if (!fg('platform_ufo_timeout_simplification')) {
+				interaction.changeTimeout(CLEANUP_TIMEOUT_AFTER_APDEX);
+			}
 			removeHoldByID(interactionId, interaction.ufoName);
 		}
 	}

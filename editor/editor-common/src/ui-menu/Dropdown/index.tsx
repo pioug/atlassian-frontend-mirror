@@ -86,6 +86,9 @@ export class Dropdown extends PureComponent<Props, State> {
 			this.state.target &&
 			fg('platform_editor_floating_toolbar_dropdown_flicker')
 		) {
+			// Dropdown flickers when opens as placement is calculated in Popup component and updated after the first render.
+			// popupPlacement is set to ['bottom', 'left'] by default, but it may not be the correct placement and is required in DropdownList.
+			// To avoid flicker we calculate placement here and set it to state when the dropdown opens.
 			const initialPlacement = calculatePlacement(
 				this.state.target,
 				this.props.boundariesElement || document.body,

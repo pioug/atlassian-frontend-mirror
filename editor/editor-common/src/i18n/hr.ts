@@ -726,6 +726,7 @@ export default {
     '{0, plural, one {Pomakni redak dolje} few {Pomakni retke dolje} many {Pomakni retke dolje} other {Pomakni retke dolje}}',
   'fabric.editor.moveRowUp':
     '{0, plural, one {Pomakni redak gore} few {Pomakni retke gore} many {Pomakni retke gore} other {Pomakni retke gore}}',
+  'fabric.editor.navigate.toolbar.askAI': 'Pitaj AI',
   'fabric.editor.navigate.toolbar.editor': 'Prijeđi na alatnu traku uređivača',
   'fabric.editor.navigate.toolbar.floating': 'Prijeđi na plutajuću alatnu traku',
   'fabric.editor.noResultsFound': 'Nisu pronađeni rezultati',
@@ -780,6 +781,7 @@ export default {
   'fabric.editor.requestToEdit': 'Zahtjev za uređivanje',
   'fabric.editor.requestToEditDescription': 'Kada zatražiš pristup, vlasnik stranice primit će obavijest.',
   'fabric.editor.requestToEditDismiss': 'Odbaci',
+  'fabric.editor.resizeHandle': 'Promijeni veličinu ručke',
   'fabric.editor.resultsCount': '{selectedMatchPosition} od {totalResultsCount}',
   'fabric.editor.richText': 'Koristi obogaćeni tekst',
   'fabric.editor.rightSidebar': 'Izgled desne bočne trake',

@@ -1,5 +1,14 @@
 # @atlaskit/layering
 
+## 3.0.0
+
+### Major Changes
+
+- [#168600](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168600)
+  [`ec7295f858434`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec7295f858434) -
+  The `useOpenLayerObserverBehindFG` has been removed. It was only created to support the feature
+  flag rollout. You should use the `useOpenLayerObserver` hook instead.
+
 ## 2.2.1
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import { EditorCardProvider } from '..';
 import { type LinkAppearance, type ProviderPattern, type UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { isJiraWorkItem } from '../provider';
 
 const mockGetExperimentValue = jest.fn();
 FeatureGates.getExperimentValue = mockGetExperimentValue;
@@ -1648,6 +1649,82 @@ describe('providers > editor', () => {
 				'https://jdog.jira-dev.com/wiki/spaces/kb/calendars/1bb45655-f521-4379-8353-59b423abfffb';
 			const adf = await provider.resolve(url, 'inline', false, true);
 			expect(adf).toEqual(expectedEmbedAdf(url));
+		});
+	});
+
+	describe('prompt linked issues experiment', () => {
+		ffTest.on('issue-link-suggestions-in-comments', 'fg on', () => {
+			it('should call onResolve for issue links', async () => {
+				const onResolveMock = jest.fn();
+				const provider = new EditorCardProvider(undefined, undefined, undefined, onResolveMock);
+
+				mockFetch.mockResolvedValueOnce({
+					json: async () =>
+						getMockProvidersResponse({
+							userPreferences: {
+								defaultAppearance: 'inline',
+								appearances: [],
+							},
+						}),
+					ok: true,
+				});
+
+				const issueUrl = 'https://jdog.jira-dev.com/browse/BNP-1';
+				await provider.resolve(issueUrl, 'inline', false);
+
+				expect(onResolveMock).toHaveBeenCalledWith(issueUrl);
+				expect(onResolveMock).toHaveBeenCalledTimes(1);
+			});
+		});
+
+		ffTest.off('issue-link-suggestions-in-comments', 'fg off', () => {
+			it('should not call onResolve for an issue link', async () => {
+				const onResolveMock = jest.fn();
+				const provider = new EditorCardProvider(undefined, undefined, undefined, onResolveMock);
+
+				mockFetch.mockResolvedValueOnce({
+					json: async () =>
+						getMockProvidersResponse({
+							userPreferences: {
+								defaultAppearance: 'inline',
+								appearances: [],
+							},
+						}),
+					ok: true,
+				});
+
+				const issueUrl = 'https://jdog.jira-dev.com/browse/BNP-1';
+				await provider.resolve(issueUrl, 'inline', false);
+
+				expect(onResolveMock).not.toHaveBeenCalled();
+			});
+		});
+	});
+
+	describe('isJiraWorkItem regexp', () => {
+		it.each([
+			'https://jv3.jira-dev.com/browse/BNP-1',
+			'https://jira.company.com/browse/TEST-123',
+			'https://my-instance.atlassian.net/browse/PROJ-999',
+			'https://jira.example.com/browse/ABC-123',
+		])('should return true for valid work item url: %s', (url) => {
+			expect(isJiraWorkItem(url)).toBe(true);
+		});
+
+		it('should return false for URLs without /browse', () => {
+			const url = 'https://jira.example.com/EXAMPLE-123';
+			expect(isJiraWorkItem(url)).toBe(false);
+		});
+
+		it.each([
+			'',
+			'not-a-url',
+			'http://',
+			'https://jira.example.com',
+			'https://jira.example.com/browse/',
+			'https://jira.example.com/browse/123',
+		])('should return false for invalid work item url: %s', (url) => {
+			expect(isJiraWorkItem(url)).toBe(false);
 		});
 	});
 });

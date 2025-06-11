@@ -29,6 +29,7 @@ import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
 import noSparseCheckout from './rules/no-sparse-checkout';
+import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -87,6 +88,7 @@ const rules = {
 	'use-entrypoints-in-examples': useEntrypointsInExamples,
 	'use-recommended-utils': useRecommendedUtils,
 	'no-sparse-checkout': noSparseCheckout,
+	'no-direct-document-usage': noDirectDocumentUsage,
 };
 
 const commonConfig = {
@@ -96,6 +98,7 @@ const commonConfig = {
 	'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
 	'@atlaskit/platform/ensure-atlassian-team': 'error',
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
+	'@atlaskit/platform/no-direct-document-usage': 'warn',
 	// Compiled: rules that are not included via `@compiled/recommended
 	'@atlaskit/platform/expand-border-shorthand': 'error',
 	'@atlaskit/platform/expand-background-shorthand': 'error',

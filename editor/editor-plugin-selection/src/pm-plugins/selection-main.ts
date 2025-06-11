@@ -7,6 +7,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { SelectionPlugin } from '../selectionPluginType';
@@ -98,7 +99,8 @@ export const createPlugin = (
 				// interacted with the page. We do not show cursor until interaction and we do not
 				// want to show selections either.
 				if (
-					options.__livePage &&
+					(options.__livePage ||
+						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 					(fg('platform_editor_interaction_api_refactor')
 						? interactionState === 'hasNotHadInteraction'
 						: !hasHadInteraction) &&

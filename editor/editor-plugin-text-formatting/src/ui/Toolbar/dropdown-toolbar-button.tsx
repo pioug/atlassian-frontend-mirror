@@ -14,8 +14,8 @@ import {
 	disableBlueBorderStyles,
 } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ToolbarType } from './types';
@@ -80,7 +80,12 @@ export const DropdownToolbarButton = ({
 					)}
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values */}
 					<span css={expandIconContainerStyle}>
-						<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+						<ChevronDownIcon
+							label=""
+							color="currentColor"
+							LEGACY_margin="0 0 0 -8px"
+							size="small"
+						/>
 					</span>
 				</div>
 			}

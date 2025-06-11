@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "6.6.2",
+	"version": "6.6.3",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -142,6 +142,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_9": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_12": {
 			"type": "boolean"
 		},
 		"smart_link_editor_update_toolbar_open_link": {

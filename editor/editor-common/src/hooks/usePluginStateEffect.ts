@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 
 import debounce from 'lodash/debounce';
 
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	BasePluginDependenciesAPI,
@@ -165,7 +165,7 @@ function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 	useLayoutEffect(() => {
 		if (
 			options.disabled ||
-			editorExperiment('platform_editor_usesharedpluginstateselector', false)
+			!expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
 		) {
 			return;
 		}
@@ -179,7 +179,7 @@ function usePluginStateEffectInternal<P extends NamedPluginKeys>(
 	useEffect(() => {
 		if (
 			options.disabled ||
-			editorExperiment('platform_editor_usesharedpluginstateselector', true)
+			expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
 		) {
 			return;
 		}

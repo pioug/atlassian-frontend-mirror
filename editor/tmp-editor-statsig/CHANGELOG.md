@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 6.1.0
+
+### Minor Changes
+
+- [#168742](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168742)
+  [`43b55fe50be89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43b55fe50be89) -
+  Add experiment to show no cursor on initial edit page
+
 ## 6.0.0
 
 ### Major Changes

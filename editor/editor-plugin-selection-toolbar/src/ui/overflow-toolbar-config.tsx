@@ -15,8 +15,8 @@ import type {
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import DockToolbarTopIcon from '@atlaskit/icon-lab/core/dock-toolbar-top';
+import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import MinusIcon from '@atlaskit/icon/core/minus';
-import CheckMarkIcon from '@atlaskit/icon/utility/check-mark';
 import { HeadingItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -48,7 +48,7 @@ export const getOverflowFloatingToolbarConfig = ({
 			},
 			icon: MinusIcon({ label: '' }),
 			selected: !isDockedToTop,
-			elemAfter: !isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
+			elemAfter: !isDockedToTop ? <CheckMarkIcon label="" size="small" /> : undefined,
 		},
 		{
 			title: intl.formatMessage(selectionToolbarMessages.toolbarPositionFixedAtTop),
@@ -57,7 +57,7 @@ export const getOverflowFloatingToolbarConfig = ({
 			},
 			icon: DockToolbarTopIcon({ label: '' }),
 			selected: isDockedToTop,
-			elemAfter: isDockedToTop ? <CheckMarkIcon label="" /> : undefined,
+			elemAfter: isDockedToTop ? <CheckMarkIcon label="" size="small" /> : undefined,
 		},
 	];
 
@@ -113,7 +113,7 @@ export const getOverflowPrimaryToolbarConfig = ({
 				},
 				isActive: true,
 				elemBefore: DockToolbarTopIcon({ label: '' }),
-				elemAfter: <CheckMarkIcon label="" />,
+				elemAfter: <CheckMarkIcon label="" size="small" />,
 			},
 		],
 	},

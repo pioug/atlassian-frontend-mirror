@@ -7,6 +7,7 @@ export interface BaseRovoChatParams {
 	prompt: string;
 	cloudId: string;
 	triggerOpen: boolean;
+	initiator: string;
 }
 
 export type ValidPrefix = 'rovoChat';

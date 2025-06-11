@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.6.0
+
+### Minor Changes
+
+- [#168806](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168806)
+  [`e4f94f422b9f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4f94f422b9f1) -
+  New linting rule to prevent direct "document" usage. This prevents failed tests when document is
+  not defined in the testing environment
+
 ## 2.5.0
 
 ### Minor Changes

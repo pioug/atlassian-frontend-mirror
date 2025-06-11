@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { triggerWrapperStyles } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import ShowMoreHorizontalIcon from '@atlaskit/icon/utility/migration/show-more-horizontal--editor-more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -50,7 +50,14 @@ export const MoreButton = React.memo(
 				iconBefore={
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/platform/ensure-feature-flag-prefix -- Ignored via go/DSP-18766
 					<div css={fg('platform-visual-refresh-icons') ? MoreIconStyle : triggerWrapperStyles}>
-						{<ShowMoreHorizontalIcon label="" color="currentColor" spacing="spacious" />}
+						{
+							<ShowMoreHorizontalIcon
+								label=""
+								color="currentColor"
+								spacing="spacious"
+								size="small"
+							/>
+						}
 					</div>
 				}
 				aria-expanded={ariaExpanded}

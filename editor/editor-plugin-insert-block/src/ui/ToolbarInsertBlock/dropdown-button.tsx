@@ -11,7 +11,7 @@ import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import AddIcon from '@atlaskit/icon/core/migration/add--editor-add';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 
 import { triggerWrapper } from './styles';
 
@@ -34,7 +34,7 @@ const DropDownButtonIcon = React.memo((props: { label: string }) => (
 		{<AddIcon label={props.label} color="currentColor" spacing="spacious" />}
 		{
 			<span>
-				<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+				<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" size="small" />
 			</span>
 		}
 	</span>

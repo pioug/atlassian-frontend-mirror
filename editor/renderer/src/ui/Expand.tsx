@@ -19,7 +19,8 @@ import {
 	akLayoutGutterOffset,
 } from '@atlaskit/editor-shared-styles';
 import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-right';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -300,6 +301,7 @@ function Expand({
 							label={label}
 							LEGACY_fallbackIcon={ChevronRightIconLegacy}
 							spacing="spacious"
+							size="small"
 						/>
 					</ExpandIconWrapper>
 				) : (
@@ -315,6 +317,7 @@ function Expand({
 								label={label}
 								LEGACY_fallbackIcon={ChevronRightIconLegacy}
 								spacing="spacious"
+								size="small"
 							/>
 						</ExpandIconWrapper>
 					</Tooltip>

@@ -7,11 +7,13 @@
  */
 //Slovak
 export default {
-  'fabric.editor.headingLink.ascSortingLabel': 'None',
-  'fabric.editor.headingLink.copied': 'None',
-  'fabric.editor.headingLink.copyAnchorLink': 'None',
-  'fabric.editor.headingLink.copyAriaLabel': 'None',
-  'fabric.editor.headingLink.failedToCopy': 'None',
+  'fabric.editor.headingLink.ascSortingLabel': 'vzostupne',
+  'fabric.editor.headingLink.copied': 'Skopírované!',
+  'fabric.editor.headingLink.copyAnchorLink': 'Skopírovať prepojenie do nadpisu',
+  'fabric.editor.headingLink.copyAriaLabel': 'Kopírovať',
+  'fabric.editor.headingLink.descSortingLabel': 'zostupne',
+  'fabric.editor.headingLink.failedToCopy': 'Nepodarilo sa skopírovať',
+  'fabric.editor.headingLink.noneSortingLabel': 'žiadne',
   'fabric.editor.inlineComment.marker.end': 'koniec vnoreného komentára',
   'fabric.editor.inlineComment.marker.start': 'začiatok vnoreného komentára',
 };

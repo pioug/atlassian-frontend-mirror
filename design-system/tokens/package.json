@@ -160,6 +160,9 @@
 		},
 		"platform-default-typography-modernized": {
 			"type": "boolean"
+		},
+		"should-render-to-parent-should-be-true-design-syst": {
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/tokens"

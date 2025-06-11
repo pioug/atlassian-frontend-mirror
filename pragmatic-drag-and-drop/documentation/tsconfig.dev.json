@@ -92,6 +92,9 @@
 			"path": "../../design-system/motion/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../core/tsconfig.app.json"
 		},
 		{

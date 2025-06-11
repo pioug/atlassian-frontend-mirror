@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 79.3.5
+
+### Patch Changes
+
+- [#168763](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168763)
+  [`96133b2953ba2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96133b2953ba2) -
+  Abort VC when click file card to open media viewer
+
 ## 79.3.4
 
 ### Patch Changes

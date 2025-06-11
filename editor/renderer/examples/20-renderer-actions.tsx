@@ -51,6 +51,7 @@ function AnnotationSelect({ doc, onDelete }: { doc?: Node; onDelete: (id: string
 
 	return (
 		<span>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-select */}
 			<select
 				onChange={(e) => {
 					setSelected(e.target.value);

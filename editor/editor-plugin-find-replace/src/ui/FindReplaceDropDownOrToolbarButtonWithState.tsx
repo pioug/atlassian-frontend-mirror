@@ -3,6 +3,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { sharedPluginStateHookMigratorFactory } from '@atlaskit/editor-common/hooks';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { FindReplacePlugin } from '../findReplacePluginType';
 import { blur, toggleMatchCase } from '../pm-plugins/commands';
@@ -205,6 +206,14 @@ const FindReplaceToolbarButtonWithState = ({
 			findText={findText}
 			index={index}
 			numMatches={matches.length}
+			isReplaceable={
+				fg('platform_editor_find_and_replace_1') ? matches[index]?.canReplace : undefined
+			}
+			numReplaceable={
+				fg('platform_editor_find_and_replace_1')
+					? matches.filter((match) => match.canReplace === true).length
+					: undefined
+			}
 			replaceText={replaceText}
 			shouldFocus={shouldFocus}
 			popupsBoundariesElement={popupsBoundariesElement}

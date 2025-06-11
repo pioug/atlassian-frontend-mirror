@@ -15,9 +15,9 @@ import DropdownMenu, {
 	type OnOpenChangeArgs,
 } from '@atlaskit/dropdown-menu';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import PreferencesIcon from '@atlaskit/icon/core/migration/customize--preferences';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { cardMessages as messages } from '../../messages';
@@ -98,7 +98,9 @@ const Dropdown = ({
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
-					iconBefore={<ChevronDownIcon label={configureLinkLabel} LEGACY_size="small" />}
+					iconBefore={
+						<ChevronDownIcon label={configureLinkLabel} LEGACY_size="small" size="small" />
+					}
 					onClick={(e) => {
 						onClick?.(e);
 						fireLinkClickEvent();

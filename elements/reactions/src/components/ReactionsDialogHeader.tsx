@@ -15,8 +15,8 @@ import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Heading from '@atlaskit/heading';
 import { useModal } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
-import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import CloseIcon from '@atlaskit/icon/core/close';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -181,7 +181,7 @@ const LeftNavigationButton = ({ handlePreviousPage }: LeftNavigationButtonProp) 
 			<IconButton
 				spacing="compact"
 				onClick={handlePreviousPage}
-				icon={ChevronLeftIcon}
+				icon={(iconProps) => <ChevronLeftIcon {...iconProps} size="small" />}
 				label={intl.formatMessage(messages.leftNavigateLabel)}
 				isTooltipDisabled={false}
 			/>
@@ -198,7 +198,7 @@ const RightNavigationButton = ({ handleNextPage }: RightNavigationButtonProp) =>
 			<IconButton
 				spacing="compact"
 				onClick={handleNextPage}
-				icon={ChevronRightIcon}
+				icon={(iconProps) => <ChevronRightIcon {...iconProps} size="small" />}
 				label={intl.formatMessage(messages.rightNavigateLabel)}
 				isTooltipDisabled={false}
 			/>

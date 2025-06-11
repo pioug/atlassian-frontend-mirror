@@ -15,6 +15,7 @@ import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
@@ -170,7 +171,11 @@ const CustomThemeActions = ({
 }) => (
 	<ButtonGroup label="Export options">
 		<ImportPopup onImport={onImport} />
-		<DropdownMenu trigger="Export" placement="bottom-start">
+		<DropdownMenu
+			trigger="Export"
+			placement="bottom-start"
+			shouldRenderToParent={fg('should-render-to-parent-should-be-true-design-syst')}
+		>
 			<DropdownItem
 				description="Format for import, and engineering handoff"
 				onClick={() =>

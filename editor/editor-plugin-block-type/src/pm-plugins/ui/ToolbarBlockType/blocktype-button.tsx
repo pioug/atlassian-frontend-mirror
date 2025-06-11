@@ -12,9 +12,9 @@ import { FormattedMessage } from 'react-intl-next';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { expandIconContainerStyle, wrapperStyle } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import TextIcon from '@atlaskit/icon/core/text';
 import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -107,6 +107,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 									label=""
 									color="currentColor"
 									LEGACY_margin="0 0 0 -8px"
+									size="small"
 								/>
 							</span>
 						</React.Fragment>

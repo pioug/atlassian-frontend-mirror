@@ -33,8 +33,8 @@ import {
 } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
 import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
-import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { N200, N30, N80, R400 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -188,7 +188,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 					<div css={buttonWrapperStyles}>
 						<Button
 							title={formatMessage(messages.back)}
-							icon={<ChevronLeftLargeIcon label={formatMessage(messages.back)} />}
+							icon={<ChevronLeftLargeIcon label={formatMessage(messages.back)} size="small" />}
 							tooltipContent={backButtonMessageComponent}
 							onClick={this.closeMediaAltTextMenu}
 						/>

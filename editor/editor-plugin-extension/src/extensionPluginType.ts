@@ -1,5 +1,6 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type {
 	ExtensionAPI,
 	ExtensionHandlers,
@@ -12,7 +13,6 @@ import type {
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
 	EditorAppearance,
-	ExtensionViewportSize,
 	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -71,11 +71,9 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 		showUpdated1PBodiedExtensionUI: (node: ADFEntity) => boolean;
 	};
 	/**
-	 * Configuration for extension viewport sizes, used to preload specific heights for Forge extensions.
-	 * Each item contains an extensionId and corresponding viewportSize (e.g., 'small', 'large', or custom pixel values like '300px').
-	 * This helps optimize rendering by setting minimum heights before the extension content loads.
+	 * Helps optimize layout shift while rendering by setting minimum heights before the extension content loads.
 	 */
-	extensionViewportSizes?: ExtensionViewportSize[];
+	getExtensionHeight?: GetPMNodeHeight;
 }
 
 type InsertMacroFromMacroBrowser = (

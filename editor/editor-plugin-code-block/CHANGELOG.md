@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 4.4.10
+
+### Patch Changes
+
+- [#166652](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166652)
+  [`6a35dedfa94ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a35dedfa94ef) -
+  ED-27806 Move copy and delete button in codeblock floating toolbar to overflow menu
+- Updated dependencies
+
 ## 4.4.9
 
 ### Patch Changes

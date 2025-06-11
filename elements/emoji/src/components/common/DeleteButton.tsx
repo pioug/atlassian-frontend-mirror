@@ -4,7 +4,7 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
-import CrossCircleIcon from '@atlaskit/icon/utility/migration/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import { token } from '@atlaskit/tokens';
 import { N500 } from '@atlaskit/theme/colors';
 import { deleteEmojiLabel } from '../../util/constants';
@@ -52,6 +52,7 @@ const DeleteButton = (props: ButtonProps) => (
 						label={deleteEmojiLabel}
 						color={token('color.text.subtle', N500)}
 						LEGACY_size="small"
+						size="small"
 					/>
 				</Box>
 			}

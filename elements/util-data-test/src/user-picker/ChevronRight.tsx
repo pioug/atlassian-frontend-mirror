@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
 import { Box, xcss } from '@atlaskit/primitives';
 import { N50, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -27,6 +27,7 @@ export default () => {
 					LEGACY_size="large"
 					color={token('color.text.subtlest', isMouseHovered ? N200 : N50)}
 					spacing="spacious"
+					size="small"
 				/>
 			</Box>
 		</Box>

@@ -73,3 +73,47 @@ export const blanketSelectionStyles = css({
 		backgroundColor: token('color.blanket.selected'),
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const hideSelectionStyles = css({
+	// Hide selection styles for ProseMirror editor
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror-hideselection': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'*::selection': {
+			background: 'transparent',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'*::-moz-selection': {
+			background: 'transparent',
+		},
+	},
+});
+
+/**
+ * This prosemirror css style: https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24
+ *
+ * 1. Merge and Release platform_editor_hide_cursor_when_pm_hideselection
+ * 2. Cleanup duplicated style from platform_editor_advanced_code_blocks
+ *    https://product-fabric.atlassian.net/browse/ED-26331
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const hideCursorWhenHideSelectionStyles = css({
+	// Hide cursor when hide selection styles are applied
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror-hideselection': {
+		caretColor: 'transparent',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const selectedNodeStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror-selectednode': {
+		outline: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror-selectednode:empty': {
+		outline: `2px solid ${token('color.border.focused')}`,
+	},
+});

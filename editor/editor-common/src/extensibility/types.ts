@@ -1,3 +1,5 @@
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+
 import type { EditorContainerWidth, NextEditorPlugin, PublicPluginAPI } from '../types';
 
 // Warning: Duplicate type
@@ -13,3 +15,5 @@ export type ExtensionsPluginInjectionAPI = PublicPluginAPI<[WidthPluginType]> | 
 export type MacroInteractionDesignFeatureFlags = {
 	showMacroInteractionDesignUpdates?: boolean;
 };
+
+export type GetPMNodeHeight = (node: Node) => string | undefined;

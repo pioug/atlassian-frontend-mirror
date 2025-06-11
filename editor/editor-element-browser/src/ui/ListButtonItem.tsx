@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo, useEffect } from 'react';
 
 import { ToolTipContent, formatShortcut } from '@atlaskit/editor-common/keymaps';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import Lozenge from '@atlaskit/lozenge';
 import { ButtonItem } from '@atlaskit/menu';
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
@@ -154,7 +154,7 @@ export const ViewAllButtonItem = memo(
 				<Inline space="space.100" alignBlock={'center'}>
 					<Text color={'color.text.selected'}>{label}</Text>
 					<Box xcss={[selectedColorStyles]}>
-						<ChevronRightIcon label={label} />
+						<ChevronRightIcon label={label} size="small" />
 					</Box>
 				</Inline>
 			);

@@ -18,7 +18,7 @@ import {
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
 import EditIcon from '@atlaskit/icon/core/edit';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
@@ -125,7 +125,10 @@ const EditToolbarButtonPresentation = ({
 						testId="edit-dropdown-trigger"
 						iconAfter={
 							<span css={dropdownExpandContainer}>
-								<ChevronDownIcon label={intl.formatMessage(messages.editDropdownTriggerTitle)} />
+								<ChevronDownIcon
+									label={intl.formatMessage(messages.editDropdownTriggerTitle)}
+									size="small"
+								/>
 							</span>
 						}
 						onClick={toggleOpen}

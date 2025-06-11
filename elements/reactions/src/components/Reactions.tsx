@@ -348,6 +348,13 @@ export const Reactions = React.memo(
 			shortName: string;
 		} | null>(null);
 
+		// if the reactions are empty, then set summaryViewParticleEffectEmojiId to null to clear the particle effect state
+		useEffect(() => {
+			if (reactions.length === 0) {
+				setSummaryViewParticleEffectEmojiId(null);
+			}
+		}, [reactions]);
+
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 
 		let openTime = useRef<number>();

@@ -426,3 +426,44 @@ export const mediaStyles = css({
 		boxShadow: 'none',
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const mediaGroupStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.mediaGroupView-content-wrap ul': {
+		padding: 0,
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const mediaAlignmentStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-block-mark[class^="fabric-editor-align"]': {
+		// It was `clear: none !important` before, but it was causing typescript errors
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		clear: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-align-end': {
+		textAlign: 'right',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-align-start': {
+		textAlign: 'left',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor-align-center': {
+		textAlign: 'center',
+	},
+	// For FullPage only when inside a table
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.fabric-editor--full-width-mode': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.pm-table-container': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.code-block, .extension-container, .multiBodiedExtension--container': {
+				maxWidth: '100%',
+			},
+		},
+	},
+});

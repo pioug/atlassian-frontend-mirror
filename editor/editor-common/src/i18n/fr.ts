@@ -668,6 +668,7 @@ export default {
     '{0, plural, one {Déplacer la ligne vers le bas} other {Déplacer les lignes vers le bas}}',
   'fabric.editor.moveRowUp':
     '{0, plural, one {Déplacer la ligne vers le haut} other {Déplacer les lignes vers le haut}}',
+  'fabric.editor.navigate.toolbar.askAI': "Demander à l'IA",
   'fabric.editor.navigate.toolbar.editor': "Accéder à la barre d'outils de l'éditeur",
   'fabric.editor.navigate.toolbar.floating': "Accéder à la barre d'outils flottante",
   'fabric.editor.noResultsFound': 'Aucun résultat',
@@ -722,6 +723,7 @@ export default {
   'fabric.editor.requestToEditDescription':
     "Lorsque vous demandez l'accès, le propriétaire de la page reçoit une notification.",
   'fabric.editor.requestToEditDismiss': 'Ignorer',
+  'fabric.editor.resizeHandle': 'Redimensionner la poignée',
   'fabric.editor.resultsCount': '{selectedMatchPosition} sur {totalResultsCount}',
   'fabric.editor.richText': 'Utiliser du texte enrichi',
   'fabric.editor.rightSidebar': 'Disposition de la barre latérale de droite',
@@ -822,6 +824,8 @@ export default {
   'fabric.editor.toolbarMediaTitle': 'Ajoutez une image, une vidéo ou un fichier',
   'fabric.editor.toolbarPositionFixedAtTop': 'Fixée en haut',
   'fabric.editor.toolbarPositionInline': 'Alignée avec le texte',
+  'fabric.editor.toolbarPositionPinedAtTop': "Libérer la barre d'outils",
+  'fabric.editor.toolbarPositionUnpined': "Épingler la barre d'outils en haut",
   'fabric.editor.tooltip.blockPanel': 'un panneau',
   'fabric.editor.tooltip.bulletList': 'une liste',
   'fabric.editor.tooltip.decisionList': 'une liste de décisions',

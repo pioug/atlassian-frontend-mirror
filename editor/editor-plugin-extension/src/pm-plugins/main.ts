@@ -1,4 +1,5 @@
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { GetPMNodeHeight } from '@atlaskit/editor-common/extensibility';
 import type {
 	Extension,
 	ExtensionHandler,
@@ -17,7 +18,6 @@ import {
 } from '@atlaskit/editor-common/selection';
 import type {
 	EditorAppearance,
-	ExtensionViewportSize,
 	ExtractInjectionAPI,
 	FeatureFlags,
 } from '@atlaskit/editor-common/types';
@@ -179,7 +179,7 @@ export const createPlugin = (
 	useLongPressSelection: boolean = false,
 	options: {
 		appearance?: EditorAppearance;
-		extensionViewportSizes?: ExtensionViewportSize[];
+		getExtensionHeight?: GetPMNodeHeight;
 	} = {},
 	featureFlags?: FeatureFlags,
 	__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'],
@@ -191,7 +191,7 @@ export const createPlugin = (
 
 	const extensionNodeViewOptions = {
 		appearance: options.appearance,
-		extensionViewportSizes: options.extensionViewportSizes,
+		getExtensionHeight: options.getExtensionHeight,
 	};
 
 	const macroInteractionDesignFeatureFlags = {

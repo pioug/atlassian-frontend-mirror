@@ -15,6 +15,7 @@ import { findReplaceMessages as messages } from '@atlaskit/editor-common/message
 import { ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 
@@ -59,7 +60,11 @@ export type ReplaceProps = {
 	}: {
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
 	}) => void;
-	count: { index: number; total: number };
+	count: {
+		index: number;
+		total: number;
+		totalReplaceable?: number;
+	};
 	onFindNext: ({
 		triggerMethod,
 	}: {
@@ -172,8 +177,13 @@ const Replace = ({
 		skipWhileComposing(() => {
 			onReplaceAll({ replaceText });
 			setIsHelperMessageVisible(true);
-			triggerSuccessReplacementMessageUpdate(count.total);
-			setReplaceCount(count.total);
+			if (count.totalReplaceable && fg('platform_editor_find_and_replace_1')) {
+				triggerSuccessReplacementMessageUpdate(count.totalReplaceable);
+				setReplaceCount(count.totalReplaceable);
+			} else {
+				triggerSuccessReplacementMessageUpdate(count.total);
+				setReplaceCount(count.total);
+			}
 			setFindTyped(false);
 		});
 
@@ -268,7 +278,11 @@ const Replace = ({
 							testId={replaceAll}
 							id="replaceAll-button"
 							onClick={handleReplaceAllClick}
-							isDisabled={!canReplace}
+							isDisabled={
+								fg('platform_editor_find_and_replace_1')
+									? count.totalReplaceable === 0
+									: !canReplace
+							}
 						>
 							{replaceAll}
 						</Button>

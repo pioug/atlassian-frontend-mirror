@@ -7,8 +7,8 @@ import { type ComponentType, type CSSProperties, type ReactNode } from 'react';
 import { css, cssMap, cx, jsx, type XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
+import CrossIcon from '@atlaskit/icon/core/close';
 import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import CrossIcon from '@atlaskit/icon/utility/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -289,6 +289,7 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 					LEGACY_primaryColor="transparent"
 					LEGACY_secondaryColor="inherit"
 					LEGACY_size="small"
+					size="small"
 				/>
 			</div>
 		</div>

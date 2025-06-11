@@ -5,7 +5,9 @@ import type {
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
 	FloatingToolbarHandler,
+	FloatingToolbarItem,
 	FloatingToolbarListPicker,
+	FloatingToolbarOverflowDropdownOptions,
 	FloatingToolbarSeparator,
 	SelectOption,
 } from '@atlaskit/editor-common/types';
@@ -15,6 +17,7 @@ import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import RemoveIcon from '@atlaskit/icon/core/migration/delete--editor-remove';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {
 	changeLanguage,
@@ -46,6 +49,8 @@ export const getToolbarConfig =
 		overrideLanguageName: ((name: Language['name']) => string) | undefined = undefined,
 	): FloatingToolbarHandler =>
 	(state, { formatMessage }) => {
+		const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
 		const { hoverDecoration } = api?.decorations?.actions ?? {};
 		const editorAnalyticsAPI = api?.analytics?.actions;
 
@@ -134,20 +139,63 @@ export const getToolbarConfig =
 					separator,
 				] as const);
 
-		const deleteButton: FloatingToolbarButton<Command> = {
-			id: 'editor.codeBlock.delete',
-			type: 'button',
-			appearance: 'danger',
-			icon: DeleteIcon,
-			iconFallback: RemoveIcon,
-			onMouseEnter: hoverDecoration?.(nodeType, true),
-			onMouseLeave: hoverDecoration?.(nodeType, false),
-			onFocus: hoverDecoration?.(nodeType, true),
-			onBlur: hoverDecoration?.(nodeType, false),
-			onClick: removeCodeBlockWithAnalytics(editorAnalyticsAPI),
-			title: formatMessage(commonMessages.remove),
-			tabIndex: null,
-		};
+		let copyAndDeleteButtonMenuItems: FloatingToolbarItem<Command>[] = [];
+		if (
+			expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+			fg('platform_editor_controls_patch_13')
+		) {
+			const overflowMenuOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
+				{
+					title: formatMessage(commonMessages.delete),
+					icon: DeleteIcon({ label: '' }),
+					onMouseEnter: hoverDecoration?.(nodeType, true),
+					onMouseLeave: hoverDecoration?.(nodeType, false),
+					onFocus: hoverDecoration?.(nodeType, true),
+					onBlur: hoverDecoration?.(nodeType, false),
+					onClick: removeCodeBlockWithAnalytics(editorAnalyticsAPI),
+				},
+			];
+
+			if (allowCopyToClipboard) {
+				overflowMenuOptions.unshift({
+					title: formatMessage(commonMessages.copyToClipboard),
+					onClick: copyContentToClipboardWithAnalytics(editorAnalyticsAPI),
+					icon: CopyIcon({ label: '' }),
+					onMouseEnter: provideVisualFeedbackForCopyButton,
+					onMouseLeave: resetCopiedState,
+					onFocus: provideVisualFeedbackForCopyButton,
+					onBlur: removeVisualFeedbackForCopyButton,
+					disabled: codeBlockState.isNodeSelected,
+				});
+			}
+
+			copyAndDeleteButtonMenuItems = isViewMode
+				? [...copyToClipboardItems]
+				: [
+						{ type: 'separator', fullHeight: true },
+						{
+							type: 'overflow-dropdown',
+							testId: 'code-block-overflow-dropdown-trigger',
+							options: overflowMenuOptions,
+						},
+					];
+		} else {
+			const deleteButton: FloatingToolbarButton<Command> = {
+				id: 'editor.codeBlock.delete',
+				type: 'button',
+				appearance: 'danger',
+				icon: DeleteIcon,
+				iconFallback: RemoveIcon,
+				onMouseEnter: hoverDecoration?.(nodeType, true),
+				onMouseLeave: hoverDecoration?.(nodeType, false),
+				onFocus: hoverDecoration?.(nodeType, true),
+				onBlur: hoverDecoration?.(nodeType, false),
+				onClick: removeCodeBlockWithAnalytics(editorAnalyticsAPI),
+				title: formatMessage(commonMessages.remove),
+				tabIndex: null,
+			};
+			copyAndDeleteButtonMenuItems = [separator, ...copyToClipboardItems, deleteButton];
+		}
 
 		const codeBlockWrapButton: FloatingToolbarButton<Command> = {
 			id: 'editor.codeBlock.wrap',
@@ -173,11 +221,12 @@ export const getToolbarConfig =
 			nodeType,
 			items: [
 				languageSelect,
-				separator,
+				...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+				fg('platform_editor_controls_patch_13')
+					? []
+					: [separator]),
 				codeBlockWrapButton,
-				separator,
-				...copyToClipboardItems,
-				deleteButton,
+				...copyAndDeleteButtonMenuItems,
 			],
 			scrollable: true,
 		};

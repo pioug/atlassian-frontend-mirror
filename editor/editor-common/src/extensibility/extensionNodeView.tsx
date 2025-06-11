@@ -11,15 +11,19 @@ import type { PortalProviderAPI } from '../portal';
 import type { ProviderFactory } from '../provider-factory';
 import type { ForwardRef, getPosHandler, ProsemirrorGetPosHandler } from '../react-node-view';
 import ReactNodeView from '../react-node-view';
-import type { EditorAppearance, ExtensionViewportSize } from '../types';
+import type { EditorAppearance } from '../types';
 
 import { Extension } from './Extension';
 import { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
-import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
+import type {
+	ExtensionsPluginInjectionAPI,
+	MacroInteractionDesignFeatureFlags,
+	GetPMNodeHeight,
+} from './types';
 
 interface ExtensionNodeViewOptions {
 	appearance?: EditorAppearance;
-	extensionViewportSizes?: ExtensionViewportSize[];
+	getExtensionHeight?: GetPMNodeHeight;
 }
 
 // getInlineNodeViewProducer is a new api to use instead of ReactNodeView
@@ -81,8 +85,7 @@ export class ExtensionNode extends ReactNodeView {
 			<ExtensionNodeWrapper
 				nodeType={this.node.type.name}
 				macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
-				extensionId={this.node.attrs.parameters?.extensionId}
-				extensionViewportSizes={props.extensionNodeViewOptions?.extensionViewportSizes}
+				nodeHeight={props.extensionNodeViewOptions?.getExtensionHeight?.(this.node)}
 			>
 				<Extension
 					editorView={this.view}

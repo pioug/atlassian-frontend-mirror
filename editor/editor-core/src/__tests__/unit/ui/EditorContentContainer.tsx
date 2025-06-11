@@ -165,6 +165,8 @@ describe('Editor Content styles', () => {
 				display: 'flex',
 				flexDirection: 'column',
 				scrollBehavior: 'smooth',
+				// style from scrollbarStyles
+				'-ms-overflow-style': '-ms-autohiding-scrollbar',
 			});
 		});
 	});
@@ -193,6 +195,21 @@ describe('Editor Content styles', () => {
 				overflowX: 'clip',
 				lineHeight: '24px',
 			});
+
+			// Check for tableCommentEditorStyles
+			const emotionStyles = Array.from(document.querySelectorAll('style[data-emotion]')).map(
+				(el) => el.textContent,
+			);
+			const tableCommentEditorEmotionStyles: string[] = [];
+			emotionStyles.forEach((es) => {
+				if (es?.includes('.ProseMirror .pm-table-wrapper>table')) {
+					tableCommentEditorEmotionStyles.push(es);
+				}
+			});
+			expect(tableCommentEditorEmotionStyles.length).toBeGreaterThan(0);
+			expect(tableCommentEditorEmotionStyles[0]).toContain(
+				'margin-left:0;margin-right:0;-ms-overflow-style:-ms-autohiding-scrollbar;',
+			);
 		});
 	});
 });

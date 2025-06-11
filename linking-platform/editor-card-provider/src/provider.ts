@@ -122,6 +122,8 @@ const isConfluenceTeamCalendars = (url: string) =>
 const isJiraIssueNavigator = (url: string) =>
 	url.match(/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/);
 
+export const isJiraWorkItem = (url: string): boolean => /\/browse\/((?:\w+)-(?:\d+))/i.test(url);
+
 export class EditorCardProvider implements CardProvider {
 	private baseUrl: string;
 	private resolverUrl: string;
@@ -130,11 +132,18 @@ export class EditorCardProvider implements CardProvider {
 	private transformer: Transformer;
 	private providersLoader: DataLoader<string, ProvidersData | undefined>;
 	private cardClient: CardClient;
+	private onResolve: ((url: string) => void) | undefined;
 
-	constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string, product?: ProductType) {
+	constructor(
+		envKey?: EnvironmentsKeys,
+		baseUrlOverride?: string,
+		product?: ProductType,
+		onResolve?: (url: string) => void,
+	) {
 		this.baseUrl = baseUrlOverride || getBaseUrl(envKey);
 		this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
 		this.transformer = new Transformer();
+		this.onResolve = onResolve;
 		this.requestHeaders = {
 			Origin: this.baseUrl,
 		};
@@ -395,6 +404,10 @@ export class EditorCardProvider implements CardProvider {
 				this.findPatternData(url),
 				this.findUserPreference(url),
 			]);
+
+			if (isJiraWorkItem(url) && fg('issue-link-suggestions-in-comments')) {
+				this.onResolve?.(url);
+			}
 
 			if (shouldForceAppearance === false && userPreference === 'url') {
 				return Promise.reject(undefined);

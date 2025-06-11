@@ -49,8 +49,8 @@ import {
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -218,7 +218,12 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 									{
 										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										<span css={expandIconContainerStyle}>
-											<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
+											<ChevronDownIcon
+												label=""
+												color="currentColor"
+												LEGACY_margin="0 0 0 -8px"
+												size="small"
+											/>
 										</span>
 									}
 								</div>

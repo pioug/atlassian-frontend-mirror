@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 2.2.10
+
+### Patch Changes
+
+- [#168742](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168742)
+  [`43b55fe50be89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43b55fe50be89) -
+  Add experiment to show no cursor on initial edit page
+- Updated dependencies
+
 ## 2.2.9
 
 ### Patch Changes

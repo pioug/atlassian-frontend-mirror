@@ -6,7 +6,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx, styled } from '@compiled/react';
-import debounce from 'lodash/debounce';
 import invariant from 'tiny-invariant';
 
 import { FlagsProvider } from '@atlaskit/flag';
@@ -15,7 +14,6 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
@@ -26,7 +24,6 @@ import { N40 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-import { WidthObserver } from '@atlaskit/width-detector';
 
 import { startUfoExperience, succeedUfoExperience } from '../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../contexts/datasource-experience-id';
@@ -347,21 +344,6 @@ export const IssueLikeDataTableView = ({
 		getOrderedColumns([...columns], [...visibleColumnKeys]),
 	);
 
-	const isJumpingColumnFixEnabled = fg('enable_fix_datasource_jumping_columns');
-
-	// Table container width is used to know if sum of all column widths is bigger of container or not.
-	// When sum of all columns is less than container size we make last column stretchable (width: undefined)
-	const [tableContainerWidthOld, setTableContainerWidthOld] = useState<number | undefined>();
-
-	useEffect(() => {
-		const { current } = containerRef;
-		if (!isJumpingColumnFixEnabled) {
-			if (containerRef && current) {
-				setTableContainerWidthOld(current.getBoundingClientRect().width);
-			}
-		}
-	}, [containerRef, isJumpingColumnFixEnabled]);
-
 	useEffect(() => {
 		if (orderedColumns.length !== columns.length) {
 			setOrderedColumns(getOrderedColumns([...columns], [...visibleColumnKeys]));
@@ -401,24 +383,8 @@ export const IssueLikeDataTableView = ({
 
 	const shouldUseWidth = !!(onColumnResize || columnCustomSizes);
 
-	const getColumnWidthOld = useCallback(
-		(key: string, type: DatasourceType['type'], isLastCell: boolean) => {
-			if (
-				isLastCell &&
-				shouldUseWidth &&
-				(!tableContainerWidthOld || tableContainerWidthOld > columnsWidthsSum)
-			) {
-				return undefined;
-			} else {
-				return columnCustomSizes?.[key] || getDefaultColumnWidth(key, type);
-			}
-		},
-		[columnCustomSizes, columnsWidthsSum, shouldUseWidth, tableContainerWidthOld],
-	);
+	const tableContainerWidth = Math.ceil(containerRef.current?.getBoundingClientRect().width || 0);
 
-	const tableContainerWidth = isJumpingColumnFixEnabled
-		? Math.ceil(containerRef.current?.getBoundingClientRect().width || 0)
-		: 0;
 	const getColumnWidth = useCallback(
 		(key: string, type: DatasourceType['type'], isLastCell: boolean) => {
 			if (
@@ -441,11 +407,9 @@ export const IssueLikeDataTableView = ({
 				key,
 				content: title,
 				shouldTruncate: true,
-				width: isJumpingColumnFixEnabled
-					? getColumnWidth(key, type, index === visibleSortedColumns.length - 1)
-					: getColumnWidthOld(key, type, index === visibleSortedColumns.length - 1),
+				width: getColumnWidth(key, type, index === visibleSortedColumns.length - 1),
 			})),
-		[getColumnWidth, getColumnWidthOld, isJumpingColumnFixEnabled, visibleSortedColumns],
+		[getColumnWidth, visibleSortedColumns],
 	);
 
 	const loadingRow: RowType = useMemo(
@@ -569,24 +533,13 @@ export const IssueLikeDataTableView = ({
 									renderItem={renderItem}
 								/>
 							),
-							width: isJumpingColumnFixEnabled
-								? getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1)
-								: getColumnWidthOld(key, type, cellIndex === visibleSortedColumns.length - 1),
+							width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
 						};
 					}),
 					ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
 				};
 			}),
-		[
-			items,
-			itemIds,
-			renderItem,
-			wrappedColumnKeys,
-			visibleSortedColumns,
-			getColumnWidth,
-			getColumnWidthOld,
-			isJumpingColumnFixEnabled,
-		],
+		[items, itemIds, renderItem, wrappedColumnKeys, visibleSortedColumns, getColumnWidth],
 	);
 
 	const rows = useMemo(() => {
@@ -660,9 +613,6 @@ export const IssueLikeDataTableView = ({
 			}
 			data-testid={'issue-like-table-container'}
 		>
-			{!isJumpingColumnFixEnabled && (
-				<WidthObserver setWidth={debounce(setTableContainerWidthOld, 100)} />
-			)}
 			<Table
 				css={tableStyles}
 				data-testid={testId}

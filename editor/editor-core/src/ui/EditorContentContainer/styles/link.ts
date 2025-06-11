@@ -24,3 +24,27 @@ export const linkStylesOld = css({
 		display: 'block',
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const hyperLinkFloatingToolbarStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.hyperlink-floating-toolbar': {
+		padding: 0,
+	},
+});
+
+/*
+ * Legacy Link icon in the Atlaskit package is bigger than the others,
+ * new ADS icon does not have this issue
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const linkLegacyIconStylesFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.hyperlink-open-link': {
+		minWidth: 24,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		svg: {
+			maxWidth: 18,
+		},
+	},
+});

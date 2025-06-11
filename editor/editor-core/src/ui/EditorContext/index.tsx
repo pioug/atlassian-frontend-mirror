@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { EditorContext } from '@atlaskit/editor-common/UNSAFE_do_not_use_editor_context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import EditorActions from '../../actions';
 
@@ -23,18 +22,9 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, Obj
 	}
 
 	render() {
-		if (
-			fg('platform_editor_react18_phase2_v2') ||
-			fg('platform_editor_react18_phase2_v2_extended')
-		) {
-			// Ignored via go/ees005
-			// eslint-disable-next-line react/jsx-props-no-spreading
-			return <LegacyEditorContextNew {...this.props}>{this.props.children}</LegacyEditorContextNew>;
-		}
-
 		// Ignored via go/ees005
 		// eslint-disable-next-line react/jsx-props-no-spreading
-		return <LegacyEditorContextOld {...this.props}>{this.props.children}</LegacyEditorContextOld>;
+		return <LegacyEditorContextNew {...this.props}>{this.props.children}</LegacyEditorContextNew>;
 	}
 }
 

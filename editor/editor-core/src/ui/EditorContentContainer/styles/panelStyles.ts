@@ -355,3 +355,11 @@ export const panelStylesMixin_without_fg_platform_editor_lcm_nested_panel_icon_f
 		},
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const panelViewStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.panelView-content-wrap': {
+		boxSizing: 'border-box',
+	},
+});

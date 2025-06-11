@@ -47,6 +47,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
@@ -580,7 +581,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 			popupsScrollableElement,
 			dispatchAnalyticsEvent,
 		}) {
-			if (editorExperiment('platform_editor_usesharedpluginstateselector', true)) {
+			if (expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)) {
 				return (
 					<ContentComponent
 						api={api}

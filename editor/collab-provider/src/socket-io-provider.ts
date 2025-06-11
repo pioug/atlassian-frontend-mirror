@@ -5,7 +5,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Provider } from './provider';
 import type AnalyticsHelper from './analytics/analytics-helper';
 import type { Config, ProductInformation, InitAndAuthData, AuthCallback } from './types';
-import { EVENT_ACTION, EVENT_STATUS } from './helpers/const';
 import { getProduct, getSubProduct } from './helpers/utils';
 import { SOCKET_IO_OPTIONS } from './config';
 
@@ -23,7 +22,7 @@ export function createSocketIOSocket(
 	if (isPresenceOnly && fg('platform-editor-presence-websocket-only')) {
 		// https://socket.io/docs/v4/client-options/#transports
 		// WebSocket first, if fails, try polling
-		transports = ['websocket', 'polling'];
+		transports = ['websocket'];
 	}
 	const client = io(url, {
 		reconnectionDelayMax: SOCKET_IO_OPTIONS.RECONNECTION_DELAY_MAX,
@@ -39,18 +38,6 @@ export function createSocketIOSocket(
 			'x-subproduct': getSubProduct(productInfo),
 		},
 	});
-
-	// Only limit this change to Presence only
-	if (isPresenceOnly && fg('platform-editor-presence-websocket-only')) {
-		// https://socket.io/docs/v4/client-options/#transports
-		client.on('connect_error', () => {
-			// revert to classic upgrade
-			client.io.opts.transports = ['polling', 'websocket'];
-			analyticsHelper?.sendActionEvent(EVENT_ACTION.POLLING_FALLBACK, EVENT_STATUS.INFO, {
-				url,
-			});
-		});
-	}
 
 	return client;
 }

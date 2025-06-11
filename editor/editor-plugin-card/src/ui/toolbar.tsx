@@ -987,7 +987,22 @@ const getDatasourceButtonGroup = (
 			? 'datasource-overflow-dropdown-trigger'
 			: undefined;
 
-		toolbarItems.push({ type: 'separator', fullHeight: true });
+		// When canShowAppearanceSwitch is true, and platform_editor_controls is on, the link appearance dropdown shows, which includes a link preference button
+		// So only add the link appearance button when canShowAppearanceSwitch is false
+		if (!canShowAppearanceSwitch() && fg('platform_editor_controls_patch_12')) {
+			const linkPreferenceButton = getSettingsButton(
+				intl,
+				editorAnalyticsApi,
+				cardOptions?.userPreferencesLink,
+			);
+			toolbarItems.push({ type: 'separator', fullHeight: true }, linkPreferenceButton, {
+				type: 'separator',
+				fullHeight: true,
+			});
+		} else {
+			toolbarItems.push({ type: 'separator', fullHeight: true });
+		}
+
 		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 			{
 				type: 'overflow-dropdown',

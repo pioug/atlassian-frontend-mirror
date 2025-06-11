@@ -4,6 +4,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { InteractionPlugin } from '@atlaskit/editor-plugin-interaction';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -17,6 +18,7 @@ type CodeBlockDependencies = [
 	OptionalPlugin<EditorDisabledPlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<InteractionPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
 ];
 
 export type CodeBlockPlugin = NextEditorPlugin<

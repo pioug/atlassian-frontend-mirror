@@ -48,6 +48,7 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-c
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
@@ -74,6 +75,7 @@ export type DefaultPresetPluginOptions = {
 	preferenceToolbarAboveSelection?: boolean;
 	featureFlags?: FeatureFlags;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+	disabled?: boolean;
 	/**
 	 * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
 	 *
@@ -113,7 +115,9 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add(focusPlugin)
 		.maybeAdd(
 			interactionPlugin,
-			Boolean(options?.__livePage) && fg('platform_editor_no_cursor_on_live_doc_init'),
+			Boolean(options?.__livePage)
+				? fg('platform_editor_no_cursor_on_live_doc_init')
+				: expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true),
 		)
 		.add(compositionPlugin)
 		.add([
@@ -154,7 +158,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add([quickInsertPlugin, options.quickInsert])
 		.add([placeholderPlugin, options.placeholder])
 		.add(unsupportedContentPlugin)
-		.add(editorDisabledPlugin)
+		.add([editorDisabledPlugin, { initialDisabledState: options.disabled }])
 		.add([submitEditorPlugin, options.submitEditor])
 		.add(copyButtonPlugin)
 		.add(floatingToolbarPlugin)

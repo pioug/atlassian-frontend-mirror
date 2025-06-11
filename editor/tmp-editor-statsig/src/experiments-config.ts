@@ -352,6 +352,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-06-10
+	platform_editor_no_cursor_on_edit_page_init: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_no_cursor_on_edit_page_init',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-05-15
 	confluence_p2m_style_recalc_and_expand_joint_exp: createBooleanExperiment({
 		productKeys: {

@@ -1,5 +1,17 @@
 # @atlaskit/rovo-triggers
 
+## 2.15.0
+
+### Minor Changes
+
+- [#168884](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168884)
+  [`62d1dcae72ca1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62d1dcae72ca1) -
+  Now the consumers of Rava chat that launch chat with URL mostly for full screen experience can
+  provide a new url param `rovoChatInitiator` to enable `initiator` logging in message sent and
+  agentMessage received events. Refer this
+  [doc](https://hello.atlassian.net/wiki/spaces/AA6/pages/5413278975/RFC-009+Rovo+Chat+Initiator+Tracking)
+  for more details.
+
 ## 2.14.0
 
 ### Minor Changes

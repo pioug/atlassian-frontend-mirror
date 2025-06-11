@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 6.6.3
+
+### Patch Changes
+
+- [#166368](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166368)
+  [`5f46eb74d8fa5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f46eb74d8fa5) -
+  [ux] ED-27810: Added the link preference button when control is on
+
 ## 6.6.2
 
 ### Patch Changes

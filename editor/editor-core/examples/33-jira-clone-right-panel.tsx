@@ -9,12 +9,12 @@ import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Button, { IconButton } from '@atlaskit/button/new';
+import ChevronDown from '@atlaskit/icon/core/migration/chevron-down';
 import WatchFilledIcon from '@atlaskit/icon/core/migration/eye-open-filled--watch-filled';
 import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import ShareIcon from '@atlaskit/icon/core/migration/share';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
-import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -122,8 +122,12 @@ export default function CommentWithJiraCardsExample() {
 									<IconButton appearance="subtle" icon={MoreIcon} label="more" />
 								</div>
 								<div css={statusContainer}>
-									<Button iconAfter={ChevronDown}>To Do</Button>
-									<Button iconAfter={ChevronDown}>Action</Button>
+									<Button iconAfter={(iconProps) => <ChevronDown {...iconProps} size="small" />}>
+										To Do
+									</Button>
+									<Button iconAfter={(iconProps) => <ChevronDown {...iconProps} size="small" />}>
+										Action
+									</Button>
 								</div>
 
 								{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
@@ -134,7 +138,7 @@ export default function CommentWithJiraCardsExample() {
 									onClick={handleClick}
 								>
 									<strong>Details</strong>
-									<ChevronDown label="" LEGACY_size="medium" />
+									<ChevronDown label="" LEGACY_size="medium" size="small" />
 								</div>
 								{isOpen && (
 									<div css={detialsContentContainer}>

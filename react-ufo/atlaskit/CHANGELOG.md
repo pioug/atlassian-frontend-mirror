@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.20
+
+### Patch Changes
+
+- [#169139](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169139)
+  [`b4d6e4e5e7a39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4d6e4e5e7a39) -
+  AFO-4009 simplify UFO timeout to be 60s uniformly (behind fg)
+
 ## 3.13.19
 
 ### Patch Changes

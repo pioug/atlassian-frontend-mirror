@@ -94,6 +94,7 @@ class Example extends React.Component<{}, ExampleState> {
 						</InputWrapper>
 						<OrientationSelectWrapper>
 							Use Orientation:&nbsp;
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-select */}
 							<select defaultValue={`${orientation}`} onChange={this.onSelectOrientation}>
 								<option value="0">From Image (if metadata available)</option>
 								<option value="1">1 (none)</option>

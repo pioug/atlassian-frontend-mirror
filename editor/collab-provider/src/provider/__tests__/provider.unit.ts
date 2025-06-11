@@ -1401,6 +1401,21 @@ describe('Provider', () => {
 			provider.initialize(() => editorState);
 			expect(provider.getDocumentAri()).toEqual('ari:cloud:confluence:ABC:page/testpage');
 		});
+
+		it('onErrorHandled: Should handle and send error event', () => {
+			const onErrorHandledSpy = jest.spyOn(provider as any, 'onErrorHandled');
+			(provider as any).onErrorHandled({
+				message: 'Test error',
+				data: {
+					code: INTERNAL_ERROR_CODE.OUT_OF_SYNC_CLIENT_DATA_LOSS_EVENT,
+					meta: {
+						reason: 'fe-restore-fetch-generated-steps',
+					},
+				},
+			});
+			expect(onErrorHandledSpy).toHaveBeenCalledTimes(1);
+			expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	describe('View Permission Only', () => {

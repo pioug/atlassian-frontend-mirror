@@ -5,6 +5,7 @@ import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { BreakoutPlugin } from '../breakoutPluginType';
 
@@ -57,14 +58,28 @@ export class ResizingMarkView implements NodeView {
 		contentDOM.style.gridRow = '1';
 		contentDOM.style.gridColumn = '1';
 		contentDOM.style.zIndex = '1';
-		if (mark.attrs.width) {
-			contentDOM.style.minWidth = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
-		} else {
-			if (mark.attrs.mode === 'wide') {
-				contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--breakout-wide-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+
+		if (fg('platform_editor_breakout_resizing_hello_release')) {
+			if (mark.attrs.width) {
+				contentDOM.style.width = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
+			} else {
+				if (mark.attrs.mode === 'wide') {
+					contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--breakout-wide-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
+				if (mark.attrs.mode === 'full-width') {
+					contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--full-width-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
 			}
-			if (mark.attrs.mode === 'full-width') {
-				contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--full-width-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+		} else {
+			if (mark.attrs.width) {
+				contentDOM.style.minWidth = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
+			} else {
+				if (mark.attrs.mode === 'wide') {
+					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--breakout-wide-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
+				if (mark.attrs.mode === 'full-width') {
+					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--full-width-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
 			}
 		}
 

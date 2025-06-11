@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.7.1
+
+### Patch Changes
+
+- [#168578](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168578)
+  [`41261a6eeacb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41261a6eeacb3) -
+  ED-28219 fix new resizing experience on full width pages
+- Updated dependencies
+
 ## 2.7.0
 
 ### Minor Changes

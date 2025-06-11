@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.19.1",
+	"version": "207.19.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -222,14 +222,6 @@
 		},
 		"platform_editor_react18_mention_with_provider_fix": {
 			"type": "boolean"
-		},
-		"platform_editor_react18_phase2_v2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_react18_phase2_v2_extended": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_element_dnd_nested_fix_patch_6": {
 			"type": "boolean",
@@ -535,10 +527,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_controls_widget_visibility": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_add_alignment_tracking": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

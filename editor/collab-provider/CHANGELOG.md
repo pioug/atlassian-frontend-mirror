@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.20.0
+
+### Minor Changes
+
+- [#169286](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169286)
+  [`81e49898e84c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81e49898e84c9) -
+  Enforce the WebSocekt only for Presence
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.19.2
 
 ### Patch Changes

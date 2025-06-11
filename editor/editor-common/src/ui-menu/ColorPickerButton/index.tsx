@@ -13,8 +13,8 @@ import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext'
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/new';
 import LegacyButton from '@atlaskit/button/standard-button';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import LegacyExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss, Inline } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -340,6 +340,7 @@ const ColorPickerButton = (props: Props) => {
 											spacing="spacious"
 											LEGACY_fallbackIcon={LegacyExpandIcon}
 											label="color-picker-chevron-down"
+											size="small"
 										/>
 									</Box>
 								</Inline>
@@ -369,6 +370,7 @@ const ColorPickerButton = (props: Props) => {
 										spacing="spacious"
 										LEGACY_fallbackIcon={LegacyExpandIcon}
 										label="color-picker-chevron-down"
+										size="small"
 									/>
 								</Box>
 							}

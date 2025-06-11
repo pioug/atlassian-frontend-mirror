@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.4.0
+
+### Minor Changes
+
+- [#167734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167734)
+  [`74e7440fe9307`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74e7440fe9307) -
+  [ux] [ED-27959] this change is disabling the Replace/ Replace All functionality for non-text
+  matches with the platform_editor_find_and_replace_1 flag enabled
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

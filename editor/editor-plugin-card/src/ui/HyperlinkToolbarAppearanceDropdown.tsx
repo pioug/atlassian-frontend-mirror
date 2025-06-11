@@ -15,7 +15,7 @@ import {
 	ArrowKeyNavigationType,
 	DropdownContainer as UiDropdown,
 } from '@atlaskit/editor-common/ui-menu';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 
@@ -123,7 +123,7 @@ const CustomHyperlinkDropdown = (
 			aria-haspopup
 			onClick={toggleOpen}
 			icon={currentAppearanceDisplayInformation.icon({ label: '' })}
-			iconAfter={<ChevronDownIcon label="" spacing="compact" />}
+			iconAfter={<ChevronDownIcon label="" spacing="compact" size="small" />}
 		>
 			{title}
 		</Button>

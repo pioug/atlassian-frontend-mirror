@@ -22,6 +22,7 @@ import { findReplaceMessages as messages } from '@atlaskit/editor-common/message
 import { Label, ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 
@@ -54,7 +55,11 @@ export type ReplaceProps = {
 	}: {
 		triggerMethod: TRIGGER_METHOD.KEYBOARD | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.BUTTON;
 	}) => void;
-	count: { index: number; total: number };
+	count: {
+		index: number;
+		total: number;
+		totalReplaceable?: number;
+	};
 	onFindNext: ({
 		triggerMethod,
 	}: {
@@ -203,8 +208,13 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 		this.skipWhileComposing(() => {
 			this.props.onReplaceAll({ replaceText: this.state.replaceText });
 			this.setState({ isHelperMessageVisible: true });
-			this.triggerSuccessReplacementMessageUpdate(this.props.count.total);
-			this.setState({ replaceCount: this.props.count.total });
+			if (this.props.count.totalReplaceable && fg('platform_editor_find_and_replace_1')) {
+				this.triggerSuccessReplacementMessageUpdate(this.props.count.totalReplaceable);
+				this.setState({ replaceCount: this.props.count.totalReplaceable });
+			} else {
+				this.triggerSuccessReplacementMessageUpdate(this.props.count.total);
+				this.setState({ replaceCount: this.props.count.total });
+			}
 			this.props.setFindTyped(false);
 		});
 
@@ -339,7 +349,11 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 								testId={this.replaceAll}
 								id="replaceAll-button"
 								onClick={this.handleReplaceAllClick}
-								isDisabled={!canReplace}
+								isDisabled={
+									fg('platform_editor_find_and_replace_1')
+										? count.totalReplaceable === 0
+										: !canReplace
+								}
 							>
 								{this.replaceAll}
 							</Button>

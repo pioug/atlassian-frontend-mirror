@@ -2,6 +2,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Match } from '../types';
 
@@ -179,6 +180,9 @@ export const replace = (replaceText: string) =>
 			(tr, state: EditorState) => {
 				const { matches, index, findText } = getPluginState(state);
 				if (matches[index]) {
+					if (!matches[index].canReplace && fg('platform_editor_find_and_replace_1')) {
+						return tr;
+					}
 					const { start, end } = matches[index];
 					const newIndex = nextIndex(index, matches.length);
 					tr.insertText(replaceText, start, end).setSelection(
@@ -208,6 +212,9 @@ export const replaceAll = (replaceText: string) =>
 		(tr, state: EditorState) => {
 			const pluginState = getPluginState(state);
 			pluginState.matches.forEach((match: Match) => {
+				if (!match.canReplace && fg('platform_editor_find_and_replace_1')) {
+					return tr;
+				}
 				tr.insertText(replaceText, tr.mapping.map(match.start), tr.mapping.map(match.end));
 			});
 			tr.setMeta('scrollIntoView', false);

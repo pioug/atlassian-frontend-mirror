@@ -31,8 +31,8 @@ import {
 	PanelTextInput,
 } from '@atlaskit/editor-common/ui';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
-import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -173,7 +173,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 						<span css={buttonWrapper}>
 							<Button
 								title={formatLinkAddressText}
-								icon={<ChevronLeftLargeIcon label={formatLinkAddressText} />}
+								icon={<ChevronLeftLargeIcon label={formatLinkAddressText} size="small" />}
 								onClick={() =>
 									this.handleOnBack({
 										url: value,

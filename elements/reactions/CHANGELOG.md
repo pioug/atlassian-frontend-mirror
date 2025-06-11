@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.0.1
+
+### Patch Changes
+
+- [#168917](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168917)
+  [`06e3a9a376da3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06e3a9a376da3) -
+  [ux] Bug fix for wrong animation being rendered on the byline for page reactions
+
 ## 33.0.0
 
 ### Major Changes

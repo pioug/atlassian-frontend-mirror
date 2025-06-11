@@ -226,6 +226,7 @@ function ExampleTabsWithObs(props: { tabs: { label: string; content: React.React
 					<legend>Select an example</legend>
 					<div>
 						<label htmlFor="full">Full cache</label>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-select */}
 						<select id="example" name="example">
 							{props.tabs.map((tab) => (
 								<option key={tab.label} value={tab.label}>

@@ -239,5 +239,3 @@ import type { EditorPresetBuilder, ExtractPresetAPI } from '../preset';
 export type ExtractPublicEditorAPI<T extends EditorPresetBuilder<any, any>> = ExtractPresetAPI<T>;
 
 export type { UserPreferencesProvider, UserPreferences } from './user-preferences';
-
-export type { ExtensionViewportSize } from './extensibility';

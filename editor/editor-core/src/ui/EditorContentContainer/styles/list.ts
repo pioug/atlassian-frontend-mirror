@@ -164,3 +164,12 @@ export const listsStylesSafariFix = css({
 			marginTop: `-${akEditorLineHeight}em !important`,
 		},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const listLayoutShiftFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror ul, .ProseMirror ol': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		marginTop: '10px',
+	},
+});

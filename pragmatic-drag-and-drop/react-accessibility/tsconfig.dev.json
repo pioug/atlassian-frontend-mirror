@@ -44,6 +44,9 @@
 			"path": "../../design-system/ds-lib/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
 		}
 	]

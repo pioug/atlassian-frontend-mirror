@@ -32,7 +32,6 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
-import { type WidthObserver } from '@atlaskit/width-detector';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
@@ -121,22 +120,6 @@ jest.mock('@atlaskit/ufo', () => ({
 }));
 
 const mockColumnPickerUfoAddMetadata = jest.fn();
-
-let mockInnerSetWidth: (w: number) => void | undefined;
-
-const setWidth = (width: number) =>
-	typeof mockInnerSetWidth === 'function' ? mockInnerSetWidth(width) : undefined;
-
-type WidthObserverType = typeof WidthObserver;
-
-jest.mock('@atlaskit/width-detector', () => {
-	return {
-		WidthObserver: ((props) => {
-			mockInnerSetWidth = props.setWidth;
-			return null;
-		}) as WidthObserverType,
-	};
-});
 
 const drag = async (source: HTMLElement, destination: HTMLElement, moveItBy: number = 5) => {
 	fireEvent.dragStart(source, getDefaultInput({ clientX: 5 }));
@@ -1268,107 +1251,8 @@ describe('IssueLikeDataTableView', () => {
 			},
 		);
 
-		ffTest.on('enable_fix_datasource_jumping_columns', 'fix is on', () => {
-			describe('when container is wider then sum of all column widths, last column', () => {
-				it('should not have resize handle', async () => {
-					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-
-					mockCellBoundingRect({ tableWidth: 1000 });
-
-					const { getByTestId } = setup({
-						items,
-						itemIds,
-						columns,
-						visibleColumnKeys,
-						columnCustomSizes: { id: 100, task: 200, emoji: 300 },
-						hasNextPage: false,
-					});
-
-					expect(
-						within(getByTestId('emoji-column-heading')).queryByTestId('column-resize-handle'),
-					).toBeNull();
-				});
-
-				it('should has no with nor max-width css set', () => {
-					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-
-					mockCellBoundingRect({ tableWidth: 1000 });
-
-					const { queryByTestId } = setup({
-						items,
-						itemIds,
-						columns,
-						visibleColumnKeys,
-						columnCustomSizes: { id: 100, task: 200, emoji: 300 },
-						hasNextPage: false,
-					});
-
-					expect(queryByTestId('emoji-column-heading')).toHaveStyle({
-						maxWidth: undefined,
-						width: undefined,
-					});
-				});
-
-				describe('and there is no onColumnResize (readonly)', () => {
-					it('should have max-width set', () => {
-						const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-
-						mockCellBoundingRect({ tableWidth: 1000 });
-
-						const { queryByTestId } = setup({
-							items,
-							itemIds,
-							columns,
-							visibleColumnKeys,
-							onColumnResize: undefined,
-							columnCustomSizes: undefined,
-							hasNextPage: false,
-						});
-
-						expect(queryByTestId('emoji-column-heading')).toHaveStyle('max-width: 176px');
-					});
-				});
-			});
-
-			describe('when sum of all column widths is bigger than container width, last column', () => {
-				it('should have resize handle', () => {
-					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-
-					const { getByTestId } = setup({
-						items,
-						itemIds,
-						columns,
-						visibleColumnKeys,
-						columnCustomSizes: { id: 100, task: 200, emoji: 300 },
-						hasNextPage: false,
-					});
-
-					expect(
-						within(getByTestId('emoji-column-heading')).queryByTestId('column-resize-handle'),
-					).not.toBeNull();
-				});
-
-				it('should has width css set', () => {
-					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-
-					mockCellBoundingRect({ tableWidth: 100 });
-
-					const { queryByTestId } = setup({
-						items,
-						itemIds,
-						columns,
-						visibleColumnKeys,
-						columnCustomSizes: { id: 100, task: 200, emoji: 300 },
-						hasNextPage: false,
-					});
-
-					expect(queryByTestId('emoji-column-heading')).toHaveStyle('width: 300px');
-				});
-			});
-		});
-
 		describe('when container is wider then sum of all column widths, last column', () => {
-			it('should not have resize handle', () => {
+			it('should not have resize handle', async () => {
 				const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
 
 				mockCellBoundingRect({ tableWidth: 1000 });
@@ -1426,33 +1310,6 @@ describe('IssueLikeDataTableView', () => {
 					expect(queryByTestId('emoji-column-heading')).toHaveStyle('max-width: 176px');
 				});
 			});
-
-			describe('and then container width changes and gets smaller', () => {
-				it('should bring back resize handle and set width css', () => {
-					jest.useFakeTimers();
-					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-
-					mockCellBoundingRect({ tableWidth: 1000 });
-
-					const { getByTestId } = setup({
-						items,
-						itemIds,
-						columns,
-						visibleColumnKeys,
-						columnCustomSizes: { id: 100, task: 200, emoji: 300 },
-						hasNextPage: false,
-					});
-
-					act(() => setWidth(100));
-					act(() => {
-						jest.runOnlyPendingTimers();
-					});
-
-					const emojiHeading = getByTestId('emoji-column-heading');
-					expect(within(emojiHeading).queryByTestId('column-resize-handle')).not.toBeNull();
-					expect(emojiHeading).toHaveStyle('width: 300px');
-				});
-			});
 		});
 
 		describe('when sum of all column widths is bigger than container width, last column', () => {
@@ -1488,36 +1345,6 @@ describe('IssueLikeDataTableView', () => {
 				});
 
 				expect(queryByTestId('emoji-column-heading')).toHaveStyle('width: 300px');
-			});
-
-			describe('and then container width changes and gets bigger', () => {
-				it('should remove resize handle as well as width css', () => {
-					jest.useFakeTimers();
-					const { columns, items, itemIds, visibleColumnKeys } = makeDragAndDropTableProps();
-
-					mockCellBoundingRect({ tableWidth: 100 });
-
-					const { getByTestId } = setup({
-						items,
-						itemIds,
-						columns,
-						visibleColumnKeys,
-						columnCustomSizes: { id: 100, task: 200, emoji: 300 },
-						hasNextPage: false,
-					});
-
-					act(() => setWidth(1000));
-					act(() => {
-						jest.runOnlyPendingTimers();
-					});
-
-					const emojiHeading = getByTestId('emoji-column-heading');
-					expect(within(emojiHeading).queryByTestId('column-resize-handle')).toBeNull();
-					expect(emojiHeading).toHaveStyle({
-						maxWidth: undefined,
-						width: undefined,
-					});
-				});
 			});
 		});
 

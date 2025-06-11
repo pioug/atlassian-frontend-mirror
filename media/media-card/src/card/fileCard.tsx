@@ -68,6 +68,7 @@ import { useIntl } from 'react-intl-next';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getActiveTrace } from '@atlaskit/react-ufo/experience-trace-id-context';
+import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -166,6 +167,8 @@ export const FileCard = ({
 	//----------------------------------------------------------------//
 	//------------ State, Refs & Initial Values ----------------------//
 	//----------------------------------------------------------------//
+
+	const pressTracing = usePressTracing('click-file-card');
 
 	const mediaClient = useMediaClient();
 
@@ -552,6 +555,11 @@ export const FileCard = ({
 				collectionName: identifier.collectionName,
 				occurrenceKey: identifier.occurrenceKey,
 			});
+		}
+
+		// Abort VC when click file card
+		if (fg('platform_abort_vc_click_file_card')) {
+			pressTracing();
 		}
 	};
 

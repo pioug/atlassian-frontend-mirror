@@ -20,7 +20,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
-import ExpandIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ExpandIcon from '@atlaskit/icon/core/migration/chevron-down';
 
 import { toggleContextualMenu } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -106,7 +106,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				title={labelCellOptions}
 				keymap={focusToContextMenuTrigger}
 				onClick={handleClick}
-				iconBefore={<ExpandIcon label="" color="currentColor" />}
+				iconBefore={<ExpandIcon label="" color="currentColor" size="small" />}
 				aria-label={labelCellOptions}
 				aria-expanded={isContextualMenuOpen}
 			/>

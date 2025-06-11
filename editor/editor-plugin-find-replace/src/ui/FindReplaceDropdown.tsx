@@ -23,12 +23,23 @@ export interface FindReplaceDropdownProps extends Omit<FindReplaceProps, 'count'
 	index: number;
 	numMatches: number;
 	isActive: boolean;
+	isReplaceable?: boolean;
+	numReplaceable?: number;
 	popupsMountPoint?: HTMLElement;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 }
 
 const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentProps) => {
-	const { findText, replaceText, isActive, index, numMatches, popupsMountPoint, onCancel } = props;
+	const {
+		findText,
+		replaceText,
+		isActive,
+		index,
+		numMatches,
+		popupsMountPoint,
+		numReplaceable,
+		onCancel,
+	} = props;
 
 	if (!popupsMountPoint) {
 		return null;
@@ -59,7 +70,7 @@ const FindReplaceDropdown = (props: FindReplaceDropdownProps & WrappedComponentP
 				<FindReplace
 					findText={findText}
 					replaceText={replaceText}
-					count={{ index, total: numMatches }}
+					count={{ index, total: numMatches, totalReplaceable: numReplaceable }}
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}

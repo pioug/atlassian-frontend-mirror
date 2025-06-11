@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 4.11.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.11.10
+
+### Patch Changes
+
+- [#163266](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163266)
+  [`a2a46974b5d8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2a46974b5d8d) -
+  Cleans up fg `enable_fix_datasource_jumping_columns`
+
 ## 4.11.9
 
 ### Patch Changes

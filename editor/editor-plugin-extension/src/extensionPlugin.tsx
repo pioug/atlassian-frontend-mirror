@@ -101,7 +101,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 							options.useLongPressSelection,
 							{
 								appearance: options.appearance,
-								extensionViewportSizes: options.extensionViewportSizes,
+								getExtensionHeight: options.getExtensionHeight,
 							},
 							featureFlags,
 							options?.__rendererExtensionOptions,

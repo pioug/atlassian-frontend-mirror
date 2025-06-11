@@ -34,7 +34,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 
@@ -162,7 +162,7 @@ const PrimaryToolbarHighlightColor = ({
 									{
 										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										<span css={expandIconContainerStyle}>
-											<ChevronDownIcon label="" color="currentColor" />
+											<ChevronDownIcon label="" color="currentColor" size="small" />
 										</span>
 									}
 								</div>
@@ -177,7 +177,7 @@ const PrimaryToolbarHighlightColor = ({
 										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										css={expandIconWrapperStyle}
 									>
-										<ChevronDownIcon label="" />
+										<ChevronDownIcon label="" size="small" />
 									</span>
 								</Flex>
 							)

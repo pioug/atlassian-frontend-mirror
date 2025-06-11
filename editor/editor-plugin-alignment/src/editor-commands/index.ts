@@ -10,7 +10,6 @@ import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AlignmentPlugin, InputMethod } from '../alignmentPluginType';
 import type { AlignmentState } from '../pm-plugins/types';
@@ -114,24 +113,8 @@ export const changeAlignment =
 		inputMethod?: InputMethod,
 	): Command =>
 	(state, dispatch) => {
-		const {
-			nodes: { paragraph, heading },
-			marks: { alignment },
-		} = state.schema;
-
-		return cascadeCommands(
-			fg('platform_editor_add_alignment_tracking')
-				? [
-						changeImageAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
-						changeBlockAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
-					]
-				: [
-						changeImageAlignment(align),
-						toggleBlockMark(
-							alignment,
-							() => (!align ? undefined : align === 'start' ? false : { align }),
-							[paragraph, heading],
-						),
-					],
-		)(state, dispatch);
+		return cascadeCommands([
+			changeImageAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
+			changeBlockAlignmentWithAnalytics(api?.analytics?.actions, align, inputMethod),
+		])(state, dispatch);
 	};

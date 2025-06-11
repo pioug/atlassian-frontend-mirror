@@ -483,7 +483,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		} else if (error.data?.code === NCS_ERROR_CODE.CORRUPT_STEP_FAILED_TO_SAVE) {
 			this.documentService.throttledCatchupv2(CatchupEventReason.CORRUPT_STEP);
 		} else {
-			this.analyticsHelper?.sendErrorEvent(error, 'Error handled');
+			this.analyticsHelper?.sendErrorEvent(error, error.message);
 			const mappedError = errorCodeMapper(error);
 			// Only emit errors to Confluence very intentionally because they will disconnect the collab provider
 			if (mappedError) {

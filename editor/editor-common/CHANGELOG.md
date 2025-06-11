@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 106.5.1
+
+### Patch Changes
+
+- [#169054](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169054)
+  [`4c442291c53cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c442291c53cc) -
+  fix: fire exposure in sharedPluginStateHookMigratorFactory
+- [#166652](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166652)
+  [`6a35dedfa94ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a35dedfa94ef) -
+  ED-27806 Move copy and delete button in codeblock floating toolbar to overflow menu
+- Updated dependencies
+
 ## 106.5.0
 
 ### Minor Changes

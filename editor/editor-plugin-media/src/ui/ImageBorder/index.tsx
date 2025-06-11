@@ -28,11 +28,11 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import BorderIcon from '@atlaskit/icon/core/border';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -383,6 +383,7 @@ const ImageBorder = ({
 								spacing="spacious"
 								label=""
 								LEGACY_fallbackIcon={ExpandIcon}
+								size="small"
 							/>
 						}
 						onClick={() => {

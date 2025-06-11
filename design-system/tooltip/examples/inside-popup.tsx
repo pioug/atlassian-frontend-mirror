@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
+import { fg, setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import Popup, { ContentProps, TriggerProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
@@ -38,6 +38,7 @@ export default function InsidePopupExample() {
 			trigger={renderTrigger}
 			content={renderContent}
 			onClose={() => setIsOpen(false)}
+			shouldRenderToParent={fg('should-render-to-parent-should-be-true-design-syst')}
 		/>
 	);
 }

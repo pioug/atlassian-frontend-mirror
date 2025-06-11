@@ -80,6 +80,7 @@ export interface FindReplaceToolbarButtonProps extends Omit<FindReplaceProps, 'c
 	index: number;
 	numMatches: number;
 	isActive: boolean;
+	numReplaceable?: number;
 	onActivate: () => void;
 	isReducedSpacing?: boolean;
 	popupsMountPoint?: HTMLElement;
@@ -127,6 +128,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 			isActive,
 			index,
 			numMatches,
+			numReplaceable,
 			intl: { formatMessage },
 			takeFullWidth,
 			isButtonHidden = false,
@@ -206,7 +208,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 						<FindReplace
 							findText={findText}
 							replaceText={replaceText}
-							count={{ index, total: numMatches }}
+							count={{ index, total: numMatches, totalReplaceable: numReplaceable }}
 							focusToolbarButton={this.focusToolbarButton}
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/jsx-props-no-spreading

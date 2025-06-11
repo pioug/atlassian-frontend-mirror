@@ -5,4 +5,4 @@ export { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
 export { Extension } from './Extension';
 export { default as ExtensionNodeView, ExtensionNode } from './extensionNodeView';
 export { ExtensionComponent } from './ExtensionComponent';
-export type { MacroInteractionDesignFeatureFlags } from './types';
+export type { MacroInteractionDesignFeatureFlags, GetPMNodeHeight } from './types';

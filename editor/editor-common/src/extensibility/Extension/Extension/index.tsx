@@ -34,7 +34,6 @@ import {
 	widerLayoutClassName,
 	wrapperStyleInheritedCursor,
 } from './styles';
-
 export interface Props {
 	node: PmNode;
 	getPos: ProsemirrorGetPosHandler;

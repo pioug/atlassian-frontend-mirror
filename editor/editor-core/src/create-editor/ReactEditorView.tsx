@@ -659,13 +659,19 @@ export function ReactEditorView(props: EditorViewProps) {
 		) {
 			if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
 				if (!mitigateScrollJump) {
-					const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
+					const liveDocWithContent =
+						(__livePage ||
+							expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
+						!isEmptyDocument(editorView.state.doc);
 					if (!liveDocWithContent || !fg('platform_editor_no_cursor_on_live_doc_init')) {
 						focusTimeoutId.current = handleEditorFocus(editorView);
 					}
 				}
 			} else {
-				const liveDocWithContent = __livePage && !isEmptyDocument(editorView.state.doc);
+				const liveDocWithContent =
+					(__livePage ||
+						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
+					!isEmptyDocument(editorView.state.doc);
 				if (!liveDocWithContent || !fg('platform_editor_no_cursor_on_live_doc_init')) {
 					focusTimeoutId.current = handleEditorFocus(editorView);
 				}
@@ -723,7 +729,12 @@ export function ReactEditorView(props: EditorViewProps) {
 						if (fg('platform_editor_reduce_scroll_jump_on_editor_start')) {
 							if (!mitigateScrollJump) {
 								const isLivePageWithContent =
-									__livePage &&
+									(__livePage ||
+										expValEquals(
+											'platform_editor_no_cursor_on_edit_page_init',
+											'isEnabled',
+											true,
+										)) &&
 									!isEmptyDocument(view.state.doc) &&
 									fg('platform_editor_no_cursor_on_live_doc_init');
 								if (
@@ -737,7 +748,8 @@ export function ReactEditorView(props: EditorViewProps) {
 							}
 						} else {
 							const isLivePageWithContent =
-								__livePage &&
+								(__livePage ||
+									expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 								!isEmptyDocument(view.state.doc) &&
 								fg('platform_editor_no_cursor_on_live_doc_init');
 							if (
@@ -847,7 +859,8 @@ export function ReactEditorView(props: EditorViewProps) {
 			} as DirectEditorProps);
 
 			const isLivePageWithContent =
-				__livePage &&
+				(__livePage ||
+					expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
 				!isEmptyDocument(viewRef.current.state.doc) &&
 				fg('platform_editor_no_cursor_on_live_doc_init');
 			if (!disabled && shouldFocus && !isLivePageWithContent) {

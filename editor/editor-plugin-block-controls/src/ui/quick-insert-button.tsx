@@ -19,7 +19,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import AddIcon from '@atlaskit/icon/utility/add';
+import AddIcon from '@atlaskit/icon/core/add';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -389,6 +389,7 @@ export const TypeAheadControl = ({
 							? token('color.icon.disabled')
 							: token('color.icon.subtle')
 					}
+					size="small"
 				/>
 			</Pressable>
 		</Tooltip>

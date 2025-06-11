@@ -22,6 +22,7 @@ function DropdownWithReturnFocusRef({ shouldRenderToParent }: { shouldRenderToPa
 	return (
 		<Box xcss={styles.container}>
 			<Inline space="space.300">
+				{/* eslint-disable-next-line @atlaskit/design-system/use-should-render-to-parent */}
 				<DropdownMenu
 					trigger="Actions"
 					onOpenChange={(e) => console.log('dropdown opened', e)}
@@ -35,7 +36,6 @@ function DropdownWithReturnFocusRef({ shouldRenderToParent }: { shouldRenderToPa
 						<DropdownItem>Delete</DropdownItem>
 					</DropdownItemGroup>
 				</DropdownMenu>
-
 				<Checkbox label="One" value="1" name="checkbox1" />
 				<Checkbox label="Two" value="2" name="checkbox2" ref={ref} />
 				<Checkbox label="Three" value="3" name="checkbox3" />

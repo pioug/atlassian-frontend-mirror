@@ -23,7 +23,7 @@ import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { type MediaInsertPickerProps } from '../types';
 
@@ -65,28 +65,32 @@ export const MediaInsertPicker = ({
 }: MediaInsertPickerProps) => {
 	const { isOpen: oldIsOpen, mountInfo: oldMountInfo } =
 		useSharedPluginState(api, ['mediaInsert'], {
-			disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+			disabled: expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
 		})?.mediaInsertState ?? {};
 	const oldMediaProvider = useSharedPluginState(api, ['media'], {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', true),
+		disabled: expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
 	})?.mediaState?.mediaProvider;
 	const isOpenSelector = useSharedPluginStateSelector(api, 'mediaInsert.isOpen', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		disabled: !expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
 	});
 	const mountInfoSelector = useSharedPluginStateSelector(api, 'mediaInsert.mountInfo', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		disabled: !expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
 	});
 	const mediaProviderSelector = useSharedPluginStateSelector(api, 'media.mediaProvider', {
-		disabled: editorExperiment('platform_editor_usesharedpluginstateselector', false),
+		disabled: !expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true),
 	});
 
-	const isOpen = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+	const isOpen = expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
 		? isOpenSelector
 		: oldIsOpen;
-	const mountInfo = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+	const mountInfo = expValEquals('platform_editor_usesharedpluginstateselector', 'isEnabled', true)
 		? mountInfoSelector
 		: oldMountInfo;
-	const mediaProvider = editorExperiment('platform_editor_usesharedpluginstateselector', true)
+	const mediaProvider = expValEquals(
+		'platform_editor_usesharedpluginstateselector',
+		'isEnabled',
+		true,
+	)
 		? mediaProviderSelector
 		: oldMediaProvider;
 

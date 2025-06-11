@@ -7,8 +7,8 @@ import { type CSSProperties, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import DownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import CrossIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
+import DownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import CrossIcon from '@atlaskit/icon/core/migration/cross-circle--select-clear';
 import { Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -125,6 +125,7 @@ export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends
 						color="currentColor"
 						label="open"
 						LEGACY_margin={token('space.negative.075', '-0.375rem')}
+						size="small"
 					/>
 				</Inline>
 			)}
@@ -205,6 +206,7 @@ export const ClearIndicator = <Option, IsMulti extends boolean, Group extends Gr
 					color="currentColor"
 					LEGACY_size="small"
 					LEGACY_margin={token('space.negative.025', '-0.125rem')}
+					size="small"
 				/>
 			</Pressable>
 		</div>

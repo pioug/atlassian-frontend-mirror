@@ -211,6 +211,7 @@ export default {
   'fabric.editor.ai.experience.engagementBannerLinksText':
     '🚀 Mostantól linkeket is beilleszthetsz 🔗 a Jira- és Confluence-tartalmakhoz az utasításaidban.',
   'fabric.editor.ai.experience.footerRightText.agents': 'Szolgáltató: Rovo',
+  'fabric.editor.ai.experience.generatingAiResponse': 'Létrehozás',
   'fabric.editor.ai.experience.hipaaContentError':
     'Az Atlassian Intelligence nem tudta feldolgozni a kérelmedet, mert a tartalmad a HIPAA által korlátozott tartalomra hivatkozik. Távolítsd el ezeket a linkeket, majd próbáld újra.',
   'fabric.editor.ai.experience.inputTooShortError':
@@ -643,6 +644,7 @@ export default {
   'fabric.editor.moveColumnRight': '{0, plural, one {Oszlop mozgatása jobbra} other {Oszlopok mozgatása jobbra}}',
   'fabric.editor.moveDownDown': '{0, plural, one {Sor mozgatása lefelé} other {Sorok mozgatása lefelé}}',
   'fabric.editor.moveRowUp': '{0, plural, one {Sor mozgatása felfelé} other {Sorok mozgatása felfelé}}',
+  'fabric.editor.navigate.toolbar.askAI': 'MI megkérdezése',
   'fabric.editor.navigate.toolbar.editor': 'Navigálás a szerkesztési eszköztárhoz',
   'fabric.editor.navigate.toolbar.floating': 'Navigálás a lebegő eszköztárhoz',
   'fabric.editor.noResultsFound': 'Nincs találat',
@@ -696,6 +698,7 @@ export default {
   'fabric.editor.requestToEdit': 'Szerkesztés kérelmezése',
   'fabric.editor.requestToEditDescription': 'Ha hozzáférést kérsz, értesítjük az oldal tulajdonosát.',
   'fabric.editor.requestToEditDismiss': 'Elvetés',
+  'fabric.editor.resizeHandle': 'Átméretezési fogópont',
   'fabric.editor.resultsCount': '{selectedMatchPosition}/{totalResultsCount}',
   'fabric.editor.richText': 'Rich text használata',
   'fabric.editor.rightSidebar': 'Jobb oldalsávos elrendezés',
@@ -795,6 +798,8 @@ export default {
   'fabric.editor.toolbarMediaTitle': 'Kép, videó vagy fájl hozzáadása',
   'fabric.editor.toolbarPositionFixedAtTop': 'Felülre rögzítve',
   'fabric.editor.toolbarPositionInline': 'Beágyazva a szövegbe',
+  'fabric.editor.toolbarPositionPinedAtTop': 'Eszköztár rögzítésének megszüntetése',
+  'fabric.editor.toolbarPositionUnpined': 'Eszköztár rögzítése felülre',
   'fabric.editor.tooltip.blockPanel': 'panel',
   'fabric.editor.tooltip.bulletList': 'egy lista',
   'fabric.editor.tooltip.decisionList': 'döntési lista',

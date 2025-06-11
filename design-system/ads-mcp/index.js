@@ -5,13 +5,15 @@ const path = require('path');
 const project = path.join(__dirname, 'tsconfig.json');
 const dev = fs.existsSync(project);
 
-let entrypoint = path.join(__dirname, 'dist', 'cjs', 'index');
+let entrypoint = path.join(__dirname, 'dist', 'cjs', 'index.js');
 if (dev) {
 	entrypoint = path.join(__dirname, 'src', 'index');
-	if (!require.extensions['.ts']) {
-		// ts-node can only handle being registered once, see https://github.com/TypeStrong/ts-node/issues/409
-		require('ts-node').register({ project });
-	}
+}
+
+// Even when distributed, `node dist/cjs/index.js` will not work due to
+// not having `@atlaskit/tokens` packaged for a pure node environment
+if (!require.extensions['.ts']) {
+	require('ts-node').register({ project });
 }
 
 require(entrypoint);

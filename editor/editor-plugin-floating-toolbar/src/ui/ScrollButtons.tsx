@@ -12,8 +12,8 @@ import type { IntlShape } from 'react-intl-next';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-large';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -147,13 +147,17 @@ export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: Scro
 		>
 			<Button
 				title={intl.formatMessage(messages.floatingToolbarScrollLeft)}
-				icon={<LeftIcon label={intl.formatMessage(messages.floatingToolbarScrollLeft)} />}
+				icon={
+					<LeftIcon label={intl.formatMessage(messages.floatingToolbarScrollLeft)} size="small" />
+				}
 				onClick={scrollLeft}
 				disabled={!canScrollLeft || disabled}
 			/>
 			<Button
 				title={intl.formatMessage(messages.floatingToolbarScrollRight)}
-				icon={<RightIcon label={intl.formatMessage(messages.floatingToolbarScrollRight)} />}
+				icon={
+					<RightIcon label={intl.formatMessage(messages.floatingToolbarScrollRight)} size="small" />
+				}
 				onClick={scrollRight}
 				disabled={!canScrollRight || disabled}
 			/>

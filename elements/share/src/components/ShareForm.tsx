@@ -76,6 +76,10 @@ const formFieldStyles = css({
 	marginBottom: token('space.150', '12px'),
 });
 
+const formFieldStylesSpacious = css({
+	marginBottom: token('space.250', '20px'),
+});
+
 const integrationWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
@@ -172,14 +176,19 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 		return (
 			<AnalyticsContext data={{ source: ANALYTICS_SOURCE }}>
 				<form {...formProps}>
-					{showTitle && <ShareHeader title={title} />}
+					{showTitle && (
+						<ShareHeader
+							isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
+							title={title}
+						/>
+					)}
 					{!isExtendedShareDialogEnabled && (
 						<div css={requiredFieldInfoStyles}>
 							<FormattedMessage {...messages.requiredFieldSummary} />
 							<RequiredAsterisk />
 						</div>
 					)}
-					<div css={formFieldStyles}>
+					<div css={isExtendedShareDialogEnabled ? formFieldStyles : formFieldStylesSpacious}>
 						{isExtendedShareDialogEnabled ? (
 							<Inline space="space.100">
 								<Box xcss={styles}>
@@ -231,7 +240,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							/>
 						)}
 					</div>
-					<div css={formFieldStyles}>
+					<div css={isExtendedShareDialogEnabled ? formFieldStyles : formFieldStylesSpacious}>
 						<CommentField
 							defaultValue={defaultValue && defaultValue.comment}
 							isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}

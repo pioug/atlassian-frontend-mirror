@@ -176,6 +176,7 @@ export interface EmbedProps {
 	 * Informs Smart Link of the device it is rendered in. Available values are `web` and `mobile`.
 	 * It is used together with link response `data.preview["atlassian:supportedPlatforms"]`.
 	 * To make embed content available on all supported urls, use `web`.
+	 * @deprecated The support for platform prop will be removed and `web` used as default
 	 */
 	platform?: CardPlatform;
 }

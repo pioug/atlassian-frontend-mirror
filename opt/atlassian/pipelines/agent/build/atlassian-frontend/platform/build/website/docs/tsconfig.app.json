@@ -38,13 +38,19 @@
 			"path": "../../../packages/design-system/code/tsconfig.app.json"
 		},
 		{
+			"path": "../../../packages/design-system/css/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../../packages/design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../../packages/design-system/section-message/tsconfig.app.json"
+			"path": "../../../packages/design-system/primitives/tsconfig.app.json"
 		},
 		{
-			"path": "../../../packages/design-system/theme/tsconfig.app.json"
+			"path": "../../../packages/design-system/section-message/tsconfig.app.json"
 		},
 		{
 			"path": "../../../packages/design-system/tokens/tsconfig.app.json"

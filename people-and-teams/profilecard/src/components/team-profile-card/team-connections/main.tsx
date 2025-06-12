@@ -5,6 +5,7 @@ import Avatar from '@atlaskit/avatar';
 import { cssMap } from '@atlaskit/css';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { LinkItem } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import {
 	ContainerIcon,
@@ -38,9 +39,10 @@ export const TeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const isSupportingAddWebLink =
-		FeatureGates.initializeCompleted() &&
-		FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
+	const isContainerIconEnabled =
+		(FeatureGates.initializeCompleted() &&
+			FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false)) ||
+		fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',
@@ -57,9 +59,13 @@ export const TeamConnections = ({
 	}, [containerType, createAnalyticsEvent]);
 
 	return (
-		<LinkItem href={link} onClick={onClick}>
+		<LinkItem
+			href={link}
+			onClick={onClick}
+			{...(fg('enable_new_tab_for_team_container') ? { target: '_blank' } : {})}
+		>
 			<Inline space="space.100" xcss={styles.containerWrapperStyles}>
-				{isSupportingAddWebLink ? (
+				{isContainerIconEnabled ? (
 					<ContainerIcon
 						containerType={containerType}
 						title={title}
@@ -106,9 +112,10 @@ export const NewTeamConnections = ({
 	containerIcon,
 	link,
 }: LinkedContainerCardProps) => {
-	const isSupportingAddWebLink =
-		FeatureGates.initializeCompleted() &&
-		FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
+	const isContainerIconEnabled =
+		(FeatureGates.initializeCompleted() &&
+			FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false)) ||
+		fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
 		iconSize: 'medium',
@@ -128,6 +135,7 @@ export const NewTeamConnections = ({
 		<LinkItem
 			href={link}
 			onClick={onClick}
+			{...(fg('enable_new_tab_for_team_container') ? { target: '_blank' } : {})}
 			description={
 				<Inline space="space.050">
 					<Text size="small" color="color.text.subtlest">
@@ -139,7 +147,7 @@ export const NewTeamConnections = ({
 				</Inline>
 			}
 			iconBefore={
-				isSupportingAddWebLink ? (
+				isContainerIconEnabled ? (
 					<ContainerIcon
 						containerType={containerType}
 						title={title}

@@ -9,7 +9,7 @@ import { type MouseEvent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import ChevronRight from '@atlaskit/icon/utility/migration/chevron-right';
+import ChevronRight from '@atlaskit/icon/core/migration/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { durations } from '@atlaskit/motion/durations';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
@@ -99,7 +99,7 @@ const ResizeButton = ({ isLeftSidebarCollapsed, label, testId, ...props }: Resiz
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
 	>
-		<ChevronRight label="" color="currentColor" />
+		<ChevronRight label="" color="currentColor" size="small" />
 		<span css={increaseHitAreaStyles} />
 	</button>
 );

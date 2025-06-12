@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 3.3.2
+
+### Patch Changes
+
+- [#167423](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167423)
+  [`064579ff3e75c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/064579ff3e75c) -
+  Move smart_links_noun_support feature gate to link-extractor
+- Updated dependencies
+
 ## 3.3.1
 
 ### Patch Changes

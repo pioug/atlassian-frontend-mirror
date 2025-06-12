@@ -1,7 +1,7 @@
 import { bind } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { UserPreferencesProvider, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
@@ -10,6 +10,8 @@ import {
 	EditorState,
 } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { type MetricsPlugin } from '../metricsPluginType';
 
@@ -72,7 +74,10 @@ export const initialPluginState: MetricsState = {
 	safeInsertCount: 0,
 };
 
-export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined) => {
+export const createPlugin = (
+	api: ExtractInjectionAPI<MetricsPlugin> | undefined,
+	userPreferencesProvider?: UserPreferencesProvider,
+) => {
 	const timer = new ActiveSessionTimer(api);
 
 	return new SafePlugin({
@@ -163,13 +168,24 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				if (!pluginState) {
 					return;
 				}
+				let toolbarDocking;
+				if (
+					expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+					fg('platform_editor_controls_patch_13')
+				) {
+					toolbarDocking = userPreferencesProvider?.getPreference('toolbarDockingInitialPosition');
+				}
+
 				const payloadToSend = getAnalyticsPayload({
 					currentContent: view.state.doc.content,
 					pluginState,
+					toolbarDocking: toolbarDocking || undefined,
 				});
 
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
-					api?.analytics?.actions.fireAnalyticsEvent(payloadToSend, undefined, { immediate: true });
+					api?.analytics?.actions?.fireAnalyticsEvent(payloadToSend, undefined, {
+						immediate: true,
+					});
 				}
 			};
 

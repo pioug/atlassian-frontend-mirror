@@ -12,8 +12,8 @@ import { injectIntl } from 'react-intl-next';
 import { IconButton } from '@atlaskit/button/new';
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -76,7 +76,13 @@ function Expand({ field, children, isExpanded = false, intl }: Props) {
 						}}
 						label={intl.formatMessage(expanded ? messages.collapse : messages.expand)}
 						testId="form-expand-toggle"
-						icon={expanded ? ChevronDownIcon : ChevronRightIcon}
+						icon={(iconProps) =>
+							expanded ? (
+								<ChevronDownIcon label={iconProps.label} size="small" />
+							) : (
+								<ChevronRightIcon label={iconProps.label} size="small" />
+							)
+						}
 					/>
 				</div>
 			</div>

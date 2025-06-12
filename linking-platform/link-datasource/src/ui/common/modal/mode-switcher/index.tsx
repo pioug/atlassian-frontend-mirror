@@ -209,6 +209,7 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 									data-testid={`mode-toggle-${value}`}
 								>
 									{label}
+									{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 									<input
 										aria-checked={isSelected}
 										aria-disabled={isOptionDisabled}
@@ -235,6 +236,7 @@ export const ModeSwitcher = <T extends string = string>(props: ModeSwitcherProps
 									data-testid={`mode-toggle-${value}`}
 								>
 									{label}
+									{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 									<input
 										aria-checked={isSelected}
 										aria-disabled={isOptionDisabled}

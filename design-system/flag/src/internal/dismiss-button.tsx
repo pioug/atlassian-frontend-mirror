@@ -5,9 +5,9 @@
 import { memo } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
 import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -75,6 +75,7 @@ const DismissButtonComponent = ({
 				LEGACY_size={size}
 				LEGACY_primaryColor={flagTextColorToken[appearance]}
 				color={flagTextColorToken[appearance]}
+				size="small"
 			/>
 		</Pressable>
 	);

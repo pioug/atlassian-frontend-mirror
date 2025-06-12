@@ -49,7 +49,11 @@ export function SmartCardProvider({
 
 		const authFlow = customAuthFlow || 'oauth2';
 
-		const getPreview = (url: string, platform?: CardPlatform): LinkPreview | undefined => {
+		const getPreview = (
+			url: string,
+			// @deprecated The support for platform will be removed and default to `web`
+			platform?: CardPlatform,
+		): LinkPreview | undefined => {
 			const cardState = getUrl(store, url);
 
 			return cardState.details

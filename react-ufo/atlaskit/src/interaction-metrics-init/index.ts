@@ -161,6 +161,7 @@ export function init(
 			devToolsEnabled: config.vc.devToolsEnabled,
 			selectorConfig: config.vc.selectorConfig,
 			ssrEnablePageLayoutPlaceholder: config.vc.ssrEnablePageLayoutPlaceholder,
+			disableSizeAndPositionCheck: config.vc.disableSizeAndPositionCheck,
 		};
 
 		getVCObserver(vcOptions).start({ startTime: 0 });

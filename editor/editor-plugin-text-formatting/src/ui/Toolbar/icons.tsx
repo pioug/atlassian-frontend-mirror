@@ -17,19 +17,6 @@ const SVGContainer = ({ children }: React.PropsWithChildren<object>) => (
 	</span>
 );
 
-export const Strikethrough = () => (
-	<SVGContainer>
-		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path
-				fill-rule="evenodd"
-				clip-rule="evenodd"
-				d="M8.39644 7.25348H13.9004V7.25421H15V8.75421H1V7.25421H2.125V7.25H4.96062C4.45271 6.59457 4.15039 5.77182 4.15039 4.87845C4.15039 2.73833 5.8853 1.00342 8.02542 1.00342H11.9004V2.50342H8.02542C6.71373 2.50342 5.65039 3.56676 5.65039 4.87845C5.65039 6.14664 6.64437 7.18267 7.89576 7.25H8.23074C8.28625 7.25 8.3415 7.25117 8.39644 7.25348ZM12.1058 11.125C12.1058 10.6424 12.0175 10.1804 11.8563 9.75421H10.1705C10.4446 10.1415 10.6058 10.6144 10.6058 11.125C10.6058 12.4367 9.54243 13.5001 8.23074 13.5001H3.15064V15.0001H8.23074C10.3709 15.0001 12.1058 13.2652 12.1058 11.125Z"
-				fill="currentColor"
-			/>
-		</svg>
-	</SVGContainer>
-);
-
 export const Subscript = () => (
 	<SVGContainer>
 		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

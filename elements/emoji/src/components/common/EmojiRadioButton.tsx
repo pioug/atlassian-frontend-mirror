@@ -115,6 +115,7 @@ export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Prop
 			onKeyDown={(event) => handleKeyPress(props, event)}
 		>
 			<VisuallyHidden>{ariaLabelText}</VisuallyHidden>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 			<input
 				ref={ref}
 				data-testid={ariaLabelText}

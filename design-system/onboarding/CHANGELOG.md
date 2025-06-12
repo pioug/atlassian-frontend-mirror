@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 14.2.3
+
+### Patch Changes
+
+- [#169950](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169950)
+  [`7437b3aef9373`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7437b3aef9373) -
+  Inlined 'ScrollLogicalPosition' type to fix invalid import from
+  'scroll-into-view-if-needed/typings/types'
+
 ## 14.2.2
 
 ### Patch Changes

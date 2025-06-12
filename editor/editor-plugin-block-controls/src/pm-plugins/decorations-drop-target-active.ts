@@ -1,0 +1,283 @@
+import { type IntlShape } from 'react-intl-next';
+
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+
+import type {
+	ActiveDropTargetNode,
+	ActiveNode,
+	BlockControlsPlugin,
+} from '../blockControlsPluginType';
+
+import { getNodeAnchor, unmountDecorations } from './decorations-common';
+import { createDropTargetDecoration } from './decorations-drop-target';
+import { findSurroundingNodes } from './decorations-find-surrounding-nodes';
+import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
+import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
+
+/**
+ * List of parent node types that can have child nodes
+ */
+const PARENT_WITH_END_DROP_TARGET = [
+	'tableCell',
+	'tableHeader',
+	'panel',
+	'layoutColumn',
+	'expand',
+	'nestedExpand',
+	'bodiedExtension',
+];
+
+/**
+ * List of node types that does not allow drop targets at before or after the node.
+ */
+const NODE_WITH_NO_PARENT_POS = ['tableCell', 'tableHeader', 'layoutColumn'];
+
+const isContainerNode = (node: PMNode) => {
+	return PARENT_WITH_END_DROP_TARGET.includes(node.type.name);
+};
+
+export const canMoveNodeOrSliceToPos = (
+	state: EditorState,
+	node: PMNode,
+	parent: PMNode,
+	index: number,
+	$toPos: ResolvedPos,
+	activeNode?: ActiveNode,
+) => {
+	// For deciding to show drop targets or not when multiple nodes are selected
+	const selection = state.selection;
+	const { $anchor: expandedAnchor, $head: expandedHead } = expandSelectionBounds(
+		selection.$anchor,
+		selection.$head,
+	);
+	const selectionFrom = Math.min(expandedAnchor.pos, expandedHead.pos);
+	const selectionTo = Math.max(expandedAnchor.pos, expandedHead.pos);
+
+	const activeNodePos = activeNode?.pos;
+	const $activeNodePos = typeof activeNodePos === 'number' && state.doc.resolve(activeNodePos);
+	const activePMNode = $activeNodePos && $activeNodePos.nodeAfter;
+	const handleInsideSelection =
+		activeNodePos !== undefined && activeNodePos >= selectionFrom && activeNodePos <= selectionTo;
+
+	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+		const selectionSlice = state.doc.slice(selectionFrom, selectionTo, false);
+		const selectionSliceChildCount = selectionSlice.content.childCount;
+		let canDropSingleNode: boolean = true;
+		let canDropMultipleNodes: boolean = true;
+
+		// when there is only one node in the slice, use the same logic as when multi select is not on
+		if (selectionSliceChildCount > 1 && handleInsideSelection) {
+			canDropMultipleNodes = canMoveSliceToIndex(
+				selectionSlice,
+				selectionFrom,
+				selectionTo,
+				parent,
+				index,
+				$toPos,
+			);
+		} else {
+			canDropSingleNode = !!(
+				activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $toPos, node)
+			);
+		}
+
+		if (!canDropMultipleNodes || !canDropSingleNode) {
+			return false;
+		}
+	} else {
+		const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $toPos, node);
+		return canDrop;
+	}
+
+	return true;
+};
+
+export const getActiveDropTargetDecorations = (
+	activeDropTargetNode: ActiveDropTargetNode,
+	state: EditorState,
+	api: ExtractInjectionAPI<BlockControlsPlugin>,
+	formatMessage: IntlShape['formatMessage'],
+	nodeViewPortalProviderAPI: PortalProviderAPI,
+	activeNode?: ActiveNode,
+) => {
+	unmountDecorations(
+		nodeViewPortalProviderAPI,
+		'data-blocks-drop-target-container',
+		'data-blocks-drop-target-key',
+	);
+
+	const decs: Decoration[] = [];
+	const activeNodePos = activeNode?.pos;
+	const $activeNodePos = typeof activeNodePos === 'number' && state.doc.resolve(activeNodePos);
+
+	const $toPos = state.doc.resolve(activeDropTargetNode.pos);
+
+	const { parent, index, node, pos, before, after, depth } = findSurroundingNodes(
+		state,
+		$toPos,
+		activeDropTargetNode.nodeTypeName,
+	);
+
+	/**
+	 * If the current node is a container node, we show the drop targets
+	 * above the first child and below the last child.
+	 */
+	if (isContainerNode(node)) {
+		// can move to before first child
+		if (
+			node.firstChild &&
+			canMoveNodeOrSliceToPos(
+				state,
+				node.firstChild,
+				node,
+				0,
+				state.doc.resolve(pos + 1), // +1 to get the position of the first child
+				activeNode,
+			)
+		) {
+			decs.push(
+				createDropTargetDecoration(
+					pos + 1,
+					{
+						api,
+						prevNode: undefined,
+						nextNode: node.firstChild,
+						parentNode: node,
+						formatMessage,
+						dropTargetStyle: 'default',
+					},
+					nodeViewPortalProviderAPI,
+					1,
+				),
+			);
+		}
+
+		// can move to after last child
+		if (
+			node.lastChild &&
+			canMoveNodeOrSliceToPos(
+				state,
+				node.lastChild,
+				node,
+				node.childCount - 1,
+				state.doc.resolve(pos + node.nodeSize - 1), // -1 to get the position after last child
+				activeNode,
+			)
+		) {
+			decs.push(
+				createDropTargetDecoration(
+					pos + node.nodeSize - 1,
+					{
+						api,
+						prevNode: node.lastChild,
+						nextNode: undefined,
+						parentNode: node,
+						formatMessage,
+						dropTargetStyle: 'default',
+					},
+					nodeViewPortalProviderAPI,
+					-1,
+				),
+			);
+		}
+	}
+
+	/**
+	 * Create drop target before and after the current node
+	 */
+	if (!NODE_WITH_NO_PARENT_POS.includes(node.type.name)) {
+		const isSameLayout = $activeNodePos && isInSameLayout($activeNodePos, $toPos);
+
+		const isInSupportedContainer = ['tableCell', 'tableHeader', 'layoutColumn'].includes(
+			parent?.type.name || '',
+		);
+
+		const shouldShowFullHeight =
+			isInSupportedContainer && parent?.lastChild === node && isEmptyParagraph(node);
+
+		if (canMoveNodeOrSliceToPos(state, node, parent, index, $toPos, activeNode)) {
+			decs.push(
+				createDropTargetDecoration(
+					pos,
+					{
+						api,
+						prevNode: before || undefined,
+						nextNode: node,
+						parentNode: parent || undefined,
+						formatMessage,
+						dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
+					},
+					nodeViewPortalProviderAPI,
+					-1,
+					undefined,
+					isSameLayout,
+				),
+			);
+		}
+
+		if (
+			canMoveNodeOrSliceToPos(
+				state,
+				node,
+				parent,
+				index + 1,
+				state.doc.resolve(pos + node.nodeSize),
+				activeNode,
+			)
+		) {
+			decs.push(
+				createDropTargetDecoration(
+					pos + node.nodeSize,
+					{
+						api,
+						prevNode: node,
+						nextNode: after || undefined,
+						parentNode: parent || undefined,
+						formatMessage,
+						dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
+					},
+					nodeViewPortalProviderAPI,
+					-1,
+					undefined,
+					isSameLayout,
+				),
+			);
+		}
+	}
+
+	// if the current node is not a top level node, we create one for advanced layout drop targets
+	if (depth > 1) {
+		const root = findSurroundingNodes(state, state.doc.resolve($toPos.before(2)));
+
+		decs.push(
+			createDropTargetDecoration(
+				root.pos,
+				{
+					api,
+					prevNode: root.before || undefined,
+					nextNode: root.node,
+					parentNode: state.doc || undefined,
+					formatMessage,
+					dropTargetStyle: 'default',
+				},
+				nodeViewPortalProviderAPI,
+				0,
+				undefined,
+				false,
+			),
+		);
+
+		defaultActiveAnchorTracker.emit(getNodeAnchor(root.node));
+	} else {
+		defaultActiveAnchorTracker.emit(getNodeAnchor(node));
+	}
+
+	return decs;
+};

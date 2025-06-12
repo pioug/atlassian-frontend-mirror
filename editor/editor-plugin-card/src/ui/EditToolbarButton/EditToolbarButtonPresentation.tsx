@@ -22,7 +22,7 @@ import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { ButtonItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView } from '../../pm-plugins/utils';
@@ -76,16 +76,25 @@ const EditToolbarButtonPresentation = ({
 		}
 	}, [currentAppearance, datasourceId, editorAnalyticsApi, editorView, extensionKey]);
 
-	const icon = editorExperiment('platform_editor_controls', 'variant1') ? (
-		<EditIcon label="" />
-	) : undefined;
+	const isControlsOn = expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1');
+	const icon = isControlsOn ? <EditIcon label="" /> : undefined;
+
+	const tooltipContent =
+		isControlsOn && fg('platform_editor_controls_patch_13')
+			? intl.formatMessage(linkToolbarMessages.editLink)
+			: undefined;
 
 	switch (editVariant) {
 		case 'edit-link': {
 			return (
 				<Flex gap="space.050">
-					<Button testId="edit-link" onClick={onEditLink} icon={icon}>
-						{editorExperiment('platform_editor_controls', 'control') && (
+					<Button
+						testId="edit-link"
+						onClick={onEditLink}
+						icon={icon}
+						tooltipContent={tooltipContent}
+					>
+						{!isControlsOn && (
 							<FormattedMessage
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/jsx-props-no-spreading
@@ -93,8 +102,7 @@ const EditToolbarButtonPresentation = ({
 							/>
 						)}
 					</Button>
-					{(!editorExperiment('platform_editor_controls', 'variant1') ||
-						!fg('platform_editor_controls_patch_6')) && <Separator />}
+					{(!isControlsOn || !fg('platform_editor_controls_patch_6')) && <Separator />}
 				</Flex>
 			);
 		}
@@ -113,8 +121,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{(!editorExperiment('platform_editor_controls', 'variant1') ||
-						!fg('platform_editor_controls_patch_6')) && <Separator />}
+					{(!isControlsOn || !fg('platform_editor_controls_patch_6')) && <Separator />}
 				</Flex>
 			);
 		}
@@ -143,8 +150,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{(!editorExperiment('platform_editor_controls', 'variant1') ||
-						!fg('platform_editor_controls_patch_6')) && <Separator />}
+					{(!isControlsOn || !fg('platform_editor_controls_patch_6')) && <Separator />}
 				</Flex>
 			);
 

@@ -9,8 +9,11 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
+import { ActiveGuidelineKey } from './pm-plugins/resizing-plugin';
+
 export interface BreakoutPluginState {
 	breakoutNode: ContentNodeWithPos | undefined;
+	activeGuidelineKey: ActiveGuidelineKey | undefined;
 }
 
 export interface BreakoutPluginOptions {

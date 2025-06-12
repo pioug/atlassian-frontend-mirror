@@ -28,6 +28,7 @@ export const BlockCard = ({
 	testId,
 	actionOptions,
 	CompetitorPrompt,
+	hideIconLoadingSkeleton,
 }: BlockCardProps) => {
 	const { status } = cardState;
 
@@ -42,6 +43,7 @@ export const BlockCard = ({
 		renderers,
 		actionOptions,
 		CompetitorPrompt,
+		hideIconLoadingSkeleton,
 	};
 
 	const { shouldControlDataExport = false } = useControlDataExportConfig();

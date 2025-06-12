@@ -113,6 +113,10 @@ export type FlexibleCardProps = {
 	 * Competitor Prompt Component for Competitor link experiment
 	 */
 	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	/**
+	 * For image icons in the title, whether to show a loading skeleton while the image is loading.
+	 */
+	hideIconLoadingSkeleton?: boolean;
 };
 
 export type InternalFlexibleUiOptions = FlexibleUiOptions & {

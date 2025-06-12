@@ -1,11 +1,17 @@
-/* eslint-disable no-useless-escape */
+// @ts-ignore
 import replaceImports from 'codesandboxer/dist/replaceImports';
 
 const cssResetRegexString = /((?:import|export)\s*['"\`])(..\/src\/index.less)(['"\`]\s*)/;
 const srcEntryPointRegexString =
 	/((?:import|export)[^'"\`]*['"\`])((\.\.\/){1,}src\/)([^/]*['"\`]\s*)/;
 
-export default function replaceSrc(content /*: string*/, name /*: string*/) {
+/**
+ * Replaces source code imports with package names
+ * @param content - The source code content to process
+ * @param name - The package name to replace with
+ * @returns The processed source code with replaced imports
+ */
+export function replaceSrc(content: string, name: string): string {
 	let replacedCode = content;
 	if (name === '@atlaskit/css-reset') {
 		replacedCode = replacedCode.replace(cssResetRegexString, `$1${name}$3`);

@@ -1,8 +1,9 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { BreakoutEventPayload } from '@atlaskit/editor-common/analytics';
+import type {
+	BreakoutEventPayload,
+	BreakoutSupportedNodes,
+} from '@atlaskit/editor-common/analytics';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-
-type BreakoutSupportedNodes = 'layoutSection' | 'expand' | 'codeBlock';
 
 export const generateResizeFrameRatePayloads = (props: {
 	docSize: number;
@@ -21,4 +22,25 @@ export const generateResizeFrameRatePayloads = (props: {
 			isInitialSample: index === 0,
 		},
 	}));
+};
+
+export const generateResizedEventPayload = ({
+	node,
+	prevWidth,
+	newWidth,
+}: {
+	node: PMNode;
+	prevWidth: number;
+	newWidth: number;
+}): BreakoutEventPayload => {
+	return {
+		action: ACTION.RESIZED,
+		actionSubject: ACTION_SUBJECT.ELEMENT,
+		eventType: EVENT_TYPE.TRACK,
+		attributes: {
+			nodeType: node.type.name as BreakoutSupportedNodes,
+			prevWidth,
+			newWidth,
+		},
+	};
 };

@@ -36,6 +36,7 @@ import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
 import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
 import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
+import TextStrikethroughIcon from '@atlaskit/icon/core/text-strikethrough';
 import UnderlineIcon from '@atlaskit/icon/core/text-underline';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -49,7 +50,7 @@ import {
 	toggleSuperscriptWithAnalytics,
 	toggleUnderlineWithAnalytics,
 } from '../../../pm-plugins/commands';
-import { Strikethrough, Subscript, Superscript } from '../icons';
+import { Subscript, Superscript } from '../icons';
 import { getInputMethod } from '../input-method-utils';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes, type ToolbarType } from '../types';
@@ -135,7 +136,7 @@ const IconBefore: Record<IconTypes, IconBefore> = {
 		icon: <UnderlineIcon color="currentColor" spacing="spacious" label="" />,
 	},
 	strike: {
-		icon: <Strikethrough />,
+		icon: <TextStrikethroughIcon label="" />,
 	},
 	code: {
 		icon: <AngleBracketsIcon color="currentColor" spacing="spacious" label="" />,

@@ -194,10 +194,13 @@ describe('onParticpantUpdated updateParticipantLazy', () => {
 	describe.each([[true], [false]])(
 		'when participant is new and currentlyPollingFetchUsers=%s',
 		(isCurrentlyPollingFetchUsers) => {
-			it('should call emit with no previous participant', async () => {
+			it('should not call emit with no previous participant and no participantsLimit configured', async () => {
 				const participantsService = participantsServiceConstructor({
 					emit,
-					batchProps: defaultBatchProps,
+					batchProps: {
+						...defaultBatchProps,
+						participantsLimit: 1,
+					},
 				});
 
 				// @ts-ignore private variable
@@ -224,7 +227,37 @@ describe('onParticpantUpdated updateParticipantLazy', () => {
 				}
 			});
 
-			it('should not call emit with previous participant', async () => {
+			it('should call emit with no previous participant and participantsLimit configured', async () => {
+				const participantsService = participantsServiceConstructor({
+					emit,
+					batchProps: defaultBatchProps,
+				});
+
+				// @ts-ignore private variable
+				participantsService.currentlyPollingFetchUsers = isCurrentlyPollingFetchUsers;
+				const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
+
+				await participantsService.onParticipantUpdated(payload);
+				expect(emit).not.toHaveBeenCalledWith('presence', {
+					joined: [
+						{
+							...payload,
+							lastActive: payload.timestamp,
+							name: '',
+							avatar: '',
+							email: '',
+						},
+					],
+				});
+
+				if (!isCurrentlyPollingFetchUsers) {
+					expect(spyBatchFetchUsers).toHaveBeenCalled();
+				} else {
+					expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+				}
+			});
+
+			it('should call emit with presence:changed with previous participant and different activity', async () => {
 				const participantsState: ParticipantsState = new ParticipantsState();
 				participantsState.setBySessionId(hydratedParticipant.sessionId, hydratedParticipant);
 
@@ -243,14 +276,38 @@ describe('onParticpantUpdated updateParticipantLazy', () => {
 					presenceActivity: 'editor',
 				});
 
-				expect(emit).toHaveBeenCalledWith('presence', {
-					joined: [
-						{
-							...hydratedParticipant,
-							presenceActivity: 'editor',
-						},
-					],
+				expect(emit).toHaveBeenCalledWith('presence:changed', {
+					activity: 'editor',
+					type: 'participant:activity',
 				});
+
+				// we should never call if we participant isn't new, otherwise we'll make unecessary network calls
+				expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+			});
+
+			it('should not call emit with presence:changed with previous participant and same activity', async () => {
+				const participantsState: ParticipantsState = new ParticipantsState();
+				participantsState.setBySessionId(hydratedParticipant.sessionId, {
+					...hydratedParticipant,
+					presenceActivity: 'viewer',
+				});
+
+				const participantsService = participantsServiceConstructor({
+					participantsState,
+					emit,
+					batchProps: defaultBatchProps,
+				});
+
+				// @ts-ignore private variable
+				participantsService.currentlyPollingFetchUsers = isCurrentlyPollingFetchUsers;
+				const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
+
+				await participantsService.onParticipantUpdated({
+					...payload,
+					presenceActivity: 'viewer',
+				});
+
+				expect(emit).not.toHaveBeenCalledWith('presence:changed', expect.anything());
 
 				// we should never call if we participant isn't new, otherwise we'll make unecessary network calls
 				expect(spyBatchFetchUsers).not.toHaveBeenCalled();

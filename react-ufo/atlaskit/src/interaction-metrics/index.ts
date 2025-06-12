@@ -872,6 +872,14 @@ export function addNewInteraction(
 			experimentalVC.start({ startTime });
 		}
 	}
+
+	if (type === 'press' && fg('platform_ufo_enable_interactions_vc')) {
+		getVCObserver().start({ startTime, experienceKey: ufoName });
+		postInteractionLog.startVCObserver({ startTime });
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+			experimentalVC.start({ startTime });
+		}
+	}
 }
 
 export function addBrowserMetricEvent(event: BM3Event) {

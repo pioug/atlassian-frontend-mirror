@@ -1,5 +1,40 @@
 # @atlaskit/docs
 
+## 11.0.0
+
+### Major Changes
+
+- [#168438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168438)
+  [`d1a0f382215a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1a0f382215a7) -
+  Multiple updates have been made to the `Example` component:
+
+  - An `appearance` prop has been added, which can be used to make the example only show the source
+    code, and not render the component preview. This is useful for components that could cause
+    problems when rendered inside the atlaskit site (e.g. causing nested react contexts).
+  - The `sourceVisible` prop has been removed. This prop allowed the visibility of the source code
+    to be controlled by the consumer. Now that we are introducing the `appearance` prop, this prop
+    is being removed to prevent invalid states. If you need to control the default visibilty of the
+    source code, see the `isDefaultSourceVisible` prop.
+  - The `isDefaultSourceVisible` prop has been added, which can be used to control the default
+    visibility of the source code.
+
+  Internal refactors:
+
+  - It has been refactored to be a functional component
+  - It now uses `Compiled CSS` for styling
+  - It now uses `TypeScript`
+  - It now uses a `button` element for the element used to toggle showing the source code. This also
+    required some minor design changes
+  - The various `AKExample*` class names have been removed from the internal elements (e.g.
+    `AKExampleShowcase`, `AKExampleCodeWrapper`). This means any custom style overrides will no
+    longer work`.
+
+  The `replaceSrc` function has also been refactored to use `TypeScript`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.18
 
 ### Patch Changes

@@ -16,8 +16,8 @@ import DropdownMenu, {
 	DropdownItem,
 	type DropdownMenuProps,
 } from '@atlaskit/dropdown-menu';
-import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
-import ChevronUp from '@atlaskit/icon/utility/migration/chevron-up';
+import ChevronDown from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronUp from '@atlaskit/icon/core/migration/chevron-up';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	attachClosestEdge,
@@ -382,7 +382,7 @@ export const DraggableTableHeading = ({
 	const isWideEnoughToHaveChevron = !width || width > 76;
 
 	const shouldShowTriggerIcon = (buttonHovered || isDropdownOpen) && isWideEnoughToHaveChevron;
-	const triggerIcon = useMemo(
+	const TriggerIcon = useMemo(
 		() =>
 			shouldShowTriggerIcon
 				? isDropdownOpen
@@ -401,7 +401,9 @@ export const DraggableTableHeading = ({
 					{...props}
 					testId={`${id}-column-dropdown`}
 					shouldFitContainer
-					iconAfter={triggerIcon}
+					iconAfter={
+						TriggerIcon ? (iconProps) => <TriggerIcon {...iconProps} size="small" /> : undefined
+					}
 					ref={triggerRef}
 					appearance="subtle"
 					spacing="compact"
@@ -412,7 +414,7 @@ export const DraggableTableHeading = ({
 				</Button>
 			);
 		},
-		[children, id, triggerIcon],
+		[children, id, TriggerIcon],
 	);
 
 	const onDropdownOpenChange: NonNullable<DropdownMenuProps['onOpenChange']> = useCallback(

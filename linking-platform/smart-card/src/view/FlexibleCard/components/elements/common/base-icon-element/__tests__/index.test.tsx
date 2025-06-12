@@ -180,20 +180,54 @@ describe('Element: Icon', () => {
 			expect(element).toBeTruthy();
 		});
 
-		it('renders shimmer placeholder on loading', async () => {
-			render(<IconElement url="src-loading" />);
+		describe('when hideLoadingSkeleton is undefined', () => {
+			it('renders shimmer placeholder on loading', async () => {
+				render(<IconElement url="src-loading" />);
 
-			const element = await screen.findByTestId('smart-element-icon-loading');
+				const element = await screen.findByTestId('smart-element-icon-loading');
 
-			expect(element).toBeTruthy();
+				expect(element).toBeTruthy();
+			});
+
+			it('renders default icon on error', async () => {
+				render(<IconElement url="src-error" />);
+
+				const element = await screen.findByTestId('smart-element-icon-default');
+
+				expect(element).toBeTruthy();
+			});
 		});
 
-		it('renders default icon on error', async () => {
-			render(<IconElement url="src-error" />);
+		describe('when hideLoadingSkeleton is true', () => {
+			ffTest.on(
+				'platform_fix_block_card_img_icon_vc',
+				'when platform_fix_block_card_img_icon_vc FG is on',
+				() => {
+					it('does not render loading placeholder', async () => {
+						render(<IconElement url="src-loading" hideLoadingSkeleton={true} />);
 
-			const element = await screen.findByTestId('smart-element-icon-default');
+						const loading = screen.queryByTestId('smart-element-icon-loading');
+						expect(loading).not.toBeInTheDocument();
 
-			expect(element).toBeTruthy();
+						const image = await screen.findByTestId('smart-element-icon-image');
+						expect(image).toBeTruthy();
+					});
+				},
+			);
+
+			ffTest.off(
+				'platform_fix_block_card_img_icon_vc',
+				'when platform_fix_block_card_img_icon_vc FG is off',
+				() => {
+					it('renders shimmer placeholder on loading', async () => {
+						render(<IconElement url="src-loading" hideLoadingSkeleton={true} />);
+
+						const element = await screen.findByTestId('smart-element-icon-loading');
+
+						expect(element).toBeTruthy();
+					});
+				},
+			);
 		});
 	});
 

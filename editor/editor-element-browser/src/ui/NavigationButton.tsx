@@ -3,9 +3,9 @@ import React, { memo, useMemo } from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import ArrowLeftIcon from '@atlaskit/icon/core/arrow-left';
-import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
-import ChevronUpIcon from '@atlaskit/icon/utility/chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import ChevronUpIcon from '@atlaskit/icon/core/chevron-up';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Pressable, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
@@ -116,7 +116,7 @@ const ButtonBase = memo(
 					Icon = ChevronRightIcon;
 					iconLabel = `View all ${label} inserts`;
 			}
-			return <Icon label={iconLabel} />;
+			return <Icon label={iconLabel} size="small" />;
 		}, [isExpanded, label, mode]);
 
 		return (

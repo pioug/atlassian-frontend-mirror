@@ -21,6 +21,7 @@ export function Radios<T extends { toString(): string }>({
 			{options.map((value) => {
 				return (
 					<label htmlFor={`${label}-${value}`} key={value.toString()}>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 						<input
 							checked={currentValue === value}
 							id={`${label}-${value}`}

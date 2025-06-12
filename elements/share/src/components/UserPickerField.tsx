@@ -349,7 +349,12 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 		return (
 			<Field<Value>
 				label={
-					<Text id={USER_PICKER_FIELD_LABEL}>
+					<Text
+						id={USER_PICKER_FIELD_LABEL}
+						{...(isExtendedShareDialogEnabled
+							? { weight: 'bold', size: 'small', color: 'color.text.subtle' }
+							: {})}
+					>
 						<FormattedMessage {...getLabelMessage(product, allowEmail, isBrowseUsersDisabled)} />
 					</Text>
 				}

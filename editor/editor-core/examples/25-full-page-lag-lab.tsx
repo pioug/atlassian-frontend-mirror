@@ -213,6 +213,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 
 			<div>
 				<p>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 					<input
 						// autoFocus is used to prevent "copy link for sharing" from failing
 						// due to document in iframe not having focus after running
@@ -248,6 +249,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 
 			<hr role="presentation" />
 			<label>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 				<input
 					type="radio"
 					name="latency-type"

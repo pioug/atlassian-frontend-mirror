@@ -1,4 +1,4 @@
-import { extractPreview, extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import {
 	type CardAdf,
 	type CardAppearance,
@@ -20,7 +20,6 @@ import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { CardClient } from '@atlaskit/link-provider';
 import { type EnvironmentsKeys, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type JsonLd } from '@atlaskit/json-ld-types';
 import * as api from './api';
 
 const BATCH_WAIT_TIME = 50;
@@ -341,19 +340,10 @@ export class EditorCardProvider implements CardProvider {
 		try {
 			const details = await this.cardClient.fetchData(url);
 
-			// Entities supported
-			if (fg('smart_links_noun_support')) {
-				if (!details) {
-					return false;
-				}
-				const embed = extractSmartLinkEmbed(details);
-				return !!embed;
-			}
-
-			const data = (details && details.data) as JsonLd.Data.BaseData;
-			if (!data) {
+			if (!details) {
 				return false;
 			}
+
 			// Imagine response is "unauthorized". We won't be able to tell if even after auth
 			// page going to have preview. Yes, we can show auth view for embed. But what if even after
 			// success auth flow there won't be preview? We will already have ugly embed ADF.
@@ -361,8 +351,9 @@ export class EditorCardProvider implements CardProvider {
 			if (getStatus(details) !== 'resolved') {
 				return false;
 			}
-			const preview = extractPreview(data, 'web');
-			return !!preview;
+
+			const embed = extractSmartLinkEmbed(details);
+			return !!embed;
 		} catch (e) {
 			return false;
 		}

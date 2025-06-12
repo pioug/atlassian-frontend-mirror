@@ -79,6 +79,7 @@ const TitleBlock = ({
 	anchorRef,
 	CompetitorPrompt,
 	url,
+	hideIconLoadingSkeleton,
 	...props
 }: TitleBlockProps) => {
 	const cardContext = fg('platform-linking-flexible-card-context')
@@ -142,6 +143,7 @@ const TitleBlock = ({
 			hideIcon={hideIcon}
 			{...(fg('platform-linking-flexible-card-unresolved-action') ? { hideRetry } : undefined)}
 			icon={icon}
+			hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 			size={fg('platform-linking-flexible-card-context') ? props.size ?? ui?.size : props?.size}
 			{...(fg('platform-linking-flexible-card-context') ? undefined : { theme })}
 			CompetitorPrompt={CompetitorPrompt}

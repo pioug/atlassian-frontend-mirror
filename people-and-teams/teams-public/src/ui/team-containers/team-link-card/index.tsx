@@ -9,6 +9,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import CrossIcon from '@atlaskit/icon/core/close';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -193,6 +194,7 @@ export const TeamLinkCard = ({
 								/>
 							)}
 							placement="bottom-end"
+							shouldRenderToParent={fg('should-render-to-parent-should-be-true-people-and-')}
 						>
 							<DropdownItemGroup>
 								<DropdownItem

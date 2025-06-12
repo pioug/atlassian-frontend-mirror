@@ -170,7 +170,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/element-priority-variants').default}
 		source={require('!!raw-loader!../../../examples/content/element-priority-variants')}
-		sourceVisible={false}
 	/>
 )}
 
@@ -247,7 +246,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/element-state-variants').default}
 		source={require('!!raw-loader!../../../examples/content/element-state-variants')}
-		sourceVisible={false}
 	/>
 )}
 

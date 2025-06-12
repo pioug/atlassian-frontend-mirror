@@ -74,6 +74,10 @@ export type BlockProps = {
 	 * A unique identifier for the placeholder loading state, which is constant across all loading states of the same item.
 	 */
 	placeholderId?: string;
+	/**
+	 * For image icons in the title, whether to hide the loading skeleton while the image is loading.
+	 */
+	hideIconLoadingSkeleton?: boolean;
 };
 
 /**

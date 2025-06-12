@@ -23,6 +23,7 @@ export type ActiveSessionEventAttributes = {
 		safeInsertCount: number;
 	};
 	contentSizeChanged: number;
+	toolbarDocking?: 'top' | 'none';
 };
 
 export type ActiveSessionEventAEP = TrackAEP<

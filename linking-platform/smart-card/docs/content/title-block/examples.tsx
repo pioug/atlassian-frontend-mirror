@@ -198,7 +198,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-resolving').default}
 		source={require('!!raw-loader!../../../examples/content/title-block-resolving')}
-		sourceVisible={false}
 	/>
 )}
 
@@ -207,7 +206,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-resolving-hide-icon').default}
 		source={require('!!raw-loader!../../../examples/content/title-block-resolving-hide-icon')}
-		sourceVisible={false}
 	/>
 )}
 
@@ -225,7 +223,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-error').default}
 		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-error')}
-		sourceVisible={false}
 	/>
 )}
 
@@ -235,7 +232,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-error-hide-icon').default}
 		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-error-hide-icon')}
-		sourceVisible={false}
 	/>
 )}
 
@@ -245,7 +241,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-not-found').default}
 		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-not-found')}
-		sourceVisible={false}
 	/>
 )}
 
@@ -255,7 +250,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-forbidden').default}
 		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-forbidden')}
-		sourceVisible={false}
 	/>
 )}
 
@@ -267,7 +261,6 @@ ${(
 	<CustomExample
 		Component={require('../../../examples/content/title-block-unresolved-unauth').default}
 		source={require('!!raw-loader!../../../examples/content/title-block-unresolved-unauth')}
-		sourceVisible={false}
 	/>
 )}
 

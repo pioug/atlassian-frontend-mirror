@@ -83,6 +83,8 @@ export function getPathAndQuery(action: NavigationAction): PathAndQuery {
 			return { path: `agent/${action.payload.agentId}` };
 		case 'KUDOS':
 			return { path: `kudos/${action.payload.kudosId}` };
+		case 'TEAMS_DIRECTORY':
+			return { path: '', query: new URLSearchParams({ screen: 'SEARCH_TEAMS' }) };
 		default:
 			return { path: '' };
 	}

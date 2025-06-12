@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 38.9.1
+
+### Patch Changes
+
+- [#167423](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167423)
+  [`064579ff3e75c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/064579ff3e75c) -
+  Move smart_links_noun_support feature gate to link-extractor
+- Updated dependencies
+
+## 38.9.0
+
+### Minor Changes
+
+- [#166270](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166270)
+  [`231ec9798652d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231ec9798652d) -
+  [ux] Added hideIconLoadingSkeleton prop to CardSSR to allow for hiding the loading skeleton for
+  image icons in the title of block cards. Set to true in the renderer.
+
 ## 38.8.0
 
 ### Minor Changes

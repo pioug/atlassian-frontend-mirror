@@ -1,7 +1,7 @@
 import type { ACTION, ACTION_SUBJECT } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
 
-type BreakoutSupportedNodes = 'layoutSection' | 'expand' | 'codeBlock';
+export type BreakoutSupportedNodes = 'layoutSection' | 'expand' | 'codeBlock';
 
 export type BreakoutResizedAEP = TrackAEP<
 	ACTION.RESIZED,

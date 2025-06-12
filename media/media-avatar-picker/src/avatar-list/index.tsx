@@ -86,6 +86,7 @@ export const AvatarList = ({
 
 		return (
 			<label key={elementKey} css={labelStyles}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 				<input
 					type="radio"
 					name="avatar"

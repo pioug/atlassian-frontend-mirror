@@ -874,14 +874,19 @@ const metadata: IconMetadata = {
 		usage: 'Ungrouping selected objects in Whiteboards',
 	},
 	hand: {
-		keywords: ['hand', 'grab', 'move', 'open palm'],
+		keywords: ['hand', 'farewell', 'wave'],
 		categorization: 'multi-purpose',
 		location: '@atlaskit/icon-lab',
 		team: 'Whiteboards',
 		type: 'core',
-		status: 'published',
-		id: '34895:34788',
-		usage: 'Used for move/hand tool in Whiteboards',
+		status: 'deprecated',
+		id: '46664:6852',
+		usage: 'Used for farewell feed in Atlassian Home.',
+		replacement: {
+			name: 'hand-raised',
+			type: 'core',
+			location: '@atlaskit/icon-lab',
+		},
 	},
 	'hand-clenched': {
 		keywords: ['whiteboards', 'grab'],

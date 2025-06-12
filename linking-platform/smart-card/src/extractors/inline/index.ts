@@ -1,12 +1,9 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
 	extractEntityProvider,
-	extractLink,
 	extractProvider,
-	// extractSmartLinkIcon,
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
-	extractTitle,
 	extractType,
 	isEntityPresent,
 } from '@atlaskit/link-extractors';
@@ -14,6 +11,7 @@ import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { getEmptyJsonLd } from '../../utils/jsonld';
 import { type InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
 import { extractIcon } from '../common/icon';
 import { extractLozenge } from '../common/lozenge';
@@ -47,7 +45,7 @@ const extractSmartLinkInlineIcon = (response?: SmartLinkResponse, showLabel = tr
 		// return extractSmartLinkIcon(response);
 	}
 
-	return extractInlineIcon(response?.data as JsonLd.Data.BaseData, showLabel);
+	return extractInlineIcon((response?.data as JsonLd.Data.BaseData) || getEmptyJsonLd(), showLabel);
 };
 
 export const extractInlineProps = (
@@ -56,28 +54,14 @@ export const extractInlineProps = (
 	removeTextHighlightingFromTitle?: boolean,
 	showLabel = true,
 ): InlineCardResolvedViewProps => {
-	const jsonLd = response?.data as JsonLd.Data.BaseData;
-
-	if (fg('smart_links_noun_support')) {
-		return {
-			link: extractSmartLinkUrl(response),
-			title: extractSmartLinkTitle(response, removeTextHighlightingFromTitle),
-			icon: extractSmartLinkInlineIcon(response, showLabel),
-			// As we migrate to support more entities we can incorporate these fields
-			lozenge: extractLozenge(jsonLd),
-			titleTextColor: extractTitleTextColor(jsonLd),
-			titlePrefix: extractTitlePrefix(jsonLd, renderers, 'inline'),
-			...(fg('platform-linking-visual-refresh-v2') && {
-				type: extractType(jsonLd),
-			}),
-		};
-	}
+	const jsonLd = (response?.data as JsonLd.Data.BaseData) || getEmptyJsonLd();
 
 	return {
-		link: extractLink(jsonLd),
-		title: extractTitle(jsonLd, removeTextHighlightingFromTitle),
+		link: extractSmartLinkUrl(response),
+		title: extractSmartLinkTitle(response, removeTextHighlightingFromTitle),
+		icon: extractSmartLinkInlineIcon(response, showLabel),
+		// As we migrate to support more entities we can incorporate these fields
 		lozenge: extractLozenge(jsonLd),
-		icon: extractInlineIcon(jsonLd, showLabel),
 		titleTextColor: extractTitleTextColor(jsonLd),
 		titlePrefix: extractTitlePrefix(jsonLd, renderers, 'inline'),
 		...(fg('platform-linking-visual-refresh-v2') && {

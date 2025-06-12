@@ -8,6 +8,13 @@ type Rect = {
 	height: number;
 };
 
+type DisableSizeAndPositionCheckType = { v: boolean; h: boolean };
+
+type SSRPlaceholderHandlersConfig = {
+	enablePageLayoutPlaceholder?: boolean;
+	disableSizeAndPositionCheck?: DisableSizeAndPositionCheckType;
+};
+
 export class SSRPlaceholderHandlers {
 	private staticPlaceholders = new Map<string, Rect>();
 	private callbacks = new Map<string, (resolve: boolean) => void>();
@@ -16,8 +23,12 @@ export class SSRPlaceholderHandlers {
 	private intersectionObserver: IntersectionObserver | undefined;
 	private EQUALITY_THRESHOLD = 1;
 	private enablePageLayoutPlaceholder;
+	private disableSizeAndPositionCheck: DisableSizeAndPositionCheckType;
 
-	constructor(enablePageLayoutPlaceholder = false) {
+	constructor({
+		enablePageLayoutPlaceholder = false,
+		disableSizeAndPositionCheck = { v: false, h: false },
+	}: SSRPlaceholderHandlersConfig) {
 		if (typeof IntersectionObserver === 'function') {
 			// Only instantiate the IntersectionObserver if it's supported
 			this.intersectionObserver = new IntersectionObserver((entries) =>
@@ -28,6 +39,7 @@ export class SSRPlaceholderHandlers {
 		}
 
 		this.enablePageLayoutPlaceholder = enablePageLayoutPlaceholder;
+		this.disableSizeAndPositionCheck = disableSizeAndPositionCheck;
 
 		if (window.document) {
 			try {
@@ -160,14 +172,24 @@ export class SSRPlaceholderHandlers {
 	}
 
 	hasSameSizePosition(rect: Rect | undefined, boundingClientRect: DOMRectReadOnly) {
-		return (
-			(rect &&
-				Math.abs(rect.x - boundingClientRect.x) < this.EQUALITY_THRESHOLD &&
-				Math.abs(rect.y - boundingClientRect.y) < this.EQUALITY_THRESHOLD &&
-				Math.abs(rect.width - boundingClientRect.width) < this.EQUALITY_THRESHOLD &&
-				Math.abs(rect.height - boundingClientRect.height) < this.EQUALITY_THRESHOLD) ||
-			false
-		);
+		if (this.disableSizeAndPositionCheck?.v && this.disableSizeAndPositionCheck?.h) {
+			return true;
+		}
+
+		if (!rect) {
+			return false;
+		}
+
+		const horizontalCheck = this.disableSizeAndPositionCheck.h
+			? true
+			: Math.abs(rect.x - boundingClientRect.x) < this.EQUALITY_THRESHOLD &&
+				Math.abs(rect.width - boundingClientRect.width) < this.EQUALITY_THRESHOLD;
+		const verticalCheck = this.disableSizeAndPositionCheck.v
+			? true
+			: Math.abs(rect.y - boundingClientRect.y) < this.EQUALITY_THRESHOLD &&
+				Math.abs(rect.height - boundingClientRect.height) < this.EQUALITY_THRESHOLD;
+
+		return (horizontalCheck && verticalCheck) || false;
 	}
 
 	isDummyRect(rect: Rect | undefined) {

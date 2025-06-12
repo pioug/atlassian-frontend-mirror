@@ -1,5 +1,18 @@
 # @atlaskit/contextual-survey
 
+## 5.0.0
+
+### Major Changes
+
+- [#168857](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168857)
+  [`4375440aeaf60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4375440aeaf60) -
+  [ux] This change removes constants exports since compiled constants are not meant to be imported.
+  Instead this change has the position values in-file instead.
+
+  This is a breaking change because we are removing an entry point.
+
+  Package consumers will need to remove "@atlaskit/contextual-survey/constants" as a dependency.
+
 ## 4.0.2
 
 ### Patch Changes

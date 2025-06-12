@@ -132,6 +132,7 @@ const Rating = forwardRef<HTMLLabelElement, InternalRatingProps>(
 
 				{/* When tooltip doesn't render markup add another to the input so when it gains focus the tooltip is displayed */}
 				<VisuallyHidden testId={`input-container${!!isChecked ? '-checked' : ''}`}>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 					<input
 						id={id}
 						onChange={onChangeHandler}

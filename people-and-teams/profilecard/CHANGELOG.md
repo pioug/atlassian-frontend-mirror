@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 23.18.1
+
+### Patch Changes
+
+- [#169818](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169818)
+  [`efd89c5d5fc8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efd89c5d5fc8d) -
+  Rollout ContainerIcon component with Loom FG instead OR weblinks exp
+- [#167764](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167764)
+  [`92745994b66b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92745994b66b4) -
+  [ux] NO-ISSUE Update team container icons to medium size and make team links open in a new tab
+- Updated dependencies
+
 ## 23.18.0
 
 ### Minor Changes

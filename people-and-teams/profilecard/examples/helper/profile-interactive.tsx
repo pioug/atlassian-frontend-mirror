@@ -163,6 +163,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
 		return (
 			<label htmlFor={id}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 				<input
 					checked={this.state.status === attribute}
 					id={id}
@@ -179,6 +180,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 
 		return (
 			<label htmlFor={id}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 				<input
 					checked={this.state.statusModifiedDateFieldName === attribute}
 					id={id}

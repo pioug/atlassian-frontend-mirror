@@ -1,7 +1,7 @@
 import React, { type FC, memo } from 'react';
 
-import ArrowDownIcon from '@atlaskit/icon/utility/migration/arrow-down';
-import ArrowUpIcon from '@atlaskit/icon/utility/migration/arrow-up';
+import ArrowDownIcon from '@atlaskit/icon/core/migration/arrow-down';
+import ArrowUpIcon from '@atlaskit/icon/core/migration/arrow-up';
 
 import { useTable } from '../hooks/use-table';
 
@@ -22,6 +22,7 @@ export const SortIcon: FC<{ name: string }> = memo(({ name }) => {
 						LEGACY_size="small"
 						label=""
 						LEGACY_primaryColor="inherit"
+						size="small"
 					/>
 				);
 			case 'descending':
@@ -31,6 +32,7 @@ export const SortIcon: FC<{ name: string }> = memo(({ name }) => {
 						LEGACY_size="small"
 						label=""
 						LEGACY_primaryColor="inherit"
+						size="small"
 					/>
 				);
 		}

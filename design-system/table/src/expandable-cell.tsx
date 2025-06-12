@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
 
 import useExpand from './hooks/use-expand';
 import { ExpandableCell as ExpandableCellPrimitive } from './ui/expandable-cell';
@@ -27,7 +27,7 @@ const ExpandableCell = memo(() => {
 			<IconButton
 				spacing="compact"
 				appearance="subtle"
-				icon={(iconProps) => <Icon {...iconProps} LEGACY_size="small" />}
+				icon={(iconProps) => <Icon {...iconProps} LEGACY_size="small" size="small" />}
 				label="Expand row"
 				onClick={handleClick}
 				aria-pressed={isExpanded}

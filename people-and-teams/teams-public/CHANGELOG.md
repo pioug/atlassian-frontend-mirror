@@ -1,5 +1,22 @@
 # @atlaskit/teams-public
 
+## 0.36.2
+
+### Patch Changes
+
+- [#169013](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169013)
+  [`b938f42761c80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b938f42761c80) -
+  Enable shouldRenderToParent for dropdown menu in team link card'
+
+## 0.36.1
+
+### Patch Changes
+
+- [#167764](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167764)
+  [`92745994b66b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92745994b66b4) -
+  [ux] NO-ISSUE Update team container icons to medium size and make team links open in a new tab
+- Updated dependencies
+
 ## 0.36.0
 
 ### Minor Changes

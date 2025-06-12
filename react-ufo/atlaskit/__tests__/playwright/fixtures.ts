@@ -62,6 +62,7 @@ export const test = base.extend<{
 	featureFlags: string[];
 	examplePage: string;
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+	waitForReactUFOInteractionPayload: () => Promise<ReactUFOPayload | null>;
 	waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
 	/*
 	 * ATTENTION: This function uses a `performance.now()` from the DOMMutation callback.
@@ -244,6 +245,47 @@ export const test = base.extend<{
 							const firstPayload = payloads.shift() ?? null;
 
 							return Promise.resolve(firstPayload);
+						});
+
+						reactUFOPayload = value;
+
+						return reactUFOPayload;
+					},
+					{
+						message: `React UFO payload never received.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return reactUFOPayload;
+		};
+
+		await use(reset);
+	},
+	waitForReactUFOInteractionPayload: async ({ page }, use) => {
+		const reset = async () => {
+			// THis is hardcoded applied when the `sendOperationalEvent` is called
+			// See: website/src/metrics.ts
+			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
+
+			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
+			let reactUFOPayload: ReactUFOPayload | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate(() => {
+							const payloads = (window as WindowWithReactUFOTestGlobals).__websiteReactUfo || [];
+							if (payloads.length < 1) {
+								return Promise.resolve(null);
+							}
+							const payload = payloads.shift() ?? null;
+
+							if (payload && payload.attributes.properties.interactionMetrics.type === 'press') {
+								return Promise.resolve(payload);
+							}
+							return Promise.resolve(null);
 						});
 
 						reactUFOPayload = value;

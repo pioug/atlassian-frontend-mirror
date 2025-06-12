@@ -12,6 +12,7 @@ import type {
 import {
 	ACTION,
 	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
 	CONTENT_COMPONENT,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
@@ -370,6 +371,7 @@ export function ContentComponent({
 		const overflowDropdownItems = toolbarItemsArray.filter(
 			(item) => item.type === 'overflow-dropdown',
 		) as FloatingToolbarOverflowDropdown<Command>[];
+
 		if (overflowDropdownItems.length > 1) {
 			const consolidatedOverflowDropdown = consolidateOverflowDropdownItems(overflowDropdownItems);
 			const otherItems = toolbarItemsArray.filter((item) => item.type !== 'overflow-dropdown');
@@ -386,6 +388,40 @@ export function ContentComponent({
 				{ type: 'separator', fullHeight: true, supportsViewMode: true },
 				consolidatedOverflowDropdown,
 			];
+		}
+
+		// Apply analytics to dropdown
+		if (
+			overflowDropdownItems.length > 0 &&
+			dispatchAnalyticsEvent &&
+			fg('platform_editor_overflow_dropdown_click_analytics')
+		) {
+			const currentItems = Array.isArray(items) ? items : items?.(node);
+			const updatedItems = currentItems.map((item) => {
+				if (item.type !== 'overflow-dropdown') {
+					return item;
+				}
+				const originalOnClick = item.onClick;
+				return {
+					...item,
+					onClick: () => {
+						const editorContentMode =
+							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode;
+						dispatchAnalyticsEvent({
+							action: ACTION.CLICKED,
+							actionSubject: ACTION_SUBJECT.BUTTON,
+							actionSubjectId: ACTION_SUBJECT_ID.FLOATING_TOOLBAR_OVERFLOW,
+							eventType: EVENT_TYPE.UI,
+							attributes: {
+								editorContentMode,
+							},
+						});
+						// Call original onClick if it exists
+						originalOnClick?.();
+					},
+				};
+			});
+			items = updatedItems;
 		}
 	}
 

@@ -38,6 +38,7 @@ export const useLoadItems = (
 					setItems(list);
 				}
 
+				// Add a placeholder item for view more button so that it can be traversed with arrow keys
 				const viewMoreItem: TypeAheadItem = {
 					title: 'View more',
 				};

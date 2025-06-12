@@ -21,7 +21,6 @@ import { autoUpdate } from '@floating-ui/dom';
 import { createPortal } from 'react-dom';
 import useLayoutEffect from 'use-isomorphic-layout-effect';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -86,16 +85,13 @@ function getMenuPlacement({
 
 	// we can't trust `scrollParent.scrollHeight` --> it may increase when
 	// the menu is rendered
-	const { height: scrollHeight, top: scrollParentTop } = scrollParent.getBoundingClientRect();
+	const { height: scrollHeight } = scrollParent.getBoundingClientRect();
 	const { bottom: menuBottom, height: menuHeight, top: menuTop } = menuEl.getBoundingClientRect();
 
 	const { top: containerTop } = menuEl.offsetParent.getBoundingClientRect();
 	const viewHeight = isFixedPosition ? window.innerHeight : normalizedHeight(scrollParent);
 	const scrollTop = getScrollTop(scrollParent);
-	// use menuTop - scrollParentTop for the actual top space of menu in the scroll container
-	const menuTopFromParent = fg('design-system-select-fix-placement')
-		? menuTop - scrollParentTop
-		: menuTop;
+	const menuTopFromParent = menuTop;
 	const marginBottom = parseInt(getComputedStyle(menuEl).marginBottom, 10);
 	const marginTop = parseInt(getComputedStyle(menuEl).marginTop, 10);
 	const viewSpaceAbove = containerTop - marginTop;

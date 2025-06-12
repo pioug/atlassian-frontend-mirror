@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.17.0
+
+### Minor Changes
+
+- [#166327](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166327)
+  [`56ba43df67f02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56ba43df67f02) -
+  ED-28157 implment reduced drop target logic
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.16.2
+
+### Patch Changes
+
+- [#168359](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168359)
+  [`25fcd59865f76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25fcd59865f76) -
+  ED-28200 retain layout width after dragging an element to create a column
+- Updated dependencies
+
 ## 3.16.1
 
 ### Patch Changes

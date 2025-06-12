@@ -1,3 +1,6 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+
 import { type MetricsPlugin } from './metricsPluginType';
 import { createPlugin, initialPluginState, metricsKey } from './pm-plugins/main';
 import { getAnalyticsPayload } from './pm-plugins/utils/analytics';
@@ -6,11 +9,11 @@ import { getAnalyticsPayload } from './pm-plugins/utils/analytics';
  * from `@atlaskit/editor-core`.
  */
 
-export const metricsPlugin: MetricsPlugin = ({ api }) => ({
+export const metricsPlugin: MetricsPlugin = ({ config, api }) => ({
 	name: 'metrics',
 
 	pmPlugins() {
-		return [{ name: 'metrics', plugin: () => createPlugin(api) }];
+		return [{ name: 'metrics', plugin: () => createPlugin(api, config?.userPreferencesProvider) }];
 	},
 	commands: {
 		setContentMoved:
@@ -45,9 +48,20 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 				}
 
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
+					let toolbarDocking;
+					if (
+						expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+						fg('platform_editor_controls_patch_13')
+					) {
+						toolbarDocking = config?.userPreferencesProvider?.getPreference(
+							'toolbarDockingInitialPosition',
+						);
+					}
+
 					const payloadToSend = getAnalyticsPayload({
 						currentContent: tr.doc.content,
 						pluginState,
+						toolbarDocking: toolbarDocking || undefined,
 					});
 					api?.analytics?.actions.attachAnalyticsEvent(payloadToSend)(tr);
 				}
@@ -56,6 +70,7 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 					stopActiveSession: true,
 				});
 				tr.setMeta('scrollIntoView', false);
+				tr.setMeta('addToHistory', false);
 
 				return tr;
 			},

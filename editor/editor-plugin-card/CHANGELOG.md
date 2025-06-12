@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 6.6.4
+
+### Patch Changes
+
+- [#169870](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169870)
+  [`07d290a3b8ee1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07d290a3b8ee1) -
+  [ED-28198] Add tooltip for edit link toolbar icon button
+- Updated dependencies
+
 ## 6.6.3
 
 ### Patch Changes

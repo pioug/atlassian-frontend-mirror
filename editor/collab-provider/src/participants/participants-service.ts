@@ -247,10 +247,17 @@ export class ParticipantsService {
 				userId,
 			};
 			this.participantsState.setBySessionId(sessionId, participant);
-			this.emitPresence({ joined: [participant] }, 'handling updated new participant lazy');
 			// prevent running multiple debounces concurrently
 			if (!this.currentlyPollingFetchUsers) {
 				void this.batchFetchUsers();
+			}
+
+			// while this doesn't completely eliminate extra events from firing, it does help reduce it.
+			// batchFetchUsers will always emitPresence when no participantsLimit is present;
+			// however, if the limit has been reached, we need to ensure we emit the joined participants
+			// current alternatives to this logic would add even more complexity
+			if (this.batchProps?.participantsLimit) {
+				this.emitPresence({ joined: [participant] }, 'handling updated new participant lazy');
 			}
 			return;
 		}
@@ -261,8 +268,18 @@ export class ParticipantsService {
 			presenceActivity: payload.presenceActivity,
 			lastActive: payload.timestamp,
 		};
-		this.participantsState.setBySessionId(sessionId, participant);
-		this.emitPresence({ joined: [participant] }, 'handling updated previous participant event');
+
+		if (this.hasPresenceActivityChanged(previousParticipant, participant)) {
+			this.participantsState.setBySessionId(sessionId, participant);
+			this.emitPresenceActivityChange(
+				{
+					type: 'participant:activity',
+					activity: participant.presenceActivity,
+				},
+				'handling participant activity changed event',
+			);
+		}
+		return;
 	};
 
 	onParticipantUpdated = async (payload: PresencePayload) => {

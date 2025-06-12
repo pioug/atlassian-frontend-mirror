@@ -7,8 +7,8 @@ import type { IntlShape } from 'react-intl-next';
 import { IconButton } from '@atlaskit/button/new';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-large';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -159,7 +159,7 @@ export const ScrollButton = ({
 					)}
 					onClick={onClick}
 					isDisabled={disabled}
-					icon={Icon}
+					icon={(iconProps) => <Icon label={iconProps.label} size="small" />}
 					isTooltipDisabled={false}
 					tooltip={{ position: 'top' }}
 				/>

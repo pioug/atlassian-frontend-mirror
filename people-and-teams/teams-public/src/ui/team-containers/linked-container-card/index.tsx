@@ -8,6 +8,7 @@ import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/close';
 import Link from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -154,7 +155,7 @@ export const LinkedContainerCard = ({
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
-		iconSize: 'small',
+		iconSize: fg('enable_medium_size_icons_for_team_link_cards') ? 'medium' : 'small',
 		containerTypeProperties,
 	});
 
@@ -173,7 +174,9 @@ export const LinkedContainerCard = ({
 			<Inline space="space.100" xcss={styles.card}>
 				{getContainerIcon(containerType, title, containerIcon)}
 
-				<Stack>
+				<Stack
+					{...(fg('enable_medium_size_icons_for_team_link_cards') ? { space: 'space.025' } : {})}
+				>
 					<Text maxLines={1} weight="medium" color="color.text">
 						{title}
 					</Text>

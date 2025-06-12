@@ -189,6 +189,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			isMenuOpen: key.getState(editorState)?.isMenuOpen ?? false,
 			menuTriggerBy: key.getState(editorState)?.menuTriggerBy ?? undefined,
 			activeNode: key.getState(editorState)?.activeNode ?? undefined,
+			activeDropTargetNode: key.getState(editorState)?.activeDropTargetNode ?? undefined,
 			isDragging: key.getState(editorState)?.isDragging ?? false,
 			isPMDragging: key.getState(editorState)?.isPMDragging ?? false,
 			multiSelectDnD: key.getState(editorState)?.multiSelectDnD ?? undefined,

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
 import AddIcon from '@atlaskit/icon/core/add';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -72,6 +73,7 @@ export const AddContainerCard = ({
 }: AddContainerCardProps) => {
 	const { description, icon, title } = getContainerProperties({
 		containerType,
+		iconSize: fg('enable_medium_size_icons_for_team_link_cards') ? 'medium' : undefined,
 		isEmptyContainer: true,
 	});
 
@@ -90,7 +92,9 @@ export const AddContainerCard = ({
 						}}
 					/>
 				</Box>
-				<Stack>
+				<Stack
+					{...(fg('enable_medium_size_icons_for_team_link_cards') ? { space: 'space.025' } : {})}
+				>
 					<Text maxLines={1} weight="medium" color="color.text">
 						{title}
 					</Text>

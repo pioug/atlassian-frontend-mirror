@@ -52,6 +52,7 @@ const TitleBlockResolvedView = ({
 	hideIcon,
 	CompetitorPrompt,
 	url,
+	hideIconLoadingSkeleton,
 	...blockProps
 }: TitleBlockViewProps) => {
 	const { size } = blockProps;
@@ -60,7 +61,14 @@ const TitleBlockResolvedView = ({
 
 	return (
 		<Block {...blockProps} testId={`${testId}-resolved-view`}>
-			{!hideIcon && <LinkIcon overrideIcon={icon} position={position} size={size} />}
+			{!hideIcon && (
+				<LinkIcon
+					overrideIcon={icon}
+					position={position}
+					size={size}
+					hideLoadingSkeleton={hideIconLoadingSkeleton}
+				/>
+			)}
 			<ElementGroup
 				direction={SmartLinkDirection.Vertical}
 				width={SmartLinkWidth.Flexible}

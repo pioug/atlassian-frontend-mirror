@@ -15,6 +15,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const WIDTHS = {
 	MIN: akEditorDefaultLayoutWidth,
@@ -22,11 +23,14 @@ const WIDTHS = {
 	MAX: akEditorFullWidthLayoutWidth,
 };
 
-const GUIDELINE_KEYS = {
-	lineLength: 'grid',
-	wide: 'wide',
-	fullWidth: 'full_width',
-};
+export const GUIDELINE_KEYS = {
+	lineLengthLeft: 'grid_left',
+	lineLengthRight: 'grid_right',
+	wideLeft: 'wide_left',
+	wideRight: 'wide_right',
+	fullWidthLeft: 'full_width_left',
+	fullWidthRight: 'full_width_right',
+} as const;
 
 const AK_NESTED_DND_GUTTER_OFFSET = 8;
 const roundToNearest = (value: number, interval: number = 0.5): number =>
@@ -59,43 +63,56 @@ export const getGuidelines = memoizeOne(
 			}
 		}
 		const { width, lineLength } = getEditorWidth() || {};
-		// TODO: ED-28109 - use breakoutWideScaleRatio to calculate wide guideline
+
 		const fullWidth = width
 			? Math.min(WIDTHS.MAX, width - 2 * akEditorGutterPaddingDynamic() - akEditorGutterPadding)
 			: undefined;
 
-		if (lineLength) {
+		if (fg('platform_editor_breakout_resizing_hello_release')) {
 			guidelines.push({
-				key: `${GUIDELINE_KEYS.lineLength}_left`,
-				position: { x: -roundToNearest(lineLength / 2 + innerPaddingOffset) },
-				active: newWidth === lineLength,
+				key: GUIDELINE_KEYS.lineLengthLeft,
+				position: { x: -roundToNearest(WIDTHS.MIN / 2 + innerPaddingOffset) },
+				active: newWidth === WIDTHS.MIN,
 			});
 			guidelines.push({
-				key: `${GUIDELINE_KEYS.lineLength}_right`,
-				position: { x: roundToNearest(lineLength / 2 + innerPaddingOffset) },
-				active: newWidth === lineLength,
+				key: GUIDELINE_KEYS.lineLengthRight,
+				position: { x: roundToNearest(WIDTHS.MIN / 2 + innerPaddingOffset) },
+				active: newWidth === WIDTHS.MIN,
 			});
+		} else {
+			if (lineLength) {
+				guidelines.push({
+					key: GUIDELINE_KEYS.lineLengthLeft,
+					position: { x: -roundToNearest(lineLength / 2 + innerPaddingOffset) },
+					active: newWidth === lineLength,
+				});
+				guidelines.push({
+					key: GUIDELINE_KEYS.lineLengthRight,
+					position: { x: roundToNearest(lineLength / 2 + innerPaddingOffset) },
+					active: newWidth === lineLength,
+				});
+			}
 		}
 
 		guidelines.push({
-			key: `${GUIDELINE_KEYS.wide}_left`,
+			key: GUIDELINE_KEYS.wideLeft,
 			position: { x: -roundToNearest(WIDTHS.WIDE / 2 + innerPaddingOffset) },
 			active: newWidth === WIDTHS.WIDE,
 		});
 		guidelines.push({
-			key: `${GUIDELINE_KEYS.wide}_right`,
+			key: GUIDELINE_KEYS.wideRight,
 			position: { x: roundToNearest(WIDTHS.WIDE / 2 + innerPaddingOffset) },
 			active: newWidth === WIDTHS.WIDE,
 		});
 
 		if (fullWidth) {
 			guidelines.push({
-				key: `${GUIDELINE_KEYS.fullWidth}_left`,
+				key: GUIDELINE_KEYS.fullWidthLeft,
 				position: { x: -roundToNearest(fullWidth / 2 + innerPaddingOffset) },
 				active: newWidth === fullWidth,
 			});
 			guidelines.push({
-				key: `${GUIDELINE_KEYS.fullWidth}_right`,
+				key: GUIDELINE_KEYS.fullWidthRight,
 				position: { x: roundToNearest(fullWidth / 2 + innerPaddingOffset) },
 				active: newWidth === fullWidth,
 			});

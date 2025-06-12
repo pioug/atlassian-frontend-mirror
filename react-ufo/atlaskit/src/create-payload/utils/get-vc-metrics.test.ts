@@ -85,7 +85,47 @@ describe('getVCMetrics', () => {
 		expect(result).toEqual({});
 	});
 
-	it('should return empty object for non-page_load and non-transition interactions', async () => {
+	it('should return empty object for unsupported interaction types', async () => {
+		const interaction: InteractionMetrics = {
+			type: 'hover',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+		} as unknown as InteractionMetrics;
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toEqual({});
+	});
+
+	it('should process press interaction correctly when feature flag is enabled', async () => {
+		enabledFg.add('platform_ufo_enable_interactions_vc');
+
+		const mockGetMostRecentVCRevision = getMostRecentVCRevision as jest.MockedFunction<
+			typeof getMostRecentVCRevision
+		>;
+		mockGetMostRecentVCRevision.mockReturnValue('fy25.02');
+
+		const interaction: InteractionMetrics = {
+			type: 'press',
+			start: 0,
+			end: 100,
+			ufoName: 'test',
+			apdex: [{ key: 'test-apdex', stopTime: 50 }],
+		} as unknown as InteractionMetrics;
+
+		const expectedVCResult = {
+			'metrics:vc': { '90': 100 },
+			'ufo:vc:clean': true,
+			'metric:vc90': 100,
+		};
+
+		const result = await getVCMetrics(interaction);
+		expect(result).toMatchObject(expectedVCResult);
+	});
+
+	it('should return empty object for press interaction when feature flag is disabled', async () => {
+		// Feature flag is disabled by default in beforeEach
+
 		const interaction: InteractionMetrics = {
 			type: 'press',
 			start: 0,

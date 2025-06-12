@@ -29,6 +29,11 @@ export type ActiveNode = {
 	rootNodeType?: string;
 };
 
+export type ActiveDropTargetNode = {
+	pos: number;
+	nodeTypeName: string | null;
+};
+
 export type MultiSelectDnD = {
 	anchor: number;
 	head: number;
@@ -47,6 +52,7 @@ export interface PluginState {
 	editorWidthLeft: number;
 	editorWidthRight: number;
 	activeNode?: ActiveNode;
+	activeDropTargetNode?: ActiveDropTargetNode;
 	isResizerResizing: boolean;
 	/**
 	 * @private
@@ -70,6 +76,7 @@ export type BlockControlsSharedState =
 			isMenuOpen: boolean;
 			menuTriggerBy?: string;
 			activeNode?: ActiveNode;
+			activeDropTargetNode?: ActiveDropTargetNode;
 			isDragging: boolean;
 			isPMDragging: boolean;
 			multiSelectDnD?: MultiSelectDnD;

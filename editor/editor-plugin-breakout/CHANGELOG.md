@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.7.3
+
+### Patch Changes
+
+- [#169885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169885)
+  [`b0f7d84248010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0f7d84248010) -
+  Add label popup to contentComponent which renders when a guideline is active. Add
+  activeGuidelineKey to breakout plugin state to use with the label.
+- Updated dependencies
+
+## 2.7.2
+
+### Patch Changes
+
+- [#168573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168573)
+  [`8c337a8701dfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c337a8701dfb) -
+  Adds resized analytics for nodes that support breakout mark.
+- [#169278](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169278)
+  [`3ff87a0248416`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ff87a0248416) -
+  [ux] ED-28232 fix guidelines location on full width pages for new resizing experience behind
+  platform_editor_breakout_resizing
+- Updated dependencies
+
 ## 2.7.1
 
 ### Patch Changes

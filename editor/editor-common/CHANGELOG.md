@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 106.6.0
+
+### Minor Changes
+
+- [#168590](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168590)
+  [`e9250f202882e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9250f202882e) -
+  Added experiment to defer shadow calculations until node is visible
+- [#164841](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164841)
+  [`9c4d557d5f6b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c4d557d5f6b5) -
+  Update floating toolbar plugin to dispatch analytics events on dropdown click.
+
+### Patch Changes
+
+- [#169885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169885)
+  [`d18a245989480`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d18a245989480) -
+  Fix spelling of breakout
+- Updated dependencies
+
+## 106.5.3
+
+### Patch Changes
+
+- [#168315](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168315)
+  [`9b42791b3f3c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b42791b3f3c2) -
+  ED-28215 Add toolbar docking preference to activitySession ended event
+- Updated dependencies
+
+## 106.5.2
+
+### Patch Changes
+
+- [#168573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168573)
+  [`8c337a8701dfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c337a8701dfb) -
+  Adds resized analytics for nodes that support breakout mark.
+- Updated dependencies
+
 ## 106.5.1
 
 ### Patch Changes

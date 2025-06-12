@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::13092a3216dff21f9e3aa4d6d9622407>>
+ * @codegen <<SignedSource::7e448878220cfe696398b48aa946c334>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -324,7 +324,6 @@ const Icons = [
 	GroupUngroupSelectionIcon,
 	StickerIcon,
 	StampIcon,
-	HandIcon,
 	HandRaisedIcon,
 	SectionIcon,
 	StrokeStyleSolidIcon,
@@ -513,6 +512,7 @@ const Icons = [
 	MilestoneIncompleteIcon,
 	ImageStrikethroughIcon,
 	TextAdjustLengthIcon,
+	HandIcon,
 	HandOpenIcon,
 	HandClosedIcon,
 	ShapeCommentLeftIcon,

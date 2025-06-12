@@ -186,12 +186,18 @@ export default function ExtensionRenderer(props: Props) {
 	);
 }
 
-export const InlineNodeRendererWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
+export const InlineNodeRendererWrapper = ({
+	children,
+	ssrPlaceholder,
+	ssrPlaceholderReplace,
+}: React.PropsWithChildren<{ ssrPlaceholder?: string; ssrPlaceholderReplace?: string }>) => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="inline-extension-renderer"
 			css={inlineExtensionStyle}
+			data-ssr-placeholder={ssrPlaceholder}
+			data-ssr-placeholder-replace={ssrPlaceholderReplace}
 		>
 			{children}
 		</div>

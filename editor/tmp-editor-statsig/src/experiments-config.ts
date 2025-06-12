@@ -344,6 +344,14 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-06-11
+	platform_editor_core_static_emotion_non_central: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_core_static_emotion_non_central',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-05-13
 	editor_ai_comment_freegen_rovo: createBooleanExperiment({
 		productKeys: {
@@ -434,6 +442,22 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_iw_full_page_adf_streaming: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_iw_full_page_adf_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-06-05
+	platform_editor_block_controls_perf_optimization: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_block_controls_perf_optimization',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-06-10
+	platform_editor_defer_shadow_calculations: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_defer_shadow_calculations',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

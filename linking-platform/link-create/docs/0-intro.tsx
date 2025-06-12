@@ -38,7 +38,7 @@ export default md`
 			packageName="@atlaskit/link-create"
 			Component={require('../examples/00-basic').default}
 			title="Example"
-			sourceVisible={true}
+			isDefaultSourceVisible
 			source={require('!!raw-loader!../examples/00-basic')}
 		/>
 	)}

@@ -60,7 +60,7 @@ export type NavigationActionKudos = {
 
 export type NavigationActionPayloadVariants =
 	| {
-			type: 'LANDING' | 'DIRECTORY';
+			type: 'LANDING' | 'DIRECTORY' | 'TEAMS_DIRECTORY';
 	  }
 	| {
 			type: 'USER';

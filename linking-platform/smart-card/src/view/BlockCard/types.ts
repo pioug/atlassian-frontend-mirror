@@ -18,4 +18,5 @@ export type BlockCardProps = {
 	actionOptions?: CardActionOptions;
 	renderers?: CardProviderRenderers;
 	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	hideIconLoadingSkeleton?: boolean;
 };

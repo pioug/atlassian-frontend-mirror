@@ -2,6 +2,7 @@ import type {
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
+	UserPreferencesProvider,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -14,9 +15,15 @@ type handleIntentToStartEditProps = {
 	shouldPersistActiveSession?: boolean;
 };
 
+export type MetricsPluginOptions = {
+	// To deprecate when userPreferencesPlugin is added
+	userPreferencesProvider?: UserPreferencesProvider;
+};
+
 export type MetricsPlugin = NextEditorPlugin<
 	'metrics',
 	{
+		pluginConfiguration?: MetricsPluginOptions;
 		dependencies: [OptionalPlugin<AnalyticsPlugin>];
 		sharedState: MetricsState;
 		commands: {

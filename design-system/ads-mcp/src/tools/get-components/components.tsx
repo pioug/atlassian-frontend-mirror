@@ -1728,12 +1728,12 @@ import { Main } from '@atlassian/navigation-system/layout/main';
 import { PanelSplitter } from '@atlassian/navigation-system/layout/panel-splitter';
 import { Root } from '@atlassian/navigation-system/layout/root';
 import { SideNav, SideNavContent, SideNavFooter, SideNavToggleButton } from '@atlassian/navigation-system/layout/side-nav';
-import { TopBar } from '@atlassian/navigation-system/layout/top-bar';
-import { CommonActions, Help, HomeActions, NavLogo, UserActions } from '@atlassian/navigation-system/top-nav';
+import { TopNav, TopNavEnd, TopNavMiddle, TopNavStart } from '@atlassian/navigation-system/layout/top-nav';
+import { Help, NavLogo } from '@atlassian/navigation-system/top-nav-items';
 
 <Root>
-  <TopBar>
-    <HomeActions>
+  <TopNav>
+    <TopNavStart>
       <SideNavToggleButton
         collapseLabel="Collapse sidebar"
         expandLabel="Expand sidebar"
@@ -1744,10 +1744,10 @@ import { CommonActions, Help, HomeActions, NavLogo, UserActions } from '@atlassi
         icon={AtlassianIcon}
         label="Home page"
       />
-    </HomeActions>
-    <CommonActions />
-    <UserActions />
-  </TopBar>
+    </TopNavStart>
+    <TopNavMiddle />
+    <TopNavEnd />
+  </TopNav>
   <SideNav>
     <SideNavContent />
     <SideNavFooter />

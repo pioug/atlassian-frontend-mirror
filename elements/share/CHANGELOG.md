@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 6.11.0
+
+### Minor Changes
+
+- [#169389](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169389)
+  [`879143e11dc2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/879143e11dc2d) -
+  [ux] Update share dialog styles for the extended variant
+
 ## 6.10.0
 
 ### Minor Changes

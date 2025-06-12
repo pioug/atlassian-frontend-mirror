@@ -42,7 +42,7 @@ export default md`
 			packageName="@atlaskit/link-create"
 			Component={require('../examples/05-inline-create').default}
 			title="Inline create example"
-			sourceVisible={true}
+			isDefaultSourceVisible
 			source={require('!!raw-loader!../examples/05-inline-create')}
 		/>
 	)}

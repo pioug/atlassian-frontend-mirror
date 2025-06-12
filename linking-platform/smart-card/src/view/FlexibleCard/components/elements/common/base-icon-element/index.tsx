@@ -55,6 +55,10 @@ export type BaseIconElementProps = ElementProps & {
 	 * Whether to display the icon as a square or round image.
 	 */
 	appearance?: 'square' | 'round';
+	/**
+	 * For images, whether to hide the loading skeleton while the image is loading.
+	 */
+	hideLoadingSkeleton?: boolean;
 };
 
 const styles = cssMap({
@@ -189,6 +193,7 @@ const renderImageIcon = (
 	testId?: string,
 	size = SmartLinkSize.Medium,
 	appearance?: ImageIconProps['appearance'],
+	hideLoadingSkeleton?: boolean,
 ): React.ReactNode | undefined => {
 	const width = size === SmartLinkSize.Large ? token('space.300') : token('space.200');
 
@@ -203,6 +208,7 @@ const renderImageIcon = (
 				{...(fg('platform-linking-visual-refresh-v2') && {
 					appearance,
 				})}
+				hideLoadingSkeleton={hideLoadingSkeleton}
 			/>
 		);
 	}
@@ -226,6 +232,7 @@ const IconElement = ({
 	testId = 'smart-element-icon',
 	url,
 	appearance = 'square',
+	hideLoadingSkeleton,
 }: BaseIconElementProps) => {
 	const element = useMemo(() => {
 		const defaultIcon = renderDefaultIcon(label, testId);
@@ -238,11 +245,12 @@ const IconElement = ({
 				testId,
 				size,
 				fg('platform-linking-visual-refresh-v2') ? appearance : undefined,
+				hideLoadingSkeleton,
 			) ||
 			renderAtlaskitIcon(icon, testId, size) ||
 			defaultIcon
 		);
-	}, [label, testId, overrideIcon, render, url, size, appearance, icon]);
+	}, [label, testId, overrideIcon, render, url, size, appearance, hideLoadingSkeleton, icon]);
 
 	const width = getIconWidth(size);
 

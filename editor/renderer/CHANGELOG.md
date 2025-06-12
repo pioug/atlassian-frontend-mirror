@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 118.6.12
+
+### Patch Changes
+
+- [#168516](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168516)
+  [`c5bf272abb6bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5bf272abb6bc) -
+  Allow extra prop in InlineNodeRendererWrapper
+- [#166270](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166270)
+  [`231ec9798652d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/231ec9798652d) -
+  [ux] Added hideIconLoadingSkeleton prop to CardSSR to allow for hiding the loading skeleton for
+  image icons in the title of block cards. Set to true in the renderer.
+- Updated dependencies
+
 ## 118.6.11
 
 ### Patch Changes

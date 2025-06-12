@@ -14,9 +14,11 @@ import { getNodeChanges } from './get-node-changes';
 export const getAnalyticsPayload = ({
 	currentContent,
 	pluginState,
+	toolbarDocking,
 }: {
 	currentContent: Fragment;
 	pluginState: MetricsState;
+	toolbarDocking?: 'top' | 'none';
 }): ActiveSessionEventPayload => {
 	const nodeChanges = getNodeChanges({ currentContent, pluginState });
 
@@ -61,6 +63,7 @@ export const getAnalyticsPayload = ({
 				safeInsertCount: pluginState.safeInsertCount,
 			},
 			contentSizeChanged: pluginState.contentSizeChanged,
+			toolbarDocking,
 		},
 		eventType: EVENT_TYPE.TRACK,
 	};

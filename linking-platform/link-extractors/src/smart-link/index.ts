@@ -1,5 +1,6 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	extractAri,
@@ -29,23 +30,29 @@ export const extractSmartLinkTitle = (
 	response?: SmartLinkResponse,
 	removeTextHighlightingFromTitle?: boolean,
 ): string | undefined => {
-	if (isEntityPresent(response)) {
-		return extractEntity(response)?.displayName;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.displayName;
+		}
 	}
 	return extractTitle(response?.data as JsonLd.Data.BaseData, removeTextHighlightingFromTitle);
 };
 
 export const extractSmartLinkUrl = (response?: SmartLinkResponse): string | undefined => {
-	if (isEntityPresent(response)) {
-		return extractEntity(response)?.url;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.url;
+		}
 	}
 
 	return extractLink(response?.data as JsonLd.Data.BaseData);
 };
 
 export const extractSmartLinkAri = (response?: SmartLinkResponse): string | undefined => {
-	if (isEntityPresent(response)) {
-		return extractEntity(response)?.ari;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.ari;
+		}
 	}
 
 	const data = response?.data as JsonLd.Data.BaseData;
@@ -56,33 +63,42 @@ export const extractSmartLinkEmbed = (
 	response?: SmartLinkResponse,
 	iframeUrlType?: EmbedIframeUrlType,
 ): LinkPreview | undefined => {
-	if (isEntityPresent(response)) {
-		const embedUrl = extractEntityEmbedUrl(response);
-		return embedUrl ? { src: embedUrl } : undefined;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			// TODO: Missing iframeUrlType
+			const embedUrl = extractEntityEmbedUrl(response);
+			return embedUrl ? { src: embedUrl } : undefined;
+		}
 	}
 
 	return extractPreview(response?.data as JsonLd.Data.BaseData, 'web', iframeUrlType);
 };
 
 export const extractSmartLinkProvider = (response?: SmartLinkResponse) => {
-	if (isEntityPresent(response)) {
-		return extractEntityProvider(response);
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntityProvider(response);
+		}
 	}
 
 	return response?.data && extractProvider(response?.data as JsonLd.Data.BaseData);
 };
 
 export const extractSmartLinkCreatedOn = (response?: SmartLinkResponse): string | undefined => {
-	if (isEntityPresent(response)) {
-		return extractEntity(response)?.createdAt;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.createdAt;
+		}
 	}
 
 	return response?.data && extractDateCreated(response.data as LinkTypeCreated);
 };
 
 export const extractSmartLinkModifiedOn = (response?: SmartLinkResponse): string | undefined => {
-	if (isEntityPresent(response)) {
-		return extractEntity(response)?.lastUpdatedAt;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.lastUpdatedAt;
+		}
 	}
 
 	return response?.data && extractDateUpdated(response.data as JsonLd.Data.BaseData);
@@ -93,8 +109,10 @@ export const extractSmartLinkCreatedBy = (response?: SmartLinkResponse): string 
 		return undefined;
 	}
 
-	if (isEntityPresent(response)) {
-		return extractEntity(response)?.createdBy?.id;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.createdBy?.id;
+		}
 	}
 
 	const persons = extractPersonCreatedBy(response.data as JsonLd.Data.BaseData);
@@ -106,8 +124,10 @@ export const extractSmartLinkModifiedBy = (response?: SmartLinkResponse): string
 		return undefined;
 	}
 
-	if (isEntityPresent(response)) {
-		return extractEntity(response)?.lastUpdatedBy?.id;
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			return extractEntity(response)?.lastUpdatedBy?.id;
+		}
 	}
 
 	const person = extractPersonUpdatedBy(response.data as LinkTypeUpdatedBy);

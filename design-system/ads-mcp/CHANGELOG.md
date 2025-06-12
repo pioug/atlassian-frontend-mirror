@@ -1,5 +1,30 @@
 # @atlaskit/ads-mcp
 
+## 0.1.5
+
+### Patch Changes
+
+- [#169983](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169983)
+  [`c72e85f165c1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c72e85f165c1b) -
+  Internal refactors to accomodate for platform entrypoint changes and component renames.
+
+## 0.1.4
+
+### Patch Changes
+
+- [#170150](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170150)
+  [`55295a0875e9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55295a0875e9c) -
+  Fix @atlaskit/ads-mcp when consumed via NPX (again)
+
+## 0.1.3
+
+### Patch Changes
+
+- [#169332](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169332)
+  [`d1551201c8a62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1551201c8a62) -
+  Internal refactors to accomodate for platform entrypoint changes.
+- Updated dependencies
+
 ## 0.1.2
 
 ### Patch Changes

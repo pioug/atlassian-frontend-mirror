@@ -75,6 +75,7 @@ function Basic() {
 					link-picker`). Without `onSubmitCapture` the entire page reloads when submitting the link
 					picker.
 				</p>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 				<a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
 					{link.displayText || link.url}
 				</a>

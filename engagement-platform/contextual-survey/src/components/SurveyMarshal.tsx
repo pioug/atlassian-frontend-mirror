@@ -8,14 +8,17 @@ import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
 
 import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
-import { surveyInnerWidth, surveyOffset } from '../constants';
+// 8px is the base unit in pixels
+const surveyOffset = token('space.600', '48px');
 
 type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited' | 'unmounted';
 
 const animationDuration: number = 300;
 const offscreen = {
-	translateX: `${surveyInnerWidth + surveyOffset}px`,
+	// Hard-coded because there is no large enough space token and this component is not responsive.
+	translateX: '488px', //survey container width + survey offset
 	opacity: '0',
 };
 
@@ -49,9 +52,9 @@ type Props = {
 const transitionBaseStyles = css({
 	position: 'fixed',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	right: `${surveyOffset}px`,
+	right: surveyOffset,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	bottom: `${surveyOffset}px`,
+	bottom: surveyOffset,
 	transitionProperty: 'transform, opacity',
 });
 

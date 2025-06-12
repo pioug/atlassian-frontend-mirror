@@ -1,5 +1,5 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -7,17 +7,13 @@ import { InternalActionName, SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context';
 import extractFlexibleUiContext from '../../extractors/flexible';
 import extractLinkTitle from '../../extractors/flexible/extract-link-title';
-import extractPreview, {
-	extractSmartLinkPreviewImage,
-} from '../../extractors/flexible/extract-preview';
+import { extractSmartLinkPreviewImage } from '../../extractors/flexible/extract-preview';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
-import extractProviderIcon, {
-	extractSmartLinkProviderIcon,
-} from '../../extractors/flexible/icon/extract-provider-icon';
+import { extractSmartLinkProviderIcon } from '../../extractors/flexible/icon/extract-provider-icon';
 import { type MessageKey, messages } from '../../messages';
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { handleOnClick } from '../../utils';
-import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
+import { getForbiddenJsonLd } from '../../utils/jsonld';
 
 import { type ExtractFlexibleUiDataContextParams, type RetryOptions } from './types';
 
@@ -46,12 +42,8 @@ export const getContextByStatus = (
 				linkTitle: fg('platform-linking-flexible-card-context')
 					? extractLinkTitle(status, url, response, onClick)
 					: undefined,
-				preview: fg('smart_links_noun_support')
-					? extractSmartLinkPreviewImage(response)
-					: extractPreview(response?.data as JsonLd.Data.BaseData),
-				provider: fg('smart_links_noun_support')
-					? extractSmartLinkProviderIcon(response)
-					: extractProviderIcon(response?.data as JsonLd.Data.BaseData),
+				preview: extractSmartLinkPreviewImage(response),
+				provider: extractSmartLinkProviderIcon(response),
 				actions: fg('platform-linking-flexible-card-unresolved-action')
 					? {
 							[InternalActionName.UnresolvedAction]: getRetryOptions(
@@ -94,10 +86,7 @@ export const getRetryOptions = (
 	response?: SmartLinkResponse,
 	onAuthorize?: (() => void) | undefined,
 ): RetryOptions | undefined => {
-	const data = (response && response.data) || getEmptyJsonLd();
-	const provider = fg('smart_links_noun_support')
-		? extractSmartLinkProvider(response)
-		: extractProvider(data as JsonLd.Data.BaseData);
+	const provider = extractSmartLinkProvider(response);
 
 	const context = provider?.text;
 	const values = context ? { context } : undefined;

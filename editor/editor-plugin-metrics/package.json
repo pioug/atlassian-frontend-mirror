@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-metrics",
-	"version": "3.4.8",
+	"version": "3.5.0",
 	"description": "Metrics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,6 +40,7 @@
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"
 	},
@@ -82,6 +83,11 @@
 			"styling": [
 				"static"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_controls_patch_13": {
+			"type": "boolean"
 		}
 	}
 }

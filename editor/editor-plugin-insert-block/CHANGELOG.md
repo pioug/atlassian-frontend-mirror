@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.2.13
+
+### Patch Changes
+
+- [#169610](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169610)
+  [`a398dc4bd5f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a398dc4bd5f45) -
+  Fix view more prop if `platform_editor_refactor_view_more` gate is on.
+- Updated dependencies
+
 ## 3.2.12
 
 ### Patch Changes

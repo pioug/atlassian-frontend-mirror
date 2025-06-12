@@ -142,34 +142,6 @@ describe('smart-card: card states, embed', () => {
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
-			it('embed: should render with metadata when resolved, as inline card - preview present, platform set', async () => {
-				const successWithPreviewOnWeb = {
-					...mocks.success,
-					data: {
-						...mocks.success.data,
-						preview: {
-							'@type': 'Link',
-							href: 'https://some/preview',
-							'atlassian:supportedPlatforms': ['web'],
-						},
-					},
-				} as JsonLd.Response;
-
-				mockFetch.mockImplementationOnce(async () => successWithPreviewOnWeb);
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card appearance="embed" url={mockUrl} platform="mobile" />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedViewName = await screen.findByText('I love cheese');
-				const resolvedViewDescription = await screen.findByTestId('inline-card-resolved-view');
-				expect(resolvedViewName).toBeInTheDocument();
-				expect(resolvedViewDescription).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-			});
-
 			it('should fetch again when URL changes', async () => {
 				const { rerender } = render(
 					<IntlProvider locale="en">

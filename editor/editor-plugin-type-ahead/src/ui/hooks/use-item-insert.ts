@@ -7,6 +7,7 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { closeTypeAhead } from '../../pm-plugins/commands/close-type-ahead';
 import { insertTypeAheadItem } from '../../pm-plugins/commands/insert-type-ahead-item';
@@ -29,6 +30,8 @@ type InsertRawQueryProps = {
 	text: string;
 	forceFocusOnEditor: boolean;
 };
+
+const onlyHasViewMoreItem = (items: Array<TypeAheadItem>) => items.at(0)?.title === 'View more';
 
 const insertRawQuery = ({
 	view,
@@ -84,7 +87,12 @@ export const useItemInsert = (
 	const onItemInsert = useCallback(
 		({ mode, index, query }: OnInsertSelectedItemProps) => {
 			const sourceListItem = itemsRef.current;
-			if (sourceListItem.length === 0 || !triggerHandler) {
+			if (
+				sourceListItem.length === 0 ||
+				!triggerHandler ||
+				// View more item is only added for keyboard navigation and should not be considered as a valid item to be inserted
+				(onlyHasViewMoreItem(sourceListItem) && fg('platform_editor_controls_patch_13'))
+			) {
 				const text = `${triggerHandler.trigger}${query}`;
 				onTextInsert({
 					forceFocusOnEditor: true,
@@ -124,7 +132,11 @@ export const useItemInsert = (
 				return false;
 			}
 
-			if (_items.length === 1) {
+			if (
+				_items.length === 1 &&
+				// View more item is only added for keyboard navigation and should not be considered as a valid item to be inserted
+				(!onlyHasViewMoreItem(_items) || !fg('platform_editor_controls_patch_13'))
+			) {
 				queueMicrotask(() => {
 					onItemInsert({ mode, query, index: 0 });
 				});

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::f60ef9eafffc62a551a72cf8806792c0>>
+ * @codegen <<SignedSource::271b1f4b4831f5e12477bee6e36a90f8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1656,14 +1656,15 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	hand: {
-		keywords: ['hand', 'icon', 'icon-lab', 'core', 'hand', 'grab', 'move', 'open palm'],
+		keywords: ['hand', 'icon', 'icon-lab', 'core', 'hand', 'farewell', 'wave'],
 		componentName: 'HandIcon',
 		package: '@atlaskit/icon-lab/core/hand',
 		type: 'core',
+		replacement: { name: 'hand-raised', type: 'core', location: '@atlaskit/icon-lab' },
 		categorization: 'multi-purpose',
-		usage: 'Used for move/hand tool in Whiteboards',
+		usage: 'Used for farewell feed in Atlassian Home.',
 		team: 'Whiteboards',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'hand-clenched': {
 		keywords: ['hand-clenched', 'handclenched', 'icon', 'icon-lab', 'core', 'whiteboards', 'grab'],

@@ -3,8 +3,8 @@ import React from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ChevronRightIcon from '@atlaskit/icon/core/migration/chevron-right';
 
 import { ChevronContainer } from './styled';
 
@@ -45,7 +45,13 @@ const Chevron = ({
 				appearance="subtle"
 				onClick={onExpandToggle}
 				spacing="compact"
-				icon={isExpanded ? ChevronDownIcon : ChevronRightIcon}
+				icon={(iconProps) =>
+					isExpanded ? (
+						<ChevronDownIcon {...iconProps} size="small" />
+					) : (
+						<ChevronRightIcon {...iconProps} size="small" />
+					)
+				}
 				aria-controls={isExpanded ? ariaControls : undefined}
 				label={isExpanded ? getLabel(collapseLabel) : getLabel(expandLabel)}
 			/>

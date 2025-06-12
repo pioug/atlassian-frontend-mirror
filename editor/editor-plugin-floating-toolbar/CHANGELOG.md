@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.2.0
+
+### Minor Changes
+
+- [#164841](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/164841)
+  [`9c4d557d5f6b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c4d557d5f6b5) -
+  Update floating toolbar plugin to dispatch analytics events on dropdown click.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.19
 
 ### Patch Changes

@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import { nodeVisibilityManager } from '../../node-visibility/node-visibility-manager';
+
 import { ShadowObserver, shadowObserverClassNames } from './shadowObserver';
 
 export const shadowClassNames = {
@@ -34,6 +38,7 @@ export default function overflowShadow<P>(
 		overflowContainerWidth: number = 0;
 		scrollable?: NodeList;
 		diff?: number;
+		visibilityManager?: ReturnType<typeof nodeVisibilityManager>;
 
 		state = {
 			showLeftShadow: false,
@@ -41,6 +46,8 @@ export default function overflowShadow<P>(
 		};
 
 		componentWillUnmount() {
+			this.visibilityManager?.disconnect();
+
 			if (options.useShadowObserver) {
 				return this.shadowObserver && this.shadowObserver.dispose();
 			}
@@ -149,10 +156,27 @@ export default function overflowShadow<P>(
 				return;
 			}
 
-			this.updateShadows();
-			// Ignored via go/ees005
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			this.overflowContainer.addEventListener('scroll', this.handleScroll);
+			if (expValEquals('platform_editor_defer_shadow_calculations', 'isEnabled', true)) {
+				// Initialize visibility manager
+				this.visibilityManager = nodeVisibilityManager(this.overflowContainer);
+				this.visibilityManager.initialiseNodeObserver();
+
+				// Observe the container for first visibility
+				this.visibilityManager.observe({
+					element: this.overflowContainer,
+					onFirstVisible: () => {
+						this.updateShadows();
+						// Ignored via go/ees005
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						this.overflowContainer?.addEventListener('scroll', this.handleScroll);
+					},
+				});
+			} else {
+				this.updateShadows();
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				this.overflowContainer.addEventListener('scroll', this.handleScroll);
+			}
 		};
 
 		initShadowObserver() {

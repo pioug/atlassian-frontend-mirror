@@ -1,5 +1,16 @@
 # @atlaskit/editor-statsig-tmp
 
+## 6.2.0
+
+### Minor Changes
+
+- [#166327](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166327)
+  [`56ba43df67f02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56ba43df67f02) -
+  ED-28157 implment reduced drop target logic
+- [#168590](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168590)
+  [`e9250f202882e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e9250f202882e) -
+  Added experiment to defer shadow calculations until node is visible
+
 ## 6.1.0
 
 ### Minor Changes

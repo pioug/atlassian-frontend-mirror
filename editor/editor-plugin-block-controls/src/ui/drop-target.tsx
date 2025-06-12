@@ -281,6 +281,7 @@ export const DropTarget = (
 		dropTargetStyle = 'default',
 		isSameLayout,
 	} = props;
+
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 	const { lineLength } = useDropTargetPluginState(api);
 

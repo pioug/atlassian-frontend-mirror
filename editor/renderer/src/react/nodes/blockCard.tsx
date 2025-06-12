@@ -150,6 +150,7 @@ export default function BlockCard(props: {
 				{...cardProps}
 				url={url}
 				onError={onError}
+				hideIconLoadingSkeleton={fg('platform_fix_block_card_img_icon_vc')}
 			/>
 		);
 	} else {

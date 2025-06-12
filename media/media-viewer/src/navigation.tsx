@@ -2,8 +2,8 @@
 import React from 'react';
 import { Component } from 'react';
 import { type Identifier } from '@atlaskit/media-client';
-import ArrowLeftCircleIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-circle';
-import ArrowRightCircleIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-circle';
+import ArrowLeftCircleIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-circle';
+import ArrowRightCircleIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-circle';
 import { hideControlsClassName } from '@atlaskit/media-ui';
 import { Shortcut } from '@atlaskit/media-ui';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -12,7 +12,7 @@ import { getSelectedIndex } from './utils';
 import { createNavigatedEvent } from './analytics/events/ui/navigated';
 import { fireAnalytics } from './analytics';
 import { Pressable, xcss } from '@atlaskit/primitives';
-import { type NewIconProps } from '@atlaskit/icon';
+import { type NewCoreIconProps } from '@atlaskit/icon';
 
 export type NavigationDirection = 'prev' | 'next';
 
@@ -63,7 +63,7 @@ type IconProps = {
 	testId: string;
 };
 
-const withIconWrapper = (Component: React.ComponentType<NewIconProps>) => {
+const withIconWrapper = (Component: React.ComponentType<NewCoreIconProps>) => {
 	return ({ label, clickHandler, testId }: IconProps) => (
 		<Pressable
 			xcss={[wrapperStyles, label === 'Next' ? iconRightStyles : iconLeftStyles]}
@@ -78,6 +78,7 @@ const withIconWrapper = (Component: React.ComponentType<NewIconProps>) => {
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 				LEGACY_secondaryColor="#161A1D"
 				color="currentColor"
+				size="small"
 			/>
 		</Pressable>
 	);

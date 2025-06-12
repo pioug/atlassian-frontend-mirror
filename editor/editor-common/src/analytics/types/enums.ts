@@ -369,6 +369,7 @@ export enum ACTION_SUBJECT_ID {
 	EXTENSION_BLOCK = 'extension',
 	EXTENSION_BODIED = 'bodiedExtension',
 	EXTENSION_INLINE = 'inlineExtension',
+	FLOATING_TOOLBAR_OVERFLOW = 'floatingToolbarOverflow',
 	FORMAT_BACKGROUND_COLOR = 'backgroundColor',
 	FORMAT_BLOCK_QUOTE = 'blockQuote',
 	FORMAT_CLEAR = 'clearFormatting',

@@ -9,7 +9,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import ButtonOld from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -78,11 +78,8 @@ const HoverCardForbiddenView = ({
 }: HoverCardForbiddenProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { cardState, url } = flexibleCardProps;
-	const data = cardState.details?.data as JsonLd.Data.BaseData;
 	const meta = cardState.details?.meta as JsonLd.Meta.BaseMeta;
-	const product = fg('smart_links_noun_support')
-		? extractSmartLinkProvider(cardState.details)?.text ?? ''
-		: extractProvider(data)?.text ?? '';
+	const product = extractSmartLinkProvider(cardState.details)?.text ?? '';
 	const hostname = <b>{extractHostname(url)}</b>;
 
 	const { action, descriptiveMessageKey, titleMessageKey, buttonDisabled } =

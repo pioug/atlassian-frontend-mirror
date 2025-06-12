@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/link-extractors';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
 
+import { getEmptyJsonLd } from '../../../utils/jsonld';
 import { prioritiseIcon } from '../icon/prioritiseIcon';
 
 export { extractRequestAccessContextImproved } from './extractAccessContext';
@@ -52,5 +53,5 @@ export function extractSmartLinkContext(response?: SmartLinkResponse): LinkProvi
 		return extractEntityProvider(response);
 	}
 
-	return generateContext(response?.data as JsonLd.Data.BaseData);
+	return generateContext((response?.data as JsonLd.Data.BaseData) || getEmptyJsonLd());
 }

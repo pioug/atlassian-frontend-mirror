@@ -8,12 +8,9 @@ const dev = fs.existsSync(project);
 let entrypoint = path.join(__dirname, 'dist', 'cjs', 'index.js');
 if (dev) {
 	entrypoint = path.join(__dirname, 'src', 'index');
-}
-
-// Even when distributed, `node dist/cjs/index.js` will not work due to
-// not having `@atlaskit/tokens` packaged for a pure node environment
-if (!require.extensions['.ts']) {
-	require('ts-node').register({ project });
+	if (!require.extensions['.ts']) {
+		require('ts-node').register({ project });
+	}
 }
 
 require(entrypoint);

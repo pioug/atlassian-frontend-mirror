@@ -1,9 +1,5 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
-	extractAri,
-	extractDateCreated,
-	extractDateUpdated,
-	extractLink,
 	extractPersonCreatedBy,
 	extractPersonOwnedBy,
 	extractSmartLinkAri,
@@ -13,9 +9,7 @@ import {
 	extractSmartLinkModifiedOn,
 	extractSmartLinkTitle,
 	extractSmartLinkUrl,
-	extractTitle,
 	extractType,
-	type LinkTypeCreated,
 } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -26,11 +20,11 @@ import { extractSummary } from '../common/primitives';
 import { extractFlexibleCardActions } from './actions';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
 import extractLinkTitle from './extract-link-title';
-import extractPreview, { extractSmartLinkPreviewImage } from './extract-preview';
+import { extractSmartLinkPreviewImage } from './extract-preview';
 import extractPriority from './extract-priority';
 import extractState from './extract-state';
-import { extractLinkIcon, extractSmartLinkIcon } from './icon';
-import extractProviderIcon, { extractSmartLinkProviderIcon } from './icon/extract-provider-icon';
+import { extractSmartLinkIcon } from './icon';
+import { extractSmartLinkProviderIcon } from './icon/extract-provider-icon';
 import { extractLatestCommit, type LinkTypeLatestCommit } from './latest-commit';
 import {
 	extractAppliedToComponentsCount,
@@ -38,13 +32,11 @@ import {
 	extractAttachmentCount,
 	extractChecklistProgress,
 	extractCommentCount,
-	extractCreatedBy,
 	extractDueOn,
 	extractLocation,
 	extractMetaObjectId,
 	extractMetaResourceType,
 	extractMetaTenantId,
-	extractModifiedBy,
 	extractOwnedBy,
 	extractPersonAssignedToAsArray,
 	extractProgrammingLanguage,
@@ -80,7 +72,7 @@ const extractFlexibleUiContext = ({
 	const data = response.data as JsonLd.Data.BaseData;
 	const meta = response.meta as JsonLd.Meta.BaseMeta;
 
-	const url = fg('smart_links_noun_support') ? extractSmartLinkUrl(response) : extractLink(data);
+	const url = extractSmartLinkUrl(response);
 
 	return {
 		actions: extractFlexibleCardActions({
@@ -106,36 +98,22 @@ const extractFlexibleUiContext = ({
 		reactCount: extractReactCount(data),
 		voteCount: extractVoteCount(data),
 		checklistProgress: extractChecklistProgress(data),
-		createdBy: fg('smart_links_noun_support')
-			? extractSmartLinkCreatedBy(response)
-			: extractCreatedBy(data),
+		createdBy: extractSmartLinkCreatedBy(response),
 		ownedBy: extractOwnedBy(data),
 		assignedTo: extractAssignedTo(data),
-		createdOn: fg('smart_links_noun_support')
-			? extractSmartLinkCreatedOn(response)
-			: extractDateCreated(data as LinkTypeCreated),
+		createdOn: extractSmartLinkCreatedOn(response),
 		dueOn: extractDueOn(data),
 		latestCommit: extractLatestCommit(data as LinkTypeLatestCommit),
-		linkIcon: fg('smart_links_noun_support')
-			? extractSmartLinkIcon(response)
-			: extractLinkIcon(response, renderers),
+		linkIcon: extractSmartLinkIcon(response),
 		...(fg('platform-linking-flexible-card-context') && {
 			linkTitle: extractLinkTitle(status, props.url, response, onClick),
 		}),
 		location: extractLocation(data),
-		modifiedBy: fg('smart_links_noun_support')
-			? extractSmartLinkModifiedBy(response)
-			: extractModifiedBy(data),
-		modifiedOn: fg('smart_links_noun_support')
-			? extractSmartLinkModifiedOn(response)
-			: extractDateUpdated(data),
-		preview: fg('smart_links_noun_support')
-			? extractSmartLinkPreviewImage(response)
-			: extractPreview(data),
+		modifiedBy: extractSmartLinkModifiedBy(response),
+		modifiedOn: extractSmartLinkModifiedOn(response),
+		preview: extractSmartLinkPreviewImage(response),
 		priority: extractPriority(data as JsonLd.Data.Task),
-		provider: fg('smart_links_noun_support')
-			? extractSmartLinkProviderIcon(response)
-			: extractProviderIcon(data),
+		provider: extractSmartLinkProviderIcon(response),
 		programmingLanguage: extractProgrammingLanguage(data),
 		readTime: extractReadTime(data),
 		sentOn: extractSentOn(data),
@@ -148,13 +126,9 @@ const extractFlexibleUiContext = ({
 		targetBranch: extractTargetBranch(data as JsonLd.Data.SourceCodePullRequest),
 		...(fg('platform-linking-flexible-card-context')
 			? undefined
-			: {
-					title: fg('smart_links_noun_support')
-						? extractSmartLinkTitle(response) || url
-						: extractTitle(data) || url,
-				}),
+			: { title: extractSmartLinkTitle(response) || url }),
 		url,
-		ari: fg('smart_links_noun_support') ? extractSmartLinkAri(response) : extractAri(data),
+		ari: extractSmartLinkAri(response),
 		...(fg('platform-linking-visual-refresh-v2') && {
 			type: extractType(data),
 		}),

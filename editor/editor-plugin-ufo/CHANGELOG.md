@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-ufo
 
+## 2.1.0
+
+### Minor Changes
+
+- [#168414](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168414)
+  [`c160484f9e220`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c160484f9e220) -
+  Cleaned up ufo plugin fg
+
 ## 2.0.7
 
 ### Patch Changes

@@ -7,4 +7,5 @@ export type ImageIconProps = {
 	onError?: () => void;
 	onLoad?: () => void;
 	appearance?: 'square' | 'round';
+	hideLoadingSkeleton?: boolean;
 };

@@ -13,4 +13,5 @@ export type FlexibleBlockCardProps = Pick<
 	| 'testId'
 	| 'url'
 	| 'CompetitorPrompt'
+	| 'hideIconLoadingSkeleton'
 >;

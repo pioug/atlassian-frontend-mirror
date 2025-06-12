@@ -3,10 +3,14 @@
  *
  * To change the format of this file, modify `createDeprecatedIconDocs` in icon-build-process/src/create-deprecated-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d01aafb179a71b77a8de873135768b69>>
+ * @codegen <<SignedSource::44a445bb9c0e68f40b044595df543c89>>
  * @codegenCommand yarn build:icon-glyphs
  */
 const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {
+	'@atlaskit/icon-lab/core/hand': {
+		message:
+			'The icon "hand" is deprecated in favour of "hand-raised" from “@atlaskit/icon-lab/core”',
+	},
 	'@atlaskit/icon-lab/core/hand-clenched': {
 		message:
 			'The icon "hand-clenched" is deprecated in favour of "hand-closed" from “@atlaskit/icon-lab/core”',

@@ -35,7 +35,22 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../../test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/design-system/badge/tsconfig.app.json"
+		},
+		{
 			"path": "../../../packages/design-system/code/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/design-system/css/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/design-system/lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/design-system/tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

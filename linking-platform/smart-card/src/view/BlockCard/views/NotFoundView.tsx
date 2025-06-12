@@ -9,8 +9,7 @@ import { useIntl } from 'react-intl-next';
 
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
-import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractProvider, extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -42,9 +41,7 @@ const NotFoundView = ({
 	} = props;
 
 	const product = useMemo(() => {
-		const provider = fg('smart_links_noun_support')
-			? extractSmartLinkProvider(details)
-			: extractProvider(details?.data as JsonLd.Data.BaseData);
+		const provider = extractSmartLinkProvider(details);
 		return provider?.text ?? '';
 	}, [details]);
 

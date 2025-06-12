@@ -137,6 +137,7 @@ Use "defaultValue" or "value" happy days :-).
 					{/* eslint-disable-next-line, jsx-a11y/label-has-for */}
 					<label htmlFor={`${groupName}--empty`}>Star Rating</label>
 					<VisuallyHidden testId={`input-container${actualValue === undefined ? '-checked' : ''}`}>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 						<input
 							id={`${groupName}--empty`}
 							data-testid={testId && `${testId}--input-empty`}

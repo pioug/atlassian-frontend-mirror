@@ -58,6 +58,7 @@ function Component({
 	resolvingPlaceholder,
 	truncateInline,
 	CompetitorPrompt,
+	hideIconLoadingSkeleton,
 }: CardWithUrlContentProps) {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
@@ -329,6 +330,7 @@ function Component({
 					testId={testId}
 					actionOptions={actionOptions}
 					CompetitorPrompt={CompetitorPrompt}
+					hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 				/>
 			);
 		case 'embed':

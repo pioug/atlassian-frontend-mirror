@@ -31,11 +31,11 @@ type props = {
 	layout: BreakoutMode;
 };
 
-export const ResizerBreakoutModeLabel = ({ layout: breaktoutLayout }: props) => {
+export const ResizerBreakoutModeLabel = ({ layout: breakoutLayout }: props) => {
 	const { formatMessage } = useIntl();
 
 	const message = React.useMemo(() => {
-		switch (breaktoutLayout) {
+		switch (breakoutLayout) {
 			case 'full-width':
 				return formatMessage(messages.fullWidthLabel);
 			case 'wide':
@@ -43,11 +43,11 @@ export const ResizerBreakoutModeLabel = ({ layout: breaktoutLayout }: props) => 
 			default:
 				return null;
 		}
-	}, [breaktoutLayout, formatMessage]);
+	}, [breakoutLayout, formatMessage]);
 
 	return (
 		message && (
-			<Box xcss={fullWidthLabelWrapperStyles}>
+			<Box testId="resizer-breakout-mode-label" xcss={fullWidthLabelWrapperStyles}>
 				<Inline xcss={fullWidthLabelStyles}>{message}</Inline>
 			</Box>
 		)

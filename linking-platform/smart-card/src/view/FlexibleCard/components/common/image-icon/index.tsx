@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 
+import { useEffect, useState } from 'react';
+
 import ImageLoader from 'react-render-image';
 
 import { cssMap, jsx } from '@atlaskit/css';
@@ -28,11 +30,21 @@ const ImageIcon = ({
 	appearance = 'square',
 	onError,
 	onLoad,
-}: ImageIconProps) => (
-	<ImageLoader
-		src={url}
-		loading={<LoadingSkeleton testId={`${testId}-loading`} width={width} height={height} />}
-		loaded={
+	hideLoadingSkeleton = false,
+}: ImageIconProps) => {
+	const [hasImageErrored, setHasImageErrored] = useState(false);
+
+	// If url changes, reset state
+	useEffect(() => {
+		setHasImageErrored(false);
+	}, [url]);
+
+	if (hasImageErrored) {
+		return defaultIcon;
+	}
+
+	if (hideLoadingSkeleton && fg('platform_fix_block_card_img_icon_vc')) {
+		return (
 			<img
 				src={url}
 				data-testid={`${testId}-image`}
@@ -42,12 +54,34 @@ const ImageIcon = ({
 					height,
 				}}
 				css={appearance === 'round' && fg('platform-linking-visual-refresh-v2') && styles.roundImg}
+				onError={() => setHasImageErrored(true)}
 			/>
-		}
-		errored={defaultIcon}
-		onError={onError}
-		onLoad={onLoad}
-	/>
-);
+		);
+	} else {
+		return (
+			<ImageLoader
+				src={url}
+				loading={<LoadingSkeleton testId={`${testId}-loading`} width={width} height={height} />}
+				loaded={
+					<img
+						src={url}
+						data-testid={`${testId}-image`}
+						alt=""
+						style={{
+							width,
+							height,
+						}}
+						css={
+							appearance === 'round' && fg('platform-linking-visual-refresh-v2') && styles.roundImg
+						}
+					/>
+				}
+				errored={defaultIcon}
+				onError={onError}
+				onLoad={onLoad}
+			/>
+		);
+	}
+};
 
 export default ImageIcon;

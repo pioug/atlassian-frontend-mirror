@@ -29,6 +29,7 @@ export type VCObserverOptions = {
 	selectorConfig?: SelectorConfig | undefined;
 	isPostInteraction?: boolean;
 	ssrEnablePageLayoutPlaceholder?: boolean;
+	disableSizeAndPositionCheck?: { v: boolean; h: boolean };
 };
 
 export interface VCObserverInterface {

@@ -3,6 +3,7 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	Fragment,
+	Mark,
 	MarkType,
 	Node as PMNode,
 	type ResolvedPos,
@@ -10,6 +11,7 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -253,6 +255,16 @@ const removeBreakoutMarks = (tr: Transaction, $from: ResolvedPos, to: number) =>
 
 	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
 		tr.doc.nodesBetween($from.pos, to, (node, pos, parent) => {
+			// should never remove breakout from previous layoutSection
+			if (
+				expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+				fg('platform_editor_breakout_resizing_hello_release')
+			) {
+				if (node.type.name === 'layoutSection') {
+					return false;
+				}
+			}
+
 			// breakout doesn't exist on nested nodes
 			if (parent?.type.name === 'doc' && node.marks.some((m) => m.type === breakout)) {
 				tr.removeNodeMark(pos, breakout);
@@ -299,6 +311,34 @@ const getBreakoutMode = (content: PMNode | Fragment, breakout: MarkType) => {
 	}
 };
 
+const getBreakoutModeAndWidth = (content: PMNode | Fragment, breakout: MarkType) => {
+	const findBreakoutMark = (node: PMNode) => node.marks.find((m) => m.type === breakout);
+
+	const extractBreakoutAttributes = (mark?: Mark) =>
+		mark ? { breakoutMode: mark.attrs.mode, breakoutWidth: mark.attrs.width } : null;
+
+	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+		if (content instanceof PMNode) {
+			return extractBreakoutAttributes(findBreakoutMark(content));
+		} else if (content instanceof Fragment) {
+			// Find the first breakout mode in the fragment
+			for (let i = 0; i < content.childCount; i++) {
+				const child = content.child(i);
+				const breakoutMark = findBreakoutMark(child);
+				if (breakoutMark) {
+					return extractBreakoutAttributes(breakoutMark);
+				}
+			}
+		}
+	} else {
+		// Without multi-select support, we can assume source content is of type PMNode
+		if (content instanceof PMNode) {
+			return extractBreakoutAttributes(findBreakoutMark(content));
+		}
+	}
+	return null;
+};
+
 // TODO: ED-26959 - As part of platform_editor_element_drag_and_drop_multiselect clean up,
 // source content variable that has type of `PMNode | Fragment` should be updated to `Fragment` only
 export const moveToLayout =
@@ -323,8 +363,19 @@ export const moveToLayout =
 
 		// get breakout mode from destination node,
 		// if not found, get from source node,
-		const breakoutMode =
-			getBreakoutMode(toNode, breakout) || getBreakoutMode(sourceContent, breakout);
+		let breakoutMode;
+		let breakoutWidth;
+		if (
+			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+			fg('platform_editor_breakout_resizing_hello_release')
+		) {
+			({ breakoutMode, breakoutWidth } =
+				getBreakoutModeAndWidth(toNode, breakout) ||
+				getBreakoutModeAndWidth(sourceContent, breakout) ||
+				{});
+		} else {
+			breakoutMode = getBreakoutMode(toNode, breakout) || getBreakoutMode(sourceContent, breakout);
+		}
 
 		// we don't want to remove marks when moving/re-ordering layoutSection
 		const shouldRemoveMarks = !(
@@ -434,10 +485,20 @@ export const moveToLayout =
 
 				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize).insert(mappedTo, newLayout);
 
-				breakoutMode &&
-					tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
-						breakout.create({ mode: breakoutMode }),
-					]);
+				if (
+					expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					fg('platform_editor_breakout_resizing_hello_release')
+				) {
+					breakoutMode &&
+						tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
+							breakout.create({ mode: breakoutMode, width: breakoutWidth }),
+						]);
+				} else {
+					breakoutMode &&
+						tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
+							breakout.create({ mode: breakoutMode }),
+						]);
+				}
 
 				if (fg('platform_editor_column_count_analytics')) {
 					// layout created via drag and drop will always be 2 columns

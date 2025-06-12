@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 2.7.2
+
+### Patch Changes
+
+- [#168875](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168875)
+  [`b118c9669e117`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b118c9669e117) -
+  Clean up design-system-select-fix-placement
+- Updated dependencies
+
 ## 2.7.1
 
 ### Patch Changes

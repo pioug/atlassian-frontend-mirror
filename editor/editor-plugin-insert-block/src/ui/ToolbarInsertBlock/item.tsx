@@ -23,6 +23,7 @@ import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
 import CalendarIcon from '@atlaskit/icon/core/migration/calendar--editor-date';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
+import ExpandNodeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-circle';
 import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
 import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
 import GridIcon from '@atlaskit/icon/core/migration/grid--editor-table';
@@ -38,7 +39,6 @@ import TaskIcon from '@atlaskit/icon/core/task';
 import CheckboxCheckedIconLegacy from '@atlaskit/icon/glyph/editor/task';
 import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
 import StatusIconLegacy from '@atlaskit/icon/glyph/status';
-import ExpandNodeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-circle';
 
 import { shallowEquals } from './shallow-equals';
 
@@ -262,7 +262,7 @@ export const expand = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'expand',
-		Icon: ExpandNodeIcon,
+		Icon: (iconProps) => <ExpandNodeIcon label={iconProps.label} size="small" />,
 	}),
 );
 

@@ -20,8 +20,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 import { Label, ValidMessage } from '@atlaskit/form';
-import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down--hipchat-chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up--hipchat-chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
@@ -307,7 +307,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 						<div css={nextPreviousItemStyles}>
 							<FindReplaceTooltipButton
 								title={this.findNext}
-								icon={ChevronDownIcon}
+								icon={(iconProps) => <ChevronDownIcon label={iconProps.label} size="small" />}
 								iconLabel={this.findNext}
 								keymapDescription={'Enter'}
 								onClick={this.handleFindNextClick}
@@ -318,7 +318,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 						<div css={nextPreviousItemStyles}>
 							<FindReplaceTooltipButton
 								title={this.findPrevious}
-								icon={ChevronUpIcon}
+								icon={(iconProps) => <ChevronUpIcon label={iconProps.label} size="small" />}
 								iconLabel={this.findPrevious}
 								keymapDescription={'Shift Enter'}
 								onClick={this.handleFindPrevClick}

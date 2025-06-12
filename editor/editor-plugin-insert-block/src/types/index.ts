@@ -62,6 +62,11 @@ export interface InsertBlockPluginOptions {
 	insertMenuItems?: any;
 	horizontalRuleEnabled?: boolean;
 	nativeStatusSupported?: boolean;
+	/**
+	 * To hide the element browser "view more" button in the
+	 * overflow dropdown menu
+	 * @default undefined Does not show the view more by default
+	 */
 	showElementBrowserLink?: boolean;
 	tableSelectorSupported?: boolean;
 	appearance?: EditorAppearance;

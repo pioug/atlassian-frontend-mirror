@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e079436629a7c8a93f2e19fff4b54af>>
+ * @codegen <<SignedSource::f2d54c89ecdccbc3b56d013f2c8c47c9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Hand".
  * Category: multi-purpose
  * Location: @atlaskit/icon-lab
- * Usage guidance: Used for move/hand tool in Whiteboards
+ * Usage guidance: Used for farewell feed in Atlassian Home.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

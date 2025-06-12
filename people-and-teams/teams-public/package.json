@@ -118,7 +118,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.36.0",
+	"version": "0.36.2",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -130,6 +130,12 @@
 	},
 	"platform-feature-flags": {
 		"loom_tab_in_container_linker_team_profile_page": {
+			"type": "boolean"
+		},
+		"enable_medium_size_icons_for_team_link_cards": {
+			"type": "boolean"
+		},
+		"should-render-to-parent-should-be-true-people-and-": {
 			"type": "boolean"
 		}
 	}

@@ -5,7 +5,7 @@
 import { type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandler } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
-import CrossIcon from '@atlaskit/icon/utility/migration/cross--editor-close';
+import CloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -139,7 +139,7 @@ const RemoveButton = ({
 			onMouseOut={onMouseOut}
 			testId={testId}
 		>
-			<CrossIcon color="currentColor" label="" LEGACY_size="small" />
+			<CloseIcon color="currentColor" label="" LEGACY_size="small" size="small" />
 		</Pressable>
 	);
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "10.0.18",
+	"version": "11.0.0",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -26,11 +26,15 @@
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.3",
 		"codesandboxer": "^1.0.3",
 		"pretty-proptypes": "^1.7.0",
 		"react-markings": "^1.3.0",
@@ -41,6 +45,11 @@
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/badge": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^14.4.3",
 		"enzyme": "^3.10.0",
 		"jest-in-case": "^1.0.2",
 		"react-dom": "^18.2.0",

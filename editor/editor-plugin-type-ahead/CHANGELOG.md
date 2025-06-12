@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 2.7.14
+
+### Patch Changes
+
+- [#169326](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169326)
+  [`f93af5ddb6981`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f93af5ddb6981) -
+  [ED-28214] Fix a bug where in quick insert, editor loses focus and query disappears after pressing
+  space when there's no matching result
+
 ## 2.7.13
 
 ### Patch Changes

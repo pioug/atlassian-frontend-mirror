@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-metrics
 
+## 3.5.0
+
+### Minor Changes
+
+- [#168315](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168315)
+  [`9b42791b3f3c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b42791b3f3c2) -
+  ED-28215 Add toolbar docking preference to activitySession ended event
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.8
 
 ### Patch Changes

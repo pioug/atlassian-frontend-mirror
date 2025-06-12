@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 import { isEntityPresent } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import type { CardState } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../../constants';
 import { addMetadataToExperience } from '../../analytics';
@@ -27,9 +26,7 @@ const useResolve = () => {
 					details: undefined,
 				} as CardState);
 
-			const hasData = fg('smart_links_noun_support')
-				? !!((details && details.data) || isEntityPresent(details))
-				: !!(details && details.data);
+			const hasData = !!((details && details.data) || isEntityPresent(details));
 
 			if (isReloading || !hasData || isMetadataRequest) {
 				return connections.client

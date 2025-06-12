@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.17
+
+### Patch Changes
+
+- [#167076](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167076)
+  [`7f006256ff129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f006256ff129) -
+  [ED-27801] Update strikethrough icon to use DS icon
+
 ## 2.2.16
 
 ### Patch Changes

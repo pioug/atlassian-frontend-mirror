@@ -124,6 +124,7 @@ export const PredefinedAvatarView = ({
 		const elementKey = `predefined-avatar-${idx}`;
 		return (
 			<label key={elementKey} css={labelStyles}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
 				<input
 					type="radio"
 					name="avatar"

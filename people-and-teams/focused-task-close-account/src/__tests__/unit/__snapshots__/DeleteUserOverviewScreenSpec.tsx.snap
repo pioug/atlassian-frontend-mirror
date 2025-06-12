@@ -142,9 +142,9 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
-                defaultMessage="For example, pages, issues, and comments they've created in products."
+                defaultMessage="For example, pages, work items, and comments they've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
-                id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin"
+                id="focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin"
               />
             }
             placement="auto-start"
@@ -530,9 +530,9 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
-                defaultMessage="For example, pages, issues, and comments they've created in products."
+                defaultMessage="For example, pages, work items, and comments they've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
-                id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin"
+                id="focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin"
               />
             }
             placement="auto-start"
@@ -679,9 +679,9 @@ exports[`delete screen display content is different when user is deactivated 1`]
           <StatefulInlineDialog
             content={
               <Memo(MemoizedFormattedMessage)
-                defaultMessage="For example, pages, issues, and comments they've created in products."
+                defaultMessage="For example, pages, work items, and comments they've created in products."
                 description="Examples of what constitutes as created content. Appears when the user hovers over the info icon"
-                id="focused-task-close-account.delete-account.overview.inline-dialog.content-created.admin"
+                id="focused-task-close-account.delete-account.overview.inline-dialog.content-created-issue-refresh.admin"
               />
             }
             placement="auto-start"

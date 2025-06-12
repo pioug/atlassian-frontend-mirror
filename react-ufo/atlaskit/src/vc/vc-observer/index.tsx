@@ -112,7 +112,7 @@ export class VCObserver implements VCObserverInterface {
 		this.devToolsEnabled = options.devToolsEnabled || false;
 		this.oldDomUpdatesEnabled = options.oldDomUpdates || false;
 
-		const { ssrEnablePageLayoutPlaceholder } = options;
+		const { ssrEnablePageLayoutPlaceholder, disableSizeAndPositionCheck } = options;
 
 		this.observers = new Observers({
 			selectorConfig: options.selectorConfig || {
@@ -122,7 +122,10 @@ export class VCObserver implements VCObserverInterface {
 				className: true,
 				dataVC: true,
 			},
-			SSRConfig: { enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false },
+			SSRConfig: {
+				enablePageLayoutPlaceholder: ssrEnablePageLayoutPlaceholder || false,
+				disableSizeAndPositionCheck: disableSizeAndPositionCheck,
+			},
 		});
 
 		this.heatmap = !isVCRevisionEnabled('fy25.01') ? [] : this.getCleanHeatmap();

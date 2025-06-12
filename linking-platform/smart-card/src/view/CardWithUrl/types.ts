@@ -39,4 +39,5 @@ export type CardWithUrlContentProps = {
 	resolvingPlaceholder?: string;
 	truncateInline?: boolean;
 	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
+	hideIconLoadingSkeleton?: boolean;
 };

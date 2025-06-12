@@ -17,8 +17,18 @@ async function getVCMetrics(
 	if (!config?.vc?.enabled) {
 		return {};
 	}
-	if (interaction.type !== 'page_load' && interaction.type !== 'transition') {
-		return {};
+	if (fg('platform_ufo_enable_interactions_vc')) {
+		if (
+			interaction.type !== 'page_load' &&
+			interaction.type !== 'transition' &&
+			interaction.type !== 'press'
+		) {
+			return {};
+		}
+	} else {
+		if (interaction.type !== 'page_load' && interaction.type !== 'transition') {
+			return {};
+		}
 	}
 	const interactionStatus = getInteractionStatus(interaction);
 	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
@@ -32,7 +42,9 @@ async function getVCMetrics(
 		return {};
 	}
 
-	const isSSREnabled = config?.ssr || config?.vc.ssrWhitelist?.includes(interaction.ufoName);
+	const isSSREnabled =
+		interaction.type === 'page_load' &&
+		(config?.ssr || config?.vc.ssrWhitelist?.includes(interaction.ufoName));
 
 	const ssr =
 		interaction.type === 'page_load' && isSSREnabled ? { ssr: getSSRDoneTimeValue(config) } : null;

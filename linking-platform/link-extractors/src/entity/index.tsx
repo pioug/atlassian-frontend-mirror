@@ -3,12 +3,13 @@ import React from 'react';
 import type { EntityType, ProviderGenerator, SmartLinkResponse } from '@atlaskit/linking-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LinkProvider } from '../common';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../common/constants';
 
 export const extractEntity = (response?: SmartLinkResponse): EntityType | undefined =>
-	response?.entityData;
+	fg('smart_links_noun_support') ? response?.entityData : undefined;
 
 export const isEntityPresent = (response?: SmartLinkResponse): boolean =>
 	Boolean(extractEntity(response));

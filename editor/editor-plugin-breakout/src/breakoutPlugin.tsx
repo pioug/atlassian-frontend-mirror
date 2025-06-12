@@ -21,13 +21,15 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { type EditorView, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin, BreakoutPluginState } from './breakoutPluginType';
 import { pluginKey } from './pm-plugins/plugin-key';
-import { createResizingPlugin } from './pm-plugins/resizing-plugin';
+import { createResizingPlugin, resizingPluginKey } from './pm-plugins/resizing-plugin';
 import { findSupportedNodeForBreakout } from './pm-plugins/utils/find-breakout-node';
 import { getBreakoutMode } from './pm-plugins/utils/get-breakout-mode';
+import { GuidelineLabel } from './ui/GuidelineLabel';
 import type { Props as LayoutButtonProps } from './ui/LayoutButton';
 import LayoutButton from './ui/LayoutButton';
 
@@ -112,6 +114,7 @@ function createPlugin(
 			init() {
 				return {
 					breakoutNode: undefined,
+					activeGuidelineKey: undefined,
 				};
 			},
 			apply(tr: ReadonlyTransaction, pluginState: BreakoutPluginState) {
@@ -242,7 +245,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 	name: 'breakout',
 
 	pmPlugins() {
-		if (editorExperiment('platform_editor_breakout_resizing', true)) {
+		if (expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)) {
 			return [
 				{
 					name: 'breakout-resizing',
@@ -259,6 +262,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 			},
 		];
 	},
+
 	marks() {
 		return [{ name: 'breakout', mark: breakout }];
 	},
@@ -268,6 +272,22 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 			return {
 				breakoutNode: undefined,
 			};
+		}
+
+		if (
+			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+			fg('platform_editor_breakout_resizing_hello_release')
+		) {
+			const resizingPluginState = resizingPluginKey.getState(editorState);
+
+			if (!resizingPluginState) {
+				return {
+					breakoutNode: undefined,
+					activeGuidelineKey: undefined,
+				};
+			}
+
+			return resizingPluginState;
 		}
 
 		const pluginState = pluginKey.getState(editorState);
@@ -287,6 +307,21 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 		popupsBoundariesElement,
 		popupsScrollableElement,
 	}) {
+		if (
+			expValEquals('platform_editor_breakout_resizing', 'isEnabled', true) &&
+			fg('platform_editor_breakout_resizing_hello_release')
+		) {
+			return (
+				<GuidelineLabel
+					api={api}
+					editorView={editorView}
+					mountPoint={popupsMountPoint}
+					boundariesElement={popupsBoundariesElement}
+					scrollableElement={popupsScrollableElement}
+				/>
+			);
+		}
+
 		// This is a bit crappy, but should be resolved once we move to a static schema.
 		if (options && !options.allowBreakoutButton) {
 			return null;

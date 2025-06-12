@@ -47,6 +47,10 @@ type ConstructorOptions = {
 	selectorConfig: SelectorConfig;
 	SSRConfig?: {
 		enablePageLayoutPlaceholder: boolean;
+		disableSizeAndPositionCheck?: {
+			v: boolean;
+			h: boolean;
+		};
 	};
 };
 
@@ -103,9 +107,10 @@ export class Observers implements BrowserObservers {
 		};
 		this.intersectionObserver = this.getIntersectionObserver();
 		this.mutationObserver = this.getMutationObserver();
-		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers(
-			opts.SSRConfig?.enablePageLayoutPlaceholder,
-		);
+		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers({
+			enablePageLayoutPlaceholder: opts.SSRConfig?.enablePageLayoutPlaceholder,
+			disableSizeAndPositionCheck: opts.SSRConfig?.disableSizeAndPositionCheck,
+		});
 	}
 
 	isBrowserSupported() {

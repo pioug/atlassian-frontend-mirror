@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { type FileIdentifier } from '@atlaskit/media-client';
 import { Navigation, NavigationBase, prevNavButtonId, nextNavButtonId } from '../../../navigation';
-import ArrowLeftCircleIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-circle';
-import ArrowRightCircleIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-circle';
+import ArrowLeftCircleIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-circle';
+import ArrowRightCircleIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-circle';
 import { KeyboardEventWithKeyCode } from '@atlaskit/media-test-helpers';
 
 /**

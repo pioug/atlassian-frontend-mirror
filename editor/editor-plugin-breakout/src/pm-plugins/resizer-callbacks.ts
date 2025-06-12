@@ -23,7 +23,8 @@ import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
 
 import { getGuidelines } from './get-guidelines';
 import { LOCAL_RESIZE_PROPERTY } from './resizing-mark-view';
-import { generateResizeFrameRatePayloads } from './utils/analytics';
+import { resizingPluginKey } from './resizing-plugin';
+import { generateResizeFrameRatePayloads, generateResizedEventPayload } from './utils/analytics';
 import { measureFramerate, reduceResizeFrameRateSamples } from './utils/measure-framerate';
 
 const RESIZE_RATIO = 2;
@@ -104,14 +105,25 @@ export function createResizerCallbacks({
 				startMeasure();
 			}
 
+			const pos = view.posAtDOM(dom, 0);
+			node = view.state.doc.nodeAt(pos);
+
 			api?.core.actions.execute(({ tr }) => {
 				api.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
 				tr.setMeta('is-resizer-resizing', true);
+				if (fg('platform_editor_breakout_resizing_hello_release')) {
+					tr.setMeta(resizingPluginKey, {
+						type: 'UPDATE_BREAKOUT_NODE',
+						data: {
+							node,
+							pos,
+							start: pos,
+							depth: 0,
+						},
+					});
+				}
 				return tr;
 			});
-
-			const pos = view.posAtDOM(dom, 0);
-			node = view.state.doc.nodeAt(pos);
 		},
 		onDrag: ({ location, source }) => {
 			if (fg('platform_editor_breakout_resizing_hello_release')) {
@@ -122,6 +134,31 @@ export function createResizerCallbacks({
 
 			guidelines = getGuidelines(true, newWidth, getEditorWidth, node?.type);
 			api?.guideline?.actions?.displayGuideline(view)({ guidelines });
+
+			if (fg('platform_editor_breakout_resizing_hello_release')) {
+				const activeGuideline = guidelines.find(
+					(guideline) => guideline.active && !guideline.key.startsWith('grid'),
+				);
+
+				if (activeGuideline) {
+					api?.core.actions.execute(({ tr }) => {
+						tr.setMeta(resizingPluginKey, {
+							type: 'UPDATE_ACTIVE_GUIDELINE_KEY',
+							data: { activeGuidelineKey: activeGuideline.key },
+						});
+						return tr;
+					});
+				}
+
+				if (!activeGuideline && api?.breakout.sharedState.currentState()?.activeGuidelineKey) {
+					api?.core.actions.execute(({ tr }) => {
+						tr.setMeta(resizingPluginKey, {
+							type: 'CLEAR_ACTIVE_GUIDELINE_KEY',
+						});
+						return tr;
+					});
+				}
+			}
 
 			contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
 		},
@@ -138,7 +175,7 @@ export function createResizerCallbacks({
 			}
 
 			const isResizedToFullWidth = !!guidelines.find(
-				(guideline) => guideline.key.includes('full_width') && guideline.active,
+				(guideline) => guideline.key.startsWith('full_width') && guideline.active,
 			);
 
 			guidelines = getGuidelines(false, 0, getEditorWidth);
@@ -154,13 +191,27 @@ export function createResizerCallbacks({
 			setBreakoutWidth(newWidth, mode, pos)(view.state, view.dispatch);
 
 			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
+			if (node && fg('platform_editor_breakout_resizing_hello_release')) {
+				const resizedPayload = generateResizedEventPayload({
+					node,
+					prevWidth: initialWidth,
+					newWidth,
+				});
+				payloads.push(resizedPayload);
+			}
 
 			api?.core.actions.execute(({ tr }) => {
 				api.userIntent?.commands.setCurrentUserIntent('default')({ tr });
-				tr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
 				payloads.forEach((payload) => {
 					api.analytics?.actions?.attachAnalyticsEvent(payload)(tr);
 				});
+
+				tr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
+
+				if (fg('platform_editor_breakout_resizing_hello_release')) {
+					tr.setMeta(resizingPluginKey, { type: 'RESET_STATE' });
+				}
+
 				return tr;
 			});
 		},

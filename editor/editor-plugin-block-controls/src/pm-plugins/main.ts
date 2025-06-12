@@ -30,9 +30,14 @@ import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-sc
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { BlockControlsPlugin, PluginState } from '../blockControlsPluginType';
+import type {
+	ActiveDropTargetNode,
+	BlockControlsPlugin,
+	PluginState,
+} from '../blockControlsPluginType';
 import { BLOCK_MENU_ENABLED } from '../ui/consts';
 
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
@@ -42,6 +47,7 @@ import {
 	findHandleDec,
 } from './decorations-drag-handle';
 import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-target';
+import { getActiveDropTargetDecorations } from './decorations-drop-target-active';
 import {
 	findQuickInsertInsertButtonDecoration,
 	quickInsertButtonDecoration,
@@ -362,7 +368,18 @@ export const apply = (
 	multiSelectDnD = meta?.multiSelectDnD ?? multiSelectDnD;
 
 	if (multiSelectDnD && flags.isMultiSelectEnabled) {
-		multiSelectDnD = meta?.isDragging === false || tr.selection.empty ? undefined : multiSelectDnD;
+		if (
+			(meta?.isDragging ?? isDragging) &&
+			expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
+		) {
+			// When dragging, we want to keep the multiSelectDnD object unless both document and selection
+			// has changed, in which case we want to reset it.
+			const shouldResetMultiSelectDnD = tr.docChanged && tr.selectionSet && tr.selection.empty;
+			multiSelectDnD = shouldResetMultiSelectDnD ? undefined : multiSelectDnD;
+		} else {
+			multiSelectDnD =
+				meta?.isDragging === false || tr.selection.empty ? undefined : multiSelectDnD;
+		}
 	}
 
 	const maybeNodeCountChanged = !isAllText && numReplaceSteps > 0;
@@ -561,9 +578,30 @@ export const apply = (
 		decorations = decorations.remove(dropTargetDecs);
 	}
 
-	// Add drop targets when dragging starts or some are missing
+	let currentActiveDropTargetNode: ActiveDropTargetNode | undefined = isDragging
+		? currentState.activeDropTargetNode
+		: undefined;
+
 	if (api) {
-		if (meta?.isDragging || isDropTargetsMissing) {
+		if (expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)) {
+			if (meta?.activeDropTargetNode) {
+				currentActiveDropTargetNode = meta?.activeDropTargetNode as ActiveDropTargetNode;
+				const decos = getActiveDropTargetDecorations(
+					meta.activeDropTargetNode,
+					newState,
+					api,
+					formatMessage,
+					nodeViewPortalProviderAPI,
+					latestActiveNode,
+				);
+
+				decorations = decorations.remove(findDropTargetDecs(decorations));
+				if (decos.length > 0) {
+					decorations = decorations.add(newState.doc, decos);
+				}
+			}
+		} else if (meta?.isDragging || isDropTargetsMissing) {
+			// Add drop targets when dragging starts or some are missing
 			const decs = dropTargetDecorations(
 				newState,
 				api,
@@ -626,6 +664,7 @@ export const apply = (
 	return {
 		decorations,
 		activeNode: newActiveNode,
+		activeDropTargetNode: currentActiveDropTargetNode,
 		isDragging: meta?.isDragging ?? isDragging,
 		isMenuOpen: isMenuOpenNew,
 		menuTriggerBy: editorExperiment('platform_editor_controls', 'variant1')
@@ -756,8 +795,37 @@ export const createPlugin = (
 
 					return false;
 				},
-				dragenter(_view: EditorView, event: DragEvent) {
-					if (isAdvancedLayoutEnabled) {
+				dragenter(view: EditorView, event: DragEvent) {
+					if (
+						isHTMLElement(event.target) &&
+						expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
+					) {
+						const targetElement = event.target.closest('[data-prosemirror-node-name]');
+						if (targetElement) {
+							const nodeTypeName = targetElement?.getAttribute('data-prosemirror-node-name');
+
+							const pos = view.posAtDOM(targetElement, -1);
+
+							const currentActiveDropTargetNode =
+								api?.blockControls.sharedState.currentState()?.activeDropTargetNode;
+
+							if (
+								currentActiveDropTargetNode?.pos !== pos ||
+								currentActiveDropTargetNode?.nodeTypeName !== nodeTypeName
+							) {
+								const activeDropTargetNode: ActiveDropTargetNode = {
+									pos,
+									nodeTypeName,
+								};
+
+								view.dispatch(
+									view.state.tr.setMeta(key, {
+										activeDropTargetNode,
+									}),
+								);
+							}
+						}
+					} else if (isAdvancedLayoutEnabled) {
 						if (isHTMLElement(event.target)) {
 							const closestParentElement = event.target.closest(
 								'[data-drag-handler-anchor-depth="0"]',

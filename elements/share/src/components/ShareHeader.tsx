@@ -9,6 +9,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { messages } from '../i18n';
 
 export type Props = {
+	isExtendedShareDialogEnabled?: boolean;
 	title?: React.ReactNode;
 };
 const headerWrapperStyles = xcss({
@@ -22,15 +23,25 @@ const headerWrapperStyles = xcss({
 	lineHeight: 'space.400',
 });
 
-export const ShareHeader = ({ title }: Props) => {
+const headerWrapperExtraSpaceStyles = xcss({
+	marginBottom: 'space.200',
+});
+
+export const ShareHeader = ({ isExtendedShareDialogEnabled, title }: Props) => {
+	const headingSize = isExtendedShareDialogEnabled ? 'medium' : 'small';
+
 	return (
-		<Box xcss={headerWrapperStyles}>
+		<Box
+			xcss={[headerWrapperStyles, isExtendedShareDialogEnabled && headerWrapperExtraSpaceStyles]}
+		>
 			{fg('share-header-accessibility') ? (
-				<Heading size="small" as="h2">
+				<Heading size={headingSize} as="h2">
 					{title || <FormattedMessage {...messages.formTitle} />}
 				</Heading>
 			) : (
-				<Heading size="small">{title || <FormattedMessage {...messages.formTitle} />}</Heading>
+				<Heading size={headingSize}>
+					{title || <FormattedMessage {...messages.formTitle} />}
+				</Heading>
 			)}
 		</Box>
 	);

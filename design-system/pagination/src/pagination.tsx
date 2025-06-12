@@ -4,8 +4,8 @@ import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/an
 import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
-import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
-import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
+import ChevronRightLargeIcon from '@atlaskit/icon/core/migration/chevron-right--chevron-right-large';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -54,7 +54,12 @@ function NavigatorIcon({ chevronDirection }: { chevronDirection: 'left' | 'right
 
 	return (
 		<Box as="span" xcss={styles.navigatorIconWrapper}>
-			<Chevron label="" LEGACY_margin={`0 ${token('space.negative.075')}`} color="currentColor" />
+			<Chevron
+				label=""
+				LEGACY_margin={`0 ${token('space.negative.075')}`}
+				color="currentColor"
+				size="small"
+			/>
 		</Box>
 	);
 }

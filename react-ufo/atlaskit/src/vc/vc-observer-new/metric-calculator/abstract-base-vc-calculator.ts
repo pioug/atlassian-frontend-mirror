@@ -7,7 +7,7 @@ import type {
 	VCIgnoreReason,
 	VCRatioType,
 } from '../../../common/vc/types';
-import { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
+import type { VCRevisionDebugDetails } from '../../vc-observer/getVCRevisionDebugDetails';
 import type { VCObserverEntry, ViewportEntryData } from '../types';
 
 import { calculateTTVCPercentilesWithDebugInfo } from './percentile-calc';

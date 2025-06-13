@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
-import { Box, Flex, Stack } from '@atlaskit/primitives';
+import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 

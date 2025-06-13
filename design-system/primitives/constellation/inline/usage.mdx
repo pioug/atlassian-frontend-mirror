@@ -53,9 +53,23 @@ the list items and set the font size to zero to get the same visual results whil
 semantics across browsers and assistive technologies.
 
 ```tsx
-<Box as="li" xcss={xcss({ '::marker': { fontSize: 0 } })}>
-	Example
-</Box>
+const recommendedStyles = cssMap({
+	list: {
+		'&::marker': {
+			fontSize: '0',
+		},
+	},
+});
+
+export default function Example() {
+	return (
+		<Inline as="ul">
+			<li css={recommendedStyles.list}>Item 1</li>
+			<li css={recommendedStyles.list}>Item 2</li>
+			<li css={recommendedStyles.list}>Item 3</li>
+		</Inline>
+	);
+}
 ```
 
 Alternatively, if you do need to use `list-style-type: none` you can add add `role="list"` to the
@@ -65,4 +79,4 @@ Alternatively, if you do need to use `list-style-type: none` you can add add `ro
 
 - [Use box for a generic container with access to design tokens](/components/primitives/box/usage)
 - [Manage vertical layout using a stack component](/components/primitives/stack/usage)
-- [Use design tokens in code with XCSS](/components/primitives/XCSS/usage)
+- [Use design tokens in code with cssMap](/components/css/overview#cssmap)

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import MaximizeIcon from '@atlaskit/icon/core/migration/maximize--image-resize';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import { Hide } from '@atlaskit/primitives/responsive';
 
 export default function Example() {

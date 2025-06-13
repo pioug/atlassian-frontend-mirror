@@ -1,6 +1,6 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { stopEditing } from './commands';
+import { mouseEnter, mouseLeave, stopEditing } from './commands';
 import { getInteractionTrackingState } from './pm-plugin';
 
 export const handleMouseMove = (view: EditorView) => {
@@ -9,6 +9,15 @@ export const handleMouseMove = (view: EditorView) => {
 	if (state?.isEditing) {
 		stopEditing(view);
 	}
+	return false;
+};
 
+export const handleMouseLeave = (view: EditorView) => {
+	mouseLeave(view);
+	return false;
+};
+
+export const handleMouseEnter = (view: EditorView) => {
+	mouseEnter(view);
 	return false;
 };

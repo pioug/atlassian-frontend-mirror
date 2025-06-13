@@ -33,10 +33,10 @@ Pressable is unstyled by default, aside from basic focus styles.
 
 <Example Component={PressableDefault} packageName="@atlaskit/primitives/pressable" />
 
-## Basic styling with XCSS
+## Basic styling
 
 Pressable can be styled further using the design system styling API,
-[XCSS](/components/primitives/xcss).
+[cssMap](/components/css/overview#cssmap).
 
 Make sure styling indicates the interaction state using `:hover` and `:active` pseudo-classes.
 
@@ -44,7 +44,7 @@ Make sure styling indicates the interaction state using `:hover` and `:active` p
 
 ## Advanced styling
 
-Use a combination of XCSS and other primitives for more complex designs.
+Use a combination of `cssMap` and other primitives for more complex designs.
 
 <Example
 	Component={PressableStyled}
@@ -55,7 +55,7 @@ Use a combination of XCSS and other primitives for more complex designs.
 ## Disabled
 
 You can disable pressable buttons with the `isDisabled` prop. Disabled styles should be applied and
-defined conditionally using XCSS.
+defined conditionally using `cssMap`.
 
 Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so
 wherever possible, avoid using `isDisabled`. Instead, use validation or other techniques to show

@@ -9,3 +9,11 @@ export const stopEditing = (view: EditorView) => {
 export const startEditing = (view: EditorView) => {
 	view.dispatch(view.state.tr.setMeta(interactionTrackingPluginKey, { type: 'startEditing' }));
 };
+
+export const mouseLeave = (view: EditorView) => {
+	view.dispatch(view.state.tr.setMeta(interactionTrackingPluginKey, { type: 'mouseLeave' }));
+};
+
+export const mouseEnter = (view: EditorView) => {
+	view.dispatch(view.state.tr.setMeta(interactionTrackingPluginKey, { type: 'mouseEnter' }));
+};

@@ -1,6 +1,6 @@
 import type { ReactElement, ReactNode } from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import { type Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';

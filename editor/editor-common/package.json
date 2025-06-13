@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "106.6.0",
+	"version": "106.6.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -390,9 +390,6 @@
 			"type": "boolean"
 		},
 		"forge-ui-macro-autoconvert": {
-			"type": "boolean"
-		},
-		"platform_editor_remove_quick_insert_priority_key": {
 			"type": "boolean"
 		},
 		"platform_editor_add_media_from_url_rollout": {

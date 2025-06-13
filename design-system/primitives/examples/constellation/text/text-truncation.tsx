@@ -1,10 +1,19 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+const styles = cssMap({
+	box: {
+		width: '220px',
+	},
+});
 
 export default () => {
 	return (
-		<Box xcss={boxStyles}>
+		<Box xcss={styles.box}>
 			<Stack space="space.300">
 				<Text maxLines={1}>
 					This text truncates within one line and displays an ellipsis at the end of the content to
@@ -22,7 +31,3 @@ export default () => {
 		</Box>
 	);
 };
-
-const boxStyles = xcss({
-	width: '220px',
-});

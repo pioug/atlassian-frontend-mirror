@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 7.0.0
+
+### Major Changes
+
+- [#170188](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170188)
+  [`c762dff80948d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c762dff80948d) -
+  [EDITOR-787] Removed retry experiment related code
+
 ## 6.2.0
 
 ### Minor Changes

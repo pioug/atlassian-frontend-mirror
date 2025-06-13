@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ElementName, IconType } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { BaseBadgeElement, BaseBadgeElementProps, toBadgeProps } from '../common';
+import { BaseBadgeElement, type BaseBadgeElementProps, toBadgeProps } from '../common';
 
 export type ProgrammingLanguageElementProps = BaseBadgeElementProps;
 

@@ -24,9 +24,12 @@ Add an entry to your `mcp.json` (eg. `~/.cursor/mcp.json` or wherever your MCP c
 
 ## Development
 
-Modify the json above replacing `@atlaskit/ads-mcp` with a local path, eg.:
+Modify your MCP config, replacing `@atlaskit/ads-mcp` with a local path, for example:
 
 ```diff
--"@atlaskit/ads-mcp"
-+"~/git/atlassian/atlassian-frontend-monorepo/platform/packages/design-system/ads-mcp"
+-"args": ["-y", "@atlaskit/ads-mcp"]
++"args": [
++  "-y",
++  "~/git/atlassian/atlassian-frontend-monorepo/platform/packages/design-system/ads-mcp",
++]
 ```

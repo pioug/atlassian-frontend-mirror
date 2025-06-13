@@ -5,7 +5,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import Heading from '@atlaskit/heading';
 import StoryIcon from '@atlaskit/icon-object/glyph/story/16';
 import StarStarredIcon from '@atlaskit/icon/core/migration/star-starred--star-filled';
-import { Inline } from '@atlaskit/primitives';
+import { Inline } from '@atlaskit/primitives/compiled';
 
 const ActionsMenu = () => (
 	<DropdownMenu shouldRenderToParent trigger="Actions">

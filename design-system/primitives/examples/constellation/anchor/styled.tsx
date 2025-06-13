@@ -1,40 +1,47 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { type IconProps } from '@atlaskit/icon';
 import Blog24Icon from '@atlaskit/icon-object/glyph/blog/24';
 import Improvement24Icon from '@atlaskit/icon-object/glyph/improvement/24';
 import Page24Icon from '@atlaskit/icon-object/glyph/page/24';
-import { Anchor, Box, Grid, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
-import { media } from '@atlaskit/primitives/responsive';
+import { Anchor, Box, Grid, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const anchorStyles = xcss({
-	color: 'color.text',
-	backgroundColor: 'elevation.surface',
-	padding: 'space.200',
-	textDecoration: 'none',
-	borderColor: 'color.border',
-	borderStyle: 'solid',
-	borderWidth: 'border.width',
-	borderRadius: '3px',
-
-	':hover': {
-		backgroundColor: 'elevation.surface.hovered',
+const styles = cssMap({
+	anchor: {
+		color: token('color.text'),
+		backgroundColor: token('elevation.surface'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
 		textDecoration: 'none',
-	},
-	':active': {
-		backgroundColor: 'elevation.surface.pressed',
-	},
-});
+		borderColor: token('color.border'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		borderRadius: '3px',
 
-const iconContainerStyles = xcss({
-	width: '24px',
-	display: 'flex',
-});
-
-const gridStyles = xcss({
-	[media.above.sm]: {
-		gridTemplateColumns: '1fr 1fr',
+		'&:hover': {
+			backgroundColor: token('elevation.surface.hovered'),
+			textDecoration: 'none',
+		},
+		'&:active': {
+			backgroundColor: token('elevation.surface.pressed'),
+		},
+	},
+	iconContainer: {
+		width: '24px',
+		display: 'flex',
+	},
+	grid: {
+		'@media (min-width: 48rem)': {
+			gridTemplateColumns: '1fr 1fr',
+		},
+		rowGap: token('space.100'),
+		columnGap: token('space.100'),
+		gridTemplateColumns: '1fr',
 	},
 });
 
@@ -48,10 +55,10 @@ type PageLinkProps = {
 
 const PageLink = ({ href, title, space, lastVisited, icon: Icon }: PageLinkProps) => {
 	return (
-		<Anchor href={href} xcss={anchorStyles}>
+		<Anchor href={href} xcss={styles.anchor}>
 			<Stack space="space.100">
 				<Inline space="space.150" alignBlock="center">
-					<Box xcss={iconContainerStyles}>
+					<Box xcss={styles.iconContainer}>
 						<Icon label="" />
 					</Box>
 					<Stack>
@@ -77,7 +84,7 @@ export default function Styled() {
 			<Heading as="h2" size="small">
 				Pick up where you left off
 			</Heading>
-			<Grid rowGap="space.100" columnGap="space.100" templateColumns="1fr" xcss={gridStyles}>
+			<Grid xcss={styles.grid}>
 				<PageLink
 					href="/components/primitives/overview"
 					icon={Blog24Icon}

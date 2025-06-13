@@ -1,8 +1,8 @@
 import { extractSmartLinkTitle, extractSmartLinkUrl } from '@atlaskit/link-extractors';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import { SmartLinkStatus } from '../../constants';
-import { LinkTitle } from '../../state/flexible-ui-context/types';
+import type { LinkTitle } from '../../state/flexible-ui-context/types';
 
 const extractLinkTitle = (
 	status?: string,

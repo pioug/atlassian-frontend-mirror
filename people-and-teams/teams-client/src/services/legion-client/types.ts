@@ -1,12 +1,12 @@
-import { type TeamMembership } from '../../types/membership';
-import {
+import type { TeamMembership } from '../../types/membership';
+import type {
 	ExternalReference,
-	type ScopeMode,
-	type TeamDiscoverability,
-	type TeamMembershipSettings,
-	type TeamPermission,
-	type TeamRestriction,
-	type TeamState,
+	ScopeMode,
+	TeamDiscoverability,
+	TeamMembershipSettings,
+	TeamPermission,
+	TeamRestriction,
+	TeamState,
 } from '../../types/team';
 
 export interface LegionTeamImagesResponse {

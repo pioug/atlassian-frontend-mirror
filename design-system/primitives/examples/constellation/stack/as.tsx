@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 export default function Example() {
 	return (

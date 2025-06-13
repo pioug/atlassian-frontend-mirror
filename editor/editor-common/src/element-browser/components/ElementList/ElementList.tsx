@@ -407,6 +407,8 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 							key={key}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 -- Ignored via go/DSP-18766
 							className="element-item-wrapper"
+							role="gridcell"
+							tabIndex={0}
 							css={elementItemWrapper}
 							onKeyDown={(e) => {
 								if (e.key === 'Tab') {
@@ -459,6 +461,7 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 
 	return (
 		<Grid
+			containerRole="row"
 			cellRenderer={cellRenderer}
 			height={height}
 			width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)

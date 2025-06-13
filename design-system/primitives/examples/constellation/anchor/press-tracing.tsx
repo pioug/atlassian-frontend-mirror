@@ -1,40 +1,39 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
 import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import Image from '@atlaskit/image';
 import InteractionContext from '@atlaskit/interaction-context';
-import { Anchor, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Anchor, Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import ButtonIcon from '../../images/button.png';
 import ThemesIcon from '../../images/themes.png';
 import WatermelonIcon from '../../images/watermelon.png';
 
-const anchorStyles = xcss({
-	color: 'color.text',
-	textDecoration: 'none',
-
-	':hover': {
-		color: 'color.text',
-		textDecoration: 'underline',
-	},
-	':active': {
+const styles = cssMap({
+	anchor: {
+		color: token('color.text'),
 		textDecoration: 'none',
-	},
-	':visited': {
-		color: 'color.link.visited',
-	},
-	':visited:active': {
-		color: 'color.link.visited.pressed',
-	},
-});
 
-const iconContainerStyles = xcss({
-	width: '24px',
-	display: 'flex',
+		'&:hover': {
+			color: token('color.text'),
+			textDecoration: 'underline',
+		},
+		'&:active': {
+			textDecoration: 'none',
+		},
+		'&:visited': {
+			color: token('color.link.visited'),
+		},
+	},
+	iconContainer: {
+		width: '24px',
+		display: 'flex',
+	},
 });
 
 type ProjectLinkProps = {
@@ -45,9 +44,9 @@ type ProjectLinkProps = {
 
 const ProjectLink = ({ children, icon, id }: ProjectLinkProps) => {
 	return (
-		<Anchor href="#" xcss={anchorStyles} interactionName={`anchor-${id}`}>
+		<Anchor href="#" xcss={styles.anchor} interactionName={`anchor-${id}`}>
 			<Inline space="space.150" alignBlock="center">
-				<Box xcss={iconContainerStyles}>
+				<Box xcss={styles.iconContainer}>
 					<Image src={icon} alt="" />
 				</Box>
 				{children}

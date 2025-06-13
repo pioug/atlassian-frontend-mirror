@@ -56,14 +56,14 @@ import {
 	ViewCount,
 	VoteCount,
 } from './components/elements';
-import {
-	type BaseBadgeElementProps,
-	type BaseDateTimeElementProps,
-	type BaseIconElementProps,
-	type BaseLinkElementProps,
-	type BaseTextElementProps,
+import type {
+	BaseBadgeElementProps,
+	BaseDateTimeElementProps,
+	BaseIconElementProps,
+	BaseLinkElementProps,
+	BaseTextElementProps,
 } from './components/elements/common';
-import { PreviewElementProps } from './components/elements/preview-element';
+import type { PreviewElementProps } from './components/elements/preview-element';
 
 // ---- EXPORTED METADATA COMPONENT ---- //
 export const AssignedToElement = () => <AssignedTo />;

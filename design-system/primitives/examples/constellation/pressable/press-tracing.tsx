@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
 
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import { FlagsProvider, useFlags } from '@atlaskit/flag';
 import Heading from '@atlaskit/heading';
@@ -7,25 +12,111 @@ import CheckMarkIcon from '@atlaskit/icon/core/migration/check-mark--check';
 import InformationIcon from '@atlaskit/icon/core/migration/information--info';
 import InteractionContext from '@atlaskit/interaction-context';
 import { ZoomIn } from '@atlaskit/motion';
-import { Box, Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-const baseStyles = xcss({
-	borderWidth: 'border.width',
-	borderStyle: 'solid',
-	borderColor: 'color.border',
-	borderRadius: '3px',
-	height: '44px',
-	width: '44px',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
+const styles = cssMap({
+	base: {
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		borderRadius: '3px',
+		height: '44px',
+		width: '44px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+});
+
+const colorStyles = cssMap({
+	Red: {
+		backgroundColor: token('color.background.accent.red.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.red.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.red.subtle.pressed'),
+		},
+	},
+	Orange: {
+		backgroundColor: token('color.background.accent.orange.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.orange.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.orange.subtle.pressed'),
+		},
+	},
+	Yellow: {
+		backgroundColor: token('color.background.accent.yellow.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.yellow.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.yellow.subtle.pressed'),
+		},
+	},
+	Lime: {
+		backgroundColor: token('color.background.accent.lime.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.lime.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.lime.subtle.pressed'),
+		},
+	},
+	Green: {
+		backgroundColor: token('color.background.accent.green.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.green.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.green.subtle.pressed'),
+		},
+	},
+	Teal: {
+		backgroundColor: token('color.background.accent.teal.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.teal.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.teal.subtle.pressed'),
+		},
+	},
+	Blue: {
+		backgroundColor: token('color.background.accent.blue.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.blue.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.blue.subtle.pressed'),
+		},
+	},
+	Purple: {
+		backgroundColor: token('color.background.accent.purple.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.purple.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.purple.subtle.pressed'),
+		},
+	},
+	Magenta: {
+		backgroundColor: token('color.background.accent.magenta.subtle'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.magenta.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.magenta.subtle.pressed'),
+		},
+	},
 });
 
 type ColorButtonProps = {
-	color: keyof typeof colorMap;
+	color: keyof typeof colorStyles;
 	isSelected?: boolean;
 	onClick?(): void;
 };
@@ -35,7 +126,7 @@ const ColorButton = ({ color, isSelected, onClick }: ColorButtonProps) => {
 		<Tooltip content={color}>
 			<Pressable
 				interactionName={`color-${color.toLowerCase()}`}
-				xcss={[baseStyles, colorMap[color]]}
+				xcss={cx(styles.base, colorStyles[color])}
 				aria-pressed={isSelected}
 				onClick={onClick}
 			>
@@ -60,7 +151,7 @@ const ColorButton = ({ color, isSelected, onClick }: ColorButtonProps) => {
 };
 
 const ColorPaletteButtons = () => {
-	const [selectedColor, setSelectedColor] = useState<keyof typeof colorMap | null>('Red');
+	const [selectedColor, setSelectedColor] = useState<keyof typeof colorStyles | null>('Red');
 
 	const { showFlag } = useFlags();
 
@@ -91,8 +182,8 @@ const ColorPaletteButtons = () => {
 				</Heading>
 				<Box role="group" aria-labelledby="epic-heading">
 					<Inline space="space.100">
-						{Object.keys(colorMap).map((color) => {
-							const keyColor = color as keyof typeof colorMap;
+						{Object.keys(colorStyles).map((color) => {
+							const keyColor = color as keyof typeof colorStyles;
 							return (
 								<ColorButton
 									key={keyColor}
@@ -116,96 +207,3 @@ export default function PressTracing() {
 		</FlagsProvider>
 	);
 }
-
-const colorMap = {
-	Red: xcss({
-		backgroundColor: 'color.background.accent.red.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.red.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.red.subtle.pressed',
-		},
-	}),
-	Orange: xcss({
-		backgroundColor: 'color.background.accent.orange.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.orange.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.orange.subtle.pressed',
-		},
-	}),
-	Yellow: xcss({
-		backgroundColor: 'color.background.accent.yellow.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.yellow.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.yellow.subtle.pressed',
-		},
-	}),
-	Lime: xcss({
-		backgroundColor: 'color.background.accent.lime.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.lime.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.lime.subtle.pressed',
-		},
-	}),
-	Green: xcss({
-		backgroundColor: 'color.background.accent.green.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.green.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.green.subtle.pressed',
-		},
-	}),
-	Teal: xcss({
-		backgroundColor: 'color.background.accent.teal.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.teal.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.teal.subtle.pressed',
-		},
-	}),
-	Blue: xcss({
-		backgroundColor: 'color.background.accent.blue.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.blue.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.blue.subtle.pressed',
-		},
-	}),
-	Purple: xcss({
-		backgroundColor: 'color.background.accent.purple.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.purple.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.purple.subtle.pressed',
-		},
-	}),
-	Magenta: xcss({
-		backgroundColor: 'color.background.accent.magenta.subtle',
-
-		':hover': {
-			backgroundColor: 'color.background.accent.magenta.subtle.hovered',
-		},
-		':active': {
-			backgroundColor: 'color.background.accent.magenta.subtle.pressed',
-		},
-	}),
-};

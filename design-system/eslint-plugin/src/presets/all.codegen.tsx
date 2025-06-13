@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b96d8bb5115de6e0a230feef152a1365>>
+ * @codegen <<SignedSource::aaf4f1ee2f2db236ebed7b77de426181>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -9,6 +9,7 @@ export default {
 	plugins: ['@atlaskit/design-system'],
 	rules: {
 		'@atlaskit/design-system/consistent-css-prop-usage': 'error',
+		'@atlaskit/design-system/enforce-inline-styles-in-select': 'error',
 		'@atlaskit/design-system/ensure-design-token-usage': 'error',
 		'@atlaskit/design-system/ensure-design-token-usage/preview': 'warn',
 		'@atlaskit/design-system/ensure-icon-color': 'error',

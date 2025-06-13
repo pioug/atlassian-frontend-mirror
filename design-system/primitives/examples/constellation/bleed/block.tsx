@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Bleed, Box, Stack } from '@atlaskit/primitives';
+import { Bleed, Box, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 

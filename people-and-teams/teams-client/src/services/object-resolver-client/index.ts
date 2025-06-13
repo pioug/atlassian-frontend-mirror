@@ -1,11 +1,11 @@
 import { DEFAULT_CONFIG } from '../constants';
 import { RestClient } from '../rest-client';
 
-import {
+import type {
 	GetAriFromUrlResponse,
-	type IconItemFailure,
-	type IconItemSuccess,
-	type LinkIconData,
+	IconItemFailure,
+	IconItemSuccess,
+	LinkIconData,
 } from './types';
 import { transformIconData } from './utils';
 

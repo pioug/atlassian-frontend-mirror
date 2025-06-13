@@ -18,7 +18,10 @@ import { getActiveInteraction } from '../../interaction-metrics';
 import type { GetVCResultType, VCObserverInterface, VCObserverOptions } from '../types';
 
 import { attachAbortListeners } from './attachAbortListeners';
-import { getVCRevisionDebugDetails, VCRevisionDebugDetails } from './getVCRevisionDebugDetails';
+import {
+	getVCRevisionDebugDetails,
+	type VCRevisionDebugDetails,
+} from './getVCRevisionDebugDetails';
 import { getVCRevisionsData } from './getVCRevisionsData';
 import { getViewportHeight, getViewportWidth } from './getViewport';
 import { type ObservedMutationType, Observers } from './observers';

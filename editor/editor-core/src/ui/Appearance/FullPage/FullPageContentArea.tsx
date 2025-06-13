@@ -94,7 +94,7 @@ const scrollStyles = css(
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-const ScrollContainer = createEditorContentStyle(scrollStyles);
+export const ScrollContainer = createEditorContentStyle(scrollStyles);
 ScrollContainer.displayName = 'ScrollContainer';
 
 const EditorContainer = componentWithCondition(

@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
 
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
-const baseStyles = xcss({
-	paddingBlock: 'space.500',
-	width: '100%',
-	borderRadius: '3px',
-});
+const styles = cssMap({
+	base: {
+		paddingBlock: token('space.500'),
+		width: '100%',
+		borderRadius: '3px',
+	},
 
-const enabledStyles = xcss({
-	backgroundColor: 'color.background.accent.green.bolder',
-});
+	enabled: {
+		backgroundColor: token('color.background.accent.green.bolder'),
+	},
 
-const disabledStyles = xcss({
-	backgroundColor: 'color.background.accent.gray.bolder',
+	disabled: {
+		backgroundColor: token('color.background.accent.gray.bolder'),
+	},
 });
 
 export default function ConditionalStyles() {
@@ -26,7 +34,7 @@ export default function ConditionalStyles() {
 				<p>Toggle background color:</p>
 				<Toggle onChange={() => setEnabled((current) => !current)} />
 			</Inline>
-			<Box xcss={[baseStyles, isEnabled ? enabledStyles : disabledStyles]} />
+			<Box xcss={cx(styles.base, isEnabled ? styles.enabled : styles.disabled)} />
 		</Box>
 	);
 }

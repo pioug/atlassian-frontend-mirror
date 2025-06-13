@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Inline } from '@atlaskit/primitives';
-import Anchor from '@atlaskit/primitives/anchor';
+import { Anchor, Inline } from '@atlaskit/primitives/compiled';
 
 export default function Analytics() {
 	const handleEvent = useCallback((event: UIAnalyticsEvent, channel?: string) => {

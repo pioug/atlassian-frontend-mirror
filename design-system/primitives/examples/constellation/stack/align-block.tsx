@@ -1,12 +1,18 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
-const containerStyles = xcss({
-	display: 'flex',
+const styles = cssMap({
+	container: {
+		display: 'flex',
+		height: '200px',
+	},
 });
 
 export default function Example() {
@@ -15,13 +21,7 @@ export default function Example() {
 			<Inline space="space.200" spread="space-between">
 				<Stack alignInline="center" space="space.200">
 					<Heading size="xsmall">Start alignment</Heading>
-					<Box
-						xcss={containerStyles}
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: '200px',
-						}}
-					>
+					<Box xcss={styles.container}>
 						<Stack space="space.050" alignBlock="start">
 							<ExampleBox />
 							<ExampleBox />
@@ -31,13 +31,7 @@ export default function Example() {
 				</Stack>
 				<Stack alignInline="center">
 					<Heading size="xsmall">Center alignment</Heading>
-					<Box
-						xcss={containerStyles}
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: '200px',
-						}}
-					>
+					<Box xcss={styles.container}>
 						<Stack space="space.050" alignBlock="center">
 							<ExampleBox />
 							<ExampleBox />
@@ -47,13 +41,7 @@ export default function Example() {
 				</Stack>
 				<Stack alignInline="center">
 					<Heading size="xsmall">End alignment</Heading>
-					<Box
-						xcss={containerStyles}
-						style={{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							height: '200px',
-						}}
-					>
+					<Box xcss={styles.container}>
 						<Stack space="space.050" alignBlock="end">
 							<ExampleBox />
 							<ExampleBox />

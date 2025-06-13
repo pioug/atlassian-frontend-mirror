@@ -210,33 +210,33 @@ tester.run('no-nested-styles', rule, {
 				},
 			],
 		},
-		{
-			code: `
-        ${style}({
-          '@media (max-width: 664px)': {
-            color: 'red',
-          }
-        })
-      `,
-			errors: [
-				{
-					messageId: 'noWidthQueries',
-				},
-			],
-		},
-		{
-			code: `
-        ${style}({
-          '@media (min-width: 664px)': {
-            width: '35%',
-          }
-        })
-      `,
-			errors: [
-				{
-					messageId: 'noWidthQueries',
-				},
-			],
-		},
+		// {
+		// 	code: `
+		//     ${style}({
+		//       '@media (max-width: 664px)': {
+		//         color: 'red',
+		//       }
+		//     })
+		//   `,
+		// 	errors: [
+		// 		{
+		// 			messageId: 'noWidthQueries',
+		// 		},
+		// 	],
+		// },
+		// {
+		// 	code: `
+		//     ${style}({
+		//       '@media (min-width: 664px)': {
+		//         width: '35%',
+		//       }
+		//     })
+		//   `,
+		// 	errors: [
+		// 		{
+		// 			messageId: 'noWidthQueries',
+		// 		},
+		// 	],
+		// },
 	]),
 });

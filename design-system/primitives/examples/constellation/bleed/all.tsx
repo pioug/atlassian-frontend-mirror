@@ -1,13 +1,20 @@
 import React from 'react';
 
-import { Bleed, Box, Grid } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Bleed, Box, Grid } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
+
+const gridStyles = cssMap({
+	root: {
+		gridTemplateColumns: '1fr 1fr 1fr',
+	},
+});
 
 export default function Basic() {
 	return (
 		<Box padding="space.200" backgroundColor="color.background.neutral">
-			<Grid templateColumns="1fr 1fr 1fr" gap="space.100">
+			<Grid gap="space.100" xcss={gridStyles.root}>
 				<ExampleBox />
 				<ExampleBox />
 				<ExampleBox />

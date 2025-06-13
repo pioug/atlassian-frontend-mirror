@@ -1,0 +1,171 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__link-datasource/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../uip/atlassian-context/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar-group/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/badge/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/datetime-picker/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-object/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/image/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/inline-edit/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/intl-messages-provider/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-ast/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-editor/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../jql/jql-editor-autocomplete-rest/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/layering/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/link/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../link-client-extension/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/logo/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/lozenge/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/popup/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/react-select/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../smart-card/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../smart-experiences/smart-user-picker/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tag/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/temp-nav-app-icons/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../data/ufo-external/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-townsquare/tsconfig.json"
+		}
+	]
+}

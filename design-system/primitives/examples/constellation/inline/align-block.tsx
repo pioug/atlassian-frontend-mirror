@@ -1,25 +1,32 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
-import { Box, Flex, Inline, media, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
-const flexStyles = xcss({
-	flexDirection: 'column',
-	[media.above.lg]: {
-		flexDirection: 'row',
+const styles = cssMap({
+	flex: {
+		flexDirection: 'column',
+		'@media (min-width: 90rem)': {
+			flexDirection: 'row',
+		},
 	},
-});
 
-const visualContainerStyles = xcss({
-	display: 'flex',
-	borderRadius: '2px',
-	height: 'size.600',
+	visualContainer: {
+		display: 'flex',
+		borderRadius: '2px',
+		height: '6rem',
+	},
 });
 
 export default function Example() {
 	return (
-		<Flex xcss={flexStyles} justifyContent="space-between">
+		<Flex xcss={styles.flex} justifyContent="space-between">
 			<Stack alignInline="center">
 				"start" (default)
 				<VisualContainer>
@@ -75,7 +82,7 @@ export default function Example() {
 }
 
 const VisualContainer = ({ children }: { children: ReactNode }) => (
-	<Box backgroundColor="color.background.neutral" padding="space.050" xcss={visualContainerStyles}>
+	<Box backgroundColor="color.background.neutral" padding="space.050" xcss={styles.visualContainer}>
 		{children}
 	</Box>
 );

@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 207.19.5
+
+### Patch Changes
+
+- [#170715](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170715)
+  [`c173b44f2590c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c173b44f2590c) -
+  fix scrollbar styles issue under static emotion refactor
+
+## 207.19.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 207.19.3
 
 ### Patch Changes

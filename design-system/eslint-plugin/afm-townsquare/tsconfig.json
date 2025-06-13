@@ -1,0 +1,36 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"lib": [
+			"ES2021.String"
+		],
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__eslint-plugin-design-system/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../eslint-utils/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-townsquare/tsconfig.json"
+		}
+	]
+}

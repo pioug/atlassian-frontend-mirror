@@ -17,7 +17,7 @@ import TextIcon from '@atlaskit/icon/core/text';
 import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { NORMAL_TEXT } from '../../block-types';
@@ -58,7 +58,8 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 	const toolipTextStyles = props.formatMessage(toolbarMessages.textStylesTooltip);
 
 	const icon =
-		editorExperiment('platform_editor_controls', 'variant1') && props.blockTypeIcon ? (
+		expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+		props.blockTypeIcon ? (
 			props.blockTypeIcon
 		) : (
 			<TextIcon
@@ -70,11 +71,16 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 		);
 
 	const chevronIconSpacing =
-		props.isSmall &&
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_4')
+		expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+		((props.isSmall && fg('platform_editor_controls_patch_4')) ||
+			(!props.isSmall && fg('platform_editor_controls_patch_13')))
 			? 'spacious'
 			: 'none';
+
+	const shouldUseIconAsButton =
+		props.isSmall ||
+		(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
+			fg('platform_editor_controls_patch_13'));
 
 	return (
 		<ToolbarButton
@@ -97,7 +103,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 				>
 					{
 						<React.Fragment>
-							{props.isSmall && icon}
+							{shouldUseIconAsButton && icon}
 							<span
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={expandIconContainerStyle}
@@ -115,7 +121,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 				</span>
 			}
 		>
-			{!props.isSmall && (
+			{!shouldUseIconAsButton && (
 				<Box
 					xcss={[buttonContentStyle, props.isReducedSpacing && buttonContentReducedSpacingStyle]}
 				>

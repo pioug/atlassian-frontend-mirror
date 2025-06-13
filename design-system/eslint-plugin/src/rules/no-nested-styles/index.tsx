@@ -68,19 +68,19 @@ const getKeyValue = (node: Rule.Node, context: Rule.RuleContext): string => {
 	return '';
 };
 
-const isWidthMediaQuery = (rawSelector: string): boolean => {
-	const selectors = parseSelector(rawSelector);
+// const isWidthMediaQuery = (rawSelector: string): boolean => {
+// 	const selectors = parseSelector(rawSelector);
 
-	if (selectors[0].startsWith('@')) {
-		// If the selector includes a min-width/max-width query, return false - the primitives media object should be used instead:
-		// https://staging.atlassian.design/components/primitives/responsive/breakpoints/examples
-		// Otherwise return true, non-width queries are acceptable
-		return selectors.some(
-			(selector) => selector.includes('min-width') || selector.includes('max-width'),
-		);
-	}
-	return false;
-};
+// 	if (selectors[0].startsWith('@')) {
+// 		// If the selector includes a min-width/max-width query, return false - the primitives media object should be used instead:
+// 		// https://staging.atlassian.design/components/primitives/responsive/breakpoints/examples
+// 		// Otherwise return true, non-width queries are acceptable
+// 		return selectors.some(
+// 			(selector) => selector.includes('min-width') || selector.includes('max-width'),
+// 		);
+// 	}
+// 	return false;
+// };
 
 const isAllowedNestedSelector = (rawSelector: string): boolean => {
 	if (rawSelector.trim() === '&') {
@@ -114,8 +114,8 @@ const rule = createLintRule({
 			severity: 'error',
 		},
 		messages: {
-			noWidthQueries:
-				'Media queries that target min-width or max-width are not allowed. Use the media object provided by the Atlassian Design System instead. https://staging.atlassian.design/components/primitives/responsive/breakpoints/examples',
+			// noWidthQueries:
+			// 	'Media queries that target min-width or max-width are not allowed. Use the media object provided by the Atlassian Design System instead. https://staging.atlassian.design/components/primitives/responsive/breakpoints/examples',
 			noNestedStyles:
 				'Nested styles are not allowed as they can change unexpectedly when child markup changes and result in duplicates when extracting to CSS.',
 			noDirectNestedStyles: `Styles applied with data attributes are not allowed, split them into discrete CSS declarations and apply them conditionally with JavaScript.
@@ -145,14 +145,14 @@ const disabledStyles = css({ opacity: 0.5 });
 						return;
 					}
 
-					if (isWidthMediaQuery(getKeyValue(node.key as Rule.Node, context))) {
-						context.report({
-							node,
-							messageId: 'noWidthQueries',
-						});
+					// if (isWidthMediaQuery(getKeyValue(node.key as Rule.Node, context))) {
+					// 	context.report({
+					// 		node,
+					// 		messageId: 'noWidthQueries',
+					// 	});
 
-						return;
-					}
+					// 	return;
+					// }
 
 					if (!isAllowedNestedSelector(getKeyValue(node.key as Rule.Node, context))) {
 						context.report({

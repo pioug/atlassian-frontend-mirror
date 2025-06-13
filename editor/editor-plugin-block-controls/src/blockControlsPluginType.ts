@@ -81,7 +81,9 @@ export type BlockControlsSharedState =
 			isPMDragging: boolean;
 			multiSelectDnD?: MultiSelectDnD;
 			isShiftDown?: boolean;
+			lastDragCancelled: boolean;
 			isEditing?: boolean;
+			isMouseOut?: boolean;
 			isSelectedViaDragHandle?: boolean;
 	  }
 	| undefined;

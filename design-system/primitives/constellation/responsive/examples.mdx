@@ -4,12 +4,6 @@ description: Responsive helpers and primitives to build responsive UIs.
 order: 1
 ---
 
-import CSSExample from '../../examples/constellation/responsive/css';
-import XCSSExample from '../../examples/constellation/responsive/xcss';
-import ShowExample from '../../examples/constellation/responsive/show';
-import HideExample from '../../examples/constellation/responsive/hide';
-import ShowHideExample from '../../examples/constellation/responsive/show-hide';
-
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 <CodeDocsHeader
@@ -18,26 +12,25 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 	directoryName="primitives"
 />
 
-## Responsive `css` or `xcss`
+## Media queries
 
-Utilize our media queries exposed in `css`, `styled`, or `xcss` as computed keys to build responsive
-UIs. Learn more about these media query exports in [usage](/components/primitives/responsive/usage).
+Media queries can be applied directly in your styles. As you type `@media`, you'll get IntelliSense
+support showing all the allowed media queries from the Atlassian Design System. For a complete list
+of available breakpoints and media queries, see the
+[breakpoints documentation](/components/primitives/responsive/breakpoints).
 
-### Using with `xcss`
+### Using with `cssMap`
 
-Please use `xcss` whenever possible to ensure consistency and safety with style overrides. Read more
-at [xcss](/components/primitives/xcss)
+```jsx
+import { cssMap } from '@atlaskit/css';
 
-<Example Component={XCSSExample} packageName="@atlaskit/primitives/responsive" />
-
-### Using with `css`
-
-<Example Component={CSSExample} packageName="@atlaskit/primitives/responsive" />
-
-## Responsive primitives
-
-Consider these shortcuts to writing your own custom media queries. Composing with our primitives
-will be far quicker and consistent to implement, but may result in excess DOM nodes.
-
-- [Show](/components/primitives/responsive/show)
-- [Hide](/components/primitives/responsive/hide)
+const styles = cssMap({
+	// Start typing '@media' to see available media queries
+	'@media (min-width: 48rem)': {
+		color: token('color.text'),
+	},
+	'@media (min-width: 64rem)': {
+		color: token('color.text.accent.blue'),
+	},
+});
+```

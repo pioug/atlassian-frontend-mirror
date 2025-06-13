@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ElementName } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { BaseBadgeElement, BaseBadgeElementProps } from '../common';
+import { BaseBadgeElement, type BaseBadgeElementProps } from '../common';
 
 export type ProviderElementProps = BaseBadgeElementProps;
 

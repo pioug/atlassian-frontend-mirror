@@ -42,7 +42,9 @@ const rule: Rule.RuleModule = {
 					node.source.value === '@atlaskit/browser-apis' &&
 					node.specifiers.some(
 						(specifier) =>
-							specifier.type === 'ImportSpecifier' && specifier.imported.name === 'getDocument',
+							specifier.type === 'ImportSpecifier' &&
+							specifier.imported.type === 'Identifier' &&
+							specifier.imported.name === 'getDocument',
 					)
 				) {
 					hasGetDocumentImport = true;

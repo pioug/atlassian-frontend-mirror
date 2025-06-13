@@ -24,5 +24,8 @@ module.exports = {
 		// Ignored via go/ees005
 		// eslint-disable-next-line import/no-commonjs
 		'enforce-todo-comment-format': require('./rules/enforce-todo-comment-format').rule,
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
+		'enforce-editor-view-state-scope': require('./rules/enforce-editor-view-state-scope').rule,
 	},
 };

@@ -1,31 +1,39 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { Code } from '@atlaskit/code';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const listStyles = xcss({ padding: 'space.0' });
-// Disabling the typography rule because this is a valid use case
-// to ensure the semantics of the list are preserved in Safari.
-// eslint-disable-next-line @atlaskit/design-system/use-latest-xcss-syntax-typography
-const listItemStyles = xcss({ '::marker': { fontSize: 0 } });
-const definitionListStyles = xcss({ paddingInlineStart: 'space.0' });
-const definitionListItemStyles = xcss({ margin: 'space.0' });
-
-const InlineListItem = ({ children }: { children: ReactNode }) => (
-	<Box as="li" xcss={listItemStyles}>
-		{children}
-	</Box>
-);
+const styles = cssMap({
+	list: {
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+	},
+	definitionList: { paddingInlineStart: token('space.0') },
+	definitionListItem: {
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
+	},
+});
 
 const Term = ({ children }: { children: ReactNode }) => (
-	<Box as="dt" xcss={definitionListItemStyles}>
+	<Box as="dt" xcss={styles.definitionListItem}>
 		{children}:
 	</Box>
 );
 
 const Definition = ({ children }: { children: ReactNode }) => (
-	<Box as="dd" xcss={definitionListItemStyles}>
+	<Box as="dd" xcss={styles.definitionListItem}>
 		{children}.
 	</Box>
 );
@@ -53,25 +61,25 @@ export default function Example() {
 			</Box>
 			<Box>
 				<Code>Inline</Code> rendering as <Code>ul</Code>:
-				<Inline as="ul" xcss={listStyles} space="space.100">
-					<InlineListItem>Jira</InlineListItem>
-					<InlineListItem>Confluence</InlineListItem>
-					<InlineListItem>BitBucket</InlineListItem>
-					<InlineListItem>Trello</InlineListItem>
+				<Inline as="ul" xcss={styles.list} space="space.100">
+					<Box as="li">Jira</Box>
+					<Box as="li">Confluence</Box>
+					<Box as="li">BitBucket</Box>
+					<Box as="li">Trello</Box>
 				</Inline>
 			</Box>
 			<Box>
 				<Code>Inline</Code> rendering as <Code>ol</Code>:
-				<Inline as="ol" xcss={listStyles} space="space.100">
-					<InlineListItem>Jira</InlineListItem>
-					<InlineListItem>Confluence</InlineListItem>
-					<InlineListItem>BitBucket</InlineListItem>
-					<InlineListItem>Trello</InlineListItem>
+				<Inline as="ol" xcss={styles.list} space="space.100">
+					<Box as="li">Jira</Box>
+					<Box as="li">Confluence</Box>
+					<Box as="li">BitBucket</Box>
+					<Box as="li">Trello</Box>
 				</Inline>
 			</Box>
 			<Box>
 				<Code>Inline</Code> rendering as <Code>dl</Code>:
-				<Inline as="dl" space="space.100" xcss={definitionListStyles}>
+				<Inline as="dl" space="space.100" xcss={styles.definitionList}>
 					<Term>JSW</Term>
 					<Definition>Jira Software</Definition>
 					<Term>JSM</Term>

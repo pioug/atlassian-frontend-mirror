@@ -70,14 +70,6 @@ const avatarPickerViewWrapperStyles = css({
 	minHeight: '339px',
 });
 
-const HeaderContent = ({ title }: { title?: string }) => {
-	return (
-		<ModalHeader testId="modal-header" hasCloseButton>
-			<ModalTitle>{title || <FormattedMessage {...messages.upload_an_avatar} />}</ModalTitle>
-		</ModalHeader>
-	);
-};
-
 const altTextFieldStyles = cssMap({
 	root: {
 		paddingTop: token('space.100'),
@@ -253,7 +245,11 @@ export class AvatarPickerDialog extends PureComponent<
 			>
 				{this.props.avatars.length > 0 && <SRLiveTitle mode={this.state.mode} />}
 
-				<HeaderContent title={this.props.title} />
+				<ModalHeader testId="modal-header" hasCloseButton>
+					<ModalTitle>
+						{this.props.title || <FormattedMessage {...messages.upload_an_avatar} />}
+					</ModalTitle>
+				</ModalHeader>
 
 				{this.state.isSubmitted && <SubmitErrorDialog />}
 

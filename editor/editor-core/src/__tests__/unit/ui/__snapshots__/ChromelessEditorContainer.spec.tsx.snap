@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChromelessEditorContainer static emotion off [false] should have correct styles for legacy container 1`] = `
+.emotion-0 {
+  line-height: 20px;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  max-width: inherit;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  max-height: 200px;
+  min-height: 100px;
+}
+
+.emotion-0::-webkit-scrollbar {
+  overflow: hidden,;
+}
+
+.emotion-0::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.emotion-0::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-subtle);
+}
+
+.emotion-0:hover::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-bold);
+  border-radius: 8px;
+}
+
+.emotion-0::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ds-background-neutral-bold-hovered);
+}
+
+.emotion-0 div>.ProseMirror {
+  outline: none;
+  white-space: pre-wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.emotion-0 div>.ProseMirror>:last-child {
+  padding-bottom: var(--ds-space-100, 0.5em);
+}
+
+<div>
+  <div
+    class="emotion-0"
+    data-testid="chromeless-editor"
+    id="chromeless-editor"
+  >
+    <div>
+      child
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ChromelessEditorContainer static emotion off [false] should have correct styles for legacy container with no max height 1`] = `
+.emotion-0 {
+  line-height: 20px;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  max-width: inherit;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  min-height: 100px;
+}
+
+.emotion-0::-webkit-scrollbar {
+  overflow: hidden,;
+}
+
+.emotion-0::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.emotion-0::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-subtle);
+}
+
+.emotion-0:hover::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-bold);
+  border-radius: 8px;
+}
+
+.emotion-0::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ds-background-neutral-bold-hovered);
+}
+
+.emotion-0 div>.ProseMirror {
+  outline: none;
+  white-space: pre-wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.emotion-0 div>.ProseMirror>:last-child {
+  padding-bottom: var(--ds-space-100, 0.5em);
+}
+
+<div>
+  <div
+    class="emotion-0"
+    data-testid="chromeless-editor"
+    id="chromeless-editor"
+  >
+    <div>
+      child
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ChromelessEditorContainer static emotion on [true] should have correct styles for new container 1`] = `
+.emotion-0 {
+  line-height: 20px;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-width: inherit;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.emotion-0 div>.ProseMirror {
+  outline: none;
+  white-space: pre-wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.emotion-0 div>.ProseMirror>:last-child {
+  padding-bottom: var(--ds-space-100, 0.5em);
+}
+
+.emotion-0::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.emotion-0::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-subtle, #00000000);
+}
+
+.emotion-0:hover::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-bold, #44546F);
+  border-radius: 8px;
+}
+
+.emotion-0::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ds-background-neutral-bold-hovered, #2C3E5D);
+}
+
+<div>
+  <div
+    class="emotion-0"
+    data-testid="chromeless-editor"
+    id="chromeless-editor"
+    style="max-height: 200px; min-height: 100px;"
+  >
+    <div>
+      child
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ChromelessEditorContainer static emotion on [true] should have correct styles for new container with no max height 1`] = `
+.emotion-0 {
+  line-height: 20px;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-width: inherit;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.emotion-0 div>.ProseMirror {
+  outline: none;
+  white-space: pre-wrap;
+  padding: 0;
+  margin: 0;
+}
+
+.emotion-0 div>.ProseMirror>:last-child {
+  padding-bottom: var(--ds-space-100, 0.5em);
+}
+
+.emotion-0::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.emotion-0::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-subtle, #00000000);
+}
+
+.emotion-0:hover::-webkit-scrollbar-thumb {
+  background-color: var(--ds-background-neutral-bold, #44546F);
+  border-radius: 8px;
+}
+
+.emotion-0::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ds-background-neutral-bold-hovered, #2C3E5D);
+}
+
+<div>
+  <div
+    class="emotion-0"
+    data-testid="chromeless-editor"
+    id="chromeless-editor"
+    style="min-height: 100px;"
+  >
+    <div>
+      child
+    </div>
+  </div>
+</div>
+`;

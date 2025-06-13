@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 33.4.0
+
+### Minor Changes
+
+- [#169909](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169909)
+  [`78e7ec6d4b08f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78e7ec6d4b08f) -
+  Added getDocumentContent and getDocumentPageImage to the media client to enable the new media
+  document viewer
+
 ## 33.3.2
 
 ### Patch Changes

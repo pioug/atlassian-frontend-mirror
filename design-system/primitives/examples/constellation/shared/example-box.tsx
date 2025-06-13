@@ -1,15 +1,23 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
-import { type BackgroundColor, Box, type Space, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { BackgroundColor, Box, Space } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const blockStyles = xcss({
-	display: 'flex',
-	borderRadius: '3px',
-	minWidth: '2rem',
-	minHeight: '2rem',
-	borderStyle: 'solid',
-	borderWidth: 'border.width',
-	borderColor: 'color.border.discovery',
+const styles = cssMap({
+	block: {
+		display: 'flex',
+		borderRadius: '3px',
+		minWidth: '2rem',
+		minHeight: '2rem',
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		borderColor: token('color.border.discovery'),
+	},
 });
 
 const Block = ({
@@ -26,7 +34,7 @@ const Block = ({
 	<Box
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={style}
-		xcss={blockStyles}
+		xcss={styles.block}
 		padding={padding}
 		backgroundColor={backgroundColor}
 	>

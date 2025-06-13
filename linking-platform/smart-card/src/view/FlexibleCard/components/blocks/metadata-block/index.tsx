@@ -18,7 +18,7 @@ import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context
 import Block from '../block';
 import ElementGroup from '../element-group';
 import { type ElementItem } from '../types';
-import { ElementDisplaySchemaType, renderElementItems } from '../utils';
+import { type ElementDisplaySchemaType, renderElementItems } from '../utils';
 
 import { type MetadataBlockProps } from './types';
 

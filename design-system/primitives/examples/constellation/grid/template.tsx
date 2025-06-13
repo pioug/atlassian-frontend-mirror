@@ -1,17 +1,19 @@
 import React from 'react';
 
-import { Grid } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Grid } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
+const gridStyles = cssMap({
+	root: {
+		gridTemplateColumns: '1fr 100px 1fr',
+	},
+});
+
 export default function Basic() {
 	return (
-		<Grid
-			testId="grid-basic"
-			rowGap="space.200"
-			columnGap="space.400"
-			templateColumns="1fr 100px 1fr"
-		>
+		<Grid testId="grid-basic" rowGap="space.200" columnGap="space.400" xcss={gridStyles.root}>
 			<ExampleBox />
 			<ExampleBox />
 			<ExampleBox />

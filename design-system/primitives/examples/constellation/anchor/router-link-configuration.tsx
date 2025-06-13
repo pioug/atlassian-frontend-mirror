@@ -3,7 +3,7 @@ import React, { forwardRef, type Ref } from 'react';
 import { Link, type LinkProps, RouteComponent, Router } from 'react-resource-router';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
-import Anchor from '@atlaskit/primitives/anchor';
+import { Anchor } from '@atlaskit/primitives/compiled';
 
 export type ReactResourceRouterLinkConfig = Pick<LinkProps, 'to' | 'href' | 'replace'>;
 

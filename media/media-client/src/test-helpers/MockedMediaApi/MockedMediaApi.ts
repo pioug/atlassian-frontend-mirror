@@ -186,6 +186,14 @@ const getMediaApi = ({ getItem }: { setItems: SetItems; getItem: GetItem }): Med
 		baseUrl: '',
 	}),
 
+	getDocumentContent: async () => {
+		throw new Error('500 - MockedMediaApi.getDocumentContent: method not implemented');
+	},
+
+	getDocumentPageImage: async () => {
+		throw new Error('500 - MockedMediaApi.getDocumentPageImage: method not implemented');
+	},
+
 	testUrl: async () => {},
 });
 

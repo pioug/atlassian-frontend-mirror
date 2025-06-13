@@ -48,6 +48,11 @@ import { resolveAuth, resolveInitialAuth } from './resolveAuth';
 import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { isCommercial } from '../../utils/isCommercial';
+import {
+	GetDocumentPageImage,
+	type DocumentPageRangeContent,
+	type GetDocumentContentOptions,
+} from '../../models/document';
 
 const MEDIA_API_REGION = 'media-api-region';
 const MEDIA_API_ENVIRONMENT = 'media-api-environment';
@@ -539,6 +544,53 @@ export class MediaStore implements MediaApi {
 
 		return this.request(`/file/${id}/image/metadata`, options).then(
 			createMapResponseToJson(metadata),
+		);
+	}
+
+	async getDocumentContent(
+		id: string,
+		options: GetDocumentContentOptions,
+	): Promise<DocumentPageRangeContent> {
+		const metadata: RequestMetadata = {
+			method: 'GET',
+			endpoint: '/file/{fileId}/document/contents',
+		};
+
+		const requestOptions: MediaStoreRequestOptions = {
+			...metadata,
+			authContext: { collectionName: options.collectionName },
+			params: {
+				pageStart: options.pageStart,
+				pageEnd: options.pageEnd,
+				'max-age': FILE_CACHE_MAX_AGE,
+			},
+		};
+
+		return this.request(`/file/${id}/document/contents`, requestOptions).then(
+			createMapResponseToJson(metadata),
+		);
+	}
+
+	async getDocumentPageImage(id: string, options: GetDocumentPageImage): Promise<Blob> {
+		const endpoint = cdnFeatureFlag('page');
+
+		const metadata: RequestMetadata = {
+			method: 'GET',
+			endpoint: `/file/{fileId}/document/${endpoint}`,
+		};
+
+		const requestOptions: MediaStoreRequestOptions = {
+			...metadata,
+			authContext: { collectionName: options.collectionName },
+			params: {
+				page: options.page,
+				zoom: options.zoom,
+				'max-age': FILE_CACHE_MAX_AGE,
+			},
+		};
+
+		return this.request(`/file/${id}/document/${endpoint}`, requestOptions).then(
+			createMapResponseToBlob(metadata),
 		);
 	}
 

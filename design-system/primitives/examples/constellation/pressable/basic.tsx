@@ -1,19 +1,31 @@
-import React, { useCallback } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useCallback } from 'react';
 
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const pressableStyles = xcss({
-	color: 'color.text.subtle',
-	fontWeight: 'font.weight.medium',
-	backgroundColor: 'color.background.neutral.subtle',
+const styles = cssMap({
+	pressable: {
+		color: token('color.text.subtle'),
+		fontWeight: token('font.weight.medium'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
 
-	':hover': {
-		textDecoration: 'underline',
-		backgroundColor: 'color.background.neutral.subtle.hovered',
-	},
-	':active': {
-		color: 'color.text',
-		backgroundColor: 'color.background.neutral.subtle.pressed',
+		'&:hover': {
+			textDecoration: 'underline',
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			color: token('color.link.pressed'),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
 	},
 });
 
@@ -23,7 +35,7 @@ export default function Basic() {
 	}, []);
 
 	return (
-		<Pressable onClick={handleClick} padding="space.0" xcss={pressableStyles}>
+		<Pressable onClick={handleClick} xcss={styles.pressable}>
 			Edit comment
 		</Pressable>
 	);

@@ -28,8 +28,9 @@ const hiddenStyles = xcss({
 export const VisibilityContainer = ({ api, children }: VisibilityContainerProps) => {
 	const isTypeAheadOpen = useSharedPluginStateSelector(api, 'typeAhead.isOpen');
 	const isEditing = useSharedPluginStateSelector(api, 'blockControls.isEditing');
+	const isMouseOut = useSharedPluginStateSelector(api, 'blockControls.isMouseOut');
 
-	const shouldHide = isTypeAheadOpen || isEditing;
+	const shouldHide = isTypeAheadOpen || isEditing || isMouseOut;
 
 	return <Box xcss={[baseStyles, shouldHide ? hiddenStyles : visibleStyles]}>{children}</Box>;
 };

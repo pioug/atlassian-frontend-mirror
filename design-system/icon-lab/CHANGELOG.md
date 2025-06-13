@@ -1,5 +1,28 @@
 # @atlaskit/icon-lab
 
+## 4.19.0
+
+### Minor Changes
+
+- [#169883](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169883)
+  [`e287517926b5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e287517926b5e) -
+  This release updates and deprecates icons in `@atlaskit/icon-lab`.
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `incognito`
+  - `milestone-complete`
+  - `shape-triangle-inverted`
+  - `space`
+
+  ### Deprecated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `hand`
+
 ## 4.18.0
 
 ### Minor Changes

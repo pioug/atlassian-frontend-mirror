@@ -23,7 +23,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
-import { DefaultFloatingToolbarButtonsNext } from './Toolbar/constants';
+import { ToolbarButtonsStrong } from './Toolbar/constants';
 import { FormattingTextDropdownMenu } from './Toolbar/dropdown-menu';
 import {
 	getCommonActiveMarks,
@@ -189,7 +189,7 @@ const FloatingToolbarTextFormat = ({
 
 	const { dropdownItems, singleItems } = useIconList({
 		icons: defaultIcons,
-		iconTypeList: DefaultFloatingToolbarButtonsNext,
+		iconTypeList: ToolbarButtonsStrong,
 		shouldUnselect: hasMultiplePartsWithFormattingSelected,
 	});
 

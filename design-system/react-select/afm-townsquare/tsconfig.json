@@ -1,0 +1,42 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__react-select/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../ds-lib/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../spinner/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-townsquare/tsconfig.json"
+		}
+	]
+}

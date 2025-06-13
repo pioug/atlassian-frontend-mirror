@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 118.6.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 118.6.13
+
+### Patch Changes
+
+- [#168960](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168960)
+  [`466dfce6472d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/466dfce6472d2) -
+  Adds memoization of internal validationOverrides prop to avoid re-serialization of ADF
+
 ## 118.6.12
 
 ### Patch Changes

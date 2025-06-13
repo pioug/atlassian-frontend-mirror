@@ -627,6 +627,7 @@ export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
 	const { skipValidation, allowNestedTables } = useContext(ValidationContext) || {};
+	const validationOverrides = useMemo(() => ({ allowNestedTables }), [allowNestedTables]);
 
 	const RendererComponent = getRendererComponent(props.nodeComponents);
 
@@ -638,7 +639,9 @@ export function Renderer(props: RendererProps) {
 			startPos={startPos}
 			isTopLevelRenderer={isTopLevelRenderer}
 			skipValidation={skipValidation}
-			validationOverrides={{ allowNestedTables }}
+			validationOverrides={
+				fg('cc_complexit_fe_reduce_rerender_2') ? validationOverrides : { allowNestedTables }
+			}
 		/>
 	);
 }

@@ -320,14 +320,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-07
-	editor_ai_cmd_palette_remove_retry: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_ai_cmd_palette_remove_retry',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-05-26
 	platform_editor_stop_width_reflows: createBooleanExperiment({
 		productKeys: {

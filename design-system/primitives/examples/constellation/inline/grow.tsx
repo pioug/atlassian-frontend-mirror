@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Code } from '@atlaskit/code';
-import { Inline, Stack } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 

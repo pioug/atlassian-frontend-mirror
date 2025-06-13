@@ -10,7 +10,12 @@ import {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { BlockControlsPlugin, HandleOptions, MultiSelectDnD } from './blockControlsPluginType';
+import type {
+	BlockControlsPlugin,
+	BlockControlsSharedState,
+	HandleOptions,
+	MultiSelectDnD,
+} from './blockControlsPluginType';
 import { moveNode } from './editor-commands/move-node';
 import { moveToLayout } from './editor-commands/move-to-layout';
 import { firstNodeDecPlugin } from './pm-plugins/first-node-dec-plugin';
@@ -185,7 +190,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			return undefined;
 		}
 
-		return {
+		const sharedState: BlockControlsSharedState = {
 			isMenuOpen: key.getState(editorState)?.isMenuOpen ?? false,
 			menuTriggerBy: key.getState(editorState)?.menuTriggerBy ?? undefined,
 			activeNode: key.getState(editorState)?.activeNode ?? undefined,
@@ -198,6 +203,16 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			isEditing: interactionTrackingPluginKey.getState(editorState)?.isEditing,
 			isSelectedViaDragHandle: key.getState(editorState)?.isSelectedViaDragHandle ?? false,
 		};
+
+		if (
+			editorExperiment('platform_editor_controls', 'variant1') &&
+			fg('platform_editor_controls_patch_13')
+		) {
+			sharedState.isMouseOut =
+				interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
+		}
+
+		return sharedState;
 	},
 
 	contentComponent({

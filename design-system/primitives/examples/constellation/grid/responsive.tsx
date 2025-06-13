@@ -1,26 +1,30 @@
-import React from 'react';
-
-import { Grid, xcss } from '@atlaskit/primitives';
-import { media } from '@atlaskit/primitives/responsive';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
+import { Grid } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
-const responsiveStyles = xcss({
-	[media.above.xxs]: { gridTemplateColumns: 'repeat(1, 1fr)' },
-	[media.above.xs]: {
-		gridTemplateColumns: 'repeat(2, 1fr)',
-	},
-	[media.above.sm]: {
-		gridTemplateColumns: 'repeat(3, 1fr)',
-	},
-	[media.above.lg]: {
-		gridTemplateColumns: 'repeat(4, 1fr)',
+const styles = cssMap({
+	responsive: {
+		gridTemplateColumns: 'repeat(1, 1fr)',
+		'@media (min-width: 30rem)': {
+			gridTemplateColumns: 'repeat(2, 1fr)',
+		},
+		'@media (min-width: 48rem)': {
+			gridTemplateColumns: 'repeat(3, 1fr)',
+		},
+		'@media (min-width: 90rem)': {
+			gridTemplateColumns: 'repeat(4, 1fr)',
+		},
 	},
 });
 
 const ResponsiveGrid = () => {
 	return (
-		<Grid xcss={responsiveStyles} gap="space.200" alignItems="center">
+		<Grid xcss={styles.responsive} gap="space.200" alignItems="center">
 			<ExampleBox />
 			<ExampleBox />
 			<ExampleBox />

@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.1.6
+
+### Patch Changes
+
+- [#170901](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170901)
+  [`b3b427396eeea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3b427396eeea) -
+  Fix npx execution by moving ts-node to dependencies
+
 ## 0.1.5
 
 ### Patch Changes

@@ -1,28 +1,45 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-import { Box, xcss } from '@atlaskit/primitives';
-import { media } from '@atlaskit/primitives/responsive';
-
-const cardStyles = xcss({
-	borderColor: 'color.border.discovery',
-	borderStyle: 'solid',
-	borderWidth: 'border.width.0',
-	padding: 'space.050',
-	[media.above.xs]: {
-		padding: 'space.100',
-	},
-	[media.above.sm]: {
-		borderWidth: 'border.width',
-		padding: 'space.150',
-	},
-	[media.above.md]: {
-		borderWidth: 'border.width.outline',
-		padding: 'space.200',
+const styles = cssMap({
+	card: {
+		borderColor: token('color.border.discovery'),
+		borderStyle: 'solid',
+		borderWidth: 0,
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+		'@media (min-width: 30rem)': {
+			paddingTop: token('space.100'),
+			paddingRight: token('space.100'),
+			paddingBottom: token('space.100'),
+			paddingLeft: token('space.100'),
+		},
+		'@media (min-width: 48rem)': {
+			borderWidth: token('border.width'),
+			paddingTop: token('space.150'),
+			paddingRight: token('space.150'),
+			paddingBottom: token('space.150'),
+			paddingLeft: token('space.150'),
+		},
+		'@media (min-width: 64rem)': {
+			borderWidth: token('border.width.outline'),
+			paddingTop: token('space.200'),
+			paddingRight: token('space.200'),
+			paddingBottom: token('space.200'),
+			paddingLeft: token('space.200'),
+		},
 	},
 });
 
 export default () => (
-	<Box xcss={cardStyles}>
+	<Box xcss={styles.card}>
 		Border becomes narrower at smaller breakpoints. Try it out by resizing the browser window.
 	</Box>
 );

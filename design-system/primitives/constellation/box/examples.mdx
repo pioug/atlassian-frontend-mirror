@@ -23,7 +23,7 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 Box is a general-purpose container that allows for controlled use of design tokens. Use the given
 props to configure display behavior and styling that aligns with the Atlassian Design System. Use
-[XCSS](/components/primitives/xcss/usage) to style primitive components safely with tokens.
+[cssMap](/components/css/overview#cssmap) to style primitive components safely with tokens.
 
 <Example Component={BoxBasic} packageName="@atlaskit/primitives/box" />
 
@@ -47,20 +47,20 @@ list of color tokens, visit the [token list](/components/tokens/all-tokens).
 
 <Example Component={BoxBackgroundColor} packageName="@atlaskit/primitives/box" />
 
-## XCSS
+## Styling
 
-Box exposes an `xcss` prop. This prop accepts `xcss` function calls that contain a subset of
-permitted styles. When used with `Box`, `xcss` accepts most CSS properties, and when a token exists,
-the rule accepts that token as a value.
+Box exposes an `xcss` prop. This prop accepts `cssMap` function calls from our CSS-in-JS library
+[@atlaskit/css](/components/css/overview#cssmap) which contains a subset of permitted styles.
 
-For more information on XCSS, see the dedicated [XCSS documentation](/components/primitives/xcss).
+For more information on cssMap, see the dedicated
+[CSS library documentation](/components/css/overview#cssmap).
 
 <Example Component={BoxXcss} packageName="@atlaskit/primitives/box" />
 
 ## Conditional styles
 
 To achieve conditional styles, we suggest composing conditional styles via the `props.xcss` API
-rather than applying conditional behaviour to individual props.
+rather than applying conditional behavior to individual props.
 
 <Example Component={BoxConditional} packageName="@atlaskit/primitives/box" />
 

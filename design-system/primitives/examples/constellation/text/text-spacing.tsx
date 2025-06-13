@@ -1,12 +1,24 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	card: {
+		borderRadius: '3px',
+		boxShadow: token('elevation.shadow.overlay'),
+		width: '400px',
+	},
+});
 
 export default () => {
 	return (
-		<Box backgroundColor="elevation.surface.overlay" padding="space.300" xcss={cardStyles}>
+		<Box backgroundColor="elevation.surface.overlay" padding="space.300" xcss={styles.card}>
 			<Stack space="space.200">
 				<Heading size="medium">Update profile image</Heading>
 				<Stack space="space.200">
@@ -23,9 +35,3 @@ export default () => {
 		</Box>
 	);
 };
-
-const cardStyles = xcss({
-	borderRadius: '3px',
-	boxShadow: 'elevation.shadow.overlay',
-	width: '400px',
-});

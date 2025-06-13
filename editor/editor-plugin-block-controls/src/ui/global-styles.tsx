@@ -11,6 +11,7 @@ import {
 	akEditorBreakoutPadding,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
+	akEditorGutterPaddingDynamic,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { layers } from '@atlaskit/theme/constants';
@@ -25,6 +26,18 @@ import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP, DRAG_HANDLE_WIDTH } from './consts';
  */
 const dragHandlerAnchorSelector =
 	'[data-drag-handler-anchor-name]:not([data-drag-handler-node-type="tableRow"], [data-drag-handler-node-type="media"])';
+
+const gutterPaddingWidth = () =>
+	editorExperiment('platform_editor_controls', 'variant1') &&
+	fg('platform_editor_controls_patch_13')
+		? `${akEditorGutterPaddingDynamic()}px`
+		: '100%';
+
+const gutterPaddingLeft = () =>
+	editorExperiment('platform_editor_controls', 'variant1') &&
+	fg('platform_editor_controls_patch_13')
+		? `-${akEditorGutterPaddingDynamic()}px`
+		: '-100px';
 
 const extendedHoverZone = () =>
 	css({
@@ -53,8 +66,10 @@ const extendedHoverZone = () =>
 				content: '""',
 				position: 'absolute',
 				top: 0,
-				left: '-100%',
-				width: '100%',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				left: gutterPaddingLeft(),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				width: gutterPaddingWidth(),
 				height: '100%',
 				cursor: 'default',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values

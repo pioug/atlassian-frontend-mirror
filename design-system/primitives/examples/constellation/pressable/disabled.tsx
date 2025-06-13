@@ -1,28 +1,40 @@
-import React, { useCallback, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useCallback, useState } from 'react';
 
-import { Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
-const pressableStyles = xcss({
-	fontWeight: 'font.weight.medium',
-	backgroundColor: 'color.background.neutral.subtle',
-});
-
-const enabledStyles = xcss({
-	color: 'color.text.subtle',
-
-	':hover': {
-		textDecoration: 'underline',
-		backgroundColor: 'color.background.neutral.subtle.hovered',
+const styles = cssMap({
+	pressable: {
+		fontWeight: token('font.weight.medium'),
+		backgroundColor: token('color.background.neutral.subtle'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
 	},
-	':active': {
-		color: 'color.text',
-		backgroundColor: 'color.background.neutral.subtle.pressed',
-	},
-});
 
-const disabledStyles = xcss({
-	color: 'color.text.disabled',
+	enabled: {
+		color: token('color.text.subtle'),
+
+		'&:hover': {
+			textDecoration: 'underline',
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			color: token('color.link.pressed'),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
+	},
+
+	disabled: {
+		color: token('color.text.disabled'),
+	},
 });
 
 export default function Disabled() {
@@ -43,8 +55,7 @@ export default function Disabled() {
 			<Pressable
 				isDisabled={isDisabled}
 				onClick={handleClick}
-				padding="space.0"
-				xcss={[pressableStyles, isDisabled ? disabledStyles : enabledStyles]}
+				xcss={cx(styles.pressable, isDisabled ? styles.disabled : styles.enabled)}
 			>
 				Edit comment
 			</Pressable>

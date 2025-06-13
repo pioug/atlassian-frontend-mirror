@@ -1,13 +1,20 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
-import { Box, Flex, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
 
 import ExampleBox from '../shared/example-box';
 
-const flexContainerStyles = xcss({
-	display: 'flex',
-	borderRadius: '3px',
-	height: 'size.600',
+const styles = cssMap({
+	flexContainer: {
+		display: 'flex',
+		borderRadius: '3px',
+		height: '6rem',
+	},
 });
 
 export default function Example() {
@@ -58,7 +65,7 @@ export default function Example() {
 }
 
 const VisualContainer = ({ children }: { children: ReactNode }) => (
-	<Box backgroundColor="color.background.neutral" padding="space.050" xcss={flexContainerStyles}>
+	<Box backgroundColor="color.background.neutral" padding="space.050" xcss={styles.flexContainer}>
 		{children}
 	</Box>
 );

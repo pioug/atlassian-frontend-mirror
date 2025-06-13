@@ -1,0 +1,36 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__code/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../monorepo-tooling/codemod-utils/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-townsquare/tsconfig.json"
+		}
+	]
+}

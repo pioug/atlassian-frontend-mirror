@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.2.19
+
+### Patch Changes
+
+- [#169224](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169224)
+  [`95aee735823c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95aee735823c6) -
+  [ux] ED-27798: Show T icon for block type plugin toolbar, and show only bold as single button,
+  italic as dropdown in text formatting toolbar
+
+## 2.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.17
 
 ### Patch Changes

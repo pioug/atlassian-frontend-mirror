@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.7.3
+
+### Patch Changes
+
+- [#169844](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169844)
+  [`5d93bf6663968`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d93bf6663968) -
+  Set compiled menuPortal to 1 as the same as emotion menuPortal
+
 ## 2.7.2
 
 ### Patch Changes

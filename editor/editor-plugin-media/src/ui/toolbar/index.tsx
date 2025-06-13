@@ -964,11 +964,10 @@ export const floatingToolbar = (
 		title: 'Media floating controls',
 		nodeType,
 		getDomRef: () => {
-			const element =
-				isSelectedNodeMediaSingle && fg('platform_editor_media_single_toolbar_target')
-					? mediaPluginState.element?.querySelector(`.${MediaSingleNodeSelector}`) ||
-						mediaPluginState.element
-					: mediaPluginState.element;
+			const element = isSelectedNodeMediaSingle
+				? mediaPluginState.element?.querySelector(`.${MediaSingleNodeSelector}`) ||
+					mediaPluginState.element
+				: mediaPluginState.element;
 			return element as HTMLElement | undefined;
 		},
 	};

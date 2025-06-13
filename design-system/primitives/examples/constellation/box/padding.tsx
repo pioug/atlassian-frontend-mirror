@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Flex, Inline, type Space, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Flex, Inline, Space, Stack } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
+import { token } from '@atlaskit/tokens';
 
-const boxStyles = xcss({
-	display: 'block',
-	justifyContent: 'start',
-	color: 'color.text',
-	borderColor: 'color.border.discovery',
-	borderStyle: 'solid',
-	borderRadius: '3px',
-	borderWidth: 'border.width',
+const styles = cssMap({
+	box: {
+		display: 'block',
+		justifyContent: 'start',
+		color: token('color.text'),
+		borderColor: token('color.border.discovery'),
+		borderStyle: 'solid',
+		borderRadius: '3px',
+		borderWidth: token('border.width'),
+	},
 });
 
 const spacingValues: Space[] = [
@@ -58,14 +66,13 @@ export default function Example() {
 				<Flex>
 					<Box
 						backgroundColor="color.background.discovery"
-						xcss={boxStyles}
+						xcss={styles.box}
 						padding={spacingValues[padding]}
 					>
 						Content
 					</Box>
 				</Flex>
 			</Stack>
-
 			<Stack grow="fill">
 				<Heading size="medium" id="box-padding-inline">
 					paddingInline
@@ -94,7 +101,7 @@ export default function Example() {
 				<Flex>
 					<Box
 						backgroundColor="color.background.discovery"
-						xcss={boxStyles}
+						xcss={styles.box}
 						paddingInline={spacingValues[paddingInline]}
 						paddingBlock={spacingValues[paddingBlock]}
 					>
@@ -102,7 +109,6 @@ export default function Example() {
 					</Box>
 				</Flex>
 			</Stack>
-
 			<Stack grow="fill">
 				<Heading size="medium" id="box-padding-inline-start">
 					paddingInlineStart
@@ -155,7 +161,7 @@ export default function Example() {
 				<Flex>
 					<Box
 						backgroundColor="color.background.discovery"
-						xcss={boxStyles}
+						xcss={styles.box}
 						paddingBlockStart={spacingValues[paddingBlockStart]}
 						paddingBlockEnd={spacingValues[paddingBlockEnd]}
 						paddingInlineStart={spacingValues[paddingInlineStart]}

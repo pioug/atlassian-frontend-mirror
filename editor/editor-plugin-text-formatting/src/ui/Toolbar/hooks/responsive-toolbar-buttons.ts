@@ -2,19 +2,23 @@ import { useMemo } from 'react';
 
 import type { ToolbarSize } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {
-	DefaultButtonsMenu,
-	DefaultButtonsMenuNext,
-	DefaultButtonsToolbar,
-	DefaultButtonsToolbarNext,
-	ResponsiveCustomButtonToolbar as ResponsiveCustomButtonToolbarLegacy,
-	ResponsiveCustomButtonToolbarNext,
-	ResponsiveCustomMenu as ResponsiveCustomMenuLegacy,
-	ResponsiveCustomMenuNext,
+	ButtonsMenuMinimal,
+	ButtonsMenuCompact,
+	ButtonsMenuSpacious,
+	ToolbarButtonsStrong,
+	ToolbarButtonsStrongItalic,
+	ToolbarButtonsStrongItalicUnderline,
+	ResponsiveCustomButtonToolbarMinimal,
+	ResponsiveCustomButtonToolbarCompact,
+	ResponsiveCustomButtonToolbarSpacious,
+	ResponsiveCustomMenuMinimal,
+	ResponsiveCustomMenuCompact,
+	ResponsiveCustomMenuSpacious,
 } from '../constants';
-import type { MenuIconItem } from '../types';
+import type { IconTypes, MenuIconItem } from '../types';
 
 import { type IconsPositions, useIconList } from './use-icon-list';
 
@@ -25,11 +29,18 @@ export const useResponsiveIconTypeButtons = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const ResponsiveCustomButtonToolbar =
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		!fg('platform_editor_controls_patch_4')
-			? ResponsiveCustomButtonToolbarNext
-			: ResponsiveCustomButtonToolbarLegacy;
+	let ResponsiveCustomButtonToolbar: Record<ToolbarSize, IconTypes[]> =
+		ResponsiveCustomButtonToolbarCompact;
+	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+		if (fg('platform_editor_controls_patch_13')) {
+			ResponsiveCustomButtonToolbar = ResponsiveCustomButtonToolbarMinimal;
+		} else {
+			ResponsiveCustomButtonToolbar = !fg('platform_editor_controls_patch_4')
+				? ResponsiveCustomButtonToolbarSpacious
+				: ResponsiveCustomButtonToolbarCompact;
+		}
+	}
+
 	const iconTypeList = useMemo(
 		() => ResponsiveCustomButtonToolbar[toolbarSize],
 		[toolbarSize, ResponsiveCustomButtonToolbar],
@@ -39,10 +50,17 @@ export const useResponsiveIconTypeButtons = ({
 		return iconTypeList;
 	}
 
-	return editorExperiment('platform_editor_controls', 'variant1') &&
-		!fg('platform_editor_controls_patch_4')
-		? DefaultButtonsToolbarNext
-		: DefaultButtonsToolbar;
+	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+		if (fg('platform_editor_controls_patch_13')) {
+			return ToolbarButtonsStrong;
+		} else {
+			return !fg('platform_editor_controls_patch_4')
+				? ToolbarButtonsStrongItalicUnderline
+				: ToolbarButtonsStrongItalic;
+		}
+	} else {
+		return ToolbarButtonsStrongItalic;
+	}
 };
 
 export const useResponsiveIconTypeMenu = ({
@@ -52,11 +70,17 @@ export const useResponsiveIconTypeMenu = ({
 	toolbarSize: ToolbarSize;
 	responsivenessEnabled: boolean;
 }) => {
-	const ResponsiveCustomMenu =
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		!fg('platform_editor_controls_patch_4')
-			? ResponsiveCustomMenuNext
-			: ResponsiveCustomMenuLegacy;
+	let ResponsiveCustomMenu: Record<ToolbarSize, IconTypes[]> = ResponsiveCustomMenuCompact;
+	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+		if (fg('platform_editor_controls_patch_13')) {
+			ResponsiveCustomMenu = ResponsiveCustomMenuMinimal;
+		} else {
+			ResponsiveCustomMenu = !fg('platform_editor_controls_patch_4')
+				? ResponsiveCustomMenuSpacious
+				: ResponsiveCustomMenuCompact;
+		}
+	}
+
 	const iconTypeList = useMemo(
 		() => ResponsiveCustomMenu[toolbarSize],
 		[toolbarSize, ResponsiveCustomMenu],
@@ -66,10 +90,15 @@ export const useResponsiveIconTypeMenu = ({
 		return iconTypeList;
 	}
 
-	return editorExperiment('platform_editor_controls', 'variant1') &&
-		!fg('platform_editor_controls_patch_4')
-		? DefaultButtonsMenuNext
-		: DefaultButtonsMenu;
+	if (expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')) {
+		if (fg('platform_editor_controls_patch_13')) {
+			return ButtonsMenuMinimal;
+		} else {
+			return !fg('platform_editor_controls_patch_4') ? ButtonsMenuSpacious : ButtonsMenuCompact;
+		}
+	} else {
+		return ToolbarButtonsStrongItalic;
+	}
 };
 
 export const useResponsiveToolbarButtons = ({

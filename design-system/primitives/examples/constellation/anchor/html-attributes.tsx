@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Anchor from '@atlaskit/primitives/anchor';
+import { Anchor } from '@atlaskit/primitives/compiled';
 
 export default function AnchorHTMLAttributes() {
 	return (

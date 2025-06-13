@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
-import { Inline, Stack } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
 import ExampleBox from '../shared/example-box';

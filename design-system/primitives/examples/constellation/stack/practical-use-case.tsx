@@ -6,7 +6,7 @@ import ComponentIcon from '@atlaskit/icon/core/migration/component';
 import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
 import FeedbackIcon from '@atlaskit/icon/core/migration/feedback';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 export default function Example() {
 	return (

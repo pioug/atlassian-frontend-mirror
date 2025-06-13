@@ -1,30 +1,35 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { ButtonGroup } from '@atlaskit/button';
+import { cssMap, jsx } from '@atlaskit/css';
 import EmojiAddIcon from '@atlaskit/icon/core/migration/emoji-add';
-import { Pressable, Text, xcss } from '@atlaskit/primitives';
+import { Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { ReactionsList } from '../../utils/reactions';
 
-const pressableStyles = xcss({
-	backgroundColor: 'color.background.neutral.subtle',
-	borderWidth: 'border.width',
-	borderStyle: 'solid',
-	borderColor: 'color.border',
-	borderRadius: '8px',
-	paddingInline: 'space.100',
-	height: '27px',
-	display: 'flex',
-	alignItems: 'center',
+const styles = cssMap({
+	pressable: {
+		backgroundColor: token('color.background.neutral.subtle'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		borderRadius: '8px',
+		paddingInline: token('space.100'),
+		height: '27px',
+		display: 'flex',
+		alignItems: 'center',
 
-	':hover': {
-		backgroundColor: 'color.background.neutral.subtle.hovered',
-	},
-	':active': {
-		backgroundColor: 'color.background.neutral.subtle.pressed',
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
 	},
 });
 
@@ -48,7 +53,7 @@ const ReactionButton = ({ emoji, name, reactions }: ReactionButtonProps) => {
 				)
 			}
 		>
-			<Pressable xcss={pressableStyles}>
+			<Pressable xcss={styles.pressable}>
 				{emoji ? (
 					<Text size="small" color="color.text.subtle">
 						{emoji} {reactions}

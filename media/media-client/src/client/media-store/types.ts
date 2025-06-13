@@ -18,6 +18,11 @@ import {
 	type RequestMetadata,
 } from '../../utils/request/types';
 import { type ChunkHashAlgorithm } from '@atlaskit/media-core';
+import {
+	type DocumentPageRangeContent,
+	type GetDocumentPageImage,
+	type GetDocumentContentOptions,
+} from '../../models/document';
 
 export interface ResponseFileItem {
 	id: string;
@@ -361,4 +366,13 @@ export interface MediaApi {
 	resolveAuth: (authContext?: AuthContext) => Promise<Auth>;
 
 	resolveInitialAuth: () => Auth;
+
+	/** @exprimental This is exprimental for the purposes of enabling the document viewer and not ready for external use, it is prone to breaking changes */
+	getDocumentContent(
+		id: string,
+		options: GetDocumentContentOptions,
+	): Promise<DocumentPageRangeContent>;
+
+	/** @exprimental This is exprimental for the purposes of enabling the document viewer and not ready for external use, it is prone to breaking changes */
+	getDocumentPageImage(id: string, options: GetDocumentPageImage): Promise<Blob>;
 }

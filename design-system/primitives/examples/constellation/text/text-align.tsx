@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Stack, Text } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 export default () => {
 	return (

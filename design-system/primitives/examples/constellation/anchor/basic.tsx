@@ -1,44 +1,44 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Image from '@atlaskit/image';
 import Lozenge from '@atlaskit/lozenge';
-import { Anchor, Box, xcss } from '@atlaskit/primitives';
+import { Anchor, Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import ButtonIcon from '../../images/button.png';
 
-const anchorStyles = xcss({
-	color: 'color.link',
-	backgroundColor: 'elevation.surface',
-	textDecoration: 'none',
-	borderWidth: 'border.width',
-	borderStyle: 'solid',
-	borderColor: 'color.border',
-	borderRadius: '3px',
-	display: 'inline-flex',
-	alignItems: 'center',
-	gap: 'space.100',
-	paddingInline: 'space.050',
-	paddingBlock: 'space.025',
-
-	':hover': {
-		backgroundColor: 'elevation.surface.hovered',
+const styles = cssMap({
+	anchor: {
+		color: token('color.link'),
+		backgroundColor: token('elevation.surface'),
 		textDecoration: 'none',
-	},
-	':active': {
-		color: 'color.link.pressed',
-		backgroundColor: 'elevation.surface.pressed',
-	},
-	':visited': {
-		color: 'color.link.visited',
-	},
-	':visited:active': {
-		color: 'color.link.visited.pressed',
-	},
-});
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		borderRadius: token('border.radius'),
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: token('space.100'),
+		paddingInline: token('space.050'),
+		paddingBlock: token('space.025'),
 
-const iconContainerStyles = xcss({
-	width: '16px',
-	display: 'flex',
+		'&:hover': {
+			backgroundColor: token('elevation.surface.hovered'),
+			textDecoration: 'none',
+		},
+		'&:active': {
+			color: token('color.link.pressed'),
+			backgroundColor: token('elevation.surface.pressed'),
+		},
+		'&:visited': {
+			color: token('color.link.visited'),
+		},
+	},
+	iconContainer: {
+		width: '16px',
+		display: 'flex',
+	},
 });
 
 export default function Basic() {
@@ -46,11 +46,11 @@ export default function Basic() {
 		<Anchor
 			href="https://www.atlassian.com/software/atlas"
 			interactionName="atlas-link"
-			xcss={anchorStyles}
+			xcss={styles.anchor}
 			target="_blank"
 			rel="noopener noreferrer"
 		>
-			<Box xcss={iconContainerStyles}>
+			<Box xcss={styles.iconContainer}>
 				<Image src={ButtonIcon} alt="" />
 			</Box>
 			Evolving Button: Open beta to GA

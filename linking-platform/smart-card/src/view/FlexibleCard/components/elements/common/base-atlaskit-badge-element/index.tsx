@@ -7,7 +7,7 @@ import { css, jsx } from '@compiled/react';
 import AKBadge from '@atlaskit/badge';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { ElementProps } from '../../index';
+import type { ElementProps } from '../../index';
 
 export type BaseAtlaskitBadgeElementProps = ElementProps & {
 	value?: number;

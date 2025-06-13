@@ -590,7 +590,7 @@ interface ComputedPosition {
 
 const menuPortalStyles = cssMap({
 	root: {
-		zIndex: 9999,
+		zIndex: 1,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		left: 'var(--menu-left)',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values

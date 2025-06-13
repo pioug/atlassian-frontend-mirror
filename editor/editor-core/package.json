@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.19.3",
+	"version": "207.19.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -471,10 +471,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_patch_2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_quick_insert_placeholder": {
 			"type": "boolean"
 		},
@@ -538,10 +534,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_user_intent_plugin": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -556,11 +548,55 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_controls_increase_full_page_gutter": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_3": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_4": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_5": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_controls_patch_6": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"platform_editor_controls_patch_7": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_8": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_9": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_10": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_11": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_12": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_controls_patch_13": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

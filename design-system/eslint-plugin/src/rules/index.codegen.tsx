@@ -1,9 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3de5d5b44aa01faabdb840bc7fb43d04>>
+ * @codegen <<SignedSource::c3ee5646fc648d2510a70195a04d7fe9>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
+import enforceInlineStylesInSelect from './enforce-inline-styles-in-select';
 import ensureDesignTokenUsage from './ensure-design-token-usage';
 import ensureDesignTokenUsagePreview from './ensure-design-token-usage-preview';
 import ensureIconColor from './ensure-icon-color';
@@ -69,6 +70,7 @@ import useVisuallyHidden from './use-visually-hidden';
 
 export const rules = {
 	'consistent-css-prop-usage': consistentCssPropUsage,
+	'enforce-inline-styles-in-select': enforceInlineStylesInSelect,
 	'ensure-design-token-usage': ensureDesignTokenUsage,
 	'ensure-design-token-usage/preview': ensureDesignTokenUsagePreview,
 	'ensure-icon-color': ensureIconColor,

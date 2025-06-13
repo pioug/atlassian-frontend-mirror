@@ -1,37 +1,46 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Flex, Grid, Pressable, Stack, Text, TextColor } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-import { Flex, Grid, Pressable, type TextColor, xcss } from '@atlaskit/primitives';
-import Box from '@atlaskit/primitives/box';
-import { media } from '@atlaskit/primitives/responsive';
-import Stack from '@atlaskit/primitives/stack';
-import Text from '@atlaskit/primitives/text';
+const styles = cssMap({
+	pressable: {
+		paddingTop: token('space.150'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+		borderRadius: '3px',
+		borderColor: token('color.border'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		color: token('color.text'),
+		backgroundColor: token('color.background.neutral.subtle'),
 
-const pressableStyles = xcss({
-	borderRadius: '3px',
-	borderColor: 'color.border',
-	borderWidth: 'border.width',
-	borderStyle: 'solid',
-	color: 'color.text',
-	backgroundColor: 'color.background.neutral.subtle',
-
-	':hover': {
-		backgroundColor: 'color.background.neutral.subtle.hovered',
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
 	},
-	':active': {
-		backgroundColor: 'color.background.neutral.subtle.pressed',
-	},
-});
 
-const valueStyles = xcss({
-	font: 'font.heading.xlarge',
-});
-
-const gridStyles = xcss({
-	[media.above.sm]: {
-		gridTemplateColumns: '1fr 1fr',
+	value: {
+		font: token('font.heading.xlarge'),
 	},
-	[media.above.md]: {
-		gridTemplateColumns: '1fr 1fr 1fr',
+
+	grid: {
+		'@media (min-width: 48rem)': {
+			gridTemplateColumns: '1fr 1fr',
+		},
+		'@media (min-width: 64rem)': {
+			gridTemplateColumns: '1fr 1fr 1fr',
+		},
+		gridTemplateColumns: '1fr',
+		rowGap: token('space.100'),
+		columnGap: token('space.100'),
 	},
 });
 
@@ -47,10 +56,10 @@ const ProjectStatus = ({
 	color: TextColor;
 }) => {
 	return (
-		<Pressable xcss={pressableStyles} padding="space.150">
+		<Pressable xcss={styles.pressable}>
 			<Flex as="span" gap="space.150" alignItems="center">
 				<Text color={color}>
-					<Box as="span" xcss={valueStyles}>
+					<Box as="span" xcss={styles.value}>
 						{value}
 					</Box>
 				</Text>
@@ -71,7 +80,7 @@ export default function Styled() {
 			<Text weight="bold" size="large">
 				You're following 5 active projects, here's the breakdown.
 			</Text>
-			<Grid rowGap="space.100" columnGap="space.100" templateColumns="1fr" xcss={gridStyles}>
+			<Grid xcss={styles.grid}>
 				<ProjectStatus
 					value={2}
 					title="On track"

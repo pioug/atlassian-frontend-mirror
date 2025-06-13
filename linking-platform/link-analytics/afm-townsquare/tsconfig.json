@@ -1,0 +1,42 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__link-analytics/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../json-ld-types/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../link-client-extension/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../linking-common/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../linking-types/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../link-provider/afm-townsquare/tsconfig.json"
+		}
+	]
+}

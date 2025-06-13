@@ -7,10 +7,6 @@ import { token } from '@atlaskit/tokens';
 export const scrollbarStyles = css({
 	'-ms-overflow-style': '-ms-autohiding-scrollbar',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&::-webkit-scrollbar': {
-		overflow: 'hidden',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&::-webkit-scrollbar-corner': {
 		display: 'none',
 	},

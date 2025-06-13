@@ -1,51 +1,70 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
 
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import { type BackgroundColor, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { BackgroundColor, Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const boxStyles = xcss({
-	borderStyle: 'solid',
-	borderRadius: '3px',
-	borderWidth: 'border.width',
+const styles = cssMap({
+	box: {
+		borderStyle: 'solid',
+		borderRadius: token('border.radius'),
+		borderWidth: token('border.width'),
+	},
+	neutral: {
+		borderColor: token('color.border'),
+	},
+	warning: {
+		borderColor: token('color.border.warning'),
+	},
+	selected: {
+		borderColor: token('color.border.selected'),
+	},
+	danger: {
+		borderColor: token('color.border.danger'),
+	},
+	success: {
+		borderColor: token('color.border.success'),
+	},
+	discovery: {
+		borderColor: token('color.border.discovery'),
+	},
+	information: {
+		borderColor: token('color.border.information'),
+	},
 });
-
-const borderColorStylesMap = {
-	neutral: xcss({ borderColor: 'color.border' }),
-	warning: xcss({ borderColor: 'color.border.warning' }),
-	selected: xcss({ borderColor: 'color.border.selected' }),
-	danger: xcss({ borderColor: 'color.border.danger' }),
-	success: xcss({ borderColor: 'color.border.success' }),
-	discovery: xcss({ borderColor: 'color.border.discovery' }),
-	information: xcss({ borderColor: 'color.border.information' }),
-};
 
 const colorMap = {
 	neutral: {
-		background: 'color.background.neutral',
+		background: token('color.background.neutral'),
 		border: 'neutral',
 	},
 	warning: {
-		background: 'color.background.warning',
+		background: token('color.background.warning'),
 		border: 'warning',
 	},
 	selected: {
-		background: 'color.background.selected',
+		background: token('color.background.selected'),
 		border: 'selected',
 	},
 	danger: {
-		background: 'color.background.danger',
+		background: token('color.background.danger'),
 		border: 'danger',
 	},
 	success: {
-		background: 'color.background.success',
+		background: token('color.background.success'),
 		border: 'success',
 	},
 	discovery: {
-		background: 'color.background.discovery',
+		background: token('color.background.discovery'),
 		border: 'discovery',
 	},
 	information: {
-		background: 'color.background.information',
+		background: token('color.background.information'),
 		border: 'information',
 	},
 };
@@ -59,7 +78,7 @@ export default function Example() {
 				<Box
 					padding="space.400"
 					backgroundColor={colorMap[color].background as BackgroundColor}
-					xcss={[boxStyles, borderColorStylesMap[color]]}
+					xcss={cx(styles.box, styles[color])}
 				/>
 				{color}
 			</Inline>

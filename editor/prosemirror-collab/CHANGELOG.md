@@ -1,5 +1,15 @@
 # @atlaskit/prosemirror-collab
 
+## 0.17.3
+
+### Patch Changes
+
+- [#171009](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171009)
+  [`dd8a3eaf0efe6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd8a3eaf0efe6) -
+  ED-28229: Preserve selection in syncFromAnotherSource when original selection was within document
+  range. This is to avoid the selection going to the end of the document every time due to the whole
+  document being replaced in this function.
+
 ## 0.17.2
 
 ### Patch Changes

@@ -3,11 +3,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import EntriesTimeline from './entries-timeline';
 import * as getElementNameModule from './get-element-name';
 import VCCalculator_FY25_03 from './metric-calculator/fy25_03';
-import { VCObserverEntry } from './types';
+import type { VCObserverEntry } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
 
-import VCObserverNew, { VCObserverNewConfig } from './index';
+import VCObserverNew, { type VCObserverNewConfig } from './index';
 
 // Mock dependencies
 jest.mock('./viewport-observer');

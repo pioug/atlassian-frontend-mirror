@@ -8,7 +8,7 @@ import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { TeamContainers } from '../src';
-import { LinkedContainerCardProps } from '../src/ui/team-containers/linked-container-card';
+import type { LinkedContainerCardProps } from '../src/ui/team-containers/linked-container-card';
 
 import { mockTeamContainersQueries } from './mocks/mockTeamContainersQueries';
 

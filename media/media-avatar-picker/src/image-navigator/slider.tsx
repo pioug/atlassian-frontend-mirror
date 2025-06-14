@@ -11,7 +11,7 @@ import ScaleLargeIcon from '@atlaskit/icon/core/migration/image--media-services-
 import ScaleSmallIcon from '@atlaskit/icon/core/migration/image--media-services-scale-small';
 import Button from '@atlaskit/button/standard-button';
 import { injectIntl } from 'react-intl-next';
-import { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
 
 export interface SliderProps {
 	value: number;

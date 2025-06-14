@@ -2,7 +2,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { stepAddsOneOf } from '@atlaskit/editor-common/utils';
 import { getChangedNodes, isReplaceDocOperation } from '@atlaskit/editor-common/utils/document';
 import type { Mark, Node, NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -13,7 +13,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
@@ -22,8 +22,11 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { BreakoutPlugin } from '../breakoutPluginType';
-import type { BreakoutPluginOptions, BreakoutPluginState } from '../breakoutPluginType';
+import type {
+	BreakoutPlugin,
+	BreakoutPluginOptions,
+	BreakoutPluginState,
+} from '../breakoutPluginType';
 
 import { GUIDELINE_KEYS } from './get-guidelines';
 import { handleKeyDown } from './handle-key-down';

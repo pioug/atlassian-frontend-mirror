@@ -16,7 +16,7 @@ import {
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 
 import { TeamContainers } from './main';
-import { TeamContainersComponent } from './types';
+import type { TeamContainersComponent } from './types';
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),

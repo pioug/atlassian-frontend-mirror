@@ -1,4 +1,4 @@
-import { VCObserverEntry } from '../types'; // Adjust the path as necessary
+import type { VCObserverEntry } from '../types'; // Adjust the path as necessary
 
 import EntriesTimeline from './index'; // Adjust the path as necessary
 

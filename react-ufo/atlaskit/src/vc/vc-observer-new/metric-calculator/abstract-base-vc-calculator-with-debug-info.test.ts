@@ -1,5 +1,5 @@
-import { VCAbortReason } from '../../../common/vc/types';
-import { VCObserverEntry, VCObserverEntryType } from '../types';
+import type { VCAbortReason } from '../../../common/vc/types';
+import type { VCObserverEntry, VCObserverEntryType } from '../types';
 
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
 import * as calculateTTVCPercentiles from './percentile-calc';

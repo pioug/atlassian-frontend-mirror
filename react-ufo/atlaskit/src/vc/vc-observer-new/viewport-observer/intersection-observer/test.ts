@@ -1,4 +1,4 @@
-import { VCObserverEntryType } from '../../types';
+import type { VCObserverEntryType } from '../../types';
 
 import { createIntersectionObserver } from './index';
 

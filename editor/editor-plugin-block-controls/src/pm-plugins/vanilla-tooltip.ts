@@ -1,4 +1,4 @@
-import { createPopper, Instance } from '@popperjs/core';
+import { createPopper, type Instance } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
 
 const startingOffset = {

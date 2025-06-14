@@ -18,7 +18,7 @@ import {
 	useJqlError,
 	useStoreActions,
 } from '../../../../state';
-import { CustomErrorComponent, type ExternalMessagesNormalized } from '../../../../state/types';
+import type { CustomErrorComponent, ExternalMessagesNormalized } from '../../../../state/types';
 
 import { ErrorMessages } from './index';
 

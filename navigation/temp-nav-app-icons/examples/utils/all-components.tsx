@@ -66,7 +66,7 @@ import { TalentIcon, TalentLogo, TalentLogoCS } from '@atlaskit/temp-nav-app-ico
 import { TeamsIcon, TeamsLogo, TeamsLogoCS } from '@atlaskit/temp-nav-app-icons/teams';
 import { TrelloIcon, TrelloLogo, TrelloLogoCS } from '@atlaskit/temp-nav-app-icons/trello';
 
-import { AppIconProps, AppLogoProps } from '../../src/utils/types';
+import type { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const rows: Array<{
 	name: string;

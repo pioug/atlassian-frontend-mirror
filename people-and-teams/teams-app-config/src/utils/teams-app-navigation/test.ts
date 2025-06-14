@@ -1,4 +1,4 @@
-import { NavigationAction, NavigationActionCommon } from './types';
+import type { NavigationAction, NavigationActionCommon } from './types';
 import { generatePath, getPathAndQuery, isTeamsAppEnabled } from './utils';
 
 import { navigateToTeamsApp } from './index';

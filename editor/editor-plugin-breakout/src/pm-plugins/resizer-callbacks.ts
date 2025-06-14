@@ -1,6 +1,6 @@
 import type { BreakoutEventPayload } from '@atlaskit/editor-common/analytics';
-import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -11,14 +11,14 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { ElementDragPayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import {
+import type { ElementDragPayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import type {
 	BaseEventPayload,
 	DragLocationHistory,
 	ElementDragType,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
 
-import { BreakoutPlugin } from '../breakoutPluginType';
+import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
 
 import { getGuidelines } from './get-guidelines';

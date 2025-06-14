@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 10.12.2
+
+### Patch Changes
+
+- [#170385](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170385)
+  [`f7c9e4e0133f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7c9e4e0133f0) -
+  [ux] ED-27236: Added separator in the table overflow dropdown
+
 ## 10.12.1
 
 ### Patch Changes

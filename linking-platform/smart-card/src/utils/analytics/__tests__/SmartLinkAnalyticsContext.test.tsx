@@ -6,7 +6,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { CardState } from '@atlaskit/linking-common';
+import type { CardState } from '@atlaskit/linking-common';
 
 import { mockByUrl, mocks } from '../../mocks';
 import { context } from '../analytics';

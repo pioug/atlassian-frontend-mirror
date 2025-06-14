@@ -4,7 +4,7 @@ import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
-import { CardProps } from '../../src/view/Card';
+import type { CardProps } from '../../src/view/Card';
 
 const CardViewSection = ({
 	description,

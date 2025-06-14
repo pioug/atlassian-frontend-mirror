@@ -98,19 +98,19 @@ describe('smart-card: card states, block', () => {
 			);
 		});
 
-		it('delegates the click to the glance panel handler if the object type is supported as a glance panel', async () => {
+		it('delegates the click to the preview panel handler if the object type is supported as a preview panel', async () => {
 			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
 
-			const isGlancePanelAvailable = jest.fn().mockReturnValue(true);
-			const openGlancePanel = jest.fn();
+			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const openPreviewPanel = jest.fn();
 
 			render(
 				<FabricAnalyticsListeners client={mockAnalyticsClient}>
 					<IntlProvider locale="en">
 						<Provider
 							client={mockClient}
-							isGlancePanelAvailable={isGlancePanelAvailable}
-							openGlancePanel={openGlancePanel}
+							isPreviewPanelAvailable={isPreviewPanelAvailable}
+							openPreviewPanel={openPreviewPanel}
 						>
 							<Card appearance="block" url={mockUrl} id="some-id" />
 						</Provider>
@@ -123,10 +123,10 @@ describe('smart-card: card states, block', () => {
 			const link = screen.getByRole('link');
 			await userEvent.click(link);
 
-			expect(isGlancePanelAvailable).toHaveBeenCalledWith({
+			expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
 				ari: 'ari:cloud:example:1234',
 			});
-			expect(openGlancePanel).toHaveBeenCalledWith({
+			expect(openPreviewPanel).toHaveBeenCalledWith({
 				ari: 'ari:cloud:example:1234',
 				url: mockUrl,
 				name: 'I love cheese',
@@ -137,26 +137,26 @@ describe('smart-card: card states, block', () => {
 					action: 'clicked',
 					actionSubject: 'link',
 					attributes: expect.objectContaining({
-						clickOutcome: 'glancePanel',
+						clickOutcome: 'previewPanel',
 					}),
 				}),
 			);
 		});
 
-		it('does not delegate the click to the glance panel handler if the object type is not supported as a glance panel', async () => {
+		it('does not delegate the click to the preview panel handler if the object type is not supported as a preview panel', async () => {
 			window.open = jest.fn();
 			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
 
-			const isGlancePanelAvailable = jest.fn().mockReturnValue(false);
-			const openGlancePanel = jest.fn();
+			const isPreviewPanelAvailable = jest.fn().mockReturnValue(false);
+			const openPreviewPanel = jest.fn();
 
 			render(
 				<FabricAnalyticsListeners client={mockAnalyticsClient}>
 					<IntlProvider locale="en">
 						<Provider
 							client={mockClient}
-							isGlancePanelAvailable={isGlancePanelAvailable}
-							openGlancePanel={openGlancePanel}
+							isPreviewPanelAvailable={isPreviewPanelAvailable}
+							openPreviewPanel={openPreviewPanel}
 						>
 							<Card appearance="block" url={mockUrl} id="some-id" />
 						</Provider>
@@ -169,10 +169,10 @@ describe('smart-card: card states, block', () => {
 			const link = screen.getByRole('link');
 			await userEvent.click(link);
 
-			expect(isGlancePanelAvailable).toHaveBeenCalledWith({
+			expect(isPreviewPanelAvailable).toHaveBeenCalledWith({
 				ari: 'ari:cloud:example:1234',
 			});
-			expect(openGlancePanel).not.toHaveBeenCalled();
+			expect(openPreviewPanel).not.toHaveBeenCalled();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'clicked',
@@ -184,20 +184,20 @@ describe('smart-card: card states, block', () => {
 			);
 		});
 
-		it('does not delegate the click to the glance panel handler if clicking with modifier keys', async () => {
+		it('does not delegate the click to the preview panel handler if clicking with modifier keys', async () => {
 			window.open = jest.fn();
 			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
 
-			const isGlancePanelAvailable = jest.fn().mockReturnValue(true);
-			const openGlancePanel = jest.fn();
+			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const openPreviewPanel = jest.fn();
 
 			render(
 				<FabricAnalyticsListeners client={mockAnalyticsClient}>
 					<IntlProvider locale="en">
 						<Provider
 							client={mockClient}
-							isGlancePanelAvailable={isGlancePanelAvailable}
-							openGlancePanel={openGlancePanel}
+							isPreviewPanelAvailable={isPreviewPanelAvailable}
+							openPreviewPanel={openPreviewPanel}
 						>
 							<Card appearance="block" url={mockUrl} id="some-id" />
 						</Provider>
@@ -216,8 +216,8 @@ describe('smart-card: card states, block', () => {
 				}),
 			);
 
-			expect(isGlancePanelAvailable).not.toHaveBeenCalled();
-			expect(openGlancePanel).not.toHaveBeenCalled();
+			expect(isPreviewPanelAvailable).not.toHaveBeenCalled();
+			expect(openPreviewPanel).not.toHaveBeenCalled();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'clicked',
@@ -229,16 +229,16 @@ describe('smart-card: card states, block', () => {
 			);
 		});
 
-		it('does not delegate the click to the glance panel handler if the open glance panel method is not provided', async () => {
+		it('does not delegate the click to the preview panel handler if the open preview panel method is not provided', async () => {
 			window.open = jest.fn();
 			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
 
-			const isGlancePanelAvailable = jest.fn().mockReturnValue(true);
+			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
 
 			render(
 				<FabricAnalyticsListeners client={mockAnalyticsClient}>
 					<IntlProvider locale="en">
-						<Provider client={mockClient} isGlancePanelAvailable={isGlancePanelAvailable}>
+						<Provider client={mockClient} isPreviewPanelAvailable={isPreviewPanelAvailable}>
 							<Card appearance="block" url={mockUrl} id="some-id" />
 						</Provider>
 					</IntlProvider>
@@ -250,7 +250,7 @@ describe('smart-card: card states, block', () => {
 			const link = screen.getByRole('link');
 			await userEvent.click(link);
 
-			expect(isGlancePanelAvailable).not.toHaveBeenCalled();
+			expect(isPreviewPanelAvailable).not.toHaveBeenCalled();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'clicked',
@@ -262,20 +262,20 @@ describe('smart-card: card states, block', () => {
 			);
 		});
 
-		it('does not delegate the click to the glance panel handler if the feature gate is off', async () => {
+		it('does not delegate the click to the preview panel handler if the feature gate is off', async () => {
 			// delete this test when cleaning up fun-1765_wire_up_glance_panel_to_smart_cards
 			window.open = jest.fn();
 
-			const isGlancePanelAvailable = jest.fn().mockReturnValue(true);
-			const openGlancePanel = jest.fn();
+			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
+			const openPreviewPanel = jest.fn();
 
 			render(
 				<FabricAnalyticsListeners client={mockAnalyticsClient}>
 					<IntlProvider locale="en">
 						<Provider
 							client={mockClient}
-							isGlancePanelAvailable={isGlancePanelAvailable}
-							openGlancePanel={openGlancePanel}
+							isPreviewPanelAvailable={isPreviewPanelAvailable}
+							openPreviewPanel={openPreviewPanel}
 						>
 							<Card appearance="block" url={mockUrl} id="some-id" />
 						</Provider>
@@ -290,8 +290,8 @@ describe('smart-card: card states, block', () => {
 			const link = screen.getByRole('link');
 			await userEvent.click(link);
 
-			expect(isGlancePanelAvailable).not.toHaveBeenCalled();
-			expect(openGlancePanel).not.toHaveBeenCalled();
+			expect(isPreviewPanelAvailable).not.toHaveBeenCalled();
+			expect(openPreviewPanel).not.toHaveBeenCalled();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'clicked',

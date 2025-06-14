@@ -1,4 +1,4 @@
-import {
+import type {
 	PostInteractionLogPayload,
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';

@@ -7,12 +7,12 @@ import {
 	type Page,
 } from '@af/integration-testing';
 
-import {
+import type {
 	PostInteractionLogPayload,
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';
 
-import { WindowWithReactUFOTestGlobals } from './window-type';
+import type { WindowWithReactUFOTestGlobals } from './window-type';
 
 const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	if (!params) {

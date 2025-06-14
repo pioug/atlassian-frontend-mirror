@@ -1,7 +1,7 @@
 import { browser } from '@atlaskit/editor-common/browser';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,

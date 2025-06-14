@@ -4,8 +4,8 @@ import type { VCObserverEntryType } from '../types';
 
 import {
 	createIntersectionObserver,
-	IntersectionObserverArgs,
-	VCIntersectionObserver,
+	type IntersectionObserverArgs,
+	type VCIntersectionObserver,
 } from './intersection-observer';
 import createMutationObserver, { type CreateMutationObserverProps } from './mutation-observer';
 import createPerformanceObserver, {

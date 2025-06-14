@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { useResolvedUserPreferences } from './hooks';
-import { PersistenceAPI } from './persistence-api';
-import { ResolvedUserPreferences } from './user-preferences';
+import type { PersistenceAPI } from './persistence-api';
+import type { ResolvedUserPreferences } from './user-preferences';
 import { UserPreferencesProvider } from './user-preferences-provider';
 
 describe('createProseMirrorMetadata', () => {

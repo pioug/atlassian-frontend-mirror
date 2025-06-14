@@ -17,7 +17,7 @@ import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 import { type OptionData } from '@atlaskit/smart-user-picker';
 import { ufologger } from '@atlaskit/ufo';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';

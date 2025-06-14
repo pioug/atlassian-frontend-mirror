@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip, {
 	type PositionType,
 	TooltipPrimitive,
-	TooltipPrimitiveProps,
+	type TooltipPrimitiveProps,
 } from '@atlaskit/tooltip';
 
 const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];

@@ -19,6 +19,7 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { HeadingItem } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -32,6 +33,11 @@ export const menuItemDimensions = {
 const separatorStyles = css({
 	background: token('color.border'),
 	height: token('space.025', '1px'),
+});
+
+const separatorStylesThin = css({
+	background: token('color.border'),
+	height: '1px',
 });
 
 const headingStyles = css({
@@ -87,7 +93,7 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 		return (
 			<div css={menuContainerStyles} role="menu">
 				{items
-					.filter((item) => !('hidden' in item) || !item.hidden)
+					.filter((item) => item && (!('hidden' in item) || !item.hidden))
 					.map((item, idx) => {
 						if (!('type' in item)) {
 							return (
@@ -105,8 +111,15 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 							);
 						}
 						if (item.type === 'separator') {
-							// eslint-disable-next-line react/no-array-index-key
-							return <div key={idx} css={separatorStyles} />;
+							return (
+								<div
+									// eslint-disable-next-line react/no-array-index-key
+									key={idx}
+									css={
+										fg('platform_editor_controls_patch_13') ? separatorStylesThin : separatorStyles
+									}
+								/>
+							);
 						}
 						if (item.type === 'overflow-dropdown-heading') {
 							return (

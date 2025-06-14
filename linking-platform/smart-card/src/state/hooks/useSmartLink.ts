@@ -9,7 +9,7 @@ import { useSmartCardState as useSmartLinkState } from '../store';
 
 export function useSmartLink(id: string, url: string) {
 	const state = useSmartLinkState(url);
-	const { store, isGlancePanelAvailable, openGlancePanel } = useSmartLinkContext();
+	const { store, isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
 	const actions = useSmartLinkActions(id, url);
 	const config = useSmartLinkConfig();
 	const renderers = useSmartLinkRenderers();
@@ -31,7 +31,7 @@ export function useSmartLink(id: string, url: string) {
 		config,
 		renderers,
 		error,
-		isGlancePanelAvailable,
-		openGlancePanel,
+		isPreviewPanelAvailable,
+		openPreviewPanel,
 	};
 }

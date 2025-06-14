@@ -298,7 +298,7 @@ describe('collab', () => {
 		});
 
 		describe('syncFromAnotherSource', () => {
-			it('returns a trasnaction that updates the CollabState with the steps and version from another source', () => {
+			it('returns a transaction that updates the CollabState with the steps and version from another source', () => {
 				const s = new DummyServer(doc(p('A'))(schema), 1);
 				const steps = [new ReplaceStep(1, 1, Slice.empty)];
 				const tr = syncFromAnotherSource(s.states[0], 123, doc(p('ABC'))(schema).toJSON(), steps);
@@ -310,6 +310,22 @@ describe('collab', () => {
 					expect.objectContaining({ step: steps[0] }),
 				]);
 				expect(tr.getMeta('addToHistory')).toBe(false);
+			});
+
+			it('preserves selection when within document bounds', () => {
+				const s = new DummyServer(doc(p('ABCDEF'))(schema), 1);
+				s.update(0, (state) => state.tr.setSelection(TextSelection.create(state.doc, 1, 3))); // Select 'BC'
+				const tr = syncFromAnotherSource(s.states[0], 123, doc(p('ABCDEF'))(schema).toJSON(), []);
+				expect(tr.selection.from).toEqual(1);
+				expect(tr.selection.to).toEqual(3);
+			});
+
+			it('maps selection to end of document when beyond bounds', () => {
+				const s = new DummyServer(doc(p('ABCDEF'))(schema), 1);
+				s.update(0, (state) => state.tr.setSelection(TextSelection.create(state.doc, 6, 8))); // Select beyond end
+				const tr = syncFromAnotherSource(s.states[0], 123, doc(p('ABC'))(schema).toJSON(), []);
+				expect(tr.selection.from).toEqual(5);
+				expect(tr.selection.to).toEqual(5);
 			});
 		});
 

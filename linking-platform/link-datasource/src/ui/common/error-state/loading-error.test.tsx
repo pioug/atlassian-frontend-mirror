@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react';
+import React, { type ComponentPropsWithoutRef } from 'react';
 
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';

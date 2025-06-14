@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, fireEvent, RenderResult, act } from '@testing-library/react';
+import { render, fireEvent, type RenderResult, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Video, {
-	VideoProps,
-	RenderCallback,
-	VideoState,
-	SourceElement,
+	type VideoProps,
+	type RenderCallback,
+	type VideoState,
+	type SourceElement,
 	type VideoActions,
 } from '../react-video-renderer';
 

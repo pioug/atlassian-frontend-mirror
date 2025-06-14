@@ -681,6 +681,8 @@ export const getToolbarConfig =
 			const overflowDropdownTestId = fg('platform_editor_controls_patch_8')
 				? 'table-overflow-dropdown-trigger'
 				: undefined;
+			const extensionState = api?.extension?.sharedState?.currentState();
+			const extensionApi = api?.extension?.actions.api();
 
 			return {
 				title: toolbarTitle,
@@ -722,9 +724,6 @@ export const getToolbarConfig =
 													return null;
 												}
 
-												const extensionState = api?.extension?.sharedState?.currentState();
-												const extensionApi = api?.extension?.actions.api();
-
 												if (!extensionApi || !extensionState?.extensionProvider) {
 													return null;
 												}
@@ -737,7 +736,7 @@ export const getToolbarConfig =
 															extensionProvider: extensionState?.extensionProvider
 																? Promise.resolve(extensionState.extensionProvider)
 																: undefined,
-															extensionApi: api?.extension?.actions.api(),
+															extensionApi: extensionApi,
 														}}
 														dropdownOptions={dropdownOptions}
 														disabled={(key: string) => {
@@ -750,6 +749,11 @@ export const getToolbarConfig =
 												);
 											},
 										},
+										...(extensionApi &&
+										extensionState?.extensionProvider &&
+										fg('platform_editor_controls_patch_13')
+											? [{ type: 'separator' }]
+											: []),
 										{
 											title: intl.formatMessage(commonMessages.copyToClipboard),
 											onClick: () => {

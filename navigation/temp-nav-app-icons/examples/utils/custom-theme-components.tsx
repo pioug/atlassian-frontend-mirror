@@ -29,7 +29,7 @@ import {
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
 import { TrelloIcon, TrelloLogo, TrelloLogoCS } from '@atlaskit/temp-nav-app-icons/trello';
 
-import { AppIconProps, AppLogoProps } from '../../src/utils/types';
+import type { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const customThemeApps: Array<{
 	name: string;

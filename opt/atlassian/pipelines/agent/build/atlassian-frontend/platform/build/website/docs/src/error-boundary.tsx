@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, type ErrorInfo, type ReactNode } from 'react';
 import Heading from '@atlaskit/heading';
 
 type ErrorBoundaryProps = {

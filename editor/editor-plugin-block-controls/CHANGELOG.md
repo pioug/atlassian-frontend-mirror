@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.0
+
+### Minor Changes
+
+- [#170348](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170348)
+  [`8f9510a71c843`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f9510a71c843) -
+  ED-28158 implement active advanced layout drop targets
+
+## 3.18.0
+
+### Minor Changes
+
+- [#169535](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169535)
+  [`275f3d6725a4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/275f3d6725a4e) -
+  [ux] Hide plus and block control buttons when hovering over gutter space on the left and right
+
 ## 3.17.1
 
 ### Patch Changes

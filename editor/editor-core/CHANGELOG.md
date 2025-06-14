@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 207.19.6
+
+### Patch Changes
+
+- [#169535](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169535)
+  [`275f3d6725a4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/275f3d6725a4e) -
+  [ux] Hide plus and block control buttons when hovering over gutter space on the left and right
+- Updated dependencies
+
 ## 207.19.5
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { EmbedCardResolvedView, EmbedCardResolvedViewProps } from './ResolvedView';
+import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from './ResolvedView';
 
 const mockAppearanceTestId = 'mocked-appearance-test-id';
 jest.mock('../components/ImageIcon', () => ({

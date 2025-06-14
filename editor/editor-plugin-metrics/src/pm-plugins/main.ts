@@ -1,7 +1,7 @@
 import { bind } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { UserPreferencesProvider, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { UserPreferencesProvider, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,

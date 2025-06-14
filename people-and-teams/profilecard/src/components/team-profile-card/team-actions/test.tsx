@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
 
 import { TeamActions } from './index';
 

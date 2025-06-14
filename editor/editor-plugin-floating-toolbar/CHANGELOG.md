@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 4.2.2
+
+### Patch Changes
+
+- [#170385](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170385)
+  [`f7c9e4e0133f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7c9e4e0133f0) -
+  [ux] ED-27236: Added separator in the table overflow dropdown
+- Updated dependencies
+
 ## 4.2.1
 
 ### Patch Changes

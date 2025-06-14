@@ -6,7 +6,7 @@ import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
 import AddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
-import { ReactionSummary } from '../../types';
+import type { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
 import { IntlProvider } from 'react-intl-next';
 

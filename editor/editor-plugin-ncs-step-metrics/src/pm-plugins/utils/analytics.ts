@@ -2,8 +2,8 @@ import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
-	NcsSessionStepEventAEP,
-	NcsSessionStepMetrics,
+	type NcsSessionStepEventAEP,
+	type NcsSessionStepMetrics,
 } from '@atlaskit/editor-common/analytics';
 
 /**

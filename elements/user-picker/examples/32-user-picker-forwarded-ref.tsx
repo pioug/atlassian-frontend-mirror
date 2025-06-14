@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { exampleOptions } from '../example-helpers';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
-import { UserPickerRef, type OnChange, type Value } from '../src/types';
+import type { UserPickerRef, OnChange, Value } from '../src/types';
 
 type ExampleProps = {};
 type ExampleForwardedRefProps = {

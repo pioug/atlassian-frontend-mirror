@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,6 +124,9 @@
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib",
 	"platform-feature-flags": {
 		"platform-dst-react-18-use-id": {
+			"type": "boolean"
+		},
+		"platform_only_attach_escape_handler_on_view": {
 			"type": "boolean"
 		}
 	}

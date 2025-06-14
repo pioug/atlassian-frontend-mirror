@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { type SyntheticEvent, useState } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';

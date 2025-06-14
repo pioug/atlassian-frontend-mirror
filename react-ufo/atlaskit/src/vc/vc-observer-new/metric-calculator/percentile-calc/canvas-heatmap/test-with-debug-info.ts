@@ -1,4 +1,4 @@
-import { ViewportEntryData } from '../../../types';
+import type { ViewportEntryData } from '../../../types';
 
 import { calculatePercentilesWithDebugInfo } from './index';
 

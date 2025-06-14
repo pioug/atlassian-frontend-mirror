@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Card } from '../src';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
-import { FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
+import type { FileIdentifier, MediaClientConfig } from '@atlaskit/media-client';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import { Identifier } from '@atlaskit/media-client';
+import type { Identifier } from '@atlaskit/media-client';
 import { MainWrapper } from '../example-helpers';
 import {
 	I18NWrapper,

@@ -1,7 +1,7 @@
 // fy25_03/index.test.ts
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../../types';
+import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../../types';
 
 import VCCalculator_FY25_03, {
 	KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS,

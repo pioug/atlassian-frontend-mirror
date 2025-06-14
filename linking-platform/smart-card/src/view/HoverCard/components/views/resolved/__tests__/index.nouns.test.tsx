@@ -7,7 +7,7 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardState, ProductType } from '@atlaskit/linking-common';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';

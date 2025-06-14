@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { MutationRecordWithTimestamp } from '../types';
+import type { MutationRecordWithTimestamp } from '../types';
 
 import isNonVisualStyleMutation from './is-non-visual-style-mutation';
 

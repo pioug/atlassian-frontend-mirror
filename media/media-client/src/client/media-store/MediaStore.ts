@@ -49,7 +49,7 @@ import { ChunkHashAlgorithm } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { isCommercial } from '../../utils/isCommercial';
 import {
-	GetDocumentPageImage,
+	type GetDocumentPageImage,
 	type DocumentPageRangeContent,
 	type GetDocumentContentOptions,
 } from '../../models/document';

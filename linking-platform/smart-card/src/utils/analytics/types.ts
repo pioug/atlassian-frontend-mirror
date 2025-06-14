@@ -10,7 +10,7 @@ export type ClickOutcome =
 	| 'contextMenu'
 	| 'alt'
 	| 'contentEditable'
-	| 'glancePanel'
+	| 'previewPanel'
 	| 'unknown';
 
 export type UiLinkClickedEventProps = {

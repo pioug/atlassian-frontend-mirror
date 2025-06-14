@@ -17,7 +17,7 @@ import type {
 	PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { ViewMode, type EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
+import type { ViewMode, EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,

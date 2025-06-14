@@ -12,7 +12,7 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { IconButtonAppearance, LinkButtonAppearance } from '../src/new-button/variants/types';
+import type { IconButtonAppearance, LinkButtonAppearance } from '../src/new-button/variants/types';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { linkButtonVariants } from '../src/utils/variants';
 

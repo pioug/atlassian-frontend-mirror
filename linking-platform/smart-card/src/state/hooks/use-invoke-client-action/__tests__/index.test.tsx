@@ -6,7 +6,7 @@ import uuid from 'uuid';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
-import { FireEventFunction } from '../../../../common/analytics/types';
+import type { FireEventFunction } from '../../../../common/analytics/types';
 import { CardDisplay } from '../../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../../utils/analytics/SmartLinkAnalyticsContext';
 import { mockByUrl } from '../../../../utils/mocks';

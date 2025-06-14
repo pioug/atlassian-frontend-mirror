@@ -1,7 +1,7 @@
 // abstract-base-vc-calculator.test.ts
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { VCObserverEntry } from '../types';
+import type { VCObserverEntry } from '../types';
 
 import AbstractVCCalculatorBase from './abstract-base-vc-calculator';
 import * as percentileCalc from './percentile-calc';

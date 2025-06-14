@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
 
 import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { SmartLinkModalContext } from '../src/state/modal';
-import { SmartLinkModalAPI } from '../src/state/modal/types';
+import type { SmartLinkModalAPI } from '../src/state/modal/types';
 import { StopPropagation } from '../src/view/common/stop-propagation';
 import { AutomationAction } from '../src/view/FlexibleCard/components/actions';
 

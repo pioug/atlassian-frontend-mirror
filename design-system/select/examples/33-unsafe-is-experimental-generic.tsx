@@ -5,10 +5,15 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import WarningIcon from '@atlaskit/icon/core/warning';
 import EditIcon from '@atlaskit/icon/glyph/edit';
-import Lozenge, { LozengeProps } from '@atlaskit/lozenge';
+import Lozenge, { type LozengeProps } from '@atlaskit/lozenge';
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import Pressable from '@atlaskit/primitives/pressable';
-import Select, { components, MenuProps, type OptionProps, type ValueType } from '@atlaskit/select';
+import Select, {
+	components,
+	type MenuProps,
+	type OptionProps,
+	type ValueType,
+} from '@atlaskit/select';
 
 interface Option {
 	label: string;

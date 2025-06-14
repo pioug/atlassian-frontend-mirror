@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 4.0.1
+
+### Patch Changes
+
+- [#169976](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169976)
+  [`5b16bcc8996da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b16bcc8996da) -
+  Avoid adding document event listeners unless the components are visible
+
 ## 4.0.0
 
 ### Major Changes

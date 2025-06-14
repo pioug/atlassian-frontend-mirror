@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { Text } from '@atlaskit/primitives';
 
-import { ContainerTypes } from '../../../common/types';
+import type { ContainerTypes } from '../../../common/types';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
 
 import { AddContainerCard } from './index';

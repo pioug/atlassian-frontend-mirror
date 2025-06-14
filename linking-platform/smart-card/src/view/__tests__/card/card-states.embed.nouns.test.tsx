@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl-next';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { fakeFactory, mocks } from '../../../utils/mocks';

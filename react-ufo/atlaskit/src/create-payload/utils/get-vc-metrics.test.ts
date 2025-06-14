@@ -2,7 +2,7 @@
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { InteractionMetrics } from '../../common';
+import type { InteractionMetrics } from '../../common';
 import { getConfig, getMostRecentVCRevision, isVCRevisionEnabled } from '../../config';
 import { getVCObserver } from '../../vc';
 

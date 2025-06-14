@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 106.6.2
+
+### Patch Changes
+
+- [#170866](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170866)
+  [`0d19a8feca6a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d19a8feca6a0) -
+  Fixing a bug where we were unsubscribing the wrong provider call-back
+
 ## 106.6.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { JsonLd } from '@atlaskit/json-ld-types';
+import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import type { Card } from '@atlaskit/smart-card';

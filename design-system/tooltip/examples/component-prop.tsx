@@ -7,7 +7,7 @@ import { forwardRef } from 'react';
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { TooltipPrimitive, TooltipPrimitiveProps } from '@atlaskit/tooltip';
+import Tooltip, { TooltipPrimitive, type TooltipPrimitiveProps } from '@atlaskit/tooltip';
 
 const styles = cssMap({
 	root: {

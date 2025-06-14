@@ -6,7 +6,7 @@ import { renderWithIntl } from '@atlaskit/link-test-helpers';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { ImageIconProps } from './types';
+import type { ImageIconProps } from './types';
 
 import ImageIcon from './index';
 

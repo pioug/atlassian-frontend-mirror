@@ -1,7 +1,7 @@
 import {
 	type MediaClientConfig,
 	type MediaApi,
-	FileIdentifier,
+	type FileIdentifier,
 	getFileStreamsCache,
 } from '@atlaskit/media-client';
 import { type MediaStore, createMediaStore } from '@atlaskit/media-state';

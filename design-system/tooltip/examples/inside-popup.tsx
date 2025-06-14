@@ -8,7 +8,7 @@ import { jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { fg, setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
-import Popup, { ContentProps, TriggerProps } from '@atlaskit/popup';
+import Popup, { type ContentProps, type TriggerProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 

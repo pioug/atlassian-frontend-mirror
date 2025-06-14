@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.16.0
+
+### Minor Changes
+
+- [#170731](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170731)
+  [`8d3ba2716ca4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d3ba2716ca4a) -
+  add get/set AI Feature Context
+
 ## 2.15.0
 
 ### Minor Changes

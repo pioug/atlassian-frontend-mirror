@@ -1,4 +1,4 @@
-import { generateMediaUserPreferences, UserPreferences } from './getMediaUserPreferences';
+import { generateMediaUserPreferences, type UserPreferences } from './getMediaUserPreferences';
 
 describe('generateMediaUserPreferences', () => {
 	let mockUserPreferences: UserPreferences;

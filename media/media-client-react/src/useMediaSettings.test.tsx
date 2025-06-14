@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { MediaClient } from '@atlaskit/media-client';
 
 import { MediaContext } from './MediaProvider';
-import { MediaParsedSettings } from './mediaSettings';
+import type { MediaParsedSettings } from './mediaSettings';
 import { useMediaSettings } from './useMediaSettings';
 
 describe('useMediaSettings', () => {

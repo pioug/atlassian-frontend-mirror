@@ -10,7 +10,7 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import Select, { OptionType as Option, ValueType as Value } from '@atlaskit/select';
+import Select, { type OptionType as Option, type ValueType as Value } from '@atlaskit/select';
 
 export default function ModalDialogSelect() {
 	const [isOpen, setIsOpen] = useState(false);

@@ -1,4 +1,4 @@
-import WindowEventObserver, { OnEventCallback } from './index';
+import WindowEventObserver, { type OnEventCallback } from './index';
 
 // Mock the `bind` function from 'bind-event-listener'
 jest.mock('bind-event-listener', () => ({

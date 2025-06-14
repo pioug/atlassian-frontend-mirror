@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Heading from '@atlaskit/heading';

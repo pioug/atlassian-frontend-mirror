@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import React, {
-	ComponentProps,
+	type ComponentProps,
 	Fragment,
 	useCallback,
 	useContext,

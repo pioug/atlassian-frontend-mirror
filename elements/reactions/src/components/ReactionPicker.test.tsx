@@ -15,7 +15,7 @@ import { RENDER_TRIGGER_BUTTON_TESTID, RENDER_LIST_ITEM_WRAPPER_TESTID } from '.
 import {
 	RENDER_REACTIONPICKERPANEL_TESTID,
 	PopperWrapper,
-	PopperWrapperProps,
+	type PopperWrapperProps,
 } from './ReactionPicker';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 

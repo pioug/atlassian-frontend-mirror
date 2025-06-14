@@ -1,5 +1,5 @@
-import { LastInteractionFinishInfo } from '../common';
-import { RevisionPayloadVCDetails } from '../common/vc/types';
+import type { LastInteractionFinishInfo } from '../common';
+import type { RevisionPayloadVCDetails } from '../common/vc/types';
 
 import getLateMutations from './get-late-mutations';
 

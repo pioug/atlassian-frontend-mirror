@@ -16,7 +16,7 @@ import type { ProductId, ProductName } from './Products';
 import type { ShareButtonStyle, TooltipPosition } from './ShareButton';
 import type { DialogPlacement, RenderCustomTriggerButton } from './ShareDialogWithTrigger';
 import type { AdditionalTab, Integration, IntegrationMode } from './ShareEntities';
-import { RenderCustomSubmitButtonProps } from './ShareForm';
+import type { RenderCustomSubmitButtonProps } from './ShareForm';
 import type { UserPickerOptions } from './UserPickerOptions';
 
 export type ShareDialogContainerProps = {

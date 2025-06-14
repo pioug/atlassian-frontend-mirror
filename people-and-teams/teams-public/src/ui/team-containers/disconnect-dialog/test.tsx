@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import { DisconnectDialog, DisconnectDialogProps, messages } from './index';
+import { DisconnectDialog, type DisconnectDialogProps, messages } from './index';
 
 const renderComponent = (props: Partial<DisconnectDialogProps> = {}) => {
 	const defaultProps: DisconnectDialogProps = {

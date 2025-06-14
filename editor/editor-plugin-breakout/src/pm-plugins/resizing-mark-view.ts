@@ -7,7 +7,7 @@ import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { BreakoutPlugin } from '../breakoutPluginType';
+import type { BreakoutPlugin } from '../breakoutPluginType';
 
 import { createPragmaticResizer } from './pragmatic-resizer';
 import { createResizerCallbacks } from './resizer-callbacks';

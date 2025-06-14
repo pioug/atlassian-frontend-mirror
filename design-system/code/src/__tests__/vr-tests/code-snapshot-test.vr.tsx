@@ -1,4 +1,4 @@
-import { Hooks, snapshot, SnapshotTestOptions } from '@af/visual-regression';
+import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
 import InlineCodeBasic from '../../../examples/01-inline-code-basic';
 import CodeBlockBasic from '../../../examples/10-code-block-basic';

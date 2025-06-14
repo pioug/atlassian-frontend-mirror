@@ -3,7 +3,7 @@ import type { StatsigClient } from '@statsig/js-client';
 
 import { Client } from '../Client';
 import { NoFetchDataAdapter } from '../NoFetchDataAdapter';
-import { FeatureGateEnvironment, Provider } from '../types';
+import { FeatureGateEnvironment, type Provider } from '../types';
 
 const mockStatsigClient = {
 	initializeAsync: jest.fn(),

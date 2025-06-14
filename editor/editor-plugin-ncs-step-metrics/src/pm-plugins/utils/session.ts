@@ -1,6 +1,6 @@
-import { NcsSessionStepMetrics } from '@atlaskit/editor-common/analytics';
+import type { NcsSessionStepMetrics } from '@atlaskit/editor-common/analytics';
 import { NCS_STORAGE } from '@atlaskit/editor-common/ncs-step-metrics';
-import { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { StorageClient } from '@atlaskit/frontend-utilities';
 

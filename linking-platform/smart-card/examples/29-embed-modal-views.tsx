@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
 
 import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';

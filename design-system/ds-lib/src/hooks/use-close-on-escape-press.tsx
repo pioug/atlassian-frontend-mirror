@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { ESCAPE } from '../utils/keycodes';
 
 interface UseCloseOnEscapePressOpts {
@@ -47,6 +49,11 @@ export default function useCloseOnEscapePress({
 	}, []);
 
 	useEffect(() => {
+		// Don't attach document event listeners if the hook is disabled
+		if (isDisabled && fg('platform_only_attach_escape_handler_on_view')) {
+			return;
+		}
+
 		return bindAll(
 			document,
 			[
@@ -61,5 +68,5 @@ export default function useCloseOnEscapePress({
 			],
 			{ capture: false },
 		);
-	}, [onKeyDown, onKeyUp]);
+	}, [onKeyDown, onKeyUp, isDisabled]);
 }

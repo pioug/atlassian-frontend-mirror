@@ -1,5 +1,14 @@
 # @atlaskit/contextual-survey
 
+## 5.0.1
+
+### Patch Changes
+
+- [#170573](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170573)
+  [`1efba5d4d5b72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1efba5d4d5b72) -
+  [ux] This change overrides the Heading xsmall default DOM element from an `h5` to an `h2` to
+  address an accessibility issue. Visually there is no change.
+
 ## 5.0.0
 
 ### Major Changes

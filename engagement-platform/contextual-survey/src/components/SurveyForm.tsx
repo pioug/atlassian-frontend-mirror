@@ -74,7 +74,8 @@ export default ({ question, statement, textPlaceholder, textLabel, onSubmit }: P
 	return (
 		<section aria-labelledby="contextualSurveyQuestion">
 			<Stack space="space.150">
-				<Heading id="contextualSurveyQuestion" size="xsmall">
+				{/* The as='h2' is required to override it being an h5 by default, addressing accessibility issues */}
+				<Heading id="contextualSurveyQuestion" size="xsmall" as="h2">
 					{question}
 				</Heading>
 				{statement && (

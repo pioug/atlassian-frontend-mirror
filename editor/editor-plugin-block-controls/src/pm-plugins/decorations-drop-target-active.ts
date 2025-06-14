@@ -6,6 +6,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -16,9 +17,13 @@ import type {
 } from '../blockControlsPluginType';
 
 import { getNodeAnchor, unmountDecorations } from './decorations-common';
-import { createDropTargetDecoration } from './decorations-drop-target';
+import {
+	createDropTargetDecoration,
+	createLayoutDropTargetDecoration,
+} from './decorations-drop-target';
 import { findSurroundingNodes } from './decorations-find-surrounding-nodes';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
+import { maxLayoutColumnSupported } from './utils/consts';
 import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
 
 /**
@@ -252,6 +257,11 @@ export const getActiveDropTargetDecorations = (
 		}
 	}
 
+	let rootNodeWithPos: NodeWithPos = {
+		node,
+		pos,
+	};
+
 	// if the current node is not a top level node, we create one for advanced layout drop targets
 	if (depth > 1) {
 		const root = findSurroundingNodes(state, state.doc.resolve($toPos.before(2)));
@@ -274,10 +284,47 @@ export const getActiveDropTargetDecorations = (
 			),
 		);
 
-		defaultActiveAnchorTracker.emit(getNodeAnchor(root.node));
-	} else {
-		defaultActiveAnchorTracker.emit(getNodeAnchor(node));
+		rootNodeWithPos = {
+			node: root.node,
+			pos: root.pos,
+		};
 	}
+
+	if (editorExperiment('advanced_layouts', true)) {
+		const isSameLayout =
+			$activeNodePos && isInSameLayout($activeNodePos, state.doc.resolve(rootNodeWithPos.pos));
+
+		if (rootNodeWithPos.node.type.name === 'layoutSection') {
+			const layoutSectionNode = rootNodeWithPos.node;
+
+			if (layoutSectionNode.childCount < maxLayoutColumnSupported() || isSameLayout) {
+				layoutSectionNode.descendants((childNode, childPos, parent, index) => {
+					if (
+						childNode.type.name === 'layoutColumn' &&
+						parent?.type.name === 'layoutSection' &&
+						index !== 0 // Not the first node
+					) {
+						decs.push(
+							createLayoutDropTargetDecoration(
+								rootNodeWithPos.pos + childPos + 1,
+								{
+									api,
+									parent,
+									formatMessage,
+								},
+								nodeViewPortalProviderAPI,
+								undefined,
+							),
+						);
+					}
+
+					return false;
+				});
+			}
+		}
+	}
+
+	defaultActiveAnchorTracker.emit(getNodeAnchor(rootNodeWithPos.node));
 
 	return decs;
 };

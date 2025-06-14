@@ -6,7 +6,7 @@ import { type MediaClient, type MediaClientConfig } from '@atlaskit/media-client
 
 import { MediaClientProvider } from './MediaClientProvider';
 import { MediaProvider } from './MediaProvider';
-import { type MediaParsedSettings, MediaSettings } from './mediaSettings';
+import type { MediaParsedSettings, MediaSettings } from './mediaSettings';
 import { useMediaClient } from './useMediaClient';
 import { useMediaSettings } from './useMediaSettings';
 import { withMediaClientAndSettings } from './withMediaClientAndSettings';

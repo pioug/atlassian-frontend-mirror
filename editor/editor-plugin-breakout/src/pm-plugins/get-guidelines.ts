@@ -1,12 +1,12 @@
 import memoizeOne from 'memoize-one';
 
-import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
 	EXPAND_CONTAINER_PADDING,
 	LAYOUT_COLUMN_PADDING,
 	resizerHandleThumbWidth,
 } from '@atlaskit/editor-common/styles';
-import { EditorContainerWidth } from '@atlaskit/editor-common/types';
+import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorGutterPaddingDynamic,

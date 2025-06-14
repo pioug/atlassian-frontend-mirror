@@ -203,13 +203,6 @@ export function syncFromAnotherSource(
 	const { from, to } = tr.selection;
 
 	tr.replaceWith(0, state.doc.content.size, doc);
-	tr.setSelection(
-		TextSelection.create(
-			tr.doc,
-			Math.min(tr.mapping.map(from), tr.doc.nodeSize),
-			Math.min(tr.mapping.map(to), tr.doc.nodeSize),
-		),
-	);
 
 	// apply new unconfirmed steps to doc
 	for (let i = 0; i < unconfirmedSteps.length; i++) {
@@ -222,6 +215,16 @@ export function syncFromAnotherSource(
 		const doc = tr.docs[index];
 		return new Rebaseable(step, step.invert(doc), tr);
 	});
+
+	// Because we are replacing the entire document from 0 to end, the selection mapping is incorrect.
+	// For now, the best we can do is set the selection to the original positions. Otherwise, it will move to the end of the doc on every change.
+	tr.setSelection(
+		TextSelection.create(
+			tr.doc,
+			Math.min(from, tr.doc.content.size),
+			Math.min(to, tr.doc.content.size),
+		),
+	);
 
 	return tr
 		.setMeta('addToHistory', false)

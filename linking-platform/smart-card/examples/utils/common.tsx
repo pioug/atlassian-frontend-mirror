@@ -6,7 +6,7 @@ import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { SmartLinkResponse } from '@atlaskit/linking-types';
+import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 

@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Reactions, ReactionStatus } from '../../../src/';
 import { currentUser } from '@atlaskit/util-data-test/get-emoji-provider';
-import { ReactionSummary } from '../../types';
+import type { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
 import { IntlProvider } from 'react-intl-next';
-import { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
 const containerAri = `${ExampleConstants.ContainerAriPrefix}1`;

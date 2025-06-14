@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 
 import { PerformanceMetrics, type OnTTVC } from '@atlaskit/editor-performance-metrics/react';
 
-import { WindowWithEditorPerformanceGlobals } from '../__tests__/playwright/window-type';
+import type { WindowWithEditorPerformanceGlobals } from '../__tests__/playwright/window-type';
 
 const sectionOneStyle = css({
 	backgroundColor: '#FFB3BA', // Pastel Red

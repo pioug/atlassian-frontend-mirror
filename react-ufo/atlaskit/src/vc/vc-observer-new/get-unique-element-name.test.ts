@@ -1,4 +1,4 @@
-import getElementName, { SelectorConfig } from './get-unique-element-name'; // Adjust the import path as necessary
+import getElementName, { type SelectorConfig } from './get-unique-element-name'; // Adjust the import path as necessary
 
 describe('getElementName', () => {
 	let container: HTMLElement;

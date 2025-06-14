@@ -21,7 +21,7 @@ import type {
 	EditorContainerWidth as WidthPluginState,
 } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { SharedInteractionState } from '@atlaskit/editor-plugin-interaction';
+import type { SharedInteractionState } from '@atlaskit/editor-plugin-interaction';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';

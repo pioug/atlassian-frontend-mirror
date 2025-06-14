@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Reactions, ReactionStatus } from '../../../src/';
-import { ReactionSummary } from '../../types';
+import type { ReactionSummary } from '../../types';
 import { Constants as ExampleConstants } from '../../../examples/utils';
 import { IntlProvider } from 'react-intl-next';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';

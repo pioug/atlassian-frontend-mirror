@@ -1,9 +1,9 @@
 import { NCS_STORAGE } from '@atlaskit/editor-common/ncs-step-metrics';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { StorageClient } from '@atlaskit/frontend-utilities';
 
-import { CollabEditPlugin } from '../collabEditPluginType';
+import type { CollabEditPlugin } from '../collabEditPluginType';
 
 type StepSessionMetrics = {
 	totalStepSize: number;

@@ -9,7 +9,7 @@ import { jsx } from '@compiled/react';
 import { FullPageBase } from '@af/editor-examples-helpers/example-presets';
 import { getGlobalEditorMetricsObserver } from '@atlaskit/editor-performance-metrics';
 
-import { WindowWithEditorPerformanceGlobals } from '../__tests__/playwright/window-type';
+import type { WindowWithEditorPerformanceGlobals } from '../__tests__/playwright/window-type';
 
 const adf = {
 	version: 1,

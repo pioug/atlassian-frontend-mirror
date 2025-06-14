@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { HeadType, type SortOrderType, type StatelessProps } from '../../../types';
+import type { HeadType, SortOrderType, StatelessProps } from '../../../types';
 import DynamicTable from '../../stateless';
 
 import {

@@ -8,7 +8,7 @@ import Table from '@atlaskit/icon/glyph/table';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { ExpandablePanel } from '../src/ui/ExpandablePanel';
-import { ItemData } from '../src/ui/ItemType';
+import type { ItemData } from '../src/ui/ItemType';
 
 const innerBoxContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',

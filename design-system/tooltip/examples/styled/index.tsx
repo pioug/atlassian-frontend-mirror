@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { type ButtonHTMLAttributes, forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 

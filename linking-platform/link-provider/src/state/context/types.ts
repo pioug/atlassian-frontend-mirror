@@ -26,11 +26,11 @@ export interface CardContext {
 	isAdminHubAIEnabled?: boolean;
 	product?: ProductType;
 	shouldControlDataExport?: boolean;
-	isGlancePanelAvailable?: (props: { ari: string }) => boolean;
-	openGlancePanel?: (props: {
+	isPreviewPanelAvailable?: (props: { ari: string }) => boolean;
+	openPreviewPanel?: (props: {
 		url: string;
 		ari: string;
-		name: string | undefined;
+		name: string;
 		iconUrl: string | undefined;
 	}) => void;
 }
@@ -81,18 +81,18 @@ export type CardProviderProps = {
 	 */
 	shouldControlDataExport?: boolean;
 	/**
-	 * Optional callback establishing whether the glance panel is available in the host application for the given linked resource.
-	 * Required to be defined to add support for glance panel handling.
+	 * Optional callback establishing whether the preview panel is available in the host application for the given linked resource.
+	 * Required to be defined to add support for preview panel handling.
 	 */
-	isGlancePanelAvailable?: (props: { ari: string }) => boolean;
+	isPreviewPanelAvailable?: (props: { ari: string }) => boolean;
 	/**
-	 * Optional callback enabling the host application to open a glance panel for compatible links.
-	 * Required to be defined to add support for glance panel handling.
+	 * Optional callback enabling the host application to open a preview panel for compatible links.
+	 * Required to be defined to add support for preview panel handling.
 	 */
-	openGlancePanel?: (props: {
+	openPreviewPanel?: (props: {
 		url: string;
 		ari: string;
-		name: string | undefined;
+		name: string;
 		iconUrl: string | undefined;
 	}) => void;
 } & CardAuthFlowOpts;

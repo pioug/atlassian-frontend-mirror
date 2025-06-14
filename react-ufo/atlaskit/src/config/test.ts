@@ -1,5 +1,5 @@
 import {
-	Config,
+	type Config,
 	getAwaitBM3TTIList,
 	getCapabilityRate,
 	getConfig,

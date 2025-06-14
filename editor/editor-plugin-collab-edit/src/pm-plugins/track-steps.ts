@@ -1,5 +1,5 @@
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	AddMarkStep,
@@ -13,7 +13,7 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { sendableSteps } from '@atlaskit/prosemirror-collab';
 
-import { CollabEditPlugin } from '../collabEditPluginType';
+import type { CollabEditPlugin } from '../collabEditPluginType';
 
 import { updateNcsSessionStepMetrics } from './track-step-metrics';
 

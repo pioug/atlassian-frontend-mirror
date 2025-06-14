@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
-import { ComponentsLogEntry } from '../../src/common/vc/types';
+import type { ComponentsLogEntry } from '../../src/common/vc/types';
 
 import { expect, test, viewports } from './fixtures';
 

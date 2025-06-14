@@ -5,9 +5,9 @@ import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
 } from '@atlaskit/editor-common/preset';
-import { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import {
-	EditorViewModePlugin,
+	type EditorViewModePlugin,
 	editorViewModePlugin,
 } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';

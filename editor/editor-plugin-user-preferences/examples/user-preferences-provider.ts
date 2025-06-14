@@ -1,7 +1,7 @@
 import {
 	UserPreferencesProvider,
-	UserPreferences,
-	ResolvedUserPreferences,
+	type UserPreferences,
+	type ResolvedUserPreferences,
 } from '@atlaskit/editor-common/user-preferences';
 
 const DEFAULT_USER_PREFERENCES = {

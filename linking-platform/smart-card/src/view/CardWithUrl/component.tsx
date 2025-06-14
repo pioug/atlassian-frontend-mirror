@@ -64,10 +64,13 @@ function Component({
 	const { fireEvent } = useAnalyticsEvents();
 
 	// Get state, actions for this card.
-	const { state, actions, config, renderers, error, isGlancePanelAvailable, openGlancePanel } =
+	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
 		useSmartLink(id, url);
 	const ari = fg('fun-1765_wire_up_glance_panel_to_smart_cards')
 		? getObjectAri(state.details)
+		: undefined;
+	const name = fg('fun-1765_wire_up_glance_panel_to_smart_cards')
+		? getObjectName(state.details)
 		: undefined;
 	const definitionId = getDefinitionId(state.details);
 	const extensionKey = getExtensionKey(state.details);
@@ -97,29 +100,30 @@ function Component({
 				isModifierKeyPressed,
 			});
 
-			// If glance panel is available and the user clicked on the link,
-			// delegate the click to the glance panel handler
+			// If preview panel is available and the user clicked on the link,
+			// delegate the click to the preview panel handler
 			if (
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('fun-1765_wire_up_glance_panel_to_smart_cards') &&
 				!isModifierKeyPressed &&
 				ari &&
-				openGlancePanel &&
-				isGlancePanelAvailable?.({ ari })
+				name &&
+				openPreviewPanel &&
+				isPreviewPanelAvailable?.({ ari })
 			) {
 				event.preventDefault();
 				event.stopPropagation();
 
-				openGlancePanel({
+				openPreviewPanel({
 					url,
 					ari,
-					name: getObjectName(state.details),
+					name,
 					iconUrl: getObjectIconUrl(state.details),
 				});
 
 				fireLinkClickedEvent(createAnalyticsEvent)(event, {
 					attributes: {
-						clickOutcome: 'glancePanel',
+						clickOutcome: 'previewPanel',
 					},
 				});
 			} else if (!onClick && !isFlexibleUi) {
@@ -155,8 +159,9 @@ function Component({
 			url,
 			state.details,
 			ari,
-			isGlancePanelAvailable,
-			openGlancePanel,
+			name,
+			isPreviewPanelAvailable,
+			openPreviewPanel,
 			createAnalyticsEvent,
 		],
 	);

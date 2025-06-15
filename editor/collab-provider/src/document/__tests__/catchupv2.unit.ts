@@ -71,6 +71,7 @@ describe('Catchupv2 ', () => {
 			clientId,
 			false,
 			CatchupEventReason.STEPS_ADDED,
+			undefined,
 		);
 		expect(options.onStepsAdded).not.toHaveBeenCalled();
 		expect(sendErrorEventSpy).not.toHaveBeenCalled();
@@ -100,6 +101,7 @@ describe('Catchupv2 ', () => {
 			clientId,
 			false,
 			CatchupEventReason.STEPS_ADDED,
+			undefined,
 		);
 		expect(options.onStepsAdded).not.toHaveBeenCalled();
 		expect(sendErrorEventSpy).not.toHaveBeenCalled();
@@ -148,7 +150,7 @@ describe('Catchupv2 ', () => {
 		try {
 			await catchupv2(options);
 		} catch (err) {
-			expect(options.fetchCatchupv2).toHaveBeenCalledWith(1, clientId, false, undefined);
+			expect(options.fetchCatchupv2).toHaveBeenCalledWith(1, clientId, false, undefined, undefined);
 			expect(sendErrorEventSpy).toHaveBeenCalledWith(
 				error,
 				'Error while fetching catchupv2 from server',
@@ -203,7 +205,13 @@ describe('Catchupv2 ', () => {
 
 		await catchupv2(options);
 
-		expect(options.fetchCatchupv2).toHaveBeenCalledWith(2, clientId, false, 'onStepsAdded');
+		expect(options.fetchCatchupv2).toHaveBeenCalledWith(
+			2,
+			clientId,
+			false,
+			'onStepsAdded',
+			undefined,
+		);
 		expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
 		expect(sendActionEventSpy).toHaveBeenCalledWith('outOfSync', 'FAILURE', {
 			catchupReason: CatchupEventReason.STEPS_ADDED,

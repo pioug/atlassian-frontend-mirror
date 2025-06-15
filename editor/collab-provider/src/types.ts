@@ -295,6 +295,7 @@ export interface Catchupv2Options {
 		clientId: number | string | undefined,
 		catchUpOutofSync: boolean,
 		reason?: CatchupEventReason,
+		sessionId?: string,
 	) => Promise<Catchupv2Response>;
 	updateMetadata: (metadata: Metadata | undefined) => void;
 	analyticsHelper: AnalyticsHelper | undefined;
@@ -302,6 +303,7 @@ export interface Catchupv2Options {
 	onStepsAdded: (data: StepsPayload) => void;
 	catchUpOutofSync: boolean;
 	reason?: CatchupEventReason;
+	sessionId?: string;
 	onCatchupComplete?: (steps: StepJson[]) => void;
 	getState: (() => EditorState) | undefined;
 }

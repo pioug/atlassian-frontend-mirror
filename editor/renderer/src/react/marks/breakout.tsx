@@ -10,7 +10,6 @@ import { calcBreakoutWithCustomWidth, calcBreakoutWidth } from '@atlaskit/editor
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
-	akEditorGutterPadding,
 	blockNodesVerticalMargin,
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -26,17 +25,15 @@ const wrapperStyles = css({
 	transform: 'translateX(-50%)',
 });
 
-const CONTAINER_WITHOUT_GUTTER = `calc(100cqw - ${akEditorGutterPadding}px * 2)`;
-
 const getWidth = (width: number | null, mode: BreakoutMode) => {
 	if (editorExperiment('advanced_layouts', true) && width) {
-		return `min(${width}px, ${CONTAINER_WITHOUT_GUTTER})`;
+		return `min(${width}px, var(--ak-editor--breakout-container-without-gutter-width))`;
 	} else {
 		if (mode === 'full-width') {
-			return `max(${akEditorDefaultLayoutWidth}px, min(${akEditorFullWidthLayoutWidth}px, ${CONTAINER_WITHOUT_GUTTER}))`;
+			return `max(${akEditorDefaultLayoutWidth}px, min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))))`;
 		}
 		if (mode === 'wide') {
-			return `min(var(--ak-editor--breakout-wide-layout-width), ${CONTAINER_WITHOUT_GUTTER})`;
+			return `min(var(--ak-editor--breakout-wide-layout-width), var(--ak-editor--breakout-container-without-gutter-width)))`;
 		}
 	}
 };

@@ -120,7 +120,7 @@ describe('#sendData', () => {
 			tags: ['editor'],
 		});
 		expect(catchupv2Spy).toHaveBeenCalledTimes(1);
-		expect(catchupv2Spy).toBeCalledWith(CatchupEventReason.PROCESS_STEPS, undefined);
+		expect(catchupv2Spy).toBeCalledWith(CatchupEventReason.PROCESS_STEPS, undefined, undefined);
 	});
 
 	it('broadcasts message to steps:commit when there are sendable steps', () => {
@@ -383,7 +383,11 @@ describe('#sendData', () => {
 			error: { data: { code: 'CORRUPT_STEP_FAILED_TO_SAVE' } },
 		});
 		expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-		expect(throttledCatchupSpy).toHaveBeenCalledWith(CatchupEventReason.CORRUPT_STEP);
+		expect(throttledCatchupSpy).toHaveBeenCalledWith(
+			CatchupEventReason.CORRUPT_STEP,
+			undefined,
+			undefined,
+		);
 		// @ts-ignore just spying on a private method, nothing to see here
 		expect(provider.emit).toHaveBeenCalledTimes(1);
 		expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);

@@ -46,6 +46,7 @@ import { Api } from '../api/api';
 import { shouldTelepointerBeSampled } from '../analytics/performance';
 import { NullApi } from '../api/null-api';
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const logger = createLogger('Provider', 'black');
 
@@ -241,10 +242,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					// Offline longer than `OUT_OF_SYNC_PERIOD`
 					Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD
 				) {
-					this.documentService.throttledCatchupv2(CatchupEventReason.RECONNECTED, {
-						disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
-						unconfirmedStepsLength: unconfirmedStepsLength,
-					});
+					this.documentService.throttledCatchupv2(
+						CatchupEventReason.RECONNECTED,
+						{
+							disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
+							unconfirmedStepsLength: unconfirmedStepsLength,
+						},
+						fg('add_session_id_to_catchup_query') ? this.sessionId : undefined,
+					);
 				}
 				this.participantsService.startInactiveRemover(this.sessionId);
 				if (this.config.batchProps) {
@@ -481,7 +486,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		) {
 			this.documentService.onStepRejectedError();
 		} else if (error.data?.code === NCS_ERROR_CODE.CORRUPT_STEP_FAILED_TO_SAVE) {
-			this.documentService.throttledCatchupv2(CatchupEventReason.CORRUPT_STEP);
+			this.documentService.throttledCatchupv2(
+				CatchupEventReason.CORRUPT_STEP,
+				undefined,
+				fg('add_session_id_to_catchup_query') ? this.sessionId : undefined,
+			);
 		} else {
 			this.analyticsHelper?.sendErrorEvent(error, error.message);
 			const mappedError = errorCodeMapper(error);

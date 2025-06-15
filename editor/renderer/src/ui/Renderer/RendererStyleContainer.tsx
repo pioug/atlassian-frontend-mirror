@@ -33,6 +33,7 @@ import {
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorGutterPadding,
 	akEditorLineHeight,
 	akEditorSelectedNodeClassName,
 	akEditorShadowZIndex,
@@ -261,8 +262,10 @@ const baseStyles = css({
 
 const akEditorBreakpointForSmallDevice = '1266px';
 
-// Corresponds to the legacyContentStyles from `@atlaskit/editor-core` meant to introduce responsive breakout width.
 const responsiveBreakoutWidth = css({
+	'--ak-editor--breakout-container-without-gutter-width': `calc(100cqw - ${akEditorGutterPadding}px * 2)`,
+
+	// Corresponds to the legacyContentStyles from `@atlaskit/editor-core` meant to introduce responsive breakout width.
 	'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidthSmallViewport}px`,
 
 	[`@media (min-width: ${akEditorBreakpointForSmallDevice})`]: {

@@ -90,6 +90,9 @@
 		},
 		"platform-editor-presence-websocket-only": {
 			"type": "boolean"
+		},
+		"add_session_id_to_catchup_query": {
+			"type": "boolean"
 		}
 	}
 }

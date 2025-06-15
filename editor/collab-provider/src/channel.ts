@@ -477,6 +477,7 @@ export class Channel extends Emitter<ChannelEvent> {
 		clientId: number | string | undefined,
 		catchUpOutofSync: boolean | undefined,
 		reason?: CatchupEventReason,
+		sessionId?: string,
 	): Promise<Catchupv2Response> => {
 		try {
 			const { steps, metadata } = await utils.requestService<Catchupv2Response>(this.config, {
@@ -486,6 +487,7 @@ export class Channel extends Emitter<ChannelEvent> {
 					clientId: clientId,
 					catchUpOutofSync,
 					reason,
+					sessionId,
 				},
 				requestInit: {
 					headers: await this.commonHeaders(),

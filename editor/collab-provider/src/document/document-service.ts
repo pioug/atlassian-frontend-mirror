@@ -132,8 +132,11 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param reason - optional reason to attach.
 	 */
 	throttledCatchupv2 = throttle(
-		(reason?: CatchupEventReason, reconnectionMetadata?: ReconnectionMetadata) =>
-			this.catchupv2(reason, reconnectionMetadata),
+		(
+			reason?: CatchupEventReason,
+			reconnectionMetadata?: ReconnectionMetadata,
+			sessionId?: string,
+		) => this.catchupv2(reason, reconnectionMetadata, sessionId),
 		CATCHUP_THROTTLE,
 		{
 			leading: false, // TODO: ED-26957 - why shouldn't this be leading?
@@ -163,6 +166,7 @@ export class DocumentService implements DocumentServiceInterface {
 	private catchupv2 = async (
 		reason?: CatchupEventReason,
 		reconnectionMetadata?: ReconnectionMetadata,
+		sessionId?: string,
 	) => {
 		const start = new Date().getTime();
 		// if the queue is already paused, we are busy with something else, so don't proceed.
@@ -209,6 +213,7 @@ export class DocumentService implements DocumentServiceInterface {
 				onStepsAdded: this.onStepsAdded,
 				catchUpOutofSync: reason === CatchupEventReason.CORRUPT_STEP ? true : this.catchUpOutofSync,
 				reason,
+				sessionId,
 				onCatchupComplete: (steps) => {
 					// We want to capture the number of steps made while offline vs. online
 					if (reason === CatchupEventReason.RECONNECTED) {

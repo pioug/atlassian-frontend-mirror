@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 118.6.15
+
+### Patch Changes
+
+- [#171405](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171405)
+  [`cf426feee2ec4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf426feee2ec4) -
+  Use css variables for breakout width calculation
+  [commit](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/924963a1871eb4c6dd79b8461da35946cca7a484).
+
 ## 118.6.14
 
 ### Patch Changes

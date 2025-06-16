@@ -4,10 +4,11 @@
  */
 import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@compiled/react';
-import { B300, N30A, N40A, N900 } from '@atlaskit/theme/colors';
+import { B300, N30A, N40A, N900, R50 } from '@atlaskit/theme/colors';
 
 export interface WrapperProps {
 	isSelected?: boolean;
+	isError?: boolean;
 }
 
 const selectedStyles = css({
@@ -24,6 +25,15 @@ const selectedStyles = css({
 
 const notSelectedStyles = css({
 	userSelect: 'text',
+});
+
+const errorStyles = css({
+	backgroundColor: token('color.background.danger', R50),
+	// Unset hover effects
+	cursor: 'default',
+	'&:hover': {
+		backgroundColor: token('color.background.danger', R50),
+	},
 });
 
 const wrapperStyles = css({
@@ -60,12 +70,18 @@ const wrapperStyles = css({
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
 export const Wrapper = ({
 	isSelected,
+	isError,
 	children,
 	...props
 }: WrapperProps &
 	React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>) => (
 	<span
-		css={[wrapperStyles, isSelected && selectedStyles, !isSelected && notSelectedStyles]}
+		css={[
+			wrapperStyles,
+			isSelected && selectedStyles,
+			!isSelected && notSelectedStyles,
+			isError && errorStyles,
+		]}
 		data-testid="frame-wrapper"
 		{...props}
 	>

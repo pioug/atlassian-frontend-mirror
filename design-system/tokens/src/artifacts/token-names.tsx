@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::02412877f3dbfda4dbaee7a917f24b6c>>
+ * @codegen <<SignedSource::68df7d5e603e404373e4f57c7cf909f0>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -439,6 +439,9 @@ const tokens = {
 	'space.negative.250': '--ds-space-negative-250',
 	'space.negative.300': '--ds-space-negative-300',
 	'space.negative.400': '--ds-space-negative-400',
+	'font.metric.large': '--ds-font-metric-large',
+	'font.metric.medium': '--ds-font-metric-medium',
+	'font.metric.small': '--ds-font-metric-small',
 	'font.heading.xxlarge': '--ds-font-heading-xxlarge',
 	'font.heading.xlarge': '--ds-font-heading-xlarge',
 	'font.heading.large': '--ds-font-heading-large',
@@ -888,6 +891,9 @@ export type CSSTokenMap = {
 	'space.negative.250': 'var(--ds-space-negative-250)';
 	'space.negative.300': 'var(--ds-space-negative-300)';
 	'space.negative.400': 'var(--ds-space-negative-400)';
+	'font.metric.large': 'var(--ds-font-metric-large)';
+	'font.metric.medium': 'var(--ds-font-metric-medium)';
+	'font.metric.small': 'var(--ds-font-metric-small)';
 	'font.heading.xxlarge': 'var(--ds-font-heading-xxlarge)';
 	'font.heading.xlarge': 'var(--ds-font-heading-xlarge)';
 	'font.heading.large': 'var(--ds-font-heading-large)';

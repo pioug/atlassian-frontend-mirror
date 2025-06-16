@@ -59,16 +59,10 @@
 			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../elements/util-data-test/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

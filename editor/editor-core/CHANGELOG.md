@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 207.20.0
+
+### Minor Changes
+
+- [#158546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158546)
+  [`b7fe4e6f226f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7fe4e6f226f3) -
+  ED-27284 use user preferences plugin in editor preset.
+
+### Patch Changes
+
+- [#171482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171482)
+  [`aaa3084f0ce5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa3084f0ce5e) - \*
+  I18n translations, see
+  [commit](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5e33f6fd2cf86464047d15fc050a0759daa17a6)
+  - Add `platform_editor_disable_context_panel_animation`, see
+    [commit](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5354e057194e15abfc9fa16aa288e42044d710c)
+- Updated dependencies
+
 ## 207.19.6
 
 ### Patch Changes

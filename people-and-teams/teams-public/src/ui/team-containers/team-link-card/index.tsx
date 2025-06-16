@@ -71,6 +71,8 @@ export interface TeamLinkCardProps {
 		subType?: ContainerSubTypes;
 		name?: string;
 	};
+	iconsLoading?: boolean;
+	iconHasLoaded?: boolean;
 }
 
 export const TeamLinkCard = ({
@@ -82,6 +84,8 @@ export const TeamLinkCard = ({
 	containerTypeProperties,
 	onDisconnectButtonClick,
 	onEditLinkClick,
+	iconsLoading,
+	iconHasLoaded,
 }: TeamLinkCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { description, icon, containerTypeText } = getContainerProperties({
@@ -137,6 +141,8 @@ export const TeamLinkCard = ({
 					title={title}
 					containerIcon={containerIcon}
 					size="medium"
+					iconsLoading={iconsLoading}
+					iconHasLoaded={iconHasLoaded}
 				/>
 				<Box xcss={styles.linkableContent} testId="team-link-card-linkable-content">
 					<Link href={link || '#'} appearance="subtle" onClick={handleLinkClick}>

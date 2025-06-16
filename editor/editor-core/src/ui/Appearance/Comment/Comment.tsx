@@ -52,6 +52,7 @@ import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/content
 import { createEditorContentStyle } from '../../ContentStyles';
 import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
 import PluginSlot from '../../PluginSlot';
+import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 import WithFlash from '../../WithFlash';
 
@@ -176,8 +177,15 @@ const useCommentEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 
 export const CommentEditorWithIntl = (props: ComponentProps) => {
 	const { editorAPI } = props;
-	const { maxContentSizeState, primaryToolbarState, editorViewModeState } =
-		useCommentEditorPluginsStates(editorAPI);
+	const {
+		maxContentSizeState,
+		primaryToolbarState: primaryToolbarHookState,
+		editorViewModeState,
+	} = useCommentEditorPluginsStates(editorAPI);
+	const primaryToolbarState = getPrimaryToolbarComponents(
+		editorAPI,
+		primaryToolbarHookState?.components,
+	);
 	const { mediaState } = useSharedPluginState(editorAPI, ['media']);
 	const intl = useIntl();
 	const {

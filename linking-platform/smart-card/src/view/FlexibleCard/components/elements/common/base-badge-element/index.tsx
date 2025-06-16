@@ -278,9 +278,6 @@ export default withFeatureFlaggedComponent(
 );
 
 export const toBadgeProps = (label?: string): Partial<BaseBadgeElementProps> | undefined => {
-	if (fg('platform-linking-flexible-card-elements-refactor')) {
-		// Don't render the element if its 0
-		return label !== '0' && label ? { label } : undefined;
-	}
-	return label ? { label } : undefined;
+	// Don't render the element if its 0
+	return label !== '0' && label ? { label } : undefined;
 };

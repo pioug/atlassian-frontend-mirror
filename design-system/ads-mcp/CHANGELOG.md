@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 0.1.7
+
+### Patch Changes
+
+- [#171542](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171542)
+  [`3dd57e3f43529`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dd57e3f43529) -
+  Fix ADS MCP when installing via npx by completely decoupling the tsconfig-related devloop
+- Updated dependencies
+
 ## 0.1.6
 
 ### Patch Changes

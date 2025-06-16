@@ -1,6 +1,8 @@
 import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
@@ -44,6 +46,7 @@ import { useCallback, useEffect, useReducer, useRef } from 'react';
 type ReducerState = {
 	focusOnSearch: boolean;
 	focusOnViewMore: boolean;
+	focusOnEmptyStateButton?: boolean;
 	selectedItemIndex?: number;
 	focusedItemIndex?: number;
 	listSize: number;
@@ -195,6 +198,39 @@ const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState =
 			selectedItemIndex,
 		};
 	}
+
+	if (fg('jfp_a11y_fix_create_issue_no_results_link_focus')) {
+		// Handle empty state navigation
+		if (state.listSize === -1) {
+			// If currently on search, ArrowDown and ArrowUp moves to EmptyState button
+			if (state.focusOnSearch && action.payload.positions && action.payload.positions > 0) {
+				return {
+					...state,
+					focusOnSearch: false,
+					focusOnEmptyStateButton: true,
+				};
+			}
+			// If currently on EmptyState button, ArrowUp and ArrowDown moves back to search
+			if (
+				state.focusOnEmptyStateButton &&
+				action.payload.positions &&
+				action.payload.positions < 0
+			) {
+				return {
+					...state,
+					focusOnSearch: true,
+					focusOnEmptyStateButton: false,
+				};
+			}
+			// Stay on EmptyState button for other arrows
+			return {
+				...state,
+				focusOnSearch: false,
+				focusOnEmptyStateButton: true,
+			};
+		}
+	}
+
 	return {
 		...state,
 		focusOnSearch: false,
@@ -204,9 +240,10 @@ const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState =
 	};
 };
 
-const initialState = {
+const initialState: ReducerState = {
 	focusOnSearch: true,
 	focusOnViewMore: false,
+	focusOnEmptyStateButton: false,
 	selectedItemIndex: 0,
 	focusedItemIndex: undefined,
 	listSize: 0,
@@ -269,6 +306,7 @@ export type useSelectAndFocusReturnType = {
 	onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 	focusOnSearch: boolean;
 	focusOnViewMore: boolean;
+	focusOnEmptyStateButton?: boolean;
 	focusedItemIndex?: number;
 	focusedCategoryIndex?: number;
 	setFocusedItemIndex: (index?: number) => void;
@@ -302,6 +340,7 @@ function useSelectAndFocusOnArrowNavigation(
 		focusOnSearch,
 		focusOnViewMore,
 		focusedCategoryIndex,
+		focusOnEmptyStateButton,
 	} = state;
 
 	// calls if items size changed
@@ -404,6 +443,24 @@ function useSelectAndFocusOnArrowNavigation(
 			if (focusOnSearch && avoidKeysWhileSearching.includes(e.key)) {
 				return;
 			}
+
+			if (fg('jfp_a11y_fix_create_issue_no_results_link_focus')) {
+				// Handle empty state navigation
+				if (listSize === -1) {
+					if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+						e.preventDefault();
+						dispatch({
+							type: ACTIONS.UPDATE_STATE,
+							payload: {
+								focusOnSearch: focusOnEmptyStateButton, // cycle focus between search and button
+								focusOnEmptyStateButton: !focusOnEmptyStateButton, // toggle
+							},
+						});
+						return;
+					}
+				}
+			}
+
 			switch (e.key) {
 				case '/':
 					e.preventDefault();
@@ -435,7 +492,16 @@ function useSelectAndFocusOnArrowNavigation(
 				}
 			}
 		},
-		[focusOnSearch, setFocusOnSearch, move, selectedItemIndex, itemIsDisabled, listSize, step],
+		[
+			focusOnSearch,
+			setFocusOnSearch,
+			move,
+			selectedItemIndex,
+			itemIsDisabled,
+			listSize,
+			step,
+			focusOnEmptyStateButton,
+		],
 	);
 
 	useEffect(() => {
@@ -448,6 +514,7 @@ function useSelectAndFocusOnArrowNavigation(
 		onKeyDown,
 		focusOnSearch,
 		focusOnViewMore,
+		focusOnEmptyStateButton,
 		setFocusOnSearch,
 		focusedItemIndex,
 		setFocusedItemIndex: removeFocusFromSearchAndSetOnItem,

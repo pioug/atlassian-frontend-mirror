@@ -2,52 +2,38 @@ import {
 	UserPreferencesProvider,
 	type UserPreferences,
 	type ResolvedUserPreferences,
+	PersistenceAPI,
 } from '@atlaskit/editor-common/user-preferences';
 
 const DEFAULT_USER_PREFERENCES = {
 	toolbarDockingPosition: 'top',
 } as ResolvedUserPreferences;
 
-const storageKey = 'editor-user-settings';
+class inMemoryAPI implements PersistenceAPI {
+	private userPreferences: UserPreferences = {};
 
-export const getUserPreferencesProvider = () => {
-	const loadUserPreferencesSync = () => {
-		const storedPreferences = localStorage.getItem(storageKey);
-		if (storedPreferences) {
-			return JSON.parse(storedPreferences);
-		}
-		return DEFAULT_USER_PREFERENCES;
+	constructor() {
+		this.userPreferences = DEFAULT_USER_PREFERENCES;
+	}
+
+	getInitialUserPreferences = () => {
+		return this.userPreferences;
 	};
 
-	const loadUserPreferences = () => {
-		return Promise.resolve(loadUserPreferencesSync());
+	loadUserPreferences = async () => {
+		return await this.userPreferences;
 	};
 
-	const updateUserPreferences = <K extends keyof UserPreferences>(
-		key: K,
-		value: UserPreferences[K],
-	) => {
-		const storedPreferences = JSON.parse(localStorage.getItem(storageKey) || '{}');
-
-		const updatedPreferences = {
-			...storedPreferences,
-			[key]: value,
-		};
-
-		localStorage.setItem(storageKey, JSON.stringify(updatedPreferences));
-		return Promise.resolve(updatedPreferences);
+	updateUserPreference = async (key: keyof UserPreferences, value: UserPreferences[typeof key]) => {
+		this.userPreferences[key] = value;
+		return await this.userPreferences;
 	};
+}
 
-	const persistenceAPI = {
-		loadUserPreferences,
-		updateUserPreference: updateUserPreferences,
-		getInitialUserPreferences: loadUserPreferencesSync,
-	};
-
-	const userPreferencesProvider = new UserPreferencesProvider(
-		persistenceAPI,
-		DEFAULT_USER_PREFERENCES,
-	);
+export const getUserPreferencesProvider = (
+	defaultUserPref: ResolvedUserPreferences = DEFAULT_USER_PREFERENCES,
+) => {
+	const userPreferencesProvider = new UserPreferencesProvider(new inMemoryAPI(), defaultUserPref);
 
 	return userPreferencesProvider;
 };

@@ -19,7 +19,7 @@ interface ChevronProps {
 	collapseLabel?: string;
 	isExpanded?: boolean;
 	ariaControls?: string;
-	onExpandToggle?: () => void;
+	onExpandToggle?: (e: React.MouseEvent) => void;
 	rowId: string;
 	extendedLabel?: string;
 }

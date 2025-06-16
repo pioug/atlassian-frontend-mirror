@@ -877,6 +877,8 @@ export default {
   'fabric.editor.toolbarMediaTitle': 'Dodaj sliku, videozapis ili datoteku',
   'fabric.editor.toolbarPositionFixedAtTop': 'Fiksirano na vrhu',
   'fabric.editor.toolbarPositionInline': 'U liniji s tekstom',
+  'fabric.editor.toolbarPositionPinedAtTop': 'Otkvači alatnu traku',
+  'fabric.editor.toolbarPositionUnpined': 'Prikvači alatnu traku na vrhu',
   'fabric.editor.tooltip.blockPanel': 'ploča',
   'fabric.editor.tooltip.bulletList': 'popis',
   'fabric.editor.tooltip.decisionList': 'popis odluka',

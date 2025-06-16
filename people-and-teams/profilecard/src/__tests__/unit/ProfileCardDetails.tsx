@@ -3,8 +3,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
 import { type LozengeProps } from '../../types';
 
@@ -18,11 +16,6 @@ jest.mock('react-intl-next', () => {
 		}),
 	};
 });
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
-	fg: jest.fn(),
-}));
 
 type Props = Parameters<typeof ProfileCardDetails>[0];
 
@@ -85,7 +78,6 @@ describe('ProfileCardDetails', () => {
 			});
 
 			it('should render name as a heading', () => {
-				(fg as jest.Mock).mockReturnValue(true);
 				const { getByRole } = renderComponent({
 					isBot,
 					fullName: 'Same name',
@@ -197,7 +189,6 @@ describe('ProfileCardDetails', () => {
 				});
 
 				it('should render name as a heading', () => {
-					(fg as jest.Mock).mockReturnValue(true);
 					const { getByRole } = renderComponent({
 						fullName: 'Same name',
 						nickname: 'Same name',

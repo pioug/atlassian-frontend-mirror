@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/ufo';
 
 export const flushPromises = () => {
+	// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 	return new Promise((resolve) => setImmediate(resolve));
 };
 

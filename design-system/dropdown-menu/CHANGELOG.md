@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.0.5
+
+### Patch Changes
+
+- [#171540](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171540)
+  [`ff686344ec2f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff686344ec2f4) -
+  Removed FG that fixes dropdown menu keyboard nav with disabled options
+
 ## 16.0.4
 
 ### Patch Changes

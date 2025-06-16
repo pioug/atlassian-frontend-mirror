@@ -10,6 +10,7 @@ import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
@@ -148,6 +149,11 @@ export const createDropTargetDecoration = (
 		{
 			type: TYPE_DROP_TARGET_DEC,
 			side,
+			destroy: () => {
+				if (fg('platform_editor_block_controls_drop_target_mem_fix')) {
+					nodeViewPortalProviderAPI.remove(key);
+				}
+			},
 		},
 	);
 };
@@ -183,6 +189,11 @@ export const createLayoutDropTargetDecoration = (
 		},
 		{
 			type: TYPE_DROP_TARGET_DEC,
+			destroy: () => {
+				if (fg('platform_editor_block_controls_drop_target_mem_fix')) {
+					nodeViewPortalProviderAPI.remove(key);
+				}
+			},
 		},
 	);
 };
@@ -197,11 +208,13 @@ export const dropTargetDecorations = (
 	from?: number,
 	to?: number,
 ) => {
-	unmountDecorations(
-		nodeViewPortalProviderAPI,
-		'data-blocks-drop-target-container',
-		'data-blocks-drop-target-key',
-	);
+	if (!fg('platform_editor_block_controls_drop_target_mem_fix')) {
+		unmountDecorations(
+			nodeViewPortalProviderAPI,
+			'data-blocks-drop-target-container',
+			'data-blocks-drop-target-key',
+		);
+	}
 
 	const decs: Decoration[] = [];
 	const POS_END_OF_DOC = newState.doc.nodeSize - 2;

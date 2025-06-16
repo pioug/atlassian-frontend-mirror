@@ -1562,6 +1562,18 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 
 
 
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-initial {
+  -webkit-animation: pulseOutDuringTr 7500ms ease-in-out;
+  animation: pulseOutDuringTr 7500ms ease-in-out;
+}
+
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-fullname {
+  -webkit-animation: pulseInDuringTr 7500ms ease-in-out;
+  animation: pulseInDuringTr 7500ms ease-in-out;
+}
+
+
+
 .emotion-0 .ProseMirror .telepointer:hover .telepointer-initial {
   opacity: 0;
   transition-delay: 150ms;
@@ -5652,6 +5664,18 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 
 
 
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-initial {
+  -webkit-animation: pulseOutDuringTr 7500ms ease-in-out;
+  animation: pulseOutDuringTr 7500ms ease-in-out;
+}
+
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-fullname {
+  -webkit-animation: pulseInDuringTr 7500ms ease-in-out;
+  animation: pulseInDuringTr 7500ms ease-in-out;
+}
+
+
+
 .emotion-0 .ProseMirror .telepointer:hover .telepointer-initial {
   opacity: 0;
   transition-delay: 150ms;
@@ -8792,6 +8816,42 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 }
 
 @keyframes animation-2 {
+  100% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  0%, 90% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes animation-3 {
+  0%, 95% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes animation-4 {
   from, to {
     opacity: 0;
   }
@@ -8801,7 +8861,7 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
   }
 }
 
-@keyframes animation-3 {
+@keyframes animation-5 {
   0% {
     --panel-gradient-angle: 0deg;
   }
@@ -10083,6 +10143,18 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 
 
 
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-initial {
+  -webkit-animation: animation-2 7500ms ease-in-out;
+  animation: animation-2 7500ms ease-in-out;
+}
+
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-fullname {
+  -webkit-animation: animation-3 7500ms ease-in-out;
+  animation: animation-3 7500ms ease-in-out;
+}
+
+
+
 .emotion-0 .ProseMirror .telepointer:hover .telepointer-initial {
   opacity: 0;
   transition-delay: 150ms;
@@ -10247,8 +10319,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 }
 
 .emotion-0 .ProseMirror .ProseMirror-gapcursor span::after {
-  -webkit-animation: 1s animation-2 step-start infinite;
-  animation: 1s animation-2 step-start infinite;
+  -webkit-animation: 1s animation-4 step-start infinite;
+  animation: 1s animation-4 step-start infinite;
   border-left: 1px solid;
   content: '';
   display: block;
@@ -13053,8 +13125,8 @@ td>.emotion-0 .ak-editor-expand {
 
 .emotion-0 div[extensionType="com.atlassian.ai-blocks"]:has(.streaming) .extension-container::before,
 .emotion-0 div[extensionType="com.atlassian.ai-blocks"]:has(.streaming) .extension-container::after {
-  -webkit-animation-name: animation-3;
-  animation-name: animation-3;
+  -webkit-animation-name: animation-5;
+  animation-name: animation-5;
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
   -webkit-animation-timing-function: linear;
@@ -13430,16 +13502,78 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 }
 
 @keyframes animation-2 {
-  from, to {
-    opacity: 0;
+  100% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    opacity: 1;
   }
 
-  50% {
-    opacity: 1;
+  0%, 90% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    opacity: 0;
   }
 }
 
 @keyframes animation-2 {
+  100% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  0%, 90% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes animation-3 {
+  0%, 95% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes animation-3 {
+  0%, 95% {
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes animation-4 {
   from, to {
     opacity: 0;
   }
@@ -13449,7 +13583,17 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
   }
 }
 
-@keyframes animation-3 {
+@keyframes animation-4 {
+  from, to {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes animation-5 {
   0% {
     --panel-gradient-angle: 0deg;
   }
@@ -13459,7 +13603,7 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
   }
 }
 
-@keyframes animation-3 {
+@keyframes animation-5 {
   0% {
     --panel-gradient-angle: 0deg;
   }
@@ -14731,6 +14875,18 @@ exports[`Editor Content styles in FullPageContentArea fullpage editor renders co
 
 
 
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-initial {
+  -webkit-animation: animation-2 7500ms ease-in-out;
+  animation: animation-2 7500ms ease-in-out;
+}
+
+.emotion-0 .ProseMirror .telepointer.telepointer-pulse-during-tr .telepointer-fullname {
+  -webkit-animation: animation-3 7500ms ease-in-out;
+  animation: animation-3 7500ms ease-in-out;
+}
+
+
+
 .emotion-0 .ProseMirror .telepointer:hover .telepointer-initial {
   opacity: 0;
   transition-delay: 150ms;
@@ -14895,8 +15051,8 @@ html[data-color-mode=dark] .emotion-0 .ProseMirror .telepointer {
 }
 
 .emotion-0 .ProseMirror .ProseMirror-gapcursor span::after {
-  -webkit-animation: 1s animation-2 step-start infinite;
-  animation: 1s animation-2 step-start infinite;
+  -webkit-animation: 1s animation-4 step-start infinite;
+  animation: 1s animation-4 step-start infinite;
   border-left: 1px solid;
   content: '';
   display: block;
@@ -17014,8 +17170,8 @@ td>.emotion-0 .ak-editor-expand {
 
 .emotion-0 div[extensionType="com.atlassian.ai-blocks"]:has(.streaming) .extension-container::before,
 .emotion-0 div[extensionType="com.atlassian.ai-blocks"]:has(.streaming) .extension-container::after {
-  -webkit-animation-name: animation-3;
-  animation-name: animation-3;
+  -webkit-animation-name: animation-5;
+  animation-name: animation-5;
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
   -webkit-animation-timing-function: linear;

@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.10.0
+
+### Minor Changes
+
+- [#171561](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171561)
+  [`d0c41c462c511`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0c41c462c511) -
+  [ux] Telepointers now stay expanded even if there are other transactions received which will
+  re-create their DOM elements.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.9.5
+
+### Patch Changes
+
+- [#171054](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171054)
+  [`46a532280fd7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46a532280fd7c) -
+  Filter out AnalyticsSteps from metric
+- [#169039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169039)
+  [`d2488752fcad8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2488752fcad8) -
+  EDITOR-508 Part 1 of cleaning up `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
 ## 3.9.4
 
 ### Patch Changes

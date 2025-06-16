@@ -208,6 +208,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		focusedItemIndex,
 		setFocusedItemIndex,
 		setFocusedCategoryIndex,
+		focusOnEmptyStateButton,
 		focusedCategoryIndex,
 		focusOnSearch,
 		focusOnViewMore,
@@ -299,6 +300,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
 					selectedItemIndex={selectedItemIndex}
+					focusOnEmptyStateButton={focusOnEmptyStateButton}
 					focusedItemIndex={focusedItemIndex}
 					setFocusedItemIndex={setFocusedItemIndex}
 					focusedCategoryIndex={focusedCategoryIndex}
@@ -320,6 +322,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
 					selectedItemIndex={selectedItemIndex}
+					focusOnEmptyStateButton={focusOnEmptyStateButton}
 					focusedItemIndex={focusedItemIndex}
 					setFocusedItemIndex={setFocusedItemIndex}
 					focusOnSearch={focusOnSearch}
@@ -367,10 +370,12 @@ function MobileBrowser({
 	viewMoreItem,
 	onViewMore,
 	cache,
+	focusOnEmptyStateButton = false,
 }: StatelessElementBrowserProps &
 	SelectedItemProps & {
 		focusOnSearch: boolean;
 		focusOnViewMore: boolean;
+		focusOnEmptyStateButton?: boolean;
 		setFocusOnSearch: () => void;
 		onKeyPress: (e: React.KeyboardEvent) => void;
 		onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
@@ -421,6 +426,7 @@ function MobileBrowser({
 					onInsertItem={onInsertItem}
 					selectedItemIndex={selectedItemIndex}
 					focusedItemIndex={focusedItemIndex}
+					focusOnEmptyStateButton={focusOnEmptyStateButton}
 					setFocusedItemIndex={setFocusedItemIndex}
 					columnCount={columnCount}
 					setColumnCount={setColumnCount}
@@ -467,9 +473,11 @@ function DesktopBrowser({
 	createAnalyticsEvent,
 	emptyStateHandler,
 	cache,
+	focusOnEmptyStateButton = false,
 }: StatelessElementBrowserProps &
 	SelectedItemProps & {
 		focusOnSearch: boolean;
+		focusOnEmptyStateButton?: boolean;
 		setFocusOnSearch: () => void;
 		onKeyPress: (e: React.KeyboardEvent) => void;
 		onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
@@ -533,6 +541,7 @@ function DesktopBrowser({
 					onInsertItem={onInsertItem}
 					selectedItemIndex={selectedItemIndex}
 					focusedItemIndex={focusedItemIndex}
+					focusOnEmptyStateButton={focusOnEmptyStateButton}
 					setFocusedItemIndex={setFocusedItemIndex}
 					columnCount={columnCount}
 					setColumnCount={setColumnCount}

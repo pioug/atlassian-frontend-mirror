@@ -2,4 +2,7 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
-export type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
+export type {
+	UserPreferencesPlugin,
+	UserPreferencesPluginOptions,
+} from '@atlaskit/editor-plugin-user-preferences';

@@ -8,6 +8,7 @@ import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -112,11 +113,13 @@ export const getActiveDropTargetDecorations = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	activeNode?: ActiveNode,
 ) => {
-	unmountDecorations(
-		nodeViewPortalProviderAPI,
-		'data-blocks-drop-target-container',
-		'data-blocks-drop-target-key',
-	);
+	if (!fg('platform_editor_block_controls_drop_target_mem_fix')) {
+		unmountDecorations(
+			nodeViewPortalProviderAPI,
+			'data-blocks-drop-target-container',
+			'data-blocks-drop-target-key',
+		);
+	}
 
 	const decs: Decoration[] = [];
 	const activeNodePos = activeNode?.pos;

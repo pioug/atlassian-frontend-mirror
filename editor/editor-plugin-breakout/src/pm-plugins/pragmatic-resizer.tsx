@@ -197,9 +197,14 @@ export const createPragmaticResizer = ({
 	return {
 		rightHandle: rightHandle.handle,
 		leftHandle: leftHandle.handle,
-		destroy: () => {
+		destroy: (isChangeToViewMode?: boolean) => {
 			destroyFns.forEach((destroyFn) => destroyFn());
 			unbindFns.forEach((unbindFn) => unbindFn());
+
+			if (isChangeToViewMode && fg('platform_editor_breakout_resizing_hello_release')) {
+				rightHandle.handle.parentElement?.removeChild(rightHandle.handle);
+				leftHandle.handle.parentElement?.removeChild(leftHandle.handle);
+			}
 		},
 	};
 };

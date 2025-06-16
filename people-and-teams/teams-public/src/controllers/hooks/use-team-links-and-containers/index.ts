@@ -19,6 +19,8 @@ export type UseTeamLinksAndContainersResult = {
 	hasLoaded: boolean;
 	teamLinks: TeamContainer[];
 	canAddMoreLink: boolean;
+	iconsLoading: boolean;
+	iconHasLoaded: boolean;
 	addTeamLink: (containerOrWebLink: TeamContainer | NewTeamWebLink) => Promise<any>;
 	updateTeamLinkById: (linkId: string, updatedFields: Partial<NewTeamWebLink>) => Promise<any>;
 	removeTeamLink: (container: TeamContainer) => Promise<void>;
@@ -46,6 +48,8 @@ export const useTeamLinksAndContainers = (
 			isLoading: webLinksLoading,
 			hasError: webLinksError,
 			hasLoaded: webLinksHasLoaded,
+			iconsLoading,
+			iconHasLoaded,
 		},
 		{ getTeamWebLinks, createTeamWebLink, updateTeamWebLink, removeWebLink },
 	] = useTeamWebLinks();
@@ -122,6 +126,8 @@ export const useTeamLinksAndContainers = (
 		hasLoaded: containersHasLoaded && webLinksHasLoaded,
 		teamLinks: allContainers,
 		canAddMoreLink,
+		iconsLoading,
+		iconHasLoaded,
 		addTeamLink,
 		updateTeamLinkById,
 		removeTeamLink,

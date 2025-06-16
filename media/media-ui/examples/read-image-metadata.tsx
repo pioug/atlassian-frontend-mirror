@@ -23,7 +23,7 @@ export interface ExampleState {
 	previews: ExamplePreview[];
 }
 
-class Example extends React.Component<{}, ExampleState> {
+class Example extends React.Component<object, ExampleState> {
 	state: ExampleState = {
 		previews: [],
 	};
@@ -108,8 +108,7 @@ class Example extends React.Component<{}, ExampleState> {
 						</p>
 					</div>
 					<PreviewImageContainer>
-						{/* eslint-disable-next-line jsx-a11y/alt-text */}
-						<img src={preview.src} />
+						<img src={preview.src} alt={`Preview of ${preview.filename}`} />
 						<pre>{JSON.stringify(preview.metadata, null, 4)}</pre>
 					</PreviewImageContainer>
 					<CloseButton onClick={this.onRemovePreview(i)}>X</CloseButton>

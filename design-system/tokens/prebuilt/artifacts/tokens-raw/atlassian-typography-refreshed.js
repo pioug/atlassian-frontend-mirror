@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d1bc93e992ef99e09291faf988340014>>
+ * @codegen <<SignedSource::599e9e92baa4a20bd2f795bf07d9cad2>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -31,6 +31,93 @@ var tokens = [{
   "name": "utility.UNSAFE.textTransformUppercase",
   "path": ["utility", "UNSAFE", "textTransformUppercase"],
   "cleanName": "utility.UNSAFE.textTransformUppercase"
+}, {
+  "attributes": {
+    "group": "typography",
+    "state": "active",
+    "introduced": "5.0.1",
+    "description": "Large numerical information content to be used in dashboards, charts, etc."
+  },
+  "value": "normal 653 28px/28px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+  "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "5.0.1",
+      "description": "Large numerical information content to be used in dashboards, charts, etc."
+    },
+    "value": {
+      "fontWeight": "FontWeight653",
+      "fontSize": "FontSize28",
+      "lineHeight": "LineHeight28",
+      "fontFamily": "FontFamilyWebSansRefreshed",
+      "fontStyle": "normal",
+      "letterSpacing": "LetterSpacing0"
+    }
+  },
+  "name": "font.metric.large",
+  "path": ["font", "metric", "large"],
+  "cleanName": "font.metric.large"
+}, {
+  "attributes": {
+    "group": "typography",
+    "state": "active",
+    "introduced": "5.0.1",
+    "description": "Medium numerical information content to be used in dashboards, charts, etc."
+  },
+  "value": "normal 653 24px/24px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+  "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "5.0.1",
+      "description": "Medium numerical information content to be used in dashboards, charts, etc."
+    },
+    "value": {
+      "fontWeight": "FontWeight653",
+      "fontSize": "FontSize24",
+      "lineHeight": "LineHeight24",
+      "fontFamily": "FontFamilyWebSansRefreshed",
+      "fontStyle": "normal",
+      "letterSpacing": "LetterSpacing0"
+    }
+  },
+  "name": "font.metric.medium",
+  "path": ["font", "metric", "medium"],
+  "cleanName": "font.metric.medium"
+}, {
+  "attributes": {
+    "group": "typography",
+    "state": "active",
+    "introduced": "5.0.1",
+    "description": "Small numerical information content to be used in dashboards, charts, etc."
+  },
+  "value": "normal 653 16px/16px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, \"Helvetica Neue\", sans-serif",
+  "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "typography",
+      "state": "active",
+      "introduced": "5.0.1",
+      "description": "Small numerical information content to be used in dashboards, charts, etc."
+    },
+    "value": {
+      "fontWeight": "FontWeight653",
+      "fontSize": "FontSize16",
+      "lineHeight": "LineHeight16",
+      "fontFamily": "FontFamilyWebSansRefreshed",
+      "fontStyle": "normal",
+      "letterSpacing": "LetterSpacing0"
+    }
+  },
+  "name": "font.metric.small",
+  "path": ["font", "metric", "small"],
+  "cleanName": "font.metric.small"
 }, {
   "attributes": {
     "group": "typography",

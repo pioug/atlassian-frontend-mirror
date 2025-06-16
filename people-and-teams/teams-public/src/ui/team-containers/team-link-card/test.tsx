@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Text } from '@atlaskit/primitives';
 
 import { type ContainerTypes } from '../../../common/types';
@@ -33,9 +32,6 @@ jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	initializeCompleted: jest.fn(),
 }));
 
-const mockGetExperimentValue = FeatureGates.getExperimentValue as jest.Mock;
-const mockInitializeCompleted = FeatureGates.initializeCompleted as jest.Mock;
-
 const defaultProps = {
 	containerType: 'ConfluenceSpace' as ContainerTypes,
 	title: 'Test Container',
@@ -50,19 +46,7 @@ const renderWithIntl = (component: React.ReactElement) => {
 };
 
 describe('TeamLinkCard', () => {
-	beforeAll(async () => {
-		mockInitializeCompleted.mockReturnValue(true);
-		mockGetExperimentValue.mockReturnValue(true);
-	});
-
 	beforeEach(() => {
-		mockInitializeCompleted.mockReturnValue(true);
-		mockGetExperimentValue.mockImplementation((experimentName, key, defaultValue) => {
-			if (experimentName === 'team_and_container_web_link' && key === 'isEnabled') {
-				return true;
-			}
-			return defaultValue;
-		});
 		jest.clearAllMocks();
 	});
 

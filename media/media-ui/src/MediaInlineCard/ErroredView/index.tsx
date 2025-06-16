@@ -5,7 +5,7 @@
 import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { css, jsx } from '@compiled/react';
-import { R300, R400 } from '@atlaskit/theme/colors';
+import { R500 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
@@ -25,7 +25,7 @@ export interface MediaInlineCardErroredViewProps {
 }
 
 const errorTitleStyles = css({
-	color: token('color.text.danger', R400),
+	color: token('color.text.danger', R500),
 });
 export class MediaInlineCardErroredView extends React.Component<MediaInlineCardErroredViewProps> {
 	render() {
@@ -38,7 +38,7 @@ export class MediaInlineCardErroredView extends React.Component<MediaInlineCardE
 		} = this.props;
 
 		return (
-			<Frame testId={testId} innerRef={innerRef} onClick={onClick} isSelected={isSelected}>
+			<Frame testId={testId} innerRef={innerRef} onClick={onClick} isSelected={isSelected} isError>
 				<IconAndTitleLayout
 					icon={
 						icon || (
@@ -46,7 +46,7 @@ export class MediaInlineCardErroredView extends React.Component<MediaInlineCardE
 								<WarningIcon
 									label="error"
 									LEGACY_size="small"
-									color={token('color.icon.danger', R300)}
+									color={token('color.icon.danger', R500)}
 									size="small"
 								/>
 							</AKIconWrapper>

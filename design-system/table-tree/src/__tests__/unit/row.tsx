@@ -51,4 +51,38 @@ describe('Row', () => {
 		expect(onEvent.mock.calls[1][0].payload).toEqual(expected.payload);
 		expect(onEvent.mock.calls[1][0].context).toEqual(expected.context);
 	});
+
+	it('should prevent event propagation from chevron to row', async () => {
+		const user = userEvent.setup();
+
+		// Don't provide onExpand - this is unmanaged mode where double firing of onExpand can update the state twice
+		render(
+			<Row hasChildren data={{ id: 'test' }} shouldExpandOnClick>
+				<Cell>Test Cell Content</Cell>
+			</Row>,
+		);
+
+		let button: HTMLElement = screen.getByRole('button', {
+			name: /expand/i,
+		});
+		expect(button).toBeInTheDocument();
+
+		// Click the chevron button
+		await user.click(button);
+
+		// After clicking, should show "Collapse" button (expanded state)
+		button = screen.getByRole('button', {
+			name: /collapse/i,
+		});
+		expect(button).toBeInTheDocument();
+
+		// Click again to collapse
+		await user.click(button);
+
+		// Should be back to "Expand" button (collapsed state)
+		button = screen.getByRole('button', {
+			name: /expand/i,
+		});
+		expect(button).toBeInTheDocument();
+	});
 });

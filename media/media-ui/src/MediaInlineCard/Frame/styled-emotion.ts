@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { B300, N30A, N40A, N900 } from '@atlaskit/theme/colors';
+import { B300, N30A, N40A, N900, R50 } from '@atlaskit/theme/colors';
 import { type WrapperProps } from './styled-compiled';
 
 const selected = `
@@ -60,4 +60,13 @@ export const Wrapper = styled.span<WrapperProps>(
 			backgroundColor: token('color.background.neutral.hovered', N40A),
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+	(props) =>
+		props.isError && {
+			backgroundColor: token('color.background.danger', R50),
+			cursor: 'default',
+			'&:hover': {
+				backgroundColor: token('color.background.danger', R50),
+			},
+		},
 );

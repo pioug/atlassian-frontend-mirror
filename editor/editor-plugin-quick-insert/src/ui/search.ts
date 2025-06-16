@@ -32,7 +32,7 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 	}
 
 	return find(
-		query || '',
+		(fg('platform_editor_fix_space_triggering_ai') ? query?.trimEnd() : query) || '',
 		category === 'all' || !category
 			? items
 			: items.filter((item) => item.categories && item.categories.includes(category)),

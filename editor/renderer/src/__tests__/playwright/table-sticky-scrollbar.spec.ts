@@ -8,7 +8,6 @@ test.use({
 	},
 	adf: tableWith30rows5ColsWithNestedTable,
 	platformFeatureFlags: {
-		platform_editor_use_nested_table_pm_nodes: true,
 		platform_editor_querySelector_fix_table_renderer: true,
 	},
 	rendererProps: {

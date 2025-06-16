@@ -6,8 +6,10 @@ export type UserPreferences = {
 	toolbarDockingPosition?: ToolbarDocking;
 };
 
-type Must<T> = {
-	[P in keyof T]-?: NonNullable<T[P]>;
+/**
+ * This type should contain all the user preferences
+ * And we do expect all the attributes to be defined
+ */
+export type ResolvedUserPreferences = {
+	toolbarDockingPosition: ToolbarDocking;
 };
-
-export type ResolvedUserPreferences = Must<UserPreferences>;

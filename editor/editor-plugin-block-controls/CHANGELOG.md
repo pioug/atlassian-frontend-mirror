@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.1
+
+### Patch Changes
+
+- [#171113](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171113)
+  [`20200d3f20cfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20200d3f20cfe) -
+  Fix memory leak when cleaning up drop targets
+- Updated dependencies
+
 ## 3.19.0
 
 ### Minor Changes

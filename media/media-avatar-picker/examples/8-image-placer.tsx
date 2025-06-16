@@ -8,6 +8,7 @@ import { token } from '@atlaskit/tokens';
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { ImagePlacer, type ImageActions } from '../src/image-placer';
+import Button from '@atlaskit/button/new';
 
 export interface ExampleState {
 	containerWidth: number;
@@ -55,7 +56,7 @@ const exportedImageWrapperStyles = css({
 const checkeredBg =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAABCJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOmV4aWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vZXhpZi8xLjAvIgogICAgICAgICAgICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgICAgICAgICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+CiAgICAgICAgIDx0aWZmOlJlc29sdXRpb25Vbml0PjI8L3RpZmY6UmVzb2x1dGlvblVuaXQ+CiAgICAgICAgIDx0aWZmOkNvbXByZXNzaW9uPjU8L3RpZmY6Q29tcHJlc3Npb24+CiAgICAgICAgIDx0aWZmOlhSZXNvbHV0aW9uPjcyPC90aWZmOlhSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICAgICA8dGlmZjpZUmVzb2x1dGlvbj43MjwvdGlmZjpZUmVzb2x1dGlvbj4KICAgICAgICAgPGV4aWY6UGl4ZWxYRGltZW5zaW9uPjg8L2V4aWY6UGl4ZWxYRGltZW5zaW9uPgogICAgICAgICA8ZXhpZjpDb2xvclNwYWNlPjE8L2V4aWY6Q29sb3JTcGFjZT4KICAgICAgICAgPGV4aWY6UGl4ZWxZRGltZW5zaW9uPjg8L2V4aWY6UGl4ZWxZRGltZW5zaW9uPgogICAgICAgICA8ZGM6c3ViamVjdD4KICAgICAgICAgICAgPHJkZjpTZXEvPgogICAgICAgICA8L2RjOnN1YmplY3Q+CiAgICAgICAgIDx4bXA6TW9kaWZ5RGF0ZT4yMDE4OjA3OjE4IDEwOjA3OjUwPC94bXA6TW9kaWZ5RGF0ZT4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5QaXhlbG1hdG9yIDMuNy4zPC94bXA6Q3JlYXRvclRvb2w+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgrsp//0AAAAKUlEQVQIHWP8//8/Aww8ffoUxmRggrPQGKRLsCCbKy0tDTeQdKNw6gAAbSMIvvnXfF4AAAAASUVORK5CYII=';
 
-class Example extends React.Component<{}, ExampleState> {
+class Example extends React.Component<object, ExampleState> {
 	zoomSliderElement?: HTMLInputElement;
 
 	// part of ImageActions exported with onImageActions prop of ImagePlacer
@@ -225,7 +226,7 @@ class Example extends React.Component<{}, ExampleState> {
 						<input type="file" onChange={this.onFileInputChange} />
 						{src !== undefined ? (
 							<p>
-								<button onClick={this.onGetImageClick}>Export DataURI</button>
+								<Button onClick={this.onGetImageClick}>Export DataURI</Button>
 							</p>
 						) : null}
 					</GridColumn>
@@ -234,10 +235,10 @@ class Example extends React.Component<{}, ExampleState> {
 					<GridColumn>
 						{exportedDataURI ? (
 							<div css={exportedImageWrapperStyles} style={{ background: `url('${checkeredBg}')` }}>
-								{/* eslint-disable-next-line jsx-a11y/alt-text */}
 								<img
 									css={exportedImageStyles}
 									src={exportedDataURI}
+									alt="Exported preview"
 									style={{ margin: this.state.margin }}
 								/>
 							</div>

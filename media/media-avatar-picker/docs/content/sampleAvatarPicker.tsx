@@ -20,11 +20,11 @@ const AvatarApp = ({ isOpen }: AvatarAppProps) => {
 				<Button appearance="primary" onClick={() => setDialogOpen(true)}>
 					Open sesame!
 				</Button>
-				{/* eslint-disable-next-line jsx-a11y/alt-text */}
 				<img
 					width={400}
 					height={360}
 					src={imageSrc}
+					alt="Selected avatar preview"
 					style={{
 						visibility: imageSrc.length > 0 ? 'visible' : 'hidden',
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

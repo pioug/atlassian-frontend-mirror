@@ -23,7 +23,14 @@ describe('ContainerIcon', () => {
 	});
 
 	it('should render LinkIcon with correct testId when containerType is WebLink and no containerIcon is provided', () => {
-		render(<ContainerIcon {...defaultProps} containerType="WebLink" title="Web Link" />);
+		render(
+			<ContainerIcon
+				{...defaultProps}
+				containerType="WebLink"
+				title="Web Link"
+				iconHasLoaded={true}
+			/>,
+		);
 
 		expect(screen.getByTestId('linked-container-WebLink-icon')).toBeVisible();
 	});
@@ -65,5 +72,50 @@ describe('ContainerIcon', () => {
 		);
 
 		expect(screen.getByTestId('linked-container-JiraProject-icon')).toBeVisible();
+	});
+
+	it('should render IconSkeleton when iconsLoading is true (loading state)', () => {
+		render(
+			<ContainerIcon
+				{...defaultProps}
+				containerType="WebLink"
+				title="Web Link"
+				iconsLoading={true}
+				iconHasLoaded={false}
+			/>,
+		);
+
+		expect(screen.getByTestId('container-icon-skeleton')).toBeVisible();
+	});
+
+	it('should render LinkIcon when icons have loaded and no containerIcon for WebLink', () => {
+		render(
+			<ContainerIcon
+				{...defaultProps}
+				containerType="WebLink"
+				title="Web Link"
+				iconsLoading={false}
+				iconHasLoaded={true}
+			/>,
+		);
+
+		expect(screen.getByTestId('linked-container-WebLink-icon')).toBeVisible();
+		expect(screen.queryByTestId('container-icon-skeleton')).not.toBeInTheDocument();
+	});
+
+	it('should render containerIcon when icons have loaded and containerIcon is provided for WebLink', () => {
+		render(
+			<ContainerIcon
+				{...defaultProps}
+				containerType="WebLink"
+				title="Web Link"
+				containerIcon="https://example.com/icon.png"
+				iconsLoading={false}
+				iconHasLoaded={true}
+			/>,
+		);
+
+		expect(screen.getByTestId('linked-container-WebLink-icon')).toBeVisible();
+		expect(screen.queryByTestId('container-icon-skeleton')).not.toBeInTheDocument();
 	});
 });

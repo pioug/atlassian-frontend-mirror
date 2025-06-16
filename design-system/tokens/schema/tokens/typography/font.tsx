@@ -131,6 +131,33 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 				},
 			},
 		},
+		metric: {
+			large: {
+				attributes: {
+					group: 'typography',
+					state: 'active',
+					introduced: '5.0.1',
+					description: 'Large numerical information content to be used in dashboards, charts, etc.',
+				},
+			},
+			medium: {
+				attributes: {
+					group: 'typography',
+					state: 'active',
+					introduced: '5.0.1',
+					description:
+						'Medium numerical information content to be used in dashboards, charts, etc.',
+				},
+			},
+			small: {
+				attributes: {
+					group: 'typography',
+					state: 'active',
+					introduced: '5.0.1',
+					description: 'Small numerical information content to be used in dashboards, charts, etc.',
+				},
+			},
+		},
 	},
 };
 

@@ -22,7 +22,7 @@ export interface ExampleState {
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
-class Example extends Component<{}, ExampleState> {
+class Example extends Component<object, ExampleState> {
 	state: ExampleState = {
 		imageId: { label: 'Generic', value: genericFileId },
 		width: 100,
@@ -52,8 +52,7 @@ class Example extends Component<{}, ExampleState> {
 						return null;
 					}
 
-					// eslint-disable-next-line jsx-a11y/alt-text
-					return <img src={data.src} />;
+					return <img src={data.src} alt="Media" />;
 				}}
 			</MediaImage>
 		);

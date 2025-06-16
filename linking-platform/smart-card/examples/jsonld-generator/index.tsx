@@ -92,7 +92,7 @@ const JsonLdGenerator = ({ onSubmit }: { onSubmit: (response: JsonLd.Response) =
 								{({ fieldProps }) => <DateTimePicker {...fieldProps} />}
 							</Field>
 							<Field defaultValue="" label="Due on" name="dueOn">
-								{({ fieldProps }) => <DatePicker {...fieldProps} />}
+								{({ fieldProps }) => <DatePicker {...fieldProps} shouldShowCalendarButton />}
 							</Field>
 							<CustomFieldset legend="Status" templateColumns="1fr 1fr">
 								<Field defaultValue="" label="Name" name="statusLabel">

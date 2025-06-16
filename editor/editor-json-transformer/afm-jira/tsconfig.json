@@ -19,9 +19,6 @@
 	"references": [
 		{
 			"path": "../../adf-utils/afm-jira/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		}
 	]
 }

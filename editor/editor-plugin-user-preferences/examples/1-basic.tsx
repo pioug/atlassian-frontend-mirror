@@ -42,6 +42,10 @@ import { userPreferencesPlugin } from '../src';
 
 import { getUserPreferencesProvider } from './user-preferences-provider';
 
+/**
+ * This is an example Editor class
+ * @example return <Editor />
+ */
 export default function Editor() {
 	const { preset } = usePreset((builder) =>
 		builder

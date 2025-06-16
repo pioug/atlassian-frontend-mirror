@@ -416,6 +416,7 @@ describe('FileFetcher', () => {
 					done();
 				});
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				const { files } = fileStateStore.getState();
 				expect(files[items[0].id]).toEqual(
@@ -473,6 +474,7 @@ describe('FileFetcher', () => {
 				done();
 			});
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				const { files } = fileStateStore.getState();
 				expect(files[items[0].id]).toEqual(
@@ -523,6 +525,7 @@ describe('FileFetcher', () => {
 				next,
 			});
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				const expectedFileState = {
 					id: items[2].id,
@@ -649,6 +652,7 @@ describe('FileFetcher', () => {
 				error,
 			});
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				expect(next).toBeCalledTimes(1);
 				expect(error).toBeCalledTimes(0);
@@ -1433,6 +1437,7 @@ describe('FileFetcher', () => {
 				) => {
 					if (callbacks) {
 						callbacks.onProgress(0);
+						// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 						setImmediate(() => {
 							callbacks.onProgress(0.5);
 							callbacks.onProgress(1);
@@ -1579,6 +1584,7 @@ describe('FileFetcher', () => {
 				uploadFileUpfrontIds,
 			);
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
 				done();
@@ -1594,6 +1600,7 @@ describe('FileFetcher', () => {
 				uploadFileUpfrontIds,
 			);
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
 				done();
@@ -1611,6 +1618,7 @@ describe('FileFetcher', () => {
 
 			expect(isMimeTypeSupportedByServer('application/zip')).toEqual(false);
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				expect(mediaStore.getItems).toHaveBeenCalledTimes(1);
 				done();

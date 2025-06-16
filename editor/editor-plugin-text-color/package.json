@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-color",
-	"version": "2.3.9",
+	"version": "2.4.0",
 	"description": "Text color plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -103,6 +103,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_use_preferences_plugin": {
+			"type": "boolean"
+		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		}

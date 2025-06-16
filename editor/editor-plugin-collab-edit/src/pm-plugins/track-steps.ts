@@ -1,4 +1,4 @@
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -12,6 +12,7 @@ import {
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { sendableSteps } from '@atlaskit/prosemirror-collab';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
 
@@ -227,7 +228,12 @@ export const track = ({ api, newEditorState, transactions, onTrackDataProcessed 
 	});
 
 	if (fg('platform_enable_ncs_step_metrics')) {
-		updateNcsSessionStepMetrics({ api, steps: newSteps });
+		updateNcsSessionStepMetrics({
+			api,
+			steps: editorExperiment('platform_editor_reduce_noisy_steps_ncs', true)
+				? newSteps.filter((step) => !(step instanceof AnalyticsStep))
+				: newSteps,
+		});
 	}
 
 	scheduler.postTask(

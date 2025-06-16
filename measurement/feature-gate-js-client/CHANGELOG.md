@@ -1,5 +1,16 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.3.2
+
+### Patch Changes
+
+- [#162595](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162595)
+  [`7748a5cf819c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7748a5cf819c8) -
+  Force enable exposure event compression
+- [#162595](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/162595)
+  [`322d42959b725`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/322d42959b725) -
+  Bump Statsig client to v3.17.2
+
 ## 5.3.1
 
 ### Patch Changes

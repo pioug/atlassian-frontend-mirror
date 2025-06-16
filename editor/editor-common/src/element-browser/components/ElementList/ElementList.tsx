@@ -74,6 +74,7 @@ export interface Props {
 	selectedCategoryIndex?: number;
 	searchTerm?: string;
 	cache?: CellMeasurerCache;
+	focusOnEmptyStateButton?: boolean;
 }
 
 function ElementList({
@@ -81,6 +82,7 @@ function ElementList({
 	mode,
 	selectedItemIndex,
 	focusedItemIndex,
+	focusOnEmptyStateButton,
 	columnCount,
 	setColumnCount,
 	createAnalyticsEvent,
@@ -166,7 +168,10 @@ function ElementList({
 							searchTerm,
 						})
 					) : (
-						<EmptyState onExternalLinkClick={onExternalLinkClick} />
+						<EmptyState
+							onExternalLinkClick={onExternalLinkClick}
+							focusOnEmptyStateButton={focusOnEmptyStateButton}
+						/>
 					)
 				) : (
 					<Fragment>

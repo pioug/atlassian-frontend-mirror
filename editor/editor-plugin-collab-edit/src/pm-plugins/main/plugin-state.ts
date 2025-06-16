@@ -1,5 +1,9 @@
 import { browser } from '@atlaskit/editor-common/browser';
-import { TELEPOINTER_DIM_CLASS, TELEPOINTER_PULSE_CLASS } from '@atlaskit/editor-common/collab';
+import {
+	TELEPOINTER_DIM_CLASS,
+	TELEPOINTER_PULSE_CLASS,
+	TELEPOINTER_PULSE_DURING_TR_CLASS,
+} from '@atlaskit/editor-common/collab';
 import type {
 	CollabEventConnectionData,
 	CollabEventPresenceData,
@@ -21,6 +25,8 @@ import {
 	findPointers,
 	getPositionOfTelepointer,
 	isReplaceStep,
+	hasExistingNudge,
+	type NudgeAnimationsMap,
 } from '../utils';
 
 /**
@@ -44,6 +50,7 @@ export const getValidPos = (tr: ReadonlyTransaction, pos: number) => {
 export class PluginState {
 	private decorationSet: DecorationSet;
 	private participants: Participants;
+	private nudgeAnimations: NudgeAnimationsMap;
 	// eslint-disable-next-line no-console
 	private onError = (error: Error) => console.error(error);
 	private sid?: string;
@@ -67,12 +74,14 @@ export class PluginState {
 		sessionId?: string,
 		collabInitalised: boolean = false,
 		onError?: (err: Error) => void,
+		nudgeAnimations: NudgeAnimationsMap = new Map(),
 	) {
 		this.decorationSet = decorations;
 		this.participants = participants;
 		this.sid = sessionId;
 		this.isReady = collabInitalised;
 		this.onError = onError || this.onError;
+		this.nudgeAnimations = nudgeAnimations;
 	}
 
 	getFullName(sessionId: string) {
@@ -185,6 +194,9 @@ export class PluginState {
 						this.getInitial(sessionId),
 						this.getPresenceId(sessionId),
 						this.getFullName(sessionId),
+						fg('confluence_team_presence_scroll_to_pointer')
+							? hasExistingNudge(sessionId, this.nudgeAnimations)
+							: false,
 					),
 				);
 			}
@@ -226,6 +238,9 @@ export class PluginState {
 										this.getInitial(sessionId),
 										presenceId,
 										this.getFullName(sessionId),
+										fg('confluence_team_presence_scroll_to_pointer')
+											? hasExistingNudge(sessionId, this.nudgeAnimations)
+											: false,
 									),
 								);
 							}
@@ -294,9 +309,11 @@ export class PluginState {
 					deco.spec?.key === `telepointer-${nudgeSessionId}`
 				) {
 					// Restart animation by removing and re-adding the class
+					deco.type.toDOM.classList.remove(TELEPOINTER_PULSE_DURING_TR_CLASS);
 					deco.type.toDOM.classList.remove(TELEPOINTER_PULSE_CLASS);
 					void deco.type.toDOM.offsetWidth; // Force reflow
 					deco.type.toDOM.classList.add(TELEPOINTER_PULSE_CLASS);
+					this.nudgeAnimations.set(nudgeSessionId, Date.now());
 				}
 			});
 		}
@@ -319,6 +336,18 @@ export class PluginState {
 					participants = participants.updateCursorPos(sessionId, positionForScroll);
 				}
 			}
+		}
+
+		if (fg('confluence_team_presence_scroll_to_pointer')) {
+			const nextState = new PluginState(
+				this.decorationSet,
+				participants,
+				sid,
+				collabInitialised,
+				this.onError,
+				this.nudgeAnimations,
+			);
+			return PluginState.eq(nextState, this) ? this : nextState;
 		}
 
 		const nextState = new PluginState(this.decorationSet, participants, sid, collabInitialised);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.6.0
+
+### Minor Changes
+
+- [#166543](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/166543)
+  [`e817523123ea3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e817523123ea3) -
+  Trim end whitespace from quick insert queries
+
 ## 2.5.7
 
 ### Patch Changes

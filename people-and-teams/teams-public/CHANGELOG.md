@@ -1,5 +1,30 @@
 # @atlaskit/teams-public
 
+## 0.38.0
+
+### Minor Changes
+
+- [#170383](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170383)
+  [`0b0a0dd43dca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0a0dd43dca8) -
+  NO-ISSUE Replace existing experiment gate with new feature gate:
+  enable_web_links_in_team_containers
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.37.0
+
+### Minor Changes
+
+- [#170230](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170230)
+  [`ad865e02e9ef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad865e02e9ef7) -
+  [ux] NO-ISSUE Improve the icon experience by checking its loading state
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.36.2
 
 ### Patch Changes

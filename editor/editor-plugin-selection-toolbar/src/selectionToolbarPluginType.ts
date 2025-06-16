@@ -8,6 +8,7 @@ import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 
 import type { ToolbarDocking } from './types';
 
@@ -31,10 +32,15 @@ export type SelectionToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<BlockControlsPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
+			OptionalPlugin<UserPreferencesPlugin>,
 		];
 		actions?: {
 			suppressToolbar?: () => boolean;
 			unsuppressToolbar?: () => boolean;
+			/**
+			 * @private
+			 * @deprecated use userPreference API to set toolbar docking instead
+			 */
 			setToolbarDocking?: (toolbarDocking: ToolbarDocking) => boolean;
 			forceToolbarDockingWithoutAnalytics?: (toolbarDocking: ToolbarDocking) => boolean;
 			refreshToolbarDocking?: () => boolean;

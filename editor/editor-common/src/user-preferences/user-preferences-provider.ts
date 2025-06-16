@@ -1,13 +1,17 @@
 import { type PersistenceAPI } from './persistence-api';
 import { type ResolvedUserPreferences, type UserPreferences } from './user-preferences';
+import { areUserPreferencesEqual, mergeUserPreferences } from './utils';
 
 type UpdateCallback = (userPreferences: UserPreferences) => void;
 
 /**
- *
+ * This class is used to manage user preferences in the editor.
+ * It provides methods to load, update, and get user preferences,
+ * as well as a way to subscribe to updates.
+ * @example const userPreferencesProvider = new UserPreferencesProvider(persistenceAPI, defaultPreferences);
  */
 export class UserPreferencesProvider {
-	private callbacks: Array<UpdateCallback> = [];
+	private updateCallbacks: Array<UpdateCallback> = [];
 	private userPreferences: UserPreferences = {};
 	private defaultPreferences: ResolvedUserPreferences;
 	private resolvedUserPreferences: ResolvedUserPreferences;
@@ -15,10 +19,11 @@ export class UserPreferencesProvider {
 	private persistenceAPI: PersistenceAPI;
 
 	/**
+	 * This is the constructor for the UserPreferencesProvider class.
 	 * @param persistenceAPI - The persistence API to use for loading and updating user preferences
 	 * @param defaultPreferences - The default user preferences to use
 	 * @param initialUserPreferences - The initial user preferences to use (optional)
-	 * @example
+	 * @example const userPreferencesProvider = new UserPreferencesProvider(persistenceAPI, defaultPreferences);
 	 */
 	constructor(persistenceAPI: PersistenceAPI, defaultPreferences: ResolvedUserPreferences) {
 		this.persistenceAPI = persistenceAPI;
@@ -34,7 +39,9 @@ export class UserPreferencesProvider {
 	}
 
 	/**
-	 *
+	 * This method returns the initialized state of the user preferences provider
+	 * @returns true if the user preferences provider is initialized, false otherwise
+	 * @example userPreferencesProvider.isInitialized
 	 */
 	get isInitialized() {
 		return this.initialized;
@@ -44,7 +51,7 @@ export class UserPreferencesProvider {
 	 * This method fetches the latest user preferences
 	 * @returns a promise that resolves with the user preferences, or rejects if error occurs
 	 * @throws Error if there is an error loading user preferences
-	 * @example
+	 * @example userPreferencesProvider.loadPreferences()
 	 */
 	public async loadPreferences(): Promise<void> {
 		const userPreferences = await this.persistenceAPI.loadUserPreferences();
@@ -57,7 +64,7 @@ export class UserPreferencesProvider {
 	 * @param value
 	 * @returns a promise that resolves when the user preference is updated
 	 * @throws Error if there is an error updating user preferences
-	 * @example
+	 * @example userPreferencesProvider.updatePreference('toolbarDockingPosition', 'top')
 	 */
 	public async updatePreference<K extends keyof UserPreferences>(
 		key: K,
@@ -71,7 +78,8 @@ export class UserPreferencesProvider {
 	 * get a user preference, Note that this function is a not async function,
 	 * meaning that consumers should prefetch the user preference and make it available initially
 	 * @param key
-	 * @example
+	 * @returns the user preference
+	 * @example userPreferencesProvider.getPreference('toolbarDockingPosition')
 	 */
 	getPreference<K extends keyof ResolvedUserPreferences>(key: K): ResolvedUserPreferences[K] {
 		return this.resolvedUserPreferences[key];
@@ -79,7 +87,8 @@ export class UserPreferencesProvider {
 
 	/**
 	 * get all user preferences
-	 * @example
+	 * @returns the user preferences
+	 * @example userPreferencesProvider.getPreferences()
 	 */
 	getPreferences(): ResolvedUserPreferences {
 		return this.resolvedUserPreferences;
@@ -92,11 +101,11 @@ export class UserPreferencesProvider {
 	 * @example
 	 */
 	public onUpdate(onUpdate: UpdateCallback): () => void {
-		this.callbacks.push(onUpdate);
+		this.updateCallbacks.push(onUpdate);
 
 		// Return the cleanup function to unsubscribe from the updates
 		return () => {
-			this.callbacks = this.callbacks.filter((callback) => callback !== onUpdate);
+			this.updateCallbacks = this.updateCallbacks.filter((callback) => callback !== onUpdate);
 		};
 	}
 
@@ -127,11 +136,11 @@ export class UserPreferencesProvider {
 	}
 
 	/**
-	 *
-	 * @example
+	 * This method is used to notify the user preferences updated
+	 * @example userPreferencesProvider.notifyUserPreferencesUpdated()
 	 */
 	notifyUserPreferencesUpdated() {
-		this.callbacks.forEach((callback) => {
+		this.updateCallbacks.forEach((callback) => {
 			callback(this.resolvedUserPreferences);
 		});
 	}
@@ -141,26 +150,27 @@ export class UserPreferencesProvider {
 	 * with the user preferences and filtering out any undefined or null values
 	 * to avoid overwriting default preferences with null values
 	 * @returns true if the user preferences were updated, false otherwise
-	 * @example
+	 * @example userPreferencesProvider.resolveUserPreferences()
 	 */
 	private resolveUserPreferences(): boolean {
 		// Merge default preferences with user preferences
 		// and filter out any undefined or null values
 		// to avoid overwriting default preferences with null values
-		const newResolvedUserPreferences = {
-			...this.defaultPreferences,
-			...Object.fromEntries(
-				Object.entries(this.userPreferences).filter(([, v]) => v !== undefined && v !== null),
-			),
-		};
+		const newResolvedUserPreferences = mergeUserPreferences(
+			this.userPreferences,
+			this.defaultPreferences,
+		);
 
 		// if the user preferences is NOT initialized, we need to update and notify
 		// the user preferences
 		// if the user preferences is initialized, we need to check if the new user preferences
 		// is different from the old user preferences
-		const needUpdate = Object.entries(newResolvedUserPreferences).some(([key, value]) => {
-			return value !== this.resolvedUserPreferences[key as keyof ResolvedUserPreferences];
-		});
+		const isSame = areUserPreferencesEqual(
+			newResolvedUserPreferences,
+			this.resolvedUserPreferences,
+		);
+
+		const needUpdate = !isSame;
 
 		if (needUpdate) {
 			this.resolvedUserPreferences = newResolvedUserPreferences;

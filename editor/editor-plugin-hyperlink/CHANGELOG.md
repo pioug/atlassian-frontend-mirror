@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 4.5.0
+
+### Minor Changes
+
+- [#158546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158546)
+  [`b7fe4e6f226f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7fe4e6f226f3) -
+  ED-27284 use user preferences plugin in editor preset.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.11
 
 ### Patch Changes

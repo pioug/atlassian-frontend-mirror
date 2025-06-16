@@ -15,6 +15,7 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -67,8 +68,11 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 
 		pluginsOptions: {
 			selectionToolbar() {
+				const toolbarDocking = fg('platform_editor_use_preferences_plugin')
+					? api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition
+					: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
 				if (
-					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'none' &&
+					toolbarDocking === 'none' &&
 					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 				) {
 					const toolbarCustom: FloatingToolbarCustom<Command> = {

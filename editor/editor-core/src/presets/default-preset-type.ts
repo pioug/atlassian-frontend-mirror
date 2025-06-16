@@ -1,5 +1,6 @@
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePlugin } from '@atlaskit/editor-plugins/base';
 import type { BetterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
@@ -67,6 +68,7 @@ export type DefaultPresetPlugins = [
 	ContextIdentifierPlugin,
 	CompositionPlugin,
 	InteractionPlugin | undefined,
+	UserPreferencesPlugin | undefined,
 	FocusPlugin,
 	ClipboardPlugin,
 	PastePlugin,

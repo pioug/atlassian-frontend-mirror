@@ -19,9 +19,11 @@ export class ResizingMarkView implements NodeView {
 	contentDOM: HTMLElement;
 	view: EditorView;
 	mark: Mark;
-	destroyFn: () => void;
+	destroyFn: ((isChangeToViewMode?: boolean) => void) | undefined;
 	intl: IntlShape;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
+	unsubscribeToViewModeChange: (() => void) | undefined;
+	isResizingInitialised: boolean = false;
 
 	/**
 	 * Wrap node view in a resizing mark view
@@ -85,9 +87,66 @@ export class ResizingMarkView implements NodeView {
 
 		dom.appendChild(contentDOM);
 
+		if (fg('platform_editor_breakout_resizing_hello_release')) {
+			this.dom = dom;
+			this.contentDOM = contentDOM;
+			this.view = view;
+			this.mark = mark;
+			this.intl = getIntl();
+			this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
+
+			const isLiveViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+			if (!isLiveViewMode) {
+				this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
+			}
+		} else {
+			const callbacks = createResizerCallbacks({ dom, contentDOM, view, mark, api });
+			this.intl = getIntl();
+			this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
+			const { leftHandle, rightHandle, destroy } = createPragmaticResizer({
+				target: contentDOM,
+				...callbacks,
+				intl: this.intl,
+				nodeViewPortalProviderAPI: this.nodeViewPortalProviderAPI,
+			});
+
+			dom.prepend(leftHandle);
+			dom.appendChild(rightHandle);
+
+			this.dom = dom;
+			this.contentDOM = contentDOM;
+			this.view = view;
+			this.mark = mark;
+			this.destroyFn = destroy;
+		}
+
+		if (fg('platform_editor_breakout_resizing_hello_release')) {
+			this.unsubscribeToViewModeChange = api?.editorViewMode?.sharedState.onChange(
+				(sharedState) => {
+					if (sharedState.nextSharedState?.mode !== sharedState.prevSharedState?.mode) {
+						if (sharedState.nextSharedState?.mode === 'view' && this.isResizingInitialised) {
+							this.destroyFn?.(true);
+							this.isResizingInitialised = false;
+						} else if (
+							sharedState.nextSharedState?.mode === 'edit' &&
+							!this.isResizingInitialised
+						) {
+							this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
+						}
+					}
+				},
+			);
+		}
+	}
+
+	setupResizerCallbacks(
+		dom: HTMLElement,
+		contentDOM: HTMLElement,
+		view: EditorView,
+		mark: Mark,
+		api?: ExtractInjectionAPI<BreakoutPlugin>,
+	) {
 		const callbacks = createResizerCallbacks({ dom, contentDOM, view, mark, api });
-		this.intl = getIntl();
-		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
 		const { leftHandle, rightHandle, destroy } = createPragmaticResizer({
 			target: contentDOM,
 			...callbacks,
@@ -95,14 +154,10 @@ export class ResizingMarkView implements NodeView {
 			nodeViewPortalProviderAPI: this.nodeViewPortalProviderAPI,
 		});
 
-		dom.prepend(leftHandle);
-		dom.appendChild(rightHandle);
-
-		this.dom = dom;
-		this.contentDOM = contentDOM;
-		this.view = view;
-		this.mark = mark;
+		this.dom.prepend(leftHandle);
+		this.dom.appendChild(rightHandle);
 		this.destroyFn = destroy;
+		this.isResizingInitialised = true;
 	}
 
 	ignoreMutation() {
@@ -110,6 +165,9 @@ export class ResizingMarkView implements NodeView {
 	}
 
 	destroy() {
-		this.destroyFn();
+		this.destroyFn?.();
+		if (fg('platform_editor_breakout_resizing_hello_release')) {
+			this.unsubscribeToViewModeChange?.();
+		}
 	}
 }

@@ -58,6 +58,16 @@ const getToolbarDocking = (
 	return 'top';
 };
 
+const getToolbarDockingV2 = (
+	contextualFormattingEnabled: boolean | undefined,
+	dockingPreference: ToolbarDocking | undefined,
+) => {
+	if (contextualFormattingEnabled && editorExperiment('platform_editor_controls', 'variant1')) {
+		return dockingPreference ?? 'none';
+	}
+	return 'top';
+};
+
 export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) => {
 	const __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
 	let primaryToolbarComponent: ToolbarUIComponentFactory | undefined;
@@ -110,6 +120,17 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				return api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
 			},
 			setToolbarDocking: (toolbarDocking: ToolbarDocking) => {
+				if (fg('platform_editor_use_preferences_plugin')) {
+					return (
+						api?.core.actions.execute(
+							api?.userPreferences?.actions.updateUserPreference(
+								'toolbarDockingPosition',
+								toolbarDocking,
+							),
+						) ?? false
+					);
+				}
+
 				return (
 					api?.core.actions.execute(
 						setToolbarDocking({
@@ -159,6 +180,13 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				__selectionToolbarHandlers.push(...selectionToolbarHandlers);
 			}
 
+			const initialToolbarDocking = fg('platform_editor_use_preferences_plugin')
+				? getToolbarDockingV2(
+						contextualFormattingEnabled,
+						api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition,
+					)
+				: getToolbarDocking(contextualFormattingEnabled, userPreferencesProvider);
+
 			return [
 				{
 					name: 'selection-tracker',
@@ -170,10 +198,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 									return {
 										selectionStable: false,
 										hide: false,
-										toolbarDocking: getToolbarDocking(
-											contextualFormattingEnabled,
-											userPreferencesProvider,
-										),
+										toolbarDocking: initialToolbarDocking,
 									};
 								},
 								apply(tr, pluginState: SelectionToolbarPluginState) {
@@ -250,6 +275,10 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 								};
 							},
 							appendTransaction(_transactions, _oldState, newState) {
+								if (fg('platform_editor_use_preferences_plugin')) {
+									return null;
+								}
+
 								if (
 									!isPreferenceInitialized &&
 									editorExperiment('platform_editor_controls', 'variant1') &&
@@ -386,10 +415,24 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 				}
 
 				if (items.length > 0 && contextualFormattingEnabled && isEditorControlsEnabled) {
+					const toolbarDockingPref =
+						api?.userPreferences && fg('platform_editor_use_preferences_plugin')
+							? api?.userPreferences?.sharedState.currentState()?.preferences
+									?.toolbarDockingPosition
+							: toolbarDocking;
+
 					if (editorExperiment('platform_editor_controls_toolbar_pinning_exp', true)) {
-						items.push(...getPinOptionToolbarConfig({ api, toolbarDocking, intl }));
+						items.push(
+							...getPinOptionToolbarConfig({ api, toolbarDocking: toolbarDockingPref, intl }),
+						);
 					} else {
-						items.push(...getOverflowFloatingToolbarConfig({ api, toolbarDocking, intl }));
+						items.push(
+							...getOverflowFloatingToolbarConfig({
+								api,
+								toolbarDocking: toolbarDockingPref,
+								intl,
+							}),
+						);
 					}
 				}
 
@@ -420,6 +463,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 		contentComponent:
 			editorExperiment('platform_editor_controls', 'variant1') &&
+			!fg('platform_editor_use_preferences_plugin') &&
 			fg('platform_editor_user_preferences_provider_update')
 				? () => (
 						<PageVisibilityWatcher api={api} userPreferencesProvider={userPreferencesProvider} />

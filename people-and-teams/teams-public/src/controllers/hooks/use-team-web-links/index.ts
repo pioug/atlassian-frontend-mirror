@@ -17,6 +17,7 @@ const initialState: TeamWebLinksState = {
 	linkIcons: [],
 	iconsLoading: false,
 	iconsError: false,
+	iconHasLoaded: false,
 };
 
 export const actions = {
@@ -92,6 +93,7 @@ export const actions = {
 							linkIcons: [...currentIcons, ...(newIconData || [])],
 							iconsLoading: false,
 							iconsError: false,
+							iconHasLoaded: true,
 						});
 					}
 				} catch (iconError) {
@@ -99,6 +101,7 @@ export const actions = {
 						setState({
 							iconsLoading: false,
 							iconsError: true,
+							iconHasLoaded: true,
 						});
 					}
 				}
@@ -106,6 +109,7 @@ export const actions = {
 				setState({
 					iconsLoading: false,
 					iconsError: false,
+					iconHasLoaded: true,
 				});
 			}
 		},

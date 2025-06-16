@@ -73,6 +73,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
@@ -118,7 +119,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.36.2",
+	"version": "0.38.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -136,6 +137,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-people-and-": {
+			"type": "boolean"
+		},
+		"enable_web_links_in_team_containers": {
 			"type": "boolean"
 		}
 	}

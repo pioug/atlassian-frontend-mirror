@@ -3,7 +3,7 @@ import React from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
-const fgs = ['dropdown-menu-disabled-navigation-fix', 'select-avoid-duplicated-registered-ref'];
+const fgs = ['select-avoid-duplicated-registered-ref'];
 
 export default () => {
 	setBooleanFeatureFlagResolver((key) => fgs.includes(key));

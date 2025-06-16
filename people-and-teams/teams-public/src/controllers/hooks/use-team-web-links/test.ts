@@ -67,6 +67,7 @@ describe('useTeamWebLinks', () => {
 			linkIcons: [],
 			iconsLoading: false,
 			iconsError: false,
+			iconHasLoaded: false,
 		});
 		jest.clearAllMocks();
 	});
@@ -85,6 +86,7 @@ describe('useTeamWebLinks', () => {
 			linkIcons: [],
 			iconsLoading: false,
 			iconsError: false,
+			iconHasLoaded: false,
 		});
 	});
 
@@ -347,6 +349,7 @@ describe('useTeamWebLinks', () => {
 			linkIcons: [],
 			iconsLoading: false,
 			iconsError: false,
+			iconHasLoaded: false,
 		});
 
 		await result.current[1].getTeamWebLinks(mockTeamId);

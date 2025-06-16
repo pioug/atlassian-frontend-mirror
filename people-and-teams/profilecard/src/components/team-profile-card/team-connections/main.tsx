@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import { cssMap } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { LinkItem } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -40,8 +39,7 @@ export const TeamConnections = ({
 	link,
 }: LinkedContainerCardProps) => {
 	const isContainerIconEnabled =
-		(FeatureGates.initializeCompleted() &&
-			FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false)) ||
+		fg('enable_web_links_in_team_containers') ||
 		fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,
@@ -113,8 +111,7 @@ export const NewTeamConnections = ({
 	link,
 }: LinkedContainerCardProps) => {
 	const isContainerIconEnabled =
-		(FeatureGates.initializeCompleted() &&
-			FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false)) ||
+		fg('enable_web_links_in_team_containers') ||
 		fg('loom_tab_in_container_linker_team_profile_page');
 	const { description, icon, containerTypeText } = getContainerProperties({
 		containerType,

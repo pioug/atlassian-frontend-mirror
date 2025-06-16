@@ -189,9 +189,6 @@
 			"type": "boolean",
 			"showOnWebsiteForTransitiveDependencies": true
 		},
-		"platform-linking-flexible-card-elements-refactor": {
-			"type": "boolean"
-		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
 			"showOnWebsiteForTransitiveDependencies": true

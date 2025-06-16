@@ -23,6 +23,7 @@ describe('MediaInline', () => {
 		collection: 'test-collection',
 	};
 
+	// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 	const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
 
 	beforeEach(() => {

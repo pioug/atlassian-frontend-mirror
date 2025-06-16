@@ -83,6 +83,7 @@ describe('useTeamLinksAndContainers', () => {
 				linkIcons: [],
 				iconsLoading: false,
 				iconsError: false,
+				iconHasLoaded: true,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,
@@ -206,6 +207,7 @@ describe('useTeamLinksAndContainers', () => {
 				linkIcons: [],
 				iconsLoading: false,
 				iconsError: false,
+				iconHasLoaded: false,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,
@@ -260,6 +262,7 @@ describe('useTeamLinksAndContainers', () => {
 				linkIcons: [],
 				iconsLoading: false,
 				iconsError: false,
+				iconHasLoaded: true,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,
@@ -315,6 +318,7 @@ describe('useTeamLinksAndContainers', () => {
 				linkIcons: [],
 				iconsLoading: false,
 				iconsError: false,
+				iconHasLoaded: true,
 			},
 			{
 				getTeamWebLinks: mockGetTeamWebLinks,

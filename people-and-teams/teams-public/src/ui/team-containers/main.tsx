@@ -4,7 +4,6 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/new';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid, Inline, Stack } from '@atlaskit/primitives';
@@ -50,13 +49,12 @@ export const TeamContainers = ({
 	isDisplayedOnProfileCard,
 	maxNumberOfContainersToShow = MAX_NUMBER_OF_CONTAINERS_TO_SHOW,
 }: TeamContainerProps) => {
-	const isSupportingAddWebLink =
-		FeatureGates.initializeCompleted() &&
-		FeatureGates.getExperimentValue('team_and_container_web_link', 'isEnabled', false);
-
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { teamContainers, loading, unlinkError } = useTeamContainers(teamId);
-	const { teamLinks, removeTeamLink } = useTeamLinksAndContainers(teamId, true);
+	const { teamLinks, removeTeamLink, iconsLoading, iconHasLoaded } = useTeamLinksAndContainers(
+		teamId,
+		true,
+	);
 	const [_, actions] = useTeamContainersHook();
 	const [showMore, setShowMore] = useState(false);
 	const [isDisconnectDialogOpen, setIsDisconnectDialogOpen] = useState(false);
@@ -81,7 +79,7 @@ export const TeamContainers = ({
 	});
 
 	useEffect(() => {
-		if (isSupportingAddWebLink) {
+		if (fg('enable_web_links_in_team_containers')) {
 			if (isDisplayedOnProfileCard && filterContainerId) {
 				setFilteredTeamLinks(teamLinks.filter((container) => container.id !== filterContainerId));
 			} else {
@@ -96,16 +94,12 @@ export const TeamContainers = ({
 				setFilteredTeamContainers(teamContainers);
 			}
 		}
-	}, [
-		teamLinks,
-		teamContainers,
-		isSupportingAddWebLink,
-		isDisplayedOnProfileCard,
-		filterContainerId,
-	]);
+	}, [teamLinks, teamContainers, isDisplayedOnProfileCard, filterContainerId]);
 
 	useEffect(() => {
-		const containersToCheck = isSupportingAddWebLink ? filteredTeamLinks : filteredTeamContainers;
+		const containersToCheck = fg('enable_web_links_in_team_containers')
+			? filteredTeamLinks
+			: filteredTeamContainers;
 		if (containersToCheck.length > maxNumberOfContainersToShow || isDisplayedOnProfileCard) {
 			setShowAddContainer({ Jira: false, Confluence: false, Loom: false, WebLink: false });
 		} else {
@@ -137,7 +131,6 @@ export const TeamContainers = ({
 	}, [
 		isDisplayedOnProfileCard,
 		productPermissions,
-		isSupportingAddWebLink,
 		filteredTeamContainers,
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
@@ -171,15 +164,16 @@ export const TeamContainers = ({
 	);
 
 	const LinkedContainerCardComponent =
-		components?.ContainerCard || (isSupportingAddWebLink ? TeamLinkCard : LinkedContainerCard);
+		components?.ContainerCard ||
+		(fg('enable_web_links_in_team_containers') ? TeamLinkCard : LinkedContainerCard);
 
 	const handleDisconnect = useCallback(
 		async (containerId: string) => {
-			const removedContainer = isSupportingAddWebLink
+			const removedContainer = fg('enable_web_links_in_team_containers')
 				? filteredTeamLinks.find((container) => container.id === containerId)
 				: filteredTeamContainers.find((container) => container.id === containerId);
 
-			if (isSupportingAddWebLink && removedContainer) {
+			if (removedContainer && fg('enable_web_links_in_team_containers')) {
 				await removeTeamLink(removedContainer);
 			} else {
 				await actions.unlinkTeamContainers(teamId, containerId);
@@ -211,7 +205,6 @@ export const TeamContainers = ({
 			fireOperationalEvent,
 			filteredTeamContainers,
 			filteredTeamLinks,
-			isSupportingAddWebLink,
 			removeTeamLink,
 			teamId,
 			unlinkError,
@@ -226,7 +219,7 @@ export const TeamContainers = ({
 	}
 
 	if (
-		(isSupportingAddWebLink
+		(fg('enable_web_links_in_team_containers')
 			? filteredTeamLinks.length === 0
 			: filteredTeamContainers.length === 0) &&
 		!isDisplayedOnProfileCard &&
@@ -248,7 +241,7 @@ export const TeamContainers = ({
 					templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
 					gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
 				>
-					{isSupportingAddWebLink
+					{fg('enable_web_links_in_team_containers')
 						? filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
 								return (
 									<LinkedContainerCardComponent
@@ -259,6 +252,8 @@ export const TeamContainers = ({
 										containerIcon={container.icon || undefined}
 										link={container.link || undefined}
 										containerId={container.id}
+										iconsLoading={iconsLoading}
+										iconHasLoaded={iconHasLoaded}
 										onDisconnectButtonClick={() =>
 											handleOpenDisconnectDialog({
 												containerId: container.id,
@@ -308,13 +303,13 @@ export const TeamContainers = ({
 							containerType="LoomSpace"
 						/>
 					)}
-					{isSupportingAddWebLink && showAddContainer.WebLink && (
+					{showAddContainer.WebLink && fg('enable_web_links_in_team_containers') && (
 						<AddContainerCard
 							onAddAContainerClick={(e) => onAddAContainerClick(e, 'WebLink')}
 							containerType="WebLink"
 						/>
 					)}
-					{showMore && isSupportingAddWebLink
+					{showMore && fg('enable_web_links_in_team_containers')
 						? filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
 								return (
 									<LinkedContainerCardComponent
@@ -325,6 +320,8 @@ export const TeamContainers = ({
 										containerId={container.id}
 										containerIcon={container.icon || undefined}
 										link={container.link || undefined}
+										iconsLoading={iconsLoading}
+										iconHasLoaded={iconHasLoaded}
 										onDisconnectButtonClick={() =>
 											handleOpenDisconnectDialog({
 												containerId: container.id,
@@ -358,8 +355,9 @@ export const TeamContainers = ({
 								);
 							})}
 				</Grid>
-				{(isSupportingAddWebLink ? filteredTeamLinks.length : filteredTeamContainers.length) >
-					maxNumberOfContainersToShow && (
+				{(fg('enable_web_links_in_team_containers')
+					? filteredTeamLinks.length
+					: filteredTeamContainers.length) > maxNumberOfContainersToShow && (
 					<Inline>
 						<Button appearance="subtle" onClick={handleShowMore}>
 							{showMore ? (

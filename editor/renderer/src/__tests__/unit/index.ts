@@ -284,11 +284,97 @@ describe('Renderer', () => {
 				jest.clearAllMocks();
 			});
 
+			it('should transform nested tables', () => {
+				const document = {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							attrs: {
+								localId: null,
+							},
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'A' }],
+						},
+					],
+				};
+
+				renderDocument(
+					document,
+					serializer,
+					schema,
+					undefined,
+					true,
+					undefined,
+					mockDispatchAnalyticsEvent,
+				);
+
+				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
+					environment: 'renderer',
+					disableNestedRendererTreatment: false,
+				});
+				expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'nestedTableTransformed',
+					actionSubject: 'renderer',
+					eventType: 'operational',
+				});
+			});
+
+			it('should fire analytics event when failing to transform nested tables', () => {
+				// Prevent console.error from showing in the test output
+				jest.spyOn(console, 'error').mockImplementationOnce(jest.fn());
+
+				(
+					transformNestedTablesIncomingDocument as jest.MockedFunction<
+						typeof transformNestedTablesIncomingDocument
+					>
+				).mockImplementationOnce(() => {
+					throw new NodeNestingTransformError('Error transforming nested tables');
+				});
+
+				const document = {
+					type: 'doc',
+					version: 1,
+					content: [
+						{
+							attrs: {
+								localId: null,
+							},
+							type: 'paragraph',
+							content: [{ type: 'text', text: 'C' }],
+						},
+					],
+				};
+
+				renderDocument(
+					document,
+					serializer,
+					schema,
+					undefined,
+					true,
+					undefined,
+					mockDispatchAnalyticsEvent,
+				);
+				expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
+					environment: 'renderer',
+					disableNestedRendererTreatment: false,
+				});
+				expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'invalidProsemirrorDocument',
+					actionSubject: 'renderer',
+					eventType: 'operational',
+					attributes: {
+						platform: 'web',
+						errorStack: expect.any(String),
+					},
+				});
+			});
+
 			ffTest.on(
-				'platform_editor_use_nested_table_pm_nodes',
-				'with nested table nodes enabled',
+				'platform_editor_nested_table_extension_comment_fix',
+				'bodied extension comment fix enabled',
 				() => {
-					it('should transform nested tables', () => {
+					it('should pass disableNestedRendererTreatment as true', () => {
 						const document = {
 							type: 'doc',
 							version: 1,
@@ -315,179 +401,7 @@ describe('Renderer', () => {
 
 						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
 							environment: 'renderer',
-							disableNestedRendererTreatment: undefined,
-						});
-						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
-							action: 'nestedTableTransformed',
-							actionSubject: 'renderer',
-							eventType: 'operational',
-						});
-					});
-
-					it('should fire analytics event when failing to transform nested tables', () => {
-						// Prevent console.error from showing in the test output
-						jest.spyOn(console, 'error').mockImplementationOnce(jest.fn());
-
-						(
-							transformNestedTablesIncomingDocument as jest.MockedFunction<
-								typeof transformNestedTablesIncomingDocument
-							>
-						).mockImplementationOnce(() => {
-							throw new NodeNestingTransformError('Error transforming nested tables');
-						});
-
-						const document = {
-							type: 'doc',
-							version: 1,
-							content: [
-								{
-									attrs: {
-										localId: null,
-									},
-									type: 'paragraph',
-									content: [{ type: 'text', text: 'C' }],
-								},
-							],
-						};
-
-						renderDocument(
-							document,
-							serializer,
-							schema,
-							undefined,
-							true,
-							undefined,
-							mockDispatchAnalyticsEvent,
-						);
-						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
-							environment: 'renderer',
-							disableNestedRendererTreatment: undefined,
-						});
-						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
-							action: 'invalidProsemirrorDocument',
-							actionSubject: 'renderer',
-							eventType: 'operational',
-							attributes: {
-								platform: 'web',
-								errorStack: expect.any(String),
-							},
-						});
-					});
-
-					ffTest.on(
-						'platform_editor_nested_table_extension_comment_fix',
-						'bodied extension comment fix enabled',
-						() => {
-							it('should pass disableNestedRendererTreatment as true', () => {
-								const document = {
-									type: 'doc',
-									version: 1,
-									content: [
-										{
-											attrs: {
-												localId: null,
-											},
-											type: 'paragraph',
-											content: [{ type: 'text', text: 'A' }],
-										},
-									],
-								};
-
-								renderDocument(
-									document,
-									serializer,
-									schema,
-									undefined,
-									true,
-									undefined,
-									mockDispatchAnalyticsEvent,
-								);
-
-								expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
-									environment: 'renderer',
-									disableNestedRendererTreatment: true,
-								});
-							});
-						},
-					);
-				},
-			);
-
-			ffTest.off(
-				'platform_editor_use_nested_table_pm_nodes',
-				'with nested table nodes disabled',
-				() => {
-					it('should not transform nested tables', () => {
-						const document = {
-							type: 'doc',
-							version: 1,
-							content: [
-								{
-									attrs: {
-										localId: null,
-									},
-									type: 'paragraph',
-									content: [{ type: 'text', text: 'B' }],
-								},
-							],
-						};
-
-						renderDocument(
-							document,
-							serializer,
-							schema,
-							undefined,
-							true,
-							undefined,
-							mockDispatchAnalyticsEvent,
-						);
-						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document, {
-							environment: 'renderer',
-							disableNestedRendererTreatment: undefined,
-						});
-						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
-							action: 'nestedTableTransformed',
-							actionSubject: 'renderer',
-							eventType: 'operational',
-						});
-					});
-
-					it('should not fire analytics event when failing to transform nested tables', () => {
-						const document = {
-							type: 'doc',
-							version: 1,
-							content: [
-								{
-									attrs: {
-										localId: null,
-									},
-									type: 'paragraph',
-									content: [{ type: 'text', text: 'D' }],
-								},
-							],
-						};
-
-						renderDocument(
-							document,
-							serializer,
-							schema,
-							undefined,
-							true,
-							undefined,
-							mockDispatchAnalyticsEvent,
-						);
-						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document, {
-							environment: 'renderer',
-							disableNestedRendererTreatment: undefined,
-						});
-						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
-							action: 'invalidProsemirrorDocument',
-							actionSubject: 'renderer',
-							eventType: 'operational',
-							attributes: {
-								platform: 'web',
-								errorStack: expect.any(String),
-							},
+							disableNestedRendererTreatment: true,
 						});
 					});
 				},

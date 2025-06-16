@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.7.5
+
+### Patch Changes
+
+- [#170955](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170955)
+  [`de48855e17dbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de48855e17dbe) -
+  [ux] ED-28260 disable resize handles in live page view mode
+- Updated dependencies
+
 ## 2.7.4
 
 ### Patch Changes

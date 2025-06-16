@@ -53,9 +53,9 @@ const ImageComponent = ({
 				);
 			case 'complete':
 				return (
-					// eslint-disable-next-line jsx-a11y/alt-text
 					<img
 						{...getImgProps()}
+						alt="Media file preview"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{ width: 500, height: 500, margin: '5px' }}
 					/>

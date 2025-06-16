@@ -30,6 +30,7 @@ import expandBackgroundShorthand from './rules/compiled/expand-background-shorth
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
 import noSparseCheckout from './rules/no-sparse-checkout';
 import noDirectDocumentUsage from './rules/no-direct-document-usage';
+import noSetImmediate from './rules/no-set-immediate';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -89,6 +90,7 @@ const rules = {
 	'use-recommended-utils': useRecommendedUtils,
 	'no-sparse-checkout': noSparseCheckout,
 	'no-direct-document-usage': noDirectDocumentUsage,
+	'no-set-immediate': noSetImmediate,
 };
 
 const commonConfig = {
@@ -99,6 +101,7 @@ const commonConfig = {
 	'@atlaskit/platform/ensure-atlassian-team': 'error',
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 	'@atlaskit/platform/no-direct-document-usage': 'warn',
+	'@atlaskit/platform/no-set-immediate': 'error',
 	// Compiled: rules that are not included via `@compiled/recommended
 	'@atlaskit/platform/expand-border-shorthand': 'error',
 	'@atlaskit/platform/expand-background-shorthand': 'error',

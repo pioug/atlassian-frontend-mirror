@@ -16,7 +16,7 @@ export type PersistenceAPI = {
 	updateUserPreference: <K extends keyof UserPreferences>(
 		key: K,
 		value: UserPreferences[K],
-	) => Promise<UserPreferences>;
+	) => Promise<Pick<UserPreferences, K>>;
 
 	/**
 	 * Get the initial user preferences synchronously

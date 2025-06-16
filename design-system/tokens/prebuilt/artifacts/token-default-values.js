@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::c560824b3594f6ce51302eb1a984e65d>>
+ * @codegen <<SignedSource::24be1bd94ab56602ac932aa3a5e73ede>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
@@ -442,6 +442,9 @@ var defaultTokenValues = {
   'space.negative.250': '-1.25rem',
   'space.negative.300': '-1.5rem',
   'space.negative.400': '-2rem',
+  'font.metric.large': 'normal 653 1.75rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+  'font.metric.medium': 'normal 653 1.5rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+  'font.metric.small': 'normal 653 1rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
   'font.heading.xxlarge': 'normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
   'font.heading.xlarge': 'normal 600 1.8125rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
   'font.heading.large': 'normal 500 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',

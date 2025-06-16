@@ -31,6 +31,28 @@ const pulseOut = keyframes({
 	},
 });
 
+const pulseInDuringTr = keyframes({
+	'0%, 95%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'100%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+});
+
+const pulseOutDuringTr = keyframes({
+	'100%': {
+		transform: 'scaleX(1)',
+		opacity: 1,
+	},
+	'0%, 90%': {
+		transform: 'scaleX(0)',
+		opacity: 0,
+	},
+});
+
 export const telepointerColorAndCommonStyle = css({
 	'.ProseMirror .telepointer': {
 		position: 'relative',
@@ -172,6 +194,14 @@ export const telepointerStyle = css({
 			},
 			'.telepointer-fullname': {
 				animation: `${pulseIn} 2s ease-in-out`,
+			},
+		},
+		'&.telepointer-pulse-during-tr': {
+			'.telepointer-initial': {
+				animation: `${pulseOutDuringTr} 7500ms ease-in-out`,
+			},
+			'.telepointer-fullname': {
+				animation: `${pulseInDuringTr} 7500ms ease-in-out`,
 			},
 		},
 		'&:hover': {

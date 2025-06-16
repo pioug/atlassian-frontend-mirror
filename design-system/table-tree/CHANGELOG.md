@@ -1,5 +1,17 @@
 # @atlaskit/table-tree
 
+## 12.2.0
+
+### Minor Changes
+
+- [#170155](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170155)
+  [`62b6d1a1ed9f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62b6d1a1ed9f5) -
+  Fix expand by chevron when shouldExpandOnClick enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.4
 
 ### Patch Changes

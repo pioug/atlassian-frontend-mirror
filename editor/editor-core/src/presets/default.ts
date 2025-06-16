@@ -8,6 +8,7 @@ import type {
 	FeatureFlags,
 	PerformanceTracking,
 } from '@atlaskit/editor-common/types';
+import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -96,7 +97,6 @@ export type DefaultPresetPluginOptions = {
  */
 export function createDefaultPreset(options: DefaultPresetPluginOptions): DefaultPresetBuilder {
 	const isFullPage = fullPageCheck(options.appearance);
-
 	const preset = new EditorPresetBuilder()
 		.add([featureFlagsPlugin, options.featureFlags || {}])
 		.maybeAdd(
@@ -113,6 +113,17 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 		.add([pastePlugin, { ...options?.paste, isFullPage }])
 		.add(clipboardPlugin)
 		.add(focusPlugin)
+		.maybeAdd(
+			[
+				userPreferencesPlugin,
+				{
+					initialUserPreferences: {
+						toolbarDockingPosition: isFullPage ? 'none' : 'top',
+					},
+				},
+			],
+			() => fg('platform_editor_use_preferences_plugin'),
+		)
 		.maybeAdd(
 			interactionPlugin,
 			Boolean(options?.__livePage)

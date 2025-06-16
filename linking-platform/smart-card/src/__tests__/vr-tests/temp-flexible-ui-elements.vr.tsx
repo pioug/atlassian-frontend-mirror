@@ -1,5 +1,5 @@
 /**
- * This file is a duplicate of all existing tests that are affected by the changes made in the FG platform-linking-flexible-card-elements-refactor
+ * This file is a duplicate of all existing tests that are affected by the changes made in the FG platform-linking-flexible-card-unresolved-action
  * The intention is to remove the entirety of this file and related snapshots when the FG is cleaned up.
  * A separate file was used as to not clutter the other VR tests and to work around the limitation of 4 FG variations per test.
  * Theres also a bit of lazyness of not determining which specific tests are needed to be FG'd
@@ -97,7 +97,6 @@ import RelatedLinksResolvedViewWithEmptyList from '../../../examples/vr-related-
 
 snapshot(BlockCardSSR, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 	},
@@ -111,7 +110,6 @@ snapshot(BlockCardSSR, {
 
 snapshot(VRInlineProfileCard, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': true,
@@ -128,7 +126,6 @@ snapshot(VRInlineProfileCard, {
 snapshot(VRInlineProfileCard, {
 	description: 'inline profile card with platform-linking-visual-refresh-v2 false',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': false,
@@ -167,7 +164,6 @@ snapshot(RelatedLinksResolvedView, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': [true, false],
@@ -193,7 +189,6 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': [true, false],
@@ -208,7 +203,6 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 
 snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -224,7 +218,6 @@ snapshot(FlexUiDateTimeTextView, {
 
 snapshot(FlexUiAtlaskitBadgeView, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -240,7 +233,6 @@ snapshot(FlexUiAtlaskitBadgeView, {
 
 snapshot(EmbedCardResolvedViewNoPreview, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -248,7 +240,6 @@ snapshot(EmbedCardResolvedViewNoPreview, {
 });
 snapshot(EmbedCardResolvingView, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -259,7 +250,6 @@ snapshot(EmbedCardResolvedViewNoPreview, {
 	description:
 		'EmbedCardResolvedViewNoPreview OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
@@ -269,7 +259,6 @@ snapshot(EmbedCardResolvingView, {
 	description:
 		'EmbedCardResolvingView OLD - delete when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
@@ -287,7 +276,6 @@ snapshot(HoverCard, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -299,7 +287,6 @@ snapshot(HoverCardWithPreview, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -311,7 +298,6 @@ snapshot(HoverCardForSlackMessage, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -323,7 +309,6 @@ snapshot(HoverCardConfluence, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -335,7 +320,6 @@ snapshot(HoverCardAssignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -348,7 +332,6 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -361,7 +344,6 @@ snapshot(HoverCardJiraProject, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -378,7 +360,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -396,7 +377,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -414,7 +394,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -431,7 +410,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -449,7 +427,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -467,7 +444,6 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -480,7 +456,6 @@ snapshot(HoverCardForbiddenJira, {
 	states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -510,7 +485,6 @@ snapshot(HoverCard, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -535,7 +509,6 @@ snapshot(HoverCardWithEntities, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		smart_links_noun_support: true,
@@ -552,7 +525,6 @@ snapshot(HoverCardActions, {
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -570,7 +542,6 @@ snapshot(HoverCardActions, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -587,7 +558,6 @@ snapshot(HoverCardUnauthorised, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -606,7 +576,6 @@ snapshot(HoverCardUnauthorised, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
@@ -623,7 +592,6 @@ snapshot(HoverCardSSRLoading, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -639,7 +607,6 @@ snapshot(HoverCardSSRError, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -656,7 +623,6 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -673,7 +639,6 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -690,7 +655,6 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -706,7 +670,6 @@ snapshot(HoverCardPositioning, {
 // Variants
 snapshot(FlexibleUiOptions, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -723,7 +686,6 @@ snapshot(FlexibleUiComposition, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -741,7 +703,6 @@ snapshot(FlexibleUiBlock, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -757,7 +718,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -774,7 +734,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -800,7 +759,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -825,7 +783,6 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -841,7 +798,6 @@ snapshot(FlexibleUiBlockMetadata, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -850,7 +806,6 @@ snapshot(FlexibleUiBlockMetadata, {
 });
 snapshot(FlexibleUiBlockSnippet, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -859,7 +814,6 @@ snapshot(FlexibleUiBlockSnippet, {
 });
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -868,7 +822,6 @@ snapshot(FlexibleUiBlockFooter, {
 });
 snapshot(FlexibleUiBlockPreviewXLarge, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -877,7 +830,6 @@ snapshot(FlexibleUiBlockPreviewXLarge, {
 });
 snapshot(FlexibleUiBlockPreviewLarge, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -886,7 +838,6 @@ snapshot(FlexibleUiBlockPreviewLarge, {
 });
 snapshot(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -895,7 +846,6 @@ snapshot(FlexibleUiBlockPreviewMedium, {
 });
 snapshot(FlexibleUiBlockPreviewSmall, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -904,7 +854,6 @@ snapshot(FlexibleUiBlockPreviewSmall, {
 });
 snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -913,7 +862,6 @@ snapshot(FlexibleUiBlockPreviewMixedPadding, {
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -924,7 +872,6 @@ snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 // Elements
 snapshot(FlexibleUiElementLink, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -935,7 +882,6 @@ snapshot(FlexibleUiElementLozenge, {
 	description:
 		'FlexibleUiElementLozenge Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -954,7 +900,6 @@ snapshot(FlexibleUiElementLozenge, {
 snapshot(FlexibleUiElementLozenge, {
 	description: 'FlexibleUiElementLozenge',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -979,7 +924,6 @@ snapshot(FlexibleUiElementBadge, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -988,7 +932,6 @@ snapshot(FlexibleUiElementBadge, {
 });
 snapshot(FlexibleUiElementAppliedToComponentsCount, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -997,7 +940,6 @@ snapshot(FlexibleUiElementAppliedToComponentsCount, {
 });
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1006,7 +948,6 @@ snapshot(FlexibleUiElementAvatarGroup, {
 });
 snapshot(FlexibleUiElementMedia, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1027,7 +968,6 @@ snapshot(FlexibleUiHoverCard, {
 	],
 	description: 'FlexibleUiHoverCard Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1047,7 +987,6 @@ snapshot(FlexibleUiHoverCard, {
 	],
 	description: 'FlexibleUiHoverCard',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1066,7 +1005,6 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1086,7 +1024,6 @@ snapshot(FlexibleUiAccessibility, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1105,7 +1042,6 @@ snapshot(FlexibleUiAccessibility, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1123,7 +1059,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1141,7 +1076,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1160,7 +1094,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -1179,7 +1112,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1190,7 +1122,6 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 // Error states
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1202,7 +1133,6 @@ snapshot(FlexibleUiBlockCardErroredStates, {
 snapshot(FlexibleUiBlockEntities, {
 	ignoredErrors: [],
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		smart_links_noun_support: true,
@@ -1218,7 +1148,6 @@ snapshot(FlexibleUiBlockEntities, {
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1228,7 +1157,6 @@ snapshot(BlockCardErrorView, {
 snapshot(BlockCardErrorView, {
 	description: 'block card error view with design refresh FF only',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': [true, false],
@@ -1237,7 +1165,6 @@ snapshot(BlockCardErrorView, {
 snapshot(BlockCardErrorView, {
 	description: 'block card error view',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1246,7 +1173,6 @@ snapshot(BlockCardErrorView, {
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1256,7 +1182,6 @@ snapshot(BlockCardForbiddenView, {
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view with design refresh FF only',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': [true, false],
@@ -1265,7 +1190,6 @@ snapshot(BlockCardForbiddenView, {
 snapshot(BlockCardForbiddenView, {
 	description: 'block card forbidden view',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1275,7 +1199,6 @@ snapshot(BlockCardForbiddenView);
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1285,7 +1208,6 @@ snapshot(BlockCardNotFoundView, {
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view with design refresh FF only',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': [true, false],
@@ -1294,7 +1216,6 @@ snapshot(BlockCardNotFoundView, {
 snapshot(BlockCardNotFoundView, {
 	description: 'block card not found view',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1302,7 +1223,6 @@ snapshot(BlockCardNotFoundView, {
 });
 snapshot(BlockCardNotFoundSiteAccessExists, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1310,7 +1230,6 @@ snapshot(BlockCardNotFoundSiteAccessExists, {
 });
 snapshot(BlockCardUnauthorisedView, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': true,
@@ -1320,7 +1239,6 @@ snapshot(BlockCardUnauthorisedView, {
 	description:
 		'BlockCardUnauthorisedView Old - remove when cleaning platform-linking-visual-refresh-v1',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': false,
@@ -1328,7 +1246,6 @@ snapshot(BlockCardUnauthorisedView, {
 });
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1336,7 +1253,6 @@ snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1345,7 +1261,6 @@ snapshot(BlockCardJira, {
 });
 snapshot(BlockCardConfluence, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1353,7 +1268,6 @@ snapshot(BlockCardConfluence, {
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1361,7 +1275,6 @@ snapshot(BlockCardTrello, {
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1369,7 +1282,6 @@ snapshot(BlockCardAtlas, {
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1377,7 +1289,6 @@ snapshot(BlockCardBitbucket, {
 });
 snapshot(BlockCardForbiddenViews, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v1': [true, false],
@@ -1386,7 +1297,6 @@ snapshot(BlockCardForbiddenViews, {
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1396,7 +1306,6 @@ snapshot(BlockCardLazyIcon1, {
 snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1406,7 +1315,6 @@ snapshot(BlockCardLazyIcon2, {
 snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1416,7 +1324,6 @@ snapshot(BlockCardLazyIcon3, {
 snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1426,7 +1333,6 @@ snapshot(BlockCardLazyIcon4, {
 snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1436,7 +1342,6 @@ snapshot(BlockCardLazyIcon5, {
 snapshot(BlockCardLazyIcon6, {
 	description: `block card with lazy load icons, slice 6`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1446,7 +1351,6 @@ snapshot(BlockCardLazyIcon6, {
 snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1456,7 +1360,6 @@ snapshot(BlockCardLazyIconsFileType1, {
 snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1466,7 +1369,6 @@ snapshot(BlockCardLazyIconsFileType2, {
 snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1476,7 +1378,6 @@ snapshot(BlockCardLazyIconsFileType3, {
 snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-visual-refresh-icons': true,
@@ -1486,7 +1387,6 @@ snapshot(BlockCardLazyIconsFileType4, {
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		smart_links_noun_support: true,
@@ -1495,7 +1395,6 @@ snapshot(BlockCardEntities, {
 
 snapshot(VRBlockProfileCard, {
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': true,
@@ -1505,7 +1404,6 @@ snapshot(VRBlockProfileCard, {
 snapshot(VRBlockProfileCard, {
 	description: 'block profile card with platform-linking-visual-refresh-v2 false',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-linking-visual-refresh-v2': false,
@@ -1531,7 +1429,6 @@ snapshot(FlexUiBlockAiSummaryReady, {
 	description:
 		'FlexUiBlockAiSummaryReady Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1551,7 +1448,6 @@ snapshot(FlexUiBlockAiSummaryReady, {
 	],
 	description: 'FlexUiBlockAiSummaryReady',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1573,7 +1469,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 	description:
 		'FlexUiBlockAiSummaryLoading Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1593,7 +1488,6 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 	],
 	description: 'FlexUiBlockAiSummaryLoading',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1615,7 +1509,6 @@ snapshot(FlexUiBlockAiSummaryDone, {
 	description:
 		'FlexUiBlockAiSummaryDone Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1636,7 +1529,6 @@ snapshot(FlexUiBlockAiSummaryDone, {
 	],
 	description: 'FlexUiBlockAiSummaryDone',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1658,7 +1550,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	description:
 		'FlexUiBlockAiSummaryDoneOnMount Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1678,7 +1569,6 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 	],
 	description: 'FlexUiBlockAiSummaryDoneOnMount',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1700,7 +1590,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 	description:
 		'FlexUiBlockAiSummaryError Old - remove when cleaning platform-linking-visual-refresh-v2',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
@@ -1721,7 +1610,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 	],
 	description: 'FlexUiBlockAiSummaryError',
 	featureFlags: {
-		'platform-linking-flexible-card-elements-refactor': [true],
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],

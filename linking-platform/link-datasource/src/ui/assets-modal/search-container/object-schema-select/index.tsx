@@ -7,11 +7,8 @@ import { jsx, styled } from '@compiled/react';
 import debounce from 'debounce-promise';
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button/new';
 import { Field } from '@atlaskit/form';
-import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { AsyncSelect, PopupSelect } from '@atlaskit/select';
+import { AsyncSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -89,45 +86,21 @@ export const AssetsObjectSchemaSelect = ({
 				defaultValue={selectedObjectSchema}
 				validate={(value) => validateSchema(value)}
 			>
-				{({ fieldProps: { onChange, onFocus, ...restFieldProps } }) =>
-					fg('platform-linking-visual-refresh-sllv') ? (
-						<PopupSelect
-							autoFocus
-							maxMenuWidth={300}
-							minMenuWidth={300}
-							isLoading={objectSchemasLoading}
-							options={mapObjectSchemasToOptions(initialObjectSchemas)}
-							placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
-							onChange={(newOption) => newOption && onChange(newOption)}
-							{...restFieldProps}
-							label={formatMessage(objectSchemaSelectMessages.placeholder)}
-							target={({ isOpen, ...triggerProps }) => (
-								<Button
-									{...triggerProps}
-									isSelected={isOpen}
-									iconAfter={() => <ChevronDownIcon label="" color="currentColor" size="small" />}
-								>
-									{restFieldProps.value?.label ||
-										formatMessage(objectSchemaSelectMessages.placeholder)}
-								</Button>
-							)}
-						/>
-					) : (
-						<AsyncSelect
-							autoFocus
-							classNamePrefix={classNamePrefix}
-							isLoading={objectSchemasLoading}
-							defaultOptions={mapObjectSchemasToOptions(initialObjectSchemas)}
-							isSearchable
-							loadOptions={debouncedLoadOptions}
-							placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
-							onChange={(newOption) => newOption && onChange(newOption)}
-							{...selectInAModalStyleFixProps}
-							{...restFieldProps}
-							label={formatMessage(objectSchemaSelectMessages.placeholder)}
-						/>
-					)
-				}
+				{({ fieldProps: { onChange, onFocus, ...restFieldProps } }) => (
+					<AsyncSelect
+						autoFocus
+						classNamePrefix={classNamePrefix}
+						isLoading={objectSchemasLoading}
+						defaultOptions={mapObjectSchemasToOptions(initialObjectSchemas)}
+						isSearchable
+						loadOptions={debouncedLoadOptions}
+						placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
+						onChange={(newOption) => newOption && onChange(newOption)}
+						{...selectInAModalStyleFixProps}
+						{...restFieldProps}
+						label={formatMessage(objectSchemaSelectMessages.placeholder)}
+					/>
+				)}
 			</Field>
 		</FieldContainer>
 	);

@@ -114,34 +114,32 @@ const _validation = (
 		}
 	}
 
-	if (fg('platform_editor_use_nested_table_pm_nodes')) {
-		// Convert nested-table extensions into nested tables
-		try {
-			const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(result, {
-				environment: 'renderer',
-				disableNestedRendererTreatment: fg('platform_editor_nested_table_extension_comment_fix'),
-			});
+	// Convert nested-table extensions into nested tables
+	try {
+		const { transformedAdf, isTransformed } = transformNestedTablesIncomingDocument(result, {
+			environment: 'renderer',
+			disableNestedRendererTreatment: fg('platform_editor_nested_table_extension_comment_fix'),
+		});
 
-			if (isTransformed) {
-				dispatchAnalyticsEvent?.({
-					action: ACTION.NESTED_TABLE_TRANSFORMED,
-					actionSubject: ACTION_SUBJECT.RENDERER,
-					eventType: EVENT_TYPE.OPERATIONAL,
-				});
-
-				result = transformedAdf;
-			}
-		} catch (e) {
+		if (isTransformed) {
 			dispatchAnalyticsEvent?.({
-				action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+				action: ACTION.NESTED_TABLE_TRANSFORMED,
 				actionSubject: ACTION_SUBJECT.RENDERER,
 				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: {
-					platform: PLATFORM.WEB,
-					errorStack: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to encode one or more nested tables' : undefined}`,
-				},
 			});
+
+			result = transformedAdf;
 		}
+	} catch (e) {
+		dispatchAnalyticsEvent?.({
+			action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+			actionSubject: ACTION_SUBJECT.RENDERER,
+			eventType: EVENT_TYPE.OPERATIONAL,
+			attributes: {
+				platform: PLATFORM.WEB,
+				errorStack: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to encode one or more nested tables' : undefined}`,
+			},
+		});
 	}
 
 	return result;

@@ -1,5 +1,4 @@
 import { br, doc, emoji, p, strong } from '@atlaskit/adf-utils/builders';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { sanitizeNode } from '../../../sanitize/sanitize-node';
 import type { JSONDocNode } from '../../../types';
@@ -292,86 +291,81 @@ describe('@atlaskit/editor-json-transformer', () => {
 				expect(sanitizeNode(adf)).toEqual(doc(p(br())));
 			});
 
-			describe('should transform nested tables to nested-table extension', () => {
-				ffTest(
-					'platform_editor_use_nested_table_pm_nodes',
-					() => {
-						const jsonDoc = {
-							version: 1,
-							type: 'doc',
+			it('should transform nested tables to nested-table extension', () => {
+				const jsonDoc = {
+					version: 1,
+					type: 'doc',
+					content: [
+						{
+							type: 'table',
+							attrs: {
+								isNumberColumnEnabled: false,
+								layout: 'default',
+								localId: 'testId',
+								width: 760,
+							},
 							content: [
 								{
-									type: 'table',
-									attrs: {
-										isNumberColumnEnabled: false,
-										layout: 'default',
-										localId: 'testId',
-										width: 760,
-									},
+									type: 'tableRow',
 									content: [
 										{
-											type: 'tableRow',
+											type: 'tableHeader',
+											attrs: {},
 											content: [
 												{
-													type: 'tableHeader',
-													attrs: {},
+													type: 'table',
+													attrs: {
+														isNumberColumnEnabled: false,
+														layout: 'default',
+														localId: 'testId',
+														width: 300,
+													},
 													content: [
 														{
-															type: 'table',
-															attrs: {
-																isNumberColumnEnabled: false,
-																layout: 'default',
-																localId: 'testId',
-																width: 300,
-															},
+															type: 'tableRow',
 															content: [
 																{
-																	type: 'tableRow',
+																	type: 'tableHeader',
+																	attrs: {},
 																	content: [
 																		{
-																			type: 'tableHeader',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
-																		},
-																		{
-																			type: 'tableHeader',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
+																			type: 'paragraph',
+																			content: [],
 																		},
 																	],
 																},
 																{
-																	type: 'tableRow',
+																	type: 'tableHeader',
+																	attrs: {},
 																	content: [
 																		{
-																			type: 'tableCell',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
+																			type: 'paragraph',
+																			content: [],
 																		},
+																	],
+																},
+															],
+														},
+														{
+															type: 'tableRow',
+															content: [
+																{
+																	type: 'tableCell',
+																	attrs: {},
+																	content: [
 																		{
-																			type: 'tableCell',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
+																			type: 'paragraph',
+																			content: [],
+																		},
+																	],
+																},
+																{
+																	type: 'tableCell',
+																	attrs: {},
+																	content: [
+																		{
+																			type: 'paragraph',
+																			content: [],
 																		},
 																	],
 																},
@@ -379,255 +373,125 @@ describe('@atlaskit/editor-json-transformer', () => {
 														},
 													],
 												},
-												{
-													type: 'tableHeader',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
-												},
 											],
 										},
 										{
-											type: 'tableRow',
+											type: 'tableHeader',
+											attrs: {},
 											content: [
 												{
-													type: 'tableCell',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
-												},
-												{
-													type: 'tableCell',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
+													type: 'paragraph',
+													content: [],
 												},
 											],
 										},
 									],
 								},
-							],
-						} as JSONDocNode;
-
-						const sanitizedJSON = sanitizeNode(jsonDoc);
-
-						expect(sanitizedJSON).toEqual({
-							version: 1,
-							type: 'doc',
-							content: [
 								{
-									type: 'table',
-									attrs: {
-										isNumberColumnEnabled: false,
-										layout: 'default',
-										localId: 'testId',
-										width: 760,
-									},
+									type: 'tableRow',
 									content: [
 										{
-											type: 'tableRow',
+											type: 'tableCell',
+											attrs: {},
 											content: [
 												{
-													type: 'tableHeader',
-													attrs: {},
-													content: [
-														{
-															type: 'extension',
-															attrs: {
-																extensionType: 'com.atlassian.confluence.migration',
-																extensionKey: 'nested-table',
-																parameters: {
-																	adf: '{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"testId","width":300},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]}]}]}]}',
-																},
-															},
-														},
-													],
-												},
-												{
-													type: 'tableHeader',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
+													type: 'paragraph',
+													content: [],
 												},
 											],
 										},
 										{
-											type: 'tableRow',
+											type: 'tableCell',
+											attrs: {},
 											content: [
 												{
-													type: 'tableCell',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
-												},
-												{
-													type: 'tableCell',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
+													type: 'paragraph',
+													content: [],
 												},
 											],
 										},
 									],
 								},
 							],
-						});
-					},
-					() => {
-						const jsonDoc = {
-							version: 1,
-							type: 'doc',
+						},
+					],
+				} as JSONDocNode;
+
+				const sanitizedJSON = sanitizeNode(jsonDoc);
+
+				expect(sanitizedJSON).toEqual({
+					version: 1,
+					type: 'doc',
+					content: [
+						{
+							type: 'table',
+							attrs: {
+								isNumberColumnEnabled: false,
+								layout: 'default',
+								localId: 'testId',
+								width: 760,
+							},
 							content: [
 								{
-									type: 'table',
-									attrs: {
-										isNumberColumnEnabled: false,
-										layout: 'default',
-										localId: 'testId',
-										width: 760,
-									},
+									type: 'tableRow',
 									content: [
 										{
-											type: 'tableRow',
+											type: 'tableHeader',
+											attrs: {},
 											content: [
 												{
-													type: 'tableHeader',
-													attrs: {},
-													content: [
-														{
-															type: 'table',
-															attrs: {
-																isNumberColumnEnabled: false,
-																layout: 'default',
-																localId: 'testId',
-																width: 300,
-															},
-															content: [
-																{
-																	type: 'tableRow',
-																	content: [
-																		{
-																			type: 'tableHeader',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
-																		},
-																		{
-																			type: 'tableHeader',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
-																		},
-																	],
-																},
-																{
-																	type: 'tableRow',
-																	content: [
-																		{
-																			type: 'tableCell',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
-																		},
-																		{
-																			type: 'tableCell',
-																			attrs: {},
-																			content: [
-																				{
-																					type: 'paragraph',
-																					content: [],
-																				},
-																			],
-																		},
-																	],
-																},
-															],
+													type: 'extension',
+													attrs: {
+														extensionType: 'com.atlassian.confluence.migration',
+														extensionKey: 'nested-table',
+														parameters: {
+															adf: '{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"testId","width":300},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]}]}]}]}',
 														},
-													],
-												},
-												{
-													type: 'tableHeader',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
+													},
 												},
 											],
 										},
 										{
-											type: 'tableRow',
+											type: 'tableHeader',
+											attrs: {},
 											content: [
 												{
-													type: 'tableCell',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
+													type: 'paragraph',
+													content: [],
 												},
+											],
+										},
+									],
+								},
+								{
+									type: 'tableRow',
+									content: [
+										{
+											type: 'tableCell',
+											attrs: {},
+											content: [
 												{
-													type: 'tableCell',
-													attrs: {},
-													content: [
-														{
-															type: 'paragraph',
-															content: [],
-														},
-													],
+													type: 'paragraph',
+													content: [],
+												},
+											],
+										},
+										{
+											type: 'tableCell',
+											attrs: {},
+											content: [
+												{
+													type: 'paragraph',
+													content: [],
 												},
 											],
 										},
 									],
 								},
 							],
-						} as JSONDocNode;
-
-						const sanitizedJSON = sanitizeNode(jsonDoc);
-
-						expect(sanitizedJSON).toEqual(jsonDoc);
-					},
-				);
+						},
+					],
+				});
 			});
 		});
 	});

@@ -162,7 +162,7 @@ function Row<Item extends { id: string }>({
 	const onClickHandler = (e: React.MouseEvent) => {
 		const selection = window.getSelection()?.toString() || '';
 		if (selection?.length === 0) {
-			onExpandToggle();
+			onExpandToggle(e);
 		}
 	};
 
@@ -176,7 +176,8 @@ function Row<Item extends { id: string }>({
 		}
 	};
 
-	const onExpandToggle = () => {
+	const onExpandToggle = (e: React.MouseEvent) => {
+		e.stopPropagation();
 		if (isProvidedExpanded !== undefined) {
 			onExpandStateChange(!isProvidedExpanded);
 		} else {

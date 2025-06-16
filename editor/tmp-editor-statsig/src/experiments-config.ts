@@ -27,6 +27,13 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	platform_editor_media_card_vc_wrapper_attribute: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_card_vc_wrapper_attribute',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-06-02
 	platform_editor_block_control_optimise_render: createBooleanExperiment({
 		productKeys: {

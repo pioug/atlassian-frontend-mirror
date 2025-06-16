@@ -1,6 +1,7 @@
 import {
 	_makeExperiment,
 	_makeLayer,
+	LogEventCompressionMode,
 	StableID,
 	StatsigClient,
 	type StatsigOptions,
@@ -969,6 +970,7 @@ export class Client {
 			includeCurrentPageUrlWithEvents: false,
 			dataAdapter: this.dataAdapter,
 			overrideAdapter: this.overrideAdapter,
+			logEventCompressionMode: LogEventCompressionMode.Forced,
 		};
 
 		// Statsig validates the provided stableId against their own cookie, so we either need

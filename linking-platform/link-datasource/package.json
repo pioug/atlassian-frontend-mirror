@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.11.11",
+	"version": "4.11.12",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -204,6 +204,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-linking-pla": {
+			"type": "boolean"
+		},
+		"platform_linking_set_should_show_calender_button": {
 			"type": "boolean"
 		}
 	},

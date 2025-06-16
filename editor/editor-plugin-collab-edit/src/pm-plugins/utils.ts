@@ -3,12 +3,13 @@ import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
 	TELEPOINTER_DATA_SESSION_ID_ATTR,
+	TELEPOINTER_PULSE_DURING_TR_CLASS,
+	TELEPOINTER_PULSE_DURING_TR_DURATION_MS,
 	type CollabEditOptions,
 	type CollabParticipant,
 } from '@atlaskit/editor-common/collab';
 import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
-import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
 	type ReadonlyTransaction,
@@ -61,6 +62,7 @@ export const createTelepointers = (
 	initial: string,
 	presenceId: string,
 	fullName: string,
+	isNudged: boolean,
 ) => {
 	const decorations: Decoration[] = [];
 	const avatarColor = getAvatarColor(presenceId);
@@ -92,6 +94,12 @@ export const createTelepointers = (
 
 	if (fg('confluence_team_presence_scroll_to_pointer')) {
 		cursor.setAttribute(TELEPOINTER_DATA_SESSION_ID_ATTR, sessionId);
+		// If there is an ongoing expand animation, we'll keep the telepointer expanded
+		// until the keyframe animation is complete. Please note that this will restart the anim timer
+		// from 0 everytime it's re-added.
+		if (isNudged) {
+			cursor.classList.add(TELEPOINTER_PULSE_DURING_TR_CLASS);
+		}
 
 		const fullNameEl = document.createElement('span');
 		fullNameEl.textContent = fullName;
@@ -145,23 +153,13 @@ export const replaceDocument = (
 ) => {
 	const { schema, tr } = state;
 
-	let hasContent: boolean;
-	let content: Array<PMNode> | Fragment | undefined;
-
-	if (fg('platform_editor_use_nested_table_pm_nodes')) {
-		const parsedDoc = processRawValueWithoutValidation(
-			schema,
-			doc,
-			editorAnalyticsAPI?.fireAnalyticsEvent,
-		);
-		hasContent = !!parsedDoc?.childCount;
-		content = parsedDoc?.content;
-	} else {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		content = (doc.content || []).map((child: any) => schema.nodeFromJSON(child));
-		hasContent = Array.isArray(content) && !!content.length;
-	}
+	const parsedDoc = processRawValueWithoutValidation(
+		schema,
+		doc,
+		editorAnalyticsAPI?.fireAnalyticsEvent,
+	);
+	const hasContent = !!parsedDoc?.childCount;
+	const content = parsedDoc?.content;
 
 	if (hasContent) {
 		tr.setMeta('addToHistory', false);
@@ -307,4 +305,18 @@ export const isOrganicChange = (tr: ReadonlyTransaction) => {
 			}) && !tr.doc.eq(tr.before)
 		);
 	});
+};
+
+// If we receive a transaction while there is an ongoing CSS expand animation in the telepointer,
+// it will be cut off due to the removal of the element. We'll persist the animation state in the plugin,
+// so we can keep the expanded version showing even when the telepointer element is recreated.
+export type NudgeAnimationsMap = Map<string, number>;
+export const hasExistingNudge = (sessionId: string, nudgeAnimations: NudgeAnimationsMap) => {
+	const nudgeAnimStartTime = nudgeAnimations.get(sessionId);
+	let hasExistingNudge = false;
+	if (nudgeAnimStartTime) {
+		const timeElapsed = Date.now() - nudgeAnimStartTime;
+		hasExistingNudge = timeElapsed < TELEPOINTER_PULSE_DURING_TR_DURATION_MS;
+	}
+	return hasExistingNudge;
 };

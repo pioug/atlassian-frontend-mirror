@@ -19,6 +19,7 @@ export interface TeamWebLinksState {
 	linkIcons: TeamLinkIconData[];
 	iconsLoading: boolean;
 	iconsError: boolean;
+	iconHasLoaded: boolean;
 }
 
 export type StoreApi = StoreActionApi<TeamWebLinksState>;

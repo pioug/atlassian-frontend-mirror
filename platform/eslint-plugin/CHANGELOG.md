@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.7.0
+
+### Minor Changes
+
+- [#157255](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/157255)
+  [`334db48ef3650`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/334db48ef3650) -
+  Linting rule to forbid use of non standard setImediate
+
 ## 2.6.0
 
 ### Minor Changes

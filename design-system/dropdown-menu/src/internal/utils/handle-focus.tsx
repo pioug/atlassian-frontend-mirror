@@ -21,27 +21,16 @@ const actionMap: { [key: string]: Action } = {
  * return undefined.
  */
 const getNextFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx: number) => {
-	if (fg('dropdown-menu-disabled-navigation-fix')) {
-		for (let i = 0; i < refs.length - 1; i++) {
-			if (currentFocusedIdx + 1 === refs.length) {
-				currentFocusedIdx = 0;
-			} else {
-				currentFocusedIdx++;
-			}
-			const { current: element } = refs[currentFocusedIdx];
-			const isValid = !!element && !element.hasAttribute('disabled');
-			if (isValid) {
-				return element;
-			}
+	for (let i = 0; i < refs.length - 1; i++) {
+		if (currentFocusedIdx + 1 === refs.length) {
+			currentFocusedIdx = 0;
+		} else {
+			currentFocusedIdx++;
 		}
-	} else {
-		while (currentFocusedIdx + 1 < refs.length) {
-			const { current: element } = refs[++currentFocusedIdx];
-			const isValid = !!element && !element.hasAttribute('disabled');
-
-			if (isValid) {
-				return element;
-			}
+		const { current: element } = refs[currentFocusedIdx];
+		const isValid = !!element && !element.hasAttribute('disabled');
+		if (isValid) {
+			return element;
 		}
 	}
 };
@@ -53,27 +42,16 @@ const getNextFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx:
  * return undefined.
  */
 const getPrevFocusableElement = (refs: FocusableElementRef[], currentFocusedIdx: number) => {
-	if (fg('dropdown-menu-disabled-navigation-fix')) {
-		for (let i = 0; i < refs.length - 1; i++) {
-			if (currentFocusedIdx === 0) {
-				currentFocusedIdx = refs.length - 1;
-			} else {
-				currentFocusedIdx--;
-			}
-			const { current: element } = refs[currentFocusedIdx];
-			const isValid = !!element && !element.hasAttribute('disabled');
-			if (isValid) {
-				return element;
-			}
+	for (let i = 0; i < refs.length - 1; i++) {
+		if (currentFocusedIdx === 0) {
+			currentFocusedIdx = refs.length - 1;
+		} else {
+			currentFocusedIdx--;
 		}
-	} else {
-		while (currentFocusedIdx > 0) {
-			const { current: element } = refs[--currentFocusedIdx];
-			const isValid = !!element && !element.hasAttribute('disabled');
-
-			if (isValid) {
-				return element;
-			}
+		const { current: element } = refs[currentFocusedIdx];
+		const isValid = !!element && !element.hasAttribute('disabled');
+		if (isValid) {
+			return element;
 		}
 	}
 };
@@ -119,54 +97,30 @@ export default function handleFocus(
 				// Always cancelling the event to prevent scrolling
 				e.preventDefault();
 
-				if (fg('dropdown-menu-disabled-navigation-fix')) {
-					const nextFocusableElement = getNextFocusableElement(currentRefs, currentFocusedIdx);
-					nextFocusableElement?.focus();
-					break;
-				}
-
-				// Remove on FG cleanup dropdown-menu-disabled-navigation-fix
-				if (currentFocusedIdx < currentRefs.length - 1) {
-					const nextFocusableElement = getNextFocusableElement(currentRefs, currentFocusedIdx);
-					nextFocusableElement?.focus();
-				} else {
-					const firstFocusableElement = getNextFocusableElement(currentRefs, -1);
-					firstFocusableElement?.focus();
-				}
+				const nextFocusableElement = getNextFocusableElement(currentRefs, currentFocusedIdx);
+				nextFocusableElement?.focus();
 				break;
 
 			case 'prev':
 				// Always cancelling the event to prevent scrolling
 				e.preventDefault();
 
-				if (fg('dropdown-menu-disabled-navigation-fix')) {
-					const prevFocusableElement = getPrevFocusableElement(currentRefs, currentFocusedIdx);
-					prevFocusableElement?.focus();
-					break;
-				}
-
-				// Remove on FG cleanup dropdown-menu-disabled-navigation-fix
-				if (currentFocusedIdx > 0) {
-					const prevFocusableElement = getPrevFocusableElement(currentRefs, currentFocusedIdx);
-					prevFocusableElement?.focus();
-				} else {
-					const lastFocusableElement = getPrevFocusableElement(currentRefs, currentRefs.length);
-					lastFocusableElement?.focus();
-				}
+				const prevFocusableElement = getPrevFocusableElement(currentRefs, currentFocusedIdx);
+				prevFocusableElement?.focus();
 				break;
 
 			case 'first':
 				e.preventDefault();
 				// Search for first non-disabled element if first element is disabled
-				const nextFocusableElement = getNextFocusableElement(currentRefs, -1);
-				nextFocusableElement?.focus();
+				const firstFocusableElement = getNextFocusableElement(currentRefs, -1);
+				firstFocusableElement?.focus();
 				break;
 
 			case 'last':
 				e.preventDefault();
 				// Search for last non-disabled element if last element is disabled
-				const prevFocusableElement = getPrevFocusableElement(currentRefs, currentRefs.length);
-				prevFocusableElement?.focus();
+				const lastFocusableElement = getPrevFocusableElement(currentRefs, currentRefs.length);
+				lastFocusableElement?.focus();
 				break;
 
 			default:

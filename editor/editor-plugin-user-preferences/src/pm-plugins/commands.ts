@@ -9,37 +9,39 @@ import { logException } from '@atlaskit/editor-common/monitoring';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import {
 	type ResolvedUserPreferences,
+	type UserPreferences,
 	UserPreferencesProvider,
 } from '@atlaskit/editor-common/user-preferences';
 
-import type { PrefKey } from '../userPreferencesPluginType';
-
 import { userPreferencesPluginKey } from './main';
 
-export const updateToolbarDockingPosition =
+export const updateUserPreference =
 	({
 		key,
 		value,
 		userPreferencesProvider,
 		editorAnalyticsApi,
 	}: {
-		key: PrefKey;
-		value: ResolvedUserPreferences[PrefKey];
-		userPreferencesProvider: UserPreferencesProvider;
+		key: keyof UserPreferences;
+		value: ResolvedUserPreferences[typeof key];
+		userPreferencesProvider?: UserPreferencesProvider;
 		editorAnalyticsApi?: EditorAnalyticsAPI | undefined;
 	}): EditorCommand =>
 	({ tr }) => {
 		try {
-			userPreferencesProvider.updatePreference(key, value);
+			userPreferencesProvider?.updatePreference(key, value);
 		} catch (error) {
 			logException(error as Error, {
 				location: 'editor-plugin-user-preferences/userPreferencesPlugin',
 			});
 		}
 
+		// If the userPreferencesProvider is not available,
+		// the plugin's state will be updated to operate in 'in memory' mode.
 		tr.setMeta(userPreferencesPluginKey, {
 			preferences: { [key]: value },
 		});
+
 		if (key === 'toolbarDockingPosition') {
 			editorAnalyticsApi?.attachAnalyticsEvent({
 				action: ACTION.UPDATED,

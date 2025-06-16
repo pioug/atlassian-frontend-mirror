@@ -1,7 +1,6 @@
 import { transformNestedTableNodeOutgoingDocument } from '@atlaskit/adf-utils/transforms';
 import { traverse } from '@atlaskit/adf-utils/traverse';
 import { type ADFEntity } from '@atlaskit/adf-utils/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type JSONNode } from '../types';
 
@@ -35,12 +34,12 @@ export function sanitizeNode(json: JSONNode): JSONNode {
 			return false; // empty caption
 		},
 		tableCell: (node) => {
-			if (hasNestedTable(node) && fg('platform_editor_use_nested_table_pm_nodes')) {
+			if (hasNestedTable(node)) {
 				return transformNestedTableNodeOutgoingDocument(node);
 			}
 		},
 		tableHeader: (node) => {
-			if (hasNestedTable(node) && fg('platform_editor_use_nested_table_pm_nodes')) {
+			if (hasNestedTable(node)) {
 				return transformNestedTableNodeOutgoingDocument(node);
 			}
 		},

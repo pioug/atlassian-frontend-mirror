@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 118.6.16
+
+### Patch Changes
+
+- [#169039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169039)
+  [`d2488752fcad8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2488752fcad8) -
+  EDITOR-508 Part 1 of cleaning up `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
 ## 118.6.15
 
 ### Patch Changes

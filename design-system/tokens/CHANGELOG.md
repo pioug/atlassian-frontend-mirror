@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 5.2.0
+
+### Minor Changes
+
+- [#165589](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165589)
+  [`6cfd5bcd946b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cfd5bcd946b6) -
+  Introduction of metric text tokens for typography to be used in charts,dashboards and various
+  neumerical information copies.
+
 ## 5.1.0
 
 ### Minor Changes

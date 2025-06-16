@@ -16,7 +16,7 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderRadius: token('border.radius.100', '8px'),
+		borderRadius: token('border.radius.200', '8px'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
 		backgroundColor: token('elevation.surface.sunken'),
@@ -31,12 +31,29 @@ const styles = cssMap({
 		marginRight: token('space.025', '2px'),
 		marginBottom: token('space.025', '2px'),
 		marginLeft: token('space.025', '2px'),
-		borderRadius: token('border.radius.050', '4px'),
+		borderRadius: token('border.radius.050', '2px'),
 		outlineColor: token('color.border'),
 		outlineStyle: 'solid',
 		backgroundColor: token('elevation.surface.sunken'),
 	},
+	skeletonMedium: {
+		backgroundColor: token('color.skeleton'),
+		width: '34px',
+		height: '34px',
+		borderRadius: token('border.radius.200', '8px'),
+	},
+	skeletonSmall: {
+		backgroundColor: token('color.skeleton'),
+		width: '24px',
+		height: '24px',
+		borderRadius: token('border.radius.050', '2px'),
+	},
 });
+
+interface IconSkeletonProps {
+	size: 'small' | 'medium';
+	testId?: string;
+}
 
 export interface ContainerIconProps {
 	containerType: ContainerTypes;
@@ -44,24 +61,45 @@ export interface ContainerIconProps {
 	containerIcon?: string;
 	size?: 'small' | 'medium';
 	testId?: string;
+	iconsLoading?: boolean;
+	iconHasLoaded?: boolean;
 }
+
+const IconSkeleton = ({ size, testId }: IconSkeletonProps) => {
+	return (
+		<Box
+			xcss={size === 'medium' ? styles.skeletonMedium : styles.skeletonSmall}
+			testId="container-icon-skeleton"
+		/>
+	);
+};
 
 export const ContainerIcon = ({
 	containerType,
 	title,
 	containerIcon,
 	size = 'medium',
+	iconsLoading = false,
+	iconHasLoaded = true,
 }: ContainerIconProps) => {
+	const isMedium = size === 'medium';
+
 	if (containerType === 'LoomSpace') {
-		return <LoomSpaceAvatar spaceName={title} size={size === 'medium' ? 'large' : size} />;
+		return <LoomSpaceAvatar spaceName={title} size={isMedium ? 'large' : size} />;
 	}
 
-	if (containerType === 'WebLink' && !containerIcon) {
-		return (
-			<Box xcss={size === 'medium' ? styles.linkIconWrapperMedium : styles.linkIconWrapperSmall}>
-				<LinkIcon label="" testId="linked-container-WebLink-icon" />
-			</Box>
-		);
+	if (containerType === 'WebLink') {
+		if (iconsLoading || !iconHasLoaded) {
+			return <IconSkeleton size={size} />;
+		}
+
+		if (!containerIcon) {
+			return (
+				<Box xcss={isMedium ? styles.linkIconWrapperMedium : styles.linkIconWrapperSmall}>
+					<LinkIcon label="" testId="linked-container-WebLink-icon" />
+				</Box>
+			);
+		}
 	}
 
 	return (

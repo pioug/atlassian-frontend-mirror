@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-json-transformer",
-	"version": "8.24.2",
+	"version": "8.24.3",
 	"description": "JSON transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,6 @@
 		"@atlaskit/adf-schema": "^47.6.0",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21"
 	},
@@ -65,11 +64,6 @@
 			"styling": [
 				"emotion"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_use_nested_table_pm_nodes": {
-			"type": "boolean"
 		}
 	}
 }

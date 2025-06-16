@@ -897,6 +897,7 @@ describe('ShareDialogWithTrigger', () => {
 			expect(mockOnSubmit).toHaveBeenCalledTimes(1);
 			expect(mockOnSubmit).toHaveBeenCalledWith(values);
 
+			// eslint-disable-next-line @atlaskit/platform/no-set-immediate
 			setImmediate(() => {
 				const shareError = (wrapper.update().state() as any).shareError;
 				expect(shareError.message).toBe('Not allowed');

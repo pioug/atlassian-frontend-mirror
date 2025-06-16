@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useEffect, useRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
@@ -14,9 +16,21 @@ import NotFoundIllustration from './NotFoundIllustration';
 
 type Props = {
 	onExternalLinkClick: () => void;
+	focusOnEmptyStateButton?: boolean;
 };
 
-export default function EmptyState({ onExternalLinkClick }: Props): JSX.Element {
+export default function EmptyState({
+	onExternalLinkClick,
+	focusOnEmptyStateButton,
+}: Props): JSX.Element {
+	const buttonRef = useRef<HTMLAnchorElement | null>(null);
+
+	useEffect(() => {
+		if (focusOnEmptyStateButton && buttonRef.current) {
+			buttonRef.current.focus();
+		}
+	}, [focusOnEmptyStateButton]);
+
 	return (
 		<div css={emptyStateWrapper} data-testid="empty-state-wrapper">
 			<NotFoundIllustration />
@@ -39,6 +53,7 @@ export default function EmptyState({ onExternalLinkClick }: Props): JSX.Element 
 					<LinkButton
 						appearance="primary"
 						target="_blank"
+						ref={buttonRef}
 						href="https://marketplace.atlassian.com/search?category=Macros&hosting=cloud&product=confluence"
 						onClick={onExternalLinkClick}
 					>

@@ -6,6 +6,7 @@ import type {
 	FloatingToolbarCustom,
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from './alignmentPluginType';
@@ -83,8 +84,12 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 
 		pluginsOptions: {
 			selectionToolbar: () => {
+				const toolbarDocking = fg('platform_editor_use_preferences_plugin')
+					? api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition
+					: api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking;
+
 				if (
-					api?.selectionToolbar?.sharedState?.currentState()?.toolbarDocking === 'none' &&
+					toolbarDocking === 'none' &&
 					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
 				) {
 					const toolbarCustom: FloatingToolbarCustom<Command> = {

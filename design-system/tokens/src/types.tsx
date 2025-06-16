@@ -1122,6 +1122,11 @@ export interface TypographyTokenSchema<
 		code: {
 			'[default]': TypographyToken<TPalette>;
 		};
+		metric: {
+			large: TypographyToken<TPalette>;
+			medium: TypographyToken<TPalette>;
+			small: TypographyToken<TPalette>;
+		};
 	};
 }
 

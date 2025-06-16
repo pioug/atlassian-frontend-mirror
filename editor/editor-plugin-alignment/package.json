@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-alignment",
-	"version": "3.2.6",
+	"version": "3.3.0",
 	"description": "Alignment plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,6 +25,9 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_use_preferences_plugin": {
+			"type": "boolean"
 		},
 		"platform_editor_controls_patch_6": {
 			"type": "boolean"

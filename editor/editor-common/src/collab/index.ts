@@ -658,6 +658,8 @@ const telepointerColorStyle = (backgroundColor: string, textColor: string, index
 
 export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 export const TELEPOINTER_PULSE_CLASS = 'telepointer-pulse-animate';
+export const TELEPOINTER_PULSE_DURING_TR_CLASS = 'telepointer-pulse-during-tr';
+export const TELEPOINTER_PULSE_DURING_TR_DURATION_MS = 7500; // Keeping it longer so it'll be easier to spot during transactions
 export const TELEPOINTER_DATA_SESSION_ID_ATTR = 'data-telepointer-sessionid';
 
 // ED-22557: Safely convert to object styling
@@ -732,6 +734,30 @@ export const telepointerStyle = css`
 		}
 	}
 
+	@keyframes pulseInDuringTr {
+		0%,
+		95% {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+		100% {
+			transform: scaleX(0);
+			opacity: 0;
+		}
+	}
+
+	@keyframes pulseOutDuringTr {
+		100% {
+			transform: scaleX(1);
+			opacity: 1;
+		}
+		0%,
+		90% {
+			transform: scaleX(0);
+			opacity: 0;
+		}
+	}
+
 	.ProseMirror .telepointer {
 		position: relative;
 		transition: opacity 200ms;
@@ -780,6 +806,16 @@ export const telepointerStyle = css`
 
 			.telepointer-fullname {
 				animation: pulseIn 2.5s ease-in-out;
+			}
+		}
+
+		&.${TELEPOINTER_PULSE_DURING_TR_CLASS} {
+			.telepointer-initial {
+				animation: pulseOutDuringTr ${TELEPOINTER_PULSE_DURING_TR_DURATION_MS}ms ease-in-out;
+			}
+
+			.telepointer-fullname {
+				animation: pulseInDuringTr ${TELEPOINTER_PULSE_DURING_TR_DURATION_MS}ms ease-in-out;
 			}
 		}
 

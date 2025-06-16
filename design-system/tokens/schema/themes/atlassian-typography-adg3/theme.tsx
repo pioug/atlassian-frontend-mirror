@@ -153,6 +153,38 @@ const typography: ValueSchema<
 				},
 			},
 		},
+		metric: {
+			large: {
+				value: {
+					fontWeight: 'FontWeight653',
+					fontSize: 'FontSize28',
+					lineHeight: 'LineHeight32',
+					fontFamily: 'FontFamilyWebSans',
+					fontStyle: 'normal',
+					letterSpacing: 'LetterSpacing0',
+				},
+			},
+			medium: {
+				value: {
+					fontWeight: 'FontWeight653',
+					fontSize: 'FontSize24',
+					lineHeight: 'LineHeight28',
+					fontFamily: 'FontFamilyWebSans',
+					fontStyle: 'normal',
+					letterSpacing: 'LetterSpacing0',
+				},
+			},
+			small: {
+				value: {
+					fontWeight: 'FontWeight653',
+					fontSize: 'FontSize16',
+					lineHeight: 'LineHeight20',
+					fontFamily: 'FontFamilyWebSans',
+					fontStyle: 'normal',
+					letterSpacing: 'LetterSpacing0',
+				},
+			},
+		},
 	},
 };
 

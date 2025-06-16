@@ -44,6 +44,17 @@ export const getOverflowFloatingToolbarConfig = ({
 		{
 			title: intl.formatMessage(selectionToolbarMessages.toolbarPositionInline),
 			onClick: () => {
+				if (fg('platform_editor_use_preferences_plugin')) {
+					return (
+						api?.core.actions.execute(
+							api?.userPreferences?.actions?.updateUserPreference?.(
+								'toolbarDockingPosition',
+								'none',
+							),
+						) ?? false
+					);
+				}
+
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 			},
 			icon: MinusIcon({ label: '' }),
@@ -53,6 +64,16 @@ export const getOverflowFloatingToolbarConfig = ({
 		{
 			title: intl.formatMessage(selectionToolbarMessages.toolbarPositionFixedAtTop),
 			onClick: () => {
+				if (fg('platform_editor_use_preferences_plugin')) {
+					return (
+						api?.core.actions.execute(
+							api?.userPreferences?.actions?.updateUserPreference?.(
+								'toolbarDockingPosition',
+								'top',
+							),
+						) ?? false
+					);
+				}
 				return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 			},
 			icon: DockToolbarTopIcon({ label: '' }),
@@ -99,6 +120,17 @@ export const getOverflowPrimaryToolbarConfig = ({
 					name: 'contextual',
 				},
 				onClick: () => {
+					if (fg('platform_editor_use_preferences_plugin')) {
+						return (
+							api?.core.actions.execute(
+								api?.userPreferences?.actions?.updateUserPreference?.(
+									'toolbarDockingPosition',
+									'none',
+								),
+							) ?? false
+						);
+					}
+
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('none') ?? false;
 				},
 				elemBefore: MinusIcon({ label: '' }),
@@ -109,6 +141,17 @@ export const getOverflowPrimaryToolbarConfig = ({
 					name: 'fixed',
 				},
 				onClick: () => {
+					if (fg('platform_editor_use_preferences_plugin')) {
+						return (
+							api?.core.actions.execute(
+								api?.userPreferences?.actions?.updateUserPreference?.(
+									'toolbarDockingPosition',
+									'top',
+								),
+							) ?? false
+						);
+					}
+
 					return api?.selectionToolbar.actions?.setToolbarDocking?.('top') ?? false;
 				},
 				isActive: true,

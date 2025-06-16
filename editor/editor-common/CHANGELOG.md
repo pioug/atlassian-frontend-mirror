@@ -1,5 +1,54 @@
 # @atlaskit/editor-common
 
+## 106.9.0
+
+### Minor Changes
+
+- [#170137](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170137)
+  [`dbb4a990de7c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbb4a990de7c9) -
+  [ux] Addressed accessibility issue where the link "Explore Atlassian Marketplace" in Create Issue
+  modal for Description > Insert elements was not accessible in case of empty search results. No
+  change to existing functionality.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 106.8.0
+
+### Minor Changes
+
+- [#171561](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171561)
+  [`d0c41c462c511`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0c41c462c511) -
+  [ux] Telepointers now stay expanded even if there are other transactions received which will
+  re-create their DOM elements.
+
+### Patch Changes
+
+- [#171565](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171565)
+  [`a0cb383a8d353`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0cb383a8d353) -
+  Clean up feature flags
+- Updated dependencies
+
+## 106.7.0
+
+### Minor Changes
+
+- [#158546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/158546)
+  [`b7fe4e6f226f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7fe4e6f226f3) -
+  ED-27284 use user preferences plugin in editor preset.
+
+### Patch Changes
+
+- [#171482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171482)
+  [`aaa3084f0ce5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa3084f0ce5e) - \*
+  I18n translations, see
+  [commit](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/445044272c9e6779d186874b3e2e7ad714a13457)
+- [#169039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169039)
+  [`d2488752fcad8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2488752fcad8) -
+  EDITOR-508 Part 1 of cleaning up `platform_editor_use_nested_table_pm_nodes`
+- Updated dependencies
+
 ## 106.6.2
 
 ### Patch Changes

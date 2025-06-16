@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { usePeopleAndTeamAnalytics } from '../../common/utils/analytics';
 import { messages } from '../../common/utils/get-container-properties';
@@ -17,12 +17,6 @@ import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-link
 
 import { TeamContainers } from './main';
 import type { TeamContainersComponent } from './types';
-
-jest.mock('@atlaskit/feature-gate-js-client', () => ({
-	...jest.requireActual('@atlaskit/feature-gate-js-client'),
-	getExperimentValue: jest.fn(),
-	initializeCompleted: jest.fn(),
-}));
 
 jest.mock('../../controllers/hooks/use-team-containers', () => ({
 	...jest.requireActual('../../controllers/hooks/use-team-containers'),
@@ -56,8 +50,6 @@ const mockFireOperationalEvent = jest.fn();
 const mockFireUIEvent = jest.fn();
 
 const mockOnAddAContainerClick = jest.fn();
-const mockGetExperimentValue = FeatureGates.getExperimentValue as jest.Mock;
-const mockInitializeCompleted = FeatureGates.initializeCompleted as jest.Mock;
 
 describe('TeamContainers', () => {
 	const teamId = 'teamId';
@@ -98,9 +90,6 @@ describe('TeamContainers', () => {
 	};
 
 	beforeEach(() => {
-		mockInitializeCompleted.mockReturnValue(true);
-		mockGetExperimentValue.mockReturnValue(false);
-
 		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
 			teamLinks: [],
 		});
@@ -473,8 +462,6 @@ describe('TeamLinks', () => {
 	};
 
 	beforeEach(() => {
-		mockInitializeCompleted.mockReturnValue(true);
-		mockGetExperimentValue.mockReturnValue(true);
 		(useTeamContainers as jest.Mock).mockReturnValue({
 			teamContainers: [],
 			loading: false,
@@ -495,74 +482,78 @@ describe('TeamLinks', () => {
 			error: null,
 		});
 	});
-	it('should render add Jira, Confluence, Web link card when the team has no Jira project, Confluence space and Web links and has product access', () => {
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [],
-			isLoading: false,
-			hasLoaded: true,
-			hasError: false,
-			containersError: false,
-			webLinksError: false,
-			canAddMoreLink: true,
-			addTeamLink: jest.fn(),
-			updateTeamLink: jest.fn(),
-			removeTeamLink: jest.fn(),
+	ffTest.on('enable_web_links_in_team_containers', 'with web link enabled', () => {
+		it('should render add Jira, Confluence, Web link card when the team has no Jira project, Confluence space and Web links and has product access', () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [],
+				isLoading: false,
+				hasLoaded: true,
+				hasError: false,
+				containersError: false,
+				webLinksError: false,
+				canAddMoreLink: true,
+				addTeamLink: jest.fn(),
+				updateTeamLink: jest.fn(),
+				removeTeamLink: jest.fn(),
+			});
+			renderTeamContainers(teamId);
+
+			expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+			expect(
+				screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+			).toBeInTheDocument();
+			expect(
+				screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+			).toBeInTheDocument();
 		});
-		renderTeamContainers(teamId);
 
-		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
-		expect(
-			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
-		).toBeInTheDocument();
-		expect(
-			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
-		).toBeInTheDocument();
-	});
+		it('should render add Jira container and web link card when the team has no Jira project and web link, and render linked Confluence space', () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [ConfluenceSpace],
+			});
+			renderTeamContainers(teamId);
 
-	it('should render add Jira container and web link card when the team has no Jira project and web link, and render linked Confluence space', () => {
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [ConfluenceSpace],
+			expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
+			expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
+			expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
+			expect(
+				screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+			).toBeInTheDocument();
 		});
-		renderTeamContainers(teamId);
 
-		expect(screen.getByText(messages.addJiraProjectTitle.defaultMessage)).toBeInTheDocument();
-		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
-		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
-		expect(
-			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
-		).toBeInTheDocument();
-	});
+		it('should render add Confluence container and web link card when the team has no Confluence space and web link, and render linked Jira project', () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject],
+			});
+			renderTeamContainers(teamId);
 
-	it('should render add Confluence container and web link card when the team has no Confluence space and web link, and render linked Jira project', () => {
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [JiraProject],
+			expect(
+				screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
+			).toBeInTheDocument();
+			expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+			expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+			expect(
+				screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+			).toBeInTheDocument();
 		});
-		renderTeamContainers(teamId);
 
-		expect(
-			screen.getByText(messages.addConfluenceContainerTitle.defaultMessage),
-		).toBeInTheDocument();
-		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
-		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
-		expect(
-			screen.getByText(messages.emptyWebLinkContainerDescription.defaultMessage),
-		).toBeInTheDocument();
-	});
+		it('should render linked containers when jira project, confluence space and web links have linked data', () => {
+			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+				teamLinks: [JiraProject, ConfluenceSpace, WebLinks],
+			});
+			renderTeamContainers(teamId);
 
-	it('should render linked containers when jira project, confluence space and web links have linked data', () => {
-		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
-			teamLinks: [JiraProject, ConfluenceSpace, WebLinks],
+			expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
+			expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
+			expect(
+				screen.queryByText(messages.emptyWebLinkContainerDescription.defaultMessage),
+			).toBeNull();
+			expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+			expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
+			expect(screen.getByText(WebLinks.name)).toBeInTheDocument();
+			expect(
+				screen.getByText(messages.webLinkContainerDescription.defaultMessage),
+			).toBeInTheDocument();
 		});
-		renderTeamContainers(teamId);
-
-		expect(screen.queryByText(messages.addJiraProjectTitle.defaultMessage)).toBeNull();
-		expect(screen.queryByText(messages.addConfluenceContainerTitle.defaultMessage)).toBeNull();
-		expect(screen.queryByText(messages.emptyWebLinkContainerDescription.defaultMessage)).toBeNull();
-		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
-		expect(screen.getByText(ConfluenceSpace.name)).toBeInTheDocument();
-		expect(screen.getByText(WebLinks.name)).toBeInTheDocument();
-		expect(
-			screen.getByText(messages.webLinkContainerDescription.defaultMessage),
-		).toBeInTheDocument();
 	});
 });

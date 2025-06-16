@@ -1,5 +1,35 @@
 # @atlaskit/profilecard
 
+## 23.19.0
+
+### Minor Changes
+
+- [#170383](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170383)
+  [`0b0a0dd43dca8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b0a0dd43dca8) -
+  NO-ISSUE Replace existing experiment gate with new feature gate:
+  enable_web_links_in_team_containers
+
+### Patch Changes
+
+- [#170471](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170471)
+  [`081f5b24c4a2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/081f5b24c4a2c) -
+  Cleanup of Feature Gate jfp-a11y-autodev-profile-card-name-heading
+- Updated dependencies
+
+## 23.18.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.18.2
+
+### Patch Changes
+
+- [#170226](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170226)
+  [`1ac0fbf884924`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ac0fbf884924) -
+  NO-ISSUE Fix profile card pop up content text selection issue
+
 ## 23.18.1
 
 ### Patch Changes

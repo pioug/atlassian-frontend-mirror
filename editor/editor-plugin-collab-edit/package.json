@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "3.9.4",
+	"version": "3.10.0",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -108,9 +108,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_use_nested_table_pm_nodes": {
-			"type": "boolean"
-		},
 		"platform_editor_selection_without_left_shift": {
 			"type": "boolean"
 		},

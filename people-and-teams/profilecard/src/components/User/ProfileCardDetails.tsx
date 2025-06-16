@@ -4,9 +4,8 @@ import { cssMap, cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Text, xcss } from '@atlaskit/primitives';
-import { Box as CompiledBox } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import relativeDate from '../../internal/relative-date';
@@ -27,40 +26,6 @@ import {
 import { IconLabel } from '../Icon';
 
 import ReportingLinesDetails from './ReportingLinesDetails';
-
-const detailedListWrapperStyles = xcss({
-	margin: 'space.0',
-	padding: 'space.0',
-});
-
-const fullNameLabelStyles = xcss({
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	font: token('font.body.large'),
-});
-
-const noMetaLabelStyles = xcss({
-	marginTop: 'space.400',
-	marginRight: '0',
-	marginBottom: 'space.150',
-	marginLeft: '0',
-});
-
-const metaLabelStyles = xcss({
-	marginTop: 'space.150',
-	marginRight: '0',
-	marginBottom: '0',
-	marginLeft: '0',
-});
-
-const disabledAccountStyles = xcss({
-	color: 'color.text',
-});
-
-const activeAccountStyles = xcss({
-	color: 'color.text.inverse',
-});
 
 const styles = cssMap({
 	detailedListWrapper: {
@@ -117,26 +82,14 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 
 	const displayName = isNicknameRedundant ? fullName : `${fullName}${shownNickname}`;
 
-	if (fg('jfp-a11y-autodev-profile-card-name-heading')) {
-		return (
-			<CompiledBox
-				as="h2"
-				xcss={cx(
-					styles.fullNameLabel,
-					styles.activeAccount,
-					meta ? styles.metaLabel : styles.noMetaLabel,
-				)}
-				testId="profilecard-name"
-				id="profilecard-name-label"
-			>
-				{displayName}
-			</CompiledBox>
-		);
-	}
-
 	return (
 		<Box
-			xcss={[fullNameLabelStyles, activeAccountStyles, meta ? metaLabelStyles : noMetaLabelStyles]}
+			as="h2"
+			xcss={cx(
+				styles.fullNameLabel,
+				styles.activeAccount,
+				meta ? styles.metaLabel : styles.noMetaLabel,
+			)}
 			testId="profilecard-name"
 			id="profilecard-name-label"
 		>
@@ -220,24 +173,14 @@ const DisabledProfileCardDetails = (
 
 	return (
 		<DetailsGroup>
-			{fg('jfp-a11y-autodev-profile-card-name-heading') ? (
-				<CompiledBox
-					as="h2"
-					xcss={cx(styles.fullNameLabel, styles.noMetaLabel, styles.disabledAccount)}
-					testId="profilecard-name"
-					id="profilecard-name-label"
-				>
-					{name}
-				</CompiledBox>
-			) : (
-				<Box
-					xcss={[fullNameLabelStyles, noMetaLabelStyles, disabledAccountStyles]}
-					testId="profilecard-name"
-					id="profilecard-name-label"
-				>
-					{name}
-				</Box>
-			)}
+			<Box
+				as="h2"
+				xcss={cx(styles.fullNameLabel, styles.noMetaLabel, styles.disabledAccount)}
+				testId="profilecard-name"
+				id="profilecard-name-label"
+			>
+				{name}
+			</Box>
 
 			{hasDisabledAccountLozenge && (
 				<LozengeWrapper>
@@ -276,26 +219,14 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 			{renderName(props.nickname, props.fullName, meta)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
-			{fg('jfp-a11y-autodev-profile-card-name-heading') ? (
-				<CompiledBox as="dl" xcss={styles.detailedListWrapper}>
-					<IconLabel icon="email" extraTopSpace={true}>
-						{props.email}
-					</IconLabel>
-					<IconLabel icon="time">{props.timestring}</IconLabel>
-					<IconLabel icon="companyName">{props.companyName}</IconLabel>
-					<IconLabel icon="location">{props.location}</IconLabel>
-				</CompiledBox>
-			) : (
-				// eslint-disable-next-line @atlaskit/design-system/ensure-proper-xcss-usage
-				<Box as="dl" xcss={detailedListWrapperStyles}>
-					<IconLabel icon="email" extraTopSpace={true}>
-						{props.email}
-					</IconLabel>
-					<IconLabel icon="time">{props.timestring}</IconLabel>
-					<IconLabel icon="companyName">{props.companyName}</IconLabel>
-					<IconLabel icon="location">{props.location}</IconLabel>
-				</Box>
-			)}
+			<Box as="dl" xcss={styles.detailedListWrapper}>
+				<IconLabel icon="email" extraTopSpace={true}>
+					{props.email}
+				</IconLabel>
+				<IconLabel icon="time">{props.timestring}</IconLabel>
+				<IconLabel icon="companyName">{props.companyName}</IconLabel>
+				<IconLabel icon="location">{props.location}</IconLabel>
+			</Box>
 
 			<ReportingLinesDetails
 				reportingLines={props.reportingLines}

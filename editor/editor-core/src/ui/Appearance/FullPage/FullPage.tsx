@@ -29,6 +29,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAppearanceComponentProps, PrimaryToolbarComponents } from '../../../types';
+import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
 
 import { FullPageContentArea } from './FullPageContentArea';
 import type { ToolbarEditorPlugins } from './FullPageToolbar';
@@ -159,8 +160,15 @@ export const FullPageEditor = (props: ComponentProps) => {
 	const scrollContentContainerRef = useRef<ScrollContainerRefs | null>(null);
 	const showKeyline = useShowKeyline(scrollContentContainerRef);
 	const editorAPI = props.editorAPI;
-	const { editorViewModeState, primaryToolbarState, interactionState } =
-		useFullPageEditorPluginsStates(editorAPI);
+	const {
+		editorViewModeState,
+		primaryToolbarState: primaryToolbarHookState,
+		interactionState,
+	} = useFullPageEditorPluginsStates(editorAPI);
+	const primaryToolbarState = getPrimaryToolbarComponents(
+		editorAPI,
+		primaryToolbarHookState?.components,
+	);
 	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
 
 	// Remove all this logic when platform_editor_interaction_api_refactor is cleaned up
@@ -176,9 +184,23 @@ export const FullPageEditor = (props: ComponentProps) => {
 		hasHadInteraction = interactionState?.hasHadInteraction;
 	}
 
-	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking');
+	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking', {
+		disabled: fg('platform_editor_use_preferences_plugin'),
+	});
+	let toolbarDockingPref = useSharedPluginStateSelector(
+		editorAPI,
+		'userPreferences.preferences.toolbarDockingPosition',
+		{
+			disabled: !fg('platform_editor_use_preferences_plugin'),
+		},
+	);
 
-	if (!toolbarDocking && fg('platform_editor_controls_toolbar_ssr_fix')) {
+	if (fg('platform_editor_use_preferences_plugin')) {
+		if (!toolbarDockingPref) {
+			toolbarDockingPref =
+				editorAPI?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition;
+		}
+	} else if (!toolbarDocking && fg('platform_editor_controls_toolbar_ssr_fix')) {
 		// This is a workaround for the rendering issue with the selection toolbar
 		// where using useSharedPluginStateSelector or useSharedPluginState the state are not
 		// available when the editor is first loaded. and cause the toolbar to blink.
@@ -200,7 +222,16 @@ export const FullPageEditor = (props: ComponentProps) => {
 	const { customPrimaryToolbarComponents } = props;
 
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		if (fg('platform_editor_controls_toolbar_ssr_fix')) {
+		if (fg('platform_editor_use_preferences_plugin')) {
+			// need to check if the toolbarDockingPref is set to 'none' or 'top'
+			if (toolbarDockingPref === 'none') {
+				primaryToolbarComponents = [];
+
+				if (!hasCustomComponents(customPrimaryToolbarComponents)) {
+					isEditorToolbarHidden = true;
+				}
+			}
+		} else if (fg('platform_editor_controls_toolbar_ssr_fix')) {
 			if (toolbarDocking === 'none') {
 				primaryToolbarComponents = [];
 

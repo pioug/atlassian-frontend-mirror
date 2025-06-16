@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.11.12
+
+### Patch Changes
+
+- [#170021](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170021)
+  [`d47d7358771ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d47d7358771ff) -
+  [ux] Adds a property shouldShowCalenderButton on DatePicker behind fg
+  platform_linking_set_should_show_calender_button
+
 ## 4.11.11
 
 ### Patch Changes

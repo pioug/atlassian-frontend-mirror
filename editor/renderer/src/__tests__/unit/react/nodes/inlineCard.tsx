@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
@@ -9,11 +9,13 @@ import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { Pressable } from '@atlaskit/primitives/compiled';
 
 import InlineCard from '../../../../react/nodes/inlineCard';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MockCardComponent } from './card.mock';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/smart-card', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -236,6 +238,63 @@ describe('Renderer - React/Nodes/InlineCard - analytics context', () => {
 				actionSubject: 'link',
 			},
 			context: expectedContext,
+		});
+	});
+});
+
+describe('Renderer - React/Nodes/InlineCard - CompetitorPrompt', () => {
+	const MockCompetitorPrompt = jest.fn(({ sourceUrl, linkType }) => (
+		<Pressable
+			type="button"
+			aria-label="competitor prompt"
+			data-source-url={sourceUrl}
+			data-link-type={linkType}
+		>
+			{sourceUrl}
+			{linkType}
+		</Pressable>
+	));
+
+	beforeEach(() => {
+		MockCompetitorPrompt.mockClear();
+	});
+
+	ffTest.on('prompt_whiteboard_competitor_link_gate', '', () => {
+		it('should render when CompetitorPrompt provided and feature gate is on', () => {
+			render(
+				<Provider client={new Client('staging')}>
+					<InlineCard
+						url={'test.com'}
+						smartLinks={{
+							CompetitorPrompt: MockCompetitorPrompt,
+						}}
+					/>
+				</Provider>,
+			);
+
+			const competitorPrompt = screen.getByRole('button', { name: 'competitor prompt' });
+			expect(competitorPrompt).toBeInTheDocument();
+			expect(competitorPrompt).toHaveTextContent('test.com');
+			expect(competitorPrompt).toHaveTextContent('inline');
+			expect(MockCompetitorPrompt).toHaveBeenCalled();
+		});
+	});
+
+	ffTest.off('prompt_whiteboard_competitor_link_gate', '', () => {
+		it('should not render CompetitorPrompt when feature gate is off', () => {
+			render(
+				<Provider client={new Client('staging')}>
+					<InlineCard
+						url={'test.com'}
+						smartLinks={{
+							CompetitorPrompt: MockCompetitorPrompt,
+						}}
+					/>
+				</Provider>,
+			);
+
+			expect(screen.queryByRole('button', { name: 'competitor prompt' })).not.toBeInTheDocument();
+			expect(MockCompetitorPrompt).not.toHaveBeenCalled();
 		});
 	});
 });

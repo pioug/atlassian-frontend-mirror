@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 106.9.2
+
+### Patch Changes
+
+- [#171539](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171539)
+  [`823e66121b671`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/823e66121b671) -
+  [ux] Fixes height of the resize handle when advanced layouts feature is enabled.
+- Updated dependencies
+
+## 106.9.1
+
+### Patch Changes
+
+- [#171632](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171632)
+  [`09ed62f7d97de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09ed62f7d97de) -
+  [ux] EDITOR-937 - Update legacy link picker input color contrast
+- Updated dependencies
+
 ## 106.9.0
 
 ### Minor Changes

@@ -136,42 +136,42 @@ export const legacyOnlyLogosAndIcons = [
 ];
 
 export const sharedLogosAndIcons = [
-	{ name: 'Atlassian Analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
+	{ name: 'Confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },
+	{ name: 'Jira', logo: JiraLogo, icon: JiraIcon },
+	{ name: 'Loom', logo: LoomLogo, icon: LoomIcon },
+	{ name: 'Rovo', logo: RovoLogo, icon: RovoIcon },
+	{ name: 'Focus', logo: FocusLogo, icon: FocusIcon },
+	{ name: 'Jira Align', logo: JiraAlignLogo, icon: JiraAlignIcon },
 	{ name: 'Bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
 	{ name: 'Compass', logo: CompassLogo, icon: CompassIcon },
-	{ name: 'Confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },
-	{ name: 'Focus', logo: FocusLogo, icon: FocusIcon },
-	{ name: 'Guard', logo: GuardLogo, icon: GuardIcon },
-	{ name: 'Jira', logo: JiraLogo, icon: JiraIcon },
-	{ name: 'Jira Align', logo: JiraAlignLogo, icon: JiraAlignIcon },
-	{
-		name: 'Jira Product Discovery',
-		logo: JiraProductDiscoveryLogo,
-		icon: JiraProductDiscoveryIcon,
-	},
 	{
 		name: 'Jira Service Management',
 		logo: JiraServiceManagementLogo,
 		icon: JiraServiceManagementIcon,
 	},
-	{ name: 'Loom', logo: LoomLogo, icon: LoomIcon },
 	{ name: 'Opsgenie', logo: OpsgenieLogo, icon: OpsgenieIcon },
-	{ name: 'Rovo', logo: RovoLogo, icon: RovoIcon },
 	{ name: 'Statuspage', logo: StatuspageLogo, icon: StatuspageIcon },
+	{
+		name: 'Jira Product Discovery',
+		logo: JiraProductDiscoveryLogo,
+		icon: JiraProductDiscoveryIcon,
+	},
+	{ name: 'Atlassian Analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
+	{ name: 'Guard', logo: GuardLogo, icon: GuardIcon },
 	{ name: 'Trello', logo: TrelloLogo, icon: TrelloIcon },
 ];
 
 export const newOnlyLogosAndIcons = [
+	{ name: 'Talent', logo: TalentLogo, icon: TalentIcon },
 	{ name: 'Assets', logo: AssetsLogo, icon: AssetsIcon },
-	{ name: 'Chat', logo: ChatLogo, icon: ChatIcon },
 	{ name: 'Hub', logo: HubLogo, icon: HubIcon },
-	{ name: 'Goals', logo: GoalsLogo, icon: GoalsIcon },
 	{ name: 'Home', logo: HomeLogo, icon: HomeIcon },
+	{ name: 'Goals', logo: GoalsLogo, icon: GoalsIcon },
 	{ name: 'Projects', logo: ProjectsLogo, icon: ProjectsIcon },
+	{ name: 'Teams', logo: TeamsLogo, icon: TeamsIcon },
+	{ name: 'Chat', logo: ChatLogo, icon: ChatIcon },
 	{ name: 'Search', logo: SearchLogo, icon: SearchIcon },
 	{ name: 'Studio', logo: StudioLogo, icon: StudioIcon },
-	{ name: 'Talent', logo: TalentLogo, icon: TalentIcon },
-	{ name: 'Teams', logo: TeamsLogo, icon: TeamsIcon },
 ];
 
 export const logosAndIcons = [

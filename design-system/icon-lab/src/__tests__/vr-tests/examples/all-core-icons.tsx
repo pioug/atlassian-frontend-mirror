@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::7e448878220cfe696398b48aa946c334>>
+ * @codegen <<SignedSource::05d23e39c91ffc32582c8cdffbc73565>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -103,8 +103,6 @@ import GiftIcon from '../../../../core/gift';
 import GlobeStrikethroughIcon from '../../../../core/globe-strikethrough';
 import GroupSelectionIcon from '../../../../core/group-selection';
 import GroupUngroupSelectionIcon from '../../../../core/group-ungroup-selection';
-import HandIcon from '../../../../core/hand';
-import HandClenchedIcon from '../../../../core/hand-clenched';
 import HandClosedIcon from '../../../../core/hand-closed';
 import HandOpenIcon from '../../../../core/hand-open';
 import HandRaisedIcon from '../../../../core/hand-raised';
@@ -152,7 +150,6 @@ import QrCodeIcon from '../../../../core/qr-code';
 import QueuePopInIcon from '../../../../core/queue-pop-in';
 import QueuePopOutIcon from '../../../../core/queue-pop-out';
 import RandomizeIcon from '../../../../core/randomize';
-import RecurIcon from '../../../../core/recur';
 import RepeatIcon from '../../../../core/repeat';
 import ReplyLeftIcon from '../../../../core/reply-left';
 import ReplyRightIcon from '../../../../core/reply-right';
@@ -162,38 +159,17 @@ import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import SaveIcon from '../../../../core/save';
 import ScreenRecordIcon from '../../../../core/screen-record';
 import SectionIcon from '../../../../core/section';
-import ShapeCommentLeftIcon from '../../../../core/shape-comment-left';
-import ShapeCommentRightIcon from '../../../../core/shape-comment-right';
-import ShapeDatabaseIcon from '../../../../core/shape-database';
-import ShapeDelayIcon from '../../../../core/shape-delay';
 import ShapeDiamondIcon from '../../../../core/shape-diamond';
-import ShapeDisplayIcon from '../../../../core/shape-display';
-import ShapeDocumentSymbolIcon from '../../../../core/shape-document-symbol';
 import ShapeEllipseIcon from '../../../../core/shape-ellipse';
-import ShapeHardDiskIcon from '../../../../core/shape-hard-disk';
-import ShapeInternalStorageIcon from '../../../../core/shape-internal-storage';
-import ShapeManualInputIcon from '../../../../core/shape-manual-input';
-import ShapeManualOperationSymbolIcon from '../../../../core/shape-manual-operation-symbol';
-import ShapeMindmapIcon from '../../../../core/shape-mindmap';
-import ShapeMultipleDocumentsIcon from '../../../../core/shape-multiple-documents';
-import ShapeOffPageIcon from '../../../../core/shape-off-page';
 import ShapeParallelogramSkewLeftIcon from '../../../../core/shape-parallelogram-skew-left';
 import ShapeParallelogramSkewRightIcon from '../../../../core/shape-parallelogram-skew-right';
-import ShapePredefinedProcessIcon from '../../../../core/shape-predefined-process';
-import ShapePreparationSymbolIcon from '../../../../core/shape-preparation-symbol';
 import ShapeRectangleIcon from '../../../../core/shape-rectangle';
 import ShapeRectangleRoundedIcon from '../../../../core/shape-rectangle-rounded';
-import ShapeStartEndIcon from '../../../../core/shape-start-end';
-import ShapeStoredDataIcon from '../../../../core/shape-stored-data';
-import ShapeSummingJunctionCrossIcon from '../../../../core/shape-summing-junction-cross';
-import ShapeSummingJunctionPlusIcon from '../../../../core/shape-summing-junction-plus';
 import ShapeTriangleIcon from '../../../../core/shape-triangle';
 import ShapeTriangleInvertedIcon from '../../../../core/shape-triangle-inverted';
 import SignatureIcon from '../../../../core/signature';
 import SortOptionsIcon from '../../../../core/sort-options';
-import SpaceIcon from '../../../../core/space';
 import SpacesIcon from '../../../../core/spaces';
-import SpeedometerIcon from '../../../../core/speedometer';
 import SpeedometerLeftIcon from '../../../../core/speedometer-left';
 import SpeedometerRightIcon from '../../../../core/speedometer-right';
 import SpeedometerUpIcon from '../../../../core/speedometer-up';
@@ -462,8 +438,6 @@ const Icons = [
 	TextHeadingFourIcon,
 	TextHeadingFiveIcon,
 	TextHeadingSixIcon,
-	RecurIcon,
-	SpeedometerIcon,
 	TabIcon,
 	PinStrikethroughIcon,
 	StudioIcon,
@@ -501,8 +475,6 @@ const Icons = [
 	DiagramSymbolStoredDataIcon,
 	DiagramSymbolSummingJunctionIcon,
 	DiagramSymbolOrIcon,
-	HandClenchedIcon,
-	SpaceIcon,
 	CompareIcon,
 	GenerativeIndicatorIcon,
 	GenerativeDateIcon,
@@ -512,28 +484,8 @@ const Icons = [
 	MilestoneIncompleteIcon,
 	ImageStrikethroughIcon,
 	TextAdjustLengthIcon,
-	HandIcon,
 	HandOpenIcon,
 	HandClosedIcon,
-	ShapeCommentLeftIcon,
-	ShapeCommentRightIcon,
-	ShapeDatabaseIcon,
-	ShapeDelayIcon,
-	ShapeDisplayIcon,
-	ShapeDocumentSymbolIcon,
-	ShapeHardDiskIcon,
-	ShapeInternalStorageIcon,
-	ShapeManualInputIcon,
-	ShapeManualOperationSymbolIcon,
-	ShapeMindmapIcon,
-	ShapeMultipleDocumentsIcon,
-	ShapeOffPageIcon,
-	ShapePredefinedProcessIcon,
-	ShapePreparationSymbolIcon,
-	ShapeStartEndIcon,
-	ShapeStoredDataIcon,
-	ShapeSummingJunctionCrossIcon,
-	ShapeSummingJunctionPlusIcon,
 	RandomizeIcon,
 	DiagramSymbolActionIcon,
 	DiagramSymbolAlternateProcessIcon,
@@ -597,10 +549,6 @@ export const MediumIconGroup9 = allMediumExamples[9];
 export const MediumIconGroup10 = allMediumExamples[10];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup11 = allMediumExamples[11];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup12 = allMediumExamples[12];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup13 = allMediumExamples[13];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0 = allSmallExamples[0];
@@ -626,7 +574,3 @@ export const SmallIconGroup9 = allSmallExamples[9];
 export const SmallIconGroup10 = allSmallExamples[10];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup11 = allSmallExamples[11];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup12 = allSmallExamples[12];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup13 = allSmallExamples[13];

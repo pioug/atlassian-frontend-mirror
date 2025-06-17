@@ -12,6 +12,10 @@ import { type PlaybackSpeedChangeEventPayload } from '../events/ui/playbackSpeed
 import { type PlayPauseBlanketClickEventPayload } from '../events/ui/playPauseBlanketClicked';
 import { type ShortcutPressEventPayload } from '../events/ui/shortcutPressed';
 import { type TimeRangeNavigateEventPayload } from '../events/ui/timeRangeNavigated';
+import { type CaptionUploadSucceededOperationalEventPayload } from '../events/operational/captionUploadSucceeded';
+import { type CaptionDeleteSucceededOperationalEventPayload } from '../events/operational/captionDeleteSucceeded';
+import { type CaptionUploadFailedOperationalEventPayload } from '../events/operational/captionUploadFailed';
+import { type CaptionDeleteFailedOperationalEventPayload } from '../events/operational/captionDeleteFailed';
 import { type FirstPlayedTrackEventPayload } from '../events/track/playCount';
 import { type PlayedTrackEventPayload } from '../events/track/played';
 import { type CustomMediaPlayerType } from '../../types';
@@ -39,6 +43,10 @@ export type CustomMediaPlayerAnalyticsEventPayload =
 	| PlayPauseBlanketClickEventPayload
 	| ShortcutPressEventPayload
 	| TimeRangeNavigateEventPayload
+	| CaptionUploadSucceededOperationalEventPayload
+	| CaptionDeleteSucceededOperationalEventPayload
+	| CaptionUploadFailedOperationalEventPayload
+	| CaptionDeleteFailedOperationalEventPayload
 	| CustomMediaPlayerUIEventPayload
 	| FirstPlayedTrackEventPayload
 	| PlayedTrackEventPayload;

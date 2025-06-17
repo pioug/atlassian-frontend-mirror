@@ -470,6 +470,7 @@ export default function ProfilecardTriggerNext({
 				autoFocus={autoFocus ?? trigger === 'click'}
 				// This feature gate is currently enabled only for Jira_Web to avoid UI issues in Confluence_Web.
 				shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
+				shouldDisableFocusLock={fg('enable_appropriate_reading_order_in_profile_card')}
 			/>
 			{shouldShowGiveKudos && teamCentralBaseUrl && (
 				<Suspense fallback={null}>

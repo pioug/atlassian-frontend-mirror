@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-media
 
+## 3.2.0
+
+### Minor Changes
+
+- [#172247](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172247)
+  [`67d04382f5777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67d04382f5777) -
+  Add data-media-vc-wrapper to ProseMirror media signle node
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#170742](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170742)
+  [`9c026e8d50959`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c026e8d50959) -
+  Add data-media-vc-wrapper attribute to Editor MediaCardWrapper component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.15
 
 ### Patch Changes

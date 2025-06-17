@@ -269,6 +269,27 @@ export const pragmaticResizerStylesForTooltip = () => {
 	}
 };
 
+export const pragmaticStylesLayoutFirstNodeResizeHandleFix = () => {
+	if (
+		editorExperiment('advanced_layouts', true) &&
+		editorExperiment('platform_editor_breakout_resizing', true) &&
+		fg('platform_editor_breakout_resizing_hello_release')
+	) {
+		return css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'.fabric-editor-breakout-mark': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'&:has([data-prosemirror-node-name="layoutSection"].first-node-in-document)': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+					'> .pm-breakout-resize-handle-container': {
+						height: 'calc(100% - 8px)',
+					},
+				},
+			},
+		});
+	}
+};
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStyles = () => {
 	if (editorExperiment('platform_editor_breakout_resizing', false)) {
@@ -319,6 +340,7 @@ export const pragmaticResizerStyles = () => {
 					height: 'calc(100% - 8px)',
 				},
 			},
+
 			// the first node in the document always has margin-top = 0
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&:has(.first-node-in-document)': {

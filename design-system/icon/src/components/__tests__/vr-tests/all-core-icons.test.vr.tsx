@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::134a06e43bb890a55a642b329b81e2cf>>
+ * @codegen <<SignedSource::4ecf5a3155c68e648f387b8f4dd05b06>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import { snapshot } from '@af/visual-regression';
@@ -11,14 +11,6 @@ import { snapshot } from '@af/visual-regression';
 import {
 	MediumIconGroup0,
 	MediumIconGroup1,
-	MediumIconGroup2,
-	MediumIconGroup3,
-	MediumIconGroup4,
-	MediumIconGroup5,
-	MediumIconGroup6,
-	MediumIconGroup7,
-	MediumIconGroup8,
-	MediumIconGroup9,
 	MediumIconGroup10,
 	MediumIconGroup11,
 	MediumIconGroup12,
@@ -27,17 +19,16 @@ import {
 	MediumIconGroup15,
 	MediumIconGroup16,
 	MediumIconGroup17,
-	MediumIconGroup18,
+	MediumIconGroup2,
+	MediumIconGroup3,
+	MediumIconGroup4,
+	MediumIconGroup5,
+	MediumIconGroup6,
+	MediumIconGroup7,
+	MediumIconGroup8,
+	MediumIconGroup9,
 	SmallIconGroup0,
 	SmallIconGroup1,
-	SmallIconGroup2,
-	SmallIconGroup3,
-	SmallIconGroup4,
-	SmallIconGroup5,
-	SmallIconGroup6,
-	SmallIconGroup7,
-	SmallIconGroup8,
-	SmallIconGroup9,
 	SmallIconGroup10,
 	SmallIconGroup11,
 	SmallIconGroup12,
@@ -46,7 +37,14 @@ import {
 	SmallIconGroup15,
 	SmallIconGroup16,
 	SmallIconGroup17,
-	SmallIconGroup18,
+	SmallIconGroup2,
+	SmallIconGroup3,
+	SmallIconGroup4,
+	SmallIconGroup5,
+	SmallIconGroup6,
+	SmallIconGroup7,
+	SmallIconGroup8,
+	SmallIconGroup9,
 } from './examples/all-core-icons';
 
 snapshot(MediumIconGroup0, {
@@ -229,16 +227,6 @@ snapshot(MediumIconGroup17, {
 		},
 	],
 });
-snapshot(MediumIconGroup18, {
-	variants: [
-		{
-			name: 'Medium Group 18',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
 
 snapshot(SmallIconGroup0, {
 	variants: [
@@ -414,16 +402,6 @@ snapshot(SmallIconGroup17, {
 	variants: [
 		{
 			name: 'Small Group 17',
-			environment: {
-				colorScheme: 'light',
-			},
-		},
-	],
-});
-snapshot(SmallIconGroup18, {
-	variants: [
-		{
-			name: 'Small Group 18',
 			environment: {
 				colorScheme: 'light',
 			},

@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::115006acecc37a496dbe472d7884fa6d>>
+ * @codegen <<SignedSource::c6f9eb087d49a14806a7713cb8306e06>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2188,6 +2188,21 @@ var tokens = exports.tokens = [{
   path: ['font', 'body', 'UNSAFE_small'],
   description: 'UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token',
   exampleValue: 'normal 400 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+}, {
+  name: 'font.metric.large',
+  path: ['font', 'metric', 'large'],
+  description: 'Use to emphasize a number within a large donut.',
+  exampleValue: 'normal 653 1.75rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+}, {
+  name: 'font.metric.medium',
+  path: ['font', 'metric', 'medium'],
+  description: 'Use to emphasize a number within a medium donut.',
+  exampleValue: 'normal 653 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
+}, {
+  name: 'font.metric.small',
+  path: ['font', 'metric', 'small'],
+  description: 'Use to emphasize a number and words in single-value tiles, or small donuts.',
+  exampleValue: 'normal 653 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif'
 }, {
   name: 'font.code',
   path: ['font', 'code', '[default]'],

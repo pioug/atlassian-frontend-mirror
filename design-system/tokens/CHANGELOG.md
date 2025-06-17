@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 5.2.1
+
+### Patch Changes
+
+- [#171759](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171759)
+  [`7c69b991b4311`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c69b991b4311) -
+  Updated metric token descriptions.
+
 ## 5.2.0
 
 ### Minor Changes

@@ -1,5 +1,23 @@
 # @atlaskit/media-ui
 
+## 28.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.3.0
+
+### Minor Changes
+
+- [#169848](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169848)
+  [`e2f382e521a21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2f382e521a21) -
+  Add analytics for caption upload & delete flows
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.2.4
 
 ### Patch Changes

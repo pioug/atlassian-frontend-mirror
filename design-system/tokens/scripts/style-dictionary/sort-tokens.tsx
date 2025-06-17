@@ -131,7 +131,7 @@ const getIndexForPath = (token: TransformedToken, pathIndex: number, pathArray: 
 	return pathArray.findIndex((value) => value === token.path[pathIndex]);
 };
 
-const typographyPaths = ['heading', 'body', 'code'];
+const typographyPaths = ['heading', 'body', 'metric', 'code'];
 
 const isTypographyToken = (token: TransformedToken, path: string) => {
 	return token.original.attributes?.group === 'typography' && typographyPaths.includes(path);
@@ -375,7 +375,8 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
 		 * @example
 		 * 1. font.heading
 		 * 2. font.body
-		 * 3. font.code
+		 * 3. font.metric
+		 * 4. font.code
 		 */
 		const aIsTypography = isTypographyToken(a, aPath);
 		const bIsTypography = isTypographyToken(b, bPath);

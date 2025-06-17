@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 7.1.0
+
+### Minor Changes
+
+- [#170742](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170742)
+  [`9c026e8d50959`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c026e8d50959) -
+  Add data-media-vc-wrapper attribute to Editor MediaCardWrapper component
+
 ## 7.0.0
 
 ### Major Changes

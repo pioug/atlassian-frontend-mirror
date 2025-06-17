@@ -5,10 +5,13 @@ export const artifactUploadTypes = {
 };
 
 export type ArtifactSupportedType = keyof typeof artifactUploadTypes;
+export type ArtifactUploaderContext = {
+	traceId: string;
+};
 
 export interface ArtifactUploaderProps {
 	identifier: FileIdentifier;
-	onStart?: (file: File) => void;
-	onEnd?: (metadata: MediaItemDetails) => void;
-	onError?: (error: Error) => void;
+	onStart?: (file: File, context: ArtifactUploaderContext) => void;
+	onEnd?: (metadata: MediaItemDetails, context: ArtifactUploaderContext) => void;
+	onError?: (error: Error, context: ArtifactUploaderContext) => void;
 }

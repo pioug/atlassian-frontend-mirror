@@ -2,4 +2,8 @@
 // Entry file in package.json
 
 export { editorDisabledPlugin } from './editorDisabledPlugin';
-export type { EditorDisabledPluginState, EditorDisabledPlugin } from './editorDisabledPluginType';
+export type {
+	EditorDisabledPluginState,
+	EditorDisabledPlugin,
+	EditorDisabledPluginOptions,
+} from './editorDisabledPluginType';

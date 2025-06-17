@@ -99,8 +99,6 @@ describe('smart-card: card states, block', () => {
 		});
 
 		it('delegates the click to the preview panel handler if the object type is supported as a preview panel', async () => {
-			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
-
 			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
 			const openPreviewPanel = jest.fn();
 
@@ -145,7 +143,6 @@ describe('smart-card: card states, block', () => {
 
 		it('does not delegate the click to the preview panel handler if the object type is not supported as a preview panel', async () => {
 			window.open = jest.fn();
-			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
 
 			const isPreviewPanelAvailable = jest.fn().mockReturnValue(false);
 			const openPreviewPanel = jest.fn();
@@ -186,7 +183,6 @@ describe('smart-card: card states, block', () => {
 
 		it('does not delegate the click to the preview panel handler if clicking with modifier keys', async () => {
 			window.open = jest.fn();
-			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
 
 			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
 			const openPreviewPanel = jest.fn();
@@ -231,7 +227,6 @@ describe('smart-card: card states, block', () => {
 
 		it('does not delegate the click to the preview panel handler if the open preview panel method is not provided', async () => {
 			window.open = jest.fn();
-			fgMock.mockImplementation((key) => key === 'fun-1765_wire_up_glance_panel_to_smart_cards');
 
 			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
 
@@ -251,47 +246,6 @@ describe('smart-card: card states, block', () => {
 			await userEvent.click(link);
 
 			expect(isPreviewPanelAvailable).not.toHaveBeenCalled();
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'clicked',
-					actionSubject: 'link',
-					attributes: expect.objectContaining({
-						clickOutcome: 'clickThrough',
-					}),
-				}),
-			);
-		});
-
-		it('does not delegate the click to the preview panel handler if the feature gate is off', async () => {
-			// delete this test when cleaning up fun-1765_wire_up_glance_panel_to_smart_cards
-			window.open = jest.fn();
-
-			const isPreviewPanelAvailable = jest.fn().mockReturnValue(true);
-			const openPreviewPanel = jest.fn();
-
-			render(
-				<FabricAnalyticsListeners client={mockAnalyticsClient}>
-					<IntlProvider locale="en">
-						<Provider
-							client={mockClient}
-							isPreviewPanelAvailable={isPreviewPanelAvailable}
-							openPreviewPanel={openPreviewPanel}
-						>
-							<Card appearance="block" url={mockUrl} id="some-id" />
-						</Provider>
-					</IntlProvider>
-				</FabricAnalyticsListeners>,
-			);
-			await screen.findByText('I love cheese');
-			await screen.findByText('Here is your serving of cheese: 🧀');
-
-			fgMock.mockReturnValue(false);
-
-			const link = screen.getByRole('link');
-			await userEvent.click(link);
-
-			expect(isPreviewPanelAvailable).not.toHaveBeenCalled();
-			expect(openPreviewPanel).not.toHaveBeenCalled();
 			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'clicked',

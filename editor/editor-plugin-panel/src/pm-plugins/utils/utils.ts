@@ -60,12 +60,10 @@ export const panelAttrsToDom = (
 	const iconDiv: DOMOutputSpec = [
 		'div',
 		// EDITOR-266 This fixes an issue in LCM where if you have nested panels
-		// The icon colour will be overriden by the parent panel style, this is used to create a more specefic css selector
+		// The icon colour will be overridden by the parent panel style, this is used to create a more specific css selector
 		{
 			class: PanelSharedCssClassName.icon,
-			...(fg('platform_editor_lcm_nested_panel_icon_fix')
-				? { 'data-panel-type': panelType || PanelType.INFO }
-				: {}),
+			'data-panel-type': panelType || PanelType.INFO,
 		},
 	];
 	const contentDiv: DOMOutputSpec = [

@@ -6,7 +6,11 @@ import {
 	type MediaClient,
 	globalMediaEventEmitter,
 } from '@atlaskit/media-client';
-import { type FileAttributes, type MediaTraceContext, getRandomHex } from '@atlaskit/media-common';
+import {
+	type FileAttributes,
+	type MediaTraceContext,
+	getRandomTelemetryId,
+} from '@atlaskit/media-common';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -82,7 +86,7 @@ export const ExternalImageCard = ({
 	// Generate unique traceId for file
 	const traceContext = useMemo<MediaTraceContext>(
 		() => ({
-			traceId: getRandomHex(8),
+			traceId: getRandomTelemetryId(),
 		}),
 		[],
 	);

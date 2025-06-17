@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.5.0
+
+### Minor Changes
+
+- [#171615](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171615)
+  [`d4542dcef1f93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4542dcef1f93) -
+  [ux] [ED-28254] this change is adding case matching to Find with status nodes behind the
+  platform_editor_find_and_replace_part_2 flag
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.1
 
 ### Patch Changes

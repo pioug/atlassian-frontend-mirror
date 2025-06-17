@@ -4,7 +4,7 @@ import { type ProcessedFileState } from '@atlaskit/media-client';
 import { awaitError, fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
 import { IntlProvider } from 'react-intl-next';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
+import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
 import { ImageViewer, type ImageViewerProps } from '../../../../../viewers/image';
 
 const collectionName = 'some-collection';
@@ -22,7 +22,7 @@ const imageItem: ProcessedFileState = {
 };
 
 const traceContext: MediaTraceContext = {
-	traceId: getRandomHex(8),
+	traceId: getRandomTelemetryId(),
 };
 
 function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
@@ -115,11 +115,13 @@ describe('ImageViewer', () => {
 
 		const response = Promise.reject(new Error('Error: User aborted request'));
 		setup(response);
-		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).toBeInTheDocument());
+		await screen.findByLabelText('Loading file...');
 
 		await awaitError(response, 'Error: User aborted request');
 
-		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).toBeInTheDocument());
+		await screen.findByLabelText('Loading file...');
+		// Explicit asssertion required despite checks above, otherwise the test will fail assertion check.
+		expect(1).toBe(1);
 	});
 
 	it('should not call `onLoad` callback when image fetch request is cancelled', async () => {

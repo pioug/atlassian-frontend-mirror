@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 8.0.3
+
+### Patch Changes
+
+- [#171641](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171641)
+  [`1d4741f638def`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d4741f638def) -
+  Removed UFO metric interactionName FG from platform
+
 ## 8.0.2
 
 ### Patch Changes

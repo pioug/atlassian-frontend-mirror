@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::395666811ac45c32aa657c64abf0cb6e>>
+ * @codegen <<SignedSource::14617f23058b2551ba4bc304aee7628f>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -436,12 +436,6 @@ const defaultTokenValues = {
 	'space.negative.250': '-1.25rem',
 	'space.negative.300': '-1.5rem',
 	'space.negative.400': '-2rem',
-	'font.metric.large':
-		'normal 653 1.75rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-	'font.metric.medium':
-		'normal 653 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-	'font.metric.small':
-		'normal 653 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'font.heading.xxlarge':
 		'normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'font.heading.xlarge':
@@ -464,6 +458,12 @@ const defaultTokenValues = {
 		'normal 400 0.6875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'font.body.UNSAFE_small':
 		'normal 400 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	'font.metric.large':
+		'normal 653 1.75rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	'font.metric.medium':
+		'normal 653 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	'font.metric.small':
+		'normal 653 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	'font.code':
 		'normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
 	'font.weight.regular': '400',

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-layout
 
+## 2.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.6
+
+### Patch Changes
+
+- [#171530](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171530)
+  [`d76bccd99e797`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d76bccd99e797) -
+  ED-26662: make platform_editor_convert_multiple_columns_to_single dependent on
+  platform_editor_single_column_layout
+- Updated dependencies
+
 ## 2.9.5
 
 ### Patch Changes

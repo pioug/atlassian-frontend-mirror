@@ -7,7 +7,6 @@ import { forwardRef, memo, type Ref, useCallback, useContext } from 'react';
 import { jsx } from '@compiled/react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { ButtonItemProps } from '../types';
@@ -80,7 +79,7 @@ const ButtonItem = memo(
 							className={className}
 							ref={ref as Ref<HTMLButtonElement>}
 							disabled={isDisabled}
-							onClick={fg('platform_button_item-add-ufo-metrics') ? handleClick : onClick}
+							onClick={handleClick}
 							onMouseDown={onMouseDownHandler}
 							type="button"
 						>

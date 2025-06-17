@@ -3,7 +3,6 @@ import React, { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import CheckboxIcon from '../internal/components/checkbox-icon';
 import useCheckboxState from '../internal/hooks/use-checkbox-state';
@@ -77,7 +76,7 @@ const DropdownItemCheckbox = ({
 				shouldDescriptionWrap={shouldDescriptionWrap}
 				shouldTitleWrap={shouldTitleWrap}
 				testId={testId}
-				{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
+				interactionName={interactionName}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>

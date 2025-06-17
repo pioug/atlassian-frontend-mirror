@@ -1,20 +1,7 @@
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
-import type { EditorState, Plugin, PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
+import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { PmHistoryPluginState } from '../pm-plugins/pm-history-types';
-
-/**
- * @private
- * @deprecated
- * Do not use this directly. Delete when we cleanup `platform_editor_improve_history_state_performance`
- */
-export const getPmHistoryPlugin = (state: EditorState): Plugin | undefined => {
-	return state.plugins.find(
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(plugin) => (plugin as any).key === pmHistoryPluginKey,
-	);
-};
 
 // Internal prosemirror history plugin does not export its plugin key.
 // Previously we searched through all the plugins to find the history plugin
@@ -35,12 +22,5 @@ const fakePluginKey = {
 } as PluginKey;
 
 export const getPmHistoryPluginState = (state: EditorState): PmHistoryPluginState | undefined => {
-	if (fg('platform_editor_improve_history_state_performance')) {
-		return fakePluginKey.getState(state);
-	}
-	const pmHistoryPlugin = getPmHistoryPlugin(state);
-	if (!pmHistoryPlugin) {
-		return;
-	}
-	return pmHistoryPlugin.getState(state);
+	return fakePluginKey.getState(state);
 };

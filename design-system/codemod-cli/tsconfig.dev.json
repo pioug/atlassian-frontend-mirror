@@ -43,6 +43,7 @@
 			"es2017"
 		],
 		"composite": true,
+		"verbatimModuleSyntax": false,
 		"outDir": "../../../tsDist/@atlaskit__codemod-cli/dev"
 	},
 	"references": [

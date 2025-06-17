@@ -751,7 +751,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'child-issues': {
-		newIcon: { name: 'child-issues', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'child-work-items', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap',
@@ -864,7 +864,7 @@ const migrationMap: IconMigrationMap = {
 	},
 	'detail-view': {
 		newIcon: {
-			name: 'sidebar-right',
+			name: 'panel-right',
 			type: 'core',
 			package: '@atlaskit/icon',
 			isMigrationUnsafe: true,
@@ -2050,7 +2050,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	issue: {
-		newIcon: { name: 'issue', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'work-item', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap',
@@ -2068,7 +2068,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	issues: {
-		newIcon: { name: 'issues', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'work-items', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -2676,7 +2676,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	overview: {
-		newIcon: { name: 'align-left', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'align-text-left', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap',
@@ -2934,7 +2934,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'room-menu': {
-		newIcon: { name: 'sidebar-right', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'panel-right', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',

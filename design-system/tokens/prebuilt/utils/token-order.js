@@ -34,7 +34,7 @@ var tokenOrder = exports.tokenOrder = [{
   subpaths: []
 }, {
   path: 'font',
-  subpaths: ['heading', 'body', 'code', 'weight', 'family', 'size', 'lineHeight']
+  subpaths: ['heading', 'body', 'metric', 'code', 'weight', 'family', 'size', 'lineHeight']
 }, {
   path: 'value',
   // Legacy palette

@@ -2,7 +2,7 @@ import Dataloader from 'dataloader';
 
 import { type MediaStore } from '../client/media-store';
 import { type NotFoundMediaItemDetails, type MediaItemDetails } from '../models/media';
-import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 import { type Auth } from '@atlaskit/media-core';
 
 export const MAX_BATCH_SIZE = 100;
@@ -54,8 +54,8 @@ function createBatchCopyIntentRegisterationFunc(mediaStore: MediaStore) {
 		await Promise.all(
 			Object.keys(keysByToken).map(async (batchKey) => {
 				const metadataTraceContext: MediaTraceContext = {
-					traceId: getRandomHex(8),
-					spanId: getRandomHex(8),
+					traceId: getRandomTelemetryId(),
+					spanId: getRandomTelemetryId(),
 				};
 				const files = keysByToken[batchKey].map((key) => ({
 					id: key.id,

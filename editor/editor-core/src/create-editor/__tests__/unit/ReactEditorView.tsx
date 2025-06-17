@@ -69,6 +69,7 @@ import { createIntl } from 'react-intl-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -419,6 +420,7 @@ describe('@atlaskit/editor-core', () => {
 				expect(onChange).toHaveBeenCalledTimes(1);
 				expect(onChange).toHaveBeenCalledWith(expect.anything(), {
 					source: 'local',
+					isDirtyChange: false,
 				});
 			});
 		});
@@ -442,6 +444,32 @@ describe('@atlaskit/editor-core', () => {
 				expect(onChange).toHaveBeenCalledTimes(1);
 				expect(onChange).toHaveBeenCalledWith(expect.anything(), {
 					source: 'remote',
+					isDirtyChange: false,
+				});
+			});
+		});
+
+		describe('should add metadata for tinted transactions', () => {
+			it('should be called with source remote', () => {
+				const onEditorCreated = ({ view, config }: Props) => {
+					const { tr } = view!.state;
+					tr.insertText('a', 2);
+					tintDirtyTransaction(tr);
+					view!.dispatch(tr);
+				};
+
+				renderWithIntl(
+					<ReactEditorView
+						{...requiredProps()}
+						onEditorCreated={onEditorCreated}
+						editorProps={{ defaultValue: toJSON(document), onChange }}
+					/>,
+				);
+
+				expect(onChange).toHaveBeenCalledTimes(1);
+				expect(onChange).toHaveBeenCalledWith(expect.anything(), {
+					source: 'local',
+					isDirtyChange: true,
 				});
 			});
 		});

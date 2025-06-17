@@ -8,6 +8,7 @@ export interface BaseRovoChatParams {
 	cloudId: string;
 	triggerOpen: boolean;
 	initiator: string;
+	insertPrompt: 'highlight-action';
 }
 
 export type ValidPrefix = 'rovoChat';

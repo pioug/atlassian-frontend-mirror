@@ -16,13 +16,13 @@ import {
 } from '@atlaskit/media-client';
 import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import {
-	getRandomHex,
 	isMimeTypeSupportedByBrowser,
 	type MediaFeatureFlags,
 	type MediaTraceContext,
 	type NumericalCardDimensions,
 	type SSR,
 	isVideoMimeTypeSupportedByBrowser,
+	getRandomTelemetryId,
 } from '@atlaskit/media-common';
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
@@ -126,7 +126,7 @@ const traceContextRetriever = () => {
 		return { traceId: trace?.traceId, spanId: trace?.spanId };
 	} else {
 		return {
-			traceId: getRandomHex(8),
+			traceId: getRandomTelemetryId(),
 		};
 	}
 };

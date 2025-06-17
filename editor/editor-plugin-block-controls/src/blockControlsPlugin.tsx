@@ -122,9 +122,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					})({ tr });
 				}
 
-				if (fg('platform_editor_user_intent_plugin')) {
-					api?.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
-				}
+				api?.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
 
 				return tr;
 			},

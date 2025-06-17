@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 38.9.3
+
+### Patch Changes
+
+- [#171534](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171534)
+  [`72189ecc4d763`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72189ecc4d763) -
+  Updated icon usage for deprecated icons
+- Updated dependencies
+
+## 38.9.2
+
+### Patch Changes
+
+- [#170883](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170883)
+  [`fcd9bfb373ff9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcd9bfb373ff9) -
+  FG clean up of platform-linking-flexible-card-elements-refactor
+
 ## 38.9.1
 
 ### Patch Changes

@@ -214,9 +214,7 @@ const destroyFn = (
 						api.metrics?.commands.startActiveSessionTimer()({ tr });
 					}
 
-					if (fg('platform_editor_user_intent_plugin')) {
-						api.userIntent?.commands.setCurrentUserIntent('default')({ tr });
-					}
+					api.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 
 					return tr.setMeta(key, {
 						...tr.getMeta(key),

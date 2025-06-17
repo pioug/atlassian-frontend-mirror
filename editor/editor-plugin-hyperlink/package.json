@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "4.5.0",
+	"version": "4.5.1",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -57,7 +57,7 @@
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"@atlaskit/activity-provider": "workspace:^",

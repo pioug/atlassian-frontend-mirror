@@ -1,5 +1,14 @@
 # @atlaskit/logo
 
+## 19.1.0
+
+### Minor Changes
+
+- [#169522](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169522)
+  [`e55cd122d35de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e55cd122d35de) -
+  Added a new prop, shouldUseNewLogoDesign, to allow new logo designs to be enabled ahead of feature
+  flag roll-out
+
 ## 19.0.1
 
 ### Patch Changes

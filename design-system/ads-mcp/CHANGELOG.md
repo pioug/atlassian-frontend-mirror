@@ -1,5 +1,19 @@
 # @atlaskit/ads-mcp
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.8
+
+### Patch Changes
+
+- [#172151](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172151)
+  [`63b44a0ddaa2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63b44a0ddaa2f) -
+  Rejoin the dev and main entrypoints together for a better local development experience.
+
 ## 0.1.7
 
 ### Patch Changes

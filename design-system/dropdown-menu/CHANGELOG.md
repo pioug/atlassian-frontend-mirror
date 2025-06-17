@@ -1,5 +1,20 @@
 # @atlaskit/dropdown-menu
 
+## 16.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.6
+
+### Patch Changes
+
+- [#171641](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171641)
+  [`1d4741f638def`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d4741f638def) -
+  Removed UFO metric interactionName FG from platform
+- Updated dependencies
+
 ## 16.0.5
 
 ### Patch Changes

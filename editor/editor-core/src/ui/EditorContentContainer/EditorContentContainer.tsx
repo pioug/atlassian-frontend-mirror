@@ -64,43 +64,42 @@ import { gridStyles } from './styles/gridStyles';
 import { indentationStyles } from './styles/indentationStyles';
 import { InlineNodeViewSharedStyles } from './styles/inlineNodeViewSharedStyles';
 import {
-	layoutColumnResponsiveStyles,
 	layoutBaseStyles,
 	layoutBaseStylesAdvanced,
 	layoutBaseStylesFixesUnderNestedDnDFG,
-	layoutSelectedStylesNotAdvanced,
-	layoutSelectedStylesForViewNotAdvanced,
 	layoutColumnMartinTopFixesNew,
 	layoutColumnMartinTopFixesOld,
+	layoutColumnResponsiveStyles,
 	layoutColumnStylesAdvanced,
 	layoutColumnStylesNotAdvanced,
 	layoutResponsiveBaseStyles,
 	layoutResponsiveStylesForView,
 	layoutSectionStylesAdvanced,
 	layoutSectionStylesNotAdvanced,
-	layoutStylesForView,
 	layoutSelectedStylesAdvanced,
 	layoutSelectedStylesForViewAdvanced,
+	layoutSelectedStylesForViewNotAdvanced,
+	layoutSelectedStylesNotAdvanced,
+	layoutStylesForView,
 } from './styles/layout';
 import {
 	hyperLinkFloatingToolbarStyles,
+	linkLegacyIconStylesFix,
 	linkStyles,
 	linkStylesOld,
-	linkLegacyIconStylesFix,
 } from './styles/link';
 import { listLayoutShiftFix, listsStyles, listsStylesSafariFix } from './styles/list';
 import { mediaAlignmentStyles, mediaGroupStyles, mediaStyles } from './styles/mediaStyles';
 import {
 	mentionsStyles,
-	vanillaMentionsStyles,
 	vanillaMentionsSelectionStyles,
+	vanillaMentionsStyles,
 } from './styles/mentions';
 import {
 	panelStyles,
+	panelStylesMixin,
 	panelStylesMixin_fg_platform_editor_add_border_for_nested_panel,
-	panelStylesMixin_fg_platform_editor_lcm_nested_panel_icon_fix,
 	panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
-	panelStylesMixin_without_fg_platform_editor_lcm_nested_panel_icon_fix,
 	panelViewStyles,
 } from './styles/panelStyles';
 import {
@@ -115,9 +114,10 @@ import {
 	placeholderWrapStyles,
 } from './styles/placeholderStyles';
 import {
-	resizerStyles,
 	pragmaticResizerStyles,
+	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
+	resizerStyles,
 } from './styles/resizerStyles';
 import { ruleStyles } from './styles/rule';
 import { scrollbarStyles } from './styles/scrollbarStyles';
@@ -145,8 +145,8 @@ import { tableCommentEditorStyles, tableLayoutFixes } from './styles/tableStyles
 import {
 	decisionStyles,
 	tasksAndDecisionsStyles,
-	vanillaDecisionIconWithoutVisualRefresh,
 	vanillaDecisionIconWithVisualRefresh,
+	vanillaDecisionIconWithoutVisualRefresh,
 	vanillaDecisionStyles,
 	vanillaTaskItemStyles,
 } from './styles/tasksAndDecisionsStyles';
@@ -285,11 +285,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform_editor_nested_dnd_styles_changes') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
-					fg('platform_editor_lcm_nested_panel_icon_fix')
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							panelStylesMixin_fg_platform_editor_lcm_nested_panel_icon_fix
-						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							panelStylesMixin_without_fg_platform_editor_lcm_nested_panel_icon_fix,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					panelStylesMixin,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mentionsStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -418,6 +415,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					editorExperiment('platform_editor_breakout_resizing', true) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStyles,
+					editorExperiment('advanced_layouts', true) &&
+						editorExperiment('platform_editor_breakout_resizing', true) &&
+						fg('platform_editor_breakout_resizing_hello_release') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticStylesLayoutFirstNodeResizeHandleFix,
 					editorExperiment('platform_editor_breakout_resizing', true) &&
 						fg('platform_editor_breakout_resizing_hello_release') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

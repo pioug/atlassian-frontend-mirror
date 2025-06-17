@@ -1,5 +1,20 @@
 # @atlaskit/profilecard
 
+## 23.19.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.19.1
+
+### Patch Changes
+
+- [#171707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171707)
+  [`bbb9147bfde7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbb9147bfde7a) -
+  NO-ISSUE Fix profile card pop up content text selection issue
+- Updated dependencies
+
 ## 23.19.0
 
 ### Minor Changes

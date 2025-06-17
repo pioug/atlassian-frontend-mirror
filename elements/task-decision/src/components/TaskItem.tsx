@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo, useRef, type Ref, type RefObject } from 'react';
+import React, { useMemo, useRef, type Ref } from 'react';
 
 import { css, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -16,7 +16,6 @@ import { type Appearance, type ContentRef } from '../types';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { createAndFireEventInElementsChannel } from '../analytics';
 import { token } from '@atlaskit/tokens';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { useMergeRefs } from 'use-callback-ref';
 
 const CheckboxUncheckedIcon = (props: NewCoreIconProps) => (
@@ -186,104 +185,7 @@ export interface Props {
 let taskCount = 0;
 const getCheckBoxId = (localId: string) => `${localId}-${taskCount++}`;
 
-const TaskItemWithoutRefFix = (props: Props & WithAnalyticsEventsProps) => {
-	const {
-		appearance,
-		isDone,
-		isFocused,
-		contentRef,
-		children,
-		placeholder,
-		showPlaceholder,
-		disabled,
-		dataAttributes,
-		taskId,
-		onChange,
-		onClick,
-		createAnalyticsEvent,
-	} = props;
-	const inputRefFromProps = props.inputRef as RefObject<HTMLInputElement>;
-
-	const checkBoxId = useMemo(() => getCheckBoxId(taskId), [taskId]);
-
-	const handleOnChange = useMemo(() => {
-		return (_evt: React.SyntheticEvent<HTMLInputElement>) => {
-			const newIsDone = !isDone;
-			if (onChange) {
-				onChange(taskId, newIsDone);
-			}
-			const action = newIsDone ? 'checked' : 'unchecked';
-			if (createAnalyticsEvent) {
-				createAndFireEventInElementsChannel({
-					action,
-					actionSubject: 'action',
-					eventType: 'ui',
-					attributes: {
-						localId: taskId,
-					},
-				})(createAnalyticsEvent);
-			}
-		};
-	}, [onChange, taskId, isDone, createAnalyticsEvent]);
-
-	const handleOnKeyPress = useMemo(
-		() => (event: React.KeyboardEvent<HTMLInputElement>) => {
-			if (event.key === 'Enter') {
-				handleOnChange(event);
-			}
-		},
-		[handleOnChange],
-	);
-
-	const defaultInputRef = useRef<HTMLInputElement>(null);
-	const inputRef = inputRefFromProps ?? defaultInputRef;
-
-	const icon = (
-		<span css={checkboxStyles} contentEditable={false}>
-			<input
-				id={checkBoxId}
-				aria-labelledby={`${checkBoxId}-wrapper`}
-				name={checkBoxId}
-				type="checkbox"
-				onChange={handleOnChange}
-				onClick={onClick}
-				checked={!!isDone}
-				disabled={!!disabled}
-				suppressHydrationWarning={true}
-				onKeyPress={handleOnKeyPress}
-				ref={inputRef}
-			/>
-			{isDone ? <CheckboxCheckedIcon label="" /> : <CheckboxUncheckedIcon label="" />}
-		</span>
-	);
-
-	React.useEffect(() => {
-		if (isFocused && inputRef.current) {
-			inputRef.current?.focus();
-			inputRef.current?.blur();
-			setTimeout(() => {
-				inputRef.current?.focus();
-			}, 100);
-		}
-	}, [isFocused, inputRef]);
-
-	return (
-		<Item
-			appearance={appearance}
-			contentRef={contentRef}
-			icon={icon}
-			placeholder={placeholder}
-			showPlaceholder={showPlaceholder}
-			itemType="TASK"
-			dataAttributes={dataAttributes}
-			checkBoxId={checkBoxId}
-		>
-			{children}
-		</Item>
-	);
-};
-
-const TaskItemWithRefFix = (props: Props & WithAnalyticsEventsProps) => {
+const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 	const {
 		appearance,
 		isDone,
@@ -382,11 +284,4 @@ const TaskItemWithRefFix = (props: Props & WithAnalyticsEventsProps) => {
 	);
 };
 
-// This is to ensure that the "type" is exported, as it gets lost and not exported along with TaskItem after
-// going through the high order component.
-
-export default componentWithFG(
-	'platform_editor_task_item_ref_fix',
-	withAnalyticsEvents()(TaskItemWithRefFix),
-	withAnalyticsEvents()(TaskItemWithoutRefFix),
-);
+export default withAnalyticsEvents()(TaskItem);

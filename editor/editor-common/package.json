@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "106.9.0",
+	"version": "106.9.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -298,7 +298,7 @@
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
@@ -414,9 +414,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_6": {
-			"type": "boolean"
-		},
-		"platform_editor_lcm_nested_panel_icon_fix": {
 			"type": "boolean"
 		},
 		"editor_a11y_aria_label_removal_popup": {

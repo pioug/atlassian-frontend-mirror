@@ -1,5 +1,14 @@
 # @atlaskit/task-decision
 
+## 19.2.4
+
+### Patch Changes
+
+- [#170985](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170985)
+  [`0428298a2a0bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0428298a2a0bb) -
+  Remove feature gate for task item ref bug fix
+- Updated dependencies
+
 ## 19.2.3
 
 ### Patch Changes

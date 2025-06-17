@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "5.1.14",
+	"version": "5.1.15",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -63,7 +63,7 @@
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",

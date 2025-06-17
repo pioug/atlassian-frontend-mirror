@@ -60,6 +60,7 @@ export default function BlockCard(props: {
 		container: portal,
 		isDatasource: !!props.datasource,
 		actionOptions,
+		CompetitorPrompt: smartLinks?.CompetitorPrompt,
 	};
 
 	const analyticsData = {

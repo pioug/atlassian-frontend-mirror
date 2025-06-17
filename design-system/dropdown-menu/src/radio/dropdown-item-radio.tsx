@@ -3,7 +3,6 @@ import React, { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import RadioIcon from '../internal/components/radio-icon';
 import useRadioState from '../internal/hooks/use-radio-state';
@@ -83,7 +82,7 @@ const DropdownItemRadio = ({
 				// it's not in the component's prop types.
 				// @ts-expect-error
 				title={title}
-				{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
+				interactionName={interactionName}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>

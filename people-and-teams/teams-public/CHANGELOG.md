@@ -1,5 +1,20 @@
 # @atlaskit/teams-public
 
+## 0.38.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.38.1
+
+### Patch Changes
+
+- [#171543](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171543)
+  [`8012f13429f1c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8012f13429f1c) -
+  Minor fix - adding analytics event name, update team links limit number
+- Updated dependencies
+
 ## 0.38.0
 
 ### Minor Changes

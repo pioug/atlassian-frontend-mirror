@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-layout",
-	"version": "2.9.5",
+	"version": "2.9.7",
 	"description": "Layout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -57,7 +57,7 @@
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"typescript": "~5.4.2"

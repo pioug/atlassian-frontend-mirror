@@ -28,18 +28,13 @@ type BaseLogoProps = {
 	 * - `{testId}--wrapper` to access the svg element's wrapper
 	 */
 	testId?: string;
+	/**
+	 * For logos that support it, enables the new logo design ahead of an upcoming feature flag roll-out.
+	 */
+	shouldUseNewLogoDesign?: boolean;
 };
 
 export type LogoProps = BaseLogoProps;
-
-// TODO: Remove this once we've caught all the type errors
-// export type LogoProps = BaseLogoProps & {
-// 	// Deprecated size
-// 	/**
-// 	 * @deprecated `xsmall` is being shifted to `xxsmall`, please adjust your usage accordingly
-// 	 */
-// 	size?: 'xsmall';
-// };
 
 /**
  * Utility type to make an optional property required.

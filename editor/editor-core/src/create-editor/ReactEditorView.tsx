@@ -392,7 +392,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				selectionAtStart: !shouldScrollToBottom,
 			});
 			viewRef.current.updateState(newEditorState);
-			props.editorProps.onChange?.(viewRef.current, { source: 'local' });
+			props.editorProps.onChange?.(viewRef.current, { source: 'local', isDirtyChange: false });
 		},
 		[blur, createEditorState, props],
 	);

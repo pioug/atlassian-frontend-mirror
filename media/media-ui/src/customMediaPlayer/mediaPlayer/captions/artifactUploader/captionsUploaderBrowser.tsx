@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMediaClient } from '@atlaskit/media-client-react';
-import { type ArtifactUploaderProps } from './types';
+import type { ArtifactUploaderContext, ArtifactUploaderProps } from './types';
 import { BrowserPicker } from './filePickers/browser';
 import { createUploadCaptionsFn, UploadCaptionsForm } from './captions';
 import ApiFeedback, { type NotificationTypes } from '../apiFeedback';
@@ -26,13 +26,13 @@ const CaptionsUploaderBrowser = ({
 	const [file, setFile] = useState<File>();
 	const mediaClient = useMediaClient();
 	const [notificationType, setNotificationType] = useState<NotificationTypes>(null);
-	const _onError = (error: any) => {
+	const _onError = (error: any, context: ArtifactUploaderContext) => {
 		setNotificationType('error');
-		onError?.(error);
+		onError?.(error, context);
 	};
-	const _onEnd = (metadata: MediaItemDetails) => {
+	const _onEnd = (metadata: MediaItemDetails, context: ArtifactUploaderContext) => {
 		setNotificationType('success');
-		onEnd?.(metadata);
+		onEnd?.(metadata, context);
 	};
 
 	const close = () => {

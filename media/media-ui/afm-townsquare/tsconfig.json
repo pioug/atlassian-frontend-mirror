@@ -1,0 +1,102 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__media-ui/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/code/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/dropdown-menu/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/flag/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../icon-file-type/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon-lab/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/legacy-custom-icons/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/locale/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../media-client/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../media-client-react/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../media-common/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../media-state/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/modal-dialog/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/range/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/width-detector/afm-townsquare/tsconfig.json"
+		}
+	]
+}

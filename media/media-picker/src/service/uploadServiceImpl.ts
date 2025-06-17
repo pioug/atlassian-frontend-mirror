@@ -24,10 +24,10 @@ import {
 import { LocalFileSource, type LocalFileWithSource } from '../service/types';
 import { getPreviewFromBlob } from '../util/getPreviewFromBlob';
 import {
-	getRandomHex,
 	type MediaTraceContext,
 	isMimeTypeSupportedByBrowser,
 	getMediaTypeFromMimeType,
+	getRandomTelemetryId,
 } from '@atlaskit/media-common';
 
 export interface CancellableFileUpload {
@@ -38,7 +38,7 @@ export interface CancellableFileUpload {
 }
 
 const generateTraceContext = (): MediaTraceContext => ({
-	traceId: getRandomHex(8),
+	traceId: getRandomTelemetryId(),
 });
 
 export class UploadServiceImpl implements UploadService {

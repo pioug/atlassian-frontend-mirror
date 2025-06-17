@@ -68,7 +68,7 @@ export const useTeamLinksAndContainers = (
 		[teamContainers, webLinkContainers],
 	);
 	const canAddMoreLink = useMemo(
-		() => allContainers.length <= MAX_LINKS_LIMIT,
+		() => allContainers.length < MAX_LINKS_LIMIT,
 		[allContainers.length],
 	);
 

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::22a92aa2a7f2a3d3e8525d47cc2eb73b>>
+ * @codegen <<SignedSource::76944fcdf9b7e1604fbe448f42ace8e0>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -428,9 +428,6 @@ export type ActiveTokens =
 	| 'space.negative.250'
 	| 'space.negative.300'
 	| 'space.negative.400'
-	| 'font.metric.large'
-	| 'font.metric.medium'
-	| 'font.metric.small'
 	| 'font.heading.xxlarge'
 	| 'font.heading.xlarge'
 	| 'font.heading.large'
@@ -442,6 +439,9 @@ export type ActiveTokens =
 	| 'font.body'
 	| 'font.body.small'
 	| 'font.body.UNSAFE_small'
+	| 'font.metric.large'
+	| 'font.metric.medium'
+	| 'font.metric.small'
 	| 'font.code'
 	| 'font.weight.regular'
 	| 'font.weight.medium'

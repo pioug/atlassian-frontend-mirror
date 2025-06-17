@@ -330,7 +330,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 							onClick={handleTriggerClicked}
 							testId={testId && `${testId}--trigger`}
 							aria-label={label}
-							{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
+							interactionName={interactionName}
 						>
 							{trigger}
 						</Button>

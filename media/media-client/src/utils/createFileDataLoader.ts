@@ -6,7 +6,7 @@ import {
 	type EmptyResponseFileItem,
 } from '../client/media-store';
 import { type NotFoundMediaItemDetails, type MediaItemDetails } from '../models/media';
-import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
+import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
 
 export const MAX_BATCH_SIZE = 100;
 
@@ -113,8 +113,8 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
 		await Promise.all(
 			Object.keys(fileIdsByCollection).map(async (collectionNameKey) => {
 				const metadataTraceContext: MediaTraceContext = {
-					traceId: getRandomHex(8),
-					spanId: getRandomHex(8),
+					traceId: getRandomTelemetryId(),
+					spanId: getRandomTelemetryId(),
 				};
 				const fileIds = fileIdsByCollection[collectionNameKey];
 				const includeHashForDuplicateFiles = includeHashByCollection[collectionNameKey];

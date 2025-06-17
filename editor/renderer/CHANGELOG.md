@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 118.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 118.7.0
+
+### Minor Changes
+
+- [#167885](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167885)
+  [`c02ae038fca4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c02ae038fca4f) -
+  [ux] Add optional CompetitorPrompt component to renderer for experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 118.6.16
 
 ### Patch Changes

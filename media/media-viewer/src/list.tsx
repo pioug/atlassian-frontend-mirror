@@ -8,7 +8,7 @@ import { type MediaViewerExtensions } from './components/types';
 import {
 	type MediaFeatureFlags,
 	type MediaTraceContext,
-	getRandomHex,
+	getRandomTelemetryId,
 } from '@atlaskit/media-common';
 import Header from './header';
 import { type ViewerOptionsProps } from './viewerOptions';
@@ -51,7 +51,7 @@ export const List = ({
 	const [previewCount, setPreviewCount] = useState(0);
 	const [isArchiveSideBarVisible, setIsArchiveSideBarVisible] = useState(false);
 	const traceContext = useRef<MediaTraceContext>({
-		traceId: getRandomHex(8),
+		traceId: getRandomTelemetryId(),
 	});
 
 	return (

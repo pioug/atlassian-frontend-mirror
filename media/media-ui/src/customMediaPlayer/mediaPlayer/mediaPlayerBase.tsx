@@ -48,6 +48,10 @@ import {
 	createPlayPauseBlanketClickedEvent,
 	createTimeRangeNavigatedEvent,
 	createPlaybackSpeedChangedEvent,
+	createCaptionUploadSucceededOperationalEvent,
+	createCaptionDeleteSucceededOperationalEvent,
+	createCaptionUploadFailedOperationalEvent,
+	createCaptionDeleteFailedOperationalEvent,
 	createFirstPlayedTrackEvent,
 	createPlayedTrackEvent,
 	type PlaybackState,
@@ -751,6 +755,68 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		fireAnalyticsEvent(analyticsEvent, createAnalyticsEvent);
 	}
 
+	private baseAnalyticCaptionAttributes() {
+		const { textTracks } = this.props;
+		const { selectedTracksIndex } = this.state;
+
+		const captionAttributes = {
+			selectedTrackIndex: selectedTracksIndex,
+			availableCaptionTracks: textTracks?.captions?.tracks?.length || 0,
+			selectedTrackLanguage: textTracks?.captions?.tracks?.[selectedTracksIndex]?.lang || null,
+		};
+		return captionAttributes;
+	}
+
+	private fireCaptionEvent(event: CustomMediaPlayerAnalyticsEventPayload) {
+		fireAnalyticsEvent(event, this.props.createAnalyticsEvent);
+	}
+
+	private fireCaptionUploadSucceededEvent(traceId: string) {
+		this.fireCaptionEvent(
+			createCaptionUploadSucceededOperationalEvent(
+				this.props.type,
+				this.baseAnalyticCaptionAttributes(),
+				this.props.identifier.id,
+				traceId,
+			),
+		);
+	}
+
+	private fireCaptionUploadFailedEvent(traceId: string, error: Error) {
+		this.fireCaptionEvent(
+			createCaptionUploadFailedOperationalEvent(
+				this.props.type,
+				this.baseAnalyticCaptionAttributes(),
+				this.props.identifier.id,
+				traceId,
+				error,
+			),
+		);
+	}
+
+	private fireCaptionDeleteSucceededEvent(traceId: string, artifactName: string) {
+		this.fireCaptionEvent(
+			createCaptionDeleteSucceededOperationalEvent(
+				this.props.type,
+				{ ...this.baseAnalyticCaptionAttributes(), artifactName },
+				this.props.identifier.id,
+				traceId,
+			),
+		);
+	}
+
+	private fireCaptionDeleteFailedEvent(traceId: string, artifactName: string, error: Error) {
+		this.fireCaptionEvent(
+			createCaptionDeleteFailedOperationalEvent(
+				this.props.type,
+				{ ...this.baseAnalyticCaptionAttributes(), artifactName },
+				this.props.identifier.id,
+				traceId,
+				error,
+			),
+		);
+	}
+
 	private onViewed = (videoState: VideoState) => {
 		const { createAnalyticsEvent, identifier, isAutoPlay, isHDAvailable, isHDActive, type } =
 			this.props;
@@ -985,25 +1051,30 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 															identifier={identifier}
 															isOpen={isArtifactUploaderOpen}
 															onClose={() => this.setState({ isArtifactUploaderOpen: false })}
-															onStart={() => {
-																// console.log('xxx onStart', file);
+															onEnd={(metadata, context) => {
+																this.fireCaptionUploadSucceededEvent(context.traceId);
 															}}
-															onEnd={() => {
-																// console.log('xxx onEnd', result);
-															}}
-															onError={() => {
-																// console.log('xxx onError', error);
+															onError={(err, context) => {
+																this.fireCaptionUploadFailedEvent(context.traceId, err);
 															}}
 														/>
 														<CaptionDeleteConfirmationModal
 															identifier={identifier}
 															artifactName={artifactToDelete}
 															onClose={() => this.setState({ artifactToDelete: '' })}
-															onStart={() => {}}
-															onEnd={() => {
+															onEnd={(context) => {
+																this.fireCaptionDeleteSucceededEvent(
+																	context.traceId,
+																	context.artifactName,
+																);
 																this.setState({ artifactToDelete: '' });
 															}}
-															onError={(e) => {
+															onError={(err, context) => {
+																this.fireCaptionDeleteFailedEvent(
+																	context.traceId,
+																	context.artifactName,
+																	err,
+																);
 																this.setState({ artifactToDelete: '' });
 															}}
 														/>

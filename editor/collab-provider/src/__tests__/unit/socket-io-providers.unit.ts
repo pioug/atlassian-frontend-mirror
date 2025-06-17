@@ -1,5 +1,12 @@
+import { SOCKET_IO_OPTIONS, SOCKET_IO_OPTIONS_WITH_HIGH_JITTER } from '../../config';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { type InitAndAuthData } from '../../types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+const fgMock = fg as jest.Mock;
 
 describe('Socket io provider', () => {
 	const url = 'http://localhost:8080/ccollab/sessionId/123';
@@ -59,6 +66,33 @@ describe('Socket io provider', () => {
 				'x-product': 'embeddedConfluence',
 				'x-subproduct': 'JSM',
 			});
+		});
+	});
+
+	describe('Reconnection options', () => {
+		it('should set default reconnection options if not presence client', () => {
+			const socket = createSocketIOSocket(url);
+
+			expect(socket?.io?.opts.reconnectionDelayMax).toEqual(
+				SOCKET_IO_OPTIONS.RECONNECTION_DELAY_MAX,
+			);
+			expect(socket?.io?.opts.reconnectionDelay).toEqual(SOCKET_IO_OPTIONS.RECONNECTION_DELAY);
+			expect(socket?.io?.opts.randomizationFactor).toEqual(SOCKET_IO_OPTIONS.RANDOMIZATION_FACTOR);
+		});
+
+		it('should set high jitter reconnection options if presence client', () => {
+			fgMock.mockReturnValue(true);
+			const socket = createSocketIOSocket(url, undefined, undefined, true);
+
+			expect(socket?.io?.opts.reconnectionDelayMax).toEqual(
+				SOCKET_IO_OPTIONS_WITH_HIGH_JITTER.RECONNECTION_DELAY_MAX,
+			);
+			expect(socket?.io?.opts.reconnectionDelay).toEqual(
+				SOCKET_IO_OPTIONS_WITH_HIGH_JITTER.RECONNECTION_DELAY,
+			);
+			expect(socket?.io?.opts.randomizationFactor).toEqual(
+				SOCKET_IO_OPTIONS_WITH_HIGH_JITTER.RANDOMIZATION_FACTOR,
+			);
 		});
 	});
 });

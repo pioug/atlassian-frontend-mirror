@@ -137,7 +137,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 					group: 'typography',
 					state: 'active',
 					introduced: '5.0.1',
-					description: 'Large numerical information content to be used in dashboards, charts, etc.',
+					description: 'Use to emphasize a number within a large donut.',
 				},
 			},
 			medium: {
@@ -145,8 +145,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 					group: 'typography',
 					state: 'active',
 					introduced: '5.0.1',
-					description:
-						'Medium numerical information content to be used in dashboards, charts, etc.',
+					description: 'Use to emphasize a number within a medium donut.',
 				},
 			},
 			small: {
@@ -154,7 +153,8 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
 					group: 'typography',
 					state: 'active',
 					introduced: '5.0.1',
-					description: 'Small numerical information content to be used in dashboards, charts, etc.',
+					description:
+						'Use to emphasize a number and words in single-value tiles, or small donuts.',
 				},
 			},
 		},

@@ -49,6 +49,7 @@ const DEFAULT_TTVC_REVISION = 'fy25.02';
 // and they could delete empty members
 export type Config = {
 	readonly enabled?: boolean;
+	readonly interactionTimeout?: Record<string, number>;
 	readonly doNotAbortActivePressInteraction?: string[];
 	readonly doNotAbortActivePressInteractionOnTransition?: string[];
 	readonly awaitBM3TTI?: string[];
@@ -452,5 +453,26 @@ export function getDoNotAbortActivePressInteractionOnTransition(): string[] | un
 		return doNotAbortActivePressInteractionOnTransition;
 	} catch (e: any) {
 		return undefined;
+	}
+}
+
+export const CLEANUP_TIMEOUT = 60 * 1000;
+export function getInteractionTimeout(ufoName: string): number {
+	try {
+		if (!config) {
+			return CLEANUP_TIMEOUT;
+		}
+		const { interactionTimeout } = config;
+
+		if (interactionTimeout != null && interactionTimeout[ufoName] != null) {
+			return interactionTimeout[ufoName];
+		}
+		if (interactionTimeout != null && interactionTimeout.__globalInteractionTimeout != null) {
+			return interactionTimeout.__globalInteractionTimeout;
+		} else {
+			return CLEANUP_TIMEOUT;
+		}
+	} catch (e: any) {
+		return CLEANUP_TIMEOUT;
 	}
 }

@@ -64,4 +64,12 @@ export {
 
 export type SSR = 'client' | 'server';
 
-export { isUndefined, pick, omitBy, debounce, matches, getRandomHex } from './utils/helpers';
+export {
+	isUndefined,
+	pick,
+	omitBy,
+	debounce,
+	matches,
+	getRandomHex,
+	getRandomTelemetryId,
+} from './utils/helpers';

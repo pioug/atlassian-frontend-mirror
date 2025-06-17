@@ -7,6 +7,7 @@ import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -31,7 +32,7 @@ const selectionMarkerHighlightStyles = {
 	pointerEvents: 'none',
 };
 
-const selectionMarkerCursorStyles = {
+const selectionMarkerBlockCursorStyles = {
 	content: "''",
 	position: 'absolute',
 	background: token('color.text', N500),
@@ -46,6 +47,16 @@ const selectionMarkerCursorStyles = {
 	pointerEvents: 'none',
 };
 
+// Same as above but defined as an inline element to avoid breaking long words
+const selectionMarkerInlineCursorStyles = {
+	content: "''",
+	position: 'relative',
+	pointerEvents: 'none',
+	borderLeft: `1px solid ${token('color.text', N500)}`,
+	marginLeft: '-1px',
+	left: '0.5px',
+};
+
 /**
  * Converts a camelCased CSS property name to a hyphenated CSS property name.
  *
@@ -58,10 +69,15 @@ function hyphenate(property: string): string {
 	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(/^ms/, '-ms');
 }
 
-type WidgetProps = { type: SelectionType; isHighlight: boolean };
+type WidgetProps = { type: SelectionType; isHighlight: boolean; isInWord: boolean };
 
-const Widget = ({ type, isHighlight }: WidgetProps) => {
+const Widget = ({ type, isHighlight, isInWord }: WidgetProps) => {
 	const span = document.createElement('span');
+
+	const selectionMarkerCursorStyles =
+		isInWord && fg('platform_editor_inline_selection_marker_cursor')
+			? selectionMarkerInlineCursorStyles
+			: selectionMarkerBlockCursorStyles;
 
 	const styles = isHighlight ? selectionMarkerHighlightStyles : selectionMarkerCursorStyles;
 
@@ -75,13 +91,13 @@ const Widget = ({ type, isHighlight }: WidgetProps) => {
 	return span;
 };
 
-const toDOM = (type: SelectionType, isHighlight: boolean) => {
+const toDOM = (type: SelectionType, isHighlight: boolean, isInWord: boolean) => {
 	const element = document.createElement('span');
 	element.contentEditable = 'false';
 
 	element.setAttribute('style', `position: relative;`);
 
-	element.appendChild(Widget({ type, isHighlight }));
+	element.appendChild(Widget({ type, isHighlight, isInWord }));
 
 	return element;
 };
@@ -107,8 +123,23 @@ export const createWidgetDecoration = (
 		return [];
 	}
 
+	let isInWord = false;
+	if (fg('platform_editor_inline_selection_marker_cursor')) {
+		// We're inside a word if the parent, before, and after nodes are all text nodes
+		// and the before/after nodes are appended/prepended with non-whitespace characters
+		// Also if we're making a selection and not just a cursor, this isn't relevant
+		const { nodeBefore, nodeAfter, parent } = resolvedPos;
+		// Check if the parent is a text node and the before/after nodes are also text nodes
+		const areTextNodes = parent.isTextblock && nodeBefore?.isText && nodeAfter?.isText;
+		const lastCharacterOfBeforeNode = nodeBefore?.textContent?.slice(-1);
+		const firstCharacterOfAfterNode = nodeAfter?.textContent?.slice(0, 1);
+		const areAdjacentCharactersNonWhitespace =
+			/\S/u.test(lastCharacterOfBeforeNode || '') && /\S/u.test(firstCharacterOfAfterNode || '');
+		isInWord = Boolean(areTextNodes && areAdjacentCharactersNonWhitespace);
+	}
+
 	return [
-		Decoration.widget(resolvedPos.pos, toDOM(type, isHighlight), {
+		Decoration.widget(resolvedPos.pos, toDOM(type, isHighlight, isInWord), {
 			side: -1,
 			key: `${type}WidgetDecoration`,
 			stopEvent: () => true,

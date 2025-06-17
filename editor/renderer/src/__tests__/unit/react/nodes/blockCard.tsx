@@ -16,6 +16,7 @@ import { MockCardComponent } from './card.mock';
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { DatasourceTableView, JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 import { WidthContext } from '@atlaskit/editor-common/ui';
+import { Pressable } from '@atlaskit/primitives/compiled';
 
 jest.mock('@atlaskit/smart-card', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -271,5 +272,38 @@ describe('Renderer - React/Nodes/BlockCard - analytics context', () => {
 			},
 			context: expectedContext,
 		});
+	});
+});
+
+describe('Renderer - React/Nodes/BlockCard - CompetitorPrompt', () => {
+	const MockCompetitorPrompt = jest.fn(() => (
+		<Pressable role="button" aria-label="competitor prompt">
+			Prompt
+		</Pressable>
+	));
+
+	beforeEach(() => {
+		MockCompetitorPrompt.mockClear();
+	});
+
+	it('should pass through CompetitorPrompt compeont when provided', () => {
+		render(
+			<Provider client={new Client('staging')}>
+				<BlockCard
+					url={'test.com'}
+					smartLinks={{
+						CompetitorPrompt: MockCompetitorPrompt,
+					}}
+				/>
+			</Provider>,
+		);
+
+		expect(Card).toHaveBeenCalledWith(
+			expect.objectContaining({
+				CompetitorPrompt: MockCompetitorPrompt,
+				url: 'test.com',
+			}),
+			expect.anything(),
+		);
 	});
 });

@@ -241,7 +241,7 @@ export const panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes = css
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelStylesMixin_fg_platform_editor_lcm_nested_panel_icon_fix = css({
+export const panelStylesMixin = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -291,64 +291,6 @@ export const panelStylesMixin_fg_platform_editor_lcm_nested_panel_icon_fix = css
 				// getIconStyles(PanelType.SUCCESS),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 				'.ak-editor-panel__icon[data-panel-type="success"]': {
-					color: token('color.icon.success'),
-				},
-			},
-		},
-	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const panelStylesMixin_without_fg_platform_editor_lcm_nested_panel_icon_fix = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ak-editor-panel': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&[data-panel-type="info"]': {
-				// getIconStyles(PanelType.INFO),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.ak-editor-panel__icon': {
-					color: token('color.icon.information'),
-				},
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&[data-panel-type="note"]': {
-				// getIconStyles(PanelType.NOTE),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.ak-editor-panel__icon': {
-					color: token('color.icon.discovery'),
-				},
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&[data-panel-type="tip"]': {
-				// getIconStyles(PanelType.TIP),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.ak-editor-panel__icon': {
-					color: token('color.icon.success'),
-				},
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&[data-panel-type="warning"]': {
-				// getIconStyles(PanelType.WARNING),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.ak-editor-panel__icon': {
-					color: token('color.icon.warning'),
-				},
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&[data-panel-type="error"]': {
-				// getIconStyles(PanelType.ERROR),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.ak-editor-panel__icon': {
-					color: token('color.icon.danger'),
-				},
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&[data-panel-type="success"]': {
-				// getIconStyles(PanelType.SUCCESS),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-				'.ak-editor-panel__icon': {
 					color: token('color.icon.success'),
 				},
 			},

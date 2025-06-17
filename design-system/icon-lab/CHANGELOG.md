@@ -1,5 +1,46 @@
 # @atlaskit/icon-lab
 
+## 5.0.0
+
+### Major Changes
+
+- [#171534](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171534)
+  [`7a6465c5735e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a6465c5735e5) -
+  This release removes icons in `@atlaskit/icon-lab`.
+
+  ### Removed:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `hand-clenched`
+  - `hand`
+  - `recur`
+  - `shape-comment-left`
+  - `shape-comment-right`
+  - `shape-database`
+  - `shape-delay`
+  - `shape-display`
+  - `shape-document-symbol`
+  - `shape-hard-disk`
+  - `shape-internal-storage`
+  - `shape-manual-input`
+  - `shape-manual-operation-symbol`
+  - `shape-mindmap`
+  - `shape-multiple-documents`
+  - `shape-off-page`
+  - `shape-predefined-process`
+  - `shape-preparation-symbol`
+  - `shape-start-end`
+  - `shape-stored-data`
+  - `shape-summing-junction-cross`
+  - `shape-summing-junction-plus`
+  - `space`
+  - `speedometer`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.19.0
 
 ### Minor Changes

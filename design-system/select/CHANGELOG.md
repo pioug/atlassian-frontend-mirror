@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 20.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.7.0
 
 ### Minor Changes

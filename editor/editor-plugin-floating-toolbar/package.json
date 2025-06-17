@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "4.2.2",
+	"version": "4.2.4",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -138,9 +138,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_remove_slow_table_transactions": {
-			"type": "boolean"
-		},
-		"platform_editor_user_intent_plugin": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_6": {

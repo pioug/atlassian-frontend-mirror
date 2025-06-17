@@ -10,7 +10,7 @@ import {
 	Decoration,
 	type DecorationSource,
 } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export const firstNodeDecPluginKey = new PluginKey<DecorationSet>('firstNodeDec');
 
@@ -20,9 +20,9 @@ const createFirstNodeDecSet = (state: EditorState): DecorationSet => {
 		return DecorationSet.empty;
 	}
 
-	const firstNodeDecoration = editorExperiment('platform_editor_breakout_resizing', true)
+	const firstNodeDecoration = expValEquals('platform_editor_breakout_resizing', 'isEnabled', true)
 		? Decoration.node(0, firstNode.nodeSize, {
-				style: 'margin-top: 0',
+				style: 'margin-top: 0;',
 				class: 'first-node-in-document',
 			})
 		: Decoration.node(0, firstNode.nodeSize, {

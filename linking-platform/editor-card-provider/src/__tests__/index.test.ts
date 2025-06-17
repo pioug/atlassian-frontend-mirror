@@ -1657,6 +1657,8 @@ describe('providers > editor', () => {
 			it('should call onResolve for issue links', async () => {
 				const onResolveMock = jest.fn();
 				const provider = new EditorCardProvider(undefined, undefined, undefined, onResolveMock);
+				const issueAri = 'ari:cloud:jira:b5c3749a-7037-44ec-a059-fb4f675acf90:issue/10050';
+				const issueUrl = 'https://jdog.jira-dev.com/browse/BNP-1';
 
 				mockFetch.mockResolvedValueOnce({
 					json: async () =>
@@ -1669,10 +1671,22 @@ describe('providers > editor', () => {
 					ok: true,
 				});
 
-				const issueUrl = 'https://jdog.jira-dev.com/browse/BNP-1';
+				mockFetch.mockResolvedValueOnce({
+					json: async () => [
+						{
+							body: {
+								...mocks.entityDataSuccess,
+								data: { ...mocks.entityDataSuccess.data, 'atlassian:ari': issueAri },
+							},
+							status: 200,
+						},
+					],
+					ok: true,
+				});
+
 				await provider.resolve(issueUrl, 'inline', false);
 
-				expect(onResolveMock).toHaveBeenCalledWith(issueUrl);
+				expect(onResolveMock).toHaveBeenCalledWith(issueUrl, issueAri);
 				expect(onResolveMock).toHaveBeenCalledTimes(1);
 			});
 		});

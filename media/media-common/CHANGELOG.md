@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 12.2.0
+
+### Minor Changes
+
+- [#169848](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169848)
+  [`0c2daefdb5712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c2daefdb5712) -
+  Standardise generation of telemetry IDs across media packages.
+
 ## 12.1.0
 
 ### Minor Changes

@@ -14,14 +14,20 @@ import { parseError } from './artifactUploader/captions/util';
 import ApiFeedback, { type NotificationTypes } from './apiFeedback';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from '../../../messages';
+import { getRandomTelemetryId } from '@atlaskit/media-common';
+
+export type CaptionDeleteContext = {
+	traceId: string;
+	artifactName: string;
+};
 
 export interface CaptionDeleteConfirmationModalProps {
 	identifier: FileIdentifier;
 	artifactName?: string;
 	onClose: () => void;
-	onStart?: (artifactName: string) => void;
-	onEnd?: () => void;
-	onError?: (error: Error) => void;
+	onStart?: (context: CaptionDeleteContext) => void;
+	onEnd?: (context: CaptionDeleteContext) => void;
+	onError?: (error: Error, context: CaptionDeleteContext) => void;
 }
 
 const CaptionDeleteConfirmationModal = ({
@@ -35,13 +41,13 @@ const CaptionDeleteConfirmationModal = ({
 }: CaptionDeleteConfirmationModalProps & WrappedComponentProps) => {
 	const mediaClient = useMediaClient();
 	const [notificationType, setNotificationType] = useState<NotificationTypes>(null);
-	const _onError = (error: any) => {
+	const _onError = (error: any, context: CaptionDeleteContext) => {
 		setNotificationType('error');
-		onError?.(error);
+		onError?.(error, context);
 	};
-	const _onEnd = () => {
+	const _onEnd = (context: CaptionDeleteContext) => {
 		setNotificationType('success');
-		onEnd?.();
+		onEnd?.(context);
 	};
 
 	return (
@@ -90,19 +96,24 @@ const deleteCaption = async (
 	mediaClient: MediaClient,
 	identifier: FileIdentifier,
 	artifactName: string,
-	onStart?: (artifactName: string) => void,
-	onEnd?: () => void,
-	onError?: (error: Error) => void,
+	onStart?: CaptionDeleteConfirmationModalProps['onStart'],
+	onEnd?: CaptionDeleteConfirmationModalProps['onEnd'],
+	onError?: CaptionDeleteConfirmationModalProps['onError'],
 ) => {
-	onStart?.(artifactName);
+	const context: CaptionDeleteContext = {
+		traceId: getRandomTelemetryId(),
+		artifactName,
+	};
+	onStart?.(context);
 	try {
 		await mediaClient.file.deleteArtifact(
 			identifier.id,
 			{ artifactName },
 			identifier.collectionName,
+			{ traceId: context.traceId },
 		);
-		onEnd?.();
+		onEnd?.(context);
 	} catch (error) {
-		onError?.(parseError(error));
+		onError?.(parseError(error), context);
 	}
 };

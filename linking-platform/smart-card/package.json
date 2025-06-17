@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.9.1",
+	"version": "38.9.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -88,7 +88,7 @@
 		"@atlaskit/link-provider": "workspace:^",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "*"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
@@ -262,9 +262,6 @@
 			"type": "boolean"
 		},
 		"cc-ai-linking-platform-snippet-renderer": {
-			"type": "boolean"
-		},
-		"fun-1765_wire_up_glance_panel_to_smart_cards": {
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-linking-pla": {

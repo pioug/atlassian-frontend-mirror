@@ -93,6 +93,9 @@
 		},
 		"add_session_id_to_catchup_query": {
 			"type": "boolean"
+		},
+		"widen_presence_socket_reconnection_jitter": {
+			"type": "boolean"
 		}
 	}
 }

@@ -1,4 +1,9 @@
-import { getInteractionRate, getTypingPerformanceTracingMethod, setUFOConfig } from '../../index';
+import {
+	getInteractionRate,
+	getInteractionTimeout,
+	getTypingPerformanceTracingMethod,
+	setUFOConfig,
+} from '../../index';
 
 describe('rate-control', () => {
 	it('uses default rate when a key cannot be found', () => {
@@ -228,5 +233,50 @@ describe('getTypeMethod', () => {
 			typingMethod: 'invalid',
 		});
 		expect(getTypingPerformanceTracingMethod()).toBe('timeout');
+	});
+});
+describe('getInteractionTimeout', () => {
+	it('should return default timeout when config is not set', () => {
+		setUFOConfig(undefined as any);
+		expect(getInteractionTimeout('foo')).toBe(60 * 1000);
+	});
+
+	it('should return custom timeout value for a specific ufoName when specified in config', () => {
+		setUFOConfig({
+			product: 'test',
+			region: 'test',
+			interactionTimeout: {
+				foo: 30 * 1000,
+			},
+		});
+		expect(getInteractionTimeout('foo')).toBe(30 * 1000);
+	});
+
+	it('should return global timeout when specific ufoName is not specified but global is', () => {
+		setUFOConfig({
+			product: 'test',
+			region: 'test',
+			interactionTimeout: {
+				__globalInteractionTimeout: 45 * 1000,
+			},
+		});
+		expect(getInteractionTimeout('bar')).toBe(45 * 1000);
+	});
+
+	it('should return default timeout when neither specific nor global timeout is specified', () => {
+		setUFOConfig({
+			product: 'test',
+			region: 'test',
+			interactionTimeout: {},
+		});
+		expect(getInteractionTimeout('baz')).toBe(60 * 1000);
+	});
+
+	it('should return default timeout when interactionTimeout is not specified in config', () => {
+		setUFOConfig({
+			product: 'test',
+			region: 'test',
+		});
+		expect(getInteractionTimeout('baz')).toBe(60 * 1000);
 	});
 });

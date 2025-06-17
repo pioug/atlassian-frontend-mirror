@@ -7,6 +7,7 @@ import {
 	EVENT_TYPE,
 	getAnalyticsEventsFromTransaction,
 } from '@atlaskit/editor-common/analytics';
+import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -83,9 +84,10 @@ export const useDispatchTransaction = ({
 
 				if (onChangeRef.current && transaction.docChanged) {
 					const source = transaction.getMeta('isRemote') ? 'remote' : 'local';
+					const isDirtyChange = isDirtyTransaction(transaction);
 
 					startMeasure(EVENT_NAME_ON_CHANGE);
-					onChangeRef.current(view, { source });
+					onChangeRef.current(view, { source, isDirtyChange });
 					stopMeasure(EVENT_NAME_ON_CHANGE);
 				}
 			}

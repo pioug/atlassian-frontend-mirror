@@ -99,7 +99,7 @@
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "*"
 	},
 	"platform-feature-flags": {
 		"team-avatar-in-mention-picker": {
@@ -131,5 +131,5 @@
 			]
 		}
 	},
-	"version": "24.2.2"
+	"version": "24.2.3"
 }

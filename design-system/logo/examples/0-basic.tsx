@@ -9,14 +9,34 @@ import kebabCase from 'lodash/kebabCase';
 import { legacyOnlyLogosAndIcons, newOnlyLogosAndIcons, sharedLogosAndIcons } from './utils/list';
 
 const styles = css({ marginBlockEnd: '2rem' });
-const LogoTable = ({ title, logos }: { title: string; logos: typeof legacyOnlyLogosAndIcons }) => (
+const LogoTable = ({
+	title,
+	logos,
+	showFeatureFlaggedLogos,
+}: {
+	title: string;
+	logos: typeof sharedLogosAndIcons;
+	showFeatureFlaggedLogos?: boolean;
+}) => (
 	<div css={styles}>
 		<h3>{title}</h3>
 		<table>
 			<thead>
 				<tr>
 					<th>Logo</th>
+					{showFeatureFlaggedLogos && (
+						<th>
+							Logo <br />
+							(new design)
+						</th>
+					)}
 					<th>Icon</th>
+					{showFeatureFlaggedLogos && (
+						<th>
+							Icon <br />
+							(new design)
+						</th>
+					)}
 				</tr>
 			</thead>
 			<tbody>
@@ -28,9 +48,19 @@ const LogoTable = ({ title, logos }: { title: string; logos: typeof legacyOnlyLo
 							<td>
 								<Logo testId={`${kebabName}-logo`} />
 							</td>
+							{showFeatureFlaggedLogos && (
+								<td>
+									<Logo testId={`${kebabName}-logo`} shouldUseNewLogoDesign />
+								</td>
+							)}
 							<td>
-								<Icon size="small" testId={`${kebabName}-icon`} />
+								<Icon size="medium" testId={`${kebabName}-icon`} />
 							</td>
+							{showFeatureFlaggedLogos && (
+								<td>
+									<Icon size="medium" testId={`${kebabName}-icon`} shouldUseNewLogoDesign />
+								</td>
+							)}
 						</tr>
 					);
 				})}
@@ -39,12 +69,25 @@ const LogoTable = ({ title, logos }: { title: string; logos: typeof legacyOnlyLo
 	</div>
 );
 
+const deprecatedLogos = ['Jira Work Management', 'Jira Software'];
+
 export default () => {
 	return (
 		<div>
-			<LogoTable title="Legacy-only Logos" logos={legacyOnlyLogosAndIcons} />
-			<LogoTable title="Shared Logos (Feature Flagged)" logos={sharedLogosAndIcons} />
-			<LogoTable title="New-only Logos" logos={newOnlyLogosAndIcons} />
+			<LogoTable
+				title="Program Logos"
+				logos={legacyOnlyLogosAndIcons.filter((logo) => !deprecatedLogos.includes(logo.name))}
+			/>
+			<LogoTable
+				title="App Logos (new designs enabled via feature flag / shouldUseNewLogoDesign)"
+				logos={sharedLogosAndIcons}
+				showFeatureFlaggedLogos
+			/>
+			<LogoTable title="App Logos (new designs only)" logos={newOnlyLogosAndIcons} />
+			<LogoTable
+				title="Deprecated Logos"
+				logos={legacyOnlyLogosAndIcons.filter((logo) => deprecatedLogos.includes(logo.name))}
+			/>
 		</div>
 	);
 };

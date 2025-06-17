@@ -303,6 +303,62 @@ describe('interaction-metrics timeout behavior', () => {
 		});
 	});
 
+	describe('config set interaction metrics (with feature flag)', () => {
+		beforeEach(() => {
+			// Enable the feature flag for simplified behavior tests
+			mockFg.mockImplementation((flagName: string) => {
+				return flagName === 'platform_ufo_enable_timeout_config';
+			});
+		});
+
+		it('should create interaction with 60s timeout by default when no config is set', () => {
+			const interactionId = 'test-interaction-1';
+			const startTime = 1000;
+
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'page_load',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			// Check that setTimeout was called with 60s timeout (60 * 1000 = 60000ms)
+			expect(mockSetTimeout).toHaveBeenCalledWith(
+				expect.any(Function),
+				60000, // default CLEANUP_TIMEOUT
+			);
+		});
+		it('should create interaction with custom timeout when config is set', () => {
+			// Set default config
+			setUFOConfig({
+				enabled: true,
+				product: 'test-product',
+				region: 'test-region',
+				interactionTimeout: { 'test-ufo-name': 30000 }, // Custom timeout of 30 seconds
+			});
+			const interactionId = 'test-interaction-1';
+			const startTime = 1000;
+
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'page_load',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			// Check that setTimeout was called with 60s timeout (60 * 1000 = 60000ms)
+			expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 30000);
+		});
+	});
+
 	describe('simplified timeout behavior (with feature flag)', () => {
 		beforeEach(() => {
 			// Enable the feature flag for simplified behavior tests

@@ -25,4 +25,9 @@ describe('Wrapper', () => {
 			expect(element).toHaveStyleRule('-moz-user-select', 'none');
 		});
 	});
+
+	it('should be void of a11y violations', async () => {
+		const { container } = render(<Wrapper />);
+		await expect(container).toBeAccessible();
+	});
 });

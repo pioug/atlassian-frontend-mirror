@@ -54,6 +54,12 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 
 	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
+	const CompetitorPrompt = smartLinks?.CompetitorPrompt;
+	const CompetitorPromptComponent =
+		CompetitorPrompt && url && fg('prompt_whiteboard_competitor_link_gate') ? (
+			<CompetitorPrompt sourceUrl={url} linkType="inline" />
+		) : null;
+
 	if (ssr && url) {
 		if (
 			// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
@@ -131,6 +137,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 						}}
 						onError={onError}
 					/>
+					{CompetitorPromptComponent}
 				</CardErrorBoundary>
 			</span>
 		</AnalyticsContext>

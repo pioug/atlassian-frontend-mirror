@@ -12,7 +12,7 @@ import { ErrorMessage } from '../../../errorMessage';
 import { MediaViewerError } from '../../../errors';
 import Button from '@atlaskit/button/standard-button';
 import { fakeIntl, smallImageFileId, asMock } from '@atlaskit/media-test-helpers';
-import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
+import { getRandomTelemetryId, type MediaTraceContext } from '@atlaskit/media-common';
 import { type FileState } from '@atlaskit/media-client';
 import { messages as i18nMessages } from '@atlaskit/media-ui';
 import { createLoadFailedEvent } from '../../../analytics/events/operational/loadFailed';
@@ -58,7 +58,7 @@ describe('Error Message', () => {
 		};
 
 		const traceContext: MediaTraceContext = {
-			traceId: getRandomHex(8),
+			traceId: getRandomTelemetryId(),
 		};
 
 		beforeEach(() => {

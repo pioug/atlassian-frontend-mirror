@@ -22,8 +22,8 @@ export const createFeatureFlaggedComponent = (
 ) => {
 	// Note: textColor and iconColor aren't supported on all new logos
 	// These props will be deprecated in the future
-	return ({ size, ...props }: LogoProps) => {
-		if (fg('platform-logo-rebrand')) {
+	return ({ size, shouldUseNewLogoDesign, ...props }: LogoProps) => {
+		if (fg('platform-logo-rebrand') || shouldUseNewLogoDesign) {
 			// Size defaults need to be set, as the temp library had different defaults
 			return <NewComponent size={size || 'medium'} {...props} />;
 		}

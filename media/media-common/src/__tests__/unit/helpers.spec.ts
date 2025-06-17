@@ -1,4 +1,12 @@
-import { debounce, getRandomHex, isUndefined, matches, omitBy, pick } from '../../utils/helpers';
+import {
+	debounce,
+	getRandomHex,
+	getRandomTelemetryId,
+	isUndefined,
+	matches,
+	omitBy,
+	pick,
+} from '../../utils/helpers';
 import crypto from 'crypto';
 
 describe('helpers', () => {
@@ -57,6 +65,14 @@ describe('helpers', () => {
 		for (let i = 0; i < 1000; i++) {
 			const randomHex = getRandomHex(8);
 			expect(randomHex.length).toBe(16);
+		}
+	});
+
+	it('getRandomTelemetryId', () => {
+		//Expect random telemetry id returned to be 16 charaters.
+		for (let i = 0; i < 1000; i++) {
+			const telemetryId = getRandomTelemetryId();
+			expect(telemetryId.length).toBe(16);
 		}
 	});
 });

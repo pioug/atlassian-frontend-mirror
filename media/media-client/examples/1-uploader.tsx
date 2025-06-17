@@ -12,7 +12,7 @@ import {
 } from '../example-helpers/stylesWrapper';
 import { uploadFile, MediaStore, type UploadableFileUpfrontIds } from '../src';
 import { type UploadableFile, type UploadFileCallbacks } from '../src/uploader';
-import { getRandomHex } from '@atlaskit/media-common';
+import { getRandomTelemetryId } from '@atlaskit/media-common';
 
 type UploaderExampleProps = {};
 export interface UploaderExampleState {
@@ -125,7 +125,7 @@ class UploaderExample extends Component<UploaderExampleProps, UploaderExampleSta
 			authProvider: defaultMediaPickerAuthProvider(),
 		});
 		const fileId = uuid();
-		const traceId = getRandomHex(8);
+		const traceId = getRandomTelemetryId();
 		this.setState({ traceId });
 		const deferredTouchedFiles = mediaStore.touchFiles(
 			{

@@ -8,7 +8,6 @@ import { forwardRef, memo, type MouseEventHandler, useCallback, useContext } fro
 import { jsx } from '@compiled/react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { CustomItemComponentProps, CustomItemProps } from '../types';
@@ -101,13 +100,7 @@ const CustomItem = memo(
 							ref={ref}
 							{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
-							onClick={
-								isDisabled
-									? preventEvent
-									: fg('platform_button_item-add-ufo-metrics')
-										? handleClick
-										: onClick
-							}
+							onClick={isDisabled ? preventEvent : handleClick}
 							tabIndex={isDisabled ? -1 : undefined}
 							aria-disabled={isDisabled}
 						>

@@ -48,6 +48,8 @@ export interface Props {
 	onMenuOpen?: () => void;
 	/** Display filled or outline variant of the color */
 	variant?: ColorCardVariant;
+	/** Test ID  */
+	testId?: string;
 }
 
 const defaultPopperProps: Partial<PopupSelectProps['popperProps']> = {
@@ -126,6 +128,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 			isDisabledSelectedSwatch,
 			intl,
 			variant = 'fill',
+			testId,
 		} = this.props;
 		const { options, value } = getOptions(palette, selectedColor, showDefaultSwatchColor);
 		const fullLabel = this.getFullLabel(intl, value, label);
@@ -163,6 +166,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 				onKeyDown={this.onKeyDown}
 				isTabbing={this.state.isTabbing}
 				onOptionKeyDown={this.onOptionKeyDown}
+				testId={testId}
 				{...(fg('one_event_rules_them_all_fg') && { onMenuOpen: this.props.onMenuOpen })}
 			/>
 		);

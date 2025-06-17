@@ -50,9 +50,6 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
-			"path": "../form/tsconfig.app.json"
-		},
-		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{
@@ -60,9 +57,6 @@
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
-		},
-		{
-			"path": "../select/tsconfig.app.json"
 		},
 		{
 			"path": "../theme/tsconfig.app.json"

@@ -155,19 +155,11 @@ export const PanelSharedSelectors = {
 };
 
 const getIconStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => {
-	if (fg('platform_editor_lcm_nested_panel_icon_fix')) {
-		return `
-			.${PanelSharedCssClassName.icon}[data-panel-type='${panelType}'] {
-				color: ${lightIconColor[panelType]};
-			}
-		`;
-	} else {
-		return `
-			.${PanelSharedCssClassName.icon} {
-				color: ${lightIconColor[panelType]};
-			}
-		`;
-	}
+	return `
+		.${PanelSharedCssClassName.icon}[data-panel-type='${panelType}'] {
+			color: ${lightIconColor[panelType]};
+		}
+	`;
 };
 
 // Provides the color without tokens, used when converting to a custom panel

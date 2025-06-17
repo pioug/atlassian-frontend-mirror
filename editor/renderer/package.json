@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "118.6.16",
+	"version": "118.7.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -264,6 +264,9 @@
 			"type": "boolean"
 		},
 		"platform_fix_block_card_img_icon_vc": {
+			"type": "boolean"
+		},
+		"prompt_whiteboard_competitor_link_gate": {
 			"type": "boolean"
 		}
 	},

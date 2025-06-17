@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.4
 
 ### Patch Changes

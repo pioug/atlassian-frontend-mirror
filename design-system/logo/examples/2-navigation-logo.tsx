@@ -69,12 +69,12 @@ interface WrapperDivProps {
 
 const wrapperDivStyles = css({
 	display: 'flex',
-	width: '40px',
-	height: '40px',
+	width: '48px',
+	height: '48px',
 	alignItems: 'center',
 	justifyContent: 'center',
 	background: 'var(--background)',
-	borderRadius: token('border.radius.circle', '50%'),
+	borderRadius: token('border.radius.100', '4px'),
 	color: 'var(--color)',
 	marginInlineEnd: token('space.250', '20px'),
 });
@@ -109,7 +109,7 @@ export default () => (
 			>
 				{iconVariants.map((pairing, index2) => (
 					<Wrapper color={pairing.color} background={pairing.background} key={`${index}${index2}`}>
-						<Child />
+						<Child iconColor="inherit" />
 					</Wrapper>
 				))}
 			</div>

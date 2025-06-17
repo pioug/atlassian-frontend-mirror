@@ -1,5 +1,5 @@
 import { type Auth, isClientBasedAuth } from '@atlaskit/media-core';
-import { type MediaTraceContext, getRandomHex } from '@atlaskit/media-common';
+import { type MediaTraceContext, getRandomTelemetryId } from '@atlaskit/media-common';
 import { mapAuthToQueryParameters } from '../../models/auth-query-parameters';
 import { RequestError, isRequestError } from './errors';
 
@@ -42,7 +42,7 @@ export const extendTraceContext = (
 	traceContext
 		? {
 				...traceContext,
-				spanId: traceContext?.spanId || getRandomHex(8),
+				spanId: traceContext?.spanId || getRandomTelemetryId(),
 			}
 		: undefined;
 

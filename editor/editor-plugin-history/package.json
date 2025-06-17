@@ -36,7 +36,6 @@
 	"dependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -76,11 +75,6 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_improve_history_state_performance": {
-			"type": "boolean"
 		}
 	}
 }

@@ -19,6 +19,7 @@ import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { CardClient } from '@atlaskit/link-provider';
 import { type EnvironmentsKeys, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import * as api from './api';
 
@@ -131,7 +132,7 @@ export class EditorCardProvider implements CardProvider {
 	private transformer: Transformer;
 	private providersLoader: DataLoader<string, ProvidersData | undefined>;
 	private cardClient: CardClient;
-	private onResolve: ((url: string) => void) | undefined;
+	private onResolve: ((url: string, ari: string) => void) | undefined;
 
 	constructor(
 		envKey?: EnvironmentsKeys,
@@ -174,6 +175,28 @@ export class EditorCardProvider implements CardProvider {
 		} catch (e) {
 			return false;
 		}
+	}
+
+	private async fetchDataForResource(
+		resourceUrl: string,
+	): Promise<JsonLd.Response<JsonLd.Data.BaseData> | undefined> {
+		try {
+			const response = await this.cardClient.fetchData(resourceUrl);
+			if (getStatus(response) !== 'not_found') {
+				return response;
+			}
+		} catch (e) {
+			return undefined;
+		}
+	}
+
+	private extractAriFromData(
+		responseData: JsonLd.Response<JsonLd.Data.BaseData>,
+	): string | undefined {
+		if (responseData.data && 'atlassian:ari' in responseData.data) {
+			return responseData.data['atlassian:ari'];
+		}
+		return undefined;
 	}
 
 	private async fetchProvidersData(): Promise<ProvidersData | undefined> {
@@ -397,7 +420,13 @@ export class EditorCardProvider implements CardProvider {
 			]);
 
 			if (isJiraWorkItem(url) && fg('issue-link-suggestions-in-comments')) {
-				this.onResolve?.(url);
+				const data = await this.fetchDataForResource(url);
+				if (data) {
+					const issueAri = this.extractAriFromData(data);
+					if (issueAri) {
+						this.onResolve?.(url, issueAri);
+					}
+				}
 			}
 
 			if (shouldForceAppearance === false && userPreference === 'url') {

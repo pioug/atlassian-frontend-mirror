@@ -1,5 +1,40 @@
 # @atlaskit/icon
 
+## 27.0.0
+
+### Major Changes
+
+- [#171534](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171534)
+  [`7a6465c5735e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a6465c5735e5) -
+  This release removes icons in `@atlaskit/icon`.
+
+  ### Removed:
+
+  **`@atlaskit/icon/core`**
+
+  - `align-center`
+  - `align-left`
+  - `align-right`
+  - `border-weight-medium`
+  - `border-weight-thick`
+  - `border-weight-thin`
+  - `child-issues`
+  - `content-align-center`
+  - `content-align-left`
+  - `content-align-right`
+  - `drag-handle`
+  - `drawer-left`
+  - `drawer-right`
+  - `issue`
+  - `issues`
+  - `sidebar-left`
+  - `sidebar-right`
+  - `summarize`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.4.1
 
 ### Patch Changes

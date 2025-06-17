@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 6.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.11.0
 
 ### Minor Changes

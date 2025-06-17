@@ -5,7 +5,7 @@
 import { css, jsx } from '@compiled/react';
 
 import ClockIcon from '@atlaskit/icon/core/clock';
-import ChildIssuesIcon from '@atlaskit/icon/core/migration/child-issues';
+import ChildIssuesIcon from '@atlaskit/icon/core/migration/child-work-items--child-issues';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 const rotateSvg = css({

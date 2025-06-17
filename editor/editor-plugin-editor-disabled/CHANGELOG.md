@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-editor-disabled
 
+## 2.1.0
+
+### Minor Changes
+
+- [#170934](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170934)
+  [`1b251997752cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b251997752cd) -
+  Expose editor disabled prop to reduce number of initial transactions.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.6
 
 ### Patch Changes

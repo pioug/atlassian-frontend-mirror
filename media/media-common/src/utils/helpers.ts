@@ -1,6 +1,6 @@
 export const isUndefined = (value: any) => value === undefined;
 
-export const pick = (obj?: Object, keys: Array<String> = []) => {
+export const pick = (obj?: Object, keys: Array<string> = []) => {
 	if (obj === undefined) {
 		return {};
 	}
@@ -50,4 +50,8 @@ export function getRandomHex(byte: number): string {
 	}
 
 	return randomHex;
+}
+
+export function getRandomTelemetryId() {
+	return getRandomHex(8);
 }

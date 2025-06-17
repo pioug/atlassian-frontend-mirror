@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 2.17.0
+
+### Minor Changes
+
+- [#169814](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169814)
+  [`40e4575b749e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40e4575b749e0) -
+  Added insertPrompt query param
+
 ## 2.16.0
 
 ### Minor Changes

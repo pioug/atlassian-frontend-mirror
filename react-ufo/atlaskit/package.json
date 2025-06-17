@@ -221,6 +221,9 @@
 		},
 		"platform_ufo_enable_interactions_vc": {
 			"type": "boolean"
+		},
+		"platform_ufo_enable_timeout_config": {
+			"type": "boolean"
 		}
 	}
 }

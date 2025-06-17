@@ -75,8 +75,21 @@ export function findMatches(
 		if (!textGrouping) {
 			return;
 		}
-		const { text, pos } = textGrouping;
-		const index = text.toLowerCase().indexOf(searchText.toLowerCase());
+		const { pos } = textGrouping;
+		let { text } = textGrouping;
+		// status text is rendered in all caps regardless so case matching should work if the search text is all caps
+		if (fg('platform_editor_find_and_replace_part_2')) {
+			if (shouldMatchCase) {
+				text = text.toUpperCase();
+			} else {
+				text = text.toLowerCase();
+				searchText = searchText.toLowerCase();
+			}
+		} else {
+			text = text.toLowerCase();
+			searchText = searchText.toLowerCase();
+		}
+		const index = text.indexOf(searchText);
 		if (index !== -1) {
 			const start = pos;
 			matches.push({ start, end: start + nodeSize, canReplace: false });

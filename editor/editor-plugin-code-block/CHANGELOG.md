@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-code-block
 
+## 4.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.11
 
 ### Patch Changes

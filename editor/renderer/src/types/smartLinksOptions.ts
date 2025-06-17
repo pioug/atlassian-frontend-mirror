@@ -1,3 +1,5 @@
+import type React from 'react';
+
 import type { CardProps } from '@atlaskit/smart-card';
 
 export interface SmartLinksOptions {
@@ -32,4 +34,8 @@ export interface SmartLinksOptions {
 	 * Component: embed
 	 */
 	frameStyle?: CardProps['frameStyle'];
+	/**
+	 * Competitor Prompt Component for Competitor link
+	 */
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }

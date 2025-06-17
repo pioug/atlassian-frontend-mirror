@@ -303,27 +303,14 @@ export function ContentComponent({
 		return null;
 	}
 
-	if (fg('platform_editor_user_intent_plugin')) {
-		if (userIntentState?.currentUserIntent === 'dragging') {
-			return null;
-		}
-
-		// TODO: ED-27539 - This feature is unreleased and rendering logic needs to be move userIntentState which is not ready yet
-		// if (blockControlsState?.isMenuOpen && editorExperiment('platform_editor_controls', 'variant1')) {
-		// 	return null;
-		// }
-	} else {
-		if (blockControlsState?.isDragging) {
-			return null;
-		}
-
-		if (
-			blockControlsState?.isMenuOpen &&
-			editorExperiment('platform_editor_controls', 'variant1')
-		) {
-			return null;
-		}
+	if (userIntentState?.currentUserIntent === 'dragging') {
+		return null;
 	}
+
+	// TODO: ED-27539 - This feature is unreleased and rendering logic needs to be move userIntentState which is not ready yet
+	// if (blockControlsState?.isMenuOpen && editorExperiment('platform_editor_controls', 'variant1')) {
+	// 	return null;
+	// }
 
 	const { config, node } = configWithNodeInfo;
 	let { items } = config;

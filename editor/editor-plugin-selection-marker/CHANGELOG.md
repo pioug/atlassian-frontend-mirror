@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 2.5.0
+
+### Minor Changes
+
+- [#171777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171777)
+  [`befd8b6d56e78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/befd8b6d56e78) -
+  [ux] Update selection marker fake-cursor to use an inline element when placed inside words, to
+  prevent erroneous text wrapping.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.5
 
 ### Patch Changes

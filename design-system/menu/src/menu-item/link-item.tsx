@@ -17,7 +17,6 @@ import { jsx } from '@compiled/react';
 
 import { useRouterLink } from '@atlaskit/app-provider';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { LinkItemProps } from '../types';
@@ -126,13 +125,7 @@ const LinkItem = memo(
 							href={isDisabled ? undefined : href}
 							{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
-							onClick={
-								isDisabled
-									? preventEvent
-									: fg('platform_button_item-add-ufo-metrics')
-										? handleClick
-										: onClick
-							}
+							onClick={isDisabled ? preventEvent : handleClick}
 							aria-current={isSelected ? 'page' : undefined}
 							aria-disabled={isDisabled}
 							ref={ref as Ref<HTMLAnchorElement>}

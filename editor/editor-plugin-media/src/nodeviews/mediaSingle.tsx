@@ -56,6 +56,7 @@ import type { CardEvent } from '@atlaskit/media-card';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -770,6 +771,9 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
 		if (this.reactComponentProps.mediaOptions?.allowPixelResizing) {
 			domRef.classList.add('media-extended-resize-experience');
+		}
+		if (expValEquals('platform_editor_media_card_vc_wrapper_attribute', 'isEnabled', true)) {
+			domRef.setAttribute('data-media-vc-wrapper', 'true');
 		}
 
 		return domRef;

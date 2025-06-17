@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::060be4a31aec7ab5656d07a286452132>>
+ * @codegen <<SignedSource::98ff44032a7d84bb857ea00743e44577>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -23,12 +23,9 @@ import AiAgentIcon from '../../../../../core/ai-agent';
 import AiChatIcon from '../../../../../core/ai-chat';
 import AiGenerativeTextSummaryIcon from '../../../../../core/ai-generative-text-summary';
 import AlertIcon from '../../../../../core/alert';
-import AlignCenterIcon from '../../../../../core/align-center';
 import AlignImageCenterIcon from '../../../../../core/align-image-center';
 import AlignImageLeftIcon from '../../../../../core/align-image-left';
 import AlignImageRightIcon from '../../../../../core/align-image-right';
-import AlignLeftIcon from '../../../../../core/align-left';
-import AlignRightIcon from '../../../../../core/align-right';
 import AlignTextCenterIcon from '../../../../../core/align-text-center';
 import AlignTextLeftIcon from '../../../../../core/align-text-left';
 import AlignTextRightIcon from '../../../../../core/align-text-right';
@@ -58,9 +55,6 @@ import BoardIcon from '../../../../../core/board';
 import BoardsIcon from '../../../../../core/boards';
 import BookWithBookmarkIcon from '../../../../../core/book-with-bookmark';
 import BorderIcon from '../../../../../core/border';
-import BorderWeightMediumIcon from '../../../../../core/border-weight-medium';
-import BorderWeightThickIcon from '../../../../../core/border-weight-thick';
-import BorderWeightThinIcon from '../../../../../core/border-weight-thin';
 import BranchIcon from '../../../../../core/branch';
 import BriefcaseIcon from '../../../../../core/briefcase';
 import BugIcon from '../../../../../core/bug';
@@ -87,7 +81,6 @@ import ChevronDownIcon from '../../../../../core/chevron-down';
 import ChevronLeftIcon from '../../../../../core/chevron-left';
 import ChevronRightIcon from '../../../../../core/chevron-right';
 import ChevronUpIcon from '../../../../../core/chevron-up';
-import ChildIssuesIcon from '../../../../../core/child-issues';
 import ChildWorkItemsIcon from '../../../../../core/child-work-items';
 import ClipboardIcon from '../../../../../core/clipboard';
 import ClockIcon from '../../../../../core/clock';
@@ -100,9 +93,6 @@ import CommentAddIcon from '../../../../../core/comment-add';
 import CommitIcon from '../../../../../core/commit';
 import CompassIcon from '../../../../../core/compass';
 import ComponentIcon from '../../../../../core/component';
-import ContentAlignCenterIcon from '../../../../../core/content-align-center';
-import ContentAlignLeftIcon from '../../../../../core/content-align-left';
-import ContentAlignRightIcon from '../../../../../core/content-align-right';
 import ContentWidthNarrowIcon from '../../../../../core/content-width-narrow';
 import ContentWidthWideIcon from '../../../../../core/content-width-wide';
 import ContentWrapLeftIcon from '../../../../../core/content-wrap-left';
@@ -125,11 +115,8 @@ import DeviceMobileIcon from '../../../../../core/device-mobile';
 import DevicesIcon from '../../../../../core/devices';
 import DiscoveryIcon from '../../../../../core/discovery';
 import DownloadIcon from '../../../../../core/download';
-import DragHandleIcon from '../../../../../core/drag-handle';
 import DragHandleHorizontalIcon from '../../../../../core/drag-handle-horizontal';
 import DragHandleVerticalIcon from '../../../../../core/drag-handle-vertical';
-import DrawerLeftIcon from '../../../../../core/drawer-left';
-import DrawerRightIcon from '../../../../../core/drawer-right';
 import EditIcon from '../../../../../core/edit';
 import EditBulkIcon from '../../../../../core/edit-bulk';
 import EmailIcon from '../../../../../core/email';
@@ -184,8 +171,6 @@ import InboxIcon from '../../../../../core/inbox';
 import IncidentIcon from '../../../../../core/incident';
 import InformationIcon from '../../../../../core/information';
 import InformationCircleIcon from '../../../../../core/information-circle';
-import IssueIcon from '../../../../../core/issue';
-import IssuesIcon from '../../../../../core/issues';
 import KeyResultIcon from '../../../../../core/key-result';
 import LayoutOneColumnIcon from '../../../../../core/layout-one-column';
 import LayoutThreeColumnsIcon from '../../../../../core/layout-three-columns';
@@ -295,8 +280,6 @@ import ShrinkHorizontalIcon from '../../../../../core/shrink-horizontal';
 import ShrinkVerticalIcon from '../../../../../core/shrink-vertical';
 import SidebarCollapseIcon from '../../../../../core/sidebar-collapse';
 import SidebarExpandIcon from '../../../../../core/sidebar-expand';
-import SidebarLeftIcon from '../../../../../core/sidebar-left';
-import SidebarRightIcon from '../../../../../core/sidebar-right';
 import SmartLinkIcon from '../../../../../core/smart-link';
 import SmartLinkCardIcon from '../../../../../core/smart-link-card';
 import SmartLinkEmbedIcon from '../../../../../core/smart-link-embed';
@@ -318,7 +301,6 @@ import StrokeWeightMediumIcon from '../../../../../core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '../../../../../core/stroke-weight-small';
 import SubtasksIcon from '../../../../../core/subtasks';
 import SuccessIcon from '../../../../../core/success';
-import SummarizeIcon from '../../../../../core/summarize';
 import SupportIcon from '../../../../../core/support';
 import TableCellClearIcon from '../../../../../core/table-cell-clear';
 import TableCellMergeIcon from '../../../../../core/table-cell-merge';
@@ -737,33 +719,15 @@ const Icons = [
 	TextUnderlineIcon,
 	TextHeadingIcon,
 	InformationCircleIcon,
-	AlignCenterIcon,
-	AlignLeftIcon,
-	AlignRightIcon,
-	ContentAlignCenterIcon,
-	ContentAlignLeftIcon,
-	ContentAlignRightIcon,
-	BorderWeightMediumIcon,
-	BorderWeightThickIcon,
-	BorderWeightThinIcon,
 	StrokeWeightExtraLargeIcon,
 	AccessibilityIcon,
-	DragHandleIcon,
 	DragHandleHorizontalIcon,
-	IssueIcon,
-	IssuesIcon,
-	SidebarLeftIcon,
-	SidebarRightIcon,
-	SummarizeIcon,
-	ChildIssuesIcon,
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
 	ChevronDownIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 	ChevronUpIcon,
-	DrawerLeftIcon,
-	DrawerRightIcon,
 ];
 
 const groupSize = 20;
@@ -829,8 +793,6 @@ export const MediumIconGroup15 = allMediumExamples[15];
 export const MediumIconGroup16 = allMediumExamples[16];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup17 = allMediumExamples[17];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MediumIconGroup18 = allMediumExamples[18];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0 = allSmallExamples[0];
@@ -868,5 +830,3 @@ export const SmallIconGroup15 = allSmallExamples[15];
 export const SmallIconGroup16 = allSmallExamples[16];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup17 = allSmallExamples[17];
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const SmallIconGroup18 = allSmallExamples[18];

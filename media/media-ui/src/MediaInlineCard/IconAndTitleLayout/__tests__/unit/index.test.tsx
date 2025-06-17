@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { renderWithIntl } from '../../../../test-helpers';
 import { IconAndTitleLayout } from '../../index';
 
@@ -7,8 +7,8 @@ jest.mock('react-render-image');
 
 describe('IconAndTitleLayout', () => {
 	it('should render the text', () => {
-		const element = mount(<IconAndTitleLayout title="some text content" />);
-		expect(element.find('[data-test-id="title"]').text()).toContain('some text content');
+		render(<IconAndTitleLayout title="some text content" />);
+		expect(screen.getByText('some text content')).toBeInTheDocument();
 	});
 
 	describe('renderIcon', () => {
@@ -18,8 +18,7 @@ describe('IconAndTitleLayout', () => {
 			);
 
 			const icon = getByTestId('inline-card-icon-icon');
-
-			expect(icon).toBeDefined();
+			expect(icon).toBeInTheDocument();
 		});
 
 		it('renders default icon', () => {
@@ -28,8 +27,7 @@ describe('IconAndTitleLayout', () => {
 			);
 
 			const defaultIcon = getByTestId('inline-card-icon-default');
-
-			expect(defaultIcon).toBeDefined();
+			expect(defaultIcon).toBeInTheDocument();
 		});
 
 		it('should render emoji in place of default icon when emoji is provided', () => {
@@ -39,8 +37,13 @@ describe('IconAndTitleLayout', () => {
 			);
 
 			const emoji = getByTestId('emoji');
-			expect(emoji).toBeDefined();
-			expect(queryByTestId('inline-card-icon-default')).toBeNull;
+			expect(emoji).toBeInTheDocument();
+			expect(queryByTestId('inline-card-icon-default')).not.toBeInTheDocument();
 		});
+	});
+
+	it('should be void of a11y violations', async () => {
+		const { container } = render(<IconAndTitleLayout title="a11y test" />);
+		await expect(container).toBeAccessible();
 	});
 });

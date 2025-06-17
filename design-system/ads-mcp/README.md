@@ -24,15 +24,17 @@ Add an entry to your `mcp.json` (eg. `~/.cursor/mcp.json` or wherever your MCP c
 
 ## Development
 
-Use a different MCP config with a local path to the `dev.js` file, eg.:
+You may automatically be served the local version of `@atlaskit/ads-mcp` depending on where you're
+running it from, but you should force it like so:
 
 ```json
 {
 	"mcpServers": {
 		"ads": {
-			"command": "node",
+			"command": "npx",
 			"args": [
-				"~/git/atlassian/atlassian-frontend-monorepo/platform/packages/design-system/ads-mcp/dev.js"
+				"-y",
+				"~/git/atlassian/atlassian-frontend-monorepo/platform/packages/design-system/ads-mcp"
 			]
 		}
 	}

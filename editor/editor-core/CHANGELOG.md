@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 207.21.1
+
+### Patch Changes
+
+- [#171615](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171615)
+  [`d4542dcef1f93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4542dcef1f93) -
+  [ux] [ED-28254] this change is adding case matching to Find with status nodes behind the
+  platform_editor_find_and_replace_part_2 flag
+- Updated dependencies
+
+## 207.21.0
+
+### Minor Changes
+
+- [#172346](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172346)
+  [`615322847dc3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/615322847dc3b) -
+  Adds dirty change metadata to onchange handler.
+
+### Patch Changes
+
+- [#172526](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172526)
+  [`4db369dced9ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4db369dced9ec) -
+  trigger editor core bump to use newer editor common
+- Updated dependencies
+
+## 207.20.1
+
+### Patch Changes
+
+- [#171539](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171539)
+  [`823e66121b671`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/823e66121b671) -
+  [ux] Fixes height of the resize handle when advanced layouts feature is enabled.
+- [#171777](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171777)
+  [`befd8b6d56e78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/befd8b6d56e78) -
+  [ux] Update selection marker fake-cursor to use an inline element when placed inside words, to
+  prevent erroneous text wrapping.
+- Updated dependencies
+
 ## 207.20.0
 
 ### Minor Changes

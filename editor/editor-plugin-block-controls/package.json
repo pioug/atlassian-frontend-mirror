@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.19.1",
+	"version": "3.19.3",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -73,7 +73,7 @@
 	"peerDependencies": {
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
+		"react-intl-next": "*"
 	},
 	"techstack": {
 		"@atlassian/frontend": {
@@ -175,9 +175,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_7": {
-			"type": "boolean"
-		},
-		"platform_editor_user_intent_plugin": {
 			"type": "boolean"
 		},
 		"platform_editor_no_cursor_on_live_doc_init": {

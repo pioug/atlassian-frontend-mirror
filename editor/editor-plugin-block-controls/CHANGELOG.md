@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.3
+
+### Patch Changes
+
+- [#170734](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170734)
+  [`85e062c13a08a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85e062c13a08a) -
+  [ED-28213] Clean up platform_editor_user_intent_plugin and
+  platform_editor_user_intent_plugin_follow_up
+
+## 3.19.2
+
+### Patch Changes
+
+- [#171539](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171539)
+  [`823e66121b671`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/823e66121b671) -
+  [ux] Fixes height of the resize handle when advanced layouts feature is enabled.
+- Updated dependencies
+
 ## 3.19.1
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @atlaskit/media-viewer
 
+## 52.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.2.4
+
+### Patch Changes
+
+- [#169848](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169848)
+  [`0c2daefdb5712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c2daefdb5712) -
+  Standardise generation of telemetry IDs across media packages.
+- Updated dependencies
+
 ## 52.2.3
 
 ### Patch Changes

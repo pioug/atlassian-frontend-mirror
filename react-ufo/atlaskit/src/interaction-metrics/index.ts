@@ -23,7 +23,7 @@ import type {
 	Span,
 	SpanType,
 } from '../common';
-import { getAwaitBM3TTIList, getCapabilityRate, getConfig } from '../config';
+import { getAwaitBM3TTIList, getCapabilityRate, getConfig, getInteractionTimeout } from '../config';
 import {
 	experimentalVC,
 	getExperimentalVCMetrics,
@@ -776,10 +776,13 @@ export function addNewInteraction(
 	}
 
 	let previousTime = startTime;
-	let timeoutTime = CLEANUP_TIMEOUT;
+
+	let timeoutTime = fg('platform_ufo_enable_timeout_config')
+		? getInteractionTimeout(ufoName)
+		: CLEANUP_TIMEOUT;
 	const timerID: ReturnType<typeof setTimeout> | undefined = setTimeout(() => {
 		abort(interactionId, 'timeout');
-	}, CLEANUP_TIMEOUT);
+	}, timeoutTime);
 
 	function changeTimeout(this: InteractionMetrics, newTime: number) {
 		// we compare if the time left is lower than the new time to no

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::68df7d5e603e404373e4f57c7cf909f0>>
+ * @codegen <<SignedSource::5e39d81369b0c277ebeac5d0b02ae5cb>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -439,9 +439,6 @@ const tokens = {
 	'space.negative.250': '--ds-space-negative-250',
 	'space.negative.300': '--ds-space-negative-300',
 	'space.negative.400': '--ds-space-negative-400',
-	'font.metric.large': '--ds-font-metric-large',
-	'font.metric.medium': '--ds-font-metric-medium',
-	'font.metric.small': '--ds-font-metric-small',
 	'font.heading.xxlarge': '--ds-font-heading-xxlarge',
 	'font.heading.xlarge': '--ds-font-heading-xlarge',
 	'font.heading.large': '--ds-font-heading-large',
@@ -453,6 +450,9 @@ const tokens = {
 	'font.body': '--ds-font-body',
 	'font.body.small': '--ds-font-body-small',
 	'font.body.UNSAFE_small': '--ds-font-body-UNSAFE_small',
+	'font.metric.large': '--ds-font-metric-large',
+	'font.metric.medium': '--ds-font-metric-medium',
+	'font.metric.small': '--ds-font-metric-small',
 	'font.code': '--ds-font-code',
 	'font.weight.regular': '--ds-font-weight-regular',
 	'font.weight.medium': '--ds-font-weight-medium',
@@ -891,9 +891,6 @@ export type CSSTokenMap = {
 	'space.negative.250': 'var(--ds-space-negative-250)';
 	'space.negative.300': 'var(--ds-space-negative-300)';
 	'space.negative.400': 'var(--ds-space-negative-400)';
-	'font.metric.large': 'var(--ds-font-metric-large)';
-	'font.metric.medium': 'var(--ds-font-metric-medium)';
-	'font.metric.small': 'var(--ds-font-metric-small)';
 	'font.heading.xxlarge': 'var(--ds-font-heading-xxlarge)';
 	'font.heading.xlarge': 'var(--ds-font-heading-xlarge)';
 	'font.heading.large': 'var(--ds-font-heading-large)';
@@ -905,6 +902,9 @@ export type CSSTokenMap = {
 	'font.body': 'var(--ds-font-body)';
 	'font.body.small': 'var(--ds-font-body-small)';
 	'font.body.UNSAFE_small': 'var(--ds-font-body-UNSAFE_small)';
+	'font.metric.large': 'var(--ds-font-metric-large)';
+	'font.metric.medium': 'var(--ds-font-metric-medium)';
+	'font.metric.small': 'var(--ds-font-metric-small)';
 	'font.code': 'var(--ds-font-code)';
 	'font.weight.regular': 'var(--ds-font-weight-regular)';
 	'font.weight.medium': 'var(--ds-font-weight-medium)';

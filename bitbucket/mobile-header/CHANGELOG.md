@@ -1,5 +1,11 @@
 # @atlaskit/mobile-header
 
+## 7.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.12
 
 ### Patch Changes

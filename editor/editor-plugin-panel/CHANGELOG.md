@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 4.4.10
+
+### Patch Changes
+
+- [#171657](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171657)
+  [`cb6c865095af1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb6c865095af1) -
+  Clean-up platform_editor_lcm_nested_panel_icon_fix
+- Updated dependencies
+
 ## 4.4.9
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.38.3
+
+### Patch Changes
+
+- [#173038](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173038)
+  [`4e0b09ea564a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e0b09ea564a5) -
+  [ux] NO-ISSUE Fix keywords missing issue in disconnect dialog and remove non-finals in message
+- Updated dependencies
+
 ## 0.38.2
 
 ### Patch Changes

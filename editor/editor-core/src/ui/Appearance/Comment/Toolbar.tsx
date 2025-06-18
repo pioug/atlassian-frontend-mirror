@@ -9,11 +9,13 @@ import React, { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
-import { akEditorMenuZIndex, akEditorToolbarKeylineHeight } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
+const akEditorMenuZIndex = 500;
+const akEditorToolbarKeylineHeight = 2;
 
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-registration */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
@@ -59,6 +61,60 @@ const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
 
 	${fg('platform-visual-refresh-icons') && 'span svg { max-width: 100%; }'}
 `;
+
+const mainToolbarWrapperStyleNew = css({
+	position: 'relative',
+	alignItems: 'center',
+	padding: `${token('space.100', '8px')} ${token('space.100', '8px')} 0`,
+	display: 'flex',
+	height: 'auto',
+	backgroundColor: token('elevation.surface', 'white'),
+	boxShadow: 'none',
+	paddingLeft: token('space.250', '20px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'> div': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> div:first-of-type:not(style), > style:first-of-type + *': {
+			marginLeft: 0,
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.block-type-btn': {
+		paddingLeft: 0,
+	},
+});
+
+const mainToolbarTwoLineStylesNew = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'& > div': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
+			flexDirection: 'column-reverse',
+			alignItems: 'end',
+			display: 'flex',
+			justifyContent: 'flex-end',
+		},
+
+		/* make this more explicit for a toolbar */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> div:first-of-type': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+				'> div:nth-of-type(2)': {
+					justifyContent: 'flex-end',
+					display: 'flex',
+				},
+			},
+		},
+	},
+});
+
+const mainToolbarWrapperStylesVisualRefresh = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'span svg': { maxWidth: '100%' },
+});
+
 /* eslint-enable @atlaskit/platform/ensure-feature-flag-registration */
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -75,6 +131,17 @@ const stickyToolbarWrapperStyle = css`
 			${token('color.background.accent.gray.subtlest', '#F1F2F4')};
 	}
 `;
+
+const stickyToolbarWrapperStyleNew = css({
+	position: 'sticky',
+	paddingBottom: token('space.100', '8px'),
+	zIndex: akEditorMenuZIndex,
+	transition: 'box-shadow ease-in-out 0.2s',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&.show-keyline': {
+		boxShadow: `0 ${akEditorToolbarKeylineHeight}px 0 0 ${token('color.background.accent.gray.subtlest')}`,
+	},
+});
 
 type StickyToolbarProps = {
 	externalToolbarRef?: RefObject<HTMLElement>;
@@ -100,8 +167,17 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[mainToolbarWrapperStyle(props.twoLineEditorToolbar), stickyToolbarWrapperStyle]}
+			css={
+				expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
+					? [
+							mainToolbarWrapperStyleNew,
+							props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
+							fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
+							stickyToolbarWrapperStyleNew,
+						]
+					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						[mainToolbarWrapperStyle(props.twoLineEditorToolbar), stickyToolbarWrapperStyle]
+			}
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 			style={{ top: `${top}px` }}
 			data-testid="ak-editor-main-toolbar"
@@ -121,8 +197,16 @@ type FixedToolbarProps = {
 const FixedToolbar = (props: FixedToolbarProps) => (
 	// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 	<div
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		css={mainToolbarWrapperStyle(props.twoLineEditorToolbar)}
+		css={
+			expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
+				? [
+						mainToolbarWrapperStyleNew,
+						props.twoLineEditorToolbar && mainToolbarTwoLineStylesNew,
+						fg('platform-visual-refresh-icons') && mainToolbarWrapperStylesVisualRefresh,
+					]
+				: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					mainToolbarWrapperStyle(props.twoLineEditorToolbar)
+		}
 		data-testid="ak-editor-main-toolbar"
 	>
 		{props.children}
@@ -178,25 +262,3 @@ export const MainToolbar = ({
 	}
 	return <FixedToolbar twoLineEditorToolbar={twoLineEditorToolbar}>{children}</FixedToolbar>;
 };
-
-export const mainToolbarCustomComponentsSlotStyle = (isTwoLineEditorToolbar = false) =>
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-	css`
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		flex-grow: 1;
-		padding-right: ${token('space.250', '20px')};
-		> div {
-			display: flex;
-			flex-shrink: 0;
-		}
-		${isTwoLineEditorToolbar &&
-		`
-    @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
-      {
-        padding-right: 0;
-      }
-    }
-  `}
-	`;

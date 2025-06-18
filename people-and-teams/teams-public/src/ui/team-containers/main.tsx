@@ -385,12 +385,12 @@ export const TeamContainers = ({
 
 const messages = defineMessages({
 	showMore: {
-		id: 'ptc-directory.team-profile-page.team-containers.show-more.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.show-more',
 		defaultMessage: 'Show more',
 		description: 'Button to show more containers',
 	},
 	showLess: {
-		id: 'ptc-directory.team-profile-page.team-containers.show-less.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.show-less',
 		defaultMessage: 'Show less',
 		description: 'Button to show less containers',
 	},

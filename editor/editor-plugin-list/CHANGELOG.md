@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 4.2.10
+
+### Patch Changes
+
+- [#165934](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165934)
+  [`154dce45f0dae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/154dce45f0dae) -
+  Clean up platform_editor_non_macros_list_indent_fix
+
 ## 4.2.9
 
 ### Patch Changes

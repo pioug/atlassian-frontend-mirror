@@ -26,12 +26,25 @@ interface ExtensionNodeViewOptions {
 	getExtensionHeight?: GetPMNodeHeight;
 }
 
+interface ReactExtensionNodeProps {
+	extensionNodeViewOptions?: ExtensionNodeViewOptions;
+	providerFactory: ProviderFactory;
+	extensionHandlers: ExtensionHandlers;
+	pluginInjectionApi: ExtensionsPluginInjectionAPI;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
+	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
+	rendererExtensionHandlers?: ExtensionHandlers;
+}
+
 // getInlineNodeViewProducer is a new api to use instead of ReactNodeView
 // when creating inline node views, however, it is difficult to test the impact
 // on selections when migrating inlineExtension to use the new api.
 // The ReactNodeView api will be visited in the second phase of the selections
 // project whilst investigating block nodes. We will revisit the Extension node view there too.
-export class ExtensionNode extends ReactNodeView {
+export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
+	ReactExtensionNodeProps & AdditionalParams
+> {
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Node }) {
 		// Extensions can perform async operations that will change the DOM.
 		// To avoid having their tree rebuilt, we need to ignore the mutation
@@ -41,6 +54,25 @@ export class ExtensionNode extends ReactNodeView {
 			this.node.type.isAtom ||
 			(mutation.type !== 'selection' && mutation.attributeName !== 'data-layout')
 		);
+	}
+
+	// Reserve height by setting a minimum height for the extension node view element
+	createDomRef(): HTMLElement {
+		if (!fg('confluence_connect_macro_preset_height')) {
+			return super.createDomRef();
+		}
+		if (!this.node.isInline) {
+			const htmlElement = document.createElement('div');
+			const extensionHeight =
+				this.reactComponentProps?.extensionNodeViewOptions?.getExtensionHeight?.(this.node);
+			if (extensionHeight) {
+				htmlElement.style.setProperty('min-height', `${extensionHeight}px`);
+			}
+			return htmlElement;
+		}
+
+		const htmlElement = document.createElement('span');
+		return htmlElement;
 	}
 
 	/**

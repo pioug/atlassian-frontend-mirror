@@ -115,9 +115,6 @@
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_6": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		}

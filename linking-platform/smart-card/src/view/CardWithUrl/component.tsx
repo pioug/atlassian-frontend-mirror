@@ -1,7 +1,6 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
@@ -73,11 +72,7 @@ function Component({
 	const resourceType = getResourceType(state.details);
 	const services = getServices(state.details);
 
-	let isFlexibleUi = useMemo(
-		() =>
-			isFlexibleUiCard(children, fg('platform-linking-flexible-card-openness') ? ui : undefined),
-		[children, ui],
-	);
+	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
 	const actionOptions = combineActionOptions({
 		actionOptions: actionOptionsProp,
@@ -361,10 +356,7 @@ function Component({
 }
 
 export const CardWithUrlContent = (props: CardWithUrlContentProps) => {
-	const display = isFlexibleUiCard(
-		props.children,
-		fg('platform-linking-flexible-card-openness') ? props?.ui : undefined,
-	)
+	const display = isFlexibleUiCard(props.children, props?.ui)
 		? CardDisplay.Flexible
 		: props.appearance;
 

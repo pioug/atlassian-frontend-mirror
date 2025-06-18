@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.8.0
+
+### Minor Changes
+
+- [#173259](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173259)
+  [`8c7a6909826be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c7a6909826be) -
+  Add new Changed Breakout Mode event and hook it up to breakout button
+
+### Patch Changes
+
+- [#173297](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173297)
+  [`c1d3dba68babc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1d3dba68babc) -
+  [ux] When single player expand FG is disabled, the opened expand should keep expanded state after
+  resize.
+- [#173239](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173239)
+  [`75dd671d5fcf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75dd671d5fcf6) -
+  Retain an exand nodes expanded state when applying breakout node
+- Updated dependencies
+
 ## 2.7.6
 
 ### Patch Changes

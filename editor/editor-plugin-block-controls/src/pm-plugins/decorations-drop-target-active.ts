@@ -109,6 +109,7 @@ export const getActiveDropTargetDecorations = (
 	activeDropTargetNode: ActiveDropTargetNode,
 	state: EditorState,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
+	existingDecs: Decoration[],
 	formatMessage: IntlShape['formatMessage'],
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	activeNode?: ActiveNode,
@@ -121,11 +122,15 @@ export const getActiveDropTargetDecorations = (
 		);
 	}
 
-	const decs: Decoration[] = [];
+	const decsToAdd: Decoration[] = [];
+	let decsToRemove: Decoration[] = existingDecs.filter((dec) => !!dec);
+
 	const activeNodePos = activeNode?.pos;
 	const $activeNodePos = typeof activeNodePos === 'number' && state.doc.resolve(activeNodePos);
 
 	const $toPos = state.doc.resolve(activeDropTargetNode.pos);
+
+	const existingDecsPos = decsToRemove.map((dec) => dec.from);
 
 	const { parent, index, node, pos, before, after, depth } = findSurroundingNodes(
 		state,
@@ -138,7 +143,11 @@ export const getActiveDropTargetDecorations = (
 	 * above the first child and below the last child.
 	 */
 	if (isContainerNode(node)) {
+		const isEmptyContainer =
+			node.childCount === 0 || (node.childCount === 1 && isEmptyParagraph(node.firstChild));
+
 		// can move to before first child
+		const posBeforeFirstChild = pos + 1; // +1 to get the position of the first child
 		if (
 			node.firstChild &&
 			canMoveNodeOrSliceToPos(
@@ -146,54 +155,69 @@ export const getActiveDropTargetDecorations = (
 				node.firstChild,
 				node,
 				0,
-				state.doc.resolve(pos + 1), // +1 to get the position of the first child
+				state.doc.resolve(posBeforeFirstChild),
 				activeNode,
 			)
 		) {
-			decs.push(
-				createDropTargetDecoration(
-					pos + 1,
-					{
-						api,
-						prevNode: undefined,
-						nextNode: node.firstChild,
-						parentNode: node,
-						formatMessage,
-						dropTargetStyle: 'default',
-					},
-					nodeViewPortalProviderAPI,
-					1,
-				),
-			);
+			if (existingDecsPos.includes(posBeforeFirstChild)) {
+				// if the decoration already exists, we don't add it again.
+				decsToRemove = decsToRemove.filter((dec) => dec.from !== posBeforeFirstChild);
+			} else {
+				decsToAdd.push(
+					createDropTargetDecoration(
+						posBeforeFirstChild,
+						{
+							api,
+							prevNode: undefined,
+							nextNode: node.firstChild,
+							parentNode: node,
+							formatMessage,
+							dropTargetStyle: isEmptyContainer ? 'remainingHeight' : 'default',
+						},
+						nodeViewPortalProviderAPI,
+						1,
+					),
+				);
+			}
 		}
 
 		// can move to after last child
-		if (
-			node.lastChild &&
-			canMoveNodeOrSliceToPos(
-				state,
-				node.lastChild,
-				node,
-				node.childCount - 1,
-				state.doc.resolve(pos + node.nodeSize - 1), // -1 to get the position after last child
-				activeNode,
-			)
-		) {
-			decs.push(
-				createDropTargetDecoration(
-					pos + node.nodeSize - 1,
-					{
-						api,
-						prevNode: node.lastChild,
-						nextNode: undefined,
-						parentNode: node,
-						formatMessage,
-						dropTargetStyle: 'default',
-					},
-					nodeViewPortalProviderAPI,
-					-1,
-				),
-			);
+		// if the node is empty, we don't show the drop target at the end of the node
+		if (!isEmptyContainer) {
+			const posAfterLastChild = pos + node.nodeSize - 1; // -1 to get the position after last child
+
+			if (
+				node.lastChild &&
+				canMoveNodeOrSliceToPos(
+					state,
+					node.lastChild,
+					node,
+					node.childCount - 1,
+					state.doc.resolve(posAfterLastChild), // -1 to get the position after last child
+					activeNode,
+				)
+			) {
+				if (existingDecsPos.includes(posAfterLastChild)) {
+					// if the decoration already exists, we don't add it again.
+					decsToRemove = decsToRemove.filter((dec) => dec.from !== posAfterLastChild);
+				} else {
+					decsToAdd.push(
+						createDropTargetDecoration(
+							posAfterLastChild,
+							{
+								api,
+								prevNode: node.lastChild,
+								nextNode: undefined,
+								parentNode: node,
+								formatMessage,
+								dropTargetStyle: 'remainingHeight',
+							},
+							nodeViewPortalProviderAPI,
+							-1,
+						),
+					);
+				}
+			}
 		}
 	}
 
@@ -211,52 +235,64 @@ export const getActiveDropTargetDecorations = (
 			isInSupportedContainer && parent?.lastChild === node && isEmptyParagraph(node);
 
 		if (canMoveNodeOrSliceToPos(state, node, parent, index, $toPos, activeNode)) {
-			decs.push(
-				createDropTargetDecoration(
-					pos,
-					{
-						api,
-						prevNode: before || undefined,
-						nextNode: node,
-						parentNode: parent || undefined,
-						formatMessage,
-						dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
-					},
-					nodeViewPortalProviderAPI,
-					-1,
-					undefined,
-					isSameLayout,
-				),
-			);
+			if (existingDecsPos.includes(pos)) {
+				// if the decoration already exists, we don't add it again.
+				decsToRemove = decsToRemove.filter((dec) => dec.from !== pos);
+			} else {
+				decsToAdd.push(
+					createDropTargetDecoration(
+						pos,
+						{
+							api,
+							prevNode: before || undefined,
+							nextNode: node,
+							parentNode: parent || undefined,
+							formatMessage,
+							dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
+						},
+						nodeViewPortalProviderAPI,
+						-1,
+						undefined,
+						isSameLayout,
+					),
+				);
+			}
 		}
 
+		// if the node is a container node, we show the drop target after the node
+		const posAfterNode = pos + node.nodeSize;
 		if (
 			canMoveNodeOrSliceToPos(
 				state,
 				node,
 				parent,
 				index + 1,
-				state.doc.resolve(pos + node.nodeSize),
+				state.doc.resolve(posAfterNode),
 				activeNode,
 			)
 		) {
-			decs.push(
-				createDropTargetDecoration(
-					pos + node.nodeSize,
-					{
-						api,
-						prevNode: node,
-						nextNode: after || undefined,
-						parentNode: parent || undefined,
-						formatMessage,
-						dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
-					},
-					nodeViewPortalProviderAPI,
-					-1,
-					undefined,
-					isSameLayout,
-				),
-			);
+			if (existingDecsPos.includes(posAfterNode)) {
+				// if the decoration already exists, we don't add it again.
+				decsToRemove = decsToRemove.filter((dec) => dec.from !== posAfterNode);
+			} else {
+				decsToAdd.push(
+					createDropTargetDecoration(
+						posAfterNode,
+						{
+							api,
+							prevNode: node,
+							nextNode: after || undefined,
+							parentNode: parent || undefined,
+							formatMessage,
+							dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
+						},
+						nodeViewPortalProviderAPI,
+						-1,
+						undefined,
+						isSameLayout,
+					),
+				);
+			}
 		}
 	}
 
@@ -269,23 +305,28 @@ export const getActiveDropTargetDecorations = (
 	if (depth > 1) {
 		const root = findSurroundingNodes(state, state.doc.resolve($toPos.before(2)));
 
-		decs.push(
-			createDropTargetDecoration(
-				root.pos,
-				{
-					api,
-					prevNode: root.before || undefined,
-					nextNode: root.node,
-					parentNode: state.doc || undefined,
-					formatMessage,
-					dropTargetStyle: 'default',
-				},
-				nodeViewPortalProviderAPI,
-				0,
-				undefined,
-				false,
-			),
-		);
+		if (existingDecsPos.includes(root.pos)) {
+			// if the decoration already exists, we don't add it again.
+			decsToRemove = decsToRemove.filter((dec) => dec.from !== root.pos);
+		} else {
+			decsToAdd.push(
+				createDropTargetDecoration(
+					root.pos,
+					{
+						api,
+						prevNode: root.before || undefined,
+						nextNode: root.node,
+						parentNode: state.doc || undefined,
+						formatMessage,
+						dropTargetStyle: 'default',
+					},
+					nodeViewPortalProviderAPI,
+					0,
+					undefined,
+					false,
+				),
+			);
+		}
 
 		rootNodeWithPos = {
 			node: root.node,
@@ -307,18 +348,25 @@ export const getActiveDropTargetDecorations = (
 						parent?.type.name === 'layoutSection' &&
 						index !== 0 // Not the first node
 					) {
-						decs.push(
-							createLayoutDropTargetDecoration(
-								rootNodeWithPos.pos + childPos + 1,
-								{
-									api,
-									parent,
-									formatMessage,
-								},
-								nodeViewPortalProviderAPI,
-								undefined,
-							),
-						);
+						const currentPos = rootNodeWithPos.pos + childPos + 1;
+
+						if (existingDecsPos.includes(currentPos)) {
+							// if the decoration already exists, we don't add it again.
+							decsToRemove = decsToRemove.filter((dec) => dec.from !== currentPos);
+						} else {
+							decsToAdd.push(
+								createLayoutDropTargetDecoration(
+									rootNodeWithPos.pos + childPos + 1,
+									{
+										api,
+										parent,
+										formatMessage,
+									},
+									nodeViewPortalProviderAPI,
+									undefined,
+								),
+							);
+						}
 					}
 
 					return false;
@@ -329,5 +377,5 @@ export const getActiveDropTargetDecorations = (
 
 	defaultActiveAnchorTracker.emit(getNodeAnchor(rootNodeWithPos.node));
 
-	return decs;
+	return { decsToAdd, decsToRemove };
 };

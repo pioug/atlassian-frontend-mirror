@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 38.10.1
+
+### Patch Changes
+
+- [#172494](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172494)
+  [`03472aefbbb00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03472aefbbb00) -
+  Feature gate cleanup for platform-linking-flexible-card-openness, surfacing the feaure for
+  ui.removeBlockRestriction
+- Updated dependencies
+
+## 38.10.0
+
+### Minor Changes
+
+- [#172142](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172142)
+  [`8073537f9214d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8073537f9214d) -
+  Clearing `expandable_smart_links_for_scorecards_v2` feature-gate after release
+
 ## 38.9.3
 
 ### Patch Changes

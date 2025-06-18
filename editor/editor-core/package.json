@@ -1,6 +1,5 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "207.21.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -150,6 +149,9 @@
 	},
 	"platform-feature-flags": {
 		"cc_complexit_fe_improve_node_validation": {
+			"type": "boolean"
+		},
+		"cc_editor_abort_ufo_load_on_editor_scroll": {
 			"type": "boolean"
 		},
 		"platform_editor_reduce_scroll_jump_on_editor_start": {
@@ -411,10 +413,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_non_macros_list_indent_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_remove_drag_handle_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -543,9 +541,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_find_and_replace_duplication": {
-			"type": "boolean"
-		},
 		"platform_editor_find_and_replace_1": {
 			"type": "boolean"
 		},
@@ -553,30 +548,6 @@
 			"type": "boolean"
 		},
 		"editor_a11y_aria_label_removal_popup": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_controls_increase_full_page_gutter": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_controls_patch_2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_controls_patch_3": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_controls_patch_5": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_controls_patch_6": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -641,9 +612,6 @@
 		"platform_editor_interaction_api_refactor": {
 			"type": "boolean"
 		},
-		"platform_editor_ssr_fix_lists": {
-			"type": "boolean"
-		},
 		"dst-a11y__replace-anchor-with-link__editor": {
 			"type": "boolean"
 		},
@@ -668,6 +636,9 @@
 		"platform_editor_add_border_for_nested_panel": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_system_fake_text_highlight_colour": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

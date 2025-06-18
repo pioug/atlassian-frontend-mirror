@@ -393,18 +393,8 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 					if (editorExperiment('platform_editor_controls', 'variant1')) {
 						if (resolved[i] && resolved[i + 1]) {
-							const shouldNotAddSeparator =
-								(resolved[i]?.pluginName === 'textColor' &&
-									resolved[i + 1]?.pluginName === 'highlight') ||
-								(resolved[i]?.pluginName === 'alignment' &&
-									resolved[i + 1]?.pluginName === 'toolbarListsIndentation');
-
 							if (resolved[i + 1]?.pluginName === 'annotation') {
 								items.push({ type: 'separator', fullHeight: true });
-							} else if (!fg('platform_editor_controls_patch_6')) {
-								if (i !== resolved.length - 1 && !shouldNotAddSeparator) {
-									items.push({ type: 'separator', fullHeight: false });
-								}
 							}
 						}
 					} else {

@@ -237,6 +237,7 @@ const LayoutButtonWrapper = ({
 			isLivePage={isEditMode}
 			isBreakoutNodePresent={breakoutNodePresent}
 			breakoutMode={breakoutMode}
+			api={api}
 		/>
 	) : null;
 };

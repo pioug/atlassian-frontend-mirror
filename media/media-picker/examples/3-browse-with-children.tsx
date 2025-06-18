@@ -7,7 +7,8 @@ import {
 	mediaPickerAuthProvider,
 } from '@atlaskit/media-test-helpers';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
+import Box from '@atlaskit/primitives/box';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
@@ -164,22 +165,20 @@ class BrowserWrapper extends Component<{}, BrowserWrapperState> {
 					</PopupHeader>
 					<FunctionalBrowserWrapper mediaClient={mediaClient} browseConfig={browseConfig}>
 						{(browse) => (
-							<Button
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								style={{ margin: '5px' }}
-								appearance="primary"
-								onClick={browse}
-							>
-								Click me to upload
-							</Button>
+							<Box padding="space.050">
+								<Button appearance="primary" onClick={browse}>
+									Click me to upload
+								</Button>
+							</Box>
 						)}
 					</FunctionalBrowserWrapper>
 					<FunctionalBrowserWrapper mediaClient={mediaClient} browseConfig={browseConfig}>
 						{(browse) => (
-							// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable, @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
-							<div style={{ margin: '5px' }} onClick={browse}>
-								Click me to upload. No, for real.
-							</div>
+							<Box padding="space.050">
+								<Button appearance="primary" onClick={browse}>
+									Click me to upload. No, for real.
+								</Button>
+							</Box>
 						)}
 					</FunctionalBrowserWrapper>
 				</PopupContainer>

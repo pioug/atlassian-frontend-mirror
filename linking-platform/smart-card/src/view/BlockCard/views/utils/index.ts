@@ -61,25 +61,13 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 				bottomMetadata: defaultBottomMetadata,
 			};
 		case 'dragonfruit-object-provider':
-			if (fg('expandable_smart_links_for_scorecards_v2')) {
-				return {
-					titleMetadata: defaultTitleMetadata,
-					topMetadata: extractOwnedBy(data)
-						? [
-								{ name: ElementName.OwnedByGroup },
-								{ name: ElementName.OwnedBy },
-								...baseTopMetadata,
-							]
-						: defaultTopMetadata,
-					bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
-				};
-			} else {
-				return {
-					titleMetadata: defaultTitleMetadata,
-					topMetadata: defaultTopMetadata,
-					bottomMetadata: defaultBottomMetadata,
-				};
-			}
+			return {
+				titleMetadata: defaultTitleMetadata,
+				topMetadata: extractOwnedBy(data)
+					? [{ name: ElementName.OwnedByGroup }, { name: ElementName.OwnedBy }, ...baseTopMetadata]
+					: defaultTopMetadata,
+				bottomMetadata: [{ name: ElementName.AppliedToComponentsCount }, ...baseBottomMetaData],
+			};
 		case 'confluence-object-provider':
 			return {
 				titleMetadata: defaultTitleMetadata,

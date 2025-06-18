@@ -64,6 +64,7 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 
 import React from 'react';
 
+import { fireEvent } from '@testing-library/react';
 import { createIntl } from 'react-intl-next';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
@@ -93,6 +94,7 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -152,6 +154,12 @@ type Props = {
 	view: EditorView;
 	config: EditorConfig;
 };
+
+jest.mock('@atlaskit/react-ufo/interaction-metrics', () => ({
+	abortAll: jest.fn(),
+	getActiveInteraction: jest.fn(),
+}));
+
 describe('@atlaskit/editor-core', () => {
 	let mockFire: ReturnType<FireAnalyticsEvent>;
 
@@ -171,6 +179,81 @@ describe('@atlaskit/editor-core', () => {
 				actionSubject: 'editor',
 			}),
 		});
+	});
+
+	ffTest.on('cc_editor_abort_ufo_load_on_editor_scroll', '', () => {
+		describe.each([['scroll'], ['wheel']])(
+			'UFO abort firing for %s event on the Editor wrapper',
+			(event) => {
+				beforeEach(() => {
+					(getActiveInteraction as jest.Mock).mockReset();
+				});
+
+				it(`When the event occurs during the page load - any active ufo experience should be aborted, and the event listeners cleaned up`, () => {
+					const mockElement = document.createElement('div');
+					const querySelectorSpy = jest.spyOn(document, 'querySelector');
+					querySelectorSpy.mockImplementation(() => mockElement);
+					const mockElementSpy = jest.spyOn(mockElement, 'removeEventListener');
+					(getActiveInteraction as jest.Mock).mockReturnValueOnce({ ufoName: 'edit-page' });
+
+					renderWithIntl(
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<ReactEditorView
+							{...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }}
+						/>,
+					);
+
+					// @ts-ignore
+					fireEvent[event]?.(mockElement);
+
+					expect(abortAll).toHaveBeenCalledWith('new_interaction', `${event}-on-editor-element`);
+					expect(mockElementSpy).toHaveBeenNthCalledWith(1, 'wheel', expect.any(Function));
+					expect(mockElementSpy).toHaveBeenNthCalledWith(2, 'scroll', expect.any(Function));
+				});
+
+				it(`When the event occurs after the page load - no active ufo experience should be aborted, and the event listeners cleaned up`, () => {
+					const mockElement = document.createElement('div');
+					const querySelectorSpy = jest.spyOn(document, 'querySelector');
+					querySelectorSpy.mockImplementation(() => mockElement);
+					const mockElementSpy = jest.spyOn(mockElement, 'removeEventListener');
+					(getActiveInteraction as jest.Mock).mockReturnValueOnce(undefined);
+
+					renderWithIntl(
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<ReactEditorView
+							{...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }}
+						/>,
+					);
+
+					// @ts-ignore
+					fireEvent[event]?.(mockElement);
+
+					expect(abortAll).not.toHaveBeenCalled();
+					expect(mockElementSpy).toHaveBeenNthCalledWith(1, 'wheel', expect.any(Function));
+					expect(mockElementSpy).toHaveBeenNthCalledWith(2, 'scroll', expect.any(Function));
+				});
+
+				it(`When no event before page unload - the event listeners are cleaned up on dismount`, () => {
+					const mockElement = document.createElement('div');
+					const querySelectorSpy = jest.spyOn(document, 'querySelector');
+					querySelectorSpy.mockImplementation(() => mockElement);
+					const mockElementSpy = jest.spyOn(mockElement, 'removeEventListener');
+
+					const renderResult = renderWithIntl(
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<ReactEditorView
+							{...{ ...requiredProps(), editorProps: { appearance: 'full-page' } }}
+						/>,
+					);
+
+					renderResult.unmount();
+
+					expect(abortAll).not.toHaveBeenCalled();
+					expect(mockElementSpy).toHaveBeenNthCalledWith(1, 'wheel', expect.any(Function));
+					expect(mockElementSpy).toHaveBeenNthCalledWith(2, 'scroll', expect.any(Function));
+				});
+			},
+		);
 	});
 
 	ffTest.on('platform_editor_reduce_scroll_jump_on_editor_start', '', () => {

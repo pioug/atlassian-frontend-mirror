@@ -53,7 +53,10 @@ import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/typ
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
-import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
+import {
+	placeholderTextStyles,
+	placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour,
+} from '@atlaskit/editor-plugins/placeholder-text/styles';
 import {
 	SelectionStyle,
 	akEditorCalculatedWideLayoutWidth,
@@ -468,6 +471,8 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 
 	${fg('platform_editor_fix_floating_toolbar_focus') ? firstFloatingToolbarButtonStyles : null}
 	${placeholderTextStyles}
+	${fg('platform_editor_system_fake_text_highlight_colour') &&
+	placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour}
 	${placeholderStyles}
 	${editorExperiment('platform_editor_controls', 'variant1') ? placeholderOverflowStyles : null}
 	${editorExperiment('platform_editor_controls', 'variant1') &&
@@ -608,14 +613,6 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 
 type Props = ContentStylesProps & React.HTMLProps<HTMLDivElement>;
 
-const listLayoutShiftFix = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'.ProseMirror ul, .ProseMirror ol': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-		marginTop: '10px',
-	},
-});
-
 export const createEditorContentStyle = (styles?: SerializedStyles) => {
 	return React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 		const { className, children, featureFlags } = props;
@@ -653,7 +650,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				ref={ref}
-				css={[memoizedStyle, styles, fg('platform_editor_ssr_fix_lists') && listLayoutShiftFix]}
+				css={[memoizedStyle, styles]}
 				data-testid="editor-content-container"
 			>
 				{children}

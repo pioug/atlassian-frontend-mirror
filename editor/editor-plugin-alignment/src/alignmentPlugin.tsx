@@ -28,7 +28,6 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 		popupsScrollableElement,
 		disabled,
 		isToolbarReducedSpacing,
-		toolbarSize,
 	}) => {
 		return (
 			<PrimaryToolbarComponent
@@ -39,7 +38,6 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
 				isToolbarReducedSpacing={isToolbarReducedSpacing}
-				toolbarSize={toolbarSize}
 			/>
 		);
 	};

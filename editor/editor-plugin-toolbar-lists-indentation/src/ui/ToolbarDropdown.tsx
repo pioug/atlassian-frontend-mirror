@@ -32,7 +32,6 @@ import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 import BulletListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-bullet-list';
 import TextIndentLeftIcon from '@atlaskit/icon/core/text-indent-left';
 import TextIndentRightIcon from '@atlaskit/icon/core/text-indent-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type ButtonName, type ToolbarProps, ToolbarType } from '../types';
@@ -100,10 +99,7 @@ export function ToolbarDropdown(props: DropdownProps) {
 
 	let activeListIcon = null;
 	let isSelected = isDropdownOpen;
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_6')
-	) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		activeListIcon = orderedListActive ? (
 			<ListNumberedIcon spacing="spacious" label="" />
 		) : (
@@ -182,11 +178,9 @@ function useItems(
 			isDisabled: props.bulletListDisabled,
 			isActive: Boolean(props.bulletListActive),
 			elemAfter: <Shortcut>{tooltip(toggleBulletListKeymap)}</Shortcut>,
-			elemBefore:
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_patch_6') ? (
-					<ListBulletedIcon label="" />
-				) : undefined,
+			elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
+				<ListBulletedIcon label="" />
+			) : undefined,
 		},
 		{
 			key: 'orderedList',
@@ -195,11 +189,9 @@ function useItems(
 			isDisabled: props.orderedListDisabled,
 			isActive: Boolean(props.orderedListActive),
 			elemAfter: <Shortcut>{tooltip(toggleOrderedListKeymap)}</Shortcut>,
-			elemBefore:
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_patch_6') ? (
-					<ListNumberedIcon label="" />
-				) : undefined,
+			elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
+				<ListNumberedIcon label="" />
+			) : undefined,
 		},
 	];
 	if (props.showIndentationButtons) {
@@ -213,11 +205,9 @@ function useItems(
 				isDisabled: props.outdentDisabled,
 				isActive: false,
 				elemAfter: <Shortcut>{tooltip(toggleOutdentKeymap)}</Shortcut>,
-				elemBefore:
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_6') ? (
-						<TextIndentLeftIcon label="" />
-					) : undefined,
+				elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
+					<TextIndentLeftIcon label="" />
+				) : undefined,
 			},
 			{
 				key: 'indent',
@@ -226,11 +216,9 @@ function useItems(
 				isDisabled: props.indentDisabled,
 				isActive: false,
 				elemAfter: <Shortcut>{tooltip(toggleIndentKeymap)}</Shortcut>,
-				elemBefore:
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_6') ? (
-						<TextIndentRightIcon label="" />
-					) : undefined,
+				elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
+					<TextIndentRightIcon label="" />
+				) : undefined,
 			},
 		);
 	}

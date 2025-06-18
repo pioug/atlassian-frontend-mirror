@@ -39,6 +39,7 @@ import { type FileStateFlags } from './components/types';
 import type { SvgViewerProps } from './viewers/svg';
 import { type ViewerOptionsProps } from './viewerOptions';
 import { CustomViewer } from './viewers/customViewer/customViewer';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const ImageViewer = Loadable({
 	loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -68,6 +69,15 @@ const DocViewer = Loadable({
 		),
 	loading: () => <Spinner />,
 });
+
+const DocNextViewer = Loadable({
+	loader: (): Promise<React.ComponentType<DocViewerProps>> =>
+		import(/* webpackChunkName: "@atlaskit-internal_docNextViewer" */ './viewers/doc-next').then(
+			(mod) => mod.DocViewer,
+		),
+	loading: () => <Spinner />,
+});
+
 const CodeViewer = Loadable({
 	loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
 		import(/* webpackChunkName: "@atlaskit-internal_codeViewer" */ './viewers/codeViewer').then(
@@ -305,6 +315,9 @@ export const ItemViewerBase = ({
 					/>
 				);
 			case 'doc':
+				if (fg('media_document_viewer')) {
+					return <DocNextViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
+				}
 				return <DocViewer onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
 			case 'archive':
 				return <ArchiveViewerLoader onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;

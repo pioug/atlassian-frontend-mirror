@@ -31,6 +31,7 @@ import type {
 import { GUIDELINE_KEYS } from './get-guidelines';
 import { handleKeyDown } from './handle-key-down';
 import { ResizingMarkView } from './resizing-mark-view';
+import { updateExpandedStateNew } from './utils/single-player-expand';
 
 type AddBreakoutToResizableNodeProps = {
 	node: Node;
@@ -57,7 +58,9 @@ const addBreakoutToResizableNode = ({
 
 	if (breakoutResizableNodes.has(node.type) && isTopLevelNode) {
 		const { breakout } = newState.schema.marks;
+		const { expand } = newState.schema.nodes;
 		const breakoutMark = node.marks.find((mark) => mark.type === breakout);
+		const isExpand = node.type === expand;
 
 		if (!breakoutMark) {
 			const width = isFullWidthEnabled ? akEditorFullWidthLayoutWidth : akEditorDefaultLayoutWidth;
@@ -65,6 +68,11 @@ const addBreakoutToResizableNode = ({
 			updatedTr = newTr.setNodeMarkup(pos, node.type, node.attrs, [
 				breakout.create({ width: width }),
 			]);
+
+			if (isExpand && fg('platform_editor_breakout_resizing_hello_release')) {
+				updateExpandedStateNew({ tr: updatedTr, node, pos, isLivePage: true });
+			}
+
 			updatedDocChanged = true;
 		} else if (breakoutMark?.attrs.width === null || breakoutMark?.attrs.width === undefined) {
 			const mode = breakoutMark.attrs.mode;
@@ -73,6 +81,11 @@ const addBreakoutToResizableNode = ({
 			updatedTr = newTr.setNodeMarkup(pos, node.type, node.attrs, [
 				breakout.create({ width: newWidth, mode: mode }),
 			]);
+
+			if (isExpand && fg('platform_editor_breakout_resizing_hello_release')) {
+				updateExpandedStateNew({ tr: updatedTr, node, pos, isLivePage: true });
+			}
+
 			updatedDocChanged = true;
 		}
 	}
@@ -168,13 +181,21 @@ export const createResizingPlugin = (
 					return new ResizingMarkView(mark, view, api, getIntl, nodeViewPortalProviderAPI);
 				},
 			},
-			handleKeyDown,
+			handleKeyDown: handleKeyDown(api),
 		},
 		appendTransaction(
 			transactions: readonly Transaction[],
 			oldState: EditorState,
 			newState: EditorState,
 		) {
+			// if editor is in live-view mode don't send transactions
+			if (
+				api?.editorViewMode?.sharedState.currentState()?.mode !== 'edit' &&
+				fg('platform_editor_breakout_resizing_hello_release')
+			) {
+				return;
+			}
+
 			let newTr = newState.tr;
 			let hasDocChanged = false;
 

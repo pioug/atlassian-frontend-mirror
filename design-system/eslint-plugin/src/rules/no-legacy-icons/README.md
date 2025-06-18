@@ -58,6 +58,11 @@ Defaults to `true`.
 When `true`, the autofixer will only attempt to migrate icons that are visually similar. Defaults to
 `false`.
 
+### shouldUseMigrationPath
+
+When `true`, the autofixer will use feature flagged migration entry-points,
+`@atlaskit/icon/core/migration/`. Defaults to `true`.
+
 ### quiet
 
 When `true`, the rule will only provide one error per icon usage, stating if the icon can be

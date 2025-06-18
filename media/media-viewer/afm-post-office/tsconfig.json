@@ -54,6 +54,9 @@
 			"path": "../../media-common/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../media-document-viewer/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../media-svg/afm-post-office/tsconfig.json"
 		},
 		{

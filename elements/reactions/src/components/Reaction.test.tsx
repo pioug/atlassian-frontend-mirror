@@ -2,6 +2,7 @@ import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type EmojiDescription, type EmojiProvider, toEmojiId } from '@atlaskit/emoji';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import {
@@ -39,13 +40,19 @@ jest.mock('./ReactionParticleEffect', () => {
  * @param users list of users selecting the emoji
  * @returns ReactionSummary object
  */
-const getReaction = (count: number, reacted: boolean, users?: User[]): ReactionSummary => ({
+const getReaction = (
+	count: number,
+	reacted: boolean,
+	users?: User[],
+	optimistic?: boolean,
+): ReactionSummary => ({
 	ari,
 	containerAri,
 	emojiId: toEmojiId(grinning).id!,
 	count,
 	reacted,
 	users,
+	emojiPath: optimistic ? '/emoji/grinning' : undefined,
 });
 
 /**
@@ -58,25 +65,40 @@ const getReaction = (count: number, reacted: boolean, users?: User[]): ReactionS
  * @param onEvent onEvent for the analytics engine handler
  * @param users list of users reacted to the emoji clicked
  * @param showParticleEffect flag that adds particle effect to reactions
+ * @param optimistic flag that adds optimistic image URL to reactions
  * @returns JSX.Element
  */
-const renderReaction = (
-	reacted: boolean,
-	count: number,
-	onClick: ReactionClick = () => {},
-	onMouseEnter: ReactionMouseEnter = () => {},
+const renderReaction = ({
+	reacted,
+	count,
+	onClick = () => {},
+	onMouseEnter = () => {},
 	enableFlash = false,
-	onEvent: (event: UIAnalyticsEvent, channel?: string) => void = () => {},
-	users: User[] = [],
-	showParticleEffect: boolean = false,
-	showOpaqueBackground: boolean = false,
-	isViewOnly: boolean = false,
-	showSubtleStyle: boolean = false,
-) =>
+	onEvent = () => {},
+	users = [],
+	showParticleEffect = false,
+	showOpaqueBackground = false,
+	isViewOnly = false,
+	showSubtleStyle = false,
+	optimistic = false,
+}: {
+	reacted: boolean;
+	count: number;
+	onClick?: ReactionClick;
+	onMouseEnter?: ReactionMouseEnter;
+	enableFlash?: boolean;
+	onEvent?: (event: UIAnalyticsEvent, channel?: string) => void;
+	users?: User[];
+	showParticleEffect?: boolean;
+	showOpaqueBackground?: boolean;
+	isViewOnly?: boolean;
+	showSubtleStyle?: boolean;
+	optimistic?: boolean;
+}) =>
 	renderWithIntl(
 		<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
 			<Reaction
-				reaction={getReaction(count, reacted, users)}
+				reaction={getReaction(count, reacted, users, optimistic)}
 				emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
 				onClick={onClick}
 				onMouseEnter={onMouseEnter}
@@ -96,7 +118,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 	it('should render emoji with resolved emoji data', async () => {
 		const count = 1;
 		const reacted = false;
-		renderReaction(reacted, count);
+		renderReaction({ reacted, count });
 
 		const emojiButton = await screen.findByTestId(RENDER_REACTION_TESTID);
 		expect(emojiButton).toBeInTheDocument();
@@ -108,7 +130,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const reacted = false;
 		const onClickSpy = jest.fn();
 		const onMouseEnterSpy = jest.fn();
-		renderReaction(reacted, count, onClickSpy, onMouseEnterSpy);
+		renderReaction({ reacted, count, onClick: onClickSpy, onMouseEnter: onMouseEnterSpy });
 
 		const emojiButton = await screen.findByTestId(RENDER_REACTION_TESTID);
 		expect(emojiButton).toBeInTheDocument();
@@ -126,7 +148,13 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const onClickSpy = jest.fn();
 		const onMouseEnterSpy = jest.fn();
 
-		renderReaction(reacted, count, onClickSpy, onMouseEnterSpy, enableFlash);
+		renderReaction({
+			reacted,
+			count,
+			onClick: onClickSpy,
+			onMouseEnter: onMouseEnterSpy,
+			enableFlash,
+		});
 		act(() => {
 			jest.runAllTimers();
 		});
@@ -144,7 +172,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const reacted = false;
 		const onClickSpy = jest.fn();
 		const onMouseEnterSpy = jest.fn();
-		renderReaction(reacted, count, onClickSpy, onMouseEnterSpy);
+		renderReaction({ reacted, count, onClick: onClickSpy, onMouseEnter: onMouseEnterSpy });
 
 		const content = await screen.findByRole('button');
 		expect(content).toBeInTheDocument();
@@ -162,17 +190,17 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const users: User[] = [];
 		const showParticleEffect = false;
 		const showOpaqueBackground = true;
-		renderReaction(
+		renderReaction({
 			reacted,
 			count,
-			onClickSpy,
-			onMouseEnterSpy,
+			onClick: onClickSpy,
+			onMouseEnter: onMouseEnterSpy,
 			enableFlash,
-			onEventSpy,
+			onEvent: onEventSpy,
 			users,
 			showParticleEffect,
 			showOpaqueBackground,
-		);
+		});
 		const btn = await screen.findByRole('button');
 		expect(btn).toBeInTheDocument();
 		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-background-selected,#e9f2ff)');
@@ -189,17 +217,17 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const users: User[] = [];
 		const showParticleEffect = false;
 		const showOpaqueBackground = true;
-		renderReaction(
+		renderReaction({
 			reacted,
 			count,
-			onClickSpy,
-			onMouseEnterSpy,
+			onClick: onClickSpy,
+			onMouseEnter: onMouseEnterSpy,
 			enableFlash,
-			onEventSpy,
+			onEvent: onEventSpy,
 			users,
 			showParticleEffect,
 			showOpaqueBackground,
-		);
+		});
 		const btn = await screen.findByRole('button');
 		expect(btn).toBeInTheDocument();
 		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-surface,#fff)');
@@ -216,18 +244,18 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const showParticleEffect = false;
 		const showOpaqueBackground = true;
 		const isViewOnly = true;
-		renderReaction(
+		renderReaction({
 			reacted,
 			count,
-			onClickSpy,
-			onMouseEnterSpy,
+			onClick: onClickSpy,
+			onMouseEnter: onMouseEnterSpy,
 			enableFlash,
-			onEventSpy,
+			onEvent: onEventSpy,
 			users,
 			showParticleEffect,
 			showOpaqueBackground,
 			isViewOnly,
-		);
+		});
 		const reactionContainer = await screen.findByTestId('render_reaction_wrapper');
 		expect(reactionContainer).toBeInTheDocument();
 		expect(reactionContainer).toHaveCompiledCss('border', 'none');
@@ -244,21 +272,31 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		const showParticleEffect = false;
 		const showOpaqueBackground = true;
 		const showSubtleStyle = true;
-		renderReaction(
+		renderReaction({
 			reacted,
 			count,
-			onClickSpy,
-			onMouseEnterSpy,
+			onClick: onClickSpy,
+			onMouseEnter: onMouseEnterSpy,
 			enableFlash,
-			onEventSpy,
+			onEvent: onEventSpy,
 			users,
 			showParticleEffect,
 			showOpaqueBackground,
 			showSubtleStyle,
-		);
+		});
 		const reactionContainer = await screen.findByTestId('render_reaction_wrapper');
 		expect(reactionContainer).toBeInTheDocument();
 		expect(reactionContainer).toHaveCompiledCss('border', 'none');
+	});
+
+	ffTest('platform_optimistic_reaction_emoji', async () => {
+		const count = 1;
+		const reacted = false;
+		renderReaction({ reacted, count, optimistic: true });
+
+		const emojiButton = await screen.findByTestId(RENDER_REACTION_TESTID);
+		expect(emojiButton).toBeInTheDocument();
+		expect(emojiButton).toHaveAttribute('data-emoji-id', grinning.id);
 	});
 
 	describe('with analytics', () => {
@@ -269,7 +307,14 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 			const onMouseEnterSpy = jest.fn();
 			const enableFlash = false;
 			const onEventSpy = jest.fn();
-			renderReaction(reacted, count, onClickSpy, onMouseEnterSpy, enableFlash, onEventSpy);
+			renderReaction({
+				reacted,
+				count,
+				onClick: onClickSpy,
+				onMouseEnter: onMouseEnterSpy,
+				enableFlash,
+				onEvent: onEventSpy,
+			});
 
 			const btn = await screen.findByRole('button');
 			expect(btn).toBeInTheDocument();
@@ -309,7 +354,15 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 					displayName: 'Luiz',
 				},
 			];
-			renderReaction(reacted, count, onClickSpy, onMouseEnterSpy, enableFlash, onEventSpy, users);
+			renderReaction({
+				reacted,
+				count,
+				onClick: onClickSpy,
+				onMouseEnter: onMouseEnterSpy,
+				enableFlash,
+				onEvent: onEventSpy,
+				users,
+			});
 
 			const btn = await screen.findByRole('button');
 			expect(btn).toBeInTheDocument();
@@ -346,16 +399,16 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 			const onEventSpy = jest.fn();
 			const users: User[] = [];
 			const showParticleEffect = true;
-			renderReaction(
+			renderReaction({
 				reacted,
 				count,
-				onClickSpy,
-				onMouseEnterSpy,
+				onClick: onClickSpy,
+				onMouseEnter: onMouseEnterSpy,
 				enableFlash,
-				onEventSpy,
+				onEvent: onEventSpy,
 				users,
 				showParticleEffect,
-			);
+			});
 			const btn = await screen.findByRole('button');
 			expect(btn).toBeInTheDocument();
 
@@ -376,16 +429,16 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 			const onEventSpy = jest.fn();
 			const users: User[] = [];
 			const showParticleEffect = false;
-			renderReaction(
+			renderReaction({
 				reacted,
 				count,
-				onClickSpy,
-				onMouseEnterSpy,
+				onClick: onClickSpy,
+				onMouseEnter: onMouseEnterSpy,
 				enableFlash,
-				onEventSpy,
+				onEvent: onEventSpy,
 				users,
 				showParticleEffect,
-			);
+			});
 			const btn = await screen.findByRole('button');
 			expect(btn).toBeInTheDocument();
 

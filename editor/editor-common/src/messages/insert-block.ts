@@ -128,7 +128,7 @@ export const toolbarInsertBlockMessages = defineMessages({
 	},
 	feedbackDialogDescription: {
 		id: 'fabric.editor.feedbackDialog.description',
-		defaultMessage: 'Tell us about your experience using the new editor',
+		defaultMessage: 'Tell us about your experience using the cloud editor',
 		description: 'Description for feedback option under quick insert dropdown',
 	},
 	horizontalRule: {

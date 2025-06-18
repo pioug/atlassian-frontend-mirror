@@ -5,7 +5,6 @@ import type { NodeRange, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { findFirstParentListItemNode } from '../utils/find';
 
@@ -151,10 +150,7 @@ const createIndentedListItemsSlice = ({
 	range,
 	hasLastItemExtension,
 }: CreateIndentedListItemsSliceProps): [Slice, Slice] => {
-	const listItemsSlice = tr.doc.slice(
-		from,
-		hasLastItemExtension && fg('platform_editor_non_macros_list_indent_fix') ? to : to - 2,
-	);
+	const listItemsSlice = tr.doc.slice(from, hasLastItemExtension ? to : to - 2);
 	const listFragment = Fragment.from(listNodeType.create(null, listItemsSlice.content));
 
 	const nonSelectedListItemsSlice = tr.doc.slice(to, range.end - 2);

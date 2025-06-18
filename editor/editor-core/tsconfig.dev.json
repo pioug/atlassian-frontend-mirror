@@ -250,6 +250,9 @@
 			"path": "../../design-system/radio/tsconfig.app.json"
 		},
 		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
+		},
+		{
 			"path": "../renderer/tsconfig.app.json"
 		},
 		{
@@ -290,9 +293,6 @@
 		},
 		{
 			"path": "../../elements/util-data-test/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/width-detector/tsconfig.app.json"

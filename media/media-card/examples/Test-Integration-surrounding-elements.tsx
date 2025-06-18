@@ -1,3 +1,7 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useState } from 'react';
 import { token } from '@atlaskit/tokens';
 import {
@@ -7,7 +11,42 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MainWrapper } from '../example-helpers';
 import { Card } from '../src/card/card';
+import { MediaClientContext } from '@atlaskit/media-client-react';
+import { jsx } from '@compiled/react';
+import { css } from '@compiled/react';
 
+const testButtonStyles = css({
+	width: '100%',
+	height: '100%',
+	boxSizing: 'border-box',
+});
+
+const wrapperStyles = css({
+	boxSizing: 'border-box',
+	height: '100vh',
+	display: 'flex',
+	justifyContent: 'center',
+	flexWrap: 'wrap',
+});
+
+const clickCountsButtonStyles = css({
+	position: 'absolute',
+	zIndex: 200,
+	alignSelf: 'center',
+	justifySelf: 'center',
+	fontSize: '3rem',
+	backgroundColor: token('elevation.surface.overlay', 'white'),
+	paddingTop: token('space.600', '3rem'),
+	paddingRight: token('space.600', '3rem'),
+	paddingBottom: token('space.600', '3rem'),
+	paddingLeft: token('space.600', '3rem'),
+	border: 'none',
+	cursor: 'pointer',
+});
+
+const itemDivStyles = css({
+	width: '20%',
+});
 const identifier = createIdentifier();
 const fileStateFactory = new FileStateFactory(identifier, {
 	fileDetails: createFileDetails(identifier.id, 'image'),
@@ -20,14 +59,7 @@ export default () => {
 	const TestButton = ({ children }: { children: React.ReactNode }) => {
 		return (
 			<button
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: '100%',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					height: '100%',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					boxSizing: 'border-box',
-				}}
+				css={testButtonStyles}
 				onClick={() => setClickCount((prevclickCount) => prevclickCount + 1)}
 			>
 				{children}
@@ -36,65 +68,36 @@ export default () => {
 	};
 
 	return (
-		<MainWrapper disableFeatureFlagWrapper={true} developmentOnly>
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					boxSizing: 'border-box',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					height: '100vh',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					display: 'flex',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					justifyContent: 'center',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					flexWrap: 'wrap',
-				}}
-				id="wrapper"
-			>
-				{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
-				<div
-					id="clickCounts"
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						position: 'absolute',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						zIndex: 200,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						alignSelf: 'center',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						justifySelf: 'center',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						fontSize: '3rem',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						backgroundColor: token('elevation.surface.overlay', 'white'),
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						padding: token('space.600', '3rem'),
-					}}
-					onClick={() => setClickCount(clickCount + 1)}
-				>
-					{clickCount}
+		<MediaClientContext.Provider value={fileStateFactory.mediaClient}>
+			<MainWrapper disableFeatureFlagWrapper={true} developmentOnly>
+				<div css={wrapperStyles} id="wrapper">
+					<button
+						id="clickCounts"
+						css={clickCountsButtonStyles}
+						onClick={() => setClickCount(clickCount + 1)}
+					>
+						{clickCount}
+					</button>
+					{Array(45)
+						.fill('button')
+						.map((value, index) => {
+							const id = `${value}-${index}`;
+							return (
+								<div css={itemDivStyles} key={id} id={`itemNumber${index}`}>
+									{renderCardsAt.includes(index) ? (
+										<Card
+											mediaClient={fileStateFactory.mediaClient}
+											identifier={identifier}
+											dimensions={{ width: '100%', height: '100%' }}
+										/>
+									) : (
+										<TestButton key={id}>{id}</TestButton>
+									)}
+								</div>
+							);
+						})}
 				</div>
-				{Array(45)
-					.fill('button')
-					.map((value, index) => {
-						const id = `${value}-${index}`;
-						return (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							<div style={{ width: '20%' }} key={id} id={`itemNumber${index}`}>
-								{renderCardsAt.includes(index) ? (
-									<Card
-										mediaClient={fileStateFactory.mediaClient}
-										identifier={identifier}
-										dimensions={{ width: '100%', height: '100%' }}
-									/>
-								) : (
-									<TestButton key={id}>{id}</TestButton>
-								)}
-							</div>
-						);
-					})}
-			</div>
-		</MainWrapper>
+			</MainWrapper>
+		</MediaClientContext.Provider>
 	);
 };

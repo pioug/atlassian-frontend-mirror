@@ -88,7 +88,7 @@ import {
 	linkStyles,
 	linkStylesOld,
 } from './styles/link';
-import { listLayoutShiftFix, listsStyles, listsStylesSafariFix } from './styles/list';
+import { listsStyles, listsStylesSafariFix } from './styles/list';
 import { mediaAlignmentStyles, mediaGroupStyles, mediaStyles } from './styles/mediaStyles';
 import {
 	mentionsStyles,
@@ -111,6 +111,7 @@ import {
 	placeholderOverflowStyles,
 	placeholderStyles,
 	placeholderTextStyles,
+	placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour,
 	placeholderWrapStyles,
 } from './styles/placeholderStyles';
 import {
@@ -218,6 +219,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform_editor_fix_floating_toolbar_focus') && firstFloatingToolbarButtonStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					placeholderTextStyles,
+					fg('platform_editor_system_fake_text_highlight_colour') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					placeholderStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -455,8 +459,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					isFullPage && fullPageEditorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					isFullPage && scrollbarStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform_editor_ssr_fix_lists') && listLayoutShiftFix,
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							firstCodeBlockWithNoMargin

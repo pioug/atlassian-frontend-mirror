@@ -1,7 +1,9 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { FindReplacePluginState } from '../types';
 
@@ -19,10 +21,14 @@ export const initialState: FindReplacePluginState = {
 	shouldMatchCase: false,
 };
 
-export const createPlugin = (dispatch: Dispatch) =>
-	new SafePlugin({
+export const createPlugin = (dispatch: Dispatch, getIntl: PMPluginFactoryParams['getIntl']) => {
+	return new SafePlugin({
 		key: findReplacePluginKey,
-		state: createPluginState(dispatch, () => initialState),
+		state: createPluginState(dispatch, () =>
+			fg('platform_editor_find_and_replace_part_2')
+				? { ...initialState, getIntl }
+				: { ...initialState },
+		),
 		props: {
 			decorations(state: EditorState) {
 				const { isActive, findText, decorationSet } = getPluginState(state);
@@ -32,3 +38,4 @@ export const createPlugin = (dispatch: Dispatch) =>
 			},
 		},
 	});
+};

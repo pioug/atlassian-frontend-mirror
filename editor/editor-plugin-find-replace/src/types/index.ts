@@ -1,3 +1,5 @@
+import { IntlShape } from 'react-intl-next';
+
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -23,6 +25,8 @@ export interface FindReplacePluginState {
 	decorationSet: DecorationSet;
 	/** Whether find/replace should match case when searching for results */
 	shouldMatchCase: boolean;
+	/** Intl object */
+	getIntl?: () => IntlShape;
 }
 
 export type FindReplaceToolbarButtonWithStateProps = {

@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## null
+
+### Minor Changes
+
+- [#170958](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170958)
+  [`0b7ee494d452a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b7ee494d452a) -
+  [ux] Update fake text-selection styles to use system highlight colours (behind feature gate)
+
+### Patch Changes
+
+- [#167340](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/167340)
+  [`c56340c1e531b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c56340c1e531b) -
+  [ED-28168] Refactor dynamic styles in comment toolbar to static emotion
+- Updated dependencies
+
+## 207.21.3
+
+### Patch Changes
+
+- [#172260](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172260)
+  [`ab178138e93db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab178138e93db) -
+  revert list layout shift fix
+- Updated dependencies
+
+## 207.21.2
+
+### Patch Changes
+
+- [#171657](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171657)
+  [`cb6c865095af1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb6c865095af1) -
+  Clean-up platform_editor_lcm_nested_panel_icon_fix
+- Updated dependencies
+
 ## 207.21.1
 
 ### Patch Changes

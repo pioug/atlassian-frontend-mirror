@@ -160,9 +160,7 @@ export class Dropdown extends PureComponent<Props, State> {
 							isOpen={true}
 							onOpenChange={onOpenChange}
 							position={popupPlacement.join(' ')}
-							shouldFitContainer={
-								fg('platform_editor_controls_patch_6') ? shouldFitContainer : true
-							}
+							shouldFitContainer={shouldFitContainer}
 							id={dropdownListId}
 						>
 							{children}

@@ -34,7 +34,7 @@ const IconSpacingExample = () => {
 			<Heading size="small">
 				Utility icons:{' '}
 				<Lozenge appearance="moved" isBold>
-					Soon to be deprecated
+					Deprecated
 				</Lozenge>
 			</Heading>
 			<Inline space="space.100">

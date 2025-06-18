@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "33.0.2",
+	"version": "33.1.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -141,6 +141,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-editor-coll": {
+			"type": "boolean"
+		},
+		"platform_optimistic_reaction_emoji": {
 			"type": "boolean"
 		}
 	},

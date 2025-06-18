@@ -582,20 +582,31 @@ export const apply = (
 
 	if (api) {
 		if (expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)) {
+			// If page is updated while dragging (likely by remote updates), we simply remove the drop targets
+			// and add them back when the use interacts with the editor again
+			if (isDropTargetsMissing) {
+				const oldDropTargetDecs = findDropTargetDecs(decorations);
+				decorations = decorations.remove(oldDropTargetDecs);
+			}
+
 			if (meta?.activeDropTargetNode) {
 				currentActiveDropTargetNode = meta?.activeDropTargetNode as ActiveDropTargetNode;
-				const decos = getActiveDropTargetDecorations(
+				const oldDropTargetDecs = findDropTargetDecs(decorations);
+
+				const { decsToAdd, decsToRemove } = getActiveDropTargetDecorations(
 					meta.activeDropTargetNode,
 					newState,
 					api,
+					oldDropTargetDecs,
 					formatMessage,
 					nodeViewPortalProviderAPI,
 					latestActiveNode,
 				);
 
-				decorations = decorations.remove(findDropTargetDecs(decorations));
-				if (decos.length > 0) {
-					decorations = decorations.add(newState.doc, decos);
+				decorations = decorations.remove(decsToRemove);
+
+				if (decsToAdd.length > 0) {
+					decorations = decorations.add(newState.doc, decsToAdd);
 				}
 			}
 		} else if (meta?.isDragging || isDropTargetsMissing) {

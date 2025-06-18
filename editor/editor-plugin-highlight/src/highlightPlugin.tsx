@@ -89,10 +89,11 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 				) {
 					const toolbarCustom: FloatingToolbarCustom<Command> = {
 						type: 'custom',
-						render: (_view, _idx, dispatchAnalyticsEvent) => (
+						render: (view, _idx, dispatchAnalyticsEvent) => (
 							<FloatingToolbarHighlightColor
 								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 								pluginInjectionApi={api}
+								editorView={view}
 							/>
 						),
 						fallback: [],

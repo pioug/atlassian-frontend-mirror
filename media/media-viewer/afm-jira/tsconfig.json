@@ -54,6 +54,9 @@
 			"path": "../../media-common/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../media-document-viewer/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../media-svg/afm-jira/tsconfig.json"
 		},
 		{

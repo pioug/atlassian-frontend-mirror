@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.3.3
+
+### Patch Changes
+
+- [#172642](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172642)
+  [`4742ad40d0dde`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4742ad40d0dde) -
+  [ux] Fixes height of the new resize handle when a code block is the first node in the document.
+
 ## 2.3.2
 
 ### Patch Changes

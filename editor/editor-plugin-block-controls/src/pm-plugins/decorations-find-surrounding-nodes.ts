@@ -15,6 +15,8 @@ const IGNORE_NODES = ['tableRow', 'listItem', 'caption', 'media'];
 
 const blockLeafNodes = ['blockCard', 'rule'];
 
+const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
+
 /**
  * This function returns the surrounding nodes of a given resolved position in the editor.
  * It provides the position, node, parent, before and after nodes, index, and depth.
@@ -41,26 +43,34 @@ export const findSurroundingNodes = (
 
 		return {
 			pos: $pos.pos,
-			node: node,
+			node,
 			parent,
 			before,
 			after,
 			index,
-			depth: 1,
+			depth,
 		} as SurroundingNodes;
 	}
 
 	const isRootNode = depth === 1;
 
 	const node = $pos.node(depth);
-	const isIgnoredNode = IGNORE_NODES.includes(node.type.name);
 
-	if (isIgnoredNode && !isRootNode) {
+	// go through the path to find the first node that is not allow child drop target
+	// From top to bottom, we check the node types at each depth
+	for (let i = 1; i < depth; i++) {
+		const nodeType = $pos.node(i).type.name;
+		if (DISABLE_CHILD_DROP_TARGET.includes(nodeType)) {
+			return findSurroundingNodes(state, state.doc.resolve($pos.before(i + 1)), nodeType);
+		}
+	}
+
+	if (IGNORE_NODES.includes(node.type.name) && !isRootNode) {
 		// If the node is an ignored node, we return the surrounding nodes of its parent
 		return findSurroundingNodes(state, state.doc.resolve($pos.before(depth - 1)));
 	}
 
-	const pos = $pos.before(depth);
+	const pos = depth > 0 ? $pos.before(depth) : 0;
 	const parent = isRootNode ? state.doc : $pos.node(depth - 1);
 	const index = $pos.index(depth - 1);
 

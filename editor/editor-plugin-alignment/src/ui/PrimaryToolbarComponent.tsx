@@ -5,7 +5,7 @@ import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
 } from '@atlaskit/editor-common/hooks';
-import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -23,7 +23,6 @@ interface PrimaryToolbarComponentProps {
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	isToolbarReducedSpacing: boolean;
-	toolbarSize?: ToolbarSize;
 }
 
 const usePrimaryToolbarComponentPluginState = sharedPluginStateHookMigratorFactory(
@@ -52,7 +51,6 @@ export function PrimaryToolbarComponent({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	isToolbarReducedSpacing,
-	toolbarSize = ToolbarSize.XXL,
 }: PrimaryToolbarComponentProps) {
 	const { align, isEnabled } = usePrimaryToolbarComponentPluginState(api);
 
@@ -73,7 +71,6 @@ export function PrimaryToolbarComponent({
 			popupsScrollableElement={popupsScrollableElement}
 			api={api}
 			toolbarType={ToolbarType.PRIMARY}
-			toolbarSize={toolbarSize}
 		/>
 	);
 }

@@ -8,6 +8,8 @@ import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
 
+import { Annotations } from './annotations';
+import { DocumentLinks } from './documentLinks';
 import { type Font, type PageContent, type Span } from './types';
 import { getDocumentRoot } from './utils/getDocumentRoot';
 import { useIntersectionObserver } from './utils/useIntersectionObserver';
@@ -118,7 +120,13 @@ const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 		};
 
 		return (
-			<div ref={ref} css={pageWrapperStyles} style={style} data-testid={`page-${pageIndex}`}>
+			<div
+				ref={ref}
+				css={pageWrapperStyles}
+				style={style}
+				data-testid={`page-${pageIndex}`}
+				id={`page-${pageIndex + 1}`}
+			>
 				{imageSrc && (
 					<img
 						style={style}
@@ -146,6 +154,8 @@ const PageView = forwardRef<HTMLDivElement, PageViewProps>(
 								key={i}
 							/>
 						))}
+						{content.annotations && <Annotations annotations={content.annotations} />}
+						{content.links && <DocumentLinks links={content.links} />}
 					</svg>
 				)}
 			</div>

@@ -1139,9 +1139,7 @@ export const DragHandle = ({
 				editorExperiment('platform_editor_controls', 'variant1') && dragHandleColor,
 				// ED-26266: Fixed the drag handle highlight when selecting multiple line in Firefox
 				// See https://product-fabric.atlassian.net/browse/ED-26266
-				browser.gecko &&
-					fg('platform_editor_dnd_handle_highlight_fix_firefox') &&
-					dragHandleMultiLineSelectionFixFirefox,
+				browser.gecko && dragHandleMultiLineSelectionFixFirefox,
 				editorExperiment('advanced_layouts', true) &&
 					isLayoutColumn &&
 					layoutColumnDragHandleStyles,

@@ -19,6 +19,7 @@ export enum ACTION {
 	CHANGED_ICON = 'changedIcon',
 	CHANGED_FULL_WIDTH_MODE = 'changedFullWidthMode',
 	CHANGED_LAYOUT = 'changedLayout',
+	CHANGED_BREAKOUT_MODE = 'changedBreakoutMode',
 	CHANGED_REPLACEMENT_TEXT = 'changedReplacementText',
 	CHANGED_TYPE = 'changedType',
 	CHANGED_URL = 'changedUrl',

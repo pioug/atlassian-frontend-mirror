@@ -263,7 +263,7 @@ const getMediaInlineImageToolbar = (
 				);
 			},
 		});
-		if (!isEditorControlsEnabled || !fg('platform_editor_controls_patch_6')) {
+		if (!isEditorControlsEnabled) {
 			inlineImageItems.push({ type: 'separator' });
 		}
 	}

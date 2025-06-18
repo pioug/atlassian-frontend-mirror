@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.9.3",
+	"version": "38.10.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -196,9 +196,6 @@
 		"smart_links_for_plans_platform": {
 			"type": "boolean"
 		},
-		"expandable_smart_links_for_scorecards_v2": {
-			"type": "boolean"
-		},
 		"platform_bandicoots-smartlink-unresolved-error-key": {
 			"type": "boolean"
 		},
@@ -234,9 +231,6 @@
 			"type": "boolean"
 		},
 		"platform-linking-visual-refresh-inline-lozenge": {
-			"type": "boolean"
-		},
-		"platform-linking-flexible-card-openness": {
 			"type": "boolean"
 		},
 		"platform-linking-flexible-card-unresolved-action": {

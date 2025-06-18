@@ -7,10 +7,10 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { css, jsx } from '@atlaskit/css';
+import { jsx } from '@atlaskit/css';
 import { alignCenter, alignLeft, alignRight, tooltip } from '@atlaskit/editor-common/keymaps';
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import { ToolbarSize, type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import {
 	Shortcut,
@@ -29,9 +29,7 @@ import {
 import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { token } from '@atlaskit/tokens';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 import { ToolbarType, type AlignmentState } from '../../pm-plugins/types';
@@ -53,7 +51,6 @@ export interface Props {
 	disabled?: boolean;
 	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
 	toolbarType: ToolbarType;
-	toolbarSize?: ToolbarSize;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -76,8 +73,6 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 			disabled,
 			intl,
 			api,
-			toolbarType,
-			toolbarSize,
 		} = this.props;
 		const alignment = align ?? 'start';
 
@@ -88,21 +83,6 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 		})
 			? 'compact'
 			: 'none';
-
-		if (
-			toolbarType === ToolbarType.PRIMARY &&
-			toolbarSize &&
-			toolbarSize > ToolbarSize.XL &&
-			editorExperiment('platform_editor_controls', 'variant1', { exposure: true }) &&
-			!fg('platform_editor_controls_patch_6')
-		) {
-			return (
-				<Alignment
-					css={alignmentToolbarStyles}
-					onClick={(align) => this.changeAlignment(align, false)}
-				/>
-			);
-		}
 
 		const items = [
 			{
@@ -133,8 +113,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 
 		return (
 			<ToolbarDropdownWrapper>
-				{editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_patch_6') ? (
+				{editorExperiment('platform_editor_controls', 'variant1') ? (
 					<DropdownMenu
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
@@ -275,12 +254,5 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 		this.toolbarItemRef?.current?.focus();
 	};
 }
-
-const alignmentToolbarStyles = css({
-	paddingTop: token('space.0'),
-	paddingRight: token('space.0'),
-	paddingBottom: token('space.0'),
-	paddingLeft: token('space.0'),
-});
 
 export default injectIntl(AlignmentToolbar);

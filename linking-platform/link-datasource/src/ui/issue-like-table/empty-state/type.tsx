@@ -22,22 +22,16 @@ const EmptyStateIcon = ({ type }: { type: IssueType }) => {
 	const TypeIcon = () => {
 		switch (type) {
 			case 'issue':
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19548
 				return <Issue16Icon label={'issue'} />;
 			case 'commit':
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19548
 				return <Commit16Icon label={'commit'} />;
 			case 'story':
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19548
 				return <Story16Icon label={'story'} />;
 			case 'epic':
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19548
 				return <Epic16Icon label={'epic'} />;
 			case 'bug':
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19548
 				return <Bug16Icon label={'bug'} />;
 			case 'task':
-				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19548
 				return <Task16Icon label={'task'} />;
 		}
 	};

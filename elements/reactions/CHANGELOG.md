@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 33.1.0
+
+### Minor Changes
+
+- [#170825](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170825)
+  [`944add6db1310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/944add6db1310) -
+  Adding an option to optimistically load the emoji using the reaction imagePath.
+
 ## 33.0.2
 
 ### Patch Changes

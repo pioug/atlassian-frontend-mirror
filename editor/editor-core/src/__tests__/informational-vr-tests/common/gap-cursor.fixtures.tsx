@@ -10,9 +10,10 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 
 import { ComposableEditor } from '../../../composable-editor';
 import { Editor } from '../../../index';
-import gapcursor from '../../visual-regression/common/__fixtures__/gap-cursor-adf.json';
-import gapcursorLayout from '../../visual-regression/common/__fixtures__/gap-cursor-layout-adf.json';
+import gapcursor from '../../__fixtures__/gap-cursor-adf.json';
+import gapcursorLayout from '../../__fixtures__/gap-cursor-layout-adf.json';
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function EditorGapCursorDefault() {
 	return (
 		<Editor

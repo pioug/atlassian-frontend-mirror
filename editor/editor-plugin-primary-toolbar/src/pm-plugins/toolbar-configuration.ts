@@ -24,9 +24,7 @@ export const getToolbarComponents = ({
 		const shouldShowUndoRedoGroup = fg('platform_editor_undo_redo_find_on_primary_toolbar');
 		configuration = toolbarConfigurationV2(true, shouldShowUndoRedoGroup);
 	} else {
-		const shouldShowFindGroup = !(
-			!contextualFormattingEnabled && fg('platform_editor_controls_fix_toolbar_config_embeds')
-		);
+		const shouldShowFindGroup = !!contextualFormattingEnabled;
 		configuration = toolbarConfiguration(shouldShowFindGroup);
 	}
 

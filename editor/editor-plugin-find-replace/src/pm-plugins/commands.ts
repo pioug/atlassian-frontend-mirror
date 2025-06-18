@@ -34,8 +34,8 @@ export const activate = () =>
 		// if user has selected text and hit cmd-f, set that as the keyword
 		if (selection instanceof TextSelection && !selection.empty) {
 			findText = getSelectedText(selection);
-			const { shouldMatchCase } = getPluginState(state);
-			matches = findMatches(state.doc, findText, shouldMatchCase);
+			const { shouldMatchCase, getIntl } = getPluginState(state);
+			matches = findMatches(state.doc, findText, shouldMatchCase, undefined, getIntl);
 			index = findSearchIndex(selection.from, matches);
 		}
 
@@ -56,9 +56,11 @@ export const find = (
 		createCommand(
 			(state: EditorState) => {
 				const { selection } = state;
-				const { shouldMatchCase } = getPluginState(state);
+				const { shouldMatchCase, getIntl } = getPluginState(state);
 				const matches =
-					keyword !== undefined ? findMatches(state.doc, keyword, shouldMatchCase) : [];
+					keyword !== undefined
+						? findMatches(state.doc, keyword, shouldMatchCase, undefined, getIntl)
+						: [];
 				const index = findSearchIndex(selection.from, matches);
 
 				// we can't just apply all the decorations to highlight the search results at once
@@ -79,9 +81,11 @@ export const find = (
 			},
 			(tr, state: EditorState) => {
 				const { selection } = state;
-				const { shouldMatchCase } = getPluginState(state);
+				const { shouldMatchCase, getIntl } = getPluginState(state);
 				const matches =
-					keyword !== undefined ? findMatches(state.doc, keyword, shouldMatchCase) : [];
+					keyword !== undefined
+						? findMatches(state.doc, keyword, shouldMatchCase, undefined, getIntl)
+						: [];
 				if (matches.length > 0) {
 					const index = findSearchIndex(selection.from, matches);
 					return tr.setSelection(getSelectionForMatch(tr.selection, tr.doc, index, matches));

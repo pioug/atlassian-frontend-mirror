@@ -172,7 +172,7 @@ export const InlineCardWithAwareness = memo(
 
 			return (
 				(mode === 'edit' ||
-					(editorAppearance === 'comment' && fg('platform_editor_controls_patch_6')) ||
+					editorAppearance === 'comment' ||
 					shouldShowOpenButtonOverlayInChomeless) &&
 				editorExperiment('platform_editor_controls', 'variant1')
 			);

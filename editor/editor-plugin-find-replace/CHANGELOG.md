@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.6.0
+
+### Minor Changes
+
+- [#169485](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169485)
+  [`271cb7104a7f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/271cb7104a7f9) -
+  [ux] [ED-27955] this change is extending the Find algorithm to date nodes behind the
+  platform_editor_find_and_replace_part_2 flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.0
 
 ### Minor Changes

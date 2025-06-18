@@ -102,7 +102,7 @@ const EditToolbarButtonPresentation = ({
 							/>
 						)}
 					</Button>
-					{(!isControlsOn || !fg('platform_editor_controls_patch_6')) && <Separator />}
+					{!isControlsOn && <Separator />}
 				</Flex>
 			);
 		}
@@ -121,7 +121,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{(!isControlsOn || !fg('platform_editor_controls_patch_6')) && <Separator />}
+					{!isControlsOn && <Separator />}
 				</Flex>
 			);
 		}
@@ -150,7 +150,7 @@ const EditToolbarButtonPresentation = ({
 						/>
 					</Button>
 
-					{(!isControlsOn || !fg('platform_editor_controls_patch_6')) && <Separator />}
+					{!isControlsOn && <Separator />}
 				</Flex>
 			);
 

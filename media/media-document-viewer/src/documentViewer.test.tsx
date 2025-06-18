@@ -3,7 +3,16 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 
 import { DocumentViewer } from './documentViewer';
-import { type Font, type PageContent, type PageRangeContent, type Span } from './types';
+import {
+	type ComboBoxField,
+	type Font,
+	type Link,
+	type PageAnnotations,
+	type PageContent,
+	type PageRangeContent,
+	type Span,
+	type TextField,
+} from './types';
 
 // Define the props type locally to avoid circular imports
 type DocumentViewerProps = {
@@ -75,6 +84,47 @@ describe('DocumentViewer', () => {
 		r: 0,
 	};
 
+	const mockTextField: TextField = {
+		x: 50,
+		y: 100,
+		w: 150,
+		h: 20,
+		f: 12,
+		text: 'Form field text',
+	};
+
+	const mockComboBoxField: ComboBoxField = {
+		x: 200,
+		y: 150,
+		w: 100,
+		h: 25,
+		f: 14,
+		text: 'Combo option',
+	};
+
+	const mockUriLink: Link = {
+		type: 'uri',
+		dest: 'https://example.com',
+		x: 300,
+		y: 200,
+		w: 80,
+		h: 15,
+	};
+
+	const mockLocalLink: Link = {
+		type: 'local',
+		p_num: 2,
+		x: 400,
+		y: 250,
+		w: 60,
+		h: 18,
+	};
+
+	const mockAnnotations: PageAnnotations = {
+		text_form_fields: [mockTextField],
+		combobox_form_fields: [mockComboBoxField],
+	};
+
 	const mockPageContent: PageContent = {
 		width: 800,
 		height: 600,
@@ -85,6 +135,8 @@ describe('DocumentViewer', () => {
 				r: 0,
 			},
 		],
+		annotations: mockAnnotations,
+		links: [mockUriLink, mockLocalLink],
 	};
 
 	const mockPageRangeContent: PageRangeContent = {
@@ -126,6 +178,15 @@ describe('DocumentViewer', () => {
 			expect(screen.getByTestId('page-1')).toBeInTheDocument();
 			expect(screen.getByTestId('page-2')).toBeInTheDocument();
 			expect(screen.getByTestId('page-3')).toBeInTheDocument();
+		});
+
+		it('should render page with id attribute', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const page = await screen.findByTestId('page-0');
+			expect(page).toHaveAttribute('id', 'page-1');
 		});
 	});
 
@@ -274,6 +335,112 @@ describe('DocumentViewer', () => {
 
 			const image = await screen.findByTestId('page-0-image');
 			expect(image).toHaveAttribute('alt', '');
+		});
+	});
+
+	describe('Annotations', () => {
+		it('should render text form fields', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const textFormField = await screen.findByTestId('text-form-field-0');
+			expect(textFormField).toBeInTheDocument();
+
+			const input = screen.getByDisplayValue('Form field text');
+			expect(input).toBeInTheDocument();
+			expect(input).toHaveAttribute('readonly');
+			expect(input).toHaveAttribute('type', 'text');
+		});
+
+		it('should render combobox form fields', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const comboboxFormField = await screen.findByTestId('combobox-form-field-0');
+			expect(comboboxFormField).toBeInTheDocument();
+
+			const input = screen.getByDisplayValue('Combo option');
+			expect(input).toBeInTheDocument();
+			expect(input).toHaveAttribute('readonly');
+			expect(input).toHaveAttribute('type', 'text');
+		});
+
+		it('should render empty annotations when no form fields exist', async () => {
+			const emptyAnnotationsContent: PageContent = {
+				...mockPageContent,
+				annotations: {
+					text_form_fields: [],
+					combobox_form_fields: [],
+				},
+			};
+
+			const contentWithEmptyAnnotations: PageRangeContent = {
+				...mockPageRangeContent,
+				pages: [emptyAnnotationsContent],
+			};
+
+			const props = createMockProps({
+				getContent: jest.fn().mockResolvedValue(contentWithEmptyAnnotations),
+			});
+
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Should not render any form field test IDs when arrays are empty
+			expect(screen.queryByTestId('text-form-field-0')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('combobox-form-field-0')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('Document Links', () => {
+		it('should render URI links', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const uriLink = await screen.findByTestId('document-link-0');
+			expect(uriLink).toBeInTheDocument();
+
+			const anchor = uriLink.querySelector('a');
+			expect(anchor).toHaveAttribute('href', 'https://example.com');
+			expect(anchor).toHaveAttribute('target', '_blank');
+			expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
+		});
+
+		it('should render local page links', async () => {
+			const props = createMockProps();
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			const localLink = await screen.findByTestId('document-link-1');
+			expect(localLink).toBeInTheDocument();
+
+			const anchor = localLink.querySelector('a');
+			expect(anchor).toHaveAttribute('href', '#page-3'); // p_num 2 + 1 = page-3
+		});
+
+		it('should render empty links when no links exist', async () => {
+			const emptyLinksContent: PageContent = {
+				...mockPageContent,
+				links: [],
+			};
+
+			const contentWithEmptyLinks: PageRangeContent = {
+				...mockPageRangeContent,
+				pages: [emptyLinksContent],
+			};
+
+			const props = createMockProps({
+				getContent: jest.fn().mockResolvedValue(contentWithEmptyLinks),
+			});
+
+			render(<DocumentViewer {...props} />);
+			await waitFor(async () => await makeAllIntersectionObserversVisible());
+
+			// Should not render any link test IDs when array is empty
+			expect(screen.queryByTestId('document-link-0')).not.toBeInTheDocument();
 		});
 	});
 

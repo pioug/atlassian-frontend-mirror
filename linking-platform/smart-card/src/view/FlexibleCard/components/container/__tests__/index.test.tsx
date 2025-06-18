@@ -10,7 +10,7 @@ import context from '../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { InternalActionName, SmartLinkSize, SmartLinkStatus } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-import { SnippetBlock, TitleBlock } from '../../blocks';
+import { TitleBlock } from '../../blocks';
 import Container from '../index';
 
 jest.mock('../../../../../state/renderers', () => ({
@@ -209,78 +209,49 @@ describe('Container', () => {
 		describe('removeBlockRestriction', () => {
 			const text = 'Hello World';
 
-			ffTest.both('platform-linking-flexible-card-openness', 'with fg', () => {
-				it('does not render non block element by default', async () => {
-					render(
-						<Container testId={testId}>
-							<TitleBlock />
-							<div>{text}</div>
-						</Container>,
-					);
+			it('does not render non block element by default', async () => {
+				render(
+					<Container testId={testId}>
+						<TitleBlock />
+						<div>{text}</div>
+					</Container>,
+				);
 
-					expect(screen.queryByText(text)).not.toBeInTheDocument();
-				});
-
-				it('does not render non block element when false', async () => {
-					render(
-						<Container removeBlockRestriction={false} testId={testId}>
-							<TitleBlock />
-							<div>{text}</div>
-						</Container>,
-					);
-
-					expect(await screen.findByTestId(testId)).toBeInTheDocument();
-					expect(screen.queryByText(text)).not.toBeInTheDocument();
-				});
+				expect(screen.queryByText(text)).not.toBeInTheDocument();
 			});
 
-			ffTest.on('platform-linking-flexible-card-openness', 'with fg', () => {
-				it('render non block element when true', async () => {
-					render(
-						<Container removeBlockRestriction={true} testId={testId}>
-							<TitleBlock />
-							<div>{text}</div>
-						</Container>,
-					);
+			it('does not render non block element when false', async () => {
+				render(
+					<Container removeBlockRestriction={false} testId={testId}>
+						<TitleBlock />
+						<div>{text}</div>
+					</Container>,
+				);
 
-					expect(await screen.findByTestId(testId)).toBeInTheDocument();
-					expect(await screen.findByText(text)).toBeInTheDocument();
-				});
-
-				it('render children without TitleBlock when true', async () => {
-					render(
-						<Container removeBlockRestriction={true} testId={testId}>
-							<div>{text}</div>
-						</Container>,
-					);
-
-					expect(await screen.findByText(text)).toBeInTheDocument();
-				});
+				expect(await screen.findByTestId(testId)).toBeInTheDocument();
+				expect(screen.queryByText(text)).not.toBeInTheDocument();
 			});
 
-			ffTest.off('platform-linking-flexible-card-openness', 'with fg', () => {
-				it('does not render non block element when true', async () => {
-					render(
-						<Container removeBlockRestriction={true} testId={testId}>
-							<TitleBlock />
-							<div>{text}</div>
-						</Container>,
-					);
+			it('render non block element when true', async () => {
+				render(
+					<Container removeBlockRestriction={true} testId={testId}>
+						<TitleBlock />
+						<div>{text}</div>
+					</Container>,
+				);
 
-					expect(await screen.findByTestId(testId)).toBeInTheDocument();
-					expect(screen.queryByText(text)).not.toBeInTheDocument();
-				});
+				expect(await screen.findByTestId(testId)).toBeInTheDocument();
+				expect(await screen.findByText(text)).toBeInTheDocument();
+			});
 
-				it('does not render children without TitleBlock when true', () => {
-					render(
-						<Container removeBlockRestriction={true} testId={testId}>
-							<SnippetBlock />
-							<div>{text}</div>
-						</Container>,
-					);
+			it('render children without TitleBlock when true', async () => {
+				render(
+					<Container removeBlockRestriction={true} testId={testId}>
+						<div>{text}</div>
+					</Container>,
+				);
 
-					expect(screen.queryByText(text)).not.toBeInTheDocument();
-				});
+				expect(await screen.findByText(text)).toBeInTheDocument();
 			});
 		});
 	});

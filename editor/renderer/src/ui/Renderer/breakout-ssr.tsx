@@ -37,23 +37,24 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 			// To investigate if we can replace this.
 			// eslint-disable-next-line react/no-danger
 			dangerouslySetInnerHTML={{
-				__html: fg('platform-ssr-table-resize')
-					? createBreakoutInlineScript(id, true)
-					: createBreakoutInlineScript(id),
+				__html:
+					fg('platform-ssr-table-resize') || fg('platform_breakout_cls')
+						? createBreakoutInlineScript(id, true)
+						: createBreakoutInlineScript(id),
 			}}
 			data-testid="breakout-ssr-inline-script"
 		/>
 	);
 }
 
-export function createBreakoutInlineScript(id: number, optionalFlagArg?: boolean) {
+export function createBreakoutInlineScript(id: number, shouldSkipScript?: boolean) {
 	return `
 	 (function(window){
 		if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) {
 			return;
 		}
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${optionalFlagArg ?? false});
+    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${shouldSkipScript ?? false});
   })(window);
 `;
 }
@@ -126,6 +127,10 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldSkipBreako
 
 					// When flag is on we are using CSS to calculate the table width thus don't need logic below to set the width and left.
 					if (shouldSkipBreakoutScript && node.classList.contains('pm-table-container')) {
+						return;
+					}
+
+					if (shouldSkipBreakoutScript && node.classList.contains('fabric-editor-breakout-mark')) {
 						return;
 					}
 

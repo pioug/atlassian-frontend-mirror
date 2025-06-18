@@ -672,10 +672,7 @@ export const getToolbarConfig =
 				onBlur: clearHoverSelection(),
 			});
 
-			const shouldGroupWithoutSeparators =
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_patch_6');
-
+			const shouldGroupWithoutSeparators = editorExperiment('platform_editor_controls', 'variant1');
 			// testId is required to show focus on trigger button on ESC key press
 			// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
 			const overflowDropdownTestId = fg('platform_editor_controls_patch_8')
@@ -919,11 +916,7 @@ const getColumnSettingItems = (
 		});
 	}
 
-	if (
-		items.length !== 0 &&
-		(!editorExperiment('platform_editor_controls', 'variant1') ||
-			!fg('platform_editor_controls_patch_6'))
-	) {
+	if (items.length !== 0 && !editorExperiment('platform_editor_controls', 'variant1')) {
 		items.push({
 			type: 'separator',
 		});

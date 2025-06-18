@@ -35,6 +35,7 @@ import { cmTheme } from '../ui/theme';
 
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
+import { firstCodeBlockInDocument } from './extensions/firstCodeBlockInDocument';
 import { keymapExtension } from './extensions/keymap';
 import { manageSelectionMarker } from './extensions/manageSelectionMarker';
 import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
@@ -122,6 +123,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				manageSelectionMarker(config.api),
 				prosemirrorDecorationPlugin(this.pmFacet, view, getPos),
 				tripleClickSelectAllExtension(),
+				firstCodeBlockInDocument(getPos),
 			],
 		});
 

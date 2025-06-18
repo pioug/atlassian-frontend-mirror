@@ -9,8 +9,14 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	BreakoutSupportedNodes,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
-import type { BreakoutMode } from '@atlaskit/editor-common/types';
+import type { BreakoutMode, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
@@ -28,7 +34,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import type { BreakoutPluginState } from '../breakoutPluginType';
+import type { BreakoutPlugin, BreakoutPluginState } from '../breakoutPluginType';
 import { removeBreakout } from '../editor-commands/remove-breakout';
 import { setBreakoutMode } from '../editor-commands/set-breakout-mode';
 import { getPluginState } from '../pm-plugins/plugin-key';
@@ -61,6 +67,7 @@ export interface Props {
 	isLivePage?: boolean;
 	isBreakoutNodePresent: boolean;
 	breakoutMode: BreakoutMode | undefined;
+	api: ExtractInjectionAPI<BreakoutPlugin> | undefined;
 }
 
 function getBreakoutNodeElement(
@@ -95,17 +102,38 @@ const LayoutButton = ({
 	isLivePage,
 	isBreakoutNodePresent,
 	breakoutMode: breakoutModeProp,
+	api,
 }: Props & WrappedComponentProps) => {
 	const handleClick = useCallback(
 		(breakoutMode: BreakoutMode) => {
 			const { state, dispatch } = editorView;
 			if (['wide', 'full-width'].indexOf(breakoutMode) !== -1) {
 				setBreakoutMode(breakoutMode, isLivePage)(state, dispatch);
+
+				api?.analytics?.actions.fireAnalyticsEvent({
+					action: ACTION.CHANGED_BREAKOUT_MODE,
+					actionSubject: ACTION_SUBJECT.ELEMENT,
+					eventType: EVENT_TYPE.TRACK,
+					attributes: {
+						mode: breakoutMode as 'center' | 'wide' | 'full-width',
+						nodeType: node?.type.name as BreakoutSupportedNodes,
+					},
+				});
 			} else {
 				removeBreakout(isLivePage)(state, dispatch);
+
+				api?.analytics?.actions.fireAnalyticsEvent({
+					action: ACTION.CHANGED_BREAKOUT_MODE,
+					actionSubject: ACTION_SUBJECT.ELEMENT,
+					eventType: EVENT_TYPE.TRACK,
+					attributes: {
+						mode: 'center',
+						nodeType: node?.type.name as BreakoutSupportedNodes,
+					},
+				});
 			}
 		},
-		[editorView, isLivePage],
+		[api?.analytics?.actions, editorView, isLivePage, node?.type.name],
 	);
 
 	const { state } = editorView;

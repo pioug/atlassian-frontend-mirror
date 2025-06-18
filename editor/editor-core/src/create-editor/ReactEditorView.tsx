@@ -56,6 +56,7 @@ import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemir
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -684,8 +685,72 @@ export function ReactEditorView(props: EditorViewProps) {
 		}
 	}, [editorView, shouldFocus, __livePage, mitigateScrollJump]);
 
+	const scrollElement = React.useRef<Element | null>();
+	const possibleListeners = React.useRef([] as [event: string, handler: () => void][]);
+
+	React.useEffect(() => {
+		return () => {
+			if (fg('cc_editor_abort_ufo_load_on_editor_scroll')) {
+				if (scrollElement.current) {
+					// eslint-disable-next-line react-hooks/exhaustive-deps
+					for (const possibleListener of possibleListeners.current) {
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						scrollElement.current?.removeEventListener(...possibleListener);
+					}
+				}
+				scrollElement.current = null;
+			}
+		};
+	}, []);
+
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
+			if (fg('cc_editor_abort_ufo_load_on_editor_scroll')) {
+				if (node) {
+					scrollElement.current = document.querySelector('[data-editor-scroll-container]');
+
+					const cleanupListeners = () => {
+						// eslint-disable-next-line react-hooks/exhaustive-deps
+						for (const possibleListener of possibleListeners.current) {
+							// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+							scrollElement.current?.removeEventListener(...possibleListener);
+						}
+					};
+
+					if (scrollElement.current) {
+						const wheelAbortHandler = () => {
+							const activeInteraction = getActiveInteraction();
+
+							if (
+								activeInteraction &&
+								['edit-page', 'live-edit'].includes(activeInteraction.ufoName)
+							) {
+								abortAll('new_interaction', `wheel-on-editor-element`);
+							}
+							cleanupListeners();
+						};
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						scrollElement.current.addEventListener('wheel', wheelAbortHandler);
+						possibleListeners.current.push(['wheel', wheelAbortHandler]);
+
+						const scrollAbortHandler = () => {
+							const activeInteraction = getActiveInteraction();
+
+							if (
+								activeInteraction &&
+								['edit-page', 'live-edit'].includes(activeInteraction.ufoName)
+							) {
+								abortAll('new_interaction', `scroll-on-editor-element`);
+							}
+							cleanupListeners();
+						};
+						// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+						scrollElement.current.addEventListener('scroll', scrollAbortHandler);
+						possibleListeners.current.push(['scroll', scrollAbortHandler]);
+					}
+				}
+			}
+
 			if (!viewRef.current && node) {
 				// make sure this doesn't expose the experiment
 				if (editorExperiment('platform_editor_nodevisibility', true, { exposure: false })) {

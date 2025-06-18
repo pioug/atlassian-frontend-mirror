@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.4
+
+### Patch Changes
+
+- [#172648](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172648)
+  [`3606178de772b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3606178de772b) -
+  ED-27422: Clean up platform_editor_element_drag_and_drop_ed_23873
+
 ## 3.19.3
 
 ### Patch Changes

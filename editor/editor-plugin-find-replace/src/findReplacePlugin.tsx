@@ -73,7 +73,7 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 			const plugins: Array<PMPlugin> = [
 				{
 					name: 'findReplace',
-					plugin: ({ dispatch }) => createPlugin(dispatch),
+					plugin: ({ dispatch, getIntl }) => createPlugin(dispatch, getIntl),
 				},
 				{
 					name: 'findReplaceKeymap',

@@ -35,7 +35,50 @@ export type PageContent = {
 	width: number;
 	height: number;
 	lines: readonly Line[];
+	annotations?: PageAnnotations;
+	links?: readonly Link[];
 };
+
+export type PageAnnotations = {
+	text_form_fields: readonly TextField[];
+	combobox_form_fields: readonly ComboBoxField[];
+};
+
+export type TextField = {
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	f: number;
+	text: string;
+};
+
+export type ComboBoxField = {
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	f: number;
+	text: string;
+};
+
+export type Link =
+	| {
+			type: 'uri';
+			dest: string;
+			x: number;
+			y: number;
+			w: number;
+			h: number;
+	  }
+	| {
+			type: 'local';
+			p_num: number;
+			x: number;
+			y: number;
+			w: number;
+			h: number;
+	  };
 
 export type PageRangeContent = {
 	start_index: number;

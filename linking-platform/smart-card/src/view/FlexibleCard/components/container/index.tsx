@@ -60,10 +60,8 @@ export const getChildrenOptions = (
 };
 
 const filterChildren = (children: React.ReactNode, removeBlockRestriction?: boolean) => {
-	if (fg('platform-linking-flexible-card-openness')) {
-		if (removeBlockRestriction) {
-			return children;
-		}
+	if (removeBlockRestriction) {
+		return children;
 	}
 
 	return React.Children.map(children, (child) =>
@@ -115,10 +113,8 @@ const renderChildren = (
 			return React.cloneElement(child, { size, status });
 		}
 
-		if (fg('platform-linking-flexible-card-openness')) {
-			if (removeBlockRestriction) {
-				return child;
-			}
+		if (removeBlockRestriction) {
+			return child;
 		}
 	});
 };

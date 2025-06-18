@@ -62,3 +62,16 @@ export const placeholderTextStyles = css`
 		}
 	}
 `;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles,@atlaskit/design-system/no-css-tagged-template-expression
+export const placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour = css`
+	.ProseMirror {
+		.ProseMirror-fake-text-selection {
+			/* Follow the system highlight colour to match native text selection */
+			background-color: Highlight;
+			/* We should also match the text colour to the system highlight text colour.
+			   That way if the system highlight background is dark, the text will still be readable. */
+			color: HighlightText;
+		}
+	}
+`;

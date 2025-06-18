@@ -188,7 +188,11 @@ export function createResizerCallbacks({
 				? WIDTHS.MAX
 				: getProposedWidth({ initialWidth, location, api, source });
 
-			setBreakoutWidth(newWidth, mode, pos)(view.state, view.dispatch);
+			let isEditMode;
+			if (fg('platform_editor_breakout_resizing_hello_release')) {
+				isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
+			}
+			setBreakoutWidth(newWidth, mode, pos, isEditMode)(view.state, view.dispatch);
 
 			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
 			if (node && fg('platform_editor_breakout_resizing_hello_release')) {

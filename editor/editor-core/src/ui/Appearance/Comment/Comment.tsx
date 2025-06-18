@@ -41,6 +41,7 @@ import type {
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -56,9 +57,10 @@ import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComp
 import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 import WithFlash from '../../WithFlash';
 
-import { MainToolbar, mainToolbarCustomComponentsSlotStyle } from './Toolbar';
+import { MainToolbar } from './Toolbar';
 
 const CommentEditorMargin = 14;
+const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
 
 const commentEditorStyles = css({
 	display: 'flex',
@@ -113,6 +115,48 @@ const secondaryToolbarStyles = css({
 	alignItems: 'center',
 	display: 'flex',
 	padding: `${token('space.150', '12px')} ${token('space.025', '2px')}`,
+});
+
+const mainToolbarCustomComponentsSlotStyle = (isTwoLineEditorToolbar = false) =>
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+	css`
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		flex-grow: 1;
+		padding-right: ${token('space.250', '20px')};
+		> div {
+			display: flex;
+			flex-shrink: 0;
+		}
+		${isTwoLineEditorToolbar &&
+		`
+    @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
+      {
+        padding-right: 0;
+      }
+    }
+  `}
+	`;
+
+const mainToolbarCustomComponentsSlotStyleNew = css({
+	display: 'flex',
+	justifyContent: 'flex-end',
+	alignItems: 'center',
+	flexGrow: 1,
+	paddingRight: token('space.250', '20px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'> div': {
+		display: 'flex',
+		flexShrink: 0,
+	},
+});
+
+const mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
+		paddingRight: 0,
+	},
 });
 
 const appearance: EditorAppearance = 'comment';
@@ -318,8 +362,18 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 								containerElement={containerElement.current}
 								twoLineEditorToolbar={isTwoLineToolbarEnabled}
 							/>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-							<div css={mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)}>
+							<div
+								css={
+									expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
+										? [
+												mainToolbarCustomComponentsSlotStyleNew,
+												isTwoLineToolbarEnabled &&
+													mainToolbarCustomComponentsSlotStyleTwoLineToolbarNew,
+											]
+										: /* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
+											mainToolbarCustomComponentsSlotStyle(isTwoLineToolbarEnabled)
+								}
+							>
 								{customPrimaryToolbarComponents as React.ReactNode}
 							</div>
 						</ToolbarArrowKeyNavigationProvider>

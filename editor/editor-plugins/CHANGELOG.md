@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugins
 
+## 9.2.0
+
+### Minor Changes
+
+- [#170958](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170958)
+  [`0b7ee494d452a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b7ee494d452a) -
+  [ux] Update fake text-selection styles to use system highlight colours (behind feature gate)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.59
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.58
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.57
 
 ### Patch Changes

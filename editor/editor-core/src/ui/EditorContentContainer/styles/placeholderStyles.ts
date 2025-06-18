@@ -67,6 +67,21 @@ export const placeholderTextStyles = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror-fake-text-selection': {
+			// Follow the system highlight colour to match native text selection
+			backgroundColor: 'Highlight',
+			// We should also match the text colour to the system highlight text colour.
+			// That way if the system highlight background is dark, the text will still be readable.
+			color: 'HighlightText',
+		},
+	},
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const placeholderStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

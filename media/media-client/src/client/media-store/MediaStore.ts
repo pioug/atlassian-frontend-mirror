@@ -551,27 +551,30 @@ export class MediaStore implements MediaApi {
 		id: string,
 		options: GetDocumentContentOptions,
 	): Promise<DocumentPageRangeContent> {
+		const endpoint = cdnFeatureFlag('contents');
 		const metadata: RequestMetadata = {
 			method: 'GET',
-			endpoint: '/file/{fileId}/document/contents',
+			endpoint: `/file/{fileId}/document/${endpoint}`,
 		};
 
 		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
 			authContext: { collectionName: options.collectionName },
 			params: {
+				collection: options.collectionName,
 				pageStart: options.pageStart,
 				pageEnd: options.pageEnd,
 				'max-age': FILE_CACHE_MAX_AGE,
 			},
 		};
 
-		return this.request(`/file/${id}/document/contents`, requestOptions).then(
+		return this.request(`/file/${id}/document/${endpoint}`, requestOptions).then(
 			createMapResponseToJson(metadata),
 		);
 	}
 
 	async getDocumentPageImage(id: string, options: GetDocumentPageImage): Promise<Blob> {
+		// Temporarily disabling CDN for document due to bug of CDN not forwarding query params
 		const endpoint = cdnFeatureFlag('page');
 
 		const metadata: RequestMetadata = {
@@ -583,6 +586,7 @@ export class MediaStore implements MediaApi {
 			...metadata,
 			authContext: { collectionName: options.collectionName },
 			params: {
+				collection: options.collectionName,
 				page: options.page,
 				zoom: options.zoom,
 				'max-age': FILE_CACHE_MAX_AGE,

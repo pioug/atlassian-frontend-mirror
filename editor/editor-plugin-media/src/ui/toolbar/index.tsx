@@ -384,7 +384,7 @@ const generateMediaSingleFloatingToolbar = (
 				);
 			},
 		});
-		if (!isEditorControlsEnabled || !fg('platform_editor_controls_patch_6')) {
+		if (!isEditorControlsEnabled) {
 			toolbarButtons.push({ type: 'separator' });
 		}
 	}
@@ -422,10 +422,7 @@ const generateMediaSingleFloatingToolbar = (
 		);
 
 		const addLayoutDropdownToToolbar = () => {
-			if (
-				editorExperiment('platform_editor_controls', 'variant1') &&
-				fg('platform_editor_controls_patch_6')
-			) {
+			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				const layoutDropdown = buildLayoutDropdown(
 					state,
 					intl,
@@ -474,7 +471,7 @@ const generateMediaSingleFloatingToolbar = (
 					toolbarButtons = [
 						...toolbarButtons,
 						trigger,
-						...(isEditorControlsEnabled && fg('platform_editor_controls_patch_6')
+						...(isEditorControlsEnabled
 							? []
 							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 					];

@@ -140,50 +140,32 @@ describe('getSimulatedBetterMetadata', () => {
 			const metadata = getSimulatedBetterMetadata(mockCompassResponse as JsonLd.Response);
 			expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
 			expect(metadata.topMetadata).toEqual(defaultTopMetadata);
-			expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
+			expect(metadata.bottomMetadata).toEqual([
+				{ name: ElementName.AppliedToComponentsCount },
+				...baseBottomMetaData,
+			]);
 		});
 
-		ffTest.off(
-			'expandable_smart_links_for_scorecards_v2',
-			'with compass scorecard-v2 disabled',
-			() => {
-				it('should return default metadata', () => {
-					const metadata = getSimulatedBetterMetadata(
-						mockCompassResponseWithOwnedBy as JsonLd.Response,
-					);
-					expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
-					expect(metadata.topMetadata).toEqual(defaultTopMetadata);
-					expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
-				});
-			},
-		);
+		it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {
+			const metadata = getSimulatedBetterMetadata(
+				mockCompassResponseWithOwnedBy as JsonLd.Response,
+			);
+			expect(metadata.topMetadata).toEqual([
+				{ name: ElementName.OwnedByGroup },
+				{ name: ElementName.OwnedBy },
+				...baseTopMetadata,
+			]);
+		});
 
-		ffTest.on(
-			'expandable_smart_links_for_scorecards_v2',
-			'with compass scorecard-v2 enabled',
-			() => {
-				it('should return ownedByGroup in top primary metadata when ownedBy is present', () => {
-					const metadata = getSimulatedBetterMetadata(
-						mockCompassResponseWithOwnedBy as JsonLd.Response,
-					);
-					expect(metadata.topMetadata).toEqual([
-						{ name: ElementName.OwnedByGroup },
-						{ name: ElementName.OwnedBy },
-						...baseTopMetadata,
-					]);
-				});
-
-				it('should return AppliedToComponentsCount in bottom metadata when appliedToComponentsCount is present', () => {
-					const metadata = getSimulatedBetterMetadata(
-						mockCompassResponseWithAppliedToComponentsCount as JsonLd.Response,
-					);
-					expect(metadata.bottomMetadata).toEqual([
-						{ name: ElementName.AppliedToComponentsCount },
-						...baseBottomMetaData,
-					]);
-				});
-			},
-		);
+		it('should return AppliedToComponentsCount in bottom metadata when appliedToComponentsCount is present', () => {
+			const metadata = getSimulatedBetterMetadata(
+				mockCompassResponseWithAppliedToComponentsCount as JsonLd.Response,
+			);
+			expect(metadata.bottomMetadata).toEqual([
+				{ name: ElementName.AppliedToComponentsCount },
+				...baseBottomMetaData,
+			]);
+		});
 	});
 
 	describe('for Bitbucket objects', () => {

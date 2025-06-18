@@ -16,28 +16,34 @@ import { getContainerProperties } from '../../../common/utils/get-container-prop
 
 export const messages = defineMessages({
 	disconnectDialogTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.title.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.title',
 		defaultMessage: 'Disconnect place',
 		description: 'Title of the disconnect dialog for team containers',
 	},
 	disconnectDialogDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.description',
 		defaultMessage: 'This team will no longer be connected to the {containerName} {containerType}.',
 		description: 'Description of the disconnect dialog for team containers',
 	},
 	disconnectDialogDisclaimer: {
-		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer',
 		defaultMessage:
 			'Disconnecting the team from the {containerType} will not affect any work connected to the team within the {containerType}.',
 		description: 'Disclaimer of the disconnect dialog for team containers',
 	},
+	disconnectDialogDisclaimerFallback: {
+		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.disclaimer-fallback',
+		defaultMessage:
+			'Disconnecting the team from the link will not affect any work connected to the team.',
+		description: 'Disclaimer shown for web links when disconnecting team containers',
+	},
 	disconnectDialogCancelButton: {
-		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.cancel-button',
 		defaultMessage: 'Cancel',
 		description: 'Button to cancel the dialog',
 	},
 	disconnectDialogRemoveButton: {
-		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.disconnect-dialog.remove-button',
 		defaultMessage: 'Remove',
 		description: 'Button to disconnect the team from the container',
 	},
@@ -91,10 +97,14 @@ export const DisconnectDialog = ({
 							}}
 						/>
 					</Box>
-					<FormattedMessage
-						{...messages.disconnectDialogDisclaimer}
-						values={{ containerType: containerTypeText }}
-					/>
+					{containerTypeText ? (
+						<FormattedMessage
+							{...messages.disconnectDialogDisclaimer}
+							values={{ containerType: containerTypeText }}
+						/>
+					) : (
+						<FormattedMessage {...messages.disconnectDialogDisclaimerFallback} />
+					)}
 				</Stack>
 			</ModalBody>
 			<ModalFooter>

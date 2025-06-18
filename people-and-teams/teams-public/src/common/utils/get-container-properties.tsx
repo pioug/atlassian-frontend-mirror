@@ -48,62 +48,62 @@ const styles = cssMap({
 
 export const messages = defineMessages({
 	addConfluenceContainerTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-title',
 		defaultMessage: 'Add space',
 		description: 'Title of the card to add a Confluence space to a team',
 	},
 	confluenceContainerDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-description.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-confluence-space-description',
 		defaultMessage: 'Confluence',
 		description: 'Description of the card to add a Confluence space to a team',
 	},
 	addLoomContainerTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title',
 		defaultMessage: 'Add space',
 		description: 'Title of the card to add a Loom space to a team',
 	},
 	confluenceLoomDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description',
 		defaultMessage: 'Loom',
 		description: 'Description of the card to add a Loom space to a team',
 	},
 	addJiraProjectTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-title.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-title',
 		defaultMessage: 'Add project',
 		description: 'Title of the card to add a Jira project to a team',
 	},
 	jiraProjectDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-description.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-jira-project-description',
 		defaultMessage: 'Jira',
 		description: 'Description of the card to add a Jira project to a team',
 	},
 	addLoomSpaceTitle: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-title',
 		defaultMessage: 'Add space',
 		description: 'Title of the card to add a Loom space to a team',
 	},
 	loomSpaceDescription: {
-		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.add-loom-space-description',
 		defaultMessage: 'Loom',
 		description: 'Description of the card to add a Loom space to a team',
 	},
 	projectContainerText: {
-		id: 'ptc-directory.team-profile-page.team-containers.project-container-text.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.project-container-text',
 		defaultMessage: 'project',
 		description: 'Text for project type containers',
 	},
 	spaceContainerText: {
-		id: 'ptc-directory.team-profile-page.team-containers.space-container-text.non-final',
+		id: 'ptc-directory.team-profile-page.team-containers.space-container-text',
 		defaultMessage: 'space',
 		description: 'Text for space type containers',
 	},
 	emptyWebLinkContainerDescription: {
-		id: 'platform.teams.containers.empty-web-link-description.non-final',
+		id: 'platform.teams.containers.empty-web-link-description',
 		defaultMessage: 'Add any web link',
 		description: 'Description displayed on the empty card for adding a web link to a team',
 	},
 	webLinkContainerDescription: {
-		id: 'platform.teams.containers.web-link-title-description.non-final',
+		id: 'platform.teams.containers.web-link-title-description',
 		defaultMessage: 'Web link',
 		description: 'Description displayed for web link containers in team profile',
 	},

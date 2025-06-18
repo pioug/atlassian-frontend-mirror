@@ -21,7 +21,6 @@ import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import type { DatasourceAdf } from '@atlaskit/link-datasource';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives/compiled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -117,8 +116,7 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 							{...linkToolbarMessages.editLink}
 						/>
 					</Button>
-					{(!editorExperiment('platform_editor_controls', 'variant1') ||
-						!fg('platform_editor_controls_patch_6')) && <Separator />}
+					{!editorExperiment('platform_editor_controls', 'variant1') && <Separator />}
 				</Flex>
 			);
 		}
@@ -136,8 +134,7 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 							{...linkToolbarMessages.editDatasourceStandalone}
 						/>
 					</Button>
-					{(!editorExperiment('platform_editor_controls', 'variant1') ||
-						!fg('platform_editor_controls_patch_6')) && <Separator />}
+					{!editorExperiment('platform_editor_controls', 'variant1') && <Separator />}
 				</Flex>
 			);
 		}
@@ -165,8 +162,7 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 							{...messages.editDropdownTriggerTitle}
 						/>
 					</Button>
-					{(!editorExperiment('platform_editor_controls', 'variant1') ||
-						!fg('platform_editor_controls_patch_6')) && <Separator />}
+					{!editorExperiment('platform_editor_controls', 'variant1') && <Separator />}
 				</Flex>
 			);
 

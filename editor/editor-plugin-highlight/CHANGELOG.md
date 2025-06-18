@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-highlight
 
+## 2.6.2
+
+### Patch Changes
+
+- [#172433](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172433)
+  [`3d8ebdcd90704`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d8ebdcd90704) -
+  [ux] ED-28172 [Selection Toolbar] Highlight color keyboard shortcut (cmd+opt+B) doesn't work
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { PreviewBlock, SnippetBlock, TitleBlock } from '../../view/FlexibleCard/components/blocks';
 import Block from '../../view/FlexibleCard/components/blocks/block';
 import { Title } from '../../view/FlexibleCard/components/elements';
@@ -14,59 +12,41 @@ import {
 } from '../flexible';
 
 describe('isFlexibleUiCard', () => {
-	ffTest.both('platform-linking-flexible-card-openness', 'with fg', () => {
-		it('returns true if card has TitleBlock as children', () => {
-			const isFlexible = isFlexibleUiCard(<TitleBlock />);
+	it('returns true if card has TitleBlock as children', () => {
+		const isFlexible = isFlexibleUiCard(<TitleBlock />);
 
-			expect(isFlexible).toBeTruthy();
-		});
+		expect(isFlexible).toBeTruthy();
+	});
 
-		it('returns false if card does not have TitleBlock as children', () => {
-			const isFlexible = isFlexibleUiCard(<SnippetBlock />);
+	it('returns false if card does not have TitleBlock as children', () => {
+		const isFlexible = isFlexibleUiCard(<SnippetBlock />);
 
-			expect(isFlexible).toBeFalsy();
-		});
+		expect(isFlexible).toBeFalsy();
+	});
 
-		it('returns false if card does not have any children', () => {
-			const isFlexible = isFlexibleUiCard();
+	it('returns false if card does not have any children', () => {
+		const isFlexible = isFlexibleUiCard();
 
-			expect(isFlexible).toBeFalsy();
-		});
+		expect(isFlexible).toBeFalsy();
+	});
 
-		it('returns false if card children is not a flexible ui block', () => {
-			const isFlexible = isFlexibleUiCard(<div />);
+	it('returns false if card children is not a flexible ui block', () => {
+		const isFlexible = isFlexibleUiCard(<div />);
 
-			expect(isFlexible).toBeFalsy();
-		});
+		expect(isFlexible).toBeFalsy();
 	});
 
 	describe('when removeBlockRestriction is true', () => {
-		ffTest.on('platform-linking-flexible-card-openness', 'with fg', () => {
-			it('returns false if card does not have any children', () => {
-				const isFlexible = isFlexibleUiCard(undefined, { removeBlockRestriction: true });
+		it('returns false if card does not have any children', () => {
+			const isFlexible = isFlexibleUiCard(undefined, { removeBlockRestriction: true });
 
-				expect(isFlexible).toBeFalsy();
-			});
-
-			it('returns true if card has any children', () => {
-				const isFlexible = isFlexibleUiCard(<div />, { removeBlockRestriction: true });
-
-				expect(isFlexible).toBeTruthy();
-			});
+			expect(isFlexible).toBeFalsy();
 		});
 
-		ffTest.off('platform-linking-flexible-card-openness', 'with fg', () => {
-			it('returns false if card does not have any children', () => {
-				const isFlexible = isFlexibleUiCard(undefined, { removeBlockRestriction: true });
+		it('returns true if card has any children', () => {
+			const isFlexible = isFlexibleUiCard(<div />, { removeBlockRestriction: true });
 
-				expect(isFlexible).toBeFalsy();
-			});
-
-			it('returns false if card has any children', () => {
-				const isFlexible = isFlexibleUiCard(<div />, { removeBlockRestriction: true });
-
-				expect(isFlexible).toBeFalsy();
-			});
+			expect(isFlexible).toBeTruthy();
 		});
 	});
 });

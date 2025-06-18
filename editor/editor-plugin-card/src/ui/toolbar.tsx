@@ -65,6 +65,7 @@ import CogIcon from '@atlaskit/icon/core/migration/settings--editor-settings';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -321,10 +322,7 @@ const buildAlignmentOptions = (
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	cardOptions?: CardOptions,
 ): FloatingToolbarItem<Command>[] => {
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_6')
-	) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		return buildLayoutDropdown(
 			state,
 			intl,
@@ -614,9 +612,6 @@ const generateToolbarItems =
 					]
 				: [
 						...editButtonItems,
-						...(fg('platform_editor_controls_patch_6')
-							? []
-							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
 						{
 							id: 'editor.link.openLink',
@@ -645,12 +640,7 @@ const generateToolbarItems =
 					pluginInjectionApi?.analytics?.actions,
 					cardOptions,
 				);
-
-				if (
-					alignmentOptions.length &&
-					(!editorExperiment('platform_editor_controls', 'variant1') ||
-						!fg('platform_editor_controls_patch_6'))
-				) {
+				if (alignmentOptions.length && !editorExperiment('platform_editor_controls', 'variant1')) {
 					alignmentOptions.push({
 						type: 'separator',
 					});
@@ -721,8 +711,7 @@ const generateToolbarItems =
 								} satisfies FloatingToolbarItem<never>,
 							]
 						: []),
-
-					...(fg('platform_editor_controls_patch_6')
+					...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')
 						? []
 						: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
 				);
@@ -795,7 +784,9 @@ const getUnlinkButtonGroup = (
 					iconFallback: UnlinkIcon,
 					onClick: withToolbarMetadata(unlinkCard(node, state, editorAnalyticsApi)),
 				},
-				...(fg('platform_editor_controls_patch_6') ? [] : [{ type: 'separator' }]),
+				...(expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1')
+					? []
+					: [{ type: 'separator' }]),
 			] as Array<FloatingToolbarItem<Command>>)
 		: [];
 };

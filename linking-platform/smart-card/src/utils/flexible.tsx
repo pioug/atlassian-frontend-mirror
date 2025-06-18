@@ -1,17 +1,13 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import * as Blocks from '../view/FlexibleCard/components/blocks';
 import { FooterBlock, PreviewBlock, TitleBlock } from '../view/FlexibleCard/components/blocks';
 import * as Elements from '../view/FlexibleCard/components/elements';
 import { type FlexibleUiOptions } from '../view/FlexibleCard/types';
 
 export const isFlexibleUiCard = (children?: React.ReactNode, ui?: FlexibleUiOptions): boolean => {
-	if (fg('platform-linking-flexible-card-openness')) {
-		if (ui?.removeBlockRestriction) {
-			return children && React.Children.toArray(children)?.length > 0 ? true : false;
-		}
+	if (ui?.removeBlockRestriction) {
+		return children && React.Children.toArray(children)?.length > 0 ? true : false;
 	}
 
 	if (children && React.Children.toArray(children).some((child) => isFlexibleUiTitleBlock(child))) {

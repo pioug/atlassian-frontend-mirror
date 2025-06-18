@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 33.5.0
+
+### Minor Changes
+
+- [#172332](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172332)
+  [`d257b57972216`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d257b57972216) -
+  Updating the response type of document content endpoint to add the new annotation and links from
+  documents
+
 ## 33.4.1
 
 ### Patch Changes

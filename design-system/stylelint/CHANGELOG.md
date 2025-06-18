@@ -1,5 +1,13 @@
 # @atlaskit/stylelint-design-system
 
+## 2.2.3
+
+### Patch Changes
+
+- [#168399](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/168399)
+  [`b3cac034560a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3cac034560a4) -
+  Reverts export scheme change. now uses default exports again
+
 ## 2.2.2
 
 ### Patch Changes

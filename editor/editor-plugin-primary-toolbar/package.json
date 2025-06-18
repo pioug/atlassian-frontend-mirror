@@ -90,9 +90,6 @@
 	"platform-feature-flags": {
 		"platform_editor_undo_redo_find_on_primary_toolbar": {
 			"type": "boolean"
-		},
-		"platform_editor_controls_fix_toolbar_config_embeds": {
-			"type": "boolean"
 		}
 	}
 }

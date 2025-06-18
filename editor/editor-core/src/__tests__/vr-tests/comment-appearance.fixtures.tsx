@@ -8,3 +8,15 @@ export const EmptyCommentEditor = () => {
 	const { preset } = usePreset(() => createDefaultPreset({}));
 	return <ComposableEditor preset={preset} appearance="comment" maxHeight={500} />;
 };
+
+export const CommentEditorTwoLineToolbar = () => {
+	const { preset } = usePreset(() => createDefaultPreset({}));
+	return (
+		<ComposableEditor
+			preset={preset}
+			appearance="comment"
+			maxHeight={500}
+			primaryToolbarComponents={<div>custom primary toolbar</div>}
+		/>
+	);
+};

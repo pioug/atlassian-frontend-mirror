@@ -138,9 +138,6 @@
 		"platform_editor_controls_patch_5": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_6": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_patch_9": {
 			"type": "boolean"
 		},

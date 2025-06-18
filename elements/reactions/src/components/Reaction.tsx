@@ -28,6 +28,7 @@ import { type OpenReactionsDialogOptions } from './Reactions';
 import { token } from '@atlaskit/tokens';
 
 import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const styles = cssMap({
 	container: {
@@ -197,6 +198,12 @@ export const Reaction = ({
 					emojiProvider={emojiProvider}
 					emojiId={emojiId}
 					fitToHeight={RESOURCED_EMOJI_COMPACT_HEIGHT}
+					{...(reaction.emojiPath && fg('platform_optimistic_reaction_emoji')
+						? {
+								optimistic: true,
+								optimisticImageURL: reaction.emojiPath,
+							}
+						: {})}
 				/>
 			</div>
 			<Counter value={reaction.count} highlight={!isViewOnly && reaction.reacted} />

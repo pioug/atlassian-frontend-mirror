@@ -1,3 +1,6 @@
+import { IntlShape } from 'react-intl-next';
+
+import { timestampToString } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node as PmNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -39,6 +42,7 @@ export function findMatches(
 	searchText: string,
 	shouldMatchCase: boolean,
 	contentIndex = 0,
+	getIntl?: () => IntlShape,
 ): Match[] {
 	const matches: Match[] = [];
 	const searchTextLength = searchText.length;
@@ -49,9 +53,9 @@ export function findMatches(
 		if (!textGrouping) {
 			return;
 		}
-		// Ignored via go/ees005
-		// eslint-disable-next-line prefer-const
-		let { text, pos: relativePos } = textGrouping;
+		let { text } = textGrouping;
+		const { pos: relativePos } = textGrouping;
+
 		const pos = contentIndex + relativePos;
 		if (!shouldMatchCase) {
 			searchText = searchText.toLowerCase();
@@ -96,6 +100,24 @@ export function findMatches(
 		}
 	};
 
+	const collectDateMatch = (textGrouping: TextGrouping, nodeSize: number) => {
+		if (!textGrouping) {
+			return;
+		}
+		let { text } = textGrouping;
+		const { pos } = textGrouping;
+
+		if (!shouldMatchCase) {
+			searchText = searchText.toLowerCase();
+			text = text.toLowerCase();
+		}
+		const index = text.indexOf(searchText);
+		if (index !== -1) {
+			const start = pos;
+			matches.push({ start, end: start + nodeSize, canReplace: false });
+		}
+	};
+
 	if (searchTextLength > 0) {
 		content.descendants((node, pos) => {
 			if (node.isText) {
@@ -120,6 +142,20 @@ export function findMatches(
 								},
 								node.nodeSize,
 							);
+							break;
+						case 'date':
+							if (fg('platform_editor_find_and_replace_part_2')) {
+								collectDateMatch(
+									{
+										text: timestampToString(
+											node.attrs.timestamp,
+											getIntl ? getIntl() : null,
+										) as string,
+										pos,
+									},
+									node.nodeSize,
+								);
+							}
 							break;
 						default:
 							break;

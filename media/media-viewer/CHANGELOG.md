@@ -1,5 +1,18 @@
 # @atlaskit/media-viewer
 
+## 52.3.0
+
+### Minor Changes
+
+- [#172332](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172332)
+  [`4c6d176844a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c6d176844a01) -
+  Integrated media document viewer and to enable the new document viewing experience behind
+  media_document_viewer feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.2.5
 
 ### Patch Changes

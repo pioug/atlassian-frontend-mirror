@@ -141,14 +141,12 @@ describe('Action', () => {
 			});
 
 			ffTest.on('platform-linking-visual-refresh-v1', 'with fg', () => {
-				ffTest.both('platform-linking-flexible-card-openness', 'with fg', () => {
-					describe.each([true, false])(
-						'with ui.removeBlockRestriction %s',
-						(removeBlockRestriction: boolean) => {
-							runTest({ removeBlockRestriction });
-						},
-					);
-				});
+				describe.each([true, false])(
+					'with ui.removeBlockRestriction %s',
+					(removeBlockRestriction: boolean) => {
+						runTest({ removeBlockRestriction });
+					},
+				);
 			});
 
 			ffTest.off('platform-linking-visual-refresh-v1', 'with fg', () => {

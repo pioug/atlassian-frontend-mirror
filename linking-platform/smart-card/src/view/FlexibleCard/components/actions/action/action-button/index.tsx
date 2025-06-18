@@ -288,10 +288,7 @@ const ActionButtonNew = ({
 
 const ActionButtonHideLegacyButton = (props: ActionButtonProps): JSX.Element => {
 	const ui = useFlexibleUiOptionContext();
-	if (
-		ui?.hideLegacyButton ||
-		(ui?.removeBlockRestriction && fg('platform-linking-flexible-card-openness'))
-	) {
+	if (ui?.hideLegacyButton || ui?.removeBlockRestriction) {
 		return <ActionButtonRefreshNewWithOverrideCss {...props} />;
 	}
 	return <ActionButtonNew {...props} />;

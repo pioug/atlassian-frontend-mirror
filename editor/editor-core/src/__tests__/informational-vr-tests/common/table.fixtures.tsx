@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { Editor } from '../../../index';
-import defaultTableAdf from '../../visual-regression/table/__fixtures__/default-table.adf.json';
-import nestedTableAdf from '../../visual-regression/table/__fixtures__/nested-table-inside-columns.adf.json';
+import defaultTableAdf from '../../__fixtures__/default-table.adf.json';
+import nestedTableAdf from '../../__fixtures__/nested-table-inside-columns.adf.json';
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function EditorWithTable() {
 	return (
 		<Editor
@@ -15,6 +16,7 @@ export function EditorWithTable() {
 	);
 }
 
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function EditorWithNestedTable() {
 	return (
 		<Editor

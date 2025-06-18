@@ -273,6 +273,17 @@ const responsiveBreakoutWidth = css({
 	},
 });
 
+const responsiveBreakoutWidthFullWidth = css({
+	'--ak-editor--breakout-container-without-gutter-width': '100cqw',
+
+	// Corresponds to the legacyContentStyles from `@atlaskit/editor-core` meant to introduce responsive breakout width.
+	'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidthSmallViewport}px`,
+
+	[`@media (min-width: ${akEditorBreakpointForSmallDevice})`]: {
+		'--ak-editor--breakout-wide-layout-width': `${akEditorCalculatedWideLayoutWidth}px`,
+	},
+});
+
 const hideHeadingCopyLinkWrapperStyles = css({
 	'& h1, & h2, & h3, & h4, & h5, & h6': {
 		[`.${HeadingAnchorWrapperClassName}`]: {
@@ -2140,7 +2151,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps) => {
 				isAdvancedLayoutsOn && layoutSectionForAdvancedLayoutsStyles,
 				!useBlockRenderForCodeBlock && gridRenderForCodeBlockStyles,
 				browser.safari && codeBlockInListSafariFixStyles,
-				fg('platform_breakout_cls') ? responsiveBreakoutWidth : null,
+				appearance === 'full-page' && fg('platform_breakout_cls') ? responsiveBreakoutWidth : null,
+				appearance === 'full-width' && fg('platform_breakout_cls')
+					? responsiveBreakoutWidthFullWidth
+					: null,
 			]}
 			data-testid={testId}
 		>

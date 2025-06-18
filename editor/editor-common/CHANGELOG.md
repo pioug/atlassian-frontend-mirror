@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 106.10.0
+
+### Minor Changes
+
+- [#173259](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173259)
+  [`8c7a6909826be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c7a6909826be) -
+  Add new Changed Breakout Mode event and hook it up to breakout button
+
+### Patch Changes
+
+- [#172707](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172707)
+  [`52f6fc286190c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52f6fc286190c) -
+  [ux] Reserve minimum height for extension nodes behind a feature gate.
+- [#171695](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171695)
+  [`665ba0151dbd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/665ba0151dbd5) -
+  Fixed copy "new editor" -> "cloud editor"
+- Updated dependencies
+
+## 106.9.3
+
+### Patch Changes
+
+- [#171657](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171657)
+  [`cb6c865095af1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb6c865095af1) -
+  Clean-up platform_editor_lcm_nested_panel_icon_fix
+
 ## 106.9.2
 
 ### Patch Changes

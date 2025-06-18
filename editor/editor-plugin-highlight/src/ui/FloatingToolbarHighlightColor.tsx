@@ -22,7 +22,11 @@ import {
 	sharedPluginStateHookMigratorFactory,
 } from '@atlaskit/editor-common/hooks';
 import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
-import { toggleHighlightPalette, tooltip } from '@atlaskit/editor-common/keymaps';
+import {
+	toggleHighlightPalette,
+	tooltip,
+	getAriaKeyshortcuts,
+} from '@atlaskit/editor-common/keymaps';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	disableBlueBorderStyles,
@@ -34,12 +38,14 @@ import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
+import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';
 
 import { EditorHighlightIcon } from './shared/EditorHighlightIcon';
@@ -57,17 +63,20 @@ const highlightIconContainerStyle = css({
 type FloatingToolbarHighlightColorProps = {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	pluginInjectionApi: ExtractInjectionAPI<HighlightPlugin> | undefined;
+	editorView: EditorView | undefined;
 } & WrappedComponentProps;
 
 const useSharedState = sharedPluginStateHookMigratorFactory(
 	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
+		const isPaletteOpen = useSharedPluginStateSelector(api, 'highlight.isPaletteOpen');
 		const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
 		const disabled = useSharedPluginStateSelector(api, 'highlight.disabled');
-		return { activeColor, disabled };
+		return { activeColor, disabled, isPaletteOpen };
 	},
 	(api: ExtractInjectionAPI<HighlightPlugin> | undefined) => {
 		const { highlightState } = useSharedPluginState(api, ['highlight']);
 		return {
+			isPaletteOpen: highlightState?.isPaletteOpen,
 			activeColor: highlightState?.activeColor,
 			disabled: highlightState?.disabled,
 		};
@@ -77,13 +86,25 @@ const useSharedState = sharedPluginStateHookMigratorFactory(
 const FloatingToolbarHighlightColor = ({
 	pluginInjectionApi,
 	intl: { formatMessage },
+	editorView,
 }: FloatingToolbarHighlightColorProps) => {
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const { activeColor, disabled } = useSharedState(pluginInjectionApi);
+	const [isDropdownOpenLocal, setIsDropdownOpenLocal] = useState(false);
+	const { activeColor, disabled, isPaletteOpen } = useSharedState(pluginInjectionApi);
 
 	const setDropdownOpen = (isOpen: boolean) => {
-		setIsDropdownOpen(isOpen);
+		if (fg('platform_editor_controls_patch_14')) {
+			if (!disabled && editorView && pluginInjectionApi) {
+				const { state, dispatch } = editorView;
+				setPalette(pluginInjectionApi)({
+					isPaletteOpen: isOpen,
+					inputMethod: INPUT_METHOD.FLOATING_TB,
+				})(state, dispatch);
+			}
+		} else {
+			setIsDropdownOpenLocal(isOpen);
+		}
+
 		pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent({
 			action: isOpen ? ACTION.OPENED : ACTION.CLOSED,
 			actionSubject: ACTION_SUBJECT.TOOLBAR,
@@ -94,6 +115,11 @@ const FloatingToolbarHighlightColor = ({
 			},
 		});
 	};
+
+	const isDropdownOpenShared = !!isPaletteOpen;
+	const isDropdownOpen = fg('platform_editor_controls_patch_14')
+		? isDropdownOpenShared
+		: isDropdownOpenLocal;
 
 	const {
 		handleClick,
@@ -138,6 +164,11 @@ const FloatingToolbarHighlightColor = ({
 					disabled={disabled}
 					selected={isDropdownOpen}
 					aria-label={title}
+					aria-keyshortcuts={
+						fg('platform_editor_controls_patch_14')
+							? getAriaKeyshortcuts(toggleHighlightPalette)
+							: undefined
+					}
 					aria-expanded={isDropdownOpen}
 					aria-haspopup
 					title={title}

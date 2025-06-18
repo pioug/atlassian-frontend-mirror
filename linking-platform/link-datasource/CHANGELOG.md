@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 4.11.14
+
+### Patch Changes
+
+- [#171027](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171027)
+  [`70d7da6aa73b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70d7da6aa73b0) -
+  Additional clean-up to complete migration to new icon system
+- [#171027](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171027)
+  [`2513c306863d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2513c306863d6) -
+  Internal feature flag clean-up
+- Updated dependencies
+
 ## 4.11.13
 
 ### Patch Changes

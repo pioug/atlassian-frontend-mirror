@@ -82,6 +82,7 @@ export {
 	getTitle,
 	calcBreakoutWithCustomWidth,
 } from './breakout';
+export type { BreakoutConstsType } from './breakout';
 
 export {
 	/**

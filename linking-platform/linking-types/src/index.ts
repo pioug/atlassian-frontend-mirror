@@ -65,4 +65,6 @@ export { SmartLinkActionType, InvokeError } from './smart-link-action-types';
 export type { SupportedFeature } from './supported-feature';
 
 export type { EntityType, DesignEntity } from './entity-types';
+export { isDocumentEntity } from './entity-types';
+
 export type { SmartLinkResponse, ProviderGenerator } from './smart-link-types';

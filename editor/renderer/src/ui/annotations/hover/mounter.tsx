@@ -20,6 +20,7 @@ import {
 	useAnnotationRangeDispatch,
 	useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type Props = {
 	range: Range;
@@ -107,7 +108,10 @@ export const Mounter = React.memo((props: Props) => {
 						action: ACTION.CREATE_NOT_ALLOWED,
 						actionSubject: ACTION_SUBJECT.ANNOTATION,
 						actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-						attributes: {},
+						attributes: {
+							documentPosition,
+							isAnnotationAllowed: isAnnotationAllowed,
+						},
 						eventType: EVENT_TYPE.TRACK,
 					}).fire(FabricChannel.editor);
 				}
@@ -144,6 +148,21 @@ export const Mounter = React.memo((props: Props) => {
 			const positionToAnnotate = hoverDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
+				if (fg('cc_comments_improve_apply_draft_errors')) {
+					if (createAnalyticsEvent) {
+						createAnalyticsEvent({
+							action: ACTION.CREATE_NOT_ALLOWED,
+							actionSubject: ACTION_SUBJECT.ANNOTATION,
+							actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+							attributes: {
+								positionToAnnotate,
+								applyAnnotationMissing: !applyAnnotation,
+								annotationId: options.annotationId,
+							},
+							eventType: EVENT_TYPE.TRACK,
+						}).fire(FabricChannel.editor);
+					}
+				}
 				return false;
 			}
 

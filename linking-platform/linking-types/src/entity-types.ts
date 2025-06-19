@@ -3,6 +3,8 @@ export interface User {
 	id?: string;
 	email?: string;
 	externalId?: string;
+	displayName?: string;
+	picture?: string;
 }
 
 export type DesignType = 'FILE' | 'CANVAS' | 'GROUP' | 'NODE' | 'PROTOTYPE' | 'OTHER';
@@ -10,7 +12,6 @@ export type DesignType = 'FILE' | 'CANVAS' | 'GROUP' | 'NODE' | 'PROTOTYPE' | 'O
 export type DesignStatus = 'READY_FOR_DEVELOPMENT' | 'UNKNOWN' | 'NONE';
 
 export type DesignAttributes = {
-	liveEmbedUrl: string;
 	inspectUrl?: string;
 	status: DesignStatus;
 	type: DesignType;
@@ -95,7 +96,7 @@ export type WorkItemAttributes = {
 	team: string;
 };
 
-export type DocumentType =
+export type DocumentCategory =
 	| 'folder'
 	| 'document'
 	| 'presentation'
@@ -122,6 +123,11 @@ export type ExportLink = {
 	url: string;
 };
 
+export type DocumentType = {
+	iconUrl?: string;
+	category?: DocumentCategory;
+};
+
 export type DocumentAttributes = {
 	type: DocumentType;
 	content?: DocumentContent;
@@ -138,6 +144,7 @@ export interface BaseEntity {
 	schemaVersion?: string;
 	id: string;
 	ari?: string;
+	thirdPartyAri?: string;
 	updateSequenceNumber?: number;
 	thumbnail?: {
 		externalUrl: string;
@@ -151,6 +158,7 @@ export interface BaseEntity {
 	lastUpdatedBy?: User;
 	owners?: User[];
 	permissions?: Record<string, unknown>;
+	liveEmbedUrl?: string;
 }
 
 export interface DesignEntity extends BaseEntity, DesignAttributes {}
@@ -170,6 +178,9 @@ export interface ProjectEntity extends BaseEntity {
 export interface DocumentEntity extends BaseEntity {
 	'atlassian:document': DocumentAttributes;
 }
+
+export const isDocumentEntity = (entity: EntityType): entity is DocumentEntity =>
+	'atlassian:document' in entity;
 
 export interface UnsupportedEntity extends BaseEntity {
 	[x: string | number | symbol]: unknown;

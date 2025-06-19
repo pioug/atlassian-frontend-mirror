@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-metrics",
-	"version": "3.5.1",
+	"version": "3.5.2",
 	"description": "Metrics plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

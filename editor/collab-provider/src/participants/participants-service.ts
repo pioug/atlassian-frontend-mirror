@@ -31,6 +31,8 @@ const logger = createLogger('PresenceService', 'pink');
 const SEND_PRESENCE_INTERVAL = 150 * 1000; // 150 seconds
 const DEFAULT_FETCH_USERS_INTERVAL = 500; // 0.5 second
 const UNIDENTIFIED = 'unidentified';
+export const SINGLE_COLLAB_MODE = 'single';
+export const MULTI_COLLAB_MODE = 'collab';
 
 /**
  * This service is responsible for handling presence and participant events, as well as sending them on to the editor or NCS.
@@ -661,6 +663,6 @@ export class ParticipantsService {
 	};
 
 	getCollabMode = () => {
-		return this.participantsState.size() > 1 ? 'collab' : 'single';
+		return this.participantsState.size() > 1 ? MULTI_COLLAB_MODE : SINGLE_COLLAB_MODE;
 	};
 }

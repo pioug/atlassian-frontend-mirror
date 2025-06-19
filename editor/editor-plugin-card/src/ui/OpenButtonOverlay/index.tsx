@@ -13,7 +13,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { cardMessages } from '@atlaskit/editor-common/messages';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -62,6 +61,7 @@ const linkStyles = xcss({
 	color: 'color.text.subtle',
 
 	textDecoration: 'none',
+	whiteSpace: 'nowrap',
 
 	':hover': {
 		backgroundColor: 'elevation.surface.hovered',
@@ -69,8 +69,6 @@ const linkStyles = xcss({
 		textDecoration: 'none',
 	},
 });
-
-const linkStylesFix = xcss({ whiteSpace: 'nowrap' });
 
 const MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY = 45;
 const ICON_WIDTH = 16;
@@ -85,9 +83,7 @@ const OpenButtonOverlay = ({
 	view,
 }: React.PropsWithChildren<OpenButtonOverlayProps>) => {
 	const { formatMessage } = useIntl();
-	const label = fg('platform_editor_controls_patch_8')
-		? formatMessage(cardMessages.openButtonTitle)
-		: 'Open';
+	const label = formatMessage(cardMessages.openButtonTitle);
 
 	const containerRef = useRef<HTMLSpanElement>(null);
 	const openButtonRef = useRef<HTMLAnchorElement>(null);
@@ -154,14 +150,8 @@ const OpenButtonOverlay = ({
 
 		const openTextWidth = openTextWidthRef.current || DEFAULT_OPEN_TEXT_WIDTH;
 
-		let canShowLabel = true;
-		if (fg('platform_editor_controls_patch_2')) {
-			canShowLabel =
-				cardWidth - openTextWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY + ICON_WIDTH;
-		} else {
-			canShowLabel = cardWidth - openButtonWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY;
-		}
-
+		const canShowLabel =
+			cardWidth - openTextWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY + ICON_WIDTH;
 		setShowLabel(canShowLabel);
 	}, [isVisible, isHovered]);
 
@@ -197,24 +187,21 @@ const OpenButtonOverlay = ({
 		>
 			{children}
 
-			{fg('platform_editor_controls_patch_2') && (
-				<span css={hiddenTextStyle} aria-hidden="true">
-					<Text ref={hiddenTextRef} size="small" maxLines={1}>
-						{label}
-					</Text>
-				</span>
-			)}
+			<span css={hiddenTextStyle} aria-hidden="true">
+				<Text ref={hiddenTextRef} size="small" maxLines={1}>
+					{label}
+				</Text>
+			</span>
 
 			{isHovered && (
 				<Anchor
 					ref={openButtonRef}
-					xcss={[linkStyles, fg('platform_editor_controls_patch_5') && linkStylesFix]}
+					xcss={linkStyles}
 					href={url}
 					target="_blank"
 					style={{
 						paddingBlock:
-							editorAppearance === 'comment' ||
-							(editorAppearance === 'chromeless' && fg('platform_editor_controls_patch_8'))
+							editorAppearance === 'comment' || editorAppearance === 'chromeless'
 								? '1px'
 								: token('space.025'),
 					}}

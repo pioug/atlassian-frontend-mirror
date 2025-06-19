@@ -21,7 +21,7 @@ import { parsePx } from './dom';
  * TODO: Clean this up after: https://product-fabric.atlassian.net/browse/ED-8942
  *
  */
-type BreakoutConstsType = {
+export type BreakoutConstsType = {
 	padding: number;
 	defaultLayoutWidth: number;
 	wideScaleRatio: number;

@@ -1,6 +1,26 @@
 # @atlaskit/editor-core
 
-## null
+## 208.1.0
+
+### Minor Changes
+
+- [#173344](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173344)
+  [`a0e9c4a83afe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0e9c4a83afe5) -
+  Add EditorNextProps export from composable-editor entry point
+
+## 208.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 208.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 207.22.0
 
 ### Minor Changes
 

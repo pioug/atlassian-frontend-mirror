@@ -1,5 +1,17 @@
 # @atlaskit/teams-public
 
+## 0.39.0
+
+### Minor Changes
+
+- [#173114](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173114)
+  [`62a85f0b88860`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62a85f0b88860) -
+  PTC-11556 Add analytics events for supporting all links project
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.38.3
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
-import { commitStepQueue, readyToCommit, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';
+import { CommitStepService, RESET_READYTOCOMMIT_INTERVAL_MS } from '../commit-step';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -15,7 +15,11 @@ import { AcknowledgementResponseTypes } from '../../types';
 import { NotConnectedError } from '../../errors/custom-errors';
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	initialize: jest.fn(Promise.resolve),
+	initializeCompleted: jest.fn(() => true),
 	getExperimentValue: jest.fn(),
+	checkGate: jest.fn(),
 }));
 
 // create editor state
@@ -36,10 +40,36 @@ const fakeStep = new ReplaceStep(1, 1, Slice.empty);
 const emitMock = jest.fn();
 const setNumberOfCommitsSentMock = jest.fn();
 
-const createTestHelpers = () => {
+const createTestHelpers = (
+	options: {
+		offlineBroadcast?: boolean;
+	} = {
+		offlineBroadcast: false,
+	},
+) => {
+	const broadcastSpy = jest.spyOn(provider['channel'], 'broadcast');
+	const onStepsAddedSpy = jest.spyOn(provider['documentService'], 'onStepsAdded');
+	const errorEventSpy = jest.spyOn(provider['analyticsHelper'] as any, 'sendErrorEvent');
+	const actionEventSpy = jest.spyOn(provider['analyticsHelper'] as any, 'sendActionEvent');
+	const onErrorHandledSpy = jest.spyOn(
+		provider['documentService'],
+		// @ts-ignore
+		'onErrorHandled',
+	);
 	// using the Object['attribute'] syntax here to avoid calling
 	// ts-ignore over every line. As a rule this syntax will only be used
 	// to access a private variable within this function block
+
+	const commitStepService = new CommitStepService(
+		options.offlineBroadcast
+			? jest.fn().mockImplementation(() => {
+					throw new NotConnectedError('Cannot broadcast, currently offline.');
+				})
+			: provider['channel'].broadcast,
+		provider['analyticsHelper'],
+		emitMock,
+		provider['documentService']['onErrorHandled'],
+	);
 
 	// pre set commitStep with necessary functions
 	const presetCommitStepQueue = (
@@ -51,32 +81,22 @@ const createTestHelpers = () => {
 			__livePage?: boolean;
 			hasRecovered?: boolean;
 			collabMode?: string;
-			offlineBroadcast?: boolean;
 			isPublish?: boolean;
 			numberOfStepCommitsSent?: number;
 		} = {
 			__livePage: false,
 			hasRecovered: false,
 			collabMode: 'collab',
-			offlineBroadcast: false,
 			isPublish: false,
 			numberOfStepCommitsSent: 0,
 		},
 	) => {
-		commitStepQueue({
-			broadcast: options.offlineBroadcast
-				? jest.fn().mockImplementation(() => {
-						throw new NotConnectedError('Cannot broadcast, currently offline.');
-					})
-				: provider['channel'].broadcast,
+		commitStepService.commitStepQueue({
 			steps,
 			version,
 			userId,
 			clientId,
 			onStepsAdded: provider['documentService'].onStepsAdded,
-			onErrorHandled: provider['documentService']['onErrorHandled'],
-			analyticsHelper: provider['analyticsHelper'],
-			emit: emitMock,
 			__livePage: options.__livePage ?? false,
 			hasRecovered: options.hasRecovered ?? false,
 			collabMode: options.collabMode ?? 'collab',
@@ -87,21 +107,19 @@ const createTestHelpers = () => {
 	};
 
 	return {
+		commitStepService,
 		presetCommitStepQueue,
-		broadcastSpy: jest.spyOn(provider['channel'], 'broadcast'),
-		onStepsAddedSpy: jest.spyOn(provider['documentService'], 'onStepsAdded'),
-		errorEventSpy: jest.spyOn(provider['analyticsHelper'] as any, 'sendErrorEvent'),
-		actionEventSpy: jest.spyOn(provider['analyticsHelper'] as any, 'sendActionEvent'),
-		onErrorHandledSpy: jest.spyOn(
-			provider['documentService'],
-			// @ts-ignore
-			'onErrorHandled',
-		),
+		broadcastSpy,
+		onStepsAddedSpy,
+		errorEventSpy,
+		actionEventSpy,
+		onErrorHandledSpy,
 	};
 };
 
 describe('commitStepQueue', () => {
 	const {
+		commitStepService,
 		presetCommitStepQueue,
 		broadcastSpy,
 		onStepsAddedSpy,
@@ -115,17 +133,11 @@ describe('commitStepQueue', () => {
 		jest.spyOn(global, 'setTimeout');
 		provider.initialize(() => editorState);
 		jest.runOnlyPendingTimers(); // running pending timers will set `readyToCommit` flag to true
+		errorEventSpy.mockReset();
 	});
 	afterEach(() => {
 		jest.useRealTimers();
 		jest.clearAllMocks();
-	});
-
-	it(`Resets readyToCommit flag after ${RESET_READYTOCOMMIT_INTERVAL_MS}`, () => {
-		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-		expect(readyToCommit).toBe(false);
-		jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
-		expect(readyToCommit).toBe(true);
 	});
 
 	it('Handles expand state steps for __livePages', () => {
@@ -164,7 +176,7 @@ describe('commitStepQueue', () => {
 		);
 	});
 
-	describe('Tags unconfirmed steps after recovery to steps before broadcast', () => {
+	it('Tags unconfirmed steps after recovery to steps before broadcast', () => {
 		const fakeStep = new SetAttrsStep(1, { __expanded: true, title: 'any' });
 
 		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
@@ -284,18 +296,18 @@ describe('commitStepQueue', () => {
 					],
 					version: 2,
 				};
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 
 				expect(onStepsAddedSpy).toBeCalledTimes(1);
 				expect(onStepsAddedSpy).toBeCalledWith(steps);
 
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
-				expect(readyToCommit).toBe(true);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 				expect(onStepsAddedSpy).toBeCalledTimes(2);
 				expect(onStepsAddedSpy).toBeCalledWith(steps);
@@ -334,26 +346,33 @@ describe('commitStepQueue', () => {
 		});
 
 		describe('backpressure delay handling', () => {
+			it(`Resets readyToCommit flag after ${RESET_READYTOCOMMIT_INTERVAL_MS}`, () => {
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
+				jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
+			});
+
 			it('should honour back pressure delay sent from BE ack', () => {
 				jest.runOnlyPendingTimers();
 				broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(260);
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(260);
-				expect(readyToCommit).toBe(true);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 
 			it('should wait 680ms when no backpressure delay is sent', () => {
 				jest.runOnlyPendingTimers();
 				broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(600);
-				expect(readyToCommit).toBe(false);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 				jest.advanceTimersByTime(100);
-				expect(readyToCommit).toBe(true);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 
 			describe('skipping backpressure delay on publish', () => {
@@ -363,7 +382,7 @@ describe('commitStepQueue', () => {
 						jest.runOnlyPendingTimers();
 						broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
 						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-						expect(readyToCommit).toBe(false);
+						expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { isPublish: true });
 						// publish should trigger another broadcast
 						expect(broadcastSpy).toHaveBeenCalledTimes(2);
@@ -372,7 +391,7 @@ describe('commitStepQueue', () => {
 						jest.runOnlyPendingTimers();
 						broadcastMockImplementation({ type: 'SUCCESS', version: 2, delay: 500 });
 						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
-						expect(readyToCommit).toBe(false);
+						expect(commitStepService.getReadyToCommitStatus()).toBe(false);
 						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', { isPublish: true });
 						// publish is blocked because FG is off
 						expect(broadcastSpy).toHaveBeenCalledTimes(1);
@@ -429,13 +448,16 @@ describe('commitStepQueue', () => {
 			});
 
 			it('should set readyToCommit to true when broadcast fails due to not being connected', () => {
-				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+				const { commitStepService, presetCommitStepQueue } = createTestHelpers({
 					offlineBroadcast: true,
+				});
+
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
 					__livePage: false,
 					hasRecovered: false,
 					collabMode: 'collab',
 				});
-				expect(readyToCommit).toBe(true);
+				expect(commitStepService.getReadyToCommitStatus()).toBe(true);
 			});
 
 			describe('analytics action event send with', () => {
@@ -492,7 +514,7 @@ describe('commitStepQueue', () => {
 						broadcastMockErrorWithCode('VERSION_NUMBER_ALREADY_EXISTS');
 						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
-						expect(errorEventSpy).toBeCalledTimes(3);
+						expect(errorEventSpy).toBeCalledTimes(1);
 						expect(errorEventSpy).toBeCalledWith(
 							{
 								data: { code: 'VERSION_NUMBER_ALREADY_EXISTS', status: 500 },
@@ -515,7 +537,7 @@ describe('commitStepQueue', () => {
 							data: { code: 'Naaniiii?', status: 500 },
 							message: 'Cookie monster is here!',
 						},
-						'Error handled',
+						'Cookie monster is here!',
 					);
 
 					// in commitStep callback
@@ -536,7 +558,7 @@ describe('commitStepQueue', () => {
 				broadcastMockImplementation({ type: 'not really sure what' });
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
 
-				expect(errorEventSpy).toBeCalledTimes(3);
+				expect(errorEventSpy).toBeCalledTimes(1);
 				expect(errorEventSpy).toBeCalledWith(
 					new Error('Response type: not really sure what'),
 					'Error while adding steps - Invalid Acknowledgement',

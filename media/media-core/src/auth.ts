@@ -61,7 +61,7 @@ type MediaAccessUrn =
 	| { type: 'uploads'; actions: Array<'create'> }
 	| { type: 'upload'; id: string; actions: Array<'read' | 'update'> }
 	| { type: 'collections'; actions: Array<'create'> }
-	| { type: 'collection'; name: string; access: Array<'read' | 'update' | 'insert' | 'delete'> };
+	| { type: 'collection'; name: string; actions: Array<'read' | 'update' | 'insert' | 'delete'> };
 
 export interface AuthContext {
 	readonly access?: MediaAccessUrn[];

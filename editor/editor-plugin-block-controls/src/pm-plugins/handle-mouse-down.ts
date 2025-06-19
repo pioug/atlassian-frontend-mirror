@@ -1,6 +1,5 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
@@ -31,7 +30,7 @@ export const handleMouseDown =
 					rootNode.type.name ?? '',
 				),
 			);
-		} else if (fg('platform_editor_controls_patch_5')) {
+		} else {
 			const isDragHandle = event.target.closest('[data-editor-block-ctrl-drag-handle]') !== null;
 			api?.core.actions.execute(api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle));
 		}

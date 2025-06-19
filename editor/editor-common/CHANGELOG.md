@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 107.0.2
+
+### Patch Changes
+
+- [#172640](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172640)
+  [`903534ec3c2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/903534ec3c2df) -
+  Clean up platform_editor_controls_table_picker
+- [#172583](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172583)
+  [`40f387a0c0962`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40f387a0c0962) -
+  Clean up platform_editor_controls_patch_2
+
+## 107.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.0.0
+
+### Minor Changes
+
+- [#169011](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169011)
+  [`1b40d3fe88977`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b40d3fe88977) -
+  Added new attribute to MediaProvider: viewAndUploadMediaClientConfig. This config provides a Media
+  AuthProvider that supplies Download or Upload token on request.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 106.10.0
 
 ### Minor Changes

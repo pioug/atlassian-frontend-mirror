@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "5.5.7",
+	"version": "5.5.9",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -125,12 +125,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_update_extension_local_id_on_reset": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_2": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		},
 		"dst-a11y__replace-anchor-with-link__editor-core-ex": {

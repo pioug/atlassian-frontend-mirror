@@ -1,5 +1,20 @@
 # @atlaskit/media-filmstrip
 
+## 51.0.1
+
+### Patch Changes
+
+- [#173974](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173974)
+  [`809172b55b7c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/809172b55b7c2) -
+  ED-28339: Add !important to padding 0 for media group, as it was inheriting a padding-left from
+  the renderer style wrapper and incorrectly indenting media groups.
+
+## 51.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 50.1.2
 
 ### Patch Changes

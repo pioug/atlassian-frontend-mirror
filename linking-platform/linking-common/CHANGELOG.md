@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 9.1.0
+
+### Minor Changes
+
+- [#172989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172989)
+  [`ddd2191cc6b4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddd2191cc6b4a) -
+  Add Prettify type simplification utility
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.4
 
 ### Patch Changes

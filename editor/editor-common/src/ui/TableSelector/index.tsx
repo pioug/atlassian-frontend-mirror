@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -244,10 +243,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps) => {
 					};
 				});
 
-				if (
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_table_picker')
-				) {
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
 					event.preventDefault();
 				}
 			}
@@ -303,10 +299,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps) => {
 					};
 				});
 
-				if (
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_table_picker')
-				) {
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
 					event.preventDefault();
 				}
 			}

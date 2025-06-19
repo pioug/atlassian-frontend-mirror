@@ -10,6 +10,7 @@ import ConfluenceBlog from '../../../__fixtures__/confluence-blog';
 import ConfluencePage from '../../../__fixtures__/confluence-page';
 import ConfluenceSpace from '../../../__fixtures__/confluence-space';
 import ConfluenceTemplate from '../../../__fixtures__/confluence-template';
+import DocumentEntity from '../../../__fixtures__/document-entity';
 import DropboxFile from '../../../__fixtures__/dropbox-file';
 import Figma from '../../../__fixtures__/figma';
 import FigmaEntity from '../../../__fixtures__/figma-entity';
@@ -892,6 +893,56 @@ describe('extractFlexibleUiContext', () => {
 									objectId: 'figma-id',
 									resourceType: 'file',
 									tenantId: 'figma-tenant',
+								},
+							}),
+						}),
+					);
+				});
+
+				it('returns flexible ui context for Google document with entity support', () => {
+					const data = extractFlexibleUiContext({
+						response: DocumentEntity as SmartLinkResponse,
+					});
+					expect(data).toEqual(
+						expect.objectContaining({
+							actions: {
+								CopyLinkAction: {
+									invokeAction: expect.objectContaining({
+										actionSubjectId: 'copyLink',
+										actionType: 'CopyLinkAction',
+										definitionId: 'bf155190-d90c-449f-9690-d1d1aa9910e6',
+										display: undefined,
+										extensionKey: 'google-object-provider',
+										id: undefined,
+										resourceType: 'file',
+									}),
+								},
+								DownloadAction: undefined,
+								FollowAction: undefined,
+								// TODO: Update to have PreviewAction when Embed Link for Documents is supported
+								PreviewAction: undefined,
+								AutomationAction: undefined,
+								AISummaryAction: undefined,
+								ViewRelatedLinksAction: {
+									ari: 'ari:cloud:graph::document/my-document',
+								},
+							},
+							linkIcon: {
+								label: 'Google Sheets: Public',
+								url: 'https://provider-icon.com/drive_icon.png',
+							},
+							modifiedOn: '2022-06-22T00:44:14.956Z',
+							preview: { type: 'image', url: 'https://preview-image-url' },
+							title: 'Google Sheets: Public',
+							url: 'https://document.com',
+							...(fg('platform-linking-visual-refresh-v2') && {
+								type: ['Document'],
+							}),
+							...(fg('cc-ai-linking-platform-snippet-renderer') && {
+								meta: {
+									objectId: 'google-id',
+									resourceType: 'file',
+									tenantId: 'google-tenant',
 								},
 							}),
 						}),

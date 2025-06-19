@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 10.12.5
+
+### Patch Changes
+
+- [#172640](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172640)
+  [`903534ec3c2df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/903534ec3c2df) -
+  Clean up platform_editor_controls_table_picker
+- [#172583](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172583)
+  [`40f387a0c0962`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40f387a0c0962) -
+  Clean up platform_editor_controls_patch_2
+- Updated dependencies
+
+## 10.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.12.3
 
 ### Patch Changes

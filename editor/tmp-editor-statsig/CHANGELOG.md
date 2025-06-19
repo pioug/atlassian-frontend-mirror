@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 7.2.0
+
+### Minor Changes
+
+- [#173357](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173357)
+  [`f17a667b25b42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f17a667b25b42) -
+  enable merging of prosemirror steps for single player sessions
+
 ## 7.1.0
 
 ### Minor Changes

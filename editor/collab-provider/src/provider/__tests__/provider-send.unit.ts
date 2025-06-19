@@ -30,7 +30,7 @@ describe('#sendData', () => {
 	let fakeStep: Step;
 	let anyEditorState: EditorState;
 	let provider: Provider;
-	let documentServiceBroadcastSpy: jest.SpyInstance;
+	let commitServiceBroadcastSpy: jest.SpyInstance;
 	let fakeAnalyticsWebClient: AnalyticsWebClient;
 	const documentAri = 'ari:cloud:confluence:ABC:page/testpage';
 
@@ -54,11 +54,10 @@ describe('#sendData', () => {
 
 		jest.runOnlyPendingTimers();
 		jest.clearAllTimers();
-		documentServiceBroadcastSpy = jest.spyOn(
-			// @ts-ignore
-			provider.documentService as any,
-			'broadcast',
-		);
+
+		// @ts-expect-error - get private member
+		const commitStepServiceMock = provider.documentService.commitStepService;
+		commitServiceBroadcastSpy = jest.spyOn(commitStepServiceMock, 'broadcast');
 
 		fakeStep = new ReplaceStep(1, 1, Slice.empty);
 
@@ -130,7 +129,7 @@ describe('#sendData', () => {
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
-		expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
+		expect(commitServiceBroadcastSpy).toHaveBeenCalledWith(
 			'steps:commit',
 			expect.anything(),
 			expect.any(Function),
@@ -144,7 +143,7 @@ describe('#sendData', () => {
 		(getCollabState as jest.Mock).mockReturnValue({ version: 1 });
 
 		provider.send(null, null, anyEditorState);
-		expect(documentServiceBroadcastSpy).toHaveBeenCalledWith(
+		expect(commitServiceBroadcastSpy).toHaveBeenCalledWith(
 			'steps:commit',
 			expect.objectContaining({
 				steps: [
@@ -165,7 +164,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
 
 		// @ts-ignore emit is a protected function
 		jest.spyOn(provider, 'emit').mockImplementation(() => {});
@@ -225,7 +224,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
 		// @ts-ignore emit is a protected function
 		jest.spyOn(provider, 'emit').mockImplementation(() => {});
 		jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
@@ -298,7 +297,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
 		// @ts-ignore emit is a protected function
 		jest.spyOn(provider, 'emit').mockImplementation(() => {});
 		jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
@@ -373,7 +372,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
 		// @ts-ignore emit is a protected function
 		jest.spyOn(provider, 'emit').mockImplementation(() => {});
 		jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
@@ -431,7 +430,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
 		// @ts-ignore emit is a protected function
 		jest.spyOn(provider, 'emit').mockImplementation(() => {});
 		jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
@@ -477,7 +476,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
 		// @ts-ignore emit is a protected function
 		jest.spyOn(provider, 'emit').mockImplementation(() => {});
 		jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
@@ -585,7 +584,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		const ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
+		const ackCallback = commitServiceBroadcastSpy.mock.calls[0][2];
 		// @ts-ignore emit is a protected function
 		jest.spyOn(provider, 'emit').mockImplementation(() => {});
 		jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
@@ -627,7 +626,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
+		expect(commitServiceBroadcastSpy).not.toHaveBeenCalled();
 	});
 
 	it('does not send a broadcast message when there are no sendable steps', () => {
@@ -637,7 +636,7 @@ describe('#sendData', () => {
 
 		provider.send(null, null, anyEditorState);
 
-		expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
+		expect(commitServiceBroadcastSpy).not.toHaveBeenCalled();
 	});
 
 	it('logs the obfuscated steps', async () => {

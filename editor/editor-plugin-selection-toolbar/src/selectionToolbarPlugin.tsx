@@ -281,8 +281,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 								if (
 									!isPreferenceInitialized &&
-									editorExperiment('platform_editor_controls', 'variant1') &&
-									fg('platform_editor_controls_patch_2')
+									editorExperiment('platform_editor_controls', 'variant1')
 								) {
 									const toolbarDockingPreference = userPreferencesProvider?.getPreference(
 										'toolbarDockingInitialPosition',
@@ -357,7 +356,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 					return;
 				}
 
-				if (isCellSelection && isEditorControlsEnabled && fg('platform_editor_controls_patch_5')) {
+				if (isCellSelection && isEditorControlsEnabled) {
 					const isSelectedViaDragHandle =
 						api?.blockControls?.sharedState.currentState()?.isSelectedViaDragHandle;
 					if (isSelectedViaDragHandle) {

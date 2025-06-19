@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-save-on-enter",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "Save-on-enter plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

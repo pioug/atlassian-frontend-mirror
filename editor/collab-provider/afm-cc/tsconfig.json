@@ -27,6 +27,9 @@
             "path": "../../../analytics/analytics-listeners/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../elements/anonymous-assets/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {

@@ -18,6 +18,7 @@ import { type ContainerSubTypes, type ContainerTypes } from '../../../common/typ
 import { ContainerIcon } from '../../../common/ui/container-icon';
 import { AnalyticsAction, usePeopleAndTeamAnalytics } from '../../../common/utils/analytics';
 import { getContainerProperties } from '../../../common/utils/get-container-properties';
+import { getDomainFromLinkUri } from '../../../common/utils/get-link-domain';
 
 const styles = cssMap({
 	container: {
@@ -119,11 +120,16 @@ export const TeamLinkCard = ({
 	};
 
 	const handleLinkClick = () => {
+		const baseAttributes = { container: containerType, containerId };
+		const attributes =
+			containerType === 'WebLink' && link
+				? { containerSelected: { ...baseAttributes, linkDomain: getDomainFromLinkUri(link) } }
+				: { containerSelected: baseAttributes };
 		fireUIEvent(createAnalyticsEvent, {
 			action: AnalyticsAction.CLICKED,
 			actionSubject: 'container',
 			actionSubjectId: 'teamContainer',
-			attributes: { containerSelected: { container: containerType, containerId } },
+			attributes,
 		});
 	};
 
@@ -180,6 +186,7 @@ export const TeamLinkCard = ({
 										action: AnalyticsAction.CLICKED,
 										actionSubject: 'button',
 										actionSubjectId: 'containerUnlinkButton',
+										attributes: { containerSelected: { container: containerType, containerId } },
 									});
 								}}
 							/>
@@ -212,6 +219,7 @@ export const TeamLinkCard = ({
 											action: AnalyticsAction.CLICKED,
 											actionSubject: 'button',
 											actionSubjectId: 'containerEditLinkButton',
+											attributes: { containerSelected: { container: containerType, containerId } },
 										});
 									}}
 								>
@@ -226,6 +234,7 @@ export const TeamLinkCard = ({
 											action: AnalyticsAction.CLICKED,
 											actionSubject: 'button',
 											actionSubjectId: 'containerUnlinkButton',
+											attributes: { containerSelected: { container: containerType, containerId } },
 										});
 									}}
 								>

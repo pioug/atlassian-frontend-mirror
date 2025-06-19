@@ -1,5 +1,14 @@
 # @atlaskit/media-core
 
+## 37.0.0
+
+### Major Changes
+
+- [#169011](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169011)
+  [`8fa4edb8c6736`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fa4edb8c6736) -
+  Fixed MediaAccessUrn type definition. Operations over `collection` were called `access`. Correct
+  name is `actions`
+
 ## 36.1.0
 
 ### Minor Changes

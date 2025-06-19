@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { defaultMediaUserPreferences, type MediaUserPreferences } from './getMediaUserPreferences';
 
 export type MediaSettings = {
+	/** Indicates if the user can upload and delete captions for the media video */
 	canUpdateVideoCaptions?: boolean;
 };
 

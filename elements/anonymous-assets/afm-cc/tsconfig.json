@@ -3,7 +3,7 @@
     "compilerOptions": {
         "target": "es5",
         "composite": true,
-        "outDir": "../dist",
+        "outDir": "../../../../../confluence/tsDist/@atlaskit__anonymous-assets",
         "rootDir": "../"
     },
     "include": [
@@ -17,6 +17,9 @@
         "../src/**/examples.*"
     ],
     "references": [
+        {
+            "path": "../../../helpers/browser-apis/afm-cc/tsconfig.json"
+        },
         {
             "path": "../../../design-system/css/afm-cc/tsconfig.json"
         },

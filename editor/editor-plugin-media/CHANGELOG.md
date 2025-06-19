@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 4.0.0
+
+### Minor Changes
+
+- [#169011](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169011)
+  [`8b33fc800cc29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b33fc800cc29) -
+  Using viewAndUploadMediaClientConfig to enable Video Captions upload and delete from Media Card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.0
 
 ### Minor Changes

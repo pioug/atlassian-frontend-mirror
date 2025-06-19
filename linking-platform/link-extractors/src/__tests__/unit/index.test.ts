@@ -230,6 +230,56 @@ describe('entity data', () => {
 
 				expect(extractEntityIcon(response)).toEqual({ url, label: 'Entity Title' });
 			});
+
+			it('should return provider icon when response is a document entity and provider icon exists', () => {
+				const url = 'https://example.com/icon.png';
+				const response = {
+					meta: {
+						visibility: 'public',
+						access: 'granted',
+						generator: {
+							name: 'Google',
+							icon: {
+								url: 'https://google-icon.com/icon.png',
+							},
+						},
+					},
+					data: { '@type': 'Object' },
+					entityData: {
+						displayName: 'Entity Title',
+						'atlassian:document': {
+							type: {
+								category: 'document',
+								iconUrl: url,
+							},
+						},
+					},
+				};
+
+				expect(extractEntityIcon(response as any)).toEqual({
+					url: 'https://google-icon.com/icon.png',
+					label: 'Entity Title',
+				});
+			});
+
+			it('should return entity icon when response is a document entity and provider icon does not exist', () => {
+				const url = 'https://example.com/icon.png';
+				const response = {
+					meta: { visibility: 'public', access: 'granted' },
+					data: { '@type': 'Object' },
+					entityData: {
+						displayName: 'Entity Title',
+						'atlassian:document': {
+							type: {
+								category: 'document',
+								iconUrl: url,
+							},
+						},
+					},
+				} as SmartLinkResponse;
+
+				expect(extractEntityIcon(response)).toEqual({ url, label: 'Entity Title' });
+			});
 		});
 
 		describe('extractSmartLinkProvider()', () => {
@@ -382,7 +432,7 @@ describe('entity data', () => {
 				const response = {
 					meta: { visibility: 'public', access: 'granted' },
 					data: { '@type': 'Object' },
-					entityData: { createdBy: { id: 'user123' } },
+					entityData: { createdBy: { displayName: 'user123' } },
 				} as unknown as SmartLinkResponse;
 
 				expect(extractSmartLinkCreatedBy(response)).toEqual('user123');
@@ -410,7 +460,7 @@ describe('entity data', () => {
 				const response = {
 					meta: { visibility: 'public', access: 'granted' },
 					data: { '@type': 'Object' },
-					entityData: { lastUpdatedBy: { id: 'user123' } },
+					entityData: { lastUpdatedBy: { displayName: 'user123' } },
 				} as unknown as SmartLinkResponse;
 
 				expect(extractSmartLinkModifiedBy(response)).toEqual('user123');

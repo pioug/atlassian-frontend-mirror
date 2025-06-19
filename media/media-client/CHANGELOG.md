@@ -1,5 +1,17 @@
 # @atlaskit/media-client
 
+## 34.0.0
+
+### Minor Changes
+
+- [#169011](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169011)
+  [`93d6ca5689e75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93d6ca5689e75) -
+  Sending collection as query parameter during captions upload
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.5.0
 
 ### Minor Changes

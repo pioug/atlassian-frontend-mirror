@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { B100 } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -81,11 +80,9 @@ const TableSelectorButton = ({
 		if (btnRef.current) {
 			if (isFocused) {
 				btnRef.current.focus({
-					preventScroll:
-						editorExperiment('platform_editor_controls', 'variant1') &&
-						fg('platform_editor_controls_table_picker')
-							? true
-							: undefined,
+					preventScroll: editorExperiment('platform_editor_controls', 'variant1')
+						? true
+						: undefined,
 				});
 			} else {
 				btnRef.current.blur();

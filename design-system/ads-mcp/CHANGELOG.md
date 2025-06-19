@@ -1,5 +1,13 @@
 # @atlaskit/ads-mcp
 
+## 0.2.0
+
+### Minor Changes
+
+- [#172423](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172423)
+  [`ec1b840853a1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec1b840853a1d) -
+  Adds contentGuidelines to multiple component details responses.
+
 ## 0.1.9
 
 ### Patch Changes

@@ -20,14 +20,12 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import ContentWidthNarrowIcon from '@atlaskit/icon/core/content-width-narrow';
 import ContentWidthWideIcon from '@atlaskit/icon/core/content-width-wide';
-import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
 import EditIcon from '@atlaskit/icon/core/migration/edit--editor-edit';
@@ -442,18 +440,6 @@ export const getToolbarConfig =
 				};
 			};
 		}
-		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
-			onMouseEnter: hoverDecoration?.(nodeType, true, className),
-			onMouseLeave: hoverDecoration?.(nodeType, false, className),
-			onFocus: hoverDecoration?.(nodeType, true, className),
-			onBlur: hoverDecoration?.(nodeType, false, className),
-		});
-
-		// testId is required to show focus on trigger button on ESC key press
-		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-		const testId = fg('platform_editor_controls_patch_8')
-			? 'extension-overflow-dropdown-trigger'
-			: undefined;
 
 		return {
 			title: 'Extension floating controls',
@@ -466,89 +452,47 @@ export const getToolbarConfig =
 			items: [
 				...editButtonItems,
 				...breakoutItems,
-				...(editorExperiment('platform_editor_controls', 'control') ||
-				fg('platform_editor_controls_patch_2')
-					? [
-							{
-								type: 'separator',
-								hidden: editButtonItems.length === 0 && breakoutItems.length === 0,
-							},
-							{
-								type: 'extensions-placeholder',
-								separator: 'end',
-							},
-							{
-								type: 'copy-button',
-								items: [
-									{
-										state,
-										formatMessage: intl.formatMessage,
-										nodeType,
-									},
-								],
-							},
-							{ type: 'separator' },
-							{
-								id: 'editor.extension.delete',
-								type: 'button',
-								icon:
-									editorExperiment('platform_editor_controls', 'variant1') &&
-									fg('platform_editor_controls_patch_10')
-										? DeleteIcon
-										: () => (
-												<DeleteIcon
-													label={formatMessage(commonMessages.remove)}
-													spacing="spacious"
-												/>
-											),
-								iconFallback: DeleteIcon,
-								appearance: 'danger',
-								onClick: removeExtension(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
-								onMouseEnter: hoverDecoration?.(nodeType, true),
-								onMouseLeave: hoverDecoration?.(nodeType, false),
-								onFocus: hoverDecoration?.(nodeType, true),
-								onBlur: hoverDecoration?.(nodeType, false),
-								focusEditoronEnter: true,
-								title: formatMessage(commonMessages.remove),
-								tabIndex: null,
-								confirmDialog,
-							},
-						]
-					: [
-							breakoutItems.length > 0 && { type: 'separator', fullHeight: true },
-							{
-								type: 'extensions-placeholder',
-								separator: breakoutItems.length > 0 ? 'both' : 'end',
-							},
-							{
-								type: 'overflow-dropdown',
-								testId,
-								options: [
-									{
-										title: formatMessage(commonMessages.copyToClipboard),
-										onClick: () => {
-											extensionApi?.core?.actions.execute(
-												// @ts-ignore
-												extensionApi?.floatingToolbar?.commands.copyNode(
-													nodeType,
-													INPUT_METHOD.FLOATING_TB,
-												),
-											);
-											return true;
-										},
-
-										icon: <CopyIcon label="" />,
-										...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
-									},
-									{
-										title: formatMessage(commonMessages.delete),
-										onClick: removeExtension(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
-										icon: <DeleteIcon label="" />,
-										...hoverDecorationProps(nodeType),
-									},
-								],
-							},
-						]),
+				{
+					type: 'separator',
+					hidden: editButtonItems.length === 0 && breakoutItems.length === 0,
+				},
+				{
+					type: 'extensions-placeholder',
+					separator: 'end',
+				},
+				{
+					type: 'copy-button',
+					items: [
+						{
+							state,
+							formatMessage: intl.formatMessage,
+							nodeType,
+						},
+					],
+				},
+				{ type: 'separator' },
+				{
+					id: 'editor.extension.delete',
+					type: 'button',
+					icon:
+						editorExperiment('platform_editor_controls', 'variant1') &&
+						fg('platform_editor_controls_patch_10')
+							? DeleteIcon
+							: () => (
+									<DeleteIcon label={formatMessage(commonMessages.remove)} spacing="spacious" />
+								),
+					iconFallback: DeleteIcon,
+					appearance: 'danger',
+					onClick: removeExtension(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),
+					onMouseEnter: hoverDecoration?.(nodeType, true),
+					onMouseLeave: hoverDecoration?.(nodeType, false),
+					onFocus: hoverDecoration?.(nodeType, true),
+					onBlur: hoverDecoration?.(nodeType, false),
+					focusEditoronEnter: true,
+					title: formatMessage(commonMessages.remove),
+					tabIndex: null,
+					confirmDialog,
+				},
 			],
 			scrollable: true,
 		} as FloatingToolbarConfig;

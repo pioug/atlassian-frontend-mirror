@@ -15,6 +15,7 @@ import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	Catchupv2Response,
@@ -38,9 +39,9 @@ import {
 	getStepUGCFreeDetails,
 	sleep,
 } from '../helpers/utils';
-import type { ParticipantsService } from '../participants/participants-service';
+import { SINGLE_COLLAB_MODE, type ParticipantsService } from '../participants/participants-service';
 import { MAX_STEP_REJECTED_ERROR, MAX_STEP_REJECTED_ERROR_AGGRESSIVE } from '../provider';
-import { commitStepQueue } from '../provider/commit-step';
+import { CommitStepService } from '../provider/commit-step';
 import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
 
 import { catchupv2 } from './catchupv2';
@@ -69,6 +70,7 @@ export class DocumentService implements DocumentServiceInterface {
 	private catchUpOutofSync: boolean = false;
 	private hasRecovered: boolean = false;
 	private numberOfStepCommitsSent: number = 0;
+	private commitStepService: CommitStepService;
 
 	// ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
 	private clientId?: number | string;
@@ -125,6 +127,12 @@ export class DocumentService implements DocumentServiceInterface {
 	) {
 		this.stepQueue = new StepQueueState();
 		this.onErrorHandled = onErrorHandled;
+		this.commitStepService = new CommitStepService(
+			this.broadcast,
+			this.analyticsHelper,
+			this.providerEmitCallback,
+			this.onErrorHandled,
+		);
 	}
 
 	/**
@@ -1034,8 +1042,16 @@ export class DocumentService implements DocumentServiceInterface {
 		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
 
 		// Don't send any steps before we're ready.
-		if (editorExperiment('platform_editor_offline_editing_web', true)) {
-			if (!unconfirmedStepsData || !this.getConnected()) {
+		if (
+			editorExperiment('platform_editor_offline_editing_web', true) ||
+			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
+		) {
+			const enableStepsMergingForSinglePlayer =
+				expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true) &&
+				!this.commitStepService.getReadyToCommitStatus() &&
+				this.participantsService.getCollabMode() === SINGLE_COLLAB_MODE;
+
+			if (!unconfirmedStepsData || !this.getConnected() || enableStepsMergingForSinglePlayer) {
 				return;
 			}
 		} else {
@@ -1081,7 +1097,10 @@ export class DocumentService implements DocumentServiceInterface {
 		// If we are going to commit unconfirmed steps
 		// we need to lock them to ensure they don't get
 		// mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
-		if (editorExperiment('platform_editor_offline_editing_web', true)) {
+		if (
+			editorExperiment('platform_editor_offline_editing_web', true) ||
+			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
+		) {
 			unconfirmedStepsData.origins.forEach((origin) => {
 				if (origin instanceof Transaction) {
 					return origin.setMeta('mergeIsLocked', true);
@@ -1098,8 +1117,7 @@ export class DocumentService implements DocumentServiceInterface {
 		// Avoid reference issues using a
 		// method outside of the provider
 		// scope
-		commitStepQueue({
-			broadcast: this.broadcast,
+		this.commitStepService.commitStepQueue({
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			userId: this.getUserId()!,
@@ -1109,9 +1127,6 @@ export class DocumentService implements DocumentServiceInterface {
 			steps: unconfirmedSteps,
 			version,
 			onStepsAdded: this.onStepsAdded,
-			onErrorHandled: this.onErrorHandled,
-			analyticsHelper: this.analyticsHelper,
-			emit: this.providerEmitCallback,
 			__livePage: this.options.__livePage,
 			hasRecovered: this.hasRecovered,
 			collabMode: this.participantsService.getCollabMode(),

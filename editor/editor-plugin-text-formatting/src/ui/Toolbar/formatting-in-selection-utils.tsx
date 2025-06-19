@@ -1,5 +1,4 @@
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { IconTypes } from './types';
 
@@ -15,20 +14,12 @@ export const hasMultiplePartsWithFormattingInSelection = ({
 		return false;
 	}
 
-	if (fg('platform_editor_controls_patch_8')) {
-		// Check if there are multiple parts with formatting or if only one part has formatting and the rest have none
-		const contentWithMarks = selectedContent.filter((child) => isMarkInIconTypes(child));
-		const hasFormatting = contentWithMarks.length > 0;
-		const allPartsHaveFormatting = contentWithMarks.length === selectedContent.length;
+	// Check if there are multiple parts with formatting or if only one part has formatting and the rest have none
+	const contentWithMarks = selectedContent.filter((child) => isMarkInIconTypes(child));
+	const hasFormatting = contentWithMarks.length > 0;
+	const allPartsHaveFormatting = contentWithMarks.length === selectedContent.length;
 
-		return hasFormatting && (!allPartsHaveFormatting || contentWithMarks.length > 1);
-	}
-
-	const marks = selectedContent
-		.map((child) => (isMarkInIconTypes(child) ? child.marks : undefined))
-		.filter(Boolean);
-
-	return marks.length > 1;
+	return hasFormatting && (!allPartsHaveFormatting || contentWithMarks.length > 1);
 };
 
 export const getCommonActiveMarks = ({ selectedContent }: { selectedContent?: PMNode[] }) => {

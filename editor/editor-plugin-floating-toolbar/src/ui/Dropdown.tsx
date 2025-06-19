@@ -27,7 +27,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -146,12 +145,7 @@ export default class Dropdown extends Component<Props, State> {
 					selected={isOpen}
 					disabled={disabled}
 					tooltipContent={tooltip}
-					ariaHasPopup={
-						editorExperiment('platform_editor_controls', 'variant1') &&
-						fg('platform_editor_controls_patch_8')
-							? true
-							: undefined
-					}
+					ariaHasPopup={editorExperiment('platform_editor_controls', 'variant1') ? true : undefined}
 					onMount={onMount}
 					pulse={pulse}
 					spotlightConfig={spotlightConfig}

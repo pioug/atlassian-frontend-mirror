@@ -40,13 +40,15 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		isNameSpaceLockedMock,
 		Boolean(config.enableErrorOnFailedDocumentApply),
 		options,
-		() => false,
+		() => true,
 	);
 
 	// @ts-expect-error - jest mock class
 	const analyticsHelperMock = AnalyticsHelper.mock.instances[0];
 	// @ts-expect-error - get private member
 	const stepQueue = service.stepQueue;
+	// @ts-expect-error - get private member
+	const commitStepServiceMock = service.commitStepService;
 
 	return {
 		service,
@@ -62,5 +64,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		stepQueue,
 		onErrorHandledMock,
 		isNameSpaceLockedMock,
+		commitStepServiceMock,
 	};
 };

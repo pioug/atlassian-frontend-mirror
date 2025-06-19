@@ -1,6 +1,7 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Rebaseable } from '@atlaskit/prosemirror-collab';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
 
@@ -27,9 +28,18 @@ export function mergeUnconfirmedSteps(
 ): Rebaseable[] {
 	const mergedSteps = steps.reduce((acc, rebaseable) => {
 		const lastStep = acc[acc.length - 1];
-		const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
 
-		if (isOffline && lastStep && !isLocked(lastStep) && !isLocked(rebaseable)) {
+		const isOffline = api?.connectivity?.sharedState.currentState()?.mode === 'offline';
+		const activeParticipants = api?.collabEdit.sharedState
+			.currentState()
+			?.activeParticipants?.toArray();
+		const isSinglePlayer =
+			expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true) &&
+			activeParticipants &&
+			activeParticipants.length === 1;
+		const isOfflineOrSinglePlayer = isOffline || isSinglePlayer;
+
+		if (isOfflineOrSinglePlayer && lastStep && !isLocked(lastStep) && !isLocked(rebaseable)) {
 			const mergedStep = lastStep.step.merge(rebaseable.step);
 			const inverted = rebaseable.inverted.merge(lastStep.inverted);
 			// Always take the origin of the new step.

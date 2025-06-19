@@ -1822,12 +1822,15 @@ describe('MediaStore', () => {
 							type: 'caption',
 							language: 'en-AU',
 							name: 'some-file-name',
+							collection: 'some-collection-name',
 						},
 						traceContext: {
 							traceId: 'some-trace-id',
 							spanId: expect.any(String),
 						},
 						endpoint: '/file/{fileId}/artifact/binary',
+						body: expect.any(File),
+						clientOptions: undefined,
 					}),
 					undefined,
 				);

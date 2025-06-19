@@ -21,22 +21,24 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
 	};
 });
 
-import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { CollabInitPayload } from '@atlaskit/editor-common/collab';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
+import { Step as ProseMirrorStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type AnalyticsHelper from '../../analytics/analytics-helper';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import step from '../../helpers/__tests__/__fixtures__/clean-step-for-empty-doc.json';
 import emptyDoc from '../../helpers/__tests__/__fixtures__/empty-document.json';
 import { MAX_STEP_REJECTED_ERROR } from '../../provider';
-import { commitStepQueue } from '../../provider/commit-step';
 import type { StepsPayload } from '../../types';
 import type { DocumentService } from '../document-service';
 import { createMockService } from './document-service.mock';
 import { catchupv2 } from '../catchupv2';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const proseMirrorStep = ProseMirrorStep.fromJSON(getSchemaBasedOnStage('stage0'), step);
 
@@ -879,14 +881,8 @@ describe('document-service', () => {
 				errorMessage?: string;
 				errorContext?: string;
 			}) => {
-				const {
-					service,
-					broadcastMock,
-					analyticsHelperMock,
-					onErrorHandledMock,
-					providerEmitCallbackMock,
-					participantsServiceMock,
-				} = createMockService();
+				const { service, analyticsHelperMock, participantsServiceMock, commitStepServiceMock } =
+					createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue({
 					steps: ['step'],
 				});
@@ -906,16 +902,12 @@ describe('document-service', () => {
 					'state' as any,
 				);
 				expect(sendableSteps).toBeCalledWith('state');
-				expect(commitStepQueue).toBeCalledWith({
-					broadcast: broadcastMock,
+				expect(commitStepServiceMock.commitStepQueue).toBeCalledWith({
 					userId: undefined,
 					clientId: undefined,
-					emit: providerEmitCallbackMock,
 					steps: ['step'],
 					version: expectedVersion,
 					onStepsAdded: service.onStepsAdded,
-					onErrorHandled: onErrorHandledMock,
-					analyticsHelper: analyticsHelperMock,
 					__livePage: false,
 					hasRecovered: false,
 					collabMode: participantsServiceMock.getCollabMode(),
@@ -939,19 +931,19 @@ describe('document-service', () => {
 			};
 
 			it('Does nothing when there is no unconfirmedStepsData', () => {
-				const { service } = createMockService();
+				const { service, commitStepServiceMock } = createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue(undefined);
 				service.send(null, null, 'state' as any);
 				expect(sendableSteps).toBeCalledWith('state');
-				expect(commitStepQueue).not.toBeCalled();
+				expect(commitStepServiceMock.commitStepQueue).not.toBeCalled();
 			});
 
 			it('Does nothing when there the sendable steps is an empty array', () => {
-				const { service } = createMockService();
+				const { service, commitStepServiceMock } = createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: [] });
 				service.send(null, null, 'state' as any);
 				expect(sendableSteps).toBeCalledWith('state');
-				expect(commitStepQueue).not.toBeCalled();
+				expect(commitStepServiceMock.commitStepQueue).not.toBeCalled();
 			});
 
 			it('Sends steps to be committed', () => {
@@ -983,11 +975,11 @@ describe('document-service', () => {
 			});
 
 			it('Pass collabMode to commitStepQueue', () => {
-				const { service, participantsServiceMock } = createMockService();
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step'] });
 				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
 				service.send(null, null, 'state' as any);
-				expect(commitStepQueue).toHaveBeenCalledWith(
+				expect(commitStepServiceMock.commitStepQueue).toHaveBeenCalledWith(
 					expect.objectContaining({
 						collabMode: 'single',
 					}),
@@ -1149,6 +1141,119 @@ describe('document-service', () => {
 					isDocContentValid: true, // We sent a valid empty doc
 				});
 			});
+		});
+	});
+
+	describe('does not commit for merging if single player and not ready to commit', () => {
+		eeTest('platform_editor_enable_single_player_step_merging', {
+			true: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
+				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(false);
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
+				service.send(null, null, 'state' as any);
+
+				expect(commitStepServiceMock.commitStepQueue).not.toBeCalled();
+			},
+			false: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
+				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(false);
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
+				service.send(null, null, 'state' as any);
+
+				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+			},
+		});
+	});
+	describe('commits step if multi player mode', () => {
+		eeTest('platform_editor_enable_single_player_step_merging', {
+			true: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('collab');
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
+				service.send(null, null, 'state' as any);
+
+				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+			},
+			false: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('collab');
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
+				service.send(null, null, 'state' as any);
+
+				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+			},
+		});
+	});
+
+	describe('commits step if ready to commit', () => {
+		eeTest('platform_editor_enable_single_player_step_merging', {
+			true: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
+				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(true);
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
+				service.send(null, null, 'state' as any);
+
+				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+			},
+			false: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
+				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(true);
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step1'], origins: ['step'] });
+				service.send(null, null, 'state' as any);
+
+				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+			},
+		});
+	});
+
+	describe('locks the step to prevent merge if ready to commit', () => {
+		eeTest('platform_editor_enable_single_player_step_merging', {
+			true: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
+				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(true);
+
+				const createDoc = doc(p('Hello Old or New World'));
+				const node = createDoc(defaultSchema);
+				const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+				const mockTr = new Transaction(node);
+				jest.spyOn(mockTr, 'setMeta');
+
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: [mockStep], origins: [mockTr] });
+				service.send(null, null, 'state' as any);
+
+				expect(mockTr.setMeta).toHaveBeenCalledWith('mergeIsLocked', true);
+				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+			},
+			false: () => {
+				const { service, participantsServiceMock, commitStepServiceMock } = createMockService();
+
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
+				(commitStepServiceMock.getReadyToCommitStatus as jest.Mock).mockReturnValue(true);
+
+				const createDoc = doc(p('Hello Old or New World'));
+				const node = createDoc(defaultSchema);
+				const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+				const mockTr = new Transaction(node);
+				jest.spyOn(mockTr, 'setMeta');
+
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: [mockStep], origins: [mockTr] });
+				service.send(null, null, 'state' as any);
+
+				expect(mockTr.setMeta).not.toHaveBeenCalledWith('mergeIsLocked', true);
+				expect(commitStepServiceMock.commitStepQueue).toBeCalled();
+			},
 		});
 	});
 });

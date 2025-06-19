@@ -876,7 +876,10 @@ export function addNewInteraction(
 		}
 	}
 
-	if (type === 'press' && fg('platform_ufo_enable_interactions_vc')) {
+	if (
+		type === 'press' &&
+		(fg('platform_ufo_enable_interactions_vc') || fg('platform_ufo_enable_interactivity_jsm'))
+	) {
 		getVCObserver().start({ startTime, experienceKey: ufoName });
 		postInteractionLog.startVCObserver({ startTime });
 		if (getConfig()?.experimentalInteractionMetrics?.enabled) {

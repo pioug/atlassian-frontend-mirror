@@ -7,7 +7,6 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { cardPlugin } from '../cardPlugin';
@@ -167,8 +166,7 @@ export const InlineCardWithAwareness = memo(
 		);
 
 		const shouldShowOpenButtonOverlay = useMemo(() => {
-			const shouldShowOpenButtonOverlayInChomeless =
-				editorAppearance === 'chromeless' && fg('platform_editor_controls_patch_8');
+			const shouldShowOpenButtonOverlayInChomeless = editorAppearance === 'chromeless';
 
 			return (
 				(mode === 'edit' ||

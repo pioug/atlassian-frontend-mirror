@@ -990,11 +990,9 @@ export const floatingToolbar = (
 
 	// testId is required to show focus on trigger button on ESC key press
 	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-	const overflowButtonSelector =
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_8')
-			? `[data-testid="${overflowDropdwonBtnTriggerTestId}"]`
-			: undefined;
+	const overflowButtonSelector = editorExperiment('platform_editor_controls', 'variant1')
+		? `[data-testid="${overflowDropdwonBtnTriggerTestId}"]`
+		: undefined;
 
 	if (allowAltTextOnImages) {
 		const mediaAltTextPluginState = getMediaAltTextPluginState(state);

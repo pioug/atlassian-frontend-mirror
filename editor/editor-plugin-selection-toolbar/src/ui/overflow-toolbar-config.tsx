@@ -84,9 +84,7 @@ export const getOverflowFloatingToolbarConfig = ({
 
 	// testId is required to show focus on trigger button on ESC key press
 	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-	const testId = fg('platform_editor_controls_patch_8')
-		? 'selectionToolbar-overflow-dropdown-trigger'
-		: undefined;
+	const testId = 'selectionToolbar-overflow-dropdown-trigger';
 
 	return [
 		{ type: 'separator', fullHeight: true },

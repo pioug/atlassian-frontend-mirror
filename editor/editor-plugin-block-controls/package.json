@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "3.19.4",
+	"version": "3.19.6",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -159,16 +159,10 @@
 		"platform_editor_fix_safari_cursor_hidden_empty": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_2": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_widget_visibility": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_4": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_5": {
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_7": {

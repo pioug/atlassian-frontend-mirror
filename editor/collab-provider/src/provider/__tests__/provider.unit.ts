@@ -56,7 +56,7 @@ import { ACK_MAX_TRY, CatchupEventReason } from '../../helpers/const';
 import * as Utilities from '../../helpers/utils';
 import * as Telepointer from '../../participants/telepointers-helper';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import { commitStepQueue } from '../commit-step';
+import { CommitStepService } from '../commit-step';
 // @ts-ignore only used for mock
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
 import { ProviderInitialisationError } from '../../errors/custom-errors';
@@ -1525,8 +1525,16 @@ describe('Provider', () => {
 
 	describe('commitStepQueue', () => {
 		it('Should not throw errors when attempting to commit steps', () => {
+			const commitStepServiceMock = new CommitStepService(
+				jest.fn().mockImplementation(() => {
+					throw new Error('Test');
+				}),
+				new AnalyticsHelper(testProviderConfig.documentAri),
+				jest.fn(),
+				jest.fn(),
+			);
 			expect(() => {
-				commitStepQueue({
+				commitStepServiceMock.commitStepQueue({
 					// @ts-ignore
 					channel: {
 						broadcast: jest.fn().mockImplementation(() => {

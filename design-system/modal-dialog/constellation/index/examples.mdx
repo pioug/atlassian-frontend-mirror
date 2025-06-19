@@ -61,8 +61,17 @@ specify modal width.
 
 ## Focus management
 
-Once open, focus immediately moves to the container (modal window) when rendered so a user is aware
-they are inside a modal. [View focus order.](/components/modal-dialog/usage#setting-focus)
+A modal dialog should focus on the first available interactive element when opened. We recommend
+making this a close button in the header. Add one using the `hasCloseButton` prop in the
+`ModalHeader` component.
+
+If this isn't possible, use the `CloseButton` component, making sure it’s the first element in the
+DOM. For an example of this,
+[view custom modal header.](/components/modal-dialog/examples#custom-modal-header)
+
+When there isn’t a close button in the header, focus should go to the modal’s title when opened. If
+a modal doesn’t have a title, the focus should be set on the container (modal window). However,
+ideally every modal has a header with a title and close button.
 
 Pass the `autoFocus` prop an element `ref` to focus on a specific element.
 
@@ -93,22 +102,27 @@ These internal components can be wrapped in a `form` element to support having b
 ### Select
 
 The usage of the select component within the modal dialog requires the `menuPosition` value set to
-`fixed`. Without this, it will not show up on top of the modal dialog, and instead will remain
-within it's boundaries. In some cases, this causes the select to visually seem like it is not
-opening whatsoever when being interacted with.
+`fixed`.
+
+Without this, it will not show up on top of the modal dialog and instead will remain within it's
+boundaries. In some cases, this causes the select to visually seem like it is not opening whatsoever
+when being interacted with.
 
 <Example Component={ModalSelect} packageName="@atlaskit/modal-dialog" />
 
 ## Modal header
 
-You can use modal title with the `hasCloseButton` prop or the `CloseButton` export to add a close
-button in the header.
+You can use the modal header with the `hasCloseButton` prop to add a close button in the header.
+
+Modal titles should be a level `h1` heading, as the modal is considered separate to the page it sits
+above.
 
 <Example Component={ModalHeader} packageName="@atlaskit/modal-dialog" />
 
 ### Custom modal header
 
-For very custom use cases, you can achieve the same thing without the modal header.
+For very custom use cases, you can achieve the same type of header as our `ModalHeader` component by
+using a custom implementation.
 
 A title is required, however, so use either a `titleId` if there's a visible title or a `label` if
 there isn’t a title.

@@ -16,6 +16,7 @@ export interface Component {
 	example: string;
 	accessibilityGuidelines?: string[];
 	usageGuidelines?: string[];
+	contentGuidelines?: string[];
 	props: Prop[];
 }
 
@@ -32,6 +33,16 @@ import AddIcon from '@atlaskit/icon/core/add';
 
 <Button appearance="success" iconAfter={AddIcon}>Create</Button>
 <Button appearance="primary" iconBefore={CopyIcon}>Copy text</Button>`,
+		contentGuidelines: [
+			'Use action verbs that describe the interaction',
+			'Keep text concise (1-3 words ideal)',
+			'Avoid generic terms like "Submit" or "Click here"',
+			'Use sentence case',
+			'Use buttons for actions, links for navigation',
+			'Only include one primary call to action (CTA) per area',
+			"Start with the verb and specify what's being acted on",
+			"Don't use punctuation in button labels",
+		],
 		props: [
 			{
 				name: 'appearance',
@@ -852,6 +863,16 @@ import { Checkbox } from '@atlaskit/checkbox';
 		</form>
 	)}
 </Form>`,
+		contentGuidelines: [
+			'Use clear, concise labels',
+			'Write helpful placeholder text',
+			'Provide specific error messages',
+			'Use consistent terminology',
+			'Use single column layout for better comprehension',
+			'Mark required fields with an asterisk (*)',
+			'Always include a visible label (exception: search fields)',
+			'Match field length to intended content length',
+		],
 		props: [
 			{
 				name: 'onSubmit',
@@ -1322,6 +1343,11 @@ import CommentIcon from '@atlaskit/icon/core/comment';
 >
 	Important announcement
 </Banner>`,
+		contentGuidelines: [
+			'Reserved for critical system-level messaging',
+			'Use for warnings about data/functionality loss',
+		],
+		usageGuidelines: ['This should appear at the top of the screen'],
 		props: [
 			{
 				name: 'appearance',
@@ -1370,6 +1396,18 @@ import CommentIcon from '@atlaskit/icon/core/comment';
 		testId="flag-test"
 	/>
 </FlagGroup>`,
+		contentGuidelines: [
+			'Use for confirmations and alerts needing minimal interaction',
+			'Display event-driven messages',
+			'Be clear about what went wrong for errors',
+			'Provide specific steps to resolve issues',
+			'Use a helpful, non-threatening tone',
+			'Clearly state potential consequences for warnings',
+			'Confirm outcome then get out of the way for success messages',
+		],
+		usageGuidelines: [
+			'This should appear at the bottom left of the screen, emerging from the navigation sidebar',
+		],
 		props: [
 			{
 				name: 'id',
@@ -1421,6 +1459,11 @@ import CommentIcon from '@atlaskit/icon/core/comment';
 >
   <p>Content that appears in the dialog when opened</p>
 </InlineMessage>`,
+		contentGuidelines: [
+			'Alerts for required actions or important information',
+			'Includes icon, message, and optional secondary text',
+			'Interactive elements reveal full message',
+		],
 		props: [
 			{
 				name: 'title',
@@ -1456,6 +1499,32 @@ import CommentIcon from '@atlaskit/icon/core/comment';
   target="target-element"
   content="Feature description"
 />`,
+		contentGuidelines: [
+			'Introduces features through focused messages or tours',
+			'Flexible layout options',
+			'Used for feature discovery and guidance',
+			'Keep messages to two lines in length',
+			'Focus on single changes and their benefits',
+			'Avoid just naming functions',
+			'Write in sentence case',
+			'Include clear call-to-action',
+			'Communicate main benefit to user in headings',
+			'Keep headings to a few words',
+			'Personalize where possible',
+			'Include benefits and importance to the user',
+			'Put important keywords at start of sentence',
+			'Only reference UI elements visible on screen',
+			'Use "Next" for step progression',
+			'Use "OK" for final step or closing action',
+			'Always offer way to opt out',
+			'Show one spotlight at a time',
+			'Keep tours to 3-4 steps maximum',
+			'Sequence tasks logically',
+			'Drive content by user benefits and value',
+			'Be thoughtful of user context and state',
+			'Focus on key benefits and quick wins for new users',
+			'Highlight value before mechanics for feature introduction',
+		],
 		props: [
 			{
 				name: 'target',
@@ -1492,6 +1561,11 @@ import CommentIcon from '@atlaskit/icon/core/comment';
     <SectionMessage.Action href="#">Action</SectionMessage.Action>
   </SectionMessage.Actions>
 </SectionMessage>`,
+		contentGuidelines: [
+			'Alerts about section-specific events',
+			'Appears above affected area',
+			'Used for contextual information',
+		],
 		props: [
 			{
 				name: 'appearance',
@@ -1864,6 +1938,15 @@ import { Help, NavLogo } from '@atlassian/navigation-system/top-nav-items';
 <Tooltip content="Tooltip content">
   <button>Hover me</button>
 </Tooltip>`,
+		contentGuidelines: [
+			'Keep it brief (ideally 1-3 words, max 8 words)',
+			'Use sentence case',
+			'No punctuation at the end',
+			'Use clear, direct language',
+			'Avoid technical jargon',
+			'Never include links or interactive elements',
+			"Don't truncate tooltip text",
+		],
 		props: [
 			{
 				name: 'content',
@@ -1930,6 +2013,16 @@ import { Help, NavLogo } from '@atlassian/navigation-system/top-nav-items';
   header="No items"
   description="Add items to get started"
 />`,
+		contentGuidelines: [
+			'Use when nothing to display in a view',
+			'Appropriate for: no tasks, cleared inbox, no search results',
+			'Explain why the state is empty',
+			'Provide clear next steps',
+			'Keep tone helpful and encouraging',
+			'Consider all scenarios causing the empty state',
+			'Use inspirational, motivating tone for first-time view',
+		],
+		usageGuidelines: ['Can appear full-screen or within containers'],
 		props: [
 			{
 				name: 'header',
@@ -2887,6 +2980,15 @@ export default function Example() {
 		</Fragment>
 	);
 }`,
+		contentGuidelines: [
+			'Present short-term tasks',
+			'Displays content above page layer',
+			'Used for focused interactions',
+			'Use clear, descriptive titles',
+			'Keep content focused on a single task or message',
+			'Include clear action buttons',
+			'Use sentence case for all text',
+		],
 		props: [
 			{
 				name: 'autoFocus',

@@ -57,6 +57,7 @@ export interface MediaNodeProps extends ReactNodeProps, ImageLoaderProps {
 
 interface MediaNodeState {
 	viewMediaClientConfig?: MediaClientConfig;
+	viewAndUploadMediaClientConfig?: MediaClientConfig;
 	contextIdentifierProvider?: ContextIdentifierProvider;
 }
 
@@ -77,6 +78,10 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	shouldComponentUpdate(nextProps: MediaNodeProps, nextState: MediaNodeState) {
 		const hasNewViewMediaClientConfig =
 			!this.state.viewMediaClientConfig && nextState.viewMediaClientConfig;
+
+		const hasNewViewAndUploadMediaClientConfig =
+			!this.state.viewAndUploadMediaClientConfig && nextState.viewAndUploadMediaClientConfig;
+
 		if (
 			this.props.selected !== nextProps.selected ||
 			this.props.node.attrs.id !== nextProps.node.attrs.id ||
@@ -86,7 +91,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.contextIdentifierProvider !== nextProps.contextIdentifierProvider ||
 			this.props.isLoading !== nextProps.isLoading ||
 			this.props.mediaProvider !== nextProps.mediaProvider ||
-			hasNewViewMediaClientConfig
+			hasNewViewMediaClientConfig ||
+			hasNewViewAndUploadMediaClientConfig
 		) {
 			return true;
 		}
@@ -171,9 +177,11 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		const mediaProvider = await this.props.mediaProvider;
 		if (mediaProvider) {
 			const viewMediaClientConfig = mediaProvider.viewMediaClientConfig;
+			const viewAndUploadMediaClientConfig = mediaProvider.viewAndUploadMediaClientConfig;
 
 			this.setState({
 				viewMediaClientConfig,
+				viewAndUploadMediaClientConfig,
 			});
 		}
 	};
@@ -229,10 +237,15 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 		const borderMark = node.marks.find((m) => m.type.name === 'border');
 
-		const { viewMediaClientConfig, contextIdentifierProvider } = this.state;
+		const { viewMediaClientConfig, viewAndUploadMediaClientConfig, contextIdentifierProvider } =
+			this.state;
 		const { id, type, collection, url, alt } = node.attrs;
 
-		if (isLoading || (type !== 'external' && !viewMediaClientConfig)) {
+		const hasNoMediaClientConfig =
+			!viewMediaClientConfig &&
+			(fg('platform_media_video_captions') ? !viewAndUploadMediaClientConfig : true);
+
+		if (isLoading || (type !== 'external' && hasNoMediaClientConfig)) {
 			return (
 				<MediaCardWrapper dimensions={originalDimensions}>
 					<CardLoading interactionName="editor-media-card-loading" />
@@ -258,14 +271,19 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						collectionName: collection!,
 					};
 
+		const resolvedViewAndUploadMediaClientConfig = fg('platform_media_video_captions')
+			? viewAndUploadMediaClientConfig
+			: undefined;
+
 		// mediaClientConfig is not needed for "external" case. So we have to cheat here.
 		// there is a possibility mediaClientConfig will be part of a identifier,
 		// so this might be not an issue
-		const mediaClientConfig: MediaClientConfig = viewMediaClientConfig || {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			authProvider: () => ({}) as any,
-		};
+		const mediaClientConfig: MediaClientConfig = resolvedViewAndUploadMediaClientConfig ||
+			viewMediaClientConfig || {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				authProvider: () => ({}) as any,
+			};
 
 		let ssr: SSR | undefined;
 		if (fg('platform_editor_ssr_media')) {
@@ -304,6 +322,11 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						alt={alt}
 						videoControlsWrapperRef={this.videoControlsWrapperRef}
 						ssr={ssr}
+						mediaSettings={{
+							canUpdateVideoCaptions: fg('platform_media_video_captions')
+								? !!viewAndUploadMediaClientConfig
+								: false,
+						}}
 					/>
 				</AnalyticsContext>
 			</MediaCardWrapper>

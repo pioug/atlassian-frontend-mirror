@@ -27,7 +27,7 @@ should be used sparingly.
 
 ![The modal is made up of four parts, a header, body text, both left-aligned, a close button in the header, right-aligned, and a footer with two right-aligned buttons: a button to close the dialog and a primary action button.](../images/modal-dialog-anatomy.png)
 
-1. **Header:** Contains the modal title.
+1. **Header:** Contains the modal title. It should always be a level `h1` heading.
 2. **Button** Closes the modal dialog from the header.
 3. **Body:** Provides an overview of the modal dialog's purpose and any controls that might be
    needed to complete a task.
@@ -55,32 +55,33 @@ There are 3 ways to make sure your modal has an accessible title:
 
 ### Dismissing modals
 
-Until a modal is closed, users can't interact with the rest of the page.
+Users can't interact with the rest of the page until a modal is closed. To help both mouse and
+keyboard users perform this action, the dialog can be closed by:
 
-To help both mouse and keyboard users perform this action, the dialog can be closed by:
-
-- Selecting **close** in the header
+- Selecting the **close button** in the header
 - Pressing `Esc` on a keyboard
 - Selecting anywhere outside the modal (in the blanket)
 - Selecting **Cancel** or **Close** in the footer (optional)
 
-Always add a close button in the header. The control in the footer to cancel or close the modal is
-optional.
+A close button in the header should always be used, except in extremely rare circumstances.
+
+If you think an exception applies to your use case, you must contact the accessibility team to
+confirm. Otherwise, it could introduce an accessibility violation.
 
 ### Setting focus
 
 Focus order should follow a logical and predictable sequence for keyboard and screen reader users.
 
-Focus should move as follows:
+The focus should move as follows:
 
-1. **Container**: Once open, focus should immediately move to the container (modal window).
-2. **Close button** in header.
-3. **Main content**: For form fields or other interactive elements, focus should move to the first
+1. **Close button in header**: If the modal doesn’t have a close button, focus should start on the
+   title. If there isn’t a title, focus should start on the container (modal window).
+2. **Main content**: For form fields or other interactive elements, focus should move to the first
    focusable element. If the content is text and not actionable, focus should move to the text.
-4. **Secondary button**, if using.
-5. **Primary button**.
-6. **On close**: When the modal is closed, focus should return to the element that triggered the
-   modal.
+3. **Secondary button**, if using.
+4. **Primary button**.
+5. **Modal trigger**: When the modal is closed, focus should return to the element that triggered
+   the modal.
 
 ## Best practices
 
@@ -132,7 +133,7 @@ Avoid complex experiences and scrolling behavior as they reduce the usability of
 		alt: 'A simple share permissions modal with a form field labeled details, a permissions section to decide who can access or edit the page, and two buttons located at the bottom right of the modal: a secondary subtle cancel button and a primary blue share button.',
 	}}
 >
-	Keep headings and body content concise and clear. Focus on a single task or message.
+	Keep `h1` headings and body content concise and clear. Focus on a single task or message.
 </DoDont>
 
 <DoDont

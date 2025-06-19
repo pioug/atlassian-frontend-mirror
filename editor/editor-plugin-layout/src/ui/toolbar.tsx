@@ -347,9 +347,8 @@ export const buildToolbar = (
 		});
 		// testId is required to show focus on trigger button on ESC key press
 		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-		const testId = fg('platform_editor_controls_patch_8')
-			? 'layout-overflow-dropdown-trigger'
-			: undefined;
+		const testId = 'layout-overflow-dropdown-trigger';
+
 		const overflowMenu: FloatingToolbarItem<Command> = {
 			type: 'overflow-dropdown',
 			testId,

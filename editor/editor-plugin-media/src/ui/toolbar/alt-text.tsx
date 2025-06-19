@@ -19,7 +19,6 @@ import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import TextIcon from '@atlaskit/icon/core/text';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { openMediaAltTextMenu } from '../../pm-plugins/alt-text/commands';
@@ -75,9 +74,7 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 					dispatch,
 				} = view;
 				const elementSelector =
-					options?.triggerButtonSelector &&
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_8')
+					options?.triggerButtonSelector && editorExperiment('platform_editor_controls', 'variant1')
 						? options.triggerButtonSelector
 						: `[data-testid="${testId}"]`;
 

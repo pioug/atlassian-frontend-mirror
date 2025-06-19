@@ -173,9 +173,7 @@ export const TypeAheadControl = ({
 			CSS.supports('top', `anchor(${rootAnchorName} start)`) &&
 			CSS.supports('left', `anchor(${rootAnchorName} start)`);
 
-		const safeAnchorName = fg('platform_editor_controls_patch_2')
-			? refreshAnchorName({ getPos, view, anchorName: rootAnchorName })
-			: rootAnchorName;
+		const safeAnchorName = refreshAnchorName({ getPos, view, anchorName: rootAnchorName });
 
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,

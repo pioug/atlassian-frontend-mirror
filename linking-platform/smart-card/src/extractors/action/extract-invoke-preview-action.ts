@@ -3,8 +3,13 @@ import {
 	extractLink,
 	extractPreview as extractPreviewData,
 	extractProvider,
+	extractSmartLinkEmbed,
+	extractSmartLinkProvider,
+	extractSmartLinkTitle,
+	extractSmartLinkUrl,
 	extractTitle,
 } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { ActionName, CardAction } from '../../index';
@@ -54,12 +59,16 @@ export const extractInvokePreviewAction = (
 					isSupportTheming: extractIsSupportTheming(meta),
 					isTrusted: extractIsTrusted(meta),
 					linkIcon: extractLinkIcon(response),
-					providerName: extractProvider(data)?.text,
+					providerName: fg('smart_links_noun_support')
+						? extractSmartLinkProvider(response)?.text
+						: extractProvider(data)?.text,
 					onClose,
 					origin,
-					src,
-					title: extractTitle(data),
-					url,
+					src: fg('smart_links_noun_support') ? extractSmartLinkEmbed(response)?.src : src,
+					title: fg('smart_links_noun_support')
+						? extractSmartLinkTitle(response)
+						: extractTitle(data),
+					url: fg('smart_links_noun_support') ? extractSmartLinkUrl(response) : url,
 				}),
 			actionSubjectId: 'invokePreviewScreen',
 			actionType: ActionName.PreviewAction,

@@ -1,5 +1,11 @@
 # @atlaskit/teams-app-config
 
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.0
 
 ### Minor Changes

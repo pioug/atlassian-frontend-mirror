@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-help-dialog",
-	"version": "2.1.12",
+	"version": "2.1.13",
 	"description": "Help Dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

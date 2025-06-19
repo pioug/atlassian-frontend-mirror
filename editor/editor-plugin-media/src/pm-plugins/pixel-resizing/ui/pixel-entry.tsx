@@ -357,7 +357,7 @@ export const PixelEntryComponentNext = ({
 
 	const getButtonKeyDownHandler = () => {
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		if (fg('platform_editor_controls_patch_8') && !fg('platform_editor_controls_patch_9')) {
+		if (!fg('platform_editor_controls_patch_9')) {
 			return handleKeyDown;
 		} else if (fg('platform_editor_controls_patch_9')) {
 			return handleCloseButtonKeyDown;

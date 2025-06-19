@@ -310,7 +310,6 @@ export const apply = (
 		isPMDragging,
 		isShiftDown,
 		lastDragCancelled,
-		isSelectedViaDragHandle,
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
@@ -663,12 +662,10 @@ export const apply = (
 		isMenuOpenNew = !isMenuOpen;
 	}
 
-	const isSelectedViaDragHandleNew: boolean =
+	const isSelectedViaDragHandle: boolean =
 		meta?.isSelectedViaDragHandle !== undefined &&
 		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_5')
-			? meta?.isSelectedViaDragHandle
-			: isSelectedViaDragHandle;
+		meta?.isSelectedViaDragHandle;
 
 	return {
 		decorations,
@@ -688,7 +685,7 @@ export const apply = (
 		multiSelectDnD,
 		isShiftDown: meta?.isShiftDown ?? isShiftDown,
 		lastDragCancelled: meta?.lastDragCancelled ?? lastDragCancelled,
-		isSelectedViaDragHandle: isSelectedViaDragHandleNew,
+		isSelectedViaDragHandle,
 	};
 };
 
@@ -881,11 +878,9 @@ export const createPlugin = (
 
 					return false;
 				},
-				mousedown:
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_2')
-						? handleMouseDown(api)
-						: undefined,
+				mousedown: editorExperiment('platform_editor_controls', 'variant1')
+					? handleMouseDown(api)
+					: undefined,
 				keydown(view: EditorView, event: KeyboardEvent) {
 					if (isMultiSelectEnabled) {
 						if (event.shiftKey && event.ctrlKey) {
@@ -911,8 +906,7 @@ export const createPlugin = (
 						if (
 							(event.key === 'Enter' || event.key === ' ') &&
 							event.target instanceof HTMLElement &&
-							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_5')
+							editorExperiment('platform_editor_controls', 'variant1')
 						) {
 							const isDragHandle =
 								event.target.closest('[data-editor-block-ctrl-drag-handle="true"]') !== null;
@@ -926,8 +920,7 @@ export const createPlugin = (
 								event.key === 'ArrowRight' ||
 								event.key === 'ArrowDown' ||
 								event.key === 'ArrowUp') &&
-							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_5')
+							editorExperiment('platform_editor_controls', 'variant1')
 						) {
 							if (api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle) {
 								api?.core.actions.execute(
@@ -971,8 +964,7 @@ export const createPlugin = (
 						if (
 							(event.key === 'Enter' || event.key === ' ') &&
 							event.target instanceof HTMLElement &&
-							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_5')
+							editorExperiment('platform_editor_controls', 'variant1')
 						) {
 							const isDragHandle =
 								event.target.closest('[data-editor-block-ctrl-drag-handle="true"]') !== null;
@@ -986,8 +978,7 @@ export const createPlugin = (
 								event.key === 'ArrowRight' ||
 								event.key === 'ArrowDown' ||
 								event.key === 'ArrowUp') &&
-							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_5')
+							editorExperiment('platform_editor_controls', 'variant1')
 						) {
 							if (api?.blockControls.sharedState.currentState()?.isSelectedViaDragHandle) {
 								api?.core.actions.execute(

@@ -153,9 +153,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const { moreElementsInQuickInsertView } = useSharedState(api);
 	const moreElementsInQuickInsertViewEnabled =
 		moreElementsInQuickInsertView && triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
-	const isEditorControlsPatch2Enabled =
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_2');
+	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
 
 	const defaultMenuHeight = useMemo(
 		() =>
@@ -354,7 +352,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			}
 
 			cancel({
-				addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
+				addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
 				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 				forceFocusOnEditor: false,
 			});
@@ -369,7 +367,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('focusout', focusOut);
 		};
-	}, [ref, cancel, editorView.state, isEditorControlsPatch2Enabled, anchorElement]);
+	}, [ref, cancel, editorView.state, isEditorControlsEnabled, anchorElement]);
 
 	// TODO: ED-17443 - When you press escape on typeahead panel, it should remove focus and close the panel
 	// This is the expected keyboard behaviour advised by the Accessibility team
@@ -379,7 +377,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			if (event.key === 'Escape') {
 				activityStateRef.current.inputMethod = INPUT_METHOD.KEYBOARD;
 				cancel({
-					addPrefixTrigger: isEditorControlsPatch2Enabled ? !removePrefixTriggerOnCancel : true,
+					addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
 					setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 					forceFocusOnEditor: true,
 				});
@@ -396,7 +394,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('keydown', escape);
 		};
-	}, [ref, cancel, editorView.state, isEditorControlsPatch2Enabled]);
+	}, [ref, cancel, editorView.state, isEditorControlsEnabled]);
 
 	// @ts-ignore
 	const openElementBrowserModal = triggerHandler?.openElementBrowserModal;

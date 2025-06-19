@@ -211,7 +211,13 @@ describe('Annotations: Mounter', () => {
 				action: ACTION.CREATE_NOT_ALLOWED,
 				actionSubject: ACTION_SUBJECT.ANNOTATION,
 				actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
-				attributes: {},
+				attributes: {
+					documentPosition: {
+						from: 0,
+						to: 10,
+					},
+					isAnnotationAllowed: false,
+				},
 				eventType: EVENT_TYPE.TRACK,
 			});
 		});

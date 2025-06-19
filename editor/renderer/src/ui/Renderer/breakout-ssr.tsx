@@ -1,5 +1,5 @@
 import React from 'react';
-import { breakoutConsts } from '@atlaskit/editor-common/utils';
+import { breakoutConsts, BreakoutConstsType } from '@atlaskit/editor-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FullPagePadding } from './style';
@@ -31,30 +31,35 @@ export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInline
 	}
 
 	const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
+	const shouldSkipScript = {
+		table: fg('platform-ssr-table-resize'),
+		breakout: fg('platform_breakout_cls'),
+	};
+
 	return (
 		<script
 			data-breakout-script-id={id}
 			// To investigate if we can replace this.
 			// eslint-disable-next-line react/no-danger
 			dangerouslySetInnerHTML={{
-				__html:
-					fg('platform-ssr-table-resize') || fg('platform_breakout_cls')
-						? createBreakoutInlineScript(id, true)
-						: createBreakoutInlineScript(id),
+				__html: createBreakoutInlineScript(id, shouldSkipScript),
 			}}
 			data-testid="breakout-ssr-inline-script"
 		/>
 	);
 }
 
-export function createBreakoutInlineScript(id: number, shouldSkipScript?: boolean) {
+export function createBreakoutInlineScript(
+	id: number,
+	shouldSkipScript: { table: boolean; breakout: boolean },
+) {
 	return `
 	 (function(window){
 		if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) {
 			return;
 		}
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${shouldSkipScript ?? false});
+    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${JSON.stringify(shouldSkipScript)});
   })(window);
 `;
 }
@@ -72,7 +77,11 @@ export const breakoutInlineScriptContext = `
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldSkipBreakoutScript: boolean) {
+function applyBreakoutAfterSSR(
+	id: string,
+	breakoutConsts: BreakoutConstsType,
+	shouldSkipBreakoutScript: { table: boolean; breakout: boolean },
+) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
 
@@ -126,11 +135,14 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldSkipBreako
 					}
 
 					// When flag is on we are using CSS to calculate the table width thus don't need logic below to set the width and left.
-					if (shouldSkipBreakoutScript && node.classList.contains('pm-table-container')) {
+					if (shouldSkipBreakoutScript.table && node.classList.contains('pm-table-container')) {
 						return;
 					}
 
-					if (shouldSkipBreakoutScript && node.classList.contains('fabric-editor-breakout-mark')) {
+					if (
+						shouldSkipBreakoutScript.breakout &&
+						node.classList.contains('fabric-editor-breakout-mark')
+					) {
 						return;
 					}
 
@@ -143,8 +155,8 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldSkipBreako
 						width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
 					} else if (resizedBreakout) {
 						width = breakoutConsts.calcBreakoutWithCustomWidth(
-							mode,
-							node.dataset.width || null,
+							mode as 'full-width' | 'wide',
+							Number(node.dataset.width) || null,
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							renderer!.offsetWidth,

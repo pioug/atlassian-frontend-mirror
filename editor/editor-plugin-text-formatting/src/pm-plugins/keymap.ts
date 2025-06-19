@@ -15,7 +15,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -186,11 +185,9 @@ export default function keymapPlugin(
 			handleKeyDown(view, event) {
 				const keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
 
-				const keymapList =
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_8')
-						? getEnabledKeylist(view)
-						: list;
+				const keymapList = editorExperiment('platform_editor_controls', 'variant1')
+					? getEnabledKeylist(view)
+					: list;
 				return keydownHandler(keymapList)(view, keyboardEvent);
 			},
 		},

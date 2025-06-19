@@ -143,8 +143,7 @@ const tablePlugin: TablePlugin = ({ config: options, api }) => {
 		!options?.isChromelessEditor &&
 		!options?.isCommentEditor &&
 		options?.getEditorFeatureFlags?.().tableSelector &&
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_table_picker');
+		editorExperiment('platform_editor_controls', 'variant1');
 
 	return {
 		name: 'table',

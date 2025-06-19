@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 12.1.0
+
+### Minor Changes
+
+- [#172309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172309)
+  [`2277073f3598c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2277073f3598c) -
+  EDM-12975 use entity data to render google document links
+
 ## 12.0.0
 
 ### Major Changes

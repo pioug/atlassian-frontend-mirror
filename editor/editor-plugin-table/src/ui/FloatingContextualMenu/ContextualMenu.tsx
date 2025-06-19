@@ -53,7 +53,6 @@ import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -664,10 +663,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		items[0].items.push(...mergeSplitCellItems);
 		items[1].items.push(insertColumnItem);
 		items[1].items.push(insertRowItem);
-		if (
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_2')
-		) {
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
 			items[1].items.push(this.newDistributeColumnsItem());
 		}
 		items[1].items.push(clearCellsItem);

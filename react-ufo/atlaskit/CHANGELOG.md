@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.23
+
+### Patch Changes
+
+- [#173171](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173171)
+  [`e60305b08b528`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e60305b08b528) -
+  Added fg to enable new interaction metrics in jsm portal
+
 ## 3.13.22
 
 ### Patch Changes

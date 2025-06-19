@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 3.10.2
+
+### Patch Changes
+
+- [#173357](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173357)
+  [`f17a667b25b42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f17a667b25b42) -
+  enable merging of prosemirror steps for single player sessions
+- Updated dependencies
+
+## 3.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.10.0
 
 ### Minor Changes

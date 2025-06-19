@@ -9,6 +9,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { collab, getCollabState, Rebaseable, sendableSteps } from '@atlaskit/prosemirror-collab';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { CollabEditPlugin } from './collabEditPluginType';
@@ -190,7 +191,10 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					transformed = filterAnalyticsSteps(transformed);
 				}
 
-				if (editorExperiment('platform_editor_offline_editing_web', true)) {
+				if (
+					editorExperiment('platform_editor_offline_editing_web', true) ||
+					expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
+				) {
 					transformed = mergeUnconfirmedSteps(transformed, api);
 				}
 				return transformed;

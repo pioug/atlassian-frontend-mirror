@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 3.7.4
+
+### Patch Changes
+
+- [#172583](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172583)
+  [`40f387a0c0962`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40f387a0c0962) -
+  Clean up platform_editor_controls_patch_2
+- Updated dependencies
+
+## 3.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.1
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import { isDocumentEntity, type SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -11,6 +11,7 @@ import {
 	extractPersonUpdatedBy,
 	extractProvider,
 	extractTitle,
+	type LinkPerson,
 	type LinkTypeCreated,
 	type LinkTypeUpdatedBy,
 } from '../common';
@@ -51,7 +52,7 @@ export const extractSmartLinkUrl = (response?: SmartLinkResponse): string | unde
 export const extractSmartLinkAri = (response?: SmartLinkResponse): string | undefined => {
 	if (fg('smart_links_noun_support')) {
 		if (isEntityPresent(response)) {
-			return extractEntity(response)?.ari;
+			return extractEntity(response)?.ari || extractEntity(response)?.thirdPartyAri;
 		}
 	}
 
@@ -111,12 +112,35 @@ export const extractSmartLinkCreatedBy = (response?: SmartLinkResponse): string 
 
 	if (fg('smart_links_noun_support')) {
 		if (isEntityPresent(response)) {
-			return extractEntity(response)?.createdBy?.id;
+			return extractEntity(response)?.createdBy?.displayName;
 		}
 	}
 
 	const persons = extractPersonCreatedBy(response.data as JsonLd.Data.BaseData);
 	return !!persons?.length ? persons[0].name : undefined;
+};
+
+export const extractSmartLinkAuthorGroup = (
+	response: SmartLinkResponse,
+): LinkPerson[] | undefined => {
+	if (!response || !response.data) {
+		return undefined;
+	}
+
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			const entity = extractEntity(response);
+			const owners = entity?.owners;
+
+			if (owners) {
+				return owners
+					.map((owner) => ({ name: owner.displayName, src: owner.picture }))
+					.filter((item) => !!item) as LinkPerson[];
+			}
+		}
+	}
+
+	return extractPersonCreatedBy(response.data as JsonLd.Data.BaseData);
 };
 
 export const extractSmartLinkModifiedBy = (response?: SmartLinkResponse): string | undefined => {
@@ -126,10 +150,22 @@ export const extractSmartLinkModifiedBy = (response?: SmartLinkResponse): string
 
 	if (fg('smart_links_noun_support')) {
 		if (isEntityPresent(response)) {
-			return extractEntity(response)?.lastUpdatedBy?.id;
+			return extractEntity(response)?.lastUpdatedBy?.displayName;
 		}
 	}
 
 	const person = extractPersonUpdatedBy(response.data as LinkTypeUpdatedBy);
 	return person ? person.name : undefined;
+};
+
+export const extractSmartLinkDownloadUrl = (response?: SmartLinkResponse): string | undefined => {
+	if (fg('smart_links_noun_support')) {
+		if (isEntityPresent(response)) {
+			const entity = extractEntity(response);
+			return entity && isDocumentEntity(entity)
+				? entity?.['atlassian:document']?.exportLinks?.[0].url
+				: undefined;
+		}
+	}
+	return (response?.data as JsonLd.Data.BaseData)?.['atlassian:downloadUrl'];
 };

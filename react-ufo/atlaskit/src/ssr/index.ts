@@ -10,7 +10,27 @@ export type ReportedTimings = {
 export type SSRFeatureFlags = { [key: string]: FeatureFlagValue };
 
 export type SSRConfig = {
+	/**
+	 * Used to represent whether SSR as a whole was considered successful. You can consider this the success of the "render" phase success
+	 */
 	getDoneMark: () => number | null;
+	/**
+	 * Used to represent whether certain phases within were successful.
+	 * It is encouraged to send false even if the phase only partially failed and rely on ssr-side logging/metrics to disambiguate failure severity
+	 */
+	getSsrPhaseSuccess?: () => {
+		/**
+		 * The "prefetch" phase in SSR - where SSR fetches remote data necessary for rendering the page.
+		 * If any of the fetches fail, this should be false, use server side logging/metrics to dive into more detail into the nature of the failure.
+		 * UFO - which is client-side only - may not know the nature of the failure if SSR as a whole failed and a static fallback was given to the client.
+		 */
+		prefetch?: boolean;
+		/**
+		 * The "earlyFLush" phase in SSR - where SSR sends the first flush to the client.
+		 * This is generally expected to be earlier than / independant of the prefetch data and may even be non-visual (eg: <link rel="preload" href="..."> tags).
+		 */
+		earlyFlush?: boolean;
+	};
 	getFeatureFlags: () => SSRFeatureFlags | null;
 	getTimings?: () => ReportedTimings | null;
 };
@@ -66,6 +86,10 @@ export function getSSRTimings(): ReportedTimings {
 
 export function getSSRSuccess(): boolean {
 	return !!config?.getDoneMark();
+}
+
+export function getSSRPhaseSuccess(): { prefetch?: boolean; earlyFlush?: boolean } | undefined {
+	return config?.getSsrPhaseSuccess?.();
 }
 
 export function getSSRDoneTime(): number | undefined {

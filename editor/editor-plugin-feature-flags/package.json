@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-feature-flags",
-	"version": "1.4.3",
+	"version": "1.4.4",
 	"description": "Feature flags plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -726,9 +726,8 @@ const generateToolbarItems =
 				});
 				// testId is required to show focus on trigger button on ESC key press
 				// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-				const testId = fg('platform_editor_controls_patch_8')
-					? 'card-overflow-dropdown-trigger'
-					: undefined;
+				const testId = 'card-overflow-dropdown-trigger';
+
 				const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
 					{ type: 'separator', fullHeight: true },
 					{
@@ -974,9 +973,7 @@ const getDatasourceButtonGroup = (
 	} else {
 		// testId is required to show focus on trigger button on ESC key press
 		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-		const testId = fg('platform_editor_controls_patch_8')
-			? 'datasource-overflow-dropdown-trigger'
-			: undefined;
+		const testId = 'datasource-overflow-dropdown-trigger';
 
 		// When canShowAppearanceSwitch is true, and platform_editor_controls is on, the link appearance dropdown shows, which includes a link preference button
 		// So only add the link appearance button when canShowAppearanceSwitch is false

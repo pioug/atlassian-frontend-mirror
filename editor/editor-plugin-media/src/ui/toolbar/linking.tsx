@@ -93,11 +93,7 @@ export const getLinkingToolbar = (
 							}
 
 							const setFocusOnFloatingToolbar = (setFocus?: boolean) => {
-								if (
-									setFocus &&
-									editorExperiment('platform_editor_controls', 'variant1') &&
-									fg('platform_editor_controls_patch_8')
-								) {
+								if (setFocus && editorExperiment('platform_editor_controls', 'variant1')) {
 									const {
 										state: { tr },
 										dispatch,
@@ -140,11 +136,9 @@ export const getLinkingToolbar = (
 											state: { tr },
 											dispatch,
 										} = view;
-										const selector =
-											editorExperiment('platform_editor_controls', 'variant1') &&
-											fg('platform_editor_controls_patch_8')
-												? FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS
-												: FORCE_FOCUS_SELECTOR;
+										const selector = editorExperiment('platform_editor_controls', 'variant1')
+											? FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS
+											: FORCE_FOCUS_SELECTOR;
 										pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(selector)(tr);
 										dispatch(tr);
 									}}

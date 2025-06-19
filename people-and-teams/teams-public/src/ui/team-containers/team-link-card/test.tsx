@@ -26,6 +26,18 @@ jest.mock('../../../common/utils/get-container-properties', () => ({
 	})),
 }));
 
+jest.mock('../../../common/utils/get-link-domain', () => ({
+	getDomainFromLinkUri: jest.fn((url: string) => {
+		if (url === 'https://www.loom.com/share/123') {
+			return 'loom.com';
+		}
+		if (url === 'https://docs.google.com/presentation/d/456') {
+			return 'docs.google.com';
+		}
+		return 'example.com';
+	}),
+}));
+
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-js-client'),
 	getExperimentValue: jest.fn(),
@@ -166,6 +178,63 @@ describe('TeamLinkCard', () => {
 			action: 'clicked',
 			actionSubject: 'button',
 			actionSubjectId: 'containerUnlinkButton',
+			attributes: {
+				containerSelected: {
+					container: 'ConfluenceSpace',
+					containerId: 'test-id',
+				},
+			},
+		});
+	});
+
+	it('should fire analytics event with linkDomain when WebLink container link is clicked', async () => {
+		const mockFireEvent = jest.fn();
+		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({ fireUIEvent: mockFireEvent });
+
+		renderWithIntl(
+			<TeamLinkCard
+				{...defaultProps}
+				containerType="WebLink"
+				link="https://www.loom.com/share/123"
+			/>,
+		);
+
+		const link = screen.getByRole('link');
+		await userEvent.click(link);
+
+		expect(mockFireEvent).toHaveBeenCalledWith(expect.any(Function), {
+			action: 'clicked',
+			actionSubject: 'container',
+			actionSubjectId: 'teamContainer',
+			attributes: {
+				containerSelected: {
+					container: 'WebLink',
+					containerId: 'test-id',
+					linkDomain: 'loom.com',
+				},
+			},
+		});
+	});
+
+	it('should fire analytics event without linkDomain when non-WebLink container link is clicked', async () => {
+		const mockFireEvent = jest.fn();
+		(usePeopleAndTeamAnalytics as jest.Mock).mockReturnValue({ fireUIEvent: mockFireEvent });
+
+		renderWithIntl(<TeamLinkCard {...defaultProps} containerType="ConfluenceSpace" />);
+
+		const link = screen.getByRole('link');
+		await userEvent.click(link);
+
+		expect(mockFireEvent).toHaveBeenCalledWith(expect.any(Function), {
+			action: 'clicked',
+			actionSubject: 'container',
+			actionSubjectId: 'teamContainer',
+			attributes: {
+				containerSelected: {
+					container: 'ConfluenceSpace',
+					containerId: 'test-id',
+				},
+			},
 		});
 	});
 

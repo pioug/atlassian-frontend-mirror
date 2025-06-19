@@ -15,19 +15,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const buttonStylesNoOutline = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > button:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > button:focus': {
-		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
-		outline: 'none',
-	},
-});
-
 const buttonStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button:hover': {
@@ -81,7 +68,7 @@ export const ViewMore = ({ onClick, isFocused }: { onClick: () => void; isFocuse
 	});
 	return (
 		<Section hasSeparator>
-			<span css={fg('platform_editor_controls_patch_8') ? buttonStyles : buttonStylesNoOutline}>
+			<span css={buttonStyles}>
 				<ButtonItem
 					ref={ref}
 					onClick={onClick}

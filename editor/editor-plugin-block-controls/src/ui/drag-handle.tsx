@@ -723,11 +723,9 @@ export const DragHandle = ({
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
 			CSS.supports('left', `anchor(${anchorName} start)`);
 
-		const safeAnchorName =
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_2')
-				? refreshAnchorName({ getPos, view, anchorName })
-				: anchorName;
+		const safeAnchorName = editorExperiment('platform_editor_controls', 'variant1')
+			? refreshAnchorName({ getPos, view, anchorName })
+			: anchorName;
 
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,
@@ -821,11 +819,9 @@ export const DragHandle = ({
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
 			CSS.supports('left', `anchor(${anchorName} start)`);
 
-		const safeAnchorName =
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_2')
-				? refreshAnchorName({ getPos, view, anchorName })
-				: anchorName;
+		const safeAnchorName = editorExperiment('platform_editor_controls', 'variant1')
+			? refreshAnchorName({ getPos, view, anchorName })
+			: anchorName;
 
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[data-drag-handler-anchor-name="${safeAnchorName}"]`,

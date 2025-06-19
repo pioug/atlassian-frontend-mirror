@@ -1,7 +1,6 @@
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PopupPosition as Position } from '../ui';
 
@@ -251,11 +250,7 @@ export const calculateToolbarPositionOnCellSelection =
 		// If the toolbar is to be placed at the bottom of the selection (it happens when
 		// there is no sufficient space above) and the bottom of the selection is not in the view,
 		// place the toolbar at the bottom of the visible part of selection
-		if (
-			selection.isColSelection() &&
-			top + toolbarRect.height > wrapperBounds.bottom &&
-			fg('platform_editor_controls_patch_2')
-		) {
+		if (selection.isColSelection() && top + toolbarRect.height > wrapperBounds.bottom) {
 			top =
 				top -
 				(top - wrapperBounds.bottom) -

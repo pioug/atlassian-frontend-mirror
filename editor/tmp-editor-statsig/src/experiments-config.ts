@@ -461,4 +461,12 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-06-16
+	platform_editor_enable_single_player_step_merging: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_enable_single_player_step_merging',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

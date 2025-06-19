@@ -6,6 +6,7 @@ import type {
 	Step as ProseMirrorStep,
 	Transform as ProseMirrorTransform,
 } from '@atlaskit/editor-prosemirror/transform';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { mapStep } from './movedContent';
@@ -131,7 +132,10 @@ export function collab(config: CollabConfig = {}): Plugin {
 			apply(tr, collab) {
 				const newState = tr.getMeta(collabKey);
 				if (newState) {
-					if (editorExperiment('platform_editor_offline_editing_web', true)) {
+					if (
+						editorExperiment('platform_editor_offline_editing_web', true) ||
+						expValEquals('platform_editor_enable_single_player_step_merging', 'isEnabled', true)
+					) {
 						return new CollabState(newState.version, transformUnconfirmed(newState.unconfirmed));
 					} else {
 						return newState;

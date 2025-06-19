@@ -74,6 +74,8 @@ export {
 	extractSmartLinkModifiedOn,
 	extractSmartLinkCreatedBy,
 	extractSmartLinkModifiedBy,
+	extractSmartLinkAuthorGroup,
+	extractSmartLinkDownloadUrl,
 } from './smart-link';
 
 export type {

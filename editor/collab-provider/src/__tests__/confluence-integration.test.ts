@@ -1,5 +1,9 @@
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
+	...jest.requireActual('@atlaskit/feature-gate-js-client'),
+	initialize: jest.fn(Promise.resolve),
+	initializeCompleted: jest.fn(() => true),
 	getExperimentValue: jest.fn(),
+	checkGate: jest.fn(),
 }));
 
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';

@@ -17,7 +17,7 @@ async function getVCMetrics(
 	if (!config?.vc?.enabled) {
 		return {};
 	}
-	if (fg('platform_ufo_enable_interactions_vc')) {
+	if (fg('platform_ufo_enable_interactions_vc') || fg('platform_ufo_enable_interactivity_jsm')) {
 		if (
 			interaction.type !== 'page_load' &&
 			interaction.type !== 'transition' &&

@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 38.11.0
+
+### Minor Changes
+
+- [#172309](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172309)
+  [`2277073f3598c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2277073f3598c) -
+  EDM-12975 use entity data to render google document links
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.10.2
+
+### Patch Changes
+
+- [#172989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172989)
+  [`41bb7602f58e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/41bb7602f58e3) -
+  Refactor and clean up types for external elements
+- Updated dependencies
+
 ## 38.10.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-clear-marks-on-empty-doc",
-	"version": "2.0.6",
+	"version": "2.0.7",
 	"description": "Clear marks on empty doc plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

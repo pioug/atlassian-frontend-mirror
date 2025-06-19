@@ -30,10 +30,10 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
 		return `min(${width}px, var(--ak-editor--breakout-container-without-gutter-width))`;
 	} else {
 		if (mode === 'full-width') {
-			return `max(${akEditorDefaultLayoutWidth}px, min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width))))`;
+			return `max(${akEditorDefaultLayoutWidth}px, min(${akEditorFullWidthLayoutWidth}px, var(--ak-editor--breakout-container-without-gutter-width)))`;
 		}
 		if (mode === 'wide') {
-			return `min(var(--ak-editor--breakout-wide-layout-width), var(--ak-editor--breakout-container-without-gutter-width)))`;
+			return `min(var(--ak-editor--breakout-wide-layout-width), var(--ak-editor--breakout-container-without-gutter-width))`;
 		}
 	}
 };

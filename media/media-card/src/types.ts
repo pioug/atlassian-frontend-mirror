@@ -10,6 +10,7 @@ import {
 	type ImageResizeMode,
 	type FileState,
 } from '@atlaskit/media-client';
+import { type MediaSettings } from '@atlaskit/media-client-react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
 	type MediaFeatureFlags,
@@ -158,26 +159,28 @@ export interface CardEventProps {
 }
 
 export interface CardProps extends SharedCardProps, CardEventProps {
-	// Instance of MediaClient.
+	/** Instance of MediaClient. */
 	readonly mediaClient: MediaClient;
-	// Instance of file identifier.
+	/** Instance of file identifier. */
 	readonly identifier: Identifier;
-	// Lazy loads the media file.
+	/** Lazy loads the media file. */
 	readonly isLazy?: boolean;
-	// Uses the inline player for media file.
+	/** Uses the inline player for media file. */
 	readonly useInlinePlayer?: boolean;
-	// Uses media MediaViewer to preview the media file.
+	/** Uses media MediaViewer to preview the media file. */
 	readonly shouldOpenMediaViewer?: boolean;
-	// Media file list to display in Media Viewer.
+	/** Media file list to display in Media Viewer. */
 	readonly mediaViewerItems?: Identifier[];
-	// Retrieve auth based on a given context.
+	/** Retrieve auth based on a given context. */
 	readonly contextId?: string;
-	// Enables the download button for media file.
+	/** Enables the download button for media file. */
 	readonly shouldEnableDownloadButton?: boolean;
-	// Server-Side-Rendering modes are "server" and "client"
+	/** Server-Side-Rendering modes are "server" and "client" */
 	readonly ssr?: SSR;
-	// Disable tooltip for the card
+	/** Disable tooltip for the card */
 	readonly shouldHideTooltip?: boolean;
+	/** General Media Settings */
+	readonly mediaSettings?: MediaSettings;
 }
 
 export interface CardState {

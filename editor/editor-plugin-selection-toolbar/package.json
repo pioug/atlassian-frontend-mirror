@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-toolbar",
-	"version": "3.7.1",
+	"version": "3.7.4",
 	"description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -103,19 +103,10 @@
 		"platform_editor_user_preferences_provider_update": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_2": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_patch_4": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_5": {
-			"type": "boolean"
-		},
 		"platform_editor_use_preferences_plugin": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_8": {
 			"type": "boolean"
 		}
 	}

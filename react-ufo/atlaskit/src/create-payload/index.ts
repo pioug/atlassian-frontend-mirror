@@ -154,6 +154,10 @@ function getSSRSuccess(type: InteractionType) {
 	return type === 'page_load' ? ssr.getSSRSuccess() : undefined;
 }
 
+function getSSRPhaseSuccess(type: InteractionType) {
+	return type === 'page_load' ? ssr.getSSRPhaseSuccess() : undefined;
+}
+
 function getSSRFeatureFlags(type: InteractionType) {
 	return type === 'page_load' ? ssr.getSSRFeatureFlags() : undefined;
 }
@@ -306,9 +310,21 @@ function getPPSMetrics(interaction: InteractionMetrics) {
 }
 
 function getSSRProperties(type: InteractionType) {
+	const ssrPhases = getSSRPhaseSuccess(type);
+
 	return {
 		'ssr:success': getSSRSuccess(type),
 		'ssr:featureFlags': getSSRFeatureFlags(type),
+		...(ssrPhases?.earlyFlush != null
+			? {
+					'ssr:earlyflush:success': ssrPhases.earlyFlush,
+				}
+			: null),
+		...(ssrPhases?.prefetch != null
+			? {
+					'ssr:prefetch:success': ssrPhases.prefetch,
+				}
+			: null),
 	};
 }
 

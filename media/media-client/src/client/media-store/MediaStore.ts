@@ -421,6 +421,7 @@ export class MediaStore implements MediaApi {
 		const extendedParams = {
 			...params,
 			name: file.name,
+			collection: collectionName,
 		};
 
 		const authContext: AuthContext = {

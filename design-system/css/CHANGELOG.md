@@ -1,5 +1,17 @@
 # @atlaskit/css
 
+## 0.11.0
+
+### Minor Changes
+
+- [#172429](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172429)
+  [`efcc283cecdfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efcc283cecdfe) -
+  Added metric typography tokens which can be used via the CSS `font` shorthand.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.10.7
 
 ### Patch Changes

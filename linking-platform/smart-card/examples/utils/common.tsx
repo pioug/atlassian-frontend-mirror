@@ -94,6 +94,7 @@ export const mocks = {
 		entityData: {
 			id: 'I love cheese',
 			displayName: 'I love cheese',
+			description: 'Here is your serving of cheese: 🧀',
 			url: 'https://some.url',
 			lastUpdatedAt: '2025-01-08T22:26:52.501Z',
 			thumbnail: {

@@ -1,6 +1,11 @@
 import React from 'react';
 
-import type { EntityType, ProviderGenerator, SmartLinkResponse } from '@atlaskit/linking-types';
+import {
+	type EntityType,
+	isDocumentEntity,
+	type ProviderGenerator,
+	type SmartLinkResponse,
+} from '@atlaskit/linking-types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -54,10 +59,19 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 export const extractEntityIcon = (response?: SmartLinkResponse) => {
 	const entity = extractEntity(response);
 
-	const url =
-		entity && 'iconUrl' in entity && typeof entity?.iconUrl === 'string'
-			? entity.iconUrl
-			: undefined;
+	let url: string | undefined;
+	if (entity) {
+		url = 'iconUrl' in entity && typeof entity?.iconUrl === 'string' ? entity.iconUrl : undefined;
+
+		if (isDocumentEntity(entity)) {
+			const iconUrl =
+				typeof entity?.['atlassian:document'].type?.iconUrl === 'string' &&
+				entity?.['atlassian:document'].type?.iconUrl
+					? entity?.['atlassian:document'].type?.iconUrl
+					: undefined;
+			url = response?.meta.generator?.icon?.url || iconUrl;
+		}
+	}
 
 	return {
 		url,

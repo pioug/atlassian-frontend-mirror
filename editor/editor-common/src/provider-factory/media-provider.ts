@@ -15,4 +15,9 @@ export type MediaProvider = {
 	 * Used for displaying Media Cards and downloading files.
 	 */
 	viewMediaClientConfig: MediaClientConfig;
+	/**
+	 * Used for displaying and downloading files OR uploading files. The operation will be determined by Media on each request.
+	 * This will be a replacement for viewMediaClientConfig and uploadMediaClientConfig together
+	 */
+	viewAndUploadMediaClientConfig?: MediaClientConfig;
 };

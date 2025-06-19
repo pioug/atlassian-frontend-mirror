@@ -1,5 +1,19 @@
 # @atlaskit/primitives
 
+## 14.9.0
+
+### Minor Changes
+
+- [#172429](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172429)
+  [`324162357eb4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/324162357eb4d) -
+  Added MetricText component which provides a convenient way to consume new metric typography tokens
+  for charts and other numerical components. Made metric tokens available in xcss via the font
+  shorthand property.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.8.4
 
 ### Patch Changes

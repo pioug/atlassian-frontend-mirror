@@ -8,6 +8,7 @@
  */
 import React from 'react';
 
+import { Prettify } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../constants';
@@ -56,16 +57,8 @@ import {
 	ViewCount,
 	VoteCount,
 } from './components/elements';
-import type {
-	BaseBadgeElementProps,
-	BaseDateTimeElementProps,
-	BaseIconElementProps,
-	BaseLinkElementProps,
-	BaseTextElementProps,
-} from './components/elements/common';
-import type { PreviewElementProps } from './components/elements/preview-element';
 
-// ---- EXPORTED METADATA COMPONENT ---- //
+// ---- EXPORTED METADATA COMPONENTS ---- //
 export const AssignedToElement = () => <AssignedTo />;
 export const AssignedToGroupElement = () => <AssignedToGroup />;
 export const AttachmentCountElement = () => <AttachmentCount />;
@@ -73,7 +66,8 @@ export const AuthorGroupElement = () => <AuthorGroup />;
 export const ChecklistProgressElement = () => <ChecklistProgress />;
 export const CollaboratorGroupElement = () => <CollaboratorGroup />;
 
-type CommentCountElementProps = Pick<BaseBadgeElementProps, 'color'>;
+type CommentCountElementProps = Pick<React.ComponentProps<typeof CommentCount>, 'color'>;
+
 export const CommentCountElement = (props?: CommentCountElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <CommentCount color={props?.color} />;
@@ -86,9 +80,12 @@ export const CreatedByElement = () => <CreatedBy />;
 export const DueOnElement = () => <DueOn />;
 export const LatestCommitElement = () => <LatestCommit />;
 
-type LinkIconElementProps = Pick<BaseIconElementProps, 'render'> & {
-	iconTileSize?: 16 | 24;
-};
+type LinkIconElementProps = Prettify<
+	Pick<React.ComponentProps<typeof LinkIcon>, 'render'> & {
+		iconTileSize?: 16 | 24;
+	}
+>;
+
 export const LinkIconElement = (props?: LinkIconElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return (
@@ -104,7 +101,11 @@ export const LinkIconElement = (props?: LinkIconElementProps) => {
 export const LocationElement = () => <Location />;
 export const ModifiedByElement = () => <ModifiedBy />;
 
-type ModifiedOnElementProps = Pick<BaseDateTimeElementProps, 'hideDatePrefix' | 'color'>;
+type ModifiedOnElementProps = Pick<
+	React.ComponentProps<typeof ModifiedOn>,
+	'hideDatePrefix' | 'color'
+>;
+
 export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <ModifiedOn hideDatePrefix={props?.hideDatePrefix} color={props?.color} />;
@@ -112,7 +113,7 @@ export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	return <ModifiedOn />;
 };
 
-type OwnedByElementProps = Pick<BaseTextElementProps, 'hideFormat' | 'color'>;
+type OwnedByElementProps = Pick<React.ComponentProps<typeof OwnedBy>, 'hideFormat' | 'color'>;
 export const OwnedByElement = (props?: OwnedByElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <OwnedBy hideFormat={props?.hideFormat} color={props?.color} />;
@@ -122,11 +123,11 @@ export const OwnedByElement = (props?: OwnedByElementProps) => {
 
 export const OwnedByGroupElement = () => <OwnedByGroup />;
 
-export const PreviewElement = (
-	props: Omit<PreviewElementProps, 'overrideUrl'> & {
-		url?: PreviewElementProps['overrideUrl'];
-	},
-) => {
+type PreviewElementProps = {
+	url?: React.ComponentProps<typeof Preview>['overrideUrl'];
+};
+
+export const PreviewElement = (props?: PreviewElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <Preview overrideUrl={props?.url} />;
 	}
@@ -137,7 +138,7 @@ export const PriorityElement = () => <Priority />;
 export const ProgrammingLanguageElement = () => <ProgrammingLanguage />;
 export const ProviderElement = () => <Provider />;
 
-type ReactCountElementProps = Pick<BaseBadgeElementProps, 'color'>;
+type ReactCountElementProps = Pick<React.ComponentProps<typeof ReactCount>, 'color'>;
 export const ReactCountElement = (props?: ReactCountElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return <ReactCount color={props?.color} />;
@@ -148,11 +149,14 @@ export const ReactCountElement = (props?: ReactCountElementProps) => {
 export const ReadTimeElement = () => <ReadTime />;
 export const SentOnElement = () => <SentOn />;
 
-export type SnippetElementProps = Pick<BaseTextElementProps, 'maxLines'> & {
-	text?: BaseTextElementProps['content'];
-};
-export const SnippetElement = (props: SnippetElementProps) => (
-	<Snippet maxLines={props.maxLines} content={props.text} />
+export type SnippetElementProps = Prettify<
+	Pick<React.ComponentProps<typeof Snippet>, 'maxLines'> & {
+		text?: React.ComponentProps<typeof Snippet>['content'];
+	}
+>;
+
+export const SnippetElement = (props?: SnippetElementProps) => (
+	<Snippet maxLines={props?.maxLines} content={props?.text} />
 );
 
 export const SourceBranchElement = () => <SourceBranch />;
@@ -163,10 +167,11 @@ export const SubTasksProgressElement = () => <SubTasksProgress />;
 export const TargetBranchElement = () => <TargetBranch />;
 
 export type TitleElementProps = Pick<
-	BaseLinkElementProps,
+	React.ComponentProps<typeof Title>,
 	'hideTooltip' | 'maxLines' | 'target' | 'text'
 >;
-export const TitleElement = (props: TitleElementProps) => (
+
+export const TitleElement = (props?: TitleElementProps) => (
 	<Title
 		hideTooltip={props?.hideTooltip}
 		maxLines={props?.maxLines}
@@ -174,6 +179,7 @@ export const TitleElement = (props: TitleElementProps) => (
 		{...(props?.text ? { text: props?.text } : undefined)}
 	/>
 );
+
 export const ViewCountElement = () => <ViewCount />;
 export const VoteCountElement = () => <VoteCount />;
 
@@ -189,15 +195,17 @@ export const CopyLinkAction = (props: CopyLinkActionProps) => (
 	<CopyLinkActionComponent {...toActionProps(props)} />
 );
 
-export type CustomActionProps = BaseActionProps & {
-	children: React.ReactNode;
-	onClick: () => void;
-};
+export type CustomActionProps = Prettify<
+	BaseActionProps & {
+		children: React.ReactNode;
+		onClick: () => void;
+	}
+>;
 export const CustomAction = (props: CustomActionProps) => (
 	<CustomActionComponent
 		{...toActionProps(props)}
-		content={props?.children}
-		onClick={props?.onClick}
+		content={props.children}
+		onClick={props.onClick}
 	/>
 );
 

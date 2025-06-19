@@ -1,8 +1,8 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import {
-	extractPersonCreatedBy,
 	extractPersonOwnedBy,
 	extractSmartLinkAri,
+	extractSmartLinkAuthorGroup,
 	extractSmartLinkCreatedBy,
 	extractSmartLinkCreatedOn,
 	extractSmartLinkModifiedBy,
@@ -15,7 +15,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
-import { extractSummary } from '../common/primitives';
+import { extractSmartLinkSummary } from '../common/primitives/extractSummary';
 
 import { extractFlexibleCardActions } from './actions';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
@@ -90,7 +90,7 @@ const extractFlexibleUiContext = ({
 			data as JsonLd.Data.Task | JsonLd.Data.TaskType,
 		),
 		attachmentCount: extractAttachmentCount(data),
-		authorGroup: extractPersonCreatedBy(data),
+		authorGroup: extractSmartLinkAuthorGroup(response),
 		ownedByGroup: extractPersonOwnedBy(data),
 		collaboratorGroup: extractPersonsUpdatedBy(data as JsonLd.Data.Document),
 		commentCount: extractCommentCount(data),
@@ -117,7 +117,7 @@ const extractFlexibleUiContext = ({
 		programmingLanguage: extractProgrammingLanguage(data),
 		readTime: extractReadTime(data),
 		sentOn: extractSentOn(data),
-		snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string
+		snippet: extractSmartLinkSummary(response) || undefined, // Explicitly set here to remove an empty string
 		sourceBranch: extractSourceBranch(data as JsonLd.Data.SourceCodePullRequest),
 		state: extractState(response, actionOptions, id, appearance, origin, fireEvent, resolve),
 		subscriberCount: extractSubscriberCount(data),

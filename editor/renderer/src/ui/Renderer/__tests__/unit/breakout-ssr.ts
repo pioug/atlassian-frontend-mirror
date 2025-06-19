@@ -35,7 +35,7 @@ describe('Breakout SSR', () => {
 </div>
 `;
 			// eslint-disable-next-line no-eval
-			eval(createBreakoutInlineScript(111));
+			eval(createBreakoutInlineScript(111, { table: false, breakout: false }));
 		})(mockWindow);
 
 		document.querySelector('.ak-renderer-document')!.innerHTML = `
@@ -69,7 +69,7 @@ describe('Breakout SSR', () => {
 	</div>
 	`;
 			// eslint-disable-next-line no-eval
-			eval(createBreakoutInlineScript(111));
+			eval(createBreakoutInlineScript(111, { table: false, breakout: false }));
 		})(mockWindow);
 		document.querySelector('.ak-renderer-document')!.innerHTML = `
 	<!-- comment element should not break the page -->
@@ -108,7 +108,7 @@ describe('Breakout SSR', () => {
 			expect(renderer.style.overflowX).toEqual('hidden');
 
 			// eslint-disable-next-line no-eval
-			eval(createBreakoutInlineScript(111));
+			eval(createBreakoutInlineScript(111, { table: false, breakout: false }));
 
 			document.querySelector('.ak-renderer-document')!.innerHTML = `
 <!-- comment element should not break the page -->

@@ -3,19 +3,19 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::515984e69408f30f333241c0b51ceb31>>
+ * @codegen <<SignedSource::5372ef8608441a2d8f71e99a6fd0a36e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/__generated__/index.partial.tsx <<SignedSource::a7f457ec091071415e904b705d62f605>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/__generated__/index.partial.tsx <<SignedSource::b297593f4c38160fa0272fb43fcaa19c>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
 import React from 'react';
 import { Pressable as PlatformPressable } from '@atlaskit/primitives';
 
-import type { CSSProperties } from '@emotion/serialize';
 import type * as CSS from 'csstype';
 import type { MediaQuery } from '@atlaskit/primitives';
 import { tokensMap } from '@atlaskit/primitives';
+type CSSProperties = CSS.PropertiesFallback<number | string>;
 type TokensMap = typeof tokensMap;
 type TokensMapPropKey = keyof TokensMap;
 type TokenizedProps = {

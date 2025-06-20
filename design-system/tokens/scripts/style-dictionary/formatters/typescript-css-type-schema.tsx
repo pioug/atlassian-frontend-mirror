@@ -9,7 +9,7 @@ function mapToCssVar(tokens: TransformedToken[]) {
 	return tokens.map((token) => `'var(${getCSSCustomProperty(token.path)})'`).join(' | ');
 }
 
-const fontShorthandTokenMatcher = /^font\.(heading|body|code)(\.([a-z_]+|\[default\]))?$/i;
+const fontShorthandTokenMatcher = /^font\.(heading|body|metric|code)(\.([a-z_]+|\[default\]))?$/i;
 
 const formatter: Format['formatter'] = ({ dictionary }) => {
 	const tokens = dictionary.allTokens.filter((token) => {

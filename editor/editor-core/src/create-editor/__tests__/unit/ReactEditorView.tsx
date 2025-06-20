@@ -65,6 +65,7 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 import React from 'react';
 
 import { fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createIntl } from 'react-intl-next';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
@@ -96,6 +97,7 @@ import type { MentionProvider } from '@atlaskit/mention/resource';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -188,6 +190,10 @@ describe('@atlaskit/editor-core', () => {
 				beforeEach(() => {
 					(getActiveInteraction as jest.Mock).mockReset();
 				});
+				afterEach(() => {
+					const querySelectorSpy = jest.spyOn(document, 'querySelector');
+					querySelectorSpy.mockRestore();
+				});
 
 				it(`When the event occurs during the page load - any active ufo experience should be aborted, and the event listeners cleaned up`, () => {
 					const mockElement = document.createElement('div');
@@ -257,6 +263,11 @@ describe('@atlaskit/editor-core', () => {
 	});
 
 	ffTest.on('platform_editor_reduce_scroll_jump_on_editor_start', '', () => {
+		afterEach(() => {
+			const querySelectorSpy = jest.spyOn(document, 'querySelector');
+			querySelectorSpy.mockRestore();
+		});
+
 		it('When the editor has already been scrolled, ReactEditorView persists the scroll on load', async () => {
 			const mockElement = { scrollTop: 9001, scrollTo: jest.fn() };
 			const querySelectorSpy = jest.spyOn(document, 'querySelector');
@@ -282,6 +293,61 @@ describe('@atlaskit/editor-core', () => {
 			);
 
 			expect(mockElement.scrollTo).not.toHaveBeenCalled();
+		});
+
+		ffTest.on('platform_editor_no_cursor_on_live_doc_init', '', () => {
+			setupEditorExperiments('test', {
+				platform_editor_no_cursor_on_edit_page_init: true,
+			});
+
+			ffTest.on('platform_editor_react_18_autofocus_fix', '', () => {
+				ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
+					it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
+						const document = doc(p('hello'))(defaultSchema);
+						const result = renderWithIntl(
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							<ReactEditorView
+								{...{
+									...requiredProps(),
+									editorProps: {
+										appearance: 'full-page',
+										shouldFocus: true,
+										defaultValue: toJSON(document),
+									},
+								}}
+							/>,
+						);
+						expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
+
+						await userEvent.tab();
+						expect(
+							result.getByLabelText('Main content area, start typing to enter text.'),
+						).toHaveFocus();
+					});
+				});
+
+				ffTest.off('cc_editor_focus_before_editor_on_load', '', () => {
+					it('react-editor-view-inital-focus-element should not be in the document', () => {
+						const document = doc(p('hello'))(defaultSchema);
+						const result = renderWithIntl(
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							<ReactEditorView
+								{...{
+									...requiredProps(),
+									editorProps: {
+										appearance: 'full-page',
+										shouldFocus: true,
+										defaultValue: toJSON(document),
+									},
+								}}
+							/>,
+						);
+						expect(
+							result.queryByTestId('react-editor-view-inital-focus-element'),
+						).not.toBeInTheDocument();
+					});
+				});
+			});
 		});
 	});
 

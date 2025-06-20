@@ -55,7 +55,12 @@ const findNextAnchorDecoration = (state: EditorState): Decoration | undefined =>
 	const nextHandleNode = state.doc.nodeAt(nextHandleNodePos);
 	let nodeDecorations =
 		nextHandleNode &&
-		findNodeDecs(decorations, nextHandleNodePos, nextHandleNodePos + nextHandleNode.nodeSize);
+		findNodeDecs(
+			state,
+			decorations,
+			nextHandleNodePos,
+			nextHandleNodePos + nextHandleNode.nodeSize,
+		);
 
 	if (!nodeDecorations || nodeDecorations.length === 0) {
 		return undefined;

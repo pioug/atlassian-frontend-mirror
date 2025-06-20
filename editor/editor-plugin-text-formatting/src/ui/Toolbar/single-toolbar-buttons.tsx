@@ -64,7 +64,6 @@ export const SingleToolbarButtons = React.memo(
 							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 							hasMultiplePartsWithFormattingSelected &&
 							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_7') &&
 							!fg('platform_editor_controls_patch_10')
 								? false
 								: item.isActive
@@ -76,7 +75,6 @@ export const SingleToolbarButtons = React.memo(
 							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 							hasMultiplePartsWithFormattingSelected &&
 							editorExperiment('platform_editor_controls', 'variant1') &&
-							fg('platform_editor_controls_patch_7') &&
 							!fg('platform_editor_controls_patch_10')
 								? false
 								: item.isActive

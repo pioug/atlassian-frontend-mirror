@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-context-panel",
-	"version": "4.1.7",
+	"version": "4.1.8",
 	"description": "Context panel plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

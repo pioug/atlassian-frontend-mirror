@@ -12,36 +12,32 @@ import {
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dateVanillaStyles = css({
+export const dateNodeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	"[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .date-lozenger-container span":
-		{
-			backgroundColor: token('color.background.neutral'),
-			color: token('color.text'),
-			borderRadius: token('border.radius.100'),
-			padding: `${token('space.025')} ${token('space.050')}`,
-			margin: '0 1px',
-			position: 'relative',
-			transition: 'background 0.3s',
-			whiteSpace: 'nowrap',
-			cursor: 'unset',
-		},
+	"[data-prosemirror-node-name='date'] .date-lozenger-container span": {
+		backgroundColor: token('color.background.neutral'),
+		color: token('color.text'),
+		borderRadius: token('border.radius.100'),
+		padding: `${token('space.025')} ${token('space.050')}`,
+		margin: '0 1px',
+		position: 'relative',
+		transition: 'background 0.3s',
+		whiteSpace: 'nowrap',
+		cursor: 'unset',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	"[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .date-lozenger-container span:hover":
-		{
-			backgroundColor: token('color.background.neutral.hovered'),
-		},
+	"[data-prosemirror-node-name='date'] .date-lozenger-container span:hover": {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	"[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .date-lozenger-container span.date-node-color-red":
-		{
-			backgroundColor: token('color.background.accent.red.subtlest'),
-			color: token('color.text.accent.red'),
-		},
+	"[data-prosemirror-node-name='date'] .date-lozenger-container span.date-node-color-red": {
+		backgroundColor: token('color.background.accent.red.subtlest'),
+		color: token('color.text.accent.red'),
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	"[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .date-lozenger-container span.date-node-color-red:hover":
-		{
-			backgroundColor: token('color.background.accent.red.subtler'),
-		},
+	"[data-prosemirror-node-name='date'] .date-lozenger-container span.date-node-color-red:hover": {
+		backgroundColor: token('color.background.accent.red.subtler'),
+	},
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

@@ -28,7 +28,6 @@ export const useIconList = ({ icons, iconTypeList, shouldUnselect }: UseIconsPar
 					shouldUnselect &&
 					icon.isActive &&
 					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_7') &&
 					!fg('platform_editor_controls_patch_10')
 				) {
 					icon.isActive = false;

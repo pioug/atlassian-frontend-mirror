@@ -1,5 +1,42 @@
 # @atlaskit/editor-core
 
+## 208.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 208.2.0
+
+### Minor Changes
+
+- [#172447](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172447)
+  [`06e9b6904aff2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06e9b6904aff2) -
+  [https://product-fabric.atlassian.net/browse/ED-27984](ED-27984) - clean up
+  platform_editor_react18_phase2**media_single and platform_editor_react18_phase2**media_single_jira
+  FFs
+
+### Patch Changes
+
+- Updated dependencies
+
+## 208.1.2
+
+### Patch Changes
+
+- [#174035](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174035)
+  [`0d3ac8d3b7705`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d3ac8d3b7705) -
+  [ux] Migrate toolbarWithSizeDetector styles to static emotion
+- Updated dependencies
+
+## 208.1.1
+
+### Patch Changes
+
+- [#173477](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173477)
+  [`bfdfefb6b7135`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bfdfefb6b7135) -
+  [ux] Set focus before editor
+
 ## 208.1.0
 
 ### Minor Changes

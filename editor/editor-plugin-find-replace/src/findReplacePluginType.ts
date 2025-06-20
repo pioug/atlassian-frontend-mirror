@@ -1,6 +1,7 @@
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 
 import type { FindReplacePluginState, FindReplaceToolbarButtonActionProps } from './types';
@@ -13,6 +14,7 @@ export type FindReplacePluginOptions = {
 export type FindReplacePluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<PrimaryToolbarPlugin>,
+	OptionalPlugin<MentionsPlugin>,
 ];
 
 export type FindReplacePlugin = NextEditorPlugin<

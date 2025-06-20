@@ -1,5 +1,14 @@
 # @atlaskit/analytics-listeners
 
+## 9.0.2
+
+### Patch Changes
+
+- [#174338](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174338)
+  [`8e0f35b2c60f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e0f35b2c60f3) -
+  Add omni channel analytics listner and namespaced context
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

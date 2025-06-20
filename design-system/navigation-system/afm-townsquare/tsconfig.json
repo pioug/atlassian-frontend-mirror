@@ -1,0 +1,75 @@
+{
+	"extends": "../../../../tsconfig.entry-points.townsquare.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../townsquare/tsDist/@atlaskit__navigation-system/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../avatar/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../logo/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/temp-nav-app-icons/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-townsquare/tsconfig.json"
+		}
+	]
+}

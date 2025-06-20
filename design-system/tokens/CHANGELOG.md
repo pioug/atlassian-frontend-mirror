@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 5.4.0
+
+### Minor Changes
+
+- [#174665](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174665)
+  [`25634b5ccc4d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25634b5ccc4d9) -
+  Added metric typography tokens to the CSS type schema.
+
 ## 5.3.0
 
 ### Minor Changes

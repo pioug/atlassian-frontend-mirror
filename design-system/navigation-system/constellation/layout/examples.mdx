@@ -1,0 +1,197 @@
+---
+title: Layout
+description:
+  Layout components define consistent areas for navigation menus and other elements in the page
+  structure.
+order: 1
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+import { BannerLayoutExample } from '../../examples/constellation/layout/banner';
+import { TopNavLayoutExample } from '../../examples/constellation/layout/top-nav';
+import { MainLayoutExample } from '../../examples/constellation/layout/main';
+import { SideNavLayoutExample } from '../../examples/constellation/layout/side-nav';
+import { SideNavSlotsExample } from '../../examples/constellation/layout/side-nav-slots';
+import { AsideLayoutExample } from '../../examples/constellation/layout/aside';
+import { PanelLayoutExample } from '../../examples/constellation/layout/panel';
+import { PanelSplitterLayoutExample } from '../../examples/constellation/layout/panel-splitter';
+import { AdvancedLayoutExample } from '../../examples/constellation/layout/advanced-layout';
+import { CustomSkipLinkExample } from '../../examples/constellation/layout/custom-skip-links';
+import { ExpandSideNavButtonExample } from '../../examples/constellation/layout/expand-side-nav';
+import { ToggleSideNavKeyboardShortcutExample } from '../../examples/constellation/layout/toggle-side-nav-keyboard-shortcut';
+
+import { PageLayoutDiagram } from './diagram';
+
+## Layout
+
+The full page layout with all areas rendered has the structure depicted below.
+
+<PageLayoutDiagram />
+
+When composing your page layout ensure that:
+
+- The `Root` element wraps your entire view
+- All layout areas are rendered as immediate children of the `Root` element
+
+## Layout areas
+
+These are the distinct areas in the navigation layout. These components are designed to contain
+other components and content.
+
+### Root
+
+The root component of the navigation system, wrapping the entire view. It provides the React
+contexts that power the layout.
+
+### Banner
+
+Use the `Banner` area to render a [banner component](/components/banner). It will always be
+displayed at the top of the screen.
+
+<Example Component={BannerLayoutExample} appearance="source-only" />
+
+### TopNav
+
+Use the `TopNav` to render [top nav items](/components/navigation-system/top-nav-items). It will
+display at the top of the screen, below the banner if one is present.
+
+<Example Component={TopNavLayoutExample} appearance="source-only" />
+
+### Side nav
+
+Use the `SideNav` area to render
+[side navigation items](/components/navigation-system/side-navigation). It will show on the left of
+the screen.
+
+Use the [side nav area components](#side-nav-areas) to position content within areas of the side
+nav.
+
+You can optionally render a [panel splitter](#panel-splitter) as a child to make the side navigation
+slot resizable.
+
+<Example Component={SideNavLayoutExample} appearance="source-only" />
+
+#### Programmatically toggling the side nav
+
+There are two hooks available for toggling the side nav.
+
+<SectionMessage title="Usage">
+	These hooks need to be used by components that are rendered as a child of <a href="#root">Root</a>
+	, as they require the internal React context that it provides.
+</SectionMessage>
+
+##### useExpandSideNav
+
+Returns a function that will expand the side nav.
+
+This can be useful for ensuring the side nav is expanded before displaying an onboarding spotlight,
+for example. If the side nav is already expanded, it will simply no-op.
+
+<Example Component={ExpandSideNavButtonExample} appearance="source-only" />
+
+##### useToggleSideNav
+
+Returns a function that will toggle the side nav.
+
+This is useful for toggling the side nav based on a keyboard shortcut.
+
+<Example Component={ToggleSideNavKeyboardShortcutExample} appearance="source-only" />
+
+### Side nav areas
+
+The side nav has three layout components that you can use to position components within the side nav
+flexbox.
+
+<Example Component={SideNavSlotsExample} appearance="source-only" />
+
+#### SideNavHeader
+
+The top part of the side nav.
+
+#### SideNavContent
+
+The middle part of the side nav. It acts as a scroll container.
+
+It will grow to take up the available space in the side nav — this is used to push the footer to the
+bottom of the side nav.
+
+#### SideNavFooter
+
+The bottom part of the side nav.
+
+**Note:** make sure to render `SideNavContent` as well to ensure that the footer is positioned at
+the bottom of the side nav, simulating a sticky footer.
+
+### Side nav flyout
+
+The `SideNav` has a flyout feature - where it will overlay on top of the main content when the user
+hovers over the `SideNavToggleButton` in the top bar, if the side nav was collapsed.
+
+- Hovering over the side nav will keep it in the flyout state.
+- Hovering away from the side nav will collapse the flyout.
+  - If there are any open supported ADS layering components (e.g. Popups, Dropdown menus) within the
+    side nav, the flyout will stay locked open, until the layering components are closed.
+
+The expansion and collapse of the side nav flyout is animated on **supported browsers**. Currently,
+Firefox does not support the animation. Instead, it will instantly expand and collapse.
+
+### Main
+
+Use the `Main` area for the main page content. It has a fluid width and will expand to fill
+available space.
+
+<Example Component={MainLayoutExample} appearance="source-only" />
+
+### Aside
+
+The `Aside` is rendered to the right of the `Main` area.
+
+You can optionally render a [panel splitter](#panel-splitter) as a child to make the aside area
+resizable.
+
+<Example Component={AsideLayoutExample} appearance="source-only" />
+
+### Panel
+
+The `Panel` is rendered to the right of the `Main` and `Aside` areas.
+
+You can optionally render a [panel splitter](#panel-splitter) as a child to make the panel area
+resizable.
+
+<Example Component={PanelLayoutExample} appearance="source-only" />
+
+## Resizable areas
+
+Render `PanelSplitter` in a layout area to make it resizable.
+
+Resizing is supported for the following areas:
+
+- `SideNav`
+- `Aside`
+- `Panel`
+
+<Example Component={PanelSplitterLayoutExample} appearance="source-only" />
+
+## Advanced layouts
+
+<SectionMessage appearance="warning" title="Use with caution">
+	We recommend aligning with our standard page layout wherever possible. Advanced layouts require
+	you to maintain additional complexity.
+</SectionMessage>
+
+Advanced layouts can be created inside of the [main area](#main).
+
+<Example Component={AdvancedLayoutExample} />
+
+### Custom skip links
+
+Use `useSkipLink` to register custom skip links where appropriate.
+
+The `useSkipLink` hook accepts an optional third argument to manually specify the index of the skip
+link in the list.
+
+You can also optionally use the `useSkipLinkId` hook to retrieve a unique ID for use for your skip
+link.
+
+<Example Component={CustomSkipLinkExample} appearance="source-only" />

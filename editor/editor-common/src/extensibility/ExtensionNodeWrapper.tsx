@@ -28,7 +28,6 @@ type Props = {
 	children: React.ReactNode;
 	nodeType: string;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-	nodeHeight?: string;
 };
 
 /**
@@ -43,7 +42,6 @@ export const ExtensionNodeWrapper = ({
 	children,
 	nodeType,
 	macroInteractionDesignFeatureFlags,
-	nodeHeight,
 }: Props) => {
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 
@@ -52,21 +50,11 @@ export const ExtensionNodeWrapper = ({
 		relative: showMacroInteractionDesignUpdates,
 	});
 
-	const content = (
+	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 		<span className={wrapperClassNames} css={styles}>
 			{children}
 			{nodeType === 'inlineExtension' && ZERO_WIDTH_SPACE}
 		</span>
 	);
-
-	if (nodeHeight) {
-		const extensionStyles = {
-			minHeight: `${nodeHeight}px`,
-		};
-
-		return <div style={extensionStyles}>{content}</div>;
-	}
-
-	return content;
 };

@@ -164,6 +164,7 @@ class Example extends React.Component<object, ExampleState> {
 						{this.createSlider(MARGIN_LABEL, margin, 0, 100, 5)}
 						<label css={labelStyles}>
 							<span>Circular:</span>
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								type="checkbox"
 								defaultChecked={isCircular}
@@ -172,6 +173,7 @@ class Example extends React.Component<object, ExampleState> {
 						</label>
 						<label css={labelStyles}>
 							<span>Render Circular Mask:</span>
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								type="checkbox"
 								defaultChecked={useCircularClipWithActions}
@@ -180,6 +182,7 @@ class Example extends React.Component<object, ExampleState> {
 						</label>
 						<label css={labelStyles}>
 							<span>Use Constraints:</span>
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								type="checkbox"
 								defaultChecked={useConstraints}
@@ -208,7 +211,7 @@ class Example extends React.Component<object, ExampleState> {
 				</Grid>
 				<Grid>
 					<GridColumn>
-						{/* eslint-disable-next-line @atlaskit/design-system/no-html-range */}
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-range, @atlaskit/design-system/no-html-checkbox */}
 						<input
 							type="range"
 							min="0"
@@ -223,6 +226,7 @@ class Example extends React.Component<object, ExampleState> {
 				</Grid>
 				<Grid>
 					<GridColumn>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input type="file" onChange={this.onFileInputChange} />
 						{src !== undefined ? (
 							<p>

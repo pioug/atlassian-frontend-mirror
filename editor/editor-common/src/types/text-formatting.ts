@@ -21,6 +21,7 @@ export interface TextFormattingState {
 	emDisabled?: boolean;
 	emHidden?: boolean;
 	codeActive?: boolean;
+	codeInSelection?: boolean;
 	codeDisabled?: boolean;
 	codeHidden?: boolean;
 	underlineActive?: boolean;

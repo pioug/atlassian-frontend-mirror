@@ -559,13 +559,7 @@ const generateMediaSingleFloatingToolbar = (
 							id: 'editor.media.convert.mediainline',
 							title: inlineTitle,
 							onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
-							icon: (
-								<ImageInlineIcon
-									color="currentColor"
-									spacing="spacious"
-									label={fg('platform_editor_controls_patch_7') ? '' : inlineTitle}
-								/>
-							),
+							icon: <ImageInlineIcon color="currentColor" spacing="spacious" label="" />,
 							tooltip: hasCaption ? inlineSwitcherTitle : undefined,
 						},
 						{
@@ -575,15 +569,7 @@ const generateMediaSingleFloatingToolbar = (
 							onClick: () => {
 								return true;
 							},
-							icon: fg('platform_editor_controls_patch_7') ? (
-								<MaximizeIcon color="currentColor" spacing="spacious" label="" />
-							) : (
-								<ImageFullscreenIcon
-									color="currentColor"
-									spacing="spacious"
-									label={fg('platform_editor_controls_patch_7') ? '' : floatingSwitcherTitle}
-								/>
-							),
+							icon: <MaximizeIcon color="currentColor" spacing="spacious" label="" />,
 						},
 					];
 
@@ -603,20 +589,13 @@ const generateMediaSingleFloatingToolbar = (
 							type: 'dropdown',
 							options: options,
 							title: intl.formatMessage(messages.sizeOptions),
-							icon: () =>
-								fg('platform_editor_controls_patch_7') ? (
-									<MaximizeIcon
-										color="currentColor"
-										spacing="spacious"
-										label={intl.formatMessage(messages.sizeOptions)}
-									/>
-								) : (
-									<ImageFullscreenIcon
-										color="currentColor"
-										spacing="spacious"
-										label={intl.formatMessage(messages.sizeOptions)}
-									/>
-								),
+							icon: () => (
+								<MaximizeIcon
+									color="currentColor"
+									spacing="spacious"
+									label={intl.formatMessage(messages.sizeOptions)}
+								/>
+							),
 						};
 					}
 

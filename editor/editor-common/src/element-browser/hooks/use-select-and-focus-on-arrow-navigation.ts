@@ -445,9 +445,9 @@ function useSelectAndFocusOnArrowNavigation(
 			}
 
 			if (fg('jfp_a11y_fix_create_issue_no_results_link_focus')) {
-				// Handle empty state navigation
+				// Handle empty state navigation and trap focus between search and CTA
 				if (listSize === -1) {
-					if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+					if (e.key === 'Tab') {
 						e.preventDefault();
 						dispatch({
 							type: ACTIONS.UPDATE_STATE,

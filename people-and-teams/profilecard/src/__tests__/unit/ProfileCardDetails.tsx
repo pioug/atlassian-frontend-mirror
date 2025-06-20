@@ -126,6 +126,19 @@ describe('ProfileCardDetails', () => {
 				expect(component.textContent).toMatchInlineSnapshot(`"Former user"`);
 			});
 		});
+
+		describe('for service account', () => {
+			it('should show "SERVICE ACCOUNT" tag', () => {
+				const { getByTestId, getByText } = renderComponent({
+					fullName: 'Service account name',
+					nickname: 'sa',
+					isServiceAccount: true,
+				});
+				const component = getByTestId('profilecard-name');
+				expect(component.textContent).toMatchInlineSnapshot(`"Service account name (sa) "`);
+				expect(getByText('SERVICE ACCOUNT')).toBeDefined();
+			});
+		});
 	});
 
 	describe('Disabled account message', () => {

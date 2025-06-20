@@ -276,9 +276,19 @@ export interface FlagType {
 export const getDecorations = (state: EditorState): DecorationSet | undefined =>
 	key.getState(state)?.decorations;
 
-const getDecorationAtPos = (decorations: DecorationSet, pos: number, to: number) => {
+const getDecorationAtPos = (
+	state: EditorState,
+	decorations: DecorationSet,
+	pos: number,
+	to: number,
+) => {
 	// Find the newly minted node decs that touch the active node
-	const findNewNodeDecs = findNodeDecs(decorations, pos - 1, to);
+	const findNewNodeDecs = findNodeDecs(
+		state,
+		decorations,
+		editorExperiment('platform_editor_block_control_optimise_render', true) ? pos : pos - 1,
+		to,
+	);
 
 	// Find the specific dec that the active node corresponds to
 	const nodeDecsAtActivePos = findNewNodeDecs.filter((dec: Decoration) => dec?.from === pos);
@@ -401,7 +411,7 @@ export const apply = (
 	let isActiveNodeModified = false;
 
 	if (api && shouldRedrawNodeDecs) {
-		const oldNodeDecs = findNodeDecs(decorations, from, to);
+		const oldNodeDecs = findNodeDecs(newState, decorations, from, to);
 		decorations = decorations.remove(oldNodeDecs);
 		const newNodeDecs = nodeDecorations(
 			newState,
@@ -413,7 +423,14 @@ export const apply = (
 		if (editorExperiment('platform_editor_controls', 'control')) {
 			if (latestActiveNode && !isActiveNodeDeleted) {
 				// Find the newly minted node decs that touch the active node
-				const findNewNodeDecs = findNodeDecs(decorations, latestActiveNode.pos - 1, to);
+				const findNewNodeDecs = findNodeDecs(
+					newState,
+					decorations,
+					editorExperiment('platform_editor_block_control_optimise_render', true)
+						? latestActiveNode.pos
+						: latestActiveNode.pos - 1,
+					to,
+				);
 
 				// Find the specific dec that the active node corresponds to
 				const nodeDecsAtActivePos = findNewNodeDecs.filter(
@@ -432,8 +449,14 @@ export const apply = (
 			}
 		} else {
 			if (latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
-				const nodeDecAtActivePos = getDecorationAtPos(decorations, latestActiveNode.pos, to);
+				const nodeDecAtActivePos = getDecorationAtPos(
+					newState,
+					decorations,
+					latestActiveNode.pos,
+					to,
+				);
 				const rootNodeDecAtActivePos = getDecorationAtPos(
+					newState,
 					decorations,
 					latestActiveNode.rootPos,
 					to,
@@ -500,10 +523,7 @@ export const apply = (
 			latestActiveNode && (isResizerResizing || isActiveNodeDeleted || meta?.nodeMoved);
 	}
 
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_7')
-	) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		// Remove handle dec when editor is blurred
 		shouldRemoveHandle = shouldRemoveHandle || meta?.editorBlurred;
 	}
@@ -624,7 +644,7 @@ export const apply = (
 
 	const isEmptyDoc = isEmptyDocument(newState.doc);
 	if (isEmptyDoc) {
-		const hasNodeDecoration = !!findNodeDecs(decorations).length;
+		const hasNodeDecoration = !!findNodeDecs(newState, decorations).length;
 		if (!hasNodeDecoration) {
 			decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
 		}
@@ -996,10 +1016,7 @@ export const createPlugin = (
 					}
 				},
 				blur(view: EditorView, event: FocusEvent) {
-					if (
-						editorExperiment('platform_editor_controls', 'variant1') &&
-						fg('platform_editor_controls_patch_7')
-					) {
+					if (editorExperiment('platform_editor_controls', 'variant1')) {
 						const isChildOfEditor =
 							event.relatedTarget instanceof HTMLElement &&
 							event.relatedTarget.closest(`#${EDIT_AREA_ID}`) !== null;

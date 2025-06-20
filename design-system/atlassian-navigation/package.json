@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-navigation",
-	"version": "5.3.3",
+	"version": "5.3.4",
 	"description": "A horizontal navigation component for Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 			"category": "Navigation",
 			"status": {
 				"type": "intent-to-deprecate",
-				"description": "We are in the process of building a new top navigation component: [@atlassian/navigation-system](/components/navigation-system/top-navigation/examples) (For Atlassian employees only at this stage)"
+				"description": "We are in the process of building a new top navigation component: [@atlaskit/navigation-system](/components/navigation-system/top-navigation/examples) (For Atlassian employees only at this stage)"
 			}
 		},
 		"runReact18": true

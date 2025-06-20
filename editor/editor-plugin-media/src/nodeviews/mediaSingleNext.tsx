@@ -350,7 +350,7 @@ const useUpdateSizeCallback = ({
  */
 const FALLBACK_MOST_COMMON_WIDTH = 760;
 
-type MediaSingleNodeNextProps = {
+export type MediaSingleNodeNextProps = {
 	view: EditorView;
 	node: PMNode;
 	getPos: () => number | undefined;

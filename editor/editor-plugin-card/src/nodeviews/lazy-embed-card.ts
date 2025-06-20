@@ -6,10 +6,7 @@ import { embedCardNodeView, type EmbedCardNodeViewProperties } from './embedCard
 export const lazyEmbedCardView: (props: EmbedCardNodeViewProperties) => NodeViewConstructor = (
 	props: EmbedCardNodeViewProperties,
 ) => {
-	if (
-		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		editorExperiment('platform_editor_exp_disable_lnv', true, { exposure: true })
-	) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return embedCardNodeView(props);
 	}
 

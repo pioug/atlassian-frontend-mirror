@@ -235,6 +235,7 @@ export default function Example() {
 				<p>
 					Including you?
 					<label htmlFor="includingYou">
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input
 							checked={includingYou}
 							id="includingYou"
@@ -248,6 +249,7 @@ export default function Example() {
 					Use real client?
 					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 					<label htmlFor="realClient">
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input
 							checked={isRealClient}
 							id="realClient"

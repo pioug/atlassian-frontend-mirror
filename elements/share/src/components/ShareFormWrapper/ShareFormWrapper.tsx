@@ -47,8 +47,11 @@ const ShareFormWrapper = ({
 		: InlineDialogFormWrapper;
 
 	return (
-		<ContentWrapper label={formatMessage(messages.formTitle)}>
-			{fg('platform_share_custom_header_prop') && header}
+		<ContentWrapper
+			label={formatMessage(messages.formTitle)}
+			isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
+		>
+			{header}
 			<FormWrapper
 				integrationMode={integrationMode}
 				isMenuItemSelected={isMenuItemSelected}

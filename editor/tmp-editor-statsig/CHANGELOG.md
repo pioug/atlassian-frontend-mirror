@@ -1,5 +1,19 @@
 # @atlaskit/editor-statsig-tmp
 
+## 8.0.0
+
+### Major Changes
+
+- [#174513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174513)
+  [`9190f78c5c704`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9190f78c5c704) -
+  Remove platform_editor_exp_disable_lnv experiment key.
+
+### Minor Changes
+
+- [#173957](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173957)
+  [`21b6ca0e1a353`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21b6ca0e1a353) -
+  EDITOR-896 Added improve writing in ADF experiment.
+
 ## 7.2.0
 
 ### Minor Changes

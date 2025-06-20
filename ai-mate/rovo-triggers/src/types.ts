@@ -1,5 +1,7 @@
 import type { DocNode } from '@atlaskit/adf-schema';
 
+import type { ChatContextPayload } from './common/utils/chat-context';
+
 export const Topics = {
 	AI_MATE: 'ai-mate',
 } as const;
@@ -260,6 +262,8 @@ export type JiraIssueWorkBreakdownActionPayload = PayloadCore<
 	}
 >;
 
+export type SetChatContextPayload = PayloadCore<'set-message-context', ChatContextPayload>;
+
 export type Payload =
 	| MessageSendPayload
 	| ChatNewPayload
@@ -276,7 +280,8 @@ export type Payload =
 	| JiraWorkflowWizardActionsPayload
 	| InsertPromptPayload
 	| JiraIssueWorkBreakdownActionPayload
-	| DashboardInsightsActionsPayload;
+	| DashboardInsightsActionsPayload
+	| SetChatContextPayload;
 
 export type Callback = (payload: Payload) => void;
 

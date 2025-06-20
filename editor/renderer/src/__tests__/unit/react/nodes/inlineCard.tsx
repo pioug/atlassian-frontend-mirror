@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';

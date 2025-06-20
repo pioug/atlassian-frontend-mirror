@@ -97,6 +97,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-alignment/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-annotation/tsconfig.app.json"
 		},
 		{
@@ -145,7 +148,13 @@
 			"path": "../editor-plugin-guideline/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-highlight/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-insert-block/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-layout/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-list/tsconfig.app.json"
@@ -173,6 +182,12 @@
 		},
 		{
 			"path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-text-color/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-toolbar-lists-indentation/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugins/tsconfig.app.json"

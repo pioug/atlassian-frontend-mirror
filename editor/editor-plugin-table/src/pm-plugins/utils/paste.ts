@@ -1,7 +1,7 @@
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { flatmap, mapChildren, mapSlice } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Slice, Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Slice, Fragment, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { flatten, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables';

@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
-import ButtonLegacy from '@atlaskit/button';
 import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -127,37 +126,22 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 						<FormattedMessage {...messages.managerSectionHeading} />
 					</Box>
 					<OffsetWrapper>
-						{fg('ptc_migrate_buttons') ? (
-							<Pressable
-								onClick={() =>
-									onReportingLinksClick(
-										manager,
-										'manager',
-										getProfileHref(manager.accountIdentifier, reportingLinesProfileUrl),
-									)
-								}
-								isDisabled={!onReportingLinesClick}
-								xcss={styles.reportingLinesButton}
-							>
-								<ManagerSection>
-									<Avatar size="xsmall" src={manager.pii?.picture} />
-									<ManagerName>{manager.pii?.name}</ManagerName>
-								</ManagerSection>
-							</Pressable>
-						) : (
-							<ButtonLegacy
-								appearance="subtle"
-								spacing="none"
-								href={getProfileHref(manager.accountIdentifier, reportingLinesProfileUrl)}
-								onClick={getReportingLinesOnClick(manager, 'manager')}
-								isDisabled={!onReportingLinesClick}
-							>
-								<ManagerSection>
-									<Avatar size="xsmall" src={manager.pii?.picture} />
-									<ManagerName>{manager.pii?.name}</ManagerName>
-								</ManagerSection>
-							</ButtonLegacy>
-						)}
+						<Pressable
+							onClick={() =>
+								onReportingLinksClick(
+									manager,
+									'manager',
+									getProfileHref(manager.accountIdentifier, reportingLinesProfileUrl),
+								)
+							}
+							isDisabled={!onReportingLinesClick}
+							xcss={styles.reportingLinesButton}
+						>
+							<ManagerSection>
+								<Avatar size="xsmall" src={manager.pii?.picture} />
+								<ManagerName>{manager.pii?.name}</ManagerName>
+							</ManagerSection>
+						</Pressable>
 					</OffsetWrapper>
 				</ReportingLinesSection>
 			)}

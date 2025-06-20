@@ -85,6 +85,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
 				</button>
 				<div style={{ marginTop: `${token('space.400', '32px')}` }}>
 					<label htmlFor="wrapper-checkbox">
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input
 							id="wrapper-checkbox"
 							type="checkbox"
@@ -109,6 +110,7 @@ export default class IssueUsingDrawers extends React.Component<any, State> {
 				{this.state.shouldRenderNewDrawer && (
 					<div style={{ marginTop: `${token('space.400', '32px')}` }}>
 						<label htmlFor="checkbox">
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								id="checkbox"
 								type="checkbox"

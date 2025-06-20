@@ -21,6 +21,7 @@ const ExampleCheckbox = ({
 }>) => (
 	<p>
 		<label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input
 				type="checkbox"
 				checked={isChecked}

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.7
+
+### Patch Changes
+
+- [#174199](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174199)
+  [`eee50ab6df3df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eee50ab6df3df) -
+  Only create and find node decorations within the range provided
+- Updated dependencies
+
 ## 3.19.6
 
 ### Patch Changes

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- TODO: remove this and fix types */
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { shallow, ReactWrapper } from 'enzyme';
+import { shallow, type ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';
 import { createSchema } from '@atlaskit/adf-schema';
 import {

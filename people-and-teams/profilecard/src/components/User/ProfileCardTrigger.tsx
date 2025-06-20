@@ -110,6 +110,7 @@ export default function ProfilecardTriggerNext({
 	agentActions,
 	ariaHideProfileTrigger = false,
 	isVisible: propsIsVisible,
+	ssrPlaceholderId,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -398,6 +399,10 @@ export default function ProfilecardTriggerNext({
 		disabledAriaAttributes: disabledAriaAttributes,
 	};
 
+	const ssrPlaceholderProp = fg('cc_mention_ssr_placeholder')
+		? { 'data-ssr-placeholder-replace': ssrPlaceholderId }
+		: {};
+
 	return (
 		<>
 			<Popup
@@ -460,6 +465,7 @@ export default function ProfilecardTriggerNext({
 											: getLabelMessage(ariaLabel, profilecardProps.fullName, formatMessage),
 									})}
 							{...(ariaHideProfileTrigger && { 'aria-hidden': 'true' })}
+							{...ssrPlaceholderProp}
 						>
 							{children}
 						</span>

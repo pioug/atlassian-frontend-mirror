@@ -134,18 +134,6 @@ export const visitCardLink =
 
 		const { type } = state.selection.node;
 
-		// EDM-12466:
-		// During smart_link_editor_update_toolbar_open_link clean up
-		// Consider updating the code to use visitCardLink or visitCardLinkAnalyticsOnly for all input methods:
-		// INPUT_METHOD.FLOATING_TB | INPUT_METHOD.TOOLBAR | INPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK || INPUT_METHOD.META_CLICK
-		if (!fg('smart_link_editor_update_toolbar_open_link')) {
-			const { url } = titleUrlPairFromNode(state.selection.node);
-
-			// All card links should open in the same tab per https://product-fabric.atlassian.net/browse/MS-1583.
-			// We are in edit mode here, open the smart card URL in a new window.
-			window.open(url);
-		}
-
 		if (dispatch) {
 			const { tr } = state;
 			editorAnalyticsApi?.attachAnalyticsEvent(
@@ -575,10 +563,8 @@ const generateToolbarItems =
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
 							onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
-							...(fg('smart_link_editor_update_toolbar_open_link') && {
-								href: url,
-								target: '_blank',
-							}),
+							href: url,
+							target: '_blank',
 						},
 						{ type: 'separator' },
 						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
@@ -622,10 +608,8 @@ const generateToolbarItems =
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
 							onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
-							...(fg('smart_link_editor_update_toolbar_open_link') && {
-								href: url,
-								target: '_blank',
-							}),
+							href: url,
+							target: '_blank',
 						},
 						...(commentItems.length > 1
 							? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
@@ -929,10 +913,8 @@ const getDatasourceButtonGroup = (
 			className: 'hyperlink-open-link',
 			title: intl.formatMessage(linkMessages.openLink),
 			onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
-			...(fg('smart_link_editor_update_toolbar_open_link') && {
-				href: node.attrs.url,
-				target: '_blank',
-			}),
+			href: node.attrs.url,
+			target: '_blank',
 		});
 		if (editorExperiment('platform_editor_controls', 'control')) {
 			toolbarItems.push({ type: 'separator' });

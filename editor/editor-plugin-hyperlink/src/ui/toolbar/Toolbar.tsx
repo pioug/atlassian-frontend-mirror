@@ -52,7 +52,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
 import LinkExternalIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -227,8 +226,7 @@ export const getToolbarConfig =
 				getDomRef:
 					activeLinkMark &&
 					(activeLinkMark.type === 'EDIT_INSERTED' || activeLinkMark.type === 'EDIT') &&
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_3')
+					editorExperiment('platform_editor_controls', 'variant1')
 						? (view: EditorView) => {
 								const domRef = findDomRefAtPos(activeLinkMark.pos, view.domAtPos.bind(view));
 								return domRef instanceof HTMLElement ? domRef : undefined;

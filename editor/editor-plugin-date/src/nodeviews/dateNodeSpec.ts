@@ -1,8 +1,6 @@
 import { createIntl } from 'react-intl-next';
 import type { IntlShape } from 'react-intl-next';
 
-import { date } from '@atlaskit/adf-schema';
-import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { browser, timestampToString } from '@atlaskit/editor-common/utils';
@@ -16,25 +14,7 @@ import { getDateInformation } from './utils';
 
 let intlRef: ReturnType<typeof createIntl> | undefined;
 
-/**
- * Wrapper for ADF date node spec to augment toDOM implementation
- * with fallback UI for lazy node view rendering / window virtualization
- * @nodeSpecException:toDOM patch
- * @returns
- * @example
- */
-export const dateNodeSpec = () => {
-	if (isSSR()) {
-		return date;
-	}
-
-	return {
-		...date,
-		toDOM: dateToDOMvirtualization,
-	};
-};
-
-export const dateToDOMvirtualization = (node: PMNode): DOMOutputSpec => {
+export const dateNodeSpec = (node: PMNode): DOMOutputSpec => {
 	intlRef = intlRef || createIntl({ locale: document.documentElement.lang || 'en-US' });
 	const timestamp = node.attrs.timestamp;
 	const displayString = timestampToString(timestamp, intlRef);
@@ -74,7 +54,6 @@ export const dateToDOM = (
 		'data-prosemirror-content-type': 'node',
 		'data-prosemirror-node-name': 'date',
 		'data-prosemirror-node-inline': 'true',
-		'data-prosemirror-node-view-type': 'vanilla',
 		draggable: 'true',
 	};
 	const wrapperAttrs: Record<string, string> = {

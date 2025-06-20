@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 5.5.10
+
+### Patch Changes
+
+- [#174513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174513)
+  [`9190f78c5c704`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9190f78c5c704) -
+  Remove platform_editor_exp_disable_lnv experiment key.
+- Updated dependencies
+
 ## 5.5.9
 
 ### Patch Changes

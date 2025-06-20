@@ -78,6 +78,7 @@ import { createErrorReporter, createPMPlugins, processPluginsList } from './crea
 import createPluginsList from './create-plugins-list';
 import { createSchema } from './create-schema';
 import { editorMessages } from './messages';
+import { focusEditorElement } from './ReactEditorView/focusEditorElement';
 import { getUAPrefix } from './ReactEditorView/getUAPrefix';
 import { handleEditorFocus } from './ReactEditorView/handleEditorFocus';
 import { useDispatchTransaction } from './ReactEditorView/useDispatchTransaction';
@@ -672,6 +673,15 @@ export function ReactEditorView(props: EditorViewProps) {
 					if (!liveDocWithContent || !fg('platform_editor_no_cursor_on_live_doc_init')) {
 						focusTimeoutId.current = handleEditorFocus(editorView);
 					}
+
+					if (
+						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
+						fg('cc_editor_focus_before_editor_on_load')
+					) {
+						if (!disabled && shouldFocus && !isEmptyDocument(editorView.state.doc)) {
+							focusEditorElement(editorId.current);
+						}
+					}
 				}
 			} else {
 				const liveDocWithContent =
@@ -683,7 +693,7 @@ export function ReactEditorView(props: EditorViewProps) {
 				}
 			}
 		}
-	}, [editorView, shouldFocus, __livePage, mitigateScrollJump]);
+	}, [editorView, shouldFocus, __livePage, mitigateScrollJump, disabled]);
 
 	const scrollElement = React.useRef<Element | null>();
 	const possibleListeners = React.useRef([] as [event: string, handler: () => void][]);
@@ -807,6 +817,7 @@ export function ReactEditorView(props: EditorViewProps) {
 										)) &&
 									!isEmptyDocument(view.state.doc) &&
 									fg('platform_editor_no_cursor_on_live_doc_init');
+
 								if (
 									!isLivePageWithContent &&
 									shouldFocus &&
@@ -814,6 +825,20 @@ export function ReactEditorView(props: EditorViewProps) {
 									view.props.editable(view.state)
 								) {
 									focusTimeoutId.current = handleEditorFocus(view);
+								}
+
+								if (
+									expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
+									fg('cc_editor_focus_before_editor_on_load')
+								) {
+									if (
+										shouldFocus &&
+										view.props.editable &&
+										view.props.editable(view.state) &&
+										!isEmptyDocument(view.state.doc)
+									) {
+										focusEditorElement(editorId.current);
+									}
 								}
 							}
 						} else {
@@ -883,29 +908,38 @@ export function ReactEditorView(props: EditorViewProps) {
 	const createEditor = useCallback(
 		(assistiveLabel?: string, assistiveDescribedBy?: string) => {
 			return (
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={
-						(expValEquals('platform_editor_stable_editorview_classname', 'isEnabled', true)
-							? 'ProseMirror '
-							: '') + getUAPrefix()
-					}
-					key="ProseMirror"
-					ref={handleEditorViewRef}
-					aria-label={
-						assistiveLabel || props.intl.formatMessage(editorMessages.editorAssistiveLabel)
-					}
-					// setting aria-multiline to true when not mobile appearance.
-					//  because somehow mobile tests are failing when it set.
-					//  don't know why that is happening.
-					// Created https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1675
-					//  to investigate further.
-					aria-multiline={true}
-					role="textbox"
-					id={EDIT_AREA_ID}
-					aria-describedby={assistiveDescribedBy}
-					data-editor-id={editorId.current}
-				/>
+				<>
+					{fg('cc_editor_focus_before_editor_on_load') && (
+						<div
+							tabIndex={-1}
+							data-focus-id={editorId.current}
+							data-testid="react-editor-view-inital-focus-element"
+						/>
+					)}
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={
+							(expValEquals('platform_editor_stable_editorview_classname', 'isEnabled', true)
+								? 'ProseMirror '
+								: '') + getUAPrefix()
+						}
+						key="ProseMirror"
+						ref={handleEditorViewRef}
+						aria-label={
+							assistiveLabel || props.intl.formatMessage(editorMessages.editorAssistiveLabel)
+						}
+						// setting aria-multiline to true when not mobile appearance.
+						//  because somehow mobile tests are failing when it set.
+						//  don't know why that is happening.
+						// Created https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1675
+						//  to investigate further.
+						aria-multiline={true}
+						role="textbox"
+						id={EDIT_AREA_ID}
+						aria-describedby={assistiveDescribedBy}
+						data-editor-id={editorId.current}
+					/>
+				</>
 			);
 		},
 		[handleEditorViewRef, props.intl],
@@ -935,6 +969,15 @@ export function ReactEditorView(props: EditorViewProps) {
 				fg('platform_editor_no_cursor_on_live_doc_init');
 			if (!disabled && shouldFocus && !isLivePageWithContent) {
 				focusTimeoutId.current = handleEditorFocus(viewRef.current);
+			}
+
+			if (
+				expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true) &&
+				fg('cc_editor_focus_before_editor_on_load')
+			) {
+				if (!disabled && shouldFocus && !isEmptyDocument(viewRef.current.state.doc)) {
+					focusEditorElement(editorId.current);
+				}
 			}
 		}
 	}, [disabled, shouldFocus, previousDisabledState, __livePage]);

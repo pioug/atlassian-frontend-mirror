@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { teamIdToAri } from '../../common/utils/team-id-to-ari';
 import { toUserId } from '../../common/utils/user-ari';
 import { type ClientConfig } from '../base-client';
@@ -55,6 +57,10 @@ export class AGGClient extends BaseGraphQlClient {
 
 		const containersResult = response.graphStore.cypherQuery.edges.reduce<TeamContainers>(
 			(containers, edge) => {
+				if (!edge.node.to.data && fg('enable_team_containers_null_check')) {
+					return containers;
+				}
+
 				if (edge.node.to.data.__typename === 'ConfluenceSpace') {
 					containers.push({
 						id: edge.node.to.id,

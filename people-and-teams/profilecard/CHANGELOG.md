@@ -1,5 +1,29 @@
 # @atlaskit/profilecard
 
+## 23.20.0
+
+### Minor Changes
+
+- [#172553](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172553)
+  [`7e8e9711f4e15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e8e9711f4e15) -
+  Clean up ptc_migrate_buttons feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.19.4
+
+### Patch Changes
+
+- [#174177](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174177)
+  [`3094c6ed637b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3094c6ed637b3) -
+  [ux] Displaying Service Account tag for Service Account user profile
+- [#173636](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173636)
+  [`22b85a186fb8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22b85a186fb8a) -
+  SSR placeholder for mention profile card trigger
+- Updated dependencies
+
 ## 23.19.3
 
 ### Patch Changes

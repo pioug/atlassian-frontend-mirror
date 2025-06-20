@@ -218,7 +218,7 @@ describe('ProfileCard', () => {
 				});
 				const actionsWrapper = card.find(ActionButtonGroup);
 				const event = { preventDefault: jest.fn() };
-				actionsWrapper.find('button[type="button"]').first().simulate('click', event);
+				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).toHaveBeenCalledTimes(1);
 				expect(event.preventDefault).toHaveBeenCalledTimes(1);
 			});
@@ -235,7 +235,7 @@ describe('ProfileCard', () => {
 				});
 				const actionsWrapper = card.find(ActionButtonGroup);
 				const event = { preventDefault: jest.fn(), metaKey: true };
-				actionsWrapper.find('button[type="button"]').first().simulate('click', event);
+				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
 				expect(event.preventDefault).not.toHaveBeenCalled();
 			});
@@ -252,7 +252,7 @@ describe('ProfileCard', () => {
 				});
 				const actionsWrapper = card.find(ActionButtonGroup);
 				const event = { preventDefault: jest.fn(), altKey: true };
-				actionsWrapper.find('button[type="button"]').first().simulate('click', event);
+				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
 				expect(event.preventDefault).not.toHaveBeenCalled();
 			});
@@ -269,7 +269,7 @@ describe('ProfileCard', () => {
 				});
 				const actionsWrapper = card.find(ActionButtonGroup);
 				const event = { preventDefault: jest.fn(), ctrlKey: true };
-				actionsWrapper.find('button[type="button"]').first().simulate('click', event);
+				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
 				expect(event.preventDefault).not.toHaveBeenCalled();
 			});
@@ -286,12 +286,12 @@ describe('ProfileCard', () => {
 				});
 				const actionsWrapper = card.find(ActionButtonGroup);
 				const event = { preventDefault: jest.fn(), shiftKey: true };
-				actionsWrapper.find('button[type="button"]').first().simulate('click', event);
+				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
 				expect(event.preventDefault).not.toHaveBeenCalled();
 			});
 
-			it('link default behaviour should be prevented if a callback is provided', () => {
+			it('link default behavior should be prevented if a callback is provided', () => {
 				const spy = jest.fn().mockImplementation(() => {});
 				const preventDefault = jest.fn().mockImplementation(() => {});
 				card.setProps({

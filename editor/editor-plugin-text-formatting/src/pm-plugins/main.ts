@@ -6,16 +6,17 @@ import {
 	moveLeft as keymapMoveLeft,
 	moveRight as keymapMoveRight,
 } from '@atlaskit/editor-common/keymaps';
-import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import { anyMarkActive, wholeSelectionHasMarks } from '@atlaskit/editor-common/mark';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
-import type { MarkType } from '@atlaskit/editor-prosemirror/model';
+import { Mark, MarkType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
@@ -42,11 +43,7 @@ const checkNodeSelection = (
 		return false;
 	}
 
-	if (type !== null || type !== undefined) {
-		return toggleMark(mark, { type: type })(editorState);
-	}
-
-	return toggleMark(mark)(editorState);
+	return toggleMark(mark, { type: type })(editorState);
 };
 
 const getTextFormattingState = (
@@ -55,6 +52,52 @@ const getTextFormattingState = (
 ): TextFormattingState => {
 	const { em, code, strike, strong, subsup, underline } = editorState.schema.marks;
 	const state: TextFormattingState = { isInitialised: true };
+
+	const showOnlyCommonMarks =
+		expValEquals('platform_editor_controls', 'cohort', 'variant1') &&
+		fg('platform_editor_common_marks');
+
+	if (showOnlyCommonMarks) {
+		// Code marks will disable all other formatting options when they are included in a
+		// selection but (for now) we do not want to make it behave differently in regards to which
+		// toolbar items are highlighted on selection. We need to track code in selection seperately
+		// to ensure all other formatting options are disabled appropriately.
+		if (code) {
+			state.codeInSelection = anyMarkActive(editorState, code.create());
+		}
+
+		const marks = (
+			[
+				[code, 'code'],
+				[em, 'em'],
+				[strike, 'strike'],
+				[strong, 'strong'],
+				[underline, 'underline'],
+				[subsup?.create({ type: 'sub' }), 'subscript'],
+				[subsup?.create({ type: 'sup' }), 'superscript'],
+			] as const
+		).filter(([mark]) => mark);
+
+		const marksToName = new Map<Mark | MarkType, (typeof marks)[0][1]>(marks);
+
+		const activeMarks = wholeSelectionHasMarks(editorState, Array.from(marksToName.keys()));
+
+		for (const [mark, markName] of marks) {
+			const active = activeMarks.get(mark);
+			if (active !== undefined) {
+				state[`${markName}Active`] = active;
+			}
+
+			state[`${markName}Disabled`] =
+				// Disable when code is active, except for code itself which should not be disabled
+				// when code is in selection 😅
+				state.codeInSelection && markName !== 'code'
+					? true
+					: !checkNodeSelection(mark instanceof MarkType ? mark : mark.type, editorState);
+		}
+
+		return state;
+	}
 
 	if (code) {
 		state.codeActive = anyMarkActive(editorState, code.create());
@@ -76,10 +119,11 @@ const getTextFormattingState = (
 		const subMark = subsup.create({ type: 'sub' });
 		const supMark = subsup.create({ type: 'sup' });
 		state.subscriptActive = anyMarkActive(editorState, subMark);
+		state.superscriptActive = anyMarkActive(editorState, supMark);
+
 		state.subscriptDisabled = state.codeActive
 			? true
 			: !checkNodeSelection(subsup, editorState, 'sub');
-		state.superscriptActive = anyMarkActive(editorState, supMark);
 		state.superscriptDisabled = state.codeActive
 			? true
 			: !checkNodeSelection(subsup, editorState, 'sup');

@@ -26,6 +26,12 @@ const styles = cssMap({
 		paddingBottom: token('space.200', '16px'),
 		paddingLeft: token('space.300', '24px'),
 	},
+	extendedInlineDialogContentWrapper: {
+		paddingTop: token('space.250', '20px'),
+		paddingRight: token('space.250', '20px'),
+		paddingBottom: token('space.250', '20px'),
+		paddingLeft: token('space.250', '20px'),
+	},
 });
 
 export const InlineDialogFormWrapper = ({
@@ -58,11 +64,20 @@ export const InlineDialogFormWrapper = ({
 export const InlineDialogContentWrapper = ({
 	children,
 	label,
+	isExtendedShareDialogEnabled,
 }: {
 	children: React.ReactNode;
 	label?: string;
+	isExtendedShareDialogEnabled?: boolean;
 }) => (
-	<Box aria-label={label} xcss={styles.inlineDialogContentWrapper}>
+	<Box
+		aria-label={label}
+		xcss={
+			isExtendedShareDialogEnabled
+				? styles.extendedInlineDialogContentWrapper
+				: styles.inlineDialogContentWrapper
+		}
+	>
 		{children}
 	</Box>
 );

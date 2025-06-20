@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-card
 
+## 6.6.11
+
+### Patch Changes
+
+- [#174579](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174579)
+  [`523619ae64bbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/523619ae64bbd) -
+  [ux] Clean up feature gate smart_link_editor_update_toolbar_open_link
+- Updated dependencies
+
+## 6.6.10
+
+### Patch Changes
+
+- [#174513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174513)
+  [`9190f78c5c704`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9190f78c5c704) -
+  Remove platform_editor_exp_disable_lnv experiment key.
+- Updated dependencies
+
+## 6.6.9
+
+### Patch Changes
+
+- [#173379](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173379)
+  [`99e2b882f5cf0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99e2b882f5cf0) -
+  Clean up platform_editor_controls_patch_3
+- Updated dependencies
+
 ## 6.6.8
 
 ### Patch Changes

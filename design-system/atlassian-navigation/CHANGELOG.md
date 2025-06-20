@@ -1,5 +1,14 @@
 # @atlaskit/atlassian-navigation
 
+## 5.3.4
+
+### Patch Changes
+
+- [#174616](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174616)
+  [`ee906c44a058e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee906c44a058e) -
+  Internal refactors to accomodate for platform package rename.
+- Updated dependencies
+
 ## 5.3.3
 
 ### Patch Changes

@@ -18,6 +18,7 @@ export interface Props {
 	onMouseEnter?: MentionEventHandler;
 	onMouseLeave?: MentionEventHandler;
 	localId?: string;
+	ssrPlaceholderId?: string;
 }
 
 export default function MentionWithProfileCard({
@@ -31,6 +32,7 @@ export default function MentionWithProfileCard({
 	onMouseEnter,
 	onMouseLeave,
 	localId,
+	ssrPlaceholderId,
 }: Props) {
 	const { cloudId, resourceClient } = profilecardProvider;
 
@@ -52,6 +54,7 @@ export default function MentionWithProfileCard({
 			// Ignored via go/ees005
 			// eslint-disable-next-line require-unicode-regexp
 			ariaLabel={text.replace(/^@/, '')}
+			ssrPlaceholderId={ssrPlaceholderId}
 		>
 			<ResourcedMention
 				id={id}
@@ -62,6 +65,7 @@ export default function MentionWithProfileCard({
 				onClick={onClick}
 				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}
+				ssrPlaceholderId={ssrPlaceholderId}
 			/>
 		</ProfileCardTrigger>
 	);

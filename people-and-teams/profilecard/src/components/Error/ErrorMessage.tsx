@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import ButtonLegacy from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 
 import { ErrorTitle, ErrorWrapper } from '../../styled/Error';
@@ -55,14 +53,7 @@ const ErrorMessage = (props: Props) => {
 		<ErrorWrapper testId="profilecard-error">
 			<CrossCircleIcon label="icon error" LEGACY_fallbackIcon={IconError} LEGACY_size="xlarge" />
 			{errorContent()}
-			{reload &&
-				(fg('ptc_migrate_buttons') ? (
-					<Button onClick={reload}>Try again</Button>
-				) : (
-					<ButtonLegacy appearance="link" onClick={reload}>
-						Try again
-					</ButtonLegacy>
-				))}
+			{reload && <Button onClick={reload}>Try again</Button>}
 		</ErrorWrapper>
 	);
 };

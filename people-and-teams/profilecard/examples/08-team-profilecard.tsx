@@ -118,6 +118,7 @@ export default function Example() {
 					<p>
 						isLoading
 						<label htmlFor="isLoading">
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								checked={isLoading}
 								id="isLoading"
@@ -130,6 +131,7 @@ export default function Example() {
 					<p>
 						hasError
 						<label htmlFor="hasError">
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								checked={hasError}
 								id="hasError"
@@ -142,6 +144,7 @@ export default function Example() {
 					<p>
 						Is forbidden error?
 						<label htmlFor="isForbiddenError">
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								checked={errorType?.reason === 'TEAMS_FORBIDDEN'}
 								id="isForbiddenError"
@@ -154,6 +157,7 @@ export default function Example() {
 					<p>
 						Including you?
 						<label htmlFor="includingYou">
+							{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 							<input
 								checked={includingYou}
 								id="includingYou"

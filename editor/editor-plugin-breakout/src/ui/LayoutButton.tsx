@@ -12,7 +12,7 @@ import { injectIntl } from 'react-intl-next';
 import {
 	ACTION,
 	ACTION_SUBJECT,
-	BreakoutSupportedNodes,
+	type BreakoutSupportedNodes,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';

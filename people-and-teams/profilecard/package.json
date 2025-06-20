@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "23.19.3",
+	"version": "23.20.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -160,9 +160,6 @@
 		"platform_profilecard-enable_reporting_lines_label": {
 			"type": "boolean"
 		},
-		"ptc_migrate_buttons": {
-			"type": "boolean"
-		},
 		"enable_team_profilecard_toggletip_a11y_fix": {
 			"type": "boolean"
 		},
@@ -185,6 +182,9 @@
 			"type": "boolean"
 		},
 		"should-render-to-parent-should-be-true-people-and-": {
+			"type": "boolean"
+		},
+		"cc_mention_ssr_placeholder": {
 			"type": "boolean"
 		},
 		"loom_tab_in_container_linker_team_profile_page": {

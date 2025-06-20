@@ -43,6 +43,11 @@ const messageTextStyle = xcss({
 	textIndent: 'space.075',
 });
 
+const copyIconContainerStyles = xcss({
+	minWidth: '28px',
+	textAlign: 'left',
+});
+
 const isSafari = typeof window !== 'undefined' && window.navigator.userAgent.indexOf('Safari');
 
 type InputProps = {
@@ -75,6 +80,7 @@ export type Props = {
 	copyLinkButtonText: string;
 	copiedToClipboardText: string;
 	iconBefore?: ReactElement;
+	isExtendedShareDialogEnabled?: boolean;
 };
 
 export type State = {
@@ -123,7 +129,8 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 	};
 
 	renderTriggerButton = (triggerProps: TriggerProps) => {
-		const { isDisabled, copyLinkButtonText, children, iconBefore } = this.props;
+		const { isDisabled, copyLinkButtonText, children, iconBefore, isExtendedShareDialogEnabled } =
+			this.props;
 		return (
 			<Button
 				aria-label={copyLinkButtonText}
@@ -133,7 +140,13 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 				appearance="subtle-link"
 				iconBefore={
 					iconBefore || (
-						<Box xcss={boxWrapperStyle}>
+						<Box
+							xcss={
+								isExtendedShareDialogEnabled
+									? [boxWrapperStyle, copyIconContainerStyles]
+									: boxWrapperStyle
+							}
+						>
 							<LinkFilledIcon
 								LEGACY_margin={`0 ${token('space.negative.025')} 0 0`}
 								color="currentColor"
@@ -145,6 +158,20 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 				}
 				onClick={this.handleClick}
 				ref={triggerProps.ref}
+				spacing={isExtendedShareDialogEnabled ? 'none' : 'default'}
+				theme={
+					isExtendedShareDialogEnabled
+						? (current, themeProps) => ({
+								buttonStyles: {
+									...current(themeProps).buttonStyles,
+									color: token('color.text'),
+									font: token('font.body'),
+									alignItems: 'center',
+								},
+								spinnerStyles: current(themeProps).spinnerStyles,
+							})
+						: undefined
+				}
 			>
 				{children || copyLinkButtonText}
 			</Button>

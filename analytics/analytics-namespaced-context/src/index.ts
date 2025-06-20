@@ -33,3 +33,5 @@ export { AI_MATE_CONTEXT, AIMateAnalyticsContext } from './AIMateAnalyticsContex
 export { AVP_CONTEXT, AVPAnalyticsContext } from './AVPAnalyticsContext';
 
 export { GROWTH_CONTEXT, GrowthAnalyticsContext } from './GrowthAnalyticsContext';
+
+export { OMNI_CHANNEL_CONTEXT, OmniChannelAnalyticsContext } from './OmniChannelAnalyticsContext';

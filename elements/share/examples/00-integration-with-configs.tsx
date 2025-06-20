@@ -712,15 +712,13 @@ export default function Example() {
 										}
 									/>
 								</WrapperWithMarginTop>
-								{fg('platform_share_custom_header_prop') ? (
-									<WrapperWithMarginTop>
-										Custom Header
-										<Toggle
-											isChecked={state.hasHeader}
-											onChange={() => setState({ ...state, hasHeader: !state.hasHeader })}
-										/>
-									</WrapperWithMarginTop>
-								) : null}
+								<WrapperWithMarginTop>
+									Custom Header
+									<Toggle
+										isChecked={state.hasHeader}
+										onChange={() => setState({ ...state, hasHeader: !state.hasHeader })}
+									/>
+								</WrapperWithMarginTop>
 								<WrapperWithMarginTop>
 									Custom Footer
 									<Toggle

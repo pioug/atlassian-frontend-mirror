@@ -80,6 +80,7 @@ export default () => {
 			</p>
 			<p>
 				<label>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 					<input
 						type="checkbox"
 						checked={shouldAutoMention}

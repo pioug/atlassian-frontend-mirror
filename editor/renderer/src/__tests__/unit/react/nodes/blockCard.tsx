@@ -1,8 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';

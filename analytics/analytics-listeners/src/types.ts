@@ -30,4 +30,5 @@ export enum FabricChannel {
 	aiMate = 'aiMate',
 	avp = 'avp',
 	growth = 'growth',
+	omniChannel = 'omniChannel',
 }

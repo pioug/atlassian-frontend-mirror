@@ -1,5 +1,7 @@
 import React from 'react';
 import FocusRing from '@atlaskit/focus-ring';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import PrimitiveMention from './PrimitiveMention';
 import AsyncNoAccessTooltip from '../NoAccessTooltip';
@@ -28,6 +30,7 @@ export type OwnProps = {
 	onMouseEnter?: MentionEventHandler;
 	onMouseLeave?: MentionEventHandler;
 	onHover?: () => void;
+	ssrPlaceholderId?: string;
 };
 
 export type Props = OwnProps & WithAnalyticsEventsProps;
@@ -132,6 +135,10 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 			</FocusRing>
 		);
 
+		const ssrPlaceholderProp = fg('cc_mention_ssr_placeholder')
+			? { 'data-ssr-placeholder': props.ssrPlaceholderId }
+			: {};
+
 		return (
 			<UfoErrorBoundary id={id}>
 				<span
@@ -140,6 +147,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 					data-local-id={localId}
 					data-access-level={accessLevel}
 					spellCheck={false}
+					{...ssrPlaceholderProp}
 				>
 					<MessagesIntlProvider>
 						{showTooltip ? (

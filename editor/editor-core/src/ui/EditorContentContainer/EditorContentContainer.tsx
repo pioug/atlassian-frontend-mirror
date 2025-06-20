@@ -399,9 +399,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform-linking-visual-refresh-v1') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						linkingVisualRefreshV1Styles,
-					editorExperiment('platform_editor_vanilla_dom', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						dateVanillaStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					dateVanillaStyles,
 					fg('platform_editor_typography_ugc')
 						? fg('platform-dst-jira-web-fonts') ||
 							fg('confluence_typography_refreshed') ||

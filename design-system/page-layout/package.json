@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "4.2.4",
+	"version": "4.2.5",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,7 +37,7 @@
 			"category": "Layout and structure",
 			"status": {
 				"type": "intent-to-deprecate",
-				"description": "We are in the process of building a new page layout component: [@atlassian/navigation-system](/components/navigation-system/page-layout/examples) (For Atlassian employees only at this stage)"
+				"description": "We are in the process of building a new page layout component: [@atlaskit/navigation-system](/components/navigation-system/page-layout/examples) (For Atlassian employees only at this stage)"
 			}
 		},
 		"runReact18": true

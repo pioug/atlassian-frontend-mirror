@@ -9,4 +9,9 @@ export {
 	removeMark,
 	entireSelectionContainsMark,
 } from './commands';
-export { anyMarkActive, isMarkAllowedInRange, isMarkExcluded } from './text-formatting';
+export {
+	anyMarkActive,
+	wholeSelectionHasMarks,
+	isMarkAllowedInRange,
+	isMarkExcluded,
+} from './text-formatting';

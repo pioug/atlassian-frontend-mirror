@@ -11,9 +11,7 @@ import {
 import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import GrowHorizontalIcon from '@atlaskit/icon/core/grow-horizontal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { openPixelEditor } from '../../pm-plugins/pixel-resizing/commands';
 import { type Props, PixelEntry } from '../../pm-plugins/pixel-resizing/ui';
@@ -89,11 +87,7 @@ export const getResizeDropdownOption = (
 			{
 				title: formatMessage(messages.resizeOption),
 				onClick: openPixelEditor(),
-				icon: fg('platform_editor_controls_patch_7') ? (
-					<ImageFullscreenIcon label="" />
-				) : (
-					<GrowHorizontalIcon label="" />
-				),
+				icon: <ImageFullscreenIcon label="" />,
 				testId: 'media-pixel-resizing-dropdown-option',
 			},
 		];

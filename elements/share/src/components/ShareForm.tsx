@@ -249,6 +249,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 					{fieldsFooter}
 					<div css={formFooterStyles} data-testid="form-footer">
 						<CopyLinkButton
+							isExtendedShareDialogEnabled={isExtendedShareDialogEnabled}
 							isDisabled={isDisabled}
 							onLinkCopy={onLinkCopy}
 							link={copyLink}

@@ -14,7 +14,6 @@ import WorldIcon from '@atlaskit/icon/core/migration/globe--world';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 import Aktooltip from '@atlaskit/tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 
@@ -449,41 +448,17 @@ describe('ShareDialogWithTrigger', () => {
 		});
 	});
 
-	ffTest.on(
-		'platform_share_custom_header_prop',
-		'when platform_share_custom_header_prop is on',
-		() => {
-			describe('customHeader prop', () => {
-				it('should render', () => {
-					const wrapper = getWrapper({
-						customHeader: 'Header message',
-						integrationMode: 'tabs',
-					});
-					wrapper.setState({ isDialogOpen: true });
-					const popupContent = renderDialogContent(wrapper);
-					expect(popupContent.contains('Header message')).toBeTruthy();
-				});
+	describe('customHeader prop', () => {
+		it('should render', () => {
+			const wrapper = getWrapper({
+				customHeader: 'Header message',
+				integrationMode: 'tabs',
 			});
-		},
-	);
-
-	ffTest.off(
-		'platform_share_custom_header_prop',
-		'when platform_share_custom_header_prop is off',
-		() => {
-			describe('customHeader prop', () => {
-				it('should not render', () => {
-					const wrapper = getWrapper({
-						customHeader: 'Header message',
-						integrationMode: 'tabs',
-					});
-					wrapper.setState({ isDialogOpen: true });
-					const popupContent = renderDialogContent(wrapper);
-					expect(popupContent.contains('Header message')).toBeFalsy();
-				});
-			});
-		},
-	);
+			wrapper.setState({ isDialogOpen: true });
+			const popupContent = renderDialogContent(wrapper);
+			expect(popupContent.contains('Header message')).toBeTruthy();
+		});
+	});
 
 	describe('customFooter prop', () => {
 		it('should render', () => {

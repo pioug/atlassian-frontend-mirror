@@ -12,31 +12,29 @@ export const DateSharedCssClassName = {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const dateVanillaStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	[`[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span`]:
-		{
-			backgroundColor: token('color.background.neutral'),
-			color: token('color.text'),
-			borderRadius: token('border.radius.100'),
-			padding: `${token('space.025')} ${token('space.050')}`,
-			margin: '0 1px',
-			position: 'relative',
-			transition: 'background 0.3s',
-			whiteSpace: 'nowrap',
-			cursor: 'unset',
-		},
+	[`[data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span`]: {
+		backgroundColor: token('color.background.neutral'),
+		color: token('color.text'),
+		borderRadius: token('border.radius.100'),
+		padding: `${token('space.025')} ${token('space.050')}`,
+		margin: '0 1px',
+		position: 'relative',
+		transition: 'background 0.3s',
+		whiteSpace: 'nowrap',
+		cursor: 'unset',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	[`[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span:hover`]:
-		{
-			backgroundColor: token('color.background.neutral.hovered'),
-		},
+	[`[data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span:hover`]: {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	[`[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span.date-node-color-red`]:
+	[`[data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span.date-node-color-red`]:
 		{
 			backgroundColor: token('color.background.accent.red.subtlest'),
 			color: token('color.text.accent.red'),
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
-	[`[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span.date-node-color-red:hover`]:
+	[`[data-prosemirror-node-name='date'] .${DateSharedCssClassName.DATE_WRAPPER} span.date-node-color-red:hover`]:
 		{
 			backgroundColor: token('color.background.accent.red.subtler'),
 		},

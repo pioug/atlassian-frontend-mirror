@@ -84,6 +84,7 @@ const UserPickerExample = React.memo(() => {
 	) => {
 		return (
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					checked={Boolean(state[id] as boolean)}
 					id={id}

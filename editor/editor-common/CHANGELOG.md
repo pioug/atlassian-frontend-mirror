@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 107.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 107.0.5
+
+### Patch Changes
+
+- [#173379](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173379)
+  [`99e2b882f5cf0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/99e2b882f5cf0) -
+  Clean up platform_editor_controls_patch_3
+- Updated dependencies
+
+## 107.0.4
+
+### Patch Changes
+
+- [#173636](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173636)
+  [`22b85a186fb8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22b85a186fb8a) -
+  SSR placeholder for mention profile card trigger
+- Updated dependencies
+
+## 107.0.3
+
+### Patch Changes
+
+- [#173656](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173656)
+  [`006a6e5d1bb9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/006a6e5d1bb9d) -
+  remove node wrapper extension height reservation
+- Updated dependencies
+
 ## 107.0.2
 
 ### Patch Changes

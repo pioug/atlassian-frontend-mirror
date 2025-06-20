@@ -25,23 +25,20 @@ const headerWrapperStyles = xcss({
 
 const headerWrapperExtraSpaceStyles = xcss({
 	marginBottom: 'space.200',
+	color: 'color.text',
 });
 
 export const ShareHeader = ({ isExtendedShareDialogEnabled, title }: Props) => {
-	const headingSize = isExtendedShareDialogEnabled ? 'medium' : 'small';
-
 	return (
 		<Box
 			xcss={[headerWrapperStyles, isExtendedShareDialogEnabled && headerWrapperExtraSpaceStyles]}
 		>
 			{fg('share-header-accessibility') ? (
-				<Heading size={headingSize} as="h2">
+				<Heading size="small" as="h2">
 					{title || <FormattedMessage {...messages.formTitle} />}
 				</Heading>
 			) : (
-				<Heading size={headingSize}>
-					{title || <FormattedMessage {...messages.formTitle} />}
-				</Heading>
+				<Heading size="small">{title || <FormattedMessage {...messages.formTitle} />}</Heading>
 			)}
 		</Box>
 	);

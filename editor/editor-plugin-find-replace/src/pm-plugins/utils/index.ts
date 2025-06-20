@@ -1,5 +1,6 @@
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { timestampToString } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node as PmNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
@@ -7,8 +8,11 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
+import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { FindReplacePlugin } from '../../findReplacePluginType';
 import type { Match, TextGrouping } from '../../types';
 import { searchMatchClass, selectedSearchMatchClass } from '../../ui/styles';
 
@@ -37,13 +41,23 @@ export const createDecoration = (start: number, end: number, isSelected?: boolea
 	});
 };
 
-export function findMatches(
-	content: PmNode | Fragment,
-	searchText: string,
-	shouldMatchCase: boolean,
+type FindMatchesType = {
+	content: PmNode | Fragment;
+	searchText: string;
+	shouldMatchCase: boolean;
+	contentIndex?: number;
+	getIntl?: () => IntlShape;
+	api?: ExtractInjectionAPI<FindReplacePlugin>;
+};
+
+export function findMatches({
+	content,
+	searchText,
+	shouldMatchCase,
 	contentIndex = 0,
-	getIntl?: () => IntlShape,
-): Match[] {
+	getIntl,
+	api,
+}: FindMatchesType): Match[] {
 	const matches: Match[] = [];
 	const searchTextLength = searchText.length;
 
@@ -100,7 +114,7 @@ export function findMatches(
 		}
 	};
 
-	const collectDateMatch = (textGrouping: TextGrouping, nodeSize: number) => {
+	const collectDateOrMentionMatch = (textGrouping: TextGrouping, nodeSize: number) => {
 		if (!textGrouping) {
 			return;
 		}
@@ -145,7 +159,7 @@ export function findMatches(
 							break;
 						case 'date':
 							if (fg('platform_editor_find_and_replace_part_2')) {
-								collectDateMatch(
+								collectDateOrMentionMatch(
 									{
 										text: timestampToString(
 											node.attrs.timestamp,
@@ -155,6 +169,36 @@ export function findMatches(
 									},
 									node.nodeSize,
 								);
+							}
+							break;
+						case 'mention':
+							if (fg('platform_editor_find_and_replace_part_2')) {
+								let text;
+								if (node.attrs.text) {
+									text = node.attrs.text;
+								} else {
+									// the text may be sanitised from the node for privacy reasons
+									// so we need to use the mentionProvider to resolve it
+									const mentionProvider = api?.mention?.sharedState.currentState()?.mentionProvider;
+
+									if (isResolvingMentionProvider(mentionProvider)) {
+										const nameDetail = mentionProvider.resolveMentionName(node.attrs.id);
+
+										if (isPromise(nameDetail)) {
+											text = '@...';
+										} else {
+											if (nameDetail.status === MentionNameStatus.OK) {
+												text = `@${nameDetail.name || ''}`;
+											} else {
+												text = '@_|unknown|_';
+											}
+										}
+									}
+								}
+
+								if (text) {
+									collectDateOrMentionMatch({ text, pos }, node.nodeSize);
+								}
 							}
 							break;
 						default:

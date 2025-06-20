@@ -75,6 +75,10 @@ const inlineDialogContentWrapperStyles = css({
 	padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
 });
 
+const extendedInlineDialogContentWrapperStyles = css({
+	padding: token('space.250', '20px'),
+});
+
 /**
  * Apply the same styling, as previous @atlaskit/inline-dialog had,
  * compared to the @atlaskit/popup we are now using.
@@ -84,9 +88,17 @@ const inlineDialogContentWrapperStyles = css({
 export const InlineDialogContentWrapper = ({
 	children,
 	label,
-}: PropsWithChildren<{ label?: string }>) => {
+	isExtendedShareDialogEnabled,
+}: PropsWithChildren<{ label?: string; isExtendedShareDialogEnabled?: boolean }>) => {
 	return (
-		<div css={inlineDialogContentWrapperStyles} aria-label={label}>
+		<div
+			css={
+				isExtendedShareDialogEnabled
+					? extendedInlineDialogContentWrapperStyles
+					: inlineDialogContentWrapperStyles
+			}
+			aria-label={label}
+		>
 			{children}
 		</div>
 	);

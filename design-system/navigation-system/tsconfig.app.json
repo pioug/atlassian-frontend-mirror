@@ -1,0 +1,92 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__navigation-system/app"
+	},
+	"references": [
+		{
+			"path": "../../analytics/analytics-next/tsconfig.app.json"
+		},
+		{
+			"path": "../app-provider/tsconfig.app.json"
+		},
+		{
+			"path": "../avatar/tsconfig.app.json"
+		},
+		{
+			"path": "../button/tsconfig.app.json"
+		},
+		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../layering/tsconfig.app.json"
+		},
+		{
+			"path": "../logo/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../popup/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/hitbox/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../navigation/temp-nav-app-icons/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../visually-hidden/tsconfig.app.json"
+		}
+	]
+}

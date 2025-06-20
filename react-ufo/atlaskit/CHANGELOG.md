@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.24
+
+### Patch Changes
+
+- [#174440](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174440)
+  [`8354b610a7617`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8354b610a7617) -
+  Adds displayName to ufo segment to help with component tracking
+
 ## 3.13.23
 
 ### Patch Changes

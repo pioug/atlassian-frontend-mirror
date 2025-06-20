@@ -20,6 +20,7 @@ const DummyPostOfficeCompWithAnalytics = createComponentWithAnalytics(FabricChan
 const DummyAIMateCompWithAnalytics = createComponentWithAnalytics(FabricChannel.aiMate);
 const DummyAVPCompWithAnalytics = createComponentWithAnalytics(FabricChannel.avp);
 const AtlaskitIncorrectEventType = IncorrectEventType(FabricChannel.atlaskit);
+const DummyOmniChannelCompWithAnalytics = createComponentWithAnalytics(FabricChannel.omniChannel);
 
 describe('<FabricAnalyticsListeners />', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
@@ -626,6 +627,42 @@ describe('<FabricAnalyticsListeners />', () => {
 			);
 
 			const dummyComponent = screen.getByRole('button', { name: 'avp' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+		});
+	});
+
+	describe('<OmniChannelAnalyticsListener />', () => {
+		it('should listen and fire a UI event with analyticsWebClient', async () => {
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={analyticsWebClientMock}>
+					<DummyOmniChannelCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'omniChannel' });
+			expect(dummyComponent).toBeInTheDocument();
+
+			await fireEvent.click(dummyComponent);
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+		});
+
+		it('should listen and fire a UI event with analyticsWebClient as Promise', async () => {
+			analyticsWebClientMock.sendUIEvent = jest.fn();
+
+			const compOnClick = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
+					<DummyOmniChannelCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const dummyComponent = screen.getByRole('button', { name: 'omniChannel' });
 			expect(dummyComponent).toBeInTheDocument();
 
 			await fireEvent.click(dummyComponent);

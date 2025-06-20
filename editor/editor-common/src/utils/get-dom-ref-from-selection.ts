@@ -2,7 +2,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
+import { ACTION, ACTION_SUBJECT, type ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
 
 export const getDomRefFromSelection = (
 	view: EditorView,

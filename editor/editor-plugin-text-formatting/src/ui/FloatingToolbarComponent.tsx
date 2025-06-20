@@ -149,21 +149,22 @@ const FloatingToolbarTextFormat = ({
 	const { formattingIsPresent, ...formattingIconState } = textFormattingState;
 
 	let hasMultiplePartsWithFormattingSelected;
-	let commonActiveMarks: string[] = [];
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_7')
-	) {
+	let commonActiveMarks: string[] | undefined;
+
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		const { selection } = editorView.state;
 		const { from, to } = selection;
 		const selectedContent =
 			selection instanceof TextSelection
 				? editorView.state.doc.slice(from, to).content.content.slice()
 				: undefined;
-		hasMultiplePartsWithFormattingSelected = hasMultiplePartsWithFormattingInSelection({
-			selectedContent,
-		});
-		if (fg('platform_editor_controls_patch_10')) {
+		hasMultiplePartsWithFormattingSelected = fg('platform_editor_common_marks')
+			? false
+			: hasMultiplePartsWithFormattingInSelection({
+					selectedContent,
+				});
+
+		if (!fg('platform_editor_common_marks')) {
 			commonActiveMarks = getCommonActiveMarks({ selectedContent });
 		}
 	}
@@ -175,16 +176,12 @@ const FloatingToolbarTextFormat = ({
 		editorAnalyticsAPI,
 		textFormattingState: formattingIconState,
 		toolbarType: FloatingToolbarSettings.toolbarType,
-		hasMultiplePartsWithFormattingSelected:
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_10')
-				? hasMultiplePartsWithFormattingSelected
-				: undefined,
-		commonActiveMarks:
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_10')
-				? commonActiveMarks
-				: undefined,
+		hasMultiplePartsWithFormattingSelected: editorExperiment('platform_editor_controls', 'variant1')
+			? hasMultiplePartsWithFormattingSelected
+			: undefined,
+		commonActiveMarks: editorExperiment('platform_editor_controls', 'variant1')
+			? commonActiveMarks
+			: undefined,
 	});
 
 	const { dropdownItems, singleItems } = useIconList({

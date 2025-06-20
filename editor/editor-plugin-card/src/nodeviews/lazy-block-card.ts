@@ -6,10 +6,7 @@ import { blockCardNodeView, type BlockCardNodeViewProperties } from './blockCard
 export const lazyBlockCardView: (props: BlockCardNodeViewProperties) => NodeViewConstructor = (
 	props: BlockCardNodeViewProperties,
 ) => {
-	if (
-		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		editorExperiment('platform_editor_exp_disable_lnv', true, { exposure: true })
-	) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return blockCardNodeView(props);
 	}
 

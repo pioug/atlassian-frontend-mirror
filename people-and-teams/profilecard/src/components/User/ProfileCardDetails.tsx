@@ -141,6 +141,16 @@ const CustomLozenges = ({ lozenges = [] }: { lozenges?: LozengeProps[] }) => {
 		</CustomLozengeContainer>
 	);
 };
+const ServiceAccountProfileCardDetails = (props: ProfilecardProps) => {
+	const { fullName, nickname } = props;
+
+	return (
+		<DetailsGroup>
+			{renderName(nickname, fullName)}
+			<AppTitleLabel>SERVICE ACCOUNT</AppTitleLabel>
+		</DetailsGroup>
+	);
+};
 
 const BotProfileCardDetails = (props: ProfilecardProps) => {
 	const { fullName, nickname } = props;
@@ -205,6 +215,10 @@ const DisabledProfileCardDetails = (
 
 export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurationProps) => {
 	const { meta, status } = props;
+
+	if (props.isServiceAccount) {
+		return <ServiceAccountProfileCardDetails {...props} />;
+	}
 
 	if (props.isBot) {
 		return <BotProfileCardDetails {...props} />;

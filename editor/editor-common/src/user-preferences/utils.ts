@@ -1,4 +1,4 @@
-import { ResolvedUserPreferences, UserPreferences } from './user-preferences';
+import type { ResolvedUserPreferences, UserPreferences } from './user-preferences';
 
 export const mergeUserPreferences = (
 	userPreferences: UserPreferences,

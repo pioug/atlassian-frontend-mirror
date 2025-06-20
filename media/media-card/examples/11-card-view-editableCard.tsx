@@ -343,6 +343,7 @@ export const generateStoriesForEditableCards = () => {
 									<div>
 										Actions <hr role="presentation" />
 										<div>
+											{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 											<input
 												type="checkbox"
 												onChange={this.onActionsChange(openAction)}
@@ -351,6 +352,7 @@ export const generateStoriesForEditableCards = () => {
 											Open
 										</div>
 										<div>
+											{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 											<input
 												type="checkbox"
 												onChange={this.onActionsChange(closeAction)}
@@ -359,6 +361,7 @@ export const generateStoriesForEditableCards = () => {
 											Close
 										</div>
 										<div>
+											{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 											<input
 												type="checkbox"
 												onChange={this.onActionsChange(deleteAction)}

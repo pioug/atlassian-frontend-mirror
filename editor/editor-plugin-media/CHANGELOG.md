@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media
 
+## 4.1.1
+
+### Patch Changes
+
+- [#174513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174513)
+  [`9190f78c5c704`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9190f78c5c704) -
+  Remove platform_editor_exp_disable_lnv experiment key.
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [#172447](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172447)
+  [`06e9b6904aff2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06e9b6904aff2) -
+  [https://product-fabric.atlassian.net/browse/ED-27984](ED-27984) - clean up
+  platform_editor_react18_phase2**media_single and platform_editor_react18_phase2**media_single_jira
+  FFs
+
 ## 4.0.0
 
 ### Minor Changes

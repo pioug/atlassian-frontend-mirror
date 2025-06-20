@@ -1,7 +1,6 @@
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
 import { type Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Predicate } from '../types';
@@ -66,8 +65,7 @@ export const getActiveLinkMark = (
 
 	if (
 		isEmptySelectionBeforeLink(state) &&
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_3')
+		editorExperiment('platform_editor_controls', 'variant1')
 	) {
 		// if user clicks right before the link, we want to show the toolbar for the link
 		// but only if the link is a single character
@@ -77,8 +75,7 @@ export const getActiveLinkMark = (
 
 	if (
 		isEmptySelectionAfterLink(state) &&
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_3')
+		editorExperiment('platform_editor_controls', 'variant1')
 	) {
 		// if user clicks right after the link, we want to show the toolbar for the link
 		// but only if the link is a single character

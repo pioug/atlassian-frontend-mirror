@@ -22,7 +22,6 @@ import { RECENT_SEARCH_HEIGHT_IN_PX, RECENT_SEARCH_WIDTH_IN_PX } from '@atlaskit
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -208,7 +207,7 @@ export const getLinkingDropdownOptions = (
 					}
 					return true;
 				},
-				icon: <LinkIcon label={fg('platform_editor_controls_patch_7') ? '' : title} />,
+				icon: <LinkIcon label="" />,
 			},
 		];
 	} else {

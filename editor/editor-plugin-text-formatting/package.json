@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-formatting",
-	"version": "2.3.2",
+	"version": "2.3.3",
 	"description": "Text-formatting plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -128,7 +128,7 @@
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_7": {
+		"platform_editor_common_marks": {
 			"type": "boolean"
 		}
 	}

@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::209e7838099b17a4e76b144254ce8355>>
+ * @codegen <<SignedSource::d9b916cfc0ff7c4ef930bffeb9eac4d2>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -219,6 +219,9 @@ export type FontShorthand =
 	| 'var(--ds-font-body)'
 	| 'var(--ds-font-body-small)'
 	| 'var(--ds-font-body-UNSAFE_small)'
+	| 'var(--ds-font-metric-large)'
+	| 'var(--ds-font-metric-medium)'
+	| 'var(--ds-font-metric-small)'
 	| 'var(--ds-font-code)';
 export type IconColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
 export type IconColor =

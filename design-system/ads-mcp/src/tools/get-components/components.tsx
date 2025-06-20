@@ -1790,20 +1790,20 @@ import CommentIcon from '@atlaskit/icon/core/comment';
 	},
 	{
 		name: 'NavigationSystem',
-		packageName: '@atlassian/navigation-system',
+		packageName: '@atlaskit/navigation-system',
 		description:
 			'A modern navigation system for Atlassian products that provides a flexible and accessible layout structure.',
 		releasePhase: 'early_access',
 		category: 'Navigation',
 		example: `import React, { useState } from 'react';
 import AKBanner from '@atlaskit/banner';
-import { Banner } from '@atlassian/navigation-system/layout/banner';
-import { Main } from '@atlassian/navigation-system/layout/main';
-import { PanelSplitter } from '@atlassian/navigation-system/layout/panel-splitter';
-import { Root } from '@atlassian/navigation-system/layout/root';
-import { SideNav, SideNavContent, SideNavFooter, SideNavToggleButton } from '@atlassian/navigation-system/layout/side-nav';
-import { TopNav, TopNavEnd, TopNavMiddle, TopNavStart } from '@atlassian/navigation-system/layout/top-nav';
-import { Help, NavLogo } from '@atlassian/navigation-system/top-nav-items';
+import { Banner } from '@atlaskit/navigation-system/layout/banner';
+import { Main } from '@atlaskit/navigation-system/layout/main';
+import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
+import { Root } from '@atlaskit/navigation-system/layout/root';
+import { SideNav, SideNavContent, SideNavFooter, SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
+import { TopNav, TopNavEnd, TopNavMiddle, TopNavStart } from '@atlaskit/navigation-system/layout/top-nav';
+import { Help, NavLogo } from '@atlaskit/navigation-system/top-nav-items';
 
 <Root>
   <TopNav>

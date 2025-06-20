@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 0.39.1
+
+### Patch Changes
+
+- [#174090](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174090)
+  [`e5f4693b1599f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5f4693b1599f) -
+  NO-ISSUE Enable null check for containers mapping function
+
 ## 0.39.0
 
 ### Minor Changes

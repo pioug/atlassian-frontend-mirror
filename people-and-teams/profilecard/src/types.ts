@@ -124,6 +124,7 @@ export interface ProfileCardClientData {
 	customLozenges?: LozengeProps[];
 	accountType?: string;
 	isAgent?: boolean;
+	isServiceAccount?: boolean;
 }
 
 export interface ReportingLinesUserPII {
@@ -202,6 +203,7 @@ export interface ProfileCardTriggerProps {
 	viewingUserId?: string;
 	agentActions?: AgentActionsType;
 	ariaHideProfileTrigger?: boolean;
+	ssrPlaceholderId?: string;
 }
 
 export interface ProfileCardTriggerState {
@@ -427,6 +429,7 @@ export interface ProfilecardProps {
 	accountType?: string;
 	status?: StatusType;
 	isBot?: boolean;
+	isServiceAccount?: boolean;
 	avatarUrl?: string;
 	fullName?: string;
 	meta?: string;

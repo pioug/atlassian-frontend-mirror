@@ -8,6 +8,7 @@ const Example = () => {
 	return (
 		<>
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					checked={isMulti}
 					id="is-multi"
@@ -19,6 +20,7 @@ const Example = () => {
 				<label htmlFor="is-multi">IsMulti</label>
 			</div>
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					checked={openMenuOnClick}
 					id="open-menu-on-click"

@@ -1,14 +1,12 @@
 import React from 'react';
 import { act } from '@testing-library/react';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { AnnotationId, DocNode } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-common/types';
 import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/types';
 import { UnsupportedBlock, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
+import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
 
 import {
 	SEVERITY,

@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 6.12.0
+
+### Minor Changes
+
+- [#173236](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173236)
+  [`4cd9daad8befd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cd9daad8befd) -
+  [ux] Update extend share dialog offsets, text colours and more to align with the new design
+
 ## 6.11.2
 
 ### Patch Changes

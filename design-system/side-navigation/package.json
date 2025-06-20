@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-navigation",
-	"version": "11.0.6",
+	"version": "11.0.7",
 	"description": "A highly composable side navigation component that supports nested views.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 			"category": "Navigation",
 			"status": {
 				"type": "intent-to-deprecate",
-				"description": "We are in the process of building a new side navigation component: [@atlassian/navigation-system](/components/navigation-system/side-navigation/examples) (For Atlassian employees only at this stage)"
+				"description": "We are in the process of building a new side navigation component: [@atlaskit/navigation-system](/components/navigation-system/side-navigation/examples) (For Atlassian employees only at this stage)"
 			}
 		},
 		"runReact18": true

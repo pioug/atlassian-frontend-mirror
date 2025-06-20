@@ -391,14 +391,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-30
-	platform_editor_exp_disable_lnv: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_exp_disable_lnv',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-05-07
 	platform_editor_ai_quickstart_command: createBooleanExperiment({
 		productKeys: {
@@ -437,14 +429,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-30
-	platform_editor_ai_iw_full_page_adf_streaming: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_iw_full_page_adf_streaming',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: createBooleanExperiment({
 		productKeys: {
@@ -465,6 +449,14 @@ export const editorExperimentsConfig = {
 	platform_editor_enable_single_player_step_merging: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_enable_single_player_step_merging',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2025-06-18
+	platform_editor_ai_iw_adf_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_iw_adf_streaming',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

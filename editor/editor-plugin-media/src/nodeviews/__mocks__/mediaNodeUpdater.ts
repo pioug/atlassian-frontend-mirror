@@ -39,9 +39,9 @@ export class MediaNodeUpdater {
 		this.copyNodeFromBlobUrl =
 			mockOverrides['copyNodeFromBlobUrl'] || jest.fn().mockResolvedValue(undefined);
 		this.handleExternalMedia =
-			mockOverrides['handleExternalMedia'] || jest.fn().mockReturnValue(new Promise(() => {}));
+			mockOverrides['handleExternalMedia'] || jest.fn().mockResolvedValue(undefined);
 		this.updateNodeAttrs =
-			mockOverrides['updateNodeAttrs'] || jest.fn().mockReturnValue(new Promise(() => {}));
+			mockOverrides['updateNodeAttrs'] || jest.fn().mockResolvedValue(undefined);
 	}
 
 	// Ignored via go/ees005
@@ -71,4 +71,8 @@ export class MediaNodeUpdater {
 	copyNodeFromBlobUrl() {}
 	updateNodeAttrs() {}
 	async handleExternalMedia() {}
+}
+
+export function createMediaNodeUpdater() {
+	return new MediaNodeUpdater();
 }

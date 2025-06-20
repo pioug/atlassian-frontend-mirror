@@ -1,0 +1,44 @@
+import SectionMessage from '@atlaskit/section-message';
+
+import { IntegrationLayoutExample } from '../../examples/constellation/integration';
+
+Navigation is how users get around a site to complete their tasks.
+
+## Overview
+
+Atlassian’s navigation is made of these basic parts:
+
+- The [layout](/components/navigation-system/layout) defines clear areas for navigation elements
+- [Side navigation menus](/components/navigation-system/side-navigation) create a consistent feel
+  for actions and links
+- [Top navigation elements](/components/navigation-system/top-navigation) provide familiar spots for
+  common features
+
+These layout and menu areas contain the app switcher, search, and other key features in Atlassian
+products.
+
+<SectionMessage title="Required: Compiled CSS configuration">
+	<p>
+		Compiled CSS must be configured in your application to ensure styles are correctly applied. See
+		the <a href="/get-started/develop#set-up-your-bundling-environment">get started page</a> for
+		steps.
+	</p>
+	<p>
+		For Atlassian staff, you can also refer to{' '}
+		<a href="https://go.atlassian.com/configure-compiled" target="_blank">
+			go/configure-compiled
+		</a>
+	</p>
+</SectionMessage>
+
+<!-- TODO: add go-link to hub. [Get details on navigation parts and what goes in them (Atlassians only)](/link-text)
+ -->
+
+## Basic example
+
+To see in full-screen, open the code sandbox below.
+
+<!-- Only showing source to prevent nested context errors, as the example's `Root` is nested
+inside the docs website's `Root` -->
+
+<Example Component={IntegrationLayoutExample} appearance="source-only" />

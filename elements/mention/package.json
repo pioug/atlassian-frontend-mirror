@@ -104,6 +104,9 @@
 	"platform-feature-flags": {
 		"team-avatar-in-mention-picker": {
 			"type": "boolean"
+		},
+		"cc_mention_ssr_placeholder": {
+			"type": "boolean"
 		}
 	},
 	"publishConfig": {
@@ -131,5 +134,5 @@
 			]
 		}
 	},
-	"version": "24.2.3"
+	"version": "24.2.4"
 }

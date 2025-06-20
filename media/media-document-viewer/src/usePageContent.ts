@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 
-import { PageRangeContent } from './types';
+import type { PageRangeContent } from './types';
 import { useStaticCallback } from './utils/useStaticCallback';
 
 export function usePageContent(

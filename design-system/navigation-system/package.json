@@ -1,0 +1,287 @@
+{
+	"name": "@atlaskit/navigation-system",
+	"version": "0.166.0",
+	"description": "The latest navigation system for Atlassian products.",
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"*.compiled.css"
+	],
+	"af:exports": {
+		".": "./src/index.tsx",
+		"./top-nav-items/notifications": "./src/entry-points/top-nav-items/notifications.tsx",
+		"./top-nav-items/create-button": "./src/entry-points/top-nav-items/create-button.tsx",
+		"./top-nav-items/help": "./src/entry-points/top-nav-items/help.tsx",
+		"./top-nav-items/profile": "./src/entry-points/top-nav-items/profile.tsx",
+		"./top-nav-items/settings": "./src/entry-points/top-nav-items/settings.tsx",
+		"./top-nav-items/log-in": "./src/entry-points/top-nav-items/log-in.tsx",
+		"./top-nav-items/custom-title": "./src/entry-points/top-nav-items/custom-title.tsx",
+		"./top-nav-items": "./src/entry-points/top-nav-items/index.tsx",
+		"./side-nav-items/container-avatar": "./src/entry-points/side-nav-items/container-avatar.tsx",
+		"./side-nav-items/expandable-menu-item": "./src/entry-points/side-nav-items/expandable-menu-item.tsx",
+		"./side-nav-items/flyout-menu-item": "./src/entry-points/side-nav-items/flyout-menu-item.tsx",
+		"./side-nav-items/button-menu-item": "./src/entry-points/side-nav-items/button-menu-item.tsx",
+		"./side-nav-items/link-menu-item": "./src/entry-points/side-nav-items/link-menu-item.tsx",
+		"./side-nav-items/menu-list": "./src/entry-points/side-nav-items/menu-list.tsx",
+		"./side-nav-items/menu-list-item": "./src/entry-points/side-nav-items/menu-list-item.tsx",
+		"./side-nav-items/menu-section": "./src/entry-points/side-nav-items/menu-section.tsx",
+		"./side-nav-items/top-level-spacer": "./src/entry-points/side-nav-items/top-level-spacer.tsx",
+		"./side-nav-items/drag-and-drop/hitbox": "./src/entry-points/side-nav-items/drag-and-drop/hitbox.tsx",
+		"./side-nav-items/drag-and-drop/drag-preview": "./src/entry-points/side-nav-items/drag-and-drop/drag-preview.tsx",
+		"./side-nav-items/drag-and-drop/drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/drop-indicator.tsx",
+		"./side-nav-items/drag-and-drop/group-drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/group-drop-indicator.tsx",
+		"./side-nav-items/drag-and-drop/use-menu-item-drag-and-drop": "./src/entry-points/side-nav-items/drag-and-drop/use-menu-item-drag-and-drop.tsx",
+		"./layout/aside": "./src/entry-points/layout/aside.tsx",
+		"./layout/banner": "./src/entry-points/layout/banner.tsx",
+		"./layout/main": "./src/entry-points/layout/main.tsx",
+		"./layout/panel-splitter": "./src/entry-points/layout/panel-splitter.tsx",
+		"./layout/panel": "./src/entry-points/layout/panel.tsx",
+		"./layout/root": "./src/entry-points/layout/root.tsx",
+		"./layout/side-nav": "./src/entry-points/layout/side-nav.tsx",
+		"./layout/top-nav": "./src/entry-points/layout/top-nav.tsx",
+		"./layout/skip-links": "./src/entry-points/layout/skip-links.tsx",
+		"./experimental/top-nav-button": "./src/entry-points/experimental/top-nav-button.tsx",
+		"./experimental/use-has-custom-theme": "./src/entry-points/experimental/use-has-custom-theme.tsx",
+		"./experimental/use-legacy-search-theme": "./src/entry-points/experimental/use-legacy-search-theme.tsx",
+		"./experimental/color-utils/parse-hex": "./src/entry-points/experimental/color-utils/parse-hex.tsx",
+		"./experimental/color-utils/parse-hsl": "./src/entry-points/experimental/color-utils/parse-hsl.tsx",
+		"./experimental/color-utils/parse-rgb": "./src/entry-points/experimental/color-utils/parse-rgb.tsx",
+		"./experimental/color-utils/parse-user-color": "./src/entry-points/experimental/color-utils/parse-user-color.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx",
+		"./top-nav-items/notifications": "./src/entry-points/top-nav-items/notifications.tsx",
+		"./top-nav-items/create-button": "./src/entry-points/top-nav-items/create-button.tsx",
+		"./top-nav-items/help": "./src/entry-points/top-nav-items/help.tsx",
+		"./top-nav-items/profile": "./src/entry-points/top-nav-items/profile.tsx",
+		"./top-nav-items/settings": "./src/entry-points/top-nav-items/settings.tsx",
+		"./top-nav-items/log-in": "./src/entry-points/top-nav-items/log-in.tsx",
+		"./top-nav-items/custom-title": "./src/entry-points/top-nav-items/custom-title.tsx",
+		"./top-nav-items": "./src/entry-points/top-nav-items/index.tsx",
+		"./side-nav-items/container-avatar": "./src/entry-points/side-nav-items/container-avatar.tsx",
+		"./side-nav-items/expandable-menu-item": "./src/entry-points/side-nav-items/expandable-menu-item.tsx",
+		"./side-nav-items/flyout-menu-item": "./src/entry-points/side-nav-items/flyout-menu-item.tsx",
+		"./side-nav-items/button-menu-item": "./src/entry-points/side-nav-items/button-menu-item.tsx",
+		"./side-nav-items/link-menu-item": "./src/entry-points/side-nav-items/link-menu-item.tsx",
+		"./side-nav-items/menu-list": "./src/entry-points/side-nav-items/menu-list.tsx",
+		"./side-nav-items/menu-list-item": "./src/entry-points/side-nav-items/menu-list-item.tsx",
+		"./side-nav-items/menu-section": "./src/entry-points/side-nav-items/menu-section.tsx",
+		"./side-nav-items/top-level-spacer": "./src/entry-points/side-nav-items/top-level-spacer.tsx",
+		"./side-nav-items/drag-and-drop/hitbox": "./src/entry-points/side-nav-items/drag-and-drop/hitbox.tsx",
+		"./side-nav-items/drag-and-drop/drag-preview": "./src/entry-points/side-nav-items/drag-and-drop/drag-preview.tsx",
+		"./side-nav-items/drag-and-drop/drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/drop-indicator.tsx",
+		"./side-nav-items/drag-and-drop/group-drop-indicator": "./src/entry-points/side-nav-items/drag-and-drop/group-drop-indicator.tsx",
+		"./side-nav-items/drag-and-drop/use-menu-item-drag-and-drop": "./src/entry-points/side-nav-items/drag-and-drop/use-menu-item-drag-and-drop.tsx",
+		"./layout/aside": "./src/entry-points/layout/aside.tsx",
+		"./layout/banner": "./src/entry-points/layout/banner.tsx",
+		"./layout/main": "./src/entry-points/layout/main.tsx",
+		"./layout/panel-splitter": "./src/entry-points/layout/panel-splitter.tsx",
+		"./layout/panel": "./src/entry-points/layout/panel.tsx",
+		"./layout/root": "./src/entry-points/layout/root.tsx",
+		"./layout/side-nav": "./src/entry-points/layout/side-nav.tsx",
+		"./layout/test-utils": "./src/entry-points/layout/test-utils.tsx",
+		"./layout/top-nav": "./src/entry-points/layout/top-nav.tsx",
+		"./layout/skip-links": "./src/entry-points/layout/skip-links.tsx",
+		"./experimental/top-nav-button": "./src/entry-points/experimental/top-nav-button.tsx",
+		"./experimental/use-has-custom-theme": "./src/entry-points/experimental/use-has-custom-theme.tsx",
+		"./experimental/use-legacy-search-theme": "./src/entry-points/experimental/use-legacy-search-theme.tsx",
+		"./experimental/color-utils/parse-hex": "./src/entry-points/experimental/color-utils/parse-hex.tsx",
+		"./experimental/color-utils/parse-hsl": "./src/entry-points/experimental/color-utils/parse-hsl.tsx",
+		"./experimental/color-utils/parse-rgb": "./src/entry-points/experimental/color-utils/parse-rgb.tsx",
+		"./experimental/color-utils/parse-user-color": "./src/entry-points/experimental/color-utils/parse-user-color.tsx"
+	},
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "ADS: nav4",
+		"runReact18": true,
+		"website": {
+			"name": "Navigation system",
+			"category": "Navigation",
+			"status": {
+				"type": "alpha",
+				"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+			},
+			"subPages": [
+				{
+					"title": "Layout",
+					"id": "layout",
+					"status": {
+						"type": "alpha",
+						"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+					},
+					"sortKey": 1
+				},
+				{
+					"title": "Side navigation",
+					"id": "side-navigation",
+					"status": {
+						"type": "alpha",
+						"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+					},
+					"sortKey": 2
+				},
+				{
+					"title": "Top navigation",
+					"id": "top-navigation",
+					"status": {
+						"type": "alpha",
+						"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+					},
+					"sortKey": 3
+				}
+			]
+		},
+		"integrationTests": {
+			"additionalBrowsers": [
+				"desktop-firefox",
+				"desktop-webkit"
+			]
+		}
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/avatar": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/layering": "workspace:^",
+		"@atlaskit/logo": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/popup": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/temp-nav-app-icons": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/tooltip": "workspace:^",
+		"@atlaskit/visually-hidden": "workspace:^",
+		"@babel/runtime": "^7.0.0",
+		"@compiled/react": "^0.18.3",
+		"bind-event-listener": "^3.0.0",
+		"tiny-invariant": "^1.2.0"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "workspace:^",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/app-provider": "workspace:^",
+		"@atlaskit/badge": "workspace:^",
+		"@atlaskit/banner": "workspace:^",
+		"@atlaskit/breadcrumbs": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/form": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/link": "workspace:^",
+		"@atlaskit/lozenge": "workspace:^",
+		"@atlaskit/menu": "workspace:^",
+		"@atlaskit/onboarding": "workspace:^",
+		"@atlaskit/page-header": "workspace:^",
+		"@atlaskit/page-layout": "workspace:^",
+		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "workspace:^",
+		"@atlaskit/select": "workspace:^",
+		"@atlaskit/skeleton": "workspace:^",
+		"@atlaskit/textfield": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/gemini": "workspace:^",
+		"@atlassian/search-dialog": "workspace:^",
+		"@axe-core/playwright": "^4.8.0",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
+		"raf-stub": "^2.0.1",
+		"react-dom": "^18.2.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports",
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			],
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform-component-visual-refresh": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_design_system_nav4_sidenav_border": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_panel_default_border": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_live_resizing_css_vars": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_panel_default_bg_color": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_top_nav_columns": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_top_nav_min_widths": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_menu_item_anchor_dnd": {
+			"type": "boolean"
+		},
+		"platform-team25-app-icon-tiles": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_preview_panel_support": {
+			"type": "boolean"
+		},
+		"platform_fix_component_state_update_for_suspense": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav_logo_interaction_states": {
+			"type": "boolean"
+		},
+		"platform_design_system_nav4_panel_mobile_width_fix": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_banner_default_height": {
+			"type": "boolean"
+		},
+		"platform_dst_nav4_disable_is_fixed_prop": {
+			"type": "boolean"
+		},
+		"jiv-20710-fix-nav-rerender": {
+			"type": "boolean"
+		}
+	},
+	"homepage": "https://atlassian.design/components/navigation-system"
+}

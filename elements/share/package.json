@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.11.2",
+	"version": "6.12.0",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -135,9 +135,6 @@
 			"type": "boolean"
 		},
 		"share-compiled-migration": {
-			"type": "boolean"
-		},
-		"platform_share_custom_header_prop": {
 			"type": "boolean"
 		},
 		"share-header-accessibility": {

@@ -197,10 +197,16 @@ const getLayeredLink = (
 	children?: React.ReactNode,
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
 ): React.ReactNode => {
-	const { title, url = '' } = context || {};
+	const { linkTitle, title, url = '' } = context || {};
 	const { anchorTarget: target, text } = getTitleBlockProps(children) || {};
 	return (
-		<LayeredLink onClick={onClick} target={target} testId={testId} text={text || title} url={url} />
+		<LayeredLink
+			onClick={onClick}
+			target={target}
+			testId={testId}
+			text={text || title || linkTitle?.text}
+			url={url}
+		/>
 	);
 };
 

@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 11.0.7
+
+### Patch Changes
+
+- [#174616](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174616)
+  [`ee906c44a058e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee906c44a058e) -
+  Internal refactors to accomodate for platform package rename.
+
 ## 11.0.6
 
 ### Patch Changes

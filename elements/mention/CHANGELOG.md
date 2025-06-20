@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 24.2.4
+
+### Patch Changes
+
+- [#173636](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173636)
+  [`22b85a186fb8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22b85a186fb8a) -
+  SSR placeholder for mention profile card trigger
+
 ## 24.2.3
 
 ### Patch Changes

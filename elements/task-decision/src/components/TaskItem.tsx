@@ -241,6 +241,7 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 
 	const icon = (
 		<span css={checkboxStyles} contentEditable={false}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input
 				id={checkBoxId}
 				aria-labelledby={`${checkBoxId}-wrapper`}

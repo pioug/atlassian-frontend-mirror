@@ -1,5 +1,5 @@
 import React from 'react';
-import { breakoutConsts, BreakoutConstsType } from '@atlaskit/editor-common/utils';
+import { breakoutConsts, type BreakoutConstsType } from '@atlaskit/editor-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FullPagePadding } from './style';

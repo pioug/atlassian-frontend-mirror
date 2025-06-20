@@ -502,6 +502,7 @@ const AnnotationCheckbox = (props: {
 
 	return (
 		<div>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input
 				onChange={onChange}
 				type="checkbox"

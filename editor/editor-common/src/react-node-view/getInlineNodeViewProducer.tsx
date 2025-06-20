@@ -55,7 +55,7 @@ const canRenderFallback = (node: PMNode): boolean => {
 
 // list of inline nodes with toDOM fallback implementations that can be virtualized. As
 // additional nodes are converted they should be added here
-const virtualizedNodeAllowlist = ['status', 'mention', 'emoji', 'date', 'inlineCard'];
+const virtualizedNodeAllowlist = ['status', 'mention', 'emoji', 'inlineCard'];
 
 function createNodeView<ExtraComponentProps>({
 	nodeViewParams,

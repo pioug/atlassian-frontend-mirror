@@ -93,48 +93,90 @@ const shouldIgnoreNode = (
 		: ignore_nodes.includes(node.type.name);
 };
 
+const getPositionBeforeNodeAtPos = (state: EditorState, pos: number): number => {
+	if (pos <= 0 || pos >= state.doc.nodeSize - 2) {
+		return pos;
+	}
+
+	const $pos = state.doc.resolve(pos);
+	if ($pos.depth > 0) {
+		return $pos.before();
+	}
+	return pos;
+};
+
 /**
- * Find node decorations in the pos range between from and to (non-inclusive)
- * @param decorations
- * @param from
- * @param to
+ * Find node decorations corresponding to nodes with starting position between from and to (non-inclusive)
+ * @param from Position to start search from (inclusive)
+ * @param to Position to end search at (non-inclusive)
  * @returns
  */
-export const findNodeDecs = (decorations: DecorationSet, from?: number, to?: number) => {
-	let newfrom = from;
-	let newTo = to;
+export const findNodeDecs = (
+	state: EditorState,
+	decorations: DecorationSet,
+	from?: number,
+	to?: number,
+) => {
+	let newFrom = from;
 
-	// make it non-inclusive
-	if (newfrom !== undefined) {
-		newfrom++;
+	if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
+		// return empty array if range reversed
+		if (typeof to === 'number' && typeof newFrom === 'number' && newFrom > to) {
+			return [];
+		}
+
+		let decs = decorations.find(newFrom, to, (spec) => spec.type === TYPE_NODE_DEC);
+
+		// Prosemirror finds any decorations that overlap with the provided position range, but we don't want to include decorations of nodes that start outside of the range
+		if (typeof to === 'number' && typeof newFrom === 'number') {
+			decs = decs.filter((dec) => {
+				return dec.from >= (newFrom || 0) && dec.from < to;
+			});
+		}
+		return decs;
+	} else {
+		let newTo = to;
+
+		// make it non-inclusive
+		if (newFrom !== undefined) {
+			newFrom++;
+		}
+
+		// make it non-inclusive
+		if (newTo !== undefined) {
+			newTo--;
+		}
+
+		// return empty array if range reversed
+		if (newFrom !== undefined && newTo !== undefined && newFrom > newTo) {
+			return [];
+		}
+
+		return decorations.find(newFrom, newTo, (spec) => spec.type === TYPE_NODE_DEC);
 	}
-
-	// make it non-inclusive
-	if (newTo !== undefined) {
-		newTo--;
-	}
-
-	// return empty array if range reversed
-	if (newfrom !== undefined && newTo !== undefined && newfrom > newTo) {
-		return [];
-	}
-
-	return decorations.find(newfrom, newTo, (spec) => spec.type === TYPE_NODE_DEC);
 };
 
 export const nodeDecorations = (newState: EditorState, from?: number, to?: number) => {
 	const decs: Decoration[] = [];
+
 	const docFrom = from === undefined || from < 0 ? 0 : from;
 	const docTo = to === undefined || to > newState.doc.nodeSize - 2 ? newState.doc.nodeSize - 2 : to;
 
 	const ignore_nodes = editorExperiment('advanced_layouts', true)
 		? IGNORE_NODES_NEXT
 		: IGNORE_NODES;
-	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
+	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, _) => {
 		let depth = 0;
 		const shouldDescend = shouldDescendIntoNode(node);
 		const anchorName = getNodeAnchor(node);
 		const nodeTypeWithLevel = getNodeTypeWithLevel(node);
+
+		if (editorExperiment('platform_editor_block_control_optimise_render', true)) {
+			// We don't want to create decorations for nodes that start outside of the provided position range
+			if (pos < getPositionBeforeNodeAtPos(newState, docFrom)) {
+				return shouldDescend;
+			}
+		}
 
 		// Doesn't descend into a node
 		if (node.isInline) {

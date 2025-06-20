@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { FindReplacePluginState } from '../types';
 
 import type { FindReplaceAction } from './actions';
@@ -49,7 +51,10 @@ const reducer =
 				};
 
 			case FindReplaceActionTypes.CANCEL:
-				return getInitialState();
+				const { getIntl, api } = state;
+				return fg('platform_editor_find_and_replace_part_2')
+					? { ...getInitialState(), getIntl, api }
+					: getInitialState();
 
 			case FindReplaceActionTypes.BLUR:
 				return {

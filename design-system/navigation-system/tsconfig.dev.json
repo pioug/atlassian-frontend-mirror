@@ -1,0 +1,173 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__navigation-system/dev"
+	},
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../avatar/tsconfig.app.json"
+		},
+		{
+			"path": "../badge/tsconfig.app.json"
+		},
+		{
+			"path": "../banner/tsconfig.app.json"
+		},
+		{
+			"path": "../breadcrumbs/tsconfig.app.json"
+		},
+		{
+			"path": "../button/tsconfig.app.json"
+		},
+		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
+			"path": "../dropdown-menu/tsconfig.app.json"
+		},
+		{
+			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../form/tsconfig.app.json"
+		},
+		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../icon-lab/tsconfig.app.json"
+		},
+		{
+			"path": "../layering/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
+			"path": "../logo/tsconfig.app.json"
+		},
+		{
+			"path": "../lozenge/tsconfig.app.json"
+		},
+		{
+			"path": "../menu/tsconfig.app.json"
+		},
+		{
+			"path": "../modal-dialog/tsconfig.app.json"
+		},
+		{
+			"path": "../onboarding/tsconfig.app.json"
+		},
+		{
+			"path": "../page-header/tsconfig.app.json"
+		},
+		{
+			"path": "../page-layout/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../popup/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/auto-scroll/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/flourish/tsconfig.app.json"
+		},
+		{
+			"path": "../../pragmatic-drag-and-drop/live-region/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../radio/tsconfig.app.json"
+		},
+		{
+			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../select/tsconfig.app.json"
+		},
+		{
+			"path": "../skeleton/tsconfig.app.json"
+		},
+		{
+			"path": "../tabs/tsconfig.app.json"
+		},
+		{
+			"path": "../tag/tsconfig.app.json"
+		},
+		{
+			"path": "../../navigation/temp-nav-app-icons/tsconfig.app.json"
+		},
+		{
+			"path": "../textfield/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../monorepo-tooling/gemini/tsconfig.app.json"
+		},
+		{
+			"path": "../../growth-pattern-library/growth-pattern-library-edition-awareness-button/tsconfig.app.json"
+		},
+		{
+			"path": "../../search/search-dialog/tsconfig.app.json"
+		}
+	]
+}

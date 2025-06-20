@@ -119,7 +119,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "0.39.0",
+	"version": "0.39.1",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -140,6 +140,9 @@
 			"type": "boolean"
 		},
 		"enable_web_links_in_team_containers": {
+			"type": "boolean"
+		},
+		"enable_team_containers_null_check": {
 			"type": "boolean"
 		}
 	}

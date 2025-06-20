@@ -35,8 +35,14 @@ const handleDocChanged = (
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line prefer-const
-	let { index, decorationSet, matches, shouldMatchCase, getIntl } = pluginState;
-	const newMatches = findMatches(tr.doc, findText, shouldMatchCase, undefined, getIntl);
+	let { index, decorationSet, matches, shouldMatchCase, getIntl, api } = pluginState;
+	const newMatches = findMatches({
+		content: tr.doc,
+		searchText: findText,
+		shouldMatchCase: shouldMatchCase,
+		getIntl,
+		api,
+	});
 	decorationSet = decorationSet.map(tr.mapping, tr.doc);
 	const numDecorations = decorationSet.find().length;
 

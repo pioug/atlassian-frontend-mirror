@@ -19,10 +19,7 @@ export const lazyMediaGroupView = (
 	options: MediaOptions = {},
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ) => {
-	if (
-		editorExperiment('platform_editor_exp_lazy_node_views', false) ||
-		editorExperiment('platform_editor_exp_disable_lnv', true, { exposure: true })
-	) {
+	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);
 	}
 

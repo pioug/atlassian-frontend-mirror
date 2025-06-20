@@ -1,0 +1,108 @@
+import { Device, snapshotInformational } from '@atlassian/gemini';
+
+import TopNavWithTempNavAppIcon from '../../../../../examples/top-nav-with-temp-nav-app-icon';
+import { TopNavigationExample } from '../../../../../examples/top-navigation';
+import { TopNavigationThemingSingleExample } from '../../../../../examples/top-navigation-theming';
+
+snapshotInformational(TopNavigationExample, {
+	description: 'responsive menu items on click',
+	variants: [
+		{
+			environment: { colorScheme: 'light' },
+			name: 'mobile',
+		},
+	],
+	prepare: async (page) => {
+		await page.setViewportSize({ width: 430, height: 930 });
+
+		await page.getByText('Show more').click();
+	},
+});
+
+snapshotInformational(TopNavigationExample, {
+	description: 'responsive menu items',
+	variants: [
+		{
+			environment: { colorScheme: 'light' },
+			name: 'mobile',
+		},
+	],
+	prepare: async (page) => {
+		await page.setViewportSize({ width: 430, height: 930 });
+	},
+});
+
+const interactionStateSharedOptions: Parameters<typeof snapshotInformational>[1] = {
+	variants: [
+		{
+			name: 'desktop',
+			environment: { colorScheme: 'light' },
+			device: Device.DESKTOP_CHROME,
+		},
+		{
+			name: 'mobile',
+			environment: { colorScheme: 'light' },
+			device: Device.MOBILE_CHROME,
+		},
+	],
+	selector: {
+		// Snapshot only the top nav
+		byRole: 'banner',
+	},
+};
+
+/**
+ * Using informational for hovered snapshots too,
+ * so we can keep all the tests for this colocated.
+ *
+ * Can make all these normal VR tests once pressed state variants are added to Gemini.
+ */
+snapshotInformational(TopNavWithTempNavAppIcon, {
+	...interactionStateSharedOptions,
+	description: 'nav logo hover',
+	featureFlags: {
+		'platform-team25-app-icon-tiles': true,
+		platform_design_system_nav_logo_interaction_states: true,
+	},
+	prepare: async (page) => {
+		await page.getByRole('link', { name: 'Home page' }).hover();
+	},
+});
+
+snapshotInformational(TopNavWithTempNavAppIcon, {
+	...interactionStateSharedOptions,
+	description: 'nav logo pressed',
+	featureFlags: {
+		'platform-team25-app-icon-tiles': true,
+		platform_design_system_nav_logo_interaction_states: true,
+	},
+	prepare: async (page) => {
+		await page.getByRole('link', { name: 'Home page' }).hover();
+		await page.mouse.down();
+	},
+});
+
+snapshotInformational(TopNavigationThemingSingleExample, {
+	...interactionStateSharedOptions,
+	description: 'nav logo hover - custom theming',
+	featureFlags: {
+		'platform-team25-app-icon-tiles': true,
+		platform_design_system_nav_logo_interaction_states: true,
+	},
+	prepare: async (page) => {
+		await page.getByRole('link', { name: 'Home page' }).hover();
+	},
+});
+
+snapshotInformational(TopNavigationThemingSingleExample, {
+	...interactionStateSharedOptions,
+	description: 'nav logo pressed - custom theming',
+	featureFlags: {
+		'platform-team25-app-icon-tiles': true,
+		platform_design_system_nav_logo_interaction_states: true,
+	},
+	prepare: async (page) => {
+		await page.getByRole('link', { name: 'Home page' }).hover();
+		await page.mouse.down();
+	},
+});

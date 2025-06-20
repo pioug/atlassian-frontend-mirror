@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 import { token } from '@atlaskit/tokens';
@@ -170,7 +169,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 
 	return (
 		<ShareFormWrapper
-			header={fg('platform_share_custom_header_prop') && header}
+			header={header}
 			footer={footer}
 			// form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
 			// so we don't need to show title via ShareFormWrapper

@@ -347,10 +347,7 @@ export const convertHyperlinkToSmartCard = (
 		shouldReplaceLink: true,
 	});
 
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		fg('platform_editor_controls_patch_3')
-	) {
+	if (editorExperiment('platform_editor_controls', 'variant1')) {
 		const activeLinkMark = getActiveLinkMark(state);
 		if (activeLinkMark) {
 			const linkMark = activeLinkMark.node.marks.find((mark) => mark.type === link);

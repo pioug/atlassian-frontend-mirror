@@ -27,6 +27,7 @@ const Example = () => {
 
 					<div>
 						<p>Async load options that fails</p>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input
 							checked={enableRandomFailures}
 							id="enableRandomFailures"

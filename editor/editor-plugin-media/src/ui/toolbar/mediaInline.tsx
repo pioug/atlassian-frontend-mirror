@@ -367,27 +367,13 @@ const getMediaInlineImageToolbar = (
 				},
 				selected: true,
 				disabled: false,
-				icon: (
-					<ImageInlineIcon
-						color="currentColor"
-						spacing="spacious"
-						label={fg('platform_editor_controls_patch_7') ? '' : mediaInlineImageTitle}
-					/>
-				),
+				icon: <ImageInlineIcon color="currentColor" spacing="spacious" label="" />,
 			},
 			{
 				id: 'editor.media.convert.mediasingle',
 				title: mediaSingleTitle,
 				onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
-				icon: fg('platform_editor_controls_patch_7') ? (
-					<MaximizeIcon color="currentColor" spacing="spacious" label="" />
-				) : (
-					<ImageFullscreenIcon
-						color="currentColor"
-						spacing="spacious"
-						label={fg('platform_editor_controls_patch_7') ? '' : mediaSingleTitle}
-					/>
-				),
+				icon: <MaximizeIcon color="currentColor" spacing="spacious" label="" />,
 			},
 		];
 

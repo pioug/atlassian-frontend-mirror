@@ -6,10 +6,10 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
 
-import { UserPreferencesPlugin } from '../userPreferencesPluginType';
+import type { UserPreferencesPlugin } from '../userPreferencesPluginType';
 
 export const useUserPreferencesInitListener = (
 	isInitialized: boolean,

@@ -34,8 +34,15 @@ export const activate = () =>
 		// if user has selected text and hit cmd-f, set that as the keyword
 		if (selection instanceof TextSelection && !selection.empty) {
 			findText = getSelectedText(selection);
-			const { shouldMatchCase, getIntl } = getPluginState(state);
-			matches = findMatches(state.doc, findText, shouldMatchCase, undefined, getIntl);
+			const { shouldMatchCase, getIntl, api } = getPluginState(state);
+			matches = findMatches({
+				content: state.doc,
+				searchText: findText,
+				shouldMatchCase,
+				getIntl,
+				api,
+			});
+
 			index = findSearchIndex(selection.from, matches);
 		}
 
@@ -56,11 +63,18 @@ export const find = (
 		createCommand(
 			(state: EditorState) => {
 				const { selection } = state;
-				const { shouldMatchCase, getIntl } = getPluginState(state);
+				const { shouldMatchCase, getIntl, api } = getPluginState(state);
 				const matches =
 					keyword !== undefined
-						? findMatches(state.doc, keyword, shouldMatchCase, undefined, getIntl)
+						? findMatches({
+								content: state.doc,
+								searchText: keyword,
+								shouldMatchCase,
+								getIntl,
+								api,
+							})
 						: [];
+
 				const index = findSearchIndex(selection.from, matches);
 
 				// we can't just apply all the decorations to highlight the search results at once
@@ -81,11 +95,18 @@ export const find = (
 			},
 			(tr, state: EditorState) => {
 				const { selection } = state;
-				const { shouldMatchCase, getIntl } = getPluginState(state);
+				const { shouldMatchCase, getIntl, api } = getPluginState(state);
 				const matches =
 					keyword !== undefined
-						? findMatches(state.doc, keyword, shouldMatchCase, undefined, getIntl)
+						? findMatches({
+								content: state.doc,
+								searchText: keyword,
+								shouldMatchCase,
+								getIntl,
+								api,
+							})
 						: [];
+
 				if (matches.length > 0) {
 					const index = findSearchIndex(selection.from, matches);
 					return tr.setSelection(getSelectionForMatch(tr.selection, tr.doc, index, matches));

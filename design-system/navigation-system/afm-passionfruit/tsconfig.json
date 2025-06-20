@@ -1,0 +1,75 @@
+{
+	"extends": "../../../../tsconfig.entry-points.passionfruit.json",
+	"compilerOptions": {
+		"declaration": true,
+		"target": "es5",
+		"outDir": "../../../../../passionfruit/tsDist/@atlaskit__navigation-system/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../avatar/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../button/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../css/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../ds-lib/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../layering/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../logo/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../popup/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/core/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/hitbox/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../primitives/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../../navigation/temp-nav-app-icons/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../tooltip/afm-passionfruit/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-passionfruit/tsconfig.json"
+		}
+	]
+}

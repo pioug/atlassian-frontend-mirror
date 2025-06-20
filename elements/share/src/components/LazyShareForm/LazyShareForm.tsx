@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 import type { LoadOptions } from '@atlaskit/smart-user-picker';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -177,7 +176,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 
 	return (
 		<ShareFormWrapper
-			header={fg('platform_share_custom_header_prop') && header}
+			header={header}
 			footer={footer}
 			// form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
 			// so we don't need to show title via ShareFormWrapper

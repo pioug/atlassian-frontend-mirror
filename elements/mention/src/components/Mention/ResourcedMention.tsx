@@ -18,6 +18,7 @@ export interface Props {
 	onClick?: MentionEventHandler;
 	onMouseEnter?: MentionEventHandler;
 	onMouseLeave?: MentionEventHandler;
+	ssrPlaceholderId?: string;
 }
 
 export interface State {
@@ -124,6 +125,7 @@ export default class ResourcedMention extends React.PureComponent<Props, State> 
 				onClick={props.onClick}
 				onMouseEnter={props.onMouseEnter}
 				onMouseLeave={props.onMouseLeave}
+				ssrPlaceholderId={props.ssrPlaceholderId}
 			/>
 		);
 	}

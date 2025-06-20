@@ -18,7 +18,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { AddMarkStep, Step } from '@atlaskit/editor-prosemirror/transform';
+import { AddMarkStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin } from '../annotationPluginType';

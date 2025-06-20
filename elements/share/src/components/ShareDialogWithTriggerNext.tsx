@@ -617,7 +617,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 								copyLink={copyLink}
 								showIntegrationForm={showIntegrationForm}
 								bottomMessage={bottomMessage}
-								customHeader={fg('platform_share_custom_header_prop') && customHeader}
+								customHeader={customHeader}
 								customFooter={footer}
 								loadOptions={loadUserOptions}
 								isSharing={isSharing}

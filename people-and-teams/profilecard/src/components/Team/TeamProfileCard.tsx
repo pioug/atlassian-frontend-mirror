@@ -4,9 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
-import LoadingButton from '@atlaskit/button/loading-button';
 import Button, { IconButton, LinkButton } from '@atlaskit/button/new';
-import ButtonLegacy from '@atlaskit/button/standard-button';
 import FocusRing from '@atlaskit/focus-ring';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
@@ -246,35 +244,19 @@ const ActionButton = ({
 
 	const actionButton = (
 		<FocusRing isInset>
-			{fg('ptc_migrate_buttons') ? (
-				<LinkButton
-					key={action.id || index}
-					onClick={onActionClick(action, analytics, index)}
-					href={action.link || ''}
-					shouldFitContainer
-				>
-					{action.label}
-					{isGiveKudosActionButton && (
-						<AnimationWrapper>
-							<KudosBlobAnimation />
-						</AnimationWrapper>
-					)}
-				</LinkButton>
-			) : (
-				<ButtonLegacy
-					key={action.id || index}
-					onClick={onActionClick(action, analytics, index)}
-					href={action.link}
-					shouldFitContainer
-				>
-					{action.label}
-					{isGiveKudosActionButton && (
-						<AnimationWrapper>
-							<KudosBlobAnimation />
-						</AnimationWrapper>
-					)}
-				</ButtonLegacy>
-			)}
+			<LinkButton
+				key={action.id || index}
+				onClick={onActionClick(action, analytics, index)}
+				href={action.link || ''}
+				shouldFitContainer
+			>
+				{action.label}
+				{isGiveKudosActionButton && (
+					<AnimationWrapper>
+						<KudosBlobAnimation />
+					</AnimationWrapper>
+				)}
+			</LinkButton>
 		</FocusRing>
 	);
 
@@ -336,7 +318,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 					</MenuGroup>
 				)}
 				trigger={(triggerProps) => {
-					return fg('ptc_migrate_buttons') ? (
+					return (
 						<IconButton
 							testId="more-actions-button"
 							{...triggerProps}
@@ -344,14 +326,6 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 							onClick={() => onMoreClick(!isOpen)}
 							icon={MoreIcon}
 							label="actions"
-						/>
-					) : (
-						<ButtonLegacy
-							testId="more-actions-button"
-							{...triggerProps}
-							isSelected={isOpen}
-							onClick={() => onMoreClick(!isOpen)}
-							iconAfter={<MoreIcon spacing="spacious" label="actions" color="currentColor" />}
 						/>
 					);
 				}}
@@ -493,25 +467,14 @@ const ErrorMessage = ({
 			{clientFetchProfile && (
 				<ActionButtons>
 					<WrappedButton>
-						{fg('ptc_migrate_buttons') ? (
-							<Button
-								testId="client-fetch-profile-button"
-								shouldFitContainer
-								onClick={retry}
-								isLoading={isLoading}
-							>
-								<FormattedMessage {...messages.teamErrorButton} />
-							</Button>
-						) : (
-							<LoadingButton
-								testId="client-fetch-profile-button"
-								shouldFitContainer
-								onClick={retry}
-								isLoading={isLoading}
-							>
-								<FormattedMessage {...messages.teamErrorButton} />
-							</LoadingButton>
-						)}
+						<Button
+							testId="client-fetch-profile-button"
+							shouldFitContainer
+							onClick={retry}
+							isLoading={isLoading}
+						>
+							<FormattedMessage {...messages.teamErrorButton} />
+						</Button>
 					</WrappedButton>
 				</ActionButtons>
 			)}

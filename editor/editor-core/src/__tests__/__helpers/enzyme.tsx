@@ -9,8 +9,7 @@
 
 import type { Component } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
 export function mountWithIntl<P = {}, S = {}, C extends Component<P, S> = Component<P, S>>(

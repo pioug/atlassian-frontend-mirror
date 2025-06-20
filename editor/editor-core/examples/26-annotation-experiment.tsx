@@ -23,6 +23,7 @@ function AnnotationCheckbox(props: {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<label style={{ display: 'block', lineHeight: '2em' }} htmlFor={id}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input onChange={onChange} type="checkbox" id={id} checked={checked} />
 			{id}
 		</label>
@@ -38,6 +39,7 @@ function EnableAnnotationTypeCheckbox(props: {
 	const { id, checked, onChange, type } = props;
 	return (
 		<label htmlFor={id}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input onChange={onChange} type="checkbox" id={id} checked={checked} />
 			Enable {type}
 		</label>
@@ -53,6 +55,7 @@ function EnableDisallowOnWhiteSpaceCheckbox(props: {
 	const { id, checked, onChange, type } = props;
 	return (
 		<label htmlFor={id}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input onChange={onChange} type="checkbox" id={id} checked={checked} />
 			{type}
 		</label>

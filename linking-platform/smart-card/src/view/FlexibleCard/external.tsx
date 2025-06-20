@@ -8,7 +8,7 @@
  */
 import React from 'react';
 
-import { Prettify } from '@atlaskit/linking-common';
+import type { Prettify } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../constants';
@@ -66,11 +66,14 @@ export const AuthorGroupElement = () => <AuthorGroup />;
 export const ChecklistProgressElement = () => <ChecklistProgress />;
 export const CollaboratorGroupElement = () => <CollaboratorGroup />;
 
-type CommentCountElementProps = Pick<React.ComponentProps<typeof CommentCount>, 'color'>;
+type CommentCountElementProps = Pick<
+	React.ComponentProps<typeof CommentCount>,
+	'color' | 'onRender'
+>;
 
 export const CommentCountElement = (props?: CommentCountElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <CommentCount color={props?.color} />;
+		return <CommentCount color={props?.color} onRender={props?.onRender} />;
 	}
 	return <CommentCount />;
 };
@@ -103,25 +106,42 @@ export const ModifiedByElement = () => <ModifiedBy />;
 
 type ModifiedOnElementProps = Pick<
 	React.ComponentProps<typeof ModifiedOn>,
-	'hideDatePrefix' | 'color'
+	'hideDatePrefix' | 'color' | 'onRender'
 >;
 
 export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <ModifiedOn hideDatePrefix={props?.hideDatePrefix} color={props?.color} />;
+		return (
+			<ModifiedOn
+				hideDatePrefix={props?.hideDatePrefix}
+				color={props?.color}
+				onRender={props?.onRender}
+			/>
+		);
 	}
 	return <ModifiedOn />;
 };
 
-type OwnedByElementProps = Pick<React.ComponentProps<typeof OwnedBy>, 'hideFormat' | 'color'>;
+type OwnedByElementProps = Pick<
+	React.ComponentProps<typeof OwnedBy>,
+	'hideFormat' | 'color' | 'onRender'
+>;
 export const OwnedByElement = (props?: OwnedByElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <OwnedBy hideFormat={props?.hideFormat} color={props?.color} />;
+		return (
+			<OwnedBy hideFormat={props?.hideFormat} color={props?.color} onRender={props?.onRender} />
+		);
 	}
 	return <OwnedBy />;
 };
 
-export const OwnedByGroupElement = () => <OwnedByGroup />;
+type OwnedByGroupElementProps = Pick<React.ComponentProps<typeof OwnedByGroup>, 'onRender'>;
+export const OwnedByGroupElement = (props?: OwnedByGroupElementProps) => {
+	if (fg('platform-linking-additional-flexible-element-props')) {
+		return <OwnedByGroup onRender={props?.onRender} />;
+	}
+	return <OwnedByGroup />;
+};
 
 type PreviewElementProps = {
 	url?: React.ComponentProps<typeof Preview>['overrideUrl'];
@@ -138,10 +158,10 @@ export const PriorityElement = () => <Priority />;
 export const ProgrammingLanguageElement = () => <ProgrammingLanguage />;
 export const ProviderElement = () => <Provider />;
 
-type ReactCountElementProps = Pick<React.ComponentProps<typeof ReactCount>, 'color'>;
+type ReactCountElementProps = Pick<React.ComponentProps<typeof ReactCount>, 'color' | 'onRender'>;
 export const ReactCountElement = (props?: ReactCountElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
-		return <ReactCount color={props?.color} />;
+		return <ReactCount color={props?.color} onRender={props?.onRender} />;
 	}
 	return <ReactCount />;
 };

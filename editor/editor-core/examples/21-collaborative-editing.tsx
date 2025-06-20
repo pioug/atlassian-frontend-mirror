@@ -308,6 +308,7 @@ export default class Example extends React.Component<Props, State> {
 				</div>
 				<div>
 					<strong>Live Page:</strong>{' '}
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 					<input
 						type="checkbox"
 						checked={this.state.__livePage}
@@ -322,6 +323,7 @@ export default class Example extends React.Component<Props, State> {
 				</div>
 				<div>
 					<strong>Live View:</strong>{' '}
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 					<input
 						type="checkbox"
 						checked={this.state.__liveView}
@@ -562,8 +564,10 @@ export default class Example extends React.Component<Props, State> {
 		return (
 			<form onSubmit={this.onJoin}>
 				Document name:
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input name="documentId" ref={this.handleRef} />
 				Collab url:
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input name="collabUrl" ref={this.handleRef} />
 				<label>
 					{' '}

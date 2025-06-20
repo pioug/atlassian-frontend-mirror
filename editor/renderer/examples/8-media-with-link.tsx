@@ -13,6 +13,7 @@ export default function Example() {
 	return (
 		<>
 			<label>
+				{/*  eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					type="checkbox"
 					checked={allowLinking}

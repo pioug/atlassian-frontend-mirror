@@ -117,7 +117,6 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			<ExtensionNodeWrapper
 				nodeType={this.node.type.name}
 				macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
-				nodeHeight={props.extensionNodeViewOptions?.getExtensionHeight?.(this.node)}
 			>
 				<Extension
 					editorView={this.view}

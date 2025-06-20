@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "208.1.0",
+	"version": "208.2.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -257,14 +257,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_inline_resize_media_to_edge": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_react18_phase2__media_single": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_react18_phase2__media_single_jira": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -552,10 +544,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_controls_patch_7": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_controls_patch_9": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -631,6 +619,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_system_fake_text_highlight_colour": {
+			"type": "boolean"
+		},
+		"cc_editor_focus_before_editor_on_load": {
 			"type": "boolean"
 		}
 	},

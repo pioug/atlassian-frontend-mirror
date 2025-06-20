@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { ErrorBoundary } from '../../ErrorBoundary';

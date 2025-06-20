@@ -15,8 +15,7 @@ jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
 }));
 
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import { mount, ReactWrapper } from 'enzyme';
+import { mount, type ReactWrapper } from 'enzyme';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import { a, b, doc, heading, p, text } from '@atlaskit/adf-utils/builders';

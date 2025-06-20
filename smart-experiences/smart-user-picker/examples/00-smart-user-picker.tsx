@@ -159,6 +159,7 @@ const SmartUserPickerCustomizableExample = () => {
 	) => {
 		return (
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					checked={Boolean(state[id] as boolean)}
 					id={id}
@@ -333,6 +334,7 @@ const SmartUserPickerCustomizableExample = () => {
 					<h5>Confluence props</h5>
 					{createBoolean('includeGroups', 'include Groups (includeGroups)')}
 					<div>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input
 							checked={Boolean(state.confluenceAttributes.isEntitledConfluenceExternalCollaborator)}
 							id="includeGuests"
@@ -388,6 +390,7 @@ const SmartUserPickerCustomizableExample = () => {
 						}}
 					/>
 					<div>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input
 							checked={Boolean(state.bitbucketAttributes.isPublicRepo)}
 							id="isPublicRepo"

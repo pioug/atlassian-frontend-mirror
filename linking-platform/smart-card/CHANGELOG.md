@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 38.13.0
+
+### Minor Changes
+
+- [#174490](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174490)
+  [`b888b5c613e71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b888b5c613e71) -
+  [ux] EDM-12882 fixing a11y issues with platform-linking-flexible-card-context
+
+## 38.12.0
+
+### Minor Changes
+
+- [#173028](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173028)
+  [`8350b887416f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8350b887416f1) -
+  Add onRender callback to elements
+
 ## 38.11.0
 
 ### Minor Changes

@@ -13,7 +13,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PlaceholderPlugin } from './placeholderPluginType';
@@ -146,13 +145,6 @@ function createPlaceHolderStateFrom({
 			parentNode.firstChild?.type.name === 'paragraph';
 
 		if (nodeTypesWithShortPlaceholderText.includes(parentType) && isEmptyNode) {
-			if (!fg('platform_editor_controls_patch_3')) {
-				return setPlaceHolderState(
-					intl.formatMessage(messages.shortEmptyNodePlaceholderText),
-					$from.pos,
-				);
-			}
-
 			const table = findParentNode((node) => node.type === editorState.schema.nodes.table)(
 				editorState.selection,
 			);

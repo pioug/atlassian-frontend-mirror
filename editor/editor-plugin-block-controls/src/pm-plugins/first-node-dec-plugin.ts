@@ -1,10 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
-	EditorState,
+	type EditorState,
 	PluginKey,
 	type ReadonlyTransaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { ReplaceAroundStep, ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
+import { ReplaceAroundStep, ReplaceStep, type Step } from '@atlaskit/editor-prosemirror/transform';
 import {
 	DecorationSet,
 	Decoration,

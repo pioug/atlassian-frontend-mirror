@@ -2,6 +2,7 @@ import React, { PureComponent, useLayoutEffect, useRef, useState } from 'react';
 
 import { ResourcedMention } from '@atlaskit/mention/element';
 import type { MentionProvider } from '@atlaskit/mention/resource';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandlers } from '../EventHandlers';
@@ -70,6 +71,8 @@ export const MentionWithProviders = React.memo(
 				? ResourcedMentionWithProfilecard
 				: ResourcedMention;
 
+		const ssrPlaceholderId = fg('cc_mention_ssr_placeholder') ? `mention-${id}` : undefined;
+
 		return (
 			<MentionComponent
 				id={id}
@@ -83,6 +86,7 @@ export const MentionWithProviders = React.memo(
 				onClick={eventHandlers?.onClick}
 				onMouseEnter={eventHandlers?.onMouseEnter}
 				onMouseLeave={eventHandlers?.onMouseLeave}
+				ssrPlaceholderId={ssrPlaceholderId}
 			/>
 		);
 	},

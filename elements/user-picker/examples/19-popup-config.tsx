@@ -182,6 +182,7 @@ const Example = () => {
 						/>
 					</OptionContainer>
 					<div>
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input
 							checked={Boolean(state.shouldFlip)}
 							id="shouldFlip"

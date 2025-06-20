@@ -12,6 +12,7 @@ const closeMenuOnScroll: EventListener = () => {
 const createBoolean = (state: boolean, label: string, onChange: (state: boolean) => void) => {
 	return (
 		<div>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input checked={state} onChange={() => onChange(!state)} type="checkbox" />
 			<label>{label}</label>
 		</div>

@@ -144,6 +144,7 @@ const Sub = ({ topic }: { topic: Topic }) => {
 				<small>{topic}</small>
 				<br />
 				<small>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 					<input
 						type="checkbox"
 						defaultChecked={false}

@@ -156,6 +156,7 @@ export default class UserProfileCardClient extends CachingClient<any> {
 			...user,
 			isBot: user.__typename === 'AppUser',
 			isAgent: user.appType === 'agent',
+			isServiceAccount: user.__typename === 'AppUser' && user.appType === 'service',
 			status: user.accountStatus,
 			statusModifiedDate: user.extendedProfile?.closedDate || user.extendedProfile?.inactiveDate,
 			avatarUrl: user.picture,

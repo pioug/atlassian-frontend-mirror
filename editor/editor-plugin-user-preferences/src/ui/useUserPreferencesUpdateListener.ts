@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
+import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { userPreferencesPluginKey } from '../pm-plugins/main';

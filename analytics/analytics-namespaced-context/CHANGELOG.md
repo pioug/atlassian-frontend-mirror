@@ -1,5 +1,13 @@
 # @atlaskit/analytics-namespaced-context
 
+## 7.0.1
+
+### Patch Changes
+
+- [#174338](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174338)
+  [`8e0f35b2c60f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e0f35b2c60f3) -
+  Add omni channel analytics listner and namespaced context
+
 ## 7.0.0
 
 ### Major Changes

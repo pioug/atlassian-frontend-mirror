@@ -82,7 +82,7 @@ import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewPro
 
 import { aiPanelStyles } from './ai-panels';
 import { codeBlockStyles } from './code-block';
-import { dateStyles, dateVanillaStyles } from './date';
+import { dateStyles, dateNodeStyles } from './date';
 import { expandStyles } from './expand';
 import { extensionStyles } from './extension';
 import { layoutStyles } from './layout';
@@ -530,8 +530,8 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${annotationSharedStyles()}
   ${smartCardStyles()}
   ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}
-  ${editorExperiment('platform_editor_vanilla_dom', true) ? dateVanillaStyles : null}
 	${dateStyles}
+  ${dateNodeStyles}
   ${embedCardStyles()}
   ${unsupportedStyles}
   ${resizerStyles}

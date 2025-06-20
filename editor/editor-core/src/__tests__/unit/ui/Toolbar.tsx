@@ -7,6 +7,7 @@ import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import type { WidthObserver } from '@atlaskit/width-detector';
 
 import { Toolbar } from '../../../ui/Toolbar/Toolbar';
@@ -74,46 +75,68 @@ describe('Toolbar', () => {
 		toolbar.unmount();
 	});
 
-	it('should re-render with different toolbar size when toolbar width changes', async () => {
-		setElementWidth(501);
+	eeTest
+		.describe('platform_editor_core_static_emotion_non_central', 'static_emotion_non_central')
+		.each(() => {
+			it('should re-render with different toolbar size when toolbar width changes', async () => {
+				setElementWidth(501);
 
-		const toolbarItem = getMockedToolbarItem();
-		const toolbar = mount(
-			<ToolbarWithSizeDetector
-				items={[toolbarItem]}
-				editorView={{} as any}
-				eventDispatcher={{} as any}
-				providerFactory={{} as any}
-				appearance="full-page"
-				disabled={false}
-				containerElement={null}
-			/>,
-		);
+				const toolbarItem = getMockedToolbarItem();
+				const toolbar = mount(
+					<ToolbarWithSizeDetector
+						items={[toolbarItem]}
+						editorView={{} as any}
+						eventDispatcher={{} as any}
+						providerFactory={{} as any}
+						appearance="full-page"
+						disabled={false}
+						containerElement={null}
+					/>,
+				);
 
-		expect(toolbarItem).toHaveBeenCalledWith(
-			expect.objectContaining({
-				toolbarSize: ToolbarSize.M,
-			}),
-		);
+				let toolbarElement = toolbar.getDOMNode() as Element | Array<Element | null>;
+				// getDOMNode seems to sometimes return an array instead of an element
+				// To fix that, we handle the array case by pulling out the first element value
+				if (Array.isArray(toolbarElement)) {
+					for (const el of toolbarElement) {
+						if (el && el instanceof Element) {
+							toolbarElement = el;
+							break;
+						}
+					}
+					if (!(toolbarElement instanceof Element)) {
+						throw new Error('Toolbar returned an empty/nullish array from getDOMNode');
+					}
+				}
+				expect(toolbarElement).toHaveStyle(`min-width: 254px;
+width: 100%;
+position: relative;`);
 
-		act(() => setWidth(1000));
+				expect(toolbarItem).toHaveBeenCalledWith(
+					expect.objectContaining({
+						toolbarSize: ToolbarSize.M,
+					}),
+				);
 
-		expect(toolbarItem).toHaveBeenCalledWith(
-			expect.objectContaining({
-				toolbarSize: ToolbarSize.XXL,
-			}),
-		);
+				act(() => setWidth(1000));
 
-		act(() => setWidth(100));
+				expect(toolbarItem).toHaveBeenCalledWith(
+					expect.objectContaining({
+						toolbarSize: ToolbarSize.XXL,
+					}),
+				);
 
-		expect(toolbarItem).toHaveBeenCalledWith(
-			expect.objectContaining({
-				toolbarSize: ToolbarSize.XXXS,
-			}),
-		);
+				act(() => setWidth(100));
 
-		toolbar.unmount();
-	});
+				expect(toolbarItem).toHaveBeenCalledWith(
+					expect.objectContaining({
+						toolbarSize: ToolbarSize.XXXS,
+					}),
+				);
+
+				toolbar.unmount();
+			});
+		});
 
 	it('should set reduced spacing for toolbar buttons if size is < ToolbarSize.XXL', () => {
 		const toolbarItem = getMockedToolbarItem();

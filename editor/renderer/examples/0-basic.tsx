@@ -17,6 +17,7 @@ export default function Example() {
 
 	const toggleCheckbox = (
 		<label>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input type="checkbox" checked={adfStage === ADF_STAGE0} onChange={onSchemaToggle} />
 			Use stage0 (experimental) document schema
 		</label>

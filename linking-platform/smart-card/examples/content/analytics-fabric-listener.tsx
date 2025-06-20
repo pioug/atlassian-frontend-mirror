@@ -84,6 +84,7 @@ export default () => {
 			</Box>
 			<Box xcss={stackBoxStyles}>
 				<label>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 					<input
 						type="checkbox"
 						checked={showHoverPreview}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "4.0.0",
+	"version": "4.1.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -131,12 +131,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_react18_phase2__media_single": {
-			"type": "boolean"
-		},
-		"platform_editor_react18_phase2__media_single_jira": {
-			"type": "boolean"
-		},
 		"platform_media_cross_client_copy": {
 			"type": "boolean"
 		},
@@ -186,9 +180,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_no_cursor_on_live_doc_init": {
-			"type": "boolean"
-		},
-		"platform_editor_controls_patch_7": {
 			"type": "boolean"
 		},
 		"platform_editor_track_media_fail_to_insert": {

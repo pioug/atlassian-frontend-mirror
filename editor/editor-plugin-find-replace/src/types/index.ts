@@ -1,4 +1,4 @@
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -27,6 +27,8 @@ export interface FindReplacePluginState {
 	shouldMatchCase: boolean;
 	/** Intl object */
 	getIntl?: () => IntlShape;
+	/** api */
+	api?: ExtractInjectionAPI<FindReplacePlugin>;
 }
 
 export type FindReplaceToolbarButtonWithStateProps = {

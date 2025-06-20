@@ -367,3 +367,5 @@ export default function UFOSegment({ name: segmentName, children, mode = 'single
 		</UFOInteractionContext.Provider>
 	);
 }
+
+UFOSegment.displayName = 'UFOSegment';

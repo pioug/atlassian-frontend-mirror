@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-base",
-	"version": "3.0.5",
+	"version": "3.0.6",
 	"description": "Base plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

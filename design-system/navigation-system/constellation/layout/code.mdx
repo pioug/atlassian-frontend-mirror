@@ -1,0 +1,129 @@
+---
+title: Layout
+description:
+  Layout components define consistent areas for navigation menus and other elements in the page
+  structure.
+order: 2
+props:
+  packageName: '@atlaskit/navigation-system'
+  exports:
+    - Root
+    - Banner
+    - TopNav
+    - TopNavStart
+    - TopNavMiddle
+    - TopNavEnd
+    - SideNav
+    - SideNavHeader
+    - SideNavContent
+    - SideNavFooter
+    - Main
+    - MainStickyHeader
+    - Aside
+    - Panel
+    - PanelSplitter
+    - SideNavToggleButton
+---
+
+## Props
+
+### Root
+
+The root component of the navigation system, wrapping the entire view.
+
+<TSMorphProps exportName="Root" packageName="@atlaskit/navigation-system" />
+
+### Banner
+
+The banner layout area. It will always be displayed at the top of the screen.
+
+<TSMorphProps exportName="Banner" packageName="@atlaskit/navigation-system" />
+
+### TopNav
+
+The top nav layout area. It will display at the top of the screen, below the banner if one is
+present.
+
+<TSMorphProps exportName="TopNav" packageName="@atlaskit/navigation-system" />
+
+### TopNavStart
+
+Wrapper for the top navigation actions on the inline-start (left) side of the top navigation.
+
+<TSMorphProps exportName="TopNavStart" packageName="@atlaskit/navigation-system" />
+
+### TopNavMiddle
+
+Wrapper for the actions in the middle of the top navigation.
+
+<TSMorphProps exportName="TopNavMiddle" packageName="@atlaskit/navigation-system" />
+
+### TopNavEnd
+
+Wrapper for the top navigation actions on the inline-end (right) side of the top navigation.
+
+<TSMorphProps exportName="TopNavEnd" packageName="@atlaskit/navigation-system" />
+
+### SideNav
+
+Use the SideNav area to render side navigation items. It will show on the left (inline start) of the
+screen.
+
+<TSMorphProps exportName="SideNav" packageName="@atlaskit/navigation-system" />
+
+<!-- Not using level 4 heading for side nav layout areas as they won't be added to table of contents -->
+
+### SideNavHeader
+
+The top part of the side nav.
+
+<TSMorphProps exportName="SideNavHeader" packageName="@atlaskit/navigation-system" />
+
+### SideNavContent
+
+The main content of the side nav, filling up the middle section. It acts as a scroll container.
+
+<TSMorphProps exportName="SideNavContent" packageName="@atlaskit/navigation-system" />
+
+### SideNavFooter
+
+The bottom part of the side nav.
+
+<TSMorphProps exportName="SideNavFooter" packageName="@atlaskit/navigation-system" />
+
+### Main
+
+Use the Main area for the main page content.
+
+<TSMorphProps exportName="Main" packageName="@atlaskit/navigation-system" />
+
+### MainStickyHeader
+
+The sticky header of the main layout area.
+
+<TSMorphProps exportName="MainStickyHeader" packageName="@atlaskit/navigation-system" />
+
+### Aside
+
+The Aside layout area is rendered to the right (inline end) of the Main area.
+
+<TSMorphProps exportName="Aside" packageName="@atlaskit/navigation-system" />
+
+### Panel
+
+The Panel layout area is rendered to the right (inline end) of the Main area, or the Aside area if
+it is present. On small viewports, the Panel slot will become an overlay.
+
+<TSMorphProps exportName="Panel" packageName="@atlaskit/navigation-system" />
+
+### Panel splitter
+
+A component that allows the user to resize a layout area.
+
+<TSMorphProps exportName="PanelSplitter" packageName="@atlaskit/navigation-system" />
+
+### SideNavToggleButton
+
+Button for toggling the side nav. It should be used in the top bar.
+
+<TSMorphProps exportName="SideNavToggleButton" packageName="@atlaskit/navigation-system" />

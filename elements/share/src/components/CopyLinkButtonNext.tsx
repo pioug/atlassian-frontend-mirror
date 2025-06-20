@@ -32,6 +32,11 @@ const styles = cssMap({
 	boxWrapper: {
 		marginRight: token('space.025', '2px'),
 	},
+	copyIconContainerStyles: {
+		marginRight: token('space.025', '2px'),
+		minWidth: '28px',
+		textAlign: 'left',
+	},
 	messageText: {
 		textIndent: token('space.075', '6px'),
 	},
@@ -69,6 +74,7 @@ export type Props = {
 	copyLinkButtonText: string;
 	copiedToClipboardText: string;
 	iconBefore?: ReactElement;
+	isExtendedShareDialogEnabled?: boolean;
 };
 
 export type State = {
@@ -117,7 +123,8 @@ export class CopyLinkButton extends React.Component<Props, State> {
 	};
 
 	renderTriggerButton = (triggerProps: TriggerProps) => {
-		const { isDisabled, copyLinkButtonText, children, iconBefore } = this.props;
+		const { isDisabled, copyLinkButtonText, children, iconBefore, isExtendedShareDialogEnabled } =
+			this.props;
 		return (
 			<Button
 				aria-label={copyLinkButtonText}
@@ -127,7 +134,11 @@ export class CopyLinkButton extends React.Component<Props, State> {
 				appearance="subtle-link"
 				iconBefore={
 					iconBefore || (
-						<Box xcss={cx(styles.boxWrapper)}>
+						<Box
+							xcss={cx(
+								isExtendedShareDialogEnabled ? styles.copyIconContainerStyles : styles.boxWrapper,
+							)}
+						>
 							<LinkFilledIcon
 								LEGACY_margin={`0 ${token('space.negative.025')} 0 0`}
 								color="currentColor"
@@ -139,6 +150,19 @@ export class CopyLinkButton extends React.Component<Props, State> {
 				}
 				onClick={this.handleClick}
 				ref={triggerProps.ref}
+				spacing={isExtendedShareDialogEnabled ? 'none' : 'default'}
+				theme={
+					isExtendedShareDialogEnabled
+						? (current, themeProps) => ({
+								buttonStyles: {
+									...current(themeProps).buttonStyles,
+									color: token('color.text'),
+									font: token('font.body'),
+								},
+								spinnerStyles: current(themeProps).spinnerStyles,
+							})
+						: undefined
+				}
 			>
 				{children || copyLinkButtonText}
 			</Button>

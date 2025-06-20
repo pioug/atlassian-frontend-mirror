@@ -144,6 +144,7 @@ export default class ProfilecardInteractive extends Component<Props, State> {
 		const id = `label-${uid()}`;
 		return (
 			<label htmlFor={id}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 				<input
 					checked={Boolean(this.state[attribute])}
 					id={id}

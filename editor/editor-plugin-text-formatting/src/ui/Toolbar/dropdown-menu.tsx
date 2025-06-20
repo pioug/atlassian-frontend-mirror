@@ -75,8 +75,7 @@ export const FormattingTextDropdownMenu = React.memo(
 
 		if (
 			hasMultiplePartsWithFormattingSelected &&
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_7')
+			editorExperiment('platform_editor_controls', 'variant1')
 		) {
 			iconBefore = defaultIcon;
 		} else {

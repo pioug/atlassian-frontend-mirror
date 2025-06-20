@@ -20,7 +20,7 @@ import type {
 import {
 	AnnotationUpdateEvent,
 	type AnnotationUpdateEventPayloads,
-	AnnotationUpdateEmitter,
+	type AnnotationUpdateEmitter,
 	type OnAnnotationClickPayload,
 } from '@atlaskit/editor-common/types';
 

@@ -25,7 +25,7 @@ export const refreshAnchorName = ({ getPos, view, anchorName }: RefreshAnchorNam
 	const state = key.getState(view.state);
 
 	if (state?.decorations) {
-		const nodeDecs = findNodeDecs(state.decorations, pos, pos + (node?.nodeSize ?? 0));
+		const nodeDecs = findNodeDecs(view.state, state.decorations, pos, pos + (node?.nodeSize ?? 0));
 		const nodeDec = nodeDecs.at(0);
 		if (!nodeDec) {
 			return newAnchorName;

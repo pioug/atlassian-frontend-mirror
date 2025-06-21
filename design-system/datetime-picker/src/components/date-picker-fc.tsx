@@ -397,7 +397,15 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 
 	// This event handler is triggered from both keydown and click. It's weird.
 	const onCalendarButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-		setIsOpen(!isOpen);
+		setIsOpen((isOpen) => {
+			if (isOpen) {
+				fg('platform_dst_menuonclose_fix') && props.selectProps?.onMenuClose?.();
+				return false;
+			} else {
+				fg('platform_dst_menuonclose_fix') && props.selectProps?.onMenuOpen?.();
+				return true;
+			}
+		});
 		setWasOpenedFromCalendarButton(true);
 
 		e.stopPropagation();

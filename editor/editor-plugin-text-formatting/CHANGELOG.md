@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 2.4.0
+
+### Minor Changes
+
+- [#173138](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173138)
+  [`62d4e3ae11127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62d4e3ae11127) -
+  [ux] [ED-27997] Change text formatting state to only consider whole selections active for marks
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.3
 
 ### Patch Changes

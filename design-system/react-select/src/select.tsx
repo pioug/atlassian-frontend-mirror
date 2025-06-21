@@ -1752,7 +1752,13 @@ export default class Select<
 			this.props.onBlur(event);
 		}
 		this.onInputChange('', { action: 'input-blur', prevInputValue });
-		this.onMenuClose();
+		if (fg('platform_dst_select_menu_close_on_blur')) {
+			// when fg is enabled, we only call onMenuClose when this.props.menuIsOpen is true.
+			this.props.menuIsOpen && this.onMenuClose();
+		} else {
+			this.onMenuClose();
+		}
+
 		this.setState({
 			focusedValue: null,
 			isFocused: false,

@@ -321,7 +321,7 @@ export const getActiveDropTargetDecorations = (
 						dropTargetStyle: 'default',
 					},
 					nodeViewPortalProviderAPI,
-					0,
+					-1,
 					undefined,
 					false,
 				),

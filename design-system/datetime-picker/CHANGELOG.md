@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 17.0.7
+
+### Patch Changes
+
+- [#174817](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174817)
+  [`4538c912575ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4538c912575ff) -
+  Call onMenuOpen and onMenuClose when menu is open or close by calendar button
+
 ## 17.0.6
 
 ### Patch Changes

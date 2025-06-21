@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 2.7.5
+
+### Patch Changes
+
+- [#173706](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173706)
+  [`a37d69dbb048b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a37d69dbb048b) -
+  Remove onMenuClose call when input is blur
+
 ## 2.7.4
 
 ### Patch Changes

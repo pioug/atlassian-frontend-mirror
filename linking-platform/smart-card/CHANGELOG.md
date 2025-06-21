@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 38.13.1
+
+### Patch Changes
+
+- [#172902](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172902)
+  [`cb3873e81d762`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb3873e81d762) -
+  Cleanup FG cc_shortcut_ssr_placeholder
+
 ## 38.13.0
 
 ### Minor Changes

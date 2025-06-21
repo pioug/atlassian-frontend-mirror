@@ -170,13 +170,6 @@ const Block = ({
 		onRender && onRender();
 	}, [onRender]);
 
-	const ssrPlacholderProps = fg('cc_shortcut_ssr_placeholder')
-		? {
-				'data-ssr-placeholder': placeholderId,
-				'data-ssr-placeholder-replace': placeholderId,
-			}
-		: {};
-
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -195,7 +188,8 @@ const Block = ({
 			ref={blockRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}
-			{...ssrPlacholderProps}
+			data-ssr-placeholder={placeholderId}
+			data-ssr-placeholder-replace={placeholderId}
 		>
 			{renderChildren(children, size)}
 		</div>

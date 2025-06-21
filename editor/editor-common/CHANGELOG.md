@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 107.1.0
+
+### Minor Changes
+
+- [#173138](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173138)
+  [`62d4e3ae11127`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62d4e3ae11127) -
+  [ux] [ED-27997] Change text formatting state to only consider whole selections active for marks
+- [#174738](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174738)
+  [`d7706f10a7c4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7706f10a7c4b) -
+  [ux] Keyboard A11y Fix: Updated combo box experience for Insert Menu in Description section of the
+  Create Issue Modal. Now for empty state the focus will rotate between CTA and search field making
+  it easier to update search string.
+
 ## 107.0.6
 
 ### Patch Changes

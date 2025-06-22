@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.8
+
+### Patch Changes
+
+- [#174773](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174773)
+  [`d7f8b85a927ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7f8b85a927ef) -
+  Fix drop target insertion into breakout mark
+
 ## 3.19.7
 
 ### Patch Changes

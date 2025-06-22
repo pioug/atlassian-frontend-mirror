@@ -577,7 +577,7 @@ export default {
   'fabric.editor.externalMediaFile': 'External media file',
   'fabric.editor.failed_to_upload': 'Failed to upload',
   'fabric.editor.feedbackDialog': 'Give feedback',
-  'fabric.editor.feedbackDialog.description': 'Tell us about your experience using the new editor',
+  'fabric.editor.feedbackDialog.description': 'Tell us about your experience using the cloud editor',
   'fabric.editor.find': 'Find',
   'fabric.editor.findNext': 'Find next',
   'fabric.editor.findPrevious': 'Find previous',

@@ -674,7 +674,7 @@ export default {
   'fabric.editor.failed_to_upload': '⁣⁢Failed to upload‌؜؜⁬؜⁪⁪⁯‌⁪⁫⁮‍⁬‌‍⁮⁭⁡⁮⁯⁭؜؜⁣⁤',
   'fabric.editor.feedbackDialog': '⁣⁢Give feedback؜⁪⁡⁮؜⁯⁬⁠‍⁪‌⁯⁮⁬‌⁭‍⁡⁣⁤',
   'fabric.editor.feedbackDialog.description':
-    '⁣⁢Tell us about your experience using the new editor‌⁪⁫‌؜؜؜⁪⁪⁫⁪؜⁭؜⁬⁡‍⁭⁭‍⁯⁮‍‌⁣⁤',
+    '⁣⁢Tell us about your experience using the cloud editor⁡؜⁮‍؜⁮⁠؜‍⁪⁪‌‌⁡؜؜⁫⁯⁡⁫⁬⁬⁣⁤',
   'fabric.editor.find': '⁣⁢Find⁭⁠⁯⁪؜؜⁮⁯⁯‍⁯⁠⁯⁮⁪؜⁫⁣⁤',
   'fabric.editor.findNext': '⁣⁢Find next‍⁭⁯‌‍‌⁬⁮‍؜⁮⁡؜؜⁠⁪⁡⁮⁮⁯⁡‍‌⁡‍‌⁣⁤',
   'fabric.editor.findPrevious': '⁣⁢Find previous⁭⁡⁠‍⁪⁯⁮⁭‍⁮‍⁯⁠⁬⁬‌⁫‌؜⁡⁬⁪⁣⁤',

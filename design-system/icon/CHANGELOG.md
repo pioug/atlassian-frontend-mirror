@@ -1,5 +1,86 @@
 # @atlaskit/icon
 
+## 27.1.0
+
+### Minor Changes
+
+- [#173492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173492)
+  [`26fefb696ee7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26fefb696ee7e) -
+  This release deprecates all `@atlaskit/icon/utility` entry-points. If you require 12px icons
+  please use the `@atlaskit/icon/core` entry-point instead with size prop set to 'small'.
+  Furthermore, this release also adds, updates and deprecates icons other icons in
+  `@atlaskit/icon/core`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `cross`
+  - `focus-area`
+  - `status-discovery`
+  - `status-error`
+  - `status-information`
+  - `status-success`
+  - `status-warning`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `cash`
+  - `close`
+  - `flask`
+  - `lightbulb`
+  - `magic-wand`
+  - `paint-palette`
+  - `pen`
+  - `status-verified`
+
+  ### Deprecated:
+
+  **`@atlaskit/icon/core`**
+
+  - `capture`
+  - `close`
+  - `discovery`
+  - `error`
+  - `information`
+  - `success`
+  - `warning`
+
+  ### Deprecated:
+
+  **`@atlaskit/icon/utility`**
+
+  - `add`
+  - `arrow-down`
+  - `arrow-left`
+  - `arrow-right`
+  - `arrow-up`
+  - `check-circle`
+  - `check-mark`
+  - `chevron-double-left`
+  - `chevron-double-right`
+  - `chevron-down`
+  - `chevron-left`
+  - `chevron-right`
+  - `chevron-up`
+  - `cross`
+  - `cross-circle`
+  - `drag-handle-horizontal`
+  - `drag-handle-vertical`
+  - `error`
+  - `information`
+  - `link-external`
+  - `lock-locked`
+  - `lock-unlocked`
+  - `show-more-horizontal`
+  - `show-more-vertical`
+  - `star-starred`
+  - `star-unstarred`
+  - `success`
+  - `warning`
+
 ## 27.0.0
 
 ### Major Changes

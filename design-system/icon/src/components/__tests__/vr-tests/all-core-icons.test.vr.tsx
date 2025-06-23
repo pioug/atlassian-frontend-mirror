@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::4ecf5a3155c68e648f387b8f4dd05b06>>
+ * @codegen <<SignedSource::134a06e43bb890a55a642b329b81e2cf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import { snapshot } from '@af/visual-regression';
@@ -19,6 +19,7 @@ import {
 	MediumIconGroup15,
 	MediumIconGroup16,
 	MediumIconGroup17,
+	MediumIconGroup18,
 	MediumIconGroup2,
 	MediumIconGroup3,
 	MediumIconGroup4,
@@ -37,6 +38,7 @@ import {
 	SmallIconGroup15,
 	SmallIconGroup16,
 	SmallIconGroup17,
+	SmallIconGroup18,
 	SmallIconGroup2,
 	SmallIconGroup3,
 	SmallIconGroup4,
@@ -227,6 +229,16 @@ snapshot(MediumIconGroup17, {
 		},
 	],
 });
+snapshot(MediumIconGroup18, {
+	variants: [
+		{
+			name: 'Medium Group 18',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
 
 snapshot(SmallIconGroup0, {
 	variants: [
@@ -402,6 +414,16 @@ snapshot(SmallIconGroup17, {
 	variants: [
 		{
 			name: 'Small Group 17',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
+snapshot(SmallIconGroup18, {
+	variants: [
+		{
+			name: 'Small Group 18',
 			environment: {
 				colorScheme: 'light',
 			},

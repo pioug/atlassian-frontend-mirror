@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 6.6.12
+
+### Patch Changes
+
+- [#174371](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174371)
+  [`05fc53f9168ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05fc53f9168ae) -
+  Merge visitCardLink and visitCardLinkAnalyticsOnly functions
+
 ## 6.6.11
 
 ### Patch Changes

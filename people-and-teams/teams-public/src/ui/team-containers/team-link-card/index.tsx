@@ -9,7 +9,6 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import CrossIcon from '@atlaskit/icon/core/close';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -97,24 +96,20 @@ export const TeamLinkCard = ({
 
 	const [hovered, setHovered] = useState(false);
 	const [showCloseIcon, setShowCloseIcon] = useState(false);
-	const [showMoreIcon, setShowMoreIcon] = useState(false);
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const { formatMessage } = useIntl();
 	const { fireUIEvent } = usePeopleAndTeamAnalytics();
 
 	const handleMouseEnter = () => {
 		setHovered(true);
-		if (containerType === 'WebLink') {
-			setShowMoreIcon(true);
-		} else {
+		if (containerType !== 'WebLink') {
 			setShowCloseIcon(true);
 		}
 	};
 
 	const handleMouseLeave = () => {
 		setHovered(false);
-		if (containerType === 'WebLink') {
-			setShowMoreIcon(false);
-		} else {
+		if (containerType !== 'WebLink') {
 			setShowCloseIcon(false);
 		}
 	};
@@ -193,7 +188,7 @@ export const TeamLinkCard = ({
 						</Tooltip>
 					</Box>
 				)}
-				{showMoreIcon && (
+				{containerType === 'WebLink' && (hovered || isDropdownOpen) && (
 					<Box xcss={styles.showMoreIconWrapper}>
 						<DropdownMenu
 							trigger={({ triggerRef, ...triggerProps }) => (
@@ -207,7 +202,10 @@ export const TeamLinkCard = ({
 								/>
 							)}
 							placement="bottom-end"
-							shouldRenderToParent={fg('should-render-to-parent-should-be-true-people-and-')}
+							shouldRenderToParent
+							onOpenChange={(attrs) => {
+								setIsDropdownOpen(attrs.isOpen);
+							}}
 						>
 							<DropdownItemGroup>
 								<DropdownItem

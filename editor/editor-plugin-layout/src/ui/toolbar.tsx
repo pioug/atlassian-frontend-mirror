@@ -30,7 +30,6 @@ import LayoutThreeColumnsSidebarsIcon from '@atlaskit/icon/core/migration/layout
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/migration/layout-two-columns--editor-layout-two-equal';
 import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-left--editor-layout-two-left-sidebar';
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/migration/layout-two-columns-sidebar-right--editor-layout-two-right-sidebar';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../index';
@@ -173,10 +172,7 @@ const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: E
 const getLayoutColumnsIcons = (colCount: number) => {
 	if (
 		!editorExperiment('single_column_layouts', true) &&
-		!(
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_11')
-		)
+		!editorExperiment('platform_editor_controls', 'variant1')
 	) {
 		return undefined;
 	}

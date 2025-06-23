@@ -15,7 +15,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });
 snapshotInformational(WithJiraIssuesModal, {
@@ -26,7 +26,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });
 
@@ -39,7 +39,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });
 snapshotInformational(WithJiraIssuesModal, {
@@ -52,7 +52,7 @@ snapshotInformational(WithJiraIssuesModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
@@ -60,7 +60,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
@@ -71,7 +71,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
@@ -83,7 +83,7 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });
 snapshotInformational(WithConfluenceSearchModal, {
@@ -96,6 +96,6 @@ snapshotInformational(WithConfluenceSearchModal, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': [true, false],
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });

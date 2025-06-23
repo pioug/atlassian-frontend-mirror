@@ -5,7 +5,6 @@ import type { Match } from '@atlaskit/adf-schema';
 import { isSafeUrl, linkify, normalizeUrl as normaliseLinkHref } from '@atlaskit/adf-schema';
 import type { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics/types/enums';
 import type { AnalyticsEventPayload } from '../analytics/types/events';
@@ -223,8 +222,7 @@ export const canLinkBeCreatedInRange = (from: number, to: number) => (state: Edi
 			if ($from.parent.type.allowsMarkType(link)) {
 				let allowed = true;
 				state.doc.nodesBetween(from, to, (node) => {
-					const hasInlineCard =
-						node.type === state.schema.nodes.inlineCard && fg('platform_editor_controls_patch_11');
+					const hasInlineCard = node.type === state.schema.nodes.inlineCard;
 
 					allowed = allowed && !node.marks.some((m) => m.type.excludes(link)) && !hasInlineCard;
 					return allowed;

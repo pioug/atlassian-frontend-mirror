@@ -103,13 +103,7 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 	{
 		primaryToolbarState: PrimaryToolbarPluginState | undefined;
 		editorViewModeState: Pick<EditorViewModePluginState, 'mode'> | undefined | null;
-		interactionState:
-			| {
-					// Clean up with platform_editor_interaction_api_refactor
-					hasHadInteraction: boolean;
-					interactionState: null | 'hasNotHadInteraction';
-			  }
-			| undefined;
+		interactionState: 'hasNotHadInteraction' | null | undefined;
 	},
 	| PublicPluginAPI<
 			[
@@ -121,11 +115,16 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 	| undefined
 >(
 	(pluginInjectionApi) => {
-		return useSharedPluginState(pluginInjectionApi, [
+		const sharedState = useSharedPluginState(pluginInjectionApi, [
 			'editorViewMode',
 			'primaryToolbar',
 			'interaction',
 		]);
+		return {
+			primaryToolbarState: sharedState?.primaryToolbarState,
+			editorViewModeState: sharedState?.editorViewModeState,
+			interactionState: sharedState?.interactionState?.interactionState,
+		};
 	},
 	(pluginInjectionApi) => {
 		const primaryToolbarComponents = useSharedPluginStateSelector(
@@ -133,10 +132,6 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 			'primaryToolbar.components',
 		);
 		const editorViewMode = useSharedPluginStateSelector(pluginInjectionApi, 'editorViewMode.mode');
-		const hasHadInteraction = useSharedPluginStateSelector(
-			pluginInjectionApi,
-			'interaction.hasHadInteraction',
-		);
 		const interactionState = useSharedPluginStateSelector(
 			pluginInjectionApi,
 			'interaction.interactionState',
@@ -147,10 +142,7 @@ const useFullPageEditorPluginsStates = sharedPluginStateHookMigratorFactory<
 				? undefined
 				: { components: primaryToolbarComponents },
 			editorViewModeState: !editorViewMode ? undefined : { mode: editorViewMode },
-			interactionState:
-				hasHadInteraction === undefined || interactionState === undefined
-					? undefined
-					: { hasHadInteraction, interactionState },
+			interactionState,
 		};
 	},
 );
@@ -171,18 +163,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 	);
 	const viewMode = getEditorViewMode(editorViewModeState, props.preset);
 
-	// Remove all this logic when platform_editor_interaction_api_refactor is cleaned up
-	let hasHadInteraction: boolean | undefined;
-	if (fg('platform_editor_interaction_api_refactor')) {
-		// Warning: this logic is a cluster-f but `hasHadInteraction` depends on undefined being allowed
-		// in which case no class will be rendered at all. In this way we only set `hasHadInteraction to
-		// boolean when interactionState is not undefined.
-		if (interactionState) {
-			hasHadInteraction = interactionState.interactionState !== 'hasNotHadInteraction';
-		}
-	} else {
-		hasHadInteraction = interactionState?.hasHadInteraction;
-	}
+	const hasHadInteraction = interactionState !== 'hasNotHadInteraction';
 
 	let toolbarDocking = useSharedPluginStateSelector(editorAPI, 'selectionToolbar.toolbarDocking', {
 		disabled: fg('platform_editor_use_preferences_plugin'),

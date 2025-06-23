@@ -37,7 +37,7 @@
 			"category": "Layout and structure",
 			"status": {
 				"type": "intent-to-deprecate",
-				"description": "We are in the process of building a new page layout component: [@atlaskit/navigation-system](/components/navigation-system/page-layout/examples) (For Atlassian employees only at this stage)"
+				"description": "We are planning on deprecating Page layout. We recommend using Navigation system instead. [View Navigation system documentation](/components/navigation-system)"
 			}
 		},
 		"runReact18": true

@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 38.13.2
+
+### Patch Changes
+
+- [#174646](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174646)
+  [`90061d11aac8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90061d11aac8b) -
+  EDM-12573 cleaning up platform-linking-fix-a11y-in-smart-card
+- Updated dependencies
+
 ## 38.13.1
 
 ### Patch Changes

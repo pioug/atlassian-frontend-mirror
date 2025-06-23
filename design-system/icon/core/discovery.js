@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::76cd3e086072c64456cfadc7cf78beeb>>
+ * @codegen <<SignedSource::ffbdc778869407ee1ee67d41c1920845>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Discovery".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for representing discovery. Used for Note info panel variant in Editor.
+ * Usage guidance: Reserved for discovery statuses and messaging.
+Filled status icons provide higher visual contrast to draw attention to important information.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

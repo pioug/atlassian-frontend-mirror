@@ -13,7 +13,6 @@ import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
 import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import { type MediaFeatureFlags, type NumericalCardDimensions } from '@atlaskit/media-common';
-import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { injectIntl } from 'react-intl-next';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { cssMap } from '@atlaskit/css';
@@ -55,7 +54,6 @@ import {
 	createFirstPlayedTrackEvent,
 	createPlayedTrackEvent,
 	type PlaybackState,
-	type WithMediaPlayerState,
 	type WithPlaybackProps,
 } from '../analytics';
 import { formatDuration } from '../../formatDuration';
@@ -77,7 +75,7 @@ import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-te
 import { token } from '@atlaskit/tokens';
 import { type CustomMediaPlayerType } from '../types';
 import { type WithShowControlMethodProp } from '../../types';
-import { type FileIdentifier } from '@atlaskit/media-client';
+import { type FileIdentifier, type FileState } from '@atlaskit/media-client';
 import { type MediaParsedSettings } from '@atlaskit/media-client-react';
 import {
 	getUserCaptionsLocale,
@@ -93,6 +91,7 @@ export interface MediaPlayerBaseProps extends WithPlaybackProps, WithShowControl
 	readonly type: CustomMediaPlayerType;
 	readonly src: string;
 	readonly identifier: FileIdentifier;
+	readonly fileState?: FileState;
 	readonly onHDToggleClick?: () => void;
 	readonly isShortcutEnabled?: boolean;
 	readonly lastWatchTimeConfig?: TimeSaverConfig;
@@ -113,19 +112,53 @@ export interface MediaPlayerBaseProps extends WithPlaybackProps, WithShowControl
 	readonly mediaSettings?: MediaParsedSettings;
 }
 
-export interface CustomMediaPlayerState extends WithMediaPlayerState {
+export interface CustomMediaPlayerState {
+	playerWidth: number;
 	selectedTracksIndex: number;
 	areCaptionsEnabled?: boolean;
 	isArtifactUploaderOpen: boolean;
 	artifactToDelete?: string;
+	isFullScreenEnabled: boolean;
+	playbackSpeed: number;
 }
 
 export type Action = () => void;
 
-const MEDIUM_VIDEO_MAX_WIDTH = 400;
-const SMALL_VIDEO_MAX_WIDTH = 245;
 const MINIMUM_DURATION_BEFORE_SAVING_TIME = 60;
 const VIEWED_TRACKING_SECS = 2;
+
+export const breakpoints = {
+	LARGE_VIDEO_MAX_WIDTH: 570,
+	MEDIUM_VIDEO_MAX_WIDTH: 430,
+	SMALL_VIDEO_MAX_WIDTH: 260,
+};
+type BreakpointControlResolver = (playerWidth: number) => boolean;
+
+const breakpointControls: Record<string, BreakpointControlResolver> = {
+	playPauseButton: () => true,
+	volume: () => true,
+	fullScreenButton: () => true,
+	currentTime: (playerWidth) => playerWidth > breakpoints.SMALL_VIDEO_MAX_WIDTH,
+	captionsControls: (playerWidth) => playerWidth > breakpoints.MEDIUM_VIDEO_MAX_WIDTH,
+	downloadButton: (playerWidth) => playerWidth > breakpoints.MEDIUM_VIDEO_MAX_WIDTH,
+	volumeSlider: (playerWidth) => playerWidth > breakpoints.MEDIUM_VIDEO_MAX_WIDTH,
+	skipButtons: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
+	speedControls: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
+	hdButton: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
+	captionsAdminControls: (playerWidth) => playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH,
+};
+
+const getPlayerSize = (playerWidth: number) => {
+	if (playerWidth > breakpoints.LARGE_VIDEO_MAX_WIDTH) {
+		return 'xlarge';
+	} else if (playerWidth > breakpoints.MEDIUM_VIDEO_MAX_WIDTH) {
+		return 'large';
+	} else if (playerWidth > breakpoints.SMALL_VIDEO_MAX_WIDTH) {
+		return 'medium';
+	} else {
+		return 'small';
+	}
+};
 
 /* Styles */
 
@@ -178,7 +211,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	videoWrapperRef = React.createRef<HTMLDivElement>();
 
 	private actions?: VideoActions;
-	private videoState: Partial<VideoState> = {
+	private videoState: VideoState = {
 		isLoading: true,
 		buffered: 0,
 		currentTime: 0,
@@ -186,6 +219,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		status: 'paused',
 		duration: 0,
 		isMuted: false,
+		currentActiveCues: () => undefined,
 	};
 	private wasPlayedOnce: boolean = false;
 	private lastCurrentTime = 0;
@@ -194,7 +228,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 
 	state: CustomMediaPlayerState = {
 		isFullScreenEnabled: false,
-		playerSize: 'large',
+		playerWidth: 100, // initial value for playerSize: 'small', i.e. width < 260px
 		playbackSpeed: 1,
 		selectedTracksIndex: -1,
 		areCaptionsEnabled: false,
@@ -262,7 +296,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			onFirstPlay,
 			createAnalyticsEvent,
 		} = this.props;
-		const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
+		const { isFullScreenEnabled, playbackSpeed } = this.state;
+		const { playerSize } = this;
 
 		fireAnalyticsEvent(
 			createCustomMediaPlayerScreenEvent(
@@ -282,6 +317,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 
 		if (this.videoWrapperRef.current) {
 			this.videoWrapperRef.current.addEventListener('fullscreenchange', this.onFullScreenChange);
+			this.onResize(this.videoWrapperRef.current.getBoundingClientRect().width);
 		}
 
 		simultaneousPlayManager.subscribe(this);
@@ -300,7 +336,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	private fireFirstPlayedTrackEvent = () => {
 		const { type, identifier, isHDActive, isHDAvailable, isAutoPlay, createAnalyticsEvent } =
 			this.props;
-		const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
+		const { isFullScreenEnabled, playbackSpeed } = this.state;
+		const { playerSize } = this;
 
 		fireAnalyticsEvent(
 			createFirstPlayedTrackEvent(
@@ -370,18 +407,28 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		}
 	};
 
-	private renderCurrentTime = ({ currentTime, duration }: VideoState) => (
-		<CurrentTime draggable={false}>
-			{formatDuration(currentTime)} / {formatDuration(duration)}
-		</CurrentTime>
-	);
+	private shouldRenderCurrentTime = () => breakpointControls.currentTime(this.state.playerWidth);
+
+	private renderCurrentTime = () => {
+		return (
+			<CurrentTime draggable={false} data-testid="current-time">
+				{formatDuration(this.videoState.currentTime)} / {formatDuration(this.videoState.duration)}
+			</CurrentTime>
+		);
+	};
+
+	private shouldRenderHdButton = () => {
+		const { type, isHDAvailable } = this.props;
+		return (
+			!fg('platform_media_disable_video_640p_artifact_usage') &&
+			breakpointControls.hdButton(this.state.playerWidth) &&
+			type !== 'audio' &&
+			!!isHDAvailable
+		);
+	};
 
 	private renderHDButton = () => {
-		const { type, isHDAvailable, isHDActive, onHDToggleClick } = this.props;
-
-		if (type === 'audio' || !isHDAvailable) {
-			return;
-		}
+		const { isHDActive, onHDToggleClick } = this.props;
 
 		return (
 			<MediaButton
@@ -409,6 +456,9 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		this.createAndFireUIEvent('playbackSpeedChange');
 	};
 
+	private shouldRenderSpeedControls = () =>
+		breakpointControls.speedControls(this.state.playerWidth);
+
 	private renderSpeedControls = () => {
 		const { playbackSpeed } = this.state;
 		const { originalDimensions } = this.props;
@@ -423,35 +473,44 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		);
 	};
 
-	private renderVolume = (videoState: VideoState, actions: VideoActions, showSlider: boolean) => (
-		<VolumeWrapper showSlider={showSlider}>
-			<VolumeToggleWrapper isMuted={videoState.isMuted}>
-				<MutedIndicator isMuted={videoState.isMuted} />
-				<MediaButton
-					testId="custom-media-player-volume-toggle-button"
-					onClick={this.getMediaButtonClickHandler(actions.toggleMute, 'muteButton')}
-					iconBefore={
-						<SoundIcon
-							color="currentColor"
-							label={this.props.intl.formatMessage(messages.volumeMuteButtonAria)}
-						/>
-					}
-					aria-pressed={videoState.isMuted}
-				/>
-			</VolumeToggleWrapper>
-			{showSlider && (
-				<VolumeTimeRangeWrapper>
-					<VolumeRange
-						onChange={actions.setVolume}
-						currentVolume={videoState.volume}
-						isAlwaysActive={true}
-						onChanged={this.onVolumeChanged}
-						ariaLabel={this.props.intl.formatMessage(messages.volumeLevelControlAria)}
+	private shouldRenderVolume = () => breakpointControls.volume(this.state.playerWidth);
+	private shouldRenderVolumeSLider = () => breakpointControls.volumeSlider(this.state.playerWidth);
+
+	private renderVolume = () => {
+		const showSlider = this.shouldRenderVolumeSLider();
+		return (
+			<VolumeWrapper showSlider={showSlider}>
+				<VolumeToggleWrapper isMuted={this.videoState.isMuted}>
+					<MutedIndicator isMuted={this.videoState.isMuted} />
+					<MediaButton
+						testId="custom-media-player-volume-toggle-button"
+						onClick={this.getMediaButtonClickHandler(
+							this.actions?.toggleMute || (() => undefined),
+							'muteButton',
+						)}
+						iconBefore={
+							<SoundIcon
+								color="currentColor"
+								label={this.props.intl.formatMessage(messages.volumeMuteButtonAria)}
+							/>
+						}
+						aria-pressed={this.videoState.isMuted}
 					/>
-				</VolumeTimeRangeWrapper>
-			)}
-		</VolumeWrapper>
-	);
+				</VolumeToggleWrapper>
+				{showSlider && (
+					<VolumeTimeRangeWrapper data-testid="volume-time-range-wrapper">
+						<VolumeRange
+							onChange={this.actions?.setVolume || (() => undefined)}
+							currentVolume={this.videoState.volume}
+							isAlwaysActive={true}
+							onChanged={this.onVolumeChanged}
+							ariaLabel={this.props.intl.formatMessage(messages.volumeLevelControlAria)}
+						/>
+					</VolumeTimeRangeWrapper>
+				)}
+			</VolumeWrapper>
+		);
+	};
 
 	private toggleFullscreen = () =>
 		this.videoWrapperRef.current && toggleFullscreen(this.videoWrapperRef.current);
@@ -461,21 +520,16 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		this.createAndFireUIEvent('mediaButtonClick', 'fullScreenButton');
 	};
 
+	private get playerSize() {
+		return getPlayerSize(this.state.playerWidth);
+	}
+
 	private onResize = (width: number) => {
-		if (width > MEDIUM_VIDEO_MAX_WIDTH) {
-			this.setState({
-				playerSize: 'large',
-			});
-		} else if (width > SMALL_VIDEO_MAX_WIDTH) {
-			this.setState({
-				playerSize: 'medium',
-			});
-		} else {
-			this.setState({
-				playerSize: 'small',
-			});
-		}
+		this.setState({ playerWidth: width });
 	};
+
+	private shouldRenderFullScreenButton = () =>
+		breakpointControls.fullScreenButton(this.state.playerWidth);
 
 	private renderFullScreenButton = () => {
 		const {
@@ -503,20 +557,17 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		);
 	};
 
-	private renderDownloadButton = () => {
-		const { onDownloadClick } = this.props;
-		if (!onDownloadClick) {
-			return;
-		}
+	private shouldRenderDownloadButton = () =>
+		breakpointControls.downloadButton(this.state.playerWidth);
 
-		return (
+	private renderDownloadButton = () =>
+		this.props.onDownloadClick && (
 			<MediaButton
 				testId="custom-media-player-download-button"
-				onClick={this.getMediaButtonClickHandler(onDownloadClick, 'downloadButton')}
+				onClick={this.getMediaButtonClickHandler(this.props.onDownloadClick, 'downloadButton')}
 				iconBefore={<DownloadIcon color="currentColor" label="download" />}
 			/>
 		);
-	};
 
 	private renderShortcuts = ({
 		togglePlayPauseAction,
@@ -567,30 +618,50 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		return shortcuts;
 	};
 
-	private renderPlayPauseButton = (isPlaying: boolean) => {
+	private shouldRenderPlayPauseButton = () =>
+		breakpointControls.playPauseButton(this.state.playerWidth);
+
+	private renderPlayPauseButton = () => {
 		const {
 			intl: { formatMessage },
 		} = this.props;
 
-		const toggleButtonIcon = isPlaying ? (
+		const toggleButtonIcon = this.isPlaying ? (
 			<PauseIcon spacing="spacious" color="currentColor" label={formatMessage(messages.pause)} />
 		) : (
 			<PlayIcon spacing="spacious" color="currentColor" label={formatMessage(messages.play)} />
 		);
 
 		return (
-			<Tooltip content={formatMessage(isPlaying ? messages.pause : messages.play)} position="top">
+			<Tooltip
+				content={formatMessage(this.isPlaying ? messages.pause : messages.play)}
+				position="top"
+			>
 				<MediaButton
 					testId="custom-media-player-play-toggle-button"
-					data-test-is-playing={isPlaying}
+					data-test-is-playing={this.isPlaying}
 					iconBefore={toggleButtonIcon}
-					onClick={isPlaying ? this.pausePlayByButtonClick : this.startPlayByButtonClick}
+					onClick={this.isPlaying ? this.pausePlayByButtonClick : this.startPlayByButtonClick}
 				/>
 			</Tooltip>
 		);
 	};
 
-	private renderSkipBackwardButton = (skipBackward: Action) => {
+	private defaultSkipAmount = 10;
+
+	private skipBackward = (skipAmount = this.defaultSkipAmount) => {
+		const newTime = this.videoState.currentTime - skipAmount;
+		this.actions?.navigate(Math.max(newTime, 0));
+		this.props.onTimeChanged?.();
+	};
+
+	private skipForward = (skipAmount = this.defaultSkipAmount) => {
+		const newTime = this.videoState.currentTime + skipAmount;
+		this.actions?.navigate(Math.min(newTime, this.videoState.duration));
+		this.props.onTimeChanged?.();
+	};
+
+	private renderSkipBackwardButton = () => {
 		const {
 			intl: { formatMessage },
 		} = this.props;
@@ -606,13 +677,13 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 							label={formatMessage(messages.skipBackward)}
 						/>
 					}
-					onClick={this.getMediaButtonClickHandler(skipBackward, 'skipBackwardButton')}
+					onClick={this.getMediaButtonClickHandler(this.skipBackward, 'skipBackwardButton')}
 				/>
 			</Tooltip>
 		);
 	};
 
-	private renderSkipForwardButton = (skipForward: Action) => {
+	private renderSkipForwardButton = () => {
 		const {
 			intl: { formatMessage },
 		} = this.props;
@@ -628,14 +699,26 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 							label={formatMessage(messages.skipForward)}
 						/>
 					}
-					onClick={this.getMediaButtonClickHandler(skipForward, 'skipForwardButton')}
+					onClick={this.getMediaButtonClickHandler(this.skipForward, 'skipForwardButton')}
 				/>
 			</Tooltip>
 		);
 	};
 
+	private shouldRenderSkipButtons = () => breakpointControls.skipButtons(this.state.playerWidth);
+
+	private renderSkipButtons = () => {
+		return (
+			<Flex direction="row">
+				{this.renderSkipBackwardButton()}
+				{this.renderSkipForwardButton()}
+			</Flex>
+		);
+	};
+
 	private renderSpinner = () => (
 		<Flex
+			testId="spinner"
 			direction="column"
 			alignItems="center"
 			justifyContent="center"
@@ -696,7 +779,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	private createAndFireUIEvent(eventType: CustomMediaPlayerUIEvent, actionSubjectId?: string) {
 		const { type, identifier, isHDActive, isHDAvailable, isAutoPlay, createAnalyticsEvent } =
 			this.props;
-		const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
+		const { isFullScreenEnabled, playbackSpeed } = this.state;
+		const { playerSize } = this;
 		const playbackState: PlaybackState = {
 			...this.videoState,
 			isAutoPlay,
@@ -820,7 +904,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	private onViewed = (videoState: VideoState) => {
 		const { createAnalyticsEvent, identifier, isAutoPlay, isHDAvailable, isHDActive, type } =
 			this.props;
-		const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
+		const { isFullScreenEnabled, playbackSpeed } = this.state;
+		const { playerSize } = this;
 		const { status, currentTime } = videoState;
 
 		if (
@@ -919,6 +1004,80 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		return undefined;
 	};
 
+	get isPlaying() {
+		return this.videoState.status === 'playing';
+	}
+
+	shouldRenderCaptionsControls = () => {
+		const { textTracks } = this.props;
+		const { playerWidth } = this.state;
+		return breakpointControls.captionsControls(playerWidth) && !!textTracks;
+	};
+
+	renderCaptionsControls = () => {
+		const { textTracks } = this.props;
+		const { areCaptionsEnabled } = this.state;
+
+		return (
+			textTracks && (
+				<CaptionsSelectControls
+					textTracks={textTracks}
+					onSelected={this.onTextTracksSelected}
+					areCaptionsEnabled={!!areCaptionsEnabled}
+					onCaptionsEnabledChange={this.onCaptionsEnabledChange}
+					selectedTracksIndex={this.resolveSelectedTracksIndex()}
+				/>
+			)
+		);
+	};
+
+	shouldRenderCaptionsAdminControls = () => {
+		const { playerWidth } = this.state;
+		return (
+			(!this.props.fileState || this.props.fileState.status !== 'uploading') &&
+			breakpointControls.captionsAdminControls(playerWidth) &&
+			!!this.props.mediaSettings?.canUpdateVideoCaptions
+		);
+	};
+
+	renderCaptionsAdminControls = () => {
+		const { isArtifactUploaderOpen, artifactToDelete } = this.state;
+		const { textTracks, identifier } = this.props;
+		return (
+			<>
+				<CaptionsAdminControls
+					textTracks={textTracks}
+					onUpload={() => this.setState({ isArtifactUploaderOpen: true })}
+					onDelete={this.onCaptionDelete}
+				/>
+				<CaptionsUploaderBrowser
+					identifier={identifier}
+					isOpen={isArtifactUploaderOpen}
+					onClose={() => this.setState({ isArtifactUploaderOpen: false })}
+					onEnd={(metadata, context) => {
+						this.fireCaptionUploadSucceededEvent(context.traceId);
+					}}
+					onError={(err, context) => {
+						this.fireCaptionUploadFailedEvent(context.traceId, err);
+					}}
+				/>
+				<CaptionDeleteConfirmationModal
+					identifier={identifier}
+					artifactName={artifactToDelete}
+					onClose={() => this.setState({ artifactToDelete: '' })}
+					onEnd={(context) => {
+						this.fireCaptionDeleteSucceededEvent(context.traceId, context.artifactName);
+						this.setState({ artifactToDelete: '' });
+					}}
+					onError={(err, context) => {
+						this.fireCaptionDeleteFailedEvent(context.traceId, context.artifactName, err);
+						this.setState({ artifactToDelete: '' });
+					}}
+				/>
+			</>
+		);
+	};
+
 	render() {
 		const {
 			type,
@@ -928,13 +1087,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			onError,
 			poster,
 			videoControlsWrapperRef,
-			textTracks,
 			areControlsVisible,
-			identifier,
-			mediaSettings: { canUpdateVideoCaptions = false } = {},
 		} = this.props;
-
-		const { areCaptionsEnabled, isArtifactUploaderOpen, artifactToDelete } = this.state;
 
 		return (
 			<Box
@@ -959,31 +1113,13 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 						this.setActions(actions);
 						//Video State(either prop or variable) is ReadOnly
 						this.videoState = videoState;
-						const { status, currentTime, buffered, duration, isLoading } = videoState;
-						const { playerSize } = this.state;
-						const isPlaying = status === 'playing';
-
-						const isLargePlayer = playerSize === 'large';
-						const isMediumPlayer = playerSize === 'medium';
-
-						const defaultSkipAmount = 10;
-						const skipBackward = (skipAmount = defaultSkipAmount) => {
-							const newTime = videoState.currentTime - skipAmount;
-							actions.navigate(Math.max(newTime, 0));
-							this.props.onTimeChanged?.();
-						};
-
-						const skipForward = (skipAmount = defaultSkipAmount) => {
-							const newTime = videoState.currentTime + skipAmount;
-							actions.navigate(Math.min(newTime, videoState.duration));
-							this.props.onTimeChanged?.();
-						};
+						const { currentTime, buffered, duration, isLoading } = videoState;
 
 						const shortcuts = this.renderShortcuts({
-							togglePlayPauseAction: isPlaying ? this.pause : this.play,
+							togglePlayPauseAction: this.isPlaying ? this.pause : this.play,
 							toggleMute: actions.toggleMute,
-							skipBackward,
-							skipForward,
+							skipBackward: this.skipBackward,
+							skipForward: this.skipForward,
 						});
 						return (
 							<Flex direction="column" xcss={videoWrapperStyles.root}>
@@ -992,7 +1128,9 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 								{isLoading && this.renderSpinner()}
 								<PlayPauseBlanket
 									onDoubleClick={this.doubleClickToFullscreen}
-									onClick={isPlaying ? this.pausePlayByBlanketClick : this.startPlayByBlanketClick}
+									onClick={
+										this.isPlaying ? this.pausePlayByBlanketClick : this.startPlayByBlanketClick
+									}
 									data-testid="play-pause-blanket"
 								>
 									{video}
@@ -1006,8 +1144,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 											onChange={actions.navigate}
 											onChanged={this.onTimeChanged}
 											disableThumbTooltip={true}
-											skipBackward={skipBackward}
-											skipForward={skipForward}
+											skipBackward={this.skipBackward}
+											skipForward={this.skipForward}
 											isAlwaysActive={false}
 										/>
 									</Box>
@@ -1017,69 +1155,19 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 										xcss={timebarWrapperStyles.root}
 									>
 										<LeftControls>
-											{this.renderPlayPauseButton(isPlaying)}
-											{isLargePlayer && this.renderSkipBackwardButton(skipBackward)}
-											{isLargePlayer && this.renderSkipForwardButton(skipForward)}
-											{this.renderVolume(videoState, actions, isLargePlayer)}
+											{this.shouldRenderPlayPauseButton() && this.renderPlayPauseButton()}
+											{this.shouldRenderSkipButtons() && this.renderSkipButtons()}
+											{this.shouldRenderVolume() && this.renderVolume()}
 										</LeftControls>
 										<RightControls>
-											{(isMediumPlayer || isLargePlayer) && this.renderCurrentTime(videoState)}
-											{isLargePlayer &&
-												!fg('platform_media_disable_video_640p_artifact_usage') &&
-												this.renderHDButton()}
-											{isLargePlayer && this.renderSpeedControls()}
-											{textTracks && (
-												<CaptionsSelectControls
-													textTracks={textTracks}
-													onSelected={this.onTextTracksSelected}
-													areCaptionsEnabled={!!areCaptionsEnabled}
-													onCaptionsEnabledChange={this.onCaptionsEnabledChange}
-													selectedTracksIndex={this.resolveSelectedTracksIndex()}
-												/>
-											)}
-											{this.renderFullScreenButton()}
-											{isLargePlayer && this.renderDownloadButton()}
-											{isMediumPlayer ||
-												(isLargePlayer && canUpdateVideoCaptions && (
-													<>
-														<CaptionsAdminControls
-															textTracks={textTracks}
-															onUpload={() => this.setState({ isArtifactUploaderOpen: true })}
-															onDelete={this.onCaptionDelete}
-														/>
-														<CaptionsUploaderBrowser
-															identifier={identifier}
-															isOpen={isArtifactUploaderOpen}
-															onClose={() => this.setState({ isArtifactUploaderOpen: false })}
-															onEnd={(metadata, context) => {
-																this.fireCaptionUploadSucceededEvent(context.traceId);
-															}}
-															onError={(err, context) => {
-																this.fireCaptionUploadFailedEvent(context.traceId, err);
-															}}
-														/>
-														<CaptionDeleteConfirmationModal
-															identifier={identifier}
-															artifactName={artifactToDelete}
-															onClose={() => this.setState({ artifactToDelete: '' })}
-															onEnd={(context) => {
-																this.fireCaptionDeleteSucceededEvent(
-																	context.traceId,
-																	context.artifactName,
-																);
-																this.setState({ artifactToDelete: '' });
-															}}
-															onError={(err, context) => {
-																this.fireCaptionDeleteFailedEvent(
-																	context.traceId,
-																	context.artifactName,
-																	err,
-																);
-																this.setState({ artifactToDelete: '' });
-															}}
-														/>
-													</>
-												))}
+											{this.shouldRenderCurrentTime() && this.renderCurrentTime()}
+											{this.shouldRenderCaptionsControls() && this.renderCaptionsControls()}
+											{this.shouldRenderSpeedControls() && this.renderSpeedControls()}
+											{this.shouldRenderHdButton() && this.renderHDButton()}
+											{this.shouldRenderDownloadButton() && this.renderDownloadButton()}
+											{this.shouldRenderFullScreenButton() && this.renderFullScreenButton()}
+											{this.shouldRenderCaptionsAdminControls() &&
+												this.renderCaptionsAdminControls()}
 										</RightControls>
 									</Flex>
 								</ControlsWrapper>
@@ -1092,4 +1180,4 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	}
 }
 
-export const MediaPlayerBase = withAnalyticsEvents()(injectIntl(_MediaPlayerBase));
+export const MediaPlayerBase = injectIntl(_MediaPlayerBase);

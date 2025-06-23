@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::257fef37d04db299e24e95484ff9b12f>>
+ * @codegen <<SignedSource::a2cd3105f02ad146f4ebeeb5e7e40633>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -16,7 +16,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "Error".
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for when there is an error.
+ * Usage guidance: Reserved for error statuses and messaging.
+Filled status icons provide higher visual contrast to draw attention to important information.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

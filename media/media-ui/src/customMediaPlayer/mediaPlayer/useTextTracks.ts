@@ -43,23 +43,28 @@ export const useTextTracks = (
 
 		if (captions.length > 0) {
 			Promise.all(
-				captions.map(async ([artifactName, { mimeType }]): Promise<VideoTextTrack> => {
-					const { artifacts } = fileState;
-					const baseUrl =
-						artifacts &&
-						(await mediaClient?.mediaStore.getArtifactBinary(artifacts, artifactName, {
-							collectionName,
-						}));
+				captions.map(async ([artifactName, { mimeType }]): Promise<VideoTextTrack | undefined> => {
+					try {
+						const { artifacts } = fileState;
+						const baseUrl =
+							artifacts &&
+							(await mediaClient?.mediaStore.getArtifactBinary(artifacts, artifactName, {
+								collectionName,
+							}));
 
-					const src = (baseUrl && URL.createObjectURL(baseUrl)) || '';
-					const { lang, label } = decodeMimetype(mimeType);
-					return { src, lang, label, artifactName };
+						const src = (baseUrl && URL.createObjectURL(baseUrl)) || '';
+						const { lang, label } = decodeMimetype(mimeType);
+						return { src, lang, label, artifactName };
+					} catch (error) {
+						// TODO: Handle these errors
+						// https://product-fabric.atlassian.net/browse/BMPT-6929
+					}
 				}),
 			).then((tracks) => {
 				setTextTracks({
 					captions: {
 						selectedTrackIndex: 1,
-						tracks: tracks.filter((track): track is VideoTextTrack => !!track.src),
+						tracks: tracks.filter((track): track is VideoTextTrack => !!track?.src),
 					},
 				});
 			});

@@ -28,7 +28,7 @@ import { cardPlugin } from '../cardPlugin';
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
 import OverlayWrapper from '../ui/ConfigureOverlay';
-import { visitCardLinkAnalyticsOnly } from '../ui/toolbar';
+import { visitCardLinkAnalytics } from '../ui/toolbar';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
@@ -122,7 +122,7 @@ export const InlineCard = memo(
 				if (event.metaKey || event.ctrlKey) {
 					const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
 
-					visitCardLinkAnalyticsOnly(editorAnalyticsApi, INPUT_METHOD.META_CLICK)(
+					visitCardLinkAnalytics(editorAnalyticsApi, INPUT_METHOD.META_CLICK)(
 						view.state,
 						view.dispatch,
 					);

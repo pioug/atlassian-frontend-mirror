@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5214d474784a87576e9d4de9982f1966>>
+ * @codegen <<SignedSource::a12ae91329c31904cfc6debd07c7390e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,9 +14,9 @@ var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Capture".
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: 📦 @atlaskit/icon/core/capture
+ * Usage guidance: Reserved for representing Focus Areas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

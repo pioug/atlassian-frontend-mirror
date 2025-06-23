@@ -47,7 +47,7 @@
 			"category": "Navigation",
 			"status": {
 				"type": "intent-to-deprecate",
-				"description": "We are in the process of building a new top navigation component: [@atlaskit/navigation-system](/components/navigation-system/top-navigation/examples) (For Atlassian employees only at this stage)"
+				"description": "We are planning on deprecating Atlassian navigation. We recommend using Navigation system instead. [View Navigation system documentation](/components/navigation-system)"
 			}
 		},
 		"runReact18": true

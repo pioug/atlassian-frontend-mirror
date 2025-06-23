@@ -31,7 +31,7 @@ export function clearActiveTrace() {
 	state.context = null;
 }
 
-export function getActiveTraceHttpRequestHeaders(_url: string) {
+export function getActiveTraceHttpRequestHeaders(_url?: string) {
 	if (state.context === null) {
 		return null;
 	}
@@ -40,7 +40,7 @@ export function getActiveTraceHttpRequestHeaders(_url: string) {
 	return makeTraceHttpRequestHeaders(traceId, spanId);
 }
 
-export function getActiveTraceAsQueryParams(_url: string) {
-	const traceHeaders = getActiveTraceHttpRequestHeaders(_url);
+export function getActiveTraceAsQueryParams(_url?: string) {
+	const traceHeaders = getActiveTraceHttpRequestHeaders();
 	return traceHeaders ? new URLSearchParams(traceHeaders).toString().toLowerCase() : null;
 }

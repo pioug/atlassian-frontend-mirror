@@ -20,6 +20,11 @@ export interface EmptyStateProps {
 	 */
 	headingLevel?: number;
 	/**
+	 * The keyword used to set the visual appearance of the header element.
+	 * Defaults to "medium". "xsmall" can be used for empty states in smaller contexts such as popups.
+	 */
+	headingSize?: 'xsmall' | 'medium';
+	/**
 	 * The main block of text that holds additional supporting information.
 	 */
 	description?: ReactNode;

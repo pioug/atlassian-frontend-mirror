@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 208.3.1
+
+### Patch Changes
+
+- [#173895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173895)
+  [`6e123631d7c26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e123631d7c26) -
+  Clean up platform_editor_interaction_api_refactor
+- Updated dependencies
+
+## 208.3.0
+
+### Minor Changes
+
+- [#170867](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170867)
+  [`5ef91045141dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ef91045141dd) -
+  Add new fallback css widths for breakout resizing plugin, to fix issues in full width page
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 208.2.1
 
 ### Patch Changes

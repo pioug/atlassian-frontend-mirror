@@ -38,7 +38,6 @@ import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
 import ItalicIcon from '@atlaskit/icon/core/migration/text-italic--editor-italic';
 import TextStrikethroughIcon from '@atlaskit/icon/core/text-strikethrough';
 import UnderlineIcon from '@atlaskit/icon/core/text-underline';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -230,8 +229,7 @@ const buildMenuIconState =
 		const isActive =
 			hasMultiplePartsWithFormattingSelected &&
 			!commonActiveMarks?.includes(iconMark) &&
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_10')
+			editorExperiment('platform_editor_controls', 'variant1')
 				? false
 				: textFormattingState?.[`${iconMark}Active` as keyof TextFormattingState];
 

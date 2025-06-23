@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a5529c459ee2c2df402232a3b7b74525>>
+ * @codegen <<SignedSource::56ceccaeae6b6ab573cba52e86f8798f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  *
  * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Known uses: information state in section messages or inline messages.
+ * Usage guidance: Reserved for information statuses and messaging. 
+Filled status icons provide higher visual contrast to draw attention to important information.
+For information tooltips, use the unfilled 'information circle' icon.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

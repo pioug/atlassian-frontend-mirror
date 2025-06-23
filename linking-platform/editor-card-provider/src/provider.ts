@@ -399,6 +399,13 @@ export class EditorCardProvider implements CardProvider {
 		}
 	}
 
+	/**
+	 * This is used to determine if the url is a local Jira url or a remote one.
+	 */
+	private isLocalUrl(url: string): boolean {
+		return new URL(url).origin === this.baseUrl;
+	}
+
 	async resolve(
 		url: string,
 		appearance: CardAppearance,
@@ -419,12 +426,14 @@ export class EditorCardProvider implements CardProvider {
 				this.findUserPreference(url),
 			]);
 
-			if (isJiraWorkItem(url) && fg('issue-link-suggestions-in-comments')) {
-				const data = await this.fetchDataForResource(url);
-				if (data) {
-					const issueAri = this.extractAriFromData(data);
-					if (issueAri) {
-						this.onResolve?.(url, issueAri);
+			if (fg('issue-link-suggestions-in-comments')) {
+				if (isJiraWorkItem(url) && this.isLocalUrl(url)) {
+					const data = await this.fetchDataForResource(url);
+					if (data) {
+						const issueAri = this.extractAriFromData(data);
+						if (issueAri) {
+							this.onResolve?.(url, issueAri);
+						}
 					}
 				}
 			}

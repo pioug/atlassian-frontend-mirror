@@ -187,7 +187,6 @@ const FloatingToolbarTextFormat = ({
 	const { dropdownItems, singleItems } = useIconList({
 		icons: defaultIcons,
 		iconTypeList: ToolbarButtonsStrong,
-		shouldUnselect: hasMultiplePartsWithFormattingSelected,
 	});
 
 	const clearIcon = useClearIcon({

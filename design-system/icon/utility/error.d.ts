@@ -1,11 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6c1d63ae4640c77ce8c0bb5ef956d19>>
+ * @codegen <<SignedSource::343b69244ba0fadf58c486fddf0fb51f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import type { NewUtilityIconProps } from '@atlaskit/icon/base-new';
 
+/**
+ * @deprecated The icon "error" is deprecated in favour of "status-error" from “@atlaskit/icon/core”
+*/
 declare const ErrorIcon: {
   (props: NewUtilityIconProps): JSX.Element;
   displayName: string;

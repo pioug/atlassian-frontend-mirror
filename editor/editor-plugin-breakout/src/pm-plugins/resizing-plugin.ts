@@ -76,8 +76,16 @@ const addBreakoutToResizableNode = ({
 			updatedDocChanged = true;
 		} else if (breakoutMark?.attrs.width === null || breakoutMark?.attrs.width === undefined) {
 			const mode = breakoutMark.attrs.mode;
-			const newWidth =
-				mode === 'wide' ? akEditorCalculatedWideLayoutWidth : akEditorFullWidthLayoutWidth;
+
+			const newWidth = fg('platform_editor_breakout_resizing_patch_1')
+				? // if breakout is present on node, but page appearance is 'full width' force width to full width to maintain backwards compatibility
+					isFullWidthEnabled || mode === 'full-width'
+					? akEditorFullWidthLayoutWidth
+					: akEditorCalculatedWideLayoutWidth
+				: mode === 'wide'
+					? akEditorCalculatedWideLayoutWidth
+					: akEditorFullWidthLayoutWidth;
+
 			updatedTr = newTr.setNodeMarkup(pos, node.type, node.attrs, [
 				breakout.create({ width: newWidth, mode: mode }),
 			]);
@@ -188,12 +196,18 @@ export const createResizingPlugin = (
 			oldState: EditorState,
 			newState: EditorState,
 		) {
-			// if editor is in live-view mode don't send transactions
-			if (
-				api?.editorViewMode?.sharedState.currentState()?.mode !== 'edit' &&
-				fg('platform_editor_breakout_resizing_hello_release')
-			) {
-				return;
+			if (fg('platform_editor_breakout_resizing_patch_1')) {
+				if (api?.editorViewMode?.sharedState.currentState()?.mode === 'view') {
+					return;
+				}
+			} else {
+				// if editor is in live-view mode don't send transactions
+				if (
+					api?.editorViewMode?.sharedState.currentState()?.mode !== 'edit' &&
+					fg('platform_editor_breakout_resizing_hello_release')
+				) {
+					return;
+				}
 			}
 
 			let newTr = newState.tr;

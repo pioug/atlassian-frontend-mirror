@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 5.1.0
+
+### Minor Changes
+
+- [#174410](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174410)
+  [`80d17e2d01bc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80d17e2d01bc0) -
+  Issue Editor - Only call onResolve callback for resolved links if local links (not remote links)
+
 ## 5.0.4
 
 ### Patch Changes

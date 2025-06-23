@@ -114,7 +114,7 @@
 			"category": "Navigation",
 			"status": {
 				"type": "alpha",
-				"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+				"description": "This package is experimental. We may make frequent breaking changes with limited notice."
 			},
 			"subPages": [
 				{
@@ -122,7 +122,7 @@
 					"id": "layout",
 					"status": {
 						"type": "alpha",
-						"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+						"description": "This package is experimental. We may make frequent breaking changes with limited notice."
 					},
 					"sortKey": 1
 				},
@@ -131,7 +131,7 @@
 					"id": "side-navigation",
 					"status": {
 						"type": "alpha",
-						"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+						"description": "This package is experimental. We may make frequent breaking changes with limited notice."
 					},
 					"sortKey": 2
 				},
@@ -140,7 +140,7 @@
 					"id": "top-navigation",
 					"status": {
 						"type": "alpha",
-						"description": "This package is currently only available to Atlassians. We may make frequent breaking changes with limited notice."
+						"description": "This package is experimental. We may make frequent breaking changes with limited notice."
 					},
 					"sortKey": 3
 				}

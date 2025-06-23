@@ -55,7 +55,16 @@
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{
+			"path": "../media-client-react/tsconfig.app.json"
+		},
+		{
 			"path": "../media-common/tsconfig.app.json"
+		},
+		{
+			"path": "../media-state/tsconfig.app.json"
+		},
+		{
+			"path": "../media-test-data/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/page/tsconfig.app.json"

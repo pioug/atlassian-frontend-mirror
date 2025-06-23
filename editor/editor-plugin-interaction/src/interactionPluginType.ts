@@ -5,8 +5,6 @@ type InteractionCommands = {
 };
 
 export type SharedInteractionState = {
-	// Clean up with platform_editor_interaction_api_refactor
-	hasHadInteraction: boolean;
 	interactionState: null | 'hasNotHadInteraction';
 };
 

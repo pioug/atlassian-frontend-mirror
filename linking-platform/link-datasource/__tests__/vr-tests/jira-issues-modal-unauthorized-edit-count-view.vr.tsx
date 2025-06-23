@@ -7,6 +7,6 @@ snapshot(JiraIssuesConfigModalUnauthorizedEditCountViewState, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-linking-visual-refresh-sllv': true,
-		'replace-legacy-button-in-sllv': [false, true],
+		'replace-legacy-button-in-sllv': true,
 	},
 });

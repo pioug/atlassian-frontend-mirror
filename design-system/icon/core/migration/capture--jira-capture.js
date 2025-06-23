@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::de803b253d54b4162d4d04cd51a35361>>
+ * @codegen <<SignedSource::5c422438719ca9581daa7fe8f75988c3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,9 +17,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Migration Icon component for CaptureIcon.
  * This component is CaptureIcon, with `UNSAFE_fallbackIcon` set to "JiraCaptureIcon".
  *
- * Category: multi-purpose
+ * Category: single-purpose
  * Location: @atlaskit/icon
- * Usage guidance: 📦 @atlaskit/icon/core/capture
+ * Usage guidance: Reserved for representing Focus Areas.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

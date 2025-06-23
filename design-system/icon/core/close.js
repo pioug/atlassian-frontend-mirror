@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::13d0fc846b6bef3d8e704c9e8e0a2026>>
+ * @codegen <<SignedSource::b2832ce3758295ab6ed0286f39d79816>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -14,9 +14,9 @@ var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * Icon: "Close".
- * Category: single-purpose
+ * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for closing an element.
+ * Usage guidance: Known uses: closing modals, panels, and transient views; removing tags
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

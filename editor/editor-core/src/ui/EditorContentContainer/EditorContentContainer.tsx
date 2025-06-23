@@ -13,6 +13,7 @@ import { browser } from '@atlaskit/editor-common/browser';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { akEditorGutterPaddingDynamic, editorFontSize } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { useThemeObserver } from '@atlaskit/tokens';
 
@@ -116,6 +117,7 @@ import {
 } from './styles/placeholderStyles';
 import {
 	pragmaticResizerStyles,
+	pragmaticResizerStylesNew,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
 	pragmaticResizerStylesForTooltip,
 	resizerStyles,
@@ -415,15 +417,19 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					fg('platform_editor_hyperlink_underline') ? linkStyles : linkStylesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					browser.safari && listsStylesSafariFix,
-					editorExperiment('platform_editor_breakout_resizing', true) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						pragmaticResizerStyles,
+					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
+						? fg('platform_editor_breakout_resizing_width_changes')
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								pragmaticResizerStylesNew
+							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								pragmaticResizerStyles
+						: undefined,
 					editorExperiment('advanced_layouts', true) &&
-						editorExperiment('platform_editor_breakout_resizing', true) &&
+						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 						fg('platform_editor_breakout_resizing_hello_release') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticStylesLayoutFirstNodeResizeHandleFix,
-					editorExperiment('platform_editor_breakout_resizing', true) &&
+					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 						fg('platform_editor_breakout_resizing_hello_release') &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStylesForTooltip,

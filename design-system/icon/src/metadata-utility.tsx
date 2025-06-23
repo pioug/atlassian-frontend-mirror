@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d968f0d4e1bd5bc5e728353f8fdcc101>>
+ * @codegen <<SignedSource::def88f99a18599971f0ca077232e66ca>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -82,11 +82,12 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/add',
 		oldName: ['add-circle', 'add', 'editor/add', 'emoji/custom'],
 		type: 'utility',
+		replacement: { name: 'add', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage:
 			'Reserved for creating and adding an object as a secondary/tertiary action in a menu item.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'arrow-down': {
 		keywords: ['arrow-down', 'arrowdown', 'icon', 'utility', 'down', 'bottom', 'sorting'],
@@ -94,10 +95,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/arrow-down',
 		oldName: ['arrow-down-circle', 'arrow-down'],
 		type: 'utility',
+		replacement: { name: 'arrow-down', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Know uses: sorting table headers or Bitbucket code difference.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'arrow-left': {
 		keywords: [
@@ -114,10 +116,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/arrow-left',
 		oldName: ['arrow-left-circle', 'arrow-left'],
 		type: 'utility',
+		replacement: { name: 'arrow-left', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Known uses: back to previous screen, previous slide.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'arrow-right': {
 		keywords: [
@@ -135,10 +138,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/arrow-right',
 		oldName: ['arrow-right-circle', 'arrow-right'],
 		type: 'utility',
+		replacement: { name: 'arrow-right', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Known uses: link to nested menu item, a linked menu item, next slide.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'arrow-up': {
 		keywords: ['arrow-up', 'arrowup', 'icon', 'utility', 'improvement', 'jira status'],
@@ -146,10 +150,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/arrow-up',
 		oldName: ['arrow-up-circle', 'arrow-up'],
 		type: 'utility',
+		replacement: { name: 'arrow-up', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Known uses: back to top.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'check-circle': {
 		keywords: [
@@ -166,10 +171,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/check-circle',
 		oldName: ['check-circle', 'check-circle-outline', 'emoji/productivity'],
 		type: 'utility',
+		replacement: { name: 'check-circle', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: '📦 @atlaskit/icon/utility/check-circle',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'check-mark': {
 		keywords: ['check-mark', 'checkmark', 'icon', 'utility', 'tick'],
@@ -177,10 +183,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/check-mark',
 		oldName: ['check', 'editor/done'],
 		type: 'utility',
+		replacement: { name: 'check-mark', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: '📦 @atlaskit/icon/utility/check-mark',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'chevron-double-left': {
 		keywords: [
@@ -196,10 +203,11 @@ const metadata: Record<string, metadata> = {
 		componentName: 'ChevronDoubleLeftIcon',
 		package: '@atlaskit/icon/utility/chevron-double-left',
 		type: 'utility',
+		replacement: { name: 'chevron-double-left', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for calendar year button.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 		slackChannel: '#help-design-system',
 	},
 	'chevron-double-right': {
@@ -216,10 +224,11 @@ const metadata: Record<string, metadata> = {
 		componentName: 'ChevronDoubleRightIcon',
 		package: '@atlaskit/icon/utility/chevron-double-right',
 		type: 'utility',
+		replacement: { name: 'chevron-double-right', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for calendar year button.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 		slackChannel: '#help-design-system',
 	},
 	'chevron-down': {
@@ -237,10 +246,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/chevron-down',
 		oldName: ['chevron-down', 'chevron-down-circle', 'hipchat/chevron-down'],
 		type: 'utility',
+		replacement: { name: 'chevron-down', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for dropdown menus, selects, accordions, and expands.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'chevron-left': {
 		keywords: [
@@ -258,10 +268,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/chevron-left',
 		oldName: ['chevron-left-circle', 'chevron-left', 'chevron-left-large'],
 		type: 'utility',
+		replacement: { name: 'chevron-left', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for collapse side nav and to indicate previous in dates.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'chevron-right': {
 		keywords: [
@@ -279,10 +290,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/chevron-right',
 		oldName: ['chevron-right-circle', 'chevron-right', 'chevron-right-large'],
 		type: 'utility',
+		replacement: { name: 'chevron-right', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for menu fly outs and to indicate next in dates.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'chevron-up': {
 		keywords: [
@@ -299,10 +311,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/chevron-up',
 		oldName: ['chevron-up-circle', 'hipchat/chevron-up', 'chevron-up'],
 		type: 'utility',
+		replacement: { name: 'chevron-up', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for accordions.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	cross: {
 		keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'utility', 'remove', 'clear', 'x'],
@@ -310,10 +323,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/cross',
 		oldName: ['editor/close'],
 		type: 'utility',
+		replacement: { name: 'cross', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Known uses: remove tag.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'cross-circle': {
 		keywords: [
@@ -335,10 +349,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/cross-circle',
 		oldName: ['cross-circle', 'editor/error', 'select-clear'],
 		type: 'utility',
+		replacement: { name: 'cross-circle', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'drag-handle': {
 		keywords: [
@@ -355,7 +370,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/drag-handle',
 		oldName: ['drag-handler'],
 		type: 'utility',
-		replacement: { name: 'drag-handle-vertical', type: 'utility', location: '@atlaskit/icon' },
+		replacement: { name: 'drag-handle-vertical', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for draggable elements.',
 		team: 'Design System Team',
@@ -375,10 +390,11 @@ const metadata: Record<string, metadata> = {
 		componentName: 'DragHandleHorizontalIcon',
 		package: '@atlaskit/icon/utility/drag-handle-horizontal',
 		type: 'utility',
+		replacement: { name: 'drag-handle-horizontal', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for dragging elements along a horizontal axis.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 		slackChannel: '#icon-contributions',
 	},
 	'drag-handle-vertical': {
@@ -396,10 +412,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/drag-handle-vertical',
 		oldName: ['drag-handler'],
 		type: 'utility',
+		replacement: { name: 'drag-handle-vertical', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for dragging elements along a vertical axis.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 		slackChannel: '#icon-contributions',
 	},
 	error: {
@@ -418,10 +435,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/error',
 		oldName: ['error'],
 		type: 'utility',
+		replacement: { name: 'status-error', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	information: {
 		keywords: ['information', 'icon', 'utility', 'info', 'filled', 'helper', 'tip', 'form'],
@@ -429,10 +447,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/information',
 		oldName: ['editor/info', 'editor/panel', 'info'],
 		type: 'utility',
+		replacement: { name: 'status-information', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'link-external': {
 		keywords: [
@@ -459,10 +478,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/link-external',
 		oldName: ['shortcut'],
 		type: 'utility',
+		replacement: { name: 'link-external', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for links that open up a new tab as a secondary/tertiary action.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'lock-locked': {
 		keywords: [
@@ -484,10 +504,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/lock-locked',
 		oldName: ['lock-circle', 'lock-filled', 'lock', 'unlock-circle'],
 		type: 'utility',
+		replacement: { name: 'lock-locked', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'lock-unlocked': {
 		keywords: [
@@ -507,10 +528,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/lock-unlocked',
 		oldName: ['unlock-filled', 'unlock'],
 		type: 'utility',
+		replacement: { name: 'lock-unlocked', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'show-more-horizontal': {
 		keywords: [
@@ -529,10 +551,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/show-more-horizontal',
 		oldName: ['editor/more', 'more'],
 		type: 'utility',
+		replacement: { name: 'show-more-horizontal', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for secondary/tertiary more action menus.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'show-more-vertical': {
 		keywords: [
@@ -550,10 +573,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/show-more-vertical',
 		oldName: ['more-vertical'],
 		type: 'utility',
+		replacement: { name: 'show-more-vertical', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for secondary/tertiary action menus, traditionally on mobile.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'star-starred': {
 		keywords: [
@@ -573,10 +597,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/star-starred',
 		oldName: ['star-filled'],
 		type: 'utility',
+		replacement: { name: 'star-starred', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for starred or favourited objects as a secondary/tertiary action.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'star-unstarred': {
 		keywords: [
@@ -594,10 +619,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/star-unstarred',
 		oldName: ['star', 'star-large'],
 		type: 'utility',
+		replacement: { name: 'star-unstarred', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for starring or favoriting objects as a secondary/tertiary action.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	success: {
 		keywords: ['success', 'icon', 'utility', 'tick', 'yes', 'success', 'filled'],
@@ -605,10 +631,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/success',
 		oldName: ['check-circle', 'editor/success'],
 		type: 'utility',
+		replacement: { name: 'status-success', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	warning: {
 		keywords: [
@@ -628,10 +655,11 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/utility/warning',
 		oldName: ['editor/warning', 'warning'],
 		type: 'utility',
+		replacement: { name: 'status-warning', type: 'core', location: '@atlaskit/icon' },
 		categorization: 'utility',
 		usage: 'Reserved for Helper Messages in Forms.',
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 };
 

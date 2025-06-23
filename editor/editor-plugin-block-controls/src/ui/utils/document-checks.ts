@@ -1,13 +1,9 @@
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const isNestedNodeSelected = (view: EditorView) => {
 	const selection = view.state.selection;
-	return (
-		selection instanceof NodeSelection &&
-		selection.$from.depth > (fg('platform_editor_controls_patch_11') ? 0 : 1)
-	);
+	return selection instanceof NodeSelection && selection.$from.depth > 0;
 };
 
 export const isSelectionInNode = (start: number, view: EditorView) => {

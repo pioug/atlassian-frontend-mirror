@@ -288,7 +288,7 @@ export const TypeAheadControl = ({
 			const { codeBlock } = view.state.schema.nodes;
 			const { selection } = view.state;
 			const codeBlockParentNode = findParentNodeOfType(codeBlock)(selection);
-			if (codeBlockParentNode && fg('platform_editor_controls_patch_11')) {
+			if (codeBlockParentNode) {
 				// Slash command is not meant to be triggered inside code block, hence always insert slash in a new line following
 				api.core.actions.execute(createNewLine(codeBlockParentNode.pos));
 			} else if (isSelectionInsideNode) {

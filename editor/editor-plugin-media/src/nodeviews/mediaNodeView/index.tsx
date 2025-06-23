@@ -25,7 +25,6 @@ import type { SharedInteractionState } from '@atlaskit/editor-plugin-interaction
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
@@ -197,9 +196,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			};
 
 			const isSelectedAndInteracted =
-				this.nodeInsideSelection() &&
-				(!fg('platform_editor_interaction_api_refactor') ||
-					interactionState !== 'hasNotHadInteraction');
+				this.nodeInsideSelection() && interactionState !== 'hasNotHadInteraction';
 
 			return (
 				<MediaNode

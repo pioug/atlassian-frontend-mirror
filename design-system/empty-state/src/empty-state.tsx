@@ -35,6 +35,7 @@ const EmptyState = ({
 	description,
 	header,
 	headingLevel = 4,
+	headingSize = 'medium',
 	imageHeight,
 	imageUrl,
 	imageWidth,
@@ -88,7 +89,7 @@ const EmptyState = ({
 				renderImage && renderImage({ maxImageWidth, maxImageHeight, imageWidth, imageHeight })
 			)}
 			<Box paddingBlockEnd="space.200">
-				<Heading size="medium" as={tag}>
+				<Heading size={headingSize} as={tag}>
 					{header}
 				</Heading>
 			</Box>

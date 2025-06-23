@@ -375,8 +375,6 @@ export const DragHandle = ({
 	const { macroInteractionUpdates } = useDragHandlePluginState(api);
 	const selection = useSharedPluginStateSelector(api, 'selection.selection');
 	const isShiftDown = useSharedPluginStateSelector(api, 'blockControls.isShiftDown');
-	const _hasHadInteraction =
-		useSharedPluginStateSelector(api, 'interaction.hasHadInteraction') !== false;
 	const interactionState = useSharedPluginStateSelector(api, 'interaction.interactionState');
 
 	const start = getPos();
@@ -1120,9 +1118,7 @@ export const DragHandle = ({
 
 	const hasHadInteraction =
 		!fg('platform_editor_no_cursor_on_live_doc_init') ||
-		(fg('platform_editor_interaction_api_refactor')
-			? interactionState !== 'hasNotHadInteraction'
-			: _hasHadInteraction !== false);
+		interactionState !== 'hasNotHadInteraction';
 
 	const renderButton = () => (
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button

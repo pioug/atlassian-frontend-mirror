@@ -162,8 +162,7 @@ export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAP
 					event.key === 'u' &&
 					event.metaKey &&
 					pluginKey.getState(state)?.underlineDisabled &&
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_9')
+					editorExperiment('platform_editor_controls', 'variant1')
 				) {
 					// This is a workaround for browser behaviour with cmd+u (in Chrome only) where the underline mark being applied around the selection
 					event.preventDefault();

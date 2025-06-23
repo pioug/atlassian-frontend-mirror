@@ -9,7 +9,6 @@ type ReturnObject = {
 };
 
 const specialCases: { [oldImport: string]: string } = {
-	'@atlaskit/icon/utility/cross': '@atlaskit/icon/core/close',
 	'@atlaskit/icon/utility/migration/cross--editor-close':
 		'@atlaskit/icon/core/migration/close--editor-close',
 };

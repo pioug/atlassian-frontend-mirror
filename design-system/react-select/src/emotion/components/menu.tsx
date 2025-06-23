@@ -382,8 +382,15 @@ const Menu = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerRef, innerProps } = props;
+	const styles = getStyleProps(props, 'menu', { menu: true });
 	return (
-		<div {...getStyleProps(props, 'menu', { menu: true })} ref={innerRef} {...innerProps}>
+		<div
+			{...styles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={styles.className || '-menu'}
+			ref={innerRef}
+			{...innerProps}
+		>
 			{children}
 		</div>
 	);

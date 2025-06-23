@@ -32,7 +32,6 @@ import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { messages } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
@@ -358,44 +357,11 @@ const getMediaInlineImageToolbar = (
 			},
 		);
 	} else {
-		const options: DropdownOptionT<Command>[] = [
-			{
-				id: 'editor.media.convert.mediainline',
-				title: mediaInlineImageTitle,
-				onClick: () => {
-					return true;
-				},
-				selected: true,
-				disabled: false,
-				icon: <ImageInlineIcon color="currentColor" spacing="spacious" label="" />,
-			},
-			{
-				id: 'editor.media.convert.mediasingle',
-				title: mediaSingleTitle,
-				onClick: changeMediaInlineToMediaSingle(editorAnalyticsAPI, widthPluginState),
-				icon: <MaximizeIcon color="currentColor" spacing="spacious" label="" />,
-			},
-		];
-
-		let switchFromInlineToBlock: FloatingToolbarDropdown<Command>;
-		if (fg('platform_editor_controls_patch_11')) {
-			switchFromInlineToBlock = getMediaSingleAndMediaInlineSwitcherDropdown(
-				'inline',
-				intl,
-				pluginInjectionApi,
-			);
-		} else {
-			switchFromInlineToBlock = {
-				id: 'media-inline-to-block-toolbar-item',
-				testId: 'media-inline-to-block-dropdown',
-				type: 'dropdown',
-				options: options,
-				title: intl.formatMessage(messages.sizeOptions),
-				icon: () => (
-					<ImageInlineIcon color="currentColor" spacing="spacious" label={mediaInlineImageTitle} />
-				),
-			};
-		}
+		const switchFromInlineToBlock = getMediaSingleAndMediaInlineSwitcherDropdown(
+			'inline',
+			intl,
+			pluginInjectionApi,
+		);
 
 		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator', fullHeight: true });
 

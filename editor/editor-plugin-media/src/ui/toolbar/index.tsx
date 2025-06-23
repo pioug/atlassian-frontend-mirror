@@ -551,53 +551,12 @@ const generateMediaSingleFloatingToolbar = (
 						{ type: 'separator' },
 					);
 				} else {
-					const inlineTitle = intl.formatMessage(
-						mediaAndEmbedToolbarMessages.changeToMediaInlineImage,
+					const switchFromBlockToInline = getMediaSingleAndMediaInlineSwitcherDropdown(
+						'block',
+						intl,
+						pluginInjectionApi,
+						hasCaption,
 					);
-					const options: DropdownOptionT<Command>[] = [
-						{
-							id: 'editor.media.convert.mediainline',
-							title: inlineTitle,
-							onClick: changeMediaSingleToMediaInline(pluginInjectionApi?.analytics?.actions),
-							icon: <ImageInlineIcon color="currentColor" spacing="spacious" label="" />,
-							tooltip: hasCaption ? inlineSwitcherTitle : undefined,
-						},
-						{
-							id: 'editor.media.convert.mediasingle',
-							title: floatingSwitcherTitle,
-							selected: true,
-							onClick: () => {
-								return true;
-							},
-							icon: <MaximizeIcon color="currentColor" spacing="spacious" label="" />,
-						},
-					];
-
-					let switchFromBlockToInline: FloatingToolbarDropdown<Command>;
-
-					if (fg('platform_editor_controls_patch_11')) {
-						switchFromBlockToInline = getMediaSingleAndMediaInlineSwitcherDropdown(
-							'block',
-							intl,
-							pluginInjectionApi,
-							hasCaption,
-						);
-					} else {
-						switchFromBlockToInline = {
-							id: 'media-block-to-inline-toolbar-item',
-							testId: 'media-inline-to-block-dropdown',
-							type: 'dropdown',
-							options: options,
-							title: intl.formatMessage(messages.sizeOptions),
-							icon: () => (
-								<MaximizeIcon
-									color="currentColor"
-									spacing="spacious"
-									label={intl.formatMessage(messages.sizeOptions)}
-								/>
-							),
-						};
-					}
 
 					toolbarButtons.push(switchFromBlockToInline, {
 						type: 'separator',

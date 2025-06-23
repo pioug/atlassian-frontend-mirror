@@ -1,7 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InteractionState } from '../types';
 
@@ -47,7 +46,7 @@ export const createPlugin = () =>
 				keyup: handleInteraction,
 				// Handle drag and drop _into_ the editor from outside. Eg image DnD
 				drop: handleInteraction,
-				focus: fg('platform_editor_interaction_api_refactor') ? handleInteraction : undefined,
+				focus: handleInteraction,
 			},
 		},
 	});

@@ -57,11 +57,26 @@ export class ResizingMarkView implements NodeView {
 		dom.style.justifyContent = 'center';
 
 		// contentDOM - styles
-		contentDOM.style.gridRow = '1';
-		contentDOM.style.gridColumn = '1';
+		if (fg('platform_editor_breakout_resizing_width_changes')) {
+			contentDOM.style.gridColumn = '2';
+		} else {
+			contentDOM.style.gridRow = '1';
+			contentDOM.style.gridColumn = '1';
+		}
 		contentDOM.style.zIndex = '1';
 
-		if (fg('platform_editor_breakout_resizing_hello_release')) {
+		if (fg('platform_editor_breakout_resizing_width_changes')) {
+			if (mark.attrs.width) {
+				dom.style.gridTemplateColumns = `auto min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width)) auto`;
+			} else {
+				if (mark.attrs.mode === 'wide') {
+					contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--breakout-wide-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
+				if (mark.attrs.mode === 'full-width') {
+					contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--full-width-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+				}
+			}
+		} else if (fg('platform_editor_breakout_resizing_hello_release')) {
 			if (mark.attrs.width) {
 				contentDOM.style.width = `min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
 			} else {

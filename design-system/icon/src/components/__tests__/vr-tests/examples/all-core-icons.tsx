@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::98ff44032a7d84bb857ea00743e44577>>
+ * @codegen <<SignedSource::712877834f0065983b3d39f4eaa78286>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -99,6 +99,7 @@ import ContentWrapLeftIcon from '../../../../../core/content-wrap-left';
 import ContentWrapRightIcon from '../../../../../core/content-wrap-right';
 import CopyIcon from '../../../../../core/copy';
 import CreditCardIcon from '../../../../../core/credit-card';
+import CrossIcon from '../../../../../core/cross';
 import CrossCircleIcon from '../../../../../core/cross-circle';
 import CurlyBracketsIcon from '../../../../../core/curly-brackets';
 import CustomizeIcon from '../../../../../core/customize';
@@ -146,6 +147,7 @@ import FilterIcon from '../../../../../core/filter';
 import FlagIcon from '../../../../../core/flag';
 import FlagFilledIcon from '../../../../../core/flag-filled';
 import FlaskIcon from '../../../../../core/flask';
+import FocusAreaIcon from '../../../../../core/focus-area';
 import FolderClosedIcon from '../../../../../core/folder-closed';
 import FolderOpenIcon from '../../../../../core/folder-open';
 import FormIcon from '../../../../../core/form';
@@ -292,7 +294,12 @@ import SpreadsheetIcon from '../../../../../core/spreadsheet';
 import SprintIcon from '../../../../../core/sprint';
 import StarStarredIcon from '../../../../../core/star-starred';
 import StarUnstarredIcon from '../../../../../core/star-unstarred';
+import StatusDiscoveryIcon from '../../../../../core/status-discovery';
+import StatusErrorIcon from '../../../../../core/status-error';
+import StatusInformationIcon from '../../../../../core/status-information';
+import StatusSuccessIcon from '../../../../../core/status-success';
 import StatusVerifiedIcon from '../../../../../core/status-verified';
+import StatusWarningIcon from '../../../../../core/status-warning';
 import StopwatchIcon from '../../../../../core/stopwatch';
 import StoryIcon from '../../../../../core/story';
 import StrokeWeightExtraLargeIcon from '../../../../../core/stroke-weight-extra-large';
@@ -400,7 +407,6 @@ const Icons = [
 	CalendarIcon,
 	PhoneIcon,
 	CameraIcon,
-	CaptureIcon,
 	ChangesIcon,
 	ChartPieIcon,
 	CheckMarkIcon,
@@ -419,7 +425,6 @@ const Icons = [
 	ShrinkHorizontalIcon,
 	CopyIcon,
 	CreditCardIcon,
-	CloseIcon,
 	CrossCircleIcon,
 	DashboardIcon,
 	DatabaseIcon,
@@ -433,9 +438,7 @@ const Icons = [
 	EmojiIcon,
 	EmojiAddIcon,
 	EpicIcon,
-	ErrorIcon,
 	GrowHorizontalIcon,
-	FlaskIcon,
 	EyeOpenFilledIcon,
 	EyeOpenIcon,
 	DownloadIcon,
@@ -458,10 +461,8 @@ const Icons = [
 	HomeIcon,
 	ImageIcon,
 	IncidentIcon,
-	InformationIcon,
 	WorkItemIcon,
 	WorkItemsIcon,
-	LightbulbIcon,
 	ThumbsUpIcon,
 	LinkIcon,
 	LinkBrokenIcon,
@@ -541,7 +542,6 @@ const Icons = [
 	VolumeHighIcon,
 	VolumeLowIcon,
 	VolumeMutedIcon,
-	WarningIcon,
 	WhiteboardIcon,
 	GlobeIcon,
 	ZoomInIcon,
@@ -582,8 +582,6 @@ const Icons = [
 	ContentWidthWideIcon,
 	AlignImageCenterIcon,
 	AlignImageLeftIcon,
-	SuccessIcon,
-	DiscoveryIcon,
 	TreeIcon,
 	TakeoutFoodIcon,
 	VehicleCarIcon,
@@ -593,16 +591,12 @@ const Icons = [
 	PlusSquareIcon,
 	DefectIcon,
 	ListChecklistIcon,
-	PenIcon,
-	CashIcon,
-	PaintPaletteIcon,
 	ToolsIcon,
 	DevicesIcon,
 	PeopleGroupIcon,
 	SortDescendingIcon,
 	SortAscendingIcon,
 	MinusSquareIcon,
-	MagicWandIcon,
 	MergeSuccessIcon,
 	MergeFailureIcon,
 	OnCallIcon,
@@ -647,6 +641,19 @@ const Icons = [
 	SmartLinkEmbedIcon,
 	SmartLinkListIcon,
 	KeyResultIcon,
+	CrossIcon,
+	StatusDiscoveryIcon,
+	StatusErrorIcon,
+	StatusInformationIcon,
+	StatusSuccessIcon,
+	StatusWarningIcon,
+	FocusAreaIcon,
+	CashIcon,
+	FlaskIcon,
+	LightbulbIcon,
+	MagicWandIcon,
+	PaintPaletteIcon,
+	PenIcon,
 	TableCellMergeIcon,
 	TableCellSplitIcon,
 	TableCellClearIcon,
@@ -728,6 +735,13 @@ const Icons = [
 	ChevronLeftIcon,
 	ChevronRightIcon,
 	ChevronUpIcon,
+	DiscoveryIcon,
+	ErrorIcon,
+	InformationIcon,
+	SuccessIcon,
+	WarningIcon,
+	CaptureIcon,
+	CloseIcon,
 ];
 
 const groupSize = 20;
@@ -793,6 +807,8 @@ export const MediumIconGroup15 = allMediumExamples[15];
 export const MediumIconGroup16 = allMediumExamples[16];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MediumIconGroup17 = allMediumExamples[17];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MediumIconGroup18 = allMediumExamples[18];
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup0 = allSmallExamples[0];
@@ -830,3 +846,5 @@ export const SmallIconGroup15 = allSmallExamples[15];
 export const SmallIconGroup16 = allSmallExamples[16];
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SmallIconGroup17 = allSmallExamples[17];
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const SmallIconGroup18 = allSmallExamples[18];

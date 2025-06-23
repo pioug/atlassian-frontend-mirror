@@ -1,5 +1,14 @@
 # @atlaskit/empty-state
 
+## 10.1.0
+
+### Minor Changes
+
+- [#173373](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173373)
+  [`8061d8294d7ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8061d8294d7ad) -
+  Added option to set headingSize prop on the header in the EmptyState component. Options are medium
+  (default) and xsmall, intended for smaller spaces such as popups.
+
 ## 10.0.2
 
 ### Patch Changes

@@ -1,14 +1,16 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
+import { LateMutation } from '../common/react-ufo-payload-schema';
 import { type RevisionPayload } from '../common/vc/types';
-import { getConfig, getPostInteractionRate } from '../config';
+import { getConfig, getMostRecentVCRevision, getPostInteractionRate } from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';
 import { getReactUFOPayloadVersion } from '../create-payload/utils/get-react-ufo-payload-version';
 import { getPageVisibilityState } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
 
 import getLateMutations from './get-late-mutations';
-import type { LateMutation } from './types';
 
 function getParentStack(labelStack: LabelStack | null | undefined) {
 	if (!labelStack || labelStack.length <= 1) {
@@ -172,6 +174,10 @@ function createPostInteractionLogPayload({
 		lastInteractionFinish.end - lastInteractionFinish.start,
 	);
 
+	const mostRecentVCRevision = fg('platform_ufo_post_interaction_most_recent_vc_rev')
+		? getMostRecentVCRevision(lastInteractionFinish.ufoName)
+		: 'fy25.02';
+
 	let lastInteractionFinishVC90: number | null = null;
 	let lastInteractionFinishVCClean: boolean = false;
 
@@ -179,7 +185,7 @@ function createPostInteractionLogPayload({
 		'ufo:vc:rev'
 	] as RevisionPayload;
 	const lastInteractionFinishRevision = lastInteractionFinishVCRev?.find(
-		({ revision }) => revision === 'fy25.02',
+		({ revision }) => revision === mostRecentVCRevision,
 	);
 	if (lastInteractionFinishRevision?.clean) {
 		lastInteractionFinishVCClean = true;
@@ -195,7 +201,7 @@ function createPostInteractionLogPayload({
 		'ufo:vc:rev'
 	] as RevisionPayload;
 	const postInteractionFinishRevision = postInteractionFinishVCRev?.find(
-		({ revision }) => revision === 'fy25.02',
+		({ revision }) => revision === mostRecentVCRevision,
 	);
 
 	if (postInteractionFinishRevision?.clean) {

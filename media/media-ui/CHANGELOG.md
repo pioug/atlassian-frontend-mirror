@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 28.3.4
+
+### Patch Changes
+
+- [#174609](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174609)
+  [`cd45180a91d12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd45180a91d12) -
+  MediaPlayer component renders controls responsively (with new captions controls)
+
 ## 28.3.3
 
 ### Patch Changes

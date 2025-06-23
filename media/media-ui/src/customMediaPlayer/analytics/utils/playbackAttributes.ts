@@ -8,7 +8,7 @@ export type WithPlaybackProps = {
 };
 
 export type WithMediaPlayerState = {
-	playerSize: 'small' | 'medium' | 'large';
+	playerSize: 'small' | 'medium' | 'large' | 'xlarge';
 	isFullScreenEnabled: boolean;
 	playbackSpeed: number;
 };

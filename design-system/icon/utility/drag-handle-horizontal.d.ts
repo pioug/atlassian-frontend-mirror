@@ -1,11 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::207c34ce1c830137342bd2bda8211fdb>>
+ * @codegen <<SignedSource::c6e06e4c2a436a2d2b97de5646ad5c07>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import type { NewUtilityIconProps } from '@atlaskit/icon/base-new';
 
+/**
+ * @deprecated The icon "drag-handle-horizontal" is deprecated in favour of "drag-handle-horizontal" from “@atlaskit/icon/core”
+*/
 declare const DragHandleHorizontalIcon: {
   (props: NewUtilityIconProps): JSX.Element;
   displayName: string;

@@ -30,7 +30,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import ExpandHorizontalIcon from '@atlaskit/icon/core/expand-horizontal';
 import EditIcon from '@atlaskit/icon/core/migration/edit--editor-edit';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { editExtension } from '../editor-actions/actions';
@@ -474,13 +473,9 @@ export const getToolbarConfig =
 				{
 					id: 'editor.extension.delete',
 					type: 'button',
-					icon:
-						editorExperiment('platform_editor_controls', 'variant1') &&
-						fg('platform_editor_controls_patch_10')
-							? DeleteIcon
-							: () => (
-									<DeleteIcon label={formatMessage(commonMessages.remove)} spacing="spacious" />
-								),
+					icon: editorExperiment('platform_editor_controls', 'variant1')
+						? DeleteIcon
+						: () => <DeleteIcon label={formatMessage(commonMessages.remove)} spacing="spacious" />,
 					iconFallback: DeleteIcon,
 					appearance: 'danger',
 					onClick: removeExtension(editorAnalyticsAPI, INPUT_METHOD.FLOATING_TB),

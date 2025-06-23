@@ -46,6 +46,7 @@ export const _CaptionsSelectControls = memo(
 					<Button
 						appearance={areCaptionsEnabled ? 'default' : 'subtle'}
 						onClick={() => onCaptionsEnabledChange(!areCaptionsEnabled)}
+						aria-label={closedCaptions}
 					>
 						CC
 					</Button>

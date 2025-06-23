@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-breakout",
-	"version": "2.8.2",
+	"version": "2.9.1",
 	"description": "Breakout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -121,6 +121,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_breakout_resizing_hello_release": {
+			"type": "boolean"
+		},
+		"platform_editor_breakout_resizing_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_breakout_resizing_width_changes": {
 			"type": "boolean"
 		}
 	}

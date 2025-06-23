@@ -1,7 +1,6 @@
 import type { LastInteractionFinishInfo } from '../common';
+import { LateMutation } from '../common/react-ufo-payload-schema';
 import type { RevisionPayloadVCDetails } from '../common/vc/types';
-
-import type { LateMutation } from './types';
 
 function getLateMutations(
 	vcDetails: RevisionPayloadVCDetails,

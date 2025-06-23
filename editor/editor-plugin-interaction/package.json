@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-interaction",
-	"version": "2.0.1",
+	"version": "3.0.0",
 	"description": "Interaction plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,11 +39,7 @@
 	"devDependencies": {
 		"typescript": "~5.4.2"
 	},
-	"platform-feature-flags": {
-		"platform_editor_interaction_api_refactor": {
-			"type": "boolean"
-		}
-	},
+	"platform-feature-flags": {},
 	"techstack": {
 		"@atlassian/frontend": {
 			"code-structure": [

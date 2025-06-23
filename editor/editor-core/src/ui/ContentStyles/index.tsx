@@ -388,11 +388,18 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		var(--ak-editor--large-gutter-padding) * 2 + var(--ak-editor--default-gutter-padding)
 	);
 
+	--ak-editor--breakout-fallback-width: calc(
+		100cqw - var(--ak-editor--breakout-full-page-guttering-padding)
+	);
+
 	.fabric-editor--full-width-mode {
 		--ak-editor--line-length: min(
 			calc(100cqw - var(--ak-editor--large-gutter-padding) * 2),
 			var(--ak-editor--full-width-layout-width)
 		);
+
+		/* in full width appearances it's not possible to rely on cqw because it doesn't account for the page scrollbar, which depends on users system settings */
+		--ak-editor--breakout-fallback-width: 100%;
 	}
 
 	.ProseMirror {

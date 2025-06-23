@@ -160,7 +160,12 @@ export function createResizerCallbacks({
 				}
 			}
 
-			contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
+			if (fg('platform_editor_breakout_resizing_width_changes')) {
+				// dom is used for width calculations
+				dom.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
+			} else {
+				contentDOM.style.setProperty(LOCAL_RESIZE_PROPERTY, `${newWidth}px`);
+			}
 		},
 		onDrop({ location, source }) {
 			let payloads: BreakoutEventPayload[] = [];
@@ -194,7 +199,12 @@ export function createResizerCallbacks({
 			}
 			setBreakoutWidth(newWidth, mode, pos, isEditMode)(view.state, view.dispatch);
 
-			contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
+			if (fg('platform_editor_breakout_resizing_width_changes')) {
+				dom.style.removeProperty(LOCAL_RESIZE_PROPERTY);
+			} else {
+				contentDOM.style.removeProperty(LOCAL_RESIZE_PROPERTY);
+			}
+
 			if (node && fg('platform_editor_breakout_resizing_hello_release')) {
 				const resizedPayload = generateResizedEventPayload({
 					node,

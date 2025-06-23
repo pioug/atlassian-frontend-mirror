@@ -196,7 +196,7 @@ export type ReactUFOPayload = {
 	};
 };
 
-type LateElement = {
+export type LateMutation = {
 	time: number;
 	element: string;
 	viewportHeatmapPercentage: number;
@@ -236,7 +236,7 @@ export type PostInteractionLogPayload = {
 				revisedTtai: number;
 				revisedVC90: number;
 				vcClean: boolean;
-				lateMutations: LateElement[];
+				lateMutations: LateMutation[];
 				reactProfilerTimings: ReactProfilerTiming[];
 			};
 		};

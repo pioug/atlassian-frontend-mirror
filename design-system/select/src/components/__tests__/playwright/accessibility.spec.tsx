@@ -1,6 +1,6 @@
 import { expect, test } from '@af/integration-testing';
 
-const creatableSelectContainer = '.value-container';
+const creatableSelectContainer = '.-ValueContainer';
 const creatableSelectMenu = '[role="listbox"]';
 const creatableSelectMenuItem = '[id="react-select-2-option-0"]';
 const noOptions = '[id="react-select-2-listbox"]';

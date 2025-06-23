@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 2.7.6
+
+### Patch Changes
+
+- [#175058](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175058)
+  [`cfb3a1596d972`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfb3a1596d972) -
+  Add same class names in emotion compoent as compiled select for GA
+- Updated dependencies
+
 ## 2.7.5
 
 ### Patch Changes

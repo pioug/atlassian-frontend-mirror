@@ -65,13 +65,13 @@ describe('TeamLinkCard', () => {
 	it('should render the component with title', () => {
 		renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
-		expect(screen.getByText('Test Container')).toBeInTheDocument();
+		expect(screen.getByText('Test Container')).toBeVisible();
 	});
 
 	it('should render with correct test id', () => {
 		renderWithIntl(<TeamLinkCard {...defaultProps} />);
 
-		expect(screen.getByTestId('team-link-card-inner')).toBeInTheDocument();
+		expect(screen.getByTestId('team-link-card-inner')).toBeVisible();
 	});
 
 	it('should have accessible link structure', () => {
@@ -94,7 +94,7 @@ describe('TeamLinkCard', () => {
 		await userEvent.hover(container);
 		expect(
 			screen.getByRole('button', { name: /disconnect the container Test Container/i }),
-		).toBeInTheDocument();
+		).toBeVisible();
 
 		await userEvent.unhover(container);
 		expect(
@@ -102,7 +102,7 @@ describe('TeamLinkCard', () => {
 		).not.toBeInTheDocument();
 	});
 
-	it('should show/hide more options button on hover/unhover for WebLink containers', async () => {
+	it('should show/hide more options button based on hover and dropdown state for WebLink containers', async () => {
 		renderWithIntl(<TeamLinkCard {...defaultProps} containerType="WebLink" />);
 
 		const container = screen.getByTestId('team-link-card-inner');
@@ -112,11 +112,24 @@ describe('TeamLinkCard', () => {
 		).not.toBeInTheDocument();
 
 		await userEvent.hover(container);
-		expect(
-			screen.getByRole('button', { name: /more options for Test Container/i }),
-		).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: /more options for Test Container/i })).toBeVisible();
 
 		await userEvent.unhover(container);
+		expect(
+			screen.queryByRole('button', { name: /more options for Test Container/i }),
+		).not.toBeInTheDocument();
+
+		await userEvent.hover(container);
+		const moreOptionsButton = screen.getByRole('button', {
+			name: /more options for Test Container/i,
+		});
+
+		await userEvent.click(moreOptionsButton);
+
+		await userEvent.unhover(container);
+		expect(screen.getByRole('button', { name: /more options for Test Container/i })).toBeVisible();
+
+		await userEvent.keyboard('{Escape}');
 		expect(
 			screen.queryByRole('button', { name: /more options for Test Container/i }),
 		).not.toBeInTheDocument();

@@ -122,39 +122,15 @@ export const removeCard = (editorAnalyticsApi: EditorAnalyticsAPI | undefined): 
 		{ action: ACTION.DELETED },
 	);
 
-export const visitCardLink =
+export const visitCardLinkAnalytics =
 	(
 		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-		inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.TOOLBAR,
-	): Command =>
-	(state, dispatch) => {
-		if (!(state.selection instanceof NodeSelection)) {
-			return false;
-		}
-
-		const { type } = state.selection.node;
-
-		if (dispatch) {
-			const { tr } = state;
-			editorAnalyticsApi?.attachAnalyticsEvent(
-				buildVisitedNonHyperLinkPayload(
-					type.name as
-						| ACTION_SUBJECT_ID.CARD_INLINE
-						| ACTION_SUBJECT_ID.CARD_BLOCK
-						| ACTION_SUBJECT_ID.EMBEDS,
-					inputMethod,
-				),
-			)(tr);
-
-			dispatch(tr);
-		}
-		return true;
-	};
-
-export const visitCardLinkAnalyticsOnly =
-	(
-		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-		inputMethod: INPUT_METHOD.BUTTON | INPUT_METHOD.DOUBLE_CLICK | INPUT_METHOD.META_CLICK,
+		inputMethod:
+			| INPUT_METHOD.FLOATING_TB
+			| INPUT_METHOD.TOOLBAR
+			| INPUT_METHOD.BUTTON
+			| INPUT_METHOD.DOUBLE_CLICK
+			| INPUT_METHOD.META_CLICK,
 	): Command =>
 	(state, dispatch) => {
 		if (!(state.selection instanceof NodeSelection)) {
@@ -515,37 +491,36 @@ const generateToolbarItems =
 
 			const openLinkInputMethod = INPUT_METHOD.FLOATING_TB;
 
-			const editButtonItems: Array<FloatingToolbarItem<Command>> =
-				cardOptions.allowDatasource && fg('platform_editor_controls_patch_9')
-					? [
-							{
-								type: 'custom',
-								fallback: [],
-								render: (editorView) => (
-									<EditToolbarButton
-										key="edit-toolbar-item"
-										url={url}
-										intl={intl}
-										editorAnalyticsApi={editorAnalyticsApi}
-										editorView={editorView}
-										onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
-										currentAppearance={currentAppearance}
-									/>
-								),
-							},
-						]
-					: [
-							{
-								id: 'editor.link.edit',
-								type: 'button',
-								selected: false,
-								metadata: metadata,
-								title: intl.formatMessage(linkToolbarMessages.editLink),
-								icon: EditIcon,
-								testId: 'link-toolbar-edit-link-button',
-								onClick: getEditLinkCallback(editorAnalyticsApi, true),
-							},
-						];
+			const editButtonItems: Array<FloatingToolbarItem<Command>> = cardOptions.allowDatasource
+				? [
+						{
+							type: 'custom',
+							fallback: [],
+							render: (editorView) => (
+								<EditToolbarButton
+									key="edit-toolbar-item"
+									url={url}
+									intl={intl}
+									editorAnalyticsApi={editorAnalyticsApi}
+									editorView={editorView}
+									onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
+									currentAppearance={currentAppearance}
+								/>
+							),
+						},
+					]
+				: [
+						{
+							id: 'editor.link.edit',
+							type: 'button',
+							selected: false,
+							metadata: metadata,
+							title: intl.formatMessage(linkToolbarMessages.editLink),
+							icon: EditIcon,
+							testId: 'link-toolbar-edit-link-button',
+							onClick: getEditLinkCallback(editorAnalyticsApi, true),
+						},
+					];
 
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = editorExperiment(
 				'platform_editor_controls',
@@ -562,7 +537,7 @@ const generateToolbarItems =
 							metadata: metadata,
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
-							onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
+							onClick: visitCardLinkAnalytics(editorAnalyticsApi, openLinkInputMethod),
 							href: url,
 							target: '_blank',
 						},
@@ -607,7 +582,7 @@ const generateToolbarItems =
 							metadata: metadata,
 							className: 'hyperlink-open-link',
 							title: intl.formatMessage(linkMessages.openLink),
-							onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
+							onClick: visitCardLinkAnalytics(editorAnalyticsApi, openLinkInputMethod),
 							href: url,
 							target: '_blank',
 						},
@@ -912,7 +887,7 @@ const getDatasourceButtonGroup = (
 			metadata: metadata,
 			className: 'hyperlink-open-link',
 			title: intl.formatMessage(linkMessages.openLink),
-			onClick: visitCardLink(editorAnalyticsApi, openLinkInputMethod),
+			onClick: visitCardLinkAnalytics(editorAnalyticsApi, openLinkInputMethod),
 			href: node.attrs.url,
 			target: '_blank',
 		});

@@ -1595,7 +1595,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': false,
-		'platform-linking-fix-a11y-in-smart-card': true,
 	},
 });
 snapshot(FlexUiBlockAiSummaryError, {
@@ -1615,7 +1614,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 		'platform-component-visual-refresh': [true, false],
 		'platform-linking-visual-refresh-v1': [true, false],
 		'platform-linking-visual-refresh-v2': true,
-		'platform-linking-fix-a11y-in-smart-card': true,
 	},
 });
 

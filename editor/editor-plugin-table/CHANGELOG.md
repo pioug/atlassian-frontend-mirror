@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 10.12.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.12.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.12.6
 
 ### Patch Changes

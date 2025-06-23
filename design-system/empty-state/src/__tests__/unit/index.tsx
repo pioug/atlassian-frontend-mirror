@@ -182,6 +182,27 @@ describe('Empty state', () => {
 
 		expect(screen.getByRole('heading', { level: 6 })).toBeInTheDocument();
 	});
+
+	it('should render heading size without passed `headingSize` correctly', async () => {
+		render(<EmptyState header="Test header" imageUrl="image-url-in-props" />);
+
+		const styles = getComputedStyle(screen.getByRole('heading'));
+		expect(styles.getPropertyValue('font')).toContain('--ds-font-heading-medium');
+	});
+
+	it('should render heading size with a passed `headingSize` correctly', async () => {
+		render(<EmptyState header="Test header" headingSize="xsmall" imageUrl="image-url-in-props" />);
+
+		const styles = getComputedStyle(screen.getByRole('heading'));
+		expect(styles.getPropertyValue('font')).toContain('--ds-font-heading-xsmall');
+	});
+
+	it('it should not affect heading level if `headingSize` prop is used', async () => {
+		render(<EmptyState header="Test header" headingSize="xsmall" imageUrl="image-url-in-props" />);
+
+		expect(screen.getByRole('heading', { level: 4 })).toBeInTheDocument(); // default heading level
+	});
+
 	it('button group should have default label value', async () => {
 		const primary = <Button testId="primary-action">Action Button</Button>;
 		const secondary = <Button testId="secondary-action">Action Button</Button>;

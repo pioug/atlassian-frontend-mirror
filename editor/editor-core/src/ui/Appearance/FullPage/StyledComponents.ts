@@ -12,6 +12,7 @@ import {
 	akLayoutGutterOffset,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -130,6 +131,32 @@ const editorContentAreaContainerStyle = () =>
 		},
 	});
 
+/* Prevent horizontal scroll on page in full width mode */
+const editorContentAreaContainerStyleExcludeCodeBlock = () =>
+	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.fabric-editor--full-width-mode': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'.extension-container, .multiBodiedExtension--container': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				maxWidth: `calc(100% - ${tableMarginFullWidthMode * 2}px)`,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'.extension-container.inline': {
+				maxWidth: '100%',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'td .extension-container.inline': {
+				maxWidth: 'inherit',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			'[data-layout-section]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				maxWidth: `calc(100% + ${(akLayoutGutterOffset + (fg('platform_editor_nested_dnd_styles_changes') ? AK_NESTED_DND_GUTTER_OFFSET : 0)) * 2}px)`,
+			},
+		},
+	});
+
 export const editorContentAreaStyle = ({
 	layoutMaxWidth,
 	fullWidthMode,
@@ -144,7 +171,11 @@ export const editorContentAreaStyle = ({
 		? fullWidthNonChromelessBreakoutBlockTableStyle
 		: fullWidthModeBreakoutBlockTableStyle,
 	!fullWidthMode && editorContentAreaWithLayoutWith(layoutMaxWidth),
-	editorContentAreaContainerStyle(),
+	// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
+	expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+	fg('platform_editor_breakout_resizing_width_changes')
+		? editorContentAreaContainerStyleExcludeCodeBlock()
+		: editorContentAreaContainerStyle(),
 	...(fg('platform_editor_controls_no_toolbar_space')
 		? []
 		: [

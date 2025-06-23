@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e514a79fafb6c57d068e94d2350d1008>>
+ * @codegen <<SignedSource::a8221850e05ac929fb26618da6db4acc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,9 +17,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Migration Icon component for CloseIcon.
  * This component is CloseIcon, with `UNSAFE_fallbackIcon` set to "EditorCloseIcon".
  *
- * Category: single-purpose
+ * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Single purpose - Reserved for closing an element.
+ * Usage guidance: Known uses: closing modals, panels, and transient views; removing tags
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

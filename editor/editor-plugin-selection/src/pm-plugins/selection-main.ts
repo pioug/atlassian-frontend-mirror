@@ -91,8 +91,6 @@ export const createPlugin = (
 		props: {
 			createSelectionBetween: onCreateSelectionBetween,
 			decorations(state) {
-				const hasHadInteraction =
-					api?.interaction?.sharedState.currentState()?.hasHadInteraction !== false;
 				const interactionState = api?.interaction?.sharedState.currentState()?.interactionState;
 
 				// Do not show selection decorations for live pages where the user has not
@@ -101,9 +99,7 @@ export const createPlugin = (
 				if (
 					(options.__livePage ||
 						expValEquals('platform_editor_no_cursor_on_edit_page_init', 'isEnabled', true)) &&
-					(fg('platform_editor_interaction_api_refactor')
-						? interactionState === 'hasNotHadInteraction'
-						: !hasHadInteraction) &&
+					interactionState === 'hasNotHadInteraction' &&
 					fg('platform_editor_no_cursor_on_live_doc_init')
 				) {
 					return DecorationSet.empty;

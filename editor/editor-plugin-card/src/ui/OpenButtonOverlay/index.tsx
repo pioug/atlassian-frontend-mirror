@@ -17,7 +17,7 @@ import { Anchor, Box, Text, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import { visitCardLinkAnalyticsOnly } from '../toolbar';
+import { visitCardLinkAnalytics } from '../toolbar';
 
 import type { OpenButtonOverlayProps } from './types';
 
@@ -161,7 +161,7 @@ const OpenButtonOverlay = ({
 
 	const sendVisitLinkAnalytics = (inputMethod: INPUT_METHOD.DOUBLE_CLICK | INPUT_METHOD.BUTTON) => {
 		if (editorAnalyticsApi && view) {
-			visitCardLinkAnalyticsOnly(editorAnalyticsApi, inputMethod)(view.state, view.dispatch);
+			visitCardLinkAnalytics(editorAnalyticsApi, inputMethod)(view.state, view.dispatch);
 		}
 	};
 

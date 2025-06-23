@@ -33,7 +33,6 @@ import {
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import ChevronLeftLargeIcon from '@atlaskit/icon/core/migration/chevron-left--chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -181,10 +180,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 									})
 								}
 								onKeyDown={(event) => {
-									if (
-										event.key === 'Enter' ||
-										(event.key === ' ' && fg('platform_editor_controls_patch_9'))
-									) {
+									if (event.key === 'Enter' || event.key === ' ') {
 										event.preventDefault();
 										this.handleOnBack(
 											{
@@ -229,10 +225,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 									icon={<EditorUnlinkIcon label={formatUnlinkText} />}
 									onClick={() => this.handleUnlink()}
 									onKeyDown={(event) => {
-										if (
-											event.key === 'Enter' ||
-											(event.key === ' ' && fg('platform_editor_controls_patch_9'))
-										) {
+										if (event.key === 'Enter' || event.key === ' ') {
 											event.preventDefault();
 											this.handleUnlink(true);
 										}

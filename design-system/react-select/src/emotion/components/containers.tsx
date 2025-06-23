@@ -59,12 +59,15 @@ export const SelectContainer = <Option, IsMulti extends boolean, Group extends G
 	props: ContainerProps<Option, IsMulti, Group>,
 ) => {
 	const { children, innerProps, isDisabled, isRtl } = props;
+	const styles = getStyleProps(props, 'container', {
+		'--is-disabled': isDisabled,
+		'--is-rtl': isRtl,
+	});
 	return (
 		<div
-			{...getStyleProps(props, 'container', {
-				'--is-disabled': isDisabled,
-				'--is-rtl': isRtl,
-			})}
+			{...styles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={styles.className || '-container'}
 			{...innerProps}
 		>
 			{children}
@@ -130,7 +133,7 @@ export const ValueContainer = <Option, IsMulti extends boolean, Group extends Gr
 		<div
 			css={styles.css}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-			className={styles.className || 'value-container'}
+			className={styles.className || '-ValueContainer'}
 			{...innerProps}
 		>
 			{children}

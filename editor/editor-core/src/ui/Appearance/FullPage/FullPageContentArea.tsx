@@ -129,20 +129,6 @@ const Content = React.forwardRef<
 		[],
 	);
 
-	// Remove entire `hasHadInteraction` logic and prop when 'platform_editor_interaction_api_refactor' is cleaned up
-	let interactionClassName: string | undefined;
-	if (fg('platform_editor_interaction_api_refactor')) {
-		// no-op and do not add any classes
-	} else if (
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		props.hasHadInteraction !== undefined &&
-		fg('platform_editor_no_cursor_on_live_doc_init')
-	) {
-		interactionClassName = props.hasHadInteraction
-			? 'ak-editor-has-interaction'
-			: 'ak-editor-no-interaction';
-	}
-
 	const shouldSetHiddenDataAttribute = () => {
 		// When platform_editor_controls_performance_fixes is enabled we use a different method to
 		// determine if the toolbar is hidden from outside of the editor, which doesn't require setting
@@ -214,14 +200,9 @@ const Content = React.forwardRef<
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={
 									fg('platform_editor_no_cursor_on_live_doc_init')
-										? classnames(
-												'ak-editor-content-area',
-												'appearance-full-page',
-												interactionClassName,
-												{
-													'fabric-editor--full-width-mode': fullWidthMode,
-												},
-											)
+										? classnames('ak-editor-content-area', 'appearance-full-page', {
+												'fabric-editor--full-width-mode': fullWidthMode,
+											})
 										: [
 												'ak-editor-content-area',
 												'appearance-full-page',

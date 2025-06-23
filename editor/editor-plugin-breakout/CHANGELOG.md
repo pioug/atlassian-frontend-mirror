@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.0
+
+### Minor Changes
+
+- [#170867](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170867)
+  [`5ef91045141dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ef91045141dd) -
+  Add new fallback css widths for breakout resizing plugin, to fix issues in full width page
+
+## 2.8.3
+
+### Patch Changes
+
+- [#174482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174482)
+  [`6947eb8ffc2bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6947eb8ffc2bc) -
+  Add new FG to fix issue with migration logic for full width pages
+- Updated dependencies
+
 ## 2.8.2
 
 ### Patch Changes

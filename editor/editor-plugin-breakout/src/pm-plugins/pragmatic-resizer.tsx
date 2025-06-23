@@ -81,6 +81,10 @@ export const createPragmaticResizer = ({
 		handle.contentEditable = 'false';
 		handle.classList.add('pm-breakout-resize-handle-container');
 
+		if (fg('platform_editor_breakout_resizing_width_changes')) {
+			handle.style.gridColumn = side === 'left' ? '1' : '3';
+		}
+
 		const rail = document.createElement('div');
 		rail.classList.add('pm-breakout-resize-handle-rail');
 

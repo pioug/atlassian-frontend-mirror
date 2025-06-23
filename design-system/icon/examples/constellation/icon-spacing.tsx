@@ -1,11 +1,19 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+/* elint-disable @atlaskit/design-system/no-deprecated-imports */
 import React from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import AddIcon from '@atlaskit/icon/core/add';
 import ChevronIcon from '@atlaskit/icon/core/chevron-down';
-import ChevronIconUtility from '@atlaskit/icon/utility/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 const IconSpacingExample = () => {
 	return (
@@ -39,28 +47,31 @@ const IconSpacingExample = () => {
 			</Heading>
 			<Inline space="space.100">
 				<IconContainer>
-					<ChevronIconUtility label="" />
+					<ChevronDownIcon label="" />
 				</IconContainer>
 				<IconContainer>
-					<ChevronIconUtility label="" spacing="compact" />
+					<ChevronDownIcon label="" spacing="compact" />
 				</IconContainer>
 				<IconContainer>
-					<ChevronIconUtility label="" spacing="spacious" />
+					<ChevronDownIcon label="" spacing="spacious" />
 				</IconContainer>
 			</Inline>
 		</Stack>
 	);
 };
 
-const iconContainerStyles = xcss({
-	border: '1px dashed',
-	borderRadius: 'border.radius.100',
-	lineHeight: '0',
-	borderColor: 'color.border.accent.magenta',
+const iconContainerStyles = cssMap({
+	root: {
+		borderStyle: 'dashed',
+		borderRadius: token('border.radius.100'),
+		borderColor: token('color.border.accent.magenta'),
+		lineHeight: 0,
+		borderWidth: '1px',
+	},
 });
 const IconContainer = ({ children }: { children: React.ReactChild }) => (
 	// renders children with a surrounding box to show the icon size
-	<Box xcss={iconContainerStyles}>{children}</Box>
+	<div css={iconContainerStyles.root}>{children}</div>
 );
 
 export default IconSpacingExample;

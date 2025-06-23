@@ -8,15 +8,11 @@ export const interactionPlugin: InteractionPlugin = () => {
 		getSharedState(editorState) {
 			if (!editorState) {
 				return {
-					// Clean up with platform_editor_interaction_api_refactor
-					hasHadInteraction: false,
 					interactionState: 'hasNotHadInteraction',
 				};
 			}
 
 			return {
-				// Clean up with platform_editor_interaction_api_refactor
-				hasHadInteraction: Boolean(key.getState(editorState)?.hasHadInteraction),
 				/**
 				 * Interaction state can either be null or 'hasNotHadInteraction'. We
 				 * are specifically only returning an explicit value for 'hasNotHadInteraction'

@@ -15,6 +15,7 @@ import { useCreateMockedMediaProviderWithBinaries } from '../src/utils/__tests__
 import Button from '@atlaskit/button/new';
 import { ToggleBox } from '../example-helpers/svg-helpers';
 import { MediaProvider } from '@atlaskit/media-client-react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const flexStyles = xcss({ marginBottom: 'space.300' });
 const dummyMediaClientConfig = {} as MediaClientConfig;
@@ -139,6 +140,13 @@ export default function () {
 	const [useMockedAPI, setUseMockedAPI] = useState(false);
 	const [canUpdateVideoCaptions, setCanUpdateVideoCaptions] = useState(true);
 
+	if (!fg('platform_media_video_captions')) {
+		return (
+			<MainWrapper disableFeatureFlagWrapper developmentOnly>
+				<Heading size="medium">Please, enable platform_media_video_captions feature flag</Heading>
+			</MainWrapper>
+		);
+	}
 	return (
 		<MainWrapper disableFeatureFlagWrapper developmentOnly>
 			<I18NWrapper initialLocale={'es'}>

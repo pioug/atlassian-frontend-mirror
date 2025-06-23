@@ -231,9 +231,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					formatMessage={formatMessage}
 					aria-expanded={active}
 					blockTypeName={currentBlockType?.name}
-					blockTypeIcon={
-						fg('platform_editor_controls_patch_10') ? currentIcon || defaultIcon : undefined
-					}
+					blockTypeIcon={currentIcon || defaultIcon}
 				/>
 
 				{!api?.primaryToolbar && (

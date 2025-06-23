@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 0.39.2
+
+### Patch Changes
+
+- [#175066](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175066)
+  [`f59c2acbfd3c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f59c2acbfd3c5) -
+  [ux] Minor UI fix: Update team link form description, and fix dropdown display issue in team link
+  card
+
 ## 0.39.1
 
 ### Patch Changes

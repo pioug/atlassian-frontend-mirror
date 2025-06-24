@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.3.1
+
+### Patch Changes
+
+- [#175546](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175546)
+  [`1b24bd01d2634`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b24bd01d2634) -
+  [EDITOR-636] Remove fg editor_a11y_tab_does_not_close_menus
+- Updated dependencies
+
+## 3.3.0
+
+### Minor Changes
+
+- [#174924](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174924)
+  [`5dfbb5e243380`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dfbb5e243380) -
+  adding initial functionality to run experiment to pin whiteboards at the top of the quick insert
+  menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.17
 
 ### Patch Changes

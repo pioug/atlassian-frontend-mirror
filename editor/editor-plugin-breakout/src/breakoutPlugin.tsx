@@ -10,6 +10,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type {
 	BreakoutMode,
+	EditorAppearance,
 	ExtractInjectionAPI,
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
@@ -49,6 +50,7 @@ class BreakoutView implements NodeView {
 		 */
 		mark: PMNode,
 		view: EditorView,
+		appearance: EditorAppearance | undefined,
 	) {
 		const dom = document.createElement('div');
 		const contentDOM = document.createElement('div');
@@ -75,7 +77,16 @@ class BreakoutView implements NodeView {
 					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--full-width-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
 				}
 				if (mark.attrs.mode === 'wide') {
-					contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+					if (
+						appearance &&
+						appearance === 'full-width' &&
+						editorExperiment('single_column_layouts', true) &&
+						fg('platform_editor_layout_guideline_full_width_fix')
+					) {
+						contentDOM.style.minWidth = `min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding)))`;
+					} else {
+						contentDOM.style.minWidth = `max(var(--ak-editor--line-length), min(var(--ak-editor--breakout-wide-layout-width), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
+					}
 				}
 			}
 		} else {
@@ -108,6 +119,7 @@ function shouldPluginStateUpdate(
 function createPlugin(
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined,
 	{ dispatch }: PMPluginFactoryParams,
+	appearance: EditorAppearance | undefined,
 ) {
 	return new SafePlugin({
 		state: {
@@ -139,7 +151,7 @@ function createPlugin(
 				// See the following link for more details:
 				// https://prosemirror.net/docs/ref/#view.EditorProps.nodeViews.
 				breakout: (mark: PMNode, view: EditorView) => {
-					return new BreakoutView(mark, view);
+					return new BreakoutView(mark, view, appearance);
 				},
 			},
 		},
@@ -259,7 +271,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 		return [
 			{
 				name: 'breakout',
-				plugin: (props) => createPlugin(api, props),
+				plugin: (props) => createPlugin(api, props, options?.appearance),
 			},
 		];
 	},

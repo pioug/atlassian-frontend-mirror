@@ -15,9 +15,9 @@ import { findReplaceMessages as messages } from '@atlaskit/editor-common/message
 import { ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 
@@ -177,7 +177,10 @@ const Replace = ({
 		skipWhileComposing(() => {
 			onReplaceAll({ replaceText });
 			setIsHelperMessageVisible(true);
-			if (count.totalReplaceable && fg('platform_editor_find_and_replace_1')) {
+			if (
+				count.totalReplaceable &&
+				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+			) {
 				triggerSuccessReplacementMessageUpdate(count.totalReplaceable);
 				setReplaceCount(count.totalReplaceable);
 			} else {
@@ -279,7 +282,7 @@ const Replace = ({
 							id="replaceAll-button"
 							onClick={handleReplaceAllClick}
 							isDisabled={
-								fg('platform_editor_find_and_replace_1')
+								expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 									? count.totalReplaceable === 0
 									: !canReplace
 							}

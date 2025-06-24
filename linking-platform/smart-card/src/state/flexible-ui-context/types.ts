@@ -259,6 +259,7 @@ export type FlexibleUiDataContext = {
 		objectId?: string;
 		resourceType?: string;
 		tenantId?: string;
+		accessType?: string;
 	};
 };
 

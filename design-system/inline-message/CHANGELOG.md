@@ -1,5 +1,14 @@
 # @atlaskit/inline-message
 
+## 15.3.2
+
+### Patch Changes
+
+- [#175398](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175398)
+  [`28c7d87f8d2e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28c7d87f8d2e0) -
+  Updated dev dependencies.
+- Updated dependencies
+
 ## 15.3.1
 
 ### Patch Changes

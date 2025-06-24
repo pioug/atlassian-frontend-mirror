@@ -8,6 +8,16 @@ import DefensiveStyling from '../../../examples/6-defensive-styling';
 
 // Test basic examples
 snapshot(Basic, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
-snapshot(Appearance, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
+snapshot(Appearance, {
+	featureFlags: { 'platform-logo-rebrand': [false, true] },
+	variants: [
+		{
+			name: 'Light',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+});
 snapshot(Sizes, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
 snapshot(DefensiveStyling, { featureFlags: { 'platform-logo-rebrand': [false, true] } });

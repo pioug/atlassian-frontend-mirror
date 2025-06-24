@@ -79,29 +79,27 @@ export default {
 				},
 			],
 		},
-		'atlassian:document': {
-			type: {
-				category: 'document',
-				iconUrl: 'http://icon-url',
-			},
-			content: {
-				mimeType: 'text/plain',
-				text: 'Really large content here...',
-			},
-			byteSize: 456,
-			labels: ['label1', 'label2'],
-			reactions: [
-				{
-					type: 'LIKE',
-					total: 1,
-				},
-			],
+		type: {
+			category: 'document',
+			iconUrl: 'http://icon-url',
 		},
-		containerKey: {
-			type: 'atlassian:space',
-			value: {
-				entityId: 'CFG3W7TKJ',
+		content: {
+			mimeType: 'text/plain',
+			text: 'Really large content here...',
+		},
+		byteSize: 456,
+		labels: ['label1', 'label2'],
+		reactions: [
+			{
+				type: 'LIKE',
+				total: 1,
 			},
+		],
+	},
+	containerKey: {
+		type: 'atlassian:space',
+		value: {
+			entityId: 'CFG3W7TKJ',
 		},
 	},
 } as SmartLinkResponse;

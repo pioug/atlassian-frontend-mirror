@@ -85,14 +85,16 @@ type XOR<T1, T2, T3> =
 type ActionsTarget = XOR<{ ari: string }, { url: string }, { id: string }>;
 
 type SupportedActionInputPrimitives = string | number | boolean;
+type ActionInputValue =
+	| SupportedActionInputPrimitives
+	| Record<string, SupportedActionInputPrimitives>
+	| SupportedActionInputPrimitives[];
 
-export type AtomicActionExecuteRequest = {
+export type AtomicActionExecuteRequest<TInputs = ActionInputValue> = {
 	integrationKey: string; // eg: jira
 	parameters: {
 		inputs: {
-			[key: string]:
-				| SupportedActionInputPrimitives
-				| Record<string, SupportedActionInputPrimitives>;
+			[key: string]: TInputs;
 		};
 		target: ActionsTarget;
 	};

@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { FindReplacePluginState } from '../types';
 
@@ -52,7 +52,7 @@ const reducer =
 
 			case FindReplaceActionTypes.CANCEL:
 				const { getIntl, api } = state;
-				return fg('platform_editor_find_and_replace_part_2')
+				return expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 					? { ...getInitialState(), getIntl, api }
 					: getInitialState();
 

@@ -93,7 +93,7 @@
 		}
 	},
 	"name": "@atlaskit/simple-xdm",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A simple library that allows to expose host API to an embedded iframe through the `postMessage` protocol.",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

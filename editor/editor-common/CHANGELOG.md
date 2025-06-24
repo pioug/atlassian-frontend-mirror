@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 107.2.1
+
+### Patch Changes
+
+- [#174265](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174265)
+  [`20a7224f572b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20a7224f572b5) -
+  [ux] ED-28338: Fix layout guideline not visible on full width page
+- Updated dependencies
+
+## 107.2.0
+
+### Minor Changes
+
+- [#172318](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172318)
+  [`cb1aac3653c7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb1aac3653c7e) -
+  Fix breakout inline SSR parcel build issue
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 107.1.1
 
 ### Patch Changes

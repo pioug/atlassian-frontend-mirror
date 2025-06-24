@@ -120,6 +120,9 @@
 		"platform_editor_hide_expand_selection_states": {
 			"type": "boolean"
 		},
+		"platform_editor_layout_guideline_full_width_fix": {
+			"type": "boolean"
+		},
 		"platform_editor_breakout_resizing_hello_release": {
 			"type": "boolean"
 		},

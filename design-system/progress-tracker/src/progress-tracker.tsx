@@ -6,11 +6,9 @@ import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import Link from './internal/link';
-import LinkNew from './internal/link-new';
 import Stage from './internal/stage';
 import type { LinkComponentProps, ProgressTrackerStageRenderProp, Spacing, Stages } from './types';
 
@@ -47,7 +45,12 @@ export interface ProgressTrackerProps {
 	 */
 	spacing?: Spacing;
 	/**
+	 * @deprecated
+	 *
 	 * Render prop to specify custom implementations of components.
+	 *
+	 * Note this is deprecated and will be removed in a future version.
+	 * Links inside progress tracker can be configured using [App Provider](https://atlassian.design/components/app-provider) instead.
 	 */
 	render?: ProgressTrackerStageRenderProp;
 	/**
@@ -78,10 +81,11 @@ const ProgressTracker = ({
 	items = [],
 	spacing = 'cosy',
 	render = {
-		link: ({ item }: LinkComponentProps) =>
+		link: ({ item }: LinkComponentProps) => (
 			// Anchor content is coming from another location
 			// eslint-disable-next-line jsx-a11y/anchor-has-content
-			fg('platform_progress_tracker_link_migration') ? <LinkNew {...item} /> : <Link {...item} />,
+			<Link {...item} />
+		),
 	},
 	animated = true,
 	testId,

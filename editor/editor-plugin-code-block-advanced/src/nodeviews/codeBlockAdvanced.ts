@@ -28,6 +28,7 @@ import type {
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
@@ -289,6 +290,15 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		) {
 			return false;
 		}
+
+		if (
+			e instanceof DragEvent &&
+			e.type === 'dragenter' &&
+			expValEqualsNoExposure('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
+		) {
+			return false; // Allow dragenter to propagate so that the editor can handle it
+		}
+
 		return true;
 	}
 }

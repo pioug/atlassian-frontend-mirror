@@ -10,7 +10,7 @@ Parts of React UFO that need to be scoped within @atlaskit
 
 In one terminal:
 
-```
+```shell
 cd platform && nvm use && yarn
 yarn start:rspack react-ufo
 ```
@@ -19,7 +19,7 @@ This will start the dev server, accessible via http://localhost:9000.
 
 Then in a separate terminal:
 
-```
+```shell
 cd platform && nvm use
 yarn test:integration packages/react-ufo/atlaskit/__tests__/ --retries 0 --reporter list --reuse-dev-server --project=desktop-chromium --max-failures=0
 ```
@@ -35,6 +35,6 @@ increase the following:
 
 Example:
 
-```
+```shell
 yarn test:integration packages/react-ufo/atlaskit/__tests__/playwright/base.spec.ts --retries 0 --reporter list --reuse-dev-server --project=desktop-chromium --max-failures=0 --repeat-each 50 --workers 50
 ```

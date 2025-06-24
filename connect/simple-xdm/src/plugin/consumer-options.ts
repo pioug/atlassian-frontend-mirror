@@ -13,13 +13,18 @@ class ConsumerOptions {
 		var options = {},
 			$optionElement = $('#ac-iframe-options'),
 			$scriptElement = $("script[src*='/atlassian-connect/all']"),
-			$cdnScriptElement = $("script[src*='/connect-cdn.atl-paas.net/all']");
+			$cdnScriptElement = $("script[src*='/connect-cdn.atl-paas.net/all']"),
+			$fedrampCdnScriptElement = $(
+				"script[src*='/connect-alljs-cdn-bifrost.frontend.cdn.atlassian-us-gov-mod.com/assets/all']",
+			);
 
 		if (!this._elementExists($optionElement) || !this._elementOptions($optionElement)) {
 			if (this._elementExists($scriptElement)) {
 				$optionElement = $scriptElement;
 			} else if (this._elementExists($cdnScriptElement)) {
 				$optionElement = $cdnScriptElement;
+			} else if (this._elementExists($fedrampCdnScriptElement)) {
+				$optionElement = $fedrampCdnScriptElement;
 			}
 		}
 

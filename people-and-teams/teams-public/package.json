@@ -127,7 +127,8 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"scripts": {
-		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg"
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg",
+		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-public/src/**\", \"!packages/people-and-teams/teams-public/src/**/**/types.ts\", \"!packages/people-and-teams/teams-public/src/ui/**/styled.tsx\"]')"
 	},
 	"platform-feature-flags": {
 		"loom_tab_in_container_linker_team_profile_page": {

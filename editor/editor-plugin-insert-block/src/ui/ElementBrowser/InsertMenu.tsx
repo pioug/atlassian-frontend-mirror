@@ -36,6 +36,7 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import { fg } from '@atlaskit/platform-feature-flags';
 import { borderRadius } from '@atlaskit/theme';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { insertBlockPlugin } from '../../insertBlockPlugin';
@@ -173,17 +174,35 @@ const InsertMenu = ({
 								? { ...item, isDisabled: true }
 								: item,
 						) ?? [];
-
-				result = quickInsertDropdownItems.concat(
+				const unfilteredResult = quickInsertDropdownItems.concat(
 					featuredQuickInsertSuggestions,
 				) as QuickInsertItem[];
+				// need to filter on the concatenated list so whiteboards are at the top
+				result = filterForPinWhiteboardsExperiment(unfilteredResult);
 			}
-
 			setItemCount(result.length);
 			return result;
 		},
 		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems, connectivityMode],
 	);
+	const filterForPinWhiteboardsExperiment = (
+		featuredItems: QuickInsertItem[],
+	): QuickInsertItem[] => {
+		// Part of ATLAS-95399 to pin whiteboards to the top of the InsertMenu
+		// Need to check if whiteboard options are available, and filter for the cohort
+		// Takes the original featuredItems list and returns one with the right whiteboard option at the top
+		if (fg('confluence-whiteboards-quick-insert-eligible')) {
+			const featuredWhiteboards = ['Create diagram', 'Create whiteboard'];
+			const featuredWhiteboardsPresent =
+				featuredItems.filter((item) => featuredWhiteboards.includes(item.title)).length === 2;
+			if (featuredWhiteboardsPresent) {
+				expValEquals('confluence_whiteboards_quick_insert_aa', 'cohort', 'control');
+			}
+			// removing all whiteboards for now since they aren't present by default, will add more specific logic later.
+			return featuredItems.filter((item) => !featuredWhiteboards.includes(item.title));
+		}
+		return featuredItems;
+	};
 
 	const emptyStateHandler =
 		pluginInjectionApi?.quickInsert?.sharedState.currentState()?.emptyStateHandler;
@@ -201,7 +220,7 @@ const InsertMenu = ({
 			<ElementBrowserWrapper
 				handleClickOutside={toggleVisiblity}
 				handleEscapeKeydown={toggleVisiblity}
-				closeOnTab={!fg('editor_a11y_tab_does_not_close_menus')}
+				closeOnTab={false}
 			>
 				<ElementBrowser
 					mode="inline"

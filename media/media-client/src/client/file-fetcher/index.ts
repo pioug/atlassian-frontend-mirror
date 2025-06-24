@@ -821,10 +821,7 @@ export class FileFetcherImpl implements FileFetcher {
 		collectionName,
 		traceContext,
 	) => {
-		// TODO: Uncomment JEST check after endpoint is fixed
-		if (process.env.NODE_ENV === 'test') {
-			await this.mediaApi.deleteArtifact(id, params, collectionName, traceContext);
-		}
+		await this.mediaApi.deleteArtifact(id, params, collectionName, traceContext);
 
 		// Manually remove the artifact from file state instead of re-requesting the entire payload.
 		const file = this.store.getState().files[id];

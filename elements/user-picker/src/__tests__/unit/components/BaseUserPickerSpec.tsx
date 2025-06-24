@@ -8,6 +8,7 @@ import { type ConcurrentExperience, type UFOExperience, ufologger } from '@atlas
 import { mount, shallow, type ReactWrapper } from 'enzyme';
 import debounce from 'lodash/debounce';
 import React from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	BaseUserPicker,
 	BaseUserPickerWithoutAnalytics,
@@ -31,6 +32,26 @@ import {
 	type LoadOptions,
 } from '../../../types';
 import { MockConcurrentExperienceInstance } from '../_testUtils';
+
+// Mock debounce to track calls
+jest.mock('lodash/debounce');
+const mockDebounce = debounce as jest.MockedFunction<typeof debounce>;
+
+// Set up debounce mock to return a function with cancel and flush methods
+mockDebounce.mockImplementation((fn) => {
+	const debouncedFn = fn as any;
+	debouncedFn.cancel = jest.fn();
+	debouncedFn.flush = jest.fn();
+	return debouncedFn;
+});
+
+/**
+ * ffTest.on is causing some issues, given the mock is only temporary I'm just manually mocking the fg function
+ */
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
+}));
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
 const mockIntl = { formatMessage: mockFormatMessage };
@@ -202,6 +223,7 @@ describe('BaseUserPicker', () => {
 
 	beforeEach(() => {
 		mockSessionId('random-session-id');
+		mockDebounce.mockClear();
 	});
 
 	afterEach(() => {
@@ -724,7 +746,7 @@ describe('BaseUserPicker', () => {
 				const loadOptions = jest.fn(() => usersPromise);
 				shallowUserPicker({ loadOptions });
 
-				expect(debounce).toHaveBeenCalledWith(expect.any(Function), 200);
+				expect(mockDebounce).toHaveBeenCalledWith(expect.any(Function), 200);
 			});
 		});
 
@@ -1151,6 +1173,42 @@ describe('BaseUserPicker', () => {
 				});
 
 				expect(onChange).toHaveBeenCalledWith(mixedOptions.slice(0, 8), 'select-option');
+			});
+
+			it('should not group options by type if groupByTypeOrder is disabled', () => {
+				(fg as jest.Mock).mockReturnValue(false);
+				const component = shallowUserPicker({
+					options: mixedOptions,
+					groupByTypeOrder: ['team', 'group'],
+				});
+				const select = component.find(Select);
+				expect(select.prop('options')).toEqual(selectableMixedOptions);
+			});
+
+			it('should group options by type if groupByTypeOrder is enabled', () => {
+				(fg as jest.Mock).mockReturnValue(true);
+				const component = shallowUserPicker({
+					options: mixedOptions,
+					groupByTypeOrder: ['team', 'group'],
+				});
+				const select = component.find(Select);
+				const expectFormattedMessage = (defaultMessage: string) =>
+					expect.objectContaining({
+						props: expect.objectContaining({
+							defaultMessage,
+						}),
+					});
+
+				expect(select.prop('options')).toEqual([
+					{
+						label: expectFormattedMessage('Teams'),
+						options: optionToSelectableOptions(teamOptions),
+					},
+					{
+						label: expectFormattedMessage('Groups'),
+						options: optionToSelectableOptions(groupOptions),
+					},
+				]);
 			});
 		});
 

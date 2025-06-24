@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "208.3.1",
+	"version": "208.3.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -155,6 +155,9 @@
 		"cc_editor_abort_ufo_load_on_editor_scroll": {
 			"type": "boolean"
 		},
+		"confluence_floating_toolbar_animation": {
+			"type": "boolean"
+		},
 		"platform_editor_reduce_scroll_jump_on_editor_start": {
 			"type": "boolean"
 		},
@@ -211,10 +214,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_media_batch_updates": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_table_initial_load_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -290,10 +289,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"editor_a11y_tab_does_not_close_menus": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_floating_toolbar_padding_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -303,10 +298,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_mention_provider_via_plugin_config": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"editor_a11y_status_renderer_description": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -533,12 +524,6 @@
 		"platform_editor_user_intent_plugin": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_find_and_replace_1": {
-			"type": "boolean"
-		},
-		"platform_editor_find_and_replace_part_2": {
-			"type": "boolean"
 		},
 		"editor_a11y_aria_label_removal_popup": {
 			"type": "boolean",

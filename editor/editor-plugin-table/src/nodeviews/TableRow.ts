@@ -8,7 +8,6 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -335,6 +334,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				const getSentinelBottom = () => {
 					// Multiple bottom sentinels may be found if there are nested tables.
 					// We need to make sure we get the last one which will belong to the parent table.
+
 					const bottomSentinels =
 						tableContainer &&
 						tableContainer.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM);
@@ -354,6 +354,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 						// skip if already observed for another row on this table
 						if (el && !el.dataset.isObserved) {
 							el.dataset.isObserved = 'true';
+
 							// Ignored via go/ees005
 							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							this.intersectionObserver!.observe(el);
@@ -361,57 +362,35 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 					});
 				};
 
-				if (fg('platform_editor_table_initial_load_fix')) {
-					const isInitialProsemirrorToDomRender = tableContainer.hasAttribute(
-						'data-prosemirror-initial-toDOM-render',
-					);
+				const isInitialProsemirrorToDomRender = tableContainer.hasAttribute(
+					'data-prosemirror-initial-toDOM-render',
+				);
 
-					// Sentinels may be in the DOM but they're part of the prosemirror placeholder structure which is replaced with the fully rendered React node.
-					if (sentinelsInDom() && !isInitialProsemirrorToDomRender) {
-						// great - DOM ready, observe as normal
-						observeStickySentinels();
-					} else {
-						// concurrent loading issue - here TableRow is too eager trying to
-						// observe sentinels before they are in the DOM, use MutationObserver
-						// to wait for sentinels to be added to the parent Table node DOM
-						// then attach the IntersectionObserver
-						this.tableContainerObserver = new MutationObserver(() => {
-							// Check if the tableContainer is still connected to the DOM. It can become disconnected when the placholder
-							// prosemirror node is replaced with the fully rendered React node (see _handleTableRef).
-							if (!tableContainer || !tableContainer.isConnected) {
-								tableContainer = getTableContainer();
-							}
-							if (sentinelsInDom()) {
-								observeStickySentinels();
-								this.tableContainerObserver?.disconnect();
-							}
-						});
-
-						const mutatingNode = tableContainer;
-						if (mutatingNode && this.tableContainerObserver) {
-							this.tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
-						}
-					}
+				// Sentinels may be in the DOM but they're part of the prosemirror placeholder structure which is replaced with the fully rendered React node.
+				if (sentinelsInDom() && !isInitialProsemirrorToDomRender) {
+					// great - DOM ready, observe as normal
+					observeStickySentinels();
 				} else {
-					if (sentinelsInDom()) {
-						// great - DOM ready, observe as normal
-						observeStickySentinels();
-					} else {
-						// concurrent loading issue - here TableRow is too eager trying to
-						// observe sentinels before they are in the DOM, use MutationObserver
-						// to wait for sentinels to be added to the parent Table node DOM
-						// then attach the IntersectionObserver
-						const tableContainerObserver = new MutationObserver(() => {
-							if (sentinelsInDom()) {
-								observeStickySentinels();
-								tableContainerObserver.disconnect();
-							}
-						});
+					// concurrent loading issue - here TableRow is too eager trying to
+					// observe sentinels before they are in the DOM, use MutationObserver
+					// to wait for sentinels to be added to the parent Table node DOM
+					// then attach the IntersectionObserver
+					this.tableContainerObserver = new MutationObserver(() => {
+						// Check if the tableContainer is still connected to the DOM. It can become disconnected when the placholder
+						// prosemirror node is replaced with the fully rendered React node (see _handleTableRef).
 
-						const mutatingNode = tableContainer;
-						if (mutatingNode) {
-							tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
+						if (!tableContainer || !tableContainer.isConnected) {
+							tableContainer = getTableContainer();
 						}
+						if (sentinelsInDom()) {
+							observeStickySentinels();
+							this.tableContainerObserver?.disconnect();
+						}
+					});
+
+					const mutatingNode = tableContainer;
+					if (mutatingNode && this.tableContainerObserver) {
+						this.tableContainerObserver.observe(mutatingNode, { subtree: true, childList: true });
 					}
 				}
 			}

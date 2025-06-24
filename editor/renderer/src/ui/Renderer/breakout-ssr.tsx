@@ -154,7 +154,7 @@ function applyBreakoutAfterSSR(
 						const effectiveWidth = rendererWidth - breakoutConsts.padding;
 						width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
 					} else if (resizedBreakout) {
-						width = breakoutConsts.calcBreakoutWithCustomWidth(
+						width = breakoutConsts.calcBreakoutWithCustomWidth(breakoutConsts)(
 							mode as 'full-width' | 'wide',
 							Number(node.dataset.width) || null,
 							// Ignored via go/ees005
@@ -164,7 +164,7 @@ function applyBreakoutAfterSSR(
 					} else {
 						// Ignored via go/ees005
 						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-						width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
+						width = breakoutConsts.calcBreakoutWidth(breakoutConsts)(mode, renderer!.offsetWidth);
 					}
 
 					if (node.style.width === width) {
@@ -181,7 +181,7 @@ function applyBreakoutAfterSSR(
 						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						!renderer!.classList.contains('is-full-width')
 					) {
-						const lineLength = breakoutConsts.calcLineLength();
+						const lineLength = breakoutConsts.calcLineLength(breakoutConsts)();
 						const left = lineLength / 2 - parseInt(width) / 2;
 						if (left < 0 && parseInt(width) > lineLength) {
 							node.style.left = left + 'px';
@@ -262,4 +262,4 @@ function applyBreakoutAfterSSR(
 	window.addEventListener('load', disconnect);
 }
 
-export const calcLineLength = breakoutConsts.calcLineLength;
+export const calcLineLength = breakoutConsts.calcLineLength(breakoutConsts);

@@ -1,5 +1,14 @@
 # @atlaskit/link-extractors
 
+## 2.4.1
+
+### Patch Changes
+
+- [#175428](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175428)
+  [`6fa11c8e1ab58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa11c8e1ab58) -
+  EDM-12975 Remove atlassian:document and flatten the entity data
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

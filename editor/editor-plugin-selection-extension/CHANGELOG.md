@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 2.4.6
+
+### Patch Changes
+
+- [#175281](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175281)
+  [`f720d2c80d128`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f720d2c80d128) -
+  [ux] Fix inconsistent references in getSelection to state that could cause unhandled exceptions
+
 ## 2.4.5
 
 ### Patch Changes

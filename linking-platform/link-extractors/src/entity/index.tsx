@@ -2,7 +2,6 @@ import React from 'react';
 
 import {
 	type EntityType,
-	isDocumentEntity,
 	type ProviderGenerator,
 	type SmartLinkResponse,
 } from '@atlaskit/linking-types';
@@ -61,16 +60,12 @@ export const extractEntityIcon = (response?: SmartLinkResponse) => {
 
 	let url: string | undefined;
 	if (entity) {
-		url = 'iconUrl' in entity && typeof entity?.iconUrl === 'string' ? entity.iconUrl : undefined;
-
-		if (isDocumentEntity(entity)) {
-			const iconUrl =
-				typeof entity?.['atlassian:document'].type?.iconUrl === 'string' &&
-				entity?.['atlassian:document'].type?.iconUrl
-					? entity?.['atlassian:document'].type?.iconUrl
+		url =
+			'iconUrl' in entity && typeof entity?.iconUrl === 'string'
+				? entity.iconUrl
+				: fg('smart_links_noun_support')
+					? response?.meta.generator?.icon?.url
 					: undefined;
-			url = response?.meta.generator?.icon?.url || iconUrl;
-		}
 	}
 
 	return {

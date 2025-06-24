@@ -1,5 +1,21 @@
 # @atlaskit/linking-types
 
+## 13.0.0
+
+### Major Changes
+
+- [#175428](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175428)
+  [`6fa11c8e1ab58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa11c8e1ab58) -
+  EDM-12975 Remove atlassian:document and flatten the entity data
+
+## 12.2.0
+
+### Minor Changes
+
+- [#176005](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176005)
+  [`4bd5cbad913aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bd5cbad913aa) -
+  Update `AtomicActionExecuteRequest` to support array[] for parameter inputs.
+
 ## 12.1.0
 
 ### Minor Changes

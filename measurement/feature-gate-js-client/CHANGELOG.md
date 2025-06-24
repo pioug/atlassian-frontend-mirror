@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.3.3
+
+### Patch Changes
+
+- [#175926](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175926)
+  [`aee7004bd5f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aee7004bd5f84) -
+  Makes the eventemitter2 import inside of feature-gate-js-client work more generally in ESM.
+
 ## 5.3.2
 
 ### Patch Changes

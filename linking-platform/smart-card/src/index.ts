@@ -80,6 +80,8 @@ export {
 	TitleElement,
 	ViewCountElement,
 	VoteCountElement,
+	CustomByAccessTypeElement,
+	CustomByStatusElement,
 } from './view/FlexibleCard/external';
 export {
 	CopyLinkAction,

@@ -93,6 +93,9 @@
 			"path": "../../../design-system/spinner/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../teams-app-config/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../teams-avatar/afm-jira/tsconfig.json"
 		},
 		{

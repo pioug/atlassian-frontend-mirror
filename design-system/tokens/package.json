@@ -148,7 +148,10 @@
 		"./token-order": "./src/entry-points/token-order.tsx",
 		"./token-default-values": "./src/entry-points/token-default-values.tsx",
 		"./rename-mapping": "./src/entry-points/rename-mapping.tsx",
-		"./babel-plugin": "./babel-plugin.js",
+		"./babel-plugin": {
+			"types": "./src/entry-points/babel-plugin.tsx",
+			"default": "./babel-plugin.js"
+		},
 		"./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx"
 	},
 	"platform-feature-flags": {

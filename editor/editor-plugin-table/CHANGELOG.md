@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 10.12.9
+
+### Patch Changes
+
+- [#175949](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175949)
+  [`142db856d66fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/142db856d66fe) -
+  ED-27516: Remove feature gate – platform_editor_table_initial_load_fix. This is the second
+  attempt, as this previously merged with broken unit tests that somehow passed CI.
+- Updated dependencies
+
 ## 10.12.8
 
 ### Patch Changes

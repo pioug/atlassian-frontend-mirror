@@ -10,6 +10,7 @@ import {
 	YouTubeVideo,
 	YouTubeVideoUrl,
 } from '../../examples-helpers/_jsonLDExamples';
+import { unicornResponse } from '../content/example-responses';
 import { iconGoogleDrive } from '../images';
 
 import { mocks, overrideEmbedContent } from './common';
@@ -222,5 +223,11 @@ export class UnAuthClientWithNoIcon extends MockCardClient {
 			meta: { ...mocks.unauthorized.meta },
 			data: { ...mocks.unauthorized.data, generator: { name: 'Provider' } },
 		} as JsonLd.Response);
+	}
+}
+
+export class UnicornResolvedClient extends CardClient {
+	fetchData(url: string): Promise<JsonLd.Response> {
+		return Promise.resolve(unicornResponse as JsonLd.Response);
 	}
 }

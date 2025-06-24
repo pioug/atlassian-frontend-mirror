@@ -45,6 +45,7 @@ export const NON_VISUAL_ARIA_ATTRIBUTES: string[] = [
 	'aria-current',
 	'aria-haspopup',
 	'aria-pressed',
+	'aria-atomic',
 	'aria-live',
 ];
 
@@ -81,6 +82,10 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				attributeName === 'data-ssr-placeholder-replace' ||
 				attributeName === 'data-vc-nvs' ||
 				attributeName === 'data-media-vc-wrapper' ||
+				((attributeName === 'data-renderer-start-pos' ||
+					attributeName === 'data-table-local-id' ||
+					attributeName === 'spellcheck') &&
+					fg('platform_ufo_ignore_extra_attributes')) ||
 				attributeName === 'data-auto-scrollable' ||
 				attributeName === 'id' ||
 				attributeName === 'tabindex' ||

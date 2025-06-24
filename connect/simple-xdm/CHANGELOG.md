@@ -1,5 +1,13 @@
 # @atlaskit/simple-xdm
 
+## 1.0.3
+
+### Patch Changes
+
+- [#176014](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176014)
+  [`d6c312b136793`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6c312b136793) -
+  Improving FedRAMP compatibility
+
 ## 1.0.2
 
 ### Patch Changes

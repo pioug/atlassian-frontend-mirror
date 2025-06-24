@@ -3,7 +3,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { FindReplacePlugin } from '../findReplacePluginType';
 import type { FindReplacePluginState } from '../types';
@@ -30,7 +30,7 @@ export const createPlugin = (
 	return new SafePlugin({
 		key: findReplacePluginKey,
 		state: createPluginState(dispatch, () =>
-			fg('platform_editor_find_and_replace_part_2')
+			expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 				? { ...initialState, getIntl, api }
 				: { ...initialState },
 		),

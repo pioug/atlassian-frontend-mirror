@@ -52,6 +52,9 @@
 		},
 		{
 			"path": "../../tokens/afm-townsquare/tsconfig.json"
+		},
+		{
+			"path": "../../visually-hidden/afm-townsquare/tsconfig.json"
 		}
 	]
 }

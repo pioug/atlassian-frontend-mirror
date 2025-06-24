@@ -2,7 +2,7 @@ import { expect, test, viewports } from './fixtures';
 
 test.describe('TTVC Dirty Scenarios', () => {
 	test.use({
-		examplePage: 'basic-section-below-viewport',
+		examplePage: 'basic-section-below-viewport-with-hold',
 	});
 
 	for (const viewport of viewports) {

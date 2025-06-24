@@ -6,14 +6,10 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { messages } from '../../../../../../../messages';
 import Text from '../index';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
 
 describe('Element: Text', () => {
 	const testId = 'smart-element-text';
@@ -59,21 +55,22 @@ describe('Element: Text', () => {
 		expect(element.textContent).toBe(messages.cannot_find_link.defaultMessage);
 	});
 
-	it('renders content as priority when hideFormat is true', async () => {
-		(fg as jest.Mock).mockReturnValue(true);
-		const message = {
-			descriptor: messages.created_by,
-			values: { context: 'someone' },
-		};
+	ffTest.on('platform-linking-additional-flexible-element-props', 'FG enabled', () => {
+		it('renders content as priority when hideFormat is true', async () => {
+			const message = {
+				descriptor: messages.created_by,
+				values: { context: 'someone' },
+			};
 
-		const content = 'random text';
-		render(<Text content={content} message={message} hideFormat />);
+			const content = 'random text';
+			render(<Text content={content} message={message} hideFormat />);
 
-		const element = await screen.findByTestId(testId);
+			const element = await screen.findByTestId(testId);
 
-		expect(element).toBeTruthy();
-		expect(element.getAttribute('data-smart-element-text')).toBeTruthy();
-		expect(element).toHaveTextContent(content);
+			expect(element).toBeTruthy();
+			expect(element.getAttribute('data-smart-element-text')).toBeTruthy();
+			expect(element).toHaveTextContent(content);
+		});
 	});
 
 	it('renders formatted messages with values', async () => {
@@ -108,4 +105,38 @@ describe('Element: Text', () => {
 
 		expect(element).toHaveCompiledCss('color', '#000');
 	});
+
+	ffTest.on(
+		'bandicoots-smart-card-teamwork-context',
+		'FG bandicoots-smart-card-teamwork-context  enabled',
+		() => {
+			it('renders with font size override', async () => {
+				const content = 'random text';
+				render(<Text content={content} fontSize="font.body.large" />);
+				const element = await screen.findByTestId(testId);
+				expect(element).toBeVisible();
+				expect(element).toHaveCompiledCss(
+					'font',
+					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				);
+			});
+		},
+	);
+
+	ffTest.off(
+		'bandicoots-smart-card-teamwork-context',
+		'FG bandicoots-smart-card-teamwork-context off',
+		() => {
+			it('does not render with font size override', async () => {
+				const content = 'random text';
+				render(<Text content={content} fontSize="font.body.large" />);
+				const element = await screen.findByTestId(testId);
+				expect(element).toBeVisible();
+				expect(element).not.toHaveCompiledCss(
+					'font',
+					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				);
+			});
+		},
+	);
 });

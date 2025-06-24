@@ -1,4 +1,8 @@
 import {
+	AdminIcon as NewAdminIcon,
+	AdminLogoCS as NewAdminLogo,
+} from '@atlaskit/temp-nav-app-icons/admin';
+import {
 	AlignIcon as NewAlignIcon,
 	AlignLogoCS as NewAlignLogo,
 } from '@atlaskit/temp-nav-app-icons/align';
@@ -101,6 +105,14 @@ import {
 } from '@atlaskit/temp-nav-app-icons/trello';
 
 import {
+	AtlassianAdminIcon as LegacyAtlassianAdminIcon,
+	AtlassianAdminLogo as LegacyAtlassianAdminLogo,
+} from './legacy-logos/atlassian-admin';
+import {
+	AtlassianAdministrationIcon as LegacyAtlassianAdministrationIcon,
+	AtlassianAdministrationLogo as LegacyAtlassianAdministrationLogo,
+} from './legacy-logos/atlassian-administration';
+import {
 	AtlassianAnalyticsIcon as LegacyAtlassianAnalyticsIcon,
 	AtlassianAnalyticsLogo as LegacyAtlassianAnalyticsLogo,
 } from './legacy-logos/atlassian-analytics';
@@ -152,11 +164,6 @@ export {
 } from './legacy-logos/atlassian-marketplace';
 export { AtlassianAccessIcon, AtlassianAccessLogo } from './legacy-logos/atlassian-access';
 export {
-	AtlassianAdministrationIcon,
-	AtlassianAdministrationLogo,
-} from './legacy-logos/atlassian-administration';
-export { AtlassianAdminIcon, AtlassianAdminLogo } from './legacy-logos/atlassian-admin';
-export {
 	JiraWorkManagementLogo,
 	JiraWorkManagementIcon,
 } from './legacy-logos/jira-work-management';
@@ -166,252 +173,351 @@ export { JiraSoftwareIcon, JiraSoftwareLogo } from './legacy-logos/jira-software
 import { createFeatureFlaggedComponent, tempSizeWrapper } from './logo-config';
 
 /**
+ * __Admin icon__
+ *
+ * The Admin icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AdminIcon = tempSizeWrapper(NewAdminIcon);
+/**
+ * __Admin logo__
+ *
+ * The Admin logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AdminLogo = tempSizeWrapper(NewAdminLogo);
+
+/**
+ * __Analytics icon__
+ *
+ * The Analytics icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AnalyticsIcon = tempSizeWrapper(NewAnalyticsIcon);
+/**
+ * __Analytics logo__
+ *
+ * The Analytics logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AnalyticsLogo = tempSizeWrapper(NewAnalyticsLogo);
+
+/**
  * __Assets icon__
  *
- * An assets icon without an accompanying wordmark.
+ * The Assets icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AssetsIcon = tempSizeWrapper(NewAssetsIcon);
 /**
  * __Assets logo__
  *
- * An assets logo with both the wordmark and the icon combined.
+ * The Assets logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AssetsLogo = tempSizeWrapper(NewAssetsLogo);
 /**
  * __Chat icon__
  *
- * A chat icon without an accompanying wordmark.
+ * The Chat icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const ChatIcon = tempSizeWrapper(NewChatIcon);
 /**
  * __Chat logo__
  *
- * A chat logo with both the wordmark and the icon combined.
+ * The Chat logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const ChatLogo = tempSizeWrapper(NewChatLogo);
 /**
  * __Customer Service Management icon__
  *
- * An customer service management icon without an accompanying wordmark.
+ * The Customer service management icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const CustomerServiceManagementIcon = tempSizeWrapper(NewCustomerServiceManagementIcon);
 /**
  * __Customer Service Management logo__
  *
- * A customer service management logo with both the wordmark and the icon combined.
+ * The Customer service management logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const CustomerServiceManagementLogo = tempSizeWrapper(NewCustomerServiceManagementLogo);
 /**
  * __Goals icon__
  *
- * A goals icon without an accompanying wordmark.
+ * The Goals icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const GoalsIcon = tempSizeWrapper(NewGoalsIcon);
 /**
  * __Goals logo__
  *
- * A goals logo with both the wordmark and the icon combined.
+ * The Goals logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const GoalsLogo = tempSizeWrapper(NewGoalsLogo);
 /**
  * __Home icon__
  *
- * A home icon without an accompanying wordmark.
+ * The Home icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const HomeIcon = tempSizeWrapper(NewHomeIcon);
 /**
  * __Home logo__
  *
- * A home logo with both the wordmark and the icon combined.
+ * The Home logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const HomeLogo = tempSizeWrapper(NewHomeLogo);
 /**
  * __Hub icon
  *
- * A hub icon without an accompanying wordmark.
+ * The Hub icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const HubIcon = tempSizeWrapper(NewHubIcon);
 /**
  * Hub logo__
  *
- * A hub logo with both the wordmark and the icon combined.
+ * The Hub logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const HubLogo = tempSizeWrapper(NewHubLogo);
 /**
  * __Projects icon__
  *
- * A projects icon without an accompanying wordmark.
+ * The Projects icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const ProjectsIcon = tempSizeWrapper(NewProjectsIcon);
 /**
  * __Projects logo__
  *
- * A projects logo with both the wordmark and the icon combined.
+ * The Projects logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const ProjectsLogo = tempSizeWrapper(NewProjectsLogo);
 /**
  * __Search icon__
  *
- * A search icon without an accompanying wordmark.
+ * The Search icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const SearchIcon = tempSizeWrapper(NewSearchIcon);
 /**
  * __Search logo__
  *
- * A search logo with both the wordmark and the icon combined.
+ * The Search logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const SearchLogo = tempSizeWrapper(NewSearchLogo);
 /**
  * __Studio icon__
  *
- * A studio icon without an accompanying wordmark.
+ * The Studio icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const StudioIcon = tempSizeWrapper(NewStudioIcon);
 /**
  * __Studio logo__
  *
- * A studio logo with both the wordmark and the icon combined.
+ * The Studio logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const StudioLogo = tempSizeWrapper(NewStudioLogo);
 /**
  * __Talent icon__
  *
- * A talent icon without an accompanying wordmark.
+ * The Talent icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const TalentIcon = tempSizeWrapper(NewTalentIcon);
 /**
  * __Talent logo__
  *
- * A talent logo with both the wordmark and the icon combined.
+ * The Talent logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const TalentLogo = tempSizeWrapper(NewTalentLogo);
 /**
  * __Teams icon__
  *
- * A teams icon without an accompanying wordmark.
+ * The Teams icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const TeamsIcon = tempSizeWrapper(NewTeamsIcon);
 /**
  * __Teams logo__
  *
- * A teams logo with both the wordmark and the icon combined.
+ * The Teams logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const TeamsLogo = tempSizeWrapper(NewTeamsLogo);
 
 /**
- * __Analytics icon__
+ * __Atlassian Administration icon__
  *
- * An analytics icon without an accompanying wordmark.
+ * The Atlassian Administration icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AtlassianAdministrationIcon = createFeatureFlaggedComponent(
+	LegacyAtlassianAdministrationIcon,
+	NewAdminIcon,
+);
+
+/**
+ * __Atlassian Administration logo__
+ *
+ * The Atlassian Administration logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AtlassianAdministrationLogo = createFeatureFlaggedComponent(
+	LegacyAtlassianAdministrationLogo,
+	NewAdminLogo,
+);
+
+/**
+ * __Atlassian Admin icon__
+ *
+ * The Atlassian Admin icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AtlassianAdminIcon = createFeatureFlaggedComponent(
+	LegacyAtlassianAdminIcon,
+	NewAdminIcon,
+);
+
+/**
+ * __Atlassian Admin logo__
+ *
+ * The Atlassian Admin logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AtlassianAdminLogo = createFeatureFlaggedComponent(
+	LegacyAtlassianAdminLogo,
+	NewAdminLogo,
+);
+
+/**
+ * __Atlassian Analytics icon__
+ *
+ * The Atlassian Analytics icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AtlassianAnalyticsIcon = createFeatureFlaggedComponent(
 	LegacyAtlassianAnalyticsIcon,
 	NewAnalyticsIcon,
 );
 /**
- * __Analytics logo__
+ * __Atlassian Analytics logo__
  *
- * An analytics logo with both the wordmark and the icon combined.
+ * The Atlassian Analytics logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const AtlassianAnalyticsLogo = createFeatureFlaggedComponent(
 	LegacyAtlassianAnalyticsLogo,
 	NewAnalyticsLogo,
 );
+
 /**
  * __Bitbucket icon__
  *
@@ -479,26 +585,49 @@ export const ConfluenceLogo = createFeatureFlaggedComponent(
 	LegacyConfluenceLogo,
 	NewConfluenceLogo,
 );
+
 /**
  * __Align icon__
  *
- * An align icon without an accompanying wordmark.
+ * The Align icon without an accompanying wordmark.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const JiraAlignIcon = createFeatureFlaggedComponent(LegacyJiraAlignIcon, NewAlignIcon);
+export const AlignIcon = tempSizeWrapper(NewAlignIcon);
 /**
  * __Align logo__
  *
- * An align logo with both the wordmark and the icon combined.
+ * The Align logo with both the wordmark and the icon combined.
  *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const AlignLogo = tempSizeWrapper(NewAlignLogo);
+
+/**
+ * __Jira Align icon__
+ *
+ * The Jira Align icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const JiraAlignIcon = createFeatureFlaggedComponent(LegacyJiraAlignIcon, NewAlignIcon);
+/**
+ * __Jira Align logo__
+ *
+ * The Jira Align logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const JiraAlignLogo = createFeatureFlaggedComponent(LegacyJiraAlignLogo, NewAlignLogo);
+
 /**
  * __Jira icon__
  *
@@ -566,7 +695,7 @@ export const JiraServiceManagementLogo = createFeatureFlaggedComponent(LegacyJSM
 /**
  * __Loom icon__
  *
- * A loom icon {description}.
+ * The Loom icon {description}.
  *
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)
@@ -672,6 +801,7 @@ export const RovoIcon = createFeatureFlaggedComponent(LegacyRovoIcon, NewRovoIco
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const RovoLogo = createFeatureFlaggedComponent(LegacyRovoLogo, NewRovoLogo);
+
 /**
  * __Guard icon__
  *
@@ -692,6 +822,7 @@ export const GuardIcon = createFeatureFlaggedComponent(LegacyGuardIcon, NewGuard
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const GuardLogo = createFeatureFlaggedComponent(LegacyGuardLogo, NewGuardLogo);
+
 /**
  * __Focus icon__
  *

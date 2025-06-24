@@ -1,5 +1,35 @@
 # @atlaskit/smart-card
 
+## 38.14.1
+
+### Patch Changes
+
+- [#175428](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175428)
+  [`6fa11c8e1ab58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa11c8e1ab58) -
+  EDM-12975 Remove atlassian:document and flatten the entity data
+- Updated dependencies
+
+## 38.14.0
+
+### Minor Changes
+
+- [#174776](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174776)
+  [`2a6d5eb53eb89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a6d5eb53eb89) -
+  [ux] Add new custom elements and new props to flexible ui card elements
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.13.3
+
+### Patch Changes
+
+- [#163479](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/163479)
+  [`3b6570ecd2555`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b6570ecd2555) -
+  Clean up FG platform_bandicoots-smart-card-disable-aria
+- Updated dependencies
+
 ## 38.13.2
 
 ### Patch Changes

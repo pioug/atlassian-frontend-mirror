@@ -3,7 +3,7 @@ import React from 'react';
 import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { hostname, openInNewTab, redirect } from '../../common/utils';
+import { hostname, openInNewTab, origin, pathname, redirect } from '../../common/utils';
 
 import type { NavigationAction, NavigationActionCommon } from './types';
 
@@ -11,6 +11,7 @@ export function generatePath(
 	path: string,
 	config: Pick<NavigationActionCommon, 'orgId' | 'cloudId' | 'hostProduct' | 'userHasNav4Enabled'>,
 	query: URLSearchParams = new URLSearchParams(),
+	anchor?: string,
 ) {
 	if (isTeamsAppEnabled(config) || config.hostProduct === 'home' || !config.hostProduct) {
 		if (config.cloudId) {
@@ -25,15 +26,15 @@ export function generatePath(
 		// but for now, we need to generate a different URL for FedRamp.
 		if (isFedRamp()) {
 			// We can't use getATLContextUrl here as the URL doesn't yet exist in commercial. When it does, we should properly define it there.
-			return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov.com/${path}${queryString}`;
+			return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov.com/${path}${anchor ? `#${anchor}` : ''}${queryString}`;
 		}
 
 		const orgIdString = config.orgId ? `/o/${config.orgId}` : '';
 
-		return `${getATLContextUrl('home')}${orgIdString}/people/${path}${queryString}`;
+		return `${getATLContextUrl('home')}${orgIdString}/people/${path}${anchor ? `#${anchor}` : ''}${queryString}`;
 	}
 	const queryString = [...new Set(query.keys())].length > 0 ? `?${query.toString()}` : '';
-	return `${getATLContextUrl(config.hostProduct)}/people/${path}${queryString}`;
+	return `${origin()}/${config.hostProduct === 'confluence' ? 'wiki' : 'jira'}/people/${path}${queryString}`;
 }
 
 export const onNavigateBase =
@@ -65,9 +66,15 @@ export const onNavigateBase =
 		}
 	};
 
+function stripAriFromId(id: string): string {
+	// Return everything after the last slash
+	return id.split('/').pop() || '';
+}
+
 type PathAndQuery = {
 	path: string;
 	query?: URLSearchParams;
+	anchor?: string;
 };
 
 export function getPathAndQuery(action: NavigationAction): PathAndQuery {
@@ -76,15 +83,19 @@ export function getPathAndQuery(action: NavigationAction): PathAndQuery {
 		case 'DIRECTORY':
 			return { path: '' };
 		case 'USER':
-			return { path: `${action.payload.userId}` };
+			return { path: `${stripAriFromId(action.payload.userId)}`, anchor: action.payload.section };
 		case 'TEAM':
-			return { path: `team/${action.payload.teamId}` };
+			return { path: `team/${stripAriFromId(action.payload.teamId)}` };
 		case 'AGENT':
-			return { path: `agent/${action.payload.agentId}` };
+			return { path: `agent/${stripAriFromId(action.payload.agentId)}` };
 		case 'KUDOS':
-			return { path: `kudos/${action.payload.kudosId}` };
+			return { path: `kudos/${stripAriFromId(action.payload.kudosId)}` };
 		case 'TEAMS_DIRECTORY':
 			return { path: '', query: new URLSearchParams({ screen: 'SEARCH_TEAMS' }) };
+		case 'PEOPLE_DIRECTORY':
+			return { path: `search/people`, query: new URLSearchParams(action.payload.query) };
+		case 'USER_WORK':
+			return { path: `${stripAriFromId(action.payload.userId)}/work` };
 		default:
 			return { path: '' };
 	}
@@ -118,4 +129,18 @@ export function isTeamsAppEnabled(config: Pick<NavigationActionCommon, 'userHasN
 
 	// We have a hard dependency on Nav4 being enabled in order to use the teams app
 	return config.userHasNav4Enabled === undefined ? true : config.userHasNav4Enabled;
+}
+
+export function getHostProductFromPath() {
+	const path = pathname();
+	if (path.startsWith('/wiki')) {
+		return 'confluence';
+	}
+	if (path.startsWith('/jira')) {
+		return 'jira';
+	}
+	if (hostname().startsWith('home')) {
+		return 'home';
+	}
+	return undefined;
 }

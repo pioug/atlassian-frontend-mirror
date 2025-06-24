@@ -1,29 +1,44 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type FC } from 'react';
+import React, { type FC } from 'react';
 
-import { css, jsx } from '@compiled/react';
-
-import { N800 } from '@atlaskit/theme/colors';
+import { cssMap } from '@atlaskit/css';
+import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type Stage } from '../types';
 
-const linkStyles = css({
-	color: token('color.text', N800),
-	cursor: 'pointer',
+const styles = cssMap({
+	anchor: {
+		textDecoration: 'none',
+		color: token('color.text'),
+		// @ts-expect-error - inherited font is needed here
+		font: 'inherit',
+
+		'&:hover': {
+			textDecoration: 'underline',
+			color: token('color.link'),
+		},
+
+		'&:active': {
+			color: token('color.link.pressed'),
+		},
+	},
 });
 
 /**
  * __Progress tracker link__
  */
-const Link: FC<Stage & { testId?: string }> = ({ href, onClick, label, testId }) => (
-	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
-	<a css={linkStyles} href={href} onClick={onClick} data-testid={testId}>
-		{label}
-	</a>
-);
+const Link: FC<Stage & { testId?: string }> = ({ href, onClick, label, testId }) => {
+	return (
+		<Anchor
+			xcss={styles.anchor}
+			// TODO: We should not be rendering empty hrefs on anchors. This should be plain text or a button/pressable if `onClick` is provided.
+			href={href || ''}
+			onClick={onClick}
+			testId={testId}
+		>
+			{label}
+		</Anchor>
+	);
+};
 
 export default Link;

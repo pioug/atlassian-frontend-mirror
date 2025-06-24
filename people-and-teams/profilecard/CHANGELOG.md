@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 23.21.0
+
+### Minor Changes
+
+- [#173219](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173219)
+  [`b5db06f3fd2f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5db06f3fd2f4) -
+  Adopt teams app config for teams app navigation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.20.0
 
 ### Minor Changes

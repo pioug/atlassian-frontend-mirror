@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -69,7 +69,7 @@
 			"design-system": "v1",
 			"styling": [
 				"static",
-				"emotion"
+				"compiled"
 			],
 			"ui-components": "lite-mode",
 			"analytics": "analytics-next",
@@ -99,7 +99,10 @@
 		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./migration-map": "./src/migration-map.tsx",
-		"./core/*": "./core/*",
+		"./core/*": {
+			"types": "./core/*.d.ts",
+			"default": "./core/*.js"
+		},
 		".": "./src/index.tsx"
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/icon-lab"

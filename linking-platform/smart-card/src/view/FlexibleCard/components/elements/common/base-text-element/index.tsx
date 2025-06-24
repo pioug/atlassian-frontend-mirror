@@ -2,9 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import type { MessageDescriptor } from 'react-intl-next';
 
+import type { Prettify } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -36,6 +37,21 @@ const baseStyle = css({
 	WebkitBoxOrient: 'vertical',
 });
 
+const fontOverrideStyleMap = cssMap({
+	'font.body': {
+		font: token('font.body'),
+	},
+	'font.body.large': {
+		font: token('font.body.large'),
+	},
+	'font.body.small': {
+		font: token('font.body.small'),
+	},
+	'font.body.UNSAFE_small': {
+		font: token('font.body.UNSAFE_small'),
+	},
+});
+
 export type BaseTextElementProps = ElementProps & {
 	/**
 	 * Determines the formatted message (i18n) to display.
@@ -59,6 +75,15 @@ export type BaseTextElementProps = ElementProps & {
 	 * Text color to override the default text color.
 	 */
 	color?: string;
+	/**
+	 * Override the default font size.
+	 */
+	fontSize?: Prettify<
+		Extract<
+			Parameters<typeof token>[0],
+			'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small'
+		>
+	>;
 };
 
 /**
@@ -76,6 +101,7 @@ export const BaseTextElement = ({
 	testId = 'smart-element-text',
 	hideFormat = false,
 	color,
+	fontSize,
 }: BaseTextElementProps): JSX.Element | null => {
 	if (!message && !content) {
 		return null;
@@ -98,6 +124,9 @@ export const BaseTextElement = ({
 			css={[
 				!fg('platform-linking-visual-refresh-v1') && baseStyleOld,
 				fg('platform-linking-visual-refresh-v1') && baseStyle,
+				fontSize !== undefined &&
+					fg('bandicoots-smart-card-teamwork-context') &&
+					fontOverrideStyleMap[fontSize],
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				dynamicCss,
 			]}

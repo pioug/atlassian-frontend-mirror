@@ -1,5 +1,17 @@
 # @atlaskit/user-picker
 
+## 11.3.0
+
+### Minor Changes
+
+- [#175242](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175242)
+  [`f01b0e8dbc8ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f01b0e8dbc8ba) -
+  [ux] add a new props: groupByTypeOrder to allow group the options by type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.3
 
 ### Patch Changes

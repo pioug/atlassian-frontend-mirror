@@ -22,46 +22,44 @@ function ApiFeedback({
 	errorDescription,
 	intl,
 }: ApiFeedbackProps & WrappedComponentProps) {
-	return (
-		<FlagGroup onDismissed={onDismissed}>
-			{notificationType === 'success' ? (
-				<AutoDismissFlag
-					id={'success'}
-					icon={
-						<SuccessIcon
-							label="Success"
-							color={token('color.icon.success')}
-							LEGACY_size="medium"
-							spacing="spacious"
-						/>
-					}
-					key={'success'}
-					title={intl.formatMessage(messages.success)}
-					description={successDescription}
-				/>
-			) : (
-				<></>
-			)}
-			{notificationType === 'error' ? (
-				<AutoDismissFlag
-					id={'error'}
-					icon={
-						<ErrorIcon
-							label="Error"
-							color={token('color.icon.danger')}
-							LEGACY_size="medium"
-							spacing="spacious"
-						/>
-					}
-					key={'error'}
-					title={intl.formatMessage(messages.error)}
-					description={errorDescription}
-				/>
-			) : (
-				<></>
-			)}
-		</FlagGroup>
-	);
+	let flag: React.ReactElement | undefined;
+
+	if (notificationType === 'success') {
+		flag = (
+			<AutoDismissFlag
+				id={'success'}
+				icon={
+					<SuccessIcon
+						label="Success"
+						color={token('color.icon.success')}
+						LEGACY_size="medium"
+						spacing="spacious"
+					/>
+				}
+				key={'success'}
+				title={intl.formatMessage(messages.success)}
+				description={successDescription}
+			/>
+		);
+	} else if (notificationType === 'error') {
+		flag = (
+			<AutoDismissFlag
+				id={'error'}
+				icon={
+					<ErrorIcon
+						label="Error"
+						color={token('color.icon.danger')}
+						LEGACY_size="medium"
+						spacing="spacious"
+					/>
+				}
+				key={'error'}
+				title={intl.formatMessage(messages.error)}
+				description={errorDescription}
+			/>
+		);
+	}
+	return <FlagGroup onDismissed={onDismissed}>{flag}</FlagGroup>;
 }
 
 export default injectIntl(ApiFeedback);

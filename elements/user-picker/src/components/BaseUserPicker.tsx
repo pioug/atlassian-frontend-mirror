@@ -1,4 +1,5 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import debounce from 'lodash/debounce';
 import React from 'react';
@@ -20,6 +21,7 @@ import {
 import type {
 	Appearance,
 	AtlasKitSelectChange,
+	GroupedOptions,
 	InputActionTypes,
 	Option,
 	OptionData,
@@ -38,6 +40,7 @@ import {
 	isSingleValue,
 	optionToSelectableOptions,
 } from './utils';
+import { groupOptionsByType } from '../util/group-options-by-type';
 import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
 
 export type BaseUserPickerProps = UserPickerProps & {
@@ -475,9 +478,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		this.setState({ hoveringClearIndicator });
 	};
 
-	private getOptions = (): Option[] => {
+	private getOptions = (): Option[] | GroupedOptions[] => {
 		const options = getOptions(this.state.options) || [];
-		const { maxOptions, isMulti } = this.props;
+		const { maxOptions, isMulti, groupByTypeOrder } = this.props;
 		if (maxOptions === 0) {
 			return [];
 		}
@@ -489,10 +492,14 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 				const valueIds: string[] = value.map((item) => item.data.id);
 				filteredOptions = options.filter((option) => valueIds.indexOf(option.data.id) === -1);
 			}
-			return filteredOptions.slice(0, maxOptions);
+			return groupByTypeOrder && fg('support_group_by_type_for_user_picker')
+				? groupOptionsByType(filteredOptions.slice(0, maxOptions), groupByTypeOrder)
+				: filteredOptions.slice(0, maxOptions);
 		}
 
-		return options;
+		return groupByTypeOrder && fg('support_group_by_type_for_user_picker')
+			? groupOptionsByType(options, groupByTypeOrder)
+			: options;
 	};
 
 	private getAppearance = (): Appearance =>

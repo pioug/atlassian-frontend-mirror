@@ -175,12 +175,7 @@ export interface ProjectEntity extends BaseEntity {
 	'atlassian:project': ProjectAttributes;
 }
 
-export interface DocumentEntity extends BaseEntity {
-	'atlassian:document': DocumentAttributes;
-}
-
-export const isDocumentEntity = (entity: EntityType): entity is DocumentEntity =>
-	'atlassian:document' in entity;
+export interface DocumentEntity extends BaseEntity, DocumentAttributes {}
 
 export interface UnsupportedEntity extends BaseEntity {
 	[x: string | number | symbol]: unknown;

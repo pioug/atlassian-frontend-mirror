@@ -38,10 +38,9 @@ function createPerformanceObserver({ onLayoutShift }: CreatePerformanceObserverA
 
 	const performanceObserverCallback: PerformanceObserverCallback = (entries) => {
 		for (const entry of entries.getEntries()) {
-			if (entry.entryType === 'layout-shift') {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const changedRects = ((entry as any).sources as LayoutShiftAttribution[]).reduceRight(
+			if (entry.entryType === 'layout-shift' && 'sources' in entry) {
+				// see https://developer.mozilla.org/en-US/docs/Web/API/LayoutShiftAttribution for more info
+				const changedRects = (entry.sources as LayoutShiftAttribution[]).reduceRight(
 					(acc, attr) => {
 						acc.push({
 							rect: convertPhysicalToLogicalResolution(attr.currentRect),

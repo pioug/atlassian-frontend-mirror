@@ -134,6 +134,10 @@ function createPostInteractionLogPayload({
 		throw Error('UFO Configuration not provided');
 	}
 
+	if (!lastInteractionFinish) {
+		return null;
+	}
+
 	const ufoName = sanitizeUfoName(lastInteractionFinish.ufoName);
 	const rate = getPostInteractionRate(ufoName, lastInteractionFinish.type);
 

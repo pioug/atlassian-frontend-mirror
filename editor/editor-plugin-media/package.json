@@ -170,9 +170,6 @@
 		"platform_editor_remove_media_inline_feature_flag": {
 			"type": "boolean"
 		},
-		"platform_editor_media_single_toolbar_target": {
-			"type": "boolean"
-		},
 		"platform_editor_ssr_media": {
 			"type": "boolean"
 		},

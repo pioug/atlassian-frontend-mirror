@@ -51,8 +51,6 @@ export const LEGACY_ONLY_LOGOS = [
 	'atlas',
 	'atlassian-marketplace',
 	'atlassian-access',
-	'atlassian-administration',
-	'atlassian-admin',
 	'jira-software',
 	'jira-work-management',
 	'loom-attribution',
@@ -60,6 +58,8 @@ export const LEGACY_ONLY_LOGOS = [
 
 // Logos that exist in both packages
 export const SHARED_LOGOS = [
+	'atlassian-administration',
+	'atlassian-admin',
 	'atlassian-analytics',
 	'bitbucket',
 	'compass',
@@ -79,6 +79,9 @@ export const SHARED_LOGOS = [
 
 // Logos that only exist in @atlaskit/temp-nav-app-icons
 export const NEW_ONLY_LOGOS = [
+	'admin',
+	'analytics',
+	'align',
 	'assets',
 	'chat',
 	'customer-service-management',

@@ -47,6 +47,11 @@ export type NavigationActionCommon = RequireOrgIdOrCloudId & {
 
 export type NavigationActionUser = {
 	userId: string;
+	// Extend as required
+	section?: 'workswith';
+};
+export type NavigationActionUserWork = {
+	userId: string;
 };
 export type NavigationActionTeam = {
 	teamId: string;
@@ -56,6 +61,10 @@ export type NavigationActionAgent = {
 };
 export type NavigationActionKudos = {
 	kudosId: string;
+};
+
+export type NavigationActionPeople = {
+	query?: string;
 };
 
 export type NavigationActionPayloadVariants =
@@ -77,6 +86,14 @@ export type NavigationActionPayloadVariants =
 	| {
 			type: 'KUDOS';
 			payload: NavigationActionKudos;
+	  }
+	| {
+			type: 'PEOPLE_DIRECTORY';
+			payload: NavigationActionPeople;
+	  }
+	| {
+			type: 'USER_WORK';
+			payload: NavigationActionUserWork;
 	  };
 
 export type NavigationAction = NavigationActionCommon & NavigationActionPayloadVariants;

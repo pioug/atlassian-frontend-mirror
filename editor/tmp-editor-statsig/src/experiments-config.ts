@@ -461,4 +461,21 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2025-06-20
+	confluence_whiteboards_quick_insert_aa: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'confluence_whiteboards_quick_insert_aa',
+		},
+		param: 'cohort',
+		values: ['control', 'test_blank', 'test_diagram'],
+		defaultValue: 'control',
+	}),
+	// Added 2025-06-24
+	platform_editor_find_and_replace_improvements: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_find_and_replace_improvements',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 } satisfies Record<string, ExperimentConfigValue>;

@@ -8,6 +8,7 @@ import type {
 	OverflowDropdownOption,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createPlugin, selectionExtensionPluginKey } from './pm-plugins/main';
 import type { SelectionExtensionPlugin } from './selectionExtensionPluginType';
@@ -109,7 +110,10 @@ export const selectionExtensionPlugin: SelectionExtensionPlugin = ({ api, config
 					const { selection: currentSelection } = view.state;
 
 					const { from, to } = currentSelection;
-					const text = state.doc.textBetween(from, to, '\n');
+					const currentState = fg('platform_editor_fix_get_selection_state_mismatch')
+						? view.state
+						: state;
+					const text = currentState.doc.textBetween(from, to, '\n');
 					const coords = getBoundingBoxFromSelection(view, from, to);
 					return { text, from, to, coords };
 				};

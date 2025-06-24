@@ -11,6 +11,7 @@ import { jsx } from '@emotion/react';
 
 import type { DispatchAnalyticsEvent, TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MatchCaseProps } from '../types';
 
@@ -184,7 +185,9 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 				{fg('editor_a11y_refactor_find_replace_style') ? (
 					<ReplaceNext
 						canReplace={
-							fg('platform_editor_find_and_replace_1') ? !!isReplaceable : count.total > 0
+							expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+								? !!isReplaceable
+								: count.total > 0
 						}
 						replaceText={replaceText}
 						onReplace={onReplace}
@@ -203,7 +206,9 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 				) : (
 					<Replace
 						canReplace={
-							fg('platform_editor_find_and_replace_1') ? !!isReplaceable : count.total > 0
+							expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+								? !!isReplaceable
+								: count.total > 0
 						}
 						replaceText={replaceText}
 						onReplace={onReplace}

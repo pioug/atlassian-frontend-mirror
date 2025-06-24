@@ -1,5 +1,13 @@
 # @atlaskit/dropdown-menu
 
+## 16.1.2
+
+### Patch Changes
+
+- [#172917](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172917)
+  [`8a3d5265aaa3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a3d5265aaa3b) -
+  Adds aria described by for better screen reader context
+
 ## 16.1.1
 
 ### Patch Changes

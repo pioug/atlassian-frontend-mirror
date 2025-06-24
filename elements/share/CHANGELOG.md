@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 6.13.0
+
+### Minor Changes
+
+- [#175527](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175527)
+  [`4747c395fd276`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4747c395fd276) -
+  [ux] Update compiled migrated button styles for the extended variant
+
 ## 6.12.0
 
 ### Minor Changes

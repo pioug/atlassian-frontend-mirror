@@ -1,12 +1,9 @@
 import React from 'react';
 
-import { matchers } from '@emotion/jest';
 import { render, screen } from '@testing-library/react';
 
 import { typesMapping } from '../../../constants';
 import MessageIcon from '../../message-icon';
-
-expect.extend(matchers);
 
 describe('MessageIcon component', () => {
 	describe('props', () => {

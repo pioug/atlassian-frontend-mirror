@@ -1,5 +1,27 @@
 # @atlaskit/editor-statsig-tmp
 
+## 8.2.0
+
+### Minor Changes
+
+- [#176094](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176094)
+  [`09e338a3d7dab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09e338a3d7dab) -
+  [ED-28357] move find&replace work from behind feature gates to the new experiment
+  platform_editor_find_and_replace_improvements
+
+## 8.1.0
+
+### Minor Changes
+
+- [#174924](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174924)
+  [`5dfbb5e243380`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dfbb5e243380) -
+  adding initial functionality to run experiment to pin whiteboards at the top of the quick insert
+  menu
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

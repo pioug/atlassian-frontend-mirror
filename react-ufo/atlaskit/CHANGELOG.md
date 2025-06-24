@@ -1,5 +1,35 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.13.28
+
+### Patch Changes
+
+- [#173121](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173121)
+  [`0d5a766d0f501`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d5a766d0f501) -
+  Track unknown interactions elements
+
+## 3.13.27
+
+### Patch Changes
+
+- [#175316](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175316)
+  [`a2a93696df1b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2a93696df1b8) -
+  Add extra non-visual attributes to UFO ignore list
+- [#173438](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173438)
+  [`03117ec2ea74c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03117ec2ea74c) -
+  Update README
+
+## 3.13.26
+
+### Patch Changes
+
+- [#175577](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175577)
+  [`ab132e5fd6642`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab132e5fd6642) -
+  ensure post-interaction-log events are only for page_load and transition events
+- [#175545](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175545)
+  [`b16b0a70a3516`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b16b0a70a3516) -
+  bugfix: correctly layout shift entry sources being undefined in TTVC v3 logic
+
 ## 3.13.25
 
 ### Patch Changes

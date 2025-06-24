@@ -37,6 +37,11 @@ const SectionContentOne = () => {
 			<Button id="test-button" onClick={handleClick} interactionName="test-click">
 				new interaction button
 			</Button>
+			<div data-testid="test1">
+				<Button id="test-button2" onClick={handleClick}>
+					unknown interaction button
+				</Button>
+			</div>
 			{showHold && <UFOLoadHold name="show-hold">Loading</UFOLoadHold>}
 		</div>
 	);

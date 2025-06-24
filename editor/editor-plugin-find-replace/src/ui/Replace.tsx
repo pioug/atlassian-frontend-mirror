@@ -22,9 +22,9 @@ import { findReplaceMessages as messages } from '@atlaskit/editor-common/message
 import { Label, ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down--hipchat-chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/core/migration/chevron-up--hipchat-chevron-up';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 import {
@@ -208,7 +208,10 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 		this.skipWhileComposing(() => {
 			this.props.onReplaceAll({ replaceText: this.state.replaceText });
 			this.setState({ isHelperMessageVisible: true });
-			if (this.props.count.totalReplaceable && fg('platform_editor_find_and_replace_1')) {
+			if (
+				this.props.count.totalReplaceable &&
+				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+			) {
 				this.triggerSuccessReplacementMessageUpdate(this.props.count.totalReplaceable);
 				this.setState({ replaceCount: this.props.count.totalReplaceable });
 			} else {
@@ -350,7 +353,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 								id="replaceAll-button"
 								onClick={this.handleReplaceAllClick}
 								isDisabled={
-									fg('platform_editor_find_and_replace_1')
+									expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 										? count.totalReplaceable === 0
 										: !canReplace
 								}

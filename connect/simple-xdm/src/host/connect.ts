@@ -141,7 +141,7 @@ class Connect {
 		this._xdm.unregisterClickHandler();
 	}
 
-	defineModule(moduleName: string, module: Module): void {
+	defineModule(moduleName: string, module: Module, options: any): void {
 		this._xdm.defineAPIModule(module, moduleName, options);
 	}
 

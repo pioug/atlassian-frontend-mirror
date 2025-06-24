@@ -197,6 +197,8 @@ export interface InteractionMetrics {
 	vc?: VCRawDataType | null;
 	experimentalTTAI?: number;
 	experimentalVC90?: number;
+	unknownElementName?: string;
+	unknownElementHierarchy?: string;
 }
 
 export type LoadProfilerEventInfo = {

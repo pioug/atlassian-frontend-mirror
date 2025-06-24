@@ -4,13 +4,10 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-basic-example-uncontrolled.tsx",
-    "02-disabled-display.tsx",
-    "09-different-values.tsx"
-  ],
-  "exampleDependencies": [
-    "@emotion/styled",
-    "lodash"
-  ]
+	"testExamples": [
+		"00-basic-example-uncontrolled.tsx",
+		"02-disabled-display.tsx",
+		"09-different-values.tsx",
+	],
+	"exampleDependencies": ["lodash"],
 }

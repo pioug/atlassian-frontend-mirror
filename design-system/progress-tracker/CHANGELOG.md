@@ -1,5 +1,18 @@
 # @atlaskit/progress-tracker
 
+## 10.2.0
+
+### Minor Changes
+
+- [#175003](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175003)
+  [`0d715469b8a4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d715469b8a4d) -
+  This release enables functionality previously tested and rolled out under a feature flag. Progress
+  tracker links are now rendered using the Anchor primitive by default, allowing automatic router
+  link configuration with App Provider.
+
+  The `render` prop, which only supported overriding links, has been deprecated. To migrate,
+  configure router links using [App Provider](https://atlassian.design/components/app-provider).
+
 ## 10.1.3
 
 ### Patch Changes

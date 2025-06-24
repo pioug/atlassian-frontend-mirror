@@ -817,6 +817,8 @@ async function createInteractionMetricsPayload(
 		isPreviousInteractionAborted,
 		abortedByInteractionName,
 		responsiveness,
+		unknownElementName,
+		unknownElementHierarchy,
 	} = interaction;
 	const pageVisibilityAtTTI = getPageVisibilityUpToTTI(interaction);
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
@@ -1018,6 +1020,8 @@ async function createInteractionMetricsPayload(
 					...getBm3TrackerTimings(interaction),
 					'metric:ttai': experimental ? regularTTAI || expTTAI : undefined,
 					'metric:experimental:ttai': expTTAI,
+					...(unknownElementName ? { unknownElementName } : {}),
+					...(unknownElementHierarchy ? { unknownElementHierarchy } : {}),
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
 			},

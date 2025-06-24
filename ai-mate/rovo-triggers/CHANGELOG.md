@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 3.1.0
+
+### Minor Changes
+
+- [#175516](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175516)
+  [`7ac176c5546bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ac176c5546bf) -
+  Added support for a 'chat-close' payload within Rovo Triggers to allow users to remotely close the
+  Rovo chat.
+
 ## 3.0.0
 
 ### Major Changes

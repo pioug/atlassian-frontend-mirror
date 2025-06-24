@@ -247,11 +247,9 @@ describe('entity data', () => {
 					data: { '@type': 'Object' },
 					entityData: {
 						displayName: 'Entity Title',
-						'atlassian:document': {
-							type: {
-								category: 'document',
-								iconUrl: url,
-							},
+						type: {
+							category: 'document',
+							iconUrl: url,
 						},
 					},
 				};
@@ -260,25 +258,6 @@ describe('entity data', () => {
 					url: 'https://google-icon.com/icon.png',
 					label: 'Entity Title',
 				});
-			});
-
-			it('should return entity icon when response is a document entity and provider icon does not exist', () => {
-				const url = 'https://example.com/icon.png';
-				const response = {
-					meta: { visibility: 'public', access: 'granted' },
-					data: { '@type': 'Object' },
-					entityData: {
-						displayName: 'Entity Title',
-						'atlassian:document': {
-							type: {
-								category: 'document',
-								iconUrl: url,
-							},
-						},
-					},
-				} as SmartLinkResponse;
-
-				expect(extractEntityIcon(response)).toEqual({ url, label: 'Entity Title' });
 			});
 		});
 

@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 119.0.3
+
+### Patch Changes
+
+- [#175437](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175437)
+  [`fc90fe8067613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc90fe8067613) -
+  [EDITOR-179] FG editor_a11y_status_renderer_description clean up
+- Updated dependencies
+
+## 119.0.2
+
+### Patch Changes
+
+- [#174381](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174381)
+  [`eed4c1f1ccffd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eed4c1f1ccffd) -
+  Allows the isTopLevelRenderer prop to be passed from the ReactRenderer component to the underlying
+  Renderer coponent
+- Updated dependencies
+
 ## 119.0.1
 
 ### Patch Changes

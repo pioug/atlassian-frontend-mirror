@@ -140,7 +140,7 @@ describe('UFO Configuration Module', () => {
 				},
 			};
 			setUFOConfig(config);
-			expect(getPostInteractionRate('postEvent', 'press')).toBe(0.9);
+			expect(getPostInteractionRate('postEvent', 'page_load')).toBe(0.9);
 		});
 	});
 

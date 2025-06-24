@@ -88,11 +88,6 @@ export interface HoverCardInternalProps {
 	 * Suspend hover card UI delays (fade-in, fade-out) for VR testing purposes.
 	 */
 	noFadeDelay?: boolean;
-	/**
-	 * A flag to determine whether to show aria-label
-	 * @deprecated remove when cleaning up FG platform_bandicoots-smart-card-disable-aria
-	 */
-	showLabel?: boolean;
 }
 
 export interface HoverCardComponentProps extends HoverCardProps, HoverCardInternalProps {

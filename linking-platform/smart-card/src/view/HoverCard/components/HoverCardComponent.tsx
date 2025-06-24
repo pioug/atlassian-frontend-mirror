@@ -1,12 +1,9 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
-import { useIntl } from 'react-intl-next';
-
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 
 import { ActionName, CardDisplay } from '../../../constants';
-import { messages } from '../../../messages';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
@@ -36,7 +33,6 @@ export const HoverCardComponent = ({
 	role,
 	label,
 	titleId,
-	showLabel = true,
 }: HoverCardComponentProps) => {
 	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
 	const [isOpen, setIsOpen] = React.useState(false);
@@ -46,7 +42,6 @@ export const HoverCardComponent = ({
 	const mousePos = useRef<{ x: number; y: number }>();
 	const popupOffset = useRef<[number, number]>();
 	const parentSpan = useRef<HTMLSpanElement>(null);
-	const { formatMessage } = useIntl();
 
 	const renderers = useSmartLinkRenderers();
 	const linkState = useLinkState(url);
@@ -235,29 +230,13 @@ export const HoverCardComponent = ({
 					onClick={onChildClick}
 					onContextMenu={onContextMenuClick}
 					data-testid="hover-card-trigger-wrapper"
-					{...(!fg('platform_bandicoots-smart-card-disable-aria')
-						? {
-								'aria-label': showLabel
-									? formatMessage(messages.more_information_about_this_work_item)
-									: undefined,
-							}
-						: {})}
 					{...(fg('fix_a11y_violation_in_hover_card_trigger') ? { role: 'button' } : {})}
 				>
 					{children}
 				</span>
 			</span>
 		),
-		[
-			children,
-			initHideCard,
-			initShowCard,
-			onChildClick,
-			onContextMenuClick,
-			setMousePosition,
-			formatMessage,
-			showLabel,
-		],
+		[children, initHideCard, initShowCard, onChildClick, onContextMenuClick, setMousePosition],
 	);
 
 	return (

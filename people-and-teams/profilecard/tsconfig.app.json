@@ -98,6 +98,9 @@
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{
+			"path": "../teams-app-config/tsconfig.app.json"
+		},
+		{
 			"path": "../teams-avatar/tsconfig.app.json"
 		},
 		{

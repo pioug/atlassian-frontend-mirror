@@ -129,6 +129,7 @@ import {
 	hideSelectionStyles,
 	selectedNodeStyles,
 } from './styles/selectionStyles';
+import { selectionToolbarAnimationStyles } from './styles/selectionToolbarStyles';
 import { shadowStyles } from './styles/shadowStyles';
 import {
 	linkingVisualRefreshV1Styles,
@@ -494,6 +495,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					hyperLinkFloatingToolbarStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					!fg('platform-visual-refresh-icons') && linkLegacyIconStylesFix,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					fg('confluence_floating_toolbar_animation') && selectionToolbarAnimationStyles,
 				]}
 				data-editor-scroll-container={isScrollable ? 'true' : undefined}
 				data-testid="editor-content-container"

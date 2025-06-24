@@ -1,5 +1,5 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { isDocumentEntity, type SmartLinkResponse } from '@atlaskit/linking-types';
+import { type SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -162,8 +162,11 @@ export const extractSmartLinkDownloadUrl = (response?: SmartLinkResponse): strin
 	if (fg('smart_links_noun_support')) {
 		if (isEntityPresent(response)) {
 			const entity = extractEntity(response);
-			return entity && isDocumentEntity(entity)
-				? entity?.['atlassian:document']?.exportLinks?.[0].url
+			return entity &&
+				'exportLinks' in entity &&
+				Array.isArray(entity.exportLinks) &&
+				entity.exportLinks.length > 0
+				? entity?.exportLinks?.[0].url
 				: undefined;
 		}
 	}

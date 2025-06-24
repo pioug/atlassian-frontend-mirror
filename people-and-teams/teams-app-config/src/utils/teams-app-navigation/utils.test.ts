@@ -1,10 +1,10 @@
 import { isFedRamp } from '@atlaskit/atlassian-context';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { hostname, openInNewTab, redirect } from '../../common/utils';
+import { hostname, openInNewTab, pathname, redirect } from '../../common/utils';
 
-import type { NavigationActionCommon } from './types';
-import { generatePath, isTeamsAppEnabled, onNavigateBase } from './utils';
+import { NavigationActionCommon } from './types';
+import { generatePath, getHostProductFromPath, isTeamsAppEnabled, onNavigateBase } from './utils';
 
 jest.mock('@atlaskit/atlassian-context', () => ({
 	getATLContextUrl: jest.fn((product: string) => {
@@ -20,6 +20,8 @@ jest.mock('../../common/utils', () => ({
 	openInNewTab: jest.fn(),
 	redirect: jest.fn(),
 	hostname: jest.fn(() => 'hello.atlassian.net'),
+	origin: jest.fn(() => 'https://hello.atlassian.net'),
+	pathname: jest.fn(() => '/jira/somepath'),
 }));
 
 const baseConfig: NavigationActionCommon = {
@@ -39,7 +41,7 @@ describe('teams app navigation utils', () => {
 					...baseConfig,
 				};
 				const path = 'somepath';
-				const expectedPath = `https://jira.atlassian.net/people/${path}`;
+				const expectedPath = `https://hello.atlassian.net/jira/people/${path}`;
 				expect(generatePath(path, config)).toEqual(expectedPath);
 			});
 			it('should generate the correct path for Confluence', () => {
@@ -48,7 +50,7 @@ describe('teams app navigation utils', () => {
 					hostProduct: 'confluence',
 				};
 				const path = 'somepath';
-				const expectedPath = `https://confluence.atlassian.net/people/${path}`;
+				const expectedPath = `https://hello.atlassian.net/wiki/people/${path}`;
 				expect(generatePath(path, config)).toEqual(expectedPath);
 			});
 
@@ -70,6 +72,17 @@ describe('teams app navigation utils', () => {
 				const path = 'somepath';
 				const expectedPath = `https://home.atlassian.com/o/${config.orgId}/people/${path}?cloudId=${config.cloudId}`;
 				expect(generatePath(path, config)).toEqual(expectedPath);
+			});
+
+			it('should generate the correct path for Home with anchor', () => {
+				const config: NavigationActionCommon = {
+					...baseConfig,
+					hostProduct: 'home',
+				};
+				const path = 'somepath';
+				const anchor = 'workswith';
+				const expectedPath = `https://home.atlassian.com/o/${config.orgId}/people/${path}#${anchor}?cloudId=${config.cloudId}`;
+				expect(generatePath(path, config, undefined, anchor)).toEqual(expectedPath);
 			});
 		});
 
@@ -301,6 +314,34 @@ describe('teams app navigation utils', () => {
 				expect(result).toBe(true);
 				(isFedRamp as jest.Mock).mockReturnValue(false);
 			});
+		});
+	});
+
+	describe('getHostProductFromPath', () => {
+		beforeEach(() => {
+			jest.clearAllMocks();
+		});
+		it('should return jira when the path is /jira/somepath', () => {
+			(pathname as jest.Mock).mockReturnValue('/jira/somepath');
+			const result = getHostProductFromPath();
+			expect(result).toBe('jira');
+		});
+		it('should return confluence when the path is /wiki/somepath', () => {
+			(pathname as jest.Mock).mockReturnValue('/wiki/somepath');
+			const result = getHostProductFromPath();
+			expect(result).toBe('confluence');
+		});
+		it('should return home when the host is home.atlassian.com', () => {
+			(pathname as jest.Mock).mockReturnValue('/somepath');
+			(hostname as jest.Mock).mockReturnValue('home.atlassian.com');
+			const result = getHostProductFromPath();
+			expect(result).toBe('home');
+		});
+		it('should return undefined when the path is not /jira, /wiki, or /home', () => {
+			(pathname as jest.Mock).mockReturnValue('/somepath');
+			(hostname as jest.Mock).mockReturnValue('hello.atlassian.net');
+			const result = getHostProductFromPath();
+			expect(result).toBe(undefined);
 		});
 	});
 });

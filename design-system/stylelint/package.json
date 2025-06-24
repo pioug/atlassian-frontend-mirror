@@ -42,7 +42,10 @@
 		".": "./src/index.tsx"
 	},
 	"exports": {
-		".": "./index.js"
+		".": {
+			"types": "./src/index.tsx",
+			"default": "./index.js"
+		}
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "workspace:^",

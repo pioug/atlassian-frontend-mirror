@@ -106,7 +106,7 @@ export const ModifiedByElement = () => <ModifiedBy />;
 
 type ModifiedOnElementProps = Pick<
 	React.ComponentProps<typeof ModifiedOn>,
-	'hideDatePrefix' | 'color' | 'onRender'
+	'hideDatePrefix' | 'color' | 'onRender' | 'fontSize'
 >;
 
 export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
@@ -116,6 +116,7 @@ export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 				hideDatePrefix={props?.hideDatePrefix}
 				color={props?.color}
 				onRender={props?.onRender}
+				fontSize={props?.fontSize}
 			/>
 		);
 	}
@@ -124,12 +125,19 @@ export const ModifiedOnElement = (props?: ModifiedOnElementProps) => {
 
 type OwnedByElementProps = Pick<
 	React.ComponentProps<typeof OwnedBy>,
-	'hideFormat' | 'color' | 'onRender'
+	'hideFormat' | 'color' | 'onRender' | 'textPrefix' | 'fontSize'
 >;
 export const OwnedByElement = (props?: OwnedByElementProps) => {
 	if (fg('platform-linking-additional-flexible-element-props')) {
 		return (
-			<OwnedBy hideFormat={props?.hideFormat} color={props?.color} onRender={props?.onRender} />
+			<OwnedBy
+				hideFormat={props?.hideFormat}
+				color={props?.color}
+				onRender={props?.onRender}
+				{...(fg('bandicoots-smart-card-teamwork-context')
+					? { textPrefix: props?.textPrefix, fontSize: props?.fontSize }
+					: undefined)}
+			/>
 		);
 	}
 	return <OwnedBy />;
@@ -188,7 +196,7 @@ export const TargetBranchElement = () => <TargetBranch />;
 
 export type TitleElementProps = Pick<
 	React.ComponentProps<typeof Title>,
-	'hideTooltip' | 'maxLines' | 'target' | 'text'
+	'hideTooltip' | 'maxLines' | 'target' | 'text' | 'theme' | 'size'
 >;
 
 export const TitleElement = (props?: TitleElementProps) => (
@@ -196,6 +204,9 @@ export const TitleElement = (props?: TitleElementProps) => (
 		hideTooltip={props?.hideTooltip}
 		maxLines={props?.maxLines}
 		target={props?.target}
+		{...(fg('bandicoots-smart-card-teamwork-context')
+			? { theme: props?.theme, size: props?.size }
+			: undefined)}
 		{...(props?.text ? { text: props?.text } : undefined)}
 	/>
 );
@@ -245,3 +256,5 @@ export const PreviewAction = (props: PreviewActionProps) => (
 );
 
 export const UnresolvedAction = () => <UnresolvedActionComponent />;
+
+export { CustomByAccessTypeElement, CustomByStatusElement } from './components/elements';

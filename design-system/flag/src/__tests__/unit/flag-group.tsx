@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { matchers } from '@emotion/jest';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 
 import { Box } from '@atlaskit/primitives/compiled';
@@ -8,8 +7,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import FlagGroup from '../../flag-group';
 import Flag from '../../index';
 import { type FlagProps } from '../../types';
-
-expect.extend(matchers);
 
 describe('FlagGroup', () => {
 	const generateFlag = (extraProps?: Partial<FlagProps>) => (

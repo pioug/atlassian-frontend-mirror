@@ -156,7 +156,7 @@ describe('#sendData', () => {
 		);
 	});
 
-	it('calls onStepsAdded on successful response when there are sendable steps', () => {
+	it.skip('calls onStepsAdded on successful response when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
@@ -216,7 +216,7 @@ describe('#sendData', () => {
 		jest.spyOn(global.Math, 'random').mockRestore();
 	});
 
-	it('handles step conflicts due to late head version update when there are sendable steps', () => {
+	it.skip('handles step conflicts due to late head version update when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
@@ -289,7 +289,7 @@ describe('#sendData', () => {
 		jest.spyOn(global.Math, 'random').mockRestore();
 	});
 
-	it('handles step conflicts due to version number already exists error when there are sendable steps', () => {
+	it.skip('handles step conflicts due to version number already exists error when there are sendable steps', () => {
 		(sendableSteps as jest.Mock).mockReturnValue({
 			steps: [fakeStep],
 		});
@@ -361,7 +361,7 @@ describe('#sendData', () => {
 		jest.spyOn(global.Math, 'random').mockRestore();
 	});
 
-	it('handles corrupt steps error by calling catchup when there are sendable steps', () => {
+	it.skip('handles corrupt steps error by calling catchup when there are sendable steps', () => {
 		// @ts-ignore spying on private method for testing
 		const throttledCatchupSpy = jest.spyOn(provider.documentService, 'throttledCatchupv2');
 

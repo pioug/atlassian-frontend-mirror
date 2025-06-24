@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Grid } from '@atlaskit/primitives';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
@@ -62,14 +61,10 @@ import {
 	ForbiddenWithSiteRequestAccessClient,
 	NotFoundWithSiteAccessExistsClient,
 	UnAuthClient,
+	UnicornResolvedClient,
 } from './utils/custom-client';
 import ExampleContainer from './utils/example-container';
 
-class UnicornResolvedClient extends CardClient {
-	fetchData(url: string): Promise<JsonLd.Response> {
-		return Promise.resolve(unicornResponse as JsonLd.Response);
-	}
-}
 export default () => {
 	const [cols, setCols] = React.useState<number>(1);
 	const [templateColumns, setTemplateColumns] = React.useState<string>('1fr');

@@ -53,7 +53,8 @@
 	},
 	"scripts": {
 		"generate:types:public-api": "yarn swagger-typescript-api -p ./src/services/public-api-client/swagger.json -o ./src/services/public-api-client/generated/ --modular --no-client --union-enums",
-		"generate:docs:teams-client": "ts-node --project ../../../tsconfig.node.json ./scripts/generate-docs.ts && yarn ../../.. prettier --write packages/people-and-teams/teams-client/docs"
+		"generate:docs:teams-client": "ts-node --project ../../../tsconfig.node.json ./scripts/generate-docs.ts && yarn ../../.. prettier --write packages/people-and-teams/teams-client/docs",
+		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-client/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-client/src/**\", \"!packages/people-and-teams/teams-client/src/**/**/types.ts\", \"!packages/people-and-teams/teams-client/src/ui/**/styled.tsx\"]')"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",

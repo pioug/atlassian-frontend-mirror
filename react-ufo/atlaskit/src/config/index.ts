@@ -302,6 +302,10 @@ export function getPostInteractionRate(name: string, interactionType: Interactio
 			return 0;
 		}
 
+		if (interactionType !== 'page_load' && interactionType !== 'transition') {
+			return 0;
+		}
+
 		if (postInteractionLog.rates && typeof postInteractionLog.rates[name] === 'number') {
 			return postInteractionLog.rates[name];
 		}

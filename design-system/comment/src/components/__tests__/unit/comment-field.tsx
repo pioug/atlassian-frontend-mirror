@@ -1,12 +1,9 @@
 import React from 'react';
 
-import { matchers } from '@emotion/jest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import CommentField, { type CommentFieldProps } from '../../field';
-
-expect.extend(matchers);
 
 describe('@atlaskit comments', () => {
 	describe('CommentField', () => {

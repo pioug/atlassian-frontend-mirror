@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "8.0.4",
+	"version": "8.0.5",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -69,7 +69,6 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@emotion/jest": "^11.8.0",
 		"@testing-library/react": "^13.4.0",
 		"ast-types": "^0.13.3",
 		"jscodeshift": "^17.0.0",
@@ -89,7 +88,7 @@
 			"design-system": "v1",
 			"styling": [
 				"static",
-				"emotion"
+				"compiled"
 			],
 			"analytics": "analytics-next",
 			"design-tokens": [

@@ -32,6 +32,9 @@
 		"./navigation": "./src/utils/teams-app-navigation/index.ts",
 		"./types": "./src/utils/teams-app-navigation/types.ts"
 	},
+	"scripts": {
+		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-app-config/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-app-config/src/**\", \"!packages/people-and-teams/teams-app-config/src/**/**/types.ts\", \"!packages/people-and-teams/teams-app-config/src/ui/**/styled.tsx\"]')"
+	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/css": "workspace:^",
@@ -93,7 +96,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-app-config",
-	"version": "1.8.1",
+	"version": "1.9.0",
 	"description": "Teams App related config",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

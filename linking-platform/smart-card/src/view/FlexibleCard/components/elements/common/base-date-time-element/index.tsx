@@ -2,10 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { selectUnit } from '@formatjs/intl-utils';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 
+import type { Prettify } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -61,6 +62,21 @@ const typeToDescriptorMap: Record<DateTimeType, Record<DateTypeVariation, Messag
 	},
 };
 
+const fontOverrideStyleMap = cssMap({
+	'font.body': {
+		font: token('font.body'),
+	},
+	'font.body.large': {
+		font: token('font.body.large'),
+	},
+	'font.body.small': {
+		font: token('font.body.small'),
+	},
+	'font.body.UNSAFE_small': {
+		font: token('font.body.UNSAFE_small'),
+	},
+});
+
 export type BaseDateTimeElementProps = ElementProps & {
 	/**
 	 * Whether the date time element text should contain "Modified" or "Created" or "sent"
@@ -82,6 +98,15 @@ export type BaseDateTimeElementProps = ElementProps & {
 	 * Color of the text
 	 */
 	color?: string;
+	/**
+	 * Override the default font size.
+	 */
+	fontSize?: Prettify<
+		Extract<
+			Parameters<typeof token>[0],
+			'font.body' | 'font.body.large' | 'font.body.small' | 'font.body.UNSAFE_small'
+		>
+	>;
 };
 
 /**
@@ -101,6 +126,7 @@ const BaseDateTimeElement = ({
 	text,
 	hideDatePrefix = false,
 	color,
+	fontSize,
 }: BaseDateTimeElementProps) => {
 	const { formatRelativeTime, formatDate } = useIntl();
 	if (!type || !date) {
@@ -138,6 +164,9 @@ const BaseDateTimeElement = ({
 			css={[
 				!fg('platform-linking-visual-refresh-v1') && stylesOld,
 				fg('platform-linking-visual-refresh-v1') && styles,
+				fontSize !== undefined &&
+					fg('bandicoots-smart-card-teamwork-context') &&
+					fontOverrideStyleMap[fontSize],
 			]}
 			style={{
 				color:

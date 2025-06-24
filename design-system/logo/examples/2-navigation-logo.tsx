@@ -5,12 +5,17 @@
 import React, { Fragment, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import {
+	AdminIcon,
+	AlignIcon,
+	AnalyticsIcon,
 	AtlassianAccessIcon,
 	AtlassianAdminIcon,
 	AtlassianAdministrationIcon,
+	AtlassianAnalyticsIcon,
+	AtlassianIcon,
 	AtlassianMarketplaceIcon,
 	BitbucketIcon,
 	CompassIcon,
@@ -33,7 +38,10 @@ import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const logoOptions = [
-	AtlassianMarketplaceIcon,
+	AtlassianIcon,
+	AdminIcon,
+	AnalyticsIcon,
+	AlignIcon,
 	BitbucketIcon,
 	CompassIcon,
 	ConfluenceIcon,
@@ -52,7 +60,9 @@ const logoOptions = [
 	TrelloIcon,
 	AtlassianAdminIcon,
 	AtlassianAdministrationIcon,
+	AtlassianAnalyticsIcon,
 	AtlassianAccessIcon,
+	AtlassianMarketplaceIcon,
 ];
 
 const iconVariants = [

@@ -637,7 +637,12 @@ export function Renderer(props: RendererProps) {
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			startPos={startPos}
-			isTopLevelRenderer={isTopLevelRenderer}
+			isTopLevelRenderer={
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+				fg('issue_table_single_line_row_height_fast_follows')
+					? props.isTopLevelRenderer ?? isTopLevelRenderer
+					: isTopLevelRenderer
+			}
 			skipValidation={skipValidation}
 			validationOverrides={
 				fg('cc_complexit_fe_reduce_rerender_2') ? validationOverrides : { allowNestedTables }

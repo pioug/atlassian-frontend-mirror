@@ -22,6 +22,8 @@ export type MessageSendPayload = PayloadCore<
 	}
 >;
 
+export type ChatClosePayload = PayloadCore<'chat-close', {}>;
+
 // Can only specify either `agentId` or `agentExternalConfigReference`, not both
 type TargetAgentParam =
 	| {
@@ -266,6 +268,7 @@ export type SetChatContextPayload = PayloadCore<'set-message-context', ChatConte
 
 export type Payload =
 	| MessageSendPayload
+	| ChatClosePayload
 	| ChatNewPayload
 	| ChatDraftPayload
 	| EditorContextPayload

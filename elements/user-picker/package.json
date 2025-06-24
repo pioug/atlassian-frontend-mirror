@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "11.2.3",
+	"version": "11.3.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -120,6 +120,9 @@
 			"type": "boolean"
 		},
 		"user-picker-show-clear-indicator": {
+			"type": "boolean"
+		},
+		"support_group_by_type_for_user_picker": {
 			"type": "boolean"
 		}
 	}

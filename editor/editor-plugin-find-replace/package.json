@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "2.7.1",
+	"version": "2.7.2",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -120,12 +120,6 @@
 			"type": "boolean"
 		},
 		"editor_a11y_refactor_find_replace_style": {
-			"type": "boolean"
-		},
-		"platform_editor_find_and_replace_1": {
-			"type": "boolean"
-		},
-		"platform_editor_find_and_replace_part_2": {
 			"type": "boolean"
 		}
 	}

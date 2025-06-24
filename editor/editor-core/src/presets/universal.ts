@@ -171,7 +171,7 @@ export default function createUniversalPresetInternal({
 		.add(contentInsertionPlugin)
 		.add(batchAttributeUpdatesPlugin)
 		.maybeAdd(
-			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page' }],
+			[breakoutPlugin, { allowBreakoutButton: appearance === 'full-page', appearance: appearance }],
 			Boolean(props.allowBreakout && isFullPage),
 		)
 		.maybeAdd(alignmentPlugin, Boolean(props.allowTextAlignment))

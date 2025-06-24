@@ -123,12 +123,6 @@ export const icons = [
 export const legacyOnlyLogosAndIcons = [
 	{ name: 'Atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
 	{ name: 'Atlassian Access', logo: AtlassianAccessLogo, icon: AtlassianAccessIcon },
-	{
-		name: 'Atlassian Administration',
-		logo: AtlassianAdministrationLogo,
-		icon: AtlassianAdministrationIcon,
-	},
-	{ name: 'Atlassian Admin', logo: AtlassianAdminLogo, icon: AtlassianAdminIcon },
 	{ name: 'Atlassian Marketplace', logo: AtlassianMarketplaceLogo, icon: AtlassianMarketplaceIcon },
 	{ name: 'Jira Software', logo: JiraSoftwareLogo, icon: JiraSoftwareIcon },
 	{ name: 'Jira Work Management', logo: JiraWorkManagementLogo, icon: JiraWorkManagementIcon },
@@ -156,6 +150,12 @@ export const sharedLogosAndIcons = [
 		logo: JiraProductDiscoveryLogo,
 		icon: JiraProductDiscoveryIcon,
 	},
+	{
+		name: 'Atlassian Administration',
+		logo: AtlassianAdministrationLogo,
+		icon: AtlassianAdministrationIcon,
+	},
+	{ name: 'Atlassian Admin', logo: AtlassianAdminLogo, icon: AtlassianAdminIcon },
 	{ name: 'Atlassian Analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
 	{ name: 'Guard', logo: GuardLogo, icon: GuardIcon },
 	{ name: 'Trello', logo: TrelloLogo, icon: TrelloIcon },

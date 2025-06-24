@@ -3,13 +3,13 @@
 /* eslint-disable compat/compat */
 import { expect, test } from './fixtures';
 
-test.describe('ReactUFO: Interactions VC', () => {
+test.describe('ReactUFO: Responsiveness', () => {
 	const requiredFeatureFlags = ['platform_ufo_enable_events_observer'];
 	test.use({
 		examplePage: 'interactions-simple-button',
 		featureFlags: requiredFeatureFlags,
 	});
-	test('get interactions vc', async ({ page, waitForReactUFOInteractionPayload }) => {
+	test('get interactions responsiveness', async ({ page, waitForReactUFOInteractionPayload }) => {
 		const mainDiv = page.locator('[id="app-main"]');
 		await expect(mainDiv).toBeVisible();
 

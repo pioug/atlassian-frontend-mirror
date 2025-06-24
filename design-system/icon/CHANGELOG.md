@@ -8,8 +8,7 @@
   [`26fefb696ee7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26fefb696ee7e) -
   This release deprecates all `@atlaskit/icon/utility` entry-points. If you require 12px icons
   please use the `@atlaskit/icon/core` entry-point instead with size prop set to 'small'.
-  Furthermore, this release also adds, updates and deprecates icons other icons in
-  `@atlaskit/icon/core`.
+  Furthermore, this release also adds, updates and deprecates other icons in `@atlaskit/icon/core`.
 
   ### Added:
 

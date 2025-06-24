@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 28.4.0
+
+### Minor Changes
+
+- [#175834](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175834)
+  [`f10fd5e7fb66f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f10fd5e7fb66f) -
+  Enable Delete API for captions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.3.4
 
 ### Patch Changes

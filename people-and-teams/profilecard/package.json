@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "23.20.0",
+	"version": "23.21.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,7 +56,7 @@
 		"lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
 		"test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
 		"test:watch": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard' --watch)",
-		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
+		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
 		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
 	},
 	"config": {
@@ -88,6 +88,7 @@
 		"@atlaskit/rovo-agent-components": "workspace:^",
 		"@atlaskit/rovo-triggers": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
+		"@atlaskit/teams-app-config": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/teams-public": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
@@ -191,6 +192,9 @@
 			"type": "boolean"
 		},
 		"enable_web_links_in_team_containers": {
+			"type": "boolean"
+		},
+		"platform-adopt-teams-nav-config": {
 			"type": "boolean"
 		}
 	},

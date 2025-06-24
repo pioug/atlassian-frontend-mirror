@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 
 import { encodeParamsToUrl } from '../../../util/url';
 
@@ -109,11 +111,24 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 	};
 
 	const onViewFullProfile = (agentId: string) => {
-		window.open(
-			`${window.location.origin}/people/agent/${agentId}`,
-			'_blank',
-			'noopener, noreferrer',
-		);
+		const { onNavigate } = navigateToTeamsApp({
+			type: 'AGENT',
+			payload: {
+				agentId,
+			},
+			cloudId,
+			shouldOpenInSameTab: false,
+		});
+
+		if (fg('platform-adopt-teams-nav-config')) {
+			onNavigate();
+		} else {
+			window.open(
+				`${window.location.origin}/people/agent/${agentId}`,
+				'_blank',
+				'noopener, noreferrer',
+			);
+		}
 	};
 
 	return {

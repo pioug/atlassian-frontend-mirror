@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.10
+
+### Patch Changes
+
+- [#175523](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175523)
+  [`0623f8fb2b5ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0623f8fb2b5ee) -
+  Fix a bug where slash command via quick insert button is not inserted at the correct location
+
 ## 3.19.9
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "119.0.1",
+	"version": "119.0.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -178,9 +178,6 @@
 		"platform_editor_fix_vc90_bug_with_files": {
 			"type": "boolean"
 		},
-		"editor_a11y_status_renderer_description": {
-			"type": "boolean"
-		},
 		"use_comments_data_annotation_updater": {
 			"type": "boolean"
 		},
@@ -270,6 +267,9 @@
 			"type": "boolean"
 		},
 		"prompt_whiteboard_competitor_link_gate": {
+			"type": "boolean"
+		},
+		"issue_table_single_line_row_height_fast_follows": {
 			"type": "boolean"
 		}
 	},

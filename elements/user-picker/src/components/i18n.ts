@@ -136,4 +136,39 @@ export const messages = defineMessages({
 			'Guest groups can only access certain spaces and have limited access to user info.',
 		description: 'Tooltip text for lozenge showing that a group is for guests in Confluence',
 	},
+	userTypeLabel: {
+		id: 'fabric.elements.user-picker.user.type.label',
+		defaultMessage: 'People',
+		description: 'Label for user type',
+	},
+	teamTypeLabel: {
+		id: 'fabric.elements.user-picker.team.type.label',
+		defaultMessage: 'Teams',
+		description: 'Label for team type',
+	},
+	emailTypeLabel: {
+		id: 'fabric.elements.user-picker.email.type.label',
+		defaultMessage: 'Emails',
+		description: 'Label for email type',
+	},
+	groupTypeLabel: {
+		id: 'fabric.elements.user-picker.group.type.label',
+		defaultMessage: 'Groups',
+		description: 'Label for group type',
+	},
+	externalUserTypeLabel: {
+		id: 'fabric.elements.user-picker.external.user.type.label',
+		defaultMessage: 'External Users',
+		description: 'Label for external user type',
+	},
+	customTypeLabel: {
+		id: 'fabric.elements.user-picker.custom.type.label',
+		defaultMessage: 'Customs',
+		description: 'Label for custom type',
+	},
+	otherTypeLabel: {
+		id: 'fabric.elements.user-picker.other.type.label',
+		defaultMessage: 'Others',
+		description: 'Label for other type',
+	},
 });

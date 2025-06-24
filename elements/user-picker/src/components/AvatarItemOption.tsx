@@ -40,7 +40,6 @@ const wrapper = (isDisabled?: boolean) =>
 const optionWrapper = css({
 	maxWidth: '100%',
 	minWidth: 0,
-	flex: '1 1 100%',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1.4',
 	paddingLeft: token('space.100', '8px'),
@@ -61,6 +60,7 @@ const getTextStyle = (isSecondary?: boolean) => {
 
 const additionalInfo = css({
 	float: 'right',
+	marginLeft: token('space.100', '8px'),
 });
 
 export const textWrapper = (color?: string) =>

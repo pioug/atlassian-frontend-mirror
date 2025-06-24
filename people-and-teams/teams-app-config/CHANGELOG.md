@@ -1,5 +1,13 @@
 # @atlaskit/teams-app-config
 
+## 1.9.0
+
+### Minor Changes
+
+- [#173219](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173219)
+  [`b5db06f3fd2f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5db06f3fd2f4) -
+  Adopt teams app config for teams app navigation
+
 ## 1.8.1
 
 ### Patch Changes

@@ -1,6 +1,8 @@
 import React, { Suspense, useCallback } from 'react';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 
 import {
 	type AgentProfileCardTriggerProps,
@@ -52,12 +54,19 @@ export const AgentProfileCardTrigger = ({
 						return undefined;
 					}
 
+					const { href: profileHref } = navigateToTeamsApp({
+						type: 'USER',
+						payload: {
+							userId: userId,
+						},
+						cloudId,
+					});
 					const creatorInfo = await props.resourceClient.getProfile(cloudId, userId, fireAnalytics);
 
 					return {
 						type: 'CUSTOMER' as const,
 						name: creatorInfo.fullName,
-						profileLink: `/people/${userId}`,
+						profileLink: fg('platform-adopt-teams-nav-config') ? profileHref : `/people/${userId}`,
 						id: userId,
 					};
 				} catch (error) {

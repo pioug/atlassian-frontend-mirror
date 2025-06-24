@@ -13,7 +13,7 @@ import type {
 	getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
-import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import {
 	type EditorState,
@@ -30,7 +30,6 @@ import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-d
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing/plugin-key';
-import { generateColgroup } from '../pm-plugins/table-resizing/utils/colgroup';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { isTableNested } from '../pm-plugins/utils/nodes';
 import type { PluginInjectionAPI } from '../types';
@@ -90,15 +89,6 @@ const handleInlineTableWidth = (table: HTMLElement, width: number | undefined) =
 	table.style.setProperty('width', `${width}px`);
 };
 
-// Remove after removing the platform_editor_table_initial_load_fix flag.
-const toDOM = (node: PmNode, props: Props) => {
-	let colgroup: DOMOutputSpec = '';
-	if (props.allowColumnResizing) {
-		colgroup = ['colgroup', {}, ...generateColgroup(node)];
-	}
-	return ['table', tableAttributes(node), colgroup, ['tbody', 0]] as DOMOutputSpec;
-};
-
 export default class TableView extends ReactNodeView<Props> {
 	private table: HTMLElement | undefined;
 	private renderedDOM?: HTMLElement;
@@ -122,22 +112,15 @@ export default class TableView extends ReactNodeView<Props> {
 		this.options = props.options;
 		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
 
-		if (fg('platform_editor_table_initial_load_fix')) {
-			this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node);
-		}
+		this.handleRef = (node: HTMLElement | null) => this._handleTableRef(node);
 	}
 
 	getContentDOM() {
-		let tableDOMStructure;
-		if (fg('platform_editor_table_initial_load_fix')) {
-			tableDOMStructure = tableNodeSpecWithFixedToDOM({
-				allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
-				tableResizingEnabled: !!this.reactComponentProps.allowTableResizing,
-				getEditorContainerWidth: this.reactComponentProps.getEditorContainerWidth,
-			}).toDOM(this.node);
-		} else {
-			tableDOMStructure = toDOM(this.node, this.reactComponentProps as Props);
-		}
+		const tableDOMStructure = tableNodeSpecWithFixedToDOM({
+			allowColumnResizing: !!this.reactComponentProps.allowColumnResizing,
+			tableResizingEnabled: !!this.reactComponentProps.allowTableResizing,
+			getEditorContainerWidth: this.reactComponentProps.getEditorContainerWidth,
+		}).toDOM(this.node);
 
 		const rendered = DOMSerializer.renderSpec(document, tableDOMStructure) as {
 			dom: HTMLElement;
@@ -145,13 +128,9 @@ export default class TableView extends ReactNodeView<Props> {
 		};
 
 		if (rendered.dom) {
-			if (fg('platform_editor_table_initial_load_fix')) {
-				const tableElement = rendered.dom.querySelector('table');
-				this.table = tableElement ? tableElement : rendered.dom;
-				this.renderedDOM = rendered.dom;
-			} else {
-				this.table = rendered.dom;
-			}
+			const tableElement = rendered.dom.querySelector('table');
+			this.table = tableElement ? tableElement : rendered.dom;
+			this.renderedDOM = rendered.dom;
 
 			if (
 				!this.options?.isTableScalingEnabled ||

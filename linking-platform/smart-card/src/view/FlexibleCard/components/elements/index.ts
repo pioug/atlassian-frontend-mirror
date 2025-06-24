@@ -58,3 +58,5 @@ export { default as Title } from './title-element';
 export { default as ViewCount } from './view-count-element';
 export { default as VoteCount } from './vote-count-element';
 export { default as AppliedToComponentsCount } from './applied-to-components-count-element';
+export { default as CustomByAccessTypeElement } from './custom-by-access-type-element';
+export { default as CustomByStatusElement } from './custom-by-status-element';

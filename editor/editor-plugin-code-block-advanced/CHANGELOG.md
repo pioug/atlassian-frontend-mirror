@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 2.4.0
+
+### Minor Changes
+
+- [#175595](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175595)
+  [`b041b53e6615d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b041b53e6615d) -
+  ED-28347 bubble dragenter event from adv code block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.5
 
 ### Patch Changes

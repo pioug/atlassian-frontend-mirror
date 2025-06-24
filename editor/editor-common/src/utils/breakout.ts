@@ -33,17 +33,12 @@ export type BreakoutConstsType = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	calcBreakoutWidth: any;
 	calcBreakoutWithCustomWidth: (
-		mode: 'full-width' | 'wide',
-		width: number | null,
-		editorContainerWidth: number,
-	) => string;
-	calcLineLength: () => number;
+		breakoutConsts: BreakoutConstsType,
+	) => (mode: 'full-width' | 'wide', width: number | null, editorContainerWidth: number) => string;
+	calcLineLength: (breakoutConsts: BreakoutConstsType) => () => number;
 	calcWideWidth: (
-		containerWidth?: number,
-		maxWidth?: number,
-		fallback?: string,
-		padding?: number,
-	) => string;
+		breakoutConsts: BreakoutConstsType,
+	) => (containerWidth?: number, maxWidth?: number, fallback?: string, padding?: number) => string;
 };
 
 const breakoutConsts: BreakoutConstsType = {
@@ -57,71 +52,69 @@ const breakoutConsts: BreakoutConstsType = {
 	/**
 	 * This function can return percentage value or px value depending upon the inputs
 	 */
-	calcBreakoutWidth: (
-		layout: 'full-width' | 'wide' | string,
-		containerWidth: number,
-		padding?: number,
-	) => {
-		const effectiveFullWidth = containerWidth - (padding ?? breakoutConsts.padding);
+	calcBreakoutWidth:
+		(breakoutConsts: BreakoutConstsType) =>
+		(layout: 'full-width' | 'wide' | string, containerWidth: number, padding?: number) => {
+			const effectiveFullWidth = containerWidth - (padding ?? breakoutConsts.padding);
 
-		switch (layout) {
-			case 'full-width':
-				return `${Math.min(effectiveFullWidth, breakoutConsts.fullWidthLayoutWidth)}px`;
-			case 'wide':
-				if (effectiveFullWidth <= 0) {
-					return '100%';
-				}
-
-				const wideWidth = breakoutConsts.calcWideWidth(
-					containerWidth,
-					undefined,
-					undefined,
-					padding,
-				);
-				if (wideWidth.endsWith('%')) {
+			switch (layout) {
+				case 'full-width':
 					return `${Math.min(effectiveFullWidth, breakoutConsts.fullWidthLayoutWidth)}px`;
-				}
-				return wideWidth;
-			default:
-				return '100%';
-		}
-	},
-	calcBreakoutWithCustomWidth: (
-		mode: 'full-width' | 'wide',
-		width: number | null,
-		editorContainerWidth: number,
-	) => {
-		if (width !== null && width > 0) {
-			const effectiveFullWidth = editorContainerWidth - breakoutConsts.padding;
-			// if below 0 then expect we're rendering in SSR
-			return `${Math.min(width, effectiveFullWidth)}px`;
-		}
-		return breakoutConsts.calcBreakoutWidth(mode, editorContainerWidth);
-	},
-	calcLineLength: () => breakoutConsts.defaultLayoutWidth,
-	calcWideWidth: (
-		containerWidth: number = breakoutConsts.defaultLayoutWidth,
-		maxWidth: number = Infinity,
-		fallback: string = '100%',
-		padding?: number,
-	) => {
-		const effectiveFullWidth = containerWidth - (padding ?? breakoutConsts.padding);
-		const layoutMaxWidth = breakoutConsts.mapBreakpointToLayoutMaxWidth(
-			breakoutConsts.getBreakpoint(containerWidth),
-		);
-		const wideWidth = Math.min(
-			Math.ceil(layoutMaxWidth * breakoutConsts.wideScaleRatio),
-			effectiveFullWidth,
-		);
-		return layoutMaxWidth > wideWidth ? fallback : `${Math.min(maxWidth, wideWidth)}px`;
-	},
+				case 'wide':
+					if (effectiveFullWidth <= 0) {
+						return '100%';
+					}
+
+					const wideWidth = breakoutConsts.calcWideWidth(breakoutConsts)(
+						containerWidth,
+						undefined,
+						undefined,
+						padding,
+					);
+					if (wideWidth.endsWith('%')) {
+						return `${Math.min(effectiveFullWidth, breakoutConsts.fullWidthLayoutWidth)}px`;
+					}
+					return wideWidth;
+				default:
+					return '100%';
+			}
+		},
+	calcBreakoutWithCustomWidth:
+		(breakoutConsts: BreakoutConstsType) =>
+		(mode: 'full-width' | 'wide', width: number | null, editorContainerWidth: number) => {
+			if (width !== null && width > 0) {
+				const effectiveFullWidth = editorContainerWidth - breakoutConsts.padding;
+				// if below 0 then expect we're rendering in SSR
+				return `${Math.min(width, effectiveFullWidth)}px`;
+			}
+			return breakoutConsts.calcBreakoutWidth(breakoutConsts)(mode, editorContainerWidth);
+		},
+	calcLineLength: (breakoutConsts: BreakoutConstsType) => () => breakoutConsts.defaultLayoutWidth,
+	calcWideWidth:
+		(breakoutConsts: BreakoutConstsType) =>
+		(
+			containerWidth: number = breakoutConsts.defaultLayoutWidth,
+			maxWidth: number = Infinity,
+			fallback: string = '100%',
+			padding?: number,
+		) => {
+			const effectiveFullWidth = containerWidth - (padding ?? breakoutConsts.padding);
+			const layoutMaxWidth = breakoutConsts.mapBreakpointToLayoutMaxWidth(
+				breakoutConsts.getBreakpoint(containerWidth),
+			);
+			const wideWidth = Math.min(
+				Math.ceil(layoutMaxWidth * breakoutConsts.wideScaleRatio),
+				effectiveFullWidth,
+			);
+			return layoutMaxWidth > wideWidth ? fallback : `${Math.min(maxWidth, wideWidth)}px`;
+		},
 };
 
 export const absoluteBreakoutWidth = (
 	layout: 'full-width' | 'wide' | string,
 	containerWidth: number,
 ) => {
-	const breakoutWidth = breakoutConsts.calcBreakoutWidth(layout, containerWidth);
+	const breakoutWidth = breakoutConsts.calcBreakoutWidth(breakoutConsts)(layout, containerWidth);
 
 	// If it's percent, map to max layout size
 	if (breakoutWidth.endsWith('%')) {
@@ -141,9 +134,10 @@ export const absoluteBreakoutWidth = (
 };
 
 export { breakoutConsts };
-export const calcWideWidth = breakoutConsts.calcWideWidth;
-export const calcBreakoutWidth = breakoutConsts.calcBreakoutWidth;
-export const calcBreakoutWithCustomWidth = breakoutConsts.calcBreakoutWithCustomWidth;
+export const calcWideWidth = breakoutConsts.calcWideWidth(breakoutConsts);
+export const calcBreakoutWidth = breakoutConsts.calcBreakoutWidth(breakoutConsts);
+export const calcBreakoutWithCustomWidth =
+	breakoutConsts.calcBreakoutWithCustomWidth(breakoutConsts);
 
 export function calculateBreakoutStyles({
 	mode,

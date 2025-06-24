@@ -149,6 +149,9 @@ describe('VCCalculator_FY25_03', () => {
 		});
 
 		describe('should filter out non-visual attributes', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation((flag) => flag === 'platform_ufo_ignore_extra_attributes');
+			});
 			it('should return false for data-testid attribute', () => {
 				const entry: VCObserverEntry = {
 					time: 0,
@@ -200,6 +203,48 @@ describe('VCCalculator_FY25_03', () => {
 						rect: new DOMRect(),
 						visible: true,
 						attributeName: 'data-vc-nvs',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should return false for data-renderer-start-pos attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-renderer-start-pos',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should return false for data-table-local-id attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'data-table-local-id',
+					} as ViewportEntryData,
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should return false for spellcheck attribute', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:attribute',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+						attributeName: 'spellcheck',
 					} as ViewportEntryData,
 				};
 				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();

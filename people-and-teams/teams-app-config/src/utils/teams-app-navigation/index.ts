@@ -1,12 +1,18 @@
-import type { NavigationAction, NavigationResult } from './types';
-import { generatePath, getPathAndQuery, isTeamsAppEnabled, onNavigateBase } from './utils';
+import { NavigationAction, NavigationResult } from './types';
+import {
+	generatePath,
+	getHostProductFromPath,
+	getPathAndQuery,
+	isTeamsAppEnabled,
+	onNavigateBase,
+} from './utils';
 
 /**
  * This function generates a URL for navigating to the Teams app based on the provided action.
  * This is not intended to be used within the Teams app itself.
  */
 export const navigateToTeamsApp = (action: NavigationAction): NavigationResult => {
-	const { shouldOpenInSameTab } = action;
+	const { hostProduct, shouldOpenInSameTab } = action;
 	const actionWithDefaults: NavigationAction = {
 		...action,
 		/**
@@ -14,6 +20,7 @@ export const navigateToTeamsApp = (action: NavigationAction): NavigationResult =
 		 */
 		shouldOpenInSameTab:
 			shouldOpenInSameTab === undefined ? !isTeamsAppEnabled(action) : shouldOpenInSameTab,
+		hostProduct: hostProduct || getHostProductFromPath(),
 	};
 
 	const { path, query } = getPathAndQuery(actionWithDefaults);

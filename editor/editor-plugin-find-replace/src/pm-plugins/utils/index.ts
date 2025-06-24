@@ -10,7 +10,7 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FindReplacePlugin } from '../../findReplacePluginType';
 import type { Match, TextGrouping } from '../../types';
@@ -83,7 +83,9 @@ export function findMatches({
 			matches.push({
 				start: pos + index,
 				end: pos + end,
-				canReplace: fg('platform_editor_find_and_replace_1') ? true : undefined,
+				canReplace: expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+					? true
+					: undefined,
 			});
 			index = text.indexOf(searchText, end);
 		}
@@ -95,14 +97,8 @@ export function findMatches({
 		}
 		const { pos } = textGrouping;
 		let { text } = textGrouping;
-		// status text is rendered in all caps regardless so case matching should work if the search text is all caps
-		if (fg('platform_editor_find_and_replace_part_2')) {
-			if (shouldMatchCase) {
-				text = text.toUpperCase();
-			} else {
-				text = text.toLowerCase();
-				searchText = searchText.toLowerCase();
-			}
+		if (shouldMatchCase) {
+			text = text.toUpperCase();
 		} else {
 			text = text.toLowerCase();
 			searchText = searchText.toLowerCase();
@@ -146,7 +142,7 @@ export function findMatches({
 			} else {
 				collectTextMatch(textGrouping);
 				textGrouping = null;
-				if (fg('platform_editor_find_and_replace_1')) {
+				if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
 					switch (node.type.name) {
 						case 'status':
 							collectStatusMatch(
@@ -158,48 +154,45 @@ export function findMatches({
 							);
 							break;
 						case 'date':
-							if (fg('platform_editor_find_and_replace_part_2')) {
-								collectDateOrMentionMatch(
-									{
-										text: timestampToString(
-											node.attrs.timestamp,
-											getIntl ? getIntl() : null,
-										) as string,
-										pos,
-									},
-									node.nodeSize,
-								);
-							}
+							collectDateOrMentionMatch(
+								{
+									text: timestampToString(
+										node.attrs.timestamp,
+										getIntl ? getIntl() : null,
+									) as string,
+									pos,
+								},
+								node.nodeSize,
+							);
 							break;
 						case 'mention':
-							if (fg('platform_editor_find_and_replace_part_2')) {
-								let text;
-								if (node.attrs.text) {
-									text = node.attrs.text;
-								} else {
-									// the text may be sanitised from the node for privacy reasons
-									// so we need to use the mentionProvider to resolve it
-									const mentionProvider = api?.mention?.sharedState.currentState()?.mentionProvider;
+							let text;
+							if (node.attrs.text) {
+								text = node.attrs.text;
+							} else {
+								// the text may be sanitised from the node for privacy reasons
+								// so we need to use the mentionProvider to resolve it
+								const mentionProvider = api?.mention?.sharedState.currentState()?.mentionProvider;
 
-									if (isResolvingMentionProvider(mentionProvider)) {
-										const nameDetail = mentionProvider.resolveMentionName(node.attrs.id);
+								if (isResolvingMentionProvider(mentionProvider)) {
+									const nameDetail = mentionProvider.resolveMentionName(node.attrs.id);
 
-										if (isPromise(nameDetail)) {
-											text = '@...';
+									if (isPromise(nameDetail)) {
+										text = '@...';
+									} else {
+										if (nameDetail.status === MentionNameStatus.OK) {
+											text = `@${nameDetail.name || ''}`;
 										} else {
-											if (nameDetail.status === MentionNameStatus.OK) {
-												text = `@${nameDetail.name || ''}`;
-											} else {
-												text = '@_|unknown|_';
-											}
+											text = '@_|unknown|_';
 										}
 									}
 								}
-
-								if (text) {
-									collectDateOrMentionMatch({ text, pos }, node.nodeSize);
-								}
 							}
+
+							if (text) {
+								collectDateOrMentionMatch({ text, pos }, node.nodeSize);
+							}
+
 							break;
 						default:
 							break;

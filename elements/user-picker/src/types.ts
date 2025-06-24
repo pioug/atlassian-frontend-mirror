@@ -183,6 +183,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	showClearIndicator?: boolean;
 	/** Ref to the underlying select */
 	forwardedRef?: React.ForwardedRef<UserPickerRef>;
+	/** group the options by type */
+	groupByTypeOrder?: NonNullable<OptionData['type']>[];
 };
 
 export type UserPickerRef = { focus: () => void; blur: () => void };
@@ -393,6 +395,11 @@ export type Option<Data = OptionData> = {
 	isDisabled?: boolean;
 	label: string;
 	value: string;
+};
+
+export type GroupedOptions = {
+	label: React.JSX.Element;
+	options: Option[];
 };
 
 export interface UserSourceResult {

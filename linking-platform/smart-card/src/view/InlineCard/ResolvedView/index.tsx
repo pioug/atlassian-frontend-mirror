@@ -132,7 +132,6 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 					url={link}
 					actionOptions={actionOptions}
 					hoverPreviewOptions={hoverPreviewOptions}
-					{...(!fg('platform_bandicoots-smart-card-disable-aria') ? { showLabel: false } : {})}
 				>
 					{inlineCardResolvedView}
 				</HoverCard>

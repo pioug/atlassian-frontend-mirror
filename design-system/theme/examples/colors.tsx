@@ -4,8 +4,7 @@
  */
 import { type FC, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import color from 'color';
 
 import { colors, type ThemedValue } from '@atlaskit/theme';
@@ -59,12 +58,15 @@ const colorGroups = Object.entries(colors).reduce(
 const colorPillStyles = css({
 	display: 'inline-block',
 	width: 'calc(33% - 20px)',
-	padding: token('space.100', '8px'),
 	borderRadius: token('border.radius', '3px'),
 	fontSize: '12px',
 	fontWeight: token('font.weight.semibold'),
 	marginBlockEnd: token('space.050', '4px'),
 	marginInlineEnd: token('space.050', '4px'),
+	paddingBlockEnd: token('space.100', '8px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 export const ColorPill = ({

@@ -94,7 +94,6 @@
 		"./layout/panel": "./src/entry-points/layout/panel.tsx",
 		"./layout/root": "./src/entry-points/layout/root.tsx",
 		"./layout/side-nav": "./src/entry-points/layout/side-nav.tsx",
-		"./layout/test-utils": "./src/entry-points/layout/test-utils.tsx",
 		"./layout/top-nav": "./src/entry-points/layout/top-nav.tsx",
 		"./layout/skip-links": "./src/entry-points/layout/skip-links.tsx",
 		"./experimental/top-nav-button": "./src/entry-points/experimental/top-nav-button.tsx",

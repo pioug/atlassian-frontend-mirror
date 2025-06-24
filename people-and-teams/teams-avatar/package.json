@@ -37,6 +37,9 @@
 	"exports": {
 		".": "./src/index.ts"
 	},
+	"scripts": {
+		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-avatar/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-avatar/src/**\", \"!packages/people-and-teams/teams-avatar/src/**/**/types.ts\", \"!packages/people-and-teams/teams-avatar/src/ui/**/styled.tsx\"]')"
+	},
 	"dependencies": {
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/css": "workspace:^",

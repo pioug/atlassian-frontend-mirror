@@ -6,15 +6,11 @@ import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import BaseDateTime from '../index';
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
-
-describe('Element: Text', () => {
+describe('Element: BaseDateTime', () => {
 	const testId = 'smart-element-date-time';
 	let oldDateNowFn: () => number;
 	const mockedNow = new Date('2022-01-25T16:44:00.000+1000').getTime();
@@ -26,6 +22,58 @@ describe('Element: Text', () => {
 	afterAll(() => {
 		Date.now = oldDateNowFn;
 	});
+
+	ffTest.off(
+		'bandicoots-smart-card-teamwork-context',
+		'FG bandicoots-smart-card-teamwork-context off',
+		() => {
+			it('does not render with font size override', async () => {
+				const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
+				render(
+					<IntlProvider locale="en">
+						<BaseDateTime
+							date={new Date(eightDaysBack)}
+							type="created"
+							fontSize="font.body.large"
+						/>
+					</IntlProvider>,
+				);
+				const element = await screen.findByTestId(testId);
+				expect(element).toBeTruthy();
+				expect(element).toHaveTextContent('Created on Jan 17, 2022');
+				expect(element).not.toHaveCompiledCss(
+					'font',
+					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				);
+			});
+		},
+	);
+
+	ffTest.on(
+		'bandicoots-smart-card-teamwork-context',
+		'FG bandicoots-smart-card-teamwork-context on',
+		() => {
+			it('does not render with font size override', async () => {
+				const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
+				render(
+					<IntlProvider locale="en">
+						<BaseDateTime
+							date={new Date(eightDaysBack)}
+							type="created"
+							fontSize="font.body.large"
+						/>
+					</IntlProvider>,
+				);
+				const element = await screen.findByTestId(testId);
+				expect(element).toBeTruthy();
+				expect(element).toHaveTextContent('Created on Jan 17, 2022');
+				expect(element).toHaveCompiledCss(
+					'font',
+					'var(--ds-font-body-large,normal 400 1pc/24px ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,"Helvetica Neue",sans-serif)',
+				);
+			});
+		},
+	);
 
 	describe('with relative mode', () => {
 		it('should render created at element', async () => {
@@ -124,7 +172,6 @@ describe('Element: Text', () => {
 
 	it('should render date only if hideDatePrefix is true', async () => {
 		const eightDaysBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 8);
-		(fg as jest.Mock).mockReturnValue(true);
 		render(
 			<IntlProvider locale="en">
 				<BaseDateTime

@@ -68,6 +68,8 @@ export const useTextTracks = (
 					},
 				});
 			});
+		} else {
+			setTextTracks(undefined);
 		}
 	}, [fileState, collectionName, mediaClient]);
 

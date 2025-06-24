@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6c00ecda7cf62cdbbf7bec2e501852c8>>
+ * @codegen <<SignedSource::7877934a30a1a1d8bec2b0b45aa0abbd>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
 
-import { AdminIcon, AdminLogo } from '@atlaskit/temp-nav-app-icons/admin';
+import { AdminIcon, AdminLogo, AdminLogoCS } from '@atlaskit/temp-nav-app-icons/admin';
 import { AlignIcon, AlignLogo, AlignLogoCS } from '@atlaskit/temp-nav-app-icons/align';
 import {
 	AnalyticsIcon,
@@ -66,7 +66,7 @@ import { TalentIcon, TalentLogo, TalentLogoCS } from '@atlaskit/temp-nav-app-ico
 import { TeamsIcon, TeamsLogo, TeamsLogoCS } from '@atlaskit/temp-nav-app-icons/teams';
 import { TrelloIcon, TrelloLogo, TrelloLogoCS } from '@atlaskit/temp-nav-app-icons/trello';
 
-import type { AppIconProps, AppLogoProps } from '../../src/utils/types';
+import { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const rows: Array<{
 	name: string;
@@ -78,6 +78,16 @@ export const rows: Array<{
 	Logo: React.ComponentType<AppLogoProps> | null;
 	LogoCS: React.ComponentType<AppLogoProps> | null;
 }> = [
+	{
+		name: 'Admin',
+		Icon12: (props) => <AdminIcon {...props} size="12" />,
+		Icon16: (props) => <AdminIcon {...props} size="16" />,
+		Icon20: (props) => <AdminIcon {...props} size="20" />,
+		Icon24: (props) => <AdminIcon {...props} size="24" />,
+		Icon32: (props) => <AdminIcon {...props} size="32" />,
+		Logo: (props) => <AdminLogo {...props} />,
+		LogoCS: (props) => <AdminLogoCS {...props} />,
+	},
 	{
 		name: 'Align',
 		Icon12: (props) => <AlignIcon {...props} size="12" />,
@@ -337,16 +347,6 @@ export const rows: Array<{
 		Icon32: (props) => <TrelloIcon {...props} size="32" />,
 		Logo: (props) => <TrelloLogo {...props} />,
 		LogoCS: (props) => <TrelloLogoCS {...props} />,
-	},
-	{
-		name: 'Admin',
-		Icon12: (props) => <AdminIcon {...props} size="12" />,
-		Icon16: (props) => <AdminIcon {...props} size="16" />,
-		Icon20: (props) => <AdminIcon {...props} size="20" />,
-		Icon24: (props) => <AdminIcon {...props} size="24" />,
-		Icon32: (props) => <AdminIcon {...props} size="32" />,
-		Logo: (props) => <AdminLogo {...props} />,
-		LogoCS: null,
 	},
 	{
 		name: 'Company Hub',

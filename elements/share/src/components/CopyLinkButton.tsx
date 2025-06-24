@@ -164,7 +164,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 						? (current, themeProps) => ({
 								buttonStyles: {
 									...current(themeProps).buttonStyles,
-									color: token('color.text'),
+									color: token('color.text.subtle'),
 									font: token('font.body'),
 									alignItems: 'center',
 								},

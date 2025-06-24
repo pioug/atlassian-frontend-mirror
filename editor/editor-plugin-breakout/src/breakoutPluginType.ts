@@ -1,4 +1,8 @@
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	NextEditorPlugin,
+	OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -18,6 +22,7 @@ export interface BreakoutPluginState {
 
 export interface BreakoutPluginOptions {
 	allowBreakoutButton?: boolean;
+	appearance?: EditorAppearance;
 }
 
 export type BreakoutPluginDependencies = [

@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 208.3.3
+
+### Patch Changes
+
+- [#176094](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176094)
+  [`09e338a3d7dab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09e338a3d7dab) -
+  [ED-28357] move find&replace work from behind feature gates to the new experiment
+  platform_editor_find_and_replace_improvements
+- Updated dependencies
+
+## 208.3.2
+
+### Patch Changes
+
+- [#175437](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175437)
+  [`fc90fe8067613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc90fe8067613) -
+  [EDITOR-179] FG editor_a11y_status_renderer_description clean up
+- Updated dependencies
+
 ## 208.3.1
 
 ### Patch Changes

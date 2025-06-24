@@ -82,7 +82,6 @@ export type MessageKey =
 	| 'modified_on_relative'
 	| 'modified_on_absolute'
 	| 'more_actions'
-	| 'more_information_about_this_work_item'
 	| 'not_found_title'
 	| 'not_found_description'
 	| 'open_issue_in_jira'
@@ -556,14 +555,6 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.more_actions',
 		defaultMessage: 'More actions',
 		description: 'Allows the users to see more link actions',
-	},
-	/**
-	 * @deprecated remove when cleaning up FG platform_bandicoots-smart-card-disable-aria
-	 */
-	more_information_about_this_work_item: {
-		id: 'fabric.linking.more_information_about_this_work_item',
-		defaultMessage: 'More information about this work item',
-		description: 'Allows the users to see more about the work item',
 	},
 	open_issue_in_jira: {
 		id: 'fabric.linking.open_issue_in_jira',

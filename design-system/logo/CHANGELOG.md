@@ -1,5 +1,14 @@
 # @atlaskit/logo
 
+## 19.2.0
+
+### Minor Changes
+
+- [#173001](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173001)
+  [`445bba751a18a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/445bba751a18a) -
+  Add Admin, Analytics and Align Icons. Add feature flagging to AtlassianAdmin,
+  AtlassianAdministration and AtlassianAnalytics logos/icons
+
 ## 19.1.0
 
 ### Minor Changes

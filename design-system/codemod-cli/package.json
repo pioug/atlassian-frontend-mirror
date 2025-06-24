@@ -30,7 +30,10 @@
 		"./utils": "./src/utils.ts"
 	},
 	"exports": {
-		".": "./index.js",
+		".": {
+			"types": "./src/index.ts",
+			"default": "./index.js"
+		},
 		"./cli": "./src/cli.ts",
 		"./filepath": "./src/filepath.ts",
 		"./main": "./src/main.ts",

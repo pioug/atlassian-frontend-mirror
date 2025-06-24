@@ -110,9 +110,6 @@
 		},
 		"platform_editor_controls_patch_13": {
 			"type": "boolean"
-		},
-		"platform_editor_interaction_on_code_blocks": {
-			"type": "boolean"
 		}
 	}
 }

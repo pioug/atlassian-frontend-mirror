@@ -1,6 +1,8 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 
 import {
 	type AgentActionsType,
@@ -48,6 +50,13 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 				: '',
 		[agentData?.creator_type, agentData?.creator],
 	);
+	const { href: profileHref } = navigateToTeamsApp({
+		type: 'USER',
+		payload: {
+			userId: creatorUserId || '',
+		},
+		cloudId: props.cloudId,
+	});
 
 	const getCreator = useCallback(
 		async (creator_type: string, creator?: string) => {
@@ -76,7 +85,9 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 						return {
 							type: 'CUSTOMER' as const,
 							name: creatorInfo.fullName,
-							profileLink: `/people/${creatorUserId}`,
+							profileLink: fg('platform-adopt-teams-nav-config')
+								? profileHref
+								: `/people/${creatorUserId}`,
 							id: creatorUserId,
 						};
 					} catch (error) {
@@ -87,7 +98,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 					return undefined;
 			}
 		},
-		[creatorUserId, fireAnalytics, props.cloudId, props.resourceClient],
+		[creatorUserId, fireAnalytics, props.cloudId, props.resourceClient, profileHref],
 	);
 
 	const fetchData = useCallback(async () => {

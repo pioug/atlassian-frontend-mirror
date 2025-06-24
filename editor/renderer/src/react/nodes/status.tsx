@@ -23,7 +23,7 @@ export default memo(function Status(props: Props) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...inlineAnnotationProps}
-				role={fg('editor_a11y_status_renderer_description') ? 'emphasis' : undefined}
+				role={'emphasis'}
 			>
 				<FabricElementsAnalyticsContext
 					data={{
@@ -34,7 +34,7 @@ export default memo(function Status(props: Props) {
 						text={text}
 						color={color}
 						localId={localId}
-						role={fg('editor_a11y_status_renderer_description') ? undefined : 'presentation'}
+						role={undefined}
 						isBold={fg('platform-component-visual-refresh')}
 					/>
 				</FabricElementsAnalyticsContext>
@@ -48,24 +48,14 @@ export default memo(function Status(props: Props) {
 				userContext: 'document',
 			}}
 		>
-			{fg('editor_a11y_status_renderer_description') ? (
-				<span role="emphasis">
-					<AkStatus
-						text={text}
-						color={color}
-						localId={localId}
-						isBold={fg('platform-component-visual-refresh')}
-					/>
-				</span>
-			) : (
+			<span role="emphasis">
 				<AkStatus
 					text={text}
 					color={color}
 					localId={localId}
-					role="presentation"
 					isBold={fg('platform-component-visual-refresh')}
 				/>
-			)}
+			</span>
 		</FabricElementsAnalyticsContext>
 	);
 });

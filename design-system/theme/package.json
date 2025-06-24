@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "18.0.2",
+	"version": "18.0.3",
 	"description": "Theme contains solutions for global theming, colors, and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,8 +39,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@emotion/react": "^11.7.1",
-		"@emotion/styled": "^11.0.0",
+		"@compiled/react": "^0.18.3",
 		"@testing-library/react": "^13.4.0",
 		"@types/color": "^3.0.0",
 		"color": "^3.0.0",
@@ -63,7 +62,7 @@
 			"dom-events": "use-bind-event-listener",
 			"styling": [
 				"static",
-				"emotion"
+				"compiled"
 			],
 			"ui-components": "lite-mode",
 			"analytics": "analytics-next",

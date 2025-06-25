@@ -4,15 +4,14 @@
  */
 import { Fragment, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import CheckIcon from '@atlaskit/icon/glyph/check';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import palettesRaw from '@atlaskit/tokens/palettes-raw';
@@ -83,6 +82,32 @@ const groupedBaseTokens = palettes()
 		{} as { [index: string]: { name: string; value: string }[] },
 	);
 
+const styles = cssMap({
+	overflow: {
+		overflow: 'auto',
+	},
+	groupedBaseTokens: {
+		overflow: 'hidden',
+		display: 'flex',
+		flexGrow: '1',
+		borderRadius: token('border.radius.200'),
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
+		flexBasis: 'min-content',
+	},
+	paletteBlock: {
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+		minWidth: '12rem',
+	},
+	flexShrink: {
+		flexShrink: '0',
+	},
+});
+
 /**
  * An editor for configuring base tokens. Displays ramps and allows the user to select
  * each base token and change its value
@@ -101,25 +126,11 @@ const BaseTokenEditor = ({
 	onChange: (baseTokens: BaseTokens) => void;
 }) => {
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<Box xcss={xcss({ overflow: 'auto' })}>
+		<Box xcss={styles.overflow}>
 			<Inline space="space.100" grow="fill" shouldWrap={true}>
 				{Object.entries(groupedBaseTokens).map(([group, originalBaseTokens]) => {
 					return (
-						<Box
-							key={group}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							xcss={xcss({
-								overflow: 'hidden',
-								display: 'flex',
-								flexGrow: '1',
-								borderRadius: 'border.radius.200',
-								borderWidth: 'border.width',
-								borderStyle: 'solid',
-								borderColor: 'color.border',
-								flexBasis: 'min-content',
-							})}
-						>
+						<Box key={group} xcss={styles.groupedBaseTokens}>
 							<Stack grow="fill">
 								{originalBaseTokens.map(({ name, value }) => {
 									return (
@@ -202,11 +213,9 @@ const PaletteBlock = ({
 
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={{
+			css={styles.paletteBlock}
+			style={{
 				backgroundColor: baseToken.value || originalValue,
-				padding: token('space.100', '0.25rem'),
-				minWidth: '12rem',
 				color: textColor,
 			}}
 		>
@@ -225,8 +234,7 @@ const PaletteBlock = ({
 								}
 							}}
 						/>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box xcss={xcss({ flexShrink: '0' })}>
+						<Box xcss={styles.flexShrink}>
 							<Inline space="space.025">
 								<IconButton
 									icon={CrossIconWithColorOverrides}

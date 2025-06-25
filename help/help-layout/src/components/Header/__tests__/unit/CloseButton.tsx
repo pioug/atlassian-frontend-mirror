@@ -23,6 +23,16 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('BackButton', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<CloseButton intl={intl} onClick={mockOnClick} />,
+			</AnalyticsListener>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it.skip('Should match snapshot', () => {
 		const { container } = render(<CloseButton intl={intl} onClick={mockOnClick} />);
 

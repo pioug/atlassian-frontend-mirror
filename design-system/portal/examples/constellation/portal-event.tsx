@@ -4,35 +4,42 @@
  */
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/new';
 import { CodeBlock } from '@atlaskit/code';
+import { cssMap, jsx } from '@atlaskit/css';
 import Portal, {
 	PORTAL_MOUNT_EVENT,
 	PORTAL_UNMOUNT_EVENT,
 	type PortalEvent,
 } from '@atlaskit/portal';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	margin: 'space.200',
-});
-
-const verticalSpaceContainerStyles = xcss({
-	marginBlockEnd: 'space.200',
-});
-
-const portalContentStyles = css({
-	margin: `${token('space.0')} ${token('space.200')} ${token('space.200')}`,
-});
-
-const figureStyles = css({
-	margin: token('space.0'),
+const styles = cssMap({
+	container: {
+		marginBlockEnd: token('space.200'),
+		marginBlockStart: token('space.200'),
+		marginInlineEnd: token('space.200'),
+		marginInlineStart: token('space.200'),
+	},
+	verticalSpaceContainer: {
+		marginBlockEnd: token('space.200'),
+	},
+	portalContent: {
+		marginBlockEnd: token('space.200'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.200'),
+		marginInlineStart: token('space.0'),
+	},
+	figure: {
+		marginBlockEnd: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
+	},
 });
 
 const PortalEventExample = () => {
@@ -61,23 +68,23 @@ const PortalEventExample = () => {
 	}, []);
 
 	return (
-		<Box xcss={containerStyles}>
-			<Box xcss={verticalSpaceContainerStyles}>
+		<Box xcss={styles.container}>
+			<Box xcss={styles.verticalSpaceContainer}>
 				<Button appearance="primary" onClick={() => setIsMounted(!isMounted)}>
 					{isMounted ? 'Unmount' : 'Mount'} portal
 				</Button>
 			</Box>
 			<div>
-				<figure css={figureStyles}>
+				<figure css={styles.figure}>
 					<figcaption>PortalEvent specific data:</figcaption>
 					<CodeBlock language="JSON" text={customEventData} />
 				</figure>
 			</div>
 			{isMounted && (
 				<Portal>
-					<div css={portalContentStyles}>
+					<Box xcss={styles.portalContent}>
 						<SectionMessage>I am inside portal!</SectionMessage>
-					</div>
+					</Box>
 				</Portal>
 			)}
 		</Box>

@@ -1,5 +1,24 @@
 # @atlassian/navigation-system
 
+## 0.167.0
+
+### Minor Changes
+
+- [#176198](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176198)
+  [`6f29446debd94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f29446debd94) -
+  We have now removed the `"platform_design_system_nav4_menu_item_anchor_dnd"` feature flag. Drag
+  and drop of side navigation menu items that are anchors (eg `LinkMenuItem`) now needs to be
+  explicitly enabled with our
+  [side navigation drag and drop API](https://atlassian.design/components/navigation-system/side-navigation/drag-and-drop)
+- [#173222](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173222)
+  [`1b1ca5e516115`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b1ca5e516115) -
+  Cleans up `platform_design_system_nav4_panel_default_bg_color` feature gate. The Panel slot will
+  now always have a default background color.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.166.0
 
 ### Minor Changes

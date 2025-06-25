@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.19
+
+### Patch Changes
+
+- [#176023](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176023)
+  [`d88b8886797ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d88b8886797ae) -
+  clean up experiment platform_editor_vanilla_dom on task
+- Updated dependencies
+
 ## 5.1.18
 
 ### Patch Changes

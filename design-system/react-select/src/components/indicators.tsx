@@ -1,8 +1,6 @@
 /* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 import React, { type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import {
 	ClearIndicator as CompiledClearIndicator,
 	clearIndicatorCSS as compiledClearIndicatorCSS,
@@ -11,14 +9,6 @@ import {
 	LoadingIndicator as CompiledLoadingIndicator,
 	loadingIndicatorCSS as compiledLoadingIndicatorCSS,
 } from '../compiled/components/indicators';
-import {
-	ClearIndicator as EmotionClearIndicator,
-	clearIndicatorCSS as emotionClearIndicatorCSS,
-	DropdownIndicator as EmotionDropdownIndicator,
-	dropdownIndicatorCSS as emotionDropdownIndicatorCSS,
-	LoadingIndicator as EmotionLoadingIndicator,
-	loadingIndicatorCSS as emotionLoadingIndicatorCSS,
-} from '../emotion/components/indicators';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 
 // ==============================
@@ -55,18 +45,12 @@ export const dropdownIndicatorCSS = <
 	Group extends GroupBase<Option>,
 >(
 	props: DropdownIndicatorProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledDropdownIndicatorCSS() : emotionDropdownIndicatorCSS(props);
+): CSSObjectWithLabel => compiledDropdownIndicatorCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: DropdownIndicatorProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledDropdownIndicator {...props} />
-	) : (
-		<EmotionDropdownIndicator {...props} />
-	);
+) => <CompiledDropdownIndicator {...props} />;
 
 export interface ClearIndicatorProps<
 	Option = unknown,
@@ -97,18 +81,12 @@ export interface ClearIndicatorProps<
 
 export const clearIndicatorCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ClearIndicatorProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledClearIndicatorCSS() : emotionClearIndicatorCSS(props);
+): CSSObjectWithLabel => compiledClearIndicatorCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ClearIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ClearIndicatorProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledClearIndicator {...props} />
-	) : (
-		<EmotionClearIndicator {...props} />
-	);
+) => <CompiledClearIndicator {...props} />;
 
 // ==============================
 // Loading
@@ -120,8 +98,7 @@ export const loadingIndicatorCSS = <
 	Group extends GroupBase<Option>,
 >(
 	props: LoadingIndicatorProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledLoadingIndicatorCSS() : emotionLoadingIndicatorCSS(props);
+): CSSObjectWithLabel => compiledLoadingIndicatorCSS();
 
 export interface LoadingIndicatorProps<
 	Option = unknown,
@@ -150,9 +127,4 @@ export interface LoadingIndicatorProps<
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const LoadingIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: LoadingIndicatorProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledLoadingIndicator {...props} />
-	) : (
-		<EmotionLoadingIndicator {...props} />
-	);
+) => <CompiledLoadingIndicator {...props} />;

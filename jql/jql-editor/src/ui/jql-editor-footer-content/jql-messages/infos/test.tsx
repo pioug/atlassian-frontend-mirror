@@ -34,6 +34,12 @@ describe('InfoMessages', () => {
 		const { getByText } = renderInfoMessages();
 		expect(getByText('infos')).toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<InfoMessages />, {
+			wrapper: (p) => <DiProvider use={deps} {...p} />,
+		});
+		await expect(container).toBeAccessible();
+	});
 });
 
 describe('useFormattedInfoMessage', () => {
@@ -92,5 +98,11 @@ describe('useFormattedInfoMessage', () => {
 		]);
 		const { getAllByText } = renderConsumer();
 		expect(getAllByText('sup')).toHaveLength(2);
+	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Consumer />, {
+			wrapper: (p) => <DiProvider use={deps} {...p} />,
+		});
+		await expect(container).toBeAccessible();
 	});
 });

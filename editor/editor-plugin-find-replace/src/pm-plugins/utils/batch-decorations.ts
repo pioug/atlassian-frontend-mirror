@@ -1,4 +1,5 @@
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../plugin-factory';
 
@@ -188,7 +189,9 @@ class BatchDecorations {
 		return {
 			viewportStartPos,
 			viewportEndPos,
-			startPos: 1,
+			startPos: expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+				? 0
+				: 1,
 			endPos: editorView.state.doc.nodeSize,
 		};
 	}
@@ -198,7 +201,12 @@ class BatchDecorations {
 			top: y,
 			left: x,
 		});
-		return startPos ? startPos.pos : 1;
+
+		if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
+			return startPos ? startPos.pos : 0;
+		} else {
+			return startPos ? startPos.pos : 1;
+		}
 	}
 
 	private getEndPos(editorView: EditorView, y: number, x: number): number {

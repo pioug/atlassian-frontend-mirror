@@ -1,5 +1,24 @@
 # @atlaskit/icon
 
+## 27.2.0
+
+### Minor Changes
+
+- [#176032](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176032)
+  [`0a172a0fd7cd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a172a0fd7cd6) -
+  Updated migration mapping for several icon entrypoints.
+
+  ### Added:
+
+  **`@atlaskit/icon/core/migration`**
+
+  - `cross--editor-close`
+  - `cross`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.1.0
 
 ### Minor Changes

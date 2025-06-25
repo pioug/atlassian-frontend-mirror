@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.8.0
+
+### Minor Changes
+
+- [#175569](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175569)
+  [`3bcbd0cff0437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bcbd0cff0437) -
+  [ux] ED-27958 extend the find algorithm to search smart cards behind
+  platform_editor_find_and_replace_improvements
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.2
 
 ### Patch Changes

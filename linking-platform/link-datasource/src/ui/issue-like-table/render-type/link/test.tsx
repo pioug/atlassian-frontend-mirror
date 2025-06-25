@@ -138,4 +138,12 @@ describe('Link Type', () => {
 			expect(anchor).toBeInTheDocument();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<SmartCardProvider client={smartLinkCustomClient}>
+				<Link url={'https://www.atlassian.com/'} />
+			</SmartCardProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

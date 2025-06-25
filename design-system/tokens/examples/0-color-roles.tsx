@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, CSSProperties, jsx } from '@compiled/react';
 
 import AtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { setGlobalTheme, token } from '@atlaskit/tokens';
@@ -158,51 +157,53 @@ const variantStyles = {
 	},
 };
 
-const containerStyles = css({
-	margin: '2em',
-});
+const backgroundColorCssVar = '--background-color';
+const hoverBackgroundColorCssVar = '--hover-background-color';
+const activeBackgroundColorCssVar = '--active-background-color';
 
-const rowStyles = css({
-	display: 'flex',
-	gap: '1em',
-});
-
-const boxStyles = css({
-	display: 'flex',
-	boxSizing: 'border-box',
-	width: '100%',
-	maxWidth: '200px',
-	minHeight: '100px',
-	padding: '1em',
-	alignItems: 'center',
-	borderRadius: token('border.radius.100', '3px'),
-	marginBlockStart: '1em',
-	textAlign: 'left',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover': {
-		cursor: 'pointer',
+const styles = cssMap({
+	container: {
+		margin: '2em',
+	},
+	row: {
+		display: 'flex',
+		gap: '1em',
+	},
+	box: {
+		display: 'flex',
+		boxSizing: 'border-box',
+		width: '100%',
+		maxWidth: '200px',
+		minHeight: '100px',
+		padding: '1em',
+		alignItems: 'center',
+		borderRadius: token('border.radius.100', '3px'),
+		marginBlockStart: '1em',
+		textAlign: 'left',
+		backgroundColor: `var(${backgroundColorCssVar})`,
+		'&:hover': {
+			backgroundColor: `var(${hoverBackgroundColorCssVar})`,
+			cursor: 'pointer',
+		},
+		'&:active': {
+			backgroundColor: `var(${activeBackgroundColorCssVar})`,
+		},
 	},
 });
 
 const Box = ({ text, style }: { text: string; style: Record<string, string> }) => (
 	<button
 		type="button"
-		css={[
-			boxStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				backgroundColor: style.backgroundColor,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		css={styles.box}
+		style={
+			{
 				border: style.border,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				color: style.color,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				':hover': { backgroundColor: style.hoverBackgroundColor },
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				':active': { backgroundColor: style.activeBackgroundColor },
-			}),
-		]}
+				[backgroundColorCssVar]: style.backgroundColor,
+				[hoverBackgroundColorCssVar]: style.hoverBackgroundColor,
+				[activeBackgroundColorCssVar]: style.activeBackgroundColor,
+			} as CSSProperties
+		}
 	>
 		<AtlassianIcon label="Atlassian logo" primaryColor={style.iconColor} />
 		{text}
@@ -213,11 +214,11 @@ export default () => {
 	useVrGlobalTheme();
 
 	return (
-		<div css={containerStyles}>
+		<div css={styles.container}>
 			<h2>Semantic tokens</h2>
 			<div data-testid="tokens">
 				{Object.entries(variantStyles).map(([key, subVariantStyles]) => (
-					<div key={key} css={rowStyles}>
+					<div key={key} css={styles.row}>
 						{Object.entries(subVariantStyles).map(([subKey, styles]) => (
 							<Box
 								key={key + subKey}

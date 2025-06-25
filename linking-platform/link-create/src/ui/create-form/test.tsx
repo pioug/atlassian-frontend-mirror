@@ -253,4 +253,21 @@ describe('<CreateForm />', () => {
 			await axe(container);
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const onCreate = jest.fn();
+		const onFailure = jest.fn();
+		const textFieldTestId = 'link-create-text-field';
+		const { container } = render(
+			<IntlProvider locale="en">
+				<FormContextProvider>
+					<LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure}>
+						<CreateForm onSubmit={handleSubmitMock} onCancel={handleCancelMock} testId={testId}>
+							<TextField name="title" label="Title" testId={textFieldTestId} />
+						</CreateForm>
+					</LinkCreateCallbackProvider>
+				</FormContextProvider>
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

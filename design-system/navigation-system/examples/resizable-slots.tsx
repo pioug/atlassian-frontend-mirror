@@ -70,9 +70,6 @@ const asideStyles = cssMap({
 });
 
 const panelStyles = cssMap({
-	root: {
-		backgroundColor: token('elevation.surface'),
-	},
 	content: {
 		paddingTop: token('space.300'),
 		paddingRight: token('space.300'),
@@ -329,7 +326,7 @@ export function ResizableSlots() {
 				/>
 			</Aside>
 
-			<Panel xcss={panelStyles.root} defaultWidth={350} id="panel" testId="panel">
+			<Panel defaultWidth={350} id="panel" testId="panel">
 				<Stack space="space.200" xcss={panelStyles.content}>
 					<Heading size="small">Panel</Heading>
 					<Stack space="space.050">

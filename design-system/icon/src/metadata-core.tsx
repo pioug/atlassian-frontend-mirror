@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d5b89c7de7160ff4e35f9d7566dcc191>>
+ * @codegen <<SignedSource::74da18cf3b9a90fa10ee83c7d6201ac6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1329,6 +1329,7 @@ const metadata: Record<string, metadata> = {
 		keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'core', 'cross', 'x', 'close', 'remove'],
 		componentName: 'CrossIcon',
 		package: '@atlaskit/icon/core/cross',
+		oldName: ['cross', 'editor/close'],
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage: 'Known uses: closing modals, panels, and transient views; removing tags',

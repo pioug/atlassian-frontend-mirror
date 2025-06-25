@@ -122,4 +122,13 @@ describe('DisplayViewDropDown', () => {
 			'Inline link',
 		);
 	});
+	it('should capture and report a11y violations', async () => {
+		const mockOnViewModeChange = jest.fn();
+		const { container } = render(
+			<IntlProvider locale="en">
+				<DisplayViewDropDown onViewModeChange={mockOnViewModeChange} viewMode={'table'} />
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

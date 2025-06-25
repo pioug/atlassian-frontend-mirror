@@ -4,8 +4,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import debounce from 'lodash/debounce';
 
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -17,7 +16,7 @@ import Heading from '@atlaskit/heading';
 import InlineMessage from '@atlaskit/inline-message';
 import Link from '@atlaskit/link';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { Radio } from '@atlaskit/radio';
 import Select from '@atlaskit/select';
 import { setGlobalTheme, type ThemeOptionsSchema, token } from '@atlaskit/tokens';
@@ -39,28 +38,60 @@ import {
 } from './utils/custom-theme-contrast-checker';
 import getFigmaVariableScript from './utils/get-figma-variable-script';
 
-const colorContainerStyles = css({
-	boxSizing: 'border-box',
-	height: '72px',
-	position: 'relative',
-	flex: 1,
-	paddingBlockStart: '28px',
-	textAlign: 'center',
-	transition: 'all 0.2s',
-	'&:hover': {
-		height: '80px',
-		borderRadius: '3px 3px 0 0',
-		marginBlockStart: '-8px',
-		paddingBlockStart: '8px',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		span: {
-			insetBlockEnd: 8,
-			opacity: 1,
+const styles = cssMap({
+	colorContainer: {
+		boxSizing: 'border-box',
+		height: '72px',
+		position: 'relative',
+		flex: 1,
+		paddingBlockStart: '28px',
+		textAlign: 'center',
+		transition: 'all 0.2s',
+		'&:hover': {
+			height: '80px',
+			borderRadius: '3px 3px 0 0',
+			marginBlockStart: '-8px',
+			paddingBlockStart: '8px',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			span: {
+				insetBlockEnd: 8,
+				opacity: 1,
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+			p: {
+				opacity: 0,
+			},
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		p: {
-			opacity: 0,
-		},
+	},
+	borderBox: {
+		borderColor: token('color.border'),
+		borderWidth: token('border.width'),
+		borderRadius: token('border.radius.050'),
+		borderStyle: 'solid',
+	},
+	brandText: {
+		width: '100%',
+		paddingTop: token('space.100'),
+		position: 'absolute',
+		top: token('space.0'),
+		transition: 'all 0.2s',
+	},
+	colorText: {
+		boxSizing: 'border-box',
+		width: '100%',
+		position: 'absolute',
+		insetBlockEnd: token('space.0'),
+		insetInlineStart: token('space.0'),
+		opacity: '0',
+		textAlign: 'center',
+		transition: 'all 0.3s',
+	},
+	modifiedToken: {
+		borderWidth: token('border.width'),
+		borderColor: token('color.border'),
+		borderStyle: 'solid',
+		width: 'fit-content',
+		borderRadius: token('border.radius.circle'),
 	},
 });
 
@@ -202,12 +233,7 @@ export default () => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={{ width: 'fit-content' }}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					xcss={xcss({
-						borderColor: 'color.border',
-						borderWidth: 'border.width',
-						borderRadius: 'border.radius.050',
-						borderStyle: 'solid',
-					})}
+					xcss={styles.borderBox}
 				>
 					<Stack space="space.100">
 						<Inline space="space.100">
@@ -265,24 +291,14 @@ export default () => {
 						{themeRamp.map((colorString, i) => (
 							<div
 								key={colorString}
-								css={colorContainerStyles}
+								css={styles.colorContainer}
 								style={{
 									background: colorString,
 									color: getContrastRatio('#ffffff', colorString) >= 4.5 ? 'white' : 'black',
 								}}
 							>
 								{colorString === customTheme.brandColor && (
-									<Box
-										as="p"
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-										xcss={xcss({
-											width: '100%',
-											paddingBlockStart: 'space.100',
-											position: 'absolute',
-											insetBlockStart: 'space.0',
-											transition: 'all 0.2s',
-										})}
-									>
+									<Box as="p" xcss={styles.brandText}>
 										Brand
 									</Box>
 								)}
@@ -293,16 +309,7 @@ export default () => {
 								<Box
 									as="span"
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-									xcss={xcss({
-										boxSizing: 'border-box',
-										width: '100%',
-										position: 'absolute',
-										insetBlockEnd: 'space.0',
-										insetInlineStart: 'space.0',
-										opacity: 0,
-										textAlign: 'center',
-										transition: 'all 0.3s',
-									})}
+									xcss={styles.colorText}
 								>
 									{colorString}
 								</Box>
@@ -320,11 +327,7 @@ export default () => {
 								paddingInline="space.100"
 								paddingBlock="space.050"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								xcss={xcss({
-									border: `1px solid ${token('color.border')}`,
-									width: 'fit-content',
-									borderRadius: 'border.radius.circle',
-								})}
+								xcss={styles.modifiedToken}
 							>
 								<Inline space="space.100">
 									{renderTokenColor(value, true)}

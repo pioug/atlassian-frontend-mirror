@@ -67,4 +67,8 @@ describe('Icon Type', () => {
 		const textContainer = queryByTestId(ICON_TYPE_TEXT_TEST_ID);
 		expect(textContainer).not.toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Icon source={''} />);
+		await expect(container).toBeAccessible();
+	});
 });

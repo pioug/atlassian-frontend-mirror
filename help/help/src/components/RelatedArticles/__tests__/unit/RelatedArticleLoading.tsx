@@ -6,6 +6,18 @@ import { IntlProvider } from 'react-intl-next';
 import RelatedArticlesLoading from '../../RelatedArticlesLoading';
 
 describe('RelatedArticlesLoading', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<RelatedArticlesLoading />
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible({
+			violationCount: 2,
+		});
+	});
+
 	it('Should match snapshot', () => {
 		const { asFragment } = render(
 			<IntlProvider locale="en">

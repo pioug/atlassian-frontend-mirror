@@ -35,7 +35,6 @@ import type { TypeAheadHandler } from '../types';
 import { ListRow } from './ListRow';
 import { MoreOptions } from './MoreOptions';
 import { TypeAheadListItem } from './TypeAheadListItem';
-import { ViewMore } from './ViewMore';
 
 const LIST_ITEM_ESTIMATED_HEIGHT = 64;
 const LIST_WIDTH = 320;
@@ -487,24 +486,15 @@ const TypeAheadListComponent = React.memo(
 			<MenuGroup aria-label={popupAriaLabel} aria-relevant="additions removals">
 				<div id={menuGroupId} ref={listContainerRef}>
 					{!showMoreOptionsButton || itemsLength ? ListContent : EmptyResultView}
-					{fg('platform_editor_controls_patch_12')
-						? showMoreOptionsButton &&
-							config && (
-								<MoreOptions
-									title={config.title}
-									ariaLabel={config.ariaLabel}
-									onClick={handleClick}
-									isFocused={selectedIndex === itemsLength}
-									iconBefore={config.iconBefore}
-								/>
-							)
-						: showMoreOptionsButton &&
-							onMoreOptionsClicked && (
-								<ViewMore
-									onClick={onMoreOptionsClicked}
-									isFocused={selectedIndex === itemsLength}
-								/>
-							)}
+					{showMoreOptionsButton && config && (
+						<MoreOptions
+							title={config.title}
+							ariaLabel={config.ariaLabel}
+							onClick={handleClick}
+							isFocused={selectedIndex === itemsLength}
+							iconBefore={config.iconBefore}
+						/>
+					)}
 					<TypeaheadAssistiveTextPureComponent numberOfResults={itemsLength.toString()} />
 				</div>
 			</MenuGroup>

@@ -1,7 +1,6 @@
 /* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 import React, { type LegacyRef, type ReactElement, type ReactNode, type Ref } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import Compiled, {
@@ -14,16 +13,6 @@ import Compiled, {
 	menuPortalCSS as compiledMenuPortalCSS,
 	NoOptionsMessage as CompiledNoOptionsMessage,
 } from '../compiled/components/menu';
-import Emotion, {
-	LoadingMessage as EmotionLoadingMessage,
-	menuCSS as emotionMenuCSS,
-	MenuList as EmotionMenuList,
-	menuListCSS as emotionMenuListCSS,
-	MenuPlacer as EmotionMenuPlacer,
-	MenuPortal as EmotionMenuPortal,
-	menuPortalCSS as emotionMenuPortalCSS,
-	NoOptionsMessage as EmotionNoOptionsMessage,
-} from '../emotion/components/menu';
 import {
 	type CoercedMenuPlacement,
 	type CommonProps,
@@ -101,22 +90,17 @@ interface MenuPlacerProps<Option, IsMulti extends boolean, Group extends GroupBa
 
 export const menuCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel => (fg('compiled-react-select') ? compiledMenuCSS() : emotionMenuCSS(props));
+): CSSObjectWithLabel => compiledMenuCSS();
 
 // NOTE: internal only
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MenuPlacer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuPlacerProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledMenuPlacer {...props} />
-	) : (
-		<EmotionMenuPlacer {...props} />
-	);
+) => <CompiledMenuPlacer {...props} />;
 
 const Menu = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
+) => <Compiled {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Menu;
@@ -153,14 +137,12 @@ export interface MenuListProps<
 }
 export const menuListCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuListProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledMenuListCSS() : emotionMenuListCSS(props);
+): CSSObjectWithLabel => compiledMenuListCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MenuList = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuListProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? <CompiledMenuList {...props} /> : <EmotionMenuList {...props} />;
+) => <CompiledMenuList {...props} />;
 
 // ==============================
 // Menu Notices
@@ -195,22 +177,12 @@ export interface NoticeProps<
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const NoOptionsMessage = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: NoticeProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledNoOptionsMessage {...props} />
-	) : (
-		<EmotionNoOptionsMessage {...props} />
-	);
+) => <CompiledNoOptionsMessage {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const LoadingMessage = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: NoticeProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledLoadingMessage {...props} />
-	) : (
-		<EmotionLoadingMessage {...props} />
-	);
+) => <CompiledLoadingMessage {...props} />;
 
 // ==============================
 // Menu Portal
@@ -233,14 +205,9 @@ export interface PortalStyleArgs {
 }
 
 export const menuPortalCSS = (props: PortalStyleArgs): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledMenuPortalCSS() : emotionMenuPortalCSS(props);
+	compiledMenuPortalCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MenuPortal = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuPortalProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledMenuPortal {...props} />
-	) : (
-		<EmotionMenuPortal {...props} />
-	);
+) => <CompiledMenuPortal {...props} />;

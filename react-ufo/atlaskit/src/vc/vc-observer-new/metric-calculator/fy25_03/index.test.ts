@@ -400,4 +400,70 @@ describe('VCCalculator_FY25_03', () => {
 			expect(calculator['getVCCleanStatus']([])).toEqual({ isVCClean: true });
 		});
 	});
+
+	describe('getConsideredEntryTypes behavior with platform_ufo_exclude_3p_elements_from_ttvc feature flag', () => {
+		describe('when fg platform_ufo_exclude_3p_elements_from_ttvc is true', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation((flag) => flag === 'platform_ufo_exclude_3p_elements_from_ttvc');
+			});
+
+			it('should exclude mutation:third-party-element entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:third-party-element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+			});
+
+			it('should still include other valid entry types', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+
+		describe('when fg platform_ufo_exclude_3p_elements_from_ttvc is false', () => {
+			beforeEach(() => {
+				mockFg.mockImplementation(() => false);
+			});
+
+			it('should include mutation:third-party-element entries', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:third-party-element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+
+			it('should still include other valid entry types', () => {
+				const entry: VCObserverEntry = {
+					time: 0,
+					data: {
+						type: 'mutation:element',
+						elementName: 'div',
+						rect: new DOMRect(),
+						visible: true,
+					},
+				};
+				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
+			});
+		});
+	});
 });

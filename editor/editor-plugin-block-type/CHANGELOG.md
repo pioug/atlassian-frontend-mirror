@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 5.2.5
+
+### Patch Changes
+
+- [#176627](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176627)
+  [`fe6d06a268e3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe6d06a268e3b) -
+  Add support for future versions for react-intl
+- Updated dependencies
+
 ## 5.2.4
 
 ### Patch Changes

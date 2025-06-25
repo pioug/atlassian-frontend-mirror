@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, type PropsWithChildren } from 'react';
+import React, { useRef, useEffect, type PropsWithChildren, Suspense } from 'react';
 
 import { Popper as ReactPopper, type PopperChildrenProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -53,32 +53,34 @@ export function Popup({ referenceElement, children }: Props) {
 
 	useFocusTrap({ targetRef: targetRef });
 	return (
-		<Portal zIndex={layers.modal()}>
-			<ReactPopper
-				referenceElement={referenceElement}
-				offset={[0, 8]}
-				placement="bottom-end"
-				strategy="fixed"
-			>
-				{({ ref, style, update }) => (
-					<div
-						ref={(node: HTMLDivElement) => {
-							if (node) {
-								if (typeof ref === 'function') {
-									ref(node);
-								} else {
-									(ref as React.MutableRefObject<HTMLElement>).current = node;
+		<Suspense>
+			<Portal zIndex={layers.modal()}>
+				<ReactPopper
+					referenceElement={referenceElement}
+					offset={[0, 8]}
+					placement="bottom-end"
+					strategy="fixed"
+				>
+					{({ ref, style, update }) => (
+						<div
+							ref={(node: HTMLDivElement) => {
+								if (node) {
+									if (typeof ref === 'function') {
+										ref(node);
+									} else {
+										(ref as React.MutableRefObject<HTMLElement>).current = node;
+									}
+									setPopupRef(node);
 								}
-								setPopupRef(node);
-							}
-						}}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-						style={style}
-					>
-						<RepositionOnUpdate update={update}>{children}</RepositionOnUpdate>
-					</div>
-				)}
-			</ReactPopper>
-		</Portal>
+							}}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							style={style}
+						>
+							<RepositionOnUpdate update={update}>{children}</RepositionOnUpdate>
+						</div>
+					)}
+				</ReactPopper>
+			</Portal>
+		</Suspense>
 	);
 }

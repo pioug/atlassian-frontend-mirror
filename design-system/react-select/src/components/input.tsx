@@ -1,10 +1,7 @@
 /* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 import React, { type InputHTMLAttributes } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import Compiled, { inputCSS as compiledInputCSS } from '../compiled/components/input';
-import Emotion, { inputCSS as emotionInputCSS } from '../emotion/components/input';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 
 interface InputSpecificProps<
@@ -47,12 +44,11 @@ export type InputProps<
 
 export const inputCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: InputProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledInputCSS() : emotionInputCSS(props);
+): CSSObjectWithLabel => compiledInputCSS();
 
 const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: InputProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
+) => <Compiled {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Input;

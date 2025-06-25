@@ -48,7 +48,14 @@ import generateId from '../short-id';
 
 import scheduleOnPaint from './schedule-on-paint';
 
-type Props = { name: string; children: ReactNode; mode?: 'list' | 'single' };
+export type UFOSegmentType = 'third-party' | 'first-party';
+
+export type Props = {
+	name: string;
+	children: ReactNode;
+	mode?: 'list' | 'single';
+	type?: UFOSegmentType;
+};
 
 let tryCompleteHandle: number | undefined;
 
@@ -60,7 +67,12 @@ const AsyncSegmentHighlight = lazy(() =>
 
 // KARL TODO: finish self profiling
 /** A portion of the page we apply measurement to */
-export default function UFOSegment({ name: segmentName, children, mode = 'single' }: Props) {
+export default function UFOSegment({
+	name: segmentName,
+	children,
+	mode = 'single',
+	type = 'first-party',
+}: Props) {
 	const parentContext = useContext(UFOInteractionContext) as EnhancedUFOInteractionContextType;
 
 	const segmentIdMap = useMemo(() => {

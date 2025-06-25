@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -54,12 +54,7 @@ export const WrapperTypeAhead = React.memo(
 		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
 		let showMoreOptionsButton = false;
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			if (fg('platform_editor_controls_patch_12')) {
-				showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
-			} else {
-				showMoreOptionsButton =
-					triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT && !!openElementBrowserModal;
-			}
+			showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
 		}
 
 		const [closed, setClosed] = useState(false);

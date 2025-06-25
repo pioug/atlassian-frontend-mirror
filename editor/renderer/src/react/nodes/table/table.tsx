@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Colgroup } from './colgroup';
+import { Colgroup, colWidthSum } from './colgroup';
 import type { SharedTableProps } from './types';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
@@ -34,6 +34,7 @@ export const Table = React.memo(
 			? getTableContainerWidth(tableNode)
 			: akEditorDefaultLayoutWidth;
 
+		let tableColumnWidths = columnWidths;
 		if (
 			rendererAppearance === 'comment' &&
 			allowTableResizing &&
@@ -48,6 +49,15 @@ export const Table = React.memo(
 			// is done via css
 			if (!fg('platform-ssr-table-resize')) {
 				tableWidth = renderWidth;
+			}
+		}
+
+		// for columns that are evenly distributed, do not return `colgroup` since existing table containerQuery
+		// scales up the columns width. This ensures columns always have 42px.
+		if (rendererAppearance === 'comment') {
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			if (fg('platform-ssr-table-resize') && fg('platform_table_number_column')) {
+				tableColumnWidths = columnWidths && colWidthSum(columnWidths) ? columnWidths : undefined;
 			}
 		}
 
@@ -69,7 +79,7 @@ export const Table = React.memo(
 				style={{ marginTop: fixTableSSRResizing ? '0px' : '' }}
 			>
 				<Colgroup
-					columnWidths={columnWidths}
+					columnWidths={tableColumnWidths}
 					layout={layout}
 					isNumberColumnEnabled={isNumberColumnEnabled}
 					renderWidth={renderWidth}

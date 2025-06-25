@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.14.1
+
+### Patch Changes
+
+- [#175174](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175174)
+  [`56303bfa2ee79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56303bfa2ee79) -
+  Add new component UFOThirdPartySegment to react-ufo
+
+## 3.14.0
+
+### Minor Changes
+
+- [#176314](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176314)
+  [`9c32e96190532`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c32e96190532) -
+  report memory usage via UFO
+
 ## 3.13.28
 
 ### Patch Changes

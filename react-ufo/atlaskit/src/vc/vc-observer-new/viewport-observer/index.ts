@@ -7,6 +7,10 @@ import { createIntersectionObserver, type VCIntersectionObserver } from './inter
 import createMutationObserver from './mutation-observer';
 import createPerformanceObserver from './performance-observer';
 import { type MutationData } from './types';
+import {
+	checkThirdPartySegmentWithIgnoreReason,
+	createMutationTypeWithIgnoredReason,
+} from './utils/get-component-name-and-child-props';
 
 function isElementVisible(element: Element) {
 	if (!(element instanceof HTMLElement)) {
@@ -164,6 +168,16 @@ export default class ViewportObserver {
 				return;
 			}
 
+			const { isWithinThirdPartySegment, ignoredReason } =
+				checkThirdPartySegmentWithIgnoreReason(addedNode);
+			if (isWithinThirdPartySegment) {
+				const assignedReason = createMutationTypeWithIgnoredReason(
+					ignoredReason || 'third-party-element',
+				);
+				this.intersectionObserver?.watchAndTag(addedNode, assignedReason);
+				return;
+			}
+
 			this.intersectionObserver?.watchAndTag(
 				addedNode,
 				createElementMutationsWatcher(removedNodeRects),
@@ -209,6 +223,22 @@ export default class ViewportObserver {
 			if (isRLLPlaceholder) {
 				return {
 					type: 'mutation:rll-placeholder',
+					mutationData: {
+						attributeName,
+						oldValue,
+						newValue,
+					},
+				};
+			}
+
+			const { isWithinThirdPartySegment, ignoredReason } =
+				checkThirdPartySegmentWithIgnoreReason(target);
+			if (isWithinThirdPartySegment) {
+				const assignedReason = createMutationTypeWithIgnoredReason(
+					ignoredReason || 'third-party-element',
+				);
+				return {
+					type: assignedReason,
 					mutationData: {
 						attributeName,
 						oldValue,

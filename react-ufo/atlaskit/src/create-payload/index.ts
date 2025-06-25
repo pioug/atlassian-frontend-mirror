@@ -16,7 +16,7 @@ import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
 import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
-import { createPressureStateReport } from '../machine-utilisation';
+import { createMemoryStateReport, createPressureStateReport } from '../machine-utilisation';
 import type { ResourceTimings } from '../resource-timing';
 import * as resourceTiming from '../resource-timing';
 import { filterResourceTimings } from '../resource-timing/common/utils/resource-timing-buffer';
@@ -955,6 +955,12 @@ async function createInteractionMetricsPayload(
 				...(fg('platform_ufo_report_cpu_usage')
 					? {
 							'event:cpu:usage': createPressureStateReport(interaction.start, interaction.end),
+						}
+					: {}),
+
+				...(fg('platform_ufo_report_memory_usage')
+					? {
+							'event:memory:usage': createMemoryStateReport(interaction.start, interaction.end),
 						}
 					: {}),
 

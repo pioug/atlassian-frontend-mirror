@@ -58,7 +58,7 @@ describe('ConfirmDismissDialog', () => {
 	it('should fire a cancel button event', async () => {
 		const { analyticsSpy } = setup();
 
-		userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
+		await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
 
 		await waitFor(() => {
 			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
@@ -77,7 +77,7 @@ describe('ConfirmDismissDialog', () => {
 	it('should fire a confirm button event', async () => {
 		const { analyticsSpy } = setup();
 
-		userEvent.click(await screen.findByRole('button', { name: 'Discard' }));
+		await userEvent.click(await screen.findByRole('button', { name: 'Discard' }));
 
 		await waitFor(() => {
 			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
@@ -91,5 +91,24 @@ describe('ConfirmDismissDialog', () => {
 				ANALYTICS_CHANNEL,
 			);
 		});
+	});
+	it('should capture and report a11y violations', async () => {
+		const analyticsSpy = jest.fn();
+
+		const defaultProps: ConfirmDismissDialogProps = {
+			active: true,
+			onClose: () => {},
+			onCancel: () => {},
+		};
+		const { container } = render(<ConfirmDismissDialog {...defaultProps} />, {
+			wrapper: ({ children }) => (
+				<IntlProvider locale="en">
+					<AnalyticsListener channel="media" onEvent={analyticsSpy}>
+						{children}
+					</AnalyticsListener>
+				</IntlProvider>
+			),
+		});
+		await expect(container).toBeAccessible();
 	});
 });

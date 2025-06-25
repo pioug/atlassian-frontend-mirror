@@ -44,6 +44,16 @@ describe('FormatMessages', () => {
 		});
 		expect(getAllByText('info')).toHaveLength(10);
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<FormatMessages
+				messages={Array(20)
+					.fill(1)
+					.map(() => ({ type: 'info', message: 'info' }))}
+			/>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });
 
 describe('extractMessageNodes from ExternalMessage array', () => {

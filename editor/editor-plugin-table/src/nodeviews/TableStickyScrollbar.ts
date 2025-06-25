@@ -1,6 +1,5 @@
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -145,8 +144,7 @@ export class TableStickyScrollbar {
 			// so the boundingClientRect.top will never be less than the rootBounds.top,
 			// so we need to check if the boundingClientRect.top is less than 20% of the rootBounds.height
 			// to determine if the bottom sentinel is above the scroll area
-			(entry.boundingClientRect.top < (entry.rootBounds?.height || 0) * 0.2 &&
-				fg('platform_editor_scroll_table_flickering_fix'));
+			entry.boundingClientRect.top < (entry.rootBounds?.height || 0) * 0.2;
 
 		this.bottomSentinelState = sentinelIsAboveScrollArea
 			? 'above'

@@ -14,13 +14,22 @@ const ABORTING_WINDOW_EVENT = ['wheel', 'scroll', 'keydown', 'resize'] as const;
 
 const REVISION_NO = 'fy25.03';
 
-const CONSIDERED_ENTRY_TYPE: VCObserverEntryType[] = [
-	'mutation:child-element',
-	'mutation:element',
-	'mutation:attribute',
-	'layout-shift',
-	'window:event',
-];
+const getConsideredEntryTypes = (): VCObserverEntryType[] => {
+	const entryTypes: VCObserverEntryType[] = [
+		'mutation:child-element',
+		'mutation:element',
+		'mutation:attribute',
+		'layout-shift',
+		'window:event',
+	];
+
+	// If not exclude 3p elements from ttvc,
+	// including the tags into the ConsideredEntryTypes so that it won't be ignored for TTVC calculation
+	if (!fg('platform_ufo_exclude_3p_elements_from_ttvc')) {
+		entryTypes.push('mutation:third-party-element');
+	}
+	return entryTypes;
+};
 
 // TODO: AFO-3523
 // Those are the attributes we have found when testing the 'fy25.03' manually.
@@ -55,7 +64,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 	}
 
 	protected isEntryIncluded(entry: VCObserverEntry): boolean {
-		if (!CONSIDERED_ENTRY_TYPE.includes(entry.data.type)) {
+		if (!getConsideredEntryTypes().includes(entry.data.type)) {
 			return false;
 		}
 		if (entry.data.type === 'mutation:attribute') {

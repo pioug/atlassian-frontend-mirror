@@ -145,6 +145,9 @@
 		},
 		"should-render-to-parent-should-be-true-people-and-": {
 			"type": "boolean"
+		},
+		"page_shared_event_from_share_dialogue": {
+			"type": "boolean"
 		}
 	},
 	"sideEffects": [

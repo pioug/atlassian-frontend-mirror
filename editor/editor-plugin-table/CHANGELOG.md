@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 10.12.11
+
+### Patch Changes
+
+- [#175471](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175471)
+  [`302b93e537e73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302b93e537e73) -
+  ff cleanup for platform_editor_scroll_table_flickering_fix (FD-91488)
+- Updated dependencies
+
+## 10.12.10
+
+### Patch Changes
+
+- [#176058](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176058)
+  [`38c6611bdd480`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38c6611bdd480) -
+  ED-28085 Clean up platform_editor_hide_expand_selection_states
+
 ## 10.12.9
 
 ### Patch Changes

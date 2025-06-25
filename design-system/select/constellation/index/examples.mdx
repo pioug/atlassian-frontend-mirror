@@ -19,6 +19,8 @@ import SelectAppearanceSubtle from '../../examples/constellation/select-appearan
 import SelectIndicatorsClear from '../../examples/constellation/select-indicators-clear';
 import SelectIndicatorsDropdown from '../../examples/constellation/select-indicators-dropdown';
 import SelectIndicatorsLoading from '../../examples/constellation/select-indicators-loading';
+import SelectControlStyleOverride from '../../examples/constellation/select-control-style-override';
+import SelectControlStyleOverrideLegacy from '../../examples/constellation/select-control-style-override-legacy';
 
 ## Async select
 
@@ -66,7 +68,27 @@ A select that's transparent until interaction or error.
 
 <Example Component={SelectAppearanceSubtle} packageName="@atlaskit/select" />
 
-## Customization
+## Style customization
+
+The Select component provides flexible styling options to customize its appearance and behavior.
+With the migration to Compiled CSS, we now offer enhanced styling capabilities through the
+`components` API with `xcss` prop support.
+
+### Recommended: Components API with xcss
+
+The preferred method for customizing Select styles is using the `components` API with the xcss prop.
+This approach provides type-safe, performant styling with Compiled CSS-in-JS.
+
+<Example Component={SelectControlStyleOverride} packageName="@atlaskit/select" />
+
+### Legacy: Styles Prop (Limited Support)
+
+The `styles` prop is still supported for backward compatibility, but has limitations with certain
+CSS selectors.
+
+<Example Component={SelectControlStyleOverrideLegacy} packageName="@atlaskit/select" />
+
+## Component customization
 
 The following components are customizable and switchable:
 

@@ -80,4 +80,21 @@ describe('SiteSelector', () => {
 
 		expect(dropdownItems).toEqual(sortedDropdownItems);
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<SiteSelector
+					testId={'my-selector'}
+					availableSites={mockSiteData}
+					selectedSite={mockSiteData[0]} // hello sorted alphabetically
+					onSiteSelection={mockOnSiteSelection}
+					label={{
+						id: 'my-selector-label',
+						defaultMessage: 'custom label',
+					}}
+				/>
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

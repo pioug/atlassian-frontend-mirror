@@ -4,14 +4,59 @@
  */
 import { Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, cx, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import Lozenge from '@atlaskit/lozenge';
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		alignItems: 'center',
+		border: `1px solid ${token('color.border')}`,
+		borderRadius: '4px',
+		overflow: 'hidden',
+		paddingBlock: '0',
+		paddingInline: '0.5em',
+		transition: 'background 0.2s ease-in',
+	},
+	summary: {
+		marginBlock: '0',
+		marginInline: '-0.5em',
+		paddingBlock: '1em',
+		paddingInline: '1em',
+		cursor: 'pointer',
+		display: 'flex',
+		alignItems: 'center',
+		'&::-webkit-details-marker': {
+			display: 'none',
+		},
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
+	},
+	content: {
+		paddingBlock: token('space.100'),
+	},
+	summaryContent: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+	},
+	chevron: {
+		transform: 'rotate(0deg)',
+		transition: 'transform 0.2s ease-out',
+		alignItems: 'center',
+	},
+	chevronOpen: {
+		transform: 'rotate(90deg)',
+	},
+});
 
 /**
  * Accordion for displaying content
@@ -42,58 +87,10 @@ export default function Accordion({
 	return (
 		<Fragment>
 			{children ? (
-				<details
-					onToggle={handleToggle}
-					open={isOpen}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={{
-						alignItems: 'center',
-						border: `1px solid ${token('color.border')}`,
-						borderRadius: '4px',
-						overflow: 'hidden',
-						padding: '0em 0.5em',
-						transition: 'background 0.2s ease-in',
-					}}
-				>
-					<summary
-						css={[
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							{
-								margin: '0em -0.5em 0',
-								padding: '1em',
-								cursor: 'pointer',
-								display: 'flex',
-								alignItems: 'center',
-								'&::-webkit-details-marker': {
-									display: 'none',
-								},
-								':hover': {
-									background: token('color.background.neutral.subtle.hovered'),
-								},
-								':active': {
-									background: token('color.background.neutral.subtle.pressed'),
-								},
-							},
-						]}
-					>
-						<Box
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							xcss={xcss({
-								display: 'inline-flex',
-								alignItems: 'center',
-								gap: 'space.050',
-							})}
-							as="span"
-						>
-							<Flex
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								xcss={xcss({
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-									transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-									transition: 'transform 0.2s ease-out',
-									alignItems: 'center',
-								})}
-							>
+				<details onToggle={handleToggle} open={isOpen} css={styles.root}>
+					<summary css={styles.summary}>
+						<Box as="span" xcss={styles.summaryContent}>
+							<Flex xcss={cx(styles.chevron, isOpen && styles.chevronOpen)}>
 								<ChevronRightLargeIcon label={isOpen ? 'Close' : 'Open'} />
 							</Flex>
 							<Heading size="medium">{description}</Heading>
@@ -104,16 +101,7 @@ export default function Accordion({
 							)}
 						</Box>
 					</summary>
-					{isOpen && children && (
-						<Box
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							xcss={xcss({
-								paddingBlock: 'space.100',
-							})}
-						>
-							{children}
-						</Box>
-					)}
+					{isOpen && children && <Box xcss={styles.content}>{children}</Box>}
 				</details>
 			) : null}
 		</Fragment>

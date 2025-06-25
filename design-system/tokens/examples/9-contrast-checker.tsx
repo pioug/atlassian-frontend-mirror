@@ -4,11 +4,9 @@
  */
 import { Fragment, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import Grid, { GridItem } from '@atlaskit/grid';
@@ -17,11 +15,11 @@ import LinkIcon from '@atlaskit/icon/glyph/link';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popup } from '@atlaskit/popup';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme, token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
@@ -102,6 +100,19 @@ function getThemeCSS(
 	}, '');
 }
 
+const styles = cssMap({
+	stack: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+		maxWidth: '400px',
+	},
+	box: {
+		flexBasis: '300',
+		flexShrink: '1',
+	},
+});
 /**
  * An import dialog for importing a custom theme
  */
@@ -117,7 +128,7 @@ const ImportPopup = ({ onImport }: { onImport: (theme: ThemeExportFormat) => voi
 			placement="bottom-start"
 			content={() => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<Stack space="space.100" xcss={xcss({ padding: 'space.200', maxWidth: '400px' })}>
+				<Stack space="space.100" xcss={styles.stack}>
 					<Heading size="medium">Import a custom theme</Heading>
 					<p>
 						Paste in a JSON string of a custom theme to import it. This will overwrite your current
@@ -250,8 +261,7 @@ export default function ContrastChecker() {
 				<Box paddingBlockStart="space.500">
 					<Inline spread="space-between" shouldWrap={true} space="space.100">
 						<Heading size="xxlarge">Contrast Checker</Heading>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<Box xcss={xcss({ flexBasis: 300, flexShrink: '1' })}>
+						<Box xcss={styles.box}>
 							<Stack space="space.100">
 								<ThemePicker value={baseThemeType} onChange={setBaseThemeType} />
 							</Stack>

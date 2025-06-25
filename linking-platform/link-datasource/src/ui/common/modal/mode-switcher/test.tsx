@@ -63,4 +63,18 @@ describe('ModeSwitcher', () => {
 		const { queryByTestId } = setup({ options: [] });
 		expect(queryByTestId('mode-toggle-container')).not.toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const mockOnModeChange = jest.fn();
+		const { container } = render(
+			<ModeSwitcher
+				options={[
+					{ label: 'Basic', value: 'basic' },
+					{ label: 'JQL', value: 'jql' },
+					{ label: 'Something', value: 'smth' },
+				]}
+				onOptionValueChange={mockOnModeChange}
+			/>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

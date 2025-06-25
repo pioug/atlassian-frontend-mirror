@@ -18,7 +18,6 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type LayoutPlugin } from '../layoutPluginType';
@@ -136,10 +135,7 @@ const LayoutBreakoutResizer = ({
 		selectIntoLayout(view, pos, 0);
 	}, [getPos, view]);
 
-	if (
-		interactionState === 'hasNotHadInteraction' &&
-		fg('platform_editor_hide_expand_selection_states')
-	) {
+	if (interactionState === 'hasNotHadInteraction') {
 		return null;
 	}
 

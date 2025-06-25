@@ -63,7 +63,6 @@ import UnlinkIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink
 import OpenIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import CogIcon from '@atlaskit/icon/core/migration/settings--editor-settings';
 import SettingsIcon from '@atlaskit/icon/core/settings';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -934,7 +933,7 @@ const getDatasourceButtonGroup = (
 
 		// When canShowAppearanceSwitch is true, and platform_editor_controls is on, the link appearance dropdown shows, which includes a link preference button
 		// So only add the link appearance button when canShowAppearanceSwitch is false
-		if (!canShowAppearanceSwitch() && fg('platform_editor_controls_patch_12')) {
+		if (!canShowAppearanceSwitch()) {
 			const linkPreferenceButton = getSettingsButton(
 				intl,
 				editorAnalyticsApi,

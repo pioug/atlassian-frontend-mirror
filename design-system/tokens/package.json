@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tokens",
-	"version": "5.4.0",
+	"version": "5.4.1",
 	"description": "Design tokens are the single source of truth to name and store design decisions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,6 +49,7 @@
 		"@atlaskit/calendar": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/code": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/dynamic-table": "workspace:^",
@@ -73,7 +74,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@babel/core": "7.24.9",
-		"@emotion/react": "^11.7.1",
+		"@compiled/react": "^0.18.3",
 		"@hypermod/utils": "^0.4.2",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
@@ -100,7 +101,7 @@
 			"ui-components": "lite-mode",
 			"deprecation": "no-deprecated-imports",
 			"styling": [
-				"emotion"
+				"compiled"
 			]
 		}
 	},

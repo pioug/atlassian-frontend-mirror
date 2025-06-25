@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 2.6.4
+
+### Patch Changes
+
+- [#175339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175339)
+  [`d4115e4055a0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4115e4055a0a) -
+  ED-28314 Cleanup platform_editor_controls_patch_12
+- Updated dependencies
+
 ## 2.6.3
 
 ### Patch Changes

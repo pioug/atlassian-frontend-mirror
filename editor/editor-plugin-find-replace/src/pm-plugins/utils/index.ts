@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import type { IntlShape } from 'react-intl-next';
 
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -11,10 +12,16 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { getGlobalTheme } from '@atlaskit/tokens';
 
 import { FindReplacePlugin } from '../../findReplacePluginType';
 import type { Match, TextGrouping } from '../../types';
-import { searchMatchClass, selectedSearchMatchClass } from '../../ui/styles';
+import {
+	searchMatchClass,
+	selectedSearchMatchClass,
+	blockSearchMatchClass,
+	darkModeSearchMatchClass,
+} from '../../ui/styles';
 
 export function getSelectedText(selection: TextSelection): string {
 	let text = '';
@@ -25,20 +32,46 @@ export function getSelectedText(selection: TextSelection): string {
 	return text;
 }
 
-export const createDecorations = (
-	selectedIndex: number,
-	matches: { start: number; end: number }[],
-): Decoration[] =>
-	matches.map(({ start, end }, i) => createDecoration(start, end, i === selectedIndex));
+export const createDecorations = (selectedIndex: number, matches: Match[]): Decoration[] =>
+	matches.map(({ start, end, nodeType }, i) =>
+		createDecoration(start, end, i === selectedIndex, nodeType),
+	);
 
-export const createDecoration = (start: number, end: number, isSelected?: boolean) => {
-	let className = searchMatchClass;
-	if (isSelected) {
-		className += ` ${selectedSearchMatchClass}`;
+const isBlock = (nodeType?: string) => nodeType === 'blockCard' || nodeType === 'embedCard';
+
+export const createDecoration = (
+	start: number,
+	end: number,
+	isSelected?: Boolean,
+	nodeType?: string,
+) => {
+	if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
+		const { colorMode } = getGlobalTheme();
+
+		const className = classnames(searchMatchClass, {
+			[selectedSearchMatchClass]: isSelected,
+			[blockSearchMatchClass]: isBlock(nodeType),
+			[darkModeSearchMatchClass]: colorMode === 'dark',
+		});
+
+		if (isBlock(nodeType)) {
+			return Decoration.node(start, end, {
+				class: className,
+			});
+		} else {
+			return Decoration.inline(start, end, {
+				class: className,
+			});
+		}
+	} else {
+		let className = searchMatchClass;
+		if (isSelected) {
+			className += ` ${selectedSearchMatchClass}`;
+		}
+		return Decoration.inline(start, end, {
+			class: className,
+		});
 	}
-	return Decoration.inline(start, end, {
-		class: className,
-	});
 };
 
 type FindMatchesType = {
@@ -86,6 +119,9 @@ export function findMatches({
 				canReplace: expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 					? true
 					: undefined,
+				nodeType: expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+					? 'text'
+					: undefined,
 			});
 			index = text.indexOf(searchText, end);
 		}
@@ -106,11 +142,16 @@ export function findMatches({
 		const index = text.indexOf(searchText);
 		if (index !== -1) {
 			const start = pos;
-			matches.push({ start, end: start + nodeSize, canReplace: false });
+			matches.push({
+				start,
+				end: start + nodeSize,
+				canReplace: false,
+				nodeType: 'status',
+			});
 		}
 	};
 
-	const collectDateOrMentionMatch = (textGrouping: TextGrouping, nodeSize: number) => {
+	const collectNodeMatch = (textGrouping: TextGrouping, node: PmNode) => {
 		if (!textGrouping) {
 			return;
 		}
@@ -124,7 +165,31 @@ export function findMatches({
 		const index = text.indexOf(searchText);
 		if (index !== -1) {
 			const start = pos;
-			matches.push({ start, end: start + nodeSize, canReplace: false });
+			matches.push({
+				start,
+				end: start + node.nodeSize,
+				canReplace: false,
+				nodeType: node.type.name,
+			});
+		}
+	};
+
+	const collectCardTitleMatch = (node: PmNode, pos: number) => {
+		const cards = api?.card?.sharedState.currentState()?.cards;
+		if (cards) {
+			const relevantCard = cards.find((card) => card.url === node.attrs.url);
+			const title = relevantCard?.title;
+			if (relevantCard) {
+				if (title) {
+					collectNodeMatch({ text: title, pos }, node);
+				} else {
+					// when there is no title, e.g. in an error case like unauthorized
+					// the link card just shows the entire url as the title in inline card
+					if (node.type.name === 'inlineCard') {
+						collectNodeMatch({ text: node.attrs.url, pos }, node);
+					}
+				}
+			}
 		}
 	};
 
@@ -154,7 +219,7 @@ export function findMatches({
 							);
 							break;
 						case 'date':
-							collectDateOrMentionMatch(
+							collectNodeMatch(
 								{
 									text: timestampToString(
 										node.attrs.timestamp,
@@ -162,7 +227,7 @@ export function findMatches({
 									) as string,
 									pos,
 								},
-								node.nodeSize,
+								node,
 							);
 							break;
 						case 'mention':
@@ -190,8 +255,13 @@ export function findMatches({
 							}
 
 							if (text) {
-								collectDateOrMentionMatch({ text, pos }, node.nodeSize);
+								collectNodeMatch({ text, pos }, node);
 							}
+							break;
+						case 'inlineCard':
+						case 'blockCard':
+						case 'embedCard':
+							collectCardTitleMatch(node, pos);
 
 							break;
 						default:

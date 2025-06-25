@@ -15,7 +15,7 @@ import {
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
 import { getPerformanceObserver } from '../interactions-performance-observer';
-import { initialisePressureObserver } from '../machine-utilisation';
+import { initialiseMemoryObserver, initialisePressureObserver } from '../machine-utilisation';
 import { getVCObserver } from '../vc';
 
 import scheduleIdleCallback from './schedule-idle-callback';
@@ -150,6 +150,10 @@ export function init(
 
 	if (fg('platform_ufo_report_cpu_usage')) {
 		initialisePressureObserver();
+	}
+
+	if (fg('platform_ufo_report_memory_usage')) {
+		initialiseMemoryObserver();
 	}
 
 	setUFOConfig(config);

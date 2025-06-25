@@ -4,8 +4,7 @@
  */
 import { Fragment, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { VariableSizeList as List } from 'react-window';
 
 import Button from '@atlaskit/button/new';
@@ -13,9 +12,10 @@ import { Checkbox } from '@atlaskit/checkbox';
 import Heading from '@atlaskit/heading';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import TextField from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens/tokens-raw';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
@@ -44,6 +44,22 @@ type ResultsAccordionDisplayProps = {
 const STANDARD_RESULT_HEIGHT = 88;
 const TRANSPARENT_RESULT_HEIGHT = 128;
 const ACCORDION_MAX_HEIGHT = 500;
+
+const styles = cssMap({
+	overflow: {
+		overflow: 'auto',
+	},
+	paddingInline: {
+		paddingInline: token('space.100'),
+	},
+	searchIcon: {
+		paddingInline: token('space.100'),
+	},
+	resultsCustomContainer: {
+		overflow: 'auto',
+		height: '100%',
+	},
+});
 
 /**
  * Displays contrast check results in an accordion, with cards for
@@ -120,8 +136,7 @@ const ResultsAccordion = ({
 				<TextField
 					aria-label="Filter results"
 					elemBeforeInput={
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<Inline xcss={xcss({ paddingInline: 'space.100' })}>
+						<Inline xcss={styles.searchIcon}>
 							<SearchIcon label="" />
 						</Inline>
 					}
@@ -354,8 +369,7 @@ const Results = ({
 			</Inline>
 			{resultsCustom ? (
 				<Fragment>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-					<Box xcss={xcss({ overflow: 'auto', height: '100%' })}>
+					<Box xcss={styles.resultsCustomContainer}>
 						<Stack space="space.200">
 							{(customTheme.length > 0 || Object.keys(customBaseTokens).length > 0) && (
 								<Fragment>

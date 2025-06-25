@@ -2,76 +2,116 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 
-const styleMap = {
-	'space.negative.400': xcss({ marginBlockStart: 'space.negative.400' }),
-	'space.negative.300': xcss({ marginBlockStart: 'space.negative.300' }),
-	'space.negative.200': xcss({ marginBlockStart: 'space.negative.200' }),
-	'space.negative.150': xcss({ marginBlockStart: 'space.negative.150' }),
-	'space.negative.100': xcss({ marginBlockStart: 'space.negative.100' }),
-	'space.negative.075': xcss({ marginBlockStart: 'space.negative.075' }),
-	'space.negative.050': xcss({ marginBlockStart: 'space.negative.050' }),
-	'space.negative.025': xcss({ marginBlockStart: 'space.negative.025' }),
-	'0': xcss({ marginBlockStart: '0' }),
-	'space.025': xcss({ marginBlockStart: 'space.025' }),
-	'space.050': xcss({ marginBlockStart: 'space.050' }),
-	'space.075': xcss({ marginBlockStart: 'space.075' }),
-	'space.100': xcss({ marginBlockStart: 'space.100' }),
-	'space.150': xcss({ marginBlockStart: 'space.150' }),
-	'space.200': xcss({ marginBlockStart: 'space.200' }),
-	'space.300': xcss({ marginBlockStart: 'space.300' }),
-	'space.400': xcss({ marginBlockStart: 'space.400' }),
-	'space.500': xcss({ marginBlockStart: 'space.500' }),
-	'space.600': xcss({ marginBlockStart: 'space.600' }),
-	'space.800': xcss({ marginBlockStart: 'space.800' }),
-	'space.1000': xcss({ marginBlockStart: 'space.1000' }),
-};
-const rootStyles = xcss({
-	// To ensure the VR snapshot captures the absolutely-positioned negative Boxes
-	height: '200px',
-});
-
-const containerStyles = xcss({
-	paddingBlockStart: 'space.500',
-});
-const baseBoxStyles = xcss({
-	backgroundColor: 'color.background.discovery.bold',
-	height: '64px',
-	width: '64px',
+const styles = cssMap({
+	root: {
+		height: '200px',
+	},
+	container: {
+		paddingBlockStart: token('space.500'),
+	},
+	box: {
+		backgroundColor: token('color.background.discovery.bold'),
+		height: '64px',
+		width: '64px',
+	},
+	'space.negative.400': {
+		marginBlockStart: token('space.negative.400'),
+	},
+	'space.negative.300': {
+		marginBlockStart: token('space.negative.300'),
+	},
+	'space.negative.200': {
+		marginBlockStart: token('space.negative.200'),
+	},
+	'space.negative.150': {
+		marginBlockStart: token('space.negative.150'),
+	},
+	'space.negative.100': {
+		marginBlockStart: token('space.negative.100'),
+	},
+	'space.negative.075': {
+		marginBlockStart: token('space.negative.075'),
+	},
+	'space.negative.050': {
+		marginBlockStart: token('space.negative.050'),
+	},
+	'space.negative.025': {
+		marginBlockStart: token('space.negative.025'),
+	},
+	'space.0': {
+		marginBlockStart: token('space.0'),
+	},
+	'space.025': {
+		marginBlockStart: token('space.025'),
+	},
+	'space.050': {
+		marginBlockStart: token('space.050'),
+	},
+	'space.075': {
+		marginBlockStart: token('space.075'),
+	},
+	'space.100': {
+		marginBlockStart: token('space.100'),
+	},
+	'space.150': {
+		marginBlockStart: token('space.150'),
+	},
+	'space.200': {
+		marginBlockStart: token('space.200'),
+	},
+	'space.300': {
+		marginBlockStart: token('space.300'),
+	},
+	'space.400': {
+		marginBlockStart: token('space.400'),
+	},
+	'space.500': {
+		marginBlockStart: token('space.500'),
+	},
+	'space.600': {
+		marginBlockStart: token('space.600'),
+	},
+	'space.800': {
+		marginBlockStart: token('space.800'),
+	},
+	'space.1000': {
+		marginBlockStart: token('space.1000'),
+	},
 });
 
 export default () => {
 	useVrGlobalTheme();
 	return (
-		<Box testId="spacing" xcss={rootStyles}>
+		<Box testId="spacing" xcss={styles.root}>
 			<h1>Spacing scale</h1>
-			<Inline space="space.100" xcss={containerStyles}>
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.400']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.300']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.200']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.150']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.100']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.075']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.050']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.negative.025']]} />
-				<Box xcss={[baseBoxStyles, styleMap['0']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.050']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.075']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.100']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.150']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.200']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.300']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.400']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.500']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.600']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.800']]} />
-				<Box xcss={[baseBoxStyles, styleMap['space.1000']]} />
+			<Inline space="space.100" xcss={styles.container}>
+				<Box xcss={cx(styles.box, styles['space.negative.400'])} />
+				<Box xcss={cx(styles.box, styles['space.negative.300'])} />
+				<Box xcss={cx(styles.box, styles['space.negative.200'])} />
+				<Box xcss={cx(styles.box, styles['space.negative.150'])} />
+				<Box xcss={cx(styles.box, styles['space.negative.100'])} />
+				<Box xcss={cx(styles.box, styles['space.negative.075'])} />
+				<Box xcss={cx(styles.box, styles['space.negative.050'])} />
+				<Box xcss={cx(styles.box, styles['space.negative.025'])} />
+				<Box xcss={cx(styles.box, styles['space.0'])} />
+				<Box xcss={cx(styles.box, styles['space.050'])} />
+				<Box xcss={cx(styles.box, styles['space.075'])} />
+				<Box xcss={cx(styles.box, styles['space.100'])} />
+				<Box xcss={cx(styles.box, styles['space.150'])} />
+				<Box xcss={cx(styles.box, styles['space.200'])} />
+				<Box xcss={cx(styles.box, styles['space.300'])} />
+				<Box xcss={cx(styles.box, styles['space.400'])} />
+				<Box xcss={cx(styles.box, styles['space.500'])} />
+				<Box xcss={cx(styles.box, styles['space.600'])} />
+				<Box xcss={cx(styles.box, styles['space.800'])} />
+				<Box xcss={cx(styles.box, styles['space.1000'])} />
 			</Inline>
 		</Box>
 	);

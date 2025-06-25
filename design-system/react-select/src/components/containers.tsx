@@ -11,14 +11,6 @@ import {
 	ValueContainer as CompiledValueContainer,
 	valueContainerCSS as compiledValueContainerCSS,
 } from '../compiled/components/containers';
-import {
-	containerCSS as emotionCSS,
-	IndicatorsContainer as EmotionIndicatorsContainer,
-	indicatorsContainerCSS as emotionIndicatorsContainerCSS,
-	SelectContainer as EmotionSelectContainer,
-	ValueContainer as EmotionValueContainer,
-	valueContainerCSS as emotionValueContainerCSS,
-} from '../emotion/components/containers';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 
 // ==============================
@@ -46,7 +38,7 @@ export interface ContainerProps<
 }
 export const containerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ContainerProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel => (fg('compiled-react-select') ? compiledCSS() : emotionCSS(props));
+): CSSObjectWithLabel => compiledCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SelectContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -55,7 +47,7 @@ export const SelectContainer = <Option, IsMulti extends boolean, Group extends G
 	fg('compiled-react-select') ? (
 		<CompiledSelectContainer {...props} />
 	) : (
-		<EmotionSelectContainer {...props} />
+		<CompiledSelectContainer {...props} />
 	);
 
 // ==============================
@@ -83,18 +75,12 @@ export interface ValueContainerProps<
 }
 export const valueContainerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ValueContainerProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledValueContainerCSS() : emotionValueContainerCSS(props);
+): CSSObjectWithLabel => compiledValueContainerCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ValueContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ValueContainerProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledValueContainer {...props} />
-	) : (
-		<EmotionValueContainer {...props} />
-	);
+) => <CompiledValueContainer {...props} />;
 
 // ==============================
 // Indicator Container
@@ -116,8 +102,7 @@ export interface IndicatorsContainerProps<
 	innerProps?: {};
 }
 
-export const indicatorsContainerCSS = (): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledIndicatorsContainerCSS() : emotionIndicatorsContainerCSS();
+export const indicatorsContainerCSS = (): CSSObjectWithLabel => compiledIndicatorsContainerCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IndicatorsContainer = <
@@ -126,9 +111,4 @@ export const IndicatorsContainer = <
 	Group extends GroupBase<Option>,
 >(
 	props: IndicatorsContainerProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledIndicatorsContainer {...props} />
-	) : (
-		<EmotionIndicatorsContainer {...props} />
-	);
+) => <CompiledIndicatorsContainer {...props} />;

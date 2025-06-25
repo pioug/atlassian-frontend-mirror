@@ -10,6 +10,7 @@ import {
 	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	AtlassianUrlShortenerClient,
@@ -353,8 +354,14 @@ export class ShareDialogContainerInternal extends React.Component<
 	}
 
 	getFormShareLink = (): string => {
-		// original share link is used here
-		return this.getRawLink();
+		const rawLink = this.getRawLink();
+		// Check if origin tracing on share link is enabled
+		if (fg('page_shared_event_from_share_dialogue')) {
+			const originTracing = this.getFormShareOriginTracing();
+			return memoizedFormatCopyLink(originTracing, rawLink);
+		}
+		// original share link is used if feature flag is disabled
+		return rawLink;
 	};
 
 	render() {

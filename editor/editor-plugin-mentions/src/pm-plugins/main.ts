@@ -5,7 +5,6 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
@@ -23,11 +22,9 @@ import {
 	type SliNames,
 } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
-import { MentionNodeView } from '../nodeviews/mention';
-import { MentionNodeView as VanillaMentionNodeView } from '../nodeviews/mentionNodeView';
+import { MentionNodeView } from '../nodeviews/mentionNodeView';
 import {
 	type FireElementsChannelEvent,
 	MENTION_PROVIDER_REJECTED,
@@ -155,21 +152,11 @@ export function createMentionPlugin({
 		props: {
 			nodeViews: {
 				mention: (node, view, getPos, decorations, innerDecorations) => {
-					return editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })
-						? new VanillaMentionNodeView(node, {
-								options,
-								api,
-								portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
-							})
-						: getInlineNodeViewProducer({
-								pmPluginFactoryParams,
-								Component: MentionNodeView,
-								extraComponentProps: {
-									providerFactory: pmPluginFactoryParams.providerFactory,
-									pluginInjectionApi: api,
-									options,
-								},
-							})(node, view, getPos, decorations);
+					return new MentionNodeView(node, {
+						options,
+						api,
+						portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
+					});
 				},
 			},
 		},

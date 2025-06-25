@@ -5,14 +5,13 @@
 
 import { useCallback, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import debounce from 'lodash/debounce';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -23,6 +22,25 @@ import { isHex } from '../utils/search-params';
 import { type Theme, type TokenName } from '../utils/types';
 
 import { baseTokenNames } from './base-token-editor';
+
+const styles = cssMap({
+	select: {
+		flexBasis: '300px',
+		flexShrink: '0',
+	},
+	flexShrink: {
+		flexShrink: '0',
+	},
+	input: {
+		border: `2px solid ${token('color.border')}`,
+		backgroundColor: token('color.background.input'),
+		borderRadius: token('border.radius.100'),
+		height: '32px',
+		'&:hover': {
+			backgroundColor: token('color.background.input.hovered'),
+		},
+	},
+});
 
 const TokenNameOptions = (Object.keys(tokenNames) as TokenName[])
 	.filter((token) => token.startsWith('color') || token.startsWith('elevation.surface'))
@@ -145,8 +163,8 @@ const TokenSelect = ({
 				placeholder="Choose a token"
 				inputId={`token-select-${selectedToken}`}
 				spacing={'compact'}
-				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
-				css={{ flexBasis: 300, flexShrink: 0 }}
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+				css={styles.select}
 			/>
 			<Stack space="space.025" grow="fill">
 				<Select<{ label: string; value: string }>
@@ -163,22 +181,13 @@ const TokenSelect = ({
 					placeholder="Choose a value"
 					inputId={`token-select-${selectedToken}`}
 					spacing={'compact'}
-					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
-					css={{ flexBasis: '100%', flexShrink: 0 }}
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+					css={styles.select}
 				/>
 				{currentBaseTokenValue.value === 'custom' && (
 					<Inline space="space.025" grow="hug">
 						<input
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							css={{
-								border: `2px solid ${token('color.border')}`,
-								backgroundColor: token('color.background.input', 'white'),
-								borderRadius: token('border.radius.100', '3px'),
-								height: token('space.400', '32px'),
-								'&:hover': {
-									backgroundColor: token('color.background.input.hovered', 'N20'),
-								},
-							}}
+							css={styles.input}
 							type="color"
 							value={value}
 							onChange={(e) => {
@@ -198,8 +207,7 @@ const TokenSelect = ({
 					</Inline>
 				)}
 			</Stack>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<Box xcss={xcss({ flexShrink: '0' })}>
+			<Box xcss={styles.flexShrink}>
 				<IconButton icon={CrossIcon} appearance="subtle" onClick={onRemove} label="remove" />
 			</Box>
 		</Inline>

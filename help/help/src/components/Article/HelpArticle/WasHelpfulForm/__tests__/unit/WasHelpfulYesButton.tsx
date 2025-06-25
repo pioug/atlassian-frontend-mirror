@@ -23,6 +23,14 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('ArticleContent', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ArticleWasHelpfulYesButton isSelected={false} onClick={mockOnClick} intl={intl} />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Match snapshot', () => {
 		const { container } = render(
 			<ArticleWasHelpfulYesButton isSelected={false} onClick={mockOnClick} intl={intl} />,

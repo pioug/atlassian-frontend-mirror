@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 107.2.2
+
+### Patch Changes
+
+- [#175895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175895)
+  [`6165a5dc5b6b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6165a5dc5b6b1) -
+  Remove deprecated path for react version of mentions
+- [#175899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175899)
+  [`a28d5dc386dbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a28d5dc386dbf) -
+  Clean up platform_editor_fix_floating_toolbar_focus
+- Updated dependencies
+
 ## 107.2.1
 
 ### Patch Changes

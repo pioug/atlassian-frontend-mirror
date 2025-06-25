@@ -71,7 +71,9 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 	) => {
 		const { shouldRenderAbuseModal, intl } = this.props;
 
-		const tooltip = intl.formatMessage(messages.download_disabled_security_policy);
+		const tooltip = enforceDataSecurityPolicy
+			? intl.formatMessage(messages.download_disabled_security_policy)
+			: undefined;
 		const downloadFn = () => this.downloadZipEntry(entry, root);
 
 		return (

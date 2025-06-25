@@ -246,4 +246,26 @@ describe('inline edit with sweet state', () => {
 		// summary should have been updated without error
 		expect(screen.getByTestId('inline-edit-read-view')).toHaveTextContent(NEW_SUMMARY);
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<DatasourceTableView
+				datasourceId="datasource"
+				parameters={{
+					cloudId: 'some-cloud-id',
+					jql: 'some-jql-query',
+				}}
+			/>,
+			{
+				wrapper: ({ children }) => (
+					<DatasourceExperienceIdProvider>
+						<SmartCardProvider client={new MockSmartLinkClient()}>
+							<IntlProvider locale="en">{children}</IntlProvider>
+						</SmartCardProvider>
+					</DatasourceExperienceIdProvider>
+				),
+			},
+		);
+		await expect(container).toBeAccessible();
+	});
 });

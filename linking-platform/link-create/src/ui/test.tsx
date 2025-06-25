@@ -585,6 +585,29 @@ describe('Confirm dismiss dialog', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const mockCallback = jest.fn();
+
+		const Component = () => {
+			const { withExitWarning } = useExitWarningModal();
+
+			return (
+				<>
+					<Button onClick={withExitWarning(mockCallback)} testId="exit-button">
+						Exit
+					</Button>
+
+					<InlineCreate
+						testId={DEFAULT_TEST_ID}
+						plugins={createPlugins()}
+						entityKey="plugin-with-create-form"
+					/>
+				</>
+			);
+		};
+		const { container } = render(<Component />, { wrapper: ExitWarningModalProvider });
+		await expect(container).toBeAccessible();
+	});
 });
 
 describe('Error boundary', () => {

@@ -44,9 +44,6 @@ import { WithResponsiveViewport } from './utils/example-utils';
 import { MockSearch } from './utils/mock-search';
 
 const panelStyles = cssMap({
-	root: {
-		backgroundColor: token('elevation.surface'),
-	},
 	header: {
 		paddingInline: token('space.300'),
 		paddingBlock: token('space.150'),
@@ -108,14 +105,7 @@ const contentStyles = cssMap({
  * - Has a `Panel`
  * - Does not have a `SideNav`
  */
-export function CompanyHubMockExample({
-	hasPanelBackgroundColor = true,
-	defaultPanelWidth = 440,
-}: {
-	// Will remove this after cleaning up platform_design_system_nav4_panel_default_bg_color
-	hasPanelBackgroundColor?: boolean;
-	defaultPanelWidth?: number;
-}) {
+export function CompanyHubMockExample({ defaultPanelWidth = 440 }: { defaultPanelWidth?: number }) {
 	const [isChatOpen, setIsChatOpen] = useState(true);
 
 	const toggleChat = useCallback(() => {
@@ -196,10 +186,7 @@ export function CompanyHubMockExample({
 					</Stack>
 				</Main>
 				{isChatOpen && (
-					<Panel
-						xcss={hasPanelBackgroundColor && panelStyles.root}
-						defaultWidth={defaultPanelWidth}
-					>
+					<Panel defaultWidth={defaultPanelWidth}>
 						<Inline xcss={panelStyles.header}>
 							<Text weight="bold" color="color.text.subtle">
 								Chat
@@ -229,13 +216,8 @@ export function CompanyHubMockExample({
 	);
 }
 
-// Can remove after cleaning up platform_design_system_nav4_panel_default_bg_color
-export const CompanyHubMockNoPanelBackgroundColorExample = () => (
-	<CompanyHubMockExample hasPanelBackgroundColor={false} />
-);
-
 export const CompanyHubMockSmallDefaultPanelWidthExample = () => (
 	<CompanyHubMockExample defaultPanelWidth={320} />
 );
 
-export default CompanyHubMockNoPanelBackgroundColorExample;
+export default CompanyHubMockExample;

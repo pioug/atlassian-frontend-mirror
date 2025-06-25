@@ -1,5 +1,14 @@
 # @atlaskit/popper
 
+## 7.1.0
+
+### Minor Changes
+
+- [#172887](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/172887)
+  [`b706bb8733796`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b706bb8733796) -
+  Exported CustomPopperProps for the choreographer version of Popper so that it can use the correct
+  typing in parity with the atlaskit version of Popper
+
 ## 7.0.2
 
 ### Patch Changes

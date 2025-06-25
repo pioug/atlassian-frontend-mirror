@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-breakout",
-	"version": "2.9.1",
+	"version": "2.9.2",
 	"description": "Breakout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -115,9 +115,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-editor-single-player-expand": {
-			"type": "boolean"
-		},
-		"platform_editor_hide_expand_selection_states": {
 			"type": "boolean"
 		},
 		"platform_editor_layout_guideline_full_width_fix": {

@@ -55,13 +55,17 @@ export const mentionsStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const vanillaMentionsStyles = css({
+export const mentionNodeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive': {
 		display: 'inline',
 		borderRadius: '20px',
 		cursor: 'pointer',
 		padding: '0 0.3em 2px 0.23em',
+		// To match `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx` implementation
+		// we match the line height exactly
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '1.714',
 		fontWeight: token('font.weight.regular'),
 		wordBreak: 'break-word',
 		background: token('color.background.neutral'),
@@ -107,7 +111,7 @@ export const vanillaMentionsStyles = css({
 
 // This is mentions styles for mentions selection styles based on the vanilla node view
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const vanillaMentionsSelectionStyles = css({
+export const mentionsSelectionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.danger': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

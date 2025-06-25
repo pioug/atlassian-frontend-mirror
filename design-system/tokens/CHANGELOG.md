@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 5.4.1
+
+### Patch Changes
+
+- [#176175](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176175)
+  [`38c08dd349bb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38c08dd349bb7) -
+  Updated examples to use Compiled. Removed Emotion from dev dependencies.
+
 ## 5.4.0
 
 ### Minor Changes

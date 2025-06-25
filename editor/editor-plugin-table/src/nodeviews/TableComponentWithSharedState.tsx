@@ -11,7 +11,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
@@ -216,12 +215,7 @@ export const TableComponentWithSharedState = ({
 			isTableScalingEnabled={options?.isTableScalingEnabled}
 			allowTableAlignment={allowTableAlignment}
 			allowTableResizing={allowTableResizing}
-			tableActive={
-				tableActive &&
-				!isLivePageViewMode &&
-				(interaction !== 'hasNotHadInteraction' ||
-					!fg('platform_editor_hide_expand_selection_states'))
-			}
+			tableActive={tableActive && !isLivePageViewMode && interaction !== 'hasNotHadInteraction'}
 			ordering={ordering}
 			isResizing={isResizing}
 			getNode={getNode}

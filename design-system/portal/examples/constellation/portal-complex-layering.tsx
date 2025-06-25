@@ -4,10 +4,8 @@
  */
 import { Fragment, type ReactNode, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Flag, { FlagGroup } from '@atlaskit/flag';
 import EmojiIcon from '@atlaskit/icon/core/migration/emoji';
 import InlineDialog from '@atlaskit/inline-dialog';
@@ -27,8 +25,18 @@ import {
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-const tooltipContainerStyles = css({
-	backgroundColor: token('color.background.neutral'),
+const styles = cssMap({
+	tooltipContainer: {
+		backgroundColor: token('color.background.neutral'),
+	},
+	spotlightContainer: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		paddingBlockEnd: token('space.300'),
+		paddingBlockStart: token('space.300'),
+		paddingInlineEnd: token('space.300'),
+		paddingInlineStart: token('space.300'),
+	},
 });
 
 const TooltipButton = ({
@@ -40,7 +48,7 @@ const TooltipButton = ({
 	onClick: () => void;
 	id?: string;
 }) => (
-	<div css={tooltipContainerStyles}>
+	<div css={styles.tooltipContainer}>
 		<Tooltip content="Click me">
 			<Button id={id} onClick={onClick}>
 				{children}
@@ -48,12 +56,6 @@ const TooltipButton = ({
 		</Tooltip>
 	</div>
 );
-
-const spotlightContainerStyles = css({
-	display: 'flex',
-	padding: token('space.300'),
-	justifyContent: 'space-between',
-});
 
 type SpotlightProps = {
 	stepOne: ReactNode;
@@ -79,7 +81,7 @@ const ThreeStepSpotlight = (props: SpotlightProps) => {
 
 	return (
 		<SpotlightManager>
-			<div css={spotlightContainerStyles}>
+			<div css={styles.spotlightContainer}>
 				<SpotlightTarget name="1">{stepOne}</SpotlightTarget>
 				<SpotlightTarget name="2">{stepTwo}</SpotlightTarget>
 				<SpotlightTarget name="3">{stepThree}</SpotlightTarget>

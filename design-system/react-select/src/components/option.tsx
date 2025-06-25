@@ -1,10 +1,7 @@
 /* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 import React, { type ReactNode, type RefCallback } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import CompiledOption, { optionCSS as compiledOptionCSS } from '../compiled/components/option';
-import EmotionOption, { optionCSS as emotionOptionCSS } from '../emotion/components/option';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 
 export interface OptionProps<
@@ -54,12 +51,11 @@ export interface OptionProps<
 
 export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: OptionProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledOptionCSS() : emotionOptionCSS(props);
+): CSSObjectWithLabel => compiledOptionCSS();
 
 const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: OptionProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <CompiledOption {...props} /> : <EmotionOption {...props} />);
+) => <CompiledOption {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Option;

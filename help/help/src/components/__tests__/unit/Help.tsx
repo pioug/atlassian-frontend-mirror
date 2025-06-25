@@ -73,6 +73,50 @@ describe('Help without AI', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		jest.useFakeTimers();
+		const { container } = render(
+			<IntlProvider locale="en">
+				<Help
+					header={{
+						onCloseButtonClick: mockOnCloseButtonClick,
+						onBackButtonClick: mockOnBackButtonClick,
+					}}
+					navigation={{
+						navigationData: {
+							articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+							history: [],
+						},
+						setNavigationData: MockNavigationDataSetter,
+					}}
+					helpArticle={{
+						onGetHelpArticle: mockOnGetHelpArticle,
+						onHelpArticleLoadingFailTryAgainButtonClick:
+							mockOnHelpArticleLoadingFailTryAgainButtonClick,
+						onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
+						onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
+					}}
+					relatedArticles={{
+						onGetRelatedArticles: mockOnGetRelatedArticles,
+						onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
+					}}
+					search={{
+						onSearch: mockOnSearch,
+						onSearchInputChanged: mockOnSearchInputChanged,
+						onSearchInputCleared: mockOnSearchInputCleared,
+						onSearchResultItemClick: mockOnSearchResultItemClick,
+						searchExternalUrl: mockSearchExternalUrl,
+						onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
+					}}
+				>
+					<div>{defaultContentText}</div>
+				</Help>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Should load and display an article if the articleId != ""', async () => {
 		jest.useFakeTimers();
 		const { queryByText, rerender } = render(

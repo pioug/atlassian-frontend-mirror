@@ -10,7 +10,6 @@ import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AvatarContext, type AvatarContextProps } from '@atlaskit/avatar';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor, Pressable, Text, type TextColor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip, {
@@ -777,13 +776,7 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								 * the element as draggable through the `draggable()` Pragmatic drag and drop function.
 								 * The `draggable()` function will add `draggable="true"` to the element.
 								 */
-								draggable={((): boolean | undefined => {
-									if (fg('platform_design_system_nav4_menu_item_anchor_dnd')) {
-										return hasDragIndicator === true ? undefined : false;
-									}
-									// legacy behaviour
-									return undefined;
-								})()}
+								draggable={hasDragIndicator ? undefined : false}
 							>
 								{/* Won't be a "grid child" */}
 								<div css={notchStyles.root} aria-hidden="true" />

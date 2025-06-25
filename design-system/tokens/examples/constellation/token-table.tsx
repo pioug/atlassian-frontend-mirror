@@ -4,13 +4,12 @@
  */
 import React, { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import DynamicTable from '@atlaskit/dynamic-table';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const TokenTableCodeBlock = `
@@ -77,13 +76,38 @@ const presidents = [
 	},
 ];
 
-const nameWrapperStyles = css({
-	display: 'flex',
-	alignItems: 'center',
-});
-
-const avatarWrapperStyles = xcss({
-	marginInlineEnd: 'space.100',
+const styles = cssMap({
+	nameWrapper: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	avatarWrapper: {
+		marginInlineEnd: token('space.100'),
+	},
+	wrapper: {
+		position: 'relative',
+		overflow: 'hidden',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		table: {
+			width: '1000px',
+		},
+	},
+	overflow: {
+		overflowX: 'auto',
+	},
+	shadow: {
+		width: '10px',
+		position: 'absolute',
+		boxShadow: token('elevation.shadow.overflow'),
+		insetBlockEnd: '-10px',
+		insetBlockStart: '-10px',
+	},
+	rightShadow: {
+		insetInlineEnd: ' -10px',
+	},
+	leftShadow: {
+		insetInlineStart: ' -10px',
+	},
 });
 
 interface President {
@@ -100,8 +124,8 @@ const rows = presidents.map((president: President, index: number) => ({
 		{
 			key: president.name,
 			content: (
-				<span css={nameWrapperStyles}>
-					<Box xcss={avatarWrapperStyles}>
+				<span css={styles.nameWrapper}>
+					<Box xcss={styles.avatarWrapper}>
 						<Avatar name={president.name} size="medium" />
 					</Box>
 					{president.name}
@@ -132,35 +156,6 @@ const rows = presidents.map((president: President, index: number) => ({
 		},
 	],
 }));
-
-const wrapperStyles = css({
-	position: 'relative',
-	overflow: 'hidden',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	table: {
-		width: '1000px',
-	},
-});
-
-const overflowStyles = css({
-	overflowX: 'auto',
-});
-
-const shadowStyles = css({
-	width: '10px',
-	position: 'absolute',
-	boxShadow: token('elevation.shadow.overflow'),
-	insetBlockEnd: '-10px',
-	insetBlockStart: '-10px',
-});
-
-const rightShadowStyles = css({
-	insetInlineEnd: ' -10px',
-});
-
-const leftShadowStyles = css({
-	insetInlineStart: ' -10px',
-});
 
 const TokenTable = () => {
 	const [shadowLeft, setShadowLeft] = useState(false);
@@ -193,11 +188,11 @@ const TokenTable = () => {
 	});
 
 	return (
-		<div css={wrapperStyles}>
-			<div css={overflowStyles} onScroll={checkShadow} ref={ref}>
+		<div css={styles.wrapper}>
+			<div css={styles.overflow} onScroll={checkShadow} ref={ref}>
 				<DynamicTable head={head} rows={rows} />
-				{shadowLeft && <div css={[shadowStyles, leftShadowStyles]}></div>}
-				{shadowRight && <div css={[shadowStyles, rightShadowStyles]}></div>}
+				{shadowLeft && <div css={[styles.shadow, styles.leftShadow]}></div>}
+				{shadowRight && <div css={[styles.shadow, styles.rightShadow]}></div>}
 			</div>
 		</div>
 	);

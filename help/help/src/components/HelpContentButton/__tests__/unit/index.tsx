@@ -25,6 +25,29 @@ class MockNotificationLogClient extends NotificationLogClient {
 }
 
 describe('HelpContentButton', () => {
+	it('should capture and report a11y violations', async () => {
+		const notificationsClient = new MockNotificationLogClient(5);
+		const notificationLogProvider = Promise.resolve(notificationsClient);
+		const component = (
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<HelpContentButton
+					id="testHelpContentButton"
+					href="https://www.atlassian.com/"
+					notificationMax={9}
+					notificationLogProvider={notificationLogProvider}
+					text={buttonLabel}
+					icon={<ShipIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />}
+					onClick={mockOnClick}
+				/>
+			</AnalyticsListener>
+		);
+		const { container } = render(component);
+
+		await expect(container).toBeAccessible({
+			violationCount: 1,
+		});
+	});
+
 	// FIXME This snapshot covers a large amount of unrelated DOM content
 	// and asserts on changes that are unrelated to this component
 	//

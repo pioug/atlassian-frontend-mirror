@@ -273,7 +273,19 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			const isActive = currentBlockType === blockType;
 			const tagName = blockType.tagName || 'p';
 			const Tag = tagName as keyof React.ReactHTML;
-			const keyMap = findKeymapByDescription(blockType.title.defaultMessage as string);
+
+			const defaultMessage = Array.isArray(blockType.title.defaultMessage)
+				? blockType.title.defaultMessage.find((message) => 'value' in message)
+				: blockType.title.defaultMessage;
+
+			const description =
+				typeof defaultMessage === 'string'
+					? defaultMessage
+					: defaultMessage && 'value' in defaultMessage
+						? defaultMessage.value
+						: '';
+
+			const keyMap = findKeymapByDescription(description);
 			const icon = fg('platform_editor_controls_patch_4') ? blockType?.icon : blockType.LEGACY_icon;
 
 			const item: MenuItem = {

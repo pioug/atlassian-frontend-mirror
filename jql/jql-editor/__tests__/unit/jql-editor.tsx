@@ -29,6 +29,20 @@ describe('JQLEditor', () => {
 		//pmView.EditorView = originalEditorView;
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<JQLEditor
+				locale={'en'}
+				analyticsSource={'test'}
+				query={'issuetype = bug'}
+				onUpdate={() => null}
+				autocompleteProvider={defaultAutocompleteProvider}
+			/>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render without throwing', () => {
 		const { queryByTestId } = render(
 			<JQLEditor

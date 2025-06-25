@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 52.3.3
+
+### Patch Changes
+
+- [#176481](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176481)
+  [`5d43410068866`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d43410068866) -
+  Only show attachment download blocking tooltip when downloads should be blocked
+
 ## 52.3.2
 
 ### Patch Changes

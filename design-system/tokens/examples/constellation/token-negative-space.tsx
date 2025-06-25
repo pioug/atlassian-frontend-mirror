@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { Bleed } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
@@ -18,25 +17,27 @@ paddingInline: token('space.200', '16px'),
 marginInline: token('space.negative.200', '-16px'),
 `;
 
-const containerStyles = css({
-	width: 300,
-	height: 200,
-	padding: token('space.200'),
-	backgroundColor: token('elevation.surface.overlay'),
-	boxShadow: token('elevation.shadow.overlay'),
-});
-
-const dividerStyles = css({
-	border: 'none',
-	borderBlockEnd: `1px solid ${token('color.border')}`,
+const styles = cssMap({
+	container: {
+		width: 300,
+		height: 200,
+		paddingBlock: token('space.200'),
+		paddingInline: token('space.200'),
+		backgroundColor: token('elevation.surface.overlay'),
+		boxShadow: token('elevation.shadow.overlay'),
+	},
+	divider: {
+		border: 'none',
+		borderBlockEnd: `1px solid ${token('color.border')}`,
+	},
 });
 
 const TokenNegativeSpace = () => {
 	return (
-		<div css={containerStyles}>
+		<div css={styles.container}>
 			<p>A container with an inset</p>
 			<Bleed inline="space.200">
-				<hr role="presentation" css={dividerStyles}></hr>
+				<hr role="presentation" css={styles.divider}></hr>
 			</Bleed>
 		</div>
 	);

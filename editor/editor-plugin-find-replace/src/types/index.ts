@@ -57,6 +57,8 @@ export type Match = {
 	end: number;
 	/** Boolean for whether the match can be replaced */
 	canReplace?: boolean;
+	/** Type of the node of the match */
+	nodeType?: string;
 };
 
 export type TextGrouping = {

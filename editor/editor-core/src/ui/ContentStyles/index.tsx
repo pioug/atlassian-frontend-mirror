@@ -51,7 +51,10 @@ import {
 } from '@atlaskit/editor-common/styles';
 import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
-import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
+import {
+	findReplaceStyles,
+	findReplaceStylesNew,
+} from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import {
 	placeholderTextStyles,
@@ -75,6 +78,7 @@ import {
 	getSelectionStyles,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
@@ -135,13 +139,17 @@ const ruleStyles = () => css`
 	}
 `;
 
-const vanillaMentionsStyles = css({
+const mentionNodeStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive': {
 		display: 'inline',
 		borderRadius: '20px',
 		cursor: 'pointer',
 		padding: '0 0.3em 2px 0.23em',
+		// To match `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx` implementation
+		// we match the line height exactly
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '1.714',
 		fontWeight: token('font.weight.regular'),
 		wordBreak: 'break-word',
 		background: token('color.background.neutral'),
@@ -476,7 +484,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 		display: none;
 	}
 
-	${fg('platform_editor_fix_floating_toolbar_focus') ? firstFloatingToolbarButtonStyles : null}
+	${firstFloatingToolbarButtonStyles}
 	${placeholderTextStyles}
 	${fg('platform_editor_system_fake_text_highlight_colour') &&
 	placeholderTextStyles_fg_platform_editor_system_fake_text_highlight_colour}
@@ -503,8 +511,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${gapCursorStyles};
 	${panelStyles()}
 	${mentionsStyles}
-	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	vanillaMentionsStyles}
+	${mentionNodeStyles}
 	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	vanillaSelectionStyles}
 	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
@@ -518,11 +525,12 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
   ${dateSharedStyle}
   ${extensionStyles}
   ${expandStyles()}
-  ${findReplaceStyles}
+  ${expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+		? findReplaceStylesNew
+		: findReplaceStyles}
   ${textHighlightStyle}
   ${taskDecisionStyles}
-  ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-	vanillaTaskItemStyles}
+  ${vanillaTaskItemStyles}
   ${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	vanillaDecisionStyles}
   /* Switch between the two icons based on the visual refresh feature gate */

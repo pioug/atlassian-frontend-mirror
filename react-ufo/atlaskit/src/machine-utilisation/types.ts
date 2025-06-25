@@ -26,3 +26,10 @@ export interface PressureObserverInstance {
 export interface PressureObserver {
 	new (callback: PressureObserverCallback): PressureObserverInstance;
 }
+
+export interface MemoryRecord {
+	time: DOMHighResTimeStamp;
+	totalJSHeapSize: number;
+	usedJSHeapSize: number;
+	jsHeapSizeLimit: number;
+}

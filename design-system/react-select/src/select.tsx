@@ -184,11 +184,9 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	/**
 	 * This complex object includes all the compositional components that are used
 	 * in `react-select`. If you wish to overwrite a component, pass in an object
-	 * with the appropriate namespace.
+	 * with the appropriate namespace. If you wish to restyle a component, we recommend
+	 * using this prop with the `xcss` prop.
 	 *
-	 * If you only wish to restyle a component, we recommend using the `styles` prop
-	 * instead. For a list of the components that can be passed in, and the shape
-	 * that will be passed to them, see [the components docs](/components)
 	 */
 	components: SelectComponentsConfig<Option, IsMulti, Group>;
 	/**
@@ -1376,9 +1374,7 @@ export default class Select<
 		if (!custom) {
 			return base;
 		}
-		const customStyles = fg('compiled-react-select')
-			? filterUnsupportedSelectors(custom(base, props as any))
-			: custom(base, props as any);
+		const customStyles = filterUnsupportedSelectors(custom(base, props as any));
 		return customStyles;
 	};
 	getClassNames = <Key extends keyof StylesProps<Option, IsMulti, Group>>(

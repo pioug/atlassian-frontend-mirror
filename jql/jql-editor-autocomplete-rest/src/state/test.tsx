@@ -68,6 +68,33 @@ describe('Sweet state', () => {
 				</JQLAutocompleteContainer>,
 			);
 		});
+		it('should capture and report a11y violations', async () => {
+			const response: AutocompleteInitialDataResponse = {
+				jqlFields: [],
+				jqlFunctions: [],
+			};
+			mockGetInitialData.mockImplementation(() => Promise.resolve(response));
+
+			const Consumer = () => {
+				const [, { load }] = useJqlAutocompleteActions();
+
+				useEffect(() => {
+					try {
+						// Should be called once on init of the container
+						expect(mockGetInitialData).toHaveBeenCalledTimes(1);
+						load(mockGetInitialData, noop);
+						expect(mockGetInitialData).toHaveBeenCalledTimes(1);
+					} catch (e) {}
+				}, [load]);
+				return null;
+			};
+			const { container } = render(
+				<JQLAutocompleteContainer>
+					<Consumer />
+				</JQLAutocompleteContainer>,
+			);
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	describe('useJqlSearchableFieldsObservable', () => {

@@ -1,8 +1,6 @@
 import { Device, type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
-import CompanyHubMockExample, {
-	CompanyHubMockNoPanelBackgroundColorExample,
-} from '../../../../../examples/company-hub-mock';
+import CompanyHubMockExample from '../../../../../examples/company-hub-mock';
 import {
 	AllSlots,
 	AllSlotsBannerHeightZero,
@@ -308,7 +306,7 @@ snapshot(CompanyHubMockExample, {
 	description: 'Panel should have correct width when there is no SideNav mounted',
 });
 
-snapshot(CompanyHubMockNoPanelBackgroundColorExample, {
+snapshot(CompanyHubMockExample, {
 	variants: [
 		/**
 		 * Using dark mode because only dark mode has a difference between the elevation appearances.
@@ -330,7 +328,6 @@ snapshot(CompanyHubMockNoPanelBackgroundColorExample, {
 	],
 	featureFlags: {
 		platform_design_system_nav4_preview_panel_support: true,
-		platform_design_system_nav4_panel_default_bg_color: true,
 		platform_design_system_nav4_panel_default_border: true,
 	},
 	description: 'Panel default background color',

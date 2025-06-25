@@ -1,5 +1,30 @@
 # @atlaskit/react-select
 
+## 3.0.0
+
+### Major Changes
+
+- [#155023](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/155023)
+  [`7a305b4f49968`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a305b4f49968) -
+  [ux] Migrated underlying `react-select` implementation from `@emotion/react` to `@compiled/react`
+  to improve performance, align with the rest of the Atlaskit tech stack, and support React 18
+  Streaming SSR. Style customization should now be applied via the `components` prop with the new
+  `xcss` prop, which allows for safe and bounded style overrides. The `styles` prop is still
+  supported for most inline styles, but pseudo-classes and advanced selectors are no longer
+  supported and will be ignored.
+
+  If you use the `styles` prop with selectors like `:hover`, `:focus`, `:active`, `:disabled`,
+  `:before`, `:after`, attribute selectors, combinators, at-rules, or similar, you must migrate to
+  the new `components` API and use the `xcss` prop. See the
+  [examples](https://atlassian.design/components/eslint-plugin-design-system/enforce-inline-styles-in-select/usage)
+  for details.
+
+  This is a breaking change for any consumers relying on advanced selectors in the `styles` prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.6
 
 ### Patch Changes

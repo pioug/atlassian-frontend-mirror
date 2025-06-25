@@ -98,4 +98,24 @@ describe('AsyncSelect', () => {
 		expect(loadOptions).toHaveBeenCalled();
 		expect(onFailure).toHaveBeenCalledWith(expect.any(Response));
 	});
+	it('should capture and report a11y violations', async () => {
+		const onCreate = jest.fn();
+		const onFailure = jest.fn();
+		const { container } = render(
+			<IntlProvider locale="en">
+				<FormContextProvider>
+					<LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure}>
+						<Form onSubmit={() => {}}>
+							{() => (
+								<form>
+									<AsyncSelect name="select" label="select an option" testId={TEST_ID} />
+								</form>
+							)}
+						</Form>
+					</LinkCreateCallbackProvider>
+				</FormContextProvider>
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

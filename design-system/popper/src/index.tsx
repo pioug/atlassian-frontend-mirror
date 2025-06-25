@@ -8,6 +8,7 @@ export type {
 	StrictModifier,
 	Modifier,
 	Placement,
+	CustomPopperProps,
 } from './popper';
 
 export { Manager, Reference } from 'react-popper';

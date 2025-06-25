@@ -24,6 +24,17 @@ const MockReadView = () => {
 };
 
 describe('DatasourceModal', () => {
+	it('should capture and report a11y violations', async () => {
+		const spy = jest.fn();
+		const { container } = render(
+			<AnalyticsListener channel="media" onEvent={spy}>
+				<DatasourceModal testId="datasource-modal" onClose={jest.fn()} />
+			</AnalyticsListener>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should fire datasourceModalDialog viewed screen event on mount', () => {
 		const spy = jest.fn();
 

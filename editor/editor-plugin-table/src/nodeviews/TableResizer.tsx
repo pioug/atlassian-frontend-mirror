@@ -257,10 +257,7 @@ export const TableResizer = ({
 			return false;
 		}
 
-		if (
-			interactionState === 'hasNotHadInteraction' &&
-			fg('platform_editor_hide_expand_selection_states')
-		) {
+		if (interactionState === 'hasNotHadInteraction') {
 			return false;
 		}
 

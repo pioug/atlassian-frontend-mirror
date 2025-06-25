@@ -35,9 +35,6 @@
 			"path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"
 		},
 		{
-			"path": "../../analytics/analytics-next/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
@@ -63,9 +60,6 @@
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/popup/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

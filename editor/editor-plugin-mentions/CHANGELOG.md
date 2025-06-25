@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.7.10
+
+### Patch Changes
+
+- [#175895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175895)
+  [`6165a5dc5b6b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6165a5dc5b6b1) -
+  Remove deprecated path for react version of mentions
+- Updated dependencies
+
 ## 4.7.9
 
 ### Patch Changes

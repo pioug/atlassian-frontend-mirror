@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { LazySuspense } from 'react-loosely-lazy';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
@@ -45,13 +44,9 @@ const FixedWidthContainer = (props: React.HTMLAttributes<HTMLDivElement>) => {
 	return (
 		<div
 			css={fixedWidthContainerStyles}
-			{...(fg('platform-link-picker-a11y-label')
-				? {
-						role: 'dialog',
-						'aria-modal': 'false',
-						'aria-label': 'link-picker',
-					}
-				: {})}
+			role="dialog"
+			aria-modal="false"
+			aria-label="link-picker"
 			{...props}
 		/>
 	);

@@ -1,10 +1,7 @@
 /* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 import React, { type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import Compiled, { css as compiledCSS } from '../compiled/components/single-value';
-import Emotion, { css as emotionCSS } from '../emotion/components/single-value';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 
 export interface SingleValueProps<
@@ -33,11 +30,11 @@ export interface SingleValueProps<
 
 export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: SingleValueProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel => (fg('compiled-react-select') ? compiledCSS() : emotionCSS(props));
+): CSSObjectWithLabel => compiledCSS();
 
 const SingleValue = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: SingleValueProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
+) => <Compiled {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default SingleValue;

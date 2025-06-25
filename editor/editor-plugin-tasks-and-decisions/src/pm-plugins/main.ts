@@ -5,7 +5,6 @@ import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler, GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -57,25 +56,10 @@ function nodesBetweenChanged(
 	tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
 }
 
-/**
- *
- * @param portalProviderAPI
- * @param eventDispatcher
- * @param providerFactory
- * @param dispatch
- * @param api
- * @param getIntl
- * @param useLongPressSelection
- * @param hasEditPermission
- * @param hasRequestedEditPermission
- * @param requestToEditContent
- * @param taskPlaceholder
- * @example
- */
+// eslint-disable-next-line jsdoc/require-jsdoc
 export function createPlugin(
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
-	providerFactory: ProviderFactory,
 	dispatch: Dispatch,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 	getIntl: () => IntlShape,
@@ -88,14 +72,7 @@ export function createPlugin(
 	return new SafePlugin<TaskDecisionPluginState>({
 		props: {
 			nodeViews: {
-				taskItem: taskView(
-					portalProviderAPI,
-					eventDispatcher,
-					providerFactory,
-					api,
-					getIntl(),
-					taskPlaceholder,
-				),
+				taskItem: taskView(api, getIntl(), taskPlaceholder),
 				decisionItem: ((node, view, getPos, decorations, innerDecorations) => {
 					if (editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })) {
 						return new DecisionItemVanilla(node, getIntl());

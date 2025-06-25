@@ -19,6 +19,19 @@ describe('RightSidePanel', () => {
 	});
 
 	describe('Render only if the attachPanelTo prop is defined and valid', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<ContentWrapper>
+					<Page />
+					<RightSidePanel isOpen={true} attachPanelTo="RightSidePanelTest">
+						<h1>Content</h1>
+					</RightSidePanel>
+				</ContentWrapper>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('Should render if the attachPanelTo value is correct', () => {
 			render(
 				<ContentWrapper>

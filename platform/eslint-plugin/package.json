@@ -33,7 +33,10 @@
 		".": "./src/index.tsx"
 	},
 	"exports": {
-		".": "./index.js",
+		".": {
+			"types": "./src/index.tsx",
+			"default": "./index.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"dependencies": {

@@ -56,7 +56,7 @@ import {
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 } from './styles/expandStyles';
 import { extensionStyles } from './styles/extensionStyles';
-import { findReplaceStyles } from './styles/findReplaceStyles';
+import { findReplaceStyles, findReplaceStylesNew } from './styles/findReplaceStyles';
 import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
 import { fullPageEditorStyles } from './styles/fullPageEditorStyles';
@@ -91,11 +91,7 @@ import {
 } from './styles/link';
 import { listsStyles, listsStylesSafariFix } from './styles/list';
 import { mediaAlignmentStyles, mediaGroupStyles, mediaStyles } from './styles/mediaStyles';
-import {
-	mentionsStyles,
-	vanillaMentionsSelectionStyles,
-	vanillaMentionsStyles,
-} from './styles/mentions';
+import { mentionsStyles, mentionsSelectionStyles, mentionNodeStyles } from './styles/mentions';
 import {
 	panelStyles,
 	panelStylesMixin,
@@ -219,7 +215,7 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					cursorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform_editor_fix_floating_toolbar_focus') && firstFloatingToolbarButtonStyles,
+					firstFloatingToolbarButtonStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					placeholderTextStyles,
 					fg('platform_editor_system_fake_text_highlight_colour') &&
@@ -315,15 +311,17 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					findReplaceStyles,
+					expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							findReplaceStylesNew
+						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							findReplaceStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					textHighlightStyle,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					decisionStyles,
-					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaTaskItemStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					vanillaTaskItemStyles,
 					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						vanillaDecisionStyles,
@@ -472,12 +470,10 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							firstCodeBlockWithNoMarginOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					firstBlockNodeStyles,
-					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaMentionsStyles,
-					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaMentionsSelectionStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					mentionNodeStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					mentionsSelectionStyles,
 					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							vanillaEmojiStyles

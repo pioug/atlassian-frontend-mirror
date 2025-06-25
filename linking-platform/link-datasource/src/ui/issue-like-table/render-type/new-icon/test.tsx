@@ -100,4 +100,8 @@ describe('Icon Type', () => {
 			expect(textContainer).not.toBeInTheDocument();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Icon source={''} />);
+		await expect(container).toBeAccessible();
+	});
 });

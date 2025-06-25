@@ -316,12 +316,26 @@ const updateSelectedHighlight = (state: EditorState, nextSelectedIndex: number):
 
 	if (currentSelectedMatch) {
 		decorationSet = decorationSet.add(state.doc, [
-			createDecoration(currentSelectedMatch.start, currentSelectedMatch.end),
+			createDecoration(
+				currentSelectedMatch.start,
+				currentSelectedMatch.end,
+				false,
+				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+					? currentSelectedMatch.nodeType
+					: undefined,
+			),
 		]);
 	}
 	if (nextSelectedMatch) {
 		decorationSet = decorationSet.add(state.doc, [
-			createDecoration(nextSelectedMatch.start, nextSelectedMatch.end, true),
+			createDecoration(
+				nextSelectedMatch.start,
+				nextSelectedMatch.end,
+				true,
+				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
+					? nextSelectedMatch.nodeType
+					: undefined,
+			),
 		]);
 	}
 

@@ -216,11 +216,8 @@ function Project({
 				}),
 				canDrop: ({ source }) => {
 					const data = source.data;
-					if (!isProjectData(data)) {
-						return false;
-					}
-					// only allowing projects to be dropped in the same group
-					return Boolean(group.find((project) => project.id === data.id));
+					// Only allowing projects to be dropped in the same group
+					return isProjectData(data) && data.groupName === groupName;
 				},
 			},
 		});

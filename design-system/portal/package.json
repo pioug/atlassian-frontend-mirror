@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/portal",
-	"version": "5.1.0",
+	"version": "5.1.1",
 	"description": "A wrapper for rendering components in React portals.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -54,6 +54,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
@@ -70,7 +71,7 @@
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@emotion/react": "^11.7.1",
+		"@compiled/react": "^0.18.3",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"bind-event-listener": "^3.0.0",
@@ -98,7 +99,7 @@
 			"deprecation": "no-deprecated-imports",
 			"styling": [
 				"static",
-				"emotion"
+				"compiled"
 			]
 		}
 	},

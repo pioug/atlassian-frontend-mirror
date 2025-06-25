@@ -85,9 +85,6 @@ const contentStyles = cssMap({
 });
 
 const panelStyles = cssMap({
-	root: {
-		backgroundColor: token('elevation.surface'),
-	},
 	content: {
 		paddingTop: token('space.300'),
 		paddingRight: token('space.300'),
@@ -476,7 +473,7 @@ export default function Composition({
 					<PanelSplitter label="Resize aside" />
 				</Aside>
 				{isPanelVisible && (
-					<Panel xcss={panelStyles.root}>
+					<Panel>
 						<Stack space="space.200" xcss={panelStyles.content}>
 							<Heading size="small">Help</Heading>
 							<Stack space="space.050">

@@ -293,7 +293,7 @@ export const vanillaTaskItemStyles = css({
 		},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-prosemirror-node-view-type="vanilla"][data-prosemirror-node-name="taskItem"]:has([data-empty]):not(:has([data-type-ahead])) [data-component="placeholder"]':
+	"[data-prosemirror-node-view-type='vanilla'][data-prosemirror-node-name='taskItem']:has([data-empty]):not(:has([data-type-ahead])) [data-component='placeholder']":
 		{
 			display: 'block',
 		},

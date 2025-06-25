@@ -4,7 +4,6 @@ import React, { type ComponentType, type CSSProperties, type ReactNode } from 'r
 import { type XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import Compiled, {
 	MultiValueContainer as CompiledMultiValueContainer,
@@ -14,14 +13,6 @@ import Compiled, {
 	MultiValueRemove as CompiledMultiValueRemove,
 	multiValueRemoveCSS as CompiledMultiValueRemoveCSS,
 } from '../compiled/components/multi-value';
-import Emotion, {
-	MultiValueContainer as EmotionMultiValueContainer,
-	multiValueCSS as EmotionMultiValueCSS,
-	MultiValueLabel as EmotionMultiValueLabel,
-	multiValueLabelCSS as EmotionMultiValueLabelCSS,
-	MultiValueRemove as EmotionMultiValueRemove,
-	multiValueRemoveCSS as EmotionMultiValueRemoveCSS,
-} from '../emotion/components/multi-value';
 import { type SelectProps } from '../select';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 interface MultiValueComponents<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
@@ -50,8 +41,7 @@ export interface MultiValueProps<
 
 export const multiValueCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? CompiledMultiValueCSS() : EmotionMultiValueCSS(props);
+): CSSObjectWithLabel => CompiledMultiValueCSS();
 
 export const multiValueLabelCSS = <
 	Option,
@@ -59,8 +49,7 @@ export const multiValueLabelCSS = <
 	Group extends GroupBase<Option>,
 >(
 	props: MultiValueProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? CompiledMultiValueLabelCSS() : EmotionMultiValueLabelCSS(props);
+): CSSObjectWithLabel => CompiledMultiValueLabelCSS();
 
 export const multiValueRemoveCSS = <
 	Option,
@@ -68,8 +57,7 @@ export const multiValueRemoveCSS = <
 	Group extends GroupBase<Option>,
 >(
 	props: MultiValueProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? CompiledMultiValueRemoveCSS() : EmotionMultiValueRemoveCSS(props);
+): CSSObjectWithLabel => CompiledMultiValueRemoveCSS();
 
 export interface MultiValueGenericProps<
 	Option = unknown,
@@ -95,22 +83,12 @@ export const MultiValueContainer = <
 	Group extends GroupBase<Option>,
 >(
 	props: MultiValueGenericProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledMultiValueContainer {...props} />
-	) : (
-		<EmotionMultiValueContainer {...props} />
-	);
+) => <CompiledMultiValueContainer {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MultiValueLabel = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueGenericProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledMultiValueLabel {...props} />
-	) : (
-		<EmotionMultiValueLabel {...props} />
-	);
+) => <CompiledMultiValueLabel {...props} />;
 export interface MultiValueRemoveProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
@@ -130,19 +108,12 @@ export interface MultiValueRemoveProps<
 export function MultiValueRemove<Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueRemoveProps<Option, IsMulti, Group>,
 ) {
-	return (
-		// The Remove button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field
-		fg('compiled-react-select') ? (
-			<CompiledMultiValueRemove {...props} />
-		) : (
-			<EmotionMultiValueRemove {...props} />
-		)
-	);
+	return <CompiledMultiValueRemove {...props} />;
 }
 
 const MultiValue = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MultiValueProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
+) => <Compiled {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default MultiValue;

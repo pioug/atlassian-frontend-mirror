@@ -25,11 +25,14 @@ export const taskItemNodeSpec = () => {
 	};
 };
 
+// eslint-disable-next-line jsdoc/require-example
 /**
+ * Converts a task item node to a DOM output specification.
+ * This is used for rendering the task item in the editor.
  *
- * @param node
- * @param placeholder
- * @example
+ * @param {Node} node - The ProseMirror node representing the task item.
+ * @param {string} placeholder - The placeholder text to display when the task item is empty.
+ * @returns A DOMOutputSpec representing the task item.
  */
 export function taskItemToDom(node: PMNode, placeholder: string): DOMOutputSpec {
 	const checked = node.attrs.state === 'DONE';

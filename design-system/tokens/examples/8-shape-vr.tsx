@@ -2,24 +2,25 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { type CSSToken, token } from '@atlaskit/tokens';
 
-const radiusBoxStyles = xcss({
-	borderWidth: 'border.width',
-	borderColor: 'color.border',
-	borderStyle: 'solid',
-	width: 'size.400',
-	height: 'size.400',
-	alignItems: 'center',
-	justifyContent: 'center',
+const styles = cssMap({
+	radiusBox: {
+		borderWidth: token('border.width', '1px'),
+		borderColor: token('color.border', '#091e4221'),
+		borderStyle: 'solid',
+		width: '2.5rem',
+		height: '2.5rem',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 });
 
 const RadiusBox = ({ radius }: { radius: CSSToken }) => (
-	<Box xcss={radiusBoxStyles} style={{ borderRadius: radius }} />
+	<Box xcss={styles.radiusBox} style={{ borderRadius: radius }} />
 );
 
 export default () => {

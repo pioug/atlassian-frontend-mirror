@@ -4,18 +4,12 @@ import React, { type ComponentType, type ReactNode } from 'react';
 import { type XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import Compiled, {
 	groupCSS as compiledGroupCSS,
 	GroupHeading as CompiledGroupHeading,
 	groupHeadingCSS as compiledGroupHeadingCSS,
 } from '../compiled/components/group';
-import Emotion, {
-	groupCSS as emotionGroupCSS,
-	GroupHeading as EmotionGroupHeading,
-	groupHeadingCSS as emotionGroupHeadingCSS,
-} from '../emotion/components/group';
 import { type SelectProps } from '../select';
 import {
 	type CommonProps,
@@ -68,11 +62,11 @@ export interface GroupProps<
 
 export const groupCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? compiledGroupCSS() : emotionGroupCSS(props));
+) => compiledGroupCSS();
 
 const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
+) => <Compiled {...props} />;
 
 interface GroupHeadingPropsDefinedProps<
 	Option,
@@ -95,18 +89,12 @@ export type GroupHeadingProps<
 
 export const groupHeadingCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupHeadingProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel =>
-	fg('compiled-react-select') ? compiledGroupHeadingCSS() : emotionGroupHeadingCSS(props);
+): CSSObjectWithLabel => compiledGroupHeadingCSS();
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const GroupHeading = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupHeadingProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledGroupHeading {...props} />
-	) : (
-		<EmotionGroupHeading {...props} />
-	);
+) => <CompiledGroupHeading {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Group;

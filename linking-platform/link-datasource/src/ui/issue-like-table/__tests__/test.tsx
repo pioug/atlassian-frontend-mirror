@@ -453,6 +453,58 @@ describe('IssueLikeDataTableView', () => {
 		const setupItemIds = (items: DatasourceDataResponseItem[]) =>
 			store.actions.onAddItems(items, 'jira', 'work-item');
 
+		it('should capture and report a11y violations', async () => {
+			const {
+				onColumnsChange: onColumnsChange1,
+				columns: columns1,
+				onNextPage: onNextPage1,
+				items: items1,
+				itemIds: itemIds1,
+				visibleColumnKeys,
+			} = makeDragAndDropTableProps();
+			const {
+				onColumnsChange: onColumnsChange2,
+				columns: columns2,
+				onNextPage: onNextPage2,
+				items: items2,
+				itemIds: itemIds2,
+			} = makeDragAndDropTableProps();
+			const { container } = render(
+				<DatasourceExperienceIdProvider>
+					<IntlProvider locale="en">
+						<div>
+							<IssueLikeDataTableView
+								testId="sometable1"
+								status={'resolved'}
+								items={items1}
+								itemIds={itemIds1}
+								onNextPage={onNextPage1}
+								onLoadDatasourceDetails={mockCallBackFn}
+								hasNextPage={false}
+								columns={columns1}
+								visibleColumnKeys={visibleColumnKeys}
+								onVisibleColumnKeysChange={onColumnsChange1}
+							/>
+							<IssueLikeDataTableView
+								testId="sometable2"
+								status={'resolved'}
+								items={items2}
+								itemIds={itemIds2}
+								onNextPage={onNextPage2}
+								onLoadDatasourceDetails={mockCallBackFn}
+								hasNextPage={false}
+								columns={columns2}
+								visibleColumnKeys={visibleColumnKeys}
+								onVisibleColumnKeysChange={onColumnsChange2}
+							/>
+						</div>
+					</IntlProvider>
+				</DatasourceExperienceIdProvider>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should display X rows in correct order given the data', async () => {
 			const items: DatasourceDataResponseItem[] = [
 				{ id: { data: 'id0' } },

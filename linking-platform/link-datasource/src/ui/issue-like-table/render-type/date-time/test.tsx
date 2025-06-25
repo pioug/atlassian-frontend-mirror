@@ -174,4 +174,12 @@ describe('DateTime Type', () => {
 			expect(el).toHaveTextContent('Sep 14, 2006');
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en" timeZone="Australia/Sydney">
+				<DateTimeType value={'2006-09-14T00:00:00.000Z'} display={'time'} />
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

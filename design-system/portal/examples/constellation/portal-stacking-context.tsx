@@ -2,71 +2,69 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import Portal from '@atlaskit/portal';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	marginBlockStart: 'space.1000',
-});
-
-const figcaptionStyles = css({
-	padding: token('space.100'),
-	position: 'absolute',
-	background: token('color.background.neutral'),
-	insetBlockEnd: token('space.0'),
-});
-
-const figureStyles = css({
-	position: 'absolute',
-	border: `1px solid ${token('color.blanket')}`,
-	filter: 'drop-shadow(-12px 12px 8px)',
-});
-
-const topSquareStyles = css({
-	width: '372px',
-	height: '482px',
-	background: token('color.background.accent.purple.bolder'),
-});
-
-const bottomSquareStyles = css({
-	width: '372px',
-	height: '492px',
-	background: token('color.background.accent.blue.subtler'),
-});
-
-const topSquarePositionStyles = css({
-	insetBlockStart: token('space.0'),
-	insetInlineStart: '256px',
-});
-
-const topSquareIndexStyles = css({
-	zIndex: 1,
-});
-
-const bottomSquareIndexStyles = css({
-	zIndex: 1000,
+const styles = cssMap({
+	container: {
+		marginBlockStart: token('space.1000'),
+	},
+	figcaption: {
+		position: 'absolute',
+		backgroundColor: token('color.background.neutral'),
+		insetBlockEnd: token('space.0'),
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
+	},
+	figure: {
+		position: 'absolute',
+		border: `1px solid ${token('color.blanket')}`,
+		filter: 'drop-shadow(-12px 12px 8px)',
+	},
+	topSquare: {
+		width: '372px',
+		height: '482px',
+		backgroundColor: token('color.background.accent.purple.bolder'),
+	},
+	bottomSquare: {
+		width: '372px',
+		height: '492px',
+		backgroundColor: token('color.background.accent.blue.subtler'),
+	},
+	topSquarePosition: {
+		insetBlockStart: token('space.0'),
+		insetInlineStart: '256px',
+	},
+	topSquareIndex: {
+		zIndex: 1,
+	},
+	bottomSquareIndex: {
+		zIndex: 1000,
+	},
 });
 
 const PortalStackingContextExample = () => {
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={styles.container}>
 			<Portal zIndex={100}>
-				<figure css={[figureStyles, bottomSquareIndexStyles]}>
-					<div css={bottomSquareStyles} />
-					<figcaption css={figcaptionStyles}>
+				<figure css={[styles.figure, styles.bottomSquareIndex]}>
+					<div css={styles.bottomSquare} />
+					<figcaption css={styles.figcaption}>
 						I am a bottom square. I appear below because my z-index is lower. My child z-index is
 						only relevant in my stacking context.
 					</figcaption>
 				</figure>
 			</Portal>
 			<Portal zIndex={200}>
-				<figure css={[figureStyles, topSquarePositionStyles, topSquareIndexStyles]}>
-					<div css={topSquareStyles} />
-					<figcaption css={figcaptionStyles}>
+				<figure css={[styles.figure, styles.topSquarePosition, styles.topSquareIndex]}>
+					<div css={styles.topSquare} />
+					<figcaption css={styles.figcaption}>
 						I am a top square. I appear above because my z-index is higher. My sibling's child
 						z-index is only relevant in it's parent stacking context.
 					</figcaption>

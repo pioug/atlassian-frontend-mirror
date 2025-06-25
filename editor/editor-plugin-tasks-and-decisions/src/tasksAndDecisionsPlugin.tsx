@@ -14,7 +14,6 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { taskItemNodeSpec } from './nodeviews/taskItemNodeSpec';
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
@@ -87,10 +86,6 @@ function ContentComponent({
 		dependencyApi,
 		'taskDecision.hasEditPermission',
 	);
-
-	if (editorExperiment('platform_editor_vanilla_dom', false, { exposure: true })) {
-		return null;
-	}
 
 	if (hasEditPermission || !openRequestToEditPopupAt) {
 		return null;
@@ -214,11 +209,10 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 			return [
 				{
 					name: 'tasksAndDecisions',
-					plugin: ({ portalProviderAPI, providerFactory, eventDispatcher, dispatch, getIntl }) => {
+					plugin: ({ portalProviderAPI, eventDispatcher, dispatch, getIntl }) => {
 						return createPlugin(
 							portalProviderAPI,
 							eventDispatcher,
-							providerFactory,
 							dispatch,
 							api,
 							getIntl,

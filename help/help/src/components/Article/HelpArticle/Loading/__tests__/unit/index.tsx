@@ -18,6 +18,12 @@ const intl = createIntl(
 const messageLoading = intl.formatMessage(messages.help_loading);
 
 describe('ArticleContent', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Loading intl={intl} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Should match snapshot', () => {
 		const { asFragment } = render(<Loading intl={intl} />);
 

@@ -26,6 +26,24 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('ShowMoreButton', () => {
+	it('should capture and report a11y violations', async () => {
+		const component = (
+			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+				<ShowMoreButton
+					intl={intl}
+					itemsType="articles"
+					minItemsToDisplay={9}
+					maxItemsToDisplay={18}
+					showMoreToggeled
+					onToggle={mockOnClick}
+				/>
+			</AnalyticsListener>
+		);
+		const { container } = render(component);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it.skip('Should match snapshot', async () => {
 		const component = (
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>

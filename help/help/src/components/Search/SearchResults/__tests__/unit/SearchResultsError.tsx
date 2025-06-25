@@ -20,6 +20,12 @@ const messageButtonLabel = intl.formatMessage(messages.help_search_error_button_
 const mockOnSearch = jest.fn();
 
 describe('SearchResultsError', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<SearchResultsError intl={intl} onSearch={mockOnSearch} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Should match snapshot', () => {
 		const { asFragment } = render(<SearchResultsError intl={intl} onSearch={mockOnSearch} />);
 

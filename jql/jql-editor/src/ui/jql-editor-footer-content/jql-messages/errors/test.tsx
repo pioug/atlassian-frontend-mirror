@@ -148,6 +148,10 @@ describe('ErrorMessages', () => {
 			expect(CustomErrorMessage).not.toHaveBeenCalled();
 			expect(screen.queryByTestId('jql-editor-validation')).not.toBeInTheDocument();
 		});
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderErrorMessages();
+			await expect(container).toBeAccessible();
+		});
 	});
 
 	it(`does not render an error message when there are no errors`, () => {

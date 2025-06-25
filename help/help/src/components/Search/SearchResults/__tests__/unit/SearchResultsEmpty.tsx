@@ -23,6 +23,18 @@ const mockSearchExternalUrl = 'https://www.atlassian.com/';
 const analyticsSpy = jest.fn();
 
 describe('SearchResultsEmpty', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<SearchResultsEmpty
+				intl={intl}
+				onSearchExternalUrlClick={mockOnSearchExternalUrlClick}
+				searchExternalUrl={mockSearchExternalUrl}
+			/>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Should match snapshot', () => {
 		const { asFragment } = render(
 			<SearchResultsEmpty

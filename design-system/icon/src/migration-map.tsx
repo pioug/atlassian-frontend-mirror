@@ -827,7 +827,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	cross: {
-		newIcon: { name: 'close', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'cross', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'close', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap',
@@ -1083,8 +1084,11 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/close': {
-		newIcon: { name: 'close', type: 'core', package: '@atlaskit/icon' },
-		additionalIcons: [{ name: 'cross', type: 'utility', package: '@atlaskit/icon' }],
+		newIcon: { name: 'cross', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [
+			{ name: 'cross', type: 'utility', package: '@atlaskit/icon' },
+			{ name: 'close', type: 'core', package: '@atlaskit/icon' },
+		],
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap',

@@ -22,6 +22,16 @@ describe('ArticleContent', () => {
 		};
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<ArticlesList {...ArticlesListProps} minItemsToDisplay={3} numberOfArticlesToDisplay={6} />
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it.skip('Should match snapshot', () => {
 		const { container } = render(
 			<IntlProvider locale="en">

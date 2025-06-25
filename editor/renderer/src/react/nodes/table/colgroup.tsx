@@ -76,7 +76,8 @@ const calcScalePercent = ({
 		: maxScale;
 };
 
-const colWidthSum = (columnWidths: number[]) => columnWidths.reduce((prev, curr) => curr + prev, 0);
+export const colWidthSum = (columnWidths: number[]) =>
+	columnWidths.reduce((prev, curr) => curr + prev, 0);
 
 const renderScaleDownColgroup = (
 	props: SharedTableProps & {

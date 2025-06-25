@@ -1,5 +1,13 @@
 # @atlaskit/portal
 
+## 5.1.1
+
+### Patch Changes
+
+- [#175845](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175845)
+  [`e553e0b7cb828`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e553e0b7cb828) -
+  Updated dev dependencies
+
 ## 5.1.0
 
 ### Minor Changes

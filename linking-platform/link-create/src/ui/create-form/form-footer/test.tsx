@@ -23,6 +23,29 @@ jest.mock('../../../controllers/form-context', () => {
 const editButtonLabel = 'Create + Open';
 
 describe('FormFooter', () => {
+	it('should capture and report a11y violations', async () => {
+		const testId = 'link-create-form';
+		const { container } = render(
+			<IntlProvider locale="en">
+				<Form<FormData> onSubmit={() => {}}>
+					{({}) => {
+						return (
+							<form onSubmit={() => {}}>
+								<CreateFormFooter
+									formErrorMessage={'errorMessage'}
+									handleCancel={() => {}}
+									testId={testId}
+								/>
+							</form>
+						);
+					}}
+				</Form>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should find the FormFooter error by its id if formErrorMessage is defined', async () => {
 		const testId = 'link-create-form';
 

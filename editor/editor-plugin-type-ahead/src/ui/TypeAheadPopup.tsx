@@ -40,7 +40,6 @@ import {
 	fireTypeAheadClosedAnalyticsEvent,
 	type InputMethodType,
 } from '../pm-plugins/analytics';
-import { closeTypeAhead } from '../pm-plugins/commands/close-type-ahead';
 import {
 	CloseSelectionOptions,
 	TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE,
@@ -399,22 +398,13 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	// @ts-ignore
 	const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
 
-	const close = (editorView: EditorView) => {
-		const {
-			state: { tr },
-		} = editorView;
-		closeTypeAhead(tr);
-		editorView.dispatch(tr);
-	};
-
 	const onMoreOptionsClicked = useCallback(() => {
 		if (
 			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 			openElementBrowserModal &&
 			editorExperiment('platform_editor_controls', 'variant1') &&
 			fg('platform_editor_controls_patch_4') &&
-			(!fg('platform_editor_controls_patch_12') ||
-				triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT)
+			triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT
 		) {
 			activityStateRef.current = {
 				inputMethod: INPUT_METHOD.MOUSE,
@@ -422,12 +412,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 				invocationMethod: activityStateRef.current.invocationMethod,
 			};
 		}
-
-		if (!fg('platform_editor_controls_patch_12')) {
-			close(editorView);
-			openElementBrowserModal?.();
-		}
-	}, [editorView, openElementBrowserModal, triggerHandler.id]);
+	}, [openElementBrowserModal, triggerHandler.id]);
 
 	return (
 		<Popup

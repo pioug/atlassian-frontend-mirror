@@ -78,4 +78,29 @@ describe('BasicSearchInput', () => {
 
 		expect(mockOnSearch).toHaveBeenCalledTimes(1);
 	});
+	it('should capture and report a11y violations', async () => {
+		const mockOnChange = jest.fn();
+		const mockOnSearch = jest.fn();
+		const { container } = render(
+			<IntlProvider locale="en">
+				<BasicSearchInput
+					onChange={mockOnChange}
+					onSearch={mockOnSearch}
+					searchTerm="testing"
+					testId="basic-search-input"
+					placeholder={{
+						id: 'test',
+						description: 'placeholder',
+						defaultMessage: 'custom placeholder',
+					}}
+					ariaLabel={{
+						id: 'test',
+						description: 'placeholder',
+						defaultMessage: 'custom placeholder',
+					}}
+				/>
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

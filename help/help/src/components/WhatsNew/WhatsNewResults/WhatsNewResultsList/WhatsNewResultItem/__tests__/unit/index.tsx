@@ -28,6 +28,15 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('WhatsNewResultListItem', () => {
+	it('should capture and report a11y violations', async () => {
+		const mockWhatsNewArticleItem = getMockWhatsNewArticleItem('1');
+		const { container } = render(
+			<WhatsNewResultListItem intl={intl} {...mockWhatsNewArticleItem} onClick={mockOnClick} />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it.skip('Should match snapshot', () => {
 		const mockWhatsNewArticleItem = getMockWhatsNewArticleItem('1');
 		const { container } = render(

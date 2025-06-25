@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 2.9.2
+
+### Patch Changes
+
+- [#176058](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176058)
+  [`38c6611bdd480`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38c6611bdd480) -
+  ED-28085 Clean up platform_editor_hide_expand_selection_states
+
 ## 2.9.1
 
 ### Patch Changes

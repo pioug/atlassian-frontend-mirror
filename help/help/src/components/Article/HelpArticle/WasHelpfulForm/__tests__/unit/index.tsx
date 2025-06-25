@@ -23,6 +23,19 @@ const mockOnWasHelpfulYesButtonClick = jest.fn();
 const mockOnWasHelpfulNoButtonClick = jest.fn();
 
 describe('ArticleWasHelpfulForm', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<ArticleWasHelpfulForm
+					onWasHelpfulNoButtonClick={mockOnWasHelpfulNoButtonClick}
+					onWasHelpfulYesButtonClick={mockOnWasHelpfulYesButtonClick}
+				/>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	/**
 	 * FIXME Snapshot tests that test a large surface area cause friction to platform teams.
 	 * Review if this test is required or whether it can be removed.

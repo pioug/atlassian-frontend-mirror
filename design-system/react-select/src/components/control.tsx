@@ -1,10 +1,7 @@
 /* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 import React, { type ReactNode, type Ref } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import Compiled, { css as compiledCSS } from '../compiled/components/control';
-import Emotion, { css as emotionCSS } from '../emotion/components/control';
 import { type CommonPropsAndClassName, type GroupBase } from '../types';
 
 export interface ControlProps<
@@ -48,12 +45,12 @@ export interface ControlProps<
 export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ControlProps<Option, IsMulti, Group>,
 ) => {
-	return fg('compiled-react-select') ? compiledCSS() : emotionCSS(props);
+	return compiledCSS();
 };
 
 const Control = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ControlProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
+) => <Compiled {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Control;

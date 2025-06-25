@@ -42,4 +42,12 @@ describe('Boolean Type', () => {
 		});
 		expect(queryByTestId(BOOLEAN_TYPE_TEST_ID)).not.toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<Boolean value={true} />,
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

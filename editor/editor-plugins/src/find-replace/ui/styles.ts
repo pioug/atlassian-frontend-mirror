@@ -4,5 +4,8 @@
 export {
 	searchMatchClass,
 	selectedSearchMatchClass,
+	blockSearchMatchClass,
+	darkModeSearchMatchClass,
 	findReplaceStyles,
+	findReplaceStylesNew,
 } from '@atlaskit/editor-plugin-find-replace/styles';

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createDeprecatedIconDocs` in icon-build-process/src/create-deprecated-icon-docs.tsx.
  *
- * @codegen <<SignedSource::fb70e6767d35094fbe4b28e206f22313>>
+ * @codegen <<SignedSource::ec9654a23699788f0dfeb0bccea011b6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> = {
@@ -179,8 +179,7 @@ const deprecatedIcons: Record<string, { message: string; unfixable?: boolean }> 
 	},
 	'@atlaskit/icon/utility/migration/cross--editor-close': {
 		message:
-			'The icon "cross--editor-close" is deprecated, Please refer to the changelog for guidance on how to migrate. https://atlassian.design/components/icon/changelog',
-		unfixable: true,
+			'The icon "cross--editor-close" is deprecated in favour of "cross--editor-close" from “@atlaskit/icon/core/migration”',
 	},
 	'@atlaskit/icon/core/migration/drag-handle--drag-handler': {
 		message:

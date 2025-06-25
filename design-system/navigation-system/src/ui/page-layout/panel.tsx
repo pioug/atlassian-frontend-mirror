@@ -82,20 +82,18 @@ const styles = cssMap({
 		// spec for sticky doesn't support "stick to where I'm initially rendered" so we need to tell it.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 		insetBlockStart: contentInsetBlockStart,
+		backgroundColor: token('elevation.surface.overlay'),
 		'@media (min-width: 48rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			width: `var(${panelSplitterResizingVar}, var(${panelVar}))`,
+		},
+		'@media (min-width: 64rem)': {
+			backgroundColor: token('elevation.surface'),
 		},
 		'@media (min-width: 90rem)': {
 			gridArea: 'panel',
 			// On large viewports the panel is displayed next to other slots so we reset the zindex.
 			zIndex: 'auto',
-		},
-	},
-	backgroundColor: {
-		backgroundColor: token('elevation.surface.overlay'),
-		'@media (min-width: 64rem)': {
-			backgroundColor: token('elevation.surface'),
 		},
 	},
 	border: {
@@ -281,7 +279,6 @@ export function Panel({
 				styles.root,
 				defaultWidth === 0 && styles.hidden,
 				hasBorder && styles.border,
-				fg('platform_design_system_nav4_panel_default_bg_color') && styles.backgroundColor,
 				fg('platform_design_system_nav4_panel_mobile_width_fix')
 					? styles.newMobileWidth
 					: styles.oldMobileWidth,

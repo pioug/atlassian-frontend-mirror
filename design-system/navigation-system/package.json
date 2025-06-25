@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "0.166.0",
+	"version": "0.167.0",
 	"description": "The latest navigation system for Atlassian products.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -245,16 +245,10 @@
 		"platform_design_system_nav4_live_resizing_css_vars": {
 			"type": "boolean"
 		},
-		"platform_design_system_nav4_panel_default_bg_color": {
-			"type": "boolean"
-		},
 		"platform_design_system_nav4_top_nav_columns": {
 			"type": "boolean"
 		},
 		"platform_design_system_nav4_top_nav_min_widths": {
-			"type": "boolean"
-		},
-		"platform_design_system_nav4_menu_item_anchor_dnd": {
 			"type": "boolean"
 		},
 		"platform-team25-app-icon-tiles": {

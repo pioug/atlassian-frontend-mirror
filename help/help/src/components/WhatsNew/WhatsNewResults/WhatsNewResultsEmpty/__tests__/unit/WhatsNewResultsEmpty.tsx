@@ -23,6 +23,14 @@ const mockOnClearFilter = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('WhatsNewResultsEmpty', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Should match snapshot', () => {
 		const { asFragment } = render(
 			<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />,

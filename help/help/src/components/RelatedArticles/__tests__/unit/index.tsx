@@ -64,6 +64,24 @@ describe('RelatedArticles', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<RelatedArticles
+					routeGroup="test"
+					routeName="test"
+					onGetRelatedArticles={() => mockOnGetRelatedArticles(NUMBER_OF_ARTICLES)}
+					onRelatedArticlesListItemClick={mockOnRelatedArticlesListItemClick}
+					onRelatedArticlesShowMoreClick={mockOnRelatedArticlesShowMoreClick}
+				/>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible({
+			violationCount: 2,
+		});
+	});
+
 	it.skip('Should match snapshot', async () => {
 		const { container } = render(
 			<IntlProvider locale="en">

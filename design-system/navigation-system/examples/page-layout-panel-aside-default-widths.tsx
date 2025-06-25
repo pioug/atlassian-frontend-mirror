@@ -56,9 +56,6 @@ const asideStyles = cssMap({
 });
 
 const panelStyles = cssMap({
-	root: {
-		backgroundColor: token('elevation.surface'),
-	},
 	content: {
 		paddingTop: token('space.300'),
 		paddingRight: token('space.300'),
@@ -218,7 +215,7 @@ export default function PanelAsideDefaultWidths({
 					</Aside>
 				)}
 				{isPanelRendered && (
-					<Panel xcss={panelStyles.root} defaultWidth={panelWidth}>
+					<Panel defaultWidth={panelWidth}>
 						<Stack space="space.200" xcss={panelStyles.content}>
 							<Heading size="small">Panel</Heading>
 							<Stack space="space.050">

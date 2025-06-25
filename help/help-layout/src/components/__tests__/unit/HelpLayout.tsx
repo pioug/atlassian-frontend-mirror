@@ -32,6 +32,24 @@ describe('BackButton', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<HelpLayout
+					isBackbuttonVisible={false}
+					isLoading={false}
+					onCloseButtonClick={mockOnCloseButtonClick}
+					onBackButtonClick={mockOnBackButtonClick}
+					footer={<div id="mock-footer">Footer</div>}
+				>
+					<div>{defaultContentText}</div>
+				</HelpLayout>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('Should display the close button if the props mockOnCloseButtonClick is defined', () => {
 		const { queryByLabelText } = render(
 			<IntlProvider locale="en">

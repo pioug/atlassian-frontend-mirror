@@ -364,4 +364,8 @@ describe('Column picker', () => {
 			expect(mockUfoSuccess).not.toHaveBeenCalled();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderColumnPicker([], []);
+		await expect(container).toBeAccessible();
+	});
 });

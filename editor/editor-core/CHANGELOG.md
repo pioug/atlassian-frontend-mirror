@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 208.3.5
+
+### Patch Changes
+
+- [#175895](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175895)
+  [`6165a5dc5b6b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6165a5dc5b6b1) -
+  Remove deprecated path for react version of mentions
+- [#175471](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175471)
+  [`302b93e537e73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302b93e537e73) -
+  ff cleanup for platform_editor_scroll_table_flickering_fix (FD-91488)
+- [#175569](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175569)
+  [`3bcbd0cff0437`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3bcbd0cff0437) -
+  [ux] ED-27958 extend the find algorithm to search smart cards behind
+  platform_editor_find_and_replace_improvements
+- [#176023](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176023)
+  [`d88b8886797ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d88b8886797ae) -
+  clean up experiment platform_editor_vanilla_dom on task
+- [#175339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175339)
+  [`d4115e4055a0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4115e4055a0a) -
+  ED-28314 Cleanup platform_editor_controls_patch_12
+- [#175899](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175899)
+  [`a28d5dc386dbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a28d5dc386dbf) -
+  Clean up platform_editor_fix_floating_toolbar_focus
+- Updated dependencies
+
+## 208.3.4
+
+### Patch Changes
+
+- [#173360](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/173360)
+  [`e424271b7afc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e424271b7afc6) -
+  [ED-28169] Refactor FullPageContentArea dynamic styles to static emotion
+- Updated dependencies
+
 ## 208.3.3
 
 ### Patch Changes

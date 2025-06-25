@@ -96,5 +96,9 @@ describe('basic behaviour', () => {
 			useEditorViewHasInfosMock.mockReturnValue(true);
 			assertOnlyOneIsRendered('WarningMessages');
 		});
+		it('should capture and report a11y violations', async () => {
+			const { container } = renderComponent();
+			await expect(container).toBeAccessible();
+		});
 	});
 });

@@ -27,6 +27,14 @@ const mockOnClick = jest.fn();
 const analyticsSpy = jest.fn();
 
 describe('ArticlesListItem', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ArticlesListItem intl={intl} {...mockArticleItem} onClick={mockOnClick} />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it.skip('Should match snapshot', () => {
 		const { container } = render(
 			<ArticlesListItem intl={intl} {...mockArticleItem} onClick={mockOnClick} />,

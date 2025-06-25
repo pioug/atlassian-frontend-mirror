@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
@@ -93,12 +92,7 @@ export const TypeAheadMenu = React.memo(
 		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
 		let showMoreOptionsButton = false;
 		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			if (fg('platform_editor_controls_patch_12')) {
-				showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
-			} else {
-				showMoreOptionsButton =
-					triggerHandler?.id === TypeAheadAvailableNodes.QUICK_INSERT && !!openElementBrowserModal;
-			}
+			showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
 		}
 
 		if (

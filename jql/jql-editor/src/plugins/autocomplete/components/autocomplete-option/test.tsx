@@ -62,6 +62,22 @@ describe.skip('basic behavior', () => {
 });
 
 describe('interactions', () => {
+	it('should capture and report a11y violations', async () => {
+		const onClick = jest.fn();
+		const { container } = render(
+			<AutocompleteOption
+				isSelected={false}
+				onClick={onClick}
+				onMouseMove={noop}
+				option={testOption}
+			/>,
+		);
+
+		await expect(container).toBeAccessible({
+			violationCount: 1,
+		});
+	});
+
 	it('calls onClick callback', () => {
 		const onClick = jest.fn();
 		const { getByText } = render(
@@ -119,6 +135,22 @@ describe('interactions', () => {
 });
 
 describe('highlighting', () => {
+	it('should capture and report a11y violations', async () => {
+		const matchingOption = { ...testOption, matchedText: 'vani' };
+		const { container } = render(
+			<AutocompleteOption
+				isSelected={false}
+				onClick={noop}
+				onMouseMove={noop}
+				option={matchingOption}
+			/>,
+		);
+
+		await expect(container).toBeAccessible({
+			violationCount: 1,
+		});
+	});
+
 	it('highlights matching part of the user query', () => {
 		const matchingOption = { ...testOption, matchedText: 'vani' };
 		const { getByText } = render(
@@ -212,6 +244,22 @@ describe('highlighting', () => {
 });
 
 describe('field type', () => {
+	it('should capture and report a11y violations', async () => {
+		const optionWithType = { ...testOption, fieldType: 'Potato' };
+		const { container } = render(
+			<AutocompleteOption
+				isSelected={false}
+				onClick={noop}
+				onMouseMove={noop}
+				option={optionWithType}
+			/>,
+		);
+
+		await expect(container).toBeAccessible({
+			violationCount: 1,
+		});
+	});
+
 	it('renders field type when provided', () => {
 		const optionWithType = { ...testOption, fieldType: 'Potato' };
 		const { queryByText, queryByTestId } = render(
@@ -242,6 +290,21 @@ describe('field type', () => {
 });
 
 describe('deprecated icon', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<AutocompleteOption
+				isSelected={false}
+				onClick={noop}
+				onMouseMove={noop}
+				option={testOption}
+			/>,
+		);
+
+		await expect(container).toBeAccessible({
+			violationCount: 1,
+		});
+	});
+
 	it('does not renders deprecated icon when field is not deprecated', () => {
 		const { queryByTestId } = render(
 			<AutocompleteOption

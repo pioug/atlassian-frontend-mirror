@@ -73,9 +73,6 @@ import { WithResponsiveViewport } from './utils/example-utils';
 import { MockSearch } from './utils/mock-search';
 
 const panelStyles = cssMap({
-	root: {
-		backgroundColor: token('elevation.surface'),
-	},
 	header: {
 		paddingInline: token('space.300'),
 		paddingBlock: token('space.150'),
@@ -258,7 +255,7 @@ export default function ConfluenceMockExample({}: {}) {
 						</Stack>
 					</Stack>
 				</Main>
-				<Panel xcss={panelStyles.root}>
+				<Panel>
 					<Inline xcss={panelStyles.header}>
 						<Inline space="space.050" alignBlock="center">
 							<ProjectIcon label="" spacing="spacious" color={token('color.icon.subtle')} />

@@ -28,6 +28,12 @@ describe('HelpArticle', () => {
 	const TITLE_LINK_URL = 'https://atlaskit.atlassian.com/';
 
 	describe('with defined Title', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(<HelpArticle title={TITLE} />);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should render title', () => {
 			render(<HelpArticle title={TITLE} />);
 			const title = screen.getByRole('heading', { name: TITLE });

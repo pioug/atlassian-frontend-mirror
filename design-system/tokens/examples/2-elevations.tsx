@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, CSSProperties, jsx } from '@compiled/react';
 
 import AtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { token } from '@atlaskit/tokens';
@@ -81,22 +80,44 @@ const interactiveElevationStyles = {
 	},
 };
 
-const containerStyles = css({
-	padding: '2em',
-});
+const surfaceColorCssVar = `--surface-color`;
+const shadowColorCssVar = `--shadow-color`;
+const surfaceHoverColorCssVar = `--surface-hover-color`;
+const surfacePressedCssVar = `--surface-pressed-color`;
+const shadowHoverCssVar = `--shadow-hover-color`;
+const shadowPressedCssVar = `--shadow-pressed-color`;
 
-const boxStyles = css({
-	display: 'flex',
-	boxSizing: 'border-box',
-	width: '100%',
-	maxWidth: '200px',
-	minHeight: '100px',
-	padding: '1em',
-	alignItems: 'center',
-	borderRadius: token('border.radius.100', '3px'),
-	marginBlockStart: '1em',
-	textAlign: 'left',
-	transition: 'box-shadow 200ms, background 200ms, border 200ms',
+const styles = cssMap({
+	container: {
+		padding: '2em',
+	},
+	box: {
+		display: 'flex',
+		boxSizing: 'border-box',
+		width: '100%',
+		maxWidth: '200px',
+		minHeight: '100px',
+		padding: '1em',
+		alignItems: 'center',
+		borderRadius: token('border.radius.100', '3px'),
+		marginBlockStart: '1em',
+		textAlign: 'left',
+		color: token('color.text'),
+		transition: 'box-shadow 200ms, background 200ms, border 200ms',
+		backgroundColor: `var(${surfaceColorCssVar})`,
+		boxShadow: `var(${shadowColorCssVar})`,
+		'&:hover': {
+			backgroundColor: `var(${surfaceHoverColorCssVar})`,
+			boxShadow: `var(${shadowHoverCssVar})`,
+		},
+		'&:active': {
+			backgroundColor: `var(${surfacePressedCssVar})`,
+			boxShadow: `var(${shadowPressedCssVar})`,
+		},
+	},
+	boxInteractive: {
+		cursor: 'pointer',
+	},
 });
 
 const Box = ({ text, style }: { text: string; style: Record<string, string> }) => {
@@ -104,35 +125,18 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 	const ComponentType = isInteractive ? 'button' : 'div';
 	return (
 		<ComponentType
-			css={[
-				boxStyles,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					backgroundColor: style.surface,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			css={[styles.box, styles.boxInteractive]}
+			style={
+				{
 					border: style.border ? `1px solid ${style.border}` : 'none',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					boxShadow: style.shadow,
-					color: token('color.text'),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					cursor: isInteractive ? 'pointer' : 'default',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-					':hover': {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						backgroundColor: style.surfaceHovered || style.surface,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						boxShadow: style.shadowHovered || style.shadow,
-					},
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-					':active': {
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						backgroundColor: style.surfacePressed || style.surface,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-						boxShadow: style.shadowPressed || style.shadow,
-					},
-				}),
-			]}
+					[surfaceColorCssVar]: style.surface,
+					[shadowColorCssVar]: style.shadow,
+					[surfaceHoverColorCssVar]: style.surfaceHovered || style.surface,
+					[shadowHoverCssVar]: style.shadowHovered || style.shadow,
+					[surfacePressedCssVar]: style.surfacePressed || style.surface,
+					[shadowPressedCssVar]: style.shadowPressed || style.shadow,
+				} as CSSProperties
+			}
 		>
 			<AtlassianIcon label="Atlassian logo" primaryColor={style.iconColor} />
 			{text}
@@ -144,7 +148,7 @@ export default () => {
 	useVrGlobalTheme();
 
 	return (
-		<div css={containerStyles}>
+		<div css={styles.container}>
 			<h2>Elevations & Surfaces</h2>
 			<h3>Non-interactive surfaces</h3>
 			{Object.entries(nonInteractiveStyles).map(([key, styles]) => (

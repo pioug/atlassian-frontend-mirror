@@ -37,6 +37,12 @@ describe('WarningMessages', () => {
 		const { getByText } = renderWarningMessages();
 		expect(getByText('warnings')).toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<WarningMessages />, {
+			wrapper: (p) => <DiProvider use={deps} {...p} />,
+		});
+		await expect(container).toBeAccessible();
+	});
 });
 
 describe('useFormattedWarningMessage', () => {
@@ -174,5 +180,11 @@ describe('useFormattedWarningMessage', () => {
 		expect(container).toHaveTextContent(
 			'First Field has been deprecated and may stop working in the future.',
 		);
+	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Consumer />, {
+			wrapper: (p) => <DiProvider use={deps} {...p} />,
+		});
+		await expect(container).toBeAccessible();
 	});
 });

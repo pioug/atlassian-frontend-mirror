@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import AtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { token } from '@atlaskit/tokens';
@@ -274,47 +273,40 @@ const variantStyles = {
 	},
 };
 
-const containerStyles = css({
-	margin: '2em',
-});
-
-const rowStyles = css({
-	display: 'flex',
-	gap: '1em',
-});
-
-const boxStyles = css({
-	display: 'flex',
-	boxSizing: 'border-box',
-	width: '100%',
-	maxWidth: '200px',
-	minHeight: '100px',
-	padding: '1em',
-	alignItems: 'center',
-	borderRadius: token('border.radius.100'),
-	marginBlockStart: '1em',
-	textAlign: 'left',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover': {
-		cursor: 'pointer',
+const styles = cssMap({
+	container: {
+		margin: '2em',
+	},
+	row: {
+		display: 'flex',
+		gap: '1em',
+	},
+	box: {
+		display: 'flex',
+		boxSizing: 'border-box',
+		width: '100%',
+		maxWidth: '200px',
+		minHeight: '100px',
+		padding: '1em',
+		alignItems: 'center',
+		borderRadius: token('border.radius.100'),
+		marginBlockStart: '1em',
+		textAlign: 'left',
+		'&:hover': {
+			cursor: 'pointer',
+		},
 	},
 });
 
 const Box = ({ text, style }: { text: string; style: Record<string, string> }) => (
 	<button
 		type="button"
-		css={[
-			boxStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				backgroundColor: style.backgroundColor,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				border: style.border,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				color: style.color,
-			}),
-		]}
+		css={styles.box}
+		style={{
+			backgroundColor: style.backgroundColor,
+			border: style.border,
+			color: style.color,
+		}}
 	>
 		<AtlassianIcon label="Atlassian logo" primaryColor={style.iconColor} />
 		{text}
@@ -325,14 +317,14 @@ export default () => {
 	useVrGlobalTheme();
 
 	return (
-		<div css={containerStyles}>
+		<div css={styles.container}>
 			<h2>Accent tokens</h2>
 			<p>
 				For use with user-generated colors, graphs/charts and when there is no meaning tied to the
 				color.
 			</p>
 			{Object.entries(variantStyles).map(([key, subVariantStyles]) => (
-				<div key={key} css={rowStyles}>
+				<div key={key} css={styles.row}>
 					{Object.entries(subVariantStyles).map(([subKey, styles]) => (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						<Box key={key + subKey} style={styles} text={`${key}.${subKey}`} />

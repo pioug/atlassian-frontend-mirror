@@ -1,11 +1,8 @@
 /* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 import React, { type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type AriaSelection } from '../accessibility';
 import Compiled from '../compiled/components/live-region';
-import Emotion from '../emotion/components/live-region';
 import { type CommonProps, type GroupBase, type Options } from '../types';
 
 // ==============================
@@ -30,7 +27,7 @@ interface LiveRegionProps<Option, IsMulti extends boolean, Group extends GroupBa
 
 const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: LiveRegionProps<Option, IsMulti, Group>,
-) => (fg('compiled-react-select') ? <Compiled {...props} /> : <Emotion {...props} />);
+) => <Compiled {...props} />;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default LiveRegion;

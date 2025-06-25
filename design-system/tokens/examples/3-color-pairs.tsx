@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -393,22 +392,27 @@ const colorPairs = [
 	},
 ];
 
-const containerStyles = css({
-	margin: '2em',
-	fontSize: '14px',
-	lineHeight: '20px',
-});
-
-const boxStyles = css({
-	display: 'flex',
-	boxSizing: 'border-box',
-	minHeight: '100px',
-	margin: '0.5em',
-	padding: '1em',
-	border: 'none',
-	borderRadius: token('border.radius.100'),
-	fontSize: 'inherit',
-	textAlign: 'left',
+const styles = cssMap({
+	container: {
+		margin: '2em',
+		fontSize: '14px',
+		lineHeight: '20px',
+	},
+	row: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	box: {
+		display: 'flex',
+		boxSizing: 'border-box',
+		minHeight: '100px',
+		margin: '0.5em',
+		padding: '1em',
+		border: 'none',
+		borderRadius: token('border.radius.100'),
+		fontSize: 'inherit',
+		textAlign: 'left',
+	},
 });
 
 const varToToken = (tokenString: string) =>
@@ -416,16 +420,11 @@ const varToToken = (tokenString: string) =>
 
 const Box = ({ background, text }: { background: string; text: string }) => (
 	<div
-		css={[
-			boxStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				backgroundColor: background,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				color: text,
-			}),
-		]}
+		css={styles.box}
+		style={{
+			backgroundColor: background,
+			color: text,
+		}}
 	>
 		{varToToken(text)} on {varToToken(background)}
 	</div>
@@ -435,10 +434,9 @@ export default () => {
 	useVrGlobalTheme();
 
 	return (
-		<div css={containerStyles}>
+		<div css={styles.container}>
 			<h1>Color Pairs</h1>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ display: 'flex', flexDirection: 'column' }}>
+			<div css={styles.row}>
 				{colorPairs.map(({ background, text }, key) => (
 					<Box key={key} background={background} text={text} />
 				))}

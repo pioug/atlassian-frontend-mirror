@@ -15,6 +15,13 @@ beforeEach(() => {
 afterEach(jest.clearAllMocks);
 
 describe('extractors.icon.document', () => {
+	it('should capture and report a11y violations', async () => {
+		const icon = extractIconFromDocument('schema:BlogPosting', {});
+		const { container } = render(withIntl(icon));
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('returns blog icon for BlogPosting', async () => {
 		const icon = extractIconFromDocument('schema:BlogPosting', {});
 		render(withIntl(icon));

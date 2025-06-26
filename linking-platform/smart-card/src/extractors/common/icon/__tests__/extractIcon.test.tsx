@@ -37,6 +37,21 @@ describe('extractors.icon', () => {
 			// type (document type) icon is not used if icon url is present. Individual tests can override this.
 			icon: undefined,
 		};
+
+		it('should capture and report a11y violations', async () => {
+			const icon = extractIcon(
+				{
+					...TEST_BASE_DATA_NO_URL_ICON,
+					'@type': ['Document', 'schema:BlogPosting'],
+					generator: TEST_OBJECT,
+				},
+				'provider',
+			);
+			const { container } = render(withIntl(icon));
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('still returns type icon when priority flag is `provider` as this flag does not override standard logic', async () => {
 			const icon = extractIcon(
 				{

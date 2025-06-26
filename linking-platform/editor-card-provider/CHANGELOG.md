@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 5.1.2
+
+### Patch Changes
+
+- [#176250](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176250)
+  [`6ad5979076014`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ad5979076014) -
+  clean plan smartlinks feature gate
+
 ## 5.1.1
 
 ### Patch Changes

@@ -38,10 +38,6 @@ describe('editType', () => {
 		['boolean', [true]],
 		['date', ['2023-03-16T14:04:02.200+0000']],
 		['datetime', ['2023-03-16T14:04:02.200+0000']],
-		// Icon doesn't return empty props as it is now
-		// an editable field. Usage of `editType` is feature
-		// flagged behind platform-datasources-enable-two-way-sync-priority
-		// in supportedEditType.
 		['link', [{ url: 'url' }]],
 		['number', [123]],
 		['richtext', [{ text: '<p></p>>' }]],
@@ -74,7 +70,7 @@ describe('isEditTypeSupported', () => {
 		['boolean', false],
 		['date', false],
 		['datetime', false],
-		['icon', false],
+		['icon', true],
 		['link', false],
 		['number', false],
 		['richtext', false],

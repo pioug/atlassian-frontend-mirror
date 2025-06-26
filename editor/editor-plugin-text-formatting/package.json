@@ -116,9 +116,6 @@
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean"
-		},
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		},

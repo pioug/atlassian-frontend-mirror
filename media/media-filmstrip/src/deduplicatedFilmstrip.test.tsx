@@ -29,6 +29,22 @@ describe('DeduplicatedFilmstrip', () => {
 		getFileStreamsCache().removeAll();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const { container } = render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<DeduplicatedFilmStrip
+					mediaClientConfig={dummyMediaClientConfig}
+					items={[{ identifier }]}
+					isLazy={false}
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render the card correctly for given fileId', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 		const { mediaApi } = createMockedMediaApi(fileItem);

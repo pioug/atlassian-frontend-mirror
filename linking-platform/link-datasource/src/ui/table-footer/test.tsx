@@ -213,4 +213,8 @@ describe('TableFooter', () => {
 			expect(assetsLink).not.toBeInTheDocument();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderFooter(false, 25, mockOnRefresh);
+		await expect(container).toBeAccessible();
+	});
 });

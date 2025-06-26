@@ -148,7 +148,7 @@ const _validation = (
 const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 	let result: boolean = false;
 
-	if (fg('cc_complexit_fe_memoValidation_redundant_calls')) {
+	if (fg('cc_complexit_fe_memovalidation_redundant_calls_2')) {
 		type ValidationArgsType = [
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			doc: any,

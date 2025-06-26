@@ -3,7 +3,9 @@ import { expect, editorTestCase as test } from '@af/editor-libra';
 import { doc, taskItem, taskList } from '@atlaskit/editor-test-helpers/doc-builder';
 
 [true, false].forEach((useVanillaDomExperiment) => {
-	test.describe(`action item (${useVanillaDomExperiment ? 'with' : 'without'} Vanilla DOM experiment)`, () => {
+	test.describe(`action item (${
+		useVanillaDomExperiment ? 'with' : 'without'
+	} Vanilla DOM experiment)`, () => {
 		test.use({
 			editorProps: {
 				appearance: 'full-page',

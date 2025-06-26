@@ -10,6 +10,7 @@ import {
 import useInvoke from '../index';
 
 jest.mock('@atlaskit/link-provider', () => ({
+	...jest.requireActual('@atlaskit/link-provider'),
 	useSmartLinkContext: jest.fn().mockReturnValue({
 		connections: { client: {} },
 	}),

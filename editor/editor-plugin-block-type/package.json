@@ -127,9 +127,6 @@
 		},
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
-		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean"
 		}
 	}
 }

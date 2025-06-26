@@ -81,6 +81,25 @@ const file: FileDetails = {
 };
 
 describe('CardView', () => {
+	it('should capture and report a11y violations', async () => {
+		const clickHandler = jest.fn();
+		const analyticsEventHandler = jest.fn();
+		const { container } = render(
+			<AnalyticsListener channel={FabricChannel.media} onEvent={analyticsEventHandler}>
+				<CardView
+					status="loading"
+					mediaItemType="file"
+					metadata={file}
+					onClick={clickHandler}
+					dimensions={{ width: 100, height: 100 }}
+					identifier={identifier}
+				/>
+			</AnalyticsListener>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should return analytics event as a last argument when card is clicked', async () => {
 		const user = userEvent.setup();
 		const clickHandler = jest.fn();
@@ -216,6 +235,21 @@ describe('CardView', () => {
 		});
 	});
 	describe('Render Layers', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<IntlProvider locale="en">
+					<CardViewBase
+						status="loading"
+						mediaItemType="file"
+						dimensions={{ width: 100, height: 100 }}
+						identifier={identifier}
+					/>
+				</IntlProvider>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		describe('Spinner', () => {
 			['loading', 'loading-preview'].forEach((status) => {
 				it(`should render Spinner when status is ${status}`, () => {

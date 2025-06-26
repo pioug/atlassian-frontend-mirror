@@ -12,6 +12,12 @@ const markdownBulletList = `
 `;
 
 describe('AI Summary', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<AISummary content={''} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should not render when content is empty ', () => {
 		render(<AISummary content={''} />);
 

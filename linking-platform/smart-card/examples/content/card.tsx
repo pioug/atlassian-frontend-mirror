@@ -3,10 +3,10 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import Link from '@atlaskit/link';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import { Box, Grid, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 
-import { ResolvedClient, ResolvedClientEmbedUrl } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
 
 const gridStyles = cssMap({

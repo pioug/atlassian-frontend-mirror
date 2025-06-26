@@ -11,7 +11,7 @@ const appearances: Array<EditorAppearance> = ['full-page', 'comment'];
 const shortcutSelectAll = process.platform === 'darwin' ? 'Meta+a' : 'Control+a';
 
 test.describe('text formatting toolbar: styles', () => {
-	for (let appearance of appearances) {
+	for (const appearance of appearances) {
 		test.use({
 			editorProps: {
 				appearance: appearance,
@@ -96,7 +96,7 @@ test.describe('text formatting toolbar: styles', () => {
 });
 
 test.describe('text formatting toolbar: advanced', () => {
-	for (let appearance of appearances) {
+	for (const appearance of appearances) {
 		test.use({
 			adf: blockQuoteAdf,
 			editorProps: {
@@ -124,4 +124,7 @@ test.describe('text formatting toolbar: advanced', () => {
 			await expect(editor).toHaveDocument(doc(p('hello'), p(`inside block quote`), p('world')));
 		});
 	}
+});
+test('should capture and report a11y violations', async ({ page }) => {
+	await expect(page).toBeAccessible({ violationCount: 2 });
 });

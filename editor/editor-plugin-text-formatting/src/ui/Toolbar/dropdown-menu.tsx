@@ -6,7 +6,6 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { DropdownToolbarButton } from './dropdown-toolbar-button';
@@ -62,11 +61,9 @@ export const FormattingTextDropdownMenu = React.memo(
 		);
 
 		const activeItem = items[0].items.find((item) => item.isActive);
-		const defaultIcon =
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_4')
-				? items[0].items[0]?.elemBefore
-				: undefined;
+		const defaultIcon = editorExperiment('platform_editor_controls', 'variant1')
+			? items[0].items[0]?.elemBefore
+			: undefined;
 
 		const defaultIconName = items[0].items[0]?.value.name;
 

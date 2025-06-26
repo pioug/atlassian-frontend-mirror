@@ -149,7 +149,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 						>
 							<LinkFilledIcon
 								LEGACY_margin={`0 ${token('space.negative.025')} 0 0`}
-								color="currentColor"
+								color={isExtendedShareDialogEnabled ? token('color.text.subtle') : 'currentColor'}
 								label=""
 								LEGACY_size="medium"
 							/>
@@ -164,7 +164,7 @@ export class CopyLinkButtonInner extends React.Component<Props, State> {
 						? (current, themeProps) => ({
 								buttonStyles: {
 									...current(themeProps).buttonStyles,
-									color: token('color.text.subtle'),
+									color: token('color.text'),
 									font: token('font.body'),
 									alignItems: 'center',
 								},

@@ -2,13 +2,10 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
+import { generateContext, type GenerateContextProp } from '@atlaskit/link-test-helpers';
 import type { Card } from '@atlaskit/smart-card';
 import type { CardSSR } from '@atlaskit/smart-card/ssr';
 
-import {
-	generateContext,
-	type GenerateContextProp,
-} from '../../examples-helpers/_jsonLDExamples/provider.dynamic-icons';
 import CardViewSection from '../card-view/card-view-section';
 
 class DynamicIconCard extends CardClient {

@@ -1,10 +1,12 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import {
+	avatar1 as AvatarImage,
+	iconBitbucket,
+	iconGoogleDrive,
+	forbiddenJira as JiraPreviewImage,
+	overrideEmbedContent,
+} from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-
-import { iconBitbucket, iconGoogleDrive } from '../../../../../examples/images';
-import AvatarImage from '../../../../../examples/images/avatar-1.svg';
-import JiraPreviewImage from '../../../../../examples/images/forbidden-jira.svg';
-import { overrideEmbedContent } from '../../../../../examples/utils/common';
 
 export const mockBaseResponse = {
 	meta: {

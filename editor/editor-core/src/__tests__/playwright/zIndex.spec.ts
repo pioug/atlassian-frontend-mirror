@@ -68,4 +68,12 @@ test.describe('z indexes', () => {
 
 		return { floatingToolbarModel, tableModel, mainToolbarModel };
 	}
+
+	test('should capture and report a11y violations', async ({ editor }) => {
+		const { mainToolbarModel } = await addTable(editor);
+		const insertMenuModel = await mainToolbarModel.openInsertMenu();
+		await expect(insertMenuModel.insertMenu).toBeVisible();
+
+		await expect(editor.page).toBeAccessible({ violationCount: 3 });
+	});
 });

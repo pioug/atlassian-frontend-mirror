@@ -34,6 +34,14 @@ test.describe('Cursor Inline Nodes', () => {
 			await editor.keyboard.press('Backspace');
 			await expect(editor).toMatchDocument(doc(ul(li(p('')), li(p('LOL')))));
 		});
+
+		test('should capture and report a11y violations', async ({ editor }) => {
+			await editor.selection.set({ anchor: 4, head: 4 });
+			await editor.keyboard.press('Backspace');
+			await expect(editor).toMatchDocument(doc(ul(li(p('')), li(p('LOL')))));
+
+			await expect(editor.page).toBeAccessible();
+		});
 	});
 
 	test.describe('Emoji', () => {
@@ -122,6 +130,17 @@ test.describe('Cursor Inline Nodes', () => {
 				anchor: 4,
 				head: 1,
 			});
+		});
+
+		test('should capture and report a11y violations', async ({ editor }) => {
+			await editor.selection.set({ anchor: 5, head: 5 });
+			await editor.keyboard.press(shortcut);
+			await expect(editor).toHaveSelection({
+				type: 'text',
+				anchor: 4,
+				head: 1,
+			});
+			await expect(editor.page).toBeAccessible({ violationCount: 1 });
 		});
 	});
 });

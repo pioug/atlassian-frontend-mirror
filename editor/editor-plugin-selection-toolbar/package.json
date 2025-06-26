@@ -103,9 +103,6 @@
 		"platform_editor_user_preferences_provider_update": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean"
-		},
 		"platform_editor_use_preferences_plugin": {
 			"type": "boolean"
 		}

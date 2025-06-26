@@ -14,6 +14,24 @@ const MediaViewerWithMediaClientSpy = jest
 	});
 
 describe('MediaViewerWithErrorBoundary', () => {
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const { container } = render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaViewerWithErrorBoundary
+					selectedItem={identifier}
+					collectionName=""
+					items={[]}
+					mediaClientConfig={{} as MediaClientConfig}
+				/>
+				<div>placeholder</div>
+			</MockedMediaClientProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should catch unexpected errors', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 		const { mediaApi } = createMockedMediaApi(fileItem);

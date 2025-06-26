@@ -4,10 +4,10 @@ import { IntlProvider } from 'react-intl-next';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import { HoverCard } from '../../src/hoverCard';
-import { ResolvedClient, ResolvedClientEmbedUrl } from '../utils/custom-client';
 import HoverOverMe from '../utils/hover-card-box';
 
 export default () => {

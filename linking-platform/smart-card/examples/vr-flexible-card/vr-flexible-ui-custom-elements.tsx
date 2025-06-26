@@ -4,16 +4,6 @@
  */
 import { jsx } from '@compiled/react';
 
-import { Grid } from '@atlaskit/primitives';
-import { Box, Stack } from '@atlaskit/primitives/compiled';
-import {
-	Card,
-	CustomByAccessTypeElement,
-	CustomByStatusElement,
-	TitleElement,
-} from '@atlaskit/smart-card';
-
-import { SmartCardProvider } from '../../src/state';
 import {
 	ErroredClient,
 	ForbiddenClient,
@@ -34,7 +24,17 @@ import {
 	UnAuthClientWithNoIcon,
 	UnAuthClientWithProviderImage,
 	UnicornResolvedClient,
-} from '../utils/custom-client';
+} from '@atlaskit/link-test-helpers';
+import { Grid } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
+import {
+	Card,
+	CustomByAccessTypeElement,
+	CustomByStatusElement,
+	TitleElement,
+} from '@atlaskit/smart-card';
+
+import { SmartCardProvider } from '../../src/state';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 type AccessType =

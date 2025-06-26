@@ -3,7 +3,6 @@ import React from 'react';
 import { type IntlShape } from 'react-intl-next';
 
 import { type DatasourceType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TableViewPropsRenderType } from '../types';
 
@@ -11,7 +10,6 @@ import BooleanRenderType from './boolean';
 import DateTimeRenderType, { getFormattedDate } from './date-time';
 import IconRenderType from './icon';
 import LinkRenderType from './link';
-import NewIconRenderType from './new-icon';
 import NumberRenderType from './number';
 import RichTextRenderType, { parseRichText } from './richtext';
 import StatusRenderType from './status';
@@ -67,9 +65,7 @@ export const renderType: TableViewPropsRenderType = (item) => {
 				<DateTimeRenderType value={datTimeValue} display="datetime" />
 			));
 		case 'icon':
-			return fg('platform-datasources-enable-two-way-sync-priority')
-				? item.values.map((iconValue) => <NewIconRenderType {...iconValue} />)
-				: item.values.map((iconValue) => <IconRenderType {...iconValue} />);
+			return item.values.map((iconValue) => <IconRenderType {...iconValue} />);
 		case 'link':
 			return item.values.map((linkValue) => <LinkRenderType key={linkValue?.url} {...linkValue} />);
 		case 'number':

@@ -3,11 +3,10 @@ import React from 'react';
 import { cssMap } from '@atlaskit/css';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { response1, response2, response3 } from '@atlaskit/link-test-helpers';
 import { Grid } from '@atlaskit/primitives/compiled';
 
 import { Card, ElementName, MetadataBlock, SmartLinkSize, TitleBlock } from '../../src';
-
-import { response1, response2, response3 } from './example-responses';
 
 const gridStyles = cssMap({
 	root: {

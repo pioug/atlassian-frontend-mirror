@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 10.12.12
+
+### Patch Changes
+
+- [#177647](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177647)
+  [`422759e00f33d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/422759e00f33d) -
+  ED-28282 Clean up platform_editor_fix_table_width_inline_comment
+- Updated dependencies
+
 ## 10.12.11
 
 ### Patch Changes

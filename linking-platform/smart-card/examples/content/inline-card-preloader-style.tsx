@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ResolvingClient, ResolvingClientUrl } from '@atlaskit/link-test-helpers';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 
-import { ResolvingClient, ResolvingClientUrl } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
 
 export default () => (

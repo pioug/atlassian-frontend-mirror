@@ -69,6 +69,18 @@ describe('smart-card: prefetching of content', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		jest.useFakeTimers();
+		mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
+		const { container } = render(
+			<Provider client={mockClient}>
+				<Card appearance="inline" url={mockUrl} />
+			</Provider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('does not prefetch URLs if they are already visible, rendering as Smart Link', async () => {
 		jest.useFakeTimers();
 		mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);

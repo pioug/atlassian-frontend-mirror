@@ -40,6 +40,7 @@ export type PostAgentPayload = {
 	recipient_agent_named_id: 'smartlink_summary_agent';
 	agent_input_context: AgentInputContext;
 	user_intent?: string;
+	ai_feature_input?: FeatureInputContext;
 };
 
 export type AgentInputContext = {
@@ -47,6 +48,12 @@ export type AgentInputContext = {
 	content_ari?: string;
 	prompt_id: PromptId;
 	summary_output_mimetype?: SummaryOutputMimeType;
+	locale?: string;
+};
+
+export type FeatureInputContext = {
+	content_url: string;
+	content_ari?: string;
 	locale?: string;
 };
 

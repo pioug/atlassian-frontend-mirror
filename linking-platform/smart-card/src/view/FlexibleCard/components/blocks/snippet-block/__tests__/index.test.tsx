@@ -38,6 +38,14 @@ describe('SnippetBlock', () => {
 		});
 
 		describe('with maxLines', () => {
+			it('should capture and report a11y violations', async () => {
+				const { container } = render(<SnippetBlock />, {
+					wrapper: getFlexibleCardTestWrapper(context),
+				});
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('renders with default maxLines', async () => {
 				const testId = 'smart-element-text';
 				render(<SnippetBlock />, {

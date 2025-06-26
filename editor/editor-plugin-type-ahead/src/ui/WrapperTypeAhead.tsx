@@ -111,10 +111,7 @@ export const WrapperTypeAhead = React.memo(
 				text: string;
 				forceFocusOnEditor: boolean;
 			}) => {
-				if (
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_4')
-				) {
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
 					fireTypeAheadClosedAnalyticsEvent(
 						api,
 						ACTION.CANCELLED,
@@ -148,10 +145,7 @@ export const WrapperTypeAhead = React.memo(
 				if (safeSelectedIndex === -1) {
 					return;
 				}
-				if (
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_4')
-				) {
+				if (editorExperiment('platform_editor_controls', 'variant1')) {
 					fireTypeAheadClosedAnalyticsEvent(
 						api,
 						ACTION.INSERTED,

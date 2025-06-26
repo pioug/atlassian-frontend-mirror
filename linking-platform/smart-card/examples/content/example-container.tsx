@@ -2,13 +2,11 @@ import React, { type PropsWithChildren } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { avatar1, avatar2, avatar3, image1 as previewImage } from '@atlaskit/link-test-helpers';
+
 import { ActionName, IconType, MediaType, SmartLinkStatus } from '../../src/constants';
 import { FlexibleCardContext, FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { isFlexibleUiBlock } from '../../src/utils/flexible';
-import avatar1 from '../images/avatar-1.svg';
-import avatar2 from '../images/avatar-2.svg';
-import avatar3 from '../images/avatar-3.svg';
-import previewImage from '../images/rectangle.svg';
 import { getContext } from '../utils/flexible-ui';
 
 const today = new Date();

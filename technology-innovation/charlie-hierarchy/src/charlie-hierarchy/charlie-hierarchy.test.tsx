@@ -23,6 +23,19 @@ describe('<CharlieHierarchy/>', () => {
 		],
 	};
 
+	it('should capture and report a11y violations', async () => {
+		const root = hierarchy(testTree);
+		const { container } = render(
+			<CharlieHierarchy root={root} nodeSize={[100, 50]} size={[500, 10]}>
+				{(node) => {
+					return node.data.label;
+				}}
+			</CharlieHierarchy>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders with default props', async () => {
 		const root = hierarchy(testTree);
 		render(

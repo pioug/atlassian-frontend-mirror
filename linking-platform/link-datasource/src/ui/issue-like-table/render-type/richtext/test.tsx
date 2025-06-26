@@ -23,6 +23,17 @@ describe('RichText Type', () => {
 		};
 	};
 
+	it('should capture and report a11y violations', async () => {
+		const adfDoc = buildValidADF(3);
+		const value = {
+			type: 'adf',
+			text: JSON.stringify(adfDoc),
+		} satisfies RichText;
+		const { container } = render(<RichTextType value={value} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders rich text preview with first 2 nodes from a 3-node ADF via the renderer', async () => {
 		const adfDoc = buildValidADF(3);
 		const value = {

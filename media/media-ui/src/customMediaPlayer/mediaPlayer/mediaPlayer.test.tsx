@@ -139,9 +139,9 @@ describe('<MediaPlayer />', () => {
 			screen.findByRole('button', { name: 'Closed Captions' });
 		const queryCaptionsSelectControls = () =>
 			screen.queryByRole('button', { name: 'Closed Captions' });
-		const getCaptionsAdminControls = () => screen.findByRole('button', { name: 'Video Settings' });
+		const getCaptionsAdminControls = () => screen.findByRole('button', { name: 'Manage Captions' });
 		const queryCaptionsAdminControls = () =>
-			screen.queryByRole('button', { name: 'Video Settings' });
+			screen.queryByRole('button', { name: 'Manage Captions' });
 
 		const getBlanket = () => screen.getByTestId('play-pause-blanket');
 		const getVideoElement = () => container.querySelector('video') as HTMLVideoElement;

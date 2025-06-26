@@ -17,6 +17,27 @@ let wasLoading = true,
 	hadError = false;
 
 describe('MediaImageWithErrorBoundary', () => {
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const { container } = render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaImageWithErrorBoundary
+					identifier={identifier}
+					mediaClientConfig={{} as MediaClientConfig}
+				>
+					{({ loading, error }) => {
+						wasLoading = loading;
+						hadError = error;
+						return <div>placeholder</div>;
+					}}
+				</MediaImageWithErrorBoundary>
+			</MockedMediaClientProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should catch unexpected errors', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 		const { mediaApi } = createMockedMediaApi(fileItem);

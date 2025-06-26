@@ -39,6 +39,14 @@ test.describe('calendar', () => {
 		await nodes.date.first().click();
 		await expect(inputModel.input).toBeHidden();
 	});
+
+	test('should capture and report a11y violations', async ({ editor }) => {
+		const nodes = EditorNodeContainerModel.from(editor);
+		await editor.typeAhead.searchAndInsert('date');
+		await expect(nodes.date.first()).toBeVisible();
+
+		await expect(editor.page).toBeAccessible();
+	});
 });
 
 test.describe('calendar duo', () => {
@@ -61,6 +69,16 @@ test.describe('calendar duo', () => {
 
 		const calendarModel2 = await dateModel2.openCalendar(popupModel);
 		await expect(calendarModel2.input).toHaveValue('12/6/2023');
+	});
+
+	test('should capture and report a11y violations', async ({ editor }) => {
+		const popupModel = EditorPopupModel.from(editor);
+		const nodes = EditorNodeContainerModel.from(editor);
+		const dateModel = EditorDateModel.from(nodes.date.first());
+		const calendarModel = await dateModel.openCalendar(popupModel);
+		await expect(calendarModel.input).toBeVisible();
+
+		await expect(editor.page).toBeAccessible();
 	});
 });
 

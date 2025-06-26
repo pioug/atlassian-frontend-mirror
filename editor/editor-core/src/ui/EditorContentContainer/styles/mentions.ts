@@ -109,6 +109,17 @@ export const mentionNodeStyles = css({
 	},
 });
 
+// The feature-gate for this is dependent on the use of refreshed typography - bear this in mind when cleaning up
+// This is currently enforced through statsig prerequisite gates, as per #help-afm recommendation.
+// So it will need to be considered if the typography gates are still in use when this is cleaned up.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const mentionsStylesMixin_platform_editor_centre_mention_padding = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.editor-mention-primitive': {
+		padding: '1px 0.3em 1px 0.23em',
+	},
+});
+
 // This is mentions styles for mentions selection styles based on the vanilla node view
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const mentionsSelectionStyles = css({

@@ -23,4 +23,11 @@ test.describe('Box shadow with short browsers', () => {
 		const toolbar = EditorMainToolbarModel.from(editor);
 		await expect(toolbar.wrapper).not.toHaveCSS('box-shadow', 'none');
 	});
+
+	test('should capture and report a11y violations', async ({ editor }) => {
+		const toolbar = EditorMainToolbarModel.from(editor);
+		await expect(toolbar.wrapper).toBeVisible();
+
+		await expect(editor.page).toBeAccessible({ violationCount: 1 });
+	});
 });

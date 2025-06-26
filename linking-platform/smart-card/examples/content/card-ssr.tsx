@@ -1,11 +1,15 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import {
+	ResolvedClient,
+	ResolvedClientEmbedUrl,
+	ResolvedClientUrl,
+} from '@atlaskit/link-test-helpers';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import { Card } from '../../src';
 import { CardSSR } from '../../src/ssr';
-import { ResolvedClient, ResolvedClientEmbedUrl, ResolvedClientUrl } from '../utils/custom-client';
 
 const gapStyles = xcss({ height: '3000px' });
 

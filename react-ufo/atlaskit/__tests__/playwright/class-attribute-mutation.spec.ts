@@ -110,6 +110,17 @@ test.describe('ReactUFO: class attribute mutation', () => {
 					});
 				}
 			});
+
+			test('should capture and report a11y violations', async ({
+				page,
+				waitForReactUFOPayload,
+				getSectionAttributeNthChange,
+			}) => {
+				const mainDiv = page.locator('[data-testid="main"]');
+				await expect(mainDiv).toBeVisible();
+
+				await expect(page).toBeAccessible();
+			});
 		});
 	}
 });

@@ -103,4 +103,22 @@ describe('<LinkSearchList />', () => {
 		expect(onChange).toHaveBeenCalledTimes(1);
 		expect(onChange).toHaveBeenCalledWith(items![1].objectId);
 	});
+	it('should capture and report a11y violations', async () => {
+		const defaultOptions = {
+			items: getDefaultItems(),
+			isLoading: false,
+			onChange: jest.fn(),
+			onSelect: jest.fn(),
+			onKeyDown: jest.fn(),
+			selectedIndex: -1,
+			activeIndex: -1,
+			ariaControls: '',
+			ariaLabelledBy: '',
+			role: '',
+			id: '',
+			adaptiveHeight: false,
+		} as const;
+		const { container } = render(<LinkSearchList {...defaultOptions} />);
+		await expect(container).toBeAccessible({ violationCount: 2 });
+	});
 });

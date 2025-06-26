@@ -1,9 +1,5 @@
 import React from 'react';
 
-import { Stack } from '@atlaskit/primitives/compiled';
-
-import CardViewSection from '../card-view/card-view-section';
-import { VRTestCase } from '../utils/common';
 import {
 	ForbiddenClient,
 	ForbiddenWithSitePendingRequestClient,
@@ -11,7 +7,11 @@ import {
 	NotFoundWithSiteAccessExistsClient,
 	ResolvedClient,
 	UnAuthClient,
-} from '../utils/custom-client';
+} from '@atlaskit/link-test-helpers';
+import { Stack } from '@atlaskit/primitives/compiled';
+
+import CardViewSection from '../card-view/card-view-section';
+import { VRTestCase } from '../utils/common';
 
 export default () => {
 	const props: {

@@ -2,7 +2,6 @@ import React from 'react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client } from '@atlaskit/link-provider';
-
 import {
 	BitbucketBranch,
 	BitbucketCommit,
@@ -10,7 +9,8 @@ import {
 	BitbucketProject,
 	BitbucketPullRequest1,
 	BitbucketRepository1,
-} from '../../examples-helpers/_jsonLDExamples';
+} from '@atlaskit/link-test-helpers';
+
 import VRCardView from '../utils/vr-card-view';
 
 const examples = {

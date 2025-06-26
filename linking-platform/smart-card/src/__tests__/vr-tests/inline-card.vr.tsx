@@ -229,7 +229,7 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
@@ -237,7 +237,7 @@ snapshot(InlineCardFontSizeDefault, {
 snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
@@ -245,7 +245,7 @@ snapshot(InlineCardFontSize32, {
 snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
@@ -253,20 +253,20 @@ snapshot(InlineCardFontSize24, {
 snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-inline-lozenge': [true, false],
 	},
 });
 
 snapshot(InlineCardWordWrapResolving, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapResolved, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
@@ -282,7 +282,7 @@ snapshot(InlineCardWordWrapResolved, {
 });
 snapshot(InlineCardWordWrapForbidden, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
@@ -298,25 +298,25 @@ snapshot(InlineCardWordWrapForbidden, {
 });
 snapshot(InlineCardWordWrapForbiddenWithSiteRequestAccess, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbiddenWithSitePendingRequest, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapNotFoundWithSiteAccessExists, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapUnAuth, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
@@ -346,24 +346,6 @@ snapshot(VRInlineCardAllExamplesInText, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'platform-linking-visual-refresh-v1': true,
-	},
-});
-
-// TODO: Remove on platform-linking-visual-refresh-v1
-snapshot(VRInlineCardAllExamplesInText, {
-	description: `inline card with all card examples in text OLD`,
-	featureFlags: {
-		'platform-component-visual-refresh': false,
-		'platform-linking-visual-refresh-v1': false,
-	},
-});
-
-// TODO: Remove on platform-linking-visual-refresh-v1
-snapshot(VRInlineCardAllExamplesInText, {
-	description: `inline card with all card examples in text COMPILED ONLY`,
-	featureFlags: {
-		'platform-component-visual-refresh': false,
-		'platform-linking-visual-refresh-v1': false,
 	},
 });
 

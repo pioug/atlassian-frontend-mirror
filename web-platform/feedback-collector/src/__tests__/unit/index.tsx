@@ -805,6 +805,29 @@ We have some formatting here
 		});
 	});
 	describe('Feedback Select Type', () => {
+		it('should capture and report a11y violations', async () => {
+			const customFeedbackOptions: OptionType[] = [
+				{
+					label: 'Leave a comment',
+					value: 'comment',
+				},
+				{
+					label: 'Give a suggestion',
+					value: 'suggestion',
+				},
+			];
+			const { container } = render(
+				<FeedbackForm
+					locale={'en'}
+					onClose={() => {}}
+					onSubmit={async () => {}}
+					customFeedbackOptions={customFeedbackOptions}
+				/>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should render custom Feedback Select Options', () => {
 			const customFeedbackOptions: OptionType[] = [
 				{

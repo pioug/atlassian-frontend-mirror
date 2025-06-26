@@ -5,6 +5,17 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 describe('PDF Password Input Form', () => {
+	it('should capture and report a11y violations', async () => {
+		const handleSubmit = jest.fn();
+		const { container } = render(
+			<IntlProvider locale="en">
+				<PDFPasswordInput onSubmit={handleSubmit} />
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render form and submit the password successfully', async () => {
 		const user = userEvent.setup();
 		const password = '123';

@@ -48,6 +48,7 @@ import {
 	extractSubscriberCount,
 	extractSubTasksProgress,
 	extractTargetBranch,
+	extractTeamMemberCount,
 	extractViewCount,
 	extractVoteCount,
 } from './utils';
@@ -127,6 +128,9 @@ const extractFlexibleUiContext = ({
 		...(fg('platform-linking-flexible-card-context')
 			? undefined
 			: { title: extractSmartLinkTitle(response) || url }),
+		...(fg('platform-linking-team-member-count-component') && {
+			teamMemberCount: extractTeamMemberCount(data),
+		}),
 		url,
 		ari: extractSmartLinkAri(response),
 		...(fg('platform-linking-visual-refresh-v2') && {

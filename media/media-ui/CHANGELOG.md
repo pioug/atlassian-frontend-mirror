@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 28.5.0
+
+### Minor Changes
+
+- [#177511](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177511)
+  [`e25a6c41d6bdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e25a6c41d6bdb) -
+  Updated UI for Video Captions dropdown controls
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.4.1
 
 ### Patch Changes

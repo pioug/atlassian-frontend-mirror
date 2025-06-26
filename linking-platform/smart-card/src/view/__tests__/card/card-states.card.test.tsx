@@ -68,6 +68,21 @@ describe('smart-card: card states, block', () => {
 	});
 
 	describe('link clicked', () => {
+		it('should capture and report a11y violations', async () => {
+			window.open = jest.fn();
+			const { container } = render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card appearance="block" url={mockUrl} id="some-id" />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('fires `link clicked` analytics event when clicked', async () => {
 			window.open = jest.fn();
 			render(

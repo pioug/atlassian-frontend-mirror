@@ -23,6 +23,17 @@ describe('Element: BaseDateTime', () => {
 		Date.now = oldDateNowFn;
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const oneDayBack = new Date(mockedNow - 1000 * 60 * 60 * 24 * 1);
+		const { container } = render(
+			<IntlProvider locale="en">
+				<BaseDateTime date={oneDayBack} type="created" />
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	ffTest.off(
 		'bandicoots-smart-card-teamwork-context',
 		'FG bandicoots-smart-card-teamwork-context off',

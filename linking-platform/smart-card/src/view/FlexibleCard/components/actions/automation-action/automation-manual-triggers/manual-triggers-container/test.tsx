@@ -300,4 +300,16 @@ describe('ManualRulesContainer', () => {
 
 		expect(mockInvokeManuallyTriggeredRule).toHaveBeenCalledTimes(1);
 	});
+	it('should capture and report a11y violations', async () => {
+		const mockHook = mockUseManualRules(true, null, mockTransformedRules);
+		const { container } = renderWithDi(
+			<ManualRulesContainer {...{ env, site, query, onRuleInvocationLifecycleStarted: jest.fn() }}>
+				{({ invokeRuleOrShowDialog }) => (
+					<InvokeButton onClick={() => invokeRuleOrShowDialog(0, ['TEST-1'])} />
+				)}
+			</ManualRulesContainer>,
+			[injectable(useManualRules, mockHook)] ?? [],
+		);
+		await expect(container).toBeAccessible();
+	});
 });

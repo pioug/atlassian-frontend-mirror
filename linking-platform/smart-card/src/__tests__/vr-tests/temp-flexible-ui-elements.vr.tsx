@@ -206,7 +206,7 @@ snapshot(FlexUiDateTimeTextView, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -221,7 +221,7 @@ snapshot(FlexUiAtlaskitBadgeView, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -246,25 +246,6 @@ snapshot(EmbedCardResolvingView, {
 	},
 });
 
-snapshot(EmbedCardResolvedViewNoPreview, {
-	description:
-		'EmbedCardResolvedViewNoPreview OLD - delete when cleaning platform-linking-visual-refresh-v1',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': false,
-	},
-});
-snapshot(EmbedCardResolvingView, {
-	description:
-		'EmbedCardResolvingView OLD - delete when cleaning platform-linking-visual-refresh-v1',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': false,
-	},
-});
-
 // ################################################################
 // ||                                                            ||
 // ||                   Standalone Hover Card                    ||
@@ -278,7 +259,7 @@ snapshot(HoverCard, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -289,7 +270,7 @@ snapshot(HoverCardWithPreview, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -300,7 +281,7 @@ snapshot(HoverCardForSlackMessage, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -311,7 +292,7 @@ snapshot(HoverCardConfluence, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -322,7 +303,7 @@ snapshot(HoverCardAssignedJiraIssue, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -334,7 +315,7 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -346,7 +327,7 @@ snapshot(HoverCardJiraProject, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -362,7 +343,7 @@ snapshot(HoverCardForbiddenJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -379,7 +360,7 @@ snapshot(HoverCardForbiddenJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -396,7 +377,7 @@ snapshot(HoverCardForbiddenJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -412,7 +393,7 @@ snapshot(HoverCardForbiddenJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -429,7 +410,7 @@ snapshot(HoverCardForbiddenJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -446,7 +427,7 @@ snapshot(HoverCardForbiddenJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -458,7 +439,7 @@ snapshot(HoverCardForbiddenJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -487,7 +468,7 @@ snapshot(HoverCard, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -527,7 +508,7 @@ snapshot(HoverCardActions, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -544,7 +525,7 @@ snapshot(HoverCardActions, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -565,24 +546,6 @@ snapshot(HoverCardUnauthorised, {
 	},
 });
 
-snapshot(HoverCardUnauthorised, {
-	description:
-		'Hover card unauthorised OLD - delete when cleaning platform-linking-visual-refresh-v1',
-	drawsOutsideBounds: true,
-	states: [
-		{
-			state: 'hovered',
-			selector: { byTestId: 'hover-card-trigger-wrapper' },
-		},
-	],
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': false,
-		'platform-smart-card-remove-legacy-button': [true, false],
-	},
-});
-
 snapshot(HoverCardSSRLoading, {
 	drawsOutsideBounds: true,
 	states: [
@@ -594,7 +557,7 @@ snapshot(HoverCardSSRLoading, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -609,7 +572,7 @@ snapshot(HoverCardSSRError, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -625,7 +588,7 @@ snapshot(HoverCardPositioning, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -641,7 +604,7 @@ snapshot(HoverCardPositioning, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -657,7 +620,7 @@ snapshot(HoverCardPositioning, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -673,7 +636,7 @@ snapshot(FlexibleUiOptions, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiComposition, {
@@ -689,7 +652,7 @@ snapshot(FlexibleUiComposition, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -706,7 +669,7 @@ snapshot(FlexibleUiBlock, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -721,7 +684,7 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 // Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
@@ -762,7 +725,7 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -786,7 +749,7 @@ snapshot(FlexibleUiBlockTitle, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockMetadata, {
@@ -801,7 +764,7 @@ snapshot(FlexibleUiBlockMetadata, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockSnippet, {
@@ -809,7 +772,7 @@ snapshot(FlexibleUiBlockSnippet, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockFooter, {
@@ -817,7 +780,7 @@ snapshot(FlexibleUiBlockFooter, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewXLarge, {
@@ -825,7 +788,7 @@ snapshot(FlexibleUiBlockPreviewXLarge, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewLarge, {
@@ -833,7 +796,7 @@ snapshot(FlexibleUiBlockPreviewLarge, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewMedium, {
@@ -841,7 +804,7 @@ snapshot(FlexibleUiBlockPreviewMedium, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewSmall, {
@@ -849,7 +812,7 @@ snapshot(FlexibleUiBlockPreviewSmall, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewMixedPadding, {
@@ -857,7 +820,7 @@ snapshot(FlexibleUiBlockPreviewMixedPadding, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
@@ -865,7 +828,7 @@ snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -875,7 +838,7 @@ snapshot(FlexibleUiElementLink, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementLozenge, {
@@ -885,7 +848,7 @@ snapshot(FlexibleUiElementLozenge, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 	variants: [
@@ -903,7 +866,7 @@ snapshot(FlexibleUiElementLozenge, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 	variants: [
@@ -927,7 +890,7 @@ snapshot(FlexibleUiElementBadge, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementAppliedToComponentsCount, {
@@ -935,7 +898,7 @@ snapshot(FlexibleUiElementAppliedToComponentsCount, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementAvatarGroup, {
@@ -943,7 +906,7 @@ snapshot(FlexibleUiElementAvatarGroup, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiElementMedia, {
@@ -951,7 +914,7 @@ snapshot(FlexibleUiElementMedia, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -971,7 +934,7 @@ snapshot(FlexibleUiHoverCard, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 });
@@ -990,7 +953,7 @@ snapshot(FlexibleUiHoverCard, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -1008,7 +971,7 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -1027,7 +990,7 @@ snapshot(FlexibleUiAccessibility, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiAccessibility, {
@@ -1045,7 +1008,7 @@ snapshot(FlexibleUiAccessibility, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -1062,7 +1025,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -1079,7 +1042,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 // Remove this test on cleanup of platform-linking-flexible-card-unresolved-action
@@ -1115,7 +1078,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -1125,7 +1088,7 @@ snapshot(FlexibleUiBlockCardErroredStates, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -1167,7 +1130,7 @@ snapshot(BlockCardErrorView, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardForbiddenView, {
@@ -1188,11 +1151,11 @@ snapshot(BlockCardForbiddenView, {
 	},
 });
 snapshot(BlockCardForbiddenView, {
-	description: 'block card forbidden view',
+	description: 'block card forbidden view  - linking refresh true',
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardForbiddenView);
@@ -1218,14 +1181,14 @@ snapshot(BlockCardNotFoundView, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardNotFoundSiteAccessExists, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardUnauthorisedView, {
@@ -1235,27 +1198,18 @@ snapshot(BlockCardUnauthorisedView, {
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
-snapshot(BlockCardUnauthorisedView, {
-	description:
-		'BlockCardUnauthorisedView Old - remove when cleaning platform-linking-visual-refresh-v1',
-	featureFlags: {
-		'platform-linking-flexible-card-context': true,
-		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': false,
-	},
-});
 snapshot(BlockCardUnauthorisedViewWithNoAuth, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardJira, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -1263,35 +1217,35 @@ snapshot(BlockCardConfluence, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardTrello, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardAtlas, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardBitbucket, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardForbiddenViews, {
 	featureFlags: {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(BlockCardLazyIcon1, {
@@ -1432,7 +1386,7 @@ snapshot(FlexUiBlockAiSummaryReady, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 });
@@ -1451,7 +1405,7 @@ snapshot(FlexUiBlockAiSummaryReady, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -1472,7 +1426,7 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 });
@@ -1491,7 +1445,7 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -1512,7 +1466,7 @@ snapshot(FlexUiBlockAiSummaryDone, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 });
@@ -1532,7 +1486,7 @@ snapshot(FlexUiBlockAiSummaryDone, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -1553,7 +1507,7 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 });
@@ -1572,7 +1526,7 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });
@@ -1593,7 +1547,7 @@ snapshot(FlexUiBlockAiSummaryError, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': false,
 	},
 });
@@ -1612,7 +1566,7 @@ snapshot(FlexUiBlockAiSummaryError, {
 		'platform-linking-flexible-card-context': true,
 		'platform-linking-flexible-card-unresolved-action': true,
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': true,
 	},
 });

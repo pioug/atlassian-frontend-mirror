@@ -5,6 +5,7 @@ import { usePrefetch } from '../usePrefetch';
 
 let mockUseSmartLinkContext = jest.fn();
 jest.mock('@atlaskit/link-provider', () => ({
+	...jest.requireActual('@atlaskit/link-provider'),
 	useSmartLinkContext: () => mockUseSmartLinkContext(),
 }));
 

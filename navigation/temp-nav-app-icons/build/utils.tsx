@@ -52,12 +52,21 @@ export const transformSVG = (
 	updatedSvg = updatedSvg.replace(/width="\d+"/, '');
 	updatedSvg = updatedSvg.replace(/height="\d+"/, '');
 
-	if (isThemable) {
+	if (name.includes('-data-center')) {
+		// Data center icons
+		updatedSvg = updatedSvg.replace(
+			/stroke="#DDDEE1"/g,
+			`stroke="var(--border-color, #DDDEE1)" fill="none" `,
+		);
+		updatedSvg = updatedSvg.replace(/fill="white"/g, `fill="var(--tile-color, white)"`);
+		updatedSvg = updatedSvg.replace(/fill="#1868DB"/g, `fill="var(--icon-color, #1868DB)"`);
+	} else if (isThemable) {
+		// Themed icons
 		updatedSvg = updatedSvg
 			.replace(/fill="#292A2E"/, `fill="var(--themed-icon-color, currentColor)"`)
 			.replace(/fill="#292A2E"/g, `fill="var(--themed-text-color, currentColor)"`);
 	} else {
-		// Allow icons to be customised for App Switcher until Team '25
+		// Standard app icons
 		updatedSvg = Object.entries(collectionColors)
 			.reduce((acc, [_, hex]) => {
 				const cssVar = `var(--tile-color,${hex})`;

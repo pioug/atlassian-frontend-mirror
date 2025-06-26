@@ -29,7 +29,6 @@ import { NORMAL_TEXT } from '../../block-types';
 import type { BlockType } from '../../types';
 
 import { BlockTypeButton } from './blocktype-button';
-import { Text } from './icons';
 import {
 	blockTypeMenuItemStyle,
 	floatingToolbarWrapperStyle,
@@ -144,10 +143,8 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			.filter((blockType) => blockType.name === currentBlockType?.name)
 			.map((blockType) => blockType.title);
 
-		const defaultIcon = fg('platform_editor_controls_patch_4') ? <TextIcon label="" /> : <Text />;
-		const currentIcon = fg('platform_editor_controls_patch_4')
-			? currentBlockType?.icon
-			: currentBlockType?.LEGACY_icon;
+		const defaultIcon = <TextIcon label="" />;
+		const currentIcon = currentBlockType?.icon;
 
 		if (!this.props.isDisabled && !blockTypesDisabled) {
 			const items = this.createItems();
@@ -286,8 +283,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 						: '';
 
 			const keyMap = findKeymapByDescription(description);
-			const icon = fg('platform_editor_controls_patch_4') ? blockType?.icon : blockType.LEGACY_icon;
-
+			const icon = blockType?.icon;
 			const item: MenuItem = {
 				content: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

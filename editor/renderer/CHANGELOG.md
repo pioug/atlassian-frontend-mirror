@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 119.0.6
+
+### Patch Changes
+
+- [#176864](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176864)
+  [`96f166a864047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96f166a864047) -
+  EDM-11898 removing all false snapshots for platform-linking-visual-refresh-v1 and renaming files
+- Updated dependencies
+
+## 119.0.5
+
+### Patch Changes
+
+- [#175776](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175776)
+  [`43362c25c7806`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43362c25c7806) -
+  Tidy up feature gate platform_editor_table_column_group_width_check_3
+- [#175844](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175844)
+  [`4b7a1f7498119`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b7a1f7498119) -
+  Tidy up feature gate cc_complexit_fe_reduce_fragment_serialization
+- Updated dependencies
+
 ## 119.0.4
 
 ### Patch Changes

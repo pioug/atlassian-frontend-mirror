@@ -35,6 +35,19 @@ describe('UFOLoadHold', () => {
 	});
 
 	describe('basic functionality', () => {
+		it('should capture and report a11y violations', async () => {
+			const mockContext = createMockContext();
+			const { container } = render(
+				<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+					<UFOInteractionContext.Provider value={mockContext}>
+						<UFOLoadHold name="test-hold" />
+					</UFOInteractionContext.Provider>
+				</UFOInteractionIDContext.Provider>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should call hold when component mounts with context', () => {
 			const mockContext = createMockContext();
 

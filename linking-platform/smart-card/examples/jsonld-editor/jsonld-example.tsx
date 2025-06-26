@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import * as examples from '@atlaskit/link-test-helpers';
 import { Flex } from '@atlaskit/primitives/compiled';
 
-import * as examples from '../../examples-helpers/_jsonLDExamples';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 
 const JsonldExample = ({

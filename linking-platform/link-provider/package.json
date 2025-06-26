@@ -44,6 +44,7 @@
 		"@babel/runtime": "^7.0.0",
 		"async-retry": "^1.2.3",
 		"dataloader": "^2.1.0",
+		"lodash": "^4.17.21",
 		"lru_map": "^0.4.1",
 		"p-throttle": "^4.1.1",
 		"redux": "^3.7.2"
@@ -65,6 +66,9 @@
 	},
 	"platform-feature-flags": {
 		"smart_links_noun_support": {
+			"type": "boolean"
+		},
+		"gryf-5548_smart_card_provider_merge_props": {
 			"type": "boolean"
 		}
 	},

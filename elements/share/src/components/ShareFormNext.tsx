@@ -9,7 +9,6 @@ import Form, { RequiredAsterisk } from '@atlaskit/form';
 import EmailIcon from '@atlaskit/icon/core/migration/email';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { MenuGroup } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { N300, R400 } from '@atlaskit/theme/colors';
@@ -360,8 +359,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 								</Box>
 							</Tab>
 						))}
-						{fg('smart_links_for_plans_platform') &&
-							additionalTabs?.map((tab) => <Tab key={`share-tab-${tab.label}`}>{tab.label}</Tab>)}
+						{additionalTabs?.map((tab) => <Tab key={`share-tab-${tab.label}`}>{tab.label}</Tab>)}
 					</TabList>
 					<TabPanel key={`share-tabPanel-default`}>
 						<Box xcss={cx(styles.formWrapperStyles)}>
@@ -387,18 +385,17 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							</AnalyticsContext>
 						</TabPanel>
 					))}
-					{fg('smart_links_for_plans_platform') &&
-						additionalTabs?.map((tab) => (
-							<TabPanel key={`share-tabPanel-${tab.label}`}>
-								<Box xcss={cx(styles.formWrapperStyles)}>
-									<IntegrationForm
-										Content={tab.Content}
-										onIntegrationClose={() => handleCloseDialog?.()}
-										changeTab={this.changeTab}
-									/>
-								</Box>
-							</TabPanel>
-						))}
+					{additionalTabs?.map((tab) => (
+						<TabPanel key={`share-tabPanel-${tab.label}`}>
+							<Box xcss={cx(styles.formWrapperStyles)}>
+								<IntegrationForm
+									Content={tab.Content}
+									onIntegrationClose={() => handleCloseDialog?.()}
+									changeTab={this.changeTab}
+								/>
+							</Box>
+						</TabPanel>
+					))}
 				</Tabs>
 			);
 		}

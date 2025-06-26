@@ -12,6 +12,31 @@ import { ReactRenderer } from '../../../../index';
 import RendererActions from '../../../../actions/index';
 
 describe('Registering renderer actions', () => {
+	it('should capture and report a11y violations', async () => {
+		const actions = new RendererActions();
+		const extensionHandlers: ExtensionHandlers = {
+			'fake.confluence': (ext) => {
+				return (
+					<RendererContext.Provider value={actions}>
+						<ReactRenderer
+							adfStage="stage0"
+							document={{ type: 'doc', version: 1, content: ext.content as any }}
+							allowAnnotations={false}
+						/>
+					</RendererContext.Provider>
+				);
+			},
+		};
+
+		const { container } = render(
+			<RendererContext.Provider value={actions}>
+				<Renderer document={exampleDocumentWithExtension} extensionHandlers={extensionHandlers} />
+			</RendererContext.Provider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('cannot register two Renderer instances under the same context', () => {
 		expect(() => {
 			act(() => {

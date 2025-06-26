@@ -25,6 +25,7 @@ import type {
 	PrimaryToolbarPluginState,
 } from '@atlaskit/editor-plugins/primary-toolbar';
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
+import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -245,6 +246,12 @@ export const FullPageEditor = (props: ComponentProps) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="akEditor"
 				ref={wrapperElementRef}
+				style={
+					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						'--ak-editor-fullpage-toolbar-height': FULL_PAGE_EDITOR_TOOLBAR_HEIGHT(),
+					} as React.CSSProperties
+				}
 			>
 				{!isEditorToolbarHidden && (
 					<FullPageToolbar

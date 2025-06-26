@@ -74,6 +74,15 @@ test.describe('ReactUFO: fy25.02 - style mutation', () => {
 
 				expect(vcDetails?.['90'].t).toEqual(vc90Result);
 			});
+
+			test('should capture and report a11y violations', async ({ page }) => {
+				const mainDiv = page.locator('[data-testid="main"]');
+				const contentDiv = page.locator('[data-testid="content-div"]');
+				await expect(mainDiv).toBeVisible();
+				await expect(contentDiv).toBeVisible();
+
+				await expect(page).toBeAccessible({ violationCount: 1 });
+			});
 		});
 	}
 });

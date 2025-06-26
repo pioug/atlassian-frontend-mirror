@@ -145,3 +145,25 @@ describe('not initialised client', () => {
 		expect(expValEquals('test-boolean', 'isEnabled', true)).toBe(false);
 	});
 });
+
+describe('experiment is not defined', () => {
+	test('expValEquals returns null as default if experiment is not defined', () => {
+		mockGetExperimentValue.mockReturnValueOnce(null);
+		// @ts-expect-error
+		expect(expValEquals('test-boolean', 'isEnabled', null)).toBe(true);
+	});
+	test('expValEquals returns default values as specified by a parameter', () => {
+		// @ts-expect-error
+		expect(expValEquals('test-boolean', 'isEnabled', null, true)).toBe(false);
+	});
+
+	test('expValEqualsNoExposure returns null as default if experiment is not defined', () => {
+		mockGetExperimentValue.mockReturnValueOnce(null);
+		// @ts-expect-error
+		expect(expValEqualsNoExposure('test-boolean', 'isEnabled', null)).toBe(true);
+	});
+	test('expValEqualsNoExposure returns default values as specified by a parameter', () => {
+		// @ts-expect-error
+		expect(expValEqualsNoExposure('test-boolean', 'isEnabled', null, true)).toBe(false);
+	});
+});

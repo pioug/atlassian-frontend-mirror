@@ -10,6 +10,20 @@ const AvatarPickerDialogSpy = jest
 	});
 
 describe('AvatarPickerDialogErrorBoundary', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<AvatarPickerDialogErrorBoundary
+				avatars={[{ dataURI: 'http://an.avatar.com/453' }]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should catch unexpected errors and display the default spinner', () => {
 		render(
 			<AvatarPickerDialogErrorBoundary

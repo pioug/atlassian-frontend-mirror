@@ -42,6 +42,25 @@ describe('AgentConversationStarters', () => {
 	});
 
 	describe('Custom Agent', () => {
+		it('should capture and report a11y violations', async () => {
+			const type = 'user-defined';
+			const { container } = render(
+				<IntlProvider locale="en">
+					<AgentConversationStarters
+						{...mockProps}
+						isAgentDefault={false}
+						userDefinedConversationStarters={[
+							{ message: 'Starter 1', type },
+							{ message: 'Starter 2', type },
+							{ message: 'Starter 3', type },
+						]}
+					/>
+				</IntlProvider>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('shows 0 default and 3 agent suggestions when 3 suggestions are provided', () => {
 			const type = 'user-defined';
 			render(

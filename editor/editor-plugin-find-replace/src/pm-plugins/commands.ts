@@ -67,12 +67,12 @@ export const find = (
 				const matches =
 					keyword !== undefined
 						? findMatches({
-								content: state.doc,
-								searchText: keyword,
-								shouldMatchCase,
-								getIntl,
-								api,
-							})
+							content: state.doc,
+							searchText: keyword,
+							shouldMatchCase,
+							getIntl,
+							api,
+						})
 						: [];
 
 				const index = findSearchIndex(selection.from, matches);
@@ -99,12 +99,12 @@ export const find = (
 				const matches =
 					keyword !== undefined
 						? findMatches({
-								content: state.doc,
-								searchText: keyword,
-								shouldMatchCase,
-								getIntl,
-								api,
-							})
+							content: state.doc,
+							searchText: keyword,
+							shouldMatchCase,
+							getIntl,
+							api,
+						})
 						: [];
 
 				if (matches.length > 0) {
@@ -316,26 +316,12 @@ const updateSelectedHighlight = (state: EditorState, nextSelectedIndex: number):
 
 	if (currentSelectedMatch) {
 		decorationSet = decorationSet.add(state.doc, [
-			createDecoration(
-				currentSelectedMatch.start,
-				currentSelectedMatch.end,
-				false,
-				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					? currentSelectedMatch.nodeType
-					: undefined,
-			),
+			createDecoration(currentSelectedMatch),
 		]);
 	}
 	if (nextSelectedMatch) {
 		decorationSet = decorationSet.add(state.doc, [
-			createDecoration(
-				nextSelectedMatch.start,
-				nextSelectedMatch.end,
-				true,
-				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
-					? nextSelectedMatch.nodeType
-					: undefined,
-			),
+			createDecoration(nextSelectedMatch, true),
 		]);
 	}
 

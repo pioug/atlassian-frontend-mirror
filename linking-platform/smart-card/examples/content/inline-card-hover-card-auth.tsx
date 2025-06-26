@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-
 import {
 	ForbiddenWithObjectRequestAccessClient,
 	ResolvedClientUrl,
-} from '../../examples/utils/custom-client';
+} from '@atlaskit/link-test-helpers';
+
 import { Card } from '../../src';
 
 export default () => (

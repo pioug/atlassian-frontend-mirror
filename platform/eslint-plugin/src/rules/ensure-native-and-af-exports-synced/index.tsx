@@ -17,6 +17,9 @@ const exportsValidationExceptions: ExportsValidationExceptions = {
 	'@atlaskit/storybook-addon-design-system': {
 		ignoredAfExportKeys: ['.'],
 	},
+	'@atlassian/react-async': {
+		ignoredAfExportKeys: ['./mock'],
+	},
 };
 
 const rule: Rule.RuleModule = {

@@ -7,7 +7,7 @@ import EmbedModalWithFlexibleUiIcon from '../../../examples/vr-embed-modal/vr-em
 snapshot(EmbedModal, {
 	description: 'renders embed modal',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -15,7 +15,7 @@ snapshot(EmbedModal, {
 snapshot(EmbedModalWithFlexibleUiIcon, {
 	description: 'renders embed modal with flexible ui icon',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -23,7 +23,7 @@ snapshot(EmbedModalWithFlexibleUiIcon, {
 snapshot(EmbedModalConfluence, {
 	description: 'renders embed modal with Confluence icon',
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });

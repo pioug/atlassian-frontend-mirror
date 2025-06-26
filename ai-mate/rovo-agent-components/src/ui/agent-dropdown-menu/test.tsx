@@ -333,4 +333,14 @@ describe('AgentDropdownMenu', () => {
 
 		expect(screen.getByRole('menuitem', { name: 'Copy link' })).toBeVisible();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<DiProvider use={deps}>
+				<IntlProvider locale="en">
+					<AgentDropdownMenu agentId="1" isAgentCreatedByUser={true} isForgeAgent={false} />
+				</IntlProvider>
+			</DiProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

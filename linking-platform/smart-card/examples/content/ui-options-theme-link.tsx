@@ -2,10 +2,9 @@ import React from 'react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { response1 } from '@atlaskit/link-test-helpers';
 
 import { Card, SmartLinkTheme, TitleBlock } from '../../src';
-
-import { response1 } from './example-responses';
 
 class CustomClient extends Client {
 	fetchData(url: string) {

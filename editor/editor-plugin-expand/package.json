@@ -43,6 +43,7 @@
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
+		"@atlaskit/editor-plugin-find-replace": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
 		"@atlaskit/editor-plugin-selection-marker": "workspace:^",
 		"@atlaskit/editor-prosemirror": "7.0.0",

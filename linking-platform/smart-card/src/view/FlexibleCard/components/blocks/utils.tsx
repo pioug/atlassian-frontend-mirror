@@ -41,6 +41,7 @@ export const ElementDisplaySchema: Record<ElementName, ElementDisplaySchemaType[
 	[ElementName.SentOn]: ['inline'],
 	[ElementName.State]: ['inline'],
 	[ElementName.SubscriberCount]: ['inline'],
+	[ElementName.TeamMemberCount]: ['inline'],
 	[ElementName.SubTasksProgress]: ['inline'],
 	[ElementName.StoryPoints]: ['inline'],
 	[ElementName.TargetBranch]: ['inline'],

@@ -43,4 +43,8 @@ describe('Text field input prompt', () => {
 
 		expect(screen.getByLabelText('error')).toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithDi(<SelectInputPrompt userInputPrompt={userInputPrompts} />);
+		await expect(container).toBeAccessible();
+	});
 });

@@ -58,6 +58,19 @@ describe('Container', () => {
 		});
 
 		describe('clickableContainer', () => {
+			it('should capture and report a11y violations', async () => {
+				const target = '_blank';
+				const text = 'title-block-text';
+				const { container } = render(
+					<Container clickableContainer={true} testId={testId}>
+						<TitleBlock anchorTarget={target} text={text} />
+					</Container>,
+					{ wrapper: getFlexibleCardTestWrapper(context) },
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('does not apply link to container by default', () => {
 				renderContainer();
 

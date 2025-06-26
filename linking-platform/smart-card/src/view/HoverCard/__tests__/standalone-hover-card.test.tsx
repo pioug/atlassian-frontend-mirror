@@ -108,6 +108,53 @@ describe('standalone hover card', () => {
 		});
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const testId = 'h1-hover-card-trigger';
+		const mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+		const mockClient = new (fakeFactory(mockFetch))();
+		const ComponentWithHoverCard = () => {
+			return (
+				<StandaloneHoverCard url={mockUrl} id={'1234'}>
+					<Heading testId={testId} size="xlarge">
+						Hover over me!
+					</Heading>
+				</StandaloneHoverCard>
+			);
+		};
+		const FirstRenderComponent = () => (
+			<div data-testid="first">
+				<ComponentWithHoverCard />
+			</div>
+		);
+		const SecondRenderComponent = () => (
+			<div data-testid="second">
+				<ComponentWithHoverCard />
+			</div>
+		);
+		const SetUp = () => {
+			const [hasHovered, setHasHovered] = useState(false);
+
+			const handleOnMouseOver = () => {
+				setHasHovered(true);
+			};
+
+			return (
+				<div>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<div onMouseOver={handleOnMouseOver}>
+								{!hasHovered ? <FirstRenderComponent /> : <SecondRenderComponent />}
+							</div>
+						</Provider>
+					</IntlProvider>
+				</div>
+			);
+		};
+		const { container } = render(<SetUp />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should apply accessibility props to the hover card', async () => {
 		await standaloneSetUp(undefined, {
 			role: 'dialog',

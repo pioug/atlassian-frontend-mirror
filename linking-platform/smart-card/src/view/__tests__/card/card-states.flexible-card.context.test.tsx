@@ -44,6 +44,20 @@ describe('smart-card: card states, flexible block withUrl', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<IntlProvider locale="en">
+					<Provider client={mockClient}>
+						<Card appearance="block" url={mockUrl} />
+					</Provider>
+				</IntlProvider>
+			</FabricAnalyticsListeners>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	ffTest.on('platform-linking-flexible-card-context', 'with fg', () => {
 		describe('> state: resolved', () => {
 			it('flexible block card: should render with metadata when resolved', async () => {

@@ -290,10 +290,7 @@ export class EditorCardProvider implements CardProvider {
 	 */
 	protected getHardCodedAppearance(url: string): CardAppearance | undefined {
 		// Replace directly with isJiraPlan(url) on cleanup
-		let isJiraPlanEvaluated;
-		if (fg('smart_links_for_plans_platform')) {
-			isJiraPlanEvaluated = isJiraPlan(url);
-		}
+		const isJiraPlanEvaluated = isJiraPlan(url);
 
 		let isJiraFormEvaluated;
 		if (fg('smartlink_jira_software_form')) {

@@ -53,6 +53,36 @@ describe('FlexibleCard', () => {
 		});
 
 		describe('hover preview', () => {
+			it('should capture and report a11y violations', async () => {
+				const cardState: CardState = {
+					status: 'resolved',
+					details: {
+						meta: {
+							access: 'granted',
+							visibility: 'public',
+						},
+						data: {
+							'@type': 'Object',
+							'@context': {
+								'@vocab': 'https://www.w3.org/ns/activitystreams#',
+								atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+								schema: 'http://schema.org/',
+							},
+							url,
+							name: title,
+						},
+					},
+				};
+				const { container } = render(
+					<FlexibleCard cardState={cardState} url={url}>
+						<TitleBlock />
+					</FlexibleCard>,
+					{ wrapper: getCardTestWrapper() },
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('should not render a hover preview when parameter is not provided', async () => {
 				const cardState: CardState = {
 					status: 'resolved',

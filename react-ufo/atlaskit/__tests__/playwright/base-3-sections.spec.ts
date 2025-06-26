@@ -68,6 +68,17 @@ test.describe('TTVC: basic page (3 congruent sections)', () => {
 						expect(vc90Result).toBeDefined();
 						expect(vc90Result).toMatchTimestamp(sectionThreeVisibleAt);
 					});
+
+					test('should capture and report a11y violations', async ({
+						page,
+						waitForReactUFOPayload,
+						getSectionDOMAddedAt,
+					}) => {
+						const mainDiv = page.locator('[data-testid="main"]');
+						await expect(mainDiv).toBeVisible();
+
+						await expect(page).toBeAccessible();
+					});
 				});
 			}
 		});

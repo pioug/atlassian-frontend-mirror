@@ -2,8 +2,8 @@ import React from 'react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { JiraProject } from '@atlaskit/link-test-helpers';
 
-import { JiraProject } from '../../examples-helpers/_jsonLDExamples';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

@@ -25,4 +25,14 @@ test.describe('ReactUFO: Interactions VC', () => {
 		expect(reactUFOPayload!.attributes.properties['ufo:vc:rev']).toBeDefined();
 		expect(reactUFOPayload!.attributes.properties['ufo:vc:ratios']).toBeDefined();
 	});
+
+	test('should capture and report a11y violations', async ({
+		page,
+		waitForReactUFOInteractionPayload,
+	}) => {
+		const mainDiv = page.locator('[id="app-main"]');
+		await expect(mainDiv).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

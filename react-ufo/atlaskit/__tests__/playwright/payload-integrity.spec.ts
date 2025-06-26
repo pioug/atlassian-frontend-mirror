@@ -236,4 +236,11 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 			},
 		});
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		const mainDiv = page.locator('[data-testid="main"]');
+		await expect(mainDiv).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

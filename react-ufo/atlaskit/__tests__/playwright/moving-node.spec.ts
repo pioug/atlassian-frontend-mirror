@@ -55,6 +55,13 @@ test.describe('ReactUFO: Revisions - moving-node', () => {
 					});
 				}
 			});
+
+			test('should capture and report a11y violations', async ({ page }) => {
+				const mainDiv = page.locator('[data-testid="main"]');
+				await expect(mainDiv).toBeVisible();
+
+				await expect(page).toBeAccessible();
+			});
 		});
 	}
 });

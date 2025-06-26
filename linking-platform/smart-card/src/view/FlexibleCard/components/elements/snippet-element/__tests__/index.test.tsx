@@ -92,6 +92,21 @@ describe('Snippet', () => {
 
 		describe('overrideCss', () => {
 			const defaultColor = 'var(--ds-text,#172b4d)';
+
+			it('should capture and report a11y violations', async () => {
+				const overrideCss = css({
+					marginTop: token('space.1000', '80px'),
+					marginRight: token('space.1000', '80px'),
+					marginBottom: token('space.1000', '80px'),
+					marginLeft: token('space.1000', '80px'),
+				});
+				const { container } = render(<Snippet testId={testId} css={overrideCss} />, {
+					wrapper: getFlexibleCardTestWrapper({ snippet: snippetContent }),
+				});
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('renders Snippet element with default styles', () => {
 				setup({ snippet: snippetContent });
 				const snippet = screen.queryByTestId(testId);

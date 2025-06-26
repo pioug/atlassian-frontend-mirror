@@ -1,0 +1,45 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::72903adbf00573fdecee812a22a96a2f>>
+ * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
+ */
+import React from 'react';
+
+import { LogoWrapper } from '../../utils/logo-wrapper';
+import type { AppLogoProps } from '../../utils/types';
+
+// `height` is set to 100% to allow the SVG to scale with the parent element
+// The text color is set to "currentColor" to allow the SVG to inherit the color set by the parent based on the theme.
+const svg = `<svg height="100%" viewBox="0 0 207 41">
+    <path fill="var(--text-color, #1e1f21)" d="M201.52 25.73c0 1.69 1 2.84 3.03 2.84.77 0 1.5-.15 2.07-.27v3.18a8 8 0 0 1-2.22.31c-4.1 0-6.1-2.41-6.1-5.98V15.58h-3.1v-3.07h3.11V8.45h3.22v4.06h5.1v3.07h-5.1zM184.6 15.12c-3.49 0-5.25 2.26-5.59 5.6h10.7c-.19-3.56-1.8-5.6-5.1-5.59m7.37 15.79c-1.57.84-3.99 1.15-5.94 1.15-7.17 0-10.31-4.14-10.31-10 0-5.79 3.22-9.93 9.04-9.93 5.9 0 8.28 4.1 8.28 9.93v1.5l-13.99.01c.46 3.26 2.57 5.37 7.09 5.36 2.22 0 4.1-.42 5.83-1.04zm-29.79.76h-3.3l-.01-27.18h3.3l.01 16.98 8.24-8.97h4.29l-9.01 9.43 9.4 9.73h-4.49l-8.44-8.97zm-7.06-3.44v2.95c-1.15.61-2.91.88-4.68.88-6.82 0-10.01-4.14-10.01-10 0-5.79 3.18-9.93 10-9.93 1.73 0 3.07.23 4.56.92v3.07c-1.23-.57-2.53-.92-4.33-.92-4.98 0-7.01 3.15-7.01 6.87s2.07 6.86 7.1 6.86c1.96 0 3.18-.27 4.37-.69m-34.81-4.49V12.53h3.3l.01 11.58c0 3.45 1.38 4.98 4.53 4.98 3.07 0 5.17-2.03 5.17-5.9V12.53h3.3l.01 19.17h-3.3v-3.14c-1.23 2.26-3.49 3.53-6.06 3.53-4.41 0-6.94-3.03-6.94-8.32m-6.75-1.65c0-4.6-1.84-6.9-5.25-6.9-2.95 0-5.6 1.88-5.59 6.14v1.53c0 4.26 2.42 6.13 5.22 6.13 3.72 0 5.63-2.45 5.63-6.9m-4.75 9.97c-2.8 0-4.94-1.26-6.1-3.75v3.37h-3.3l-.01-27.18h3.3v11.46c1.23-2.53 3.53-3.83 6.48-3.83 5.1 0 7.67 4.33 7.67 9.96 0 5.41-2.68 9.97-8.05 9.97m-18.72-6.32c0 1.69 1 2.84 3.03 2.84.77 0 1.5-.15 2.07-.27v3.18a8 8 0 0 1-2.22.31c-4.1 0-6.1-2.41-6.1-5.98V15.62h-3.1v-3.07h3.1V8.49h3.22v4.06h5.1v3.07h-5.1zM76.66 7.49c0-1.46.96-2.3 2.3-2.3s2.3.84 2.3 2.3-.96 2.3-2.3 2.3-2.3-.84-2.3-2.3m.62 24.23-.01-19.17h3.3l.01 19.17zM65 20.41h-7.74v7.86h7.82c3.3 0 4.79-1.19 4.79-3.72 0-2.68-1.42-4.14-4.87-4.14M63.88 9.83h-6.63v7.51h6.63c3.26 0 4.6-1.5 4.6-3.91 0-2.45-1.46-3.6-4.6-3.6M53.81 31.72 53.8 6.54h10.54c5.14 0 7.63 2.53 7.63 6.59 0 3.03-1.38 4.91-4.21 5.6 3.72.61 5.56 2.64 5.56 6.21 0 4.03-2.72 6.79-8.35 6.79z"/>
+    <path fill="var(--tile-color, white)" d="M10 .907 30 .9a9.167 9.167 0 0 1 9.17 9.163l.008 20a9.167 9.167 0 0 1-9.163 9.17l-20 .008a9.167 9.167 0 0 1-9.17-9.163l-.008-20A9.167 9.167 0 0 1 10 .908"/>
+    <path fill="none" stroke="var(--border-color, #dddee1)" stroke-width="1.667" d="M10 .907 30 .9a9.167 9.167 0 0 1 9.17 9.163l.008 20a9.167 9.167 0 0 1-9.163 9.17l-20 .008a9.167 9.167 0 0 1-9.17-9.163l-.008-20A9.167 9.167 0 0 1 10 .908Z"/>
+    <path fill="var(--icon-color, #1868db)" d="m29.745 19.672-1.64 10.04c-.107.608-.535.965-1.143.965l-13.934.006c-.608 0-1.037-.357-1.144-.965l-2.901-17.9c-.107-.607.214-1 .786-1l20.437-.008c.572 0 .893.393.786 1l-.784 4.717c-.107.679-.5.965-1.143.965l-12.29.005c-.18 0-.287.107-.25.322l.966 5.93c.036.143.143.25.286.25l4.43-.001c.143 0 .25-.108.286-.25l.678-4.288c.07-.536.428-.75.928-.751l4.824-.002c.714 0 .929.357.822.965"/>
+</svg>
+`;
+
+/**
+ * __BitbucketDataCenterLogoCS__
+ *
+ * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
+ * the new language is incoporated into `@atlaskit/logo`.
+ *
+ * If you are using this component at scale, please reach out to Design System Team so we can assist.
+ */
+export function BitbucketDataCenterLogoCS({
+	size,
+	appearance = 'brand',
+	label,
+	testId,
+}: AppLogoProps) {
+	return (
+		<LogoWrapper
+			svg={svg}
+			label={label || 'Bitbucket Data Center'}
+			isDataCenter={true}
+			appearance={appearance}
+			size={size}
+			testId={testId}
+		/>
+	);
+}

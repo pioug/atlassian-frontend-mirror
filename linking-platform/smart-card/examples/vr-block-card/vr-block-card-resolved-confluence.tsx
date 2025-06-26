@@ -2,8 +2,8 @@ import React from 'react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client } from '@atlaskit/link-provider';
+import { ConfluenceBlogPost, ConfluencePage } from '@atlaskit/link-test-helpers';
 
-import { ConfluenceBlogPost, ConfluencePage } from '../../examples-helpers/_jsonLDExamples';
 import VRCardView from '../utils/vr-card-view';
 
 const examples = {

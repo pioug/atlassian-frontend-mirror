@@ -171,7 +171,8 @@ export type MessageKey =
 	| 'video_captions_delete_captions_confirmation_description'
 	| 'video_captions_delete_success_description'
 	| 'video_captions_delete_error_description'
-	| 'video_settings'
+	| 'manage_captions'
+	| 'add_captions'
 	| RequestAccessMessageKey;
 
 type Messages = {
@@ -886,10 +887,15 @@ export const messages: Messages = defineMessages({
 		description:
 			'In the context of a video player, it provides feedback when a caption failed to delete',
 	},
-	video_settings: {
-		id: 'fabric.media.video_settings',
-		defaultMessage: 'Video Settings',
-		description: 'In the context of a video player, it allows user to manage video settings',
+	manage_captions: {
+		id: 'fabric.media.manage_captions',
+		defaultMessage: 'Manage Captions',
+		description: 'In the context of a video player, it allows user to manage captions',
+	},
+	add_captions: {
+		id: 'fabric.media.add_captions',
+		defaultMessage: 'Add Captions',
+		description: 'In the context of a video player, it allows user to add captions',
 	},
 	skipBackward: {
 		id: 'fabric.media.skip_backward',

@@ -7,6 +7,8 @@ import { type EditorExperimentsConfig } from './experiments-config';
  *
  * !!! Note: This method always fires exposure. !!!
  *
+ * IMPORTANT: If experiment is not defined default value will be null, unless provided otherwise.
+ *
  * @example Boolean experiment
  * if (expValEquals('example-boolean', 'isEnabled', true)) {
  *   // Run code for on variant
@@ -24,6 +26,7 @@ import { type EditorExperimentsConfig } from './experiments-config';
  * @param experimentName - experiment key
  * @param experimentParam - the name of the parameter to fetch from the experiment config
  * @param experimentExpectedValue - expected value to compare with
+ * @param experimentDefaultValue - default value to use if the experiment is not defined.
  *
  * @returns boolean
  */
@@ -31,6 +34,13 @@ export function expValEquals<ExperimentName extends keyof EditorExperimentsConfi
 	experimentName: ExperimentName,
 	experimentParam: EditorExperimentsConfig[ExperimentName]['param'],
 	experimentExpectedValue: EditorExperimentsConfig[ExperimentName]['defaultValue'],
+	experimentDefaultValue: EditorExperimentsConfig[ExperimentName]['defaultValue'] | null = null,
 ): boolean {
-	return expValEqualsInternal(experimentName, experimentParam, experimentExpectedValue, null, true);
+	return expValEqualsInternal(
+		experimentName,
+		experimentParam,
+		experimentExpectedValue,
+		experimentDefaultValue,
+		true,
+	);
 }

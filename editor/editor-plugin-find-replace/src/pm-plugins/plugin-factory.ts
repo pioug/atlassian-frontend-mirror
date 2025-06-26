@@ -50,6 +50,7 @@ const handleDocChanged = (
 		start: tr.mapping.map(match.start),
 		end: tr.mapping.map(match.end),
 		canReplace: match.canReplace,
+		nodeType: match.nodeType,
 	}));
 
 	let matchesToAdd: Match[] = [];

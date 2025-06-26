@@ -174,12 +174,7 @@ export class PluginState {
 				let to = 1;
 
 				try {
-					if (fg('platform_editor_selection_without_left_shift')) {
-						from = getValidPos(tr, isSelection ? Math.max(rawFrom, 0) : rawFrom);
-					} else {
-						from = getValidPos(tr, isSelection ? Math.max(rawFrom - 1, 0) : rawFrom);
-					}
-
+					from = getValidPos(tr, isSelection ? Math.max(rawFrom, 0) : rawFrom);
 					to = isSelection ? getValidPos(tr, rawTo) : from;
 				} catch (err) {
 					this.onError(err as Error);

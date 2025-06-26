@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.9.0
+
+### Minor Changes
+
+- [#177117](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177117)
+  [`49ae44aea25fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49ae44aea25fc) -
+  Add new styles for inline nodes for find and replace, include these in block node checks
+
 ## 2.8.0
 
 ### Minor Changes

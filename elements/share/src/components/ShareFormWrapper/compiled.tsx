@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -48,10 +47,8 @@ export const InlineDialogFormWrapper = ({
 		return <Box xcss={cx(styles.menuNotSelectedAndMenuIntegration)}>{children}</Box>;
 	}
 
-	if (fg('smart_links_for_plans_platform')) {
-		if (integrationMode === 'tabs') {
-			return <Box xcss={cx(styles.tabsIntegration)}>{children}</Box>;
-		}
+	if (integrationMode === 'tabs') {
+		return <Box xcss={cx(styles.tabsIntegration)}>{children}</Box>;
 	}
 
 	return (

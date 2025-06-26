@@ -5,11 +5,6 @@
 import React from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
-
-import CardViewSection from '../card-view/card-view-section';
-import { VRTestCase } from '../utils/common';
 import {
 	ForbiddenClient,
 	ForbiddenWithSitePendingRequestClient,
@@ -18,7 +13,12 @@ import {
 	ResolvedClient,
 	ResolvingClient,
 	UnAuthClient,
-} from '../utils/custom-client';
+} from '@atlaskit/link-test-helpers';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import CardViewSection from '../card-view/card-view-section';
+import { VRTestCase } from '../utils/common';
 
 const styles = cssMap({
 	wrapper: {

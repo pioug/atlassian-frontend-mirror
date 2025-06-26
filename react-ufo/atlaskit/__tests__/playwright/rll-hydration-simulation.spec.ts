@@ -45,4 +45,18 @@ test.describe('ReactUFO: RLL hydration simulation', () => {
 			});
 		}
 	});
+
+	test('should capture and report a11y violations', async ({
+		page,
+		waitForReactUFOPayload,
+		getSectionVisibleAt,
+		getSectionDOMAddedAt,
+	}) => {
+		const mainDiv = page.locator('[data-testid="main"]');
+		const finalDiv = page.locator('[data-testid="section-to-replace-final"]');
+		await expect(mainDiv).toBeVisible();
+		await expect(finalDiv).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

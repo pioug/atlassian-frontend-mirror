@@ -46,4 +46,15 @@ test.describe('ReactUFO: Custom Data', () => {
 		expect(appMetrics?.data.screenHeight).toBeDefined();
 		expect(typeof appMetrics?.data.screenHeight).toBe('number');
 	});
+
+	test('should capture and report a11y violations', async ({
+		page,
+		waitForReactUFOPayload,
+		getSectionVisibleAt,
+	}) => {
+		const mainDiv = page.locator('[data-testid="main"]');
+		await expect(mainDiv).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

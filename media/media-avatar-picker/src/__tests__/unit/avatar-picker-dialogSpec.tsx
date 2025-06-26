@@ -32,6 +32,22 @@ jest
 const someAvatar = { dataURI: 'http://an.avatar.com/456', name: 'a-nice-avatar.jpg' };
 
 describe('Avatar Picker Dialog', () => {
+	it('should capture and report a11y violations', async () => {
+		const onImagePicked = jest.fn();
+		const { container } = render(
+			<AvatarPickerDialog
+				imageSource={smallImage}
+				avatars={[someAvatar]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={onImagePicked}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('when save button is clicked onImagePicked and onImagePickedDataURI should be called', async () => {
 		const onImagePicked = jest.fn();
 

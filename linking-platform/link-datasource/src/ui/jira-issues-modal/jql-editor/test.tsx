@@ -125,4 +125,13 @@ describe('jql-editor', () => {
 		);
 		expect(suggestionsData).toEqual(mockSuggestionData);
 	});
+	it('should capture and report a11y violations', async () => {
+		const onSearchMock = jest.fn();
+		const { container } = render(
+			<IntlProvider locale="en">
+				<JiraJQLEditor cloudId="67899" onSearch={onSearchMock} query="some-query" />
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

@@ -29,6 +29,12 @@ const RelatedLinksBaseModalWithI18N = ({ children }: { children?: React.ReactNod
 );
 
 describe('RelatedLinksModal views', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<RelatedLinksBaseModalWithI18N />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders related links modal', async () => {
 		render(<RelatedLinksBaseModalWithI18N />);
 
@@ -213,6 +219,16 @@ describe('RelatedLinksModal views', () => {
 	});
 
 	describe('ResolvingView', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<RelatedLinksBaseModalWithI18N>
+					<RelatedLinksResolvingView />
+				</RelatedLinksBaseModalWithI18N>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('renders related links modal with resolving view', async () => {
 			render(
 				<RelatedLinksBaseModalWithI18N>

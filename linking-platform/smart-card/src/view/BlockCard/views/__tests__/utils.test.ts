@@ -1,5 +1,4 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ElementName } from '../../../../constants';
 import { type ElementItem } from '../../../FlexibleCard/components/blocks/types';
@@ -85,34 +84,32 @@ describe('getSimulatedBetterMetadata', () => {
 			expect(metadata.bottomMetadata).toEqual(bottomMetadata);
 		});
 
-		ffTest.on('smart_links_for_plans_platform', 'with smart links for plans enabled', () => {
-			it('should return metadata elements only top primary & bottom primary for jira plan', () => {
-				const metadata = getSimulatedBetterMetadata({
-					...mockJiraResponse,
-					data: {
-						...mockJiraResponse.data,
-						'@type': ['Object'],
-						'atlassian:ownedBy': {
-							'@type': 'Person',
-							icon: {
-								'@type': 'Image',
-								url: 'avatar_url',
-							},
-							name: 'Michael Schrute',
+		it('should return metadata elements only top primary & bottom primary for jira plan', () => {
+			const metadata = getSimulatedBetterMetadata({
+				...mockJiraResponse,
+				data: {
+					...mockJiraResponse.data,
+					'@type': ['Object'],
+					'atlassian:ownedBy': {
+						'@type': 'Person',
+						icon: {
+							'@type': 'Image',
+							url: 'avatar_url',
 						},
+						name: 'Michael Schrute',
 					},
-				} as JsonLd.Response);
-				const topMetadata = [{ name: ElementName.OwnedByGroup }, { name: ElementName.OwnedBy }];
+				},
+			} as JsonLd.Response);
+			const topMetadata = [{ name: ElementName.OwnedByGroup }, { name: ElementName.OwnedBy }];
 
-				const bottomMetadata = [
-					{ name: ElementName.StoryPoints },
-					{ name: ElementName.Priority },
-					{ name: ElementName.SubTasksProgress },
-				];
-				expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
-				expect(metadata.topMetadata).toEqual(topMetadata);
-				expect(metadata.bottomMetadata).toEqual(bottomMetadata);
-			});
+			const bottomMetadata = [
+				{ name: ElementName.StoryPoints },
+				{ name: ElementName.Priority },
+				{ name: ElementName.SubTasksProgress },
+			];
+			expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
+			expect(metadata.topMetadata).toEqual(topMetadata);
+			expect(metadata.bottomMetadata).toEqual(bottomMetadata);
 		});
 	});
 

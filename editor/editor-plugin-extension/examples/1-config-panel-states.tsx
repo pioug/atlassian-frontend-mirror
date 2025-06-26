@@ -70,7 +70,7 @@ const exampleManifest: ExtensionManifest = {
 	description: 'Extension used as example to demonstrate different states.',
 	documentationUrl: 'http://atlassian.com',
 	icons: {
-		'48': () => import('@atlaskit/icon/glyph/editor/code'),
+		'48': () => import('@atlaskit/icon/core/angle-brackets'),
 	},
 	modules: {
 		nodes: {

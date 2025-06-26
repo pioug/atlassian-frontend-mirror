@@ -3,9 +3,12 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export {
 	searchMatchClass,
+	searchMatchTextClass,
+	selectedBlockSearchMatchClass,
 	selectedSearchMatchClass,
 	blockSearchMatchClass,
 	darkModeSearchMatchClass,
+	searchMatchExpandTitleClass,
 	findReplaceStyles,
 	findReplaceStylesNew,
 } from '@atlaskit/editor-plugin-find-replace/styles';

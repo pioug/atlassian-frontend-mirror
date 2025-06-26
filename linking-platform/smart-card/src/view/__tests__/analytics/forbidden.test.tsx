@@ -51,6 +51,21 @@ describe('smart-card: forbidden analytics', () => {
 	});
 
 	describe('forbidden', () => {
+		it('should capture and report a11y violations', async () => {
+			const mockUrl = 'https://https://this.is.a.url';
+			const { container } = render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it.each(['FORBIDDEN', 'REQUEST_ACCESS', 'DIRECT_ACCESS', 'ANY_OTHER_VALUE', undefined])(
 			'should have status forbidden and statusdetails=%s for analytics',
 			async (accessType) => {

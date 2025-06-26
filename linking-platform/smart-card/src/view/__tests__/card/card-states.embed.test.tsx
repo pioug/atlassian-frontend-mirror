@@ -64,6 +64,18 @@ describe('smart-card: card states, embed', () => {
 
 	describe('render method: withUrl', () => {
 		describe('> state: loading', () => {
+			it('should capture and report a11y violations', async () => {
+				const { container } = render(
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card appearance="embed" url={mockUrl} />
+						</Provider>
+					</IntlProvider>,
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('embed: should render loading state initially', async () => {
 				/**
 				 * Note EDM-10399 React18 Migration: This test is a bit odd as it asserts a loading state (an intermediate state),

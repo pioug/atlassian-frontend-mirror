@@ -36,5 +36,8 @@ export const appOrder = [
 	'Studio',
 	'Analytics',
 	'Admin',
+	'Jira Data Center',
+	'Confluence Data Center',
+	'Bitbucket Data Center',
 	'Custom Link',
 ];

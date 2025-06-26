@@ -52,5 +52,15 @@ test('publish a pubsub event that ack times out and calls onAcknowledgeTimeout',
 	await page.locator(publishChatNewSelector).click();
 
 	const popup = await popupPromise;
-	await expect(popup.url()).toContain(`https://www.atlassian.com`);
+	expect(popup.url()).toContain(`https://www.atlassian.com`);
+});
+
+test('should capture and report a11y violations', async ({ page }) => {
+	await visitExample({ page, exampleName: 'iframe-to-pubsub-parent-content' });
+	// test publishing an event from the first iframe
+	const iframeOneSelector = 'iframe[data-testid="test-embed-frame-1"]';
+	const publishChatNewSelector = 'button[data-testid="publish-chat-new-to-parent-window"]';
+	await page.frameLocator(iframeOneSelector).locator(publishChatNewSelector).click();
+
+	await expect(page).toBeAccessible({ violationCount: 1 });
 });

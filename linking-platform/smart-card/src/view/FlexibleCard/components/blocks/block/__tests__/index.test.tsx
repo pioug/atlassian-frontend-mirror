@@ -17,6 +17,12 @@ import Block from '../index';
 const testId = 'smart-block';
 
 describe('Block', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Block>I am a block.</Block>);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders block', async () => {
 		render(<Block>I am a block.</Block>);
 
@@ -119,6 +125,16 @@ describe('Block', () => {
 		});
 
 		describe('element group', () => {
+			it('should capture and report a11y violations', async () => {
+				const { container } = render(
+					<Block size={SmartLinkSize.Small} testId={testId}>
+						<ElementGroup />
+					</Block>,
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('renders element group with its size', async () => {
 				render(
 					<Block size={SmartLinkSize.Small} testId={testId}>
@@ -145,6 +161,18 @@ describe('Block', () => {
 		});
 
 		describe('action group', () => {
+			it('should capture and report a11y violations', async () => {
+				const { container } = render(
+					<IntlProvider locale="en">
+						<Block size={SmartLinkSize.Small} testId={testId}>
+							<ActionGroup items={[{ name: ActionName.DeleteAction, onClick: () => {} }]} />
+						</Block>
+					</IntlProvider>,
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('renders action group with its size', async () => {
 				render(
 					<IntlProvider locale="en">

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ResolvingClient } from '../utils/custom-client';
+import { ResolvingClient } from '@atlaskit/link-test-helpers';
+
 import VRCardView from '../utils/vr-card-view';
 
 export default () => (

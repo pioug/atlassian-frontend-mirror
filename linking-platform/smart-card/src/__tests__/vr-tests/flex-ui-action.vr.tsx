@@ -14,55 +14,55 @@ import FlexibleUiBlockActionGroup from '../../../examples/vr-flexible-card/vr-fl
 snapshot(FlexibleUiBlockActionDanger, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionDefault, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockActionPrimary, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionSubtle, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionWarning, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionOverrideCSS, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockActionList, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockActionGroup, {
@@ -71,7 +71,7 @@ snapshot(FlexibleUiBlockActionGroup, {
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' }],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshot(FlexibleUiBlockActionGroup, {
@@ -80,6 +80,6 @@ snapshot(FlexibleUiBlockActionGroup, {
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });

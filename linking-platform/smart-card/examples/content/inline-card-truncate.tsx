@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ResolvedClient, ResolvedClientWithLongTitleUrl } from '@atlaskit/link-test-helpers';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 
-import { ResolvedClient, ResolvedClientWithLongTitleUrl } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
 
 export default () => {

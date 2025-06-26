@@ -17,6 +17,12 @@ import ElementGroup from '../index';
 describe('ElementGroup', () => {
 	const testId = 'smart-element-group';
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<ElementGroup>I am an element group.</ElementGroup>);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element group', async () => {
 		render(<ElementGroup>I am an element group.</ElementGroup>);
 
@@ -98,6 +104,14 @@ describe('ElementGroup', () => {
 	});
 
 	describe('width', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<ElementGroup width={SmartLinkWidth.Flexible}>I am an element group.</ElementGroup>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('sets flex for flexible width', async () => {
 			render(<ElementGroup width={SmartLinkWidth.Flexible}>I am an element group.</ElementGroup>);
 

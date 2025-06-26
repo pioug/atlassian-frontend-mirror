@@ -9,6 +9,13 @@ describe('Number Type', () => {
 		return render(<NumberType number={number} {...props} />);
 	};
 
+	it('should capture and report a11y violations', async () => {
+		const number: any = '12';
+		const { container } = render(<NumberType number={number} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders when a positive integer is passed', async () => {
 		const { queryByTestId } = setup({
 			number: 99,

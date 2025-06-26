@@ -53,52 +53,129 @@ const sizeMap = cssMap({
 
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
-const lightAppearanceMap = cssMap({
+const textLightAppearanceMap = cssMap({
+	brand: {
+		'--text-color': token('color.text'),
+	},
+	neutral: {
+		'--text-color': '#505258',
+	},
+	inverse: {
+		'--text-color': '#FFFFFF',
+	},
+	legacy: {
+		'--text-color': 'white',
+	},
+});
+
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const textDarkAppearanceMap = cssMap({
+	brand: {
+		'--text-color': token('color.text'),
+	},
+	neutral: {
+		'--text-color': '#A9ABAF',
+	},
+	inverse: {
+		'--text-color': '#1E1F21',
+	},
+	legacy: {
+		'--text-color': 'white',
+	},
+});
+
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const cloudLightAppearanceMap = cssMap({
 	brand: {
 		'--icon-color': 'initial',
 		'--tile-color': 'initial',
-		'--text-color': token('color.text'),
 	},
 	neutral: {
 		'--icon-color': '#505258',
 		'--tile-color': '#DDDEE1',
-		'--text-color': '#505258',
 	},
 	inverse: {
 		'--icon-color': '#1E1F21',
 		'--tile-color': '#FFFFFF',
-		'--text-color': '#FFFFFF',
 	},
 	legacy: {
 		'--icon-color': 'white',
 		'--tile-color': '#1868DB',
-		'--text-color': 'white',
 	},
 });
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
-const darkAppearanceMap = cssMap({
+const cloudDarkAppearanceMap = cssMap({
 	brand: {
 		'--icon-color': 'initial',
 		'--tile-color': 'initial',
-		'--text-color': token('color.text'),
 	},
 	neutral: {
 		'--icon-color': '#A9ABAF',
 		'--tile-color': '#4B4D51',
-		'--text-color': '#A9ABAF',
 	},
 	inverse: {
 		'--icon-color': '#FFFFFF',
 		'--tile-color': '#1E1F21',
-		'--text-color': '#1E1F21',
 	},
 	legacy: {
 		'--icon-color': 'white',
 		'--tile-color': '#1868DB',
-		'--text-color': 'white',
 	},
 });
+
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const dataCenterLightAppearanceMap = cssMap({
+	brand: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#FFFFFF',
+		'--border-color': '#DDDEE1',
+	},
+	neutral: {
+		'--icon-color': '#505258',
+		'--tile-color': '#DDDEE1',
+		'--border-color': '#505258',
+	},
+	inverse: {
+		'--icon-color': '#FFFFFF',
+		'--tile-color': '#101214',
+		'--border-color': '#FFFFFF',
+	},
+	legacy: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#FFFFFF',
+		'--border-color': '#DDDEE1',
+	},
+});
+
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const dataCenterDarkAppearanceMap = cssMap({
+	brand: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#101214',
+		'--border-color': '#4B4D51',
+	},
+	neutral: {
+		'--icon-color': '#A9ABAF',
+		'--tile-color': '#4B4D51',
+		'--border-color': '#A9ABAF',
+	},
+	inverse: {
+		'--icon-color': '#1F1F21',
+		'--tile-color': '#FFFFFF',
+		'--border-color': '#1F1F21',
+	},
+	legacy: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#101214',
+		'--border-color': '#4B4D51',
+	},
+});
+
 /* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-enable @atlaskit/ui-styling-standard/no-unsafe-values */
 
@@ -111,6 +188,7 @@ type LogoWrapperProps = {
 	testId?: string;
 	iconColor?: string;
 	textColor?: string;
+	isDataCenter?: boolean;
 };
 
 export function LogoWrapper({
@@ -122,6 +200,7 @@ export function LogoWrapper({
 	testId: userDefinedTestId,
 	iconColor: customIconColor,
 	textColor: customTextColor,
+	isDataCenter = false,
 }: LogoWrapperProps) {
 	const { colorMode } = useThemeObserver();
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
@@ -135,7 +214,16 @@ export function LogoWrapper({
 				// Setting the color so that the SVG can inherit the correct text color using "currentColor"
 				logoTextColorMap[colorMode ?? 'light'],
 				sizeMap[size],
-				colorMode === 'light' ? lightAppearanceMap[appearance] : darkAppearanceMap[appearance],
+				colorMode === 'dark'
+					? textDarkAppearanceMap[appearance]
+					: textLightAppearanceMap[appearance],
+				isDataCenter
+					? colorMode === 'dark'
+						? dataCenterDarkAppearanceMap[appearance]
+						: dataCenterLightAppearanceMap[appearance]
+					: colorMode === 'dark'
+						? cloudDarkAppearanceMap[appearance]
+						: cloudLightAppearanceMap[appearance],
 			]}
 			style={
 				{

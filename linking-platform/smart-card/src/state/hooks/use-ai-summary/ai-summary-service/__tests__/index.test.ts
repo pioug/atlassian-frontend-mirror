@@ -1,4 +1,5 @@
 import type { ProductType } from '@atlaskit/linking-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { AISummaryService } from '../index';
 import { readStream } from '../readStream';
@@ -73,42 +74,92 @@ describe('AI Summary Service', () => {
 			}),
 		);
 	});
-	it('Fetch the AI Summary content with custom config', () => {
-		const aiSummaryService = new AISummaryService(customConfig);
-		(aiSummaryService as any).fetchStream();
-		expect(fetchMock).toHaveBeenCalledTimes(1);
-		expect(fetchMock).toHaveBeenCalledWith(
-			customConfig.baseUrl + 'assist/chat/v1/invoke_agent/stream',
-			expect.objectContaining({
-				method: 'POST',
-				credentials: 'include',
-				headers: {
-					...aiSummaryServiceDefaultHeadersConfig,
-					'x-product': customConfig.product?.toLowerCase(),
-				},
-				body: JSON.stringify({
-					recipient_agent_named_id: 'smartlink_summary_agent',
-					agent_input_context: {
-						content_url: url,
-						content_ari: customConfig.ari,
-						prompt_id: 'smart_links',
-						summary_output_mimetype: 'text/markdown',
-					},
-				}),
-			}),
-		);
-	});
-	it('Fetch the AI Summary content with staging env key', () => {
-		const aiSummaryService = new AISummaryService({ url, envKey: 'stg' });
-		(aiSummaryService as any).fetchStream();
 
-		expect(fetchMock).toHaveBeenCalledTimes(1);
-		expect(fetchMock).toHaveBeenCalledWith(
-			'https://pug.jira-dev.com/gateway/api/assist/chat/v1/invoke_agent/stream',
-			expect.objectContaining({
-				credentials: 'include',
-			}),
-		);
+	ffTest.on('platform-linking-ai-summary-migration-to-convo-ai', 'with fg', () => {
+		it('Fetch the AI Summary content with custom config', () => {
+			const aiSummaryService = new AISummaryService(customConfig);
+			(aiSummaryService as any).fetchStream();
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock).toHaveBeenCalledWith(
+				customConfig.baseUrl + 'ai/v2/ai-feature/smartlinksummary/stream',
+				expect.objectContaining({
+					method: 'POST',
+					credentials: 'include',
+					headers: {
+						...aiSummaryServiceDefaultHeadersConfig,
+						'x-product': customConfig.product?.toLowerCase(),
+					},
+					body: JSON.stringify({
+						recipient_agent_named_id: 'smartlink_summary_agent',
+						agent_input_context: {
+							content_url: url,
+							content_ari: customConfig.ari,
+							prompt_id: 'smart_links',
+							summary_output_mimetype: 'text/markdown',
+						},
+						ai_feature_input: {
+							content_url: url,
+							content_ari: customConfig.ari,
+							locale: customConfig.locale,
+						},
+					}),
+				}),
+			);
+		});
+
+		it('Fetch the AI Summary content with staging env key', () => {
+			const aiSummaryService = new AISummaryService({ url, envKey: 'stg' });
+			(aiSummaryService as any).fetchStream();
+
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock).toHaveBeenCalledWith(
+				'https://pug.jira-dev.com/gateway/api/ai/v2/ai-feature/smartlinksummary/stream',
+				expect.objectContaining({
+					credentials: 'include',
+				}),
+			);
+		});
+	});
+
+	ffTest.off('platform-linking-ai-summary-migration-to-convo-ai', 'with fg', () => {
+		it('Fetch the AI Summary content with custom config', () => {
+			const aiSummaryService = new AISummaryService(customConfig);
+			(aiSummaryService as any).fetchStream();
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock).toHaveBeenCalledWith(
+				customConfig.baseUrl + 'assist/chat/v1/invoke_agent/stream',
+				expect.objectContaining({
+					method: 'POST',
+					credentials: 'include',
+					headers: {
+						...aiSummaryServiceDefaultHeadersConfig,
+						'x-product': customConfig.product?.toLowerCase(),
+					},
+					body: JSON.stringify({
+						recipient_agent_named_id: 'smartlink_summary_agent',
+						agent_input_context: {
+							content_url: url,
+							content_ari: customConfig.ari,
+							prompt_id: 'smart_links',
+							summary_output_mimetype: 'text/markdown',
+						},
+					}),
+				}),
+			);
+		});
+
+		it('Fetch the AI Summary content with staging env key', () => {
+			const aiSummaryService = new AISummaryService({ url, envKey: 'stg' });
+			(aiSummaryService as any).fetchStream();
+
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock).toHaveBeenCalledWith(
+				'https://pug.jira-dev.com/gateway/api/assist/chat/v1/invoke_agent/stream',
+				expect.objectContaining({
+					credentials: 'include',
+				}),
+			);
+		});
 	});
 
 	describe('Fetch the AI Summary content with different product types', () => {

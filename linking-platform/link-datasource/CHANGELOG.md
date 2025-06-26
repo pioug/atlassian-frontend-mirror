@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 4.11.18
+
+### Patch Changes
+
+- [#177675](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177675)
+  [`ac3b75b2190a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac3b75b2190a9) -
+  [ux] Clean up feature gate to allow inline edit of priority
+- Updated dependencies
+
 ## 4.11.17
 
 ### Patch Changes

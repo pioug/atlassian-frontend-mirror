@@ -5,9 +5,9 @@
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { forbiddenJira as JiraPreviewImage } from '@atlaskit/link-test-helpers';
 import { token } from '@atlaskit/tokens';
 
-import JiraPreviewImage from '../../examples/images/forbidden-jira.svg';
 import { BlockCard } from '../../src/view/BlockCard';
 import { getCardState, type GetCardStateProps } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';

@@ -10,6 +10,12 @@ import AtlaskitElementBadge from '../index';
 describe('Element: AtlaskitBadge', () => {
 	const testId = 'smart-element-atlaskit-badge';
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<AtlaskitElementBadge value={5} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element', async () => {
 		render(<AtlaskitElementBadge value={5} />);
 

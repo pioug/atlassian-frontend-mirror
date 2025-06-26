@@ -228,12 +228,7 @@ const ToolbarFormatting = ({
 							isReducedSpacing={isReducedSpacing}
 							moreButtonLabel={moreFormattingButtonLabel}
 							hasFormattingActive={hasFormattingActive}
-							hasMoreButton={
-								editorExperiment('platform_editor_controls', 'variant1') &&
-								fg('platform_editor_controls_patch_4')
-									? false
-									: true
-							}
+							hasMoreButton={!editorExperiment('platform_editor_controls', 'variant1')}
 							items={items}
 							intl={intl}
 							toolbarType={toolbarType}

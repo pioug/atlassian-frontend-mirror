@@ -5,8 +5,8 @@
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 
-import { ResolvedClient, ResolvedClientEmbedUrl } from '../../examples/utils/custom-client';
 import { Card } from '../../src';
 
 const containerStyles = css({

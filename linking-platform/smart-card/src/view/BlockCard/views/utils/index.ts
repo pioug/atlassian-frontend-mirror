@@ -1,5 +1,4 @@
 import type { JsonLd } from '@atlaskit/json-ld-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	ElementName,
@@ -92,7 +91,7 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 					{ name: ElementName.AssignedTo },
 					{ name: ElementName.ModifiedOn },
 				];
-			} else if (isJiraPlan && fg('smart_links_for_plans_platform')) {
+			} else if (isJiraPlan) {
 				topMetadata = [{ name: ElementName.OwnedByGroup }, { name: ElementName.OwnedBy }];
 			}
 
@@ -115,6 +114,17 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 			return {
 				titleMetadata: defaultTitleMetadata,
 				topMetadata: [{ name: ElementName.CollaboratorGroup }, ...baseTopMetadata],
+				bottomMetadata: defaultBottomMetadata,
+			};
+		case 'legion-object-provider':
+		case 'profile-object-provider':
+			return {
+				titleMetadata: defaultTitleMetadata,
+				topMetadata: [
+					{ name: ElementName.AuthorGroup },
+					{ name: ElementName.TeamMemberCount },
+					...baseTopMetadata,
+				],
 				bottomMetadata: defaultBottomMetadata,
 			};
 		default:

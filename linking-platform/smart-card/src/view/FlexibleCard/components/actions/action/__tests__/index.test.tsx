@@ -27,6 +27,14 @@ describe('Action', () => {
 
 	const testId = 'smart-action';
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Action onClick={() => {}} testId={testId} />);
+
+		await expect(container).toBeAccessible({
+			violationCount: 1,
+		});
+	});
+
 	it('renders action', async () => {
 		render(<Action onClick={() => {}} testId={testId} />);
 		const element = await screen.findByTestId(testId);
@@ -171,6 +179,17 @@ describe('Action', () => {
 	});
 
 	describe('as dropdown item', () => {
+		it('should capture and report a11y violations', async () => {
+			const text = 'spaghetti';
+			const { container } = render(
+				<Action asDropDownItem={true} onClick={() => {}} content={text} />,
+			);
+
+			await expect(container).toBeAccessible({
+				violationCount: 1,
+			});
+		});
+
 		it('renders action', async () => {
 			const text = 'spaghetti';
 			render(<Action asDropDownItem={true} onClick={() => {}} content={text} />);

@@ -22,6 +22,18 @@ describe('<MediaInlineCard />', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const { container } = render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />,
+			</MockedMediaClientProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render loading view while loading media file', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 		const { mediaApi } = createMockedMediaApi(fileItem);

@@ -108,6 +108,17 @@ describe('LozengeAction', () => {
 		jest.restoreAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		jest.spyOn(useInvoke, 'default').mockImplementationOnce(() => {
+			throw new Error();
+		});
+		const { container } = render(
+			<LozengeAction action={getAction()} appearance={appearance} testId={testId} text={text} />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element', async () => {
 		renderComponent();
 

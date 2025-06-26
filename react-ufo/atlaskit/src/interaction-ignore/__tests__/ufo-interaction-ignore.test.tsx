@@ -52,6 +52,13 @@ describe('UFO Interaction Ignore', () => {
 		mountCounter = 1;
 		jest.resetAllMocks();
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<MyFixtureComponent ignore={true} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders the children when there is no interaction context', () => {
 		const { rerender } = render(<MyFixtureComponent ignore={true} />);
 

@@ -567,6 +567,19 @@ filterTestCasesIfOnlySet(testCases).forEach(({ nodeName, adfs, editorOptions }) 
 					head: 11,
 				});
 			});
+			test('should capture and report a11y violations', async ({ editor }) => {
+				await editor.selection.set({
+					anchor: 7,
+					head: 7,
+				});
+				await editor.keyboard.type('test');
+				await expect(editor).toHaveSelection({
+					type: 'text',
+					anchor: 11,
+					head: 11,
+				});
+				await expect(editor.page).toBeAccessible({ violationCount: 1 });
+			});
 		});
 	});
 });

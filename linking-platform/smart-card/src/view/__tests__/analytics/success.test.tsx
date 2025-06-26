@@ -71,6 +71,21 @@ describe('smart-card: success analytics', () => {
 	});
 
 	describe('resolved', () => {
+		it('should capture and report a11y violations', async () => {
+			const mockUrl = 'https://this.is.the.sixth.url';
+			const { container } = render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card appearance="embed" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		describe('embeds', () => {
 			beforeEach(() => {
 				jest.useFakeTimers();

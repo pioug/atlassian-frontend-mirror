@@ -1,5 +1,43 @@
 # @atlaskit/smart-card
 
+## 38.16.1
+
+### Patch Changes
+
+- [#176250](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176250)
+  [`6ad5979076014`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ad5979076014) -
+  clean plan smartlinks feature gate
+- [#176864](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176864)
+  [`96f166a864047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96f166a864047) -
+  EDM-11898 removing all false snapshots for platform-linking-visual-refresh-v1 and renaming files
+
+## 38.16.0
+
+### Minor Changes
+
+- [#176285](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176285)
+  [`1b51eca9c45fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b51eca9c45fb) -
+  Added Team Member Count component
+
+### Patch Changes
+
+- Updated dependencies
+
+## 38.15.0
+
+### Minor Changes
+
+- [#176835](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176835)
+  [`0b00de2560126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b00de2560126) -
+  Move test utility mocks to @atlaskit/link-test-helpers to reduce future duplications
+
+### Patch Changes
+
+- [#170012](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/170012)
+  [`0dc5dd2eb0dc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dc5dd2eb0dc8) -
+  Update ai summary endpoint to convo-ai (fg: platform-linking-ai-summary-migration-to-convo-ai)
+- Updated dependencies
+
 ## 38.14.2
 
 ### Patch Changes

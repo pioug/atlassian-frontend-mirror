@@ -113,4 +113,15 @@ describe('Text field input prompt', () => {
 
 		expect(validationResult).toEqual(test.error);
 	});
+	it('should capture and report a11y violations', async () => {
+		const userInputPrompts: UserInputNumberPrompt = {
+			defaultValue: '10.5',
+			displayName: 'Test user input',
+			inputType: UserInputType.NUMBER,
+			required: true,
+			variableName: 'testUserInput',
+		};
+		const { container } = renderWithDi(<NumberInputPrompt userInputPrompt={userInputPrompts} />);
+		await expect(container).toBeAccessible();
+	});
 });

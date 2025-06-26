@@ -3,10 +3,9 @@ import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { BitbucketFile1 } from '@atlaskit/link-test-helpers';
 import { type CardStore } from '@atlaskit/linking-common';
 import { Card } from '@atlaskit/smart-card';
-
-import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
 
 import ExampleContainer from './utils/example-container';
 

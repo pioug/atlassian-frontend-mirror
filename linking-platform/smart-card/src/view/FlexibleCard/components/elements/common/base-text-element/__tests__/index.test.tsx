@@ -14,6 +14,13 @@ import Text from '../index';
 describe('Element: Text', () => {
 	const testId = 'smart-element-text';
 
+	it('should capture and report a11y violations', async () => {
+		const content = 'random text';
+		const { container } = render(<Text content={content} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element', async () => {
 		const content = 'random text';
 		render(<Text content={content} />);

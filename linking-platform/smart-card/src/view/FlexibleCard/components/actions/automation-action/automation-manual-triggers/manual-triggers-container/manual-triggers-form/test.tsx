@@ -95,4 +95,22 @@ describe('UserInputForm', () => {
 
 		expect(screen.getByRole('button', { name: 'Continue' })).toHaveProperty('disabled');
 	});
+	it('should capture and report a11y violations', async () => {
+		const userInputProps: UserInputProps = {
+			selectedRule: {
+				rule: mockTransformedRules[2],
+				objects: [],
+			},
+			clearSelectedRule: () => {},
+			invokeRule: async (_ruleId, _objects, _userInputs) => {},
+		};
+		const { container } = renderWithDi(
+			<UserInputForm
+				clearSelectedRule={userInputProps.clearSelectedRule}
+				selectedRule={userInputProps.selectedRule}
+				invokeRule={userInputProps.invokeRule}
+			/>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

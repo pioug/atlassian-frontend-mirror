@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/temp-nav-app-icons",
-	"version": "0.8.2",
+	"version": "0.8.3",
 	"description": "A temporary package to house app and brand icon tiles. This package is a stop gap until these use cases are properly incorporated into the design system.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -67,7 +67,10 @@
 		"./studio": "./src/entry-points/studio.tsx",
 		"./talent": "./src/entry-points/talent.tsx",
 		"./teams": "./src/entry-points/teams.tsx",
-		"./trello": "./src/entry-points/trello.tsx"
+		"./trello": "./src/entry-points/trello.tsx",
+		"./jira-data-center": "./src/entry-points/jira-data-center.tsx",
+		"./confluence-data-center": "./src/entry-points/confluence-data-center.tsx",
+		"./bitbucket-data-center": "./src/entry-points/bitbucket-data-center.tsx"
 	},
 	"exports": {
 		"./types": "./src/entry-points/types.tsx",
@@ -103,7 +106,10 @@
 		"./studio": "./src/entry-points/studio.tsx",
 		"./talent": "./src/entry-points/talent.tsx",
 		"./teams": "./src/entry-points/teams.tsx",
-		"./trello": "./src/entry-points/trello.tsx"
+		"./trello": "./src/entry-points/trello.tsx",
+		"./jira-data-center": "./src/entry-points/jira-data-center.tsx",
+		"./confluence-data-center": "./src/entry-points/confluence-data-center.tsx",
+		"./bitbucket-data-center": "./src/entry-points/bitbucket-data-center.tsx"
 	},
 	"scripts": {
 		"build-temp-logos": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"

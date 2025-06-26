@@ -35,6 +35,7 @@ import {
 } from '../commands';
 import { ExpandButton } from '../ui/ExpandButton';
 import { buildExpandClassName, toDOM } from '../ui/NodeView';
+import { findReplaceExpandDecorations } from '../utils';
 
 export class ExpandNodeView implements NodeView {
 	node: PmNode;
@@ -565,7 +566,16 @@ export class ExpandNodeView implements NodeView {
 	updateExpandToggleIcon(node: PmNode) {
 		const expanded = expandedState.get(node) ? expandedState.get(node) : false;
 		if (this.dom && expanded !== undefined) {
-			this.dom.className = buildExpandClassName(node.type.name, expanded);
+			if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
+				const classes = this.dom.className.split(' ');
+				// find & replace styles might be applied to the expand title and we need to keep them
+				const findReplaceDecorationsApplied = classes.filter(className => findReplaceExpandDecorations.includes(className)).join(' ');
+				this.dom.className = findReplaceDecorationsApplied
+					? buildExpandClassName(node.type.name, expanded) + ` ${findReplaceDecorationsApplied}`
+					: buildExpandClassName(node.type.name, expanded);
+			} else {
+				this.dom.className = buildExpandClassName(node.type.name, expanded);
+			}
 			// Re-render the icon to update the aria-expanded attribute
 			this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);
 		}

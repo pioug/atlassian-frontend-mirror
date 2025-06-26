@@ -1,15 +1,15 @@
 import React from 'react';
 
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
-import type { CardState } from '@atlaskit/linking-common';
-
 import {
 	AtlasProject,
 	ConfluenceBlogPost,
 	ConfluencePage,
 	JiraIssue,
 	SlackMessage,
-} from '../../examples-helpers/_jsonLDExamples';
+} from '@atlaskit/link-test-helpers';
+import type { CardState } from '@atlaskit/linking-common';
+
 import RelatedLinksBaseModal from '../../src/view/RelatedLinksModal/components/RelatedLinksBaseModal';
 import RelatedLinksResolvedView from '../../src/view/RelatedLinksModal/views/resolved';
 import VRTestWrapper from '../utils/vr-test-wrapper';

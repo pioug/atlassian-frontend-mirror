@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7877934a30a1a1d8bec2b0b45aa0abbd>>
+ * @codegen <<SignedSource::bbe24857935edc230d195ba254715659>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -18,6 +18,10 @@ import {
 	BitbucketLogo,
 	BitbucketLogoCS,
 } from '@atlaskit/temp-nav-app-icons/bitbucket';
+import {
+	BitbucketDataCenterIcon,
+	BitbucketDataCenterLogoCS,
+} from '@atlaskit/temp-nav-app-icons/bitbucket-data-center';
 import { ChatIcon, ChatLogo, ChatLogoCS } from '@atlaskit/temp-nav-app-icons/chat';
 import { CompanyHubIcon, CompanyHubLogo } from '@atlaskit/temp-nav-app-icons/company-hub';
 import { CompassIcon, CompassLogo, CompassLogoCS } from '@atlaskit/temp-nav-app-icons/compass';
@@ -26,6 +30,10 @@ import {
 	ConfluenceLogo,
 	ConfluenceLogoCS,
 } from '@atlaskit/temp-nav-app-icons/confluence';
+import {
+	ConfluenceDataCenterIcon,
+	ConfluenceDataCenterLogoCS,
+} from '@atlaskit/temp-nav-app-icons/confluence-data-center';
 import { CustomLinkIcon } from '@atlaskit/temp-nav-app-icons/custom-link';
 import {
 	CustomerServiceManagementIcon,
@@ -39,6 +47,10 @@ import { GuardDetectIcon, GuardDetectLogo } from '@atlaskit/temp-nav-app-icons/g
 import { HomeIcon, HomeLogo, HomeLogoCS } from '@atlaskit/temp-nav-app-icons/home';
 import { HubIcon, HubLogoCS } from '@atlaskit/temp-nav-app-icons/hub';
 import { JiraIcon, JiraLogo, JiraLogoCS } from '@atlaskit/temp-nav-app-icons/jira';
+import {
+	JiraDataCenterIcon,
+	JiraDataCenterLogoCS,
+} from '@atlaskit/temp-nav-app-icons/jira-data-center';
 import {
 	JiraProductDiscoveryIcon,
 	JiraProductDiscoveryLogo,
@@ -119,6 +131,16 @@ export const rows: Array<{
 		LogoCS: (props) => <AssetsLogoCS {...props} />,
 	},
 	{
+		name: 'Bitbucket Data Center',
+		Icon12: (props) => <BitbucketDataCenterIcon {...props} size="12" />,
+		Icon16: (props) => <BitbucketDataCenterIcon {...props} size="16" />,
+		Icon20: (props) => <BitbucketDataCenterIcon {...props} size="20" />,
+		Icon24: (props) => <BitbucketDataCenterIcon {...props} size="24" />,
+		Icon32: (props) => <BitbucketDataCenterIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <BitbucketDataCenterLogoCS {...props} />,
+	},
+	{
 		name: 'Bitbucket',
 		Icon12: (props) => <BitbucketIcon {...props} size="12" />,
 		Icon16: (props) => <BitbucketIcon {...props} size="16" />,
@@ -147,6 +169,16 @@ export const rows: Array<{
 		Icon32: (props) => <CompassIcon {...props} size="32" />,
 		Logo: (props) => <CompassLogo {...props} />,
 		LogoCS: (props) => <CompassLogoCS {...props} />,
+	},
+	{
+		name: 'Confluence Data Center',
+		Icon12: (props) => <ConfluenceDataCenterIcon {...props} size="12" />,
+		Icon16: (props) => <ConfluenceDataCenterIcon {...props} size="16" />,
+		Icon20: (props) => <ConfluenceDataCenterIcon {...props} size="20" />,
+		Icon24: (props) => <ConfluenceDataCenterIcon {...props} size="24" />,
+		Icon32: (props) => <ConfluenceDataCenterIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <ConfluenceDataCenterLogoCS {...props} />,
 	},
 	{
 		name: 'Confluence',
@@ -217,6 +249,16 @@ export const rows: Array<{
 		Icon32: (props) => <HubIcon {...props} size="32" />,
 		Logo: null,
 		LogoCS: (props) => <HubLogoCS {...props} />,
+	},
+	{
+		name: 'Jira Data Center',
+		Icon12: (props) => <JiraDataCenterIcon {...props} size="12" />,
+		Icon16: (props) => <JiraDataCenterIcon {...props} size="16" />,
+		Icon20: (props) => <JiraDataCenterIcon {...props} size="20" />,
+		Icon24: (props) => <JiraDataCenterIcon {...props} size="24" />,
+		Icon32: (props) => <JiraDataCenterIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <JiraDataCenterLogoCS {...props} />,
 	},
 	{
 		name: 'Jira Product Discovery',

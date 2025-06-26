@@ -1,12 +1,14 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useMemo } from 'react';
 import { type VideoTextTracks } from '../react-video-renderer';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
-import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { SplitButton } from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/migration/chevron-down';
 import { messages } from '../../messages';
 import { formatLocale } from './captions';
+import { PopupSelect, type OptionType, type ValueType } from '@atlaskit/select';
+import MediaButton from '../../MediaButton';
+import { popperProps, popupCustomStyles, popupSelectComponents } from '../dropdownControlCommon';
 
 export interface CaptionsSelectControlsProps {
 	textTracks: VideoTextTracks;
@@ -16,7 +18,7 @@ export interface CaptionsSelectControlsProps {
 	selectedTracksIndex: number;
 }
 
-export const _CaptionsSelectControls = memo(
+const CaptionsSelectControlsWithIntl = memo(
 	({
 		textTracks,
 		onSelected,
@@ -25,62 +27,80 @@ export const _CaptionsSelectControls = memo(
 		onCaptionsEnabledChange,
 		selectedTracksIndex,
 	}: CaptionsSelectControlsProps & WrappedComponentProps) => {
-		const [selectedIndex, setSelectedIndex] = useState(selectedTracksIndex);
+		const closedCaptions = useMemo(
+			() => intl.formatMessage(messages.video_captions_enable),
+			[intl],
+		);
+		const selectCaptions = useMemo(
+			() => intl.formatMessage(messages.video_captions_select_captions),
+			[intl],
+		);
 
-		useEffect(() => {
-			setSelectedIndex(selectedTracksIndex);
-		}, [selectedTracksIndex]);
+		const popupSelectOptions = useMemo(
+			() => [
+				{
+					label: selectCaptions,
+					options: [
+						...(textTracks.captions?.tracks.map((track, index) => ({
+							label: `${formatLocale(intl.locale, track.lang)}`,
+							value: index,
+						})) || []),
+					],
+				},
+			],
+			[textTracks, intl.locale, selectCaptions],
+		);
 
-		const handleItemClick = (index: number) => {
-			onSelected(index);
-			setSelectedIndex(index);
+		const popupSelectValue = useMemo(
+			() => popupSelectOptions[0].options.find((option) => option.value === selectedTracksIndex),
+			[popupSelectOptions, selectedTracksIndex],
+		);
+
+		const handleItemClick = (option: ValueType<OptionType>) => {
+			const value = (option && parseInt(`${option.value}`, 10)) || 0;
+			onSelected(value);
 			onCaptionsEnabledChange(true);
 		};
-
-		const closedCaptions = intl.formatMessage(messages.video_captions_enable);
-		const selectCaptions = intl.formatMessage(messages.video_captions_select_captions);
 
 		return (
 			<SplitButton>
 				<Tooltip content={closedCaptions} position="top">
-					<Button
-						appearance={areCaptionsEnabled ? 'default' : 'subtle'}
+					<MediaButton
+						testId="custom-media-player-captions-toggle-button"
+						appearance={areCaptionsEnabled ? 'primary' : 'default'}
 						onClick={() => onCaptionsEnabledChange(!areCaptionsEnabled)}
 						aria-label={closedCaptions}
 					>
 						CC
-					</Button>
+					</MediaButton>
 				</Tooltip>
-				<DropdownMenu<HTMLButtonElement>
-					placement="top"
-					shouldRenderToParent
-					trigger={({ triggerRef, ...triggerProps }) => (
+				<PopupSelect
+					searchThreshold={100}
+					components={popupSelectComponents}
+					maxMenuHeight={400}
+					minMenuWidth={140}
+					options={popupSelectOptions}
+					value={popupSelectValue}
+					onChange={handleItemClick}
+					target={({ ref, isOpen, onKeyDown }) => (
 						<Tooltip content={selectCaptions} position="top">
-							<IconButton
-								ref={triggerRef}
-								{...triggerProps}
-								icon={(iconProps) => <ChevronDownIcon {...iconProps} size="small" />}
-								label={selectCaptions}
-								appearance="subtle"
+							<MediaButton
+								testId="custom-media-player-captions-select-button"
+								buttonRef={ref}
+								isSelected={isOpen}
+								onKeyDown={onKeyDown}
+								iconBefore={
+									<ChevronDownIcon size="small" color="currentColor" label={selectCaptions} />
+								}
 							/>
 						</Tooltip>
 					)}
-				>
-					<DropdownItemGroup title={selectCaptions}>
-						{textTracks.captions?.tracks.map((track, index) => (
-							<DropdownItem
-								key={`${track.lang}-${index}`}
-								onClick={() => handleItemClick(index)}
-								isSelected={index === selectedIndex}
-							>
-								{`${formatLocale(intl.locale, track.lang)}`}
-							</DropdownItem>
-						)) || <DropdownItem isDisabled>{closedCaptions}</DropdownItem>}
-					</DropdownItemGroup>
-				</DropdownMenu>
+					styles={popupCustomStyles}
+					popperProps={popperProps}
+				/>
 			</SplitButton>
 		);
 	},
 );
 
-export const CaptionsSelectControls = injectIntl(_CaptionsSelectControls);
+export const CaptionsSelectControls = injectIntl(CaptionsSelectControlsWithIntl);

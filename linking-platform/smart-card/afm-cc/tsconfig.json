@@ -87,6 +87,9 @@
             "path": "../../link-extractors/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../link-test-helpers/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../linking-common/afm-cc/tsconfig.json"
         },
         {

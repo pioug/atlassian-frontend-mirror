@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-mentions
 
+## 4.7.11
+
+### Patch Changes
+
+- [#176864](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176864)
+  [`980fda095ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/980fda095ab20) -
+  [ux] Adjust mention styles to use flex centering instead of fixed padding values
+- Updated dependencies
+
 ## 4.7.10
 
 ### Patch Changes

@@ -13,12 +13,16 @@ import {
 	AtlassianLogo,
 	AtlassianMarketplaceIcon,
 	AtlassianMarketplaceLogo,
+	BitbucketDataCenterIcon,
+	BitbucketDataCenterLogo,
 	BitbucketIcon,
 	BitbucketLogo,
 	ChatIcon,
 	ChatLogo,
 	CompassIcon,
 	CompassLogo,
+	ConfluenceDataCenterIcon,
+	ConfluenceDataCenterLogo,
 	ConfluenceIcon,
 	ConfluenceLogo,
 	FocusIcon,
@@ -33,6 +37,8 @@ import {
 	HubLogo,
 	JiraAlignIcon,
 	JiraAlignLogo,
+	JiraDataCenterIcon,
+	JiraDataCenterLogo,
 	JiraIcon,
 	JiraLogo,
 	JiraProductDiscoveryIcon,
@@ -92,6 +98,9 @@ export const logos = [
 	RovoLogo,
 	StatuspageLogo,
 	TrelloLogo,
+	JiraDataCenterLogo,
+	ConfluenceDataCenterLogo,
+	BitbucketDataCenterLogo,
 ];
 
 export const icons = [
@@ -118,6 +127,9 @@ export const icons = [
 	RovoIcon,
 	StatuspageIcon,
 	TrelloIcon,
+	JiraDataCenterIcon,
+	ConfluenceDataCenterIcon,
+	BitbucketDataCenterIcon,
 ];
 
 export const legacyOnlyLogosAndIcons = [
@@ -172,6 +184,13 @@ export const newOnlyLogosAndIcons = [
 	{ name: 'Chat', logo: ChatLogo, icon: ChatIcon },
 	{ name: 'Search', logo: SearchLogo, icon: SearchIcon },
 	{ name: 'Studio', logo: StudioLogo, icon: StudioIcon },
+	{ name: 'Jira Data Center', logo: JiraDataCenterLogo, icon: JiraDataCenterIcon },
+	{
+		name: 'Confluence Data Center',
+		logo: ConfluenceDataCenterLogo,
+		icon: ConfluenceDataCenterIcon,
+	},
+	{ name: 'Bitbucket Data Center', logo: BitbucketDataCenterLogo, icon: BitbucketDataCenterIcon },
 ];
 
 export const logosAndIcons = [

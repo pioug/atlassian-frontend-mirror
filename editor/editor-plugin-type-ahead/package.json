@@ -108,9 +108,6 @@
 		"platform_editor_quick_insert_placeholder": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean"
-		},
 		"platform_editor_controls_patch_analytics_3": {
 			"type": "boolean"
 		},

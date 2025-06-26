@@ -31,6 +31,21 @@ describe('BaseUserPicker', () => {
 				/>
 			</IntlProvider>,
 		);
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<BaseUserPicker
+				SelectComponent={TestSelect}
+				components={null}
+				fieldId={'123'}
+				styles={null}
+				width={100}
+			/>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render Select Component', () => {
 		const { getByTestId } = render(
 			<BaseUserPicker

@@ -42,6 +42,20 @@ describe('smart-card: card states, embed', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<IntlProvider locale="en">
+					<Provider client={mockClient}>
+						<Card appearance="embed" url={mockUrl} />
+					</Provider>
+				</IntlProvider>
+			</FabricAnalyticsListeners>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	ffTest.on('smart_links_noun_support', 'entity support', () => {
 		describe('render method: withUrl', () => {
 			describe('> state: resolved', () => {

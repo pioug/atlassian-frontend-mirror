@@ -179,4 +179,8 @@ describe('TextInput', () => {
 		expect(event.defaultPrevented).toBe(true);
 		expect(event.stopPropagation).toHaveBeenCalled();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<TextInput testId="link-url" name="test" value="" />);
+		await expect(container).toBeAccessible({ violationCount: 2 });
+	});
 });

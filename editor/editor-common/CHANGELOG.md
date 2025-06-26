@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 107.2.3
+
+### Patch Changes
+
+- [#175286](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175286)
+  [`0e6d71c300392`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e6d71c300392) -
+  [EDITOR-971] - ff cleanup on platform_editor_fix_code_block_bg_color_in_macro
+
 ## 107.2.2
 
 ### Patch Changes

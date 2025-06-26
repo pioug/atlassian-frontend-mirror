@@ -1902,4 +1902,16 @@ describe('<LinkPicker />', () => {
 			expect(screen.queryByTestId(testIds.submitStatusA11yIndicator)).not.toBeInTheDocument();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const onSubmitMock: LinkPickerProps['onSubmit'] = jest.fn();
+		const onContentResize: LinkPickerProps['onContentResize'] = jest.fn();
+		const { container } = render(
+			<LinkPicker
+				url={'https://www.atlassian.com'}
+				onSubmit={onSubmitMock}
+				onContentResize={onContentResize}
+			/>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2bb5068353f3b2c05bcf8951c4b5973f>>
+ * @codegen <<SignedSource::b3851f198b1353905041516c3b2ad579>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 export const adminIcon =
@@ -11,6 +11,8 @@ export const analyticsIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M14.63 5.88v9.19h3.06v-9.2zM5.88 18.13h11.81v-1.75H5.87zm0-3.07v-4.81h3.06v4.81zm4.37-6.56v6.56h3.06V8.5z'/> </svg> ";
 export const assetsIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23ffc716' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M8.34 11.495a3.64 3.64 0 0 0 3.155-3.154h2.3V6.523h-2.537a3.638 3.638 0 1 0-4.735 4.735v2.538H8.34zM7.887 9.25a1.364 1.364 0 1 0 0-2.727 1.364 1.364 0 0 0 0 2.727' clip-rule='evenodd'/> <path fill='%23101214' d='M19.25 7.43a2.27 2.27 0 1 1-4.54 0 2.27 2.27 0 0 1 4.55 0M7.43 19.25a2.27 2.27 0 1 0 0-4.54 2.27 2.27 0 0 0 0 4.55m9.55-.01a2.27 2.27 0 1 0 0-4.54 2.27 2.27 0 0 0 0 4.55m-3.18-3.19h-3.18v1.82h3.18zm2.27-5.46v3.18h1.82v-3.18z'/> </svg> ";
+export const bitbucketDataCenterIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23fff' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5'/> <path stroke='%23dddee1' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5Z'/> <path fill='%231868db' d='m17.843 11.763-.986 6.024c-.065.365-.322.58-.686.58H7.81c-.365 0-.622-.215-.686-.58L5.387 7.047c-.064-.364.129-.6.472-.6h12.262c.343 0 .536.236.472.6l-.472 2.83c-.064.407-.3.579-.686.579h-7.374c-.107 0-.172.064-.15.193l.579 3.558c.021.086.085.15.171.15h2.658c.086 0 .15-.064.172-.15l.407-2.572c.043-.322.257-.45.558-.45h2.894c.428 0 .557.214.493.578'/> </svg> ";
 export const bitbucketIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='m17.898 11.353-.994 6.064c-.065.367-.324.583-.691.583H7.787c-.367 0-.627-.216-.691-.583L5.346 6.604C5.28 6.237 5.476 6 5.82 6h12.358c.346 0 .54.237.475.604l-.475 2.85c-.065.41-.303.582-.691.582h-7.432c-.109 0-.173.065-.152.194l.584 3.583c.021.086.086.151.172.151h2.68c.086 0 .15-.065.172-.151l.41-2.59c.044-.324.26-.453.563-.453H17.4c.432 0 .562.216.497.582'/> </svg> ";
 export const chatIcon =
@@ -19,6 +21,8 @@ export const companyHubIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' fill-rule='evenodd' d='M6.75 19V5h10.5v14h-3.937v-3.062h-2.625V19zM9.375 8.063h1.75V6.75h-1.75zm3.5 0h1.75V6.75h-1.75zm-1.75 3.062h-1.75V9.813h1.75zm-1.75 3.063h1.75v-1.313h-1.75zm5.25-3.063h-1.75V9.813h1.75zm-1.75 3.063h1.75v-1.313h-1.75z' clip-rule='evenodd'/> </svg> ";
 export const compassIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%2394c748' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M12.75 7.877v-3.37l6.16-.007h.007a.59.59 0 0 1 .583.598v6.147h-3.366V7.877z'/> <path fill='%23101214' d='M12.75 14.615v-3.37h3.368v6.165a.59.59 0 0 1-.591.59H6.583A.59.59 0 0 1 6 17.402V8.467a.59.59 0 0 1 .591-.59h6.16v3.368H9.373v3.37z'/> </svg> ";
+export const confluenceDataCenterIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23fff' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5'/> <path stroke='%23dddee1' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5Z'/> <path fill='%231868db' d='M17.37 14.265c-3.704-1.79-4.785-2.058-6.346-2.058-1.83 0-3.391.761-4.785 2.902l-.229.35c-.187.288-.229.39-.229.514s.063.227.292.37l2.35 1.462c.125.083.23.124.333.124.125 0 .208-.062.333-.247l.375-.577c.582-.885 1.102-1.173 1.768-1.173.583 0 1.27.165 2.122.577l2.455 1.152c.25.124.52.062.645-.226l1.165-2.552c.125-.289.042-.474-.25-.618M6.572 9.757c3.703 1.791 4.785 2.059 6.346 2.059 1.83 0 3.39-.762 4.785-2.902l.229-.35c.187-.288.228-.391.228-.515 0-.123-.062-.226-.29-.37l-2.352-1.462c-.125-.082-.229-.123-.333-.123-.125 0-.208.061-.333.247l-.374.576c-.583.885-1.103 1.173-1.769 1.173-.582 0-1.269-.164-2.122-.576L8.132 6.361c-.25-.123-.52-.061-.645.227L6.322 9.14c-.125.288-.041.473.25.617'/> </svg> ";
 export const confluenceIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%231868db' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23fff' d='M17.888 14.461c-4.039-1.953-5.219-2.245-6.92-2.245-1.997 0-3.699.831-5.219 3.165l-.25.382c-.204.314-.249.426-.249.561s.068.247.318.404l2.564 1.594c.136.09.25.135.363.135.136 0 .226-.068.363-.27l.408-.628c.635-.966 1.203-1.28 1.928-1.28.636 0 1.385.18 2.315.629l2.677 1.257c.272.134.567.067.704-.247l1.27-2.783c.136-.315.046-.517-.272-.674M6.112 9.545c4.039 1.953 5.219 2.245 6.92 2.245 1.997 0 3.699-.83 5.219-3.165l.25-.381c.204-.315.249-.427.249-.562 0-.134-.068-.247-.318-.404L15.87 5.685c-.137-.09-.25-.135-.364-.135-.136 0-.226.067-.363.27l-.408.628c-.635.965-1.203 1.28-1.928 1.28-.636 0-1.385-.18-2.315-.63L7.814 5.843c-.272-.135-.567-.068-.703.247L5.84 8.872c-.136.314-.045.516.272.673'/> </svg> ";
 export const customLinkIcon =
@@ -37,6 +41,8 @@ export const homeIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23dddee1' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M5.875 10.688v7.437h4.375V13.75h3.5v4.375h4.375v-7.437L12 5z'/> </svg> ";
 export const hubIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 32 32'> <g clip-path='url(%23clip0_95164_16219)'> <path fill='%23dddee1' d='M0 8a8 8 0 0 1 8-8h16a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H8a8 8 0 0 1-8-8z'/> <g clip-path='url(%23clip1_95164_16219)'> <path fill='%23101214' fill-rule='evenodd' d='M9 25.333V6.667h14v18.666h-5.25V21.25h-3.5v4.083zm3.5-14.583h2.333V9H12.5zm4.667 0H19.5V9h-2.333zm-2.334 4.083H12.5v-1.75h2.333zM12.5 18.916h2.333v-1.75H12.5zm7-4.083h-2.333v-1.75H19.5zm-2.333 4.083H19.5v-1.75h-2.333z' clip-rule='evenodd'/> </g> </g> <defs> <clipPath id='clip0_95164_16219'> <path fill='%23fff' d='M0 0h32v32H0z'/> </clipPath> <clipPath id='clip1_95164_16219'> <path fill='%23fff' d='M2 2h28v28H2z'/> </clipPath> </defs> </svg> ";
+export const jiraDataCenterIcon =
+	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23fff' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5'/> <path stroke='%23dddee1' d='M6 .5h12A5.5 5.5 0 0 1 23.5 6v12a5.5 5.5 0 0 1-5.5 5.5H6A5.5 5.5 0 0 1 .5 18V6A5.5 5.5 0 0 1 6 .5Z'/> <path fill='%231868db' d='M8.974 15.523H7.62c-2.04 0-3.502-1.249-3.502-3.078h7.271c.377 0 .62.268.62.647v7.317c-1.817 0-3.036-1.472-3.036-3.525zm3.591-3.636h-1.352c-2.04 0-3.503-1.227-3.503-3.056h7.272c.376 0 .642.245.642.625v7.317c-1.817 0-3.059-1.473-3.059-3.525zm3.614-3.614h-1.353c-2.04 0-3.502-1.249-3.502-3.078h7.271c.377 0 .62.268.62.624v7.318c-1.817 0-3.036-1.473-3.036-3.525z'/> </svg> ";
 export const jiraProductDiscoveryIcon =
 	"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'> <path fill='%23c97cf4' d='M0 6a6 6 0 0 1 6-6h12a6 6 0 0 1 6 6v12a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6z'/> <path fill='%23101214' d='M13.467 4.882a9.47 9.47 0 0 0 5.422 0c.159-.035.265.07.23.229-.513 1.85-.513 3.558 0 5.408.035.14-.072.264-.23.211a10.1 10.1 0 0 0-5.422 0c-.142.053-.265-.07-.212-.211.476-1.85.476-3.559 0-5.408-.053-.159.07-.264.212-.23m.724 6.553v.3c0 1.39-.972 2.412-2.173 2.412a2.153 2.153 0 0 1-2.154-2.166c0-1.198.971-2.15 2.331-2.15h.353V5.62c-.176-.017-.353-.017-.53-.017a6.387 6.387 0 0 0-6.393 6.394 6.37 6.37 0 0 0 6.393 6.377c3.533 0 6.411-2.854 6.411-6.377v-.563z'/> </svg> ";
 export const jiraServiceManagementIcon =
@@ -73,10 +79,12 @@ const rawIcons = {
 	align: alignIcon,
 	analytics: analyticsIcon,
 	assets: assetsIcon,
+	bitbucketDataCenter: bitbucketDataCenterIcon,
 	bitbucket: bitbucketIcon,
 	chat: chatIcon,
 	companyHub: companyHubIcon,
 	compass: compassIcon,
+	confluenceDataCenter: confluenceDataCenterIcon,
 	confluence: confluenceIcon,
 	customLink: customLinkIcon,
 	customerServiceManagement: customerServiceManagementIcon,
@@ -86,6 +94,7 @@ const rawIcons = {
 	guard: guardIcon,
 	home: homeIcon,
 	hub: hubIcon,
+	jiraDataCenter: jiraDataCenterIcon,
 	jiraProductDiscovery: jiraProductDiscoveryIcon,
 	jiraServiceManagement: jiraServiceManagementIcon,
 	jira: jiraIcon,

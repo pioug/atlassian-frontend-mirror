@@ -37,6 +37,27 @@ describe('<InlinePlayer />', () => {
 		jest.restoreAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const { container } = render(
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<InlinePlayer
+						autoplay={true}
+						identifier={identifier}
+						dimensions={{
+							width: 10,
+							height: '5%',
+						}}
+					/>
+				</MockedMediaClientProvider>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	ffTest.on('platform_media_resume_video_on_token_expiry', '', () => {
 		const setup = {
 			processed() {

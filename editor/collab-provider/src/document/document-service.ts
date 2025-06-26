@@ -441,6 +441,7 @@ export class DocumentService implements DocumentServiceInterface {
 				if (clientIds.indexOf(this.clientId!) === -1) {
 					setTimeout(() => this.sendStepsFromCurrentState(), 100);
 				}
+				this.analyticsHelper?.sendActionEvent(EVENT_ACTION.PROCESS_STEPS, EVENT_STATUS.SUCCESS);
 			} catch (error) {
 				// ESS-6421: log if error processing steps when there are steps from the same userId but not the same clientId
 				const userIdMatch = this.isStepsFromNewClientIdForSameUserId(steps);

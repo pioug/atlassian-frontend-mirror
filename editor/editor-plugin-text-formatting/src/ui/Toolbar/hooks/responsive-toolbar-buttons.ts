@@ -7,16 +7,12 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import {
 	ButtonsMenuMinimal,
 	ButtonsMenuCompact,
-	ButtonsMenuSpacious,
 	ToolbarButtonsStrong,
 	ToolbarButtonsStrongItalic,
-	ToolbarButtonsStrongItalicUnderline,
 	ResponsiveCustomButtonToolbarMinimal,
 	ResponsiveCustomButtonToolbarCompact,
-	ResponsiveCustomButtonToolbarSpacious,
 	ResponsiveCustomMenuMinimal,
 	ResponsiveCustomMenuCompact,
-	ResponsiveCustomMenuSpacious,
 } from '../constants';
 import type { IconTypes, MenuIconItem } from '../types';
 
@@ -35,9 +31,7 @@ export const useResponsiveIconTypeButtons = ({
 		if (fg('platform_editor_controls_patch_13')) {
 			ResponsiveCustomButtonToolbar = ResponsiveCustomButtonToolbarMinimal;
 		} else {
-			ResponsiveCustomButtonToolbar = !fg('platform_editor_controls_patch_4')
-				? ResponsiveCustomButtonToolbarSpacious
-				: ResponsiveCustomButtonToolbarCompact;
+			ResponsiveCustomButtonToolbar = ResponsiveCustomButtonToolbarCompact;
 		}
 	}
 
@@ -54,9 +48,7 @@ export const useResponsiveIconTypeButtons = ({
 		if (fg('platform_editor_controls_patch_13')) {
 			return ToolbarButtonsStrong;
 		} else {
-			return !fg('platform_editor_controls_patch_4')
-				? ToolbarButtonsStrongItalicUnderline
-				: ToolbarButtonsStrongItalic;
+			return ToolbarButtonsStrongItalic;
 		}
 	} else {
 		return ToolbarButtonsStrongItalic;
@@ -75,9 +67,7 @@ export const useResponsiveIconTypeMenu = ({
 		if (fg('platform_editor_controls_patch_13')) {
 			ResponsiveCustomMenu = ResponsiveCustomMenuMinimal;
 		} else {
-			ResponsiveCustomMenu = !fg('platform_editor_controls_patch_4')
-				? ResponsiveCustomMenuSpacious
-				: ResponsiveCustomMenuCompact;
+			ResponsiveCustomMenu = ResponsiveCustomMenuCompact;
 		}
 	}
 
@@ -94,7 +84,7 @@ export const useResponsiveIconTypeMenu = ({
 		if (fg('platform_editor_controls_patch_13')) {
 			return ButtonsMenuMinimal;
 		} else {
-			return !fg('platform_editor_controls_patch_4') ? ButtonsMenuSpacious : ButtonsMenuCompact;
+			return ButtonsMenuCompact;
 		}
 	} else {
 		return ToolbarButtonsStrongItalic;

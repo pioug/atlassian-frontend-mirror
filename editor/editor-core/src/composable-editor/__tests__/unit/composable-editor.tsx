@@ -18,6 +18,17 @@ jest.mock('../../../utils/performance/components/RenderTracking', () => {
 describe('ComposableEditor', () => {
 	afterEach(jest.clearAllMocks);
 	describe('render with presets passed in', () => {
+		it('should capture and report a11y violations', async () => {
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: { paste: {} },
+				featureFlags: {},
+			});
+			const { container } = render(<ComposableEditor preset={preset} />);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should render correctly with the preset prop', () => {
 			const preset = createUniversalPreset({
 				appearance: 'full-page',

@@ -69,6 +69,18 @@ test.describe('ReactUFO: Full precision - Full Vertical Pixel Page', () => {
 					});
 				}
 			});
+
+			test('should capture and report a11y violations', async ({
+				page,
+				waitForReactUFOPayload,
+				getSectionVisibleAt,
+			}) => {
+				await test.slow();
+				const mainDiv = page.locator('[data-testid="main"]');
+				await expect(mainDiv).toBeVisible();
+
+				await expect(page).toBeAccessible();
+			});
 		});
 	}
 });

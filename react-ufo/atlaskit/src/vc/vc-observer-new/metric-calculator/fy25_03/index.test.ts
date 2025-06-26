@@ -112,40 +112,32 @@ describe('VCCalculator_FY25_03', () => {
 			},
 		);
 
-		describe('when feature flag platform_ufo_filter_out_aui_attribute_changes is enabled', () => {
-			beforeEach(() => {
-				mockFg.mockImplementation(
-					(flag) => flag === 'platform_ufo_filter_out_aui_attribute_changes',
-				);
-			});
+		it('should return false for data-aui-version attribute', () => {
+			const entry: VCObserverEntry = {
+				time: 0,
+				data: {
+					type: 'mutation:attribute',
+					elementName: 'div',
+					rect: new DOMRect(),
+					visible: true,
+					attributeName: 'data-aui-version',
+				} as ViewportEntryData,
+			};
+			expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
+		});
 
-			it('should return false for data-aui-version attribute', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:attribute',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-						attributeName: 'data-aui-version',
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
-			});
-
-			it('should return true for other attributes', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:attribute',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-						attributeName: 'class',
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-			});
+		it('should return true for other attributes', () => {
+			const entry: VCObserverEntry = {
+				time: 0,
+				data: {
+					type: 'mutation:attribute',
+					elementName: 'div',
+					rect: new DOMRect(),
+					visible: true,
+					attributeName: 'class',
+				} as ViewportEntryData,
+			};
+			expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
 		});
 
 		describe('should filter out non-visual attributes', () => {

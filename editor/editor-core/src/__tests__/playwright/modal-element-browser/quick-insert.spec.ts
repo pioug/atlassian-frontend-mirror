@@ -27,4 +27,19 @@ test.describe('Quick Insert', () => {
 
 		expect(isFocused).toBe(true);
 	});
+
+	test('should capture and report a11y violations', async ({ editor }) => {
+		const toolbar = editor.page.getByRole('toolbar', {
+			name: 'Editor',
+		});
+		await toolbar.locator(`button[aria-label*="Insert elements"]`).click();
+		await toolbar.locator(`button[data-testid*="view-more-elements-item"]`).click();
+		const modal = editor.page.getByTestId('element-browser-modal-dialog');
+		await modal.locator(`button[aria-describedby*="Mention"]`).click();
+		await modal.locator(`button[data-testid*="ModalElementBrowser__insert-button"]`).click();
+		const isFocused = await EditorTypeAheadModel.from(editor).waitForMentionSearchToStart();
+		expect(isFocused).toBe(true);
+
+		await expect(editor.page).toBeAccessible({ violationCount: 3 });
+	});
 });

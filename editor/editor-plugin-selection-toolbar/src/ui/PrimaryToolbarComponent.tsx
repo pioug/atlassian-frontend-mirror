@@ -27,7 +27,6 @@ import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared
 import PinIcon from '@atlaskit/icon/core/pin';
 import PinFilledIcon from '@atlaskit/icon/core/pin-filled';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
@@ -78,14 +77,12 @@ export function PrimaryToolbarComponent({
 	}, []);
 
 	useEffect(() => {
-		if (fg('platform_editor_controls_patch_4')) {
-			api?.analytics?.actions.fireAnalyticsEvent({
-				action: ACTION.RENDERED,
-				actionSubject: ACTION_SUBJECT.TOOLBAR,
-				actionSubjectId: ACTION_SUBJECT_ID.DOCKED_PRIMARY_TOOLBAR,
-				eventType: EVENT_TYPE.UI,
-			});
-		}
+		api?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.RENDERED,
+			actionSubject: ACTION_SUBJECT.TOOLBAR,
+			actionSubjectId: ACTION_SUBJECT_ID.DOCKED_PRIMARY_TOOLBAR,
+			eventType: EVENT_TYPE.UI,
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ForbiddenWithSiteDirectAccessClient } from '../utils/custom-client';
+import { ForbiddenWithSiteDirectAccessClient } from '@atlaskit/link-test-helpers';
+
 import VRCardView from '../utils/vr-card-view';
 
 export default () => (

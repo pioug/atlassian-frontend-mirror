@@ -403,7 +403,6 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 			openElementBrowserModal &&
 			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_4') &&
 			triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT
 		) {
 			activityStateRef.current = {
@@ -427,11 +426,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			ariaLabel={null}
 			preventOverflow={true}
 			onUnmount={() => {
-				if (
-					selectedIndex > -1 &&
-					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_controls_patch_4')
-				) {
+				if (selectedIndex > -1 && editorExperiment('platform_editor_controls', 'variant1')) {
 					// if selectedIndex is -1, it means that the user has not selected any item
 					// will be handled by WrapperTypeAhead
 					fireTypeAheadClosedAnalyticsEvent(
@@ -472,10 +467,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 							items={items}
 							selectedIndex={selectedIndex}
 							onItemClick={(mode: SelectItemMode, index: number, inputMethod) => {
-								if (
-									editorExperiment('platform_editor_controls', 'variant1') &&
-									fg('platform_editor_controls_patch_4')
-								) {
+								if (editorExperiment('platform_editor_controls', 'variant1')) {
 									activityStateRef.current = {
 										inputMethod: inputMethod || null,
 										closeAction: ACTION.INSERTED,

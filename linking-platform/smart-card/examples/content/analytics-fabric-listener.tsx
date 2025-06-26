@@ -5,10 +5,10 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyt
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Heading from '@atlaskit/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ResolvedClient, ResolvedClientUrl } from '@atlaskit/link-test-helpers';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { Card } from '../../src';
-import { ResolvedClient, ResolvedClientUrl } from '../utils/custom-client';
 
 const headingBoxStyles = xcss({
 	marginBottom: 'space.100',

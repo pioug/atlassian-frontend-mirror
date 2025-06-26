@@ -26,4 +26,8 @@ describe('Status Type', () => {
 		});
 		expect(queryByTestId(STATUS_TYPE_TEST_ID)).not.toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Status text={''} />);
+		await expect(container).toBeAccessible();
+	});
 });

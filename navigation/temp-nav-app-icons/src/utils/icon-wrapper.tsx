@@ -17,7 +17,7 @@ const styles = cssMap({
 
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
-const lightAppearanceMap = cssMap({
+const cloudLightAppearanceMap = cssMap({
 	brand: {
 		'--icon-color': 'initial',
 		'--tile-color': 'initial',
@@ -36,9 +36,10 @@ const lightAppearanceMap = cssMap({
 		'--tile-color': '#1868DB',
 	},
 });
+
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
-const darkAppearanceMap = cssMap({
+const cloudDarkAppearanceMap = cssMap({
 	brand: {
 		'--icon-color': 'initial',
 		'--tile-color': 'initial',
@@ -57,9 +58,59 @@ const darkAppearanceMap = cssMap({
 		'--tile-color': '#1868DB',
 	},
 });
+
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const dataCenterLightAppearanceMap = cssMap({
+	brand: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#FFFFFF',
+		'--border-color': '#DDDEE1',
+	},
+	neutral: {
+		'--icon-color': '#505258',
+		'--tile-color': '#DDDEE1',
+		'--border-color': '#505258',
+	},
+	inverse: {
+		'--icon-color': '#FFFFFF',
+		'--tile-color': '#101214',
+		'--border-color': '#FFFFFF',
+	},
+	legacy: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#FFFFFF',
+		'--border-color': '#DDDEE1',
+	},
+});
+
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+const dataCenterDarkAppearanceMap = cssMap({
+	brand: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#101214',
+		'--border-color': '#4B4D51',
+	},
+	neutral: {
+		'--icon-color': '#A9ABAF',
+		'--tile-color': '#4B4D51',
+		'--border-color': '#A9ABAF',
+	},
+	inverse: {
+		'--icon-color': '#1F1F21',
+		'--tile-color': '#FFFFFF',
+		'--border-color': '#1F1F21',
+	},
+	legacy: {
+		'--icon-color': '#1868DB',
+		'--tile-color': '#101214',
+		'--border-color': '#4B4D51',
+	},
+});
+
 /* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values */
 /* eslint-enable @atlaskit/ui-styling-standard/no-unsafe-values */
-
 const sizeMap = cssMap({
 	xxsmall: {
 		height: '16px',
@@ -104,6 +155,7 @@ type IconWrapperProps = {
 	customThemeSvg?: string;
 	appearance?: 'brand' | 'legacy' | 'neutral' | 'inverse';
 	iconColor?: string;
+	isDataCenter?: boolean;
 };
 
 export function IconWrapper({
@@ -114,6 +166,7 @@ export function IconWrapper({
 	testId: userDefinedTestId,
 	appearance = 'brand',
 	iconColor: customIconColor,
+	isDataCenter = false,
 }: IconWrapperProps) {
 	const testId = userDefinedTestId && `${userDefinedTestId}--wrapper`;
 
@@ -127,7 +180,13 @@ export function IconWrapper({
 			css={[
 				styles.root,
 				sizeMap[size],
-				colorMode === 'light' ? lightAppearanceMap[appearance] : darkAppearanceMap[appearance],
+				isDataCenter
+					? colorMode === 'dark'
+						? dataCenterDarkAppearanceMap[appearance]
+						: dataCenterLightAppearanceMap[appearance]
+					: colorMode === 'dark'
+						? cloudDarkAppearanceMap[appearance]
+						: cloudLightAppearanceMap[appearance],
 			]}
 			data-testid={testId}
 			style={

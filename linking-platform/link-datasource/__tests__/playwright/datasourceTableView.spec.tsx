@@ -150,7 +150,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table', {
 			'react-18-mode': 'legacy',
 		});
-		await withFeatureFlags(page, ['platform-datasources-enable-two-way-sync-priority']);
 
 		// Check priority value before
 		// We're unable to use link-datasource-render-type--icon--text as other columns also are the same type

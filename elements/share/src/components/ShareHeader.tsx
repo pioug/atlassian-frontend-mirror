@@ -24,7 +24,7 @@ const headerWrapperStyles = xcss({
 });
 
 const headerWrapperExtraSpaceStyles = xcss({
-	marginBottom: 'space.200',
+	marginBottom: 'space.150',
 	color: 'color.text',
 });
 

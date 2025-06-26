@@ -51,6 +51,24 @@ const imageUploaderSelector = 'div#image-uploader';
 
 describe('Image navigator', () => {
 	describe('with an imageSource', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<ImageNavigator
+					imageSource={smallImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+					isLoading={false}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
+
+			await expect(container).toBeAccessible({
+				violationCount: 1,
+			});
+		});
+
 		it('should have image cropper', async () => {
 			render(
 				<ImageNavigator
@@ -176,6 +194,20 @@ describe('Image navigator', () => {
 	});
 
 	describe('with no imageSource', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<ImageNavigator
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should render ImageUploader to allow users to pick an image', () => {
 			const { container } = render(
 				<ImageNavigator
@@ -202,6 +234,21 @@ describe('Image navigator', () => {
 			afterEach(() => {
 				FileReaderSpy.mockReset();
 				FileReaderSpy.mockRestore();
+			});
+
+			it('should capture and report a11y violations', async () => {
+				const onImageUploaded = jest.fn();
+				const { container } = render(
+					<ImageNavigator
+						onImageLoaded={jest.fn()}
+						onRemoveImage={jest.fn()}
+						onImageError={jest.fn()}
+						onImageUploaded={onImageUploaded}
+					/>,
+					{ wrapper: AllTheProviders },
+				);
+
+				await expect(container).toBeAccessible();
 			});
 
 			it('should set data-uri, image itself and orientation into state', async () => {
@@ -299,6 +346,23 @@ describe('Image navigator', () => {
 	});
 
 	describe('when an image is removed', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<ImageNavigator
+					imageSource={smallImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
+
+			await expect(container).toBeAccessible({
+				violationCount: 1,
+			});
+		});
+
 		it('should clear state', async () => {
 			const { container } = render(
 				<ImageNavigator

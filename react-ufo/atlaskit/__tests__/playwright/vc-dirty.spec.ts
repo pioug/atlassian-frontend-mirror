@@ -77,6 +77,16 @@ test.describe('TTVC Dirty Scenarios', () => {
 					{ abortReason: 'keypress', clean: false, 'metric:vc90': null, revision: 'fy25.03' },
 				]);
 			});
+
+			test('should capture and report a11y violations', async ({
+				page,
+				waitForReactUFOPayload,
+			}) => {
+				const mainDiv = page.locator('[data-testid="main"]');
+				await expect(mainDiv).toBeVisible();
+
+				await expect(page).toBeAccessible();
+			});
 		});
 	}
 });

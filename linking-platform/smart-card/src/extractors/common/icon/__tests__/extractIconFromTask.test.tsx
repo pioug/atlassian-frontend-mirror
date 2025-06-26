@@ -18,6 +18,13 @@ import { withIntl } from '../../__mocks__/withIntl';
 import { extractIconFromTask } from '../extractIconFromTask';
 
 describe('extractors.icon.task', () => {
+	it('should capture and report a11y violations', async () => {
+		const icon = extractIconFromTask({});
+		const { container } = render(withIntl(icon));
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('returns default icon if no opts given', async () => {
 		const icon = extractIconFromTask({});
 		render(withIntl(icon));

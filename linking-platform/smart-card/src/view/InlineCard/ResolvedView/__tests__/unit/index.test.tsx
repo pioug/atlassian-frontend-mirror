@@ -35,6 +35,12 @@ jest.mock('../../../IconAndTitleLayout', () => ({
 }));
 
 describe('ResolvedView', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<InlineCardResolvedView title="some text content" />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render the title', async () => {
 		render(<InlineCardResolvedView title="some text content" />);
 		expect(await screen.findByText('some text content')).toBeVisible();

@@ -71,6 +71,13 @@ test.describe('UFO Blindspot Watchdog', () => {
 					sectionTenVisibleAt,
 				);
 			});
+
+			test('should capture and report a11y violations', async ({ page }) => {
+				const mainDiv = page.locator('[data-testid="main"]');
+				expect(mainDiv).toBeDefined();
+
+				await expect(page).toBeAccessible();
+			});
 		});
 	}
 });

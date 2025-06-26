@@ -330,7 +330,6 @@ export const RendererFunctionalComponent = (
 		[createRendererContext, providerFactory, fireAnalyticsEvent],
 	);
 
-	// Abstract out the logic into its own function
 	const serializer = useMemoFromPropsDerivative(
 		(serializerProps) => {
 			// If progressive rendering is enabled, create a new serializer

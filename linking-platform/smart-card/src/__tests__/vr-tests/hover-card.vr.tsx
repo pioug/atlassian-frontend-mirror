@@ -25,7 +25,7 @@ snapshot(HoverCard, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -61,7 +61,7 @@ snapshot(HoverCardActions, {
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -76,7 +76,7 @@ snapshot(HoverCardActions, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -95,22 +95,6 @@ snapshot(HoverCardUnauthorised, {
 	},
 });
 
-snapshot(HoverCardUnauthorised, {
-	description:
-		'Hover card unauthorised OLD - delete when cleaning platform-linking-visual-refresh-v1',
-	drawsOutsideBounds: true,
-	states: [
-		{
-			state: 'hovered',
-			selector: { byTestId: 'hover-card-trigger-wrapper' },
-		},
-	],
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': false,
-		'platform-smart-card-remove-legacy-button': [true, false],
-	},
-});
-
 snapshot(HoverCardSSRLoading, {
 	drawsOutsideBounds: true,
 	states: [
@@ -120,7 +104,7 @@ snapshot(HoverCardSSRLoading, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -133,7 +117,7 @@ snapshot(HoverCardSSRError, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -147,7 +131,7 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -161,7 +145,7 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -175,6 +159,6 @@ snapshot(HoverCardPositioning, {
 		},
 	],
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });

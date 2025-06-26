@@ -69,6 +69,13 @@ describe('CardActions', () => {
 		};
 	};
 
+	it('should capture and report a11y violations', async () => {
+		const onToggle = jest.fn();
+		const { container } = render(<CardActionsView actions={menuActions} onToggle={onToggle} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render nothing given no actions', () => {
 		const { card } = setup([]);
 

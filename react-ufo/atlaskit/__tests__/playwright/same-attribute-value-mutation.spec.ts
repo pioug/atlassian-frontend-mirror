@@ -49,6 +49,18 @@ test.describe('ReactUFO: Revisions - replacement node', () => {
 					});
 				}
 			});
+
+			test('should capture and report a11y violations', async ({
+				page,
+				waitForReactUFOPayload,
+				getSectionVisibleAt,
+				getSectionDOMAddedAt,
+			}) => {
+				const mainDiv = page.locator('[data-testid="main"]');
+				await expect(mainDiv).toBeVisible();
+
+				await expect(page).toBeAccessible();
+			});
 		});
 	}
 });

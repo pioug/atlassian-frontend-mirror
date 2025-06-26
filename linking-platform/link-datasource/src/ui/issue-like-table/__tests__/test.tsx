@@ -2481,272 +2481,268 @@ describe('IssueLikeDataTableView', () => {
 		});
 
 		describe('InlineEditRendered', () => {
-			ffTest.on(
-				'platform-datasources-enable-two-way-sync-priority',
-				'with 2 way sync for priority on',
-				() => {
-					const item1: Icon = { label: 'Blocker', text: 'Blocker', id: '6', source: 'source' };
+			describe('with 2 way sync for priority on', () => {
+				const item1: Icon = { label: 'Blocker', text: 'Blocker', id: '6', source: 'source' };
 
-					const items: DatasourceDataResponseItem[] = [
-						{
-							priority: {
-								data: item1,
-							},
-							ari: { data: 'ari/id' },
+				const items: DatasourceDataResponseItem[] = [
+					{
+						priority: {
+							data: item1,
 						},
-						{
-							priority: {
-								data: { label: 'Major', text: 'Major', id: '5', source: 'source' },
-							},
-							ari: { data: 'ari/id2' },
+						ari: { data: 'ari/id' },
+					},
+					{
+						priority: {
+							data: { label: 'Major', text: 'Major', id: '5', source: 'source' },
 						},
-						{
-							priority: {
-								data: { label: 'High', text: 'High', id: '4', source: 'source' },
-							},
-							ari: { data: 'ari/id3' },
+						ari: { data: 'ari/id2' },
+					},
+					{
+						priority: {
+							data: { label: 'High', text: 'High', id: '4', source: 'source' },
 						},
-					];
+						ari: { data: 'ari/id3' },
+					},
+				];
 
-					const columns: DatasourceResponseSchemaProperty[] = [
-						{
-							key: 'priority',
-							title: 'Priority',
-							type: 'icon',
-						},
-					];
+				const columns: DatasourceResponseSchemaProperty[] = [
+					{
+						key: 'priority',
+						title: 'Priority',
+						type: 'icon',
+					},
+				];
 
-					const execute = jest.fn().mockResolvedValue({});
+				const execute = jest.fn().mockResolvedValue({});
 
-					it('should mark Ufo experience as started when inline edit of icon (priority) is opened', async () => {
-						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
-						actionStore.storeState.setState({
-							actionsByIntegration: {
-								jira: {
-									priority: {
-										actionKey: 'atlassian:work-item:update:priority',
-										type: 'string',
-									},
+				it('should mark Ufo experience as started when inline edit of icon (priority) is opened', async () => {
+					const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+					actionStore.storeState.setState({
+						actionsByIntegration: {
+							jira: {
+								priority: {
+									actionKey: 'atlassian:work-item:update:priority',
+									type: 'string',
 								},
 							},
-							permissions: {
-								'ari/id': {
-									priority: { isEditable: true },
-								},
+						},
+						permissions: {
+							'ari/id': {
+								priority: { isEditable: true },
 							},
-						});
-
-						const executeFetch = jest.fn().mockResolvedValue({});
-						mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
-
-						const { openInlineEdit } = setup({
-							items,
-							columns,
-							itemIds,
-						});
-
-						await openInlineEdit({
-							currentCellText: 'Blocker',
-							dropdownOptionText: 'Major',
-						});
-
-						expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
-
-						await waitFor(() => {
-							expect(mockInlineEditUfoSuccess).toHaveBeenCalledTimes(1);
-						});
-						expect(mockInlineEditUfoFailure).toHaveBeenCalledTimes(0);
+						},
 					});
 
-					it('should mark Ufo experience as failure when executeFetch fails', async () => {
-						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
-						actionStore.storeState.setState({
-							actionsByIntegration: {
-								jira: {
-									priority: {
-										actionKey: 'atlassian:work-item:update:priority',
-										type: 'string',
-									},
-								},
-							},
-							permissions: {
-								'ari/id': {
-									priority: { isEditable: true },
-								},
-							},
-						});
+					const executeFetch = jest.fn().mockResolvedValue({});
+					mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
 
-						const executeFetch = jest.fn().mockResolvedValue({
-							operationStatus: ActionOperationStatus.FAILURE,
-							errors: [],
-						});
-						mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
-
-						const { openInlineEdit, findByText } = setup({
-							items,
-							columns,
-							itemIds,
-						});
-
-						await openInlineEdit({
-							currentCellText: 'Blocker',
-							dropdownOptionText: 'Major',
-						});
-
-						expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
-						await waitFor(() => {
-							expect(mockInlineEditUfoFailure).toHaveBeenCalledTimes(1);
-						});
-
-						// Check the error flag also displays!
-						await waitFor(() => {
-							expect(findByText("We're having trouble fetching options")).resolves.toBeDefined();
-						});
+					const { openInlineEdit } = setup({
+						items,
+						columns,
+						itemIds,
 					});
 
-					ffTest.off(
-						'platform-datasources-inline-edit-id-checks',
-						'with inline edit id checks off',
-						() => {
-							const itemsWithoutId: DatasourceDataResponseItem[] = [
-								{
-									priority: {
-										data: item1,
-									},
-									ari: { data: 'ari/id' },
+					await openInlineEdit({
+						currentCellText: 'Blocker',
+						dropdownOptionText: 'Major',
+					});
+
+					expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
+
+					await waitFor(() => {
+						expect(mockInlineEditUfoSuccess).toHaveBeenCalledTimes(1);
+					});
+					expect(mockInlineEditUfoFailure).toHaveBeenCalledTimes(0);
+				});
+
+				it('should mark Ufo experience as failure when executeFetch fails', async () => {
+					const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+					actionStore.storeState.setState({
+						actionsByIntegration: {
+							jira: {
+								priority: {
+									actionKey: 'atlassian:work-item:update:priority',
+									type: 'string',
 								},
-								{
-									priority: {
-										data: { label: 'Major', text: 'Major', source: 'source' },
-									},
-									ari: { data: 'ari/id2' },
+							},
+						},
+						permissions: {
+							'ari/id': {
+								priority: { isEditable: true },
+							},
+						},
+					});
+
+					const executeFetch = jest.fn().mockResolvedValue({
+						operationStatus: ActionOperationStatus.FAILURE,
+						errors: [],
+					});
+					mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+					const { openInlineEdit, findByText } = setup({
+						items,
+						columns,
+						itemIds,
+					});
+
+					await openInlineEdit({
+						currentCellText: 'Blocker',
+						dropdownOptionText: 'Major',
+					});
+
+					expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
+					await waitFor(() => {
+						expect(mockInlineEditUfoFailure).toHaveBeenCalledTimes(1);
+					});
+
+					// Check the error flag also displays!
+					await waitFor(() => {
+						expect(findByText("We're having trouble fetching options")).resolves.toBeDefined();
+					});
+				});
+
+				ffTest.off(
+					'platform-datasources-inline-edit-id-checks',
+					'with inline edit id checks off',
+					() => {
+						const itemsWithoutId: DatasourceDataResponseItem[] = [
+							{
+								priority: {
+									data: item1,
 								},
-							];
+								ari: { data: 'ari/id' },
+							},
+							{
+								priority: {
+									data: { label: 'Major', text: 'Major', source: 'source' },
+								},
+								ari: { data: 'ari/id2' },
+							},
+						];
 
-							it('allows selecting option even if it does not have an id', async () => {
-								const itemIds = store.actions.onAddItems(itemsWithoutId, 'jira', 'work-item');
-								actionStore.storeState.setState({
-									actionsByIntegration: {
-										jira: {
-											priority: {
-												actionKey: 'atlassian:work-item:update:priority',
-												type: 'string',
-											},
+						it('allows selecting option even if it does not have an id', async () => {
+							const itemIds = store.actions.onAddItems(itemsWithoutId, 'jira', 'work-item');
+							actionStore.storeState.setState({
+								actionsByIntegration: {
+									jira: {
+										priority: {
+											actionKey: 'atlassian:work-item:update:priority',
+											type: 'string',
 										},
 									},
-									permissions: {
-										'ari/id': {
-											priority: { isEditable: true },
-										},
+								},
+								permissions: {
+									'ari/id': {
+										priority: { isEditable: true },
 									},
-								});
-
-								const executeFetch = jest.fn().mockResolvedValue({
-									operationStatus: ActionOperationStatus.SUCCESS,
-									errors: [],
-									entities: [
-										{
-											source:
-												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
-											label: 'PriorityWithoutId',
-											text: 'PriorityWithoutId',
-										},
-										{
-											source:
-												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
-											label: 'PriorityWithId',
-											text: 'PriorityWithId',
-											id: '1',
-										},
-									],
-								});
-								mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
-
-								const { openInlineEdit, findByText } = setup({
-									items: itemsWithoutId,
-									columns,
-									itemIds,
-								});
-
-								await openInlineEdit({
-									currentCellText: 'Blocker',
-									dropdownOptionText: 'Major',
-								});
-								const priorityCell = await findByText('Blocker');
-
-								// open dropdown
-								act(() => {
-									fireEvent.click(priorityCell);
-								});
-
-								expect(findByText('PriorityWithoutId')).resolves.toBeTruthy();
-								expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+								},
 							});
-						},
-					);
-					ffTest.on(
-						'platform-datasources-inline-edit-id-checks',
-						'with inline edit id checks on',
-						() => {
-							it('does not allow allows selecting option if it does not have an id', async () => {
-								const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
-								actionStore.storeState.setState({
-									actionsByIntegration: {
-										jira: {
-											priority: {
-												actionKey: 'atlassian:work-item:update:priority',
-												type: 'string',
-											},
-										},
+
+							const executeFetch = jest.fn().mockResolvedValue({
+								operationStatus: ActionOperationStatus.SUCCESS,
+								errors: [],
+								entities: [
+									{
+										source:
+											'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+										label: 'PriorityWithoutId',
+										text: 'PriorityWithoutId',
 									},
-									permissions: {
-										'ari/id': {
-											priority: { isEditable: true },
-										},
+									{
+										source:
+											'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+										label: 'PriorityWithId',
+										text: 'PriorityWithId',
+										id: '1',
 									},
-								});
-
-								const executeFetch = jest.fn().mockResolvedValue({
-									operationStatus: ActionOperationStatus.SUCCESS,
-									errors: [],
-									entities: [
-										{
-											source:
-												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
-											label: 'PriorityWithoutId',
-											text: 'PriorityWithoutId',
-										},
-										{
-											source:
-												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
-											label: 'PriorityWithId',
-											text: 'PriorityWithId',
-											id: '1',
-										},
-									],
-								});
-								mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
-
-								const { findByText } = setup({
-									items,
-									columns,
-									itemIds,
-								});
-
-								const priorityCell = await findByText('Blocker');
-
-								// open dropdown
-								act(() => {
-									fireEvent.click(priorityCell);
-								});
-
-								expect(findByText('PriorityWithoutId')).rejects.toThrow();
-								expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+								],
 							});
-						},
-					);
-				},
-			);
+							mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+							const { openInlineEdit, findByText } = setup({
+								items: itemsWithoutId,
+								columns,
+								itemIds,
+							});
+
+							await openInlineEdit({
+								currentCellText: 'Blocker',
+								dropdownOptionText: 'Major',
+							});
+							const priorityCell = await findByText('Blocker');
+
+							// open dropdown
+							act(() => {
+								fireEvent.click(priorityCell);
+							});
+
+							expect(findByText('PriorityWithoutId')).resolves.toBeTruthy();
+							expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+						});
+					},
+				);
+				ffTest.on(
+					'platform-datasources-inline-edit-id-checks',
+					'with inline edit id checks on',
+					() => {
+						it('does not allow allows selecting option if it does not have an id', async () => {
+							const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+							actionStore.storeState.setState({
+								actionsByIntegration: {
+									jira: {
+										priority: {
+											actionKey: 'atlassian:work-item:update:priority',
+											type: 'string',
+										},
+									},
+								},
+								permissions: {
+									'ari/id': {
+										priority: { isEditable: true },
+									},
+								},
+							});
+
+							const executeFetch = jest.fn().mockResolvedValue({
+								operationStatus: ActionOperationStatus.SUCCESS,
+								errors: [],
+								entities: [
+									{
+										source:
+											'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+										label: 'PriorityWithoutId',
+										text: 'PriorityWithoutId',
+									},
+									{
+										source:
+											'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+										label: 'PriorityWithId',
+										text: 'PriorityWithId',
+										id: '1',
+									},
+								],
+							});
+							mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+							const { findByText } = setup({
+								items,
+								columns,
+								itemIds,
+							});
+
+							const priorityCell = await findByText('Blocker');
+
+							// open dropdown
+							act(() => {
+								fireEvent.click(priorityCell);
+							});
+
+							expect(findByText('PriorityWithoutId')).rejects.toThrow();
+							expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+						});
+					},
+				);
+			});
 
 			describe('with 2 way sync for status on', () => {
 				const items: DatasourceDataResponseItem[] = [

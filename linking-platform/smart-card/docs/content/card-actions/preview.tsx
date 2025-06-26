@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
+
 import StagingCardExample from '../../../examples/content/staging-card-example';
-import { ResolvedClientEmbedUrl } from '../../../examples/utils/custom-client';
 import embedExplained from '../../content/embed-explained';
 import customMd from '../../utils/custom-md';
 

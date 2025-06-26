@@ -176,4 +176,32 @@ describe('User Type', () => {
 			assertMaxCount(10, 1000, 5);
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const users = [
+			{
+				displayName: 'UNCLE_BOB',
+			},
+			{
+				displayName: 'UNCLE_BEN',
+			},
+			{
+				displayName: 'AUNT_MAY',
+			},
+			{
+				displayName: 'PETER_PARKER',
+			},
+			{
+				displayName: 'MATT_MURDOCK',
+			},
+			{
+				displayName: 'MILES_MORALES',
+			},
+		];
+		const { container } = render(
+			<IntlProvider locale="en">
+				<UserType users={users} />
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

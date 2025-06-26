@@ -1,5 +1,20 @@
 # @atlaskit/logo
 
+## 19.3.0
+
+### Minor Changes
+
+- [#176906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176906)
+  [`86b046c9bf641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86b046c9bf641) -
+  Adds three new app logos and icons:
+  - `BitbucketDataCenterLogo` and `BitbucketDataCenterIcon`
+  - `JiraDataCenterLogo` and `JiraDataCenterIcon`
+  - `ConfluenceDataCenterLogo` and `ConfluenceDataCenterIcon`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.2.0
 
 ### Minor Changes

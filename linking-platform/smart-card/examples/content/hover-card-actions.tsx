@@ -3,9 +3,9 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ResolvedClient, ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 
-import { ResolvedClient, ResolvedClientEmbedUrl } from '../../examples/utils/custom-client';
 import { CardAction } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
 import HoverOverMe from '../utils/hover-card-box';

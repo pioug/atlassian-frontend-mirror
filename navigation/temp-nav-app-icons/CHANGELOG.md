@@ -1,5 +1,16 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.8.3
+
+### Patch Changes
+
+- [#176906](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176906)
+  [`86b046c9bf641`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86b046c9bf641) -
+  Adds three new app logos and icons:
+  - `BitbucketDataCenterLogo` and `BitbucketDataCenterIcon`
+  - `JiraDataCenterLogo` and `JiraDataCenterIcon`
+  - `ConfluenceDataCenterLogo` and `ConfluenceDataCenterIcon`
+
 ## 0.8.2
 
 ### Patch Changes

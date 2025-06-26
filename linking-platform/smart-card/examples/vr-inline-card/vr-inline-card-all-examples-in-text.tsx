@@ -10,17 +10,16 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import ImageLoader from 'react-render-image';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { AtlasProject, ResolvingClient } from '@atlaskit/link-test-helpers';
 import { Box, xcss } from '@atlaskit/primitives';
 import { Card } from '@atlaskit/smart-card';
 
-import { AtlasProject } from '../../examples-helpers/_jsonLDExamples';
 import ImageIconWithColor from '../../src/common/ui/icons/image-icon';
 import { InlineCardErroredView } from '../../src/view/InlineCard/ErroredView';
 import { InlineCardForbiddenView } from '../../src/view/InlineCard/ForbiddenView';
 import { InlineCardResolvedView as ResolvedView } from '../../src/view/InlineCard/ResolvedView';
 import { InlineCardUnauthorizedView } from '../../src/view/InlineCard/UnauthorisedView';
 import { CardLinkView } from '../../src/view/LinkView';
-import { ResolvingClient } from '../utils/custom-client';
 
 const ImageLoaderMock = (props: ComponentPropsWithoutRef<typeof ImageLoader>) => (
 	<ImageLoader {...props} loaded={props.loading} />

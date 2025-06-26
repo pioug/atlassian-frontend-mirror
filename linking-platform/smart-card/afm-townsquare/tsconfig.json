@@ -87,6 +87,9 @@
 			"path": "../../link-extractors/afm-townsquare/tsconfig.json"
 		},
 		{
+			"path": "../../link-test-helpers/afm-townsquare/tsconfig.json"
+		},
+		{
 			"path": "../../linking-common/afm-townsquare/tsconfig.json"
 		},
 		{

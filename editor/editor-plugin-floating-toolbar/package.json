@@ -131,9 +131,6 @@
 		"editor_a11y_remove_redundant_wrap_icon_label": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean"
-		},
 		"platform_editor_no_cursor_on_live_doc_init": {
 			"type": "boolean"
 		},

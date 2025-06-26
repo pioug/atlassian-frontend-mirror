@@ -60,9 +60,7 @@ const getInlineWidth = (
 	allowTableResizing?: boolean,
 ): number | undefined => {
 	if (
-		(!node.attrs.width &&
-			options?.isChromelessEditor &&
-			fg('platform_editor_fix_table_width_inline_comment')) ||
+		(!node.attrs.width && options?.isChromelessEditor) ||
 		(!node.attrs.width && options?.isCommentEditor && allowTableResizing)
 	) {
 		return;

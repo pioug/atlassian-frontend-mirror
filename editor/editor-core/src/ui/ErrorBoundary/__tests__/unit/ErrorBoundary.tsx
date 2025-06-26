@@ -27,6 +27,19 @@ describe('ErrorBoundary', () => {
 		mockDispatchAnalyticsEvent.mockClear();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ErrorBoundary
+				component={ACTION_SUBJECT.TABLES_PLUGIN}
+				dispatchAnalyticsEvent={mockDispatchAnalyticsEvent}
+			>
+				<BrokenComponent />
+			</ErrorBoundary>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should dispatch an event if props.dispatchAnalyticsEvent exists', () => {
 		render(
 			<ErrorBoundary

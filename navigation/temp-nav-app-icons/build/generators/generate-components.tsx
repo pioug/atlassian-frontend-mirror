@@ -165,6 +165,7 @@ export function ${componentName}({
 			${customThemeSvg ? 'iconColor={iconColor}' : ''}
 			${customThemeSvg && type === 'logo' ? 'textColor={textColor}' : ''}
 			${utilityIcons.includes(name) ? 'label={label}' : `label={label || "${productLabel}"}`}
+			${name.includes('data-center') ? 'isDataCenter={true}' : ''}
 			appearance={appearance}
 			size={size}
 			testId={testId}

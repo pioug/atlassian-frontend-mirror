@@ -51,6 +51,20 @@ describe('ProfileCardResourced', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		mockGetTeamCentralBaseUrl.mockResolvedValue(mockTeamCentralBaseUrl);
+		mockShouldShowGiveKudos.mockResolvedValue(true);
+		const { container } = render(
+			<ProfileCardResourced
+				cloudId={mockCloudId}
+				resourceClient={mockResourceClient}
+				userId={mockUserId}
+			/>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders the GiveKudosLauncherLazy with the correct team central values', async () => {
 		mockGetTeamCentralBaseUrl.mockResolvedValue(mockTeamCentralBaseUrl);
 		mockShouldShowGiveKudos.mockResolvedValue(true);

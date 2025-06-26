@@ -7,6 +7,14 @@ import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-h
 import { ExpandedFrame } from '../../../components/ExpandedFrame';
 
 describe('ExpandedFrame', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ExpandedFrame icon={<span data-testid="icon" />} isPlaceholder={true} />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should not render an icon when isPlaceholder=true', async () => {
 		render(<ExpandedFrame icon={<span data-testid="icon" />} isPlaceholder={true} />);
 		expect(screen.queryByTestId('icon')).not.toBeInTheDocument();

@@ -47,4 +47,16 @@ test.describe('ReactUFO: transition VC', () => {
 			(await getSectionVisibleAt('main-content-projects'))! - interactionMetrics.start;
 		expect(ttvcV3Revision!.vcDetails?.['90'].t).toMatchTimestamp(projectsVisibleAt);
 	});
+
+	test('should capture and report a11y violations', async ({
+		page,
+		waitForReactUFOPayload,
+		getSectionVisibleAt,
+		getSectionDOMAddedAt,
+	}) => {
+		const ufoPageLoadPayload = await waitForReactUFOPayload();
+		expect(ufoPageLoadPayload).toBeDefined();
+
+		await expect(page).toBeAccessible({ violationCount: 2 });
+	});
 });

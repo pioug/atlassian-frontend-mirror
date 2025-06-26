@@ -86,6 +86,14 @@ describe('NotificationIndicator', () => {
 		jest.useRealTimers();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<NotificationIndicator refreshOnHidden={true} ssrInitialValue={5} />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render SSR placehoulder count if passed, even before the async data returns', () => {
 		render(<NotificationIndicator refreshOnHidden={true} ssrInitialValue={5} />);
 		const badge = screen.getByTestId('notification-indicator-badge');

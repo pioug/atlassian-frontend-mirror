@@ -146,6 +146,18 @@ describe('Card ', () => {
 	});
 
 	describe('should manage lazy loading', () => {
+		it('should capture and report a11y violations', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const { container } = render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader mediaClientConfig={dummyMediaClientConfig} identifier={identifier} />
+				</MockedMediaClientProvider>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should lazy load by default', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
@@ -3944,6 +3956,27 @@ describe('Card ', () => {
 		});
 
 		describe('should attach the correct file status flags when completing the UFO experience', () => {
+			it('should capture and report a11y violations', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { uploadItem, MockedMediaClientProvider } = createMockedMediaClientProvider({
+					initialItems: fileItem,
+				});
+				uploadItem(fileItem, 0);
+				const { container } = render(
+					<MockedMediaClientProvider>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				await expect(container).toBeAccessible({
+					violationCount: 1,
+				});
+			});
+
 			it('should attach an uploading file status flag with value as true', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { uploadItem, processItem, MockedMediaClientProvider } =

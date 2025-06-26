@@ -436,6 +436,12 @@ describe('FilmstripView', () => {
 	});
 
 	describe('.render()', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('styles', () => {
 			const { container } = render(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
 			expect(container).toMatchSnapshot();

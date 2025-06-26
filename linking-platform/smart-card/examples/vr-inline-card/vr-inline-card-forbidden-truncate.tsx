@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { ForbiddenClient } from '@atlaskit/link-test-helpers';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { ForbiddenClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';
 
 const wrapperStyles = xcss({

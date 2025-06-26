@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.14.2",
+	"version": "38.16.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,6 +51,7 @@
 		"@atlaskit/link-analytics": "workspace:^",
 		"@atlaskit/link-client-extension": "workspace:^",
 		"@atlaskit/link-extractors": "workspace:^",
+		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
@@ -95,7 +96,6 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-listeners": "workspace:^",
 		"@atlaskit/css-reset": "workspace:^",
-		"@atlaskit/link-test-helpers": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
@@ -190,9 +190,6 @@
 			"type": "boolean",
 			"showOnWebsiteForTransitiveDependencies": true
 		},
-		"smart_links_for_plans_platform": {
-			"type": "boolean"
-		},
 		"bandicoots-smart-card-teamwork-context": {
 			"type": "boolean"
 		},
@@ -243,6 +240,9 @@
 		"platform-linking-additional-flexible-element-props": {
 			"type": "boolean"
 		},
+		"platform-linking-ai-summary-migration-to-convo-ai": {
+			"type": "boolean"
+		},
 		"platform-linking-flexible-card-context": {
 			"type": "boolean"
 		},
@@ -259,6 +259,9 @@
 			"type": "boolean"
 		},
 		"platform_fix_block_card_img_icon_vc": {
+			"type": "boolean"
+		},
+		"platform-linking-team-member-count-component": {
 			"type": "boolean"
 		}
 	},

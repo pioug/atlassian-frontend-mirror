@@ -2,6 +2,7 @@ import React from 'react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { response2, response3, response4 } from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 
 import {
@@ -13,8 +14,6 @@ import {
 	SmartLinkTheme,
 	TitleBlock,
 } from '../../src';
-
-import { response2, response3, response4 } from './example-responses';
 
 const examples = {
 	'https://examples/01': response3,

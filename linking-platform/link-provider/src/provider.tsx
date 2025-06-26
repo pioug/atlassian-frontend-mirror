@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { createStore, type Reducer } from 'redux';
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import merge from 'lodash/merge';
 import { type CardStore, getUrl } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
@@ -92,8 +93,17 @@ export function SmartCardProvider({
 		store,
 	]);
 
+	const value = useMemo(
+		() => merge({}, parentContext || providerValue, { isPreviewPanelAvailable, openPreviewPanel }),
+		[parentContext, providerValue, isPreviewPanelAvailable, openPreviewPanel],
+	);
+
 	return (
-		<SmartCardContext.Provider value={parentContext || providerValue}>
+		<SmartCardContext.Provider
+			value={
+				fg('gryf-5548_smart_card_provider_merge_props') ? value : parentContext || providerValue
+			}
+		>
 			{children}
 		</SmartCardContext.Provider>
 	);

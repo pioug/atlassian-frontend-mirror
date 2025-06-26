@@ -78,13 +78,7 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 			}
 
 			if (
-				attributeName === 'data-aui-version' &&
-				fg('platform_ufo_filter_out_aui_attribute_changes')
-			) {
-				return false;
-			}
-
-			if (
+				attributeName === 'data-aui-version' ||
 				attributeName === 'data-testid' ||
 				attributeName === 'data-vc' ||
 				attributeName === 'data-ssr-placeholder' ||

@@ -174,6 +174,18 @@ describe('ActionGroup', () => {
 				return renderResult;
 			};
 
+			it('should capture and report a11y violations', async () => {
+				const onClick = jest.fn();
+				const { container } = render(
+					<ActionGroup items={[{ name: ActionName.DeleteAction, onClick, testId }]} />,
+					{
+						wrapper: getFlexibleCardTestWrapper(context),
+					},
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('should be able to render DropdownItem element', async () => {
 				await setup(ActionName.DeleteAction, false, false, true);
 				const elements = screen.getAllByRole('menuitem');

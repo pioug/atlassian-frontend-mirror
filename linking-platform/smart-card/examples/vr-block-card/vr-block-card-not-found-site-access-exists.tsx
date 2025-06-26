@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { NotFoundWithSiteAccessExistsClient } from '../utils/custom-client';
+import { NotFoundWithSiteAccessExistsClient } from '@atlaskit/link-test-helpers';
+
 import VRCardView from '../utils/vr-card-view';
 
 export const BlockCardNotFoundSiteAccessExists = () => (

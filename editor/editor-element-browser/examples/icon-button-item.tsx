@@ -3,9 +3,8 @@ import React from 'react';
 import { makeKeyMapWithCommon } from '@atlaskit/editor-common/keymaps';
 import Heading from '@atlaskit/heading';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
-import SpreadsheetIcon from '@atlaskit/icon/core/spreadsheet';
+import GridIcon from '@atlaskit/icon/core/grid';
 import TaskIcon from '@atlaskit/icon/core/task';
-import Table from '@atlaskit/icon/glyph/table';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { IconButtonItem } from '../src/ui/IconButtonItem';
@@ -29,7 +28,7 @@ const items = [
 		title: 'Table',
 		description: 'Insert a table',
 		keyshortcut: makeKeyMapWithCommon('', 'SHIFT-ALT-T'),
-		renderIcon: () => <SpreadsheetIcon label="Table" />,
+		renderIcon: () => <GridIcon label="Table" />,
 	},
 	{
 		exampleTitle: 'Another',
@@ -55,8 +54,7 @@ const items = [
 		title: 'Table',
 		description: 'Insert a table and be amazed what you can do with it!',
 		keyshortcut: undefined,
-		// will no longer be large after platform-visual-refresh-icons is switched on as changing icon size has been removed
-		renderIcon: () => <SpreadsheetIcon LEGACY_fallbackIcon={Table} LEGACY_size="xlarge" label="" />,
+		renderIcon: () => <GridIcon label="" />,
 	},
 	{
 		exampleTitle: 'With big image',

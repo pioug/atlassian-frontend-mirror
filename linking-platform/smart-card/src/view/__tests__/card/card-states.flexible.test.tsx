@@ -50,6 +50,21 @@ describe('smart-card: card states, flexible', () => {
 
 	describe('with render method: withUrl', () => {
 		describe('> state: rejected with an error', () => {
+			it('should capture and report a11y violations', async () => {
+				mockFetch.mockRejectedValue(
+					new APIError('fatal', 'localhost', 'something wrong', 'ResolveUnsupportedError'),
+				);
+				const { container } = render(
+					<Provider client={mockClient}>
+						<Card appearance="inline" url={mockUrl} onError={mockOnError}>
+							<TitleBlock />
+						</Card>
+					</Provider>,
+				);
+
+				await expect(container).toBeAccessible();
+			});
+
 			it('should render error view', async () => {
 				mockFetch.mockRejectedValue(
 					new APIError('fatal', 'localhost', 'something wrong', 'ResolveUnsupportedError'),

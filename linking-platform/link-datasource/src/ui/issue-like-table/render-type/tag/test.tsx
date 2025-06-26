@@ -57,4 +57,19 @@ describe('Tag Type', () => {
 			expect(queryByTestId(TAG_TYPE_TEST_ID)).not.toBeInTheDocument();
 		};
 	});
+	it('should capture and report a11y violations', async () => {
+		const TEST_TEXT = 'SIMPLE TAG';
+		const TEST_COLOR_OPTION = 'teal';
+		const TEST_URL = 'www.test123.com.au';
+		const { container } = render(
+			<Tag
+				tag={{
+					text: TEST_TEXT,
+					color: TEST_COLOR_OPTION,
+					url: TEST_URL,
+				}}
+			/>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

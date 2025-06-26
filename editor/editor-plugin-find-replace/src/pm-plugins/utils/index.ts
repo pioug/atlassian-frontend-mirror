@@ -21,6 +21,9 @@ import {
 	selectedSearchMatchClass,
 	blockSearchMatchClass,
 	darkModeSearchMatchClass,
+	selectedBlockSearchMatchClass,
+	searchMatchExpandTitleClass,
+	searchMatchTextClass,
 } from '../../ui/styles';
 
 export function getSelectedText(selection: TextSelection): string {
@@ -33,32 +36,38 @@ export function getSelectedText(selection: TextSelection): string {
 }
 
 export const createDecorations = (selectedIndex: number, matches: Match[]): Decoration[] =>
-	matches.map(({ start, end, nodeType }, i) =>
-		createDecoration(start, end, i === selectedIndex, nodeType),
-	);
+	matches.map(({ start, end, canReplace, nodeType }, i) => createDecoration({ start, end, canReplace, nodeType }, i === selectedIndex));
 
-const isBlock = (nodeType?: string) => nodeType === 'blockCard' || nodeType === 'embedCard';
+const isElement = (nodeType?: string) => ['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '');
+const isExpandTitle = (match: Match) => ['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
 
-export const createDecoration = (
-	start: number,
-	end: number,
-	isSelected?: Boolean,
-	nodeType?: string,
-) => {
+export const createDecoration = (match: Match, isSelected?: Boolean) => {
+	const { start, end, nodeType } = match;
 	if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
 		const { colorMode } = getGlobalTheme();
 
-		const className = classnames(searchMatchClass, {
-			[selectedSearchMatchClass]: isSelected,
-			[blockSearchMatchClass]: isBlock(nodeType),
-			[darkModeSearchMatchClass]: colorMode === 'dark',
-		});
-
-		if (isBlock(nodeType)) {
+		if (isElement(nodeType)) {
+			const className = classnames(blockSearchMatchClass, {
+				[selectedBlockSearchMatchClass]: isSelected,
+				[darkModeSearchMatchClass]: colorMode === 'dark',
+			});
+			return Decoration.node(start, end, {
+				class: className,
+			});
+		} else if (isExpandTitle(match)) {
+			const className = classnames(searchMatchExpandTitleClass, {
+				[selectedSearchMatchClass]: isSelected,
+				[darkModeSearchMatchClass]: colorMode === 'dark',
+			});
 			return Decoration.node(start, end, {
 				class: className,
 			});
 		} else {
+			const className = classnames(searchMatchTextClass, {
+				[selectedSearchMatchClass]: isSelected,
+				[darkModeSearchMatchClass]: colorMode === 'dark',
+			});
+
 			return Decoration.inline(start, end, {
 				class: className,
 			});
@@ -100,6 +109,7 @@ export function findMatches({
 		if (!textGrouping) {
 			return;
 		}
+
 		let { text } = textGrouping;
 		const { pos: relativePos } = textGrouping;
 
@@ -127,47 +137,25 @@ export function findMatches({
 		}
 	};
 
-	const collectStatusMatch = (textGrouping: TextGrouping, nodeSize: number) => {
-		if (!textGrouping) {
-			return;
-		}
-		const { pos } = textGrouping;
-		let { text } = textGrouping;
-		if (shouldMatchCase) {
-			text = text.toUpperCase();
-		} else {
-			text = text.toLowerCase();
-			searchText = searchText.toLowerCase();
-		}
-		const index = text.indexOf(searchText);
-		if (index !== -1) {
-			const start = pos;
-			matches.push({
-				start,
-				end: start + nodeSize,
-				canReplace: false,
-				nodeType: 'status',
-			});
-		}
-	};
-
 	const collectNodeMatch = (textGrouping: TextGrouping, node: PmNode) => {
 		if (!textGrouping) {
 			return;
 		}
-		let { text } = textGrouping;
-		const { pos } = textGrouping;
 
-		if (!shouldMatchCase) {
-			searchText = searchText.toLowerCase();
+		const { pos } = textGrouping;
+		let { text } = textGrouping;
+
+		if (node.type.name === 'status' && shouldMatchCase) {
+			text = text.toUpperCase();
+		} else if (!shouldMatchCase) {
 			text = text.toLowerCase();
+			searchText = searchText.toLowerCase();
 		}
 		const index = text.indexOf(searchText);
 		if (index !== -1) {
-			const start = pos;
 			matches.push({
-				start,
-				end: start + node.nodeSize,
+				start: pos,
+				end: pos + node.nodeSize,
 				canReplace: false,
 				nodeType: node.type.name,
 			});
@@ -210,12 +198,12 @@ export function findMatches({
 				if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
 					switch (node.type.name) {
 						case 'status':
-							collectStatusMatch(
+							collectNodeMatch(
 								{
 									text: node.attrs.text as string,
 									pos,
 								},
-								node.nodeSize,
+								node
 							);
 							break;
 						case 'date':
@@ -229,6 +217,15 @@ export function findMatches({
 								},
 								node,
 							);
+							break;
+						case 'expand':
+						case 'nestedExpand':
+							collectNodeMatch(
+								{
+									text: node.attrs.title as string,
+									pos,
+								},
+								node);
 							break;
 						case 'mention':
 							let text;
@@ -262,7 +259,6 @@ export function findMatches({
 						case 'blockCard':
 						case 'embedCard':
 							collectCardTitleMatch(node, pos);
-
 							break;
 						default:
 							break;
@@ -310,6 +306,10 @@ export const getSelectionForMatch = (
 	offset = 0,
 ): Selection => {
 	if (matches[index]) {
+		if (isExpandTitle(matches[index])) {
+			// create a text selection at the first position inside the expand body
+			return TextSelection.create(doc, matches[index].start + offset - 2);
+		}
 		return TextSelection.create(doc, matches[index].start + offset);
 	}
 	return selection;
@@ -325,10 +325,10 @@ export const findDecorationFromMatch = (
 	const decorations = decorationSet.find(match.start, match.end);
 	return decorations.length
 		? decorations.find(
-				// decorationSet.find() returns any decorations that touch the specifided
-				// positions, but we want to be stricter
-				(decoration) => decoration.from === match.start && decoration.to === match.end,
-			)
+			// decorationSet.find() returns any decorations that touch the specifided
+			// positions, but we want to be stricter
+			(decoration) => decoration.from === match.start && decoration.to === match.end,
+		)
 		: undefined;
 };
 

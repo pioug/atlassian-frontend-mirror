@@ -47,6 +47,30 @@ describe('smart-card: error analytics', () => {
 		consoleErrorFn.mockRestore();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		class MockClient extends CardClient {
+			async fetchData(url: string): Promise<JsonLd.Response> {
+				throw new APIError(
+					'fatal',
+					new URL(url).hostname,
+					'received unsupported error',
+					'ResolveUnsupportedError',
+				);
+			}
+		}
+		const client = new MockClient();
+		const onError = jest.fn();
+		const { container } = render(
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<Provider client={client}>
+					<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+				</Provider>
+			</FabricAnalyticsListeners>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should invoke onError on ResolveUnsupportedError', async () => {
 		class MockClient extends CardClient {
 			async fetchData(url: string): Promise<JsonLd.Response> {

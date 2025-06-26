@@ -1394,4 +1394,20 @@ describe('JiraIssuesConfigModal', () => {
 			);
 		});
 	});
+
+	it('should capture and report a11y violations', async () => {
+		asMock(getAvailableSites).mockReturnValue([]);
+		asMock(useDatasourceTableState).mockReturnValue(getDefaultHookState());
+		const { container } = render(
+			<IntlProvider locale="en">
+				<JiraIssuesConfigModal
+					datasourceId={'some-jira-datasource-id'}
+					onCancel={jest.fn()}
+					onInsert={jest.fn()}
+				/>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
 });

@@ -24,4 +24,11 @@ test.describe('speed index', () => {
 
 		expect(reactUFOPayload!.attributes.properties['ufo:next:speedIndex']).toBeDefined();
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		const mainDiv = page.locator('[data-testid="main"]');
+		await expect(mainDiv).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

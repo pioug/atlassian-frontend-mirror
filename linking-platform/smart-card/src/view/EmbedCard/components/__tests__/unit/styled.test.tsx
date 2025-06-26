@@ -11,6 +11,12 @@ import {
 } from '../../styled';
 
 describe('Wrapper', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<WrapperOldVisualRefresh minWidth={100} data-testid="wrapper" />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render with min-width when there is a minWidth', async () => {
 		render(<WrapperOldVisualRefresh minWidth={100} data-testid="wrapper" />);
 		expect(await screen.findByTestId('wrapper')).toHaveCompiledCss({ 'min-width': '100px' });
@@ -33,6 +39,14 @@ describe('Wrapper', () => {
 });
 
 describe('LinkWrapper', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<LinkWrapperOldVisualRefresh minWidth={100} data-testid="wrapper" />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render with minWidth when there is a minWidth', async () => {
 		render(<LinkWrapperOldVisualRefresh minWidth={100} data-testid="wrapper" />);
 		expect(await screen.findByTestId('wrapper')).toHaveCompiledCss({ 'min-width': '100px' });
@@ -55,6 +69,14 @@ describe('LinkWrapper', () => {
 });
 
 describe('Content', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ContentOldVisualRefresh isInteractive={true} allowScrollBar={false} data-testid="content" />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should not allow overflow content to be visible (on hover as well)', async () => {
 		render(
 			<ContentOldVisualRefresh isInteractive={true} allowScrollBar={false} data-testid="content" />,
@@ -143,6 +165,14 @@ describe('Content', () => {
 });
 
 describe('IconWrapper', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IconWrapperOldVisualRefresh isPlaceholder={true} data-testid="wrapper" />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should look like a placeholder when isPlaceholder=true', async () => {
 		render(<IconWrapperOldVisualRefresh isPlaceholder={true} data-testid="wrapper" />);
 		expect(await screen.findByTestId('wrapper')).toHaveStyle({
@@ -160,6 +190,14 @@ describe('IconWrapper', () => {
 });
 
 describe('TextWrapper', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<TextWrapperOldVisualRefresh isPlaceholder={true} data-testid="wrapper" />,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should look like a placeholder when isPlaceholder=true', async () => {
 		render(<TextWrapperOldVisualRefresh isPlaceholder={true} data-testid="wrapper" />);
 		expect(await screen.findByTestId('wrapper')).toHaveStyle({

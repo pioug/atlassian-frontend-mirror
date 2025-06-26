@@ -39,6 +39,15 @@ test.describe('ReactUFO: hold (basic)', () => {
 					expect(typeof hold.endTime).toBe('number');
 				});
 			});
+
+			test('should capture and report a11y violations', async ({
+				page,
+				waitForReactUFOPayload,
+			}) => {
+				const reactUFOPayload = await waitForReactUFOPayload();
+				expect(reactUFOPayload).toBeDefined();
+				await expect(page).toBeAccessible();
+			});
 		});
 	}
 });

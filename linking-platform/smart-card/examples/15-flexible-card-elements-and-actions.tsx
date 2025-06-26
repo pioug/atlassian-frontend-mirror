@@ -2,6 +2,19 @@ import React from 'react';
 
 import { Label } from '@atlaskit/form';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import {
+	ForbiddenClient,
+	ForbiddenWithObjectRequestAccessClient,
+	ForbiddenWithSiteDeniedRequestClient,
+	ForbiddenWithSiteDirectAccessClient,
+	ForbiddenWithSiteForbiddenClient,
+	ForbiddenWithSitePendingRequestClient,
+	ForbiddenWithSiteRequestAccessClient,
+	NotFoundWithSiteAccessExistsClient,
+	UnAuthClient,
+	UnicornResolvedClient,
+	unicornResponse,
+} from '@atlaskit/link-test-helpers';
 import { Grid } from '@atlaskit/primitives';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
@@ -50,19 +63,6 @@ import {
 	VoteCountElement,
 } from '../src';
 
-import { unicornResponse } from './content/example-responses';
-import {
-	ForbiddenClient,
-	ForbiddenWithObjectRequestAccessClient,
-	ForbiddenWithSiteDeniedRequestClient,
-	ForbiddenWithSiteDirectAccessClient,
-	ForbiddenWithSiteForbiddenClient,
-	ForbiddenWithSitePendingRequestClient,
-	ForbiddenWithSiteRequestAccessClient,
-	NotFoundWithSiteAccessExistsClient,
-	UnAuthClient,
-	UnicornResolvedClient,
-} from './utils/custom-client';
 import ExampleContainer from './utils/example-container';
 
 export default () => {

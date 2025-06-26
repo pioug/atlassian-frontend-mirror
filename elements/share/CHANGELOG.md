@@ -1,5 +1,19 @@
 # @atlaskit/share
 
+## 6.14.0
+
+### Minor Changes
+
+- [#177483](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177483)
+  [`a253b30d18585`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a253b30d18585) -
+  [ux] Update extended share dialog header offset
+
+### Patch Changes
+
+- [#176250](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176250)
+  [`6ad5979076014`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ad5979076014) -
+  clean plan smartlinks feature gate
+
 ## 6.13.0
 
 ### Minor Changes

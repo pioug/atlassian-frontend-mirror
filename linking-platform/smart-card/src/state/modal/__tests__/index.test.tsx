@@ -66,6 +66,12 @@ const TestComponent = ({ onClick }: { onClick?: React.MouseEventHandler<HTMLDivE
 };
 
 describe('useSmartLinkModal', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<TestComponent />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element outside of its container', async () => {
 		render(<TestComponent />);
 

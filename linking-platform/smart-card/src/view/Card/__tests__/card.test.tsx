@@ -42,6 +42,29 @@ describe('smart-card: card', () => {
 	});
 
 	describe('unhandled errors', () => {
+		it('should capture and report a11y violations', async () => {
+			const mockErrorHandler = jest.fn();
+			const { container } = render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={mockClient}>
+						<Box>
+							Hello I am parent of card
+							<Card
+								appearance="block"
+								url={mockUrl}
+								onResolve={() => {
+									throw new Error('unexpected error');
+								}}
+								onError={mockErrorHandler}
+							/>
+						</Box>
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('are not thrown and onError method is called', async () => {
 			const mockErrorHandler = jest.fn();
 			render(

@@ -40,14 +40,16 @@ import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSiz
 
 import { BeforePrimaryToolbarWrapper } from './BeforeWrapper';
 import {
+	MainToolbarForFirstChildWrapper,
+	MainToolbarForSecondChildWrapper,
+} from './CustomToolbarWrapper';
+import {
 	customToolbarWrapperStyle,
-	mainToolbarFirstChildStyle,
 	mainToolbarIconBeforeStyle,
-	mainToolbarSecondChildStyle,
-	mainToolbarStyle,
 	MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
 	nonCustomToolbarWrapperStyle,
 } from './MainToolbar';
+import { MainToolbarWrapper } from './MainToolbarWrapper';
 
 export type ToolbarEditorPlugins = [
 	OptionalPlugin<AnalyticsPlugin>,
@@ -209,34 +211,29 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 					intl={props.intl}
 				>
 					<ToolbarPortal>
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							css={mainToolbarStyle(
-								props.showKeyline || contextPanelWidth > 0,
-								twoLineEditorToolbar,
-							)}
+						<MainToolbarWrapper
+							showKeyline={props.showKeyline || contextPanelWidth > 0}
+							twoLineEditorToolbar={twoLineEditorToolbar}
 							data-testid="ak-editor-main-toolbar"
 						>
-							<div
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								css={mainToolbarFirstChildStyle(twoLineEditorToolbar)}
+							<MainToolbarForFirstChildWrapper
+								twoLineEditorToolbar={twoLineEditorToolbar}
 								role="toolbar"
 								aria-label={props.intl.formatMessage(messages.toolbarLabel)}
 							>
 								{shouldSplitToolbar ? customToolbar : nonCustomToolbar}
-							</div>
-							<div
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								css={mainToolbarSecondChildStyle(twoLineEditorToolbar)}
+							</MainToolbarForFirstChildWrapper>
+							<MainToolbarForSecondChildWrapper
+								twoLineEditorToolbar={twoLineEditorToolbar}
 								data-testid="avatar-group-outside-plugin"
 								role="region"
 								aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
 							>
 								{shouldSplitToolbar ? nonCustomToolbar : customToolbar}
-							</div>
+							</MainToolbarForSecondChildWrapper>
 
 							<ToolbarPortalMountPoint />
-						</div>
+						</MainToolbarWrapper>
 					</ToolbarPortal>
 				</ToolbarArrowKeyNavigationProvider>
 			)}

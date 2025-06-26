@@ -26,4 +26,8 @@ describe('Text Type', () => {
 		});
 		expect(queryByTestId(TEXT_TYPE_TEST_ID)).not.toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Text text={''} />);
+		await expect(container).toBeAccessible();
+	});
 });

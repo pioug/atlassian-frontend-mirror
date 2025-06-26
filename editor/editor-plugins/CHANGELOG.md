@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugins
 
+## 9.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.3.0
+
+### Minor Changes
+
+- [#177117](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177117)
+  [`49ae44aea25fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49ae44aea25fc) -
+  Add new styles for inline nodes for find and replace, include these in block node checks
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.2.20
 
 ### Patch Changes

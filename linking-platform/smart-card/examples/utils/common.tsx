@@ -6,11 +6,17 @@ import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
+import {
+	forbiddenJira,
+	iconGoogleDrive,
+	image1,
+	image2,
+	imageForbiddenJiraEmbed,
+} from '@atlaskit/link-test-helpers';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import Page from '@atlaskit/page';
 import { token } from '@atlaskit/tokens';
 
-import { forbiddenJira, iconGoogleDrive, image1, image2, imageForbiddenJiraEmbed } from '../images';
 interface VRTestCaseOpts {
 	title: string;
 	children: () => JSX.Element;
@@ -40,16 +46,6 @@ export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
 		</IntlProvider>
 	);
 };
-
-const content = `
-<html>
-  <body style="font-family:sans-serif;text-align:center;background-color:#091E4208">
-    VR TEST: EMBED CONTENT
-  </body>
-</html>
-`;
-const encodedContent = encodeURIComponent(content);
-export const overrideEmbedContent = `data:text/html;charset=utf-8,${encodedContent}`;
 
 export const mocks = {
 	entityDataSuccess: {
@@ -291,3 +287,5 @@ export const toComponentProps = (props: object, indent: string = '\n\t'): string
 		(acc, [key, value]) => `${acc}${indent}${toComponentProp(key, value, indent)}`,
 		'',
 	);
+
+export { overrideEmbedContent } from '@atlaskit/link-test-helpers';

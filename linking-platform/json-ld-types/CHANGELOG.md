@@ -1,5 +1,13 @@
 # @atlaskit/json-ld-types
 
+## 1.3.0
+
+### Minor Changes
+
+- [#176285](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176285)
+  [`1b51eca9c45fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b51eca9c45fb) -
+  Added Team Member Count component
+
 ## 1.2.0
 
 ### Minor Changes

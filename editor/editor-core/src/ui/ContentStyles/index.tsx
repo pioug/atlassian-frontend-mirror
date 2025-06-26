@@ -193,6 +193,16 @@ const mentionNodeStyles = css({
 	},
 });
 
+// The feature-gate for this is dependent on the use of refreshed typography - bear this in mind when cleaning up
+// This is currently enforced through statsig prerequisite gates, as per #help-afm recommendation.
+// So it will need to be considered if the typography gates are still in use when this is cleaned up.
+const mentionNodeStylesMixin_fg_platform_editor_centre_mention_padding = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.editor-mention-primitive': {
+		padding: '1px 0.3em 1px 0.23em',
+	},
+});
+
 const vanillaSelectionStyles = css`
 	.danger {
 		.editor-mention-primitive {
@@ -512,6 +522,8 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	${panelStyles()}
 	${mentionsStyles}
 	${mentionNodeStyles}
+	${fg('platform_editor_centre_mention_padding') &&
+	mentionNodeStylesMixin_fg_platform_editor_centre_mention_padding}
 	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
 	vanillaSelectionStyles}
 	${editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })

@@ -17,6 +17,12 @@ describe('Element: Lozenge', () => {
 	const text = 'Some status';
 	const appearance = 'inprogress';
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<BaseLozengeElement text={text} appearance={appearance} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element', async () => {
 		render(<BaseLozengeElement text={text} appearance={appearance} />);
 

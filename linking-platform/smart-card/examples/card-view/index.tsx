@@ -1,9 +1,5 @@
 import React from 'react';
 
-import type { Card } from '@atlaskit/smart-card';
-import type { CardSSR } from '@atlaskit/smart-card/ssr';
-
-import type CardView from '../utils/card-view';
 import {
 	ErroredClient,
 	ForbiddenClient,
@@ -22,7 +18,11 @@ import {
 	UnAuthClient,
 	UnAuthClientWithNoAuthFlow,
 	UnAuthClientWithNoIcon,
-} from '../utils/custom-client';
+} from '@atlaskit/link-test-helpers';
+import type { Card } from '@atlaskit/smart-card';
+import type { CardSSR } from '@atlaskit/smart-card/ssr';
+
+import type CardView from '../utils/card-view';
 
 import CardViewSection from './card-view-section';
 

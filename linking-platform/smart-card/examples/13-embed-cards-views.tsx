@@ -1,15 +1,15 @@
 import React from 'react';
 
+import {
+	ResolvedClient,
+	ResolvedClientEmbedUrl,
+	ResolvedClientUrlNoPreview,
+} from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
 
 import CardViewExample from './card-view';
 import CardViewSection from './card-view/card-view-section';
-import {
-	ResolvedClient,
-	ResolvedClientEmbedUrl,
-	ResolvedClientUrlNoPreview,
-} from './utils/custom-client';
 import ExampleContainer from './utils/example-container';
 
 export default () => (

@@ -54,6 +54,14 @@ test.describe('first block node styles', () => {
 			await expect(firstPanelNode).toHaveCSS('margin-top', '0px');
 			await expect(secondPanelNode).toHaveCSS('margin-top', '12px');
 		});
+
+		test('should capture and report a11y violations', async ({ editor }) => {
+			const nodes = EditorNodeContainerModel.from(editor);
+			const firstPanelNode = nodes.panel.first();
+			await expect(firstPanelNode).toBeVisible();
+
+			await expect(editor.page).toBeAccessible();
+		});
 	});
 
 	test.describe('code block', () => {
@@ -277,6 +285,14 @@ test.describe('first block node styles', () => {
 			const secondNode = nodes.table.nth(1);
 			await expect(firstNode).toHaveCSS('margin-top', '0px');
 			await expect(secondNode).toHaveCSS('margin-top', '0px');
+		});
+
+		test('should capture and report a11y violations', async ({ editor }) => {
+			const nodes = EditorNodeContainerModel.from(editor);
+			const firstNode = nodes.table.first();
+			await expect(firstNode).toBeVisible();
+
+			await expect(editor.page).toBeAccessible({ violationCount: 1 });
 		});
 	});
 });

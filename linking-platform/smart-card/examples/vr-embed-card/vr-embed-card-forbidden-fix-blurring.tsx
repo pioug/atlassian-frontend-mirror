@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ForbiddenClient } from '../utils/custom-client';
+import { ForbiddenClient } from '@atlaskit/link-test-helpers';
+
 import VRCardView from '../utils/vr-card-view';
 
 // Content inside embed card should not extend out of it,

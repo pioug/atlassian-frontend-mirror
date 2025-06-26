@@ -14,6 +14,12 @@ describe('Element: Link', () => {
 	const text = 'Some title';
 	const url = 'https://some.url';
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<BaseLinkElement text={text} url={url} />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element', async () => {
 		render(<BaseLinkElement text={text} url={url} />);
 
@@ -184,6 +190,12 @@ describe('Element: Link', () => {
 	});
 
 	describe('target', () => {
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(<BaseLinkElement text={text} url={url} target="_self" />);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('does not set target attribute when target is _self', async () => {
 			render(<BaseLinkElement text={text} url={url} target="_self" />);
 

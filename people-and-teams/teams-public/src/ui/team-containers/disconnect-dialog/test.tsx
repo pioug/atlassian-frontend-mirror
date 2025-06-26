@@ -41,4 +41,8 @@ describe('DisconnectDialog', () => {
 		await userEvent.click(screen.getByText(messages.disconnectDialogRemoveButton.defaultMessage));
 		await waitFor(() => expect(onDisconnect).toHaveBeenCalled());
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderComponent();
+		await expect(container).toBeAccessible();
+	});
 });

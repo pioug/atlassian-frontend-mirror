@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ForbiddenWithObjectRequestAccessClient } from '@atlaskit/link-test-helpers';
 
 import { Card } from '../../src';
 import { type OnErrorCallback } from '../../src/view/types';
-import { ForbiddenWithObjectRequestAccessClient } from '../utils/custom-client';
 
 type DataType = Parameters<OnErrorCallback>[0];
 

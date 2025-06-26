@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 208.4.1
+
+### Patch Changes
+
+- [#176892](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176892)
+  [`7c387af73cfb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c387af73cfb2) -
+  [ux] Prevent scroll on focus before editor
+- [#176864](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176864)
+  [`980fda095ab20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/980fda095ab20) -
+  [ux] Adjust mention styles to use flex centering instead of fixed padding values
+- [#177647](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177647)
+  [`422759e00f33d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/422759e00f33d) -
+  ED-28282 Clean up platform_editor_fix_table_width_inline_comment
+- Updated dependencies
+
+## 208.4.0
+
+### Minor Changes
+
+- [#177117](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177117)
+  [`49ae44aea25fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49ae44aea25fc) -
+  Add new styles for inline nodes for find and replace, include these in block node checks
+
+### Patch Changes
+
+- [#177523](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177523)
+  [`1faed88065ff6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1faed88065ff6) -
+  refactor editor fullpage toolbar height in FullPageContentArea
+- Updated dependencies
+
+## 208.3.6
+
+### Patch Changes
+
+- [#165932](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/165932)
+  [`993d95ad7a45c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/993d95ad7a45c) -
+  migrated toolbar off dynamic styles to static styles behind experiment
+
 ## 208.3.5
 
 ### Patch Changes

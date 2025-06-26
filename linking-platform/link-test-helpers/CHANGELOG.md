@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 8.1.0
+
+### Minor Changes
+
+- [#176835](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176835)
+  [`0b00de2560126`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b00de2560126) -
+  Move test utility mocks to @atlaskit/link-test-helpers to reduce future duplications
+
 ## 8.0.7
 
 ### Patch Changes

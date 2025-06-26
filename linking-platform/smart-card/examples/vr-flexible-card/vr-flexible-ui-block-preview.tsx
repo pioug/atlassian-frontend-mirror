@@ -7,11 +7,11 @@ import React from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { image1 as preview } from '@atlaskit/link-test-helpers';
 import { token } from '@atlaskit/tokens';
 
 import { MediaPlacement, PreviewBlock, SmartLinkSize, SnippetBlock, TitleBlock } from '../../src';
 import FlexibleCard from '../../src/view/FlexibleCard';
-import preview from '../images/rectangle.svg';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

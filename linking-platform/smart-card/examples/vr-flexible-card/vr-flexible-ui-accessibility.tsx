@@ -4,9 +4,9 @@ import { IntlProvider } from 'react-intl-next';
 
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { AsanaTask } from '@atlaskit/link-test-helpers';
 import { token } from '@atlaskit/tokens';
 
-import { AsanaTask } from '../../examples-helpers/_jsonLDExamples';
 import { type ActionItem, ActionName, Card, SmartLinkPosition, TitleBlock } from '../../src';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';

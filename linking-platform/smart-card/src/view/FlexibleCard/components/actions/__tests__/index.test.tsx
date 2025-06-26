@@ -21,6 +21,16 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
 	describe(`Action: ${name}`, () => {
 		const testId = `smart-action-${name.toLocaleLowerCase()}-action}`;
 
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<IntlProvider locale="en">
+					<NamedAction onClick={() => {}} testId={testId} />
+				</IntlProvider>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		describe.each([
 			['as dropdown item', true],
 			['as button', false],

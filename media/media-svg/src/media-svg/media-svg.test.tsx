@@ -12,6 +12,31 @@ import { MediaSVGError } from './errors';
 import MediaSvg from './media-svg';
 
 describe('MediaSvg', () => {
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.svg();
+		const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+			initialItems: fileItem,
+		});
+		const testId = 'media-svg';
+		const alt = 'some-alt';
+		const onMouseDown = jest.fn();
+		const onLoad = jest.fn();
+		const { container } = render(
+			<MockedMediaClientProvider>
+				<MediaSvg
+					testId={testId}
+					identifier={identifier}
+					alt={alt}
+					onMouseDown={onMouseDown}
+					onLoad={onLoad}
+				/>
+				,
+			</MockedMediaClientProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should fetch and render the original contents of an SVG file', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.svg();
 		const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({

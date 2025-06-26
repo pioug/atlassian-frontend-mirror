@@ -3,6 +3,7 @@ import React from 'react';
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { response1 } from '@atlaskit/link-test-helpers';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 import {
@@ -17,8 +18,6 @@ import {
 	SnippetBlock,
 	TitleBlock,
 } from '../../src';
-
-import { response1 } from './example-responses';
 
 // eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 setBooleanFeatureFlagResolver((flag) => flag === 'platform-visual-refresh-icons');

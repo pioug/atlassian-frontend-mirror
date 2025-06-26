@@ -289,4 +289,13 @@ test.describe('quick-insert: nested numbered list', () => {
 			),
 		);
 	});
+
+	test('should capture and report a11y violations', async ({ editor }) => {
+		await editor.selection.set({ anchor: 16, head: 16 });
+		await editor.keyboard.type(' ');
+
+		await editor.typeAhead.searchAndInsert('quote');
+
+		await expect(editor.page).toBeAccessible();
+	});
 });

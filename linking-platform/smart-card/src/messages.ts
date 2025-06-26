@@ -167,6 +167,7 @@ export type MessageKey =
 	| 'join_to_viewIssueTermRefresh'
 	| 'open_issue_in_jiraIssueTermRefresh'
 	| 'request_access_to_viewIssueTermRefresh'
+	| 'team_members_count'
 	| 'status_change_permission_errorIssueTermRefresh';
 
 type Messages = {
@@ -1026,5 +1027,10 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.status_change_permission_error-issue-term-refresh',
 		defaultMessage: 'You don’t have permission to transition this work item. ',
 		description: 'Informs the user that they do not have enough permissions to update a status',
+	},
+	team_members_count: {
+		id: 'fabric.linking.team_members_count',
+		defaultMessage: '{context} members',
+		description: 'Indicates the count of team member',
 	},
 });

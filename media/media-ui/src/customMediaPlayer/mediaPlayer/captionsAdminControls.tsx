@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { type VideoTextTracks } from '../react-video-renderer';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import UploadIcon from '@atlaskit/icon/core/upload';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import { IconButton } from '@atlaskit/button/new';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { messages } from '../../messages';
 import Tooltip from '@atlaskit/tooltip';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { formatLocale } from './captions';
 import { token } from '@atlaskit/tokens';
+import MediaButton from '../../MediaButton';
+import { popupCustomStyles, createPopupSelectComponentsWithIcon } from '../dropdownControlCommon';
+import { OptionType, PopupSelect, ValueType } from '@atlaskit/select';
+import { popperProps } from '../dropdownControlCommon';
 
 export interface CaptionsAdminControlsProps {
 	textTracks?: VideoTextTracks;
@@ -17,46 +19,77 @@ export interface CaptionsAdminControlsProps {
 	onDelete: (artifactName: string) => void;
 }
 
+const ADD_CAPTIONS_VALUE = 'add-captions';
+
+const OptionIcon = ({ value }: { value: string }) => {
+	if (value === ADD_CAPTIONS_VALUE) {
+		return <UploadIcon spacing="spacious" label="" />;
+	}
+	return <DeleteIcon spacing="spacious" label="" color={token('color.icon.danger')} />;
+};
+
+const popupSelectComponents = createPopupSelectComponentsWithIcon(OptionIcon);
+
 export const _CaptionsAdminControls = ({
 	intl,
 	textTracks = {},
 	onUpload,
 	onDelete,
 }: CaptionsAdminControlsProps & WrappedComponentProps) => {
-	const videoSettings = intl.formatMessage(messages.video_settings);
+	const manageCaptions = intl.formatMessage(messages.manage_captions);
+	const addCaptions = intl.formatMessage(messages.add_captions);
+
+	const popupSelectOptions = useMemo(
+		() => [
+			{
+				label: manageCaptions,
+				options: [
+					...(textTracks.captions?.tracks.map((track) => ({
+						label: formatLocale(intl.locale, track.lang),
+						value: track.artifactName,
+					})) || []),
+					{
+						label: addCaptions,
+						value: ADD_CAPTIONS_VALUE,
+					},
+				],
+			},
+		],
+		[textTracks, intl.locale, manageCaptions, addCaptions],
+	);
+
+	const handleItemClick = (option: ValueType<OptionType>) => {
+		if (option?.value) {
+			if (option.value === ADD_CAPTIONS_VALUE) {
+				onUpload();
+			} else {
+				onDelete(`${option.value}`);
+			}
+		}
+	};
+
 	return (
-		<DropdownMenu<HTMLButtonElement>
-			shouldRenderToParent
-			placement="top-end"
-			trigger={({ triggerRef, ...triggerProps }) => (
-				<Tooltip content={videoSettings} position="top">
-					<IconButton
-						ref={triggerRef}
-						{...triggerProps}
-						icon={SettingsIcon}
-						label={videoSettings}
-						appearance="subtle"
+		<PopupSelect
+			searchThreshold={100}
+			maxMenuHeight={500}
+			minMenuWidth={140}
+			options={popupSelectOptions}
+			onChange={handleItemClick}
+			components={popupSelectComponents}
+			target={({ ref, isOpen, onKeyDown }) => (
+				<Tooltip content={manageCaptions} position="top">
+					<MediaButton
+						testId="custom-media-player-captions-select-button"
+						buttonRef={ref}
+						isSelected={isOpen}
+						onKeyDown={onKeyDown}
+						iconBefore={<SettingsIcon size="medium" color="currentColor" label={manageCaptions} />}
 					/>
 				</Tooltip>
 			)}
-		>
-			<DropdownItemGroup title={videoSettings}>
-				{textTracks.captions?.tracks.map((track, index) => (
-					<DropdownItem
-						key={`${track.lang}-${index}`}
-						onClick={() => onDelete(track.artifactName)}
-						elemAfter={
-							<DeleteIcon spacing="spacious" label="" color={token('color.icon.danger')} />
-						}
-					>
-						{`${formatLocale(intl.locale, track.lang)}`}
-					</DropdownItem>
-				))}
-				<DropdownItem elemBefore={<UploadIcon spacing="spacious" label="" />} onClick={onUpload}>
-					Add Captions
-				</DropdownItem>
-			</DropdownItemGroup>
-		</DropdownMenu>
+			styles={popupCustomStyles}
+			popperProps={popperProps}
+		/>
 	);
 };
 

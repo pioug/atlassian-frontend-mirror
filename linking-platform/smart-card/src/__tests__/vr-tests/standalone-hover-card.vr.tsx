@@ -14,7 +14,7 @@ snapshot(HoverCard, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -23,7 +23,7 @@ snapshot(HoverCardWithPreview, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -32,7 +32,7 @@ snapshot(HoverCardForSlackMessage, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -41,7 +41,7 @@ snapshot(HoverCardConfluence, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -50,7 +50,7 @@ snapshot(HoverCardAssignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -60,7 +60,7 @@ snapshot(HoverCardUnassignedJiraIssue, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-visual-refresh-v2': [true, false],
 	},
 });
@@ -70,7 +70,7 @@ snapshot(HoverCardJiraProject, {
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -84,7 +84,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -99,7 +99,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -114,7 +114,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -128,7 +128,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -143,7 +143,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -158,7 +158,7 @@ snapshot(HoverCardForbiddenJira, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-smart-card-remove-legacy-button': [true, false],
 	},
 });
@@ -168,6 +168,6 @@ snapshot(HoverCardForbiddenJira, {
 	states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });

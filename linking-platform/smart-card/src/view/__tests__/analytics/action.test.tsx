@@ -212,6 +212,14 @@ describe('actions', () => {
 				) => {
 					const { actionType, actionSubjectId, testId, response } = testOptions;
 
+					it('should capture and report a11y violations', async () => {
+						const { container } = setup({
+							props,
+							response,
+						});
+						await expect(container).toBeAccessible();
+					});
+
 					it('fires button click and action resolved', async () => {
 						const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
 						const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');

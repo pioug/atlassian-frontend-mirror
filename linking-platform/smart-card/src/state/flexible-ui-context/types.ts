@@ -201,6 +201,12 @@ export type FlexibleUiDataContext = {
 	 */
 	subscriberCount?: number;
 	/**
+	 * Contains the number of team members of the linked resource.
+	 * @type number
+	 * @see TeamMemberCount
+	 */
+	teamMemberCount?: number;
+	/**
 	 * A string displaying progress on subtasks
 	 */
 	subTasksProgress?: string;

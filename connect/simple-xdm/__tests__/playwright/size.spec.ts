@@ -111,4 +111,10 @@ test.describe('Size', () => {
 		// They're here: https://bitbucket.org/atlassian/simple-xdm/src/cd3aff84772fc11d2e375b33682d56c6fa7ee637/spec/tests/size_spec.js#lines-72:159
 		// If you're going to make changes to this file, please look at porting these across first.
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await page.visitExample('connect', 'simple-xdm', 'size');
+
+		await expect(page).toBeAccessible();
+	});
 });

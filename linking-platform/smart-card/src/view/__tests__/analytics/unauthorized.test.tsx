@@ -56,6 +56,22 @@ describe('smart-card: unauthorized analytics', () => {
 	});
 
 	describe('unauthorized', () => {
+		it('should capture and report a11y violations', async () => {
+			const mockUrl = 'https://https://this.is.a.url';
+			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+			const { container } = render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+
+			await expect(container).toBeAccessible();
+		});
+
 		it('should fire clicked event when the link is clicked', async () => {
 			const mockUrl = 'https://https://this.is.a.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);

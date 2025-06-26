@@ -494,10 +494,7 @@ export const getToolbarConfig =
 		const nodeType = state.schema.nodes.table;
 		const toolbarTitle = 'Table floating controls';
 
-		if (
-			editorExperiment('platform_editor_controls', 'variant1') &&
-			fg('platform_editor_controls_patch_4')
-		) {
+		if (editorExperiment('platform_editor_controls', 'variant1')) {
 			let isDragHandleMenuOpened = false;
 			let isTableRowOrColumnDragged = false;
 			if (options?.dragAndDropEnabled) {

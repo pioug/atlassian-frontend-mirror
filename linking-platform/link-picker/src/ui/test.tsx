@@ -1,7 +1,6 @@
 import React, { type PropsWithChildren } from 'react';
 
-import { screen } from '@testing-library/dom';
-import { waitForElementToBeRemoved } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import '@testing-library/jest-dom';
@@ -47,6 +46,11 @@ describe('lazy loaded export', () => {
 	it('should render loader-fallback', () => {
 		setupLazyLinkPicker();
 		expect(screen.getByTestId(testIds.loaderBoundary)).toBeInTheDocument();
+	});
+	it('should capture and report a11y violations', async () => {
+		const LinkPicker: typeof LinkPickerType = require('./index').DeprecatedLazyLinkPickerExport;
+		const { container } = render(<LinkPicker onSubmit={jest.fn()} onCancel={jest.fn()} />);
+		await expect(container).toBeAccessible();
 	});
 });
 

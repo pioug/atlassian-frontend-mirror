@@ -46,6 +46,43 @@ describe('ReactionSummaryButton', () => {
 			</IntlProvider>,
 		);
 
+	it('should capture and report a11y violations', async () => {
+		const mockReactions: ReactionSummary[] = [
+			{
+				emojiId: '1',
+				count: 5,
+				ari: 'mock-ari-1',
+				containerAri: 'mock-container-ari-1',
+				reacted: false,
+			},
+			{
+				emojiId: '2',
+				count: NaN, // Making sure something like this doesn't break the counter
+				ari: 'mock-ari-2',
+				containerAri: 'mock-container-ari-2',
+				reacted: false,
+			},
+			{
+				emojiId: '3',
+				count: 10,
+				ari: 'mock-ari-3',
+				containerAri: 'mock-container-ari-3',
+				reacted: false,
+			},
+		];
+		const { container } = render(
+			<IntlProvider locale="en">
+				<ReactionSummaryButton
+					emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+					reactions={mockReactions}
+					onClick={() => {}}
+				/>
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders the top N emojis based on the prop `emojisToShow`', () => {
 		renderComponent({ emojisToShow: 4 });
 

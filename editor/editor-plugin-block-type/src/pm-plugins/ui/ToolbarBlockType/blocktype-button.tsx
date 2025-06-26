@@ -72,8 +72,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 
 	const chevronIconSpacing =
 		expValEqualsNoExposure('platform_editor_controls', 'cohort', 'variant1') &&
-		((props.isSmall && fg('platform_editor_controls_patch_4')) ||
-			(!props.isSmall && fg('platform_editor_controls_patch_13')))
+		(props.isSmall || (!props.isSmall && fg('platform_editor_controls_patch_13')))
 			? 'spacious'
 			: 'none';
 

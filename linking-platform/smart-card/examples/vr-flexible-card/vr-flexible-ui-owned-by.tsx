@@ -4,11 +4,11 @@
  */
 import { jsx } from '@compiled/react';
 
+import { UnicornResolvedClient } from '@atlaskit/link-test-helpers';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { Card, OwnedByElement, TitleElement } from '@atlaskit/smart-card';
 
 import { SmartCardProvider } from '../../src/state';
-import { UnicornResolvedClient } from '../utils/custom-client';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 export default () => {

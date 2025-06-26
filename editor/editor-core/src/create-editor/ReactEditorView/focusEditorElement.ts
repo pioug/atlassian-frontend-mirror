@@ -5,5 +5,7 @@ export function focusEditorElement(editorId: string): void {
 		return;
 	}
 
-	parentElement.focus();
+	parentElement.focus({
+		preventScroll: true,
+	});
 }

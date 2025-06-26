@@ -54,6 +54,7 @@ export { default as SubscriberCount } from './subscriber-count-element';
 export { default as SubTasksProgress } from './sub-tasks-progress-element';
 export { default as StoryPoints } from './story-points-element';
 export { default as TargetBranch } from './target-branch-element';
+export { default as TeamMemberCount } from './team-member-count-element';
 export { default as Title } from './title-element';
 export { default as ViewCount } from './view-count-element';
 export { default as VoteCount } from './vote-count-element';

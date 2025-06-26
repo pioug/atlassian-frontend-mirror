@@ -6,7 +6,9 @@ import { doc, taskItem, taskList } from '@atlaskit/editor-test-helpers/doc-build
 import { simpleActionListWithShortText } from './__fixtures__/base-adfs';
 
 [true, false].forEach((useVanillaDomExperiment) => {
-	test.describe(`when pressing arrow key to focus checkbox at the simple action list with short text, (${useVanillaDomExperiment ? 'with' : 'without'} Vanilla DOM experiment)`, () => {
+	test.describe(`when pressing arrow key to focus checkbox at the simple action list with short text, (${
+		useVanillaDomExperiment ? 'with' : 'without'
+	} Vanilla DOM experiment)`, () => {
 		test.use({
 			editorProps: {
 				appearance: 'full-page',

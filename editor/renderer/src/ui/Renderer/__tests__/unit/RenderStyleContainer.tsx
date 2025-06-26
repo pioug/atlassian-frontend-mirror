@@ -12,6 +12,20 @@ describe('RendererStyleContainer', () => {
 		setGlobalTheme({ typography: 'typography-modernized' });
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<RendererStyleContainer
+				appearance={'full-page'}
+				allowNestedHeaderLinks={false}
+				useBlockRenderForCodeBlock={false}
+			>
+				<div>Hello world</div>
+			</RendererStyleContainer>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render children', () => {
 		const { getByText } = render(
 			<RendererStyleContainer

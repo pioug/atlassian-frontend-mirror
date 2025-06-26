@@ -77,6 +77,24 @@ describe('MediaWithDraftAnnotation', () => {
 		nextState = { 1: AnnotationMarkStates.ACTIVE };
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<InlineCommentsStateContext.Provider value={nextState}>
+					<MediaWithDraftAnnotation
+						{...createMockProps({
+							includeNodeType: false,
+							excerptIncludeClass: false,
+						})}
+					/>
+				</InlineCommentsStateContext.Provider>
+				,
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should show CommentBadge if there is a comment', () => {
 		const { queryByTestId } = render(
 			<IntlProvider locale="en">

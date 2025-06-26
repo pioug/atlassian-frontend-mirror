@@ -139,6 +139,7 @@ export enum ElementName {
 	SubTasksProgress = 'SubTasksProgress',
 	StoryPoints = 'StoryPoints',
 	TargetBranch = 'TargetBranch',
+	TeamMemberCount = 'TeamMemberCount',
 	Title = 'Title',
 	ViewCount = 'ViewCount',
 	VoteCount = 'VoteCount',

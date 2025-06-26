@@ -33,6 +33,22 @@ describe('MediaImage', () => {
 		jest.restoreAllMocks();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+		const props = {
+			identifier,
+			...baseProps,
+		};
+		const { container } = render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaImageWithMediaClient {...props} />
+			</MockedMediaClientProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render a loading placeholder while src is loading', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 		const { mediaApi } = createMockedMediaApi(fileItem);

@@ -19,6 +19,10 @@ import {
 	BitbucketLogoCS as NewBitbucketLogo,
 } from '@atlaskit/temp-nav-app-icons/bitbucket';
 import {
+	BitbucketDataCenterIcon as NewBitbucketDataCenterIcon,
+	BitbucketDataCenterLogoCS as NewBitbucketDataCenterLogo,
+} from '@atlaskit/temp-nav-app-icons/bitbucket-data-center';
+import {
 	ChatIcon as NewChatIcon,
 	ChatLogoCS as NewChatLogo,
 } from '@atlaskit/temp-nav-app-icons/chat';
@@ -30,6 +34,10 @@ import {
 	ConfluenceIcon as NewConfluenceIcon,
 	ConfluenceLogoCS as NewConfluenceLogo,
 } from '@atlaskit/temp-nav-app-icons/confluence';
+import {
+	ConfluenceDataCenterIcon as NewConfluenceDataCenterIcon,
+	ConfluenceDataCenterLogoCS as NewConfluenceDataCenterLogo,
+} from '@atlaskit/temp-nav-app-icons/confluence-data-center';
 import {
 	CustomerServiceManagementIcon as NewCustomerServiceManagementIcon,
 	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
@@ -55,6 +63,10 @@ import {
 	JiraIcon as NewJiraIcon,
 	JiraLogoCS as NewJiraLogo,
 } from '@atlaskit/temp-nav-app-icons/jira';
+import {
+	JiraDataCenterIcon as NewJiraDataCenterIcon,
+	JiraDataCenterLogoCS as NewJiraDataCenterLogo,
+} from '@atlaskit/temp-nav-app-icons/jira-data-center';
 import {
 	JiraProductDiscoveryIcon as NewJPDIcon,
 	JiraProductDiscoveryLogoCS as NewJPDLogo,
@@ -434,6 +446,66 @@ export const TeamsIcon = tempSizeWrapper(NewTeamsIcon);
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const TeamsLogo = tempSizeWrapper(NewTeamsLogo);
+/**
+ * __Bitbucket Data Center icon__
+ *
+ * The Bitbucket Data Center icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const BitbucketDataCenterIcon = tempSizeWrapper(NewBitbucketDataCenterIcon);
+/**
+ * __Bitbucket Data Center logo__
+ *
+ * The Bitbucket Data Center logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const BitbucketDataCenterLogo = tempSizeWrapper(NewBitbucketDataCenterLogo);
+/**
+ * __Confluence Data Center icon__
+ *
+ * The Confluence Data Center icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const ConfluenceDataCenterIcon = tempSizeWrapper(NewConfluenceDataCenterIcon);
+/**
+ * __Confluence Data Center logo__
+ *
+ * The Confluence Data Center logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const ConfluenceDataCenterLogo = tempSizeWrapper(NewConfluenceDataCenterLogo);
+/**
+ * __Jira Data Center icon__
+ *
+ * The Jira Data Center icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const JiraDataCenterIcon = tempSizeWrapper(NewJiraDataCenterIcon);
+/**
+ * __Jira Data Center logo__
+ *
+ * The Jira Data Center logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const JiraDataCenterLogo = tempSizeWrapper(NewJiraDataCenterLogo);
 
 /**
  * __Atlassian Administration icon__

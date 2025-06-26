@@ -57,7 +57,7 @@ import {
 
 snapshotInformational(RendererInlineCardXSS, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCard, {
@@ -65,7 +65,7 @@ snapshotInformational(RendererInlineCard, {
 		await page.getByTestId('inline-card-resolved-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardResolving, {
@@ -73,7 +73,7 @@ snapshotInformational(RendererInlineCardResolving, {
 		await page.getByTestId('inline-card-resolving-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardUnauthorized, {
@@ -81,7 +81,7 @@ snapshotInformational(RendererInlineCardUnauthorized, {
 		await page.getByTestId('inline-card-unauthorized-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardForbidden, {
@@ -89,7 +89,7 @@ snapshotInformational(RendererInlineCardForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardNotFound, {
@@ -97,7 +97,7 @@ snapshotInformational(RendererInlineCardNotFound, {
 		await page.getByTestId('inline-card-not-found-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardErrored, {
@@ -105,7 +105,7 @@ snapshotInformational(RendererInlineCardErrored, {
 		await page.getByTestId('inline-card-errored-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCard, {
@@ -113,7 +113,7 @@ snapshotInformational(RendererBlockCard, {
 		await page.getByTestId('smart-block-resolved-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCard, {
@@ -127,7 +127,7 @@ snapshotInformational(RendererBlockCard, {
 });
 snapshotInformational(RendererBlockCardXSS, {
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardResolving, {
@@ -135,7 +135,7 @@ snapshotInformational(RendererBlockCardResolving, {
 		await page.getByTestId('smart-block-resolving-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardUnauthorized, {
@@ -146,23 +146,12 @@ snapshotInformational(RendererBlockCardUnauthorized, {
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
-
-snapshotInformational(RendererBlockCardUnauthorized, {
-	description:
-		'renderer block card unauthorized - OLD remove when cleaning platform-linking-visual-refresh-v1',
-	prepare: async (page) => {
-		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
-	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': false,
-	},
-});
 snapshotInformational(RendererBlockCardForbidden, {
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardNotFound, {
@@ -170,7 +159,7 @@ snapshotInformational(RendererBlockCardNotFound, {
 		await page.getByTestId('smart-block-not-found-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardErrored, {
@@ -178,7 +167,7 @@ snapshotInformational(RendererBlockCardErrored, {
 		await page.getByTestId('smart-block-errored-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererEmbedCard, {
@@ -247,16 +236,6 @@ snapshotInformational(RendererEmbedCardUnauthorized, {
 		'platform-linking-visual-refresh-v1': true,
 	},
 });
-snapshotInformational(RendererEmbedCardUnauthorized, {
-	description:
-		'renderer embed card unauthorized - OLD remove when cleaning platform-linking-visual-refresh-v1',
-	prepare: async (page) => {
-		await page.getByTestId('embed-card-unauthorized-view').waitFor({ state: 'visible' });
-	},
-	featureFlags: {
-		'platform-linking-visual-refresh-v1': false,
-	},
-});
 snapshotInformational(RendererBlockCardFullWidthLayout, {
 	prepare: async (page) => {
 		await page.getByTestId('renderer-datasource-table').waitFor({ state: 'visible' });
@@ -318,7 +297,7 @@ snapshotInformational(RendererInlineCardRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
@@ -326,7 +305,7 @@ snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessForbidden, {
@@ -334,7 +313,7 @@ snapshotInformational(RendererInlineCardRequestAccessForbidden, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
@@ -342,7 +321,7 @@ snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
@@ -350,7 +329,7 @@ snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
@@ -358,7 +337,7 @@ snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
@@ -366,7 +345,7 @@ snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
 		await page.getByTestId('inline-card-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
@@ -375,7 +354,7 @@ snapshotInformational(RendererBlockCardRequestAccess, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
@@ -383,7 +362,7 @@ snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessForbidden, {
@@ -391,7 +370,7 @@ snapshotInformational(RendererBlockCardRequestAccessForbidden, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
@@ -399,7 +378,7 @@ snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
@@ -407,7 +386,7 @@ snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
@@ -415,7 +394,7 @@ snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
@@ -423,7 +402,7 @@ snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
 		await page.getByTestId('smart-block-forbidden-view').waitFor({ state: 'visible' });
 	},
 	featureFlags: {
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 

@@ -24,9 +24,6 @@ interface IconEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	executeFetch?: ExecuteFetch;
 }
 
-/**
- * Should be gated by FF rollout of platform-datasources-enable-two-way-sync-priority
- */
 const IconEditType = (props: IconEditTypeProps) => {
 	const { currentValue, labelId, executeFetch } = props;
 	const { options, isLoading, hasFailed } = useLoadOptions<Icon>({ executeFetch });

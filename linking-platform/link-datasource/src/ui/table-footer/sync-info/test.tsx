@@ -110,4 +110,12 @@ describe('SyncInfo Component', () => {
 		});
 		expect(getByText('Synced 4 minutes ago')).toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale={'en'}>
+				<SyncInfo lastSyncTime={new Date('2020-03-17T20:53:46.046+1100')}></SyncInfo>
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

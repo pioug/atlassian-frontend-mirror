@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import { ResolvedClient } from '@atlaskit/link-test-helpers';
 import { Box } from '@atlaskit/primitives/compiled';
 
-import { ResolvedClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';
 
 const styles = cssMap({

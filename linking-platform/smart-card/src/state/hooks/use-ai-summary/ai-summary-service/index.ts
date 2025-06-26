@@ -1,6 +1,7 @@
 import uuid from 'uuid';
 
 import { type EnvironmentsKeys, getBaseUrl } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { readStream } from './readStream';
 import {
@@ -14,6 +15,8 @@ import {
 	type StreamMessage,
 } from './types';
 import { addPath, getXProductHeaderValue } from './utils';
+
+const CONVO_AI_ENDPOINT = 'ai/v2/ai-feature/smartlinksummary/stream';
 
 export class AISummaryService implements AISummaryServiceInt {
 	public state: AISummaryState = {
@@ -50,7 +53,9 @@ export class AISummaryService implements AISummaryServiceInt {
 	}
 
 	private getRequestUrl = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
-		const path = 'assist/chat/v1/invoke_agent/stream';
+		const path = fg('platform-linking-ai-summary-migration-to-convo-ai')
+			? CONVO_AI_ENDPOINT
+			: 'assist/chat/v1/invoke_agent/stream';
 
 		if (baseUrlOverride || envKey) {
 			const baseUrl = baseUrlOverride || getBaseUrl(envKey);
@@ -69,6 +74,15 @@ export class AISummaryService implements AISummaryServiceInt {
 				prompt_id: 'smart_links',
 				summary_output_mimetype: 'text/markdown',
 				locale: this.locale,
+			},
+			...{
+				ai_feature_input: fg('platform-linking-ai-summary-migration-to-convo-ai')
+					? {
+							content_url: this.url,
+							content_ari: this.ari,
+							locale: this.locale,
+						}
+					: undefined,
 			},
 		};
 

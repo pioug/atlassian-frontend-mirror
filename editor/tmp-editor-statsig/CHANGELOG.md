@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 8.3.0
+
+### Minor Changes
+
+- [#177692](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177692)
+  [`19ab0513e027f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19ab0513e027f) -
+  Add defaultValue parameter to expValEq and expValEqNoExposure to allow for checking default state
+  (e.g. false state) and avoid issue when experiment is not defined
+
 ## 8.2.0
 
 ### Minor Changes

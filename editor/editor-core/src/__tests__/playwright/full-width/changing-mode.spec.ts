@@ -32,4 +32,13 @@ test.describe('Full-Width', () => {
 		await appearanceModel.toggleAppearanceButton.click();
 		await expect(appearanceModel.editorFullWidthContainer).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ editor }) => {
+		const appearanceModel = EditorAppearanceModel.from(editor);
+		await editor.selection.set({ anchor: 314, head: 308 });
+		await appearanceModel.toggleAppearanceButton.click();
+		await expect(appearanceModel.editorFullWidthContainer).toBeVisible();
+
+		await expect(editor.page).toBeAccessible({ violationCount: 3 });
+	});
 });

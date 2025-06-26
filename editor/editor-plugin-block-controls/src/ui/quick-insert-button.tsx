@@ -331,7 +331,7 @@ export const TypeAheadControl = ({
 					}
 				}
 
-				if (currentSelection instanceof CellSelection && fg('platform_editor_controls_patch_4')) {
+				if (currentSelection instanceof CellSelection) {
 					// find the last inline position in the selection
 					const lastInlinePosition = TextSelection.near(view.state.selection.$to, -1);
 
@@ -407,8 +407,8 @@ export const TypeAheadControl = ({
 			<span
 				css={[
 					tooltipContainerStyles,
-					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeader,
-					fg('platform_editor_controls_patch_4') && tooltipContainerStylesStickyHeaderWithMarksFix,
+					tooltipContainerStylesStickyHeader,
+					tooltipContainerStylesStickyHeaderWithMarksFix,
 				]}
 			>
 				{tooltipPressable()}

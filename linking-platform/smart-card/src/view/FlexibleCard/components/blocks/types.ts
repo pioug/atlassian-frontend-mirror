@@ -277,6 +277,7 @@ export type ElementItemProps =
 	| StoryPoints
 	| TargetBranch
 	| Title
+	| TeamMemberCount
 	| ViewCount
 	| VoteCount;
 
@@ -506,6 +507,13 @@ export type State = {
  */
 export type SubscriberCount = {
 	name: ElementName.SubscriberCount;
+};
+/**
+ * Represents the props available for a TeamMemberCount element.
+ * @see TeamMemberCount
+ */
+export type TeamMemberCount = {
+	name: ElementName.TeamMemberCount;
 };
 /**
  * Represents the props available for a SubtasksProgress element.

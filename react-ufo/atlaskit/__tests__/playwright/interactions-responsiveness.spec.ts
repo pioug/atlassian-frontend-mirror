@@ -30,4 +30,14 @@ test.describe('ReactUFO: Responsiveness', () => {
 				?.experimentalInputToNextPaint,
 		).toBeDefined();
 	});
+
+	test('should capture and report a11y violations', async ({
+		page,
+		waitForReactUFOInteractionPayload,
+	}) => {
+		const mainDiv = page.locator('[id="app-main"]');
+		await expect(mainDiv).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

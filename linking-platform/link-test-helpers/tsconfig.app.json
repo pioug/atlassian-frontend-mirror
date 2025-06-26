@@ -35,6 +35,9 @@
 			"path": "../json-ld-types/tsconfig.app.json"
 		},
 		{
+			"path": "../link-provider/tsconfig.app.json"
+		},
+		{
 			"path": "../linking-types/tsconfig.app.json"
 		},
 		{

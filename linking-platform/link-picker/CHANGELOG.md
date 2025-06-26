@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 3.5.6
+
+### Patch Changes
+
+- [#176864](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176864)
+  [`96f166a864047`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96f166a864047) -
+  EDM-11898 removing all false snapshots for platform-linking-visual-refresh-v1 and renaming files
+- Updated dependencies
+
 ## 3.5.5
 
 ### Patch Changes

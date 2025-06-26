@@ -213,7 +213,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 
 									// if the toolbarDockingInitialPosition preference has changed
 									// update the toolbarDocking state
-									if (!previousToolbarDocking && fg('platform_editor_controls_patch_4')) {
+									if (!previousToolbarDocking) {
 										// we currently only check for the initial value
 										const toolbarDockingPreference = userPreferencesProvider?.getPreference(
 											'toolbarDockingInitialPosition',
@@ -296,12 +296,6 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 										);
 
 										const tr = newState.tr;
-
-										if (!fg('platform_editor_controls_patch_4')) {
-											tr.setMeta(selectionToolbarPluginKey, {
-												toolbarDocking: userToolbarDockingPref,
-											});
-										}
 
 										api?.analytics?.actions.attachAnalyticsEvent({
 											action: ACTION.INITIALISED,

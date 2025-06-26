@@ -8,6 +8,7 @@ import { IntlProvider } from 'react-intl-next';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { response1, response2, response3, response4 } from '@atlaskit/link-test-helpers';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -27,7 +28,6 @@ import {
 	TitleBlock,
 } from '../../src/view/FlexibleCard/components/blocks';
 import { type CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
-import { response1, response2, response3, response4 } from '../content/example-responses';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const listStyles = css({

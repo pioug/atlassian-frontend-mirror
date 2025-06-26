@@ -51,6 +51,19 @@ describe('LinkUrl', () => {
 		}
 	};
 
+	it('should capture and report a11y violations', async () => {
+		const onEvent = jest.fn();
+		const { container } = render(
+			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+				<LinkUrl href="https://some.url" checkSafety={true}>
+					https://another.url
+				</LinkUrl>
+			</AnalyticsListener>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	describe.each<[string, string, string]>([
 		['link text is a url pointing to a different place', 'https://some.url', 'https://another.url'],
 		['link text is a different relative path', 'https://some.url/something', '/somethingElse'],

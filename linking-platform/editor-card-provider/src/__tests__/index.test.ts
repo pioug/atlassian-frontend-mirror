@@ -177,10 +177,7 @@ describe('providers > editor', () => {
 		mockFetch = jest.fn();
 		(global as any).fetch = mockFetch;
 		setBooleanFeatureFlagResolver(
-			(flag) =>
-				flag === 'smart_links_for_plans_platform' ||
-				flag === 'smartlink_jira_software_form' ||
-				flag === 'plan_smart_link_base_url',
+			(flag) => flag === 'smartlink_jira_software_form' || flag === 'plan_smart_link_base_url',
 		);
 	});
 

@@ -11,14 +11,14 @@ import FlexUiTitleElementView from '../../../examples/vr-flexible-card/vr-flexib
 snapshot(FlexUiDateTimeTextView, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 
 snapshot(FlexUiAtlaskitBadgeView, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 	},
 });
 

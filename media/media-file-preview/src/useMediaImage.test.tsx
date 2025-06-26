@@ -38,6 +38,40 @@ describe('useMediaImage', () => {
 		onError = jest.fn();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+		const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+			initialItems: fileItem,
+		});
+		const getImageSpy = jest.spyOn(mediaApi, 'getImage');
+		const mediaBlobUrlAttrs = createMediaBlobUrlAttrsObject({
+			fileItem,
+			identifier,
+		});
+		const { result } = renderHook(useMediaImage, {
+			wrapper: ({ children }) => <MockedMediaClientProvider>{children}</MockedMediaClientProvider>,
+			initialProps: {
+				identifier,
+				mediaBlobUrlAttrs,
+			},
+		});
+		expect(getImageSpy).toBeCalledTimes(1);
+		// Waiting for the image src to be fetched
+		await waitFor(() => {
+			const imgSrc = result?.current.getImgProps().src;
+			return expect(imgSrc).toEqual(
+				expect.stringContaining('mock result of URL.createObjectURL()'),
+			);
+		});
+		// Rendering the image element
+		const { getImgProps } = result?.current;
+		const { container } = render(<img {...getImgProps()} />);
+
+		await expect(container).toBeAccessible({
+			violationCount: 1,
+		});
+	});
+
 	it('should render an image successfully with all of its data-test attributes', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 		const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({

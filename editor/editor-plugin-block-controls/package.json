@@ -162,9 +162,6 @@
 		"platform_editor_controls_widget_visibility": {
 			"type": "boolean"
 		},
-		"platform_editor_controls_patch_4": {
-			"type": "boolean"
-		},
 		"platform_editor_no_cursor_on_live_doc_init": {
 			"type": "boolean"
 		},

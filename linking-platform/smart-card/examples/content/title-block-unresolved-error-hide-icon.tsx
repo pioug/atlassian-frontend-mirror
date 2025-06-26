@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { url } from '@atlaskit/link-test-helpers';
 
 import { Card, TitleBlock } from '../../src';
-
-import { url } from './example-responses';
 
 class CustomClient extends Client {
 	fetchData(url: string) {

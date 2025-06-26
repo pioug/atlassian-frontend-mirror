@@ -36,7 +36,7 @@ describe('Annotations: SelectionRangeValidator', () => {
 	});
 
 	it('should call the SelectionInlineCommentMounter with the positions calculated by the actions', () => {
-		let ref: React.RefObject<HTMLDivElement> = React.createRef();
+		const ref: React.RefObject<HTMLDivElement> = React.createRef();
 		const spy = jest.spyOn(MounterMock, 'SelectionInlineCommentMounter');
 		const documentPosition = { from: 0, to: 10 };
 		const applyAnnotation = () => {};

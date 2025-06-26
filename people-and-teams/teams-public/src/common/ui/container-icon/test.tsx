@@ -74,6 +74,13 @@ describe('ContainerIcon', () => {
 		expect(screen.getByTestId('linked-container-JiraProject-icon')).toBeVisible();
 	});
 
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ContainerIcon {...defaultProps} containerType="LoomSpace" title="My Loom Space" />,
+		);
+		await expect(container).toBeAccessible();
+	});
+
 	it('should render IconSkeleton when iconsLoading is true (loading state)', () => {
 		render(
 			<ContainerIcon

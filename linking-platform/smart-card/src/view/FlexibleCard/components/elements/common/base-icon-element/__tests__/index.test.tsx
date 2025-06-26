@@ -50,6 +50,12 @@ jest.mock('react-render-image', () => ({ src, loading, loaded, errored }: any) =
 });
 
 describe('Element: Icon', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<IconElement />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('renders element', async () => {
 		render(<IconElement />);
 

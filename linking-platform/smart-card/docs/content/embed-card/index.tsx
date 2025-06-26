@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { ResolvedClientEmbedUrl } from '@atlaskit/link-test-helpers';
 import { Box } from '@atlaskit/primitives/compiled';
 import { Card } from '@atlaskit/smart-card';
 
 import CardViewExample from '../../../examples/card-view';
 import EmbedCardExample from '../../../examples/content/embed-card';
-import { ResolvedClientEmbedUrl } from '../../../examples/utils/custom-client';
 import customMd from '../../utils/custom-md';
 import embedExplained from '../embed-explained';
 import state_description from '../state-description';

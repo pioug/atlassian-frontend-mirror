@@ -10,6 +10,16 @@ jest.mock('@atlaskit/onboarding', () => ({
 	},
 }));
 describe('ConditionalSpotlightTargetWrapper', () => {
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<ConditionalSpotlightTargetWrapper spotlightTargetName="some-spotlight-target">
+				<>some child</>
+			</ConditionalSpotlightTargetWrapper>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should wrap children with a SpotlightTarget when a `spotlightTargetName` prop is set', () => {
 		render(
 			<ConditionalSpotlightTargetWrapper spotlightTargetName="some-spotlight-target">

@@ -86,6 +86,7 @@ export enum ACTION {
 	MEDIA_LINK_TRANSFORMED = 'mediaLinkTransformed',
 	NODE_CONTENT_SANITIZED = 'nodeContentSanitized',
 	OFFLINE_STORAGE_TOO_MANY_RETRIES_ERROR = 'offlineStorageTooManyRetriesError',
+	OFFLINE_STORAGE_FAILED_STEPS = 'offlineStorageFailedSteps',
 	OFFLINE_STORAGE_STEPS_DATABASE_ERROR = 'offlineStorageStepsDatabaseError',
 	OFFLINE_STORAGE_RESYNC_ONLINE = 'offlineStorageResyncOnline',
 	OFFLINE_STORAGE_BROADCAST_CHANNEL_FIRST_UPDATE = 'offlineStorageBroadcastChannelFirstUpdate',

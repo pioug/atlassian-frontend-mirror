@@ -29,7 +29,7 @@ import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import { tableFullPageEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
-	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT as FULL_PAGE_EDITOR_TOOLBAR_HEIGHT_OLD,
+	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 	akEditorGutterPaddingDynamic,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
@@ -60,8 +60,6 @@ const tableMarginFullWidthMode = 2;
 const akLayoutGutterOffset = 12;
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
 const AK_NESTED_DND_GUTTER_OFFSET = 8;
-const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = token('space.500', '40px');
-const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT_LIVE_PAGE = '2.188rem';
 
 const getTotalPadding = () => akEditorGutterPaddingDynamic() * 2;
 
@@ -77,9 +75,7 @@ const editorContentAreaStyle = ({
 }) => [
 	editorContentArea,
 	editorContentAreaProsemirrorStyle,
-	fg('platform_editor_fix_table_width_inline_comment')
-		? fullWidthNonChromelessBreakoutBlockTableStyle
-		: fullWidthModeBreakoutBlockTableStyle,
+	fullWidthNonChromelessBreakoutBlockTableStyle,
 	!fullWidthMode && editorContentAreaWithLayoutWith(layoutMaxWidth),
 	// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
 	expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
@@ -168,7 +164,7 @@ const editorContentArea = css(
 			// When the toolbar is hidden, we don't want content to jump up
 			// the extra 1px is to account for the border on the toolbar
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,  @atlaskit/ui-styling-standard/no-unsafe-values
-			paddingTop: `calc(${token('space.600', '48px')} + ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT_OLD()} + 1px)`,
+			paddingTop: `calc(${token('space.600', '48px')} + ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()} + 1px)`,
 		},
 		paddingBottom: token('space.600', '48px'),
 		height: 'calc( 100% - 105px )',
@@ -201,24 +197,6 @@ const editorContentAreaProsemirrorStyle = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> p:last-child': {
 			marginBottom: token('space.300', '24px'),
-		},
-	},
-});
-
-const fullWidthModeBreakoutBlockTableStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-1
-	'.fabric-editor--full-width-mode': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.fabric-editor-breakout-mark, .extension-container.block, .pm-table-container': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			width: '100% !important',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.fabric-editor-breakout-mark': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			marginLeft: 'unset !important',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			transform: 'none !important',
 		},
 	},
 });
@@ -263,20 +241,6 @@ const editorContentGutterStyle = () => {
 };
 
 // new styles
-const editorContentAreaNoToolbarLivePageJumpMitigation = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ak-editor-content-area-no-toolbar &': {
-		paddingTop: `calc(${token('space.600', '48px')} + ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT_LIVE_PAGE} + 1px)`,
-	},
-});
-
-const editorContentAreaNoToolbarControls = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ak-editor-content-area-no-toolbar &': {
-		paddingTop: `calc(${token('space.600', '48px')} + ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT} + 1px)`,
-	},
-});
-
 const editorContentAreaNew = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '24px',
@@ -285,7 +249,7 @@ const editorContentAreaNew = css({
 	'.ak-editor-content-area-no-toolbar &': {
 		// When the toolbar is hidden, we don't want content to jump up
 		// the extra 1px is to account for the border on the toolbar
-		paddingTop: `calc(${token('space.600', '48px')} + ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT} + 1px)`,
+		paddingTop: `calc(${token('space.600', '48px')} + var(--ak-editor-fullpage-toolbar-height) + 1px)`,
 	},
 	paddingBottom: token('space.600', '48px'),
 	height: 'calc( 100% - 105px )',
@@ -380,7 +344,7 @@ const editorContentGutterStyles = css({
 const contentAreaNew = css({
 	display: 'flex',
 	flexDirection: 'row',
-	height: `calc(100% - ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT})`,
+	height: `calc(100% - var(--ak-editor-fullpage-toolbar-height))`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	'&.ak-editor-content-area-no-toolbar': {
 		// The editor toolbar height is 1px off (from the border) -- so we need to add 1px to the height
@@ -391,14 +355,6 @@ const contentAreaNew = css({
 	margin: 0,
 	padding: 0,
 	transition: `padding 0ms ${akEditorSwoopCubicBezier}`,
-});
-
-const contentAreaHeightLivePageJumpMitigation = css({
-	height: `calc(100% - ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT_LIVE_PAGE})`,
-});
-
-const contentAreaHeightControls = css({
-	height: `calc(100% - ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT})`,
 });
 
 const contentAreaHeightNoToolbar = css({
@@ -501,14 +457,7 @@ const Content = React.forwardRef<
 		<div
 			css={
 				expValEquals('platform_editor_core_static_emotion_non_central', 'isEnabled', true)
-					? [
-							contentAreaNew,
-							fg('live_pages_content_jump_mitigation') && contentAreaHeightLivePageJumpMitigation,
-							editorExperiment('platform_editor_controls', 'variant1', {
-								exposure: true,
-							}) && contentAreaHeightControls,
-							props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
-						]
+					? [contentAreaNew, props.isEditorToolbarHidden && contentAreaHeightNoToolbar]
 					: [
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							contentArea,
@@ -544,14 +493,7 @@ const Content = React.forwardRef<
 											editorContentAreaNew,
 											editorContentAreaProsemirrorStyle,
 											tableFullPageEditorStylesNew,
-											fg('live_pages_content_jump_mitigation') &&
-												editorContentAreaNoToolbarLivePageJumpMitigation,
-											editorExperiment('platform_editor_controls', 'variant1', {
-												exposure: true,
-											}) && editorContentAreaNoToolbarControls,
-											fg('platform_editor_fix_table_width_inline_comment')
-												? fullWidthNonChromelessBreakoutBlockTableStyle
-												: fullWidthModeBreakoutBlockTableStyle,
+											fullWidthNonChromelessBreakoutBlockTableStyle,
 											// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
 											expValEqualsNoExposure(
 												'platform_editor_breakout_resizing',

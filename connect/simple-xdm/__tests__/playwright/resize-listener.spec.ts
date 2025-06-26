@@ -14,6 +14,12 @@ test.describe('Resize Listener', () => {
 
 		await expect(page.getByText('Appended after resize')).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await page.visitExample('connect', 'simple-xdm', 'resize');
+
+		await expect(page).toBeAccessible();
+	});
 });
 
 test.describe('Body Resize Listener', () => {

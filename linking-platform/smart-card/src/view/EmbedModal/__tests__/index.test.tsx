@@ -34,6 +34,7 @@ jest.mock('uuid', () => ({
 	default: jest.fn().mockReturnValue('some-uuid-1'),
 }));
 jest.mock('@atlaskit/link-provider', () => ({
+	...jest.requireActual('@atlaskit/link-provider'),
 	useSmartLinkContext: () => ({
 		store: {
 			getState: () => ({ 'test-url': mocks.analytics }),
@@ -157,6 +158,16 @@ describe('EmbedModal', () => {
 
 	afterEach(() => {
 		jest.restoreAllMocks();
+	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<EmbedModal iframeName="iframe-name" onClose={() => {}} showModal={true} testId={testId} />
+			</IntlProvider>,
+		);
+
+		await expect(container).toBeAccessible();
 	});
 
 	it('renders embed modal', async () => {

@@ -112,6 +112,15 @@ export type LinkSubscriberType =
 export const extractSubscriberCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkSubscriberType, number>(data, 'atlassian:subscriberCount');
 
+export const extractTeamMemberCount = (data: JsonLd.Data.BaseData) => {
+	const val = data?.attributedTo
+		? Array.isArray(data?.attributedTo)
+			? data?.attributedTo.length
+			: 0
+		: 0;
+	return val;
+};
+
 export type LinkAttachmentType =
 	| JsonLd.Data.Document
 	| JsonLd.Data.Task

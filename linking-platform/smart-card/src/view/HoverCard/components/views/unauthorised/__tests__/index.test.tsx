@@ -20,6 +20,7 @@ import { type HoverCardUnauthorisedProps } from '../types';
 mockSimpleIntersectionObserver();
 
 jest.mock('@atlaskit/link-provider', () => ({
+	...jest.requireActual('@atlaskit/link-provider'),
 	useSmartLinkContext: () => ({
 		...mockGetContext(),
 		store: {

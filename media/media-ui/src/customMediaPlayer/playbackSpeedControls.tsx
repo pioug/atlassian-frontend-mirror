@@ -1,32 +1,20 @@
-/**
- * @jsxRuntime classic
- * @jsxFrag jsx
- * @jsx jsx
- */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-// Keep PlaybackSpeedControls to use static colors from the new color palette to support the hybrid
-// theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
-// with the compiled react, we are leaving the static colors in tact for now.
 import React, { type KeyboardEvent } from 'react';
 import { Component } from 'react';
-import { cssMap, jsx } from '@compiled/react';
 
 import {
-	components,
 	PopupSelect,
 	type OptionType,
-	type StylesConfig,
 	type ValueType,
 	type GroupedOptionsType,
 	type ActionMeta,
 } from '@atlaskit/select';
-import { DN900 } from '@atlaskit/theme/colors';
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
 import MediaButton from '../MediaButton';
 import { messages } from '../messages';
 import { WidthObserver } from '@atlaskit/width-detector';
+import { popperProps, popupCustomStyles, popupSelectComponents } from './dropdownControlCommon';
 
 export interface PlaybackSpeedControlsProps {
 	playbackSpeed: number;
@@ -39,14 +27,6 @@ export interface PlaybackSpeedControlsProps {
 export interface PlaybackSpeedControlsState {
 	popupHeight: number;
 }
-
-const selectOptionStyles = cssMap({
-	root: {
-		'&:active': {
-			backgroundColor: '#a6c5e229',
-		},
-	},
-});
 
 export class PlaybackSpeedControls extends Component<
 	PlaybackSpeedControlsProps & WrappedComponentProps,
@@ -82,29 +62,6 @@ export class PlaybackSpeedControls extends Component<
 		},
 	];
 
-	private popupCustomStyles: StylesConfig<OptionType> = {
-		container: (styles) => ({
-			...styles,
-			backgroundColor: '#22272b',
-			boxShadow: 'inset 0px 0px 0px 1px #bcd6f00a,0px 8px 12px #0304045c,0px 0px 1px #03040480',
-		}),
-		// added these overrides to keep the look of the current design
-		// however this does not benefit from the DS a11y changes
-		menuList: (styles) => ({ ...styles, padding: '4px 0px' }),
-		option: (styles, { isFocused, isSelected }) => ({
-			...styles,
-			color: isSelected ? '#579dff' : DN900,
-			backgroundColor: isSelected ? '#082145' : isFocused ? '#a1bdd914' : '#22272b',
-			':active': {
-				backgroundColor: '#a6c5e229',
-			},
-		}),
-		groupHeading: (styles) => ({
-			...styles,
-			color: '#9fadbc',
-		}),
-	};
-
 	private onResize = (width: number) => {
 		const { originalDimensions } = this.props;
 		if (originalDimensions) {
@@ -127,43 +84,15 @@ export class PlaybackSpeedControls extends Component<
 		const { popupHeight } = this.state;
 		const value = this.speedOptions()[0].options.find((option) => option.value === playbackSpeed);
 
-		const popperProps: PopupSelect['props']['popperProps'] = {
-			strategy: 'fixed',
-			modifiers: [
-				{
-					name: 'preventOverflow',
-					enabled: true,
-				},
-				{
-					name: 'eventListeners',
-					options: {
-						scroll: true,
-						resize: true,
-					},
-				},
-				{
-					name: 'offset',
-					enabled: true,
-					options: {
-						offset: [0, 10],
-					},
-				},
-			],
-			placement: 'top',
-		};
-
 		return (
 			<>
 				<WidthObserver setWidth={this.onResize} />
 				<PopupSelect
-					components={{
-						Option: (props) => <components.Option {...props} xcss={selectOptionStyles.root} />,
-					}}
+					components={popupSelectComponents}
 					minMenuWidth={140}
 					maxMenuHeight={popupHeight}
 					options={this.speedOptions()}
 					value={value}
-					closeMenuOnScroll={true}
 					onChange={this.onPlaybackSpeedChange}
 					target={({ ref, isOpen, onKeyDown: popupKeydown }) => (
 						<Tooltip content={intl.formatMessage(messages.playbackSpeed)} position="top">
@@ -172,15 +101,13 @@ export class PlaybackSpeedControls extends Component<
 								buttonRef={ref}
 								isSelected={isOpen}
 								onClick={onClick}
-								onKeyDown={(event) => {
-									popupKeydown(event);
-								}}
+								onKeyDown={popupKeydown}
 							>
 								{playbackSpeed}x
 							</MediaButton>
 						</Tooltip>
 					)}
-					styles={this.popupCustomStyles}
+					styles={popupCustomStyles}
 					popperProps={popperProps}
 				/>
 			</>

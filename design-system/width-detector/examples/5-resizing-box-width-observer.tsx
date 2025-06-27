@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { keyframes } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import styled from '@emotion/styled';
+import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -26,22 +27,24 @@ const growAndShrink = keyframes({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ResizingBox = styled.div({
-	textAlign: 'center',
-	background: 'rgba(0, 0, 0, 0.2)',
-	color: '#333',
-	animationName: growAndShrink,
-	animationDuration: '5s',
-	animationTimingFunction: 'ease-in-out',
-	animationIterationCount: 'infinite',
-	width: `${startSize}px`,
-	height: '250px',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const RelativeWrapper = styled.div({
-	position: 'relative',
+const styles = cssMap({
+	resizingBox: {
+		textAlign: 'center',
+		background: 'rgba(0, 0, 0, 0.2)',
+		color: '#333',
+		animationName: growAndShrink,
+		animationDuration: '5s',
+		animationTimingFunction: 'ease-in-out',
+		animationIterationCount: 'infinite',
+		width: `${startSize}px`,
+		height: '250px',
+	},
+	relativeWrapper: {
+		position: 'relative',
+	},
+	container: {
+		margin: '50px',
+	},
 });
 
 export default function Example() {
@@ -49,22 +52,17 @@ export default function Example() {
 
 	return (
 		<div>
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: '50px',
-				}}
-			>
-				<ResizingBox>
+			<div css={styles.container}>
+				<div css={styles.resizingBox}>
 					<p>
 						I am resizing
 						<br />
 						<b> width: {width} </b>
 					</p>
-					<RelativeWrapper>
+					<div css={styles.relativeWrapper}>
 						<WidthObserver setWidth={setWidth} />
-					</RelativeWrapper>
-				</ResizingBox>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

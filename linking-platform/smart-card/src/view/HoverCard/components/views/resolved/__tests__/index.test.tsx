@@ -366,4 +366,13 @@ describe('HoverCardResolvedView', () => {
 			);
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup({
+			mockResponse: {
+				...mockConfluenceResponse,
+				...mocks.analytics.details,
+			} as JsonLd.Response,
+		});
+		await expect(container).toBeAccessible();
+	});
 });

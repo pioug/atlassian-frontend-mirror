@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Prettify } from '@atlaskit/linking-common';
+import type { Prettify } from '@atlaskit/linking-common';
 
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';
 import { BaseTextElement } from '../common';

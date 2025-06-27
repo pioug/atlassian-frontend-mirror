@@ -285,7 +285,7 @@ export const pragmaticStylesLayoutFirstNodeResizeHandleFix = () => {
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const pragmaticResizerStyles = () => {
-	if (expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', false)) {
+	if (!expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)) {
 		return;
 	}
 

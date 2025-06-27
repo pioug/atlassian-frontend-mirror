@@ -1,5 +1,13 @@
 # @atlaskit/simple-xdm
 
+## 1.0.4
+
+### Patch Changes
+
+- [#178402](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178402)
+  [`d5b99c5a12a30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5b99c5a12a30) -
+  Add in line of code that went missing during migration
+
 ## 1.0.3
 
 ### Patch Changes

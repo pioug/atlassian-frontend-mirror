@@ -39,6 +39,6 @@ test.describe('Full-Width', () => {
 		await appearanceModel.toggleAppearanceButton.click();
 		await expect(appearanceModel.editorFullWidthContainer).toBeVisible();
 
-		await expect(editor.page).toBeAccessible({ violationCount: 3 });
+		await expect(editor.page).toBeAccessible({ violationCount: 2 });
 	});
 });

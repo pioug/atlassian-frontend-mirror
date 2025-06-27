@@ -3,7 +3,15 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-import { Box, Flex, Grid, Pressable, Stack, Text, TextColor } from '@atlaskit/primitives/compiled';
+import {
+	Box,
+	Flex,
+	Grid,
+	Pressable,
+	Stack,
+	Text,
+	type TextColor,
+} from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

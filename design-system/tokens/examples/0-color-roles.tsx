@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { cssMap, CSSProperties, jsx } from '@compiled/react';
+import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
 import AtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import { setGlobalTheme, token } from '@atlaskit/tokens';

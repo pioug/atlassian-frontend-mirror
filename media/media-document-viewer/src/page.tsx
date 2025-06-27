@@ -7,13 +7,13 @@ import { forwardRef, useEffect, useState } from 'react';
 import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
+import { useStaticCallback } from '@atlaskit/media-common';
 
 import { Annotations } from './annotations';
 import { DocumentLinks } from './documentLinks';
 import { type Font, type PageContent, type Span } from './types';
 import { getDocumentRoot } from './utils/getDocumentRoot';
 import { useIntersectionObserver } from './utils/useIntersectionObserver';
-import { useStaticCallback } from './utils/useStaticCallback';
 
 const Span = ({ span, font }: { span: Span; font: Font }) => {
 	const width = span.l;

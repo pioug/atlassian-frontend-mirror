@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import { BackgroundColor, Box, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { type BackgroundColor, Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

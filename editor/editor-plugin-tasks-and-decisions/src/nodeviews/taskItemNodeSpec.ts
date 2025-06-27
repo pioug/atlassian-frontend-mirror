@@ -1,11 +1,20 @@
+import { type IntlShape } from 'react-intl-next';
+
 import { taskItem } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-type HTMLInputElementAttrs = { type: 'checkbox'; checked?: 'true'; id: string; name: string };
+type HTMLInputElementAttrs = {
+	type: 'checkbox';
+	checked?: 'true';
+	id: string;
+	name: string;
+	'aria-label'?: string;
+};
 
 /**
  * Wrapper for ADF taskItem node spec to augment toDOM implementation
@@ -34,12 +43,17 @@ export const taskItemNodeSpec = () => {
  * @param {string} placeholder - The placeholder text to display when the task item is empty.
  * @returns A DOMOutputSpec representing the task item.
  */
-export function taskItemToDom(node: PMNode, placeholder: string): DOMOutputSpec {
+export function taskItemToDom(node: PMNode, placeholder: string, intl: IntlShape): DOMOutputSpec {
 	const checked = node.attrs.state === 'DONE';
 	const inputAttrs: HTMLInputElementAttrs = {
 		name: node.attrs.localId,
 		id: node.attrs.localId,
 		type: 'checkbox',
+		'aria-label': intl.formatMessage(
+			checked
+				? tasksAndDecisionsMessages.markTaskAsNotCompleted
+				: tasksAndDecisionsMessages.markTaskAsCompleted,
+		),
 	};
 	if (checked) {
 		inputAttrs.checked = 'true';

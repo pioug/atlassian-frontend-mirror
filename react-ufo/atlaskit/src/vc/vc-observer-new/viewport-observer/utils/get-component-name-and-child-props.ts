@@ -1,5 +1,5 @@
-import { UFOIgnoreHoldsReason } from '../../../../ignore-holds';
-import { VCObserverEntryType } from '../../types';
+import type { UFOIgnoreHoldsReason } from '../../../../ignore-holds';
+import type { VCObserverEntryType } from '../../types';
 
 // Using the React Fiber tree to traverse up the DOM and check if a node is within a specific component
 // and extract child component props if needed.

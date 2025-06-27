@@ -2,7 +2,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
-import { LateMutation } from '../common/react-ufo-payload-schema';
+import type { LateMutation } from '../common/react-ufo-payload-schema';
 import { type RevisionPayload } from '../common/vc/types';
 import { getConfig, getMostRecentVCRevision, getPostInteractionRate } from '../config';
 import { isSegmentLabel, sanitizeUfoName } from '../create-payload/common/utils';

@@ -1,3 +1,5 @@
+import { type MediaUserArtifactCaptionKey } from '@atlaskit/media-state';
+
 export type VideoTextTracks = {
 	subtitles?: VideoTextTracksProps;
 	captions?: VideoTextTracksProps;
@@ -12,10 +14,10 @@ export type VideoTextTracksProps = {
 };
 
 export type VideoTextTrack = {
-	src: string;
+	src?: string;
 	lang: string;
 	label: string;
-	artifactName: string;
+	artifactName: MediaUserArtifactCaptionKey;
 };
 
 export type VideoTextTrackKind = keyof VideoTextTracks;

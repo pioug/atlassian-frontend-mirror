@@ -107,4 +107,16 @@ describe('Unfollow Goal Action', () => {
 			title: <FormattedMessage {...messages.unfollow_goal_error} />,
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const mockErrorCallback = jest.fn();
+		const mockOnClick = jest.fn().mockImplementation(() => {
+			throw new Error('Error');
+		});
+		const { container } = setup({
+			as: 'stack-item',
+			onError: mockErrorCallback,
+			onClick: mockOnClick,
+		});
+		await expect(container).toBeAccessible();
+	});
 });

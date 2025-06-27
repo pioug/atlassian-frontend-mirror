@@ -1,5 +1,23 @@
 # @atlaskit/media-viewer
 
+## 52.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.4.0
+
+### Minor Changes
+
+- [#177492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177492)
+  [`e664197b0ca21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e664197b0ca21) -
+  Added support for Password protected PDFs for the new document viewer and added error handling
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.3.3
 
 ### Patch Changes

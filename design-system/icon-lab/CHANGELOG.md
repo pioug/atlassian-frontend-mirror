@@ -1,5 +1,24 @@
 # @atlaskit/icon-lab
 
+## 5.1.0
+
+### Minor Changes
+
+- [#176867](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176867)
+  [`b1b1f4e8ece98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1b1f4e8ece98) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `ai-generative-audio-briefing`
+  - `teamwork-graph`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

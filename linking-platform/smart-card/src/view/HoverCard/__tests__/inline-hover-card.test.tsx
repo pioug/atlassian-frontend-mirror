@@ -218,6 +218,24 @@ describe('HoverCard', () => {
 				expect(snippetBlock).toHaveTextContent('');
 				expect(footerBlock).toHaveTextContent('');
 			});
+			it('should capture and report a11y violations', async () => {
+				const mockClient = new (fakeFactory(mockFetch))();
+				const storeOptions: any = {
+					initialState: {
+						[mockUrl]: {
+							status: 'resolved',
+							details: mockSSRResponse,
+						},
+					},
+				};
+
+				const { container } = render(
+					<Provider client={mockClient} storeOptions={storeOptions}>
+						<Card appearance="inline" url={mockUrl} showHoverPreview={true} />
+					</Provider>,
+				);
+				await expect(container).toBeAccessible();
+			});
 		});
 	});
 });

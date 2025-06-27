@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 5.1.20
+
+### Patch Changes
+
+- [#178362](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178362)
+  [`f5f0fd6ffefdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5f0fd6ffefdd) -
+  ENGHEALTH-29515 - fix editor task a11y label
+- Updated dependencies
+
 ## 5.1.19
 
 ### Patch Changes

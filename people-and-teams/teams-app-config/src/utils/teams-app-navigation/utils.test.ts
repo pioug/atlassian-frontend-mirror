@@ -3,7 +3,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { hostname, openInNewTab, pathname, redirect } from '../../common/utils';
 
-import { NavigationActionCommon } from './types';
+import type { NavigationActionCommon } from './types';
 import { generatePath, getHostProductFromPath, isTeamsAppEnabled, onNavigateBase } from './utils';
 
 jest.mock('@atlaskit/atlassian-context', () => ({

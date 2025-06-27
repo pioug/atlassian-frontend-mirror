@@ -123,4 +123,13 @@ test.describe('EmojiPicker In Form', () => {
 			'{"title":"tada","emoji":":smile:"}',
 		);
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await page.visitExample('elements', 'emoji', 'emoji-picker-in-form');
+		await page.waitForSelector(submitForm);
+		await page.type(submitFormTextfield, 'smile', { delay: 200 });
+		page.getByText('Search results');
+
+		await expect(page).toBeAccessible();
+	});
 });

@@ -67,12 +67,12 @@ export const find = (
 				const matches =
 					keyword !== undefined
 						? findMatches({
-							content: state.doc,
-							searchText: keyword,
-							shouldMatchCase,
-							getIntl,
-							api,
-						})
+								content: state.doc,
+								searchText: keyword,
+								shouldMatchCase,
+								getIntl,
+								api,
+							})
 						: [];
 
 				const index = findSearchIndex(selection.from, matches);
@@ -99,12 +99,12 @@ export const find = (
 				const matches =
 					keyword !== undefined
 						? findMatches({
-							content: state.doc,
-							searchText: keyword,
-							shouldMatchCase,
-							getIntl,
-							api,
-						})
+								content: state.doc,
+								searchText: keyword,
+								shouldMatchCase,
+								getIntl,
+								api,
+							})
 						: [];
 
 				if (matches.length > 0) {
@@ -315,14 +315,10 @@ const updateSelectedHighlight = (state: EditorState, nextSelectedIndex: number):
 	}
 
 	if (currentSelectedMatch) {
-		decorationSet = decorationSet.add(state.doc, [
-			createDecoration(currentSelectedMatch),
-		]);
+		decorationSet = decorationSet.add(state.doc, [createDecoration(currentSelectedMatch)]);
 	}
 	if (nextSelectedMatch) {
-		decorationSet = decorationSet.add(state.doc, [
-			createDecoration(nextSelectedMatch, true),
-		]);
+		decorationSet = decorationSet.add(state.doc, [createDecoration(nextSelectedMatch, true)]);
 	}
 
 	return decorationSet;

@@ -1,4 +1,4 @@
-import { NavigationAction, NavigationResult } from './types';
+import { type NavigationAction, type NavigationResult } from './types';
 import {
 	generatePath,
 	getHostProductFromPath,

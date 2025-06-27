@@ -1,16 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { jsx, css } from '@compiled/react';
+import React from 'react';
 import { type MediaClient, type FileState } from '@atlaskit/media-client';
-import { DOCUMENT_SCROLL_ROOT_ID, DocumentViewer } from '@atlaskit/media-document-viewer';
 import { Outcome } from '../../domain';
 import { MediaViewerError } from '../../errors';
 import { BaseViewer } from '../base-viewer';
 import { type MediaTraceContext } from '@atlaskit/media-common';
-import { ZoomControls } from '../../zoomControls';
 import { ZoomLevel } from '../../domain/zoomLevel';
+import { DocViewer as DocViewerComponent } from './doc-viewer';
 
 export type Props = {
 	mediaClient: MediaClient;
@@ -25,20 +20,18 @@ export type Props = {
 export type State = {
 	content: Outcome<string, MediaViewerError>;
 	zoomLevel: ZoomLevel;
+	isPasswordProtected: boolean;
+	password?: string;
+	hasPasswordError: boolean;
 };
-
-const documentViewerStyles = css({
-	height: '100vh',
-	width: '100vw',
-	overflow: 'auto',
-});
-
 export class DocViewer extends BaseViewer<string, Props, State> {
 	private isObjectUrl = false;
 	protected get initialState() {
 		return {
 			content: Outcome.pending<string, MediaViewerError>(),
 			zoomLevel: new ZoomLevel(1.75),
+			isPasswordProtected: false,
+			hasPasswordError: false,
 		};
 	}
 
@@ -67,38 +60,15 @@ export class DocViewer extends BaseViewer<string, Props, State> {
 		}
 	}
 
-	private getContent = async (pageStart: number, pageEnd: number) => {
-		const src = await this.props.mediaClient.mediaStore.getDocumentContent(this.props.item.id, {
-			pageStart,
-			pageEnd,
-			collectionName: this.props.collectionName,
-		});
-		return src;
-	};
-
-	private getPageImageUrl = async (pageNumber: number, zoom: number) => {
-		const src = await this.props.mediaClient.mediaStore.getDocumentPageImage(this.props.item.id, {
-			page: pageNumber,
-			zoom,
-			collectionName: this.props.collectionName,
-		});
-		return URL.createObjectURL(src);
-	};
-
-	private onZoomChange = (newZoomLevel: ZoomLevel) => {
-		this.setState({ zoomLevel: newZoomLevel });
-	};
-
 	protected renderSuccessful() {
 		return (
-			<div css={documentViewerStyles} id={DOCUMENT_SCROLL_ROOT_ID}>
-				<DocumentViewer
-					getContent={this.getContent}
-					getPageImageUrl={this.getPageImageUrl}
-					zoom={this.state.zoomLevel.value}
-				/>
-				<ZoomControls onChange={this.onZoomChange} zoomLevel={this.state.zoomLevel} />
-			</div>
+			<DocViewerComponent
+				mediaClient={this.props.mediaClient}
+				fileState={this.props.item}
+				collectionName={this.props.collectionName}
+				onError={this.props.onError}
+				traceContext={this.props.traceContext}
+			/>
 		);
 	}
 }

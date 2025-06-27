@@ -162,4 +162,12 @@ describe('Forbidden view', () => {
 			expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale={'en'}>
+				<InlineCardForbiddenView url={URL} onAuthorise={jest.fn()} />
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

@@ -5,7 +5,6 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { TableCssClassName as ClassName } from '../../types';
 import type { ColumnResizingPluginState, PluginInjectionAPI } from '../../types';
@@ -42,15 +41,10 @@ export function createPlugin(
 				const pluginState = getPluginState(state);
 
 				return {
-					class: classnames(
-						expValEquals('platform_editor_stable_editorview_classname', 'isEnabled', true)
-							? ''
-							: ClassName.RESIZING_PLUGIN,
-						{
-							[ClassName.RESIZE_CURSOR]: pluginState.resizeHandlePos !== null,
-							[ClassName.IS_RESIZING]: !!pluginState.dragging,
-						},
-					),
+					class: classnames({
+						[ClassName.RESIZE_CURSOR]: pluginState.resizeHandlePos !== null,
+						[ClassName.IS_RESIZING]: !!pluginState.dragging,
+					}),
 				};
 			},
 

@@ -211,3 +211,18 @@ test("select.ts: Mod+Shift+a doesn't select all content", async ({ renderer }) =
 		}),
 	);
 });
+
+test('should capture and report a11y violations', async ({ renderer }) => {
+	await addSentinels(renderer.page);
+	const rendererLocator = renderer.page.locator(RENDERER_CONTAINER);
+	await rendererLocator.click();
+	await renderer.page.keyboard.press(shortcutSelectAll);
+	const beforeSelected = await renderer.page.evaluate(() => {
+		const el = document.querySelector('[data-sentinel="before"]');
+		const range = window.getSelection()?.getRangeAt(0);
+		return el ? range?.intersectsNode(el) : null;
+	});
+	expect(beforeSelected).toBe(false);
+
+	await expect(renderer.page).toBeAccessible();
+});

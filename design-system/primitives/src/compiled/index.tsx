@@ -5,6 +5,7 @@ export { default as Flex, type FlexProps } from './components/flex';
 export { default as Grid, type GridProps } from './components/grid';
 export { default as Bleed, type BleedProps } from './components/bleed';
 export { default as Text, type TextProps } from './components/text';
+export { default as MetricText, type MetricTextProps } from './components/metric-text';
 export { default as Pressable, type PressableProps } from './components/pressable';
 export { default as Anchor, type AnchorProps } from './components/anchor';
 export {

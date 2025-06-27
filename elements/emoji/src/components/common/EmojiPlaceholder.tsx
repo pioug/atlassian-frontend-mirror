@@ -2,11 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { css, jsx, keyframes } from '@compiled/react';
+import { css, jsx } from '@compiled/react';
 import type { StrictXCSSProp } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import { N20A } from '@atlaskit/theme/colors';
 import { defaultEmojiHeight } from '../../util/constants';
 import type { EmojiImageRepresentation } from '../../types';
 import { placeholder } from './styles';
@@ -21,30 +20,6 @@ const placeholderContainer = css({
 	verticalAlign: 'middle',
 	whiteSpace: 'nowrap',
 	textAlign: 'center',
-});
-
-const easeSweep = keyframes({
-	from: {
-		transform: 'translateX(-100%)',
-	},
-	to: {
-		transform: 'translateX(100%)',
-	},
-});
-
-const placeholderContainerAnimated = css({
-	'&::before': {
-		content: '""',
-		display: 'block',
-		position: 'absolute',
-		backgroundColor: token('color.background.neutral', N20A),
-		height: '100%',
-		width: '100%',
-		animationName: easeSweep,
-		animationDuration: '1s',
-		animationTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
-		animationIterationCount: 'infinite',
-	},
 });
 
 export interface Props {
@@ -98,10 +73,7 @@ const EmojiPlaceholder = (props: Props) => {
 				placeholder,
 				fg('platform_reactions_placeholder_custom_background') ? xcss : '',
 			].join(' ')}
-			css={[
-				placeholderContainer,
-				loading && !fg('cc_complexit_fe_remove_emoji_animation') && placeholderContainerAnimated,
-			]}
+			css={[placeholderContainer]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 			title={showTooltip ? shortName : ''}

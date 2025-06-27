@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 23.21.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.21.1
+
+### Patch Changes
+
+- [#177564](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177564)
+  [`4e894bfb7a115`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e894bfb7a115) -
+  Clean up feature gate platform_profilecard-enable_reporting_lines_label
+
 ## 23.21.0
 
 ### Minor Changes

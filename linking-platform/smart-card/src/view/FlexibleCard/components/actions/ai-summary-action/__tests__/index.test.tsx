@@ -276,4 +276,11 @@ describe('AISummaryAction', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup(undefined, undefined, {
+			status: 'done',
+			content: 'some test content',
+		});
+		await expect(container).toBeAccessible();
+	});
 });

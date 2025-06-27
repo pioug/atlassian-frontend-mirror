@@ -1,38 +1,49 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag
+ */
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 import { debounce } from './utils/debounce';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ResultBox = styled.div({
-	alignItems: 'center',
-	backgroundColor: 'black',
-	color: 'white',
-	display: 'flex',
-	height: 'auto',
-	minHeight: '100px',
-	justifyContent: 'center',
-	whiteSpace: 'nowrap',
-	transition: 'background-color 2s',
-	padding: '10px',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ResultNumber = styled.div({
-	backgroundColor: 'rgb(0, 0, 0, 0.6)',
-	color: 'white',
-	padding: '10px',
-	borderRadius: '3px',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const RelativeWrapper = styled.div({
-	position: 'relative',
+const styles = cssMap({
+	resultContainer: {
+		minWidth: 180,
+		margin: '0 auto',
+	},
+	resultBox: {
+		alignItems: 'center',
+		backgroundColor: 'black',
+		color: 'white',
+		display: 'flex',
+		height: 'auto',
+		minHeight: '100px',
+		justifyContent: 'center',
+		whiteSpace: 'nowrap',
+		transition: 'background-color 2s',
+		padding: '10px',
+	},
+	resultNumber: {
+		backgroundColor: 'rgb(0, 0, 0, 0.6)',
+		color: 'white',
+		padding: '10px',
+		borderRadius: '3px',
+	},
+	relativeWrapper: {
+		position: 'relative',
+	},
+	textContainer: {
+		textAlign: 'center',
+	},
+	text: {
+		padding: '25px',
+	},
 });
 
 const sizes = ['100%', '75%', '50%', '25%'];
@@ -56,27 +67,16 @@ const OnResizeExample = () => {
 
 	return (
 		<>
-			<div
-				style={{
-					width: sizes[sizeIndex],
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					minWidth: 180,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: '0 auto',
-				}}
-			>
-				<ResultBox style={{ backgroundColor: bgColor }}>
-					<ResultNumber>{containerWidth}</ResultNumber>
-				</ResultBox>
-				<RelativeWrapper>
+			<div style={{ width: sizes[sizeIndex] }} css={styles.resultContainer}>
+				<div css={styles.resultBox} style={{ backgroundColor: bgColor }}>
+					<div css={styles.resultNumber}>{containerWidth}</div>
+				</div>
+				<div css={styles.relativeWrapper}>
 					<WidthObserver setWidth={onResize} />
-				</RelativeWrapper>
+				</div>
 			</div>
-
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={{ textAlign: 'center' }}>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<p style={{ padding: '25px' }}>
+			<div css={styles.textContainer}>
+				<p css={styles.text}>
 					The area above will change color as the width of the container changes.
 				</p>
 				<Button onClick={() => setSize((prev) => prev + 1)} appearance="primary">

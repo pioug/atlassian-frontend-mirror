@@ -223,4 +223,10 @@ describe('HoverCardResolvedView', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup({
+			mockResponse: mockIframelyResponse as JsonLd.Response,
+		});
+		await expect(container).toBeAccessible();
+	});
 });

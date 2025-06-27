@@ -1,5 +1,20 @@
 # @atlaskit/share
 
+## 6.15.0
+
+### Minor Changes
+
+- [#178605](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178605)
+  [`9cf699ca45a44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cf699ca45a44) -
+  The origin trace is added to the url included in the email sent to sharees upon a sharer
+  submitting a share from the share dialogue.
+
+## 6.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.14.0
 
 ### Minor Changes

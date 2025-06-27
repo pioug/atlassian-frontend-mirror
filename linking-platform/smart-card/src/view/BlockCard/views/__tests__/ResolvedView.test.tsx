@@ -84,4 +84,20 @@ describe('ResolvedView', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(
+			<SmartCardProvider>
+				<ResolvedView
+					cardState={
+						{
+							status: 'resolved',
+							details: mockConfluenceResponse,
+						} as CardState
+					}
+					url={url}
+				/>
+			</SmartCardProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

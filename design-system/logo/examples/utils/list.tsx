@@ -1,6 +1,16 @@
+import { ComponentType } from 'react';
+
 import {
+	AdminIcon,
+	AdminLogo,
+	AlignIcon,
+	AlignLogo,
+	AnalyticsIcon,
+	AnalyticsLogo,
 	AssetsIcon,
 	AssetsLogo,
+	AtlasIcon,
+	AtlasLogo,
 	AtlassianAccessIcon,
 	AtlassianAccessLogo,
 	AtlassianAdminIcon,
@@ -25,6 +35,8 @@ import {
 	ConfluenceDataCenterLogo,
 	ConfluenceIcon,
 	ConfluenceLogo,
+	CustomerServiceManagementIcon,
+	CustomerServiceManagementLogo,
 	FocusIcon,
 	FocusLogo,
 	GoalsIcon,
@@ -74,129 +86,106 @@ import {
 	TrelloLogo,
 } from '@atlaskit/logo';
 
-export const logos = [
-	AtlassianAccessLogo,
-	AtlassianAdministrationLogo,
-	AtlassianAdminLogo,
-	AtlassianAnalyticsLogo,
-	AtlassianLogo,
-	AtlassianMarketplaceLogo,
-	BitbucketLogo,
-	CompassLogo,
-	ConfluenceLogo,
-	FocusLogo,
-	GuardLogo,
-	JiraAlignLogo,
-	JiraLogo,
-	JiraProductDiscoveryLogo,
-	JiraServiceManagementLogo,
-	JiraSoftwareLogo,
-	JiraWorkManagementLogo,
-	LoomAttributionLogo,
-	LoomLogo,
-	OpsgenieLogo,
-	RovoLogo,
-	StatuspageLogo,
-	TrelloLogo,
-	JiraDataCenterLogo,
-	ConfluenceDataCenterLogo,
-	BitbucketDataCenterLogo,
-];
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { logoDocsSchema } from '../../src/logo-config';
 
-export const icons = [
-	AtlassianAccessIcon,
-	AtlassianAdminIcon,
-	AtlassianAdministrationIcon,
-	AtlassianAnalyticsIcon,
-	AtlassianIcon,
-	AtlassianMarketplaceIcon,
-	BitbucketIcon,
-	CompassIcon,
-	ConfluenceIcon,
-	FocusIcon,
-	GuardIcon,
-	JiraAlignIcon,
-	JiraIcon,
-	JiraProductDiscoveryIcon,
-	JiraServiceManagementIcon,
-	JiraSoftwareIcon,
-	JiraWorkManagementIcon,
-	LoomAttributionIcon,
-	LoomIcon,
-	OpsgenieIcon,
-	RovoIcon,
-	StatuspageIcon,
-	TrelloIcon,
-	JiraDataCenterIcon,
-	ConfluenceDataCenterIcon,
-	BitbucketDataCenterIcon,
-];
-
-export const legacyOnlyLogosAndIcons = [
-	{ name: 'Atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
-	{ name: 'Atlassian Access', logo: AtlassianAccessLogo, icon: AtlassianAccessIcon },
-	{ name: 'Atlassian Marketplace', logo: AtlassianMarketplaceLogo, icon: AtlassianMarketplaceIcon },
-	{ name: 'Jira Software', logo: JiraSoftwareLogo, icon: JiraSoftwareIcon },
-	{ name: 'Jira Work Management', logo: JiraWorkManagementLogo, icon: JiraWorkManagementIcon },
-	{ name: 'Loom Attribution', logo: LoomAttributionLogo, icon: LoomAttributionIcon },
-];
-
-export const sharedLogosAndIcons = [
-	{ name: 'Confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },
-	{ name: 'Jira', logo: JiraLogo, icon: JiraIcon },
-	{ name: 'Loom', logo: LoomLogo, icon: LoomIcon },
-	{ name: 'Rovo', logo: RovoLogo, icon: RovoIcon },
-	{ name: 'Focus', logo: FocusLogo, icon: FocusIcon },
-	{ name: 'Jira Align', logo: JiraAlignLogo, icon: JiraAlignIcon },
-	{ name: 'Bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
-	{ name: 'Compass', logo: CompassLogo, icon: CompassIcon },
+const logoMap: {
+	name: (typeof logoDocsSchema)[number]['name'];
+	logo: ComponentType<LogoProps>;
+	icon: ComponentType<LogoProps>;
+}[] = [
+	// Program logos
+	{ name: 'atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
+	{ name: 'atlassian-access', logo: AtlassianAccessLogo, icon: AtlassianAccessIcon },
+	{ name: 'atlassian-marketplace', logo: AtlassianMarketplaceLogo, icon: AtlassianMarketplaceIcon },
+	{ name: 'home', logo: HomeLogo, icon: HomeIcon },
+	{ name: 'hub', logo: HubLogo, icon: HubIcon },
+	{ name: 'confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },
+	{ name: 'jira', logo: JiraLogo, icon: JiraIcon },
+	{ name: 'loom', logo: LoomLogo, icon: LoomIcon },
+	{ name: 'loom-attribution', logo: LoomAttributionLogo, icon: LoomAttributionIcon },
+	{ name: 'rovo', logo: RovoLogo, icon: RovoIcon },
+	{ name: 'align', logo: AlignLogo, icon: AlignIcon },
+	{ name: 'focus', logo: FocusLogo, icon: FocusIcon },
+	{ name: 'talent', logo: TalentLogo, icon: TalentIcon },
 	{
-		name: 'Jira Service Management',
-		logo: JiraServiceManagementLogo,
-		icon: JiraServiceManagementIcon,
-	},
-	{ name: 'Opsgenie', logo: OpsgenieLogo, icon: OpsgenieIcon },
-	{ name: 'Statuspage', logo: StatuspageLogo, icon: StatuspageIcon },
-	{
-		name: 'Jira Product Discovery',
+		name: 'jira-product-discovery',
 		logo: JiraProductDiscoveryLogo,
 		icon: JiraProductDiscoveryIcon,
 	},
+	{ name: 'bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
+	{ name: 'compass', logo: CompassLogo, icon: CompassIcon },
 	{
-		name: 'Atlassian Administration',
-		logo: AtlassianAdministrationLogo,
-		icon: AtlassianAdministrationIcon,
+		name: 'jira-service-management',
+		logo: JiraServiceManagementLogo,
+		icon: JiraServiceManagementIcon,
 	},
-	{ name: 'Atlassian Admin', logo: AtlassianAdminLogo, icon: AtlassianAdminIcon },
-	{ name: 'Atlassian Analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
-	{ name: 'Guard', logo: GuardLogo, icon: GuardIcon },
-	{ name: 'Trello', logo: TrelloLogo, icon: TrelloIcon },
-];
-
-export const newOnlyLogosAndIcons = [
-	{ name: 'Talent', logo: TalentLogo, icon: TalentIcon },
-	{ name: 'Assets', logo: AssetsLogo, icon: AssetsIcon },
-	{ name: 'Hub', logo: HubLogo, icon: HubIcon },
-	{ name: 'Home', logo: HomeLogo, icon: HomeIcon },
-	{ name: 'Goals', logo: GoalsLogo, icon: GoalsIcon },
-	{ name: 'Projects', logo: ProjectsLogo, icon: ProjectsIcon },
-	{ name: 'Teams', logo: TeamsLogo, icon: TeamsIcon },
-	{ name: 'Chat', logo: ChatLogo, icon: ChatIcon },
-	{ name: 'Search', logo: SearchLogo, icon: SearchIcon },
-	{ name: 'Studio', logo: StudioLogo, icon: StudioIcon },
-	{ name: 'Jira Data Center', logo: JiraDataCenterLogo, icon: JiraDataCenterIcon },
+	{ name: 'assets', logo: AssetsLogo, icon: AssetsIcon },
 	{
-		name: 'Confluence Data Center',
+		name: 'customer-service-management',
+		logo: CustomerServiceManagementLogo,
+		icon: CustomerServiceManagementIcon,
+	},
+	{ name: 'opsgenie', logo: OpsgenieLogo, icon: OpsgenieIcon },
+	{ name: 'statuspage', logo: StatuspageLogo, icon: StatuspageIcon },
+	{ name: 'trello', logo: TrelloLogo, icon: TrelloIcon },
+	{ name: 'admin', logo: AdminLogo, icon: AdminIcon },
+	{ name: 'analytics', logo: AnalyticsLogo, icon: AnalyticsIcon },
+	{ name: 'chat', logo: ChatLogo, icon: ChatIcon },
+	{ name: 'goals', logo: GoalsLogo, icon: GoalsIcon },
+	{ name: 'guard', logo: GuardLogo, icon: GuardIcon },
+	{ name: 'projects', logo: ProjectsLogo, icon: ProjectsIcon },
+	{ name: 'search', logo: SearchLogo, icon: SearchIcon },
+	{ name: 'studio', logo: StudioLogo, icon: StudioIcon },
+	{ name: 'teams', logo: TeamsLogo, icon: TeamsIcon },
+	{ name: 'jira-data-center', logo: JiraDataCenterLogo, icon: JiraDataCenterIcon },
+	{
+		name: 'confluence-data-center',
 		logo: ConfluenceDataCenterLogo,
 		icon: ConfluenceDataCenterIcon,
 	},
-	{ name: 'Bitbucket Data Center', logo: BitbucketDataCenterLogo, icon: BitbucketDataCenterIcon },
+	{ name: 'bitbucket-data-center', logo: BitbucketDataCenterLogo, icon: BitbucketDataCenterIcon },
+	{
+		name: 'atlassian-administration',
+		logo: AtlassianAdministrationLogo,
+		icon: AtlassianAdministrationIcon,
+	},
+	{ name: 'atlassian-admin', logo: AtlassianAdminLogo, icon: AtlassianAdminIcon },
+	{ name: 'atlassian-analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
+	// @ts-ignore Atlas icon has slightly different types
+	{ name: 'atlas', logo: AtlasLogo, icon: AtlasIcon },
+	{ name: 'jira-software', logo: JiraSoftwareLogo, icon: JiraSoftwareIcon },
+	{ name: 'jira-align', logo: JiraAlignLogo, icon: JiraAlignIcon },
+	{ name: 'jira-work-management', logo: JiraWorkManagementLogo, icon: JiraWorkManagementIcon },
 ];
 
-export const logosAndIcons = [
-	...legacyOnlyLogosAndIcons,
-	...sharedLogosAndIcons,
-	...newOnlyLogosAndIcons,
-];
+export const logos = logoMap.map(({ logo }) => logo);
+export const icons = logoMap.map(({ icon }) => icon);
+
+export const legacyOnlyLogosAndIcons = logoMap.filter(({ name }) => {
+	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
+	return logo?.type === 'legacy' && !logo?.deprecated;
+});
+
+export const migrationLogosAndIcons = logoMap.filter(({ name }) => {
+	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
+	return logo?.type === 'migration' && !logo.deprecated;
+});
+
+export const newOnlyLogosAndIcons = logoMap.filter(({ name }) => {
+	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
+	return logo?.type === 'new' && !logo?.deprecated;
+});
+
+export const deprecatedLogos = logoMap.filter(({ name }) => {
+	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
+	return logo?.deprecated;
+});
+
+export const logosAndIcons = logoMap.sort((a, b) => {
+	const aIndex = logoDocsSchema.findIndex(({ name: logoName }) => logoName === a.name);
+	const bIndex = logoDocsSchema.findIndex(({ name: logoName }) => logoName === b.name);
+	return aIndex - bIndex;
+});
 
 export const appearances: LogoProps['appearance'][] = ['brand', 'neutral', 'inverse'];

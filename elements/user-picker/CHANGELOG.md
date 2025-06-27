@@ -1,5 +1,14 @@
 # @atlaskit/user-picker
 
+## 11.3.2
+
+### Patch Changes
+
+- [#178290](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178290)
+  [`24b46e59f20ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24b46e59f20ba) -
+  Clean up feature gate user-picker-show-clear-indicator
+- Updated dependencies
+
 ## 11.3.1
 
 ### Patch Changes

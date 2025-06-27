@@ -50,7 +50,7 @@ export class TaskItemNodeView implements NodeView {
 			placeholder ?? this.intl.formatMessage(tasksAndDecisionsMessages.taskPlaceholder);
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
 			document,
-			taskItemToDom(node, domPlaceholder),
+			taskItemToDom(node, domPlaceholder, intl),
 		);
 		this.dom = dom;
 		this.contentDOM = contentDOM;

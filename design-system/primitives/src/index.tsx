@@ -26,6 +26,8 @@ export { default as Bleed } from './components/bleed';
 export type { BleedProps } from './components/bleed';
 export { default as Text } from './components/text';
 export type { TextProps } from './components/text';
+export { default as MetricText } from './components/metric-text';
+export type { MetricTextProps } from './components/metric-text';
 export { default as Pressable } from './components/pressable';
 export type { PressableProps } from './components/pressable';
 export { default as Anchor } from './components/anchor';

@@ -724,7 +724,7 @@ describe('`link clicked`', () => {
 				}
 			};
 
-			render(
+			const { container } = render(
 				<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
@@ -742,6 +742,7 @@ describe('`link clicked`', () => {
 				spy,
 				user,
 				link,
+				container,
 			};
 		};
 
@@ -1201,6 +1202,10 @@ describe('`link clicked`', () => {
 					ANALYTICS_CHANNEL,
 				);
 			});
+		});
+		it('should capture and report a11y violations', async () => {
+			const { container } = await setup();
+			await expect(container).toBeAccessible();
 		});
 	});
 });

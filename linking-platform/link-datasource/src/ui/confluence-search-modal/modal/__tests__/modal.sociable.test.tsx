@@ -363,4 +363,18 @@ describe('ConfluenceSearchConfigModal', () => {
 			expect.anything(),
 		);
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<SmartCardProvider client={new SmartLinkClient()}>
+					<ConfluenceSearchConfigModal
+						datasourceId={DATASOURCE_ID}
+						onCancel={() => {}}
+						onInsert={() => {}}
+					/>
+				</SmartCardProvider>
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

@@ -224,7 +224,7 @@ describe('Subscriptions', () => {
 		subscriptions.onAnyUpdated(callback);
 		subscriptions.anyUpdated();
 
-		expect(emitSpy).toHaveBeenCalledTimes(2);
+		expect(emitSpy).toHaveBeenCalledTimes(1);
 		expect(emitSpy).toHaveBeenCalledWith(ALL_FEATURE_VALUES);
 		expect(callback).toHaveBeenCalledTimes(1);
 	});
@@ -234,7 +234,7 @@ describe('Subscriptions', () => {
 		unsubscribe();
 		subscriptions.anyUpdated();
 
-		expect(emitSpy).toHaveBeenCalledTimes(3);
+		expect(emitSpy).toHaveBeenCalledTimes(1);
 		expect(emitSpy).toHaveBeenCalledWith(ALL_FEATURE_VALUES);
 		expect(callback).not.toHaveBeenCalled();
 	});

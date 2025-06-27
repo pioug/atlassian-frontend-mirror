@@ -1,7 +1,8 @@
 import { useMemo, useRef, useState } from 'react';
 
+import { useStaticCallback } from '@atlaskit/media-common';
+
 import type { PageRangeContent } from './types';
-import { useStaticCallback } from './utils/useStaticCallback';
 
 export function usePageContent(
 	getContent: (startIndex: number, endIndex: number) => Promise<PageRangeContent>,

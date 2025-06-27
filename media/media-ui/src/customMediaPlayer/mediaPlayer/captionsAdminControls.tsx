@@ -10,7 +10,7 @@ import { formatLocale } from './captions';
 import { token } from '@atlaskit/tokens';
 import MediaButton from '../../MediaButton';
 import { popupCustomStyles, createPopupSelectComponentsWithIcon } from '../dropdownControlCommon';
-import { OptionType, PopupSelect, ValueType } from '@atlaskit/select';
+import { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
 import { popperProps } from '../dropdownControlCommon';
 
 export interface CaptionsAdminControlsProps {

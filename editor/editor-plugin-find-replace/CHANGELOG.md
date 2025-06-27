@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.10.3
+
+### Patch Changes
+
+- [#178613](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178613)
+  [`47e2c968a3b92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47e2c968a3b92) -
+  [ux] [ED-28399] remove padding from search match texsts in find and replace experiment
+- Updated dependencies
+
+## 2.10.2
+
+### Patch Changes
+
+- [#178265](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178265)
+  [`4a9fa08952bfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a9fa08952bfe) -
+  [ux] ED-28379 fix styles for date match in find and replace
+- Updated dependencies
+
+## 2.10.1
+
+### Patch Changes
+
+- [#177994](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177994)
+  [`f19d2fadee3a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f19d2fadee3a8) -
+  [ux] [ED-28377] convert borders to boxShadows to prevent a layout shift while Finding with the
+  platform_editor_find_and_replace_improvements experiment
+
+## 2.10.0
+
+### Minor Changes
+
+- [#175370](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175370)
+  [`fb5f9531ef9d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb5f9531ef9d8) -
+  [ux] [ED-27956] this PR is adding support for Find with expand titles and updating the search
+  match styles behind the experiment `platform_editor_find_and_replace_improvements`
+
 ## 2.9.0
 
 ### Minor Changes

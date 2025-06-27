@@ -1,5 +1,13 @@
 # @atlaskit/media-test-data
 
+## 3.1.2
+
+### Patch Changes
+
+- [#177475](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177475)
+  [`f54431dd4c6b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f54431dd4c6b4) -
+  Updated Video with Captions sample. File name in caption artifact is base64 encoded.
+
 ## 3.1.1
 
 ### Patch Changes

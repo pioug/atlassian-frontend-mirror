@@ -33,4 +33,12 @@ test.describe('Link Create', () => {
 			'https://atlassian.com/product/new-object-id',
 		);
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-create', 'basic');
+		const trigger = page.getByRole('button', { name: 'Create' });
+		await expect(trigger).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

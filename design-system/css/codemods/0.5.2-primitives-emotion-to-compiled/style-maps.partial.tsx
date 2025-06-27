@@ -908,7 +908,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2a06338babbfbea48ed2205e34084fc>>
+ * @codegen <<SignedSource::2c0cffbebdab4e28fe2b45925623e523>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
@@ -964,6 +964,18 @@ export const fontMap = {
 		'font.heading.xxsmall',
 		'normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
 	),
+	'font.metric.large': token(
+		'font.metric.large',
+		'normal 653 28px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.metric.medium': token(
+		'font.metric.medium',
+		'normal 653 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	'font.metric.small': token(
+		'font.metric.small',
+		'normal 653 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
 };
 
 export type Font = keyof typeof fontMap;
@@ -1008,7 +1020,7 @@ export type FontFamily = keyof typeof fontFamilyMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::159df661d29a2805a17ab6f52e842350>>
+ * @codegen <<SignedSource::c207cc4caf0794de5f13707a9c28451f>>
  * @codegenId text
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
@@ -1043,6 +1055,23 @@ export const textWeightMap = {
 };
 
 export type TextWeight = keyof typeof textWeightMap;
+
+export const metricTextSizeMap = {
+	large: token(
+		'font.metric.large',
+		'normal 653 28px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	medium: token(
+		'font.metric.medium',
+		'normal 653 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+	small: token(
+		'font.metric.small',
+		'normal 653 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
+	),
+};
+
+export type MetricTextSize = keyof typeof metricTextSizeMap;
 
 /**
  * @codegenEnd
@@ -1211,6 +1240,7 @@ type FontFamilyToken = keyof typeof fontFamilyMap;
 type FontToken = keyof typeof fontMap;
 type TextWeightToken = keyof typeof textWeightMap;
 type TextSizeToken = keyof typeof textSizeMap;
+type MetricTextSizeToken = keyof typeof metricTextSizeMap;
 type SpacingStyleMap = Record<SpacingProperty, Record<SpacingToken, SerializedStyles>>;
 type BackgroundColorStyleMap = Record<BackgroundColorToken, SerializedStyles>;
 type SurfaceColorStyleMap = Record<SurfaceColorToken, SerializedStyles>;
@@ -1220,6 +1250,7 @@ type FontFamilyStyleMap = Record<FontFamilyToken, SerializedStyles>;
 type FontStyleMap = Record<FontToken, SerializedStyles>;
 type TextWeightStyleMap = Record<TextWeightToken, SerializedStyles>;
 type TextStyleMap = Record<TextSizeToken, SerializedStyles>;
+type MetricTextStyleMap = Record<MetricTextSizeToken, SerializedStyles>;
 
 export const paddingStylesMap: SpacingStyleMap = spacingProperties.reduce(
 	(styleMap, spacingProperty: SpacingProperty) => {
@@ -1269,3 +1300,8 @@ export const surfaceColorStylesMap: SurfaceColorStyleMap = getSerializedStylesMa
 
 export const isSurfaceColorToken = (color: unknown): color is SurfaceColorToken =>
 	surfaceColorMap[color as SurfaceColorToken] !== undefined;
+
+export const metricTextSizeStylesMap: MetricTextStyleMap = getSerializedStylesMap(
+	'font',
+	metricTextSizeMap,
+);

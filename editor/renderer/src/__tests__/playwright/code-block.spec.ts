@@ -24,5 +24,12 @@ test.describe('code block', () => {
 			await expect(renderer.codeBlock.block).toBeVisible();
 			await expect(renderer.codeBlock.block).toBeInViewport();
 		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			await renderer.codeBlock.lightWeightCodeBlock.scrollIntoViewIfNeeded();
+			await expect(renderer.codeBlock.block).toBeVisible();
+
+			await expect(renderer.page).toBeAccessible();
+		});
 	});
 });

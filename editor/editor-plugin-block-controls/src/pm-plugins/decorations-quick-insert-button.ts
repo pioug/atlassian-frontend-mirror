@@ -76,6 +76,10 @@ export const quickInsertButtonDecoration = (
 		rootPos,
 		(view, getPos) => {
 			const element = document.createElement('span');
+			if (fg('platform_editor_controls_patch_15')) {
+				// inline decoration causes cursor disappear when focusing editor at the first line (e.g. press Tab when title is focused)
+				element.style.display = 'block';
+			}
 			element.contentEditable = 'false';
 			element.setAttribute('data-blocks-quick-insert-container', 'true');
 			element.setAttribute('data-testid', 'block-ctrl-quick-insert-button');

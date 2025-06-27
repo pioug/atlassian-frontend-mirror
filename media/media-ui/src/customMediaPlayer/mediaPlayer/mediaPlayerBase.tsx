@@ -12,19 +12,13 @@ import SoundIcon from '@atlaskit/icon/core/migration/volume-high--hipchat-outgoi
 import VideoHdIcon from '@atlaskit/icon-lab/core/video-hd';
 import VideoHdFilledIcon from '@atlaskit/icon-lab/core/video-hd-filled';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
-import { type MediaFeatureFlags, type NumericalCardDimensions } from '@atlaskit/media-common';
 import { injectIntl } from 'react-intl-next';
 import { Box, Flex } from '@atlaskit/primitives/compiled';
 import { cssMap } from '@atlaskit/css';
 import MediaButton from '../../MediaButton';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
-import MediaPlayer, {
-	type VideoState,
-	type VideoActions,
-	type VideoTextTracks,
-	type VideoTextTrack,
-} from '../react-video-renderer';
+import MediaPlayer, { type VideoState, type VideoActions } from '../react-video-renderer';
 import { TimeRange } from '../timeRange';
 import VolumeRange from '../volumeRange';
 import {
@@ -54,7 +48,6 @@ import {
 	createFirstPlayedTrackEvent,
 	createPlayedTrackEvent,
 	type PlaybackState,
-	type WithPlaybackProps,
 } from '../analytics';
 import { formatDuration } from '../../formatDuration';
 import { Shortcut, keyCodes } from '../../shortcut';
@@ -62,7 +55,7 @@ import { toggleFullscreen, getFullscreenElement } from '../fullscreen';
 import { type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../../messages';
 import simultaneousPlayManager from '../simultaneousPlayManager';
-import { TimeSaver, type TimeSaverConfig } from '../timeSaver';
+import { TimeSaver } from '../timeSaver';
 import PlaybackSpeedControls from '../playbackSpeedControls';
 import { CaptionsSelectControls } from './captionsSelectControls';
 import { CaptionsAdminControls } from './captionsAdminControls';
@@ -73,49 +66,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import VideoSkipForwardTenIcon from '@atlaskit/icon/core/video-skip-forward-ten';
 import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-ten';
 import { token } from '@atlaskit/tokens';
-import { type CustomMediaPlayerType } from '../types';
-import { type WithShowControlMethodProp } from '../../types';
-import { type FileIdentifier, type FileState } from '@atlaskit/media-client';
-import { type MediaParsedSettings } from '@atlaskit/media-client-react';
-import {
-	getUserCaptionsLocale,
-	setUserCaptionsLocale,
-	findPreselectedTrackIndex,
-	getUserCaptionsEnabled,
-	setUserCaptionsEnabled,
-} from './captions';
 import { CaptionsUploaderBrowser } from './captions/artifactUploader';
 import CaptionDeleteConfirmationModal from './captions/captionDeleteConfirmationModal';
-
-export interface MediaPlayerBaseProps extends WithPlaybackProps, WithShowControlMethodProp {
-	readonly type: CustomMediaPlayerType;
-	readonly src: string;
-	readonly identifier: FileIdentifier;
-	readonly fileState?: FileState;
-	readonly onHDToggleClick?: () => void;
-	readonly isShortcutEnabled?: boolean;
-	readonly lastWatchTimeConfig?: TimeSaverConfig;
-	readonly onCanPlay?: () => void;
-	readonly onPlay?: () => void;
-	readonly onPause?: () => void;
-	readonly onTimeChanged?: () => void;
-	readonly onError?: () => void;
-	readonly onDownloadClick?: () => void;
-	readonly onFirstPlay?: () => void;
-	readonly onFullscreenChange?: (fullscreen: boolean) => void;
-	readonly originalDimensions?: NumericalCardDimensions;
-	readonly featureFlags?: MediaFeatureFlags;
-	readonly poster?: string;
-	readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
-	readonly textTracks?: VideoTextTracks;
-	readonly areControlsVisible?: boolean;
-	readonly mediaSettings?: MediaParsedSettings;
-}
+import { type MediaPlayerBaseProps } from './types';
 
 export interface CustomMediaPlayerState {
 	playerWidth: number;
-	selectedTracksIndex: number;
-	areCaptionsEnabled?: boolean;
 	isArtifactUploaderOpen: boolean;
 	artifactToDelete?: string;
 	isFullScreenEnabled: boolean;
@@ -230,60 +186,8 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		isFullScreenEnabled: false,
 		playerWidth: 100, // initial value for playerSize: 'small', i.e. width < 260px
 		playbackSpeed: 1,
-		selectedTracksIndex: -1,
-		areCaptionsEnabled: false,
 		isArtifactUploaderOpen: false,
 		artifactToDelete: undefined,
-	};
-
-	constructor(props: MediaPlayerBaseProps & WrappedComponentProps & WithAnalyticsEventsProps) {
-		super(props);
-		this.state.selectedTracksIndex = this.findPreselectedTrackIndex(this.props);
-
-		if (this.mediaUserPreferences) {
-			const userCaptionsEnabled = getUserCaptionsEnabled(this.mediaUserPreferences);
-			this.state.areCaptionsEnabled = userCaptionsEnabled;
-		}
-	}
-
-	componentDidUpdate(prevProps: MediaPlayerBaseOwnProps, prevState: CustomMediaPlayerState): void {
-		const { intl, textTracks } = this.props;
-		const { intl: prevIntl, textTracks: prevTextTracks } = prevProps;
-		const didLocaleChange = prevIntl.locale !== intl.locale;
-		const didTextTracksChange = prevTextTracks?.captions?.tracks !== textTracks?.captions?.tracks;
-
-		if (didLocaleChange || didTextTracksChange) {
-			this.setState({ selectedTracksIndex: this.findPreselectedTrackIndex(this.props) });
-		}
-
-		if (
-			this.mediaUserPreferences &&
-			prevState.areCaptionsEnabled !== this.state.areCaptionsEnabled
-		) {
-			setUserCaptionsEnabled(this.mediaUserPreferences, !!this.state.areCaptionsEnabled);
-		}
-	}
-
-	findPreselectedTrackIndex = ({ textTracks, intl }: MediaPlayerBaseOwnProps) => {
-		return findPreselectedTrackIndex(
-			textTracks?.captions?.tracks || [],
-			intl.locale,
-			this.getUserCaptionsPreference(),
-		);
-	};
-
-	get mediaUserPreferences() {
-		const { mediaSettings: { mediaUserPreferences = undefined } = {} } = this.props;
-		return mediaUserPreferences;
-	}
-
-	getUserCaptionsPreference = () => {
-		return this.mediaUserPreferences && getUserCaptionsLocale(this.mediaUserPreferences);
-	};
-	setUserCaptionsPreference = (selectedTracks: VideoTextTrack) => {
-		if (this.mediaUserPreferences) {
-			setUserCaptionsLocale(this.mediaUserPreferences, selectedTracks.lang);
-		}
 	};
 
 	componentDidMount() {
@@ -744,7 +648,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	};
 
 	private play = () => {
-		const { onFirstPlay } = this.props;
+		const { onFirstPlay, onPlay } = this.props;
 		if (this.actions) {
 			this.actions.play();
 		}
@@ -754,10 +658,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			this.wasPlayedOnce = true;
 			onFirstPlay();
 		}
-		if (this.mediaUserPreferences) {
-			const userCaptionsEnabled = getUserCaptionsEnabled(this.mediaUserPreferences);
-			this.setState({ areCaptionsEnabled: userCaptionsEnabled });
-		}
+		onPlay?.();
 	};
 
 	private getMediaButtonClickHandler = (action: Action, buttonType: string) => () => {
@@ -841,12 +742,12 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 
 	private baseAnalyticCaptionAttributes() {
 		const { textTracks } = this.props;
-		const { selectedTracksIndex } = this.state;
+		const { selectedTrackIndex = -1 } = textTracks?.captions || {};
 
 		const captionAttributes = {
-			selectedTrackIndex: selectedTracksIndex,
+			selectedTrackIndex,
 			availableCaptionTracks: textTracks?.captions?.tracks?.length || 0,
-			selectedTrackLanguage: textTracks?.captions?.tracks?.[selectedTracksIndex]?.lang || null,
+			selectedTrackLanguage: textTracks?.captions?.tracks?.[selectedTrackIndex]?.lang || null,
 		};
 		return captionAttributes;
 	}
@@ -965,13 +866,11 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	private pausePlayByButtonClick = this.getMediaButtonClickHandler(this.pause, 'pauseButton');
 
 	private onTextTracksSelected = (selectedTracksIndex: number) => {
-		const selectedTracks = this.props.textTracks?.captions?.tracks[selectedTracksIndex];
-		!!selectedTracks && this.setUserCaptionsPreference(selectedTracks);
-		this.setState({ selectedTracksIndex });
+		this.props.onTextTracksSelected?.(selectedTracksIndex);
 	};
 
 	private onCaptionsEnabledChange = (areCaptionsEnabled: boolean) => {
-		this.setState({ areCaptionsEnabled });
+		this.props.onCaptionsEnabledChange?.(areCaptionsEnabled);
 	};
 
 	private onCaptionDelete = (artifactName: string) => {
@@ -983,27 +882,6 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		this.setState({ artifactToDelete: artifactName });
 	};
 
-	resolveSelectedTracksIndex = () => {
-		const { areCaptionsEnabled, selectedTracksIndex } = this.state;
-		return areCaptionsEnabled ? (selectedTracksIndex > -1 ? selectedTracksIndex : 0) : -1;
-	};
-
-	resolveTextTracks = (): VideoTextTracks | undefined => {
-		const { areCaptionsEnabled } = this.state;
-		const { textTracks } = this.props;
-		const tracksKey = 'captions';
-		if (areCaptionsEnabled && textTracks?.[tracksKey]) {
-			return {
-				...textTracks,
-				[tracksKey]: {
-					...textTracks[tracksKey],
-					selectedTrackIndex: this.resolveSelectedTracksIndex(),
-				},
-			};
-		}
-		return undefined;
-	};
-
 	get isPlaying() {
 		return this.videoState.status === 'playing';
 	}
@@ -1011,12 +889,17 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	shouldRenderCaptionsControls = () => {
 		const { textTracks } = this.props;
 		const { playerWidth } = this.state;
-		return breakpointControls.captionsControls(playerWidth) && !!textTracks;
+		return (
+			breakpointControls.captionsControls(playerWidth) &&
+			!!textTracks &&
+			!!textTracks.captions?.tracks?.length
+		);
 	};
 
 	renderCaptionsControls = () => {
 		const { textTracks } = this.props;
-		const { areCaptionsEnabled } = this.state;
+		const { selectedTrackIndex = -1 } = textTracks?.captions || {};
+		const { areCaptionsEnabled } = this.props;
 
 		return (
 			textTracks && (
@@ -1025,7 +908,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					onSelected={this.onTextTracksSelected}
 					areCaptionsEnabled={!!areCaptionsEnabled}
 					onCaptionsEnabledChange={this.onCaptionsEnabledChange}
-					selectedTracksIndex={this.resolveSelectedTracksIndex()}
+					selectedTracksIndex={selectedTrackIndex}
 				/>
 			)
 		);
@@ -1088,6 +971,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 			poster,
 			videoControlsWrapperRef,
 			areControlsVisible,
+			textTracks,
 		} = this.props;
 
 		return (
@@ -1105,7 +989,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					onTimeChange={this.onCurrentTimeChange}
 					onError={onError}
 					poster={poster}
-					textTracks={this.resolveTextTracks()}
+					textTracks={textTracks}
 					textTracksPosition={areControlsVisible ? -3.7 : undefined}
 				>
 					{(video, videoState, actions) => {

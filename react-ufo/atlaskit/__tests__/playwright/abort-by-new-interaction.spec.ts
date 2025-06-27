@@ -23,4 +23,11 @@ test.describe('ReactUFO: abort by new interaction', () => {
 		expect(interactionMetrics.abortReason).toBe('new_interaction');
 		expect(interactionMetrics.abortedByInteractionName).toBe('test-new-interaction');
 	});
+
+	test('should capture and report a11y violations', async ({ waitForReactUFOPayload, page }) => {
+		const mainDiv = page.locator('[data-testid="main"]');
+		await expect(mainDiv).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

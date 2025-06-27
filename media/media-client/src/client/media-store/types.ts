@@ -371,8 +371,13 @@ export interface MediaApi {
 	getDocumentContent(
 		id: string,
 		options: GetDocumentContentOptions,
+		traceContext?: MediaTraceContext,
 	): Promise<DocumentPageRangeContent>;
 
 	/** @exprimental This is exprimental for the purposes of enabling the document viewer and not ready for external use, it is prone to breaking changes */
-	getDocumentPageImage(id: string, options: GetDocumentPageImage): Promise<Blob>;
+	getDocumentPageImage(
+		id: string,
+		options: GetDocumentPageImage,
+		traceContext?: MediaTraceContext,
+	): Promise<Blob>;
 }

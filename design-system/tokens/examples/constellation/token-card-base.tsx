@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { cssMap, CSSProperties, jsx } from '@compiled/react';
+import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 
 import GlobeIcon from '@atlaskit/icon/core/migration/globe--world';
 import { type NewGlyphColorProps } from '@atlaskit/icon/types';

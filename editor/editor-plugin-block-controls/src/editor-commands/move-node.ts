@@ -539,7 +539,7 @@ export const moveNode =
 
 		const expandAncestor = findParentNodeOfTypeClosestToPos($to, [expand, nestedExpand]);
 
-		if (expandAncestor && fg('platform_editor_element_dnd_nested_fix_patch_6')) {
+		if (expandAncestor) {
 			const wasExpandExpanded = expandedState.get(expandAncestor.node);
 			const updatedExpandAncestor = findParentNodeOfTypeClosestToPos($mappedTo, [
 				expand,

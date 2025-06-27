@@ -5,7 +5,7 @@
 import { type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { BackgroundColor, Box, Space } from '@atlaskit/primitives/compiled';
+import { type BackgroundColor, Box, type Space } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

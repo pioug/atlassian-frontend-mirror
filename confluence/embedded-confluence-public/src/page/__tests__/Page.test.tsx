@@ -283,6 +283,15 @@ describe('if parent product passes allowedFeatures array', () => {
 		const all = await screen.findByText('all');
 		expect(all).toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const allowedFeatures: PageAllowedFeatures = {
+			view: 'all',
+		};
+		const { container } = render(
+			<Page {...defaultProps} url={viewPageUrl} allowedFeatures={allowedFeatures} />,
+		);
+		await expect(container).toBeAccessible();
+	});
 });
 
 test('If parent product passes navigationPolicy that has navigate function, should use it for child page', async () => {

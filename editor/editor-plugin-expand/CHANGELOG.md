@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-expand
 
+## 3.4.0
+
+### Minor Changes
+
+- [#175370](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175370)
+  [`fb5f9531ef9d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb5f9531ef9d8) -
+  [ux] [ED-27956] this PR is adding support for Find with expand titles and updating the search
+  match styles behind the experiment `platform_editor_find_and_replace_improvements`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.5
 
 ### Patch Changes

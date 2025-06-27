@@ -119,4 +119,9 @@ describe('ViewRelatedLinksAction', () => {
 		user.click(closeButton);
 		await waitForElementToBeRemoved(modal);
 	});
+	it('should capture and report a11y violations', async () => {
+		const onClick = jest.fn();
+		const { container } = setup({ onClick });
+		await expect(container).toBeAccessible();
+	});
 });

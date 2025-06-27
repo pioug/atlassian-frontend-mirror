@@ -84,11 +84,8 @@ export default function ShowcaseExample() {
 						.map(({ Icon24, Logo }) => {
 							return (
 								<div css={wrapperStyles.item}>
-									{showLogos && Logo ? (
-										<Logo {...customisedProps} />
-									) : (
-										<Icon24 {...customisedProps} />
-									)}
+									{Logo && <Logo {...customisedProps} />}
+									{Icon24 && <Icon24 {...customisedProps} />}
 								</div>
 							);
 						})}

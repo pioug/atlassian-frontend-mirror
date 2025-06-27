@@ -11,6 +11,7 @@ export type {
 	ProcessedFileState,
 	ProcessingFailedState,
 	ErrorFileState,
+	MediaUserArtifactCaptionKey,
 } from './file-state';
 
 export { mediaStore, createMediaStore } from './store';

@@ -265,5 +265,13 @@ describe('hover card over flexible smart links', () => {
 				expect(hoverCard).toBeInTheDocument();
 			});
 		});
+		it('should capture and report a11y violations', async () => {
+			const { container } = await setupComponent({
+				extraCardProps: {
+					ui: { enableSnippetRenderer: false },
+				},
+			});
+			await expect(container).toBeAccessible();
+		});
 	});
 });

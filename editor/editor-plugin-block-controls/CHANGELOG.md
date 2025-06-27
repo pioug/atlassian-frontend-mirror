@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.11
+
+### Patch Changes
+
+- [#177025](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177025)
+  [`b000694948f37`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b000694948f37) -
+  [ED-27900] Fix cursor disappear when focusing editor at the first line by pressing Tab or down
+  arrow key at page title
+
 ## 3.19.10
 
 ### Patch Changes

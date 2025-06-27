@@ -33,4 +33,14 @@ export const tasksAndDecisionsMessages = defineMessages({
 		defaultMessage: 'Dismiss',
 		description: 'Button in the popup when we click on dismiss without edit permission',
 	},
+	markTaskAsCompleted: {
+		id: 'fabric.editor.taskDecision.markTaskAsCompleted',
+		defaultMessage: 'Mark task as completed',
+		description: 'Button to mark a task as complete in the editor',
+	},
+	markTaskAsNotCompleted: {
+		id: 'fabric.editor.taskDecision.markTaskAsNotCompleted',
+		defaultMessage: 'Mark task as not completed',
+		description: 'Button to mark a task as not complete in the editor',
+	},
 });

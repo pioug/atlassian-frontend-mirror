@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import FabricAnalyticsListener, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
+import { renderWithIntl } from '@atlaskit/elements-test-helpers/rtl';
 import ResourcedTaskItem from '../../../components/ResourcedTaskItem';
 import { type TaskDecisionProvider } from '../../../types';
 import { asMock } from '../_mock';
@@ -30,7 +31,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it('should wrap TaskItem', () => {
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem taskId="task-1" objectAri="objectAri">
 				Hello World
 			</ResourcedTaskItem>,
@@ -42,7 +43,7 @@ describe('<ResourcedTaskItem/>', () => {
 	it('should render callback with ref', () => {
 		let contentRef: HTMLElement | null = null;
 		const handleContentRef = (ref: HTMLElement | null) => (contentRef = ref);
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem taskId="task-id" objectAri="objectAri" contentRef={handleContentRef}>
 				Hello <b>world</b>
 			</ResourcedTaskItem>,
@@ -53,7 +54,7 @@ describe('<ResourcedTaskItem/>', () => {
 
 	it('should call onChange prop in change handling if no provider', async () => {
 		const spy = jest.fn();
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem taskId="task-id" objectAri="objectAri" onChange={spy}>
 				Hello <b>world</b>
 			</ResourcedTaskItem>,
@@ -65,7 +66,7 @@ describe('<ResourcedTaskItem/>', () => {
 
 	it('should call onChange prop in change handling if provider', async () => {
 		const spy = jest.fn();
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem
 				taskId="task-id"
 				objectAri="objectAri"
@@ -82,7 +83,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it('should still toggle isDone of TaskItem onChange without objectAri', async () => {
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem taskId="task-1" isDone={false}>
 				Hello World
 			</ResourcedTaskItem>,
@@ -93,7 +94,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it("should update ResourcedTaskItem 'component's `state.isDone` to match refreshed `props.isDone`", () => {
-		const resultRender = render(
+		const resultRender = renderWithIntl(
 			<ResourcedTaskItem taskId="task-1" isDone={true}>
 				Hello World
 			</ResourcedTaskItem>,
@@ -118,7 +119,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it("should not update ResourcedTaskItem 'component's `state.isDone` when `props.isDone` is not changing", async () => {
-		const resultRender = render(
+		const resultRender = renderWithIntl(
 			<ResourcedTaskItem taskId="task-1" isDone={true}>
 				Hello World
 			</ResourcedTaskItem>,
@@ -145,7 +146,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it('should not disable taskItem if no provider', () => {
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem taskId="task-1" isDone={false}>
 				Hello World
 			</ResourcedTaskItem>,
@@ -155,7 +156,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it('should subscribe to updates', async () => {
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem
 				taskId="task-1"
 				objectAri="objectAri"
@@ -170,7 +171,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it('should update on subscription callback to updates', async () => {
-		const resultRender = render(
+		const resultRender = renderWithIntl(
 			<ResourcedTaskItem
 				taskId="task-1"
 				objectAri="objectAri"
@@ -204,7 +205,7 @@ describe('<ResourcedTaskItem/>', () => {
 	});
 
 	it('should call "toggleTask" when toggled', async () => {
-		render(
+		renderWithIntl(
 			<ResourcedTaskItem
 				taskId="task-1"
 				objectAri="objectAri"
@@ -223,7 +224,7 @@ describe('<ResourcedTaskItem/>', () => {
 
 	describe('showPlaceholder', () => {
 		it('should render placeholder if task is empty', () => {
-			render(
+			renderWithIntl(
 				<ResourcedTaskItem
 					taskId="task-1"
 					objectAri="objectAri"
@@ -236,7 +237,7 @@ describe('<ResourcedTaskItem/>', () => {
 		});
 
 		it('should not render placeholder task if not empty', () => {
-			render(
+			renderWithIntl(
 				<ResourcedTaskItem
 					taskId="task-1"
 					objectAri="objectAri"
@@ -253,7 +254,7 @@ describe('<ResourcedTaskItem/>', () => {
 
 	describe('analytics', () => {
 		it('check action fires an event', async () => {
-			render(
+			renderWithIntl(
 				<FabricAnalyticsListener client={analyticsWebClientMock}>
 					<ResourcedTaskItem taskId="task-1" objectAri="objectAri">
 						Hello <b>world</b>
@@ -276,7 +277,7 @@ describe('<ResourcedTaskItem/>', () => {
 		});
 
 		it('uncheck action fires an event', async () => {
-			render(
+			renderWithIntl(
 				<FabricAnalyticsListener client={analyticsWebClientMock}>
 					<ResourcedTaskItem taskId="task-1" objectAri="objectAri" isDone={true}>
 						Hello <b>world</b>

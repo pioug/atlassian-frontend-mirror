@@ -113,4 +113,12 @@ test.describe('table.ts: triple click selection', () => {
 		const selection = await renderer.page.evaluate(() => window.getSelection()?.toString());
 		expect(selection).toBe(' ');
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		const selector = 'tr:nth-of-type(2) td:nth-of-type(1) p:nth-of-type(2)';
+		await renderer.page.locator(selector).click({ clickCount: 3 });
+		await renderer.waitForRendererStable();
+
+		await expect(renderer.page).toBeAccessible({ violationCount: 1 });
+	});
 });

@@ -141,4 +141,8 @@ describe('Element: Avatar Group', () => {
 			expect(AvatarGroupComponent).not.toBeInTheDocument();
 		},
 	);
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(<AvatarGroup items={authorsWithNoImages} />);
+		await expect(container).toBeAccessible();
+	});
 });

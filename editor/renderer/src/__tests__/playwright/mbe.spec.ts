@@ -38,4 +38,12 @@ test.describe('MBE Renderer', () => {
 		await expect(addButton).toBeHidden();
 		await expect(deleteButton).toBeHidden();
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		await renderer.waitForRendererStable();
+		const firstTabFrame = renderer.page.locator('div[data-extension-frame="true"]').first();
+		await expect(firstTabFrame).toBeVisible();
+
+		await expect(renderer.page).toBeAccessible();
+	});
 });

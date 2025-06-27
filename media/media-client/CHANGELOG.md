@@ -1,5 +1,17 @@
 # @atlaskit/media-client
 
+## 34.2.0
+
+### Minor Changes
+
+- [#177492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177492)
+  [`77d01c4bd4ead`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77d01c4bd4ead) -
+  Added password option and traceContext for getting Media Document Contents and Page
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.1.0
 
 ### Minor Changes

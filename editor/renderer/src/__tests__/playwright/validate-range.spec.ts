@@ -28,6 +28,21 @@ test.describe('validate-range: paragraphsWithMedia', () => {
 
 		expect(await renderer.annotation.validateRange()).toBeFalsy();
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		const paragraphs = renderer.page.locator(PARAGRAPH);
+		const box = await paragraphs.first().boundingBox();
+		const box2 = await paragraphs.last().boundingBox();
+		const middleBox = box!.y + box!.height / 2;
+		const middleBox2 = box2!.y + box2!.height / 2;
+		await renderer.page.mouse.move(box!.x, middleBox);
+		await renderer.page.mouse.down();
+		await renderer.page.mouse.move(box2!.x + CHAR_WIDTH, middleBox2);
+		await renderer.page.mouse.up();
+		expect(await renderer.annotation.validateRange()).toBeFalsy();
+
+		await expect(renderer.page).toBeAccessible();
+	});
 });
 
 test.describe('validate-range: paragraphWithInlineNodes', () => {

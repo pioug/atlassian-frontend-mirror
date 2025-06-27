@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 19.3.1
+
+### Patch Changes
+
+- [#177236](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177236)
+  [`2bf9f8bd0c060`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bf9f8bd0c060) -
+  Internal documentation changes
+
 ## 19.3.0
 
 ### Minor Changes

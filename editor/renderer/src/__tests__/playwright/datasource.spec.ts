@@ -15,4 +15,11 @@ test.describe('datasource', () => {
 
 		await expect(locator).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		const locator = renderer.page.locator(DATASOURCE_TABLE_VIEW);
+		await expect(locator).toBeVisible();
+
+		await expect(renderer.page).toBeAccessible({ violationCount: 3 });
+	});
 });

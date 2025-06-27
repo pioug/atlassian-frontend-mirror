@@ -2,7 +2,7 @@ import {
 	UserPreferencesProvider,
 	type UserPreferences,
 	type ResolvedUserPreferences,
-	PersistenceAPI,
+	type PersistenceAPI,
 } from '@atlaskit/editor-common/user-preferences';
 
 const DEFAULT_USER_PREFERENCES = {

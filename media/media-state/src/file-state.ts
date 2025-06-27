@@ -22,6 +22,8 @@ export type MediaFileArtifact = {
 	readonly size?: number;
 };
 
+export type MediaUserArtifactCaptionKey = `ugc_caption_${string}`;
+
 export interface MediaFileArtifacts {
 	'image.png'?: MediaFileArtifact;
 	'image.jpg'?: MediaFileArtifact;
@@ -43,7 +45,7 @@ export interface MediaFileArtifacts {
 	'poster_640.jpg'?: MediaFileArtifact;
 	'poster_1280.jpg'?: MediaFileArtifact;
 	'poster_hd.jpg'?: MediaFileArtifact;
-	[key: `ugc_caption_${string}`]: MediaUserArtifact;
+	[key: MediaUserArtifactCaptionKey]: MediaUserArtifact;
 }
 
 type BaseFileState = {

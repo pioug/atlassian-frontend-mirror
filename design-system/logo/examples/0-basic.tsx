@@ -3,26 +3,42 @@
  * @jsx jsx
  */
 
-import { css, jsx } from '@compiled/react';
 import kebabCase from 'lodash/kebabCase';
 
-import { legacyOnlyLogosAndIcons, newOnlyLogosAndIcons, sharedLogosAndIcons } from './utils/list';
+import { css, jsx } from '@atlaskit/css';
+import Heading from '@atlaskit/heading';
 
-const styles = css({ marginBlockEnd: '2rem' });
+import {
+	deprecatedLogos,
+	legacyOnlyLogosAndIcons,
+	migrationLogosAndIcons,
+	newOnlyLogosAndIcons,
+} from './utils/list';
+
+const pageStyles = css({
+	padding: 'var(--ds-space-200)',
+	marginBlockEnd: 'var(--ds-space-300)',
+});
+
+const nameColumnStyles = css({
+	width: '210px',
+});
+
 const LogoTable = ({
 	title,
 	logos,
 	showFeatureFlaggedLogos,
 }: {
 	title: string;
-	logos: typeof sharedLogosAndIcons;
+	logos: typeof migrationLogosAndIcons;
 	showFeatureFlaggedLogos?: boolean;
 }) => (
-	<div css={styles}>
-		<h3>{title}</h3>
+	<div css={pageStyles}>
+		<Heading size="medium">{title}</Heading>
 		<table>
 			<thead>
 				<tr>
+					<th css={nameColumnStyles}>Name</th>
 					<th>Logo</th>
 					{showFeatureFlaggedLogos && (
 						<th>
@@ -45,6 +61,7 @@ const LogoTable = ({
 
 					return (
 						<tr key={name}>
+							<td>{name}</td>
 							<td>
 								<Logo testId={`${kebabName}-logo`} />
 							</td>
@@ -69,25 +86,17 @@ const LogoTable = ({
 	</div>
 );
 
-const deprecatedLogos = ['Jira Work Management', 'Jira Software'];
-
 export default () => {
 	return (
 		<div>
-			<LogoTable
-				title="Program Logos"
-				logos={legacyOnlyLogosAndIcons.filter((logo) => !deprecatedLogos.includes(logo.name))}
-			/>
+			<LogoTable title="Program Logos" logos={legacyOnlyLogosAndIcons} />
 			<LogoTable
 				title="App Logos (new designs enabled via feature flag / shouldUseNewLogoDesign)"
-				logos={sharedLogosAndIcons}
+				logos={migrationLogosAndIcons}
 				showFeatureFlaggedLogos
 			/>
 			<LogoTable title="App Logos (new designs only)" logos={newOnlyLogosAndIcons} />
-			<LogoTable
-				title="Deprecated Logos"
-				logos={legacyOnlyLogosAndIcons.filter((logo) => deprecatedLogos.includes(logo.name))}
-			/>
+			<LogoTable title="Deprecated Logos" logos={deprecatedLogos} />
 		</div>
 	);
 };

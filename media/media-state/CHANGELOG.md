@@ -1,5 +1,13 @@
 # @atlaskit/media-state
 
+## 1.7.0
+
+### Minor Changes
+
+- [#177475](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177475)
+  [`716cb697e500b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/716cb697e500b) -
+  Exported new type MediaUserArtifactCaptionKey
+
 ## 1.6.0
 
 ### Minor Changes

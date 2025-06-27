@@ -22,4 +22,12 @@ test.describe('media viewer password protected pdf', () => {
 		await viewer.submitButton.click();
 		await expect(page.getByText('Incorrect password. Please try again.')).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		const viewer = new MediaViewerPageObject(page);
+		await viewer.init('vr-password-protected-pdf');
+		await expect(viewer.fileName).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

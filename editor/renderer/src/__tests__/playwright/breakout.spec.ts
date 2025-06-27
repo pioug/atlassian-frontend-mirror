@@ -40,3 +40,35 @@ test('Addapts full-width table after scrolling to resizing', async ({ renderer }
 	expect(beforeWidth).toBe('480px');
 	expect(afterWidth).toBe('330px');
 });
+
+test('should capture and report a11y violations', async ({ renderer }) => {
+	const container = renderer.page.locator(TABLE_CONTAINER_BUT_FULL_WIDTH);
+	await renderer.page.setViewportSize({
+		width: 480,
+		height: 480,
+	});
+	await renderer.waitForRendererStable();
+	const tableElement = await container.elementHandle();
+	await tableElement!.waitForElementState('stable');
+	//await renderer.page.evaluate(() => (document.body.style.width = '480px'));
+
+	const beforeWidth = await container.evaluate((el) => {
+		return window.getComputedStyle(el).width;
+	});
+	await renderer.page.mouse.wheel(0, 100);
+	await tableElement!.waitForElementState('stable');
+	//await renderer.page.evaluate(() => window.scrollBy(0, 100));
+
+	await renderer.waitForRendererStable();
+	//await renderer.page.evaluate(() => (document.body.style.width = '330px'));
+	await renderer.page.setViewportSize({
+		width: 330,
+		height: 480,
+	});
+	await renderer.waitForRendererStable();
+	await tableElement!.waitForElementState('stable');
+
+	expect(beforeWidth).toBe('480px');
+
+	await expect(renderer.page).toBeAccessible();
+});

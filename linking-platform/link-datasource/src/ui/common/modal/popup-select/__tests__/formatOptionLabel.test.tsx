@@ -50,4 +50,12 @@ describe('Testing formatOptionLabel', () => {
 		// Assert that the container contains no children
 		expect(container.childNodes.length).toBe(0);
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup({
+			optionType: 'lozengeLabel',
+			label: 'Done',
+			value: 'done',
+		});
+		await expect(container).toBeAccessible();
+	});
 });

@@ -238,4 +238,11 @@ describe('FooterBlock', () => {
 			expect(block).toHaveCompiledCss('background-color', 'blue');
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<FooterBlock status={SmartLinkStatus.Resolved} testId={testIdBase} />,
+			{ wrapper: getFlexibleCardTestWrapper(context) },
+		);
+		await expect(container).toBeAccessible();
+	});
 });

@@ -1,6 +1,17 @@
 import { type IconMetadata } from '@af/icon-build-process';
 
 const metadata: IconMetadata = {
+	'ai-generative-audio-briefing': {
+		keywords: ['audio briefing', 'breifing', 'podcast', 'headphones', 'AI'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Confluence AI Audio',
+		type: 'core',
+		status: 'published',
+		id: '48272:2316',
+		usage:
+			'Reserved for Audio Briefings, a new feature launching within Confluence to help people develop an expanded awareness on a topic by generating AI-powered podcasts about their work.',
+	},
 	'ai-generative-chapters': {
 		keywords: ['book', 'AI', 'automation'],
 		categorization: 'single-purpose',
@@ -1780,6 +1791,16 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '41418:13168',
 		usage: 'Reserved for functional representation of Talent app',
+	},
+	'teamwork-graph': {
+		keywords: ['teamwork graph'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Teamwork Graph Experiences',
+		type: 'core',
+		status: 'published',
+		id: '48309:5050',
+		usage: 'Reserved for Teamwork Graph features.',
 	},
 	telescope: {
 		keywords: ['telescope', 'scope', 'discover', 'discovery'],

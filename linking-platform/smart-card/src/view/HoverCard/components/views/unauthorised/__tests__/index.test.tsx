@@ -74,7 +74,7 @@ describe('Unauthorised Hover Card', () => {
 	});
 
 	const setUpHoverCard = (propOverrides?: Partial<HoverCardUnauthorisedProps>) => {
-		render(<TestComponent propOverrides={propOverrides} />);
+		return render(<TestComponent propOverrides={propOverrides} />);
 	};
 
 	ffTest.both('smart_links_noun_support', 'entity support', () => {
@@ -141,5 +141,19 @@ describe('Unauthorised Hover Card', () => {
 			const learnMoreLink = screen.getByRole('link', { name: /learn more/i });
 			expect(learnMoreLink.getAttribute('href')).toBe(CONTENT_URL_3P_ACCOUNT_AUTH);
 		});
+	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setUpHoverCard({
+			flexibleCardProps: {
+				cardState: getCardState({
+					data: { ...mockUnauthorisedResponse.data, url: mockUrl },
+					meta: { hasScopeOverrides: true, ...mockUnauthorisedResponse.meta },
+					status: 'unauthorized',
+				}),
+				children: null,
+				url: mockUrl,
+			},
+		});
+		await expect(container).toBeAccessible();
 	});
 });

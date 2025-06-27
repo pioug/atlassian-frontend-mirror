@@ -918,11 +918,7 @@ export function ReactEditorView(props: EditorViewProps) {
 					)}
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={
-							(expValEquals('platform_editor_stable_editorview_classname', 'isEnabled', true)
-								? 'ProseMirror '
-								: '') + getUAPrefix()
-						}
+						className={`ProseMirror ${getUAPrefix()}`}
 						key="ProseMirror"
 						ref={handleEditorViewRef}
 						aria-label={

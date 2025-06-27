@@ -77,6 +77,7 @@ export type DocumentPageContent = {
 	lines: readonly Line[];
 	annotations: DocumentAnnotations;
 	links: readonly DocumentLink[];
+	password?: string;
 };
 
 export type DocumentPageRangeContent = {
@@ -92,6 +93,7 @@ export type GetDocumentContentOptions = {
 	pageEnd: number;
 	collectionName?: string;
 	maxAge?: number;
+	password?: string;
 };
 
 export type GetDocumentPageImage = {
@@ -99,4 +101,5 @@ export type GetDocumentPageImage = {
 	zoom: number;
 	collectionName?: string;
 	maxAge?: number;
+	password?: string;
 };

@@ -16,4 +16,11 @@ test.describe('ReactUFO: abort by timeout', () => {
 		const { interactionMetrics } = ufoProperties;
 		expect(interactionMetrics.abortReason).toBe('timeout');
 	});
+
+	test('should capture and report a11y violations', async ({ waitForReactUFOPayload, page }) => {
+		const reactUFOPayload = await waitForReactUFOPayload();
+		expect(reactUFOPayload).toBeDefined();
+
+		await expect(page).toBeAccessible();
+	});
 });

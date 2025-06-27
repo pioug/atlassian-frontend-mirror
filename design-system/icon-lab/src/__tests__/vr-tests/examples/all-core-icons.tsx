@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::05d23e39c91ffc32582c8cdffbc73565>>
+ * @codegen <<SignedSource::fc986b666631f83547ad57b45061b37f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -18,6 +18,7 @@ import { css, jsx } from '@compiled/react';
 import type { NewCoreIconProps } from '@atlaskit/icon';
 import { Inline } from '@atlaskit/primitives';
 
+import AiGenerativeAudioBriefingIcon from '../../../../core/ai-generative-audio-briefing';
 import AiGenerativeChaptersIcon from '../../../../core/ai-generative-chapters';
 import AiGenerativeCleanupIcon from '../../../../core/ai-generative-cleanup';
 import AiGenerativeRemoveIcon from '../../../../core/ai-generative-remove';
@@ -192,6 +193,7 @@ import SyncIcon from '../../../../core/sync';
 import TabIcon from '../../../../core/tab';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
 import TalentIcon from '../../../../core/talent';
+import TeamworkGraphIcon from '../../../../core/teamwork-graph';
 import TelescopeIcon from '../../../../core/telescope';
 import TemplateIcon from '../../../../core/template';
 import TextAdjustLengthIcon from '../../../../core/text-adjust-length';
@@ -496,6 +498,8 @@ const Icons = [
 	DiagramSymbolMergeIcon,
 	DiagramSymbolLoopLimitIcon,
 	DiagramSymbolConnectorOnPageIcon,
+	AiGenerativeAudioBriefingIcon,
+	TeamworkGraphIcon,
 ];
 
 const groupSize = 20;

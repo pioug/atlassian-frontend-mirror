@@ -1,0 +1,37 @@
+---
+title: MetricText
+description: MetricText is a token-backed typography component to display metrics.
+order: 0
+---
+
+import MetricTextLarge from '../../examples/constellation/metric-text/metric-text-large';
+import MetricTextMedium from '../../examples/constellation/metric-text/metric-text-medium';
+import MetricTextSmall from '../../examples/constellation/metric-text/metric-text-small';
+import MetricTextAlign from '../../examples/constellation/metric-text/metric-text-align';
+
+## Basic
+
+Use a MetricText component to display numerical information. There are three sizes available via the
+`size` prop:
+
+- `'large'` for numbers in the middle of large donut charts.
+- `'medium'` for numbers in the middle of medium donut charts.
+- `'small'` for numbers in the middle of small donut charts and single-value tiles.
+
+### Large
+
+<Example Component={MetricTextLarge} packageName="@atlaskit/primitives" />
+
+### Medium
+
+<Example Component={MetricTextMedium} packageName="@atlaskit/primitives" />
+
+### Small
+
+<Example Component={MetricTextSmall} packageName="@atlaskit/primitives" />
+
+## Alignment
+
+MetricText can be aligned using the `align` prop.
+
+<Example Component={MetricTextAlign} packageName="@atlaskit/primitives" />

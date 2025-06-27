@@ -1,4 +1,8 @@
-import { darkModeSearchMatchClass, searchMatchExpandTitleClass, selectedSearchMatchClass } from '@atlaskit/editor-plugin-find-replace/styles';
+import {
+	darkModeSearchMatchClass,
+	searchMatchExpandTitleClass,
+	selectedSearchMatchClass,
+} from '@atlaskit/editor-plugin-find-replace/styles';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
@@ -15,4 +19,4 @@ export const findReplaceExpandDecorations = [
 	darkModeSearchMatchClass,
 	searchMatchExpandTitleClass,
 	selectedSearchMatchClass,
-]
+];

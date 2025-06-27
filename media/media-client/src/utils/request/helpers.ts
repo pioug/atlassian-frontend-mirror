@@ -252,6 +252,10 @@ export function createRequestErrorReason(statusCode: number): RequestErrorReason
 			return 'serverForbidden';
 		case 404:
 			return 'serverNotFound';
+		case 422:
+			return 'serverUnprocessableEntity';
+		case 423:
+			return 'serverEntityLocked';
 		case 429:
 			return 'serverRateLimited';
 		case 500:

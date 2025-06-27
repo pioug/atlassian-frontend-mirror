@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 3.4.9
+
+### Patch Changes
+
+- [#176901](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176901)
+  [`501b9262a675a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/501b9262a675a) -
+  clean up feature flag live_pages_content_jump_mitigation
+
 ## 3.4.8
 
 ### Patch Changes

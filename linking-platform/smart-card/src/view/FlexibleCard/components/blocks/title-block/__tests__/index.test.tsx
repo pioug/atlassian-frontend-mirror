@@ -587,6 +587,12 @@ describe('TitleBlock', () => {
 					expect(block).toHaveCompiledCss('background-color', 'blue');
 				},
 			);
+			it('should capture and report a11y violations', async () => {
+				const { container } = render(<TitleBlock testId="css" />, {
+					wrapper: getFlexibleCardTestWrapper(context, undefined, SmartLinkStatus.Resolved),
+				});
+				await expect(container).toBeAccessible();
+			});
 		});
 
 		describe('with loading skeleton', () => {

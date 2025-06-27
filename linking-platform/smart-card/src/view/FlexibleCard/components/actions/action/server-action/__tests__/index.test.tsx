@@ -193,4 +193,10 @@ describe('ServerAction', () => {
 			);
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const action = getAction();
+		const mockInvoke = jest.fn().mockImplementationOnce(() => Promise.reject());
+		const { container } = renderComponent({ action }, mockInvoke);
+		await expect(container).toBeAccessible();
+	});
 });

@@ -36,4 +36,8 @@ describe('Element: Preview', () => {
 			expect(image).toHaveAttribute('src', 'image-url');
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<Preview overrideUrl="src-loaded" />);
+		await expect(container).toBeAccessible();
+	});
 });

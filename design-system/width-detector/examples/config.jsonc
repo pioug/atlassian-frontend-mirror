@@ -5,5 +5,5 @@
  */
 {
 	"testExamples": [],
-	"exampleDependencies": ["@emotion/react"],
+	"exampleDependencies": [],
 }

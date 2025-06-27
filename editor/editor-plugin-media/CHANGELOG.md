@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 4.1.3
+
+### Patch Changes
+
+- [#177941](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177941)
+  [`982a4695e943c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/982a4695e943c) -
+  [ux] Make isVideoFile default to false to prevent 320px limitation
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

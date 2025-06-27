@@ -1,0 +1,1 @@
+export { useStaticCallback } from './useStaticCallback';

@@ -112,9 +112,6 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () => {
 	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
 		return token('space.500', '40px');
 	}
-	if (fg('live_pages_content_jump_mitigation')) {
-		return '2.188rem';
-	}
 	return token('space.500', '40px');
 };
 

@@ -89,3 +89,23 @@ test('Link picker should fire `onContentResize` callback to allow dialogue compo
 	await page.locator(trigger).first().click();
 	await page.locator(testIds.urlInputField).first().fill('12345');
 });
+
+test('should capture and report a11y violations', async ({ page }) => {
+	await page.visitExample('linking-platform', 'link-picker', 'without-plugins', {
+		'react-18-mode': 'legacy',
+	});
+	// Type url and submit using button
+	await page.locator(testIds.urlInputField).first().fill('https://google.com');
+	await page.locator(testIds.textInputField).first().fill('Inserted');
+	await page.locator(testIds.insertButton).first().click();
+	// Open to edit link details
+	await page.locator('#test-link').first().click();
+	// Edit link text and submit using keyboard
+	await page.locator(testIds.clearUrlButton).first().click();
+	await page.locator(testIds.urlInputField).first().fill('https://atlassian.com');
+	await page.locator(testIds.textInputField).first().fill('Edited');
+	await page.keyboard.press('Enter');
+	await expect(page.locator('#test-link').first()).toBeVisible();
+
+	await expect(page).toBeAccessible();
+});

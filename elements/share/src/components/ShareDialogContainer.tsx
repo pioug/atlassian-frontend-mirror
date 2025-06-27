@@ -356,7 +356,7 @@ export class ShareDialogContainerInternal extends React.Component<
 	getFormShareLink = (): string => {
 		const rawLink = this.getRawLink();
 		// Check if origin tracing on share link is enabled
-		if (fg('page_shared_event_from_share_dialogue')) {
+		if (fg('jira_client_side_error_handled_track_event')) {
 			const originTracing = this.getFormShareOriginTracing();
 			return memoizedFormatCopyLink(originTracing, rawLink);
 		}

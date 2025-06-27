@@ -1,6 +1,6 @@
 # Environment context library
 
-Provides FedRAMP-friendly URLs and helps to identify if product is running in FedRAMP environment.
+Provides perimeter-specific URL resolution and helps identify which environment a product is running in.
 
 Read more about it here:
 https://hello.atlassian.net/wiki/spaces/FEDRAMP/pages/2561199256/UI+Isolation

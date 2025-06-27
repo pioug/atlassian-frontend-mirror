@@ -61,4 +61,10 @@ describe('Element: AppliedToComponentsCount', () => {
 			},
 		);
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(<AppliedToComponentsCount testId={testId} />, {
+			wrapper: getFlexibleCardTestWrapper(),
+		});
+		await expect(container).toBeAccessible();
+	});
 });

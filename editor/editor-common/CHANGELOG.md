@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 107.3.0
+
+### Minor Changes
+
+- [#178432](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178432)
+  [`abe20dc3f4834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abe20dc3f4834) -
+  Add translation on the context panel label text
+
+### Patch Changes
+
+- [#178362](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178362)
+  [`f5f0fd6ffefdd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5f0fd6ffefdd) -
+  ENGHEALTH-29515 - fix editor task a11y label
+- Updated dependencies
+
+## 107.2.5
+
+### Patch Changes
+
+- [#177767](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177767)
+  [`7096b2462638f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7096b2462638f) -
+  fix expvalequals check for platform_editor_breakout_resizing
+- Updated dependencies
+
+## 107.2.4
+
+### Patch Changes
+
+- [#176907](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176907)
+  [`b3cdb5aa072a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3cdb5aa072a9) -
+  [ux] Adjust non-empty selection validation logic for the renderer, to disallow annotations on
+  empty block nodes like table cells and expands
+
 ## 107.2.3
 
 ### Patch Changes

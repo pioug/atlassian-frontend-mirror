@@ -96,4 +96,12 @@ describe('ContentContainer', () => {
 			jest.mocked(useAISummary).mockClear();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const productName: ProductType = 'ATLAS';
+		const { container } = setup({
+			isAIEnabled: true,
+			product: productName,
+		});
+		await expect(container).toBeAccessible();
+	});
 });

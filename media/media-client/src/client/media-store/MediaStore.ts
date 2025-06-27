@@ -551,22 +551,36 @@ export class MediaStore implements MediaApi {
 	async getDocumentContent(
 		id: string,
 		options: GetDocumentContentOptions,
+		traceContext?: MediaTraceContext,
 	): Promise<DocumentPageRangeContent> {
-		const endpoint = cdnFeatureFlag('contents');
+		// when requesting for password protected document don't use CDN as it won't forward headers
+		// this is deliberate to avoid caching Password protected files
+		// Note: this should be removed once endpoint implements server side Cache-Control headers
+		const shouldCache = !options.password;
+
+		const endpoint = shouldCache ? cdnFeatureFlag('contents') : 'contents';
 		const metadata: RequestMetadata = {
 			method: 'GET',
 			endpoint: `/file/{fileId}/document/${endpoint}`,
 		};
 
+		const headers: RequestHeaders = options.password
+			? {
+					'x-document-authorization': `Basic ${options.password}`,
+				}
+			: {};
+
 		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
 			authContext: { collectionName: options.collectionName },
+			headers,
 			params: {
 				collection: options.collectionName,
 				pageStart: options.pageStart,
 				pageEnd: options.pageEnd,
-				'max-age': FILE_CACHE_MAX_AGE,
+				'max-age': shouldCache ? FILE_CACHE_MAX_AGE : 0,
 			},
+			traceContext,
 		};
 
 		return this.request(`/file/${id}/document/${endpoint}`, requestOptions).then(
@@ -574,24 +588,39 @@ export class MediaStore implements MediaApi {
 		);
 	}
 
-	async getDocumentPageImage(id: string, options: GetDocumentPageImage): Promise<Blob> {
-		// Temporarily disabling CDN for document due to bug of CDN not forwarding query params
-		const endpoint = cdnFeatureFlag('page');
+	async getDocumentPageImage(
+		id: string,
+		options: GetDocumentPageImage,
+		traceContext?: MediaTraceContext,
+	): Promise<Blob> {
+		// when requesting for password protected document don't use CDN as it won't forward headers
+		// this is deliberate to avoid caching Password protected files
+		// Note: this should be removed once endpoint implements server side Cache-Control headers
+		const shouldCache = !options.password;
 
+		const endpoint = shouldCache ? cdnFeatureFlag('page') : 'page';
 		const metadata: RequestMetadata = {
 			method: 'GET',
 			endpoint: `/file/{fileId}/document/${endpoint}`,
 		};
 
+		const headers: RequestHeaders = options.password
+			? {
+					'x-document-authorization': `Basic ${options.password}`,
+				}
+			: {};
+
 		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
 			authContext: { collectionName: options.collectionName },
+			headers,
 			params: {
 				collection: options.collectionName,
 				page: options.page,
 				zoom: options.zoom,
-				'max-age': FILE_CACHE_MAX_AGE,
+				'max-age': shouldCache ? FILE_CACHE_MAX_AGE : 0,
 			},
+			traceContext,
 		};
 
 		return this.request(`/file/${id}/document/${endpoint}`, requestOptions).then(

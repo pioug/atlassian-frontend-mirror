@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UFOIgnoreHolds, { UFOIgnoreHoldsProps } from '../ignore-holds';
+import UFOIgnoreHolds, { type UFOIgnoreHoldsProps } from '../ignore-holds';
 
 /**
  * Legacy wrapper component that delegates to `UFOIgnoreHolds`.

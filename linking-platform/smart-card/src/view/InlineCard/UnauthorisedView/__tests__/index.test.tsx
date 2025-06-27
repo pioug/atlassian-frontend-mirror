@@ -64,4 +64,13 @@ describe('Unauthorised View', () => {
 			expect(onAuthorise).not.toHaveBeenCalled();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const testUrl = 'http://unauthorised-test/';
+		const { container } = render(
+			<IntlProvider locale="en">
+				<InlineCardUnauthorizedView url={testUrl} />
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

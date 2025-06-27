@@ -78,4 +78,8 @@ describe('PreviewAction', () => {
 			expect(tooltip).toHaveTextContent('Open a full screen preview of this link');
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup({ as: 'stack-item' });
+		await expect(container).toBeAccessible();
+	});
 });

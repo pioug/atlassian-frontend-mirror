@@ -1,5 +1,11 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.3
 
 ### Patch Changes

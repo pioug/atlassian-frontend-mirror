@@ -28,20 +28,29 @@ const textProperties = [
 		prefix: 'font.weight.',
 		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.weight'),
 	},
+	{
+		objectName: 'metricTextSize',
+		cssProperty: 'font',
+		prefix: 'font.metric',
+		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.metric'),
+	},
 ] as const;
 
-const bodySizeMap = {
+const sizeMap = {
 	'body.small': 'small',
 	'body.UNSAFE_small': 'UNSAFE_small',
 	body: 'medium',
 	'body.large': 'large',
+	'metric.small': 'small',
+	'metric.medium': 'medium',
+	'metric.large': 'large',
 };
 
 const removeVerbosity = (name: string): string => {
-	const partialRemove = ['font.body'];
+	const partialRemove = ['font.body', 'font.metric'];
 	if (partialRemove.some((s) => name.includes(s))) {
-		// @ts-expect-error Indexing bodySizeMap
-		return bodySizeMap[name.replace('font.', '')];
+		// @ts-expect-error Indexing sizeMap
+		return sizeMap[name.replace('font.', '')];
 	}
 
 	const fullRemove = ['font.weight'];

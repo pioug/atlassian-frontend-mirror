@@ -156,4 +156,14 @@ describe('Profile card trigger', () => {
 			});
 		},
 	);
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<IntlProvider locale="en">
+				<TeamProfilecardTrigger {...mockDefaultProps}>
+					<div>{mockTriggerText}</div>
+				</TeamProfilecardTrigger>
+			</IntlProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

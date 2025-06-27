@@ -24,7 +24,7 @@ export const searchMatchExpandTitleClass = 'search-match-expand-title';
 const inlineCardSelector = '.loader-wrapper>a';
 const statusSelector = '.lozenge-wrapper';
 const mentionSelector = '.editor-mention-primitive';
-const dateSelector = '.date-lozenger-container';
+const dateSelector = '.date-lozenger-container>span';
 
 export const findReplaceStyles = css({
 	[`.${searchMatchClass}`]: {
@@ -48,14 +48,20 @@ export const findReplaceStylesNew = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	[`.${searchMatchTextClass}`]: {
 		borderRadius: token('space.050'),
-		padding: `${token('space.050')} 0`,
-		border: `1px solid ${token('color.background.accent.yellow.subtler.pressed')}`,
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.subtler.pressed')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.subtler')}
+		`,
 		backgroundColor: token('color.background.accent.yellow.subtler'),
 		color: token('color.text'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	[`.${searchMatchTextClass}.${selectedSearchMatchClass}`]: {
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.subtler.pressed')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.subtlest.pressed')}
+		`,
 		backgroundColor: token('color.background.accent.yellow.subtlest.pressed'),
 	},
 
@@ -63,13 +69,20 @@ export const findReplaceStylesNew = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	[`.${searchMatchTextClass}.${darkModeSearchMatchClass}`]: {
-		border: `1px solid ${token('color.background.accent.yellow.bolder')}`,
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.bolder.pressed')}
+		`,
 		backgroundColor: token('color.background.accent.yellow.bolder.pressed'),
 		color: token('color.text.inverse'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	[`.${searchMatchTextClass}.${selectedSearchMatchClass}.${darkModeSearchMatchClass}`]: {
+		boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.bolder.hovered')}
+		`,
 		backgroundColor: token('color.background.accent.yellow.bolder.hovered'),
 	},
 
@@ -89,7 +102,6 @@ export const findReplaceStylesNew = css({
 
 		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
 			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.yellow.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.subtler.pressed')}`,
-			borderRadius: '3px',
 		},
 	},
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}`]: {
@@ -103,7 +115,6 @@ export const findReplaceStylesNew = css({
 
 		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
 			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.yellow.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.subtler.pressed')}`,
-			borderRadius: '3px',
 		},
 	},
 
@@ -118,8 +129,8 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}`]: {
-			// TODO: will clean up !important later
+		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
+			// TODO: ED-28376 - will clean up !important later
 			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.yellow.subtler')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.subtler.pressed')} !important`,
 		},
 	},
@@ -133,8 +144,8 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}`]: {
-			// TODO: will clean up !important later
+		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
+			// TODO: ED-28376 - will clean up !important later
 			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.yellow.subtlest.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.subtler.pressed')} !important`,
 		},
 	},
@@ -152,7 +163,6 @@ export const findReplaceStylesNew = css({
 
 		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
 			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.yellow.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.bolder')}`,
-			borderRadius: '3px',
 		},
 	},
 
@@ -167,7 +177,6 @@ export const findReplaceStylesNew = css({
 
 		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
 			boxShadow: `0px 0px 0px 4px ${token('color.background.accent.yellow.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.bolder')}`,
-			borderRadius: '3px',
 		},
 	},
 
@@ -182,62 +191,80 @@ export const findReplaceStylesNew = css({
 			`,
 		},
 
-		[`${inlineCardSelector}, ${statusSelector}`]: {
+		[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
 			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.yellow.bolder.pressed')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.bolder')} !important`,
 		},
 	},
 
 	[`.${blockSearchMatchClass}.${selectedBlockSearchMatchClass}.${darkModeSearchMatchClass}.ak-editor-selected-node`]:
-	{
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-smart-link-container="true"], .loader-wrapper>div::after': {
-			boxShadow: `
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'[data-smart-link-container="true"], .loader-wrapper>div::after': {
+				boxShadow: `
 			inset 0 0 0 1px ${token('color.background.accent.yellow.bolder')},
 			inset 0 0 0 4px ${token('color.background.accent.yellow.bolder.hovered')},
 			0 0 0 1px ${token('color.border.selected')}
 			`,
-		},
+			},
 
-		[`${inlineCardSelector}, ${statusSelector}`]: {
-			boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.yellow.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.bolder')} !important`,
+			[`${inlineCardSelector}, ${statusSelector}, ${mentionSelector}, ${dateSelector}`]: {
+				boxShadow: `0 0 0 1px ${token('color.border.selected')}, 0px 0px 0px 4px ${token('color.background.accent.yellow.bolder.hovered')}, 0px 0px 0px 5px ${token('color.background.accent.yellow.bolder')} !important`,
+			},
 		},
-	},
 
 	/** Expand title match styles */
 
 	/** Light mode */
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	[`.${searchMatchExpandTitleClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]: {
-		borderRadius: token('space.050'),
-		padding: `${token('space.050')} 0`,
-		border: `1px solid ${token('color.background.accent.yellow.subtler.pressed')}`,
-		backgroundColor: token('color.background.accent.yellow.subtler'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		[`.${expandClassNames.titleInput}`]: {
-			color: token('color.text'),
+	[`.${searchMatchExpandTitleClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]:
+		{
+			borderRadius: token('space.050'),
+			padding: `${token('space.050')} 0`,
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.subtler.pressed')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.subtler')}
+		`,
+			backgroundColor: token('color.background.accent.yellow.subtler'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			[`.${expandClassNames.titleInput}`]: {
+				color: token('color.text'),
+			},
 		},
-	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	[`.${searchMatchExpandTitleClass}.${selectedSearchMatchClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]: {
-		backgroundColor: token('color.background.accent.yellow.subtlest.pressed'),
-	},
+	[`.${searchMatchExpandTitleClass}.${selectedSearchMatchClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]:
+		{
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.subtler.pressed')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.subtlest.pressed')}
+		`,
+			backgroundColor: token('color.background.accent.yellow.subtlest.pressed'),
+		},
 
 	/** Dark mode */
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	[`.${searchMatchExpandTitleClass}.${darkModeSearchMatchClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]: {
-		border: `1px solid ${token('color.background.accent.yellow.bolder')}`,
-		backgroundColor: token('color.background.accent.yellow.bolder.pressed'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		[`.${expandClassNames.titleInput}`]: {
-			color: token('color.text.inverse'),
+	[`.${searchMatchExpandTitleClass}.${darkModeSearchMatchClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]:
+		{
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.bolder.pressed')}
+		`,
+			backgroundColor: token('color.background.accent.yellow.bolder.pressed'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			[`.${expandClassNames.titleInput}`]: {
+				color: token('color.text.inverse'),
+			},
 		},
-	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	[`.${searchMatchExpandTitleClass}.${selectedSearchMatchClass}.${darkModeSearchMatchClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]: {
-		backgroundColor: token('color.background.accent.yellow.bolder.hovered'),
-	},
+	[`.${searchMatchExpandTitleClass}.${selectedSearchMatchClass}.${darkModeSearchMatchClass} > .${expandClassNames.titleContainer} > .${expandClassNames.inputContainer}`]:
+		{
+			boxShadow: `
+		inset 0 0 0 1px ${token('color.background.accent.yellow.bolder')},
+		inset 0 0 0 5px ${token('color.background.accent.yellow.bolder.hovered')}
+		`,
+			backgroundColor: token('color.background.accent.yellow.bolder.hovered'),
+		},
 });

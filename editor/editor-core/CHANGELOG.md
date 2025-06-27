@@ -1,5 +1,58 @@
 # @atlaskit/editor-core
 
+## 208.6.1
+
+### Patch Changes
+
+- [#178613](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178613)
+  [`47e2c968a3b92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47e2c968a3b92) -
+  [ux] [ED-28399] remove padding from search match texsts in find and replace experiment
+- [#176901](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176901)
+  [`501b9262a675a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/501b9262a675a) -
+  clean up feature flag live_pages_content_jump_mitigation
+- Updated dependencies
+
+## 208.6.0
+
+### Minor Changes
+
+- [#178354](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178354)
+  [`8768b869f9245`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8768b869f9245) -
+  Cleanup platform_editor_stable_editorview_classname experiment
+
+### Patch Changes
+
+- [#178432](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178432)
+  [`abe20dc3f4834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abe20dc3f4834) -
+  Add translation on the context panel label text
+- [#178265](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178265)
+  [`4a9fa08952bfe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a9fa08952bfe) -
+  [ux] ED-28379 fix styles for date match in find and replace
+- Updated dependencies
+
+## 208.5.1
+
+### Patch Changes
+
+- [#177994](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177994)
+  [`f19d2fadee3a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f19d2fadee3a8) -
+  [ux] [ED-28377] convert borders to boxShadows to prevent a layout shift while Finding with the
+  platform_editor_find_and_replace_improvements experiment
+- Updated dependencies
+
+## 208.5.0
+
+### Minor Changes
+
+- [#175370](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175370)
+  [`fb5f9531ef9d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb5f9531ef9d8) -
+  [ux] [ED-27956] this PR is adding support for Find with expand titles and updating the search
+  match styles behind the experiment `platform_editor_find_and_replace_improvements`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 208.4.1
 
 ### Patch Changes

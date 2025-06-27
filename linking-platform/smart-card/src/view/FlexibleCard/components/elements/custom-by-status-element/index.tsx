@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Prettify } from '@atlaskit/linking-common';
+import type { Prettify } from '@atlaskit/linking-common';
 
 import type { SmartLinkStatus } from '../../../../../constants';
 import { useFlexibleCardContext } from '../../../../../state/flexible-ui-context';

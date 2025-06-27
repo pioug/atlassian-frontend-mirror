@@ -23,6 +23,7 @@ const typographyProperties = [
 		filterFn: <T extends Token>(t: T) =>
 			t.name.startsWith('font.body') ||
 			t.name.startsWith('font.heading') ||
+			t.name.startsWith('font.metric') ||
 			t.name.startsWith('font.code'),
 	},
 	{

@@ -28,7 +28,7 @@ describe('Forbidden Hover Card', () => {
 
 		const analyticsSpy = jest.fn();
 
-		const { findByTestId, queryByTestId } = render(
+		const { findByTestId, queryByTestId, container } = render(
 			<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
 				<IntlProvider locale="en">
 					<SmartCardProvider>
@@ -47,7 +47,7 @@ describe('Forbidden Hover Card', () => {
 			</AnalyticsListener>,
 		);
 
-		return { findByTestId, queryByTestId, analyticsSpy, user };
+		return { findByTestId, queryByTestId, analyticsSpy, user, container };
 	};
 
 	//
@@ -106,5 +106,9 @@ describe('Forbidden Hover Card', () => {
 				analytics.ANALYTICS_CHANNEL,
 			);
 		});
+	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = await setUpHoverCard();
+		await expect(container).toBeAccessible();
 	});
 });

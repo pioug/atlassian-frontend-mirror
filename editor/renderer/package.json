@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "119.0.6",
+	"version": "119.1.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -133,10 +133,10 @@
 		"cc_comments_improve_apply_draft_errors": {
 			"type": "boolean"
 		},
-		"platform-ssr-table-resize": {
+		"cc_comments_more_complete_empty_text_check": {
 			"type": "boolean"
 		},
-		"cc_complexit_fe_improve_table_sorting": {
+		"platform-ssr-table-resize": {
 			"type": "boolean"
 		},
 		"cc_complexit_reduce_portal_rerenders": {
@@ -267,6 +267,9 @@
 			"type": "boolean"
 		},
 		"issue_table_single_line_row_height_fast_follows": {
+			"type": "boolean"
+		},
+		"confluence_frontend_comments_panel_editor_focus": {
 			"type": "boolean"
 		}
 	},

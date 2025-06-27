@@ -225,4 +225,11 @@ describe('AqlSearchInput', () => {
 			expect(await findByTestId('assets-datasource-modal--aql-search-button')).toBeDisabled();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = await renderDefaultAqlSearchInput({
+			...getUseValidateAqlTextDefaultHookState,
+			lastValidationResult: { type: 'loading' },
+		});
+		await expect(container).toBeAccessible({ violationCount: 1 });
+	});
 });

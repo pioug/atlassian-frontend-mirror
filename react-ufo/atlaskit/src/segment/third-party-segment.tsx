@@ -4,7 +4,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import UFOIgnoreHolds from '../ignore-holds';
 
-import UFOSegment, { Props as SegmentProps } from './segment';
+import UFOSegment, { type Props as SegmentProps } from './segment';
 
 export function UFOThirdPartySegment(props: Omit<SegmentProps, 'type'>) {
 	const { children, ...otherProps } = props;

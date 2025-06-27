@@ -5,7 +5,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import { cssMap } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -108,15 +107,11 @@ const ReportingLinesDetails = (props: ReportingLinesDetailsProps) => {
 		);
 	};
 
-	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = fg(
-		'platform_profilecard-enable_reporting_lines_label',
-	)
-		? {
-				'aria-label': formatMessage(messages.profileCardMoreReportingLinesLabel, {
-					count: reports.length - avatarGroupMaxCount + 1,
-				}),
-			}
-		: undefined;
+	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = {
+		'aria-label': formatMessage(messages.profileCardMoreReportingLinesLabel, {
+			count: reports.length - avatarGroupMaxCount + 1,
+		}),
+	};
 
 	return (
 		<>

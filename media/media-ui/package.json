@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "28.5.0",
+	"version": "28.5.3",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,7 +81,6 @@
 		"@types/exenv": "^1.2.0",
 		"@types/png-chunks-extract": "^1.0.0",
 		"enzyme": "^3.10.0",
-		"enzyme-adapter-react-16": "^1.15.1",
 		"jest-emotion": "^10.0.32",
 		"jsverify": "^0.8.3",
 		"react": "^18.2.0",

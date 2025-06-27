@@ -52,4 +52,12 @@ test.describe('MediaViewer', () => {
 		await expect(viewer.sidepannelContent).toBeVisible();
 		await viewer.closeSidebar();
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		const viewer = new MediaViewerPageObject(page);
+		await viewer.init('vr-mocked-viewer');
+		await expect(viewer.fileName).toBeVisible();
+
+		await expect(page).toBeAccessible({ violationCount: 1 });
+	});
 });

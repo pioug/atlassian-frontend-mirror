@@ -1,5 +1,13 @@
 # @atlaskit/width-detector
 
+## 5.0.3
+
+### Patch Changes
+
+- [#178302](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178302)
+  [`7c0f40bae3ff0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c0f40bae3ff0) -
+  Migrated examples to Compiled, removed Emotion from dev dependencies.
+
 ## 5.0.2
 
 ### Patch Changes

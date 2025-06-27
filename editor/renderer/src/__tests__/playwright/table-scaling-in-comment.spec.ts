@@ -72,6 +72,14 @@ test.describe('table scaling in comment renderer', () => {
 			const afterWidth = (await table.boundingBox())?.width;
 			expect(afterWidth).toBeCloseTo(300, 0);
 		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const table = renderer.page.getByRole('table');
+			const beforeWidth = (await table.boundingBox())?.width;
+			expect(beforeWidth).toBe(760);
+
+			await expect(renderer.page).toBeAccessible({ violationCount: 1 });
+		});
 	});
 
 	test.describe('table with width column not resized', () => {

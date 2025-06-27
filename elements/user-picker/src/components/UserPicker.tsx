@@ -119,7 +119,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 							components={getComponents(
 								isMulti,
 								anchor,
-								showClearIndicator && fg('user-picker-show-clear-indicator'),
+								showClearIndicator,
 								this.props?.components ? this.props.components : {},
 							)}
 							pickerProps={pickerProps}

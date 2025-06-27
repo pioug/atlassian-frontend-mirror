@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { mount, shallow } from 'enzyme';
 import { ResourcedTaskItem as AkTaskItem } from '@atlaskit/task-decision';
 import FabricAnalyticsListener, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
@@ -7,7 +8,7 @@ import ReactSerializer from '../../../../react';
 
 describe('Renderer - React/Nodes/TaskItem', () => {
 	let analyticsWebClientMock: AnalyticsWebClient;
-	let serialiser = new ReactSerializer({});
+	const serialiser = new ReactSerializer({});
 
 	beforeEach(() => {
 		analyticsWebClientMock = {
@@ -21,15 +22,17 @@ describe('Renderer - React/Nodes/TaskItem', () => {
 	it('should wrap content with <AkTaskItem>-tag', () => {
 		const text = 'This is a task item';
 		const taskItem = mount(
-			<TaskItem
-				marks={[]}
-				serializer={serialiser}
-				nodeType="taskItem"
-				dataAttributes={{ 'data-renderer-start-pos': 0 }}
-				localId="task-1"
-			>
-				{text}
-			</TaskItem>,
+			<IntlProvider locale="en">
+				<TaskItem
+					marks={[]}
+					serializer={serialiser}
+					nodeType="taskItem"
+					dataAttributes={{ 'data-renderer-start-pos': 0 }}
+					localId="task-1"
+				>
+					{text}
+				</TaskItem>
+			</IntlProvider>,
 		);
 		expect(taskItem.find(AkTaskItem).length).toEqual(1);
 		taskItem.unmount();
@@ -37,13 +40,15 @@ describe('Renderer - React/Nodes/TaskItem', () => {
 
 	it('should render if no children', () => {
 		const taskItem = shallow(
-			<TaskItem
-				marks={[]}
-				serializer={serialiser}
-				nodeType="taskItem"
-				dataAttributes={{ 'data-renderer-start-pos': 0 }}
-				localId="task-2"
-			/>,
+			<IntlProvider locale="en">
+				<TaskItem
+					marks={[]}
+					serializer={serialiser}
+					nodeType="taskItem"
+					dataAttributes={{ 'data-renderer-start-pos': 0 }}
+					localId="task-2"
+				/>
+			</IntlProvider>,
 		);
 		expect(taskItem.isEmptyRender()).toEqual(false);
 	});
@@ -51,17 +56,19 @@ describe('Renderer - React/Nodes/TaskItem', () => {
 	describe('analytics', () => {
 		it('check action fires an event', () => {
 			const component = mount(
-				<FabricAnalyticsListener client={analyticsWebClientMock}>
-					<TaskItem
-						marks={[]}
-						serializer={serialiser}
-						nodeType="taskItem"
-						dataAttributes={{ 'data-renderer-start-pos': 0 }}
-						localId="task-1"
-					>
-						Hello <b>world</b>
-					</TaskItem>
-				</FabricAnalyticsListener>,
+				<IntlProvider locale="en">
+					<FabricAnalyticsListener client={analyticsWebClientMock}>
+						<TaskItem
+							marks={[]}
+							serializer={serialiser}
+							nodeType="taskItem"
+							dataAttributes={{ 'data-renderer-start-pos': 0 }}
+							localId="task-1"
+						>
+							Hello <b>world</b>
+						</TaskItem>
+					</FabricAnalyticsListener>
+				</IntlProvider>,
 			);
 			component.find('input').simulate('change');
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
@@ -80,18 +87,20 @@ describe('Renderer - React/Nodes/TaskItem', () => {
 
 		it('uncheck action fires an event', () => {
 			const component = mount(
-				<FabricAnalyticsListener client={analyticsWebClientMock}>
-					<TaskItem
-						marks={[]}
-						serializer={serialiser}
-						nodeType="taskItem"
-						dataAttributes={{ 'data-renderer-start-pos': 0 }}
-						localId="task-1"
-						state="DONE"
-					>
-						Hello <b>world</b>
-					</TaskItem>
-				</FabricAnalyticsListener>,
+				<IntlProvider locale="en">
+					<FabricAnalyticsListener client={analyticsWebClientMock}>
+						<TaskItem
+							marks={[]}
+							serializer={serialiser}
+							nodeType="taskItem"
+							dataAttributes={{ 'data-renderer-start-pos': 0 }}
+							localId="task-1"
+							state="DONE"
+						>
+							Hello <b>world</b>
+						</TaskItem>
+					</FabricAnalyticsListener>
+				</IntlProvider>,
 			);
 			component.find('input').simulate('change');
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);

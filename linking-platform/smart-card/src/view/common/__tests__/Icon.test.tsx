@@ -50,4 +50,10 @@ describe('Icon', () => {
 
 		expect(customDefaultIcon).toBeDefined();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(
+			<Icon icon={<span data-testid="block-card-icon-icon" />} />,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

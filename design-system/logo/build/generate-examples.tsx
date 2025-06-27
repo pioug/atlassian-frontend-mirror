@@ -3,11 +3,11 @@ import path from 'path';
 import fs from 'fs-extra';
 
 import format from '@af/formatting/sync';
-import { createSignedArtifact } from '@atlassian/codegen';
 
-import { LEGACY_ONLY_LOGOS, NEW_ONLY_LOGOS, SHARED_LOGOS } from '../src/logo-config';
+import { APP_LOGO_DOCS_ORDER, PROGRAM_LOGO_DOCS_ORDER, SHARED_LOGOS } from '../src/logo-config';
 
-const EXAMPLES_DIR = path.join(__dirname, '../examples/constellation');
+const RELATIVE_GENERATED_EXAMPLES_DIR = '../examples/constellation/generated';
+const GENERATED_EXAMPLES_DIR = path.join(__dirname, RELATIVE_GENERATED_EXAMPLES_DIR);
 const DOCS_DIR = path.join(__dirname, '../constellation/index');
 
 // Helper function to process logo names consistently
@@ -18,74 +18,55 @@ const processLogoName = (name: string) => {
 	return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join('');
 };
 
-// Template for individual logo examples
-const generateLogoExampleTemplate = (name: string) => `
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-
-import { css, jsx } from '@compiled/react';
-
-import { ${name}Icon, ${name}Logo } from '@atlaskit/logo';
-
-const tableStyle = css({
-	width: '415px',
-});
-
-const Logo${name} = () => {
-	return (
-		<div>
-			<table>
-				<thead>
-					<tr>
-						<th>Logo</th>
-						${'<th>Icon</th>'}
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td css={tableStyle}>
-							<${name}Logo appearance="brand" />
-						</td>
-						${`<td><${name}Icon appearance="brand" /></td>`}
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	);
+const logoSpecialDescriptions: Record<string, string> = {
+	align: '`Align` replaces the deprecated `Jira Align` logo components.',
+	analytics: '`Analytics` replaces the deprecated `Atlassian Analytics` logo components.',
+	admin:
+		'`Admin` replaces the deprecated `Atlassian Administration` and `Atlassian Admin` logo components.',
 };
 
-export default Logo${name};
+// Template for individual logo examples
+const generateLogoExampleTemplate = (name: string, shouldUseNewLogoDesign: boolean) => `
+import React from 'react';
+import { ${name}Icon, ${name}Logo } from '@atlaskit/logo';
+import LogoTable from '../utils/logo-table';
+
+export default () =>
+		<LogoTable
+			Logo={<${name}Logo appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
+			Icon={<${name}Icon appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
+		/>
 `;
 
 // Generate examples for all logos
 const generateLogoExamples = () => {
-	// Ensure directories exist
-	if (!fs.existsSync(EXAMPLES_DIR)) {
-		fs.mkdirSync(EXAMPLES_DIR, { recursive: true });
+	// Ensure directories exist and are empty
+	if (!fs.existsSync(GENERATED_EXAMPLES_DIR)) {
+		fs.mkdirSync(GENERATED_EXAMPLES_DIR, { recursive: true });
+		// Empty dir except for README.md
+		fs.readdirSync(GENERATED_EXAMPLES_DIR).forEach((file) => {
+			if (file !== 'README.md') {
+				fs.removeSync(path.join(GENERATED_EXAMPLES_DIR, file));
+			}
+		});
 	}
 
 	// Generate examples for all logos
-	[...LEGACY_ONLY_LOGOS, ...SHARED_LOGOS, ...NEW_ONLY_LOGOS].forEach((name) => {
+	[...PROGRAM_LOGO_DOCS_ORDER, ...APP_LOGO_DOCS_ORDER].forEach((name) => {
 		const componentName = processLogoName(name);
 		const fileName = `logo-${name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.tsx`;
-		const content = generateLogoExampleTemplate(componentName);
-		fs.ensureFileSync(path.join(EXAMPLES_DIR, fileName));
-		fs.writeFileSync(
-			path.join(EXAMPLES_DIR, fileName),
-			format(
-				createSignedArtifact(content, 'yarn workspace @atlaskit/logo generate:examples'),
-				'tsx',
-			),
+		const content = generateLogoExampleTemplate(
+			componentName,
+			SHARED_LOGOS.find((logo) => logo.name === name)?.type === 'migration',
 		);
+		fs.ensureFileSync(path.join(GENERATED_EXAMPLES_DIR, fileName));
+		fs.writeFileSync(path.join(GENERATED_EXAMPLES_DIR, fileName), format(content, 'tsx'));
 	});
 };
 
 // Generate the documentation
 const generateDocumentation = () => {
-	const docContent = `
----
+	const docContent = `---
 order: 0
 ---
 
@@ -97,13 +78,21 @@ import LogoBrand from '../../examples/constellation/logo-brand';
 import LogoInverse from '../../examples/constellation/logo-inverse';
 import LogoNeutral from '../../examples/constellation/logo-neutral';
 import LogoDefault from '../../examples/constellation/logo-default';
-${[...LEGACY_ONLY_LOGOS, ...SHARED_LOGOS, ...NEW_ONLY_LOGOS]
+${[...PROGRAM_LOGO_DOCS_ORDER, ...APP_LOGO_DOCS_ORDER]
 	.map((logo) => {
 		const fileName = logo.toLowerCase().replace(/[^a-z0-9]/g, '-');
 		const componentName = processLogoName(logo);
-		return `import Logo${componentName} from '../../examples/constellation/logo-${fileName}';`;
+		return `import Logo${componentName} from '../${RELATIVE_GENERATED_EXAMPLES_DIR}/logo-${fileName}';`;
 	})
 	.join('\n')}
+
+import { Code } from '@atlaskit/code';
+import SectionMessage from '@atlaskit/section-message';
+
+<SectionMessage appearance="discovery">
+	We are in the process of rolling out updated Logo designs to products behind a feature flag. <br/>
+	To display the new designs early, set the <Code>shouldUseNewLogoDesign</Code> prop to <Code>true</Code>.
+</SectionMessage>
 
 ## Types
 
@@ -169,18 +158,9 @@ login.
 
 <Example Component={LogoLarge} packageName="@atlaskit/logo" />
 
-## Product logos
+## Company / Program logos
 
-${[...LEGACY_ONLY_LOGOS, ...SHARED_LOGOS]
-	.sort((a, b) => {
-		if (a === 'atlassian') {
-			return -1;
-		}
-		if (b === 'atlassian') {
-			return 1;
-		}
-		return a.localeCompare(b);
-	})
+${[...PROGRAM_LOGO_DOCS_ORDER]
 	.map(
 		(name) => `
 ### ${name
@@ -192,15 +172,19 @@ ${[...LEGACY_ONLY_LOGOS, ...SHARED_LOGOS]
 	)
 	.join('\n')}
 
-${NEW_ONLY_LOGOS.map(
-	(name) => `\n### ${name
-		.split('-')
-		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-		.join(' ')}
+## App (Product) logos
 
+${[...APP_LOGO_DOCS_ORDER]
+	.map(
+		(name) => `
+### ${name
+			.split('-')
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(' ')}
+${logoSpecialDescriptions[name] ? `\n${logoSpecialDescriptions[name]}\n` : ''}
 <Example Component={Logo${processLogoName(name)}} packageName="@atlaskit/logo" />`,
-).join('\n')}
-
+	)
+	.join('\n')}
 `;
 
 	fs.ensureFileSync(path.join(DOCS_DIR, 'examples.mdx'));

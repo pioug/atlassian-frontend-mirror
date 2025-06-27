@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-context
 
+## 0.3.0
+
+### Minor Changes
+
+- [#176643](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176643)
+  [`e72cff125ffff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e72cff125ffff) -
+  Add support for isolation cloud and fedramp-moderate awareness and url resolution.
+
 ## 0.2.0
 
 ### Minor Changes

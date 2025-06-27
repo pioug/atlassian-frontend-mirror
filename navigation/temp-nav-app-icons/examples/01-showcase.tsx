@@ -75,11 +75,11 @@ export default function ShowcaseExample({
 								return (
 									<Row key={name}>
 										<Cell>{name}</Cell>
-										<Cell width="60px">{<Icon12 {...customisedProps} />}</Cell>
-										<Cell width="60px">{<Icon16 {...customisedProps} />}</Cell>
-										<Cell width="60px">{<Icon20 {...customisedProps} />}</Cell>
-										<Cell width="60px">{<Icon24 {...customisedProps} />}</Cell>
-										<Cell width="60px">{<Icon32 {...customisedProps} />}</Cell>
+										<Cell width="60px">{Icon12 ? <Icon12 {...customisedProps} /> : 'N/A'}</Cell>
+										<Cell width="60px">{Icon16 ? <Icon16 {...customisedProps} /> : 'N/A'}</Cell>
+										<Cell width="60px">{Icon20 ? <Icon20 {...customisedProps} /> : 'N/A'}</Cell>
+										<Cell width="60px">{Icon24 ? <Icon24 {...customisedProps} /> : 'N/A'}</Cell>
+										<Cell width="60px">{Icon32 ? <Icon32 {...customisedProps} /> : 'N/A'}</Cell>
 										<Cell width="290px">
 											{Logo === null ? (
 												'N/A'

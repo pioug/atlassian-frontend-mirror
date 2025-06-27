@@ -20,4 +20,13 @@ test.describe('smart card', () => {
 		closePreviewButton.click();
 		await expect(embedContent).toBeHidden();
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		const previewButton = renderer.page.getByRole('button', {
+			name: 'Open Preview',
+		});
+		await expect(previewButton).toBeVisible();
+
+		await expect(renderer.page).toBeAccessible();
+	});
 });

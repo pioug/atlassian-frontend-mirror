@@ -26,7 +26,7 @@ export default function Basic() {
 	const [zoom, setZoom] = useState(1.75);
 	const getContent = async (pageStart: number, pageEnd: number) => {
 		const res = await fetch(
-			`http://localhost:3000/document/content?source=${source}&pageStart=${pageStart}&pageEnd=${pageEnd}`,
+			`http://localhost:8080/document/content?source=${source}&pageStart=${pageStart}&pageEnd=${pageEnd}`,
 		);
 		if (!res.ok) {
 			return {};
@@ -36,7 +36,7 @@ export default function Basic() {
 	};
 	const getPageImageUrl = async (pageNumber: number, zoom: number) => {
 		return fetch(
-			`http://localhost:3000/document/page?source=${source}&page=${pageNumber}&zoom=${zoom}`,
+			`http://localhost:8080/document/page?source=${source}&page=${pageNumber}&zoom=${zoom}`,
 		)
 			.then((res) => res.blob())
 			.then((blob) => URL.createObjectURL(blob));
@@ -44,7 +44,7 @@ export default function Basic() {
 
 	const [isServerRunning, setIsServerRunning] = useState(false);
 	useEffect(() => {
-		fetch('http://localhost:3000/health').then((res) => {
+		fetch('http://localhost:8080/healthcheck').then((res) => {
 			if (res.ok) {
 				setIsServerRunning(true);
 			}

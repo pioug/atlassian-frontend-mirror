@@ -1,5 +1,5 @@
 import { groupOptionsByType } from './index';
-import { GroupedOptions } from '../../types';
+import type { GroupedOptions } from '../../types';
 
 const expectFormattedMessage = (defaultMessage: string) =>
 	expect.objectContaining({

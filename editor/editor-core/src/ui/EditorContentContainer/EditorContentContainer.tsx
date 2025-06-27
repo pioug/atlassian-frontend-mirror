@@ -206,8 +206,8 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					hideSelectionStyles,
 					(fg('platform_editor_hide_cursor_when_pm_hideselection') ||
 						editorExperiment('platform_editor_advanced_code_blocks', true)) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					hideCursorWhenHideSelectionStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						hideCursorWhenHideSelectionStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					selectedNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -217,16 +217,16 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					placeholderTextStyles,
 					fg('platform_editor_system_fake_text_highlight_colour') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						placeholderTextStylesMixin_fg_platform_editor_system_fake_text_highlight_colour,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					placeholderStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('platform_editor_controls', 'variant1') && placeholderOverflowStyles,
 					editorExperiment('platform_editor_controls', 'variant1') &&
-					fg('platform_editor_quick_insert_placeholder') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					placeholderWrapStyles,
+						fg('platform_editor_quick_insert_placeholder') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						placeholderWrapStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeBlockStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -239,12 +239,12 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_typography_ugc')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						blocktypeStyles_fg_platform_editor_typography_ugc
+							blocktypeStyles_fg_platform_editor_typography_ugc
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						blocktypeStyles_without_fg_platform_editor_typography_ugc,
+							blocktypeStyles_without_fg_platform_editor_typography_ugc,
 					fg('platform_editor_nested_dnd_styles_changes') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					codeMarkStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -259,9 +259,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					mediaStyles,
 					fg('confluence_team_presence_scroll_to_pointer')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						telepointerStyle
+							telepointerStyle
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						telepointerStyleWithInitialOnly,
+							telepointerStyleWithInitialOnly,
 					/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					telepointerColorAndCommonStyle,
@@ -270,11 +270,11 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelStyles,
 					fg('platform_editor_add_border_for_nested_panel') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					panelStylesMixin_fg_platform_editor_add_border_for_nested_panel,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						panelStylesMixin_fg_platform_editor_add_border_for_nested_panel,
 					fg('platform_editor_nested_dnd_styles_changes') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						panelStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelStylesMixin,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -293,16 +293,16 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expandStyles,
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes
+							expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
+							expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform-visual-refresh-icons') && expandStylesMixin_fg_platform_visual_refresh_icons,
 					expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						findReplaceStylesNew
+							findReplaceStylesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						findReplaceStyles,
+							findReplaceStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					textHighlightStyle,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -310,33 +310,33 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					vanillaTaskItemStyles,
 					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					vanillaDecisionStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						vanillaDecisionStyles,
 					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-					fg('platform-visual-refresh-icons') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					vanillaDecisionIconWithVisualRefresh,
+						fg('platform-visual-refresh-icons') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						vanillaDecisionIconWithVisualRefresh,
 					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false }) &&
-					!fg('platform-visual-refresh-icons') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					vanillaDecisionIconWithoutVisualRefresh,
+						!fg('platform-visual-refresh-icons') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						vanillaDecisionIconWithoutVisualRefresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					statusStyles,
 					fg('platform-component-visual-refresh')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						statusStylesMixin_fg_platform_component_visual_refresh
+							statusStylesMixin_fg_platform_component_visual_refresh
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						statusStylesMixin_without_fg_platform_component_visual_refresh,
+							statusStylesMixin_without_fg_platform_component_visual_refresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('platform_editor_vanilla_dom', true) && vanillaStatusStyles,
 					editorExperiment('platform_editor_vanilla_dom', true) &&
-					fg('platform-component-visual-refresh') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					vanillaStatusStylesMixin_fg_platform_component_visual_refresh,
+						fg('platform-component-visual-refresh') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						vanillaStatusStylesMixin_fg_platform_component_visual_refresh,
 					editorExperiment('platform_editor_vanilla_dom', true) &&
-					!fg('platform-component-visual-refresh') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					vanillaStatusStylesMixin_without_fg_platform_component_visual_refresh,
+						!fg('platform-component-visual-refresh') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						vanillaStatusStylesMixin_without_fg_platform_component_visual_refresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -353,47 +353,47 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					editorExperiment('advanced_layouts', true) && layoutBaseStylesAdvanced,
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutSectionStylesAdvanced
+							layoutSectionStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutSectionStylesNotAdvanced,
+							layoutSectionStylesNotAdvanced,
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutColumnStylesAdvanced
+							layoutColumnStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutColumnStylesNotAdvanced,
+							layoutColumnStylesNotAdvanced,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutSelectedStylesAdvanced
+							layoutSelectedStylesAdvanced
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutSelectedStylesNotAdvanced,
+							layoutSelectedStylesNotAdvanced,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutColumnResponsiveStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					editorExperiment('advanced_layouts', true) && layoutResponsiveBaseStyles,
 					fg('platform_editor_nested_dnd_styles_changes') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					layoutBaseStylesFixesUnderNestedDnDFG,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutBaseStylesFixesUnderNestedDnDFG,
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutColumnMartinTopFixesNew
+							layoutColumnMartinTopFixesNew
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						layoutColumnMartinTopFixesOld,
+							layoutColumnMartinTopFixesOld,
 					fg('linking_platform_smart_links_in_live_pages')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						smartLinksInLivePagesStyles
+							smartLinksInLivePagesStyles
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						smartLinksInLivePagesStylesOld,
+							smartLinksInLivePagesStylesOld,
 					fg('platform-linking-visual-refresh-v1') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					linkingVisualRefreshV1Styles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						linkingVisualRefreshV1Styles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					dateVanillaStyles,
 					fg('platform_editor_typography_ugc')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							paragraphStylesUGCRefreshed
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						paragraphStylesOld,
+							paragraphStylesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					fg('platform_editor_hyperlink_underline') ? linkStyles : linkStylesOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -401,19 +401,19 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
 						? fg('platform_editor_breakout_resizing_width_changes')
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							pragmaticResizerStylesNew
+								pragmaticResizerStylesNew
 							: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							pragmaticResizerStyles
+								pragmaticResizerStyles
 						: undefined,
 					editorExperiment('advanced_layouts', true) &&
+						expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+						fg('platform_editor_breakout_resizing_hello_release') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticStylesLayoutFirstNodeResizeHandleFix,
 					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					fg('platform_editor_breakout_resizing_hello_release') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					pragmaticStylesLayoutFirstNodeResizeHandleFix,
-					expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
-					fg('platform_editor_breakout_resizing_hello_release') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					pragmaticResizerStylesForTooltip,
+						fg('platform_editor_breakout_resizing_hello_release') &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						pragmaticResizerStylesForTooltip,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					aiPanelBaseStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -426,17 +426,17 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					viewMode === 'view' && layoutStylesForView,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					viewMode === 'view' &&
-					editorExperiment('advanced_layouts', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					layoutSelectedStylesForViewAdvanced,
+						editorExperiment('advanced_layouts', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutSelectedStylesForViewAdvanced,
 					viewMode === 'view' &&
-					editorExperiment('advanced_layouts', false) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					layoutSelectedStylesForViewNotAdvanced,
+						editorExperiment('advanced_layouts', false) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutSelectedStylesForViewNotAdvanced,
 					viewMode === 'view' &&
-					editorExperiment('advanced_layouts', true) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					layoutResponsiveStylesForView,
+						editorExperiment('advanced_layouts', true) &&
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+						layoutResponsiveStylesForView,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					isComment && commentEditorStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -447,9 +447,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 					isFullPage && scrollbarStyles,
 					fg('platform_editor_nested_dnd_styles_changes')
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						firstCodeBlockWithNoMargin
+							firstCodeBlockWithNoMargin
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						firstCodeBlockWithNoMarginOld,
+							firstCodeBlockWithNoMarginOld,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					firstBlockNodeStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -461,9 +461,9 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 						mentionsStylesMixin_platform_editor_centre_mention_padding,
 					editorExperiment('platform_editor_vanilla_dom', true, { exposure: false })
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaEmojiStyles
+							vanillaEmojiStyles
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						reactEmojiStyles,
+							reactEmojiStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					panelViewStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

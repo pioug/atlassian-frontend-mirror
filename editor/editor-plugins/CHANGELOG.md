@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugins
 
+## 9.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.4.0
+
+### Minor Changes
+
+- [#175370](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175370)
+  [`fb5f9531ef9d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb5f9531ef9d8) -
+  [ux] [ED-27956] this PR is adding support for Find with expand titles and updating the search
+  match styles behind the experiment `platform_editor_find_and_replace_improvements`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.3.1
 
 ### Patch Changes

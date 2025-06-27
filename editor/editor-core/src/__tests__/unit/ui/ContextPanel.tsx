@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 
 import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer, ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
@@ -10,17 +10,19 @@ import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import { ContextPanel, SwappableContentArea } from '../../../ui/ContextPanel';
 
 describe('SwappableContentArea', () => {
 	it('renders children', () => {
-		render(
+		renderWithIntl(
 			<SwappableContentArea editorAPI={undefined} visible>
 				<div data-testid="child-component">Child Component</div>
 			</SwappableContentArea>,
 		);
 		expect(screen.getByTestId('child-component')).toBeInTheDocument();
+		expect(screen.getByLabelText('Context panel')).toBeInTheDocument();
 	});
 
 	// ContextPanel animates by doing a CSS transition on the container's width,
@@ -31,17 +33,17 @@ describe('SwappableContentArea', () => {
 
 	describe('container', () => {
 		it('displays content when visible is true', () => {
-			render(<SwappableContentArea editorAPI={undefined} visible />);
+			renderWithIntl(<SwappableContentArea editorAPI={undefined} visible />);
 			const panel = screen.getByTestId('context-panel-panel');
 			expect(panel).toHaveStyle('width: 320px');
 		});
 		it('hides content when visible is false', () => {
-			render(<SwappableContentArea editorAPI={undefined} visible={false} />);
+			renderWithIntl(<SwappableContentArea editorAPI={undefined} visible={false} />);
 			const panel = screen.getByTestId('context-panel-panel');
 			expect(panel).toHaveStyle('width: 0px');
 		});
 		it('clips content using the container', () => {
-			render(<SwappableContentArea editorAPI={undefined} visible />);
+			renderWithIntl(<SwappableContentArea editorAPI={undefined} visible />);
 			const panel = screen.getByTestId('context-panel-panel');
 			expect(panel).toHaveStyle('overflow: hidden');
 		});
@@ -49,7 +51,7 @@ describe('SwappableContentArea', () => {
 
 	describe('content', () => {
 		it('is scrollable up/down', () => {
-			render(<SwappableContentArea editorAPI={undefined} visible />);
+			renderWithIntl(<SwappableContentArea editorAPI={undefined} visible />);
 			const content = screen.getByTestId('context-panel-content');
 			expect(content).toHaveStyle('overflow-y: auto');
 		});
@@ -59,7 +61,7 @@ describe('SwappableContentArea', () => {
 describe('ContextPanelWidthProvider', () => {
 	it('should broadcast width', async () => {
 		let broadCast: (width: number) => void = () => {};
-		const { container } = render(
+		const { container } = renderWithIntl(
 			<ContextPanelWidthProvider>
 				<ContextPanelConsumer>
 					{({ width, broadcastWidth }) => {
@@ -75,7 +77,7 @@ describe('ContextPanelWidthProvider', () => {
 	});
 
 	it('should broadcast width with SwappableContentArea', async () => {
-		const { container } = render(
+		const { container } = renderWithIntl(
 			<ContextPanelWidthProvider>
 				<SwappableContentArea editorAPI={undefined} visible>
 					<ContextPanelConsumer>
@@ -102,7 +104,7 @@ const mockContextPanelPlugin: EditorPlugin = {
 
 describe('ContextPanel', () => {
 	it('renders SwappableContentArea', () => {
-		render(
+		renderWithIntl(
 			<ContextPanel editorAPI={undefined} visible={true}>
 				<div>yoshi bongo</div>
 			</ContextPanel>,
@@ -112,7 +114,7 @@ describe('ContextPanel', () => {
 	});
 
 	it('passes top-level props and children to SwappableContentArea', () => {
-		render(
+		renderWithIntl(
 			<ContextPanel editorAPI={undefined} visible={true}>
 				<div>yoshi bongo</div>
 			</ContextPanel>,
@@ -125,7 +127,7 @@ describe('ContextPanel', () => {
 			editorPlugins: [mockContextPanelPlugin, contextPanelPlugin({ config: undefined })],
 			doc: doc(p('hello')),
 		});
-		render(
+		renderWithIntl(
 			<ContextPanel editorAPI={editorAPI} visible={true}>
 				<div>yoshi bongo</div>
 			</ContextPanel>,
@@ -141,7 +143,7 @@ describe('ContextPanel', () => {
 
 		// @ts-expect-error
 		const editorFocusSpy = jest.spyOn(editorAPI?.core.actions, 'focus');
-		const { rerender } = render(
+		const { rerender } = renderWithIntl(
 			<ContextPanel editorAPI={editorAPI} visible={true}>
 				<div>yoshi bongo</div>
 			</ContextPanel>,

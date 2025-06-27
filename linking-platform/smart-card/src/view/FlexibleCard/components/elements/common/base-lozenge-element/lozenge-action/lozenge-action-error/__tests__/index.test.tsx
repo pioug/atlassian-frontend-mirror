@@ -137,4 +137,12 @@ describe('LozengeActionError', () => {
 
 		spy.mockRestore();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderComponent({
+			errorMessage: TEXT_ERROR_MESSAGE,
+			invokePreviewAction: { actionFn: jest.fn(), actionType: ActionName.PreviewAction },
+			url,
+		});
+		await expect(container).toBeAccessible({ violationCount: 1 });
+	});
 });

@@ -228,3 +228,40 @@ export function isEmptyTextSelection(selection: TextSelection | AllSelection, sc
 	});
 	return !hasContent;
 }
+
+/**
+ * This is a modified version of the `isEmptyTextSelection` function (above), fixing some unexpected behavior in the renderer.
+ *
+ * This function does NOT consider non-inline nodes as non-empty.
+ * With this change, the function continues descending into block nodes, like tables or expands. Without this change for
+ * the renderer, block nodes containing empty text were not considered empty.
+ */
+export function isEmptyTextSelectionRenderer(
+	selection: TextSelection | AllSelection,
+	schema: Schema,
+) {
+	const { text, paragraph } = schema.nodes;
+	let hasContent = false;
+
+	selection.content().content.descendants((node) => {
+		// for empty paragraph - consider empty (nothing to comment on)
+		if (node.type === paragraph && !node.content.size) {
+			return false;
+		}
+
+		// for inline elements - consider nonempty
+		if (node.type !== text && node.type.isInline) {
+			hasContent = true;
+		}
+
+		// for nonempty text - consider nonempty (can comment if the node is supported for annotations)
+		if (node.type === text && !!node.textContent) {
+			hasContent = true;
+		}
+
+		// for other non-text nodes - continue descending
+		return !hasContent;
+	});
+
+	return !hasContent;
+}

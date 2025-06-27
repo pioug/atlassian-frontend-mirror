@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import React, { useMemo, useRef, type Ref } from 'react';
+import { useIntl } from 'react-intl-next';
 
 import { css, jsx } from '@compiled/react';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -11,6 +12,7 @@ import { Icon } from '@atlaskit/icon/base-new';
 import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 import CheckboxCheckedIcon from '@atlaskit/icon/core/checkbox-checked';
 
+import { messages } from './i18n';
 import Item from './Item';
 import { type Appearance, type ContentRef } from '../types';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -203,6 +205,8 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 		inputRef: inputRefFromProps,
 	} = props;
 
+	const { formatMessage } = useIntl();
+
 	const checkBoxId = useMemo(() => getCheckBoxId(taskId), [taskId]);
 
 	const handleOnChange = useMemo(() => {
@@ -244,7 +248,9 @@ const TaskItem = (props: Props & WithAnalyticsEventsProps) => {
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 			<input
 				id={checkBoxId}
-				aria-labelledby={`${checkBoxId}-wrapper`}
+				aria-label={formatMessage(
+					isDone ? messages.markTaskAsNotCompleted : messages.markTaskAsCompleted,
+				)}
 				name={checkBoxId}
 				type="checkbox"
 				onChange={handleOnChange}

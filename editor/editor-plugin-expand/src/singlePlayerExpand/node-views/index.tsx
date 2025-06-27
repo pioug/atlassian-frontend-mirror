@@ -569,7 +569,9 @@ export class ExpandNodeView implements NodeView {
 			if (expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)) {
 				const classes = this.dom.className.split(' ');
 				// find & replace styles might be applied to the expand title and we need to keep them
-				const findReplaceDecorationsApplied = classes.filter(className => findReplaceExpandDecorations.includes(className)).join(' ');
+				const findReplaceDecorationsApplied = classes
+					.filter((className) => findReplaceExpandDecorations.includes(className))
+					.join(' ');
 				this.dom.className = findReplaceDecorationsApplied
 					? buildExpandClassName(node.type.name, expanded) + ` ${findReplaceDecorationsApplied}`
 					: buildExpandClassName(node.type.name, expanded);

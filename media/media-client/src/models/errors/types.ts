@@ -18,6 +18,8 @@ export type MediaClientErrorReason =
 	| 'serverInternalError'
 	| 'serverBadGateway'
 	| 'serverUnexpectedError'
+	| 'serverUnprocessableEntity'
+	| 'serverEntityLocked'
 	// MediaStoreErrorReason ----------------------------
 	| 'failedAuthProvider'
 	| 'tokenExpired'

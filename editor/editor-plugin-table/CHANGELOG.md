@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 10.13.0
+
+### Minor Changes
+
+- [#178354](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178354)
+  [`8768b869f9245`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8768b869f9245) -
+  Cleanup platform_editor_stable_editorview_classname experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.12.12
 
 ### Patch Changes

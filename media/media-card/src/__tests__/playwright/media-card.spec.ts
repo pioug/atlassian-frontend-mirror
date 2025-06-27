@@ -63,4 +63,11 @@ test.describe('MediaCard', () => {
 			page.locator(`${cardHiddenWithoutCacheSelector} ${cardStandardLoadingSelector}`),
 		).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		const card = new MediaCardPageObject(page);
+		await card.init('Test-Integration-card-files-mocked');
+
+		await expect(page).toBeAccessible({ violationCount: 1 });
+	});
 });

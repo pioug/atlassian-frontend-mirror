@@ -552,4 +552,8 @@ describe('RelatedLinksModal', () => {
 		expect(onEvent.mock.calls[0][0].payload.attributes.dwellTime).toBeGreaterThan(5);
 		jest.useRealTimers();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup({ ari });
+		await expect(container).toBeAccessible();
+	});
 });

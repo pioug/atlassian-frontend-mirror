@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { xcss } from '@atlaskit/primitives';
 import { Box, Flex, Stack } from '@atlaskit/primitives/compiled';
 
-import { AnonymousAsset, getAllAnonymousAssets } from '../src';
+import { type AnonymousAsset, getAllAnonymousAssets } from '../src';
 
 const blockStyles = xcss({
 	width: '2.5rem',

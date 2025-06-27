@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::74da18cf3b9a90fa10ee83c7d6201ac6>>
+ * @codegen <<SignedSource::8954530a27c74e4d2f42daa5785e189f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2273,12 +2273,12 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	headphones: {
-		keywords: ['headphones', 'icon', 'core', 'audio', 'music'],
+		keywords: ['headphones', 'icon', 'core', 'audio', 'music', 'headphones'],
 		componentName: 'HeadphonesIcon',
 		package: '@atlaskit/icon/core/headphones',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose - Known uses: music, audio.',
+		usage: 'Known uses: music, audio.',
 		team: 'Design System Team',
 		status: 'published',
 	},

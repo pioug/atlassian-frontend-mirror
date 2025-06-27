@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::e659eaebf1bb9fd27c2c6b9fe6a131b1>>
+ * @codegen <<SignedSource::69e2f5e4400c193f05108e6527d5df3a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -76,6 +76,28 @@ interface metadata {
 }
 
 const metadata: Record<string, metadata> = {
+	'ai-generative-audio-briefing': {
+		keywords: [
+			'ai-generative-audio-briefing',
+			'aigenerativeaudiobriefing',
+			'icon',
+			'icon-lab',
+			'core',
+			'audio briefing',
+			'breifing',
+			'podcast',
+			'headphones',
+			'AI',
+		],
+		componentName: 'AiGenerativeAudioBriefingIcon',
+		package: '@atlaskit/icon-lab/core/ai-generative-audio-briefing',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage:
+			'Reserved for Audio Briefings, a new feature launching within Confluence to help people develop an expanded awareness on a topic by generating AI-powered podcasts about their work.',
+		team: 'Confluence AI Audio',
+		status: 'published',
+	},
 	'ai-generative-chapters': {
 		keywords: [
 			'ai-generative-chapters',
@@ -3172,6 +3194,16 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for functional representation of Talent app',
 		team: 'Talent',
+		status: 'published',
+	},
+	'teamwork-graph': {
+		keywords: ['teamwork-graph', 'teamworkgraph', 'icon', 'icon-lab', 'core', 'teamwork graph'],
+		componentName: 'TeamworkGraphIcon',
+		package: '@atlaskit/icon-lab/core/teamwork-graph',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for Teamwork Graph features.',
+		team: 'Teamwork Graph Experiences',
 		status: 'published',
 	},
 	telescope: {

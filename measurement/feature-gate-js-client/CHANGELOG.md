@@ -1,5 +1,17 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.4.0
+
+### Minor Changes
+
+- [#178471](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178471)
+  [`528c5a16ea40d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/528c5a16ea40d) -
+  Fixes ESM compatibility by replacing internal usage of `EventEmitter2` with `EventEmitter3`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.3
 
 ### Patch Changes

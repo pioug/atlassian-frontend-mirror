@@ -127,13 +127,9 @@ const TeamMembers = ({
 
 	const showMoreButtonProps: AvatarGroupProps['showMoreButtonProps'] = {
 		onClick: onMoreClick,
-		...(fg('platform_profilecard-enable_reporting_lines_label')
-			? {
-					'aria-label': formatMessage(messages.profileCardMoreMembersLabel, {
-						count: count - avatarGroupMaxCount + 1,
-					}),
-				}
-			: {}),
+		'aria-label': formatMessage(messages.profileCardMoreMembersLabel, {
+			count: count - avatarGroupMaxCount + 1,
+		}),
 	};
 
 	return (

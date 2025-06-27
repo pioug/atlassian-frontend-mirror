@@ -369,7 +369,7 @@ class AP extends PostMessage {
 				// Promise methods always return error result as first arg
 				// If a promise method is invoked using callbacks, strip first arg.
 				if (pendingCallback.useCallback && pendingCallback.isPromiseMethod) {
-					data.shift();
+					data.args.shift();
 				}
 				pendingCallback.apply(window, data.args);
 			} catch (e) {

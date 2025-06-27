@@ -96,7 +96,15 @@ function replaceXcssWithCssMap(
 	let firstUsagePath: ASTPath<core.Node> | null = null;
 	const styleVariables = new Set<string>();
 	const variableDependencies = new Map<string, Set<string>>();
+	const inlineXcssUsages: Array<{
+		path: ASTPath<core.CallExpression>;
+		keyName: string;
+		jsxAttribute: ASTPath<core.JSXAttribute>;
+		componentName: string;
+		variableName: string;
+	}> = [];
 
+	// First pass: collect all xcss variable declarations
 	source
 		.find(j.CallExpression, {
 			// get all xcss calls
@@ -137,11 +145,49 @@ function replaceXcssWithCssMap(
 							variableDependencies.set(variableName, dependencies);
 						}
 					}
+				} else {
+					// This is an inline xcss call - check if it's inside a JSX attribute
+					let current = path.parentPath;
+					let jsxElement: ASTPath<core.JSXElement> | null = null;
+
+					while (current) {
+						if (
+							current.node.type === 'JSXAttribute' &&
+							current.node.name.type === 'JSXIdentifier' &&
+							current.node.name.name === 'xcss'
+						) {
+							// Found inline xcss usage - now find the JSX element
+							let elementCurrent = current.parentPath;
+							while (elementCurrent) {
+								if (elementCurrent.node.type === 'JSXElement') {
+									jsxElement = elementCurrent as ASTPath<core.JSXElement>;
+									break;
+								}
+								elementCurrent = elementCurrent.parentPath;
+							}
+
+							if (jsxElement && jsxElement.node.openingElement.name.type === 'JSXIdentifier') {
+								const componentName = jsxElement.node.openingElement.name.name;
+								const variableName = `${componentName.toLowerCase()}Styles`;
+								const keyName = 'root';
+
+								inlineXcssUsages.push({
+									path,
+									keyName,
+									jsxAttribute: current as ASTPath<core.JSXAttribute>,
+									componentName,
+									variableName,
+								});
+							}
+							break;
+						}
+						current = current.parentPath;
+					}
 				}
 			}
 		});
 
-	// find the first usage of any style variable
+	// find the first usage of any style variable or inline xcss
 	source.find(j.Identifier).forEach((path) => {
 		if (
 			styleVariables.has(path.node.name) &&
@@ -156,7 +202,15 @@ function replaceXcssWithCssMap(
 		}
 	});
 
-	// find all xcss function calls
+	// Check for inline xcss usage as well for first usage
+	if (
+		inlineXcssUsages.length > 0 &&
+		(!firstUsagePath || inlineXcssUsages[0].path.node.loc?.start)
+	) {
+		firstUsagePath = inlineXcssUsages[0].path;
+	}
+
+	// Process variable xcss declarations
 	source
 		.find(j.CallExpression, {
 			callee: {
@@ -202,7 +256,40 @@ function replaceXcssWithCssMap(
 			}
 		});
 
-	// create new cssMap with the combined xcss object properties
+	// Process inline xcss usages - create separate cssMap for each
+	const cssMapDeclarations: core.VariableDeclaration[] = [];
+
+	inlineXcssUsages.forEach(({ path, keyName, jsxAttribute, componentName, variableName }) => {
+		const args = path.node.arguments;
+		if (args.length === 1 && args[0].type === 'ObjectExpression') {
+			// Create separate cssMap declaration for each inline xcss
+			const cssMapObject = j.objectProperty(
+				j.identifier(keyName),
+				ensureSelectorAmpersand(j, args[0]),
+			);
+
+			const cssMapVariableDeclaration = j.variableDeclaration('const', [
+				j.variableDeclarator(
+					j.identifier(variableName),
+					j.callExpression(j.identifier('cssMap'), [j.objectExpression([cssMapObject])]),
+				),
+			]);
+
+			cssMapDeclarations.push(cssMapVariableDeclaration);
+
+			// Update the JSX attribute to use the cssMap reference
+			jsxAttribute.node.value = j.jsxExpressionContainer(
+				j.memberExpression(j.identifier(variableName), j.identifier(keyName)),
+			);
+
+			// Track first xcss call if not already set
+			if (!firstXcssPath) {
+				firstXcssPath = path;
+			}
+		}
+	});
+
+	// create new cssMap with the combined xcss object properties (for variable declarations)
 	if (cssMapProperties.length > 0) {
 		const cssMapObject = j.objectExpression(cssMapProperties);
 		const cssMapVariableDeclaration = j.variableDeclaration('const', [
@@ -212,44 +299,46 @@ function replaceXcssWithCssMap(
 			),
 		]);
 
-		// insert the cssMap declaration before its first usage
-		if (firstUsagePath) {
-			const programBody = source.get().node.program.body;
-			let insertIndex = 0;
+		cssMapDeclarations.unshift(cssMapVariableDeclaration);
+	}
 
-			// find the last variable declaration that any style depends on
-			let lastDependencyIndex = -1;
-			for (let i = 0; i < programBody.length; i++) {
-				const node = programBody[i];
-				if (node.type === 'VariableDeclaration') {
-					const varName = node.declarations[0]?.id.name;
-					if (varName) {
-						// check if this variable is a dependency of any style
-						for (const [, deps] of variableDependencies.entries()) {
-							if (deps.has(varName)) {
-								lastDependencyIndex = i;
-								break;
-							}
+	// Insert all cssMap declarations
+	if (cssMapDeclarations.length > 0 && firstUsagePath) {
+		const programBody = source.get().node.program.body;
+		let insertIndex = 0;
+
+		// find the last variable declaration that any style depends on
+		let lastDependencyIndex = -1;
+		for (let i = 0; i < programBody.length; i++) {
+			const node = programBody[i];
+			if (node.type === 'VariableDeclaration') {
+				const varName = node.declarations[0]?.id.name;
+				if (varName) {
+					// check if this variable is a dependency of any style
+					for (const [, deps] of variableDependencies.entries()) {
+						if (deps.has(varName)) {
+							lastDependencyIndex = i;
+							break;
 						}
 					}
 				}
 			}
-
-			// insert after the last dependency
-			if (lastDependencyIndex !== -1) {
-				insertIndex = lastDependencyIndex + 1;
-			} else {
-				// if no dependencies, find the first non-import/type declaration
-				insertIndex = programBody.findIndex(
-					(node: { type: string }) =>
-						node.type !== 'ImportDeclaration' &&
-						node.type !== 'TypeAlias' &&
-						node.type !== 'InterfaceDeclaration',
-				);
-			}
-
-			programBody.splice(insertIndex, 0, cssMapVariableDeclaration);
 		}
+
+		// insert after the last dependency
+		if (lastDependencyIndex !== -1) {
+			insertIndex = lastDependencyIndex + 1;
+		} else {
+			// if no dependencies, find the first non-import/type declaration
+			insertIndex = programBody.findIndex(
+				(node: { type: string }) =>
+					node.type !== 'ImportDeclaration' &&
+					node.type !== 'TypeAlias' &&
+					node.type !== 'InterfaceDeclaration',
+			);
+		}
+
+		programBody.splice(insertIndex, 0, ...cssMapDeclarations);
 	}
 
 	// First handle backgroundColor transformation for Box components
@@ -387,19 +476,35 @@ function replaceXcssWithCssMap(
 			if (value && value.type === 'JSXExpressionContainer') {
 				const expression = value.expression;
 				if (expression.type === 'Identifier') {
-					// <Box xcss={buttonStyles} /> -> <Box xcss={styles.button} />
-					expression.name = `styles.${getCssMapKey(expression.name)}`;
+					if (styleVariables.has(expression.name)) {
+						// <Box xcss={buttonStyles} /> => <Box xcss={styles.button} />
+						path.node.value = j.jsxExpressionContainer(
+							j.memberExpression(
+								j.identifier('styles'),
+								j.identifier(getCssMapKey(expression.name)),
+							),
+						);
+					}
 				} else if (expression.type === 'ArrayExpression') {
-					// <Box xcss={[baseStyles, otherStyles]} /> -> <Box xcss={[styles.base, styles.other]} />
+					// <Box xcss={[baseStyles, otherStyles]} /> => <Box xcss={[styles.base, styles.other]} />
 					expression.elements.forEach((element) => {
-						if (element?.type === 'Identifier') {
-							element.name = `styles.${getCssMapKey(element.name)}`;
+						if (element?.type === 'Identifier' && styleVariables.has(element.name)) {
+							const memberExpression = j.memberExpression(
+								j.identifier('styles'),
+								j.identifier(getCssMapKey(element.name)),
+							);
+							// Replace the identifier with the member expression
+							Object.assign(element, memberExpression);
 						} else if (
-							// <Box xcss={condition && styles} /> -> <Box xcss={condition && styles.root} />
+							// <Box xcss={condition && styles} /> => <Box xcss={condition && styles.root} />
 							element?.type === 'LogicalExpression' &&
-							element.right.type === 'Identifier'
+							element.right.type === 'Identifier' &&
+							styleVariables.has(element.right.name)
 						) {
-							element.right.name = `styles.${getCssMapKey(element.right.name)}`;
+							element.right = j.memberExpression(
+								j.identifier('styles'),
+								j.identifier(getCssMapKey(element.right.name)),
+							);
 						}
 					});
 				}

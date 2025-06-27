@@ -154,4 +154,10 @@ describe('IconAndTitleLayout', () => {
 		expect(emoji).toBeDefined();
 		expect(screen.queryByTestId('inline-card-icon-default')).toBeNull;
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(
+			<IconAndTitleLayout title="some text content" testId="icon-and-title-layout" />,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

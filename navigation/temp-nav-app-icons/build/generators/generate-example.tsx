@@ -31,7 +31,7 @@ ${Object.entries(assets)
 	})
 	.join('\n')}
 
-import { AppIconProps, AppLogoProps } from '../../src/utils/types';
+import type { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const rows: Array<{
 name: string;

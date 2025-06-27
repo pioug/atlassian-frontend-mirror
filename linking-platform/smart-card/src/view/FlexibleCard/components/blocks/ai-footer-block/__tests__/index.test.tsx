@@ -233,4 +233,15 @@ describe('AIFooterBlock', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const contextWithNoAiSummaryAction = {
+			...context,
+			actions: { ...context.actions, AISummaryAction: undefined },
+		};
+		const { container } = renderAIFooterBlock(
+			{ status: SmartLinkStatus.Resolved },
+			contextWithNoAiSummaryAction,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

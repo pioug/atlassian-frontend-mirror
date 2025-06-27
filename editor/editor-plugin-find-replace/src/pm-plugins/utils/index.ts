@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import type { IntlShape } from 'react-intl-next';
 
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { timestampToString } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node as PmNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
@@ -14,7 +14,7 @@ import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { getGlobalTheme } from '@atlaskit/tokens';
 
-import { FindReplacePlugin } from '../../findReplacePluginType';
+import type { FindReplacePlugin } from '../../findReplacePluginType';
 import type { Match, TextGrouping } from '../../types';
 import {
 	searchMatchClass,
@@ -36,10 +36,14 @@ export function getSelectedText(selection: TextSelection): string {
 }
 
 export const createDecorations = (selectedIndex: number, matches: Match[]): Decoration[] =>
-	matches.map(({ start, end, canReplace, nodeType }, i) => createDecoration({ start, end, canReplace, nodeType }, i === selectedIndex));
+	matches.map(({ start, end, canReplace, nodeType }, i) =>
+		createDecoration({ start, end, canReplace, nodeType }, i === selectedIndex),
+	);
 
-const isElement = (nodeType?: string) => ['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '');
-const isExpandTitle = (match: Match) => ['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
+const isElement = (nodeType?: string) =>
+	['blockCard', 'embedCard', 'inlineCard', 'status', 'mention', 'date'].includes(nodeType || '');
+const isExpandTitle = (match: Match) =>
+	['expand', 'nestedExpand'].includes(match.nodeType || '') && !match.canReplace;
 
 export const createDecoration = (match: Match, isSelected?: Boolean) => {
 	const { start, end, nodeType } = match;
@@ -203,7 +207,7 @@ export function findMatches({
 									text: node.attrs.text as string,
 									pos,
 								},
-								node
+								node,
 							);
 							break;
 						case 'date':
@@ -225,7 +229,8 @@ export function findMatches({
 									text: node.attrs.title as string,
 									pos,
 								},
-								node);
+								node,
+							);
 							break;
 						case 'mention':
 							let text;
@@ -325,10 +330,10 @@ export const findDecorationFromMatch = (
 	const decorations = decorationSet.find(match.start, match.end);
 	return decorations.length
 		? decorations.find(
-			// decorationSet.find() returns any decorations that touch the specifided
-			// positions, but we want to be stricter
-			(decoration) => decoration.from === match.start && decoration.to === match.end,
-		)
+				// decorationSet.find() returns any decorations that touch the specifided
+				// positions, but we want to be stricter
+				(decoration) => decoration.from === match.start && decoration.to === match.end,
+			)
 		: undefined;
 };
 

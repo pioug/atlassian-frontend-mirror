@@ -1,5 +1,5 @@
 import { type FunctionComponent } from 'react';
-import createNamespaceContext, { Props } from './helper/createNamespaceContext';
+import createNamespaceContext, { type Props } from './helper/createNamespaceContext';
 
 export const OMNI_CHANNEL_CONTEXT = 'omniChannelCtx';
 

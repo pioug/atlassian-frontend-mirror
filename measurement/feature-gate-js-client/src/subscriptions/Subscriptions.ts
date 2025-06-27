@@ -1,32 +1,15 @@
-import EventEmitter2Default, { EventEmitter2 as EventEmitter2NamedImport } from 'eventemitter2';
-
-/**
- * Mapping this import to ensure it works both as a default and named import, else this breaks:
- * Example error:
- * `npm-modules:https://esm.sh/@atlaskit/feature-gate-js-client@5.3.1/es2022/feature-gate-js-client.mjs:3:584: ERROR: No matching export in "npm-modules:https://esm.sh/eventemitter2@%5E4.1.0?target=es2022" for import "EventEmitter2"`
- * This is happening when consumed via v0, Figma Make, etc.
- *
- * This is not the only package this happens with, but this package is included with every other package
- * in the monorepo, so it's the priority to experiment and fix.
- *
- * @see https://github.com/EventEmitter2/EventEmitter2/issues/281#issuecomment-1829801065
- *
- * The default export appears to be the preference, however the named import is provided for backwards-compatibility
- * and we still use the `EventEmitter2NamedImport` because that's what the types pick up as well.
- */
-const EventEmitter2: typeof EventEmitter2NamedImport =
-	EventEmitter2NamedImport || EventEmitter2Default;
+import EventEmitter from 'eventemitter3';
 
 import { type CheckGateOptions, type GetExperimentValueOptions } from '../client/types';
 
 export const ALL_FEATURE_VALUES = '@all-features';
 
 export default class Subscriptions {
-	private emitter: EventEmitter2NamedImport;
+	private emitter: EventEmitter;
 	private eventToValue: Map<(value: any) => any, any> = new Map();
 
 	constructor() {
-		this.emitter = new EventEmitter2();
+		this.emitter = new EventEmitter();
 	}
 
 	onGateUpdated(

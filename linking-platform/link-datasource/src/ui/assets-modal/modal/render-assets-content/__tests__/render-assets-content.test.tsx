@@ -98,4 +98,8 @@ describe('AssetsConfigModal', () => {
 		const { queryByTestId } = setup({ status: 'resolved' });
 		expect(queryByTestId('asset-datasource-table')).toBeInTheDocument();
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup({ status: 'resolved' });
+		await expect(container).toBeAccessible();
+	});
 });

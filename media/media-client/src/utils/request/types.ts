@@ -53,6 +53,8 @@ export type RequestErrorReason =
 	| 'serverRateLimited'
 	| 'serverInternalError'
 	| 'serverBadGateway'
+	| 'serverUnprocessableEntity'
+	| 'serverEntityLocked'
 	| 'serverUnexpectedError';
 
 export type RequestErrorMetadata = RequestMetadata & {

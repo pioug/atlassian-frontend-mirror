@@ -81,4 +81,16 @@ test.describe('when the viewport width changes', () => {
 		const stickyHeaderBoundingBox = await stickyHeader.nth(1).boundingBox();
 		expect(tableBoundingBox?.width).toBe(stickyHeaderBoundingBox?.width);
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		await renderer.page.setViewportSize({ width: 1600, height: 868 });
+		const table = renderer.page.locator(selectors.table);
+		const stickyHeader = renderer.page.locator(selectors.stickyHeader);
+		// Scroll to the second table in the list
+		const tableBoundingBox = await table.nth(1).boundingBox();
+		const stickyHeaderBoundingBox = await stickyHeader.nth(1).boundingBox();
+		expect(tableBoundingBox?.width).toBe(stickyHeaderBoundingBox?.width);
+
+		await expect(renderer.page).toBeAccessible({ violationCount: 1 });
+	});
 });

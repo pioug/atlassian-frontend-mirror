@@ -35,6 +35,20 @@ test.describe('annotations', () => {
 
 			expect(result).toBe(false);
 		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const paragraphs = renderer.page.locator('p');
+			const box = await paragraphs.first().boundingBox();
+			const middleBox = box!.y + box!.height / 2;
+			await renderer.page.mouse.move(box!.x, middleBox);
+			await renderer.page.mouse.down();
+			await renderer.page.mouse.move(box!.x + box!.width, middleBox);
+			await renderer.page.mouse.up();
+			const result = await renderer.annotation.simulateAnnotationAtSelection('fake-id-1');
+			expect(result).toBe(false);
+
+			await expect(renderer.page).toBeAccessible();
+		});
 	});
 
 	test.describe('when text selection that falls in the middle of an inline node', () => {
@@ -55,6 +69,21 @@ test.describe('annotations', () => {
 
 			expect(result).toBe(false);
 		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const paragraphs = renderer.page.locator('p');
+			const box = await paragraphs.first().boundingBox();
+			const middleBox = box!.y + box!.height / 2;
+			const THREE_CHARS_WIDTH = CHAR_WIDTH * 3;
+			await renderer.page.mouse.move(box!.x, middleBox);
+			await renderer.page.mouse.down();
+			await renderer.page.mouse.move(box!.x + THREE_CHARS_WIDTH, middleBox);
+			await renderer.page.mouse.up();
+			const result = await renderer.annotation.simulateAnnotationAtSelection('fake-id-1');
+			expect(result).toBe(false);
+
+			await expect(renderer.page).toBeAccessible();
+		});
 	});
 
 	test.describe('when selecting basic text', () => {
@@ -74,6 +103,21 @@ test.describe('annotations', () => {
 
 			expect(result).toBeTruthy();
 			expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
+		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const paragraphs = renderer.page.locator('p');
+			const box = await paragraphs.first().boundingBox();
+			const middleBox = box!.y + box!.height / 2;
+			await renderer.page.mouse.move(box!.x, middleBox);
+			await renderer.page.mouse.down();
+			await renderer.page.mouse.move(box!.x + CHAR_WIDTH, middleBox);
+			await renderer.page.mouse.up();
+			const result = await renderer.annotation.simulateAnnotationAtSelection('fake-id-1');
+			expect(result).toBeTruthy();
+			expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
+
+			await expect(renderer.page).toBeAccessible();
 		});
 	});
 
@@ -100,6 +144,23 @@ test.describe('annotations', () => {
 
 			expect(result).toBeTruthy();
 			expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
+		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const paragraphs = renderer.page.locator('p');
+			const box = await paragraphs.first().boundingBox();
+			const box2 = await paragraphs.last().boundingBox();
+			const middleBox = box!.y + box!.height / 2;
+			const middleBox2 = box2!.y + box2!.height / 2;
+			await renderer.page.mouse.move(box!.x, middleBox);
+			await renderer.page.mouse.down();
+			await renderer.page.mouse.move(box2!.x + box2!.width, middleBox2);
+			await renderer.page.mouse.up();
+			const result = await renderer.annotation.simulateAnnotationAtSelection('fake-id-1');
+			expect(result).toBeTruthy();
+			expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
+
+			await expect(renderer.page).toBeAccessible();
 		});
 	});
 

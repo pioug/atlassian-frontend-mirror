@@ -92,13 +92,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_stable_editorview_classname: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_stable_editorview_classname',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 
 	// Added 2025-05-28
 	platform_editor_controls_performance_fixes: createBooleanExperiment({

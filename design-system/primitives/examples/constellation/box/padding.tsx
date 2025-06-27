@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, Flex, Inline, Space, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Flex, Inline, type Space, Stack } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 import { token } from '@atlaskit/tokens';
 

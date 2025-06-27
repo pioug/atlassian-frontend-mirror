@@ -6,12 +6,14 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { injectIntl, type IntlShape } from 'react-intl-next';
 import Transition from 'react-transition-group/Transition';
 
 import {
 	sharedPluginStateHookMigratorFactory,
 	useSharedPluginState,
 } from '@atlaskit/editor-common/hooks';
+import { contextPanelMessages } from '@atlaskit/editor-common/messages';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
@@ -71,6 +73,7 @@ const paddingStyles = css({
 type SwappableContentAreaProps = {
 	pluginContent?: React.ReactNode;
 	editorView?: EditorView;
+	intl: IntlShape;
 } & Props;
 
 type State = {
@@ -80,7 +83,7 @@ type State = {
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class SwappableContentArea extends React.PureComponent<SwappableContentAreaProps, State> {
+class SwappableContentAreaInner extends React.PureComponent<SwappableContentAreaProps, State> {
 	state = {
 		mounted: false,
 		currentPluginContent: undefined,
@@ -185,7 +188,7 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 							]}
 							data-testid="context-panel-panel"
 							aria-labelledby="context-panel-title"
-							aria-label="context-panel-panel"
+							aria-label={this.props.intl?.formatMessage(contextPanelMessages.panelLabel) || ''}
 							role="dialog"
 						>
 							<div
@@ -222,13 +225,19 @@ const useContextPanelSharedState = sharedPluginStateHookMigratorFactory<
 	},
 );
 
+export const SwappableContentArea = injectIntl(SwappableContentAreaInner);
+
 export function ContextPanel(props: Props) {
 	const contextPanelContents = useContextPanelSharedState(props.editorAPI);
 	const firstContent = contextPanelContents && contextPanelContents.find(Boolean);
 
 	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<SwappableContentArea {...props} editorAPI={props.editorAPI} pluginContent={firstContent} />
+		<SwappableContentArea
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+			editorAPI={props.editorAPI}
+			pluginContent={firstContent}
+		/>
 	);
 }

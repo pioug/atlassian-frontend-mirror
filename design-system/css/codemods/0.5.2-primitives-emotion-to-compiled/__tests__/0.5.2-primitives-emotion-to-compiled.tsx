@@ -948,4 +948,134 @@ export default AssetCard;`;
 		`);
 		});
 	});
+
+	describe('inline xcss transformations', () => {
+		it('should transform the primitive with inline xcss', async () => {
+			const input = `
+			import { Stack, xcss } from '@atlaskit/primitives';
+
+			const MyComponent = () => <Stack xcss={xcss({
+				borderColor: 'color.border',
+		    })} />
+			`;
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Stack } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const stackStyles = cssMap({
+			    root: {
+			        borderColor: token("color.border"),
+			    }
+			});
+
+			const MyComponent = () => <Stack xcss={stackStyles.root} />"
+		`);
+		});
+
+		it('should transform multiple primitives with inline xcss', async () => {
+			const input = `
+			import { Stack, xcss, Box } from '@atlaskit/primitives';
+
+			const MyComponent = () => 
+			<div>
+				<Stack xcss={xcss({
+					borderColor: 'color.border.input',
+		    	})} />
+				<Box xcss={xcss({
+					borderColor: 'color.border',
+		    	})} />
+			</div>
+			`;
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Box, Stack } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const stackStyles = cssMap({
+			    root: {
+			        borderColor: token("color.border.input"),
+			    }
+			});
+
+			const boxStyles = cssMap({
+			    root: {
+			        borderColor: token("color.border"),
+			    }
+			});
+
+			const MyComponent = () => 
+			<div>
+			    <Stack xcss={stackStyles.root} />
+			    <Box xcss={boxStyles.root} />
+			</div>"
+		`);
+		});
+
+		it('should transform multiple primitives with inline xcss and primitive with variable', async () => {
+			const input = `
+			import { Stack, xcss, Box, Inline } from '@atlaskit/primitives';
+
+			const inlineStyles = xcss({
+				color: 'color.text',
+			});
+
+			const MyComponent = () => 
+			<div>
+				<Stack xcss={xcss({
+					borderColor: 'color.border.input',
+		    	})} />
+				<Box xcss={xcss({
+					borderColor: 'color.border',
+		    	})} />
+				<Inline xcss={inlineStyles} />
+			</div>
+			`;
+			const result = await applyTransform(transform, input);
+			expect(result).toMatchInlineSnapshot(`
+			"/**
+			 * @jsxRuntime classic
+			 * @jsx jsx
+			 */
+			import { Box, Inline, Stack } from "@atlaskit/primitives/compiled";
+			import { cssMap, jsx } from "@atlaskit/css";
+			import { token } from "@atlaskit/tokens";
+
+			const styles = cssMap({
+			    inline: {
+			        color: token("color.text"),
+			    }
+			});
+
+			const stackStyles = cssMap({
+			    root: {
+			        borderColor: token("color.border.input"),
+			    }
+			});
+
+			const boxStyles = cssMap({
+			    root: {
+			        borderColor: token("color.border"),
+			    }
+			});
+
+			const MyComponent = () => 
+			<div>
+			    <Stack xcss={stackStyles.root} />
+			    <Box xcss={boxStyles.root} />
+			    <Inline xcss={styles.inline} />
+			</div>"
+		`);
+		});
+	});
 });

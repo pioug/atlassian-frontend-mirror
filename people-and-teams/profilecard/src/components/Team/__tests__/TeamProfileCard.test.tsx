@@ -77,29 +77,12 @@ describe('TeamProfileCard', () => {
 		expect(screen.queryByText('VerifiedTeamIcon')).not.toBeInTheDocument();
 	});
 
-	ffTest.on('platform_profilecard-enable_reporting_lines_label', 'with aria label enabled', () => {
-		test('displays a more indicator when there are more than 9 reports', () => {
-			renderComponent({ team: createTeam(10) });
-
-			const moreIndicator = screen.getByText('+2', { selector: 'button' });
-			expect(moreIndicator).toBeInTheDocument();
-			expect(moreIndicator).toHaveAttribute('aria-label', '+2 more members');
-		});
+	test('displays a more indicator when there are more than 9 reports', () => {
+		renderComponent({ team: createTeam(10) });
+		const moreIndicator = screen.getByText('+2', { selector: 'button' });
+		expect(moreIndicator).toBeInTheDocument();
+		expect(moreIndicator).toHaveAttribute('aria-label', '+2 more members');
 	});
-
-	ffTest.off(
-		'platform_profilecard-enable_reporting_lines_label',
-		'with aria label disabled',
-		() => {
-			test('displays a more indicator when there are more than 9 reports', () => {
-				renderComponent({ team: createTeam(10) });
-
-				const moreIndicator = screen.getByText('+2', { selector: 'button' });
-				expect(moreIndicator).toBeInTheDocument();
-				expect(moreIndicator).not.toHaveAttribute('aria-label');
-			});
-		},
-	);
 
 	ffTest.on(
 		'enable_team_profilecard_toggletip_a11y_fix',
@@ -130,4 +113,8 @@ describe('TeamProfileCard', () => {
 			});
 		},
 	);
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderComponent();
+		await expect(container).toBeAccessible();
+	});
 });

@@ -21,4 +21,10 @@ test.describe('heading', () => {
 
 		await expect(copyLinkTooltip).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		renderer.page.getByRole('heading');
+
+		await expect(renderer.page).toBeAccessible({ violationCount: 1 });
+	});
 });

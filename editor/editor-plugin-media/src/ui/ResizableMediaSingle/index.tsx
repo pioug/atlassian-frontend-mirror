@@ -28,6 +28,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type { MediaClientConfig } from '@atlaskit/media-core';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
@@ -49,9 +50,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			this.props.view.dom,
 			undefined,
 		),
-
-		// We default to true until we resolve the file type
-		isVideoFile: true,
+		isVideoFile: !fg('platform_editor_media_video_check_fix'),
 	};
 
 	componentDidUpdate(prevProps: Props) {

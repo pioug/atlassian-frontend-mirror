@@ -11,4 +11,11 @@ test.describe('Edge cases', () => {
 
 		await expect(page.getByTestId('inline-card-resolved-view')).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ page }) => {
+		page.visitExample('linking-platform', 'smart-card', 'vr-edge-case-redux-store-reset');
+		await expect(page.getByTestId('inline-card-resolved-view')).toBeVisible();
+
+		await expect(page).toBeAccessible();
+	});
 });

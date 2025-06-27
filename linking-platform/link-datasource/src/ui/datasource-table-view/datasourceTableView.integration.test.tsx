@@ -346,4 +346,26 @@ describe('2-way sync', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = render(
+			<DatasourceTableView
+				datasourceId="datasource"
+				parameters={{
+					cloudId: 'some-cloud-id',
+					jql: 'some-jql-query',
+				}}
+				visibleColumnKeys={['summary']}
+			/>,
+			{
+				wrapper: ({ children }) => (
+					<DatasourceExperienceIdProvider>
+						<SmartCardProvider>
+							<IntlProvider locale="en">{children}</IntlProvider>
+						</SmartCardProvider>
+					</DatasourceExperienceIdProvider>
+				),
+			},
+		);
+		await expect(container).toBeAccessible();
+	});
 });

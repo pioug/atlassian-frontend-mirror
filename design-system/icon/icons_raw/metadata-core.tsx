@@ -478,7 +478,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:182299',
+		id: '14020:9615',
 		usage: "Known usages: 'Sales' work type.",
 	},
 	changes: {
@@ -860,7 +860,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:165693',
+		id: '7594:13805',
 		usage: 'Known uses: closing modals, panels, and transient views; removing tags',
 	},
 	'cross-circle': {
@@ -1350,7 +1350,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:184801',
+		id: '7594:13825',
 		usage: 'Multi purpose - Known uses: labs in Jira.',
 	},
 	'focus-area': {
@@ -1360,7 +1360,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:182206',
+		id: '7594:13777',
 		usage: 'Reserved for representing Focus Areas.',
 	},
 	'folder-closed': {
@@ -1498,14 +1498,14 @@ const metadata: IconMetadata = {
 		usage: 'Multi purpose - Known uses: topics in Atlas, tags.',
 	},
 	headphones: {
-		keywords: ['audio', 'music'],
+		keywords: ['audio', 'music', 'headphones'],
 		categorization: 'multi-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
 		id: '7594:13847',
-		usage: 'Multi purpose - Known uses: music, audio.',
+		usage: 'Known uses: music, audio.',
 	},
 	heart: {
 		keywords: ['like', 'love', 'emoji category'],
@@ -1716,7 +1716,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:185555',
+		id: '7594:13856',
 		usage: 'Known uses: learnings in Atlas.',
 	},
 	link: {
@@ -1877,7 +1877,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:186293',
+		id: '14896:9684',
 		usage: 'Multi purpose',
 	},
 	markdown: {
@@ -2122,7 +2122,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:186937',
+		id: '14151:11257',
 		usage: 'Multi purpose - Known usages: Customize.',
 	},
 	'panel-left': {
@@ -2154,7 +2154,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:187030',
+		id: '14014:9421',
 		usage: "Known usages: 'Design task' work type.",
 	},
 	'people-group': {
@@ -2895,7 +2895,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:167627',
+		id: '13725:6450',
 		usage:
 			'Reserved for discovery statuses and messaging.\nFilled status icons provide higher visual contrast to draw attention to important information.',
 	},
@@ -2906,7 +2906,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:168459',
+		id: '7594:13822',
 		usage:
 			'Reserved for error statuses and messaging.\nFilled status icons provide higher visual contrast to draw attention to important information.',
 	},
@@ -2917,7 +2917,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:170025',
+		id: '7594:13853',
 		usage:
 			"Reserved for information statuses and messaging. \nFilled status icons provide higher visual contrast to draw attention to important information.\nFor information tooltips, use the unfilled 'information circle' icon.",
 	},
@@ -2928,7 +2928,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:177863',
+		id: '13677:9311',
 		usage:
 			'Reserved for success statuses and messaging. Filled status icons provide higher visual contrast to draw attention to important information.',
 	},
@@ -2939,7 +2939,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '21965:29795',
+		id: '21965:29793',
 		usage:
 			'Reserved for representing verified content.\nFilled status icons provide higher visual contrast draw attention to important information.',
 	},
@@ -2950,7 +2950,7 @@ const metadata: IconMetadata = {
 		team: 'Design System Team',
 		type: 'core',
 		status: 'published',
-		id: '20952:180363',
+		id: '7594:13944',
 		usage:
 			'Reserved for warning statuses.\nFilled status icons provide higher visual contrast to draw attention to important information.',
 	},

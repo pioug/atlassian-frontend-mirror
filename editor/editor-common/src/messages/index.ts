@@ -40,6 +40,7 @@ export { messages as blockControlsMessages } from './block-controls';
 export { mediaInsertMessages } from './media-insert';
 export { selectionExtensionMessages } from './selection-extension';
 export { selectionToolbarMessages } from './selection-toolbar';
+export { contextPanelMessages } from './context-panel';
 
 export default defineMessages({
 	layoutFixedWidth: {

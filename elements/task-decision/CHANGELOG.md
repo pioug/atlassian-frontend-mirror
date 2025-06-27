@@ -1,5 +1,13 @@
 # @atlaskit/task-decision
 
+## 19.2.5
+
+### Patch Changes
+
+- [#177773](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177773)
+  [`7c804d38fecdb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c804d38fecdb) -
+  ENGHEALTH-28090 - fix renderer task a11y label
+
 ## 19.2.4
 
 ### Patch Changes

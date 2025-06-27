@@ -600,6 +600,19 @@ describe('AISummaryBlock', () => {
 				const block = await screen.findByTestId(placeholderTestId);
 				expect(block).toBeInTheDocument();
 			});
+			it('should capture and report a11y violations', async () => {
+				jest.mocked(useAISummary).mockReturnValue({
+					state: { status: 'error', error: 'UNEXPECTED', content: '' },
+					summariseUrl: jest.fn(),
+				});
+
+				const { container } = renderAISummaryBlock({
+					placeholder,
+					status: SmartLinkStatus.Resolved,
+				});
+
+				await expect(container).toBeAccessible();
+			});
 		});
 	});
 });

@@ -172,4 +172,34 @@ describe('UnauthorisedView', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(
+			<SmartCardProvider>
+				<UnauthorisedView
+					cardState={
+						{
+							status: 'unauthorized',
+							details: {
+								...mocks.unauthorized,
+								data: {
+									...mocks.unauthorized.data,
+									generator: {
+										'@type': 'Application',
+										icon: {
+											'@type': 'Image',
+											url: 'https://some.icon.url',
+										},
+										name: '3P',
+									},
+								},
+							},
+						} as CardState
+					}
+					onAuthorize={() => {}}
+					url={url}
+				/>
+			</SmartCardProvider>,
+		);
+		await expect(container).toBeAccessible();
+	});
 });

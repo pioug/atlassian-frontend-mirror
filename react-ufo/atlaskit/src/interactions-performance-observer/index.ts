@@ -1,7 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getActiveInteraction } from '../interaction-metrics';
-import getElementName, { SelectorConfig } from '../vc/vc-observer-new/get-unique-element-name';
+import getElementName, { type SelectorConfig } from '../vc/vc-observer-new/get-unique-element-name';
 
 let performanceEventObserver: PerformanceObserver | undefined;
 

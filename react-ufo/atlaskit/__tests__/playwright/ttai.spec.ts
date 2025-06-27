@@ -65,10 +65,7 @@ test.describe('ReactUFO: TTAI (basic section below viewport)', () => {
 		});
 	}
 });
-test('should capture and report a11y violations', async ({
-	waitForReactUFOPayload,
-	page
-}) => {
+test('should capture and report a11y violations', async ({ waitForReactUFOPayload, page }) => {
 	const reactUFOPayload = await waitForReactUFOPayload();
 	expect(reactUFOPayload).toBeDefined();
 

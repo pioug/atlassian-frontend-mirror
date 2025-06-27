@@ -20,6 +20,7 @@ export {
 	hasAnnotationMark,
 	getRangeInlineNodeNames,
 	isEmptyTextSelection,
+	isEmptyTextSelectionRenderer,
 } from './annotation';
 export { getExtensionLozengeData } from './macro';
 export type { Params } from './macro';

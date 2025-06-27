@@ -68,5 +68,17 @@ test.describe('expand', () => {
 			await expect(expand).toHaveAttribute('aria-expanded', 'true');
 			await expect(nestedExpand).toHaveAttribute('aria-expanded', 'false');
 		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const expand = renderer.page.locator(
+				'[data-testid="expand-container-expand-expand-title-1"] > button',
+			);
+			const nestedExpand = renderer.page.locator(
+				'[data-testid="expand-container-nestedExpand-expand-title-2"] > button',
+			);
+			await expect(expand).toHaveAttribute('aria-expanded', 'false');
+			await expect(nestedExpand).toHaveAttribute('aria-expanded', 'false');
+			await expect(renderer.page).toBeAccessible();
+		});
 	});
 });

@@ -85,4 +85,8 @@ describe('DownloadAction', () => {
 			expect(tooltip).toHaveTextContent('Download this file into your local storage');
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup({ as: 'stack-item' });
+		await expect(container).toBeAccessible();
+	});
 });

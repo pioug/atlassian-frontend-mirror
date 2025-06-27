@@ -150,6 +150,13 @@ test.describe('table sorting', () => {
 			await expect(tableSortModel.sortButton('no-sort')).toBeVisible();
 			await expect(tableSortModel.sortButton('no-sort')).toHaveAttribute('aria-hidden', 'false');
 		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const tableSortModel = new TableSortModel(renderer.page);
+			await expect(tableSortModel.sortButton('no-sort')).toBeVisible();
+
+			await expect(renderer.page).toBeAccessible();
+		});
 	});
 
 	test.describe('with merged cells', () => {
@@ -168,6 +175,13 @@ test.describe('table sorting', () => {
 			await expect(tableSortModel.sortButton('not-allowed')).toBeVisible();
 			await expect(tableSortModel.sortButton('not-allowed')).toHaveAttribute('aria-hidden', 'true');
 		});
+
+		test('should capture and report a11y violations', async ({ renderer }) => {
+			const tableSortModel = new TableSortModel(renderer.page);
+			await expect(tableSortModel.sortButton('not-allowed')).toBeVisible();
+
+			await expect(renderer.page).toBeAccessible();
+		});
 	});
 
 	test.describe('when there is no header row', () => {
@@ -178,6 +192,12 @@ test.describe('table sorting', () => {
 
 			test('should not display sort button', async ({ renderer }) => {
 				await expect(renderer.page.getByRole('button')).toBeHidden();
+			});
+
+			test('should capture and report a11y violations', async ({ renderer }) => {
+				await expect(renderer.page.getByRole('button')).toBeHidden();
+
+				await expect(renderer.page).toBeAccessible({ violationCount: 1 });
 			});
 		});
 

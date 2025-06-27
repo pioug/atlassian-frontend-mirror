@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 119.1.0
+
+### Minor Changes
+
+- [#174989](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/174989)
+  [`98dd1fb8d1e0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98dd1fb8d1e0c) -
+  [ux] Keep focus on open text editor in comments panel when mouse hovers away
+
+## 119.0.7
+
+### Patch Changes
+
+- [#176907](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176907)
+  [`b3cdb5aa072a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3cdb5aa072a9) -
+  [ux] Adjust non-empty selection validation logic for the renderer, to disallow annotations on
+  empty block nodes like table cells and expands
+- Updated dependencies
+
 ## 119.0.6
 
 ### Patch Changes

@@ -1,54 +1,59 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag
+ */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { cssMap, jsx } from '@compiled/react';
 
 import WidthDetector from '@atlaskit/width-detector';
 
-const containerDivStyle: React.CSSProperties = {
-	boxSizing: 'border-box',
-	position: 'relative',
-	width: '100%',
-	height: 100,
-	maxWidth: 800,
-	margin: '10px 0',
-	padding: 10,
-	backgroundColor: '#333',
-};
+const containerMaxWidth = 800;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ResultBox = styled.div({
-	backgroundColor: 'rebeccapurple',
-	color: 'white',
-	justifyContent: 'center',
-	whiteSpace: 'nowrap',
+const styles = cssMap({
+	container: {
+		boxSizing: 'border-box',
+		position: 'relative',
+		width: '100%',
+		height: 100,
+		maxWidth: containerMaxWidth,
+		margin: '10px 0',
+		padding: 10,
+		backgroundColor: '#333',
+	},
+	box: {
+		backgroundColor: 'rebeccapurple',
+		color: 'white',
+		justifyContent: 'center',
+		whiteSpace: 'nowrap',
+	},
+	text: {
+		padding: 10,
+	},
 });
 
 let n = 0;
 
 export default function Example() {
 	return (
-		<ResultBox>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<p style={{ padding: 10 }}>Inside a parent with set height1</p>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<p style={{ padding: 10 }}>Inside a parent with set height2</p>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={containerDivStyle}>
+		<div css={styles.box}>
+			<p css={styles.text}>Inside a parent with set height1</p>
+			<p css={styles.text}>Inside a parent with set height2</p>
+			<div css={styles.container}>
 				<WidthDetector>
 					{(width?: Number) => {
 						n++;
 						return (
 							<>
-								<p>This div has a max width of {containerDivStyle.maxWidth}</p>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<p className="my-component-child">{width?.toString()}</p>
+								<p>This div has a max width of {containerMaxWidth}</p>
+								<p>{width?.toString()}</p>
 								<p>This component has been rendered {n} times.</p>
 							</>
 						);
 					}}
 				</WidthDetector>
 			</div>
-		</ResultBox>
+		</div>
 	);
 }

@@ -73,3 +73,5 @@ export {
 	getRandomHex,
 	getRandomTelemetryId,
 } from './utils/helpers';
+
+export { useStaticCallback } from './hooks';

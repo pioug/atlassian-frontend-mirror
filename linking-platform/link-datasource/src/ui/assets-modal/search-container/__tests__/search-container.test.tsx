@@ -143,4 +143,12 @@ describe('AssetsSearchContainer', () => {
 			expect(mockOnSearch).not.toHaveBeenCalled();
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = await renderAssetsSearchContainer({
+			aql: validAqlQuery,
+			objectSchema: undefined,
+			objectSchemas: undefined,
+		});
+		await expect(container).toBeAccessible({ violationCount: 1 });
+	});
 });

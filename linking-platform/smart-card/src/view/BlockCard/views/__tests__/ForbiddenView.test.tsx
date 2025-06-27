@@ -103,4 +103,8 @@ describe('ForbiddenView', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = setup();
+		await expect(container).toBeAccessible();
+	});
 });

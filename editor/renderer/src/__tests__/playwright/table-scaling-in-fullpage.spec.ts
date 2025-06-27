@@ -57,4 +57,12 @@ test.describe('numbered column table scaling in full page renderer', () => {
 		const afterWidth = (await table.boundingBox())?.width;
 		expect(afterWidth).toBeCloseTo(596, 0);
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		const table = renderer.page.getByRole('table');
+		const beforeWidth = (await table.boundingBox())?.width;
+		expect(beforeWidth).toBe(760);
+
+		await expect(renderer.page).toBeAccessible({ violationCount: 1 });
+	});
 });

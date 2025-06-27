@@ -57,6 +57,7 @@ export type MediaViewerErrorReason =
 	| 'videoviewer-missing-artefact'
 	| 'videoviewer-playback'
 	| 'docviewer-fetch-url'
+	| 'docviewer-content-fetch-failed'
 	| 'docviewer-fetch-pdf'
 	| 'codeviewer-fetch-src'
 	| 'codeviewer-load-src'

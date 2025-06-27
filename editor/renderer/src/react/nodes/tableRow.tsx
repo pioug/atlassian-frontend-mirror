@@ -2,7 +2,6 @@ import React from 'react';
 
 import { compose } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { RendererCssClassName } from '../../consts';
 
@@ -34,7 +33,7 @@ export default class TableRow extends React.Component<Props, State> {
 		const { allowColumnSorting, index: rowIndex } = this.props;
 
 		const isHeaderRow = !rowIndex;
-		if (allowColumnSorting && (!fg('cc_complexit_fe_improve_table_sorting') || isHeaderRow)) {
+		if (allowColumnSorting && isHeaderRow) {
 			childrenArray = childrenArray.map((child, index) => {
 				if (React.isValidElement(child)) {
 					const { tableOrderStatus } = this.props;

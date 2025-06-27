@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-gate-js-client",
-	"version": "5.3.3",
+	"version": "5.4.0",
 	"description": "Atlassians wrapper for the Statsig js-lite client.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,7 @@
 		"@babel/runtime": "^7.0.0",
 		"@statsig/client-core": "^3.17.2",
 		"@statsig/js-client": "^3.17.2",
-		"eventemitter2": "^4.1.0"
+		"eventemitter3": "^4.0.0"
 	},
 	"devDependencies": {
 		"@atlassiansox/analytics-web-client": "workspace:^",

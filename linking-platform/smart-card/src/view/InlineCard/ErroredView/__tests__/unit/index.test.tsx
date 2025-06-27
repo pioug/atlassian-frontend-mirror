@@ -89,5 +89,13 @@ describe('Errored view', () => {
 			render(<InlineCardErroredView message="Error" url="www.test.com" />);
 			expect(screen.queryByTestId('hover-card-trigger-wrapper')).not.toBeInTheDocument();
 		});
+		it('should capture and report a11y violations', async () => {
+			const { container } = render(
+				<IntlProvider locale={'en'}>
+					<InlineCardErroredView url={URL} message="Error" onRetry={jest.fn()} />
+				</IntlProvider>,
+			);
+			await expect(container).toBeAccessible();
+		});
 	});
 });

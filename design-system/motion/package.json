@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "5.1.4",
+	"version": "5.1.5",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

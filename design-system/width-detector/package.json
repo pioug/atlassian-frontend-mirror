@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/width-detector",
-	"version": "5.0.2",
+	"version": "5.0.3",
 	"description": "Wrapper for components that need to respond to width changes",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,8 +46,7 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
-		"@emotion/react": "^11.7.1",
-		"@emotion/styled": "^11.0.0",
+		"@compiled/react": "^0.18.3",
 		"@testing-library/react": "^13.4.0",
 		"@types/raf-schd": "^4.0.1",
 		"react-dom": "^18.2.0",

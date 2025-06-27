@@ -10,6 +10,7 @@ import {
 	I18NWrapper,
 	createStorybookMediaClientConfig,
 	createUploadMediaClientConfig,
+	videoMp4SaganAliensId,
 } from '@atlaskit/media-test-helpers';
 import { useCreateMockedMediaProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaProviderWithBinaries';
 import Button from '@atlaskit/button/new';
@@ -114,19 +115,12 @@ const MockedProvider = () => {
 	);
 };
 
+const identifiers: FileIdentifier[] = [videoMp4SaganAliensId];
+
 const BackendProvider = ({ canUpdateVideoCaptions }: { canUpdateVideoCaptions: boolean }) => {
 	const mediaClientConfig = canUpdateVideoCaptions
 		? createUploadMediaClientConfig()
 		: createStorybookMediaClientConfig();
-	const identifiers: FileIdentifier[] = [
-		{
-			// id: 'fe27a36f-0668-416f-b103-85b80aa372ba',
-			id: '40460091-f6d9-4526-b0dd-ea215e86c680',
-			mediaItemType: 'file',
-			// UNCOMMENT WHEN FILES ARE PROPERLY ADDED TO THE COLLECTION
-			// collectionName: 'MediaServicesSample',
-		},
-	];
 
 	return (
 		<MediaProvider mediaClientConfig={mediaClientConfig} mediaSettings={{ canUpdateVideoCaptions }}>
@@ -164,6 +158,7 @@ export default function () {
 					<BackendProvider key={`${reloadKey}`} canUpdateVideoCaptions={canUpdateVideoCaptions} />
 				)}
 			</I18NWrapper>
+			<br />
 		</MainWrapper>
 	);
 }

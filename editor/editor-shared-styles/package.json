@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-shared-styles",
-	"version": "3.4.8",
+	"version": "3.4.9",
 	"description": "Style values used in the editor/renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,9 +29,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_controls_increase_full_page_gutter": {
-			"type": "boolean"
-		},
-		"live_pages_content_jump_mitigation": {
 			"type": "boolean"
 		}
 	},

@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 12.3.0
+
+### Minor Changes
+
+- [#177492](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177492)
+  [`d7167fba38657`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7167fba38657) -
+  Added useStaticCallback hook to enable shared hook functionality
+
 ## 12.2.0
 
 ### Minor Changes

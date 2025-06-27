@@ -1,5 +1,28 @@
 # @atlaskit/media-ui
 
+## 28.5.3
+
+### Patch Changes
+
+- [#177475](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177475)
+  [`1aab7f41921a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aab7f41921a4) -
+  Refactored Media Player to fetch captions on request. Moved all captions logic to internal hook.
+- Updated dependencies
+
+## 28.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.5.1
+
+### Patch Changes
+
+- [#178059](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178059)
+  [`91c57d1a822b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91c57d1a822b1) -
+  updating import as type imports
+
 ## 28.5.0
 
 ### Minor Changes

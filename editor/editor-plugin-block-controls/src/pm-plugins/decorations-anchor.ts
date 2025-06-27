@@ -1,7 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -31,9 +30,7 @@ export const shouldDescendIntoNode = (node: PMNode) => {
 		if (
 			node.childCount === 1 &&
 			node.firstChild?.type.name === 'paragraph' &&
-			(fg('platform_editor_element_dnd_nested_fix_patch_6')
-				? node.firstChild.childCount === 0
-				: true)
+			node.firstChild.childCount === 0
 		) {
 			return false;
 		}

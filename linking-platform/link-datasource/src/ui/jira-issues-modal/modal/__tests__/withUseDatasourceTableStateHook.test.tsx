@@ -52,7 +52,7 @@ describe('integration test', () => {
 			getDatasourceData,
 		});
 
-		const { findByTestId, debug } = render(
+		const { findByTestId, debug, container } = render(
 			<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
 				<IntlProvider locale="en">
 					<SmartCardProvider client={new SmartLinkClient()}>
@@ -72,6 +72,7 @@ describe('integration test', () => {
 			findByTestId,
 			debug,
 			onAnalyticFireEvent,
+			container,
 		};
 	};
 
@@ -127,5 +128,9 @@ describe('integration test', () => {
 		await findByTestId('column-picker-popup--menu');
 		expect(onAnalyticFireEvent).toHaveBeenCalledTimes(4);
 		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(eventPayload, EVENT_CHANNEL);
+	});
+	it('should capture and report a11y violations', async () => {
+		const { container } = await setup();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -1,5 +1,14 @@
 # @atlaskit/media-test-helpers
 
+## 37.0.1
+
+### Patch Changes
+
+- [#177475](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177475)
+  [`0b6643d812ba0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b6643d812ba0) -
+  Updated export videoMp4SaganAliensId with new file id
+- Updated dependencies
+
 ## 37.0.0
 
 ### Patch Changes

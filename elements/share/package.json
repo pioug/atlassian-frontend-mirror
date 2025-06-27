@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "6.14.0",
+	"version": "6.15.0",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -79,7 +79,6 @@
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"enzyme": "^3.10.0",
-		"enzyme-adapter-react-16": "^1.15.1",
 		"react": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
@@ -143,7 +142,7 @@
 		"should-render-to-parent-should-be-true-people-and-": {
 			"type": "boolean"
 		},
-		"page_shared_event_from_share_dialogue": {
+		"jira_client_side_error_handled_track_event": {
 			"type": "boolean"
 		}
 	},

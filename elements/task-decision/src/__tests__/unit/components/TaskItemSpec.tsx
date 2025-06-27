@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { mount } from 'enzyme';
 import FabricAnalyticsListener, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { TaskItem } from '../../../';
@@ -17,9 +18,11 @@ describe('<TaskItem/>', () => {
 
 	it('should render children', () => {
 		const component = mount(
-			<TaskItem taskId="task-1">
-				Hello <b>world</b>
-			</TaskItem>,
+			<IntlProvider locale="en">
+				<TaskItem taskId="task-1">
+					Hello <b>world</b>
+				</TaskItem>
+			</IntlProvider>,
 		);
 		expect(component.find('b').length).toEqual(1);
 		expect(component.find('div[data-component="content"]').text()).toEqual('Hello world');
@@ -29,9 +32,11 @@ describe('<TaskItem/>', () => {
 		let contentRef: HTMLElement | null = null;
 		const handleContentRef = (ref: HTMLElement | null) => (contentRef = ref);
 		const component = mount(
-			<TaskItem taskId="task-id" contentRef={handleContentRef}>
-				Hello <b>world</b>
-			</TaskItem>,
+			<IntlProvider locale="en">
+				<TaskItem taskId="task-id" contentRef={handleContentRef}>
+					Hello <b>world</b>
+				</TaskItem>
+			</IntlProvider>,
 		);
 		expect(component.find('b').length).toEqual(1);
 		expect(contentRef).not.toEqual(null);
@@ -40,9 +45,11 @@ describe('<TaskItem/>', () => {
 
 	it('should disable input if disabled', () => {
 		const component = mount(
-			<TaskItem taskId="task-1" disabled={true}>
-				Hello <b>world</b>
-			</TaskItem>,
+			<IntlProvider locale="en">
+				<TaskItem taskId="task-1" disabled={true}>
+					Hello <b>world</b>
+				</TaskItem>
+			</IntlProvider>,
 		);
 		expect(component.find('input').prop('disabled')).toEqual(true);
 	});
@@ -51,9 +58,11 @@ describe('<TaskItem/>', () => {
 		it('should call onChange when checkbox is clicked', () => {
 			const spy = jest.fn();
 			const component = mount(
-				<TaskItem taskId="task-1" onChange={spy}>
-					Hello <b>world</b>
-				</TaskItem>,
+				<IntlProvider locale="en">
+					<TaskItem taskId="task-1" onChange={spy}>
+						Hello <b>world</b>
+					</TaskItem>
+				</IntlProvider>,
 			);
 			component.find('input').simulate('change');
 			expect(spy).toHaveBeenCalledWith('task-1', true);
@@ -63,7 +72,9 @@ describe('<TaskItem/>', () => {
 	describe('showPlaceholder', () => {
 		it('should render placeholder if task is empty', () => {
 			const component = mount(
-				<TaskItem taskId="task-1" showPlaceholder={true} placeholder="cheese" />,
+				<IntlProvider locale="en">
+					<TaskItem taskId="task-1" showPlaceholder={true} placeholder="cheese" />
+				</IntlProvider>,
 			);
 			const placeholder = component.find('span[data-component="placeholder"]');
 			expect(placeholder.text()).toEqual('cheese');
@@ -71,9 +82,11 @@ describe('<TaskItem/>', () => {
 
 		it('should not render placeholder if task is not empty', () => {
 			const component = mount(
-				<TaskItem taskId="task-1" showPlaceholder={true} placeholder="cheese">
-					Hello <b>world</b>
-				</TaskItem>,
+				<IntlProvider locale="en">
+					<TaskItem taskId="task-1" showPlaceholder={true} placeholder="cheese">
+						Hello <b>world</b>
+					</TaskItem>
+				</IntlProvider>,
 			);
 			expect(component.find('span[data-component="placeholder"]').length).toEqual(0);
 		});
@@ -82,9 +95,11 @@ describe('<TaskItem/>', () => {
 	describe('analytics', () => {
 		it('check action fires an event', () => {
 			const component = mount(
-				<FabricAnalyticsListener client={analyticsWebClientMock}>
-					<TaskItem taskId="task-1" appearance="inline" isDone={false} />
-				</FabricAnalyticsListener>,
+				<IntlProvider locale="en">
+					<FabricAnalyticsListener client={analyticsWebClientMock}>
+						<TaskItem taskId="task-1" appearance="inline" isDone={false} />
+					</FabricAnalyticsListener>
+				</IntlProvider>,
 			);
 			component.find('input').simulate('change');
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);
@@ -101,9 +116,11 @@ describe('<TaskItem/>', () => {
 
 		it('uncheck action fires an event', () => {
 			const component = mount(
-				<FabricAnalyticsListener client={analyticsWebClientMock}>
-					<TaskItem taskId="task-1" appearance="inline" isDone={true} />
-				</FabricAnalyticsListener>,
+				<IntlProvider locale="en">
+					<FabricAnalyticsListener client={analyticsWebClientMock}>
+						<TaskItem taskId="task-1" appearance="inline" isDone={true} />
+					</FabricAnalyticsListener>
+				</IntlProvider>,
 			);
 			component.find('input').simulate('change');
 			expect(analyticsWebClientMock.sendUIEvent).toHaveBeenCalledTimes(1);

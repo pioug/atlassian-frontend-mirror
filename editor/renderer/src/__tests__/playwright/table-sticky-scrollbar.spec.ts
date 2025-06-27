@@ -23,4 +23,11 @@ test.describe('Renderer - Table Sticky Scrollbar', () => {
 		const stickyScrollbar = renderer.page.locator(selectors.stickyScrollbar).last();
 		await expect(stickyScrollbar).toBeVisible();
 	});
+
+	test('should capture and report a11y violations', async ({ renderer }) => {
+		const stickyScrollbar = renderer.page.locator(selectors.stickyScrollbar).last();
+		await expect(stickyScrollbar).toBeVisible();
+
+		await expect(renderer.page).toBeAccessible({ violationCount: 1 });
+	});
 });

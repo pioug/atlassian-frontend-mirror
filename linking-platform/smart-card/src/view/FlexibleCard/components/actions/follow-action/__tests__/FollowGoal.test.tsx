@@ -107,4 +107,17 @@ describe('Follow Goal Action', () => {
 			});
 		});
 	});
+	it('should capture and report a11y violations', async () => {
+		const mockErrorCallback = jest.fn();
+		const mockOnClick = jest.fn().mockImplementation(() => {
+			throw new Error('Error');
+		});
+
+		const { container } = setup({
+			as: 'stack-item',
+			onError: mockErrorCallback,
+			onClick: mockOnClick,
+		});
+		await expect(container).toBeAccessible();
+	});
 });

@@ -107,7 +107,7 @@ import {
 	Wolf,
 } from '../assets';
 
-export const ANONYMOUS_ASSETS = <const>[
+export const ANONYMOUS_ASSETS = [
 	{ id: 'alligator', src: Crocodile, messageDescriptor: messages.alligator },
 	{ id: 'alpaca', src: Llama, messageDescriptor: messages.alpaca },
 	{ id: 'ape', src: Orangutan, messageDescriptor: messages.ape },
@@ -243,4 +243,4 @@ export const ANONYMOUS_ASSETS = <const>[
 	{ id: 'watermelon', src: Watermelon, messageDescriptor: messages.watermelon },
 	{ id: 'whale', src: Whale, messageDescriptor: messages.whale },
 	{ id: 'wolf', src: Wolf, messageDescriptor: messages.wolf },
-];
+] as const;

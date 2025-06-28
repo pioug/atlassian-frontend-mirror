@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 119.2.0
+
+### Minor Changes
+
+- [#178180](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178180)
+  [`50828d60b0bb8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50828d60b0bb8) -
+  Removes experiment to not render children of expand element until it gets expanded
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 119.1.0
 
 ### Minor Changes

@@ -1,8 +1,15 @@
-/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
-import React, { type InputHTMLAttributes } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type CSSProperties, type InputHTMLAttributes } from 'react';
 
-import Compiled, { inputCSS as compiledInputCSS } from '../compiled/components/input';
-import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
+import { css, cssMap, cx, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
+
+import { type CommonPropsAndClassName, type GroupBase } from '../types';
+import { cleanCommonProps, getStyleProps } from '../utils';
 
 interface InputSpecificProps<
 	Option = unknown,
@@ -42,13 +49,85 @@ export type InputProps<
 	Group extends GroupBase<Option> = GroupBase<Option>,
 > = InputSpecificProps<Option, IsMulti, Group>;
 
-export const inputCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	props: InputProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel => compiledInputCSS();
+export const inputCSS = () => ({});
+
+const inputStyles = cssMap({
+	root: {
+		display: 'inline-grid',
+		flex: '1 1 auto',
+		gridTemplateColumns: '0 min-content',
+		gridArea: '1 / 1 / 2 / 3',
+		'&::after': {
+			minWidth: '2px',
+			margin: 0,
+			padding: 0,
+			border: 0,
+			content: 'attr(data-value) " "',
+			font: 'inherit',
+			gridArea: '1 / 2',
+			outline: 0,
+			visibility: 'hidden',
+			whiteSpace: 'pre',
+		},
+		marginBlock: token('space.025'),
+		marginInline: token('space.025'),
+		paddingBlock: token('space.025'),
+		color: token('color.text'),
+	},
+	disabled: {
+		visibility: 'hidden',
+	},
+});
+
+const nativeInnputStyles = css({
+	width: '100%',
+	minWidth: '2px',
+	margin: 0,
+	padding: 0,
+	background: 0,
+	border: 0,
+	color: 'inherit',
+	font: 'inherit',
+	gridArea: '1 / 2',
+	opacity: 1,
+	outline: 0,
+});
+
+const hidden = css({
+	opacity: 0,
+});
 
 const Input = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: InputProps<Option, IsMulti, Group>,
-) => <Compiled {...props} />;
+) => {
+	const { cx: builtinCX, value, xcss } = props;
+	const { innerRef, isDisabled, isHidden, inputClassName, testId, ...innerProps } =
+		cleanCommonProps(props);
+	const dataId = testId ? `${testId}-select--input` : null;
+	const { css, className } = getStyleProps(props, 'input', { 'input-container': true });
+
+	return (
+		<div
+			css={[inputStyles.root, isDisabled && inputStyles.disabled]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={css as CSSProperties}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+			className={cx(className as any, xcss, '-Input')}
+			data-value={value || ''}
+			data-testid={dataId && `${dataId}-container`}
+		>
+			<input
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+				className={builtinCX({ input: true }, inputClassName, '-input')}
+				ref={innerRef}
+				css={[nativeInnputStyles, isHidden && hidden]}
+				disabled={isDisabled}
+				data-testid={dataId}
+				{...innerProps}
+			/>
+		</div>
+	);
+};
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default Input;

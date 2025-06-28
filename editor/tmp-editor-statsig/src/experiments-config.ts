@@ -360,14 +360,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-05-15
-	confluence_p2m_style_recalc_and_expand_joint_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_p2m_style_recalc_and_expand_joint_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-05-21
 	platform_editor_nodevisibility: createBooleanExperiment({
 		productKeys: {
@@ -470,5 +462,14 @@ export const editorExperimentsConfig = {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2025-06-24
+	confluence_whiteboards_quick_insert: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'confluence_whiteboards_quick_insert',
+		},
+		param: 'cohort',
+		values: ['control', 'test_blank', 'test_diagram'],
+		defaultValue: 'control',
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

@@ -1,3 +1,12 @@
+import type {
+	CollabEventPresenceData,
+	CollabTelepointerPayload,
+	CollabPresenceActivityChangePayload,
+	ProviderParticipant,
+	StepJson,
+	UserPermitType,
+} from '@atlaskit/editor-common/collab';
+
 import { disconnectedReasonMapper } from '../disconnected-reason-mapper';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
@@ -8,15 +17,8 @@ import type {
 	PresenceData,
 	PresencePayload,
 	TelepointerPayload,
+	FetchAnonymousAsset,
 } from '../types';
-import type {
-	CollabEventPresenceData,
-	CollabTelepointerPayload,
-	CollabPresenceActivityChangePayload,
-	ProviderParticipant,
-	StepJson,
-	UserPermitType,
-} from '@atlaskit/editor-common/collab';
 import type { BatchProps, GetUserType } from './participants-helper';
 import {
 	createParticipantFromPayload as enrichParticipant,
@@ -51,6 +53,7 @@ export class ParticipantsService {
 	private hasBatchFetchError: boolean = false;
 
 	/**
+	 * constructor
 	 *
 	 * @param analyticsHelper
 	 * @param participantsState
@@ -62,6 +65,7 @@ export class ParticipantsService {
 	 * @param getPresenceData
 	 * @param setUserId
 	 * @param getAIProviderActiveIds
+	 * @param fetchAnonymousAsset
 	 * @example
 	 */
 	constructor(
@@ -86,6 +90,7 @@ export class ParticipantsService {
 		private getPresenceData: () => PresenceData,
 		private setUserId: (id: string) => void,
 		private getAIProviderActiveIds?: () => string[],
+		private fetchAnonymousAsset?: FetchAnonymousAsset,
 	) {}
 
 	sendPresenceActivityChanged = () => {
@@ -155,6 +160,36 @@ export class ParticipantsService {
 		return previous.presenceActivity !== current.presenceActivity;
 	};
 
+	private handleAnonymousUser = async (payload: PresencePayload) => {
+		const { sessionId } = payload;
+
+		const previousParticipant = this.participantsState.getBySessionId(sessionId);
+		let asset;
+		let name = previousParticipant?.name ?? '';
+
+		if (!previousParticipant && this.fetchAnonymousAsset) {
+			try {
+				asset = await this.fetchAnonymousAsset(payload.sessionId);
+			} catch (error) {
+				this.analyticsHelper?.sendErrorEvent(error, 'Error while fetching anonymous assets');
+			}
+			name = asset?.name ?? name;
+		}
+
+		const participant = {
+			...payload,
+			lastActive: payload.timestamp,
+			name,
+			avatar: previousParticipant?.avatar ?? asset?.src ?? '',
+			email: '',
+			userId: UNIDENTIFIED,
+			isHydrated: true,
+		};
+
+		this.participantsState.setBySessionId(sessionId, participant);
+		this.emitPresence({ joined: [participant] }, 'handling updated anonymous participant');
+	};
+
 	/**
 	 * Carries out 3 things: 1) enriches the participant with user data, 2) updates the participantsState, 3) emits the presence event
 	 * @param payload Payload from incoming socket event
@@ -163,8 +198,8 @@ export class ParticipantsService {
 	private updateParticipantEager = async (payload: PresencePayload) => {
 		const { userId } = payload;
 
-		// If userId does not exist, does nothing here to prevent duplication.
-		if (!userId) {
+		if (!userId || userId === UNIDENTIFIED) {
+			await this.handleAnonymousUser(payload);
 			return;
 		}
 
@@ -217,24 +252,14 @@ export class ParticipantsService {
 	 * @param payload Payload from incoming socket event
 	 * @example
 	 */
-	private updateParticipantLazy = (payload: PresencePayload) => {
+	private updateParticipantLazy = async (payload: PresencePayload) => {
 		const { userId, sessionId } = payload;
 
 		// anonymous users always skip hydration but are marked as hydrated since we don't want to attempt to fetch data
 		// this can cause interesting behavior if batchProps.participantsLimit exists
 		// for example if limit = 5 and we've hydrated 5 real users and 2 anonymous users join, it'll look like we've hydrated 7 users
 		if (!userId || userId === UNIDENTIFIED) {
-			const participant = {
-				...payload,
-				lastActive: payload.timestamp,
-				name: '',
-				avatar: '',
-				email: '',
-				userId: UNIDENTIFIED,
-				isHydrated: true,
-			};
-			this.participantsState.setBySessionId(sessionId, participant);
-			this.emitPresence({ joined: [participant] }, 'handling updated anonymous participant lazy');
+			await this.handleAnonymousUser(payload);
 			return;
 		}
 

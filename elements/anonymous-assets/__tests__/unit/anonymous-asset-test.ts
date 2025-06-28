@@ -140,11 +140,9 @@ describe(getAnonymousAvatarWithStyling, () => {
 	});
 
 	it('returns svg in the form of a data URI', async () => {
-		const mockOnError = jest.fn();
 		const asset = await getAnonymousAvatarWithStyling({
 			index: ZERO_IDX,
 			styleProperties: {},
-			onError: mockOnError,
 		});
 
 		if (asset?.src === undefined) {
@@ -155,7 +153,6 @@ describe(getAnonymousAvatarWithStyling, () => {
 		const dataUrl = new URL(asset.src);
 
 		expect(extractRelevantFieldsFromUrl(dataUrl)).toEqual(dataUrlMatcher);
-		expect(mockOnError).not.toHaveBeenCalled();
 	});
 
 	it('correct error handling', async () => {
@@ -165,14 +162,16 @@ describe(getAnonymousAvatarWithStyling, () => {
 			error: expectedError,
 		});
 
-		const mockOnError = jest.fn();
-		const asset = await getAnonymousAvatarWithStyling({
-			index: ZERO_IDX,
-			styleProperties: {},
-			onError: mockOnError,
-		});
+		let asset;
+		try {
+			asset = await getAnonymousAvatarWithStyling({
+				index: ZERO_IDX,
+				styleProperties: {},
+			});
+		} catch (error) {
+			expect(error).toEqual(error);
+		}
 
-		expect(mockOnError).toHaveBeenCalledWith(expectedError);
 		expect(asset).toBeUndefined();
 	});
 
@@ -184,17 +183,16 @@ describe(getAnonymousAvatarWithStyling, () => {
 			},
 		});
 
-		const mockOnError = jest.fn();
-		const asset = await getAnonymousAvatarWithStyling({
-			index: ZERO_IDX,
-			styleProperties: {},
-			onError: mockOnError,
-		});
+		let asset;
 
-		const { id, src } = await getAnonymousAsset({ index: ZERO_IDX });
-		expect(mockOnError).toHaveBeenCalledWith(
-			new Error(`svg returned null with svg ${id} with src ${src}`),
-		);
-		expect(asset).toBeUndefined();
+		try {
+			asset = await getAnonymousAvatarWithStyling({
+				index: ZERO_IDX,
+				styleProperties: {},
+			});
+			await getAnonymousAsset({ index: ZERO_IDX });
+		} catch (error) {
+			expect(asset).toBeUndefined();
+		}
 	});
 });

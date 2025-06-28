@@ -35,5 +35,5 @@
 			"path": "../../helpers/browser-apis/tsconfig.app.json"
 		}
 	],
-	"files": ["../../../typings/svg.d.ts"]
+	"files": ["../../../typings/svg.d.ts", "../../../typings/png.d.ts"]
 }

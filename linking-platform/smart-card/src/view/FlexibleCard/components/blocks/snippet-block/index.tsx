@@ -31,6 +31,7 @@ const SnippetBlock = ({
 	testId = 'smart-block-snippet',
 	text,
 	isHidden = false,
+	showFooter = true,
 	...blockProps
 }: SnippetBlockProps) => {
 	const context = fg('cc-ai-linking-platform-snippet-renderer')
@@ -104,6 +105,7 @@ const SnippetBlock = ({
 					cloudId={context?.meta?.tenantId ?? ''}
 					maxLines={snippetMaxLines}
 					isHidden={isHidden}
+					showFooter={showFooter}
 				/>
 			) : (
 				snippet

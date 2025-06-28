@@ -1,8 +1,8 @@
-import type { AnonymousAsset } from '../../types';
+import type { AnonymousAsset, GetAnonymousAvatarWithStylingProps } from '../../types';
 
 import { ANONYMOUS_ASSETS } from './anonymous-assets';
 import { getIntl } from './intl';
-import { fetchWithRetry, type FetchWithRetryParams } from './retry';
+import { fetchWithRetry } from './retry';
 
 export const encodeSvgToDataUri = (svgRoot: Element) => {
 	// by this point we have a safe SVG string: we can safely string interpolate to encode as a
@@ -44,15 +44,6 @@ export const svgStringToDomDocument = (svgString: string) => {
 	return new DOMParser().parseFromString(svgString, 'image/svg+xml');
 };
 
-type GetAnonymousAvatarWithStylingProps = {
-	/** key value pair of additional styling to apply to svg. Key is expected to be kebab-case */
-	styleProperties: Record<string, string>;
-	/** The optional index to specify which anonymous asset to select. If none is provided, a random index will be selected */
-	index?: number;
-	/** callback for error handling **/
-	onError?(error: Error): void;
-} & Omit<FetchWithRetryParams, 'url' | 'shouldRetryOnApiError'>;
-
 /**
  * Use this if custom styling needs to be applied to the svg element (such as background-color)
  * Loads a svg -> converts to a svg dom element -> applies styling -> converts to base64 encoded image
@@ -68,19 +59,19 @@ export const getAnonymousAvatarWithStyling = async (
 	const response = await fetchWithRetry({
 		url: src,
 		shouldRetryOnApiError: true,
-		retries: 3, // Maximum 3 retries
+		retries: props.retries || 3, // Maximum 3 retries
+		options: props.options,
+		baseDelay: props.baseDelay,
+		maxDelay: props.maxDelay,
 	});
 
 	const svgString = await response.result?.text();
 
 	if (!response.success) {
-		const error = response.error ?? new Error(`Error while fetching svg ${id} with src ${src}`);
-		props.onError?.(error);
-		return undefined;
+		throw new Error(`Error while fetching svg ${id} with src ${src}`);
 	}
 	if (!svgString) {
-		props.onError?.(new Error(`svg returned null with svg ${id} with src ${src}`));
-		return undefined;
+		throw new Error(`svg returned null with svg ${id} with src ${src}`);
 	}
 
 	const doc = svgStringToDomDocument(svgString);

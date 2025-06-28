@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 3.4.0
+
+### Minor Changes
+
+- [#176618](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176618)
+  [`3dc0f901305b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dc0f901305b0) -
+  [ux] added a showFooter prop to hide/show the default AI footer in snippet block
+
 ## 3.3.2
 
 ### Patch Changes

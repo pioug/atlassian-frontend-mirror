@@ -168,6 +168,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			this.getPresenceData,
 			this.setUserId,
 			this.getAIProviderActiveIds,
+			this.config.fetchAnonymousAsset,
 		);
 		this.metadataService = new MetadataService(this.emitCallback, this.channel.sendMetadata);
 		this.namespaceService = new NamespaceService();

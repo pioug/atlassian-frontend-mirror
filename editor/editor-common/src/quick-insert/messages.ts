@@ -66,4 +66,9 @@ export const messages = defineMessages({
 		defaultMessage: 'Atlassian Intelligence',
 		description: 'AI',
 	},
+	featuredWhiteboardDescription: {
+		id: 'fabric.editor.elementbrowser.featured.whiteboard.description',
+		defaultMessage: 'Use a whiteboard to add visuals to your page',
+		description: 'Displayed as the description for a featured whiteboard insert action',
+	},
 });

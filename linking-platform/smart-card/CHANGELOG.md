@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 38.17.0
+
+### Minor Changes
+
+- [#176618](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176618)
+  [`3dc0f901305b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dc0f901305b0) -
+  [ux] added a showFooter prop to hide/show the default AI footer in snippet block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.16.2
 
 ### Patch Changes

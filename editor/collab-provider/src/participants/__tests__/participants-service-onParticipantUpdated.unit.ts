@@ -162,14 +162,35 @@ describe('onParticpantUpdated updateParticipantEager', () => {
 		});
 	});
 
-	describe('when no userId provided', () => {
-		const payloadWithNoId = { ...payload, userId: undefined };
-		const participantsService = participantsServiceConstructor({ emit });
+	describe('when no userId or anonymous is provided', () => {
+		test.each([['unidentified'], [undefined]])(
+			'should call emit for anonymous with userId=%s',
+			async (userId) => {
+				const participantsService = participantsServiceConstructor({
+					emit,
+				});
+				const spyBatchFetchUsers = jest.spyOn(participantsService, 'batchFetchUsers');
 
-		it('should not call emit', async () => {
-			await participantsService.onParticipantUpdated(payloadWithNoId);
-			expect(emit).not.toBeCalled();
-		});
+				await participantsService.onParticipantUpdated({
+					...payload,
+					userId,
+				});
+				expect(emit).toHaveBeenCalledWith('presence', {
+					joined: [
+						{
+							...payload,
+							lastActive: payload.timestamp,
+							name: '',
+							avatar: '',
+							email: '',
+							userId: 'unidentified',
+							isHydrated: true,
+						},
+					],
+				});
+				expect(spyBatchFetchUsers).not.toHaveBeenCalled();
+			},
+		);
 	});
 });
 

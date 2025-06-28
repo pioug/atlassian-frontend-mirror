@@ -109,4 +109,5 @@ export type AISnippetRendererProps = BaseSnippetRendererProps & {
 	contentId: string;
 	contentType: string;
 	cloudId: string;
+	showFooter?: boolean;
 };

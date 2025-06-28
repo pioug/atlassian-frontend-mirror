@@ -1,4 +1,6 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import type { AnonymousAsset } from '@atlaskit/anonymous-assets';
+
 import type { Manager, Socket as SocketIOSocket } from 'socket.io-client';
 import type { InternalError } from './errors/internal-errors';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -40,6 +42,11 @@ export interface InitialDraft {
 	metadata?: Metadata;
 }
 
+/**
+ * id should be presenceId or sessionId
+ */
+export type FetchAnonymousAsset = (id: string | undefined) => Promise<AnonymousAsset | undefined>;
+
 export interface Config {
 	url: string;
 	documentAri: string;
@@ -55,6 +62,7 @@ export interface Config {
 		analyticsHelper?: AnalyticsHelper,
 	) => SocketIOSocket;
 	batchProps?: BatchProps;
+	fetchAnonymousAsset?: FetchAnonymousAsset;
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated: Use promise based getAnalyticsWebClient instead

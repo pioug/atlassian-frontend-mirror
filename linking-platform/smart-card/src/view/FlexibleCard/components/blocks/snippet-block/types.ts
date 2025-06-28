@@ -16,4 +16,9 @@ export type SnippetBlockProps = {
 	 * The snippet block is rendered hidden at times, this just informs the component and the snippet renderer
 	 */
 	isHidden?: boolean;
+
+	/**
+	 * Whether to show the footer of the snippet block.
+	 */
+	showFooter?: boolean;
 } & BlockProps;

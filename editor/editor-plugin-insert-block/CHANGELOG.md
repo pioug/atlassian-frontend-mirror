@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 3.4.0
+
+### Minor Changes
+
+- [#176604](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/176604)
+  [`65c00b32defac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65c00b32defac) -
+  [ux] adding functionality to feature insert whiteboard options at the top of the quick insert menu
+
 ## 3.3.1
 
 ### Patch Changes

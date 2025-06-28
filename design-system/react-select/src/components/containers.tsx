@@ -1,17 +1,16 @@
-/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type CSSProperties, type ReactNode } from 'react';
+
+import { css, cssMap, cx, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
-import {
-	containerCSS as compiledCSS,
-	IndicatorsContainer as CompiledIndicatorsContainer,
-	indicatorsContainerCSS as compiledIndicatorsContainerCSS,
-	SelectContainer as CompiledSelectContainer,
-	ValueContainer as CompiledValueContainer,
-	valueContainerCSS as compiledValueContainerCSS,
-} from '../compiled/components/containers';
-import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
+import { type CommonPropsAndClassName, type GroupBase } from '../types';
+import { getStyleProps } from '../utils';
 
 // ==============================
 // Root Container
@@ -36,19 +35,56 @@ export interface ContainerProps<
 	 */
 	innerProps: {};
 }
-export const containerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	props: ContainerProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel => compiledCSS();
+export const containerCSS = () => ({});
+
+const containerStyles = cssMap({
+	default: {
+		position: 'relative',
+		font: token('font.body'),
+		pointerEvents: 'all',
+	},
+	rtl: {
+		direction: 'rtl',
+	},
+	disabled: {
+		cursor: 'not-allowed',
+	},
+	ff_safari_input_fix: {
+		font: token('font.body.large'),
+		'@media (min-width: 30rem)': {
+			font: token('font.body'),
+		},
+	},
+});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const SelectContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ContainerProps<Option, IsMulti, Group>,
-) =>
-	fg('compiled-react-select') ? (
-		<CompiledSelectContainer {...props} />
-	) : (
-		<CompiledSelectContainer {...props} />
+) => {
+	const { children, innerProps, isDisabled, isRtl, xcss } = props;
+	const { className, css } = getStyleProps(props, 'container', {
+		'--is-disabled': isDisabled,
+		'--is-rtl': isRtl,
+	});
+
+	return (
+		<div
+			css={[
+				fg('compiled-react-select') ? containerStyles.default : containerStyles.default,
+				isRtl && containerStyles.rtl,
+				isDisabled && containerStyles.disabled,
+				fg('platform_design_system_team_safari_input_fix') && containerStyles.ff_safari_input_fix,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+			className={cx(className as any, xcss, '-container')}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={css as CSSProperties}
+			{...innerProps}
+		>
+			{children}
+		</div>
 	);
+};
 
 // ==============================
 // Value Container
@@ -73,14 +109,68 @@ export interface ValueContainerProps<
 	 */
 	isCompact?: boolean;
 }
-export const valueContainerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	props: ValueContainerProps<Option, IsMulti, Group>,
-): CSSObjectWithLabel => compiledValueContainerCSS();
+export const valueContainerCSS = () => ({});
+const valueContainerStyles = cssMap({
+	default: {
+		alignItems: 'center',
+		display: 'grid',
+		flex: 1,
+		flexWrap: 'wrap',
+		WebkitOverflowScrolling: 'touch',
+		position: 'relative',
+		overflow: 'hidden',
+		paddingTop: token('space.025'),
+		paddingRight: token('space.075'),
+		paddingBottom: token('space.025'),
+		paddingLeft: token('space.075'),
+	},
+	flex: {
+		display: 'flex',
+	},
+	compact: {
+		paddingTop: token('space.0'),
+		paddingRight: token('space.075'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.075'),
+	},
+});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ValueContainer = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ValueContainerProps<Option, IsMulti, Group>,
-) => <CompiledValueContainer {...props} />;
+) => {
+	const {
+		children,
+		innerProps,
+		isMulti,
+		hasValue,
+		isCompact,
+		xcss,
+		selectProps: { controlShouldRenderValue },
+	} = props;
+
+	const { css, className } = getStyleProps(props, 'valueContainer', {
+		'value-container': true,
+		'value-container--is-multi': isMulti,
+		'value-container--has-value': hasValue,
+	});
+	return (
+		<div
+			css={[
+				valueContainerStyles.default,
+				isMulti && hasValue && controlShouldRenderValue && valueContainerStyles.flex,
+				isCompact && valueContainerStyles.compact,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+			className={cx(className as any, xcss, '-ValueContainer')}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={css as CSSProperties}
+			{...innerProps}
+		>
+			{children}
+		</div>
+	);
+};
 
 // ==============================
 // Indicator Container
@@ -102,7 +192,15 @@ export interface IndicatorsContainerProps<
 	innerProps?: {};
 }
 
-export const indicatorsContainerCSS = (): CSSObjectWithLabel => compiledIndicatorsContainerCSS();
+export const indicatorsContainerCSS = () => ({});
+
+const indicatorContainerStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	flexShrink: 0,
+	alignSelf: 'stretch',
+	paddingInlineEnd: token('space.050'),
+});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IndicatorsContainer = <
@@ -111,4 +209,21 @@ export const IndicatorsContainer = <
 	Group extends GroupBase<Option>,
 >(
 	props: IndicatorsContainerProps<Option, IsMulti, Group>,
-) => <CompiledIndicatorsContainer {...props} />;
+) => {
+	const { children, innerProps, xcss } = props;
+	const { css, className } = getStyleProps(props, 'indicatorsContainer', {
+		indicators: true,
+	});
+	return (
+		<div
+			css={indicatorContainerStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={css as CSSProperties}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+			className={cx(className as any, xcss, '-IndicatorsContainer')}
+			{...innerProps}
+		>
+			{children}
+		</div>
+	);
+};

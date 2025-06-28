@@ -42,6 +42,9 @@
 			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
 		},
 		{
+			"path": "../../elements/anonymous-assets/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{

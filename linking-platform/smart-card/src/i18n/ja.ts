@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': '更新日: {context}',
   'fabric.linking.modified_on_relative': '更新日: {context}',
   'fabric.linking.more_actions': 'その他のアクション',
-  'fabric.linking.more_information_about_this_work_item': 'この作業項目に関する詳細情報',
   'fabric.linking.no_access_title': '{product} に参加してこのコンテンツを閲覧する',
   'fabric.linking.not_found_description': 'ページが存在しないか、このリンクの追加後に変更された可能性があります。',
   'fabric.linking.not_found_title': 'この {product} のページは表示できません',

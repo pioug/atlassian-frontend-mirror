@@ -116,7 +116,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Bijgewerkt op {context}',
   'fabric.linking.modified_on_relative': 'Bijgewerkt: {context}',
   'fabric.linking.more_actions': 'Meer acties',
-  'fabric.linking.more_information_about_this_work_item': 'Meer informatie over dit werkitem',
   'fabric.linking.no_access_title': 'Word lid van {product} om deze inhoud te bekijken',
   'fabric.linking.not_found_description':
     'Deze pagina bestaat niet of is mogelijk gewijzigd nadat deze link is toegevoegd.',

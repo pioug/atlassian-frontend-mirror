@@ -458,7 +458,7 @@ export default {
   'fabric.editor.failed_to_upload': 'Không thể tải lên',
   'fabric.editor.feedbackDialog': 'Đưa ra phản hồi',
   'fabric.editor.feedbackDialog.description':
-    'Cho chúng tôi biết về trải nghiệm của bạn khi sử dụng trình chỉnh sửa mới',
+    'Cho chúng tôi biết về trải nghiệm của bạn khi sử dụng trình chỉnh sửa đám mây',
   'fabric.editor.find': 'Tìm kiếm',
   'fabric.editor.findNext': 'Tìm tiếp theo',
   'fabric.editor.findPrevious': 'Tìm trước đó',

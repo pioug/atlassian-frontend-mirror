@@ -116,7 +116,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Opdateret {context}',
   'fabric.linking.modified_on_relative': 'Opdateret: {context}',
   'fabric.linking.more_actions': 'Flere handlinger',
-  'fabric.linking.more_information_about_this_work_item': 'Flere oplysninger om denne sag',
   'fabric.linking.no_access_title': 'Deltag i {product} for at se dette indhold',
   'fabric.linking.not_found_description':
     'Siden findes ikke, eller den kan være ændret, efter at linket blev tilføjet.',

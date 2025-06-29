@@ -116,7 +116,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Обновлено {context}',
   'fabric.linking.modified_on_relative': 'Обновлено: {context}',
   'fabric.linking.more_actions': 'Другие действия',
-  'fabric.linking.more_information_about_this_work_item': 'Дополнительные сведения о задаче',
   'fabric.linking.no_access_title': 'Присоединитесь к {product}, чтобы просмотреть контент',
   'fabric.linking.not_found_description': 'Страница не существует или была изменена после добавления ссылки.',
   'fabric.linking.not_found_title': 'Невозможно показать эту страницу {product}',

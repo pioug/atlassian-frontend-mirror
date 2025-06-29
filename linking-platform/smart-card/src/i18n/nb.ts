@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Oppdatert {context}',
   'fabric.linking.modified_on_relative': 'Oppdatert {context}',
   'fabric.linking.more_actions': 'Flere handlinger',
-  'fabric.linking.more_information_about_this_work_item': 'Mer informasjon om denne arbeidsoppgaven',
   'fabric.linking.no_access_title': 'Bli med i {product} for å se dette innholdet',
   'fabric.linking.not_found_description':
     'Siden finnes ikke, eller den kan ha blitt endret siden denne koblingen ble lagt til.',

@@ -339,6 +339,7 @@ export default {
   'fabric.editor.ai.toolbar.titleText': 'Atlassian Intelligence',
   'fabric.editor.ai.toolbar.tryAI.title': 'Isprobajte AI',
   'fabric.editor.ai.toolbar.tryAI.tooltip': 'Otvorite Atlassian Intelligence',
+  'fabric.editor.ai.toolbar.tryAI.tooltip.quickCommand': "Pitajte AI {key}+'",
   'fabric.editor.alignCenter': 'Poravnaj na sredinu',
   'fabric.editor.alignImageCenter': 'Poravnaj na sredinu',
   'fabric.editor.alignImageLeft': 'Poravnaj levo',

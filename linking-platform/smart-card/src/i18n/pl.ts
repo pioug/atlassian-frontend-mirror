@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Zaktualizowano {context}',
   'fabric.linking.modified_on_relative': 'Zaktualizowano {context}',
   'fabric.linking.more_actions': 'Więcej czynności',
-  'fabric.linking.more_information_about_this_work_item': 'Więcej informacji o tym zgłoszeniu',
   'fabric.linking.no_access_title': 'Dołącz do {product}, aby wyświetlić tę treść',
   'fabric.linking.not_found_description': 'Strona nie istnieje lub mogła ulec zmianie po dodaniu tego łącza.',
   'fabric.linking.not_found_title': 'Nie można wyświetlić tej strony {product}',

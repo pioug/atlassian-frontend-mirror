@@ -106,7 +106,6 @@ export default {
   'fabric.linking.modified_on_absolute': '更新於 {context}',
   'fabric.linking.modified_on_relative': '更新時間：{context}',
   'fabric.linking.more_actions': '更多動作',
-  'fabric.linking.more_information_about_this_work_item': '深入了解此工作項目',
   'fabric.linking.no_access_title': '加入 {product} 以檢視此內容',
   'fabric.linking.not_found_description': '該頁面不存在，或在新增此連結後可能已變更。',
   'fabric.linking.not_found_title': '我們無法向您顯示此 {product} 頁面',

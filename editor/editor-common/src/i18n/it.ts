@@ -264,6 +264,7 @@ export default {
   'fabric.editor.ai.toolbar.titleText': 'Atlassian Intelligence',
   'fabric.editor.ai.toolbar.tryAI.title': 'Prova AI',
   'fabric.editor.ai.toolbar.tryAI.tooltip': 'Apri Atlassian Intelligence',
+  'fabric.editor.ai.toolbar.tryAI.tooltip.quickCommand': "Chiedi all'intelligenza artificiale {key}+'",
   'fabric.editor.alignCenter': 'Allinea al centro',
   'fabric.editor.alignImageCenter': 'Allinea al centro',
   'fabric.editor.alignImageLeft': 'Allinea a sinistra',

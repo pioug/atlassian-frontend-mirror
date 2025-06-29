@@ -472,7 +472,7 @@ export default {
   'fabric.editor.externalMediaFile': 'Externí multimediální soubor',
   'fabric.editor.failed_to_upload': 'Nahrání se nezdařilo',
   'fabric.editor.feedbackDialog': 'Poskytnout zpětnou vazbu',
-  'fabric.editor.feedbackDialog.description': 'Podělte se s námi o pocity z práce v novém editoru',
+  'fabric.editor.feedbackDialog.description': 'Podělte se s námi o pocity z práce v cloudovém editoru.',
   'fabric.editor.find': 'Najít',
   'fabric.editor.findNext': 'Najít další',
   'fabric.editor.findPrevious': 'Najít předchozí',

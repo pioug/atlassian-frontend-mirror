@@ -561,7 +561,7 @@ export default {
   'fabric.editor.externalMediaFile': 'Zunanja predstavnostna datoteka',
   'fabric.editor.failed_to_upload': 'Nalaganje ni uspelo',
   'fabric.editor.feedbackDialog': 'Pošlji povratne informacije',
-  'fabric.editor.feedbackDialog.description': 'Povejte nam o svoji izkušnji z novim urejevalnikom',
+  'fabric.editor.feedbackDialog.description': 'Povejte nam o svoji izkušnji z urejevalnikom Cloud',
   'fabric.editor.find': 'Poišči',
   'fabric.editor.findNext': 'Poišči naslednjo',
   'fabric.editor.findPrevious': 'Poišči prejšnjo',

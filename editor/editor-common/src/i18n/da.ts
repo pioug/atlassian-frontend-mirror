@@ -473,7 +473,7 @@ export default {
   'fabric.editor.externalMediaFile': 'Ekstern mediefil',
   'fabric.editor.failed_to_upload': 'Upload mislykkedes',
   'fabric.editor.feedbackDialog': 'Giv feedback',
-  'fabric.editor.feedbackDialog.description': 'Fortæl os om din oplevelse med den nye editor.',
+  'fabric.editor.feedbackDialog.description': 'Fortæl os om din oplevelse med skyeditoren',
   'fabric.editor.find': 'Find',
   'fabric.editor.findNext': 'Find næste',
   'fabric.editor.findPrevious': 'Find forrige',

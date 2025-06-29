@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Ažurirano {context}',
   'fabric.linking.modified_on_relative': 'Ažurirano {context}',
   'fabric.linking.more_actions': 'Više radnji',
-  'fabric.linking.more_information_about_this_work_item': 'Više informacija o ovom radnom predmetu',
   'fabric.linking.no_access_title': 'Pridruži se {product} za prikaz ovog sadržaja',
   'fabric.linking.not_found_description': 'Stranica ne postoji ili se možda promijenila nakon dodavanja ove poveznice.',
   'fabric.linking.not_found_title': 'Ne možemo ti pokazati ovu {product} stranicu',

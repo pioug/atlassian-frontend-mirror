@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'อัปเดตแล้วเมื่อ {context}',
   'fabric.linking.modified_on_relative': 'อัปเดต {context} แล้ว',
   'fabric.linking.more_actions': 'การดำเนินการเพิ่มเติม',
-  'fabric.linking.more_information_about_this_work_item': 'ข้อมูลเพิ่มเติมเกี่ยวกับตั๋วนี้',
   'fabric.linking.no_access_title': 'เข้าร่วม {product} เพื่อดูเนื้อหานี้',
   'fabric.linking.not_found_description': 'หน้าข้อมูลนี้ไม่มีอยู่ หรืออาจมีการเปลี่ยนแปลงหลังจากมีการเพิ่มลิงก์นี้',
   'fabric.linking.not_found_title': 'เราไม่สามารถแสดงหน้า {product} นี้ให้คุณดูได้',

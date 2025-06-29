@@ -482,7 +482,7 @@ export default {
   'fabric.editor.failed_to_upload': 'A feltöltés nem sikerült',
   'fabric.editor.feedbackDialog': 'Visszajelzés küldése',
   'fabric.editor.feedbackDialog.description':
-    'Számolj be nekünk az új szerkesztő használata során szerzett tapasztalataidról',
+    'Számolj be nekünk a felhőbeli szerkesztő használata során szerzett tapasztalataidról',
   'fabric.editor.find': 'Keresés',
   'fabric.editor.findNext': 'Következő keresése',
   'fabric.editor.findPrevious': 'Előző keresése',

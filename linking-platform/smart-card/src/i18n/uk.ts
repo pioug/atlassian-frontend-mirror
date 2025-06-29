@@ -118,7 +118,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Оновлено {context}',
   'fabric.linking.modified_on_relative': 'Оновлено {context}',
   'fabric.linking.more_actions': 'Інші дії',
-  'fabric.linking.more_information_about_this_work_item': 'Докладніше про цей елемент завдання',
   'fabric.linking.no_access_title': 'Приєднайтеся до {product}, щоб переглянути цей вміст',
   'fabric.linking.not_found_description': 'Сторінка не існує або, можливо, змінилася після додавання цього посилання.',
   'fabric.linking.not_found_title': 'Не вдається відобразити цю сторінку {product}',

@@ -123,8 +123,6 @@ export default {
   'fabric.linking.modified_on_absolute': '⁣⁢Updated on {context}⁫⁭⁡⁫⁯⁠‌؜‌؜⁠⁯⁭⁫⁠⁭⁪⁫⁭؜⁬⁣⁤',
   'fabric.linking.modified_on_relative': '⁣⁢Updated {context}⁠⁪⁯‌⁯؜⁮‍⁯⁬‌⁪؜‌⁬⁫⁮؜⁪⁬⁠⁭⁬‌⁣⁤',
   'fabric.linking.more_actions': '⁣⁢More actions⁮‌⁭⁡‌⁭‌‌⁬⁪⁯⁭‍⁠⁯‍⁪⁡⁮⁬؜‌⁣⁤',
-  'fabric.linking.more_information_about_this_work_item':
-    '⁣⁢More information about this work item⁯⁪⁭؜⁬⁭⁮⁮⁪‍⁪‍‍؜⁠⁪‌⁭⁫‌⁮⁡⁪⁠⁮‌⁭⁣⁤',
   'fabric.linking.no_access_title': '⁣⁢Join {product} to view this content⁮⁫⁫⁫⁭‌⁯⁫⁠‍⁭⁯⁬⁭⁬⁠‌؜⁯⁣⁤',
   'fabric.linking.not_found_description':
     "⁣⁢The page doesn't exist or it may have changed after this link was added.⁭⁠‍⁯⁫⁮؜⁯⁮⁪‌⁪⁭‍⁫⁫⁮‌⁮‌⁯⁣⁤",
@@ -201,6 +199,7 @@ export default {
   'fabric.linking.status_change_permission_error-issue-term-refresh':
     '⁣⁢You don’t have permission to transition this work item.⁬⁭⁠⁠⁯⁯⁠⁪⁫⁠⁮⁭⁠⁬‍‌⁮⁭‍⁭⁭⁫⁮⁠⁣⁤',
   'fabric.linking.status_change_update_error': '⁣⁢We couldn’t update the status⁬⁠⁫‌⁠‍⁠⁪⁮‍‍⁡⁠‍‌⁮⁠⁡⁯‌⁬⁪‍⁪⁬⁪⁣⁤',
+  'fabric.linking.team_members_count': '⁣⁢{context} members⁮⁭⁯⁮⁬‍⁭؜⁯⁯⁭⁪⁠⁬⁫⁯⁫⁠‌؜؜⁯⁣⁤',
   'fabric.linking.try_again': '⁣⁢Try again؜⁯⁪؜⁫؜⁫⁠⁮‍⁫⁠‌⁮⁡⁯⁫⁯⁪‌⁮⁫⁮⁣⁤',
   'fabric.linking.try_another_account': '⁣⁢Try another account⁫؜‌⁫؜؜‍⁪‍⁬؜⁬‌⁠⁭⁫⁫⁠⁠⁠⁣⁤',
   'fabric.linking.unassigned': '⁣⁢Unassigned⁪⁭⁫⁭⁮⁠؜‌⁬‌⁠⁠؜⁠⁡؜⁭⁪‌⁭⁮⁫‍⁪⁭⁣⁤',

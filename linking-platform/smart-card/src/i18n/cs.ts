@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aktualizováno: {context}',
   'fabric.linking.modified_on_relative': 'Aktualizováno: {context}',
   'fabric.linking.more_actions': 'Další akce',
-  'fabric.linking.more_information_about_this_work_item': 'Další informace o tomto požadavku',
   'fabric.linking.no_access_title': 'Chcete-li si zobrazit tento obsah, připojte se k produktu {product}',
   'fabric.linking.not_found_description': 'Stránka neexistuje nebo se po přidání tohoto odkazu mohla změnit.',
   'fabric.linking.not_found_title': 'Tuto stránku {product} vám nemůžeme zobrazit',

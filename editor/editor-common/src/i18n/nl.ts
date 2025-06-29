@@ -497,7 +497,7 @@ export default {
   'fabric.editor.externalMediaFile': 'Extern mediabestand',
   'fabric.editor.failed_to_upload': 'Kan niet worden geüpload',
   'fabric.editor.feedbackDialog': 'Feedback geven',
-  'fabric.editor.feedbackDialog.description': 'Vertel ons wat je vindt van de nieuwe editor',
+  'fabric.editor.feedbackDialog.description': 'Vertel ons wat je van de cloudeditor vindt',
   'fabric.editor.find': 'Zoeken',
   'fabric.editor.findNext': 'Volgende zoeken',
   'fabric.editor.findPrevious': 'Vorige zoeken',

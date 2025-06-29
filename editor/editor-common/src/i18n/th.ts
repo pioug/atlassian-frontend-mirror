@@ -442,7 +442,7 @@ export default {
   'fabric.editor.externalMediaFile': 'ไฟล์สื่อภายนอก',
   'fabric.editor.failed_to_upload': 'ไม่สามารถอัปโหลดได้',
   'fabric.editor.feedbackDialog': 'ให้ข้อคิดเห็น',
-  'fabric.editor.feedbackDialog.description': 'บอกให้เราทราบเกี่ยวกับประสบการณ์ของคุณในการใช้งานเครื่องมือแก้ไขแบบใหม่',
+  'fabric.editor.feedbackDialog.description': 'บอกให้เราทราบเกี่ยวกับประสบการณ์ของคุณในการใช้งานเครื่องมือแก้ไขคลาวด์',
   'fabric.editor.find': 'ค้นหา',
   'fabric.editor.findNext': 'ค้นหาถัดไป',
   'fabric.editor.findPrevious': 'ค้นหาก่อนหน้า',

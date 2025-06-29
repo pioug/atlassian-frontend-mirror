@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Đã cập nhật trên {context}',
   'fabric.linking.modified_on_relative': 'Đã cập nhật {context}',
   'fabric.linking.more_actions': 'Hành động khác',
-  'fabric.linking.more_information_about_this_work_item': 'Thông tin khác về hạng mục công việc này',
   'fabric.linking.no_access_title': 'Tham gia {product} để xem nội dung này',
   'fabric.linking.not_found_description':
     'Trang này không tồn tại hoặc có thể đã thay đổi sau khi liên kết này được thêm vào.',

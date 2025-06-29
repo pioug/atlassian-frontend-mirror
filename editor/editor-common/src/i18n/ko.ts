@@ -458,7 +458,7 @@ export default {
   'fabric.editor.externalMediaFile': '외부 미디어 파일',
   'fabric.editor.failed_to_upload': '업로드 실패',
   'fabric.editor.feedbackDialog': '피드백 보내기',
-  'fabric.editor.feedbackDialog.description': '새로운 편집기 사용 경험에 대한 의견을 보내 주십시오',
+  'fabric.editor.feedbackDialog.description': 'Cloud 편집기 사용 경험에 대한 의견을 보내주세요',
   'fabric.editor.find': '찾기',
   'fabric.editor.findNext': '다음 찾기',
   'fabric.editor.findPrevious': '이전 찾기',

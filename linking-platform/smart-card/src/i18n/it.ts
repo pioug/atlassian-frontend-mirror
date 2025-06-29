@@ -115,7 +115,6 @@ export default {
   'fabric.linking.modified_on_absolute': 'Aggiornato il {context}',
   'fabric.linking.modified_on_relative': 'Aggiornamento: {context}',
   'fabric.linking.more_actions': 'Altre azioni',
-  'fabric.linking.more_information_about_this_work_item': 'Ulteriori informazioni su questo ticket',
   'fabric.linking.no_access_title': 'Unisciti a {product} per visualizzare questo contenuto',
   'fabric.linking.not_found_description':
     "La pagina non esiste o potrebbe essere stata spostata dopo l'aggiunta di questo link.",

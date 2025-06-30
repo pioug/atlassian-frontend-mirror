@@ -153,15 +153,15 @@ export default function Example() {
 
 	return (
 		<UFOSegment name="app-root">
-			<UFOThirdPartySegment name="third-party-segment-example">
-				<div data-testid="main" css={appStyle}>
-					<SectionOne base={1} appCreatedAt={appCreatedAt} />
+			<div data-testid="main" css={appStyle}>
+				<SectionOne base={1} appCreatedAt={appCreatedAt} />
+				<UFOThirdPartySegment name="third-party-segment-example">
 					<UFOSegment name="section-two-segment">
 						<SectionTwo base={2} appCreatedAt={appCreatedAt} />
 					</UFOSegment>
-					<SectionThree base={3} appCreatedAt={appCreatedAt} />
-				</div>
-			</UFOThirdPartySegment>
+				</UFOThirdPartySegment>
+				<SectionThree base={3} appCreatedAt={appCreatedAt} />
+			</div>
 		</UFOSegment>
 	);
 }

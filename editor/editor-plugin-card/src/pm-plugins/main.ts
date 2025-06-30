@@ -331,6 +331,7 @@ export const createPlugin =
 						pluginInjectionApi,
 						actionOptions,
 						onClickCallback: options.onClickCallback,
+						CompetitorPrompt: options.CompetitorPrompt,
 					}),
 				},
 				...(enableInlineUpgradeFeatures && {

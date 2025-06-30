@@ -17,8 +17,7 @@
 		"team": "Editor: Core Experiences",
 		"website": {
 			"name": "Status"
-		},
-		"runReact18": true
+		}
 	},
 	"sideEffects": [
 		"*.compiled.css"

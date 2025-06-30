@@ -12,8 +12,7 @@
 		"website": {
 			"name": "ESLint utils",
 			"category": "Tooling"
-		},
-		"runReact18": true
+		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",

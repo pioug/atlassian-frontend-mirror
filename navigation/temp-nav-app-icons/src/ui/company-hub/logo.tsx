@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6a83f62082c1767e3fc5fa7e691a081e>>
+ * @codegen <<SignedSource::8deb5f1a12f7f099faaa80447e1fffe5>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 129 24">
 /**
  * __CompanyHubLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Company Hub.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function CompanyHubLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

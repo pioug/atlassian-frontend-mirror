@@ -85,6 +85,7 @@ export interface ClientOptions extends BaseClientOptions {
 	apiKey: string;
 	fetchTimeoutMs?: number;
 	useGatewayURL?: boolean;
+	isolationContextId?: string;
 }
 
 export interface FromValuesClientOptions extends BaseClientOptions {

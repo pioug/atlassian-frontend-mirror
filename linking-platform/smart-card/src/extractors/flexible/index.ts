@@ -49,6 +49,7 @@ import {
 	extractSubTasksProgress,
 	extractTargetBranch,
 	extractTeamMemberCount,
+	extractUserAttributes,
 	extractViewCount,
 	extractVoteCount,
 } from './utils';
@@ -125,6 +126,9 @@ const extractFlexibleUiContext = ({
 		subTasksProgress: extractSubTasksProgress(data),
 		storyPoints: extractStoryPoints(data),
 		targetBranch: extractTargetBranch(data as JsonLd.Data.SourceCodePullRequest),
+		...(fg('platform-linking-user-attributes-component') && {
+			userAttributes: extractUserAttributes(data),
+		}),
 		...(fg('platform-linking-flexible-card-context')
 			? undefined
 			: { title: extractSmartLinkTitle(response) || url }),

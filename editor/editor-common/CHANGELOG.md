@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 107.3.2
+
+### Patch Changes
+
+- [#178916](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178916)
+  [`b344da49420df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b344da49420df) -
+  Cleanup FG
+- Updated dependencies
+
+## 107.3.1
+
+### Patch Changes
+
+- [#178271](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178271)
+  [`fd1a32b0a4f6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd1a32b0a4f6b) -
+  [ED-28322] Remove React version of status nodes to clean up experiment platform_editor_vanilla_dom
+- Updated dependencies
+
 ## 107.3.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 119.3.0
+
+### Minor Changes
+
+- [#177020](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177020)
+  [`206ae7b37b4af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/206ae7b37b4af) -
+  [ux] Add Competitor Prompt for Embed Smart Link
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 119.2.0
 
 ### Minor Changes

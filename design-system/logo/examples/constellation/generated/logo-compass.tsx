@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<CompassLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<CompassIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<CompassLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<CompassIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

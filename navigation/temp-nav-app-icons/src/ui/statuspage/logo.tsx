@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::91bd18e5b482aaca207503ac31a4e7e6>>
+ * @codegen <<SignedSource::83359616d713919bb6b747137758dd01>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 110 24">
 /**
  * __StatuspageLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Statuspage.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function StatuspageLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

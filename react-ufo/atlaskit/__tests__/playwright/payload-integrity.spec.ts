@@ -176,7 +176,32 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 		// @ts-ignore
 		const segmentId = Object.keys(interactionMetrics.segments?.r?.c)[0];
 		// @ts-ignore
-		expect(interactionMetrics.segments?.r?.c?.[segmentId]).toStrictEqual({ n: 'app-root' });
+		const appRootSegment = interactionMetrics.segments?.r?.c?.[segmentId];
+		expect(appRootSegment?.n).toBe('app-root');
+		expect(typeof appRootSegment?.c).toBe('object');
+
+		// Verify that app-root has 10 section children
+		// @ts-ignore
+		const sectionSegments = appRootSegment?.c;
+		expect(Object.keys(sectionSegments).length).toBe(10);
+
+		// Check that all section names are present
+		// @ts-ignore
+		const sectionNames = Object.values(sectionSegments).map((segment: any) => segment.n);
+		expect(sectionNames.sort()).toStrictEqual(
+			[
+				'sectionOne',
+				'sectionTwo',
+				'sectionThree',
+				'sectionFour',
+				'sectionFive',
+				'sectionSix',
+				'sectionSeven',
+				'sectionEight',
+				'sectionNine',
+				'sectionTen',
+			].sort(),
+		);
 
 		expect(Array.isArray(interactionMetrics.reactProfilerTimings)).toBe(true);
 		for (const reactProfilerTiming of interactionMetrics.reactProfilerTimings) {

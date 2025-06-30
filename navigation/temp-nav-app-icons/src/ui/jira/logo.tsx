@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a167340a2e0cfcb20a6307fe2beeb167>>
+ * @codegen <<SignedSource::f7781c4f9606576b28ea71022cce48dc>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -25,10 +25,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 56 24">
 /**
  * __JiraLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Jira.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function JiraLogo({
 	iconColor,

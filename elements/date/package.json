@@ -34,8 +34,7 @@
 		"team": "Editor: AI",
 		"website": {
 			"name": "Date"
-		},
-		"runReact18": true
+		}
 	},
 	"config": {
 		"access": "public"

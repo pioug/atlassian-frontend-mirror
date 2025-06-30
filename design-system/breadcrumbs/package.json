@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Breadcrumbs",
 			"category": "Navigation"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./BreadcrumbsItem": "./src/entry-points/breadcrumbs-item.tsx",

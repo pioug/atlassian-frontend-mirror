@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<AtlassianAccessLogo appearance="brand" />}
-		Icon={<AtlassianAccessIcon appearance="brand" />}
+		logo={<AtlassianAccessLogo appearance="brand" />}
+		icon={<AtlassianAccessIcon appearance="brand" />}
 	/>
 );

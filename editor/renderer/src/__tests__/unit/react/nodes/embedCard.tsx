@@ -5,6 +5,7 @@ import '@atlaskit/link-test-helpers/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
+import { Pressable } from '@atlaskit/primitives/compiled';
 
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { Card } from '@atlaskit/smart-card';
@@ -168,5 +169,39 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 				});
 			});
 		});
+	});
+});
+
+describe('Renderer - React/Nodes/EmbedCard - CompetitorPrompt', () => {
+	const MockCompetitorPrompt = jest.fn(() => (
+		<Pressable role="button" aria-label="competitor prompt">
+			Prompt
+		</Pressable>
+	));
+
+	beforeEach(() => {
+		MockCompetitorPrompt.mockClear();
+	});
+
+	it('should pass through CompetitorPrompt compeont when provided', () => {
+		render(
+			<Provider client={new Client('staging')}>
+				<EmbedCard
+					url={'test.com'}
+					layout={'full-width'}
+					smartLinks={{
+						CompetitorPrompt: MockCompetitorPrompt,
+					}}
+				/>
+			</Provider>,
+		);
+
+		expect(Card).toHaveBeenCalledWith(
+			expect.objectContaining({
+				CompetitorPrompt: MockCompetitorPrompt,
+				url: 'test.com',
+			}),
+			expect.anything(),
+		);
 	});
 });

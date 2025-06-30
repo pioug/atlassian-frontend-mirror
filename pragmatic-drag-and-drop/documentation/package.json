@@ -9,7 +9,6 @@
 	"license": "Apache-2.0",
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Pragmatic drag and drop",
 			"category": "Libraries"

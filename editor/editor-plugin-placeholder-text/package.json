@@ -19,7 +19,6 @@
 	"atlassian": {
 		"team": "Editor: Core Experiences",
 		"singleton": true,
-		"runReact18": true,
 		"integrationTests": {
 			"additionalBrowsers": [
 				"desktop-firefox",

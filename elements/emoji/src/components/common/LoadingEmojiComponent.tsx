@@ -2,8 +2,6 @@ import { Component, type ComponentType } from 'react';
 
 import type { EmojiProvider } from '../../api/EmojiResource';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export interface Props {
 	/**
 	 * Emoji Resource instance
@@ -46,23 +44,9 @@ export default abstract class LoadingEmojiComponent<
 		}
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Readonly<P>) {
-		if (
-			!fg('platform_editor_react18_elements_emoji') ||
-			!fg('platform_editor_react18_elements_emoji_jira_bb')
-		) {
-			this.loadEmojiProvider(nextProps.emojiProvider);
-		}
-	}
-
 	componentDidUpdate(prevProps: Readonly<P>) {
-		if (
-			fg('platform_editor_react18_elements_emoji') ||
-			fg('platform_editor_react18_elements_emoji_jira_bb')
-		) {
-			if (this.props !== prevProps) {
-				this.loadEmojiProvider(this.props.emojiProvider);
-			}
+		if (this.props !== prevProps) {
+			this.loadEmojiProvider(this.props.emojiProvider);
 		}
 	}
 

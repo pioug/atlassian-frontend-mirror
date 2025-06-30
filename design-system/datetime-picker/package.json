@@ -37,8 +37,7 @@
 		"website": {
 			"name": "Date time picker",
 			"category": "Forms and input"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

@@ -40,8 +40,7 @@
 		"team": "Event Platform",
 		"website": {
 			"name": "pubsub"
-		},
-		"runReact18": true
+		}
 	},
 	"config": {
 		"access": "public"

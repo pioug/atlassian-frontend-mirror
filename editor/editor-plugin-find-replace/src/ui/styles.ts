@@ -52,7 +52,8 @@ export const findReplaceStylesNew = css({
 		inset 0 0 0 1px ${token('color.background.accent.yellow.subtler.pressed')},
 		inset 0 0 0 5px ${token('color.background.accent.yellow.subtler')}
 		`,
-		backgroundColor: token('color.background.accent.yellow.subtler'),
+		// TODO: ED-28376 - clean up !important later
+		backgroundColor: `${token('color.background.accent.yellow.subtler')} !important`,
 		color: token('color.text'),
 	},
 
@@ -62,7 +63,8 @@ export const findReplaceStylesNew = css({
 		inset 0 0 0 1px ${token('color.background.accent.yellow.subtler.pressed')},
 		inset 0 0 0 5px ${token('color.background.accent.yellow.subtlest.pressed')}
 		`,
-		backgroundColor: token('color.background.accent.yellow.subtlest.pressed'),
+		// TODO: ED-28376 - clean up !important later
+		backgroundColor: `${token('color.background.accent.yellow.subtlest.pressed')} !important`,
 	},
 
 	/** Dark mode */
@@ -73,7 +75,8 @@ export const findReplaceStylesNew = css({
 		inset 0 0 0 1px ${token('color.background.accent.yellow.bolder')},
 		inset 0 0 0 5px ${token('color.background.accent.yellow.bolder.pressed')}
 		`,
-		backgroundColor: token('color.background.accent.yellow.bolder.pressed'),
+		// TODO: ED-28376 - clean up !important later
+		backgroundColor: `${token('color.background.accent.yellow.bolder.pressed')} !important`,
 		color: token('color.text.inverse'),
 	},
 
@@ -83,7 +86,8 @@ export const findReplaceStylesNew = css({
 		inset 0 0 0 1px ${token('color.background.accent.yellow.bolder')},
 		inset 0 0 0 5px ${token('color.background.accent.yellow.bolder.hovered')}
 		`,
-		backgroundColor: token('color.background.accent.yellow.bolder.hovered'),
+		// TODO: ED-28376 - clean up !important later
+		backgroundColor: `${token('color.background.accent.yellow.bolder.hovered')} !important`,
 	},
 
 	/** Block match styles */

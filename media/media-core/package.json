@@ -34,8 +34,7 @@
 		"singleton": true,
 		"website": {
 			"name": "Media Core"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

@@ -46,6 +46,7 @@ export const ElementDisplaySchema: Record<ElementName, ElementDisplaySchemaType[
 	[ElementName.StoryPoints]: ['inline'],
 	[ElementName.TargetBranch]: ['inline'],
 	[ElementName.Title]: ['inline'],
+	[ElementName.UserAttributes]: ['inline'],
 	[ElementName.ViewCount]: ['inline'],
 	[ElementName.VoteCount]: ['inline'],
 };

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c003b830838de14b130e7182bc74ee04>>
+ * @codegen <<SignedSource::2fef9529810ba0a845e8801ff0bdc6af>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -19,10 +19,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __GoalsIcon__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the icon for Goals.
+ * @deprecated This component has been replaced by the component `GoalsIcon` in `@atlaskit/logo`.
+ * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
+ * to enable the new design by default.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function GoalsIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (

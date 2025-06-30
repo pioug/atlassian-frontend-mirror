@@ -37,7 +37,6 @@ import * as helper from './_emoji-picker-test-helpers';
 import userEvent from '@testing-library/user-event';
 import * as utils from '../../../../components/picker/utils';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
-import { EmojiPickerVirtualListInternalOld as EmojiPickerVirtualList } from '../../../../components/picker/EmojiPickerList';
 import * as constants from '../../../../util/constants';
 
 // Turn off delay to allow using user events with fake timers
@@ -60,11 +59,6 @@ describe('<UploadingEmojiPicker />', () => {
 	beforeAll(() => {
 		// scrolling of the virutal list doesn't work out of the box for the tests
 		// mocking `scrollToRow` for all tests
-		// Cleanup `platform_editor_react18_elements_emoji`: remove this next jest.spyOn
-		// since it's for the class component (which has been refactored into FC)
-		jest
-			.spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
-			.mockImplementation((index?: number) => helperTestingLibrary.scrollToIndex(index || 0));
 		jest
 			.spyOn(utils, 'scrollToRow')
 			.mockImplementation((listRef?: any, index?: number) =>

@@ -1,7 +1,6 @@
 {
 	"atlassian": {
 		"team": "Media Exif",
-		"runReact18": true,
 		"website": {
 			"name": "BrowserApis",
 			"category": "Layout and structure"

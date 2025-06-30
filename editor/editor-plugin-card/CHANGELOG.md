@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-card
 
+## 6.7.0
+
+### Minor Changes
+
+- [#177020](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177020)
+  [`206ae7b37b4af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/206ae7b37b4af) -
+  [ux] Add Competitor Prompt for Embed Smart Link
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.6.15
+
+### Patch Changes
+
+- [#177081](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177081)
+  [`5eaa21607233e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5eaa21607233e) -
+  [ux] [ED-28011] Add separator before 'Open link in new tab' button in card toolbar
+- Updated dependencies
+
 ## 6.6.14
 
 ### Patch Changes

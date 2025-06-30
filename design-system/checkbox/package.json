@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Checkbox",
 			"category": "Forms and input"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		".": "./src/index.tsx"

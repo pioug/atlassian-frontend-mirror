@@ -27,7 +27,6 @@
 	"homepage": "https://atlassian.design/components/textarea/",
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Text area",
 			"category": "Forms and input"

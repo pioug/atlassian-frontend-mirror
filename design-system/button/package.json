@@ -71,8 +71,7 @@
 					"sortKey": 6
 				}
 			]
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./button-group": "./src/entry-points/button-group.tsx",

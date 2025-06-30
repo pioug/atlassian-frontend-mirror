@@ -33,7 +33,6 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"runReact18": true,
 		"team": "Personalization",
 		"website": {
 			"name": "Contextual Survey"

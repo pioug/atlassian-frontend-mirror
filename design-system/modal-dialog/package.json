@@ -21,8 +21,7 @@
 		"website": {
 			"name": "Modal dialog",
 			"category": "Messaging"
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"watch": "tsc --watch --noEmit --project './tsconfig.json'"

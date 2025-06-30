@@ -141,6 +141,7 @@ export enum ElementName {
 	TargetBranch = 'TargetBranch',
 	TeamMemberCount = 'TeamMemberCount',
 	Title = 'Title',
+	UserAttributes = 'UserAttributes',
 	ViewCount = 'ViewCount',
 	VoteCount = 'VoteCount',
 	SentOn = 'SentOn',

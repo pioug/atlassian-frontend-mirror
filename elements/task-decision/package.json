@@ -40,8 +40,7 @@
 		"team": "Editor: AI",
 		"website": {
 			"name": "Task Decision"
-		},
-		"runReact18": true
+		}
 	},
 	"config": {
 		"access": "public"

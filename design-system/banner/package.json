@@ -26,7 +26,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Banner",
 			"category": "Messaging"

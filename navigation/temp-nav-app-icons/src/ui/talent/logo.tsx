@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::74e2c16cedb47b779117e74648c7bc32>>
+ * @codegen <<SignedSource::c35c52ac76ceb14ed5dab0fca610789d>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 73 24">
 /**
  * __TalentLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Talent.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function TalentLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

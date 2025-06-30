@@ -28,6 +28,10 @@ const getConsideredEntryTypes = (): VCObserverEntryType[] => {
 	if (!fg('platform_ufo_exclude_3p_elements_from_ttvc')) {
 		entryTypes.push('mutation:third-party-element');
 	}
+
+	if (fg('platform_ufo_enable_media_for_ttvc_v3')) {
+		entryTypes.push('mutation:media');
+	}
 	return entryTypes;
 };
 

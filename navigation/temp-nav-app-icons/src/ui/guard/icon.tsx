@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::03847eb0ce9d464c771c8c581ad4355d>>
+ * @codegen <<SignedSource::469e5ed278fccb4166bd745311b6b130>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -18,10 +18,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __GuardIcon__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the icon for Guard.
+ * @deprecated This component has been replaced by the component `GuardIcon` in `@atlaskit/logo`.
+ * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
+ * to enable the new design by default.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function GuardIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (

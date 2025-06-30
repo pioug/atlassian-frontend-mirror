@@ -61,6 +61,8 @@ export interface ExpandedFrameProps {
 	 * @default true
 	 */
 	setOverflow?: boolean;
+	/** Component to prompt for competitor link */
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 
 export const ExpandedFrame = ({
@@ -78,10 +80,17 @@ export const ExpandedFrame = ({
 	inheritDimensions,
 	allowScrollBar = false,
 	setOverflow = true,
+	CompetitorPrompt,
 }: ExpandedFrameProps) => {
 	const isInteractive = () => !isPlaceholder && (Boolean(href) || Boolean(onClick));
 	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 	const handleMouseDown = useMouseDownEvent();
+
+	// Note: cleanup fg based on results of prompt_whiteboard_competitor_link experiment
+	const CompetitorPromptComponent =
+		CompetitorPrompt && href && fg('prompt_whiteboard_competitor_link_gate') ? (
+			<CompetitorPrompt sourceUrl={href} linkType="embed" />
+		) : null;
 
 	const renderHeader = () => {
 		if (fg('platform-linking-visual-refresh-v1')) {
@@ -89,22 +98,25 @@ export const ExpandedFrame = ({
 				frameStyle !== 'hide' && (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					<div className="embed-header" css={styles.header}>
-						<div css={styles.headerIcon}>{icon}</div>
-						<div css={styles.tooltipWrapper}>
-							{!isPlaceholder && (
-								<Tooltip content={text} hideTooltipOnMouseDown>
-									{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
-									<a
-										css={styles.headerAnchor}
-										href={href}
-										onClick={handleClick}
-										onMouseDown={handleMouseDown}
-									>
-										{text}
-									</a>
-								</Tooltip>
-							)}
+						<div css={styles.leftSection}>
+							<div css={styles.headerIcon}>{icon}</div>
+							<div css={styles.tooltipWrapper}>
+								{!isPlaceholder && (
+									<Tooltip content={text} hideTooltipOnMouseDown>
+										{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
+										<a
+											css={styles.headerAnchor}
+											href={href}
+											onClick={handleClick}
+											onMouseDown={handleMouseDown}
+										>
+											{text}
+										</a>
+									</Tooltip>
+								)}
+							</div>
 						</div>
+						{CompetitorPromptComponent}
 					</div>
 				)
 			);
@@ -312,10 +324,17 @@ const styles = cssMap({
 	header: {
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'space-between',
 		font: token('font.heading.xsmall'),
 		height: '20px',
 		gap: token('space.050'),
 		zIndex: 1,
+	},
+	leftSection: {
+		display: 'flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+		minWidth: 0,
 	},
 	tooltipWrapper: {
 		overflow: 'hidden',

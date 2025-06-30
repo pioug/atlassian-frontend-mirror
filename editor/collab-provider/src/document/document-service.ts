@@ -1107,6 +1107,8 @@ export class DocumentService implements DocumentServiceInterface {
 					return origin.setMeta('mergeIsLocked', true);
 				}
 			});
+		}
+		if (editorExperiment('platform_editor_offline_editing_web', true)) {
 			const offlineSteps = unconfirmedStepsData?.origins.some((tr) => {
 				return tr instanceof Transaction ? tr.getMeta('isOffline') ?? false : false;
 			});

@@ -15,6 +15,10 @@ import {
 	AssetsLogoCS as NewAssetsLogo,
 } from '@atlaskit/temp-nav-app-icons/assets';
 import {
+	BambooIcon as NewBambooIcon,
+	BambooLogoCS as NewBambooLogo,
+} from '@atlaskit/temp-nav-app-icons/bamboo';
+import {
 	BitbucketIcon as NewBitbucketIcon,
 	BitbucketLogoCS as NewBitbucketLogo,
 } from '@atlaskit/temp-nav-app-icons/bitbucket';
@@ -38,6 +42,10 @@ import {
 	ConfluenceDataCenterIcon as NewConfluenceDataCenterIcon,
 	ConfluenceDataCenterLogoCS as NewConfluenceDataCenterLogo,
 } from '@atlaskit/temp-nav-app-icons/confluence-data-center';
+import {
+	CrowdIcon as NewCrowdIcon,
+	CrowdLogoCS as NewCrowdLogo,
+} from '@atlaskit/temp-nav-app-icons/crowd';
 import {
 	CustomerServiceManagementIcon as NewCustomerServiceManagementIcon,
 	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
@@ -79,6 +87,13 @@ import {
 	LoomIcon as NewLoomIcon,
 	LoomLogoCS as NewLoomLogo,
 } from '@atlaskit/temp-nav-app-icons/loom';
+import {
+	LoomAttributionLogoCS as NewLoomAttributionLogo,
+} from '@atlaskit/temp-nav-app-icons/loom-attribution';
+import {
+	LoomInternalIcon as NewLoomInternalIcon,
+	LoomInternalLogoCS as NewLoomInternalLogo,
+} from '@atlaskit/temp-nav-app-icons/loom-internal';
 import {
 	OpsgenieIcon as NewOpsgenieIcon,
 	OpsgenieLogoCS as NewOpsgenieLogo,
@@ -156,6 +171,7 @@ import {
 	JiraServiceManagementLogo as LegacyJSMLogo,
 } from './legacy-logos/jira-service-management';
 import { LoomIcon as LegacyLoomIcon, LoomLogo as LegacyLoomLogo } from './legacy-logos/loom';
+import { LoomAttributionIcon as LegacyLoomAttributionIcon, LoomAttributionLogo as LegacyLoomAttributionLogo } from './legacy-logos/loom-attribution';
 import {
 	OpsgenieIcon as LegacyOpsgenieIcon,
 	OpsgenieLogo as LegacyOpsgenieLogo,
@@ -179,7 +195,6 @@ export {
 	JiraWorkManagementLogo,
 	JiraWorkManagementIcon,
 } from './legacy-logos/jira-work-management';
-export { LoomAttributionIcon, LoomAttributionLogo } from './legacy-logos/loom-attribution';
 export { AtlassianIcon, AtlassianLogo } from './legacy-logos/atlassian';
 export { JiraSoftwareIcon, JiraSoftwareLogo } from './legacy-logos/jira-software';
 import { createFeatureFlaggedComponent, tempSizeWrapper } from './logo-config';
@@ -447,6 +462,26 @@ export const TeamsIcon = tempSizeWrapper(NewTeamsIcon);
  */
 export const TeamsLogo = tempSizeWrapper(NewTeamsLogo);
 /**
+ * __Bamboo icon__
+ *
+ * The Bamboo icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const BambooIcon = tempSizeWrapper(NewBambooIcon);
+/**
+ * __Bamboo logo__
+ *
+ * The Bamboo logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const BambooLogo = tempSizeWrapper(NewBambooLogo);
+/**
  * __Bitbucket Data Center icon__
  *
  * The Bitbucket Data Center icon without an accompanying wordmark.
@@ -486,6 +521,27 @@ export const ConfluenceDataCenterIcon = tempSizeWrapper(NewConfluenceDataCenterI
  * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 export const ConfluenceDataCenterLogo = tempSizeWrapper(NewConfluenceDataCenterLogo);
+/**
+ * __Crowd icon__
+ *
+ * The Crowd icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const CrowdIcon = tempSizeWrapper(NewCrowdIcon);
+/**
+ * __Crowd logo__
+ *
+ * The Crowd logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+export const CrowdLogo = tempSizeWrapper(NewCrowdLogo);
+
 /**
  * __Jira Data Center icon__
  *
@@ -767,25 +823,63 @@ export const JiraServiceManagementLogo = createFeatureFlaggedComponent(LegacyJSM
 /**
  * __Loom icon__
  *
- * The Loom icon {description}.
+ * The Loom icon, in Teamwork Blue, without an accompanying wordmark.
  *
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
 export const LoomIcon = createFeatureFlaggedComponent(LegacyLoomIcon, NewLoomIcon);
-
 /**
  * __Loom logo__
+*
+* The Loom logo, in Teamwork Blue, with both the wordmark and the icon combined.
+*
+* - [Examples](https://atlassian.design/components/logo/examples)
+* - [Code](https://atlassian.design/components/logo/code)
+* - [Usage](https://atlassian.design/components/logo/usage)
+*/
+export const LoomLogo = createFeatureFlaggedComponent(LegacyLoomLogo, NewLoomLogo);
+/**
+ * __Loom Attribution icon__
  *
- * The Loom logo with both the wordmark and the icon combined.
+ * The Loom Attribution icon, in Teamwork Blue, without an accompanying wordmark.
  *
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
  */
-export const LoomLogo = createFeatureFlaggedComponent(LegacyLoomLogo, NewLoomLogo);
-
+export const LoomAttributionIcon = createFeatureFlaggedComponent(LegacyLoomAttributionIcon, NewLoomIcon);
+/**
+ * __Loom Attribution logo__
+*
+* The Loom Attribution logo, in Teamwork Blue, with both the wordmark and the icon combined.
+*
+* - [Examples](https://atlassian.design/components/logo/examples)
+* - [Code](https://atlassian.design/components/logo/code)
+* - [Usage](https://atlassian.design/components/logo/usage)
+*/
+export const LoomAttributionLogo = createFeatureFlaggedComponent(LegacyLoomAttributionLogo, NewLoomAttributionLogo);
+/**
+ * __Loom (Blurple) logo__
+ *
+ * The Loom logo, in the Loom Blurple color, with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const LoomBlurpleLogo = tempSizeWrapper(NewLoomInternalLogo);
+/**
+ * __Loom (Blurple) icon__
+ *
+ * The Loom icon, in the Loom Blurple color, without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const LoomBlurpleIcon = tempSizeWrapper(NewLoomInternalIcon);
 /**
  * __Opsgenie icon__
  *

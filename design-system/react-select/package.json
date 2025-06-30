@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,8 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Design System Team",
-		"runReact18": true
+		"team": "Design System Team"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -46,7 +45,6 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.3",
-		"@emotion/react": "^11.7.1",
 		"@floating-ui/dom": "^1.0.1",
 		"memoize-one": "^6.0.0",
 		"use-isomorphic-layout-effect": "^1.1.2"
@@ -98,7 +96,6 @@
 			"deprecation": "no-deprecated-imports",
 			"styling": [
 				"static",
-				"emotion",
 				"compiled"
 			]
 		}

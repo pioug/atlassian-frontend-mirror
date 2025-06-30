@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<RovoLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<RovoIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<RovoLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<RovoIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

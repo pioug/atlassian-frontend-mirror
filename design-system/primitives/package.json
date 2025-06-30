@@ -126,8 +126,7 @@
 					"id": "@atlaskit/primitives/anchor"
 				}
 			]
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"codegen-styles": "ts-node -r tsconfig-paths/register ./scripts/codegen-styles.tsx"

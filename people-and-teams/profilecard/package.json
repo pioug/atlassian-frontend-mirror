@@ -22,7 +22,6 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"runReact18": true,
 		"team": "People and Teams Collective",
 		"website": {
 			"name": "Profilecard"

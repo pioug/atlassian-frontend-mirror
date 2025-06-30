@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::223e52d00e4a359e527726e7fa117871>>
+ * @codegen <<SignedSource::f4d3f16de51e4d778d33c0fb582acc7a>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -18,10 +18,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __ProjectsIcon__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the icon for Projects.
+ * @deprecated This component has been replaced by the component `ProjectsIcon` in `@atlaskit/logo`.
+ * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
+ * to enable the new design by default.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function ProjectsIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (

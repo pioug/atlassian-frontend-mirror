@@ -1,5 +1,13 @@
 # @atlaskit/json-ld-types
 
+## 1.4.0
+
+### Minor Changes
+
+- [#175615](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175615)
+  [`c4d5eeba6a492`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4d5eeba6a492) -
+  Added new component to show user attributes for user card
+
 ## 1.3.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "38.17.0",
+	"version": "38.19.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,8 +20,7 @@
 		"team": "Linking Platform",
 		"website": {
 			"name": "Smart Card"
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card --output ./src/common/analytics/generated"
@@ -262,6 +261,9 @@
 			"type": "boolean"
 		},
 		"platform-linking-team-member-count-component": {
+			"type": "boolean"
+		},
+		"platform-linking-user-attributes-component": {
 			"type": "boolean"
 		}
 	},

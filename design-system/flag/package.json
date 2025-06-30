@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Flag",
 			"category": "Messaging"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		".": "./src/index.tsx",

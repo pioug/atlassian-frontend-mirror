@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "4.11.19",
+	"version": "4.11.20",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,8 +29,7 @@
 		"i18n": true,
 		"website": {
 			"name": "Link Datasource"
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated",

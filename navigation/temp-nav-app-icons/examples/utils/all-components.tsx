@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bbe24857935edc230d195ba254715659>>
+ * @codegen <<SignedSource::69ba3e9b01b55fc2c1ed1d63502d96e0>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -13,6 +13,7 @@ import {
 	AnalyticsLogoCS,
 } from '@atlaskit/temp-nav-app-icons/analytics';
 import { AssetsIcon, AssetsLogo, AssetsLogoCS } from '@atlaskit/temp-nav-app-icons/assets';
+import { BambooIcon, BambooLogoCS } from '@atlaskit/temp-nav-app-icons/bamboo';
 import {
 	BitbucketIcon,
 	BitbucketLogo,
@@ -34,6 +35,7 @@ import {
 	ConfluenceDataCenterIcon,
 	ConfluenceDataCenterLogoCS,
 } from '@atlaskit/temp-nav-app-icons/confluence-data-center';
+import { CrowdIcon, CrowdLogoCS } from '@atlaskit/temp-nav-app-icons/crowd';
 import { CustomLinkIcon } from '@atlaskit/temp-nav-app-icons/custom-link';
 import {
 	CustomerServiceManagementIcon,
@@ -62,7 +64,12 @@ import {
 	JiraServiceManagementLogoCS,
 } from '@atlaskit/temp-nav-app-icons/jira-service-management';
 import { LoomIcon, LoomLogo, LoomLogoCS } from '@atlaskit/temp-nav-app-icons/loom';
-import { LoomInternalIcon, LoomInternalLogo } from '@atlaskit/temp-nav-app-icons/loom-internal';
+import { LoomAttributionLogoCS } from '@atlaskit/temp-nav-app-icons/loom-attribution';
+import {
+	LoomInternalIcon,
+	LoomInternalLogo,
+	LoomInternalLogoCS,
+} from '@atlaskit/temp-nav-app-icons/loom-internal';
 import { MoreAtlassianAppsIcon } from '@atlaskit/temp-nav-app-icons/more-atlassian-apps';
 import { OpsgenieIcon, OpsgenieLogo, OpsgenieLogoCS } from '@atlaskit/temp-nav-app-icons/opsgenie';
 import { ProjectsIcon, ProjectsLogo, ProjectsLogoCS } from '@atlaskit/temp-nav-app-icons/projects';
@@ -82,11 +89,11 @@ import type { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const rows: Array<{
 	name: string;
-	Icon12: React.ComponentType<AppIconProps>;
-	Icon16: React.ComponentType<AppIconProps>;
-	Icon20: React.ComponentType<AppIconProps>;
-	Icon24: React.ComponentType<AppIconProps>;
-	Icon32: React.ComponentType<AppIconProps>;
+	Icon12: React.ComponentType<AppIconProps> | null;
+	Icon16: React.ComponentType<AppIconProps> | null;
+	Icon20: React.ComponentType<AppIconProps> | null;
+	Icon24: React.ComponentType<AppIconProps> | null;
+	Icon32: React.ComponentType<AppIconProps> | null;
 	Logo: React.ComponentType<AppLogoProps> | null;
 	LogoCS: React.ComponentType<AppLogoProps> | null;
 }> = [
@@ -129,6 +136,16 @@ export const rows: Array<{
 		Icon32: (props) => <AssetsIcon {...props} size="32" />,
 		Logo: (props) => <AssetsLogo {...props} />,
 		LogoCS: (props) => <AssetsLogoCS {...props} />,
+	},
+	{
+		name: 'Bamboo',
+		Icon12: (props) => <BambooIcon {...props} size="12" />,
+		Icon16: (props) => <BambooIcon {...props} size="16" />,
+		Icon20: (props) => <BambooIcon {...props} size="20" />,
+		Icon24: (props) => <BambooIcon {...props} size="24" />,
+		Icon32: (props) => <BambooIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <BambooLogoCS {...props} />,
 	},
 	{
 		name: 'Bitbucket Data Center',
@@ -189,6 +206,16 @@ export const rows: Array<{
 		Icon32: (props) => <ConfluenceIcon {...props} size="32" />,
 		Logo: (props) => <ConfluenceLogo {...props} />,
 		LogoCS: (props) => <ConfluenceLogoCS {...props} />,
+	},
+	{
+		name: 'Crowd',
+		Icon12: (props) => <CrowdIcon {...props} size="12" />,
+		Icon16: (props) => <CrowdIcon {...props} size="16" />,
+		Icon20: (props) => <CrowdIcon {...props} size="20" />,
+		Icon24: (props) => <CrowdIcon {...props} size="24" />,
+		Icon32: (props) => <CrowdIcon {...props} size="32" />,
+		Logo: null,
+		LogoCS: (props) => <CrowdLogoCS {...props} />,
 	},
 	{
 		name: 'Customer Service Management',
@@ -289,6 +316,26 @@ export const rows: Array<{
 		Icon32: (props) => <JiraIcon {...props} size="32" />,
 		Logo: (props) => <JiraLogo {...props} />,
 		LogoCS: (props) => <JiraLogoCS {...props} />,
+	},
+	{
+		name: 'Loom Attribution',
+		Icon12: null,
+		Icon16: null,
+		Icon20: null,
+		Icon24: null,
+		Icon32: null,
+		Logo: null,
+		LogoCS: (props) => <LoomAttributionLogoCS {...props} />,
+	},
+	{
+		name: 'Loom Internal',
+		Icon12: (props) => <LoomInternalIcon {...props} size="12" />,
+		Icon16: (props) => <LoomInternalIcon {...props} size="16" />,
+		Icon20: (props) => <LoomInternalIcon {...props} size="20" />,
+		Icon24: (props) => <LoomInternalIcon {...props} size="24" />,
+		Icon32: (props) => <LoomInternalIcon {...props} size="32" />,
+		Logo: (props) => <LoomInternalLogo {...props} />,
+		LogoCS: (props) => <LoomInternalLogoCS {...props} />,
 	},
 	{
 		name: 'Loom',
@@ -408,16 +455,6 @@ export const rows: Array<{
 		Icon24: (props) => <GuardDetectIcon {...props} size="24" />,
 		Icon32: (props) => <GuardDetectIcon {...props} size="32" />,
 		Logo: (props) => <GuardDetectLogo {...props} />,
-		LogoCS: null,
-	},
-	{
-		name: 'Loom Internal',
-		Icon12: (props) => <LoomInternalIcon {...props} size="12" />,
-		Icon16: (props) => <LoomInternalIcon {...props} size="16" />,
-		Icon20: (props) => <LoomInternalIcon {...props} size="20" />,
-		Icon24: (props) => <LoomInternalIcon {...props} size="24" />,
-		Icon32: (props) => <LoomInternalIcon {...props} size="32" />,
-		Logo: (props) => <LoomInternalLogo {...props} />,
 		LogoCS: null,
 	},
 	{

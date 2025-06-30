@@ -23,6 +23,8 @@ import {
 	AtlassianLogo,
 	AtlassianMarketplaceIcon,
 	AtlassianMarketplaceLogo,
+	BambooIcon,
+	BambooLogo,
 	BitbucketDataCenterIcon,
 	BitbucketDataCenterLogo,
 	BitbucketIcon,
@@ -35,6 +37,8 @@ import {
 	ConfluenceDataCenterLogo,
 	ConfluenceIcon,
 	ConfluenceLogo,
+	CrowdIcon,
+	CrowdLogo,
 	CustomerServiceManagementIcon,
 	CustomerServiceManagementLogo,
 	FocusIcon,
@@ -64,6 +68,8 @@ import {
 	type LogoProps,
 	LoomAttributionIcon,
 	LoomAttributionLogo,
+	LoomBlurpleIcon,
+	LoomBlurpleLogo,
 	LoomIcon,
 	LoomLogo,
 	OpsgenieIcon,
@@ -95,63 +101,48 @@ const logoMap: {
 	icon: ComponentType<LogoProps>;
 }[] = [
 	// Program logos
-	{ name: 'atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
-	{ name: 'atlassian-access', logo: AtlassianAccessLogo, icon: AtlassianAccessIcon },
-	{ name: 'atlassian-marketplace', logo: AtlassianMarketplaceLogo, icon: AtlassianMarketplaceIcon },
-	{ name: 'home', logo: HomeLogo, icon: HomeIcon },
-	{ name: 'hub', logo: HubLogo, icon: HubIcon },
-	{ name: 'confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },
-	{ name: 'jira', logo: JiraLogo, icon: JiraIcon },
-	{ name: 'loom', logo: LoomLogo, icon: LoomIcon },
-	{ name: 'loom-attribution', logo: LoomAttributionLogo, icon: LoomAttributionIcon },
-	{ name: 'rovo', logo: RovoLogo, icon: RovoIcon },
-	{ name: 'align', logo: AlignLogo, icon: AlignIcon },
-	{ name: 'focus', logo: FocusLogo, icon: FocusIcon },
-	{ name: 'talent', logo: TalentLogo, icon: TalentIcon },
-	{
-		name: 'jira-product-discovery',
-		logo: JiraProductDiscoveryLogo,
-		icon: JiraProductDiscoveryIcon,
-	},
-	{ name: 'bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
-	{ name: 'compass', logo: CompassLogo, icon: CompassIcon },
-	{
-		name: 'jira-service-management',
-		logo: JiraServiceManagementLogo,
-		icon: JiraServiceManagementIcon,
-	},
-	{ name: 'assets', logo: AssetsLogo, icon: AssetsIcon },
-	{
-		name: 'customer-service-management',
-		logo: CustomerServiceManagementLogo,
-		icon: CustomerServiceManagementIcon,
-	},
-	{ name: 'opsgenie', logo: OpsgenieLogo, icon: OpsgenieIcon },
-	{ name: 'statuspage', logo: StatuspageLogo, icon: StatuspageIcon },
-	{ name: 'trello', logo: TrelloLogo, icon: TrelloIcon },
-	{ name: 'admin', logo: AdminLogo, icon: AdminIcon },
-	{ name: 'analytics', logo: AnalyticsLogo, icon: AnalyticsIcon },
-	{ name: 'chat', logo: ChatLogo, icon: ChatIcon },
-	{ name: 'goals', logo: GoalsLogo, icon: GoalsIcon },
-	{ name: 'guard', logo: GuardLogo, icon: GuardIcon },
-	{ name: 'projects', logo: ProjectsLogo, icon: ProjectsIcon },
-	{ name: 'search', logo: SearchLogo, icon: SearchIcon },
-	{ name: 'studio', logo: StudioLogo, icon: StudioIcon },
-	{ name: 'teams', logo: TeamsLogo, icon: TeamsIcon },
-	{ name: 'jira-data-center', logo: JiraDataCenterLogo, icon: JiraDataCenterIcon },
-	{
-		name: 'confluence-data-center',
-		logo: ConfluenceDataCenterLogo,
-		icon: ConfluenceDataCenterIcon,
-	},
-	{ name: 'bitbucket-data-center', logo: BitbucketDataCenterLogo, icon: BitbucketDataCenterIcon },
-	{
-		name: 'atlassian-administration',
-		logo: AtlassianAdministrationLogo,
-		icon: AtlassianAdministrationIcon,
-	},
-	{ name: 'atlassian-admin', logo: AtlassianAdminLogo, icon: AtlassianAdminIcon },
-	{ name: 'atlassian-analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
+	{name: 'atlassian', logo: AtlassianLogo, icon: AtlassianIcon },
+	{name: 'atlassian-access', logo: AtlassianAccessLogo, icon: AtlassianAccessIcon },
+	{name: 'atlassian-marketplace', logo: AtlassianMarketplaceLogo, icon: AtlassianMarketplaceIcon },
+	// Product logos
+	{name: 'home', logo: HomeLogo, icon: HomeIcon },
+	{name: 'hub', logo: HubLogo, icon: HubIcon },
+	{name: 'confluence', logo: ConfluenceLogo, icon: ConfluenceIcon },
+	{name: 'jira', logo: JiraLogo, icon: JiraIcon },
+	{name: 'loom', logo: LoomLogo, icon: LoomIcon },
+	{name: 'loom-blurple', logo: LoomBlurpleLogo, icon: LoomBlurpleIcon },
+	{name: 'loom-attribution', logo: LoomAttributionLogo, icon: LoomAttributionIcon },
+	{name: 'rovo', logo: RovoLogo, icon: RovoIcon },
+	{name: 'align', logo: AlignLogo, icon: AlignIcon },
+	{name: 'focus', logo: FocusLogo, icon: FocusIcon },
+	{name: 'talent', logo: TalentLogo, icon: TalentIcon },
+	{name: 'jira-product-discovery', logo: JiraProductDiscoveryLogo, icon: JiraProductDiscoveryIcon },
+	{name: 'bitbucket', logo: BitbucketLogo, icon: BitbucketIcon },
+	{name: 'compass', logo: CompassLogo, icon: CompassIcon },
+	{name: 'jira-service-management', logo: JiraServiceManagementLogo, icon: JiraServiceManagementIcon },
+	{name: 'assets', logo: AssetsLogo, icon: AssetsIcon },
+	{name: 'customer-service-management', logo: CustomerServiceManagementLogo, icon: CustomerServiceManagementIcon },
+	{name: 'opsgenie', logo: OpsgenieLogo, icon: OpsgenieIcon },
+	{name: 'statuspage', logo: StatuspageLogo, icon: StatuspageIcon },
+	{name: 'trello', logo: TrelloLogo, icon: TrelloIcon },
+	{name: 'admin', logo: AdminLogo, icon: AdminIcon },
+	{name: 'analytics', logo: AnalyticsLogo, icon: AnalyticsIcon },
+	{name: 'chat', logo: ChatLogo, icon: ChatIcon },
+	{name: 'goals', logo: GoalsLogo, icon: GoalsIcon },
+	{name: 'guard', logo: GuardLogo, icon: GuardIcon },
+	{name: 'projects', logo: ProjectsLogo, icon: ProjectsIcon },
+	{name: 'search', logo: SearchLogo, icon: SearchIcon },
+	{name: 'studio', logo: StudioLogo, icon: StudioIcon },
+	{name: 'teams', logo: TeamsLogo, icon: TeamsIcon },
+	{name: 'jira-data-center', logo: JiraDataCenterLogo, icon: JiraDataCenterIcon },
+	{name: 'confluence-data-center', logo: ConfluenceDataCenterLogo, icon: ConfluenceDataCenterIcon },
+	{name: 'bitbucket-data-center', logo: BitbucketDataCenterLogo, icon: BitbucketDataCenterIcon },
+	{name: 'bamboo', logo: BambooLogo, icon: BambooIcon },
+	{name: 'crowd', logo: CrowdLogo, icon: CrowdIcon },
+	// Deprecated logos
+	{name: 'atlassian-administration', logo: AtlassianAdministrationLogo, icon: AtlassianAdministrationIcon },
+	{name: 'atlassian-admin', logo: AtlassianAdminLogo, icon: AtlassianAdminIcon },
+	{name: 'atlassian-analytics', logo: AtlassianAnalyticsLogo, icon: AtlassianAnalyticsIcon },
 	// @ts-ignore Atlas icon has slightly different types
 	{ name: 'atlas', logo: AtlasLogo, icon: AtlasIcon },
 	{ name: 'jira-software', logo: JiraSoftwareLogo, icon: JiraSoftwareIcon },
@@ -162,23 +153,27 @@ const logoMap: {
 export const logos = logoMap.map(({ logo }) => logo);
 export const icons = logoMap.map(({ icon }) => icon);
 
-export const legacyOnlyLogosAndIcons = logoMap.filter(({ name }) => {
-	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
-	return logo?.type === 'legacy' && !logo?.deprecated;
-});
+/**
+ * Helper function to find logo schema by name
+ */
+const getLogoSchema = (name: string) =>
+	logoDocsSchema.find(({ name: logoName }) => logoName === name);
 
-export const migrationLogosAndIcons = logoMap.filter(({ name }) => {
-	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
-	return logo?.type === 'migration' && !logo.deprecated;
-});
+/**
+ * Filters logos by type and excludes deprecated ones
+ */
+const filterByType = (type: 'legacy' | 'migration' | 'new') =>
+	logoMap.filter(({ name }) => {
+		const logo = getLogoSchema(name);
+		return logo?.type === type && !logo?.deprecated;
+	});
 
-export const newOnlyLogosAndIcons = logoMap.filter(({ name }) => {
-	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
-	return logo?.type === 'new' && !logo?.deprecated;
-});
+export const legacyOnlyLogosAndIcons = filterByType('legacy');
+export const migrationLogosAndIcons = filterByType('migration');
+export const newOnlyLogosAndIcons = filterByType('new');
 
 export const deprecatedLogos = logoMap.filter(({ name }) => {
-	const logo = logoDocsSchema.find(({ name: logoName }) => logoName === name);
+	const logo = getLogoSchema(name);
 	return logo?.deprecated;
 });
 

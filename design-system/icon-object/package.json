@@ -27,7 +27,6 @@
 	],
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Icon object",
 			"category": "Images and icons"
@@ -48,11 +47,11 @@
 	"devDependencies": {
 		"@af/formatting": "workspace:^",
 		"@af/icon-build-process": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/visual-regression": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"@emotion/styled": "^11.0.0",
 		"fs-extra": "^4.0.2",
 		"pkg-dir": "^4.2.0",
 		"react-dom": "^18.2.0",
@@ -71,7 +70,7 @@
 				"spacing"
 			],
 			"styling": [
-				"emotion"
+				"compiled"
 			],
 			"deprecation": "no-deprecated-imports"
 		}

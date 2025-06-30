@@ -1,7 +1,6 @@
 {
 	"atlassian": {
 		"team": "Technology Innovation",
-		"runReact18": true,
 		"website": {
 			"name": "CharlieHierarchy",
 			"category": "Layout and structure"

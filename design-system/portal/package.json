@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Portal",
 			"category": "Libraries"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./types": "./src/entry-points/types.tsx",

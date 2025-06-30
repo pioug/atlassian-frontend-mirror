@@ -21,8 +21,7 @@
 		"website": {
 			"name": "Tag group",
 			"category": "Status indicators"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

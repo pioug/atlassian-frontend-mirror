@@ -46,8 +46,7 @@
 		"team": "Editor: Core Experiences",
 		"website": {
 			"name": "Editor Core"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",

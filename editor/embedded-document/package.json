@@ -33,8 +33,7 @@
 		"website": {
 			"name": "embedded-document",
 			"deprecated": "This package is no longer being used and will not be actively maintained"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",

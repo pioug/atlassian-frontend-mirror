@@ -28,8 +28,7 @@
 		"team": "Linking Platform",
 		"website": {
 			"name": "LinkingCommon"
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/linking-common run codegen-analytics'"

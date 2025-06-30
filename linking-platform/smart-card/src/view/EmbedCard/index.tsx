@@ -40,6 +40,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 			iframeUrlType,
 			actionOptions,
 			renderers,
+			CompetitorPrompt,
 		},
 		iframeRef,
 	) => {
@@ -108,6 +109,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 							onIframeDwell={onIframeDwell}
 							onIframeFocus={onIframeFocus}
 							testId={testId}
+							CompetitorPrompt={CompetitorPrompt}
 						/>
 					);
 				} else {

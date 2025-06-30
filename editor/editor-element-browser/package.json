@@ -1,7 +1,6 @@
 {
 	"atlassian": {
 		"team": "Editor: Jenga",
-		"runReact18": true,
 		"website": {
 			"name": "EditorElementBrowser",
 			"category": "Layout and structure"

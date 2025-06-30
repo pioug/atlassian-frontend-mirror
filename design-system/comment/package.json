@@ -21,8 +21,7 @@
 		"website": {
 			"name": "Comment",
 			"category": "Forms and input"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

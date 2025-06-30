@@ -22,12 +22,16 @@ export const STAGING_BASE_URL = 'https://api.stg.atlassian.com/flags';
 export const DEV_BASE_URL = 'https://api.dev.atlassian.com/flags';
 export const FEDM_STAGING_BASE_URL = 'https://api.stg.atlassian-us-gov-mod.com/flags';
 export const FEDM_PROD_BASE_URL = 'https://api.atlassian-us-gov-mod.com/flags';
+export const IC_FFS_BASE_URL = 'https://atlassian-statsig-proxy-archetype.atl-paas.%s.atl-ic.net'
+
+export const IC_STAGING_BASE_DOMAIN_URL = 'oasis-stg.com/flags';
+export const IC_PROD_BASE_DOMAIN_URL = 'atlassian-isolated.net/flags';
 
 export const GATEWAY_BASE_URL = '/gateway/api/flags';
 
 export type FetcherOptions = Pick<
 	OptionsWithDefaults<ClientOptions>,
-	'apiKey' | 'fetchTimeoutMs' | 'environment' | 'useGatewayURL' | 'targetApp' | 'perimeter'
+	'apiKey' | 'fetchTimeoutMs' | 'environment' | 'useGatewayURL' | 'targetApp' | 'perimeter' | 'isolationContextId'
 >;
 
 type Method = 'GET' | 'POST';
@@ -99,6 +103,7 @@ export default class Fetcher {
 		serviceEnv: FeatureGateEnvironment,
 		useGatewayUrl: boolean = false,
 		perimeter: PerimeterType,
+		isolationContextId: string | null = null,
 	): string {
 		if (useGatewayUrl) {
 			return GATEWAY_BASE_URL;
@@ -118,8 +123,16 @@ export default class Fetcher {
 				case FeatureGateEnvironment.Development:
 					return DEV_BASE_URL;
 				case FeatureGateEnvironment.Staging:
+					const apiUrl = this.getApiUrl(isolationContextId);
+					if (apiUrl !== null) {
+						return apiUrl;
+					}
 					return STAGING_BASE_URL;
 				default:
+					const prodApiUrl = this.getApiUrl(isolationContextId);
+					if (prodApiUrl !== null) {
+						return prodApiUrl;
+					}
 					return PROD_BASE_URL;
 			}
 		} else {
@@ -137,6 +150,7 @@ export default class Fetcher {
 			fetcherOptions.environment,
 			fetcherOptions.useGatewayURL,
 			fetcherOptions.perimeter,
+			fetcherOptions.isolationContextId,
 		);
 
 		const fetchTimeout = fetcherOptions.fetchTimeoutMs || DEFAULT_REQUEST_TIMEOUT_MS;
@@ -164,5 +178,35 @@ export default class Fetcher {
 
 		await this.handleResponseError(response);
 		return await this.extractResponseBody(response);
+	}
+
+	private static getApiUrl(isolationContextId: string | null): string | null {
+		const window = this.getWindowLocation();
+		if (window === undefined ) {
+			//this is needed when this SDK is used for SSR or plugin use cases where secret keys not available to use backend SDKs
+			if (!isolationContextId) {
+				return null;
+			}
+			return IC_FFS_BASE_URL.replace('%s', isolationContextId);
+		}
+		const {protocol, hostname} = window;
+		let baseDomain;
+
+		const domainParts = hostname.split('.');
+		if (domainParts.includes('oasis-stg')) {
+			baseDomain = IC_STAGING_BASE_DOMAIN_URL;
+		} else if (domainParts.includes('atlassian-isolated')) {
+			baseDomain = IC_PROD_BASE_DOMAIN_URL;
+		} else {
+			return null;
+		}
+		return `${protocol}//api.${baseDomain}`;
+	}
+
+	static getWindowLocation() {
+		if(typeof window !== 'undefined' && window.location) {
+		return window.location;
+	}
+		return undefined;
 	}
 }

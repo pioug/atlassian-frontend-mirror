@@ -36,8 +36,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Image"
-		},
-		"runReact18": true
+		}
 	},
 	"techstack": {
 		"@repo/internal": {

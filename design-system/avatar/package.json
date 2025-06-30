@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Avatar",
 			"category": "Images and icons"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./AvatarItem": "./src/entry-points/avatar-item.tsx",

@@ -17,8 +17,7 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
-		"team": "Design System Team",
-		"runReact18": true
+		"team": "Design System Team"
 	},
 	"scripts": {
 		"ak-postbuild": "cd ../../../ && yarn build --includeDependencies @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",

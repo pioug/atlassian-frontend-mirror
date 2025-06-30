@@ -1,6 +1,7 @@
-import Bowser from 'bowser-ultralight';
-
+import { getDocument } from '@atlaskit/browser-apis';
 import { fg } from '@atlaskit/platform-feature-flags';
+
+// Import common utilities
 
 import { getLighthouseMetrics } from '../additional-payload';
 import { CHRReporter } from '../assets';
@@ -31,10 +32,18 @@ import {
 	sanitizeUfoName,
 	stringifyLabelStackFully,
 } from './common/utils';
+import { createCriticalMetricsPayloads } from './critical-metrics-payload';
+import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
+import { getBrowserMetadataToLegacyFormat } from './utils/get-browser-metadata';
 import getInteractionStatus from './utils/get-interaction-status';
+import { getNavigationMetricsToLegacyFormat } from './utils/get-navigation-metrics';
 import getPageVisibilityUpToTTAI from './utils/get-page-visibility-up-to-ttai';
+import { getPaintMetricsToLegacyFormat } from './utils/get-paint-metrics';
+import getPayloadSize from './utils/get-payload-size';
 import { getReactUFOPayloadVersion } from './utils/get-react-ufo-payload-version';
 import getSSRDoneTimeValue from './utils/get-ssr-done-time-value';
+import getSSRSuccessUtil from './utils/get-ssr-success';
+import getTTAI from './utils/get-ttai';
 import getVCMetrics from './utils/get-vc-metrics';
 
 function getUfoNameOverride(interaction: InteractionMetrics): string {
@@ -150,128 +159,12 @@ function getBundleEvalTimings(start: number) {
 	return bundleEvalTiming.getBundleEvalTimings(start);
 }
 
-function getSSRSuccess(type: InteractionType) {
-	return type === 'page_load' ? ssr.getSSRSuccess() : undefined;
-}
-
 function getSSRPhaseSuccess(type: InteractionType) {
 	return type === 'page_load' ? ssr.getSSRPhaseSuccess() : undefined;
 }
 
 function getSSRFeatureFlags(type: InteractionType) {
 	return type === 'page_load' ? ssr.getSSRFeatureFlags() : undefined;
-}
-
-const getLCP: (end: number) => Promise<number | null> = (end) => {
-	return new Promise((resolve) => {
-		let observer: PerformanceObserver;
-		const timeout = setTimeout(() => {
-			observer?.disconnect();
-			resolve(null);
-		}, 200);
-
-		const performanceObserverCallback: PerformanceObserverCallback = (list) => {
-			const entries = Array.from(list.getEntries());
-			const lastEntry = entries.reduce<PerformanceEntry | null>((agg, entry) => {
-				// Use the latest LCP candidate before TTAI
-				if (entry.startTime <= end && (agg === null || agg.startTime < entry.startTime)) {
-					return entry;
-				}
-				return agg;
-			}, null);
-
-			clearTimeout(timeout);
-
-			if (!lastEntry || lastEntry === null) {
-				resolve(null);
-			} else {
-				resolve(lastEntry.startTime);
-			}
-		};
-
-		observer = new PerformanceObserver(performanceObserverCallback);
-		observer.observe({ type: 'largest-contentful-paint', buffered: true });
-	});
-};
-
-async function getPaintMetrics(type: InteractionType, end: number) {
-	if (type !== 'page_load') {
-		return {};
-	}
-	const metrics: Record<string, number> = {};
-	performance.getEntriesByType('paint').forEach((entry) => {
-		if (entry.name === 'first-paint') {
-			metrics['metric:fp'] = Math.round(entry.startTime);
-		}
-		if (entry.name === 'first-contentful-paint') {
-			metrics['metric:fcp'] = Math.round(entry.startTime);
-		}
-	});
-
-	const lcp = await getLCP(end);
-	if (lcp) {
-		metrics['metric:lcp'] = Math.round(lcp);
-	}
-
-	return metrics;
-}
-
-function getTTAI(interaction: InteractionMetrics) {
-	const { start, end } = interaction;
-	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
-	return !interaction.abortReason && pageVisibilityUpToTTAI === 'visible'
-		? Math.round(end - start)
-		: undefined;
-}
-
-function getNavigationMetrics(type: InteractionType) {
-	if (type !== 'page_load') {
-		return {};
-	}
-	const entries = performance.getEntriesByType('navigation');
-	if (entries.length === 0) {
-		return {};
-	}
-	const navigation = entries[0] as PerformanceNavigationTiming;
-
-	const metrics = {
-		// From https://www.w3.org/TR/resource-timing/
-		redirectStart: Math.round(navigation.redirectStart),
-		redirectEnd: Math.round(navigation.redirectEnd),
-		fetchStart: Math.round(navigation.fetchStart),
-		domainLookupStart: Math.round(navigation.domainLookupStart),
-		domainLookupEnd: Math.round(navigation.domainLookupEnd),
-		connectStart: Math.round(navigation.connectStart),
-		connectEnd: Math.round(navigation.connectEnd),
-		secureConnectionStart: Math.round(navigation.secureConnectionStart),
-		requestStart: Math.round(navigation.requestStart),
-		responseStart: Math.round(navigation.responseStart),
-		responseEnd: Math.round(navigation.responseEnd),
-		encodedBodySize: Math.round(navigation.encodedBodySize),
-		decodedBodySize: Math.round(navigation.decodedBodySize),
-		transferSize: Math.round(navigation.transferSize),
-
-		// From https://www.w3.org/TR/navigation-timing-2/
-		redirectCount: navigation.redirectCount,
-		type: navigation.type,
-		unloadEventEnd: Math.round(navigation.unloadEventEnd),
-		unloadEventStart: Math.round(navigation.unloadEventStart),
-		workerStart: Math.round(navigation.workerStart),
-
-		nextHopProtocol: navigation.nextHopProtocol,
-
-		// The following properties are ignored because they provided limited value on a modern stack (e.g. the content
-		// is usually rendered and interactive before the dom is fully parsed, dont't play well with streamed content...)
-		//   * domComplete
-		//   * domContentLoadedEventEnd
-		//   * domContentLoadedEventStart
-		//   * domInteractive
-		//   * loadEventEnd
-		//   * loadEventStart
-	};
-	return {
-		'metrics:navigation': metrics,
-	};
 }
 
 function getPPSMetrics(interaction: InteractionMetrics) {
@@ -313,7 +206,7 @@ function getSSRProperties(type: InteractionType) {
 	const ssrPhases = getSSRPhaseSuccess(type);
 
 	return {
-		'ssr:success': getSSRSuccess(type),
+		'ssr:success': getSSRSuccessUtil(type),
 		'ssr:featureFlags': getSSRFeatureFlags(type),
 		...(ssrPhases?.earlyFlush != null
 			? {
@@ -352,49 +245,6 @@ function getAssetsMetrics(interaction: InteractionMetrics, SSRDoneTime: number |
 	}
 }
 
-function getBrowserMetadata() {
-	const data: {
-		'event:browser:name'?: string;
-		'event:browser:version'?: string;
-		'event:cpus'?: number;
-		'event:memory'?: number;
-		'event:network:effectiveType'?: string;
-		'event:network:rtt'?: number;
-		'event:network:downlink'?: number;
-		'event:localHour'?: number;
-		'event:localDayOfWeek'?: number;
-		'event:localTimezoneOffset'?: number;
-	} = {};
-
-	const now = new Date();
-	data['event:localHour'] = now.getHours(); // returns the hours for this date according to local time
-	data['event:localDayOfWeek'] = now.getDay(); // Sunday - Saturday : 0 - 6
-	data['event:localTimezoneOffset'] = now.getTimezoneOffset(); // A number representing the difference, in minutes, between the date as evaluated in the UTC time zone and as evaluated in the local time zone.
-
-	if (navigator.userAgent != null) {
-		const browser = Bowser.getParser(navigator.userAgent);
-		data['event:browser:name'] = browser.getBrowserName();
-		data['event:browser:version'] = browser.getBrowserVersion();
-	}
-
-	if (navigator.hardwareConcurrency != null) {
-		data['event:cpus'] = navigator.hardwareConcurrency;
-	}
-
-	if ((navigator as any).deviceMemory != null) {
-		data['event:memory'] = (navigator as any).deviceMemory;
-	}
-
-	// eslint-disable-next-line compat/compat
-	if ((navigator as any).connection != null) {
-		data['event:network:effectiveType'] = (navigator as any).connection.effectiveType;
-		data['event:network:rtt'] = (navigator as any).connection.rtt;
-		data['event:network:downlink'] = (navigator as any).connection.downlink;
-	}
-
-	return data;
-}
-
 function getTracingContextData(interaction: InteractionMetrics) {
 	const { trace, start } = interaction;
 	let tracingContextData = {};
@@ -414,7 +264,7 @@ function getTracingContextData(interaction: InteractionMetrics) {
 }
 
 function optimizeCustomData(interaction: InteractionMetrics) {
-	const { customData, legacyMetrics } = interaction;
+	const { customData, cohortingCustomData, legacyMetrics } = interaction;
 	const customDataMap = customData.reduce((result, { labelStack, data }) => {
 		const label = stringifyLabelStackFully(labelStack);
 		const value = result.get(label)?.data ?? {};
@@ -426,6 +276,20 @@ function optimizeCustomData(interaction: InteractionMetrics) {
 
 		return result;
 	}, new Map());
+
+	// Merge cohorting custom data into the same map
+	if (cohortingCustomData && cohortingCustomData.size > 0) {
+		const label = stringifyLabelStackFully(interaction.labelStack ?? []);
+		const value = customDataMap.get(label)?.data ?? {};
+
+		customDataMap.set(label, {
+			labelStack: optimizeLabelStack(
+				interaction.labelStack ?? [],
+				getReactUFOPayloadVersion(interaction.type),
+			),
+			data: Object.assign(value, Object.fromEntries(cohortingCustomData)),
+		});
+	}
 
 	if (legacyMetrics) {
 		const legacyMetricsFiltered = legacyMetrics
@@ -731,15 +595,15 @@ function getBm3TrackerTimings(interaction: InteractionMetrics) {
 	return { legacyMetrics };
 }
 
-function getPayloadSize(payload: object): number {
-	return Math.round(new TextEncoder().encode(JSON.stringify(payload)).length / 1024);
-}
-
 function getStylesheetMetrics() {
 	try {
-		const stylesheets = Array.from(document.styleSheets);
+		const doc = getDocument();
+		if (!doc) {
+			return {};
+		}
+		const stylesheets = Array.from(doc.styleSheets);
 		const stylesheetCount = stylesheets.length;
-		const cssrules = Array.from(document.styleSheets).reduce((acc, item) => {
+		const cssrules = Array.from(doc.styleSheets).reduce((acc, item) => {
 			// Other domain stylesheets throw a SecurityError
 			try {
 				return acc + item.cssRules.length;
@@ -748,9 +612,9 @@ function getStylesheetMetrics() {
 			}
 		}, 0);
 
-		const styleElements = document.querySelectorAll('style').length;
-		const styleProps = document.querySelectorAll('[style]');
-		const styleDeclarations = Array.from(document.querySelectorAll('[style]')).reduce(
+		const styleElements = doc.querySelectorAll('style').length;
+		const styleProps = doc.querySelectorAll('[style]');
+		const styleDeclarations = Array.from(doc.querySelectorAll('[style]')).reduce(
 			(acc, item) => {
 				try {
 					if ('style' in item) {
@@ -797,6 +661,8 @@ async function createInteractionMetricsPayload(
 	interaction: InteractionMetrics,
 	interactionId: string,
 	experimental?: boolean,
+	criticalPayloadCount?: number,
+	vcMetrics?: Awaited<ReturnType<typeof getVCMetrics>>,
 ) {
 	const interactionPayloadStart = performance.now();
 	const config = getConfig();
@@ -923,10 +789,10 @@ async function createInteractionMetricsPayload(
 	const newUFOName = sanitizeUfoName(ufoName);
 	const resourceTimings = getResourceTimings(start, end);
 
-	const [vcMetrics, experimentalMetrics, paintMetrics] = await Promise.all([
-		getVCMetrics(interaction),
+	const [finalVCMetrics, experimentalMetrics, paintMetrics] = await Promise.all([
+		vcMetrics || (await getVCMetrics(interaction)),
 		experimental ? getExperimentalVCMetrics(interaction) : Promise.resolve(undefined),
-		getPaintMetrics(type, end),
+		getPaintMetricsToLegacyFormat(type, end),
 	]);
 
 	const payload = {
@@ -964,14 +830,21 @@ async function createInteractionMetricsPayload(
 						}
 					: {}),
 
+				...(criticalPayloadCount !== undefined
+					? {
+							'ufo:multipayload': true,
+							'ufo:criticalPayloadCount': criticalPayloadCount,
+						}
+					: {}),
+
 				// root
-				...getBrowserMetadata(),
+				...getBrowserMetadataToLegacyFormat(),
 				...getSSRProperties(type),
 				...getAssetsMetrics(interaction, pageLoadInteractionMetrics?.SSRDoneTime),
 				...getPPSMetrics(interaction),
 				...paintMetrics,
-				...getNavigationMetrics(type),
-				...vcMetrics,
+				...getNavigationMetricsToLegacyFormat(type),
+				...finalVCMetrics,
 				...experimentalMetrics,
 				...config.additionalPayloadData?.(interaction),
 				...getTracingContextData(interaction),
@@ -1046,12 +919,37 @@ async function createInteractionMetricsPayload(
 export async function createPayloads(interactionId: string, interaction: InteractionMetrics) {
 	const ufoNameOverride = getUfoNameOverride(interaction);
 	const modifiedInteraction = { ...interaction, ufoName: ufoNameOverride };
+
+	const payloads: (
+		| CriticalMetricsPayload
+		| Awaited<ReturnType<typeof createInteractionMetricsPayload>>
+	)[] = [];
+	const isCriticalMetricsEnabled = fg('platform_ufo_critical_metrics_payload');
+
+	// Calculate VC metrics once to avoid duplicate expensive calculations
+	const vcMetrics = await getVCMetrics(interaction);
+
+	// typeof Promise<CriticalMetricsPayload[]>
+	const criticalMetricsPayloads = isCriticalMetricsEnabled
+		? await createCriticalMetricsPayloads(interactionId, interaction, vcMetrics)
+		: [];
+
+	payloads.push(...criticalMetricsPayloads);
+
+	const criticalPayloadCount = isCriticalMetricsEnabled
+		? criticalMetricsPayloads.length
+		: undefined;
+
 	const interactionMetricsPayload = await createInteractionMetricsPayload(
 		modifiedInteraction,
 		interactionId,
+		undefined,
+		criticalPayloadCount,
+		vcMetrics,
 	);
+	payloads.push(interactionMetricsPayload);
 
-	return [interactionMetricsPayload];
+	return payloads.filter(Boolean);
 }
 
 export async function createExperimentalMetricsPayload(

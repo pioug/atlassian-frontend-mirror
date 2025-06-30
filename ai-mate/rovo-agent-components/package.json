@@ -9,7 +9,6 @@
 	},
 	"atlassian": {
 		"team": "AI Mate",
-		"runReact18": true,
 		"website": {
 			"name": "RovoAgentComponents",
 			"category": "Components"

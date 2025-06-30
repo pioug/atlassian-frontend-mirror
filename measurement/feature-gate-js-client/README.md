@@ -486,6 +486,33 @@ await featureGates.initialize({
 featureGates.checkGate('my-gate');
 ```
 
+### Isolated Cloud support
+The client supports isolated cloud environments and will be able to `init` using FFS in IC environments. The SDK automatically resolves the right 
+stargate api url based on the environment provided by the user and the window location.
+
+If users are running this client as part of server code and as a backend SDK and want to talk to FFS directly, they need to pass `isolationContextId` which is an optional 
+field in `ClientOptions`.
+The SDK will construct the FFS URL based on the `isolationContextId` from which SDK will do the initialization.
+
+```typescript
+import FeatureGates, {
+	FeatureGateEnvironment,
+	FeatureGateProducts,
+	PerimeterType,
+} from '@atlaskit/feature-gate-js-client';
+
+try {
+	await FeatureGates.initialize(
+		{
+			// This is an fx3 api key used to fetch the feature flag values.
+			// Supported keys found at go/fx3/resources/api-keys
+			apiKey: 'client-test',
+			isolationContextId: 'ic-7bf',
+		});
+} catch (err) {
+	console.error('Failed to initialize FeatureGates client.', err);
+}
+```
 ## Testing
 
 ### Jest

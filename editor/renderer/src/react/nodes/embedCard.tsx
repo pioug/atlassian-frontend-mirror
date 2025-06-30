@@ -95,6 +95,7 @@ export default function EmbedCard(props: {
 		platform,
 		frameStyle: smartLinks?.frameStyle ?? 'show',
 		actionOptions,
+		CompetitorPrompt: smartLinks?.CompetitorPrompt,
 	};
 
 	const [liveHeight, setLiveHeight] = useState<number | null>(null);

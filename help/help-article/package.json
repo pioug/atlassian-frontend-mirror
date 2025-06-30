@@ -34,8 +34,7 @@
 		"team": "Self-Help Experiences",
 		"website": {
 			"name": "Help Article"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/css-reset": "workspace:^",

@@ -5,7 +5,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { timestampToString } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node as PmNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
@@ -312,8 +312,7 @@ export const getSelectionForMatch = (
 ): Selection => {
 	if (matches[index]) {
 		if (isExpandTitle(matches[index])) {
-			// create a text selection at the first position inside the expand body
-			return TextSelection.create(doc, matches[index].start + offset - 2);
+			return NodeSelection.create(doc, matches[index].start);
 		}
 		return TextSelection.create(doc, matches[index].start + offset);
 	}

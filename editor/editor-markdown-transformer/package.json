@@ -34,8 +34,7 @@
 		"team": "Editor: Collaboration",
 		"website": {
 			"name": "Editor Markdown Transformer"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",

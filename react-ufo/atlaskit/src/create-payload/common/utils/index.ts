@@ -1,9 +1,13 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { LabelStack, SegmentLabel } from '../../../interaction-context';
+import { UFOSegmentType } from '../../../segment/segment';
 import { getReactUFOPayloadVersion } from '../../utils/get-react-ufo-payload-version';
 
 export type SegmentItem = {
 	n: string;
 	c?: Record<string, SegmentItem>;
+	t?: UFOSegmentType;
 };
 
 export type SegmentTree = {
@@ -26,11 +30,15 @@ export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 			const name = label.name;
 			const id = isSegmentLabel(label) ? label.segmentId : undefined;
 			const key = id !== undefined ? id : name;
+			const type = isSegmentLabel(label) ? label.type : undefined;
 			if (!currentNode.c) {
 				currentNode.c = {};
 			}
 			if (!currentNode.c[key]) {
-				currentNode.c[key] = { n: name };
+				currentNode.c[key] = {
+					n: name,
+					...(type && fg('platform_ufo_add_type_for_3p_segments') ? { t: type } : {}),
+				};
 			}
 			currentNode = currentNode.c[key];
 		});
@@ -66,5 +74,8 @@ export function optimizeLabelStack(
 		: labelStack.map((ls) => ({
 				n: ls.name,
 				...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
+				...((ls as SegmentLabel).type && fg('platform_ufo_add_type_for_3p_segments')
+					? { t: (ls as SegmentLabel).type }
+					: {}),
 			}));
 }

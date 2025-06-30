@@ -28,7 +28,6 @@
 			"name": "Core",
 			"category": "Libraries"
 		},
-		"runReact18": true,
 		"integrationTests": {
 			"additionalBrowsers": [
 				"desktop-firefox",

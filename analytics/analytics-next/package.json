@@ -26,8 +26,7 @@
 		"team": "UIP Frontend Observability",
 		"website": {
 			"name": "Analytics next"
-		},
-		"runReact18": true
+		}
 	},
 	"./types": "./src/types.ts",
 	"af:exports": {

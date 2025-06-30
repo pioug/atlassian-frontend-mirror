@@ -13,7 +13,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Search Platform: Search Experience",
-		"runReact18": true,
 		"slack": {
 			"channel": "#search-plex-prs",
 			"notifications": {

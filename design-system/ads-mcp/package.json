@@ -9,8 +9,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Design System Team",
-		"runReact18": true
+		"team": "Design System Team"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"bin": "index.js",

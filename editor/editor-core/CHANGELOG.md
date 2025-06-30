@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 208.6.4
+
+### Patch Changes
+
+- [#179156](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179156)
+  [`81f5605b925fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81f5605b925fc) -
+  AFO-4081 ufo vc ignore if no layout shift marker
+- Updated dependencies
+
+## 208.6.3
+
+### Patch Changes
+
+- [#178241](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178241)
+  [`fcdd6e779f749`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcdd6e779f749) -
+  [ux] [ED-28381] use node selection for matches in the expand title to prevent bugs with findNext
+  and findPrevious and fix scrolling to matches in the platform_editor_find_and_replace_improvements
+  experience
+- Updated dependencies
+
+## 208.6.2
+
+### Patch Changes
+
+- [#178271](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178271)
+  [`fd1a32b0a4f6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd1a32b0a4f6b) -
+  [ED-28322] Remove React version of status nodes to clean up experiment platform_editor_vanilla_dom
+- Updated dependencies
+
 ## 208.6.1
 
 ### Patch Changes

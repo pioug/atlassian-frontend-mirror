@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Tabs",
 			"category": "Navigation"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

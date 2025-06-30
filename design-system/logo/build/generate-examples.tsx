@@ -10,7 +10,40 @@ const RELATIVE_GENERATED_EXAMPLES_DIR = '../examples/constellation/generated';
 const GENERATED_EXAMPLES_DIR = path.join(__dirname, RELATIVE_GENERATED_EXAMPLES_DIR);
 const DOCS_DIR = path.join(__dirname, '../constellation/index');
 
-// Helper function to process logo names consistently
+const logoSpecialDescriptions: Record<string, string> = {
+	loom: '`Loom` can be displayed in either blue, or Loom Blurple.',
+	align: '`Align` replaces the deprecated `Jira Align` logo components.',
+	analytics: '`Analytics` replaces the deprecated `Atlassian Analytics` logo components.',
+	admin:
+		'`Admin` replaces the deprecated `Atlassian Administration` and `Atlassian Admin` logo components.',
+};
+
+// In case a logo needs a custom implementation, add it to this list and it won't be regenerated
+const MANUAL_EXAMPLES = ['loom', 'loom-blurple'];
+const MANUAL_EXAMPLE_FILES = MANUAL_EXAMPLES.map(name => `logo-${name}.tsx`);
+
+// Template for individual logo examples
+const generateLogoExampleTemplate = (name: string, shouldUseNewLogoDesign: boolean) => `
+import React from 'react';
+
+import { ${name}Icon, ${name}Logo } from '@atlaskit/logo';
+
+import LogoTable from '../utils/logo-table';
+
+export default () =>
+		<LogoTable
+			logo={<${name}Logo appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
+			icon={<${name}Icon appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
+		/>
+`;
+
+
+/**
+ * Process a logo name to a consistent format, e.g. `jira-service-management` -> `JiraServiceManagement`
+ *
+ * @param name - The name of the logo
+ * @returns The processed name
+ */
 const processLogoName = (name: string) => {
 	// First split by any non-alphanumeric characters and remove empty strings
 	const words = name.split(/[^a-zA-Z0-9]+/).filter(Boolean);
@@ -18,34 +51,17 @@ const processLogoName = (name: string) => {
 	return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join('');
 };
 
-const logoSpecialDescriptions: Record<string, string> = {
-	align: '`Align` replaces the deprecated `Jira Align` logo components.',
-	analytics: '`Analytics` replaces the deprecated `Atlassian Analytics` logo components.',
-	admin:
-		'`Admin` replaces the deprecated `Atlassian Administration` and `Atlassian Admin` logo components.',
-};
 
-// Template for individual logo examples
-const generateLogoExampleTemplate = (name: string, shouldUseNewLogoDesign: boolean) => `
-import React from 'react';
-import { ${name}Icon, ${name}Logo } from '@atlaskit/logo';
-import LogoTable from '../utils/logo-table';
-
-export default () =>
-		<LogoTable
-			Logo={<${name}Logo appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
-			Icon={<${name}Icon appearance="brand" ${shouldUseNewLogoDesign ? 'shouldUseNewLogoDesign' : ''} />}
-		/>
-`;
-
-// Generate examples for all logos
+/**
+ * Generate examples for all logos, and places them in the generated examples directory
+ */
 const generateLogoExamples = () => {
+
 	// Ensure directories exist and are empty
 	if (!fs.existsSync(GENERATED_EXAMPLES_DIR)) {
 		fs.mkdirSync(GENERATED_EXAMPLES_DIR, { recursive: true });
-		// Empty dir except for README.md
 		fs.readdirSync(GENERATED_EXAMPLES_DIR).forEach((file) => {
-			if (file !== 'README.md') {
+			if (!['README.md', ...MANUAL_EXAMPLE_FILES].includes(file)) {
 				fs.removeSync(path.join(GENERATED_EXAMPLES_DIR, file));
 			}
 		});
@@ -53,6 +69,9 @@ const generateLogoExamples = () => {
 
 	// Generate examples for all logos
 	[...PROGRAM_LOGO_DOCS_ORDER, ...APP_LOGO_DOCS_ORDER].forEach((name) => {
+		if (MANUAL_EXAMPLES.includes(name)) {
+			return;
+		}
 		const componentName = processLogoName(name);
 		const fileName = `logo-${name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.tsx`;
 		const content = generateLogoExampleTemplate(
@@ -64,7 +83,9 @@ const generateLogoExamples = () => {
 	});
 };
 
-// Generate the documentation
+/**
+ * Generates the atlassian.design `examples` page, in the order provided by the logo config
+ */
 const generateDocumentation = () => {
 	const docContent = `---
 order: 0

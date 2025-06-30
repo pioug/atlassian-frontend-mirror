@@ -1,12 +1,9 @@
-import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { StatusNodeView } from '../nodeviews/status';
 import { StatusNodeView as StatusNodeViewVanilla } from '../nodeviews/StatusNodeView';
 import type { StatusPluginOptions, StatusState } from '../types';
 
@@ -131,15 +128,8 @@ const createPlugin = (
 		key: pluginKey,
 		props: {
 			nodeViews: {
-				status: (node, view, getPos, decorations) => {
-					if (editorExperiment('platform_editor_vanilla_dom', true, { exposure: true })) {
-						return new StatusNodeViewVanilla(node, pmPluginFactoryParams.getIntl());
-					}
-					return getInlineNodeViewProducer({
-						pmPluginFactoryParams,
-						Component: StatusNodeView,
-						extraComponentProps: { options },
-					})(node, view, getPos, decorations);
+				status: (node) => {
+					return new StatusNodeViewVanilla(node, pmPluginFactoryParams.getIntl());
 				},
 			},
 		},

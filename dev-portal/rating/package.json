@@ -28,8 +28,7 @@
 		"team": "Ecosystem - Discover",
 		"website": {
 			"name": "Rating"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",

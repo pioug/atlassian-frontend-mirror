@@ -63,6 +63,7 @@ import UnlinkIcon from '@atlaskit/icon/core/migration/link-broken--editor-unlink
 import OpenIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import CogIcon from '@atlaskit/icon/core/migration/settings--editor-settings';
 import SettingsIcon from '@atlaskit/icon/core/settings';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -572,7 +573,12 @@ const generateToolbarItems =
 					]
 				: [
 						...editButtonItems,
-						...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
+						...(fg('platform_editor_controls_patch_15')
+							? ([
+									...getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi),
+									{ type: 'separator', fullHeight: true },
+								] as FloatingToolbarItem<Command>[])
+							: getUnlinkButtonGroup(state, intl, node, inlineCard, editorAnalyticsApi)),
 						{
 							id: 'editor.link.openLink',
 							type: 'button',

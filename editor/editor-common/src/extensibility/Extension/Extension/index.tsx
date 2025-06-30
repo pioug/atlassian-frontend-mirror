@@ -11,7 +11,6 @@ import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { sharedPluginStateHookMigratorFactory, useSharedPluginState } from '../../../hooks';
@@ -264,13 +263,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 									css={content}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={contentClassNames}
-									ref={
-										!fg('platform_editor_extension_fix_ssr_ref') ? handleContentDOMRef : undefined
-									}
 								>
 									{/* NOTE: this is a way around a bit strange issue where ref is always null on SSR
 								    when `css` property is provided to the component. */}
-									{fg('platform_editor_extension_fix_ssr_ref') && <div ref={handleContentDOMRef} />}
+									<div ref={handleContentDOMRef} />
 								</div>
 							)}
 						</div>

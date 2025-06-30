@@ -18,7 +18,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "React drop indicator",
 			"category": "Libraries"

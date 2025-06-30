@@ -36,8 +36,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Viewer"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

@@ -21,8 +21,7 @@
 		"website": {
 			"name": "Avatar group",
 			"category": "Images and icons"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/avatar": "workspace:^",

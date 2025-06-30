@@ -38,8 +38,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Card"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

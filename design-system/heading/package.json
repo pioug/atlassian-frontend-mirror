@@ -24,8 +24,7 @@
 			"status": {
 				"type": "beta"
 			}
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"codegen": "ts-node ./scripts/codegen.tsx"

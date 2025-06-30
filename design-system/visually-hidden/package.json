@@ -18,7 +18,6 @@
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Visually hidden",
 			"category": "Text and data display"

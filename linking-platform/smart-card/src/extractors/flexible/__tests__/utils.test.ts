@@ -31,6 +31,7 @@ import {
 	extractSubscriberCount,
 	extractSubTasksProgress,
 	extractTargetBranch,
+	extractUserAttributes,
 } from '../utils';
 
 describe('extractAppliedToComponentsCount', () => {
@@ -451,5 +452,66 @@ describe('extractMetaTenantId', () => {
 		const value = extractMetaTenantId({ tenantId: 'tenant-123' } as JsonLd.Meta.BaseMeta);
 		expect(value).toBeDefined();
 		expect(value).toBe('tenant-123');
+	});
+});
+
+describe('extractUserAttributes', () => {
+	it('returns undefined when there is no data for userAttributes', () => {
+		expect(extractUserAttributes(TEST_BASE_DATA)).toBeUndefined();
+	});
+
+	it('returns undefined when userAttributes is null', () => {
+		const value = extractUserAttributes({
+			...TEST_BASE_DATA,
+			userAttributes: null,
+		} as any);
+		expect(value).toBeNull();
+	});
+
+	it('returns undefined when userAttributes is undefined', () => {
+		const value = extractUserAttributes({
+			...TEST_BASE_DATA,
+			userAttributes: undefined,
+		} as any);
+		expect(value).toBeUndefined();
+	});
+
+	it('handles userAttributes with only one property', () => {
+		const userAttributes = {
+			role: 'Product Manager',
+		};
+		const value = extractUserAttributes({
+			...TEST_BASE_DATA,
+			userAttributes,
+		} as JsonLd.Data.Task);
+		expect(value).toBeDefined();
+		expect(value).toEqual(userAttributes);
+	});
+
+	it('handles userAttributes with special characters', () => {
+		const userAttributes = {
+			role: 'Frontend Developer (React/TypeScript)',
+			department: 'Engineering & Product',
+			location: 'San Francisco, CA',
+			pronouns: 'they/them',
+		};
+		const value = extractUserAttributes({
+			...TEST_BASE_DATA,
+			userAttributes,
+		} as JsonLd.Data.Task);
+		expect(value).toBeDefined();
+		expect(value).toEqual(userAttributes);
+	});
+
+	it('returns undefined when data is null', () => {
+		expect(extractUserAttributes(null as any)).toBeUndefined();
+	});
+
+	it('returns undefined when data is undefined', () => {
+		expect(extractUserAttributes(undefined as any)).toBeUndefined();
+	});
+
+	it('returns undefined when data is an empty object', () => {
+		expect(extractUserAttributes({} as JsonLd.Data.BaseData)).toBeUndefined();
 	});
 });

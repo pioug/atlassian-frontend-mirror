@@ -1,7 +1,6 @@
 {
 	"atlassian": {
 		"team": "Editor: Lego",
-		"runReact18": true,
 		"website": {
 			"name": "EditorPerformanceMetrics",
 			"category": "Components"

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dbd3100f177423e11635035a73f7cea5>>
+ * @codegen <<SignedSource::cda50e9a4bfe029ef4790a617266b726>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 73 24">
 /**
  * __AdminLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Admin.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function AdminLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

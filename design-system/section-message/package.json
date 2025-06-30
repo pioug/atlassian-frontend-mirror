@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Section message",
 			"category": "Messaging"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./section-message": "./src/entry-points/section-message.tsx",

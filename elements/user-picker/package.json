@@ -38,7 +38,6 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"runReact18": true,
 		"team": "Search Platform: Search Experience",
 		"slack": {
 			"channel": "#search-plex-prs",

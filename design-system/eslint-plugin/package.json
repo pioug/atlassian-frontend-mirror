@@ -13,7 +13,6 @@
 			"name": "ESLint plugin",
 			"category": "Tooling"
 		},
-		"runReact18": true,
 		"toolingLabels": [
 			"linting"
 		]

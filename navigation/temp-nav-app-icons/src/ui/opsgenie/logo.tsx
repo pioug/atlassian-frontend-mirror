@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eae0a81f6fc08154ce5963d5509482d0>>
+ * @codegen <<SignedSource::e2edaa3a74a3d619f79ebcb0fd7a6e62>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 96 24">
 /**
  * __OpsgenieLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Opsgenie.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function OpsgenieLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

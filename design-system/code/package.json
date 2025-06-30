@@ -21,8 +21,7 @@
 		"website": {
 			"name": "Code",
 			"category": "Text and data display"
-		},
-		"runReact18": true
+		}
 	},
 	"config": {
 		"access": "public"

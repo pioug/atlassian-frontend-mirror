@@ -9,7 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Editor: Core Experiences",
-		"runReact18": true,
 		"website": {
 			"name": "EditorPluginSelectionExtension",
 			"category": "Layout and structure"

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::018109c8d8dd9a86611da8141da8f8dc>>
+ * @codegen <<SignedSource::6015890dc5f6fe7e36c49e38cacb1832>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 69 24">
 /**
  * __LoomLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Loom.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function LoomLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

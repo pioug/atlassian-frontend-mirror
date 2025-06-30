@@ -92,7 +92,7 @@ import { extensionStyles } from './extension';
 import { layoutStyles } from './layout';
 import { mediaStyles } from './media';
 import { panelStyles } from './panel';
-import { statusStyles, vanillaStatusStyles } from './status';
+import { statusStyles, statusNodeStyles } from './status';
 import {
 	taskDecisionStyles,
 	vanillaTaskDecisionIconWithoutVisualRefresh as vanillaDecisionIconWithoutVisualRefresh,
@@ -553,7 +553,7 @@ const legacyContentStyles = (props: ContentStylesProps) => css`
 	!fg('platform-visual-refresh-icons') &&
 	vanillaDecisionIconWithoutVisualRefresh}
   ${statusStyles}
-  ${editorExperiment('platform_editor_vanilla_dom', true) ? vanillaStatusStyles() : null}
+  ${statusNodeStyles()}
   ${annotationSharedStyles()}
   ${smartCardStyles()}
   ${fg('platform-linking-visual-refresh-v1') ? getSmartCardSharedStyles() : smartCardSharedStyles}

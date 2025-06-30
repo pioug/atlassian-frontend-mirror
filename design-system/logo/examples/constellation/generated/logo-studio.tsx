@@ -5,5 +5,5 @@ import { StudioIcon, StudioLogo } from '@atlaskit/logo';
 import LogoTable from '../utils/logo-table';
 
 export default () => (
-	<LogoTable Logo={<StudioLogo appearance="brand" />} Icon={<StudioIcon appearance="brand" />} />
+	<LogoTable logo={<StudioLogo appearance="brand" />} icon={<StudioIcon appearance="brand" />} />
 );

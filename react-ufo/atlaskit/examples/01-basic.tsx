@@ -97,150 +97,171 @@ const useCounterToVisible = (base: number) => {
 // Define each section component using the custom hook
 const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-1"></UFOLoadHold>;
-	}
 
 	return (
-		<div data-testid="sectionOne" css={sectionOneStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionOne">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionOne"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionOne" css={sectionOneStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-2"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionTwo" css={sectionTwoStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionTwo">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionTwo"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionTwo" css={sectionTwoStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-3"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionThree" css={sectionThreeStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionThree">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionThree"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionThree" css={sectionThreeStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionFour = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-4"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionFour" css={sectionFourStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionFour">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionFour"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionFour" css={sectionFourStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionFive = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-5"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionFive" css={sectionFiveStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionFive">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionFive"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionFive" css={sectionFiveStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionSix = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-6"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionSix" css={sectionSixStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionSix">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionSix"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionSix" css={sectionSixStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionSeven = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-7"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionSeven" css={sectionSevenStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionSeven">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionSeven"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionSeven" css={sectionSevenStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionEight = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-8"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionEight" css={sectionEightStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionEight">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionEight"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionEight" css={sectionEightStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionNine = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-9"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionNine" css={sectionNineStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionNine">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionNine"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionNine" css={sectionNineStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 
 const SectionTen = ({ base, appCreatedAt }: { base: number; appCreatedAt: number }) => {
 	const visibleAt = useCounterToVisible(base);
 
-	if (!visibleAt) {
-		return <UFOLoadHold name="section-10"></UFOLoadHold>;
-	}
-
 	return (
-		<div data-testid="sectionTen" css={sectionTenStyle}>
-			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
-			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
-		</div>
+		<UFOSegment name="sectionTen">
+			{!visibleAt ? (
+				<UFOLoadHold name="sectionTen"></UFOLoadHold>
+			) : (
+				<div data-testid="sectionTen" css={sectionTenStyle}>
+					<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
+					<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
+				</div>
+			)}
+		</UFOSegment>
 	);
 };
 

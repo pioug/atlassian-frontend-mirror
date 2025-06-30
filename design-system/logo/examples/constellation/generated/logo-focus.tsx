@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<FocusLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<FocusIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<FocusLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<FocusIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

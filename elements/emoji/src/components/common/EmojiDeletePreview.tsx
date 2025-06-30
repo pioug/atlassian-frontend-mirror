@@ -17,8 +17,6 @@ import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMes
 import RetryableButton from './RetryableButton';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 const deleteFooter = css({
 	display: 'flex',
 	height: '40px',
@@ -93,25 +91,9 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		};
 	}
 
-	UNSAFE_componentWillUpdate(nextProps: Props) {
-		if (
-			!fg('platform_editor_react18_elements_emoji') ||
-			!fg('platform_editor_react18_elements_emoji_jira_bb')
-		) {
-			if (nextProps.emoji.id !== this.props.emoji.id) {
-				this.setState({ error: false });
-			}
-		}
-	}
-
 	componentDidUpdate(prevProps: Props) {
-		if (
-			fg('platform_editor_react18_elements_emoji') ||
-			fg('platform_editor_react18_elements_emoji_jira_bb')
-		) {
-			if (prevProps.emoji.id !== this.props.emoji.id) {
-				this.setState({ error: false });
-			}
+		if (prevProps.emoji.id !== this.props.emoji.id) {
+			this.setState({ error: false });
 		}
 	}
 

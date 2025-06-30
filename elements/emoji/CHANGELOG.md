@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 69.3.5
+
+### Patch Changes
+
+- [#178513](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178513)
+  [`1641aa82d30af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1641aa82d30af) -
+  [ED-27981] Cleans up react 18 emoji feature flag
+- Updated dependencies
+
 ## 69.3.4
 
 ### Patch Changes

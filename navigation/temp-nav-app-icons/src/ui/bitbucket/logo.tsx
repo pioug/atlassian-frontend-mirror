@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4b7b21678dad1691cf7201b47b31583f>>
+ * @codegen <<SignedSource::73f90406a046dac23a2691e5add1161b>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -25,10 +25,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 95 24">
 /**
  * __BitbucketLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Bitbucket.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function BitbucketLogo({
 	iconColor,

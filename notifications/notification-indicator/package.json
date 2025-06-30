@@ -24,8 +24,7 @@
 		"team": "Work Platform: Incoming Work",
 		"website": {
 			"name": "Notification Indicator"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		".": "./src/index.ts"

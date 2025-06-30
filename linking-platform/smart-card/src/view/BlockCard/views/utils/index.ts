@@ -117,12 +117,13 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 				bottomMetadata: defaultBottomMetadata,
 			};
 		case 'legion-object-provider':
-		case 'profile-object-provider':
+		case 'people-object-provider':
 			return {
 				titleMetadata: defaultTitleMetadata,
 				topMetadata: [
 					{ name: ElementName.AuthorGroup },
 					{ name: ElementName.TeamMemberCount },
+					{ name: ElementName.UserAttributes },
 					...baseTopMetadata,
 				],
 				bottomMetadata: defaultBottomMetadata,

@@ -1,7 +1,6 @@
 {
 	"atlassian": {
 		"team": "Jlove-Makkuro",
-		"runReact18": true,
 		"website": {
 			"name": "PlatformFeatureFlagsReact",
 			"category": "Layout and structure"

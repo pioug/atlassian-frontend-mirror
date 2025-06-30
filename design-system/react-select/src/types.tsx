@@ -1,6 +1,4 @@
 import { type XCSSProp } from '@compiled/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
-import { type CSSObject } from '@emotion/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 
@@ -184,4 +182,4 @@ export type FocusDirection = 'up' | 'down' | 'pageup' | 'pagedown' | 'first' | '
 export type GetOptionLabel<Option> = (option: Option) => string;
 export type GetOptionValue<Option> = (option: Option) => string;
 
-export type CSSObjectWithLabel = CSSObject & { label?: string };
+export type CSSObjectWithLabel = any;

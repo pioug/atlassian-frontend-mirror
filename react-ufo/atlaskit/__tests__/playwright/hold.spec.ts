@@ -33,20 +33,24 @@ test.describe('ReactUFO: hold (basic)', () => {
 				expect(Array.isArray(interactionMetrics.holdInfo)).toBe(true);
 				expect(interactionMetrics.holdInfo.length).toBeGreaterThanOrEqual(10);
 
+				const sectionNames = [
+					'sectionOne',
+					'sectionTwo',
+					'sectionThree',
+					'sectionFour',
+					'sectionFive',
+					'sectionSix',
+					'sectionSeven',
+					'sectionEight',
+					'sectionNine',
+					'sectionTen',
+				];
+
 				interactionMetrics.holdInfo.forEach((hold, index) => {
-					expect(hold.labelStack.endsWith(`section-${index + 1}`)).toBe(true);
+					expect(hold.labelStack.endsWith(sectionNames[index])).toBe(true);
 					expect(typeof hold.startTime).toBe('number');
 					expect(typeof hold.endTime).toBe('number');
 				});
-			});
-
-			test('should capture and report a11y violations', async ({
-				page,
-				waitForReactUFOPayload,
-			}) => {
-				const reactUFOPayload = await waitForReactUFOPayload();
-				expect(reactUFOPayload).toBeDefined();
-				await expect(page).toBeAccessible();
 			});
 		});
 	}

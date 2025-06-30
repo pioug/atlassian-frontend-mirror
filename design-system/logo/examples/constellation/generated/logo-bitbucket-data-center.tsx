@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<BitbucketDataCenterLogo appearance="brand" />}
-		Icon={<BitbucketDataCenterIcon appearance="brand" />}
+		logo={<BitbucketDataCenterLogo appearance="brand" />}
+		icon={<BitbucketDataCenterIcon appearance="brand" />}
 	/>
 );

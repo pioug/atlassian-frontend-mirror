@@ -38,8 +38,7 @@
 		"website": {
 			"name": "Onboarding (spotlight)",
 			"category": "Messaging"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",

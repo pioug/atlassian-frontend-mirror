@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 27.2.1
+
+### Patch Changes
+
+- [#179122](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179122)
+  [`a03a08e15f9a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a03a08e15f9a2) -
+  [ux] As the icon component is in its General Release, this release removes the previous `Beta`
+  label from Atlassian.design.
+
 ## 27.2.0
 
 ### Minor Changes

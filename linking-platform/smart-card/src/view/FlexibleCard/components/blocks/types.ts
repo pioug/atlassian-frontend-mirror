@@ -279,7 +279,8 @@ export type ElementItemProps =
 	| Title
 	| TeamMemberCount
 	| ViewCount
-	| VoteCount;
+	| VoteCount
+	| UserAttributes;
 
 /**
  * Represents the props available for an AttachmentCount element.
@@ -554,4 +555,11 @@ export type ViewCount = {
  */
 export type VoteCount = {
 	name: ElementName.VoteCount;
+};
+/**
+ * Represents the props available for an UserAttributes element.
+ * @see UserAttributes
+ */
+export type UserAttributes = {
+	name: ElementName.UserAttributes;
 };

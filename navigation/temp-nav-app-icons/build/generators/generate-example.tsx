@@ -12,6 +12,7 @@ export default function generateExample(assets: Assets, root: string | undefined
 	const exampleUsage = `import React from 'react';
 
 ${Object.entries(assets)
+	.sort(([a], [b]) => a.localeCompare(b))
 	.map(([name, asset]) => {
 		const capitalisedName = name
 			.split('-')
@@ -35,11 +36,11 @@ import type { AppIconProps, AppLogoProps } from '../../src/utils/types';
 
 export const rows: Array<{
 name: string;
-Icon12: React.ComponentType<AppIconProps>;
-Icon16: React.ComponentType<AppIconProps>;
-Icon20: React.ComponentType<AppIconProps>;
-Icon24: React.ComponentType<AppIconProps>;
-Icon32: React.ComponentType<AppIconProps>;
+Icon12: React.ComponentType<AppIconProps> | null;
+Icon16: React.ComponentType<AppIconProps> | null;
+Icon20: React.ComponentType<AppIconProps> | null;
+Icon24: React.ComponentType<AppIconProps> | null;
+Icon32: React.ComponentType<AppIconProps> | null;
 Logo: React.ComponentType<AppLogoProps> | null;
 LogoCS: React.ComponentType<AppLogoProps> | null;
 }> = [
@@ -59,11 +60,11 @@ ${Object.entries(assets)
 
 		return `{
 	name: '${displayName}',
-	Icon12: (props) => <${capitalisedName}Icon {...props} size="12" ${labelProp} />,
-	Icon16: (props) => <${capitalisedName}Icon {...props} size="16" ${labelProp} />,
-	Icon20: (props) => <${capitalisedName}Icon {...props} size="20" ${labelProp} />,
-	Icon24: (props) => <${capitalisedName}Icon {...props} size="24" ${labelProp} />,
-	Icon32: (props) => <${capitalisedName}Icon {...props} size="32" ${labelProp} />,
+	Icon12: ${asset.icon ? `(props) => <${capitalisedName}Icon {...props} size="12" ${labelProp} />` : 'null'},
+	Icon16: ${asset.icon ? `(props) => <${capitalisedName}Icon {...props} size="16" ${labelProp} />` : 'null'},
+	Icon20: ${asset.icon ? `(props) => <${capitalisedName}Icon {...props} size="20" ${labelProp} />` : 'null'},
+	Icon24: ${asset.icon ? `(props) => <${capitalisedName}Icon {...props} size="24" ${labelProp} />` : 'null'},
+	Icon32: ${asset.icon ? `(props) => <${capitalisedName}Icon {...props} size="32" ${labelProp} />` : 'null'},
 	Logo: ${asset.logo ? `(props) => <${capitalisedName}Logo {...props} />` : 'null'},
 	LogoCS: ${asset['logo-cs'] ? `(props) => <${capitalisedName}LogoCS {...props} />` : 'null'},
 }`;

@@ -7,9 +7,12 @@ const collectionColors = {
 	teamwork: '#1868DB',
 	discovery: '#C97CF4',
 	trello: '#1558BC',
+	loom: '#625df5',
 	customer: '#6CC3E0',
 	platform: '#DDDEE1',
 };
+
+export const dataCenterApps = ['jira-data-center', 'confluence-data-center', 'bitbucket-data-center', 'crowd', 'bamboo']
 
 /**
  * SVGO optimisation configuration for logos.
@@ -52,7 +55,7 @@ export const transformSVG = (
 	updatedSvg = updatedSvg.replace(/width="\d+"/, '');
 	updatedSvg = updatedSvg.replace(/height="\d+"/, '');
 
-	if (name.includes('-data-center')) {
+	if (dataCenterApps.includes(name)) {
 		// Data center icons
 		updatedSvg = updatedSvg.replace(
 			/stroke="#DDDEE1"/g,

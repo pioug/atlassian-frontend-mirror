@@ -51,8 +51,7 @@ import type { CategoryId } from './categories';
 import CategorySelector from './CategorySelector';
 import EmojiPickerFooter from './EmojiPickerFooter';
 import {
-	EmojiPickerVirtualListInternalOld as EmojiPickerListOld,
-	EmojiPickerVirtualListInternalNew as EmojiPickerListNew,
+	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type PickerListRef,
 } from './EmojiPickerList';
 import type { AnalyticsEventPayload, CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -76,8 +75,6 @@ import {
 import { useEmoji } from '../../hooks/useEmoji';
 import { useIsMounted } from '../../hooks/useIsMounted';
 import { messages } from '../i18n';
-
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const emojiPickerBoxShadow = token('elevation.shadow.overlay', '0 3px 6px rgba(0, 0, 0, 0.2)');
 const emojiPickerHeight = 295;
@@ -179,14 +176,7 @@ const EmojiPickerComponent = ({
 	const [emojiToDelete, setEmojiToDelete] = useState<EmojiDescription | undefined>();
 	const [toneEmoji, setToneEmoji] = useState<OptionalEmojiDescriptionWithVariations | undefined>();
 
-	const emojiPickerList = useMemo(
-		() =>
-			fg('platform_editor_react18_elements_emoji') ||
-			fg('platform_editor_react18_elements_emoji_jira_bb')
-				? createRef<PickerListRef>()
-				: createRef<EmojiPickerListOld>(),
-		[],
-	);
+	const emojiPickerList = useMemo(() => createRef<PickerListRef>(), []);
 	const openTime = useRef(0);
 	const isMounting = useRef(true);
 	const previousEmojiProvider = useRef(emojiProvider);
@@ -673,68 +663,35 @@ const EmojiPickerComponent = ({
 				disableCategories={disableCategories}
 				onCategorySelected={onCategorySelected}
 			/>
-			{fg('platform_editor_react18_elements_emoji') ||
-			fg('platform_editor_react18_elements_emoji_jira_bb') ? (
-				<EmojiPickerListNew
-					emojis={filteredEmojis}
-					currentUser={currentUser}
-					onEmojiSelected={recordUsageOnSelection}
-					onEmojiActive={onEmojiActive}
-					onEmojiDelete={onTriggerDelete}
-					onCategoryActivated={onCategoryActivated}
-					onSearch={onSearch}
-					query={query}
-					selectedTone={selectedTone}
-					loading={loading}
-					ref={emojiPickerList}
-					initialUploadName={query}
-					onToneSelected={onToneSelected}
-					onToneSelectorCancelled={onToneSelectorCancelled}
-					toneEmoji={toneEmoji}
-					uploading={uploading}
-					emojiToDelete={emojiToDelete}
-					uploadErrorMessage={formattedErrorMessage}
-					uploadEnabled={isUploadSupported && !uploading}
-					onUploadEmoji={onUploadEmoji}
-					onUploadCancelled={onUploadCancelled}
-					onDeleteEmoji={onDeleteEmoji}
-					onCloseDelete={onCloseDelete}
-					onFileChooserClicked={onFileChooserClicked}
-					onOpenUpload={onOpenUpload}
-					size={size}
-					activeCategoryId={activeCategory}
-				/>
-			) : (
-				<EmojiPickerListOld
-					emojis={filteredEmojis}
-					currentUser={currentUser}
-					onEmojiSelected={recordUsageOnSelection}
-					onEmojiActive={onEmojiActive}
-					onEmojiDelete={onTriggerDelete}
-					onCategoryActivated={onCategoryActivated}
-					onSearch={onSearch}
-					query={query}
-					selectedTone={selectedTone}
-					loading={loading}
-					ref={emojiPickerList as any}
-					initialUploadName={query}
-					onToneSelected={onToneSelected}
-					onToneSelectorCancelled={onToneSelectorCancelled}
-					toneEmoji={toneEmoji}
-					uploading={uploading}
-					emojiToDelete={emojiToDelete}
-					uploadErrorMessage={formattedErrorMessage}
-					uploadEnabled={isUploadSupported && !uploading}
-					onUploadEmoji={onUploadEmoji}
-					onUploadCancelled={onUploadCancelled}
-					onDeleteEmoji={onDeleteEmoji}
-					onCloseDelete={onCloseDelete}
-					onFileChooserClicked={onFileChooserClicked}
-					onOpenUpload={onOpenUpload}
-					size={size}
-					activeCategoryId={activeCategory}
-				/>
-			)}
+			<EmojiPickerList
+				emojis={filteredEmojis}
+				currentUser={currentUser}
+				onEmojiSelected={recordUsageOnSelection}
+				onEmojiActive={onEmojiActive}
+				onEmojiDelete={onTriggerDelete}
+				onCategoryActivated={onCategoryActivated}
+				onSearch={onSearch}
+				query={query}
+				selectedTone={selectedTone}
+				loading={loading}
+				ref={emojiPickerList}
+				initialUploadName={query}
+				onToneSelected={onToneSelected}
+				onToneSelectorCancelled={onToneSelectorCancelled}
+				toneEmoji={toneEmoji}
+				uploading={uploading}
+				emojiToDelete={emojiToDelete}
+				uploadErrorMessage={formattedErrorMessage}
+				uploadEnabled={isUploadSupported && !uploading}
+				onUploadEmoji={onUploadEmoji}
+				onUploadCancelled={onUploadCancelled}
+				onDeleteEmoji={onDeleteEmoji}
+				onCloseDelete={onCloseDelete}
+				onFileChooserClicked={onFileChooserClicked}
+				onOpenUpload={onOpenUpload}
+				size={size}
+				activeCategoryId={activeCategory}
+			/>
 			{showPreview && <EmojiPickerFooter selectedEmoji={selectedEmoji} />}
 		</div>
 	);

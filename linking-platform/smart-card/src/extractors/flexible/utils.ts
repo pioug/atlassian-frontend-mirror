@@ -170,6 +170,12 @@ export const extractSubTasksProgress = (data: JsonLd.Data.BaseData): string | un
 		: undefined;
 };
 
+export const extractUserAttributes = (
+	data: JsonLd.Data.BaseData,
+): JsonLd.Primitives.UserAttributes | undefined => {
+	return data?.userAttributes;
+};
+
 export const extractReadTime = (data: JsonLd.Data.BaseData): string | undefined => {
 	return extractValue<JsonLd.Data.Document, string>(data, 'atlassian:readTimeInMinutes');
 };

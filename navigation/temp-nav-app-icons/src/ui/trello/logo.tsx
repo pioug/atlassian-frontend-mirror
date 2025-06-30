@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::122871ba70114bb00da29c4c5bb7a3fa>>
+ * @codegen <<SignedSource::03485deba59a16221fa2133c42e42805>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -25,10 +25,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 69 24">
 /**
  * __TrelloLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Trello.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function TrelloLogo({
 	iconColor,

@@ -22,8 +22,7 @@
 	},
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
-		"team": "Media Exif",
-		"runReact18": true
+		"team": "Media Exif"
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",

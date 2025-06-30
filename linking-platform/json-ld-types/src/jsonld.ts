@@ -113,6 +113,13 @@ export namespace JsonLd {
 			totalCount: number;
 			resolvedCount: number;
 		}
+
+		export interface UserAttributes {
+			role?: string;
+			department?: string;
+			location?: string;
+			pronouns?: string;
+		}
 		/*
       -----------------------
       CORE TYPES
@@ -193,6 +200,8 @@ export namespace JsonLd {
 			updated?: string;
 			/* To Show number of members in a team */
 			teamMemberCount?: number;
+			/* User details containing few user information like department, designation, location and pronouns */
+			userAttributes?: Primitives.UserAttributes;
 		}
 
 		/* A Link is an indirect, qualified reference to a resource identified by a URL. The fundamental model for links is established by [ RFC5988]. Many of the properties defined by the Activity Vocabulary allow values that are either instances of Object or Link. When a Link is used, it establishes a qualified relation connecting the subject (the containing object) to the resource identified by the href. Properties of the Link are properties of the reference as opposed to properties of the resource. */

@@ -39,8 +39,7 @@
 				"type": "intent-to-deprecate",
 				"description": "We are planning on deprecating Page layout. We recommend using Navigation system instead. [View Navigation system documentation](/components/navigation-system)"
 			}
-		},
-		"runReact18": true
+		}
 	},
 	"homepage": "https://atlassian.design/components/page-layout/",
 	"dependencies": {

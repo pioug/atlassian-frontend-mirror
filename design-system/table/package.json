@@ -17,8 +17,7 @@
 				"type": "intent-to-deprecate",
 				"description": "This package was an experiment, and is currently deprioritized. It is not recommended for use in production, and we are not providing support for it at this time. Consider using [@atlaskit/dynamic-table](/components/dynamic-table) instead."
 			}
-		},
-		"runReact18": true
+		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",

@@ -34,8 +34,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Avatar Picker"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",

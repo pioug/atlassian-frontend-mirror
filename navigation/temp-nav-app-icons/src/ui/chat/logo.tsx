@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d7f60ff82f31a9e11d3e20a4ea18b8c>>
+ * @codegen <<SignedSource::4fbe56745a87d88ea5863b059bb1d948>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 63 24">
 /**
  * __ChatLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Chat.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function ChatLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

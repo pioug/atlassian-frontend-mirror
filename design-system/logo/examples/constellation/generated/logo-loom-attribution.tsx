@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<LoomAttributionLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<LoomAttributionIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<LoomAttributionLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<LoomAttributionIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

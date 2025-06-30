@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "27.2.0",
+	"version": "27.2.1",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,20 +21,6 @@
 		"website": {
 			"name": "Icon",
 			"category": "Images and icons",
-			"status": {
-				"type": "beta",
-				"description": "These icons are part of Atlassian's visual refresh. Use the legacy icons for current product experiences.",
-				"actions": [
-					{
-						"text": "View legacy icons",
-						"href": "/components/icon/icon-legacy/"
-					},
-					{
-						"text": "Migrate to new icons",
-						"href": "/components/icon/migration-guide/"
-					}
-				]
-			},
 			"subPages": [
 				{
 					"title": "Icon (legacy)",
@@ -88,8 +74,7 @@
 					}
 				}
 			]
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"

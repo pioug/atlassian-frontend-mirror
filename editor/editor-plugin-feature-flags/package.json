@@ -23,8 +23,7 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: Lego",
-		"singleton": true,
-		"runReact18": true
+		"singleton": true
 	},
 	"dependencies": {
 		"@atlaskit/editor-common": "workspace:^",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "3.14.2",
+	"version": "3.14.6",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,8 +8,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "UIP Frontend Observability",
-		"runReact18": true
+		"team": "UIP Frontend Observability"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -121,6 +120,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/interaction-context": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "^7.0.0",
@@ -183,6 +183,9 @@
 		"platform_ufo_report_memory_usage": {
 			"type": "boolean"
 		},
+		"platform_ufo_enable_media_for_ttvc_v3": {
+			"type": "boolean"
+		},
 		"platform_ufo_emit_vc_debug_data": {
 			"type": "boolean"
 		},
@@ -225,6 +228,9 @@
 		"platform_ufo_enable_timeout_config": {
 			"type": "boolean"
 		},
+		"platform_ufo_critical_metrics_payload": {
+			"type": "boolean"
+		},
 		"platform_ufo_enable_interactivity_jsm": {
 			"type": "boolean"
 		},
@@ -241,6 +247,12 @@
 			"type": "boolean"
 		},
 		"platform_ufo_exclude_3p_elements_from_ttvc": {
+			"type": "boolean"
+		},
+		"platform_ufo_add_type_for_3p_segments": {
+			"type": "boolean"
+		},
+		"platform_vc_ignore_no_ls_mutation_marker": {
 			"type": "boolean"
 		}
 	}

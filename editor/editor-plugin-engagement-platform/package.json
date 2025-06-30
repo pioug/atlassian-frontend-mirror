@@ -11,8 +11,7 @@
 		"team": "Editor: Core Experiences",
 		"inPublicMirror": false,
 		"singleton": true,
-		"releaseModel": "continuous",
-		"runReact18": true
+		"releaseModel": "continuous"
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",

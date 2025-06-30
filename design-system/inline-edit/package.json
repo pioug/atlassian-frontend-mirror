@@ -30,8 +30,7 @@
 		"website": {
 			"name": "Inline edit",
 			"category": "Text and data display"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

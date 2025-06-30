@@ -9,7 +9,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "React accessibility",
 			"category": "Libraries"

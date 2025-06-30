@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 2.10.4
+
+### Patch Changes
+
+- [#178241](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178241)
+  [`fcdd6e779f749`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcdd6e779f749) -
+  [ux] [ED-28381] use node selection for matches in the expand title to prevent bugs with findNext
+  and findPrevious and fix scrolling to matches in the platform_editor_find_and_replace_improvements
+  experience
+- Updated dependencies
+
 ## 2.10.3
 
 ### Patch Changes

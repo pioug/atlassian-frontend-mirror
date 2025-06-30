@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { status } from '@atlaskit/adf-schema';
 import {
 	ACTION_SUBJECT_ID,
 	ACTION,
@@ -17,7 +18,6 @@ import type { FloatingToolbarItem, Command } from '@atlaskit/editor-common/types
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
 import CommentIcon from '@atlaskit/icon/core/comment';
 
-import { statusNodeSpec } from './nodeviews/statusNodeSpec';
 import {
 	commitStatusPicker,
 	insertStatus,
@@ -34,7 +34,7 @@ export const statusPlugin: StatusPlugin = ({ config: options, api }) => ({
 	name: 'status',
 
 	nodes() {
-		return [{ name: 'status', node: statusNodeSpec() }];
+		return [{ name: 'status', node: status }];
 	},
 
 	pmPlugins() {

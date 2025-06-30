@@ -36,8 +36,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Filmstrip"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",

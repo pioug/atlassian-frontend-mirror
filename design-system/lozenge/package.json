@@ -35,8 +35,7 @@
 		"website": {
 			"name": "Lozenge",
 			"category": "Status indicators"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/codemod-utils": "workspace:^",

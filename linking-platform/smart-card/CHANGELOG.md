@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 38.19.0
+
+### Minor Changes
+
+- [#177020](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177020)
+  [`206ae7b37b4af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/206ae7b37b4af) -
+  [ux] Add Competitor Prompt for Embed Smart Link
+
+## 38.18.0
+
+### Minor Changes
+
+- [#175615](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175615)
+  [`c4d5eeba6a492`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4d5eeba6a492) -
+  Added new component to show user attributes for user card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.17.0
 
 ### Minor Changes

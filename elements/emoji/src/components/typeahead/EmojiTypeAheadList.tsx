@@ -7,7 +7,6 @@ import { actualMouseMove, mouseLocation, type Position } from '../../util/mouse'
 import Scrollable from '../common/Scrollable';
 import EmojiItem from './EmojiTypeAheadItem';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { EmojiTypeAheadListContainer } from './EmojiTypeAheadListContainer';
 import { EmojiTypeAheadSpinner } from './EmojiTypeAheadSpinner';
 
@@ -65,14 +64,16 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 		};
 	}
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (
-			!fg('platform_editor_react18_elements_emoji') ||
-			!fg('platform_editor_react18_elements_emoji_jira_bb')
-		) {
+	componentDidUpdate(prevProps: Props) {
+		const { emojis } = this.props;
+		const { selectedIndex, selectedKey } = this.state;
+		if (emojis && emojis[selectedIndex]) {
+			const selectedEmoji = emojis[selectedIndex];
+			this.revealItem(selectedEmoji.id || selectedEmoji.shortName);
+		}
+
+		if (prevProps !== this.props) {
 			// adjust selection
-			const { emojis } = nextProps;
-			const { selectedKey } = this.state;
 			if (!selectedKey) {
 				// go with default of selecting first item
 				return;
@@ -87,38 +88,6 @@ export default class EmojiTypeAheadList extends PureComponent<Props, State> {
 			}
 			// existing selection not in results, pick first
 			this.selectIndexNewEmoji(0, emojis);
-		}
-	}
-
-	componentDidUpdate(prevProps: Props) {
-		const { emojis } = this.props;
-		const { selectedIndex, selectedKey } = this.state;
-		if (emojis && emojis[selectedIndex]) {
-			const selectedEmoji = emojis[selectedIndex];
-			this.revealItem(selectedEmoji.id || selectedEmoji.shortName);
-		}
-
-		if (
-			fg('platform_editor_react18_elements_emoji') ||
-			fg('platform_editor_react18_elements_emoji_jira_bb')
-		) {
-			if (prevProps !== this.props) {
-				// adjust selection
-				if (!selectedKey) {
-					// go with default of selecting first item
-					return;
-				}
-				for (let i = 0; i < emojis.length; i++) {
-					if (selectedKey === emojis[i].id) {
-						this.setState({
-							selectedIndex: i,
-						});
-						return;
-					}
-				}
-				// existing selection not in results, pick first
-				this.selectIndexNewEmoji(0, emojis);
-			}
 		}
 	}
 

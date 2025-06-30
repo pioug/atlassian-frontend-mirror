@@ -1,7 +1,6 @@
 {
 	"atlassian": {
 		"team": "Media Exif",
-		"runReact18": true,
 		"website": {
 			"name": "MediaDocumentViewer",
 			"category": "Layout and structure"

@@ -21,8 +21,7 @@
 		"website": {
 			"name": "Popper",
 			"category": "Libraries"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "19.3.1",
+	"version": "19.5.0",
 	"description": "A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,8 +24,7 @@
 		"website": {
 			"name": "Logo",
 			"category": "Images and icons"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
@@ -94,6 +93,7 @@
 		}
 	},
 	"af:exports": {
+		"./raw-icons": "./src/exports/raw-icons.tsx",
 		"./atlassian-icon": "./src/exports/atlassian-icon.tsx",
 		"./bitbucket-icon": "./src/exports/bitbucket-icon.tsx",
 		"./confluence-icon": "./src/exports/confluence-icon.tsx",
@@ -109,6 +109,7 @@
 		".": "./src/index.tsx"
 	},
 	"exports": {
+		"./raw-icons": "./src/exports/raw-icons.tsx",
 		"./atlassian-icon": "./src/exports/atlassian-icon.tsx",
 		"./bitbucket-icon": "./src/exports/bitbucket-icon.tsx",
 		"./confluence-icon": "./src/exports/confluence-icon.tsx",

@@ -69,7 +69,7 @@ describe('getInlineNodeViewProducer', () => {
 			const nodeViewProducer = getInlineNodeViewProducer(mockProps);
 
 			for (let i = 0; i < 100; i++) {
-				const node = defaultSchema.nodes.status.createAndFill();
+				const node = defaultSchema.nodes.inlineCard.createAndFill();
 				expect(node).toBeDefined();
 
 				const result = nodeViewProducer(node!, mockView, () => 1, []);
@@ -86,13 +86,13 @@ describe('getInlineNodeViewProducer', () => {
 			const nodeViewProducer = getInlineNodeViewProducer(mockProps);
 
 			for (let i = 0; i < 100; i++) {
-				const node = defaultSchema.nodes.status.createAndFill();
+				const node = defaultSchema.nodes.inlineCard.createAndFill();
 				expect(node).toBeDefined();
 
 				nodeViewProducer(node!, mockView, () => 1, []);
 			}
 
-			const node = defaultSchema.nodes.status.createAndFill();
+			const node = defaultSchema.nodes.inlineCard.createAndFill();
 			expect(node).toBeDefined();
 
 			const result = nodeViewProducer(node!, mockView, () => 1, []);

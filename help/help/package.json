@@ -39,8 +39,7 @@
 		"team": "Self-Help Experiences",
 		"website": {
 			"name": "Help"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

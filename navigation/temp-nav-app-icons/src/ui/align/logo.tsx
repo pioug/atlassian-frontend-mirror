@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bc4f96d6e8e3da287828a821b33bd116>>
+ * @codegen <<SignedSource::73bf5c5d12b3bc72dd8c2a753b35c5dd>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 66 24">
 /**
  * __AlignLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Align.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function AlignLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

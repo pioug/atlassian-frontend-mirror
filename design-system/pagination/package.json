@@ -35,7 +35,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Pagination",
 			"category": "Navigation"

@@ -1,7 +1,6 @@
 {
 	"atlassian": {
-		"team": "OneCloud - Build",
-		"runReact18": true
+		"team": "OneCloud - Build"
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/index.js",

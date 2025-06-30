@@ -10,8 +10,7 @@
 	"atlassian": {
 		"team": "Editor: Jenga",
 		"singleton": true,
-		"releaseModel": "continuous",
-		"runReact18": true
+		"releaseModel": "continuous"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend",
 	"main": "dist/cjs/index.js",

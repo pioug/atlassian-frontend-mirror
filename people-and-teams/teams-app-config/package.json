@@ -1,7 +1,6 @@
 {
 	"atlassian": {
 		"team": "People and Teams Collective",
-		"runReact18": true,
 		"website": {
 			"name": "TeamsAppConfig",
 			"category": "Layout and structure"

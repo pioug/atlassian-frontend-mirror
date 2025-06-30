@@ -128,6 +128,7 @@ export type MessageKey =
 	| 'unfollow_goal'
 	| 'unfollow_goal_description'
 	| 'unfollow_goal_error'
+	| 'user_attributes'
 	| 'view'
 	| 'viewIn'
 	| 'viewOriginal'
@@ -1032,5 +1033,10 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.team_members_count',
 		defaultMessage: '{context} members',
 		description: 'Indicates the count of team member',
+	},
+	user_attributes: {
+		id: 'fabric.linking.user_attributes',
+		defaultMessage: '{context}',
+		description: 'Displays user attributes like role, department, location, and pronouns',
 	},
 });

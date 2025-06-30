@@ -135,9 +135,6 @@ import {
 	statusStyles,
 	statusStylesMixin_fg_platform_component_visual_refresh,
 	statusStylesMixin_without_fg_platform_component_visual_refresh,
-	vanillaStatusStyles,
-	vanillaStatusStylesMixin_fg_platform_component_visual_refresh,
-	vanillaStatusStylesMixin_without_fg_platform_component_visual_refresh,
 } from './styles/statusStyles';
 import { tableCommentEditorStyles, tableLayoutFixes } from './styles/tableStyles';
 import {
@@ -327,16 +324,6 @@ const EditorContentContainer = React.forwardRef<HTMLDivElement, EditorContentCon
 							statusStylesMixin_fg_platform_component_visual_refresh
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							statusStylesMixin_without_fg_platform_component_visual_refresh,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					editorExperiment('platform_editor_vanilla_dom', true) && vanillaStatusStyles,
-					editorExperiment('platform_editor_vanilla_dom', true) &&
-						fg('platform-component-visual-refresh') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaStatusStylesMixin_fg_platform_component_visual_refresh,
-					editorExperiment('platform_editor_vanilla_dom', true) &&
-						!fg('platform-component-visual-refresh') &&
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						vanillaStatusStylesMixin_without_fg_platform_component_visual_refresh,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					annotationStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

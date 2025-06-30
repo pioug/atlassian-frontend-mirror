@@ -9,8 +9,7 @@
 	},
 	"atlassian": {
 		"team": "Editor: Jenga",
-		"singleton": true,
-		"runReact18": true
+		"singleton": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",

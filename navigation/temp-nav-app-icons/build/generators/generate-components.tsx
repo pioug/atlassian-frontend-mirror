@@ -6,7 +6,7 @@ import { optimize } from 'svgo';
 import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { Assets, svgoConfig, transformSVG } from '../utils';
+import { Assets, dataCenterApps, svgoConfig, transformSVG } from '../utils';
 
 const utilityIcons = ['more-atlassian-apps', 'custom-link'];
 
@@ -141,6 +141,13 @@ const getLogoJSX = (
 
 	let typeImport = `import type { ${propType} } from '../../utils/types';\n`;
 
+	const deprecationText = type === "icon" ?
+	`
+ * @deprecated This component has been replaced by the component \`${componentName}\` in \`@atlaskit/logo\`.
+ * Please migrate any usages of this temporary component, using the prop \`shouldUseNewLogoDesign\` where necessary
+ * to enable the new design by default.` :
+  '';
+
 	return `import React from 'react';
 
 import { ${WrapperName} } from '../../utils/${type === 'icon' ? 'icon-wrapper' : 'logo-wrapper'}';
@@ -151,10 +158,8 @@ ${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
 /**
  * __${componentName}__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into \`@atlaskit/logo\`.
+ * A temporary component to represent the ${type === "logo-cs" ? "logo" : type} for ${productLabel}.${deprecationText}
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function ${componentName}({
 		${customThemeSvg ? 'iconColor, ' : ''}
@@ -165,7 +170,7 @@ export function ${componentName}({
 			${customThemeSvg ? 'iconColor={iconColor}' : ''}
 			${customThemeSvg && type === 'logo' ? 'textColor={textColor}' : ''}
 			${utilityIcons.includes(name) ? 'label={label}' : `label={label || "${productLabel}"}`}
-			${name.includes('data-center') ? 'isDataCenter={true}' : ''}
+			${dataCenterApps.includes(name) ? 'isDataCenter={true}' : ''}
 			appearance={appearance}
 			size={size}
 			testId={testId}

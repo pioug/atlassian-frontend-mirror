@@ -30,8 +30,7 @@
 		"website": {
 			"name": "Tag",
 			"category": "Status indicators"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./simple-tag": "./src/tag/simple-tag.tsx",

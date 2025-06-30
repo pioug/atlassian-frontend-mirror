@@ -1,7 +1,6 @@
 {
 	"atlassian": {
-		"team": "UIP Application Framework - Jupiter",
-		"runReact18": true
+		"team": "UIP Application Framework - Jupiter"
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
 	"main": "dist/cjs/reportError.js",

@@ -36,8 +36,7 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"team": "UIP Frontend Observability",
-		"runReact18": true
+		"team": "UIP Frontend Observability"
 	},
 	"config": {
 		"access": "public"

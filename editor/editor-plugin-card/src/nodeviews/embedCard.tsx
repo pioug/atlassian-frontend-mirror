@@ -401,6 +401,7 @@ export class EmbedCardComponent extends React.PureComponent<
 			pluginInjectionApi,
 			actionOptions,
 			onClick,
+			CompetitorPrompt,
 		} = this.props;
 
 		const { url, width: pctWidth, layout, originalHeight, originalWidth } = node.attrs;
@@ -437,6 +438,7 @@ export class EmbedCardComponent extends React.PureComponent<
 				container={this.scrollContainer}
 				embedIframeRef={this.embedIframeRef}
 				actionOptions={actionOptions}
+				CompetitorPrompt={CompetitorPrompt}
 			/>
 		);
 
@@ -477,6 +479,7 @@ export type EmbedCardNodeViewProps = Pick<
 	| 'pluginInjectionApi'
 	| 'actionOptions'
 	| 'onClickCallback'
+	| 'CompetitorPrompt'
 >;
 
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
@@ -522,6 +525,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 			dispatchAnalyticsEvent,
 			pluginInjectionApi,
 			onClickCallback,
+			CompetitorPrompt,
 		} = this.reactComponentProps;
 
 		return (
@@ -536,6 +540,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 				pluginInjectionApi={pluginInjectionApi}
 				onClickCallback={onClickCallback}
 				id={this.id}
+				CompetitorPrompt={CompetitorPrompt}
 			/>
 		);
 	}
@@ -569,6 +574,7 @@ export interface EmbedCardNodeViewProperties {
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	actionOptions: EmbedCardNodeViewProps['actionOptions'];
 	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
+	CompetitorPrompt?: EmbedCardNodeViewProps['CompetitorPrompt'];
 }
 
 export const embedCardNodeView =
@@ -579,6 +585,7 @@ export const embedCardNodeView =
 		pluginInjectionApi,
 		actionOptions,
 		onClickCallback,
+		CompetitorPrompt,
 	}: EmbedCardNodeViewProperties) =>
 	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
 		const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } = pmPluginFactoryParams;
@@ -590,6 +597,7 @@ export const embedCardNodeView =
 			pluginInjectionApi,
 			actionOptions,
 			onClickCallback: onClickCallback,
+			CompetitorPrompt,
 		};
 		return new EmbedCard(
 			node,

@@ -5,6 +5,7 @@ import { VCObserver } from '../vc/vc-observer';
 import type {
 	AbortReasonType,
 	ApdexType,
+	HoldActive,
 	InteractionError,
 	InteractionType,
 	SegmentInfo,
@@ -48,6 +49,12 @@ export type ReactProfilerTiming = {
 
 export type HoldInfo = {
 	labelStack: LabelStack;
+	startTime: number;
+	endTime: number;
+};
+
+export type OptimizedHoldInfo = {
+	labelStack: string;
 	startTime: number;
 	endTime: number;
 };
@@ -127,6 +134,7 @@ export type ReactUFOPayload = {
 			};
 			'ufo:errors:globalCount': number;
 			'ufo:errors:count': number;
+			'ufo:payloadTime'?: number;
 			// TODO: align this better with `InteractionMetrics` type - that is outdated now, this is the type as sent by the UFO payload as of 10th April 2025
 			interactionMetrics: {
 				namePrefix: string;
@@ -155,19 +163,25 @@ export type ReactUFOPayload = {
 				resourceTimings: ResourceTiming[];
 				segments: SegmentInfo[] | RootSegment;
 				reactProfilerTimings: ReactProfilerTiming[];
-				holdInfo: HoldInfo[];
+				holdInfo: OptimizedHoldInfo[];
 				errors: InteractionError[];
+				responsiveness?: {
+					inputDelay?: number;
+					experimentalInputToNextPaint?: number;
+				};
+				customData: Array<{ labelStack: LabelStack; data: any }>;
+				SSRTimings: Array<{ label: string; data: any }>;
+				holdActive: HoldActive[];
+				unknownElementName?: string;
+				unknownElementHierarchy?: string;
 				// TODO: fix typings here - update as necessary for integration tests
 				// marks: [];
-				// customData: [];
-				// holdActive: [];
 				// redirects: [];
 				// spans: [];
 				// requestInfo: [];
 				// customTimings: [];
 				// bundleEvalTimings: [];
 				// initialPageLoadExtraTimings: [];
-				// SSRTimings: [];
 			};
 
 			// TTVC fields that will be maintained and supported

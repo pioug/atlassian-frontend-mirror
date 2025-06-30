@@ -6,7 +6,7 @@ import { messages } from '../../../../components/i18n';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
 import * as utils from '../../../../components/picker/utils';
 import {
-	EmojiPickerVirtualListInternalNew as EmojiPickerList,
+	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type Props as EmojiPickerListProps,
 } from '../../../../components/picker/EmojiPickerList';
 import type { EmojiDescription } from '../../../../types';

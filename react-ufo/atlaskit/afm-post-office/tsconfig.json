@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../observability/interaction-context/afm-post-office/tsconfig.json"
 		},
 		{

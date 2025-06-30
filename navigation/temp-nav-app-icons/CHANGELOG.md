@@ -1,5 +1,23 @@
 # @atlaskit/temp-nav-app-icons
 
+## 0.9.0
+
+### Minor Changes
+
+- [#179339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179339)
+  [`07f23f57c5118`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07f23f57c5118) - -
+  Temporary icon components are now deprecated; please use the equivalent components in
+  `@atlaskit/logo`.
+  - New components changes to support `@atlaskit/logo`.
+
+## 0.8.5
+
+### Patch Changes
+
+- [#177235](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177235)
+  [`2a65921a913a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a65921a913a1) -
+  Added Loom attribution logo to support logo migration
+
 ## 0.8.4
 
 ### Patch Changes

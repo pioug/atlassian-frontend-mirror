@@ -26,7 +26,6 @@
 	},
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Progress bar",
 			"category": "Loading"

@@ -45,66 +45,73 @@ export const tempSizeWrapper = (
 	};
 };
 
-export const logoDocsSchema = [
+type LogoDocsSchema = {
+	name: string;
+	type: 'legacy' | 'migration' | 'new';
+	category: 'program' | 'app';
+	skipExample?: boolean;
+	deprecated?: boolean;
+};
+
+export const logoDocsSchema: LogoDocsSchema[] = [
 	// Program logos
-	{ name: 'atlassian', type: 'legacy', category: 'program', deprecated: false },
-	{ name: 'atlassian-access', type: 'legacy', category: 'program', deprecated: false },
-	{ name: 'atlassian-marketplace', type: 'legacy', category: 'program', deprecated: false },
+	{ name: 'atlassian', type: 'legacy',  category: "program" },
+	{ name: 'atlassian-access', type: 'legacy', category: "program" },
+	{ name: 'atlassian-marketplace', type: 'legacy', category: "program" },
 	// Home collection
-	{ name: 'home', type: 'new', category: 'app', deprecated: false },
-	{ name: 'hub', type: 'new', category: 'app', deprecated: false },
+	{ name: 'home', type: 'new', category: "app" },
+	{ name: 'hub', type: 'new', category: "app" },
 	// Teamwork collection
-	{ name: 'confluence', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'jira', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'loom', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'loom-attribution', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'rovo', type: 'migration', category: 'app', deprecated: false },
+	{ name: 'confluence', type: 'migration', category: "app" },
+	{ name: 'jira', type: 'migration', category: "app" },
+	{ name: 'loom', type: 'migration', category: "app" },
+	{ name: 'loom-blurple', type: 'new', category: "app", skipExample: true },
+	{ name: 'loom-attribution', type: 'migration', category: "app" },
+	{ name: 'rovo', type: 'migration', category: "app" },
 	// Strategy collection
-	{ name: 'align', type: 'new', category: 'app', deprecated: false },
-	{ name: 'focus', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'talent', type: 'new', category: 'app', deprecated: false },
+	{ name: 'align', type: 'new', category: "app" },
+	{ name: 'focus', type: 'migration', category: "app" },
+	{ name: 'talent', type: 'new', category: "app" },
 	// Product collection
-	{ name: 'jira-product-discovery', type: 'migration', category: 'app', deprecated: false },
+	{ name: 'jira-product-discovery', type: 'migration', category: "app" },
 	// Dev collection
-	{ name: 'bitbucket', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'compass', type: 'migration', category: 'app', deprecated: false },
+	{ name: 'bitbucket', type: 'migration', category: "app" },
+	{ name: 'compass', type: 'migration', category: "app" },
 	// Customer collection
-	{ name: 'jira-service-management', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'assets', type: 'new', category: 'app', deprecated: false },
-	{ name: 'customer-service-management', type: 'new', category: 'app', deprecated: false },
-	{ name: 'opsgenie', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'statuspage', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'trello', type: 'migration', category: 'app', deprecated: false },
+	{ name: 'jira-service-management', type: 'migration', category: "app" },
+	{ name: 'assets', type: 'new', category: "app" },
+	{ name: 'customer-service-management', type: 'new', category: "app" },
+	{ name: 'opsgenie', type: 'migration', category: "app" },
+	{ name: 'statuspage', type: 'migration', category: "app" },
+	{ name: 'trello', type: 'migration', category: "app" },
 	// Platform Collection
-	{ name: 'admin', type: 'new', category: 'app', deprecated: false },
-	{ name: 'analytics', type: 'new', category: 'app', deprecated: false },
-	{ name: 'chat', type: 'new', category: 'app', deprecated: false },
-	{ name: 'goals', type: 'new', category: 'app', deprecated: false },
-	{ name: 'guard', type: 'migration', category: 'app', deprecated: false },
-	{ name: 'projects', type: 'new', category: 'app', deprecated: false },
-	{ name: 'search', type: 'new', category: 'app', deprecated: false },
-	{ name: 'studio', type: 'new', category: 'app', deprecated: false },
-	{ name: 'teams', type: 'new', category: 'app', deprecated: false },
+	{ name: 'admin', type: 'new', category: "app" },
+	{ name: 'analytics', type: 'new', category: "app" },
+	{ name: 'chat', type: 'new', category: "app" },
+	{ name: 'goals', type: 'new', category: "app" },
+	{ name: 'guard', type: 'migration', category: "app" },
+	{ name: 'projects', type: 'new', category: "app" },
+	{ name: 'search', type: 'new',  category: "app" },
+	{ name: 'studio', type: 'new', category: "app" },
+	{ name: 'teams', type: 'new', category: "app" },
 	// Data Center
-	{ name: 'jira-data-center', type: 'new', category: 'app', deprecated: false },
-	{ name: 'confluence-data-center', type: 'new', category: 'app', deprecated: false },
-	{ name: 'bitbucket-data-center', type: 'new', category: 'app', deprecated: false },
+	{ name: 'jira-data-center', type: 'new', category: "app" },
+	{ name: 'confluence-data-center', type: 'new', category: "app" },
+	{ name: 'bitbucket-data-center', type: 'new', category: 'app' },
+	{ name: 'bamboo', type: 'new', category: 'app' },
+	{ name: 'crowd', type: 'new', category: 'app' },
 	// Deprecated
-	{ name: 'atlassian-administration', type: 'legacy', category: 'app', deprecated: true },
-	{ name: 'atlassian-admin', type: 'legacy', category: 'app', deprecated: true },
-	{ name: 'atlassian-analytics', type: 'legacy', category: 'app', deprecated: true },
-	{ name: 'atlas', type: 'legacy', category: 'app', deprecated: true },
-	{ name: 'jira-align', type: 'legacy', category: 'app', deprecated: true },
-	{ name: 'jira-software', type: 'legacy', category: 'app', deprecated: true },
-	{ name: 'jira-work-management', type: 'legacy', category: 'app', deprecated: true },
+	{ name: 'atlassian-administration', type: 'legacy', category: "app", skipExample: true, deprecated: true },
+	{ name: 'atlassian-admin', type: 'legacy', category: "app", skipExample: true, deprecated: true },
+	{ name: 'atlassian-analytics', type: 'legacy', category: "app", skipExample: true, deprecated: true },
+	{ name: 'atlas', type: 'legacy', category: "app", skipExample: true, deprecated: true },
+	{ name: 'jira-align', type: 'legacy', category: "app", skipExample: true, deprecated: true },
+	{ name: 'jira-software', type: 'legacy', category: "app", skipExample: true, deprecated: true },
+	{ name: 'jira-work-management', type: 'legacy', category: "app", skipExample: true, deprecated: true },
 ] as const;
 
-export const PROGRAM_LOGO_DOCS_ORDER = logoDocsSchema
-	.filter((logo) => logo.category === 'program' && !logo.deprecated)
-	.map((logo) => logo.name);
-export const APP_LOGO_DOCS_ORDER = logoDocsSchema
-	.filter((logo) => logo.category === 'app' && !logo.deprecated)
-	.map((logo) => logo.name);
+export const PROGRAM_LOGO_DOCS_ORDER = logoDocsSchema.filter(logo => logo.category === 'program' && !logo.skipExample).map(logo => logo.name);
+export const APP_LOGO_DOCS_ORDER = logoDocsSchema.filter(logo => logo.category === 'app' && !logo.skipExample).map(logo => logo.name);
 
 export const LEGACY_ONLY_LOGOS = logoDocsSchema.filter((logo) => logo.type === 'legacy');
 export const SHARED_LOGOS = logoDocsSchema.filter((logo) => logo.type === 'migration');

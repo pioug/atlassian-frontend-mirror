@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 export type CreateMutationObserverProps = {
 	onAttributeMutation: (props: {
 		target: HTMLElement;
@@ -25,6 +27,12 @@ function createMutationObserver({
 	const mutationObserverCallback: MutationCallback = (mutations) => {
 		const addedNodes: Array<WeakRef<HTMLElement>> = [];
 		const removedNodes: Array<WeakRef<HTMLElement>> = [];
+		const attributeMutations: Array<{
+			target: WeakRef<HTMLElement>;
+			attributeName: string;
+			oldValue?: string | undefined | null;
+			newValue?: string | undefined | null;
+		}> = [];
 		const targets: Array<HTMLElement> = [];
 
 		for (const mut of mutations) {
@@ -43,12 +51,21 @@ function createMutationObserver({
 				const oldValue = mut.oldValue ?? undefined;
 				const newValue = mut.attributeName ? mut.target.getAttribute(mut.attributeName) : undefined;
 				if (oldValue !== newValue) {
-					onAttributeMutation({
-						target: mut.target,
-						attributeName: mut.attributeName ?? 'unknown',
-						oldValue,
-						newValue,
-					});
+					if (fg('platform_vc_ignore_no_ls_mutation_marker')) {
+						attributeMutations.push({
+							target: new WeakRef(mut.target),
+							attributeName: mut.attributeName ?? 'unknown',
+							oldValue,
+							newValue,
+						});
+					} else {
+						onAttributeMutation({
+							target: mut.target,
+							attributeName: mut.attributeName ?? 'unknown',
+							oldValue,
+							newValue,
+						});
+					}
 				}
 
 				continue;
@@ -73,6 +90,15 @@ function createMutationObserver({
 			addedNodes,
 			removedNodes,
 		});
+
+		for (const mut of attributeMutations) {
+			onAttributeMutation({
+				target: mut.target.deref()!,
+				attributeName: mut.attributeName,
+				oldValue: mut.oldValue,
+				newValue: mut.newValue,
+			});
+		}
 
 		onMutationFinished?.({
 			targets,

@@ -127,6 +127,9 @@ const context: FlexibleUiDataContext = {
 	sentOn: '2023-08-10T03:45:14.797Z',
 	viewCount: 21,
 	voteCount: 41,
+	userAttributes: {
+		role: 'Frontend Developer (React/TypeScript)',
+	},
 };
 
 export default context;

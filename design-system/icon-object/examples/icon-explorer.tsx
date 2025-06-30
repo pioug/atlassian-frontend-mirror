@@ -1,11 +1,14 @@
-import React, { Component, type ComponentType, type FormEvent } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ComponentType, type FormEvent, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import metadata from '@atlaskit/icon-object/metadata';
 import TextField from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
 import IconExplorerCell from './utils/icon-explorer-cell';
 
@@ -22,24 +25,26 @@ const allIcons = Promise.all(
 		.reduce((acc, b) => ({ ...acc, ...b })),
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const IconGridWrapper = styled.div({
-	padding: '10px 5px 0',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const IconExplorerGrid = styled.div({
-	display: 'flex',
-	flexDirection: 'row',
-	flexWrap: 'wrap',
-	justifyContent: 'flex-start',
-	marginTop: '10px',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const NoIcons = styled.div({
-	marginTop: '10px',
-	padding: '10px',
+const styles = cssMap({
+	iconGridWrapper: {
+		paddingTop: token('space.150'),
+		paddingRight: token('space.050'),
+		paddingLeft: token('space.050'),
+	},
+	iconExplorerGrid: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'flex-start',
+		marginTop: token('space.150'),
+	},
+	noIcons: {
+		marginTop: token('space.150'),
+		paddingTop: token('space.150'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+	},
 });
 
 interface Icon {
@@ -60,65 +65,57 @@ const filterIcons = (icons: Record<string, Icon>, query: string) => {
 		);
 };
 
-interface State {
-	query: string;
-	showIcons: boolean;
-	allIcons?: { [key: string]: Icon };
-}
+function IconAllExample() {
+	const [query, setQuery] = useState('');
+	const [showIcons, setShowIcons] = useState(true);
+	const [allIconsState, setAllIconsState] = useState<{ [key: string]: Icon }>();
 
-class IconAllExample extends Component<{}, State> {
-	state: State = {
-		query: '',
-		showIcons: true,
+	useEffect(() => {
+		allIcons.then((iconsMap) => setAllIconsState(iconsMap));
+	}, []);
+
+	const updateQuery = (query: string) => {
+		setQuery(query);
+		setShowIcons(true);
 	};
 
-	componentDidMount() {
-		allIcons.then((iconsMap) => this.setState({ allIcons: iconsMap }));
-	}
+	const toggleShowIcons = () => setShowIcons((prev) => !prev);
 
-	updateQuery = (query: string) => this.setState({ query, showIcons: true });
-
-	toggleShowIcons = () => this.setState({ showIcons: !this.state.showIcons });
-
-	renderIcons = () => {
-		if (!this.state.allIcons) {
+	const renderIcons = () => {
+		if (!allIconsState) {
 			return <div>Loading Icons...</div>;
 		}
-		const icons: Icon[] = filterIcons(this.state.allIcons, this.state.query);
+		const icons: Icon[] = filterIcons(allIconsState, query);
 
 		return icons.length ? (
-			<IconExplorerGrid>
+			<div css={styles.iconExplorerGrid}>
 				{icons.map((icon) => (
 					<IconExplorerCell {...icon} key={icon.componentName} />
 				))}
-			</IconExplorerGrid>
+			</div>
 		) : (
-			<NoIcons>{`Sorry, we couldn't find any icons matching "${this.state.query}".`}</NoIcons>
+			<div css={styles.noIcons}>{`Sorry, we couldn't find any icons matching "${query}".`}</div>
 		);
 	};
 
-	render() {
-		return (
-			<div>
-				<TextField
-					key="Icon search"
-					onChange={(event: FormEvent<HTMLInputElement>) =>
-						this.updateQuery(event.currentTarget.value)
-					}
-					placeholder="Search for an icon..."
-					value={this.state.query}
-				/>
-				<IconGridWrapper>
-					<p>
-						<Button appearance="subtle" onClick={this.toggleShowIcons}>
-							{this.state.showIcons ? 'Hide icons' : 'Show all icons'}
-						</Button>
-					</p>
-					{this.state.showIcons ? this.renderIcons() : null}
-				</IconGridWrapper>
+	return (
+		<div>
+			<TextField
+				key="Icon search"
+				onChange={(event: FormEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value)}
+				placeholder="Search for an icon..."
+				value={query}
+			/>
+			<div css={styles.iconGridWrapper}>
+				<p>
+					<Button appearance="subtle" onClick={toggleShowIcons}>
+						{showIcons ? 'Hide icons' : 'Show all icons'}
+					</Button>
+				</p>
+				{showIcons ? renderIcons() : null}
 			</div>
-		);
-	}
+		</div>
+	);
 }
 
 export default IconAllExample;

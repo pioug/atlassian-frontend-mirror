@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<GuardLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<GuardIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<GuardLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<GuardIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

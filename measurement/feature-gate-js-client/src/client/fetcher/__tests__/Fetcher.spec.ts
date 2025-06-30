@@ -6,6 +6,8 @@ import { type FetcherOptions } from '../Fetcher';
 import Fetcher from '../index';
 import { type FrontendClientSdkKeyResponse, type FrontendExperimentsResponse } from '../types';
 
+fetchMock.enableMocks();
+
 const TARGET_APP = 'test';
 const EXPECTED_VALUES_PRD_URL = `https://api.atlassian.com/flags/api/v2/frontend/experimentValues`;
 const EXPECTED_VALUES_STG_URL = `https://api.stg.atlassian.com/flags/api/v2/frontend/experimentValues`;
@@ -41,12 +43,9 @@ const defaultFetcherOptions: FetcherOptions = {
 };
 
 describe('Fetcher', () => {
-	beforeEach(() => {
-		fetchMock.enableMocks();
-	});
-
 	afterEach(() => {
 		fetchMock.resetMocks();
+		jest.restoreAllMocks();
 	});
 
 	describe('fetchClientSdkKey', () => {
@@ -153,6 +152,115 @@ describe('Fetcher', () => {
 			expect(fetchMock).toHaveBeenCalledTimes(1);
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_GATEWAY_URL);
 		});
+
+		test('constructs correct staging URL in browser', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue({
+				hostname: 'foo-bar.pear.oasis-stg.com',
+				protocol: 'https:',
+			} as unknown as Location);
+			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
+			const fetcherOptions = {
+				...defaultFetcherOptions,
+				environment: FeatureGateEnvironment.Staging,
+				useGatewayURL: false,
+				perimeter: PerimeterType.COMMERCIAL,
+				isolationContextId: undefined,
+				apiKey: 'test-api-key',
+			} as FetcherOptions;
+			await Fetcher.fetchClientSdk(fetcherOptions);
+			const expectedUrl = 'https://api.oasis-stg.com/flags/api/v2/frontend/clientSdkKey/test';
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+		});
+
+		test('constructs correct prod URL in browser', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue({
+				hostname: 'foo-bar.atlassian-isolated.net',
+				protocol: 'https:',
+			} as unknown as Location);
+			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
+			const fetcherOptions = {
+				...defaultFetcherOptions,
+				environment: FeatureGateEnvironment.Production,
+				useGatewayURL: false,
+				perimeter: PerimeterType.COMMERCIAL,
+				isolationContextId: undefined,
+				apiKey: 'test-api-key',
+			};
+			await Fetcher.fetchClientSdk(fetcherOptions);
+			const expectedUrl = 'https://api.atlassian-isolated.net/flags/api/v2/frontend/clientSdkKey/test';
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+		});
+
+		test('constructs URL with isolationContextId in non-browser environment', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue(undefined);
+			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
+			const fetcherOptions = {
+				...defaultFetcherOptions,
+				environment: FeatureGateEnvironment.Production,
+				useGatewayURL: false,
+				perimeter: PerimeterType.COMMERCIAL,
+				isolationContextId: 'ic-7bf',
+				apiKey: 'test-api-key',
+			};
+			await Fetcher.fetchClientSdk(fetcherOptions);
+			const expectedUrl = 'https://atlassian-statsig-proxy-archetype.atl-paas.ic-7bf.atl-ic.net/api/v2/frontend/clientSdkKey/test';
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+		});
+
+		test('returns null in non-browser environment without isolationContextId', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue(undefined);
+			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
+			const fetcherOptions = {
+				...defaultFetcherOptions,
+				environment: FeatureGateEnvironment.Production,
+				useGatewayURL: false,
+				perimeter: PerimeterType.COMMERCIAL,
+				apiKey: 'test-api-key',
+			};
+			await Fetcher.fetchClientSdk(fetcherOptions);
+			const expectedUrl = 'https://api.atlassian.com/flags/api/v2/frontend/clientSdkKey/test';
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+		});
+
+
+		test('falls back to STAGING_BASE_URL for staging environment when getApiUrl returns null', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue(undefined);
+			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
+			const fetcherOptions = {
+				...defaultFetcherOptions,
+				environment: FeatureGateEnvironment.Staging,
+				useGatewayURL: false,
+				perimeter: PerimeterType.COMMERCIAL,
+				isolationContextId: undefined,
+				apiKey: 'test-api-key',
+			};
+			await Fetcher.fetchClientSdk(fetcherOptions);
+			const expectedUrl = 'https://api.stg.atlassian.com/flags/api/v2/frontend/clientSdkKey/test';
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+		});
+
+		test('falls back to PROD_BASE_URL for production environment when getApiUrl returns null', async () => {
+			jest.spyOn(Fetcher, 'getWindowLocation').mockReturnValue(undefined);
+			fetchMock.mockResponseOnce(JSON.stringify(defaultClientSdkKeyResponseBody));
+			const fetcherOptions = {
+				...defaultFetcherOptions,
+				environment: FeatureGateEnvironment.Production,
+				useGatewayURL: false,
+				perimeter: PerimeterType.COMMERCIAL,
+				isolationContextId: undefined,
+				apiKey: 'test-api-key',
+			};
+			await Fetcher.fetchClientSdk(fetcherOptions);
+			const expectedUrl = 'https://api.atlassian.com/flags/api/v2/frontend/clientSdkKey/test';
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
+		});
+
 	});
 
 	describe('fetchExperimentValues', () => {

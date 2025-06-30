@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<TrelloLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<TrelloIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<TrelloLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<TrelloIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

@@ -11,6 +11,7 @@ import type {
 	PostInteractionLogPayload,
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';
+import { CriticalMetricsPayload } from '../../src/create-payload/critical-metrics-payload/types';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
@@ -62,6 +63,7 @@ export const test = base.extend<{
 	featureFlags: string[];
 	examplePage: string;
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+	waitForReactUFOPayloadCriticalMetrics: () => Promise<CriticalMetricsPayload[] | null>;
 	waitForReactUFOInteractionPayload: () => Promise<ReactUFOPayload | null>;
 	waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
 	/*
@@ -342,6 +344,41 @@ export const test = base.extend<{
 			return postInteractionLogPayload;
 		};
 
+		await use(reset);
+	},
+	waitForReactUFOPayloadCriticalMetrics: async ({ page }, use) => {
+		const reset = async () => {
+			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
+			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
+
+			let criticalMetricsPayloads: CriticalMetricsPayload[] | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate(() => {
+							const payloads =
+								(window as WindowWithReactUFOTestGlobals).__websiteReactUfoCriticalMetrics || [];
+							if (payloads.length < 1) {
+								return Promise.resolve(null);
+							}
+
+							return Promise.resolve(payloads);
+						});
+
+						criticalMetricsPayloads = value;
+
+						return criticalMetricsPayloads;
+					},
+					{
+						message: `React UFO Critical Metric payloads never received.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return criticalMetricsPayloads;
+		};
 		await use(reset);
 	},
 	getSectionDOMAddedAt: async ({ page }, use) => {

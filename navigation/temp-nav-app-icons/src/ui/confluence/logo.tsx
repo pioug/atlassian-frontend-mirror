@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::058c6322a33a6b598d799366ded3adae>>
+ * @codegen <<SignedSource::b269eddc20c255b34bc9b97dc9110e39>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -25,10 +25,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 110 24">
 /**
  * __ConfluenceLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Confluence.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function ConfluenceLogo({
 	iconColor,

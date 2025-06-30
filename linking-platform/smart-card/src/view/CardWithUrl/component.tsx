@@ -350,6 +350,7 @@ function Component({
 					ref={embedIframeRef}
 					onIframeDwell={onIframeDwell}
 					onIframeFocus={onIframeFocus}
+					CompetitorPrompt={CompetitorPrompt}
 				/>
 			);
 	}

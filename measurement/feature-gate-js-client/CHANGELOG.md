@@ -1,5 +1,15 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.5.0
+
+### Minor Changes
+
+- [#178373](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178373)
+  [`5f3e2c8493734`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f3e2c8493734) -
+  Adds support for Isolated Cloud and resolves startgate API endpoint for FFS based on browser url.
+  Also introduces optional field `isolationContextId` in `ClientOptions` for users using this SDK in
+  the `server code` to talk to FFS in IC
+
 ## 5.4.0
 
 ### Minor Changes

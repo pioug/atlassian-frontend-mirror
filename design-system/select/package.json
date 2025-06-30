@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "21.0.0",
+	"version": "21.0.1",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,8 +29,7 @@
 		"website": {
 			"name": "Select",
 			"category": "Forms and input"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./AsyncSelect": "./src/entry-points/async-select.tsx",

@@ -44,8 +44,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Common"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "workspace:^",

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::54694bd38ef94fdf9e6880728e60b437>>
+ * @codegen <<SignedSource::d6a116067de03fc777fc283af14919eb>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -20,10 +20,8 @@ const svg = `<svg height="100%" viewBox="0 0 71 24">
 /**
  * __HomeLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Home.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function HomeLogo({ size, appearance = 'brand', label, testId }: AppLogoProps) {
 	return (

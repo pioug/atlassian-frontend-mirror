@@ -31,8 +31,7 @@
 				"type": "intent-to-deprecate",
 				"description": "We are planning on deprecating Side navigation. We recommend using Navigation system instead. [View Navigation system documentation](/components/navigation-system)"
 			}
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",

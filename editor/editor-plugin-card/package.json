@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "6.6.14",
+	"version": "6.7.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,9 +8,8 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"atlassian": {
-		"team": "Linking Platform",
-		"singleton": true,
-		"runReact18": true
+		"team": "Editor",
+		"singleton": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -142,6 +141,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_controls_patch_13": {
+			"type": "boolean"
+		},
+		"platform_editor_controls_patch_15": {
 			"type": "boolean"
 		}
 	},

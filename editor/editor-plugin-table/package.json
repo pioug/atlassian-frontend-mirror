@@ -25,8 +25,7 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: Jenga",
-		"singleton": true,
-		"runReact18": true
+		"singleton": true
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^47.6.0",

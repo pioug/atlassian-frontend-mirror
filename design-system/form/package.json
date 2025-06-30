@@ -22,8 +22,7 @@
 		"website": {
 			"name": "Form",
 			"category": "Forms and input"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/css": "workspace:^",

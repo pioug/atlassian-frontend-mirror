@@ -24,8 +24,7 @@
 			"status": {
 				"type": "beta"
 			}
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/app-provider": "workspace:^",

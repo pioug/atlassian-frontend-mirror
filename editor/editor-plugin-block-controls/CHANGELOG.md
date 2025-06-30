@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 3.19.12
+
+### Patch Changes
+
+- [#175086](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175086)
+  [`8e86022627723`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e86022627723) -
+  Fix spacing between drag handle and table numbered column
+- Updated dependencies
+
 ## 3.19.11
 
 ### Patch Changes

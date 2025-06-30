@@ -148,7 +148,7 @@ export default function Example() {
 		<UFOSegment name="app-root">
 			<UFOLoadHold name="ttfb" hold={!hasTTFB} />
 			{hasTTFB && (
-				<div data-testid="main" css={mainStyles}>
+				<div data-testid="main" css={mainStyles} data-vc-ignore-if-no-layout-shift="true">
 					{startSuspense ? (
 						<Suspense fallback={<SSRFallback />}>
 							<CSRComponent />

@@ -32,6 +32,7 @@ export type EmbedCardProps = {
 	onIframeFocus?: () => void;
 	iframeUrlType?: EmbedIframeUrlType;
 	renderers?: CardProviderRenderers;
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 };
 export interface WithShowControlMethodProp {
 	showControls?: () => void;

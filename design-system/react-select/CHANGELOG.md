@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 3.0.2
+
+### Patch Changes
+
+- [#178284](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178284)
+  [`1c7de1d8fc547`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c7de1d8fc547) -
+  Remove emotion dependency
+
 ## 3.0.1
 
 ### Patch Changes

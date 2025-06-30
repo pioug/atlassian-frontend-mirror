@@ -10,7 +10,7 @@ import { N40 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojis } from '@atlaskit/util-data-test/get-emojis';
 import {
-	EmojiPickerVirtualListInternalOld as EmojiPickerList,
+	EmojiPickerVirtualListInternal as EmojiPickerList,
 	type Props,
 } from '../src/components/picker/EmojiPickerList';
 

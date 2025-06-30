@@ -22,7 +22,6 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Confluence Better Together",
-		"runReact18": true,
 		"website": {
 			"name": "Embedded Confluence"
 		}

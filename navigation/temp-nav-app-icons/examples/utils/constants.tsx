@@ -39,5 +39,7 @@ export const appOrder = [
 	'Jira Data Center',
 	'Confluence Data Center',
 	'Bitbucket Data Center',
+	'Bamboo',
+	'Crowd',
 	'Custom Link',
 ];

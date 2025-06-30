@@ -25,6 +25,7 @@ import FlexibleUiElementLink from '../../../examples/vr-flexible-card/vr-flexibl
 import FlexibleUiElementLozenge from '../../../examples/vr-flexible-card/vr-flexible-ui-element-lozenge';
 import FlexibleUiElementMedia from '../../../examples/vr-flexible-card/vr-flexible-ui-element-media';
 import FlexibleUiElementTeamMemberCount from '../../../examples/vr-flexible-card/vr-flexible-ui-element-team-member-count';
+import FlexibleUiElementUserAttributes from '../../../examples/vr-flexible-card/vr-flexible-ui-element-user-attributes';
 import FlexibleUiHoverCard from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card';
 import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-no-preview-button';
 import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui-options';
@@ -274,8 +275,15 @@ snapshot(FlexibleUiElementMedia, {
 snapshot(FlexibleUiElementTeamMemberCount, {
 	featureFlags: {
 		'platform-component-visual-refresh': [true, false],
-		'platform-linking-visual-refresh-v1': [true, false],
+		'platform-linking-visual-refresh-v1': true,
 		'platform-linking-team-member-count-component': true,
+	},
+});
+snapshot(FlexibleUiElementUserAttributes, {
+	featureFlags: {
+		'platform-component-visual-refresh': [true, false],
+		'platform-linking-visual-refresh-v1': true,
+		'platform-linking-user-attributes-component': true,
 	},
 });
 

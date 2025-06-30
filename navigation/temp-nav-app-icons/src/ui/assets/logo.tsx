@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e9ecbd0d523699964cfc35ebe6fb1a17>>
+ * @codegen <<SignedSource::0a08bf2fbbe163f5134758e077e5ed09>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -26,10 +26,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 76 24">
 /**
  * __AssetsLogo__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the logo for Assets.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function AssetsLogo({
 	iconColor,

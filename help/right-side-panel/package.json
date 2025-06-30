@@ -34,8 +34,7 @@
 		"team": "Self-Help Experiences",
 		"website": {
 			"name": "Right Side Panel"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/theme": "workspace:^",

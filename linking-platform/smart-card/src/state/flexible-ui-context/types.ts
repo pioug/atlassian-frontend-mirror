@@ -267,6 +267,17 @@ export type FlexibleUiDataContext = {
 		tenantId?: string;
 		accessType?: string;
 	};
+	/**
+	 * Contains user attributes information.
+	 * @type JsonLd.Primitives.UserAttributes
+	 * @see UserAttributes
+	 */
+	userAttributes?: {
+		role?: string;
+		department?: string;
+		location?: string;
+		pronouns?: string;
+	};
 };
 
 export type LinkTitle = {

@@ -25,8 +25,7 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Work Platform: Incoming Work",
-		"runReact18": true
+		"team": "Work Platform: Incoming Work"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

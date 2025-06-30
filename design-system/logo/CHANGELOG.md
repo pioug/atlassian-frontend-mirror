@@ -1,5 +1,31 @@
 # @atlaskit/logo
 
+## 19.5.0
+
+### Minor Changes
+
+- [#179339](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179339)
+  [`b4951bab10eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4951bab10eb2) -
+  Adds logos for Crowd and Bamboo, and a new raw-icons entrypoint with string-encoded versions of
+  all logo icons for use in favicons and other scenarios where React components cannot be used
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.4.0
+
+### Minor Changes
+
+- [#177235](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/177235)
+  [`227f5ae9544a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/227f5ae9544a1) -
+  Update Loom attribution logo to support new design language. Add Loom Blurple logo that has new
+  design, with the Loom blurple color
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.3.1
 
 ### Patch Changes

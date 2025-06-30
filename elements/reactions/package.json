@@ -25,8 +25,7 @@
 		"team": "Editor: Collaboration",
 		"website": {
 			"name": "Reactions"
-		},
-		"runReact18": true
+		}
 	},
 	"config": {
 		"access": "public"

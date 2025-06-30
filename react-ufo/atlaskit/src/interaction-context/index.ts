@@ -2,6 +2,8 @@ import { type Context, useContext } from 'react';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
+import { UFOSegmentType } from '../segment/segment';
+
 export type CustomData = {
 	[key: string]: null | string | number | boolean | undefined | CustomData;
 };
@@ -15,6 +17,7 @@ export type SegmentLabel = Readonly<{
 	name: string;
 	segmentId?: string;
 	mode?: 'list' | 'single';
+	type?: UFOSegmentType;
 }>;
 export type LabelStack = ReadonlyArray<SegmentLabel | Label>;
 

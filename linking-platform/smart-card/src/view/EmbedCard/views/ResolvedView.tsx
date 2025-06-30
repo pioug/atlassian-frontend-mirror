@@ -38,6 +38,8 @@ export interface EmbedCardResolvedViewProps {
 	onIframeFocus?: () => void;
 	/** Type of the object */
 	type?: string[];
+	/** Component to prompt for competitor link */
+	CompetitorPrompt?: React.ComponentType<{ sourceUrl: string; linkType?: string }>;
 }
 
 export const EmbedCardResolvedView = React.forwardRef<
@@ -60,6 +62,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 			onIframeFocus,
 			isSupportTheming,
 			type,
+			CompetitorPrompt,
 		},
 		embedIframeRef,
 	) => {
@@ -113,6 +116,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 				onClick={onClick}
 				inheritDimensions={inheritDimensions}
 				setOverflow={false}
+				CompetitorPrompt={CompetitorPrompt}
 			>
 				<Frame
 					url={previewUrl}

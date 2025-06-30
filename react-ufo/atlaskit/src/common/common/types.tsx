@@ -140,6 +140,7 @@ export interface InteractionMetrics {
 	type: InteractionType;
 	marks: Mark[];
 	customData: { labelStack: LabelStack; data: CustomData }[];
+	cohortingCustomData: Map<string, number | boolean | string | null | undefined>;
 	customTimings: { labelStack: LabelStack; data: CustomTiming }[];
 	spans: Span[];
 	requestInfo: (RequestInfo & { labelStack: LabelStack })[];
@@ -178,7 +179,6 @@ export interface InteractionMetrics {
 	 *  { name: 'issue-navigator', segmentId: 'xxx' },
 	 *  { name: 'ui', segmentId: 'xxx' }
 	 * ]
-	 * ```
 	 */
 	responsiveness?: ResponsivenessMetric;
 	labelStack: LabelStack | null;

@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<JiraLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<JiraIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<JiraLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<JiraIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

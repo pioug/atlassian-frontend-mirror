@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::faf0a8375a64f8adb843627d3dccab09>>
+ * @codegen <<SignedSource::2313e06cb2302b07b1ae126cacdec248>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -19,10 +19,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __StudioIcon__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the icon for Studio.
+ * @deprecated This component has been replaced by the component `StudioIcon` in `@atlaskit/logo`.
+ * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
+ * to enable the new design by default.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function StudioIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (

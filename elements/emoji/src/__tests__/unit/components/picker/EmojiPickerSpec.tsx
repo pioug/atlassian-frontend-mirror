@@ -21,7 +21,6 @@ import * as utils from '../../../../components/picker/utils';
 import EmojiPicker, {
 	type Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
-import { EmojiPickerVirtualListInternalOld as EmojiPickerVirtualList } from '../../../../components/picker/EmojiPickerList';
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
 import {
 	SearchSourceTypes,
@@ -123,11 +122,6 @@ describe('<EmojiPicker />', () => {
 
 		// scrolling of the virtual list doesn't work out of the box for the tests
 		// mocking `scrollToRow` for all tests
-		// Cleanup `platform_editor_react18_elements_emoji`: remove the next jest.spyOn
-		// since it's for the class component (which has been refactored into FC)
-		jest
-			.spyOn(EmojiPickerVirtualList.prototype, 'scrollToRow')
-			.mockImplementation((index?: number) => helperTestingLibrary.scrollToIndex(index || 0));
 		jest
 			.spyOn(utils, 'scrollToRow')
 			.mockImplementation((listRef?: any, index?: number) =>

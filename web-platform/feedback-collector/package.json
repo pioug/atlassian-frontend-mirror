@@ -37,8 +37,7 @@
 		"team": "Belugas: Feedback Collector",
 		"website": {
 			"name": "Feedback Collector"
-		},
-		"runReact18": true
+		}
 	},
 	"config": {
 		"access": "public"

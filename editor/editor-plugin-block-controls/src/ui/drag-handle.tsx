@@ -37,6 +37,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorTableToolbarSize } from '@atlaskit/editor-shared-styles/consts';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -118,6 +119,25 @@ const buttonWrapperStyles = css({
 			marginRight: token('space.negative.150', '-12px'),
 			paddingRight: token('space.150', '12px'),
 			boxSizing: 'border-box',
+		},
+});
+
+const buttonWrapperStylesPatch = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls [data-number-column="true"] tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			marginRight: -akEditorTableToolbarSize,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			paddingRight: akEditorTableToolbarSize,
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls [data-number-column="true"] tr.sticky) &':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			marginRight: -akEditorTableToolbarSize,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			paddingRight: akEditorTableToolbarSize,
 		},
 });
 
@@ -1200,7 +1220,12 @@ export const DragHandle = ({
 						api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 					}}
 				>
-					<span css={[shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles]}>
+					<span
+						css={[
+							shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles,
+							fg('platform_editor_controls_patch_15') && buttonWrapperStylesPatch,
+						]}
+					>
 						{renderButton()}
 					</span>
 				</Tooltip>
@@ -1229,7 +1254,12 @@ export const DragHandle = ({
 						tooltipContainerStylesStickyHeaderWithoutMask,
 				]}
 			>
-				<span css={[shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles]}>
+				<span
+					css={[
+						shouldMaskNodeControls(nodeType, isTopLevelNode) && buttonWrapperStyles,
+						fg('platform_editor_controls_patch_15') && buttonWrapperStylesPatch,
+					]}
+				>
 					{renderButton()}
 				</span>
 			</span>

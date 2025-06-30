@@ -21,8 +21,7 @@
 		"website": {
 			"name": "Dropdown menu",
 			"category": "Forms and input"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",

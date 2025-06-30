@@ -38,8 +38,7 @@
 		"website": {
 			"name": "Drawer",
 			"category": "Overlays and layering"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",

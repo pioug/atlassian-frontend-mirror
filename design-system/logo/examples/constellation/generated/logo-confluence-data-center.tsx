@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<ConfluenceDataCenterLogo appearance="brand" />}
-		Icon={<ConfluenceDataCenterIcon appearance="brand" />}
+		logo={<ConfluenceDataCenterLogo appearance="brand" />}
+		icon={<ConfluenceDataCenterIcon appearance="brand" />}
 	/>
 );

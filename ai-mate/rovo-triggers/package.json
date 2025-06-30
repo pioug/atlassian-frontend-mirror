@@ -8,7 +8,6 @@
 	},
 	"atlassian": {
 		"team": "AI Mate",
-		"runReact18": true,
 		"singleton": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",

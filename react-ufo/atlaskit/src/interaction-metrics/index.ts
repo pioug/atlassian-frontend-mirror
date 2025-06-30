@@ -193,6 +193,35 @@ export function addCustomData(interactionId: string, labelStack: LabelStack, dat
 	}
 }
 
+export function addCohortingCustomData(
+	interactionId: string,
+	key: string,
+	value: number | boolean | string | null | undefined,
+) {
+	const interaction = interactions.get(interactionId);
+	if (interaction == null) {
+		return;
+	}
+
+	// Allow null and undefined values
+	if (value === null || value === undefined) {
+		interaction.cohortingCustomData.set(key, value);
+		return;
+	}
+
+	// Validate that the value is a primitive (number, boolean, or string)
+	if (typeof value !== 'number' && typeof value !== 'boolean' && typeof value !== 'string') {
+		return;
+	}
+
+	// Validate string length (max 50 characters)
+	if (typeof value === 'string' && value.length > 50) {
+		return;
+	}
+
+	interaction.cohortingCustomData.set(key, value);
+}
+
 export function addCustomTiming(interactionId: string, labelStack: LabelStack, data: CustomTiming) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
@@ -813,6 +842,7 @@ export function addNewInteraction(
 		isPreviousInteractionAborted: PreviousInteractionLog.isAborted === true,
 		marks: [],
 		customData: [],
+		cohortingCustomData: new Map(),
 		customTimings: [],
 		spans: [],
 		requestInfo: [],

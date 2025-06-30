@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f64a5f9f74cb2080aa4aec25e7de1aa>>
+ * @codegen <<SignedSource::34fb347e5ffeba73663aeacecaefce54>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -18,10 +18,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __StatuspageIcon__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the icon for Statuspage.
+ * @deprecated This component has been replaced by the component `StatuspageIcon` in `@atlaskit/logo`.
+ * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
+ * to enable the new design by default.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function StatuspageIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (

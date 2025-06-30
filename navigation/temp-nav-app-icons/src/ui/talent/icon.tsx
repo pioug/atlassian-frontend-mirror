@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0d8594fbf1ebf0a8df3ba8a057aba92f>>
+ * @codegen <<SignedSource::69f1957d8357a0540afe1a0a1f616b2e>>
  * @codegenCommand yarn workspace @atlaskit/temp-nav-app-icons build-temp-logos
  */
 import React from 'react';
@@ -18,10 +18,11 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __TalentIcon__
  *
- * Note: This component is a temporary solution for use in certain navigation elements for Team '25, until
- * the new language is incoporated into `@atlaskit/logo`.
+ * A temporary component to represent the icon for Talent.
+ * @deprecated This component has been replaced by the component `TalentIcon` in `@atlaskit/logo`.
+ * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
+ * to enable the new design by default.
  *
- * If you are using this component at scale, please reach out to Design System Team so we can assist.
  */
 export function TalentIcon({ size, appearance = 'brand', label, testId }: AppIconProps) {
 	return (

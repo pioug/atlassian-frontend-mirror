@@ -17,8 +17,7 @@
 		"website": {
 			"name": "Analytics",
 			"deprecated": "Please use the @atlaskit/analytics-next package instead."
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

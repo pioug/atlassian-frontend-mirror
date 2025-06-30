@@ -6,7 +6,7 @@ import LogoTable from '../utils/logo-table';
 
 export default () => (
 	<LogoTable
-		Logo={<OpsgenieLogo appearance="brand" shouldUseNewLogoDesign />}
-		Icon={<OpsgenieIcon appearance="brand" shouldUseNewLogoDesign />}
+		logo={<OpsgenieLogo appearance="brand" shouldUseNewLogoDesign />}
+		icon={<OpsgenieIcon appearance="brand" shouldUseNewLogoDesign />}
 	/>
 );

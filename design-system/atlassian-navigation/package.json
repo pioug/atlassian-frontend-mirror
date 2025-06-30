@@ -49,8 +49,7 @@
 				"type": "intent-to-deprecate",
 				"description": "We are planning on deprecating Atlassian navigation. We recommend using Navigation system instead. [View Navigation system documentation](/components/navigation-system)"
 			}
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@atlaskit/analytics-namespaced-context": "workspace:^",

@@ -26,8 +26,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Icon File Type"
-		},
-		"runReact18": true
+		}
 	},
 	"af:exports": {
 		"./metadata": "./src/entry-points/metadata.ts",

@@ -1,9 +1,11 @@
-import React, { type ComponentType, type FC, useRef, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ComponentType, type FC, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -11,32 +13,28 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Inline } from '@atlaskit/primitives';
+import { Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
-import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-html-anchor -- To migrate as part of go/ui-styling-standard
-const IconExplorerLink = styled.a({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&, &:hover, &:active, &:focus': {
+const styles = cssMap({
+	iconExplorerButton: {
 		display: 'block',
-		padding: '10px',
+		paddingTop: token('space.150'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
 		borderRadius: token('border.radius.100', '4px'),
-		color: 'inherit',
-		cursor: 'pointer',
-		lineHeight: 0,
+		backgroundColor: token('elevation.surface'),
+		'&:hover': {
+			backgroundColor: token('elevation.surface.hovered'),
+		},
 	},
-	'&:hover': {
-		background: N30A,
+	divider: {
+		width: '100%',
+		textAlign: 'center',
 	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Divider = styled.h4({
-	width: '100%',
-	textAlign: 'center',
 });
 
 interface IconExplorerCellProps {
@@ -81,9 +79,9 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 
 	if (divider) {
 		return (
-			<Divider>
+			<div css={styles.divider}>
 				<Icon />
-			</Divider>
+			</div>
 		);
 	}
 
@@ -122,9 +120,9 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	return (
 		<div>
 			<Tooltip content={componentName}>
-				<IconExplorerLink onClick={openModal}>
+				<Pressable xcss={styles.iconExplorerButton} onClick={openModal}>
 					<Icon label={componentName} size="medium" />
-				</IconExplorerLink>
+				</Pressable>
 			</Tooltip>
 			<ModalTransition>{isModalOpen ? modal : null}</ModalTransition>
 		</div>

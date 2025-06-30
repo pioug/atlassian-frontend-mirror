@@ -25,8 +25,7 @@
 		"website": {
 			"name": "Icon",
 			"category": "Images and icons"
-		},
-		"runReact18": true
+		}
 	},
 	"scripts": {
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"

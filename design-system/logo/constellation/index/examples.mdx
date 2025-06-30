@@ -44,15 +44,15 @@ import LogoTeams from '../../examples/constellation/generated/logo-teams';
 import LogoJiraDataCenter from '../../examples/constellation/generated/logo-jira-data-center';
 import LogoConfluenceDataCenter from '../../examples/constellation/generated/logo-confluence-data-center';
 import LogoBitbucketDataCenter from '../../examples/constellation/generated/logo-bitbucket-data-center';
+import LogoBamboo from '../../examples/constellation/generated/logo-bamboo';
+import LogoCrowd from '../../examples/constellation/generated/logo-crowd';
 
 import { Code } from '@atlaskit/code';
 import SectionMessage from '@atlaskit/section-message';
 
 <SectionMessage appearance="discovery">
-	We are in the process of rolling out updated Logo designs to products behind a feature flag.{' '}
-	<br />
-	To display the new designs early, set the <Code>shouldUseNewLogoDesign</Code> prop to{' '}
-	<Code>true</Code>.
+	We are in the process of rolling out updated Logo designs to products behind a feature flag. <br/>
+	To display the new designs early, set the <Code>shouldUseNewLogoDesign</Code> prop to <Code>true</Code>.
 </SectionMessage>
 
 ## Types
@@ -121,6 +121,7 @@ login.
 
 ## Company / Program logos
 
+
 ### Atlassian
 
 <Example Component={LogoAtlassian} packageName="@atlaskit/logo" />
@@ -134,6 +135,7 @@ login.
 <Example Component={LogoAtlassianMarketplace} packageName="@atlaskit/logo" />
 
 ## App (Product) logos
+
 
 ### Home
 
@@ -152,6 +154,8 @@ login.
 <Example Component={LogoJira} packageName="@atlaskit/logo" />
 
 ### Loom
+
+`Loom` can be displayed in either blue, or Loom Blurple.
 
 <Example Component={LogoLoom} packageName="@atlaskit/logo" />
 
@@ -264,3 +268,11 @@ login.
 ### Bitbucket Data Center
 
 <Example Component={LogoBitbucketDataCenter} packageName="@atlaskit/logo" />
+
+### Bamboo
+
+<Example Component={LogoBamboo} packageName="@atlaskit/logo" />
+
+### Crowd
+
+<Example Component={LogoCrowd} packageName="@atlaskit/logo" />

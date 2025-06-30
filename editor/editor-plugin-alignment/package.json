@@ -18,8 +18,7 @@
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: AI",
-		"singleton": true,
-		"runReact18": true
+		"singleton": true
 	},
 	"platform-feature-flags": {
 		"platform-visual-refresh-icons": {

@@ -27,7 +27,6 @@
 	"homepage": "https://atlassian.design/components/blanket",
 	"atlassian": {
 		"team": "Design System Team",
-		"runReact18": true,
 		"website": {
 			"name": "Blanket",
 			"category": "Overlays and layering"

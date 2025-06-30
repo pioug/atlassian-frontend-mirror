@@ -32,8 +32,7 @@
 		"team": "Media Exif",
 		"website": {
 			"name": "Media Client"
-		},
-		"runReact18": true
+		}
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",

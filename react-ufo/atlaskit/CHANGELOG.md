@@ -1,5 +1,37 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 3.14.6
+
+### Patch Changes
+
+- [#179156](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179156)
+  [`81f5605b925fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81f5605b925fc) -
+  AFO-4081 ufo vc ignore if no layout shift marker
+
+## 3.14.5
+
+### Patch Changes
+
+- [#179205](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/179205)
+  [`69957bbb117c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69957bbb117c8) -
+  Enable media as part of TTVC v3 calculation
+
+## 3.14.4
+
+### Patch Changes
+
+- [#175348](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/175348)
+  [`1efcee7c6bc60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1efcee7c6bc60) -
+  AFO-4012 react ufo to produce ciritical metrics payload
+
+## 3.14.3
+
+### Patch Changes
+
+- [#178297](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/178297)
+  [`f7360c64ca98f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7360c64ca98f) -
+  Add segment type to ineteraction metrics
+
 ## 3.14.2
 
 ### Patch Changes
